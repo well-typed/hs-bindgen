@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -23,8 +24,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa" hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa" hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CInt -> IO ()))
+    )
+
+hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa ::
      IO (Ptr.FunPtr (FC.CInt -> IO ()))
+hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa_base
 
 {-# NOINLINE fun2_ptr #-}
 

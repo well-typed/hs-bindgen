@@ -46,36 +46,53 @@ hstypes:
 - hsname: F1
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: F1_Deref
+  instances:
+  - Marshallable
 - hsname: FunctionPointer_Function
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: FunctionPointer_Function_Deref
+  instances:
+  - Marshallable
 - hsname: G1
+  instances:
+  - Marshallable
 - hsname: G2
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: H1
+  instances:
+  - Marshallable
 - hsname: H2
+  instances:
+  - Marshallable
 - hsname: H3
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Int2int
+  instances:
+  - Marshallable
 - hsname: Intptr
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
@@ -88,6 +105,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -95,3 +113,5 @@ hstypes:
   - Show
   - Storable
 - hsname: NonFunctionPointer_Function
+  instances:
+  - Marshallable

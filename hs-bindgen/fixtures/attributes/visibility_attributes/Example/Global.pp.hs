@@ -8,6 +8,7 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -135,8 +136,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143" hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143" hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143_base
 
 {-# NOINLINE i0_ptr #-}
 
@@ -150,8 +160,17 @@ i0_ptr :: Ptr.Ptr FC.CInt
 i0_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983" hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983" hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983_base
 
 {-# NOINLINE i1_ptr #-}
 
@@ -165,8 +184,17 @@ i1_ptr :: Ptr.Ptr FC.CInt
 i1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159" hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159" hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159_base
 
 {-# NOINLINE i2_ptr #-}
 
@@ -180,8 +208,17 @@ i2_ptr :: Ptr.Ptr FC.CInt
 i2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5" hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5" hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5_base
 
 {-# NOINLINE i3_ptr #-}
 
@@ -195,8 +232,17 @@ i3_ptr :: Ptr.Ptr FC.CInt
 i3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2" hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2" hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2_base
 
 {-# NOINLINE i4_ptr #-}
 
@@ -210,8 +256,17 @@ i4_ptr :: Ptr.Ptr FC.CInt
 i4_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa" hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa" hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa_base
 
 {-# NOINLINE i5_ptr #-}
 
@@ -225,8 +280,17 @@ i5_ptr :: Ptr.Ptr FC.CInt
 i5_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78" hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78" hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78_base
 
 {-# NOINLINE i6_ptr #-}
 
@@ -240,8 +304,17 @@ i6_ptr :: Ptr.Ptr FC.CInt
 i6_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e" hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e" hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e_base
 
 {-# NOINLINE i7_ptr #-}
 
@@ -255,8 +328,17 @@ i7_ptr :: Ptr.Ptr FC.CInt
 i7_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce" hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce" hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce_base
 
 {-# NOINLINE i8_ptr #-}
 
@@ -270,8 +352,17 @@ i8_ptr :: Ptr.Ptr FC.CInt
 i8_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295" hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295" hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295_base
 
 {-# NOINLINE i9_ptr #-}
 
@@ -285,8 +376,17 @@ i9_ptr :: Ptr.Ptr FC.CInt
 i9_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878" hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878" hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878_base
 
 {-# NOINLINE i10_ptr #-}
 
@@ -300,8 +400,17 @@ i10_ptr :: Ptr.Ptr FC.CInt
 i10_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9" hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9" hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9_base
 
 {-# NOINLINE i11_ptr #-}
 
@@ -315,8 +424,17 @@ i11_ptr :: Ptr.Ptr FC.CInt
 i11_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4" hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4" hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4_base
 
 {-# NOINLINE i12_ptr #-}
 
@@ -330,8 +448,17 @@ i12_ptr :: Ptr.Ptr FC.CInt
 i12_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e" hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e" hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e_base
 
 {-# NOINLINE i13_ptr #-}
 
@@ -345,8 +472,17 @@ i13_ptr :: Ptr.Ptr FC.CInt
 i13_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd" hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd" hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd_base
 
 {-# NOINLINE i14_ptr #-}
 
@@ -360,8 +496,17 @@ i14_ptr :: Ptr.Ptr FC.CInt
 i14_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e" hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e" hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e_base
 
 {-# NOINLINE i15_ptr #-}
 
@@ -375,8 +520,17 @@ i15_ptr :: Ptr.Ptr FC.CInt
 i15_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58" hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58" hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58_base
 
 {-# NOINLINE i16_ptr #-}
 
@@ -390,8 +544,17 @@ i16_ptr :: Ptr.Ptr FC.CInt
 i16_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6" hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6" hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6_base
 
 {-# NOINLINE i17_ptr #-}
 
@@ -405,8 +568,17 @@ i17_ptr :: Ptr.Ptr FC.CInt
 i17_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c" hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c" hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c_base
 
 {-# NOINLINE i18_ptr #-}
 
@@ -420,8 +592,17 @@ i18_ptr :: Ptr.Ptr FC.CInt
 i18_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c
 
-foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_df1c0751f896e6b8" hs_bindgen_test_attributesvisibility_attribut_df1c0751f896e6b8 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesvisibility_attribut_df1c0751f896e6b8" hs_bindgen_test_attributesvisibility_attribut_df1c0751f896e6b8_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_attributesvisibility_attribut_df1c0751f896e6b8 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_attributesvisibility_attribut_df1c0751f896e6b8 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_df1c0751f896e6b8_base
 
 {-# NOINLINE i19_ptr #-}
 

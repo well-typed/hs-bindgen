@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -52,8 +53,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a" hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a" hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (Thing -> IO FC.CInt))
+    )
+
+hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a ::
      IO (Ptr.FunPtr (Thing -> IO FC.CInt))
+hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a_base
 
 {-# NOINLINE thing_fun_1_ptr #-}
 
@@ -67,8 +77,17 @@ thing_fun_1_ptr :: Ptr.FunPtr (Thing -> IO FC.CInt)
 thing_fun_1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a
 
-foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a" hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a" hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CInt -> IO Thing))
+    )
+
+hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a ::
      IO (Ptr.FunPtr (FC.CInt -> IO Thing))
+hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a_base
 
 {-# NOINLINE thing_fun_2_ptr #-}
 
@@ -82,8 +101,17 @@ thing_fun_2_ptr :: Ptr.FunPtr (FC.CInt -> IO Thing)
 thing_fun_2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a
 
-foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf" hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf" hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing))
+    )
+
+hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf ::
      IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing))
+hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf_base
 
 {-# NOINLINE thing_fun_3a_ptr #-}
 
@@ -97,8 +125,17 @@ thing_fun_3a_ptr :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing)
 thing_fun_3a_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf
 
-foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f" hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f" hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar))
+    )
+
+hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f ::
      IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar))
+hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f_base
 
 {-# NOINLINE thing_fun_3b_ptr #-}
 

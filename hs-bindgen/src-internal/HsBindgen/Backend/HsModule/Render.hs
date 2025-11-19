@@ -144,7 +144,8 @@ instance Pretty CommentKind where
             PartOfDeclarationComment c -> ("{- ^", "-}", c)
             THComment c                -> ("", "", c)
         indentation = length commentStart - 1
-        fromCCtxDoc = [ (\n -> "__C declaration:__ @"
+        fromCCtxDoc = catMaybes [
+                        (\n -> "__C declaration:__ @"
                             >< textToCtxDoc n
                             >< "@") <$> commentOrigin
                       , (\p -> "__defined at:__ @"
@@ -165,7 +166,7 @@ instance Pretty CommentKind where
           [] | Nothing <- commentTitle
              , not (null fromCCtxDoc) ->
                 string commentStart
-            <+> vsep (catMaybes fromCCtxDoc)
+            <+> vsep fromCCtxDoc
              $$ string commentEnd
              | Just _ <- commentTitle
              , null fromCCtxDoc ->
@@ -176,13 +177,13 @@ instance Pretty CommentKind where
              , not (null fromCCtxDoc) ->
                 string commentStart
             <+> firstContent
-            $+$ vsep (catMaybes fromCCtxDoc)
+            $+$ vsep fromCCtxDoc
              $$ string commentEnd
              | otherwise -> empty
 
           _ -> vsep (string commentStart <+> firstContent
                      : map (nest indentation . pretty) commentChildren)
-            $+$ vcat [ vsep (catMaybes fromCCtxDoc)
+            $+$ vcat [ vsep fromCCtxDoc
                      , string commentEnd
                      ]
 
@@ -379,14 +380,16 @@ instance Pretty SDecl where
                , pretty foreignImportName
                , "::"
                ]
-       $$ nest 5 (prettyForeignImportType foreignImportResultType
+       $$ nest 2 (prettyForeignImportType foreignImportMarshallable
+                                          foreignImportResultType
                                           foreignImportParameters)
 
     DFunction Function{..} ->
       let prettyTopLevelComment = maybe empty (pretty . TopLevelComment) functionComment
        in  prettyTopLevelComment
         $$ pretty functionName <+> "::"
-        $$ nest 5 (prettyForeignImportType (NormalResultType functionResultType)
+        $$ nest 2 (prettyForeignImportType False
+                                           (NormalResultType functionResultType)
                                            functionParameters)
         $$ fsep
              [ pretty functionName <+> char '='
@@ -443,11 +446,13 @@ safety Unsafe = "unsafe"
 instance ctx ~ EmptyCtx => Pretty (SType ctx) where
   prettyPrec = prettyType EmptyEnv
 
-prettyForeignImportType :: ResultType ClosedType -> [FunctionParameter] -> CtxDoc
-prettyForeignImportType resultType params =
+prettyForeignImportType :: Bool -> ResultType ClosedType -> [FunctionParameter] -> CtxDoc
+prettyForeignImportType marshallable resultType params =
+  (if marshallable then \d -> pretty (resolve MarshallableBaseType_type) <+> "(" $$ nest 5 d $$ nest 2 ")" else nest 3 . id) $
   case params of
     [] -> prettyResultType resultType
     _  -> prettyParams params
+
   where
     prettyParam FunctionParameter{..} =
       case functionParameterType of

@@ -10,6 +10,7 @@ hstypes:
 - hsname: MyEnum
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show

@@ -33,6 +33,7 @@ import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FlexibleArrayMember
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Text.Read
@@ -66,7 +67,7 @@ newtype Size_type = Size_type
   { un_Size_type :: HsBindgen.Runtime.Prelude.CSize
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Size_type) "un_Size_type")
          ) => GHC.Records.HasField "un_Size_type" (Ptr.Ptr Size_type) (Ptr.Ptr ty) where
@@ -121,6 +122,7 @@ newtype Color_enum = Color_enum
   { un_Color_enum :: FC.CUInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance F.Storable Color_enum where
 
@@ -225,14 +227,35 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Event_callback_t_Deref = Event_callback_t_Deref
   { un_Event_callback_t_Deref :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
   }
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
-foreign import ccall safe "wrapper" toEvent_callback_t_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toEvent_callback_t_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Event_callback_t_Deref
+    -> IO (Ptr.FunPtr Event_callback_t_Deref)
+    )
+
+toEvent_callback_t_Deref ::
      Event_callback_t_Deref
   -> IO (Ptr.FunPtr Event_callback_t_Deref)
+toEvent_callback_t_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType toEvent_callback_t_Deref_base
 
-foreign import ccall safe "dynamic" fromEvent_callback_t_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromEvent_callback_t_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr Event_callback_t_Deref
+    -> Event_callback_t_Deref
+    )
+
+fromEvent_callback_t_Deref ::
      Ptr.FunPtr Event_callback_t_Deref
   -> Event_callback_t_Deref
+fromEvent_callback_t_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fromEvent_callback_t_Deref_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Event_callback_t_Deref where
 
@@ -275,7 +298,7 @@ newtype Event_callback_t = Event_callback_t
   { un_Event_callback_t :: Ptr.FunPtr Event_callback_t_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t) "un_Event_callback_t")
          ) => GHC.Records.HasField "un_Event_callback_t" (Ptr.Ptr Event_callback_t) (Ptr.Ptr ty) where
@@ -471,6 +494,7 @@ newtype Status_code_t = Status_code_t
   { un_Status_code_t :: FC.CInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance F.Storable Status_code_t where
 
@@ -1013,14 +1037,35 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Processor_fn_t_Deref = Processor_fn_t_Deref
   { un_Processor_fn_t_Deref :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
   }
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
-foreign import ccall safe "wrapper" toProcessor_fn_t_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toProcessor_fn_t_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Processor_fn_t_Deref
+    -> IO (Ptr.FunPtr Processor_fn_t_Deref)
+    )
+
+toProcessor_fn_t_Deref ::
      Processor_fn_t_Deref
   -> IO (Ptr.FunPtr Processor_fn_t_Deref)
+toProcessor_fn_t_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType toProcessor_fn_t_Deref_base
 
-foreign import ccall safe "dynamic" fromProcessor_fn_t_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromProcessor_fn_t_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr Processor_fn_t_Deref
+    -> Processor_fn_t_Deref
+    )
+
+fromProcessor_fn_t_Deref ::
      Ptr.FunPtr Processor_fn_t_Deref
   -> Processor_fn_t_Deref
+fromProcessor_fn_t_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fromProcessor_fn_t_Deref_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Processor_fn_t_Deref where
 
@@ -1065,7 +1110,7 @@ newtype Processor_fn_t = Processor_fn_t
   { un_Processor_fn_t :: Ptr.FunPtr Processor_fn_t_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t) "un_Processor_fn_t")
          ) => GHC.Records.HasField "un_Processor_fn_t" (Ptr.Ptr Processor_fn_t) (Ptr.Ptr ty) where

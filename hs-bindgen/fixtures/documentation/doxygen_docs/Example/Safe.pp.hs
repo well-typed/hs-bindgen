@@ -7,6 +7,7 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -115,6 +116,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_508324ba72521a99" process_data_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
+    -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
+    -> Ptr.Ptr HsBindgen.Runtime.Prelude.CSize
+    -> IO FC.CInt
+    )
+
 {-|
 
   Function with detailed parameter documentation
@@ -135,7 +146,7 @@ __defined at:__ @documentation\/doxygen_docs.h:105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_508324ba72521a99" process_data ::
+process_data ::
      Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
      {- ^
 
@@ -158,6 +169,16 @@ foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_508324ba725
      __C declaration:__ @size@
      -}
   -> IO FC.CInt
+process_data =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType process_data_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_02a55804dd9edb28" process_file_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr FC.CChar
+    -> IO FC.CBool
+    )
 
 {-|
 
@@ -175,7 +196,7 @@ __defined at:__ @documentation\/doxygen_docs.h:116:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_02a55804dd9edb28" process_file ::
+process_file ::
      Ptr.Ptr FC.CChar
      {- ^
 
@@ -184,6 +205,17 @@ foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_02a55804dd9
      __C declaration:__ @filename@
      -}
   -> IO FC.CBool
+process_file =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType process_file_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_7ce4f4a3b2997c64" calculate_value_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CInt
+    -> FC.CInt
+    -> IO FC.CInt
+    )
 
 {-|
 
@@ -208,7 +240,7 @@ __defined at:__ @documentation\/doxygen_docs.h:131:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_7ce4f4a3b2997c64" calculate_value ::
+calculate_value ::
      FC.CInt
      {- ^
 
@@ -224,6 +256,16 @@ foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_7ce4f4a3b29
      __C declaration:__ @multiplier@
      -}
   -> IO FC.CInt
+calculate_value =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType calculate_value_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_b971c7e6099b9f35" html_example_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CInt
+    -> IO FC.CBool
+    )
 
 {-|
 
@@ -243,7 +285,7 @@ __defined at:__ @documentation\/doxygen_docs.h:148:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_b971c7e6099b9f35" html_example ::
+html_example ::
      FC.CInt
      {- ^
 
@@ -252,6 +294,17 @@ foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_b971c7e6099
      __C declaration:__ @value@
      -}
   -> IO FC.CBool
+html_example =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType html_example_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_b42fb41209c21d6e" list_example_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr (Ptr.Ptr FC.CChar)
+    -> HsBindgen.Runtime.Prelude.CSize
+    -> IO FC.CBool
+    )
 
 {-|
 
@@ -299,7 +352,7 @@ __defined at:__ @documentation\/doxygen_docs.h:174:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_b42fb41209c21d6e" list_example ::
+list_example ::
      Ptr.Ptr (Ptr.Ptr FC.CChar)
      {- ^
 
@@ -315,6 +368,16 @@ foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_b42fb41209c
      __C declaration:__ @count@
      -}
   -> IO FC.CBool
+list_example =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType list_example_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_344ca27a161ed698" dangerous_function_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Void
+    -> IO (Ptr.Ptr Void)
+    )
 
 {-|
 
@@ -336,7 +399,7 @@ __defined at:__ @documentation\/doxygen_docs.h:186:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_344ca27a161ed698" dangerous_function ::
+dangerous_function ::
      Ptr.Ptr Void
      {- ^
 
@@ -345,6 +408,16 @@ foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_344ca27a161
      __C declaration:__ @ptr@
      -}
   -> IO (Ptr.Ptr Void)
+dangerous_function =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType dangerous_function_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_4e897ea8e36e2189" detailed_return_codes_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr FC.CChar
+    -> IO FC.CInt
+    )
 
 {-|
 
@@ -366,7 +439,7 @@ __defined at:__ @documentation\/doxygen_docs.h:197:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_4e897ea8e36e2189" detailed_return_codes ::
+detailed_return_codes ::
      Ptr.Ptr FC.CChar
      {- ^
 
@@ -375,6 +448,16 @@ foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_4e897ea8e36
      __C declaration:__ @input@
      -}
   -> IO FC.CInt
+detailed_return_codes =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType detailed_return_codes_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_aee6bb852150141b" old_function_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CInt
+    -> IO FC.CInt
+    )
 
 {-|
 
@@ -392,7 +475,7 @@ __defined at:__ @documentation\/doxygen_docs.h:206:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_aee6bb852150141b" old_function ::
+old_function ::
      FC.CInt
      {- ^
 
@@ -401,6 +484,16 @@ foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_aee6bb85215
      __C declaration:__ @old_param@
      -}
   -> IO FC.CInt
+old_function =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType old_function_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_e655a7662e006c99" versioned_function_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CInt
+    -> IO FC.CInt
+    )
 
 {-|
 
@@ -418,11 +511,22 @@ __defined at:__ @documentation\/doxygen_docs.h:216:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_e655a7662e006c99" versioned_function ::
+versioned_function ::
      FC.CInt
      {- ^ __C declaration:__ @data'@
      -}
   -> IO FC.CInt
+versioned_function =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType versioned_function_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_d8a2703f133ce8c2" process_buffer_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr FC.CChar
+    -> HsBindgen.Runtime.Prelude.CSize
+    -> IO FC.CInt
+    )
 
 {-|
 
@@ -440,7 +544,7 @@ __defined at:__ @documentation\/doxygen_docs.h:332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_d8a2703f133ce8c2" process_buffer ::
+process_buffer ::
      Ptr.Ptr FC.CChar
      {- ^
 
@@ -456,6 +560,18 @@ foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_d8a2703f133
      __C declaration:__ @size@
      -}
   -> IO FC.CInt
+process_buffer =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType process_buffer_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_4b3bfd2d72a2db5d" my_memcpy_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Void
+    -> Ptr.Ptr Void
+    -> HsBindgen.Runtime.Prelude.CSize
+    -> IO (Ptr.Ptr Void)
+    )
 
 {-|
 
@@ -475,7 +591,7 @@ __defined at:__ @documentation\/doxygen_docs.h:342:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_4b3bfd2d72a2db5d" my_memcpy ::
+my_memcpy ::
      Ptr.Ptr Void
      {- ^
 
@@ -498,6 +614,16 @@ foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_4b3bfd2d72a
      __C declaration:__ @n@
      -}
   -> IO (Ptr.Ptr Void)
+my_memcpy =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType my_memcpy_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_4a61cf13840fa8c5" double_value_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CInt
+    -> IO FC.CInt
+    )
 
 {-|
 
@@ -513,7 +639,7 @@ __defined at:__ @documentation\/doxygen_docs.h:350:19@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_4a61cf13840fa8c5" double_value ::
+double_value ::
      FC.CInt
      {- ^
 
@@ -522,6 +648,18 @@ foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_4a61cf13840
      __C declaration:__ @x@
      -}
   -> IO FC.CInt
+double_value =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType double_value_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_848ab7c74f34f667" complex_function_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Config_t
+    -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
+    -> HsBindgen.Runtime.Prelude.CSize
+    -> IO Status_code_t
+    )
 
 {-|
 
@@ -594,7 +732,7 @@ __defined at:__ @documentation\/doxygen_docs.h:423:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_848ab7c74f34f667" complex_function ::
+complex_function ::
      Ptr.Ptr Config_t
      {- ^
 
@@ -613,6 +751,16 @@ foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_848ab7c74f3
      __C declaration:__ @size@
      -}
   -> IO Status_code_t
+complex_function =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType complex_function_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_e30754e2591f701a" hash_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr FC.CChar
+    -> IO FC.CInt
+    )
 
 {-|
 
@@ -624,11 +772,21 @@ __defined at:__ @documentation\/doxygen_docs.h:427:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_e30754e2591f701a" hash ::
+hash ::
      Ptr.Ptr FC.CChar
      {- ^ __C declaration:__ @s@
      -}
   -> IO FC.CInt
+hash =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hash_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_55e5eb89e54abf83" square_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CInt
+    -> FC.CInt
+    )
 
 {-| __C declaration:__ @square@
 
@@ -636,8 +794,10 @@ foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_e30754e2591
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_documentationdoxygen_docs_55e5eb89e54abf83" square ::
+square ::
      FC.CInt
      {- ^ __C declaration:__ @x@
      -}
   -> FC.CInt
+square =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType square_base

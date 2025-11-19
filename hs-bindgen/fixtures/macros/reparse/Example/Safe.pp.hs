@@ -11,6 +11,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.IncompleteArray
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -771,6 +772,15 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_394853579d622671" args_char1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CChar
+    -> IO ()
+    )
+
 {-| Function declarations
 
 __C declaration:__ @args_char1@
@@ -779,7 +789,7 @@ __defined at:__ @macros\/reparse.h:17:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_394853579d622671" args_char1 ::
+args_char1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -787,6 +797,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_394853579d622671" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_char1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_char1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_da98fe949f347bb4" args_char2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CSChar
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_char2@
 
@@ -794,7 +815,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_394853579d622671" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_da98fe949f347bb4" args_char2 ::
+args_char2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -802,6 +823,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_da98fe949f347bb4" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_char2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_char2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_1b54575fa299f64d" args_char3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CUChar
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_char3@
 
@@ -809,7 +841,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_da98fe949f347bb4" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_1b54575fa299f64d" args_char3 ::
+args_char3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -817,6 +849,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_1b54575fa299f64d" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_char3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_char3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_5eb574c361d453a5" args_short1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CShort
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_short1@
 
@@ -824,7 +867,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_1b54575fa299f64d" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_5eb574c361d453a5" args_short1 ::
+args_short1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -832,6 +875,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_5eb574c361d453a5" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_short1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_short1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_47d5b6ac9938a676" args_short2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CShort
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_short2@
 
@@ -839,7 +893,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_5eb574c361d453a5" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_47d5b6ac9938a676" args_short2 ::
+args_short2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -847,6 +901,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_47d5b6ac9938a676" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_short2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_short2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_7b3f1c99ea5c31ce" args_short3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CUShort
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_short3@
 
@@ -854,7 +919,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_47d5b6ac9938a676" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_7b3f1c99ea5c31ce" args_short3 ::
+args_short3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -862,6 +927,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_7b3f1c99ea5c31ce" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_short3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_short3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_3103fa698febc2e4" args_int1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CInt
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_int1@
 
@@ -869,7 +945,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_7b3f1c99ea5c31ce" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_3103fa698febc2e4" args_int1 ::
+args_int1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -877,6 +953,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3103fa698febc2e4" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_int1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_int1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_f73bd21e02a58e0f" args_int2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CInt
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_int2@
 
@@ -884,7 +971,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3103fa698febc2e4" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_f73bd21e02a58e0f" args_int2 ::
+args_int2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -892,6 +979,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_f73bd21e02a58e0f" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_int2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_int2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_6d36b4892d340141" args_int3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CUInt
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_int3@
 
@@ -899,7 +997,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_f73bd21e02a58e0f" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_6d36b4892d340141" args_int3 ::
+args_int3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -907,6 +1005,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_6d36b4892d340141" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_int3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_int3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_c80fdb5f86f0e67e" args_long1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CLong
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_long1@
 
@@ -914,7 +1023,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_6d36b4892d340141" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_c80fdb5f86f0e67e" args_long1 ::
+args_long1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -922,6 +1031,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_c80fdb5f86f0e67e" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_long1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_long1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_b0db0696cda23a78" args_long2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CLong
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_long2@
 
@@ -929,7 +1049,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_c80fdb5f86f0e67e" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_b0db0696cda23a78" args_long2 ::
+args_long2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -937,6 +1057,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_b0db0696cda23a78" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_long2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_long2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_78868ddd9e2ed516" args_long3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CULong
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_long3@
 
@@ -944,7 +1075,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_b0db0696cda23a78" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_78868ddd9e2ed516" args_long3 ::
+args_long3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -952,6 +1083,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_78868ddd9e2ed516" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_long3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_long3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_555dbd0a04bc0304" args_float_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CFloat
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_float@
 
@@ -959,7 +1101,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_78868ddd9e2ed516" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_555dbd0a04bc0304" args_float ::
+args_float ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -967,6 +1109,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_555dbd0a04bc0304" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_float =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_float_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_fe4a06766df0d1e6" args_double_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CDouble
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_double@
 
@@ -974,7 +1127,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_555dbd0a04bc0304" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_fe4a06766df0d1e6" args_double ::
+args_double ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -982,6 +1135,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_fe4a06766df0d1e6" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_double =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_double_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_a607c108df5a1598" args_bool1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CBool
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_bool1@
 
@@ -989,7 +1153,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_fe4a06766df0d1e6" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_a607c108df5a1598" args_bool1 ::
+args_bool1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -997,14 +1161,26 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_a607c108df5a1598" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_bool1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_bool1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_2867c64e14a8b4b4" args_struct_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr Some_struct
+    -> IO ()
+    )
 
 {-| Pointer-based API for 'args_struct'
-
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_2867c64e14a8b4b4" args_struct_wrapper ::
+args_struct_wrapper ::
      A
   -> Ptr.Ptr Some_struct
   -> IO ()
+args_struct_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_struct_wrapper_base
 
 {-| __C declaration:__ @args_struct@
 
@@ -1024,13 +1200,23 @@ args_struct =
   \x0 ->
     \x1 -> F.with x1 (\y2 -> args_struct_wrapper x0 y2)
 
-{-| Pointer-based API for 'args_union'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_dbccce7991402835" args_union_wrapper ::
+foreign import ccall safe "hs_bindgen_test_macrosreparse_dbccce7991402835" args_union_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr Some_union
+    -> IO ()
+    )
+
+{-| Pointer-based API for 'args_union'
+-}
+args_union_wrapper ::
      A
   -> Ptr.Ptr Some_union
   -> IO ()
+args_union_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_union_wrapper_base
 
 {-| __C declaration:__ @args_union@
 
@@ -1050,13 +1236,22 @@ args_union =
   \x0 ->
     \x1 -> F.with x1 (\y2 -> args_union_wrapper x0 y2)
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_58e9df8b58217744" args_enum_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Some_enum
+    -> IO ()
+    )
+
 {-| __C declaration:__ @args_enum@
 
     __defined at:__ @macros\/reparse.h:39:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_58e9df8b58217744" args_enum ::
+args_enum ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1064,6 +1259,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_58e9df8b58217744" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_enum =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_enum_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_da0ab238a099dc49" args_pointer1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr FC.CInt
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_pointer1@
 
@@ -1071,7 +1277,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_58e9df8b58217744" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_da0ab238a099dc49" args_pointer1 ::
+args_pointer1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1079,6 +1285,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_da0ab238a099dc49" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_pointer1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_pointer1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_abd9ce8bdda564f4" args_pointer2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr (Ptr.Ptr FC.CInt)
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_pointer2@
 
@@ -1086,7 +1303,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_da0ab238a099dc49" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_abd9ce8bdda564f4" args_pointer2 ::
+args_pointer2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1094,6 +1311,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_abd9ce8bdda564f4" args_
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_pointer2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_pointer2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_ed43d3d8eb25de8f" args_pointer3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr Void
+    -> IO ()
+    )
 
 {-| __C declaration:__ @args_pointer3@
 
@@ -1101,7 +1329,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_abd9ce8bdda564f4" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_ed43d3d8eb25de8f" args_pointer3 ::
+args_pointer3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1109,6 +1337,15 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_ed43d3d8eb25de8f" args_
      {- ^ __C declaration:__ @arg3@
      -}
   -> IO ()
+args_pointer3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_pointer3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_a45e66140bccd9e3" ret_A_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO A
+    )
 
 {-| __C declaration:__ @ret_A@
 
@@ -1116,8 +1353,18 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_ed43d3d8eb25de8f" args_
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_a45e66140bccd9e3" ret_A ::
+ret_A ::
      IO A
+ret_A =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_A_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_44f364f98d9773fa" ret_char1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CChar
+    )
 
 {-| __C declaration:__ @ret_char1@
 
@@ -1125,11 +1372,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_a45e66140bccd9e3" ret_A
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_44f364f98d9773fa" ret_char1 ::
+ret_char1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CChar
+ret_char1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_char1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_c0ccab4edfec7750" ret_char2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CSChar
+    )
 
 {-| __C declaration:__ @ret_char2@
 
@@ -1137,11 +1394,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_44f364f98d9773fa" ret_c
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_c0ccab4edfec7750" ret_char2 ::
+ret_char2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CSChar
+ret_char2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_char2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_22570fd6296f553c" ret_char3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CUChar
+    )
 
 {-| __C declaration:__ @ret_char3@
 
@@ -1149,11 +1416,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_c0ccab4edfec7750" ret_c
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_22570fd6296f553c" ret_char3 ::
+ret_char3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CUChar
+ret_char3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_char3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_60148c950d753d1d" ret_short1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CShort
+    )
 
 {-| __C declaration:__ @ret_short1@
 
@@ -1161,11 +1438,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_22570fd6296f553c" ret_c
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_60148c950d753d1d" ret_short1 ::
+ret_short1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CShort
+ret_short1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_short1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_1f5d60c2fc8391f8" ret_short2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CShort
+    )
 
 {-| __C declaration:__ @ret_short2@
 
@@ -1173,11 +1460,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_60148c950d753d1d" ret_s
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_1f5d60c2fc8391f8" ret_short2 ::
+ret_short2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CShort
+ret_short2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_short2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_c35d296d9df5f67d" ret_short3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CUShort
+    )
 
 {-| __C declaration:__ @ret_short3@
 
@@ -1185,11 +1482,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_1f5d60c2fc8391f8" ret_s
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_c35d296d9df5f67d" ret_short3 ::
+ret_short3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CUShort
+ret_short3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_short3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_edcb4249e75b3e31" ret_int1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CInt
+    )
 
 {-| __C declaration:__ @ret_int1@
 
@@ -1197,11 +1504,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_c35d296d9df5f67d" ret_s
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_edcb4249e75b3e31" ret_int1 ::
+ret_int1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CInt
+ret_int1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_int1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_28e6902c5d5c160d" ret_int2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CInt
+    )
 
 {-| __C declaration:__ @ret_int2@
 
@@ -1209,11 +1526,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_edcb4249e75b3e31" ret_i
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_28e6902c5d5c160d" ret_int2 ::
+ret_int2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CInt
+ret_int2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_int2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_42873a9aa50685f7" ret_int3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CUInt
+    )
 
 {-| __C declaration:__ @ret_int3@
 
@@ -1221,11 +1548,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_28e6902c5d5c160d" ret_i
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_42873a9aa50685f7" ret_int3 ::
+ret_int3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CUInt
+ret_int3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_int3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_ef0217b739070465" ret_long1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CLong
+    )
 
 {-| __C declaration:__ @ret_long1@
 
@@ -1233,11 +1570,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_42873a9aa50685f7" ret_i
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_ef0217b739070465" ret_long1 ::
+ret_long1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CLong
+ret_long1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_long1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_0b8baea451432efe" ret_long2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CLong
+    )
 
 {-| __C declaration:__ @ret_long2@
 
@@ -1245,11 +1592,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_ef0217b739070465" ret_l
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_0b8baea451432efe" ret_long2 ::
+ret_long2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CLong
+ret_long2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_long2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_264e25c048487a65" ret_long3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CULong
+    )
 
 {-| __C declaration:__ @ret_long3@
 
@@ -1257,11 +1614,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_0b8baea451432efe" ret_l
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_264e25c048487a65" ret_long3 ::
+ret_long3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CULong
+ret_long3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_long3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_d4f4783fa3bcf0fd" ret_float_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CFloat
+    )
 
 {-| __C declaration:__ @ret_float@
 
@@ -1269,11 +1636,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_264e25c048487a65" ret_l
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_d4f4783fa3bcf0fd" ret_float ::
+ret_float ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CFloat
+ret_float =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_float_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_94ae038975c7b6e8" ret_double_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CDouble
+    )
 
 {-| __C declaration:__ @ret_double@
 
@@ -1281,11 +1658,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_d4f4783fa3bcf0fd" ret_f
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_94ae038975c7b6e8" ret_double ::
+ret_double ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CDouble
+ret_double =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_double_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_c6e57fb4c8ccc002" ret_bool1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CBool
+    )
 
 {-| __C declaration:__ @ret_bool1@
 
@@ -1293,19 +1680,31 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_94ae038975c7b6e8" ret_d
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_c6e57fb4c8ccc002" ret_bool1 ::
+ret_bool1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CBool
+ret_bool1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_bool1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_4d9a2038e7abf410" ret_struct_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr Some_struct
+    -> IO ()
+    )
 
 {-| Pointer-based API for 'ret_struct'
-
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_4d9a2038e7abf410" ret_struct_wrapper ::
+ret_struct_wrapper ::
      A
   -> Ptr.Ptr Some_struct
   -> IO ()
+ret_struct_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_struct_wrapper_base
 
 {-| __C declaration:__ @ret_struct@
 
@@ -1323,13 +1722,23 @@ ret_struct =
     HsBindgen.Runtime.CAPI.allocaAndPeek (\z1 ->
                                             ret_struct_wrapper x0 z1)
 
-{-| Pointer-based API for 'ret_union'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_6614cf4950ce1e7c" ret_union_wrapper ::
+foreign import ccall safe "hs_bindgen_test_macrosreparse_6614cf4950ce1e7c" ret_union_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr Some_union
+    -> IO ()
+    )
+
+{-| Pointer-based API for 'ret_union'
+-}
+ret_union_wrapper ::
      A
   -> Ptr.Ptr Some_union
   -> IO ()
+ret_union_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_union_wrapper_base
 
 {-| __C declaration:__ @ret_union@
 
@@ -1347,17 +1756,35 @@ ret_union =
     HsBindgen.Runtime.CAPI.allocaAndPeek (\z1 ->
                                             ret_union_wrapper x0 z1)
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_4a8e0e395958b0ed" ret_enum_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO Some_enum
+    )
+
 {-| __C declaration:__ @ret_enum@
 
     __defined at:__ @macros\/reparse.h:71:20@
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_4a8e0e395958b0ed" ret_enum ::
+ret_enum ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO Some_enum
+ret_enum =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_enum_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_59ba78873de08998" ret_pointer1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.Ptr FC.CInt)
+    )
 
 {-| __C declaration:__ @ret_pointer1@
 
@@ -1365,11 +1792,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_4a8e0e395958b0ed" ret_e
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_59ba78873de08998" ret_pointer1 ::
+ret_pointer1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr FC.CInt)
+ret_pointer1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_pointer1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_f075faf1943231c1" ret_pointer2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
+    )
 
 {-| __C declaration:__ @ret_pointer2@
 
@@ -1377,11 +1814,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_59ba78873de08998" ret_p
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_f075faf1943231c1" ret_pointer2 ::
+ret_pointer2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
+ret_pointer2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_pointer2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_a865c16cbfd0f2b1" ret_pointer3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.Ptr Void)
+    )
 
 {-| __C declaration:__ @ret_pointer3@
 
@@ -1389,11 +1836,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_f075faf1943231c1" ret_p
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_a865c16cbfd0f2b1" ret_pointer3 ::
+ret_pointer3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr Void)
+ret_pointer3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_pointer3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_0dd10e2baacf20e1" body1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CInt
+    )
 
 {-| __C declaration:__ @body1@
 
@@ -1401,11 +1858,20 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_a865c16cbfd0f2b1" ret_p
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_0dd10e2baacf20e1" body1 ::
+body1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CInt
+body1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType body1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_e40f2da3eda8e4ab" body2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO A
+    )
 
 {-| __C declaration:__ @body2@
 
@@ -1413,16 +1879,28 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_0dd10e2baacf20e1" body1
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_e40f2da3eda8e4ab" body2 ::
+body2 ::
      IO A
+body2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType body2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_cabceb6db44b7d81" args_complex_float_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
+    -> IO ()
+    )
 
 {-| Pointer-based API for 'args_complex_float'
-
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_cabceb6db44b7d81" args_complex_float_wrapper ::
+args_complex_float_wrapper ::
      A
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> IO ()
+args_complex_float_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_complex_float_wrapper_base
 
 {-| __C declaration:__ @args_complex_float@
 
@@ -1443,13 +1921,23 @@ args_complex_float =
     \x1 ->
       F.with x1 (\y2 -> args_complex_float_wrapper x0 y2)
 
-{-| Pointer-based API for 'args_complex_double'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_ef2a09e9cd3eec0c" args_complex_double_wrapper ::
+foreign import ccall safe "hs_bindgen_test_macrosreparse_ef2a09e9cd3eec0c" args_complex_double_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
+    -> IO ()
+    )
+
+{-| Pointer-based API for 'args_complex_double'
+-}
+args_complex_double_wrapper ::
      A
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> IO ()
+args_complex_double_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType args_complex_double_wrapper_base
 
 {-| __C declaration:__ @args_complex_double@
 
@@ -1470,13 +1958,23 @@ args_complex_double =
     \x1 ->
       F.with x1 (\y2 -> args_complex_double_wrapper x0 y2)
 
-{-| Pointer-based API for 'ret_complex_float'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_26ada386c6fc7617" ret_complex_float_wrapper ::
+foreign import ccall safe "hs_bindgen_test_macrosreparse_26ada386c6fc7617" ret_complex_float_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
+    -> IO ()
+    )
+
+{-| Pointer-based API for 'ret_complex_float'
+-}
+ret_complex_float_wrapper ::
      A
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> IO ()
+ret_complex_float_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_complex_float_wrapper_base
 
 {-| __C declaration:__ @ret_complex_float@
 
@@ -1494,13 +1992,23 @@ ret_complex_float =
     HsBindgen.Runtime.CAPI.allocaAndPeek (\z1 ->
                                             ret_complex_float_wrapper x0 z1)
 
-{-| Pointer-based API for 'ret_complex_double'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_b99f35785e9f9b5c" ret_complex_double_wrapper ::
+foreign import ccall safe "hs_bindgen_test_macrosreparse_b99f35785e9f9b5c" ret_complex_double_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
+    -> IO ()
+    )
+
+{-| Pointer-based API for 'ret_complex_double'
+-}
+ret_complex_double_wrapper ::
      A
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> IO ()
+ret_complex_double_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ret_complex_double_wrapper_base
 
 {-| __C declaration:__ @ret_complex_double@
 
@@ -1518,13 +2026,22 @@ ret_complex_double =
     HsBindgen.Runtime.CAPI.allocaAndPeek (\z1 ->
                                             ret_complex_double_wrapper x0 z1)
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_4c1c48b67908e0ad" bespoke_args1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CBool
+    -> IO ()
+    )
+
 {-| __C declaration:__ @bespoke_args1@
 
     __defined at:__ @macros\/reparse.h:94:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_4c1c48b67908e0ad" bespoke_args1 ::
+bespoke_args1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1532,6 +2049,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_4c1c48b67908e0ad" bespo
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+bespoke_args1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType bespoke_args1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_7bd6c9115d303872" bespoke_args2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> HsBindgen.Runtime.Prelude.CSize
+    -> IO ()
+    )
 
 {-| __C declaration:__ @bespoke_args2@
 
@@ -1539,7 +2067,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_4c1c48b67908e0ad" bespo
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_7bd6c9115d303872" bespoke_args2 ::
+bespoke_args2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1547,6 +2075,16 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_7bd6c9115d303872" bespo
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+bespoke_args2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType bespoke_args2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_994d22fc993523bf" bespoke_ret1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO FC.CBool
+    )
 
 {-| __C declaration:__ @bespoke_ret1@
 
@@ -1554,11 +2092,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_7bd6c9115d303872" bespo
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_994d22fc993523bf" bespoke_ret1 ::
+bespoke_ret1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CBool
+bespoke_ret1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType bespoke_ret1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_c7649a4aa2e14a89" bespoke_ret2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO HsBindgen.Runtime.Prelude.CSize
+    )
 
 {-| __C declaration:__ @bespoke_ret2@
 
@@ -1566,11 +2114,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_994d22fc993523bf" bespo
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_c7649a4aa2e14a89" bespoke_ret2 ::
+bespoke_ret2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO HsBindgen.Runtime.Prelude.CSize
+bespoke_ret2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType bespoke_ret2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_69045f97d21cfcd3" arr_args1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr A
+    -> IO ()
+    )
 
 {-| Arrays
 
@@ -1580,11 +2138,21 @@ __defined at:__ @macros\/reparse.h:104:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_69045f97d21cfcd3" arr_args1 ::
+arr_args1 ::
      Ptr.Ptr A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO ()
+arr_args1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType arr_args1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_75b7d6fa15700a72" arr_args2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr (Ptr.Ptr A)
+    -> IO ()
+    )
 
 {-| __C declaration:__ @arr_args2@
 
@@ -1592,11 +2160,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_69045f97d21cfcd3" arr_a
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_75b7d6fa15700a72" arr_args2 ::
+arr_args2 ::
      Ptr.Ptr (Ptr.Ptr A)
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO ()
+arr_args2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType arr_args2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_64bcbef92728339f" arr_args3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr A
+    -> IO ()
+    )
 
 {-| __C declaration:__ @arr_args3@
 
@@ -1604,11 +2182,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_75b7d6fa15700a72" arr_a
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_64bcbef92728339f" arr_args3 ::
+arr_args3 ::
      Ptr.Ptr A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO ()
+arr_args3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType arr_args3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_1635b68f717cc6df" arr_args4_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr (Ptr.Ptr A)
+    -> IO ()
+    )
 
 {-| __C declaration:__ @arr_args4@
 
@@ -1616,11 +2204,22 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_64bcbef92728339f" arr_a
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_1635b68f717cc6df" arr_args4 ::
+arr_args4 ::
      Ptr.Ptr (Ptr.Ptr A)
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO ()
+arr_args4 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType arr_args4_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_09ca38f534ba1397" funptr_args1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.FunPtr (IO ())
+    -> IO ()
+    )
 
 {-| Function pointers
 
@@ -1630,7 +2229,7 @@ __defined at:__ @macros\/reparse.h:126:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_09ca38f534ba1397" funptr_args1 ::
+funptr_args1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1638,6 +2237,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_09ca38f534ba1397" funpt
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+funptr_args1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funptr_args1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_43e32eb1c4511130" funptr_args2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.FunPtr (IO FC.CInt)
+    -> IO ()
+    )
 
 {-| __C declaration:__ @funptr_args2@
 
@@ -1645,7 +2255,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_09ca38f534ba1397" funpt
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_43e32eb1c4511130" funptr_args2 ::
+funptr_args2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1653,6 +2263,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_43e32eb1c4511130" funpt
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+funptr_args2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funptr_args2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_639eb292178302da" funptr_args3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.FunPtr (FC.CInt -> IO ())
+    -> IO ()
+    )
 
 {-| __C declaration:__ @funptr_args3@
 
@@ -1660,7 +2281,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_43e32eb1c4511130" funpt
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_639eb292178302da" funptr_args3 ::
+funptr_args3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1668,6 +2289,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_639eb292178302da" funpt
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+funptr_args3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funptr_args3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_deaef357745591d1" funptr_args4_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar)
+    -> IO ()
+    )
 
 {-| __C declaration:__ @funptr_args4@
 
@@ -1675,7 +2307,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_639eb292178302da" funpt
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_deaef357745591d1" funptr_args4 ::
+funptr_args4 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1683,6 +2315,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_deaef357745591d1" funpt
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+funptr_args4 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funptr_args4_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_bd58865f6f33ce14" funptr_args5_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))
+    -> IO ()
+    )
 
 {-| __C declaration:__ @funptr_args5@
 
@@ -1690,7 +2333,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_deaef357745591d1" funpt
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_bd58865f6f33ce14" funptr_args5 ::
+funptr_args5 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1698,6 +2341,16 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_bd58865f6f33ce14" funpt
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+funptr_args5 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funptr_args5_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_a609cc59a266965e" comments1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO ()
+    )
 
 {-| Comments in awkward places
 
@@ -1709,11 +2362,22 @@ __defined at:__ @macros\/reparse.h:144:25@
 
 __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_a609cc59a266965e" comments1 ::
+comments1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO ()
+comments1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType comments1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_55af49e081d3af5c" const_prim_before1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CChar
+    -> IO ()
+    )
 
 {-| `const` qualifier
 
@@ -1725,7 +2389,7 @@ __defined at:__ @macros\/reparse.h:179:6@
 
 __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_55af49e081d3af5c" const_prim_before1 ::
+const_prim_before1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1733,6 +2397,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_55af49e081d3af5c" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_prim_before1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_prim_before1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_17a6476d46f98f53" const_prim_before2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CSChar
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_prim_before2@
 
@@ -1740,7 +2415,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_55af49e081d3af5c" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_17a6476d46f98f53" const_prim_before2 ::
+const_prim_before2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1748,6 +2423,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_17a6476d46f98f53" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_prim_before2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_prim_before2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_1fce4989a8ceca6d" const_prim_before3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CUChar
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_prim_before3@
 
@@ -1755,7 +2441,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_17a6476d46f98f53" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_1fce4989a8ceca6d" const_prim_before3 ::
+const_prim_before3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1763,6 +2449,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_1fce4989a8ceca6d" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_prim_before3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_prim_before3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_0b8f21af35a88318" const_prim_after1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CChar
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_prim_after1@
 
@@ -1770,7 +2467,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_1fce4989a8ceca6d" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_0b8f21af35a88318" const_prim_after1 ::
+const_prim_after1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1778,6 +2475,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_0b8f21af35a88318" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_prim_after1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_prim_after1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_069042df961b78f1" const_prim_after2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CSChar
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_prim_after2@
 
@@ -1785,7 +2493,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_0b8f21af35a88318" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_069042df961b78f1" const_prim_after2 ::
+const_prim_after2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1793,6 +2501,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_069042df961b78f1" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_prim_after2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_prim_after2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_14ab286beb6d7436" const_prim_after3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CUChar
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_prim_after3@
 
@@ -1800,7 +2519,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_069042df961b78f1" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_14ab286beb6d7436" const_prim_after3 ::
+const_prim_after3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1808,6 +2527,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_14ab286beb6d7436" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_prim_after3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_prim_after3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_3f5a39bd9a93581a" const_withoutSign_before1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CFloat
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_withoutSign_before1@
 
@@ -1815,7 +2545,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_14ab286beb6d7436" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_3f5a39bd9a93581a" const_withoutSign_before1 ::
+const_withoutSign_before1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1823,6 +2553,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3f5a39bd9a93581a" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_before1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_before1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_5a190462ddfe8168" const_withoutSign_before2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CDouble
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_withoutSign_before2@
 
@@ -1830,7 +2571,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3f5a39bd9a93581a" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_5a190462ddfe8168" const_withoutSign_before2 ::
+const_withoutSign_before2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1838,6 +2579,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_5a190462ddfe8168" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_before2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_before2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_70a40d82bb46c21c" const_withoutSign_before3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CBool
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_withoutSign_before3@
 
@@ -1845,7 +2597,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_5a190462ddfe8168" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_70a40d82bb46c21c" const_withoutSign_before3 ::
+const_withoutSign_before3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1853,14 +2605,26 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_70a40d82bb46c21c" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_before3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_before3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_81ce15a9b9be53f8" const_withoutSign_before4_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr Some_struct
+    -> IO ()
+    )
 
 {-| Pointer-based API for 'const_withoutSign_before4'
-
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_81ce15a9b9be53f8" const_withoutSign_before4_wrapper ::
+const_withoutSign_before4_wrapper ::
      A
   -> Ptr.Ptr Some_struct
   -> IO ()
+const_withoutSign_before4_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_before4_wrapper_base
 
 {-| __C declaration:__ @const_withoutSign_before4@
 
@@ -1882,13 +2646,23 @@ const_withoutSign_before4 =
       F.with x1 (\y2 ->
                    const_withoutSign_before4_wrapper x0 y2)
 
-{-| Pointer-based API for 'const_withoutSign_before5'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_39c58819fdca0585" const_withoutSign_before5_wrapper ::
+foreign import ccall safe "hs_bindgen_test_macrosreparse_39c58819fdca0585" const_withoutSign_before5_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr Some_union
+    -> IO ()
+    )
+
+{-| Pointer-based API for 'const_withoutSign_before5'
+-}
+const_withoutSign_before5_wrapper ::
      A
   -> Ptr.Ptr Some_union
   -> IO ()
+const_withoutSign_before5_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_before5_wrapper_base
 
 {-| __C declaration:__ @const_withoutSign_before5@
 
@@ -1910,13 +2684,22 @@ const_withoutSign_before5 =
       F.with x1 (\y2 ->
                    const_withoutSign_before5_wrapper x0 y2)
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_4c5a32cae31a651c" const_withoutSign_before6_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Some_enum
+    -> IO ()
+    )
+
 {-| __C declaration:__ @const_withoutSign_before6@
 
     __defined at:__ @macros\/reparse.h:193:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_4c5a32cae31a651c" const_withoutSign_before6 ::
+const_withoutSign_before6 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1924,6 +2707,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_4c5a32cae31a651c" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_before6 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_before6_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_0341b56dd9dde729" const_withoutSign_before7_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CBool
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_withoutSign_before7@
 
@@ -1931,7 +2725,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_4c5a32cae31a651c" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_0341b56dd9dde729" const_withoutSign_before7 ::
+const_withoutSign_before7 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1939,6 +2733,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_0341b56dd9dde729" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_before7 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_before7_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_d43c37be4d91bd6c" const_withoutSign_before8_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> HsBindgen.Runtime.Prelude.CSize
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_withoutSign_before8@
 
@@ -1946,7 +2751,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_0341b56dd9dde729" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_d43c37be4d91bd6c" const_withoutSign_before8 ::
+const_withoutSign_before8 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1954,6 +2759,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_d43c37be4d91bd6c" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_before8 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_before8_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_f456a2b015543748" const_withoutSign_after1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CFloat
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_withoutSign_after1@
 
@@ -1961,7 +2777,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_d43c37be4d91bd6c" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_f456a2b015543748" const_withoutSign_after1 ::
+const_withoutSign_after1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1969,6 +2785,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_f456a2b015543748" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_after1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_after1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_729c897c9a9bfc92" const_withoutSign_after2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CDouble
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_withoutSign_after2@
 
@@ -1976,7 +2803,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_f456a2b015543748" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_729c897c9a9bfc92" const_withoutSign_after2 ::
+const_withoutSign_after2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1984,6 +2811,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_729c897c9a9bfc92" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_after2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_after2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_5e46eebba0299b49" const_withoutSign_after3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CBool
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_withoutSign_after3@
 
@@ -1991,7 +2829,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_729c897c9a9bfc92" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_5e46eebba0299b49" const_withoutSign_after3 ::
+const_withoutSign_after3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1999,14 +2837,26 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_5e46eebba0299b49" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_after3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_after3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_18b842a824ecef09" const_withoutSign_after4_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr Some_struct
+    -> IO ()
+    )
 
 {-| Pointer-based API for 'const_withoutSign_after4'
-
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_18b842a824ecef09" const_withoutSign_after4_wrapper ::
+const_withoutSign_after4_wrapper ::
      A
   -> Ptr.Ptr Some_struct
   -> IO ()
+const_withoutSign_after4_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_after4_wrapper_base
 
 {-| __C declaration:__ @const_withoutSign_after4@
 
@@ -2028,13 +2878,23 @@ const_withoutSign_after4 =
       F.with x1 (\y2 ->
                    const_withoutSign_after4_wrapper x0 y2)
 
-{-| Pointer-based API for 'const_withoutSign_after5'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_75feb5260081201b" const_withoutSign_after5_wrapper ::
+foreign import ccall safe "hs_bindgen_test_macrosreparse_75feb5260081201b" const_withoutSign_after5_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr Some_union
+    -> IO ()
+    )
+
+{-| Pointer-based API for 'const_withoutSign_after5'
+-}
+const_withoutSign_after5_wrapper ::
      A
   -> Ptr.Ptr Some_union
   -> IO ()
+const_withoutSign_after5_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_after5_wrapper_base
 
 {-| __C declaration:__ @const_withoutSign_after5@
 
@@ -2056,13 +2916,22 @@ const_withoutSign_after5 =
       F.with x1 (\y2 ->
                    const_withoutSign_after5_wrapper x0 y2)
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_3375ca58017bcbeb" const_withoutSign_after6_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Some_enum
+    -> IO ()
+    )
+
 {-| __C declaration:__ @const_withoutSign_after6@
 
     __defined at:__ @macros\/reparse.h:202:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_3375ca58017bcbeb" const_withoutSign_after6 ::
+const_withoutSign_after6 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2070,6 +2939,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3375ca58017bcbeb" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_after6 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_after6_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_5da184668d3e18ba" const_withoutSign_after7_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> FC.CBool
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_withoutSign_after7@
 
@@ -2077,7 +2957,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3375ca58017bcbeb" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_5da184668d3e18ba" const_withoutSign_after7 ::
+const_withoutSign_after7 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2085,6 +2965,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_5da184668d3e18ba" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_after7 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_after7_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_3cae7641509d64fa" const_withoutSign_after8_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> HsBindgen.Runtime.Prelude.CSize
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_withoutSign_after8@
 
@@ -2092,7 +2983,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_5da184668d3e18ba" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_3cae7641509d64fa" const_withoutSign_after8 ::
+const_withoutSign_after8 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2100,6 +2991,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3cae7641509d64fa" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_after8 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_withoutSign_after8_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_4dcc1a25c1ecaaa2" const_pointers_args1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr FC.CInt
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_pointers_args1@
 
@@ -2107,7 +3009,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3cae7641509d64fa" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_4dcc1a25c1ecaaa2" const_pointers_args1 ::
+const_pointers_args1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2115,6 +3017,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_4dcc1a25c1ecaaa2" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_pointers_args1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_pointers_args1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_fec0ae82f5b0ad81" const_pointers_args2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr FC.CInt
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_pointers_args2@
 
@@ -2122,7 +3035,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_4dcc1a25c1ecaaa2" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_fec0ae82f5b0ad81" const_pointers_args2 ::
+const_pointers_args2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2130,6 +3043,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_fec0ae82f5b0ad81" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_pointers_args2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_pointers_args2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_fe0313a1b7b08d51" const_pointers_args3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr FC.CInt
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_pointers_args3@
 
@@ -2137,7 +3061,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_fec0ae82f5b0ad81" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_fe0313a1b7b08d51" const_pointers_args3 ::
+const_pointers_args3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2145,6 +3069,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_fe0313a1b7b08d51" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_pointers_args3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_pointers_args3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_33f3fc94401a8bfe" const_pointers_args4_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr FC.CInt
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_pointers_args4@
 
@@ -2152,7 +3087,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_fe0313a1b7b08d51" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_33f3fc94401a8bfe" const_pointers_args4 ::
+const_pointers_args4 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2160,6 +3095,17 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_33f3fc94401a8bfe" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_pointers_args4 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_pointers_args4_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_391d9682b9dc51ac" const_pointers_args5_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.Ptr FC.CInt
+    -> IO ()
+    )
 
 {-| __C declaration:__ @const_pointers_args5@
 
@@ -2167,7 +3113,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_33f3fc94401a8bfe" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_391d9682b9dc51ac" const_pointers_args5 ::
+const_pointers_args5 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2175,6 +3121,16 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_391d9682b9dc51ac" const
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_pointers_args5 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_pointers_args5_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_8bf23a9981153f56" const_pointers_ret1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.Ptr FC.CInt)
+    )
 
 {-| __C declaration:__ @const_pointers_ret1@
 
@@ -2182,11 +3138,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_391d9682b9dc51ac" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_8bf23a9981153f56" const_pointers_ret1 ::
+const_pointers_ret1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr FC.CInt)
+const_pointers_ret1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_pointers_ret1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_849c6f0a166afc3c" const_pointers_ret2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.Ptr FC.CInt)
+    )
 
 {-| __C declaration:__ @const_pointers_ret2@
 
@@ -2194,11 +3160,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_8bf23a9981153f56" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_849c6f0a166afc3c" const_pointers_ret2 ::
+const_pointers_ret2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr FC.CInt)
+const_pointers_ret2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_pointers_ret2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_2bcb395289e776af" const_pointers_ret3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.Ptr FC.CInt)
+    )
 
 {-| __C declaration:__ @const_pointers_ret3@
 
@@ -2206,11 +3182,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_849c6f0a166afc3c" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_2bcb395289e776af" const_pointers_ret3 ::
+const_pointers_ret3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr FC.CInt)
+const_pointers_ret3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_pointers_ret3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_10d30d6be4435bb5" const_pointers_ret4_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.Ptr FC.CInt)
+    )
 
 {-| __C declaration:__ @const_pointers_ret4@
 
@@ -2218,11 +3204,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_2bcb395289e776af" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_10d30d6be4435bb5" const_pointers_ret4 ::
+const_pointers_ret4 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr FC.CInt)
+const_pointers_ret4 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_pointers_ret4_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_4e0a9385778eeea9" const_pointers_ret5_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.Ptr FC.CInt)
+    )
 
 {-| __C declaration:__ @const_pointers_ret5@
 
@@ -2230,18 +3226,29 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_10d30d6be4435bb5" const
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_4e0a9385778eeea9" const_pointers_ret5 ::
+const_pointers_ret5 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr FC.CInt)
+const_pointers_ret5 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_pointers_ret5_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_216b4842313741d6" const_array_elem1_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr A
+    -> IO ()
+    )
 
 {-| Pointer-based API for 'const_array_elem1'
-
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_216b4842313741d6" const_array_elem1_wrapper ::
+const_array_elem1_wrapper ::
      Ptr.Ptr A
   -> IO ()
+const_array_elem1_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_array_elem1_wrapper_base
 
 {-| __C declaration:__ @const_array_elem1@
 
@@ -2259,24 +3266,43 @@ const_array_elem1 =
     HsBindgen.Runtime.IncompleteArray.withPtr x0 (\ptr1 ->
                                                     const_array_elem1_wrapper ptr1)
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_1c0be30090d3f0b4" const_array_elem2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr (Ptr.Ptr A)
+    -> IO ()
+    )
+
 {-| __C declaration:__ @const_array_elem2@
 
     __defined at:__ @macros\/reparse.h:247:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_1c0be30090d3f0b4" const_array_elem2 ::
+const_array_elem2 ::
      Ptr.Ptr (Ptr.Ptr A)
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO ()
+const_array_elem2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_array_elem2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_30c17e3a462eeecc" const_array_elem3_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr (Ptr.Ptr A)
+    -> IO ()
+    )
 
 {-| Pointer-based API for 'const_array_elem3'
-
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_30c17e3a462eeecc" const_array_elem3_wrapper ::
+const_array_elem3_wrapper ::
      Ptr.Ptr (Ptr.Ptr A)
   -> IO ()
+const_array_elem3_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType const_array_elem3_wrapper_base
 
 {-| __C declaration:__ @const_array_elem3@
 
@@ -2294,6 +3320,13 @@ const_array_elem3 =
     HsBindgen.Runtime.IncompleteArray.withPtr x0 (\ptr1 ->
                                                     const_array_elem3_wrapper ptr1)
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_8ab2f7d7d9185985" noParams1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO A
+    )
+
 {-| Other examples we reparsed /incorrectly/ before language-c
 
 __C declaration:__ @noParams1@
@@ -2302,8 +3335,17 @@ __defined at:__ @macros\/reparse.h:256:3@
 
 __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_8ab2f7d7d9185985" noParams1 ::
+noParams1 ::
      IO A
+noParams1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType noParams1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_3154e7cc23e3e0f3" noParams2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO A
+    )
 
 {-| __C declaration:__ @noParams2@
 
@@ -2311,8 +3353,19 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_8ab2f7d7d9185985" noPar
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_3154e7cc23e3e0f3" noParams2 ::
+noParams2 ::
      IO A
+noParams2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType noParams2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_3d23de5d2d770dfe" noParams3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> Ptr.FunPtr (IO FC.CInt)
+    -> IO ()
+    )
 
 {-| __C declaration:__ @noParams3@
 
@@ -2320,7 +3373,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3154e7cc23e3e0f3" noPar
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_3d23de5d2d770dfe" noParams3 ::
+noParams3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2328,6 +3381,16 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3d23de5d2d770dfe" noPar
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+noParams3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType noParams3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_cfe9601f75800453" funptr_ret1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.FunPtr (IO ()))
+    )
 
 {-| __C declaration:__ @funptr_ret1@
 
@@ -2335,11 +3398,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3d23de5d2d770dfe" noPar
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_cfe9601f75800453" funptr_ret1 ::
+funptr_ret1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (IO ()))
+funptr_ret1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funptr_ret1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_ca3824f5cf114f19" funptr_ret2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.FunPtr (IO FC.CInt))
+    )
 
 {-| __C declaration:__ @funptr_ret2@
 
@@ -2347,11 +3420,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_cfe9601f75800453" funpt
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_ca3824f5cf114f19" funptr_ret2 ::
+funptr_ret2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (IO FC.CInt))
+funptr_ret2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funptr_ret2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_2de886ad95f674f5" funptr_ret3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.FunPtr (FC.CInt -> IO ()))
+    )
 
 {-| __C declaration:__ @funptr_ret3@
 
@@ -2359,11 +3442,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_ca3824f5cf114f19" funpt
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_2de886ad95f674f5" funptr_ret3 ::
+funptr_ret3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> IO ()))
+funptr_ret3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funptr_ret3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_b4856eab77ec0cbf" funptr_ret4_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar))
+    )
 
 {-| __C declaration:__ @funptr_ret4@
 
@@ -2371,11 +3464,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_2de886ad95f674f5" funpt
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_b4856eab77ec0cbf" funptr_ret4 ::
+funptr_ret4 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar))
+funptr_ret4 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funptr_ret4_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_39273a56f1a80904" funptr_ret5_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+    )
 
 {-| __C declaration:__ @funptr_ret5@
 
@@ -2383,11 +3486,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_b4856eab77ec0cbf" funpt
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_39273a56f1a80904" funptr_ret5 ::
+funptr_ret5 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+funptr_ret5 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funptr_ret5_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_5e2dfa9b8f6075ee" funptr_ret6_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+    )
 
 {-| __C declaration:__ @funptr_ret6@
 
@@ -2395,11 +3508,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_39273a56f1a80904" funpt
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_5e2dfa9b8f6075ee" funptr_ret6 ::
+funptr_ret6 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+funptr_ret6 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funptr_ret6_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_0b65a87e08b5a1a7" funptr_ret7_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+    )
 
 {-| __C declaration:__ @funptr_ret7@
 
@@ -2407,11 +3530,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_5e2dfa9b8f6075ee" funpt
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_0b65a87e08b5a1a7" funptr_ret7 ::
+funptr_ret7 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+funptr_ret7 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funptr_ret7_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_629050352113405f" funptr_ret8_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+    )
 
 {-| __C declaration:__ @funptr_ret8@
 
@@ -2419,11 +3552,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_0b65a87e08b5a1a7" funpt
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_629050352113405f" funptr_ret8 ::
+funptr_ret8 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+funptr_ret8 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funptr_ret8_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_a1dcda8f782ad284" funptr_ret9_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+    )
 
 {-| __C declaration:__ @funptr_ret9@
 
@@ -2431,11 +3574,21 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_629050352113405f" funpt
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_a1dcda8f782ad284" funptr_ret9 ::
+funptr_ret9 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+funptr_ret9 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funptr_ret9_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosreparse_ca08b018fda612eb" funptr_ret10_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       A
+    -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+    )
 
 {-| __C declaration:__ @funptr_ret10@
 
@@ -2443,8 +3596,10 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_a1dcda8f782ad284" funpt
 
     __exported by:__ @macros\/reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosreparse_ca08b018fda612eb" funptr_ret10 ::
+funptr_ret10 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+funptr_ret10 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funptr_ret10_base

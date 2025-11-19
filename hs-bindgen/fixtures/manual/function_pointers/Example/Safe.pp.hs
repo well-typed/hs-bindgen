@@ -7,6 +7,7 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -69,15 +70,34 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_55e5eb89e54abf83" square_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CInt
+    -> IO FC.CInt
+    )
+
 {-| __C declaration:__ @square@
 
     __defined at:__ @manual\/function_pointers.h:5:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
-foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_55e5eb89e54abf83" square ::
+square ::
      FC.CInt
   -> IO FC.CInt
+square =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType square_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_680daf766a044980" plus_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CInt
+    -> FC.CInt
+    -> IO FC.CInt
+    )
 
 {-| __C declaration:__ @plus@
 
@@ -85,10 +105,21 @@ foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_55e5eb89e54ab
 
     __exported by:__ @manual\/function_pointers.h@
 -}
-foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_680daf766a044980" plus ::
+plus ::
      FC.CInt
   -> FC.CInt
   -> IO FC.CInt
+plus =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType plus_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_abcb860034253564" apply1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+    -> FC.CInt
+    -> IO FC.CInt
+    )
 
 {-| __C declaration:__ @apply1@
 
@@ -96,7 +127,7 @@ foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_680daf766a044
 
     __exported by:__ @manual\/function_pointers.h@
 -}
-foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_abcb860034253564" apply1 ::
+apply1 ::
      Ptr.FunPtr (FC.CInt -> IO FC.CInt)
      {- ^ __C declaration:__ @f@
      -}
@@ -104,6 +135,18 @@ foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_abcb860034253
      {- ^ __C declaration:__ @x@
      -}
   -> IO FC.CInt
+apply1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType apply1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_1ad13c166a710f40" apply2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
+    -> FC.CInt
+    -> FC.CInt
+    -> IO FC.CInt
+    )
 
 {-| __C declaration:__ @apply2@
 
@@ -111,7 +154,7 @@ foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_abcb860034253
 
     __exported by:__ @manual\/function_pointers.h@
 -}
-foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_1ad13c166a710f40" apply2 ::
+apply2 ::
      Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
      {- ^ __C declaration:__ @f@
      -}
@@ -122,6 +165,17 @@ foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_1ad13c166a710
      {- ^ __C declaration:__ @y@
      -}
   -> IO FC.CInt
+apply2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType apply2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_a8ef4d9e6ce68f54" apply1_pointer_arg_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr Int2int
+    -> FC.CInt
+    -> IO FC.CInt
+    )
 
 {-| Basically the same as apply1(), but here for illustratory purposes.
 
@@ -131,10 +185,21 @@ __defined at:__ @manual\/function_pointers.h:22:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
-foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_a8ef4d9e6ce68f54" apply1_pointer_arg ::
+apply1_pointer_arg ::
      Ptr.FunPtr Int2int
   -> FC.CInt
   -> IO FC.CInt
+apply1_pointer_arg =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType apply1_pointer_arg_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_7dc4caa1f7f0caf0" apply1_nopointer_arg_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr Int2int
+    -> FC.CInt
+    -> IO FC.CInt
+    )
 
 {-| A version of apply1_pointer_arg() that declares to take a argument of function type, rather than a pointer-to-function type.
 
@@ -144,10 +209,19 @@ __defined at:__ @manual\/function_pointers.h:26:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
-foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_7dc4caa1f7f0caf0" apply1_nopointer_arg ::
+apply1_nopointer_arg ::
      Ptr.FunPtr Int2int
   -> FC.CInt
   -> IO FC.CInt
+apply1_nopointer_arg =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType apply1_nopointer_arg_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_3612aa0d10e36d5b" apply1_nopointer_res_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+    )
 
 {-| A function returning a pointer to a function like apply1_nopointer().
 
@@ -157,5 +231,7 @@ __defined at:__ @manual\/function_pointers.h:31:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
-foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_3612aa0d10e36d5b" apply1_nopointer_res ::
+apply1_nopointer_res ::
      IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+apply1_nopointer_res =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType apply1_nopointer_res_base

@@ -70,6 +70,7 @@ newtype Adio'0301s
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      Marshallable,
                       Bits,
                       Bounded,
                       Enum,
@@ -100,6 +101,7 @@ newtype C数字
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      Marshallable,
                       Bits,
                       Bounded,
                       Enum,
@@ -114,49 +116,113 @@ instance TyEq ty (CFieldType C数字 "un_C\25968\23383") =>
 instance HasCField C数字 "un_C\25968\23383"
     where type CFieldType C数字 "un_C\25968\23383" = CInt
           offset# = \_ -> \_ -> 0
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesadios_1f928c1e5a3ea8be" cϒ_base :: IO Unit
 {-| __C declaration:__ @ϒ@
 
     __defined at:__ @edge-cases\/adios.h:18:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesadios_1f928c1e5a3ea8be" cϒ :: IO Unit
-{-| __C declaration:__ @拜拜@
-
-    __defined at:__ @edge-cases\/adios.h:27:6@
-
-    __exported by:__ @edge-cases\/adios.h@
--}
-foreign import ccall safe "hs_bindgen_test_edgecasesadios_912e938ac6370f83" 拜拜 :: IO Unit
-{-| __C declaration:__ @Say拜拜@
-
-    __defined at:__ @edge-cases\/adios.h:31:6@
-
-    __exported by:__ @edge-cases\/adios.h@
--}
-foreign import ccall safe "hs_bindgen_test_edgecasesadios_cc7cd7984d0bfaee" say拜拜 :: IO Unit
+cϒ :: IO Unit
 {-| __C declaration:__ @ϒ@
 
     __defined at:__ @edge-cases\/adios.h:18:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesadios_82fab26db9547005" cϒ :: IO Unit
+cϒ = fromMarshallableBaseType cϒ_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesadios_912e938ac6370f83" 拜拜_base :: IO Unit
 {-| __C declaration:__ @拜拜@
 
     __defined at:__ @edge-cases\/adios.h:27:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesadios_ad1afd0d0a11937f" 拜拜 :: IO Unit
+拜拜 :: IO Unit
+{-| __C declaration:__ @拜拜@
+
+    __defined at:__ @edge-cases\/adios.h:27:6@
+
+    __exported by:__ @edge-cases\/adios.h@
+-}
+拜拜 = fromMarshallableBaseType 拜拜_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesadios_cc7cd7984d0bfaee" say拜拜_base :: IO Unit
 {-| __C declaration:__ @Say拜拜@
 
     __defined at:__ @edge-cases\/adios.h:31:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesadios_9a2b7b543a500f7d" say拜拜 :: IO Unit
-foreign import ccall safe "hs_bindgen_test_edgecasesadios_857cc80028e9fd4d" hs_bindgen_test_edgecasesadios_857cc80028e9fd4d :: IO (FunPtr (IO Unit))
+say拜拜 :: IO Unit
+{-| __C declaration:__ @Say拜拜@
+
+    __defined at:__ @edge-cases\/adios.h:31:6@
+
+    __exported by:__ @edge-cases\/adios.h@
+-}
+say拜拜 = fromMarshallableBaseType say拜拜_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesadios_82fab26db9547005" cϒ_base :: IO Unit
+{-| __C declaration:__ @ϒ@
+
+    __defined at:__ @edge-cases\/adios.h:18:6@
+
+    __exported by:__ @edge-cases\/adios.h@
+-}
+cϒ :: IO Unit
+{-| __C declaration:__ @ϒ@
+
+    __defined at:__ @edge-cases\/adios.h:18:6@
+
+    __exported by:__ @edge-cases\/adios.h@
+-}
+cϒ = fromMarshallableBaseType cϒ_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesadios_ad1afd0d0a11937f" 拜拜_base :: IO Unit
+{-| __C declaration:__ @拜拜@
+
+    __defined at:__ @edge-cases\/adios.h:27:6@
+
+    __exported by:__ @edge-cases\/adios.h@
+-}
+拜拜 :: IO Unit
+{-| __C declaration:__ @拜拜@
+
+    __defined at:__ @edge-cases\/adios.h:27:6@
+
+    __exported by:__ @edge-cases\/adios.h@
+-}
+拜拜 = fromMarshallableBaseType 拜拜_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesadios_9a2b7b543a500f7d" say拜拜_base :: IO Unit
+{-| __C declaration:__ @Say拜拜@
+
+    __defined at:__ @edge-cases\/adios.h:31:6@
+
+    __exported by:__ @edge-cases\/adios.h@
+-}
+say拜拜 :: IO Unit
+{-| __C declaration:__ @Say拜拜@
+
+    __defined at:__ @edge-cases\/adios.h:31:6@
+
+    __exported by:__ @edge-cases\/adios.h@
+-}
+say拜拜 = fromMarshallableBaseType say拜拜_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesadios_857cc80028e9fd4d" hs_bindgen_test_edgecasesadios_857cc80028e9fd4d_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_edgecasesadios_857cc80028e9fd4d :: IO (FunPtr (IO Unit))
+hs_bindgen_test_edgecasesadios_857cc80028e9fd4d = fromMarshallableBaseType hs_bindgen_test_edgecasesadios_857cc80028e9fd4d_base
 {-# NOINLINE cϒ_ptr #-}
 {-| __C declaration:__ @ϒ@
 
@@ -172,7 +238,11 @@ cϒ_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/adios.h@
 -}
 cϒ_ptr = unsafePerformIO hs_bindgen_test_edgecasesadios_857cc80028e9fd4d
-foreign import ccall safe "hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7" hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7" hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7 = fromMarshallableBaseType hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7_base
 {-# NOINLINE 拜拜_ptr #-}
 {-| __C declaration:__ @拜拜@
 
@@ -188,7 +258,11 @@ foreign import ccall safe "hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7" hs_b
     __exported by:__ @edge-cases\/adios.h@
 -}
 拜拜_ptr = unsafePerformIO hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7
-foreign import ccall safe "hs_bindgen_test_edgecasesadios_2879b42f75005d3b" hs_bindgen_test_edgecasesadios_2879b42f75005d3b :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesadios_2879b42f75005d3b" hs_bindgen_test_edgecasesadios_2879b42f75005d3b_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_edgecasesadios_2879b42f75005d3b :: IO (FunPtr (IO Unit))
+hs_bindgen_test_edgecasesadios_2879b42f75005d3b = fromMarshallableBaseType hs_bindgen_test_edgecasesadios_2879b42f75005d3b_base
 {-# NOINLINE say拜拜_ptr #-}
 {-| __C declaration:__ @Say拜拜@
 
@@ -204,7 +278,11 @@ say拜拜_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/adios.h@
 -}
 say拜拜_ptr = unsafePerformIO hs_bindgen_test_edgecasesadios_2879b42f75005d3b
-foreign import ccall safe "hs_bindgen_test_edgecasesadios_e4b974661ff038a0" hs_bindgen_test_edgecasesadios_e4b974661ff038a0 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesadios_e4b974661ff038a0" hs_bindgen_test_edgecasesadios_e4b974661ff038a0_base :: IO (Ptr CInt)
+hs_bindgen_test_edgecasesadios_e4b974661ff038a0 :: IO (Ptr CInt)
+hs_bindgen_test_edgecasesadios_e4b974661ff038a0 = fromMarshallableBaseType hs_bindgen_test_edgecasesadios_e4b974661ff038a0_base
 {-# NOINLINE cϒϒ_ptr #-}
 {-| __C declaration:__ @ϒϒ@
 
@@ -220,7 +298,11 @@ cϒϒ_ptr :: Ptr CInt
     __exported by:__ @edge-cases\/adios.h@
 -}
 cϒϒ_ptr = unsafePerformIO hs_bindgen_test_edgecasesadios_e4b974661ff038a0
-foreign import ccall safe "hs_bindgen_test_edgecasesadios_c538a25ba7055dd4" hs_bindgen_test_edgecasesadios_c538a25ba7055dd4 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesadios_c538a25ba7055dd4" hs_bindgen_test_edgecasesadios_c538a25ba7055dd4_base :: IO (Ptr CInt)
+hs_bindgen_test_edgecasesadios_c538a25ba7055dd4 :: IO (Ptr CInt)
+hs_bindgen_test_edgecasesadios_c538a25ba7055dd4 = fromMarshallableBaseType hs_bindgen_test_edgecasesadios_c538a25ba7055dd4_base
 {-# NOINLINE cϒϒϒ_ptr #-}
 {-| __C declaration:__ @ϒϒϒ@
 

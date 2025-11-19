@@ -15,6 +15,7 @@ newtype Myint
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      Marshallable,
                       Bits,
                       Bounded,
                       Enum,
@@ -44,7 +45,7 @@ newtype Intptr
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Marshallable)
 instance TyEq ty (CFieldType Intptr "un_Intptr") =>
          HasField "un_Intptr" (Ptr Intptr) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Intptr")
@@ -65,10 +66,19 @@ newtype Int2int
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-foreign import ccall safe "wrapper" toInt2int :: Int2int ->
-                                                 IO (FunPtr Int2int)
-foreign import ccall safe "dynamic" fromInt2int :: FunPtr Int2int ->
-                                                   Int2int
+    deriving newtype Marshallable
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toInt2int_base :: Int2int ->
+                                                      IO (FunPtr Int2int)
+toInt2int :: Int2int -> IO (FunPtr Int2int)
+toInt2int = fromMarshallableBaseType toInt2int_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromInt2int_base :: FunPtr Int2int ->
+                                                        Int2int
+fromInt2int :: FunPtr Int2int -> Int2int
+fromInt2int = fromMarshallableBaseType fromInt2int_base
 instance ToFunPtr Int2int
     where toFunPtr = toInt2int
 instance FromFunPtr Int2int
@@ -93,10 +103,21 @@ newtype FunctionPointer_Function_Deref
 
       __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-foreign import ccall safe "wrapper" toFunctionPointer_Function_Deref :: FunctionPointer_Function_Deref ->
-                                                                        IO (FunPtr FunctionPointer_Function_Deref)
-foreign import ccall safe "dynamic" fromFunctionPointer_Function_Deref :: FunPtr FunctionPointer_Function_Deref ->
-                                                                          FunctionPointer_Function_Deref
+    deriving newtype Marshallable
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toFunctionPointer_Function_Deref_base :: FunctionPointer_Function_Deref ->
+                                                                             IO (FunPtr FunctionPointer_Function_Deref)
+toFunctionPointer_Function_Deref :: FunctionPointer_Function_Deref ->
+                                    IO (FunPtr FunctionPointer_Function_Deref)
+toFunctionPointer_Function_Deref = fromMarshallableBaseType toFunctionPointer_Function_Deref_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromFunctionPointer_Function_Deref_base :: FunPtr FunctionPointer_Function_Deref ->
+                                                                               FunctionPointer_Function_Deref
+fromFunctionPointer_Function_Deref :: FunPtr FunctionPointer_Function_Deref ->
+                                      FunctionPointer_Function_Deref
+fromFunctionPointer_Function_Deref = fromMarshallableBaseType fromFunctionPointer_Function_Deref_base
 instance ToFunPtr FunctionPointer_Function_Deref
     where toFunPtr = toFunctionPointer_Function_Deref
 instance FromFunPtr FunctionPointer_Function_Deref
@@ -128,7 +149,7 @@ newtype FunctionPointer_Function
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Marshallable)
 instance TyEq ty
               (CFieldType FunctionPointer_Function
                           "un_FunctionPointer_Function") =>
@@ -156,10 +177,21 @@ newtype NonFunctionPointer_Function
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-foreign import ccall safe "wrapper" toNonFunctionPointer_Function :: NonFunctionPointer_Function ->
-                                                                     IO (FunPtr NonFunctionPointer_Function)
-foreign import ccall safe "dynamic" fromNonFunctionPointer_Function :: FunPtr NonFunctionPointer_Function ->
-                                                                       NonFunctionPointer_Function
+    deriving newtype Marshallable
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toNonFunctionPointer_Function_base :: NonFunctionPointer_Function ->
+                                                                          IO (FunPtr NonFunctionPointer_Function)
+toNonFunctionPointer_Function :: NonFunctionPointer_Function ->
+                                 IO (FunPtr NonFunctionPointer_Function)
+toNonFunctionPointer_Function = fromMarshallableBaseType toNonFunctionPointer_Function_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromNonFunctionPointer_Function_base :: FunPtr NonFunctionPointer_Function ->
+                                                                            NonFunctionPointer_Function
+fromNonFunctionPointer_Function :: FunPtr NonFunctionPointer_Function ->
+                                   NonFunctionPointer_Function
+fromNonFunctionPointer_Function = fromMarshallableBaseType fromNonFunctionPointer_Function_base
 instance ToFunPtr NonFunctionPointer_Function
     where toFunPtr = toNonFunctionPointer_Function
 instance FromFunPtr NonFunctionPointer_Function
@@ -190,10 +222,19 @@ newtype F1_Deref
 
       __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-foreign import ccall safe "wrapper" toF1_Deref :: F1_Deref ->
-                                                  IO (FunPtr F1_Deref)
-foreign import ccall safe "dynamic" fromF1_Deref :: FunPtr F1_Deref ->
-                                                    F1_Deref
+    deriving newtype Marshallable
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toF1_Deref_base :: F1_Deref ->
+                                                       IO (FunPtr F1_Deref)
+toF1_Deref :: F1_Deref -> IO (FunPtr F1_Deref)
+toF1_Deref = fromMarshallableBaseType toF1_Deref_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromF1_Deref_base :: FunPtr F1_Deref ->
+                                                         F1_Deref
+fromF1_Deref :: FunPtr F1_Deref -> F1_Deref
+fromF1_Deref = fromMarshallableBaseType fromF1_Deref_base
 instance ToFunPtr F1_Deref
     where toFunPtr = toF1_Deref
 instance FromFunPtr F1_Deref
@@ -219,7 +260,7 @@ newtype F1
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Marshallable)
 instance TyEq ty (CFieldType F1 "un_F1") =>
          HasField "un_F1" (Ptr F1) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_F1")
@@ -240,8 +281,18 @@ newtype G1
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-foreign import ccall safe "wrapper" toG1 :: G1 -> IO (FunPtr G1)
-foreign import ccall safe "dynamic" fromG1 :: FunPtr G1 -> G1
+    deriving newtype Marshallable
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toG1_base :: G1 ->
+                                                 IO (FunPtr G1)
+toG1 :: G1 -> IO (FunPtr G1)
+toG1 = fromMarshallableBaseType toG1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromG1_base :: FunPtr G1 -> G1
+fromG1 :: FunPtr G1 -> G1
+fromG1 = fromMarshallableBaseType fromG1_base
 instance ToFunPtr G1
     where toFunPtr = toG1
 instance FromFunPtr G1
@@ -267,7 +318,7 @@ newtype G2
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Marshallable)
 instance TyEq ty (CFieldType G2 "un_G2") =>
          HasField "un_G2" (Ptr G2) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_G2")
@@ -288,8 +339,18 @@ newtype H1
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
-foreign import ccall safe "wrapper" toH1 :: H1 -> IO (FunPtr H1)
-foreign import ccall safe "dynamic" fromH1 :: FunPtr H1 -> H1
+    deriving newtype Marshallable
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toH1_base :: H1 ->
+                                                 IO (FunPtr H1)
+toH1 :: H1 -> IO (FunPtr H1)
+toH1 = fromMarshallableBaseType toH1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromH1_base :: FunPtr H1 -> H1
+fromH1 :: FunPtr H1 -> H1
+fromH1 = fromMarshallableBaseType fromH1_base
 instance ToFunPtr H1
     where toFunPtr = toH1
 instance FromFunPtr H1
@@ -314,6 +375,7 @@ newtype H2
 
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
+    deriving newtype Marshallable
 instance TyEq ty (CFieldType H2 "un_H2") =>
          HasField "un_H2" (Ptr H2) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_H2")
@@ -335,7 +397,7 @@ newtype H3
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Marshallable)
 instance TyEq ty (CFieldType H3 "un_H3") =>
          HasField "un_H3" (Ptr H3) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_H3")

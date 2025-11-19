@@ -8,6 +8,7 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -21,8 +22,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c" hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c" hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c_base
 
 {-# NOINLINE n_ptr #-}
 

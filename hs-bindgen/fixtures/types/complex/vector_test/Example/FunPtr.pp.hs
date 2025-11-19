@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -25,8 +26,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998" hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998" hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector)))
+    )
+
+hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998 ::
      IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector)))
+hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998_base
 
 {-# NOINLINE new_vector_ptr #-}
 

@@ -34,6 +34,7 @@ hstypes:
 - hsname: EnumA
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show
@@ -41,6 +42,7 @@ hstypes:
 - hsname: EnumB
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show
@@ -48,6 +50,7 @@ hstypes:
 - hsname: EnumC
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show
@@ -55,6 +58,7 @@ hstypes:
 - hsname: EnumD_t
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show
@@ -62,6 +66,7 @@ hstypes:
 - hsname: First
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show
@@ -69,6 +74,7 @@ hstypes:
 - hsname: Nonseq
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show
@@ -76,6 +82,7 @@ hstypes:
 - hsname: Packed
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show
@@ -83,6 +90,7 @@ hstypes:
 - hsname: Same
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show
@@ -90,6 +98,7 @@ hstypes:
 - hsname: Second
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show

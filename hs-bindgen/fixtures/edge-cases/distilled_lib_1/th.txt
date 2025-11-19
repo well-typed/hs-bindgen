@@ -102,6 +102,7 @@ newtype Another_typedef_enum_e
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype Marshallable
 instance Storable Another_typedef_enum_e
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -214,6 +215,7 @@ newtype A_type_t
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      Marshallable,
                       Bits,
                       Bounded,
                       Enum,
@@ -244,6 +246,7 @@ newtype Var_t
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      Marshallable,
                       Bits,
                       Bounded,
                       Enum,
@@ -550,6 +553,7 @@ newtype A_typedef_enum_e
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype Marshallable
 instance Storable A_typedef_enum_e
     where sizeOf = \_ -> 1 :: Int
           alignment = \_ -> 1 :: Int
@@ -650,10 +654,20 @@ newtype Callback_t_Deref
 
       __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
-foreign import ccall safe "wrapper" toCallback_t_Deref :: Callback_t_Deref ->
-                                                          IO (FunPtr Callback_t_Deref)
-foreign import ccall safe "dynamic" fromCallback_t_Deref :: FunPtr Callback_t_Deref ->
-                                                            Callback_t_Deref
+    deriving newtype Marshallable
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toCallback_t_Deref_base :: Callback_t_Deref ->
+                                                               IO (FunPtr Callback_t_Deref)
+toCallback_t_Deref :: Callback_t_Deref ->
+                      IO (FunPtr Callback_t_Deref)
+toCallback_t_Deref = fromMarshallableBaseType toCallback_t_Deref_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromCallback_t_Deref_base :: FunPtr Callback_t_Deref ->
+                                                                 Callback_t_Deref
+fromCallback_t_Deref :: FunPtr Callback_t_Deref -> Callback_t_Deref
+fromCallback_t_Deref = fromMarshallableBaseType fromCallback_t_Deref_base
 instance ToFunPtr Callback_t_Deref
     where toFunPtr = toCallback_t_Deref
 instance FromFunPtr Callback_t_Deref
@@ -683,7 +697,7 @@ newtype Callback_t
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Marshallable)
 instance TyEq ty (CFieldType Callback_t "un_Callback_t") =>
          HasField "un_Callback_t" (Ptr Callback_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Callback_t")
@@ -691,30 +705,63 @@ instance HasCField Callback_t "un_Callback_t"
     where type CFieldType Callback_t
                           "un_Callback_t" = FunPtr Callback_t_Deref
           offset# = \_ -> \_ -> 0
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesdistilled_lib_1_29c178c31334688f" some_fun_base :: Ptr A_type_t ->
+                                                                                                       HsBindgen.Runtime.Prelude.Word32 ->
+                                                                                                       Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                                       IO HsBindgen.Runtime.Prelude.Int32
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesdistilled_lib_1_29c178c31334688f" some_fun :: Ptr A_type_t ->
-                                                                                                  HsBindgen.Runtime.Prelude.Word32 ->
-                                                                                                  Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                                                  IO HsBindgen.Runtime.Prelude.Int32
+some_fun :: Ptr A_type_t ->
+            HsBindgen.Runtime.Prelude.Word32 ->
+            Ptr HsBindgen.Runtime.Prelude.Word8 ->
+            IO HsBindgen.Runtime.Prelude.Int32
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesdistilled_lib_1_efd27157959bd4b3" some_fun :: Ptr A_type_t ->
-                                                                                                  HsBindgen.Runtime.Prelude.Word32 ->
-                                                                                                  Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                                                  IO HsBindgen.Runtime.Prelude.Int32
-foreign import ccall safe "hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c" hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c :: IO (FunPtr (Ptr A_type_t ->
-                                                                                                                                                               HsBindgen.Runtime.Prelude.Word32 ->
-                                                                                                                                                               IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
-                                                                                                                                                               IO HsBindgen.Runtime.Prelude.Int32))
+some_fun = fromMarshallableBaseType some_fun_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesdistilled_lib_1_efd27157959bd4b3" some_fun_base :: Ptr A_type_t ->
+                                                                                                       HsBindgen.Runtime.Prelude.Word32 ->
+                                                                                                       Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                                       IO HsBindgen.Runtime.Prelude.Int32
+{-| __C declaration:__ @some_fun@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+some_fun :: Ptr A_type_t ->
+            HsBindgen.Runtime.Prelude.Word32 ->
+            Ptr HsBindgen.Runtime.Prelude.Word8 ->
+            IO HsBindgen.Runtime.Prelude.Int32
+{-| __C declaration:__ @some_fun@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+some_fun = fromMarshallableBaseType some_fun_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c" hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c_base :: IO (FunPtr (Ptr A_type_t ->
+                                                                                                                                                                    HsBindgen.Runtime.Prelude.Word32 ->
+                                                                                                                                                                    IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                                                                                                    IO HsBindgen.Runtime.Prelude.Int32))
+hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c :: IO (FunPtr (Ptr A_type_t ->
+                                                                         HsBindgen.Runtime.Prelude.Word32 ->
+                                                                         IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
+                                                                         IO HsBindgen.Runtime.Prelude.Int32))
+hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c = fromMarshallableBaseType hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c_base
 {-# NOINLINE some_fun_ptr #-}
 {-| __C declaration:__ @some_fun@
 
@@ -733,7 +780,11 @@ some_fun_ptr :: FunPtr (Ptr A_type_t ->
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 some_fun_ptr = unsafePerformIO hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c
-foreign import ccall safe "hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6" hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6 :: IO (Ptr Var_t)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6" hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6_base :: IO (Ptr Var_t)
+hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6 :: IO (Ptr Var_t)
+hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6 = fromMarshallableBaseType hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6_base
 {-# NOINLINE v_ptr #-}
 {-| __C declaration:__ @v@
 

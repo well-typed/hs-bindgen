@@ -57,6 +57,7 @@ library
     HsBindgen.Runtime.IncompleteArray
     HsBindgen.Runtime.LibC
     HsBindgen.Runtime.Marshal
+    HsBindgen.Runtime.Marshallable
     HsBindgen.Runtime.Prelude
     HsBindgen.Runtime.Ptr
     HsBindgen.Runtime.SizedByteArray

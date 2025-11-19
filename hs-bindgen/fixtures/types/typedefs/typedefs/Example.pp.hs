@@ -22,6 +22,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshallable
 import Data.Bits (FiniteBits)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
@@ -36,7 +37,7 @@ newtype Myint = Myint
   { un_Myint :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Myint) "un_Myint")
          ) => GHC.Records.HasField "un_Myint" (Ptr.Ptr Myint) (Ptr.Ptr ty) where
@@ -60,7 +61,7 @@ newtype Intptr = Intptr
   { un_Intptr :: Ptr.Ptr FC.CInt
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Intptr) "un_Intptr")
          ) => GHC.Records.HasField "un_Intptr" (Ptr.Ptr Intptr) (Ptr.Ptr ty) where
@@ -83,14 +84,35 @@ instance HsBindgen.Runtime.HasCField.HasCField Intptr "un_Intptr" where
 newtype Int2int = Int2int
   { un_Int2int :: FC.CInt -> IO FC.CInt
   }
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
-foreign import ccall safe "wrapper" toInt2int ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toInt2int_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Int2int
+    -> IO (Ptr.FunPtr Int2int)
+    )
+
+toInt2int ::
      Int2int
   -> IO (Ptr.FunPtr Int2int)
+toInt2int =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType toInt2int_base
 
-foreign import ccall safe "dynamic" fromInt2int ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromInt2int_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr Int2int
+    -> Int2int
+    )
+
+fromInt2int ::
      Ptr.FunPtr Int2int
   -> Int2int
+fromInt2int =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fromInt2int_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Int2int where
 
@@ -122,14 +144,35 @@ __exported by:__ @types\/typedefs\/typedefs.h@
 newtype FunctionPointer_Function_Deref = FunctionPointer_Function_Deref
   { un_FunctionPointer_Function_Deref :: IO ()
   }
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
-foreign import ccall safe "wrapper" toFunctionPointer_Function_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toFunctionPointer_Function_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FunctionPointer_Function_Deref
+    -> IO (Ptr.FunPtr FunctionPointer_Function_Deref)
+    )
+
+toFunctionPointer_Function_Deref ::
      FunctionPointer_Function_Deref
   -> IO (Ptr.FunPtr FunctionPointer_Function_Deref)
+toFunctionPointer_Function_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType toFunctionPointer_Function_Deref_base
 
-foreign import ccall safe "dynamic" fromFunctionPointer_Function_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromFunctionPointer_Function_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr FunctionPointer_Function_Deref
+    -> FunctionPointer_Function_Deref
+    )
+
+fromFunctionPointer_Function_Deref ::
      Ptr.FunPtr FunctionPointer_Function_Deref
   -> FunctionPointer_Function_Deref
+fromFunctionPointer_Function_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fromFunctionPointer_Function_Deref_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr FunctionPointer_Function_Deref where
 
@@ -162,7 +205,7 @@ newtype FunctionPointer_Function = FunctionPointer_Function
   { un_FunctionPointer_Function :: Ptr.FunPtr FunctionPointer_Function_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FunctionPointer_Function) "un_FunctionPointer_Function")
          ) => GHC.Records.HasField "un_FunctionPointer_Function" (Ptr.Ptr FunctionPointer_Function) (Ptr.Ptr ty) where
@@ -186,14 +229,35 @@ instance HsBindgen.Runtime.HasCField.HasCField FunctionPointer_Function "un_Func
 newtype NonFunctionPointer_Function = NonFunctionPointer_Function
   { un_NonFunctionPointer_Function :: FC.CInt -> IO FC.CInt
   }
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
-foreign import ccall safe "wrapper" toNonFunctionPointer_Function ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toNonFunctionPointer_Function_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       NonFunctionPointer_Function
+    -> IO (Ptr.FunPtr NonFunctionPointer_Function)
+    )
+
+toNonFunctionPointer_Function ::
      NonFunctionPointer_Function
   -> IO (Ptr.FunPtr NonFunctionPointer_Function)
+toNonFunctionPointer_Function =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType toNonFunctionPointer_Function_base
 
-foreign import ccall safe "dynamic" fromNonFunctionPointer_Function ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromNonFunctionPointer_Function_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr NonFunctionPointer_Function
+    -> NonFunctionPointer_Function
+    )
+
+fromNonFunctionPointer_Function ::
      Ptr.FunPtr NonFunctionPointer_Function
   -> NonFunctionPointer_Function
+fromNonFunctionPointer_Function =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fromNonFunctionPointer_Function_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr NonFunctionPointer_Function where
 
@@ -225,14 +289,35 @@ __exported by:__ @types\/typedefs\/typedefs.h@
 newtype F1_Deref = F1_Deref
   { un_F1_Deref :: IO ()
   }
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
-foreign import ccall safe "wrapper" toF1_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toF1_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       F1_Deref
+    -> IO (Ptr.FunPtr F1_Deref)
+    )
+
+toF1_Deref ::
      F1_Deref
   -> IO (Ptr.FunPtr F1_Deref)
+toF1_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType toF1_Deref_base
 
-foreign import ccall safe "dynamic" fromF1_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromF1_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr F1_Deref
+    -> F1_Deref
+    )
+
+fromF1_Deref ::
      Ptr.FunPtr F1_Deref
   -> F1_Deref
+fromF1_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fromF1_Deref_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr F1_Deref where
 
@@ -264,7 +349,7 @@ newtype F1 = F1
   { un_F1 :: Ptr.FunPtr F1_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F1) "un_F1")
          ) => GHC.Records.HasField "un_F1" (Ptr.Ptr F1) (Ptr.Ptr ty) where
@@ -287,14 +372,35 @@ instance HsBindgen.Runtime.HasCField.HasCField F1 "un_F1" where
 newtype G1 = G1
   { un_G1 :: IO ()
   }
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
-foreign import ccall safe "wrapper" toG1 ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toG1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       G1
+    -> IO (Ptr.FunPtr G1)
+    )
+
+toG1 ::
      G1
   -> IO (Ptr.FunPtr G1)
+toG1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType toG1_base
 
-foreign import ccall safe "dynamic" fromG1 ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromG1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr G1
+    -> G1
+    )
+
+fromG1 ::
      Ptr.FunPtr G1
   -> G1
+fromG1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fromG1_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr G1 where
 
@@ -326,7 +432,7 @@ newtype G2 = G2
   { un_G2 :: Ptr.FunPtr G1
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType G2) "un_G2")
          ) => GHC.Records.HasField "un_G2" (Ptr.Ptr G2) (Ptr.Ptr ty) where
@@ -349,14 +455,35 @@ instance HsBindgen.Runtime.HasCField.HasCField G2 "un_G2" where
 newtype H1 = H1
   { un_H1 :: IO ()
   }
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
-foreign import ccall safe "wrapper" toH1 ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toH1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       H1
+    -> IO (Ptr.FunPtr H1)
+    )
+
+toH1 ::
      H1
   -> IO (Ptr.FunPtr H1)
+toH1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType toH1_base
 
-foreign import ccall safe "dynamic" fromH1 ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromH1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr H1
+    -> H1
+    )
+
+fromH1 ::
      Ptr.FunPtr H1
   -> H1
+fromH1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fromH1_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr H1 where
 
@@ -387,6 +514,7 @@ instance HsBindgen.Runtime.HasCField.HasCField H1 "un_H1" where
 newtype H2 = H2
   { un_H2 :: H1
   }
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType H2) "un_H2")
          ) => GHC.Records.HasField "un_H2" (Ptr.Ptr H2) (Ptr.Ptr ty) where
@@ -410,7 +538,7 @@ newtype H3 = H3
   { un_H3 :: Ptr.FunPtr H2
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType H3) "un_H3")
          ) => GHC.Records.HasField "un_H3" (Ptr.Ptr H3) (Ptr.Ptr ty) where

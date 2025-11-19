@@ -22,6 +22,7 @@ newtype Int_t
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      Marshallable,
                       Bits,
                       Bounded,
                       Enum,
@@ -171,7 +172,11 @@ instance HasCField Y "y_o"
 instance TyEq ty (CFieldType Y "y_o") =>
          HasField "y_o" (Ptr Y) (Ptr ty)
     where getField = ptrToCField (Proxy @"y_o")
-foreign import ccall safe "hs_bindgen_test_declarationsredeclaration_10b125673bf2041b" hs_bindgen_test_declarationsredeclaration_10b125673bf2041b :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_declarationsredeclaration_10b125673bf2041b" hs_bindgen_test_declarationsredeclaration_10b125673bf2041b_base :: IO (Ptr CInt)
+hs_bindgen_test_declarationsredeclaration_10b125673bf2041b :: IO (Ptr CInt)
+hs_bindgen_test_declarationsredeclaration_10b125673bf2041b = fromMarshallableBaseType hs_bindgen_test_declarationsredeclaration_10b125673bf2041b_base
 {-# NOINLINE x_ptr #-}
 {-| __C declaration:__ @x@
 

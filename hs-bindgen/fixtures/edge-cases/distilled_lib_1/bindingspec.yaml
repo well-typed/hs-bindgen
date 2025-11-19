@@ -37,6 +37,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -46,6 +47,7 @@ hstypes:
 - hsname: A_typedef_enum_e
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show
@@ -58,6 +60,7 @@ hstypes:
 - hsname: Another_typedef_enum_e
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show
@@ -70,10 +73,13 @@ hstypes:
 - hsname: Callback_t
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Callback_t_Deref
+  instances:
+  - Marshallable
 - hsname: Var_t
   instances:
   - Bits
@@ -83,6 +89,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read

@@ -8,6 +8,7 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -27,8 +28,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660" hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660" hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660_base
 
 {-# NOINLINE global_counter_ptr #-}
 
@@ -50,8 +60,17 @@ global_counter_ptr :: Ptr.Ptr FC.CInt
 global_counter_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660
 
-foreign import ccall unsafe "hs_bindgen_test_documentationdoxygen_docs_0f1cef8c70bbdf2c" hs_bindgen_test_documentationdoxygen_docs_0f1cef8c70bbdf2c ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_documentationdoxygen_docs_0f1cef8c70bbdf2c" hs_bindgen_test_documentationdoxygen_docs_0f1cef8c70bbdf2c_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr (Ptr.Ptr FC.CChar))
+    )
+
+hs_bindgen_test_documentationdoxygen_docs_0f1cef8c70bbdf2c ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CChar))
+hs_bindgen_test_documentationdoxygen_docs_0f1cef8c70bbdf2c =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_documentationdoxygen_docs_0f1cef8c70bbdf2c_base
 
 {-# NOINLINE version_string_ptr #-}
 

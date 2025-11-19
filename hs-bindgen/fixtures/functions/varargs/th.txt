@@ -16,21 +16,45 @@
 -- {
 --   return &h;
 -- }
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsvarargs_a17c4f0272bbe42a" h_base :: IO Unit
 {-| __C declaration:__ @h@
 
     __defined at:__ @functions\/varargs.h:8:6@
 
     __exported by:__ @functions\/varargs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsvarargs_a17c4f0272bbe42a" h :: IO Unit
+h :: IO Unit
 {-| __C declaration:__ @h@
 
     __defined at:__ @functions\/varargs.h:8:6@
 
     __exported by:__ @functions\/varargs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsvarargs_ec9e8ecfd27bead3" h :: IO Unit
-foreign import ccall safe "hs_bindgen_test_functionsvarargs_6344539fe0b25338" hs_bindgen_test_functionsvarargs_6344539fe0b25338 :: IO (FunPtr (IO Unit))
+h = fromMarshallableBaseType h_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsvarargs_ec9e8ecfd27bead3" h_base :: IO Unit
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/varargs.h:8:6@
+
+    __exported by:__ @functions\/varargs.h@
+-}
+h :: IO Unit
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/varargs.h:8:6@
+
+    __exported by:__ @functions\/varargs.h@
+-}
+h = fromMarshallableBaseType h_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsvarargs_6344539fe0b25338" hs_bindgen_test_functionsvarargs_6344539fe0b25338_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_functionsvarargs_6344539fe0b25338 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_functionsvarargs_6344539fe0b25338 = fromMarshallableBaseType hs_bindgen_test_functionsvarargs_6344539fe0b25338_base
 {-# NOINLINE h_ptr #-}
 {-| __C declaration:__ @h@
 

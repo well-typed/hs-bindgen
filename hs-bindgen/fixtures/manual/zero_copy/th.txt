@@ -405,6 +405,7 @@ newtype MyInt
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      Marshallable,
                       Bits,
                       Bounded,
                       Enum,
@@ -609,21 +610,36 @@ instance TyEq ty (CFieldType Matrix "un_Matrix") =>
 instance HasCField Matrix "un_Matrix"
     where type CFieldType Matrix "un_Matrix" = ConstantArray 3 Triplet
           offset# = \_ -> \_ -> 0
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_manualzero_copy_a617e0cb5d95cd52" reverse_base :: Ptr Vector ->
+                                                                                             Ptr Vector ->
+                                                                                             IO CInt
 {-| __C declaration:__ @reverse@
 
     __defined at:__ @manual\/zero_copy.h:77:5@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-foreign import ccall safe "hs_bindgen_test_manualzero_copy_a617e0cb5d95cd52" reverse :: Ptr Vector ->
-                                                                                        Ptr Vector ->
-                                                                                        IO CInt
-{-| Pointer-based API for 'transpose'
+reverse :: Ptr Vector -> Ptr Vector -> IO CInt
+{-| __C declaration:__ @reverse@
 
+    __defined at:__ @manual\/zero_copy.h:77:5@
+
+    __exported by:__ @manual\/zero_copy.h@
 -}
-foreign import ccall safe "hs_bindgen_test_manualzero_copy_f3d0c8dd1a83b3d0" transpose_wrapper :: Ptr Triplet ->
-                                                                                                  Ptr Triplet ->
-                                                                                                  IO Unit
+reverse = fromMarshallableBaseType reverse_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_manualzero_copy_f3d0c8dd1a83b3d0" transpose_wrapper_base :: Ptr Triplet ->
+                                                                                                       Ptr Triplet ->
+                                                                                                       IO Unit
+{-| Pointer-based API for 'transpose'
+-}
+transpose_wrapper :: Ptr Triplet -> Ptr Triplet -> IO Unit
+{-| Pointer-based API for 'transpose'
+-}
+transpose_wrapper = fromMarshallableBaseType transpose_wrapper_base
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h:85:6@
@@ -638,21 +654,36 @@ transpose :: Matrix -> Ptr Triplet -> IO Unit
     __exported by:__ @manual\/zero_copy.h@
 -}
 transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper ptr_2 x_1)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_manualzero_copy_ca203e332b4afe73" reverse_base :: Ptr Vector ->
+                                                                                             Ptr Vector ->
+                                                                                             IO CInt
 {-| __C declaration:__ @reverse@
 
     __defined at:__ @manual\/zero_copy.h:77:5@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-foreign import ccall safe "hs_bindgen_test_manualzero_copy_ca203e332b4afe73" reverse :: Ptr Vector ->
-                                                                                        Ptr Vector ->
-                                                                                        IO CInt
-{-| Pointer-based API for 'transpose'
+reverse :: Ptr Vector -> Ptr Vector -> IO CInt
+{-| __C declaration:__ @reverse@
 
+    __defined at:__ @manual\/zero_copy.h:77:5@
+
+    __exported by:__ @manual\/zero_copy.h@
 -}
-foreign import ccall safe "hs_bindgen_test_manualzero_copy_d7aa7016f1b951b2" transpose_wrapper :: Ptr Triplet ->
-                                                                                                  Ptr Triplet ->
-                                                                                                  IO Unit
+reverse = fromMarshallableBaseType reverse_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_manualzero_copy_d7aa7016f1b951b2" transpose_wrapper_base :: Ptr Triplet ->
+                                                                                                       Ptr Triplet ->
+                                                                                                       IO Unit
+{-| Pointer-based API for 'transpose'
+-}
+transpose_wrapper :: Ptr Triplet -> Ptr Triplet -> IO Unit
+{-| Pointer-based API for 'transpose'
+-}
+transpose_wrapper = fromMarshallableBaseType transpose_wrapper_base
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h:85:6@
@@ -667,9 +698,14 @@ transpose :: Matrix -> Ptr Triplet -> IO Unit
     __exported by:__ @manual\/zero_copy.h@
 -}
 transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper ptr_2 x_1)
-foreign import ccall safe "hs_bindgen_test_manualzero_copy_c3d266ec84fe0678" hs_bindgen_test_manualzero_copy_c3d266ec84fe0678 :: IO (FunPtr (Ptr Vector ->
-                                                                                                                                             Ptr Vector ->
-                                                                                                                                             IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_manualzero_copy_c3d266ec84fe0678" hs_bindgen_test_manualzero_copy_c3d266ec84fe0678_base :: IO (FunPtr (Ptr Vector ->
+                                                                                                                                                  Ptr Vector ->
+                                                                                                                                                  IO CInt))
+hs_bindgen_test_manualzero_copy_c3d266ec84fe0678 :: IO (FunPtr (Ptr Vector ->
+                                                                Ptr Vector -> IO CInt))
+hs_bindgen_test_manualzero_copy_c3d266ec84fe0678 = fromMarshallableBaseType hs_bindgen_test_manualzero_copy_c3d266ec84fe0678_base
 {-# NOINLINE reverse_ptr #-}
 {-| __C declaration:__ @reverse@
 
@@ -685,9 +721,14 @@ reverse_ptr :: FunPtr (Ptr Vector -> Ptr Vector -> IO CInt)
     __exported by:__ @manual\/zero_copy.h@
 -}
 reverse_ptr = unsafePerformIO hs_bindgen_test_manualzero_copy_c3d266ec84fe0678
-foreign import ccall safe "hs_bindgen_test_manualzero_copy_fc1dad225b555299" hs_bindgen_test_manualzero_copy_fc1dad225b555299 :: IO (FunPtr (Matrix ->
-                                                                                                                                             Matrix ->
-                                                                                                                                             IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_manualzero_copy_fc1dad225b555299" hs_bindgen_test_manualzero_copy_fc1dad225b555299_base :: IO (FunPtr (Matrix ->
+                                                                                                                                                  Matrix ->
+                                                                                                                                                  IO Unit))
+hs_bindgen_test_manualzero_copy_fc1dad225b555299 :: IO (FunPtr (Matrix ->
+                                                                Matrix -> IO Unit))
+hs_bindgen_test_manualzero_copy_fc1dad225b555299 = fromMarshallableBaseType hs_bindgen_test_manualzero_copy_fc1dad225b555299_base
 {-# NOINLINE transpose_ptr #-}
 {-| __C declaration:__ @transpose@
 

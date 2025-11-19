@@ -6,7 +6,11 @@
 -- {
 --   return &b;
 -- }
-foreign import ccall safe "hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee" hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee :: IO (Ptr CBool)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee" hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee_base :: IO (Ptr CBool)
+hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee :: IO (Ptr CBool)
+hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee = fromMarshallableBaseType hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee_base
 {-# NOINLINE b_ptr #-}
 {-| __C declaration:__ @b@
 

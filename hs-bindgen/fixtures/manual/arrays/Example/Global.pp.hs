@@ -11,6 +11,7 @@ import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.IncompleteArray
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -55,8 +56,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_1693226264ba4aeb" hs_bindgen_test_manualarrays_1693226264ba4aeb ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_1693226264ba4aeb" hs_bindgen_test_manualarrays_1693226264ba4aeb_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt))
+    )
+
+hs_bindgen_test_manualarrays_1693226264ba4aeb ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt))
+hs_bindgen_test_manualarrays_1693226264ba4aeb =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualarrays_1693226264ba4aeb_base
 
 {-# NOINLINE arr1_ptr #-}
 
@@ -72,8 +82,17 @@ arr1_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt)
 arr1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_1693226264ba4aeb
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_dafcf99a73b93389" hs_bindgen_test_manualarrays_dafcf99a73b93389 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_dafcf99a73b93389" hs_bindgen_test_manualarrays_dafcf99a73b93389_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+    )
+
+hs_bindgen_test_manualarrays_dafcf99a73b93389 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+hs_bindgen_test_manualarrays_dafcf99a73b93389 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualarrays_dafcf99a73b93389_base
 
 {-# NOINLINE arr2_ptr #-}
 
@@ -89,8 +108,17 @@ arr2_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 arr2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_dafcf99a73b93389
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_ca1016acc3449dee" hs_bindgen_test_manualarrays_ca1016acc3449dee ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_ca1016acc3449dee" hs_bindgen_test_manualarrays_ca1016acc3449dee_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
+    )
+
+hs_bindgen_test_manualarrays_ca1016acc3449dee ::
      IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
+hs_bindgen_test_manualarrays_ca1016acc3449dee =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualarrays_ca1016acc3449dee_base
 
 {-# NOINLINE arr3_ptr #-}
 
@@ -106,8 +134,17 @@ arr3_ptr :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
 arr3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_ca1016acc3449dee
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_76857c9492b9374d" hs_bindgen_test_manualarrays_76857c9492b9374d ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_76857c9492b9374d" hs_bindgen_test_manualarrays_76857c9492b9374d_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+    )
+
+hs_bindgen_test_manualarrays_76857c9492b9374d ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+hs_bindgen_test_manualarrays_76857c9492b9374d =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualarrays_76857c9492b9374d_base
 
 {-# NOINLINE sudoku_ptr #-}
 
@@ -123,8 +160,17 @@ sudoku_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBin
 sudoku_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_76857c9492b9374d
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_76f4df4c63822352" hs_bindgen_test_manualarrays_76f4df4c63822352 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_76f4df4c63822352" hs_bindgen_test_manualarrays_76f4df4c63822352_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+    )
+
+hs_bindgen_test_manualarrays_76f4df4c63822352 ::
      IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+hs_bindgen_test_manualarrays_76f4df4c63822352 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualarrays_76f4df4c63822352_base
 
 {-# NOINLINE triplets_ptr #-}
 
@@ -140,8 +186,17 @@ triplets_ptr :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsB
 triplets_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_76f4df4c63822352
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_f5de5a56e036b125" hs_bindgen_test_manualarrays_f5de5a56e036b125 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_f5de5a56e036b125" hs_bindgen_test_manualarrays_f5de5a56e036b125_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr Triplet_ptrs)
+    )
+
+hs_bindgen_test_manualarrays_f5de5a56e036b125 ::
      IO (Ptr.Ptr Triplet_ptrs)
+hs_bindgen_test_manualarrays_f5de5a56e036b125 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualarrays_f5de5a56e036b125_base
 
 {-# NOINLINE global_triplet_ptrs_ptr #-}
 

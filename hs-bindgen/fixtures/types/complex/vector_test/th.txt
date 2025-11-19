@@ -66,27 +66,52 @@ instance HasCField Vector "vector_y"
 instance TyEq ty (CFieldType Vector "vector_y") =>
          HasField "vector_y" (Ptr Vector) (Ptr ty)
     where getField = ptrToCField (Proxy @"vector_y")
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typescomplexvector_test_c8cd49ec7dbcac25" new_vector_base :: CDouble ->
+                                                                                                        CDouble ->
+                                                                                                        IO (Ptr Vector)
 {-| __C declaration:__ @new_vector@
 
     __defined at:__ @types\/complex\/vector_test.h:6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexvector_test_c8cd49ec7dbcac25" new_vector :: CDouble ->
-                                                                                                   CDouble ->
-                                                                                                   IO (Ptr Vector)
+new_vector :: CDouble -> CDouble -> IO (Ptr Vector)
 {-| __C declaration:__ @new_vector@
 
     __defined at:__ @types\/complex\/vector_test.h:6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexvector_test_30a7381111c0131a" new_vector :: CDouble ->
-                                                                                                   CDouble ->
-                                                                                                   IO (Ptr Vector)
-foreign import ccall safe "hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998" hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998 :: IO (FunPtr (CDouble ->
-                                                                                                                                                             CDouble ->
-                                                                                                                                                             IO (Ptr Vector)))
+new_vector = fromMarshallableBaseType new_vector_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typescomplexvector_test_30a7381111c0131a" new_vector_base :: CDouble ->
+                                                                                                        CDouble ->
+                                                                                                        IO (Ptr Vector)
+{-| __C declaration:__ @new_vector@
+
+    __defined at:__ @types\/complex\/vector_test.h:6:9@
+
+    __exported by:__ @types\/complex\/vector_test.h@
+-}
+new_vector :: CDouble -> CDouble -> IO (Ptr Vector)
+{-| __C declaration:__ @new_vector@
+
+    __defined at:__ @types\/complex\/vector_test.h:6:9@
+
+    __exported by:__ @types\/complex\/vector_test.h@
+-}
+new_vector = fromMarshallableBaseType new_vector_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998" hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998_base :: IO (FunPtr (CDouble ->
+                                                                                                                                                                  CDouble ->
+                                                                                                                                                                  IO (Ptr Vector)))
+hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998 :: IO (FunPtr (CDouble ->
+                                                                        CDouble -> IO (Ptr Vector)))
+hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998 = fromMarshallableBaseType hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998_base
 {-# NOINLINE new_vector_ptr #-}
 {-| __C declaration:__ @new_vector@
 

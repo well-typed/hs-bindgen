@@ -7,6 +7,7 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -141,14 +142,30 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_8de545512324157b" __f1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
+
 {-| __C declaration:__ @__f1@
 
     __defined at:__ @functions\/fun_attributes.h:16:13@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_8de545512324157b" __f1 ::
+__f1 ::
      IO ()
+__f1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType __f1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_a2f84d2570ef3892" f1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @f1@
 
@@ -156,8 +173,19 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_8de5455123241
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_a2f84d2570ef3892" f1 ::
+f1 ::
      IO ()
+f1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType f1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_cefda6b95395d829" my_memalign_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Size_t
+    -> Size_t
+    -> IO (Ptr.Ptr Void)
+    )
 
 {-| __C declaration:__ @my_memalign@
 
@@ -165,10 +193,21 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_a2f84d2570ef3
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_cefda6b95395d829" my_memalign ::
+my_memalign ::
      Size_t
   -> Size_t
   -> IO (Ptr.Ptr Void)
+my_memalign =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType my_memalign_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_e25f06c3ebec2536" my_calloc_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Size_t
+    -> Size_t
+    -> IO (Ptr.Ptr Void)
+    )
 
 {-| __C declaration:__ @my_calloc@
 
@@ -176,10 +215,21 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_cefda6b95395d
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_e25f06c3ebec2536" my_calloc ::
+my_calloc ::
      Size_t
   -> Size_t
   -> IO (Ptr.Ptr Void)
+my_calloc =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType my_calloc_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_51fa664668350a00" my_realloc_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Void
+    -> Size_t
+    -> IO (Ptr.Ptr Void)
+    )
 
 {-| __C declaration:__ @my_realloc@
 
@@ -187,10 +237,20 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_e25f06c3ebec2
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_51fa664668350a00" my_realloc ::
+my_realloc ::
      Ptr.Ptr Void
   -> Size_t
   -> IO (Ptr.Ptr Void)
+my_realloc =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType my_realloc_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_93a5d6b7d4e02c33" my_alloc1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Size_t
+    -> IO (Ptr.Ptr Void)
+    )
 
 {-| __C declaration:__ @my_alloc1@
 
@@ -198,9 +258,19 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_51fa664668350
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_93a5d6b7d4e02c33" my_alloc1 ::
+my_alloc1 ::
      Size_t
   -> IO (Ptr.Ptr Void)
+my_alloc1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType my_alloc1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_c948fd867be322fa" my_alloc2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Size_t
+    -> IO (Ptr.Ptr Void)
+    )
 
 {-| __C declaration:__ @my_alloc2@
 
@@ -208,9 +278,19 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_93a5d6b7d4e02
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_c948fd867be322fa" my_alloc2 ::
+my_alloc2 ::
      Size_t
   -> IO (Ptr.Ptr Void)
+my_alloc2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType my_alloc2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_55e5eb89e54abf83" square_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CInt
+    -> FC.CInt
+    )
 
 {-| __C declaration:__ @square@
 
@@ -218,9 +298,18 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_c948fd867be32
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_55e5eb89e54abf83" square ::
+square ::
      FC.CInt
   -> FC.CInt
+square =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType square_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_e9647b9c99c68776" old_fn_deprecated_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO FC.CInt
+    )
 
 {-| __C declaration:__ @old_fn_deprecated@
 
@@ -228,8 +317,19 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_55e5eb89e54ab
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_e9647b9c99c68776" old_fn_deprecated ::
+old_fn_deprecated ::
      IO FC.CInt
+old_fn_deprecated =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType old_fn_deprecated_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_023f7813e909f518" my_dgettext_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr FC.CChar
+    -> Ptr.Ptr FC.CChar
+    -> IO (Ptr.Ptr FC.CChar)
+    )
 
 {-| __C declaration:__ @my_dgettext@
 
@@ -237,7 +337,7 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_e9647b9c99c68
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_023f7813e909f518" my_dgettext ::
+my_dgettext ::
      Ptr.Ptr FC.CChar
      {- ^ __C declaration:__ @my_domain@
      -}
@@ -245,6 +345,17 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_023f7813e909f
      {- ^ __C declaration:__ @my_format@
      -}
   -> IO (Ptr.Ptr FC.CChar)
+my_dgettext =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType my_dgettext_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_e39bbd59f1c96c14" fdopen_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CInt
+    -> Ptr.Ptr FC.CChar
+    -> IO (Ptr.Ptr FILE)
+    )
 
 {-| __C declaration:__ @fdopen@
 
@@ -252,10 +363,19 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_023f7813e909f
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_e39bbd59f1c96c14" fdopen ::
+fdopen ::
      FC.CInt
   -> Ptr.Ptr FC.CChar
   -> IO (Ptr.Ptr FILE)
+fdopen =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fdopen_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_1d043de05a457e90" f2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @f2@
 
@@ -263,8 +383,20 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_e39bbd59f1c96
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_1d043de05a457e90" f2 ::
+f2 ::
      IO ()
+f2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType f2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_4b3bfd2d72a2db5d" my_memcpy_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Void
+    -> Ptr.Ptr Void
+    -> Size_t
+    -> IO (Ptr.Ptr Void)
+    )
 
 {-| __C declaration:__ @my_memcpy@
 
@@ -272,7 +404,7 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_1d043de05a457
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_4b3bfd2d72a2db5d" my_memcpy ::
+my_memcpy ::
      Ptr.Ptr Void
      {- ^ __C declaration:__ @dest@
      -}
@@ -283,6 +415,15 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_4b3bfd2d72a2d
      {- ^ __C declaration:__ @len@
      -}
   -> IO (Ptr.Ptr Void)
+my_memcpy =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType my_memcpy_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_348fe595d62421cf" fatal_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @fatal@
 
@@ -290,8 +431,18 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_4b3bfd2d72a2d
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_348fe595d62421cf" fatal ::
+fatal ::
      IO ()
+fatal =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fatal_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_e30754e2591f701a" hash_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr FC.CChar
+    -> IO FC.CInt
+    )
 
 {-|
 
@@ -303,9 +454,19 @@ __defined at:__ @functions\/fun_attributes.h:110:5@
 
 __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_e30754e2591f701a" hash ::
+hash ::
      Ptr.Ptr FC.CChar
   -> IO FC.CInt
+hash =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hash_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_f6f68a022a15937a" mymalloc_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Size_t
+    -> IO (Ptr.Ptr Void)
+    )
 
 {-| __C declaration:__ @mymalloc@
 
@@ -313,11 +474,20 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_e30754e2591f7
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_f6f68a022a15937a" mymalloc ::
+mymalloc ::
      Size_t
      {- ^ __C declaration:__ @len@
      -}
   -> IO (Ptr.Ptr Void)
+mymalloc =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType mymalloc_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_d1bf41da7ab64db1" foobar_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @foobar@
 
@@ -325,8 +495,17 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_f6f68a022a159
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_d1bf41da7ab64db1" foobar ::
+foobar ::
      IO ()
+foobar =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType foobar_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_00405e83bcb9b271" core2_func_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO FC.CInt
+    )
 
 {-| __C declaration:__ @core2_func@
 
@@ -334,8 +513,17 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_d1bf41da7ab64
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_00405e83bcb9b271" core2_func ::
+core2_func ::
      IO FC.CInt
+core2_func =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType core2_func_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_06e7d2f8bcf43684" sse3_func_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO FC.CInt
+    )
 
 {-| __C declaration:__ @sse3_func@
 
@@ -343,8 +531,17 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_00405e83bcb9b
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_06e7d2f8bcf43684" sse3_func ::
+sse3_func ::
      IO FC.CInt
+sse3_func =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType sse3_func_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_e23eff1955ebb459" f3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @f3@
 
@@ -352,8 +549,17 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_06e7d2f8bcf43
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_e23eff1955ebb459" f3 ::
+f3 ::
      IO ()
+f3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType f3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_ef0eea5f61ef9228" fn_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO FC.CInt
+    )
 
 {-| __C declaration:__ @fn@
 
@@ -361,8 +567,17 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_e23eff1955ebb
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_ef0eea5f61ef9228" fn ::
+fn ::
      IO FC.CInt
+fn =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fn_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_b007466f7ff1cf28" y_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO FC.CInt
+    )
 
 {-| __C declaration:__ @y@
 
@@ -370,8 +585,17 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_ef0eea5f61ef9
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_b007466f7ff1cf28" y ::
+y ::
      IO FC.CInt
+y =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType y_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_8c9825e1b20a7ea1" x1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO FC.CInt
+    )
 
 {-| __C declaration:__ @x1@
 
@@ -379,8 +603,17 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_b007466f7ff1c
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_8c9825e1b20a7ea1" x1 ::
+x1 ::
      IO FC.CInt
+x1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType x1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_c80d61b7727dab77" x2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO FC.CInt
+    )
 
 {-| __C declaration:__ @x2@
 
@@ -388,5 +621,7 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_8c9825e1b20a7
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_c80d61b7727dab77" x2 ::
+x2 ::
      IO FC.CInt
+x2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType x2_base

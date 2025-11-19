@@ -7,6 +7,7 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -20,8 +21,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_functionsvarargs_6344539fe0b25338" hs_bindgen_test_functionsvarargs_6344539fe0b25338 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsvarargs_6344539fe0b25338" hs_bindgen_test_functionsvarargs_6344539fe0b25338_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO ()))
+    )
+
+hs_bindgen_test_functionsvarargs_6344539fe0b25338 ::
      IO (Ptr.FunPtr (IO ()))
+hs_bindgen_test_functionsvarargs_6344539fe0b25338 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsvarargs_6344539fe0b25338_base
 
 {-# NOINLINE h_ptr #-}
 

@@ -128,14 +128,15 @@ data Newtype = Newtype {
   deriving stock (Generic, Show)
 
 data ForeignImportDecl = ForeignImportDecl
-    { foreignImportName       :: Hs.Name Hs.NsVar
-    , foreignImportParameters :: [FunctionParameter]
-    , foreignImportResultType :: ResultType HsType
-    , foreignImportOrigName   :: Text
-    , foreignImportCallConv   :: CallConv
-    , foreignImportOrigin     :: Origin.ForeignImport
-    , foreignImportComment    :: Maybe HsDoc.Comment
-    , foreignImportSafety     :: SHs.Safety
+    { foreignImportName         :: Hs.Name Hs.NsVar
+    , foreignImportMarshallable :: Bool
+    , foreignImportParameters   :: [FunctionParameter]
+    , foreignImportResultType   :: ResultType HsType
+    , foreignImportOrigName     :: Text
+    , foreignImportCallConv     :: CallConv
+    , foreignImportOrigin       :: Origin.ForeignImport
+    , foreignImportComment      :: Maybe HsDoc.Comment
+    , foreignImportSafety       :: SHs.Safety
     }
   deriving stock (Generic, Show)
 

@@ -145,6 +145,7 @@ data TypeClass =
   | ReadRaw
   | WriteRaw
   | Storable
+  | Marshallable
   deriving stock (Eq, Generic, Read, Show)
 
 instance Aeson.FromJSON TypeClass where

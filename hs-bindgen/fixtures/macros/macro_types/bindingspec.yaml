@@ -34,6 +34,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -49,6 +50,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -61,6 +63,7 @@ hstypes:
   - Eq
   - Floating
   - Fractional
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -72,12 +75,14 @@ hstypes:
 - hsname: PtrInt
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: PtrPtrChar
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
@@ -87,6 +92,7 @@ hstypes:
   - Eq
   - Floating
   - Fractional
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -104,6 +110,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read

@@ -7,6 +7,7 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -145,13 +146,22 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_a0a59181c714c131" readFileWithProcessor_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr (FC.CInt -> IO ())
+    -> FC.CInt
+    -> IO FC.CInt
+    )
+
 {-| __C declaration:__ @readFileWithProcessor@
 
     __defined at:__ @functions\/callbacks.h:4:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_a0a59181c714c131" readFileWithProcessor ::
+readFileWithProcessor ::
      Ptr.FunPtr (FC.CInt -> IO ())
      {- ^ __C declaration:__ @processLine@
      -}
@@ -159,6 +169,17 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_a0a59181c714c131" 
      {- ^ __C declaration:__ @fileId@
      -}
   -> IO FC.CInt
+readFileWithProcessor =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType readFileWithProcessor_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_d59e6698796971ea" watchTemperature_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr (FC.CInt -> IO ())
+    -> FC.CInt
+    -> IO ()
+    )
 
 {-| __C declaration:__ @watchTemperature@
 
@@ -166,7 +187,7 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_a0a59181c714c131" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_d59e6698796971ea" watchTemperature ::
+watchTemperature ::
      Ptr.FunPtr (FC.CInt -> IO ())
      {- ^ __C declaration:__ @onTempChange@
      -}
@@ -174,6 +195,16 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_d59e6698796971ea" 
      {- ^ __C declaration:__ @sensorId@
      -}
   -> IO ()
+watchTemperature =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType watchTemperature_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_c9fb8fdc3d0d3978" onFileOpened_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FileOpenedNotification
+    -> IO ()
+    )
 
 {-| __C declaration:__ @onFileOpened@
 
@@ -181,11 +212,21 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_d59e6698796971ea" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_c9fb8fdc3d0d3978" onFileOpened ::
+onFileOpened ::
      FileOpenedNotification
      {- ^ __C declaration:__ @notify@
      -}
   -> IO ()
+onFileOpened =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType onFileOpened_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_7921ad1b219190e4" onProgressChanged_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       ProgressUpdate
+    -> IO ()
+    )
 
 {-| __C declaration:__ @onProgressChanged@
 
@@ -193,11 +234,22 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_c9fb8fdc3d0d3978" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_7921ad1b219190e4" onProgressChanged ::
+onProgressChanged ::
      ProgressUpdate
      {- ^ __C declaration:__ @update@
      -}
   -> IO ()
+onProgressChanged =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType onProgressChanged_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_ae19d658f098584a" validateInput_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       DataValidator
+    -> FC.CInt
+    -> IO FC.CInt
+    )
 
 {-| __C declaration:__ @validateInput@
 
@@ -205,7 +257,7 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_7921ad1b219190e4" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_ae19d658f098584a" validateInput ::
+validateInput ::
      DataValidator
      {- ^ __C declaration:__ @validator@
      -}
@@ -213,6 +265,16 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_ae19d658f098584a" 
      {- ^ __C declaration:__ @rawValue@
      -}
   -> IO FC.CInt
+validateInput =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType validateInput_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_d2fdffe85523b3ef" onNewMeasurement_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       MeasurementReceived
+    -> IO ()
+    )
 
 {-| __C declaration:__ @onNewMeasurement@
 
@@ -220,11 +282,21 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_ae19d658f098584a" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_d2fdffe85523b3ef" onNewMeasurement ::
+onNewMeasurement ::
      MeasurementReceived
      {- ^ __C declaration:__ @handler@
      -}
   -> IO ()
+onNewMeasurement =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType onNewMeasurement_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_c5b555bbc07b808d" onNewMeasurement2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       MeasurementReceived2
+    -> IO ()
+    )
 
 {-| __C declaration:__ @onNewMeasurement2@
 
@@ -232,11 +304,21 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_d2fdffe85523b3ef" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_c5b555bbc07b808d" onNewMeasurement2 ::
+onNewMeasurement2 ::
      MeasurementReceived2
      {- ^ __C declaration:__ @handler@
      -}
   -> IO ()
+onNewMeasurement2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType onNewMeasurement2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_65927c77229ad893" onBufferReady_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       SampleBufferFull
+    -> IO ()
+    )
 
 {-| __C declaration:__ @onBufferReady@
 
@@ -244,11 +326,22 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_c5b555bbc07b808d" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_65927c77229ad893" onBufferReady ::
+onBufferReady ::
      SampleBufferFull
      {- ^ __C declaration:__ @handler@
      -}
   -> IO ()
+onBufferReady =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType onBufferReady_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_0b6a9249f49b986f" transformMeasurement_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Measurement
+    -> Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())
+    -> IO ()
+    )
 
 {-| __C declaration:__ @transformMeasurement@
 
@@ -256,7 +349,7 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_65927c77229ad893" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_0b6a9249f49b986f" transformMeasurement ::
+transformMeasurement ::
      Ptr.Ptr Measurement
      {- ^ __C declaration:__ @data'@
      -}
@@ -264,6 +357,16 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_0b6a9249f49b986f" 
      {- ^ __C declaration:__ @transformer@
      -}
   -> IO ()
+transformMeasurement =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType transformMeasurement_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_2c3e0e84ae9cde51" processWithCallbacks_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())
+    -> IO ()
+    )
 
 {-| __C declaration:__ @processWithCallbacks@
 
@@ -271,11 +374,21 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_0b6a9249f49b986f" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_2c3e0e84ae9cde51" processWithCallbacks ::
+processWithCallbacks ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())
      {- ^ __C declaration:__ @handler@
      -}
   -> IO ()
+processWithCallbacks =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType processWithCallbacks_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_0b172585709f9d48" registerHandler_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr MeasurementHandler
+    -> IO ()
+    )
 
 {-| __C declaration:__ @registerHandler@
 
@@ -283,11 +396,22 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_2c3e0e84ae9cde51" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_0b172585709f9d48" registerHandler ::
+registerHandler ::
      Ptr.Ptr MeasurementHandler
      {- ^ __C declaration:__ @handler@
      -}
   -> IO ()
+registerHandler =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType registerHandler_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_25a56dfc7b259e7d" executePipeline_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Measurement
+    -> Ptr.Ptr DataPipeline
+    -> IO ()
+    )
 
 {-| __C declaration:__ @executePipeline@
 
@@ -295,7 +419,7 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_0b172585709f9d48" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_25a56dfc7b259e7d" executePipeline ::
+executePipeline ::
      Ptr.Ptr Measurement
      {- ^ __C declaration:__ @data'@
      -}
@@ -303,6 +427,17 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_25a56dfc7b259e7d" 
      {- ^ __C declaration:__ @pipeline@
      -}
   -> IO ()
+executePipeline =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType executePipeline_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_5908d37641d70953" runProcessor_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Measurement
+    -> Ptr.Ptr Processor
+    -> IO ()
+    )
 
 {-| __C declaration:__ @runProcessor@
 
@@ -310,7 +445,7 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_25a56dfc7b259e7d" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_5908d37641d70953" runProcessor ::
+runProcessor ::
      Ptr.Ptr Measurement
      {- ^ __C declaration:__ @data'@
      -}
@@ -318,6 +453,17 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_5908d37641d70953" 
      {- ^ __C declaration:__ @processor@
      -}
   -> IO ()
+runProcessor =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType runProcessor_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_f3c99b4af7808e7f" processMeasurementWithValidation_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Measurement
+    -> Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())
+    -> IO ()
+    )
 
 {-| __C declaration:__ @processMeasurementWithValidation@
 
@@ -325,7 +471,7 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_5908d37641d70953" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_f3c99b4af7808e7f" processMeasurementWithValidation ::
+processMeasurementWithValidation ::
      Ptr.Ptr Measurement
      {- ^ __C declaration:__ @data'@
      -}
@@ -333,6 +479,16 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_f3c99b4af7808e7f" 
      {- ^ __C declaration:__ @processor@
      -}
   -> IO ()
+processMeasurementWithValidation =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType processMeasurementWithValidation_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_fcce70013c76ce8b" f_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr (Foo -> IO ())
+    -> IO ()
+    )
 
 {-| __C declaration:__ @f@
 
@@ -340,11 +496,21 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_f3c99b4af7808e7f" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_fcce70013c76ce8b" f ::
+f ::
      Ptr.FunPtr (Foo -> IO ())
      {- ^ __C declaration:__ @callback@
      -}
   -> IO ()
+f =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType f_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_1d043de05a457e90" f2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr (Foo2 -> IO ())
+    -> IO ()
+    )
 
 {-| __C declaration:__ @f2@
 
@@ -352,8 +518,10 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_fcce70013c76ce8b" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_1d043de05a457e90" f2 ::
+f2 ::
      Ptr.FunPtr (Foo2 -> IO ())
      {- ^ __C declaration:__ @handler@
      -}
   -> IO ()
+f2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType f2_base

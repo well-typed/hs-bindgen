@@ -31,7 +31,11 @@
 -- {
 --   return &global_complex_char;
 -- }
-foreign import ccall safe "hs_bindgen_test_typescomplexcomplex_non_floa_1a47f4ebfee55a62" hs_bindgen_test_typescomplexcomplex_non_floa_1a47f4ebfee55a62 :: IO (Ptr (Complex CUShort))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typescomplexcomplex_non_floa_1a47f4ebfee55a62" hs_bindgen_test_typescomplexcomplex_non_floa_1a47f4ebfee55a62_base :: IO (Ptr (Complex CUShort))
+hs_bindgen_test_typescomplexcomplex_non_floa_1a47f4ebfee55a62 :: IO (Ptr (Complex CUShort))
+hs_bindgen_test_typescomplexcomplex_non_floa_1a47f4ebfee55a62 = fromMarshallableBaseType hs_bindgen_test_typescomplexcomplex_non_floa_1a47f4ebfee55a62_base
 {-# NOINLINE global_complex_unsigned_short_ptr #-}
 {-| __C declaration:__ @global_complex_unsigned_short@
 
@@ -47,7 +51,11 @@ global_complex_unsigned_short_ptr :: Ptr (Complex CUShort)
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
 global_complex_unsigned_short_ptr = unsafePerformIO hs_bindgen_test_typescomplexcomplex_non_floa_1a47f4ebfee55a62
-foreign import ccall safe "hs_bindgen_test_typescomplexcomplex_non_floa_d56d4f7328166c91" hs_bindgen_test_typescomplexcomplex_non_floa_d56d4f7328166c91 :: IO (Ptr (Complex CShort))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typescomplexcomplex_non_floa_d56d4f7328166c91" hs_bindgen_test_typescomplexcomplex_non_floa_d56d4f7328166c91_base :: IO (Ptr (Complex CShort))
+hs_bindgen_test_typescomplexcomplex_non_floa_d56d4f7328166c91 :: IO (Ptr (Complex CShort))
+hs_bindgen_test_typescomplexcomplex_non_floa_d56d4f7328166c91 = fromMarshallableBaseType hs_bindgen_test_typescomplexcomplex_non_floa_d56d4f7328166c91_base
 {-# NOINLINE global_complex_short_ptr #-}
 {-| __C declaration:__ @global_complex_short@
 
@@ -63,7 +71,11 @@ global_complex_short_ptr :: Ptr (Complex CShort)
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
 global_complex_short_ptr = unsafePerformIO hs_bindgen_test_typescomplexcomplex_non_floa_d56d4f7328166c91
-foreign import ccall safe "hs_bindgen_test_typescomplexcomplex_non_floa_b596fcc6ded5636c" hs_bindgen_test_typescomplexcomplex_non_floa_b596fcc6ded5636c :: IO (Ptr (Complex CUInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typescomplexcomplex_non_floa_b596fcc6ded5636c" hs_bindgen_test_typescomplexcomplex_non_floa_b596fcc6ded5636c_base :: IO (Ptr (Complex CUInt))
+hs_bindgen_test_typescomplexcomplex_non_floa_b596fcc6ded5636c :: IO (Ptr (Complex CUInt))
+hs_bindgen_test_typescomplexcomplex_non_floa_b596fcc6ded5636c = fromMarshallableBaseType hs_bindgen_test_typescomplexcomplex_non_floa_b596fcc6ded5636c_base
 {-# NOINLINE global_complex_unsigned_int_ptr #-}
 {-| __C declaration:__ @global_complex_unsigned_int@
 
@@ -79,7 +91,11 @@ global_complex_unsigned_int_ptr :: Ptr (Complex CUInt)
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
 global_complex_unsigned_int_ptr = unsafePerformIO hs_bindgen_test_typescomplexcomplex_non_floa_b596fcc6ded5636c
-foreign import ccall safe "hs_bindgen_test_typescomplexcomplex_non_floa_9f8a73e0d4ba6969" hs_bindgen_test_typescomplexcomplex_non_floa_9f8a73e0d4ba6969 :: IO (Ptr (Complex CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typescomplexcomplex_non_floa_9f8a73e0d4ba6969" hs_bindgen_test_typescomplexcomplex_non_floa_9f8a73e0d4ba6969_base :: IO (Ptr (Complex CInt))
+hs_bindgen_test_typescomplexcomplex_non_floa_9f8a73e0d4ba6969 :: IO (Ptr (Complex CInt))
+hs_bindgen_test_typescomplexcomplex_non_floa_9f8a73e0d4ba6969 = fromMarshallableBaseType hs_bindgen_test_typescomplexcomplex_non_floa_9f8a73e0d4ba6969_base
 {-# NOINLINE global_complex_int_ptr #-}
 {-| __C declaration:__ @global_complex_int@
 
@@ -95,7 +111,11 @@ global_complex_int_ptr :: Ptr (Complex CInt)
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
 global_complex_int_ptr = unsafePerformIO hs_bindgen_test_typescomplexcomplex_non_floa_9f8a73e0d4ba6969
-foreign import ccall safe "hs_bindgen_test_typescomplexcomplex_non_floa_4727b3aff4118d69" hs_bindgen_test_typescomplexcomplex_non_floa_4727b3aff4118d69 :: IO (Ptr (Complex CChar))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typescomplexcomplex_non_floa_4727b3aff4118d69" hs_bindgen_test_typescomplexcomplex_non_floa_4727b3aff4118d69_base :: IO (Ptr (Complex CChar))
+hs_bindgen_test_typescomplexcomplex_non_floa_4727b3aff4118d69 :: IO (Ptr (Complex CChar))
+hs_bindgen_test_typescomplexcomplex_non_floa_4727b3aff4118d69 = fromMarshallableBaseType hs_bindgen_test_typescomplexcomplex_non_floa_4727b3aff4118d69_base
 {-# NOINLINE global_complex_char_ptr #-}
 {-| __C declaration:__ @global_complex_char@
 

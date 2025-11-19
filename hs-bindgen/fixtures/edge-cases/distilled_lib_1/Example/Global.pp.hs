@@ -7,6 +7,7 @@ module Example.Global where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -21,8 +22,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6" hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6" hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr Var_t)
+    )
+
+hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6 ::
      IO (Ptr.Ptr Var_t)
+hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6_base
 
 {-# NOINLINE v_ptr #-}
 

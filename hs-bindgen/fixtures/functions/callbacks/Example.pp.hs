@@ -30,6 +30,7 @@ import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Text.Read
 import Data.Bits (FiniteBits)
@@ -45,14 +46,35 @@ __exported by:__ @functions\/callbacks.h@
 newtype FileOpenedNotification_Deref = FileOpenedNotification_Deref
   { un_FileOpenedNotification_Deref :: IO ()
   }
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
-foreign import ccall safe "wrapper" toFileOpenedNotification_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toFileOpenedNotification_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FileOpenedNotification_Deref
+    -> IO (Ptr.FunPtr FileOpenedNotification_Deref)
+    )
+
+toFileOpenedNotification_Deref ::
      FileOpenedNotification_Deref
   -> IO (Ptr.FunPtr FileOpenedNotification_Deref)
+toFileOpenedNotification_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType toFileOpenedNotification_Deref_base
 
-foreign import ccall safe "dynamic" fromFileOpenedNotification_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromFileOpenedNotification_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr FileOpenedNotification_Deref
+    -> FileOpenedNotification_Deref
+    )
+
+fromFileOpenedNotification_Deref ::
      Ptr.FunPtr FileOpenedNotification_Deref
   -> FileOpenedNotification_Deref
+fromFileOpenedNotification_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fromFileOpenedNotification_Deref_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr FileOpenedNotification_Deref where
 
@@ -85,7 +107,7 @@ newtype FileOpenedNotification = FileOpenedNotification
   { un_FileOpenedNotification :: Ptr.FunPtr FileOpenedNotification_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOpenedNotification) "un_FileOpenedNotification")
          ) => GHC.Records.HasField "un_FileOpenedNotification" (Ptr.Ptr FileOpenedNotification) (Ptr.Ptr ty) where
@@ -109,14 +131,35 @@ __exported by:__ @functions\/callbacks.h@
 newtype ProgressUpdate_Deref = ProgressUpdate_Deref
   { un_ProgressUpdate_Deref :: FC.CInt -> IO ()
   }
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
-foreign import ccall safe "wrapper" toProgressUpdate_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toProgressUpdate_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       ProgressUpdate_Deref
+    -> IO (Ptr.FunPtr ProgressUpdate_Deref)
+    )
+
+toProgressUpdate_Deref ::
      ProgressUpdate_Deref
   -> IO (Ptr.FunPtr ProgressUpdate_Deref)
+toProgressUpdate_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType toProgressUpdate_Deref_base
 
-foreign import ccall safe "dynamic" fromProgressUpdate_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromProgressUpdate_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr ProgressUpdate_Deref
+    -> ProgressUpdate_Deref
+    )
+
+fromProgressUpdate_Deref ::
      Ptr.FunPtr ProgressUpdate_Deref
   -> ProgressUpdate_Deref
+fromProgressUpdate_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fromProgressUpdate_Deref_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ProgressUpdate_Deref where
 
@@ -149,7 +192,7 @@ newtype ProgressUpdate = ProgressUpdate
   { un_ProgressUpdate :: Ptr.FunPtr ProgressUpdate_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProgressUpdate) "un_ProgressUpdate")
          ) => GHC.Records.HasField "un_ProgressUpdate" (Ptr.Ptr ProgressUpdate) (Ptr.Ptr ty) where
@@ -173,14 +216,35 @@ __exported by:__ @functions\/callbacks.h@
 newtype DataValidator_Deref = DataValidator_Deref
   { un_DataValidator_Deref :: FC.CInt -> IO FC.CInt
   }
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
-foreign import ccall safe "wrapper" toDataValidator_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toDataValidator_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       DataValidator_Deref
+    -> IO (Ptr.FunPtr DataValidator_Deref)
+    )
+
+toDataValidator_Deref ::
      DataValidator_Deref
   -> IO (Ptr.FunPtr DataValidator_Deref)
+toDataValidator_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType toDataValidator_Deref_base
 
-foreign import ccall safe "dynamic" fromDataValidator_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromDataValidator_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr DataValidator_Deref
+    -> DataValidator_Deref
+    )
+
+fromDataValidator_Deref ::
      Ptr.FunPtr DataValidator_Deref
   -> DataValidator_Deref
+fromDataValidator_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fromDataValidator_Deref_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr DataValidator_Deref where
 
@@ -213,7 +277,7 @@ newtype DataValidator = DataValidator
   { un_DataValidator :: Ptr.FunPtr DataValidator_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataValidator) "un_DataValidator")
          ) => GHC.Records.HasField "un_DataValidator" (Ptr.Ptr DataValidator) (Ptr.Ptr ty) where
@@ -307,14 +371,35 @@ __exported by:__ @functions\/callbacks.h@
 newtype MeasurementReceived_Deref = MeasurementReceived_Deref
   { un_MeasurementReceived_Deref :: (Ptr.Ptr Measurement) -> IO ()
   }
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
-foreign import ccall safe "wrapper" toMeasurementReceived_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toMeasurementReceived_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       MeasurementReceived_Deref
+    -> IO (Ptr.FunPtr MeasurementReceived_Deref)
+    )
+
+toMeasurementReceived_Deref ::
      MeasurementReceived_Deref
   -> IO (Ptr.FunPtr MeasurementReceived_Deref)
+toMeasurementReceived_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType toMeasurementReceived_Deref_base
 
-foreign import ccall safe "dynamic" fromMeasurementReceived_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromMeasurementReceived_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr MeasurementReceived_Deref
+    -> MeasurementReceived_Deref
+    )
+
+fromMeasurementReceived_Deref ::
      Ptr.FunPtr MeasurementReceived_Deref
   -> MeasurementReceived_Deref
+fromMeasurementReceived_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fromMeasurementReceived_Deref_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr MeasurementReceived_Deref where
 
@@ -347,7 +432,7 @@ newtype MeasurementReceived = MeasurementReceived
   { un_MeasurementReceived :: Ptr.FunPtr MeasurementReceived_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived) "un_MeasurementReceived")
          ) => GHC.Records.HasField "un_MeasurementReceived" (Ptr.Ptr MeasurementReceived) (Ptr.Ptr ty) where
@@ -395,7 +480,7 @@ newtype MeasurementReceived2 = MeasurementReceived2
   { un_MeasurementReceived2 :: Ptr.FunPtr MeasurementReceived2_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived2) "un_MeasurementReceived2")
          ) => GHC.Records.HasField "un_MeasurementReceived2" (Ptr.Ptr MeasurementReceived2) (Ptr.Ptr ty) where
@@ -443,7 +528,7 @@ newtype SampleBufferFull = SampleBufferFull
   { un_SampleBufferFull :: Ptr.FunPtr SampleBufferFull_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType SampleBufferFull) "un_SampleBufferFull")
          ) => GHC.Records.HasField "un_SampleBufferFull" (Ptr.Ptr SampleBufferFull) (Ptr.Ptr ty) where
@@ -788,6 +873,7 @@ newtype Processor_mode = Processor_mode
   { un_Processor_mode :: FC.CUInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance F.Storable Processor_mode where
 
@@ -956,7 +1042,7 @@ newtype Foo = Foo
   { un_Foo :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "un_Foo")
          ) => GHC.Records.HasField "un_Foo" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
@@ -980,7 +1066,7 @@ newtype Foo2 = Foo2
   { un_Foo2 :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo2) "un_Foo2")
          ) => GHC.Records.HasField "un_Foo2" (Ptr.Ptr Foo2) (Ptr.Ptr ty) where
@@ -994,13 +1080,33 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo2 "un_Foo2" where
 
   offset# = \_ -> \_ -> 0
 
-foreign import ccall safe "wrapper" funPtr_7a7e54ab_to ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_7a7e54ab_to_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       (Foo -> IO ())
+    -> IO (Ptr.FunPtr (Foo -> IO ()))
+    )
+
+funPtr_7a7e54ab_to ::
      (Foo -> IO ())
   -> IO (Ptr.FunPtr (Foo -> IO ()))
+funPtr_7a7e54ab_to =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_7a7e54ab_to_base
 
-foreign import ccall safe "dynamic" funPtr_7a7e54ab_from ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_7a7e54ab_from_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr (Foo -> IO ())
+    -> Foo -> IO ()
+    )
+
+funPtr_7a7e54ab_from ::
      Ptr.FunPtr (Foo -> IO ())
   -> Foo -> IO ()
+funPtr_7a7e54ab_from =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_7a7e54ab_from_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr (Foo -> IO ()) where
 
@@ -1010,13 +1116,33 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr (Foo -> IO ()) where
 
   fromFunPtr = funPtr_7a7e54ab_from
 
-foreign import ccall safe "wrapper" funPtr_527712e4_to ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_527712e4_to_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       ((Ptr.Ptr Measurement) -> IO FC.CInt)
+    -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt))
+    )
+
+funPtr_527712e4_to ::
      ((Ptr.Ptr Measurement) -> IO FC.CInt)
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt))
+funPtr_527712e4_to =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_527712e4_to_base
 
-foreign import ccall safe "dynamic" funPtr_527712e4_from ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_527712e4_from_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt)
+    -> (Ptr.Ptr Measurement) -> IO FC.CInt
+    )
+
+funPtr_527712e4_from ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt)
   -> (Ptr.Ptr Measurement) -> IO FC.CInt
+funPtr_527712e4_from =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_527712e4_from_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt) where
 
@@ -1026,13 +1152,33 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> IO FC.CIn
 
   fromFunPtr = funPtr_527712e4_from
 
-foreign import ccall safe "wrapper" funPtr_2cc53fd3_to ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_2cc53fd3_to_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       ((Ptr.Ptr Measurement) -> IO ())
+    -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ()))
+    )
+
+funPtr_2cc53fd3_to ::
      ((Ptr.Ptr Measurement) -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ()))
+funPtr_2cc53fd3_to =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_2cc53fd3_to_base
 
-foreign import ccall safe "dynamic" funPtr_2cc53fd3_from ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_2cc53fd3_from_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ())
+    -> (Ptr.Ptr Measurement) -> IO ()
+    )
+
+funPtr_2cc53fd3_from ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ())
   -> (Ptr.Ptr Measurement) -> IO ()
+funPtr_2cc53fd3_from =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_2cc53fd3_from_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> IO ()) where
 
@@ -1042,13 +1188,33 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> IO ()) wh
 
   fromFunPtr = funPtr_2cc53fd3_from
 
-foreign import ccall safe "wrapper" funPtr_6f6352e1_to ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_6f6352e1_to_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       ((Ptr.Ptr Measurement) -> DataValidator -> IO ())
+    -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ()))
+    )
+
+funPtr_6f6352e1_to ::
      ((Ptr.Ptr Measurement) -> DataValidator -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ()))
+funPtr_6f6352e1_to =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_6f6352e1_to_base
 
-foreign import ccall safe "dynamic" funPtr_6f6352e1_from ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_6f6352e1_from_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ())
+    -> (Ptr.Ptr Measurement) -> DataValidator -> IO ()
+    )
+
+funPtr_6f6352e1_from ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ())
   -> (Ptr.Ptr Measurement) -> DataValidator -> IO ()
+funPtr_6f6352e1_from =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_6f6352e1_from_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ()) where
 
@@ -1058,13 +1224,33 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> DataValid
 
   fromFunPtr = funPtr_6f6352e1_from
 
-foreign import ccall safe "wrapper" funPtr_065333fd_to ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_065333fd_to_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())
+    -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ()))
+    )
+
+funPtr_065333fd_to ::
      ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ()))
+funPtr_065333fd_to =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_065333fd_to_base
 
-foreign import ccall safe "dynamic" funPtr_065333fd_from ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_065333fd_from_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())
+    -> (Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ()
+    )
+
+funPtr_065333fd_from ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())
   -> (Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ()
+funPtr_065333fd_from =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_065333fd_from_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ()) where
 
@@ -1074,13 +1260,33 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> DataValid
 
   fromFunPtr = funPtr_065333fd_from
 
-foreign import ccall safe "wrapper" funPtr_ac6a854e_to ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_ac6a854e_to_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())
+    -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ()))
+    )
+
+funPtr_ac6a854e_to ::
      ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ()))
+funPtr_ac6a854e_to =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_ac6a854e_to_base
 
-foreign import ccall safe "dynamic" funPtr_ac6a854e_from ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_ac6a854e_from_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())
+    -> (Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ()
+    )
+
+funPtr_ac6a854e_from ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())
   -> (Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ()
+funPtr_ac6a854e_from =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_ac6a854e_from_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ()) where
 
@@ -1090,13 +1296,33 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> FileOpene
 
   fromFunPtr = funPtr_ac6a854e_from
 
-foreign import ccall safe "wrapper" funPtr_5e6e3f6b_to ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_5e6e3f6b_to_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ())
+    -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ()))
+    )
+
+funPtr_5e6e3f6b_to ::
      ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ()))
+funPtr_5e6e3f6b_to =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_5e6e3f6b_to_base
 
-foreign import ccall safe "dynamic" funPtr_5e6e3f6b_from ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_5e6e3f6b_from_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ())
+    -> (Ptr.Ptr Measurement) -> ProgressUpdate -> IO ()
+    )
+
+funPtr_5e6e3f6b_from ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ())
   -> (Ptr.Ptr Measurement) -> ProgressUpdate -> IO ()
+funPtr_5e6e3f6b_from =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_5e6e3f6b_from_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ()) where
 
@@ -1106,13 +1332,33 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> ProgressU
 
   fromFunPtr = funPtr_5e6e3f6b_from
 
-foreign import ccall safe "wrapper" funPtr_8b272628_to ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_8b272628_to_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())
+    -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ()))
+    )
+
+funPtr_8b272628_to ::
      ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ()))
+funPtr_8b272628_to =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_8b272628_to_base
 
-foreign import ccall safe "dynamic" funPtr_8b272628_from ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_8b272628_from_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())
+    -> (Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ()
+    )
+
+funPtr_8b272628_from ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())
   -> (Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ()
+funPtr_8b272628_from =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_8b272628_from_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ()) where
 
@@ -1122,13 +1368,33 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunP
 
   fromFunPtr = funPtr_8b272628_from
 
-foreign import ccall safe "wrapper" funPtr_30a248a4_to ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_30a248a4_to_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())
+    -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ()))
+    )
+
+funPtr_30a248a4_to ::
      ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ()))
+funPtr_30a248a4_to =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_30a248a4_to_base
 
-foreign import ccall safe "dynamic" funPtr_30a248a4_from ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_30a248a4_from_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())
+    -> (Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ()
+    )
+
+funPtr_30a248a4_from ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())
   -> (Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ()
+funPtr_30a248a4_from =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_30a248a4_from_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ()) where
 
@@ -1138,13 +1404,33 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunP
 
   fromFunPtr = funPtr_30a248a4_from
 
-foreign import ccall safe "wrapper" funPtr_a3803a24_to ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_a3803a24_to_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       (Foo2 -> IO ())
+    -> IO (Ptr.FunPtr (Foo2 -> IO ()))
+    )
+
+funPtr_a3803a24_to ::
      (Foo2 -> IO ())
   -> IO (Ptr.FunPtr (Foo2 -> IO ()))
+funPtr_a3803a24_to =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_a3803a24_to_base
 
-foreign import ccall safe "dynamic" funPtr_a3803a24_from ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_a3803a24_from_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr (Foo2 -> IO ())
+    -> Foo2 -> IO ()
+    )
+
+funPtr_a3803a24_from ::
      Ptr.FunPtr (Foo2 -> IO ())
   -> Foo2 -> IO ()
+funPtr_a3803a24_from =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_a3803a24_from_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr (Foo2 -> IO ()) where
 

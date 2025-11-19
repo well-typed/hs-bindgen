@@ -160,6 +160,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -193,6 +194,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -208,6 +210,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -217,52 +220,73 @@ hstypes:
 - hsname: Const_funptr1
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Const_funptr1_Deref
+  instances:
+  - Marshallable
 - hsname: Const_funptr2
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Const_funptr2_Deref
+  instances:
+  - Marshallable
 - hsname: Const_funptr3
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Const_funptr3_Deref
+  instances:
+  - Marshallable
 - hsname: Const_funptr4
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Const_funptr4_Deref
+  instances:
+  - Marshallable
 - hsname: Const_funptr5
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Const_funptr5_Deref
+  instances:
+  - Marshallable
 - hsname: Const_funptr6
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Const_funptr6_Deref
+  instances:
+  - Marshallable
 - hsname: Const_funptr7
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Const_funptr7_Deref
+  instances:
+  - Marshallable
 - hsname: Const_typedef1
   instances:
   - Bits
@@ -272,6 +296,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -287,6 +312,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -296,30 +322,35 @@ hstypes:
 - hsname: Const_typedef3
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Const_typedef4
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Const_typedef5
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Const_typedef6
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Const_typedef7
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
@@ -336,38 +367,53 @@ hstypes:
 - hsname: Funptr_typedef1
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Funptr_typedef1_Deref
+  instances:
+  - Marshallable
 - hsname: Funptr_typedef2
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Funptr_typedef2_Deref
+  instances:
+  - Marshallable
 - hsname: Funptr_typedef3
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Funptr_typedef3_Deref
+  instances:
+  - Marshallable
 - hsname: Funptr_typedef4
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Funptr_typedef4_Deref
+  instances:
+  - Marshallable
 - hsname: Funptr_typedef5
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Funptr_typedef5_Deref
+  instances:
+  - Marshallable
 - hsname: INT
   instances:
   - Bits
@@ -377,6 +423,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -386,18 +433,21 @@ hstypes:
 - hsname: INTCP
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: INTP
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Some_enum
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show
@@ -419,6 +469,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -428,12 +479,14 @@ hstypes:
 - hsname: Typedef2
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Typedef3
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable

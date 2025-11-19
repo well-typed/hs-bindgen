@@ -19,6 +19,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshallable
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure, return)
 
@@ -122,7 +123,7 @@ newtype Struct5_t = Struct5_t
   { un_Struct5_t :: Ptr.Ptr Struct5
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct5_t) "un_Struct5_t")
          ) => GHC.Records.HasField "un_Struct5_t" (Ptr.Ptr Struct5_t) (Ptr.Ptr ty) where
@@ -171,7 +172,7 @@ newtype Struct6 = Struct6
   { un_Struct6 :: Ptr.Ptr Struct6_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct6) "un_Struct6")
          ) => GHC.Records.HasField "un_Struct6" (Ptr.Ptr Struct6) (Ptr.Ptr ty) where

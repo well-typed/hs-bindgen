@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -34,8 +35,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_manualzero_copy_c3d266ec84fe0678" hs_bindgen_test_manualzero_copy_c3d266ec84fe0678 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualzero_copy_c3d266ec84fe0678" hs_bindgen_test_manualzero_copy_c3d266ec84fe0678_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.Ptr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt))
+    )
+
+hs_bindgen_test_manualzero_copy_c3d266ec84fe0678 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt))
+hs_bindgen_test_manualzero_copy_c3d266ec84fe0678 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualzero_copy_c3d266ec84fe0678_base
 
 {-# NOINLINE reverse_ptr #-}
 
@@ -49,8 +59,17 @@ reverse_ptr :: Ptr.FunPtr ((Ptr.Ptr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt)
 reverse_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualzero_copy_c3d266ec84fe0678
 
-foreign import ccall unsafe "hs_bindgen_test_manualzero_copy_fc1dad225b555299" hs_bindgen_test_manualzero_copy_fc1dad225b555299 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualzero_copy_fc1dad225b555299" hs_bindgen_test_manualzero_copy_fc1dad225b555299_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
+    )
+
+hs_bindgen_test_manualzero_copy_fc1dad225b555299 ::
      IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
+hs_bindgen_test_manualzero_copy_fc1dad225b555299 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualzero_copy_fc1dad225b555299_base
 
 {-# NOINLINE transpose_ptr #-}
 

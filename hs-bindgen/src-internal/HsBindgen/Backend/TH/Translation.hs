@@ -48,6 +48,7 @@ import HsBindgen.Runtime.FunPtr qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
+import HsBindgen.Runtime.Marshallable qualified
 import HsBindgen.Runtime.SizedByteArray qualified
 import HsBindgen.Runtime.TypeEquality qualified
 
@@ -134,6 +135,11 @@ mkGlobal = \case
       -- Proxy
       Proxy_type -> ''Data.Proxy.Proxy
       Proxy_constructor -> 'Data.Proxy.Proxy
+
+      -- Marshallable
+      Marshallable_class -> ''HsBindgen.Runtime.Marshallable.Marshallable
+      MarshallableBaseType_type -> ''HsBindgen.Runtime.Marshallable.MarshallableBaseType
+      Marshallable_fromMarshallableBaseType -> 'HsBindgen.Runtime.Marshallable.fromMarshallableBaseType
 
       -- Unsafe
       IO_unsafePerformIO -> 'System.IO.Unsafe.unsafePerformIO
@@ -358,6 +364,11 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     -- Proxy
     Proxy_type -> panicPure "type in expression"
     Proxy_constructor -> TH.conE name
+
+    -- Marshallable
+    Marshallable_class -> panicPure "class in expression"
+    MarshallableBaseType_type -> panicPure "type in expression"
+    Marshallable_fromMarshallableBaseType -> TH.varE name
 
     -- Unsafe
     IO_unsafePerformIO -> TH.varE name

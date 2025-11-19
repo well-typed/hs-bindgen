@@ -57,6 +57,7 @@ hstypes:
 - hsname: Color_enum
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show
@@ -77,10 +78,13 @@ hstypes:
 - hsname: Event_callback_t
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Event_callback_t_Deref
+  instances:
+  - Marshallable
 - hsname: Filename_t
   instances:
   - Eq
@@ -96,10 +100,13 @@ hstypes:
 - hsname: Processor_fn_t
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Processor_fn_t_Deref
+  instances:
+  - Marshallable
 - hsname: Size_type
   instances:
   - Bits
@@ -109,6 +116,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -118,6 +126,7 @@ hstypes:
 - hsname: Status_code_t
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show

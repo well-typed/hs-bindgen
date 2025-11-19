@@ -67,6 +67,7 @@ hstypes:
 - hsname: S7a
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
@@ -78,6 +79,7 @@ hstypes:
 - hsname: S7b
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable

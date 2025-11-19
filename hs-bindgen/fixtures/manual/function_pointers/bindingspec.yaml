@@ -22,3 +22,5 @@ hstypes:
   instances:
   - Storable
 - hsname: Int2int
+  instances:
+  - Marshallable

@@ -11,6 +11,7 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -199,8 +200,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_454b1c1a1b7d5b60" hs_bindgen_test_globalsglobals_454b1c1a1b7d5b60 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_454b1c1a1b7d5b60" hs_bindgen_test_globalsglobals_454b1c1a1b7d5b60_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_globalsglobals_454b1c1a1b7d5b60 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_globalsglobals_454b1c1a1b7d5b60 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_454b1c1a1b7d5b60_base
 
 {-# NOINLINE simpleGlobal_ptr #-}
 
@@ -216,8 +226,17 @@ simpleGlobal_ptr :: Ptr.Ptr FC.CInt
 simpleGlobal_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_454b1c1a1b7d5b60
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_89495849c6dfe834" hs_bindgen_test_globalsglobals_89495849c6dfe834 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_89495849c6dfe834" hs_bindgen_test_globalsglobals_89495849c6dfe834_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr Config)
+    )
+
+hs_bindgen_test_globalsglobals_89495849c6dfe834 ::
      IO (Ptr.Ptr Config)
+hs_bindgen_test_globalsglobals_89495849c6dfe834 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_89495849c6dfe834_base
 
 {-# NOINLINE compoundGlobal1_ptr #-}
 
@@ -231,8 +250,17 @@ compoundGlobal1_ptr :: Ptr.Ptr Config
 compoundGlobal1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_89495849c6dfe834
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_4b79fc96cf429b3a" hs_bindgen_test_globalsglobals_4b79fc96cf429b3a ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_4b79fc96cf429b3a" hs_bindgen_test_globalsglobals_4b79fc96cf429b3a_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr Inline_struct)
+    )
+
+hs_bindgen_test_globalsglobals_4b79fc96cf429b3a ::
      IO (Ptr.Ptr Inline_struct)
+hs_bindgen_test_globalsglobals_4b79fc96cf429b3a =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_4b79fc96cf429b3a_base
 
 {-# NOINLINE compoundGlobal2_ptr #-}
 
@@ -246,8 +274,17 @@ compoundGlobal2_ptr :: Ptr.Ptr Inline_struct
 compoundGlobal2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_4b79fc96cf429b3a
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_e408a99291c13956" hs_bindgen_test_globalsglobals_e408a99291c13956 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_e408a99291c13956" hs_bindgen_test_globalsglobals_e408a99291c13956_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_globalsglobals_e408a99291c13956 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_globalsglobals_e408a99291c13956 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_e408a99291c13956_base
 
 {-# NOINLINE nesInteger_ptr #-}
 
@@ -269,8 +306,17 @@ nesInteger_ptr :: Ptr.Ptr FC.CInt
 nesInteger_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_e408a99291c13956
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_572819a2ae538f9e" hs_bindgen_test_globalsglobals_572819a2ae538f9e ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_572819a2ae538f9e" hs_bindgen_test_globalsglobals_572819a2ae538f9e_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CFloat)
+    )
+
+hs_bindgen_test_globalsglobals_572819a2ae538f9e ::
      IO (Ptr.Ptr FC.CFloat)
+hs_bindgen_test_globalsglobals_572819a2ae538f9e =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_572819a2ae538f9e_base
 
 {-# NOINLINE nesFloating_ptr #-}
 
@@ -284,8 +330,17 @@ nesFloating_ptr :: Ptr.Ptr FC.CFloat
 nesFloating_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_572819a2ae538f9e
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_b9c5b2253881699a" hs_bindgen_test_globalsglobals_b9c5b2253881699a ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_b9c5b2253881699a" hs_bindgen_test_globalsglobals_b9c5b2253881699a_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr (Ptr.Ptr FC.CChar))
+    )
+
+hs_bindgen_test_globalsglobals_b9c5b2253881699a ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CChar))
+hs_bindgen_test_globalsglobals_b9c5b2253881699a =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_b9c5b2253881699a_base
 
 {-# NOINLINE nesString1_ptr #-}
 
@@ -299,8 +354,17 @@ nesString1_ptr :: Ptr.Ptr (Ptr.Ptr FC.CChar)
 nesString1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_b9c5b2253881699a
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_cea7b6d95dd81460" hs_bindgen_test_globalsglobals_cea7b6d95dd81460 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_cea7b6d95dd81460" hs_bindgen_test_globalsglobals_cea7b6d95dd81460_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CChar))
+    )
+
+hs_bindgen_test_globalsglobals_cea7b6d95dd81460 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CChar))
+hs_bindgen_test_globalsglobals_cea7b6d95dd81460 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_cea7b6d95dd81460_base
 
 {-# NOINLINE nesString2_ptr #-}
 
@@ -314,8 +378,17 @@ nesString2_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.
 nesString2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_cea7b6d95dd81460
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_1e474dd7b5a92e6a" hs_bindgen_test_globalsglobals_1e474dd7b5a92e6a ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_1e474dd7b5a92e6a" hs_bindgen_test_globalsglobals_1e474dd7b5a92e6a_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CChar)
+    )
+
+hs_bindgen_test_globalsglobals_1e474dd7b5a92e6a ::
      IO (Ptr.Ptr FC.CChar)
+hs_bindgen_test_globalsglobals_1e474dd7b5a92e6a =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_1e474dd7b5a92e6a_base
 
 {-# NOINLINE nesCharacter_ptr #-}
 
@@ -329,8 +402,17 @@ nesCharacter_ptr :: Ptr.Ptr FC.CChar
 nesCharacter_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_1e474dd7b5a92e6a
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_5e7165450285240d" hs_bindgen_test_globalsglobals_5e7165450285240d ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_5e7165450285240d" hs_bindgen_test_globalsglobals_5e7165450285240d_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_globalsglobals_5e7165450285240d ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_globalsglobals_5e7165450285240d =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_5e7165450285240d_base
 
 {-# NOINLINE nesParen_ptr #-}
 
@@ -344,8 +426,17 @@ nesParen_ptr :: Ptr.Ptr FC.CInt
 nesParen_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_5e7165450285240d
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_f00692845b6c8efd" hs_bindgen_test_globalsglobals_f00692845b6c8efd ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_f00692845b6c8efd" hs_bindgen_test_globalsglobals_f00692845b6c8efd_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_globalsglobals_f00692845b6c8efd ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_globalsglobals_f00692845b6c8efd =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_f00692845b6c8efd_base
 
 {-# NOINLINE nesUnary_ptr #-}
 
@@ -359,8 +450,17 @@ nesUnary_ptr :: Ptr.Ptr FC.CInt
 nesUnary_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_f00692845b6c8efd
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_d737cdc355737c2b" hs_bindgen_test_globalsglobals_d737cdc355737c2b ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_d737cdc355737c2b" hs_bindgen_test_globalsglobals_d737cdc355737c2b_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_globalsglobals_d737cdc355737c2b ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_globalsglobals_d737cdc355737c2b =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_d737cdc355737c2b_base
 
 {-# NOINLINE nesBinary_ptr #-}
 
@@ -374,8 +474,17 @@ nesBinary_ptr :: Ptr.Ptr FC.CInt
 nesBinary_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_d737cdc355737c2b
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_a8a7382ba67a6c7d" hs_bindgen_test_globalsglobals_a8a7382ba67a6c7d ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_a8a7382ba67a6c7d" hs_bindgen_test_globalsglobals_a8a7382ba67a6c7d_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_globalsglobals_a8a7382ba67a6c7d ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_globalsglobals_a8a7382ba67a6c7d =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_a8a7382ba67a6c7d_base
 
 {-# NOINLINE nesConditional_ptr #-}
 
@@ -389,8 +498,17 @@ nesConditional_ptr :: Ptr.Ptr FC.CInt
 nesConditional_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_a8a7382ba67a6c7d
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_ea6b1f97253ae23c" hs_bindgen_test_globalsglobals_ea6b1f97253ae23c ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_ea6b1f97253ae23c" hs_bindgen_test_globalsglobals_ea6b1f97253ae23c_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CFloat)
+    )
+
+hs_bindgen_test_globalsglobals_ea6b1f97253ae23c ::
      IO (Ptr.Ptr FC.CFloat)
+hs_bindgen_test_globalsglobals_ea6b1f97253ae23c =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_ea6b1f97253ae23c_base
 
 {-# NOINLINE nesCast_ptr #-}
 
@@ -404,8 +522,17 @@ nesCast_ptr :: Ptr.Ptr FC.CFloat
 nesCast_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_ea6b1f97253ae23c
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_34ed05675f69bccd" hs_bindgen_test_globalsglobals_34ed05675f69bccd ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_34ed05675f69bccd" hs_bindgen_test_globalsglobals_34ed05675f69bccd_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
+    )
+
+hs_bindgen_test_globalsglobals_34ed05675f69bccd ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
+hs_bindgen_test_globalsglobals_34ed05675f69bccd =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_34ed05675f69bccd_base
 
 {-# NOINLINE nesCompound_ptr #-}
 
@@ -419,8 +546,17 @@ nesCompound_ptr :: Ptr.Ptr (Ptr.Ptr FC.CInt)
 nesCompound_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_34ed05675f69bccd
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_9e7c70b133f8e175" hs_bindgen_test_globalsglobals_9e7c70b133f8e175 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_9e7c70b133f8e175" hs_bindgen_test_globalsglobals_9e7c70b133f8e175_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8))
+    )
+
+hs_bindgen_test_globalsglobals_9e7c70b133f8e175 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8))
+hs_bindgen_test_globalsglobals_9e7c70b133f8e175 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_9e7c70b133f8e175_base
 
 {-# NOINLINE nesInitList_ptr #-}
 
@@ -434,8 +570,17 @@ nesInitList_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) Hs
 nesInitList_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_9e7c70b133f8e175
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_bd8b34eff62c9b12" hs_bindgen_test_globalsglobals_bd8b34eff62c9b12 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_bd8b34eff62c9b12" hs_bindgen_test_globalsglobals_bd8b34eff62c9b12_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CBool)
+    )
+
+hs_bindgen_test_globalsglobals_bd8b34eff62c9b12 ::
      IO (Ptr.Ptr FC.CBool)
+hs_bindgen_test_globalsglobals_bd8b34eff62c9b12 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_bd8b34eff62c9b12_base
 
 {-# NOINLINE nesBool_ptr #-}
 
@@ -449,8 +594,17 @@ nesBool_ptr :: Ptr.Ptr FC.CBool
 nesBool_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_bd8b34eff62c9b12
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_235c0c54701b0df5" hs_bindgen_test_globalsglobals_235c0c54701b0df5 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_235c0c54701b0df5" hs_bindgen_test_globalsglobals_235c0c54701b0df5_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.Prelude.Word8))
+    )
+
+hs_bindgen_test_globalsglobals_235c0c54701b0df5 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.Prelude.Word8))
+hs_bindgen_test_globalsglobals_235c0c54701b0df5 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_235c0c54701b0df5_base
 
 {-# NOINLINE streamBinary_ptr #-}
 
@@ -470,8 +624,17 @@ streamBinary_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096
 streamBinary_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_235c0c54701b0df5
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_b1ee511251d335dd" hs_bindgen_test_globalsglobals_b1ee511251d335dd ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_b1ee511251d335dd" hs_bindgen_test_globalsglobals_b1ee511251d335dd_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr HsBindgen.Runtime.Prelude.Word32)
+    )
+
+hs_bindgen_test_globalsglobals_b1ee511251d335dd ::
      IO (Ptr.Ptr HsBindgen.Runtime.Prelude.Word32)
+hs_bindgen_test_globalsglobals_b1ee511251d335dd =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_b1ee511251d335dd_base
 
 {-# NOINLINE streamBinary_len_ptr #-}
 
@@ -485,8 +648,17 @@ streamBinary_len_ptr :: Ptr.Ptr HsBindgen.Runtime.Prelude.Word32
 streamBinary_len_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_b1ee511251d335dd
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_6a47eaca372272ae" hs_bindgen_test_globalsglobals_6a47eaca372272ae ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_6a47eaca372272ae" hs_bindgen_test_globalsglobals_6a47eaca372272ae_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr Struct2_t)
+    )
+
+hs_bindgen_test_globalsglobals_6a47eaca372272ae ::
      IO (Ptr.Ptr Struct2_t)
+hs_bindgen_test_globalsglobals_6a47eaca372272ae =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_6a47eaca372272ae_base
 
 {-# NOINLINE some_global_struct_ptr #-}
 
@@ -500,8 +672,17 @@ some_global_struct_ptr :: Ptr.Ptr Struct2_t
 some_global_struct_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_6a47eaca372272ae
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_b8fe2f6ed308e786" hs_bindgen_test_globalsglobals_b8fe2f6ed308e786 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_b8fe2f6ed308e786" hs_bindgen_test_globalsglobals_b8fe2f6ed308e786_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_globalsglobals_b8fe2f6ed308e786 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_globalsglobals_b8fe2f6ed308e786 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_b8fe2f6ed308e786_base
 
 {-# NOINLINE globalConstant_ptr #-}
 
@@ -525,8 +706,17 @@ globalConstant :: FC.CInt
 globalConstant =
   GHC.IO.Unsafe.unsafePerformIO (F.peek globalConstant_ptr)
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_3f4a524bb162b165" hs_bindgen_test_globalsglobals_3f4a524bb162b165 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_3f4a524bb162b165" hs_bindgen_test_globalsglobals_3f4a524bb162b165_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr ConstInt)
+    )
+
+hs_bindgen_test_globalsglobals_3f4a524bb162b165 ::
      IO (Ptr.Ptr ConstInt)
+hs_bindgen_test_globalsglobals_3f4a524bb162b165 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_3f4a524bb162b165_base
 
 {-# NOINLINE anotherGlobalConstant_ptr #-}
 
@@ -546,8 +736,17 @@ anotherGlobalConstant :: ConstInt
 anotherGlobalConstant =
   GHC.IO.Unsafe.unsafePerformIO (F.peek anotherGlobalConstant_ptr)
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_834271d76b418960" hs_bindgen_test_globalsglobals_834271d76b418960 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_834271d76b418960" hs_bindgen_test_globalsglobals_834271d76b418960_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_globalsglobals_834271d76b418960 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_globalsglobals_834271d76b418960 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_834271d76b418960_base
 
 {-# NOINLINE staticConst_ptr #-}
 
@@ -571,8 +770,17 @@ staticConst :: FC.CInt
 staticConst =
   GHC.IO.Unsafe.unsafePerformIO (F.peek staticConst_ptr)
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_c98b4d346a0bb607" hs_bindgen_test_globalsglobals_c98b4d346a0bb607 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_c98b4d346a0bb607" hs_bindgen_test_globalsglobals_c98b4d346a0bb607_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_globalsglobals_c98b4d346a0bb607 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_globalsglobals_c98b4d346a0bb607 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_c98b4d346a0bb607_base
 
 {-# NOINLINE classless_ptr #-}
 
@@ -594,8 +802,17 @@ classless :: FC.CInt
 classless =
   GHC.IO.Unsafe.unsafePerformIO (F.peek classless_ptr)
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_e7a61097e2415261" hs_bindgen_test_globalsglobals_e7a61097e2415261 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_e7a61097e2415261" hs_bindgen_test_globalsglobals_e7a61097e2415261_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt))
+    )
+
+hs_bindgen_test_globalsglobals_e7a61097e2415261 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt))
+hs_bindgen_test_globalsglobals_e7a61097e2415261 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_e7a61097e2415261_base
 
 {-# NOINLINE constArray1_ptr #-}
 
@@ -617,8 +834,17 @@ constArray1 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt
 constArray1 =
   GHC.IO.Unsafe.unsafePerformIO (F.peek constArray1_ptr)
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_5e76637230135838" hs_bindgen_test_globalsglobals_5e76637230135838 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_5e76637230135838" hs_bindgen_test_globalsglobals_5e76637230135838_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr ConstIntArray)
+    )
+
+hs_bindgen_test_globalsglobals_5e76637230135838 ::
      IO (Ptr.Ptr ConstIntArray)
+hs_bindgen_test_globalsglobals_5e76637230135838 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_5e76637230135838_base
 
 {-# NOINLINE constArray2_ptr #-}
 
@@ -632,8 +858,17 @@ constArray2_ptr :: Ptr.Ptr ConstIntArray
 constArray2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_5e76637230135838
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_c7d3a2347092dfe0" hs_bindgen_test_globalsglobals_c7d3a2347092dfe0 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_c7d3a2347092dfe0" hs_bindgen_test_globalsglobals_c7d3a2347092dfe0_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr Tuple)
+    )
+
+hs_bindgen_test_globalsglobals_c7d3a2347092dfe0 ::
      IO (Ptr.Ptr Tuple)
+hs_bindgen_test_globalsglobals_c7d3a2347092dfe0 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_c7d3a2347092dfe0_base
 
 {-# NOINLINE constTuple_ptr #-}
 
@@ -655,8 +890,17 @@ constTuple :: Tuple
 constTuple =
   GHC.IO.Unsafe.unsafePerformIO (F.peek constTuple_ptr)
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_3639a5c5b63aad84" hs_bindgen_test_globalsglobals_3639a5c5b63aad84 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_3639a5c5b63aad84" hs_bindgen_test_globalsglobals_3639a5c5b63aad84_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr Tuple)
+    )
+
+hs_bindgen_test_globalsglobals_3639a5c5b63aad84 ::
      IO (Ptr.Ptr Tuple)
+hs_bindgen_test_globalsglobals_3639a5c5b63aad84 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_3639a5c5b63aad84_base
 
 {-# NOINLINE nonConstTuple_ptr #-}
 
@@ -672,8 +916,17 @@ nonConstTuple_ptr :: Ptr.Ptr Tuple
 nonConstTuple_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_3639a5c5b63aad84
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_9fd2e0d3b265dee4" hs_bindgen_test_globalsglobals_9fd2e0d3b265dee4 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_9fd2e0d3b265dee4" hs_bindgen_test_globalsglobals_9fd2e0d3b265dee4_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
+    )
+
+hs_bindgen_test_globalsglobals_9fd2e0d3b265dee4 ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
+hs_bindgen_test_globalsglobals_9fd2e0d3b265dee4 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_9fd2e0d3b265dee4_base
 
 {-# NOINLINE ptrToConstInt_ptr #-}
 
@@ -689,8 +942,17 @@ ptrToConstInt_ptr :: Ptr.Ptr (Ptr.Ptr FC.CInt)
 ptrToConstInt_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_9fd2e0d3b265dee4
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_10cf1344894b0264" hs_bindgen_test_globalsglobals_10cf1344894b0264 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_10cf1344894b0264" hs_bindgen_test_globalsglobals_10cf1344894b0264_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
+    )
+
+hs_bindgen_test_globalsglobals_10cf1344894b0264 ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
+hs_bindgen_test_globalsglobals_10cf1344894b0264 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_10cf1344894b0264_base
 
 {-# NOINLINE constPtrToInt_ptr #-}
 
@@ -712,8 +974,17 @@ constPtrToInt :: Ptr.Ptr FC.CInt
 constPtrToInt =
   GHC.IO.Unsafe.unsafePerformIO (F.peek constPtrToInt_ptr)
 
-foreign import ccall unsafe "hs_bindgen_test_globalsglobals_1b236183822e0d24" hs_bindgen_test_globalsglobals_1b236183822e0d24 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_globalsglobals_1b236183822e0d24" hs_bindgen_test_globalsglobals_1b236183822e0d24_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
+    )
+
+hs_bindgen_test_globalsglobals_1b236183822e0d24 ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
+hs_bindgen_test_globalsglobals_1b236183822e0d24 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_globalsglobals_1b236183822e0d24_base
 
 {-# NOINLINE constPtrToConstInt_ptr #-}
 
