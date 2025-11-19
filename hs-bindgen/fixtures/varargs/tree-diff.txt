@@ -21,11 +21,9 @@ TranslationUnit {
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}}],
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
   unitDeps = [
     "alltypes",
     "stdarg",

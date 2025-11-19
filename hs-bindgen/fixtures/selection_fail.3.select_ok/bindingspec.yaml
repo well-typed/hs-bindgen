@@ -2,10 +2,12 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: selection_fail.h
   cname: struct OkBefore
   hsname: OkBefore
+hstypes:
+- hsname: OkBefore
   instances:
   - Eq
   - Show

@@ -124,15 +124,15 @@ exprExtensions = \case
 -- We probably don't generate such types
 typeExtensions :: SType ctx -> Set TH.Extension
 typeExtensions = \case
-    TGlobal g -> globalExtensions g
-    TCon _    -> Set.empty
-    TFree _   -> Set.singleton TH.FlexibleContexts -- include like in 'predicateExtensions'
-    TFun a b  -> typeExtensions a <> typeExtensions b
-    TLit _    -> Set.singleton TH.DataKinds
-    TStrLit _ -> Set.singleton TH.DataKinds
-    TExt _ _  -> Set.empty
-    TBound _  -> Set.empty
-    TApp f b  -> typeExtensions f <> typeExtensions b
+    TGlobal g  -> globalExtensions g
+    TCon _     -> Set.empty
+    TFree _    -> Set.singleton TH.FlexibleContexts -- include like in 'predicateExtensions'
+    TFun a b   -> typeExtensions a <> typeExtensions b
+    TLit _     -> Set.singleton TH.DataKinds
+    TStrLit _  -> Set.singleton TH.DataKinds
+    TExt{}     -> Set.empty
+    TBound _   -> Set.empty
+    TApp f b   -> typeExtensions f <> typeExtensions b
     TForall _names _add preds b ->
         -- Note: GHC doesn't require ExplicitForAll for type signatures
         Set.singleton TH.ExplicitForAll <>

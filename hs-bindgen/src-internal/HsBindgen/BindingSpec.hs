@@ -34,15 +34,17 @@ module HsBindgen.BindingSpec (
     -- ** Types
   , Common.Omittable(..)
   , BindingSpec.CTypeSpec(..)
+  , BindingSpec.HsTypeSpec(..)
   , BindingSpec.InstanceSpec(..)
   , BindingSpec.StrategySpec(..)
   , BindingSpec.ConstraintSpec(..)
     -- ** Query
   , getCTypes
   , lookupCTypeSpec
+  , lookupHsTypeSpec
     -- ** Merging
   , BindingSpec.MergedBindingSpecs
-  , BindingSpec.lookupMergedCTypeSpec
+  , BindingSpec.lookupMergedBindingSpecs
   ) where
 
 import Data.ByteString qualified as BSS
@@ -277,7 +279,8 @@ moduleName = BindingSpec.bindingSpecModule . bindingSpecUnresolved
 getCTypes :: BindingSpec -> Map C.QualName [Set SourcePath]
 getCTypes = BindingSpec.getCTypes . bindingSpecResolved
 
--- | Lookup the @'Common.Omittable' 'CTypeSpec'@ associated with a C type
+-- | Lookup the @'Common.Omittable' 'BindingSpec.CTypeSpec'@ associated with a C
+-- type
 lookupCTypeSpec ::
      C.QualName
   -> Set SourcePath
@@ -285,3 +288,11 @@ lookupCTypeSpec ::
   -> Maybe (Hs.ModuleName, Common.Omittable BindingSpec.CTypeSpec)
 lookupCTypeSpec cQualName headers =
     BindingSpec.lookupCTypeSpec cQualName headers . bindingSpecResolved
+
+-- | Lookup the 'BindingSpec.HsTypeSpec' associated with a Haskell type
+lookupHsTypeSpec ::
+     Hs.Identifier
+  -> BindingSpec
+  -> Maybe BindingSpec.HsTypeSpec
+lookupHsTypeSpec hsIdentifier =
+    BindingSpec.lookupHsTypeSpec hsIdentifier . bindingSpecResolved

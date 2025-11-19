@@ -2,7 +2,7 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: iterator.h
   cname: Counter
   hsname: Counter
@@ -12,3 +12,7 @@ types:
 - headers: iterator.h
   cname: VarCounter
   hsname: VarCounter
+hstypes:
+- hsname: Counter
+- hsname: Toggle
+- hsname: VarCounter

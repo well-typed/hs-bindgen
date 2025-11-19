@@ -2,26 +2,15 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: typenames.h
   cname: foo
   hsname: Foo
-  instances:
-  - Enum
-  - Eq
-  - Floating
-  - Fractional
-  - Num
-  - Ord
-  - Read
-  - Real
-  - RealFloat
-  - RealFrac
-  - Show
-  - Storable
 - headers: typenames.h
   cname: enum foo
   hsname: Foo
+hstypes:
+- hsname: Foo
   instances:
   - Eq
   - Ord

@@ -2,22 +2,21 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: redeclaration.h
   cname: struct X
   hsname: X
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: redeclaration.h
   cname: union Y
   hsname: 'Y'
-  instances:
-  - Storable
 - headers: redeclaration.h
   cname: int_t
   hsname: Int_t
+- headers: redeclaration.h
+  cname: union y
+  hsname: 'Y'
+hstypes:
+- hsname: Int_t
   instances:
   - Bits
   - Bounded
@@ -32,6 +31,9 @@ types:
   - Real
   - Show
   - Storable
-- headers: redeclaration.h
-  cname: union y
-  hsname: 'Y'
+- hsname: X
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: 'Y'

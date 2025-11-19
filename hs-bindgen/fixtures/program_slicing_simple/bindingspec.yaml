@@ -2,17 +2,20 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: program_slicing_simple.h
   cname: struct foo
   hsname: Foo
+- headers: program_slicing_simple.h
+  cname: uint32_t
+  hsname: Uint32_t
+hstypes:
+- hsname: Foo
   instances:
   - Eq
   - Show
   - Storable
-- headers: program_slicing_simple.h
-  cname: uint32_t
-  hsname: Uint32_t
+- hsname: Uint32_t
   instances:
   - Bits
   - Bounded

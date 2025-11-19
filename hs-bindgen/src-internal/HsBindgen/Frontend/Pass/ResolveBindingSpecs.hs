@@ -229,7 +229,12 @@ resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
 -- specification when applicable.
 resolveTop ::
      C.Decl NameAnon
-  -> M (Maybe (C.Decl NameAnon, Maybe BindingSpec.CTypeSpec))
+  -> M
+       ( Maybe
+           ( C.Decl NameAnon
+           , (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
+           )
+       )
 resolveTop decl = Reader.ask >>= \MEnv{..} -> do
     let cQualName  = C.declQualName decl
         cQualPrelimDeclId = C.declOrigQualPrelimDeclId decl
@@ -245,14 +250,17 @@ resolveTop decl = Reader.ask >>= \MEnv{..} -> do
           State.modify' $
               insertTrace (ResolveBindingSpecsPrescriptiveRequire cQualName)
             . deleteNoPType cQualName sourcePath
-          return $ Just (decl, Just cTypeSpec)
+          let mHsTypeSpec = do
+                hsIdentifier <- BindingSpec.cTypeSpecIdentifier cTypeSpec
+                BindingSpec.lookupHsTypeSpec hsIdentifier envPSpec
+          return $ Just (decl, (Just cTypeSpec, mHsTypeSpec))
         Just (_hsModuleName, BindingSpec.Omit) -> do
           State.modify' $
               insertTrace (ResolveBindingSpecsPrescriptiveOmit cQualName)
             . deleteNoPType cQualName sourcePath
             . insertOmittedType cQualPrelimDeclId cQualName sourcePath
           return Nothing
-        Nothing -> return $ Just (decl, Nothing)
+        Nothing -> return $ Just (decl, (Nothing, Nothing))
 
 -- Pass two: deep
 --
@@ -260,14 +268,14 @@ resolveTop decl = Reader.ask >>= \MEnv{..} -> do
 -- current pass.
 resolveDeep ::
      C.Decl NameAnon
-  -> Maybe BindingSpec.CTypeSpec
+  -> (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
   -> M (C.Decl ResolveBindingSpecs)
-resolveDeep decl@C.Decl{..} mCTypeSpec = do
+resolveDeep decl@C.Decl{..} mTypeSpecs = do
     declKind' <- resolve (C.declQualName decl) declKind
     return C.Decl {
         declInfo = coercePass declInfo
       , declKind = declKind'
-      , declAnn  = fromMaybe def mCTypeSpec
+      , declAnn  = mTypeSpecs
       }
 
 {-------------------------------------------------------------------------------
@@ -502,14 +510,15 @@ resolveExtBinding ::
   -> M (Maybe ResolvedExtBinding)
 resolveExtBinding cQualName cQualPrelimDeclId declPaths  = do
     MEnv{envExtSpecs} <- Reader.ask
-    case BindingSpec.lookupMergedCTypeSpec cQualName declPaths envExtSpecs of
-      Just (hsModuleName, BindingSpec.Require cTypeSpec) ->
+    case BindingSpec.lookupMergedBindingSpecs cQualName declPaths envExtSpecs of
+      Just (hsModuleName, BindingSpec.Require cTypeSpec, mHsTypeSpec) ->
         case BindingSpec.cTypeSpecIdentifier cTypeSpec of
           Just hsIdentifier -> do
             let resolved = ResolvedExtBinding {
                     extCName  = cQualName
                   , extHsRef  = Hs.ExtRef hsModuleName hsIdentifier
-                  , extHsSpec = cTypeSpec
+                  , extCSpec  = cTypeSpec
+                  , extHsSpec = mHsTypeSpec
                   }
             State.modify' $
               insertExtType
@@ -520,7 +529,7 @@ resolveExtBinding cQualName cQualPrelimDeclId declPaths  = do
             State.modify' $
               insertTrace (ResolveBindingSpecsExtHsRefNoIdentifier cQualName)
             return Nothing
-      Just (_hsModuleName, BindingSpec.Omit) -> do
+      Just (_hsModuleName, BindingSpec.Omit, _mHsTypeSpec) -> do
         State.modify' $
           insertTrace (ResolveBindingSpecsOmittedTypeUse cQualName)
         return Nothing

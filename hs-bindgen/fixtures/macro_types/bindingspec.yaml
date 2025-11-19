@@ -2,76 +2,30 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: macro_types.h
   cname: BOOLEAN_T
   hsname: BOOLEAN_T
-  instances:
-  - Bits
-  - Bounded
-  - Enum
-  - Eq
-  - FiniteBits
-  - Integral
-  - Ix
-  - Num
-  - Ord
-  - Read
-  - Real
-  - Show
-  - Storable
 - headers: macro_types.h
   cname: MTy
   hsname: MTy
-  instances:
-  - Enum
-  - Eq
-  - Floating
-  - Fractional
-  - Num
-  - Ord
-  - Read
-  - Real
-  - RealFloat
-  - RealFrac
-  - Show
-  - Storable
 - headers: macro_types.h
   cname: PtrInt
   hsname: PtrInt
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
 - headers: macro_types.h
   cname: PtrPtrChar
   hsname: PtrPtrChar
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
 - headers: macro_types.h
   cname: UINT8_T
   hsname: UINT8_T
-  instances:
-  - Bits
-  - Bounded
-  - Enum
-  - Eq
-  - FiniteBits
-  - Integral
-  - Ix
-  - Num
-  - Ord
-  - Read
-  - Real
-  - Show
-  - Storable
 - headers: macro_types.h
   cname: boolean_T
   hsname: Boolean_T
+- headers: macro_types.h
+  cname: tty
+  hsname: Tty
+hstypes:
+- hsname: BOOLEAN_T
   instances:
   - Bits
   - Bounded
@@ -86,9 +40,22 @@ types:
   - Real
   - Show
   - Storable
-- headers: macro_types.h
-  cname: tty
-  hsname: Tty
+- hsname: Boolean_T
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: MTy
   instances:
   - Enum
   - Eq
@@ -100,5 +67,46 @@ types:
   - Real
   - RealFloat
   - RealFrac
+  - Show
+  - Storable
+- hsname: PtrInt
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: PtrPtrChar
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Tty
+  instances:
+  - Enum
+  - Eq
+  - Floating
+  - Fractional
+  - Num
+  - Ord
+  - Read
+  - Real
+  - RealFloat
+  - RealFrac
+  - Show
+  - Storable
+- hsname: UINT8_T
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
   - Show
   - Storable

@@ -59,7 +59,7 @@ data HsType =
   | HsFunPtr HsType
   | HsIO HsType
   | HsFun HsType HsType
-  | HsExtBinding Hs.ExtRef BindingSpec.CTypeSpec
+  | HsExtBinding Hs.ExtRef BindingSpec.CTypeSpec (Maybe BindingSpec.HsTypeSpec)
   | HsByteArray
   | HsSizedByteArray Natural Natural
   | HsBlock HsType

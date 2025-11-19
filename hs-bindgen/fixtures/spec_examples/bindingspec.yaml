@@ -2,51 +2,46 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: spec_examples.h
   cname: struct A
   hsname: A
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: spec_examples.h
   cname: struct B
   hsname: B
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: spec_examples.h
   cname: struct C
   hsname: C
 - headers: spec_examples.h
   cname: cint16_T
   hsname: Cint16_T
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: spec_examples.h
   cname: int16_T
   hsname: Int16_T
-  instances:
-  - Bits
-  - Bounded
-  - Enum
-  - Eq
-  - FiniteBits
-  - Integral
-  - Ix
-  - Num
-  - Ord
-  - Read
-  - Real
-  - Show
-  - Storable
 - headers: spec_examples.h
   cname: int32_T
   hsname: Int32_T
+- headers: spec_examples.h
+  cname: int64_T
+  hsname: Int64_T
+hstypes:
+- hsname: A
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: B
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: C
+- hsname: Cint16_T
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Int16_T
   instances:
   - Bits
   - Bounded
@@ -61,9 +56,22 @@ types:
   - Real
   - Show
   - Storable
-- headers: spec_examples.h
-  cname: int64_T
-  hsname: Int64_T
+- hsname: Int32_T
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: Int64_T
   instances:
   - Bits
   - Bounded

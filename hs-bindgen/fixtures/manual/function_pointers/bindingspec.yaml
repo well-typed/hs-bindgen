@@ -2,19 +2,23 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: manual/function_pointers.h
   cname: struct Apply1Struct
   hsname: Apply1Struct
+- headers: manual/function_pointers.h
+  cname: union Apply1Union
+  hsname: Apply1Union
+- headers: manual/function_pointers.h
+  cname: int2int
+  hsname: Int2int
+hstypes:
+- hsname: Apply1Struct
   instances:
   - Eq
   - Show
   - Storable
-- headers: manual/function_pointers.h
-  cname: union Apply1Union
-  hsname: Apply1Union
+- hsname: Apply1Union
   instances:
   - Storable
-- headers: manual/function_pointers.h
-  cname: int2int
-  hsname: Int2int
+- hsname: Int2int

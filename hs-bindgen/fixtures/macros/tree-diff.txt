@@ -28,11 +28,9 @@ TranslationUnit {
                   integerLiteralValue = 1}),
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:2:9",
@@ -60,11 +58,9 @@ TranslationUnit {
                   integerLiteralValue = 2}),
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:3:9",
@@ -101,11 +97,9 @@ TranslationUnit {
                       integerLiteralValue = 3})],
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:4:9",
@@ -142,11 +136,9 @@ TranslationUnit {
                       integerLiteralValue = 4})],
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:6:9",
@@ -174,11 +166,9 @@ TranslationUnit {
                   integerLiteralValue = 42}),
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:7:9",
@@ -206,11 +196,9 @@ TranslationUnit {
                   integerLiteralValue = 42}),
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:8:9",
@@ -238,11 +226,9 @@ TranslationUnit {
                   integerLiteralValue = 42}),
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:9:9",
@@ -270,11 +256,9 @@ TranslationUnit {
                   integerLiteralValue = 42}),
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:10:9",
@@ -302,11 +286,9 @@ TranslationUnit {
                   integerLiteralValue = 42}),
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:12:9",
@@ -337,11 +319,9 @@ TranslationUnit {
                   18446744073709550592}),
             macroExprType =
             "IntLike (CIntegralType (IntLike (LongLong Unsigned)))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:13:9",
@@ -372,11 +352,9 @@ TranslationUnit {
                   18446744073709550592}),
             macroExprType =
             "IntLike (CIntegralType (IntLike (LongLong Unsigned)))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:14:9",
@@ -407,11 +385,9 @@ TranslationUnit {
                   18446744073709550592}),
             macroExprType =
             "IntLike (CIntegralType (IntLike (LongLong Unsigned)))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:15:9",
@@ -442,11 +418,9 @@ TranslationUnit {
                   18446744073709550592}),
             macroExprType =
             "IntLike (CIntegralType (IntLike (LongLong Unsigned)))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:17:9",
@@ -484,11 +458,9 @@ TranslationUnit {
                       integerLiteralValue = 2})],
             macroExprType =
             "Tuple2 (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:18:9",
@@ -526,11 +498,9 @@ TranslationUnit {
                       integerLiteralValue = 4})],
             macroExprType =
             "Tuple2 (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:19:9",
@@ -568,11 +538,9 @@ TranslationUnit {
                       integerLiteralValue = 6})],
             macroExprType =
             "Tuple2 (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:24:9",
@@ -604,11 +572,9 @@ TranslationUnit {
                   110000.0}),
             macroExprType =
             "FloatLike DoubleType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:25:9",
@@ -640,11 +606,9 @@ TranslationUnit {
                   1.2e-2}),
             macroExprType =
             "FloatLike DoubleType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:26:9",
@@ -675,11 +639,9 @@ TranslationUnit {
                   1.3e-2}),
             macroExprType =
             "FloatLike FloatType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:28:9",
@@ -711,11 +673,9 @@ TranslationUnit {
                   21.0}),
             macroExprType =
             "FloatLike DoubleType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:29:9",
@@ -747,11 +707,9 @@ TranslationUnit {
                   2200.0}),
             macroExprType =
             "FloatLike DoubleType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:30:9",
@@ -782,11 +740,9 @@ TranslationUnit {
                   23.0}),
             macroExprType =
             "FloatLike FloatType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:32:9",
@@ -818,11 +774,9 @@ TranslationUnit {
                   31.0}),
             macroExprType =
             "FloatLike DoubleType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:33:9",
@@ -854,11 +808,9 @@ TranslationUnit {
                   0.32}),
             macroExprType =
             "FloatLike DoubleType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:34:9",
@@ -890,11 +842,9 @@ TranslationUnit {
                   33.0}),
             macroExprType =
             "FloatLike DoubleType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:35:9",
@@ -925,11 +875,9 @@ TranslationUnit {
                   3.4e-3}),
             macroExprType =
             "FloatLike FloatType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:37:9",
@@ -961,11 +909,9 @@ TranslationUnit {
                   650000.0}),
             macroExprType =
             "FloatLike DoubleType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:38:9",
@@ -997,11 +943,9 @@ TranslationUnit {
                   6.6e-2}),
             macroExprType =
             "FloatLike DoubleType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:39:9",
@@ -1033,11 +977,9 @@ TranslationUnit {
                   6.7e-2}),
             macroExprType =
             "FloatLike FloatType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:41:9",
@@ -1069,11 +1011,9 @@ TranslationUnit {
                   81.0}),
             macroExprType =
             "FloatLike DoubleType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:42:9",
@@ -1105,11 +1045,9 @@ TranslationUnit {
                   82.0}),
             macroExprType =
             "FloatLike FloatType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:44:9",
@@ -1142,11 +1080,9 @@ TranslationUnit {
                   15520.0}),
             macroExprType =
             "FloatLike DoubleType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:45:9",
@@ -1178,11 +1114,9 @@ TranslationUnit {
                   98.0}),
             macroExprType =
             "FloatLike DoubleType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:46:9",
@@ -1214,11 +1148,9 @@ TranslationUnit {
                   9.9e-3}),
             macroExprType =
             "FloatLike FloatType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:49:9",
@@ -1258,11 +1190,9 @@ TranslationUnit {
                       integerLiteralValue = 1})],
             macroExprType =
             "FloatLike DoubleType"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macros.h:50:9",
@@ -1301,9 +1231,7 @@ TranslationUnit {
                       integerLiteralValue = 2})],
             macroExprType =
             "IntLike (CIntegralType (IntLike (Long Unsigned)))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}}],
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
   unitDeps = ["macros"]}

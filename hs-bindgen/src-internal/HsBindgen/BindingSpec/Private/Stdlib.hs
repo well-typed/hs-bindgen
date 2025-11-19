@@ -38,11 +38,12 @@ bindingSpec = BindingSpec.BindingSpec{..}
     bindingSpecModule :: Hs.ModuleName
     bindingSpecModule = "HsBindgen.Runtime.Prelude"
 
-    bindingSpecTypes ::
+    bindingSpecCTypes ::
       Map
         C.QualName
         [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)]
-    bindingSpecTypes = Map.fromList [
+    bindingSpecHsTypes :: Map Hs.Identifier BindingSpec.HsTypeSpec
+    (bindingSpecCTypes, bindingSpecHsTypes) = aux [
         -- Integral types
         mkT "int8_t"         "Int8"     intI inttypesH
       , mkT "int16_t"        "Int16"    intI inttypesH
@@ -162,6 +163,20 @@ bindingSpec = BindingSpec.BindingSpec{..}
       , Hs.WriteRaw
       ]
 
+    aux ::
+         [ ( ( C.QualName
+             , [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)]
+             )
+           , (Hs.Identifier, BindingSpec.HsTypeSpec)
+           )
+         ]
+      -> ( Map
+             C.QualName
+             [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)]
+         , Map Hs.Identifier BindingSpec.HsTypeSpec
+         )
+    aux = bimap Map.fromList Map.fromList . unzip
+
 {-------------------------------------------------------------------------------
   Auxiliary functions
 -------------------------------------------------------------------------------}
@@ -174,24 +189,27 @@ mkT ::
   -> Hs.Identifier
   -> [Hs.TypeClass]
   -> Set HashIncludeArg
-  -> ( C.QualName
-     , [(Set HashIncludeArg , Omittable BindingSpec.CTypeSpec)]
+  -> ( ( C.QualName
+       , [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)]
+       )
+     , (Hs.Identifier, BindingSpec.HsTypeSpec)
      )
-mkT t hsId insts headers = case C.parseQualName t of
-    Just cQualName -> (cQualName, [(headers, Require typeSpec)])
+mkT t hsIdentifier insts headers = case C.parseQualName t of
     Nothing -> panicPure $ "invalid qualified name: " ++ show t
+    Just cQualName ->
+      ( (cQualName, [(headers, Require cTypeSpec)])
+      , (hsIdentifier, hsTypeSpec)
+      )
   where
-    typeSpec :: BindingSpec.CTypeSpec
-    typeSpec = BindingSpec.CTypeSpec {
-        cTypeSpecIdentifier = Just hsId
-      , cTypeSpecInstances  = Map.fromList [
-            (inst, Require instanceSpec)
-          | inst <- insts
-          ]
+    cTypeSpec :: BindingSpec.CTypeSpec
+    cTypeSpec = BindingSpec.CTypeSpec {
+        cTypeSpecIdentifier = Just hsIdentifier
       }
 
-    instanceSpec :: BindingSpec.InstanceSpec
-    instanceSpec = BindingSpec.InstanceSpec {
-        instanceSpecStrategy    = Nothing
-      , instanceSpecConstraints = []
+    hsTypeSpec :: BindingSpec.HsTypeSpec
+    hsTypeSpec = BindingSpec.HsTypeSpec {
+        hsTypeSpecInstances = Map.fromList [
+            (inst, Require def)
+          | inst <- insts
+          ]
       }

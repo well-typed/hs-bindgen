@@ -35,7 +35,8 @@ data ResolveBindingSpecs a deriving anyclass (ValidPass)
 
 type family AnnResolveBindingSpecs ix where
   AnnResolveBindingSpecs "TranslationUnit" = DeclMeta
-  AnnResolveBindingSpecs "Decl"            = BindingSpec.CTypeSpec
+  AnnResolveBindingSpecs "Decl"            =
+    (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
   AnnResolveBindingSpecs _                 = NoAnn
 
 instance IsPass ResolveBindingSpecs where
@@ -55,8 +56,11 @@ data ResolvedExtBinding = ResolvedExtBinding{
       -- | The Haskell type which will be used
     , extHsRef :: Hs.ExtRef
 
+      -- | Additional information about the C type
+    , extCSpec :: BindingSpec.CTypeSpec
+
       -- | Additional information about the Haskell type
-    , extHsSpec :: BindingSpec.CTypeSpec
+    , extHsSpec :: Maybe BindingSpec.HsTypeSpec
     }
   deriving stock (Show, Eq, Ord, Generic)
 

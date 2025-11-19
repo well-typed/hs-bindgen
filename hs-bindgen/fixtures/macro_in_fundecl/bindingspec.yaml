@@ -2,10 +2,24 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: macro_in_fundecl.h
   cname: C
   hsname: C
+- headers: macro_in_fundecl.h
+  cname: F
+  hsname: F
+- headers: macro_in_fundecl.h
+  cname: I
+  hsname: I
+- headers: macro_in_fundecl.h
+  cname: L
+  hsname: L
+- headers: macro_in_fundecl.h
+  cname: S
+  hsname: S
+hstypes:
+- hsname: C
   instances:
   - Bits
   - Bounded
@@ -20,9 +34,7 @@ types:
   - Real
   - Show
   - Storable
-- headers: macro_in_fundecl.h
-  cname: F
-  hsname: F
+- hsname: F
   instances:
   - Enum
   - Eq
@@ -36,9 +48,7 @@ types:
   - RealFrac
   - Show
   - Storable
-- headers: macro_in_fundecl.h
-  cname: I
-  hsname: I
+- hsname: I
   instances:
   - Bits
   - Bounded
@@ -53,9 +63,7 @@ types:
   - Real
   - Show
   - Storable
-- headers: macro_in_fundecl.h
-  cname: L
-  hsname: L
+- hsname: L
   instances:
   - Bits
   - Bounded
@@ -70,9 +78,7 @@ types:
   - Real
   - Show
   - Storable
-- headers: macro_in_fundecl.h
-  cname: S
-  hsname: S
+- hsname: S
   instances:
   - Bits
   - Bounded

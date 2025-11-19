@@ -36,11 +36,9 @@ TranslationUnit {
                       integerLiteralValue = 1})],
             macroExprType =
             "(forall a. Add a (IntLike (CIntegralType (IntLike (Int Signed)))) => (a -> AddRes a (IntLike (CIntegralType (IntLike (Int Signed))))))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -72,11 +70,9 @@ TranslationUnit {
                   (MVar NoXVar (Name "y") [])],
             macroExprType =
             "(forall a b. Add a b => (a -> b -> AddRes a b))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -101,11 +97,9 @@ TranslationUnit {
               (MVar NoXVar (Name "X") []),
             macroExprType =
             "(forall a. (a -> a))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -133,11 +127,9 @@ TranslationUnit {
               (MVar NoXVar (Name "X") []),
             macroExprType =
             "(forall a b. (a -> b -> a))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -170,11 +162,9 @@ TranslationUnit {
                   (MVar NoXVar (Name "Y") [])],
             macroExprType =
             "(forall a b. RelOrd a b => (a -> b -> IntLike (CIntegralType (IntLike (Int Signed)))))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -218,11 +208,9 @@ TranslationUnit {
                       (MVar NoXVar (Name "Y") [])]],
             macroExprType =
             "(forall a b. Add a (MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b) => Mult (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => (a -> b -> AddRes a (MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b)))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -266,11 +254,9 @@ TranslationUnit {
                       (MVar NoXVar (Name "Y") [])]],
             macroExprType =
             "(forall a b. Mult (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => Shift a (MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b) => (a -> b -> ShiftRes a))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -315,11 +301,9 @@ TranslationUnit {
                           (MVar NoXVar (Name "X") [])])]),
             macroExprType =
             "(forall a b. Add a (IntLike (CIntegralType (IntLike (Int Signed)))) => (b -> a -> AddRes a (IntLike (CIntegralType (IntLike (Int Signed))))))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -363,11 +347,9 @@ TranslationUnit {
                           integerLiteralValue = 12})]],
             macroExprType =
             "(forall a b. Add b (IntLike (CIntegralType (IntLike (Int Unsigned)))) => Div a (AddRes b (IntLike (CIntegralType (IntLike (Int Unsigned))))) => (a -> b -> DivRes a (AddRes b (IntLike (CIntegralType (IntLike (Int Unsigned)))))))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -413,11 +395,9 @@ TranslationUnit {
                   (MVar NoXVar (Name "Y") [])],
             macroExprType =
             "(forall a b. Mult (FloatLike FloatType) a => Div (MultRes (FloatLike FloatType) a) b => (a -> b -> DivRes (MultRes (FloatLike FloatType) a) b))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -486,11 +466,9 @@ TranslationUnit {
                           16711680})]],
             macroExprType =
             "(forall a. Bitwise (BitsRes (ShiftRes a) (IntLike (CIntegralType (IntLike (Int Signed))))) (BitsRes (ShiftRes a) (IntLike (CIntegralType (IntLike (Int Signed))))) => Bitwise (ShiftRes a) (IntLike (CIntegralType (IntLike (Int Signed)))) => Shift a (IntLike (CIntegralType (IntLike (Int Signed)))) => (a -> BitsRes (BitsRes (ShiftRes a) (IntLike (CIntegralType (IntLike (Int Signed))))) (BitsRes (ShiftRes a) (IntLike (CIntegralType (IntLike (Int Signed)))))))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -548,9 +526,7 @@ TranslationUnit {
                   (MVar NoXVar (Name "c") [])],
             macroExprType =
             "(forall a b c. Bitwise (ShiftRes a) (ShiftRes b) => Bitwise (BitsRes (ShiftRes a) (ShiftRes b)) c => Shift b (IntLike (CIntegralType (IntLike (Int Signed)))) => Shift a (IntLike (CIntegralType (IntLike (Int Signed)))) => (a -> b -> c -> BitsRes (BitsRes (ShiftRes a) (ShiftRes b)) c))"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}}],
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
   unitDeps = ["macro_functions"]}

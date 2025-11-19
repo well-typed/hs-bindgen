@@ -2,38 +2,62 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: manual/zero_copy.h
   cname: struct circle
   hsname: Circle
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: manual/zero_copy.h
   cname: struct colour
   hsname: Colour
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: manual/zero_copy.h
   cname: struct drawing
   hsname: Drawing
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: manual/zero_copy.h
   cname: matrix
   hsname: Matrix
+- headers: manual/zero_copy.h
+  cname: myInt
+  hsname: MyInt
+- headers: manual/zero_copy.h
+  cname: struct point
+  hsname: Point
+- headers: manual/zero_copy.h
+  cname: struct rectangle
+  hsname: Rectangle
+- headers: manual/zero_copy.h
+  cname: union shape
+  hsname: Shape
+- headers: manual/zero_copy.h
+  cname: struct tic_tac_toe
+  hsname: Tic_tac_toe
+- headers: manual/zero_copy.h
+  cname: triplet
+  hsname: Triplet
+- headers: manual/zero_copy.h
+  cname: struct vector
+  hsname: Vector
+hstypes:
+- hsname: Circle
   instances:
   - Eq
   - Show
   - Storable
-- headers: manual/zero_copy.h
-  cname: myInt
-  hsname: MyInt
+- hsname: Colour
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Drawing
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Matrix
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: MyInt
   instances:
   - Bits
   - Bounded
@@ -48,42 +72,30 @@ types:
   - Real
   - Show
   - Storable
-- headers: manual/zero_copy.h
-  cname: struct point
-  hsname: Point
+- hsname: Point
   instances:
   - Eq
   - Show
   - Storable
-- headers: manual/zero_copy.h
-  cname: struct rectangle
-  hsname: Rectangle
+- hsname: Rectangle
   instances:
   - Eq
   - Show
   - Storable
-- headers: manual/zero_copy.h
-  cname: union shape
-  hsname: Shape
+- hsname: Shape
   instances:
   - Storable
-- headers: manual/zero_copy.h
-  cname: struct tic_tac_toe
-  hsname: Tic_tac_toe
+- hsname: Tic_tac_toe
   instances:
   - Eq
   - Show
   - Storable
-- headers: manual/zero_copy.h
-  cname: triplet
-  hsname: Triplet
+- hsname: Triplet
   instances:
   - Eq
   - Show
   - Storable
-- headers: manual/zero_copy.h
-  cname: struct vector
-  hsname: Vector
+- hsname: Vector
   instances:
   - Eq
   - Show

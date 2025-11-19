@@ -2,17 +2,20 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: fun_attributes.h
   cname: FILE
   hsname: FILE
+- headers: fun_attributes.h
+  cname: size_t
+  hsname: Size_t
+hstypes:
+- hsname: FILE
   instances:
   - Eq
   - Show
   - Storable
-- headers: fun_attributes.h
-  cname: size_t
-  hsname: Size_t
+- hsname: Size_t
   instances:
   - Bits
   - Bounded
