@@ -9,6 +9,7 @@ module HsBindgen.Config.ClangArgs (
   , Target(..)
   , TargetEnv(..)
   , targetTriple
+  , parseTargetTriple
     -- ** Builtin include directory
   , BuiltinIncDirConfig(..)
     -- * Translation
@@ -17,6 +18,7 @@ module HsBindgen.Config.ClangArgs (
   ) where
 
 import Data.List qualified as List
+import Data.Maybe (listToMaybe)
 
 import Clang.Args
 
@@ -214,18 +216,37 @@ data TargetEnv =
 --
 -- See <https://clang.llvm.org/docs/CrossCompilation.html>
 targetTriple :: Target -> TargetEnv -> String
-targetTriple target mEnv = concat [
-      case target of
-        Target_Linux_X86_64   -> "x86_64-pc-linux"
-        Target_Linux_X86      -> "i386-pc-linux"
-        Target_Linux_AArch64  -> "aarch64-pc-linux"
-        Target_Windows_X86_64 -> "x86_64-pc-windows"
-        Target_MacOS_X86_64   -> "x86_64-apple-macosx"
-        Target_MacOS_AArch64  -> "aarch64-apple-macosx"
-    , case mEnv of
-        TargetEnvDefault      -> ""
-        TargetEnvOverride env -> "-" ++ env
+targetTriple target' targetEnv' =
+    renderTarget target' ++ renderTargetEnv targetEnv'
+  where
+    renderTargetEnv :: TargetEnv -> String
+    renderTargetEnv = \case
+      TargetEnvDefault    -> ""
+      TargetEnvOverride s -> "-" ++ s
+
+renderTarget :: Target -> String
+renderTarget = \case
+    Target_Linux_X86_64   -> "x86_64-pc-linux"
+    Target_Linux_X86      -> "i386-pc-linux"
+    Target_Linux_AArch64  -> "aarch64-pc-linux"
+    Target_Windows_X86_64 -> "x86_64-pc-windows"
+    Target_MacOS_X86_64   -> "x86_64-apple-macosx"
+    Target_MacOS_AArch64  -> "aarch64-apple-macosx"
+
+-- | Parse a target triple string
+parseTargetTriple :: String -> Maybe (Target, TargetEnv)
+parseTargetTriple s = listToMaybe [
+      (target', targetEnv')
+    | target'         <- [minBound..]
+    , Just s'         <- [List.stripPrefix (renderTarget target') s]
+    , Just targetEnv' <- [parseTargetEnv s']
     ]
+  where
+    parseTargetEnv :: String -> Maybe TargetEnv
+    parseTargetEnv = \case
+      ""               -> Just TargetEnvDefault
+      '-' : targetEnv' -> Just (TargetEnvOverride targetEnv')
+      _otherwise       -> Nothing
 
 {-------------------------------------------------------------------------------
   Builtin include directory
