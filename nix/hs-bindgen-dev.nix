@@ -10,7 +10,6 @@
 let
   hpkgsDefault = pkgsDefault.haskellPackages;
   hpkgsOverlay = pkgsOverlay.haskellPackages;
-  rust-bindgen = pkgsDefault.callPackage ./rust-bindgen.nix { inherit (llvmPackages) clang; };
   devShellWith = hpkgsOverlay.shellFor {
     packages = p: [ p.hs-bindgen ];
     nativeBuildInputs = [
@@ -22,9 +21,6 @@ let
       # Fix the version of `cabal-fmt` because it compiles only with some
       # versions of GHC.
       hpkgsDefault.cabal-fmt
-      # Rust.
-      rust-bindgen
-      pkgsDefault.rustfmt
       # Clang.
       llvmPackages.clang
       llvmPackages.libclang
