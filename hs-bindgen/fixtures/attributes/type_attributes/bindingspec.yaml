@@ -1,0 +1,102 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: attributes/type_attributes.h
+  cname: struct S
+  hsname: S
+- headers: attributes/type_attributes.h
+  cname: struct S2
+  hsname: S2
+- headers: attributes/type_attributes.h
+  cname: T1
+  hsname: T1
+- headers: attributes/type_attributes.h
+  cname: more_aligned_int
+  hsname: More_aligned_int
+- headers: attributes/type_attributes.h
+  cname: struct my_packed_struct
+  hsname: My_packed_struct
+- headers: attributes/type_attributes.h
+  cname: struct my_unpacked_struct
+  hsname: My_unpacked_struct
+- headers: attributes/type_attributes.h
+  cname: short_a
+  hsname: Short_a
+- headers: attributes/type_attributes.h
+  cname: union wait
+  hsname: Wait
+- headers: attributes/type_attributes.h
+  cname: wait_status_ptr_t
+  hsname: Wait_status_ptr_t
+hstypes:
+- hsname: More_aligned_int
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: My_packed_struct
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: My_unpacked_struct
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: S
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: S2
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Short_a
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: T1
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: Wait
+- hsname: Wait_status_ptr_t
+  instances:
+  - Storable

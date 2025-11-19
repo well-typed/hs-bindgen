@@ -4,7 +4,6 @@
 module Test.HsBindgen.Golden.TestCase (
     -- * Definition
     TestCase(..)
-  , TestRustBindgen(..)
   , testInputInclude
     -- * Construction
   , defaultTest
@@ -22,7 +21,6 @@ module Test.HsBindgen.Golden.TestCase (
     -- * Execution
   , runTestHsBindgen
   , runTestHsBindgen'
-  , runTestRustBindgen
   ) where
 
 import Control.Exception (Exception (..), SomeException (..), handle)
@@ -92,13 +90,6 @@ data TestCase = TestCase {
       -- | Modify the default prescriptive binding specification configuration
     , testPrescriptiveBindingSpec :: Maybe FilePath
 
-      -- | Should we expect rust-bindgen to throw an error on this test?
-      --
-      -- This is true for all failing test cases, but it is also true for a
-      -- handful of successful test cases which use features that aren't
-      -- supported by rust-bindgen.
-    , testRustBindgen :: TestRustBindgen
-
       -- | Whether or not the tests show full paths when rendering Haddock
       -- comments.
       --
@@ -107,26 +98,12 @@ data TestCase = TestCase {
     , testPathStyle :: PathStyle
     }
 
-data TestRustBindgen =
-    -- | Run @rust-bindgen@, and compare against golden test
-    RustBindgenRun
-
-    -- | Run @rust-bindgen@, and check that it fails
-  | RustBindgenFail
-
-    -- | Do not run @rust-bindgen@
-  | RustBindgenIgnore
-
 {-------------------------------------------------------------------------------
   Derived
 -------------------------------------------------------------------------------}
 
 testInputInclude :: TestCase -> UncheckedHashIncludeArg
 testInputInclude TestCase{testInputHeaderFileName} = testInputHeaderFileName
-
-testInputPath :: TestCase -> FilePath
-testInputPath TestCase{testInputDir, testInputHeaderFileName} =
-    testInputDir </> testInputHeaderFileName
 
 {-------------------------------------------------------------------------------
   Construction
@@ -148,7 +125,6 @@ defaultTest fp = TestCase{
     , testStdlibSpec              = EnableStdlibBindingSpec
     , testExtBindingSpecs         = []
     , testPrescriptiveBindingSpec = Nothing
-    , testRustBindgen             = RustBindgenRun
     , testPathStyle               = Short
     }
 
@@ -157,10 +133,8 @@ testVariant ::
   -> String --  ^ Variant suffix, appended to the output directory
   -> TestCase
 testVariant filename suffix = defTest{
-        testName        = testName defTest      ++ "." ++ suffix
-      , testOutputDir   = testOutputDir defTest ++ "." ++ suffix
-        -- For variants, do not run `rust-bindgen` again.
-      , testRustBindgen = RustBindgenIgnore
+        testName      = testName defTest      ++ "." ++ suffix
+      , testOutputDir = testOutputDir defTest ++ "." ++ suffix
       }
   where
     defTest = defaultTest filename
@@ -202,7 +176,7 @@ testDiagnostic filename p =
 defaultFailingTest :: String -> TestCase
 defaultFailingTest filename = (defaultTest filename){
       testHasOutput = False
-    , testInputDir  = "examples/failing"
+    , testInputDir  = "examples/golden"
     }
 
 failingTestTrace :: String -> TracePredicate TraceMsg -> TestCase
@@ -290,11 +264,3 @@ runTestHsBindgen' report testResources test artefacts = do
         "Example"
         [testInputInclude test]
         artefacts
-
-runTestRustBindgen :: IO TestResources -> TestCase -> IO RustBindgenResult
-runTestRustBindgen testResources test = do
-    bootConfig <- getTestBootConfig testResources test
-    callRustBindgen
-      testResources
-      (bootClangArgsConfig bootConfig)
-      (testInputPath test)

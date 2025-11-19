@@ -1,5 +1,0 @@
-CApiFFI
-TemplateHaskell
-DataKinds
-DerivingStrategies
-GeneralizedNewtypeDeriving

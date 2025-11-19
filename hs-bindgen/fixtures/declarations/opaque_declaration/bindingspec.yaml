@@ -1,0 +1,34 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: declarations/opaque_declaration.h
+  cname: struct bar
+  hsname: Bar
+- headers: declarations/opaque_declaration.h
+  cname: struct baz
+  hsname: Baz
+- headers: declarations/opaque_declaration.h
+  cname: struct foo
+  hsname: Foo
+- headers: declarations/opaque_declaration.h
+  cname: union opaque_union
+  hsname: Opaque_union
+- headers: declarations/opaque_declaration.h
+  cname: enum quu
+  hsname: Quu
+hstypes:
+- hsname: Bar
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Baz
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Foo
+- hsname: Opaque_union
+- hsname: Quu

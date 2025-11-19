@@ -1,0 +1,95 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/macro_in_fundecl.h
+  cname: C
+  hsname: C
+- headers: macros/macro_in_fundecl.h
+  cname: F
+  hsname: F
+- headers: macros/macro_in_fundecl.h
+  cname: I
+  hsname: I
+- headers: macros/macro_in_fundecl.h
+  cname: L
+  hsname: L
+- headers: macros/macro_in_fundecl.h
+  cname: S
+  hsname: S
+hstypes:
+- hsname: C
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: F
+  instances:
+  - Enum
+  - Eq
+  - Floating
+  - Fractional
+  - Num
+  - Ord
+  - Read
+  - Real
+  - RealFloat
+  - RealFrac
+  - Show
+  - Storable
+- hsname: I
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: L
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: S
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable

@@ -1,0 +1,99 @@
+-- addDependentFile examples/golden/functions/circular_dependency_fun.h
+{-| Auxiliary type used by 'Fun_ptr'
+
+__defined at:__ @functions\/circular_dependency_fun.h:3:16@
+
+__exported by:__ @functions\/circular_dependency_fun.h@
+-}
+newtype Fun_ptr_Deref
+    = Fun_ptr_Deref {un_Fun_ptr_Deref :: (Ptr Forward_declaration ->
+                                          IO Unit)}
+      {- ^ Auxiliary type used by 'Fun_ptr'
+
+      __defined at:__ @functions\/circular_dependency_fun.h:3:16@
+
+      __exported by:__ @functions\/circular_dependency_fun.h@
+      -}
+foreign import ccall safe "wrapper" toFun_ptr_Deref :: Fun_ptr_Deref ->
+                                                       IO (FunPtr Fun_ptr_Deref)
+foreign import ccall safe "dynamic" fromFun_ptr_Deref :: FunPtr Fun_ptr_Deref ->
+                                                         Fun_ptr_Deref
+instance ToFunPtr Fun_ptr_Deref
+    where toFunPtr = toFun_ptr_Deref
+instance FromFunPtr Fun_ptr_Deref
+    where fromFunPtr = fromFun_ptr_Deref
+instance TyEq ty (CFieldType Fun_ptr_Deref "un_Fun_ptr_Deref") =>
+         HasField "un_Fun_ptr_Deref" (Ptr Fun_ptr_Deref) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Fun_ptr_Deref")
+instance HasCField Fun_ptr_Deref "un_Fun_ptr_Deref"
+    where type CFieldType Fun_ptr_Deref
+                          "un_Fun_ptr_Deref" = Ptr Forward_declaration -> IO Unit
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @fun_ptr@
+
+    __defined at:__ @functions\/circular_dependency_fun.h:3:16@
+
+    __exported by:__ @functions\/circular_dependency_fun.h@
+-}
+newtype Fun_ptr
+    = Fun_ptr {un_Fun_ptr :: (FunPtr Fun_ptr_Deref)}
+      {- ^ __C declaration:__ @fun_ptr@
+
+           __defined at:__ @functions\/circular_dependency_fun.h:3:16@
+
+           __exported by:__ @functions\/circular_dependency_fun.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+instance TyEq ty (CFieldType Fun_ptr "un_Fun_ptr") =>
+         HasField "un_Fun_ptr" (Ptr Fun_ptr) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Fun_ptr")
+instance HasCField Fun_ptr "un_Fun_ptr"
+    where type CFieldType Fun_ptr "un_Fun_ptr" = FunPtr Fun_ptr_Deref
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @forward_declaration@
+
+    __defined at:__ @functions\/circular_dependency_fun.h:5:8@
+
+    __exported by:__ @functions\/circular_dependency_fun.h@
+-}
+data Forward_declaration
+    = Forward_declaration {forward_declaration_f :: Fun_ptr
+                           {- ^ __C declaration:__ @f@
+
+                                __defined at:__ @functions\/circular_dependency_fun.h:6:11@
+
+                                __exported by:__ @functions\/circular_dependency_fun.h@
+                           -}}
+      {- ^ __C declaration:__ @forward_declaration@
+
+           __defined at:__ @functions\/circular_dependency_fun.h:5:8@
+
+           __exported by:__ @functions\/circular_dependency_fun.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Forward_declaration
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> pure Forward_declaration <*> peekCField (Proxy @"forward_declaration_f") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Forward_declaration forward_declaration_f_3 -> pokeCField (Proxy @"forward_declaration_f") ptr_1 forward_declaration_f_3
+instance HasCField Forward_declaration "forward_declaration_f"
+    where type CFieldType Forward_declaration
+                          "forward_declaration_f" = Fun_ptr
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType Forward_declaration "forward_declaration_f") =>
+         HasField "forward_declaration_f" (Ptr Forward_declaration) (Ptr ty)
+    where getField = ptrToCField (Proxy @"forward_declaration_f")
+foreign import ccall safe "wrapper" funPtr_fbe60ed6_to :: (Ptr Forward_declaration ->
+                                                           IO Unit) ->
+                                                          IO (FunPtr (Ptr Forward_declaration ->
+                                                                      IO Unit))
+foreign import ccall safe "dynamic" funPtr_fbe60ed6_from :: FunPtr (Ptr Forward_declaration ->
+                                                                    IO Unit) ->
+                                                            Ptr Forward_declaration -> IO Unit
+instance ToFunPtr (Ptr Forward_declaration -> IO Unit)
+    where toFunPtr = funPtr_fbe60ed6_to
+instance FromFunPtr (Ptr Forward_declaration -> IO Unit)
+    where fromFunPtr = funPtr_fbe60ed6_from

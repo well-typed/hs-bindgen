@@ -8,16 +8,11 @@ module Test.HsBindgen.Resources (
   , getTestPackageRoot
   , getTestDefaultClangArgsConfig
   , getTestDefaultBackendConfig
-    -- ** rust-bindgen
-  , RustBindgenResult(..)
-  , callRustBindgen
   ) where
 
 import Data.Default (Default (..))
-import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import Test.Common.Util.Cabal
-import Test.HsBindgen.Resources.Rust
 import Test.Tasty
 
 import Clang.Args
@@ -40,9 +35,6 @@ data TestResources = TestResources {
       --
       -- NOTE: Individual tests will need to add their required include dirs.
     , testClangArgsConfig :: ClangArgsConfig FilePath
-
-      -- | Path to @rust-bindgen@, if available
-    , testRustBindgen :: RustBindgen
     }
 
 {-------------------------------------------------------------------------------
@@ -56,12 +48,10 @@ initTestResources :: IO TestResources
 initTestResources = do
     testPackageRoot <- findPackageDirectory "hs-bindgen"
     let testClangArgsConfig = mkTestClangArgsConfig testPackageRoot
-    testRustBindgen <- initRustBindgen
     return TestResources{..}
 
 freeTestResources :: TestResources -> IO ()
-freeTestResources TestResources{..} =
-    freeRustBindgen testRustBindgen
+freeTestResources _ = return ()
 
 {-------------------------------------------------------------------------------
   Package root
@@ -115,35 +105,3 @@ getTestDefaultBackendConfig testName pathStyle = def{
     , backendHaddockConfig = HaddockConfig pathStyle
     }
 
-{-------------------------------------------------------------------------------
-  rust-bindgen
--------------------------------------------------------------------------------}
-
-data RustBindgenResult =
-    RustBindgenSuccess String          -- ^ stdout on success
-  | RustBindgenFailed ExitCode String  -- ^ stderr on failure
-  | RustBindgenNotCalled
-
-callRustBindgen ::
-     IO TestResources
-  -> ClangArgsConfig FilePath
-     -- ^ Clang arguments configuration
-     --
-     -- We take this as an explicit argument rather than calling
-     -- 'getTestDefaultClangArgsConfig' here, because individual tests may
-     -- override the default configuration.
-  -> FilePath
-  -> IO RustBindgenResult
-callRustBindgen testResources clangArgsConfig input = do
-    TestResources{..} <- testResources
-    case testRustBindgen of
-      RustBindgenInPath     path -> go path
-      RustBindgenDownloaded path -> go path
-      RustBindgenUnavailable     -> return RustBindgenNotCalled
-  where
-    go :: FilePath -> IO RustBindgenResult
-    go path = do
-        (exitCode, stdout, stderr) <- runRustBindgen clangArgsConfig path input
-        case exitCode of
-          ExitSuccess -> return $ RustBindgenSuccess stdout
-          _otherwise  -> return $ RustBindgenFailed exitCode stderr

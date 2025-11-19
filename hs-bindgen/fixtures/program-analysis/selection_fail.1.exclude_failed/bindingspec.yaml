@@ -1,0 +1,22 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: program-analysis/selection_fail.h
+  cname: struct OkAfter
+  hsname: OkAfter
+- headers: program-analysis/selection_fail.h
+  cname: struct OkBefore
+  hsname: OkBefore
+hstypes:
+- hsname: OkAfter
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: OkBefore
+  instances:
+  - Eq
+  - Show
+  - Storable

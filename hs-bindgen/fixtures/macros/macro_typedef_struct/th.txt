@@ -1,0 +1,68 @@
+-- addDependentFile examples/golden/macros/macro_typedef_struct.h
+{-| __C declaration:__ @MY_TYPE@
+
+    __defined at:__ @macros\/macro_typedef_struct.h:1:9@
+
+    __exported by:__ @macros\/macro_typedef_struct.h@
+-}
+newtype MY_TYPE
+    = MY_TYPE {un_MY_TYPE :: CInt}
+      {- ^ __C declaration:__ @MY_TYPE@
+
+           __defined at:__ @macros\/macro_typedef_struct.h:1:9@
+
+           __exported by:__ @macros\/macro_typedef_struct.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+{-| __defined at:__ @macros\/macro_typedef_struct.h:3:9@
+
+    __exported by:__ @macros\/macro_typedef_struct.h@
+-}
+data Bar
+    = Bar {bar_x :: CInt
+           {- ^ __C declaration:__ @x@
+
+                __defined at:__ @macros\/macro_typedef_struct.h:4:7@
+
+                __exported by:__ @macros\/macro_typedef_struct.h@
+           -},
+           bar_y :: MY_TYPE
+           {- ^ __C declaration:__ @y@
+
+                __defined at:__ @macros\/macro_typedef_struct.h:5:11@
+
+                __exported by:__ @macros\/macro_typedef_struct.h@
+           -}}
+      {- ^ __defined at:__ @macros\/macro_typedef_struct.h:3:9@
+
+           __exported by:__ @macros\/macro_typedef_struct.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Bar
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Bar <*> peekCField (Proxy @"bar_x") ptr_0) <*> peekCField (Proxy @"bar_y") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Bar bar_x_3
+                                       bar_y_4 -> pokeCField (Proxy @"bar_x") ptr_1 bar_x_3 >> pokeCField (Proxy @"bar_y") ptr_1 bar_y_4
+instance HasCField Bar "bar_x"
+    where type CFieldType Bar "bar_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Bar "bar_x") =>
+         HasField "bar_x" (Ptr Bar) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bar_x")
+instance HasCField Bar "bar_y"
+    where type CFieldType Bar "bar_y" = MY_TYPE
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType Bar "bar_y") =>
+         HasField "bar_y" (Ptr Bar) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bar_y")

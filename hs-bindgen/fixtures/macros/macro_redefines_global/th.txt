@@ -1,0 +1,31 @@
+-- addDependentFile examples/golden/macros/macro_redefines_global.h
+{-| __C declaration:__ @FILE@
+
+    __defined at:__ @macros\/macro_redefines_global.h:7:13@
+
+    __exported by:__ @macros\/macro_redefines_global.h@
+-}
+newtype FILE
+    = FILE {un_FILE :: CInt}
+      {- ^ __C declaration:__ @FILE@
+
+           __defined at:__ @macros\/macro_redefines_global.h:7:13@
+
+           __exported by:__ @macros\/macro_redefines_global.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty (CFieldType FILE "un_FILE") =>
+         HasField "un_FILE" (Ptr FILE) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_FILE")
+instance HasCField FILE "un_FILE"
+    where type CFieldType FILE "un_FILE" = CInt
+          offset# = \_ -> \_ -> 0

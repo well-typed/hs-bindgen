@@ -1,0 +1,167 @@
+-- addDependentFile musl-include/x86_64/stdbool.h
+-- addDependentFile examples/golden/types/primitives/bool.h
+{-| __C declaration:__ @bools1@
+
+    __defined at:__ @types\/primitives\/bool.h:1:8@
+
+    __exported by:__ @types\/primitives\/bool.h@
+-}
+data Bools1
+    = Bools1 {bools1_x :: CBool
+              {- ^ __C declaration:__ @x@
+
+                   __defined at:__ @types\/primitives\/bool.h:2:11@
+
+                   __exported by:__ @types\/primitives\/bool.h@
+              -},
+              bools1_y :: CBool
+              {- ^ __C declaration:__ @y@
+
+                   __defined at:__ @types\/primitives\/bool.h:3:11@
+
+                   __exported by:__ @types\/primitives\/bool.h@
+              -}}
+      {- ^ __C declaration:__ @bools1@
+
+           __defined at:__ @types\/primitives\/bool.h:1:8@
+
+           __exported by:__ @types\/primitives\/bool.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Bools1
+    where sizeOf = \_ -> 2 :: Int
+          alignment = \_ -> 1 :: Int
+          peek = \ptr_0 -> (pure Bools1 <*> peekCField (Proxy @"bools1_x") ptr_0) <*> peekCField (Proxy @"bools1_y") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Bools1 bools1_x_3
+                                          bools1_y_4 -> pokeCField (Proxy @"bools1_x") ptr_1 bools1_x_3 >> pokeCField (Proxy @"bools1_y") ptr_1 bools1_y_4
+instance HasCField Bools1 "bools1_x"
+    where type CFieldType Bools1 "bools1_x" = CBool
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Bools1 "bools1_x") =>
+         HasField "bools1_x" (Ptr Bools1) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bools1_x")
+instance HasCField Bools1 "bools1_y"
+    where type CFieldType Bools1 "bools1_y" = CBool
+          offset# = \_ -> \_ -> 1
+instance TyEq ty (CFieldType Bools1 "bools1_y") =>
+         HasField "bools1_y" (Ptr Bools1) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bools1_y")
+{-| __C declaration:__ @bools2@
+
+    __defined at:__ @types\/primitives\/bool.h:8:8@
+
+    __exported by:__ @types\/primitives\/bool.h@
+-}
+data Bools2
+    = Bools2 {bools2_x :: CBool
+              {- ^ __C declaration:__ @x@
+
+                   __defined at:__ @types\/primitives\/bool.h:9:10@
+
+                   __exported by:__ @types\/primitives\/bool.h@
+              -},
+              bools2_y :: CBool
+              {- ^ __C declaration:__ @y@
+
+                   __defined at:__ @types\/primitives\/bool.h:10:10@
+
+                   __exported by:__ @types\/primitives\/bool.h@
+              -}}
+      {- ^ __C declaration:__ @bools2@
+
+           __defined at:__ @types\/primitives\/bool.h:8:8@
+
+           __exported by:__ @types\/primitives\/bool.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Bools2
+    where sizeOf = \_ -> 2 :: Int
+          alignment = \_ -> 1 :: Int
+          peek = \ptr_0 -> (pure Bools2 <*> peekCField (Proxy @"bools2_x") ptr_0) <*> peekCField (Proxy @"bools2_y") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Bools2 bools2_x_3
+                                          bools2_y_4 -> pokeCField (Proxy @"bools2_x") ptr_1 bools2_x_3 >> pokeCField (Proxy @"bools2_y") ptr_1 bools2_y_4
+instance HasCField Bools2 "bools2_x"
+    where type CFieldType Bools2 "bools2_x" = CBool
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Bools2 "bools2_x") =>
+         HasField "bools2_x" (Ptr Bools2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bools2_x")
+instance HasCField Bools2 "bools2_y"
+    where type CFieldType Bools2 "bools2_y" = CBool
+          offset# = \_ -> \_ -> 1
+instance TyEq ty (CFieldType Bools2 "bools2_y") =>
+         HasField "bools2_y" (Ptr Bools2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bools2_y")
+{-| __C declaration:__ @BOOL@
+
+    __defined at:__ @types\/primitives\/bool.h:13:9@
+
+    __exported by:__ @types\/primitives\/bool.h@
+-}
+newtype BOOL
+    = BOOL {un_BOOL :: CBool}
+      {- ^ __C declaration:__ @BOOL@
+
+           __defined at:__ @types\/primitives\/bool.h:13:9@
+
+           __exported by:__ @types\/primitives\/bool.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+{-| __C declaration:__ @bools3@
+
+    __defined at:__ @types\/primitives\/bool.h:15:8@
+
+    __exported by:__ @types\/primitives\/bool.h@
+-}
+data Bools3
+    = Bools3 {bools3_x :: BOOL
+              {- ^ __C declaration:__ @x@
+
+                   __defined at:__ @types\/primitives\/bool.h:16:10@
+
+                   __exported by:__ @types\/primitives\/bool.h@
+              -},
+              bools3_y :: BOOL
+              {- ^ __C declaration:__ @y@
+
+                   __defined at:__ @types\/primitives\/bool.h:17:10@
+
+                   __exported by:__ @types\/primitives\/bool.h@
+              -}}
+      {- ^ __C declaration:__ @bools3@
+
+           __defined at:__ @types\/primitives\/bool.h:15:8@
+
+           __exported by:__ @types\/primitives\/bool.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Bools3
+    where sizeOf = \_ -> 2 :: Int
+          alignment = \_ -> 1 :: Int
+          peek = \ptr_0 -> (pure Bools3 <*> peekCField (Proxy @"bools3_x") ptr_0) <*> peekCField (Proxy @"bools3_y") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Bools3 bools3_x_3
+                                          bools3_y_4 -> pokeCField (Proxy @"bools3_x") ptr_1 bools3_x_3 >> pokeCField (Proxy @"bools3_y") ptr_1 bools3_y_4
+instance HasCField Bools3 "bools3_x"
+    where type CFieldType Bools3 "bools3_x" = BOOL
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Bools3 "bools3_x") =>
+         HasField "bools3_x" (Ptr Bools3) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bools3_x")
+instance HasCField Bools3 "bools3_y"
+    where type CFieldType Bools3 "bools3_y" = BOOL
+          offset# = \_ -> \_ -> 1
+instance TyEq ty (CFieldType Bools3 "bools3_y") =>
+         HasField "bools3_y" (Ptr Bools3) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bools3_y")

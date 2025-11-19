@@ -1,0 +1,32 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: functions/fun_attributes.h
+  cname: FILE
+  hsname: FILE
+- headers: functions/fun_attributes.h
+  cname: size_t
+  hsname: Size_t
+hstypes:
+- hsname: FILE
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Size_t
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable

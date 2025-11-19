@@ -21,10 +21,10 @@ EOF
 
 # Known failures - these will be skipped unless -f is used
 KNOWN_FAILURES=(
-    iterator           # Makes use of Apple block extension which would require clang (see #913)
-    decls_in_signature # Unusable struct (see #1128)
-    redeclaration      # Same as typenames
-    typenames          # hs-bindgen namespace possible bug/feature
+    edge-cases/iterator          # Makes use of Apple block extension which would require clang (see #913)
+    functions/decls_in_signature # Unusable struct (see #1128)
+    declarations/redeclaration   # Multiple declarations (intentional test case)
+    types/typedefs/typenames     # Multiple declarations (hs-bindgen namespace possible bug/feature)
 )
 
 # Default options
@@ -101,11 +101,15 @@ compile_fixture() {
     #
     # NOTE: I (Joris) am not 100% sure, but it looks like the order in which the
     # files are passed to the GHC invocation matters for module dependency
-    # resolution. Just a simple sort based on the name of the file is sufficient
-    # for now to prevent GHC errors. If a "module not found" error ever pop ups
-    # in the future, then this might be caused by an inadequate sort here.
+    # resolution. We sort by directory depth first (shallower files first), then
+    # alphabetically. This ensures Example.pp.hs is compiled before Example/*.pp.hs,
+    # which is necessary since the submodules import the main Example module.
     local files
-    files=$(find "$FIXTURES_DIR/$fixture_name/" -type f -name "*.pp.hs" -print0 | sort -z | xargs -0 echo)
+    files=$(find "$FIXTURES_DIR/$fixture_name/" -type f -name "*.pp.hs" -print0 | \
+        xargs -0 -I {} sh -c 'echo $(echo "{}" | tr -cd "/" | wc -c) "{}"' | \
+        sort -n | \
+        cut -d' ' -f2- | \
+        tr '\n' ' ')
 
     # Use a temporary output file to avoid polluting the fixtures directory
     local output_dir

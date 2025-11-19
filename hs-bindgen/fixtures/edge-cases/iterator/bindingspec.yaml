@@ -1,0 +1,18 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: edge-cases/iterator.h
+  cname: Counter
+  hsname: Counter
+- headers: edge-cases/iterator.h
+  cname: Toggle
+  hsname: Toggle
+- headers: edge-cases/iterator.h
+  cname: VarCounter
+  hsname: VarCounter
+hstypes:
+- hsname: Counter
+- hsname: Toggle
+- hsname: VarCounter

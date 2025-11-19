@@ -1,0 +1,24 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Foreign
+ctypes:
+- headers: program-analysis/program_slicing_simple.h
+  cname: uint64_t
+  hsname: Int64
+hstypes:
+- hsname: Int64
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable

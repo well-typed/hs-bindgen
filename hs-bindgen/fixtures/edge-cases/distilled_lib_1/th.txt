@@ -1,0 +1,751 @@
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/stdint.h
+-- addDependentFile musl-include/x86_64/stdbool.h
+-- addDependentFile examples/golden/edge-cases/distilled_lib_1.h
+-- #include <edge-cases/distilled_lib_1.h>
+-- int32_t hs_bindgen_test_edgecasesdistilled_lib_1_29c178c31334688f (
+--   a_type_t *arg1,
+--   uint32_t arg2,
+--   uint8_t *arg3
+-- )
+-- {
+--   return some_fun(arg1, arg2, arg3);
+-- }
+-- int32_t hs_bindgen_test_edgecasesdistilled_lib_1_efd27157959bd4b3 (
+--   a_type_t *arg1,
+--   uint32_t arg2,
+--   uint8_t *arg3
+-- )
+-- {
+--   return some_fun(arg1, arg2, arg3);
+-- }
+-- /* get_some_fun_ptr */
+-- __attribute__ ((const))
+-- int32_t (*hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c (void)) (
+--   a_type_t *arg1,
+--   uint32_t arg2,
+--   uint8_t arg3[]
+-- )
+-- {
+--   return &some_fun;
+-- }
+-- /* get_v_ptr */
+-- __attribute__ ((const))
+-- var_t *hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6 (void)
+-- {
+--   return &v;
+-- }
+{-| __defined at:__ @edge-cases\/distilled_lib_1.h:9:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+data Another_typedef_struct_t
+    = Another_typedef_struct_t {another_typedef_struct_t_foo :: CInt
+                                {- ^ __C declaration:__ @foo@
+
+                                     __defined at:__ @edge-cases\/distilled_lib_1.h:9:22@
+
+                                     __exported by:__ @edge-cases\/distilled_lib_1.h@
+                                -},
+                                another_typedef_struct_t_bar :: CChar
+                                {- ^ __C declaration:__ @bar@
+
+                                     __defined at:__ @edge-cases\/distilled_lib_1.h:9:32@
+
+                                     __exported by:__ @edge-cases\/distilled_lib_1.h@
+                                -}}
+      {- ^ __defined at:__ @edge-cases\/distilled_lib_1.h:9:9@
+
+           __exported by:__ @edge-cases\/distilled_lib_1.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Another_typedef_struct_t
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Another_typedef_struct_t <*> peekCField (Proxy @"another_typedef_struct_t_foo") ptr_0) <*> peekCField (Proxy @"another_typedef_struct_t_bar") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Another_typedef_struct_t another_typedef_struct_t_foo_3
+                                                            another_typedef_struct_t_bar_4 -> pokeCField (Proxy @"another_typedef_struct_t_foo") ptr_1 another_typedef_struct_t_foo_3 >> pokeCField (Proxy @"another_typedef_struct_t_bar") ptr_1 another_typedef_struct_t_bar_4
+instance HasCField Another_typedef_struct_t
+                   "another_typedef_struct_t_foo"
+    where type CFieldType Another_typedef_struct_t
+                          "another_typedef_struct_t_foo" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType Another_typedef_struct_t
+                          "another_typedef_struct_t_foo") =>
+         HasField "another_typedef_struct_t_foo"
+                  (Ptr Another_typedef_struct_t)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"another_typedef_struct_t_foo")
+instance HasCField Another_typedef_struct_t
+                   "another_typedef_struct_t_bar"
+    where type CFieldType Another_typedef_struct_t
+                          "another_typedef_struct_t_bar" = CChar
+          offset# = \_ -> \_ -> 4
+instance TyEq ty
+              (CFieldType Another_typedef_struct_t
+                          "another_typedef_struct_t_bar") =>
+         HasField "another_typedef_struct_t_bar"
+                  (Ptr Another_typedef_struct_t)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"another_typedef_struct_t_bar")
+{-| __defined at:__ @edge-cases\/distilled_lib_1.h:10:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+newtype Another_typedef_enum_e
+    = Another_typedef_enum_e {un_Another_typedef_enum_e :: CUInt}
+      {- ^ __defined at:__ @edge-cases\/distilled_lib_1.h:10:9@
+
+           __exported by:__ @edge-cases\/distilled_lib_1.h@
+      -}
+    deriving stock (Eq, Ord)
+instance Storable Another_typedef_enum_e
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Another_typedef_enum_e <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Another_typedef_enum_e un_Another_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) un_Another_typedef_enum_e_3
+instance CEnum Another_typedef_enum_e
+    where type CEnumZ Another_typedef_enum_e = CUInt
+          toCEnum = Another_typedef_enum_e
+          fromCEnum = un_Another_typedef_enum_e
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "FOO"),
+                                                         (1, singleton "BAR")]
+          showsUndeclared = showsWrappedUndeclared "Another_typedef_enum_e"
+          readPrecUndeclared = readPrecWrappedUndeclared "Another_typedef_enum_e"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum Another_typedef_enum_e
+    where minDeclaredValue = FOO
+          maxDeclaredValue = BAR
+instance Show Another_typedef_enum_e
+    where showsPrec = showsCEnum
+instance Read Another_typedef_enum_e
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @FOO@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:10:16@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+pattern FOO :: Another_typedef_enum_e
+{-| __C declaration:__ @FOO@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:10:16@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+pattern FOO = Another_typedef_enum_e 0
+{-| __C declaration:__ @BAR@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:10:21@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+pattern BAR :: Another_typedef_enum_e
+{-| __C declaration:__ @BAR@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:10:21@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+pattern BAR = Another_typedef_enum_e 1
+{-| __C declaration:__ @A@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:11:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+a :: CInt
+{-| __C declaration:__ @A@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:11:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+a = 5 :: CInt
+{-| __C declaration:__ @B@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:12:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+b :: CInt
+{-| __C declaration:__ @B@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:12:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+b = 3 :: CInt
+{-| __C declaration:__ @SOME_DEFINED_CONSTANT@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:13:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+sOME_DEFINED_CONSTANT :: CInt
+{-| __C declaration:__ @SOME_DEFINED_CONSTANT@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:13:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+sOME_DEFINED_CONSTANT = 4 :: CInt
+{-| __C declaration:__ @a_type_t@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:14:13@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+newtype A_type_t
+    = A_type_t {un_A_type_t :: CInt}
+      {- ^ __C declaration:__ @a_type_t@
+
+           __defined at:__ @edge-cases\/distilled_lib_1.h:14:13@
+
+           __exported by:__ @edge-cases\/distilled_lib_1.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty (CFieldType A_type_t "un_A_type_t") =>
+         HasField "un_A_type_t" (Ptr A_type_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_A_type_t")
+instance HasCField A_type_t "un_A_type_t"
+    where type CFieldType A_type_t "un_A_type_t" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @var_t@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:15:13@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+newtype Var_t
+    = Var_t {un_Var_t :: CInt}
+      {- ^ __C declaration:__ @var_t@
+
+           __defined at:__ @edge-cases\/distilled_lib_1.h:15:13@
+
+           __exported by:__ @edge-cases\/distilled_lib_1.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty (CFieldType Var_t "un_Var_t") =>
+         HasField "un_Var_t" (Ptr Var_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Var_t")
+instance HasCField Var_t "un_Var_t"
+    where type CFieldType Var_t "un_Var_t" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @a_typedef_struct_t@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:35:16@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+data A_typedef_struct_t
+    = A_typedef_struct_t {a_typedef_struct_t_field_0 :: CBool
+                          {- ^ __C declaration:__ @field_0@
+
+                               __defined at:__ @edge-cases\/distilled_lib_1.h:37:31@
+
+                               __exported by:__ @edge-cases\/distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_1 :: HsBindgen.Runtime.Prelude.Word8
+                          {- ^ __C declaration:__ @field_1@
+
+                               __defined at:__ @edge-cases\/distilled_lib_1.h:38:31@
+
+                               __exported by:__ @edge-cases\/distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_2 :: HsBindgen.Runtime.Prelude.Word16
+                          {- ^ __C declaration:__ @field_2@
+
+                               __defined at:__ @edge-cases\/distilled_lib_1.h:39:31@
+
+                               __exported by:__ @edge-cases\/distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_3 :: HsBindgen.Runtime.Prelude.Word32
+                          {- ^ __C declaration:__ @field_3@
+
+                               __defined at:__ @edge-cases\/distilled_lib_1.h:40:31@
+
+                               __exported by:__ @edge-cases\/distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_4 :: Another_typedef_struct_t
+                          {- ^ __C declaration:__ @field_4@
+
+                               __defined at:__ @edge-cases\/distilled_lib_1.h:41:31@
+
+                               __exported by:__ @edge-cases\/distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_5 :: (Ptr Another_typedef_struct_t)
+                          {- ^ __C declaration:__ @field_5@
+
+                               __defined at:__ @edge-cases\/distilled_lib_1.h:42:31@
+
+                               __exported by:__ @edge-cases\/distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_6 :: (Ptr Void)
+                          {- ^ __C declaration:__ @field_6@
+
+                               __defined at:__ @edge-cases\/distilled_lib_1.h:43:31@
+
+                               __exported by:__ @edge-cases\/distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_7 :: (ConstantArray 7
+                                                                       HsBindgen.Runtime.Prelude.Word32)
+                          {- ^ __C declaration:__ @field_7@
+
+                               __defined at:__ @edge-cases\/distilled_lib_1.h:44:31@
+
+                               __exported by:__ @edge-cases\/distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_8 :: Another_typedef_enum_e
+                          {- ^ __C declaration:__ @field_8@
+
+                               __defined at:__ @edge-cases\/distilled_lib_1.h:45:31@
+
+                               __exported by:__ @edge-cases\/distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_9 :: (ConstantArray 4
+                                                                       Another_typedef_enum_e)
+                          {- ^ __C declaration:__ @field_9@
+
+                               __defined at:__ @edge-cases\/distilled_lib_1.h:46:31@
+
+                               __exported by:__ @edge-cases\/distilled_lib_1.h@
+                          -},
+                          a_typedef_struct_t_field_10 :: (ConstantArray 5
+                                                                        (ConstantArray 3
+                                                                                       Another_typedef_enum_e))
+                          {- ^ __C declaration:__ @field_10@
+
+                               __defined at:__ @edge-cases\/distilled_lib_1.h:47:31@
+
+                               __exported by:__ @edge-cases\/distilled_lib_1.h@
+                          -}}
+      {- ^ __C declaration:__ @a_typedef_struct_t@
+
+           __defined at:__ @edge-cases\/distilled_lib_1.h:35:16@
+
+           __exported by:__ @edge-cases\/distilled_lib_1.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable A_typedef_struct_t
+    where sizeOf = \_ -> 140 :: Int
+          alignment = \_ -> 1 :: Int
+          peek = \ptr_0 -> ((((((((((pure A_typedef_struct_t <*> peekCField (Proxy @"a_typedef_struct_t_field_0") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_1") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_2") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_3") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_4") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_5") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_6") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_7") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_8") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_9") ptr_0) <*> peekCField (Proxy @"a_typedef_struct_t_field_10") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   A_typedef_struct_t a_typedef_struct_t_field_0_3
+                                                      a_typedef_struct_t_field_1_4
+                                                      a_typedef_struct_t_field_2_5
+                                                      a_typedef_struct_t_field_3_6
+                                                      a_typedef_struct_t_field_4_7
+                                                      a_typedef_struct_t_field_5_8
+                                                      a_typedef_struct_t_field_6_9
+                                                      a_typedef_struct_t_field_7_10
+                                                      a_typedef_struct_t_field_8_11
+                                                      a_typedef_struct_t_field_9_12
+                                                      a_typedef_struct_t_field_10_13 -> pokeCField (Proxy @"a_typedef_struct_t_field_0") ptr_1 a_typedef_struct_t_field_0_3 >> (pokeCField (Proxy @"a_typedef_struct_t_field_1") ptr_1 a_typedef_struct_t_field_1_4 >> (pokeCField (Proxy @"a_typedef_struct_t_field_2") ptr_1 a_typedef_struct_t_field_2_5 >> (pokeCField (Proxy @"a_typedef_struct_t_field_3") ptr_1 a_typedef_struct_t_field_3_6 >> (pokeCField (Proxy @"a_typedef_struct_t_field_4") ptr_1 a_typedef_struct_t_field_4_7 >> (pokeCField (Proxy @"a_typedef_struct_t_field_5") ptr_1 a_typedef_struct_t_field_5_8 >> (pokeCField (Proxy @"a_typedef_struct_t_field_6") ptr_1 a_typedef_struct_t_field_6_9 >> (pokeCField (Proxy @"a_typedef_struct_t_field_7") ptr_1 a_typedef_struct_t_field_7_10 >> (pokeCField (Proxy @"a_typedef_struct_t_field_8") ptr_1 a_typedef_struct_t_field_8_11 >> (pokeCField (Proxy @"a_typedef_struct_t_field_9") ptr_1 a_typedef_struct_t_field_9_12 >> pokeCField (Proxy @"a_typedef_struct_t_field_10") ptr_1 a_typedef_struct_t_field_10_13)))))))))
+instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_0"
+    where type CFieldType A_typedef_struct_t
+                          "a_typedef_struct_t_field_0" = CBool
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType A_typedef_struct_t "a_typedef_struct_t_field_0") =>
+         HasField "a_typedef_struct_t_field_0"
+                  (Ptr A_typedef_struct_t)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_0")
+instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_1"
+    where type CFieldType A_typedef_struct_t
+                          "a_typedef_struct_t_field_1" = HsBindgen.Runtime.Prelude.Word8
+          offset# = \_ -> \_ -> 1
+instance TyEq ty
+              (CFieldType A_typedef_struct_t "a_typedef_struct_t_field_1") =>
+         HasField "a_typedef_struct_t_field_1"
+                  (Ptr A_typedef_struct_t)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_1")
+instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_2"
+    where type CFieldType A_typedef_struct_t
+                          "a_typedef_struct_t_field_2" = HsBindgen.Runtime.Prelude.Word16
+          offset# = \_ -> \_ -> 2
+instance TyEq ty
+              (CFieldType A_typedef_struct_t "a_typedef_struct_t_field_2") =>
+         HasField "a_typedef_struct_t_field_2"
+                  (Ptr A_typedef_struct_t)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_2")
+instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_3"
+    where type CFieldType A_typedef_struct_t
+                          "a_typedef_struct_t_field_3" = HsBindgen.Runtime.Prelude.Word32
+          offset# = \_ -> \_ -> 4
+instance TyEq ty
+              (CFieldType A_typedef_struct_t "a_typedef_struct_t_field_3") =>
+         HasField "a_typedef_struct_t_field_3"
+                  (Ptr A_typedef_struct_t)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_3")
+instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_4"
+    where type CFieldType A_typedef_struct_t
+                          "a_typedef_struct_t_field_4" = Another_typedef_struct_t
+          offset# = \_ -> \_ -> 8
+instance TyEq ty
+              (CFieldType A_typedef_struct_t "a_typedef_struct_t_field_4") =>
+         HasField "a_typedef_struct_t_field_4"
+                  (Ptr A_typedef_struct_t)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_4")
+instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_5"
+    where type CFieldType A_typedef_struct_t
+                          "a_typedef_struct_t_field_5" = Ptr Another_typedef_struct_t
+          offset# = \_ -> \_ -> 16
+instance TyEq ty
+              (CFieldType A_typedef_struct_t "a_typedef_struct_t_field_5") =>
+         HasField "a_typedef_struct_t_field_5"
+                  (Ptr A_typedef_struct_t)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_5")
+instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_6"
+    where type CFieldType A_typedef_struct_t
+                          "a_typedef_struct_t_field_6" = Ptr Void
+          offset# = \_ -> \_ -> 24
+instance TyEq ty
+              (CFieldType A_typedef_struct_t "a_typedef_struct_t_field_6") =>
+         HasField "a_typedef_struct_t_field_6"
+                  (Ptr A_typedef_struct_t)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_6")
+instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_7"
+    where type CFieldType A_typedef_struct_t
+                          "a_typedef_struct_t_field_7" = ConstantArray 7
+                                                                       HsBindgen.Runtime.Prelude.Word32
+          offset# = \_ -> \_ -> 32
+instance TyEq ty
+              (CFieldType A_typedef_struct_t "a_typedef_struct_t_field_7") =>
+         HasField "a_typedef_struct_t_field_7"
+                  (Ptr A_typedef_struct_t)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_7")
+instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_8"
+    where type CFieldType A_typedef_struct_t
+                          "a_typedef_struct_t_field_8" = Another_typedef_enum_e
+          offset# = \_ -> \_ -> 60
+instance TyEq ty
+              (CFieldType A_typedef_struct_t "a_typedef_struct_t_field_8") =>
+         HasField "a_typedef_struct_t_field_8"
+                  (Ptr A_typedef_struct_t)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_8")
+instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_9"
+    where type CFieldType A_typedef_struct_t
+                          "a_typedef_struct_t_field_9" = ConstantArray 4
+                                                                       Another_typedef_enum_e
+          offset# = \_ -> \_ -> 64
+instance TyEq ty
+              (CFieldType A_typedef_struct_t "a_typedef_struct_t_field_9") =>
+         HasField "a_typedef_struct_t_field_9"
+                  (Ptr A_typedef_struct_t)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_9")
+instance HasCField A_typedef_struct_t "a_typedef_struct_t_field_10"
+    where type CFieldType A_typedef_struct_t
+                          "a_typedef_struct_t_field_10" = ConstantArray 5
+                                                                        (ConstantArray 3
+                                                                                       Another_typedef_enum_e)
+          offset# = \_ -> \_ -> 80
+instance TyEq ty
+              (CFieldType A_typedef_struct_t "a_typedef_struct_t_field_10") =>
+         HasField "a_typedef_struct_t_field_10"
+                  (Ptr A_typedef_struct_t)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_typedef_struct_t_field_10")
+{-| __C declaration:__ @A_DEFINE_0@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:53:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+a_DEFINE_0 :: CInt
+{-| __C declaration:__ @A_DEFINE_0@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:53:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+a_DEFINE_0 = 0 :: CInt
+{-| __C declaration:__ @A_DEFINE_1@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:54:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+a_DEFINE_1 :: CUInt
+{-| __C declaration:__ @A_DEFINE_1@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:54:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+a_DEFINE_1 = 20560 :: CUInt
+{-| __C declaration:__ @A_DEFINE_2@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:55:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+a_DEFINE_2 :: CInt
+{-| __C declaration:__ @A_DEFINE_2@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:55:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+a_DEFINE_2 = 2 :: CInt
+{-| __C declaration:__ @TWO_ARGS@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:56:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+tWO_ARGS :: (,) CInt CInt
+{-| __C declaration:__ @TWO_ARGS@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:56:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+tWO_ARGS = (,) (13398 :: CInt) (30874 :: CInt)
+{-| __defined at:__ @edge-cases\/distilled_lib_1.h:61:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+newtype A_typedef_enum_e
+    = A_typedef_enum_e {un_A_typedef_enum_e :: CUChar}
+      {- ^ __defined at:__ @edge-cases\/distilled_lib_1.h:61:9@
+
+           __exported by:__ @edge-cases\/distilled_lib_1.h@
+      -}
+    deriving stock (Eq, Ord)
+instance Storable A_typedef_enum_e
+    where sizeOf = \_ -> 1 :: Int
+          alignment = \_ -> 1 :: Int
+          peek = \ptr_0 -> pure A_typedef_enum_e <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   A_typedef_enum_e un_A_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) un_A_typedef_enum_e_3
+instance CEnum A_typedef_enum_e
+    where type CEnumZ A_typedef_enum_e = CUChar
+          toCEnum = A_typedef_enum_e
+          fromCEnum = un_A_typedef_enum_e
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "ENUM_CASE_0"),
+                                                         (1, singleton "ENUM_CASE_1"),
+                                                         (2, singleton "ENUM_CASE_2"),
+                                                         (3, singleton "ENUM_CASE_3")]
+          showsUndeclared = showsWrappedUndeclared "A_typedef_enum_e"
+          readPrecUndeclared = readPrecWrappedUndeclared "A_typedef_enum_e"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum A_typedef_enum_e
+    where minDeclaredValue = ENUM_CASE_0
+          maxDeclaredValue = ENUM_CASE_3
+instance Show A_typedef_enum_e
+    where showsPrec = showsCEnum
+instance Read A_typedef_enum_e
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @ENUM_CASE_0@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:63:3@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+pattern ENUM_CASE_0 :: A_typedef_enum_e
+{-| __C declaration:__ @ENUM_CASE_0@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:63:3@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+pattern ENUM_CASE_0 = A_typedef_enum_e 0
+{-| __C declaration:__ @ENUM_CASE_1@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:64:3@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+pattern ENUM_CASE_1 :: A_typedef_enum_e
+{-| __C declaration:__ @ENUM_CASE_1@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:64:3@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+pattern ENUM_CASE_1 = A_typedef_enum_e 1
+{-| __C declaration:__ @ENUM_CASE_2@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:65:3@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+pattern ENUM_CASE_2 :: A_typedef_enum_e
+{-| __C declaration:__ @ENUM_CASE_2@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:65:3@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+pattern ENUM_CASE_2 = A_typedef_enum_e 2
+{-| __C declaration:__ @ENUM_CASE_3@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:66:3@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+pattern ENUM_CASE_3 :: A_typedef_enum_e
+{-| __C declaration:__ @ENUM_CASE_3@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:66:3@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+pattern ENUM_CASE_3 = A_typedef_enum_e 3
+{-| Auxiliary type used by 'Callback_t'
+
+__defined at:__ @edge-cases\/distilled_lib_1.h:77:19@
+
+__exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+newtype Callback_t_Deref
+    = Callback_t_Deref {un_Callback_t_Deref :: (Ptr Void ->
+                                                HsBindgen.Runtime.Prelude.Word32 ->
+                                                IO HsBindgen.Runtime.Prelude.Word32)}
+      {- ^ Auxiliary type used by 'Callback_t'
+
+      __defined at:__ @edge-cases\/distilled_lib_1.h:77:19@
+
+      __exported by:__ @edge-cases\/distilled_lib_1.h@
+      -}
+foreign import ccall safe "wrapper" toCallback_t_Deref :: Callback_t_Deref ->
+                                                          IO (FunPtr Callback_t_Deref)
+foreign import ccall safe "dynamic" fromCallback_t_Deref :: FunPtr Callback_t_Deref ->
+                                                            Callback_t_Deref
+instance ToFunPtr Callback_t_Deref
+    where toFunPtr = toCallback_t_Deref
+instance FromFunPtr Callback_t_Deref
+    where fromFunPtr = fromCallback_t_Deref
+instance TyEq ty
+              (CFieldType Callback_t_Deref "un_Callback_t_Deref") =>
+         HasField "un_Callback_t_Deref" (Ptr Callback_t_Deref) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Callback_t_Deref")
+instance HasCField Callback_t_Deref "un_Callback_t_Deref"
+    where type CFieldType Callback_t_Deref
+                          "un_Callback_t_Deref" = Ptr Void ->
+                                                  HsBindgen.Runtime.Prelude.Word32 ->
+                                                  IO HsBindgen.Runtime.Prelude.Word32
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @callback_t@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:77:19@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+newtype Callback_t
+    = Callback_t {un_Callback_t :: (FunPtr Callback_t_Deref)}
+      {- ^ __C declaration:__ @callback_t@
+
+           __defined at:__ @edge-cases\/distilled_lib_1.h:77:19@
+
+           __exported by:__ @edge-cases\/distilled_lib_1.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+instance TyEq ty (CFieldType Callback_t "un_Callback_t") =>
+         HasField "un_Callback_t" (Ptr Callback_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Callback_t")
+instance HasCField Callback_t "un_Callback_t"
+    where type CFieldType Callback_t
+                          "un_Callback_t" = FunPtr Callback_t_Deref
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @some_fun@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesdistilled_lib_1_29c178c31334688f" some_fun :: Ptr A_type_t ->
+                                                                                                  HsBindgen.Runtime.Prelude.Word32 ->
+                                                                                                  Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                                  IO HsBindgen.Runtime.Prelude.Int32
+{-| __C declaration:__ @some_fun@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesdistilled_lib_1_efd27157959bd4b3" some_fun :: Ptr A_type_t ->
+                                                                                                  HsBindgen.Runtime.Prelude.Word32 ->
+                                                                                                  Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                                  IO HsBindgen.Runtime.Prelude.Int32
+foreign import ccall safe "hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c" hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c :: IO (FunPtr (Ptr A_type_t ->
+                                                                                                                                                               HsBindgen.Runtime.Prelude.Word32 ->
+                                                                                                                                                               IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                                                                                               IO HsBindgen.Runtime.Prelude.Int32))
+{-# NOINLINE some_fun_ptr #-}
+{-| __C declaration:__ @some_fun@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+some_fun_ptr :: FunPtr (Ptr A_type_t ->
+                        HsBindgen.Runtime.Prelude.Word32 ->
+                        IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
+                        IO HsBindgen.Runtime.Prelude.Int32)
+{-| __C declaration:__ @some_fun@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+some_fun_ptr = unsafePerformIO hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c
+foreign import ccall safe "hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6" hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6 :: IO (Ptr Var_t)
+{-# NOINLINE v_ptr #-}
+{-| __C declaration:__ @v@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:91:14@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+v_ptr :: Ptr Var_t
+{-| __C declaration:__ @v@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:91:14@
+
+    __exported by:__ @edge-cases\/distilled_lib_1.h@
+-}
+v_ptr = unsafePerformIO hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6

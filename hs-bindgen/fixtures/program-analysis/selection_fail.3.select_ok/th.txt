@@ -1,0 +1,34 @@
+-- addDependentFile examples/golden/program-analysis/selection_fail.h
+{-| __C declaration:__ @OkBefore@
+
+    __defined at:__ @program-analysis\/selection_fail.h:1:8@
+
+    __exported by:__ @program-analysis\/selection_fail.h@
+-}
+data OkBefore
+    = OkBefore {okBefore_x :: CInt
+                {- ^ __C declaration:__ @x@
+
+                     __defined at:__ @program-analysis\/selection_fail.h:2:7@
+
+                     __exported by:__ @program-analysis\/selection_fail.h@
+                -}}
+      {- ^ __C declaration:__ @OkBefore@
+
+           __defined at:__ @program-analysis\/selection_fail.h:1:8@
+
+           __exported by:__ @program-analysis\/selection_fail.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable OkBefore
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure OkBefore <*> peekCField (Proxy @"okBefore_x") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   OkBefore okBefore_x_3 -> pokeCField (Proxy @"okBefore_x") ptr_1 okBefore_x_3
+instance HasCField OkBefore "okBefore_x"
+    where type CFieldType OkBefore "okBefore_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType OkBefore "okBefore_x") =>
+         HasField "okBefore_x" (Ptr OkBefore) (Ptr ty)
+    where getField = ptrToCField (Proxy @"okBefore_x")

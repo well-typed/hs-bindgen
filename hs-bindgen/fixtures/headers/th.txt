@@ -1,3 +1,0 @@
--- addDependentFile musl-include/x86_64/bits/alltypes.h
--- addDependentFile musl-include/x86_64/stddef.h
--- addDependentFile examples/golden/headers.h

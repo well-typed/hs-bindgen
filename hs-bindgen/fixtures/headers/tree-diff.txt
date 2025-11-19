@@ -1,6 +1,0 @@
-TranslationUnit {
-  unitDecls = [],
-  unitDeps = [
-    "alltypes",
-    "stddef",
-    "headers"]}
