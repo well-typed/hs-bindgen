@@ -26,7 +26,7 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @ParsedAndSelected1@
 
-    __defined at:__ @declarations\/select_scoping.h:6:13@
+    __defined at:__ @declarations\/select_scoping.h:7:13@
 
     __exported by:__ @declarations\/select_scoping.h@
 -}

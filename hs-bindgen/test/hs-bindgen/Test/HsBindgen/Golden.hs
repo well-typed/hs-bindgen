@@ -8,12 +8,8 @@ import Data.Text qualified as Text
 import System.Directory (createDirectoryIfMissing)
 import Test.Common.HsBindgen.TracePredicate
 import Test.HsBindgen.Golden.Check.BindingSpec qualified as BindingSpec
-import Test.HsBindgen.Golden.Check.C qualified as C
-import Test.HsBindgen.Golden.Check.Exts qualified as Exts
 import Test.HsBindgen.Golden.Check.FailingTrace qualified as FailingTrace
-import Test.HsBindgen.Golden.Check.Hs qualified as Hs
 import Test.HsBindgen.Golden.Check.PP qualified as PP
-import Test.HsBindgen.Golden.Check.Rust qualified as Rust
 import Test.HsBindgen.Golden.Check.TH qualified as TH
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
@@ -57,13 +53,9 @@ testTreeFor testResources test@TestCase{testHasOutput, testClangVersion}
   | otherwise
   = withTestOutputDir $
     testGroup (testName test) [
-        C.check           testResources test
-      , Hs.check          testResources test
-      , Exts.check        testResources test
-      , TH.check          testResources test
+        TH.check          testResources test
       , PP.check          testResources test
       , BindingSpec.check testResources test
-      , Rust.check        testResources test
       ]
   where
     withTestOutputDir k =

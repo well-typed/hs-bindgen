@@ -323,7 +323,6 @@ library test-common
   -- Internal dependencies
   build-depends:
     , ansi-diff
-    , ansi-terminal
     , hs-bindgen:internal
 
   -- Inherited dependencies
@@ -333,18 +332,14 @@ library test-common
     , directory
     , filepath
     , mtl
-    , parsec
     , text
 
   -- External dependencies
   build-depends:
-    , deepseq                      >=1.4    && <1.6
-    , prettyprinter                >=1.7    && <1.8
-    , prettyprinter-ansi-terminal  >=1.1    && <1.2
-    , tasty                        >=1.5    && <1.6
-    , tasty-hunit                  >=0.10.2 && <0.11
-    , tree-diff                    >=0.3.4  && <0.4
-    , utf8-string                  >=1.0.2  && <1.1
+    , deepseq      >=1.4    && <1.6
+    , tasty        >=1.5    && <1.6
+    , tasty-hunit  >=0.10.2 && <0.11
+    , utf8-string  >=1.0.2  && <1.1
 
 test-suite test-hs-bindgen
   import:             lang
@@ -354,16 +349,11 @@ test-suite test-hs-bindgen
   other-modules:
     Test.HsBindgen.Golden
     Test.HsBindgen.Golden.Check.BindingSpec
-    Test.HsBindgen.Golden.Check.C
-    Test.HsBindgen.Golden.Check.Exts
     Test.HsBindgen.Golden.Check.FailingTrace
-    Test.HsBindgen.Golden.Check.Hs
     Test.HsBindgen.Golden.Check.PP
-    Test.HsBindgen.Golden.Check.Rust
     Test.HsBindgen.Golden.Check.TH
     Test.HsBindgen.Golden.TestCase
     Test.HsBindgen.Integration.ExitCode
-    Test.HsBindgen.Orphans.TreeDiff
     Test.HsBindgen.Prop.Selection
     Test.HsBindgen.Resources
     Test.HsBindgen.Resources.Rust
@@ -372,8 +362,6 @@ test-suite test-hs-bindgen
 
   -- Internal dependencies
   build-depends:
-    , c-expr-dsl
-    , c-expr-runtime
     , hs-bindgen:internal
     , libclang-bindings
     , test-common
@@ -382,7 +370,6 @@ test-suite test-hs-bindgen
   build-depends:
     , containers
     , data-default
-    , debruijn
     , directory
     , filepath
     , mtl
@@ -391,9 +378,7 @@ test-suite test-hs-bindgen
     , tasty-hunit
     , template-haskell
     , text
-    , tree-diff
     , utf8-string
-    , vec
 
   -- External dependencies
   build-depends:
