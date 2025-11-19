@@ -356,7 +356,6 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Integration.ExitCode
     Test.HsBindgen.Prop.Selection
     Test.HsBindgen.Resources
-    Test.HsBindgen.Resources.Rust
     Test.HsBindgen.Unit.ClangArgs
     Test.HsBindgen.Unit.Tracer
 

@@ -114,8 +114,7 @@ test_attributes_asm = (defaultTest "attributes/asm") {
 
 test_attributes_type_attributes :: TestCase
 test_attributes_type_attributes = (defaultTest "attributes/type_attributes") {
-    testRustBindgen = RustBindgenFail
-  , testTracePredicate = singleTracePredicate $ \case
+    testTracePredicate = singleTracePredicate $ \case
       TraceFrontend (FrontendSelect (SelectDeprecated _)) ->
         Just $ Expected ()
       _otherwise ->
@@ -690,9 +689,7 @@ test_program_analysis_delay_traces =
 
 test_types_complex_complex_non_float_test :: TestCase
 test_types_complex_complex_non_float_test =
-  (defaultTest "types/complex/complex_non_float_test") {
-    testRustBindgen = RustBindgenIgnore
-  }
+  defaultTest "types/complex/complex_non_float_test"
 
 test_documentation_doxygen_docs :: TestCase
 test_documentation_doxygen_docs = (defaultTest "documentation/doxygen_docs") {
@@ -731,7 +728,6 @@ test_functions_fun_attributes =
         Just $ expectFromQualPrelimDeclId n
       _otherwise ->
         Nothing
-  , testRustBindgen = RustBindgenFail
   }
 
 test_functions_fun_attributes_conflict :: TestCase
@@ -771,11 +767,7 @@ test_globals_globals =
           , "classless"
           ]
   in (defaultTest "globals/globals") {
-       -- Getting different output from (the same version of) rust-bindgen
-       -- for this test on CI than locally. Unsure why, compiled against
-       -- different llvm version? For now we just disable it.
-       testRustBindgen    = RustBindgenIgnore
-     , testTracePredicate = customTracePredicate' declsWithWarnings $ \case
+       testTracePredicate = customTracePredicate' declsWithWarnings $ \case
          TraceFrontend (FrontendSelect (SelectParseSuccess
            (AttachedParseMsg i _ _ ParsePotentialDuplicateSymbol{}))) ->
            Just $ expectFromQualPrelimDeclId i
@@ -797,9 +789,7 @@ test_edge_cases_iterator = (defaultTest "edge-cases/iterator") {
   }
 
 test_macros_macro_strings :: TestCase
-test_macros_macro_strings = (defaultTest "macros/macro_strings") {
-    testRustBindgen = RustBindgenFail
-  }
+test_macros_macro_strings = defaultTest "macros/macro_strings"
 
 test_types_structs_named_vs_anon :: TestCase
 test_types_structs_named_vs_anon = (defaultTest "types/structs/named_vs_anon"){
@@ -952,9 +942,6 @@ test_program_analysis_program_slicing_selection =
         Just $ Expected (show x)
       _otherwise ->
         Nothing
-    -- TODO: Also, we may want to specify an allow list; see
-    -- https://github.com/well-typed/hs-bindgen/issues/907.
-  , testRustBindgen = RustBindgenRun
   }
 
 test_macros_reparse :: TestCase
