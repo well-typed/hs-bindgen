@@ -2,11 +2,33 @@
 
 ## Introduction
 
-TODO
+This chapter discusses how `hs-bindgen` generates bindings for C functions.
 
 ## Safe vs unsafe foreign imports
 
-TODO
+When importing a C function, GHC allows us to choose between two calling
+conventions: `safe` and `unsafe`. The distinction is important:
+
+* **Safe** foreign imports may call back into Haskell code. They are more
+  expensive.
+* **Unsafe** foreign imports may not call back into Haskell. They are faster
+  because they avoid this overhead, but using `unsafe` incorrectly can lead to
+  undefined behavior.
+
+Currently, `hs-bindgen` generates all function imports using the `safe` calling
+convention:
+
+```hs
+foreign import ccall safe "B_function_name"
+  function_name :: CInt -> IO CInt
+```
+
+This is a conservative choice that ensures correctness in all cases. While it
+means we pay the cost of the safe calling convention even for functions that
+do not need it, this cost is typically negligible unless the function is called
+in a tight loop. Users who require the performance of `unsafe` imports can
+manually wrap the generated bindings with their own `unsafe` imports after
+verifying that the C function does not call back into Haskell.
 
 ## Function addresses
 
@@ -341,13 +363,79 @@ alloca $ \handlerPtr -> do
 
 ## Userland CAPI
 
-For certain C features, `hs-bindgen` generates C wrapper code to bridge between
-C and Haskell. These wrappers are necessary when the feature cannot be directly
-expressed using GHC's foreign function interface.
+GHC's foreign function interface has limitations on which C functions can be
+imported directly. For example, GHC cannot import functions that take or return
+structs by value. To work around these limitations, `hs-bindgen` generates C
+wrapper functions that can be imported by GHC, and then generates Haskell
+bindings to these wrappers instead of to the original C functions.
+
+This approach is similar to GHC's `capi` calling convention, which also
+generates C wrappers to handle features that the FFI cannot express directly.
+However, by generating these wrappers ourselves at the userland level, we can
+extend the set of supported function signatures beyond what GHC's `capi`
+provides. For instance, we can handle by-value struct arguments and return
+values, which `capi` does not support.
+
+The generated wrappers are named with a prefix based on the Haskell module
+name. For example, a C function `foo` might have a wrapper `B_foo` that we
+import instead:
+
+```c
+// Generated C wrapper
+void B_print_point ( struct point * arg1 ) {
+  print_point ( arg1 );
+}
+```
+
+```hs
+-- Generated Haskell import
+foreign import ccall "B_print_point"
+  print_point :: Ptr Point → IO ()
+```
+
+This userland CAPI approach is used for all function imports in `hs-bindgen`,
+not just those with features GHC cannot handle directly. This provides a
+uniform interface and makes it straightforward to add support for additional
+C features in the future.
 
 ### By-value `struct` arguments or return values
 
-TODO
+The GHC FFI does not support passing structs by value to or from C functions.
+For example, consider:
+
+```c
+struct point byval ( struct point p );
+```
+
+This function cannot be imported directly. Instead, `hs-bindgen` generates a C
+wrapper that accepts and return struct by pointer, performing the necessary
+conversions:
+
+```c
+void B_byval ( struct point * arg
+             , struct point * res ) {
+  * res = byval (* arg );
+}
+```
+
+This wrapper is then imported in Haskell:
+
+```hs
+foreign import ccall safe "B_byval"
+    byval_wrapper :: Ptr Point → Ptr Point → IO ()
+```
+
+Finally, we generate a Haskell wrapper function that recovers the original
+by-value semantics using `with`, `alloca`, and `peek`:
+
+```hs
+byval :: Point → IO Point
+byval p =
+  with p $ \ arg →
+  alloca $ \ res → do
+    B. byval_wrapper arg res
+    peek res
+```
 
 ### Static inline functions
 
