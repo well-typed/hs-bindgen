@@ -13,10 +13,7 @@ module HsBindgen.Cli.Preprocess (
   , exec
   ) where
 
-import Control.Exception (Exception (..), throwIO)
-import Control.Monad (unless, void)
-import Data.Maybe (maybeToList)
-import GHC.Generics (Generic)
+import Control.Exception (Exception (..))
 import Options.Applicative hiding (info)
 import System.Directory (createDirectoryIfMissing, doesDirectoryExist)
 
@@ -27,6 +24,7 @@ import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
+import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -76,18 +74,18 @@ exec GlobalOpts{..} Opts{..} = do
         unless exists $
           throwIO (OutputDirectoryMissingException hsOutputDir)
 
-    void $ run $ (sequence_ artefacts) :* Nil
+    void $ run $ artefacts
   where
     bindgenConfig :: BindgenConfig
     bindgenConfig = toBindgenConfig config uniqueId hsModuleName
 
-    run :: Artefacts as -> IO (NP I as)
+    run :: Artefact a -> IO a
     run = hsBindgen tracerConfig bindgenConfig inputs
 
-    artefacts :: [Artefact ()]
-    artefacts =
-          writeBindingsMultiple hsOutputDir
-      : [ writeBindingSpec file | file <- maybeToList config.outputBindingSpec ]
+    artefacts :: Artefact ()
+    artefacts = do
+        writeBindingsMultiple hsOutputDir
+        forM_ config.outputBindingSpec writeBindingSpec
 
 {-------------------------------------------------------------------------------
   Exception

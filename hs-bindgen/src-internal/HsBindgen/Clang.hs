@@ -60,7 +60,7 @@ defaultClangSetup clangArgs clangInput = ClangSetup{
 -- The specified continuation is called only when there are no error
 -- diagnostics.
 withClang :: forall a.
-     Tracer IO ClangMsg
+     Tracer ClangMsg
   -> ClangSetup
   -> (CXTranslationUnit -> IO (Maybe a))
   -> IO (Maybe a)
@@ -88,7 +88,7 @@ withClang tracer setup k = withClang' tracer setup $ \unit -> do
 -- This function is needed for @resolveHeaders@, where we need the paths for the
 -- resolved headers even if some headers are not found.
 withClang' :: forall a.
-     Tracer IO ClangMsg
+     Tracer ClangMsg
   -> ClangSetup
   -> (CXTranslationUnit -> IO (Maybe a))
   -> IO (Maybe a)

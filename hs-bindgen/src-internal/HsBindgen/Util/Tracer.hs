@@ -9,7 +9,6 @@ module HsBindgen.Util.Tracer (
   , traceWith
   , simpleTracer
   , nullTracer
-  , natTracer
     -- * Data types and typeclasses useful for tracing
   , PrettyForTrace (..)
   , Level (..)
@@ -73,8 +72,8 @@ import HsBindgen.Imports
   The definition of 'Tracer' is opaque.
 -------------------------------------------------------------------------------}
 
-newtype Tracer m a = Wrap {
-      unwrap :: ContraTracer.Tracer m (MsgWithCallStack a)
+newtype Tracer a = Wrap {
+      unwrap :: ContraTracer.Tracer IO (MsgWithCallStack a)
     }
 
 -- | We pair every trace message with a callstack for easier debugging
@@ -86,42 +85,37 @@ data MsgWithCallStack a = MsgWithCallStack {
     }
   deriving stock (Show, Functor)
 
-instance Monad m => Contravariant (Tracer m) where
+instance Contravariant Tracer where
   contramap f = Wrap . contramap (fmap f) . unwrap
 
-traceWith :: (Monad m, HasCallStack) => Tracer m a -> a -> m ()
+traceWith :: (MonadIO m, HasCallStack) => Tracer a -> a -> m ()
 traceWith tracer =
-      ContraTracer.traceWith (unwrap tracer)
+      liftIO
+    . ContraTracer.traceWith (unwrap tracer)
     . MsgWithCallStack callStack
 
 -- | Simple tracer that 'ContraTracer.emit's every message
-simpleTracer :: Applicative m => (a -> m ()) -> Tracer m a
+simpleTracer :: (a -> IO ()) -> Tracer a
 simpleTracer f = simpleWithCallStack (f . msgWithoutCallStack)
 
 -- | Generalization of 'simpleWithCallStack'
 --
 -- This is internal API.
-simpleWithCallStack :: Applicative m => (MsgWithCallStack a -> m ()) -> Tracer m a
+simpleWithCallStack :: (MsgWithCallStack a -> IO ()) -> Tracer a
 simpleWithCallStack =
       Wrap
     . ContraTracer.Tracer
     . ContraTracer.emit
 
 -- | See 'ContraTracer.squelchUnless'
-squelchUnless :: Monad m => (a -> Bool) -> Tracer m a -> Tracer m a
+squelchUnless :: (a -> Bool) -> Tracer a -> Tracer a
 squelchUnless p =
       Wrap
     . ContraTracer.squelchUnless (p . msgWithoutCallStack)
     . unwrap
 
-nullTracer :: Monad m => Tracer m a
+nullTracer :: Tracer a
 nullTracer = Wrap ContraTracer.nullTracer
-
-natTracer :: (forall x. m x -> n x) -> (Tracer m a -> Tracer n a)
-natTracer f =
-      Wrap
-    . ContraTracer.natTracer f
-    . unwrap
 
 {-------------------------------------------------------------------------------
   Data types and type classes useful for tracing
@@ -323,9 +317,9 @@ data ShowCallStack = EnableCallStack | DisableCallStack
 -- The report function has access to the typed trace @a@, and the formatted
 -- trace. The formatted trace also possibly contains the time stamp, the call
 -- stack, or other information.
-type Report m a = Level -> a -> String -> m ()
+type Report a = Level -> a -> String -> IO ()
 
-data OutputConfig m a =
+data OutputConfig a =
     OutputHandle {
       _outputHandle           :: Handle
       -- | 'Nothing': Automatically determine ANSI color support by examining
@@ -333,11 +327,11 @@ data OutputConfig m a =
     , _outputAnsiColorSetting :: Maybe AnsiColor
     }
   | OutputCustom {
-      _outputReport    :: Report m a
+      _outputReport    :: Report a
     , _outputAnsiColor :: AnsiColor
     }
 
-instance Contravariant (OutputConfig m) where
+instance Contravariant OutputConfig where
   contramap f = \case
     OutputHandle{..} -> OutputHandle{..}
     OutputCustom{..} -> OutputCustom{
@@ -349,7 +343,7 @@ instance Contravariant (OutputConfig m) where
 --
 -- - writes to 'stdout', and
 -- - uses ANSI colors, if available.
-instance Default (OutputConfig m a) where
+instance Default (OutputConfig a) where
   def = OutputHandle stdout Nothing
 
 -- | Output configuration suitable for compile-time code generation with
@@ -358,10 +352,10 @@ instance Default (OutputConfig m a) where
 -- Propagate warnings and errors to GHC.
 --
 -- Report traces with other log levels to `stdout`.
-outputConfigTH :: OutputConfig IO a
+outputConfigTH :: OutputConfig a
 outputConfigTH = OutputCustom report DisableAnsiColor
   where
-    report :: Report IO a
+    report :: Report a
     report level _ = case level of
       -- NOTE: In general, 'runQ' is a bad idea, but it supports 'reportWarning'
       -- and 'reportError'.
@@ -388,23 +382,23 @@ instance Contravariant (CustomLogLevel l) where
   contramap f (CustomLogLevel g) = CustomLogLevel $ g . f
 
 -- | Configuration of tracer.
-data TracerConfig m l a = TracerConfig {
+data TracerConfig l a = TracerConfig {
     tVerbosity      :: !Verbosity
-  , tOutputConfig   :: !(OutputConfig m a)
+  , tOutputConfig   :: !(OutputConfig a)
   , tCustomLogLevel :: !(CustomLogLevel l a)
   , tShowTimeStamp  :: !ShowTimeStamp
   , tShowCallStack  :: !ShowCallStack
   }
   deriving (Generic)
 
-instance Contravariant (TracerConfig m l) where
+instance Contravariant (TracerConfig l) where
   contramap f tracerConfig =
     tracerConfig {
       tOutputConfig   = contramap f $ tOutputConfig   tracerConfig
     , tCustomLogLevel = contramap f $ tCustomLogLevel tracerConfig
     }
 
-instance Default (TracerConfig m l a) where
+instance Default (TracerConfig l a) where
   def = TracerConfig
     { tVerbosity      = def
     , tOutputConfig   = def
@@ -426,8 +420,8 @@ instance Default (TracerConfig m l a) where
 --
 -- Return 'Nothing' if an 'Error' trace was emitted.
 withTracer :: forall m a b. (MonadIO m , IsTrace Level a)
-  => TracerConfig m Level a
-  -> (Tracer m a -> IORef (TracerState a) -> m b)
+  => TracerConfig Level a
+  -> (Tracer a -> IORef (TracerState a) -> m b)
   -> m (Either (TraceException a) b)
 withTracer tracerConf action = leftOnError <$> (withTracer' tracerConf action)
 
@@ -449,8 +443,8 @@ emptyTracerState = TracerState Debug []
 -- tests.
 --
 withTracer' :: forall m a b. (MonadIO m, IsTrace Level a)
-  => TracerConfig m Level a
-  -> (Tracer m a -> IORef (TracerState a) -> m b)
+  => TracerConfig Level a
+  -> (Tracer a -> IORef (TracerState a) -> m b)
   -> m (b, TracerState a)
 withTracer' TracerConfig{..} action = do
   (report, ansiColor) <- getOutputConfig
@@ -465,7 +459,7 @@ withTracer' TracerConfig{..} action = do
               report)
            ref
   where
-    getOutputConfig :: m (Report m a, AnsiColor)
+    getOutputConfig :: m (Report a, AnsiColor)
     getOutputConfig = case tOutputConfig of
       OutputHandle handle ansiColorSetting -> do
         ansiColor <- case ansiColorSetting of
@@ -498,13 +492,13 @@ instance (Show a, Typeable a) => Exception (TraceException a) where
 --
 -- See 'SafeLevel'.
 withTracerSafe :: forall m a b. (MonadIO m, IsTrace SafeLevel a)
-  => TracerConfig m SafeLevel a
-  -> (Tracer m a -> m b)
+  => TracerConfig SafeLevel a
+  -> (Tracer a -> m b)
   -> m b
 withTracerSafe tracerConf action =
     fst <$> withTracer' tracerConf' (\t _ -> action' t)
   where
-    action' :: Tracer m (SafeTrace a) -> m b
+    action' :: Tracer (SafeTrace a) -> m b
     action' = action . contramap SafeTrace
 
     toCustomLogLevelUnsafe :: CustomLogLevel SafeLevel c -> CustomLogLevel Level c
@@ -521,7 +515,7 @@ withTracerSafe tracerConf action =
         contramap getSafeTrace $
         tCustomLogLevel tracerConf
 
-    tracerConf' :: TracerConfig m Level (SafeTrace a)
+    tracerConf' :: TracerConfig Level (SafeTrace a)
     tracerConf' = tracerConf {
         tOutputConfig   = contramap getSafeTrace $ tOutputConfig tracerConf
       , tCustomLogLevel = customLogLevel
@@ -548,15 +542,15 @@ instance IsTrace SafeLevel a => IsTrace Level (SafeTrace a) where
 -- - the time,
 -- - the log level, and
 -- - the source.
-mkTracer :: forall m a. (MonadIO m, IsTrace Level a)
+mkTracer :: forall a. (IsTrace Level a)
   => CustomLogLevel Level a
   -> IORef (TracerState a)
   -> Verbosity
   -> AnsiColor
   -> ShowCallStack
   -> ShowTimeStamp
-  -> Report m a
-  -> Tracer m a
+  -> Report a
+  -> Tracer a
 mkTracer
   customLogLevel
   tracerStateRef
@@ -570,7 +564,7 @@ mkTracer
     isLogLevelHighEnough :: a -> Bool
     isLogLevelHighEnough trace = getLogLevel trace >= unwrapVerbosity verbosity
 
-    traceAction :: MsgWithCallStack a -> m ()
+    traceAction :: MsgWithCallStack a -> IO ()
     traceAction MsgWithCallStack {..} = do
       liftIO $ modifyIORef' tracerStateRef $
         updateTracerState level msgWithoutCallStack

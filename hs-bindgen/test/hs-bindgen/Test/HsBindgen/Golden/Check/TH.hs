@@ -40,10 +40,10 @@ check testResources test =
     goldenAnsiDiff "th" fixture $ \report ->
       if ghcAtLeast904 then do
         pkgroot <- getTestPackageRoot testResources
-        let artefacts = Dependencies :* FinalDecls :* Nil
+        let artefacts = (,) <$> Dependencies <*> FinalDecls
         -- We do not have access to 'Q', and so have to compute the 'getThDecls'
         -- artefact manually.
-        (I deps :* I decls :* Nil) <-
+        (deps, decls) <-
           runTestHsBindgen report testResources test artefacts
 
         let thDecls :: Qu [TH.Dec]

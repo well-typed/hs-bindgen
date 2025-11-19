@@ -114,7 +114,7 @@ exec literateOpts = do
     let GlobalOpts{..} = globalOpts
         bindgenConfig = toBindgenConfig config uniqueId hsModuleName
     void $ hsBindgen tracerConfig bindgenConfig inputs $
-      writeBindings safety (Just literateOpts.output) :* Nil
+      writeBindings safety (Just literateOpts.output)
   where
     throwIO' :: String -> IO a
     throwIO' = throwIO . LiterateFileException literateOpts.input

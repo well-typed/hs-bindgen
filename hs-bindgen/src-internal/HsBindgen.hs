@@ -5,7 +5,6 @@ module HsBindgen
 
     -- * Artefacts
   , Artefact(..)
-  , Artefacts
   , writeIncludeGraph
   , writeUseDeclGraph
   , getBindings
@@ -14,10 +13,6 @@ module HsBindgen
   , writeBindingsMultiple
   , writeBindingSpec
   , writeTests
-
-    -- * Re-exports
-  , I (..)
-  , NP (..)
   ) where
 
 import Control.Monad (join)
@@ -50,11 +45,11 @@ import HsBindgen.Util.Tracer
 -- For a list of build artefacts, see the description and constructors of
 -- 'Artefact'.
 hsBindgen ::
-     TracerConfig IO Level TraceMsg
+     TracerConfig Level TraceMsg
   -> BindgenConfig
   -> [UncheckedHashIncludeArg]
-  -> Artefacts as
-  -> IO (NP I as)
+  -> Artefact a
+  -> IO a
 hsBindgen
   tracerConfig
   bindgenConfig@BindgenConfig{..}
@@ -62,9 +57,9 @@ hsBindgen
   artefacts = do
     result <- fmap join $ withTracer tracerConfig $ \tracer tracerUnsafeRef -> do
       -- Boot and frontend require unsafe tracer and `libclang`.
-      let tracerFrontend :: Tracer IO FrontendMsg
+      let tracerFrontend :: Tracer FrontendMsg
           tracerFrontend = contramap TraceFrontend tracer
-          tracerBoot :: Tracer IO BootMsg
+          tracerBoot :: Tracer BootMsg
           tracerBoot = contramap TraceBoot tracer
       -- 1. Boot.
       bootArtefact <-
@@ -87,7 +82,7 @@ hsBindgen
 
     either throwIO pure result
   where
-    tracerConfigSafe :: TracerConfig IO SafeLevel a
+    tracerConfigSafe :: TracerConfig SafeLevel a
     tracerConfigSafe = TracerConfig {
         tVerbosity      = tVerbosity tracerConfig
       , tOutputConfig   = def
@@ -102,21 +97,24 @@ hsBindgen
 
 -- | Write the include graph to `STDOUT` or a file.
 writeIncludeGraph :: Maybe FilePath -> Artefact ()
-writeIncludeGraph mPath = Lift (IncludeGraph :* Nil) $
-    \(I (p, includeGraph) :* Nil) ->
-      write "include graph" mPath $ IncludeGraph.dumpMermaid p includeGraph
+writeIncludeGraph mPath = do
+    (p, includeGraph) <- IncludeGraph
+    Lift $ write "include graph" mPath
+         $ IncludeGraph.dumpMermaid p includeGraph
 
 -- | Write @use-decl@ graph to file.
 writeUseDeclGraph :: Maybe FilePath -> Artefact ()
-writeUseDeclGraph mPath = Lift (DeclIndex :* UseDeclGraph :* Nil) $
-    \(I index :* I useDeclGraph :* Nil) ->
-      write "use-decl graph" mPath $ UseDeclGraph.dumpMermaid index useDeclGraph
+writeUseDeclGraph mPath = do
+    index <- DeclIndex
+    useDeclGraph <- UseDeclGraph
+    Lift $ write "use-decl graph" mPath
+         $ UseDeclGraph.dumpMermaid index useDeclGraph
 
 -- | Get bindings (single module).
 getBindings :: Safety -> Artefact String
-getBindings safety = Lift (finalModuleArtefact :* Nil) $
-    \(I finalModule :* Nil) ->
-      pure . render $ finalModule
+getBindings safety = do
+    finalModule <- finalModuleArtefact
+    Lift $ pure . render $ finalModule
   where finalModuleArtefact = case safety of
           Safe   -> FinalModuleSafe
           Unsafe -> FinalModuleUnsafe
@@ -125,15 +123,13 @@ getBindings safety = Lift (finalModuleArtefact :* Nil) $
 --
 -- If no file is given, print to standard output.
 writeBindings :: Safety -> Maybe FilePath -> Artefact ()
-writeBindings safety mPath = Lift (getBindings safety :* Nil) $
-    \(I bindings :* Nil) ->
-      write "bindings" mPath bindings
+writeBindings safety mPath = do
+    bindings <- getBindings safety
+    Lift $ write "bindings" mPath bindings
 
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: Artefact (ByCategory String)
-getBindingsMultiple = Lift (FinalModules :* Nil) $
-    \(I finalModule :* Nil) ->
-      pure . (fmap render) $ finalModule
+getBindingsMultiple = fmap render <$> FinalModules
 
 -- | Write bindings to files in provided output directory.
 --
@@ -141,32 +137,35 @@ getBindingsMultiple = Lift (FinalModules :* Nil) $
 --
 -- If no file is given, print to standard output.
 writeBindingsMultiple :: FilePath -> Artefact ()
-writeBindingsMultiple hsOutputDir = Lift (FinalModuleBaseName :* getBindingsMultiple :* Nil) $
-    \(I moduleBaseName :* I bindingsByCategory :* Nil) ->
-      writeByCategory "bindings" hsOutputDir moduleBaseName bindingsByCategory
+writeBindingsMultiple hsOutputDir = do
+    moduleBaseName     <- FinalModuleBaseName
+    bindingsByCategory <- getBindingsMultiple
+    Lift $ writeByCategory "bindings" hsOutputDir moduleBaseName bindingsByCategory
 
 -- | Write binding specifications to file.
 writeBindingSpec :: FilePath -> Artefact ()
-writeBindingSpec path =
-  Lift (FinalModuleBaseName :* GetMainHeaders :* OmitTypes :* HsDecls :* Nil) $
-    \(I moduleBaseName :* I getMainHeaders :* I omitTypes :* I hsDecls :* Nil) -> do
-      tracer <- artefactTracer <$> ask
-      liftIO $ do
-        traceWith tracer $ RunArtefactWriteFile "binding specifications" path
-        -- Binding specifications only specify types.
-        genBindingSpec moduleBaseName path getMainHeaders omitTypes $
-          fromMaybe [] (Map.lookup BType $ unByCategory hsDecls)
+writeBindingSpec path = do
+  moduleBaseName <- FinalModuleBaseName
+  getMainHeaders <- GetMainHeaders
+  omitTypes      <- OmitTypes
+  hsDecls        <- HsDecls
+  tracer         <- Lift $ artefactTracer <$> ask
+  traceWith tracer $ RunArtefactWriteFile "binding specifications" path
+  -- Binding specifications only specify types.
+  liftIO $ genBindingSpec moduleBaseName path getMainHeaders omitTypes $
+    fromMaybe [] (Map.lookup BType $ unByCategory hsDecls)
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
-writeTests testDir =
-  Lift (FinalModuleBaseName :* HashIncludeArgs :* HsDecls :* Nil) $
-    \(I moduleBaseName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
-      liftIO $ genTests
-        hashIncludeArgs
-        hsDecls
-        moduleBaseName
-        testDir
+writeTests testDir = do
+    moduleBaseName  <- FinalModuleBaseName
+    hashIncludeArgs <- HashIncludeArgs
+    hsDecls         <- HsDecls
+    liftIO $ genTests
+      hashIncludeArgs
+      hsDecls
+      moduleBaseName
+      testDir
 
 {-------------------------------------------------------------------------------
   Helpers
@@ -176,8 +175,8 @@ write :: String -> Maybe FilePath -> String -> ArtefactM ()
 write _    Nothing     str = liftIO $ putStrLn str
 write what (Just path) str = do
       tracer <- artefactTracer <$> ask
+      traceWith tracer $ RunArtefactWriteFile what path
       liftIO $ do
-        traceWith tracer $ RunArtefactWriteFile what path
         createDirectoryIfMissing True $ takeDirectory path
         writeFile path str
 

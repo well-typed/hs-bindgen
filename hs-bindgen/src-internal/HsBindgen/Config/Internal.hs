@@ -91,7 +91,7 @@ data BackendConfig = BackendConfig {
   deriving stock (Show, Eq, Generic)
   deriving anyclass Default
 
-checkBackendConfig :: Tracer IO BackendConfigMsg -> BackendConfig -> IO ()
+checkBackendConfig :: Tracer BackendConfigMsg -> BackendConfig -> IO ()
 checkBackendConfig tracer backendConfig =
     checkUniqueId (contramap BackendConfigUniqueId tracer) uniqueId
   where

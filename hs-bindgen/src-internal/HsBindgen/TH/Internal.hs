@@ -78,7 +78,7 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
 
     bindgenConfig <- toBindgenConfigTH packageRoot config
 
-    let tracerConfig :: TracerConfig IO Level TraceMsg
+    let tracerConfig :: TracerConfig Level TraceMsg
         tracerConfig =
           tracerConfigDefTH
             & #tVerbosity .~ verbosity
@@ -93,21 +93,23 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
         uncheckedHashIncludeArgs =
           reverse $ bindgenStateUncheckedHashIncludeArgs bindgenState
 
-        aWriteBindingSpec :: Artefact ()
-        aWriteBindingSpec = case config.outputBindingSpec of
-              Nothing  -> pure ()
-              Just rfp -> writeBindingSpec (toFilePath packageRoot rfp)
+        artefact :: Artefact ([SourcePath], ([UserlandCapiWrapper], [SHs.SDecl]))
+        artefact = do
+          deps  <- Dependencies
+          decls <- FinalDecls
+          case config.outputBindingSpec of
+            Nothing  -> pure ()
+            Just rfp -> writeBindingSpec (toFilePath packageRoot rfp)
+          pure (deps, mergeDecls safety decls)
 
-        artefacts = Dependencies :* FinalDecls :* aWriteBindingSpec :* Nil
-
-    (I deps :* I decls' :* _ :* Nil) <- liftIO $
+    (deps, decls) <- liftIO $
       hsBindgen
         tracerConfig
         bindgenConfig
         uncheckedHashIncludeArgs
-        artefacts
-    let decls = mergeDecls safety decls'
-        requiredExts = uncurry getExtensions $ decls
+        artefact
+
+    let requiredExts = uncurry getExtensions decls
     checkLanguageExtensions requiredExts
     uncurry (getThDecls deps) decls
 
@@ -171,7 +173,7 @@ getThDecls deps wrappers decls = do
 -------------------------------------------------------------------------------}
 
 -- | The default tracer configuration in Q uses 'outputConfigTH'
-tracerConfigDefTH :: TracerConfig IO l a
+tracerConfigDefTH :: TracerConfig l a
 tracerConfigDefTH = def {
         tOutputConfig = outputConfigTH
       }

@@ -1,22 +1,17 @@
 module HsBindgen.Artefact (
     Artefact(..)
-  , Artefacts
   , ArtefactM
   , ArtefactEnv(..)
   , runArtefacts
   , ArtefactMsg(..)
-
-    -- * Re-exports
-  , I (..)
-  , NP (..)
   )
 where
 
+import Control.Monad (liftM)
 import Control.Monad.Except (ExceptT (..), MonadError (..), runExceptT)
 import Control.Monad.Trans.Class (lift)
 import Control.Monad.Trans.Reader (ReaderT (runReaderT))
 import Data.IORef (IORef)
-import Generics.SOP (I (..), NP (..))
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
@@ -65,27 +60,28 @@ data Artefact (a :: Star) where
   FinalModuleSafe     :: Artefact HsModule
   FinalModuleUnsafe   :: Artefact HsModule
   FinalModules        :: Artefact (ByCategory HsModule)
-  -- * Sequence artefacts
-  Lift                :: Artefacts as -> (NP I as -> ArtefactM b) -> Artefact b
-  Bind                :: Artefact b   -> (b -> Artefact c)        -> Artefact c
+  -- * Lift and sequence artefacts
+  Lift                :: ArtefactM a -> Artefact a
+  Bind                :: Artefact b  -> (b -> Artefact c ) -> Artefact c
 
 instance Functor Artefact where
   fmap :: (a -> b) -> Artefact a -> Artefact b
-  fmap f x = Lift (x :* Nil) (\(I r :* Nil) -> pure (f r))
+  fmap = liftM
 
 instance Applicative Artefact where
   pure :: a -> Artefact a
-  pure x = Lift Nil (\Nil -> pure x)
+  pure = Lift . pure
 
-  liftA2 :: (a -> b -> c) -> Artefact a -> Artefact b -> Artefact c
-  liftA2 f x y = Lift (x :* y :* Nil) (\(I l :* I r :* Nil) -> pure (f l r))
+  (<*>) :: Artefact (a -> b) -> Artefact a -> Artefact b
+  (<*>) = ap
 
 instance Monad Artefact where
   (>>=) :: Artefact a -> (a -> Artefact b) -> Artefact b
   (>>=) = Bind
 
--- | A list of 'Artefact's.
-type Artefacts as = NP Artefact as
+instance MonadIO Artefact where
+  liftIO :: IO a -> Artefact a
+  liftIO = Lift . liftIO
 
 {-------------------------------------------------------------------------------
   Artefact monad
@@ -94,7 +90,7 @@ type Artefacts as = NP Artefact as
 type ArtefactM = ReaderT ArtefactEnv IO
 
 data ArtefactEnv = ArtefactEnv {
-      artefactTracer :: Tracer IO ArtefactMsg
+      artefactTracer :: Tracer ArtefactMsg
     }
 
 {-------------------------------------------------------------------------------
@@ -105,35 +101,26 @@ data ArtefactEnv = ArtefactEnv {
 --
 -- All top-level artefacts will be cached (this is not true for computed
 -- artefacts, using, for example, the 'Functor' interface, or 'Lift').
-runArtefacts :: forall e as.
-     Tracer IO ArtefactMsg
+runArtefacts :: forall e a.
+     Tracer ArtefactMsg
   -> IORef (TracerState e)
   -> BootArtefact
   -> FrontendArtefact
   -> BackendArtefact
-  -> Artefacts as
-  -> IO (Either (TraceException e) (NP I as))
+  -> Artefact a
+  -> IO (Either (TraceException e) a)
 runArtefacts
   tracer
   tracerStateRef
   BootArtefact{..}
   FrontendArtefact{..}
   BackendArtefact{..}
-  artefacts = runReaderT (runExceptT (go artefacts)) env
+  artefact = runReaderT (runExceptT (runArtefact artefact)) env
   where
     env :: ArtefactEnv
     env = ArtefactEnv tracer
 
-    go :: Artefacts a -> ExceptT (TraceException e) ArtefactM (NP I a)
-    go Nil       = pure Nil
-    go (a :* as) = do
-      artefactResult <- runArtefact a
-      mbError <- checkTracerState tracerStateRef
-      case mbError of
-        Just err -> throwError err
-        Nothing  -> (I artefactResult :*) <$> (go as)
-
-    runArtefact :: Artefact a -> ExceptT (TraceException e) ArtefactM a
+    runArtefact :: forall x. Artefact x -> ExceptT (TraceException e) ArtefactM x
     runArtefact = \case
       --Boot.
       HashIncludeArgs     -> liftIO bootHashIncludeArgs
@@ -154,8 +141,14 @@ runArtefacts
       FinalModuleUnsafe   -> liftIO backendFinalModuleUnsafe
       FinalModules        -> liftIO backendFinalModules
       -- Lift and sequence.
-      (Lift as' f)        -> go as'        >>= lift . f
-      (Bind x   f)        -> runArtefact x >>= runArtefact . f
+      (Lift f)            -> lift f
+      (Bind x   f)        -> do
+        r <- runArtefact x
+        -- Check tracer state for 'Error' traces
+        mbError <- checkTracerState tracerStateRef
+        case mbError of
+          Just err -> throwError err
+          Nothing  -> runArtefact $ f r
 
 {-------------------------------------------------------------------------------
   Traces

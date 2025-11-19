@@ -118,7 +118,7 @@ customTracePredicate' names mpredicate = TracePredicate $ \traces -> do
 withTracePredicate
   :: (IsTrace Level a , Typeable a, Show a)
   => (String -> IO ())
-  -> TracePredicate a -> (Tracer IO a -> IO b) -> IO b
+  -> TracePredicate a -> (Tracer a -> IO b) -> IO b
 withTracePredicate report predicate action = fmap fst $
   withTraceConfigPredicate report predicate $ \traceConfig ->
     withTracer' traceConfig (\t _ -> action t)
@@ -129,12 +129,12 @@ withTracePredicate report predicate action = fmap fst $
 withTraceConfigPredicate
   :: forall a b l. (IsTrace Level a , Typeable a, Show a)
   => (String -> IO ())
-  -> TracePredicate a -> (TracerConfig IO l a -> IO b) -> IO b
+  -> TracePredicate a -> (TracerConfig l a -> IO b) -> IO b
 withTraceConfigPredicate report (TracePredicate predicate) action = do
   tracesRef <- newIORef []
-  let writer :: Report IO a
+  let writer :: Report a
       writer _ trace _ = modifyIORef' tracesRef ((:) trace)
-      tracerConfig :: TracerConfig IO l a
+      tracerConfig :: TracerConfig l a
       tracerConfig = def {
           tVerbosity      = Verbosity Info
         , tOutputConfig   = OutputCustom writer DisableAnsiColor

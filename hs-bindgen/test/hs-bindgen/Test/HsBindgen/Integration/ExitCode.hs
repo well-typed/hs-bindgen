@@ -11,7 +11,7 @@ import Test.HsBindgen.Resources
 import Test.Tasty
 import Test.Tasty.HUnit
 
-import HsBindgen.Artefact (Artefact (..), NP (..))
+import HsBindgen.Artefact (Artefact (..))
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -32,10 +32,9 @@ tests testResources = testGroup "Integration.ExitCode" [
 testSuccessCase :: IO TestResources -> TestTree
 testSuccessCase testResources = testCase "success does not throw" $ do
   let test = defaultTest "functions/simple_func"
-      artefacts = FinalDecls :* Nil
       noReport = const $ pure ()
 
-  result <- try $ runTestHsBindgen' noReport testResources test artefacts
+  result <- try $ runTestHsBindgen' noReport testResources test FinalDecls
   case result of
     Right _ -> pure ()
     Left e'
@@ -60,10 +59,9 @@ testUnresolvedInclude testResources = testCase "unresolved include throws TraceE
             -- Tolerate all traces - we want to test TraceException propagation
           , testTracePredicate = customTracePredicate [] $ \_ -> Just Tolerated
           }
-        artefacts = FinalDecls :* Nil
         noReport = const $ pure ()
 
-    result <- try $ runTestHsBindgen' noReport testResources test artefacts
+    result <- try $ runTestHsBindgen' noReport testResources test FinalDecls
     case result of
       Left e'
         | Just (TraceException @TraceMsg _)

@@ -65,6 +65,6 @@ parseOutput' = strOption $ mconcat [
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
-    let artefacts = writeUseDeclGraph output :* Nil
+    let artefact = writeUseDeclGraph output
         bindgenConfig = toBindgenConfig config uniqueId hsModuleName
-    void $ hsBindgen tracerConfig bindgenConfig inputs artefacts
+    void $ hsBindgen tracerConfig bindgenConfig inputs artefact

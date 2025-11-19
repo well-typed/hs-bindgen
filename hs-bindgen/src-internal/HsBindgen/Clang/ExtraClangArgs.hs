@@ -57,7 +57,7 @@ instance IsTrace Level ExtraClangArgsMsg where
 -- unset or empty.  In particular, if cross-compiling to a given target, a
 -- provided, non-empty, target-specific environment variable takes precedence
 -- over `BINDGEN_EXTRA_CLANG_ARGS`, which is unused.
-getExtraClangArgs :: Tracer IO ExtraClangArgsMsg -> Maybe Target -> IO [String]
+getExtraClangArgs :: Tracer ExtraClangArgsMsg -> Maybe Target -> IO [String]
 getExtraClangArgs tracer = aux
   where
     aux :: Maybe Target -> IO [String]

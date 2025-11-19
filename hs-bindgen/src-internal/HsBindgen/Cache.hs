@@ -14,12 +14,12 @@ import HsBindgen.Util.Tracer
 -- | Cache a computation with a name.
 --
 -- Names only serve for debug messages. They need not be unique.
-cacheWith :: Tracer IO CacheMsg -> Maybe String -> IO a -> IO (IO a)
+cacheWith :: Tracer CacheMsg -> Maybe String -> IO a -> IO (IO a)
 cacheWith tracer name computeRes = do
   cacheVar <- newMVar Nothing
   pure $ getWithCache tracer name cacheVar computeRes
 
-getWithCache :: Tracer IO CacheMsg -> Maybe String -> MVar (Maybe a) -> IO a -> IO a
+getWithCache :: Tracer CacheMsg -> Maybe String -> MVar (Maybe a) -> IO a -> IO a
 getWithCache tracer name cacheVar computeRes = modifyMVar cacheVar $ \case
     Nothing -> do
       traceWith tracer $ CacheMiss name

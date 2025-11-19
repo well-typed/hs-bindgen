@@ -84,7 +84,7 @@ data Env = Env {
     , envIsInMainHeaderDir        :: IsInMainHeaderDir
     , envGetMainHeadersAndInclude :: GetMainHeadersAndInclude
     , envPredicate                :: Boolean ParsePredicate
-    , envTracer                   :: Tracer IO ImmediateParseMsg
+    , envTracer                   :: Tracer ImmediateParseMsg
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit

@@ -56,7 +56,7 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      tracerConfig        :: TracerConfig IO Level TraceMsg
+      tracerConfig        :: TracerConfig Level TraceMsg
     }
 
 parseGlobalOpts :: Parser GlobalOpts
@@ -66,7 +66,7 @@ parseGlobalOpts = GlobalOpts <$> parseTracerConfig
   Tracer configuration
 -------------------------------------------------------------------------------}
 
-parseTracerConfig :: Parser (TracerConfig IO Level TraceMsg)
+parseTracerConfig :: Parser (TracerConfig Level TraceMsg)
 parseTracerConfig =
     TracerConfig
       <$> parseVerbosity

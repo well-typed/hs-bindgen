@@ -30,7 +30,7 @@ import HsBindgen.Util.Tracer
 -- - Determine Clang arguments.
 -- - Load external and prescriptive binding specifications.
 boot ::
-     Tracer IO BootMsg
+     Tracer BootMsg
   -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> IO BootArtefact
@@ -80,7 +80,7 @@ boot
     hsModuleName :: Hs.ModuleName
     hsModuleName = bindgenBootConfig.bootHsModuleName
 
-    tracerBootStatus :: Tracer IO BootStatusMsg
+    tracerBootStatus :: Tracer BootStatusMsg
     tracerBootStatus = contramap BootStatus tracer
 
     traceStatus :: BootStatusMsg -> IO ()
@@ -96,7 +96,7 @@ boot
     cache = cacheWith (contramap (BootCache . SafeTrace) tracer) . Just
 
 -- | Determine Clang arguments
-getClangArgs :: Tracer IO BootMsg -> ClangArgsConfig FilePath -> IO ClangArgs
+getClangArgs :: Tracer BootMsg -> ClangArgsConfig FilePath -> IO ClangArgs
 getClangArgs tracer config = do
     extraClangArgs <- getExtraClangArgs (contramap BootExtraClangArgs tracer) $
       fst <$> ClangArgs.target config
