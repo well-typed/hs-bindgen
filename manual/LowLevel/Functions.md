@@ -4,11 +4,13 @@
 
 TODO
 
-## Function pointers
+## Safe vs unsafe foreign imports
 
-TODO: introduction to function pointers
+TODO
 
-1. For every C function, generate an additional binding for the address of that C function.
+## Function addresses
+
+### Function pointers
 
 In theory every C function is a candidate for being passed to other functions as
 a function pointer. For example, consider the following two (contrived)
@@ -63,7 +65,7 @@ main = do
 
 [globals]:./Globals.md#Guidelines-for-binding-generation
 
-## Implicit function to pointer conversion
+### Implicit function to pointer conversion
 
 In C, functions are not "first-class citizens", but *pointers to functions* can
 be passed around freely. Typically, C code is explicit about the fact that it
@@ -193,7 +195,7 @@ apply1_union :: Apply1Union
 [creference:fun-decl]: https://en.cppreference.com/w/c/language/function_declaration.html#Explanation
 [creference:fun-ptr-conv]: https://en.cppreference.com/w/c/language/conversion.html#Function_to_pointer_conversion
 
-## Wrapping and unwrapping function pointers
+## Conversion between Haskell functions and C functions
 
 Beyond generating type definitions for function pointers and handling implicit
 conversions, `hs-bindgen` generates the additional FFI imports needed to
@@ -253,24 +255,13 @@ instance FromFunPtr ProgressUpdate_Deref where
   fromFunPtr = fromProgressUpdate_Deref
 ```
 
-> [!NOTE]
-> The `hs-bindgen-runtime` library provides Template Haskell utilities for
-> generating these instances manually when needed. See
-> `HsBindgen.Runtime.TH.Instances` for details. This can be useful when
-> working with function pointer types that `hs-bindgen` doesn't automatically
-> generate instances for, or when writing custom high-level bindings.
-
-Not every function pointer type receives these imports. `hs-bindgen` analyzes
-how each function pointer type is used in the API:
-
-- Types appearing as function parameters receive `"wrapper"` imports (you need
-  to create function pointers to pass as arguments)
-- Types for function pointer values receive `"dynamic"` imports (you
-  need to call returned function pointers)
-- Types appearing in struct or union fields receive both (they may flow in
-  either direction)
-
-This keeps the generated code focused on what the API actually needs.
+A function pointer will have a `ToFunPtr` and `FromFunPtr` instance if at
+least one of its arguments contains at least one domain specific type. This
+check is done recursively so higher order functions will be inspected
+correctly. If the arguments for function pointer don't specify any domain
+specific type no instances are generated. This is done to avoid orphan
+instances and to avoid generating multiple instances for the same type
+signature.
 
 #### Wrapping Haskell functions
 
@@ -288,11 +279,11 @@ myCallback = ProgressUpdate_Deref $ \progress ->
 withToFunPtr myCallback $ \funPtr -> do
   onProgressChanged (ProgressUpdate funPtr)
 
--- Or manually manage the function pointer lifetime
-do
-  funPtr <- toFunPtr myCallback
-  onProgressChanged (ProgressUpdate funPtr)
-  freeHaskellFunPtr (un_ProgressUpdate funPtr)
+-- Or manually manage the function pointer lifetime with bracket
+bracket
+  (toFunPtr myCallback)
+  (freeHaskellFunPtr . un_ProgressUpdate)
+  (\funPtr -> onProgressChanged (ProgressUpdate funPtr))
 ```
 
 #### Unwrapping function pointers
@@ -323,9 +314,8 @@ struct MeasurementHandler {
 void registerHandler(struct MeasurementHandler *handler);
 ```
 
-Since these function pointer types appear in struct fields, they receive both
-wrapper and dynamic imports. This allows you to populate the struct with
-Haskell callbacks:
+In Haskell we can make use of the `ToFunPtr` to construct the
+`MeasurementHandler` record.
 
 ```hs
 alloca $ \handlerPtr -> do
@@ -351,7 +341,9 @@ alloca $ \handlerPtr -> do
 
 ## Userland CAPI
 
-TODO
+For certain C features, `hs-bindgen` generates C wrapper code to bridge between
+C and Haskell. These wrappers are necessary when the feature cannot be directly
+expressed using GHC's foreign function interface.
 
 ### By-value `struct` arguments or return values
 
