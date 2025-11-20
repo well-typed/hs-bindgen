@@ -41,8 +41,8 @@ module HsBindgen.Frontend.AST.Internal (
     -- * Show
   , ValidPass
     -- * Helper functions
-  , declQualPrelimDeclId
-  , declOrigQualPrelimDeclId
+  -- , declQualPrelimDeclId
+  -- , declOrigQualPrelimDeclId
   , declQualName
   , declQualDeclId
   , declKindNameKind
@@ -563,15 +563,15 @@ instance Id p ~ C.DeclId => PrettyForTrace (Decl p) where
   Helper functions
 -------------------------------------------------------------------------------}
 
-declQualPrelimDeclId :: HasCallStack =>
-    Id p ~ C.PrelimDeclId => Decl p -> C.QualPrelimDeclId
-declQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
-    C.qualPrelimDeclId declId (declKindNameKind declKind)
+-- declQualPrelimDeclId :: HasCallStack =>
+--     Id p ~ C.PrelimDeclId => Decl p -> C.QualPrelimDeclId
+-- declQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
+--     C.qualPrelimDeclId declId (declKindNameKind declKind)
 
-declOrigQualPrelimDeclId :: Id p ~ C.DeclId => Decl p -> C.QualPrelimDeclId
-declOrigQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
-    C.qualDeclIdToQualPrelimDeclId $
-      C.declIdToQualDeclId declId (declKindNameKind declKind)
+-- declOrigQualPrelimDeclId :: Id p ~ C.DeclId => Decl p -> C.QualPrelimDeclId
+-- declOrigQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
+--     C.qualDeclIdToQualPrelimDeclId $
+--       C.declIdToQualDeclId declId (declKindNameKind declKind)
 
 declQualDeclId :: Id p ~ C.DeclId => Decl p -> C.QualDeclId
 declQualDeclId Decl{declInfo = DeclInfo{declId}, declKind} =

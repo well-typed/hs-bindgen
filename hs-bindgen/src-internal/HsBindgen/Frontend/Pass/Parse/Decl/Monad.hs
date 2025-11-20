@@ -25,6 +25,7 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
   , unknownCursorKind
     -- * Utility: dispatching
   , dispatch
+  , dispatchWithArg
   ) where
 
 import Data.IORef
@@ -188,3 +189,11 @@ dispatch curr k = do
     case mKind of
       Right kind -> k kind
       Left  i    -> panicIO $ "Unrecognized CXCursorKind " ++ show i
+
+dispatchWithArg ::
+     MonadIO m
+  => CXCursor
+  -> (CXCursorKind -> CXCursor -> m a)
+  -> m a
+dispatchWithArg x f = dispatch x $ \kind -> f kind x
+
