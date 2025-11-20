@@ -16,6 +16,7 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
   , (!)
   , lookupAttachedParseMsgs
   , getDecls
+  , getLoc
   , keysSet
     -- * Support for selection
   , Match
@@ -24,12 +25,13 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
 
 import Prelude hiding (lookup)
 
+import Control.Applicative (asum)
 import Control.Monad.State
 import Data.Function
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Optics.Core (over, set, (%))
-import Text.SimplePrettyPrint (hcat, showToCtxDoc)
+import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
 import Clang.Paths (SourcePath)
@@ -125,18 +127,52 @@ fromParseResults results =
   where
     fromPartialIndex :: PartialIndex -> (DeclIndex, [DeclIndexError])
     fromPartialIndex (PartialIndex i e) =
-      -- We assert that no key is used twice. This assertion is not strictly
-      -- necessary, and we may want to remove it in the future.
-      let ss = Map.keysSet i.succeeded
-          os = Map.keysSet i.notAttempted
-          fs = Map.keysSet i.failed
-          is = Set.intersection
-          sharedKeys = Set.unions [is ss os, is ss fs, is os fs]
-      in  if sharedKeys == Set.empty then
-            (i, Map.elems e)
-          else
-            panicPure $
-              "DeclIndex.fromParseResults: shared keys: " <> show sharedKeys
+      -- We assert that no key is used twice. Duplicate keys may arise, for
+      -- example, if a declaration is redefined by a macro:
+      --
+      -- @
+      -- extern FILE *const stderr;
+      -- #define stderr (stderr)
+      -- @
+      --
+      -- We can detect and handle some but not all of these duplicates; for now,
+      -- we remove them all.
+      let succeededIds    = Map.keysSet i.succeeded
+          notAttemptedIds = Map.keysSet i.notAttempted
+          failedIds       = Map.keysSet i.failed
+
+          cap = Set.intersection
+
+          dups :: Set C.QualPrelimDeclId
+          dups = Set.unions [
+              succeededIds    `cap` notAttemptedIds
+            , succeededIds    `cap` failedIds
+            , notAttemptedIds `cap` failedIds
+            ]
+
+          succeededDups    = i.succeeded    `Map.restrictKeys` dups
+          notAttemptedDups = i.notAttempted `Map.restrictKeys` dups
+          failedDups       = i.failed       `Map.restrictKeys` dups
+
+          succeededMsgs, notAttemptedMsgs, failedMsgs :: [DeclIndexError]
+          succeededMsgs =
+            map (SharedKey . ParseResultSuccess)      $ Map.elems succeededDups
+          notAttemptedMsgs =
+            map (SharedKey . ParseResultNotAttempted) $ Map.elems notAttemptedDups
+          failedMsgs =
+            map (SharedKey . ParseResultFailure)      $ Map.elems failedDups
+
+          succeededNoDups    = i.succeeded    `Map.withoutKeys` dups
+          notAttemptedNoDups = i.notAttempted `Map.withoutKeys` dups
+          failedNoDups       = i.failed       `Map.withoutKeys` dups
+
+          iNoDups = i {
+              succeeded    = succeededNoDups
+            , notAttempted = notAttemptedNoDups
+            , failed       = failedNoDups
+            }
+      in ( iNoDups
+         , Map.elems e ++ succeededMsgs ++ notAttemptedMsgs ++ failedMsgs )
 
     aux :: ParseResult -> State PartialIndex ()
     aux parse = modify' $ \oldIndex@PartialIndex{..} ->
@@ -246,25 +282,29 @@ data DeclIndexError =
       , redeclarationOld :: SingleLoc
       , redeclarationNew :: SingleLoc
       }
-  deriving stock (Show, Eq)
+  | SharedKey {
+        sharedKeyParseResult :: ParseResult
+      }
+  deriving stock (Show)
 
 instance PrettyForTrace DeclIndexError where
-  prettyForTrace Redeclaration{..} = hcat [
-        prettyForTrace redeclarationId
-      , " declared at "
-      , showToCtxDoc redeclarationOld
+  prettyForTrace = \case
+    Redeclaration{..} -> PP.hcat [
+        prettyForTrace (C.Located redeclarationOld redeclarationId)
       , " was redeclared at "
-      , showToCtxDoc redeclarationNew
+      , PP.showToCtxDoc redeclarationNew
       , ". No binding generated."
       ]
+    SharedKey{..} ->
+      PP.hang "Duplicate in declaration index detected:" 2 $
+        prettyForTrace sharedKeyParseResult
 
 instance IsTrace Level DeclIndexError where
   getDefaultLogLevel = \case
-      -- Redeclarations can only happen for macros, so we issue a warning,
-      -- rather than an error.
       Redeclaration{} -> Warning
+      SharedKey{}     -> Warning
   getSource  = const HsBindgen
-  getTraceId = const "decl-index-error"
+  getTraceId = const "decl-index"
 
 {-------------------------------------------------------------------------------
   Query
@@ -285,6 +325,20 @@ lookupAttachedParseMsgs qualPrelimDeclId =
 
 getDecls :: DeclIndex -> [C.Decl Parse]
 getDecls = map psDecl . Map.elems . succeeded
+
+-- Get the source location of a declaration (if available)
+getLoc :: C.QualPrelimDeclId -> DeclIndex -> Maybe SingleLoc
+-- Use a classical pattern match here in case more records are added to
+-- 'DeclIndex'.
+--
+-- 'asum' is safe because list is non-empty.
+getLoc x (DeclIndex ss na fa fm _om _ex) = asum [
+      (C.declLoc . C.declInfo. psDecl) <$> Map.lookup x ss
+    , (loc . unParseNotAttempted)      <$> Map.lookup x na
+    , (loc . unParseFailure)           <$> Map.lookup x fa
+    , (loc . unHandleMacrosParseMsg)   <$> Map.lookup x fm
+      -- TODO: We do not have a location for `omitted` nor `external`.
+    ]
 
 keysSet :: DeclIndex -> Set C.QualPrelimDeclId
 keysSet DeclIndex{..} = Set.unions [
