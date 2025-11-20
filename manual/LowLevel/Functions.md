@@ -15,20 +15,16 @@ conventions: `safe` and `unsafe`. The distinction is important:
   because they avoid this overhead, but using `unsafe` incorrectly can lead to
   undefined behavior.
 
-Currently, `hs-bindgen` generates all function imports using the `safe` calling
-convention:
+To give users control over this choice, `hs-bindgen` generates two separate
+modules for function bindings:
 
-```hs
-foreign import ccall safe "B_function_name"
-  function_name :: CInt -> IO CInt
-```
+* `ModuleName.Safe` - contains all function imports using the `safe` calling
+  convention
+* `ModuleName.Unsafe` - contains all function imports using the `unsafe`
+  calling convention
 
-This is a conservative choice that ensures correctness in all cases. While it
-means we pay the cost of the safe calling convention even for functions that
-do not need it, this cost is typically negligible unless the function is called
-in a tight loop. Users who require the performance of `unsafe` imports can
-manually wrap the generated bindings with their own `unsafe` imports after
-verifying that the C function does not call back into Haskell.
+Both modules export identical APIs, differing only in their calling convention.
+Users can import from whichever module best suits their needs.
 
 ## Function addresses
 
@@ -280,10 +276,27 @@ instance FromFunPtr ProgressUpdate_Deref where
 A function pointer will have a `ToFunPtr` and `FromFunPtr` instance if at
 least one of its arguments contains at least one domain specific type. This
 check is done recursively so higher order functions will be inspected
-correctly. If the arguments for function pointer don't specify any domain
-specific type no instances are generated. This is done to avoid orphan
-instances and to avoid generating multiple instances for the same type
-signature.
+correctly.
+
+For the purpose of instance generation, **domain-specific types** are types
+defined in the generated bindings for the specific C library being bound,
+such as:
+- Structs and their fields
+- Enums and typedefs
+- Function pointer wrapper types
+
+Conversely, **non-domain-specific types** are standard FFI types from GHC's
+base libraries, such as `CInt`, `CDouble`, `Ptr a`, `IO ()`, etc.
+
+For example:
+- `ProgressUpdate_Deref` with type `CInt -> IO ()` **will** get instances
+  because `ProgressUpdate_Deref` itself is domain-specific.
+- A hypothetical function pointer type `CInt -> IO CInt` **will not** get
+  instances because both `CInt` and `IO CInt` are non-domain-specific.
+
+This distinction is important to avoid orphan instances and to prevent
+generating multiple instances for the same type signature when binding
+different C libraries.
 
 #### Wrapping Haskell functions
 
@@ -376,22 +389,26 @@ extend the set of supported function signatures beyond what GHC's `capi`
 provides. For instance, we can handle by-value struct arguments and return
 values, which `capi` does not support.
 
-The generated wrappers are named with a prefix based on the Haskell module
-name. For example, a C function `foo` might have a wrapper `B_foo` that we
-import instead:
+The generated wrappers use hash-based names to prevent potential name
+collisions. For example, a C function `print_point` might have a wrapper named
+`hs_bindgen_test_example_a1b2c3d4e5f6g7h8`:
 
 ```c
 // Generated C wrapper
-void B_print_point ( struct point * arg1 ) {
+void hs_bindgen_test_example_a1b2c3d4e5f6g7h8 ( struct point * arg1 ) {
   print_point ( arg1 );
 }
 ```
 
 ```hs
 -- Generated Haskell import
-foreign import ccall "B_print_point"
+foreign import ccall "hs_bindgen_test_example_a1b2c3d4e5f6g7h8"
   print_point :: Ptr Point → IO ()
 ```
+
+This hash-based naming ensures that even if multiple functions have similar
+names or signatures, their wrappers will have unique names, avoiding linker
+errors from symbol collisions.
 
 This userland CAPI approach is used for all function imports in `hs-bindgen`,
 not just those with features GHC cannot handle directly. This provides a
@@ -408,12 +425,12 @@ struct point byval ( struct point p );
 ```
 
 This function cannot be imported directly. Instead, `hs-bindgen` generates a C
-wrapper that accepts and return struct by pointer, performing the necessary
+wrapper that accepts and returns structs by pointer, performing the necessary
 conversions:
 
 ```c
-void B_byval ( struct point * arg
-             , struct point * res ) {
+void hs_bindgen_example_9a8b7c6d5e4f3210 ( struct point * arg
+                                         , struct point * res ) {
   * res = byval (* arg );
 }
 ```
@@ -421,7 +438,7 @@ void B_byval ( struct point * arg
 This wrapper is then imported in Haskell:
 
 ```hs
-foreign import ccall safe "B_byval"
+foreign import ccall safe "hs_bindgen_example_9a8b7c6d5e4f3210"
     byval_wrapper :: Ptr Point → Ptr Point → IO ()
 ```
 
@@ -433,7 +450,7 @@ byval :: Point → IO Point
 byval p =
   with p $ \ arg →
   alloca $ \ res → do
-    B. byval_wrapper arg res
+    byval_wrapper arg res
     peek res
 ```
 
