@@ -112,7 +112,7 @@ data UniqueIdMsg =
 instance PrettyForTrace UniqueIdMsg where
   prettyForTrace = \case
     UniqueIdEmpty -> PP.vcat [
-        "empty unique identifier ('UniqueId'):"
+        "empty unique identifier ('UniqueId', '--unique-id'):"
       , "  C uses a global namespace."
       , "  We encourage using a unique identifier to avoid duplicate symbol names."
       , "  For example, use and adapt 'com.example.package'."

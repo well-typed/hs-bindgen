@@ -561,7 +561,7 @@ test_types_failing_implicit_fields_union =
 test_declarations_failing_declaration_unselected_b :: TestCase
 test_declarations_failing_declaration_unselected_b =
   failingTestCustom "declarations/failing/declaration_unselected_b" ["select" :: String] $ \case
-    (TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (_, UnavailableNotSelected) _))) ->
+    (TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ _ _ UnavailableNotSelected _))) ->
       Just $ Expected "select"
     _otherwise ->
       Nothing
@@ -871,9 +871,9 @@ test_program_analysis_program_slicing_simple =
         "selected foo"
       , "selected uint32_t"
       ] $ \case
-      TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+      TraceFrontend (FrontendSelect (SelectStatusInfo decl (Selected SelectionRoot))) ->
         expectSelected decl.declInfo $ Set.singleton "foo"
-      TraceFrontend (FrontendSelect (SelectStatusInfo (Selected TransitiveDependency) decl)) ->
+      TraceFrontend (FrontendSelect (SelectStatusInfo decl (Selected TransitiveDependency))) ->
         expectSelected decl.declInfo $ Set.singleton "uint32_t"
       _otherwise ->
         Nothing
@@ -889,9 +889,9 @@ test_program_analysis_selection_fail =
     ] $ \case
       TraceFrontend (FrontendSelect (SelectParseFailure _)) ->
         Just $ Expected "Fail"
-      TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (_, UnavailableParseFailed) decl)) ->
+      TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable decl _ _ UnavailableParseFailed _)) ->
         Just $ expectFromDeclSelect decl
-      TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+      TraceFrontend (FrontendSelect (SelectStatusInfo decl (Selected SelectionRoot))) ->
         Just $ expectFromDeclSelect decl
       _otherwise -> Nothing
 
@@ -908,9 +908,9 @@ test_program_analysis_selection_fail_variant_1 =
       , "DependOnFailByReference"
       , "OkBefore", "OkAfter"
       ] $ \case
-        TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (_, UnavailableNotSelected) decl)) ->
+        TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable decl _ _ UnavailableNotSelected _)) ->
           Just $ expectFromDeclSelect decl
-        TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+        TraceFrontend (FrontendSelect (SelectStatusInfo decl (Selected SelectionRoot))) ->
           Just $ expectFromDeclSelect decl
         _otherwise -> Nothing
   }
@@ -929,9 +929,9 @@ test_program_analysis_selection_fail_variant_2 =
       , "DependOnFailByReference"
       , "OkBefore", "OkAfter"
       ] $ \case
-        TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (_, UnavailableParseFailed) decl)) ->
+        TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable decl _ _ UnavailableParseFailed _)) ->
           Just $ expectFromDeclSelect decl
-        TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+        TraceFrontend (FrontendSelect (SelectStatusInfo decl (Selected SelectionRoot))) ->
           Just $ expectFromDeclSelect decl
         _otherwise -> Nothing
   , testHasOutput = False
@@ -947,7 +947,7 @@ test_program_analysis_selection_fail_variant_3 =
       , frontendProgramSlicing = EnableProgramSlicing
       }
   , testTracePredicate = customTracePredicate' ["OkBefore"] $ \case
-        TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+        TraceFrontend (FrontendSelect (SelectStatusInfo decl (Selected SelectionRoot))) ->
           Just $ expectFromDeclSelect decl
         _otherwise -> Nothing
   }
@@ -956,7 +956,7 @@ test_program_analysis_failing_selection_bad :: TestCase
 test_program_analysis_failing_selection_bad =
   (defaultFailingTest "program-analysis/failing/selection_bad"){
     testTracePredicate = customTracePredicate ["size_t_select"] $ \case
-      (TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable SelectionRoot (_, UnavailableNotSelected) _))) ->
+      (TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ SelectionRoot _ UnavailableNotSelected _))) ->
         Just $ Expected "size_t_select"
       _other -> Nothing
   }
@@ -989,12 +989,12 @@ test_program_analysis_program_slicing_selection =
       , "QualPrelimDeclIdNamed \"stdout\" NameKindOrdinary"
       , "QualPrelimDeclIdNamed \"stderr\" NameKindOrdinary"
       ] $ \case
-      TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+      TraceFrontend (FrontendSelect (SelectStatusInfo decl (Selected SelectionRoot))) ->
         expectSelected decl.declInfo $ Set.fromList [
             "FileOperationRecord"
           , "read_file_chunk"
           ]
-      TraceFrontend (FrontendSelect (SelectStatusInfo (Selected TransitiveDependency) decl)) ->
+      TraceFrontend (FrontendSelect (SelectStatusInfo decl (Selected TransitiveDependency))) ->
         expectSelected decl.declInfo $ Set.singleton "FileOperationStatus"
       TraceFrontend (FrontendConstructTranslationUnit (ConstructTranslationUnitErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
         Just $ Expected (show x)
@@ -1023,12 +1023,12 @@ test_declarations_select_scoping =
     , "ParsedAndSelected3"
     ] $ \case
       (TraceFrontend (FrontendSelect
-        (TransitiveDependencyOfDeclarationUnavailable _
-          (_, UnavailableNotSelected) _))) ->
+        (TransitiveDependencyOfDeclarationUnavailable _ _
+          _ UnavailableNotSelected _))) ->
           Just $ Expected "ParsedAndSelected2"
       (TraceFrontend (FrontendSelect
-        (TransitiveDependencyOfDeclarationUnavailable _
-          (_, UnavailableParseNotAttempted) _))) ->
+        (TransitiveDependencyOfDeclarationUnavailable _ _
+          _ UnavailableParseNotAttempted _))) ->
           Just $ Expected "ParsedAndSelected3"
       _otherwise -> Nothing
   }

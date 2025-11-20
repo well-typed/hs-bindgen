@@ -25,7 +25,7 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , DelayedParseMsg(..)
   ) where
 
-import Text.SimplePrettyPrint (CtxDoc, ($$), (<+>), (><))
+import Text.SimplePrettyPrint (CtxDoc, ($$), (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Simple
@@ -149,6 +149,17 @@ data ParseSuccess = ParseSuccess {
     }
   deriving stock (Show, Generic)
 
+instance PrettyForTrace ParseSuccess where
+  prettyForTrace ParseSuccess{..} =
+    if null psAttachedMsgs then
+      PP.hang "Parse success:" 2 $
+        prettyForTrace $
+          C.Located psDecl.declInfo.declLoc psQualPrelimDeclId
+    else
+      PP.hang "Parse success with messages:" 2 $
+        PP.vcat $
+          map prettyForTrace psAttachedMsgs
+
 -- | Why did we not attempt to parse a declaration?
 data ParseNotAttemptedReason =
     -- | We do not parse builtin declarations.
@@ -176,7 +187,7 @@ data ParseNotAttemptedReason =
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace ParseNotAttemptedReason where
-  prettyForTrace x = "Parse not attempted:" <+> case x of
+  prettyForTrace x = case x of
     DeclarationBuiltin       -> "Builtin declaration"
     DeclarationUnavailable   -> "Declaration is 'unavailable' on this platform"
     ParsePredicateNotMatched -> "Parse predicate did not match"
@@ -189,7 +200,11 @@ newtype ParseNotAttempted = ParseNotAttempted {
       unParseNotAttempted :: AttachedParseMsg ParseNotAttemptedReason
     }
   deriving stock    (Eq, Show, Generic)
-  deriving anyclass (PrettyForTrace)
+
+instance PrettyForTrace ParseNotAttempted where
+  prettyForTrace (ParseNotAttempted x) =
+    PP.hang "Parse not attempted: " 2 $
+      prettyForTrace x
 
 -- | Declarations that match the parse predicate but that we fail to parse and
 -- reify
@@ -200,13 +215,19 @@ newtype ParseFailure = ParseFailure {
       unParseFailure :: AttachedParseMsg DelayedParseMsg
     }
   deriving stock    (Eq, Show, Generic)
-  deriving anyclass (PrettyForTrace, IsTrace Level)
+  deriving anyclass (IsTrace Level)
+
+instance PrettyForTrace ParseFailure where
+  prettyForTrace (ParseFailure x) =
+    PP.hang "Parse failure:" 2 $
+      prettyForTrace x
 
 data ParseResult =
     ParseResultSuccess      ParseSuccess
   | ParseResultNotAttempted ParseNotAttempted
   | ParseResultFailure      ParseFailure
   deriving stock (Show, Generic)
+  deriving anyclass (PrettyForTrace)
 
 getDecl :: ParseResult -> Either ParseResult (C.Decl Parse)
 getDecl = \case
@@ -311,7 +332,7 @@ data AttachedParseMsg a = AttachedParseMsg {
 
 instance PrettyForTrace a => PrettyForTrace (AttachedParseMsg a) where
   prettyForTrace (AttachedParseMsg i l _ x) =
-    PP.hang (prettyForTrace (C.Located l i) >< ":") 2 (prettyForTrace x)
+    PP.hang (prettyForTrace (C.Located l i) >< ":") 2 $ prettyForTrace x
 
 instance IsTrace Level a => IsTrace Level (AttachedParseMsg a) where
   getDefaultLogLevel = getDefaultLogLevel . msg

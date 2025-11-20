@@ -14,6 +14,8 @@ import Data.Default (Default (def))
 import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP
 
+import Clang.HighLevel.Types
+
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
@@ -125,13 +127,15 @@ instance PrettyForTrace UnavailabilityReason where
 data SelectMsg =
     -- | Information about selection status; issued for all available
     --declarations.
-    SelectStatusInfo SelectStatus (C.Decl Select)
+    SelectStatusInfo (C.Decl Select) SelectStatus
     -- | The user has selected a declaration that is available but at least one
     -- of its transitive dependencies is _unavailable_.
   | TransitiveDependencyOfDeclarationUnavailable
-      SelectReason
-      (C.QualPrelimDeclId, UnavailabilityReason)
       (C.Decl Select)
+      SelectReason
+      C.QualPrelimDeclId
+      UnavailabilityReason
+      (Maybe SingleLoc)
     -- | The user has selected a deprecated declaration. Maybe they want to
     -- de-select deprecated declaration?
   | SelectDeprecated (C.Decl Select)
@@ -152,18 +156,20 @@ data SelectMsg =
 
 instance PrettyForTrace SelectMsg where
   prettyForTrace = \case
-    SelectStatusInfo NotSelected x ->
-      prettyForTrace x >< "not selected"
-    SelectStatusInfo (Selected r) x ->
+    SelectStatusInfo x NotSelected ->
+      prettyForTrace x >< " not selected"
+    SelectStatusInfo x (Selected r) ->
       prettyForTrace x >< " selected (" >< prettyForTrace r >< ")"
-    TransitiveDependencyOfDeclarationUnavailable s (i, u) x -> PP.hcat [
+    TransitiveDependencyOfDeclarationUnavailable x s i r ml -> PP.hcat [
         prettyForTrace x
       , " selected ("
       , prettyForTrace s
       , ") but depends on "
-      , prettyForTrace i
+      , case ml of
+          Nothing -> prettyForTrace i >< " (no source location available)"
+          Just l  -> prettyForTrace (C.Located l i)
       , ", which is unavailable: "
-      , prettyForTrace u
+      , prettyForTrace r
       ]
     SelectDeprecated x -> PP.hang
         "Selected a deprecated declaration: " 2 $ PP.vcat [
@@ -171,23 +177,17 @@ instance PrettyForTrace SelectMsg where
         , "You may want to de-select it"
         ]
     SelectParseSuccess x -> PP.hang "During parse:" 2 (prettyForTrace x)
-    SelectParseNotAttempted x -> hangReason "parse not attempted" [
+    SelectParseNotAttempted x -> hangWith $ PP.vcat [
         prettyForTrace x
       , "Consider changing the parse predicate"
       ]
-    SelectParseFailure x -> hangReason "parse failure" [
-        prettyForTrace x
-      ]
-    SelectMacroFailure x -> hangReason "macro parse failure" [
-        prettyForTrace x
-      ]
+    SelectParseFailure x -> hangWith $ prettyForTrace x
+    SelectMacroFailure x -> hangWith $ prettyForTrace x
     SelectNoDeclarationsMatched ->
       "No declarations matched the select predicate"
     where
-      hangReason :: CtxDoc -> [CtxDoc] -> CtxDoc
-      hangReason x xs =
-        let header = "Could not select declaration (" >< x >< "):"
-        in  PP.hang header 2 $ PP.vcat xs
+      hangWith :: CtxDoc -> CtxDoc
+      hangWith x = PP.hang "Could not select declaration:" 2 x
 
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case

@@ -150,7 +150,11 @@ selectDecls
 
         selectDecl :: Decl -> (Maybe Decl, [Msg Select])
         selectDecl =
-          selectDeclWith getTransitiveAvailability rootIds additionalSelectedTransIds
+          selectDeclWith
+            getTransitiveAvailability
+            index
+            rootIds
+            additionalSelectedTransIds
 
         availableDecls :: [Decl]
         availableDecls = map coercePass unitDecls
@@ -259,6 +263,7 @@ selectDecls
 
 selectDeclWith ::
     (DeclId -> TransitiveAvailability)
+  -> DeclIndex
   -- | Selection roots.
   -> Set DeclId
   -- | Additionally selected transitive dependencies (non-empty when program
@@ -266,7 +271,12 @@ selectDeclWith ::
   -> Set DeclId
   -> Decl
   -> (Maybe Decl, [Msg Select])
-selectDeclWith getTransitiveAvailability rootIds additionalSelectedTransIds decl =
+selectDeclWith
+  getTransitiveAvailability
+  declIndex
+  rootIds
+  additionalSelectedTransIds
+  decl =
     case ( isSelectedRoot
          , isAdditionalSelectedTransDep
          , transitiveAvailability ) of
@@ -282,7 +292,7 @@ selectDeclWith getTransitiveAvailability rootIds additionalSelectedTransIds decl
         (Nothing, getUnavailMsgs TransitiveDependency rs)
       -- Declaration is not selected.
       (False, False, _) ->
-        (Nothing, [SelectStatusInfo NotSelected decl])
+        (Nothing, [SelectStatusInfo decl NotSelected])
       -- Declaration is a selection root and a transitive dependency. This
       -- should be impossible and we consider it a bug.
       (True, True, _) ->
@@ -301,12 +311,13 @@ selectDeclWith getTransitiveAvailability rootIds additionalSelectedTransIds decl
     getSelMsgs :: SelectReason -> [Msg Select]
     getSelMsgs selectReason =
       let selectDepr   = [ SelectDeprecated decl | isDeprecated decl.declInfo ]
-      in  SelectStatusInfo (Selected selectReason) decl : selectDepr
+      in  SelectStatusInfo decl (Selected selectReason) : selectDepr
 
     getUnavailMsgs :: SelectReason -> Map DeclId UnavailabilityReason -> [Msg Select]
     getUnavailMsgs selectReason unavailReason =
-      [ TransitiveDependencyOfDeclarationUnavailable selectReason r decl
-      | r <- Map.toList unavailReason ]
+      [ TransitiveDependencyOfDeclarationUnavailable
+          decl selectReason i r (DeclIndex.getLoc i declIndex)
+      | (i, r) <- Map.toList unavailReason ]
 
     isDeprecated :: C.DeclInfo Select -> Bool
     isDeprecated info = case C.declAvailability info of
@@ -357,14 +368,14 @@ compareSingleLocs xs x y =
 
 getSingleLoc :: Msg Select -> Maybe SingleLoc
 getSingleLoc = \case
-  SelectStatusInfo _ d                               -> fromD d
-  TransitiveDependencyOfDeclarationUnavailable _ _ d -> fromD d
-  SelectDeprecated d                                 -> fromD d
-  SelectParseSuccess m                               -> fromM m
-  SelectParseNotAttempted (ParseNotAttempted    m)   -> fromM m
-  SelectParseFailure      (ParseFailure         m)   -> fromM m
-  SelectMacroFailure      (HandleMacrosParseMsg m)   -> fromM m
-  SelectNoDeclarationsMatched                        -> Nothing
+  SelectStatusInfo d _                                   -> fromD d
+  TransitiveDependencyOfDeclarationUnavailable d _ _ _ _ -> fromD d
+  SelectDeprecated d                                     -> fromD d
+  SelectParseSuccess m                                   -> fromM m
+  SelectParseNotAttempted (ParseNotAttempted    m)       -> fromM m
+  SelectParseFailure      (ParseFailure         m)       -> fromM m
+  SelectMacroFailure      (HandleMacrosParseMsg m)       -> fromM m
+  SelectNoDeclarationsMatched                            -> Nothing
   where
     fromD = Just . C.declLoc . C.declInfo
     fromM = Just . loc
