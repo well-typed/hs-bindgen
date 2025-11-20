@@ -20,7 +20,7 @@
     }:
     let
       overlays = import ./nix/overlay {
-        lib = nixpkgs.lib;
+        inherit (nixpkgs) lib;
         inherit libclang-bindings-src;
       };
     in

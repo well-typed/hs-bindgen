@@ -8,7 +8,7 @@
 
 stdenv.mkDerivation {
   pname = "hs-bindgen-cli";
-  version = haskellPackages.hs-bindgen.version;
+  inherit (haskellPackages.hs-bindgen) version;
 
   nativeBuildInputs = [ makeBinaryWrapper ];
 

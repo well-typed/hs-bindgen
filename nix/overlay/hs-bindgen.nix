@@ -6,7 +6,7 @@ final: prev:
 let
   inherit (final) lib;
   llvmPackages = if maybeLlvmPackages == null then final.llvmPackages else maybeLlvmPackages;
-  hlib = (final.haskell.lib.compose);
+  hlib = final.haskell.lib.compose;
   hsBindgenPkgNames = [
     "ansi-diff"
     "c-expr-dsl"
@@ -17,7 +17,6 @@ let
   ];
   mkPkg = hpkgs: name: hpkgs.callCabal2nix name (./../../${name}) { };
   mkHsBindgenPkgs = hpkgs: lib.genAttrs hsBindgenPkgNames (mkPkg hpkgs);
-  rust-bindgen = final.callPackage ../rust-bindgen.nix { inherit (llvmPackages) clang; };
 in
 {
   haskell = prev.haskell // {
@@ -44,9 +43,6 @@ in
           + (drv.preCheck or "");
           buildDepends = drv.buildDepends or [ ] ++ [
             final.hsBindgenHook
-          ];
-          testToolDepends = drv.testToolDepends or [ ] ++ [
-            rust-bindgen
           ];
         }) hsBindgenPkgs.hs-bindgen;
       };
