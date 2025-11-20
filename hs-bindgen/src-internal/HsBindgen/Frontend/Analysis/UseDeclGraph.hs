@@ -63,13 +63,10 @@ toDynGraph = unwrap
 
 fromDecls :: IncludeGraph -> [C.Decl Parse] -> UseDeclGraph
 fromDecls includeGraph decls =
-      fromSortedDecls $ List.sortOn (annSortKey sourceMap) decls
+      fromSortedDecls $ List.sortOn (annSortKey orderMap) decls
   where
-    sourcePaths :: [SourcePath]
-    sourcePaths = IncludeGraph.toSortedList includeGraph
-
-    sourceMap :: Map SourcePath Int
-    sourceMap = Map.fromList $ zip sourcePaths [0..]
+    orderMap :: Map SourcePath Int
+    orderMap = IncludeGraph.toOrderMap includeGraph
 
 fromSortedDecls :: [C.Decl Parse] -> UseDeclGraph
 fromSortedDecls decls = Wrap $
