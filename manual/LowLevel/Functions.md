@@ -2,13 +2,33 @@
 
 ## Introduction
 
-TODO
+This chapter discusses how `hs-bindgen` generates bindings for C functions.
 
-## Function pointers
+## Safe vs unsafe foreign imports
 
-TODO: introduction to function pointers
+When importing a C function, GHC allows us to choose between two calling
+conventions: `safe` and `unsafe`. The distinction is important:
 
-1. For every C function, generate an additional binding for the address of that C function.
+* **Safe** foreign imports may call back into Haskell code. They are more
+  expensive.
+* **Unsafe** foreign imports may not call back into Haskell. They are faster
+  because they avoid this overhead, but using `unsafe` incorrectly can lead to
+  undefined behavior.
+
+To give users control over this choice, `hs-bindgen` generates two separate
+modules for function bindings:
+
+* `ModuleName.Safe` - contains all function imports using the `safe` calling
+  convention
+* `ModuleName.Unsafe` - contains all function imports using the `unsafe`
+  calling convention
+
+Both modules export identical APIs, differing only in their calling convention.
+Users can import from whichever module best suits their needs.
+
+## Function addresses
+
+### Function pointers
 
 In theory every C function is a candidate for being passed to other functions as
 a function pointer. For example, consider the following two (contrived)
@@ -63,7 +83,7 @@ main = do
 
 [globals]:./Globals.md#Guidelines-for-binding-generation
 
-## Implicit function to pointer conversion
+### Implicit function to pointer conversion
 
 In C, functions are not "first-class citizens", but *pointers to functions* can
 be passed around freely. Typically, C code is explicit about the fact that it
@@ -193,13 +213,246 @@ apply1_union :: Apply1Union
 [creference:fun-decl]: https://en.cppreference.com/w/c/language/function_declaration.html#Explanation
 [creference:fun-ptr-conv]: https://en.cppreference.com/w/c/language/conversion.html#Function_to_pointer_conversion
 
+## Conversion between Haskell functions and C functions
+
+Beyond generating type definitions for function pointers and handling implicit
+conversions, `hs-bindgen` generates the additional FFI imports needed to
+convert between Haskell functions and C function pointers in both directions.
+
+### Auxiliary `_Deref` types
+
+For each typedef function pointer type in the C API, `hs-bindgen` generates
+two related types. Given:
+
+```c
+typedef void (*ProgressUpdate)(int percentComplete);
+```
+
+We generate:
+
+```hs
+newtype ProgressUpdate_Deref = ProgressUpdate_Deref
+  { un_ProgressUpdate_Deref :: CInt -> IO ()
+  }
+
+newtype ProgressUpdate = ProgressUpdate
+  { un_ProgressUpdate :: FunPtr ProgressUpdate_Deref
+  }
+```
+
+The `_Deref` auxiliary type represents the Haskell function signature, while
+the main type wraps the `FunPtr` to that signature. This separation mirrors
+how C distinguishes between a function pointer and the function it points to.
+
+### Wrapper and dynamic imports
+
+For function pointer types that are actually used by the C API, `hs-bindgen`
+generates both `"wrapper"` and `"dynamic"` foreign import stubs. These provide
+bidirectional conversion between Haskell functions and C function pointers:
+
+```hs
+-- Create a C-callable function pointer from a Haskell function
+foreign import ccall "wrapper" toProgressUpdate_Deref ::
+     ProgressUpdate_Deref
+  -> IO (FunPtr ProgressUpdate_Deref)
+
+-- Convert a C function pointer back to a Haskell function
+foreign import ccall "dynamic" fromProgressUpdate_Deref ::
+     FunPtr ProgressUpdate_Deref
+  -> ProgressUpdate_Deref
+```
+
+These stubs are abstracted over two type classes in order to offer a better
+API to the end user. The following instances are also generated:
+
+```hs
+instance ToFunPtr ProgressUpdate_Deref where
+  toFunPtr = toProgressUpdate_Deref
+
+instance FromFunPtr ProgressUpdate_Deref where
+  fromFunPtr = fromProgressUpdate_Deref
+```
+
+A function pointer will have a `ToFunPtr` and `FromFunPtr` instance if at
+least one of its arguments contains at least one domain specific type. This
+check is done recursively so higher order functions will be inspected
+correctly.
+
+For the purpose of instance generation, **domain-specific types** are types
+defined in the generated bindings for the specific C library being bound,
+such as:
+- Structs and their fields
+- Enums and typedefs
+- Function pointer wrapper types
+
+Conversely, **non-domain-specific types** are standard FFI types from GHC's
+base libraries, such as `CInt`, `CDouble`, `Ptr a`, `IO ()`, etc.
+
+For example:
+- `ProgressUpdate_Deref` with type `CInt -> IO ()` **will** get instances
+  because `ProgressUpdate_Deref` itself is domain-specific.
+- A hypothetical function pointer type `CInt -> IO CInt` **will not** get
+  instances because both `CInt` and `IO CInt` are non-domain-specific.
+
+This distinction is important to avoid orphan instances and to prevent
+generating multiple instances for the same type signature when binding
+different C libraries.
+
+#### Wrapping Haskell functions
+
+To pass a Haskell function as a callback to C, use `toFunPtr` or the
+`withToFunPtr` bracket combinator:
+
+```hs
+import HsBindgen.Runtime.FunPtr (withToFunPtr)
+
+myCallback :: ProgressUpdate_Deref
+myCallback = ProgressUpdate_Deref $ \progress ->
+  putStrLn $ "Progress: " ++ show progress ++ "%"
+
+-- Preferred: automatic cleanup with withToFunPtr
+withToFunPtr myCallback $ \funPtr -> do
+  onProgressChanged (ProgressUpdate funPtr)
+
+-- Or manually manage the function pointer lifetime with bracket
+bracket
+  (toFunPtr myCallback)
+  (freeHaskellFunPtr . un_ProgressUpdate)
+  (\funPtr -> onProgressChanged (ProgressUpdate funPtr))
+```
+
+#### Unwrapping function pointers
+
+To call a function pointer returned from C, use `fromFunPtr`:
+
+```hs
+do
+  validatorFunPtr <- getValidator
+  -- validatorFunPtr :: DataValidator
+
+  -- Extract the FunPtr and convert to Haskell function
+  let validator = fromFunPtr (un_DataValidator validatorFunPtr)
+  result <- un_DataValidator_Deref validator 42
+```
+
+### Example: struct with function pointer fields
+
+Function pointers frequently appear as struct fields for registering handlers:
+
+```c
+struct MeasurementHandler {
+  void (*onReceived)(struct Measurement *data);
+  int (*validate)(struct Measurement *data);
+  void (*onError)(int errorCode);
+};
+
+void registerHandler(struct MeasurementHandler *handler);
+```
+
+In Haskell we can make use of the `ToFunPtr` to construct the
+`MeasurementHandler` record.
+
+```hs
+alloca $ \handlerPtr -> do
+  onReceivedPtr <- toFunPtr $ OnReceived_Deref $ \dataPtr -> do
+    measurement <- peek dataPtr
+    print measurement
+
+  validatePtr <- toFunPtr $ Validate_Deref $ \dataPtr -> do
+    -- validation logic
+    return 1
+
+  onErrorPtr <- toFunPtr $ OnError_Deref $ \errorCode ->
+    putStrLn $ "Error: " ++ show errorCode
+
+  poke handlerPtr $ MeasurementHandler
+    { measurementHandler_onReceived = onReceivedPtr
+    , measurementHandler_validate = validatePtr
+    , measurementHandler_onError = onErrorPtr
+    }
+
+  registerHandler handlerPtr
+```
+
 ## Userland CAPI
 
-TODO
+GHC's foreign function interface has limitations on which C functions can be
+imported directly. For example, GHC cannot import functions that take or return
+structs by value. To work around these limitations, `hs-bindgen` generates C
+wrapper functions that can be imported by GHC, and then generates Haskell
+bindings to these wrappers instead of to the original C functions.
+
+This approach is similar to GHC's `capi` calling convention, which also
+generates C wrappers to handle features that the FFI cannot express directly.
+However, by generating these wrappers ourselves at the userland level, we can
+extend the set of supported function signatures beyond what GHC's `capi`
+provides. For instance, we can handle by-value struct arguments and return
+values, which `capi` does not support.
+
+The generated wrappers use hash-based names to prevent potential name
+collisions. For example, a C function `print_point` might have a wrapper named
+`hs_bindgen_test_example_a1b2c3d4e5f6g7h8`:
+
+```c
+// Generated C wrapper
+void hs_bindgen_test_example_a1b2c3d4e5f6g7h8 ( struct point * arg1 ) {
+  print_point ( arg1 );
+}
+```
+
+```hs
+-- Generated Haskell import
+foreign import ccall "hs_bindgen_test_example_a1b2c3d4e5f6g7h8"
+  print_point :: Ptr Point → IO ()
+```
+
+This hash-based naming ensures that even if multiple functions have similar
+names or signatures, their wrappers will have unique names, avoiding linker
+errors from symbol collisions.
+
+This userland CAPI approach is used for all function imports in `hs-bindgen`,
+not just those with features GHC cannot handle directly. This provides a
+uniform interface and makes it straightforward to add support for additional
+C features in the future.
 
 ### By-value `struct` arguments or return values
 
-TODO
+The GHC FFI does not support passing structs by value to or from C functions.
+For example, consider:
+
+```c
+struct point byval ( struct point p );
+```
+
+This function cannot be imported directly. Instead, `hs-bindgen` generates a C
+wrapper that accepts and returns structs by pointer, performing the necessary
+conversions:
+
+```c
+void hs_bindgen_example_9a8b7c6d5e4f3210 ( struct point * arg
+                                         , struct point * res ) {
+  * res = byval (* arg );
+}
+```
+
+This wrapper is then imported in Haskell:
+
+```hs
+foreign import ccall safe "hs_bindgen_example_9a8b7c6d5e4f3210"
+    byval_wrapper :: Ptr Point → Ptr Point → IO ()
+```
+
+Finally, we generate a Haskell wrapper function that recovers the original
+by-value semantics using `with`, `alloca`, and `peek`:
+
+```hs
+byval :: Point → IO Point
+byval p =
+  with p $ \ arg →
+  alloca $ \ res → do
+    byval_wrapper arg res
+    peek res
+```
 
 ### Static inline functions
 
