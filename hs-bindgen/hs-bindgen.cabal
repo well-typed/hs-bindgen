@@ -109,6 +109,7 @@ library internal
     HsBindgen.Cache
     HsBindgen.Clang
     HsBindgen.Clang.BuiltinIncDir
+    HsBindgen.Clang.CompareVersions
     HsBindgen.Clang.ExtraClangArgs
     HsBindgen.Config.ClangArgs
     HsBindgen.Config.FixCandidate
