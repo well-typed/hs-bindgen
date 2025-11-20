@@ -47,9 +47,6 @@ data Config_ path = Config {
 
     -- * Backend
   , haddockPathStyle :: PathStyle
-
-    -- * Binding specifications
-  , outputBindingSpec :: Maybe path
   }
   deriving stock (Show, Eq, Generic)
   deriving stock (Functor, Foldable, Traversable)

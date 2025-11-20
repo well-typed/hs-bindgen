@@ -39,13 +39,14 @@ info = progDesc "Generate Haskell module from C headers"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config          :: Config
-    , uniqueId        :: UniqueId
-    , hsModuleName    :: Hs.ModuleName
-    , hsOutputDir     :: FilePath
-    , outputDirPolicy :: OutputDirPolicy
+      config            :: Config
+    , uniqueId          :: UniqueId
+    , hsModuleName      :: Hs.ModuleName
+    , hsOutputDir       :: FilePath
+    , outputDirPolicy   :: OutputDirPolicy
+    , outputBindingSpec :: Maybe FilePath
     -- NOTE: Inputs (arguments) must be last, options must go before it.
-    , inputs          :: [UncheckedHashIncludeArg]
+    , inputs            :: [UncheckedHashIncludeArg]
     }
   deriving (Generic)
 
@@ -57,6 +58,7 @@ parseOpts =
       <*> parseHsModuleName
       <*> parseHsOutputDir
       <*> parseOutputDirPolicy
+      <*> optional parseGenBindingSpec
       <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -85,7 +87,7 @@ exec GlobalOpts{..} Opts{..} = do
     artefacts :: Artefact ()
     artefacts = do
         writeBindingsMultiple hsOutputDir
-        forM_ config.outputBindingSpec writeBindingSpec
+        forM_ outputBindingSpec writeBindingSpec
 
 {-------------------------------------------------------------------------------
   Exception

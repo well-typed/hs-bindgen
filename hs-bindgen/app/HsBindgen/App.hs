@@ -161,7 +161,6 @@ parseConfig = Config
     <*> parseSelectPredicate
     <*> parseProgramSlicing
     <*> parsePathStyle
-    <*> optional parseGenBindingSpec
 
 {-------------------------------------------------------------------------------
   Binding specifications

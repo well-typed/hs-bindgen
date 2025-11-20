@@ -97,9 +97,6 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
         artefact = do
           deps  <- Dependencies
           decls <- FinalDecls
-          case config.outputBindingSpec of
-            Nothing  -> pure ()
-            Just rfp -> writeBindingSpec (toFilePath packageRoot rfp)
           pure (deps, mergeDecls safety decls)
 
     (deps, decls) <- liftIO $

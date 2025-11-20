@@ -11,7 +11,7 @@
 
 module Test.TH.Simple where
 
-import Optics ((%), (&), (.~), (?~))
+import Optics ((%), (&), (.~))
 
 import HsBindgen.Runtime.Prelude qualified
 
@@ -22,7 +22,6 @@ let cfg :: Config
             & #clang % #extraIncludeDirs .~ [
                   Pkg "examples"
                 ]
-            & #outputBindingSpec ?~ Pkg "fixtures/simple-binding-spec.yaml"
     cfgTH :: ConfigTH
     cfgTH = def
               & #verbosity .~ Verbosity Warning
