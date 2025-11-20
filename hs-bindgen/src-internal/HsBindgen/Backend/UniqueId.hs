@@ -69,7 +69,7 @@ instance IsTrace Level UniqueIdMsg where
   getSource  = const HsBindgen
   getTraceId = const "unique-id"
 
-checkUniqueId :: Tracer IO UniqueIdMsg -> UniqueId -> IO ()
+checkUniqueId :: Tracer UniqueIdMsg -> UniqueId -> IO ()
 checkUniqueId tracer uniqueId@(UniqueId val) = do
   when (null val) $
     traceWith tracer UniqueIdEmpty

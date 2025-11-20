@@ -275,7 +275,7 @@ lookupHsTypeSpec hsIdentifier = Map.lookup hsIdentifier . bindingSpecHsTypes
 --
 -- The format is determined by the filename extension.
 readFile ::
-     Tracer IO BindingSpecReadMsg
+     Tracer BindingSpecReadMsg
   -> BindingSpecCompatibility
   -> FilePath
   -> IO (Maybe UnresolvedBindingSpec)
@@ -283,7 +283,7 @@ readFile = readFileAux readVersion
 
 -- | Read a binding specification JSON file
 readFileJson ::
-     Tracer IO BindingSpecReadMsg
+     Tracer BindingSpecReadMsg
   -> BindingSpecCompatibility
   -> FilePath
   -> IO (Maybe UnresolvedBindingSpec)
@@ -291,7 +291,7 @@ readFileJson = readFileAux readVersionJson
 
 -- | Read a binding specification YAML file
 readFileYaml ::
-     Tracer IO BindingSpecReadMsg
+     Tracer BindingSpecReadMsg
   -> BindingSpecCompatibility
   -> FilePath
   -> IO (Maybe UnresolvedBindingSpec)
@@ -299,7 +299,7 @@ readFileYaml = readFileAux readVersionYaml
 
 readFileAux ::
      ReadVersionFunction
-  -> Tracer IO BindingSpecReadMsg
+  -> Tracer BindingSpecReadMsg
   -> BindingSpecCompatibility
   -> FilePath
   -> IO (Maybe UnresolvedBindingSpec)
@@ -308,8 +308,8 @@ readFileAux doRead tracer cmpt path = doRead tracer path >>= \case
     Nothing                -> return Nothing
 
 parseValue ::
-     Monad m
-  => Tracer m BindingSpecReadMsg
+     MonadIO m
+  => Tracer BindingSpecReadMsg
   -> BindingSpecCompatibility
   -> FilePath
   -> AVersion
@@ -390,7 +390,7 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
 
 -- | Resolve headers in a binding specification
 resolve ::
-     Tracer IO BindingSpecResolveMsg
+     Tracer BindingSpecResolveMsg
   -> (ResolveHeaderMsg -> BindingSpecResolveMsg)
   -> ClangArgs
   -> UnresolvedBindingSpec

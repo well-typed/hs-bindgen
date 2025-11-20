@@ -13,12 +13,14 @@ module HsBindgen.Config.Internal
 
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
+import HsBindgen.Backend.HsModule.Translation (defHsModuleName)
 import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
 import HsBindgen.Frontend.Predicate (Boolean, ParsePredicate, SelectPredicate)
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 -- | Configuration of @hs-bindgen@.
@@ -46,10 +48,17 @@ data BindgenConfig = BindgenConfig {
 
 data BootConfig = BootConfig {
       bootClangArgsConfig     :: ClangArgsConfig FilePath
+    , bootHsModuleName        :: Hs.ModuleName
     , bootBindingSpecConfig   :: BindingSpecConfig
     }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass Default
+
+instance Default BootConfig where
+  def = BootConfig {
+            bootClangArgsConfig   = def
+          , bootHsModuleName      = defHsModuleName
+          , bootBindingSpecConfig = def
+          }
 
 {-------------------------------------------------------------------------------
   Frontend configuration
@@ -82,7 +91,7 @@ data BackendConfig = BackendConfig {
   deriving stock (Show, Eq, Generic)
   deriving anyclass Default
 
-checkBackendConfig :: Tracer IO BackendConfigMsg -> BackendConfig -> IO ()
+checkBackendConfig :: Tracer BackendConfigMsg -> BackendConfig -> IO ()
 checkBackendConfig tracer backendConfig =
     checkUniqueId (contramap BackendConfigUniqueId tracer) uniqueId
   where

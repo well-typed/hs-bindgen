@@ -13,20 +13,18 @@ module HsBindgen.Cli.Preprocess (
   , exec
   ) where
 
-import Control.Exception (Exception (..), throwIO)
-import Control.Monad (unless, void)
-import Data.Maybe (maybeToList)
-import GHC.Generics (Generic)
+import Control.Exception (Exception (..))
 import Options.Applicative hiding (info)
 import System.Directory (createDirectoryIfMissing, doesDirectoryExist)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.Artefact
+import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
+import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -42,13 +40,13 @@ info = progDesc "Generate Haskell module from C headers"
 
 data Opts = Opts {
       config            :: Config
-    , configPP          :: ConfigPP
+    , uniqueId          :: UniqueId
     , hsModuleName      :: Hs.ModuleName
     , hsOutputDir       :: FilePath
     , outputDirPolicy   :: OutputDirPolicy
     , outputBindingSpec :: Maybe FilePath
+    -- NOTE: Inputs (arguments) must be last, options must go before it.
     , inputs            :: [UncheckedHashIncludeArg]
-    -- NOTE inputs (arguments) must be last, options must go before it
     }
   deriving (Generic)
 
@@ -56,7 +54,7 @@ parseOpts :: Parser Opts
 parseOpts =
     Opts
       <$> parseConfig
-      <*> parseConfigPP
+      <*> parseUniqueId
       <*> parseHsModuleName
       <*> parseHsOutputDir
       <*> parseOutputDirPolicy
@@ -78,18 +76,18 @@ exec GlobalOpts{..} Opts{..} = do
         unless exists $
           throwIO (OutputDirectoryMissingException hsOutputDir)
 
-    void $ run $ (sequenceArtefacts artefacts) :* Nil
+    void $ run $ artefacts
   where
     bindgenConfig :: BindgenConfig
-    bindgenConfig = toBindgenConfigPP config configPP
+    bindgenConfig = toBindgenConfig config uniqueId hsModuleName
 
-    run :: Artefacts as -> IO (NP I as)
-    run = hsBindgen tracerConfig bindgenConfig hsModuleName inputs
+    run :: Artefact a -> IO a
+    run = hsBindgen tracerConfig bindgenConfig inputs
 
-    artefacts :: [Artefact ()]
-    artefacts =
-          writeBindingsMultiple hsOutputDir
-      : [ writeBindingSpec file | file <- maybeToList outputBindingSpec ]
+    artefacts :: Artefact ()
+    artefacts = do
+        writeBindingsMultiple hsOutputDir
+        forM_ outputBindingSpec writeBindingSpec
 
 {-------------------------------------------------------------------------------
   Exception

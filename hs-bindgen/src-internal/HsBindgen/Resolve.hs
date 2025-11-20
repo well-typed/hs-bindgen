@@ -84,7 +84,7 @@ instance IsTrace Level ResolveHeaderMsg where
 
 -- | Resolve any number of headers
 resolveHeaders ::
-     Tracer IO ResolveHeaderMsg
+     Tracer ResolveHeaderMsg
   -> ClangArgs
   -> Set HashIncludeArg
   -> IO (Map HashIncludeArg SourcePath)

@@ -19,7 +19,7 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 parseDecls ::
-     Tracer IO ImmediateParseMsg
+     Tracer ImmediateParseMsg
   -> RootHeader
   -> Boolean ParsePredicate
   -> IsMainHeader

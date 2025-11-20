@@ -49,7 +49,7 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
         ]
     , testGroup "LeftOnError" [
           testCase "left" $ do
-              let noOutput :: Applicative m => Report m a
+              let noOutput :: Report a
                   noOutput _ _ _ = pure ()
                   tracerConf   = def {
                       tVerbosity    = Verbosity Debug
@@ -113,7 +113,7 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
       _otherTrace   -> Nothing
 
     withPred :: (IsTrace Level a, Typeable a, Show a) =>
-      TracePredicate a -> (Tracer IO a -> IO b) -> IO b
+      TracePredicate a -> (Tracer a -> IO b) -> IO b
     withPred = withTracePredicate noReport
 
     noReport :: a -> IO ()
@@ -168,9 +168,9 @@ assertMaxLevelWithCustomLogLevel customLogLevel traces expectedLevel = do
 
 testTracerIO :: CustomLogLevel Level TestTrace -> [TestTrace] -> IO Level
 testTracerIO customLogLevel traces = do
-  let noOutput :: Applicative m => Report m a
+  let noOutput :: Report a
       noOutput _ _ _ = pure ()
-      tracerConfig = (def :: TracerConfig IO Level TestTrace) {
+      tracerConfig = (def :: TracerConfig Level TestTrace) {
           tVerbosity      = Verbosity Debug
         , tOutputConfig   = OutputCustom noOutput DisableAnsiColor
         , tCustomLogLevel = customLogLevel

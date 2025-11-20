@@ -99,7 +99,7 @@ clangAstDump opts@Options{..} = do
       Left  e  -> throwIO e
       Right _  -> pure ()
   where
-    tracerConf :: TracerConfig IO Level DumpTrace
+    tracerConf :: TracerConfig Level DumpTrace
     tracerConf = def {
         tVerbosity = Verbosity Debug
       }

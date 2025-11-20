@@ -1,23 +1,17 @@
 module HsBindgen.Artefact (
     Artefact(..)
-  , Artefacts
   , ArtefactM
   , ArtefactEnv(..)
   , runArtefacts
-  , sequenceArtefacts
   , ArtefactMsg(..)
-
-    -- * Re-exports
-  , I (..)
-  , NP (..)
   )
 where
 
+import Control.Monad (liftM)
 import Control.Monad.Except (ExceptT (..), MonadError (..), runExceptT)
 import Control.Monad.Trans.Class (lift)
 import Control.Monad.Trans.Reader (ReaderT (runReaderT))
 import Data.IORef (IORef)
-import Generics.SOP (I (..), NP (..))
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
@@ -66,14 +60,28 @@ data Artefact (a :: Star) where
   FinalModuleSafe     :: Artefact HsModule
   FinalModuleUnsafe   :: Artefact HsModule
   FinalModules        :: Artefact (ByCategory HsModule)
-  -- * Lift and sequence
-  Lift                :: Artefacts as -> (NP I as -> ArtefactM b) -> Artefact b
+  -- * Lift and sequence artefacts
+  Lift                :: ArtefactM a -> Artefact a
+  Bind                :: Artefact b  -> (b -> Artefact c ) -> Artefact c
 
 instance Functor Artefact where
-  fmap f x = Lift (x :* Nil) (\(I r :* Nil) -> pure (f r))
+  fmap :: (a -> b) -> Artefact a -> Artefact b
+  fmap = liftM
 
--- | A list of 'Artefact's.
-type Artefacts as = NP Artefact as
+instance Applicative Artefact where
+  pure :: a -> Artefact a
+  pure = Lift . pure
+
+  (<*>) :: Artefact (a -> b) -> Artefact a -> Artefact b
+  (<*>) = ap
+
+instance Monad Artefact where
+  (>>=) :: Artefact a -> (a -> Artefact b) -> Artefact b
+  (>>=) = Bind
+
+instance MonadIO Artefact where
+  liftIO :: IO a -> Artefact a
+  liftIO = Lift . liftIO
 
 {-------------------------------------------------------------------------------
   Artefact monad
@@ -82,7 +90,7 @@ type Artefacts as = NP Artefact as
 type ArtefactM = ReaderT ArtefactEnv IO
 
 data ArtefactEnv = ArtefactEnv {
-      artefactTracer :: Tracer IO ArtefactMsg
+      artefactTracer :: Tracer ArtefactMsg
     }
 
 {-------------------------------------------------------------------------------
@@ -93,35 +101,26 @@ data ArtefactEnv = ArtefactEnv {
 --
 -- All top-level artefacts will be cached (this is not true for computed
 -- artefacts, using, for example, the 'Functor' interface, or 'Lift').
-runArtefacts :: forall e as.
-     Tracer IO ArtefactMsg
+runArtefacts :: forall e a.
+     Tracer ArtefactMsg
   -> IORef (TracerState e)
   -> BootArtefact
   -> FrontendArtefact
   -> BackendArtefact
-  -> Artefacts as
-  -> IO (Either (TraceException e) (NP I as))
+  -> Artefact a
+  -> IO (Either (TraceException e) a)
 runArtefacts
   tracer
   tracerStateRef
   BootArtefact{..}
   FrontendArtefact{..}
   BackendArtefact{..}
-  artefacts = runReaderT (runExceptT (go artefacts)) env
+  artefact = runReaderT (runExceptT (runArtefact artefact)) env
   where
     env :: ArtefactEnv
     env = ArtefactEnv tracer
 
-    go :: Artefacts a -> ExceptT (TraceException e) ArtefactM (NP I a)
-    go Nil       = pure Nil
-    go (a :* as) = do
-      artefactResult <- runArtefact a
-      mbError <- checkTracerState tracerStateRef
-      case mbError of
-        Just err -> throwError err
-        Nothing  -> (I artefactResult :*) <$> (go as)
-
-    runArtefact :: Artefact a -> ExceptT (TraceException e) ArtefactM a
+    runArtefact :: forall x. Artefact x -> ExceptT (TraceException e) ArtefactM x
     runArtefact = \case
       --Boot.
       HashIncludeArgs     -> liftIO bootHashIncludeArgs
@@ -142,32 +141,14 @@ runArtefacts
       FinalModuleUnsafe   -> liftIO backendFinalModuleUnsafe
       FinalModules        -> liftIO backendFinalModules
       -- Lift and sequence.
-      (Lift as' f)        -> go as' >>= lift . f
-
--- | Courtesy of Edsko :-).
---
--- Another implementation for `sequenceArtefacts` which has the drawback of
--- creating deeply nested @(Lift .. (Lift .. ( .. )))@ structures.
---
--- @
--- import Data.Semigroup (Semigroup (..))
--- import Generics.SOP (unI)
---
--- instance Semigroup a => Semigroup (Artefact a) where
---   l <> r = Lift (l :* r :* Nil) (\(r1 :* r2 :* Nil) -> pure (unI r1 <> unI r2))
---
--- instance Monoid a => Monoid (Artefact a) where
---   mempty = Lift Nil (\_result -> return mempty)
---
--- sequenceArtefacts' :: [Artefact ()] -> Artefact ()
--- sequenceArtefacts' = mconcat
--- @
-sequenceArtefacts :: [Artefact ()] -> Artefact ()
-sequenceArtefacts = go Nil . reverse
-  where
-    go :: Artefacts as -> [Artefact ()] -> Artefact ()
-    go acc []     = Lift acc $ \_results -> pure ()
-    go acc (a:as) = go (a :* acc) as
+      (Lift f)            -> lift f
+      (Bind x   f)        -> do
+        r <- runArtefact x
+        -- Check tracer state for 'Error' traces
+        mbError <- checkTracerState tracerStateRef
+        case mbError of
+          Just err -> throwError err
+          Nothing  -> runArtefact $ f r
 
 {-------------------------------------------------------------------------------
   Traces

@@ -18,9 +18,10 @@ import HsBindgen.Runtime.Prelude qualified
 import HsBindgen.TH
 
 let cfg :: Config
-    cfg = def & #clang % #extraIncludeDirs .~ [
-              Pkg "examples"
-            ]
+    cfg = def
+            & #clang % #extraIncludeDirs .~ [
+                  Pkg "examples"
+                ]
     cfgTH :: ConfigTH
     cfgTH = def
               & #verbosity .~ Verbosity Warning

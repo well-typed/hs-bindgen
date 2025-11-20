@@ -276,7 +276,7 @@ getFormat path
 -- | Function that reads a file and gets the 'AVersion', which determines how to
 -- parse the corresponding 'Aeson.Value'
 type ReadVersionFunction =
-     Tracer IO BindingSpecReadMsg
+     Tracer BindingSpecReadMsg
   -> FilePath
   -> IO (Maybe (AVersion, Aeson.Value))
 
@@ -314,8 +314,8 @@ readVersionYaml tracer path = Yaml.decodeFileWithWarnings path >>= \case
       return Nothing
 
 getAVersionM ::
-     Monad m
-  => Tracer m BindingSpecReadMsg
+     MonadIO m
+  => Tracer BindingSpecReadMsg
   -> FilePath
   -> Aeson.Value
   -> m (Maybe (AVersion, Aeson.Value))

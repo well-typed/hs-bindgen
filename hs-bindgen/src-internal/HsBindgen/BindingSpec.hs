@@ -131,7 +131,7 @@ instance Default BindingSpecConfig where
 
 -- | Get the standard library external binding specification
 getStdlibBindingSpec ::
-     Tracer IO Common.BindingSpecMsg
+     Tracer Common.BindingSpecMsg
   -> ClangArgs
   -> IO ExternalBindingSpec
 getStdlibBindingSpec tracer args = BindingSpec Stdlib.bindingSpec <$>
@@ -149,7 +149,7 @@ getStdlibBindingSpec tracer args = BindingSpec Stdlib.bindingSpec <$>
 -- * YAML (@.yaml@ extension)
 -- * JSON (@.json@ extension)
 loadExtBindingSpecs ::
-     Tracer IO Common.BindingSpecMsg
+     Tracer Common.BindingSpecMsg
   -> ClangArgs
   -> EnableStdlibBindingSpec
   -> Version.BindingSpecCompatibility
@@ -181,13 +181,13 @@ loadExtBindingSpecs tracer args enableStdlib cmpt paths = do
         Common.BindingSpecResolveExternalHeader
         args
 
-    tracerRead :: Tracer IO Common.BindingSpecReadMsg
+    tracerRead :: Tracer Common.BindingSpecReadMsg
     tracerRead = contramap Common.BindingSpecReadMsg tracer
 
-    tracerResolve :: Tracer IO Common.BindingSpecResolveMsg
+    tracerResolve :: Tracer Common.BindingSpecResolveMsg
     tracerResolve = contramap Common.BindingSpecResolveMsg tracer
 
-    tracerMerge :: Tracer IO Common.BindingSpecMergeMsg
+    tracerMerge :: Tracer Common.BindingSpecMergeMsg
     tracerMerge = contramap Common.BindingSpecMergeMsg tracer
 
 -- | Load prescriptive binding specification
@@ -198,7 +198,7 @@ loadExtBindingSpecs tracer args enableStdlib cmpt paths = do
 -- * YAML (@.yaml@ extension)
 -- * JSON (@.json@ extension)
 loadPrescriptiveBindingSpec ::
-     Tracer IO Common.BindingSpecMsg
+     Tracer Common.BindingSpecMsg
   -> ClangArgs
   -> Hs.ModuleName
   -> Version.BindingSpecCompatibility
@@ -216,15 +216,15 @@ loadPrescriptiveBindingSpec tracer args hsModuleName cmpt = \case
             args
             uspec
   where
-    tracerRead :: Tracer IO Common.BindingSpecReadMsg
+    tracerRead :: Tracer Common.BindingSpecReadMsg
     tracerRead = contramap Common.BindingSpecReadMsg tracer
 
-    tracerResolve :: Tracer IO Common.BindingSpecResolveMsg
+    tracerResolve :: Tracer Common.BindingSpecResolveMsg
     tracerResolve = contramap Common.BindingSpecResolveMsg tracer
 
 -- | A combination of 'loadExtBindingSpecs' and 'loadPrescriptiveBindingSpec'
 loadBindingSpecs ::
-     Tracer IO Common.BindingSpecMsg
+     Tracer Common.BindingSpecMsg
   -> ClangArgs
   -> Hs.ModuleName
   -> BindingSpecConfig

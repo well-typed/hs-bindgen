@@ -205,7 +205,7 @@ builtinIncDirState = unsafePerformIO $ IORef.newIORef BuiltinIncDirInitial
 -- Calling 'getBuiltinIncDir' caches the result, and any subsequent calls simply
 -- returns the cached value.
 getBuiltinIncDir ::
-     Tracer IO BuiltinIncDirMsg
+     Tracer BuiltinIncDirMsg
   -> BuiltinIncDirConfig
   -> IO (Maybe BuiltinIncDir)
 getBuiltinIncDir tracer config =
@@ -241,7 +241,7 @@ envName :: String
 envName = "BINDGEN_BUILTIN_INCLUDE_DIR"
 
 -- | Load configuration from system environment, when available
-getEnvConfig :: Tracer IO BuiltinIncDirMsg -> IO (Maybe BuiltinIncDirConfig)
+getEnvConfig :: Tracer BuiltinIncDirMsg -> IO (Maybe BuiltinIncDirConfig)
 getEnvConfig tracer = Env.lookupEnv envName >>= \case
     Nothing        -> Nothing <$ traceWith tracer BuiltinIncDirEnvNone
     Just "disable" -> aux BuiltinIncDirDisable
@@ -255,15 +255,15 @@ getEnvConfig tracer = Env.lookupEnv envName >>= \case
 --
 -- @clang -print-file-name=include@ is called to get the builtin include
 -- directory.
-getBuiltinIncDirWithClang :: Tracer IO BuiltinIncDirMsg -> MaybeT IO BuiltinIncDir
+getBuiltinIncDirWithClang :: Tracer BuiltinIncDirMsg -> MaybeT IO BuiltinIncDir
 getBuiltinIncDirWithClang tracer = do
     exe <- findClangExe tracer <|> do
-      lift $ traceWith tracer BuiltinIncDirClangNotFound
+      traceWith tracer BuiltinIncDirClangNotFound
       MaybeT $ return Nothing
     clangVer <- getClangVersion tracer exe
     libclangVer <- lift clang_getClangVersion
     unless (clangVer == libclangVer) $ do
-      lift . traceWith tracer $
+      traceWith tracer $
         BuiltinIncDirClangVersionMismatch libclangVer clangVer
       MaybeT $ return Nothing
     resourceDir <- getClangResourceDir tracer exe
@@ -280,7 +280,7 @@ getBuiltinIncDirWithClang tracer = do
 -- 2. @$(${LLVM_CONFIG} --prefix)/bin/clang@
 -- 3. @$(llvm-config --prefix)/bin/clang@
 -- 4. Search @${PATH}@
-findClangExe :: Tracer IO BuiltinIncDirMsg -> MaybeT IO FilePath
+findClangExe :: Tracer BuiltinIncDirMsg -> MaybeT IO FilePath
 findClangExe tracer = asum [auxLlvmPath, auxLlvmConfig, auxPath]
   where
     auxLlvmPath :: MaybeT IO FilePath
@@ -307,7 +307,7 @@ findClangExe tracer = asum [auxLlvmPath, auxLlvmConfig, auxPath]
     auxPath :: MaybeT IO FilePath
     auxPath = do
       exe <- MaybeT $ Dir.findExecutable clangExe
-      lift $ traceWith tracer (BuiltinIncDirClangPathFound exe)
+      traceWith tracer (BuiltinIncDirClangPathFound exe)
       return exe
 
 -- | @clang@ executable name for the current platform
@@ -320,7 +320,7 @@ clangExe =
 #endif
 
 -- | Lookup @LLVM_PATH@ environment variable
-lookupLlvmPath :: Tracer IO BuiltinIncDirMsg -> MaybeT IO FilePath
+lookupLlvmPath :: Tracer BuiltinIncDirMsg -> MaybeT IO FilePath
 lookupLlvmPath tracer = do
     prefix <- MaybeT $ fmap normWinPath <$> Env.lookupEnv "LLVM_PATH"
     MaybeT $ Dir.doesDirectoryExist prefix >>= \case
@@ -333,7 +333,7 @@ lookupLlvmPath tracer = do
 --
 -- 1. @${LLVM_CONFIG}@
 -- 2. Search @${PATH}@
-findLlvmConfigExe :: Tracer IO BuiltinIncDirMsg -> MaybeT IO FilePath
+findLlvmConfigExe :: Tracer BuiltinIncDirMsg -> MaybeT IO FilePath
 findLlvmConfigExe tracer = asum [auxLlvmConfigEnv, auxPath]
   where
     auxLlvmConfigEnv :: MaybeT IO FilePath
@@ -349,7 +349,7 @@ findLlvmConfigExe tracer = asum [auxLlvmConfigEnv, auxPath]
     auxPath :: MaybeT IO FilePath
     auxPath = do
       exe <- MaybeT $ Dir.findExecutable llvmConfigExe
-      lift $ traceWith tracer (BuiltinIncDirLlvmConfigPathFound exe)
+      traceWith tracer (BuiltinIncDirLlvmConfigPathFound exe)
       return exe
 
 -- | @llvm-config@ executable name for the current platform
@@ -365,7 +365,7 @@ llvmConfigExe =
 --
 -- This function calls @llvm-config --prefix@ and captures the output.
 getLlvmConfigPrefix ::
-     Tracer IO BuiltinIncDirMsg
+     Tracer BuiltinIncDirMsg
   -> FilePath  -- ^ @llvm-config@ path
   -> MaybeT IO FilePath
 getLlvmConfigPrefix tracer exe =
@@ -381,7 +381,7 @@ getLlvmConfigPrefix tracer exe =
 -- This function calls @clang --version@ and captures the output.  The full
 -- version string in the first line is returned.
 getClangVersion ::
-     Tracer IO BuiltinIncDirMsg
+     Tracer BuiltinIncDirMsg
   -> FilePath  -- ^ @clang@ path
   -> MaybeT IO Text
 getClangVersion tracer exe =
@@ -396,7 +396,7 @@ getClangVersion tracer exe =
 --
 -- This function calls @clang -print-resource-dir@ and captures the output.
 getClangResourceDir ::
-     Tracer IO BuiltinIncDirMsg
+     Tracer BuiltinIncDirMsg
   -> FilePath  -- ^ @clang@ path
   -> MaybeT IO FilePath
 getClangResourceDir tracer exe =
@@ -435,7 +435,7 @@ normWinPath = id
 
 -- | Return a path only if it passes a predicate, tracing result
 ifM ::
-     Tracer IO BuiltinIncDirMsg
+     Tracer BuiltinIncDirMsg
   -> (FilePath -> BuiltinIncDirMsg)  -- ^ not found constructor
   -> (FilePath -> BuiltinIncDirMsg)  -- ^ found constructor
   -> (FilePath -> IO Bool)           -- ^ predicate
@@ -447,7 +447,7 @@ ifM tracer mkNotFound mkFound p path = MaybeT $ p path >>= \case
 
 -- | Run a read action and check the output
 checkOutput ::
-     Tracer IO BuiltinIncDirMsg
+     Tracer BuiltinIncDirMsg
   -> (String -> BuiltinIncDirMsg)   -- ^ Unexpected output constructor
   -> (IOError -> BuiltinIncDirMsg)  -- ^ Error constructor
   -> (String -> Maybe a)            -- ^ Output parser

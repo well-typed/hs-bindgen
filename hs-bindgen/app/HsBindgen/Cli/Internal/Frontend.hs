@@ -13,10 +13,12 @@ module HsBindgen.Cli.Internal.Frontend (
   , exec
   ) where
 
+import Control.Monad.IO.Class
 import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
+import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Language.Haskell qualified as Hs
@@ -34,7 +36,7 @@ info = progDesc "Parse C headers (all Frontend passes)"
 
 data Opts = Opts {
       config       :: Config
-    , configPP     :: ConfigPP
+    , uniqueId     :: UniqueId
     , hsModuleName :: Hs.ModuleName
     , inputs       :: [UncheckedHashIncludeArg]
     }
@@ -43,7 +45,7 @@ parseOpts :: Parser Opts
 parseOpts =
     Opts
       <$> parseConfig
-      <*> parseConfigPP
+      <*> parseUniqueId
       <*> parseHsModuleName
       <*> parseInputs
 
@@ -53,8 +55,6 @@ parseOpts =
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
-    let artefacts = ReifiedC :* Nil
-        bindgenConfig = toBindgenConfigPP config configPP
-    (I decls :* Nil) <-
-      hsBindgen tracerConfig bindgenConfig hsModuleName inputs artefacts
-    print decls
+    let artefact = ReifiedC >>= liftIO . print
+        bindgenConfig = toBindgenConfig config uniqueId hsModuleName
+    hsBindgen tracerConfig bindgenConfig inputs artefact

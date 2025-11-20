@@ -107,7 +107,7 @@ type UncheckedHashIncludeArg = FilePath
 
 -- | Construct a 'HashIncludeArg', emitting trace messages
 hashIncludeArgWithTrace ::
-     Tracer IO HashIncludeArgMsg
+     Tracer HashIncludeArgMsg
   -> UncheckedHashIncludeArg
   -> IO HashIncludeArg
 hashIncludeArgWithTrace tracer fp = do

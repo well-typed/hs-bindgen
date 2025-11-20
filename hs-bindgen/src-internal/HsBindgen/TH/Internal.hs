@@ -15,7 +15,7 @@ module HsBindgen.TH.Internal (
 import Control.Monad.State (State, execState, modify)
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
-import Optics.Core ((%), (&), (.~))
+import Optics.Core ((&), (.~))
 import System.FilePath ((</>))
 
 import Clang.Paths
@@ -23,7 +23,6 @@ import Clang.Paths
 import HsBindgen
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.TH.Translation
@@ -48,12 +47,20 @@ import HsBindgen.Util.Tracer
 -- 'IncludeDir' data constructor 'Pkg').
 type Config = Config_ IncludeDir
 
+-- TODO_PR: We use this now also for binding specifications; so, technically
+-- speaking this is not an include directory anymore, but a file path possibly
+-- relative to the package root.
+
 -- | C include directory added to the C include search path
 data IncludeDir =
     Dir FilePath
     -- | Include directory relative to package root
   | Pkg FilePath
   deriving stock (Eq, Show, Generic)
+
+toFilePath :: FilePath -> IncludeDir -> FilePath
+toFilePath root (Pkg x) = root </> x
+toFilePath _    (Dir x) = x
 
 -- | Generate bindings for given C headers at compile-time
 --
@@ -67,12 +74,11 @@ data IncludeDir =
 withHsBindgen :: Config -> ConfigTH -> BindgenM -> TH.Q [TH.Dec]
 withHsBindgen config ConfigTH{..} hashIncludes = do
     checkHsBindgenRuntimePreludeIsInScope
+    packageRoot <- getPackageRoot
 
-    bindgenConfig <- toBindgenConfigTH config
+    bindgenConfig <- toBindgenConfigTH packageRoot config
 
-    hsModuleName <- fromString . TH.loc_module <$> TH.location
-
-    let tracerConfig :: TracerConfig IO Level TraceMsg
+    let tracerConfig :: TracerConfig Level TraceMsg
         tracerConfig =
           tracerConfigDefTH
             & #tVerbosity .~ verbosity
@@ -87,17 +93,20 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
         uncheckedHashIncludeArgs =
           reverse $ bindgenStateUncheckedHashIncludeArgs bindgenState
 
-        artefacts = Dependencies :* FinalDecls :* Nil
+        artefact :: Artefact ([SourcePath], ([UserlandCapiWrapper], [SHs.SDecl]))
+        artefact = do
+          deps  <- Dependencies
+          decls <- FinalDecls
+          pure (deps, mergeDecls safety decls)
 
-    (I deps :* I decls' :* Nil) <- liftIO $
+    (deps, decls) <- liftIO $
       hsBindgen
         tracerConfig
         bindgenConfig
-        hsModuleName
         uncheckedHashIncludeArgs
-        artefacts
-    let decls = mergeDecls safety decls'
-        requiredExts = uncurry getExtensions $ decls
+        artefact
+
+    let requiredExts = uncurry getExtensions decls
     checkLanguageExtensions requiredExts
     uncurry (getThDecls deps) decls
 
@@ -161,7 +170,7 @@ getThDecls deps wrappers decls = do
 -------------------------------------------------------------------------------}
 
 -- | The default tracer configuration in Q uses 'outputConfigTH'
-tracerConfigDefTH :: TracerConfig IO l a
+tracerConfigDefTH :: TracerConfig l a
 tracerConfigDefTH = def {
         tOutputConfig = outputConfigTH
       }
@@ -212,23 +221,17 @@ checkLanguageExtensions requiredExts = do
         "Missing language extension(s): " :
           (map (("    - " ++) . show) (toList missingExts))
 
-toBindgenConfigTH :: Config -> TH.Q BindgenConfig
-toBindgenConfigTH config = do
-    packageRoot <- getPackageRoot
+toBindgenConfigTH :: FilePath -> Config -> TH.Q BindgenConfig
+toBindgenConfigTH packageRoot config = do
+    uniqueId <- getUniqueId
+    hsModuleName <- fromString . TH.loc_module <$> TH.location
     let bindgenConfig :: BindgenConfig
         bindgenConfig =
-          toBindgenConfig $ toFilePath packageRoot <$> config
-    uniqueId <- getUniqueId
-    pure $ bindgenConfig & setUniqueId uniqueId
+          toBindgenConfig
+            (toFilePath packageRoot <$> config)
+            uniqueId
+            hsModuleName
+    pure bindgenConfig
   where
-    toFilePath :: FilePath -> IncludeDir -> FilePath
-    toFilePath root (Pkg x) = root </> x
-    toFilePath _    (Dir x) = x
-
     getUniqueId :: TH.Q UniqueId
     getUniqueId = UniqueId . TH.loc_package <$> TH.location
-
-    setUniqueId :: UniqueId -> BindgenConfig -> BindgenConfig
-    setUniqueId uniqueId =
-      #bindgenBackendConfig % #backendTranslationOpts % #translationUniqueId
-        .~ uniqueId

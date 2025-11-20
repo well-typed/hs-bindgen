@@ -98,7 +98,7 @@ import HsBindgen.Util.Tracer
 --   and must therefore happen after 'ResolveBindingSpecs'. It could be put into
 --   the 'Hs' phase, but we have to draw the line somewhere.
 frontend ::
-     Tracer IO FrontendMsg
+     Tracer FrontendMsg
   -> FrontendConfig
   -> BootArtefact
   -> IO FrontendArtefact

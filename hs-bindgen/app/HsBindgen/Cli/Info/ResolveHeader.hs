@@ -76,7 +76,7 @@ exec GlobalOpts{..} Opts{..} = do
       Right True  -> throwIO (ExitFailure 1)
       Left e      -> throwIO e
   where
-    tracerConfig' :: TracerConfig IO Level TraceMsg
+    tracerConfig' :: TracerConfig Level TraceMsg
     tracerConfig' = tracerConfig{
         tCustomLogLevel = customLogLevel <> tCustomLogLevel tracerConfig
       }
@@ -89,7 +89,7 @@ exec GlobalOpts{..} Opts{..} = do
 
     -- | Check the @#include@ arguments, emitting trace messages
     checkInputs ::
-        Tracer IO TraceMsg
+        Tracer TraceMsg
       -> [UncheckedHashIncludeArg]
       -> IO [HashIncludeArg]
     checkInputs tracer = mapM $

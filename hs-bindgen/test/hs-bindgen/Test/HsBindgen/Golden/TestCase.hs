@@ -211,6 +211,7 @@ getTestBootConfig testResources TestCase{..} = do
         bootClangArgsConfig = clangArgsConfig {
             builtinIncDir = BuiltinIncDirDisable
           }
+      , bootHsModuleName = "Example"
       , bootBindingSpecConfig = BindingSpecConfig {
             stdlibSpec              = testStdlibSpec
           , compatibility           = BindingSpecStrict
@@ -228,7 +229,7 @@ getTestBackendConfig TestCase{..} = getTestDefaultBackendConfig testName testPat
 withTestTraceConfig ::
      (String -> IO ())
   -> TestCase
-  -> (TracerConfig IO Level TraceMsg -> IO b)
+  -> (TracerConfig Level TraceMsg -> IO b)
   -> IO b
 withTestTraceConfig report TestCase{testTracePredicate} =
     withTraceConfigPredicate report testTracePredicate
@@ -237,10 +238,10 @@ withTestTraceConfig report TestCase{testTracePredicate} =
 --
 -- On 'TraceException's, print error traces.
 runTestHsBindgen ::
-  (String -> IO ()) -> IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
-runTestHsBindgen report testResources test artefacts =
+  (String -> IO ()) -> IO TestResources -> TestCase -> Artefact a -> IO a
+runTestHsBindgen report testResources test artefact =
     handle exceptionHandler $
-      runTestHsBindgen' report testResources test artefacts
+      runTestHsBindgen' report testResources test artefact
   where
     exceptionHandler :: SomeException -> IO a
     exceptionHandler e@(SomeException e')
@@ -251,7 +252,7 @@ runTestHsBindgen report testResources test artefacts =
 
 -- | Like 'runTestHsBindgen', but do not print error traces.
 runTestHsBindgen' ::
-  (String -> IO ()) -> IO TestResources -> TestCase -> Artefacts as -> IO (NP I as)
+  (String -> IO ()) -> IO TestResources -> TestCase -> Artefact a -> IO a
 runTestHsBindgen' report testResources test artefacts = do
     bootConfig <- getTestBootConfig testResources test
     let frontendConfig = getTestFrontendConfig test
@@ -261,6 +262,5 @@ runTestHsBindgen' report testResources test artefacts = do
       hsBindgen
         traceConfig
         bindgenConfig
-        "Example"
         [testInputInclude test]
         artefacts

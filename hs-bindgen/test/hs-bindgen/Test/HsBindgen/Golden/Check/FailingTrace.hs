@@ -21,11 +21,11 @@ import HsBindgen.Util.Tracer
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test = testCase (testName test) $ do
     -- We ignore any declarations that might have been successful
-    let artefacts = FinalDecls :* Nil
+    let artefact = FinalDecls
     -- Use 'runTestHsBindgen'' to avoid that expected error traces clutter the
     -- terminal.
     handle exceptionHandler $ void $
-      runTestHsBindgen' noReport testResources test artefacts
+      runTestHsBindgen' noReport testResources test artefact
   where
     exceptionHandler :: SomeException -> IO ()
     exceptionHandler e@(SomeException e')

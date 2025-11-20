@@ -46,7 +46,7 @@ testGetTargetTriple testResources = do
     -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
     triple @?= "x86_64-pc-linux-gnu"
   where
-    getTargetTriple :: Tracer IO ClangMsg -> ClangSetup -> IO Text
+    getTargetTriple :: Tracer ClangMsg -> ClangSetup -> IO Text
     getTargetTriple tracer setup =
         fmap (fromMaybe (panicPure "getTargetTriple failed")) $
         withClang tracer setup $ \unit -> Just <$>
