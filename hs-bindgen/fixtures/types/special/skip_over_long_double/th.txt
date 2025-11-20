@@ -53,24 +53,49 @@ instance HasCField Struct2 "struct2_x"
 instance TyEq ty (CFieldType Struct2 "struct2_x") =>
          HasField "struct2_x" (Ptr Struct2) (Ptr ty)
     where getField = ptrToCField (Proxy @"struct2_x")
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typesspecialskip_over_long_d_fb32cb593bc1f7b8" fun2_base :: CInt ->
+                                                                                                       IO Unit
 {-| __C declaration:__ @fun2@
 
     __defined at:__ @types\/special\/skip_over_long_double.h:7:6@
 
     __exported by:__ @types\/special\/skip_over_long_double.h@
 -}
-foreign import ccall safe "hs_bindgen_test_typesspecialskip_over_long_d_fb32cb593bc1f7b8" fun2 :: CInt ->
-                                                                                                  IO Unit
+fun2 :: CInt -> IO Unit
 {-| __C declaration:__ @fun2@
 
     __defined at:__ @types\/special\/skip_over_long_double.h:7:6@
 
     __exported by:__ @types\/special\/skip_over_long_double.h@
 -}
-foreign import ccall safe "hs_bindgen_test_typesspecialskip_over_long_d_5ebf8088e71802cc" fun2 :: CInt ->
-                                                                                                  IO Unit
-foreign import ccall safe "hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa" hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa :: IO (FunPtr (CInt ->
-                                                                                                                                                                       IO Unit))
+fun2 = fromMarshallableBaseType fun2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typesspecialskip_over_long_d_5ebf8088e71802cc" fun2_base :: CInt ->
+                                                                                                       IO Unit
+{-| __C declaration:__ @fun2@
+
+    __defined at:__ @types\/special\/skip_over_long_double.h:7:6@
+
+    __exported by:__ @types\/special\/skip_over_long_double.h@
+-}
+fun2 :: CInt -> IO Unit
+{-| __C declaration:__ @fun2@
+
+    __defined at:__ @types\/special\/skip_over_long_double.h:7:6@
+
+    __exported by:__ @types\/special\/skip_over_long_double.h@
+-}
+fun2 = fromMarshallableBaseType fun2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa" hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa_base :: IO (FunPtr (CInt ->
+                                                                                                                                                                            IO Unit))
+hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa :: IO (FunPtr (CInt ->
+                                                                             IO Unit))
+hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa = fromMarshallableBaseType hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa_base
 {-# NOINLINE fun2_ptr #-}
 {-| __C declaration:__ @fun2@
 

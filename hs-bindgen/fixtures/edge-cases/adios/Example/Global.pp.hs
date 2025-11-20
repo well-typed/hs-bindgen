@@ -9,6 +9,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -28,8 +29,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_e4b974661ff038a0" hs_bindgen_test_edgecasesadios_e4b974661ff038a0 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_e4b974661ff038a0" hs_bindgen_test_edgecasesadios_e4b974661ff038a0_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_edgecasesadios_e4b974661ff038a0 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_edgecasesadios_e4b974661ff038a0 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesadios_e4b974661ff038a0_base
 
 {-# NOINLINE cϒϒ_ptr #-}
 
@@ -43,8 +53,17 @@ cϒϒ_ptr :: Ptr.Ptr FC.CInt
 cϒϒ_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_e4b974661ff038a0
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_c538a25ba7055dd4" hs_bindgen_test_edgecasesadios_c538a25ba7055dd4 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_c538a25ba7055dd4" hs_bindgen_test_edgecasesadios_c538a25ba7055dd4_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_edgecasesadios_c538a25ba7055dd4 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_edgecasesadios_c538a25ba7055dd4 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesadios_c538a25ba7055dd4_base
 
 {-# NOINLINE cϒϒϒ_ptr #-}
 

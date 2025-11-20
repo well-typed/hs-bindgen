@@ -21,7 +21,10 @@ hstypes:
 - hsname: Fun_ptr
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Fun_ptr_Deref
+  instances:
+  - Marshallable

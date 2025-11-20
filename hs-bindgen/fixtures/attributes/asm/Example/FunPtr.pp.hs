@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -24,8 +25,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_attributesasm_b6d695e6a1f2622e" hs_bindgen_test_attributesasm_b6d695e6a1f2622e ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_attributesasm_b6d695e6a1f2622e" hs_bindgen_test_attributesasm_b6d695e6a1f2622e_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt))
+    )
+
+hs_bindgen_test_attributesasm_b6d695e6a1f2622e ::
      IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt))
+hs_bindgen_test_attributesasm_b6d695e6a1f2622e =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_attributesasm_b6d695e6a1f2622e_base
 
 {-# NOINLINE asm_labeled_function_ptr #-}
 

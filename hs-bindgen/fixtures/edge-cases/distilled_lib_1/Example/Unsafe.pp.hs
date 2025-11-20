@@ -6,6 +6,7 @@
 module Example.Unsafe where
 
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -22,13 +23,23 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesdistilled_lib_1_efd27157959bd4b3" some_fun_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr A_type_t
+    -> HsBindgen.Runtime.Prelude.Word32
+    -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
+    -> IO HsBindgen.Runtime.Prelude.Int32
+    )
+
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesdistilled_lib_1_efd27157959bd4b3" some_fun ::
+some_fun ::
      Ptr.Ptr A_type_t
      {- ^ __C declaration:__ @i@
      -}
@@ -39,3 +50,5 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesdistilled_lib_1_efd2715795
      {- ^ __C declaration:__ @k@
      -}
   -> IO HsBindgen.Runtime.Prelude.Int32
+some_fun =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType some_fun_base

@@ -8,6 +8,7 @@ module Example.Safe where
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -30,13 +31,22 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_manualzero_copy_a617e0cb5d95cd52" reverse_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Vector
+    -> Ptr.Ptr Vector
+    -> IO FC.CInt
+    )
+
 {-| __C declaration:__ @reverse@
 
     __defined at:__ @manual\/zero_copy.h:77:5@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-foreign import ccall safe "hs_bindgen_test_manualzero_copy_a617e0cb5d95cd52" reverse ::
+reverse ::
      Ptr.Ptr Vector
      {- ^ __C declaration:__ @input@
      -}
@@ -44,14 +54,26 @@ foreign import ccall safe "hs_bindgen_test_manualzero_copy_a617e0cb5d95cd52" rev
      {- ^ __C declaration:__ @output@
      -}
   -> IO FC.CInt
+reverse =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType reverse_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_manualzero_copy_f3d0c8dd1a83b3d0" transpose_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Triplet
+    -> Ptr.Ptr Triplet
+    -> IO ()
+    )
 
 {-| Pointer-based API for 'transpose'
-
 -}
-foreign import ccall safe "hs_bindgen_test_manualzero_copy_f3d0c8dd1a83b3d0" transpose_wrapper ::
+transpose_wrapper ::
      Ptr.Ptr Triplet
   -> Ptr.Ptr Triplet
   -> IO ()
+transpose_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType transpose_wrapper_base
 
 {-| __C declaration:__ @transpose@
 

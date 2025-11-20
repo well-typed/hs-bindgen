@@ -77,7 +77,10 @@ requiredExtensions = \case
 nestedDeriving :: [(Strategy ClosedType, [Global])] -> Set TH.Extension
 nestedDeriving deriv =
        Set.singleton TH.DerivingStrategies
-    <> mconcat (map (strategyExtensions . fst) deriv)
+    <> mconcat [
+          strategyExtensions s <> foldMap globalExtensions gs
+        | (s, gs) <- deriv
+        ]
 
 recordExtensions :: Record -> Set TH.Extension
 recordExtensions r = foldMap fieldExtensions (dataFields r)
@@ -92,6 +95,8 @@ globalExtensions = \case
     HasCBitfield_bitWidth# -> Set.singleton TH.MagicHash
     NomEq_class -> Set.singleton TH.TypeOperators
     HasField_class -> Set.singleton TH.UndecidableInstances
+    Marshallable_class -> Set.singleton TH.UndecidableInstances
+    MarshallableBaseType_type -> Set.singleton TH.UndecidableInstances
     _ -> mempty
 
 exprExtensions :: SExpr ctx -> Set TH.Extension

@@ -104,12 +104,14 @@ hstypes:
 - hsname: Struct5_t
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: Struct6
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable

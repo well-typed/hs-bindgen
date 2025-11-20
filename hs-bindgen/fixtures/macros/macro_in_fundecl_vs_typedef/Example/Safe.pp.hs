@@ -7,6 +7,7 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -85,13 +86,22 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_c7ba346f3006b36f" quux1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       MC
+    -> TC
+    -> IO FC.CChar
+    )
+
 {-| __C declaration:__ @quux1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:8:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_c7ba346f3006b36f" quux1 ::
+quux1 ::
      MC
      {- ^ __C declaration:__ @x@
      -}
@@ -99,6 +109,17 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_c7ba346
      {- ^ __C declaration:__ @y@
      -}
   -> IO FC.CChar
+quux1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType quux1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_db114519a8645d1f" quux2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       MC
+    -> FC.CChar
+    -> IO TC
+    )
 
 {-| __C declaration:__ @quux2@
 
@@ -106,7 +127,7 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_c7ba346
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_db114519a8645d1f" quux2 ::
+quux2 ::
      MC
      {- ^ __C declaration:__ @x@
      -}
@@ -114,6 +135,17 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_db11451
      {- ^ __C declaration:__ @y@
      -}
   -> IO TC
+quux2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType quux2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_0a613fb26d413eaa" wam1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CFloat
+    -> Ptr.Ptr TC
+    -> IO (Ptr.Ptr MC)
+    )
 
 {-| __C declaration:__ @wam1@
 
@@ -121,7 +153,7 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_db11451
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_0a613fb26d413eaa" wam1 ::
+wam1 ::
      FC.CFloat
      {- ^ __C declaration:__ @x@
      -}
@@ -129,6 +161,17 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_0a613fb
      {- ^ __C declaration:__ @y@
      -}
   -> IO (Ptr.Ptr MC)
+wam1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType wam1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_279b15c6940eb4f8" wam2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CFloat
+    -> Ptr.Ptr MC
+    -> IO (Ptr.Ptr TC)
+    )
 
 {-| __C declaration:__ @wam2@
 
@@ -136,7 +179,7 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_0a613fb
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_279b15c6940eb4f8" wam2 ::
+wam2 ::
      FC.CFloat
      {- ^ __C declaration:__ @x@
      -}
@@ -144,6 +187,17 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_279b15c
      {- ^ __C declaration:__ @y@
      -}
   -> IO (Ptr.Ptr TC)
+wam2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType wam2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_27a965a9bfd8c176" struct_typedef1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Struct2
+    -> MC
+    -> IO ()
+    )
 
 {-| __C declaration:__ @struct_typedef1@
 
@@ -151,7 +205,7 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_279b15c
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_27a965a9bfd8c176" struct_typedef1 ::
+struct_typedef1 ::
      Ptr.Ptr Struct2
      {- ^ __C declaration:__ @s@
      -}
@@ -159,6 +213,17 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_27a965a
      {- ^ __C declaration:__ @x@
      -}
   -> IO ()
+struct_typedef1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType struct_typedef1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_8e7c55302a7b5716" struct_typedef2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Struct3_t
+    -> MC
+    -> IO ()
+    )
 
 {-| __C declaration:__ @struct_typedef2@
 
@@ -166,7 +231,7 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_27a965a
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_8e7c55302a7b5716" struct_typedef2 ::
+struct_typedef2 ::
      Ptr.Ptr Struct3_t
      {- ^ __C declaration:__ @s@
      -}
@@ -174,6 +239,17 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_8e7c553
      {- ^ __C declaration:__ @x@
      -}
   -> IO ()
+struct_typedef2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType struct_typedef2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_fe83edb35a817050" struct_typedef3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Struct4
+    -> MC
+    -> IO ()
+    )
 
 {-| __C declaration:__ @struct_typedef3@
 
@@ -181,7 +257,7 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_8e7c553
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_fe83edb35a817050" struct_typedef3 ::
+struct_typedef3 ::
      Ptr.Ptr Struct4
      {- ^ __C declaration:__ @s@
      -}
@@ -189,6 +265,17 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_fe83edb
      {- ^ __C declaration:__ @x@
      -}
   -> IO ()
+struct_typedef3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType struct_typedef3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_162df9fabcbef0c4" struct_name1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Struct1
+    -> MC
+    -> IO ()
+    )
 
 {-| __C declaration:__ @struct_name1@
 
@@ -196,7 +283,7 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_fe83edb
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_162df9fabcbef0c4" struct_name1 ::
+struct_name1 ::
      Ptr.Ptr Struct1
      {- ^ __C declaration:__ @s@
      -}
@@ -204,6 +291,17 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_162df9f
      {- ^ __C declaration:__ @x@
      -}
   -> IO ()
+struct_name1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType struct_name1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a6b5f272333b19d4" struct_name2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Struct3
+    -> MC
+    -> IO ()
+    )
 
 {-| __C declaration:__ @struct_name2@
 
@@ -211,7 +309,7 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_162df9f
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a6b5f272333b19d4" struct_name2 ::
+struct_name2 ::
      Ptr.Ptr Struct3
      {- ^ __C declaration:__ @s@
      -}
@@ -219,6 +317,17 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a6b5f27
      {- ^ __C declaration:__ @x@
      -}
   -> IO ()
+struct_name2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType struct_name2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_9eadc48880259e4a" struct_name3_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Struct4
+    -> MC
+    -> IO ()
+    )
 
 {-| __C declaration:__ @struct_name3@
 
@@ -226,7 +335,7 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a6b5f27
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_9eadc48880259e4a" struct_name3 ::
+struct_name3 ::
      Ptr.Ptr Struct4
      {- ^ __C declaration:__ @s@
      -}
@@ -234,3 +343,5 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_9eadc48
      {- ^ __C declaration:__ @x@
      -}
   -> IO ()
+struct_name3 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType struct_name3_base

@@ -119,6 +119,11 @@ data Global =
   | Proxy_type
   | Proxy_constructor
 
+    -- Marshallable
+  | Marshallable_class
+  | MarshallableBaseType_type
+  | Marshallable_fromMarshallableBaseType
+
     -- Unsafe
   | IO_unsafePerformIO
 
@@ -416,14 +421,15 @@ data Newtype = Newtype {
 -- generate polymorphic type signatures.
 --
 data ForeignImport = ForeignImport
-    { foreignImportName       :: Hs.Name Hs.NsVar
-    , foreignImportParameters :: [FunctionParameter]
-    , foreignImportResultType :: ResultType ClosedType
-    , foreignImportOrigName   :: Text
-    , foreignImportCallConv   :: CallConv
-    , foreignImportOrigin     :: Origin.ForeignImport
-    , foreignImportComment    :: Maybe HsDoc.Comment
-    , foreignImportSafety     :: Safety
+    { foreignImportName         :: Hs.Name Hs.NsVar
+    , foreignImportMarshallable :: Bool
+    , foreignImportParameters   :: [FunctionParameter]
+    , foreignImportResultType   :: ResultType ClosedType
+    , foreignImportOrigName     :: Text
+    , foreignImportCallConv     :: CallConv
+    , foreignImportOrigin       :: Origin.ForeignImport
+    , foreignImportComment      :: Maybe HsDoc.Comment
+    , foreignImportSafety       :: Safety
     }
   deriving stock (Show)
 

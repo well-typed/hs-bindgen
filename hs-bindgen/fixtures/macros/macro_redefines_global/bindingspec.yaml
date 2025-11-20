@@ -16,6 +16,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read

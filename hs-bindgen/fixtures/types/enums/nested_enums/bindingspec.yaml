@@ -19,6 +19,7 @@ hstypes:
 - hsname: EnumA
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show
@@ -36,6 +37,7 @@ hstypes:
 - hsname: ExB_fieldB1
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show

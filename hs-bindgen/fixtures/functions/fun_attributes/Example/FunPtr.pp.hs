@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -190,8 +191,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_7003b306f73c174b" hs_bindgen_test_functionsfun_attributes_7003b306f73c174b ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_7003b306f73c174b" hs_bindgen_test_functionsfun_attributes_7003b306f73c174b_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO ()))
+    )
+
+hs_bindgen_test_functionsfun_attributes_7003b306f73c174b ::
      IO (Ptr.FunPtr (IO ()))
+hs_bindgen_test_functionsfun_attributes_7003b306f73c174b =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_7003b306f73c174b_base
 
 {-# NOINLINE __f1_ptr #-}
 
@@ -205,8 +215,17 @@ __f1_ptr :: Ptr.FunPtr (IO ())
 __f1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_7003b306f73c174b
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_5469bdc0395f86c1" hs_bindgen_test_functionsfun_attributes_5469bdc0395f86c1 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_5469bdc0395f86c1" hs_bindgen_test_functionsfun_attributes_5469bdc0395f86c1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO ()))
+    )
+
+hs_bindgen_test_functionsfun_attributes_5469bdc0395f86c1 ::
      IO (Ptr.FunPtr (IO ()))
+hs_bindgen_test_functionsfun_attributes_5469bdc0395f86c1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_5469bdc0395f86c1_base
 
 {-# NOINLINE f1_ptr #-}
 
@@ -220,8 +239,17 @@ f1_ptr :: Ptr.FunPtr (IO ())
 f1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_5469bdc0395f86c1
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_b3c956e53724162c" hs_bindgen_test_functionsfun_attributes_b3c956e53724162c ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_b3c956e53724162c" hs_bindgen_test_functionsfun_attributes_b3c956e53724162c_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void)))
+    )
+
+hs_bindgen_test_functionsfun_attributes_b3c956e53724162c ::
      IO (Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void)))
+hs_bindgen_test_functionsfun_attributes_b3c956e53724162c =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_b3c956e53724162c_base
 
 {-# NOINLINE my_memalign_ptr #-}
 
@@ -235,8 +263,17 @@ my_memalign_ptr :: Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void))
 my_memalign_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_b3c956e53724162c
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_733646ca96f39979" hs_bindgen_test_functionsfun_attributes_733646ca96f39979 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_733646ca96f39979" hs_bindgen_test_functionsfun_attributes_733646ca96f39979_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void)))
+    )
+
+hs_bindgen_test_functionsfun_attributes_733646ca96f39979 ::
      IO (Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void)))
+hs_bindgen_test_functionsfun_attributes_733646ca96f39979 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_733646ca96f39979_base
 
 {-# NOINLINE my_calloc_ptr #-}
 
@@ -250,8 +287,17 @@ my_calloc_ptr :: Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void))
 my_calloc_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_733646ca96f39979
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_94e8271f186110fd" hs_bindgen_test_functionsfun_attributes_94e8271f186110fd ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_94e8271f186110fd" hs_bindgen_test_functionsfun_attributes_94e8271f186110fd_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void)))
+    )
+
+hs_bindgen_test_functionsfun_attributes_94e8271f186110fd ::
      IO (Ptr.FunPtr ((Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void)))
+hs_bindgen_test_functionsfun_attributes_94e8271f186110fd =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_94e8271f186110fd_base
 
 {-# NOINLINE my_realloc_ptr #-}
 
@@ -265,8 +311,17 @@ my_realloc_ptr :: Ptr.FunPtr ((Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void))
 my_realloc_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_94e8271f186110fd
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_48d9862d70f58e70" hs_bindgen_test_functionsfun_attributes_48d9862d70f58e70 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_48d9862d70f58e70" hs_bindgen_test_functionsfun_attributes_48d9862d70f58e70_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
+    )
+
+hs_bindgen_test_functionsfun_attributes_48d9862d70f58e70 ::
      IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
+hs_bindgen_test_functionsfun_attributes_48d9862d70f58e70 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_48d9862d70f58e70_base
 
 {-# NOINLINE my_alloc1_ptr #-}
 
@@ -280,8 +335,17 @@ my_alloc1_ptr :: Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void))
 my_alloc1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_48d9862d70f58e70
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_17a11fd10dc57357" hs_bindgen_test_functionsfun_attributes_17a11fd10dc57357 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_17a11fd10dc57357" hs_bindgen_test_functionsfun_attributes_17a11fd10dc57357_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
+    )
+
+hs_bindgen_test_functionsfun_attributes_17a11fd10dc57357 ::
      IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
+hs_bindgen_test_functionsfun_attributes_17a11fd10dc57357 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_17a11fd10dc57357_base
 
 {-# NOINLINE my_alloc2_ptr #-}
 
@@ -295,8 +359,17 @@ my_alloc2_ptr :: Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void))
 my_alloc2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_17a11fd10dc57357
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_c41111f40a04cdc9" hs_bindgen_test_functionsfun_attributes_c41111f40a04cdc9 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_c41111f40a04cdc9" hs_bindgen_test_functionsfun_attributes_c41111f40a04cdc9_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+    )
+
+hs_bindgen_test_functionsfun_attributes_c41111f40a04cdc9 ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+hs_bindgen_test_functionsfun_attributes_c41111f40a04cdc9 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_c41111f40a04cdc9_base
 
 {-# NOINLINE square_ptr #-}
 
@@ -310,8 +383,17 @@ square_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_c41111f40a04cdc9
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_17f68fdc3f464b20" hs_bindgen_test_functionsfun_attributes_17f68fdc3f464b20 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_17f68fdc3f464b20" hs_bindgen_test_functionsfun_attributes_17f68fdc3f464b20_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO FC.CInt))
+    )
+
+hs_bindgen_test_functionsfun_attributes_17f68fdc3f464b20 ::
      IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_test_functionsfun_attributes_17f68fdc3f464b20 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_17f68fdc3f464b20_base
 
 {-# NOINLINE old_fn_deprecated_ptr #-}
 
@@ -325,8 +407,17 @@ old_fn_deprecated_ptr :: Ptr.FunPtr (IO FC.CInt)
 old_fn_deprecated_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_17f68fdc3f464b20
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_a0be4f488601c252" hs_bindgen_test_functionsfun_attributes_a0be4f488601c252 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_a0be4f488601c252" hs_bindgen_test_functionsfun_attributes_a0be4f488601c252_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FC.CChar)))
+    )
+
+hs_bindgen_test_functionsfun_attributes_a0be4f488601c252 ::
      IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FC.CChar)))
+hs_bindgen_test_functionsfun_attributes_a0be4f488601c252 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_a0be4f488601c252_base
 
 {-# NOINLINE my_dgettext_ptr #-}
 
@@ -340,8 +431,17 @@ my_dgettext_ptr :: Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (Ptr.Ptr FC.CChar) -> IO (P
 my_dgettext_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_a0be4f488601c252
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_2b987c3b5c01a326" hs_bindgen_test_functionsfun_attributes_2b987c3b5c01a326 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_2b987c3b5c01a326" hs_bindgen_test_functionsfun_attributes_2b987c3b5c01a326_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CInt -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FILE)))
+    )
+
+hs_bindgen_test_functionsfun_attributes_2b987c3b5c01a326 ::
      IO (Ptr.FunPtr (FC.CInt -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FILE)))
+hs_bindgen_test_functionsfun_attributes_2b987c3b5c01a326 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_2b987c3b5c01a326_base
 
 {-# NOINLINE fdopen_ptr #-}
 
@@ -355,8 +455,17 @@ fdopen_ptr :: Ptr.FunPtr (FC.CInt -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FILE))
 fdopen_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_2b987c3b5c01a326
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_490ca7e8c8282a69" hs_bindgen_test_functionsfun_attributes_490ca7e8c8282a69 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_490ca7e8c8282a69" hs_bindgen_test_functionsfun_attributes_490ca7e8c8282a69_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO ()))
+    )
+
+hs_bindgen_test_functionsfun_attributes_490ca7e8c8282a69 ::
      IO (Ptr.FunPtr (IO ()))
+hs_bindgen_test_functionsfun_attributes_490ca7e8c8282a69 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_490ca7e8c8282a69_base
 
 {-# NOINLINE f2_ptr #-}
 
@@ -370,8 +479,17 @@ f2_ptr :: Ptr.FunPtr (IO ())
 f2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_490ca7e8c8282a69
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_e2e8b5d5ac435de8" hs_bindgen_test_functionsfun_attributes_e2e8b5d5ac435de8 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_e2e8b5d5ac435de8" hs_bindgen_test_functionsfun_attributes_e2e8b5d5ac435de8_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void)))
+    )
+
+hs_bindgen_test_functionsfun_attributes_e2e8b5d5ac435de8 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void)))
+hs_bindgen_test_functionsfun_attributes_e2e8b5d5ac435de8 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_e2e8b5d5ac435de8_base
 
 {-# NOINLINE my_memcpy_ptr #-}
 
@@ -385,8 +503,17 @@ my_memcpy_ptr :: Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.Ptr Void) -> Size_t -> IO (P
 my_memcpy_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_e2e8b5d5ac435de8
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_ea0bb781f9eca7f5" hs_bindgen_test_functionsfun_attributes_ea0bb781f9eca7f5 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_ea0bb781f9eca7f5" hs_bindgen_test_functionsfun_attributes_ea0bb781f9eca7f5_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO ()))
+    )
+
+hs_bindgen_test_functionsfun_attributes_ea0bb781f9eca7f5 ::
      IO (Ptr.FunPtr (IO ()))
+hs_bindgen_test_functionsfun_attributes_ea0bb781f9eca7f5 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_ea0bb781f9eca7f5_base
 
 {-# NOINLINE fatal_ptr #-}
 
@@ -400,8 +527,17 @@ fatal_ptr :: Ptr.FunPtr (IO ())
 fatal_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_ea0bb781f9eca7f5
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_4de9606eb9c5dd01" hs_bindgen_test_functionsfun_attributes_4de9606eb9c5dd01 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_4de9606eb9c5dd01" hs_bindgen_test_functionsfun_attributes_4de9606eb9c5dd01_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt))
+    )
+
+hs_bindgen_test_functionsfun_attributes_4de9606eb9c5dd01 ::
      IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt))
+hs_bindgen_test_functionsfun_attributes_4de9606eb9c5dd01 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_4de9606eb9c5dd01_base
 
 {-# NOINLINE hash_ptr #-}
 
@@ -415,8 +551,17 @@ hash_ptr :: Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt)
 hash_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_4de9606eb9c5dd01
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_4ce141c884649d49" hs_bindgen_test_functionsfun_attributes_4ce141c884649d49 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_4ce141c884649d49" hs_bindgen_test_functionsfun_attributes_4ce141c884649d49_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
+    )
+
+hs_bindgen_test_functionsfun_attributes_4ce141c884649d49 ::
      IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
+hs_bindgen_test_functionsfun_attributes_4ce141c884649d49 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_4ce141c884649d49_base
 
 {-# NOINLINE mymalloc_ptr #-}
 
@@ -430,8 +575,17 @@ mymalloc_ptr :: Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void))
 mymalloc_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_4ce141c884649d49
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_5c243ced544ab0aa" hs_bindgen_test_functionsfun_attributes_5c243ced544ab0aa ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_5c243ced544ab0aa" hs_bindgen_test_functionsfun_attributes_5c243ced544ab0aa_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO ()))
+    )
+
+hs_bindgen_test_functionsfun_attributes_5c243ced544ab0aa ::
      IO (Ptr.FunPtr (IO ()))
+hs_bindgen_test_functionsfun_attributes_5c243ced544ab0aa =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_5c243ced544ab0aa_base
 
 {-# NOINLINE foobar_ptr #-}
 
@@ -445,8 +599,17 @@ foobar_ptr :: Ptr.FunPtr (IO ())
 foobar_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_5c243ced544ab0aa
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_14ef55245a14f816" hs_bindgen_test_functionsfun_attributes_14ef55245a14f816 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_14ef55245a14f816" hs_bindgen_test_functionsfun_attributes_14ef55245a14f816_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO FC.CInt))
+    )
+
+hs_bindgen_test_functionsfun_attributes_14ef55245a14f816 ::
      IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_test_functionsfun_attributes_14ef55245a14f816 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_14ef55245a14f816_base
 
 {-# NOINLINE core2_func_ptr #-}
 
@@ -460,8 +623,17 @@ core2_func_ptr :: Ptr.FunPtr (IO FC.CInt)
 core2_func_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_14ef55245a14f816
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_72956748bb6eee67" hs_bindgen_test_functionsfun_attributes_72956748bb6eee67 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_72956748bb6eee67" hs_bindgen_test_functionsfun_attributes_72956748bb6eee67_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO FC.CInt))
+    )
+
+hs_bindgen_test_functionsfun_attributes_72956748bb6eee67 ::
      IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_test_functionsfun_attributes_72956748bb6eee67 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_72956748bb6eee67_base
 
 {-# NOINLINE sse3_func_ptr #-}
 
@@ -475,8 +647,17 @@ sse3_func_ptr :: Ptr.FunPtr (IO FC.CInt)
 sse3_func_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_72956748bb6eee67
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_38506a9ac5626bf2" hs_bindgen_test_functionsfun_attributes_38506a9ac5626bf2 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_38506a9ac5626bf2" hs_bindgen_test_functionsfun_attributes_38506a9ac5626bf2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO ()))
+    )
+
+hs_bindgen_test_functionsfun_attributes_38506a9ac5626bf2 ::
      IO (Ptr.FunPtr (IO ()))
+hs_bindgen_test_functionsfun_attributes_38506a9ac5626bf2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_38506a9ac5626bf2_base
 
 {-# NOINLINE f3_ptr #-}
 
@@ -490,8 +671,17 @@ f3_ptr :: Ptr.FunPtr (IO ())
 f3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_38506a9ac5626bf2
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_5929da82079150d1" hs_bindgen_test_functionsfun_attributes_5929da82079150d1 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_5929da82079150d1" hs_bindgen_test_functionsfun_attributes_5929da82079150d1_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO FC.CInt))
+    )
+
+hs_bindgen_test_functionsfun_attributes_5929da82079150d1 ::
      IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_test_functionsfun_attributes_5929da82079150d1 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_5929da82079150d1_base
 
 {-# NOINLINE fn_ptr #-}
 
@@ -505,8 +695,17 @@ fn_ptr :: Ptr.FunPtr (IO FC.CInt)
 fn_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_5929da82079150d1
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_7bcb4a1873e6ece6" hs_bindgen_test_functionsfun_attributes_7bcb4a1873e6ece6 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_7bcb4a1873e6ece6" hs_bindgen_test_functionsfun_attributes_7bcb4a1873e6ece6_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO FC.CInt))
+    )
+
+hs_bindgen_test_functionsfun_attributes_7bcb4a1873e6ece6 ::
      IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_test_functionsfun_attributes_7bcb4a1873e6ece6 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_7bcb4a1873e6ece6_base
 
 {-# NOINLINE y_ptr #-}
 
@@ -520,8 +719,17 @@ y_ptr :: Ptr.FunPtr (IO FC.CInt)
 y_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_7bcb4a1873e6ece6
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_11098262b345351a" hs_bindgen_test_functionsfun_attributes_11098262b345351a ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_11098262b345351a" hs_bindgen_test_functionsfun_attributes_11098262b345351a_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO FC.CInt))
+    )
+
+hs_bindgen_test_functionsfun_attributes_11098262b345351a ::
      IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_test_functionsfun_attributes_11098262b345351a =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_11098262b345351a_base
 
 {-# NOINLINE x1_ptr #-}
 
@@ -535,8 +743,17 @@ x1_ptr :: Ptr.FunPtr (IO FC.CInt)
 x1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_11098262b345351a
 
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_0d19f83087f278f9" hs_bindgen_test_functionsfun_attributes_0d19f83087f278f9 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_0d19f83087f278f9" hs_bindgen_test_functionsfun_attributes_0d19f83087f278f9_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO FC.CInt))
+    )
+
+hs_bindgen_test_functionsfun_attributes_0d19f83087f278f9 ::
      IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_test_functionsfun_attributes_0d19f83087f278f9 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionsfun_attributes_0d19f83087f278f9_base
 
 {-# NOINLINE x2_ptr #-}
 

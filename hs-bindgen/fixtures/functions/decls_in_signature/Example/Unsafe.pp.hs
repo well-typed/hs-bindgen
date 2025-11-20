@@ -7,6 +7,7 @@ module Example.Unsafe where
 
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -35,14 +36,25 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| Pointer-based API for 'normal'
-
+{-| This is an internal function.
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionsdecls_in_signature_35c28995abc46de4" normal_wrapper ::
+foreign import ccall unsafe "hs_bindgen_test_functionsdecls_in_signature_35c28995abc46de4" normal_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Opaque
+    -> Ptr.Ptr Outside
+    -> Ptr.Ptr Outside
+    -> IO ()
+    )
+
+{-| Pointer-based API for 'normal'
+-}
+normal_wrapper ::
      Ptr.Ptr Opaque
   -> Ptr.Ptr Outside
   -> Ptr.Ptr Outside
   -> IO ()
+normal_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType normal_wrapper_base
 
 {-| __C declaration:__ @normal@
 
@@ -66,12 +78,21 @@ normal =
     \x1 ->
       \x2 -> F.with x2 (\y3 -> normal_wrapper x0 x1 y3)
 
-{-| Pointer-based API for 'f1'
-
+{-| This is an internal function.
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionsdecls_in_signature_c1788128a5b1c813" f1_wrapper ::
+foreign import ccall unsafe "hs_bindgen_test_functionsdecls_in_signature_c1788128a5b1c813" f1_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Named_struct
+    -> IO ()
+    )
+
+{-| Pointer-based API for 'f1'
+-}
+f1_wrapper ::
      Ptr.Ptr Named_struct
   -> IO ()
+f1_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType f1_wrapper_base
 
 {-| Error cases
 
@@ -90,12 +111,21 @@ f1 ::
   -> IO ()
 f1 = \x0 -> F.with x0 (\y1 -> f1_wrapper y1)
 
-{-| Pointer-based API for 'f2'
-
+{-| This is an internal function.
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionsdecls_in_signature_14361e995fb5684a" f2_wrapper ::
+foreign import ccall unsafe "hs_bindgen_test_functionsdecls_in_signature_14361e995fb5684a" f2_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr Named_union
+    -> IO ()
+    )
+
+{-| Pointer-based API for 'f2'
+-}
+f2_wrapper ::
      Ptr.Ptr Named_union
   -> IO ()
+f2_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType f2_wrapper_base
 
 {-| __C declaration:__ @f2@
 

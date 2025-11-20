@@ -129,11 +129,16 @@ instance HasCField Thing "thing_x"
 instance TyEq ty (CFieldType Thing "thing_x") =>
          HasField "thing_x" (Ptr Thing) (Ptr ty)
     where getField = ptrToCField (Proxy @"thing_x")
-{-| Pointer-based API for 'thing_fun_1'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_61dfa2c4506feb8f" thing_fun_1_wrapper :: Ptr Thing ->
-                                                                                                           IO CInt
+foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_61dfa2c4506feb8f" thing_fun_1_wrapper_base :: Ptr Thing ->
+                                                                                                                IO CInt
+{-| Pointer-based API for 'thing_fun_1'
+-}
+thing_fun_1_wrapper :: Ptr Thing -> IO CInt
+{-| Pointer-based API for 'thing_fun_1'
+-}
+thing_fun_1_wrapper = fromMarshallableBaseType thing_fun_1_wrapper_base
 {-| __C declaration:__ @thing_fun_1@
 
     __defined at:__ @types\/structs\/struct_arg.h:6:5@
@@ -148,12 +153,17 @@ thing_fun_1 :: Thing -> IO CInt
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_1 = \x_0 -> with x_0 (\y_1 -> thing_fun_1_wrapper y_1)
-{-| Pointer-based API for 'thing_fun_2'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_022cc8107f565c95" thing_fun_2_wrapper :: CInt ->
-                                                                                                           Ptr Thing ->
-                                                                                                           IO Unit
+foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_022cc8107f565c95" thing_fun_2_wrapper_base :: CInt ->
+                                                                                                                Ptr Thing ->
+                                                                                                                IO Unit
+{-| Pointer-based API for 'thing_fun_2'
+-}
+thing_fun_2_wrapper :: CInt -> Ptr Thing -> IO Unit
+{-| Pointer-based API for 'thing_fun_2'
+-}
+thing_fun_2_wrapper = fromMarshallableBaseType thing_fun_2_wrapper_base
 {-| __C declaration:__ @thing_fun_2@
 
     __defined at:__ @types\/structs\/struct_arg.h:7:14@
@@ -168,14 +178,20 @@ thing_fun_2 :: CInt -> IO Thing
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_2 = \x_0 -> allocaAndPeek (\z_1 -> thing_fun_2_wrapper x_0 z_1)
-{-| Pointer-based API for 'thing_fun_3a'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_4d9304280cca3098" thing_fun_3a_wrapper :: CInt ->
-                                                                                                            Ptr Thing ->
-                                                                                                            CDouble ->
-                                                                                                            Ptr Thing ->
-                                                                                                            IO Unit
+foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_4d9304280cca3098" thing_fun_3a_wrapper_base :: CInt ->
+                                                                                                                 Ptr Thing ->
+                                                                                                                 CDouble ->
+                                                                                                                 Ptr Thing ->
+                                                                                                                 IO Unit
+{-| Pointer-based API for 'thing_fun_3a'
+-}
+thing_fun_3a_wrapper :: CInt ->
+                        Ptr Thing -> CDouble -> Ptr Thing -> IO Unit
+{-| Pointer-based API for 'thing_fun_3a'
+-}
+thing_fun_3a_wrapper = fromMarshallableBaseType thing_fun_3a_wrapper_base
 {-| __C declaration:__ @thing_fun_3a@
 
     __defined at:__ @types\/structs\/struct_arg.h:9:14@
@@ -190,13 +206,18 @@ thing_fun_3a :: CInt -> Thing -> CDouble -> IO Thing
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_3a = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> allocaAndPeek (\z_4 -> thing_fun_3a_wrapper x_0 y_3 x_2 z_4))
-{-| Pointer-based API for 'thing_fun_3b'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_f39687b254852452" thing_fun_3b_wrapper :: CInt ->
-                                                                                                            Ptr Thing ->
-                                                                                                            CDouble ->
-                                                                                                            IO CChar
+foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_f39687b254852452" thing_fun_3b_wrapper_base :: CInt ->
+                                                                                                                 Ptr Thing ->
+                                                                                                                 CDouble ->
+                                                                                                                 IO CChar
+{-| Pointer-based API for 'thing_fun_3b'
+-}
+thing_fun_3b_wrapper :: CInt -> Ptr Thing -> CDouble -> IO CChar
+{-| Pointer-based API for 'thing_fun_3b'
+-}
+thing_fun_3b_wrapper = fromMarshallableBaseType thing_fun_3b_wrapper_base
 {-| __C declaration:__ @thing_fun_3b@
 
     __defined at:__ @types\/structs\/struct_arg.h:10:6@
@@ -211,11 +232,16 @@ thing_fun_3b :: CInt -> Thing -> CDouble -> IO CChar
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_3b = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> thing_fun_3b_wrapper x_0 y_3 x_2)
-{-| Pointer-based API for 'thing_fun_1'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_409d8c948bf989f6" thing_fun_1_wrapper :: Ptr Thing ->
-                                                                                                           IO CInt
+foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_409d8c948bf989f6" thing_fun_1_wrapper_base :: Ptr Thing ->
+                                                                                                                IO CInt
+{-| Pointer-based API for 'thing_fun_1'
+-}
+thing_fun_1_wrapper :: Ptr Thing -> IO CInt
+{-| Pointer-based API for 'thing_fun_1'
+-}
+thing_fun_1_wrapper = fromMarshallableBaseType thing_fun_1_wrapper_base
 {-| __C declaration:__ @thing_fun_1@
 
     __defined at:__ @types\/structs\/struct_arg.h:6:5@
@@ -230,12 +256,17 @@ thing_fun_1 :: Thing -> IO CInt
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_1 = \x_0 -> with x_0 (\y_1 -> thing_fun_1_wrapper y_1)
-{-| Pointer-based API for 'thing_fun_2'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_2d20059791239ef2" thing_fun_2_wrapper :: CInt ->
-                                                                                                           Ptr Thing ->
-                                                                                                           IO Unit
+foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_2d20059791239ef2" thing_fun_2_wrapper_base :: CInt ->
+                                                                                                                Ptr Thing ->
+                                                                                                                IO Unit
+{-| Pointer-based API for 'thing_fun_2'
+-}
+thing_fun_2_wrapper :: CInt -> Ptr Thing -> IO Unit
+{-| Pointer-based API for 'thing_fun_2'
+-}
+thing_fun_2_wrapper = fromMarshallableBaseType thing_fun_2_wrapper_base
 {-| __C declaration:__ @thing_fun_2@
 
     __defined at:__ @types\/structs\/struct_arg.h:7:14@
@@ -250,14 +281,20 @@ thing_fun_2 :: CInt -> IO Thing
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_2 = \x_0 -> allocaAndPeek (\z_1 -> thing_fun_2_wrapper x_0 z_1)
-{-| Pointer-based API for 'thing_fun_3a'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_ce442967da2c37cd" thing_fun_3a_wrapper :: CInt ->
-                                                                                                            Ptr Thing ->
-                                                                                                            CDouble ->
-                                                                                                            Ptr Thing ->
-                                                                                                            IO Unit
+foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_ce442967da2c37cd" thing_fun_3a_wrapper_base :: CInt ->
+                                                                                                                 Ptr Thing ->
+                                                                                                                 CDouble ->
+                                                                                                                 Ptr Thing ->
+                                                                                                                 IO Unit
+{-| Pointer-based API for 'thing_fun_3a'
+-}
+thing_fun_3a_wrapper :: CInt ->
+                        Ptr Thing -> CDouble -> Ptr Thing -> IO Unit
+{-| Pointer-based API for 'thing_fun_3a'
+-}
+thing_fun_3a_wrapper = fromMarshallableBaseType thing_fun_3a_wrapper_base
 {-| __C declaration:__ @thing_fun_3a@
 
     __defined at:__ @types\/structs\/struct_arg.h:9:14@
@@ -272,13 +309,18 @@ thing_fun_3a :: CInt -> Thing -> CDouble -> IO Thing
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_3a = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> allocaAndPeek (\z_4 -> thing_fun_3a_wrapper x_0 y_3 x_2 z_4))
-{-| Pointer-based API for 'thing_fun_3b'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_e8bc8fce45854092" thing_fun_3b_wrapper :: CInt ->
-                                                                                                            Ptr Thing ->
-                                                                                                            CDouble ->
-                                                                                                            IO CChar
+foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_e8bc8fce45854092" thing_fun_3b_wrapper_base :: CInt ->
+                                                                                                                 Ptr Thing ->
+                                                                                                                 CDouble ->
+                                                                                                                 IO CChar
+{-| Pointer-based API for 'thing_fun_3b'
+-}
+thing_fun_3b_wrapper :: CInt -> Ptr Thing -> CDouble -> IO CChar
+{-| Pointer-based API for 'thing_fun_3b'
+-}
+thing_fun_3b_wrapper = fromMarshallableBaseType thing_fun_3b_wrapper_base
 {-| __C declaration:__ @thing_fun_3b@
 
     __defined at:__ @types\/structs\/struct_arg.h:10:6@
@@ -293,8 +335,13 @@ thing_fun_3b :: CInt -> Thing -> CDouble -> IO CChar
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_3b = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> thing_fun_3b_wrapper x_0 y_3 x_2)
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a" hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a :: IO (FunPtr (Thing ->
-                                                                                                                                                           IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a" hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a_base :: IO (FunPtr (Thing ->
+                                                                                                                                                                IO CInt))
+hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a :: IO (FunPtr (Thing ->
+                                                                       IO CInt))
+hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a = fromMarshallableBaseType hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a_base
 {-# NOINLINE thing_fun_1_ptr #-}
 {-| __C declaration:__ @thing_fun_1@
 
@@ -310,8 +357,13 @@ thing_fun_1_ptr :: FunPtr (Thing -> IO CInt)
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_1_ptr = unsafePerformIO hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a" hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a :: IO (FunPtr (CInt ->
-                                                                                                                                                           IO Thing))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a" hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a_base :: IO (FunPtr (CInt ->
+                                                                                                                                                                IO Thing))
+hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a :: IO (FunPtr (CInt ->
+                                                                       IO Thing))
+hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a = fromMarshallableBaseType hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a_base
 {-# NOINLINE thing_fun_2_ptr #-}
 {-| __C declaration:__ @thing_fun_2@
 
@@ -327,10 +379,16 @@ thing_fun_2_ptr :: FunPtr (CInt -> IO Thing)
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_2_ptr = unsafePerformIO hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf" hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf :: IO (FunPtr (CInt ->
-                                                                                                                                                           Thing ->
-                                                                                                                                                           CDouble ->
-                                                                                                                                                           IO Thing))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf" hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf_base :: IO (FunPtr (CInt ->
+                                                                                                                                                                Thing ->
+                                                                                                                                                                CDouble ->
+                                                                                                                                                                IO Thing))
+hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf :: IO (FunPtr (CInt ->
+                                                                       Thing ->
+                                                                       CDouble -> IO Thing))
+hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf = fromMarshallableBaseType hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf_base
 {-# NOINLINE thing_fun_3a_ptr #-}
 {-| __C declaration:__ @thing_fun_3a@
 
@@ -346,10 +404,16 @@ thing_fun_3a_ptr :: FunPtr (CInt -> Thing -> CDouble -> IO Thing)
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_3a_ptr = unsafePerformIO hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f" hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f :: IO (FunPtr (CInt ->
-                                                                                                                                                           Thing ->
-                                                                                                                                                           CDouble ->
-                                                                                                                                                           IO CChar))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f" hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f_base :: IO (FunPtr (CInt ->
+                                                                                                                                                                Thing ->
+                                                                                                                                                                CDouble ->
+                                                                                                                                                                IO CChar))
+hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f :: IO (FunPtr (CInt ->
+                                                                       Thing ->
+                                                                       CDouble -> IO CChar))
+hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f = fromMarshallableBaseType hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f_base
 {-# NOINLINE thing_fun_3b_ptr #-}
 {-| __C declaration:__ @thing_fun_3b@
 

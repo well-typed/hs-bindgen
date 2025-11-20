@@ -19,6 +19,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshallable
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, IO, Int, Ord, Show, pure)
 
@@ -31,14 +32,35 @@ __exported by:__ @functions\/circular_dependency_fun.h@
 newtype Fun_ptr_Deref = Fun_ptr_Deref
   { un_Fun_ptr_Deref :: (Ptr.Ptr Forward_declaration) -> IO ()
   }
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
-foreign import ccall safe "wrapper" toFun_ptr_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toFun_ptr_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Fun_ptr_Deref
+    -> IO (Ptr.FunPtr Fun_ptr_Deref)
+    )
+
+toFun_ptr_Deref ::
      Fun_ptr_Deref
   -> IO (Ptr.FunPtr Fun_ptr_Deref)
+toFun_ptr_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType toFun_ptr_Deref_base
 
-foreign import ccall safe "dynamic" fromFun_ptr_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromFun_ptr_Deref_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr Fun_ptr_Deref
+    -> Fun_ptr_Deref
+    )
+
+fromFun_ptr_Deref ::
      Ptr.FunPtr Fun_ptr_Deref
   -> Fun_ptr_Deref
+fromFun_ptr_Deref =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fromFun_ptr_Deref_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Fun_ptr_Deref where
 
@@ -71,7 +93,7 @@ newtype Fun_ptr = Fun_ptr
   { un_Fun_ptr :: Ptr.FunPtr Fun_ptr_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.Marshallable.Marshallable)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr) "un_Fun_ptr")
          ) => GHC.Records.HasField "un_Fun_ptr" (Ptr.Ptr Fun_ptr) (Ptr.Ptr ty) where
@@ -134,13 +156,33 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Forward_declaration)
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"forward_declaration_f")
 
-foreign import ccall safe "wrapper" funPtr_fbe60ed6_to ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_fbe60ed6_to_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       ((Ptr.Ptr Forward_declaration) -> IO ())
+    -> IO (Ptr.FunPtr ((Ptr.Ptr Forward_declaration) -> IO ()))
+    )
+
+funPtr_fbe60ed6_to ::
      ((Ptr.Ptr Forward_declaration) -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Forward_declaration) -> IO ()))
+funPtr_fbe60ed6_to =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_fbe60ed6_to_base
 
-foreign import ccall safe "dynamic" funPtr_fbe60ed6_from ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_fbe60ed6_from_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr ((Ptr.Ptr Forward_declaration) -> IO ())
+    -> (Ptr.Ptr Forward_declaration) -> IO ()
+    )
+
+funPtr_fbe60ed6_from ::
      Ptr.FunPtr ((Ptr.Ptr Forward_declaration) -> IO ())
   -> (Ptr.Ptr Forward_declaration) -> IO ()
+funPtr_fbe60ed6_from =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType funPtr_fbe60ed6_from_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Forward_declaration) -> IO ()) where
 

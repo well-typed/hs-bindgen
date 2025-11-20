@@ -13,6 +13,7 @@ hstypes:
 - hsname: Foo
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show

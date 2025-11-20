@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.IncompleteArray
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -26,8 +27,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c" hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c" hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32))
+    )
+
+hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c ::
      IO (Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32))
+hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c_base
 
 {-# NOINLINE some_fun_ptr #-}
 

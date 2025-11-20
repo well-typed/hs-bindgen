@@ -46,6 +46,7 @@ import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
+import HsBindgen.Runtime.Marshallable qualified
 import HsBindgen.Runtime.SizedByteArray qualified
 import HsBindgen.Runtime.TypeEquality qualified
 
@@ -319,6 +320,11 @@ resolveGlobal = \case
     -- Proxy
     Proxy_type        -> importQ ''Data.Proxy.Proxy
     Proxy_constructor -> importQ 'Data.Proxy.Proxy
+
+    -- Marshallable
+    Marshallable_class -> importQ ''HsBindgen.Runtime.Marshallable.Marshallable
+    MarshallableBaseType_type -> importQ ''HsBindgen.Runtime.Marshallable.MarshallableBaseType
+    Marshallable_fromMarshallableBaseType -> importQ 'HsBindgen.Runtime.Marshallable.fromMarshallableBaseType
 
     -- Unsafe
     IO_unsafePerformIO -> importQ 'System.IO.Unsafe.unsafePerformIO

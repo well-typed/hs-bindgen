@@ -5,6 +5,7 @@
 
 module Example.Safe where
 
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -112,14 +113,30 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_0e7f535b7085fc20" by'_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
+
 {-| __C declaration:__ @by@
 
     __defined at:__ @edge-cases\/names.h:3:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_0e7f535b7085fc20" by' ::
+by' ::
      IO ()
+by' =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType by'_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_fc72c248490e573d" forall'_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @forall@
 
@@ -127,8 +144,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_0e7f535b7085fc20" by' 
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_fc72c248490e573d" forall' ::
+forall' ::
      IO ()
+forall' =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType forall'_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_f21dd25a8b27374a" mdo'_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @mdo@
 
@@ -136,8 +162,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_fc72c248490e573d" fora
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_f21dd25a8b27374a" mdo' ::
+mdo' ::
      IO ()
+mdo' =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType mdo'_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_0ab5fb5a8105f789" pattern'_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @pattern@
 
@@ -145,8 +180,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_f21dd25a8b27374a" mdo'
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_0ab5fb5a8105f789" pattern' ::
+pattern' ::
      IO ()
+pattern' =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType pattern'_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_c14da8252137427c" proc'_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @proc@
 
@@ -154,8 +198,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_0ab5fb5a8105f789" patt
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_c14da8252137427c" proc' ::
+proc' ::
      IO ()
+proc' =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType proc'_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_1706dcb069f095bc" rec'_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @rec@
 
@@ -163,8 +216,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_c14da8252137427c" proc
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_1706dcb069f095bc" rec' ::
+rec' ::
      IO ()
+rec' =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType rec'_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_9cbe86d126f1d8ee" using'_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @using@
 
@@ -172,8 +234,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_1706dcb069f095bc" rec'
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_9cbe86d126f1d8ee" using' ::
+using' ::
      IO ()
+using' =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType using'_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_84e650893f3a92e0" anyclass_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @anyclass@
 
@@ -181,8 +252,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_9cbe86d126f1d8ee" usin
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_84e650893f3a92e0" anyclass ::
+anyclass ::
      IO ()
+anyclass =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType anyclass_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_a931e0b3ecf47315" capi_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @capi@
 
@@ -190,8 +270,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_84e650893f3a92e0" anyc
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_a931e0b3ecf47315" capi ::
+capi ::
      IO ()
+capi =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType capi_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_8a21f58b60402b4c" cases_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @cases@
 
@@ -199,8 +288,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_a931e0b3ecf47315" capi
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_8a21f58b60402b4c" cases ::
+cases ::
      IO ()
+cases =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType cases_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_e72f0a6b1520490f" ccall_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @ccall@
 
@@ -208,8 +306,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_8a21f58b60402b4c" case
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_e72f0a6b1520490f" ccall ::
+ccall ::
      IO ()
+ccall =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType ccall_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_87e085120fafde48" dynamic_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @dynamic@
 
@@ -217,8 +324,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_e72f0a6b1520490f" ccal
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_87e085120fafde48" dynamic ::
+dynamic ::
      IO ()
+dynamic =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType dynamic_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_0e6d6a351c0f2d6b" export_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @export@
 
@@ -226,8 +342,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_87e085120fafde48" dyna
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_0e6d6a351c0f2d6b" export ::
+export ::
      IO ()
+export =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType export_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_bd4d89d0e474ae7a" family_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @family@
 
@@ -235,8 +360,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_0e6d6a351c0f2d6b" expo
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_bd4d89d0e474ae7a" family ::
+family ::
      IO ()
+family =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType family_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_d33488d9cb279feb" group_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @group@
 
@@ -244,8 +378,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_bd4d89d0e474ae7a" fami
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_d33488d9cb279feb" group ::
+group ::
      IO ()
+group =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType group_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_9a3851f5a39a9e5d" interruptible_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @interruptible@
 
@@ -253,8 +396,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_d33488d9cb279feb" grou
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_9a3851f5a39a9e5d" interruptible ::
+interruptible ::
      IO ()
+interruptible =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType interruptible_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_fa9100d6d4da2bd4" javascript_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @javascript@
 
@@ -262,8 +414,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_9a3851f5a39a9e5d" inte
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_fa9100d6d4da2bd4" javascript ::
+javascript ::
      IO ()
+javascript =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType javascript_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_264e9aa826f1d8fd" label_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @label@
 
@@ -271,8 +432,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_fa9100d6d4da2bd4" java
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_264e9aa826f1d8fd" label ::
+label ::
      IO ()
+label =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType label_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_06aa327310da5120" prim_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @prim@
 
@@ -280,8 +450,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_264e9aa826f1d8fd" labe
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_06aa327310da5120" prim ::
+prim ::
      IO ()
+prim =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType prim_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_0c2d88e0ce229900" role_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @role@
 
@@ -289,8 +468,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_06aa327310da5120" prim
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_0c2d88e0ce229900" role ::
+role ::
      IO ()
+role =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType role_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_a703e7f54db3712e" safe_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @safe@
 
@@ -298,8 +486,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_0c2d88e0ce229900" role
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_a703e7f54db3712e" safe ::
+safe ::
      IO ()
+safe =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType safe_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_001ca64746b969f3" stdcall_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @stdcall@
 
@@ -307,8 +504,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_a703e7f54db3712e" safe
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_001ca64746b969f3" stdcall ::
+stdcall ::
      IO ()
+stdcall =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType stdcall_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_44ab69657e70c20b" stock_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @stock@
 
@@ -316,8 +522,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_001ca64746b969f3" stdc
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_44ab69657e70c20b" stock ::
+stock ::
      IO ()
+stock =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType stock_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_cf74a7d7f3568406" unsafe_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @unsafe@
 
@@ -325,8 +540,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_44ab69657e70c20b" stoc
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_cf74a7d7f3568406" unsafe ::
+unsafe ::
      IO ()
+unsafe =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType unsafe_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesnames_f24fb703d4751a60" via_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @via@
 
@@ -334,5 +558,7 @@ foreign import ccall safe "hs_bindgen_test_edgecasesnames_cf74a7d7f3568406" unsa
 
     __exported by:__ @edge-cases\/names.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesnames_f24fb703d4751a60" via ::
+via ::
      IO ()
+via =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType via_base

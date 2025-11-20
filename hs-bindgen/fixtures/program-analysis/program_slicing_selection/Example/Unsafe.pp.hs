@@ -6,6 +6,7 @@
 module Example.Unsafe where
 
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -23,13 +24,23 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_programanalysisprogram_slici_3ade0bc94fb1ed45" read_file_chunk_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr HsBindgen.Runtime.Prelude.CFile
+    -> Ptr.Ptr Void
+    -> HsBindgen.Runtime.Prelude.CSize
+    -> IO FileOperationStatus
+    )
+
 {-| __C declaration:__ @read_file_chunk@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_programanalysisprogram_slici_3ade0bc94fb1ed45" read_file_chunk ::
+read_file_chunk ::
      Ptr.Ptr HsBindgen.Runtime.Prelude.CFile
      {- ^ __C declaration:__ @file_ptr@
      -}
@@ -40,3 +51,5 @@ foreign import ccall unsafe "hs_bindgen_test_programanalysisprogram_slici_3ade0b
      {- ^ __C declaration:__ @bytes_to_read@
      -}
   -> IO FileOperationStatus
+read_file_chunk =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType read_file_chunk_base

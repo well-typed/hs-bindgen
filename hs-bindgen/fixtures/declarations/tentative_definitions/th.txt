@@ -18,7 +18,11 @@
 -- {
 --   return &i3;
 -- }
-foreign import ccall safe "hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983" hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983" hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983_base :: IO (Ptr CInt)
+hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983 :: IO (Ptr CInt)
+hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983 = fromMarshallableBaseType hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983_base
 {-# NOINLINE i1_ptr #-}
 {-| __C declaration:__ @i1@
 
@@ -34,7 +38,11 @@ i1_ptr :: Ptr CInt
     __exported by:__ @declarations\/tentative_definitions.h@
 -}
 i1_ptr = unsafePerformIO hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983
-foreign import ccall safe "hs_bindgen_test_declarationstentative_definit_8a341976b53c3159" hs_bindgen_test_declarationstentative_definit_8a341976b53c3159 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_declarationstentative_definit_8a341976b53c3159" hs_bindgen_test_declarationstentative_definit_8a341976b53c3159_base :: IO (Ptr CInt)
+hs_bindgen_test_declarationstentative_definit_8a341976b53c3159 :: IO (Ptr CInt)
+hs_bindgen_test_declarationstentative_definit_8a341976b53c3159 = fromMarshallableBaseType hs_bindgen_test_declarationstentative_definit_8a341976b53c3159_base
 {-# NOINLINE i2_ptr #-}
 {-| __C declaration:__ @i2@
 
@@ -50,7 +58,11 @@ i2_ptr :: Ptr CInt
     __exported by:__ @declarations\/tentative_definitions.h@
 -}
 i2_ptr = unsafePerformIO hs_bindgen_test_declarationstentative_definit_8a341976b53c3159
-foreign import ccall safe "hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5" hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5" hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5_base :: IO (Ptr CInt)
+hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5 :: IO (Ptr CInt)
+hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5 = fromMarshallableBaseType hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5_base
 {-# NOINLINE i3_ptr #-}
 {-| __C declaration:__ @i3@
 

@@ -10,6 +10,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -33,14 +34,25 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| Pointer-based API for 'multiply_complex_f'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_b84ea846e04d5fd6" multiply_complex_f_wrapper ::
+foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_b84ea846e04d5fd6" multiply_complex_f_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr (Data.Complex.Complex FC.CFloat)
+    -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
+    -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
+    -> IO ()
+    )
+
+{-| Pointer-based API for 'multiply_complex_f'
+-}
+multiply_complex_f_wrapper ::
      Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> IO ()
+multiply_complex_f_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType multiply_complex_f_wrapper_base
 
 {-| __C declaration:__ @multiply_complex_f@
 
@@ -64,14 +76,25 @@ multiply_complex_f =
                                 HsBindgen.Runtime.CAPI.allocaAndPeek (\z4 ->
                                                                         multiply_complex_f_wrapper y3 y2 z4)))
 
-{-| Pointer-based API for 'add_complex'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_8dd079d1707c36b3" add_complex_wrapper ::
+foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_8dd079d1707c36b3" add_complex_wrapper_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.Ptr (Data.Complex.Complex FC.CDouble)
+    -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
+    -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
+    -> IO ()
+    )
+
+{-| Pointer-based API for 'add_complex'
+-}
+add_complex_wrapper ::
      Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> IO ()
+add_complex_wrapper =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType add_complex_wrapper_base
 
 {-| __C declaration:__ @add_complex@
 

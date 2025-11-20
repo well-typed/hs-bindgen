@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -90,8 +91,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_504a6a44ef649697" hs_bindgen_test_edgecasesiterator_504a6a44ef649697 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_504a6a44ef649697" hs_bindgen_test_edgecasesiterator_504a6a44ef649697_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CBool -> IO Toggle))
+    )
+
+hs_bindgen_test_edgecasesiterator_504a6a44ef649697 ::
      IO (Ptr.FunPtr (FC.CBool -> IO Toggle))
+hs_bindgen_test_edgecasesiterator_504a6a44ef649697 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesiterator_504a6a44ef649697_base
 
 {-# NOINLINE makeToggle_ptr #-}
 
@@ -105,8 +115,17 @@ makeToggle_ptr :: Ptr.FunPtr (FC.CBool -> IO Toggle)
 makeToggle_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesiterator_504a6a44ef649697
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_ee784d0363e34151" hs_bindgen_test_edgecasesiterator_ee784d0363e34151 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_ee784d0363e34151" hs_bindgen_test_edgecasesiterator_ee784d0363e34151_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (Toggle -> IO FC.CBool))
+    )
+
+hs_bindgen_test_edgecasesiterator_ee784d0363e34151 ::
      IO (Ptr.FunPtr (Toggle -> IO FC.CBool))
+hs_bindgen_test_edgecasesiterator_ee784d0363e34151 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesiterator_ee784d0363e34151_base
 
 {-# NOINLINE toggleNext_ptr #-}
 
@@ -120,8 +139,17 @@ toggleNext_ptr :: Ptr.FunPtr (Toggle -> IO FC.CBool)
 toggleNext_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesiterator_ee784d0363e34151
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_864850832eaf96b9" hs_bindgen_test_edgecasesiterator_864850832eaf96b9 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_864850832eaf96b9" hs_bindgen_test_edgecasesiterator_864850832eaf96b9_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (Toggle -> IO ()))
+    )
+
+hs_bindgen_test_edgecasesiterator_864850832eaf96b9 ::
      IO (Ptr.FunPtr (Toggle -> IO ()))
+hs_bindgen_test_edgecasesiterator_864850832eaf96b9 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesiterator_864850832eaf96b9_base
 
 {-# NOINLINE releaseToggle_ptr #-}
 
@@ -135,8 +163,17 @@ releaseToggle_ptr :: Ptr.FunPtr (Toggle -> IO ())
 releaseToggle_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesiterator_864850832eaf96b9
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_48b98d306e2a8d53" hs_bindgen_test_edgecasesiterator_48b98d306e2a8d53 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_48b98d306e2a8d53" hs_bindgen_test_edgecasesiterator_48b98d306e2a8d53_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter))
+    )
+
+hs_bindgen_test_edgecasesiterator_48b98d306e2a8d53 ::
      IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter))
+hs_bindgen_test_edgecasesiterator_48b98d306e2a8d53 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesiterator_48b98d306e2a8d53_base
 
 {-# NOINLINE makeCounter_ptr #-}
 
@@ -150,8 +187,17 @@ makeCounter_ptr :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter)
 makeCounter_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesiterator_48b98d306e2a8d53
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_aeb21db5034e4d66" hs_bindgen_test_edgecasesiterator_aeb21db5034e4d66 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_aeb21db5034e4d66" hs_bindgen_test_edgecasesiterator_aeb21db5034e4d66_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (Counter -> IO FC.CInt))
+    )
+
+hs_bindgen_test_edgecasesiterator_aeb21db5034e4d66 ::
      IO (Ptr.FunPtr (Counter -> IO FC.CInt))
+hs_bindgen_test_edgecasesiterator_aeb21db5034e4d66 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesiterator_aeb21db5034e4d66_base
 
 {-# NOINLINE counterNext_ptr #-}
 
@@ -165,8 +211,17 @@ counterNext_ptr :: Ptr.FunPtr (Counter -> IO FC.CInt)
 counterNext_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesiterator_aeb21db5034e4d66
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_8e1661e238f6f451" hs_bindgen_test_edgecasesiterator_8e1661e238f6f451 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_8e1661e238f6f451" hs_bindgen_test_edgecasesiterator_8e1661e238f6f451_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (Counter -> IO ()))
+    )
+
+hs_bindgen_test_edgecasesiterator_8e1661e238f6f451 ::
      IO (Ptr.FunPtr (Counter -> IO ()))
+hs_bindgen_test_edgecasesiterator_8e1661e238f6f451 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesiterator_8e1661e238f6f451_base
 
 {-# NOINLINE releaseCounter_ptr #-}
 
@@ -180,8 +235,17 @@ releaseCounter_ptr :: Ptr.FunPtr (Counter -> IO ())
 releaseCounter_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesiterator_8e1661e238f6f451
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_b14e88e9cf7a56b8" hs_bindgen_test_edgecasesiterator_b14e88e9cf7a56b8 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_b14e88e9cf7a56b8" hs_bindgen_test_edgecasesiterator_b14e88e9cf7a56b8_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CInt -> IO VarCounter))
+    )
+
+hs_bindgen_test_edgecasesiterator_b14e88e9cf7a56b8 ::
      IO (Ptr.FunPtr (FC.CInt -> IO VarCounter))
+hs_bindgen_test_edgecasesiterator_b14e88e9cf7a56b8 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesiterator_b14e88e9cf7a56b8_base
 
 {-# NOINLINE makeVarCounter_ptr #-}
 
@@ -195,8 +259,17 @@ makeVarCounter_ptr :: Ptr.FunPtr (FC.CInt -> IO VarCounter)
 makeVarCounter_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesiterator_b14e88e9cf7a56b8
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_4d10204c4166188d" hs_bindgen_test_edgecasesiterator_4d10204c4166188d ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_4d10204c4166188d" hs_bindgen_test_edgecasesiterator_4d10204c4166188d_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt))
+    )
+
+hs_bindgen_test_edgecasesiterator_4d10204c4166188d ::
      IO (Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt))
+hs_bindgen_test_edgecasesiterator_4d10204c4166188d =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesiterator_4d10204c4166188d_base
 
 {-# NOINLINE varCounterNext_ptr #-}
 
@@ -210,8 +283,17 @@ varCounterNext_ptr :: Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt)
 varCounterNext_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesiterator_4d10204c4166188d
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_bde04ef01335be42" hs_bindgen_test_edgecasesiterator_bde04ef01335be42 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesiterator_bde04ef01335be42" hs_bindgen_test_edgecasesiterator_bde04ef01335be42_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (VarCounter -> IO ()))
+    )
+
+hs_bindgen_test_edgecasesiterator_bde04ef01335be42 ::
      IO (Ptr.FunPtr (VarCounter -> IO ()))
+hs_bindgen_test_edgecasesiterator_bde04ef01335be42 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesiterator_bde04ef01335be42_base
 
 {-# NOINLINE releaseVarCounter_ptr #-}
 

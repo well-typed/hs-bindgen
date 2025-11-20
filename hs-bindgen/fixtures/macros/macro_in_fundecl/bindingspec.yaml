@@ -28,6 +28,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -40,6 +41,7 @@ hstypes:
   - Eq
   - Floating
   - Fractional
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -57,6 +59,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -72,6 +75,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -87,6 +91,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read

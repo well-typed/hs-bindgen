@@ -8,6 +8,7 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -33,8 +34,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983" hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983" hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983_base
 
 {-# NOINLINE i1_ptr #-}
 
@@ -48,8 +58,17 @@ i1_ptr :: Ptr.Ptr FC.CInt
 i1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983
 
-foreign import ccall unsafe "hs_bindgen_test_declarationstentative_definit_8a341976b53c3159" hs_bindgen_test_declarationstentative_definit_8a341976b53c3159 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_declarationstentative_definit_8a341976b53c3159" hs_bindgen_test_declarationstentative_definit_8a341976b53c3159_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_declarationstentative_definit_8a341976b53c3159 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_declarationstentative_definit_8a341976b53c3159 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_declarationstentative_definit_8a341976b53c3159_base
 
 {-# NOINLINE i2_ptr #-}
 
@@ -63,8 +82,17 @@ i2_ptr :: Ptr.Ptr FC.CInt
 i2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_declarationstentative_definit_8a341976b53c3159
 
-foreign import ccall unsafe "hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5" hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5" hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.Ptr FC.CInt)
+    )
+
+hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5_base
 
 {-# NOINLINE i3_ptr #-}
 

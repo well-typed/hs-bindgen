@@ -146,6 +146,7 @@ bindingSpec = BindingSpec.BindingSpec{..}
       , Hs.StaticSize
       , Hs.Storable
       , Hs.WriteRaw
+      , Hs.Marshallable
       ]
 
     timeI :: [Hs.TypeClass]
@@ -161,6 +162,7 @@ bindingSpec = BindingSpec.BindingSpec{..}
       , Hs.StaticSize
       , Hs.Storable
       , Hs.WriteRaw
+      , Hs.Marshallable
       ]
 
     aux ::

@@ -154,24 +154,49 @@ instance HasCField Y "y_o"
 instance TyEq ty (CFieldType Y "y_o") =>
          HasField "y_o" (Ptr Y) (Ptr ty)
     where getField = ptrToCField (Proxy @"y_o")
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_5a514c66396155ff" foo_base :: CDouble ->
+                                                                                                 IO CInt
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h:13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
-foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_5a514c66396155ff" foo :: CDouble ->
-                                                                                            IO CInt
+foo :: CDouble -> IO CInt
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h:13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
-foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_84e4eb047d6694cd" foo :: CDouble ->
-                                                                                            IO CInt
-foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_32925a42980e81cd" hs_bindgen_test_declarationsdefinitions_32925a42980e81cd :: IO (FunPtr (CDouble ->
-                                                                                                                                                             IO CInt))
+foo = fromMarshallableBaseType foo_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_84e4eb047d6694cd" foo_base :: CDouble ->
+                                                                                                 IO CInt
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @declarations\/definitions.h:13:5@
+
+    __exported by:__ @declarations\/definitions.h@
+-}
+foo :: CDouble -> IO CInt
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @declarations\/definitions.h:13:5@
+
+    __exported by:__ @declarations\/definitions.h@
+-}
+foo = fromMarshallableBaseType foo_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_32925a42980e81cd" hs_bindgen_test_declarationsdefinitions_32925a42980e81cd_base :: IO (FunPtr (CDouble ->
+                                                                                                                                                                  IO CInt))
+hs_bindgen_test_declarationsdefinitions_32925a42980e81cd :: IO (FunPtr (CDouble ->
+                                                                        IO CInt))
+hs_bindgen_test_declarationsdefinitions_32925a42980e81cd = fromMarshallableBaseType hs_bindgen_test_declarationsdefinitions_32925a42980e81cd_base
 {-# NOINLINE foo_ptr #-}
 {-| __C declaration:__ @foo@
 
@@ -187,7 +212,11 @@ foo_ptr :: FunPtr (CDouble -> IO CInt)
     __exported by:__ @declarations\/definitions.h@
 -}
 foo_ptr = unsafePerformIO hs_bindgen_test_declarationsdefinitions_32925a42980e81cd
-foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c" hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c" hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c_base :: IO (Ptr CInt)
+hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c :: IO (Ptr CInt)
+hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c = fromMarshallableBaseType hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c_base
 {-# NOINLINE n_ptr #-}
 {-| __C declaration:__ @n@
 

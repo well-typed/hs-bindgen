@@ -9,6 +9,7 @@ import qualified Data.Complex
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -34,8 +35,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_a7d89c01385c8c56" hs_bindgen_test_typescomplexhsb_complex_test_a7d89c01385c8c56 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_a7d89c01385c8c56" hs_bindgen_test_typescomplexhsb_complex_test_a7d89c01385c8c56_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Data.Complex.Complex FC.CFloat) -> (Data.Complex.Complex FC.CFloat) -> IO (Data.Complex.Complex FC.CFloat)))
+    )
+
+hs_bindgen_test_typescomplexhsb_complex_test_a7d89c01385c8c56 ::
      IO (Ptr.FunPtr ((Data.Complex.Complex FC.CFloat) -> (Data.Complex.Complex FC.CFloat) -> IO (Data.Complex.Complex FC.CFloat)))
+hs_bindgen_test_typescomplexhsb_complex_test_a7d89c01385c8c56 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_typescomplexhsb_complex_test_a7d89c01385c8c56_base
 
 {-# NOINLINE multiply_complex_f_ptr #-}
 
@@ -49,8 +59,17 @@ multiply_complex_f_ptr :: Ptr.FunPtr ((Data.Complex.Complex FC.CFloat) -> (Data.
 multiply_complex_f_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_a7d89c01385c8c56
 
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_b6226a5bde741b3f" hs_bindgen_test_typescomplexhsb_complex_test_b6226a5bde741b3f ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_b6226a5bde741b3f" hs_bindgen_test_typescomplexhsb_complex_test_b6226a5bde741b3f_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Data.Complex.Complex FC.CDouble) -> (Data.Complex.Complex FC.CDouble) -> IO (Data.Complex.Complex FC.CDouble)))
+    )
+
+hs_bindgen_test_typescomplexhsb_complex_test_b6226a5bde741b3f ::
      IO (Ptr.FunPtr ((Data.Complex.Complex FC.CDouble) -> (Data.Complex.Complex FC.CDouble) -> IO (Data.Complex.Complex FC.CDouble)))
+hs_bindgen_test_typescomplexhsb_complex_test_b6226a5bde741b3f =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_typescomplexhsb_complex_test_b6226a5bde741b3f_base
 
 {-# NOINLINE add_complex_ptr #-}
 

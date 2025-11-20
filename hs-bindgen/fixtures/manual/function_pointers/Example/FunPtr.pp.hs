@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -84,8 +85,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9" hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9" hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+    )
+
+hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9 ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9_base
 
 {-# NOINLINE square_ptr #-}
 
@@ -99,8 +109,17 @@ square_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9
 
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_bf838c747898dc42" hs_bindgen_test_manualfunction_pointers_bf838c747898dc42 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_bf838c747898dc42" hs_bindgen_test_manualfunction_pointers_bf838c747898dc42_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt))
+    )
+
+hs_bindgen_test_manualfunction_pointers_bf838c747898dc42 ::
      IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt))
+hs_bindgen_test_manualfunction_pointers_bf838c747898dc42 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualfunction_pointers_bf838c747898dc42_base
 
 {-# NOINLINE plus_ptr #-}
 
@@ -114,8 +133,17 @@ plus_ptr :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
 plus_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_bf838c747898dc42
 
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_4d1935e01bc37070" hs_bindgen_test_manualfunction_pointers_4d1935e01bc37070 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_4d1935e01bc37070" hs_bindgen_test_manualfunction_pointers_4d1935e01bc37070_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt))
+    )
+
+hs_bindgen_test_manualfunction_pointers_4d1935e01bc37070 ::
      IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt))
+hs_bindgen_test_manualfunction_pointers_4d1935e01bc37070 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualfunction_pointers_4d1935e01bc37070_base
 
 {-# NOINLINE apply1_ptr #-}
 
@@ -129,8 +157,17 @@ apply1_ptr :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO 
 apply1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_4d1935e01bc37070
 
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a" hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a" hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)) -> FC.CInt -> FC.CInt -> IO FC.CInt))
+    )
+
+hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a ::
      IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)) -> FC.CInt -> FC.CInt -> IO FC.CInt))
+hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a_base
 
 {-# NOINLINE apply2_ptr #-}
 
@@ -144,8 +181,17 @@ apply2_ptr :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)) -> FC.
 apply2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a
 
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca" hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca" hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+    )
+
+hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca ::
      IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca_base
 
 {-# NOINLINE apply1_pointer_arg_ptr #-}
 
@@ -161,8 +207,17 @@ apply1_pointer_arg_ptr :: Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.C
 apply1_pointer_arg_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca
 
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81" hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81" hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+    )
+
+hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81 ::
      IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81_base
 
 {-# NOINLINE apply1_nopointer_arg_ptr #-}
 
@@ -178,8 +233,17 @@ apply1_nopointer_arg_ptr :: Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC
 apply1_nopointer_arg_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81
 
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f" hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f" hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))))
+    )
+
+hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f ::
      IO (Ptr.FunPtr (IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))))
+hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f_base
 
 {-# NOINLINE apply1_nopointer_res_ptr #-}
 

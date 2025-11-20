@@ -7,6 +7,7 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -32,8 +33,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_fc1dad225b555299" hs_bindgen_test_manualarrays_fc1dad225b555299 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_fc1dad225b555299" hs_bindgen_test_manualarrays_fc1dad225b555299_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
+    )
+
+hs_bindgen_test_manualarrays_fc1dad225b555299 ::
      IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
+hs_bindgen_test_manualarrays_fc1dad225b555299 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualarrays_fc1dad225b555299_base
 
 {-# NOINLINE transpose_ptr #-}
 
@@ -47,8 +57,17 @@ transpose_ptr :: Ptr.FunPtr (Matrix -> Matrix -> IO ())
 transpose_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_fc1dad225b555299
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_0b485cea747ee35d" hs_bindgen_test_manualarrays_0b485cea747ee35d ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_0b485cea747ee35d" hs_bindgen_test_manualarrays_0b485cea747ee35d_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (Triplet_ptrs -> IO ()))
+    )
+
+hs_bindgen_test_manualarrays_0b485cea747ee35d ::
      IO (Ptr.FunPtr (Triplet_ptrs -> IO ()))
+hs_bindgen_test_manualarrays_0b485cea747ee35d =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_manualarrays_0b485cea747ee35d_base
 
 {-# NOINLINE pretty_print_triplets_ptr #-}
 

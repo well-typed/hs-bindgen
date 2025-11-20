@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -106,8 +107,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7d7a63ab896ed293" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7d7a63ab896ed293 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7d7a63ab896ed293" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7d7a63ab896ed293_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (MC -> TC -> IO FC.CChar))
+    )
+
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7d7a63ab896ed293 ::
      IO (Ptr.FunPtr (MC -> TC -> IO FC.CChar))
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7d7a63ab896ed293 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7d7a63ab896ed293_base
 
 {-# NOINLINE quux1_ptr #-}
 
@@ -121,8 +131,17 @@ quux1_ptr :: Ptr.FunPtr (MC -> TC -> IO FC.CChar)
 quux1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7d7a63ab896ed293
 
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_b64c564dd7071f5b" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_b64c564dd7071f5b ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_b64c564dd7071f5b" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_b64c564dd7071f5b_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (MC -> FC.CChar -> IO TC))
+    )
+
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_b64c564dd7071f5b ::
      IO (Ptr.FunPtr (MC -> FC.CChar -> IO TC))
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_b64c564dd7071f5b =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_b64c564dd7071f5b_base
 
 {-# NOINLINE quux2_ptr #-}
 
@@ -136,8 +155,17 @@ quux2_ptr :: Ptr.FunPtr (MC -> FC.CChar -> IO TC)
 quux2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_b64c564dd7071f5b
 
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_aa26b3a0f4d0aefe" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_aa26b3a0f4d0aefe ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_aa26b3a0f4d0aefe" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_aa26b3a0f4d0aefe_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr TC) -> IO (Ptr.Ptr MC)))
+    )
+
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_aa26b3a0f4d0aefe ::
      IO (Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr TC) -> IO (Ptr.Ptr MC)))
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_aa26b3a0f4d0aefe =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_aa26b3a0f4d0aefe_base
 
 {-# NOINLINE wam1_ptr #-}
 
@@ -151,8 +179,17 @@ wam1_ptr :: Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr TC) -> IO (Ptr.Ptr MC))
 wam1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_aa26b3a0f4d0aefe
 
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_5cb5ead73c0a3d63" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_5cb5ead73c0a3d63 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_5cb5ead73c0a3d63" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_5cb5ead73c0a3d63_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr MC) -> IO (Ptr.Ptr TC)))
+    )
+
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_5cb5ead73c0a3d63 ::
      IO (Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr MC) -> IO (Ptr.Ptr TC)))
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_5cb5ead73c0a3d63 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_5cb5ead73c0a3d63_base
 
 {-# NOINLINE wam2_ptr #-}
 
@@ -166,8 +203,17 @@ wam2_ptr :: Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr MC) -> IO (Ptr.Ptr TC))
 wam2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_5cb5ead73c0a3d63
 
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a1aadeb6878a5152" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a1aadeb6878a5152 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a1aadeb6878a5152" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a1aadeb6878a5152_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.Ptr Struct2) -> MC -> IO ()))
+    )
+
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a1aadeb6878a5152 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Struct2) -> MC -> IO ()))
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a1aadeb6878a5152 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a1aadeb6878a5152_base
 
 {-# NOINLINE struct_typedef1_ptr #-}
 
@@ -181,8 +227,17 @@ struct_typedef1_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct2) -> MC -> IO ())
 struct_typedef1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a1aadeb6878a5152
 
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e1dac8a006e6b043" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e1dac8a006e6b043 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e1dac8a006e6b043" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e1dac8a006e6b043_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.Ptr Struct3_t) -> MC -> IO ()))
+    )
+
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e1dac8a006e6b043 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Struct3_t) -> MC -> IO ()))
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e1dac8a006e6b043 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e1dac8a006e6b043_base
 
 {-# NOINLINE struct_typedef2_ptr #-}
 
@@ -196,8 +251,17 @@ struct_typedef2_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct3_t) -> MC -> IO ())
 struct_typedef2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e1dac8a006e6b043
 
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_078075d0a80d4368" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_078075d0a80d4368 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_078075d0a80d4368" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_078075d0a80d4368_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.Ptr Struct4) -> MC -> IO ()))
+    )
+
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_078075d0a80d4368 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Struct4) -> MC -> IO ()))
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_078075d0a80d4368 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_078075d0a80d4368_base
 
 {-# NOINLINE struct_typedef3_ptr #-}
 
@@ -211,8 +275,17 @@ struct_typedef3_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct4) -> MC -> IO ())
 struct_typedef3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_078075d0a80d4368
 
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7574edf86480f042" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7574edf86480f042 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7574edf86480f042" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7574edf86480f042_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.Ptr Struct1) -> MC -> IO ()))
+    )
+
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7574edf86480f042 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Struct1) -> MC -> IO ()))
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7574edf86480f042 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7574edf86480f042_base
 
 {-# NOINLINE struct_name1_ptr #-}
 
@@ -226,8 +299,17 @@ struct_name1_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct1) -> MC -> IO ())
 struct_name1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_7574edf86480f042
 
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e7a8c1f45f8b20c2" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e7a8c1f45f8b20c2 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e7a8c1f45f8b20c2" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e7a8c1f45f8b20c2_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.Ptr Struct3) -> MC -> IO ()))
+    )
+
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e7a8c1f45f8b20c2 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Struct3) -> MC -> IO ()))
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e7a8c1f45f8b20c2 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e7a8c1f45f8b20c2_base
 
 {-# NOINLINE struct_name2_ptr #-}
 
@@ -241,8 +323,17 @@ struct_name2_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct3) -> MC -> IO ())
 struct_name2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_e7a8c1f45f8b20c2
 
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_d52310663e8daa5c" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_d52310663e8daa5c ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_d52310663e8daa5c" hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_d52310663e8daa5c_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.Ptr Struct4) -> MC -> IO ()))
+    )
+
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_d52310663e8daa5c ::
      IO (Ptr.FunPtr ((Ptr.Ptr Struct4) -> MC -> IO ()))
+hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_d52310663e8daa5c =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_d52310663e8daa5c_base
 
 {-# NOINLINE struct_name3_ptr #-}
 

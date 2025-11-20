@@ -436,10 +436,21 @@ newtype FileOpenedNotification_Deref
 
       __exported by:__ @functions\/callbacks.h@
       -}
-foreign import ccall safe "wrapper" toFileOpenedNotification_Deref :: FileOpenedNotification_Deref ->
-                                                                      IO (FunPtr FileOpenedNotification_Deref)
-foreign import ccall safe "dynamic" fromFileOpenedNotification_Deref :: FunPtr FileOpenedNotification_Deref ->
-                                                                        FileOpenedNotification_Deref
+    deriving newtype Marshallable
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toFileOpenedNotification_Deref_base :: FileOpenedNotification_Deref ->
+                                                                           IO (FunPtr FileOpenedNotification_Deref)
+toFileOpenedNotification_Deref :: FileOpenedNotification_Deref ->
+                                  IO (FunPtr FileOpenedNotification_Deref)
+toFileOpenedNotification_Deref = fromMarshallableBaseType toFileOpenedNotification_Deref_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromFileOpenedNotification_Deref_base :: FunPtr FileOpenedNotification_Deref ->
+                                                                             FileOpenedNotification_Deref
+fromFileOpenedNotification_Deref :: FunPtr FileOpenedNotification_Deref ->
+                                    FileOpenedNotification_Deref
+fromFileOpenedNotification_Deref = fromMarshallableBaseType fromFileOpenedNotification_Deref_base
 instance ToFunPtr FileOpenedNotification_Deref
     where toFunPtr = toFileOpenedNotification_Deref
 instance FromFunPtr FileOpenedNotification_Deref
@@ -471,7 +482,7 @@ newtype FileOpenedNotification
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Marshallable)
 instance TyEq ty
               (CFieldType FileOpenedNotification "un_FileOpenedNotification") =>
          HasField "un_FileOpenedNotification"
@@ -498,10 +509,21 @@ newtype ProgressUpdate_Deref
 
       __exported by:__ @functions\/callbacks.h@
       -}
-foreign import ccall safe "wrapper" toProgressUpdate_Deref :: ProgressUpdate_Deref ->
-                                                              IO (FunPtr ProgressUpdate_Deref)
-foreign import ccall safe "dynamic" fromProgressUpdate_Deref :: FunPtr ProgressUpdate_Deref ->
-                                                                ProgressUpdate_Deref
+    deriving newtype Marshallable
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toProgressUpdate_Deref_base :: ProgressUpdate_Deref ->
+                                                                   IO (FunPtr ProgressUpdate_Deref)
+toProgressUpdate_Deref :: ProgressUpdate_Deref ->
+                          IO (FunPtr ProgressUpdate_Deref)
+toProgressUpdate_Deref = fromMarshallableBaseType toProgressUpdate_Deref_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromProgressUpdate_Deref_base :: FunPtr ProgressUpdate_Deref ->
+                                                                     ProgressUpdate_Deref
+fromProgressUpdate_Deref :: FunPtr ProgressUpdate_Deref ->
+                            ProgressUpdate_Deref
+fromProgressUpdate_Deref = fromMarshallableBaseType fromProgressUpdate_Deref_base
 instance ToFunPtr ProgressUpdate_Deref
     where toFunPtr = toProgressUpdate_Deref
 instance FromFunPtr ProgressUpdate_Deref
@@ -531,7 +553,7 @@ newtype ProgressUpdate
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Marshallable)
 instance TyEq ty (CFieldType ProgressUpdate "un_ProgressUpdate") =>
          HasField "un_ProgressUpdate" (Ptr ProgressUpdate) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_ProgressUpdate")
@@ -553,10 +575,21 @@ newtype DataValidator_Deref
 
       __exported by:__ @functions\/callbacks.h@
       -}
-foreign import ccall safe "wrapper" toDataValidator_Deref :: DataValidator_Deref ->
-                                                             IO (FunPtr DataValidator_Deref)
-foreign import ccall safe "dynamic" fromDataValidator_Deref :: FunPtr DataValidator_Deref ->
-                                                               DataValidator_Deref
+    deriving newtype Marshallable
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toDataValidator_Deref_base :: DataValidator_Deref ->
+                                                                  IO (FunPtr DataValidator_Deref)
+toDataValidator_Deref :: DataValidator_Deref ->
+                         IO (FunPtr DataValidator_Deref)
+toDataValidator_Deref = fromMarshallableBaseType toDataValidator_Deref_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromDataValidator_Deref_base :: FunPtr DataValidator_Deref ->
+                                                                    DataValidator_Deref
+fromDataValidator_Deref :: FunPtr DataValidator_Deref ->
+                           DataValidator_Deref
+fromDataValidator_Deref = fromMarshallableBaseType fromDataValidator_Deref_base
 instance ToFunPtr DataValidator_Deref
     where toFunPtr = toDataValidator_Deref
 instance FromFunPtr DataValidator_Deref
@@ -586,7 +619,7 @@ newtype DataValidator
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Marshallable)
 instance TyEq ty (CFieldType DataValidator "un_DataValidator") =>
          HasField "un_DataValidator" (Ptr DataValidator) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_DataValidator")
@@ -657,10 +690,21 @@ newtype MeasurementReceived_Deref
 
       __exported by:__ @functions\/callbacks.h@
       -}
-foreign import ccall safe "wrapper" toMeasurementReceived_Deref :: MeasurementReceived_Deref ->
-                                                                   IO (FunPtr MeasurementReceived_Deref)
-foreign import ccall safe "dynamic" fromMeasurementReceived_Deref :: FunPtr MeasurementReceived_Deref ->
-                                                                     MeasurementReceived_Deref
+    deriving newtype Marshallable
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toMeasurementReceived_Deref_base :: MeasurementReceived_Deref ->
+                                                                        IO (FunPtr MeasurementReceived_Deref)
+toMeasurementReceived_Deref :: MeasurementReceived_Deref ->
+                               IO (FunPtr MeasurementReceived_Deref)
+toMeasurementReceived_Deref = fromMarshallableBaseType toMeasurementReceived_Deref_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromMeasurementReceived_Deref_base :: FunPtr MeasurementReceived_Deref ->
+                                                                          MeasurementReceived_Deref
+fromMeasurementReceived_Deref :: FunPtr MeasurementReceived_Deref ->
+                                 MeasurementReceived_Deref
+fromMeasurementReceived_Deref = fromMarshallableBaseType fromMeasurementReceived_Deref_base
 instance ToFunPtr MeasurementReceived_Deref
     where toFunPtr = toMeasurementReceived_Deref
 instance FromFunPtr MeasurementReceived_Deref
@@ -692,7 +736,7 @@ newtype MeasurementReceived
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Marshallable)
 instance TyEq ty
               (CFieldType MeasurementReceived "un_MeasurementReceived") =>
          HasField "un_MeasurementReceived"
@@ -745,7 +789,7 @@ newtype MeasurementReceived2
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Marshallable)
 instance TyEq ty
               (CFieldType MeasurementReceived2 "un_MeasurementReceived2") =>
          HasField "un_MeasurementReceived2"
@@ -798,7 +842,7 @@ newtype SampleBufferFull
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Marshallable)
 instance TyEq ty
               (CFieldType SampleBufferFull "un_SampleBufferFull") =>
          HasField "un_SampleBufferFull" (Ptr SampleBufferFull) (Ptr ty)
@@ -1127,6 +1171,7 @@ newtype Processor_mode
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype Marshallable
 instance Storable Processor_mode
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -1259,6 +1304,7 @@ newtype Foo
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      Marshallable,
                       Bits,
                       Bounded,
                       Enum,
@@ -1289,6 +1335,7 @@ newtype Foo2
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      Marshallable,
                       Bits,
                       Bounded,
                       Enum,
@@ -1303,135 +1350,257 @@ instance TyEq ty (CFieldType Foo2 "un_Foo2") =>
 instance HasCField Foo2 "un_Foo2"
     where type CFieldType Foo2 "un_Foo2" = CInt
           offset# = \_ -> \_ -> 0
-foreign import ccall safe "wrapper" funPtr_7a7e54ab_to :: (Foo ->
-                                                           IO Unit) ->
-                                                          IO (FunPtr (Foo -> IO Unit))
-foreign import ccall safe "dynamic" funPtr_7a7e54ab_from :: FunPtr (Foo ->
-                                                                    IO Unit) ->
-                                                            Foo -> IO Unit
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_7a7e54ab_to_base :: (Foo ->
+                                                                IO Unit) ->
+                                                               IO (FunPtr (Foo -> IO Unit))
+funPtr_7a7e54ab_to :: (Foo -> IO Unit) ->
+                      IO (FunPtr (Foo -> IO Unit))
+funPtr_7a7e54ab_to = fromMarshallableBaseType funPtr_7a7e54ab_to_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_7a7e54ab_from_base :: FunPtr (Foo ->
+                                                                         IO Unit) ->
+                                                                 Foo -> IO Unit
+funPtr_7a7e54ab_from :: FunPtr (Foo -> IO Unit) -> Foo -> IO Unit
+funPtr_7a7e54ab_from = fromMarshallableBaseType funPtr_7a7e54ab_from_base
 instance ToFunPtr (Foo -> IO Unit)
     where toFunPtr = funPtr_7a7e54ab_to
 instance FromFunPtr (Foo -> IO Unit)
     where fromFunPtr = funPtr_7a7e54ab_from
-foreign import ccall safe "wrapper" funPtr_527712e4_to :: (Ptr Measurement ->
-                                                           IO CInt) ->
-                                                          IO (FunPtr (Ptr Measurement -> IO CInt))
-foreign import ccall safe "dynamic" funPtr_527712e4_from :: FunPtr (Ptr Measurement ->
-                                                                    IO CInt) ->
-                                                            Ptr Measurement -> IO CInt
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_527712e4_to_base :: (Ptr Measurement ->
+                                                                IO CInt) ->
+                                                               IO (FunPtr (Ptr Measurement ->
+                                                                           IO CInt))
+funPtr_527712e4_to :: (Ptr Measurement -> IO CInt) ->
+                      IO (FunPtr (Ptr Measurement -> IO CInt))
+funPtr_527712e4_to = fromMarshallableBaseType funPtr_527712e4_to_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_527712e4_from_base :: FunPtr (Ptr Measurement ->
+                                                                         IO CInt) ->
+                                                                 Ptr Measurement -> IO CInt
+funPtr_527712e4_from :: FunPtr (Ptr Measurement -> IO CInt) ->
+                        Ptr Measurement -> IO CInt
+funPtr_527712e4_from = fromMarshallableBaseType funPtr_527712e4_from_base
 instance ToFunPtr (Ptr Measurement -> IO CInt)
     where toFunPtr = funPtr_527712e4_to
 instance FromFunPtr (Ptr Measurement -> IO CInt)
     where fromFunPtr = funPtr_527712e4_from
-foreign import ccall safe "wrapper" funPtr_2cc53fd3_to :: (Ptr Measurement ->
-                                                           IO Unit) ->
-                                                          IO (FunPtr (Ptr Measurement -> IO Unit))
-foreign import ccall safe "dynamic" funPtr_2cc53fd3_from :: FunPtr (Ptr Measurement ->
-                                                                    IO Unit) ->
-                                                            Ptr Measurement -> IO Unit
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_2cc53fd3_to_base :: (Ptr Measurement ->
+                                                                IO Unit) ->
+                                                               IO (FunPtr (Ptr Measurement ->
+                                                                           IO Unit))
+funPtr_2cc53fd3_to :: (Ptr Measurement -> IO Unit) ->
+                      IO (FunPtr (Ptr Measurement -> IO Unit))
+funPtr_2cc53fd3_to = fromMarshallableBaseType funPtr_2cc53fd3_to_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_2cc53fd3_from_base :: FunPtr (Ptr Measurement ->
+                                                                         IO Unit) ->
+                                                                 Ptr Measurement -> IO Unit
+funPtr_2cc53fd3_from :: FunPtr (Ptr Measurement -> IO Unit) ->
+                        Ptr Measurement -> IO Unit
+funPtr_2cc53fd3_from = fromMarshallableBaseType funPtr_2cc53fd3_from_base
 instance ToFunPtr (Ptr Measurement -> IO Unit)
     where toFunPtr = funPtr_2cc53fd3_to
 instance FromFunPtr (Ptr Measurement -> IO Unit)
     where fromFunPtr = funPtr_2cc53fd3_from
-foreign import ccall safe "wrapper" funPtr_6f6352e1_to :: (Ptr Measurement ->
-                                                           DataValidator -> IO Unit) ->
-                                                          IO (FunPtr (Ptr Measurement ->
-                                                                      DataValidator -> IO Unit))
-foreign import ccall safe "dynamic" funPtr_6f6352e1_from :: FunPtr (Ptr Measurement ->
-                                                                    DataValidator -> IO Unit) ->
-                                                            Ptr Measurement ->
-                                                            DataValidator -> IO Unit
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_6f6352e1_to_base :: (Ptr Measurement ->
+                                                                DataValidator -> IO Unit) ->
+                                                               IO (FunPtr (Ptr Measurement ->
+                                                                           DataValidator ->
+                                                                           IO Unit))
+funPtr_6f6352e1_to :: (Ptr Measurement ->
+                       DataValidator -> IO Unit) ->
+                      IO (FunPtr (Ptr Measurement -> DataValidator -> IO Unit))
+funPtr_6f6352e1_to = fromMarshallableBaseType funPtr_6f6352e1_to_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_6f6352e1_from_base :: FunPtr (Ptr Measurement ->
+                                                                         DataValidator ->
+                                                                         IO Unit) ->
+                                                                 Ptr Measurement ->
+                                                                 DataValidator -> IO Unit
+funPtr_6f6352e1_from :: FunPtr (Ptr Measurement ->
+                                DataValidator -> IO Unit) ->
+                        Ptr Measurement -> DataValidator -> IO Unit
+funPtr_6f6352e1_from = fromMarshallableBaseType funPtr_6f6352e1_from_base
 instance ToFunPtr (Ptr Measurement -> DataValidator -> IO Unit)
     where toFunPtr = funPtr_6f6352e1_to
 instance FromFunPtr (Ptr Measurement -> DataValidator -> IO Unit)
     where fromFunPtr = funPtr_6f6352e1_from
-foreign import ccall safe "wrapper" funPtr_065333fd_to :: (Ptr Measurement ->
-                                                           DataValidator -> CInt -> IO Unit) ->
-                                                          IO (FunPtr (Ptr Measurement ->
-                                                                      DataValidator ->
-                                                                      CInt -> IO Unit))
-foreign import ccall safe "dynamic" funPtr_065333fd_from :: FunPtr (Ptr Measurement ->
-                                                                    DataValidator ->
-                                                                    CInt -> IO Unit) ->
-                                                            Ptr Measurement ->
-                                                            DataValidator -> CInt -> IO Unit
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_065333fd_to_base :: (Ptr Measurement ->
+                                                                DataValidator -> CInt -> IO Unit) ->
+                                                               IO (FunPtr (Ptr Measurement ->
+                                                                           DataValidator ->
+                                                                           CInt -> IO Unit))
+funPtr_065333fd_to :: (Ptr Measurement ->
+                       DataValidator -> CInt -> IO Unit) ->
+                      IO (FunPtr (Ptr Measurement -> DataValidator -> CInt -> IO Unit))
+funPtr_065333fd_to = fromMarshallableBaseType funPtr_065333fd_to_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_065333fd_from_base :: FunPtr (Ptr Measurement ->
+                                                                         DataValidator ->
+                                                                         CInt -> IO Unit) ->
+                                                                 Ptr Measurement ->
+                                                                 DataValidator -> CInt -> IO Unit
+funPtr_065333fd_from :: FunPtr (Ptr Measurement ->
+                                DataValidator -> CInt -> IO Unit) ->
+                        Ptr Measurement -> DataValidator -> CInt -> IO Unit
+funPtr_065333fd_from = fromMarshallableBaseType funPtr_065333fd_from_base
 instance ToFunPtr (Ptr Measurement ->
                    DataValidator -> CInt -> IO Unit)
     where toFunPtr = funPtr_065333fd_to
 instance FromFunPtr (Ptr Measurement ->
                      DataValidator -> CInt -> IO Unit)
     where fromFunPtr = funPtr_065333fd_from
-foreign import ccall safe "wrapper" funPtr_ac6a854e_to :: (Ptr Measurement ->
-                                                           FileOpenedNotification ->
-                                                           CInt -> IO Unit) ->
-                                                          IO (FunPtr (Ptr Measurement ->
-                                                                      FileOpenedNotification ->
-                                                                      CInt -> IO Unit))
-foreign import ccall safe "dynamic" funPtr_ac6a854e_from :: FunPtr (Ptr Measurement ->
-                                                                    FileOpenedNotification ->
-                                                                    CInt -> IO Unit) ->
-                                                            Ptr Measurement ->
-                                                            FileOpenedNotification ->
-                                                            CInt -> IO Unit
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_ac6a854e_to_base :: (Ptr Measurement ->
+                                                                FileOpenedNotification ->
+                                                                CInt -> IO Unit) ->
+                                                               IO (FunPtr (Ptr Measurement ->
+                                                                           FileOpenedNotification ->
+                                                                           CInt -> IO Unit))
+funPtr_ac6a854e_to :: (Ptr Measurement ->
+                       FileOpenedNotification -> CInt -> IO Unit) ->
+                      IO (FunPtr (Ptr Measurement ->
+                                  FileOpenedNotification -> CInt -> IO Unit))
+funPtr_ac6a854e_to = fromMarshallableBaseType funPtr_ac6a854e_to_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_ac6a854e_from_base :: FunPtr (Ptr Measurement ->
+                                                                         FileOpenedNotification ->
+                                                                         CInt -> IO Unit) ->
+                                                                 Ptr Measurement ->
+                                                                 FileOpenedNotification ->
+                                                                 CInt -> IO Unit
+funPtr_ac6a854e_from :: FunPtr (Ptr Measurement ->
+                                FileOpenedNotification -> CInt -> IO Unit) ->
+                        Ptr Measurement -> FileOpenedNotification -> CInt -> IO Unit
+funPtr_ac6a854e_from = fromMarshallableBaseType funPtr_ac6a854e_from_base
 instance ToFunPtr (Ptr Measurement ->
                    FileOpenedNotification -> CInt -> IO Unit)
     where toFunPtr = funPtr_ac6a854e_to
 instance FromFunPtr (Ptr Measurement ->
                      FileOpenedNotification -> CInt -> IO Unit)
     where fromFunPtr = funPtr_ac6a854e_from
-foreign import ccall safe "wrapper" funPtr_5e6e3f6b_to :: (Ptr Measurement ->
-                                                           ProgressUpdate -> IO Unit) ->
-                                                          IO (FunPtr (Ptr Measurement ->
-                                                                      ProgressUpdate -> IO Unit))
-foreign import ccall safe "dynamic" funPtr_5e6e3f6b_from :: FunPtr (Ptr Measurement ->
-                                                                    ProgressUpdate -> IO Unit) ->
-                                                            Ptr Measurement ->
-                                                            ProgressUpdate -> IO Unit
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_5e6e3f6b_to_base :: (Ptr Measurement ->
+                                                                ProgressUpdate -> IO Unit) ->
+                                                               IO (FunPtr (Ptr Measurement ->
+                                                                           ProgressUpdate ->
+                                                                           IO Unit))
+funPtr_5e6e3f6b_to :: (Ptr Measurement ->
+                       ProgressUpdate -> IO Unit) ->
+                      IO (FunPtr (Ptr Measurement -> ProgressUpdate -> IO Unit))
+funPtr_5e6e3f6b_to = fromMarshallableBaseType funPtr_5e6e3f6b_to_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_5e6e3f6b_from_base :: FunPtr (Ptr Measurement ->
+                                                                         ProgressUpdate ->
+                                                                         IO Unit) ->
+                                                                 Ptr Measurement ->
+                                                                 ProgressUpdate -> IO Unit
+funPtr_5e6e3f6b_from :: FunPtr (Ptr Measurement ->
+                                ProgressUpdate -> IO Unit) ->
+                        Ptr Measurement -> ProgressUpdate -> IO Unit
+funPtr_5e6e3f6b_from = fromMarshallableBaseType funPtr_5e6e3f6b_from_base
 instance ToFunPtr (Ptr Measurement -> ProgressUpdate -> IO Unit)
     where toFunPtr = funPtr_5e6e3f6b_to
 instance FromFunPtr (Ptr Measurement -> ProgressUpdate -> IO Unit)
     where fromFunPtr = funPtr_5e6e3f6b_from
-foreign import ccall safe "wrapper" funPtr_8b272628_to :: (Ptr Measurement ->
-                                                           FunPtr (CDouble -> CInt -> IO CDouble) ->
-                                                           CInt -> IO Unit) ->
-                                                          IO (FunPtr (Ptr Measurement ->
-                                                                      FunPtr (CDouble ->
-                                                                              CInt -> IO CDouble) ->
-                                                                      CInt -> IO Unit))
-foreign import ccall safe "dynamic" funPtr_8b272628_from :: FunPtr (Ptr Measurement ->
-                                                                    FunPtr (CDouble ->
-                                                                            CInt -> IO CDouble) ->
-                                                                    CInt -> IO Unit) ->
-                                                            Ptr Measurement ->
-                                                            FunPtr (CDouble ->
-                                                                    CInt -> IO CDouble) ->
-                                                            CInt -> IO Unit
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_8b272628_to_base :: (Ptr Measurement ->
+                                                                FunPtr (CDouble ->
+                                                                        CInt -> IO CDouble) ->
+                                                                CInt -> IO Unit) ->
+                                                               IO (FunPtr (Ptr Measurement ->
+                                                                           FunPtr (CDouble ->
+                                                                                   CInt ->
+                                                                                   IO CDouble) ->
+                                                                           CInt -> IO Unit))
+funPtr_8b272628_to :: (Ptr Measurement ->
+                       FunPtr (CDouble -> CInt -> IO CDouble) -> CInt -> IO Unit) ->
+                      IO (FunPtr (Ptr Measurement ->
+                                  FunPtr (CDouble -> CInt -> IO CDouble) -> CInt -> IO Unit))
+funPtr_8b272628_to = fromMarshallableBaseType funPtr_8b272628_to_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_8b272628_from_base :: FunPtr (Ptr Measurement ->
+                                                                         FunPtr (CDouble ->
+                                                                                 CInt ->
+                                                                                 IO CDouble) ->
+                                                                         CInt -> IO Unit) ->
+                                                                 Ptr Measurement ->
+                                                                 FunPtr (CDouble ->
+                                                                         CInt -> IO CDouble) ->
+                                                                 CInt -> IO Unit
+funPtr_8b272628_from :: FunPtr (Ptr Measurement ->
+                                FunPtr (CDouble -> CInt -> IO CDouble) -> CInt -> IO Unit) ->
+                        Ptr Measurement ->
+                        FunPtr (CDouble -> CInt -> IO CDouble) -> CInt -> IO Unit
+funPtr_8b272628_from = fromMarshallableBaseType funPtr_8b272628_from_base
 instance ToFunPtr (Ptr Measurement ->
                    FunPtr (CDouble -> CInt -> IO CDouble) -> CInt -> IO Unit)
     where toFunPtr = funPtr_8b272628_to
 instance FromFunPtr (Ptr Measurement ->
                      FunPtr (CDouble -> CInt -> IO CDouble) -> CInt -> IO Unit)
     where fromFunPtr = funPtr_8b272628_from
-foreign import ccall safe "wrapper" funPtr_30a248a4_to :: (Ptr Measurement ->
-                                                           FunPtr (Ptr Measurement ->
-                                                                   DataValidator ->
-                                                                   CInt -> IO Unit) ->
-                                                           DataValidator -> IO Unit) ->
-                                                          IO (FunPtr (Ptr Measurement ->
-                                                                      FunPtr (Ptr Measurement ->
-                                                                              DataValidator ->
-                                                                              CInt -> IO Unit) ->
-                                                                      DataValidator -> IO Unit))
-foreign import ccall safe "dynamic" funPtr_30a248a4_from :: FunPtr (Ptr Measurement ->
-                                                                    FunPtr (Ptr Measurement ->
-                                                                            DataValidator ->
-                                                                            CInt -> IO Unit) ->
-                                                                    DataValidator -> IO Unit) ->
-                                                            Ptr Measurement ->
-                                                            FunPtr (Ptr Measurement ->
-                                                                    DataValidator ->
-                                                                    CInt -> IO Unit) ->
-                                                            DataValidator -> IO Unit
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_30a248a4_to_base :: (Ptr Measurement ->
+                                                                FunPtr (Ptr Measurement ->
+                                                                        DataValidator ->
+                                                                        CInt -> IO Unit) ->
+                                                                DataValidator -> IO Unit) ->
+                                                               IO (FunPtr (Ptr Measurement ->
+                                                                           FunPtr (Ptr Measurement ->
+                                                                                   DataValidator ->
+                                                                                   CInt ->
+                                                                                   IO Unit) ->
+                                                                           DataValidator ->
+                                                                           IO Unit))
+funPtr_30a248a4_to :: (Ptr Measurement ->
+                       FunPtr (Ptr Measurement -> DataValidator -> CInt -> IO Unit) ->
+                       DataValidator -> IO Unit) ->
+                      IO (FunPtr (Ptr Measurement ->
+                                  FunPtr (Ptr Measurement -> DataValidator -> CInt -> IO Unit) ->
+                                  DataValidator -> IO Unit))
+funPtr_30a248a4_to = fromMarshallableBaseType funPtr_30a248a4_to_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_30a248a4_from_base :: FunPtr (Ptr Measurement ->
+                                                                         FunPtr (Ptr Measurement ->
+                                                                                 DataValidator ->
+                                                                                 CInt -> IO Unit) ->
+                                                                         DataValidator ->
+                                                                         IO Unit) ->
+                                                                 Ptr Measurement ->
+                                                                 FunPtr (Ptr Measurement ->
+                                                                         DataValidator ->
+                                                                         CInt -> IO Unit) ->
+                                                                 DataValidator -> IO Unit
+funPtr_30a248a4_from :: FunPtr (Ptr Measurement ->
+                                FunPtr (Ptr Measurement -> DataValidator -> CInt -> IO Unit) ->
+                                DataValidator -> IO Unit) ->
+                        Ptr Measurement ->
+                        FunPtr (Ptr Measurement -> DataValidator -> CInt -> IO Unit) ->
+                        DataValidator -> IO Unit
+funPtr_30a248a4_from = fromMarshallableBaseType funPtr_30a248a4_from_base
 instance ToFunPtr (Ptr Measurement ->
                    FunPtr (Ptr Measurement -> DataValidator -> CInt -> IO Unit) ->
                    DataValidator -> IO Unit)
@@ -1440,109 +1609,228 @@ instance FromFunPtr (Ptr Measurement ->
                      FunPtr (Ptr Measurement -> DataValidator -> CInt -> IO Unit) ->
                      DataValidator -> IO Unit)
     where fromFunPtr = funPtr_30a248a4_from
-foreign import ccall safe "wrapper" funPtr_a3803a24_to :: (Foo2 ->
-                                                           IO Unit) ->
-                                                          IO (FunPtr (Foo2 -> IO Unit))
-foreign import ccall safe "dynamic" funPtr_a3803a24_from :: FunPtr (Foo2 ->
-                                                                    IO Unit) ->
-                                                            Foo2 -> IO Unit
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_a3803a24_to_base :: (Foo2 ->
+                                                                IO Unit) ->
+                                                               IO (FunPtr (Foo2 -> IO Unit))
+funPtr_a3803a24_to :: (Foo2 -> IO Unit) ->
+                      IO (FunPtr (Foo2 -> IO Unit))
+funPtr_a3803a24_to = fromMarshallableBaseType funPtr_a3803a24_to_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_a3803a24_from_base :: FunPtr (Foo2 ->
+                                                                         IO Unit) ->
+                                                                 Foo2 -> IO Unit
+funPtr_a3803a24_from :: FunPtr (Foo2 -> IO Unit) -> Foo2 -> IO Unit
+funPtr_a3803a24_from = fromMarshallableBaseType funPtr_a3803a24_from_base
 instance ToFunPtr (Foo2 -> IO Unit)
     where toFunPtr = funPtr_a3803a24_to
 instance FromFunPtr (Foo2 -> IO Unit)
     where fromFunPtr = funPtr_a3803a24_from
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_a0a59181c714c131" readFileWithProcessor_base :: FunPtr (CInt ->
+                                                                                                                      IO Unit) ->
+                                                                                                              CInt ->
+                                                                                                              IO CInt
 {-| __C declaration:__ @readFileWithProcessor@
 
     __defined at:__ @functions\/callbacks.h:4:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_a0a59181c714c131" readFileWithProcessor :: FunPtr (CInt ->
+readFileWithProcessor :: FunPtr (CInt -> IO Unit) ->
+                         CInt -> IO CInt
+{-| __C declaration:__ @readFileWithProcessor@
+
+    __defined at:__ @functions\/callbacks.h:4:5@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+readFileWithProcessor = fromMarshallableBaseType readFileWithProcessor_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_d59e6698796971ea" watchTemperature_base :: FunPtr (CInt ->
                                                                                                                  IO Unit) ->
                                                                                                          CInt ->
-                                                                                                         IO CInt
+                                                                                                         IO Unit
 {-| __C declaration:__ @watchTemperature@
 
     __defined at:__ @functions\/callbacks.h:5:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_d59e6698796971ea" watchTemperature :: FunPtr (CInt ->
-                                                                                                            IO Unit) ->
-                                                                                                    CInt ->
-                                                                                                    IO Unit
+watchTemperature :: FunPtr (CInt -> IO Unit) -> CInt -> IO Unit
+{-| __C declaration:__ @watchTemperature@
+
+    __defined at:__ @functions\/callbacks.h:5:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+watchTemperature = fromMarshallableBaseType watchTemperature_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_c9fb8fdc3d0d3978" onFileOpened_base :: FileOpenedNotification ->
+                                                                                                     IO Unit
 {-| __C declaration:__ @onFileOpened@
 
     __defined at:__ @functions\/callbacks.h:14:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_c9fb8fdc3d0d3978" onFileOpened :: FileOpenedNotification ->
-                                                                                                IO Unit
+onFileOpened :: FileOpenedNotification -> IO Unit
+{-| __C declaration:__ @onFileOpened@
+
+    __defined at:__ @functions\/callbacks.h:14:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onFileOpened = fromMarshallableBaseType onFileOpened_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_7921ad1b219190e4" onProgressChanged_base :: ProgressUpdate ->
+                                                                                                          IO Unit
 {-| __C declaration:__ @onProgressChanged@
 
     __defined at:__ @functions\/callbacks.h:15:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_7921ad1b219190e4" onProgressChanged :: ProgressUpdate ->
-                                                                                                     IO Unit
+onProgressChanged :: ProgressUpdate -> IO Unit
+{-| __C declaration:__ @onProgressChanged@
+
+    __defined at:__ @functions\/callbacks.h:15:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onProgressChanged = fromMarshallableBaseType onProgressChanged_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_ae19d658f098584a" validateInput_base :: DataValidator ->
+                                                                                                      CInt ->
+                                                                                                      IO CInt
 {-| __C declaration:__ @validateInput@
 
     __defined at:__ @functions\/callbacks.h:16:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_ae19d658f098584a" validateInput :: DataValidator ->
-                                                                                                 CInt ->
-                                                                                                 IO CInt
+validateInput :: DataValidator -> CInt -> IO CInt
+{-| __C declaration:__ @validateInput@
+
+    __defined at:__ @functions\/callbacks.h:16:5@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+validateInput = fromMarshallableBaseType validateInput_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_d2fdffe85523b3ef" onNewMeasurement_base :: MeasurementReceived ->
+                                                                                                         IO Unit
 {-| __C declaration:__ @onNewMeasurement@
 
     __defined at:__ @functions\/callbacks.h:27:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_d2fdffe85523b3ef" onNewMeasurement :: MeasurementReceived ->
-                                                                                                    IO Unit
+onNewMeasurement :: MeasurementReceived -> IO Unit
+{-| __C declaration:__ @onNewMeasurement@
+
+    __defined at:__ @functions\/callbacks.h:27:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onNewMeasurement = fromMarshallableBaseType onNewMeasurement_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_c5b555bbc07b808d" onNewMeasurement2_base :: MeasurementReceived2 ->
+                                                                                                          IO Unit
 {-| __C declaration:__ @onNewMeasurement2@
 
     __defined at:__ @functions\/callbacks.h:30:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_c5b555bbc07b808d" onNewMeasurement2 :: MeasurementReceived2 ->
-                                                                                                     IO Unit
+onNewMeasurement2 :: MeasurementReceived2 -> IO Unit
+{-| __C declaration:__ @onNewMeasurement2@
+
+    __defined at:__ @functions\/callbacks.h:30:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onNewMeasurement2 = fromMarshallableBaseType onNewMeasurement2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_65927c77229ad893" onBufferReady_base :: SampleBufferFull ->
+                                                                                                      IO Unit
 {-| __C declaration:__ @onBufferReady@
 
     __defined at:__ @functions\/callbacks.h:33:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_65927c77229ad893" onBufferReady :: SampleBufferFull ->
-                                                                                                 IO Unit
+onBufferReady :: SampleBufferFull -> IO Unit
+{-| __C declaration:__ @onBufferReady@
+
+    __defined at:__ @functions\/callbacks.h:33:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onBufferReady = fromMarshallableBaseType onBufferReady_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_0b6a9249f49b986f" transformMeasurement_base :: Ptr Measurement ->
+                                                                                                             FunPtr (Ptr Measurement ->
+                                                                                                                     FunPtr (CDouble ->
+                                                                                                                             CInt ->
+                                                                                                                             IO CDouble) ->
+                                                                                                                     CInt ->
+                                                                                                                     IO Unit) ->
+                                                                                                             IO Unit
 {-| __C declaration:__ @transformMeasurement@
 
     __defined at:__ @functions\/callbacks.h:38:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_0b6a9249f49b986f" transformMeasurement :: Ptr Measurement ->
-                                                                                                        FunPtr (Ptr Measurement ->
-                                                                                                                FunPtr (CDouble ->
-                                                                                                                        CInt ->
-                                                                                                                        IO CDouble) ->
-                                                                                                                CInt ->
-                                                                                                                IO Unit) ->
-                                                                                                        IO Unit
+transformMeasurement :: Ptr Measurement ->
+                        FunPtr (Ptr Measurement ->
+                                FunPtr (CDouble -> CInt -> IO CDouble) -> CInt -> IO Unit) ->
+                        IO Unit
+{-| __C declaration:__ @transformMeasurement@
+
+    __defined at:__ @functions\/callbacks.h:38:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+transformMeasurement = fromMarshallableBaseType transformMeasurement_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_2c3e0e84ae9cde51" processWithCallbacks_base :: FunPtr (Ptr Measurement ->
+                                                                                                                     FileOpenedNotification ->
+                                                                                                                     CInt ->
+                                                                                                                     IO Unit) ->
+                                                                                                             IO Unit
 {-| __C declaration:__ @processWithCallbacks@
 
     __defined at:__ @functions\/callbacks.h:43:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_2c3e0e84ae9cde51" processWithCallbacks :: FunPtr (Ptr Measurement ->
-                                                                                                                FileOpenedNotification ->
-                                                                                                                CInt ->
-                                                                                                                IO Unit) ->
+processWithCallbacks :: FunPtr (Ptr Measurement ->
+                                FileOpenedNotification -> CInt -> IO Unit) ->
+                        IO Unit
+{-| __C declaration:__ @processWithCallbacks@
+
+    __defined at:__ @functions\/callbacks.h:43:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+processWithCallbacks = fromMarshallableBaseType processWithCallbacks_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_0b172585709f9d48" registerHandler_base :: Ptr MeasurementHandler ->
                                                                                                         IO Unit
 {-| __C declaration:__ @registerHandler@
 
@@ -1550,152 +1838,323 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_2c3e0e84ae9cde51" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_0b172585709f9d48" registerHandler :: Ptr MeasurementHandler ->
-                                                                                                   IO Unit
+registerHandler :: Ptr MeasurementHandler -> IO Unit
+{-| __C declaration:__ @registerHandler@
+
+    __defined at:__ @functions\/callbacks.h:56:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+registerHandler = fromMarshallableBaseType registerHandler_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_25a56dfc7b259e7d" executePipeline_base :: Ptr Measurement ->
+                                                                                                        Ptr DataPipeline ->
+                                                                                                        IO Unit
 {-| __C declaration:__ @executePipeline@
 
     __defined at:__ @functions\/callbacks.h:64:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_25a56dfc7b259e7d" executePipeline :: Ptr Measurement ->
-                                                                                                   Ptr DataPipeline ->
-                                                                                                   IO Unit
+executePipeline :: Ptr Measurement -> Ptr DataPipeline -> IO Unit
+{-| __C declaration:__ @executePipeline@
+
+    __defined at:__ @functions\/callbacks.h:64:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+executePipeline = fromMarshallableBaseType executePipeline_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_5908d37641d70953" runProcessor_base :: Ptr Measurement ->
+                                                                                                     Ptr Processor ->
+                                                                                                     IO Unit
 {-| __C declaration:__ @runProcessor@
 
     __defined at:__ @functions\/callbacks.h:80:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_5908d37641d70953" runProcessor :: Ptr Measurement ->
-                                                                                                Ptr Processor ->
-                                                                                                IO Unit
+runProcessor :: Ptr Measurement -> Ptr Processor -> IO Unit
+{-| __C declaration:__ @runProcessor@
+
+    __defined at:__ @functions\/callbacks.h:80:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+runProcessor = fromMarshallableBaseType runProcessor_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_f3c99b4af7808e7f" processMeasurementWithValidation_base :: Ptr Measurement ->
+                                                                                                                         FunPtr (Ptr Measurement ->
+                                                                                                                                 FunPtr (Ptr Measurement ->
+                                                                                                                                         DataValidator ->
+                                                                                                                                         CInt ->
+                                                                                                                                         IO Unit) ->
+                                                                                                                                 DataValidator ->
+                                                                                                                                 IO Unit) ->
+                                                                                                                         IO Unit
 {-| __C declaration:__ @processMeasurementWithValidation@
 
     __defined at:__ @functions\/callbacks.h:85:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_f3c99b4af7808e7f" processMeasurementWithValidation :: Ptr Measurement ->
-                                                                                                                    FunPtr (Ptr Measurement ->
-                                                                                                                            FunPtr (Ptr Measurement ->
-                                                                                                                                    DataValidator ->
-                                                                                                                                    CInt ->
-                                                                                                                                    IO Unit) ->
-                                                                                                                            DataValidator ->
-                                                                                                                            IO Unit) ->
-                                                                                                                    IO Unit
+processMeasurementWithValidation :: Ptr Measurement ->
+                                    FunPtr (Ptr Measurement ->
+                                            FunPtr (Ptr Measurement ->
+                                                    DataValidator -> CInt -> IO Unit) ->
+                                            DataValidator -> IO Unit) ->
+                                    IO Unit
+{-| __C declaration:__ @processMeasurementWithValidation@
+
+    __defined at:__ @functions\/callbacks.h:85:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+processMeasurementWithValidation = fromMarshallableBaseType processMeasurementWithValidation_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_fcce70013c76ce8b" f_base :: FunPtr (Foo ->
+                                                                                                  IO Unit) ->
+                                                                                          IO Unit
 {-| __C declaration:__ @f@
 
     __defined at:__ @functions\/callbacks.h:96:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_fcce70013c76ce8b" f :: FunPtr (Foo ->
-                                                                                             IO Unit) ->
-                                                                                     IO Unit
+f :: FunPtr (Foo -> IO Unit) -> IO Unit
+{-| __C declaration:__ @f@
+
+    __defined at:__ @functions\/callbacks.h:96:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+f = fromMarshallableBaseType f_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_1d043de05a457e90" f2_base :: FunPtr (Foo2 ->
+                                                                                                   IO Unit) ->
+                                                                                           IO Unit
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/callbacks.h:97:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_1d043de05a457e90" f2 :: FunPtr (Foo2 ->
-                                                                                              IO Unit) ->
-                                                                                      IO Unit
+f2 :: FunPtr (Foo2 -> IO Unit) -> IO Unit
+{-| __C declaration:__ @f2@
+
+    __defined at:__ @functions\/callbacks.h:97:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+f2 = fromMarshallableBaseType f2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_f0d72410d79899b5" readFileWithProcessor_base :: FunPtr (CInt ->
+                                                                                                                      IO Unit) ->
+                                                                                                              CInt ->
+                                                                                                              IO CInt
 {-| __C declaration:__ @readFileWithProcessor@
 
     __defined at:__ @functions\/callbacks.h:4:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_f0d72410d79899b5" readFileWithProcessor :: FunPtr (CInt ->
+readFileWithProcessor :: FunPtr (CInt -> IO Unit) ->
+                         CInt -> IO CInt
+{-| __C declaration:__ @readFileWithProcessor@
+
+    __defined at:__ @functions\/callbacks.h:4:5@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+readFileWithProcessor = fromMarshallableBaseType readFileWithProcessor_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_a445b9cacb08ed71" watchTemperature_base :: FunPtr (CInt ->
                                                                                                                  IO Unit) ->
                                                                                                          CInt ->
-                                                                                                         IO CInt
+                                                                                                         IO Unit
 {-| __C declaration:__ @watchTemperature@
 
     __defined at:__ @functions\/callbacks.h:5:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_a445b9cacb08ed71" watchTemperature :: FunPtr (CInt ->
-                                                                                                            IO Unit) ->
-                                                                                                    CInt ->
-                                                                                                    IO Unit
+watchTemperature :: FunPtr (CInt -> IO Unit) -> CInt -> IO Unit
+{-| __C declaration:__ @watchTemperature@
+
+    __defined at:__ @functions\/callbacks.h:5:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+watchTemperature = fromMarshallableBaseType watchTemperature_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_b71e59965bcc2316" onFileOpened_base :: FileOpenedNotification ->
+                                                                                                     IO Unit
 {-| __C declaration:__ @onFileOpened@
 
     __defined at:__ @functions\/callbacks.h:14:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_b71e59965bcc2316" onFileOpened :: FileOpenedNotification ->
-                                                                                                IO Unit
+onFileOpened :: FileOpenedNotification -> IO Unit
+{-| __C declaration:__ @onFileOpened@
+
+    __defined at:__ @functions\/callbacks.h:14:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onFileOpened = fromMarshallableBaseType onFileOpened_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_013e79fc3cd3b1b4" onProgressChanged_base :: ProgressUpdate ->
+                                                                                                          IO Unit
 {-| __C declaration:__ @onProgressChanged@
 
     __defined at:__ @functions\/callbacks.h:15:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_013e79fc3cd3b1b4" onProgressChanged :: ProgressUpdate ->
-                                                                                                     IO Unit
+onProgressChanged :: ProgressUpdate -> IO Unit
+{-| __C declaration:__ @onProgressChanged@
+
+    __defined at:__ @functions\/callbacks.h:15:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onProgressChanged = fromMarshallableBaseType onProgressChanged_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_697a7b01b3d64c58" validateInput_base :: DataValidator ->
+                                                                                                      CInt ->
+                                                                                                      IO CInt
 {-| __C declaration:__ @validateInput@
 
     __defined at:__ @functions\/callbacks.h:16:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_697a7b01b3d64c58" validateInput :: DataValidator ->
-                                                                                                 CInt ->
-                                                                                                 IO CInt
+validateInput :: DataValidator -> CInt -> IO CInt
+{-| __C declaration:__ @validateInput@
+
+    __defined at:__ @functions\/callbacks.h:16:5@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+validateInput = fromMarshallableBaseType validateInput_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_f291b861b36d5a90" onNewMeasurement_base :: MeasurementReceived ->
+                                                                                                         IO Unit
 {-| __C declaration:__ @onNewMeasurement@
 
     __defined at:__ @functions\/callbacks.h:27:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_f291b861b36d5a90" onNewMeasurement :: MeasurementReceived ->
-                                                                                                    IO Unit
+onNewMeasurement :: MeasurementReceived -> IO Unit
+{-| __C declaration:__ @onNewMeasurement@
+
+    __defined at:__ @functions\/callbacks.h:27:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onNewMeasurement = fromMarshallableBaseType onNewMeasurement_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_4f36523b7d965e44" onNewMeasurement2_base :: MeasurementReceived2 ->
+                                                                                                          IO Unit
 {-| __C declaration:__ @onNewMeasurement2@
 
     __defined at:__ @functions\/callbacks.h:30:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_4f36523b7d965e44" onNewMeasurement2 :: MeasurementReceived2 ->
-                                                                                                     IO Unit
+onNewMeasurement2 :: MeasurementReceived2 -> IO Unit
+{-| __C declaration:__ @onNewMeasurement2@
+
+    __defined at:__ @functions\/callbacks.h:30:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onNewMeasurement2 = fromMarshallableBaseType onNewMeasurement2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_92d54aaf9e8a1c8e" onBufferReady_base :: SampleBufferFull ->
+                                                                                                      IO Unit
 {-| __C declaration:__ @onBufferReady@
 
     __defined at:__ @functions\/callbacks.h:33:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_92d54aaf9e8a1c8e" onBufferReady :: SampleBufferFull ->
-                                                                                                 IO Unit
+onBufferReady :: SampleBufferFull -> IO Unit
+{-| __C declaration:__ @onBufferReady@
+
+    __defined at:__ @functions\/callbacks.h:33:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onBufferReady = fromMarshallableBaseType onBufferReady_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_0e22183e51a42eab" transformMeasurement_base :: Ptr Measurement ->
+                                                                                                             FunPtr (Ptr Measurement ->
+                                                                                                                     FunPtr (CDouble ->
+                                                                                                                             CInt ->
+                                                                                                                             IO CDouble) ->
+                                                                                                                     CInt ->
+                                                                                                                     IO Unit) ->
+                                                                                                             IO Unit
 {-| __C declaration:__ @transformMeasurement@
 
     __defined at:__ @functions\/callbacks.h:38:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_0e22183e51a42eab" transformMeasurement :: Ptr Measurement ->
-                                                                                                        FunPtr (Ptr Measurement ->
-                                                                                                                FunPtr (CDouble ->
-                                                                                                                        CInt ->
-                                                                                                                        IO CDouble) ->
-                                                                                                                CInt ->
-                                                                                                                IO Unit) ->
-                                                                                                        IO Unit
+transformMeasurement :: Ptr Measurement ->
+                        FunPtr (Ptr Measurement ->
+                                FunPtr (CDouble -> CInt -> IO CDouble) -> CInt -> IO Unit) ->
+                        IO Unit
+{-| __C declaration:__ @transformMeasurement@
+
+    __defined at:__ @functions\/callbacks.h:38:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+transformMeasurement = fromMarshallableBaseType transformMeasurement_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_9b4727ea289ff135" processWithCallbacks_base :: FunPtr (Ptr Measurement ->
+                                                                                                                     FileOpenedNotification ->
+                                                                                                                     CInt ->
+                                                                                                                     IO Unit) ->
+                                                                                                             IO Unit
 {-| __C declaration:__ @processWithCallbacks@
 
     __defined at:__ @functions\/callbacks.h:43:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_9b4727ea289ff135" processWithCallbacks :: FunPtr (Ptr Measurement ->
-                                                                                                                FileOpenedNotification ->
-                                                                                                                CInt ->
-                                                                                                                IO Unit) ->
+processWithCallbacks :: FunPtr (Ptr Measurement ->
+                                FileOpenedNotification -> CInt -> IO Unit) ->
+                        IO Unit
+{-| __C declaration:__ @processWithCallbacks@
+
+    __defined at:__ @functions\/callbacks.h:43:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+processWithCallbacks = fromMarshallableBaseType processWithCallbacks_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_aea76777f06b51ce" registerHandler_base :: Ptr MeasurementHandler ->
                                                                                                         IO Unit
 {-| __C declaration:__ @registerHandler@
 
@@ -1703,63 +2162,130 @@ foreign import ccall safe "hs_bindgen_test_functionscallbacks_9b4727ea289ff135" 
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_aea76777f06b51ce" registerHandler :: Ptr MeasurementHandler ->
-                                                                                                   IO Unit
+registerHandler :: Ptr MeasurementHandler -> IO Unit
+{-| __C declaration:__ @registerHandler@
+
+    __defined at:__ @functions\/callbacks.h:56:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+registerHandler = fromMarshallableBaseType registerHandler_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_54fc81d3b44b84d5" executePipeline_base :: Ptr Measurement ->
+                                                                                                        Ptr DataPipeline ->
+                                                                                                        IO Unit
 {-| __C declaration:__ @executePipeline@
 
     __defined at:__ @functions\/callbacks.h:64:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_54fc81d3b44b84d5" executePipeline :: Ptr Measurement ->
-                                                                                                   Ptr DataPipeline ->
-                                                                                                   IO Unit
+executePipeline :: Ptr Measurement -> Ptr DataPipeline -> IO Unit
+{-| __C declaration:__ @executePipeline@
+
+    __defined at:__ @functions\/callbacks.h:64:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+executePipeline = fromMarshallableBaseType executePipeline_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_4bb32ee774218053" runProcessor_base :: Ptr Measurement ->
+                                                                                                     Ptr Processor ->
+                                                                                                     IO Unit
 {-| __C declaration:__ @runProcessor@
 
     __defined at:__ @functions\/callbacks.h:80:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_4bb32ee774218053" runProcessor :: Ptr Measurement ->
-                                                                                                Ptr Processor ->
-                                                                                                IO Unit
+runProcessor :: Ptr Measurement -> Ptr Processor -> IO Unit
+{-| __C declaration:__ @runProcessor@
+
+    __defined at:__ @functions\/callbacks.h:80:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+runProcessor = fromMarshallableBaseType runProcessor_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_f453b618c9ab0234" processMeasurementWithValidation_base :: Ptr Measurement ->
+                                                                                                                         FunPtr (Ptr Measurement ->
+                                                                                                                                 FunPtr (Ptr Measurement ->
+                                                                                                                                         DataValidator ->
+                                                                                                                                         CInt ->
+                                                                                                                                         IO Unit) ->
+                                                                                                                                 DataValidator ->
+                                                                                                                                 IO Unit) ->
+                                                                                                                         IO Unit
 {-| __C declaration:__ @processMeasurementWithValidation@
 
     __defined at:__ @functions\/callbacks.h:85:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_f453b618c9ab0234" processMeasurementWithValidation :: Ptr Measurement ->
-                                                                                                                    FunPtr (Ptr Measurement ->
-                                                                                                                            FunPtr (Ptr Measurement ->
-                                                                                                                                    DataValidator ->
-                                                                                                                                    CInt ->
-                                                                                                                                    IO Unit) ->
-                                                                                                                            DataValidator ->
-                                                                                                                            IO Unit) ->
-                                                                                                                    IO Unit
+processMeasurementWithValidation :: Ptr Measurement ->
+                                    FunPtr (Ptr Measurement ->
+                                            FunPtr (Ptr Measurement ->
+                                                    DataValidator -> CInt -> IO Unit) ->
+                                            DataValidator -> IO Unit) ->
+                                    IO Unit
+{-| __C declaration:__ @processMeasurementWithValidation@
+
+    __defined at:__ @functions\/callbacks.h:85:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+processMeasurementWithValidation = fromMarshallableBaseType processMeasurementWithValidation_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_b68b2cffacc97c1d" f_base :: FunPtr (Foo ->
+                                                                                                  IO Unit) ->
+                                                                                          IO Unit
 {-| __C declaration:__ @f@
 
     __defined at:__ @functions\/callbacks.h:96:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_b68b2cffacc97c1d" f :: FunPtr (Foo ->
-                                                                                             IO Unit) ->
-                                                                                     IO Unit
+f :: FunPtr (Foo -> IO Unit) -> IO Unit
+{-| __C declaration:__ @f@
+
+    __defined at:__ @functions\/callbacks.h:96:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+f = fromMarshallableBaseType f_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_14361e995fb5684a" f2_base :: FunPtr (Foo2 ->
+                                                                                                   IO Unit) ->
+                                                                                           IO Unit
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/callbacks.h:97:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_14361e995fb5684a" f2 :: FunPtr (Foo2 ->
-                                                                                              IO Unit) ->
-                                                                                      IO Unit
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_c4b06d89a94616dd" hs_bindgen_test_functionscallbacks_c4b06d89a94616dd :: IO (FunPtr (FunPtr (CInt ->
-                                                                                                                                                           IO Unit) ->
-                                                                                                                                                   CInt ->
-                                                                                                                                                   IO CInt))
+f2 :: FunPtr (Foo2 -> IO Unit) -> IO Unit
+{-| __C declaration:__ @f2@
+
+    __defined at:__ @functions\/callbacks.h:97:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+f2 = fromMarshallableBaseType f2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_c4b06d89a94616dd" hs_bindgen_test_functionscallbacks_c4b06d89a94616dd_base :: IO (FunPtr (FunPtr (CInt ->
+                                                                                                                                                                IO Unit) ->
+                                                                                                                                                        CInt ->
+                                                                                                                                                        IO CInt))
+hs_bindgen_test_functionscallbacks_c4b06d89a94616dd :: IO (FunPtr (FunPtr (CInt ->
+                                                                           IO Unit) ->
+                                                                   CInt -> IO CInt))
+hs_bindgen_test_functionscallbacks_c4b06d89a94616dd = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_c4b06d89a94616dd_base
 {-# NOINLINE readFileWithProcessor_ptr #-}
 {-| __C declaration:__ @readFileWithProcessor@
 
@@ -1776,10 +2302,16 @@ readFileWithProcessor_ptr :: FunPtr (FunPtr (CInt -> IO Unit) ->
     __exported by:__ @functions\/callbacks.h@
 -}
 readFileWithProcessor_ptr = unsafePerformIO hs_bindgen_test_functionscallbacks_c4b06d89a94616dd
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_22c54726df44b640" hs_bindgen_test_functionscallbacks_22c54726df44b640 :: IO (FunPtr (FunPtr (CInt ->
-                                                                                                                                                           IO Unit) ->
-                                                                                                                                                   CInt ->
-                                                                                                                                                   IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_22c54726df44b640" hs_bindgen_test_functionscallbacks_22c54726df44b640_base :: IO (FunPtr (FunPtr (CInt ->
+                                                                                                                                                                IO Unit) ->
+                                                                                                                                                        CInt ->
+                                                                                                                                                        IO Unit))
+hs_bindgen_test_functionscallbacks_22c54726df44b640 :: IO (FunPtr (FunPtr (CInt ->
+                                                                           IO Unit) ->
+                                                                   CInt -> IO Unit))
+hs_bindgen_test_functionscallbacks_22c54726df44b640 = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_22c54726df44b640_base
 {-# NOINLINE watchTemperature_ptr #-}
 {-| __C declaration:__ @watchTemperature@
 
@@ -1796,8 +2328,13 @@ watchTemperature_ptr :: FunPtr (FunPtr (CInt -> IO Unit) ->
     __exported by:__ @functions\/callbacks.h@
 -}
 watchTemperature_ptr = unsafePerformIO hs_bindgen_test_functionscallbacks_22c54726df44b640
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_8167a5b82d621c9d" hs_bindgen_test_functionscallbacks_8167a5b82d621c9d :: IO (FunPtr (FileOpenedNotification ->
-                                                                                                                                                   IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_8167a5b82d621c9d" hs_bindgen_test_functionscallbacks_8167a5b82d621c9d_base :: IO (FunPtr (FileOpenedNotification ->
+                                                                                                                                                        IO Unit))
+hs_bindgen_test_functionscallbacks_8167a5b82d621c9d :: IO (FunPtr (FileOpenedNotification ->
+                                                                   IO Unit))
+hs_bindgen_test_functionscallbacks_8167a5b82d621c9d = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_8167a5b82d621c9d_base
 {-# NOINLINE onFileOpened_ptr #-}
 {-| __C declaration:__ @onFileOpened@
 
@@ -1813,8 +2350,13 @@ onFileOpened_ptr :: FunPtr (FileOpenedNotification -> IO Unit)
     __exported by:__ @functions\/callbacks.h@
 -}
 onFileOpened_ptr = unsafePerformIO hs_bindgen_test_functionscallbacks_8167a5b82d621c9d
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_ef51ad75ce9862a3" hs_bindgen_test_functionscallbacks_ef51ad75ce9862a3 :: IO (FunPtr (ProgressUpdate ->
-                                                                                                                                                   IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_ef51ad75ce9862a3" hs_bindgen_test_functionscallbacks_ef51ad75ce9862a3_base :: IO (FunPtr (ProgressUpdate ->
+                                                                                                                                                        IO Unit))
+hs_bindgen_test_functionscallbacks_ef51ad75ce9862a3 :: IO (FunPtr (ProgressUpdate ->
+                                                                   IO Unit))
+hs_bindgen_test_functionscallbacks_ef51ad75ce9862a3 = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_ef51ad75ce9862a3_base
 {-# NOINLINE onProgressChanged_ptr #-}
 {-| __C declaration:__ @onProgressChanged@
 
@@ -1830,9 +2372,14 @@ onProgressChanged_ptr :: FunPtr (ProgressUpdate -> IO Unit)
     __exported by:__ @functions\/callbacks.h@
 -}
 onProgressChanged_ptr = unsafePerformIO hs_bindgen_test_functionscallbacks_ef51ad75ce9862a3
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_9eaedb1b1c5b3fdb" hs_bindgen_test_functionscallbacks_9eaedb1b1c5b3fdb :: IO (FunPtr (DataValidator ->
-                                                                                                                                                   CInt ->
-                                                                                                                                                   IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_9eaedb1b1c5b3fdb" hs_bindgen_test_functionscallbacks_9eaedb1b1c5b3fdb_base :: IO (FunPtr (DataValidator ->
+                                                                                                                                                        CInt ->
+                                                                                                                                                        IO CInt))
+hs_bindgen_test_functionscallbacks_9eaedb1b1c5b3fdb :: IO (FunPtr (DataValidator ->
+                                                                   CInt -> IO CInt))
+hs_bindgen_test_functionscallbacks_9eaedb1b1c5b3fdb = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_9eaedb1b1c5b3fdb_base
 {-# NOINLINE validateInput_ptr #-}
 {-| __C declaration:__ @validateInput@
 
@@ -1848,8 +2395,13 @@ validateInput_ptr :: FunPtr (DataValidator -> CInt -> IO CInt)
     __exported by:__ @functions\/callbacks.h@
 -}
 validateInput_ptr = unsafePerformIO hs_bindgen_test_functionscallbacks_9eaedb1b1c5b3fdb
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_f9f4f5ec3dd82431" hs_bindgen_test_functionscallbacks_f9f4f5ec3dd82431 :: IO (FunPtr (MeasurementReceived ->
-                                                                                                                                                   IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_f9f4f5ec3dd82431" hs_bindgen_test_functionscallbacks_f9f4f5ec3dd82431_base :: IO (FunPtr (MeasurementReceived ->
+                                                                                                                                                        IO Unit))
+hs_bindgen_test_functionscallbacks_f9f4f5ec3dd82431 :: IO (FunPtr (MeasurementReceived ->
+                                                                   IO Unit))
+hs_bindgen_test_functionscallbacks_f9f4f5ec3dd82431 = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_f9f4f5ec3dd82431_base
 {-# NOINLINE onNewMeasurement_ptr #-}
 {-| __C declaration:__ @onNewMeasurement@
 
@@ -1865,8 +2417,13 @@ onNewMeasurement_ptr :: FunPtr (MeasurementReceived -> IO Unit)
     __exported by:__ @functions\/callbacks.h@
 -}
 onNewMeasurement_ptr = unsafePerformIO hs_bindgen_test_functionscallbacks_f9f4f5ec3dd82431
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_9c5afeda25ede1ce" hs_bindgen_test_functionscallbacks_9c5afeda25ede1ce :: IO (FunPtr (MeasurementReceived2 ->
-                                                                                                                                                   IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_9c5afeda25ede1ce" hs_bindgen_test_functionscallbacks_9c5afeda25ede1ce_base :: IO (FunPtr (MeasurementReceived2 ->
+                                                                                                                                                        IO Unit))
+hs_bindgen_test_functionscallbacks_9c5afeda25ede1ce :: IO (FunPtr (MeasurementReceived2 ->
+                                                                   IO Unit))
+hs_bindgen_test_functionscallbacks_9c5afeda25ede1ce = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_9c5afeda25ede1ce_base
 {-# NOINLINE onNewMeasurement2_ptr #-}
 {-| __C declaration:__ @onNewMeasurement2@
 
@@ -1882,8 +2439,13 @@ onNewMeasurement2_ptr :: FunPtr (MeasurementReceived2 -> IO Unit)
     __exported by:__ @functions\/callbacks.h@
 -}
 onNewMeasurement2_ptr = unsafePerformIO hs_bindgen_test_functionscallbacks_9c5afeda25ede1ce
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_8091188123328aa8" hs_bindgen_test_functionscallbacks_8091188123328aa8 :: IO (FunPtr (SampleBufferFull ->
-                                                                                                                                                   IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_8091188123328aa8" hs_bindgen_test_functionscallbacks_8091188123328aa8_base :: IO (FunPtr (SampleBufferFull ->
+                                                                                                                                                        IO Unit))
+hs_bindgen_test_functionscallbacks_8091188123328aa8 :: IO (FunPtr (SampleBufferFull ->
+                                                                   IO Unit))
+hs_bindgen_test_functionscallbacks_8091188123328aa8 = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_8091188123328aa8_base
 {-# NOINLINE onBufferReady_ptr #-}
 {-| __C declaration:__ @onBufferReady@
 
@@ -1899,14 +2461,24 @@ onBufferReady_ptr :: FunPtr (SampleBufferFull -> IO Unit)
     __exported by:__ @functions\/callbacks.h@
 -}
 onBufferReady_ptr = unsafePerformIO hs_bindgen_test_functionscallbacks_8091188123328aa8
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_6c9fe4dae03a37fa" hs_bindgen_test_functionscallbacks_6c9fe4dae03a37fa :: IO (FunPtr (Ptr Measurement ->
-                                                                                                                                                   FunPtr (Ptr Measurement ->
-                                                                                                                                                           FunPtr (CDouble ->
-                                                                                                                                                                   CInt ->
-                                                                                                                                                                   IO CDouble) ->
-                                                                                                                                                           CInt ->
-                                                                                                                                                           IO Unit) ->
-                                                                                                                                                   IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_6c9fe4dae03a37fa" hs_bindgen_test_functionscallbacks_6c9fe4dae03a37fa_base :: IO (FunPtr (Ptr Measurement ->
+                                                                                                                                                        FunPtr (Ptr Measurement ->
+                                                                                                                                                                FunPtr (CDouble ->
+                                                                                                                                                                        CInt ->
+                                                                                                                                                                        IO CDouble) ->
+                                                                                                                                                                CInt ->
+                                                                                                                                                                IO Unit) ->
+                                                                                                                                                        IO Unit))
+hs_bindgen_test_functionscallbacks_6c9fe4dae03a37fa :: IO (FunPtr (Ptr Measurement ->
+                                                                   FunPtr (Ptr Measurement ->
+                                                                           FunPtr (CDouble ->
+                                                                                   CInt ->
+                                                                                   IO CDouble) ->
+                                                                           CInt -> IO Unit) ->
+                                                                   IO Unit))
+hs_bindgen_test_functionscallbacks_6c9fe4dae03a37fa = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_6c9fe4dae03a37fa_base
 {-# NOINLINE transformMeasurement_ptr #-}
 {-| __C declaration:__ @transformMeasurement@
 
@@ -1926,11 +2498,18 @@ transformMeasurement_ptr :: FunPtr (Ptr Measurement ->
     __exported by:__ @functions\/callbacks.h@
 -}
 transformMeasurement_ptr = unsafePerformIO hs_bindgen_test_functionscallbacks_6c9fe4dae03a37fa
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_2ee8d8889cd31fb7" hs_bindgen_test_functionscallbacks_2ee8d8889cd31fb7 :: IO (FunPtr (FunPtr (Ptr Measurement ->
-                                                                                                                                                           FileOpenedNotification ->
-                                                                                                                                                           CInt ->
-                                                                                                                                                           IO Unit) ->
-                                                                                                                                                   IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_2ee8d8889cd31fb7" hs_bindgen_test_functionscallbacks_2ee8d8889cd31fb7_base :: IO (FunPtr (FunPtr (Ptr Measurement ->
+                                                                                                                                                                FileOpenedNotification ->
+                                                                                                                                                                CInt ->
+                                                                                                                                                                IO Unit) ->
+                                                                                                                                                        IO Unit))
+hs_bindgen_test_functionscallbacks_2ee8d8889cd31fb7 :: IO (FunPtr (FunPtr (Ptr Measurement ->
+                                                                           FileOpenedNotification ->
+                                                                           CInt -> IO Unit) ->
+                                                                   IO Unit))
+hs_bindgen_test_functionscallbacks_2ee8d8889cd31fb7 = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_2ee8d8889cd31fb7_base
 {-# NOINLINE processWithCallbacks_ptr #-}
 {-| __C declaration:__ @processWithCallbacks@
 
@@ -1948,8 +2527,13 @@ processWithCallbacks_ptr :: FunPtr (FunPtr (Ptr Measurement ->
     __exported by:__ @functions\/callbacks.h@
 -}
 processWithCallbacks_ptr = unsafePerformIO hs_bindgen_test_functionscallbacks_2ee8d8889cd31fb7
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_5a70e34ecc71835b" hs_bindgen_test_functionscallbacks_5a70e34ecc71835b :: IO (FunPtr (Ptr MeasurementHandler ->
-                                                                                                                                                   IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_5a70e34ecc71835b" hs_bindgen_test_functionscallbacks_5a70e34ecc71835b_base :: IO (FunPtr (Ptr MeasurementHandler ->
+                                                                                                                                                        IO Unit))
+hs_bindgen_test_functionscallbacks_5a70e34ecc71835b :: IO (FunPtr (Ptr MeasurementHandler ->
+                                                                   IO Unit))
+hs_bindgen_test_functionscallbacks_5a70e34ecc71835b = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_5a70e34ecc71835b_base
 {-# NOINLINE registerHandler_ptr #-}
 {-| __C declaration:__ @registerHandler@
 
@@ -1965,9 +2549,14 @@ registerHandler_ptr :: FunPtr (Ptr MeasurementHandler -> IO Unit)
     __exported by:__ @functions\/callbacks.h@
 -}
 registerHandler_ptr = unsafePerformIO hs_bindgen_test_functionscallbacks_5a70e34ecc71835b
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_1a0881ba01e93710" hs_bindgen_test_functionscallbacks_1a0881ba01e93710 :: IO (FunPtr (Ptr Measurement ->
-                                                                                                                                                   Ptr DataPipeline ->
-                                                                                                                                                   IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_1a0881ba01e93710" hs_bindgen_test_functionscallbacks_1a0881ba01e93710_base :: IO (FunPtr (Ptr Measurement ->
+                                                                                                                                                        Ptr DataPipeline ->
+                                                                                                                                                        IO Unit))
+hs_bindgen_test_functionscallbacks_1a0881ba01e93710 :: IO (FunPtr (Ptr Measurement ->
+                                                                   Ptr DataPipeline -> IO Unit))
+hs_bindgen_test_functionscallbacks_1a0881ba01e93710 = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_1a0881ba01e93710_base
 {-# NOINLINE executePipeline_ptr #-}
 {-| __C declaration:__ @executePipeline@
 
@@ -1984,9 +2573,14 @@ executePipeline_ptr :: FunPtr (Ptr Measurement ->
     __exported by:__ @functions\/callbacks.h@
 -}
 executePipeline_ptr = unsafePerformIO hs_bindgen_test_functionscallbacks_1a0881ba01e93710
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_1e7d8fd6cb5a199f" hs_bindgen_test_functionscallbacks_1e7d8fd6cb5a199f :: IO (FunPtr (Ptr Measurement ->
-                                                                                                                                                   Ptr Processor ->
-                                                                                                                                                   IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_1e7d8fd6cb5a199f" hs_bindgen_test_functionscallbacks_1e7d8fd6cb5a199f_base :: IO (FunPtr (Ptr Measurement ->
+                                                                                                                                                        Ptr Processor ->
+                                                                                                                                                        IO Unit))
+hs_bindgen_test_functionscallbacks_1e7d8fd6cb5a199f :: IO (FunPtr (Ptr Measurement ->
+                                                                   Ptr Processor -> IO Unit))
+hs_bindgen_test_functionscallbacks_1e7d8fd6cb5a199f = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_1e7d8fd6cb5a199f_base
 {-# NOINLINE runProcessor_ptr #-}
 {-| __C declaration:__ @runProcessor@
 
@@ -2003,15 +2597,27 @@ runProcessor_ptr :: FunPtr (Ptr Measurement ->
     __exported by:__ @functions\/callbacks.h@
 -}
 runProcessor_ptr = unsafePerformIO hs_bindgen_test_functionscallbacks_1e7d8fd6cb5a199f
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_6621b1bf8ef7af3b" hs_bindgen_test_functionscallbacks_6621b1bf8ef7af3b :: IO (FunPtr (Ptr Measurement ->
-                                                                                                                                                   FunPtr (Ptr Measurement ->
-                                                                                                                                                           FunPtr (Ptr Measurement ->
-                                                                                                                                                                   DataValidator ->
-                                                                                                                                                                   CInt ->
-                                                                                                                                                                   IO Unit) ->
-                                                                                                                                                           DataValidator ->
-                                                                                                                                                           IO Unit) ->
-                                                                                                                                                   IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_6621b1bf8ef7af3b" hs_bindgen_test_functionscallbacks_6621b1bf8ef7af3b_base :: IO (FunPtr (Ptr Measurement ->
+                                                                                                                                                        FunPtr (Ptr Measurement ->
+                                                                                                                                                                FunPtr (Ptr Measurement ->
+                                                                                                                                                                        DataValidator ->
+                                                                                                                                                                        CInt ->
+                                                                                                                                                                        IO Unit) ->
+                                                                                                                                                                DataValidator ->
+                                                                                                                                                                IO Unit) ->
+                                                                                                                                                        IO Unit))
+hs_bindgen_test_functionscallbacks_6621b1bf8ef7af3b :: IO (FunPtr (Ptr Measurement ->
+                                                                   FunPtr (Ptr Measurement ->
+                                                                           FunPtr (Ptr Measurement ->
+                                                                                   DataValidator ->
+                                                                                   CInt ->
+                                                                                   IO Unit) ->
+                                                                           DataValidator ->
+                                                                           IO Unit) ->
+                                                                   IO Unit))
+hs_bindgen_test_functionscallbacks_6621b1bf8ef7af3b = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_6621b1bf8ef7af3b_base
 {-# NOINLINE processMeasurementWithValidation_ptr #-}
 {-| __C declaration:__ @processMeasurementWithValidation@
 
@@ -2032,9 +2638,15 @@ processMeasurementWithValidation_ptr :: FunPtr (Ptr Measurement ->
     __exported by:__ @functions\/callbacks.h@
 -}
 processMeasurementWithValidation_ptr = unsafePerformIO hs_bindgen_test_functionscallbacks_6621b1bf8ef7af3b
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_c34fd33eedc1490d" hs_bindgen_test_functionscallbacks_c34fd33eedc1490d :: IO (FunPtr (FunPtr (Foo ->
-                                                                                                                                                           IO Unit) ->
-                                                                                                                                                   IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_c34fd33eedc1490d" hs_bindgen_test_functionscallbacks_c34fd33eedc1490d_base :: IO (FunPtr (FunPtr (Foo ->
+                                                                                                                                                                IO Unit) ->
+                                                                                                                                                        IO Unit))
+hs_bindgen_test_functionscallbacks_c34fd33eedc1490d :: IO (FunPtr (FunPtr (Foo ->
+                                                                           IO Unit) ->
+                                                                   IO Unit))
+hs_bindgen_test_functionscallbacks_c34fd33eedc1490d = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_c34fd33eedc1490d_base
 {-# NOINLINE f_ptr #-}
 {-| __C declaration:__ @f@
 
@@ -2050,9 +2662,15 @@ f_ptr :: FunPtr (FunPtr (Foo -> IO Unit) -> IO Unit)
     __exported by:__ @functions\/callbacks.h@
 -}
 f_ptr = unsafePerformIO hs_bindgen_test_functionscallbacks_c34fd33eedc1490d
-foreign import ccall safe "hs_bindgen_test_functionscallbacks_490ca7e8c8282a69" hs_bindgen_test_functionscallbacks_490ca7e8c8282a69 :: IO (FunPtr (FunPtr (Foo2 ->
-                                                                                                                                                           IO Unit) ->
-                                                                                                                                                   IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionscallbacks_490ca7e8c8282a69" hs_bindgen_test_functionscallbacks_490ca7e8c8282a69_base :: IO (FunPtr (FunPtr (Foo2 ->
+                                                                                                                                                                IO Unit) ->
+                                                                                                                                                        IO Unit))
+hs_bindgen_test_functionscallbacks_490ca7e8c8282a69 :: IO (FunPtr (FunPtr (Foo2 ->
+                                                                           IO Unit) ->
+                                                                   IO Unit))
+hs_bindgen_test_functionscallbacks_490ca7e8c8282a69 = fromMarshallableBaseType hs_bindgen_test_functionscallbacks_490ca7e8c8282a69_base
 {-# NOINLINE f2_ptr #-}
 {-| __C declaration:__ @f2@
 

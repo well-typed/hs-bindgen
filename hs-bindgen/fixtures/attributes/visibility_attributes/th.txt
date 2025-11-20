@@ -540,427 +540,1031 @@
 -- {
 --   return &i19;
 -- }
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_e8fda12159f2be9f" f0_base :: IO Unit
 {-| __C declaration:__ @f0@
 
     __defined at:__ @attributes\/visibility_attributes.h:17:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_e8fda12159f2be9f" f0 :: IO Unit
-{-| __C declaration:__ @f1@
-
-    __defined at:__ @attributes\/visibility_attributes.h:18:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_a2f84d2570ef3892" f1 :: IO Unit
-{-| __C declaration:__ @f2@
-
-    __defined at:__ @attributes\/visibility_attributes.h:19:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_1d043de05a457e90" f2 :: IO Unit
-{-| __C declaration:__ @f3@
-
-    __defined at:__ @attributes\/visibility_attributes.h:20:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_e23eff1955ebb459" f3 :: IO Unit
-{-| __C declaration:__ @f4@
-
-    __defined at:__ @attributes\/visibility_attributes.h:21:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_ce219a1a5351d14e" f4 :: IO Unit
-{-| __C declaration:__ @f5@
-
-    __defined at:__ @attributes\/visibility_attributes.h:24:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_caebbc1a0babf9c3" f5 :: IO Unit
-{-| __C declaration:__ @f6@
-
-    __defined at:__ @attributes\/visibility_attributes.h:25:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_0e94ab16fe1245e4" f6 :: IO Unit
-{-| __C declaration:__ @f7@
-
-    __defined at:__ @attributes\/visibility_attributes.h:26:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_595393c65507c7b2" f7 :: IO Unit
-{-| __C declaration:__ @f8@
-
-    __defined at:__ @attributes\/visibility_attributes.h:27:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_2e6297cc5a3e79e0" f8 :: IO Unit
-{-| __C declaration:__ @f9@
-
-    __defined at:__ @attributes\/visibility_attributes.h:28:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_7d6b88eb048c2261" f9 :: IO Unit
-{-| __C declaration:__ @f10@
-
-    __defined at:__ @attributes\/visibility_attributes.h:31:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_4ef53db381225865" f10 :: IO Unit
-{-| __C declaration:__ @f11@
-
-    __defined at:__ @attributes\/visibility_attributes.h:32:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_c626c8c382be7e47" f11 :: IO Unit
-{-| __C declaration:__ @f12@
-
-    __defined at:__ @attributes\/visibility_attributes.h:33:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_09bc3cf816a85839" f12 :: IO Unit
-{-| __C declaration:__ @f13@
-
-    __defined at:__ @attributes\/visibility_attributes.h:34:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_eadf3eb9d39365cf" f13 :: IO Unit
-{-| __C declaration:__ @f14@
-
-    __defined at:__ @attributes\/visibility_attributes.h:35:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_24313656b5162754" f14 :: IO Unit
-{-| __C declaration:__ @f15@
-
-    __defined at:__ @attributes\/visibility_attributes.h:38:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_db09067813df28c1" f15 :: IO Unit
-{-| __C declaration:__ @f16@
-
-    __defined at:__ @attributes\/visibility_attributes.h:39:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_4ce3176c4406cf10" f16 :: IO Unit
-{-| __C declaration:__ @f17@
-
-    __defined at:__ @attributes\/visibility_attributes.h:40:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_2354b7b245be3629" f17 :: IO Unit
-{-| __C declaration:__ @f18@
-
-    __defined at:__ @attributes\/visibility_attributes.h:41:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_a24f6e8ea1a74456" f18 :: IO Unit
-{-| __C declaration:__ @f19@
-
-    __defined at:__ @attributes\/visibility_attributes.h:42:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_e14cdae313c9647d" f19 :: IO Unit
-{-| __C declaration:__ @f20@
-
-    __defined at:__ @attributes\/visibility_attributes.h:45:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_d973493c824fdf05" f20 :: IO Unit
-{-| __C declaration:__ @f21@
-
-    __defined at:__ @attributes\/visibility_attributes.h:46:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_cc1b3614f810260c" f21 :: IO Unit
-{-| __C declaration:__ @f22@
-
-    __defined at:__ @attributes\/visibility_attributes.h:47:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_cb764aa14ed3e34c" f22 :: IO Unit
-{-| __C declaration:__ @f23@
-
-    __defined at:__ @attributes\/visibility_attributes.h:48:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_dc225cc74f4331bf" f23 :: IO Unit
-{-| __C declaration:__ @f24@
-
-    __defined at:__ @attributes\/visibility_attributes.h:49:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_88449e6c03902cdf" f24 :: IO Unit
-{-| __C declaration:__ @f25@
-
-    __defined at:__ @attributes\/visibility_attributes.h:52:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_7370ca6009a58826" f25 :: IO Unit
-{-| __C declaration:__ @f26@
-
-    __defined at:__ @attributes\/visibility_attributes.h:53:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_a67323b70e59146d" f26 :: IO Unit
-{-| __C declaration:__ @f27@
-
-    __defined at:__ @attributes\/visibility_attributes.h:54:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_968a7a3827f17839" f27 :: IO Unit
-{-| __C declaration:__ @f28@
-
-    __defined at:__ @attributes\/visibility_attributes.h:55:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_fbb18ffa92c2c5be" f28 :: IO Unit
-{-| __C declaration:__ @f29@
-
-    __defined at:__ @attributes\/visibility_attributes.h:56:56@
-
-    __exported by:__ @attributes\/visibility_attributes.h@
--}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_60afc98eb89b8a2d" f29 :: IO Unit
+f0 :: IO Unit
 {-| __C declaration:__ @f0@
 
     __defined at:__ @attributes\/visibility_attributes.h:17:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_3ff941535f1a906c" f0 :: IO Unit
+f0 = fromMarshallableBaseType f0_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_a2f84d2570ef3892" f1_base :: IO Unit
 {-| __C declaration:__ @f1@
 
     __defined at:__ @attributes\/visibility_attributes.h:18:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_c1788128a5b1c813" f1 :: IO Unit
+f1 :: IO Unit
+{-| __C declaration:__ @f1@
+
+    __defined at:__ @attributes\/visibility_attributes.h:18:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f1 = fromMarshallableBaseType f1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_1d043de05a457e90" f2_base :: IO Unit
 {-| __C declaration:__ @f2@
 
     __defined at:__ @attributes\/visibility_attributes.h:19:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_14361e995fb5684a" f2 :: IO Unit
+f2 :: IO Unit
+{-| __C declaration:__ @f2@
+
+    __defined at:__ @attributes\/visibility_attributes.h:19:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f2 = fromMarshallableBaseType f2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_e23eff1955ebb459" f3_base :: IO Unit
 {-| __C declaration:__ @f3@
 
     __defined at:__ @attributes\/visibility_attributes.h:20:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_2bef032cbe15ffd0" f3 :: IO Unit
+f3 :: IO Unit
+{-| __C declaration:__ @f3@
+
+    __defined at:__ @attributes\/visibility_attributes.h:20:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f3 = fromMarshallableBaseType f3_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_ce219a1a5351d14e" f4_base :: IO Unit
 {-| __C declaration:__ @f4@
 
     __defined at:__ @attributes\/visibility_attributes.h:21:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_cd0cf1428bcc9b38" f4 :: IO Unit
+f4 :: IO Unit
+{-| __C declaration:__ @f4@
+
+    __defined at:__ @attributes\/visibility_attributes.h:21:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f4 = fromMarshallableBaseType f4_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_caebbc1a0babf9c3" f5_base :: IO Unit
 {-| __C declaration:__ @f5@
 
     __defined at:__ @attributes\/visibility_attributes.h:24:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_8c6188a2eaf5d0d4" f5 :: IO Unit
+f5 :: IO Unit
+{-| __C declaration:__ @f5@
+
+    __defined at:__ @attributes\/visibility_attributes.h:24:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f5 = fromMarshallableBaseType f5_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_0e94ab16fe1245e4" f6_base :: IO Unit
 {-| __C declaration:__ @f6@
 
     __defined at:__ @attributes\/visibility_attributes.h:25:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b8eff0c55713150e" f6 :: IO Unit
+f6 :: IO Unit
+{-| __C declaration:__ @f6@
+
+    __defined at:__ @attributes\/visibility_attributes.h:25:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f6 = fromMarshallableBaseType f6_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_595393c65507c7b2" f7_base :: IO Unit
 {-| __C declaration:__ @f7@
 
     __defined at:__ @attributes\/visibility_attributes.h:26:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_71135129c9373ee7" f7 :: IO Unit
+f7 :: IO Unit
+{-| __C declaration:__ @f7@
+
+    __defined at:__ @attributes\/visibility_attributes.h:26:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f7 = fromMarshallableBaseType f7_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_2e6297cc5a3e79e0" f8_base :: IO Unit
 {-| __C declaration:__ @f8@
 
     __defined at:__ @attributes\/visibility_attributes.h:27:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_febb2843049709cd" f8 :: IO Unit
+f8 :: IO Unit
+{-| __C declaration:__ @f8@
+
+    __defined at:__ @attributes\/visibility_attributes.h:27:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f8 = fromMarshallableBaseType f8_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_7d6b88eb048c2261" f9_base :: IO Unit
 {-| __C declaration:__ @f9@
 
     __defined at:__ @attributes\/visibility_attributes.h:28:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_f6882e1e65092791" f9 :: IO Unit
+f9 :: IO Unit
+{-| __C declaration:__ @f9@
+
+    __defined at:__ @attributes\/visibility_attributes.h:28:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f9 = fromMarshallableBaseType f9_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_4ef53db381225865" f10_base :: IO Unit
 {-| __C declaration:__ @f10@
 
     __defined at:__ @attributes\/visibility_attributes.h:31:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_7d21aeb39d51b64f" f10 :: IO Unit
+f10 :: IO Unit
+{-| __C declaration:__ @f10@
+
+    __defined at:__ @attributes\/visibility_attributes.h:31:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f10 = fromMarshallableBaseType f10_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_c626c8c382be7e47" f11_base :: IO Unit
 {-| __C declaration:__ @f11@
 
     __defined at:__ @attributes\/visibility_attributes.h:32:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_fe9b18a1d2845606" f11 :: IO Unit
+f11 :: IO Unit
+{-| __C declaration:__ @f11@
+
+    __defined at:__ @attributes\/visibility_attributes.h:32:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f11 = fromMarshallableBaseType f11_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_09bc3cf816a85839" f12_base :: IO Unit
 {-| __C declaration:__ @f12@
 
     __defined at:__ @attributes\/visibility_attributes.h:33:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_8b5aacef3fb80581" f12 :: IO Unit
+f12 :: IO Unit
+{-| __C declaration:__ @f12@
+
+    __defined at:__ @attributes\/visibility_attributes.h:33:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f12 = fromMarshallableBaseType f12_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_eadf3eb9d39365cf" f13_base :: IO Unit
 {-| __C declaration:__ @f13@
 
     __defined at:__ @attributes\/visibility_attributes.h:34:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_9162af7e5d2b25bd" f13 :: IO Unit
+f13 :: IO Unit
+{-| __C declaration:__ @f13@
+
+    __defined at:__ @attributes\/visibility_attributes.h:34:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f13 = fromMarshallableBaseType f13_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_24313656b5162754" f14_base :: IO Unit
 {-| __C declaration:__ @f14@
 
     __defined at:__ @attributes\/visibility_attributes.h:35:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_92d022f6d12704a3" f14 :: IO Unit
+f14 :: IO Unit
+{-| __C declaration:__ @f14@
+
+    __defined at:__ @attributes\/visibility_attributes.h:35:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f14 = fromMarshallableBaseType f14_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_db09067813df28c1" f15_base :: IO Unit
 {-| __C declaration:__ @f15@
 
     __defined at:__ @attributes\/visibility_attributes.h:38:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_1ade4a16b9edc93f" f15 :: IO Unit
+f15 :: IO Unit
+{-| __C declaration:__ @f15@
+
+    __defined at:__ @attributes\/visibility_attributes.h:38:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f15 = fromMarshallableBaseType f15_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_4ce3176c4406cf10" f16_base :: IO Unit
 {-| __C declaration:__ @f16@
 
     __defined at:__ @attributes\/visibility_attributes.h:39:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_702e08cfa9d8f107" f16 :: IO Unit
+f16 :: IO Unit
+{-| __C declaration:__ @f16@
+
+    __defined at:__ @attributes\/visibility_attributes.h:39:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f16 = fromMarshallableBaseType f16_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_2354b7b245be3629" f17_base :: IO Unit
 {-| __C declaration:__ @f17@
 
     __defined at:__ @attributes\/visibility_attributes.h:40:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_6839cf744c467402" f17 :: IO Unit
+f17 :: IO Unit
+{-| __C declaration:__ @f17@
+
+    __defined at:__ @attributes\/visibility_attributes.h:40:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f17 = fromMarshallableBaseType f17_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_a24f6e8ea1a74456" f18_base :: IO Unit
 {-| __C declaration:__ @f18@
 
     __defined at:__ @attributes\/visibility_attributes.h:41:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_bcbefba8cee060e9" f18 :: IO Unit
+f18 :: IO Unit
+{-| __C declaration:__ @f18@
+
+    __defined at:__ @attributes\/visibility_attributes.h:41:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f18 = fromMarshallableBaseType f18_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_e14cdae313c9647d" f19_base :: IO Unit
 {-| __C declaration:__ @f19@
 
     __defined at:__ @attributes\/visibility_attributes.h:42:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_6991c5868d8397b8" f19 :: IO Unit
+f19 :: IO Unit
+{-| __C declaration:__ @f19@
+
+    __defined at:__ @attributes\/visibility_attributes.h:42:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f19 = fromMarshallableBaseType f19_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_d973493c824fdf05" f20_base :: IO Unit
 {-| __C declaration:__ @f20@
 
     __defined at:__ @attributes\/visibility_attributes.h:45:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_168f1d96d48b3571" f20 :: IO Unit
+f20 :: IO Unit
+{-| __C declaration:__ @f20@
+
+    __defined at:__ @attributes\/visibility_attributes.h:45:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f20 = fromMarshallableBaseType f20_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_cc1b3614f810260c" f21_base :: IO Unit
 {-| __C declaration:__ @f21@
 
     __defined at:__ @attributes\/visibility_attributes.h:46:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_05b34816425cdccc" f21 :: IO Unit
+f21 :: IO Unit
+{-| __C declaration:__ @f21@
+
+    __defined at:__ @attributes\/visibility_attributes.h:46:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f21 = fromMarshallableBaseType f21_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_cb764aa14ed3e34c" f22_base :: IO Unit
 {-| __C declaration:__ @f22@
 
     __defined at:__ @attributes\/visibility_attributes.h:47:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_1531783017d14d65" f22 :: IO Unit
+f22 :: IO Unit
+{-| __C declaration:__ @f22@
+
+    __defined at:__ @attributes\/visibility_attributes.h:47:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f22 = fromMarshallableBaseType f22_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_dc225cc74f4331bf" f23_base :: IO Unit
 {-| __C declaration:__ @f23@
 
     __defined at:__ @attributes\/visibility_attributes.h:48:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_e086f69c4390fd7e" f23 :: IO Unit
+f23 :: IO Unit
+{-| __C declaration:__ @f23@
+
+    __defined at:__ @attributes\/visibility_attributes.h:48:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f23 = fromMarshallableBaseType f23_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_88449e6c03902cdf" f24_base :: IO Unit
 {-| __C declaration:__ @f24@
 
     __defined at:__ @attributes\/visibility_attributes.h:49:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_eaa6acf5b4299e7c" f24 :: IO Unit
+f24 :: IO Unit
+{-| __C declaration:__ @f24@
+
+    __defined at:__ @attributes\/visibility_attributes.h:49:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f24 = fromMarshallableBaseType f24_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_7370ca6009a58826" f25_base :: IO Unit
 {-| __C declaration:__ @f25@
 
     __defined at:__ @attributes\/visibility_attributes.h:52:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_a82bd6ddcf01332d" f25 :: IO Unit
+f25 :: IO Unit
+{-| __C declaration:__ @f25@
+
+    __defined at:__ @attributes\/visibility_attributes.h:52:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f25 = fromMarshallableBaseType f25_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_a67323b70e59146d" f26_base :: IO Unit
 {-| __C declaration:__ @f26@
 
     __defined at:__ @attributes\/visibility_attributes.h:53:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_1ee51cc55408f9a7" f26 :: IO Unit
+f26 :: IO Unit
+{-| __C declaration:__ @f26@
+
+    __defined at:__ @attributes\/visibility_attributes.h:53:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f26 = fromMarshallableBaseType f26_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_968a7a3827f17839" f27_base :: IO Unit
 {-| __C declaration:__ @f27@
 
     __defined at:__ @attributes\/visibility_attributes.h:54:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_f6035b3578b5d5cd" f27 :: IO Unit
+f27 :: IO Unit
+{-| __C declaration:__ @f27@
+
+    __defined at:__ @attributes\/visibility_attributes.h:54:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f27 = fromMarshallableBaseType f27_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_fbb18ffa92c2c5be" f28_base :: IO Unit
 {-| __C declaration:__ @f28@
 
     __defined at:__ @attributes\/visibility_attributes.h:55:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_a827e3b8d932270f" f28 :: IO Unit
+f28 :: IO Unit
+{-| __C declaration:__ @f28@
+
+    __defined at:__ @attributes\/visibility_attributes.h:55:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f28 = fromMarshallableBaseType f28_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_60afc98eb89b8a2d" f29_base :: IO Unit
 {-| __C declaration:__ @f29@
 
     __defined at:__ @attributes\/visibility_attributes.h:56:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_316dcf70a67165b5" f29 :: IO Unit
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_a03f2cbeac50b3d3" hs_bindgen_test_attributesvisibility_attribut_a03f2cbeac50b3d3 :: IO (FunPtr (IO Unit))
+f29 :: IO Unit
+{-| __C declaration:__ @f29@
+
+    __defined at:__ @attributes\/visibility_attributes.h:56:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f29 = fromMarshallableBaseType f29_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_3ff941535f1a906c" f0_base :: IO Unit
+{-| __C declaration:__ @f0@
+
+    __defined at:__ @attributes\/visibility_attributes.h:17:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f0 :: IO Unit
+{-| __C declaration:__ @f0@
+
+    __defined at:__ @attributes\/visibility_attributes.h:17:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f0 = fromMarshallableBaseType f0_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_c1788128a5b1c813" f1_base :: IO Unit
+{-| __C declaration:__ @f1@
+
+    __defined at:__ @attributes\/visibility_attributes.h:18:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f1 :: IO Unit
+{-| __C declaration:__ @f1@
+
+    __defined at:__ @attributes\/visibility_attributes.h:18:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f1 = fromMarshallableBaseType f1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_14361e995fb5684a" f2_base :: IO Unit
+{-| __C declaration:__ @f2@
+
+    __defined at:__ @attributes\/visibility_attributes.h:19:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f2 :: IO Unit
+{-| __C declaration:__ @f2@
+
+    __defined at:__ @attributes\/visibility_attributes.h:19:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f2 = fromMarshallableBaseType f2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_2bef032cbe15ffd0" f3_base :: IO Unit
+{-| __C declaration:__ @f3@
+
+    __defined at:__ @attributes\/visibility_attributes.h:20:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f3 :: IO Unit
+{-| __C declaration:__ @f3@
+
+    __defined at:__ @attributes\/visibility_attributes.h:20:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f3 = fromMarshallableBaseType f3_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_cd0cf1428bcc9b38" f4_base :: IO Unit
+{-| __C declaration:__ @f4@
+
+    __defined at:__ @attributes\/visibility_attributes.h:21:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f4 :: IO Unit
+{-| __C declaration:__ @f4@
+
+    __defined at:__ @attributes\/visibility_attributes.h:21:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f4 = fromMarshallableBaseType f4_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_8c6188a2eaf5d0d4" f5_base :: IO Unit
+{-| __C declaration:__ @f5@
+
+    __defined at:__ @attributes\/visibility_attributes.h:24:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f5 :: IO Unit
+{-| __C declaration:__ @f5@
+
+    __defined at:__ @attributes\/visibility_attributes.h:24:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f5 = fromMarshallableBaseType f5_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b8eff0c55713150e" f6_base :: IO Unit
+{-| __C declaration:__ @f6@
+
+    __defined at:__ @attributes\/visibility_attributes.h:25:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f6 :: IO Unit
+{-| __C declaration:__ @f6@
+
+    __defined at:__ @attributes\/visibility_attributes.h:25:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f6 = fromMarshallableBaseType f6_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_71135129c9373ee7" f7_base :: IO Unit
+{-| __C declaration:__ @f7@
+
+    __defined at:__ @attributes\/visibility_attributes.h:26:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f7 :: IO Unit
+{-| __C declaration:__ @f7@
+
+    __defined at:__ @attributes\/visibility_attributes.h:26:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f7 = fromMarshallableBaseType f7_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_febb2843049709cd" f8_base :: IO Unit
+{-| __C declaration:__ @f8@
+
+    __defined at:__ @attributes\/visibility_attributes.h:27:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f8 :: IO Unit
+{-| __C declaration:__ @f8@
+
+    __defined at:__ @attributes\/visibility_attributes.h:27:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f8 = fromMarshallableBaseType f8_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_f6882e1e65092791" f9_base :: IO Unit
+{-| __C declaration:__ @f9@
+
+    __defined at:__ @attributes\/visibility_attributes.h:28:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f9 :: IO Unit
+{-| __C declaration:__ @f9@
+
+    __defined at:__ @attributes\/visibility_attributes.h:28:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f9 = fromMarshallableBaseType f9_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_7d21aeb39d51b64f" f10_base :: IO Unit
+{-| __C declaration:__ @f10@
+
+    __defined at:__ @attributes\/visibility_attributes.h:31:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f10 :: IO Unit
+{-| __C declaration:__ @f10@
+
+    __defined at:__ @attributes\/visibility_attributes.h:31:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f10 = fromMarshallableBaseType f10_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_fe9b18a1d2845606" f11_base :: IO Unit
+{-| __C declaration:__ @f11@
+
+    __defined at:__ @attributes\/visibility_attributes.h:32:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f11 :: IO Unit
+{-| __C declaration:__ @f11@
+
+    __defined at:__ @attributes\/visibility_attributes.h:32:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f11 = fromMarshallableBaseType f11_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_8b5aacef3fb80581" f12_base :: IO Unit
+{-| __C declaration:__ @f12@
+
+    __defined at:__ @attributes\/visibility_attributes.h:33:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f12 :: IO Unit
+{-| __C declaration:__ @f12@
+
+    __defined at:__ @attributes\/visibility_attributes.h:33:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f12 = fromMarshallableBaseType f12_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_9162af7e5d2b25bd" f13_base :: IO Unit
+{-| __C declaration:__ @f13@
+
+    __defined at:__ @attributes\/visibility_attributes.h:34:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f13 :: IO Unit
+{-| __C declaration:__ @f13@
+
+    __defined at:__ @attributes\/visibility_attributes.h:34:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f13 = fromMarshallableBaseType f13_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_92d022f6d12704a3" f14_base :: IO Unit
+{-| __C declaration:__ @f14@
+
+    __defined at:__ @attributes\/visibility_attributes.h:35:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f14 :: IO Unit
+{-| __C declaration:__ @f14@
+
+    __defined at:__ @attributes\/visibility_attributes.h:35:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f14 = fromMarshallableBaseType f14_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_1ade4a16b9edc93f" f15_base :: IO Unit
+{-| __C declaration:__ @f15@
+
+    __defined at:__ @attributes\/visibility_attributes.h:38:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f15 :: IO Unit
+{-| __C declaration:__ @f15@
+
+    __defined at:__ @attributes\/visibility_attributes.h:38:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f15 = fromMarshallableBaseType f15_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_702e08cfa9d8f107" f16_base :: IO Unit
+{-| __C declaration:__ @f16@
+
+    __defined at:__ @attributes\/visibility_attributes.h:39:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f16 :: IO Unit
+{-| __C declaration:__ @f16@
+
+    __defined at:__ @attributes\/visibility_attributes.h:39:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f16 = fromMarshallableBaseType f16_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_6839cf744c467402" f17_base :: IO Unit
+{-| __C declaration:__ @f17@
+
+    __defined at:__ @attributes\/visibility_attributes.h:40:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f17 :: IO Unit
+{-| __C declaration:__ @f17@
+
+    __defined at:__ @attributes\/visibility_attributes.h:40:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f17 = fromMarshallableBaseType f17_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_bcbefba8cee060e9" f18_base :: IO Unit
+{-| __C declaration:__ @f18@
+
+    __defined at:__ @attributes\/visibility_attributes.h:41:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f18 :: IO Unit
+{-| __C declaration:__ @f18@
+
+    __defined at:__ @attributes\/visibility_attributes.h:41:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f18 = fromMarshallableBaseType f18_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_6991c5868d8397b8" f19_base :: IO Unit
+{-| __C declaration:__ @f19@
+
+    __defined at:__ @attributes\/visibility_attributes.h:42:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f19 :: IO Unit
+{-| __C declaration:__ @f19@
+
+    __defined at:__ @attributes\/visibility_attributes.h:42:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f19 = fromMarshallableBaseType f19_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_168f1d96d48b3571" f20_base :: IO Unit
+{-| __C declaration:__ @f20@
+
+    __defined at:__ @attributes\/visibility_attributes.h:45:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f20 :: IO Unit
+{-| __C declaration:__ @f20@
+
+    __defined at:__ @attributes\/visibility_attributes.h:45:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f20 = fromMarshallableBaseType f20_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_05b34816425cdccc" f21_base :: IO Unit
+{-| __C declaration:__ @f21@
+
+    __defined at:__ @attributes\/visibility_attributes.h:46:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f21 :: IO Unit
+{-| __C declaration:__ @f21@
+
+    __defined at:__ @attributes\/visibility_attributes.h:46:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f21 = fromMarshallableBaseType f21_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_1531783017d14d65" f22_base :: IO Unit
+{-| __C declaration:__ @f22@
+
+    __defined at:__ @attributes\/visibility_attributes.h:47:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f22 :: IO Unit
+{-| __C declaration:__ @f22@
+
+    __defined at:__ @attributes\/visibility_attributes.h:47:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f22 = fromMarshallableBaseType f22_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_e086f69c4390fd7e" f23_base :: IO Unit
+{-| __C declaration:__ @f23@
+
+    __defined at:__ @attributes\/visibility_attributes.h:48:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f23 :: IO Unit
+{-| __C declaration:__ @f23@
+
+    __defined at:__ @attributes\/visibility_attributes.h:48:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f23 = fromMarshallableBaseType f23_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_eaa6acf5b4299e7c" f24_base :: IO Unit
+{-| __C declaration:__ @f24@
+
+    __defined at:__ @attributes\/visibility_attributes.h:49:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f24 :: IO Unit
+{-| __C declaration:__ @f24@
+
+    __defined at:__ @attributes\/visibility_attributes.h:49:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f24 = fromMarshallableBaseType f24_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_a82bd6ddcf01332d" f25_base :: IO Unit
+{-| __C declaration:__ @f25@
+
+    __defined at:__ @attributes\/visibility_attributes.h:52:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f25 :: IO Unit
+{-| __C declaration:__ @f25@
+
+    __defined at:__ @attributes\/visibility_attributes.h:52:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f25 = fromMarshallableBaseType f25_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_1ee51cc55408f9a7" f26_base :: IO Unit
+{-| __C declaration:__ @f26@
+
+    __defined at:__ @attributes\/visibility_attributes.h:53:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f26 :: IO Unit
+{-| __C declaration:__ @f26@
+
+    __defined at:__ @attributes\/visibility_attributes.h:53:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f26 = fromMarshallableBaseType f26_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_f6035b3578b5d5cd" f27_base :: IO Unit
+{-| __C declaration:__ @f27@
+
+    __defined at:__ @attributes\/visibility_attributes.h:54:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f27 :: IO Unit
+{-| __C declaration:__ @f27@
+
+    __defined at:__ @attributes\/visibility_attributes.h:54:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f27 = fromMarshallableBaseType f27_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_a827e3b8d932270f" f28_base :: IO Unit
+{-| __C declaration:__ @f28@
+
+    __defined at:__ @attributes\/visibility_attributes.h:55:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f28 :: IO Unit
+{-| __C declaration:__ @f28@
+
+    __defined at:__ @attributes\/visibility_attributes.h:55:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f28 = fromMarshallableBaseType f28_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_316dcf70a67165b5" f29_base :: IO Unit
+{-| __C declaration:__ @f29@
+
+    __defined at:__ @attributes\/visibility_attributes.h:56:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f29 :: IO Unit
+{-| __C declaration:__ @f29@
+
+    __defined at:__ @attributes\/visibility_attributes.h:56:56@
+
+    __exported by:__ @attributes\/visibility_attributes.h@
+-}
+f29 = fromMarshallableBaseType f29_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_a03f2cbeac50b3d3" hs_bindgen_test_attributesvisibility_attribut_a03f2cbeac50b3d3_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_a03f2cbeac50b3d3 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_a03f2cbeac50b3d3 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_a03f2cbeac50b3d3_base
 {-# NOINLINE f0_ptr #-}
 {-| __C declaration:__ @f0@
 
@@ -976,7 +1580,11 @@ f0_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f0_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_a03f2cbeac50b3d3
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_5469bdc0395f86c1" hs_bindgen_test_attributesvisibility_attribut_5469bdc0395f86c1 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_5469bdc0395f86c1" hs_bindgen_test_attributesvisibility_attribut_5469bdc0395f86c1_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_5469bdc0395f86c1 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_5469bdc0395f86c1 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_5469bdc0395f86c1_base
 {-# NOINLINE f1_ptr #-}
 {-| __C declaration:__ @f1@
 
@@ -992,7 +1600,11 @@ f1_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f1_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_5469bdc0395f86c1
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_490ca7e8c8282a69" hs_bindgen_test_attributesvisibility_attribut_490ca7e8c8282a69 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_490ca7e8c8282a69" hs_bindgen_test_attributesvisibility_attribut_490ca7e8c8282a69_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_490ca7e8c8282a69 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_490ca7e8c8282a69 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_490ca7e8c8282a69_base
 {-# NOINLINE f2_ptr #-}
 {-| __C declaration:__ @f2@
 
@@ -1008,7 +1620,11 @@ f2_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f2_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_490ca7e8c8282a69
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_38506a9ac5626bf2" hs_bindgen_test_attributesvisibility_attribut_38506a9ac5626bf2 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_38506a9ac5626bf2" hs_bindgen_test_attributesvisibility_attribut_38506a9ac5626bf2_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_38506a9ac5626bf2 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_38506a9ac5626bf2 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_38506a9ac5626bf2_base
 {-# NOINLINE f3_ptr #-}
 {-| __C declaration:__ @f3@
 
@@ -1024,7 +1640,11 @@ f3_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f3_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_38506a9ac5626bf2
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_10e5fac8fefa811b" hs_bindgen_test_attributesvisibility_attribut_10e5fac8fefa811b :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_10e5fac8fefa811b" hs_bindgen_test_attributesvisibility_attribut_10e5fac8fefa811b_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_10e5fac8fefa811b :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_10e5fac8fefa811b = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_10e5fac8fefa811b_base
 {-# NOINLINE f4_ptr #-}
 {-| __C declaration:__ @f4@
 
@@ -1040,7 +1660,11 @@ f4_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f4_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_10e5fac8fefa811b
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_3f137e2ee71fd73b" hs_bindgen_test_attributesvisibility_attribut_3f137e2ee71fd73b :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_3f137e2ee71fd73b" hs_bindgen_test_attributesvisibility_attribut_3f137e2ee71fd73b_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_3f137e2ee71fd73b :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_3f137e2ee71fd73b = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_3f137e2ee71fd73b_base
 {-# NOINLINE f5_ptr #-}
 {-| __C declaration:__ @f5@
 
@@ -1056,7 +1680,11 @@ f5_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f5_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_3f137e2ee71fd73b
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b69720e01b3b7ccd" hs_bindgen_test_attributesvisibility_attribut_b69720e01b3b7ccd :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b69720e01b3b7ccd" hs_bindgen_test_attributesvisibility_attribut_b69720e01b3b7ccd_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_b69720e01b3b7ccd :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_b69720e01b3b7ccd = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_b69720e01b3b7ccd_base
 {-# NOINLINE f6_ptr #-}
 {-| __C declaration:__ @f6@
 
@@ -1072,7 +1700,11 @@ f6_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f6_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_b69720e01b3b7ccd
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_97be5f53b506f3b5" hs_bindgen_test_attributesvisibility_attribut_97be5f53b506f3b5 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_97be5f53b506f3b5" hs_bindgen_test_attributesvisibility_attribut_97be5f53b506f3b5_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_97be5f53b506f3b5 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_97be5f53b506f3b5 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_97be5f53b506f3b5_base
 {-# NOINLINE f7_ptr #-}
 {-| __C declaration:__ @f7@
 
@@ -1088,7 +1720,11 @@ f7_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f7_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_97be5f53b506f3b5
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_ae7ef3d579d77d0b" hs_bindgen_test_attributesvisibility_attribut_ae7ef3d579d77d0b :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_ae7ef3d579d77d0b" hs_bindgen_test_attributesvisibility_attribut_ae7ef3d579d77d0b_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_ae7ef3d579d77d0b :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_ae7ef3d579d77d0b = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_ae7ef3d579d77d0b_base
 {-# NOINLINE f8_ptr #-}
 {-| __C declaration:__ @f8@
 
@@ -1104,7 +1740,11 @@ f8_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f8_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_ae7ef3d579d77d0b
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_ef6d611329a20b40" hs_bindgen_test_attributesvisibility_attribut_ef6d611329a20b40 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_ef6d611329a20b40" hs_bindgen_test_attributesvisibility_attribut_ef6d611329a20b40_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_ef6d611329a20b40 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_ef6d611329a20b40 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_ef6d611329a20b40_base
 {-# NOINLINE f9_ptr #-}
 {-| __C declaration:__ @f9@
 
@@ -1120,7 +1760,11 @@ f9_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f9_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_ef6d611329a20b40
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_45797238134784ac" hs_bindgen_test_attributesvisibility_attribut_45797238134784ac :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_45797238134784ac" hs_bindgen_test_attributesvisibility_attribut_45797238134784ac_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_45797238134784ac :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_45797238134784ac = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_45797238134784ac_base
 {-# NOINLINE f10_ptr #-}
 {-| __C declaration:__ @f10@
 
@@ -1136,7 +1780,11 @@ f10_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f10_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_45797238134784ac
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_f09c80553786e039" hs_bindgen_test_attributesvisibility_attribut_f09c80553786e039 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_f09c80553786e039" hs_bindgen_test_attributesvisibility_attribut_f09c80553786e039_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_f09c80553786e039 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_f09c80553786e039 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_f09c80553786e039_base
 {-# NOINLINE f11_ptr #-}
 {-| __C declaration:__ @f11@
 
@@ -1152,7 +1800,11 @@ f11_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f11_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_f09c80553786e039
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_2e9999eac1cab3da" hs_bindgen_test_attributesvisibility_attribut_2e9999eac1cab3da :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_2e9999eac1cab3da" hs_bindgen_test_attributesvisibility_attribut_2e9999eac1cab3da_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_2e9999eac1cab3da :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_2e9999eac1cab3da = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_2e9999eac1cab3da_base
 {-# NOINLINE f12_ptr #-}
 {-| __C declaration:__ @f12@
 
@@ -1168,7 +1820,11 @@ f12_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f12_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_2e9999eac1cab3da
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_32e5be8a3f3ac037" hs_bindgen_test_attributesvisibility_attribut_32e5be8a3f3ac037 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_32e5be8a3f3ac037" hs_bindgen_test_attributesvisibility_attribut_32e5be8a3f3ac037_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_32e5be8a3f3ac037 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_32e5be8a3f3ac037 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_32e5be8a3f3ac037_base
 {-# NOINLINE f13_ptr #-}
 {-| __C declaration:__ @f13@
 
@@ -1184,7 +1840,11 @@ f13_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f13_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_32e5be8a3f3ac037
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_0b00a23924c6dc70" hs_bindgen_test_attributesvisibility_attribut_0b00a23924c6dc70 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_0b00a23924c6dc70" hs_bindgen_test_attributesvisibility_attribut_0b00a23924c6dc70_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_0b00a23924c6dc70 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_0b00a23924c6dc70 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_0b00a23924c6dc70_base
 {-# NOINLINE f14_ptr #-}
 {-| __C declaration:__ @f14@
 
@@ -1200,7 +1860,11 @@ f14_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f14_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_0b00a23924c6dc70
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_0d2891732562e5ef" hs_bindgen_test_attributesvisibility_attribut_0d2891732562e5ef :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_0d2891732562e5ef" hs_bindgen_test_attributesvisibility_attribut_0d2891732562e5ef_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_0d2891732562e5ef :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_0d2891732562e5ef = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_0d2891732562e5ef_base
 {-# NOINLINE f15_ptr #-}
 {-| __C declaration:__ @f15@
 
@@ -1216,7 +1880,11 @@ f15_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f15_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_0d2891732562e5ef
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_f25227febbe8db15" hs_bindgen_test_attributesvisibility_attribut_f25227febbe8db15 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_f25227febbe8db15" hs_bindgen_test_attributesvisibility_attribut_f25227febbe8db15_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_f25227febbe8db15 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_f25227febbe8db15 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_f25227febbe8db15_base
 {-# NOINLINE f16_ptr #-}
 {-| __C declaration:__ @f16@
 
@@ -1232,7 +1900,11 @@ f16_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f16_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_f25227febbe8db15
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b90b1824c2839fd2" hs_bindgen_test_attributesvisibility_attribut_b90b1824c2839fd2 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b90b1824c2839fd2" hs_bindgen_test_attributesvisibility_attribut_b90b1824c2839fd2_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_b90b1824c2839fd2 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_b90b1824c2839fd2 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_b90b1824c2839fd2_base
 {-# NOINLINE f17_ptr #-}
 {-| __C declaration:__ @f17@
 
@@ -1248,7 +1920,11 @@ f17_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f17_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_b90b1824c2839fd2
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_24ba8b98fe453a5c" hs_bindgen_test_attributesvisibility_attribut_24ba8b98fe453a5c :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_24ba8b98fe453a5c" hs_bindgen_test_attributesvisibility_attribut_24ba8b98fe453a5c_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_24ba8b98fe453a5c :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_24ba8b98fe453a5c = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_24ba8b98fe453a5c_base
 {-# NOINLINE f18_ptr #-}
 {-| __C declaration:__ @f18@
 
@@ -1264,7 +1940,11 @@ f18_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f18_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_24ba8b98fe453a5c
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b857c57c0cf79909" hs_bindgen_test_attributesvisibility_attribut_b857c57c0cf79909 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b857c57c0cf79909" hs_bindgen_test_attributesvisibility_attribut_b857c57c0cf79909_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_b857c57c0cf79909 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_b857c57c0cf79909 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_b857c57c0cf79909_base
 {-# NOINLINE f19_ptr #-}
 {-| __C declaration:__ @f19@
 
@@ -1280,7 +1960,11 @@ f19_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f19_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_b857c57c0cf79909
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_d695cc521dd39753" hs_bindgen_test_attributesvisibility_attribut_d695cc521dd39753 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_d695cc521dd39753" hs_bindgen_test_attributesvisibility_attribut_d695cc521dd39753_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_d695cc521dd39753 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_d695cc521dd39753 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_d695cc521dd39753_base
 {-# NOINLINE f20_ptr #-}
 {-| __C declaration:__ @f20@
 
@@ -1296,7 +1980,11 @@ f20_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f20_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_d695cc521dd39753
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_7311dbbdd00abedc" hs_bindgen_test_attributesvisibility_attribut_7311dbbdd00abedc :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_7311dbbdd00abedc" hs_bindgen_test_attributesvisibility_attribut_7311dbbdd00abedc_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_7311dbbdd00abedc :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_7311dbbdd00abedc = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_7311dbbdd00abedc_base
 {-# NOINLINE f21_ptr #-}
 {-| __C declaration:__ @f21@
 
@@ -1312,7 +2000,11 @@ f21_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f21_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_7311dbbdd00abedc
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_4246b9344ad4db0d" hs_bindgen_test_attributesvisibility_attribut_4246b9344ad4db0d :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_4246b9344ad4db0d" hs_bindgen_test_attributesvisibility_attribut_4246b9344ad4db0d_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_4246b9344ad4db0d :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_4246b9344ad4db0d = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_4246b9344ad4db0d_base
 {-# NOINLINE f22_ptr #-}
 {-| __C declaration:__ @f22@
 
@@ -1328,7 +2020,11 @@ f22_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f22_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_4246b9344ad4db0d
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_dcef056ccb5953f9" hs_bindgen_test_attributesvisibility_attribut_dcef056ccb5953f9 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_dcef056ccb5953f9" hs_bindgen_test_attributesvisibility_attribut_dcef056ccb5953f9_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_dcef056ccb5953f9 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_dcef056ccb5953f9 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_dcef056ccb5953f9_base
 {-# NOINLINE f23_ptr #-}
 {-| __C declaration:__ @f23@
 
@@ -1344,7 +2040,11 @@ f23_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f23_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_dcef056ccb5953f9
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_9ab6df359be6d370" hs_bindgen_test_attributesvisibility_attribut_9ab6df359be6d370 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_9ab6df359be6d370" hs_bindgen_test_attributesvisibility_attribut_9ab6df359be6d370_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_9ab6df359be6d370 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_9ab6df359be6d370 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_9ab6df359be6d370_base
 {-# NOINLINE f24_ptr #-}
 {-| __C declaration:__ @f24@
 
@@ -1360,7 +2060,11 @@ f24_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f24_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_9ab6df359be6d370
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_80cad6f0afd3f1fc" hs_bindgen_test_attributesvisibility_attribut_80cad6f0afd3f1fc :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_80cad6f0afd3f1fc" hs_bindgen_test_attributesvisibility_attribut_80cad6f0afd3f1fc_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_80cad6f0afd3f1fc :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_80cad6f0afd3f1fc = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_80cad6f0afd3f1fc_base
 {-# NOINLINE f25_ptr #-}
 {-| __C declaration:__ @f25@
 
@@ -1376,7 +2080,11 @@ f25_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f25_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_80cad6f0afd3f1fc
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b1580cdccf30f552" hs_bindgen_test_attributesvisibility_attribut_b1580cdccf30f552 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b1580cdccf30f552" hs_bindgen_test_attributesvisibility_attribut_b1580cdccf30f552_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_b1580cdccf30f552 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_b1580cdccf30f552 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_b1580cdccf30f552_base
 {-# NOINLINE f26_ptr #-}
 {-| __C declaration:__ @f26@
 
@@ -1392,7 +2100,11 @@ f26_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f26_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_b1580cdccf30f552
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_2e4891a5e2afe0df" hs_bindgen_test_attributesvisibility_attribut_2e4891a5e2afe0df :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_2e4891a5e2afe0df" hs_bindgen_test_attributesvisibility_attribut_2e4891a5e2afe0df_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_2e4891a5e2afe0df :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_2e4891a5e2afe0df = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_2e4891a5e2afe0df_base
 {-# NOINLINE f27_ptr #-}
 {-| __C declaration:__ @f27@
 
@@ -1408,7 +2120,11 @@ f27_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f27_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_2e4891a5e2afe0df
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_e2949a9b7b7cbfc0" hs_bindgen_test_attributesvisibility_attribut_e2949a9b7b7cbfc0 :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_e2949a9b7b7cbfc0" hs_bindgen_test_attributesvisibility_attribut_e2949a9b7b7cbfc0_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_e2949a9b7b7cbfc0 :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_e2949a9b7b7cbfc0 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_e2949a9b7b7cbfc0_base
 {-# NOINLINE f28_ptr #-}
 {-| __C declaration:__ @f28@
 
@@ -1424,7 +2140,11 @@ f28_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f28_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_e2949a9b7b7cbfc0
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_1224b39f0e8e72cd" hs_bindgen_test_attributesvisibility_attribut_1224b39f0e8e72cd :: IO (FunPtr (IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_1224b39f0e8e72cd" hs_bindgen_test_attributesvisibility_attribut_1224b39f0e8e72cd_base :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_1224b39f0e8e72cd :: IO (FunPtr (IO Unit))
+hs_bindgen_test_attributesvisibility_attribut_1224b39f0e8e72cd = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_1224b39f0e8e72cd_base
 {-# NOINLINE f29_ptr #-}
 {-| __C declaration:__ @f29@
 
@@ -1440,7 +2160,11 @@ f29_ptr :: FunPtr (IO Unit)
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 f29_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_1224b39f0e8e72cd
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143" hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143" hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143 :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143_base
 {-# NOINLINE i0_ptr #-}
 {-| __C declaration:__ @i0@
 
@@ -1456,7 +2180,11 @@ i0_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i0_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983" hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983" hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983 :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983_base
 {-# NOINLINE i1_ptr #-}
 {-| __C declaration:__ @i1@
 
@@ -1472,7 +2200,11 @@ i1_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i1_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159" hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159" hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159 :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159_base
 {-# NOINLINE i2_ptr #-}
 {-| __C declaration:__ @i2@
 
@@ -1488,7 +2220,11 @@ i2_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i2_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5" hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5" hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5 :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5_base
 {-# NOINLINE i3_ptr #-}
 {-| __C declaration:__ @i3@
 
@@ -1504,7 +2240,11 @@ i3_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i3_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2" hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2" hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2 :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2_base
 {-# NOINLINE i4_ptr #-}
 {-| __C declaration:__ @i4@
 
@@ -1520,7 +2260,11 @@ i4_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i4_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa" hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa" hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa_base
 {-# NOINLINE i5_ptr #-}
 {-| __C declaration:__ @i5@
 
@@ -1536,7 +2280,11 @@ i5_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i5_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78" hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78" hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78 :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78_base
 {-# NOINLINE i6_ptr #-}
 {-| __C declaration:__ @i6@
 
@@ -1552,7 +2300,11 @@ i6_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i6_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e" hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e" hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e_base
 {-# NOINLINE i7_ptr #-}
 {-| __C declaration:__ @i7@
 
@@ -1568,7 +2320,11 @@ i7_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i7_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce" hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce" hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce_base
 {-# NOINLINE i8_ptr #-}
 {-| __C declaration:__ @i8@
 
@@ -1584,7 +2340,11 @@ i8_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i8_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295" hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295" hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295 :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295_base
 {-# NOINLINE i9_ptr #-}
 {-| __C declaration:__ @i9@
 
@@ -1600,7 +2360,11 @@ i9_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i9_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878" hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878" hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878 :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878_base
 {-# NOINLINE i10_ptr #-}
 {-| __C declaration:__ @i10@
 
@@ -1616,7 +2380,11 @@ i10_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i10_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9" hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9" hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9 :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9_base
 {-# NOINLINE i11_ptr #-}
 {-| __C declaration:__ @i11@
 
@@ -1632,7 +2400,11 @@ i11_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i11_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4" hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4" hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4 :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4_base
 {-# NOINLINE i12_ptr #-}
 {-| __C declaration:__ @i12@
 
@@ -1648,7 +2420,11 @@ i12_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i12_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e" hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e" hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e_base
 {-# NOINLINE i13_ptr #-}
 {-| __C declaration:__ @i13@
 
@@ -1664,7 +2440,11 @@ i13_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i13_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd" hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd" hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd_base
 {-# NOINLINE i14_ptr #-}
 {-| __C declaration:__ @i14@
 
@@ -1680,7 +2460,11 @@ i14_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i14_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e" hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e" hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e_base
 {-# NOINLINE i15_ptr #-}
 {-| __C declaration:__ @i15@
 
@@ -1696,7 +2480,11 @@ i15_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i15_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58" hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58" hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58 :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58_base
 {-# NOINLINE i16_ptr #-}
 {-| __C declaration:__ @i16@
 
@@ -1712,7 +2500,11 @@ i16_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i16_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6" hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6" hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6 :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6_base
 {-# NOINLINE i17_ptr #-}
 {-| __C declaration:__ @i17@
 
@@ -1728,7 +2520,11 @@ i17_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i17_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c" hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c" hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c_base
 {-# NOINLINE i18_ptr #-}
 {-| __C declaration:__ @i18@
 
@@ -1744,7 +2540,11 @@ i18_ptr :: Ptr CInt
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
 i18_ptr = unsafePerformIO hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c
-foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_df1c0751f896e6b8" hs_bindgen_test_attributesvisibility_attribut_df1c0751f896e6b8 :: IO (Ptr CInt)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_attributesvisibility_attribut_df1c0751f896e6b8" hs_bindgen_test_attributesvisibility_attribut_df1c0751f896e6b8_base :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_df1c0751f896e6b8 :: IO (Ptr CInt)
+hs_bindgen_test_attributesvisibility_attribut_df1c0751f896e6b8 = fromMarshallableBaseType hs_bindgen_test_attributesvisibility_attribut_df1c0751f896e6b8_base
 {-# NOINLINE i19_ptr #-}
 {-| __C declaration:__ @i19@
 

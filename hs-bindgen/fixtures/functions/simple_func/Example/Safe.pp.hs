@@ -6,6 +6,7 @@
 module Example.Safe where
 
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -42,17 +43,37 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionssimple_func_4b858faf89c6033a" erf_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CDouble
+    -> IO FC.CDouble
+    )
+
 {-| __C declaration:__ @erf@
 
     __defined at:__ @functions\/simple_func.h:1:8@
 
     __exported by:__ @functions\/simple_func.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionssimple_func_4b858faf89c6033a" erf ::
+erf ::
      FC.CDouble
      {- ^ __C declaration:__ @arg@
      -}
   -> IO FC.CDouble
+erf =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType erf_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionssimple_func_175251e70d29cd73" bad_fma_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CDouble
+    -> FC.CDouble
+    -> FC.CDouble
+    -> IO FC.CDouble
+    )
 
 {-| __C declaration:__ @bad_fma@
 
@@ -60,7 +81,7 @@ foreign import ccall safe "hs_bindgen_test_functionssimple_func_4b858faf89c6033a
 
     __exported by:__ @functions\/simple_func.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionssimple_func_175251e70d29cd73" bad_fma ::
+bad_fma ::
      FC.CDouble
      {- ^ __C declaration:__ @x@
      -}
@@ -71,6 +92,15 @@ foreign import ccall safe "hs_bindgen_test_functionssimple_func_175251e70d29cd73
      {- ^ __C declaration:__ @z@
      -}
   -> IO FC.CDouble
+bad_fma =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType bad_fma_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionssimple_func_bda1aaa13afe437a" no_args_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @no_args@
 
@@ -78,8 +108,17 @@ foreign import ccall safe "hs_bindgen_test_functionssimple_func_175251e70d29cd73
 
     __exported by:__ @functions\/simple_func.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionssimple_func_bda1aaa13afe437a" no_args ::
+no_args ::
      IO ()
+no_args =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType no_args_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionssimple_func_8d4283a1963012db" no_args_no_void_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO ()
+    )
 
 {-| __C declaration:__ @no_args_no_void@
 
@@ -87,8 +126,19 @@ foreign import ccall safe "hs_bindgen_test_functionssimple_func_bda1aaa13afe437a
 
     __exported by:__ @functions\/simple_func.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionssimple_func_8d4283a1963012db" no_args_no_void ::
+no_args_no_void ::
      IO ()
+no_args_no_void =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType no_args_no_void_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionssimple_func_51ad12b64aea929d" fun_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CChar
+    -> FC.CDouble
+    -> IO FC.CInt
+    )
 
 {-| __C declaration:__ @fun@
 
@@ -96,7 +146,7 @@ foreign import ccall safe "hs_bindgen_test_functionssimple_func_8d4283a1963012db
 
     __exported by:__ @functions\/simple_func.h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionssimple_func_51ad12b64aea929d" fun ::
+fun ::
      FC.CChar
      {- ^ __C declaration:__ @x@
      -}
@@ -104,3 +154,5 @@ foreign import ccall safe "hs_bindgen_test_functionssimple_func_51ad12b64aea929d
      {- ^ __C declaration:__ @y@
      -}
   -> IO FC.CInt
+fun =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fun_base

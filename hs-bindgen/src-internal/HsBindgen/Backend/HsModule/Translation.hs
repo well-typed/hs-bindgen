@@ -234,7 +234,8 @@ resolveDeclImports = \case
     DDerivingInstance DerivingInstance {..} -> resolveStrategyImports derivingInstanceStrategy
                                             <> resolveTypeImports derivingInstanceType
     DForeignImport ForeignImport {..} ->
-         foldMap (resolveTypeImports . functionParameterType)
+         (if foreignImportMarshallable then resolveGlobalImports MarshallableBaseType_type else mempty)
+      <> foldMap (resolveTypeImports . functionParameterType)
                  foreignImportParameters
       <> resolveTypeImports (Hs.extractResultType foreignImportResultType)
     DFunction Function {..} ->

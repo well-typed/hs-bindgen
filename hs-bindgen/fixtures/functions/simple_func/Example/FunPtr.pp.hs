@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -54,8 +55,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_723348151ff43970" hs_bindgen_test_functionssimple_func_723348151ff43970 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_723348151ff43970" hs_bindgen_test_functionssimple_func_723348151ff43970_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
+    )
+
+hs_bindgen_test_functionssimple_func_723348151ff43970 ::
      IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
+hs_bindgen_test_functionssimple_func_723348151ff43970 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionssimple_func_723348151ff43970_base
 
 {-# NOINLINE erf_ptr #-}
 
@@ -69,8 +79,17 @@ erf_ptr :: Ptr.FunPtr (FC.CDouble -> IO FC.CDouble)
 erf_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionssimple_func_723348151ff43970
 
-foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_f3190cb919f94cd9" hs_bindgen_test_functionssimple_func_f3190cb919f94cd9 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_f3190cb919f94cd9" hs_bindgen_test_functionssimple_func_f3190cb919f94cd9_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble))
+    )
+
+hs_bindgen_test_functionssimple_func_f3190cb919f94cd9 ::
      IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble))
+hs_bindgen_test_functionssimple_func_f3190cb919f94cd9 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionssimple_func_f3190cb919f94cd9_base
 
 {-# NOINLINE bad_fma_ptr #-}
 
@@ -84,8 +103,17 @@ bad_fma_ptr :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDoub
 bad_fma_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionssimple_func_f3190cb919f94cd9
 
-foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_fbdbb067d942094e" hs_bindgen_test_functionssimple_func_fbdbb067d942094e ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_fbdbb067d942094e" hs_bindgen_test_functionssimple_func_fbdbb067d942094e_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO ()))
+    )
+
+hs_bindgen_test_functionssimple_func_fbdbb067d942094e ::
      IO (Ptr.FunPtr (IO ()))
+hs_bindgen_test_functionssimple_func_fbdbb067d942094e =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionssimple_func_fbdbb067d942094e_base
 
 {-# NOINLINE no_args_ptr #-}
 
@@ -99,8 +127,17 @@ no_args_ptr :: Ptr.FunPtr (IO ())
 no_args_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionssimple_func_fbdbb067d942094e
 
-foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_452280b5085b4ccd" hs_bindgen_test_functionssimple_func_452280b5085b4ccd ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_452280b5085b4ccd" hs_bindgen_test_functionssimple_func_452280b5085b4ccd_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO ()))
+    )
+
+hs_bindgen_test_functionssimple_func_452280b5085b4ccd ::
      IO (Ptr.FunPtr (IO ()))
+hs_bindgen_test_functionssimple_func_452280b5085b4ccd =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionssimple_func_452280b5085b4ccd_base
 
 {-# NOINLINE no_args_no_void_ptr #-}
 
@@ -114,8 +151,17 @@ no_args_no_void_ptr :: Ptr.FunPtr (IO ())
 no_args_no_void_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionssimple_func_452280b5085b4ccd
 
-foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_b16b846810561073" hs_bindgen_test_functionssimple_func_b16b846810561073 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_b16b846810561073" hs_bindgen_test_functionssimple_func_b16b846810561073_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt))
+    )
+
+hs_bindgen_test_functionssimple_func_b16b846810561073 ::
      IO (Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt))
+hs_bindgen_test_functionssimple_func_b16b846810561073 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_functionssimple_func_b16b846810561073_base
 
 {-# NOINLINE fun_ptr #-}
 

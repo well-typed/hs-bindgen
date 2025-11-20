@@ -72,17 +72,23 @@ hstypes:
 - hsname: DataValidator
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: DataValidator_Deref
+  instances:
+  - Marshallable
 - hsname: FileOpenedNotification
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: FileOpenedNotification_Deref
+  instances:
+  - Marshallable
 - hsname: Foo
   instances:
   - Bits
@@ -92,6 +98,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -107,6 +114,7 @@ hstypes:
   - FiniteBits
   - Integral
   - Ix
+  - Marshallable
   - Num
   - Ord
   - Read
@@ -126,17 +134,21 @@ hstypes:
 - hsname: MeasurementReceived
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: MeasurementReceived2
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: MeasurementReceived2_Deref
 - hsname: MeasurementReceived_Deref
+  instances:
+  - Marshallable
 - hsname: Processor
   instances:
   - Storable
@@ -146,6 +158,7 @@ hstypes:
 - hsname: Processor_mode
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show
@@ -153,13 +166,17 @@ hstypes:
 - hsname: ProgressUpdate
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable
 - hsname: ProgressUpdate_Deref
+  instances:
+  - Marshallable
 - hsname: SampleBufferFull
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Show
   - Storable

@@ -52,6 +52,7 @@ newtype Int16_T
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      Marshallable,
                       Bits,
                       Bounded,
                       Enum,
@@ -82,6 +83,7 @@ newtype Int32_T
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      Marshallable,
                       Bits,
                       Bounded,
                       Enum,
@@ -112,6 +114,7 @@ newtype Int64_T
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      Marshallable,
                       Bits,
                       Bounded,
                       Enum,
@@ -286,38 +289,71 @@ instance TyEq ty (CFieldType A "a_c") =>
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
 data C
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_7d4128962cfce15d" resample_base :: Ptr Int32_T ->
+                                                                                                     Ptr Cint16_T ->
+                                                                                                     Int64_T ->
+                                                                                                     Int64_T ->
+                                                                                                     Ptr Cint16_T ->
+                                                                                                     IO Unit
 {-| __C declaration:__ @resample@
 
     __defined at:__ @edge-cases\/spec_examples.h:31:6@
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_7d4128962cfce15d" resample :: Ptr Int32_T ->
-                                                                                                Ptr Cint16_T ->
-                                                                                                Int64_T ->
-                                                                                                Int64_T ->
-                                                                                                Ptr Cint16_T ->
-                                                                                                IO Unit
+resample :: Ptr Int32_T ->
+            Ptr Cint16_T -> Int64_T -> Int64_T -> Ptr Cint16_T -> IO Unit
 {-| __C declaration:__ @resample@
 
     __defined at:__ @edge-cases\/spec_examples.h:31:6@
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_f31d4400b3244637" resample :: Ptr Int32_T ->
-                                                                                                Ptr Cint16_T ->
-                                                                                                Int64_T ->
-                                                                                                Int64_T ->
-                                                                                                Ptr Cint16_T ->
-                                                                                                IO Unit
-foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5" hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5 :: IO (FunPtr (Ptr Int32_T ->
-                                                                                                                                                           ConstantArray 30720000
-                                                                                                                                                                         Cint16_T ->
-                                                                                                                                                           Int64_T ->
-                                                                                                                                                           Int64_T ->
-                                                                                                                                                           ConstantArray 30720000
-                                                                                                                                                                         Cint16_T ->
-                                                                                                                                                           IO Unit))
+resample = fromMarshallableBaseType resample_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_f31d4400b3244637" resample_base :: Ptr Int32_T ->
+                                                                                                     Ptr Cint16_T ->
+                                                                                                     Int64_T ->
+                                                                                                     Int64_T ->
+                                                                                                     Ptr Cint16_T ->
+                                                                                                     IO Unit
+{-| __C declaration:__ @resample@
+
+    __defined at:__ @edge-cases\/spec_examples.h:31:6@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
+resample :: Ptr Int32_T ->
+            Ptr Cint16_T -> Int64_T -> Int64_T -> Ptr Cint16_T -> IO Unit
+{-| __C declaration:__ @resample@
+
+    __defined at:__ @edge-cases\/spec_examples.h:31:6@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
+resample = fromMarshallableBaseType resample_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5" hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5_base :: IO (FunPtr (Ptr Int32_T ->
+                                                                                                                                                                ConstantArray 30720000
+                                                                                                                                                                              Cint16_T ->
+                                                                                                                                                                Int64_T ->
+                                                                                                                                                                Int64_T ->
+                                                                                                                                                                ConstantArray 30720000
+                                                                                                                                                                              Cint16_T ->
+                                                                                                                                                                IO Unit))
+hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5 :: IO (FunPtr (Ptr Int32_T ->
+                                                                       ConstantArray 30720000
+                                                                                     Cint16_T ->
+                                                                       Int64_T ->
+                                                                       Int64_T ->
+                                                                       ConstantArray 30720000
+                                                                                     Cint16_T ->
+                                                                       IO Unit))
+hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5 = fromMarshallableBaseType hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5_base
 {-# NOINLINE resample_ptr #-}
 {-| __C declaration:__ @resample@
 

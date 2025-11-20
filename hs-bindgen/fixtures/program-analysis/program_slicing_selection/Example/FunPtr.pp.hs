@@ -7,6 +7,7 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -26,8 +27,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4" hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4" hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus))
+    )
+
+hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4 ::
      IO (Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus))
+hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4_base
 
 {-# NOINLINE read_file_chunk_ptr #-}
 

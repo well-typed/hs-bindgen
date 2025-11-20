@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -24,8 +25,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_typesqualifierstype_qualifie_24b25f22222ce366" hs_bindgen_test_typesqualifierstype_qualifie_24b25f22222ce366 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_typesqualifierstype_qualifie_24b25f22222ce366" hs_bindgen_test_typesqualifierstype_qualifie_24b25f22222ce366_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
+    )
+
+hs_bindgen_test_typesqualifierstype_qualifie_24b25f22222ce366 ::
      IO (Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
+hs_bindgen_test_typesqualifierstype_qualifie_24b25f22222ce366 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_typesqualifierstype_qualifie_24b25f22222ce366_base
 
 {-# NOINLINE list_example_ptr #-}
 

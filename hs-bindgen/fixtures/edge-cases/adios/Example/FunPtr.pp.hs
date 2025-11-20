@@ -7,6 +7,7 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -32,8 +33,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_857cc80028e9fd4d" hs_bindgen_test_edgecasesadios_857cc80028e9fd4d ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_857cc80028e9fd4d" hs_bindgen_test_edgecasesadios_857cc80028e9fd4d_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO ()))
+    )
+
+hs_bindgen_test_edgecasesadios_857cc80028e9fd4d ::
      IO (Ptr.FunPtr (IO ()))
+hs_bindgen_test_edgecasesadios_857cc80028e9fd4d =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesadios_857cc80028e9fd4d_base
 
 {-# NOINLINE cϒ_ptr #-}
 
@@ -47,8 +57,17 @@ cϒ_ptr :: Ptr.FunPtr (IO ())
 cϒ_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_857cc80028e9fd4d
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7" hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7 ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7" hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO ()))
+    )
+
+hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7 ::
      IO (Ptr.FunPtr (IO ()))
+hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7 =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7_base
 
 {-# NOINLINE 拜拜_ptr #-}
 
@@ -62,8 +81,17 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7" hs
 拜拜_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7
 
-foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_2879b42f75005d3b" hs_bindgen_test_edgecasesadios_2879b42f75005d3b ::
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_2879b42f75005d3b" hs_bindgen_test_edgecasesadios_2879b42f75005d3b_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       IO (Ptr.FunPtr (IO ()))
+    )
+
+hs_bindgen_test_edgecasesadios_2879b42f75005d3b ::
      IO (Ptr.FunPtr (IO ()))
+hs_bindgen_test_edgecasesadios_2879b42f75005d3b =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType hs_bindgen_test_edgecasesadios_2879b42f75005d3b_base
 
 {-# NOINLINE say拜拜_ptr #-}
 

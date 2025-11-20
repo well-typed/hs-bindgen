@@ -38,6 +38,7 @@ newtype A
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      Marshallable,
                       Bits,
                       Bounded,
                       Enum,
@@ -46,24 +47,49 @@ newtype A
                       Ix,
                       Num,
                       Real)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_fcce70013c76ce8b" f_base :: A ->
+                                                                                                     IO Unit
 {-| __C declaration:__ @f@
 
     __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
-foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_fcce70013c76ce8b" f :: A ->
-                                                                                                IO Unit
+f :: A -> IO Unit
 {-| __C declaration:__ @f@
 
     __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
-foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_b68b2cffacc97c1d" f :: A ->
-                                                                                                IO Unit
-foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d" hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d :: IO (FunPtr (A ->
-                                                                                                                                                                         IO Unit))
+f = fromMarshallableBaseType f_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_b68b2cffacc97c1d" f_base :: A ->
+                                                                                                     IO Unit
+{-| __C declaration:__ @f@
+
+    __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
+
+    __exported by:__ @declarations\/declarations_required_for_scoping.h@
+-}
+f :: A -> IO Unit
+{-| __C declaration:__ @f@
+
+    __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
+
+    __exported by:__ @declarations\/declarations_required_for_scoping.h@
+-}
+f = fromMarshallableBaseType f_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d" hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d_base :: IO (FunPtr (A ->
+                                                                                                                                                                              IO Unit))
+hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d :: IO (FunPtr (A ->
+                                                                              IO Unit))
+hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d = fromMarshallableBaseType hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d_base
 {-# NOINLINE f_ptr #-}
 {-| __C declaration:__ @f@
 

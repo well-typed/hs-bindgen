@@ -815,6 +815,11 @@ instance TyEq ty (CFieldType Sudoku "un_Sudoku") =>
 instance HasCField Sudoku "un_Sudoku"
     where type CFieldType Sudoku "un_Sudoku" = ConstantArray 3 Triplet
           offset# = \_ -> \_ -> 0
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_5d1be223fd040c3b" fun_1_base :: CInt ->
+                                                                                       Ptr CInt ->
+                                                                                       IO CInt
 {-| Array of known size
 
 __C declaration:__ @fun_1@
@@ -823,9 +828,20 @@ __defined at:__ @arrays\/array.h:118:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_5d1be223fd040c3b" fun_1 :: CInt ->
-                                                                                  Ptr CInt ->
-                                                                                  IO CInt
+fun_1 :: CInt -> Ptr CInt -> IO CInt
+{-| Array of known size
+
+__C declaration:__ @fun_1@
+
+__defined at:__ @arrays\/array.h:118:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_1 = fromMarshallableBaseType fun_1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_cabe35537b18e986" fun_2_base :: Ptr CInt ->
+                                                                                       IO CInt
 {-| Array of known size, typedef
 
 __C declaration:__ @fun_2@
@@ -834,8 +850,20 @@ __defined at:__ @arrays\/array.h:121:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_cabe35537b18e986" fun_2 :: Ptr CInt ->
-                                                                                  IO CInt
+fun_2 :: Ptr CInt -> IO CInt
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_2@
+
+__defined at:__ @arrays\/array.h:121:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_2 = fromMarshallableBaseType fun_2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_4cdbf10236e78984" fun_3_base :: Ptr CInt ->
+                                                                                       IO CInt
 {-| Array of unknown size
 
 __C declaration:__ @fun_3@
@@ -844,8 +872,20 @@ __defined at:__ @arrays\/array.h:124:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_4cdbf10236e78984" fun_3 :: Ptr CInt ->
-                                                                                  IO CInt
+fun_3 :: Ptr CInt -> IO CInt
+{-| Array of unknown size
+
+__C declaration:__ @fun_3@
+
+__defined at:__ @arrays\/array.h:124:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_3 = fromMarshallableBaseType fun_3_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_e356c5ddb2608063" fun_4_base :: Ptr CInt ->
+                                                                                       IO CInt
 {-| Array of unknown size, typedef
 
 __C declaration:__ @fun_4@
@@ -854,8 +894,21 @@ __defined at:__ @arrays\/array.h:127:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_e356c5ddb2608063" fun_4 :: Ptr CInt ->
-                                                                                  IO CInt
+fun_4 :: Ptr CInt -> IO CInt
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_4@
+
+__defined at:__ @arrays\/array.h:127:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_4 = fromMarshallableBaseType fun_4_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_f5ccf2c8d2e60be5" fun_5_base :: Ptr (ConstantArray 3
+                                                                                                          CInt) ->
+                                                                                       IO CInt
 {-| Multi-dimensional array of known size
 
 __C declaration:__ @fun_5@
@@ -864,9 +917,21 @@ __defined at:__ @arrays\/array.h:130:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_f5ccf2c8d2e60be5" fun_5 :: Ptr (ConstantArray 3
-                                                                                                     CInt) ->
-                                                                                  IO CInt
+fun_5 :: Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_5@
+
+__defined at:__ @arrays\/array.h:130:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_5 = fromMarshallableBaseType fun_5_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_2b3a983697999524" fun_6_base :: Ptr (ConstantArray 3
+                                                                                                          CInt) ->
+                                                                                       IO CInt
 {-| Multi-dimensional array of known size, typedef
 
 __C declaration:__ @fun_6@
@@ -875,9 +940,21 @@ __defined at:__ @arrays\/array.h:133:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_2b3a983697999524" fun_6 :: Ptr (ConstantArray 3
-                                                                                                     CInt) ->
-                                                                                  IO CInt
+fun_6 :: Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_6@
+
+__defined at:__ @arrays\/array.h:133:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_6 = fromMarshallableBaseType fun_6_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_72e9371a1b8b8907" fun_7_base :: Ptr (ConstantArray 3
+                                                                                                          CInt) ->
+                                                                                       IO CInt
 {-| Multi-dimensional array of unknown size
 
 __C declaration:__ @fun_7@
@@ -886,9 +963,21 @@ __defined at:__ @arrays\/array.h:136:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_72e9371a1b8b8907" fun_7 :: Ptr (ConstantArray 3
-                                                                                                     CInt) ->
-                                                                                  IO CInt
+fun_7 :: Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_7@
+
+__defined at:__ @arrays\/array.h:136:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_7 = fromMarshallableBaseType fun_7_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_62ad87463d9a75de" fun_8_base :: Ptr (ConstantArray 3
+                                                                                                          CInt) ->
+                                                                                       IO CInt
 {-| Multi-dimensional array of unknown size, typedef
 
 __C declaration:__ @fun_8@
@@ -897,9 +986,20 @@ __defined at:__ @arrays\/array.h:139:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_62ad87463d9a75de" fun_8 :: Ptr (ConstantArray 3
-                                                                                                     CInt) ->
-                                                                                  IO CInt
+fun_8 :: Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_8@
+
+__defined at:__ @arrays\/array.h:139:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_8 = fromMarshallableBaseType fun_8_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_2280ecc4c152a73f" isSolved_base :: Ptr Triplet ->
+                                                                                          IO CInt
 {-| Typedef-in-typedef
 
 __C declaration:__ @isSolved@
@@ -908,15 +1008,28 @@ __defined at:__ @arrays\/array.h:142:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_2280ecc4c152a73f" isSolved :: Ptr Triplet ->
-                                                                                     IO CInt
-{-| Pointer-based API for 'fun_1_const'
+isSolved :: Ptr Triplet -> IO CInt
+{-| Typedef-in-typedef
 
+__C declaration:__ @isSolved@
+
+__defined at:__ @arrays\/array.h:142:5@
+
+__exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_f1d120f83dc61db5" fun_1_const_wrapper :: CInt ->
-                                                                                                Ptr CInt ->
-                                                                                                Ptr CInt ->
-                                                                                                IO CInt
+isSolved = fromMarshallableBaseType isSolved_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_f1d120f83dc61db5" fun_1_const_wrapper_base :: CInt ->
+                                                                                                     Ptr CInt ->
+                                                                                                     Ptr CInt ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_1_const'
+-}
+fun_1_const_wrapper :: CInt -> Ptr CInt -> Ptr CInt -> IO CInt
+{-| Pointer-based API for 'fun_1_const'
+-}
+fun_1_const_wrapper = fromMarshallableBaseType fun_1_const_wrapper_base
 {-| Array of known size
 
 __C declaration:__ @fun_1_const@
@@ -935,12 +1048,17 @@ __defined at:__ @arrays\/array.h:149:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_1_const = \x_0 -> \x_1 -> \x_2 -> withPtr x_2 (\ptr_3 -> fun_1_const_wrapper x_0 x_1 ptr_3)
-{-| Pointer-based API for 'fun_2_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_f15760e6f3596189" fun_2_const_wrapper :: Ptr CInt ->
-                                                                                                Ptr CInt ->
-                                                                                                IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_f15760e6f3596189" fun_2_const_wrapper_base :: Ptr CInt ->
+                                                                                                     Ptr CInt ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_2_const'
+-}
+fun_2_const_wrapper :: Ptr CInt -> Ptr CInt -> IO CInt
+{-| Pointer-based API for 'fun_2_const'
+-}
+fun_2_const_wrapper = fromMarshallableBaseType fun_2_const_wrapper_base
 {-| Array of known size, typedef
 
 __C declaration:__ @fun_2_const@
@@ -959,12 +1077,17 @@ __defined at:__ @arrays\/array.h:152:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_2_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_2_const_wrapper x_0 ptr_2)
-{-| Pointer-based API for 'fun_3_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_0ad99f041fc4f5ca" fun_3_const_wrapper :: Ptr CInt ->
-                                                                                                Ptr CInt ->
-                                                                                                IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_0ad99f041fc4f5ca" fun_3_const_wrapper_base :: Ptr CInt ->
+                                                                                                     Ptr CInt ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_3_const'
+-}
+fun_3_const_wrapper :: Ptr CInt -> Ptr CInt -> IO CInt
+{-| Pointer-based API for 'fun_3_const'
+-}
+fun_3_const_wrapper = fromMarshallableBaseType fun_3_const_wrapper_base
 {-| Array of unknown size
 
 __C declaration:__ @fun_3_const@
@@ -983,12 +1106,17 @@ __defined at:__ @arrays\/array.h:155:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_3_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_3_const_wrapper x_0 ptr_2)
-{-| Pointer-based API for 'fun_4_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_d61f2b8777e6ca19" fun_4_const_wrapper :: Ptr CInt ->
-                                                                                                Ptr CInt ->
-                                                                                                IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_d61f2b8777e6ca19" fun_4_const_wrapper_base :: Ptr CInt ->
+                                                                                                     Ptr CInt ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_4_const'
+-}
+fun_4_const_wrapper :: Ptr CInt -> Ptr CInt -> IO CInt
+{-| Pointer-based API for 'fun_4_const'
+-}
+fun_4_const_wrapper = fromMarshallableBaseType fun_4_const_wrapper_base
 {-| Array of unknown size, typedef
 
 __C declaration:__ @fun_4_const@
@@ -1007,14 +1135,20 @@ __defined at:__ @arrays\/array.h:158:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_4_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_4_const_wrapper x_0 ptr_2)
-{-| Pointer-based API for 'fun_5_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_9e1f66e6a0369c45" fun_5_const_wrapper :: Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_9e1f66e6a0369c45" fun_5_const_wrapper_base :: Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_5_const'
+-}
+fun_5_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
+                       Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Pointer-based API for 'fun_5_const'
+-}
+fun_5_const_wrapper = fromMarshallableBaseType fun_5_const_wrapper_base
 {-| Multi-dimensional array of known size
 
 __C declaration:__ @fun_5_const@
@@ -1034,14 +1168,20 @@ __defined at:__ @arrays\/array.h:161:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_5_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_5_const_wrapper x_0 ptr_2)
-{-| Pointer-based API for 'fun_6_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_5b4bd3c6cee83e61" fun_6_const_wrapper :: Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_5b4bd3c6cee83e61" fun_6_const_wrapper_base :: Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_6_const'
+-}
+fun_6_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
+                       Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Pointer-based API for 'fun_6_const'
+-}
+fun_6_const_wrapper = fromMarshallableBaseType fun_6_const_wrapper_base
 {-| Multi-dimensional array of known size, typedef
 
 __C declaration:__ @fun_6_const@
@@ -1060,14 +1200,20 @@ __defined at:__ @arrays\/array.h:164:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_6_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_6_const_wrapper x_0 ptr_2)
-{-| Pointer-based API for 'fun_7_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_b551069ce9e1f12e" fun_7_const_wrapper :: Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_b551069ce9e1f12e" fun_7_const_wrapper_base :: Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_7_const'
+-}
+fun_7_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
+                       Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Pointer-based API for 'fun_7_const'
+-}
+fun_7_const_wrapper = fromMarshallableBaseType fun_7_const_wrapper_base
 {-| Multi-dimensional array of unknown size
 
 __C declaration:__ @fun_7_const@
@@ -1087,14 +1233,20 @@ __defined at:__ @arrays\/array.h:167:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_7_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_7_const_wrapper x_0 ptr_2)
-{-| Pointer-based API for 'fun_8_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_4ac495707a95aa13" fun_8_const_wrapper :: Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_4ac495707a95aa13" fun_8_const_wrapper_base :: Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_8_const'
+-}
+fun_8_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
+                       Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Pointer-based API for 'fun_8_const'
+-}
+fun_8_const_wrapper = fromMarshallableBaseType fun_8_const_wrapper_base
 {-| Multi-dimensional array of unknown size, typedef
 
 __C declaration:__ @fun_8_const@
@@ -1113,12 +1265,17 @@ __defined at:__ @arrays\/array.h:170:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_8_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_8_const_wrapper x_0 ptr_2)
-{-| Pointer-based API for 'isSolved_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_1bdcfcd7aca9a2f6" isSolved_const_wrapper :: Ptr Triplet ->
-                                                                                                   Ptr Triplet ->
-                                                                                                   IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_1bdcfcd7aca9a2f6" isSolved_const_wrapper_base :: Ptr Triplet ->
+                                                                                                        Ptr Triplet ->
+                                                                                                        IO CInt
+{-| Pointer-based API for 'isSolved_const'
+-}
+isSolved_const_wrapper :: Ptr Triplet -> Ptr Triplet -> IO CInt
+{-| Pointer-based API for 'isSolved_const'
+-}
+isSolved_const_wrapper = fromMarshallableBaseType isSolved_const_wrapper_base
 {-| Typedef-in-typedef
 
 __C declaration:__ @isSolved_const@
@@ -1137,6 +1294,10 @@ __defined at:__ @arrays\/array.h:173:5@
 __exported by:__ @arrays\/array.h@
 -}
 isSolved_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> isSolved_const_wrapper x_0 ptr_2)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_d4c729a69c884fd4" fun_9_base :: IO (Ptr (ConstantArray 3
+                                                                                                              CInt))
 {-| Array of known size
 
 __C declaration:__ @fun_9@
@@ -1145,8 +1306,19 @@ __defined at:__ @arrays\/array.h:185:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_d4c729a69c884fd4" fun_9 :: IO (Ptr (ConstantArray 3
-                                                                                                         CInt))
+fun_9 :: IO (Ptr (ConstantArray 3 CInt))
+{-| Array of known size
+
+__C declaration:__ @fun_9@
+
+__defined at:__ @arrays\/array.h:185:7@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_9 = fromMarshallableBaseType fun_9_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_bb92dfded907271e" fun_10_base :: IO (Ptr Triplet)
 {-| Array of known size, typedef
 
 __C declaration:__ @fun_10@
@@ -1155,7 +1327,19 @@ __defined at:__ @arrays\/array.h:188:10@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_bb92dfded907271e" fun_10 :: IO (Ptr Triplet)
+fun_10 :: IO (Ptr Triplet)
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_10@
+
+__defined at:__ @arrays\/array.h:188:10@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_10 = fromMarshallableBaseType fun_10_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_489aaaa59e992ddf" fun_11_base :: IO (Ptr (IncompleteArray CInt))
 {-| Array of unknown size
 
 __C declaration:__ @fun_11@
@@ -1164,7 +1348,19 @@ __defined at:__ @arrays\/array.h:191:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_489aaaa59e992ddf" fun_11 :: IO (Ptr (IncompleteArray CInt))
+fun_11 :: IO (Ptr (IncompleteArray CInt))
+{-| Array of unknown size
+
+__C declaration:__ @fun_11@
+
+__defined at:__ @arrays\/array.h:191:7@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_11 = fromMarshallableBaseType fun_11_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_ee94c35f987d6c50" fun_12_base :: IO (Ptr List)
 {-| Array of unknown size, typedef
 
 __C declaration:__ @fun_12@
@@ -1173,7 +1369,21 @@ __defined at:__ @arrays\/array.h:194:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_ee94c35f987d6c50" fun_12 :: IO (Ptr List)
+fun_12 :: IO (Ptr List)
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_12@
+
+__defined at:__ @arrays\/array.h:194:7@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_12 = fromMarshallableBaseType fun_12_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_ca2c7b60ce85a964" fun_13_base :: IO (Ptr (ConstantArray 4
+                                                                                                               (ConstantArray 3
+                                                                                                                              CInt)))
 {-| Multi-dimensional array of known size
 
 __C declaration:__ @fun_13@
@@ -1182,9 +1392,19 @@ __defined at:__ @arrays\/array.h:197:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_ca2c7b60ce85a964" fun_13 :: IO (Ptr (ConstantArray 4
-                                                                                                          (ConstantArray 3
-                                                                                                                         CInt)))
+fun_13 :: IO (Ptr (ConstantArray 4 (ConstantArray 3 CInt)))
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_13@
+
+__defined at:__ @arrays\/array.h:197:7@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_13 = fromMarshallableBaseType fun_13_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_ab2c533efdae8e41" fun_14_base :: IO (Ptr Matrix)
 {-| Multi-dimensional array of known size, typedef
 
 __C declaration:__ @fun_14@
@@ -1193,7 +1413,20 @@ __defined at:__ @arrays\/array.h:200:9@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_ab2c533efdae8e41" fun_14 :: IO (Ptr Matrix)
+fun_14 :: IO (Ptr Matrix)
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_14@
+
+__defined at:__ @arrays\/array.h:200:9@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_14 = fromMarshallableBaseType fun_14_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_019bdeb5db79cee1" fun_15_base :: IO (Ptr (IncompleteArray (ConstantArray 3
+                                                                                                                                CInt)))
 {-| Multi-dimensional array of unknown size
 
 __C declaration:__ @fun_15@
@@ -1202,8 +1435,19 @@ __defined at:__ @arrays\/array.h:203:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_019bdeb5db79cee1" fun_15 :: IO (Ptr (IncompleteArray (ConstantArray 3
-                                                                                                                           CInt)))
+fun_15 :: IO (Ptr (IncompleteArray (ConstantArray 3 CInt)))
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_15@
+
+__defined at:__ @arrays\/array.h:203:7@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_15 = fromMarshallableBaseType fun_15_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_ca0e7c51654fef12" fun_16_base :: IO (Ptr Tripletlist)
 {-| Multi-dimensional array of unknown size, typedef
 
 __C declaration:__ @fun_16@
@@ -1212,7 +1456,19 @@ __defined at:__ @arrays\/array.h:206:14@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_ca0e7c51654fef12" fun_16 :: IO (Ptr Tripletlist)
+fun_16 :: IO (Ptr Tripletlist)
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_16@
+
+__defined at:__ @arrays\/array.h:206:14@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_16 = fromMarshallableBaseType fun_16_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_f6b66497ee1685b0" solve_base :: IO (Ptr Sudoku)
 {-| Typedef-in-typedef
 
 __C declaration:__ @solve@
@@ -1221,7 +1477,21 @@ __defined at:__ @arrays\/array.h:209:10@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_f6b66497ee1685b0" solve :: IO (Ptr Sudoku)
+solve :: IO (Ptr Sudoku)
+{-| Typedef-in-typedef
+
+__C declaration:__ @solve@
+
+__defined at:__ @arrays\/array.h:209:10@
+
+__exported by:__ @arrays\/array.h@
+-}
+solve = fromMarshallableBaseType solve_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_38d1e706888c6509" fun_1_base :: CInt ->
+                                                                                       Ptr CInt ->
+                                                                                       IO CInt
 {-| Array of known size
 
 __C declaration:__ @fun_1@
@@ -1230,9 +1500,20 @@ __defined at:__ @arrays\/array.h:118:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_38d1e706888c6509" fun_1 :: CInt ->
-                                                                                  Ptr CInt ->
-                                                                                  IO CInt
+fun_1 :: CInt -> Ptr CInt -> IO CInt
+{-| Array of known size
+
+__C declaration:__ @fun_1@
+
+__defined at:__ @arrays\/array.h:118:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_1 = fromMarshallableBaseType fun_1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_39ee469929b167e2" fun_2_base :: Ptr CInt ->
+                                                                                       IO CInt
 {-| Array of known size, typedef
 
 __C declaration:__ @fun_2@
@@ -1241,8 +1522,20 @@ __defined at:__ @arrays\/array.h:121:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_39ee469929b167e2" fun_2 :: Ptr CInt ->
-                                                                                  IO CInt
+fun_2 :: Ptr CInt -> IO CInt
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_2@
+
+__defined at:__ @arrays\/array.h:121:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_2 = fromMarshallableBaseType fun_2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_2aa49d73d177f65b" fun_3_base :: Ptr CInt ->
+                                                                                       IO CInt
 {-| Array of unknown size
 
 __C declaration:__ @fun_3@
@@ -1251,8 +1544,20 @@ __defined at:__ @arrays\/array.h:124:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_2aa49d73d177f65b" fun_3 :: Ptr CInt ->
-                                                                                  IO CInt
+fun_3 :: Ptr CInt -> IO CInt
+{-| Array of unknown size
+
+__C declaration:__ @fun_3@
+
+__defined at:__ @arrays\/array.h:124:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_3 = fromMarshallableBaseType fun_3_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_c3b2941d43616704" fun_4_base :: Ptr CInt ->
+                                                                                       IO CInt
 {-| Array of unknown size, typedef
 
 __C declaration:__ @fun_4@
@@ -1261,8 +1566,21 @@ __defined at:__ @arrays\/array.h:127:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_c3b2941d43616704" fun_4 :: Ptr CInt ->
-                                                                                  IO CInt
+fun_4 :: Ptr CInt -> IO CInt
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_4@
+
+__defined at:__ @arrays\/array.h:127:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_4 = fromMarshallableBaseType fun_4_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_69ec2f59c3c40de4" fun_5_base :: Ptr (ConstantArray 3
+                                                                                                          CInt) ->
+                                                                                       IO CInt
 {-| Multi-dimensional array of known size
 
 __C declaration:__ @fun_5@
@@ -1271,9 +1589,21 @@ __defined at:__ @arrays\/array.h:130:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_69ec2f59c3c40de4" fun_5 :: Ptr (ConstantArray 3
-                                                                                                     CInt) ->
-                                                                                  IO CInt
+fun_5 :: Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_5@
+
+__defined at:__ @arrays\/array.h:130:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_5 = fromMarshallableBaseType fun_5_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_a4600c666e12a07a" fun_6_base :: Ptr (ConstantArray 3
+                                                                                                          CInt) ->
+                                                                                       IO CInt
 {-| Multi-dimensional array of known size, typedef
 
 __C declaration:__ @fun_6@
@@ -1282,9 +1612,21 @@ __defined at:__ @arrays\/array.h:133:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_a4600c666e12a07a" fun_6 :: Ptr (ConstantArray 3
-                                                                                                     CInt) ->
-                                                                                  IO CInt
+fun_6 :: Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_6@
+
+__defined at:__ @arrays\/array.h:133:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_6 = fromMarshallableBaseType fun_6_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_b903c9d5ebf4f21f" fun_7_base :: Ptr (ConstantArray 3
+                                                                                                          CInt) ->
+                                                                                       IO CInt
 {-| Multi-dimensional array of unknown size
 
 __C declaration:__ @fun_7@
@@ -1293,9 +1635,21 @@ __defined at:__ @arrays\/array.h:136:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_b903c9d5ebf4f21f" fun_7 :: Ptr (ConstantArray 3
-                                                                                                     CInt) ->
-                                                                                  IO CInt
+fun_7 :: Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_7@
+
+__defined at:__ @arrays\/array.h:136:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_7 = fromMarshallableBaseType fun_7_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_88af789e5a205473" fun_8_base :: Ptr (ConstantArray 3
+                                                                                                          CInt) ->
+                                                                                       IO CInt
 {-| Multi-dimensional array of unknown size, typedef
 
 __C declaration:__ @fun_8@
@@ -1304,9 +1658,20 @@ __defined at:__ @arrays\/array.h:139:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_88af789e5a205473" fun_8 :: Ptr (ConstantArray 3
-                                                                                                     CInt) ->
-                                                                                  IO CInt
+fun_8 :: Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_8@
+
+__defined at:__ @arrays\/array.h:139:5@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_8 = fromMarshallableBaseType fun_8_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_617bd1cd5514ea45" isSolved_base :: Ptr Triplet ->
+                                                                                          IO CInt
 {-| Typedef-in-typedef
 
 __C declaration:__ @isSolved@
@@ -1315,15 +1680,28 @@ __defined at:__ @arrays\/array.h:142:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_617bd1cd5514ea45" isSolved :: Ptr Triplet ->
-                                                                                     IO CInt
-{-| Pointer-based API for 'fun_1_const'
+isSolved :: Ptr Triplet -> IO CInt
+{-| Typedef-in-typedef
 
+__C declaration:__ @isSolved@
+
+__defined at:__ @arrays\/array.h:142:5@
+
+__exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_e4b00d6936127c9c" fun_1_const_wrapper :: CInt ->
-                                                                                                Ptr CInt ->
-                                                                                                Ptr CInt ->
-                                                                                                IO CInt
+isSolved = fromMarshallableBaseType isSolved_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_e4b00d6936127c9c" fun_1_const_wrapper_base :: CInt ->
+                                                                                                     Ptr CInt ->
+                                                                                                     Ptr CInt ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_1_const'
+-}
+fun_1_const_wrapper :: CInt -> Ptr CInt -> Ptr CInt -> IO CInt
+{-| Pointer-based API for 'fun_1_const'
+-}
+fun_1_const_wrapper = fromMarshallableBaseType fun_1_const_wrapper_base
 {-| Array of known size
 
 __C declaration:__ @fun_1_const@
@@ -1342,12 +1720,17 @@ __defined at:__ @arrays\/array.h:149:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_1_const = \x_0 -> \x_1 -> \x_2 -> withPtr x_2 (\ptr_3 -> fun_1_const_wrapper x_0 x_1 ptr_3)
-{-| Pointer-based API for 'fun_2_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_5fe603fc3c41a066" fun_2_const_wrapper :: Ptr CInt ->
-                                                                                                Ptr CInt ->
-                                                                                                IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_5fe603fc3c41a066" fun_2_const_wrapper_base :: Ptr CInt ->
+                                                                                                     Ptr CInt ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_2_const'
+-}
+fun_2_const_wrapper :: Ptr CInt -> Ptr CInt -> IO CInt
+{-| Pointer-based API for 'fun_2_const'
+-}
+fun_2_const_wrapper = fromMarshallableBaseType fun_2_const_wrapper_base
 {-| Array of known size, typedef
 
 __C declaration:__ @fun_2_const@
@@ -1366,12 +1749,17 @@ __defined at:__ @arrays\/array.h:152:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_2_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_2_const_wrapper x_0 ptr_2)
-{-| Pointer-based API for 'fun_3_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_d7b0d574cbe650f8" fun_3_const_wrapper :: Ptr CInt ->
-                                                                                                Ptr CInt ->
-                                                                                                IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_d7b0d574cbe650f8" fun_3_const_wrapper_base :: Ptr CInt ->
+                                                                                                     Ptr CInt ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_3_const'
+-}
+fun_3_const_wrapper :: Ptr CInt -> Ptr CInt -> IO CInt
+{-| Pointer-based API for 'fun_3_const'
+-}
+fun_3_const_wrapper = fromMarshallableBaseType fun_3_const_wrapper_base
 {-| Array of unknown size
 
 __C declaration:__ @fun_3_const@
@@ -1390,12 +1778,17 @@ __defined at:__ @arrays\/array.h:155:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_3_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_3_const_wrapper x_0 ptr_2)
-{-| Pointer-based API for 'fun_4_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_a7499ca2f044e9ce" fun_4_const_wrapper :: Ptr CInt ->
-                                                                                                Ptr CInt ->
-                                                                                                IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_a7499ca2f044e9ce" fun_4_const_wrapper_base :: Ptr CInt ->
+                                                                                                     Ptr CInt ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_4_const'
+-}
+fun_4_const_wrapper :: Ptr CInt -> Ptr CInt -> IO CInt
+{-| Pointer-based API for 'fun_4_const'
+-}
+fun_4_const_wrapper = fromMarshallableBaseType fun_4_const_wrapper_base
 {-| Array of unknown size, typedef
 
 __C declaration:__ @fun_4_const@
@@ -1414,14 +1807,20 @@ __defined at:__ @arrays\/array.h:158:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_4_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_4_const_wrapper x_0 ptr_2)
-{-| Pointer-based API for 'fun_5_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_24e12fc0372c2467" fun_5_const_wrapper :: Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_24e12fc0372c2467" fun_5_const_wrapper_base :: Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_5_const'
+-}
+fun_5_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
+                       Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Pointer-based API for 'fun_5_const'
+-}
+fun_5_const_wrapper = fromMarshallableBaseType fun_5_const_wrapper_base
 {-| Multi-dimensional array of known size
 
 __C declaration:__ @fun_5_const@
@@ -1441,14 +1840,20 @@ __defined at:__ @arrays\/array.h:161:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_5_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_5_const_wrapper x_0 ptr_2)
-{-| Pointer-based API for 'fun_6_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_870ee33752c078df" fun_6_const_wrapper :: Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_870ee33752c078df" fun_6_const_wrapper_base :: Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_6_const'
+-}
+fun_6_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
+                       Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Pointer-based API for 'fun_6_const'
+-}
+fun_6_const_wrapper = fromMarshallableBaseType fun_6_const_wrapper_base
 {-| Multi-dimensional array of known size, typedef
 
 __C declaration:__ @fun_6_const@
@@ -1467,14 +1872,20 @@ __defined at:__ @arrays\/array.h:164:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_6_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_6_const_wrapper x_0 ptr_2)
-{-| Pointer-based API for 'fun_7_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_18aa0941d0646906" fun_7_const_wrapper :: Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_18aa0941d0646906" fun_7_const_wrapper_base :: Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_7_const'
+-}
+fun_7_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
+                       Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Pointer-based API for 'fun_7_const'
+-}
+fun_7_const_wrapper = fromMarshallableBaseType fun_7_const_wrapper_base
 {-| Multi-dimensional array of unknown size
 
 __C declaration:__ @fun_7_const@
@@ -1494,14 +1905,20 @@ __defined at:__ @arrays\/array.h:167:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_7_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_7_const_wrapper x_0 ptr_2)
-{-| Pointer-based API for 'fun_8_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_94591138e958ffe1" fun_8_const_wrapper :: Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                Ptr (ConstantArray 3
-                                                                                                                   CInt) ->
-                                                                                                IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_94591138e958ffe1" fun_8_const_wrapper_base :: Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     Ptr (ConstantArray 3
+                                                                                                                        CInt) ->
+                                                                                                     IO CInt
+{-| Pointer-based API for 'fun_8_const'
+-}
+fun_8_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
+                       Ptr (ConstantArray 3 CInt) -> IO CInt
+{-| Pointer-based API for 'fun_8_const'
+-}
+fun_8_const_wrapper = fromMarshallableBaseType fun_8_const_wrapper_base
 {-| Multi-dimensional array of unknown size, typedef
 
 __C declaration:__ @fun_8_const@
@@ -1520,12 +1937,17 @@ __defined at:__ @arrays\/array.h:170:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_8_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_8_const_wrapper x_0 ptr_2)
-{-| Pointer-based API for 'isSolved_const'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_ec99b7cbbed57b25" isSolved_const_wrapper :: Ptr Triplet ->
-                                                                                                   Ptr Triplet ->
-                                                                                                   IO CInt
+foreign import ccall safe "hs_bindgen_test_arraysarray_ec99b7cbbed57b25" isSolved_const_wrapper_base :: Ptr Triplet ->
+                                                                                                        Ptr Triplet ->
+                                                                                                        IO CInt
+{-| Pointer-based API for 'isSolved_const'
+-}
+isSolved_const_wrapper :: Ptr Triplet -> Ptr Triplet -> IO CInt
+{-| Pointer-based API for 'isSolved_const'
+-}
+isSolved_const_wrapper = fromMarshallableBaseType isSolved_const_wrapper_base
 {-| Typedef-in-typedef
 
 __C declaration:__ @isSolved_const@
@@ -1544,6 +1966,10 @@ __defined at:__ @arrays\/array.h:173:5@
 __exported by:__ @arrays\/array.h@
 -}
 isSolved_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> isSolved_const_wrapper x_0 ptr_2)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_49d4508b43473bd2" fun_9_base :: IO (Ptr (ConstantArray 3
+                                                                                                              CInt))
 {-| Array of known size
 
 __C declaration:__ @fun_9@
@@ -1552,8 +1978,19 @@ __defined at:__ @arrays\/array.h:185:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_49d4508b43473bd2" fun_9 :: IO (Ptr (ConstantArray 3
-                                                                                                         CInt))
+fun_9 :: IO (Ptr (ConstantArray 3 CInt))
+{-| Array of known size
+
+__C declaration:__ @fun_9@
+
+__defined at:__ @arrays\/array.h:185:7@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_9 = fromMarshallableBaseType fun_9_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_d1763638472ee039" fun_10_base :: IO (Ptr Triplet)
 {-| Array of known size, typedef
 
 __C declaration:__ @fun_10@
@@ -1562,7 +1999,19 @@ __defined at:__ @arrays\/array.h:188:10@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_d1763638472ee039" fun_10 :: IO (Ptr Triplet)
+fun_10 :: IO (Ptr Triplet)
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_10@
+
+__defined at:__ @arrays\/array.h:188:10@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_10 = fromMarshallableBaseType fun_10_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_293d2be6d282321b" fun_11_base :: IO (Ptr (IncompleteArray CInt))
 {-| Array of unknown size
 
 __C declaration:__ @fun_11@
@@ -1571,7 +2020,19 @@ __defined at:__ @arrays\/array.h:191:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_293d2be6d282321b" fun_11 :: IO (Ptr (IncompleteArray CInt))
+fun_11 :: IO (Ptr (IncompleteArray CInt))
+{-| Array of unknown size
+
+__C declaration:__ @fun_11@
+
+__defined at:__ @arrays\/array.h:191:7@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_11 = fromMarshallableBaseType fun_11_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_fe193d0e0c330960" fun_12_base :: IO (Ptr List)
 {-| Array of unknown size, typedef
 
 __C declaration:__ @fun_12@
@@ -1580,7 +2041,21 @@ __defined at:__ @arrays\/array.h:194:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_fe193d0e0c330960" fun_12 :: IO (Ptr List)
+fun_12 :: IO (Ptr List)
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_12@
+
+__defined at:__ @arrays\/array.h:194:7@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_12 = fromMarshallableBaseType fun_12_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_f3df0067620bd691" fun_13_base :: IO (Ptr (ConstantArray 4
+                                                                                                               (ConstantArray 3
+                                                                                                                              CInt)))
 {-| Multi-dimensional array of known size
 
 __C declaration:__ @fun_13@
@@ -1589,9 +2064,19 @@ __defined at:__ @arrays\/array.h:197:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_f3df0067620bd691" fun_13 :: IO (Ptr (ConstantArray 4
-                                                                                                          (ConstantArray 3
-                                                                                                                         CInt)))
+fun_13 :: IO (Ptr (ConstantArray 4 (ConstantArray 3 CInt)))
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_13@
+
+__defined at:__ @arrays\/array.h:197:7@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_13 = fromMarshallableBaseType fun_13_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_9d75a740147af339" fun_14_base :: IO (Ptr Matrix)
 {-| Multi-dimensional array of known size, typedef
 
 __C declaration:__ @fun_14@
@@ -1600,7 +2085,20 @@ __defined at:__ @arrays\/array.h:200:9@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_9d75a740147af339" fun_14 :: IO (Ptr Matrix)
+fun_14 :: IO (Ptr Matrix)
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_14@
+
+__defined at:__ @arrays\/array.h:200:9@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_14 = fromMarshallableBaseType fun_14_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_d49e5e7f4ad3c830" fun_15_base :: IO (Ptr (IncompleteArray (ConstantArray 3
+                                                                                                                                CInt)))
 {-| Multi-dimensional array of unknown size
 
 __C declaration:__ @fun_15@
@@ -1609,8 +2107,19 @@ __defined at:__ @arrays\/array.h:203:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_d49e5e7f4ad3c830" fun_15 :: IO (Ptr (IncompleteArray (ConstantArray 3
-                                                                                                                           CInt)))
+fun_15 :: IO (Ptr (IncompleteArray (ConstantArray 3 CInt)))
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_15@
+
+__defined at:__ @arrays\/array.h:203:7@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_15 = fromMarshallableBaseType fun_15_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_900726612f7787e4" fun_16_base :: IO (Ptr Tripletlist)
 {-| Multi-dimensional array of unknown size, typedef
 
 __C declaration:__ @fun_16@
@@ -1619,7 +2128,19 @@ __defined at:__ @arrays\/array.h:206:14@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_900726612f7787e4" fun_16 :: IO (Ptr Tripletlist)
+fun_16 :: IO (Ptr Tripletlist)
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_16@
+
+__defined at:__ @arrays\/array.h:206:14@
+
+__exported by:__ @arrays\/array.h@
+-}
+fun_16 = fromMarshallableBaseType fun_16_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_ede6133d23ed3248" solve_base :: IO (Ptr Sudoku)
 {-| Typedef-in-typedef
 
 __C declaration:__ @solve@
@@ -1628,11 +2149,25 @@ __defined at:__ @arrays\/array.h:209:10@
 
 __exported by:__ @arrays\/array.h@
 -}
-foreign import ccall safe "hs_bindgen_test_arraysarray_ede6133d23ed3248" solve :: IO (Ptr Sudoku)
-foreign import ccall safe "hs_bindgen_test_arraysarray_3ced2f3b2af806f8" hs_bindgen_test_arraysarray_3ced2f3b2af806f8 :: IO (FunPtr (CInt ->
-                                                                                                                                     ConstantArray 3
-                                                                                                                                                   CInt ->
-                                                                                                                                     IO CInt))
+solve :: IO (Ptr Sudoku)
+{-| Typedef-in-typedef
+
+__C declaration:__ @solve@
+
+__defined at:__ @arrays\/array.h:209:10@
+
+__exported by:__ @arrays\/array.h@
+-}
+solve = fromMarshallableBaseType solve_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_3ced2f3b2af806f8" hs_bindgen_test_arraysarray_3ced2f3b2af806f8_base :: IO (FunPtr (CInt ->
+                                                                                                                                          ConstantArray 3
+                                                                                                                                                        CInt ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_3ced2f3b2af806f8 :: IO (FunPtr (CInt ->
+                                                            ConstantArray 3 CInt -> IO CInt))
+hs_bindgen_test_arraysarray_3ced2f3b2af806f8 = fromMarshallableBaseType hs_bindgen_test_arraysarray_3ced2f3b2af806f8_base
 {-# NOINLINE fun_1_ptr #-}
 {-| Array of known size
 
@@ -1652,8 +2187,13 @@ __defined at:__ @arrays\/array.h:118:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_1_ptr = unsafePerformIO hs_bindgen_test_arraysarray_3ced2f3b2af806f8
-foreign import ccall safe "hs_bindgen_test_arraysarray_84966994a8d7df93" hs_bindgen_test_arraysarray_84966994a8d7df93 :: IO (FunPtr (Triplet ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_84966994a8d7df93" hs_bindgen_test_arraysarray_84966994a8d7df93_base :: IO (FunPtr (Triplet ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_84966994a8d7df93 :: IO (FunPtr (Triplet ->
+                                                            IO CInt))
+hs_bindgen_test_arraysarray_84966994a8d7df93 = fromMarshallableBaseType hs_bindgen_test_arraysarray_84966994a8d7df93_base
 {-# NOINLINE fun_2_ptr #-}
 {-| Array of known size, typedef
 
@@ -1673,8 +2213,13 @@ __defined at:__ @arrays\/array.h:121:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_2_ptr = unsafePerformIO hs_bindgen_test_arraysarray_84966994a8d7df93
-foreign import ccall safe "hs_bindgen_test_arraysarray_3e6c940dbd7e5492" hs_bindgen_test_arraysarray_3e6c940dbd7e5492 :: IO (FunPtr (IncompleteArray CInt ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_3e6c940dbd7e5492" hs_bindgen_test_arraysarray_3e6c940dbd7e5492_base :: IO (FunPtr (IncompleteArray CInt ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_3e6c940dbd7e5492 :: IO (FunPtr (IncompleteArray CInt ->
+                                                            IO CInt))
+hs_bindgen_test_arraysarray_3e6c940dbd7e5492 = fromMarshallableBaseType hs_bindgen_test_arraysarray_3e6c940dbd7e5492_base
 {-# NOINLINE fun_3_ptr #-}
 {-| Array of unknown size
 
@@ -1694,8 +2239,13 @@ __defined at:__ @arrays\/array.h:124:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_3_ptr = unsafePerformIO hs_bindgen_test_arraysarray_3e6c940dbd7e5492
-foreign import ccall safe "hs_bindgen_test_arraysarray_d9f87d3e541b15e5" hs_bindgen_test_arraysarray_d9f87d3e541b15e5 :: IO (FunPtr (List ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_d9f87d3e541b15e5" hs_bindgen_test_arraysarray_d9f87d3e541b15e5_base :: IO (FunPtr (List ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_d9f87d3e541b15e5 :: IO (FunPtr (List ->
+                                                            IO CInt))
+hs_bindgen_test_arraysarray_d9f87d3e541b15e5 = fromMarshallableBaseType hs_bindgen_test_arraysarray_d9f87d3e541b15e5_base
 {-# NOINLINE fun_4_ptr #-}
 {-| Array of unknown size, typedef
 
@@ -1715,10 +2265,16 @@ __defined at:__ @arrays\/array.h:127:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_4_ptr = unsafePerformIO hs_bindgen_test_arraysarray_d9f87d3e541b15e5
-foreign import ccall safe "hs_bindgen_test_arraysarray_cd41e41992d89300" hs_bindgen_test_arraysarray_cd41e41992d89300 :: IO (FunPtr (ConstantArray 4
-                                                                                                                                                   (ConstantArray 3
-                                                                                                                                                                  CInt) ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_cd41e41992d89300" hs_bindgen_test_arraysarray_cd41e41992d89300_base :: IO (FunPtr (ConstantArray 4
+                                                                                                                                                        (ConstantArray 3
+                                                                                                                                                                       CInt) ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_cd41e41992d89300 :: IO (FunPtr (ConstantArray 4
+                                                                          (ConstantArray 3 CInt) ->
+                                                            IO CInt))
+hs_bindgen_test_arraysarray_cd41e41992d89300 = fromMarshallableBaseType hs_bindgen_test_arraysarray_cd41e41992d89300_base
 {-# NOINLINE fun_5_ptr #-}
 {-| Multi-dimensional array of known size
 
@@ -1739,8 +2295,13 @@ __defined at:__ @arrays\/array.h:130:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_5_ptr = unsafePerformIO hs_bindgen_test_arraysarray_cd41e41992d89300
-foreign import ccall safe "hs_bindgen_test_arraysarray_db0e2655437ab8bb" hs_bindgen_test_arraysarray_db0e2655437ab8bb :: IO (FunPtr (Matrix ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_db0e2655437ab8bb" hs_bindgen_test_arraysarray_db0e2655437ab8bb_base :: IO (FunPtr (Matrix ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_db0e2655437ab8bb :: IO (FunPtr (Matrix ->
+                                                            IO CInt))
+hs_bindgen_test_arraysarray_db0e2655437ab8bb = fromMarshallableBaseType hs_bindgen_test_arraysarray_db0e2655437ab8bb_base
 {-# NOINLINE fun_6_ptr #-}
 {-| Multi-dimensional array of known size, typedef
 
@@ -1760,9 +2321,15 @@ __defined at:__ @arrays\/array.h:133:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_6_ptr = unsafePerformIO hs_bindgen_test_arraysarray_db0e2655437ab8bb
-foreign import ccall safe "hs_bindgen_test_arraysarray_9ec02aa16b020aa0" hs_bindgen_test_arraysarray_9ec02aa16b020aa0 :: IO (FunPtr (IncompleteArray (ConstantArray 3
-                                                                                                                                                                    CInt) ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_9ec02aa16b020aa0" hs_bindgen_test_arraysarray_9ec02aa16b020aa0_base :: IO (FunPtr (IncompleteArray (ConstantArray 3
+                                                                                                                                                                         CInt) ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_9ec02aa16b020aa0 :: IO (FunPtr (IncompleteArray (ConstantArray 3
+                                                                                           CInt) ->
+                                                            IO CInt))
+hs_bindgen_test_arraysarray_9ec02aa16b020aa0 = fromMarshallableBaseType hs_bindgen_test_arraysarray_9ec02aa16b020aa0_base
 {-# NOINLINE fun_7_ptr #-}
 {-| Multi-dimensional array of unknown size
 
@@ -1783,8 +2350,13 @@ __defined at:__ @arrays\/array.h:136:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_7_ptr = unsafePerformIO hs_bindgen_test_arraysarray_9ec02aa16b020aa0
-foreign import ccall safe "hs_bindgen_test_arraysarray_a41b8d1332b69b95" hs_bindgen_test_arraysarray_a41b8d1332b69b95 :: IO (FunPtr (Tripletlist ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_a41b8d1332b69b95" hs_bindgen_test_arraysarray_a41b8d1332b69b95_base :: IO (FunPtr (Tripletlist ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_a41b8d1332b69b95 :: IO (FunPtr (Tripletlist ->
+                                                            IO CInt))
+hs_bindgen_test_arraysarray_a41b8d1332b69b95 = fromMarshallableBaseType hs_bindgen_test_arraysarray_a41b8d1332b69b95_base
 {-# NOINLINE fun_8_ptr #-}
 {-| Multi-dimensional array of unknown size, typedef
 
@@ -1804,8 +2376,13 @@ __defined at:__ @arrays\/array.h:139:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_8_ptr = unsafePerformIO hs_bindgen_test_arraysarray_a41b8d1332b69b95
-foreign import ccall safe "hs_bindgen_test_arraysarray_bdf2a6a8a3dd5b04" hs_bindgen_test_arraysarray_bdf2a6a8a3dd5b04 :: IO (FunPtr (Sudoku ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_bdf2a6a8a3dd5b04" hs_bindgen_test_arraysarray_bdf2a6a8a3dd5b04_base :: IO (FunPtr (Sudoku ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_bdf2a6a8a3dd5b04 :: IO (FunPtr (Sudoku ->
+                                                            IO CInt))
+hs_bindgen_test_arraysarray_bdf2a6a8a3dd5b04 = fromMarshallableBaseType hs_bindgen_test_arraysarray_bdf2a6a8a3dd5b04_base
 {-# NOINLINE isSolved_ptr #-}
 {-| Typedef-in-typedef
 
@@ -1825,12 +2402,18 @@ __defined at:__ @arrays\/array.h:142:5@
 __exported by:__ @arrays\/array.h@
 -}
 isSolved_ptr = unsafePerformIO hs_bindgen_test_arraysarray_bdf2a6a8a3dd5b04
-foreign import ccall safe "hs_bindgen_test_arraysarray_a3de5f7e233ad0e1" hs_bindgen_test_arraysarray_a3de5f7e233ad0e1 :: IO (FunPtr (CInt ->
-                                                                                                                                     ConstantArray 3
-                                                                                                                                                   CInt ->
-                                                                                                                                     ConstantArray 3
-                                                                                                                                                   CInt ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_a3de5f7e233ad0e1" hs_bindgen_test_arraysarray_a3de5f7e233ad0e1_base :: IO (FunPtr (CInt ->
+                                                                                                                                          ConstantArray 3
+                                                                                                                                                        CInt ->
+                                                                                                                                          ConstantArray 3
+                                                                                                                                                        CInt ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_a3de5f7e233ad0e1 :: IO (FunPtr (CInt ->
+                                                            ConstantArray 3 CInt ->
+                                                            ConstantArray 3 CInt -> IO CInt))
+hs_bindgen_test_arraysarray_a3de5f7e233ad0e1 = fromMarshallableBaseType hs_bindgen_test_arraysarray_a3de5f7e233ad0e1_base
 {-# NOINLINE fun_1_const_ptr #-}
 {-| Array of known size
 
@@ -1851,9 +2434,14 @@ __defined at:__ @arrays\/array.h:149:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_1_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_a3de5f7e233ad0e1
-foreign import ccall safe "hs_bindgen_test_arraysarray_3c09bbba7534ca1d" hs_bindgen_test_arraysarray_3c09bbba7534ca1d :: IO (FunPtr (Triplet ->
-                                                                                                                                     Triplet ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_3c09bbba7534ca1d" hs_bindgen_test_arraysarray_3c09bbba7534ca1d_base :: IO (FunPtr (Triplet ->
+                                                                                                                                          Triplet ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_3c09bbba7534ca1d :: IO (FunPtr (Triplet ->
+                                                            Triplet -> IO CInt))
+hs_bindgen_test_arraysarray_3c09bbba7534ca1d = fromMarshallableBaseType hs_bindgen_test_arraysarray_3c09bbba7534ca1d_base
 {-# NOINLINE fun_2_const_ptr #-}
 {-| Array of known size, typedef
 
@@ -1873,9 +2461,14 @@ __defined at:__ @arrays\/array.h:152:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_2_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_3c09bbba7534ca1d
-foreign import ccall safe "hs_bindgen_test_arraysarray_0e53ed28ec1ca276" hs_bindgen_test_arraysarray_0e53ed28ec1ca276 :: IO (FunPtr (IncompleteArray CInt ->
-                                                                                                                                     IncompleteArray CInt ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_0e53ed28ec1ca276" hs_bindgen_test_arraysarray_0e53ed28ec1ca276_base :: IO (FunPtr (IncompleteArray CInt ->
+                                                                                                                                          IncompleteArray CInt ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_0e53ed28ec1ca276 :: IO (FunPtr (IncompleteArray CInt ->
+                                                            IncompleteArray CInt -> IO CInt))
+hs_bindgen_test_arraysarray_0e53ed28ec1ca276 = fromMarshallableBaseType hs_bindgen_test_arraysarray_0e53ed28ec1ca276_base
 {-# NOINLINE fun_3_const_ptr #-}
 {-| Array of unknown size
 
@@ -1896,9 +2489,14 @@ __defined at:__ @arrays\/array.h:155:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_3_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_0e53ed28ec1ca276
-foreign import ccall safe "hs_bindgen_test_arraysarray_07d860d5e74c415b" hs_bindgen_test_arraysarray_07d860d5e74c415b :: IO (FunPtr (List ->
-                                                                                                                                     List ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_07d860d5e74c415b" hs_bindgen_test_arraysarray_07d860d5e74c415b_base :: IO (FunPtr (List ->
+                                                                                                                                          List ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_07d860d5e74c415b :: IO (FunPtr (List ->
+                                                            List -> IO CInt))
+hs_bindgen_test_arraysarray_07d860d5e74c415b = fromMarshallableBaseType hs_bindgen_test_arraysarray_07d860d5e74c415b_base
 {-# NOINLINE fun_4_const_ptr #-}
 {-| Array of unknown size, typedef
 
@@ -1918,13 +2516,21 @@ __defined at:__ @arrays\/array.h:158:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_4_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_07d860d5e74c415b
-foreign import ccall safe "hs_bindgen_test_arraysarray_3c0a139c24d7202a" hs_bindgen_test_arraysarray_3c0a139c24d7202a :: IO (FunPtr (ConstantArray 4
-                                                                                                                                                   (ConstantArray 3
-                                                                                                                                                                  CInt) ->
-                                                                                                                                     ConstantArray 4
-                                                                                                                                                   (ConstantArray 3
-                                                                                                                                                                  CInt) ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_3c0a139c24d7202a" hs_bindgen_test_arraysarray_3c0a139c24d7202a_base :: IO (FunPtr (ConstantArray 4
+                                                                                                                                                        (ConstantArray 3
+                                                                                                                                                                       CInt) ->
+                                                                                                                                          ConstantArray 4
+                                                                                                                                                        (ConstantArray 3
+                                                                                                                                                                       CInt) ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_3c0a139c24d7202a :: IO (FunPtr (ConstantArray 4
+                                                                          (ConstantArray 3 CInt) ->
+                                                            ConstantArray 4
+                                                                          (ConstantArray 3 CInt) ->
+                                                            IO CInt))
+hs_bindgen_test_arraysarray_3c0a139c24d7202a = fromMarshallableBaseType hs_bindgen_test_arraysarray_3c0a139c24d7202a_base
 {-# NOINLINE fun_5_const_ptr #-}
 {-| Multi-dimensional array of known size
 
@@ -1946,9 +2552,14 @@ __defined at:__ @arrays\/array.h:161:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_5_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_3c0a139c24d7202a
-foreign import ccall safe "hs_bindgen_test_arraysarray_62d236581cc18366" hs_bindgen_test_arraysarray_62d236581cc18366 :: IO (FunPtr (Matrix ->
-                                                                                                                                     Matrix ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_62d236581cc18366" hs_bindgen_test_arraysarray_62d236581cc18366_base :: IO (FunPtr (Matrix ->
+                                                                                                                                          Matrix ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_62d236581cc18366 :: IO (FunPtr (Matrix ->
+                                                            Matrix -> IO CInt))
+hs_bindgen_test_arraysarray_62d236581cc18366 = fromMarshallableBaseType hs_bindgen_test_arraysarray_62d236581cc18366_base
 {-# NOINLINE fun_6_const_ptr #-}
 {-| Multi-dimensional array of known size, typedef
 
@@ -1968,11 +2579,19 @@ __defined at:__ @arrays\/array.h:164:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_6_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_62d236581cc18366
-foreign import ccall safe "hs_bindgen_test_arraysarray_b4bf67c3cec12e54" hs_bindgen_test_arraysarray_b4bf67c3cec12e54 :: IO (FunPtr (IncompleteArray (ConstantArray 3
-                                                                                                                                                                    CInt) ->
-                                                                                                                                     IncompleteArray (ConstantArray 3
-                                                                                                                                                                    CInt) ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_b4bf67c3cec12e54" hs_bindgen_test_arraysarray_b4bf67c3cec12e54_base :: IO (FunPtr (IncompleteArray (ConstantArray 3
+                                                                                                                                                                         CInt) ->
+                                                                                                                                          IncompleteArray (ConstantArray 3
+                                                                                                                                                                         CInt) ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_b4bf67c3cec12e54 :: IO (FunPtr (IncompleteArray (ConstantArray 3
+                                                                                           CInt) ->
+                                                            IncompleteArray (ConstantArray 3
+                                                                                           CInt) ->
+                                                            IO CInt))
+hs_bindgen_test_arraysarray_b4bf67c3cec12e54 = fromMarshallableBaseType hs_bindgen_test_arraysarray_b4bf67c3cec12e54_base
 {-# NOINLINE fun_7_const_ptr #-}
 {-| Multi-dimensional array of unknown size
 
@@ -1994,9 +2613,14 @@ __defined at:__ @arrays\/array.h:167:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_7_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_b4bf67c3cec12e54
-foreign import ccall safe "hs_bindgen_test_arraysarray_99dd6a6017eb0eec" hs_bindgen_test_arraysarray_99dd6a6017eb0eec :: IO (FunPtr (Tripletlist ->
-                                                                                                                                     Tripletlist ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_99dd6a6017eb0eec" hs_bindgen_test_arraysarray_99dd6a6017eb0eec_base :: IO (FunPtr (Tripletlist ->
+                                                                                                                                          Tripletlist ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_99dd6a6017eb0eec :: IO (FunPtr (Tripletlist ->
+                                                            Tripletlist -> IO CInt))
+hs_bindgen_test_arraysarray_99dd6a6017eb0eec = fromMarshallableBaseType hs_bindgen_test_arraysarray_99dd6a6017eb0eec_base
 {-# NOINLINE fun_8_const_ptr #-}
 {-| Multi-dimensional array of unknown size, typedef
 
@@ -2016,9 +2640,14 @@ __defined at:__ @arrays\/array.h:170:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_8_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_99dd6a6017eb0eec
-foreign import ccall safe "hs_bindgen_test_arraysarray_6deec046c95e4e0d" hs_bindgen_test_arraysarray_6deec046c95e4e0d :: IO (FunPtr (Sudoku ->
-                                                                                                                                     Sudoku ->
-                                                                                                                                     IO CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_6deec046c95e4e0d" hs_bindgen_test_arraysarray_6deec046c95e4e0d_base :: IO (FunPtr (Sudoku ->
+                                                                                                                                          Sudoku ->
+                                                                                                                                          IO CInt))
+hs_bindgen_test_arraysarray_6deec046c95e4e0d :: IO (FunPtr (Sudoku ->
+                                                            Sudoku -> IO CInt))
+hs_bindgen_test_arraysarray_6deec046c95e4e0d = fromMarshallableBaseType hs_bindgen_test_arraysarray_6deec046c95e4e0d_base
 {-# NOINLINE isSolved_const_ptr #-}
 {-| Typedef-in-typedef
 
@@ -2038,8 +2667,13 @@ __defined at:__ @arrays\/array.h:173:5@
 __exported by:__ @arrays\/array.h@
 -}
 isSolved_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_6deec046c95e4e0d
-foreign import ccall safe "hs_bindgen_test_arraysarray_76f53f330102e743" hs_bindgen_test_arraysarray_76f53f330102e743 :: IO (FunPtr (IO (Ptr (ConstantArray 3
-                                                                                                                                                            CInt))))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_76f53f330102e743" hs_bindgen_test_arraysarray_76f53f330102e743_base :: IO (FunPtr (IO (Ptr (ConstantArray 3
+                                                                                                                                                                 CInt))))
+hs_bindgen_test_arraysarray_76f53f330102e743 :: IO (FunPtr (IO (Ptr (ConstantArray 3
+                                                                                   CInt))))
+hs_bindgen_test_arraysarray_76f53f330102e743 = fromMarshallableBaseType hs_bindgen_test_arraysarray_76f53f330102e743_base
 {-# NOINLINE fun_9_ptr #-}
 {-| Array of known size
 
@@ -2059,7 +2693,11 @@ __defined at:__ @arrays\/array.h:185:7@
 __exported by:__ @arrays\/array.h@
 -}
 fun_9_ptr = unsafePerformIO hs_bindgen_test_arraysarray_76f53f330102e743
-foreign import ccall safe "hs_bindgen_test_arraysarray_abcc94f01de77b25" hs_bindgen_test_arraysarray_abcc94f01de77b25 :: IO (FunPtr (IO (Ptr Triplet)))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_abcc94f01de77b25" hs_bindgen_test_arraysarray_abcc94f01de77b25_base :: IO (FunPtr (IO (Ptr Triplet)))
+hs_bindgen_test_arraysarray_abcc94f01de77b25 :: IO (FunPtr (IO (Ptr Triplet)))
+hs_bindgen_test_arraysarray_abcc94f01de77b25 = fromMarshallableBaseType hs_bindgen_test_arraysarray_abcc94f01de77b25_base
 {-# NOINLINE fun_10_ptr #-}
 {-| Array of known size, typedef
 
@@ -2079,7 +2717,11 @@ __defined at:__ @arrays\/array.h:188:10@
 __exported by:__ @arrays\/array.h@
 -}
 fun_10_ptr = unsafePerformIO hs_bindgen_test_arraysarray_abcc94f01de77b25
-foreign import ccall safe "hs_bindgen_test_arraysarray_6661b46e4a751a85" hs_bindgen_test_arraysarray_6661b46e4a751a85 :: IO (FunPtr (IO (Ptr (IncompleteArray CInt))))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_6661b46e4a751a85" hs_bindgen_test_arraysarray_6661b46e4a751a85_base :: IO (FunPtr (IO (Ptr (IncompleteArray CInt))))
+hs_bindgen_test_arraysarray_6661b46e4a751a85 :: IO (FunPtr (IO (Ptr (IncompleteArray CInt))))
+hs_bindgen_test_arraysarray_6661b46e4a751a85 = fromMarshallableBaseType hs_bindgen_test_arraysarray_6661b46e4a751a85_base
 {-# NOINLINE fun_11_ptr #-}
 {-| Array of unknown size
 
@@ -2099,7 +2741,11 @@ __defined at:__ @arrays\/array.h:191:7@
 __exported by:__ @arrays\/array.h@
 -}
 fun_11_ptr = unsafePerformIO hs_bindgen_test_arraysarray_6661b46e4a751a85
-foreign import ccall safe "hs_bindgen_test_arraysarray_9c80a9e3300aad15" hs_bindgen_test_arraysarray_9c80a9e3300aad15 :: IO (FunPtr (IO (Ptr List)))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_9c80a9e3300aad15" hs_bindgen_test_arraysarray_9c80a9e3300aad15_base :: IO (FunPtr (IO (Ptr List)))
+hs_bindgen_test_arraysarray_9c80a9e3300aad15 :: IO (FunPtr (IO (Ptr List)))
+hs_bindgen_test_arraysarray_9c80a9e3300aad15 = fromMarshallableBaseType hs_bindgen_test_arraysarray_9c80a9e3300aad15_base
 {-# NOINLINE fun_12_ptr #-}
 {-| Array of unknown size, typedef
 
@@ -2119,9 +2765,15 @@ __defined at:__ @arrays\/array.h:194:7@
 __exported by:__ @arrays\/array.h@
 -}
 fun_12_ptr = unsafePerformIO hs_bindgen_test_arraysarray_9c80a9e3300aad15
-foreign import ccall safe "hs_bindgen_test_arraysarray_bb741b7e8c029e7e" hs_bindgen_test_arraysarray_bb741b7e8c029e7e :: IO (FunPtr (IO (Ptr (ConstantArray 4
-                                                                                                                                                            (ConstantArray 3
-                                                                                                                                                                           CInt)))))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_bb741b7e8c029e7e" hs_bindgen_test_arraysarray_bb741b7e8c029e7e_base :: IO (FunPtr (IO (Ptr (ConstantArray 4
+                                                                                                                                                                 (ConstantArray 3
+                                                                                                                                                                                CInt)))))
+hs_bindgen_test_arraysarray_bb741b7e8c029e7e :: IO (FunPtr (IO (Ptr (ConstantArray 4
+                                                                                   (ConstantArray 3
+                                                                                                  CInt)))))
+hs_bindgen_test_arraysarray_bb741b7e8c029e7e = fromMarshallableBaseType hs_bindgen_test_arraysarray_bb741b7e8c029e7e_base
 {-# NOINLINE fun_13_ptr #-}
 {-| Multi-dimensional array of known size
 
@@ -2142,7 +2794,11 @@ __defined at:__ @arrays\/array.h:197:7@
 __exported by:__ @arrays\/array.h@
 -}
 fun_13_ptr = unsafePerformIO hs_bindgen_test_arraysarray_bb741b7e8c029e7e
-foreign import ccall safe "hs_bindgen_test_arraysarray_75d83252a55a5c64" hs_bindgen_test_arraysarray_75d83252a55a5c64 :: IO (FunPtr (IO (Ptr Matrix)))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_75d83252a55a5c64" hs_bindgen_test_arraysarray_75d83252a55a5c64_base :: IO (FunPtr (IO (Ptr Matrix)))
+hs_bindgen_test_arraysarray_75d83252a55a5c64 :: IO (FunPtr (IO (Ptr Matrix)))
+hs_bindgen_test_arraysarray_75d83252a55a5c64 = fromMarshallableBaseType hs_bindgen_test_arraysarray_75d83252a55a5c64_base
 {-# NOINLINE fun_14_ptr #-}
 {-| Multi-dimensional array of known size, typedef
 
@@ -2162,8 +2818,13 @@ __defined at:__ @arrays\/array.h:200:9@
 __exported by:__ @arrays\/array.h@
 -}
 fun_14_ptr = unsafePerformIO hs_bindgen_test_arraysarray_75d83252a55a5c64
-foreign import ccall safe "hs_bindgen_test_arraysarray_069ac2d1873f3210" hs_bindgen_test_arraysarray_069ac2d1873f3210 :: IO (FunPtr (IO (Ptr (IncompleteArray (ConstantArray 3
-                                                                                                                                                                             CInt)))))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_069ac2d1873f3210" hs_bindgen_test_arraysarray_069ac2d1873f3210_base :: IO (FunPtr (IO (Ptr (IncompleteArray (ConstantArray 3
+                                                                                                                                                                                  CInt)))))
+hs_bindgen_test_arraysarray_069ac2d1873f3210 :: IO (FunPtr (IO (Ptr (IncompleteArray (ConstantArray 3
+                                                                                                    CInt)))))
+hs_bindgen_test_arraysarray_069ac2d1873f3210 = fromMarshallableBaseType hs_bindgen_test_arraysarray_069ac2d1873f3210_base
 {-# NOINLINE fun_15_ptr #-}
 {-| Multi-dimensional array of unknown size
 
@@ -2184,7 +2845,11 @@ __defined at:__ @arrays\/array.h:203:7@
 __exported by:__ @arrays\/array.h@
 -}
 fun_15_ptr = unsafePerformIO hs_bindgen_test_arraysarray_069ac2d1873f3210
-foreign import ccall safe "hs_bindgen_test_arraysarray_314971335aaa6db3" hs_bindgen_test_arraysarray_314971335aaa6db3 :: IO (FunPtr (IO (Ptr Tripletlist)))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_314971335aaa6db3" hs_bindgen_test_arraysarray_314971335aaa6db3_base :: IO (FunPtr (IO (Ptr Tripletlist)))
+hs_bindgen_test_arraysarray_314971335aaa6db3 :: IO (FunPtr (IO (Ptr Tripletlist)))
+hs_bindgen_test_arraysarray_314971335aaa6db3 = fromMarshallableBaseType hs_bindgen_test_arraysarray_314971335aaa6db3_base
 {-# NOINLINE fun_16_ptr #-}
 {-| Multi-dimensional array of unknown size, typedef
 
@@ -2204,7 +2869,11 @@ __defined at:__ @arrays\/array.h:206:14@
 __exported by:__ @arrays\/array.h@
 -}
 fun_16_ptr = unsafePerformIO hs_bindgen_test_arraysarray_314971335aaa6db3
-foreign import ccall safe "hs_bindgen_test_arraysarray_9a62b5848be64bd4" hs_bindgen_test_arraysarray_9a62b5848be64bd4 :: IO (FunPtr (IO (Ptr Sudoku)))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_9a62b5848be64bd4" hs_bindgen_test_arraysarray_9a62b5848be64bd4_base :: IO (FunPtr (IO (Ptr Sudoku)))
+hs_bindgen_test_arraysarray_9a62b5848be64bd4 :: IO (FunPtr (IO (Ptr Sudoku)))
+hs_bindgen_test_arraysarray_9a62b5848be64bd4 = fromMarshallableBaseType hs_bindgen_test_arraysarray_9a62b5848be64bd4_base
 {-# NOINLINE solve_ptr #-}
 {-| Typedef-in-typedef
 
@@ -2224,8 +2893,13 @@ __defined at:__ @arrays\/array.h:209:10@
 __exported by:__ @arrays\/array.h@
 -}
 solve_ptr = unsafePerformIO hs_bindgen_test_arraysarray_9a62b5848be64bd4
-foreign import ccall safe "hs_bindgen_test_arraysarray_a6413f4d2092265d" hs_bindgen_test_arraysarray_a6413f4d2092265d :: IO (Ptr (ConstantArray 3
-                                                                                                                                                CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_a6413f4d2092265d" hs_bindgen_test_arraysarray_a6413f4d2092265d_base :: IO (Ptr (ConstantArray 3
+                                                                                                                                                     CInt))
+hs_bindgen_test_arraysarray_a6413f4d2092265d :: IO (Ptr (ConstantArray 3
+                                                                       CInt))
+hs_bindgen_test_arraysarray_a6413f4d2092265d = fromMarshallableBaseType hs_bindgen_test_arraysarray_a6413f4d2092265d_base
 {-# NOINLINE arr0_ptr #-}
 {-| Global, complete, not initialised
 
@@ -2245,8 +2919,13 @@ __defined at:__ @arrays\/array.h:11:5@
 __exported by:__ @arrays\/array.h@
 -}
 arr0_ptr = unsafePerformIO hs_bindgen_test_arraysarray_a6413f4d2092265d
-foreign import ccall safe "hs_bindgen_test_arraysarray_1693226264ba4aeb" hs_bindgen_test_arraysarray_1693226264ba4aeb :: IO (Ptr (ConstantArray 3
-                                                                                                                                                CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_1693226264ba4aeb" hs_bindgen_test_arraysarray_1693226264ba4aeb_base :: IO (Ptr (ConstantArray 3
+                                                                                                                                                     CInt))
+hs_bindgen_test_arraysarray_1693226264ba4aeb :: IO (Ptr (ConstantArray 3
+                                                                       CInt))
+hs_bindgen_test_arraysarray_1693226264ba4aeb = fromMarshallableBaseType hs_bindgen_test_arraysarray_1693226264ba4aeb_base
 {-# NOINLINE arr1_ptr #-}
 {-| Global, complete, initialised
 
@@ -2266,8 +2945,13 @@ __defined at:__ @arrays\/array.h:14:5@
 __exported by:__ @arrays\/array.h@
 -}
 arr1_ptr = unsafePerformIO hs_bindgen_test_arraysarray_1693226264ba4aeb
-foreign import ccall safe "hs_bindgen_test_arraysarray_dafcf99a73b93389" hs_bindgen_test_arraysarray_dafcf99a73b93389 :: IO (Ptr (ConstantArray 3
-                                                                                                                                                CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_dafcf99a73b93389" hs_bindgen_test_arraysarray_dafcf99a73b93389_base :: IO (Ptr (ConstantArray 3
+                                                                                                                                                     CInt))
+hs_bindgen_test_arraysarray_dafcf99a73b93389 :: IO (Ptr (ConstantArray 3
+                                                                       CInt))
+hs_bindgen_test_arraysarray_dafcf99a73b93389 = fromMarshallableBaseType hs_bindgen_test_arraysarray_dafcf99a73b93389_base
 {-# NOINLINE arr2_ptr #-}
 {-| Global, extern, complete, not initialised
 
@@ -2287,8 +2971,13 @@ __defined at:__ @arrays\/array.h:17:12@
 __exported by:__ @arrays\/array.h@
 -}
 arr2_ptr = unsafePerformIO hs_bindgen_test_arraysarray_dafcf99a73b93389
-foreign import ccall safe "hs_bindgen_test_arraysarray_ca1016acc3449dee" hs_bindgen_test_arraysarray_ca1016acc3449dee :: IO (Ptr (ConstantArray 3
-                                                                                                                                                CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_ca1016acc3449dee" hs_bindgen_test_arraysarray_ca1016acc3449dee_base :: IO (Ptr (ConstantArray 3
+                                                                                                                                                     CInt))
+hs_bindgen_test_arraysarray_ca1016acc3449dee :: IO (Ptr (ConstantArray 3
+                                                                       CInt))
+hs_bindgen_test_arraysarray_ca1016acc3449dee = fromMarshallableBaseType hs_bindgen_test_arraysarray_ca1016acc3449dee_base
 {-# NOINLINE arr3_ptr #-}
 {-| Global, extern, complete, initialised
 
@@ -2308,8 +2997,13 @@ __defined at:__ @arrays\/array.h:20:12@
 __exported by:__ @arrays\/array.h@
 -}
 arr3_ptr = unsafePerformIO hs_bindgen_test_arraysarray_ca1016acc3449dee
-foreign import ccall safe "hs_bindgen_test_arraysarray_1a8c921160bc99a6" hs_bindgen_test_arraysarray_1a8c921160bc99a6 :: IO (Ptr (ConstantArray 1
-                                                                                                                                                CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_1a8c921160bc99a6" hs_bindgen_test_arraysarray_1a8c921160bc99a6_base :: IO (Ptr (ConstantArray 1
+                                                                                                                                                     CInt))
+hs_bindgen_test_arraysarray_1a8c921160bc99a6 :: IO (Ptr (ConstantArray 1
+                                                                       CInt))
+hs_bindgen_test_arraysarray_1a8c921160bc99a6 = fromMarshallableBaseType hs_bindgen_test_arraysarray_1a8c921160bc99a6_base
 {-# NOINLINE arr6_ptr #-}
 {-| Global, incomplete
 
@@ -2329,7 +3023,11 @@ __defined at:__ @arrays\/array.h:29:5@
 __exported by:__ @arrays\/array.h@
 -}
 arr6_ptr = unsafePerformIO hs_bindgen_test_arraysarray_1a8c921160bc99a6
-foreign import ccall safe "hs_bindgen_test_arraysarray_17cf970243739b65" hs_bindgen_test_arraysarray_17cf970243739b65 :: IO (Ptr (IncompleteArray CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_17cf970243739b65" hs_bindgen_test_arraysarray_17cf970243739b65_base :: IO (Ptr (IncompleteArray CInt))
+hs_bindgen_test_arraysarray_17cf970243739b65 :: IO (Ptr (IncompleteArray CInt))
+hs_bindgen_test_arraysarray_17cf970243739b65 = fromMarshallableBaseType hs_bindgen_test_arraysarray_17cf970243739b65_base
 {-# NOINLINE arr7_ptr #-}
 {-| Global, extern, incomplete
 
@@ -2349,8 +3047,13 @@ __defined at:__ @arrays\/array.h:32:12@
 __exported by:__ @arrays\/array.h@
 -}
 arr7_ptr = unsafePerformIO hs_bindgen_test_arraysarray_17cf970243739b65
-foreign import ccall safe "hs_bindgen_test_arraysarray_85bc33b188037456" hs_bindgen_test_arraysarray_85bc33b188037456 :: IO (Ptr (ConstantArray 3
-                                                                                                                                                CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_85bc33b188037456" hs_bindgen_test_arraysarray_85bc33b188037456_base :: IO (Ptr (ConstantArray 3
+                                                                                                                                                     CInt))
+hs_bindgen_test_arraysarray_85bc33b188037456 :: IO (Ptr (ConstantArray 3
+                                                                       CInt))
+hs_bindgen_test_arraysarray_85bc33b188037456 = fromMarshallableBaseType hs_bindgen_test_arraysarray_85bc33b188037456_base
 {-# NOINLINE arr_1_ptr #-}
 {-| Array of known size
 
@@ -2370,7 +3073,11 @@ __defined at:__ @arrays\/array.h:62:12@
 __exported by:__ @arrays\/array.h@
 -}
 arr_1_ptr = unsafePerformIO hs_bindgen_test_arraysarray_85bc33b188037456
-foreign import ccall safe "hs_bindgen_test_arraysarray_87c784150cd3ff65" hs_bindgen_test_arraysarray_87c784150cd3ff65 :: IO (Ptr Triplet)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_87c784150cd3ff65" hs_bindgen_test_arraysarray_87c784150cd3ff65_base :: IO (Ptr Triplet)
+hs_bindgen_test_arraysarray_87c784150cd3ff65 :: IO (Ptr Triplet)
+hs_bindgen_test_arraysarray_87c784150cd3ff65 = fromMarshallableBaseType hs_bindgen_test_arraysarray_87c784150cd3ff65_base
 {-# NOINLINE arr_2_ptr #-}
 {-| Array of known size, typedef
 
@@ -2390,7 +3097,11 @@ __defined at:__ @arrays\/array.h:65:16@
 __exported by:__ @arrays\/array.h@
 -}
 arr_2_ptr = unsafePerformIO hs_bindgen_test_arraysarray_87c784150cd3ff65
-foreign import ccall safe "hs_bindgen_test_arraysarray_e7b0de7633a7a62a" hs_bindgen_test_arraysarray_e7b0de7633a7a62a :: IO (Ptr (IncompleteArray CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_e7b0de7633a7a62a" hs_bindgen_test_arraysarray_e7b0de7633a7a62a_base :: IO (Ptr (IncompleteArray CInt))
+hs_bindgen_test_arraysarray_e7b0de7633a7a62a :: IO (Ptr (IncompleteArray CInt))
+hs_bindgen_test_arraysarray_e7b0de7633a7a62a = fromMarshallableBaseType hs_bindgen_test_arraysarray_e7b0de7633a7a62a_base
 {-# NOINLINE arr_3_ptr #-}
 {-| Array of unknown size
 
@@ -2410,7 +3121,11 @@ __defined at:__ @arrays\/array.h:68:12@
 __exported by:__ @arrays\/array.h@
 -}
 arr_3_ptr = unsafePerformIO hs_bindgen_test_arraysarray_e7b0de7633a7a62a
-foreign import ccall safe "hs_bindgen_test_arraysarray_8fb64bc6c2bd4c73" hs_bindgen_test_arraysarray_8fb64bc6c2bd4c73 :: IO (Ptr List)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_8fb64bc6c2bd4c73" hs_bindgen_test_arraysarray_8fb64bc6c2bd4c73_base :: IO (Ptr List)
+hs_bindgen_test_arraysarray_8fb64bc6c2bd4c73 :: IO (Ptr List)
+hs_bindgen_test_arraysarray_8fb64bc6c2bd4c73 = fromMarshallableBaseType hs_bindgen_test_arraysarray_8fb64bc6c2bd4c73_base
 {-# NOINLINE arr_4_ptr #-}
 {-| Array of unknown size, typedef
 
@@ -2430,9 +3145,14 @@ __defined at:__ @arrays\/array.h:71:13@
 __exported by:__ @arrays\/array.h@
 -}
 arr_4_ptr = unsafePerformIO hs_bindgen_test_arraysarray_8fb64bc6c2bd4c73
-foreign import ccall safe "hs_bindgen_test_arraysarray_7348a94e6adce96e" hs_bindgen_test_arraysarray_7348a94e6adce96e :: IO (Ptr (ConstantArray 4
-                                                                                                                                                (ConstantArray 3
-                                                                                                                                                               CInt)))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_7348a94e6adce96e" hs_bindgen_test_arraysarray_7348a94e6adce96e_base :: IO (Ptr (ConstantArray 4
+                                                                                                                                                     (ConstantArray 3
+                                                                                                                                                                    CInt)))
+hs_bindgen_test_arraysarray_7348a94e6adce96e :: IO (Ptr (ConstantArray 4
+                                                                       (ConstantArray 3 CInt)))
+hs_bindgen_test_arraysarray_7348a94e6adce96e = fromMarshallableBaseType hs_bindgen_test_arraysarray_7348a94e6adce96e_base
 {-# NOINLINE arr_5_ptr #-}
 {-| Multi-dimensional array of known size
 
@@ -2452,7 +3172,11 @@ __defined at:__ @arrays\/array.h:74:12@
 __exported by:__ @arrays\/array.h@
 -}
 arr_5_ptr = unsafePerformIO hs_bindgen_test_arraysarray_7348a94e6adce96e
-foreign import ccall safe "hs_bindgen_test_arraysarray_1308613140bb4b80" hs_bindgen_test_arraysarray_1308613140bb4b80 :: IO (Ptr Matrix)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_1308613140bb4b80" hs_bindgen_test_arraysarray_1308613140bb4b80_base :: IO (Ptr Matrix)
+hs_bindgen_test_arraysarray_1308613140bb4b80 :: IO (Ptr Matrix)
+hs_bindgen_test_arraysarray_1308613140bb4b80 = fromMarshallableBaseType hs_bindgen_test_arraysarray_1308613140bb4b80_base
 {-# NOINLINE arr_6_ptr #-}
 {-| Multi-dimensional array of known size, typedef
 
@@ -2472,8 +3196,13 @@ __defined at:__ @arrays\/array.h:77:15@
 __exported by:__ @arrays\/array.h@
 -}
 arr_6_ptr = unsafePerformIO hs_bindgen_test_arraysarray_1308613140bb4b80
-foreign import ccall safe "hs_bindgen_test_arraysarray_a060984b378ed676" hs_bindgen_test_arraysarray_a060984b378ed676 :: IO (Ptr (IncompleteArray (ConstantArray 3
-                                                                                                                                                                 CInt)))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_a060984b378ed676" hs_bindgen_test_arraysarray_a060984b378ed676_base :: IO (Ptr (IncompleteArray (ConstantArray 3
+                                                                                                                                                                      CInt)))
+hs_bindgen_test_arraysarray_a060984b378ed676 :: IO (Ptr (IncompleteArray (ConstantArray 3
+                                                                                        CInt)))
+hs_bindgen_test_arraysarray_a060984b378ed676 = fromMarshallableBaseType hs_bindgen_test_arraysarray_a060984b378ed676_base
 {-# NOINLINE arr_7_ptr #-}
 {-| Multi-dimensional array of unknown size
 
@@ -2493,7 +3222,11 @@ __defined at:__ @arrays\/array.h:80:12@
 __exported by:__ @arrays\/array.h@
 -}
 arr_7_ptr = unsafePerformIO hs_bindgen_test_arraysarray_a060984b378ed676
-foreign import ccall safe "hs_bindgen_test_arraysarray_d82706abb6d8ea04" hs_bindgen_test_arraysarray_d82706abb6d8ea04 :: IO (Ptr Tripletlist)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_d82706abb6d8ea04" hs_bindgen_test_arraysarray_d82706abb6d8ea04_base :: IO (Ptr Tripletlist)
+hs_bindgen_test_arraysarray_d82706abb6d8ea04 :: IO (Ptr Tripletlist)
+hs_bindgen_test_arraysarray_d82706abb6d8ea04 = fromMarshallableBaseType hs_bindgen_test_arraysarray_d82706abb6d8ea04_base
 {-# NOINLINE arr_8_ptr #-}
 {-| Multi-dimensional array of unknown size, typedef
 
@@ -2513,8 +3246,13 @@ __defined at:__ @arrays\/array.h:83:20@
 __exported by:__ @arrays\/array.h@
 -}
 arr_8_ptr = unsafePerformIO hs_bindgen_test_arraysarray_d82706abb6d8ea04
-foreign import ccall safe "hs_bindgen_test_arraysarray_7376d172f5729493" hs_bindgen_test_arraysarray_7376d172f5729493 :: IO (Ptr (ConstantArray 3
-                                                                                                                                                CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_7376d172f5729493" hs_bindgen_test_arraysarray_7376d172f5729493_base :: IO (Ptr (ConstantArray 3
+                                                                                                                                                     CInt))
+hs_bindgen_test_arraysarray_7376d172f5729493 :: IO (Ptr (ConstantArray 3
+                                                                       CInt))
+hs_bindgen_test_arraysarray_7376d172f5729493 = fromMarshallableBaseType hs_bindgen_test_arraysarray_7376d172f5729493_base
 {-# NOINLINE arr_1_const_ptr #-}
 {-| Array of known size
 
@@ -2537,7 +3275,11 @@ arr_1_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_7376d172f5729493
 {-# NOINLINE arr_1_const #-}
 arr_1_const :: ConstantArray 3 CInt
 arr_1_const = unsafePerformIO (peek arr_1_const_ptr)
-foreign import ccall safe "hs_bindgen_test_arraysarray_f03586aa57dfce29" hs_bindgen_test_arraysarray_f03586aa57dfce29 :: IO (Ptr Triplet)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_f03586aa57dfce29" hs_bindgen_test_arraysarray_f03586aa57dfce29_base :: IO (Ptr Triplet)
+hs_bindgen_test_arraysarray_f03586aa57dfce29 :: IO (Ptr Triplet)
+hs_bindgen_test_arraysarray_f03586aa57dfce29 = fromMarshallableBaseType hs_bindgen_test_arraysarray_f03586aa57dfce29_base
 {-# NOINLINE arr_2_const_ptr #-}
 {-| Array of known size, typedef
 
@@ -2560,7 +3302,11 @@ arr_2_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_f03586aa57dfce29
 {-# NOINLINE arr_2_const #-}
 arr_2_const :: Triplet
 arr_2_const = unsafePerformIO (peek arr_2_const_ptr)
-foreign import ccall safe "hs_bindgen_test_arraysarray_54ffd4ffcd2dad61" hs_bindgen_test_arraysarray_54ffd4ffcd2dad61 :: IO (Ptr (IncompleteArray CInt))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_54ffd4ffcd2dad61" hs_bindgen_test_arraysarray_54ffd4ffcd2dad61_base :: IO (Ptr (IncompleteArray CInt))
+hs_bindgen_test_arraysarray_54ffd4ffcd2dad61 :: IO (Ptr (IncompleteArray CInt))
+hs_bindgen_test_arraysarray_54ffd4ffcd2dad61 = fromMarshallableBaseType hs_bindgen_test_arraysarray_54ffd4ffcd2dad61_base
 {-# NOINLINE arr_3_const_ptr #-}
 {-| Array of unknown size
 
@@ -2580,7 +3326,11 @@ __defined at:__ @arrays\/array.h:96:18@
 __exported by:__ @arrays\/array.h@
 -}
 arr_3_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_54ffd4ffcd2dad61
-foreign import ccall safe "hs_bindgen_test_arraysarray_8896c2ff5b9ce9c9" hs_bindgen_test_arraysarray_8896c2ff5b9ce9c9 :: IO (Ptr List)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_8896c2ff5b9ce9c9" hs_bindgen_test_arraysarray_8896c2ff5b9ce9c9_base :: IO (Ptr List)
+hs_bindgen_test_arraysarray_8896c2ff5b9ce9c9 :: IO (Ptr List)
+hs_bindgen_test_arraysarray_8896c2ff5b9ce9c9 = fromMarshallableBaseType hs_bindgen_test_arraysarray_8896c2ff5b9ce9c9_base
 {-# NOINLINE arr_4_const_ptr #-}
 {-| Array of unknown size, typedef
 
@@ -2600,9 +3350,14 @@ __defined at:__ @arrays\/array.h:99:19@
 __exported by:__ @arrays\/array.h@
 -}
 arr_4_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_8896c2ff5b9ce9c9
-foreign import ccall safe "hs_bindgen_test_arraysarray_46b406e096f6c9c1" hs_bindgen_test_arraysarray_46b406e096f6c9c1 :: IO (Ptr (ConstantArray 4
-                                                                                                                                                (ConstantArray 3
-                                                                                                                                                               CInt)))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_46b406e096f6c9c1" hs_bindgen_test_arraysarray_46b406e096f6c9c1_base :: IO (Ptr (ConstantArray 4
+                                                                                                                                                     (ConstantArray 3
+                                                                                                                                                                    CInt)))
+hs_bindgen_test_arraysarray_46b406e096f6c9c1 :: IO (Ptr (ConstantArray 4
+                                                                       (ConstantArray 3 CInt)))
+hs_bindgen_test_arraysarray_46b406e096f6c9c1 = fromMarshallableBaseType hs_bindgen_test_arraysarray_46b406e096f6c9c1_base
 {-# NOINLINE arr_5_const_ptr #-}
 {-| Multi-dimensional array of known size
 
@@ -2625,7 +3380,11 @@ arr_5_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_46b406e096f6c9c1
 {-# NOINLINE arr_5_const #-}
 arr_5_const :: ConstantArray 4 (ConstantArray 3 CInt)
 arr_5_const = unsafePerformIO (peek arr_5_const_ptr)
-foreign import ccall safe "hs_bindgen_test_arraysarray_ceb7f2027865ce12" hs_bindgen_test_arraysarray_ceb7f2027865ce12 :: IO (Ptr Matrix)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_ceb7f2027865ce12" hs_bindgen_test_arraysarray_ceb7f2027865ce12_base :: IO (Ptr Matrix)
+hs_bindgen_test_arraysarray_ceb7f2027865ce12 :: IO (Ptr Matrix)
+hs_bindgen_test_arraysarray_ceb7f2027865ce12 = fromMarshallableBaseType hs_bindgen_test_arraysarray_ceb7f2027865ce12_base
 {-# NOINLINE arr_6_const_ptr #-}
 {-| Multi-dimensional array of known size, typedef
 
@@ -2648,8 +3407,13 @@ arr_6_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_ceb7f2027865ce12
 {-# NOINLINE arr_6_const #-}
 arr_6_const :: Matrix
 arr_6_const = unsafePerformIO (peek arr_6_const_ptr)
-foreign import ccall safe "hs_bindgen_test_arraysarray_2b565b2b97acdcb7" hs_bindgen_test_arraysarray_2b565b2b97acdcb7 :: IO (Ptr (IncompleteArray (ConstantArray 3
-                                                                                                                                                                 CInt)))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_2b565b2b97acdcb7" hs_bindgen_test_arraysarray_2b565b2b97acdcb7_base :: IO (Ptr (IncompleteArray (ConstantArray 3
+                                                                                                                                                                      CInt)))
+hs_bindgen_test_arraysarray_2b565b2b97acdcb7 :: IO (Ptr (IncompleteArray (ConstantArray 3
+                                                                                        CInt)))
+hs_bindgen_test_arraysarray_2b565b2b97acdcb7 = fromMarshallableBaseType hs_bindgen_test_arraysarray_2b565b2b97acdcb7_base
 {-# NOINLINE arr_7_const_ptr #-}
 {-| Multi-dimensional array of unknown size
 
@@ -2669,7 +3433,11 @@ __defined at:__ @arrays\/array.h:108:18@
 __exported by:__ @arrays\/array.h@
 -}
 arr_7_const_ptr = unsafePerformIO hs_bindgen_test_arraysarray_2b565b2b97acdcb7
-foreign import ccall safe "hs_bindgen_test_arraysarray_03e2d9c4ef2ae993" hs_bindgen_test_arraysarray_03e2d9c4ef2ae993 :: IO (Ptr Tripletlist)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_arraysarray_03e2d9c4ef2ae993" hs_bindgen_test_arraysarray_03e2d9c4ef2ae993_base :: IO (Ptr Tripletlist)
+hs_bindgen_test_arraysarray_03e2d9c4ef2ae993 :: IO (Ptr Tripletlist)
+hs_bindgen_test_arraysarray_03e2d9c4ef2ae993 = fromMarshallableBaseType hs_bindgen_test_arraysarray_03e2d9c4ef2ae993_base
 {-# NOINLINE arr_8_const_ptr #-}
 {-| Multi-dimensional array of unknown size, typedef
 

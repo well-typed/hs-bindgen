@@ -14,10 +14,19 @@ newtype Fun_ptr_Deref
 
       __exported by:__ @functions\/circular_dependency_fun.h@
       -}
-foreign import ccall safe "wrapper" toFun_ptr_Deref :: Fun_ptr_Deref ->
-                                                       IO (FunPtr Fun_ptr_Deref)
-foreign import ccall safe "dynamic" fromFun_ptr_Deref :: FunPtr Fun_ptr_Deref ->
-                                                         Fun_ptr_Deref
+    deriving newtype Marshallable
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toFun_ptr_Deref_base :: Fun_ptr_Deref ->
+                                                            IO (FunPtr Fun_ptr_Deref)
+toFun_ptr_Deref :: Fun_ptr_Deref -> IO (FunPtr Fun_ptr_Deref)
+toFun_ptr_Deref = fromMarshallableBaseType toFun_ptr_Deref_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromFun_ptr_Deref_base :: FunPtr Fun_ptr_Deref ->
+                                                              Fun_ptr_Deref
+fromFun_ptr_Deref :: FunPtr Fun_ptr_Deref -> Fun_ptr_Deref
+fromFun_ptr_Deref = fromMarshallableBaseType fromFun_ptr_Deref_base
 instance ToFunPtr Fun_ptr_Deref
     where toFunPtr = toFun_ptr_Deref
 instance FromFunPtr Fun_ptr_Deref
@@ -44,7 +53,7 @@ newtype Fun_ptr
            __exported by:__ @functions\/circular_dependency_fun.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Marshallable)
 instance TyEq ty (CFieldType Fun_ptr "un_Fun_ptr") =>
          HasField "un_Fun_ptr" (Ptr Fun_ptr) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Fun_ptr")
@@ -86,13 +95,24 @@ instance TyEq ty
               (CFieldType Forward_declaration "forward_declaration_f") =>
          HasField "forward_declaration_f" (Ptr Forward_declaration) (Ptr ty)
     where getField = ptrToCField (Proxy @"forward_declaration_f")
-foreign import ccall safe "wrapper" funPtr_fbe60ed6_to :: (Ptr Forward_declaration ->
-                                                           IO Unit) ->
-                                                          IO (FunPtr (Ptr Forward_declaration ->
-                                                                      IO Unit))
-foreign import ccall safe "dynamic" funPtr_fbe60ed6_from :: FunPtr (Ptr Forward_declaration ->
-                                                                    IO Unit) ->
-                                                            Ptr Forward_declaration -> IO Unit
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" funPtr_fbe60ed6_to_base :: (Ptr Forward_declaration ->
+                                                                IO Unit) ->
+                                                               IO (FunPtr (Ptr Forward_declaration ->
+                                                                           IO Unit))
+funPtr_fbe60ed6_to :: (Ptr Forward_declaration -> IO Unit) ->
+                      IO (FunPtr (Ptr Forward_declaration -> IO Unit))
+funPtr_fbe60ed6_to = fromMarshallableBaseType funPtr_fbe60ed6_to_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" funPtr_fbe60ed6_from_base :: FunPtr (Ptr Forward_declaration ->
+                                                                         IO Unit) ->
+                                                                 Ptr Forward_declaration -> IO Unit
+funPtr_fbe60ed6_from :: FunPtr (Ptr Forward_declaration ->
+                                IO Unit) ->
+                        Ptr Forward_declaration -> IO Unit
+funPtr_fbe60ed6_from = fromMarshallableBaseType funPtr_fbe60ed6_from_base
 instance ToFunPtr (Ptr Forward_declaration -> IO Unit)
     where toFunPtr = funPtr_fbe60ed6_to
 instance FromFunPtr (Ptr Forward_declaration -> IO Unit)

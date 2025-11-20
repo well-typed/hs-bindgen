@@ -252,8 +252,8 @@ getInstances instanceMap name = aux
             aux (acc /\ arrayInsts) $ hsType' : hsTypes
           HsPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
-          HsIO{} -> Set.empty
-          HsFun{} -> Set.empty
+          HsIO hsType' -> aux (acc /\ ioInsts) $ hsType' : hsTypes
+          HsFun arg res -> aux (acc /\ funInsts) [arg, res]
           HsExtBinding _ref _cTypeSpec mHsTypeSpec ->
             let acc' = case mHsTypeSpec of
                   Just hsTypeSpec -> acc /\ hsTypeSpecInsts hsTypeSpec
@@ -272,6 +272,16 @@ getInstances instanceMap name = aux
 
     (/\) :: Ord a => Set a -> Set a -> Set a
     (/\) = Set.intersection
+
+    ioInsts :: Set Hs.TypeClass
+    ioInsts = Set.fromList [
+        Hs.Marshallable
+      ]
+
+    funInsts :: Set Hs.TypeClass
+    funInsts = Set.fromList [
+        Hs.Marshallable
+      ]
 
     hsPrimTypeInsts :: HsPrimType -> Set Hs.TypeClass
     hsPrimTypeInsts = \case
@@ -306,6 +316,7 @@ getInstances instanceMap name = aux
       , Hs.StaticSize
       , Hs.Storable
       , Hs.WriteRaw
+      , Hs.Marshallable
       ]
 
     integralInsts :: Set Hs.TypeClass
@@ -326,6 +337,7 @@ getInstances instanceMap name = aux
       , Hs.StaticSize
       , Hs.Storable
       , Hs.WriteRaw
+      , Hs.Marshallable
       ]
 
     floatingInsts :: Set Hs.TypeClass
@@ -345,6 +357,7 @@ getInstances instanceMap name = aux
       , Hs.StaticSize
       , Hs.Storable
       , Hs.WriteRaw
+      , Hs.Marshallable
       ]
 
     ptrInsts :: Set Hs.TypeClass
@@ -356,6 +369,7 @@ getInstances instanceMap name = aux
       , Hs.StaticSize
       , Hs.Storable
       , Hs.WriteRaw
+      , Hs.Marshallable
       ]
 
     cArrayInsts :: Set Hs.TypeClass
@@ -873,7 +887,7 @@ enumDecs ::
 enumDecs opts haddockConfig info e spec = do
     State.modify' $ Map.insert newtypeName insts
     pure $
-      newtypeDecl : storableDecl : optDecls ++ cEnumInstanceDecls ++ valueDecls
+      newtypeDecl : storableDecl : marshallableDecl : optDecls ++ cEnumInstanceDecls ++ valueDecls
   where
     newtypeName :: Hs.Name Hs.NsTypeConstr
     newtypeName = C.nameHs (C.declId info)
@@ -890,8 +904,14 @@ enumDecs opts haddockConfig info e spec = do
       }
 
     insts :: Set Hs.TypeClass
-    insts = Set.union (Set.fromList [Hs.Show, Hs.Read, Hs.Storable]) $
-      Set.fromList (snd <$> translationDeriveEnum opts)
+    insts = Set.fromList $ [
+          Hs.Show
+        , Hs.Read
+        , Hs.Storable
+        , Hs.Marshallable
+        ] ++ (
+          snd <$> translationDeriveEnum opts
+        )
 
     hsNewtype :: Hs.Newtype
     hsNewtype = Hs.Newtype {
@@ -935,6 +955,16 @@ enumDecs opts haddockConfig info e spec = do
                   Hs.Seq [ Hs.PokeByteOff I2 0 IZ ]
             }
       }
+
+    marshallableDecl :: Hs.Decl
+    marshallableDecl =
+        Hs.DeclDeriveInstance
+          Hs.DeriveInstance {
+              deriveInstanceStrategy = Hs.DeriveNewtype
+            , deriveInstanceClass    = Hs.Marshallable
+            , deriveInstanceName     = newtypeName
+            , deriveInstanceComment  = Nothing
+            }
 
     optDecls :: [Hs.Decl]
     optDecls = [
@@ -1033,6 +1063,7 @@ typedefDecs opts haddockConfig info typedef spec = do
     candidateInsts :: Set Hs.TypeClass
     candidateInsts = Set.unions
                    [ Set.singleton Hs.Storable
+                   , Set.singleton Hs.Marshallable
                    , Set.fromList (snd <$> translationDeriveTypedef opts)
                    ]
 
@@ -1059,50 +1090,54 @@ typedefDecs opts haddockConfig info typedef spec = do
             let newtypeNameTo   = "to" <> coerce newtypeName
                 newtypeNameFrom = "from" <> coerce newtypeName
 
-            in [ Hs.DeclForeignImport Hs.ForeignImportDecl
-                 { foreignImportName       = newtypeNameTo
-                 , foreignImportResultType = NormalResultType $ HsIO $ HsFunPtr $ HsTypRef newtypeName
-                 , foreignImportParameters = [wrapperParam (HsTypRef newtypeName)]
-                 , foreignImportOrigName   = "wrapper"
-                 , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
-                 , foreignImportOrigin     = Origin.ToFunPtr t
-                 , foreignImportComment    = Nothing
-                 , foreignImportSafety     = SHs.Safe
-                 }
-               , Hs.DeclForeignImport Hs.ForeignImportDecl
-                 { foreignImportName       = newtypeNameFrom
-                 , foreignImportResultType = NormalResultType $ HsTypRef newtypeName
-                 , foreignImportParameters = [wrapperParam (HsFunPtr $ HsTypRef newtypeName)]
-                 , foreignImportOrigName   = "dynamic"
-                 , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
-                 , foreignImportOrigin     = Origin.FromFunPtr t
-                 , foreignImportComment    = Nothing
-                 , foreignImportSafety     = SHs.Safe
-                 }
-               , Hs.DeclDefineInstance $ Hs.DefineInstance
-                 { defineInstanceDeclarations = Hs.InstanceToFunPtr
-                   Hs.ToFunPtrInstance
-                   { toFunPtrInstanceType = HsTypRef newtypeName
-                   , toFunPtrInstanceBody = newtypeNameTo
-                   }
-                 , defineInstanceComment = Nothing
-                 }
-               , Hs.DeclDefineInstance $ Hs.DefineInstance
-                 { defineInstanceDeclarations = Hs.InstanceFromFunPtr
-                   Hs.FromFunPtrInstance
-                   { fromFunPtrInstanceType = HsTypRef newtypeName
-                   , fromFunPtrInstanceBody = newtypeNameFrom
-                   }
-                 , defineInstanceComment = Nothing
-                 }
-               ]
+            in  concat [
+                    marshallableDecs
+                      newtypeNameTo
+                      (NormalResultType $ HsIO $ HsFunPtr $ HsTypRef newtypeName)
+                      [wrapperParam (HsTypRef newtypeName)]
+                      "wrapper"
+                      (CallConvGhcCCall ImportAsValue)
+                      (Origin.ToFunPtr t)
+                      Nothing
+                      SHs.Safe
+                      (error "unused")
+                  , marshallableDecs
+                      newtypeNameFrom
+                      (NormalResultType $ HsTypRef newtypeName)
+                      [wrapperParam (HsFunPtr $ HsTypRef newtypeName)]
+                      "dynamic"
+                      (CallConvGhcCCall ImportAsValue)
+                      (Origin.FromFunPtr t)
+                      Nothing
+                      SHs.Safe
+                      (error "unused")
+                  , [ Hs.DeclDefineInstance $ Hs.DefineInstance
+                      { defineInstanceDeclarations = Hs.InstanceToFunPtr
+                        Hs.ToFunPtrInstance
+                        { toFunPtrInstanceType = HsTypRef newtypeName
+                        , toFunPtrInstanceBody = newtypeNameTo
+                        }
+                      , defineInstanceComment = Nothing
+                      }
+                    ]
+                  , [ Hs.DeclDefineInstance $ Hs.DefineInstance
+                      { defineInstanceDeclarations = Hs.InstanceFromFunPtr
+                        Hs.FromFunPtrInstance
+                        { fromFunPtrInstanceType = HsTypRef newtypeName
+                        , fromFunPtrInstanceBody = newtypeNameFrom
+                        }
+                      , defineInstanceComment = Nothing
+                      }
+                    ]
+                  ]
         _ -> []
 
     -- everything in aux is state-dependent
     aux :: InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux instanceMap = (insts,) $
         (newtypeDecl : newtypeWrapper) ++ storableDecl ++ optDecls ++
-        typedefFieldDecls hsNewtype
+        typedefFieldDecls hsNewtype ++
+        marshallableDecl
       where
         insts :: Set Hs.TypeClass
         insts =
@@ -1137,6 +1172,18 @@ typedefDecs opts haddockConfig info typedef spec = do
                 Hs.DeriveInstance {
                   deriveInstanceStrategy = Hs.DeriveNewtype
                 , deriveInstanceClass    = Hs.Storable
+                , deriveInstanceName     = newtypeName
+                , deriveInstanceComment  = Nothing
+                }
+
+        marshallableDecl :: [Hs.Decl]
+        marshallableDecl
+          | Hs.Marshallable `Set.notMember` insts = []
+          | otherwise = singleton $
+              Hs.DeclDeriveInstance
+                Hs.DeriveInstance {
+                  deriveInstanceStrategy = Hs.DeriveNewtype
+                , deriveInstanceClass    = Hs.Marshallable
                 , deriveInstanceName     = newtypeName
                 , deriveInstanceComment  = Nothing
                 }
@@ -1253,13 +1300,17 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
     newtypeName = C.nameHs (C.declId info)
 
     candidateInsts :: Set Hs.TypeClass
-    candidateInsts = Set.union (Set.singleton Hs.Storable) $
-      Set.fromList (snd <$> translationDeriveTypedef opts)
+    candidateInsts = Set.fromList $ [
+          Hs.Storable
+        , Hs.Marshallable
+        ] ++ (
+          snd <$> translationDeriveTypedef opts
+        )
 
     -- everything in aux is state-dependent
     aux :: C.Type -> InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux ty instanceMap = (insts,) $
-        newtypeDecl : storableDecl ++ optDecls
+        newtypeDecl : storableDecl ++ marshallableDecl ++ optDecls
       where
         fieldType :: HsType
         fieldType = typ ty
@@ -1298,6 +1349,18 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
                 Hs.DeriveInstance {
                   deriveInstanceStrategy = Hs.DeriveNewtype
                 , deriveInstanceClass    = Hs.Storable
+                , deriveInstanceName     = newtypeName
+                , deriveInstanceComment  = Nothing
+                }
+
+        marshallableDecl :: [Hs.Decl]
+        marshallableDecl
+          | Hs.Marshallable `Set.notMember` insts = []
+          | otherwise = singleton $
+              Hs.DeclDeriveInstance
+                Hs.DeriveInstance {
+                  deriveInstanceStrategy = Hs.DeriveNewtype
+                , deriveInstanceClass    = Hs.Marshallable
                 , deriveInstanceName     = newtypeName
                 , deriveInstanceComment  = Nothing
                 }
@@ -1644,6 +1707,71 @@ genNameFromArgs args' res' suffix =
     typeHash args res = B.unpack $ B.take 8 $ B16.encode $
       hash $ B.pack $ show (args, res)
 
+marshallableDecs ::
+     Hs.Name 'Hs.NsVar
+  -> ResultType Hs.HsType
+  -> [Hs.FunctionParameter]
+  -> Text
+  -> CallConv
+  -> Origin.ForeignImport
+  -> Maybe HsDoc.Comment
+  -> Safety
+  -> (Hs.HsType -> Hs.HsType) -- TODO: get rid of this argument
+  -> [Hs.Decl]
+marshallableDecs name resultType parameters origName callConv origin comment safety hsIO = [
+      Hs.DeclForeignImport foreignImportDecl
+    , Hs.DeclFunction funDecl
+    ]
+  where
+    foreignImportDecl :: Hs.ForeignImportDecl
+    foreignImportDecl =  Hs.ForeignImportDecl
+        { foreignImportName         = name'
+        , foreignImportMarshallable = True
+        , foreignImportResultType   = resultType
+        , foreignImportParameters   = fmap removeComment parameters
+        , foreignImportOrigName     = origName
+        , foreignImportCallConv     = callConv
+        , foreignImportOrigin       = origin
+        , foreignImportComment      = Just $ HsDoc.Comment {
+              HsDoc.commentTitle      = Just
+                [ HsDoc.TextContent "This is an internal function." ]
+            , HsDoc.commentOrigin     = Nothing
+            , HsDoc.commentLocation   = Nothing
+            , HsDoc.commentHeaderInfo = Nothing
+            , HsDoc.commentChildren   = []
+            }
+        , foreignImportSafety       = safety
+        }
+
+    name' = name <> "_base"
+
+    removeComment p = p { Hs.functionParameterComment = Nothing }
+
+    funDecl :: Hs.FunctionDecl
+    funDecl = Hs.FunctionDecl
+        { functionDeclName       = name
+        , functionDeclResultType = resultType'
+        , functionDeclParameters = parameters'
+        , functionDeclOrigin     = origin
+        , functionDeclComment    = comment
+        , functionDeclBody       = EGlobal Marshallable_fromMarshallableBaseType `EApp` EFree name'
+        }
+
+    parameters' =
+      parameters ++
+      case resultType of
+        NormalResultType _ -> []
+        HeapResultType x -> [Hs.FunctionParameter {
+            functionParameterName    = Nothing
+          , functionParameterType    = x
+          , functionParameterComment = Nothing
+          }]
+
+    resultType' =
+      case resultType of
+        NormalResultType x -> x
+        HeapResultType _ -> hsIO $ Hs.HsPrimType HsPrimUnit
+
 functionDecs ::
      HasCallStack
   => SHs.Safety
@@ -1654,24 +1782,27 @@ functionDecs ::
   -> C.Function
   -> C.DeclSpec
   -> [Hs.Decl]
-functionDecs safety opts haddockConfig moduleName info f _spec =
-    funDecl : [
-        hsWrapperDeclFunction highlevelName importName res wrappedArgTypes wrapParsedArgs f mbWrapComment
+functionDecs safety opts haddockConfig moduleName info f _spec = concat [
+      funDecls
+    , [ hsWrapperDeclFunction highlevelName importName res wrappedArgTypes wrapParsedArgs f mbWrapComment
       | areFancy
       ]
+    ]
   where
     areFancy = anyFancy (res : wrappedArgTypes)
-    funDecl :: Hs.Decl
-    funDecl = Hs.DeclForeignImport $ Hs.ForeignImportDecl
-        { foreignImportName       = importName
-        , foreignImportResultType = resType
-        , foreignImportParameters = if areFancy then ffiParams else ffiParsedArgs
-        , foreignImportOrigName   = T.pack wrapperName
-        , foreignImportCallConv   = CallConvUserlandCAPI userlandCapiWrapper
-        , foreignImportOrigin     = Origin.Function f
-        , foreignImportComment    = (if areFancy then Just nonFancyComment else mbFFIComment) <> ioComment
-        , foreignImportSafety     = safety
-        }
+
+    funDecls :: [Hs.Decl]
+    funDecls =
+        marshallableDecs
+          importName
+          resType
+          (if areFancy then ffiParams else ffiParsedArgs)
+          (T.pack wrapperName)
+          (CallConvUserlandCAPI userlandCapiWrapper)
+          (Origin.Function f)
+          ((if areFancy then Just nonFancyComment else mbFFIComment) <> ioComment)
+          safety
+          hsIO
 
     userlandCapiWrapper :: UserlandCapiWrapper
     userlandCapiWrapper = UserlandCapiWrapper {
@@ -1801,6 +1932,10 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
 -- the respective ToFunPtr and FromFunPtr instances.
 --
 -- These instances are placed in the main module to avoid orphan instances.
+--
+-- TODO: update documentation
+--
+-- TODO: reduce duplication with typedefDecs
 functionTypeFFIStubsAndFunPtrInstances ::
      [C.Type]
   -> C.Type
@@ -1812,43 +1947,45 @@ functionTypeFFIStubsAndFunPtrInstances args res =
       ftHsType    = typ ft
       ffiStubTo   = genNameFromArgs args res "to"
       ffiStubFrom = genNameFromArgs args res "from"
-   in [ Hs.DeclForeignImport Hs.ForeignImportDecl
-        { foreignImportName       = ffiStubTo
-        , foreignImportResultType = NormalResultType $ HsIO $ tfHsType
-        , foreignImportParameters = [wrapperParam ftHsType]
-        , foreignImportOrigName   = "wrapper"
-        , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
-        , foreignImportOrigin     = Origin.ToFunPtr tf
-        , foreignImportComment    = Nothing
-        , foreignImportSafety     = SHs.Safe
-        }
-      , Hs.DeclForeignImport Hs.ForeignImportDecl
-        { foreignImportName       = ffiStubFrom
-        , foreignImportResultType = NormalResultType ftHsType
-        , foreignImportParameters = [wrapperParam tfHsType]
-        , foreignImportOrigName   = "dynamic"
-        , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
-        , foreignImportOrigin     = Origin.FromFunPtr tf
-        , foreignImportComment    = Nothing
-        , foreignImportSafety     = SHs.Safe
-        }
-      , Hs.DeclDefineInstance $ Hs.DefineInstance
-        { defineInstanceDeclarations = Hs.InstanceToFunPtr
-          Hs.ToFunPtrInstance
-          { toFunPtrInstanceType = ftHsType
-          , toFunPtrInstanceBody = ffiStubTo
-          }
-        , defineInstanceComment = Nothing
-        }
-      , Hs.DeclDefineInstance $ Hs.DefineInstance
-        { defineInstanceDeclarations = Hs.InstanceFromFunPtr
-          Hs.FromFunPtrInstance
-          { fromFunPtrInstanceType = ftHsType
-          , fromFunPtrInstanceBody = ffiStubFrom
-          }
-        , defineInstanceComment = Nothing
-        }
-      ]
+  in  concat [
+          marshallableDecs
+            ffiStubTo
+            (NormalResultType $ HsIO $ tfHsType)
+            [wrapperParam ftHsType]
+            "wrapper"
+            (CallConvGhcCCall ImportAsValue)
+            (Origin.ToFunPtr tf)
+            (Nothing)
+            (SHs.Safe)
+            (error "unused")
+        , marshallableDecs
+            ffiStubFrom
+            (NormalResultType ftHsType)
+            [wrapperParam tfHsType]
+            "dynamic"
+            (CallConvGhcCCall ImportAsValue)
+            (Origin.FromFunPtr tf)
+            Nothing
+            SHs.Safe
+            (error "unused")
+        , [Hs.DeclDefineInstance $ Hs.DefineInstance
+            { defineInstanceDeclarations = Hs.InstanceToFunPtr
+              Hs.ToFunPtrInstance
+              { toFunPtrInstanceType = ftHsType
+              , toFunPtrInstanceBody = ffiStubTo
+              }
+            , defineInstanceComment = Nothing
+          }]
+        , [ Hs.DeclDefineInstance $ Hs.DefineInstance
+            { defineInstanceDeclarations = Hs.InstanceFromFunPtr
+              Hs.FromFunPtrInstance
+              { fromFunPtrInstanceType = ftHsType
+              , fromFunPtrInstanceBody = ffiStubFrom
+              }
+            , defineInstanceComment = Nothing
+            }
+          ]
+        ]
 
 getMainHashIncludeArg :: HasCallStack => C.DeclInfo -> HashIncludeArg
 getMainHashIncludeArg declInfo = case C.declHeaderInfo declInfo of
@@ -2006,7 +2143,7 @@ addressStubDecs ::
      , Hs.Name 'Hs.NsVar
      )
 addressStubDecs opts haddockConfig moduleName info ty _spec =
-    (foreignImport : runnerDecls, runnerName)
+    (foreignImport ++ runnerDecls, runnerName)
   where
     -- *** Stub (impure) ***
 
@@ -2052,20 +2189,21 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
 
     mbComment = generateHaddocksWithInfo haddockConfig info
 
-    foreignImport :: Hs.Decl
-    foreignImport = Hs.DeclForeignImport $ Hs.ForeignImportDecl
-        { foreignImportName     = stubImportName
-        , foreignImportParameters = []
-        , foreignImportResultType = stubImportType
-        , foreignImportOrigName = T.pack stubNameMangled
-        , foreignImportCallConv = CallConvUserlandCAPI userlandCapiWrapper
-        , foreignImportOrigin   = Origin.Global ty
-        , foreignImportComment  = Nothing
+    foreignImport :: [Hs.Decl]
+    foreignImport =
+        marshallableDecs
+          stubImportName
+          stubImportType
+          []
+          (T.pack stubNameMangled)
+          (CallConvUserlandCAPI userlandCapiWrapper)
+          (Origin.Global ty)
+          Nothing
           -- These imports can be unsafe. We're binding to simple address stubs,
           -- so there are no callbacks into Haskell code. Moreover, they are
           -- short running code.
-        , foreignImportSafety   = SHs.Unsafe
-        }
+          SHs.Unsafe
+          (error "unused")
 
     -- *** Stub (pure) ***
 

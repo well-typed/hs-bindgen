@@ -18,6 +18,7 @@ hstypes:
 - hsname: FileOperationStatus
   instances:
   - Eq
+  - Marshallable
   - Ord
   - Read
   - Show

@@ -3,6 +3,7 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -23,6 +24,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.SizedByteArray
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
@@ -36,14 +38,35 @@ import Prelude ((<*>), Eq, IO, Int, Show, pure)
 newtype Int2int = Int2int
   { un_Int2int :: FC.CInt -> IO FC.CInt
   }
+  deriving newtype (HsBindgen.Runtime.Marshallable.Marshallable)
 
-foreign import ccall safe "wrapper" toInt2int ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toInt2int_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Int2int
+    -> IO (Ptr.FunPtr Int2int)
+    )
+
+toInt2int ::
      Int2int
   -> IO (Ptr.FunPtr Int2int)
+toInt2int =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType toInt2int_base
 
-foreign import ccall safe "dynamic" fromInt2int ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromInt2int_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Ptr.FunPtr Int2int
+    -> Int2int
+    )
+
+fromInt2int ::
      Ptr.FunPtr Int2int
   -> Int2int
+fromInt2int =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType fromInt2int_base
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Int2int where
 

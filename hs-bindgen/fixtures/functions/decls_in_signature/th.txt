@@ -270,13 +270,19 @@ instance HasCField Named_union "named_union_y"
 instance TyEq ty (CFieldType Named_union "named_union_y") =>
          HasField "named_union_y" (Ptr Named_union) (Ptr ty)
     where getField = ptrToCField (Proxy @"named_union_y")
-{-| Pointer-based API for 'normal'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_001a08d4459ec455" normal_wrapper :: Ptr Opaque ->
-                                                                                                           Ptr Outside ->
-                                                                                                           Ptr Outside ->
-                                                                                                           IO Unit
+foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_001a08d4459ec455" normal_wrapper_base :: Ptr Opaque ->
+                                                                                                                Ptr Outside ->
+                                                                                                                Ptr Outside ->
+                                                                                                                IO Unit
+{-| Pointer-based API for 'normal'
+-}
+normal_wrapper :: Ptr Opaque ->
+                  Ptr Outside -> Ptr Outside -> IO Unit
+{-| Pointer-based API for 'normal'
+-}
+normal_wrapper = fromMarshallableBaseType normal_wrapper_base
 {-| __C declaration:__ @normal@
 
     __defined at:__ @functions\/decls_in_signature.h:7:6@
@@ -291,11 +297,16 @@ normal :: Ptr Opaque -> Ptr Outside -> Outside -> IO Unit
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 normal = \x_0 -> \x_1 -> \x_2 -> with x_2 (\y_3 -> normal_wrapper x_0 x_1 y_3)
-{-| Pointer-based API for 'f1'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_a2f84d2570ef3892" f1_wrapper :: Ptr Named_struct ->
-                                                                                                       IO Unit
+foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_a2f84d2570ef3892" f1_wrapper_base :: Ptr Named_struct ->
+                                                                                                            IO Unit
+{-| Pointer-based API for 'f1'
+-}
+f1_wrapper :: Ptr Named_struct -> IO Unit
+{-| Pointer-based API for 'f1'
+-}
+f1_wrapper = fromMarshallableBaseType f1_wrapper_base
 {-| Error cases
 
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
@@ -318,11 +329,16 @@ __defined at:__ @functions\/decls_in_signature.h:17:6@
 __exported by:__ @functions\/decls_in_signature.h@
 -}
 f1 = \x_0 -> with x_0 (\y_1 -> f1_wrapper y_1)
-{-| Pointer-based API for 'f2'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_1d043de05a457e90" f2_wrapper :: Ptr Named_union ->
-                                                                                                       IO Unit
+foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_1d043de05a457e90" f2_wrapper_base :: Ptr Named_union ->
+                                                                                                            IO Unit
+{-| Pointer-based API for 'f2'
+-}
+f2_wrapper :: Ptr Named_union -> IO Unit
+{-| Pointer-based API for 'f2'
+-}
+f2_wrapper = fromMarshallableBaseType f2_wrapper_base
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/decls_in_signature.h:20:6@
@@ -337,13 +353,19 @@ f2 :: Named_union -> IO Unit
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 f2 = \x_0 -> with x_0 (\y_1 -> f2_wrapper y_1)
-{-| Pointer-based API for 'normal'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_35c28995abc46de4" normal_wrapper :: Ptr Opaque ->
-                                                                                                           Ptr Outside ->
-                                                                                                           Ptr Outside ->
-                                                                                                           IO Unit
+foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_35c28995abc46de4" normal_wrapper_base :: Ptr Opaque ->
+                                                                                                                Ptr Outside ->
+                                                                                                                Ptr Outside ->
+                                                                                                                IO Unit
+{-| Pointer-based API for 'normal'
+-}
+normal_wrapper :: Ptr Opaque ->
+                  Ptr Outside -> Ptr Outside -> IO Unit
+{-| Pointer-based API for 'normal'
+-}
+normal_wrapper = fromMarshallableBaseType normal_wrapper_base
 {-| __C declaration:__ @normal@
 
     __defined at:__ @functions\/decls_in_signature.h:7:6@
@@ -358,11 +380,16 @@ normal :: Ptr Opaque -> Ptr Outside -> Outside -> IO Unit
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 normal = \x_0 -> \x_1 -> \x_2 -> with x_2 (\y_3 -> normal_wrapper x_0 x_1 y_3)
-{-| Pointer-based API for 'f1'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_c1788128a5b1c813" f1_wrapper :: Ptr Named_struct ->
-                                                                                                       IO Unit
+foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_c1788128a5b1c813" f1_wrapper_base :: Ptr Named_struct ->
+                                                                                                            IO Unit
+{-| Pointer-based API for 'f1'
+-}
+f1_wrapper :: Ptr Named_struct -> IO Unit
+{-| Pointer-based API for 'f1'
+-}
+f1_wrapper = fromMarshallableBaseType f1_wrapper_base
 {-| Error cases
 
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
@@ -385,11 +412,16 @@ __defined at:__ @functions\/decls_in_signature.h:17:6@
 __exported by:__ @functions\/decls_in_signature.h@
 -}
 f1 = \x_0 -> with x_0 (\y_1 -> f1_wrapper y_1)
-{-| Pointer-based API for 'f2'
-
+{-| This is an internal function.
 -}
-foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_14361e995fb5684a" f2_wrapper :: Ptr Named_union ->
-                                                                                                       IO Unit
+foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_14361e995fb5684a" f2_wrapper_base :: Ptr Named_union ->
+                                                                                                            IO Unit
+{-| Pointer-based API for 'f2'
+-}
+f2_wrapper :: Ptr Named_union -> IO Unit
+{-| Pointer-based API for 'f2'
+-}
+f2_wrapper = fromMarshallableBaseType f2_wrapper_base
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/decls_in_signature.h:20:6@
@@ -404,10 +436,16 @@ f2 :: Named_union -> IO Unit
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 f2 = \x_0 -> with x_0 (\y_1 -> f2_wrapper y_1)
-foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_b040d51578b7b05e" hs_bindgen_test_functionsdecls_in_signature_b040d51578b7b05e :: IO (FunPtr (Ptr Opaque ->
-                                                                                                                                                                     Ptr Outside ->
-                                                                                                                                                                     Outside ->
-                                                                                                                                                                     IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_b040d51578b7b05e" hs_bindgen_test_functionsdecls_in_signature_b040d51578b7b05e_base :: IO (FunPtr (Ptr Opaque ->
+                                                                                                                                                                          Ptr Outside ->
+                                                                                                                                                                          Outside ->
+                                                                                                                                                                          IO Unit))
+hs_bindgen_test_functionsdecls_in_signature_b040d51578b7b05e :: IO (FunPtr (Ptr Opaque ->
+                                                                            Ptr Outside ->
+                                                                            Outside -> IO Unit))
+hs_bindgen_test_functionsdecls_in_signature_b040d51578b7b05e = fromMarshallableBaseType hs_bindgen_test_functionsdecls_in_signature_b040d51578b7b05e_base
 {-# NOINLINE normal_ptr #-}
 {-| __C declaration:__ @normal@
 
@@ -424,8 +462,13 @@ normal_ptr :: FunPtr (Ptr Opaque ->
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 normal_ptr = unsafePerformIO hs_bindgen_test_functionsdecls_in_signature_b040d51578b7b05e
-foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_5469bdc0395f86c1" hs_bindgen_test_functionsdecls_in_signature_5469bdc0395f86c1 :: IO (FunPtr (Named_struct ->
-                                                                                                                                                                     IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_5469bdc0395f86c1" hs_bindgen_test_functionsdecls_in_signature_5469bdc0395f86c1_base :: IO (FunPtr (Named_struct ->
+                                                                                                                                                                          IO Unit))
+hs_bindgen_test_functionsdecls_in_signature_5469bdc0395f86c1 :: IO (FunPtr (Named_struct ->
+                                                                            IO Unit))
+hs_bindgen_test_functionsdecls_in_signature_5469bdc0395f86c1 = fromMarshallableBaseType hs_bindgen_test_functionsdecls_in_signature_5469bdc0395f86c1_base
 {-# NOINLINE f1_ptr #-}
 {-| Error cases
 
@@ -449,8 +492,13 @@ __defined at:__ @functions\/decls_in_signature.h:17:6@
 __exported by:__ @functions\/decls_in_signature.h@
 -}
 f1_ptr = unsafePerformIO hs_bindgen_test_functionsdecls_in_signature_5469bdc0395f86c1
-foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_490ca7e8c8282a69" hs_bindgen_test_functionsdecls_in_signature_490ca7e8c8282a69 :: IO (FunPtr (Named_union ->
-                                                                                                                                                                     IO Unit))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_490ca7e8c8282a69" hs_bindgen_test_functionsdecls_in_signature_490ca7e8c8282a69_base :: IO (FunPtr (Named_union ->
+                                                                                                                                                                          IO Unit))
+hs_bindgen_test_functionsdecls_in_signature_490ca7e8c8282a69 :: IO (FunPtr (Named_union ->
+                                                                            IO Unit))
+hs_bindgen_test_functionsdecls_in_signature_490ca7e8c8282a69 = fromMarshallableBaseType hs_bindgen_test_functionsdecls_in_signature_490ca7e8c8282a69_base
 {-# NOINLINE f2_ptr #-}
 {-| __C declaration:__ @f2@
 

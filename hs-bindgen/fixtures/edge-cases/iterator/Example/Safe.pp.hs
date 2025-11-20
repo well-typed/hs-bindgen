@@ -6,6 +6,7 @@
 module Example.Safe where
 
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.Marshallable
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -70,17 +71,35 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesiterator_900530c0457bf5ee" makeToggle_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CBool
+    -> IO Toggle
+    )
+
 {-| __C declaration:__ @makeToggle@
 
     __defined at:__ @edge-cases\/iterator.h:4:8@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesiterator_900530c0457bf5ee" makeToggle ::
+makeToggle ::
      FC.CBool
      {- ^ __C declaration:__ @start@
      -}
   -> IO Toggle
+makeToggle =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType makeToggle_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesiterator_0584fdb88b39872d" toggleNext_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Toggle
+    -> IO FC.CBool
+    )
 
 {-| __C declaration:__ @toggleNext@
 
@@ -88,11 +107,21 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_900530c0457bf5ee" m
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesiterator_0584fdb88b39872d" toggleNext ::
+toggleNext ::
      Toggle
      {- ^ __C declaration:__ @block@
      -}
   -> IO FC.CBool
+toggleNext =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType toggleNext_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesiterator_6d013ab8b38fc1d9" releaseToggle_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Toggle
+    -> IO ()
+    )
 
 {-| __C declaration:__ @releaseToggle@
 
@@ -100,11 +129,22 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_0584fdb88b39872d" t
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesiterator_6d013ab8b38fc1d9" releaseToggle ::
+releaseToggle ::
      Toggle
      {- ^ __C declaration:__ @block@
      -}
   -> IO ()
+releaseToggle =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType releaseToggle_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesiterator_10d749b6b17037ba" makeCounter_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CInt
+    -> FC.CInt
+    -> IO Counter
+    )
 
 {-| __C declaration:__ @makeCounter@
 
@@ -112,7 +152,7 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_6d013ab8b38fc1d9" r
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesiterator_10d749b6b17037ba" makeCounter ::
+makeCounter ::
      FC.CInt
      {- ^ __C declaration:__ @start@
      -}
@@ -120,6 +160,16 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_10d749b6b17037ba" m
      {- ^ __C declaration:__ @increment@
      -}
   -> IO Counter
+makeCounter =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType makeCounter_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesiterator_9695aacc59a66573" counterNext_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Counter
+    -> IO FC.CInt
+    )
 
 {-| __C declaration:__ @counterNext@
 
@@ -127,11 +177,21 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_10d749b6b17037ba" m
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesiterator_9695aacc59a66573" counterNext ::
+counterNext ::
      Counter
      {- ^ __C declaration:__ @block@
      -}
   -> IO FC.CInt
+counterNext =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType counterNext_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesiterator_49a436aa15c7ea70" releaseCounter_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       Counter
+    -> IO ()
+    )
 
 {-| __C declaration:__ @releaseCounter@
 
@@ -139,11 +199,21 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_9695aacc59a66573" c
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesiterator_49a436aa15c7ea70" releaseCounter ::
+releaseCounter ::
      Counter
      {- ^ __C declaration:__ @block@
      -}
   -> IO ()
+releaseCounter =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType releaseCounter_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesiterator_f12a50c4468834b5" makeVarCounter_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       FC.CInt
+    -> IO VarCounter
+    )
 
 {-| __C declaration:__ @makeVarCounter@
 
@@ -151,11 +221,22 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_49a436aa15c7ea70" r
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesiterator_f12a50c4468834b5" makeVarCounter ::
+makeVarCounter ::
      FC.CInt
      {- ^ __C declaration:__ @start@
      -}
   -> IO VarCounter
+makeVarCounter =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType makeVarCounter_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesiterator_2c8a2667de9b1ffb" varCounterNext_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       VarCounter
+    -> FC.CInt
+    -> IO FC.CInt
+    )
 
 {-| __C declaration:__ @varCounterNext@
 
@@ -163,7 +244,7 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_f12a50c4468834b5" m
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesiterator_2c8a2667de9b1ffb" varCounterNext ::
+varCounterNext ::
      VarCounter
      {- ^ __C declaration:__ @block@
      -}
@@ -171,6 +252,16 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_2c8a2667de9b1ffb" v
      {- ^ __C declaration:__ @increment@
      -}
   -> IO FC.CInt
+varCounterNext =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType varCounterNext_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesiterator_023ae1f9abf46556" releaseVarCounter_base ::
+  HsBindgen.Runtime.Marshallable.MarshallableBaseType (
+       VarCounter
+    -> IO ()
+    )
 
 {-| __C declaration:__ @releaseVarCounter@
 
@@ -178,8 +269,10 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_2c8a2667de9b1ffb" v
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesiterator_023ae1f9abf46556" releaseVarCounter ::
+releaseVarCounter ::
      VarCounter
      {- ^ __C declaration:__ @block@
      -}
   -> IO ()
+releaseVarCounter =
+  HsBindgen.Runtime.Marshallable.fromMarshallableBaseType releaseVarCounter_base
