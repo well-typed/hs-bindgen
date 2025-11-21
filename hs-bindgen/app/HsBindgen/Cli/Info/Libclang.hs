@@ -58,9 +58,22 @@ exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} =
     void . withTracer tracerConfig $ \tracer _ -> do
       clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig
-      let setup = defaultClangSetup clangArgs $
+      let hasNoUserOptions = hasNoUserClangOptions clangArgsConfig
+          setup = defaultClangSetup clangArgs $
             ClangInputMemory "hs-bindgen-nop.h" ""
+
+      -- Emit informational message if no user options provided
+      when (   hasNoUserOptions
+            && unwrapVerbosity (tVerbosity tracerConfig) >= Info) $ do
+        traceWith (contramap (TraceFrontend . FrontendClang) tracer)
+                  ClangInvokedWithoutOptions
+
       withClang
         (contramap (TraceFrontend . FrontendClang) tracer)
         setup
         (const (return Nothing))
+  where
+    -- Check if user provided any Clang options via command line
+    hasNoUserClangOptions :: ClangArgsConfig FilePath -> Bool
+    hasNoUserClangOptions ClangArgsConfig{..} =
+      null argsBefore && null argsInner && null argsAfter
