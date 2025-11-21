@@ -480,7 +480,7 @@ instance (Show a, Typeable a) => Exception (TraceException a) where
     toException = hsBindgenExceptionToException
     fromException = hsBindgenExceptionFromException
     -- We only display errors in tests.
-    displayException (TraceException _) = "An error happend (see above)"
+    displayException (TraceException _) = "An error happened (see above)"
 
 {-------------------------------------------------------------------------------
   Safe tracer
