@@ -21,11 +21,11 @@
     "libclang-bindings-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1760015240,
-        "narHash": "sha256-xVFbuiZJuC1lqRdY61jWPrsa0mmJI0n9ic+gYYhH168=",
+        "lastModified": 1763640650,
+        "narHash": "sha256-ZUWm6FX9Dgt/e/DN9k8NfdZkoZIIvfh4HYfdN/0tdEE=",
         "owner": "well-typed",
         "repo": "libclang",
-        "rev": "41f70874b0f803366144059c0ed0f65809e8c385",
+        "rev": "b62972c5a4227f92ac7af7df60af52f9ead7bd35",
         "type": "github"
       },
       "original": {
