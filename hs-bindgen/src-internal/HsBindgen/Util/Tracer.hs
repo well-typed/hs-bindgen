@@ -59,7 +59,7 @@ import System.Console.ANSI (Color (..), ColorIntensity (Vivid),
                             ConsoleLayer (Foreground),
                             SGR (SetColor, SetConsoleIntensity),
                             hSupportsANSIColor, setSGRCode)
-import System.IO (Handle, hPutStr, stdout)
+import System.IO (Handle, hPutStr, stderr)
 import Text.SimplePrettyPrint (Context, CtxDoc)
 import Text.SimplePrettyPrint qualified as PP
 
@@ -341,10 +341,10 @@ instance Contravariant OutputConfig where
 
 -- | The default tracer configuration
 --
--- - writes to 'stdout', and
+-- - writes to 'stderr', and
 -- - uses ANSI colors, if available.
 instance Default (OutputConfig a) where
-  def = OutputHandle stdout Nothing
+  def = OutputHandle stderr Nothing
 
 -- | Output configuration suitable for compile-time code generation with
 -- Template Haskell.
