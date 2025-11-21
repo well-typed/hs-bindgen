@@ -119,6 +119,7 @@ selectDecls
         getTransitiveAvailability :: DeclId -> TransitiveAvailability
         getTransitiveAvailability x = mconcat [
               availabilityFromSet notAttemptedTransDeps UnavailableParseNotAttempted
+            , availabilityFromSet omittedTransDeps      UnavailableOmitted
             , availabilityFromSet failedTransDeps       UnavailableParseFailed
             , availabilityFromSet failedMacrosTransDeps UnavailableHandleMacrosFailed
             , availabilityFromSet nonselectedTransDeps  UnavailableNotSelected
@@ -134,6 +135,7 @@ selectDecls
             notAttemptedTransDeps, failedTransDeps :: Set DeclId
             failedMacrosTransDeps, nonselectedTransDeps :: Set DeclId
             notAttemptedTransDeps = Set.intersection transDeps notAttempted
+            omittedTransDeps      = Set.intersection transDeps omitted
             failedTransDeps       = Set.intersection transDeps failed
             failedMacrosTransDeps = Set.intersection transDeps failedMacros
             nonselectedTransDeps  = transDeps \\ selectedIds
@@ -187,6 +189,7 @@ selectDecls
   where
     notAttempted, failed, failedMacros :: Set DeclId
     notAttempted = Map.keysSet index.notAttempted
+    omitted      = Map.keysSet index.omitted
     failed       = Map.keysSet index.failed
     failedMacros = Map.keysSet index.failedMacros
 

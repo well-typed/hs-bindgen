@@ -1,0 +1,9 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- omit:
+    headers: program-analysis/selection_omit.h
+    cname: struct Omitted
+hstypes: []

@@ -107,6 +107,7 @@ data SelectStatus =
 -- it, if it was not selected).
 data UnavailabilityReason =
     UnavailableParseNotAttempted
+  | UnavailableOmitted
   | UnavailableNotSelected
   | UnavailableParseFailed
   | UnavailableHandleMacrosFailed
@@ -116,6 +117,8 @@ instance PrettyForTrace UnavailabilityReason where
   prettyForTrace r = case r of
     UnavailableParseNotAttempted ->
       "parse of transitive dependency not attempted: (!) adjust parse predicate"
+    UnavailableOmitted ->
+      "transitive dependency omitted by prescriptive binding specification"
     UnavailableParseFailed ->
       "parse of transitive dependency failed"
     UnavailableHandleMacrosFailed ->
