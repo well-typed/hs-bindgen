@@ -16,6 +16,9 @@ module HsBindgen.Cli.Info.Libclang (
 import Options.Applicative hiding (info)
 import Prettyprinter.Util qualified as PP
 
+import Clang.Enum.Simple (SimpleEnum (..), simpleFromC)
+import Clang.LowLevel.Core (CXErrorCode (..))
+
 import HsBindgen.App
 import HsBindgen.Boot
 import HsBindgen.Clang
@@ -58,9 +61,40 @@ exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} =
     void . withTracer tracerConfig $ \tracer _ -> do
       clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig
-      let setup = defaultClangSetup clangArgs $
+      let hasNoUserOptions = hasNoUserClangOptions clangArgsConfig
+          setup = defaultClangSetup clangArgs $
             ClangInputMemory "hs-bindgen-nop.h" ""
+
+      -- Emit informational message if no user options provided
+      when (   hasNoUserOptions
+            && unwrapVerbosity (tVerbosity tracerConfig) >= Info) $ do
+        traceWith (contramap (TraceFrontend . FrontendClang) tracer)
+                  ClangInvokedWithoutOptions
+
+      -- Use a filtering tracer that suppresses CXError_ASTReadError.
+      -- This error is expected when diagnostic options like -v or
+      -- -print-target-triple are used, as Clang exits early without
+      -- creating a full AST after printing the requested information.
+      --
+      let clangTracer = squelchUnless (not . isASTReadError)
+                      $ contramap (TraceFrontend . FrontendClang) tracer
+
       withClang
-        (contramap (TraceFrontend . FrontendClang) tracer)
+        clangTracer
         setup
         (const (return Nothing))
+  where
+    -- Check if user provided any Clang options via command line
+    --
+    hasNoUserClangOptions :: ClangArgsConfig FilePath -> Bool
+    hasNoUserClangOptions ClangArgsConfig{..} =
+      null argsBefore && null argsInner && null argsAfter
+
+    -- Check if a message is CXError_ASTReadError.
+    -- This error is benign in the context of 'info libclang' when users
+    -- provide diagnostic flags, as they cause Clang to exit without building an AST.
+    --
+    isASTReadError :: ClangMsg -> Bool
+    isASTReadError (ClangErrorCode (SimpleEnum x))
+      | Just CXError_ASTReadError <- simpleFromC x = True
+    isASTReadError _ = False

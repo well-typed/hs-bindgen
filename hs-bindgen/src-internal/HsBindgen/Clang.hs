@@ -133,6 +133,7 @@ data ClangMsg =
     ClangErrorCode (SimpleEnum CXErrorCode)
   | ClangDiagnostic Diagnostic
   | ClangSetupMsg ClangSetup
+  | ClangInvokedWithoutOptions
   deriving stock (Show)
 
 instance PrettyForTrace ClangMsg where
@@ -150,6 +151,8 @@ instance PrettyForTrace ClangMsg where
                   Text.stripStart $ Text.dropWhile (/= ' ') diagnosticFormatted
         | otherwise -> PP.textToCtxDoc diagnosticFormatted
       ClangSetupMsg   x -> prettyForTrace x
+      ClangInvokedWithoutOptions ->
+        "libclang invoked successfully (no output produced)."
     where
       getFileNotFound :: Text -> Maybe Text
       getFileNotFound =
@@ -162,11 +165,13 @@ instance PrettyForTrace ClangMsg where
 
 instance IsTrace Level ClangMsg where
   getDefaultLogLevel = \case
-      ClangErrorCode  _ -> Error
-      ClangDiagnostic x -> if diagnosticIsError x then Error else Warning
-      ClangSetupMsg   _ -> Debug
+      ClangErrorCode  _          -> Error
+      ClangDiagnostic x          -> if diagnosticIsError x then Error else Warning
+      ClangSetupMsg   _          -> Debug
+      ClangInvokedWithoutOptions -> Notice
   getSource = \case
-      ClangErrorCode  _ -> Libclang
-      ClangDiagnostic _ -> Libclang
-      ClangSetupMsg   _ -> HsBindgen
+      ClangErrorCode  _          -> Libclang
+      ClangDiagnostic _          -> Libclang
+      ClangSetupMsg   _          -> HsBindgen
+      ClangInvokedWithoutOptions -> Libclang
   getTraceId = const "clang"
