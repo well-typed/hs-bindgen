@@ -1,0 +1,31 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: Example
+ctypes:
+- headers: program-analysis/selection_omit_external_b.h
+  cname: struct DirectlyDependsOnOmitted
+  hsname: DirectlyDependsOnOmitted
+- headers: program-analysis/selection_omit_external_b.h
+  cname: struct IndirectlyDependsOnOmitted
+  hsname: IndirectlyDependsOnOmitted
+- headers: program-analysis/selection_omit_external_b.h
+  cname: struct Omitted
+  hsname: Omitted
+hstypes:
+- hsname: DirectlyDependsOnOmitted
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: IndirectlyDependsOnOmitted
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Omitted
+  instances:
+  - Eq
+  - Show
+  - Storable

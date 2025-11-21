@@ -20,6 +20,7 @@ import Clang.Enum.Simple
 import Clang.LowLevel.Core
 import Clang.Version
 
+import HsBindgen.BindingSpec (BindingSpecReadMsg (..))
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
@@ -1006,6 +1007,55 @@ test_program_analysis_selection_foo =
       _other -> Nothing
   }
 
+test_program_analysis_selection_omit_prescriptive :: TestCase
+test_program_analysis_selection_omit_prescriptive =
+  (defaultTest "program-analysis/selection_omit_prescriptive"){
+    testPrescriptiveBindingSpec = Just "examples/golden/program-analysis/selection_omit_prescriptive.yaml"
+  , testTracePredicate = customTracePredicate' [
+        "DirectlyDependsOnOmitted"
+      , "IndirectlyDependsOnOmitted"
+      , "BindingSpec-AnyTarget"
+      ] $ \case
+        TraceFrontend (FrontendSelect
+          (TransitiveDependencyOfDeclarationUnselectable x _ _
+            (UnselectableBecauseUnusable (UnusableOmitted _)) _)) ->
+            Just $ expectFromDeclSelect x
+        TraceBoot (BootBindingSpec (BindingSpecReadMsg
+          (BindingSpecReadAnyTargetNotEnforced{}))) ->
+            Just $ Expected "BindingSpec-AnyTarget"
+        _other -> Nothing
+  }
+
+test_program_analysis_selection_omit_external_a :: TestCase
+test_program_analysis_selection_omit_external_a =
+  (defaultTest "program-analysis/selection_omit_external_a"){
+    testExtBindingSpecs = ["examples/golden/program-analysis/selection_omit_external.yaml"]
+  , testOnFrontendConfig = \cfg -> cfg{
+        frontendProgramSlicing  = EnableProgramSlicing
+      }
+  , testTracePredicate = customTracePredicate' [
+        "Omitted"
+      ] $ \case
+        TraceFrontend (FrontendResolveBindingSpecs (ResolveBindingSpecsOmittedType x)) ->
+          Just $ Expected $ C.getName $ C.qualNameName x
+        _other -> Nothing
+  }
+
+test_program_analysis_selection_omit_external_b :: TestCase
+test_program_analysis_selection_omit_external_b =
+  (defaultTest "program-analysis/selection_omit_external_b"){
+    testExtBindingSpecs = ["examples/golden/program-analysis/selection_omit_external.yaml"]
+  , testOnFrontendConfig = \cfg -> cfg{
+        frontendProgramSlicing  = EnableProgramSlicing
+      }
+  , testTracePredicate = customTracePredicate [
+      ] $ \case
+         -- TODO https://github.com/well-typed/hs-bindgen/issues/1361: Warn when
+         -- we create bindings for a declaration omitted by an _external_
+         -- binding specification.
+        _other -> Nothing
+  }
+
 test_program_analysis_program_slicing_selection :: TestCase
 test_program_analysis_program_slicing_selection =
   (defaultTest "program-analysis/program_slicing_selection"){
@@ -1166,6 +1216,9 @@ testCases = manualTestCases ++ [
     , test_program_analysis_selection_fail_variant_2
     , test_program_analysis_selection_fail_variant_3
     , test_program_analysis_selection_foo
+    , test_program_analysis_selection_omit_prescriptive
+    , test_program_analysis_selection_omit_external_a
+    , test_program_analysis_selection_omit_external_b
     , test_types_complex_complex_non_float_test
     , test_types_complex_hsb_complex_test
     , test_types_complex_vector_test

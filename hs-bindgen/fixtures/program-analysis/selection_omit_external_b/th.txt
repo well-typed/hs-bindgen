@@ -1,0 +1,113 @@
+-- addDependentFile examples/golden/program-analysis/selection_omit_external_root.h
+-- addDependentFile examples/golden/program-analysis/selection_omit_external_b.h
+{-| __C declaration:__ @Omitted@
+
+    __defined at:__ @selection_omit_external_root.h:1:8@
+
+    __exported by:__ @program-analysis\/selection_omit_external_b.h@
+-}
+data Omitted
+    = Omitted {omitted_n :: CInt
+               {- ^ __C declaration:__ @n@
+
+                    __defined at:__ @selection_omit_external_root.h:2:7@
+
+                    __exported by:__ @program-analysis\/selection_omit_external_b.h@
+               -}}
+      {- ^ __C declaration:__ @Omitted@
+
+           __defined at:__ @selection_omit_external_root.h:1:8@
+
+           __exported by:__ @program-analysis\/selection_omit_external_b.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Omitted
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Omitted <*> peekCField (Proxy @"omitted_n") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Omitted omitted_n_3 -> pokeCField (Proxy @"omitted_n") ptr_1 omitted_n_3
+instance HasCField Omitted "omitted_n"
+    where type CFieldType Omitted "omitted_n" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Omitted "omitted_n") =>
+         HasField "omitted_n" (Ptr Omitted) (Ptr ty)
+    where getField = ptrToCField (Proxy @"omitted_n")
+{-| __C declaration:__ @DirectlyDependsOnOmitted@
+
+    __defined at:__ @program-analysis\/selection_omit_external_b.h:4:8@
+
+    __exported by:__ @program-analysis\/selection_omit_external_b.h@
+-}
+data DirectlyDependsOnOmitted
+    = DirectlyDependsOnOmitted {directlyDependsOnOmitted_o :: Omitted
+                                {- ^ __C declaration:__ @o@
+
+                                     __defined at:__ @program-analysis\/selection_omit_external_b.h:5:18@
+
+                                     __exported by:__ @program-analysis\/selection_omit_external_b.h@
+                                -}}
+      {- ^ __C declaration:__ @DirectlyDependsOnOmitted@
+
+           __defined at:__ @program-analysis\/selection_omit_external_b.h:4:8@
+
+           __exported by:__ @program-analysis\/selection_omit_external_b.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable DirectlyDependsOnOmitted
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure DirectlyDependsOnOmitted <*> peekCField (Proxy @"directlyDependsOnOmitted_o") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   DirectlyDependsOnOmitted directlyDependsOnOmitted_o_3 -> pokeCField (Proxy @"directlyDependsOnOmitted_o") ptr_1 directlyDependsOnOmitted_o_3
+instance HasCField DirectlyDependsOnOmitted
+                   "directlyDependsOnOmitted_o"
+    where type CFieldType DirectlyDependsOnOmitted
+                          "directlyDependsOnOmitted_o" = Omitted
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType DirectlyDependsOnOmitted
+                          "directlyDependsOnOmitted_o") =>
+         HasField "directlyDependsOnOmitted_o"
+                  (Ptr DirectlyDependsOnOmitted)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"directlyDependsOnOmitted_o")
+{-| __C declaration:__ @IndirectlyDependsOnOmitted@
+
+    __defined at:__ @program-analysis\/selection_omit_external_b.h:8:8@
+
+    __exported by:__ @program-analysis\/selection_omit_external_b.h@
+-}
+data IndirectlyDependsOnOmitted
+    = IndirectlyDependsOnOmitted {indirectlyDependsOnOmitted_d :: DirectlyDependsOnOmitted
+                                  {- ^ __C declaration:__ @d@
+
+                                       __defined at:__ @program-analysis\/selection_omit_external_b.h:9:35@
+
+                                       __exported by:__ @program-analysis\/selection_omit_external_b.h@
+                                  -}}
+      {- ^ __C declaration:__ @IndirectlyDependsOnOmitted@
+
+           __defined at:__ @program-analysis\/selection_omit_external_b.h:8:8@
+
+           __exported by:__ @program-analysis\/selection_omit_external_b.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable IndirectlyDependsOnOmitted
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure IndirectlyDependsOnOmitted <*> peekCField (Proxy @"indirectlyDependsOnOmitted_d") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   IndirectlyDependsOnOmitted indirectlyDependsOnOmitted_d_3 -> pokeCField (Proxy @"indirectlyDependsOnOmitted_d") ptr_1 indirectlyDependsOnOmitted_d_3
+instance HasCField IndirectlyDependsOnOmitted
+                   "indirectlyDependsOnOmitted_d"
+    where type CFieldType IndirectlyDependsOnOmitted
+                          "indirectlyDependsOnOmitted_d" = DirectlyDependsOnOmitted
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType IndirectlyDependsOnOmitted
+                          "indirectlyDependsOnOmitted_d") =>
+         HasField "indirectlyDependsOnOmitted_d"
+                  (Ptr IndirectlyDependsOnOmitted)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"indirectlyDependsOnOmitted_d")

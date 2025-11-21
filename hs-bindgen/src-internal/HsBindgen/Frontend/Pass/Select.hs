@@ -144,10 +144,12 @@ selectDecls
               (TransitiveDependencyNotSelected, UnselectableBecauseUnusable u  ) ->
                 case u of
                   UnusableParseNotAttempted _ -> r
+                  UnusableOmitted _           -> r
                   _otherReason                -> l
               (UnselectableBecauseUnusable u  , TransitiveDependencyNotSelected) ->
                 case u of
                   UnusableParseNotAttempted _ -> l
+                  UnusableOmitted _           -> l
                   _otherReason                -> r
               (_, _) -> l
 
