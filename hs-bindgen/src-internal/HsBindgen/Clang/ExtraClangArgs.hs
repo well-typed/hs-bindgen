@@ -88,7 +88,7 @@ envNameBase = "BINDGEN_EXTRA_CLANG_ARGS"
 getEnvName :: Maybe Target -> String
 getEnvName = \case
     Nothing     -> envNameBase
-    Just target -> envNameBase ++ '_' : targetTriple target TargetEnvDefault
+    Just target -> envNameBase ++ '_' : targetTriple target
 
 -- | Split string into command line arguments, honoring shell escapes
 --

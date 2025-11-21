@@ -7,9 +7,9 @@ module HsBindgen.Config.ClangArgs (
   , getStdClangArg
     -- ** Cross-compilation
   , Target(..)
-  , TargetEnv(..)
   , targetTriple
   , parseTargetTriple
+  , parseTargetTripleLenient
     -- ** Builtin include directory
   , BuiltinIncDirConfig(..)
     -- * Translation
@@ -18,7 +18,6 @@ module HsBindgen.Config.ClangArgs (
   ) where
 
 import Data.List qualified as List
-import Data.Maybe (listToMaybe)
 
 import Clang.Args
 
@@ -40,9 +39,8 @@ import HsBindgen.Imports
 data ClangArgsConfig path = ClangArgsConfig {
       -- | Target architecture
       --
-      -- 'Nothing' compiles for the host architecture. The environment can be
-      -- overriden separately, if necessary.
-      target :: Maybe (Target, TargetEnv)
+      -- 'Nothing' compiles for the host architecture.
+      target :: Maybe Target
 
       -- | C standard
     , cStandard :: CStandard
@@ -163,90 +161,159 @@ instance Default (ClangArgsConfig path) where
 
 -- | Target platform
 --
--- We don't use raw strings to denote platforms:
+-- We support a fixed set of target platforms.  Supporting anything outside the
+-- [GHC tier 1 platforms](https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms#tier-1-platforms)
+-- would be difficult, although some tier 2 platforms /might/ also be possible.
 --
--- * In some cases /we/ need to make decisions based on the platform; for
---   example, we need ao import the appropriate module from @c-expr@ (Win64,
---   Posix32, Posix64). Unfortunately, although @clang-c@ has
---   @clang_getTranslationUnitTargetInfo@, the resulting type is opaque, and the
---   associated query funcitons are insufficient.
+-- There are some assumptions about the target platform embedded in the design
+-- of @hs-bindgen@.  For example, we currently assume that the target is little
+-- endian.  If assumptions like these are ever challenged because we support
+-- another architecture, careful testing will be essential.
 --
--- * There are some assumptions about the target platform embedded in the
---   design of @hs-bindgen@; for example, we currently assume that the target is
---   little endian. If assumptions like these are ever challenged because we
---   support another architecture, careful testing will be essential.
+-- In some cases /we/ need to make decisions based on the platform.  For
+-- example, we need to import the appropriate module from @c-expr@ (@Win64@,
+-- @Posix32@, @Posix64@).  Unfortunately, although @clang-c@ has
+-- @clang_getTranslationUnitTargetInfo@, the resulting type is opaque, and the
+-- associated query functions are insufficient.
 --
--- * Supporting anything outside the [GHC tier 1
---   platforms](https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms#tier-1-platforms)
---   would be difficult , although some tier 2 platforms /might/ also be
---   possible.
+-- Machine architectures:
 --
--- Notes on the translation to @clang@ triples:
---
--- * @X86_64@, @X86@ and @AArch64@ correspond to @x86_64@, @i386@ and @aarch64@,
---   respectively. Note that @arm64@ is an alias for @aarch64@ in @clang@.
--- * @MacOS@ corresponds to @macosx@ in @clang@; @clang@ also recognizes
---   @macos@ as an alias for @macosx@, but @darwin@ refers to a /different/
---   (presumably older) system.
--- * @Windows@ corresponds to @windows@ (confusingly, the internal name for this
---   in @clang@ is @Win32@, and @win32@ is an alias for @windows@).
---
--- For the vendor, we default to @pc@ on Linux and Windows and @apple@ for
--- MacOS.
+-- * @X86_64@: @x86_64@, @amd64@
+-- * @X86@: @i386@, @i486@, @i586@, @i686@
+-- * @AArch64@: @aarch64@, @arm64@
 data Target =
-    Target_Linux_X86_64
-  | Target_Linux_X86
-  | Target_Linux_AArch64
-  | Target_Windows_X86_64
-  | Target_MacOS_X86_64
-  | Target_MacOS_AArch64
+    Target_Linux_GNU_X86_64
+  | Target_Linux_GNU_X86
+  | Target_Linux_GNU_AArch64
+  | Target_Linux_Musl_X86_64
+  | Target_Linux_Musl_AArch64
+  | Target_Windows_MSVC_X86_64
+  | Target_Windows_GNU_X86_64
+  | Target_Darwin_X86_64
+  | Target_Darwin_AArch64
   deriving stock (Show, Eq, Enum, Bounded)
 
--- | Target environment
+-- | Target triple string for a given 'Target'
 --
--- For example, on Windows valid choices are @msvc@ (for Visual C++) or @gnu@
--- (for @gcc@); see [Using Clang on
--- Windows](https://wetmelon.github.io/clang-on-windows.html).
-data TargetEnv =
-    TargetEnvDefault
-  | TargetEnvOverride String
-  deriving stock (Show, Eq)
-
--- | Target triple, for use in cross-compilation
---
--- See <https://clang.llvm.org/docs/CrossCompilation.html>
-targetTriple :: Target -> TargetEnv -> String
-targetTriple target' targetEnv' =
-    renderTarget target' ++ renderTargetEnv targetEnv'
-  where
-    renderTargetEnv :: TargetEnv -> String
-    renderTargetEnv = \case
-      TargetEnvDefault    -> ""
-      TargetEnvOverride s -> "-" ++ s
-
-renderTarget :: Target -> String
-renderTarget = \case
-    Target_Linux_X86_64   -> "x86_64-pc-linux"
-    Target_Linux_X86      -> "i386-pc-linux"
-    Target_Linux_AArch64  -> "aarch64-pc-linux"
-    Target_Windows_X86_64 -> "x86_64-pc-windows"
-    Target_MacOS_X86_64   -> "x86_64-apple-macosx"
-    Target_MacOS_AArch64  -> "aarch64-apple-macosx"
+-- The function returns the canonical target triple supported by @hs-bindgen@.
+-- Target triples specified on the command line or in a binding specification
+-- must be one of these.
+targetTriple :: Target -> String
+targetTriple = \case
+    Target_Linux_GNU_X86_64    -> "x86_64-pc-linux-gnu"
+    Target_Linux_GNU_X86       -> "i386-pc-linux-gnu"
+    Target_Linux_GNU_AArch64   -> "aarch64-pc-linux-gnu"
+    Target_Linux_Musl_X86_64   -> "x86_64-pc-linux-musl"
+    Target_Linux_Musl_AArch64  -> "aarch64-pc-linux-musl"
+    Target_Windows_MSVC_X86_64 -> "x86_64-pc-windows-msvc"
+    Target_Windows_GNU_X86_64  -> "x86_64-pc-windows-gnu"
+    Target_Darwin_X86_64       -> "x86_64-apple-darwin"
+    Target_Darwin_AArch64      -> "aarch64-apple-darwin"
 
 -- | Parse a target triple string
-parseTargetTriple :: String -> Maybe (Target, TargetEnv)
-parseTargetTriple s = listToMaybe [
-      (target', targetEnv')
-    | target'         <- [minBound..]
-    , Just s'         <- [List.stripPrefix (renderTarget target') s]
-    , Just targetEnv' <- [parseTargetEnv s']
-    ]
+--
+-- This function only recognizes the canonical target triples supported by
+-- @hs-bindgen@.
+parseTargetTriple :: String -> Maybe Target
+parseTargetTriple = (`lookup` targets)
   where
-    parseTargetEnv :: String -> Maybe TargetEnv
-    parseTargetEnv = \case
-      ""               -> Just TargetEnvDefault
-      '-' : targetEnv' -> Just (TargetEnvOverride targetEnv')
-      _otherwise       -> Nothing
+    targets :: [(String, Target)]
+    targets = [
+        (targetTriple target, target)
+      | target <- [minBound..]
+      ]
+
+-- | Parse a target triple string leniently
+--
+-- This function should only be used to parse the host target triple as reported
+-- by LLVM/Clang, translating it to one of the canonical target triples
+-- supported by @hs-bindgen@.  Target triples are a mess, so this parser is
+-- /not/ expected to be perfect.  In cases where the reported target triple
+-- cannot be parsed, users should configure one of the canonical target triples.
+parseTargetTripleLenient :: String -> Maybe Target
+parseTargetTripleLenient tt =
+    -- The target triple string is split by the dash character.  The following
+    -- components are expected:
+    --
+    -- 1. A single component (1) is the machine architecture.
+    -- 2. Any number of componenents (0+) are vendor information.
+    -- 3. A single component (1) is the operating system.
+    -- 4. Any number of componenents (0+) is the operating system environment.
+    --
+    -- With @darwin@ and @macos@ target triples, the operating system version is
+    -- generally appended to the operating system component (without a dash).
+    --
+    -- The operating system component decides how the other components are
+    -- interpreted.
+    case splitDash tt of
+      (arch : ss)
+        | Just (vendor, env) <- splitExact  "linux"   ss ->
+            parseLinux arch vendor env
+        | Just (vendor, env) <- splitExact  "windows" ss ->
+            parseWindows arch vendor env
+        | Just (vendor, env) <- splitPrefix "darwin"  ss ->
+            parseDarwin arch vendor env
+        | Just (vendor, env) <- splitPrefix "macosx"  ss ->
+            parseDarwin arch vendor env
+        | otherwise -> Nothing
+      [] -> Nothing
+  where
+    parseLinux :: String -> [String] -> [String] -> Maybe Target
+    parseLinux arch vendor env
+      | vendor `notElem` [[], ["pc"], ["unknown"]] = Nothing
+      | arch `elem` x8664 = case env of
+          ["gnu"]    -> Just Target_Linux_GNU_X86_64
+          ["musl"]   -> Just Target_Linux_Musl_X86_64
+          _otherwise -> Nothing
+      | arch `elem` x86 = case env of
+          ["gnu"]    -> Just Target_Linux_GNU_X86
+          _otherwise -> Nothing
+      | arch `elem` aarch64 = case env of
+          ["gnu"]    -> Just Target_Linux_GNU_AArch64
+          ["musl"]   -> Just Target_Linux_Musl_AArch64
+          _otherwise -> Nothing
+      | otherwise = Nothing
+
+    parseWindows :: String -> [String] -> [String] -> Maybe Target
+    parseWindows arch vendor env
+      | arch `notElem` x8664 = Nothing
+      | vendor `notElem` [[], ["pc"], ["w64"], ["unknown"]] = Nothing
+      | env == ["msvc"] = Just Target_Windows_MSVC_X86_64
+      | env `elem` [["gnu"], ["mingw32"]] = Just Target_Windows_GNU_X86_64
+      | otherwise = Nothing
+
+    parseDarwin :: String -> [String] -> [String] -> Maybe Target
+    parseDarwin arch vendor _env
+      | vendor /= ["apple"] = Nothing
+      | arch `elem` x8664 = Just Target_Darwin_X86_64
+      | arch `elem` aarch64 = Just Target_Darwin_AArch64
+      | otherwise = Nothing
+
+    x8664, x86, aarch64 :: [String]
+    x8664   = ["x86_64", "amd64"]
+    x86     = ["i386", "i486", "i586", "i686"]
+    aarch64 = ["aarch64", "arm64"]
+
+    splitDash :: String -> [String]
+    splitDash "" = []
+    splitDash s  = case List.break (== '-') s of
+      (sL, '-' : sR) -> sL : splitDash sR
+      (sL, _empty)   -> [sL]
+
+    splitExact :: String -> [String] -> Maybe ([String], [String])
+    splitExact k ss = case List.break (== k) ss of
+      (ls,  _k : rs) -> Just (ls, rs)
+      (_ls, [])      -> Nothing
+
+    splitPrefix :: String -> [String] -> Maybe ([String], [String])
+    splitPrefix prefix = aux []
+      where
+        aux :: [String] -> [String] -> Maybe ([String], [String])
+        aux _acc [] = Nothing
+        aux acc (s : ss) = case List.stripPrefix prefix s of
+          Nothing -> aux (s : acc) ss
+          Just "" -> Just (reverse acc, ss)
+          Just s' -> Just (reverse acc, s' : ss)
 
 {-------------------------------------------------------------------------------
   Builtin include directory
@@ -281,7 +348,7 @@ getClangArgs config = do
 
 getClangArgsInternal :: ClangArgsConfig FilePath -> Either InvalidClangArgs [String]
 getClangArgsInternal ClangArgsConfig{..} = concat <$> sequence [
-      ifGiven (uncurry targetTriple <$> target) $ \t ->
+      ifGiven (targetTriple <$> target) $ \t ->
         return ["-target", t]
 
     , List.singleton <$> getStdClangArg cStandard gnu

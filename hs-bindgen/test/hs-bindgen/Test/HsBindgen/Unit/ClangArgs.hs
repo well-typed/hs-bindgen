@@ -22,6 +22,7 @@ import HsBindgen.Util.Tracer
 tests :: IO TestResources -> TestTree
 tests testResources = testGroup "Test.HsBindgen.Unit.ClangArgs" [
       testCase "getTargetTriple" $ testGetTargetTriple testResources
+    , parseTargetTripleLenientTests
     , getExtraClangArgsTests
     , splitArgumentsTests
     ]
@@ -58,6 +59,57 @@ testGetTargetTriple testResources = do
     noReport :: a -> IO ()
     noReport = const $ pure ()
 
+parseTargetTripleLenientTests :: TestTree
+parseTargetTripleLenientTests = testGroup "parseTargetTripleLenient" [
+      -- Canonical Linux target triples
+      aux "x86_64-pc-linux-gnu"   (Just Target_Linux_GNU_X86_64)
+    , aux "x86_64-pc-linux-musl"  (Just Target_Linux_Musl_X86_64)
+    , aux "i386-pc-linux-gnu"     (Just Target_Linux_GNU_X86)
+    , aux "aarch64-pc-linux-gnu"  (Just Target_Linux_GNU_AArch64)
+    , aux "aarch64-pc-linux-musl" (Just Target_Linux_Musl_AArch64)
+      -- Supported alternate Linux machine architectures
+    , aux "amd64-pc-linux-gnu"  (Just Target_Linux_GNU_X86_64)
+    , aux "i486-pc-linux-gnu"   (Just Target_Linux_GNU_X86)
+    , aux "i586-pc-linux-gnu"   (Just Target_Linux_GNU_X86)
+    , aux "i686-pc-linux-gnu"   (Just Target_Linux_GNU_X86)
+    , aux "arm64-pc-linux-gnu"  (Just Target_Linux_GNU_AArch64)
+      -- Supported alternate Linux vendors
+    , aux "x86_64-linux-gnu"         (Just Target_Linux_GNU_X86_64)
+    , aux "x86_64-unknown-linux-gnu" (Just Target_Linux_GNU_X86_64)
+      -- Invalid Linux target triples
+    , aux "i386-pc-linux-musl" Nothing -- Musl 32-bit not supported
+    , aux "x86_64-pc-linux"    Nothing -- Must specify GNU or Musl
+      -- Canonical Windows target triples
+    , aux "x86_64-pc-windows-msvc" (Just Target_Windows_MSVC_X86_64)
+    , aux "x86_64-pc-windows-gnu"  (Just Target_Windows_GNU_X86_64)
+      -- Supported alternate Windows machine architectures
+    , aux "amd64-pc-windows-msvc" (Just Target_Windows_MSVC_X86_64)
+      -- Supported alternate Windows vendors
+    , aux "x86_64-windows-msvc"         (Just Target_Windows_MSVC_X86_64)
+    , aux "x86_64-w64-windows-msvc"     (Just Target_Windows_MSVC_X86_64)
+    , aux "x86_64-unknown-windows-msvc" (Just Target_Windows_MSVC_X86_64)
+      -- Supported alternate Windows operating system enironments
+    , aux "x86_64-w64-windows-mingw32" (Just Target_Windows_GNU_X86_64)
+      -- Invalid Windows target triples
+    , aux "i686-pc-windows-msvc" Nothing -- Windows 32-bit not supported
+      -- Canonical Darwin target triples
+    , aux "x86_64-apple-darwin"  (Just Target_Darwin_X86_64)
+    , aux "aarch64-apple-darwin" (Just Target_Darwin_AArch64)
+      -- Supported alternate Darwin machine architectures
+    , aux "amd64-apple-darwin" (Just Target_Darwin_X86_64)
+    , aux "arm64-apple-darwin" (Just Target_Darwin_AArch64)
+      -- Supported Darwin target triple with appended version number
+    , aux "arm64-apple-darwin24.6.0" (Just Target_Darwin_AArch64)
+      -- Invalid Darwin target triples
+    , aux "x86_64-pc-darwin" Nothing -- only support apple vendor
+    ]
+  where
+    aux :: String -> Maybe Target -> TestTree
+    aux tt mTarget =
+      let label = case mTarget of
+            Just{}  -> tt
+            Nothing -> tt ++ " (invalid)"
+      in  testCase label $ mTarget @=? parseTargetTripleLenient tt
 
 {-------------------------------------------------------------------------------
   Get extra clang args
@@ -71,16 +123,16 @@ getExtraClangArgsTests = testGroup "getExtraClangArgs" [
       testCase "!target+other" $
         assertExtraClangArgs [(eDef, "native"), (eLnx, "cross")] Nothing ["native"]
     , testCase "target" $
-        assertExtraClangArgs [(eLnx, "cross")] (Just Target_Linux_X86_64) ["cross"]
+        assertExtraClangArgs [(eLnx, "cross")] (Just Target_Linux_GNU_X86_64) ["cross"]
     , -- With target, we exclusively use target-specific `clang` arguments,
       -- if present.
       testCase "target+other" $
-        assertExtraClangArgs [(eDef, "native"), (eLnx, "cross")] (Just Target_Linux_X86_64) ["cross"]
+        assertExtraClangArgs [(eDef, "native"), (eLnx, "cross")] (Just Target_Linux_GNU_X86_64) ["cross"]
     , -- With target, we fall back to the default `clang` arguments.
       testCase "target+!other" $
-        assertExtraClangArgs [(eDef, "native")] (Just Target_Linux_X86_64) ["native"]
+        assertExtraClangArgs [(eDef, "native")] (Just Target_Linux_GNU_X86_64) ["native"]
     , testCase "target+otherEmpty" $
-        assertExtraClangArgs [(eDef, "native"), (eLnx, "")] (Just Target_Linux_X86_64) ["native"]
+        assertExtraClangArgs [(eDef, "native"), (eLnx, "")] (Just Target_Linux_GNU_X86_64) ["native"]
     ]
   where
     assertExtraClangArgs :: [(EnvVar, EnvVal)] -> Maybe Target -> [String] -> IO ()
@@ -124,7 +176,7 @@ eDef :: EnvVar
 eDef = "BINDGEN_EXTRA_CLANG_ARGS"
 
 eLnx :: EnvVal
-eLnx = eDef <> "_x86_64-pc-linux"
+eLnx = eDef <> "_x86_64-pc-linux-gnu"
 
 withEnv :: [(EnvVar, EnvVal)] -> IO a -> IO a
 withEnv xs k = do

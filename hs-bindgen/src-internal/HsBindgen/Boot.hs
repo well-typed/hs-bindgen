@@ -101,7 +101,7 @@ boot
 getClangArgs :: Tracer BootMsg -> ClangArgsConfig FilePath -> IO ClangArgs
 getClangArgs tracer config = do
     extraClangArgs <- getExtraClangArgs (contramap BootExtraClangArgs tracer) $
-      fst <$> ClangArgs.target config
+      ClangArgs.target config
     mBuiltinIncDir <- getBuiltinIncDir (contramap BootBuiltinIncDir tracer) $
       ClangArgs.builtinIncDir config
     compareClangVersions (contramap BootCompareClangVersions tracer)

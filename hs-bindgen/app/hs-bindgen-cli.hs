@@ -109,15 +109,9 @@ envVarsFooter = Help.vcat [
           "BINDGEN_EXTRA_CLANG_ARGS_<TARGET>:"
         , " Target-specific arguments passed to Clang;"
         , " precedes BINDGEN_EXTRA_CLANG_ARGS; possible targets: "
-        , Text.intercalate ", " (map Text.pack triples)
+        , Text.intercalate ", " (map (Text.pack . targetTriple) [minBound ..])
         ]
     ]
-  where
-    triples :: [String]
-    triples = map (`targetTriple` TargetEnvDefault) targets
-
-    targets :: [Target]
-    targets = [minBound .. maxBound]
 
 clangArgsFooter :: Help.Doc
 clangArgsFooter = Help.vcat [
