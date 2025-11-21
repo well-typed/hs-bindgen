@@ -460,10 +460,6 @@ instance Resolve C.Type where
         Reader.ask >>= \MEnv{..} -> State.get >>= \MState{..} -> do
           let cQualName = C.QualName qualDeclIdName qualDeclIdKind
               cQualPrelimDeclId = C.qualDeclIdToQualPrelimDeclId cQualDeclId
-          -- Check for type omitted by binding specification
-          when (Map.member cQualPrelimDeclId stateOmitTypes) $
-            State.modify' $
-              insertTrace (ResolveBindingSpecsOmittedTypeUse cQualName)
           -- Check for selected external binding
           case Map.lookup cQualPrelimDeclId stateExtTypes of
             Just ty -> do
@@ -530,8 +526,6 @@ resolveExtBinding cQualName cQualPrelimDeclId declPaths  = do
               insertTrace (ResolveBindingSpecsExtHsRefNoIdentifier cQualName)
             return Nothing
       Just (_hsModuleName, BindingSpec.Omit, _mHsTypeSpec) -> do
-        State.modify' $
-          insertTrace (ResolveBindingSpecsOmittedTypeUse cQualName)
         return Nothing
       Nothing ->
         return Nothing

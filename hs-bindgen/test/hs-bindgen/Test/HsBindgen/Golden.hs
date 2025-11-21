@@ -912,6 +912,18 @@ test_program_analysis_selection_foo =
       _other -> Nothing
   }
 
+test_program_analysis_selection_omit :: TestCase
+test_program_analysis_selection_omit =
+  (defaultTest "program-analysis/selection_omit"){
+    testPrescriptiveBindingSpec = Just "examples/golden/program-analysis/selection_omit.yaml"
+  , testTracePredicate = customTracePredicate' ["DependsOnOmitted"] $ \case
+      (TraceFrontend (FrontendSelect
+        (TransitiveDependencyOfDeclarationUnavailable x _
+          _ UnavailableOmitted _))) ->
+          Just $ expectFromDeclSelect x
+      _other -> Nothing
+  }
+
 test_program_analysis_program_slicing_selection :: TestCase
 test_program_analysis_program_slicing_selection =
   (defaultTest "program-analysis/program_slicing_selection"){
@@ -1071,6 +1083,7 @@ testCases = manualTestCases ++ [
     , test_program_analysis_selection_fail_variant_2
     , test_program_analysis_selection_fail_variant_3
     , test_program_analysis_selection_foo
+    , test_program_analysis_selection_omit
     , test_types_complex_complex_non_float_test
     , test_types_complex_hsb_complex_test
     , test_types_complex_vector_test

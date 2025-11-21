@@ -71,7 +71,6 @@ data ResolvedExtBinding = ResolvedExtBinding{
 data ResolveBindingSpecsMsg =
     ResolveBindingSpecsModuleMismatch       Hs.ModuleName Hs.ModuleName
   | ResolveBindingSpecsExtHsRefNoIdentifier C.QualName
-  | ResolveBindingSpecsOmittedTypeUse       C.QualName
   | ResolveBindingSpecsTypeNotUsed          C.QualName
   | ResolveBindingSpecsExtDecl              C.QualName
   | ResolveBindingSpecsExtType              C.QualName C.QualName
@@ -82,39 +81,35 @@ data ResolveBindingSpecsMsg =
 instance PrettyForTrace ResolveBindingSpecsMsg where
   prettyForTrace = \case
       ResolveBindingSpecsModuleMismatch hsModuleName pSpecHsModuleName ->
-        "prescriptive binding specification for module"
+        "Prescriptive binding specification for module"
           <+> prettyForTrace pSpecHsModuleName
           <+> "cannot be used to generate"
           <+> prettyForTrace hsModuleName
       ResolveBindingSpecsExtHsRefNoIdentifier cQualName ->
         "Haskell identifier not specified in binding specification:"
           <+> prettyForTrace cQualName
-      ResolveBindingSpecsOmittedTypeUse cQualName ->
-        "type omitted by binding specification used:"
-          <+> prettyForTrace cQualName
       ResolveBindingSpecsTypeNotUsed cQualName ->
-        "binding specification for type not used:"
+        "Binding specification for type not used:"
           <+> prettyForTrace cQualName
       ResolveBindingSpecsExtDecl cQualName ->
-        "declaration with external binding dropped:"
+        "Declaration with external binding dropped:"
           <+> prettyForTrace cQualName
       ResolveBindingSpecsExtType ctx cQualName ->
-        "within declaration"
+        "Within declaration"
           <+> prettyForTrace ctx
           <+> "type replaced with external binding:"
           <+> prettyForTrace cQualName
       ResolveBindingSpecsPrescriptiveRequire cQualName ->
-        "prescriptive binding specification found:"
+        "Prescriptive binding specification found:"
           <+> prettyForTrace cQualName
       ResolveBindingSpecsPrescriptiveOmit cQualName ->
-        "declaration omitted by prescriptive binding specification:"
+        "Declaration omitted by prescriptive binding specification:"
           <+> prettyForTrace cQualName
 
 instance IsTrace Level ResolveBindingSpecsMsg where
   getDefaultLogLevel = \case
     ResolveBindingSpecsModuleMismatch{}       -> Error
     ResolveBindingSpecsExtHsRefNoIdentifier{} -> Error
-    ResolveBindingSpecsOmittedTypeUse{}       -> Error
     ResolveBindingSpecsTypeNotUsed{}          -> Error
     ResolveBindingSpecsExtDecl{}              -> Info
     ResolveBindingSpecsExtType{}              -> Info
