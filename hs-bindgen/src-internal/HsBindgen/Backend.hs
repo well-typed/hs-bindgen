@@ -7,7 +7,6 @@ module HsBindgen.Backend
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Translation qualified as Hs
-import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Simplify qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
@@ -42,14 +41,6 @@ backend tracer BackendConfig{..} BootArtefact{..} FrontendArtefact{..} = do
     -- 3. Simplify.
     backendFinalDecls <- cache $ SHs.simplifySHs <$> sHsDecls
 
-    -- 4. Translate to modules.
-    backendFinalModuleSafe <- cache $
-      translateModuleSingle SHs.Safe moduleBaseName <$> backendFinalDecls
-    backendFinalModuleUnsafe <- cache $
-      translateModuleSingle SHs.Unsafe moduleBaseName <$> backendFinalDecls
-    backendFinalModules <- cache $
-      translateModuleMultiple moduleBaseName <$> backendFinalDecls
-
     pure $ BackendArtefact {
       backendFinalModuleBaseName = moduleBaseName
     , ..
@@ -68,9 +59,6 @@ data BackendArtefact = BackendArtefact {
     backendHsDecls             :: IO (SHs.ByCategory [Hs.Decl])
   , backendFinalDecls          :: IO (SHs.ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
   , backendFinalModuleBaseName :: BaseModuleName
-  , backendFinalModuleSafe     :: IO HsModule
-  , backendFinalModuleUnsafe   :: IO HsModule
-  , backendFinalModules        :: IO (SHs.ByCategory HsModule)
   }
 
 {-------------------------------------------------------------------------------

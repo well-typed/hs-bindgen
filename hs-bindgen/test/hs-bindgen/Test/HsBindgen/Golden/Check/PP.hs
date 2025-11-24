@@ -33,7 +33,8 @@ check testResources test =
           -- slightly unfortunate to invoke @hs-bindgen@ multiple times even if
           -- it can render all modules at the same time, but it's cheap to do so
           -- in practice.
-          let artefacts = (,) <$> FinalModuleBaseName <*> getBindingsMultiple
+          let artefacts = (,) <$> FinalModuleBaseName
+                              <*> getBindingsMultiple useAllCategories
           (baseName,(ByCategory output))
             <- runTestHsBindgen report testResources test artefacts
 

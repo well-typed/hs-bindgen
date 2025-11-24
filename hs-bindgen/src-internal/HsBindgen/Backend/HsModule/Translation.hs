@@ -7,10 +7,15 @@ module HsBindgen.Backend.HsModule.Translation (
   , ImportListItem(..)
     -- * HsModule
   , HsModule(..)
+    -- * Binding category selection
+  , SDeclPredicate
+  , useSafeCategory
+  , useUnsafeCategory
+  , useAllCategories
+  , selectModuleMultiple
     -- * Translation
   , translateModuleMultiple
   , translateModuleSingle
-  , mergeDecls
   ) where
 
 import Data.Foldable qualified as Foldable
@@ -65,51 +70,75 @@ data HsModule = HsModule {
     }
 
 {-------------------------------------------------------------------------------
+  Binding category selection
+-------------------------------------------------------------------------------}
+
+-- TODO_PR: Use `Hs.Name` (but then we need `ImpredicativeTypes`).
+type SDeclPredicate = Text -> Bool
+
+useSafeCategory, useUnsafeCategory, useAllCategories :: ByCategory SDeclPredicate
+useSafeCategory   = ByCategory $ Map.singleton BUnsafe (const False)
+useUnsafeCategory = ByCategory $ Map.singleton BSafe   (const False)
+useAllCategories  = ByCategory   Map.empty
+
+-- TODO_PR: Double check the select function.
+selectCategory ::
+     SDeclPredicate
+  -> SDecl
+  -> Bool
+selectCategory p = \case
+  (DVar              x)  -> p $ Hs.getName x.varName
+  (DInst             _)  -> True
+  (DRecord           x)  -> p $ Hs.getName x.dataType
+  (DNewtype          x)  -> p $ Hs.getName x.newtypeName
+  (DEmptyData        x)  -> p $ Hs.getName x.emptyDataName
+  (DDerivingInstance _)  -> True
+  (DForeignImport    x)  -> p $ Hs.getName x.foreignImportName
+  (DFunction         x)  -> p $ Hs.getName x.functionName
+  (DPatternSynonym   x)  -> p $ Hs.getName x.patSynName
+  (DPragma (NOINLINE n)) -> p $ Hs.getName n
+
+-- Default to selecting all declarations.
+getPredicate :: BindingCategory -> ByCategory SDeclPredicate -> SDeclPredicate
+getPredicate x = fromMaybe (const True) . Map.lookup x . unByCategory
+
+selectModuleMultiple ::
+     ByCategory SDeclPredicate
+  -> ByCategory ([UserlandCapiWrapper], [SDecl])
+  -> ByCategory ([UserlandCapiWrapper], [SDecl])
+selectModuleMultiple predByCat = mapByCategory $ \cat (wrappers, decls) ->
+    (wrappers, filter (selectCategory $ getPredicate cat predByCat) decls)
+
+{-------------------------------------------------------------------------------
   Translation
 -------------------------------------------------------------------------------}
 
 translateModuleMultiple ::
      BaseModuleName
+  -> ByCategory SDeclPredicate
   -> ByCategory ([UserlandCapiWrapper], [SDecl])
   -> ByCategory HsModule
-translateModuleMultiple moduleBaseName declsByCat =
-  mapByCategory go declsByCat
+translateModuleMultiple moduleBaseName predByCat declsByCat =
+    mapByCategory go $ selectModuleMultiple predByCat declsByCat
   where
     go :: BindingCategory -> ([UserlandCapiWrapper], [SDecl]) -> HsModule
-    go cat (wrappers, decls) =
-      translateModule' (Just cat) moduleBaseName wrappers decls
+    go cat xs = translateModule' (Just cat) moduleBaseName xs
 
 translateModuleSingle ::
-     Safety
-  -> BaseModuleName
+     BaseModuleName
+  -> ByCategory SDeclPredicate
   -> ByCategory ([UserlandCapiWrapper], [SDecl])
   -> HsModule
-translateModuleSingle safety name declsByCat =
-  translateModule' Nothing name wrappers decls
-  where
-    wrappers :: [UserlandCapiWrapper]
-    decls :: [SDecl]
-    (wrappers, decls) = mergeDecls safety declsByCat
-
-mergeDecls ::
-  Safety
-  -> ByCategory ([UserlandCapiWrapper], [SDecl])
-  -> ([UserlandCapiWrapper], [SDecl])
-mergeDecls safety declsByCat =
-    Foldable.fold $ ByCategory $ removeSafetyCategory $ unByCategory declsByCat
-  where
-    safetyToRemove = case safety of
-      Safe   -> BUnsafe
-      Unsafe -> BSafe
-    removeSafetyCategory = Map.filterWithKey (\k _ -> k /= safetyToRemove)
+translateModuleSingle name predByCat declsByCat =
+    translateModule' Nothing name $ Foldable.fold $
+      selectModuleMultiple predByCat declsByCat
 
 translateModule' ::
      Maybe BindingCategory
   -> BaseModuleName
-  -> [UserlandCapiWrapper]
-  -> [SDecl]
+  -> ([UserlandCapiWrapper], [SDecl])
   -> HsModule
-translateModule' mcat moduleBaseName hsModuleUserlandCapiWrappers hsModuleDecls =
+translateModule' mcat moduleBaseName (hsModuleUserlandCapiWrappers, hsModuleDecls) =
     let hsModulePragmas =
           resolvePragmas hsModuleUserlandCapiWrappers hsModuleDecls
         hsModuleImports =

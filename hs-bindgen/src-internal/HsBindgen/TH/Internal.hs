@@ -13,6 +13,7 @@ module HsBindgen.TH.Internal (
   ) where
 
 import Control.Monad.State (State, execState, modify)
+import Data.Foldable qualified as Foldable
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
 import Optics.Core ((&), (.~))
@@ -23,7 +24,7 @@ import Clang.Paths
 import HsBindgen
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.HsModule.Translation
+import HsBindgen.Backend.HsModule.Translation (selectModuleMultiple)
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.TH.Translation
 import HsBindgen.Config
@@ -92,7 +93,9 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
         artefact = do
           deps  <- Dependencies
           decls <- FinalDecls
-          pure (deps, mergeDecls safety decls)
+          let filteredDecls =
+                selectModuleMultiple bindingCategoryPredicate decls
+          pure (deps, Foldable.fold filteredDecls)
 
     (deps, decls) <- liftIO $
       hsBindgen

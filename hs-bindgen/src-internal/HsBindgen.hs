@@ -24,6 +24,7 @@ import System.FilePath (takeDirectory, (</>))
 import HsBindgen.Artefact
 import HsBindgen.Backend
 import HsBindgen.Backend.HsModule.Render
+import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
@@ -109,35 +110,36 @@ writeUseDeclGraph mPath = do
          $ UseDeclGraph.dumpMermaid index useDeclGraph
 
 -- | Get bindings (single module).
-getBindings :: Safety -> Artefact String
-getBindings safety = do
-    finalModule <- finalModuleArtefact
-    Lift $ pure . render $ finalModule
-  where finalModuleArtefact = case safety of
-          Safe   -> FinalModuleSafe
-          Unsafe -> FinalModuleUnsafe
+getBindings :: ByCategory SDeclPredicate -> Artefact String
+getBindings predicate = do
+    name  <- FinalModuleBaseName
+    decls <- FinalDecls
+    pure $ render $ translateModuleSingle name predicate decls
 
 -- | Write bindings to file.
 --
 -- If no file is given, print to standard output.
-writeBindings :: Safety -> Maybe FilePath -> Artefact ()
-writeBindings safety mPath = do
-    bindings <- getBindings safety
+writeBindings :: ByCategory SDeclPredicate -> Maybe FilePath -> Artefact ()
+writeBindings predicate mPath = do
+    bindings <- getBindings predicate
     Lift $ write "bindings" mPath bindings
 
 -- | Get bindings (one module per binding category).
-getBindingsMultiple :: Artefact (ByCategory String)
-getBindingsMultiple = fmap render <$> FinalModules
+getBindingsMultiple :: ByCategory SDeclPredicate -> Artefact (ByCategory String)
+getBindingsMultiple predicate = do
+  name  <- FinalModuleBaseName
+  decls <- FinalDecls
+  pure $ render <$> translateModuleMultiple name predicate decls
 
 -- | Write bindings to files in provided output directory.
 --
 -- Each file contains a different binding category.
 --
 -- If no file is given, print to standard output.
-writeBindingsMultiple :: FilePath -> Artefact ()
-writeBindingsMultiple hsOutputDir = do
+writeBindingsMultiple :: ByCategory SDeclPredicate -> FilePath -> Artefact ()
+writeBindingsMultiple predicate hsOutputDir = do
     moduleBaseName     <- FinalModuleBaseName
-    bindingsByCategory <- getBindingsMultiple
+    bindingsByCategory <- getBindingsMultiple predicate
     Lift $ writeByCategory "bindings" hsOutputDir moduleBaseName bindingsByCategory
 
 -- | Write binding specifications to file.

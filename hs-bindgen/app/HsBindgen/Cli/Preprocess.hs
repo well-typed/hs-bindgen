@@ -84,7 +84,9 @@ exec GlobalOpts{..} Opts{..} = do
 
     artefacts :: Artefact ()
     artefacts = do
-        writeBindingsMultiple hsOutputDir
+        -- TODO_PR: Which command line options to adjust the binding category
+        -- predicate do we want to provide?
+        writeBindingsMultiple useAllCategories hsOutputDir
         forM_ outputBindingSpec writeBindingSpec
 
 {-------------------------------------------------------------------------------

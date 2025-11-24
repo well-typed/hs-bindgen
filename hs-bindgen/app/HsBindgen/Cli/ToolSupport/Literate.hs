@@ -69,12 +69,12 @@ parseOpts = do
 -------------------------------------------------------------------------------}
 
 data Lit = Lit {
-      globalOpts     :: GlobalOpts
-    , config         :: Config
-    , uniqueId       :: UniqueId
-    , baseModuleName :: BaseModuleName
-    , safety         :: Safety
-    , inputs         :: [UncheckedHashIncludeArg]
+      globalOpts               :: GlobalOpts
+    , config                   :: Config
+    , uniqueId                 :: UniqueId
+    , baseModuleName           :: BaseModuleName
+    , bindingCategoryPredicate :: ByCategory SDeclPredicate
+    , inputs                   :: [UncheckedHashIncludeArg]
     }
 
 parseLit :: Parser Lit
@@ -83,21 +83,10 @@ parseLit = Lit
   <*> parseConfig
   <*> parseUniqueId
   <*> parseBaseModuleName
-  <*> parseSafety
+  -- TODO_PR: Which command line options to adjust the binding category
+  -- predicate do we want to provide?
+  <*> pure useSafeCategory
   <*> parseInputs
-
-parseSafety :: Parser Safety
-parseSafety = asum [
-      flag' Safe $ mconcat [
-          long "safe"
-        , help "Use _safe_ foreign function imports (default)"
-        ]
-    , flag' Unsafe $ mconcat [
-          long "unsafe"
-        , help "Use _unsafe_ foreign function imports"
-        ]
-    , pure Safe
-    ]
 
 {-------------------------------------------------------------------------------
   Execution
@@ -112,7 +101,7 @@ exec literateOpts = do
     let GlobalOpts{..} = globalOpts
         bindgenConfig = toBindgenConfig config uniqueId baseModuleName
     void $ hsBindgen tracerConfig bindgenConfig inputs $
-      writeBindings safety (Just literateOpts.output)
+      writeBindings bindingCategoryPredicate (Just literateOpts.output)
   where
     throwIO' :: String -> IO a
     throwIO' = throwIO . LiterateFileException literateOpts.input

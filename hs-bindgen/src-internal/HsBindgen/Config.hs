@@ -46,9 +46,9 @@ data Config_ path = Config {
   , programSlicing  :: ProgramSlicing
 
     -- * Backend
-  , haddockPathStyle :: PathStyle
+  , haddockPathStyle         :: PathStyle
   }
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Eq, Show, Generic)
   deriving stock (Functor, Foldable, Traversable)
   deriving anyclass (Default)
 
@@ -107,7 +107,7 @@ data ConfigTH = ConfigTH {
     --
     -- >>> def :: Safety
     -- Safe
-    safety :: Safety
+    bindingCategoryPredicate :: ByCategory SDeclPredicate
 
     -- | Show trace messages of the provided 'Level' or higher.
     --
@@ -123,5 +123,11 @@ data ConfigTH = ConfigTH {
     -- errors.
   , customLogLevelSettings :: [CustomLogLevelSetting]
   }
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass Default
+  deriving stock (Generic)
+
+instance Default ConfigTH where
+  def = ConfigTH {
+            bindingCategoryPredicate = useSafeCategory
+          , verbosity                = def
+          , customLogLevelSettings   = def
+          }

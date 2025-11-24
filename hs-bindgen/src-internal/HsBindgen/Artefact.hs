@@ -20,7 +20,6 @@ import Clang.Paths
 import HsBindgen.Backend
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv (UserlandCapiWrapper)
-import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Boot
@@ -59,9 +58,6 @@ data Artefact (a :: Star) where
   HsDecls             :: Artefact (ByCategory [Hs.Decl])
   FinalDecls          :: Artefact (ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
   FinalModuleBaseName :: Artefact BaseModuleName
-  FinalModuleSafe     :: Artefact HsModule
-  FinalModuleUnsafe   :: Artefact HsModule
-  FinalModules        :: Artefact (ByCategory HsModule)
   -- * Lift and sequence artefacts
   Lift                :: ArtefactM a -> Artefact a
   Bind                :: Artefact b  -> (b -> Artefact c ) -> Artefact c
@@ -140,9 +136,6 @@ runArtefacts
       HsDecls             -> liftIO backendHsDecls
       FinalDecls          -> liftIO backendFinalDecls
       FinalModuleBaseName -> pure backendFinalModuleBaseName
-      FinalModuleSafe     -> liftIO backendFinalModuleSafe
-      FinalModuleUnsafe   -> liftIO backendFinalModuleUnsafe
-      FinalModules        -> liftIO backendFinalModules
       -- Lift and sequence.
       (Lift f)            -> lift f
       (Bind x   f)        -> do
