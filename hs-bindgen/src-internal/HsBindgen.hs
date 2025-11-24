@@ -23,14 +23,15 @@ module HsBindgen
 
 import Control.Monad.Except (MonadError (..), withExceptT)
 import Control.Monad.Trans.Except (runExceptT)
-import Data.Map qualified as Map
+import Optics.Core (view)
 import System.Exit (ExitCode (..), exitWith)
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Artefact
 import HsBindgen.Backend
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.HsModule.Render
-import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
 import HsBindgen.Config.Internal
@@ -136,23 +137,24 @@ writeUseDeclGraph pol mPath = do
       Just path -> Lift $ write pol "use-decl graph" (UserSpecified path) rendered
 
 -- | Get bindings (single module).
-getBindings :: Safety -> Artefact String
-getBindings safety = do
-    finalModule <- finalModuleArtefact
-    Lift $ pure . render $ finalModule
-  where finalModuleArtefact = case safety of
-          Safe   -> FinalModuleSafe
-          Unsafe -> FinalModuleUnsafe
+getBindings :: Artefact String
+getBindings = do
+    name  <- FinalModuleBaseName
+    decls <- FinalDecls
+    pure $ render $ translateModuleSingle name decls
 
 -- | Write bindings to file.
-writeBindings :: FileOverwritePolicy -> Safety -> FilePath -> Artefact ()
-writeBindings fileOverwritePolicy safety path = do
-    bindings <- getBindings safety
+writeBindings :: FileOverwritePolicy -> FilePath -> Artefact ()
+writeBindings fileOverwritePolicy path = do
+    bindings <- getBindings
     Lift $ write fileOverwritePolicy "bindings" (UserSpecified path) bindings
 
 -- | Get bindings (one module per binding category).
-getBindingsMultiple :: Artefact (ByCategory String)
-getBindingsMultiple = fmap render <$> FinalModules
+getBindingsMultiple :: Artefact (ByCategory_ (Maybe String))
+getBindingsMultiple = do
+  name  <- FinalModuleBaseName
+  decls <- FinalDecls
+  pure $ fmap render <$> translateModuleMultiple name decls
 
 -- | Write bindings to files in provided output directory.
 --
@@ -187,10 +189,10 @@ writeBindingSpec fileOverwritePolicy path = do
     let bindingSpec =
           genBindingSpec
             target
-            (fromBaseModuleName moduleBaseName (Just BType))
+            (fromBaseModuleName moduleBaseName (Just CType))
             getMainHeaders
             omitTypes
-            (fromMaybe [] (Map.lookup BType $ unByCategory hsDecls))
+            (view (lensForCategory CType) hsDecls)
         fileDescription =
           FileDescription {
               description = "Binding specifications"
@@ -228,14 +230,15 @@ writeByCategory ::
   -> String
   -> FilePath
   -> BaseModuleName
-  -> ByCategory String
+  -> ByCategory_ (Maybe String)
   -> Artefact ()
 writeByCategory
   fileOverwritePolicy outputDirPolicy what outputDir moduleBaseName =
-    mapM_ (uncurry writeCategory) . Map.toList . unByCategory
+    sequence_ . mapWithCategory_ writeCategory
   where
-    writeCategory :: BindingCategory -> String -> Artefact ()
-    writeCategory cat str =
+    writeCategory :: Category -> Maybe String -> Artefact ()
+    writeCategory _    Nothing   = pure ()
+    writeCategory cat (Just str) =
         Lift $ write fileOverwritePolicy whatWithCategory location str
       where
         localPath :: FilePath

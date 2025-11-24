@@ -10,10 +10,9 @@ import Control.Monad (liftM)
 import Clang.Paths
 
 import HsBindgen.Backend
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv (CWrapper)
-import HsBindgen.Backend.HsModule.Translation
-import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Boot
 import HsBindgen.Config
@@ -49,12 +48,9 @@ data Artefact (a :: Star) where
   ReifiedC            :: Artefact [C.Decl]
   Dependencies        :: Artefact [SourcePath]
   -- * Backend
-  HsDecls             :: Artefact (ByCategory [Hs.Decl])
-  FinalDecls          :: Artefact (ByCategory ([CWrapper], [SHs.SDecl]))
+  HsDecls             :: Artefact (ByCategory_ [Hs.Decl])
+  FinalDecls          :: Artefact (ByCategory_ ([CWrapper], [SHs.SDecl]))
   FinalModuleBaseName :: Artefact BaseModuleName
-  FinalModuleSafe     :: Artefact HsModule
-  FinalModuleUnsafe   :: Artefact HsModule
-  FinalModules        :: Artefact (ByCategory HsModule)
   -- * Lift and sequence artefacts
   Lift                :: DelayedIOM a -> Artefact a
   Bind                :: Artefact b  -> (b -> Artefact c ) -> Artefact c
@@ -112,10 +108,6 @@ runArtefacts
         HsDecls             -> runCached backendHsDecls
         FinalDecls          -> runCached backendFinalDecls
         FinalModuleBaseName -> pure backendFinalModuleBaseName
-        FinalModuleSafe     -> runCached backendFinalModuleSafe
-        FinalModuleUnsafe   -> runCached backendFinalModuleUnsafe
-        FinalModules        -> runCached backendFinalModules
         -- Lift and sequence.
         (Lift   f)          -> f
         (Bind x f)          -> runArtefact x >>= runArtefact . f
-

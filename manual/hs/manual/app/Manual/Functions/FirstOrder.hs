@@ -9,13 +9,12 @@ import System.IO.Unsafe
 
 import HsBindgen.Runtime.FunPtr
 
-import Manual.Tools
-
 import Example.Unsafe
-import FunctionPointers qualified as FunPtr
+import FunctionPointers qualified as Fun
 import FunctionPointers.FunPtr qualified as FunPtr
-import FunctionPointers.Global qualified as FunPtr
-import FunctionPointers.Safe qualified as FunPtr
+import FunctionPointers.Global qualified as Fun
+import FunctionPointers.Safe qualified as Fun
+import Manual.Tools
 
 {-------------------------------------------------------------------------------
   Function attributes
@@ -38,40 +37,40 @@ examples = do
 
     section "Function pointers"
 
-    print =<< FunPtr.apply1 FunPtr.square_ptr 4
-    print =<< FunPtr.apply1 FunPtr.square_ptr 5
-    print =<< FunPtr.apply1 FunPtr.square_ptr 6
+    print =<< Fun.apply1 FunPtr.square 4
+    print =<< Fun.apply1 FunPtr.square 5
+    print =<< Fun.apply1 FunPtr.square 6
 
-    print =<< FunPtr.apply2 FunPtr.plus_ptr 7 8
-    print =<< FunPtr.apply2 FunPtr.plus_ptr 9 10
-    print =<< FunPtr.apply2 FunPtr.plus_ptr 11 12
+    print =<< Fun.apply2 FunPtr.plus 7 8
+    print =<< Fun.apply2 FunPtr.plus 9 10
+    print =<< Fun.apply2 FunPtr.plus 11 12
 
     subsection "Implicit function to pointer conversion"
     do
       -- function pointer type in function parameter
-      print =<< FunPtr.apply1_pointer_arg (F.castFunPtr FunPtr.square_ptr) 4
-      print =<< FunPtr.apply1_pointer_arg (F.castFunPtr FunPtr.square_ptr) 5
-      print =<< FunPtr.apply1_pointer_arg (F.castFunPtr FunPtr.square_ptr) 6
+      print =<< Fun.apply1_pointer_arg (F.castFunPtr FunPtr.square) 4
+      print =<< Fun.apply1_pointer_arg (F.castFunPtr FunPtr.square) 5
+      print =<< Fun.apply1_pointer_arg (F.castFunPtr FunPtr.square) 6
 
       -- function type in function parameter
-      print =<< FunPtr.apply1_nopointer_arg (F.castFunPtr FunPtr.square_ptr) 4
-      print =<< FunPtr.apply1_nopointer_arg (F.castFunPtr FunPtr.square_ptr) 5
-      print =<< FunPtr.apply1_nopointer_arg (F.castFunPtr FunPtr.square_ptr) 6
+      print =<< Fun.apply1_nopointer_arg (F.castFunPtr FunPtr.square) 4
+      print =<< Fun.apply1_nopointer_arg (F.castFunPtr FunPtr.square) 5
+      print =<< Fun.apply1_nopointer_arg (F.castFunPtr FunPtr.square) 6
 
       subsubsection "Parameters of function type can occur almost anywhere!"
       do -- function type in function result
-        apply1FunPtr <- FunPtr.apply1_nopointer_res
+        apply1FunPtr <- Fun.apply1_nopointer_res
         let apply1Fun = fromFunPtr apply1FunPtr
-        print =<< apply1Fun (F.castFunPtr FunPtr.square_ptr) 4
+        print =<< apply1Fun (F.castFunPtr FunPtr.square) 4
       do -- function type in global
-        let apply1FunPtr = FunPtr.apply1_nopointer_var
+        let apply1FunPtr = Fun.apply1_nopointer_var
             apply1Fun = fromFunPtr apply1FunPtr
-        print =<< apply1Fun (F.castFunPtr FunPtr.square_ptr) 5
+        print =<< apply1Fun (F.castFunPtr FunPtr.square) 5
       do -- function type in struct field
-        let apply1FunPtr = FunPtr.apply1Struct_apply1_nopointer_struct_field FunPtr.apply1_struct
+        let apply1FunPtr = Fun.apply1Struct_apply1_nopointer_struct_field Fun.apply1_struct
             apply1Fun = fromFunPtr apply1FunPtr
-        print =<< apply1Fun (F.castFunPtr FunPtr.square_ptr) 6
+        print =<< apply1Fun (F.castFunPtr FunPtr.square) 6
       do -- function type in union field
-        let apply1FunPtr = FunPtr.get_apply1Union_apply1_nopointer_union_field FunPtr.apply1_union
+        let apply1FunPtr = Fun.get_apply1Union_apply1_nopointer_union_field Fun.apply1_union
             apply1Fun = fromFunPtr apply1FunPtr
-        print =<< apply1Fun (F.castFunPtr FunPtr.square_ptr) 7
+        print =<< apply1Fun (F.castFunPtr FunPtr.square) 7

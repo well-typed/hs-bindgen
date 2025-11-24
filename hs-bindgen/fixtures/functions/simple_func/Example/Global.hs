@@ -1,1 +1,0 @@
-module Example.Global () where

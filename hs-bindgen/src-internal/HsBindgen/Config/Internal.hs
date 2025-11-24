@@ -13,6 +13,7 @@ module HsBindgen.Config.Internal
   , module HsBindgen.Config.Prelims
   ) where
 
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.BindingSpec
@@ -39,8 +40,8 @@ data BindgenConfig = BindgenConfig {
     , bindgenFrontendConfig :: FrontendConfig
     , bindgenBackendConfig  :: BackendConfig
     }
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass Default
+  deriving stock (Show, Generic)
+  deriving anyclass (Default)
 
 {-------------------------------------------------------------------------------
   Boot configuration
@@ -85,10 +86,11 @@ data FrontendConfig = FrontendConfig {
 --
 -- See also the notes at 'FrontendConfig'.
 data BackendConfig = BackendConfig {
-      backendTranslationConfig :: TranslationConfig
-    , backendHaddockConfig     :: HaddockConfig
+      backendTranslationConfig     :: TranslationConfig
+    , backendHaddockConfig         :: HaddockConfig
+    , backendBindingCategoryChoice :: ByCategory Choice
     }
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Generic)
   deriving anyclass Default
 
 checkBackendConfig :: Tracer BackendConfigMsg -> BackendConfig -> IO ()

@@ -15,6 +15,7 @@ import Text.SimplePrettyPrint qualified as PP
 import Clang.Args
 import Clang.LowLevel.Core
 
+import HsBindgen.Backend.Category (Category (..))
 import HsBindgen.BindingSpec
 import HsBindgen.Cache
 import HsBindgen.Clang
@@ -70,7 +71,7 @@ boot
         (contramap BootBindingSpec tracer)
         clangArgs
         target
-        (fromBaseModuleName baseModuleName (Just BType))
+        (fromBaseModuleName baseModuleName (Just CType))
         (bootBindingSpecConfig bindgenBootConfig)
 
     getExternalBindingSpecs <- cache "getExternalBindingSpecs" $

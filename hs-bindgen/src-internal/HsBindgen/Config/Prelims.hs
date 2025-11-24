@@ -2,7 +2,6 @@ module HsBindgen.Config.Prelims (
     -- * Base module name
     BaseModuleName(..)
   , baseModuleNameToString
-  , BindingCategory(..)
   , fromBaseModuleName
 
     -- * Unique IDs
@@ -15,6 +14,7 @@ import Data.Aeson (FromJSON, ToJSON)
 import Data.Text qualified as Text
 import Text.SimplePrettyPrint qualified as PP
 
+import HsBindgen.Backend.Category
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
@@ -37,35 +37,22 @@ instance Default BaseModuleName where
 baseModuleNameToString :: BaseModuleName -> String
 baseModuleNameToString = Text.unpack . baseModuleNameToText
 
--- | Foreign import category.
-data BindingCategory =
-    -- | Types (top-level bindings).
-    BType
-    -- | Foreign import bindings with a @safe@ foreign import modifier.
-  | BSafe
-    -- | Foreign import bindings with an @unsafe@ foreign import modifier.
-  | BUnsafe
-    -- | Pointers to functions; generally @unsafe@.
-  | BFunPtr
-    -- | Temporary category for bindings to global variables or constants.
-  | BGlobal
-  deriving stock (Show, Eq, Ord, Enum, Bounded)
-
-fromBaseModuleName :: BaseModuleName -> Maybe BindingCategory -> Hs.ModuleName
+fromBaseModuleName :: BaseModuleName -> Maybe Category -> Hs.ModuleName
 fromBaseModuleName (BaseModuleName base) Nothing =
     Hs.moduleNameFromText base
-fromBaseModuleName (BaseModuleName base) (Just cat) =
-    Hs.moduleNameFromText (base <> maybe mempty ("." <>) (submodule cat))
+fromBaseModuleName (BaseModuleName base) (Just CType) =
+    Hs.moduleNameFromText base
+fromBaseModuleName (BaseModuleName base) (Just (CTerm cat)) =
+    Hs.moduleNameFromText (base <> "." <> submodule cat)
   where
     -- NOTE: It is important that types are stored in a module without any
     -- suffix; we depend on this assumption for binding specifications (which
     -- only refer to types, never to functions or globals).
-    submodule :: BindingCategory -> Maybe Text
-    submodule BType   = Nothing
-    submodule BSafe   = Just "Safe"
-    submodule BUnsafe = Just "Unsafe"
-    submodule BFunPtr = Just "FunPtr"
-    submodule BGlobal = Just "Global"
+    submodule :: TermCategory -> Text
+    submodule CSafe   = "Safe"
+    submodule CUnsafe = "Unsafe"
+    submodule CFunPtr = "FunPtr"
+    submodule CGlobal = "Global"
 
 {-------------------------------------------------------------------------------
   Unique IDs

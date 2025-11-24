@@ -11,6 +11,7 @@ import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
@@ -28,7 +29,7 @@ import HsBindgen.NameHint
 -------------------------------------------------------------------------------}
 
 translateDecls ::
-  ByCategory [Hs.Decl] -> ByCategory ([CWrapper], [SDecl])
+  ByCategory_ [Hs.Decl] -> ByCategory_ ([CWrapper], [SDecl])
 translateDecls = fmap go
   where
     go :: [Hs.Decl] -> ([CWrapper], [SDecl])

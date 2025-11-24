@@ -7,8 +7,8 @@ import Data.List qualified as List
 import System.Directory qualified as Dir
 import System.FilePath qualified as FilePath
 
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.SHs.AST (ByCategory)
 import HsBindgen.Config
 import HsBindgen.Config.Prelims
 import HsBindgen.Frontend.RootHeader
@@ -24,7 +24,7 @@ import HsBindgen.Test.Readme (genTestsReadme)
 -- | Generate test suite
 genTests ::
      [HashIncludeArg]
-  -> ByCategory [Hs.Decl]
+  -> ByCategory_ [Hs.Decl]
   -> BaseModuleName -- ^ Generated Haskell module name
   -> FilePath       -- ^ Test suite directory path
   -> IO ()

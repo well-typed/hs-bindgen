@@ -2,8 +2,7 @@
 module Test.HsBindgen.Golden.Check.PP (check) where
 
 import Control.Monad (when)
-import Data.Map.Strict qualified as Map
-import Data.Maybe (fromMaybe)
+import Optics.Core (view)
 import System.Directory (createDirectoryIfMissing)
 import System.FilePath ((</>))
 import Test.Common.Util.Tasty
@@ -14,7 +13,7 @@ import Test.Tasty
 
 import HsBindgen (getBindingsMultiple)
 import HsBindgen hiding (getBindingsMultiple)
-import HsBindgen.Backend.SHs.AST (ByCategory (..))
+import HsBindgen.Backend.Category
 import HsBindgen.Config.Prelims
 import HsBindgen.Errors (panicIO)
 import HsBindgen.Language.Haskell qualified as Hs
@@ -34,7 +33,7 @@ check testResources test =
           -- it can render all modules at the same time, but it's cheap to do so
           -- in practice.
           let artefacts = (,) <$> FinalModuleBaseName <*> getBindingsMultiple
-          (baseName,(ByCategory output))
+          (baseName, output)
             <- runTestHsBindgenSuccess report testResources test artefacts
 
           -- A sanity check to make sure that that the modules we're rendering
@@ -43,10 +42,12 @@ check testResources test =
             panicIO "The module base name should be Example!"
 
           -- Render the Haskell module
-          let ppOutput = fromMaybe (renderEmptyModule bc) (output Map.!? bc)
-          return $ ActualValue ppOutput
+          let ppOutput = view (lensForCategory bc) output
+          return $ case ppOutput of
+            Nothing -> ActualNoOutput
+            Just x  -> ActualValue x
 
-      | (bc :: BindingCategory) <- [minBound .. maxBound]
+      | (bc :: Category) <- allCategories
       ]
   where
     -- === Filepaths
@@ -71,26 +72,8 @@ check testResources test =
           (\_ -> k)
 
     -- | The names of sub-modules are based solely on the binding category
-    fixture :: BindingCategory -> FilePath
+    fixture :: Category -> FilePath
     fixture bc = testOutputDir test </> Hs.moduleNamePath moduleName
-      where
-        moduleName :: Hs.ModuleName
-        moduleName = fromBaseModuleName "Example" (Just bc)
-
-    -- === Module names
-    --
-    -- @hs-bindgen@ does not produce output for modules that are
-    -- empty, but again since we are running a golden test and a golden test
-    -- expects /some/ output, we synthesise an empty module (that should
-    -- compile!) with the correct module name.
-
-    -- | Render an empty module
-    renderEmptyModule :: BindingCategory -> String
-    renderEmptyModule bc = concat [
-          "module "
-        , Hs.moduleNameToString moduleName
-        , " () where\n"
-        ]
       where
         moduleName :: Hs.ModuleName
         moduleName = fromBaseModuleName "Example" (Just bc)

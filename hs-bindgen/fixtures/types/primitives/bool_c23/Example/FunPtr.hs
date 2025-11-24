@@ -1,1 +1,0 @@
-module Example.FunPtr () where

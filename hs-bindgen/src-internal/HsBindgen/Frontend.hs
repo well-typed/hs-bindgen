@@ -13,6 +13,7 @@ import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
 import Clang.Paths
 
+import HsBindgen.Backend.Category (Category (..))
 import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Clang
@@ -154,7 +155,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       let (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
             resolveBindingSpecs
               target
-              (fromBaseModuleName bootBaseModule (Just BType))
+              (fromBaseModuleName bootBaseModule (Just CType))
               extSpecs
               pSpec
               afterNameAnon

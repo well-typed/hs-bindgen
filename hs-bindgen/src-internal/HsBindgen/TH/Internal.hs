@@ -13,6 +13,7 @@ module HsBindgen.TH.Internal (
   ) where
 
 import Control.Monad.State (State, execState, modify)
+import Data.Foldable qualified as Foldable
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
 import Optics.Core ((&), (.~))
@@ -21,9 +22,9 @@ import System.FilePath ((</>))
 import Clang.Paths
 
 import HsBindgen
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.TH.Translation
 import HsBindgen.Config
@@ -71,7 +72,7 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
     checkHsBindgenRuntimePreludeIsInScope
     packageRoot <- getPackageRoot
 
-    bindgenConfig <- toBindgenConfigTH packageRoot config
+    bindgenConfig <- toBindgenConfigTH config packageRoot bindingCategoryChoice
 
     let tracerConfig :: TracerConfig Level TraceMsg
         tracerConfig =
@@ -89,10 +90,7 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
           reverse $ bindgenStateUncheckedHashIncludeArgs bindgenState
 
         artefact :: Artefact ([SourcePath], ([CWrapper], [SHs.SDecl]))
-        artefact = do
-          deps  <- Dependencies
-          decls <- FinalDecls
-          pure (deps, mergeDecls safety decls)
+        artefact = (,) <$> Dependencies <*> (Foldable.fold <$> FinalDecls)
 
     (deps, decls) <- liftIO $
       hsBindgen
@@ -216,8 +214,8 @@ checkLanguageExtensions requiredExts = do
         "Missing language extension(s): " :
           (map (("    - " ++) . show) (toList missingExts))
 
-toBindgenConfigTH :: FilePath -> Config -> TH.Q BindgenConfig
-toBindgenConfigTH packageRoot config = do
+toBindgenConfigTH :: Config -> FilePath -> ByCategory Choice -> TH.Q BindgenConfig
+toBindgenConfigTH config packageRoot choice = do
     uniqueId <- getUniqueId
     hsModuleName <- fromString . TH.loc_module <$> TH.location
     let bindgenConfig :: BindgenConfig
@@ -226,6 +224,7 @@ toBindgenConfigTH packageRoot config = do
             (toFilePath packageRoot <$> config)
             uniqueId
             hsModuleName
+            choice
     pure bindgenConfig
   where
     getUniqueId :: TH.Q UniqueId

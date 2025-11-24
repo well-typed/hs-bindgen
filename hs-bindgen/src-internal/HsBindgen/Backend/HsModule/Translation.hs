@@ -10,13 +10,13 @@ module HsBindgen.Backend.HsModule.Translation (
     -- * Translation
   , translateModuleMultiple
   , translateModuleSingle
-  , mergeDecls
   ) where
 
 import Data.Foldable qualified as Foldable
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type qualified as Hs
@@ -70,46 +70,28 @@ data HsModule = HsModule {
 
 translateModuleMultiple ::
      BaseModuleName
-  -> ByCategory ([CWrapper], [SDecl])
-  -> ByCategory HsModule
+  -> ByCategory_ ([CWrapper], [SDecl])
+  -> ByCategory_ (Maybe HsModule)
 translateModuleMultiple moduleBaseName declsByCat =
-  mapByCategory go declsByCat
+    mapWithCategory_ go declsByCat
   where
-    go :: BindingCategory -> ([CWrapper], [SDecl]) -> HsModule
-    go cat (wrappers, decls) =
-      translateModule' (Just cat) moduleBaseName wrappers decls
+    go :: Category -> ([CWrapper], [SDecl]) -> Maybe HsModule
+    go _ ([], []) = Nothing
+    go cat xs     = Just $ translateModule' (Just cat) moduleBaseName xs
 
 translateModuleSingle ::
-     Safety
-  -> BaseModuleName
-  -> ByCategory ([CWrapper], [SDecl])
+     BaseModuleName
+  -> ByCategory_ ([CWrapper], [SDecl])
   -> HsModule
-translateModuleSingle safety name declsByCat =
-  translateModule' Nothing name wrappers decls
-  where
-    wrappers :: [CWrapper]
-    decls :: [SDecl]
-    (wrappers, decls) = mergeDecls safety declsByCat
-
-mergeDecls ::
-  Safety
-  -> ByCategory ([CWrapper], [SDecl])
-  -> ([CWrapper], [SDecl])
-mergeDecls safety declsByCat =
-    Foldable.fold $ ByCategory $ removeSafetyCategory $ unByCategory declsByCat
-  where
-    safetyToRemove = case safety of
-      Safe   -> BUnsafe
-      Unsafe -> BSafe
-    removeSafetyCategory = Map.filterWithKey (\k _ -> k /= safetyToRemove)
+translateModuleSingle name declsByCat =
+    translateModule' Nothing name $ Foldable.fold declsByCat
 
 translateModule' ::
-     Maybe BindingCategory
+     Maybe Category
   -> BaseModuleName
-  -> [CWrapper]
-  -> [SDecl]
+  -> ([CWrapper], [SDecl])
   -> HsModule
-translateModule' mcat moduleBaseName hsModuleCWrappers hsModuleDecls =
+translateModule' mcat moduleBaseName (hsModuleCWrappers, hsModuleDecls) =
     let hsModulePragmas =
           resolvePragmas hsModuleCWrappers hsModuleDecls
         hsModuleImports =
@@ -123,7 +105,8 @@ translateModule' mcat moduleBaseName hsModuleCWrappers hsModuleDecls =
 
 resolvePragmas :: [CWrapper] -> [SDecl] -> [GhcPragma]
 resolvePragmas wrappers ds =
-    Set.toAscList . mconcat $ haddockPrunePragmas : userlandCapiPragmas : constPragmas : map resolveDeclPragmas ds
+    Set.toAscList . mconcat $
+      haddockPrunePragmas : userlandCapiPragmas : constPragmas : map resolveDeclPragmas ds
   where
     constPragmas :: Set GhcPragma
     constPragmas = Set.singleton "LANGUAGE NoImplicitPrelude"
@@ -151,7 +134,7 @@ resolveDeclPragmas decl =
 -- | Resolve imports in a list of declarations
 resolveImports ::
      BaseModuleName
-  -> Maybe BindingCategory
+  -> Maybe Category
   -> [CWrapper]
   -> [SDecl]
   -> [ImportListItem]
@@ -169,10 +152,10 @@ resolveImports baseModule cat wrappers ds =
     bindingCatImport False = mempty
     bindingCatImport True = case cat of
       Nothing    -> mempty
-      Just BType -> mempty
+      Just CType -> mempty
       _otherCat  ->
         let base = HsImportModule{
-                hsImportModuleName  = fromBaseModuleName baseModule (Just BType)
+                hsImportModuleName  = fromBaseModuleName baseModule (Just CType)
               , hsImportModuleAlias = Nothing
               }
         in  Set.singleton $ UnqualifiedImportListItem base Nothing

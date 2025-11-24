@@ -5,6 +5,7 @@ import Data.Either (partitionEithers)
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST.Strategy
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.SHs.AST
@@ -16,8 +17,8 @@ import HsBindgen.Language.Haskell qualified as Hs
 -------------------------------------------------------------------------------}
 
 simplifySHs ::
-     ByCategory ([CWrapper], [SDecl])
-  -> ByCategory ([CWrapper], [SDecl])
+     ByCategory_ ([CWrapper], [SDecl])
+  -> ByCategory_ ([CWrapper], [SDecl])
 simplifySHs = fmap (\(x, y) -> (x, go y))
   where
     go :: [SDecl] -> [SDecl]
