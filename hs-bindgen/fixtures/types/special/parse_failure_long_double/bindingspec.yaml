@@ -3,7 +3,7 @@ version:
   binding_specification: '1.0'
 hsmodule: Example
 ctypes:
-- headers: types/special/skip_over_long_double.h
+- headers: types/special/parse_failure_long_double.h
   cname: struct struct2
   hsname: Struct2
 hstypes:

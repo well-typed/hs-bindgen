@@ -12,10 +12,10 @@ import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
-  [ "#include <types/special/skip_over_long_double.h>"
+  [ "#include <types/special/parse_failure_long_double.h>"
   , "/* get_fun2_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa (void)) ("
+  , "void (*hs_bindgen_test_typesspecialparse_failure_lo_d1bf59c1516f6bfa (void)) ("
   , "  signed int arg1"
   , ")"
   , "{"
@@ -23,17 +23,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-foreign import ccall unsafe "hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa" hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa ::
+foreign import ccall unsafe "hs_bindgen_test_typesspecialparse_failure_lo_d1bf59c1516f6bfa" hs_bindgen_test_typesspecialparse_failure_lo_d1bf59c1516f6bfa ::
      IO (Ptr.FunPtr (FC.CInt -> IO ()))
 
 {-# NOINLINE fun2_ptr #-}
 
 {-| __C declaration:__ @fun2@
 
-    __defined at:__ @types\/special\/skip_over_long_double.h:7:6@
+    __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
 
-    __exported by:__ @types\/special\/skip_over_long_double.h@
+    __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
 fun2_ptr :: Ptr.FunPtr (FC.CInt -> IO ())
 fun2_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesspecialskip_over_long_d_d1bf59c1516f6bfa
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesspecialparse_failure_lo_d1bf59c1516f6bfa

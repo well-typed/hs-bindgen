@@ -1,0 +1,88 @@
+-- addDependentFile examples/golden/types/special/parse_failure_long_double.h
+-- #include <types/special/parse_failure_long_double.h>
+-- void hs_bindgen_test_typesspecialparse_failure_lo_fb32cb593bc1f7b8 (
+--   signed int arg1
+-- )
+-- {
+--   fun2(arg1);
+-- }
+-- void hs_bindgen_test_typesspecialparse_failure_lo_5ebf8088e71802cc (
+--   signed int arg1
+-- )
+-- {
+--   fun2(arg1);
+-- }
+-- /* get_fun2_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_typesspecialparse_failure_lo_d1bf59c1516f6bfa (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &fun2;
+-- }
+{-| __C declaration:__ @struct2@
+
+    __defined at:__ @types\/special\/parse_failure_long_double.h:13:8@
+
+    __exported by:__ @types\/special\/parse_failure_long_double.h@
+-}
+data Struct2
+    = Struct2 {struct2_x :: CInt
+               {- ^ __C declaration:__ @x@
+
+                    __defined at:__ @types\/special\/parse_failure_long_double.h:14:7@
+
+                    __exported by:__ @types\/special\/parse_failure_long_double.h@
+               -}}
+      {- ^ __C declaration:__ @struct2@
+
+           __defined at:__ @types\/special\/parse_failure_long_double.h:13:8@
+
+           __exported by:__ @types\/special\/parse_failure_long_double.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Struct2
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Struct2 <*> peekCField (Proxy @"struct2_x") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Struct2 struct2_x_3 -> pokeCField (Proxy @"struct2_x") ptr_1 struct2_x_3
+instance HasCField Struct2 "struct2_x"
+    where type CFieldType Struct2 "struct2_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Struct2 "struct2_x") =>
+         HasField "struct2_x" (Ptr Struct2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"struct2_x")
+{-| __C declaration:__ @fun2@
+
+    __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
+
+    __exported by:__ @types\/special\/parse_failure_long_double.h@
+-}
+foreign import ccall safe "hs_bindgen_test_typesspecialparse_failure_lo_fb32cb593bc1f7b8" fun2 :: CInt ->
+                                                                                                  IO Unit
+{-| __C declaration:__ @fun2@
+
+    __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
+
+    __exported by:__ @types\/special\/parse_failure_long_double.h@
+-}
+foreign import ccall safe "hs_bindgen_test_typesspecialparse_failure_lo_5ebf8088e71802cc" fun2 :: CInt ->
+                                                                                                  IO Unit
+foreign import ccall safe "hs_bindgen_test_typesspecialparse_failure_lo_d1bf59c1516f6bfa" hs_bindgen_test_typesspecialparse_failure_lo_d1bf59c1516f6bfa :: IO (FunPtr (CInt ->
+                                                                                                                                                                       IO Unit))
+{-# NOINLINE fun2_ptr #-}
+{-| __C declaration:__ @fun2@
+
+    __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
+
+    __exported by:__ @types\/special\/parse_failure_long_double.h@
+-}
+fun2_ptr :: FunPtr (CInt -> IO Unit)
+{-| __C declaration:__ @fun2@
+
+    __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
+
+    __exported by:__ @types\/special\/parse_failure_long_double.h@
+-}
+fun2_ptr = unsafePerformIO hs_bindgen_test_typesspecialparse_failure_lo_d1bf59c1516f6bfa

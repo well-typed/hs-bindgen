@@ -402,9 +402,9 @@ test_macros_macro_redefines_global =
     _otherwise ->
       Nothing
 
-test_types_special_skip_over_long_double :: TestCase
-test_types_special_skip_over_long_double =
-  testTraceCustom "types/special/skip_over_long_double" ["fun1", "struct1"] $ \case
+test_types_special_parse_failure_long_double :: TestCase
+test_types_special_parse_failure_long_double =
+  testTraceCustom "types/special/parse_failure_long_double" ["fun1", "struct1"] $ \case
     TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure
       (AttachedParseMsg i _ _ (ParseUnsupportedType UnsupportedLongDouble))))) ->
       Just $ expectFromQualPrelimDeclId i
@@ -667,7 +667,7 @@ test_program_analysis_delay_traces =
           BOr
             (BIf (SelectDecl (DeclNameMatches "_function")))
             -- NOTE: Matching for name kind is not good practice, but we
-            -- want to check if nested, but skipped declarations are
+            -- want to check if nested, but deselected declarations are
             -- correctly assigned name kinds.
             (BIf (SelectDecl (DeclNameMatches "struct")))
       }
@@ -839,7 +839,7 @@ test_program_analysis_selection_fail =
 
 test_program_analysis_selection_fail_variant_1 :: TestCase
 test_program_analysis_selection_fail_variant_1 =
-  (testVariant "program-analysis/selection_fail" "1.exclude_failed") {
+  (testVariant "program-analysis/selection_fail" "1.deselect_failed") {
     testOnFrontendConfig = \cfg -> cfg{
         frontendSelectPredicate = BAnd
           (       BIf $ SelectHeader   FromMainHeaders)
@@ -1086,7 +1086,7 @@ testCases = manualTestCases ++ [
     , test_types_primitives_fixedwidth
     , test_types_primitives_primitive_types
     , test_types_qualifiers_type_qualifiers
-    , test_types_special_skip_over_long_double
+    , test_types_special_parse_failure_long_double
     , test_types_structs_anonymous
     , test_types_structs_bitfields
     , test_types_structs_circular_dependency_struct

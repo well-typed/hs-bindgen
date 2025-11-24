@@ -150,7 +150,7 @@ selectSliceFooter = Help.vcat [
         , " select declarations using the select predicate,"
         , " and also select their transitive dependencies;"
         , " program slicing can cause declarations to be included"
-        , " even if they are explicitly excluded by a select predicate"
+        , " even if they are explicitly deselected by a select predicate"
         ]
     ]
 

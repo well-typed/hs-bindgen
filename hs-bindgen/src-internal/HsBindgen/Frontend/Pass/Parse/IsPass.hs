@@ -152,10 +152,10 @@ data ParseSuccess = ParseSuccess {
 -- | Why did we not attempt to parse a declaration?
 data ParseNotAttemptedReason =
     -- | We do not parse builtin declarations.
-    OmittedBuiltin
+    DeclarationBuiltin
 
-    -- | We unexpectedly excluded a declaration because it is reported
-    -- "unavailable".
+    -- | We unexpectedly did not attempt to parse a declaration because it is
+    -- reported "unavailable".
   | DeclarationUnavailable
 
     -- | Declarations that do not match the parse predicate.
@@ -177,7 +177,7 @@ data ParseNotAttemptedReason =
 
 instance PrettyForTrace ParseNotAttemptedReason where
   prettyForTrace x = "Parse not attempted:" <+> case x of
-    OmittedBuiltin           -> "Builtin declaration"
+    DeclarationBuiltin       -> "Builtin declaration"
     DeclarationUnavailable   -> "Declaration is 'unavailable' on this platform"
     ParsePredicateNotMatched -> "Parse predicate did not match"
 
@@ -454,9 +454,9 @@ instance PrettyForTrace DelayedParseMsg where
       ParseUnsupportedImplicitFields -> noBindingsGenerated $
         "unsupported implicit fields"
       ParseUnexpectedAnonInSignature -> noBindingsGenerated $
-          "unexpected anonymous declaration in function signature"
+        "unexpected anonymous declaration in function signature"
       ParseUnexpectedAnonInExtern -> noBindingsGenerated $
-          "unexpected anonymous declaration in global variable"
+        "unexpected anonymous declaration in global variable"
       ParseUnsupportedTLS -> noBindingsGenerated $
         "unsupported thread-local variable"
       ParseUnknownStorageClass storage -> noBindingsGenerated $ PP.hsep [
@@ -484,7 +484,7 @@ instance PrettyForTrace DelayedParseMsg where
       noBindingsGenerated :: CtxDoc -> CtxDoc
       noBindingsGenerated reason = PP.hsep ["No bindings generated:", reason]
 
--- | Unsupported features are warnings, because we skip over them
+-- | Unsupported features are warnings
 instance IsTrace Level DelayedParseMsg where
   getDefaultLogLevel = \case
       ParseUnsupportedType err         -> getDefaultLogLevel err
