@@ -1,3 +1,5 @@
+-- {-# OPTIONS_GHC -ddump-splices #-}
+
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE MagicHash #-}
@@ -26,6 +28,7 @@ let cfg :: Config
     cfgTH = def
               & #verbosity .~ Verbosity Warning
               & #customLogLevelSettings .~ [EnableMacroWarnings]
+              & #bindingCategoryChoice .~ useUnsafeCategory
  in withHsBindgen cfg cfgTH $
       hashInclude "simple.h"
 
