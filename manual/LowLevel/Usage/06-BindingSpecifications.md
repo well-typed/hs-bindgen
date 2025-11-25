@@ -118,7 +118,7 @@ module Vector.Types where
 
 newtype Length = UnsafeWrap { unwrap :: Double }
 
-instance Show Length where ..
+instance Show Length where ...
 
 pattern Length :: Double -> Length
 pattern Length x <- (unwrap -> x)

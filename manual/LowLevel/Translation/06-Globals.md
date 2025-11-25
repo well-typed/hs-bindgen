@@ -344,11 +344,11 @@ a = unsafePerformIO fe8f4js8
 ```
 
 Memory layout:
-| type            | C name | Haskell name | address | value |
-|-----------------|--------|--------------|---------|-------|
-| int             | a      |              | 1000    | 17    |
-|                 |        |              | ...     |       |
-| int* ; Ptr CInt |        | a            | 2000    | 1000  |
+| type              | C name | Haskell name | address | value |
+|-------------------|--------|--------------|---------|-------|
+| `int`             | a      |              | 1000    | 17    |
+|                   |        |              | ...     |       |
+| `int* ; Ptr CInt` |        | a            | 2000    | 1000  |
 
 Constant:
 ```haskell
@@ -531,13 +531,13 @@ d_elem = toFirstElemPtr d
 
 Memory layout:
 
-| type                                  | C name | Haskell name | address | value |
-|---------------------------------------|--------|--------------|---------|-------|
-| int[]                                 | d      |              | 1000    | 1     |
-|                                       |        |              | 1004    | 2     |
-|                                       |        |              | 1008    | 3     |
-|                                       |        |              | ...     |       |
-| (*int)[] ; Ptr (IncompleteArray CInt) |        | d            | 2000    | 1000  |
+| type                                    | C name | Haskell name | address | value |
+|-----------------------------------------|--------|--------------|---------|-------|
+| `int[]`                                 | d      |              | 1000    | 1     |
+|                                         |        |              | 1004    | 2     |
+|                                         |        |              | 1008    | 3     |
+|                                         |        |              | ...     |       |
+| `(*int)[] ; Ptr (IncompleteArray CInt)` |        | d            | 2000    | 1000  |
 
 Constant:
 

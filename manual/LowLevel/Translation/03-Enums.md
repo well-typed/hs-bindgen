@@ -124,8 +124,8 @@ class Integral (CEnumZ a) => CEnum a where
   toCEnum   :: CEnumZ a -> a
   fromCEnum :: a -> CEnumZ a
 
-  declaredValues  :: proxy a -> DeclaredValues a
-  showsUndeclared :: proxy a -> Int -> CEnumZ a -> ShowS
+  declaredValues     :: proxy a -> DeclaredValues a
+  showsUndeclared    :: proxy a -> Int -> CEnumZ a -> ShowS
   readPrecUndeclared :: ReadPrec a
 ```
 
@@ -143,7 +143,7 @@ instance CEnum Index where
     , (1, NonEmpty.singleton "B")
     , (2, NonEmpty.singleton "C")
     ]
-  showsUndeclared = showsWrappedUndeclared "Index"
+  showsUndeclared    = showsWrappedUndeclared "Index"
   readPrecundeclared = readPrecWrappedUndeclared "Index"
 ```
 
@@ -250,7 +250,7 @@ showCursorKind :: CXCursorKind -> String
 showCursorKind = \case
     CXCursor_UnexposedExpr -> "CXCursor_UnexposedExpr"
     CXCursor_UnexposedStmt -> "CXCursor_UnexposedStmt"
-    kind -> show kind
+    kind                   -> show kind
 ```
 
 We also provide a helper function `showCEnum` for C enums without a specialized
