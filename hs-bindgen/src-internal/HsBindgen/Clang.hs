@@ -8,6 +8,7 @@ module HsBindgen.Clang (
   , withClang'
     -- * Trace messages
   , ClangMsg(..)
+  , infoHelpMessage
   ) where
 
 import Data.Text qualified as Text
@@ -152,7 +153,7 @@ instance PrettyForTrace ClangMsg where
         | otherwise -> PP.textToCtxDoc diagnosticFormatted
       ClangSetupMsg   x -> prettyForTrace x
       ClangInvokedWithoutOptions ->
-        "libclang invoked successfully (no output produced)."
+        PP.cat $ map PP.textToCtxDoc infoHelpMessage
     where
       getFileNotFound :: Text -> Maybe Text
       getFileNotFound =
@@ -162,6 +163,15 @@ instance PrettyForTrace ClangMsg where
       getFileNotFoundQ =
           fmap (Text.dropWhile (== '\'') . Text.dropWhile (/= '\''))
         . Text.stripSuffix "' file not found with <angled> include; use \"quotes\" instead"
+
+infoHelpMessage :: [Text]
+infoHelpMessage =
+  [ "This command provides a way to get output from libclang."
+  , " For example, use --clang-option=-v to see version and include"
+  , " search path information, taking into account any other Clang"
+  , " options and environment variables."
+  ]
+
 
 instance IsTrace Level ClangMsg where
   getDefaultLogLevel = \case

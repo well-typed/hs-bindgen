@@ -34,12 +34,7 @@ import HsBindgen.Util.Tracer
 info :: InfoMod a
 info = mconcat [
       progDesc "Run libclang with empty input"
-    , footerDoc . Just . PP.reflow $ mconcat [
-          "This command provides a way to get output from libclang."
-        , " For example, use --clang-option=-v to see version and include"
-        , " search path information, taking into account any other Clang"
-        , " options and environment variables."
-        ]
+    , footerDoc . Just . PP.reflow $ mconcat infoHelpMessage
     ]
 
 {-------------------------------------------------------------------------------
