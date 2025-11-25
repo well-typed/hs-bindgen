@@ -10,13 +10,13 @@ All of the following commands are to be run in the project root.
 
 Display options:
 
-```
+```console
 cabal run clang-ast-dump -- --help
 ```
 
 Run:
 
-```
+```console
 cabal run clang-ast-dump -- hs-bindgen/examples/comments.h
 ```
 
@@ -24,6 +24,6 @@ cabal run clang-ast-dump -- hs-bindgen/examples/comments.h
 
 Official:
 
-```
+```console
 clang -Xclang -ast-dump foo.c
 ```

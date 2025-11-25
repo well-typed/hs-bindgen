@@ -14,7 +14,7 @@ for your platform as described in [dev-environment.md](dev-environment.md).
 On the [`manual`](../manual) directory, create the following
 `cabal.project.local` file:
 
-```
+```cabal
 package manual
   extra-include-dirs:
       /path/to/hs-bindgen/manual/c
@@ -37,7 +37,7 @@ package hs-vector
 On Linux, since it supports Unicode characters, also add the following to the
 file:
 
-```
+```cabal
 package *
   ghc-options:
     -optc-DSUPPORTS_UNICODE
@@ -90,8 +90,8 @@ cabal run manual
   export BINDGEN_EXTRA_CLANG_ARGS="-nostdinc $CLANG_ARGS"
   ```
 
-- Missing shared libraries: If you see `cannot open shared object file: No such file or directory`,
-  add the library's directory to `LD_LIBRARY_PATH` on Linux,
+- Missing shared libraries: If you see `cannot open shared object file: No such
+  file or directory`, add the library's directory to `LD_LIBRARY_PATH` on Linux,
   `DYLD_LIBRARY_PATH` on MacOS and `PATH` on Windows.
 
 - Unicode-related compilation errors: Verify that `SUPPORTS_UNICODE` is only
@@ -110,4 +110,4 @@ cabal run manual
 
 ### More troubleshooting
 
-See [here](./troubleshooting.md)
+See the [section on troubleshooting](./troubleshooting.md).

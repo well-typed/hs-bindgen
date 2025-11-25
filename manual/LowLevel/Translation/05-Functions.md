@@ -8,7 +8,8 @@ TODO
 
 TODO: introduction to function pointers
 
-1. For every C function, generate an additional binding for the address of that C function.
+1. For every C function, generate an additional binding for the address of that
+   C function.
 
 In theory every C function is a candidate for being passed to other functions as
 a function pointer. For example, consider the following two (contrived)
@@ -122,9 +123,9 @@ foreign import {-# details elided #-} apply1_nopointer_arg
   :: FunPtr Int2int -> CInt -> IO CInt
 ```
 
-Similarly, the address stubs `apply1_pointer_arg_ptr` and `apply1_nopointer_arg_ptr` that
-we generate (see the ["Function pointers" section](#function-pointers)) would
-get the exact same type as the other.
+Similarly, the address stubs `apply1_pointer_arg_ptr` and
+`apply1_nopointer_arg_ptr` that we generate (see the ["Function pointers"
+section](#function-pointers)) would get the exact same type as the other.
 
 Note that parameters of function type can occur almost anywhere where types
 normally can occur, with some minor restrictions. For example: variables,

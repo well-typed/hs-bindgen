@@ -13,8 +13,8 @@ examples include bindings and toy programs for the following C libraries:
 The examples are only tested (in CI) on Ubuntu. They might work on other
 distributions such as Windows or MacOS as well, but we offer no guarantees.
 
-The following software should be installed before trying to build and run one of the
-examples:
+The following software should be installed before trying to build and run one of
+the examples:
 
 * A version of GHC that is compatible with `hs-bindgen`, such as `9.6.x`
 * A version of Cabal that is compatible with `hs-bindgen`, such as `3.16.x`
@@ -61,7 +61,7 @@ as the following requirements are met:
     `REPOSITORY_ROOT/examples/libfoo/hs-project/cabal.project`, which should
     contain at least:
 
-    ```
+    ```cabal
     import: ../../../cabal.project.base
     packages: .
               ../../../c-expr-runtime
@@ -79,7 +79,7 @@ as the following requirements are met:
     `REPOSITORY_ROOT/examples/libfoo/hs-project/cabal.project.local` file so
     that it includes:
 
-    ```
+    ```cabal
     package libfoo
       extra-include-dirs:
         -- insert absolute path to installation directory for header files here

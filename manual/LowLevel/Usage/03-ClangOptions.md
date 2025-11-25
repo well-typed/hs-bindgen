@@ -35,14 +35,14 @@ managed by `hs-bindgen`.
 
 Example:
 
-```
-$ hs-bindgen-cli preprocess \
-    --standard c23 \
-    -I include \
-    --clang-option="-idirafter/opt/acme-0.1.0/include" \
-    --module Foo \
-    --output Foo.hs \
-    foo.h
+```console
+hs-bindgen-cli preprocess \
+  --standard c23 \
+  -I include \
+  --clang-option="-idirafter/opt/acme-0.1.0/include" \
+  --module Foo \
+  --output Foo.hs \
+  foo.h
 ```
 
 ## Environment variables

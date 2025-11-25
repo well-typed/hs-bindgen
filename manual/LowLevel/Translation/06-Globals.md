@@ -251,19 +251,19 @@ x_incomplete_array_ptr = IncompleteArray.toIncompleteArrayPtr <$> peek x_ptr
 
 Memory layout:
 
-| type                     | name          | address | value   |
-| ------------------------ | ------------- | ------- | ------- |
-| int                      |               | 1000    | 1       |
-|                          |               | 1004    | 2       |
-|                          |               | 1008    | 3       |
-|                          |               | ...     |         |
-| int*                     | x             | 2000    | 1000    |
-|                          |               | ...     |         |
-| int**; Ptr (Ptr CInt)    | x_ptr         | 3000    | 2000    |
+| type                    | name  | address | value |
+|-------------------------|-------|---------|-------|
+| `int`                   |       | 1000    | 1     |
+|                         |       | 1004    | 2     |
+|                         |       | 1008    | 3     |
+|                         |       | ...     |       |
+| `int*`                  | x     | 2000    | 1000  |
+|                         |       | ...     |       |
+| `int**; Ptr (Ptr CInt)` | x_ptr | 3000    | 2000  |
 
 Constant:
 
-```hs
+```haskell
 {-# NOINLINE x #-}
 -- If the type of the global were @int * const x@, we would also generate the following.
 -- Note that we do this for const-pointer-to-int, not for pointer-to-const-int. The "outer"
@@ -390,7 +390,7 @@ Memory layout:
 
 Constant:
 
-```hs
+```haskell
 {-# NOINLINE x #-}
 -- If the type of the global were @const list x@, we would /not/ generate the following.
 -- It would fail to compile because 'IncompleteArray' does not have a 'Storable' instance,

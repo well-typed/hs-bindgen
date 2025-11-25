@@ -109,7 +109,7 @@ select for translation. For example, select predicates allow matching against
 declaration names. In particular, the command-line arguments to specify select
 predicates are (excerpt of `hs-bindgen-cli preprocess --help`):
 
-```
+```text
 --select-all             Select all declarations
 --select-from-main-headers
                          Select declarations in main headers (default)
@@ -178,7 +178,7 @@ external binding for `FileOperationStatus`.
 Assume we generate bindings for a library `simple` with main header `simple/main.h`.
 We use the following command line
 
-```
+```console
 hs-bindgen-cli preprocess -I /path/to/simple main.h
 ```
 

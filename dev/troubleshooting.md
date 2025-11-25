@@ -10,7 +10,7 @@ with `hs-bindgen`.
 
 Error:
 
-```
+```text
 Error: [Cabal-4345]
 Missing dependency on a foreign library:
 * Missing (or bad) C library: game
@@ -29,7 +29,7 @@ Solution:
 
 2. Create a `cabal.project.local` file with proper paths:
 
-   ```
+   ```cabal
    package hs-game
      extra-include-dirs: /path/to/hs-bindgen/manual/c
      extra-lib-dirs:     /path/to/hs-bindgen/manual/c
@@ -47,7 +47,7 @@ Solution:
 
 Error:
 
-```
+```text
 fatal error: manual_examples.h: No such file or directory
 #include "manual_examples.h"
 ```
@@ -62,14 +62,14 @@ Solution:
 
 Error:
 
-```
+```text
 undefined reference to 'hs_bindgen_c_example_helloworld'
 ```
 
 Solution:
 Add the C library to your `.cabal` file:
 
-```
+```cabal
 extra-libraries: hs-bindgen-c-example
 ```
 
@@ -84,7 +84,7 @@ for `lib<name>.so` binary file name.
 
 Error:
 
-```
+```text
 error while loading shared libraries: libhs-bindgen-c-example.so: cannot open shared object file: No such file or directory
 ```
 
