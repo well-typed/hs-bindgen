@@ -19,7 +19,7 @@ Haskell name will be, and also is less likely to result in name clashes.
 
 By default, we use the name in the C header wherever one exists. An obvious
 example is function definitions, where the candidate name for a function `foo`
-is simply `foo`. Similarly, if a struct is given a tag or a typedef,
+is simply `foo`. Similarly, if a `struct` is given a tag or a `typedef`,
 
 ```c
 struct foo { .. };

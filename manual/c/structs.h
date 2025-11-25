@@ -1,6 +1,19 @@
 #include <stdio.h>
 
 /* -------------------------------------------------------------------------- */
+/* Structures with and without typedef. */
+
+typedef struct triple {
+  int a;
+  int b;
+  int c;
+} triple;
+
+typedef struct triple triple_t;
+
+void mk_triple(int a, int b, int c, triple *triple);
+
+/* -------------------------------------------------------------------------- */
 /* Nested structures. */
 
 /* Separate declaration of named structure. */

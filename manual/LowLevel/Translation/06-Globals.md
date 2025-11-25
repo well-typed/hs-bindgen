@@ -193,11 +193,11 @@ x_ptr = unsafePerformIO fe8f4js8
 
 Memory layout:
 
-| type                     | name          | address | value   |
-| ------------------------ | ------------- | ------- | ------- |
-| int                      | x             | 1000    | 17      |
-|                          |               | ...     |         |
-| int* ; Ptr CInt          | x_ptr         | 2000    | 1000    |
+| type              | name  | address | value |
+|-------------------|-------|---------|-------|
+| `int`             | x     | 1000    | 17    |
+|                   |       | ...     |       |
+| `int* ; Ptr CInt` | x_ptr | 2000    | 1000  |
 
 Constant:
 
@@ -380,13 +380,13 @@ x_elem_ptr = IncompleteArray.toFirstElemPtr x_ptr
 
 Memory layout:
 
-| type                                  | name          | address | value   |
-| ------------------------------------- | ------------- | ------- | ------- |
-| int[]                                 | x             | 1000    | 1       |
-|                                       |               | 1004    | 2       |
-|                                       |               | 1008    | 3       |
-|                                       |               | ...     |         |
-| (*int)[] ; Ptr (IncompleteArray CInt) | x_ptr         | 2000    | 1000    |
+| type                                    | name  | address | value |
+|-----------------------------------------|-------|---------|-------|
+| `int[]`                                 | x     | 1000    | 1     |
+|                                         |       | 1004    | 2     |
+|                                         |       | 1008    | 3     |
+|                                         |       | ...     |       |
+| `(*int)[] ; Ptr (IncompleteArray CInt)` | x_ptr | 2000    | 1000  |
 
 Constant:
 
