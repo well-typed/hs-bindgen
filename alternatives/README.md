@@ -81,7 +81,7 @@ It also supports writing some inline-C using `#def`, as some form of poor-man's
 You get no support for declaring function signatures, this piggy-backs on the
 regular FFI (CAPI or otherwise).
 
-See https://ghc.gitlab.haskell.org/ghc/doc/users_guide/utils.html#writing-haskell-interfaces-to-c-code-hsc2hs for more information.
+See <https://ghc.gitlab.haskell.org/ghc/doc/users_guide/utils.html#writing-haskell-interfaces-to-c-code-hsc2hs> for more information.
 
 ## `c2hs`
 
@@ -116,7 +116,7 @@ cShowStruct $ HaskellStruct 1234 5678
 ```
 
 However, the syntax for these is rather arcane, and not all common patterns can
-be expressed (see https://well-typed.com/blog/2023/03/purgatory/ for some
+be expressed (see <https://well-typed.com/blog/2023/03/purgatory/> for some
 examples).
 
 The `Storable` story here is similar to the one in `hsc2hs`, albeit with
@@ -124,7 +124,7 @@ slightly different syntax. Unlike `hsc2hs`, however, `c2hs` does not use the C
 compiler, but does its own calculations; these have been known to be unreliable
 at times, especially with cross compilation.
 
-See https://github.com/haskell/c2hs/wiki/User-Guide for more information.
+See <https://github.com/haskell/c2hs/wiki/User-Guide> for more information.
 
 ## `inline-c`
 
@@ -200,33 +200,33 @@ Haskell files, but from richer API descriptions. In this section we mention a
 few of these; perhaps we can take some inspiration from these API descriptions
 in the kind of customization options that `hs-bindgen` should offer.
 
-### https://github.com/gtk2hs/gtk2hs/tree/master/tools/apiGen
+### <https://github.com/gtk2hs/gtk2hs/tree/master/tools/apiGen>
 
 > It works by extracting an api description from the C source files and
 > extracting documentation from the docbook documentation produced by gtk-doc.
 
-### https://github.com/haskell-gi/haskell-gi
+### <https://github.com/haskell-gi/haskell-gi>
 
 > Generate Haskell bindings for GObject Introspection capable libraries.
 
 This is essential next version of `apiGen`.
 
-### https://github.com/brendanhay/amazonka
+### <https://github.com/brendanhay/amazonka>
 
 > The gen package contain a code generator for synthesising Haskell data types,
 > packages, and configuration from the botocore service definitions.
 
-where https://github.com/boto/botocore is
+where <https://github.com/boto/botocore> is
 
 > A low-level interface to a growing number of Amazon Web Services. The botocore
 > package is the foundation for the AWS CLI as well as boto3. Botocore is
 > maintained and published by Amazon Web Services.
 
-### https://hackage.haskell.org/package/godot-haskell
+### <https://hackage.haskell.org/package/godot-haskell>
 
 Generates bindings from the Godot documentation, not from general header files.
 
-### https://github.com/ekmett/gl
+### <https://github.com/ekmett/gl>
 
 > The `gl` package supplies low level bindings to all of the OpenGL
 > specification for Haskell. This package, `glgen`, is used to build the `gl`
@@ -235,7 +235,7 @@ Generates bindings from the Godot documentation, not from general header files.
 Generates bindings from the [Khronos XML specification of
 OpenGL](https://registry.khronos.org/OpenGL/).
 
-### https://hackage.haskell.org/package/vulkan
+### <https://hackage.haskell.org/package/vulkan>
 
 Generates bindings from the Vulkan docs.
 
@@ -243,7 +243,7 @@ The `README`
 [goes into some detail](https://github.com/expipiplus1/vulkan?tab=readme-ov-file#how-the-c-types-relate-to-haskell-types)
 on the chosen relation between C types and Haskell types.
 
-### https://hackage.haskell.org/package/vulkan-api
+### <https://hackage.haskell.org/package/vulkan-api>
 
 Generate bindings from the Vulkan XML spec. Makes some different choices for the
 mappings; see discussion in

@@ -23,9 +23,9 @@
   To serve as an example, consider a point in time when we have the following
   modules:
 
-    * Module `V1` has version `1.8`.
-    * Module `V2` has version `2.3`.
-    * Module `V3` has version `3.1`.
+  * Module `V1` has version `1.8`.
+  * Module `V2` has version `2.3`.
+  * Module `V3` has version `3.1`.
 
 * We support two types of compatibility.
 

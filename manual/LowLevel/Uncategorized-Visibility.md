@@ -161,6 +161,7 @@ Note that tentative definitions can also act as definitions if there are no full
 definitions elsewhere in the header, in which case requirement 3 is satisfied.
 
 Examples:
+
 ```c
 extern int __attribute__ ((visibility ("hidden"))) foo (void);
        int __attribute__ ((visibility ("hidden"))) bar (void);
@@ -168,6 +169,7 @@ extern int __attribute__ ((visibility ("hidden"))) i;
 ```
 
 Non-examples:
+
 ```c
        int __attribute__ ((visibility ("hidden"))) foo (void) {return 1;};
 static int __attribute__ ((visibility ("hidden"))) bar (void) {return 2;};

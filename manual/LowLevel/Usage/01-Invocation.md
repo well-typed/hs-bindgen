@@ -91,23 +91,27 @@ should be set in the `.cabal` file.
 
 Properly setting environment variables is crucial for `hs-bindgen` to find the necessary tools and libraries in Linux.
 
-  * `LD_LIBRARY_PATH`: To ensure that the C libraries you build can be linked
+* `LD_LIBRARY_PATH`: To ensure that the C libraries you build can be linked
   at runtime, you need to add their location to this variable.
 
-      * Example: If your shared library `libexample.so` is in `/path/to/your/c/libs`, you would run:
+  * Example: If your shared library `libexample.so` is in `/path/to/your/c/libs`, you would run:
+
         ```bash
         export LD_LIBRARY_PATH=/path/to/your/c/libs:$LD_LIBRARY_PATH
         ```
 
-  * `BINDGEN_EXTRA_CLANG_ARGS`: This variable allows you to pass extra
+* `BINDGEN_EXTRA_CLANG_ARGS`: This variable allows you to pass extra
   arguments to `libclang`. This is particularly useful for specifying include
   directories.
 
-      * To find your system's default include paths, you can run:
+  * To find your system's default include paths, you can run:
+
         ```bash
         clang -v -E -xc /dev/null
         ```
-      * You can then set the variable with these paths:
+
+  * You can then set the variable with these paths:
+
         ```bash
         export BINDGEN_EXTRA_CLANG_ARGS="-nostdinc -I/usr/lib/clang/14/include -I/usr/include"
         ```
@@ -117,11 +121,11 @@ Properly setting environment variables is crucial for `hs-bindgen` to find the n
         ultimately used depends on the order of directories in the include
         path.
 
-      * Note that the common use of this environment variable is to set
+  * Note that the common use of this environment variable is to set
         preprocessor flags. So only overwrite the include paths if absolutely
         necessary.
 
-  * `LLVM_PATH`, `LLVM_CONFIG`: `hs-bindgen` may need to know where to find
+* `LLVM_PATH`, `LLVM_CONFIG`: `hs-bindgen` may need to know where to find
   your LLVM installation.
 
   ```bash
@@ -134,18 +138,18 @@ Properly setting environment variables is crucial for `hs-bindgen` to find the n
 
 #### Common Errors and Solutions
 
-  * Missing headers (`stddef.h`, etc.): If you encounter errors about missing
+* Missing headers (`stddef.h`, etc.): If you encounter errors about missing
   standard headers, it's a sign that `libclang` cannot find the system's
   include directories. Setting `BINDGEN_EXTRA_CLANG_ARGS` as described above
   is the solution.
 
-  * Missing shared libraries (`libexample.so`): If you see an error like
+* Missing shared libraries (`libexample.so`): If you see an error like
   `cannot open shared object file: No such file or directory`, it means the
   dynamic linker can't find your C library. Adding the library's directory to
   `LD_LIBRARY_PATH` or making sure your cabal.project.local points to the
   right folder will resolve this.
 
-  * Unicode character issues with LLVM backend: When using the LLVM backend,
+* Unicode character issues with LLVM backend: When using the LLVM backend,
   you might encounter issues with Unicode characters in your C code. This can
   sometimes manifest as errors at the assembler level. Ensure your source
   files do not include Unicode.
@@ -159,15 +163,16 @@ sure to avoid using Unicode-specific characters in C function definitions.
 
 #### Environment Variables
 
-  * `DYLD_LIBRARY_PATH`: This is the macOS equivalent of `LD_LIBRARY_PATH`. It
+* `DYLD_LIBRARY_PATH`: This is the macOS equivalent of `LD_LIBRARY_PATH`. It
   tells the dynamic linker where to find dynamic libraries (`.dylib` files).
 
-      * Example:
+  * Example:
+
         ```bash
         export DYLD_LIBRARY_PATH=/path/to/your/c/libs:$DYLD_LIBRARY_PATH
         ```
 
-  * `BINDGEN_EXTRA_CLANG_ARGS`: On MacOS, setting the include paths like we
+* `BINDGEN_EXTRA_CLANG_ARGS`: On MacOS, setting the include paths like we
   suggest to do in Linux is not required. If you need to, see the section for
   Linux on how to set it up.
 
@@ -190,15 +195,16 @@ On Windows, the primary way the system finds DLLs at runtime is by searching
 the directories listed in the `PATH` environment variable. This is a crucial
 difference from Linux and MacOS.
 
-  * To ensure your application can find its required DLLs, add the corresponding
+* To ensure your application can find its required DLLs, add the corresponding
     directories to the `PATH`:
+
     ```powershell
     $env:PATH = "C:\path\to\your\c\libs;" + $env:PATH
     ```
 
 #### Environment Variables
 
-  * `LLVM_PATH`, `LLVM_CONFIG`, `LIBCLANG_PATH`: You need to point `hs-bindgen`
+* `LLVM_PATH`, `LLVM_CONFIG`, `LIBCLANG_PATH`: You need to point `hs-bindgen`
   to the LLVM/Clang installation that comes with GHC. Make sure these flags
   aren't already set to the right paths.
 
@@ -208,18 +214,18 @@ difference from Linux and MacOS.
     $env:LIBCLANG_PATH = "$env:LLVM_PATH\lib"
     ```
 
-  * `BINDGEN_EXTRA_CLANG_ARGS`: On Windows, setting the include paths like we
+* `BINDGEN_EXTRA_CLANG_ARGS`: On Windows, setting the include paths like we
   suggest to do in Linux is not required. If you need to, see the section for
   Linux on how to set it up.
 
 #### Common Errors and Solutions
 
-  * Dynamic-link library loading order: If your application fails silently
+* Dynamic-link library loading order: If your application fails silently
   or with an `ExitFailure` and a cryptic error code like `(-1073741515)`, it
   is very likely a DLL loading issue. Adding the directory containing your C
   libraries' DLLs to the system `PATH` is the solution.
 
-  * Resolving issues with underlying type mismatches (`FC.CInt` vs.
+* Resolving issues with underlying type mismatches (`FC.CInt` vs.
   `FC.CUInt`): You might encounter Haskell type errors where, for example, a C
   `int` is being interpreted as a `CUInt` instead of a `CInt`. This is often
   due to how different compilers and platforms define basic types. Carefully

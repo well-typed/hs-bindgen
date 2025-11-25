@@ -104,7 +104,7 @@ declared [complete][ghc-manual:complete].
 > [!NOTE]
 > The `CENum` class will provide an alternative interface to `Enum` and
 > `Bounded`.
-> https://github.com/well-typed/hs-bindgen/pull/552
+> <https://github.com/well-typed/hs-bindgen/pull/552>
 
 > [!NOTE]
 > Generating a Haskell ADT to correspond to this enum will be the responsibility
@@ -252,8 +252,6 @@ data Date = Date {
 foreign import capi safe "some_header.h getYear"
   getYear :: Ptr Date -> IO YEAR
 ```
-
-
 
 [^1]: Slightly edited for layout.
 

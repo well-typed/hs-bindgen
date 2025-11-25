@@ -60,22 +60,25 @@ as the following requirements are met:
   * The package should have its own project file at
     `REPOSITORY_ROOT/examples/libfoo/hs-project/cabal.project`, which should
     contain at least:
+
     ```
     import: ../../../cabal.project.base
     packages: .
               ../../../c-expr-runtime
               ../../../hs-bindgen-runtime
     ```
+
     If other `hs-bindgen` packages are required, add them to `packages`.
-*  Add a script at `REPOSITORY_ROOT/examples/libfoo/generate-and-run.sh`
-  * The script should install the `libfoo` C package (locally)
-  * The script should run `hs-bindgen-cli` on `libfoo`'s header files and put
+* Add a script at `REPOSITORY_ROOT/examples/libfoo/generate-and-run.sh`
+* The script should install the `libfoo` C package (locally)
+* The script should run `hs-bindgen-cli` on `libfoo`'s header files and put
     the generated modules into the Haskell project
-  * The script should make sure that the Haskell package can find the installed
+* The script should make sure that the Haskell package can find the installed
     `libfoo` package. For locally installed packages, this probably means
     setting `LD_LIBRARY_PATH` and updating the
     `REPOSITORY_ROOT/examples/libfoo/hs-project/cabal.project.local` file so
     that it includes:
+
     ```
     package libfoo
       extra-include-dirs:
@@ -83,10 +86,11 @@ as the following requirements are met:
       extra-lib-dirs:
         -- insert absolute path to installation directory for dll files here
     ```
+
     If a `cabal.project.local` file already exists, then the file should be
     updated to include the lines above. Otherwise, it should create the file
     with the lines above.
-  * The script should run the Haskell executable
+* The script should run the Haskell executable
 * Add a composite action by creating a new file at
    `REPOSITORY_ROOT/.github/actions/examples/libfoo.action.yml`
   * The composite action should install example-specific prerequisites, such as
@@ -96,6 +100,7 @@ as the following requirements are met:
 * Update the workflow file at `REPOSITORY_ROOT/.github/workflows/examples.yml`
   * Add `'libfoo'` to the `example` array of the workflow matrix
   * Towards the end of the file, add a step that calls the `libfoo` composite action:
+
     ```yml
     - name: 🧪 Build and run libfoo example
       if: ${{ matrix.example == 'libfoo' }}

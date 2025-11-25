@@ -28,6 +28,7 @@ nix-shell -p cmake flex bison
 ```
 
 This script will:
+
 1. Build `libpcap`
 2. Create symbolic links for the shared library
 3. Generate Haskell bindings using `hs-bindgen`

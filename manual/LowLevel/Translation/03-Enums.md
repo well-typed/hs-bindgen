@@ -262,7 +262,7 @@ showCEnum :: forall a. CEnum a => a -> String
 
 > [!NOTE]
 > It is not yet possible to prevent `hs-bindgen` from generating instances.
-> https://github.com/well-typed/hs-bindgen/issues/307
+> <https://github.com/well-typed/hs-bindgen/issues/307>
 
 ## Read instance
 
@@ -322,7 +322,7 @@ readEitherCEnum :: forall a. CEnum a => String -> a
 
 > [!NOTE]
 > It is not yet possible to prevent `hs-bindgen` from generating instances.
-> https://github.com/well-typed/hs-bindgen/issues/307
+> <https://github.com/well-typed/hs-bindgen/issues/307>
 
 ## Deriving-via support
 

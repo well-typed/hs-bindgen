@@ -70,12 +70,12 @@ Template Haskell API take precedence.
 
   The following targets are supported:
 
-    - `x86_64-pc-linux`
-    - `i386-pc-linux`
-    - `aarch64-pc-linux`
-    - `x86_64-pc-windows`
-    - `x86_64-apple-macosx`
-    - `aarch64-apple-macosx`
+  - `x86_64-pc-linux`
+  - `i386-pc-linux`
+  - `aarch64-pc-linux`
+  - `x86_64-pc-windows`
+  - `x86_64-apple-macosx`
+  - `aarch64-apple-macosx`
 
 This behavior is consistent with that of [`rust-bindgen`][].
 

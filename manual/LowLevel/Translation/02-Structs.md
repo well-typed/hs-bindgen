@@ -196,6 +196,7 @@ are used, provides some helper functions. For example,
 peekBitOffWidth :: Bitfield a => Ptr b -> Int -> Int -> IO a
 peekBitOffWidth pointer offset width = ...
 ```
+
 obtains the bitfield member of type `a` at the destination of the provided
 `pointer` with `offset`, and `width`.
 
@@ -268,6 +269,7 @@ data WithFlexibleArrayMember element struct = WithFlexibleArrayMember
 ```
 
 For example,
+
 ```haskell
 bracket (withCString "Rich" $ \cstr -> surname_init cstr) surname_free $
   \ptr -> do
