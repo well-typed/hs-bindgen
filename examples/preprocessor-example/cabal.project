@@ -1,0 +1,6 @@
+import: ../../cabal.project.base
+
+packages: .
+          ../../c-expr-dsl
+          ../../hs-bindgen
+          ../../hs-bindgen-runtime
