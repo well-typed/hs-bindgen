@@ -2,15 +2,17 @@ module HsBindgen.Artefact (
     Artefact(..)
   , ArtefactM
   , ArtefactEnv(..)
+  , FileSystemAction(..)
   , runArtefacts
   , ArtefactMsg(..)
+  , FileContent(..)
   )
 where
 
 import Control.Monad (liftM)
 import Control.Monad.Except (ExceptT (..), MonadError (..), runExceptT)
 import Control.Monad.Trans.Class (lift)
-import Control.Monad.Trans.Reader (ReaderT (runReaderT))
+import Control.Monad.Trans.RWS.CPS (RWST, runRWST, tell)
 import Data.IORef (IORef)
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
@@ -23,6 +25,7 @@ import HsBindgen.Backend.Hs.CallConv (UserlandCapiWrapper)
 import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
+import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)
 import HsBindgen.Boot
 import HsBindgen.Config
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
@@ -62,6 +65,8 @@ data Artefact (a :: Star) where
   FinalModuleSafe     :: Artefact HsModule
   FinalModuleUnsafe   :: Artefact HsModule
   FinalModules        :: Artefact (ByCategory HsModule)
+  -- * File writes
+  FileWrite           :: String -> FilePath -> FileContent -> Artefact ()
   -- * Lift and sequence artefacts
   Lift                :: ArtefactM a -> Artefact a
   Bind                :: Artefact b  -> (b -> Artefact c ) -> Artefact c
@@ -89,11 +94,33 @@ instance MonadIO Artefact where
   Artefact monad
 -------------------------------------------------------------------------------}
 
-type ArtefactM = ReaderT ArtefactEnv IO
+type ArtefactM = RWST ArtefactEnv [FileSystemAction] () IO
 
 data ArtefactEnv = ArtefactEnv {
       artefactTracer :: Tracer ArtefactMsg
     }
+
+-- | A file system action to be executed
+data FileSystemAction =
+  WriteFile String FilePath FileContent
+
+-- | Content to be written to a file
+--
+-- If it's TextContent then, depending on the FileOverwritePolicy, then this
+-- code is going to run:
+--
+-- > createDirectoryIfMissing True $ takeDirectory path
+-- > writeFile path str
+--
+-- If it's BindingSpecContent then, depending on the FileOverwritePolicy, then
+-- this code is going to run:
+--
+-- > BindingSpec.writeFile path ubs
+--
+data FileContent
+    = TextContent String
+    | BindingSpecContent UnresolvedBindingSpec
+    deriving Show
 
 {-------------------------------------------------------------------------------
   Run artefacts
@@ -103,6 +130,7 @@ data ArtefactEnv = ArtefactEnv {
 --
 -- All top-level artefacts will be cached (this is not true for computed
 -- artefacts, using, for example, the 'Functor' interface, or 'Lift').
+--
 runArtefacts :: forall e a.
      Tracer ArtefactMsg
   -> IORef (TracerState e)
@@ -110,14 +138,16 @@ runArtefacts :: forall e a.
   -> FrontendArtefact
   -> BackendArtefact
   -> Artefact a
-  -> IO (Either (TraceException e) a)
+  -> IO (Either (TraceException e) a, [FileSystemAction])
 runArtefacts
   tracer
   tracerStateRef
   BootArtefact{..}
   FrontendArtefact{..}
   BackendArtefact{..}
-  artefact = runReaderT (runExceptT (runArtefact artefact)) env
+  artefact = do
+    (result, _, actions) <- runRWST (runExceptT (runArtefact artefact)) env ()
+    return (result, actions)
   where
     env :: ArtefactEnv
     env = ArtefactEnv tracer
@@ -152,17 +182,19 @@ runArtefacts
         case mbError of
           Just err -> throwError err
           Nothing  -> runArtefact $ f r
+      -- File writes.
+      FileWrite what path content -> lift $ tell [WriteFile what path content]
 
 {-------------------------------------------------------------------------------
   Traces
 -------------------------------------------------------------------------------}
 
-data ArtefactMsg = RunArtefactWriteFile String FilePath
+data ArtefactMsg = RunArtefactWriteFile FilePath FileContent
   deriving stock (Show, Generic)
 
 instance PrettyForTrace ArtefactMsg where
   prettyForTrace = \case
-    RunArtefactWriteFile what path ->
+    RunArtefactWriteFile path what ->
       "Writing" <+> PP.showToCtxDoc what <+> "to file" <+> PP.showToCtxDoc path
 
 instance IsTrace SafeLevel ArtefactMsg where

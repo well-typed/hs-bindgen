@@ -35,6 +35,7 @@ module HsBindgen.Util.Tracer (
   , checkTracerState
     -- * Errors
   , TraceException (..)
+  , FileSystemException (..)
     -- * Safe tracers
   , withTracerSafe
   , SafeTrace(..)
@@ -477,10 +478,23 @@ data TraceException a = TraceException [a]
   deriving Show
 
 instance (Show a, Typeable a) => Exception (TraceException a) where
-    toException = hsBindgenExceptionToException
+    toException   = hsBindgenExceptionToException
     fromException = hsBindgenExceptionFromException
     -- We only display errors in tests.
     displayException (TraceException _) = "An error happened (see above)"
+
+
+data FileSystemException = FileAlreadyExistsException FilePath
+  deriving Show
+
+instance Exception FileSystemException where
+  toException   = hsBindgenExceptionToException
+  fromException = hsBindgenExceptionFromException
+  displayException (FileAlreadyExistsException path) = unlines
+    [ "Output file already exists: " ++ path
+    , ""
+    , "Use --overwrite-files to allow overwriting existing files, or delete the file manually."
+    ]
 
 {-------------------------------------------------------------------------------
   Safe tracer

@@ -9,6 +9,8 @@ module HsBindgen.Config.Internal
   , BackendConfig (..)
   , BackendConfigMsg (..)
   , checkBackendConfig
+    -- * File overwrite policy
+  , FileOverwritePolicy (..)
     -- * Re-exports
   , module HsBindgen.Config.Prelims
   ) where
@@ -87,6 +89,7 @@ data FrontendConfig = FrontendConfig {
 data BackendConfig = BackendConfig {
       backendTranslationConfig :: TranslationConfig
     , backendHaddockConfig     :: HaddockConfig
+    , backendFileOverwrite     :: FileOverwritePolicy
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass Default
@@ -101,3 +104,15 @@ checkBackendConfig tracer backendConfig =
 data BackendConfigMsg = BackendConfigUniqueId UniqueIdMsg
   deriving stock (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
+
+{-------------------------------------------------------------------------------
+  File overwrite policy
+-------------------------------------------------------------------------------}
+
+data FileOverwritePolicy
+  = AllowFileOverwrite
+  | ProtectExistingFiles
+  deriving (Show, Eq)
+
+instance Default FileOverwritePolicy where
+  def = ProtectExistingFiles
