@@ -347,7 +347,7 @@ putStrLn $ "Possible votes: " ++ show ([minBound .. maxBound] :: [Vote])
 
 will result in
 
-```
+```text
 Possible votes: [Infavour,Against,Abstain]
 ```
 
@@ -361,7 +361,7 @@ The `CENum` class insists if `a` has both a `CEnum` instance and an `Ord`
 instance, the `Ord` instance on `a` must be compatible with the `Ord` instance
 on the underlying integral type:
 
-```
+```text
 (x <= y)   if and only if  (fromCEnum x <= fromCEnum y)
 ```
 
@@ -384,7 +384,7 @@ instance CEnum a => Enum (AsCEnum a) where
 Provided that `fromIntegral` doesn't do anything very strange, this means that
 we must also have
 
-```
+```text
 (x <= y)   if and only if  (fromEnum x <= fromEnum y)
 ```
 
@@ -401,7 +401,7 @@ instance SequentialCEnum a => Enum (AsSequentialCEnum a) where
 In other words, `succ` and `pred` are just inherited from the underlying
 integral type, so that we have for all `x`
 
-```
+```text
 pred x < x < succ x
 ```
 

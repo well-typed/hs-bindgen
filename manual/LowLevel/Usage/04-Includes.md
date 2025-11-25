@@ -101,13 +101,13 @@ does the same.
 
 Linux example:
 
-```
+```sh
 C_INCLUDE_PATH=/some/dep/include:/other/dep/include
 ```
 
 Windows example:
 
-```
+```sh
 C_INCLUDE_PATH=C:\some\dep\include;C:\other\dep\include
 ```
 
@@ -202,14 +202,14 @@ Clang has many more include options, which may be passed via
 For example, Clang option `-idirafter` may be used to add a directory to the end
 of the bracket C include search path.
 
-```
-$ hs-bindgen-cli preprocess \
-    --standard c23 \
-    -I include \
-    --clang-option="-idirafter/opt/acme-0.1.0/include" \
-    --module Foo \
-    --output Foo.hs \
-    foo.h
+```console
+hs-bindgen-cli preprocess \
+  --standard c23 \
+  -I include \
+  --clang-option="-idirafter/opt/acme-0.1.0/include" \
+  --module Foo \
+  --output Foo.hs \
+  foo.h
 ```
 
 ### `hs-bindgen` environment variables
@@ -247,7 +247,7 @@ directory should be added to the bracket C include search path, and header
 arguments should be relative to it.  The following command runs the preprocessor
 on header `foo.h` in the `include` directory:
 
-```
+```console
 hs-bindgen-cli preprocess -I include foo.h
 ```
 
@@ -321,7 +321,7 @@ includes the C include search paths used by Clang.  It takes command-line
 options and environment variables into account, so you can test configuration
 and confirm precedence.
 
-```
+```console
 clang -E -v - </dev/null
 ```
 
@@ -330,7 +330,7 @@ information that includes the C include search paths used by GCC.  It takes
 command-line options and environment variables into account, so you can test
 configuration and confirm precedence.
 
-```
+```console
 gcc -xc -E -v - </dev/null
 ```
 
@@ -338,7 +338,7 @@ The `hs-bindgen-cli info resolve-header` command may be used debug `hs-bindgen`
 header resolution.  When experimenting with builtin include directory
 configuration, it may be useful to show debug trace messages.
 
-```
+```console
 hs-bindgen-cli info resolve-header -v4 stddef.h
 ```
 
@@ -347,7 +347,7 @@ include graph for one or more headers, in [Mermaid][] syntax.
 
 [Mermaid]: <https://mermaid.js.org/>
 
-```
+```console
 hs-bindgen-cli info include-graph stdint.h
 ```
 
@@ -355,6 +355,6 @@ The `hs-bindgen-cli info libclang` command may be used to run `libclang` with
 Clang options such as `-v`, to confirm the `libclang` version, C include search
 paths, etc.
 
-```
+```console
 hs-bindgen-cli info libclang --clang-option=-v
 ```

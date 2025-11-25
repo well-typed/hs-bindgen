@@ -402,15 +402,15 @@ b_incomplete_array = toIncompleteArrayPtr <$> peek b
 
 Memory layout:
 
-| type                  | C name | Haskell name | address | value |
-|-----------------------|--------|--------------|---------|-------|
-| int                   |        |              | 1000    | 1     |
-|                       |        |              | 1004    | 2     |
-|                       |        |              | 1008    | 3     |
-|                       |        |              | ...     |       |
-| int*                  | b      |              | 2000    | 1000  |
-|                       |        |              | ...     |       |
-| int**; Ptr (Ptr CInt) |        | b            | 3000    | 2000  |
+| type                    | C name | Haskell name | address | value |
+|-------------------------|--------|--------------|---------|-------|
+| `int`                   |        |              | 1000    | 1     |
+|                         |        |              | 1004    | 2     |
+|                         |        |              | 1008    | 3     |
+|                         |        |              | ...     |       |
+| `int*`                  | b      |              | 2000    | 1000  |
+|                         |        |              | ...     |       |
+| `int**; Ptr (Ptr CInt)` |        | b            | 3000    | 2000  |
 
 Constant:
 

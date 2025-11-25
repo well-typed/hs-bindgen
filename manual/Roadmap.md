@@ -1,7 +1,7 @@
 # `hs-bindgen` roadmap
 
-The project is split up into three major milestones, each of which are useful in their
-own right and can be released as version
+The project is split up into three major milestones, each of which are useful in
+their own right and can be released as version
 [0.1](https://github.com/well-typed/hs-bindgen/issues/29),
 [0.2](https://github.com/well-typed/hs-bindgen/issues/30) and
 [0.3](https://github.com/well-typed/hs-bindgen/issues/31).

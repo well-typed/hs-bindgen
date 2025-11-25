@@ -5,7 +5,7 @@ help new developers understand how the codebase is organized.
 
 ## Repository Layout
 
-```
+```text
 hs-bindgen/
 ├── alternatives/
 ├── ansi-diff/

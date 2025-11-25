@@ -63,7 +63,7 @@ files and headers. This can be done, amongst other ways, by creating a
 
 For example, in order to build the manual you will need the following:
 
-```
+```cabal
 package manual
   extra-include-dirs:
       <path-to-hs-bindgen>/manual/c
@@ -89,41 +89,40 @@ should be set in the `.cabal` file.
 
 #### Setting environment variables
 
-Properly setting environment variables is crucial for `hs-bindgen` to find the necessary tools and libraries in Linux.
+Properly setting environment variables is crucial for `hs-bindgen` to find the
+necessary tools and libraries in Linux.
 
-* `LD_LIBRARY_PATH`: To ensure that the C libraries you build can be linked
-  at runtime, you need to add their location to this variable.
+* `LD_LIBRARY_PATH`: To ensure that the C libraries you build can be linked at
+  runtime, you need to add their location to this variable.
 
-  * Example: If your shared library `libexample.so` is in `/path/to/your/c/libs`, you would run:
+  * Example: If your shared library `libexample.so` is in
+    `/path/to/your/c/libs`, you would run:
 
-        ```bash
-        export LD_LIBRARY_PATH=/path/to/your/c/libs:$LD_LIBRARY_PATH
-        ```
+    ```bash
+    export LD_LIBRARY_PATH=/path/to/your/c/libs:$LD_LIBRARY_PATH
+    ```
 
-* `BINDGEN_EXTRA_CLANG_ARGS`: This variable allows you to pass extra
-  arguments to `libclang`. This is particularly useful for specifying include
-  directories.
+* `BINDGEN_EXTRA_CLANG_ARGS`: This variable allows you to pass extra arguments
+  to `libclang`. This is particularly useful for specifying include directories.
 
   * To find your system's default include paths, you can run:
 
-        ```bash
-        clang -v -E -xc /dev/null
-        ```
+    ```bash
+    clang -v -E -xc /dev/null
+    ```
 
   * You can then set the variable with these paths:
 
-        ```bash
-        export BINDGEN_EXTRA_CLANG_ARGS="-nostdinc -I/usr/lib/clang/14/include -I/usr/include"
-        ```
+    ```bash
+    export BINDGEN_EXTRA_CLANG_ARGS="-nostdinc -I/usr/lib/clang/14/include -I/usr/include"
+    ```
 
-        **NOTE**: Without `--no-stdinc`, there are likely multiple directories
-        in the C include path that provide the same headers. Which header is
-        ultimately used depends on the order of directories in the include
-        path.
+    **NOTE**: Without `--no-stdinc`, there are likely multiple directories in
+    the C include path that provide the same headers. Which header is ultimately
+    used depends on the order of directories in the include path.
 
-  * Note that the common use of this environment variable is to set
-        preprocessor flags. So only overwrite the include paths if absolutely
-        necessary.
+  * Note that the common use of this environment variable is to set preprocessor
+    flags. So only overwrite the include paths if absolutely necessary.
 
 * `LLVM_PATH`, `LLVM_CONFIG`: `hs-bindgen` may need to know where to find
   your LLVM installation.
@@ -166,11 +165,11 @@ sure to avoid using Unicode-specific characters in C function definitions.
 * `DYLD_LIBRARY_PATH`: This is the macOS equivalent of `LD_LIBRARY_PATH`. It
   tells the dynamic linker where to find dynamic libraries (`.dylib` files).
 
-  * Example:
+  Example:
 
-        ```bash
-        export DYLD_LIBRARY_PATH=/path/to/your/c/libs:$DYLD_LIBRARY_PATH
-        ```
+  ```bash
+  export DYLD_LIBRARY_PATH=/path/to/your/c/libs:$DYLD_LIBRARY_PATH
+  ```
 
 * `BINDGEN_EXTRA_CLANG_ARGS`: On MacOS, setting the include paths like we
   suggest to do in Linux is not required. If you need to, see the section for
@@ -196,11 +195,11 @@ the directories listed in the `PATH` environment variable. This is a crucial
 difference from Linux and MacOS.
 
 * To ensure your application can find its required DLLs, add the corresponding
-    directories to the `PATH`:
+  directories to the `PATH`:
 
-    ```powershell
-    $env:PATH = "C:\path\to\your\c\libs;" + $env:PATH
-    ```
+  ```powershell
+  $env:PATH = "C:\path\to\your\c\libs;" + $env:PATH
+  ```
 
 #### Environment Variables
 
@@ -208,11 +207,11 @@ difference from Linux and MacOS.
   to the LLVM/Clang installation that comes with GHC. Make sure these flags
   aren't already set to the right paths.
 
-    ```powershell
-    $env:LLVM_PATH = "C:\ghcup\ghc\<your-ghc-version>\mingw"
-    $env:LLVM_CONFIG = "$env:LLVM_PATH\bin\llvm-config.exe"
-    $env:LIBCLANG_PATH = "$env:LLVM_PATH\lib"
-    ```
+  ```powershell
+  $env:LLVM_PATH = "C:\ghcup\ghc\<your-ghc-version>\mingw"
+  $env:LLVM_CONFIG = "$env:LLVM_PATH\bin\llvm-config.exe"
+  $env:LIBCLANG_PATH = "$env:LLVM_PATH\lib"
+  ```
 
 * `BINDGEN_EXTRA_CLANG_ARGS`: On Windows, setting the include paths like we
   suggest to do in Linux is not required. If you need to, see the section for
@@ -239,7 +238,7 @@ difference from Linux and MacOS.
   targets people use Hackage with, perhaps all generated bindings uploaded to
   Hackage should include appropriate gates. Minimal example:
 
-  ```
+  ```cabal
   if !(os(linux) && arch(x86_64))
     buildable: false
   ```
