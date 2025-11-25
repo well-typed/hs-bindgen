@@ -19,7 +19,8 @@ well.
 When using `hs-bindgen-cli preprocess`, Clang options may be specified as
 command-line options.  Common options are exposed as `hs-bindgen-cli`
 command-line options, while arbitrary Clang options may be passed using
-`--clang-option-before`, `--clang-option`, and `--clang-option-after`.
+`--clang-option-before`, `--clang-option`, `--clang-option-after`, or
+the environment variable `BINDGEN_EXTRA_CLANG_ARGS`.
 
 Options are passed to Clang in the following order:
 
@@ -41,7 +42,7 @@ hs-bindgen-cli preprocess \
   -I include \
   --clang-option="-idirafter/opt/acme-0.1.0/include" \
   --module Foo \
-  --output Foo.hs \
+  --hs-output-dir src \
   foo.h
 ```
 
