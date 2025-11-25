@@ -9,10 +9,10 @@ The determination of which C declarations to translate is a complex problem. In
 
 2. We do not parse and reify all declarations read and provided by Clang.
    Instead, we match declarations against [_parse
-   predicates_](#parse-predicates). We parse and reify matching declarations,
-   and exclude declarations not matching the parse predicate. That is, the parse
-   predicate dictates which declarations `hs-bindgen` reifies into
-   `hs-bindgen`-specific data structures.
+   predicates_](#parse-predicates). The parse predicate dictates which
+   declarations `hs-bindgen` reifies into `hs-bindgen`-specific data structures.
+   We parse and reify declarations matching the parse predicate, and do not
+   attempt to parse and reify declarations not matching the parse predicate.
 
 3. Given the set of declarations parsed and reified by `hs-bindgen`, [_select
    predicates_](#select-predicates) dictate which declarations to generate
@@ -34,7 +34,7 @@ these main headers including all declarations therein, and transitive
 dependencies.
 
 > [!NOTE]
-> The manual section [Includes](./Includes.md) describes how headers are
+> The manual section [Includes](./04-Includes.md) describes how headers are
 > resolved.
 
 ## Parse predicates
@@ -42,19 +42,20 @@ dependencies.
 Parse predicates control if `hs-bindgen` parses and reifies a declaration read
 by Clang into `hs-bindgen`-specific data structures. `hs-bindgen` knows the
 definitions of parsed declarations. However, `hs-bindgen` does not know much
-about non-parsed declarations. `hs-bindgen` registers those declarations as
-_non-parsed_, and these declarations can be made available to `hs-bindgen` using
-[external bindings](./BindingSpecifications.md). Anonymous declarations must be
-parsed to use an external binding for them, however. They must be named in order
-to be specified in an external binding specification.
+about declarations it does not attempt to parse, or fails to parse. `hs-bindgen`
+registers those declarations as _parse-not-attempted_ and _parse-failed_,
+respectively. These declarations can be made available to `hs-bindgen` using
+[external bindings](./06-BindingSpecifications.md). Anonymous declarations must
+be parsed to use an external binding for them, however. They must be named in
+order to be specified in an external binding specification.
 
 We use parse predicates mostly because:
 
 - We seek to avoid repetitive parsing and reification. We can do so by using
-  binding specifications. For example, the standard library need not be parsed
-  every time, and we provide excellent external bindings covering the standard
-  library. Also, declarations may be in external libraries for which the user
-  has external bindings.
+  binding specifications. For example, we avoid parsing the standard library
+  every time, and provide external bindings covering the standard library. Also,
+  declarations may be in external libraries for which the user has external
+  bindings.
 - Not all declarations can be parsed and reified by `hs-bindgen`. We may want to
   exclude such declarations and instead provide manual external bindings for
   them.
@@ -70,8 +71,8 @@ changed; in particular, the command line options are:
 - `--parse-from-main-header-dirs`: Parse declarations in main headers and
   transitively included headers from sub-directories of main headers (default).
 - `--parse-by-header-path PCRE` and `--parse-except-by-header-path PCRE`: Parse
-  or exclude declarations in headers with paths matching the regular expression
-  `PCRE`, respectively.
+  or do not attempt to parse declarations in headers with paths matching the
+  regular expression `PCRE`, respectively.
 
 Also the `hs-bindgen` library and the Template Haskell interface allow direct
 specification of the parse predicate using the data type `ParsePredicate`.
@@ -82,27 +83,28 @@ specification of the parse predicate using the data type `ParsePredicate`.
 > definitions. These declarations will be filtered out during selection.
 
 > [!NOTE]
-> Note that parse predicates match against header _paths_, and not just header
-> filenames. The paths are determined by Clang, dependent on the C include path
+> Parse predicates match against header _paths_, and not just header filenames.
+> The paths are determined by Clang, dependent on the C include path
 > directories. They may be absolute or relative. The manual section
-> [Includes](./Includes.md) describes how headers are resolved.
+> [Includes](./04-Includes.md) describes how headers are resolved.
 
 Parse predicates do not support matching on declaration names because names are
-only determined later in the translation process, in particular, after name
+only determined later in the translation process; in particular, after name
 mangling and resolving and applying binding specifications. Use [_select
 predicates_](#select-predicates) to match on declaration names.
 
 > [!NOTE]
-> Note that path separators (forward slash on POSIX platforms and backslash on
-> Windows) can be tricky when used in regular expressions.
+> Path separators (forward slash on POSIX platforms and backslash on Windows)
+> can be tricky when used in regular expressions.
 
 ## Select predicates
 
 After parsing the declarations, the frontend of `hs-bindgen` sorts the parsed
 declarations, handles macros, [provides names to
-declarations](GeneratedNames.md) and resolves and applies [binding
-specifications](BindingSpecifications.md). Then, it matches a _select
-predicate_, further reducing the number of declarations to be translated.
+declarations](../Translation/01-GeneratedNames.md) and resolves and applies
+[binding specifications](06-BindingSpecifications.md). Then, it matches a
+_select predicate_, further reducing the number of declarations to be
+translated.
 
 _Select predicates_ allow fine-grained control about which declarations to
 select for translation. For example, select predicates allow matching against
@@ -129,10 +131,10 @@ predicates are (excerpt of `hs-bindgen-cli preprocess --help`):
 ```
 
 > [!NOTE]
-> Select predicates will support selection of anonymous types. This is not
-> implemented yet; see issues
-> [#844](https://github.com/well-typed/hs-bindgen/issues/844) and
-> [#960](https://github.com/well-typed/hs-bindgen/pull/960).
+> For anonymous declarations, the select predicate matches against the
+> _use-sites_ of the anonymous declarations. For example, to select an anonymous
+> inner `struct` together with the named outer `struct`, match against the name
+> of the outer `struct`.
 
 > [!NOTE]
 > We match select predicates before handling C `typedef`s. That is, when
@@ -169,7 +171,7 @@ external binding for `FileOperationStatus`.
 
 > [!NOTE]
 > Program slicing can cause declarations to be included even if they are
-> explicitly excluded by a select predicate.
+> explicitly deselected by a select predicate.
 
 ## Notes and examples
 
@@ -211,7 +213,7 @@ declarations `hs-bindgen` reifies into `hs-bindgen`-specific data structures,
 the select predicate dictates which declarations `hs-bindgen` generates bindings
 for.
 
-Example 1: Assume program slicing is enabled. All of the following scenarios
+Example: Assume program slicing is enabled. All of the following scenarios
 are different:
 
 - Parse `library/*.h`, select `library/main.h`.
