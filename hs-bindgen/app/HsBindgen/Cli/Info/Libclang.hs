@@ -59,7 +59,7 @@ parseOpts = Opts <$> parseClangArgsConfig
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} =
-    void . withTracer tracerConfig $ \tracer _ -> do
+    void . withTracer tracerConfigWithoutASTReadError $ \tracer _ -> do
       clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig
       let hasNoUserOptions = hasNoUserClangOptions clangArgsConfig
           setup = defaultClangSetup clangArgs $
@@ -71,16 +71,8 @@ exec GlobalOpts{..} Opts{..} =
         traceWith (contramap (TraceFrontend . FrontendClang) tracer)
                   ClangInvokedWithoutOptions
 
-      -- Use a filtering tracer that suppresses CXError_ASTReadError.
-      -- This error is expected when diagnostic options like -v or
-      -- -print-target-triple are used, as Clang exits early without
-      -- creating a full AST after printing the requested information.
-      --
-      let clangTracer = squelchUnless (not . isASTReadError)
-                      $ contramap (TraceFrontend . FrontendClang) tracer
-
       withClang
-        clangTracer
+        (contramap (TraceFrontend . FrontendClang) tracer)
         setup
         (const (return Nothing))
   where
@@ -90,11 +82,19 @@ exec GlobalOpts{..} Opts{..} =
     hasNoUserClangOptions ClangArgsConfig{..} =
       null argsBefore && null argsInner && null argsAfter
 
-    -- Check if a message is CXError_ASTReadError.
+    -- Check if a trace is CXError_ASTReadError.
     -- This error is benign in the context of 'info libclang' when users
     -- provide diagnostic flags, as they cause Clang to exit without building an AST.
     --
-    isASTReadError :: ClangMsg -> Bool
-    isASTReadError (ClangErrorCode (SimpleEnum x))
-      | Just CXError_ASTReadError <- simpleFromC x = True
-    isASTReadError _ = False
+    -- If trace is CXError_ASTReadError make it debug level which should
+    -- supress it but still make it available if needed with Debug level
+    -- logging
+    --
+    tracerConfigWithoutASTReadError =
+      tracerConfig
+        { tCustomLogLevel = CustomLogLevel $ \trace actualLevel ->
+            case trace of
+              TraceFrontend (FrontendClang (ClangErrorCode (SimpleEnum x)))
+                | Just CXError_ASTReadError <- simpleFromC x -> Debug
+              _ -> unCustomLogLevel (tCustomLogLevel tracerConfig) trace actualLevel
+        }

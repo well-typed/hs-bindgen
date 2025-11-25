@@ -9,7 +9,6 @@ module HsBindgen.Util.Tracer (
   , traceWith
   , simpleTracer
   , nullTracer
-  , squelchUnless
     -- * Data types and typeclasses useful for tracing
   , PrettyForTrace (..)
   , Level (..)
