@@ -12,6 +12,7 @@ nix-shell -p ccache
 ```
 
 Or, for example, on Ubuntu:
+
 ```bash
 apt-get install ccache
 ```
@@ -25,6 +26,7 @@ TODO: on Windows, use sccache instead
 ```
 
 This script will:
+
 1. Build the botan-3 C++ library
 2. Generate Haskell bindings using `hs-bindgen`
 3. Create `cabal.project.local` with the necessary configuration

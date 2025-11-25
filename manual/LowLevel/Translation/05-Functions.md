@@ -133,6 +133,7 @@ typedef int int2int(int);
 extern int apply1_pointer_arg (int2int *, int);
 extern int apply1_nopointer_arg (int2int, int);
 ```
+
 ```hs
 newtype Int2int = Int2int { un_Int2int :: CInt -> IO CInt }
 foreign import {-# details elided #-} apply1_pointer_arg
@@ -211,7 +212,6 @@ apply1_union :: Apply1Union
 ```
 
 [creference:fun-decl]: https://en.cppreference.com/w/c/language/function_declaration.html#Explanation
-[creference:fun-ptr-conv]: https://en.cppreference.com/w/c/language/conversion.html#Function_to_pointer_conversion
 
 ## Conversion between Haskell functions and C functions
 

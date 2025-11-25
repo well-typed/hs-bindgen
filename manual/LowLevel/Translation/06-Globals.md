@@ -322,16 +322,19 @@ below.
 ### Simple value: `int`
 
 Global:
+
 ```c
 extern int a;
 ```
 
 Stub:
+
 ```c
 /* get_a */ __attribute__ ((const)) int* fe8f4js8(void) { return &a; }
 ```
 
 Import:
+
 ```haskell
 foreign import ccall unsafe "fe8f4js8" fe8f4js8 :: IO (Ptr CInt)
 
@@ -366,16 +369,19 @@ Of course, this is only safe if the user knows that it is pointing to a sequence
 of `int`s.
 
 Global:
+
 ```c
 extern int * b;
 ```
 
 Stub:
+
 ```c
 /* get_b */ int** ae8fae8() { return &b; }
 ```
 
 Import:
+
 ```haskell
 foreign import ccall unsafe "ae8fae8" ae8fae8 :: IO (Ptr (Ptr CInt))
 
@@ -407,6 +413,7 @@ Memory layout:
 | int**; Ptr (Ptr CInt) |        | b            | 3000    | 2000  |
 
 Constant:
+
 ```haskell
 -- If the type of the global had been const-qualified instead, like @const int
 -- * b2@, we would also generate the following. Note that we do this for
@@ -428,25 +435,28 @@ We have a subtle choice here of what to generate a binding for. The options are:
 
 For uniformity, we use the latter option.
 
-Note that the *value* of the pointer is the same regardless of which approach we
+Note that the _value_ of the pointer is the same regardless of which approach we
 pick. A pointer to the first element of the array points to the start of the
-array, and a pointer to the array as a whole *also* points to the start of the
+array, and a pointer to the array as a whole _also_ points to the start of the
 array. The difference is only in the type of the pointer. As such, a user of the
 generated bindings can safely cast the pointer to the whole array to a pointer
 to the first element of the array.
 
 Global:
+
 ```c
 typedef int triplet[3];
 extern triplet c;
 ```
 
 Stub:
+
 ```c
 /* get_c */ __attribute__ ((const)) triplet *f94u3030(void) { return &c; }
 ```
 
 Import:
+
 ```haskell
 newtype Triplet = Triplet (ConstantArray 3 CInt)
 foreign import ccall unsafe "f94u3030" f94u3030 :: IO (Ptr Triplet)
@@ -465,15 +475,16 @@ c_elem = snd $ toFirstElemPtr c
 
 Memory layout:
 
-| type                                   | C name | Haskell name | address | value |
-|----------------------------------------|--------|--------------|---------|-------|
-| int[3]                                 | c      |              | 1000    | 1     |
-|                                        |        |              | 1004    | 2     |
-|                                        |        |              | 1008    | 3     |
-|                                        |        |              | ...     |       |
-| (*int)[3] ; Ptr (ConstantArray 3 CInt) |        | c            | 2000    | 1000  |
+| type                                     | C name | Haskell name | address | value |
+|------------------------------------------|--------|--------------|---------|-------|
+| `int[3]`                                 | c      |              | 1000    | 1     |
+|                                          |        |              | 1004    | 2     |
+|                                          |        |              | 1008    | 3     |
+|                                          |        |              | ...     |       |
+| `(*int)[3] ; Ptr (ConstantArray 3 CInt)` |        | c            | 2000    | 1000  |
 
 Constant:
+
 ```haskell
 -- If the type of the global had been const-qualified instead, like @const
 -- triplet c2@, we would also generate the following
@@ -488,17 +499,20 @@ difference is only in the types: we use `IncompleteArray` instead of
 `ConstantArray`.
 
 Global:
+
 ```c
 typedef int list[];
 extern list d;
 ```
 
 Stub:
+
 ```c
 /* get_d */ __attribute__ ((const)) list *poeyrb8a(void) { return &d; }
 ```
 
 Import:
+
 ```haskell
 newtype List = List (IncompleteArray CInt)
 foreign import ccall unsafe "poeyrb8a" poeyrb8a :: IO (Ptr List)
@@ -526,6 +540,7 @@ Memory layout:
 | (*int)[] ; Ptr (IncompleteArray CInt) |        | d            | 2000    | 1000  |
 
 Constant:
+
 ```haskell
 -- If the type of the global had been const-qualified instead, like @const list
 -- d2@, we would /not/ generate the following. It would fail to compile because

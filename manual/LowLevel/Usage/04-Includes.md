@@ -248,7 +248,7 @@ arguments should be relative to it.  The following command runs the preprocessor
 on header `foo.h` in the `include` directory:
 
 ```
-$ hs-bindgen-cli preprocess -I include foo.h
+hs-bindgen-cli preprocess -I include foo.h
 ```
 
 This translates to include directive `#include <foo.h>`.  Header resolution
@@ -298,19 +298,19 @@ When you encounter an include issue, the first thing to do is understand where
 the issue is occurring.  Possibilities include:
 
 * `hs-bindgen` translation of C headers
-    * `hs-bindgen` options are relevant, including `BINDGEN_EXTRA_CLANG_ARGS`.
-    * Clang options are relevant, including `C_INCLUDE_PATH`.
-    * Run `hs-bindgen-cli --version` to confirm which version of `libclang` is
+  * `hs-bindgen` options are relevant, including `BINDGEN_EXTRA_CLANG_ARGS`.
+  * Clang options are relevant, including `C_INCLUDE_PATH`.
+  * Run `hs-bindgen-cli --version` to confirm which version of `libclang` is
       being used.
 * Compilation of C libraries to shared objects
-    * `hs-bindgen` options are not relevant.
-    * The compiler options are relevant.  `C_INCLUDE_PATH` is used by both GCC
+  * `hs-bindgen` options are not relevant.
+  * The compiler options are relevant.  `C_INCLUDE_PATH` is used by both GCC
       and Clang.
 * Compilation of translated Haskell modules
-    * `hs-bindgen` options are not relevant.
-    * The compiler options are relevant.  `C_INCLUDE_PATH` is used by both GCC
+  * `hs-bindgen` options are not relevant.
+  * The compiler options are relevant.  `C_INCLUDE_PATH` is used by both GCC
       and Clang.
-    * Run `ghc --info` to confirm which compiler is being used.
+  * Run `ghc --info` to confirm which compiler is being used.
 
 When using the Template Haskell API, you can use the `-ddump-splices` GHC option
 to dump the generated Haskell source, including CAPI C source.  This allows you
@@ -322,7 +322,7 @@ options and environment variables into account, so you can test configuration
 and confirm precedence.
 
 ```
-$ clang -E -v - </dev/null
+clang -E -v - </dev/null
 ```
 
 Similarly, the following command runs the GCC preprocessor and displays
@@ -331,7 +331,7 @@ command-line options and environment variables into account, so you can test
 configuration and confirm precedence.
 
 ```
-$ gcc -xc -E -v - </dev/null
+gcc -xc -E -v - </dev/null
 ```
 
 The `hs-bindgen-cli info resolve-header` command may be used debug `hs-bindgen`
@@ -339,7 +339,7 @@ header resolution.  When experimenting with builtin include directory
 configuration, it may be useful to show debug trace messages.
 
 ```
-$ hs-bindgen-cli info resolve-header -v4 stddef.h
+hs-bindgen-cli info resolve-header -v4 stddef.h
 ```
 
 The `hs-bindgen-cli info include-graph` command may be used to display the full
@@ -348,7 +348,7 @@ include graph for one or more headers, in [Mermaid][] syntax.
 [Mermaid]: <https://mermaid.js.org/>
 
 ```
-$ hs-bindgen-cli info include-graph stdint.h
+hs-bindgen-cli info include-graph stdint.h
 ```
 
 The `hs-bindgen-cli info libclang` command may be used to run `libclang` with
@@ -356,5 +356,5 @@ Clang options such as `-v`, to confirm the `libclang` version, C include search
 paths, etc.
 
 ```
-$ hs-bindgen-cli info libclang --clang-option=-v
+hs-bindgen-cli info libclang --clang-option=-v
 ```

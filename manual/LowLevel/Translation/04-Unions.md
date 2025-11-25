@@ -2,7 +2,7 @@
 
 > [!NOTE]
 > We are considering changing the approach for dealing with unions.
-> https://github.com/well-typed/hs-bindgen/pull/567
+> <https://github.com/well-typed/hs-bindgen/pull/567>
 
 Suppose we have
 
@@ -98,7 +98,7 @@ It is worth taking a look at this though because it is a common pattern in C.
 > Recognizing _particular_ union patterns like this where we can tell which
 > alternative is used, and representing these as proper Haskell ADTs, can be
 > done in the high-level API generation.
-> https://github.com/well-typed/hs-bindgen/issues/18
+> <https://github.com/well-typed/hs-bindgen/issues/18>
 
 Since we cannot provide a `Show` instance for `Occupation`, we also cannot
 provide a `Show` instance for `Person`. We _could_ derive a dummy instance for
@@ -110,7 +110,6 @@ for `Person` either.
 
 > [!NOTE]
 > We currently _do_ try to derive `Show` for `Person`.
-> This is a bug: https://github.com/well-typed/hs-bindgen/issues/558
-
+> This is a bug: <https://github.com/well-typed/hs-bindgen/issues/558>
 
 [hackage:base:ByteArray]: https://hackage.haskell.org/package/base/docs/Data-Array-Byte.html#t:ByteArray

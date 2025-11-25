@@ -49,6 +49,7 @@ parsed to use an external binding for them, however. They must be named in order
 to be specified in an external binding specification.
 
 We use parse predicates mostly because:
+
 - We seek to avoid repetitive parsing and reification. We can do so by using
   binding specifications. For example, the standard library need not be parsed
   every time, and we provide excellent external bindings covering the standard
@@ -63,6 +64,7 @@ containing the declaration being matched. By default `hs-bindgen` only parses
 and reifies declarations in headers from sub-directories of the main headers,
 and avoids parsing and reifying all declarations. This default behavior can be
 changed; in particular, the command line options are:
+
 - `--parse-all`: Parse all declarations provided by Clang to `hs-bindgen`.
 - `--parse-from-main-headers`: Only parse declarations in main headers.
 - `--parse-from-main-header-dirs`: Parse declarations in main headers and

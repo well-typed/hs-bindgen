@@ -20,6 +20,7 @@ Missing dependency on a foreign library:
 Solution:
 
 1. Build the C libraries first:
+
    ```bash
    cd manual/c
    make
@@ -27,6 +28,7 @@ Solution:
    ```
 
 2. Create a `cabal.project.local` file with proper paths:
+
    ```
    package hs-game
      extra-include-dirs: /path/to/hs-bindgen/manual/c
@@ -115,6 +117,7 @@ Solution:
 - Linux: Usually works
 - macOS/Windows/LLVM: Avoid Unicode characters in C code
 - Use CPP macros to conditionally handle Unicode:
+
   ```c
   #if defined(SUPPORTS_UNICODE)
   #else
