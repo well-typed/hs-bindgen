@@ -1,0 +1,5 @@
+dist-newstyle/
+*.o
+*.so
+*.dylib
+*.dll
