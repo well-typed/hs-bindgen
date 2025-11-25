@@ -9,30 +9,30 @@
 
 ### Usage
 
-* [Invocation](LowLevel/Invocation.md)
-* [Tracing](LowLevel/Tracing.md)
-* [Clang options](LowLevel/ClangOptions.md)
-* [Includes](LowLevel/Includes.md)
-* [Parsing, selecing and program slicing](LowLevel/ParsingSelectingAndProgramSlicing.md)
-* [Binding specifications](LowLevel/BindingSpecifications.md)
-* [Test generation](LowLevel/TestGeneration.md)
-* [CrossCompilation](LowLevel/CrossCompilation.md)
+* [Invocation](LowLevel/Usage/01-Invocation.md)
+* [Tracing](LowLevel/Usage/02-Tracing.md)
+* [Clang options](LowLevel/Usage/03-ClangOptions.md)
+* [Includes](LowLevel/Usage/04-Includes.md)
+* [Parsing, selecing and program slicing](LowLevel/Usage/05-ParsingSelectingAndProgramSlicing.md)
+* [Binding specifications](LowLevel/Usage/06-BindingSpecifications.md)
+* [Test generation](LowLevel/Usage/07-TestGeneration.md)
+* [CrossCompilation](LowLevel/Usage/08-CrossCompilation.md)
 
 ### Translation
 
-* [Generated names](LowLevel/GeneratedNames.md)
-* [Structs](LowLevel/Structs.md)
-* [Enums](LowLevel/Enums.md)
-* [Unions](LowLevel/Unions.md)
-* [Functions](LowLevel/Functions.md)
-* [Global variables and constants](LowLevel/Globals.md)
-* [Macros](LowLevel/Macros.md)
+* [Generated names](LowLevel/Translation/01-GeneratedNames.md)
+* [Structs](LowLevel/Translation/02-Structs.md)
+* [Enums](LowLevel/Translation/03-Enums.md)
+* [Unions](LowLevel/Translation/04-Unions.md)
+* [Functions](LowLevel/Translation/05-Functions.md)
+* [Global variables and constants](LowLevel/Translation/06-Globals.md)
+* [Macros](LowLevel/Translation/07-Macros.md)
 
 ## Handwriting high-level bindings
 
 This section of the manual is not yet written. It should include at least a
-chapter with examples on how to write high-level bindings, and chapter on memory
-management.
+chapter with examples on how to write high-level bindings, and a chapter on
+memory management.
 
 In addition, we will have combinators that will make writing the high-level
 bindings easier. This is currently under active development.
