@@ -33,10 +33,11 @@ info = progDesc "Parse C headers (all Frontend passes)"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config         :: Config
-    , uniqueId       :: UniqueId
-    , baseModuleName :: BaseModuleName
-    , inputs         :: [UncheckedHashIncludeArg]
+      config              :: Config
+    , uniqueId            :: UniqueId
+    , baseModuleName      :: BaseModuleName
+    , inputs              :: [UncheckedHashIncludeArg]
+    , fileOverwritePolicy :: FileOverwritePolicy
     }
 
 parseOpts :: Parser Opts
@@ -46,6 +47,7 @@ parseOpts =
       <*> parseUniqueId
       <*> parseBaseModuleName
       <*> parseInputs
+      <*> parseFileOverwritePolicy
 
 {-------------------------------------------------------------------------------
   Execution
@@ -54,5 +56,5 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = ReifiedC >>= liftIO . print
-        bindgenConfig = toBindgenConfig config uniqueId baseModuleName
+        bindgenConfig = toBindgenConfig config fileOverwritePolicy uniqueId baseModuleName
     hsBindgen tracerConfig bindgenConfig inputs artefact

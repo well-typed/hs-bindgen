@@ -37,14 +37,15 @@ info = progDesc "Generate Haskell module from C headers"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config            :: Config
-    , uniqueId          :: UniqueId
-    , baseModuleName    :: BaseModuleName
-    , hsOutputDir       :: FilePath
-    , outputDirPolicy   :: OutputDirPolicy
-    , outputBindingSpec :: Maybe FilePath
+      config              :: Config
+    , uniqueId            :: UniqueId
+    , baseModuleName      :: BaseModuleName
+    , hsOutputDir         :: FilePath
+    , outputDirPolicy     :: OutputDirPolicy
+    , outputBindingSpec   :: Maybe FilePath
     -- NOTE: Inputs (arguments) must be last, options must go before it.
-    , inputs            :: [UncheckedHashIncludeArg]
+    , inputs              :: [UncheckedHashIncludeArg]
+    , fileOverwritePolicy :: FileOverwritePolicy
     }
   deriving (Generic)
 
@@ -58,6 +59,7 @@ parseOpts =
       <*> parseOutputDirPolicy
       <*> optional parseGenBindingSpec
       <*> parseInputs
+      <*> parseFileOverwritePolicy
 
 {-------------------------------------------------------------------------------
   Execution
@@ -77,7 +79,7 @@ exec GlobalOpts{..} Opts{..} = do
     void $ run $ artefacts
   where
     bindgenConfig :: BindgenConfig
-    bindgenConfig = toBindgenConfig config uniqueId baseModuleName
+    bindgenConfig = toBindgenConfig config fileOverwritePolicy uniqueId baseModuleName
 
     run :: Artefact a -> IO a
     run = hsBindgen tracerConfig bindgenConfig inputs

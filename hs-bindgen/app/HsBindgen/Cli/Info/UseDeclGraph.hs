@@ -33,11 +33,12 @@ info = progDesc "Output the use-decl graph"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config         :: Config
-    , uniqueId       :: UniqueId
-    , baseModuleName :: BaseModuleName
-    , output         :: Maybe FilePath
-    , inputs         :: [UncheckedHashIncludeArg]
+      config              :: Config
+    , uniqueId            :: UniqueId
+    , baseModuleName      :: BaseModuleName
+    , output              :: Maybe FilePath
+    , inputs              :: [UncheckedHashIncludeArg]
+    , fileOverwritePolicy :: FileOverwritePolicy
     }
 
 parseOpts :: Parser Opts
@@ -48,6 +49,7 @@ parseOpts =
       <*> parseBaseModuleName
       <*> optional parseOutput'
       <*> parseInputs
+      <*> parseFileOverwritePolicy
 
 parseOutput' :: Parser FilePath
 parseOutput' = strOption $ mconcat [
@@ -64,5 +66,5 @@ parseOutput' = strOption $ mconcat [
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = writeUseDeclGraph output
-        bindgenConfig = toBindgenConfig config uniqueId baseModuleName
+        bindgenConfig = toBindgenConfig config fileOverwritePolicy uniqueId baseModuleName
     void $ hsBindgen tracerConfig bindgenConfig inputs artefact

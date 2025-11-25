@@ -9,6 +9,7 @@ module HsBindgen.Config (
 
     -- * Client
   , OutputDirPolicy(..)
+  , FileOverwritePolicy(..)
 
     -- * Template Haskell
   , ConfigTH(..)
@@ -52,8 +53,8 @@ data Config_ path = Config {
   deriving stock (Functor, Foldable, Traversable)
   deriving anyclass (Default)
 
-toBindgenConfig :: Config_ FilePath -> UniqueId -> BaseModuleName -> BindgenConfig
-toBindgenConfig Config{..} uniqueId baseModuleName =
+toBindgenConfig :: Config_ FilePath -> FileOverwritePolicy -> UniqueId -> BaseModuleName -> BindgenConfig
+toBindgenConfig Config{..} fop uniqueId baseModuleName =
     BindgenConfig bootConfig frontendConfig backendConfig
   where
     bootConfig = BootConfig {
@@ -74,6 +75,7 @@ toBindgenConfig Config{..} uniqueId baseModuleName =
       , backendHaddockConfig = HaddockConfig {
             pathStyle = haddockPathStyle
           }
+      , backendFileOverwrite = fop
       }
 
 {-------------------------------------------------------------------------------

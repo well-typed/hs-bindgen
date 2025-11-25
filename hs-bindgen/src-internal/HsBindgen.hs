@@ -15,17 +15,21 @@ module HsBindgen
   , writeTests
   ) where
 
-import Control.Monad (join)
-import Control.Monad.Trans.Reader (ask)
 import Data.Map qualified as Map
-import System.Directory (createDirectoryIfMissing)
-import System.FilePath (takeDirectory, (</>))
-
+import System.Directory
+    ( createDirectoryIfMissing,
+      createDirectoryIfMissing,
+      doesFileExist )
+import System.FilePath
+    ( takeDirectory, (</>), takeDirectory, (</>) )
+import Data.Foldable (foldrM)
+import Data.Foldable qualified as Foldable
 import HsBindgen.Artefact
 import HsBindgen.Backend
 import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.BindingSpec.Gen
+import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Boot
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
@@ -53,7 +57,7 @@ hsBindgen
   bindgenConfig@BindgenConfig{..}
   uncheckedHashIncludeArgs
   artefacts = do
-    result <- fmap join $ withTracer tracerConfig $ \tracer tracerUnsafeRef -> do
+    (result, fsActions) <- fmap (either ((, []) . Left) id) $ withTracer tracerConfig $ \tracer tracerUnsafeRef -> do
       -- Boot and frontend require unsafe tracer and `libclang`.
       let tracerFrontend :: Tracer FrontendMsg
           tracerFrontend = contramap TraceFrontend tracer
@@ -78,7 +82,10 @@ hsBindgen
           backendArtefact
           artefacts
 
-    either throwIO pure result
+    -- Execute file system actions based on FileOverwritePolicy
+    value <- either throwIO pure result
+    executeFileSystemActions (backendFileOverwrite bindgenBackendConfig) fsActions
+    return value
   where
     tracerConfigSafe :: TracerConfig SafeLevel a
     tracerConfigSafe = TracerConfig {
@@ -90,6 +97,35 @@ hsBindgen
       }
 
 {-------------------------------------------------------------------------------
+  Execute file system actions
+-------------------------------------------------------------------------------}
+
+-- | Execute collected file system actions based on FileOverwritePolicy
+executeFileSystemActions :: FileOverwritePolicy -> [FileSystemAction] -> IO ()
+executeFileSystemActions fop actions = do
+  -- Get the first file path that exists if any
+  mbPath <-
+    foldrM (\f mbp -> do
+             case f of
+               WriteFile _ path _
+                 | Just _ <- mbp -> pure mbp
+                 | otherwise -> do
+                   fileExists <- doesFileExist path
+                   pure $ if fileExists
+                             then Just path
+                             else mbp
+           ) Nothing actions
+  case fop of
+    ProtectExistingFiles
+      | Just path <- mbPath -> throwIO (FileAlreadyExistsException path)
+    _ -> forM_ actions $ \case
+          WriteFile _ path content -> do
+            createDirectoryIfMissing True (takeDirectory path)
+            case content of
+              TextContent str -> writeFile path str
+              BindingSpecContent ubs -> BindingSpec.writeFile path ubs
+
+{-------------------------------------------------------------------------------
   Custom build artefacts
 -------------------------------------------------------------------------------}
 
@@ -97,16 +133,16 @@ hsBindgen
 writeIncludeGraph :: Maybe FilePath -> Artefact ()
 writeIncludeGraph mPath = do
     (p, includeGraph) <- IncludeGraph
-    Lift $ write "include graph" mPath
-         $ IncludeGraph.dumpMermaid p includeGraph
+    write "include graph" mPath $
+      IncludeGraph.dumpMermaid p includeGraph
 
 -- | Write @use-decl@ graph to file.
 writeUseDeclGraph :: Maybe FilePath -> Artefact ()
 writeUseDeclGraph mPath = do
     index <- DeclIndex
     useDeclGraph <- UseDeclGraph
-    Lift $ write "use-decl graph" mPath
-         $ UseDeclGraph.dumpMermaid index useDeclGraph
+    write "use-decl graph" mPath $
+      UseDeclGraph.dumpMermaid index useDeclGraph
 
 -- | Get bindings (single module).
 getBindings :: Safety -> Artefact String
@@ -123,7 +159,7 @@ getBindings safety = do
 writeBindings :: Safety -> Maybe FilePath -> Artefact ()
 writeBindings safety mPath = do
     bindings <- getBindings safety
-    Lift $ write "bindings" mPath bindings
+    write "bindings" mPath bindings
 
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: Artefact (ByCategory String)
@@ -138,7 +174,7 @@ writeBindingsMultiple :: FilePath -> Artefact ()
 writeBindingsMultiple hsOutputDir = do
     moduleBaseName     <- FinalModuleBaseName
     bindingsByCategory <- getBindingsMultiple
-    Lift $ writeByCategory "bindings" hsOutputDir moduleBaseName bindingsByCategory
+    writeByCategory "bindings" hsOutputDir moduleBaseName bindingsByCategory
 
 -- | Write binding specifications to file.
 writeBindingSpec :: FilePath -> Artefact ()
@@ -148,17 +184,15 @@ writeBindingSpec path = do
   getMainHeaders <- GetMainHeaders
   omitTypes      <- OmitTypes
   hsDecls        <- HsDecls
-  tracer         <- Lift $ artefactTracer <$> ask
-  traceWith tracer $ RunArtefactWriteFile "binding specifications" path
   -- Binding specifications only specify types.
-  liftIO $
-    genBindingSpec
-      target
-      (fromBaseModuleName moduleBaseName (Just BType))
-      path
-      getMainHeaders
-      omitTypes
-      (fromMaybe [] (Map.lookup BType $ unByCategory hsDecls))
+  let bindingSpec =
+        genBindingSpec
+          target
+          (fromBaseModuleName moduleBaseName (Just BType))
+          getMainHeaders
+          omitTypes
+          (fromMaybe [] (Map.lookup BType $ unByCategory hsDecls))
+  FileWrite "binding specifications" path (BindingSpecContent bindingSpec)
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
@@ -177,25 +211,20 @@ writeTests testDir = do
   Helpers
 -------------------------------------------------------------------------------}
 
-write :: String -> Maybe FilePath -> String -> ArtefactM ()
+write :: String -> Maybe FilePath -> String -> Artefact ()
 write _    Nothing     str = liftIO $ putStrLn str
-write what (Just path) str = do
-      tracer <- artefactTracer <$> ask
-      traceWith tracer $ RunArtefactWriteFile what path
-      liftIO $ do
-        createDirectoryIfMissing True $ takeDirectory path
-        writeFile path str
+write what (Just path) str = FileWrite what path (TextContent str)
 
 writeByCategory ::
      String
   -> FilePath
   -> BaseModuleName
   -> ByCategory String
-  -> ArtefactM ()
+  -> Artefact ()
 writeByCategory what hsOutputDir moduleBaseName =
-    mapM_ (uncurry writeCategory) . Map.toList . unByCategory
+    Foldable.foldl' (>>) (pure ()) . map (uncurry writeCategory) . Map.toList . unByCategory
   where
-    writeCategory :: BindingCategory -> String -> ArtefactM ()
+    writeCategory :: BindingCategory -> String -> Artefact ()
     writeCategory cat str = do
         write whatWithCategory (Just path) str
       where
