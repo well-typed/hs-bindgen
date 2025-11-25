@@ -82,7 +82,7 @@ The following options are used to add a directory to a C include search path:
 These options can be passed multiple times, and the directories are added to
 the C include search paths in the same order.
 
-The following are used to disable default include directories:
+The following options are used to disable default include directories:
 
 * `-nostdinc` disables the default include directories (both the standard system
   directories and the compiler builtin directories).
@@ -154,14 +154,14 @@ the CAPI section below.
 environment variables, described below.  In addition, `libclang` process the
 Clang environment variables, described above.
 
-[Clang options]: <ClangOptions.md>
+[Clang options]: <03-ClangOptions.md>
 
 `libclang` constructs C include search paths like Clang, but it is generally
 unable to correctly determine the builtin include directory.  When the builtin
 include directory is not configured correctly, one often gets "`stddef.h` not
-found" or similar include resolution errors.  `hs-bindgen` can attempt to
-determine and configure the builtin include directory automatically so that it
-does not have to be done manually.
+found" or similar include resolution errors.  By default, `hs-bindgen` attempts
+to determine and configure the builtin include directory automatically so that
+it does not have to be done manually.
 
 `hs-bingden` has two modes for configuring the builtin include directory:
 
@@ -208,7 +208,7 @@ hs-bindgen-cli preprocess \
   -I include \
   --clang-option="-idirafter/opt/acme-0.1.0/include" \
   --module Foo \
-  --output Foo.hs \
+  --hs-output-dir src \
   foo.h
 ```
 
@@ -232,7 +232,7 @@ or Template Haskell `hashInclude` function calls.  In addition, headers are
 specified in [Binding specifications][].  All of these headers are resolved
 via `libclang` using bracket includes.
 
-[Binding specifications]: <BindingSpecifications.md>
+[Binding specifications]: <06-BindingSpecifications.md>
 
 Headers must be specified as they would be in an include directive.  They are
 generally relative to a directory in a C include search path, but note that they
