@@ -224,6 +224,8 @@ toBindgenConfigTH packageRoot config = do
         bindgenConfig =
           toBindgenConfig
             (toFilePath packageRoot <$> config)
+            ProtectExistingFiles
+            -- ^ Conservative value, shouldn't matter in TH
             uniqueId
             hsModuleName
     pure bindgenConfig

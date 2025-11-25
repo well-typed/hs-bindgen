@@ -20,6 +20,7 @@ module HsBindgen.App (
     -- ** Output options
   , parseHsOutputDir
   , parseOutputDirPolicy
+  , parseFileOverwritePolicy
   , parseGenBindingSpec
   , parseGenTestsOutput
     -- ** Input arguments
@@ -483,6 +484,12 @@ parseOutputDirPolicy :: Parser OutputDirPolicy
 parseOutputDirPolicy = flag DoNotCreateDirStructure CreateDirStructure $ mconcat [
       long "create-output-dirs"
     , help "Create the output directory if it does not exist"
+    ]
+
+parseFileOverwritePolicy :: Parser FileOverwritePolicy
+parseFileOverwritePolicy = flag ProtectExistingFiles AllowFileOverwrite $ mconcat [
+      long "overwrite-files"
+    , help "Allow overwriting existing output files"
     ]
 
 parseGenBindingSpec :: Parser FilePath
