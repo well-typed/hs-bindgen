@@ -10,6 +10,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -26,7 +27,7 @@ type family AnnNameAnon ix where
   AnnNameAnon _                 = NoAnn
 
 instance IsPass NameAnon where
-  type Id           NameAnon = C.DeclId
+  type Id           NameAnon = C.DeclId NameAnon
   type FieldName    NameAnon = C.Name
   type ArgumentName NameAnon = Maybe C.Name
   type TypedefRef   NameAnon = OrigTypedefRef NameAnon
@@ -45,7 +46,7 @@ data NameAnonMsg =
     -- @clang@ will produce a warning for this ("declaration does not declare
     -- anything"); we issue a separate message here in case we skip over
     -- something that we shouldn't.
-    NameAnonSkipped (C.DeclInfo Parse)
+    NameAnonSkipped (C.DeclInfo HandleMacros)
   deriving stock (Show)
 
 instance PrettyForTrace NameAnonMsg where

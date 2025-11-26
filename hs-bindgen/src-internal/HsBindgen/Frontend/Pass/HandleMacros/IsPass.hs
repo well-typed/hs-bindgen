@@ -3,7 +3,7 @@ module HsBindgen.Frontend.Pass.HandleMacros.IsPass (
   , HandleMacrosReparseMsg(..)
   ) where
 
-import HsBindgen.Frontend.AST.Coerce (CoercePass (..))
+import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
@@ -38,5 +38,8 @@ instance IsPass HandleMacros where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePass TypedefRefWrapper ConstructTranslationUnit HandleMacros where
-  coercePass (TypedefRefWrapper ref) = TypedefRefWrapper (coercePass ref)
+instance CoercePassId ConstructTranslationUnit HandleMacros where
+  coercePassId _ = id
+
+instance CoercePassTypedefRef ConstructTranslationUnit HandleMacros where
+  coercePassTypedefRef _ = coercePass

@@ -142,7 +142,7 @@ class MangleDecl a where
     -> a HandleTypedefs -> M (a MangleNames)
 
 mangleDeclId ::
-     C.DeclId
+     C.DeclId HandleTypedefs
   -> [C.NameKind] -- ^ Possible name kinds
   -> M (C.NamePair, C.NameOrigin)
 mangleDeclId (C.DeclIdBuiltin _name) _kinds =
@@ -169,7 +169,7 @@ mangleDeclId declId@(C.DeclIdNamed cName nameOrigin) kinds = do
     mkNamePair :: Hs.Identifier -> (C.NamePair, C.NameOrigin)
     mkNamePair hsName = (C.NamePair cName hsName, nameOrigin)
 
-mangleQualDeclId :: C.QualDeclId -> M (C.NamePair, C.NameOrigin)
+mangleQualDeclId :: C.QualDeclId HandleTypedefs -> M (C.NamePair, C.NameOrigin)
 mangleQualDeclId (C.QualDeclId declId kind) = mangleDeclId declId [kind]
 
 {-------------------------------------------------------------------------------

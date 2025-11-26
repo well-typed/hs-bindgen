@@ -1,13 +1,27 @@
-module HsBindgen.Frontend.AST.Coerce (CoercePass(..)) where
+module HsBindgen.Frontend.AST.Coerce (
+    CoercePass(..)
+  , CoercePassId(..)
+  , CoercePassTypedefRef(..)
+  ) where
 
 import Prelude hiding (Enum)
-
-import Data.Bifunctor (bimap)
 
 import Clang.HighLevel.Documentation qualified as CDoc
 
 import HsBindgen.Frontend.AST.Internal
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
+import HsBindgen.Imports
+
+{-------------------------------------------------------------------------------
+  Type families
+-------------------------------------------------------------------------------}
+
+class CoercePassId (p :: Pass) (p' :: Pass) where
+  coercePassId :: Proxy '(p, p') -> Id p -> Id p'
+
+class CoercePassTypedefRef (p :: Pass) (p' :: Pass) where
+  coercePassTypedefRef :: Proxy '(p, p') -> TypedefRef p -> TypedefRef p'
 
 {-------------------------------------------------------------------------------
   Coercing between passes
@@ -15,6 +29,11 @@ import HsBindgen.Frontend.Pass
 
 class CoercePass a p p' where
   coercePass :: a p -> a p'
+
+instance CoercePass DeclId p p' where
+  coercePass = \case
+      DeclIdNamed name origin -> DeclIdNamed name origin
+      DeclIdBuiltin name      -> DeclIdBuiltin name
 
 instance (
       CoercePass Decl p p'
@@ -27,12 +46,12 @@ instance (
       }
 
 instance (
-      Id p ~ Id p'
+      CoercePassId p p'
     ) => CoercePass CommentRef p p' where
-  coercePass (ById t) = ById t
+  coercePass (ById t) = ById (coercePassId (Proxy @'(p, p')) t)
 
 instance (
-      Id p ~ Id p'
+      CoercePassId p p'
     ) => CoercePass CDoc.Comment (CommentRef p) (CommentRef p') where
   coercePass comment = fmap coercePass comment
 
@@ -54,12 +73,14 @@ instance (
       }
 
 instance (
-      Id p ~ Id p'
+      CoercePassId p p'
     , CoercePass Comment p p'
     ) => CoercePass DeclInfo p p' where
-  coercePass info = DeclInfo{ declComment = fmap coercePass declComment
-                            , ..
-                            }
+  coercePass info = DeclInfo{
+        declId      = coercePassId (Proxy @'(p, p')) declId
+      , declComment = fmap coercePass declComment
+      , ..
+      }
     where
       DeclInfo{..} = info
 
@@ -199,24 +220,30 @@ instance (
       }
 
 instance (
-      Id p ~ Id p'
+      CoercePassId p p'
     , ArgumentName p ~ ArgumentName p'
-    , CoercePass TypedefRefWrapper p p'
+    , CoercePassTypedefRef p p'
     , ExtBinding p ~ ExtBinding p'
     ) => CoercePass Type p p' where
-  coercePass (TypePrim prim)           = TypePrim prim
-  coercePass (TypeStruct uid)          = TypeStruct uid
-  coercePass (TypeUnion uid)           = TypeUnion uid
-  coercePass (TypeEnum uid)            = TypeEnum uid
-  coercePass (TypeTypedef typedef)     = TypeTypedef $
-      unTypedefRefWrapper . coercePass @_ @p @p' . TypedefRefWrapper $ typedef
-  coercePass (TypeMacroTypedef uid)    = TypeMacroTypedef uid
-  coercePass (TypePointer typ)         = TypePointer (coercePass typ)
-  coercePass (TypeFun args res)        = TypeFun (map coercePass args) (coercePass res)
-  coercePass  TypeVoid                 = TypeVoid
-  coercePass (TypeConstArray n typ)    = TypeConstArray n (coercePass typ)
-  coercePass (TypeIncompleteArray typ) = TypeIncompleteArray (coercePass typ)
-  coercePass (TypeExtBinding ext)      = TypeExtBinding ext
-  coercePass (TypeBlock typ)           = TypeBlock (coercePass typ)
-  coercePass (TypeConst typ)           = TypeConst (coercePass typ)
-  coercePass (TypeComplex prim)        = TypeComplex prim
+  coercePass = \case
+      TypePrim prim           -> TypePrim prim
+      TypeStruct uid          -> TypeStruct (goId uid)
+      TypeUnion uid           -> TypeUnion (goId uid)
+      TypeEnum uid            -> TypeEnum (goId uid)
+      TypeTypedef typedef     -> TypeTypedef (goTypedefRef typedef)
+      TypeMacroTypedef uid    -> TypeMacroTypedef (goId uid)
+      TypePointer typ         -> TypePointer (coercePass typ)
+      TypeFun args res        -> TypeFun (map coercePass args) (coercePass res)
+      TypeVoid                -> TypeVoid
+      TypeConstArray n typ    -> TypeConstArray n (coercePass typ)
+      TypeIncompleteArray typ -> TypeIncompleteArray (coercePass typ)
+      TypeExtBinding ext      -> TypeExtBinding ext
+      TypeBlock typ           -> TypeBlock (coercePass typ)
+      TypeConst typ           -> TypeConst (coercePass typ)
+      TypeComplex prim        -> TypeComplex prim
+    where
+      goId :: Id p -> Id p'
+      goId = coercePassId (Proxy @'(p, p'))
+
+      goTypedefRef :: TypedefRef p -> TypedefRef p'
+      goTypedefRef = coercePassTypedefRef (Proxy @'(p, p'))

@@ -104,9 +104,9 @@ data OrigTypedefRef p = OrigTypedefRef
   deriving stock (Show, Eq, Generic)
 
 instance (
-      Id p ~ Id p'
+      CoercePassId p p'
     , ArgumentName p ~ ArgumentName p'
-    , CoercePass TypedefRefWrapper p p'
+    , CoercePassTypedefRef p p'
     , ExtBinding p ~ ExtBinding p'
     ) => CoercePass OrigTypedefRef p p' where
   coercePass (OrigTypedefRef n uTy) = OrigTypedefRef n (coercePass uTy)

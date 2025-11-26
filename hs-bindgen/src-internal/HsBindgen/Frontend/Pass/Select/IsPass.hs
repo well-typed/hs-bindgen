@@ -15,7 +15,7 @@ import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
+import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
@@ -41,7 +41,7 @@ type family AnnSelect ix where
   AnnSelect _                 = NoAnn
 
 instance IsPass Select where
-  type Id           Select = C.DeclId
+  type Id           Select = C.DeclId Select
   type FieldName    Select = C.Name
   type ArgumentName Select = Maybe C.Name
   type TypedefRef   Select = OrigTypedefRef Select
@@ -214,5 +214,8 @@ instance IsTrace Level SelectMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePass TypedefRefWrapper ResolveBindingSpecs Select where
-  coercePass (TypedefRefWrapper ref) = TypedefRefWrapper (coercePass ref)
+instance CoercePassId ResolveBindingSpecs Select where
+  coercePassId _ = coercePass
+
+instance CoercePassTypedefRef ResolveBindingSpecs Select where
+  coercePassTypedefRef _ = coercePass
