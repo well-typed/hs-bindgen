@@ -128,6 +128,16 @@ compile_fixture() {
     if (cd "$HS_BINDGEN_DIR" && cabal exec -- ghc \
         -c \
         -fforce-recomp \
+        -Wall \
+        -Werror \
+        -Wincomplete-uni-patterns \
+        -Wincomplete-record-updates \
+        -Wmissing-exported-signatures \
+        -Widentities \
+        -Wredundant-constraints \
+        -Wpartial-fields \
+        -Wcpp-undef \
+        -Wno-unused-matches \
         -outputdir "$output_dir" \
         -package hs-bindgen-runtime \
         -package c-expr-runtime \
