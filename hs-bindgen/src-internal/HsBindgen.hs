@@ -17,15 +17,15 @@ module HsBindgen
 
 import Control.Monad (join)
 import Control.Monad.Trans.Reader (ask)
-import Data.Map qualified as Map
+import Optics.Core (view)
 import System.Directory (createDirectoryIfMissing)
 import System.FilePath (takeDirectory, (</>))
 
 import HsBindgen.Artefact
 import HsBindgen.Backend
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Backend.HsModule.Translation
-import HsBindgen.Backend.SHs.AST
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
 import HsBindgen.Config.Internal
@@ -110,36 +110,36 @@ writeUseDeclGraph mPath = do
          $ UseDeclGraph.dumpMermaid index useDeclGraph
 
 -- | Get bindings (single module).
-getBindings :: ByCategory SDeclPredicate -> Artefact String
-getBindings predicate = do
+getBindings :: Artefact String
+getBindings = do
     name  <- FinalModuleBaseName
     decls <- FinalDecls
-    pure $ render $ translateModuleSingle name predicate decls
+    pure $ render $ translateModuleSingle name decls
 
 -- | Write bindings to file.
 --
 -- If no file is given, print to standard output.
-writeBindings :: ByCategory SDeclPredicate -> Maybe FilePath -> Artefact ()
-writeBindings predicate mPath = do
-    bindings <- getBindings predicate
+writeBindings :: Maybe FilePath -> Artefact ()
+writeBindings mPath = do
+    bindings <- getBindings
     Lift $ write "bindings" mPath bindings
 
 -- | Get bindings (one module per binding category).
-getBindingsMultiple :: ByCategory SDeclPredicate -> Artefact (ByCategory String)
-getBindingsMultiple predicate = do
+getBindingsMultiple :: Artefact (ByCategory_ (Maybe String))
+getBindingsMultiple = do
   name  <- FinalModuleBaseName
   decls <- FinalDecls
-  pure $ render <$> translateModuleMultiple name predicate decls
+  pure $ fmap render <$> translateModuleMultiple name decls
 
 -- | Write bindings to files in provided output directory.
 --
 -- Each file contains a different binding category.
 --
 -- If no file is given, print to standard output.
-writeBindingsMultiple :: ByCategory SDeclPredicate -> FilePath -> Artefact ()
-writeBindingsMultiple predicate hsOutputDir = do
+writeBindingsMultiple :: FilePath -> Artefact ()
+writeBindingsMultiple hsOutputDir = do
     moduleBaseName     <- FinalModuleBaseName
-    bindingsByCategory <- getBindingsMultiple predicate
+    bindingsByCategory <- getBindingsMultiple
     Lift $ writeByCategory "bindings" hsOutputDir moduleBaseName bindingsByCategory
 
 -- | Write binding specifications to file.
@@ -156,11 +156,11 @@ writeBindingSpec path = do
   liftIO $
     genBindingSpec
       target
-      (fromBaseModuleName moduleBaseName (Just BType))
+      (fromBaseModuleName moduleBaseName (Just CType))
       path
       getMainHeaders
       omitTypes
-      (fromMaybe [] (Map.lookup BType $ unByCategory hsDecls))
+      (view (lensForCategory CType) hsDecls)
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
@@ -192,13 +192,14 @@ writeByCategory ::
      String
   -> FilePath
   -> BaseModuleName
-  -> ByCategory String
+  -> ByCategory_ (Maybe String)
   -> ArtefactM ()
 writeByCategory what hsOutputDir moduleBaseName =
-    mapM_ (uncurry writeCategory) . Map.toList . unByCategory
+    sequence_ . mapWithCategory_ writeCategory
   where
-    writeCategory :: BindingCategory -> String -> ArtefactM ()
-    writeCategory cat str = do
+    writeCategory :: Category -> Maybe String -> ArtefactM ()
+    writeCategory _    Nothing   = pure ()
+    writeCategory cat (Just str) = do
         write whatWithCategory (Just path) str
       where
         moduleName :: Hs.ModuleName

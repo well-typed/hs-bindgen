@@ -76,17 +76,18 @@ exec GlobalOpts{..} Opts{..} = do
 
     void $ run $ artefacts
   where
+    -- TODO https://github.com/well-typed/hs-bindgen/issues/1328: Which command
+    -- line options to adjust the binding category predicate do we want to
+    -- provide?
     bindgenConfig :: BindgenConfig
-    bindgenConfig = toBindgenConfig config uniqueId baseModuleName
+    bindgenConfig = toBindgenConfig config uniqueId baseModuleName def
 
     run :: Artefact a -> IO a
     run = hsBindgen tracerConfig bindgenConfig inputs
 
     artefacts :: Artefact ()
     artefacts = do
-        -- TODO_PR: Which command line options to adjust the binding category
-        -- predicate do we want to provide?
-        writeBindingsMultiple useAllCategories hsOutputDir
+        writeBindingsMultiple hsOutputDir
         forM_ outputBindingSpec writeBindingSpec
 
 {-------------------------------------------------------------------------------

@@ -24,7 +24,7 @@ import Text.Read (readMaybe)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.Category (useSafeCategory)
 import HsBindgen.Config
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
@@ -69,12 +69,11 @@ parseOpts = do
 -------------------------------------------------------------------------------}
 
 data Lit = Lit {
-      globalOpts               :: GlobalOpts
-    , config                   :: Config
-    , uniqueId                 :: UniqueId
-    , baseModuleName           :: BaseModuleName
-    , bindingCategoryPredicate :: ByCategory SDeclPredicate
-    , inputs                   :: [UncheckedHashIncludeArg]
+      globalOpts     :: GlobalOpts
+    , config         :: Config
+    , uniqueId       :: UniqueId
+    , baseModuleName :: BaseModuleName
+    , inputs         :: [UncheckedHashIncludeArg]
     }
 
 parseLit :: Parser Lit
@@ -83,9 +82,6 @@ parseLit = Lit
   <*> parseConfig
   <*> parseUniqueId
   <*> parseBaseModuleName
-  -- TODO_PR: Which command line options to adjust the binding category
-  -- predicate do we want to provide?
-  <*> pure useSafeCategory
   <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -99,9 +95,12 @@ exec literateOpts = do
     Lit{..} <- maybe (throwIO' "cannot parse arguments in literate file") return $
       pureParseLit args
     let GlobalOpts{..} = globalOpts
-        bindgenConfig = toBindgenConfig config uniqueId baseModuleName
+        -- TODO https://github.com/well-typed/hs-bindgen/issues/1328: Which command
+        -- line options to adjust the binding category predicate do we want to
+        -- provide?
+        bindgenConfig = toBindgenConfig config uniqueId baseModuleName useSafeCategory
     void $ hsBindgen tracerConfig bindgenConfig inputs $
-      writeBindings bindingCategoryPredicate (Just literateOpts.output)
+      writeBindings (Just literateOpts.output)
   where
     throwIO' :: String -> IO a
     throwIO' = throwIO . LiterateFileException literateOpts.input

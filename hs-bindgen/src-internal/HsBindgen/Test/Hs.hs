@@ -2,8 +2,8 @@ module HsBindgen.Test.Hs (
     genTestsHs
   ) where
 
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config
 import HsBindgen.Errors
 
@@ -13,12 +13,12 @@ import HsBindgen.Errors
 
 -- | Generate Haskell test modules
 genTestsHs ::
-     FilePath       -- ^ Test module path
-  -> FilePath       -- ^ Spec module path
-  -> FilePath       -- ^ Main module path
-  -> BaseModuleName -- ^ Generated Haskell module name
-  -> FilePath       -- ^ C test header file path
-  -> ByCategory [Hs.Decl]    -- ^ Declarations
+     FilePath              -- ^ Test module path
+  -> FilePath              -- ^ Spec module path
+  -> FilePath              -- ^ Main module path
+  -> BaseModuleName        -- ^ Generated Haskell module name
+  -> FilePath              -- ^ C test header file path
+  -> ByCategory_ [Hs.Decl] -- ^ Declarations
   -> IO ()
 genTestsHs = throwPure_TODO 22 "generate test suite"
 

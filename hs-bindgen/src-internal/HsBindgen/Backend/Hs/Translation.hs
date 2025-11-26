@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedLabels #-}
+
 -- | Low-level translation of the C header to a Haskell module
 module HsBindgen.Backend.Hs.Translation (
     generateDeclarations
@@ -11,7 +13,9 @@ import Data.Set qualified as Set
 import Data.Text qualified as T
 import Data.Type.Nat (SNatI)
 import Data.Vec.Lazy qualified as Vec
+import Optics.Core (over)
 
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
@@ -53,24 +57,20 @@ generateDeclarations ::
   -> BaseModuleName
   -> DeclIndex
   -> [C.Decl]
-  -> ByCategory [Hs.Decl]
+  -> ByCategory_ [Hs.Decl]
 generateDeclarations opts config name declIndex =
-    ByCategory . Map.map reverse .
-      foldl' partitionBindingCategories  Map.empty .
+    fmap reverse .
+      foldl' partitionBindingCategories mempty .
       generateDeclarations' opts config name declIndex
   where
     partitionBindingCategories ::
-      Map BindingCategory [a] -> WithCategory a  -> Map BindingCategory [a]
-    partitionBindingCategories m (WithCategory cat decl) =
-      Map.alter (addDecl decl) cat m
-
-    addDecl :: a -> Maybe [a] -> Maybe [a]
-    addDecl decl Nothing      = Just [decl]
-    addDecl decl (Just decls) = Just $ decl : decls
+      ByCategory_ [a] -> WithCategory a  -> ByCategory_ [a]
+    partitionBindingCategories xs (WithCategory cat decl) =
+      over (lensForCategory cat) (decl :) xs
 
 -- | Internal. Top-level declaration with foreign import category.
 data WithCategory a = WithCategory {
-    _withCategoryCategory :: BindingCategory
+    _withCategoryCategory :: Category
   , _withCategoryDecl     :: a
   } deriving (Show)
 
@@ -88,7 +88,7 @@ generateDeclarations' opts haddockConfig moduleName declIndex decs =
           -- These go in the main module to avoid orphan instances
           --WithCategory c
           fFIStubsAndFunPtrInstances =
-                   [ WithCategory BType d
+                   [ WithCategory CType d
                    | C.TypePointer (C.TypeFun args res) <- Set.toList scannedFunctionPointerTypes
                    , not (any hasUnsupportedType (res:args))
                    , any (isDefinedInCurrentModule declIndex) (res:args)
@@ -157,15 +157,15 @@ generateDecs ::
   -> m [WithCategory Hs.Decl]
 generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
     case kind of
-      C.DeclStruct struct -> withCategoryM BType $
+      C.DeclStruct struct -> withCategoryM CType $
         reifyStructFields struct $ structDecs opts haddockConfig info struct spec
-      C.DeclUnion union -> withCategoryM BType $
+      C.DeclUnion union -> withCategoryM CType $
         unionDecs haddockConfig info union spec
-      C.DeclEnum e -> withCategoryM BType $
+      C.DeclEnum e -> withCategoryM CType $
         enumDecs opts haddockConfig info e spec
-      C.DeclTypedef d -> withCategoryM BType $
+      C.DeclTypedef d -> withCategoryM CType $
         typedefDecs opts haddockConfig info d spec
-      C.DeclOpaque cNameKind -> withCategoryM BType $
+      C.DeclOpaque cNameKind -> withCategoryM CType $
         opaqueDecs cNameKind haddockConfig info spec
       C.DeclFunction f ->
         let funDeclsWith safety =
@@ -175,20 +175,20 @@ generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
             -- functions that take a function pointer of the appropriate type.
             funPtrDecls = fst $
               addressStubDecs opts haddockConfig moduleName info funType spec
-        in  pure $ withCategory BSafe   (funDeclsWith SHs.Safe)
-                ++ withCategory BUnsafe (funDeclsWith SHs.Unsafe)
-                ++ withCategory BFunPtr  funPtrDecls
-      C.DeclMacro macro -> withCategoryM BType $
+        in  pure $ withCategory (CTerm CSafe)   (funDeclsWith SHs.Safe)
+                ++ withCategory (CTerm CUnsafe) (funDeclsWith SHs.Unsafe)
+                ++ withCategory (CTerm CFunPtr)  funPtrDecls
+      C.DeclMacro macro -> withCategoryM CType $
         macroDecs opts haddockConfig info macro spec
       C.DeclGlobal ty ->
         State.get >>= \instsMap ->
-          pure $ withCategory BGlobal $
+          pure $ withCategory (CTerm CGlobal) $
             global opts haddockConfig moduleName instsMap info ty spec
     where
-      withCategory :: BindingCategory -> [a] -> [WithCategory a]
+      withCategory :: Category -> [a] -> [WithCategory a]
       withCategory c = map (WithCategory c)
 
-      withCategoryM :: Functor m => BindingCategory -> m [a] -> m [WithCategory a]
+      withCategoryM :: Functor m => Category -> m [a] -> m [WithCategory a]
       withCategoryM c = fmap (withCategory c)
 
 

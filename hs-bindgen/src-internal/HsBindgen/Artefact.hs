@@ -18,9 +18,9 @@ import Text.SimplePrettyPrint qualified as PP
 import Clang.Paths
 
 import HsBindgen.Backend
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv (UserlandCapiWrapper)
-import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Boot
 import HsBindgen.Config
@@ -55,8 +55,8 @@ data Artefact (a :: Star) where
   ReifiedC            :: Artefact [C.Decl]
   Dependencies        :: Artefact [SourcePath]
   -- * Backend
-  HsDecls             :: Artefact (ByCategory [Hs.Decl])
-  FinalDecls          :: Artefact (ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
+  HsDecls             :: Artefact (ByCategory_ [Hs.Decl])
+  FinalDecls          :: Artefact (ByCategory_ ([UserlandCapiWrapper], [SHs.SDecl]))
   FinalModuleBaseName :: Artefact BaseModuleName
   -- * Lift and sequence artefacts
   Lift                :: ArtefactM a -> Artefact a

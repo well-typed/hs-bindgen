@@ -28,7 +28,7 @@ let cfg :: Config
     cfgTH = def
               & #verbosity .~ Verbosity Warning
               & #customLogLevelSettings .~ [EnableMacroWarnings]
-              & #bindingCategoryPredicate .~ useUnsafeCategory
+              & #bindingCategoryChoice .~ useUnsafeCategory
  in withHsBindgen cfg cfgTH $
       hashInclude "simple.h"
 

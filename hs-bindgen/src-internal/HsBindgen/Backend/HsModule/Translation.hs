@@ -1,4 +1,5 @@
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeData #-}
 
 module HsBindgen.Backend.HsModule.Translation (
     -- * GhcPragma
@@ -7,12 +8,6 @@ module HsBindgen.Backend.HsModule.Translation (
   , ImportListItem(..)
     -- * HsModule
   , HsModule(..)
-    -- * Binding category selection
-  , SDeclPredicate
-  , useSafeCategory
-  , useUnsafeCategory
-  , useAllCategories
-  , selectModuleMultiple
     -- * Translation
   , translateModuleMultiple
   , translateModuleSingle
@@ -22,6 +17,7 @@ import Data.Foldable qualified as Foldable
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type qualified as Hs
@@ -70,71 +66,29 @@ data HsModule = HsModule {
     }
 
 {-------------------------------------------------------------------------------
-  Binding category selection
--------------------------------------------------------------------------------}
-
--- TODO_PR: Use `Hs.Name` (but then we need `ImpredicativeTypes`).
-type SDeclPredicate = Text -> Bool
-
-useSafeCategory, useUnsafeCategory, useAllCategories :: ByCategory SDeclPredicate
-useSafeCategory   = ByCategory $ Map.singleton BUnsafe (const False)
-useUnsafeCategory = ByCategory $ Map.singleton BSafe   (const False)
-useAllCategories  = ByCategory   Map.empty
-
--- TODO_PR: Double check the select function.
-selectCategory ::
-     SDeclPredicate
-  -> SDecl
-  -> Bool
-selectCategory p = \case
-  (DVar              x)  -> p $ Hs.getName x.varName
-  (DInst             _)  -> True
-  (DRecord           x)  -> p $ Hs.getName x.dataType
-  (DNewtype          x)  -> p $ Hs.getName x.newtypeName
-  (DEmptyData        x)  -> p $ Hs.getName x.emptyDataName
-  (DDerivingInstance _)  -> True
-  (DForeignImport    x)  -> p $ Hs.getName x.foreignImportName
-  (DFunction         x)  -> p $ Hs.getName x.functionName
-  (DPatternSynonym   x)  -> p $ Hs.getName x.patSynName
-  (DPragma (NOINLINE n)) -> p $ Hs.getName n
-
--- Default to selecting all declarations.
-getPredicate :: BindingCategory -> ByCategory SDeclPredicate -> SDeclPredicate
-getPredicate x = fromMaybe (const True) . Map.lookup x . unByCategory
-
-selectModuleMultiple ::
-     ByCategory SDeclPredicate
-  -> ByCategory ([UserlandCapiWrapper], [SDecl])
-  -> ByCategory ([UserlandCapiWrapper], [SDecl])
-selectModuleMultiple predByCat = mapByCategory $ \cat (wrappers, decls) ->
-    (wrappers, filter (selectCategory $ getPredicate cat predByCat) decls)
-
-{-------------------------------------------------------------------------------
   Translation
 -------------------------------------------------------------------------------}
 
 translateModuleMultiple ::
      BaseModuleName
-  -> ByCategory SDeclPredicate
-  -> ByCategory ([UserlandCapiWrapper], [SDecl])
-  -> ByCategory HsModule
-translateModuleMultiple moduleBaseName predByCat declsByCat =
-    mapByCategory go $ selectModuleMultiple predByCat declsByCat
+  -> ByCategory_ ([UserlandCapiWrapper], [SDecl])
+  -> ByCategory_ (Maybe HsModule)
+translateModuleMultiple moduleBaseName declsByCat =
+    mapWithCategory_ go declsByCat
   where
-    go :: BindingCategory -> ([UserlandCapiWrapper], [SDecl]) -> HsModule
-    go cat xs = translateModule' (Just cat) moduleBaseName xs
+    go :: Category -> ([UserlandCapiWrapper], [SDecl]) -> Maybe HsModule
+    go _ ([], []) = Nothing
+    go cat xs     = Just $ translateModule' (Just cat) moduleBaseName xs
 
 translateModuleSingle ::
      BaseModuleName
-  -> ByCategory SDeclPredicate
-  -> ByCategory ([UserlandCapiWrapper], [SDecl])
+  -> ByCategory_ ([UserlandCapiWrapper], [SDecl])
   -> HsModule
-translateModuleSingle name predByCat declsByCat =
-    translateModule' Nothing name $ Foldable.fold $
-      selectModuleMultiple predByCat declsByCat
+translateModuleSingle name declsByCat =
+    translateModule' Nothing name $ Foldable.fold declsByCat
 
 translateModule' ::
-     Maybe BindingCategory
+     Maybe Category
   -> BaseModuleName
   -> ([UserlandCapiWrapper], [SDecl])
   -> HsModule
@@ -180,7 +134,7 @@ resolveDeclPragmas decl =
 -- | Resolve imports in a list of declarations
 resolveImports ::
      BaseModuleName
-  -> Maybe BindingCategory
+  -> Maybe Category
   -> [UserlandCapiWrapper]
   -> [SDecl]
   -> [ImportListItem]
@@ -198,10 +152,10 @@ resolveImports baseModule cat wrappers ds =
     bindingCatImport False = mempty
     bindingCatImport True = case cat of
       Nothing    -> mempty
-      Just BType -> mempty
+      Just CType -> mempty
       _otherCat  ->
         let base = HsImportModule{
-                hsImportModuleName  = fromBaseModuleName baseModule (Just BType)
+                hsImportModuleName  = fromBaseModuleName baseModule (Just CType)
               , hsImportModuleAlias = Nothing
               }
         in  Set.singleton $ UnqualifiedImportListItem base Nothing

@@ -15,9 +15,9 @@ module HsBindgen.Config (
   )
 where
 
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation.Config
-import HsBindgen.Backend.SHs.AST
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
@@ -52,8 +52,13 @@ data Config_ path = Config {
   deriving stock (Functor, Foldable, Traversable)
   deriving anyclass (Default)
 
-toBindgenConfig :: Config_ FilePath -> UniqueId -> BaseModuleName -> BindgenConfig
-toBindgenConfig Config{..} uniqueId baseModuleName =
+toBindgenConfig ::
+     Config_ FilePath
+  -> UniqueId
+  -> BaseModuleName
+  -> ByCategory Choice
+  -> BindgenConfig
+toBindgenConfig Config{..} uniqueId baseModuleName choice =
     BindgenConfig bootConfig frontendConfig backendConfig
   where
     bootConfig = BootConfig {
@@ -74,6 +79,7 @@ toBindgenConfig Config{..} uniqueId baseModuleName =
       , backendHaddockConfig = HaddockConfig {
             pathStyle = haddockPathStyle
           }
+      , backendBindingCategoryChoice = choice
       }
 
 {-------------------------------------------------------------------------------
@@ -98,16 +104,15 @@ instance Default OutputDirPolicy where
 
 -- | Configuration specific to Template-Haskell mode
 data ConfigTH = ConfigTH {
-    -- | Foreign import safety
+    -- | Some identifiers (e.g., identifiers of @safe@ and @unsafe@ foreign
+    -- imports) are identical, so we have to choose which ones to generate
+    -- bindings for.
     --
-    -- The generated identifiers of @safe@ and @unsafe@ foreign imports are
-    -- identical, so we have to choose one.
+    -- We can also include all declarations, carefully renaming identifiers to
+    -- avoid name clashes.
     --
-    -- Default:
-    --
-    -- >>> def :: Safety
-    -- Safe
-    bindingCategoryPredicate :: ByCategory SDeclPredicate
+    -- Default: 'Category.useSafe'.
+    bindingCategoryChoice    :: ByCategory Choice
 
     -- | Show trace messages of the provided 'Level' or higher.
     --
@@ -127,7 +132,7 @@ data ConfigTH = ConfigTH {
 
 instance Default ConfigTH where
   def = ConfigTH {
-            bindingCategoryPredicate = useSafeCategory
+            bindingCategoryChoice    = useSafeCategory
           , verbosity                = def
           , customLogLevelSettings   = def
           }
