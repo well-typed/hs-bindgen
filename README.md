@@ -47,4 +47,3 @@ that can be extended by users for specific applications.
 
 You can find the (currently still very incomplete) manual in
 [manual/](manual/README.md).
-

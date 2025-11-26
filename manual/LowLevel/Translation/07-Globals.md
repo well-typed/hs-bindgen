@@ -101,7 +101,7 @@ will result in a warning, and not produce any bindings.
 
 ## Constants
 
-Global variables can also represenent global *constants* if they use
+Global variables can also represenent global _constants_ if they use
 `const`-qualified types.
 
 ```c
@@ -156,8 +156,8 @@ The approach to generating foreign imports for global variables is as follows:
   and returns the pointer.
 
 * If the type of the global variable is `const`-qualified, then it is actually a
-  global *constant*. If there is a `Storable` instance in scope for the variable
-  type, we generate a *pure* Haskell function that returns the value of the
+  global _constant_. If there is a `Storable` instance in scope for the variable
+  type, we generate a _pure_ Haskell function that returns the value of the
   global constant, using a combination of `unsafePerformIO` and `peek` on the
   variable pointer. This is safe, since the value of the global constant should
   not change.
@@ -170,16 +170,19 @@ We include examples of generated bindings for a variety of types below.
 ### Simple value: `int`
 
 Global:
+
 ```c
 int x;
 ```
 
 Stub:
+
 ```c
 /* get_x_ptr */ __attribute__ ((const)) int* fe8f4js8(void) { return &x; }
 ```
 
 Import:
+
 ```hs
 foreign import ccall unsafe "fe8f4js8" fe8f4js8 :: IO (Ptr CInt)
 
@@ -190,13 +193,14 @@ x_ptr = unsafePerformIO fe8f4js8
 
 Memory layout:
 
-| type                     | name          | address | value   |
-| ------------------------ | ------------- | ------- | ------- |
-| int                      | x             | 1000    | 17      |
-|                          |               | ...     |         |
-| int* ; Ptr CInt          | x_ptr         | 2000    | 1000    |
+| type              | name  | address | value |
+|-------------------|-------|---------|-------|
+| `int`             | x     | 1000    | 17    |
+|                   |       | ...     |       |
+| `int* ; Ptr CInt` | x_ptr | 2000    | 1000  |
 
 Constant:
+
 ```hs
 {-# NOINLINE x #-}
 -- If the type of the global were @const int x@, we would also generate the following
@@ -214,16 +218,19 @@ Of course, this is only safe if the user knows that it is pointing to a sequence
 of `int`s.
 
 Global:
+
 ```c
 int* x;
 ```
 
 Stub:
+
 ```c
 /* get_x_ptr */ int** ae8fae8() { return &x; }
 ```
 
 Import:
+
 ```hs
 foreign import ccall unsafe "ae8fae8" ae8fae8 :: IO (Ptr (Ptr CInt))
 
@@ -244,18 +251,19 @@ x_incomplete_array_ptr = IncompleteArray.toIncompleteArrayPtr <$> peek x_ptr
 
 Memory layout:
 
-| type                     | name          | address | value   |
-| ------------------------ | ------------- | ------- | ------- |
-| int                      |               | 1000    | 1       |
-|                          |               | 1004    | 2       |
-|                          |               | 1008    | 3       |
-|                          |               | ...     |         |
-| int*                     | x             | 2000    | 1000    |
-|                          |               | ...     |         |
-| int**; Ptr (Ptr CInt)    | x_ptr         | 3000    | 2000    |
+| type                    | name  | address | value |
+|-------------------------|-------|---------|-------|
+| `int`                   |       | 1000    | 1     |
+|                         |       | 1004    | 2     |
+|                         |       | 1008    | 3     |
+|                         |       | ...     |       |
+| `int*`                  | x     | 2000    | 1000  |
+|                         |       | ...     |       |
+| `int**; Ptr (Ptr CInt)` | x_ptr | 3000    | 2000  |
 
 Constant:
-```hs
+
+```haskell
 {-# NOINLINE x #-}
 -- If the type of the global were @int * const x@, we would also generate the following.
 -- Note that we do this for const-pointer-to-int, not for pointer-to-const-int. The "outer"
@@ -276,25 +284,28 @@ We have a subtle choice here of what to generate a binding for. The options are:
 
 For uniformity, we use the latter option.
 
-Note that the *value* of the pointer is the same regardless of which approach we
+Note that the _value_ of the pointer is the same regardless of which approach we
 pick. A pointer to the first element of the array points to the start of the
-array, and a pointer to the array as a whole *also* points to the start of the
+array, and a pointer to the array as a whole _also_ points to the start of the
 array. The difference is only in the type of the pointer. As such, a user of the
 generated bindings can safely cast the pointer to the whole array to a pointer
 to the first element of the array.
 
 Global:
+
 ```c
 typedef int triplet[3];
 triplet x;
 ```
 
 Stub:
+
 ```c
 /* get_x_ptr */ __attribute__ ((const)) triplet *f94u3030(void) { return &x; }
 ```
 
 Import:
+
 ```hs
 newtype Triplet = Triplet (ConstantArray 3 CInt)
 foreign import ccall unsafe "f94u3030" f94u3030 :: IO (Ptr Triplet)
@@ -313,15 +324,16 @@ x_elem_ptr = snd $ ConstantArray.toFirstElemPtr x_ptr
 
 Memory layout:
 
-| type                                   | name          | address | value   |
-| -------------------------------------- | ------------- | ------- | ------- |
-| int[3]                                 | x             | 1000    | 1       |
-|                                        |               | 1004    | 2       |
-|                                        |               | 1008    | 3       |
-|                                        |               | ...     |         |
-| (*int)[3] ; Ptr (ConstantArray 3 CInt) | x_ptr         | 2000    | 1000    |
+| type                                     | name  | address | value |
+|------------------------------------------|-------|---------|-------|
+| `int[3]`                                 | x     | 1000    | 1     |
+|                                          |       | 1004    | 2     |
+|                                          |       | 1008    | 3     |
+|                                          |       | ...     |       |
+| `(*int)[3] ; Ptr (ConstantArray 3 CInt)` | x_ptr | 2000    | 1000  |
 
 Constant:
+
 ```hs
 {-# NOINLINE x #-}
 -- If the type of the global were @const triplet x@, we would also generate the following
@@ -336,17 +348,20 @@ difference is only in the types: we use `IncompleteArray` instead of
 `ConstantArray`.
 
 Global:
+
 ```c
 typedef int list[];
 list x;
 ```
 
 Stub:
+
 ```c
 /* get_x_ptr */ __attribute__ ((const)) list *poeyrb8a(void) { return &x; }
 ```
 
 Import:
+
 ```hs
 newtype List = List (IncompleteArray CInt)
 foreign import ccall unsafe "poeyrb8a" poeyrb8a :: IO (Ptr List)
@@ -365,16 +380,17 @@ x_elem_ptr = IncompleteArray.toFirstElemPtr x_ptr
 
 Memory layout:
 
-| type                                  | name          | address | value   |
-| ------------------------------------- | ------------- | ------- | ------- |
-| int[]                                 | x             | 1000    | 1       |
-|                                       |               | 1004    | 2       |
-|                                       |               | 1008    | 3       |
-|                                       |               | ...     |         |
-| (*int)[] ; Ptr (IncompleteArray CInt) | x_ptr         | 2000    | 1000    |
+| type                                    | name  | address | value |
+|-----------------------------------------|-------|---------|-------|
+| `int[]`                                 | x     | 1000    | 1     |
+|                                         |       | 1004    | 2     |
+|                                         |       | 1008    | 3     |
+|                                         |       | ...     |       |
+| `(*int)[] ; Ptr (IncompleteArray CInt)` | x_ptr | 2000    | 1000  |
 
 Constant:
-```hs
+
+```haskell
 {-# NOINLINE x #-}
 -- If the type of the global were @const list x@, we would /not/ generate the following.
 -- It would fail to compile because 'IncompleteArray' does not have a 'Storable' instance,

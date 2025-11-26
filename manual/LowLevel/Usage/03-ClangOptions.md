@@ -19,7 +19,8 @@ well.
 When using `hs-bindgen-cli preprocess`, Clang options may be specified as
 command-line options.  Common options are exposed as `hs-bindgen-cli`
 command-line options, while arbitrary Clang options may be passed using
-`--clang-option-before`, `--clang-option`, and `--clang-option-after`.
+`--clang-option-before`, `--clang-option`, `--clang-option-after`, or
+the environment variable `BINDGEN_EXTRA_CLANG_ARGS`.
 
 Options are passed to Clang in the following order:
 
@@ -35,22 +36,22 @@ managed by `hs-bindgen`.
 
 Example:
 
-```
-$ hs-bindgen-cli preprocess \
-    --standard c23 \
-    -I include \
-    --clang-option="-idirafter/opt/acme-0.1.0/include" \
-    --module Foo \
-    --output Foo.hs \
-    foo.h
+```console
+hs-bindgen-cli preprocess \
+  --standard c23 \
+  -I include \
+  --clang-option="-idirafter/opt/acme-0.1.0/include" \
+  --module Foo \
+  --hs-output-dir src \
+  foo.h
 ```
 
 ## Environment variables
 
 Clang options may also be set using environment variables.  This is
 particularly useful when setting environment-specific configuration that may
-not be hard-coded in the source code.  Options specified via the CLI or the
-Template Haskell API take precedence.
+not be hard-coded in the source code.  Most options specified via the CLI or the
+Template Haskell API take precedence (see above).
 
 - __When compiling natively (i.e., without specifying a target)__, `hs-bindgen`
   reads `BINDGEN_EXTRA_CLANG_ARGS` and splits its string value into command-line
@@ -70,12 +71,12 @@ Template Haskell API take precedence.
 
   The following targets are supported:
 
-    - `x86_64-pc-linux`
-    - `i386-pc-linux`
-    - `aarch64-pc-linux`
-    - `x86_64-pc-windows`
-    - `x86_64-apple-macosx`
-    - `aarch64-apple-macosx`
+  - `x86_64-pc-linux`
+  - `i386-pc-linux`
+  - `aarch64-pc-linux`
+  - `x86_64-pc-windows`
+  - `x86_64-apple-macosx`
+  - `aarch64-apple-macosx`
 
 This behavior is consistent with that of [`rust-bindgen`][].
 

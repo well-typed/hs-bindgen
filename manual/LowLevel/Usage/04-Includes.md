@@ -82,7 +82,7 @@ The following options are used to add a directory to a C include search path:
 These options can be passed multiple times, and the directories are added to
 the C include search paths in the same order.
 
-The following are used to disable default include directories:
+The following options are used to disable default include directories:
 
 * `-nostdinc` disables the default include directories (both the standard system
   directories and the compiler builtin directories).
@@ -101,13 +101,13 @@ does the same.
 
 Linux example:
 
-```
+```sh
 C_INCLUDE_PATH=/some/dep/include:/other/dep/include
 ```
 
 Windows example:
 
-```
+```sh
 C_INCLUDE_PATH=C:\some\dep\include;C:\other\dep\include
 ```
 
@@ -154,14 +154,14 @@ the CAPI section below.
 environment variables, described below.  In addition, `libclang` process the
 Clang environment variables, described above.
 
-[Clang options]: <ClangOptions.md>
+[Clang options]: <03-ClangOptions.md>
 
 `libclang` constructs C include search paths like Clang, but it is generally
 unable to correctly determine the builtin include directory.  When the builtin
 include directory is not configured correctly, one often gets "`stddef.h` not
-found" or similar include resolution errors.  `hs-bindgen` can attempt to
-determine and configure the builtin include directory automatically so that it
-does not have to be done manually.
+found" or similar include resolution errors.  By default, `hs-bindgen` attempts
+to determine and configure the builtin include directory automatically so that
+it does not have to be done manually.
 
 `hs-bingden` has two modes for configuring the builtin include directory:
 
@@ -202,14 +202,14 @@ Clang has many more include options, which may be passed via
 For example, Clang option `-idirafter` may be used to add a directory to the end
 of the bracket C include search path.
 
-```
-$ hs-bindgen-cli preprocess \
-    --standard c23 \
-    -I include \
-    --clang-option="-idirafter/opt/acme-0.1.0/include" \
-    --module Foo \
-    --output Foo.hs \
-    foo.h
+```console
+hs-bindgen-cli preprocess \
+  --standard c23 \
+  -I include \
+  --clang-option="-idirafter/opt/acme-0.1.0/include" \
+  --module Foo \
+  --hs-output-dir src \
+  foo.h
 ```
 
 ### `hs-bindgen` environment variables
@@ -232,7 +232,7 @@ or Template Haskell `hashInclude` function calls.  In addition, headers are
 specified in [Binding specifications][].  All of these headers are resolved
 via `libclang` using bracket includes.
 
-[Binding specifications]: <BindingSpecifications.md>
+[Binding specifications]: <06-BindingSpecifications.md>
 
 Headers must be specified as they would be in an include directive.  They are
 generally relative to a directory in a C include search path, but note that they
@@ -247,8 +247,8 @@ directory should be added to the bracket C include search path, and header
 arguments should be relative to it.  The following command runs the preprocessor
 on header `foo.h` in the `include` directory:
 
-```
-$ hs-bindgen-cli preprocess -I include foo.h
+```console
+hs-bindgen-cli preprocess -I include foo.h
 ```
 
 This translates to include directive `#include <foo.h>`.  Header resolution
@@ -298,19 +298,19 @@ When you encounter an include issue, the first thing to do is understand where
 the issue is occurring.  Possibilities include:
 
 * `hs-bindgen` translation of C headers
-    * `hs-bindgen` options are relevant, including `BINDGEN_EXTRA_CLANG_ARGS`.
-    * Clang options are relevant, including `C_INCLUDE_PATH`.
-    * Run `hs-bindgen-cli --version` to confirm which version of `libclang` is
+  * `hs-bindgen` options are relevant, including `BINDGEN_EXTRA_CLANG_ARGS`.
+  * Clang options are relevant, including `C_INCLUDE_PATH`.
+  * Run `hs-bindgen-cli --version` to confirm which version of `libclang` is
       being used.
 * Compilation of C libraries to shared objects
-    * `hs-bindgen` options are not relevant.
-    * The compiler options are relevant.  `C_INCLUDE_PATH` is used by both GCC
+  * `hs-bindgen` options are not relevant.
+  * The compiler options are relevant.  `C_INCLUDE_PATH` is used by both GCC
       and Clang.
 * Compilation of translated Haskell modules
-    * `hs-bindgen` options are not relevant.
-    * The compiler options are relevant.  `C_INCLUDE_PATH` is used by both GCC
+  * `hs-bindgen` options are not relevant.
+  * The compiler options are relevant.  `C_INCLUDE_PATH` is used by both GCC
       and Clang.
-    * Run `ghc --info` to confirm which compiler is being used.
+  * Run `ghc --info` to confirm which compiler is being used.
 
 When using the Template Haskell API, you can use the `-ddump-splices` GHC option
 to dump the generated Haskell source, including CAPI C source.  This allows you
@@ -321,8 +321,8 @@ includes the C include search paths used by Clang.  It takes command-line
 options and environment variables into account, so you can test configuration
 and confirm precedence.
 
-```
-$ clang -E -v - </dev/null
+```console
+clang -E -v - </dev/null
 ```
 
 Similarly, the following command runs the GCC preprocessor and displays
@@ -330,16 +330,16 @@ information that includes the C include search paths used by GCC.  It takes
 command-line options and environment variables into account, so you can test
 configuration and confirm precedence.
 
-```
-$ gcc -xc -E -v - </dev/null
+```console
+gcc -xc -E -v - </dev/null
 ```
 
 The `hs-bindgen-cli info resolve-header` command may be used debug `hs-bindgen`
 header resolution.  When experimenting with builtin include directory
 configuration, it may be useful to show debug trace messages.
 
-```
-$ hs-bindgen-cli info resolve-header -v4 stddef.h
+```console
+hs-bindgen-cli info resolve-header -v4 stddef.h
 ```
 
 The `hs-bindgen-cli info include-graph` command may be used to display the full
@@ -347,14 +347,14 @@ include graph for one or more headers, in [Mermaid][] syntax.
 
 [Mermaid]: <https://mermaid.js.org/>
 
-```
-$ hs-bindgen-cli info include-graph stdint.h
+```console
+hs-bindgen-cli info include-graph stdint.h
 ```
 
 The `hs-bindgen-cli info libclang` command may be used to run `libclang` with
 Clang options such as `-v`, to confirm the `libclang` version, C include search
 paths, etc.
 
-```
-$ hs-bindgen-cli info libclang --clang-option=-v
+```console
+hs-bindgen-cli info libclang --clang-option=-v
 ```

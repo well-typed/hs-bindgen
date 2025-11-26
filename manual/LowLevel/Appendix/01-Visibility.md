@@ -87,9 +87,9 @@ void __attribute__ ((visibility ("hidden"))) foo (void);
 Let's also assume `A.c` includes a definition for this `foo` function. We can
 compile this into a shared library `libA.so` like so:
 
-```
-❯ gcc -Wall -o A.o -c -fPIC A.c
-❯ gcc -Wall --shared -o libA.so A.o
+```console
+gcc -Wall -o A.o -c -fPIC A.c
+gcc -Wall --shared -o libA.so A.o
 ```
 
 Now we create a separate file `B.c` that uses the `foo` function from
@@ -103,9 +103,9 @@ void bar (void) { foo(); }
 If we try to compile the following code and link it against `libA.so`, we
 would get linker errors.
 
-```
-❯ gcc -Wall -o B.o -c -fPIC B.c
-❯ gcc -Wall --shared -o libB.so B.o libA.so
+```console
+$ gcc -Wall -o B.o -c -fPIC B.c
+$ gcc -Wall --shared -o libB.so B.o libA.so
 /usr/bin/ld: B.o: in function `bar':
 B.c:(.text+0x9): undefined reference to `foo'
 /usr/bin/ld: libB.so: hidden symbol `foo' isn't defined
@@ -161,6 +161,7 @@ Note that tentative definitions can also act as definitions if there are no full
 definitions elsewhere in the header, in which case requirement 3 is satisfied.
 
 Examples:
+
 ```c
 extern int __attribute__ ((visibility ("hidden"))) foo (void);
        int __attribute__ ((visibility ("hidden"))) bar (void);
@@ -168,6 +169,7 @@ extern int __attribute__ ((visibility ("hidden"))) i;
 ```
 
 Non-examples:
+
 ```c
        int __attribute__ ((visibility ("hidden"))) foo (void) {return 1;};
 static int __attribute__ ((visibility ("hidden"))) bar (void) {return 2;};

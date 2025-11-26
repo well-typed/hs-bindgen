@@ -8,7 +8,8 @@ TODO
 
 TODO: introduction to function pointers
 
-1. For every C function, generate an additional binding for the address of that C function.
+1. For every C function, generate an additional binding for the address of that
+   C function.
 
 In theory every C function is a candidate for being passed to other functions as
 a function pointer. For example, consider the following two (contrived)
@@ -61,7 +62,7 @@ main = do
   print y -- prints 16
 ```
 
-[globals]:./Globals.md#Guidelines-for-binding-generation
+[globals]:./07-Globals.md#Guidelines-for-binding-generation
 
 ## Implicit function to pointer conversion
 
@@ -113,6 +114,7 @@ typedef int int2int(int);
 extern int apply1_pointer_arg (int2int *, int);
 extern int apply1_nopointer_arg (int2int, int);
 ```
+
 ```hs
 newtype Int2int = Int2int { un_Int2int :: CInt -> IO CInt }
 foreign import {-# details elided #-} apply1_pointer_arg
@@ -121,9 +123,9 @@ foreign import {-# details elided #-} apply1_nopointer_arg
   :: FunPtr Int2int -> CInt -> IO CInt
 ```
 
-Similarly, the address stubs `apply1_pointer_arg_ptr` and `apply1_nopointer_arg_ptr` that
-we generate (see the ["Function pointers" section](#function-pointers)) would
-get the exact same type as the other.
+Similarly, the address stubs `apply1_pointer_arg_ptr` and
+`apply1_nopointer_arg_ptr` that we generate (see the ["Function pointers"
+section](#function-pointers)) would get the exact same type as the other.
 
 Note that parameters of function type can occur almost anywhere where types
 normally can occur, with some minor restrictions. For example: variables,
@@ -191,7 +193,6 @@ apply1_union :: Apply1Union
 ```
 
 [creference:fun-decl]: https://en.cppreference.com/w/c/language/function_declaration.html#Explanation
-[creference:fun-ptr-conv]: https://en.cppreference.com/w/c/language/conversion.html#Function_to_pointer_conversion
 
 ## Userland CAPI
 

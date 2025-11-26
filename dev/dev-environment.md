@@ -6,6 +6,7 @@ Linux, NixOS, and macOS.
 ## General Prerequisites
 
 All platforms require (last updated October 9, 2025):
+
 - GHC 9.4.8 or greater (or compatible version)
 - Cabal (latest version)
 - LLVM/Clang (version 14 - 21)
@@ -55,6 +56,7 @@ macOS setup is similar to Linux but with platform-specific considerations.
 ### Prerequisites
 
 Install LLVM and Clang:
+
 ```bash
 brew install llvm@16
 ```
@@ -62,6 +64,7 @@ brew install llvm@16
 ### Environment Setup
 
 1. **Set LLVM paths**:
+
    ```bash
    export LLVM_PATH=/opt/homebrew/opt/llvm@16  # Adjust for your installation
    export LLVM_CONFIG=$LLVM_PATH/bin/llvm-config
@@ -69,11 +72,13 @@ brew install llvm@16
    ```
 
 2. **SDK configuration**:
+
    ```bash
    export SDKROOT=$(xcrun --show-sdk-path --sdk macosx)
    ```
 
 3. **Library paths**:
+
    ```bash
    export DYLD_LIBRARY_PATH=/path/to/your/c/libs:$DYLD_LIBRARY_PATH
    ```
@@ -88,6 +93,7 @@ and Clang, so no separate LLVM installation is needed.
 ### Environment Setup
 
 1. Set LLVM paths (PowerShell):
+
    ```powershell
    $env:LLVM_PATH = "C:\ghcup\ghc\9.12.2\mingw"
    $env:LLVM_CONFIG = "$env:LLVM_PATH\bin\llvm-config.exe"
@@ -97,6 +103,7 @@ and Clang, so no separate LLVM installation is needed.
 2. Library paths:
 
    Windows uses `PATH` for finding DLLs:
+
    ```powershell
    $env:PATH = "C:\path\to\your\c\libs;" + $env:PATH
    ```
