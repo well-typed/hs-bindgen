@@ -5,7 +5,7 @@
 ### Simple `enum`s
 
 We already saw the simplest form of `enum` in the
-[Introduction](Introduction.md): given
+[Introduction](../Introduction.md): given
 
 ```c
 typedef enum index {
@@ -22,10 +22,7 @@ newtype Index = Index {
     un_Index :: CUInt
   }
 
-pattern A :: Index
-pattern B :: Index
-pattern C :: Index
-
+pattern A, B, C :: Index
 pattern A = Index 0
 pattern B = Index 1
 pattern C = Index 2
@@ -95,11 +92,11 @@ enum vote {
 } __attribute__((packed));
 ```
 
-we use `CSChar` (corresponding to `signed char`):
+we use `CUChar` (corresponding to `unsigned char`):
 
 ```haskell
 newtype Vote = Vote {
-    un_Vote :: CSChar
+    un_Vote :: CUChar
   }
 ```
 
@@ -107,7 +104,7 @@ newtype Vote = Vote {
 
 At first glance it would seem obvious that the Haskell type defined for C enums
 should be given an `Enum` instance; if `Enum` corresponds to enumeration types,
-then surely C `enum`s qualify. However, as mentioned above, C enums merely
+then surely C `enum`s qualify. However, as mentioned above, C `enum`s merely
 identify some values; they do not restrict the range of the corresponding type.
 Take `HTTP_status` (see above), and consider  `Moved` (with value 301); should
 `succ Moved` be `Bad_request` (value 400), the next _declared_ value, or should
@@ -115,7 +112,7 @@ it be value 302? `Bounded` is problematic for the same reason: should `minBound`
 be `ok` (value 200) or 0 (`minBound` for `CUInt`)?
 
 The `hs-bindgen-runtime` library therefore defines an alternative class called
-`CENum`, the most important members of which are:
+`CEnum`, the most important members of which are:
 
 ```haskell
 class Integral (CEnumZ a) => CEnum a where
