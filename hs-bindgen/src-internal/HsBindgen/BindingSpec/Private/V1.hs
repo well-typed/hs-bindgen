@@ -542,18 +542,18 @@ data ABindingSpec = ABindingSpec {
 
 instance Aeson.FromJSON ABindingSpec where
   parseJSON = Aeson.withObject "ABindingSpec" $ \o -> do
-    aBindingSpecVersion  <- o .: "version"
-    aBindingSpecHsModule <- o .: "hsmodule"
-    aBindingSpecCTypes   <- o .: "ctypes"
-    aBindingSpecHsTypes  <- o .: "hstypes"
+    aBindingSpecVersion  <- o .:  "version"
+    aBindingSpecHsModule <- o .:  "hsmodule"
+    aBindingSpecCTypes   <- o .:? "ctypes"  .!= []
+    aBindingSpecHsTypes  <- o .:? "hstypes" .!= []
     return ABindingSpec{..}
 
 instance Aeson.ToJSON ABindingSpec where
-  toJSON ABindingSpec{..} = Aeson.object [
-      "version"  .= aBindingSpecVersion
-    , "hsmodule" .= aBindingSpecHsModule
-    , "ctypes"   .= aBindingSpecCTypes
-    , "hstypes"  .= aBindingSpecHsTypes
+  toJSON ABindingSpec{..} = Aeson.Object . KM.fromList $ catMaybes [
+      Just ("version"  .= aBindingSpecVersion)
+    , Just ("hsmodule" .= aBindingSpecHsModule)
+    , ("ctypes"  .=) <$> omitWhenNull aBindingSpecCTypes
+    , ("hstypes" .=) <$> omitWhenNull aBindingSpecHsTypes
     ]
 
 --------------------------------------------------------------------------------
