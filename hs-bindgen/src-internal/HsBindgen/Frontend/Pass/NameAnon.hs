@@ -10,7 +10,6 @@ import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph, UseOfDecl (..))
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage (..), ValOrRef (..))
-import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
@@ -75,7 +74,7 @@ nameDecl ::
   -> Either (Msg NameAnon) (C.Decl NameAnon)
 nameDecl env decl = do
     case getDeclId env qualPrelimDeclId declId of
-      Left _        -> Left  $ NameAnonSkipped (coercePass declInfo)
+      Left _        -> Left  $ NameAnonSkipped declInfo
       Right declId' -> Right $ C.Decl{
         declInfo = C.DeclInfo{
             declId = declId'
@@ -146,7 +145,7 @@ instance NameUseSites C.FieldInfo where
 instance NameUseSites C.CommentRef where
   nameUseSites _ (C.ById t) = C.ById (nameUseSite t)
     where
-      nameUseSite :: C.PrelimDeclId -> C.DeclId
+      nameUseSite :: C.PrelimDeclId -> C.DeclId NameAnon
       nameUseSite qualPrelimDeclId = case qualPrelimDeclId of
         C.PrelimDeclIdNamed name   -> C.DeclIdNamed name C.NameOriginInSource
         C.PrelimDeclIdBuiltin name -> C.DeclIdBuiltin name
@@ -251,7 +250,7 @@ instance NameUseSites C.Type where
       -- Rename specific use site
       --
       -- NOTE: there /must/ be at least one use site, because we are renaming one!
-      nameUseSite :: C.QualPrelimDeclId -> C.DeclId
+      nameUseSite :: C.QualPrelimDeclId -> C.DeclId NameAnon
       nameUseSite qualPrelimDeclId = case qualPrelimDeclId of
         C.QualPrelimDeclIdNamed   name   _ns -> C.DeclIdNamed name C.NameOriginInSource
         C.QualPrelimDeclIdBuiltin name       -> C.DeclIdBuiltin name
@@ -261,11 +260,8 @@ instance NameUseSites C.Type where
           Nothing -> panicPure "unused anonymous declaration?"
 
 nameUseSitesTypedefRef :: RenameEnv -> TypedefRef HandleMacros -> TypedefRef NameAnon
-nameUseSitesTypedefRef env = unTypedefRefWrapper . nameUseSites env . TypedefRefWrapper
-
-instance NameUseSites TypedefRefWrapper where
-  nameUseSites env (TypedefRefWrapper (OrigTypedefRef n uTy)) =
-      TypedefRefWrapper (OrigTypedefRef n (nameUseSites env uTy))
+nameUseSitesTypedefRef env (OrigTypedefRef n uTy) =
+    OrigTypedefRef n (nameUseSites env uTy)
 
 {-------------------------------------------------------------------------------
   Name generation

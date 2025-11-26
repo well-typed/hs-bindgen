@@ -440,7 +440,10 @@ instance Resolve C.Type where
         -> Id NameAnon
         -> C.NameKind
         -> M (C.Type ResolveBindingSpecs)
-      auxU mk uid = aux (const (mk uid)) . C.declIdToQualDeclId uid
+      auxU mk uid = aux (const (mk uid')) . C.declIdToQualDeclId uid
+        where
+          uid' :: Id ResolveBindingSpecs
+          uid' = coercePassId (Proxy @'(NameAnon, ResolveBindingSpecs)) uid
 
       auxN ::
            (C.Name -> C.Type ResolveBindingSpecs)
@@ -454,7 +457,7 @@ instance Resolve C.Type where
 
       aux ::
            (C.Name -> C.Type ResolveBindingSpecs)
-        -> C.QualDeclId
+        -> C.QualDeclId NameAnon
         -> M (C.Type ResolveBindingSpecs)
       aux mk cQualDeclId@C.QualDeclId{..} =
         Reader.ask >>= \MEnv{..} -> State.get >>= \MState{..} -> do
@@ -500,7 +503,7 @@ resolveCommentReference ::
      C.Comment NameAnon
   -> C.Comment ResolveBindingSpecs
 resolveCommentReference (C.Comment comment) =
-    C.Comment (fmap (\(C.ById i) -> C.ById i) comment)
+    C.Comment (fmap coercePass comment)
 
 -- | Lookup qualified name in the 'ExternalResolvedBindingSpec'
 resolveExtBinding ::

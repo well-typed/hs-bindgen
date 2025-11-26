@@ -60,7 +60,7 @@ handleDecl td decl =
                                                        $ Clang.Comment
                                                        [ Clang.Paragraph
                                                          [ Clang.TextContent "Auxiliary type used by "
-                                                         , Clang.InlineRefCommand (C.ById dId)
+                                                         , Clang.InlineRefCommand (C.ById (coercePass dId))
                                                          ]
                                                        ]
                                        }
@@ -109,7 +109,7 @@ handleDecl td decl =
                  Just newDeclId -> (
                      Just $ HandleTypedefsRenamedTagged declInfo' (C.declIdName newDeclId)
                    , declInfo {
-                       C.declId = newDeclId
+                       C.declId = coercePass newDeclId
                      , C.declComment = fmap (handleUseSites td) declComment
                      }
                    )
@@ -159,7 +159,7 @@ instance HandleUseSites C.FieldInfo where
     }
 
 instance HandleUseSites C.CommentRef where
-  handleUseSites _ (C.ById i)   = C.ById i
+  handleUseSites _ (C.ById i) = C.ById (coercePass i)
 
 instance HandleUseSites C.Comment where
   handleUseSites td (C.Comment comment) =
@@ -229,7 +229,7 @@ instance HandleUseSites C.Type where
       -- Simple cases
 
       go (C.TypePrim prim)        = C.TypePrim prim
-      go (C.TypeMacroTypedef uid) = C.TypeMacroTypedef uid
+      go (C.TypeMacroTypedef uid) = C.TypeMacroTypedef (coercePass uid)
       go (C.TypeVoid)             = C.TypeVoid
       go (C.TypeExtBinding ext)   = C.TypeExtBinding ext
 
@@ -253,15 +253,15 @@ instance HandleUseSites C.Type where
       go (C.TypeComplex prim) = C.TypeComplex prim
 
       rename ::
-           (C.DeclId -> C.Type HandleTypedefs)
-        -> (C.DeclId -> C.Type HandleTypedefs)
+           (C.DeclId HandleTypedefs -> C.Type HandleTypedefs)
+        -> (C.DeclId Select         -> C.Type HandleTypedefs)
       rename mkType uid =
         case Map.lookup (C.declIdName uid) (TypedefAnalysis.rename td) of
-          Just newDeclId -> mkType $ newDeclId
-          Nothing        -> mkType uid
+          Just newDeclId -> mkType $ coercePass newDeclId
+          Nothing        -> mkType $ coercePass uid
 
       squash :: TypedefRef Select -> C.Type HandleTypedefs
       squash (OrigTypedefRef name uTy) = C.TypeTypedef $
           case Map.lookup name (TypedefAnalysis.squash td) of
             Nothing -> TypedefRegular (C.DeclIdNamed name C.NameOriginInSource) (go uTy)
-            Just ty -> TypedefSquashed name ty
+            Just ty -> TypedefSquashed name (go ty)

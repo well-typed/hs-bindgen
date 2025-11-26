@@ -554,7 +554,7 @@ instance PrettyForTrace (C.Located (Id p)) => PrettyForTrace (DeclInfo p) where
   prettyForTrace DeclInfo{declId, declLoc} =
     prettyForTrace $ C.Located declLoc declId
 
-instance Id p ~ C.DeclId => PrettyForTrace (Decl p) where
+instance Id p ~ C.DeclId p => PrettyForTrace (Decl p) where
   prettyForTrace decl =
     let qualDeclId = declQualDeclId decl
     in  prettyForTrace $ C.Located (decl.declInfo.declLoc) qualDeclId
@@ -568,16 +568,16 @@ declQualPrelimDeclId :: HasCallStack =>
 declQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
     C.qualPrelimDeclId declId (declKindNameKind declKind)
 
-declOrigQualPrelimDeclId :: Id p ~ C.DeclId => Decl p -> C.QualPrelimDeclId
+declOrigQualPrelimDeclId :: Id p ~ C.DeclId p => Decl p -> C.QualPrelimDeclId
 declOrigQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
     C.qualDeclIdToQualPrelimDeclId $
       C.declIdToQualDeclId declId (declKindNameKind declKind)
 
-declQualDeclId :: Id p ~ C.DeclId => Decl p -> C.QualDeclId
+declQualDeclId :: Id p ~ C.DeclId p => Decl p -> C.QualDeclId p
 declQualDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
     C.declIdToQualDeclId declId (declKindNameKind declKind)
 
-declQualName :: Id p ~ C.DeclId => Decl p -> C.QualName
+declQualName :: Id p ~ C.DeclId p => Decl p -> C.QualName
 declQualName Decl{declInfo = DeclInfo{declId}, declKind} =
     C.QualName (C.declIdName declId) (declKindNameKind declKind)
 

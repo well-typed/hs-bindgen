@@ -7,12 +7,14 @@ module HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
+import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -30,7 +32,7 @@ type family AnnHandleTypedefs ix where
   AnnHandleTypedefs _                 = NoAnn
 
 instance IsPass HandleTypedefs where
-  type Id           HandleTypedefs = C.DeclId
+  type Id           HandleTypedefs = C.DeclId HandleTypedefs
   type FieldName    HandleTypedefs = C.Name
   type ArgumentName HandleTypedefs = Maybe C.Name
   type TypedefRef   HandleTypedefs = RenamedTypedefRef HandleTypedefs
@@ -110,3 +112,10 @@ instance IsTrace Level HandleTypedefsMsg where
       HandleTypedefsRenamedTagged{} -> Info
   getSource  = const HsBindgen
   getTraceId = const "handle-typedefs"
+
+{-------------------------------------------------------------------------------
+  CoercePass
+-------------------------------------------------------------------------------}
+
+instance CoercePassId Select HandleTypedefs where
+  coercePassId _ = coercePass

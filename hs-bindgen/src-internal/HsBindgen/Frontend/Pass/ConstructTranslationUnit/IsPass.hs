@@ -7,7 +7,7 @@ module HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph
-import HsBindgen.Frontend.AST.Coerce (CoercePass (..))
+import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
@@ -66,5 +66,8 @@ data ConstructTranslationUnitMsg =
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePass TypedefRefWrapper Parse ConstructTranslationUnit where
-  coercePass (TypedefRefWrapper p) = TypedefRefWrapper (coercePass p)
+instance CoercePassId Parse ConstructTranslationUnit where
+  coercePassId _ = id
+
+instance CoercePassTypedefRef Parse ConstructTranslationUnit where
+  coercePassTypedefRef _ = coercePass

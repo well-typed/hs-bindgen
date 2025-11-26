@@ -17,7 +17,6 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage (..), ValOrRef (..))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (HandleTypedefs)
 import HsBindgen.Frontend.Pass.Select.IsPass (Select)
 import HsBindgen.Imports
 
@@ -107,12 +106,12 @@ import HsBindgen.Imports
 -- thing also in the case of this name clash.
 data TypedefAnalysis = TypedefAnalysis {
       -- | Declarations (structs, unions, or enums) that need to be renamed
-      rename :: Map C.Name C.DeclId
+      rename :: Map C.Name (C.DeclId Select)
 
       -- | Typedefs that need to be squashed
       --
       -- We record what use sites of the typedef should be replaced with.
-    , squash :: Map C.Name (C.Type HandleTypedefs)
+    , squash :: Map C.Name (C.Type Select)
     }
   deriving stock (Show, Eq)
 
@@ -152,7 +151,7 @@ fromDecls declUseGraph = mconcat . map aux
 
 analyseTypedef ::
      DeclUseGraph
-  -> C.DeclId
+  -> C.DeclId Select
   -> C.Typedef Select
   -> TypedefAnalysis
 analyseTypedef declUseGraph uid typedef =
@@ -222,7 +221,7 @@ typedefOfTagged typedefName valOrRef taggedType@TaggedTypeId{..} useSites
 --
 -- If we rename a datatype with a name which was /already/ not original, we
 -- leave the origin information unchanged.
-updateOrigin :: C.DeclId -> C.NameOrigin
+updateOrigin :: C.DeclId Select -> C.NameOrigin
 updateOrigin (C.DeclIdBuiltin _name) =
     -- TODO: Ideally we'd have a separate pass to deal with builtin types,
     -- and strengthen the types in such as a way that we don't have to deal with
@@ -246,7 +245,7 @@ updateOrigin (C.DeclIdNamed oldName origin) =
 -- This is nearly identical to 'C.QualDeclId', except that we use 'C.TagKind'
 -- rather than 'C.NameKind' (in other words, we rule out 'C.NameKindOrdinary').
 data TaggedTypeId = TaggedTypeId {
-      taggedTypeDeclId :: C.DeclId
+      taggedTypeDeclId :: C.DeclId Select
     , taggedTypeIdKind :: C.TagKind
     }
   deriving stock (Eq, Generic, Ord, Show)
@@ -268,7 +267,7 @@ toTaggedTypeId = \case
     C.TypeEnum   declId -> Just $ TaggedTypeId declId C.TagKindEnum
     _otherwise          -> Nothing
 
-fromTaggedTypeId :: TaggedTypeId -> C.Type HandleTypedefs
+fromTaggedTypeId :: TaggedTypeId -> C.Type Select
 fromTaggedTypeId (TaggedTypeId declId kind) =
     case kind of
       C.TagKindStruct -> C.TypeStruct declId

@@ -85,6 +85,7 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
 import HsBindgen.Errors
+import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 
@@ -386,23 +387,23 @@ instance PrettyForTrace NameOrigin where
 --
 -- All declarations have names after renaming in the @NameAnon@ pass.  This type
 -- is used until the @MangleNames@ pass.
-data DeclId =
+data DeclId (p :: Pass) =
     DeclIdNamed Name NameOrigin
   | DeclIdBuiltin Name
   deriving stock (Show, Eq, Ord, Generic)
 
-declIdName :: DeclId -> Name
+declIdName :: DeclId p -> Name
 declIdName (DeclIdNamed name _origin) = name
 declIdName (DeclIdBuiltin name) = name
 
-instance PrettyForTrace DeclId where
+instance PrettyForTrace (DeclId p) where
   prettyForTrace = \case
       DeclIdNamed name origin ->
         prettyForTrace name <+> PP.parens (prettyForTrace origin)
       DeclIdBuiltin name ->
         prettyForTrace name
 
-instance PrettyForTrace (Located DeclId) where
+instance PrettyForTrace (Located (DeclId p)) where
   prettyForTrace (Located loc declId) =
       case declId of
         DeclIdNamed name origin -> PP.hsep [
@@ -417,13 +418,13 @@ instance PrettyForTrace (Located DeclId) where
 -------------------------------------------------------------------------------}
 
 -- | Declaration identifier, qualified by 'NameKind'
-data QualDeclId = QualDeclId {
-      qualDeclId     :: DeclId
+data QualDeclId p = QualDeclId {
+      qualDeclId     :: DeclId p
     , qualDeclIdKind :: NameKind
     }
   deriving stock (Eq, Generic, Ord, Show)
 
-instance PrettyForTrace (Located QualDeclId) where
+instance PrettyForTrace (Located (QualDeclId p)) where
   prettyForTrace (Located loc QualDeclId{..}) =
       case qualDeclId of
         DeclIdNamed name origin -> PP.hsep [
@@ -433,13 +434,13 @@ instance PrettyForTrace (Located QualDeclId) where
         DeclIdBuiltin name ->
           prettyForTrace (QualName name qualDeclIdKind)
 
-qualDeclIdName :: QualDeclId -> Name
+qualDeclIdName :: QualDeclId p -> Name
 qualDeclIdName = declIdName . qualDeclId
 
-declIdToQualDeclId :: DeclId -> NameKind -> QualDeclId
+declIdToQualDeclId :: DeclId p -> NameKind -> QualDeclId p
 declIdToQualDeclId = QualDeclId
 
-qualDeclIdToQualPrelimDeclId :: HasCallStack => QualDeclId -> QualPrelimDeclId
+qualDeclIdToQualPrelimDeclId :: HasCallStack => QualDeclId p -> QualPrelimDeclId
 qualDeclIdToQualPrelimDeclId (QualDeclId declId kind) =
     case declId of
       DeclIdNamed name origin ->

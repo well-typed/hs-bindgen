@@ -257,20 +257,8 @@ instance Arbitrary C.Name where
 instance Arbitrary C.NameKind where
   arbitrary = elements [minBound .. maxBound]
 
-instance Arbitrary C.NameOrigin where
-  -- TODO: We currently never produce anonymous or builtin declarations. In this
-  -- module we check that select predicates behave as boolean functions; this is
-  -- not true for builtins (which are /never/ selected).
-  arbitrary = pure C.NameOriginInSource
-
 instance Arbitrary C.QualName where
   arbitrary = C.QualName <$> arbitrary <*> arbitrary
-
-instance Arbitrary C.DeclId where
-  arbitrary = C.DeclIdNamed <$> arbitrary <*> arbitrary
-
-instance Arbitrary C.QualDeclId where
-  arbitrary = C.QualDeclId <$> arbitrary <*> arbitrary
 
 instance Arbitrary C.Availability where
   arbitrary = elements [minBound .. maxBound]
