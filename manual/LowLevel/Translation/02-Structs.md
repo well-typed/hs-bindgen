@@ -5,7 +5,7 @@ structures](https://en.wikipedia.org/wiki/Struct_(C_programming_language))
 (`struct`s). The examples are available in the [C header file
 `structs.h`](/manual/c/structs.h).
 
-In the [Introduction](/manual/LowLevel/Introduction.md), we have seen bindings
+In the [Introduction](../Introduction.md), we have seen bindings
 created for a named C `struct` (structure) storing a triple of integers:
 
 ```c

@@ -81,7 +81,7 @@ main = do
   print y -- prints 16
 ```
 
-[globals]:./Globals.md#Guidelines-for-binding-generation
+[globals]:./07-Globals.md#Guidelines-for-binding-generation
 
 ### Implicit function to pointer conversion
 
