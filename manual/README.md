@@ -24,9 +24,14 @@
 * [Structs](LowLevel/Translation/02-Structs.md)
 * [Enums](LowLevel/Translation/03-Enums.md)
 * [Unions](LowLevel/Translation/04-Unions.md)
-* [Functions](LowLevel/Translation/05-Functions.md)
-* [Global variables and constants](LowLevel/Translation/06-Globals.md)
-* [Macros](LowLevel/Translation/07-Macros.md)
+* [Zero-Copy](LowLevel/Translation/05-ZeroCopy.md)
+* [Functions](LowLevel/Translation/06-Functions.md)
+* [Global variables and constants](LowLevel/Translation/07-Globals.md)
+* [Macros](LowLevel/Translation/08-Macros.md)
+
+### Appendix
+
+* [Visibility](LowLevel/Appendix/01-Visibility.md)
 
 ## Handwriting high-level bindings
 
