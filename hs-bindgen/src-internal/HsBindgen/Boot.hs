@@ -13,6 +13,8 @@ import Clang.Args
 import HsBindgen.BindingSpec
 import HsBindgen.Cache
 import HsBindgen.Clang.BuiltinIncDir
+import HsBindgen.Clang.CompareVersions (CompareVersionsMsg,
+                                        compareClangVersions)
 import HsBindgen.Clang.ExtraClangArgs
 import HsBindgen.Config.ClangArgs (ClangArgsConfig)
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
@@ -102,6 +104,7 @@ getClangArgs tracer config = do
       fst <$> ClangArgs.target config
     mBuiltinIncDir <- getBuiltinIncDir (contramap BootBuiltinIncDir tracer) $
       ClangArgs.builtinIncDir config
+    compareClangVersions (contramap BootCompareClangVersions tracer)
     either throwIO return
       . ClangArgs.getClangArgs
       . applyExtraClangArgs extraClangArgs
@@ -152,12 +155,13 @@ instance IsTrace Level BootStatusMsg where
 
 -- | Boot trace messages
 data BootMsg =
-    BootBackendConfig  BackendConfigMsg
-  | BootBindingSpec    BindingSpecMsg
-  | BootBuiltinIncDir  BuiltinIncDirMsg
-  | BootExtraClangArgs ExtraClangArgsMsg
-  | BootHashIncludeArg HashIncludeArgMsg
-  | BootStatus         BootStatusMsg
-  | BootCache          (SafeTrace CacheMsg)
+    BootBackendConfig        BackendConfigMsg
+  | BootBindingSpec          BindingSpecMsg
+  | BootBuiltinIncDir        BuiltinIncDirMsg
+  | BootExtraClangArgs       ExtraClangArgsMsg
+  | BootHashIncludeArg       HashIncludeArgMsg
+  | BootCompareClangVersions CompareVersionsMsg
+  | BootStatus               BootStatusMsg
+  | BootCache                (SafeTrace CacheMsg)
   deriving stock (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
