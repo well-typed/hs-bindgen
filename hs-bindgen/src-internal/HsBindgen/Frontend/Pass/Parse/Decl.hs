@@ -154,7 +154,7 @@ parseDecl = \curr -> do
           -> ParseDecl (Next ParseDecl [ParseResult])
         parseWith parser requiredForScoping kind
           | isBuiltin = foldContinueWith
-              [parseDoNotAttempt info kind OmittedBuiltin]
+              [parseDoNotAttempt info kind DeclarationBuiltin]
           | isUnavailable = foldContinueWith
               [parseDoNotAttempt info kind DeclarationUnavailable]
           | RequiredForScoping <- requiredForScoping =

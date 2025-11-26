@@ -62,10 +62,11 @@ run = liftIO . unwrap
 
   * The clang API does not make it very easy to associate a type with a source
     location, so it's hard to produce a useful error message.
+
   * Parsing a type always happens whilst processing some enclosing declaration.
     When we encounter something unsupported (or unexpected) whilst parsing the
-    type, we'll want to skip generating bindings for that declaration, but we do
-    not have sufficient context here to do so.
+    type, we'll want to register a parse failure and avoid generating bindings
+    for that declaration, but we do not have sufficient context here to do so.
 
   For both of these reasons we simply throw an exception here, and then /catch/
   that exception in 'foldDec'. This allows us to address both of these issues:
@@ -146,8 +147,9 @@ instance PrettyForTrace ParseTypeException where
 
 -- | We use 'Error' for bugs, and 'Warning' for known-to-be-unsupported
 --
--- This ensures that for declarations that use known-to-be-unsupported types,
--- we can just skip generating bindings for that declaration.
+-- This ensures that for declarations that use known-to-be-unsupported types, we
+-- can just register a parse failure and avoid generating bindings for that
+-- declaration.
 instance IsTrace Level ParseTypeException where
   getDefaultLogLevel = \case
     UnexpectedTypeKind{}          -> Error

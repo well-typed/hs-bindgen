@@ -50,8 +50,8 @@ tests = testGroup "Test.HsBindgen.Prop.Selection" [
         , testProperty "select/add/false" prop_mergeAddFalse
         , testCase     "true/pos"         mergeTruePos
         , testCase     "true/neg"         mergeTrueNeg
-        , testCase     "exclude/one"      mergeExcludeOne
-        , testCase     "exclude/two"      mergeExcludeTwo
+        , testCase     "deselect/one"      mergeDeselectOne
+        , testCase     "deselect/two"      mergeDeselectTwo
         ]
     ]
 
@@ -223,14 +223,14 @@ mergeTruePos =
 mergeTrueNeg =
   mergeBooleans @HeaderPathPredicate [BFalse] [BTrue] @?= BTrue
 
-mergeExcludeOne :: Assertion
-mergeExcludeOne = mergeBooleans [p] [BTrue] @?= BNot p
+mergeDeselectOne :: Assertion
+mergeDeselectOne = mergeBooleans [p] [BTrue] @?= BNot p
   where
     p :: Boolean SelectPredicate
     p = BIf $ SelectDecl (DeclNameMatches "a")
 
-mergeExcludeTwo :: Assertion
-mergeExcludeTwo = mergeBooleans [pa, pb] [BTrue] @?= BAnd (BNot pa) (BNot pb)
+mergeDeselectTwo :: Assertion
+mergeDeselectTwo = mergeBooleans [pa, pb] [BTrue] @?= BAnd (BNot pa) (BNot pb)
   where
     pa, pb :: Boolean SelectPredicate
     pa = BIf $ SelectDecl (DeclNameMatches "a")
