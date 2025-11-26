@@ -17,7 +17,6 @@ import Clang.Version (clang_getClangVersion)
 import HsBindgen.App
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Cli qualified as Cli
-import HsBindgen.Config.ClangArgs
 import HsBindgen.Errors
 import HsBindgen.Imports
 
@@ -105,12 +104,6 @@ envVarsFooter :: Help.Doc
 envVarsFooter = Help.vcat [
       "Environment variables:"
     , li $ "BINDGEN_EXTRA_CLANG_ARGS: Arguments passed to Clang"
-    , li $ mconcat [
-          "BINDGEN_EXTRA_CLANG_ARGS_<TARGET>:"
-        , " Target-specific arguments passed to Clang;"
-        , " precedes BINDGEN_EXTRA_CLANG_ARGS; possible targets: "
-        , Text.intercalate ", " (map (Text.pack . targetTriple) [minBound ..])
-        ]
     ]
 
 clangArgsFooter :: Help.Doc

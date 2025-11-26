@@ -10,10 +10,10 @@ module HsBindgen.Clang.ExtraClangArgs (
 
 import GHC.ResponseFile (unescapeArgs)
 import System.Environment (lookupEnv)
+import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Config.ClangArgs
-import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -21,24 +21,23 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data ExtraClangArgsMsg =
-    ExtraClangArgsNone
-  | ExtraClangArgsParsed { envName :: String, envArgs :: [String] }
+    ExtraClangArgsNotSet
+  | ExtraClangArgsEmpty
+  | ExtraClangArgsParsed [String]
   deriving stock (Show)
 
 instance PrettyForTrace ExtraClangArgsMsg where
   prettyForTrace = \case
-    ExtraClangArgsNone -> PP.hsep [
-        "No", PP.string envNameBase, "environment variables"
-      ]
-    ExtraClangArgsParsed{..} -> PP.hcat [
-        "Picked up evironment variable ",  PP.string       envName
-      , "; parsed 'libclang' arguments: ", PP.showToCtxDoc envArgs
-      ]
-
+    ExtraClangArgsNotSet -> PP.string envName >< " environment variable not set"
+    ExtraClangArgsEmpty  -> PP.string envName >< " environment variable empty"
+    ExtraClangArgsParsed args ->
+      PP.string envName >< " environment variable parsed 'libclang' arguments: "
+        >< PP.showToCtxDoc args
 
 instance IsTrace Level ExtraClangArgsMsg where
   getDefaultLogLevel = \case
-    ExtraClangArgsNone     -> Debug
+    ExtraClangArgsNotSet   -> Debug
+    ExtraClangArgsEmpty    -> Debug
     ExtraClangArgsParsed{} -> Info
   getSource  = const HsBindgen
   getTraceId = const "extra-clang-args"
@@ -49,26 +48,13 @@ instance IsTrace Level ExtraClangArgsMsg where
 
 -- | Get extra Clang arguments from system environment
 --
--- If compiling natively, without a target, @BINDGEN_EXTRA_CLANG_ARGS@ is used.
---
--- If cross-compiling to a given target, @BINDGEN_EXTRA_CLANG_ARGS_<TARGET>@ is
--- used, where @<TARGET>@ is a 'targetTriple'.  This function falls back to
--- @BINDGEN_EXTRA_CLANG_ARGS@ if the target-specific environment variable is
--- unset or empty.  In particular, if cross-compiling to a given target, a
--- provided, non-empty, target-specific environment variable takes precedence
--- over `BINDGEN_EXTRA_CLANG_ARGS`, which is unused.
-getExtraClangArgs :: Tracer ExtraClangArgsMsg -> Maybe Target -> IO [String]
-getExtraClangArgs tracer = aux
-  where
-    aux :: Maybe Target -> IO [String]
-    aux mTarget =
-      let envName = getEnvName mTarget
-      in  fmap splitArguments <$> lookupEnv envName >>= \case
-            Nothing
-              | isJust mTarget -> aux Nothing  -- Fall back to no target
-              | otherwise      -> [] <$ traceWith tracer ExtraClangArgsNone
-            Just args ->
-              args <$ traceWith tracer (ExtraClangArgsParsed envName args)
+-- This function reads the @BINDGEN_EXTRA_CLANG_ARGS@ environment variable.
+-- Values are split into command-line arguments, respecting shell escapes.
+getExtraClangArgs :: Tracer ExtraClangArgsMsg -> IO [String]
+getExtraClangArgs tracer = fmap splitArguments <$> lookupEnv envName >>= \case
+    Nothing   -> []   <$ traceWith tracer ExtraClangArgsNotSet
+    Just []   -> []   <$ traceWith tracer ExtraClangArgsEmpty
+    Just args -> args <$ traceWith tracer (ExtraClangArgsParsed args)
 
 -- | Apply extra Clang arguments to 'ClangArgsConfig'
 --
@@ -82,16 +68,11 @@ applyExtraClangArgs args config = config {
   Auxiliary
 -------------------------------------------------------------------------------}
 
-envNameBase :: String
-envNameBase = "BINDGEN_EXTRA_CLANG_ARGS"
+envName :: String
+envName = "BINDGEN_EXTRA_CLANG_ARGS"
 
-getEnvName :: Maybe Target -> String
-getEnvName = \case
-    Nothing     -> envNameBase
-    Just target -> envNameBase ++ '_' : targetTriple target
-
--- | Split string into command line arguments, honoring shell escapes
+-- | Split string into command-line arguments, respecting shell escapes
 --
--- For expectations, see 'Test.HsBindgen.C.Environment.splitArgumentTests'.
+-- For expectations, see @Test.HsBindgen.C.Environment.splitArgumentTests@.
 splitArguments :: String -> [String]
 splitArguments = unescapeArgs

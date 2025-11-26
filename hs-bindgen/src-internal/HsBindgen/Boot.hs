@@ -100,8 +100,7 @@ boot
 -- | Determine Clang arguments
 getClangArgs :: Tracer BootMsg -> ClangArgsConfig FilePath -> IO ClangArgs
 getClangArgs tracer config = do
-    extraClangArgs <- getExtraClangArgs (contramap BootExtraClangArgs tracer) $
-      ClangArgs.target config
+    extraClangArgs <- getExtraClangArgs (contramap BootExtraClangArgs tracer)
     mBuiltinIncDir <- getBuiltinIncDir (contramap BootBuiltinIncDir tracer) $
       ClangArgs.builtinIncDir config
     compareClangVersions (contramap BootCompareClangVersions tracer)

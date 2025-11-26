@@ -1,6 +1,5 @@
 module Test.HsBindgen.Unit.ClangArgs (tests) where
 
-import System.Environment (setEnv, unsetEnv)
 import Test.Common.HsBindgen.TracePredicate
 import Test.HsBindgen.Resources
 import Test.Tasty
@@ -9,7 +8,7 @@ import Test.Tasty.HUnit
 import Clang.LowLevel.Core
 
 import HsBindgen.Clang
-import HsBindgen.Clang.ExtraClangArgs (getExtraClangArgs, splitArguments)
+import HsBindgen.Clang.ExtraClangArgs (splitArguments)
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Errors
 import HsBindgen.Imports
@@ -23,7 +22,6 @@ tests :: IO TestResources -> TestTree
 tests testResources = testGroup "Test.HsBindgen.Unit.ClangArgs" [
       testCase "getTargetTriple" $ testGetTargetTriple testResources
     , parseTargetTripleLenientTests
-    , getExtraClangArgsTests
     , splitArgumentsTests
     ]
 
@@ -112,37 +110,6 @@ parseTargetTripleLenientTests = testGroup "parseTargetTripleLenient" [
       in  testCase label $ mTarget @=? parseTargetTripleLenient tt
 
 {-------------------------------------------------------------------------------
-  Get extra clang args
--------------------------------------------------------------------------------}
-
-getExtraClangArgsTests :: TestTree
-getExtraClangArgsTests = testGroup "getExtraClangArgs" [
-      testCase "!target" $
-        assertExtraClangArgs [(eDef, "native")] Nothing ["native"]
-    , -- Without target, we ignore target-specific `clang` arguments.
-      testCase "!target+other" $
-        assertExtraClangArgs [(eDef, "native"), (eLnx, "cross")] Nothing ["native"]
-    , testCase "target" $
-        assertExtraClangArgs [(eLnx, "cross")] (Just Target_Linux_GNU_X86_64) ["cross"]
-    , -- With target, we exclusively use target-specific `clang` arguments,
-      -- if present.
-      testCase "target+other" $
-        assertExtraClangArgs [(eDef, "native"), (eLnx, "cross")] (Just Target_Linux_GNU_X86_64) ["cross"]
-    , -- With target, we fall back to the default `clang` arguments.
-      testCase "target+!other" $
-        assertExtraClangArgs [(eDef, "native")] (Just Target_Linux_GNU_X86_64) ["native"]
-    , testCase "target+otherEmpty" $
-        assertExtraClangArgs [(eDef, "native"), (eLnx, "")] (Just Target_Linux_GNU_X86_64) ["native"]
-    ]
-  where
-    assertExtraClangArgs :: [(EnvVar, EnvVal)] -> Maybe Target -> [String] -> IO ()
-    assertExtraClangArgs xs mtarget x = do
-        withTracePredicate noReport defaultTracePredicate $ \tracer ->
-          assertWithEnv xs (getExtraClangArgs tracer mtarget) x
-
-    noReport :: a -> IO ()
-    noReport = const $ pure ()
-{-------------------------------------------------------------------------------
   Split arguments
 -------------------------------------------------------------------------------}
 
@@ -164,27 +131,3 @@ splitArgumentsTests = testGroup "splitStringArguments"
     , testCase "quote2"       $ splitArguments "a1 \"arg two\" a3"     @?= ["a1", "arg two", "a3"]
     , testCase "escape&quote" $ splitArguments "a\\ \"b c\"\\ d"       @?= ["a b c d"]
     ]
-
-{-------------------------------------------------------------------------------
-  Internal auxiliary: setup environment
--------------------------------------------------------------------------------}
-
-type EnvVar = String
-type EnvVal = String
-
-eDef :: EnvVar
-eDef = "BINDGEN_EXTRA_CLANG_ARGS"
-
-eLnx :: EnvVal
-eLnx = eDef <> "_x86_64-pc-linux-gnu"
-
-withEnv :: [(EnvVar, EnvVal)] -> IO a -> IO a
-withEnv xs k = do
-    mapM_ unsetEnv [eDef, eLnx]
-    mapM_ (uncurry setEnv) xs
-    r <- k
-    mapM_ (unsetEnv . fst) xs
-    pure r
-
-assertWithEnv :: (Eq a, Show a) => [(EnvVar, EnvVal)] -> IO a -> a -> Assertion
-assertWithEnv xs k x = withEnv xs k >>= \r -> r @?= x

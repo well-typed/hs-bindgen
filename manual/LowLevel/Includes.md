@@ -289,8 +289,8 @@ compiler is determined by GHC.  Environment variables supported by the C
 compiler (such as `C_INCLUDE_PATH`) are also relevant.
 
 Note that `hs-bindgen` configuration is not relevant.  Header resolution at this
-stage is *not* affected by `hs-bindgen-cli` options or
-`BINDGEN_EXTRA_CLANG_ARGS` environment variables.
+stage is *not* affected by `hs-bindgen-cli` options or the
+`BINDGEN_EXTRA_CLANG_ARGS` environment variable.
 
 ## Debugging
 

@@ -56,7 +56,7 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      tracerConfig        :: TracerConfig Level TraceMsg
+      tracerConfig :: TracerConfig Level TraceMsg
     }
 
 parseGlobalOpts :: Parser GlobalOpts
