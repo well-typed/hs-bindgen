@@ -4,6 +4,6 @@ typedef int ParsedAndNotSelected;
 
 // This declaration is _not_ parsed by the test, which uses a custom parse
 // predicate.
-struct PossiblyNotParsedDefinitelyNotSelected {
+struct ParseNotAttemptedNotSelected {
   int x;
 };

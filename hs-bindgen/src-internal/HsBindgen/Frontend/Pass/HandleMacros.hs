@@ -17,7 +17,8 @@ import Clang.Args (CStandard)
 import Clang.HighLevel.Types
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex (..))
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.LanguageC qualified as LanC
@@ -43,27 +44,11 @@ handleMacros standard C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
       fmap partitionEithers $ mapM processDecl unitDecls
   where
     reassemble ::
-         (([HandleMacrosParseMsg] , [C.Decl HandleMacros]) , [Msg HandleMacros])
+         (([FailedMacro] , [C.Decl HandleMacros]) , [Msg HandleMacros])
       -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
-    reassemble ((failedMacroLst, decls'), msgs) =
-      let index :: DeclIndex
-          index = unitAnn.declIndex
-
-          failedMacros :: Map C.QualPrelimDeclId HandleMacrosParseMsg
-          failedMacros = Map.fromList $
-            map (\x -> (declId $ unHandleMacrosParseMsg x, x)) failedMacroLst
-
-          failedMacroIds :: Set C.QualPrelimDeclId
-          failedMacroIds = Map.keysSet failedMacros
-
-          index' = DeclIndex {
-              succeeded    = Map.withoutKeys index.succeeded failedMacroIds
-            , notAttempted = index.notAttempted
-            , failed       = index.failed
-            , failedMacros
-            , omitted      = index.omitted
-            , external     = index.external
-            }
+    reassemble ((failedMacros, decls'), msgs) =
+      let index' :: DeclIndex
+          index' = DeclIndex.registerMacroFailures failedMacros unitAnn.declIndex
 
           unit = C.TranslationUnit{
               unitDecls = decls'
@@ -76,7 +61,7 @@ handleMacros standard C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
 
 processDecl ::
      C.Decl ConstructTranslationUnit
-  -> M (Either HandleMacrosParseMsg (C.Decl HandleMacros))
+  -> M (Either FailedMacro (C.Decl HandleMacros))
 processDecl C.Decl{declInfo, declKind} =
     case declKind of
       C.DeclMacro macro      -> processMacro info' macro
@@ -296,7 +281,7 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
 
 processMacro ::
      C.DeclInfo HandleMacros
-  -> UnparsedMacro -> M (Either HandleMacrosParseMsg (C.Decl HandleMacros))
+  -> UnparsedMacro -> M (Either FailedMacro (C.Decl HandleMacros))
 processMacro info (UnparsedMacro tokens) = do
     -- Simply omit macros from the AST that we cannot parse
     bimap addInfo toDecl <$> parseMacro name tokens
@@ -309,9 +294,9 @@ processMacro info (UnparsedMacro tokens) = do
     qualPrelimDeclId :: C.QualPrelimDeclId
     qualPrelimDeclId = C.QualPrelimDeclIdNamed name C.NameKindOrdinary
 
-    addInfo :: HandleMacrosError -> HandleMacrosParseMsg
+    addInfo :: HandleMacrosError -> FailedMacro
     addInfo =
-      HandleMacrosParseMsg .
+      FailedMacro .
         AttachedParseMsg qualPrelimDeclId info.declLoc C.Available
 
     toDecl :: C.CheckedMacro HandleMacros -> C.Decl HandleMacros

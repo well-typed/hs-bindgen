@@ -236,9 +236,9 @@ getDecl = \case
 
 getQualPrelimDeclId :: ParseResult -> QualPrelimDeclId
 getQualPrelimDeclId = \case
-  ParseResultSuccess        ParseSuccess{..}      -> psQualPrelimDeclId
-  ParseResultNotAttempted   (ParseNotAttempted x) -> x.declId
-  ParseResultFailure        (ParseFailure x)      -> x.declId
+  ParseResultSuccess       ParseSuccess{..}     -> psQualPrelimDeclId
+  ParseResultNotAttempted (ParseNotAttempted x) -> x.declId
+  ParseResultFailure      (ParseFailure x)      -> x.declId
 
 parseSucceed :: C.Decl Parse -> ParseResult
 parseSucceed = parseSucceedWith []

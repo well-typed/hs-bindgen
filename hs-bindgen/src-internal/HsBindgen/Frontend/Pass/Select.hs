@@ -12,8 +12,8 @@ import Clang.HighLevel.Types
 import Clang.Paths
 
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex (..), Match,
-                                              selectDeclIndex)
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex, Entry (..), Match,
+                                              Unusable (..), Usable (..))
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
@@ -24,6 +24,7 @@ import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -42,32 +43,26 @@ type DeclId = C.QualPrelimDeclId
 -- Declaration itself.
 type Decl = C.Decl Select
 
--- | We have to treat with two notions of availability here:
+-- | We have to treat with two notions of usability here:
 --
--- 1. A declaration can be available because it is in the list of declarations
+-- 1. A declaration can be usable because it is in the list of declarations
 --    attached to the translation unit.
 --
 -- 2. A declaration is available if the declaration itself and all of its
 --    transitive dependencies are available.
 --
--- @TransitiveAvailability@ deals with the second type.
-data TransitiveAvailability =
-    TransitivelyAvailable
+-- @TransitiveUsability@ deals with the second type.
+--
+-- (We avoid the term available, because it is overloaded with Clang's
+-- CXAvailabilityKind).
+data TransitiveUsability =
+    TransitivelyUsable
     -- | For each transitive dependency, we try to give the root cause of
     -- unavailability.
     --
     -- We should use a "non-empty" map here.
-  | TransitivelyUnavailable (Map DeclId UnavailabilityReason)
-  deriving stock (Show, Eq, Ord)
-
-instance Semigroup TransitiveAvailability where
-  TransitivelyAvailable      <> x                    = x
-  x                         <> TransitivelyAvailable = x
-  TransitivelyUnavailable x <> TransitivelyUnavailable y =
-    TransitivelyUnavailable $ Map.unionWith min x y
-
-instance Monoid TransitiveAvailability where
-  mempty = TransitivelyAvailable
+  | TransitivelyUnusable (Map DeclId UnusabilityReason)
+  deriving stock (Show)
 
 {-------------------------------------------------------------------------------
   Select
@@ -88,7 +83,7 @@ selectDecls
     let -- Directly match the select predicate on the 'DeclIndex', obtaining
         -- information about succeeded _and failed_ selection roots.
         selectedIndex :: DeclIndex
-        selectedIndex = selectDeclIndex match index
+        selectedIndex = DeclIndex.selectDeclIndex match index
 
         -- Identifiers of selection roots. Some of them may be unavailable
         -- (i.e., not in the 'succeeded' map, and hence, not in the list of
@@ -116,37 +111,44 @@ selectDecls
           DisableProgramSlicing -> (rootIds        , Set.empty)
           EnableProgramSlicing  -> (rootAndTransIds, strictTransIds)
 
-        getTransitiveAvailability :: DeclId -> TransitiveAvailability
-        getTransitiveAvailability x = mconcat [
-              availabilityFromSet notAttemptedTransDeps UnavailableParseNotAttempted
-            , availabilityFromSet failedTransDeps       UnavailableParseFailed
-            , availabilityFromSet failedMacrosTransDeps UnavailableHandleMacrosFailed
-            , availabilityFromSet nonselectedTransDeps  UnavailableNotSelected
-            ]
+        getTransitiveAvailability :: DeclId -> TransitiveUsability
+        getTransitiveAvailability x
+          | Map.null unusabilityReasons = TransitivelyUsable
+          | otherwise                   = TransitivelyUnusable unusabilityReasons
           where
-            -- We only check the transitive availability of declarations in the
-            -- list of declarations attached to the translation unit. That is,
-            -- there is no need to process strict transitive dependencies only
-            -- (i.e., to remove 'x' from 'transDeps').
+            -- We check the transitive usability of declarations in the list of
+            -- declarations attached to the translation unit (these have been
+            -- successfully reified). That is, there is no need to process
+            -- strict transitive dependencies only (i.e., to remove 'x' from
+            -- 'transDeps').
             transDeps :: Set DeclId
             transDeps = UseDeclGraph.getTransitiveDeps useDeclGraph [x]
 
-            notAttemptedTransDeps, failedTransDeps :: Set DeclId
-            failedMacrosTransDeps, nonselectedTransDeps :: Set DeclId
-            notAttemptedTransDeps = Set.intersection transDeps notAttempted
-            failedTransDeps       = Set.intersection transDeps failed
-            failedMacrosTransDeps = Set.intersection transDeps failedMacros
-            nonselectedTransDeps  = transDeps \\ selectedIds
+            unusables :: Map DeclId UnusabilityReason
+            unusables = UnusableR <$> DeclIndex.getUnusables index transDeps
 
-            availabilityFromSet ::
-                     Set DeclId
-                  -> UnavailabilityReason
-                  -> TransitiveAvailability
-            availabilityFromSet xs r =
-              if Set.null xs then
-                TransitivelyAvailable
-              else
-                TransitivelyUnavailable $ Map.fromSet (const r) xs
+            nonselected :: Map DeclId UnusabilityReason
+            nonselected  =
+              Map.fromSet (const UnusableNotSelected) $
+                transDeps \\ selectedIds
+
+            unusabilityReasons :: Map DeclId UnusabilityReason
+            unusabilityReasons =
+              Map.unionWith
+                getMostNaturalUnusabilityReason
+                unusables
+                nonselected
+
+            getMostNaturalUnusabilityReason ::
+              UnusabilityReason -> UnusabilityReason -> UnusabilityReason
+            getMostNaturalUnusabilityReason l r = case (l,r) of
+              (UnusableNotSelected, UnusableR u        ) -> case u of
+                UnusableParseNotAttempted _ -> r
+                _otherReason                -> l
+              (UnusableR u        , UnusableNotSelected) -> case u of
+                UnusableParseNotAttempted _ -> l
+                _otherReason                -> r
+              (_                  , _                  ) -> l
 
         selectDecl :: Decl -> (Maybe Decl, [Msg Select])
         selectDecl =
@@ -185,11 +187,6 @@ selectDecls
         , sortSelectMsgs unitIncludeGraph msgs
         )
   where
-    notAttempted, failed, failedMacros :: Set DeclId
-    notAttempted = Map.keysSet index.notAttempted
-    failed       = Map.keysSet index.failed
-    failedMacros = Map.keysSet index.failedMacros
-
     index :: DeclIndex
     index = unitAnn.declIndex
 
@@ -262,7 +259,7 @@ selectDecls
 -------------------------------------------------------------------------------}
 
 selectDeclWith ::
-    (DeclId -> TransitiveAvailability)
+    (DeclId -> TransitiveUsability)
   -> DeclIndex
   -- | Selection roots.
   -> Set DeclId
@@ -281,14 +278,14 @@ selectDeclWith
          , isAdditionalSelectedTransDep
          , transitiveAvailability ) of
       -- Declaration is a selection root.
-      (True, False, TransitivelyAvailable) ->
+      (True, False, TransitivelyUsable) ->
         (Just decl, getSelMsgs SelectionRoot)
-      (True, False, TransitivelyUnavailable rs) ->
+      (True, False, TransitivelyUnusable rs) ->
         (Nothing, getUnavailMsgs SelectionRoot rs)
       -- Declaration is an additionally selected transitive dependency.
-      (False, True, TransitivelyAvailable) ->
+      (False, True, TransitivelyUsable) ->
         (Just decl, getSelMsgs TransitiveDependency)
-      (False, True, TransitivelyUnavailable rs) ->
+      (False, True, TransitivelyUnusable rs) ->
         (Nothing, getUnavailMsgs TransitiveDependency rs)
       -- Declaration is not selected.
       (False, False, _) ->
@@ -313,10 +310,10 @@ selectDeclWith
       let selectDepr   = [ SelectDeprecated decl | isDeprecated decl.declInfo ]
       in  SelectStatusInfo decl (Selected selectReason) : selectDepr
 
-    getUnavailMsgs :: SelectReason -> Map DeclId UnavailabilityReason -> [Msg Select]
+    getUnavailMsgs :: SelectReason -> Map DeclId UnusabilityReason -> [Msg Select]
     getUnavailMsgs selectReason unavailReason =
       [ TransitiveDependencyOfDeclarationUnavailable
-          decl selectReason i r (DeclIndex.getLoc i declIndex)
+          decl selectReason i r (DeclIndex.lookupLoc i declIndex)
       | (i, r) <- Map.toList unavailReason ]
 
     isDeprecated :: C.DeclInfo Select -> Bool
@@ -329,18 +326,23 @@ selectDeclWith
 -------------------------------------------------------------------------------}
 
 getDelayedMsgs :: DeclIndex -> [Msg Select]
-getDelayedMsgs DeclIndex{..} = concat [
-    getMsgss (map SelectParseSuccess . psAttachedMsgs) succeeded
-  , getMsgs   SelectParseNotAttempted                  notAttempted
-  , getMsgs   SelectParseFailure                       failed
-  , getMsgs   SelectMacroFailure                       failedMacros
-  ]
+getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
   where
-    getMsgs :: (a -> b) -> Map k a -> [b]
-    getMsgs f = map f . Map.elems
-
-    getMsgss :: (a -> [b]) -> Map k a -> [b]
-    getMsgss f = concatMap f . Map.elems
+    getSelectMsg :: DeclId -> DeclIndex.Entry -> [SelectMsg]
+    getSelectMsg declId = \case
+      UsableE e -> case e of
+        UsableSuccess s -> map SelectParseSuccess $ psAttachedMsgs s
+        -- TODO_PR: This case will only happen when we actually match the select
+        -- predicate on external declarations.
+        UsableExternal  -> [SelectUseExternal declId]
+      UnusableE e -> case e of
+        UnusableParseNotAttempted x -> [SelectParseNotAttempted x]
+        UnusableParseFailure x      -> [SelectParseFailure x]
+        UnusableConflict x          -> [SelectConflict x]
+        UnusableFailedMacro x       -> [SelectMacroFailure x]
+        -- TODO_PR: This case will only happen when we actually match the select
+        -- predicate on omitted declarations.
+        UnusableOmitted x           -> [SelectOmitted x]
 
 {-------------------------------------------------------------------------------
   Sort messages
@@ -369,12 +371,17 @@ compareSingleLocs xs x y =
 getSingleLoc :: Msg Select -> Maybe SingleLoc
 getSingleLoc = \case
   SelectStatusInfo d _                                   -> fromD d
+  -- TODO_PR: Location info for externals?
+  SelectUseExternal{}                                    -> Nothing
   TransitiveDependencyOfDeclarationUnavailable d _ _ _ _ -> fromD d
   SelectDeprecated d                                     -> fromD d
   SelectParseSuccess m                                   -> fromM m
-  SelectParseNotAttempted (ParseNotAttempted    m)       -> fromM m
-  SelectParseFailure      (ParseFailure         m)       -> fromM m
-  SelectMacroFailure      (HandleMacrosParseMsg m)       -> fromM m
+  SelectParseNotAttempted (ParseNotAttempted m)          -> fromM m
+  SelectParseFailure      (ParseFailure      m)          -> fromM m
+  SelectConflict c                                       -> Just $ getMinimumLoc c
+  SelectMacroFailure      (FailedMacro       m)          -> fromM m
+  -- TODO_PR: Location info for omissions?
+  SelectOmitted{}                                        -> Nothing
   SelectNoDeclarationsMatched                            -> Nothing
   where
     fromD = Just . C.declLoc . C.declInfo

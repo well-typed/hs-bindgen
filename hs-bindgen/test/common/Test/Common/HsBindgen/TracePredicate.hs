@@ -162,13 +162,13 @@ instance (IsTrace l a, Show a) => Show (TraceExpectationException a) where
                then []
                else "Unexpected traces:"
                   : map reportTrace unexpectedTraces
-                  ++ [""]
+                  ++ ["\n"]
            )
         ++ ( if null expectedTracesWithWrongCounts
                then []
                else "Expected traces with wrong counts:"
                   : expectedTracesWithWrongCounts
-                  ++ [""]
+                  ++ ["\n"]
            )
 
 

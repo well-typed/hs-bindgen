@@ -18,7 +18,8 @@ import Clang.Paths
 import HsBindgen.BindingSpec (MergedBindingSpecs, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex (..))
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
@@ -80,32 +81,14 @@ resolveBindingSpecs
       -> MState
       -> C.TranslationUnit ResolveBindingSpecs
     reassemble decls' useDeclGraph MState{..} =
-      let index :: DeclIndex
-          index = unitAnn.declIndex
-
-          omitted :: Map C.QualPrelimDeclId (C.QualName, SourcePath)
-          omitted = stateOmitTypes
-
-          external :: Set C.QualPrelimDeclId
-          external = Map.keysSet stateExtTypes
-
-          omittedIds, externalIds, handledIds :: Set C.QualPrelimDeclId
-          omittedIds = Map.keysSet omitted
+      let externalIds :: Set C.QualPrelimDeclId
           externalIds = Map.keysSet stateExtTypes
-          handledIds = omittedIds `Set.union` externalIds
 
           index' :: DeclIndex
-          index' = DeclIndex {
-              succeeded    = Map.withoutKeys index.succeeded    handledIds
-            , notAttempted = Map.withoutKeys index.notAttempted handledIds
-            , failed       = Map.withoutKeys index.failed       handledIds
-            -- TODO https://github.com/well-typed/hs-bindgen/issues/1280: We do
-            -- not support external binding specifications for macros yet, but
-            -- if we do, we need to handle those here.
-            , failedMacros = index.failedMacros
-            , omitted
-            , external
-            }
+          index' =
+            DeclIndex.registerExternalDeclarations externalIds    $
+            DeclIndex.registerOmittedDeclarations  stateOmitTypes $
+              unitAnn.declIndex
 
           unitAnn' :: DeclMeta
           unitAnn' =
@@ -481,10 +464,9 @@ instance Resolve C.Type where
                 insertTrace (ResolveBindingSpecsExtType ctx cQualName)
               return ty
             Nothing -> do
-              -- Check for external binding of type that we omitted or failed to
-              -- parse.
-              case lookupMissing cQualPrelimDeclId envDeclIndex of
-                [] -> return (mk qualDeclIdName)
+              -- Check for external binding of type that is unusable.
+              case DeclIndex.lookupUnusableLoc cQualPrelimDeclId envDeclIndex of
+                []   -> return (mk qualDeclIdName)
                 locs -> do
                   let declPaths =
                         foldMap
@@ -545,11 +527,3 @@ resolveExtBinding cQualName cQualPrelimDeclId declPaths  = do
         return Nothing
       Nothing ->
         return Nothing
-
--- For a given declaration ID, look up the source locations of "not attempted"
--- or "failed" parses.
-lookupMissing :: C.QualPrelimDeclId -> DeclIndex -> [SingleLoc]
-lookupMissing qualPrelimDeclId index = catMaybes $ [
-    loc . unParseNotAttempted <$> Map.lookup qualPrelimDeclId index.notAttempted
-  , loc . unParseFailure      <$> Map.lookup qualPrelimDeclId index.failed
-  ]

@@ -137,6 +137,7 @@ library internal
     HsBindgen.Frontend.Naming
     HsBindgen.Frontend.Pass
     HsBindgen.Frontend.Pass.ConstructTranslationUnit
+    HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
     HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
     HsBindgen.Frontend.Pass.HandleMacros
     HsBindgen.Frontend.Pass.HandleMacros.Error

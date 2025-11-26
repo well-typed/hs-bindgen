@@ -39,10 +39,8 @@ mkDeclMeta ::
   -> IncludeGraph
   -> (DeclMeta, [Msg ConstructTranslationUnit])
 mkDeclMeta parseResults includeGraph =
-    let (declIndex, declIndexErrors) = DeclIndex.fromParseResults parseResults
+    let declIndex = DeclIndex.fromParseResults parseResults
         declUseDecl =
           UseDeclGraph.fromDecls includeGraph $ DeclIndex.getDecls declIndex
         declDeclUse = DeclUseGraph.fromUseDecl declUseDecl
-    in ( DeclMeta{..}
-       , map ConstructTranslationUnitErrorDeclIndex declIndexErrors
-       )
+    in (DeclMeta{..}, [])
