@@ -261,12 +261,8 @@ data Function = Function {
   Comments
 -------------------------------------------------------------------------------}
 
--- | Needed for cross referencing identifiers when translating to Haddocks.
--- When parsing a referencing command, e.g. \\ref, we need an identifier that
--- passes through all the name mangling passes so that in the end we have
--- access to the right name to reference.
---
-newtype CommentRef = ById Int.NamePair
+-- | Cross-reference in a Doxygen comment
+newtype CommentRef = CommentRef Int.NamePair
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------

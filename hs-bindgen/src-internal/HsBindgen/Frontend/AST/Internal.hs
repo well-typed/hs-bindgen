@@ -331,12 +331,11 @@ newtype Comment p =
   Comment
     { unComment :: CDoc.Comment (CommentRef p) }
 
--- | Needed for cross referencing identifiers when translating to Haddocks.
--- When parsing a referencing command, e.g. \\ref, we need an identifier that
--- passes through all the name mangling passes so that in the end we have
--- access to the right name to reference.
+-- | Cross-reference in a Doxygen comment
 --
-newtype CommentRef p = ById (Id p)
+-- We use @Id p@ here so that name mangling can do its job and we have
+-- access to the right name to reference when generating Haddocks.
+newtype CommentRef p = CommentRef (Id p)
 
 {-------------------------------------------------------------------------------
   Macros

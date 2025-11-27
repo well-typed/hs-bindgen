@@ -743,7 +743,7 @@ varDecl info = \curr -> do
 
 parseCommentReferences :: CDoc.Comment Text -> C.Comment Parse
 parseCommentReferences = C.Comment
-                       . fmap ( C.ById
+                       . fmap ( C.CommentRef
                               . C.PrelimDeclIdNamed
                               . C.Name
                               )

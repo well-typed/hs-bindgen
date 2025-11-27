@@ -305,11 +305,11 @@ instance MangleDecl C.DeclKind where
       C.DeclGlobal <$> mangle ty
 
 instance Mangle C.CommentRef where
-  mangle (C.ById declId) =
+  mangle (C.CommentRef declId) =
     -- NB: If this fails it means that we tried all possible name kinds and
     -- still didn't find any result. This might be because of a typo on the
     -- docs, or a missing reference.
-    C.ById <$> mangleDeclId declId [minBound .. maxBound]
+    C.CommentRef <$> mangleDeclId declId [minBound .. maxBound]
 
 instance Mangle C.Comment where
   mangle (C.Comment comment) =

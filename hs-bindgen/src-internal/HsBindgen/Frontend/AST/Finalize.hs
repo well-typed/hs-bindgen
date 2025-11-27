@@ -109,7 +109,7 @@ instance Finalize Int.DeclKind where
 instance Finalize Int.CommentRef where
   type Finalized Int.CommentRef = Ext.CommentRef
 
-  finalize (Int.ById (x, _)) = Ext.ById x
+  finalize (Int.CommentRef (x, _)) = Ext.CommentRef x
 
 instance Finalize Int.Comment where
   type Finalized Int.Comment = CDoc.Comment Ext.CommentRef

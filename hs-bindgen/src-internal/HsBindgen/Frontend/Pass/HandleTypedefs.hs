@@ -160,7 +160,7 @@ introduceAuxFunType td declInfo declAnn args res = [
         Clang.Comment [
           Clang.Paragraph [
               Clang.TextContent "Auxiliary type used by "
-            , Clang.InlineRefCommand (C.ById declInfo.declId)
+            , Clang.InlineRefCommand (C.CommentRef declInfo.declId)
             ]
         ]
 
@@ -190,7 +190,7 @@ instance HandleUseSites C.FieldInfo where
     }
 
 instance HandleUseSites C.CommentRef where
-  handleUseSites _ (C.ById i) = C.ById (coercePass i)
+  handleUseSites _ (C.CommentRef i) = C.CommentRef (coercePass i)
 
 instance HandleUseSites C.Comment where
   handleUseSites td (C.Comment comment) =

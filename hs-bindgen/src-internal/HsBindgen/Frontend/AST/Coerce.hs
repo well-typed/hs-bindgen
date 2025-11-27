@@ -59,7 +59,7 @@ instance (
 instance (
       CoercePassId p p'
     ) => CoercePass CommentRef p p' where
-  coercePass (ById t) = ById (coercePassId (Proxy @'(p, p')) t)
+  coercePass (CommentRef t) = CommentRef (coercePassId (Proxy @'(p, p')) t)
 
 instance (
       CoercePassId p p'

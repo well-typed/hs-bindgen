@@ -372,7 +372,7 @@ convertInlineContent = \case
         CDoc.CXCommentInlineCommandRenderKind_Emphasized -> HsDoc.Emph args
         CDoc.CXCommentInlineCommandRenderKind_Anchor     -> HsDoc.Anchor (Text.unwords (map Text.strip inlineCommandArgs))
 
-  CDoc.InlineRefCommand (ById arg) -> [HsDoc.Identifier (Hs.getIdentifier (nameHsIdent arg))]
+  CDoc.InlineRefCommand (CommentRef arg) -> [HsDoc.Identifier (Hs.getIdentifier (nameHsIdent arg))]
 
   -- HTML is not currently supported
   --

@@ -156,7 +156,7 @@ instance NameUseSites C.FieldInfo where
     }
 
 instance NameUseSites C.CommentRef where
-  nameUseSites _ (C.ById t) = C.ById (nameUseSite t)
+  nameUseSites _ (C.CommentRef t) = C.CommentRef (nameUseSite t)
     where
       nameUseSite :: C.PrelimDeclId -> C.DeclId NameAnon
       nameUseSite qualPrelimDeclId =
