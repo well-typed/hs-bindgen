@@ -27,7 +27,7 @@ import C.Expr.Syntax qualified as CExpr.DSL
 import Clang.HighLevel.Types
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..), ResultType (..))
+import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..))
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.HsModule.Capi (renderCapiWrapper)
@@ -398,8 +398,7 @@ instance Pretty SDecl where
       let prettyTopLevelComment = maybe empty (pretty . TopLevelComment) functionComment
        in  prettyTopLevelComment
         $$ pretty functionName <+> "::"
-        $$ nest 5 (prettyForeignImportType (NormalResultType functionResultType)
-                                           functionParameters)
+        $$ nest 5 (prettyForeignImportType functionResultType functionParameters)
         $$ fsep
              [ pretty functionName <+> char '='
              , nest 2 $ pretty functionBody
@@ -455,7 +454,7 @@ safety Unsafe = "unsafe"
 instance ctx ~ EmptyCtx => Pretty (SType ctx) where
   prettyPrec = prettyType EmptyEnv
 
-prettyForeignImportType :: ResultType ClosedType -> [FunctionParameter] -> CtxDoc
+prettyForeignImportType :: ClosedType -> [FunctionParameter] -> CtxDoc
 prettyForeignImportType resultType params =
   case params of
     [] -> prettyResultType resultType
@@ -468,12 +467,7 @@ prettyForeignImportType resultType params =
       $$ maybe empty (pretty . PartOfDeclarationComment) functionParameterComment
 
 
-    prettyResultType = \case
-      NormalResultType t -> prettyType EmptyEnv 0 t
-      HeapResultType t   ->
-        let finalResType = TApp (TGlobal IO_type) (TGlobal (PrimType HsPrimUnit))
-         in prettyType EmptyEnv 0 t
-         $$ nest (-3) ("->" <+> prettyType EmptyEnv 0 finalResType)
+    prettyResultType t = prettyType EmptyEnv 0 t
 
     prettyParams []     = prettyResultType resultType
     prettyParams (p:ps) =

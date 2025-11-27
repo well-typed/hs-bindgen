@@ -231,7 +231,7 @@ resolveDeclImports = \case
     DForeignImport ForeignImport {..} ->
          foldMap (resolveTypeImports . functionParameterType)
                  foreignImportParameters
-      <> resolveTypeImports (Hs.extractResultType foreignImportResultType)
+      <> resolveTypeImports foreignImportResultType
     DFunction Function {..} ->
          foldMap (resolveTypeImports . functionParameterType) functionParameters
       <> resolveTypeImports functionResultType

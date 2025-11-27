@@ -1435,7 +1435,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
     funDecl :: Hs.Decl
     funDecl = Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = importName
-        , foreignImportResultType = resType
+        , foreignImportResultType = snd resType
         , foreignImportParameters = if areFancy then ffiParams else ffiParsedArgs
         , foreignImportOrigName   = uniqueCName wrapperName
         , foreignImportCallConv   = CallConvUserlandCAPI userlandCapiWrapper
@@ -1473,7 +1473,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
                    , functionParameterComment = Nothing
                    }
                 | (mbName, ty) <- C.functionArgs f
-                ]
+                ] ++ toList (fst resType)
 
     (mbFFIComment, ffiParsedArgs) =
       generateHaddocksWithInfoParams haddockConfig info ffiParams
@@ -1495,15 +1495,39 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
       | (_, ty) <- C.functionArgs f
       ]
 
-    resType :: ResultType HsType
+    -- | When translating a 'C.Type' there are C types which we
+    -- cannot pass directly using C FFI. We need to distinguish these.
+    --
+    -- Result types can be heap types, which are types we can't return by value
+    -- due to Haskell FFI limitation. Or they can be normal types supported by
+    -- Haskell FFI. This is also true for function arguments as well, result types
+    -- are a special case where unsupported result types become arguments.
+    resType :: (Maybe Hs.FunctionParameter, HsType)
     resType =
       case res of
-        HeapType {} -> HeapResultType $ Type.inContext Type.FunRes $ unwrapType res
-        WrapType {} -> NormalResultType $ hsIO $ Type.inContext Type.FunRes $ unwrapType res
-        CAType {}   -> panicPure "ConstantArray cannot occur as a result type"
-        AType {}    -> panicPure "Array cannot occur as a result type"
+        -- A heap type that is not supported by the Haskell FFI as a function
+        -- result. We pass it as a function argument instead.
+        HeapType {} -> (Just Hs.FunctionParameter {
+            functionParameterName = Nothing
+          , functionParameterType = Type.inContext Type.FunArg $ unwrapType res
+          , functionParameterComment = Nothing
+          }
+          , hsIO $ HsPrimType HsPrimUnit
+          )
 
-    -- Decide based on the function attributes whether to include 'IO' in the
+        -- A "normal" result type that is supported by the Haskell FFI.
+        WrapType {} ->
+          ( Nothing
+          , hsIO $ Type.inContext Type.FunRes $ unwrapType res
+          )
+
+        CAType {} ->
+            panicPure "ConstantArray cannot occur as a result type"
+
+        AType {} ->
+            panicPure "Array cannot occur as a result type"
+
+    -- | Decide based on the function attributes whether to include 'IO' in the
     -- result type of the foreign import. See the documentation on
     -- 'C.FunctionPurity'.
     --
@@ -1719,8 +1743,8 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
     stubImportName :: Hs.Name 'Hs.NsVar
     stubImportName = unsafeUniqueHsName stubName
 
-    stubImportType :: ResultType HsType
-    stubImportType = NormalResultType $ HsIO $ Type.topLevel stubType
+    stubImportType :: HsType
+    stubImportType = HsIO $ Type.topLevel stubType
 
     stubName :: UniqueSymbol
     stubName =

@@ -1,8 +1,6 @@
 module HsBindgen.Backend.Hs.AST.Type (
   HsPrimType (..),
   HsType (..),
-  ResultType(..),
-  extractResultType,
 ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -66,23 +64,4 @@ data HsType =
   | HsComplexType HsPrimType
   | HsStrLit String
   deriving stock (Generic, Show, Eq)
-
--- | When translating a 'C.Type' there are C types which we
--- cannot pass directly using C FFI. We need to distinguish these.
---
--- Result types can be heap types, which are types we can't return by value
--- due to Haskell FFI limitation. Or they can be normal types supported by
--- Haskell FFI. This is also true for function arguments as well, result types
--- are a special case where unsupported result types become arguments.
---
-data ResultType a =
-    NormalResultType a
-    -- ^ Normal result type.
-  | HeapResultType a
-    -- ^ Heap type that is not supported by Haskell FFI
-  deriving stock (Generic, Show, Functor)
-
-extractResultType :: ResultType a -> a
-extractResultType (NormalResultType t) = t
-extractResultType (HeapResultType t)   = t
 

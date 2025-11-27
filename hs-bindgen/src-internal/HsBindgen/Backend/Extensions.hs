@@ -7,7 +7,6 @@ import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
 
 import HsBindgen.Backend.Hs.AST (Strategy (..))
-import HsBindgen.Backend.Hs.AST.Type (extractResultType)
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
 
@@ -58,7 +57,7 @@ requiredExtensions = \case
         ext TH.CApiFFI
       ,    foldMap (typeExtensions . functionParameterType)
                    foreignImportParameters
-        <> typeExtensions (extractResultType foreignImportResultType)
+        <> typeExtensions foreignImportResultType
       ]
     DFunction Function {..} ->
          foldMap (typeExtensions . functionParameterType) functionParameters

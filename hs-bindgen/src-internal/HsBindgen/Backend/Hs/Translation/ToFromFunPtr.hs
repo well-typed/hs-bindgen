@@ -84,7 +84,7 @@ instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = [
       -- import for @ToFunPtr@ instance
       Hs.DeclForeignImport Hs.ForeignImportDecl{
           foreignImportName       = nameTo
-        , foreignImportResultType = NormalResultType $ HsIO (HsFunPtr funHs)
+        , foreignImportResultType = HsIO (HsFunPtr funHs)
         , foreignImportParameters = [wrapperParam funHs]
         , foreignImportOrigName   = "wrapper"
         , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
@@ -96,7 +96,7 @@ instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = [
       -- import for @FromFunPtr@ instance
     , Hs.DeclForeignImport Hs.ForeignImportDecl{
           foreignImportName       = nameFrom
-        , foreignImportResultType = NormalResultType funHs
+        , foreignImportResultType = funHs
         , foreignImportParameters = [wrapperParam $ HsFunPtr funHs]
         , foreignImportOrigName   = "dynamic"
         , foreignImportCallConv   = CallConvGhcCCall ImportAsValue

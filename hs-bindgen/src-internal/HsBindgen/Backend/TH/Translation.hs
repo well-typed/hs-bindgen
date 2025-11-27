@@ -702,13 +702,7 @@ mkDecl = \case
                   , Text.unpack (C.getName foreignImportOrigName)
                   ])
 
-            importType =
-              case foreignImportResultType of
-                NormalResultType t ->
-                  foldr (TFun . functionParameterType) t foreignImportParameters
-                HeapResultType t   ->
-                  foldr TFun (TApp (TGlobal IO_type) (TGlobal (PrimType HsPrimUnit)))
-                             (map functionParameterType foreignImportParameters ++ [t])
+            importType = foldr (TFun . functionParameterType) (foreignImportResultType) foreignImportParameters
 
         fmap singleton $
           withDecDoc foreignImportComment $

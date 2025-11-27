@@ -131,7 +131,7 @@ data Newtype = Newtype {
 data ForeignImportDecl = ForeignImportDecl
     { foreignImportName       :: Hs.Name Hs.NsVar
     , foreignImportParameters :: [FunctionParameter]
-    , foreignImportResultType :: ResultType HsType
+    , foreignImportResultType :: HsType
     , foreignImportOrigName   :: C.Name
     , foreignImportCallConv   :: CallConv
     , foreignImportOrigin     :: Origin.ForeignImport
