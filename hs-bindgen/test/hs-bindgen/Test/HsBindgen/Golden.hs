@@ -174,6 +174,31 @@ test_attributes_attributes =
 
 -- Binding specification tests
 
+test_binding_specs_bs_ext_target_any :: TestCase
+test_binding_specs_bs_ext_target_any =
+  (defaultTest "binding-specs/bs_ext_target_any") {
+      testExtBindingSpecs = [
+          "examples/golden/binding-specs/bs_ext_target_any_e.yaml"
+        ]
+    }
+
+test_binding_specs_bs_ext_target_mismatch :: TestCase
+test_binding_specs_bs_ext_target_mismatch =
+  (failingTestSimple "binding-specs/bs_ext_target_mismatch" aux) {
+      testExtBindingSpecs = [
+          "examples/golden/binding-specs/bs_ext_target_mismatch_e.yaml"
+        ]
+    }
+  where
+    aux = \case
+      TraceBoot
+        ( BootBindingSpec
+            ( BindingSpecReadMsg
+                (BindingSpec.BindingSpecReadIncompatibleTarget _)
+            )
+        ) -> Just $ Expected ()
+      _otherwise -> Nothing
+
 test_binding_specs_bs_pre_omit_type :: TestCase
 test_binding_specs_bs_pre_omit_type =
   (defaultTest "binding-specs/bs_pre_omit_type") {
@@ -1049,6 +1074,8 @@ testCases = manualTestCases ++ [
     , test_attributes_attributes
     , test_attributes_type_attributes
     , test_attributes_visibility_attributes
+    , test_binding_specs_bs_ext_target_any
+    , test_binding_specs_bs_ext_target_mismatch
     , test_binding_specs_bs_pre_omit_type
     , test_binding_specs_bs_pre_rename_type
     , test_binding_specs_bs_pre_target_mismatch
