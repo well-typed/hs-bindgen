@@ -37,7 +37,7 @@ instance IsTrace Level CompareVersionsMsg where
   Comparison functions
 -------------------------------------------------------------------------------}
 
--- | Check if the compile time version of clang is different than the 
+-- | Check if the compile time version of clang is different than the
 -- runtime version, issue a warning if that's the case to inform the user
 -- of this fact.
 --
