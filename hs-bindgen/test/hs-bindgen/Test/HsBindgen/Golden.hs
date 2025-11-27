@@ -172,7 +172,7 @@ test_attributes_attributes =
   testDiagnostic "attributes/attributes" $ \diag ->
     diagnosticCategoryText diag == "Nullability Issue"
 
--- Binding specs tests
+-- Binding specification tests
 
 test_binding_specs_bs_pre_omit_type :: TestCase
 test_binding_specs_bs_pre_omit_type =
@@ -187,6 +187,28 @@ test_binding_specs_bs_pre_rename_type =
       testPrescriptiveBindingSpec =
         Just "examples/golden/binding-specs/bs_pre_rename_type_p.yaml"
     }
+
+-- TODO target any with non-target-specific bindings is OK
+-- test_binding_specs_bs_pre_target_any_ok :: TestCase
+
+-- TODO target any with target-specific bindings traces error
+-- test_binding_specs_bs_pre_target_any_bad :: TestCase
+
+test_binding_specs_bs_pre_target_mismatch :: TestCase
+test_binding_specs_bs_pre_target_mismatch =
+  (failingTestSimple "binding-specs/bs_pre_target_mismatch" aux) {
+      testPrescriptiveBindingSpec =
+        Just "examples/golden/binding-specs/bs_pre_target_mismatch_p.yaml"
+    }
+  where
+    aux = \case
+      TraceBoot
+        ( BootBindingSpec
+            ( BindingSpecReadMsg
+                (BindingSpec.BindingSpecReadIncompatibleTarget _)
+            )
+        ) -> Just $ Expected ()
+      _otherwise -> Nothing
 
 -- Declarations tests
 
@@ -1029,6 +1051,7 @@ testCases = manualTestCases ++ [
     , test_attributes_visibility_attributes
     , test_binding_specs_bs_pre_omit_type
     , test_binding_specs_bs_pre_rename_type
+    , test_binding_specs_bs_pre_target_mismatch
     , test_declarations_declarations_required_for_scoping
     , test_declarations_definitions
     , test_declarations_failing_declaration_unselected_b
