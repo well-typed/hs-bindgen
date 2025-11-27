@@ -66,11 +66,11 @@ boot
 
     getBindingSpecs <- cache "loadBindingSpecs" $ do
       clangArgs <- getClangArgs
-      _target <- getTarget
-      -- TODO check target when loading binding specifications
+      target <- getTarget
       loadBindingSpecs
         (contramap BootBindingSpec tracer)
         clangArgs
+        target
         hsModuleName
         (bootBindingSpecConfig bindgenBootConfig)
 

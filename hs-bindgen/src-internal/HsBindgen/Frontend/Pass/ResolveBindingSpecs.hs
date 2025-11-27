@@ -17,6 +17,7 @@ import Clang.Paths
 
 import HsBindgen.BindingSpec (MergedBindingSpecs, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex (..))
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
@@ -40,12 +41,14 @@ import HsBindgen.Util.Monad (mapMaybeM)
 -------------------------------------------------------------------------------}
 
 resolveBindingSpecs ::
-     Hs.ModuleName
+     ClangArgs.Target
+  -> Hs.ModuleName
   -> MergedBindingSpecs
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit NameAnon
   -> (C.TranslationUnit ResolveBindingSpecs, [Msg ResolveBindingSpecs])
 resolveBindingSpecs
+  target
   hsModuleName
   extSpecs
   pSpec
@@ -55,7 +58,7 @@ resolveBindingSpecs
           | pSpecModule == hsModuleName = ([], pSpec)
           | otherwise =
               ( [ResolveBindingSpecsModuleMismatch hsModuleName pSpecModule]
-              , BindingSpec.empty hsModuleName
+              , BindingSpec.empty target hsModuleName
               )
         (decls, state@MState{..}) =
           runM

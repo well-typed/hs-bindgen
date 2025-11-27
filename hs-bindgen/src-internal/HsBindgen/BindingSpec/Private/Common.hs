@@ -62,6 +62,7 @@ data BindingSpecReadMsg =
   | BindingSpecReadYamlWarning FilePath String
   | BindingSpecReadParseVersion FilePath AVersion
   | BindingSpecReadIncompatibleVersion FilePath AVersion
+  | BindingSpecReadIncompatibleTarget FilePath
   | BindingSpecReadInvalidCName FilePath Text
   | BindingSpecReadCTypeConflict FilePath C.QualName HashIncludeArg
   | BindingSpecReadHsIdentifierNoRef FilePath Hs.Identifier
@@ -77,6 +78,7 @@ instance IsTrace Level BindingSpecReadMsg where
     BindingSpecReadYamlWarning{}         -> Error
     BindingSpecReadParseVersion{}        -> Debug
     BindingSpecReadIncompatibleVersion{} -> Error
+    BindingSpecReadIncompatibleTarget{}  -> Error
     BindingSpecReadInvalidCName{}        -> Error
     BindingSpecReadCTypeConflict{}       -> Error
     BindingSpecReadHsIdentifierNoRef{}   -> Error
@@ -113,6 +115,8 @@ instance PrettyForTrace BindingSpecReadMsg where
         , "binding specification version: "
             >< prettyForTrace aVersionBindingSpecification
         ]
+    BindingSpecReadIncompatibleTarget path ->
+      "incompatible binding specification target: " >< string path
     BindingSpecReadInvalidCName path t ->
       "invalid C name in " >< string path >< ": " >< textToCtxDoc t
     BindingSpecReadCTypeConflict path cQualName header ->

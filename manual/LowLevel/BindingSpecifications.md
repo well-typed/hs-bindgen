@@ -72,17 +72,20 @@ external bindings in addition to the Haskell module (command line flag
 `--gen-external-bindings`). This will result in a file that looks like this:
 
 ```yaml
-types:
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-gnu
+hsmodule: Vector
+ctypes:
 - headers: vector.h
   cname: vector
-  package: hs-vector
-  module: Vector
-  identifier: Vector
+  hsname: Vector
 ```
 
 This says that the C type called `vector`, defined in `vector.h`, should be
-mapped to the type called `Vector` defined in module `Vector` from the
-`hs-vector` package (rather than _generating_ a definition for it).
+mapped to the type called `Vector` defined in module `Vector` (rather than
+_generating_ a definition for it).
 
 We can then use these external bindings when processing `vector_rotate.h`
 (command line flag `--external-binding-spec`). This will result in something
@@ -127,12 +130,15 @@ pattern Length x <- (unwrap -> x)
 We can do this by handwriting an external bindings file:
 
 ```yaml
-types:
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-gnu
+hsmodule: Vector.Types
+ctypes:
 - headers: vector_length.h
   cname: len
-  package: hs-vector
-  module: Vector.Types
-  identifier: Length
+  hsname: Length
 ```
 
 If we then use `--external-binding-spec` _twice_ when processing
@@ -181,14 +187,17 @@ For this reason, external bindings can mention more than one header for a
 given C name:
 
 ```yaml
-types:
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-gnu
+hsmodule: Game.State
+ctypes:
 - headers:
   - game_world.h
   - game_player.h
   cname: game_state
-  package: hs-game
-  module: Game.State
-  identifier: Game_state
+  hsname: Game_state
 ```
 
 The C name `game_state` is then considered to be defined "in" `game_world.h` or

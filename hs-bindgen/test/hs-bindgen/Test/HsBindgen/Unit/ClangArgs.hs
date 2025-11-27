@@ -41,9 +41,7 @@ testGetTargetTriple testResources = do
     triple <- withTracePredicate noReport defaultTracePredicate $ \tracer ->
       getTargetTriple tracer setup
 
-    -- macos-latest (macos-14) returns "arm64-apple-macosx14.0.0"
-    -- windows-latest (???) returns "x86_64-pc-windows-msvc19.41.34120"
-    triple @?= "x86_64-pc-linux-gnu"
+    triple @?= "x86_64-pc-linux-musl"
   where
     getTargetTriple :: Tracer ClangMsg -> ClangSetup -> IO Text
     getTargetTriple tracer setup =

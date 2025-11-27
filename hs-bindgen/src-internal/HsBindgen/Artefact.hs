@@ -24,6 +24,7 @@ import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Boot
+import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Frontend
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
@@ -43,6 +44,7 @@ import HsBindgen.Util.Tracer
 -- | Build artefact.
 data Artefact (a :: Star) where
   -- * Boot
+  Target              :: Artefact ClangArgs.Target
   HashIncludeArgs     :: Artefact [HashIncludeArg]
   -- * Frontend
   IncludeGraph        :: Artefact (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
@@ -123,6 +125,7 @@ runArtefacts
     runArtefact :: forall x. Artefact x -> ExceptT (TraceException e) ArtefactM x
     runArtefact = \case
       --Boot.
+      Target              -> liftIO bootTarget
       HashIncludeArgs     -> liftIO bootHashIncludeArgs
       -- Frontend.
       IncludeGraph        -> liftIO frontendIncludeGraph

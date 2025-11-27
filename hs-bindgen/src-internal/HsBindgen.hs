@@ -145,6 +145,7 @@ writeBindingsMultiple hsOutputDir = do
 -- | Write binding specifications to file.
 writeBindingSpec :: FilePath -> Artefact ()
 writeBindingSpec path = do
+  target         <- Target
   moduleBaseName <- FinalModuleBaseName
   getMainHeaders <- GetMainHeaders
   omitTypes      <- OmitTypes
@@ -152,7 +153,7 @@ writeBindingSpec path = do
   tracer         <- Lift $ artefactTracer <$> ask
   traceWith tracer $ RunArtefactWriteFile "binding specifications" path
   -- Binding specifications only specify types.
-  liftIO $ genBindingSpec moduleBaseName path getMainHeaders omitTypes $
+  liftIO $ genBindingSpec target moduleBaseName path getMainHeaders omitTypes $
     fromMaybe [] (Map.lookup BType $ unByCategory hsDecls)
 
 -- | Create test suite in directory.
