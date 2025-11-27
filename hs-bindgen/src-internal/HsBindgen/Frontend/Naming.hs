@@ -64,6 +64,8 @@ module HsBindgen.Frontend.Naming (
 
     -- * DeclId
   , DeclId(..)
+  , NamedDeclId(..)
+  , BuiltinDeclId(..)
   , declIdName
     -- ** QualDeclId
   , QualDeclId(..)
@@ -388,30 +390,51 @@ instance PrettyForTrace NameOrigin where
 -- All declarations have names after renaming in the @NameAnon@ pass.  This type
 -- is used until the @MangleNames@ pass.
 data DeclId (p :: Pass) =
-    DeclIdNamed Name NameOrigin
-  | DeclIdBuiltin Name
+    DeclIdNamed   (NamedDeclId   p)
+  | DeclIdBuiltin (BuiltinDeclId p)
+  deriving stock (Show, Eq, Ord, Generic)
+
+data NamedDeclId (p :: Pass) = NamedDeclId{
+      name   :: Name
+    , origin :: NameOrigin
+    }
+  deriving stock (Show, Eq, Ord, Generic)
+
+data BuiltinDeclId (p :: Pass) = BuiltinDeclId{
+      name :: Name
+    }
   deriving stock (Show, Eq, Ord, Generic)
 
 declIdName :: DeclId p -> Name
-declIdName (DeclIdNamed name _origin) = name
-declIdName (DeclIdBuiltin name) = name
+declIdName (DeclIdNamed   named)   = named.name
+declIdName (DeclIdBuiltin builtin) = builtin.name
 
 instance PrettyForTrace (DeclId p) where
   prettyForTrace = \case
-      DeclIdNamed name origin ->
-        prettyForTrace name <+> PP.parens (prettyForTrace origin)
-      DeclIdBuiltin name ->
-        prettyForTrace name
+      DeclIdNamed   named   -> prettyForTrace named
+      DeclIdBuiltin builtin -> prettyForTrace builtin
+
+instance PrettyForTrace (NamedDeclId p) where
+  prettyForTrace named = PP.hsep [
+        prettyForTrace named.name
+      , PP.parens (prettyForTrace named.origin)
+      ]
+
+instance PrettyForTrace (BuiltinDeclId p) where
+  prettyForTrace builtin = prettyForTrace builtin.name
 
 instance PrettyForTrace (Located (DeclId p)) where
   prettyForTrace (Located loc declId) =
       case declId of
-        DeclIdNamed name origin -> PP.hsep [
-            prettyForTrace name
-          , prettyForTraceOriginLoc origin loc
-          ]
-        DeclIdBuiltin name ->
-          prettyForTrace name
+        DeclIdNamed   named   -> prettyForTrace (Located loc named)
+        DeclIdBuiltin builtin -> prettyForTrace builtin
+
+instance PrettyForTrace (Located (NamedDeclId p)) where
+  prettyForTrace (Located loc named) = PP.hsep [
+        prettyForTrace          named.name
+      , prettyForTraceOriginLoc named.origin loc
+      ]
+
 
 {-------------------------------------------------------------------------------
   QualDeclId
@@ -427,12 +450,12 @@ data QualDeclId p = QualDeclId {
 instance PrettyForTrace (Located (QualDeclId p)) where
   prettyForTrace (Located loc QualDeclId{..}) =
       case qualDeclId of
-        DeclIdNamed name origin -> PP.hsep [
-            prettyForTrace (QualName name qualDeclIdKind)
-          , prettyForTraceOriginLoc origin loc
+        DeclIdNamed named -> PP.hsep [
+            prettyForTrace (QualName named.name qualDeclIdKind)
+          , prettyForTraceOriginLoc named.origin loc
           ]
-        DeclIdBuiltin name ->
-          prettyForTrace (QualName name qualDeclIdKind)
+        DeclIdBuiltin builtin ->
+          prettyForTrace (QualName builtin.name qualDeclIdKind)
 
 qualDeclIdName :: QualDeclId p -> Name
 qualDeclIdName = declIdName . qualDeclId
@@ -443,16 +466,16 @@ declIdToQualDeclId = QualDeclId
 qualDeclIdToQualPrelimDeclId :: HasCallStack => QualDeclId p -> QualPrelimDeclId
 qualDeclIdToQualPrelimDeclId (QualDeclId declId kind) =
     case declId of
-      DeclIdNamed name origin ->
+      DeclIdNamed named ->
         qualPrelimDeclId
-          ( case origin of
+          ( case named.origin of
               NameOriginGenerated   anon -> PrelimDeclIdAnon  anon
               NameOriginRenamedFrom orig -> PrelimDeclIdNamed orig
-              NameOriginInSource         -> PrelimDeclIdNamed name
+              NameOriginInSource         -> PrelimDeclIdNamed named.name
           )
           kind
-      DeclIdBuiltin name ->
-        QualPrelimDeclIdBuiltin name
+      DeclIdBuiltin builtin ->
+        QualPrelimDeclIdBuiltin builtin.name
 
 {-------------------------------------------------------------------------------
   Located

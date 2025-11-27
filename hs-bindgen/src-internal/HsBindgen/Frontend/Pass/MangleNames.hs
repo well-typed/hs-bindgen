@@ -150,10 +150,10 @@ mangleDeclId (C.DeclIdBuiltin _name) _kinds =
     -- Name mangling fails for built-ins: since they don't have a corresponding
     -- declaration, there will be no entry in the 'NameMap'.
     throwPure_TODO 1266 "Cannot mangle builtin name"
-mangleDeclId declId@(C.DeclIdNamed cName nameOrigin) kinds = do
+mangleDeclId declId@(C.DeclIdNamed named) kinds = do
     nm <- asks envNameMap
     let lookupKind :: C.NameKind -> Maybe Hs.Identifier
-        lookupKind kind = Map.lookup (C.QualName cName kind) nm
+        lookupKind kind = Map.lookup (C.QualName named.name kind) nm
 
     case mapMaybe lookupKind kinds of
       hs:_ -> return $ mkNamePair hs
@@ -167,7 +167,7 @@ mangleDeclId declId@(C.DeclIdNamed cName nameOrigin) kinds = do
         panicPure $ "Missing declaration: " <> show declId
   where
     mkNamePair :: Hs.Identifier -> (C.NamePair, C.NameOrigin)
-    mkNamePair hsName = (C.NamePair cName hsName, nameOrigin)
+    mkNamePair hsName = (C.NamePair named.name hsName, named.origin)
 
 mangleQualDeclId :: C.QualDeclId HandleTypedefs -> M (C.NamePair, C.NameOrigin)
 mangleQualDeclId (C.QualDeclId declId kind) = mangleDeclId declId [kind]

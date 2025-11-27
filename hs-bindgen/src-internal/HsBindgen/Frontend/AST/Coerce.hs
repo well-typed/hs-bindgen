@@ -32,8 +32,19 @@ class CoercePass a p p' where
 
 instance CoercePass DeclId p p' where
   coercePass = \case
-      DeclIdNamed name origin -> DeclIdNamed name origin
-      DeclIdBuiltin name      -> DeclIdBuiltin name
+      DeclIdNamed   named   -> DeclIdNamed   (coercePass named)
+      DeclIdBuiltin builtin -> DeclIdBuiltin (coercePass builtin)
+
+instance CoercePass NamedDeclId p p' where
+  coercePass named = NamedDeclId{
+        name   = named.name
+      , origin = named.origin
+      }
+
+instance CoercePass BuiltinDeclId p p' where
+  coercePass builtin = BuiltinDeclId{
+        name = builtin.name
+      }
 
 instance (
       CoercePass Decl p p'

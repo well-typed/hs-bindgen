@@ -187,10 +187,10 @@ typedefOfTagged typedefName valOrRef taggedType@TaggedTypeId{..} useSites
 
     -- Struct and typedef same name, with intervening pointers
   | ByRef <- valOrRef, typedefName == taggedTypeIdName taggedType
-  = let newDeclId =
-          C.DeclIdNamed
-            (typedefName <> "_Deref")
-            (updateOrigin taggedTypeDeclId)
+  = let newDeclId = C.DeclIdNamed C.NamedDeclId{
+            name   = typedefName <> "_Deref"
+          , origin = updateOrigin taggedTypeDeclId
+          }
     in mempty{
            rename = Map.singleton (taggedTypeIdName taggedType) newDeclId
          }
@@ -202,7 +202,10 @@ typedefOfTagged typedefName valOrRef taggedType@TaggedTypeId{..} useSites
     -- name of the struct, as normally the typedef is the main type and intended
     -- to be used throughout the code.
   | ByValue <- valOrRef, [_] <- useSites
-  = let newDeclId = C.DeclIdNamed typedefName (updateOrigin taggedTypeDeclId)
+  = let newDeclId = C.DeclIdNamed C.NamedDeclId{
+            name   = typedefName
+          , origin = updateOrigin taggedTypeDeclId
+          }
         newTagged = TaggedTypeId{
             taggedTypeDeclId = newDeclId
           , taggedTypeIdKind
@@ -228,9 +231,9 @@ updateOrigin (C.DeclIdBuiltin _name) =
     -- this case here.
     -- See also <https://github.com/well-typed/hs-bindgen/issues/1266>
     panicPure "Unexpected builtin"
-updateOrigin (C.DeclIdNamed oldName origin) =
-    case origin of
-      C.NameOriginInSource           -> C.NameOriginRenamedFrom oldName
+updateOrigin (C.DeclIdNamed old) =
+    case old.origin of
+      C.NameOriginInSource           -> C.NameOriginRenamedFrom old.name
       C.NameOriginGenerated   anonId -> C.NameOriginGenerated   anonId
       C.NameOriginRenamedFrom orig   -> C.NameOriginRenamedFrom orig
 
