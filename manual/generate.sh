@@ -20,7 +20,7 @@ fi
 mkdir -p external
 
 echo "# "
-echo "# Basic examples"
+echo "# Manual"
 echo "# "
 
 mkdir -p hs/manual/generated
@@ -104,6 +104,45 @@ cabal run hs-bindgen-cli -- \
     --hs-output-dir hs/manual/generated \
     --module ZeroCopy \
     zero_copy.h
+
+
+echo "# "
+echo "# Manual: foreign types"
+echo "# "
+
+cabal run hs-bindgen-cli -- \
+    preprocess \
+    -I c/ \
+    --unique-id com.hs-bindgen.manual.foreign-types \
+    --hs-output-dir hs/manual/src-foreign-types \
+    --module Generated.ForeignTypes.A \
+    --select-by-decl-name "A" \
+    --gen-binding-spec hs/manual/src-foreign-types/Generated/ForeignTypes/A.bindingspec.yaml \
+    --create-output-dirs \
+    foreign_types.h
+
+cabal run hs-bindgen-cli -- \
+    preprocess \
+    -I c/ \
+    --unique-id com.hs-bindgen.manual.foreign-types \
+    --hs-output-dir hs/manual/src-foreign-types \
+    --module Generated.ForeignTypes.B \
+    --select-by-decl-name "B" \
+    --gen-binding-spec hs/manual/src-foreign-types/Generated/ForeignTypes/B.bindingspec.yaml \
+    --external-binding-spec hs/manual/src-foreign-types/Generated/ForeignTypes/A.bindingspec.yaml \
+    --create-output-dirs \
+    foreign_types.h
+
+cabal run hs-bindgen-cli -- \
+    preprocess \
+    -I c/ \
+    --unique-id com.hs-bindgen.manual.foreign-types \
+    --hs-output-dir hs/manual/src-foreign-types \
+    --module Generated.ForeignTypes \
+    --external-binding-spec hs/manual/src-foreign-types/Generated/ForeignTypes/A.bindingspec.yaml \
+    --external-binding-spec hs/manual/src-foreign-types/Generated/ForeignTypes/B.bindingspec.yaml \
+    --create-output-dirs \
+    foreign_types.h
 
 echo "# "
 echo "# External bindings: vector example"

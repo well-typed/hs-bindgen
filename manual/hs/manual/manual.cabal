@@ -92,3 +92,19 @@ executable run-manual
   -- Avoid gcc warnings about non-NFC characters
   -- See <https://github.com/well-typed/hs-bindgen/issues/918>
   ghc-options:     -optc -Wno-normalized
+
+library foreign-types
+  import:          lang
+  hs-source-dirs:  src-foreign-types
+  other-modules:
+    Generated.ForeignTypes
+    Generated.ForeignTypes.A
+    Generated.ForeignTypes.B
+    Generated.ForeignTypes.FunPtr
+    Generated.ForeignTypes.Safe
+    Generated.ForeignTypes.Unsafe
+
+  extra-libraries: foreign_types
+  build-depends:
+    , base
+    , hs-bindgen-runtime
