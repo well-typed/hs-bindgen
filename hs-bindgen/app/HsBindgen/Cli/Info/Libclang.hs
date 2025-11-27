@@ -22,7 +22,7 @@ import Clang.LowLevel.Core (CXErrorCode (..))
 import HsBindgen.App
 import HsBindgen.Boot
 import HsBindgen.Clang
-import HsBindgen.Config.ClangArgs hiding (getClangArgs)
+import HsBindgen.Config.ClangArgs
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -55,7 +55,8 @@ parseOpts = Opts <$> parseClangArgsConfig
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} =
     void . withTracer tracerConfigWithoutASTReadError $ \tracer _ -> do
-      clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig
+      (clangArgs, _target) <-
+        getClangArgsAndTarget (contramap TraceBoot tracer) clangArgsConfig
       let hasNoUserOptions = hasNoUserClangOptions clangArgsConfig
           setup = defaultClangSetup clangArgs $
             ClangInputMemory "hs-bindgen-nop.h" ""

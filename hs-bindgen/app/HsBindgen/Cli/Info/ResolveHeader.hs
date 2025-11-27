@@ -20,7 +20,7 @@ import System.Exit (ExitCode (ExitFailure))
 
 import HsBindgen.App
 import HsBindgen.Boot
-import HsBindgen.Config.ClangArgs hiding (getClangArgs)
+import HsBindgen.Config.ClangArgs
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Resolve
@@ -57,7 +57,8 @@ exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     eErr <- withTracer tracerConfig' $ \tracer _ -> do
       hashIncludeArgs <- checkInputs tracer inputs
-      clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig
+      (clangArgs, _target) <-
+        getClangArgsAndTarget (contramap TraceBoot tracer) clangArgsConfig
       includes <-
         resolveHeaders
           (contramap TraceResolveHeader tracer)

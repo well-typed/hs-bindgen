@@ -20,7 +20,7 @@ import Options.Applicative hiding (info)
 import HsBindgen.App
 import HsBindgen.BindingSpec
 import HsBindgen.Boot
-import HsBindgen.Config.ClangArgs hiding (getClangArgs)
+import HsBindgen.Config.ClangArgs
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -63,7 +63,8 @@ exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     spec <-
       either throwIO pure <=< withTracer tracerConfig $ \tracer _ -> do
-        clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig
+        (clangArgs, _target) <-
+          getClangArgsAndTarget (contramap TraceBoot tracer) clangArgsConfig
         getStdlibBindingSpec
           (contramap (TraceBoot . BootBindingSpec) tracer)
           clangArgs
