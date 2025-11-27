@@ -156,18 +156,6 @@ data BindingSpecTarget =
     AnyTarget
   deriving stock (Show, Eq, Generic)
 
-instance Aeson.FromJSON BindingSpecTarget where
-  parseJSON = Aeson.withText "BindingSpecTarget" $ \case
-    "any" -> return AnyTarget
-    t     -> case ClangArgs.parseTargetTriple (Text.unpack t) of
-      Just target -> return $ SpecificTarget target
-      Nothing     -> Aeson.parseFail $ "invalid target: " ++ show t
-
-instance Aeson.ToJSON BindingSpecTarget where
-  toJSON = Aeson.String . Text.pack . \case
-    AnyTarget             -> "any"
-    SpecificTarget target -> ClangArgs.targetTriple target
-
 isCompatBindingSpecTarget :: BindingSpecTarget -> ClangArgs.Target -> Bool
 isCompatBindingSpecTarget = \case
     AnyTarget             -> const True
@@ -236,27 +224,6 @@ data StrategySpec =
   | -- | Derive an instance using the @stock@ strategy
     StrategySpecStock
   deriving stock (Bounded, Enum, Eq, Generic, Ord, Show)
-
-instance Aeson.FromJSON StrategySpec where
-  parseJSON = Aeson.withText "StrategySpec" $ \t ->
-    case Map.lookup t strategySpecFromText of
-      Just strategy -> return strategy
-      Nothing       -> Aeson.parseFail $ "unknown strategy: " ++ (Text.unpack t)
-
-instance Aeson.ToJSON StrategySpec where
-  toJSON = Aeson.String . strategySpecText
-
-strategySpecText :: StrategySpec -> Text
-strategySpecText = \case
-    StrategySpecHsBindgen -> "hs-bindgen"
-    StrategySpecNewtype   -> "newtype"
-    StrategySpecStock     -> "stock"
-
-strategySpecFromText :: Map Text StrategySpec
-strategySpecFromText = Map.fromList [
-      (strategySpecText strat, strat)
-    | strat <- [minBound..]
-    ]
 
 --------------------------------------------------------------------------------
 
@@ -581,7 +548,7 @@ lookupMergedBindingSpecs cQualName headers specs = do
 
 data ABindingSpec = ABindingSpec {
       aBindingSpecVersion  :: AVersion
-    , aBindingSpecTarget   :: BindingSpecTarget
+    , aBindingSpecTarget   :: ABindingSpecTarget
     , aBindingSpecHsModule :: Hs.ModuleName
     , aBindingSpecCTypes   :: [AOCTypeSpecMapping]
     , aBindingSpecHsTypes  :: [AHsTypeSpecMapping]
@@ -605,6 +572,31 @@ instance Aeson.ToJSON ABindingSpec where
     , ("ctypes"  .=) <$> omitWhenNull aBindingSpecCTypes
     , ("hstypes" .=) <$> omitWhenNull aBindingSpecHsTypes
     ]
+
+--------------------------------------------------------------------------------
+
+newtype ABindingSpecTarget = ABindingSpecTarget {
+      unABindingSpecTarget :: BindingSpecTarget
+    }
+  deriving stock Show
+
+instance Aeson.FromJSON ABindingSpecTarget where
+  parseJSON = fmap ABindingSpecTarget . aux
+    where
+      aux :: Aeson.Value -> Aeson.Parser BindingSpecTarget
+      aux = Aeson.withText "ABindingSpecTarget" $ \case
+        "any" -> return AnyTarget
+        t     -> case ClangArgs.parseTargetTriple (Text.unpack t) of
+          Just target -> return $ SpecificTarget target
+          Nothing     -> Aeson.parseFail $ "invalid target: " ++ show t
+
+instance Aeson.ToJSON ABindingSpecTarget where
+  toJSON = Aeson.String . Text.pack . aux . unABindingSpecTarget
+    where
+      aux :: BindingSpecTarget -> String
+      aux = \case
+        AnyTarget             -> "any"
+        SpecificTarget target -> ClangArgs.targetTriple target
 
 --------------------------------------------------------------------------------
 
@@ -675,7 +667,7 @@ type AOInstanceSpecMapping = AOmittable Hs.TypeClass AInstanceSpecMapping
 
 data AInstanceSpecMapping = AInstanceSpecMapping {
       aInstanceSpecMappingClass       :: Hs.TypeClass
-    , aInstanceSpecMappingStrategy    :: Maybe StrategySpec
+    , aInstanceSpecMappingStrategy    :: Maybe AStrategySpec
     , aInstanceSpecMappingConstraints :: [AConstraintSpec]
     }
   deriving stock Show
@@ -709,6 +701,37 @@ instance Aeson.ToJSON AInstanceSpecMapping where
 
 --------------------------------------------------------------------------------
 
+newtype AStrategySpec = AStrategySpec {
+      unAStrategySpec :: StrategySpec
+    }
+  deriving stock Show
+
+instance Aeson.FromJSON AStrategySpec where
+  parseJSON = fmap AStrategySpec . aux
+    where
+      aux :: Aeson.Value -> Aeson.Parser StrategySpec
+      aux = Aeson.withText "AStrategySpec" $ \t ->
+        case Map.lookup t strategySpecFromText of
+          Just strategy -> return strategy
+          Nothing -> Aeson.parseFail $ "unknown strategy: " ++ Text.unpack t
+
+instance Aeson.ToJSON AStrategySpec where
+  toJSON = Aeson.String . strategySpecText . unAStrategySpec
+
+strategySpecText :: StrategySpec -> Text
+strategySpecText = \case
+    StrategySpecHsBindgen -> "hs-bindgen"
+    StrategySpecNewtype   -> "newtype"
+    StrategySpecStock     -> "stock"
+
+strategySpecFromText :: Map Text StrategySpec
+strategySpecFromText = Map.fromList [
+      (strategySpecText strat, strat)
+    | strat <- [minBound..]
+    ]
+
+--------------------------------------------------------------------------------
+
 newtype AConstraintSpec = AConstraintSpec ConstraintSpec
   deriving stock Show
 
@@ -736,7 +759,7 @@ fromABindingSpec ::
   -> ABindingSpec
   -> ([BindingSpecReadMsg], UnresolvedBindingSpec)
 fromABindingSpec path ABindingSpec{..} =
-    let bindingSpecTarget = aBindingSpecTarget
+    let bindingSpecTarget = unABindingSpecTarget aBindingSpecTarget
         bindingSpecModule = aBindingSpecHsModule
         (cTypeErrs, hsIds, bindingSpecCTypes) =
           mkCTypeMap path aBindingSpecCTypes
@@ -871,7 +894,8 @@ mkInstanceMap ::
 mkInstanceMap xs = Map.fromList . flip map xs $ \case
     ARequire AInstanceSpecMapping{..} ->
       let inst = InstanceSpec {
-              instanceSpecStrategy    = aInstanceSpecMappingStrategy
+              instanceSpecStrategy =
+                unAStrategySpec <$> aInstanceSpecMappingStrategy
             , instanceSpecConstraints = [
                   constr
                 | AConstraintSpec constr <- aInstanceSpecMappingConstraints
@@ -885,7 +909,7 @@ mkInstanceMap xs = Map.fromList . flip map xs $ \case
 toABindingSpec :: UnresolvedBindingSpec -> ABindingSpec
 toABindingSpec BindingSpec{..} = ABindingSpec {
       aBindingSpecVersion  = mkAVersion version
-    , aBindingSpecTarget   = bindingSpecTarget
+    , aBindingSpecTarget   = ABindingSpecTarget bindingSpecTarget
     , aBindingSpecHsModule = bindingSpecModule
     , aBindingSpecCTypes   = toAOCTypes bindingSpecCTypes
     , aBindingSpecHsTypes  = toAHsTypes bindingSpecHsTypes
@@ -927,7 +951,8 @@ toAOInstances instMap = [
       case oInstSpec of
         Require InstanceSpec{..} -> ARequire AInstanceSpecMapping {
             aInstanceSpecMappingClass = hsTypeClass
-          , aInstanceSpecMappingStrategy = instanceSpecStrategy
+          , aInstanceSpecMappingStrategy =
+              AStrategySpec <$> instanceSpecStrategy
           , aInstanceSpecMappingConstraints =
               map AConstraintSpec instanceSpecConstraints
           }
