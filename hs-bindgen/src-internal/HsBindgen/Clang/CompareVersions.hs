@@ -40,7 +40,7 @@ instance IsTrace Level CompareVersionsMsg where
 -- | Check if the compile time version of clang is different than the 
 -- runtime version, issue a warning if that's the case to inform the user
 -- of this fact.
--- 
+--
 compareClangVersions :: Tracer CompareVersionsMsg -> IO ()
 compareClangVersions tracer = do
   let compileTimeVersion = clangVersionCompileTime
