@@ -27,8 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # runner: [windows-latest, ubuntu-latest, macos-latest]
-        runner: [windows-latest]
+        runner: [windows-latest, ubuntu-latest, macos-latest]
         ghc-version: ['9.2.8', '9.4.8', '9.6.7', '9.8.4', '9.10.3', '9.12.2']
         llvm-version: ['14', '16', '18', '20', '21']
         exclude:
@@ -51,6 +50,7 @@ jobs:
           runner: ${{ matrix.runner }}
           ghc: ${{ matrix.ghc-version }}
           llvm: ${{ matrix.llvm-version }}
+          build-with-old-versions: 'true'
 
   cabal-check:
     name: Cabal check (${{ matrix.package }})

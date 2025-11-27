@@ -11,6 +11,10 @@ inputs:
   llvm:
     description: 'LLVM version'
     required: true
+  build-with-old-versions:
+    description: 'Build with --prefer-oldest to test lower bounds'
+    required: false
+    default: 'false'
 
 runs:
   using: composite
@@ -64,6 +68,11 @@ runs:
         path: ${{ steps.setup-haskell.outputs.cabal-store }}
         key: ${{ env.key }}-plan-${{ hashFiles('dist-newstyle/cache/plan.json') }}
         restore-keys: ${{ env.key }}-
+
+    - name: Build (prefer oldest) - test lower bounds
+      shell: bash
+      if: ${{ inputs.build-with-old-versions == 'true' }}
+      run: cabal build all --prefer-oldest
 
     - name: Dependencies
       shell: bash
