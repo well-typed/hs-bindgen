@@ -26,24 +26,24 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @sym@
 
-    __defined at:__ @binding-specs\/binding_spec_simple.h:1:14@
+    __defined at:__ @binding-specs\/bs_pre_rename_type.h:1:14@
 
-    __exported by:__ @binding-specs\/binding_spec_simple.h@
+    __exported by:__ @binding-specs\/bs_pre_rename_type.h@
 -}
-newtype Sym = Sym
-  { un_Sym :: FC.CChar
+newtype MySym = MySym
+  { un_MySym :: FC.CChar
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Sym) "un_Sym")
-         ) => GHC.Records.HasField "un_Sym" (Ptr.Ptr Sym) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MySym) "un_MySym")
+         ) => GHC.Records.HasField "un_MySym" (Ptr.Ptr MySym) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Sym")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MySym")
 
-instance HsBindgen.Runtime.HasCField.HasCField Sym "un_Sym" where
+instance HsBindgen.Runtime.HasCField.HasCField MySym "un_MySym" where
 
-  type CFieldType Sym "un_Sym" = FC.CChar
+  type CFieldType MySym "un_MySym" = FC.CChar
 
   offset# = \_ -> \_ -> 0

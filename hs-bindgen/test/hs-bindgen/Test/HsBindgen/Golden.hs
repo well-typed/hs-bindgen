@@ -174,11 +174,19 @@ test_attributes_attributes =
 
 -- Binding specs tests
 
-test_binding_specs_binding_spec_simple :: TestCase
-test_binding_specs_binding_spec_simple =
-  (defaultTest "binding-specs/binding_spec_simple"){
-    testPrescriptiveBindingSpec = Just "examples/golden/binding-specs/binding_spec_simple.yaml"
-  }
+test_binding_specs_bs_pre_omit_type :: TestCase
+test_binding_specs_bs_pre_omit_type =
+  (defaultTest "binding-specs/bs_pre_omit_type") {
+      testPrescriptiveBindingSpec =
+        Just "examples/golden/binding-specs/bs_pre_omit_type_p.yaml"
+    }
+
+test_binding_specs_bs_pre_rename_type :: TestCase
+test_binding_specs_bs_pre_rename_type =
+  (defaultTest "binding-specs/bs_pre_rename_type") {
+      testPrescriptiveBindingSpec =
+        Just "examples/golden/binding-specs/bs_pre_rename_type_p.yaml"
+    }
 
 -- Declarations tests
 
@@ -1019,7 +1027,8 @@ testCases = manualTestCases ++ [
     , test_attributes_attributes
     , test_attributes_type_attributes
     , test_attributes_visibility_attributes
-    , test_binding_specs_binding_spec_simple
+    , test_binding_specs_bs_pre_omit_type
+    , test_binding_specs_bs_pre_rename_type
     , test_declarations_declarations_required_for_scoping
     , test_declarations_definitions
     , test_declarations_failing_declaration_unselected_b

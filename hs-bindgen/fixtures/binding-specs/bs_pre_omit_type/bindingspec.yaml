@@ -5,9 +5,9 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - omit:
-    headers: binding-specs/binding_spec_simple.h
+    headers: binding-specs/bs_pre_omit_type.h
     cname: struct pt
-- headers: binding-specs/binding_spec_simple.h
+- headers: binding-specs/bs_pre_omit_type.h
   cname: sym
   hsname: Sym
 hstypes:

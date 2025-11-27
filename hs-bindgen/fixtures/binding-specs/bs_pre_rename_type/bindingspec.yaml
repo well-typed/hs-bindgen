@@ -4,14 +4,11 @@ version:
 target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
-- omit:
-    headers: binding-specs/binding_spec_simple.h
-    cname: struct pt
-- headers: binding-specs/binding_spec_simple.h
+- headers: binding-specs/bs_pre_rename_type.h
   cname: sym
-  hsname: Sym
+  hsname: MySym
 hstypes:
-- hsname: Sym
+- hsname: MySym
   instances:
   - Bits
   - Bounded
