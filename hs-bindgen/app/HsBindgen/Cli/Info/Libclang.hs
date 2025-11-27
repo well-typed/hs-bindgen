@@ -16,6 +16,9 @@ module HsBindgen.Cli.Info.Libclang (
 import Options.Applicative hiding (info)
 import Prettyprinter.Util qualified as PP
 
+import Clang.Enum.Simple (SimpleEnum (..), simpleFromC)
+import Clang.LowLevel.Core (CXErrorCode (..))
+
 import HsBindgen.App
 import HsBindgen.Boot
 import HsBindgen.Clang
@@ -31,12 +34,7 @@ import HsBindgen.Util.Tracer
 info :: InfoMod a
 info = mconcat [
       progDesc "Run libclang with empty input"
-    , footerDoc . Just . PP.reflow $ mconcat [
-          "This command provides a way to get output from libclang."
-        , " For example, use --clang-option=-v to see version and include"
-        , " search path information, taking into account any other Clang"
-        , " options and environment variables."
-        ]
+    , footerDoc . Just . PP.reflow $ mconcat infoHelpMessage
     ]
 
 {-------------------------------------------------------------------------------
@@ -56,11 +54,42 @@ parseOpts = Opts <$> parseClangArgsConfig
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} =
-    void . withTracer tracerConfig $ \tracer _ -> do
+    void . withTracer tracerConfigWithoutASTReadError $ \tracer _ -> do
       clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig
-      let setup = defaultClangSetup clangArgs $
+      let hasNoUserOptions = hasNoUserClangOptions clangArgsConfig
+          setup = defaultClangSetup clangArgs $
             ClangInputMemory "hs-bindgen-nop.h" ""
+
+      -- Emit informational message if no user options provided
+      when (   hasNoUserOptions
+            && unwrapVerbosity (tVerbosity tracerConfig) >= Info) $ do
+        traceWith (contramap (TraceFrontend . FrontendClang) tracer)
+                  ClangInvokedWithoutOptions
+
       withClang
         (contramap (TraceFrontend . FrontendClang) tracer)
         setup
         (const (return Nothing))
+  where
+    -- Check if user provided any Clang options via command line
+    --
+    hasNoUserClangOptions :: ClangArgsConfig FilePath -> Bool
+    hasNoUserClangOptions ClangArgsConfig{..} =
+      null argsBefore && null argsInner && null argsAfter
+
+    -- Check if a trace is CXError_ASTReadError.
+    -- This error is benign in the context of 'info libclang' when users
+    -- provide diagnostic flags, as they cause Clang to exit without building an AST.
+    --
+    -- If trace is CXError_ASTReadError make it debug level which should
+    -- supress it but still make it available if needed with Debug level
+    -- logging
+    --
+    tracerConfigWithoutASTReadError =
+      tracerConfig
+        { tCustomLogLevel = CustomLogLevel $ \trace actualLevel ->
+            case trace of
+              TraceFrontend (FrontendClang (ClangErrorCode (SimpleEnum x)))
+                | Just CXError_ASTReadError <- simpleFromC x -> Debug
+              _ -> unCustomLogLevel (tCustomLogLevel tracerConfig) trace actualLevel
+        }

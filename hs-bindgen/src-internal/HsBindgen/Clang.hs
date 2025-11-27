@@ -8,6 +8,7 @@ module HsBindgen.Clang (
   , withClang'
     -- * Trace messages
   , ClangMsg(..)
+  , infoHelpMessage
   ) where
 
 import Data.Text qualified as Text
@@ -133,6 +134,7 @@ data ClangMsg =
     ClangErrorCode (SimpleEnum CXErrorCode)
   | ClangDiagnostic Diagnostic
   | ClangSetupMsg ClangSetup
+  | ClangInvokedWithoutOptions
   deriving stock (Show)
 
 instance PrettyForTrace ClangMsg where
@@ -150,6 +152,8 @@ instance PrettyForTrace ClangMsg where
                   Text.stripStart $ Text.dropWhile (/= ' ') diagnosticFormatted
         | otherwise -> PP.textToCtxDoc diagnosticFormatted
       ClangSetupMsg   x -> prettyForTrace x
+      ClangInvokedWithoutOptions ->
+        PP.cat $ map PP.textToCtxDoc infoHelpMessage
     where
       getFileNotFound :: Text -> Maybe Text
       getFileNotFound =
@@ -160,13 +164,24 @@ instance PrettyForTrace ClangMsg where
           fmap (Text.dropWhile (== '\'') . Text.dropWhile (/= '\''))
         . Text.stripSuffix "' file not found with <angled> include; use \"quotes\" instead"
 
+infoHelpMessage :: [Text]
+infoHelpMessage =
+  [ "This command provides a way to get output from libclang."
+  , " For example, use --clang-option=-v to see version and include"
+  , " search path information, taking into account any other Clang"
+  , " options and environment variables."
+  ]
+
+
 instance IsTrace Level ClangMsg where
   getDefaultLogLevel = \case
-      ClangErrorCode  _ -> Error
-      ClangDiagnostic x -> if diagnosticIsError x then Error else Warning
-      ClangSetupMsg   _ -> Debug
+      ClangErrorCode  _          -> Error
+      ClangDiagnostic x          -> if diagnosticIsError x then Error else Warning
+      ClangSetupMsg   _          -> Debug
+      ClangInvokedWithoutOptions -> Notice
   getSource = \case
-      ClangErrorCode  _ -> Libclang
-      ClangDiagnostic _ -> Libclang
-      ClangSetupMsg   _ -> HsBindgen
+      ClangErrorCode  _          -> Libclang
+      ClangDiagnostic _          -> Libclang
+      ClangSetupMsg   _          -> HsBindgen
+      ClangInvokedWithoutOptions -> Libclang
   getTraceId = const "clang"
