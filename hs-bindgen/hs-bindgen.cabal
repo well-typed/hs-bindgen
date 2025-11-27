@@ -11,12 +11,7 @@ synopsis:           Generate Haskell bindings from C headers
 description:        Automatically generate Haskell bindings from C headers
 extra-doc-files:    CHANGELOG.md
 tested-with:
-  GHC ==9.2.8
-   || ==9.4.8
-   || ==9.6.6
-   || ==9.8.2
-   || ==9.10.2
-   || ==9.12.2
+  GHC ==9.2 || ==9.4 || ==9.6 || ==9.8 || ==9.10 || ==9.12
 
 extra-source-files:
   bootstrap/*.h

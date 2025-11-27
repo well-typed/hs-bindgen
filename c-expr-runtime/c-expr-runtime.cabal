@@ -8,14 +8,7 @@ maintainer:      Well-Typed LLP
 category:        System
 build-type:      Simple
 extra-doc-files: CHANGELOG.md
-tested-with:
-  GHC ==9.2.8
-   || ==9.4.8
-   || ==9.6.6
-   || ==9.8.2
-   || ==9.10.2
-   || ==9.12.2
-
+tested-with:     GHC ==9.2 || ==9.4 || ==9.6 || ==9.8 || ==9.10 || ==9.12
 synopsis:        Haskell DSL for simple C arithmetic expressions
 description:
   This library provides a Haskell DSL for simple C arithmetic expressions,

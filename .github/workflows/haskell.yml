@@ -1,0 +1,206 @@
+name: Build and test
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  merge_group:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  setup-matrix:
+    name: Setup matrix
+    runs-on: 'ubuntu-latest'
+    timeout-minutes: 5
+
+    outputs:
+      matrix: ${{ steps.setup-matrix.outputs.matrix }}
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: 🛠️ Setup matrix (PR)
+      if: ${{ github.event_name == 'pull_request' }}
+      run: |
+        { echo 'MATRIX_COMBINATIONS<<EOF'
+          echo '{"runner": "ubuntu-latest", "ghc": "9.4", "llvm": "15"},'
+          echo EOF
+        } >> "$GITHUB_ENV"
+
+    - name: 🛠️ Setup matrix (MQ, push to main)
+      if: ${{ github.event_name != 'pull_request' }}
+      run: |
+        { echo 'MATRIX_COMBINATIONS<<EOF'
+          echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
+          echo '{"runner": "windows-latest", "ghc": "9.4", "llvm": "14"},'
+          # Vary LLVM version from 14 to 20.
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "14"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "16"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "18"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "20"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.4", "llvm": "21"},'
+          # Vary GHC version from 9.2 to 9.12.
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.2", "llvm": "14"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.6", "llvm": "14"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.8", "llvm": "14"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.10", "llvm": "14"},'
+          echo '{"runner": "ubuntu-latest" , "ghc": "9.12", "llvm": "14"},'
+          echo EOF
+        } >> "$GITHUB_ENV"
+
+    - name: 🛠️ Setup matrix
+      id: setup-matrix
+      run: |
+        echo $MATRIX_COMBINATIONS
+        MATRIX="{\"include\":[$MATRIX_COMBINATIONS]}"
+        echo $MATRIX
+        {
+          echo 'MATRIX<<EOF'
+          echo "$MATRIX"
+          echo EOF
+        } >> "$GITHUB_OUTPUT"
+
+  check-success:
+    name: Check success
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    needs:
+    - build-and-test
+
+    defaults:
+      run:
+        shell: bash
+
+    if: ${{ !cancelled() }}
+
+    steps:
+    - name: 🧪 Report failure
+      if: ${{ needs.build-and-test.result == 'failure' }}
+      run: |
+        echo "Some jobs failed"
+        exit 1
+
+    - name: 🧪 Report success
+      if: ${{ needs.build-and-test.result == 'success'  }}
+      run: |
+        echo "All jobs succeeded"
+        exit 0
+
+  build-and-test:
+    name: Run (${{ matrix.runner }}, GHC${{ matrix.ghc }}, LLVM${{matrix.llvm }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+
+    needs:
+    - setup-matrix
+
+    strategy:
+      matrix: ${{ fromJSON(needs.setup-matrix.outputs.matrix) }}
+      fail-fast: false
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: 🛠️ Set git to use LF
+      run: |
+        git config --global core.autocrlf false
+        git config --global core.eol lf
+
+    - name: 📥 Checkout
+      uses: actions/checkout@v4
+
+    - name: 🛠️ Setup Haskell
+      id: setup-haskell
+      uses: haskell-actions/setup@v2
+      with:
+        ghc-version: ${{ matrix.ghc }}
+        cabal-version: 3.16
+
+    - name: 🧪 Debug (Haskell)
+      run: |
+        echo '### ghc --version'
+        ghc --version
+        echo '### ghc-pkg list'
+        ghc-pkg list
+        echo '### ghc --info'
+        ghc --info
+
+    - name: 🛠️ Install LLVM/Clang
+      uses: ./.github/actions/setup-llvm
+      with:
+        version: ${{ matrix.llvm }}
+
+    - name: 🛠️ cabal.project
+      run: cp cabal.project.ci cabal.project
+
+    - name: 💾 Generate Cabal plan
+      run: cabal build all --dry-run
+
+    - name: 💾 Restore cache
+      id: cache-cabal-restore
+      uses: actions/cache/restore@v4
+      env:
+        key: build-and-test-${{ matrix.runner }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm }}
+      with:
+        path: ${{ steps.setup-haskell.outputs.cabal-store }}
+        key: ${{ env.key }}-plan-${{ hashFiles('dist-newstyle/cache/plan.json') }}
+        restore-keys: ${{ env.key }}-
+
+    - name: 🛠️ Build Cabal dependencies
+      run: cabal build all --only-dependencies
+
+    - name: 🏗️ Build
+      run: cabal build all
+
+    - name: 🧪 Debug (hs-bindgen)
+      run: |
+        echo '### Version'
+        cabal run hs-bindgen-cli -- --version
+        echo '### libclang -v'
+        cabal run hs-bindgen-cli -- info libclang --clang-option=-v
+        echo '### Resolve (clang)'
+        cabal run hs-bindgen-cli -- info resolve-header -v4 --builtin-include-dir=clang stdint.h
+
+    - name: 🧪 Test
+      run: cabal test all --test-show-details=direct
+
+    - name: 🧪 Build manual (macOS)
+      if: runner.os == 'macOS'
+      uses: ./.github/actions/build-manual-macos
+
+    - name: 🧪 Build manual (Ubuntu)
+      if: runner.os == 'Linux'
+      uses: ./.github/actions/build-manual-ubuntu
+
+    - name: 🛠️ Windows quirks - Manual requires Clang version coming with GHC
+      if: ${{ startsWith(matrix.runner, 'windows') }}
+      run: |
+          echo '### ls "C:\tools\ghc-${{ steps.setup-haskell.outputs.ghc-version }}\mingw\bin"'
+          ls "C:\tools\ghc-${{ steps.setup-haskell.outputs.ghc-version }}\mingw\bin"
+          echo "C:\tools\ghc-${{ steps.setup-haskell.outputs.ghc-version }}\mingw\bin" >> "$GITHUB_PATH"
+
+    - name: 🧪 Build manual (Windows)
+      if: runner.os == 'Windows'
+      uses: ./.github/actions/build-manual-windows
+
+    # Save the cache after building the project AND the manual.
+    - name: 💾 Save cache
+      uses: actions/cache/save@v4
+      # Even save the cache, even when a previous job failed. Do not save the
+      # cache when the job gets canceled.
+      if: ${{ !cancelled() }}
+      with:
+        path: ${{ steps.setup-haskell.outputs.cabal-store }}
+        key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
