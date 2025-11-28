@@ -11,9 +11,7 @@ module HsBindgen.Backend.SHs.AST (
     PatExpr (..),
     SDecl (..),
     ByCategory(..),
-    BindingCategory(..),
     mapByCategory,
-    displayBindingCategory,
     Pragma (..),
     ClosedType,
     SType (..),
@@ -41,6 +39,7 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Config.Prelims
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
@@ -305,28 +304,6 @@ newtype ByCategory a = ByCategory { unByCategory :: Map BindingCategory a }
 
 mapByCategory :: (BindingCategory -> a -> b) -> ByCategory a -> ByCategory b
 mapByCategory f = ByCategory . Map.mapWithKey f . unByCategory
-
--- | Foreign import category.
-data BindingCategory =
-    -- | Types (top-level bindings).
-    BType
-    -- | Foreign import bindings with a @safe@ foreign import modifier.
-  | BSafe
-    -- | Foreign import bindings with an @unsafe@ foreign import modifier.
-  | BUnsafe
-    -- | Pointers to functions; generally @unsafe@.
-  | BFunPtr
-    -- | Temporary category for bindings to global variables or constants.
-  | BGlobal
-  deriving stock (Show, Eq, Ord, Enum, Bounded)
-
-displayBindingCategory :: BindingCategory -> String
-displayBindingCategory = \case
-  BType   -> "Type"
-  BSafe   -> "Safe"
-  BUnsafe -> "Unsafe"
-  BFunPtr -> "FunPtr"
-  BGlobal -> "Global"
 
 type ClosedType = SType EmptyCtx
 

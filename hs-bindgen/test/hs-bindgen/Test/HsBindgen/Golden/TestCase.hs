@@ -211,7 +211,7 @@ getTestBootConfig testResources TestCase{..} = do
         bootClangArgsConfig = clangArgsConfig {
             builtinIncDir = BuiltinIncDirDisable
           }
-      , bootHsModuleName = "Example"
+      , bootBaseModuleName = "Example"
       , bootBindingSpecConfig = BindingSpecConfig {
             stdlibSpec              = testStdlibSpec
           , compatibility           = BindingSpecStrict

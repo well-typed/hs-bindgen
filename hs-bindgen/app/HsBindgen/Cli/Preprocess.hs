@@ -24,7 +24,6 @@ import HsBindgen.Config.Internal
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -40,7 +39,7 @@ info = progDesc "Generate Haskell module from C headers"
 data Opts = Opts {
       config            :: Config
     , uniqueId          :: UniqueId
-    , hsModuleName      :: Hs.ModuleName
+    , baseModuleName    :: BaseModuleName
     , hsOutputDir       :: FilePath
     , outputDirPolicy   :: OutputDirPolicy
     , outputBindingSpec :: Maybe FilePath
@@ -54,7 +53,7 @@ parseOpts =
     Opts
       <$> parseConfig
       <*> parseUniqueId
-      <*> parseHsModuleName
+      <*> parseBaseModuleName
       <*> parseHsOutputDir
       <*> parseOutputDirPolicy
       <*> optional parseGenBindingSpec
@@ -78,7 +77,7 @@ exec GlobalOpts{..} Opts{..} = do
     void $ run $ artefacts
   where
     bindgenConfig :: BindgenConfig
-    bindgenConfig = toBindgenConfig config uniqueId hsModuleName
+    bindgenConfig = toBindgenConfig config uniqueId baseModuleName
 
     run :: Artefact a -> IO a
     run = hsBindgen tracerConfig bindgenConfig inputs

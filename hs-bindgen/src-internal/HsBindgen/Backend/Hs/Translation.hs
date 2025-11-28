@@ -54,7 +54,7 @@ import DeBruijn (Add (..), Env (..), Idx (..), pattern I1, pattern I2, sizeEnv,
 generateDeclarations ::
      TranslationConfig
   -> HaddockConfig
-  -> Hs.ModuleName
+  -> BaseModuleName
   -> DeclIndex
   -> [C.Decl]
   -> ByCategory [Hs.Decl]
@@ -81,7 +81,7 @@ data WithCategory a = WithCategory {
 generateDeclarations' ::
      TranslationConfig
   -> HaddockConfig
-  -> Hs.ModuleName
+  -> BaseModuleName
   -> DeclIndex
   -> [C.Decl]
   -> [WithCategory Hs.Decl]
@@ -332,7 +332,7 @@ generateDecs ::
      State.MonadState InstanceMap m
   => TranslationConfig
   -> HaddockConfig
-  -> Hs.ModuleName
+  -> BaseModuleName
   -> C.Decl
   -> m [WithCategory Hs.Decl]
 generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
@@ -1588,7 +1588,7 @@ functionDecs ::
   => SHs.Safety
   -> TranslationConfig
   -> HaddockConfig
-  -> Hs.ModuleName
+  -> BaseModuleName
   -> C.DeclInfo
   -> C.Function
   -> C.DeclSpec
@@ -1850,7 +1850,7 @@ getMainHashIncludeArg declInfo = case C.declHeaderInfo declInfo of
 global ::
      TranslationConfig
   -> HaddockConfig
-  -> Hs.ModuleName
+  -> BaseModuleName
   -> InstanceMap
   -> C.DeclInfo
   -> C.Type
@@ -1937,7 +1937,7 @@ constGetter ty instsMap info pureStubName = concat [
 addressStubDecs ::
      TranslationConfig
   -> HaddockConfig
-  -> Hs.ModuleName
+  -> BaseModuleName
   -> C.DeclInfo -- ^ The given declaration
   -> C.Type -- ^ The type of the given declaration
   -> C.DeclSpec
@@ -2073,7 +2073,7 @@ newtype UniqueSymbolId = UniqueSymbolId { unUniqueSymbolId :: String }
 
 getUniqueSymbolId ::
      UniqueId
-  -> Hs.ModuleName
+  -> BaseModuleName
   -> Maybe Safety
   -> String
   -> UniqueSymbolId
@@ -2096,11 +2096,11 @@ getUniqueSymbolId (UniqueId uniqueId) moduleName msafety symbolName =
 
     -- We use `cryptohash-sha256` to avoid potential dynamic linker problems
     -- (https://github.com/haskell-haskey/xxhash-ffi/issues/4).
-    getHash :: Hs.ModuleName -> Maybe Safety -> String -> String
+    getHash :: BaseModuleName -> Maybe Safety -> String -> String
     getHash x y z = B.unpack $ B.take 16 $ B16.encode $
       hash $ getString x y z
 
     -- We use ByteString to avoid hash changes induced by a change of how Text
     -- is encoded in GHC 9.2.
-    getString :: Hs.ModuleName -> Maybe Safety -> String -> ByteString
-    getString x y z = B.pack $ Hs.moduleNameToString x <> show y <> z
+    getString :: BaseModuleName -> Maybe Safety -> String -> ByteString
+    getString x y z = B.pack $ baseModuleNameToString x <> show y <> z

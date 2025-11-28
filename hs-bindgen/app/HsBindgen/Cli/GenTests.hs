@@ -14,13 +14,13 @@ module HsBindgen.Cli.GenTests (
   ) where
 
 import Control.Monad (void)
+import Data.Default
 import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -34,11 +34,11 @@ info = progDesc "Generate tests for generated Haskell code"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config       :: Config
-    , uniqueId     :: UniqueId
-    , hsModuleName :: Hs.ModuleName
-    , output       :: FilePath
-    , inputs       :: [UncheckedHashIncludeArg]
+      config         :: Config
+    , uniqueId       :: UniqueId
+    , baseModuleName :: BaseModuleName
+    , output         :: FilePath
+    , inputs         :: [UncheckedHashIncludeArg]
     }
 
 parseOpts :: Parser Opts
@@ -46,7 +46,7 @@ parseOpts =
     Opts
       <$> parseConfig
       <*> parseUniqueId
-      <*> parseHsModuleName
+      <*> parseBaseModuleName
       <*> parseGenTestsOutput
       <*> parseInputs
 
@@ -57,5 +57,5 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = writeTests output
-        bindgenConfig = toBindgenConfig config uniqueId defBaseModuleName
+        bindgenConfig = toBindgenConfig config uniqueId def
     void $ hsBindgen tracerConfig bindgenConfig inputs artefact

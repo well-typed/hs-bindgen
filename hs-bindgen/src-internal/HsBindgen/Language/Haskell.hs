@@ -10,6 +10,7 @@ module HsBindgen.Language.Haskell (
   , moduleNameToText
   , moduleNameFromString
   , moduleNameToString
+  , moduleNamePath
     -- * References
   , Identifier(..)
   , ExtRef(..)
@@ -26,8 +27,10 @@ module HsBindgen.Language.Haskell (
 
 import Data.Aeson qualified as Aeson
 import Data.Aeson.Types qualified as Aeson
+import Data.Foldable qualified as Foldable
 import Data.Ord qualified as Ord
 import Data.Text qualified as Text
+import System.FilePath
 import Text.Read (readMaybe)
 import Text.SimplePrettyPrint qualified as PP
 
@@ -54,6 +57,14 @@ moduleNameFromString = moduleNameFromText . Text.pack
 
 moduleNameToString :: ModuleName -> String
 moduleNameToString = Text.unpack . moduleNameToText
+
+moduleNamePath :: ModuleName -> FilePath
+moduleNamePath moduleName = withoutExt <.> "hs"
+  where
+    withoutExt :: FilePath
+    withoutExt =
+        Foldable.foldl' (</>) "" $
+          map Text.unpack (Text.splitOn "." $ moduleNameToText moduleName)
 
 instance PrettyForTrace ModuleName where
   prettyForTrace = PP.textToCtxDoc . moduleNameToText

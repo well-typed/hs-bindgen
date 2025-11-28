@@ -20,7 +20,6 @@ import HsBindgen
 import HsBindgen.App
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -34,10 +33,10 @@ info = progDesc "Parse C headers (all Frontend passes)"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config       :: Config
-    , uniqueId     :: UniqueId
-    , hsModuleName :: Hs.ModuleName
-    , inputs       :: [UncheckedHashIncludeArg]
+      config         :: Config
+    , uniqueId       :: UniqueId
+    , baseModuleName :: BaseModuleName
+    , inputs         :: [UncheckedHashIncludeArg]
     }
 
 parseOpts :: Parser Opts
@@ -45,7 +44,7 @@ parseOpts =
     Opts
       <$> parseConfig
       <*> parseUniqueId
-      <*> parseHsModuleName
+      <*> parseBaseModuleName
       <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -55,5 +54,5 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = ReifiedC >>= liftIO . print
-        bindgenConfig = toBindgenConfig config uniqueId hsModuleName
+        bindgenConfig = toBindgenConfig config uniqueId baseModuleName
     hsBindgen tracerConfig bindgenConfig inputs artefact

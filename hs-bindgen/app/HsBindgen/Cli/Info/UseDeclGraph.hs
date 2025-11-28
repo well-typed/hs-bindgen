@@ -20,7 +20,6 @@ import HsBindgen.App
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -34,11 +33,11 @@ info = progDesc "Output the use-decl graph"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config       :: Config
-    , uniqueId     :: UniqueId
-    , hsModuleName :: Hs.ModuleName
-    , output       :: Maybe FilePath
-    , inputs       :: [UncheckedHashIncludeArg]
+      config         :: Config
+    , uniqueId       :: UniqueId
+    , baseModuleName :: BaseModuleName
+    , output         :: Maybe FilePath
+    , inputs         :: [UncheckedHashIncludeArg]
     }
 
 parseOpts :: Parser Opts
@@ -46,7 +45,7 @@ parseOpts =
     Opts
       <$> parseConfig
       <*> parseUniqueId
-      <*> parseHsModuleName
+      <*> parseBaseModuleName
       <*> optional parseOutput'
       <*> parseInputs
 
@@ -65,5 +64,5 @@ parseOutput' = strOption $ mconcat [
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = writeUseDeclGraph output
-        bindgenConfig = toBindgenConfig config uniqueId hsModuleName
+        bindgenConfig = toBindgenConfig config uniqueId baseModuleName
     void $ hsBindgen tracerConfig bindgenConfig inputs artefact

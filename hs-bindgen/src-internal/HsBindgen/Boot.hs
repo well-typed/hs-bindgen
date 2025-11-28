@@ -27,7 +27,6 @@ import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 -- | Boot phase.
@@ -71,7 +70,7 @@ boot
         (contramap BootBindingSpec tracer)
         clangArgs
         target
-        hsModuleName
+        (fromBaseModuleName baseModuleName (Just BType))
         (bootBindingSpecConfig bindgenBootConfig)
 
     getExternalBindingSpecs <- cache "getExternalBindingSpecs" $ do
@@ -81,7 +80,7 @@ boot
       withTrace BootStatusPrescriptiveBindingSpec $ fmap snd getBindingSpecs
 
     pure BootArtefact {
-          bootModule                  = hsModuleName
+          bootBaseModule              = baseModuleName
         , bootCStandard               = clangArgsConfig.cStandard
         , bootClangArgs               = getClangArgs
         , bootTarget                  = getTarget
@@ -93,8 +92,8 @@ boot
     clangArgsConfig :: ClangArgsConfig FilePath
     clangArgsConfig = bindgenBootConfig.bootClangArgsConfig
 
-    hsModuleName :: Hs.ModuleName
-    hsModuleName = bindgenBootConfig.bootHsModuleName
+    baseModuleName :: BaseModuleName
+    baseModuleName = bindgenBootConfig.bootBaseModuleName
 
     tracerBootStatus :: Tracer BootStatusMsg
     tracerBootStatus = contramap BootStatus tracer
@@ -186,7 +185,7 @@ getClangTarget tracer clangArgs = do
 -------------------------------------------------------------------------------}
 
 data BootArtefact = BootArtefact {
-    bootModule                  :: Hs.ModuleName
+    bootBaseModule              :: BaseModuleName
   , bootCStandard               :: CStandard
   , bootClangArgs               :: IO ClangArgs
   , bootTarget                  :: IO ClangArgs.Target

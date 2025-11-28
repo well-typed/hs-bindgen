@@ -17,11 +17,9 @@ module HsBindgen
 
 import Control.Monad (join)
 import Control.Monad.Trans.Reader (ask)
-import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
-import Data.Text qualified as T
 import System.Directory (createDirectoryIfMissing)
-import System.FilePath (takeDirectory, (<.>), (</>))
+import System.FilePath (takeDirectory, (</>))
 
 import HsBindgen.Artefact
 import HsBindgen.Backend
@@ -153,8 +151,14 @@ writeBindingSpec path = do
   tracer         <- Lift $ artefactTracer <$> ask
   traceWith tracer $ RunArtefactWriteFile "binding specifications" path
   -- Binding specifications only specify types.
-  liftIO $ genBindingSpec target moduleBaseName path getMainHeaders omitTypes $
-    fromMaybe [] (Map.lookup BType $ unByCategory hsDecls)
+  liftIO $
+    genBindingSpec
+      target
+      (fromBaseModuleName moduleBaseName (Just BType))
+      path
+      getMainHeaders
+      omitTypes
+      (fromMaybe [] (Map.lookup BType $ unByCategory hsDecls))
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
@@ -162,11 +166,12 @@ writeTests testDir = do
     moduleBaseName  <- FinalModuleBaseName
     hashIncludeArgs <- HashIncludeArgs
     hsDecls         <- HsDecls
-    liftIO $ genTests
-      hashIncludeArgs
-      hsDecls
-      moduleBaseName
-      testDir
+    liftIO $
+      genTests
+        hashIncludeArgs
+        hsDecls
+        moduleBaseName
+        testDir
 
 {-------------------------------------------------------------------------------
   Helpers
@@ -184,7 +189,7 @@ write what (Just path) str = do
 writeByCategory ::
      String
   -> FilePath
-  -> Hs.ModuleName
+  -> BaseModuleName
   -> ByCategory String
   -> ArtefactM ()
 writeByCategory what hsOutputDir moduleBaseName =
@@ -192,13 +197,14 @@ writeByCategory what hsOutputDir moduleBaseName =
   where
     writeCategory :: BindingCategory -> String -> ArtefactM ()
     writeCategory cat str = do
-      let addSubModule = case cat of
-            BType    -> id
-            otherCat -> (</> displayBindingCategory otherCat)
-          path = addSubModule baseFilePath <.> "hs"
-          whatWithCategory = what ++ " (" ++ show cat ++ ")"
-      write whatWithCategory (Just path) str
+        write whatWithCategory (Just path) str
+      where
+        moduleName :: Hs.ModuleName
+        moduleName = fromBaseModuleName moduleBaseName (Just cat)
 
-    baseFilePath :: FilePath
-    baseFilePath = Foldable.foldl' (</>) "" $
-      hsOutputDir : map T.unpack (T.splitOn "." (Hs.moduleNameToText moduleBaseName))
+        path :: FilePath
+        path = hsOutputDir </> Hs.moduleNamePath moduleName
+
+        whatWithCategory :: String
+        whatWithCategory = what ++ " (" ++ show cat ++ ")"
+
