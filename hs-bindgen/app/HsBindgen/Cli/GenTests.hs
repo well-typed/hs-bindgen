@@ -18,8 +18,6 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.Backend.HsModule.Translation
-import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Language.Haskell qualified as Hs
@@ -59,5 +57,5 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = writeTests output
-        bindgenConfig = toBindgenConfig config uniqueId defHsModuleName
+        bindgenConfig = toBindgenConfig config uniqueId defBaseModuleName
     void $ hsBindgen tracerConfig bindgenConfig inputs artefact

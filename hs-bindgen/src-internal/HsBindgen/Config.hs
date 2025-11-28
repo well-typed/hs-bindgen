@@ -3,7 +3,9 @@
 -- | Configuration of @hs-bindgen@.
 module HsBindgen.Config (
     Config_(..)
+  , UniqueId(..)
   , toBindgenConfig
+  , defBaseModuleName
 
     -- * Client
   , OutputDirPolicy(..)
@@ -14,9 +16,8 @@ module HsBindgen.Config (
 where
 
 import HsBindgen.Backend.Hs.Haddock.Config
-import HsBindgen.Backend.Hs.Translation
+import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Backend.SHs.AST
-import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
@@ -68,7 +69,7 @@ toBindgenConfig Config{..} uniqueId hsModuleName =
       }
     backendConfig :: BackendConfig
     backendConfig = BackendConfig {
-        backendTranslationOpts = def {
+        backendTranslationConfig = def {
             translationUniqueId = uniqueId
           }
       , backendHaddockConfig = HaddockConfig {

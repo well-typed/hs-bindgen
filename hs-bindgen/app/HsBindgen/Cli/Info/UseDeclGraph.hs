@@ -17,7 +17,6 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports

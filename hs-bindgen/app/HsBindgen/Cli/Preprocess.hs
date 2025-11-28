@@ -19,7 +19,6 @@ import System.Directory (createDirectoryIfMissing, doesDirectoryExist)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Errors

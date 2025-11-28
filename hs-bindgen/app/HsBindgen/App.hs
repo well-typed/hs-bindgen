@@ -39,8 +39,6 @@ import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
 import HsBindgen.Backend.Hs.Haddock.Config
-import HsBindgen.Backend.HsModule.Translation
-import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec
 import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
@@ -467,7 +465,7 @@ parseHsModuleName = strOption $ mconcat [
       long "module"
     , metavar "NAME"
     , showDefault
-    , value defHsModuleName
+    , value defBaseModuleName
     , help "Base name of the generated Haskell modules"
     ]
 
