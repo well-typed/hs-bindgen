@@ -104,7 +104,7 @@
     __exported by:__ @functions\/simple_func.h@
 -}
 foreign import ccall safe "hs_bindgen_test_functionssimple_func_4b858faf89c6033a" erf :: CDouble ->
-                                                                                         IO CDouble
+                                                                                         CDouble
 {-| __C declaration:__ @bad_fma@
 
     __defined at:__ @functions\/simple_func.h:3:22@
@@ -145,7 +145,7 @@ foreign import ccall safe "hs_bindgen_test_functionssimple_func_51ad12b64aea929d
     __exported by:__ @functions\/simple_func.h@
 -}
 foreign import ccall safe "hs_bindgen_test_functionssimple_func_95132d8ec7fd8434" erf :: CDouble ->
-                                                                                         IO CDouble
+                                                                                         CDouble
 {-| __C declaration:__ @bad_fma@
 
     __defined at:__ @functions\/simple_func.h:3:22@

@@ -35,6 +35,9 @@ import HsBindgen.Language.Haskell qualified as Hs
 bindingSpec :: BindingSpec.UnresolvedBindingSpec
 bindingSpec = BindingSpec.BindingSpec{..}
   where
+    bindingSpecTarget :: BindingSpec.BindingSpecTarget
+    bindingSpecTarget = BindingSpec.AnyTarget
+
     bindingSpecModule :: Hs.ModuleName
     bindingSpecModule = "HsBindgen.Runtime.Prelude"
 

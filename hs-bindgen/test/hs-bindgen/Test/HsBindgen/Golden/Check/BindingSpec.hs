@@ -20,13 +20,19 @@ import HsBindgen.Language.Haskell qualified as Hs
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "bindingspec" fixture $ \report -> do
-      let artefacts = (,,) <$> GetMainHeaders <*> OmitTypes <*> HsDecls
-      (getMainHeaders, omitTypes, hsDecls) <-
+      let artefacts =
+            (,,,)
+              <$> Target
+              <*> GetMainHeaders
+              <*> OmitTypes
+              <*> HsDecls
+      (target, getMainHeaders, omitTypes, hsDecls) <-
         runTestHsBindgen report testResources test artefacts
 
       let output :: String
           output = UTF8.toString $
               BindingSpec.genBindingSpecYaml
+                target
                 (Hs.ModuleName "Example")
                 getMainHeaders
                 omitTypes

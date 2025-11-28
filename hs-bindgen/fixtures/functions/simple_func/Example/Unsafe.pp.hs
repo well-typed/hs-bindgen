@@ -52,7 +52,7 @@ foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_95132d8ec7fd84
      FC.CDouble
      {- ^ __C declaration:__ @arg@
      -}
-  -> IO FC.CDouble
+  -> FC.CDouble
 
 {-| __C declaration:__ @bad_fma@
 

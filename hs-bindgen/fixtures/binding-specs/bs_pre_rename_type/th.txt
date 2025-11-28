@@ -1,0 +1,31 @@
+-- addDependentFile examples/golden/binding-specs/bs_pre_rename_type.h
+{-| __C declaration:__ @sym@
+
+    __defined at:__ @binding-specs\/bs_pre_rename_type.h:1:14@
+
+    __exported by:__ @binding-specs\/bs_pre_rename_type.h@
+-}
+newtype MySym
+    = MySym {un_MySym :: CChar}
+      {- ^ __C declaration:__ @sym@
+
+           __defined at:__ @binding-specs\/bs_pre_rename_type.h:1:14@
+
+           __exported by:__ @binding-specs\/bs_pre_rename_type.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty (CFieldType MySym "un_MySym") =>
+         HasField "un_MySym" (Ptr MySym) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_MySym")
+instance HasCField MySym "un_MySym"
+    where type CFieldType MySym "un_MySym" = CChar
+          offset# = \_ -> \_ -> 0

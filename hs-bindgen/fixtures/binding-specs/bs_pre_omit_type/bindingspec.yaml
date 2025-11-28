@@ -1,0 +1,28 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: Example
+ctypes:
+- omit:
+    headers: binding-specs/bs_pre_omit_type.h
+    cname: struct pt
+- headers: binding-specs/bs_pre_omit_type.h
+  cname: sym
+  hsname: Sym
+hstypes:
+- hsname: Sym
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable

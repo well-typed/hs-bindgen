@@ -172,13 +172,68 @@ test_attributes_attributes =
   testDiagnostic "attributes/attributes" $ \diag ->
     diagnosticCategoryText diag == "Nullability Issue"
 
--- Binding specs tests
+-- Binding specification tests
 
-test_binding_specs_binding_spec_simple :: TestCase
-test_binding_specs_binding_spec_simple =
-  (defaultTest "binding-specs/binding_spec_simple"){
-    testPrescriptiveBindingSpec = Just "examples/golden/binding-specs/binding_spec_simple.yaml"
-  }
+test_binding_specs_bs_ext_target_any :: TestCase
+test_binding_specs_bs_ext_target_any =
+  (defaultTest "binding-specs/bs_ext_target_any") {
+      testExtBindingSpecs = [
+          "examples/golden/binding-specs/bs_ext_target_any_e.yaml"
+        ]
+    }
+
+test_binding_specs_bs_ext_target_mismatch :: TestCase
+test_binding_specs_bs_ext_target_mismatch =
+  (failingTestSimple "binding-specs/bs_ext_target_mismatch" aux) {
+      testExtBindingSpecs = [
+          "examples/golden/binding-specs/bs_ext_target_mismatch_e.yaml"
+        ]
+    }
+  where
+    aux = \case
+      TraceBoot
+        ( BootBindingSpec
+            ( BindingSpecReadMsg
+                (BindingSpec.BindingSpecReadIncompatibleTarget _)
+            )
+        ) -> Just $ Expected ()
+      _otherwise -> Nothing
+
+test_binding_specs_bs_pre_omit_type :: TestCase
+test_binding_specs_bs_pre_omit_type =
+  (defaultTest "binding-specs/bs_pre_omit_type") {
+      testPrescriptiveBindingSpec =
+        Just "examples/golden/binding-specs/bs_pre_omit_type_p.yaml"
+    }
+
+test_binding_specs_bs_pre_rename_type :: TestCase
+test_binding_specs_bs_pre_rename_type =
+  (defaultTest "binding-specs/bs_pre_rename_type") {
+      testPrescriptiveBindingSpec =
+        Just "examples/golden/binding-specs/bs_pre_rename_type_p.yaml"
+    }
+
+-- TODO target any with non-target-specific bindings is OK
+-- test_binding_specs_bs_pre_target_any_ok :: TestCase
+
+-- TODO target any with target-specific bindings traces error
+-- test_binding_specs_bs_pre_target_any_bad :: TestCase
+
+test_binding_specs_bs_pre_target_mismatch :: TestCase
+test_binding_specs_bs_pre_target_mismatch =
+  (failingTestSimple "binding-specs/bs_pre_target_mismatch" aux) {
+      testPrescriptiveBindingSpec =
+        Just "examples/golden/binding-specs/bs_pre_target_mismatch_p.yaml"
+    }
+  where
+    aux = \case
+      TraceBoot
+        ( BootBindingSpec
+            ( BindingSpecReadMsg
+                (BindingSpec.BindingSpecReadIncompatibleTarget _)
+            )
+        ) -> Just $ Expected ()
+      _otherwise -> Nothing
 
 -- Declarations tests
 
@@ -1019,7 +1074,11 @@ testCases = manualTestCases ++ [
     , test_attributes_attributes
     , test_attributes_type_attributes
     , test_attributes_visibility_attributes
-    , test_binding_specs_binding_spec_simple
+    , test_binding_specs_bs_ext_target_any
+    , test_binding_specs_bs_ext_target_mismatch
+    , test_binding_specs_bs_pre_omit_type
+    , test_binding_specs_bs_pre_rename_type
+    , test_binding_specs_bs_pre_target_mismatch
     , test_declarations_declarations_required_for_scoping
     , test_declarations_definitions
     , test_declarations_failing_declaration_unselected_b

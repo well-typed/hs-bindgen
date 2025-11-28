@@ -25,6 +25,7 @@ import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
+import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.ProcessIncludes
@@ -44,15 +45,16 @@ import HsBindgen.Language.Haskell qualified as Hs
 -- * YAML (@.yaml@ extension)
 -- * JSON (@.json@ extension)
 genBindingSpec ::
-     Hs.ModuleName
+     ClangArgs.Target
+  -> Hs.ModuleName
   -> FilePath
   -> GetMainHeaders
   -> [(C.QualName, SourcePath)]
   -> [Hs.Decl]
   -> IO ()
-genBindingSpec hsModuleName path getMainHeaders omitTypes =
+genBindingSpec target hsModuleName path getMainHeaders omitTypes =
       BindingSpec.writeFile path
-    . genBindingSpec' hsModuleName getMainHeaders omitTypes
+    . genBindingSpec' target hsModuleName getMainHeaders omitTypes
 
 {-------------------------------------------------------------------------------
   Internal API (for tests)
@@ -60,14 +62,15 @@ genBindingSpec hsModuleName path getMainHeaders omitTypes =
 
 -- | Generate binding specification
 genBindingSpecYaml ::
-     Hs.ModuleName
+     ClangArgs.Target
+  -> Hs.ModuleName
   -> GetMainHeaders
   -> [(C.QualName, SourcePath)]
   -> [Hs.Decl]
   -> ByteString
-genBindingSpecYaml hsModuleName getMainHeaders omitTypes =
+genBindingSpecYaml target hsModuleName getMainHeaders omitTypes =
       BindingSpec.encodeYaml
-    . genBindingSpec' hsModuleName getMainHeaders omitTypes
+    . genBindingSpec' target hsModuleName getMainHeaders omitTypes
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
@@ -75,16 +78,23 @@ genBindingSpecYaml hsModuleName getMainHeaders omitTypes =
 
 -- TODO aliases
 genBindingSpec' ::
-     Hs.ModuleName
+     ClangArgs.Target
+  -> Hs.ModuleName
   -> GetMainHeaders
   -> [(C.QualName, SourcePath)]
   -> [Hs.Decl]
   -> UnresolvedBindingSpec
-genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
+genBindingSpec'
+    target
+    hsModuleName
+    getMainHeaders
+    omitTypes = foldr aux omitSpec
   where
     omitSpec :: UnresolvedBindingSpec
     omitSpec = BindingSpec.BindingSpec {
-        BindingSpec.bindingSpecModule = hsModuleName
+        -- TODO AnyTarget if bindings are not target-specific
+        BindingSpec.bindingSpecTarget = BindingSpec.SpecificTarget target
+      , BindingSpec.bindingSpecModule = hsModuleName
       , BindingSpec.bindingSpecCTypes = Map.fromListWith (++) [
             (cQualName, [(getMainHeaders' path, Omit)])
           | (cQualName, path) <- omitTypes

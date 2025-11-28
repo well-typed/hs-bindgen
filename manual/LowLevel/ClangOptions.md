@@ -47,36 +47,20 @@ $ hs-bindgen-cli preprocess \
 
 ## Environment variables
 
-Clang options may also be set using environment variables.  This is
-particularly useful when setting environment-specific configuration that may
-not be hard-coded in the source code.  Options specified via the CLI or the
-Template Haskell API take precedence.
+Clang options may also be set using the `BINDGEN_EXTRA_CLANG_ARGS` environment
+variable.  This is particularly useful when setting environment-specific
+configuration that may not be hard-coded in the source code.  Options specified
+via the CLI or the Template Haskell API take precedence.
 
-- __When compiling natively (i.e., without specifying a target)__, `hs-bindgen`
-  reads `BINDGEN_EXTRA_CLANG_ARGS` and splits its string value into command-line
-  arguments, respecting shell escapes.  Example:
+Values are split into command-line arguments, respecting shell escapes.  For
+example, the following two values parse to the same arguments:
 
-    ```sh
-    BINDGEN_EXTRA_CLANG_ARGS="arg1\ with\ whitespace\ endOfArg1 arg2"
-    BINDGEN_EXTRA_CLANG_ARGS="\"arg1 with whitespace endOfArg1\" arg2"
-    ```
+```sh
+BINDGEN_EXTRA_CLANG_ARGS="arg1\ with\ whitespace\ endOfArg1 arg2"
+BINDGEN_EXTRA_CLANG_ARGS="\"arg1 with whitespace endOfArg1\" arg2"
+```
 
-- __When cross-compiling to a given target__, `hs-bindgen` uses
-  `BINDGEN_EXTRA_CLANG_ARGS_<TARGET>` instead of `BINDGEN_EXTRA_CLANG_ARGS`.
-  A non-empty target-specific configuration takes precedence, and `hs-bindgen`
-  ignores `BINDGEN_EXTRA_CLANG_ARGS`.  `hs-bindgen` falls back to
-  `BINDGEN_EXTRA_CLANG_ARGS` if the target-specific environment variable is
-  unset or empty.
-
-  The following targets are supported:
-
-    - `x86_64-pc-linux`
-    - `i386-pc-linux`
-    - `aarch64-pc-linux`
-    - `x86_64-pc-windows`
-    - `x86_64-apple-macosx`
-    - `aarch64-apple-macosx`
-
-This behavior is consistent with that of [`rust-bindgen`][].
+Note that use of this environment variable is consistent with [`rust-bindgen`],
+but we do *not* support target-specific environment variables.
 
 [`rust-bindgen`]: <https://github.com/rust-lang/rust-bindgen?tab=readme-ov-file#environment-variables>

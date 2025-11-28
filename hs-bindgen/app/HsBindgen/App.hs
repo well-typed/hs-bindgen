@@ -56,7 +56,7 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      tracerConfig        :: TracerConfig Level TraceMsg
+      tracerConfig :: TracerConfig Level TraceMsg
     }
 
 parseGlobalOpts :: Parser GlobalOpts
@@ -247,34 +247,15 @@ parseClangArgsConfig = do
     argsAfter        <- many parseClangOptionAfter
     pure $ ClangArgsConfig {..}
 
-parseTarget :: Parser (Target, TargetEnv)
-parseTarget = option (maybeReader readTarget) $ mconcat [
+parseTarget :: Parser Target
+parseTarget = option (maybeReader parseTargetTriple) $ mconcat [
       long "target"
     , metavar "TRIPLE"
     , help $ concat [
           "Target (for cross-compilation); supported: "
-        , List.intercalate ", " (map fst targets)
+        , List.intercalate ", " (map targetTriple [minBound ..])
         ]
     ]
-  where
-    targets :: [(String, Target)]
-    targets = [
-        (targetTriple target TargetEnvDefault, target)
-      | target <- [minBound ..]
-      ]
-
-    readTarget :: String -> Maybe (Target, TargetEnv)
-    readTarget s = asum [
-          (, TargetEnvDefault) <$> lookup s targets
-        , do (rest, env) <- trySplitOffEnv s
-             (, TargetEnvOverride env) <$> lookup rest targets
-        ]
-
-    trySplitOffEnv :: String -> Maybe (String, String)
-    trySplitOffEnv s =
-        case break (== '-') (reverse s) of
-          (_   , []    ) -> Nothing
-          (env , _:rest) -> Just (reverse rest, reverse env)
 
 parseCStandard :: Parser CStandard
 parseCStandard = option (eitherReader readCStandard) $ mconcat [
