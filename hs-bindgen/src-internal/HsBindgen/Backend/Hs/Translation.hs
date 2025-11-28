@@ -6,11 +6,8 @@ module HsBindgen.Backend.Hs.Translation (
 import Control.Arrow
 import Control.Monad.State qualified as State
 import Crypto.Hash.SHA256 (hash)
-import Data.ByteString (ByteString)
 import Data.ByteString.Base16 qualified as B16
 import Data.ByteString.Char8 qualified as B
-import Data.Char (isLetter)
-import Data.List (intercalate)
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
@@ -18,7 +15,6 @@ import Data.Set qualified as Set
 import Data.Text qualified as T
 import Data.Type.Nat (SNatI)
 import Data.Vec.Lazy qualified as Vec
-import GHC.Unicode (isDigit)
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
@@ -28,6 +24,7 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Config
+import HsBindgen.Backend.Hs.Translation.UniqueSymbol
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
@@ -1605,7 +1602,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
         { foreignImportName       = importName
         , foreignImportResultType = resType
         , foreignImportParameters = if areFancy then ffiParams else ffiParsedArgs
-        , foreignImportOrigName   = T.pack wrapperName
+        , foreignImportOrigName   = T.pack wrapperName.unique
         , foreignImportCallConv   = CallConvUserlandCAPI userlandCapiWrapper
         , foreignImportOrigin     = Origin.Function f
         , foreignImportComment    = (if areFancy then Just nonFancyComment else mbFFIComment) <> ioComment
@@ -1615,7 +1612,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
     userlandCapiWrapper :: UserlandCapiWrapper
     userlandCapiWrapper = UserlandCapiWrapper {
           capiWrapperDefinition =
-            PC.prettyDecl (wrapperDecl innerName wrapperName res wrappedArgTypes) ""
+            PC.prettyDecl (wrapperDecl innerName wrapperName.unique res wrappedArgTypes) ""
         , capiWrapperImport =
             getMainHashIncludeArg info
         }
@@ -1728,9 +1725,11 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
     innerName :: String
     innerName = T.unpack (C.getName . C.nameC . C.declId $ info)
 
-    wrapperName :: String
-    wrapperName = unUniqueSymbolId $
-      getUniqueSymbolId (translationUniqueId opts) moduleName (Just safety) innerName
+    wrapperName :: UniqueSymbol
+    wrapperName = getUniqueSymbol opts.translationUniqueId moduleName $ concat [
+          show (Just safety)
+        , innerName
+        ]
 
 -- | Generate ToFunPtr/FromFunPtr instances for nested function pointer types
 --
@@ -1953,14 +1952,17 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
     -- internal. Users should use functioned identified by @runnerName@ instead,
     -- which does not include 'IO' in the return type.
     stubImportName :: Hs.Name 'Hs.NsVar
-    stubImportName = Hs.Name $ T.pack stubNameMangled
+    stubImportName = Hs.Name $ T.pack stubNameMangled.unique
 
     stubImportType :: ResultType HsType
     stubImportType = NormalResultType $ HsIO $ typ stubType
 
-    stubNameMangled :: String
-    stubNameMangled = unUniqueSymbolId $
-        getUniqueSymbolId (translationUniqueId opts) moduleName Nothing stubName
+    stubNameMangled :: UniqueSymbol
+    stubNameMangled =
+        getUniqueSymbol opts.translationUniqueId moduleName $ concat [
+            show (Nothing :: Maybe Safety)
+          , stubName
+          ]
 
     stubName :: String
     stubName = "get_" ++ varName ++ "_ptr"
@@ -1980,7 +1982,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
     stubDecl :: PC.Decl
     stubDecl =
         PC.withArgs [] $ \args' ->
-          PC.FunDefn stubNameMangled stubType C.HaskellPureFunction args'
+          PC.FunDefn stubNameMangled.unique stubType C.HaskellPureFunction args'
             [PC.Return $ PC.Address $ PC.NamedVar varName]
 
     userlandCapiWrapper :: UserlandCapiWrapper
@@ -1996,7 +1998,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
         { foreignImportName     = stubImportName
         , foreignImportParameters = []
         , foreignImportResultType = stubImportType
-        , foreignImportOrigName = T.pack stubNameMangled
+        , foreignImportOrigName = T.pack stubNameMangled.unique
         , foreignImportCallConv = CallConvUserlandCAPI userlandCapiWrapper
         , foreignImportOrigin   = Origin.Global ty
         , foreignImportComment  = Nothing
@@ -2047,60 +2049,3 @@ macroVarDecs haddockConfig info macroExpr = [
   where
     hsVarName :: Hs.Name Hs.NsVar
     hsVarName = C.nameHs (C.declId info)
-
-{-------------------------------------------------------------------------------
-  Unique module identifier
--------------------------------------------------------------------------------}
-
--- | An identifier string used to generate morally module-private but externally
--- visible symbols (e.g., C symbols).
---
--- The unique identifier for a function with identifier @fn@ is generated in the
--- following way:
---
--- @
---   "hs_bindgen_" ++ 'UniqueModuleId' ++ "_" ++ hashOf 'Hs.ModuleName' fn
--- @
---
--- where @hashOf@ computes the hash of its arguments.
---
--- The reason for the @hashOf 'Hs.ModuleName' fn@ rather than just
--- @'Hs.ModuleName' ++ fn@ is that only the first 64 characters may be used to
--- distinguish C names by the linker, and Haskell module names can be quite
--- long.
-newtype UniqueSymbolId = UniqueSymbolId { unUniqueSymbolId :: String }
-  deriving newtype (Show)
-
-getUniqueSymbolId ::
-     UniqueId
-  -> BaseModuleName
-  -> Maybe Safety
-  -> String
-  -> UniqueSymbolId
-getUniqueSymbolId (UniqueId uniqueId) moduleName msafety symbolName =
-    UniqueSymbolId $ intercalate "_" components
-  where
-    components :: [String]
-    components =
-         [ "hs_bindgen"                   ]
-      ++ [ x | let x = sanitize uniqueId, not (null x) ]
-      ++ [ getHash moduleName msafety symbolName  ]
-
-    sanitize :: String -> String
-    sanitize [] = []
-    sanitize (x:xs)
-      | isLetter x          = x   : sanitize xs
-      | isDigit  x          = x   : sanitize xs
-      | x `elem` ['.', '_'] = '_' : sanitize xs
-      | otherwise           =       sanitize xs
-
-    -- We use `cryptohash-sha256` to avoid potential dynamic linker problems
-    -- (https://github.com/haskell-haskey/xxhash-ffi/issues/4).
-    getHash :: BaseModuleName -> Maybe Safety -> String -> String
-    getHash x y z = B.unpack $ B.take 16 $ B16.encode $
-      hash $ getString x y z
-
-    -- We use ByteString to avoid hash changes induced by a change of how Text
-    -- is encoded in GHC 9.2.
-    getString :: BaseModuleName -> Maybe Safety -> String -> ByteString
-    getString x y z = B.pack $ baseModuleNameToString x <> show y <> z
