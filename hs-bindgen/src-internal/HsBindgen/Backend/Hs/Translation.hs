@@ -1388,9 +1388,6 @@ typ' ctx = go ctx
     goVoid CFunRes = HsPrimUnit
     goVoid CPtrArg = HsPrimVoid
     goVoid c       = panicPure $ "unexpected type void in context " ++ show c
-      -- TODO: we can run into this with macros, e.g.
-      --
-      --   #define MyVoid void
 
 integralType :: C.PrimIntType -> C.PrimSign -> HsPrimType
 integralType C.PrimInt      C.Signed   = HsPrimCInt

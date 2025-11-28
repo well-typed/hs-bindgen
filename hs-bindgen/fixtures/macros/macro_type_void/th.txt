@@ -1,0 +1,1 @@
+-- addDependentFile examples/golden/macros/macro_type_void.h

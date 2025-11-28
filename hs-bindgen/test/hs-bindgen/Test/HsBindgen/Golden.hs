@@ -846,6 +846,9 @@ test_edge_cases_iterator = (defaultTest "edge-cases/iterator") {
 test_macros_macro_strings :: TestCase
 test_macros_macro_strings = defaultTest "macros/macro_strings"
 
+test_macros_macro_type_void :: TestCase
+test_macros_macro_type_void = defaultTest "macros/macro_type_void"
+
 test_types_structs_named_vs_anon :: TestCase
 test_types_structs_named_vs_anon = (defaultTest "types/structs/named_vs_anon"){
     testClangVersion = Just (>= (19, 1, 0))
@@ -1115,11 +1118,12 @@ testCases = manualTestCases ++ [
     , test_macros_macro_in_fundecl
     , test_macros_macro_in_fundecl_vs_typedef
     , test_macros_macro_redefines_global
-    , test_macros_macros
     , test_macros_macro_strings
+    , test_macros_macro_type_void
     , test_macros_macro_typedef_scope
     , test_macros_macro_typedef_struct
     , test_macros_macro_types
+    , test_macros_macros
     , test_macros_reparse
     , test_program_analysis_delay_traces
     , test_program_analysis_failing_selection_bad
