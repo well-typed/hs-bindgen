@@ -32,7 +32,7 @@ backend tracer BackendConfig{..} BootArtefact{..} FrontendArtefact{..} = do
     -- 1. Reified C declarations to @Hs@ declarations.
     backendHsDecls <- cache $
       Hs.generateDeclarations
-        backendTranslationOpts
+        backendTranslationConfig
         backendHaddockConfig
         moduleBaseName <$> frontendIndex
                        <*> frontendCDecls

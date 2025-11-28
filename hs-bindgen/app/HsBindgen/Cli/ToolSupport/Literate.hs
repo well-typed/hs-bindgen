@@ -25,7 +25,6 @@ import Text.Read (readMaybe)
 import HsBindgen
 import HsBindgen.App
 import HsBindgen.Backend.SHs.AST
-import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader

@@ -84,6 +84,7 @@ library internal
     HsBindgen.Backend.Hs.Haddock.Translation
     HsBindgen.Backend.Hs.Origin
     HsBindgen.Backend.Hs.Translation
+    HsBindgen.Backend.Hs.Translation.Config
     HsBindgen.Backend.HsModule.Capi
     HsBindgen.Backend.HsModule.Names
     HsBindgen.Backend.HsModule.Render
@@ -93,7 +94,6 @@ library internal
     HsBindgen.Backend.SHs.Simplify
     HsBindgen.Backend.SHs.Translation
     HsBindgen.Backend.TH.Translation
-    HsBindgen.Backend.UniqueId
     HsBindgen.BindingSpec
     HsBindgen.BindingSpec.Gen
     HsBindgen.BindingSpec.Private.Common
@@ -110,6 +110,7 @@ library internal
     HsBindgen.Config.FixCandidate
     HsBindgen.Config.FixCandidate.ReservedNames
     HsBindgen.Config.Internal
+    HsBindgen.Config.Prelims
     HsBindgen.Eff
     HsBindgen.Errors
     HsBindgen.Frontend

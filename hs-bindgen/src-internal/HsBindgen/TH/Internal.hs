@@ -26,7 +26,6 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.TH.Translation
-import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Errors

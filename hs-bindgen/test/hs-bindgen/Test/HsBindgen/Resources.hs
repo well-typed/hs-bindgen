@@ -18,8 +18,7 @@ import Test.Tasty
 import Clang.Args
 
 import HsBindgen.Backend.Hs.Haddock.Config
-import HsBindgen.Backend.Hs.Translation
-import HsBindgen.Backend.UniqueId
+import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 
@@ -97,7 +96,7 @@ getTestDefaultClangArgsConfig testResources extraIncludeDirs' =
 
 getTestDefaultBackendConfig :: TestName -> PathStyle -> BackendConfig
 getTestDefaultBackendConfig testName pathStyle = def{
-      backendTranslationOpts = def {
+      backendTranslationConfig = def {
         -- Honor 'maxUniqueIdLength'.
         translationUniqueId = UniqueId $ take 35 $ "test." <> testName
       }

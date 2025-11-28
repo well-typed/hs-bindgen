@@ -9,14 +9,15 @@ module HsBindgen.Config.Internal
   , BackendConfig (..)
   , BackendConfigMsg (..)
   , checkBackendConfig
+    -- * Re-exports
+  , module HsBindgen.Config.Prelims
   ) where
 
 import HsBindgen.Backend.Hs.Haddock.Config
-import HsBindgen.Backend.Hs.Translation
-import HsBindgen.Backend.HsModule.Translation (defHsModuleName)
-import HsBindgen.Backend.UniqueId
+import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
+import HsBindgen.Config.Prelims
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
 import HsBindgen.Frontend.Predicate (Boolean, ParsePredicate, SelectPredicate)
 import HsBindgen.Imports
@@ -55,10 +56,10 @@ data BootConfig = BootConfig {
 
 instance Default BootConfig where
   def = BootConfig {
-            bootClangArgsConfig   = def
-          , bootHsModuleName      = defHsModuleName
-          , bootBindingSpecConfig = def
-          }
+        bootClangArgsConfig   = def
+      , bootHsModuleName      = defBaseModuleName
+      , bootBindingSpecConfig = def
+      }
 
 {-------------------------------------------------------------------------------
   Frontend configuration
@@ -85,8 +86,8 @@ data FrontendConfig = FrontendConfig {
 --
 -- See also the notes at 'FrontendConfig'.
 data BackendConfig = BackendConfig {
-      backendTranslationOpts :: TranslationOpts
-    , backendHaddockConfig   :: HaddockConfig
+      backendTranslationConfig :: TranslationConfig
+    , backendHaddockConfig     :: HaddockConfig
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass Default
@@ -96,7 +97,7 @@ checkBackendConfig tracer backendConfig =
     checkUniqueId (contramap BackendConfigUniqueId tracer) uniqueId
   where
     uniqueId :: UniqueId
-    uniqueId = translationUniqueId $ backendTranslationOpts backendConfig
+    uniqueId = translationUniqueId $ backendTranslationConfig backendConfig
 
 data BackendConfigMsg = BackendConfigUniqueId UniqueIdMsg
   deriving stock (Show, Generic)
