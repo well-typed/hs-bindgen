@@ -52,6 +52,7 @@ import HsBindgen.Runtime.TypeEquality qualified
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Imports
@@ -59,7 +60,7 @@ import HsBindgen.Imports
 
 -- | An import module with an optional alias
 data HsImportModule = HsImportModule {
-      hsImportModuleName  :: String
+      hsImportModuleName  :: Hs.ModuleName
     , hsImportModuleAlias :: Maybe String
     }
   deriving (Eq, Ord, Show)
@@ -192,10 +193,11 @@ moduleOf ident m0 = case parts of
     -- regardless of the GHC version that is used to generate the bindings. That
     -- is why we replace the import name here:
     ["GHC", "Data", "Proxy"]         -> HsImportModule "Data.Proxy" Nothing
-    _ -> HsImportModule (L.intercalate "." parts) Nothing
+    _ -> HsImportModule (Hs.moduleNameFromString $ L.intercalate "." parts) Nothing
   where
     -- we drop "Internal" (to reduce ghc-internal migration noise)
     parts = filter ("Internal" /=) (split '.' m0)
+
     ghcReadInPrelude :: Set String
     ghcReadInPrelude = Set.fromList ["Read"]
 

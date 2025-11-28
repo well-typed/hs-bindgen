@@ -59,7 +59,7 @@ render = (++ "\n") . renderPretty (mkContext 80)
 instance Pretty HsModule where
   pretty HsModule{..} = vsep $
       vcat (map pretty hsModulePragmas)
-    : hsep ["module", string hsModuleName, "where"]
+    : hsep ["module", string (Hs.moduleNameToString hsModuleName), "where"]
     : vcat (map pretty hsModuleImports)
     : (renderWrappers hsModuleUserlandCapiWrappers)
     : map pretty hsModuleDecls
@@ -82,17 +82,24 @@ instance Pretty ImportListItem where
   pretty = \case
     UnqualifiedImportListItem HsImportModule{..} Nothing -> hsep
       [ "import"
-      , string hsImportModuleName
+      , string (Hs.moduleNameToString hsImportModuleName)
       ]
     UnqualifiedImportListItem HsImportModule{..} (Just ns) -> hsep
       [ "import"
-      , string hsImportModuleName
+      , string (Hs.moduleNameToString hsImportModuleName)
       , parens . hcat . List.intersperse ", " $ map pretty ns
       ]
     QualifiedImportListItem HsImportModule{..} -> case hsImportModuleAlias of
-      Just q ->
-        hsep ["import qualified", string hsImportModuleName, "as", string q]
-      Nothing -> hsep ["import qualified", string hsImportModuleName]
+      Just q -> hsep
+        [ "import qualified"
+        , string (Hs.moduleNameToString hsImportModuleName)
+        , "as"
+        , string q
+        ]
+      Nothing -> hsep
+        [ "import qualified"
+        , string (Hs.moduleNameToString hsImportModuleName)
+        ]
 
 
 {-------------------------------------------------------------------------------
@@ -742,7 +749,9 @@ instance Pretty ResolvedName where
 ppResolvedName :: ResolvedName -> CtxDoc
 ppResolvedName ResolvedName{..} = case resolvedNameImport of
     Just (QualifiedHsImport HsImportModule{..}) ->
-      let q = fromMaybe hsImportModuleName hsImportModuleAlias
+      let q = fromMaybe
+                (Hs.moduleNameToString hsImportModuleName)
+                hsImportModuleAlias
       in  string $ q ++ '.' : resolvedNameString
     _otherwise -> string resolvedNameString
 
@@ -788,7 +797,7 @@ ppInfixBackendName = \case
 -------------------------------------------------------------------------------}
 
 instance Pretty Hs.ModuleName where
-  pretty = string . Text.unpack . Hs.getModuleName
+  pretty = string . Hs.moduleNameToString
 
 instance Pretty Hs.Identifier where
   pretty = string . Text.unpack . Hs.getIdentifier

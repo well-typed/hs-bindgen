@@ -2,7 +2,6 @@ module HsBindgen.Test.Readme (
     genTestsReadme
   ) where
 
-import Data.Text qualified as Text
 import System.FilePath qualified as FilePath
 
 import HsBindgen.Language.Haskell qualified as Hs
@@ -61,4 +60,4 @@ genTestsReadme readmePath moduleName testSuitePath cHeaderPath cSourcePath =
     testSuite = FilePath.takeFileName testSuitePath
 
     moduleNameStr :: String
-    moduleNameStr = Text.unpack $ Hs.getModuleName moduleName
+    moduleNameStr = Hs.moduleNameToString moduleName

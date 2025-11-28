@@ -201,4 +201,4 @@ writeByCategory what hsOutputDir moduleBaseName =
 
     baseFilePath :: FilePath
     baseFilePath = Foldable.foldl' (</>) "" $
-      hsOutputDir : map T.unpack (T.splitOn "." (Hs.getModuleName moduleBaseName))
+      hsOutputDir : map T.unpack (T.splitOn "." (Hs.moduleNameToText moduleBaseName))

@@ -563,7 +563,7 @@ mkType env = \case
             (mkType env' body)
     TExt Hs.ExtRef{..} _cTypeSpec _hsTypeSpec ->
         TH.conT . TH.mkName $ concat [
-              Text.unpack (Hs.getModuleName extRefModule)
+              Hs.moduleNameToString extRefModule
             , "."
             , Text.unpack (Hs.getIdentifier extRefIdentifier)
             ]

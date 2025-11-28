@@ -4,9 +4,14 @@
 --
 -- > import HsBindgen.Language.Haskell qualified as Hs
 module HsBindgen.Language.Haskell (
+    -- * Module names
+    ModuleName -- opaque
+  , moduleNameFromText
+  , moduleNameToText
+  , moduleNameFromString
+  , moduleNameToString
     -- * References
-    Identifier(..)
-  , ModuleName(..)
+  , Identifier(..)
   , ExtRef(..)
   , Ref(..)
     -- * Namespaced names
@@ -30,6 +35,30 @@ import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
+  Module names
+-------------------------------------------------------------------------------}
+
+-- | Haskell module name
+--
+-- Example: @HsBindgen.Runtime.LibC@
+newtype ModuleName = ModuleName { moduleNameToText :: Text }
+  deriving stock (Generic)
+  -- 'Show' instance valid due to 'IsString' instance
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
+
+moduleNameFromText :: Text -> ModuleName
+moduleNameFromText = ModuleName
+
+moduleNameFromString :: String -> ModuleName
+moduleNameFromString = moduleNameFromText . Text.pack
+
+moduleNameToString :: ModuleName -> String
+moduleNameToString = Text.unpack . moduleNameToText
+
+instance PrettyForTrace ModuleName where
+  prettyForTrace = PP.textToCtxDoc . moduleNameToText
+
+{-------------------------------------------------------------------------------
   References
 -------------------------------------------------------------------------------}
 
@@ -43,17 +72,6 @@ newtype Identifier = Identifier { getIdentifier :: Text }
   deriving stock (Generic)
   -- 'Show' instance valid due to 'IsString' instance
   deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
-
--- | Haskell module name
---
--- Example: @HsBindgen.Runtime.LibC@
-newtype ModuleName = ModuleName { getModuleName :: Text }
-  deriving stock (Generic)
-  -- 'Show' instance valid due to 'IsString' instance
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
-
-instance PrettyForTrace ModuleName where
-  prettyForTrace = PP.textToCtxDoc . getModuleName
 
 -- | External reference
 --

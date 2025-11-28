@@ -4,7 +4,6 @@ module HsBindgen.Test (
 
 import Data.Char qualified as Char
 import Data.List qualified as List
-import Data.Text qualified as Text
 import System.Directory qualified as Dir
 import System.FilePath qualified as FilePath
 
@@ -69,7 +68,7 @@ genTests hashIncludeArgs decls hsModuleName testSuitePath = do
     hsMainPath                = FilePath.combine srcPath "Main.hs"
 
     moduleName :: String
-    moduleName = Text.unpack $ Hs.getModuleName hsModuleName
+    moduleName = Hs.moduleNameToString hsModuleName
 
 {-------------------------------------------------------------------------------
   Auxiliary functions

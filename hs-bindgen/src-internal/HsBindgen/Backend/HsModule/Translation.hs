@@ -16,7 +16,6 @@ module HsBindgen.Backend.HsModule.Translation (
 import Data.Foldable qualified as Foldable
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
-import Data.Text qualified as Text
 
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -58,7 +57,7 @@ data ImportListItem =
 -- | Haskell module
 data HsModule = HsModule {
       hsModulePragmas              :: [GhcPragma]
-    , hsModuleName                 :: String
+    , hsModuleName                 :: Hs.ModuleName
     , hsModuleImports              :: [ImportListItem]
     , hsModuleUserlandCapiWrappers :: [UserlandCapiWrapper]
     , hsModuleDecls                :: [SDecl]
@@ -118,7 +117,8 @@ translateModule' mcat moduleBaseName hsModuleUserlandCapiWrappers hsModuleDecls 
           Nothing       -> id
           Just BType    -> id
           Just otherCat -> (<> ('.' : displayBindingCategory otherCat))
-        hsModuleName = addSubModule $ Text.unpack $ Hs.getModuleName moduleBaseName
+        hsModuleName = Hs.moduleNameFromString $
+          addSubModule $ Hs.moduleNameToString moduleBaseName
     in  HsModule{..}
 
 {-------------------------------------------------------------------------------
@@ -175,7 +175,7 @@ resolveImports baseModule cat wrappers ds =
       Nothing      -> mempty
       (Just BType) -> mempty
       _otherCat ->
-        let base = HsImportModule (Text.unpack $ Hs.getModuleName baseModule) Nothing
+        let base = HsImportModule baseModule Nothing
         in  Set.singleton $ UnqualifiedImportListItem base Nothing
     userlandCapiImport :: Set HsImportModule
     userlandCapiImport = case wrappers of
@@ -328,7 +328,7 @@ resolveStrategyImports = \case
 resolveExtHsRefImports :: Hs.ExtRef -> ImportAcc
 resolveExtHsRefImports Hs.ExtRef{..} =
     let hsImportModule = HsImportModule {
-            hsImportModuleName  = Text.unpack $ Hs.getModuleName extRefModule
+            hsImportModuleName  = extRefModule
           , hsImportModuleAlias = Nothing
           }
     in  ImportAcc False (Set.singleton hsImportModule) mempty

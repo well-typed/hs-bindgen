@@ -11,7 +11,6 @@ import Test.Tasty (TestTree)
 
 import HsBindgen
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
-import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Tests
@@ -33,7 +32,7 @@ check testResources test =
           output = UTF8.toString $
               BindingSpec.genBindingSpecYaml
                 target
-                (Hs.ModuleName "Example")
+                "Example"
                 getMainHeaders
                 omitTypes
                 -- TODO https://github.com/well-typed/hs-bindgen/issues/1089:
