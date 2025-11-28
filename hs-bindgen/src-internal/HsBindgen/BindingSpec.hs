@@ -219,7 +219,9 @@ loadPrescriptiveBindingSpec tracer args target hsModuleName cmpt =
       Just path -> BindingSpec.readFile tracerRead cmpt path >>= \case
         Nothing -> return Nothing
         Just uspec
-          | uspec `BindingSpec.isCompatTarget` target ->
+          | uspec `BindingSpec.isCompatTarget` target -> do
+              when (BindingSpec.isAnyTarget uspec) . traceWith tracerRead $
+                Common.BindingSpecReadAnyTargetNotEnforced path
               Just . BindingSpec uspec <$>
                 BindingSpec.resolve
                   tracerResolve

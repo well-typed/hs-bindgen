@@ -30,6 +30,7 @@ module HsBindgen.BindingSpec.Private.V1 (
   , ConstraintSpec(..)
     -- * API
   , empty
+  , isAnyTarget
   , isCompatTarget
   , getCTypes
   , lookupCTypeSpec
@@ -246,6 +247,10 @@ empty target hsModuleName = BindingSpec {
     , bindingSpecCTypes  = Map.empty
     , bindingSpecHsTypes = Map.empty
     }
+
+-- | Predicate that checks if a binding specification target is 'AnyTarget'
+isAnyTarget :: BindingSpec header -> Bool
+isAnyTarget = (== AnyTarget) . bindingSpecTarget
 
 -- | Predicate that checks if a binding specification is compatible with a
 -- specific target

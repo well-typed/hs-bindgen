@@ -63,6 +63,7 @@ data BindingSpecReadMsg =
   | BindingSpecReadParseVersion FilePath AVersion
   | BindingSpecReadIncompatibleVersion FilePath AVersion
   | BindingSpecReadIncompatibleTarget FilePath
+  | BindingSpecReadAnyTargetNotEnforced FilePath
   | BindingSpecReadInvalidCName FilePath Text
   | BindingSpecReadCTypeConflict FilePath C.QualName HashIncludeArg
   | BindingSpecReadHsIdentifierNoRef FilePath Hs.Identifier
@@ -73,20 +74,21 @@ data BindingSpecReadMsg =
 
 instance IsTrace Level BindingSpecReadMsg where
   getDefaultLogLevel = \case
-    BindingSpecReadAesonError{}          -> Error
-    BindingSpecReadYamlError{}           -> Error
-    BindingSpecReadYamlWarning{}         -> Error
-    BindingSpecReadParseVersion{}        -> Debug
-    BindingSpecReadIncompatibleVersion{} -> Error
-    BindingSpecReadIncompatibleTarget{}  -> Error
-    BindingSpecReadInvalidCName{}        -> Error
-    BindingSpecReadCTypeConflict{}       -> Error
-    BindingSpecReadHsIdentifierNoRef{}   -> Error
-    BindingSpecReadHsTypeConflict{}      -> Error
-    BindingSpecReadHashIncludeArg _ x    -> getDefaultLogLevel x
+    BindingSpecReadAesonError{}           -> Error
+    BindingSpecReadYamlError{}            -> Error
+    BindingSpecReadYamlWarning{}          -> Error
+    BindingSpecReadParseVersion{}         -> Debug
+    BindingSpecReadIncompatibleVersion{}  -> Error
+    BindingSpecReadIncompatibleTarget{}   -> Error
+    BindingSpecReadAnyTargetNotEnforced{} -> Notice
+    BindingSpecReadInvalidCName{}         -> Error
+    BindingSpecReadCTypeConflict{}        -> Error
+    BindingSpecReadHsIdentifierNoRef{}    -> Error
+    BindingSpecReadHsTypeConflict{}       -> Error
+    BindingSpecReadHashIncludeArg _ x     -> getDefaultLogLevel x
     BindingSpecReadConvertVersion _ f t
-      | f <= t                           -> Info
-      | otherwise                        -> Notice
+      | f <= t                            -> Info
+      | otherwise                         -> Notice
   getSource = \case
     BindingSpecReadHashIncludeArg _ x -> getSource x
     _otherwise                        -> HsBindgen
@@ -117,6 +119,9 @@ instance PrettyForTrace BindingSpecReadMsg where
         ]
     BindingSpecReadIncompatibleTarget path ->
       "incompatible binding specification target: " >< string path
+    BindingSpecReadAnyTargetNotEnforced path ->
+      "'any' target of prescriptive binding specification not yet enforced: "
+        >< string path
     BindingSpecReadInvalidCName path t ->
       "invalid C name in " >< string path >< ": " >< textToCtxDoc t
     BindingSpecReadCTypeConflict path cQualName header ->
