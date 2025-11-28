@@ -17,6 +17,7 @@ module HsBindgen.Frontend.LanguageC (
   , initReparseEnv
   ) where
 
+import Control.Monad
 import Control.Monad.State (State)
 import Control.Monad.State qualified as State
 import Data.Map qualified as Map
@@ -75,7 +76,14 @@ reparseField = parseWith defaultFlatten (fmap swap .  fromNamedDecl)
 -- Unlike the other parsers, this is not /re/parsing: we are parsing this macro
 -- for the first time.
 parseMacroType :: CanApply p => Parser p (Type p)
-parseMacroType = parseWith flattenMacroTypeDef (fmap snd . fromDecl)
+parseMacroType = parseWith flattenMacroTypeDef (fromDecl >=> checkNotVoid)
+  where
+    -- @void@ does not make sense as a top-level type
+    checkNotVoid :: (Maybe Name, Type p) -> FromLanC p (Type p)
+    checkNotVoid (_name, typ) =
+        case typ of
+          TypeVoid   -> unsupported "type 'void'"
+          _otherwise -> return typ
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: run the language-c parser

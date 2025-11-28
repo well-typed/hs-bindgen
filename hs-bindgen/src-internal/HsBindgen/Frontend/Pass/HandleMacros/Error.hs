@@ -45,11 +45,15 @@ data HandleMacrosError =
 
 instance PrettyForTrace HandleMacrosError where
   prettyForTrace = \case
-      HandleMacrosErrorParse errType errExpr -> PP.hsep [
-          "Could not parse macro as type:"
-        , PP.nest 2 $ prettyForTrace errType
-        , "nor as expression:"
-        , PP.nest 2 $ prettyParseError errExpr
+      HandleMacrosErrorParse errType errExpr -> PP.vcat [
+          PP.hsep [
+              "Could not parse macro as type:"
+            , PP.nest 2 $ prettyForTrace errType
+            ]
+        , PP.hsep [
+              "nor as expression:"
+            , PP.nest 2 $ prettyParseError errExpr
+            ]
         ]
       HandleMacrosErrorEmpty name -> PP.hsep [
             "Ignoring empty macro:"
