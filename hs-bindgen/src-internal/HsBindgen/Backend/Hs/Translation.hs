@@ -2103,4 +2103,4 @@ getUniqueSymbolId (UniqueId uniqueId) moduleName msafety symbolName =
     -- We use ByteString to avoid hash changes induced by a change of how Text
     -- is encoded in GHC 9.2.
     getString :: Hs.ModuleName -> Maybe Safety -> String -> ByteString
-    getString x y z = B.pack $ T.unpack (Hs.getModuleName x) <> show y <> z
+    getString x y z = B.pack $ Hs.moduleNameToString x <> show y <> z
