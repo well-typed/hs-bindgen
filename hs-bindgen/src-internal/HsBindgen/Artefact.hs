@@ -65,7 +65,8 @@ data Artefact (a :: Star) where
   FinalModuleSafe     :: Artefact HsModule
   FinalModuleUnsafe   :: Artefact HsModule
   FinalModules        :: Artefact (ByCategory HsModule)
-  -- * File writes
+  -- * File system actions
+  DirectoryCreate     :: FilePath -> Artefact ()
   FileWrite           :: String -> FilePath -> FileContent -> Artefact ()
   -- * Lift and sequence artefacts
   Lift                :: ArtefactM a -> Artefact a
@@ -102,7 +103,8 @@ data ArtefactEnv = ArtefactEnv {
 
 -- | A file system action to be executed
 data FileSystemAction =
-  WriteFile String FilePath FileContent
+      CreateDir FilePath
+    | WriteFile String FilePath FileContent
 
 -- | Content to be written to a file
 --
@@ -182,7 +184,8 @@ runArtefacts
         case mbError of
           Just err -> throwError err
           Nothing  -> runArtefact $ f r
-      -- File writes.
+      -- File system operations.
+      DirectoryCreate path        -> lift $ tell [CreateDir path]
       FileWrite what path content -> lift $ tell [WriteFile what path content]
 
 {-------------------------------------------------------------------------------

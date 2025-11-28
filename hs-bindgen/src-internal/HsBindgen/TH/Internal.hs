@@ -224,6 +224,8 @@ toBindgenConfigTH packageRoot config = do
         bindgenConfig =
           toBindgenConfig
             (toFilePath packageRoot <$> config)
+            DoNotCreateDirStructure
+            -- ^ Conservative value, shouldn't matter in TH
             ProtectExistingFiles
             -- ^ Conservative value, shouldn't matter in TH
             uniqueId
