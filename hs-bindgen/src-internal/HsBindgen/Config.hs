@@ -6,11 +6,8 @@ module HsBindgen.Config (
   , UniqueId(..)
   , BaseModuleName(..)
   , toBindgenConfig
-
-    -- * Client
-  , OutputDirPolicy(..)
-  , FileOverwritePolicy(..)
-
+  , OutputDirPolicy (..)
+  , FileOverwritePolicy (..)
     -- * Template Haskell
   , ConfigTH(..)
   )
@@ -53,8 +50,8 @@ data Config_ path = Config {
   deriving stock (Functor, Foldable, Traversable)
   deriving anyclass (Default)
 
-toBindgenConfig :: Config_ FilePath -> FileOverwritePolicy -> UniqueId -> BaseModuleName -> BindgenConfig
-toBindgenConfig Config{..} fop uniqueId baseModuleName =
+toBindgenConfig :: Config_ FilePath -> OutputDirPolicy -> FileOverwritePolicy -> UniqueId -> BaseModuleName -> BindgenConfig
+toBindgenConfig Config{..} outputDirPolicy fop uniqueId baseModuleName =
     BindgenConfig bootConfig frontendConfig backendConfig
   where
     bootConfig = BootConfig {
@@ -75,22 +72,9 @@ toBindgenConfig Config{..} fop uniqueId baseModuleName =
       , backendHaddockConfig = HaddockConfig {
             pathStyle = haddockPathStyle
           }
+      , backendOutputDirPolicy = outputDirPolicy
       , backendFileOverwrite = fop
       }
-
-{-------------------------------------------------------------------------------
-  Client
--------------------------------------------------------------------------------}
-
--- NOTE: Stable public API.
-
-data OutputDirPolicy
-  = CreateDirStructure
-  | DoNotCreateDirStructure
-  deriving (Show, Eq)
-
-instance Default OutputDirPolicy where
-  def = DoNotCreateDirStructure
 
 {-------------------------------------------------------------------------------
   Template Haskell

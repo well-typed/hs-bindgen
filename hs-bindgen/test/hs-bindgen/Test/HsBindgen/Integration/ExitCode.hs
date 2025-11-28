@@ -80,6 +80,7 @@ testSuccessCaseProcess testResources = testCase "success returns exit code 0" $ 
     let headerPath = root </> "examples/golden/functions/simple_func.h"
     (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
                                                [ "preprocess"
+                                               , "--create-output-dirs"
                                                , "--hs-output-dir"
                                                , tmpDir
                                                , headerPath

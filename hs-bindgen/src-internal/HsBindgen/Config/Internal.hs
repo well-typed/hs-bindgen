@@ -9,6 +9,8 @@ module HsBindgen.Config.Internal
   , BackendConfig (..)
   , BackendConfigMsg (..)
   , checkBackendConfig
+    -- * Output directory policy
+  , OutputDirPolicy (..)
     -- * File overwrite policy
   , FileOverwritePolicy (..)
     -- * Re-exports
@@ -89,6 +91,7 @@ data FrontendConfig = FrontendConfig {
 data BackendConfig = BackendConfig {
       backendTranslationConfig :: TranslationConfig
     , backendHaddockConfig     :: HaddockConfig
+    , backendOutputDirPolicy   :: OutputDirPolicy
     , backendFileOverwrite     :: FileOverwritePolicy
     }
   deriving stock (Show, Eq, Generic)
@@ -104,6 +107,18 @@ checkBackendConfig tracer backendConfig =
 data BackendConfigMsg = BackendConfigUniqueId UniqueIdMsg
   deriving stock (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
+
+{-------------------------------------------------------------------------------
+  Output dir policy
+-------------------------------------------------------------------------------}
+
+data OutputDirPolicy
+  = CreateDirStructure
+  | DoNotCreateDirStructure
+  deriving (Show, Eq)
+
+instance Default OutputDirPolicy where
+  def = DoNotCreateDirStructure
 
 {-------------------------------------------------------------------------------
   File overwrite policy

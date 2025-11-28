@@ -38,6 +38,7 @@ data Opts = Opts {
     , baseModuleName      :: BaseModuleName
     , output              :: Maybe FilePath
     , inputs              :: [UncheckedHashIncludeArg]
+    , outputDirPolicy     :: OutputDirPolicy
     , fileOverwritePolicy :: FileOverwritePolicy
     }
 
@@ -49,6 +50,7 @@ parseOpts =
       <*> parseBaseModuleName
       <*> optional parseOutput'
       <*> parseInputs
+      <*> parseOutputDirPolicy
       <*> parseFileOverwritePolicy
 
 parseOutput' :: Parser FilePath
@@ -66,5 +68,5 @@ parseOutput' = strOption $ mconcat [
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = writeIncludeGraph output
-        bindgenConfig = toBindgenConfig config fileOverwritePolicy uniqueId baseModuleName
+        bindgenConfig = toBindgenConfig config outputDirPolicy fileOverwritePolicy uniqueId baseModuleName
     void $ hsBindgen tracerConfig bindgenConfig inputs artefact

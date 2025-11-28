@@ -37,6 +37,7 @@ data Opts = Opts {
     , uniqueId            :: UniqueId
     , baseModuleName      :: BaseModuleName
     , inputs              :: [UncheckedHashIncludeArg]
+    , outputDirPolicy     :: OutputDirPolicy
     , fileOverwritePolicy :: FileOverwritePolicy
     }
 
@@ -47,6 +48,7 @@ parseOpts =
       <*> parseUniqueId
       <*> parseBaseModuleName
       <*> parseInputs
+      <*> parseOutputDirPolicy
       <*> parseFileOverwritePolicy
 
 {-------------------------------------------------------------------------------
@@ -56,5 +58,5 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = ReifiedC >>= liftIO . print
-        bindgenConfig = toBindgenConfig config fileOverwritePolicy uniqueId baseModuleName
+        bindgenConfig = toBindgenConfig config outputDirPolicy fileOverwritePolicy uniqueId baseModuleName
     hsBindgen tracerConfig bindgenConfig inputs artefact

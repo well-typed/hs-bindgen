@@ -46,6 +46,7 @@ info = progDesc $ mconcat [
 data Opts = Opts {
       input  :: FilePath
     , output :: FilePath
+    , outputDirPolicy :: OutputDirPolicy
     , fileOverwritePolicy :: FileOverwritePolicy
     }
   deriving (Show, Eq)
@@ -64,6 +65,7 @@ parseOpts = do
     input  <- strArgument $ metavar "IN"
     output <- strArgument $ metavar "OUT"
 
+    outputDirPolicy <- parseOutputDirPolicy
     fileOverwritePolicy <- parseFileOverwritePolicy
     return Opts{..}
 
@@ -113,7 +115,13 @@ exec literateOpts = do
     Lit{..} <- maybe (throwIO' "cannot parse arguments in literate file") return $
       pureParseLit args
     let GlobalOpts{..} = globalOpts
-        bindgenConfig = toBindgenConfig config (literateOpts.fileOverwritePolicy ) uniqueId baseModuleName
+        bindgenConfig =
+          toBindgenConfig
+            config
+            (literateOpts.outputDirPolicy)
+            (literateOpts.fileOverwritePolicy )
+            uniqueId
+            baseModuleName
     void $ hsBindgen tracerConfig bindgenConfig inputs $
       writeBindings safety (Just literateOpts.output)
   where
