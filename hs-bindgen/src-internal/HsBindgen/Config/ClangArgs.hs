@@ -258,7 +258,7 @@ parseTargetTripleLenient tt =
     parseLinux :: String -> [String] -> [String] -> Maybe Target
     parseLinux arch vendor env
       | vendor `notElem` [[], ["pc"], ["unknown"]] = Nothing
-      | arch `elem` x8664 = case env of
+      | arch `elem` x86_64 = case env of
           ["gnu"]    -> Just Target_Linux_GNU_X86_64
           ["musl"]   -> Just Target_Linux_Musl_X86_64
           _otherwise -> Nothing
@@ -273,7 +273,7 @@ parseTargetTripleLenient tt =
 
     parseWindows :: String -> [String] -> [String] -> Maybe Target
     parseWindows arch vendor env
-      | arch `notElem` x8664 = Nothing
+      | arch `notElem` x86_64 = Nothing
       | vendor `notElem` [[], ["pc"], ["w64"], ["unknown"]] = Nothing
       | otherwise = case env of
           [s]
@@ -285,14 +285,14 @@ parseTargetTripleLenient tt =
     parseDarwin :: String -> [String] -> [String] -> Maybe Target
     parseDarwin arch vendor _env
       | vendor /= ["apple"] = Nothing
-      | arch `elem` x8664 = Just Target_Darwin_X86_64
+      | arch `elem` x86_64 = Just Target_Darwin_X86_64
       | arch `elem` aarch64 = Just Target_Darwin_AArch64
       | otherwise = Nothing
 
-    x8664, x86, aarch64 :: [String]
-    x8664   = ["x86_64", "amd64"]
-    x86     = ["i386", "i486", "i586", "i686"]
-    aarch64 = ["aarch64", "arm64"]
+    x86_64, x86, aarch64 :: [String]
+    x86_64   = ["x86_64", "amd64"]
+    x86      = ["i386", "i486", "i586", "i686"]
+    aarch64  = ["aarch64", "arm64"]
 
     splitDash :: String -> [String]
     splitDash "" = []
