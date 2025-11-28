@@ -13,7 +13,6 @@ module HsBindgen.Cli.Preprocess (
   , exec
   ) where
 
-import Control.Exception (Exception (..))
 import Options.Applicative hiding (info)
 import System.Directory (createDirectoryIfMissing, doesDirectoryExist)
 
@@ -21,9 +20,9 @@ import HsBindgen
 import HsBindgen.App
 import HsBindgen.Config
 import HsBindgen.Config.Internal
-import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Util.Tracer (FileSystemException (..))
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -41,10 +40,10 @@ data Opts = Opts {
     , uniqueId            :: UniqueId
     , baseModuleName      :: BaseModuleName
     , hsOutputDir         :: FilePath
-    , outputDirPolicy     :: OutputDirPolicy
     , outputBindingSpec   :: Maybe FilePath
     -- NOTE: Inputs (arguments) must be last, options must go before it.
     , inputs              :: [UncheckedHashIncludeArg]
+    , outputDirPolicy     :: OutputDirPolicy
     , fileOverwritePolicy :: FileOverwritePolicy
     }
   deriving (Generic)
@@ -56,9 +55,9 @@ parseOpts =
       <*> parseUniqueId
       <*> parseBaseModuleName
       <*> parseHsOutputDir
-      <*> parseOutputDirPolicy
       <*> optional parseGenBindingSpec
       <*> parseInputs
+      <*> parseOutputDirPolicy
       <*> parseFileOverwritePolicy
 
 {-------------------------------------------------------------------------------
@@ -79,29 +78,13 @@ exec GlobalOpts{..} Opts{..} = do
     void $ run $ artefacts
   where
     bindgenConfig :: BindgenConfig
-    bindgenConfig = toBindgenConfig config fileOverwritePolicy uniqueId baseModuleName
+    bindgenConfig = toBindgenConfig config outputDirPolicy fileOverwritePolicy uniqueId baseModuleName
 
     run :: Artefact a -> IO a
     run = hsBindgen tracerConfig bindgenConfig inputs
 
     artefacts :: Artefact ()
     artefacts = do
+        DirectoryCreate hsOutputDir
         writeBindingsMultiple hsOutputDir
         forM_ outputBindingSpec writeBindingSpec
-
-{-------------------------------------------------------------------------------
-  Exception
--------------------------------------------------------------------------------}
-
-data OutputDirectoryMissingException =
-  OutputDirectoryMissingException FilePath
-  deriving Show
-
-instance Exception OutputDirectoryMissingException where
-    toException   = hsBindgenExceptionToException
-    fromException = hsBindgenExceptionFromException
-    displayException (OutputDirectoryMissingException path) = unlines
-        [ "Output directory does not exist: " ++ path
-        , ""
-        , "Use --create-output-dirs to create it automatically, or create the directory manually."
-        ]

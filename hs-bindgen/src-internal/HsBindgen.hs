@@ -15,15 +15,13 @@ module HsBindgen
   , writeTests
   ) where
 
-import Data.Map qualified as Map
-import System.Directory
-    ( createDirectoryIfMissing,
-      createDirectoryIfMissing,
-      doesFileExist )
-import System.FilePath
-    ( takeDirectory, (</>), takeDirectory, (</>) )
 import Data.Foldable (foldrM)
 import Data.Foldable qualified as Foldable
+import Data.Map qualified as Map
+import System.Directory (createDirectoryIfMissing, doesDirectoryExist,
+                         doesFileExist)
+import System.FilePath (takeDirectory, (</>))
+
 import HsBindgen.Artefact
 import HsBindgen.Backend
 import HsBindgen.Backend.HsModule.Render
@@ -84,7 +82,10 @@ hsBindgen
 
     -- Execute file system actions based on FileOverwritePolicy
     value <- either throwIO pure result
-    executeFileSystemActions (backendFileOverwrite bindgenBackendConfig) fsActions
+    executeFileSystemActions
+      (backendOutputDirPolicy bindgenBackendConfig)
+      (backendFileOverwrite bindgenBackendConfig)
+      fsActions
     return value
   where
     tracerConfigSafe :: TracerConfig SafeLevel a
@@ -101,10 +102,23 @@ hsBindgen
 -------------------------------------------------------------------------------}
 
 -- | Execute collected file system actions based on FileOverwritePolicy
-executeFileSystemActions :: FileOverwritePolicy -> [FileSystemAction] -> IO ()
-executeFileSystemActions fop actions = do
+executeFileSystemActions :: OutputDirPolicy -> FileOverwritePolicy -> [FileSystemAction] -> IO ()
+executeFileSystemActions outputDirPolicy fop actions = do
+  -- Get the first directory path that exists if any
+  mbDirPath <-
+    foldrM (\f mbp -> do
+             case f of
+               CreateDir path
+                 | Just _ <- mbp -> pure mbp
+                 | otherwise -> do
+                   fileExists <- doesDirectoryExist path
+                   pure $ if fileExists
+                             then Just path
+                             else mbp
+               _ -> pure mbp
+           ) Nothing actions
   -- Get the first file path that exists if any
-  mbPath <-
+  mbFilePath <-
     foldrM (\f mbp -> do
              case f of
                WriteFile _ path _
@@ -114,11 +128,19 @@ executeFileSystemActions fop actions = do
                    pure $ if fileExists
                              then Just path
                              else mbp
+               _ -> pure mbp
            ) Nothing actions
+  case outputDirPolicy of
+    DoNotCreateDirStructure
+      | Just outputDir <- mbDirPath ->
+        throwIO (OutputDirectoryMissingException outputDir)
+    _ -> pure ()
   case fop of
     ProtectExistingFiles
-      | Just path <- mbPath -> throwIO (FileAlreadyExistsException path)
+      | Just path <- mbFilePath -> throwIO (FileAlreadyExistsException path)
     _ -> forM_ actions $ \case
+          CreateDir outputDir ->
+            createDirectoryIfMissing True outputDir
           WriteFile _ path content -> do
             createDirectoryIfMissing True (takeDirectory path)
             case content of
