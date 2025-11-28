@@ -256,8 +256,9 @@ parseTargetTripleLenient tt =
       [] -> Nothing
   where
     parseLinux :: String -> [String] -> [String] -> Maybe Target
-    parseLinux arch vendor env
-      | vendor `notElem` [[], ["pc"], ["unknown"]] = Nothing
+    parseLinux arch _vendor env
+      -- We decided to ignore vendor information since we do not use it.
+      -- | vendor `notElem` [[], ["pc"], ["unknown"]] = Nothing
       | arch `elem` x86_64 = case env of
           ["gnu"]    -> Just Target_Linux_GNU_X86_64
           ["musl"]   -> Just Target_Linux_Musl_X86_64
@@ -272,9 +273,10 @@ parseTargetTripleLenient tt =
       | otherwise = Nothing
 
     parseWindows :: String -> [String] -> [String] -> Maybe Target
-    parseWindows arch vendor env
+    parseWindows arch _vendor env
       | arch `notElem` x86_64 = Nothing
-      | vendor `notElem` [[], ["pc"], ["w64"], ["unknown"]] = Nothing
+      -- We decided to ignore vendor information since we do not use it.
+      -- | vendor `notElem` [[], ["pc"], ["w64"], ["unknown"]] = Nothing
       | otherwise = case env of
           [s]
             | "msvc" `List.isPrefixOf` s -> Just Target_Windows_MSVC_X86_64
@@ -283,8 +285,9 @@ parseTargetTripleLenient tt =
           _otherwise                     -> Nothing
 
     parseDarwin :: String -> [String] -> [String] -> Maybe Target
-    parseDarwin arch vendor _env
-      | vendor /= ["apple"] = Nothing
+    parseDarwin arch _vendor _env
+      -- We decided to ignore vendor information since we do not use it.
+      -- | vendor /= ["apple"] = Nothing
       | arch `elem` x86_64 = Just Target_Darwin_X86_64
       | arch `elem` aarch64 = Just Target_Darwin_AArch64
       | otherwise = Nothing

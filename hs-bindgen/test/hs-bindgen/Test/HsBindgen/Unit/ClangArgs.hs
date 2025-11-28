@@ -69,7 +69,7 @@ parseTargetTripleLenientTests = testGroup "parseTargetTripleLenient" [
     , aux "i586-pc-linux-gnu"   (Just Target_Linux_GNU_X86)
     , aux "i686-pc-linux-gnu"   (Just Target_Linux_GNU_X86)
     , aux "arm64-pc-linux-gnu"  (Just Target_Linux_GNU_AArch64)
-      -- Supported alternate Linux vendors
+      -- Supported alternate Linux vendors (currently not checked)
     , aux "x86_64-linux-gnu"         (Just Target_Linux_GNU_X86_64)
     , aux "x86_64-unknown-linux-gnu" (Just Target_Linux_GNU_X86_64)
       -- Invalid Linux target triples
@@ -80,7 +80,7 @@ parseTargetTripleLenientTests = testGroup "parseTargetTripleLenient" [
     , aux "x86_64-pc-windows-gnu"  (Just Target_Windows_GNU_X86_64)
       -- Supported alternate Windows machine architectures
     , aux "amd64-pc-windows-msvc" (Just Target_Windows_MSVC_X86_64)
-      -- Supported alternate Windows vendors
+      -- Supported alternate Windows vendors (currently not checked)
     , aux "x86_64-windows-msvc"         (Just Target_Windows_MSVC_X86_64)
     , aux "x86_64-w64-windows-msvc"     (Just Target_Windows_MSVC_X86_64)
     , aux "x86_64-unknown-windows-msvc" (Just Target_Windows_MSVC_X86_64)
@@ -98,8 +98,8 @@ parseTargetTripleLenientTests = testGroup "parseTargetTripleLenient" [
     , aux "arm64-apple-darwin" (Just Target_Darwin_AArch64)
       -- Supported Darwin target triple with appended version number
     , aux "arm64-apple-darwin24.6.0" (Just Target_Darwin_AArch64)
-      -- Invalid Darwin target triples
-    , aux "x86_64-pc-darwin" Nothing -- only support apple vendor
+      -- Supported alternate Darwin vendors (currently not checked)
+    , aux "x86_64-pc-darwin" (Just Target_Darwin_X86_64)
     ]
   where
     aux :: String -> Maybe Target -> TestTree
