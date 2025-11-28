@@ -16,7 +16,7 @@ module HsBindgen.App (
     -- ** Translation option
   , parseUniqueId
     -- ** Module option
-  , parseHsModuleName
+  , parseBaseModuleName
     -- ** Output options
   , parseHsOutputDir
   , parseOutputDirPolicy
@@ -45,7 +45,6 @@ import HsBindgen.Config.ClangArgs
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
-import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -460,12 +459,12 @@ parseUniqueId = fmap UniqueId . strOption $ mconcat [
   Module option
 -------------------------------------------------------------------------------}
 
-parseHsModuleName :: Parser Hs.ModuleName
-parseHsModuleName = strOption $ mconcat [
+parseBaseModuleName :: Parser BaseModuleName
+parseBaseModuleName = strOption $ mconcat [
       long "module"
     , metavar "NAME"
     , showDefault
-    , value defBaseModuleName
+    , value def
     , help "Base name of the generated Haskell modules"
     ]
 

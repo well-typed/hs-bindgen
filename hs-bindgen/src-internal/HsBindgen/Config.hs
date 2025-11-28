@@ -4,8 +4,8 @@
 module HsBindgen.Config (
     Config_(..)
   , UniqueId(..)
+  , BaseModuleName(..)
   , toBindgenConfig
-  , defBaseModuleName
 
     -- * Client
   , OutputDirPolicy(..)
@@ -24,7 +24,6 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -53,13 +52,13 @@ data Config_ path = Config {
   deriving stock (Functor, Foldable, Traversable)
   deriving anyclass (Default)
 
-toBindgenConfig :: Config_ FilePath -> UniqueId -> Hs.ModuleName -> BindgenConfig
-toBindgenConfig Config{..} uniqueId hsModuleName =
+toBindgenConfig :: Config_ FilePath -> UniqueId -> BaseModuleName -> BindgenConfig
+toBindgenConfig Config{..} uniqueId baseModuleName =
     BindgenConfig bootConfig frontendConfig backendConfig
   where
     bootConfig = BootConfig {
         bootClangArgsConfig   = clang
-      , bootHsModuleName      = hsModuleName
+      , bootBaseModuleName    = baseModuleName
       , bootBindingSpecConfig = bindingSpec
       }
     frontendConfig = FrontendConfig {

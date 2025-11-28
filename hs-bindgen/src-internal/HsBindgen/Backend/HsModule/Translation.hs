@@ -24,6 +24,7 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.HsModule.Capi (capiImport)
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Config.Prelims
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -68,7 +69,7 @@ data HsModule = HsModule {
 -------------------------------------------------------------------------------}
 
 translateModuleMultiple ::
-     Hs.ModuleName
+     BaseModuleName
   -> ByCategory ([UserlandCapiWrapper], [SDecl])
   -> ByCategory HsModule
 translateModuleMultiple moduleBaseName declsByCat =
@@ -80,7 +81,7 @@ translateModuleMultiple moduleBaseName declsByCat =
 
 translateModuleSingle ::
      Safety
-  -> Hs.ModuleName
+  -> BaseModuleName
   -> ByCategory ([UserlandCapiWrapper], [SDecl])
   -> HsModule
 translateModuleSingle safety name declsByCat =
@@ -104,7 +105,7 @@ mergeDecls safety declsByCat =
 
 translateModule' ::
      Maybe BindingCategory
-  -> Hs.ModuleName
+  -> BaseModuleName
   -> [UserlandCapiWrapper]
   -> [SDecl]
   -> HsModule
@@ -113,12 +114,7 @@ translateModule' mcat moduleBaseName hsModuleUserlandCapiWrappers hsModuleDecls 
           resolvePragmas hsModuleUserlandCapiWrappers hsModuleDecls
         hsModuleImports =
           resolveImports moduleBaseName mcat hsModuleUserlandCapiWrappers hsModuleDecls
-        addSubModule = case mcat of
-          Nothing       -> id
-          Just BType    -> id
-          Just otherCat -> (<> ('.' : displayBindingCategory otherCat))
-        hsModuleName = Hs.moduleNameFromString $
-          addSubModule $ Hs.moduleNameToString moduleBaseName
+        hsModuleName = fromBaseModuleName moduleBaseName mcat
     in  HsModule{..}
 
 {-------------------------------------------------------------------------------
@@ -154,7 +150,7 @@ resolveDeclPragmas decl =
 
 -- | Resolve imports in a list of declarations
 resolveImports ::
-     Hs.ModuleName
+     BaseModuleName
   -> Maybe BindingCategory
   -> [UserlandCapiWrapper]
   -> [SDecl]
@@ -172,10 +168,13 @@ resolveImports baseModule cat wrappers ds =
     bindingCatImport :: Bool -> Set ImportListItem
     bindingCatImport False = mempty
     bindingCatImport True = case cat of
-      Nothing      -> mempty
-      (Just BType) -> mempty
-      _otherCat ->
-        let base = HsImportModule baseModule Nothing
+      Nothing    -> mempty
+      Just BType -> mempty
+      _otherCat  ->
+        let base = HsImportModule{
+                hsImportModuleName  = fromBaseModuleName baseModule (Just BType)
+              , hsImportModuleAlias = Nothing
+              }
         in  Set.singleton $ UnqualifiedImportListItem base Nothing
     userlandCapiImport :: Set HsImportModule
     userlandCapiImport = case wrappers of

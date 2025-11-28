@@ -5,19 +5,19 @@ import Control.Monad (when)
 import Data.Map.Strict qualified as Map
 import Data.Maybe (fromMaybe)
 import System.Directory (createDirectoryIfMissing)
-import System.FilePath ((<.>), (</>))
+import System.FilePath ((</>))
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
 import Test.Tasty
-import Text.SimplePrettyPrint
 
 import HsBindgen (getBindingsMultiple)
 import HsBindgen hiding (getBindingsMultiple)
-import HsBindgen.Backend.SHs.AST (BindingCategory (..), ByCategory (..),
-                                  displayBindingCategory)
+import HsBindgen.Backend.SHs.AST (ByCategory (..))
+import HsBindgen.Config.Prelims
 import HsBindgen.Errors (panicIO)
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Tests
@@ -27,7 +27,7 @@ check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     withExampleDir $
     testGroup "pp" [
-        goldenAnsiDiff (displayBindingCategory bc) (fixture bc) $ \report -> do
+        goldenAnsiDiff (show bc) (fixture bc) $ \report -> do
           -- A golden tests should typically produce only a single file, so we
           -- run @hs-bindgen@ separately for each binding category. It's
           -- slightly unfortunate to invoke @hs-bindgen@ multiple times even if
@@ -72,12 +72,10 @@ check testResources test =
 
     -- | The names of sub-modules are based solely on the binding category
     fixture :: BindingCategory -> FilePath
-    fixture bc = testOutputDir test </> addSubmodule "Example" <.> "hs"
+    fixture bc = testOutputDir test </> Hs.moduleNamePath moduleName
       where
-        addSubmodule :: FilePath -> FilePath
-        addSubmodule = case bc of
-            BType -> id
-            _     -> (</> displayBindingCategory bc)
+        moduleName :: Hs.ModuleName
+        moduleName = fromBaseModuleName "Example" (Just bc)
 
     -- === Module names
     --
@@ -88,11 +86,11 @@ check testResources test =
 
     -- | Render an empty module
     renderEmptyModule :: BindingCategory -> String
-    renderEmptyModule bc =
-         show ("module" <+> addSubmodule (string "Example") <+> "()" <+> "where")
-      ++ "\n"
+    renderEmptyModule bc = concat [
+          "module "
+        , Hs.moduleNameToString moduleName
+        , " () where\n"
+        ]
       where
-        addSubmodule :: CtxDoc -> CtxDoc
-        addSubmodule = case bc of
-          BType -> id
-          _     -> \c -> c >< "." >< string (displayBindingCategory bc)
+        moduleName :: Hs.ModuleName
+        moduleName = fromBaseModuleName "Example" (Just bc)

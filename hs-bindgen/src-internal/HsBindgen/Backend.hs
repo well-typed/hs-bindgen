@@ -16,7 +16,6 @@ import HsBindgen.Cache
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 -- | The backend translates the parsed C declarations in to Haskell
@@ -56,7 +55,7 @@ backend tracer BackendConfig{..} BootArtefact{..} FrontendArtefact{..} = do
     , ..
     }
   where
-    moduleBaseName = bootModule
+    moduleBaseName = bootBaseModule
 
     cache :: IO a -> IO (IO a)
     cache = cacheWith (contramap BackendCache tracer) Nothing
@@ -68,7 +67,7 @@ backend tracer BackendConfig{..} BootArtefact{..} FrontendArtefact{..} = do
 data BackendArtefact = BackendArtefact {
     backendHsDecls             :: IO (SHs.ByCategory [Hs.Decl])
   , backendFinalDecls          :: IO (SHs.ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
-  , backendFinalModuleBaseName :: Hs.ModuleName
+  , backendFinalModuleBaseName :: BaseModuleName
   , backendFinalModuleSafe     :: IO HsModule
   , backendFinalModuleUnsafe   :: IO HsModule
   , backendFinalModules        :: IO (SHs.ByCategory HsModule)

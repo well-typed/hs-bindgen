@@ -4,8 +4,8 @@ module HsBindgen.Test.Hs (
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Config
 import HsBindgen.Errors
-import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Generation
@@ -13,11 +13,11 @@ import HsBindgen.Language.Haskell qualified as Hs
 
 -- | Generate Haskell test modules
 genTestsHs ::
-     FilePath      -- ^ Test module path
-  -> FilePath      -- ^ Spec module path
-  -> FilePath      -- ^ Main module path
-  -> Hs.ModuleName -- ^ Generated Haskell module name
-  -> FilePath      -- ^ C test header file path
+     FilePath       -- ^ Test module path
+  -> FilePath       -- ^ Spec module path
+  -> FilePath       -- ^ Main module path
+  -> BaseModuleName -- ^ Generated Haskell module name
+  -> FilePath       -- ^ C test header file path
   -> ByCategory [Hs.Decl]    -- ^ Declarations
   -> IO ()
 genTestsHs = throwPure_TODO 22 "generate test suite"

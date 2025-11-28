@@ -9,9 +9,10 @@ import System.FilePath qualified as FilePath
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.SHs.AST (ByCategory)
+import HsBindgen.Config
+import HsBindgen.Config.Prelims
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Test.C (genTestsC)
 import HsBindgen.Test.Hs (genTestsHs)
 import HsBindgen.Test.Readme (genTestsReadme)
@@ -24,16 +25,16 @@ import HsBindgen.Test.Readme (genTestsReadme)
 genTests ::
      [HashIncludeArg]
   -> ByCategory [Hs.Decl]
-  -> Hs.ModuleName -- ^ Generated Haskell module name
-  -> FilePath      -- ^ Test suite directory path
+  -> BaseModuleName -- ^ Generated Haskell module name
+  -> FilePath       -- ^ Test suite directory path
   -> IO ()
-genTests hashIncludeArgs decls hsModuleName testSuitePath = do
+genTests hashIncludeArgs decls baseModule testSuitePath = do
     -- fails when testSuitePath already exists
     mapM_ Dir.createDirectory $
       testSuitePath : cbitsPath : srcPath : modulePaths
     genTestsReadme
       readmePath
-      hsModuleName
+      baseModule
       testSuitePath
       cTestHeaderPath
       cTestSourcePath
@@ -46,7 +47,7 @@ genTests hashIncludeArgs decls hsModuleName testSuitePath = do
       hsTestPath
       hsSpecPath
       hsMainPath
-      hsModuleName
+      baseModule
       cTestHeaderPath
       decls
   where
@@ -68,7 +69,7 @@ genTests hashIncludeArgs decls hsModuleName testSuitePath = do
     hsMainPath                = FilePath.combine srcPath "Main.hs"
 
     moduleName :: String
-    moduleName = Hs.moduleNameToString hsModuleName
+    moduleName = baseModuleNameToString baseModule
 
 {-------------------------------------------------------------------------------
   Auxiliary functions

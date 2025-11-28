@@ -1,6 +1,9 @@
 module HsBindgen.Config.Prelims (
     -- * Base module name
-    defBaseModuleName
+    BaseModuleName(..)
+  , baseModuleNameToString
+  , BindingCategory(..)
+  , fromBaseModuleName
 
     -- * Unique IDs
   , UniqueId (..)
@@ -8,6 +11,8 @@ module HsBindgen.Config.Prelims (
   , checkUniqueId
   ) where
 
+import Data.Aeson (FromJSON, ToJSON)
+import Data.Text qualified as Text
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Imports
@@ -18,8 +23,49 @@ import HsBindgen.Util.Tracer
   Base module name
 -------------------------------------------------------------------------------}
 
-defBaseModuleName :: Hs.ModuleName
-defBaseModuleName = "Generated"
+-- | Base module name from which other module names are derived
+--
+-- For example, the base module name might be @Generated@, from which we
+-- derive @Generated@, @Generated.Safe@, etc.
+newtype BaseModuleName = BaseModuleName { baseModuleNameToText :: Text }
+  deriving stock (Show, Eq, Generic)
+  deriving newtype (IsString, FromJSON, ToJSON)
+
+instance Default BaseModuleName where
+  def = "Generated"
+
+baseModuleNameToString :: BaseModuleName -> String
+baseModuleNameToString = Text.unpack . baseModuleNameToText
+
+-- | Foreign import category.
+data BindingCategory =
+    -- | Types (top-level bindings).
+    BType
+    -- | Foreign import bindings with a @safe@ foreign import modifier.
+  | BSafe
+    -- | Foreign import bindings with an @unsafe@ foreign import modifier.
+  | BUnsafe
+    -- | Pointers to functions; generally @unsafe@.
+  | BFunPtr
+    -- | Temporary category for bindings to global variables or constants.
+  | BGlobal
+  deriving stock (Show, Eq, Ord, Enum, Bounded)
+
+fromBaseModuleName :: BaseModuleName -> Maybe BindingCategory -> Hs.ModuleName
+fromBaseModuleName (BaseModuleName base) Nothing =
+    Hs.moduleNameFromText base
+fromBaseModuleName (BaseModuleName base) (Just cat) =
+    Hs.moduleNameFromText (base <> maybe mempty ("." <>) (submodule cat))
+  where
+    -- NOTE: It is important that types are stored in a module without any
+    -- suffix; we depend on this assumption for binding specifications (which
+    -- only refer to types, never to functions or globals).
+    submodule :: BindingCategory -> Maybe Text
+    submodule BType   = Nothing
+    submodule BSafe   = Just "Safe"
+    submodule BUnsafe = Just "Unsafe"
+    submodule BFunPtr = Just "FunPtr"
+    submodule BGlobal = Just "Global"
 
 {-------------------------------------------------------------------------------
   Unique IDs

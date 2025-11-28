@@ -21,7 +21,6 @@ import HsBindgen.Config.Prelims
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
 import HsBindgen.Frontend.Predicate (Boolean, ParsePredicate, SelectPredicate)
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 -- | Configuration of @hs-bindgen@.
@@ -49,7 +48,7 @@ data BindgenConfig = BindgenConfig {
 
 data BootConfig = BootConfig {
       bootClangArgsConfig     :: ClangArgsConfig FilePath
-    , bootHsModuleName        :: Hs.ModuleName
+    , bootBaseModuleName      :: BaseModuleName
     , bootBindingSpecConfig   :: BindingSpecConfig
     }
   deriving stock (Show, Eq, Generic)
@@ -57,7 +56,7 @@ data BootConfig = BootConfig {
 instance Default BootConfig where
   def = BootConfig {
         bootClangArgsConfig   = def
-      , bootHsModuleName      = defBaseModuleName
+      , bootBaseModuleName    = def
       , bootBindingSpecConfig = def
       }
 

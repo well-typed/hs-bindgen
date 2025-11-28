@@ -24,6 +24,7 @@ import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Boot
+import HsBindgen.Config
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Frontend
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
@@ -34,7 +35,6 @@ import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ data Artefact (a :: Star) where
   -- * Backend
   HsDecls             :: Artefact (ByCategory [Hs.Decl])
   FinalDecls          :: Artefact (ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
-  FinalModuleBaseName :: Artefact Hs.ModuleName
+  FinalModuleBaseName :: Artefact BaseModuleName
   FinalModuleSafe     :: Artefact HsModule
   FinalModuleUnsafe   :: Artefact HsModule
   FinalModules        :: Artefact (ByCategory HsModule)

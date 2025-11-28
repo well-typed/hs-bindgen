@@ -4,20 +4,20 @@ module HsBindgen.Test.Readme (
 
 import System.FilePath qualified as FilePath
 
-import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Config.Prelims
 
 {-------------------------------------------------------------------------------
   Generation
 -------------------------------------------------------------------------------}
 
 genTestsReadme ::
-     FilePath      -- ^ README path
-  -> Hs.ModuleName -- ^ Module name (example: @Acme.Foo@)
-  -> FilePath      -- ^ Test suite directory path
-  -> FilePath      -- ^ C header path
-  -> FilePath      -- ^ C source path
+     FilePath       -- ^ README path
+  -> BaseModuleName -- ^ Module name (example: @Acme.Foo@)
+  -> FilePath       -- ^ Test suite directory path
+  -> FilePath       -- ^ C header path
+  -> FilePath       -- ^ C source path
   -> IO ()
-genTestsReadme readmePath moduleName testSuitePath cHeaderPath cSourcePath =
+genTestsReadme readmePath baseModule testSuitePath cHeaderPath cSourcePath =
     writeFile readmePath $ unlines
       [ "# " ++ moduleNameStr ++ " hs-bindgen Test Suite"
       , ""
@@ -60,4 +60,4 @@ genTestsReadme readmePath moduleName testSuitePath cHeaderPath cSourcePath =
     testSuite = FilePath.takeFileName testSuitePath
 
     moduleNameStr :: String
-    moduleNameStr = Hs.moduleNameToString moduleName
+    moduleNameStr = baseModuleNameToString baseModule

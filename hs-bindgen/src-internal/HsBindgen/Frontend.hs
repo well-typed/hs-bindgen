@@ -153,7 +153,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       let (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
             resolveBindingSpecs
               target
-              bootModule
+              (fromBaseModuleName bootBaseModule (Just BType))
               extSpecs
               pSpec
               afterNameAnon
