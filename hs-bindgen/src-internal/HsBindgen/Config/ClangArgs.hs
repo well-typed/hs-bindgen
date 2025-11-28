@@ -173,11 +173,9 @@ instance Default (ClangArgsConfig path) where
 -- Machine architectures:
 --
 -- * @X86_64@: @x86_64@, @amd64@
--- * @X86@: @i386@, @i486@, @i586@, @i686@
 -- * @AArch64@: @aarch64@, @arm64@
 data Target =
     Target_Linux_GNU_X86_64
-  | Target_Linux_GNU_X86
   | Target_Linux_GNU_AArch64
   | Target_Linux_Musl_X86_64
   | Target_Linux_Musl_AArch64
@@ -195,7 +193,6 @@ data Target =
 targetTriple :: Target -> String
 targetTriple = \case
     Target_Linux_GNU_X86_64    -> "x86_64-pc-linux-gnu"
-    Target_Linux_GNU_X86       -> "i386-pc-linux-gnu"
     Target_Linux_GNU_AArch64   -> "aarch64-pc-linux-gnu"
     Target_Linux_Musl_X86_64   -> "x86_64-pc-linux-musl"
     Target_Linux_Musl_AArch64  -> "aarch64-pc-linux-musl"
@@ -263,9 +260,6 @@ parseTargetTripleLenient tt =
           ["gnu"]    -> Just Target_Linux_GNU_X86_64
           ["musl"]   -> Just Target_Linux_Musl_X86_64
           _otherwise -> Nothing
-      | arch `elem` x86 = case env of
-          ["gnu"]    -> Just Target_Linux_GNU_X86
-          _otherwise -> Nothing
       | arch `elem` aarch64 = case env of
           ["gnu"]    -> Just Target_Linux_GNU_AArch64
           ["musl"]   -> Just Target_Linux_Musl_AArch64
@@ -292,10 +286,9 @@ parseTargetTripleLenient tt =
       | arch `elem` aarch64 = Just Target_Darwin_AArch64
       | otherwise = Nothing
 
-    x86_64, x86, aarch64 :: [String]
-    x86_64   = ["x86_64", "amd64"]
-    x86      = ["i386", "i486", "i586", "i686"]
-    aarch64  = ["aarch64", "arm64"]
+    x86_64, aarch64 :: [String]
+    x86_64  = ["x86_64", "amd64"]
+    aarch64 = ["aarch64", "arm64"]
 
     splitDash :: String -> [String]
     splitDash "" = []

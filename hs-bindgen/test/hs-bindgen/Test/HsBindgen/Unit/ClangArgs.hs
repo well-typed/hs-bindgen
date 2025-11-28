@@ -60,14 +60,10 @@ parseTargetTripleLenientTests = testGroup "parseTargetTripleLenient" [
       -- Canonical Linux target triples
       aux "x86_64-pc-linux-gnu"   (Just Target_Linux_GNU_X86_64)
     , aux "x86_64-pc-linux-musl"  (Just Target_Linux_Musl_X86_64)
-    , aux "i386-pc-linux-gnu"     (Just Target_Linux_GNU_X86)
     , aux "aarch64-pc-linux-gnu"  (Just Target_Linux_GNU_AArch64)
     , aux "aarch64-pc-linux-musl" (Just Target_Linux_Musl_AArch64)
       -- Supported alternate Linux machine architectures
     , aux "amd64-pc-linux-gnu"  (Just Target_Linux_GNU_X86_64)
-    , aux "i486-pc-linux-gnu"   (Just Target_Linux_GNU_X86)
-    , aux "i586-pc-linux-gnu"   (Just Target_Linux_GNU_X86)
-    , aux "i686-pc-linux-gnu"   (Just Target_Linux_GNU_X86)
     , aux "arm64-pc-linux-gnu"  (Just Target_Linux_GNU_AArch64)
       -- Supported alternate Linux vendors (currently not checked)
     , aux "x86_64-linux-gnu"         (Just Target_Linux_GNU_X86_64)
