@@ -129,8 +129,9 @@ introduceAuxFunType td declInfo declAnn args res = [
     derefDecl = C.Decl {
           declInfo = declInfo {
               C.declId = C.DeclIdNamed C.NamedDeclId{
-                  name   = C.declIdName declInfo.declId <> "_Deref"
-                , origin = C.NameOriginGenerated (C.AnonId declInfo.declLoc)
+                  name      = C.declIdName declInfo.declId <> "_Deref"
+                , origin    = C.NameOriginGenerated (C.AnonId declInfo.declLoc)
+                , haskellId = ()
                 }
             , C.declComment = Just auxType
             }
@@ -160,7 +161,8 @@ introduceAuxFunType td declInfo declAnn args res = [
         Clang.Comment [
           Clang.Paragraph [
               Clang.TextContent "Auxiliary type used by "
-            , Clang.InlineRefCommand (C.CommentRef declInfo.declId)
+            , Clang.InlineRefCommand $
+                C.CommentRef (C.declIdName declInfo.declId) Nothing
             ]
         ]
 
@@ -190,7 +192,7 @@ instance HandleUseSites C.FieldInfo where
     }
 
 instance HandleUseSites C.CommentRef where
-  handleUseSites _ (C.CommentRef i) = C.CommentRef (coercePass i)
+  handleUseSites _ (C.CommentRef c hs) = C.CommentRef c hs
 
 instance HandleUseSites C.Comment where
   handleUseSites td (C.Comment comment) =
@@ -297,6 +299,7 @@ instance HandleUseSites C.Type where
             Just ty -> TypedefSquashed name (go ty)
             Nothing -> let named = C.NamedDeclId{
                                 name
-                              , origin = C.NameOriginInSource
+                              , origin    = C.NameOriginInSource
+                              , haskellId = ()
                               }
                        in TypedefRegular (C.DeclIdNamed named) (go uTy)

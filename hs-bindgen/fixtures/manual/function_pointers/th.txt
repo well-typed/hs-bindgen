@@ -339,6 +339,21 @@ instance TyEq ty
                   (Ptr Apply1Union)
                   (Ptr ty)
     where getField = ptrToCField (Proxy @"apply1Union_apply1_nopointer_union_field")
+{-| __unique:__ @instance ToFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
+-}
+foreign import ccall safe "wrapper" hs_bindgen_fe02c1e534fc52ea :: (FunPtr Int2int ->
+                                                                    CInt -> IO CInt) ->
+                                                                   IO (FunPtr (FunPtr Int2int ->
+                                                                               CInt -> IO CInt))
+{-| __unique:__ @instance FromFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
+-}
+foreign import ccall safe "dynamic" hs_bindgen_fc27363846cb6139 :: FunPtr (FunPtr Int2int ->
+                                                                           CInt -> IO CInt) ->
+                                                                   FunPtr Int2int -> CInt -> IO CInt
+instance ToFunPtr (FunPtr Int2int -> CInt -> IO CInt)
+    where toFunPtr = hs_bindgen_fe02c1e534fc52ea
+instance FromFunPtr (FunPtr Int2int -> CInt -> IO CInt)
+    where fromFunPtr = hs_bindgen_fc27363846cb6139
 {-| __C declaration:__ @square@
 
     __defined at:__ @manual\/function_pointers.h:5:12@

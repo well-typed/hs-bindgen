@@ -169,3 +169,23 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Apply1Union) "apply1
 
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"apply1Union_apply1_nopointer_union_field")
+
+{-| __unique:__ @instance ToFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
+-}
+foreign import ccall safe "wrapper" hs_bindgen_fe02c1e534fc52ea ::
+     ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
+  -> IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+
+{-| __unique:__ @instance FromFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
+-}
+foreign import ccall safe "dynamic" hs_bindgen_fc27363846cb6139 ::
+     Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
+  -> (Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt) where
+
+  toFunPtr = hs_bindgen_fe02c1e534fc52ea
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt) where
+
+  fromFunPtr = hs_bindgen_fc27363846cb6139

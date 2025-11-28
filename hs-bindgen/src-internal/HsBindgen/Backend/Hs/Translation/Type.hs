@@ -15,6 +15,7 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -35,18 +36,18 @@ inContext :: HasCallStack => TypeContext -> C.Type -> Hs.HsType
 inContext ctx = go ctx
   where
     go :: TypeContext -> C.Type -> Hs.HsType
-    go _ (C.TypeTypedef (C.TypedefRegular name _)) =
-        Hs.HsTypRef (C.nameHs name)
+    go _ (C.TypeTypedef (C.TypedefRegular declId _)) =
+        Hs.HsTypRef (C.unsafeDeclIdHaskellName declId)
     go c (C.TypeTypedef (C.TypedefSquashed _name ty)) =
         go c ty
-    go _ (C.TypeStruct name _origin) =
-        Hs.HsTypRef (C.nameHs name)
-    go _ (C.TypeUnion name _origin) =
-        Hs.HsTypRef (C.nameHs name)
-    go _ (C.TypeEnum name _origin) =
-        Hs.HsTypRef (C.nameHs name)
-    go _ (C.TypeMacroTypedef name _origin) =
-        Hs.HsTypRef (C.nameHs name)
+    go _ (C.TypeStruct declId) =
+        Hs.HsTypRef (C.unsafeDeclIdHaskellName declId)
+    go _ (C.TypeUnion declId) =
+        Hs.HsTypRef (C.unsafeDeclIdHaskellName declId)
+    go _ (C.TypeEnum declId) =
+        Hs.HsTypRef (C.unsafeDeclIdHaskellName declId)
+    go _ (C.TypeMacroTypedef declId) =
+        Hs.HsTypRef (C.unsafeDeclIdHaskellName declId)
     go c C.TypeVoid =
         Hs.HsPrimType (void c)
     go _ (C.TypePrim p) =

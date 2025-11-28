@@ -28,6 +28,7 @@ import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.Naming as C
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
@@ -225,16 +226,29 @@ genBindingSpec'
     getHeaders :: C.DeclInfo -> Set HashIncludeArg
     getHeaders = getMainHeaders' . singleLocPath . C.declLoc
 
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1267>
+-- I suspect that this is where things go wrong in
+-- <https://github.com/well-typed/hs-bindgen/pull/1292>; we only look at aliases
+-- if a name is detected as anonymous, which we cannot reliably do anymore. I'm
+-- wondering if we can get rid of this source altogether, and simply record the
+-- C name as part of the DeclInfo.
 getCQualName :: C.DeclInfo -> C.NameKind -> C.QualName
-getCQualName declInfo cNameKind = case C.declOrigin declInfo of
-    C.NameOriginInSource -> C.QualName cName cNameKind
-    C.NameOriginGenerated{} ->
-      let cName' = fromMaybe cName (listToMaybe (C.declAliases declInfo))
-      in  C.QualName cName' C.NameKindOrdinary
-    C.NameOriginRenamedFrom fromCName -> C.QualName fromCName cNameKind
+getCQualName declInfo cNameKind =
+    case declInfo.declId of
+      C.DeclIdNamed named ->
+        case named.origin of
+          C.NameOriginInSource ->
+            C.QualName cName cNameKind
+          C.NameOriginGenerated{} ->
+            let cName' = fromMaybe cName (listToMaybe (C.declAliases declInfo))
+            in  C.QualName cName' C.NameKindOrdinary
+          C.NameOriginRenamedFrom fromCName ->
+            C.QualName fromCName cNameKind
+      C.DeclIdBuiltin builtin ->
+        C.QualName builtin.name cNameKind
   where
     cName :: C.Name
-    cName = C.nameC (C.declId declInfo)
+    cName = C.declIdName declInfo.declId
 
 -- TODO strategy
 -- TODO constraints

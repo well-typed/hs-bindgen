@@ -5,7 +5,6 @@ module Manual.Functions.FirstOrder (examples) where
 import Control.Monad ((<=<))
 import Foreign as F
 import Foreign.C (withCString)
-import Foreign.C qualified as FC
 import System.IO.Unsafe
 
 import HsBindgen.Runtime.FunPtr
@@ -24,19 +23,6 @@ import FunctionPointers.Safe qualified as FunPtr
 
 hashSafe :: String -> Int
 hashSafe s = fromIntegral $ unsafePerformIO $ withCString s hash
-
-{-------------------------------------------------------------------------------
-  Function pointer instances
--------------------------------------------------------------------------------}
-
-foreign import ccall "dynamic" mkApply1Fun ::
-     F.FunPtr (F.FunPtr FunPtr.Int2int -> FC.CInt -> IO FC.CInt)
-  -> F.FunPtr FunPtr.Int2int
-  -> FC.CInt
-  -> IO FC.CInt
-
-instance FromFunPtr (F.FunPtr FunPtr.Int2int -> FC.CInt -> IO FC.CInt) where
-  fromFunPtr = mkApply1Fun
 
 {-------------------------------------------------------------------------------
   Examples

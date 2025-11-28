@@ -35,8 +35,8 @@ generateHaddocksWithInfo config declInfo =
     fst $ generateHaddocksWithParams config declInfo Args{
         isField     = False
       , loc         = declInfo.declLoc
-      , nameC       = declInfo.declId.nameC
-      , nameHsIdent = declInfo.declId.nameHsIdent
+      , nameC       = C.declIdName      declInfo.declId
+      , nameHsIdent = C.declIdHaskellId declInfo.declId
       , comment     = declInfo.declComment
       , params      = []
       }
@@ -65,8 +65,8 @@ generateHaddocksWithInfoParams config declInfo params =
     generateHaddocksWithParams config declInfo Args{
         isField     = False
       , loc         = declInfo.declLoc
-      , nameC       = declInfo.declId.nameC
-      , nameHsIdent = declInfo.declId.nameHsIdent
+      , nameC       = C.declIdName      declInfo.declId
+      , nameHsIdent = C.declIdHaskellId declInfo.declId
       , comment     = declInfo.declComment
       , params
       }
@@ -96,8 +96,8 @@ data Args = Args{
 generateHaddocksWithParams :: HaddockConfig -> DeclInfo -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
 generateHaddocksWithParams HaddockConfig{..} declInfo Args{comment = Nothing, ..} =
   let (commentCName, commentLocation) =
-        case declInfo.declOrigin of
-          NameOriginGenerated (AnonId _)
+        case C.declIdIsGenerated declInfo.declId of
+          Just _
             | not isField                -> ( Nothing
                                             , Just (updateSingleLoc pathStyle loc)
                                             )
@@ -116,8 +116,8 @@ generateHaddocksWithParams HaddockConfig{..} declInfo Args{comment = Nothing, ..
       , map addFunctionParameterComment params)
 generateHaddocksWithParams HaddockConfig{..} declInfo Args{comment = Just CDoc.Comment{..}, ..} =
   let (commentCName, commentLocation) =
-        case declInfo.declOrigin of
-          NameOriginGenerated (AnonId _)
+        case C.declIdIsGenerated declInfo.declId of
+          Just _
             | not isField                -> ( Nothing
                                             , Just (updateSingleLoc pathStyle loc)
                                             )
@@ -399,7 +399,11 @@ convertInlineContent = \case
         CDoc.CXCommentInlineCommandRenderKind_Emphasized -> HsDoc.Emph args
         CDoc.CXCommentInlineCommandRenderKind_Anchor     -> HsDoc.Anchor (Text.unwords (map Text.strip inlineCommandArgs))
 
-  CDoc.InlineRefCommand (CommentRef arg) -> [HsDoc.Identifier (Hs.getIdentifier arg.nameHsIdent)]
+  CDoc.InlineRefCommand (CommentRef c mHsIdent) -> [
+      case mHsIdent of
+        Just hs -> HsDoc.Identifier (Hs.getIdentifier hs)
+        Nothing -> HsDoc.Monospace [HsDoc.TextContent $ C.getName c]
+    ]
 
   -- HTML is not currently supported
   --

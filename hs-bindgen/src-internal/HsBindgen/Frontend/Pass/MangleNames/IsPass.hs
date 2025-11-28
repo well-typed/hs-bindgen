@@ -14,6 +14,7 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -36,9 +37,10 @@ type family AnnMangleNames ix where
   AnnMangleNames _                  = NoAnn
 
 instance IsPass MangleNames where
-  type Id           MangleNames = (C.NamePair, C.NameOrigin)
+  type Id           MangleNames = C.DeclId MangleNames
   type FieldName    MangleNames = C.NamePair
   type ArgumentName MangleNames = Maybe C.NamePair
+  type HaskellId    MangleNames = Hs.Identifier
   type TypedefRef   MangleNames = RenamedTypedefRef MangleNames
   type MacroBody    MangleNames = C.CheckedMacro MangleNames
   type ExtBinding   MangleNames = ResolvedExtBinding

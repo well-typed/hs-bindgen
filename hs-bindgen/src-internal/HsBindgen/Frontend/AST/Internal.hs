@@ -333,9 +333,11 @@ newtype Comment p =
 
 -- | Cross-reference in a Doxygen comment
 --
--- We use @Id p@ here so that name mangling can do its job and we have
--- access to the right name to reference when generating Haddocks.
-newtype CommentRef p = CommentRef (Id p)
+-- Doxygen references are just strings; in particular, they do not distinguish
+-- between namespaces (i.e., @struct foo@ is simply referred to as @foo@). In
+-- 'MangleNames' we will /search/ for a matching name and set the @HaskellId@
+-- accordingly, so that we can generate an approprate reference in the Haddocks.
+data CommentRef p = CommentRef C.Name (Maybe (HaskellId p))
 
 {-------------------------------------------------------------------------------
   Macros
@@ -468,6 +470,7 @@ class ( IsPass p
       , Show (ArgumentName p)
       , Show (ExtBinding   p)
       , Show (FieldName    p)
+      , Show (HaskellId    p)
       , Show (Id           p)
       , Show (MacroBody    p)
       , Show (TypedefRef   p)
@@ -497,6 +500,7 @@ class ( IsPass p
 
       , Eq (ArgumentName p)
       , Eq (ExtBinding   p)
+      , Eq (HaskellId    p)
       , Eq (MacroBody    p)
       , Eq (TypedefRef   p)
 

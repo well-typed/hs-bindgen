@@ -67,6 +67,9 @@ module HsBindgen.Frontend.Naming (
   , NamedDeclId(..)
   , BuiltinDeclId(..)
   , declIdName
+  , declIdHaskellId
+  , declIdIsGenerated
+  , unsafeDeclIdHaskellName
     -- ** QualDeclId
   , QualDeclId(..)
   , qualDeclIdName
@@ -89,6 +92,7 @@ import Clang.LowLevel.Core
 import HsBindgen.Errors
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 
 {-------------------------------------------------------------------------------
@@ -392,22 +396,60 @@ instance PrettyForTrace NameOrigin where
 data DeclId (p :: Pass) =
     DeclIdNamed   (NamedDeclId   p)
   | DeclIdBuiltin (BuiltinDeclId p)
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Generic)
 
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1267>
+-- The name here should be the name as it is used in C.
+-- The 'origin' should go completely.
 data NamedDeclId (p :: Pass) = NamedDeclId{
-      name   :: Name
-    , origin :: NameOrigin
+      name      :: Name
+    , origin    :: NameOrigin
+    , haskellId :: HaskellId p
     }
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Generic)
 
 data BuiltinDeclId (p :: Pass) = BuiltinDeclId{
-      name :: Name
+      name      :: Name
+    , haskellId :: HaskellId p
     }
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Generic)
 
 declIdName :: DeclId p -> Name
 declIdName (DeclIdNamed   named)   = named.name
 declIdName (DeclIdBuiltin builtin) = builtin.name
+
+declIdHaskellId :: DeclId p -> HaskellId p
+declIdHaskellId (DeclIdNamed   named)   = named.haskellId
+declIdHaskellId (DeclIdBuiltin builtin) = builtin.haskellId
+
+declIdIsGenerated :: DeclId p -> Maybe AnonId
+declIdIsGenerated = \case
+    DeclIdNamed named ->
+      case named.origin of
+        NameOriginGenerated anonId -> Just anonId
+        _otherwise                 -> Nothing
+    DeclIdBuiltin _builtin ->
+      Nothing
+
+-- | Construct name in arbitrary name space
+--
+-- The caller must ensure that name rules are adhered to.
+unsafeDeclIdHaskellName :: HaskellId p ~ Hs.Identifier => DeclId p -> Hs.Name ns
+unsafeDeclIdHaskellName declId =
+    case declIdHaskellId declId of
+      Hs.Identifier name -> Hs.Name name
+
+deriving instance Show (HaskellId p) => Show (DeclId p)
+deriving instance Eq   (HaskellId p) => Eq   (DeclId p)
+deriving instance Ord  (HaskellId p) => Ord  (DeclId p)
+
+deriving instance Show (HaskellId p) => Show (NamedDeclId p)
+deriving instance Eq   (HaskellId p) => Eq   (NamedDeclId p)
+deriving instance Ord  (HaskellId p) => Ord  (NamedDeclId p)
+
+deriving instance Show (HaskellId p) => Show (BuiltinDeclId p)
+deriving instance Eq   (HaskellId p) => Eq   (BuiltinDeclId p)
+deriving instance Ord  (HaskellId p) => Ord  (BuiltinDeclId p)
 
 instance PrettyForTrace (DeclId p) where
   prettyForTrace = \case
@@ -435,7 +477,6 @@ instance PrettyForTrace (Located (NamedDeclId p)) where
       , prettyForTraceOriginLoc named.origin loc
       ]
 
-
 {-------------------------------------------------------------------------------
   QualDeclId
 -------------------------------------------------------------------------------}
@@ -445,7 +486,11 @@ data QualDeclId p = QualDeclId {
       qualDeclId     :: DeclId p
     , qualDeclIdKind :: NameKind
     }
-  deriving stock (Eq, Generic, Ord, Show)
+  deriving stock (Generic)
+
+deriving instance Show (HaskellId p) => Show (QualDeclId p)
+deriving instance Eq   (HaskellId p) => Eq   (QualDeclId p)
+deriving instance Ord  (HaskellId p) => Ord  (QualDeclId p)
 
 instance PrettyForTrace (Located (QualDeclId p)) where
   prettyForTrace (Located loc QualDeclId{..}) =

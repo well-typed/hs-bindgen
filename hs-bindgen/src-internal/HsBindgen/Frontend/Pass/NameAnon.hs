@@ -110,8 +110,9 @@ getDeclId env qualPrelimDeclId declId =
    case declId of
      C.PrelimDeclIdNamed n ->
        Right $ C.DeclIdNamed C.NamedDeclId{
-           name   = n
-         , origin = C.NameOriginInSource
+           name      = n
+         , origin    = C.NameOriginInSource
+         , haskellId = ()
          }
      C.PrelimDeclIdAnon anonId -> do
        let origin :: C.NameOrigin
@@ -120,14 +121,17 @@ getDeclId env qualPrelimDeclId declId =
          Just name -> Right $ C.DeclIdNamed C.NamedDeclId{
              name
            , origin
+           , haskellId = ()
            }
-         Nothing   -> Left $ C.DeclIdNamed C.NamedDeclId{
-             name = "unused_anonymous"
+         Nothing -> Left $ C.DeclIdNamed C.NamedDeclId{
+             name      = "unused_anonymous"
            , origin
+           , haskellId = ()
            }
      C.PrelimDeclIdBuiltin name ->
        Right $ C.DeclIdBuiltin C.BuiltinDeclId{
            name
+         , haskellId = ()
          }
 
 {-------------------------------------------------------------------------------
@@ -156,20 +160,7 @@ instance NameUseSites C.FieldInfo where
     }
 
 instance NameUseSites C.CommentRef where
-  nameUseSites _ (C.CommentRef t) = C.CommentRef (nameUseSite t)
-    where
-      nameUseSite :: C.PrelimDeclId -> C.DeclId NameAnon
-      nameUseSite qualPrelimDeclId =
-          case qualPrelimDeclId of
-            C.PrelimDeclIdNamed name -> C.DeclIdNamed C.NamedDeclId{
-                name
-              , origin = C.NameOriginInSource
-              }
-            C.PrelimDeclIdBuiltin name -> C.DeclIdBuiltin C.BuiltinDeclId{
-                name
-              }
-            C.PrelimDeclIdAnon _ ->
-              panicPure "Anonymous reference"
+  nameUseSites _ (C.CommentRef c hs) = C.CommentRef c hs
 
 instance NameUseSites C.Comment where
   nameUseSites env (C.Comment comment) =
@@ -276,17 +267,20 @@ instance NameUseSites C.Type where
             C.QualPrelimDeclIdNamed name _ns ->
               C.DeclIdNamed C.NamedDeclId{
                   name
-                , origin = C.NameOriginInSource
+                , origin    = C.NameOriginInSource
+                , haskellId = ()
                 }
             C.QualPrelimDeclIdBuiltin name  ->
               C.DeclIdBuiltin C.BuiltinDeclId{
                   name
+                , haskellId = ()
                 }
             C.QualPrelimDeclIdAnon anonId _tk ->
               case findNamedUseOf env qualPrelimDeclId of
                 Just useOfAnon -> C.DeclIdNamed C.NamedDeclId{
-                    name   = nameForAnon useOfAnon
-                  , origin = C.NameOriginGenerated anonId
+                    name      = nameForAnon useOfAnon
+                  , origin    = C.NameOriginGenerated anonId
+                  , haskellId = ()
                   }
                 Nothing ->
                   panicPure "unused anonymous declaration?"

@@ -742,11 +742,10 @@ varDecl info = \curr -> do
 -------------------------------------------------------------------------------}
 
 parseCommentReferences :: CDoc.Comment Text -> C.Comment Parse
-parseCommentReferences = C.Comment
-                       . fmap ( C.CommentRef
-                              . C.PrelimDeclIdNamed
-                              . C.Name
-                              )
+parseCommentReferences comment = C.Comment (fmap auxRefs comment)
+  where
+    auxRefs :: Text -> C.CommentRef Parse
+    auxRefs ref = C.CommentRef (C.Name ref) Nothing
 
 -- | Partition declarations into anonymous and non-anonymous
 --
