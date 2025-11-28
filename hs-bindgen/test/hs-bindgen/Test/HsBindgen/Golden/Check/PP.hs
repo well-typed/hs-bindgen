@@ -72,7 +72,7 @@ check testResources test =
 
     -- | The names of sub-modules are based solely on the binding category
     fixture :: BindingCategory -> FilePath
-    fixture bc = testOutputDir test </> addSubmodule "Example" <.> "pp" <.> "hs"
+    fixture bc = testOutputDir test </> addSubmodule "Example" <.> "hs"
       where
         addSubmodule :: FilePath -> FilePath
         addSubmodule = case bc of
