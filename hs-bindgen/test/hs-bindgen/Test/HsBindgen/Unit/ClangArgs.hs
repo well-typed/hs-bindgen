@@ -86,6 +86,8 @@ parseTargetTripleLenientTests = testGroup "parseTargetTripleLenient" [
     , aux "x86_64-unknown-windows-msvc" (Just Target_Windows_MSVC_X86_64)
       -- Supported alternate Windows operating system enironments
     , aux "x86_64-w64-windows-mingw32" (Just Target_Windows_GNU_X86_64)
+      -- Supported Windows target triple with appended MSVC version number
+    , aux "x86_64-pc-windows-msvc19.50.35717" (Just Target_Windows_MSVC_X86_64)
       -- Invalid Windows target triples
     , aux "i686-pc-windows-msvc" Nothing -- Windows 32-bit not supported
       -- Canonical Darwin target triples

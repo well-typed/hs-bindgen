@@ -234,11 +234,14 @@ parseTargetTripleLenient tt =
     -- 3. A single component (1) is the operating system.
     -- 4. Any number of componenents (0+) is the operating system environment.
     --
+    -- The operating system component decides how the other components are
+    -- interpreted.
+    --
     -- With @darwin@ and @macos@ target triples, the operating system version is
     -- generally appended to the operating system component (without a dash).
     --
-    -- The operating system component decides how the other components are
-    -- interpreted.
+    -- With @windows@ @msvc@ target triples, the MSVC version may be appended to
+    -- the operating system environment component (without a dash).
     case splitDash tt of
       (arch : ss)
         | Just (vendor, env) <- splitExact  "linux"   ss ->
@@ -272,9 +275,12 @@ parseTargetTripleLenient tt =
     parseWindows arch vendor env
       | arch `notElem` x8664 = Nothing
       | vendor `notElem` [[], ["pc"], ["w64"], ["unknown"]] = Nothing
-      | env == ["msvc"] = Just Target_Windows_MSVC_X86_64
-      | env `elem` [["gnu"], ["mingw32"]] = Just Target_Windows_GNU_X86_64
-      | otherwise = Nothing
+      | otherwise = case env of
+          [s]
+            | "msvc" `List.isPrefixOf` s -> Just Target_Windows_MSVC_X86_64
+            | s == "gnu"                 -> Just Target_Windows_GNU_X86_64
+            | s == "mingw32"             -> Just Target_Windows_GNU_X86_64
+          _otherwise                     -> Nothing
 
     parseDarwin :: String -> [String] -> [String] -> Maybe Target
     parseDarwin arch vendor _env
