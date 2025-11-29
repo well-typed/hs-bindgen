@@ -49,6 +49,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 {-| Pointer-based API for 'thing_fun_1'
 
+__unique:__ @ExampleJust Unsafething_fun_1@
 -}
 foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_409d8c948bf989f6" thing_fun_1_wrapper ::
      Ptr.Ptr Thing
@@ -70,6 +71,7 @@ thing_fun_1 =
 
 {-| Pointer-based API for 'thing_fun_2'
 
+__unique:__ @ExampleJust Unsafething_fun_2@
 -}
 foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_2d20059791239ef2" thing_fun_2_wrapper ::
      FC.CInt
@@ -94,6 +96,7 @@ thing_fun_2 =
 
 {-| Pointer-based API for 'thing_fun_3a'
 
+__unique:__ @ExampleJust Unsafething_fun_3a@
 -}
 foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_ce442967da2c37cd" thing_fun_3a_wrapper ::
      FC.CInt
@@ -129,6 +132,7 @@ thing_fun_3a =
 
 {-| Pointer-based API for 'thing_fun_3b'
 
+__unique:__ @ExampleJust Unsafething_fun_3b@
 -}
 foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_e8bc8fce45854092" thing_fun_3b_wrapper ::
      FC.CInt

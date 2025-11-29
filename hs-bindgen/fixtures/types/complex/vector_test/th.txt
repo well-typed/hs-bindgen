@@ -71,6 +71,8 @@ instance TyEq ty (CFieldType Vector "vector_y") =>
     __defined at:__ @types\/complex\/vector_test.h:6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
+
+    __unique:__ @ExampleJust Unsafenew_vector@
 -}
 foreign import ccall safe "hs_bindgen_test_typescomplexvector_test_c8cd49ec7dbcac25" new_vector :: CDouble ->
                                                                                                    CDouble ->
@@ -80,10 +82,14 @@ foreign import ccall safe "hs_bindgen_test_typescomplexvector_test_c8cd49ec7dbca
     __defined at:__ @types\/complex\/vector_test.h:6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
+
+    __unique:__ @ExampleJust Unsafenew_vector@
 -}
 foreign import ccall safe "hs_bindgen_test_typescomplexvector_test_30a7381111c0131a" new_vector :: CDouble ->
                                                                                                    CDouble ->
                                                                                                    IO (Ptr Vector)
+{-| __unique:__ @ExampleNothingget_new_vector_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998" hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998 :: IO (FunPtr (CDouble ->
                                                                                                                                                              CDouble ->
                                                                                                                                                              IO (Ptr Vector)))

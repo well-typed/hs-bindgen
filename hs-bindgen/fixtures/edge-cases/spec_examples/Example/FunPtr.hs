@@ -29,6 +29,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_resample_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5" hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()))
 

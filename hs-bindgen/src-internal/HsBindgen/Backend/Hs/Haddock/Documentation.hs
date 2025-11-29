@@ -11,6 +11,12 @@ module HsBindgen.Backend.Hs.Haddock.Documentation (
   , CommentBlockContent(..)
   , HeaderLevel(..)
   , ListType(..)
+    -- * Construction helpers
+  , title
+  , simple
+  , uniqueSymbol
+  , paragraph
+  , monospace
   ) where
 
 import Data.Semigroup (First (..))
@@ -21,6 +27,7 @@ import GHC.Natural (Natural)
 import Clang.HighLevel.Types
 
 import HsBindgen.Backend.Hs.AST.Type (HsType)
+import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.AST.External qualified as C
 
 {-------------------------------------------------------------------------------
@@ -29,26 +36,52 @@ import HsBindgen.Frontend.AST.External qualified as C
 
 -- | Haddock documentation representation
 --
-data Comment = Comment
-  { commentTitle      :: Maybe [CommentInlineContent] -- ^ Comment title
-  , commentOrigin     :: Maybe Text                   -- ^ Original C name reference
-  , commentLocation   :: Maybe SingleLoc              -- ^ The source location of
-                                                      --   the original C name reference
-  , commentHeaderInfo :: Maybe C.HeaderInfo           -- ^ Header information
-  , commentChildren   :: [CommentBlockContent]        -- ^ Comment content
+data Comment = Comment {
+    -- | Comment title
+    commentTitle :: Maybe [CommentInlineContent]
+
+    -- | Original C name reference
+  , commentOrigin :: Maybe Text
+
+    -- | The source location of the original C name reference
+  , commentLocation :: Maybe SingleLoc
+
+    -- | Header information
+  , commentHeaderInfo :: Maybe C.HeaderInfo
+
+    -- | Unique symbol used to generate this binding
+  , commentUnique :: Maybe UniqueSymbol
+
+    -- | | Comment content
+  , commentChildren :: [CommentBlockContent]
   }
   deriving (Show, Eq, Generic)
 
 instance Semigroup Comment where
-  Comment t o l h c <> Comment t' o' l' h' c' =
-    Comment (t <> t')
-            (fmap getFirst $ ((fmap First o) <> (fmap First o')))
-            (fmap getFirst $ ((fmap First l) <> (fmap First l')))
-            (fmap getFirst $ ((fmap First h) <> (fmap First h')))
-            (c <> c')
+  a <> b = Comment {
+        commentTitle      = combine commentTitle      (<>)
+      , commentOrigin     = combine commentOrigin     first
+      , commentLocation   = combine commentLocation   first
+      , commentHeaderInfo = combine commentHeaderInfo first
+      , commentUnique     = combine commentUnique     first
+      , commentChildren   = combine commentChildren   (<>)
+      }
+    where
+      combine :: (Comment -> a) -> (a -> a -> a) -> a
+      combine f op = f a `op` f b
+
+      first :: Maybe a -> Maybe a -> Maybe a
+      first x y = fmap getFirst (fmap First x <> fmap First y)
 
 instance Monoid Comment where
-  mempty = Comment Nothing Nothing Nothing Nothing []
+  mempty = Comment {
+        commentTitle      = Nothing
+      , commentOrigin     = Nothing
+      , commentLocation   = Nothing
+      , commentHeaderInfo = Nothing
+      , commentUnique     = Nothing
+      , commentChildren   = []
+      }
 
 -- | Block-level Haddock content
 --
@@ -153,3 +186,26 @@ data CommentInlineContent
 data CommentMeta
   = Since { sinceContent :: Text } -- ^ @since 1.0
   deriving (Show, Eq, Generic)
+
+{-------------------------------------------------------------------------------
+  Construction helpers
+-------------------------------------------------------------------------------}
+
+-- | Title only
+title :: [CommentInlineContent] -> Comment
+title content = mempty{commentTitle = Just content }
+
+-- | Content only
+simple :: [CommentBlockContent] -> Comment
+simple content = mempty{commentChildren = content}
+
+-- | Just record a unique symbol
+uniqueSymbol :: UniqueSymbol -> Comment
+uniqueSymbol unique = mempty{commentUnique = Just unique}
+
+-- | Single paragraph comment
+paragraph :: [CommentInlineContent] -> Comment
+paragraph = simple . (:[]) . Paragraph
+
+monospace :: Text -> CommentInlineContent
+monospace = Monospace . (:[]) . TextContent

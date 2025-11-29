@@ -41,6 +41,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_normal_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_functionsdecls_in_signature_b040d51578b7b05e" hs_bindgen_test_functionsdecls_in_signature_b040d51578b7b05e ::
      IO (Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO ()))
 
@@ -56,6 +58,8 @@ normal_ptr :: Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO
 normal_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsdecls_in_signature_b040d51578b7b05e
 
+{-| __unique:__ @ExampleNothingget_f1_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_functionsdecls_in_signature_5469bdc0395f86c1" hs_bindgen_test_functionsdecls_in_signature_5469bdc0395f86c1 ::
      IO (Ptr.FunPtr (Named_struct -> IO ()))
 
@@ -75,6 +79,8 @@ f1_ptr :: Ptr.FunPtr (Named_struct -> IO ())
 f1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsdecls_in_signature_5469bdc0395f86c1
 
+{-| __unique:__ @ExampleNothingget_f2_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_functionsdecls_in_signature_490ca7e8c8282a69" hs_bindgen_test_functionsdecls_in_signature_490ca7e8c8282a69 ::
      IO (Ptr.FunPtr (Named_union -> IO ()))
 

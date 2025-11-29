@@ -90,6 +90,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:8:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Unsafequux1@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_d8e3530b80cd03ff" quux1 ::
      MC
@@ -105,6 +107,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_d8e35
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:9:4@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Unsafequux2@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_857e3b8d0292d39d" quux2 ::
      MC
@@ -120,6 +124,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_857e3
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:10:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Unsafewam1@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_81d53aede4a7b424" wam1 ::
      FC.CFloat
@@ -135,6 +141,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_81d53
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:11:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Unsafewam2@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_035abb3b83b92fea" wam2 ::
      FC.CFloat
@@ -150,6 +158,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_035ab
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:23:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Unsafestruct_typedef1@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_34300aead966e212" struct_typedef1 ::
      Ptr.Ptr Struct2
@@ -165,6 +175,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_34300
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:24:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Unsafestruct_typedef2@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_cc4abaeb55d1e034" struct_typedef2 ::
      Ptr.Ptr Struct3_t
@@ -180,6 +192,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_cc4ab
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:25:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Unsafestruct_typedef3@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_d068247e5a3b03e6" struct_typedef3 ::
      Ptr.Ptr Struct4
@@ -195,6 +209,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_d0682
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:27:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Unsafestruct_name1@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_4107c49ec0f22d0c" struct_name1 ::
      Ptr.Ptr Struct1
@@ -210,6 +226,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_4107c
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:28:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Unsafestruct_name2@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_124c6e0ae4b86063" struct_name2 ::
      Ptr.Ptr Struct3
@@ -225,6 +243,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_124c6
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:29:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Unsafestruct_name3@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_4241bc0cd1393d99" struct_name3 ::
      Ptr.Ptr Struct4

@@ -90,6 +90,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:8:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Safequux1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_c7ba346f3006b36f" quux1 ::
      MC
@@ -105,6 +107,8 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_c7ba346
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:9:4@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Safequux2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_db114519a8645d1f" quux2 ::
      MC
@@ -120,6 +124,8 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_db11451
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:10:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Safewam1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_0a613fb26d413eaa" wam1 ::
      FC.CFloat
@@ -135,6 +141,8 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_0a613fb
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:11:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Safewam2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_279b15c6940eb4f8" wam2 ::
      FC.CFloat
@@ -150,6 +158,8 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_279b15c
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:23:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Safestruct_typedef1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_27a965a9bfd8c176" struct_typedef1 ::
      Ptr.Ptr Struct2
@@ -165,6 +175,8 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_27a965a
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:24:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Safestruct_typedef2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_8e7c55302a7b5716" struct_typedef2 ::
      Ptr.Ptr Struct3_t
@@ -180,6 +192,8 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_8e7c553
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:25:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Safestruct_typedef3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_fe83edb35a817050" struct_typedef3 ::
      Ptr.Ptr Struct4
@@ -195,6 +209,8 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_fe83edb
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:27:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Safestruct_name1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_162df9fabcbef0c4" struct_name1 ::
      Ptr.Ptr Struct1
@@ -210,6 +226,8 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_162df9f
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:28:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Safestruct_name2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a6b5f272333b19d4" struct_name2 ::
      Ptr.Ptr Struct3
@@ -225,6 +243,8 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a6b5f27
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:29:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @ExampleJust Safestruct_name3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_9eadc48880259e4a" struct_name3 ::
      Ptr.Ptr Struct4

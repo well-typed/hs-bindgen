@@ -26,6 +26,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_some_fun_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c" hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c ::
      IO (Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32))
 

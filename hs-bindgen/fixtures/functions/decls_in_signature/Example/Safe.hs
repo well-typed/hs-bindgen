@@ -37,6 +37,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 {-| Pointer-based API for 'normal'
 
+__unique:__ @ExampleJust Safenormal@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_001a08d4459ec455" normal_wrapper ::
      Ptr.Ptr Opaque
@@ -68,6 +69,7 @@ normal =
 
 {-| Pointer-based API for 'f1'
 
+__unique:__ @ExampleJust Safef1@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_a2f84d2570ef3892" f1_wrapper ::
      Ptr.Ptr Named_struct
@@ -92,6 +94,7 @@ f1 = \x0 -> F.with x0 (\y1 -> f1_wrapper y1)
 
 {-| Pointer-based API for 'f2'
 
+__unique:__ @ExampleJust Safef2@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_1d043de05a457e90" f2_wrapper ::
      Ptr.Ptr Named_union

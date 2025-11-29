@@ -40,6 +40,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_a_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typesqualifierstype_qualifie_3afcbd8536cf21bd" hs_bindgen_test_typesqualifierstype_qualifie_3afcbd8536cf21bd ::
      IO (Ptr.Ptr FC.CInt)
 
@@ -60,6 +62,8 @@ a_ptr =
 a :: FC.CInt
 a = GHC.IO.Unsafe.unsafePerformIO (F.peek a_ptr)
 
+{-| __unique:__ @ExampleNothingget_b_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typesqualifierstype_qualifie_fcd0c984d664f6ee" hs_bindgen_test_typesqualifierstype_qualifie_fcd0c984d664f6ee ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
 
@@ -75,6 +79,8 @@ b_ptr :: Ptr.Ptr (Ptr.Ptr FC.CInt)
 b_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesqualifierstype_qualifie_fcd0c984d664f6ee
 
+{-| __unique:__ @ExampleNothingget_c_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typesqualifierstype_qualifie_d61ea07e27589aef" hs_bindgen_test_typesqualifierstype_qualifie_d61ea07e27589aef ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
 
@@ -95,6 +101,8 @@ c_ptr =
 c :: Ptr.Ptr FC.CInt
 c = GHC.IO.Unsafe.unsafePerformIO (F.peek c_ptr)
 
+{-| __unique:__ @ExampleNothingget_d_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typesqualifierstype_qualifie_d1d6489b06a70107" hs_bindgen_test_typesqualifierstype_qualifie_d1d6489b06a70107 ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
 

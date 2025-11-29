@@ -23,6 +23,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_f_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d" hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d ::
      IO (Ptr.FunPtr (A -> IO ()))
 

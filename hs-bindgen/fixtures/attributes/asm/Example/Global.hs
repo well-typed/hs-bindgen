@@ -21,6 +21,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_asm_labeled_variable_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_attributesasm_f13c50d1f1661525" hs_bindgen_test_attributesasm_f13c50d1f1661525 ::
      IO (Ptr.Ptr FC.CInt)
 

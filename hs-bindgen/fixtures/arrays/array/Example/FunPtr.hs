@@ -228,6 +228,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_fun_1_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_3ced2f3b2af806f8" hs_bindgen_test_arraysarray_3ced2f3b2af806f8 ::
      IO (Ptr.FunPtr (FC.CInt -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) -> IO FC.CInt))
 
@@ -245,6 +247,8 @@ fun_1_ptr :: Ptr.FunPtr (FC.CInt -> ((HsBindgen.Runtime.ConstantArray.ConstantAr
 fun_1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_3ced2f3b2af806f8
 
+{-| __unique:__ @ExampleNothingget_fun_2_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_84966994a8d7df93" hs_bindgen_test_arraysarray_84966994a8d7df93 ::
      IO (Ptr.FunPtr (Triplet -> IO FC.CInt))
 
@@ -262,6 +266,8 @@ fun_2_ptr :: Ptr.FunPtr (Triplet -> IO FC.CInt)
 fun_2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_84966994a8d7df93
 
+{-| __unique:__ @ExampleNothingget_fun_3_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_3e6c940dbd7e5492" hs_bindgen_test_arraysarray_3e6c940dbd7e5492 ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt) -> IO FC.CInt))
 
@@ -279,6 +285,8 @@ fun_3_ptr :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.C
 fun_3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_3e6c940dbd7e5492
 
+{-| __unique:__ @ExampleNothingget_fun_4_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_d9f87d3e541b15e5" hs_bindgen_test_arraysarray_d9f87d3e541b15e5 ::
      IO (Ptr.FunPtr (List -> IO FC.CInt))
 
@@ -296,6 +304,8 @@ fun_4_ptr :: Ptr.FunPtr (List -> IO FC.CInt)
 fun_4_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_d9f87d3e541b15e5
 
+{-| __unique:__ @ExampleNothingget_fun_5_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_cd41e41992d89300" hs_bindgen_test_arraysarray_cd41e41992d89300 ::
      IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt))
 
@@ -313,6 +323,8 @@ fun_5_ptr :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((Hs
 fun_5_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_cd41e41992d89300
 
+{-| __unique:__ @ExampleNothingget_fun_6_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_db0e2655437ab8bb" hs_bindgen_test_arraysarray_db0e2655437ab8bb ::
      IO (Ptr.FunPtr (Matrix -> IO FC.CInt))
 
@@ -330,6 +342,8 @@ fun_6_ptr :: Ptr.FunPtr (Matrix -> IO FC.CInt)
 fun_6_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_db0e2655437ab8bb
 
+{-| __unique:__ @ExampleNothingget_fun_7_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_9ec02aa16b020aa0" hs_bindgen_test_arraysarray_9ec02aa16b020aa0 ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt))
 
@@ -347,6 +361,8 @@ fun_7_ptr :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray ((Hs
 fun_7_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_9ec02aa16b020aa0
 
+{-| __unique:__ @ExampleNothingget_fun_8_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_a41b8d1332b69b95" hs_bindgen_test_arraysarray_a41b8d1332b69b95 ::
      IO (Ptr.FunPtr (Tripletlist -> IO FC.CInt))
 
@@ -364,6 +380,8 @@ fun_8_ptr :: Ptr.FunPtr (Tripletlist -> IO FC.CInt)
 fun_8_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_a41b8d1332b69b95
 
+{-| __unique:__ @ExampleNothingget_isSolved_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_bdf2a6a8a3dd5b04" hs_bindgen_test_arraysarray_bdf2a6a8a3dd5b04 ::
      IO (Ptr.FunPtr (Sudoku -> IO FC.CInt))
 
@@ -381,6 +399,8 @@ isSolved_ptr :: Ptr.FunPtr (Sudoku -> IO FC.CInt)
 isSolved_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_bdf2a6a8a3dd5b04
 
+{-| __unique:__ @ExampleNothingget_fun_1_const_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_a3de5f7e233ad0e1" hs_bindgen_test_arraysarray_a3de5f7e233ad0e1 ::
      IO (Ptr.FunPtr (FC.CInt -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) -> IO FC.CInt))
 
@@ -398,6 +418,8 @@ fun_1_const_ptr :: Ptr.FunPtr (FC.CInt -> ((HsBindgen.Runtime.ConstantArray.Cons
 fun_1_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_a3de5f7e233ad0e1
 
+{-| __unique:__ @ExampleNothingget_fun_2_const_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_3c09bbba7534ca1d" hs_bindgen_test_arraysarray_3c09bbba7534ca1d ::
      IO (Ptr.FunPtr (Triplet -> Triplet -> IO FC.CInt))
 
@@ -415,6 +437,8 @@ fun_2_const_ptr :: Ptr.FunPtr (Triplet -> Triplet -> IO FC.CInt)
 fun_2_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_3c09bbba7534ca1d
 
+{-| __unique:__ @ExampleNothingget_fun_3_const_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_0e53ed28ec1ca276" hs_bindgen_test_arraysarray_0e53ed28ec1ca276 ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt) -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt) -> IO FC.CInt))
 
@@ -432,6 +456,8 @@ fun_3_const_ptr :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArra
 fun_3_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_0e53ed28ec1ca276
 
+{-| __unique:__ @ExampleNothingget_fun_4_const_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_07d860d5e74c415b" hs_bindgen_test_arraysarray_07d860d5e74c415b ::
      IO (Ptr.FunPtr (List -> List -> IO FC.CInt))
 
@@ -449,6 +475,8 @@ fun_4_const_ptr :: Ptr.FunPtr (List -> List -> IO FC.CInt)
 fun_4_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_07d860d5e74c415b
 
+{-| __unique:__ @ExampleNothingget_fun_5_const_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_3c0a139c24d7202a" hs_bindgen_test_arraysarray_3c0a139c24d7202a ::
      IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt))
 
@@ -466,6 +494,8 @@ fun_5_const_ptr :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 4
 fun_5_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_3c0a139c24d7202a
 
+{-| __unique:__ @ExampleNothingget_fun_6_const_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_62d236581cc18366" hs_bindgen_test_arraysarray_62d236581cc18366 ::
      IO (Ptr.FunPtr (Matrix -> Matrix -> IO FC.CInt))
 
@@ -483,6 +513,8 @@ fun_6_const_ptr :: Ptr.FunPtr (Matrix -> Matrix -> IO FC.CInt)
 fun_6_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_62d236581cc18366
 
+{-| __unique:__ @ExampleNothingget_fun_7_const_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_b4bf67c3cec12e54" hs_bindgen_test_arraysarray_b4bf67c3cec12e54 ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt))
 
@@ -500,6 +532,8 @@ fun_7_const_ptr :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArra
 fun_7_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_b4bf67c3cec12e54
 
+{-| __unique:__ @ExampleNothingget_fun_8_const_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_99dd6a6017eb0eec" hs_bindgen_test_arraysarray_99dd6a6017eb0eec ::
      IO (Ptr.FunPtr (Tripletlist -> Tripletlist -> IO FC.CInt))
 
@@ -517,6 +551,8 @@ fun_8_const_ptr :: Ptr.FunPtr (Tripletlist -> Tripletlist -> IO FC.CInt)
 fun_8_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_99dd6a6017eb0eec
 
+{-| __unique:__ @ExampleNothingget_isSolved_const_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_6deec046c95e4e0d" hs_bindgen_test_arraysarray_6deec046c95e4e0d ::
      IO (Ptr.FunPtr (Sudoku -> Sudoku -> IO FC.CInt))
 
@@ -534,6 +570,8 @@ isSolved_const_ptr :: Ptr.FunPtr (Sudoku -> Sudoku -> IO FC.CInt)
 isSolved_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_6deec046c95e4e0d
 
+{-| __unique:__ @ExampleNothingget_fun_9_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_76f53f330102e743" hs_bindgen_test_arraysarray_76f53f330102e743 ::
      IO (Ptr.FunPtr (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))))
 
@@ -551,6 +589,8 @@ fun_9_ptr :: Ptr.FunPtr (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantA
 fun_9_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_76f53f330102e743
 
+{-| __unique:__ @ExampleNothingget_fun_10_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_abcc94f01de77b25" hs_bindgen_test_arraysarray_abcc94f01de77b25 ::
      IO (Ptr.FunPtr (IO (Ptr.Ptr Triplet)))
 
@@ -568,6 +608,8 @@ fun_10_ptr :: Ptr.FunPtr (IO (Ptr.Ptr Triplet))
 fun_10_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_abcc94f01de77b25
 
+{-| __unique:__ @ExampleNothingget_fun_11_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_6661b46e4a751a85" hs_bindgen_test_arraysarray_6661b46e4a751a85 ::
      IO (Ptr.FunPtr (IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))))
 
@@ -585,6 +627,8 @@ fun_11_ptr :: Ptr.FunPtr (IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.Incompl
 fun_11_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_6661b46e4a751a85
 
+{-| __unique:__ @ExampleNothingget_fun_12_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_9c80a9e3300aad15" hs_bindgen_test_arraysarray_9c80a9e3300aad15 ::
      IO (Ptr.FunPtr (IO (Ptr.Ptr List)))
 
@@ -602,6 +646,8 @@ fun_12_ptr :: Ptr.FunPtr (IO (Ptr.Ptr List))
 fun_12_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_9c80a9e3300aad15
 
+{-| __unique:__ @ExampleNothingget_fun_13_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_bb741b7e8c029e7e" hs_bindgen_test_arraysarray_bb741b7e8c029e7e ::
      IO (Ptr.FunPtr (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))))
 
@@ -619,6 +665,8 @@ fun_13_ptr :: Ptr.FunPtr (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.Constant
 fun_13_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_bb741b7e8c029e7e
 
+{-| __unique:__ @ExampleNothingget_fun_14_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_75d83252a55a5c64" hs_bindgen_test_arraysarray_75d83252a55a5c64 ::
      IO (Ptr.FunPtr (IO (Ptr.Ptr Matrix)))
 
@@ -636,6 +684,8 @@ fun_14_ptr :: Ptr.FunPtr (IO (Ptr.Ptr Matrix))
 fun_14_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_75d83252a55a5c64
 
+{-| __unique:__ @ExampleNothingget_fun_15_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_069ac2d1873f3210" hs_bindgen_test_arraysarray_069ac2d1873f3210 ::
      IO (Ptr.FunPtr (IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))))
 
@@ -653,6 +703,8 @@ fun_15_ptr :: Ptr.FunPtr (IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.Incompl
 fun_15_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_069ac2d1873f3210
 
+{-| __unique:__ @ExampleNothingget_fun_16_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_314971335aaa6db3" hs_bindgen_test_arraysarray_314971335aaa6db3 ::
      IO (Ptr.FunPtr (IO (Ptr.Ptr Tripletlist)))
 
@@ -670,6 +722,8 @@ fun_16_ptr :: Ptr.FunPtr (IO (Ptr.Ptr Tripletlist))
 fun_16_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_arraysarray_314971335aaa6db3
 
+{-| __unique:__ @ExampleNothingget_solve_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_arraysarray_9a62b5848be64bd4" hs_bindgen_test_arraysarray_9a62b5848be64bd4 ::
      IO (Ptr.FunPtr (IO (Ptr.Ptr Sudoku)))
 

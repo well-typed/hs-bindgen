@@ -55,6 +55,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_arr1_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_manualarrays_1693226264ba4aeb" hs_bindgen_test_manualarrays_1693226264ba4aeb ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt))
 
@@ -72,6 +74,8 @@ arr1_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt)
 arr1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_1693226264ba4aeb
 
+{-| __unique:__ @ExampleNothingget_arr2_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_manualarrays_dafcf99a73b93389" hs_bindgen_test_manualarrays_dafcf99a73b93389 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
 
@@ -89,6 +93,8 @@ arr2_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 arr2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_dafcf99a73b93389
 
+{-| __unique:__ @ExampleNothingget_arr3_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_manualarrays_ca1016acc3449dee" hs_bindgen_test_manualarrays_ca1016acc3449dee ::
      IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
 
@@ -106,6 +112,8 @@ arr3_ptr :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
 arr3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_ca1016acc3449dee
 
+{-| __unique:__ @ExampleNothingget_sudoku_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_manualarrays_76857c9492b9374d" hs_bindgen_test_manualarrays_76857c9492b9374d ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 
@@ -123,6 +131,8 @@ sudoku_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBin
 sudoku_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_76857c9492b9374d
 
+{-| __unique:__ @ExampleNothingget_triplets_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_manualarrays_76f4df4c63822352" hs_bindgen_test_manualarrays_76f4df4c63822352 ::
      IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 
@@ -140,6 +150,8 @@ triplets_ptr :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsB
 triplets_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_76f4df4c63822352
 
+{-| __unique:__ @ExampleNothingget_global_triplet_ptrs_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_manualarrays_f5de5a56e036b125" hs_bindgen_test_manualarrays_f5de5a56e036b125 ::
      IO (Ptr.Ptr Triplet_ptrs)
 

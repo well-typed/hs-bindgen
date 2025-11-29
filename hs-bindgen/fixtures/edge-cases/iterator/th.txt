@@ -252,6 +252,8 @@ instance HasCField VarCounter "un_VarCounter"
     __defined at:__ @edge-cases\/iterator.h:4:8@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafemakeToggle@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_900530c0457bf5ee" makeToggle :: CBool ->
                                                                                              IO Toggle
@@ -260,6 +262,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_900530c0457bf5ee" m
     __defined at:__ @edge-cases\/iterator.h:5:6@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafetoggleNext@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_0584fdb88b39872d" toggleNext :: Toggle ->
                                                                                              IO CBool
@@ -268,6 +272,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_0584fdb88b39872d" t
     __defined at:__ @edge-cases\/iterator.h:6:6@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafereleaseToggle@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_6d013ab8b38fc1d9" releaseToggle :: Toggle ->
                                                                                                 IO Unit
@@ -276,6 +282,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_6d013ab8b38fc1d9" r
     __defined at:__ @edge-cases\/iterator.h:11:9@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafemakeCounter@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_10d749b6b17037ba" makeCounter :: CInt ->
                                                                                               CInt ->
@@ -285,6 +293,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_10d749b6b17037ba" m
     __defined at:__ @edge-cases\/iterator.h:12:5@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafecounterNext@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_9695aacc59a66573" counterNext :: Counter ->
                                                                                               IO CInt
@@ -293,6 +303,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_9695aacc59a66573" c
     __defined at:__ @edge-cases\/iterator.h:13:6@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafereleaseCounter@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_49a436aa15c7ea70" releaseCounter :: Counter ->
                                                                                                  IO Unit
@@ -301,6 +313,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_49a436aa15c7ea70" r
     __defined at:__ @edge-cases\/iterator.h:18:12@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafemakeVarCounter@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_f12a50c4468834b5" makeVarCounter :: CInt ->
                                                                                                  IO VarCounter
@@ -309,6 +323,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_f12a50c4468834b5" m
     __defined at:__ @edge-cases\/iterator.h:19:5@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafevarCounterNext@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_2c8a2667de9b1ffb" varCounterNext :: VarCounter ->
                                                                                                  CInt ->
@@ -318,6 +334,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_2c8a2667de9b1ffb" v
     __defined at:__ @edge-cases\/iterator.h:20:6@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafereleaseVarCounter@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_023ae1f9abf46556" releaseVarCounter :: VarCounter ->
                                                                                                     IO Unit
@@ -326,6 +344,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_023ae1f9abf46556" r
     __defined at:__ @edge-cases\/iterator.h:4:8@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafemakeToggle@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_bd3974ddabfde9b8" makeToggle :: CBool ->
                                                                                              IO Toggle
@@ -334,6 +354,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_bd3974ddabfde9b8" m
     __defined at:__ @edge-cases\/iterator.h:5:6@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafetoggleNext@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_055df53eaf199b0e" toggleNext :: Toggle ->
                                                                                              IO CBool
@@ -342,6 +364,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_055df53eaf199b0e" t
     __defined at:__ @edge-cases\/iterator.h:6:6@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafereleaseToggle@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_07fb95f9614be94f" releaseToggle :: Toggle ->
                                                                                                 IO Unit
@@ -350,6 +374,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_07fb95f9614be94f" r
     __defined at:__ @edge-cases\/iterator.h:11:9@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafemakeCounter@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_af5aabad780cc152" makeCounter :: CInt ->
                                                                                               CInt ->
@@ -359,6 +385,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_af5aabad780cc152" m
     __defined at:__ @edge-cases\/iterator.h:12:5@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafecounterNext@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_009eccead86c2acf" counterNext :: Counter ->
                                                                                               IO CInt
@@ -367,6 +395,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_009eccead86c2acf" c
     __defined at:__ @edge-cases\/iterator.h:13:6@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafereleaseCounter@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_74f266597157c353" releaseCounter :: Counter ->
                                                                                                  IO Unit
@@ -375,6 +405,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_74f266597157c353" r
     __defined at:__ @edge-cases\/iterator.h:18:12@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafemakeVarCounter@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_61a09dd9011981f5" makeVarCounter :: CInt ->
                                                                                                  IO VarCounter
@@ -383,6 +415,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_61a09dd9011981f5" m
     __defined at:__ @edge-cases\/iterator.h:19:5@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafevarCounterNext@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_4d944ebb7dc53d23" varCounterNext :: VarCounter ->
                                                                                                  CInt ->
@@ -392,9 +426,13 @@ foreign import ccall safe "hs_bindgen_test_edgecasesiterator_4d944ebb7dc53d23" v
     __defined at:__ @edge-cases\/iterator.h:20:6@
 
     __exported by:__ @edge-cases\/iterator.h@
+
+    __unique:__ @ExampleJust UnsafereleaseVarCounter@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_502ca8978fd91294" releaseVarCounter :: VarCounter ->
                                                                                                     IO Unit
+{-| __unique:__ @ExampleNothingget_makeToggle_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_504a6a44ef649697" hs_bindgen_test_edgecasesiterator_504a6a44ef649697 :: IO (FunPtr (CBool ->
                                                                                                                                                  IO Toggle))
 {-# NOINLINE makeToggle_ptr #-}
@@ -412,6 +450,8 @@ makeToggle_ptr :: FunPtr (CBool -> IO Toggle)
     __exported by:__ @edge-cases\/iterator.h@
 -}
 makeToggle_ptr = unsafePerformIO hs_bindgen_test_edgecasesiterator_504a6a44ef649697
+{-| __unique:__ @ExampleNothingget_toggleNext_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_ee784d0363e34151" hs_bindgen_test_edgecasesiterator_ee784d0363e34151 :: IO (FunPtr (Toggle ->
                                                                                                                                                  IO CBool))
 {-# NOINLINE toggleNext_ptr #-}
@@ -429,6 +469,8 @@ toggleNext_ptr :: FunPtr (Toggle -> IO CBool)
     __exported by:__ @edge-cases\/iterator.h@
 -}
 toggleNext_ptr = unsafePerformIO hs_bindgen_test_edgecasesiterator_ee784d0363e34151
+{-| __unique:__ @ExampleNothingget_releaseToggle_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_864850832eaf96b9" hs_bindgen_test_edgecasesiterator_864850832eaf96b9 :: IO (FunPtr (Toggle ->
                                                                                                                                                  IO Unit))
 {-# NOINLINE releaseToggle_ptr #-}
@@ -446,6 +488,8 @@ releaseToggle_ptr :: FunPtr (Toggle -> IO Unit)
     __exported by:__ @edge-cases\/iterator.h@
 -}
 releaseToggle_ptr = unsafePerformIO hs_bindgen_test_edgecasesiterator_864850832eaf96b9
+{-| __unique:__ @ExampleNothingget_makeCounter_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_48b98d306e2a8d53" hs_bindgen_test_edgecasesiterator_48b98d306e2a8d53 :: IO (FunPtr (CInt ->
                                                                                                                                                  CInt ->
                                                                                                                                                  IO Counter))
@@ -464,6 +508,8 @@ makeCounter_ptr :: FunPtr (CInt -> CInt -> IO Counter)
     __exported by:__ @edge-cases\/iterator.h@
 -}
 makeCounter_ptr = unsafePerformIO hs_bindgen_test_edgecasesiterator_48b98d306e2a8d53
+{-| __unique:__ @ExampleNothingget_counterNext_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_aeb21db5034e4d66" hs_bindgen_test_edgecasesiterator_aeb21db5034e4d66 :: IO (FunPtr (Counter ->
                                                                                                                                                  IO CInt))
 {-# NOINLINE counterNext_ptr #-}
@@ -481,6 +527,8 @@ counterNext_ptr :: FunPtr (Counter -> IO CInt)
     __exported by:__ @edge-cases\/iterator.h@
 -}
 counterNext_ptr = unsafePerformIO hs_bindgen_test_edgecasesiterator_aeb21db5034e4d66
+{-| __unique:__ @ExampleNothingget_releaseCounter_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_8e1661e238f6f451" hs_bindgen_test_edgecasesiterator_8e1661e238f6f451 :: IO (FunPtr (Counter ->
                                                                                                                                                  IO Unit))
 {-# NOINLINE releaseCounter_ptr #-}
@@ -498,6 +546,8 @@ releaseCounter_ptr :: FunPtr (Counter -> IO Unit)
     __exported by:__ @edge-cases\/iterator.h@
 -}
 releaseCounter_ptr = unsafePerformIO hs_bindgen_test_edgecasesiterator_8e1661e238f6f451
+{-| __unique:__ @ExampleNothingget_makeVarCounter_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_b14e88e9cf7a56b8" hs_bindgen_test_edgecasesiterator_b14e88e9cf7a56b8 :: IO (FunPtr (CInt ->
                                                                                                                                                  IO VarCounter))
 {-# NOINLINE makeVarCounter_ptr #-}
@@ -515,6 +565,8 @@ makeVarCounter_ptr :: FunPtr (CInt -> IO VarCounter)
     __exported by:__ @edge-cases\/iterator.h@
 -}
 makeVarCounter_ptr = unsafePerformIO hs_bindgen_test_edgecasesiterator_b14e88e9cf7a56b8
+{-| __unique:__ @ExampleNothingget_varCounterNext_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_4d10204c4166188d" hs_bindgen_test_edgecasesiterator_4d10204c4166188d :: IO (FunPtr (VarCounter ->
                                                                                                                                                  CInt ->
                                                                                                                                                  IO CInt))
@@ -533,6 +585,8 @@ varCounterNext_ptr :: FunPtr (VarCounter -> CInt -> IO CInt)
     __exported by:__ @edge-cases\/iterator.h@
 -}
 varCounterNext_ptr = unsafePerformIO hs_bindgen_test_edgecasesiterator_4d10204c4166188d
+{-| __unique:__ @ExampleNothingget_releaseVarCounter_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_edgecasesiterator_bde04ef01335be42" hs_bindgen_test_edgecasesiterator_bde04ef01335be42 :: IO (FunPtr (VarCounter ->
                                                                                                                                                  IO Unit))
 {-# NOINLINE releaseVarCounter_ptr #-}

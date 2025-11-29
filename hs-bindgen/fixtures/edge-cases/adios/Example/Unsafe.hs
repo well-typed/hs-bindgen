@@ -29,6 +29,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @edge-cases\/adios.h:18:6@
 
     __exported by:__ @edge-cases\/adios.h@
+
+    __unique:__ @ExampleJust Unsafeϒ@
 -}
 foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_82fab26db9547005" cϒ ::
      IO ()
@@ -38,6 +40,8 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_82fab26db9547005" c�
     __defined at:__ @edge-cases\/adios.h:27:6@
 
     __exported by:__ @edge-cases\/adios.h@
+
+    __unique:__ @ExampleJust Unsafe拜拜@
 -}
 foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_ad1afd0d0a11937f" 拜拜 ::
      IO ()
@@ -47,6 +51,8 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_ad1afd0d0a11937f" �
     __defined at:__ @edge-cases\/adios.h:31:6@
 
     __exported by:__ @edge-cases\/adios.h@
+
+    __unique:__ @ExampleJust UnsafeSay拜拜@
 -}
 foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_9a2b7b543a500f7d" say拜拜 ::
      IO ()

@@ -32,6 +32,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_ϒ_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_857cc80028e9fd4d" hs_bindgen_test_edgecasesadios_857cc80028e9fd4d ::
      IO (Ptr.FunPtr (IO ()))
 
@@ -47,6 +49,8 @@ cϒ_ptr :: Ptr.FunPtr (IO ())
 cϒ_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_857cc80028e9fd4d
 
+{-| __unique:__ @ExampleNothingget_拜拜_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7" hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7 ::
      IO (Ptr.FunPtr (IO ()))
 
@@ -62,6 +66,8 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7" hs
 拜拜_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7
 
+{-| __unique:__ @ExampleNothingget_Say拜拜_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_2879b42f75005d3b" hs_bindgen_test_edgecasesadios_2879b42f75005d3b ::
      IO (Ptr.FunPtr (IO ()))
 

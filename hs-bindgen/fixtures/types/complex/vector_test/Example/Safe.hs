@@ -27,6 +27,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @types\/complex\/vector_test.h:6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
+
+    __unique:__ @ExampleJust Safenew_vector@
 -}
 foreign import ccall safe "hs_bindgen_test_typescomplexvector_test_c8cd49ec7dbcac25" new_vector ::
      FC.CDouble

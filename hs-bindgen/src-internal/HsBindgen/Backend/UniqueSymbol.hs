@@ -1,7 +1,7 @@
 -- | Unique symbols (for use in generated C code)
 --
 -- Intended for unqualified import.
-module HsBindgen.Backend.Hs.Translation.UniqueSymbol (
+module HsBindgen.Backend.UniqueSymbol (
     -- * Generating unique names
     UniqueSymbol(..)
   , getUniqueSymbol
@@ -15,6 +15,7 @@ import Data.List (intercalate)
 import GHC.Unicode (isDigit)
 
 import HsBindgen.Config.Prelims
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Generating unique names
@@ -32,6 +33,7 @@ data UniqueSymbol = UniqueSymbol{
       -- if they unexpectedly change).
     , source :: String
     }
+  deriving (Show, Eq, Generic)
 
 -- | Globally unique symbol
 --

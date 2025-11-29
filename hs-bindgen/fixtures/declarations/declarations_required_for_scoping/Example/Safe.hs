@@ -24,6 +24,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
+
+    __unique:__ @ExampleJust Safef@
 -}
 foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_fcce70013c76ce8b" f ::
      A

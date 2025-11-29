@@ -32,6 +32,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_transpose_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_manualarrays_fc1dad225b555299" hs_bindgen_test_manualarrays_fc1dad225b555299 ::
      IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
 
@@ -47,6 +49,8 @@ transpose_ptr :: Ptr.FunPtr (Matrix -> Matrix -> IO ())
 transpose_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_fc1dad225b555299
 
+{-| __unique:__ @ExampleNothingget_pretty_print_triplets_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_manualarrays_0b485cea747ee35d" hs_bindgen_test_manualarrays_0b485cea747ee35d ::
      IO (Ptr.FunPtr (Triplet_ptrs -> IO ()))
 

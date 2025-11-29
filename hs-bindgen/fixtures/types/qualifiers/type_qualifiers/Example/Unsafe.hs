@@ -26,6 +26,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:14:6@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+
+    __unique:__ @ExampleJust Unsafelist_example@
 -}
 foreign import ccall unsafe "hs_bindgen_test_typesqualifierstype_qualifie_41af05ef1797fa6d" list_example ::
      Ptr.Ptr (Ptr.Ptr FC.CChar)

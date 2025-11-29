@@ -27,6 +27,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
+
+    __unique:__ @ExampleJust Safesome_fun@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesdistilled_lib_1_29c178c31334688f" some_fun ::
      Ptr.Ptr A_type_t

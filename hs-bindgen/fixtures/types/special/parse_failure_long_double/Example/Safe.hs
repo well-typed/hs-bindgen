@@ -24,6 +24,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
+
+    __unique:__ @ExampleJust Safefun2@
 -}
 foreign import ccall safe "hs_bindgen_test_typesspecialparse_failure_lo_fb32cb593bc1f7b8" fun2 ::
      FC.CInt

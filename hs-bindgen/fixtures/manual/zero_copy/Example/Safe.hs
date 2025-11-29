@@ -35,6 +35,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @manual\/zero_copy.h:77:5@
 
     __exported by:__ @manual\/zero_copy.h@
+
+    __unique:__ @ExampleJust Safereverse@
 -}
 foreign import ccall safe "hs_bindgen_test_manualzero_copy_a617e0cb5d95cd52" reverse ::
      Ptr.Ptr Vector
@@ -47,6 +49,7 @@ foreign import ccall safe "hs_bindgen_test_manualzero_copy_a617e0cb5d95cd52" rev
 
 {-| Pointer-based API for 'transpose'
 
+__unique:__ @ExampleJust Safetranspose@
 -}
 foreign import ccall safe "hs_bindgen_test_manualzero_copy_f3d0c8dd1a83b3d0" transpose_wrapper ::
      Ptr.Ptr Triplet

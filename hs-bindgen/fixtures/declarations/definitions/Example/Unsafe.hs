@@ -24,6 +24,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @declarations\/definitions.h:13:5@
 
     __exported by:__ @declarations\/definitions.h@
+
+    __unique:__ @ExampleJust Unsafefoo@
 -}
 foreign import ccall unsafe "hs_bindgen_test_declarationsdefinitions_84e4eb047d6694cd" foo ::
      FC.CDouble

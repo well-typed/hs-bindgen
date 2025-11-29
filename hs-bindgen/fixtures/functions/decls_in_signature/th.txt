@@ -272,6 +272,7 @@ instance TyEq ty (CFieldType Named_union "named_union_y") =>
     where getField = ptrToCField (Proxy @"named_union_y")
 {-| Pointer-based API for 'normal'
 
+__unique:__ @ExampleJust Unsafenormal@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_001a08d4459ec455" normal_wrapper :: Ptr Opaque ->
                                                                                                            Ptr Outside ->
@@ -293,6 +294,7 @@ normal :: Ptr Opaque -> Ptr Outside -> Outside -> IO Unit
 normal = \x_0 -> \x_1 -> \x_2 -> with x_2 (\y_3 -> normal_wrapper x_0 x_1 y_3)
 {-| Pointer-based API for 'f1'
 
+__unique:__ @ExampleJust Unsafef1@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_a2f84d2570ef3892" f1_wrapper :: Ptr Named_struct ->
                                                                                                        IO Unit
@@ -320,6 +322,7 @@ __exported by:__ @functions\/decls_in_signature.h@
 f1 = \x_0 -> with x_0 (\y_1 -> f1_wrapper y_1)
 {-| Pointer-based API for 'f2'
 
+__unique:__ @ExampleJust Unsafef2@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_1d043de05a457e90" f2_wrapper :: Ptr Named_union ->
                                                                                                        IO Unit
@@ -339,6 +342,7 @@ f2 :: Named_union -> IO Unit
 f2 = \x_0 -> with x_0 (\y_1 -> f2_wrapper y_1)
 {-| Pointer-based API for 'normal'
 
+__unique:__ @ExampleJust Unsafenormal@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_35c28995abc46de4" normal_wrapper :: Ptr Opaque ->
                                                                                                            Ptr Outside ->
@@ -360,6 +364,7 @@ normal :: Ptr Opaque -> Ptr Outside -> Outside -> IO Unit
 normal = \x_0 -> \x_1 -> \x_2 -> with x_2 (\y_3 -> normal_wrapper x_0 x_1 y_3)
 {-| Pointer-based API for 'f1'
 
+__unique:__ @ExampleJust Unsafef1@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_c1788128a5b1c813" f1_wrapper :: Ptr Named_struct ->
                                                                                                        IO Unit
@@ -387,6 +392,7 @@ __exported by:__ @functions\/decls_in_signature.h@
 f1 = \x_0 -> with x_0 (\y_1 -> f1_wrapper y_1)
 {-| Pointer-based API for 'f2'
 
+__unique:__ @ExampleJust Unsafef2@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_14361e995fb5684a" f2_wrapper :: Ptr Named_union ->
                                                                                                        IO Unit
@@ -404,6 +410,8 @@ f2 :: Named_union -> IO Unit
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 f2 = \x_0 -> with x_0 (\y_1 -> f2_wrapper y_1)
+{-| __unique:__ @ExampleNothingget_normal_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_b040d51578b7b05e" hs_bindgen_test_functionsdecls_in_signature_b040d51578b7b05e :: IO (FunPtr (Ptr Opaque ->
                                                                                                                                                                      Ptr Outside ->
                                                                                                                                                                      Outside ->
@@ -424,6 +432,8 @@ normal_ptr :: FunPtr (Ptr Opaque ->
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 normal_ptr = unsafePerformIO hs_bindgen_test_functionsdecls_in_signature_b040d51578b7b05e
+{-| __unique:__ @ExampleNothingget_f1_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_5469bdc0395f86c1" hs_bindgen_test_functionsdecls_in_signature_5469bdc0395f86c1 :: IO (FunPtr (Named_struct ->
                                                                                                                                                                      IO Unit))
 {-# NOINLINE f1_ptr #-}
@@ -449,6 +459,8 @@ __defined at:__ @functions\/decls_in_signature.h:17:6@
 __exported by:__ @functions\/decls_in_signature.h@
 -}
 f1_ptr = unsafePerformIO hs_bindgen_test_functionsdecls_in_signature_5469bdc0395f86c1
+{-| __unique:__ @ExampleNothingget_f2_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_490ca7e8c8282a69" hs_bindgen_test_functionsdecls_in_signature_490ca7e8c8282a69 :: IO (FunPtr (Named_union ->
                                                                                                                                                                      IO Unit))
 {-# NOINLINE f2_ptr #-}
