@@ -1,4 +1,7 @@
-module HsBindgen.Backend.Hs.Haddock.Config where
+module HsBindgen.Backend.Hs.Haddock.Config (
+    HaddockConfig(..)
+  , PathStyle(..)
+  ) where
 
 import HsBindgen.Imports
 

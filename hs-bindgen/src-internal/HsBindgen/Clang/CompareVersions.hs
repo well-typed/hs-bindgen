@@ -1,5 +1,7 @@
-
-module HsBindgen.Clang.CompareVersions where
+module HsBindgen.Clang.CompareVersions (
+    CompareVersionsMsg(..)
+  , compareClangVersions
+  ) where
 
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP

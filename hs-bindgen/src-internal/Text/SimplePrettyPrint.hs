@@ -17,7 +17,57 @@
 -- The underlying @pretty@ library gives very little control over indentation.
 -- If we would like to have better indentation, we should either switch to a
 -- different underlying library or write our own.
-module Text.SimplePrettyPrint where
+module Text.SimplePrettyPrint (
+    CtxDoc -- opaque
+    -- * 'CtxDoc' features
+  , withFreshName
+  , ifFits
+    -- * Rendering
+  , runCtxDoc
+  , renderCtxDoc
+    -- ** Context
+  , Context -- opaque
+  , mkContext
+  , defaultContext
+  , debugContext
+    -- * Pretty class
+  , Pretty(..)
+  , renderPretty
+    -- * Construction
+    -- ** Primitives
+  , empty
+  , char
+  , string
+  , showToCtxDoc
+  , textToCtxDoc
+  , renderedLines
+    -- ** Horizontal and vertical composition
+  , (><)
+  , hcat
+  , (<+>)
+  , hsep
+  , ($$)
+  , vcat
+  , ($+$)
+  , vsep
+  , cat
+  , fcat
+  , sep
+  , fsep
+    -- ** Bracketing
+  , parens
+  , parensWhen
+  , vparensWhen
+  , singleQuotes
+    -- ** Lists
+  , hlist
+  , vlist
+    -- ** Indentation
+  , nest
+  , hang
+  , hangs
+  , hangs'
+  ) where
 
 import Data.List qualified as List
 import Data.String (IsString (fromString))

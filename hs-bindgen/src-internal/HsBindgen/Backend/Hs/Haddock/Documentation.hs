@@ -3,7 +3,15 @@
 -- Intended for qualified import.
 --
 -- > import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
-module HsBindgen.Backend.Hs.Haddock.Documentation where
+module HsBindgen.Backend.Hs.Haddock.Documentation (
+    -- * Definition
+    Comment(..)
+  , CommentInlineContent(..)
+  , CommentMeta(..)
+  , CommentBlockContent(..)
+  , HeaderLevel(..)
+  , ListType(..)
+  ) where
 
 import Data.Semigroup (First (..))
 import Data.Text (Text)
@@ -14,6 +22,10 @@ import Clang.HighLevel.Types
 
 import HsBindgen.Backend.Hs.AST.Type (HsType)
 import HsBindgen.Frontend.AST.External qualified as C
+
+{-------------------------------------------------------------------------------
+  Definition
+-------------------------------------------------------------------------------}
 
 -- | Haddock documentation representation
 --
