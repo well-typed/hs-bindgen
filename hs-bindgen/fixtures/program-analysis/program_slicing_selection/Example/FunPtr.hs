@@ -14,9 +14,9 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <program-analysis/program_slicing_selection.h>"
-  , "/* ExampleNothingget_read_file_chunk_ptr */"
+  , "/* Example_get_read_file_chunk_ptr */"
   , "__attribute__ ((const))"
-  , "enum FileOperationStatus (*hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4 (void)) ("
+  , "enum FileOperationStatus (*hs_bindgen_test_programanalysisprogram_slici_ab68facc19dee6e4 (void)) ("
   , "  FILE *arg1,"
   , "  void *arg2,"
   , "  size_t arg3"
@@ -26,9 +26,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_read_file_chunk_ptr@
+{-| __unique:__ @Example_get_read_file_chunk_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4" hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4 ::
+foreign import ccall unsafe "hs_bindgen_test_programanalysisprogram_slici_ab68facc19dee6e4" hs_bindgen_test_programanalysisprogram_slici_ab68facc19dee6e4 ::
      IO (Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus))
 
 {-# NOINLINE read_file_chunk_ptr #-}
@@ -41,4 +41,4 @@ foreign import ccall unsafe "hs_bindgen_test_programanalysisprogram_slici_cc4535
 -}
 read_file_chunk_ptr :: Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus)
 read_file_chunk_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_programanalysisprogram_slici_ab68facc19dee6e4

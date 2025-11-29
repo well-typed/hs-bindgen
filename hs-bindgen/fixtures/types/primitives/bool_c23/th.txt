@@ -1,14 +1,14 @@
 -- addDependentFile examples/golden/types/primitives/bool_c23.h
 -- #include <types/primitives/bool_c23.h>
--- /* ExampleNothingget_b_ptr */
+-- /* Example_get_b_ptr */
 -- __attribute__ ((const))
--- _Bool *hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee (void)
+-- _Bool *hs_bindgen_test_typesprimitivesbool_c23_73b81ddc3378bde8 (void)
 -- {
 --   return &b;
 -- }
-{-| __unique:__ @ExampleNothingget_b_ptr@
+{-| __unique:__ @Example_get_b_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee" hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee :: IO (Ptr CBool)
+foreign import ccall safe "hs_bindgen_test_typesprimitivesbool_c23_73b81ddc3378bde8" hs_bindgen_test_typesprimitivesbool_c23_73b81ddc3378bde8 :: IO (Ptr CBool)
 {-# NOINLINE b_ptr #-}
 {-| __C declaration:__ @b@
 
@@ -23,4 +23,4 @@ b_ptr :: Ptr CBool
 
     __exported by:__ @types\/primitives\/bool_c23.h@
 -}
-b_ptr = unsafePerformIO hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee
+b_ptr = unsafePerformIO hs_bindgen_test_typesprimitivesbool_c23_73b81ddc3378bde8

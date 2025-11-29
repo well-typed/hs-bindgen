@@ -13,17 +13,17 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/primitives/bool_c23.h>"
-  , "/* ExampleNothingget_b_ptr */"
+  , "/* Example_get_b_ptr */"
   , "__attribute__ ((const))"
-  , "_Bool *hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee (void)"
+  , "_Bool *hs_bindgen_test_typesprimitivesbool_c23_73b81ddc3378bde8 (void)"
   , "{"
   , "  return &b;"
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_b_ptr@
+{-| __unique:__ @Example_get_b_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee" hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee ::
+foreign import ccall unsafe "hs_bindgen_test_typesprimitivesbool_c23_73b81ddc3378bde8" hs_bindgen_test_typesprimitivesbool_c23_73b81ddc3378bde8 ::
      IO (Ptr.Ptr FC.CBool)
 
 {-# NOINLINE b_ptr #-}
@@ -36,4 +36,4 @@ foreign import ccall unsafe "hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d66
 -}
 b_ptr :: Ptr.Ptr FC.CBool
 b_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesprimitivesbool_c23_73b81ddc3378bde8

@@ -11,13 +11,13 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <functions/simple_func.h>"
-  , "double hs_bindgen_test_functionssimple_func_95132d8ec7fd8434 ("
+  , "double hs_bindgen_test_functionssimple_func_a9fb5e2e602effce ("
   , "  double arg1"
   , ")"
   , "{"
   , "  return erf(arg1);"
   , "}"
-  , "double hs_bindgen_test_functionssimple_func_a5a0efe959abb90a ("
+  , "double hs_bindgen_test_functionssimple_func_41ddff0def5e758e ("
   , "  double arg1,"
   , "  double arg2,"
   , "  double arg3"
@@ -25,15 +25,15 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return bad_fma(arg1, arg2, arg3);"
   , "}"
-  , "void hs_bindgen_test_functionssimple_func_3a78cdef137ffe84 (void)"
+  , "void hs_bindgen_test_functionssimple_func_ebeb06ac43ef8e19 (void)"
   , "{"
   , "  no_args();"
   , "}"
-  , "void hs_bindgen_test_functionssimple_func_26de47450bbc61e3 (void)"
+  , "void hs_bindgen_test_functionssimple_func_e9b7b21f91fcea4c (void)"
   , "{"
   , "  no_args_no_void();"
   , "}"
-  , "signed int hs_bindgen_test_functionssimple_func_8735e0253ab4e9ad ("
+  , "signed int hs_bindgen_test_functionssimple_func_46fc7e0d859c341d ("
   , "  char arg1,"
   , "  double arg2"
   , ")"
@@ -48,9 +48,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @functions\/simple_func.h@
 
-    __unique:__ @ExampleJust Unsafeerf@
+    __unique:__ @Example_Unsafe_erf@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_95132d8ec7fd8434" erf ::
+foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_a9fb5e2e602effce" erf ::
      FC.CDouble
      {- ^ __C declaration:__ @arg@
      -}
@@ -62,9 +62,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_95132d8ec7fd84
 
     __exported by:__ @functions\/simple_func.h@
 
-    __unique:__ @ExampleJust Unsafebad_fma@
+    __unique:__ @Example_Unsafe_bad_fma@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_a5a0efe959abb90a" bad_fma ::
+foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_41ddff0def5e758e" bad_fma ::
      FC.CDouble
      {- ^ __C declaration:__ @x@
      -}
@@ -82,9 +82,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_a5a0efe959abb9
 
     __exported by:__ @functions\/simple_func.h@
 
-    __unique:__ @ExampleJust Unsafeno_args@
+    __unique:__ @Example_Unsafe_no_args@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_3a78cdef137ffe84" no_args ::
+foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_ebeb06ac43ef8e19" no_args ::
      IO ()
 
 {-| __C declaration:__ @no_args_no_void@
@@ -93,9 +93,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_3a78cdef137ffe
 
     __exported by:__ @functions\/simple_func.h@
 
-    __unique:__ @ExampleJust Unsafeno_args_no_void@
+    __unique:__ @Example_Unsafe_no_args_no_void@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_26de47450bbc61e3" no_args_no_void ::
+foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_e9b7b21f91fcea4c" no_args_no_void ::
      IO ()
 
 {-| __C declaration:__ @fun@
@@ -104,9 +104,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_26de47450bbc61
 
     __exported by:__ @functions\/simple_func.h@
 
-    __unique:__ @ExampleJust Unsafefun@
+    __unique:__ @Example_Unsafe_fun@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_8735e0253ab4e9ad" fun ::
+foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_46fc7e0d859c341d" fun ::
      FC.CChar
      {- ^ __C declaration:__ @x@
      -}

@@ -13,17 +13,17 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <functions/fun_attributes.h>"
-  , "/* ExampleNothingget_i_ptr */"
+  , "/* Example_get_i_ptr */"
   , "__attribute__ ((const))"
-  , "signed int *hs_bindgen_test_functionsfun_attributes_cdc30ae5fb72cd6e (void)"
+  , "signed int *hs_bindgen_test_functionsfun_attributes_89d5774aca43550f (void)"
   , "{"
   , "  return &i;"
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_i_ptr@
+{-| __unique:__ @Example_get_i_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_cdc30ae5fb72cd6e" hs_bindgen_test_functionsfun_attributes_cdc30ae5fb72cd6e ::
+foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_89d5774aca43550f" hs_bindgen_test_functionsfun_attributes_89d5774aca43550f ::
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i_ptr #-}
@@ -36,4 +36,4 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_cdc30ae5fb7
 -}
 i_ptr :: Ptr.Ptr FC.CInt
 i_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_cdc30ae5fb72cd6e
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsfun_attributes_89d5774aca43550f

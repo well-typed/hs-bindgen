@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <functions/decls_in_signature.h>"
-  , "void hs_bindgen_test_functionsdecls_in_signature_35c28995abc46de4 ("
+  , "void hs_bindgen_test_functionsdecls_in_signature_131246c60a12b49a ("
   , "  struct opaque *arg1,"
   , "  struct outside *arg2,"
   , "  struct outside *arg3"
@@ -21,13 +21,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  normal(arg1, arg2, *arg3);"
   , "}"
-  , "void hs_bindgen_test_functionsdecls_in_signature_c1788128a5b1c813 ("
+  , "void hs_bindgen_test_functionsdecls_in_signature_cc22dfb87e5838fe ("
   , "  struct named_struct *arg1"
   , ")"
   , "{"
   , "  f1(*arg1);"
   , "}"
-  , "void hs_bindgen_test_functionsdecls_in_signature_14361e995fb5684a ("
+  , "void hs_bindgen_test_functionsdecls_in_signature_661cac524e84b1f7 ("
   , "  union named_union *arg1"
   , ")"
   , "{"
@@ -37,9 +37,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 {-| Pointer-based API for 'normal'
 
-__unique:__ @ExampleJust Unsafenormal@
+__unique:__ @Example_Unsafe_normal@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionsdecls_in_signature_35c28995abc46de4" normal_wrapper ::
+foreign import ccall unsafe "hs_bindgen_test_functionsdecls_in_signature_131246c60a12b49a" normal_wrapper ::
      Ptr.Ptr Opaque
   -> Ptr.Ptr Outside
   -> Ptr.Ptr Outside
@@ -69,9 +69,9 @@ normal =
 
 {-| Pointer-based API for 'f1'
 
-__unique:__ @ExampleJust Unsafef1@
+__unique:__ @Example_Unsafe_f1@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionsdecls_in_signature_c1788128a5b1c813" f1_wrapper ::
+foreign import ccall unsafe "hs_bindgen_test_functionsdecls_in_signature_cc22dfb87e5838fe" f1_wrapper ::
      Ptr.Ptr Named_struct
   -> IO ()
 
@@ -94,9 +94,9 @@ f1 = \x0 -> F.with x0 (\y1 -> f1_wrapper y1)
 
 {-| Pointer-based API for 'f2'
 
-__unique:__ @ExampleJust Unsafef2@
+__unique:__ @Example_Unsafe_f2@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionsdecls_in_signature_14361e995fb5684a" f2_wrapper ::
+foreign import ccall unsafe "hs_bindgen_test_functionsdecls_in_signature_661cac524e84b1f7" f2_wrapper ::
      Ptr.Ptr Named_union
   -> IO ()
 

@@ -14,18 +14,18 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <manual/zero_copy.h>"
-  , "/* ExampleNothingget_reverse_ptr */"
+  , "/* Example_get_reverse_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_test_manualzero_copy_c3d266ec84fe0678 (void)) ("
+  , "signed int (*hs_bindgen_test_manualzero_copy_6c907b09c096f10f (void)) ("
   , "  struct vector const *arg1,"
   , "  struct vector *arg2"
   , ")"
   , "{"
   , "  return &reverse;"
   , "}"
-  , "/* ExampleNothingget_transpose_ptr */"
+  , "/* Example_get_transpose_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_manualzero_copy_fc1dad225b555299 (void)) ("
+  , "void (*hs_bindgen_test_manualzero_copy_c8ec17b4322959b0 (void)) ("
   , "  matrix const arg1,"
   , "  matrix arg2"
   , ")"
@@ -34,9 +34,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_reverse_ptr@
+{-| __unique:__ @Example_get_reverse_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualzero_copy_c3d266ec84fe0678" hs_bindgen_test_manualzero_copy_c3d266ec84fe0678 ::
+foreign import ccall unsafe "hs_bindgen_test_manualzero_copy_6c907b09c096f10f" hs_bindgen_test_manualzero_copy_6c907b09c096f10f ::
      IO (Ptr.FunPtr ((Ptr.Ptr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt))
 
 {-# NOINLINE reverse_ptr #-}
@@ -49,11 +49,11 @@ foreign import ccall unsafe "hs_bindgen_test_manualzero_copy_c3d266ec84fe0678" h
 -}
 reverse_ptr :: Ptr.FunPtr ((Ptr.Ptr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt)
 reverse_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualzero_copy_c3d266ec84fe0678
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualzero_copy_6c907b09c096f10f
 
-{-| __unique:__ @ExampleNothingget_transpose_ptr@
+{-| __unique:__ @Example_get_transpose_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualzero_copy_fc1dad225b555299" hs_bindgen_test_manualzero_copy_fc1dad225b555299 ::
+foreign import ccall unsafe "hs_bindgen_test_manualzero_copy_c8ec17b4322959b0" hs_bindgen_test_manualzero_copy_c8ec17b4322959b0 ::
      IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
 
 {-# NOINLINE transpose_ptr #-}
@@ -66,4 +66,4 @@ foreign import ccall unsafe "hs_bindgen_test_manualzero_copy_fc1dad225b555299" h
 -}
 transpose_ptr :: Ptr.FunPtr (Matrix -> Matrix -> IO ())
 transpose_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualzero_copy_fc1dad225b555299
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualzero_copy_c8ec17b4322959b0

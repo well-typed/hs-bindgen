@@ -15,32 +15,32 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <manual/function_pointers.h>"
-  , "/* ExampleNothingget_apply1_nopointer_var_ptr */"
+  , "/* Example_get_apply1_nopointer_var_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*const *hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6 (void)) ("
+  , "signed int (*const *hs_bindgen_test_manualfunction_pointers_f2549b67c60288db (void)) ("
   , "  int2int *arg1,"
   , "  signed int arg2"
   , ")"
   , "{"
   , "  return &apply1_nopointer_var;"
   , "}"
-  , "/* ExampleNothingget_apply1_struct_ptr */"
+  , "/* Example_get_apply1_struct_ptr */"
   , "__attribute__ ((const))"
-  , "struct Apply1Struct const *hs_bindgen_test_manualfunction_pointers_6799ff6bc99dff2a (void)"
+  , "struct Apply1Struct const *hs_bindgen_test_manualfunction_pointers_23e198b7d859d1d8 (void)"
   , "{"
   , "  return &apply1_struct;"
   , "}"
-  , "/* ExampleNothingget_apply1_union_ptr */"
+  , "/* Example_get_apply1_union_ptr */"
   , "__attribute__ ((const))"
-  , "union Apply1Union const *hs_bindgen_test_manualfunction_pointers_d32b4879673188b6 (void)"
+  , "union Apply1Union const *hs_bindgen_test_manualfunction_pointers_ef3f714d0fb4808a (void)"
   , "{"
   , "  return &apply1_union;"
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_apply1_nopointer_var_ptr@
+{-| __unique:__ @Example_get_apply1_nopointer_var_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6" hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6 ::
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_f2549b67c60288db" hs_bindgen_test_manualfunction_pointers_f2549b67c60288db ::
      IO (Ptr.Ptr (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)))
 
 {-# NOINLINE apply1_nopointer_var_ptr #-}
@@ -55,7 +55,7 @@ __exported by:__ @manual\/function_pointers.h@
 -}
 apply1_nopointer_var_ptr :: Ptr.Ptr (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
 apply1_nopointer_var_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_f2549b67c60288db
 
 {-# NOINLINE apply1_nopointer_var #-}
 
@@ -63,9 +63,9 @@ apply1_nopointer_var :: Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CIn
 apply1_nopointer_var =
   GHC.IO.Unsafe.unsafePerformIO (F.peek apply1_nopointer_var_ptr)
 
-{-| __unique:__ @ExampleNothingget_apply1_struct_ptr@
+{-| __unique:__ @Example_get_apply1_struct_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_6799ff6bc99dff2a" hs_bindgen_test_manualfunction_pointers_6799ff6bc99dff2a ::
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_23e198b7d859d1d8" hs_bindgen_test_manualfunction_pointers_23e198b7d859d1d8 ::
      IO (Ptr.Ptr Apply1Struct)
 
 {-# NOINLINE apply1_struct_ptr #-}
@@ -78,7 +78,7 @@ foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_6799ff6bc99
 -}
 apply1_struct_ptr :: Ptr.Ptr Apply1Struct
 apply1_struct_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_6799ff6bc99dff2a
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_23e198b7d859d1d8
 
 {-# NOINLINE apply1_struct #-}
 
@@ -86,9 +86,9 @@ apply1_struct :: Apply1Struct
 apply1_struct =
   GHC.IO.Unsafe.unsafePerformIO (F.peek apply1_struct_ptr)
 
-{-| __unique:__ @ExampleNothingget_apply1_union_ptr@
+{-| __unique:__ @Example_get_apply1_union_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_d32b4879673188b6" hs_bindgen_test_manualfunction_pointers_d32b4879673188b6 ::
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_ef3f714d0fb4808a" hs_bindgen_test_manualfunction_pointers_ef3f714d0fb4808a ::
      IO (Ptr.Ptr Apply1Union)
 
 {-# NOINLINE apply1_union_ptr #-}
@@ -101,7 +101,7 @@ foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_d32b4879673
 -}
 apply1_union_ptr :: Ptr.Ptr Apply1Union
 apply1_union_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_d32b4879673188b6
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_ef3f714d0fb4808a
 
 {-# NOINLINE apply1_union #-}
 

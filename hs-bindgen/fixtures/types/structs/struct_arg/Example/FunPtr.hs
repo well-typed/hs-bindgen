@@ -14,25 +14,25 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/structs/struct_arg.h>"
-  , "/* ExampleNothingget_thing_fun_1_ptr */"
+  , "/* Example_get_thing_fun_1_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a (void)) ("
+  , "signed int (*hs_bindgen_test_typesstructsstruct_arg_b246bdb8a7da143b (void)) ("
   , "  struct thing arg1"
   , ")"
   , "{"
   , "  return &thing_fun_1;"
   , "}"
-  , "/* ExampleNothingget_thing_fun_2_ptr */"
+  , "/* Example_get_thing_fun_2_ptr */"
   , "__attribute__ ((const))"
-  , "struct thing (*hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a (void)) ("
+  , "struct thing (*hs_bindgen_test_typesstructsstruct_arg_dbea4646c9e4aa38 (void)) ("
   , "  signed int arg1"
   , ")"
   , "{"
   , "  return &thing_fun_2;"
   , "}"
-  , "/* ExampleNothingget_thing_fun_3a_ptr */"
+  , "/* Example_get_thing_fun_3a_ptr */"
   , "__attribute__ ((const))"
-  , "struct thing (*hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf (void)) ("
+  , "struct thing (*hs_bindgen_test_typesstructsstruct_arg_c108b151da528327 (void)) ("
   , "  signed int arg1,"
   , "  struct thing arg2,"
   , "  double arg3"
@@ -40,9 +40,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &thing_fun_3a;"
   , "}"
-  , "/* ExampleNothingget_thing_fun_3b_ptr */"
+  , "/* Example_get_thing_fun_3b_ptr */"
   , "__attribute__ ((const))"
-  , "char (*hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f (void)) ("
+  , "char (*hs_bindgen_test_typesstructsstruct_arg_bd55e92713dbbc36 (void)) ("
   , "  signed int arg1,"
   , "  struct thing arg2,"
   , "  double arg3"
@@ -52,9 +52,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_thing_fun_1_ptr@
+{-| __unique:__ @Example_get_thing_fun_1_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a" hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a ::
+foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_b246bdb8a7da143b" hs_bindgen_test_typesstructsstruct_arg_b246bdb8a7da143b ::
      IO (Ptr.FunPtr (Thing -> IO FC.CInt))
 
 {-# NOINLINE thing_fun_1_ptr #-}
@@ -67,11 +67,11 @@ foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311
 -}
 thing_fun_1_ptr :: Ptr.FunPtr (Thing -> IO FC.CInt)
 thing_fun_1_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesstructsstruct_arg_c5f0c295b311010a
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesstructsstruct_arg_b246bdb8a7da143b
 
-{-| __unique:__ @ExampleNothingget_thing_fun_2_ptr@
+{-| __unique:__ @Example_get_thing_fun_2_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a" hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a ::
+foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_dbea4646c9e4aa38" hs_bindgen_test_typesstructsstruct_arg_dbea4646c9e4aa38 ::
      IO (Ptr.FunPtr (FC.CInt -> IO Thing))
 
 {-# NOINLINE thing_fun_2_ptr #-}
@@ -84,11 +84,11 @@ foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_24edf6600396
 -}
 thing_fun_2_ptr :: Ptr.FunPtr (FC.CInt -> IO Thing)
 thing_fun_2_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesstructsstruct_arg_24edf6600396b62a
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesstructsstruct_arg_dbea4646c9e4aa38
 
-{-| __unique:__ @ExampleNothingget_thing_fun_3a_ptr@
+{-| __unique:__ @Example_get_thing_fun_3a_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf" hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf ::
+foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_c108b151da528327" hs_bindgen_test_typesstructsstruct_arg_c108b151da528327 ::
      IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing))
 
 {-# NOINLINE thing_fun_3a_ptr #-}
@@ -101,11 +101,11 @@ foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_29a42b48992c
 -}
 thing_fun_3a_ptr :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing)
 thing_fun_3a_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesstructsstruct_arg_29a42b48992cd0bf
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesstructsstruct_arg_c108b151da528327
 
-{-| __unique:__ @ExampleNothingget_thing_fun_3b_ptr@
+{-| __unique:__ @Example_get_thing_fun_3b_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f" hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f ::
+foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_bd55e92713dbbc36" hs_bindgen_test_typesstructsstruct_arg_bd55e92713dbbc36 ::
      IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar))
 
 {-# NOINLINE thing_fun_3b_ptr #-}
@@ -118,4 +118,4 @@ foreign import ccall unsafe "hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e
 -}
 thing_fun_3b_ptr :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar)
 thing_fun_3b_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesstructsstruct_arg_0d6597dfc03e312f
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesstructsstruct_arg_bd55e92713dbbc36

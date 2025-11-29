@@ -2,17 +2,17 @@
 -- addDependentFile musl-include/x86_64/stdarg.h
 -- addDependentFile examples/golden/functions/varargs.h
 -- #include <functions/varargs.h>
--- void hs_bindgen_test_functionsvarargs_a17c4f0272bbe42a (void)
+-- void hs_bindgen_test_functionsvarargs_2b5f87a3956903cc (void)
 -- {
 --   h();
 -- }
--- void hs_bindgen_test_functionsvarargs_ec9e8ecfd27bead3 (void)
+-- void hs_bindgen_test_functionsvarargs_e86ca48940396130 (void)
 -- {
 --   h();
 -- }
--- /* ExampleNothingget_h_ptr */
+-- /* Example_get_h_ptr */
 -- __attribute__ ((const))
--- void (*hs_bindgen_test_functionsvarargs_6344539fe0b25338 (void)) (void)
+-- void (*hs_bindgen_test_functionsvarargs_587f2dc51b0709c8 (void)) (void)
 -- {
 --   return &h;
 -- }
@@ -22,21 +22,21 @@
 
     __exported by:__ @functions\/varargs.h@
 
-    __unique:__ @ExampleJust Unsafeh@
+    __unique:__ @Example_Unsafe_h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsvarargs_a17c4f0272bbe42a" h :: IO Unit
+foreign import ccall safe "hs_bindgen_test_functionsvarargs_2b5f87a3956903cc" h :: IO Unit
 {-| __C declaration:__ @h@
 
     __defined at:__ @functions\/varargs.h:8:6@
 
     __exported by:__ @functions\/varargs.h@
 
-    __unique:__ @ExampleJust Unsafeh@
+    __unique:__ @Example_Unsafe_h@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsvarargs_ec9e8ecfd27bead3" h :: IO Unit
-{-| __unique:__ @ExampleNothingget_h_ptr@
+foreign import ccall safe "hs_bindgen_test_functionsvarargs_e86ca48940396130" h :: IO Unit
+{-| __unique:__ @Example_get_h_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsvarargs_6344539fe0b25338" hs_bindgen_test_functionsvarargs_6344539fe0b25338 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_test_functionsvarargs_587f2dc51b0709c8" hs_bindgen_test_functionsvarargs_587f2dc51b0709c8 :: IO (FunPtr (IO Unit))
 {-# NOINLINE h_ptr #-}
 {-| __C declaration:__ @h@
 
@@ -51,4 +51,4 @@ h_ptr :: FunPtr (IO Unit)
 
     __exported by:__ @functions\/varargs.h@
 -}
-h_ptr = unsafePerformIO hs_bindgen_test_functionsvarargs_6344539fe0b25338
+h_ptr = unsafePerformIO hs_bindgen_test_functionsvarargs_587f2dc51b0709c8

@@ -12,161 +12,161 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/names.h>"
-  , "/* ExampleNothingget_by_ptr */"
+  , "/* Example_get_by_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_3e566432e1b7bdd8 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_4721f2de56bee5a7 (void)) (void)"
   , "{"
   , "  return &by;"
   , "}"
-  , "/* ExampleNothingget_forall_ptr */"
+  , "/* Example_get_forall_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_a56841d4692515a9 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_a6c5e2959eea689d (void)) (void)"
   , "{"
   , "  return &forall;"
   , "}"
-  , "/* ExampleNothingget_mdo_ptr */"
+  , "/* Example_get_mdo_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_4b14baa1fbc8f378 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_c8170d8a02bd9d63 (void)) (void)"
   , "{"
   , "  return &mdo;"
   , "}"
-  , "/* ExampleNothingget_pattern_ptr */"
+  , "/* Example_get_pattern_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_b393d3c39de80903 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_ecf0921b33f20e24 (void)) (void)"
   , "{"
   , "  return &pattern;"
   , "}"
-  , "/* ExampleNothingget_proc_ptr */"
+  , "/* Example_get_proc_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_f73545ae9224ff2d (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_7b723fb1b3bb127b (void)) (void)"
   , "{"
   , "  return &proc;"
   , "}"
-  , "/* ExampleNothingget_rec_ptr */"
+  , "/* Example_get_rec_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_0dd0f0805657312b (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_2141b591f98fe9a9 (void)) (void)"
   , "{"
   , "  return &rec;"
   , "}"
-  , "/* ExampleNothingget_using_ptr */"
+  , "/* Example_get_using_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_aa3ce68f2bc5f037 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_fe29e67ea061b330 (void)) (void)"
   , "{"
   , "  return &using;"
   , "}"
-  , "/* ExampleNothingget_anyclass_ptr */"
+  , "/* Example_get_anyclass_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_9f90f5dd46a351a4 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_cfa29e557736efd5 (void)) (void)"
   , "{"
   , "  return &anyclass;"
   , "}"
-  , "/* ExampleNothingget_capi_ptr */"
+  , "/* Example_get_capi_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_3513093206483c6f (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_ae41a085ef9adcef (void)) (void)"
   , "{"
   , "  return &capi;"
   , "}"
-  , "/* ExampleNothingget_cases_ptr */"
+  , "/* Example_get_cases_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_af7d0bdd6562f7d9 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_cc15e121c247d854 (void)) (void)"
   , "{"
   , "  return &cases;"
   , "}"
-  , "/* ExampleNothingget_ccall_ptr */"
+  , "/* Example_get_ccall_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_79b6583362113331 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_2f1be0c0b0549873 (void)) (void)"
   , "{"
   , "  return &ccall;"
   , "}"
-  , "/* ExampleNothingget_dynamic_ptr */"
+  , "/* Example_get_dynamic_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_5c19071f2f4eaf45 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_7dea2fc6915321c7 (void)) (void)"
   , "{"
   , "  return &dynamic;"
   , "}"
-  , "/* ExampleNothingget_export_ptr */"
+  , "/* Example_get_export_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_98505ac7a8664e29 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_987942fc1f4b3233 (void)) (void)"
   , "{"
   , "  return &export;"
   , "}"
-  , "/* ExampleNothingget_family_ptr */"
+  , "/* Example_get_family_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_849e77496a12f443 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_5c138e5e14a493dd (void)) (void)"
   , "{"
   , "  return &family;"
   , "}"
-  , "/* ExampleNothingget_group_ptr */"
+  , "/* Example_get_group_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_41e72434cbcfa0d5 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_5cb9b135d109a0be (void)) (void)"
   , "{"
   , "  return &group;"
   , "}"
-  , "/* ExampleNothingget_interruptible_ptr */"
+  , "/* Example_get_interruptible_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_d016728709223884 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_2debad19a93cb81a (void)) (void)"
   , "{"
   , "  return &interruptible;"
   , "}"
-  , "/* ExampleNothingget_javascript_ptr */"
+  , "/* Example_get_javascript_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_fa5819996081f2b8 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_361dc2d1e5f57ae1 (void)) (void)"
   , "{"
   , "  return &javascript;"
   , "}"
-  , "/* ExampleNothingget_label_ptr */"
+  , "/* Example_get_label_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_0004d966bf5f8027 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_20beffa5b46156da (void)) (void)"
   , "{"
   , "  return &label;"
   , "}"
-  , "/* ExampleNothingget_prim_ptr */"
+  , "/* Example_get_prim_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_d9ec78c543d7f0ea (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_eefe3fdd7675b8f9 (void)) (void)"
   , "{"
   , "  return &prim;"
   , "}"
-  , "/* ExampleNothingget_role_ptr */"
+  , "/* Example_get_role_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_89449e7f8f90fc97 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_40365f1ff4f34eee (void)) (void)"
   , "{"
   , "  return &role;"
   , "}"
-  , "/* ExampleNothingget_safe_ptr */"
+  , "/* Example_get_safe_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_983c057a9645fd29 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_2ef470906d3c3bef (void)) (void)"
   , "{"
   , "  return &safe;"
   , "}"
-  , "/* ExampleNothingget_stdcall_ptr */"
+  , "/* Example_get_stdcall_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_8ea4a9581868a08c (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_f4fc85943aaf14e2 (void)) (void)"
   , "{"
   , "  return &stdcall;"
   , "}"
-  , "/* ExampleNothingget_stock_ptr */"
+  , "/* Example_get_stock_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_9d4197174428177d (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_b762fa5d4a81e02a (void)) (void)"
   , "{"
   , "  return &stock;"
   , "}"
-  , "/* ExampleNothingget_unsafe_ptr */"
+  , "/* Example_get_unsafe_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_6eb48adc74567d6d (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_b11ceb7c40dc58b3 (void)) (void)"
   , "{"
   , "  return &unsafe;"
   , "}"
-  , "/* ExampleNothingget_via_ptr */"
+  , "/* Example_get_via_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesnames_64eddb721da8c268 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesnames_4e4ca9e7e1239e1e (void)) (void)"
   , "{"
   , "  return &via;"
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_by_ptr@
+{-| __unique:__ @Example_get_by_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_3e566432e1b7bdd8" hs_bindgen_test_edgecasesnames_3e566432e1b7bdd8 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_4721f2de56bee5a7" hs_bindgen_test_edgecasesnames_4721f2de56bee5a7 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE by'_ptr #-}
@@ -179,11 +179,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_3e566432e1b7bdd8" hs
 -}
 by'_ptr :: Ptr.FunPtr (IO ())
 by'_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_3e566432e1b7bdd8
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_4721f2de56bee5a7
 
-{-| __unique:__ @ExampleNothingget_forall_ptr@
+{-| __unique:__ @Example_get_forall_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_a56841d4692515a9" hs_bindgen_test_edgecasesnames_a56841d4692515a9 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_a6c5e2959eea689d" hs_bindgen_test_edgecasesnames_a6c5e2959eea689d ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE forall'_ptr #-}
@@ -196,11 +196,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_a56841d4692515a9" hs
 -}
 forall'_ptr :: Ptr.FunPtr (IO ())
 forall'_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_a56841d4692515a9
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_a6c5e2959eea689d
 
-{-| __unique:__ @ExampleNothingget_mdo_ptr@
+{-| __unique:__ @Example_get_mdo_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_4b14baa1fbc8f378" hs_bindgen_test_edgecasesnames_4b14baa1fbc8f378 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_c8170d8a02bd9d63" hs_bindgen_test_edgecasesnames_c8170d8a02bd9d63 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE mdo'_ptr #-}
@@ -213,11 +213,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_4b14baa1fbc8f378" hs
 -}
 mdo'_ptr :: Ptr.FunPtr (IO ())
 mdo'_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_4b14baa1fbc8f378
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_c8170d8a02bd9d63
 
-{-| __unique:__ @ExampleNothingget_pattern_ptr@
+{-| __unique:__ @Example_get_pattern_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_b393d3c39de80903" hs_bindgen_test_edgecasesnames_b393d3c39de80903 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_ecf0921b33f20e24" hs_bindgen_test_edgecasesnames_ecf0921b33f20e24 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE pattern'_ptr #-}
@@ -230,11 +230,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_b393d3c39de80903" hs
 -}
 pattern'_ptr :: Ptr.FunPtr (IO ())
 pattern'_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_b393d3c39de80903
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_ecf0921b33f20e24
 
-{-| __unique:__ @ExampleNothingget_proc_ptr@
+{-| __unique:__ @Example_get_proc_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_f73545ae9224ff2d" hs_bindgen_test_edgecasesnames_f73545ae9224ff2d ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_7b723fb1b3bb127b" hs_bindgen_test_edgecasesnames_7b723fb1b3bb127b ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE proc'_ptr #-}
@@ -247,11 +247,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_f73545ae9224ff2d" hs
 -}
 proc'_ptr :: Ptr.FunPtr (IO ())
 proc'_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_f73545ae9224ff2d
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_7b723fb1b3bb127b
 
-{-| __unique:__ @ExampleNothingget_rec_ptr@
+{-| __unique:__ @Example_get_rec_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_0dd0f0805657312b" hs_bindgen_test_edgecasesnames_0dd0f0805657312b ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_2141b591f98fe9a9" hs_bindgen_test_edgecasesnames_2141b591f98fe9a9 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE rec'_ptr #-}
@@ -264,11 +264,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_0dd0f0805657312b" hs
 -}
 rec'_ptr :: Ptr.FunPtr (IO ())
 rec'_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_0dd0f0805657312b
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_2141b591f98fe9a9
 
-{-| __unique:__ @ExampleNothingget_using_ptr@
+{-| __unique:__ @Example_get_using_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_aa3ce68f2bc5f037" hs_bindgen_test_edgecasesnames_aa3ce68f2bc5f037 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_fe29e67ea061b330" hs_bindgen_test_edgecasesnames_fe29e67ea061b330 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE using'_ptr #-}
@@ -281,11 +281,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_aa3ce68f2bc5f037" hs
 -}
 using'_ptr :: Ptr.FunPtr (IO ())
 using'_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_aa3ce68f2bc5f037
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_fe29e67ea061b330
 
-{-| __unique:__ @ExampleNothingget_anyclass_ptr@
+{-| __unique:__ @Example_get_anyclass_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_9f90f5dd46a351a4" hs_bindgen_test_edgecasesnames_9f90f5dd46a351a4 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_cfa29e557736efd5" hs_bindgen_test_edgecasesnames_cfa29e557736efd5 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE anyclass_ptr #-}
@@ -298,11 +298,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_9f90f5dd46a351a4" hs
 -}
 anyclass_ptr :: Ptr.FunPtr (IO ())
 anyclass_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_9f90f5dd46a351a4
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_cfa29e557736efd5
 
-{-| __unique:__ @ExampleNothingget_capi_ptr@
+{-| __unique:__ @Example_get_capi_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_3513093206483c6f" hs_bindgen_test_edgecasesnames_3513093206483c6f ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_ae41a085ef9adcef" hs_bindgen_test_edgecasesnames_ae41a085ef9adcef ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE capi_ptr #-}
@@ -315,11 +315,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_3513093206483c6f" hs
 -}
 capi_ptr :: Ptr.FunPtr (IO ())
 capi_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_3513093206483c6f
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_ae41a085ef9adcef
 
-{-| __unique:__ @ExampleNothingget_cases_ptr@
+{-| __unique:__ @Example_get_cases_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_af7d0bdd6562f7d9" hs_bindgen_test_edgecasesnames_af7d0bdd6562f7d9 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_cc15e121c247d854" hs_bindgen_test_edgecasesnames_cc15e121c247d854 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE cases_ptr #-}
@@ -332,11 +332,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_af7d0bdd6562f7d9" hs
 -}
 cases_ptr :: Ptr.FunPtr (IO ())
 cases_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_af7d0bdd6562f7d9
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_cc15e121c247d854
 
-{-| __unique:__ @ExampleNothingget_ccall_ptr@
+{-| __unique:__ @Example_get_ccall_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_79b6583362113331" hs_bindgen_test_edgecasesnames_79b6583362113331 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_2f1be0c0b0549873" hs_bindgen_test_edgecasesnames_2f1be0c0b0549873 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE ccall_ptr #-}
@@ -349,11 +349,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_79b6583362113331" hs
 -}
 ccall_ptr :: Ptr.FunPtr (IO ())
 ccall_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_79b6583362113331
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_2f1be0c0b0549873
 
-{-| __unique:__ @ExampleNothingget_dynamic_ptr@
+{-| __unique:__ @Example_get_dynamic_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_5c19071f2f4eaf45" hs_bindgen_test_edgecasesnames_5c19071f2f4eaf45 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_7dea2fc6915321c7" hs_bindgen_test_edgecasesnames_7dea2fc6915321c7 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE dynamic_ptr #-}
@@ -366,11 +366,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_5c19071f2f4eaf45" hs
 -}
 dynamic_ptr :: Ptr.FunPtr (IO ())
 dynamic_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_5c19071f2f4eaf45
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_7dea2fc6915321c7
 
-{-| __unique:__ @ExampleNothingget_export_ptr@
+{-| __unique:__ @Example_get_export_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_98505ac7a8664e29" hs_bindgen_test_edgecasesnames_98505ac7a8664e29 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_987942fc1f4b3233" hs_bindgen_test_edgecasesnames_987942fc1f4b3233 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE export_ptr #-}
@@ -383,11 +383,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_98505ac7a8664e29" hs
 -}
 export_ptr :: Ptr.FunPtr (IO ())
 export_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_98505ac7a8664e29
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_987942fc1f4b3233
 
-{-| __unique:__ @ExampleNothingget_family_ptr@
+{-| __unique:__ @Example_get_family_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_849e77496a12f443" hs_bindgen_test_edgecasesnames_849e77496a12f443 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_5c138e5e14a493dd" hs_bindgen_test_edgecasesnames_5c138e5e14a493dd ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE family_ptr #-}
@@ -400,11 +400,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_849e77496a12f443" hs
 -}
 family_ptr :: Ptr.FunPtr (IO ())
 family_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_849e77496a12f443
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_5c138e5e14a493dd
 
-{-| __unique:__ @ExampleNothingget_group_ptr@
+{-| __unique:__ @Example_get_group_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_41e72434cbcfa0d5" hs_bindgen_test_edgecasesnames_41e72434cbcfa0d5 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_5cb9b135d109a0be" hs_bindgen_test_edgecasesnames_5cb9b135d109a0be ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE group_ptr #-}
@@ -417,11 +417,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_41e72434cbcfa0d5" hs
 -}
 group_ptr :: Ptr.FunPtr (IO ())
 group_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_41e72434cbcfa0d5
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_5cb9b135d109a0be
 
-{-| __unique:__ @ExampleNothingget_interruptible_ptr@
+{-| __unique:__ @Example_get_interruptible_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_d016728709223884" hs_bindgen_test_edgecasesnames_d016728709223884 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_2debad19a93cb81a" hs_bindgen_test_edgecasesnames_2debad19a93cb81a ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE interruptible_ptr #-}
@@ -434,11 +434,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_d016728709223884" hs
 -}
 interruptible_ptr :: Ptr.FunPtr (IO ())
 interruptible_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_d016728709223884
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_2debad19a93cb81a
 
-{-| __unique:__ @ExampleNothingget_javascript_ptr@
+{-| __unique:__ @Example_get_javascript_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_fa5819996081f2b8" hs_bindgen_test_edgecasesnames_fa5819996081f2b8 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_361dc2d1e5f57ae1" hs_bindgen_test_edgecasesnames_361dc2d1e5f57ae1 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE javascript_ptr #-}
@@ -451,11 +451,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_fa5819996081f2b8" hs
 -}
 javascript_ptr :: Ptr.FunPtr (IO ())
 javascript_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_fa5819996081f2b8
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_361dc2d1e5f57ae1
 
-{-| __unique:__ @ExampleNothingget_label_ptr@
+{-| __unique:__ @Example_get_label_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_0004d966bf5f8027" hs_bindgen_test_edgecasesnames_0004d966bf5f8027 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_20beffa5b46156da" hs_bindgen_test_edgecasesnames_20beffa5b46156da ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE label_ptr #-}
@@ -468,11 +468,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_0004d966bf5f8027" hs
 -}
 label_ptr :: Ptr.FunPtr (IO ())
 label_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_0004d966bf5f8027
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_20beffa5b46156da
 
-{-| __unique:__ @ExampleNothingget_prim_ptr@
+{-| __unique:__ @Example_get_prim_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_d9ec78c543d7f0ea" hs_bindgen_test_edgecasesnames_d9ec78c543d7f0ea ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_eefe3fdd7675b8f9" hs_bindgen_test_edgecasesnames_eefe3fdd7675b8f9 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE prim_ptr #-}
@@ -485,11 +485,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_d9ec78c543d7f0ea" hs
 -}
 prim_ptr :: Ptr.FunPtr (IO ())
 prim_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_d9ec78c543d7f0ea
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_eefe3fdd7675b8f9
 
-{-| __unique:__ @ExampleNothingget_role_ptr@
+{-| __unique:__ @Example_get_role_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_89449e7f8f90fc97" hs_bindgen_test_edgecasesnames_89449e7f8f90fc97 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_40365f1ff4f34eee" hs_bindgen_test_edgecasesnames_40365f1ff4f34eee ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE role_ptr #-}
@@ -502,11 +502,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_89449e7f8f90fc97" hs
 -}
 role_ptr :: Ptr.FunPtr (IO ())
 role_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_89449e7f8f90fc97
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_40365f1ff4f34eee
 
-{-| __unique:__ @ExampleNothingget_safe_ptr@
+{-| __unique:__ @Example_get_safe_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_983c057a9645fd29" hs_bindgen_test_edgecasesnames_983c057a9645fd29 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_2ef470906d3c3bef" hs_bindgen_test_edgecasesnames_2ef470906d3c3bef ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE safe_ptr #-}
@@ -519,11 +519,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_983c057a9645fd29" hs
 -}
 safe_ptr :: Ptr.FunPtr (IO ())
 safe_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_983c057a9645fd29
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_2ef470906d3c3bef
 
-{-| __unique:__ @ExampleNothingget_stdcall_ptr@
+{-| __unique:__ @Example_get_stdcall_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_8ea4a9581868a08c" hs_bindgen_test_edgecasesnames_8ea4a9581868a08c ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_f4fc85943aaf14e2" hs_bindgen_test_edgecasesnames_f4fc85943aaf14e2 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE stdcall_ptr #-}
@@ -536,11 +536,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_8ea4a9581868a08c" hs
 -}
 stdcall_ptr :: Ptr.FunPtr (IO ())
 stdcall_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_8ea4a9581868a08c
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_f4fc85943aaf14e2
 
-{-| __unique:__ @ExampleNothingget_stock_ptr@
+{-| __unique:__ @Example_get_stock_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_9d4197174428177d" hs_bindgen_test_edgecasesnames_9d4197174428177d ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_b762fa5d4a81e02a" hs_bindgen_test_edgecasesnames_b762fa5d4a81e02a ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE stock_ptr #-}
@@ -553,11 +553,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_9d4197174428177d" hs
 -}
 stock_ptr :: Ptr.FunPtr (IO ())
 stock_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_9d4197174428177d
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_b762fa5d4a81e02a
 
-{-| __unique:__ @ExampleNothingget_unsafe_ptr@
+{-| __unique:__ @Example_get_unsafe_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_6eb48adc74567d6d" hs_bindgen_test_edgecasesnames_6eb48adc74567d6d ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_b11ceb7c40dc58b3" hs_bindgen_test_edgecasesnames_b11ceb7c40dc58b3 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE unsafe_ptr #-}
@@ -570,11 +570,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_6eb48adc74567d6d" hs
 -}
 unsafe_ptr :: Ptr.FunPtr (IO ())
 unsafe_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_6eb48adc74567d6d
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_b11ceb7c40dc58b3
 
-{-| __unique:__ @ExampleNothingget_via_ptr@
+{-| __unique:__ @Example_get_via_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_64eddb721da8c268" hs_bindgen_test_edgecasesnames_64eddb721da8c268 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_4e4ca9e7e1239e1e" hs_bindgen_test_edgecasesnames_4e4ca9e7e1239e1e ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE via_ptr #-}
@@ -587,4 +587,4 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesnames_64eddb721da8c268" hs
 -}
 via_ptr :: Ptr.FunPtr (IO ())
 via_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_64eddb721da8c268
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesnames_4e4ca9e7e1239e1e

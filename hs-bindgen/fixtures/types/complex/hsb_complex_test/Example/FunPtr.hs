@@ -14,18 +14,18 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/complex/hsb_complex_test.h>"
-  , "/* ExampleNothingget_multiply_complex_f_ptr */"
+  , "/* Example_get_multiply_complex_f_ptr */"
   , "__attribute__ ((const))"
-  , "float _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_a7d89c01385c8c56 (void)) ("
+  , "float _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_16911a0e51c4c85c (void)) ("
   , "  float _Complex arg1,"
   , "  float _Complex arg2"
   , ")"
   , "{"
   , "  return &multiply_complex_f;"
   , "}"
-  , "/* ExampleNothingget_add_complex_ptr */"
+  , "/* Example_get_add_complex_ptr */"
   , "__attribute__ ((const))"
-  , "double _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_b6226a5bde741b3f (void)) ("
+  , "double _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_233e7cd871572db2 (void)) ("
   , "  double _Complex arg1,"
   , "  double _Complex arg2"
   , ")"
@@ -34,9 +34,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_multiply_complex_f_ptr@
+{-| __unique:__ @Example_get_multiply_complex_f_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_a7d89c01385c8c56" hs_bindgen_test_typescomplexhsb_complex_test_a7d89c01385c8c56 ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_16911a0e51c4c85c" hs_bindgen_test_typescomplexhsb_complex_test_16911a0e51c4c85c ::
      IO (Ptr.FunPtr ((Data.Complex.Complex FC.CFloat) -> (Data.Complex.Complex FC.CFloat) -> IO (Data.Complex.Complex FC.CFloat)))
 
 {-# NOINLINE multiply_complex_f_ptr #-}
@@ -49,11 +49,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_a7d89c
 -}
 multiply_complex_f_ptr :: Ptr.FunPtr ((Data.Complex.Complex FC.CFloat) -> (Data.Complex.Complex FC.CFloat) -> IO (Data.Complex.Complex FC.CFloat))
 multiply_complex_f_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_a7d89c01385c8c56
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_16911a0e51c4c85c
 
-{-| __unique:__ @ExampleNothingget_add_complex_ptr@
+{-| __unique:__ @Example_get_add_complex_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_b6226a5bde741b3f" hs_bindgen_test_typescomplexhsb_complex_test_b6226a5bde741b3f ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_233e7cd871572db2" hs_bindgen_test_typescomplexhsb_complex_test_233e7cd871572db2 ::
      IO (Ptr.FunPtr ((Data.Complex.Complex FC.CDouble) -> (Data.Complex.Complex FC.CDouble) -> IO (Data.Complex.Complex FC.CDouble)))
 
 {-# NOINLINE add_complex_ptr #-}
@@ -66,4 +66,4 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_b6226a
 -}
 add_complex_ptr :: Ptr.FunPtr ((Data.Complex.Complex FC.CDouble) -> (Data.Complex.Complex FC.CDouble) -> IO (Data.Complex.Complex FC.CDouble))
 add_complex_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_b6226a5bde741b3f
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_233e7cd871572db2

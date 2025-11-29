@@ -13,18 +13,18 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <manual/arrays.h>"
-  , "/* ExampleNothingget_transpose_ptr */"
+  , "/* Example_get_transpose_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_manualarrays_fc1dad225b555299 (void)) ("
+  , "void (*hs_bindgen_test_manualarrays_c8ec17b4322959b0 (void)) ("
   , "  matrix const arg1,"
   , "  matrix arg2"
   , ")"
   , "{"
   , "  return &transpose;"
   , "}"
-  , "/* ExampleNothingget_pretty_print_triplets_ptr */"
+  , "/* Example_get_pretty_print_triplets_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_manualarrays_0b485cea747ee35d (void)) ("
+  , "void (*hs_bindgen_test_manualarrays_2e4a6fee995639ce (void)) ("
   , "  triplet_ptrs arg1"
   , ")"
   , "{"
@@ -32,9 +32,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_transpose_ptr@
+{-| __unique:__ @Example_get_transpose_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_fc1dad225b555299" hs_bindgen_test_manualarrays_fc1dad225b555299 ::
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_c8ec17b4322959b0" hs_bindgen_test_manualarrays_c8ec17b4322959b0 ::
      IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
 
 {-# NOINLINE transpose_ptr #-}
@@ -47,11 +47,11 @@ foreign import ccall unsafe "hs_bindgen_test_manualarrays_fc1dad225b555299" hs_b
 -}
 transpose_ptr :: Ptr.FunPtr (Matrix -> Matrix -> IO ())
 transpose_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_fc1dad225b555299
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_c8ec17b4322959b0
 
-{-| __unique:__ @ExampleNothingget_pretty_print_triplets_ptr@
+{-| __unique:__ @Example_get_pretty_print_triplets_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_0b485cea747ee35d" hs_bindgen_test_manualarrays_0b485cea747ee35d ::
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_2e4a6fee995639ce" hs_bindgen_test_manualarrays_2e4a6fee995639ce ::
      IO (Ptr.FunPtr (Triplet_ptrs -> IO ()))
 
 {-# NOINLINE pretty_print_triplets_ptr #-}
@@ -66,4 +66,4 @@ __exported by:__ @manual\/arrays.h@
 -}
 pretty_print_triplets_ptr :: Ptr.FunPtr (Triplet_ptrs -> IO ())
 pretty_print_triplets_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_0b485cea747ee35d
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_2e4a6fee995639ce

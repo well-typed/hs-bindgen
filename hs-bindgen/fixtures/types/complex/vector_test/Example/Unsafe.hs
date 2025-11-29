@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/complex/vector_test.h>"
-  , "vector *hs_bindgen_test_typescomplexvector_test_30a7381111c0131a ("
+  , "vector *hs_bindgen_test_typescomplexvector_test_05cafecb9edb9817 ("
   , "  double arg1,"
   , "  double arg2"
   , ")"
@@ -28,9 +28,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @types\/complex\/vector_test.h@
 
-    __unique:__ @ExampleJust Unsafenew_vector@
+    __unique:__ @Example_Unsafe_new_vector@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexvector_test_30a7381111c0131a" new_vector ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexvector_test_05cafecb9edb9817" new_vector ::
      FC.CDouble
      {- ^ __C declaration:__ @x@
      -}

@@ -1,20 +1,20 @@
 -- addDependentFile examples/golden/types/special/parse_failure_long_double.h
 -- #include <types/special/parse_failure_long_double.h>
--- void hs_bindgen_test_typesspecialparse_failure_lo_fb32cb593bc1f7b8 (
+-- void hs_bindgen_test_typesspecialparse_failure_lo_042d3f53ad6ea2d9 (
 --   signed int arg1
 -- )
 -- {
 --   fun2(arg1);
 -- }
--- void hs_bindgen_test_typesspecialparse_failure_lo_5ebf8088e71802cc (
+-- void hs_bindgen_test_typesspecialparse_failure_lo_32bd2e777c5160a9 (
 --   signed int arg1
 -- )
 -- {
 --   fun2(arg1);
 -- }
--- /* ExampleNothingget_fun2_ptr */
+-- /* Example_get_fun2_ptr */
 -- __attribute__ ((const))
--- void (*hs_bindgen_test_typesspecialparse_failure_lo_d1bf59c1516f6bfa (void)) (
+-- void (*hs_bindgen_test_typesspecialparse_failure_lo_241dc0e8294c7c64 (void)) (
 --   signed int arg1
 -- )
 -- {
@@ -59,9 +59,9 @@ instance TyEq ty (CFieldType Struct2 "struct2_x") =>
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 
-    __unique:__ @ExampleJust Unsafefun2@
+    __unique:__ @Example_Unsafe_fun2@
 -}
-foreign import ccall safe "hs_bindgen_test_typesspecialparse_failure_lo_fb32cb593bc1f7b8" fun2 :: CInt ->
+foreign import ccall safe "hs_bindgen_test_typesspecialparse_failure_lo_042d3f53ad6ea2d9" fun2 :: CInt ->
                                                                                                   IO Unit
 {-| __C declaration:__ @fun2@
 
@@ -69,13 +69,13 @@ foreign import ccall safe "hs_bindgen_test_typesspecialparse_failure_lo_fb32cb59
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 
-    __unique:__ @ExampleJust Unsafefun2@
+    __unique:__ @Example_Unsafe_fun2@
 -}
-foreign import ccall safe "hs_bindgen_test_typesspecialparse_failure_lo_5ebf8088e71802cc" fun2 :: CInt ->
+foreign import ccall safe "hs_bindgen_test_typesspecialparse_failure_lo_32bd2e777c5160a9" fun2 :: CInt ->
                                                                                                   IO Unit
-{-| __unique:__ @ExampleNothingget_fun2_ptr@
+{-| __unique:__ @Example_get_fun2_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typesspecialparse_failure_lo_d1bf59c1516f6bfa" hs_bindgen_test_typesspecialparse_failure_lo_d1bf59c1516f6bfa :: IO (FunPtr (CInt ->
+foreign import ccall safe "hs_bindgen_test_typesspecialparse_failure_lo_241dc0e8294c7c64" hs_bindgen_test_typesspecialparse_failure_lo_241dc0e8294c7c64 :: IO (FunPtr (CInt ->
                                                                                                                                                                        IO Unit))
 {-# NOINLINE fun2_ptr #-}
 {-| __C declaration:__ @fun2@
@@ -91,4 +91,4 @@ fun2_ptr :: FunPtr (CInt -> IO Unit)
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
-fun2_ptr = unsafePerformIO hs_bindgen_test_typesspecialparse_failure_lo_d1bf59c1516f6bfa
+fun2_ptr = unsafePerformIO hs_bindgen_test_typesspecialparse_failure_lo_241dc0e8294c7c64

@@ -12,17 +12,17 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <functions/varargs.h>"
-  , "/* ExampleNothingget_h_ptr */"
+  , "/* Example_get_h_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_functionsvarargs_6344539fe0b25338 (void)) (void)"
+  , "void (*hs_bindgen_test_functionsvarargs_587f2dc51b0709c8 (void)) (void)"
   , "{"
   , "  return &h;"
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_h_ptr@
+{-| __unique:__ @Example_get_h_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionsvarargs_6344539fe0b25338" hs_bindgen_test_functionsvarargs_6344539fe0b25338 ::
+foreign import ccall unsafe "hs_bindgen_test_functionsvarargs_587f2dc51b0709c8" hs_bindgen_test_functionsvarargs_587f2dc51b0709c8 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE h_ptr #-}
@@ -35,4 +35,4 @@ foreign import ccall unsafe "hs_bindgen_test_functionsvarargs_6344539fe0b25338" 
 -}
 h_ptr :: Ptr.FunPtr (IO ())
 h_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsvarargs_6344539fe0b25338
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionsvarargs_587f2dc51b0709c8

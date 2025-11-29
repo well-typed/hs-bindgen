@@ -13,9 +13,9 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <declarations/definitions.h>"
-  , "/* ExampleNothingget_foo_ptr */"
+  , "/* Example_get_foo_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_test_declarationsdefinitions_32925a42980e81cd (void)) ("
+  , "signed int (*hs_bindgen_test_declarationsdefinitions_21a0306ae50be9fc (void)) ("
   , "  double arg1"
   , ")"
   , "{"
@@ -23,9 +23,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_foo_ptr@
+{-| __unique:__ @Example_get_foo_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_declarationsdefinitions_32925a42980e81cd" hs_bindgen_test_declarationsdefinitions_32925a42980e81cd ::
+foreign import ccall unsafe "hs_bindgen_test_declarationsdefinitions_21a0306ae50be9fc" hs_bindgen_test_declarationsdefinitions_21a0306ae50be9fc ::
      IO (Ptr.FunPtr (FC.CDouble -> IO FC.CInt))
 
 {-# NOINLINE foo_ptr #-}
@@ -38,4 +38,4 @@ foreign import ccall unsafe "hs_bindgen_test_declarationsdefinitions_32925a42980
 -}
 foo_ptr :: Ptr.FunPtr (FC.CDouble -> IO FC.CInt)
 foo_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_declarationsdefinitions_32925a42980e81cd
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_declarationsdefinitions_21a0306ae50be9fc

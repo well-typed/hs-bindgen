@@ -13,20 +13,20 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <manual/function_pointers.h>"
-  , "signed int hs_bindgen_test_manualfunction_pointers_cb3c687f16289bb3 ("
+  , "signed int hs_bindgen_test_manualfunction_pointers_8f23db39ce783444 ("
   , "  signed int arg1"
   , ")"
   , "{"
   , "  return square(arg1);"
   , "}"
-  , "signed int hs_bindgen_test_manualfunction_pointers_a9730564387164c0 ("
+  , "signed int hs_bindgen_test_manualfunction_pointers_c3416ad2865cb2dc ("
   , "  signed int arg1,"
   , "  signed int arg2"
   , ")"
   , "{"
   , "  return plus(arg1, arg2);"
   , "}"
-  , "signed int hs_bindgen_test_manualfunction_pointers_3fb9c4a14d502477 ("
+  , "signed int hs_bindgen_test_manualfunction_pointers_d7a9b248399cfc31 ("
   , "  signed int (*arg1) ("
   , "  signed int arg1"
   , "),"
@@ -35,7 +35,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return apply1(arg1, arg2);"
   , "}"
-  , "signed int hs_bindgen_test_manualfunction_pointers_75b5699fdabb6333 ("
+  , "signed int hs_bindgen_test_manualfunction_pointers_beb4b357590e715c ("
   , "  signed int (*arg1) ("
   , "  signed int arg1,"
   , "  signed int arg2"
@@ -46,21 +46,21 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return apply2(arg1, arg2, arg3);"
   , "}"
-  , "signed int hs_bindgen_test_manualfunction_pointers_2d5144fc06502862 ("
+  , "signed int hs_bindgen_test_manualfunction_pointers_cad735b85e22e509 ("
   , "  int2int *arg1,"
   , "  signed int arg2"
   , ")"
   , "{"
   , "  return apply1_pointer_arg(arg1, arg2);"
   , "}"
-  , "signed int hs_bindgen_test_manualfunction_pointers_b7597a0c4856ebb3 ("
+  , "signed int hs_bindgen_test_manualfunction_pointers_22c151452307c09c ("
   , "  int2int *arg1,"
   , "  signed int arg2"
   , ")"
   , "{"
   , "  return apply1_nopointer_arg(arg1, arg2);"
   , "}"
-  , "signed int (*const hs_bindgen_test_manualfunction_pointers_be3907895c70597f (void)) ("
+  , "signed int (*const hs_bindgen_test_manualfunction_pointers_6250a572788b0439 (void)) ("
   , "  int2int *arg1,"
   , "  signed int arg2"
   , ")"
@@ -75,9 +75,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @manual\/function_pointers.h@
 
-    __unique:__ @ExampleJust Unsafesquare@
+    __unique:__ @Example_Unsafe_square@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_cb3c687f16289bb3" square ::
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_8f23db39ce783444" square ::
      FC.CInt
   -> IO FC.CInt
 
@@ -87,9 +87,9 @@ foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_cb3c687f162
 
     __exported by:__ @manual\/function_pointers.h@
 
-    __unique:__ @ExampleJust Unsafeplus@
+    __unique:__ @Example_Unsafe_plus@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_a9730564387164c0" plus ::
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_c3416ad2865cb2dc" plus ::
      FC.CInt
   -> FC.CInt
   -> IO FC.CInt
@@ -100,9 +100,9 @@ foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_a9730564387
 
     __exported by:__ @manual\/function_pointers.h@
 
-    __unique:__ @ExampleJust Unsafeapply1@
+    __unique:__ @Example_Unsafe_apply1@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_3fb9c4a14d502477" apply1 ::
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_d7a9b248399cfc31" apply1 ::
      Ptr.FunPtr (FC.CInt -> IO FC.CInt)
      {- ^ __C declaration:__ @f@
      -}
@@ -117,9 +117,9 @@ foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_3fb9c4a14d5
 
     __exported by:__ @manual\/function_pointers.h@
 
-    __unique:__ @ExampleJust Unsafeapply2@
+    __unique:__ @Example_Unsafe_apply2@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_75b5699fdabb6333" apply2 ::
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_beb4b357590e715c" apply2 ::
      Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
      {- ^ __C declaration:__ @f@
      -}
@@ -139,9 +139,9 @@ __defined at:__ @manual\/function_pointers.h:22:12@
 
 __exported by:__ @manual\/function_pointers.h@
 
-__unique:__ @ExampleJust Unsafeapply1_pointer_arg@
+__unique:__ @Example_Unsafe_apply1_pointer_arg@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_2d5144fc06502862" apply1_pointer_arg ::
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_cad735b85e22e509" apply1_pointer_arg ::
      Ptr.FunPtr Int2int
   -> FC.CInt
   -> IO FC.CInt
@@ -154,9 +154,9 @@ __defined at:__ @manual\/function_pointers.h:26:12@
 
 __exported by:__ @manual\/function_pointers.h@
 
-__unique:__ @ExampleJust Unsafeapply1_nopointer_arg@
+__unique:__ @Example_Unsafe_apply1_nopointer_arg@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_b7597a0c4856ebb3" apply1_nopointer_arg ::
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_22c151452307c09c" apply1_nopointer_arg ::
      Ptr.FunPtr Int2int
   -> FC.CInt
   -> IO FC.CInt
@@ -169,7 +169,7 @@ __defined at:__ @manual\/function_pointers.h:31:21@
 
 __exported by:__ @manual\/function_pointers.h@
 
-__unique:__ @ExampleJust Unsafeapply1_nopointer_res@
+__unique:__ @Example_Unsafe_apply1_nopointer_res@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_be3907895c70597f" apply1_nopointer_res ::
+foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_6250a572788b0439" apply1_nopointer_res ::
      IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))

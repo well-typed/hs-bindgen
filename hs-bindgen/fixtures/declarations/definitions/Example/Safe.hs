@@ -11,7 +11,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <declarations/definitions.h>"
-  , "signed int hs_bindgen_test_declarationsdefinitions_5a514c66396155ff ("
+  , "signed int hs_bindgen_test_declarationsdefinitions_fe0d19fe5d8de38b ("
   , "  double arg1"
   , ")"
   , "{"
@@ -25,9 +25,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @declarations\/definitions.h@
 
-    __unique:__ @ExampleJust Safefoo@
+    __unique:__ @Example_Safe_foo@
 -}
-foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_5a514c66396155ff" foo ::
+foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_fe0d19fe5d8de38b" foo ::
      FC.CDouble
      {- ^ __C declaration:__ @x@
      -}
