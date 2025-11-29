@@ -13,17 +13,17 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <functions/simple_func.h>"
-  , "/* Example_get_erf_ptr */"
+  , "/* test_functionssimple_func_Example_get_erf_ptr */"
   , "__attribute__ ((const))"
-  , "double (*hs_bindgen_test_functionssimple_func_7d52c648e2e7063e (void)) ("
+  , "double (*hs_bindgen_1308338f62c45845 (void)) ("
   , "  double arg1"
   , ")"
   , "{"
   , "  return &erf;"
   , "}"
-  , "/* Example_get_bad_fma_ptr */"
+  , "/* test_functionssimple_func_Example_get_bad_fma_ptr */"
   , "__attribute__ ((const))"
-  , "double (*hs_bindgen_test_functionssimple_func_bfb5fbefbc7ce155 (void)) ("
+  , "double (*hs_bindgen_457f7d0956688086 (void)) ("
   , "  double arg1,"
   , "  double arg2,"
   , "  double arg3"
@@ -31,21 +31,21 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &bad_fma;"
   , "}"
-  , "/* Example_get_no_args_ptr */"
+  , "/* test_functionssimple_func_Example_get_no_args_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_functionssimple_func_b26d61bd4529eb65 (void)) (void)"
+  , "void (*hs_bindgen_db204712b6d929ba (void)) (void)"
   , "{"
   , "  return &no_args;"
   , "}"
-  , "/* Example_get_no_args_no_void_ptr */"
+  , "/* test_functionssimple_func_Example_get_no_args_no_void_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_functionssimple_func_6594699f2f8bc19e (void)) (void)"
+  , "void (*hs_bindgen_d8fd245fa84413ae (void)) (void)"
   , "{"
   , "  return &no_args_no_void;"
   , "}"
-  , "/* Example_get_fun_ptr */"
+  , "/* test_functionssimple_func_Example_get_fun_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_test_functionssimple_func_d26c6211b6a8beaf (void)) ("
+  , "signed int (*hs_bindgen_8541b259788f68ad (void)) ("
   , "  char arg1,"
   , "  double arg2"
   , ")"
@@ -54,9 +54,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @Example_get_erf_ptr@
+{-| __unique:__ @test_functionssimple_func_Example_get_erf_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_7d52c648e2e7063e" hs_bindgen_test_functionssimple_func_7d52c648e2e7063e ::
+foreign import ccall unsafe "hs_bindgen_1308338f62c45845" hs_bindgen_1308338f62c45845 ::
      IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
 
 {-# NOINLINE erf_ptr #-}
@@ -69,11 +69,11 @@ foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_7d52c648e2e706
 -}
 erf_ptr :: Ptr.FunPtr (FC.CDouble -> IO FC.CDouble)
 erf_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionssimple_func_7d52c648e2e7063e
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1308338f62c45845
 
-{-| __unique:__ @Example_get_bad_fma_ptr@
+{-| __unique:__ @test_functionssimple_func_Example_get_bad_fma_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_bfb5fbefbc7ce155" hs_bindgen_test_functionssimple_func_bfb5fbefbc7ce155 ::
+foreign import ccall unsafe "hs_bindgen_457f7d0956688086" hs_bindgen_457f7d0956688086 ::
      IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble))
 
 {-# NOINLINE bad_fma_ptr #-}
@@ -86,11 +86,11 @@ foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_bfb5fbefbc7ce1
 -}
 bad_fma_ptr :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble)
 bad_fma_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionssimple_func_bfb5fbefbc7ce155
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_457f7d0956688086
 
-{-| __unique:__ @Example_get_no_args_ptr@
+{-| __unique:__ @test_functionssimple_func_Example_get_no_args_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_b26d61bd4529eb65" hs_bindgen_test_functionssimple_func_b26d61bd4529eb65 ::
+foreign import ccall unsafe "hs_bindgen_db204712b6d929ba" hs_bindgen_db204712b6d929ba ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE no_args_ptr #-}
@@ -103,11 +103,11 @@ foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_b26d61bd4529eb
 -}
 no_args_ptr :: Ptr.FunPtr (IO ())
 no_args_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionssimple_func_b26d61bd4529eb65
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_db204712b6d929ba
 
-{-| __unique:__ @Example_get_no_args_no_void_ptr@
+{-| __unique:__ @test_functionssimple_func_Example_get_no_args_no_void_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_6594699f2f8bc19e" hs_bindgen_test_functionssimple_func_6594699f2f8bc19e ::
+foreign import ccall unsafe "hs_bindgen_d8fd245fa84413ae" hs_bindgen_d8fd245fa84413ae ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE no_args_no_void_ptr #-}
@@ -120,11 +120,11 @@ foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_6594699f2f8bc1
 -}
 no_args_no_void_ptr :: Ptr.FunPtr (IO ())
 no_args_no_void_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionssimple_func_6594699f2f8bc19e
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d8fd245fa84413ae
 
-{-| __unique:__ @Example_get_fun_ptr@
+{-| __unique:__ @test_functionssimple_func_Example_get_fun_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_d26c6211b6a8beaf" hs_bindgen_test_functionssimple_func_d26c6211b6a8beaf ::
+foreign import ccall unsafe "hs_bindgen_8541b259788f68ad" hs_bindgen_8541b259788f68ad ::
      IO (Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt))
 
 {-# NOINLINE fun_ptr #-}
@@ -137,4 +137,4 @@ foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_d26c6211b6a8be
 -}
 fun_ptr :: Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt)
 fun_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionssimple_func_d26c6211b6a8beaf
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8541b259788f68ad

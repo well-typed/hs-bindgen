@@ -11,7 +11,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <attributes/asm.h>"
-  , "signed int hs_bindgen_test_attributesasm_f9dd00ef94c6039e ("
+  , "signed int hs_bindgen_369133049bfc1e73 ("
   , "  signed int arg1,"
   , "  signed int arg2"
   , ")"
@@ -26,9 +26,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @attributes\/asm.h@
 
-    __unique:__ @Example_Safe_asm_labeled_function@
+    __unique:__ @test_attributesasm_Example_Safe_asm_labeled_function@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesasm_f9dd00ef94c6039e" asm_labeled_function ::
+foreign import ccall safe "hs_bindgen_369133049bfc1e73" asm_labeled_function ::
      FC.CInt
      {- ^ __C declaration:__ @x@
      -}

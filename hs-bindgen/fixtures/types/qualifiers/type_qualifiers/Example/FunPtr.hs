@@ -13,9 +13,9 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/qualifiers/type_qualifiers.h>"
-  , "/* Example_get_list_example_ptr */"
+  , "/* test_typesqualifierstype_qualifie_Example_get_list_example_ptr */"
   , "__attribute__ ((const))"
-  , "_Bool (*hs_bindgen_test_typesqualifierstype_qualifie_37cf534c55e80207 (void)) ("
+  , "_Bool (*hs_bindgen_33c0388dc987452a (void)) ("
   , "  char const **arg1,"
   , "  size_t arg2"
   , ")"
@@ -24,9 +24,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @Example_get_list_example_ptr@
+{-| __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typesqualifierstype_qualifie_37cf534c55e80207" hs_bindgen_test_typesqualifierstype_qualifie_37cf534c55e80207 ::
+foreign import ccall unsafe "hs_bindgen_33c0388dc987452a" hs_bindgen_33c0388dc987452a ::
      IO (Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
 
 {-# NOINLINE list_example_ptr #-}
@@ -39,4 +39,4 @@ foreign import ccall unsafe "hs_bindgen_test_typesqualifierstype_qualifie_37cf53
 -}
 list_example_ptr :: Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool)
 list_example_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typesqualifierstype_qualifie_37cf534c55e80207
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_33c0388dc987452a

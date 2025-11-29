@@ -10,15 +10,15 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/adios.h>"
-  , "void hs_bindgen_test_edgecasesadios_d563f36e835846ef (void)"
+  , "void hs_bindgen_2010521804ef9a6e (void)"
   , "{"
   , "  \978();"
   , "}"
-  , "void hs_bindgen_test_edgecasesadios_6ecd3c2c1d149f9a (void)"
+  , "void hs_bindgen_3bc3e53cc82c9580 (void)"
   , "{"
   , "  \25308\25308();"
   , "}"
-  , "void hs_bindgen_test_edgecasesadios_580d4502b4a9e30b (void)"
+  , "void hs_bindgen_ad8eb47027b2d49d (void)"
   , "{"
   , "  Say\25308\25308();"
   , "}"
@@ -30,9 +30,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @edge-cases\/adios.h@
 
-    __unique:__ @Example_Safe_ϒ@
+    __unique:__ @test_edgecasesadios_Example_Safe_ϒ@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesadios_d563f36e835846ef" cϒ ::
+foreign import ccall safe "hs_bindgen_2010521804ef9a6e" cϒ ::
      IO ()
 
 {-| __C declaration:__ @拜拜@
@@ -41,9 +41,9 @@ foreign import ccall safe "hs_bindgen_test_edgecasesadios_d563f36e835846ef" cϒ 
 
     __exported by:__ @edge-cases\/adios.h@
 
-    __unique:__ @Example_Safe_拜拜@
+    __unique:__ @test_edgecasesadios_Example_Safe_拜拜@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesadios_6ecd3c2c1d149f9a" 拜拜 ::
+foreign import ccall safe "hs_bindgen_3bc3e53cc82c9580" 拜拜 ::
      IO ()
 
 {-| __C declaration:__ @Say拜拜@
@@ -52,7 +52,7 @@ foreign import ccall safe "hs_bindgen_test_edgecasesadios_6ecd3c2c1d149f9a" 拜�
 
     __exported by:__ @edge-cases\/adios.h@
 
-    __unique:__ @Example_Safe_Say拜拜@
+    __unique:__ @test_edgecasesadios_Example_Safe_Say拜拜@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesadios_580d4502b4a9e30b" say拜拜 ::
+foreign import ccall safe "hs_bindgen_ad8eb47027b2d49d" say拜拜 ::
      IO ()

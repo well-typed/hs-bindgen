@@ -14,23 +14,23 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/adios.h>"
-  , "/* Example_get_\978\978_ptr */"
+  , "/* test_edgecasesadios_Example_get_\978\978_ptr */"
   , "__attribute__ ((const))"
-  , "signed int *hs_bindgen_test_edgecasesadios_a27c24be75e20133 (void)"
+  , "signed int *hs_bindgen_a5a7bbe6b8c53539 (void)"
   , "{"
   , "  return &\978\978;"
   , "}"
-  , "/* Example_get_\978\978\978_ptr */"
+  , "/* test_edgecasesadios_Example_get_\978\978\978_ptr */"
   , "__attribute__ ((const))"
-  , "signed int const *hs_bindgen_test_edgecasesadios_1875f3779c35a7ab (void)"
+  , "signed int const *hs_bindgen_31d6bde39787c8b8 (void)"
   , "{"
   , "  return &\978\978\978;"
   , "}"
   ]))
 
-{-| __unique:__ @Example_get_ϒϒ_ptr@
+{-| __unique:__ @test_edgecasesadios_Example_get_ϒϒ_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_a27c24be75e20133" hs_bindgen_test_edgecasesadios_a27c24be75e20133 ::
+foreign import ccall unsafe "hs_bindgen_a5a7bbe6b8c53539" hs_bindgen_a5a7bbe6b8c53539 ::
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE cϒϒ_ptr #-}
@@ -43,11 +43,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_a27c24be75e20133" hs
 -}
 cϒϒ_ptr :: Ptr.Ptr FC.CInt
 cϒϒ_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_a27c24be75e20133
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a5a7bbe6b8c53539
 
-{-| __unique:__ @Example_get_ϒϒϒ_ptr@
+{-| __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_1875f3779c35a7ab" hs_bindgen_test_edgecasesadios_1875f3779c35a7ab ::
+foreign import ccall unsafe "hs_bindgen_31d6bde39787c8b8" hs_bindgen_31d6bde39787c8b8 ::
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE cϒϒϒ_ptr #-}
@@ -60,7 +60,7 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_1875f3779c35a7ab" hs
 -}
 cϒϒϒ_ptr :: Ptr.Ptr FC.CInt
 cϒϒϒ_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_1875f3779c35a7ab
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_31d6bde39787c8b8
 
 {-# NOINLINE cϒϒϒ #-}
 

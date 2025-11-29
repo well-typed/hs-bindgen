@@ -13,17 +13,17 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/distilled_lib_1.h>"
-  , "/* Example_get_v_ptr */"
+  , "/* test_edgecasesdistilled_lib_1_Example_get_v_ptr */"
   , "__attribute__ ((const))"
-  , "var_t *hs_bindgen_test_edgecasesdistilled_lib_1_2a8dd8e53b4afeea (void)"
+  , "var_t *hs_bindgen_9b325860ee78839e (void)"
   , "{"
   , "  return &v;"
   , "}"
   ]))
 
-{-| __unique:__ @Example_get_v_ptr@
+{-| __unique:__ @test_edgecasesdistilled_lib_1_Example_get_v_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesdistilled_lib_1_2a8dd8e53b4afeea" hs_bindgen_test_edgecasesdistilled_lib_1_2a8dd8e53b4afeea ::
+foreign import ccall unsafe "hs_bindgen_9b325860ee78839e" hs_bindgen_9b325860ee78839e ::
      IO (Ptr.Ptr Var_t)
 
 {-# NOINLINE v_ptr #-}
@@ -36,4 +36,4 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesdistilled_lib_1_2a8dd8e53b
 -}
 v_ptr :: Ptr.Ptr Var_t
 v_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesdistilled_lib_1_2a8dd8e53b4afeea
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9b325860ee78839e

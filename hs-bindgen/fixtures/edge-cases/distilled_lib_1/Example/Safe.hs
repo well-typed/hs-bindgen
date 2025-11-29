@@ -12,7 +12,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/distilled_lib_1.h>"
-  , "int32_t hs_bindgen_test_edgecasesdistilled_lib_1_09bd25fe964ff9eb ("
+  , "int32_t hs_bindgen_57cb99ed92c001ad ("
   , "  a_type_t *arg1,"
   , "  uint32_t arg2,"
   , "  uint8_t *arg3"
@@ -28,9 +28,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 
-    __unique:__ @Example_Safe_some_fun@
+    __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesdistilled_lib_1_09bd25fe964ff9eb" some_fun ::
+foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" some_fun ::
      Ptr.Ptr A_type_t
      {- ^ __C declaration:__ @i@
      -}

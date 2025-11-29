@@ -1449,7 +1449,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
         { foreignImportName       = importName
         , foreignImportResultType = resType
         , foreignImportParameters = if areFancy then ffiParams else ffiParsedArgs
-        , foreignImportOrigName   = T.pack wrapperName.unique
+        , foreignImportOrigName   = uniqueCName wrapperName
         , foreignImportCallConv   = CallConvUserlandCAPI userlandCapiWrapper
         , foreignImportOrigin     = Origin.Function f
         , foreignImportSafety     = safety
@@ -1534,7 +1534,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
     innerName = T.unpack (C.getName . C.nameC . C.declId $ info)
 
     wrapperName :: UniqueSymbol
-    wrapperName = getUniqueSymbol opts.translationUniqueId moduleName $ concat [
+    wrapperName = globallyUnique opts.translationUniqueId moduleName $ concat [
           show safety
         , "_"
         , innerName
@@ -1725,18 +1725,18 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
   where
     -- *** Stub (impure) ***
 
-    -- | We reuse the mangled stub name here, since the import is supposed to be
+    -- We reuse the mangled stub name here, since the import is supposed to be
     -- internal. Users should use functioned identified by @runnerName@ instead,
     -- which does not include 'IO' in the return type.
     stubImportName :: Hs.Name 'Hs.NsVar
-    stubImportName = Hs.Name $ T.pack stubName.unique
+    stubImportName = unsafeUniqueHsName stubName
 
     stubImportType :: ResultType HsType
     stubImportType = NormalResultType $ HsIO $ Type.topLevel stubType
 
     stubName :: UniqueSymbol
     stubName =
-        getUniqueSymbol opts.translationUniqueId moduleName $
+        globallyUnique opts.translationUniqueId moduleName $
           "get_" ++ varName ++ "_ptr"
 
     varName :: String
@@ -1770,7 +1770,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
         { foreignImportName       = stubImportName
         , foreignImportParameters = []
         , foreignImportResultType = stubImportType
-        , foreignImportOrigName   = T.pack stubName.unique
+        , foreignImportOrigName   = uniqueCName stubName
         , foreignImportCallConv   = CallConvUserlandCAPI userlandCapiWrapper
         , foreignImportOrigin     = Origin.Global ty
         , foreignImportComment    = Just $ HsDoc.uniqueSymbol stubName

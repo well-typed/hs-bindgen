@@ -14,41 +14,41 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/complex/complex_non_float_test.h>"
-  , "/* Example_get_global_complex_unsigned_short_ptr */"
+  , "/* test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_short_ptr */"
   , "__attribute__ ((const))"
-  , "unsigned short _Complex *hs_bindgen_test_typescomplexcomplex_non_floa_6d55f1ca3a2499b8 (void)"
+  , "unsigned short _Complex *hs_bindgen_f06a1feab15d0572 (void)"
   , "{"
   , "  return &global_complex_unsigned_short;"
   , "}"
-  , "/* Example_get_global_complex_short_ptr */"
+  , "/* test_typescomplexcomplex_non_floa_Example_get_global_complex_short_ptr */"
   , "__attribute__ ((const))"
-  , "signed short _Complex *hs_bindgen_test_typescomplexcomplex_non_floa_2d1151e8eeef7711 (void)"
+  , "signed short _Complex *hs_bindgen_96f1e350c6c42760 (void)"
   , "{"
   , "  return &global_complex_short;"
   , "}"
-  , "/* Example_get_global_complex_unsigned_int_ptr */"
+  , "/* test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_int_ptr */"
   , "__attribute__ ((const))"
-  , "unsigned int _Complex *hs_bindgen_test_typescomplexcomplex_non_floa_93efc31bade3ca7a (void)"
+  , "unsigned int _Complex *hs_bindgen_f11054676f537692 (void)"
   , "{"
   , "  return &global_complex_unsigned_int;"
   , "}"
-  , "/* Example_get_global_complex_int_ptr */"
+  , "/* test_typescomplexcomplex_non_floa_Example_get_global_complex_int_ptr */"
   , "__attribute__ ((const))"
-  , "signed int _Complex *hs_bindgen_test_typescomplexcomplex_non_floa_fadd2d069427cf8b (void)"
+  , "signed int _Complex *hs_bindgen_c5a5feb6d6df39b6 (void)"
   , "{"
   , "  return &global_complex_int;"
   , "}"
-  , "/* Example_get_global_complex_char_ptr */"
+  , "/* test_typescomplexcomplex_non_floa_Example_get_global_complex_char_ptr */"
   , "__attribute__ ((const))"
-  , "char _Complex *hs_bindgen_test_typescomplexcomplex_non_floa_25f2b5af5fdd8414 (void)"
+  , "char _Complex *hs_bindgen_4265dc893a126b40 (void)"
   , "{"
   , "  return &global_complex_char;"
   , "}"
   ]))
 
-{-| __unique:__ @Example_get_global_complex_unsigned_short_ptr@
+{-| __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_short_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexcomplex_non_floa_6d55f1ca3a2499b8" hs_bindgen_test_typescomplexcomplex_non_floa_6d55f1ca3a2499b8 ::
+foreign import ccall unsafe "hs_bindgen_f06a1feab15d0572" hs_bindgen_f06a1feab15d0572 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CUShort))
 
 {-# NOINLINE global_complex_unsigned_short_ptr #-}
@@ -61,11 +61,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexcomplex_non_floa_6d55f1
 -}
 global_complex_unsigned_short_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CUShort)
 global_complex_unsigned_short_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexcomplex_non_floa_6d55f1ca3a2499b8
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f06a1feab15d0572
 
-{-| __unique:__ @Example_get_global_complex_short_ptr@
+{-| __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_short_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexcomplex_non_floa_2d1151e8eeef7711" hs_bindgen_test_typescomplexcomplex_non_floa_2d1151e8eeef7711 ::
+foreign import ccall unsafe "hs_bindgen_96f1e350c6c42760" hs_bindgen_96f1e350c6c42760 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CShort))
 
 {-# NOINLINE global_complex_short_ptr #-}
@@ -78,11 +78,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexcomplex_non_floa_2d1151
 -}
 global_complex_short_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CShort)
 global_complex_short_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexcomplex_non_floa_2d1151e8eeef7711
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_96f1e350c6c42760
 
-{-| __unique:__ @Example_get_global_complex_unsigned_int_ptr@
+{-| __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_int_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexcomplex_non_floa_93efc31bade3ca7a" hs_bindgen_test_typescomplexcomplex_non_floa_93efc31bade3ca7a ::
+foreign import ccall unsafe "hs_bindgen_f11054676f537692" hs_bindgen_f11054676f537692 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CUInt))
 
 {-# NOINLINE global_complex_unsigned_int_ptr #-}
@@ -95,11 +95,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexcomplex_non_floa_93efc3
 -}
 global_complex_unsigned_int_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CUInt)
 global_complex_unsigned_int_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexcomplex_non_floa_93efc31bade3ca7a
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f11054676f537692
 
-{-| __unique:__ @Example_get_global_complex_int_ptr@
+{-| __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_int_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexcomplex_non_floa_fadd2d069427cf8b" hs_bindgen_test_typescomplexcomplex_non_floa_fadd2d069427cf8b ::
+foreign import ccall unsafe "hs_bindgen_c5a5feb6d6df39b6" hs_bindgen_c5a5feb6d6df39b6 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CInt))
 
 {-# NOINLINE global_complex_int_ptr #-}
@@ -112,11 +112,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexcomplex_non_floa_fadd2d
 -}
 global_complex_int_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CInt)
 global_complex_int_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexcomplex_non_floa_fadd2d069427cf8b
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c5a5feb6d6df39b6
 
-{-| __unique:__ @Example_get_global_complex_char_ptr@
+{-| __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_char_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexcomplex_non_floa_25f2b5af5fdd8414" hs_bindgen_test_typescomplexcomplex_non_floa_25f2b5af5fdd8414 ::
+foreign import ccall unsafe "hs_bindgen_4265dc893a126b40" hs_bindgen_4265dc893a126b40 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CChar))
 
 {-# NOINLINE global_complex_char_ptr #-}
@@ -129,4 +129,4 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexcomplex_non_floa_25f2b5
 -}
 global_complex_char_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CChar)
 global_complex_char_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexcomplex_non_floa_25f2b5af5fdd8414
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4265dc893a126b40

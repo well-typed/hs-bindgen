@@ -1,22 +1,22 @@
 -- addDependentFile examples/golden/types/complex/vector_test.h
 -- #include <types/complex/vector_test.h>
--- vector *hs_bindgen_test_typescomplexvector_test_95973a0d16d412e2 (
+-- vector *hs_bindgen_cd5f566bc96dcba0 (
 --   double arg1,
 --   double arg2
 -- )
 -- {
 --   return new_vector(arg1, arg2);
 -- }
--- vector *hs_bindgen_test_typescomplexvector_test_05cafecb9edb9817 (
+-- vector *hs_bindgen_1af353788955c7a2 (
 --   double arg1,
 --   double arg2
 -- )
 -- {
 --   return new_vector(arg1, arg2);
 -- }
--- /* Example_get_new_vector_ptr */
+-- /* test_typescomplexvector_test_Example_get_new_vector_ptr */
 -- __attribute__ ((const))
--- vector *(*hs_bindgen_test_typescomplexvector_test_b5c8c2592960cc04 (void)) (
+-- vector *(*hs_bindgen_a9bd57bd55b4e697 (void)) (
 --   double arg1,
 --   double arg2
 -- )
@@ -72,27 +72,25 @@ instance TyEq ty (CFieldType Vector "vector_y") =>
 
     __exported by:__ @types\/complex\/vector_test.h@
 
-    __unique:__ @Example_Unsafe_new_vector@
+    __unique:__ @test_typescomplexvector_test_Example_Unsafe_new_vector@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexvector_test_95973a0d16d412e2" new_vector :: CDouble ->
-                                                                                                   CDouble ->
-                                                                                                   IO (Ptr Vector)
+foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" new_vector :: CDouble ->
+                                                                      CDouble -> IO (Ptr Vector)
 {-| __C declaration:__ @new_vector@
 
     __defined at:__ @types\/complex\/vector_test.h:6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 
-    __unique:__ @Example_Unsafe_new_vector@
+    __unique:__ @test_typescomplexvector_test_Example_Unsafe_new_vector@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexvector_test_05cafecb9edb9817" new_vector :: CDouble ->
+foreign import ccall safe "hs_bindgen_1af353788955c7a2" new_vector :: CDouble ->
+                                                                      CDouble -> IO (Ptr Vector)
+{-| __unique:__ @test_typescomplexvector_test_Example_get_new_vector_ptr@
+-}
+foreign import ccall safe "hs_bindgen_a9bd57bd55b4e697" hs_bindgen_a9bd57bd55b4e697 :: IO (FunPtr (CDouble ->
                                                                                                    CDouble ->
-                                                                                                   IO (Ptr Vector)
-{-| __unique:__ @Example_get_new_vector_ptr@
--}
-foreign import ccall safe "hs_bindgen_test_typescomplexvector_test_b5c8c2592960cc04" hs_bindgen_test_typescomplexvector_test_b5c8c2592960cc04 :: IO (FunPtr (CDouble ->
-                                                                                                                                                             CDouble ->
-                                                                                                                                                             IO (Ptr Vector)))
+                                                                                                   IO (Ptr Vector)))
 {-# NOINLINE new_vector_ptr #-}
 {-| __C declaration:__ @new_vector@
 
@@ -107,4 +105,4 @@ new_vector_ptr :: FunPtr (CDouble -> CDouble -> IO (Ptr Vector))
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
-new_vector_ptr = unsafePerformIO hs_bindgen_test_typescomplexvector_test_b5c8c2592960cc04
+new_vector_ptr = unsafePerformIO hs_bindgen_a9bd57bd55b4e697

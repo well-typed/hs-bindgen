@@ -1,31 +1,31 @@
 -- addDependentFile examples/golden/attributes/asm.h
 -- #include <attributes/asm.h>
--- signed int hs_bindgen_test_attributesasm_f9dd00ef94c6039e (
+-- signed int hs_bindgen_369133049bfc1e73 (
 --   signed int arg1,
 --   signed int arg2
 -- )
 -- {
 --   return asm_labeled_function(arg1, arg2);
 -- }
--- signed int hs_bindgen_test_attributesasm_4b7c97a1f7ed82ea (
+-- signed int hs_bindgen_3ad6c287a2386382 (
 --   signed int arg1,
 --   signed int arg2
 -- )
 -- {
 --   return asm_labeled_function(arg1, arg2);
 -- }
--- /* Example_get_asm_labeled_function_ptr */
+-- /* test_attributesasm_Example_get_asm_labeled_function_ptr */
 -- __attribute__ ((const))
--- signed int (*hs_bindgen_test_attributesasm_731570336331493d (void)) (
+-- signed int (*hs_bindgen_474c22f4687e6d7d (void)) (
 --   signed int arg1,
 --   signed int arg2
 -- )
 -- {
 --   return &asm_labeled_function;
 -- }
--- /* Example_get_asm_labeled_variable_ptr */
+-- /* test_attributesasm_Example_get_asm_labeled_variable_ptr */
 -- __attribute__ ((const))
--- signed int *hs_bindgen_test_attributesasm_7e09e2d289ab2d75 (void)
+-- signed int *hs_bindgen_f26ea231d0d58288 (void)
 -- {
 --   return &asm_labeled_variable;
 -- }
@@ -35,27 +35,25 @@
 
     __exported by:__ @attributes\/asm.h@
 
-    __unique:__ @Example_Unsafe_asm_labeled_function@
+    __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesasm_f9dd00ef94c6039e" asm_labeled_function :: CInt ->
-                                                                                                   CInt ->
-                                                                                                   IO CInt
+foreign import ccall safe "hs_bindgen_369133049bfc1e73" asm_labeled_function :: CInt ->
+                                                                                CInt -> IO CInt
 {-| __C declaration:__ @asm_labeled_function@
 
     __defined at:__ @attributes\/asm.h:4:5@
 
     __exported by:__ @attributes\/asm.h@
 
-    __unique:__ @Example_Unsafe_asm_labeled_function@
+    __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesasm_4b7c97a1f7ed82ea" asm_labeled_function :: CInt ->
+foreign import ccall safe "hs_bindgen_3ad6c287a2386382" asm_labeled_function :: CInt ->
+                                                                                CInt -> IO CInt
+{-| __unique:__ @test_attributesasm_Example_get_asm_labeled_function_ptr@
+-}
+foreign import ccall safe "hs_bindgen_474c22f4687e6d7d" hs_bindgen_474c22f4687e6d7d :: IO (FunPtr (CInt ->
                                                                                                    CInt ->
-                                                                                                   IO CInt
-{-| __unique:__ @Example_get_asm_labeled_function_ptr@
--}
-foreign import ccall safe "hs_bindgen_test_attributesasm_731570336331493d" hs_bindgen_test_attributesasm_731570336331493d :: IO (FunPtr (CInt ->
-                                                                                                                                         CInt ->
-                                                                                                                                         IO CInt))
+                                                                                                   IO CInt))
 {-# NOINLINE asm_labeled_function_ptr #-}
 {-| __C declaration:__ @asm_labeled_function@
 
@@ -70,10 +68,10 @@ asm_labeled_function_ptr :: FunPtr (CInt -> CInt -> IO CInt)
 
     __exported by:__ @attributes\/asm.h@
 -}
-asm_labeled_function_ptr = unsafePerformIO hs_bindgen_test_attributesasm_731570336331493d
-{-| __unique:__ @Example_get_asm_labeled_variable_ptr@
+asm_labeled_function_ptr = unsafePerformIO hs_bindgen_474c22f4687e6d7d
+{-| __unique:__ @test_attributesasm_Example_get_asm_labeled_variable_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_attributesasm_7e09e2d289ab2d75" hs_bindgen_test_attributesasm_7e09e2d289ab2d75 :: IO (Ptr CInt)
+foreign import ccall safe "hs_bindgen_f26ea231d0d58288" hs_bindgen_f26ea231d0d58288 :: IO (Ptr CInt)
 {-# NOINLINE asm_labeled_variable_ptr #-}
 {-| __C declaration:__ @asm_labeled_variable@
 
@@ -88,4 +86,4 @@ asm_labeled_variable_ptr :: Ptr CInt
 
     __exported by:__ @attributes\/asm.h@
 -}
-asm_labeled_variable_ptr = unsafePerformIO hs_bindgen_test_attributesasm_7e09e2d289ab2d75
+asm_labeled_variable_ptr = unsafePerformIO hs_bindgen_f26ea231d0d58288

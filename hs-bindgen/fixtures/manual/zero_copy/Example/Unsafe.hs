@@ -14,14 +14,14 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <manual/zero_copy.h>"
-  , "signed int hs_bindgen_test_manualzero_copy_d027e55aaf1def2d ("
+  , "signed int hs_bindgen_f9655173d51bbaac ("
   , "  struct vector const *arg1,"
   , "  struct vector *arg2"
   , ")"
   , "{"
   , "  return reverse(arg1, arg2);"
   , "}"
-  , "void hs_bindgen_test_manualzero_copy_bae8c3744560ca28 ("
+  , "void hs_bindgen_ea25667627dd5ed2 ("
   , "  triplet *arg1,"
   , "  triplet *arg2"
   , ")"
@@ -36,9 +36,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @manual\/zero_copy.h@
 
-    __unique:__ @Example_Unsafe_reverse@
+    __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualzero_copy_d027e55aaf1def2d" reverse ::
+foreign import ccall unsafe "hs_bindgen_f9655173d51bbaac" reverse ::
      Ptr.Ptr Vector
      {- ^ __C declaration:__ @input@
      -}
@@ -49,9 +49,9 @@ foreign import ccall unsafe "hs_bindgen_test_manualzero_copy_d027e55aaf1def2d" r
 
 {-| Pointer-based API for 'transpose'
 
-__unique:__ @Example_Unsafe_transpose@
+__unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualzero_copy_bae8c3744560ca28" transpose_wrapper ::
+foreign import ccall unsafe "hs_bindgen_ea25667627dd5ed2" transpose_wrapper ::
      Ptr.Ptr Triplet
   -> Ptr.Ptr Triplet
   -> IO ()

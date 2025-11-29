@@ -2,21 +2,21 @@
 -- addDependentFile musl-include/x86_64/stddef.h
 -- addDependentFile examples/golden/declarations/declarations_required_for_scoping.h
 -- #include <declarations/declarations_required_for_scoping.h>
--- void hs_bindgen_test_declarationsdeclarations_requ_59d88239da8fef6b (
+-- void hs_bindgen_0d1c75136a36e326 (
 --   A arg1
 -- )
 -- {
 --   f(arg1);
 -- }
--- void hs_bindgen_test_declarationsdeclarations_requ_bae09f29e7f99a8f (
+-- void hs_bindgen_93ed1628a0edf6b0 (
 --   A arg1
 -- )
 -- {
 --   f(arg1);
 -- }
--- /* Example_get_f_ptr */
+-- /* test_declarationsdeclarations_requ_Example_get_f_ptr */
 -- __attribute__ ((const))
--- void (*hs_bindgen_test_declarationsdeclarations_requ_e684d4bc6355e13a (void)) (
+-- void (*hs_bindgen_2d056172b6e93949 (void)) (
 --   A arg1
 -- )
 -- {
@@ -52,24 +52,24 @@ newtype A
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 
-    __unique:__ @Example_Unsafe_f@
+    __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
 -}
-foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_59d88239da8fef6b" f :: A ->
-                                                                                                IO Unit
+foreign import ccall safe "hs_bindgen_0d1c75136a36e326" f :: A ->
+                                                             IO Unit
 {-| __C declaration:__ @f@
 
     __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 
-    __unique:__ @Example_Unsafe_f@
+    __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
 -}
-foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_bae09f29e7f99a8f" f :: A ->
-                                                                                                IO Unit
-{-| __unique:__ @Example_get_f_ptr@
+foreign import ccall safe "hs_bindgen_93ed1628a0edf6b0" f :: A ->
+                                                             IO Unit
+{-| __unique:__ @test_declarationsdeclarations_requ_Example_get_f_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_e684d4bc6355e13a" hs_bindgen_test_declarationsdeclarations_requ_e684d4bc6355e13a :: IO (FunPtr (A ->
-                                                                                                                                                                         IO Unit))
+foreign import ccall safe "hs_bindgen_2d056172b6e93949" hs_bindgen_2d056172b6e93949 :: IO (FunPtr (A ->
+                                                                                                   IO Unit))
 {-# NOINLINE f_ptr #-}
 {-| __C declaration:__ @f@
 
@@ -84,4 +84,4 @@ f_ptr :: FunPtr (A -> IO Unit)
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
-f_ptr = unsafePerformIO hs_bindgen_test_declarationsdeclarations_requ_e684d4bc6355e13a
+f_ptr = unsafePerformIO hs_bindgen_2d056172b6e93949

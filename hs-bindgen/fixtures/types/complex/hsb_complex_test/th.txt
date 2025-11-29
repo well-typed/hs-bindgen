@@ -1,7 +1,7 @@
 -- addDependentFile musl-include/x86_64/complex.h
 -- addDependentFile examples/golden/types/complex/hsb_complex_test.h
 -- #include <types/complex/hsb_complex_test.h>
--- void hs_bindgen_test_typescomplexhsb_complex_test_634ad44874fa147e (
+-- void hs_bindgen_687af703c95fba0e (
 --   float _Complex *arg1,
 --   float _Complex *arg2,
 --   float _Complex *arg3
@@ -9,7 +9,7 @@
 -- {
 --   *arg3 = multiply_complex_f(*arg1, *arg2);
 -- }
--- void hs_bindgen_test_typescomplexhsb_complex_test_f642ffc89285b447 (
+-- void hs_bindgen_3ff14ee8c5914fc6 (
 --   double _Complex *arg1,
 --   double _Complex *arg2,
 --   double _Complex *arg3
@@ -17,7 +17,7 @@
 -- {
 --   *arg3 = add_complex(*arg1, *arg2);
 -- }
--- void hs_bindgen_test_typescomplexhsb_complex_test_0a08332f6db5caa7 (
+-- void hs_bindgen_e5e3172c2163672b (
 --   float _Complex *arg1,
 --   float _Complex *arg2,
 --   float _Complex *arg3
@@ -25,7 +25,7 @@
 -- {
 --   *arg3 = multiply_complex_f(*arg1, *arg2);
 -- }
--- void hs_bindgen_test_typescomplexhsb_complex_test_08bf6ad9de435d77 (
+-- void hs_bindgen_28f2705e917973ab (
 --   double _Complex *arg1,
 --   double _Complex *arg2,
 --   double _Complex *arg3
@@ -33,105 +33,105 @@
 -- {
 --   *arg3 = add_complex(*arg1, *arg2);
 -- }
--- /* Example_get_multiply_complex_f_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_multiply_complex_f_ptr */
 -- __attribute__ ((const))
--- float _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_16911a0e51c4c85c (void)) (
+-- float _Complex (*hs_bindgen_8c8d85daac0162fd (void)) (
 --   float _Complex arg1,
 --   float _Complex arg2
 -- )
 -- {
 --   return &multiply_complex_f;
 -- }
--- /* Example_get_add_complex_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_add_complex_ptr */
 -- __attribute__ ((const))
--- double _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_233e7cd871572db2 (void)) (
+-- double _Complex (*hs_bindgen_656a87248425c79a (void)) (
 --   double _Complex arg1,
 --   double _Complex arg2
 -- )
 -- {
 --   return &add_complex;
 -- }
--- /* Example_get_global_complex_float_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_global_complex_float_ptr */
 -- __attribute__ ((const))
--- float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_ecedfd9f3efcf9a8 (void)
+-- float _Complex *hs_bindgen_a6dcbf0ebef057c9 (void)
 -- {
 --   return &global_complex_float;
 -- }
--- /* Example_get_global_complex_double_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_global_complex_double_ptr */
 -- __attribute__ ((const))
--- double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_bbff9f51358a2ee7 (void)
+-- double _Complex *hs_bindgen_6102571a73986812 (void)
 -- {
 --   return &global_complex_double;
 -- }
--- /* Example_get_global_complex_float_flipped_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_global_complex_float_flipped_ptr */
 -- __attribute__ ((const))
--- float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_be2baa8e46d89330 (void)
+-- float _Complex *hs_bindgen_1b0a02397e2ea2f6 (void)
 -- {
 --   return &global_complex_float_flipped;
 -- }
--- /* Example_get_global_complex_double_flipped_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_global_complex_double_flipped_ptr */
 -- __attribute__ ((const))
--- double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_18101f0ad07c7118 (void)
+-- double _Complex *hs_bindgen_4be2464f88314410 (void)
 -- {
 --   return &global_complex_double_flipped;
 -- }
--- /* Example_get_global_Complex_float_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_global_Complex_float_ptr */
 -- __attribute__ ((const))
--- float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_453812c7adb09751 (void)
+-- float _Complex *hs_bindgen_aa07323f7398ff97 (void)
 -- {
 --   return &global_Complex_float;
 -- }
--- /* Example_get_global_Complex_double_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_global_Complex_double_ptr */
 -- __attribute__ ((const))
--- double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_49d7bb1ada9d9366 (void)
+-- double _Complex *hs_bindgen_190b07a847b36556 (void)
 -- {
 --   return &global_Complex_double;
 -- }
--- /* Example_get_global_Complex_float_flipped_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_global_Complex_float_flipped_ptr */
 -- __attribute__ ((const))
--- float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_fbaae6d3c15d0f63 (void)
+-- float _Complex *hs_bindgen_017435f1022a672c (void)
 -- {
 --   return &global_Complex_float_flipped;
 -- }
--- /* Example_get_global_Complex_double_flipped_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_global_Complex_double_flipped_ptr */
 -- __attribute__ ((const))
--- double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_c332651c627dc427 (void)
+-- double _Complex *hs_bindgen_aec6991fbd3ffdbb (void)
 -- {
 --   return &global_Complex_double_flipped;
 -- }
--- /* Example_get_const_complex_float_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_const_complex_float_ptr */
 -- __attribute__ ((const))
--- float _Complex const *hs_bindgen_test_typescomplexhsb_complex_test_4d059fc79bb89894 (void)
+-- float _Complex const *hs_bindgen_3ea97dc5fdb27263 (void)
 -- {
 --   return &const_complex_float;
 -- }
--- /* Example_get_const_complex_double_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_const_complex_double_ptr */
 -- __attribute__ ((const))
--- double _Complex const *hs_bindgen_test_typescomplexhsb_complex_test_95a4edcc0f996f70 (void)
+-- double _Complex const *hs_bindgen_086209fa0eb9a3ee (void)
 -- {
 --   return &const_complex_double;
 -- }
--- /* Example_get_volatile_complex_float_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_volatile_complex_float_ptr */
 -- __attribute__ ((const))
--- float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_329349d35aef5e10 (void)
+-- float _Complex *hs_bindgen_00177fb0da38717b (void)
 -- {
 --   return &volatile_complex_float;
 -- }
--- /* Example_get_volatile_complex_double_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_volatile_complex_double_ptr */
 -- __attribute__ ((const))
--- double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_7c3ccbd8bf1c7730 (void)
+-- double _Complex *hs_bindgen_72f5727716adf5ac (void)
 -- {
 --   return &volatile_complex_double;
 -- }
--- /* Example_get_complex_float_array_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_complex_float_array_ptr */
 -- __attribute__ ((const))
--- float _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_7a3792988944f3d2 (void))[10]
+-- float _Complex (*hs_bindgen_229c51ee9572efe8 (void))[10]
 -- {
 --   return &complex_float_array;
 -- }
--- /* Example_get_complex_double_array_ptr */
+-- /* test_typescomplexhsb_complex_test_Example_get_complex_double_array_ptr */
 -- __attribute__ ((const))
--- double _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_8b8ce8a9f096c34e (void))[10]
+-- double _Complex (*hs_bindgen_b2b11d22608bbfec (void))[10]
 -- {
 --   return &complex_double_array;
 -- }
@@ -203,12 +203,12 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"complex_object_t_id")
 {-| Pointer-based API for 'multiply_complex_f'
 
-__unique:__ @Example_Unsafe_multiply_complex_f@
+__unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_multiply_complex_f@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_634ad44874fa147e" multiply_complex_f_wrapper :: Ptr (Complex CFloat) ->
-                                                                                                                        Ptr (Complex CFloat) ->
-                                                                                                                        Ptr (Complex CFloat) ->
-                                                                                                                        IO Unit
+foreign import ccall safe "hs_bindgen_687af703c95fba0e" multiply_complex_f_wrapper :: Ptr (Complex CFloat) ->
+                                                                                      Ptr (Complex CFloat) ->
+                                                                                      Ptr (Complex CFloat) ->
+                                                                                      IO Unit
 {-| __C declaration:__ @multiply_complex_f@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h:21:16@
@@ -226,12 +226,12 @@ multiply_complex_f :: Complex CFloat ->
 multiply_complex_f = \x_0 -> \x_1 -> with x_1 (\y_2 -> with x_0 (\y_3 -> allocaAndPeek (\z_4 -> multiply_complex_f_wrapper y_3 y_2 z_4)))
 {-| Pointer-based API for 'add_complex'
 
-__unique:__ @Example_Unsafe_add_complex@
+__unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_add_complex@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_f642ffc89285b447" add_complex_wrapper :: Ptr (Complex CDouble) ->
-                                                                                                                 Ptr (Complex CDouble) ->
-                                                                                                                 Ptr (Complex CDouble) ->
-                                                                                                                 IO Unit
+foreign import ccall safe "hs_bindgen_3ff14ee8c5914fc6" add_complex_wrapper :: Ptr (Complex CDouble) ->
+                                                                               Ptr (Complex CDouble) ->
+                                                                               Ptr (Complex CDouble) ->
+                                                                               IO Unit
 {-| __C declaration:__ @add_complex@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h:22:16@
@@ -249,12 +249,12 @@ add_complex :: Complex CDouble ->
 add_complex = \x_0 -> \x_1 -> with x_1 (\y_2 -> with x_0 (\y_3 -> allocaAndPeek (\z_4 -> add_complex_wrapper y_3 y_2 z_4)))
 {-| Pointer-based API for 'multiply_complex_f'
 
-__unique:__ @Example_Unsafe_multiply_complex_f@
+__unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_multiply_complex_f@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_0a08332f6db5caa7" multiply_complex_f_wrapper :: Ptr (Complex CFloat) ->
-                                                                                                                        Ptr (Complex CFloat) ->
-                                                                                                                        Ptr (Complex CFloat) ->
-                                                                                                                        IO Unit
+foreign import ccall safe "hs_bindgen_e5e3172c2163672b" multiply_complex_f_wrapper :: Ptr (Complex CFloat) ->
+                                                                                      Ptr (Complex CFloat) ->
+                                                                                      Ptr (Complex CFloat) ->
+                                                                                      IO Unit
 {-| __C declaration:__ @multiply_complex_f@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h:21:16@
@@ -272,12 +272,12 @@ multiply_complex_f :: Complex CFloat ->
 multiply_complex_f = \x_0 -> \x_1 -> with x_1 (\y_2 -> with x_0 (\y_3 -> allocaAndPeek (\z_4 -> multiply_complex_f_wrapper y_3 y_2 z_4)))
 {-| Pointer-based API for 'add_complex'
 
-__unique:__ @Example_Unsafe_add_complex@
+__unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_add_complex@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_08bf6ad9de435d77" add_complex_wrapper :: Ptr (Complex CDouble) ->
-                                                                                                                 Ptr (Complex CDouble) ->
-                                                                                                                 Ptr (Complex CDouble) ->
-                                                                                                                 IO Unit
+foreign import ccall safe "hs_bindgen_28f2705e917973ab" add_complex_wrapper :: Ptr (Complex CDouble) ->
+                                                                               Ptr (Complex CDouble) ->
+                                                                               Ptr (Complex CDouble) ->
+                                                                               IO Unit
 {-| __C declaration:__ @add_complex@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h:22:16@
@@ -293,11 +293,11 @@ add_complex :: Complex CDouble ->
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
 add_complex = \x_0 -> \x_1 -> with x_1 (\y_2 -> with x_0 (\y_3 -> allocaAndPeek (\z_4 -> add_complex_wrapper y_3 y_2 z_4)))
-{-| __unique:__ @Example_get_multiply_complex_f_ptr@
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_multiply_complex_f_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_16911a0e51c4c85c" hs_bindgen_test_typescomplexhsb_complex_test_16911a0e51c4c85c :: IO (FunPtr (Complex CFloat ->
-                                                                                                                                                                       Complex CFloat ->
-                                                                                                                                                                       IO (Complex CFloat)))
+foreign import ccall safe "hs_bindgen_8c8d85daac0162fd" hs_bindgen_8c8d85daac0162fd :: IO (FunPtr (Complex CFloat ->
+                                                                                                   Complex CFloat ->
+                                                                                                   IO (Complex CFloat)))
 {-# NOINLINE multiply_complex_f_ptr #-}
 {-| __C declaration:__ @multiply_complex_f@
 
@@ -313,12 +313,12 @@ multiply_complex_f_ptr :: FunPtr (Complex CFloat ->
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-multiply_complex_f_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_16911a0e51c4c85c
-{-| __unique:__ @Example_get_add_complex_ptr@
+multiply_complex_f_ptr = unsafePerformIO hs_bindgen_8c8d85daac0162fd
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_add_complex_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_233e7cd871572db2" hs_bindgen_test_typescomplexhsb_complex_test_233e7cd871572db2 :: IO (FunPtr (Complex CDouble ->
-                                                                                                                                                                       Complex CDouble ->
-                                                                                                                                                                       IO (Complex CDouble)))
+foreign import ccall safe "hs_bindgen_656a87248425c79a" hs_bindgen_656a87248425c79a :: IO (FunPtr (Complex CDouble ->
+                                                                                                   Complex CDouble ->
+                                                                                                   IO (Complex CDouble)))
 {-# NOINLINE add_complex_ptr #-}
 {-| __C declaration:__ @add_complex@
 
@@ -334,10 +334,10 @@ add_complex_ptr :: FunPtr (Complex CDouble ->
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-add_complex_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_233e7cd871572db2
-{-| __unique:__ @Example_get_global_complex_float_ptr@
+add_complex_ptr = unsafePerformIO hs_bindgen_656a87248425c79a
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_float_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_ecedfd9f3efcf9a8" hs_bindgen_test_typescomplexhsb_complex_test_ecedfd9f3efcf9a8 :: IO (Ptr (Complex CFloat))
+foreign import ccall safe "hs_bindgen_a6dcbf0ebef057c9" hs_bindgen_a6dcbf0ebef057c9 :: IO (Ptr (Complex CFloat))
 {-# NOINLINE global_complex_float_ptr #-}
 {-| __C declaration:__ @global_complex_float@
 
@@ -352,10 +352,10 @@ global_complex_float_ptr :: Ptr (Complex CFloat)
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-global_complex_float_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_ecedfd9f3efcf9a8
-{-| __unique:__ @Example_get_global_complex_double_ptr@
+global_complex_float_ptr = unsafePerformIO hs_bindgen_a6dcbf0ebef057c9
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_double_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_bbff9f51358a2ee7" hs_bindgen_test_typescomplexhsb_complex_test_bbff9f51358a2ee7 :: IO (Ptr (Complex CDouble))
+foreign import ccall safe "hs_bindgen_6102571a73986812" hs_bindgen_6102571a73986812 :: IO (Ptr (Complex CDouble))
 {-# NOINLINE global_complex_double_ptr #-}
 {-| __C declaration:__ @global_complex_double@
 
@@ -370,10 +370,10 @@ global_complex_double_ptr :: Ptr (Complex CDouble)
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-global_complex_double_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_bbff9f51358a2ee7
-{-| __unique:__ @Example_get_global_complex_float_flipped_ptr@
+global_complex_double_ptr = unsafePerformIO hs_bindgen_6102571a73986812
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_float_flipped_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_be2baa8e46d89330" hs_bindgen_test_typescomplexhsb_complex_test_be2baa8e46d89330 :: IO (Ptr (Complex CFloat))
+foreign import ccall safe "hs_bindgen_1b0a02397e2ea2f6" hs_bindgen_1b0a02397e2ea2f6 :: IO (Ptr (Complex CFloat))
 {-# NOINLINE global_complex_float_flipped_ptr #-}
 {-| __C declaration:__ @global_complex_float_flipped@
 
@@ -388,10 +388,10 @@ global_complex_float_flipped_ptr :: Ptr (Complex CFloat)
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-global_complex_float_flipped_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_be2baa8e46d89330
-{-| __unique:__ @Example_get_global_complex_double_flipped_ptr@
+global_complex_float_flipped_ptr = unsafePerformIO hs_bindgen_1b0a02397e2ea2f6
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_double_flipped_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_18101f0ad07c7118" hs_bindgen_test_typescomplexhsb_complex_test_18101f0ad07c7118 :: IO (Ptr (Complex CDouble))
+foreign import ccall safe "hs_bindgen_4be2464f88314410" hs_bindgen_4be2464f88314410 :: IO (Ptr (Complex CDouble))
 {-# NOINLINE global_complex_double_flipped_ptr #-}
 {-| __C declaration:__ @global_complex_double_flipped@
 
@@ -406,10 +406,10 @@ global_complex_double_flipped_ptr :: Ptr (Complex CDouble)
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-global_complex_double_flipped_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_18101f0ad07c7118
-{-| __unique:__ @Example_get_global_Complex_float_ptr@
+global_complex_double_flipped_ptr = unsafePerformIO hs_bindgen_4be2464f88314410
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_float_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_453812c7adb09751" hs_bindgen_test_typescomplexhsb_complex_test_453812c7adb09751 :: IO (Ptr (Complex CFloat))
+foreign import ccall safe "hs_bindgen_aa07323f7398ff97" hs_bindgen_aa07323f7398ff97 :: IO (Ptr (Complex CFloat))
 {-# NOINLINE global_Complex_float_ptr #-}
 {-| __C declaration:__ @global_Complex_float@
 
@@ -424,10 +424,10 @@ global_Complex_float_ptr :: Ptr (Complex CFloat)
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-global_Complex_float_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_453812c7adb09751
-{-| __unique:__ @Example_get_global_Complex_double_ptr@
+global_Complex_float_ptr = unsafePerformIO hs_bindgen_aa07323f7398ff97
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_double_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_49d7bb1ada9d9366" hs_bindgen_test_typescomplexhsb_complex_test_49d7bb1ada9d9366 :: IO (Ptr (Complex CDouble))
+foreign import ccall safe "hs_bindgen_190b07a847b36556" hs_bindgen_190b07a847b36556 :: IO (Ptr (Complex CDouble))
 {-# NOINLINE global_Complex_double_ptr #-}
 {-| __C declaration:__ @global_Complex_double@
 
@@ -442,10 +442,10 @@ global_Complex_double_ptr :: Ptr (Complex CDouble)
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-global_Complex_double_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_49d7bb1ada9d9366
-{-| __unique:__ @Example_get_global_Complex_float_flipped_ptr@
+global_Complex_double_ptr = unsafePerformIO hs_bindgen_190b07a847b36556
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_float_flipped_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_fbaae6d3c15d0f63" hs_bindgen_test_typescomplexhsb_complex_test_fbaae6d3c15d0f63 :: IO (Ptr (Complex CFloat))
+foreign import ccall safe "hs_bindgen_017435f1022a672c" hs_bindgen_017435f1022a672c :: IO (Ptr (Complex CFloat))
 {-# NOINLINE global_Complex_float_flipped_ptr #-}
 {-| __C declaration:__ @global_Complex_float_flipped@
 
@@ -460,10 +460,10 @@ global_Complex_float_flipped_ptr :: Ptr (Complex CFloat)
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-global_Complex_float_flipped_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_fbaae6d3c15d0f63
-{-| __unique:__ @Example_get_global_Complex_double_flipped_ptr@
+global_Complex_float_flipped_ptr = unsafePerformIO hs_bindgen_017435f1022a672c
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_double_flipped_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_c332651c627dc427" hs_bindgen_test_typescomplexhsb_complex_test_c332651c627dc427 :: IO (Ptr (Complex CDouble))
+foreign import ccall safe "hs_bindgen_aec6991fbd3ffdbb" hs_bindgen_aec6991fbd3ffdbb :: IO (Ptr (Complex CDouble))
 {-# NOINLINE global_Complex_double_flipped_ptr #-}
 {-| __C declaration:__ @global_Complex_double_flipped@
 
@@ -478,10 +478,10 @@ global_Complex_double_flipped_ptr :: Ptr (Complex CDouble)
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-global_Complex_double_flipped_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_c332651c627dc427
-{-| __unique:__ @Example_get_const_complex_float_ptr@
+global_Complex_double_flipped_ptr = unsafePerformIO hs_bindgen_aec6991fbd3ffdbb
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_float_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_4d059fc79bb89894" hs_bindgen_test_typescomplexhsb_complex_test_4d059fc79bb89894 :: IO (Ptr (Complex CFloat))
+foreign import ccall safe "hs_bindgen_3ea97dc5fdb27263" hs_bindgen_3ea97dc5fdb27263 :: IO (Ptr (Complex CFloat))
 {-# NOINLINE const_complex_float_ptr #-}
 {-| __C declaration:__ @const_complex_float@
 
@@ -496,13 +496,13 @@ const_complex_float_ptr :: Ptr (Complex CFloat)
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-const_complex_float_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_4d059fc79bb89894
+const_complex_float_ptr = unsafePerformIO hs_bindgen_3ea97dc5fdb27263
 {-# NOINLINE const_complex_float #-}
 const_complex_float :: Complex CFloat
 const_complex_float = unsafePerformIO (peek const_complex_float_ptr)
-{-| __unique:__ @Example_get_const_complex_double_ptr@
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_double_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_95a4edcc0f996f70" hs_bindgen_test_typescomplexhsb_complex_test_95a4edcc0f996f70 :: IO (Ptr (Complex CDouble))
+foreign import ccall safe "hs_bindgen_086209fa0eb9a3ee" hs_bindgen_086209fa0eb9a3ee :: IO (Ptr (Complex CDouble))
 {-# NOINLINE const_complex_double_ptr #-}
 {-| __C declaration:__ @const_complex_double@
 
@@ -517,13 +517,13 @@ const_complex_double_ptr :: Ptr (Complex CDouble)
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-const_complex_double_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_95a4edcc0f996f70
+const_complex_double_ptr = unsafePerformIO hs_bindgen_086209fa0eb9a3ee
 {-# NOINLINE const_complex_double #-}
 const_complex_double :: Complex CDouble
 const_complex_double = unsafePerformIO (peek const_complex_double_ptr)
-{-| __unique:__ @Example_get_volatile_complex_float_ptr@
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_volatile_complex_float_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_329349d35aef5e10" hs_bindgen_test_typescomplexhsb_complex_test_329349d35aef5e10 :: IO (Ptr (Complex CFloat))
+foreign import ccall safe "hs_bindgen_00177fb0da38717b" hs_bindgen_00177fb0da38717b :: IO (Ptr (Complex CFloat))
 {-# NOINLINE volatile_complex_float_ptr #-}
 {-| __C declaration:__ @volatile_complex_float@
 
@@ -538,10 +538,10 @@ volatile_complex_float_ptr :: Ptr (Complex CFloat)
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-volatile_complex_float_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_329349d35aef5e10
-{-| __unique:__ @Example_get_volatile_complex_double_ptr@
+volatile_complex_float_ptr = unsafePerformIO hs_bindgen_00177fb0da38717b
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_volatile_complex_double_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_7c3ccbd8bf1c7730" hs_bindgen_test_typescomplexhsb_complex_test_7c3ccbd8bf1c7730 :: IO (Ptr (Complex CDouble))
+foreign import ccall safe "hs_bindgen_72f5727716adf5ac" hs_bindgen_72f5727716adf5ac :: IO (Ptr (Complex CDouble))
 {-# NOINLINE volatile_complex_double_ptr #-}
 {-| __C declaration:__ @volatile_complex_double@
 
@@ -556,11 +556,11 @@ volatile_complex_double_ptr :: Ptr (Complex CDouble)
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-volatile_complex_double_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_7c3ccbd8bf1c7730
-{-| __unique:__ @Example_get_complex_float_array_ptr@
+volatile_complex_double_ptr = unsafePerformIO hs_bindgen_72f5727716adf5ac
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_float_array_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_7a3792988944f3d2" hs_bindgen_test_typescomplexhsb_complex_test_7a3792988944f3d2 :: IO (Ptr (ConstantArray 10
-                                                                                                                                                                                  (Complex CFloat)))
+foreign import ccall safe "hs_bindgen_229c51ee9572efe8" hs_bindgen_229c51ee9572efe8 :: IO (Ptr (ConstantArray 10
+                                                                                                              (Complex CFloat)))
 {-# NOINLINE complex_float_array_ptr #-}
 {-| __C declaration:__ @complex_float_array@
 
@@ -575,11 +575,11 @@ complex_float_array_ptr :: Ptr (ConstantArray 10 (Complex CFloat))
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-complex_float_array_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_7a3792988944f3d2
-{-| __unique:__ @Example_get_complex_double_array_ptr@
+complex_float_array_ptr = unsafePerformIO hs_bindgen_229c51ee9572efe8
+{-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_double_array_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_8b8ce8a9f096c34e" hs_bindgen_test_typescomplexhsb_complex_test_8b8ce8a9f096c34e :: IO (Ptr (ConstantArray 10
-                                                                                                                                                                                  (Complex CDouble)))
+foreign import ccall safe "hs_bindgen_b2b11d22608bbfec" hs_bindgen_b2b11d22608bbfec :: IO (Ptr (ConstantArray 10
+                                                                                                              (Complex CDouble)))
 {-# NOINLINE complex_double_array_ptr #-}
 {-| __C declaration:__ @complex_double_array@
 
@@ -595,4 +595,4 @@ complex_double_array_ptr :: Ptr (ConstantArray 10
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-complex_double_array_ptr = unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_8b8ce8a9f096c34e
+complex_double_array_ptr = unsafePerformIO hs_bindgen_b2b11d22608bbfec

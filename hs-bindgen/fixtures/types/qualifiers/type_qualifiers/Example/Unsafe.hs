@@ -12,7 +12,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/qualifiers/type_qualifiers.h>"
-  , "_Bool hs_bindgen_test_typesqualifierstype_qualifie_e41d0e889b881b5b ("
+  , "_Bool hs_bindgen_360934a08f19eaab ("
   , "  char const **arg1,"
   , "  size_t arg2"
   , ")"
@@ -27,9 +27,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 
-    __unique:__ @Example_Unsafe_list_example@
+    __unique:__ @test_typesqualifierstype_qualifie_Example_Unsafe_list_example@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typesqualifierstype_qualifie_e41d0e889b881b5b" list_example ::
+foreign import ccall unsafe "hs_bindgen_360934a08f19eaab" list_example ::
      Ptr.Ptr (Ptr.Ptr FC.CChar)
      {- ^ __C declaration:__ @items@
      -}

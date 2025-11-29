@@ -15,21 +15,21 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <macros/macro_in_fundecl.h>"
-  , "char hs_bindgen_test_macrosmacro_in_fundecl_d0bf7f1a46e72c40 ("
+  , "char hs_bindgen_d345c332b6547629 ("
   , "  F arg1,"
   , "  char arg2"
   , ")"
   , "{"
   , "  return quux(arg1, arg2);"
   , "}"
-  , "C *hs_bindgen_test_macrosmacro_in_fundecl_41350efe1f6a1f23 ("
+  , "C *hs_bindgen_195036c94aad554b ("
   , "  float arg1,"
   , "  C *arg2"
   , ")"
   , "{"
   , "  return wam(arg1, arg2);"
   , "}"
-  , "char *hs_bindgen_test_macrosmacro_in_fundecl_1a80a860382dedfe ("
+  , "char *hs_bindgen_a40b504a8f7c1d11 ("
   , "  float arg1,"
   , "  signed int (*arg2) ("
   , "  signed int arg1"
@@ -38,7 +38,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return foo1(arg1, arg2);"
   , "}"
-  , "char *hs_bindgen_test_macrosmacro_in_fundecl_164d0e45eb84b2b0 ("
+  , "char *hs_bindgen_83392129a2035c99 ("
   , "  F arg1,"
   , "  signed int (*arg2) ("
   , "  signed int arg1"
@@ -47,7 +47,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return foo2(arg1, arg2);"
   , "}"
-  , "C *hs_bindgen_test_macrosmacro_in_fundecl_6b2b2875e87676fa ("
+  , "C *hs_bindgen_0c7f4bce7905d355 ("
   , "  float arg1,"
   , "  signed int (*arg2) ("
   , "  signed int arg1"
@@ -56,7 +56,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return foo3(arg1, arg2);"
   , "}"
-  , "signed int (*hs_bindgen_test_macrosmacro_in_fundecl_bde5b3d1dc1d01ab ("
+  , "signed int (*hs_bindgen_3471ca0525deb2c0 ("
   , "  signed long arg1"
   , ")) ("
   , "  signed short arg1"
@@ -64,7 +64,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return bar1(arg1);"
   , "}"
-  , "signed int (*hs_bindgen_test_macrosmacro_in_fundecl_f81ff165917b30fc ("
+  , "signed int (*hs_bindgen_d5a4af88f772ff72 ("
   , "  L arg1"
   , ")) ("
   , "  signed short arg1"
@@ -72,7 +72,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return bar2(arg1);"
   , "}"
-  , "signed int (*hs_bindgen_test_macrosmacro_in_fundecl_26282ed6e9c7b869 ("
+  , "signed int (*hs_bindgen_b289d62136acab77 ("
   , "  signed long arg1"
   , ")) ("
   , "  S arg1"
@@ -80,7 +80,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return bar3(arg1);"
   , "}"
-  , "I (*hs_bindgen_test_macrosmacro_in_fundecl_99c89ce60bbf984d ("
+  , "I (*hs_bindgen_2b5b36cf49f0e40e ("
   , "  signed long arg1"
   , ")) ("
   , "  signed short arg1"
@@ -88,25 +88,25 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return bar4(arg1);"
   , "}"
-  , "signed int (*hs_bindgen_test_macrosmacro_in_fundecl_2c35fdbbe2132b59 ("
+  , "signed int (*hs_bindgen_b56f5f3515f3cc33 ("
   , "  signed int const arg1"
   , "))[2][3]"
   , "{"
   , "  return baz1(arg1);"
   , "}"
-  , "signed int (*hs_bindgen_test_macrosmacro_in_fundecl_403e419e1bd4ca39 ("
+  , "signed int (*hs_bindgen_0b9b2e4d1699b6f3 ("
   , "  I const arg1"
   , "))[2][3]"
   , "{"
   , "  return baz2(arg1);"
   , "}"
-  , "I (*hs_bindgen_test_macrosmacro_in_fundecl_323573c8787374af ("
+  , "I (*hs_bindgen_459eabcbd019687c ("
   , "  signed int const arg1"
   , "))[2][3]"
   , "{"
   , "  return baz3(arg1);"
   , "}"
-  , "I hs_bindgen_test_macrosmacro_in_fundecl_090f829d86c0108c (void)"
+  , "I hs_bindgen_7ae4ab0ad4fb8cad (void)"
   , "{"
   , "  return no_args_no_void();"
   , "}"
@@ -118,9 +118,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 
-    __unique:__ @Example_Safe_quux@
+    __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_quux@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_d0bf7f1a46e72c40" quux ::
+foreign import ccall safe "hs_bindgen_d345c332b6547629" quux ::
      F
      {- ^ __C declaration:__ @x@
      -}
@@ -135,9 +135,9 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_d0bf7f1a46e72c
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 
-    __unique:__ @Example_Safe_wam@
+    __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_wam@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_41350efe1f6a1f23" wam ::
+foreign import ccall safe "hs_bindgen_195036c94aad554b" wam ::
      FC.CFloat
      {- ^ __C declaration:__ @x@
      -}
@@ -152,9 +152,9 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_41350efe1f6a1f
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 
-    __unique:__ @Example_Safe_foo1@
+    __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_foo1@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_1a80a860382dedfe" foo1 ::
+foreign import ccall safe "hs_bindgen_a40b504a8f7c1d11" foo1 ::
      FC.CFloat
      {- ^ __C declaration:__ @x@
      -}
@@ -169,9 +169,9 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_1a80a860382ded
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 
-    __unique:__ @Example_Safe_foo2@
+    __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_foo2@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_164d0e45eb84b2b0" foo2 ::
+foreign import ccall safe "hs_bindgen_83392129a2035c99" foo2 ::
      F
      {- ^ __C declaration:__ @x@
      -}
@@ -186,9 +186,9 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_164d0e45eb84b2
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 
-    __unique:__ @Example_Safe_foo3@
+    __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_foo3@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_6b2b2875e87676fa" foo3 ::
+foreign import ccall safe "hs_bindgen_0c7f4bce7905d355" foo3 ::
      FC.CFloat
      {- ^ __C declaration:__ @x@
      -}
@@ -203,9 +203,9 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_6b2b2875e87676
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 
-    __unique:__ @Example_Safe_bar1@
+    __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar1@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_bde5b3d1dc1d01ab" bar1 ::
+foreign import ccall safe "hs_bindgen_3471ca0525deb2c0" bar1 ::
      FC.CLong
      {- ^ __C declaration:__ @x@
      -}
@@ -217,9 +217,9 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_bde5b3d1dc1d01
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 
-    __unique:__ @Example_Safe_bar2@
+    __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar2@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_f81ff165917b30fc" bar2 ::
+foreign import ccall safe "hs_bindgen_d5a4af88f772ff72" bar2 ::
      L
      {- ^ __C declaration:__ @x@
      -}
@@ -231,9 +231,9 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_f81ff165917b30
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 
-    __unique:__ @Example_Safe_bar3@
+    __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar3@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_26282ed6e9c7b869" bar3 ::
+foreign import ccall safe "hs_bindgen_b289d62136acab77" bar3 ::
      FC.CLong
      {- ^ __C declaration:__ @x@
      -}
@@ -245,9 +245,9 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_26282ed6e9c7b8
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 
-    __unique:__ @Example_Safe_bar4@
+    __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar4@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_99c89ce60bbf984d" bar4 ::
+foreign import ccall safe "hs_bindgen_2b5b36cf49f0e40e" bar4 ::
      FC.CLong
      {- ^ __C declaration:__ @x@
      -}
@@ -259,9 +259,9 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_99c89ce60bbf98
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 
-    __unique:__ @Example_Safe_baz1@
+    __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz1@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_2c35fdbbe2132b59" baz1 ::
+foreign import ccall safe "hs_bindgen_b56f5f3515f3cc33" baz1 ::
      FC.CInt
      {- ^ __C declaration:__ @i@
      -}
@@ -273,9 +273,9 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_2c35fdbbe2132b
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 
-    __unique:__ @Example_Safe_baz2@
+    __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz2@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_403e419e1bd4ca39" baz2 ::
+foreign import ccall safe "hs_bindgen_0b9b2e4d1699b6f3" baz2 ::
      I
      {- ^ __C declaration:__ @i@
      -}
@@ -287,9 +287,9 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_403e419e1bd4ca
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 
-    __unique:__ @Example_Safe_baz3@
+    __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz3@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_323573c8787374af" baz3 ::
+foreign import ccall safe "hs_bindgen_459eabcbd019687c" baz3 ::
      FC.CInt
      {- ^ __C declaration:__ @i@
      -}
@@ -301,7 +301,7 @@ foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_323573c8787374
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 
-    __unique:__ @Example_Safe_no_args_no_void@
+    __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_no_args_no_void@
 -}
-foreign import ccall safe "hs_bindgen_test_macrosmacro_in_fundecl_090f829d86c0108c" no_args_no_void ::
+foreign import ccall safe "hs_bindgen_7ae4ab0ad4fb8cad" no_args_no_void ::
      IO I

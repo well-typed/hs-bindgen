@@ -13,17 +13,17 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <declarations/redeclaration.h>"
-  , "/* Example_get_x_ptr */"
+  , "/* test_declarationsredeclaration_Example_get_x_ptr */"
   , "__attribute__ ((const))"
-  , "signed int *hs_bindgen_test_declarationsredeclaration_8e2611056411c1b6 (void)"
+  , "signed int *hs_bindgen_795a6cca43448561 (void)"
   , "{"
   , "  return &x;"
   , "}"
   ]))
 
-{-| __unique:__ @Example_get_x_ptr@
+{-| __unique:__ @test_declarationsredeclaration_Example_get_x_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_declarationsredeclaration_8e2611056411c1b6" hs_bindgen_test_declarationsredeclaration_8e2611056411c1b6 ::
+foreign import ccall unsafe "hs_bindgen_795a6cca43448561" hs_bindgen_795a6cca43448561 ::
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE x_ptr #-}
@@ -36,4 +36,4 @@ foreign import ccall unsafe "hs_bindgen_test_declarationsredeclaration_8e2611056
 -}
 x_ptr :: Ptr.Ptr FC.CInt
 x_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_declarationsredeclaration_8e2611056411c1b6
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_795a6cca43448561
