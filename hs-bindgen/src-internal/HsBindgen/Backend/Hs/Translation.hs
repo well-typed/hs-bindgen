@@ -4,9 +4,6 @@ module HsBindgen.Backend.Hs.Translation (
   ) where
 
 import Control.Monad.State qualified as State
-import Crypto.Hash.SHA256 (hash)
-import Data.ByteString.Base16 qualified as B16
-import Data.ByteString.Char8 qualified as B
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
@@ -23,6 +20,7 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Config
+import HsBindgen.Backend.Hs.Translation.ToFromFunPtr qualified as ToFromFunPtr
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
@@ -92,7 +90,7 @@ generateDeclarations' opts haddockConfig moduleName declIndex decs =
                    | C.TypePointer (C.TypeFun args res) <- Set.toList scannedFunctionPointerTypes
                    , not (any hasUnsupportedType (res:args))
                    , any (isDefinedInCurrentModule declIndex) (res:args)
-                   , d <- functionTypeFFIStubsAndFunPtrInstances args res
+                   , d <- ToFromFunPtr.forFunction (args, res)
                    ]
       hsDecls <- concat <$> mapM (generateDecs opts haddockConfig moduleName) decs
       pure $ hsDecls ++ fFIStubsAndFunPtrInstances
@@ -984,48 +982,8 @@ typedefDecs opts haddockConfig info typedef spec = do
         -- If we see all the way through the typedef this case will not be
         -- handled correctly.
         --
-        t@(C.TypeFun args res)
-          | not (any hasUnsupportedType (res:args)) ->
-            let newtypeNameTo   = "to" <> coerce newtypeName
-                newtypeNameFrom = "from" <> coerce newtypeName
-
-            in [ Hs.DeclForeignImport Hs.ForeignImportDecl
-                 { foreignImportName       = newtypeNameTo
-                 , foreignImportResultType = NormalResultType $ HsIO $ HsFunPtr $ HsTypRef newtypeName
-                 , foreignImportParameters = [wrapperParam (HsTypRef newtypeName)]
-                 , foreignImportOrigName   = "wrapper"
-                 , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
-                 , foreignImportOrigin     = Origin.ToFunPtr t
-                 , foreignImportComment    = Nothing
-                 , foreignImportSafety     = SHs.Safe
-                 }
-               , Hs.DeclForeignImport Hs.ForeignImportDecl
-                 { foreignImportName       = newtypeNameFrom
-                 , foreignImportResultType = NormalResultType $ HsTypRef newtypeName
-                 , foreignImportParameters = [wrapperParam (HsFunPtr $ HsTypRef newtypeName)]
-                 , foreignImportOrigName   = "dynamic"
-                 , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
-                 , foreignImportOrigin     = Origin.FromFunPtr t
-                 , foreignImportComment    = Nothing
-                 , foreignImportSafety     = SHs.Safe
-                 }
-               , Hs.DeclDefineInstance $ Hs.DefineInstance
-                 { defineInstanceDeclarations = Hs.InstanceToFunPtr
-                   Hs.ToFunPtrInstance
-                   { toFunPtrInstanceType = HsTypRef newtypeName
-                   , toFunPtrInstanceBody = newtypeNameTo
-                   }
-                 , defineInstanceComment = Nothing
-                 }
-               , Hs.DeclDefineInstance $ Hs.DefineInstance
-                 { defineInstanceDeclarations = Hs.InstanceFromFunPtr
-                   Hs.FromFunPtrInstance
-                   { fromFunPtrInstanceType = HsTypRef newtypeName
-                   , fromFunPtrInstanceBody = newtypeNameFrom
-                   }
-                 , defineInstanceComment = Nothing
-                 }
-               ]
+        C.TypeFun args res | not (any hasUnsupportedType (res:args)) ->
+          ToFromFunPtr.forNewtype newtypeName (args, res)
         _ -> []
 
     -- everything in aux is state-dependent
@@ -1469,21 +1427,6 @@ hsWrapperDeclFunction hiName loName res wrappedArgs wrapperParams cFunc mbCommen
 shsApps :: SHs.SExpr ctx -> [SHs.SExpr ctx] -> SHs.SExpr ctx
 shsApps = foldl' SHs.EApp
 
-wrapperParam :: HsType -> Hs.FunctionParameter
-wrapperParam hsType = Hs.FunctionParameter
-  { functionParameterName    = Nothing
-  , functionParameterType    = hsType
-  , functionParameterComment = Nothing
-  }
--- | Generate a unique name for FFI stubs based on function signature
-genNameFromArgs :: [C.Type] -> C.Type -> String -> Hs.Name 'Hs.NsVar
-genNameFromArgs args' res' suffix =
-  Hs.Name $ T.pack $ "funPtr_" ++ typeHash args' res' ++ "_" ++ suffix
-  where
-    typeHash :: [C.Type] -> C.Type -> String
-    typeHash args res = B.unpack $ B.take 8 $ B16.encode $
-      hash $ B.pack $ show (args, res)
-
 functionDecs ::
      HasCallStack
   => SHs.Safety
@@ -1621,63 +1564,6 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
             [ HsDoc.TextContent "attribute((pure))" ]
           ]
         ]
-
--- | Generate ToFunPtr/FromFunPtr instances for nested function pointer types
---
--- This function analyses the function declaration arguments and return types,
--- and for each function pointer argument/return type containing at least one
--- non-orphan type, generates the FFI wrapper and dynamic stubs along with
--- the respective ToFunPtr and FromFunPtr instances.
---
--- These instances are placed in the main module to avoid orphan instances.
-functionTypeFFIStubsAndFunPtrInstances ::
-     [C.Type]
-  -> C.Type
-  -> [Hs.Decl]
-functionTypeFFIStubsAndFunPtrInstances args res =
-  let ft = (C.TypeFun args res)
-      tf = C.TypePointer ft
-      tfHsType    = Type.topLevel tf
-      ftHsType    = Type.topLevel ft
-      ffiStubTo   = genNameFromArgs args res "to"
-      ffiStubFrom = genNameFromArgs args res "from"
-   in [ Hs.DeclForeignImport Hs.ForeignImportDecl
-        { foreignImportName       = ffiStubTo
-        , foreignImportResultType = NormalResultType $ HsIO $ tfHsType
-        , foreignImportParameters = [wrapperParam ftHsType]
-        , foreignImportOrigName   = "wrapper"
-        , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
-        , foreignImportOrigin     = Origin.ToFunPtr tf
-        , foreignImportComment    = Nothing
-        , foreignImportSafety     = SHs.Safe
-        }
-      , Hs.DeclForeignImport Hs.ForeignImportDecl
-        { foreignImportName       = ffiStubFrom
-        , foreignImportResultType = NormalResultType ftHsType
-        , foreignImportParameters = [wrapperParam tfHsType]
-        , foreignImportOrigName   = "dynamic"
-        , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
-        , foreignImportOrigin     = Origin.FromFunPtr tf
-        , foreignImportComment    = Nothing
-        , foreignImportSafety     = SHs.Safe
-        }
-      , Hs.DeclDefineInstance $ Hs.DefineInstance
-        { defineInstanceDeclarations = Hs.InstanceToFunPtr
-          Hs.ToFunPtrInstance
-          { toFunPtrInstanceType = ftHsType
-          , toFunPtrInstanceBody = ffiStubTo
-          }
-        , defineInstanceComment = Nothing
-        }
-      , Hs.DeclDefineInstance $ Hs.DefineInstance
-        { defineInstanceDeclarations = Hs.InstanceFromFunPtr
-          Hs.FromFunPtrInstance
-          { fromFunPtrInstanceType = ftHsType
-          , fromFunPtrInstanceBody = ffiStubFrom
-          }
-        , defineInstanceComment = Nothing
-        }
-      ]
 
 getMainHashIncludeArg :: HasCallStack => C.DeclInfo -> HashIncludeArg
 getMainHashIncludeArg declInfo = case C.declHeaderInfo declInfo of
