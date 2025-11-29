@@ -13,70 +13,70 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <macros/macro_in_fundecl_vs_typedef.h>"
-  , "char hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_803859b9d5ea2750 ("
+  , "char hs_bindgen_df7e2b8e86de411a ("
   , "  MC arg1,"
   , "  TC arg2"
   , ")"
   , "{"
   , "  return quux1(arg1, arg2);"
   , "}"
-  , "TC hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_04808dc3142a2b13 ("
+  , "TC hs_bindgen_6f0b13ed02b696df ("
   , "  MC arg1,"
   , "  char arg2"
   , ")"
   , "{"
   , "  return quux2(arg1, arg2);"
   , "}"
-  , "MC *hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_f38ce43ca615b384 ("
+  , "MC *hs_bindgen_f92059cc98dde342 ("
   , "  float arg1,"
   , "  TC *arg2"
   , ")"
   , "{"
   , "  return wam1(arg1, arg2);"
   , "}"
-  , "TC *hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_ac128ba1294115de ("
+  , "TC *hs_bindgen_3e6ecd1b2cc616bc ("
   , "  float arg1,"
   , "  MC *arg2"
   , ")"
   , "{"
   , "  return wam2(arg1, arg2);"
   , "}"
-  , "void hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_4ec091f1df8e7484 ("
+  , "void hs_bindgen_ffa9d5a3e8f0f221 ("
   , "  struct2 *arg1,"
   , "  MC arg2"
   , ")"
   , "{"
   , "  struct_typedef1(arg1, arg2);"
   , "}"
-  , "void hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_4724be655c57783c ("
+  , "void hs_bindgen_4801667560542114 ("
   , "  struct3_t *arg1,"
   , "  MC arg2"
   , ")"
   , "{"
   , "  struct_typedef2(arg1, arg2);"
   , "}"
-  , "void hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a45f9b7c237f52c2 ("
+  , "void hs_bindgen_04fa5bbd479146eb ("
   , "  struct4 *arg1,"
   , "  MC arg2"
   , ")"
   , "{"
   , "  struct_typedef3(arg1, arg2);"
   , "}"
-  , "void hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_12604d239d0c3498 ("
+  , "void hs_bindgen_08025fd0bd589ac2 ("
   , "  struct struct1 *arg1,"
   , "  MC arg2"
   , ")"
   , "{"
   , "  struct_name1(arg1, arg2);"
   , "}"
-  , "void hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_ebab9061525626c9 ("
+  , "void hs_bindgen_9de286608f952fc7 ("
   , "  struct struct3 *arg1,"
   , "  MC arg2"
   , ")"
   , "{"
   , "  struct_name2(arg1, arg2);"
   , "}"
-  , "void hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_0de7b47f3ac3b7bd ("
+  , "void hs_bindgen_38cce6bb1ac71578 ("
   , "  struct struct4 *arg1,"
   , "  MC arg2"
   , ")"
@@ -91,9 +91,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 
-    __unique:__ @Example_Unsafe_quux1@
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux1@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_803859b9d5ea2750" quux1 ::
+foreign import ccall unsafe "hs_bindgen_df7e2b8e86de411a" quux1 ::
      MC
      {- ^ __C declaration:__ @x@
      -}
@@ -108,9 +108,9 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_80385
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 
-    __unique:__ @Example_Unsafe_quux2@
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux2@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_04808dc3142a2b13" quux2 ::
+foreign import ccall unsafe "hs_bindgen_6f0b13ed02b696df" quux2 ::
      MC
      {- ^ __C declaration:__ @x@
      -}
@@ -125,9 +125,9 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_04808
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 
-    __unique:__ @Example_Unsafe_wam1@
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam1@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_f38ce43ca615b384" wam1 ::
+foreign import ccall unsafe "hs_bindgen_f92059cc98dde342" wam1 ::
      FC.CFloat
      {- ^ __C declaration:__ @x@
      -}
@@ -142,9 +142,9 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_f38ce
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 
-    __unique:__ @Example_Unsafe_wam2@
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam2@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_ac128ba1294115de" wam2 ::
+foreign import ccall unsafe "hs_bindgen_3e6ecd1b2cc616bc" wam2 ::
      FC.CFloat
      {- ^ __C declaration:__ @x@
      -}
@@ -159,9 +159,9 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_ac128
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 
-    __unique:__ @Example_Unsafe_struct_typedef1@
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef1@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_4ec091f1df8e7484" struct_typedef1 ::
+foreign import ccall unsafe "hs_bindgen_ffa9d5a3e8f0f221" struct_typedef1 ::
      Ptr.Ptr Struct2
      {- ^ __C declaration:__ @s@
      -}
@@ -176,9 +176,9 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_4ec09
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 
-    __unique:__ @Example_Unsafe_struct_typedef2@
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef2@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_4724be655c57783c" struct_typedef2 ::
+foreign import ccall unsafe "hs_bindgen_4801667560542114" struct_typedef2 ::
      Ptr.Ptr Struct3_t
      {- ^ __C declaration:__ @s@
      -}
@@ -193,9 +193,9 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_4724b
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 
-    __unique:__ @Example_Unsafe_struct_typedef3@
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef3@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a45f9b7c237f52c2" struct_typedef3 ::
+foreign import ccall unsafe "hs_bindgen_04fa5bbd479146eb" struct_typedef3 ::
      Ptr.Ptr Struct4
      {- ^ __C declaration:__ @s@
      -}
@@ -210,9 +210,9 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_a45f9
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 
-    __unique:__ @Example_Unsafe_struct_name1@
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name1@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_12604d239d0c3498" struct_name1 ::
+foreign import ccall unsafe "hs_bindgen_08025fd0bd589ac2" struct_name1 ::
      Ptr.Ptr Struct1
      {- ^ __C declaration:__ @s@
      -}
@@ -227,9 +227,9 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_12604
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 
-    __unique:__ @Example_Unsafe_struct_name2@
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name2@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_ebab9061525626c9" struct_name2 ::
+foreign import ccall unsafe "hs_bindgen_9de286608f952fc7" struct_name2 ::
      Ptr.Ptr Struct3
      {- ^ __C declaration:__ @s@
      -}
@@ -244,9 +244,9 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_ebab9
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 
-    __unique:__ @Example_Unsafe_struct_name3@
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name3@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_vs_typ_0de7b47f3ac3b7bd" struct_name3 ::
+foreign import ccall unsafe "hs_bindgen_38cce6bb1ac71578" struct_name3 ::
      Ptr.Ptr Struct4
      {- ^ __C declaration:__ @s@
      -}

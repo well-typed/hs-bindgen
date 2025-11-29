@@ -1534,7 +1534,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
     innerName = T.unpack (C.getName . C.nameC . C.declId $ info)
 
     wrapperName :: UniqueSymbol
-    wrapperName = getUniqueSymbol opts.translationUniqueId moduleName $ concat [
+    wrapperName = globallyUnique opts.translationUniqueId moduleName $ concat [
           show safety
         , "_"
         , innerName
@@ -1736,7 +1736,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
 
     stubName :: UniqueSymbol
     stubName =
-        getUniqueSymbol opts.translationUniqueId moduleName $
+        globallyUnique opts.translationUniqueId moduleName $
           "get_" ++ varName ++ "_ptr"
 
     varName :: String

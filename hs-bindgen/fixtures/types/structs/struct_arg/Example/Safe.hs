@@ -15,20 +15,20 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/structs/struct_arg.h>"
-  , "signed int hs_bindgen_test_typesstructsstruct_arg_fa19ea18be4acaf9 ("
+  , "signed int hs_bindgen_4ad25504590fdd2b ("
   , "  struct thing *arg1"
   , ")"
   , "{"
   , "  return thing_fun_1(*arg1);"
   , "}"
-  , "void hs_bindgen_test_typesstructsstruct_arg_b64ad40eb613d879 ("
+  , "void hs_bindgen_04a435522bf64978 ("
   , "  signed int arg1,"
   , "  struct thing *arg2"
   , ")"
   , "{"
   , "  *arg2 = thing_fun_2(arg1);"
   , "}"
-  , "void hs_bindgen_test_typesstructsstruct_arg_b50b6182783122cc ("
+  , "void hs_bindgen_5e3271324df7ced2 ("
   , "  signed int arg1,"
   , "  struct thing *arg2,"
   , "  double arg3,"
@@ -37,7 +37,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  *arg4 = thing_fun_3a(arg1, *arg2, arg3);"
   , "}"
-  , "char hs_bindgen_test_typesstructsstruct_arg_ca435e217e5584ea ("
+  , "char hs_bindgen_3525c7d1c72f2fae ("
   , "  signed int arg1,"
   , "  struct thing *arg2,"
   , "  double arg3"
@@ -49,9 +49,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 {-| Pointer-based API for 'thing_fun_1'
 
-__unique:__ @Example_Safe_thing_fun_1@
+__unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
 -}
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_fa19ea18be4acaf9" thing_fun_1_wrapper ::
+foreign import ccall safe "hs_bindgen_4ad25504590fdd2b" thing_fun_1_wrapper ::
      Ptr.Ptr Thing
   -> IO FC.CInt
 
@@ -71,9 +71,9 @@ thing_fun_1 =
 
 {-| Pointer-based API for 'thing_fun_2'
 
-__unique:__ @Example_Safe_thing_fun_2@
+__unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_2@
 -}
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_b64ad40eb613d879" thing_fun_2_wrapper ::
+foreign import ccall safe "hs_bindgen_04a435522bf64978" thing_fun_2_wrapper ::
      FC.CInt
   -> Ptr.Ptr Thing
   -> IO ()
@@ -96,9 +96,9 @@ thing_fun_2 =
 
 {-| Pointer-based API for 'thing_fun_3a'
 
-__unique:__ @Example_Safe_thing_fun_3a@
+__unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3a@
 -}
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_b50b6182783122cc" thing_fun_3a_wrapper ::
+foreign import ccall safe "hs_bindgen_5e3271324df7ced2" thing_fun_3a_wrapper ::
      FC.CInt
   -> Ptr.Ptr Thing
   -> FC.CDouble
@@ -132,9 +132,9 @@ thing_fun_3a =
 
 {-| Pointer-based API for 'thing_fun_3b'
 
-__unique:__ @Example_Safe_thing_fun_3b@
+__unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3b@
 -}
-foreign import ccall safe "hs_bindgen_test_typesstructsstruct_arg_ca435e217e5584ea" thing_fun_3b_wrapper ::
+foreign import ccall safe "hs_bindgen_3525c7d1c72f2fae" thing_fun_3b_wrapper ::
      FC.CInt
   -> Ptr.Ptr Thing
   -> FC.CDouble

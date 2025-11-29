@@ -13,9 +13,9 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <declarations/declarations_required_for_scoping.h>"
-  , "/* Example_get_f_ptr */"
+  , "/* test_declarationsdeclarations_requ_Example_get_f_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_declarationsdeclarations_requ_e684d4bc6355e13a (void)) ("
+  , "void (*hs_bindgen_2d056172b6e93949 (void)) ("
   , "  A arg1"
   , ")"
   , "{"
@@ -23,9 +23,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @Example_get_f_ptr@
+{-| __unique:__ @test_declarationsdeclarations_requ_Example_get_f_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_declarationsdeclarations_requ_e684d4bc6355e13a" hs_bindgen_test_declarationsdeclarations_requ_e684d4bc6355e13a ::
+foreign import ccall unsafe "hs_bindgen_2d056172b6e93949" hs_bindgen_2d056172b6e93949 ::
      IO (Ptr.FunPtr (A -> IO ()))
 
 {-# NOINLINE f_ptr #-}
@@ -38,4 +38,4 @@ foreign import ccall unsafe "hs_bindgen_test_declarationsdeclarations_requ_e684d
 -}
 f_ptr :: Ptr.FunPtr (A -> IO ())
 f_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_declarationsdeclarations_requ_e684d4bc6355e13a
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2d056172b6e93949

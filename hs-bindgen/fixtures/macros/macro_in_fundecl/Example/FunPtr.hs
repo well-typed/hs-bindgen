@@ -16,27 +16,27 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <macros/macro_in_fundecl.h>"
-  , "/* Example_get_quux_ptr */"
+  , "/* test_macrosmacro_in_fundecl_Example_get_quux_ptr */"
   , "__attribute__ ((const))"
-  , "char (*hs_bindgen_test_macrosmacro_in_fundecl_d8f5ece302797670 (void)) ("
+  , "char (*hs_bindgen_9ba032a8ddf22326 (void)) ("
   , "  F arg1,"
   , "  char arg2"
   , ")"
   , "{"
   , "  return &quux;"
   , "}"
-  , "/* Example_get_wam_ptr */"
+  , "/* test_macrosmacro_in_fundecl_Example_get_wam_ptr */"
   , "__attribute__ ((const))"
-  , "C *(*hs_bindgen_test_macrosmacro_in_fundecl_6eddc7cae32c87a9 (void)) ("
+  , "C *(*hs_bindgen_dafcba2967781c8d (void)) ("
   , "  float arg1,"
   , "  C *arg2"
   , ")"
   , "{"
   , "  return &wam;"
   , "}"
-  , "/* Example_get_foo1_ptr */"
+  , "/* test_macrosmacro_in_fundecl_Example_get_foo1_ptr */"
   , "__attribute__ ((const))"
-  , "char *(*hs_bindgen_test_macrosmacro_in_fundecl_06131a9037617445 (void)) ("
+  , "char *(*hs_bindgen_27ded2f560eadb5b (void)) ("
   , "  float arg1,"
   , "  signed int (*arg2) ("
   , "  signed int arg1"
@@ -45,9 +45,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &foo1;"
   , "}"
-  , "/* Example_get_foo2_ptr */"
+  , "/* test_macrosmacro_in_fundecl_Example_get_foo2_ptr */"
   , "__attribute__ ((const))"
-  , "char *(*hs_bindgen_test_macrosmacro_in_fundecl_68d5128a477a55ab (void)) ("
+  , "char *(*hs_bindgen_2f92fb3aace15650 (void)) ("
   , "  F arg1,"
   , "  signed int (*arg2) ("
   , "  signed int arg1"
@@ -56,9 +56,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &foo2;"
   , "}"
-  , "/* Example_get_foo3_ptr */"
+  , "/* test_macrosmacro_in_fundecl_Example_get_foo3_ptr */"
   , "__attribute__ ((const))"
-  , "C *(*hs_bindgen_test_macrosmacro_in_fundecl_da476d2762343643 (void)) ("
+  , "C *(*hs_bindgen_06568a4cca591e6c (void)) ("
   , "  float arg1,"
   , "  signed int (*arg2) ("
   , "  signed int arg1"
@@ -67,9 +67,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &foo3;"
   , "}"
-  , "/* Example_get_bar1_ptr */"
+  , "/* test_macrosmacro_in_fundecl_Example_get_bar1_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*(*hs_bindgen_test_macrosmacro_in_fundecl_2a02d3414f09b0bb (void)) ("
+  , "signed int (*(*hs_bindgen_d9248136916656f7 (void)) ("
   , "  signed long arg1"
   , ")) ("
   , "  signed short arg1"
@@ -77,9 +77,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &bar1;"
   , "}"
-  , "/* Example_get_bar2_ptr */"
+  , "/* test_macrosmacro_in_fundecl_Example_get_bar2_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*(*hs_bindgen_test_macrosmacro_in_fundecl_e7f3e52afd3430bd (void)) ("
+  , "signed int (*(*hs_bindgen_2638a77b200d9571 (void)) ("
   , "  L arg1"
   , ")) ("
   , "  signed short arg1"
@@ -87,9 +87,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &bar2;"
   , "}"
-  , "/* Example_get_bar3_ptr */"
+  , "/* test_macrosmacro_in_fundecl_Example_get_bar3_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*(*hs_bindgen_test_macrosmacro_in_fundecl_7d9ba98465d2c7b7 (void)) ("
+  , "signed int (*(*hs_bindgen_ebbd5d09631f1f45 (void)) ("
   , "  signed long arg1"
   , ")) ("
   , "  S arg1"
@@ -97,9 +97,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &bar3;"
   , "}"
-  , "/* Example_get_bar4_ptr */"
+  , "/* test_macrosmacro_in_fundecl_Example_get_bar4_ptr */"
   , "__attribute__ ((const))"
-  , "I (*(*hs_bindgen_test_macrosmacro_in_fundecl_51a5dccf21628be1 (void)) ("
+  , "I (*(*hs_bindgen_7082943a6d3dd96f (void)) ("
   , "  signed long arg1"
   , ")) ("
   , "  signed short arg1"
@@ -107,41 +107,41 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &bar4;"
   , "}"
-  , "/* Example_get_baz1_ptr */"
+  , "/* test_macrosmacro_in_fundecl_Example_get_baz1_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*(*hs_bindgen_test_macrosmacro_in_fundecl_971f9c00d0ce5eae (void)) ("
+  , "signed int (*(*hs_bindgen_d13a2e48d313bb66 (void)) ("
   , "  signed int const arg1"
   , "))[2][3]"
   , "{"
   , "  return &baz1;"
   , "}"
-  , "/* Example_get_baz2_ptr */"
+  , "/* test_macrosmacro_in_fundecl_Example_get_baz2_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*(*hs_bindgen_test_macrosmacro_in_fundecl_2aac4344645e949e (void)) ("
+  , "signed int (*(*hs_bindgen_2e558de67f4f715d (void)) ("
   , "  I const arg1"
   , "))[2][3]"
   , "{"
   , "  return &baz2;"
   , "}"
-  , "/* Example_get_baz3_ptr */"
+  , "/* test_macrosmacro_in_fundecl_Example_get_baz3_ptr */"
   , "__attribute__ ((const))"
-  , "I (*(*hs_bindgen_test_macrosmacro_in_fundecl_df109ce3836adf2e (void)) ("
+  , "I (*(*hs_bindgen_7aba9db18419135a (void)) ("
   , "  signed int const arg1"
   , "))[2][3]"
   , "{"
   , "  return &baz3;"
   , "}"
-  , "/* Example_get_no_args_no_void_ptr */"
+  , "/* test_macrosmacro_in_fundecl_Example_get_no_args_no_void_ptr */"
   , "__attribute__ ((const))"
-  , "I (*hs_bindgen_test_macrosmacro_in_fundecl_6594699f2f8bc19e (void)) (void)"
+  , "I (*hs_bindgen_35d1920cc9d86b63 (void)) (void)"
   , "{"
   , "  return &no_args_no_void;"
   , "}"
   ]))
 
-{-| __unique:__ @Example_get_quux_ptr@
+{-| __unique:__ @test_macrosmacro_in_fundecl_Example_get_quux_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_d8f5ece302797670" hs_bindgen_test_macrosmacro_in_fundecl_d8f5ece302797670 ::
+foreign import ccall unsafe "hs_bindgen_9ba032a8ddf22326" hs_bindgen_9ba032a8ddf22326 ::
      IO (Ptr.FunPtr (F -> FC.CChar -> IO FC.CChar))
 
 {-# NOINLINE quux_ptr #-}
@@ -154,11 +154,11 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_d8f5ece30279
 -}
 quux_ptr :: Ptr.FunPtr (F -> FC.CChar -> IO FC.CChar)
 quux_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_d8f5ece302797670
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9ba032a8ddf22326
 
-{-| __unique:__ @Example_get_wam_ptr@
+{-| __unique:__ @test_macrosmacro_in_fundecl_Example_get_wam_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_6eddc7cae32c87a9" hs_bindgen_test_macrosmacro_in_fundecl_6eddc7cae32c87a9 ::
+foreign import ccall unsafe "hs_bindgen_dafcba2967781c8d" hs_bindgen_dafcba2967781c8d ::
      IO (Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr C) -> IO (Ptr.Ptr C)))
 
 {-# NOINLINE wam_ptr #-}
@@ -171,11 +171,11 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_6eddc7cae32c
 -}
 wam_ptr :: Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr C) -> IO (Ptr.Ptr C))
 wam_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_6eddc7cae32c87a9
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dafcba2967781c8d
 
-{-| __unique:__ @Example_get_foo1_ptr@
+{-| __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo1_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_06131a9037617445" hs_bindgen_test_macrosmacro_in_fundecl_06131a9037617445 ::
+foreign import ccall unsafe "hs_bindgen_27ded2f560eadb5b" hs_bindgen_27ded2f560eadb5b ::
      IO (Ptr.FunPtr (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr FC.CChar)))
 
 {-# NOINLINE foo1_ptr #-}
@@ -188,11 +188,11 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_06131a903761
 -}
 foo1_ptr :: Ptr.FunPtr (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr FC.CChar))
 foo1_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_06131a9037617445
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_27ded2f560eadb5b
 
-{-| __unique:__ @Example_get_foo2_ptr@
+{-| __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo2_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_68d5128a477a55ab" hs_bindgen_test_macrosmacro_in_fundecl_68d5128a477a55ab ::
+foreign import ccall unsafe "hs_bindgen_2f92fb3aace15650" hs_bindgen_2f92fb3aace15650 ::
      IO (Ptr.FunPtr (F -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr FC.CChar)))
 
 {-# NOINLINE foo2_ptr #-}
@@ -205,11 +205,11 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_68d5128a477a
 -}
 foo2_ptr :: Ptr.FunPtr (F -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr FC.CChar))
 foo2_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_68d5128a477a55ab
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2f92fb3aace15650
 
-{-| __unique:__ @Example_get_foo3_ptr@
+{-| __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo3_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_da476d2762343643" hs_bindgen_test_macrosmacro_in_fundecl_da476d2762343643 ::
+foreign import ccall unsafe "hs_bindgen_06568a4cca591e6c" hs_bindgen_06568a4cca591e6c ::
      IO (Ptr.FunPtr (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr C)))
 
 {-# NOINLINE foo3_ptr #-}
@@ -222,11 +222,11 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_da476d276234
 -}
 foo3_ptr :: Ptr.FunPtr (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr C))
 foo3_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_da476d2762343643
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_06568a4cca591e6c
 
-{-| __unique:__ @Example_get_bar1_ptr@
+{-| __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar1_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_2a02d3414f09b0bb" hs_bindgen_test_macrosmacro_in_fundecl_2a02d3414f09b0bb ::
+foreign import ccall unsafe "hs_bindgen_d9248136916656f7" hs_bindgen_d9248136916656f7 ::
      IO (Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))))
 
 {-# NOINLINE bar1_ptr #-}
@@ -239,11 +239,11 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_2a02d3414f09
 -}
 bar1_ptr :: Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt)))
 bar1_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_2a02d3414f09b0bb
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d9248136916656f7
 
-{-| __unique:__ @Example_get_bar2_ptr@
+{-| __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar2_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_e7f3e52afd3430bd" hs_bindgen_test_macrosmacro_in_fundecl_e7f3e52afd3430bd ::
+foreign import ccall unsafe "hs_bindgen_2638a77b200d9571" hs_bindgen_2638a77b200d9571 ::
      IO (Ptr.FunPtr (L -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))))
 
 {-# NOINLINE bar2_ptr #-}
@@ -256,11 +256,11 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_e7f3e52afd34
 -}
 bar2_ptr :: Ptr.FunPtr (L -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt)))
 bar2_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_e7f3e52afd3430bd
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2638a77b200d9571
 
-{-| __unique:__ @Example_get_bar3_ptr@
+{-| __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar3_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_7d9ba98465d2c7b7" hs_bindgen_test_macrosmacro_in_fundecl_7d9ba98465d2c7b7 ::
+foreign import ccall unsafe "hs_bindgen_ebbd5d09631f1f45" hs_bindgen_ebbd5d09631f1f45 ::
      IO (Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (S -> IO FC.CInt))))
 
 {-# NOINLINE bar3_ptr #-}
@@ -273,11 +273,11 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_7d9ba98465d2
 -}
 bar3_ptr :: Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (S -> IO FC.CInt)))
 bar3_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_7d9ba98465d2c7b7
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ebbd5d09631f1f45
 
-{-| __unique:__ @Example_get_bar4_ptr@
+{-| __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar4_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_51a5dccf21628be1" hs_bindgen_test_macrosmacro_in_fundecl_51a5dccf21628be1 ::
+foreign import ccall unsafe "hs_bindgen_7082943a6d3dd96f" hs_bindgen_7082943a6d3dd96f ::
      IO (Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO I))))
 
 {-# NOINLINE bar4_ptr #-}
@@ -290,11 +290,11 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_51a5dccf2162
 -}
 bar4_ptr :: Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO I)))
 bar4_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_51a5dccf21628be1
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7082943a6d3dd96f
 
-{-| __unique:__ @Example_get_baz1_ptr@
+{-| __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz1_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_971f9c00d0ce5eae" hs_bindgen_test_macrosmacro_in_fundecl_971f9c00d0ce5eae ::
+foreign import ccall unsafe "hs_bindgen_d13a2e48d313bb66" hs_bindgen_d13a2e48d313bb66 ::
      IO (Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))))
 
 {-# NOINLINE baz1_ptr #-}
@@ -307,11 +307,11 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_971f9c00d0ce
 -}
 baz1_ptr :: Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))))
 baz1_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_971f9c00d0ce5eae
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d13a2e48d313bb66
 
-{-| __unique:__ @Example_get_baz2_ptr@
+{-| __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz2_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_2aac4344645e949e" hs_bindgen_test_macrosmacro_in_fundecl_2aac4344645e949e ::
+foreign import ccall unsafe "hs_bindgen_2e558de67f4f715d" hs_bindgen_2e558de67f4f715d ::
      IO (Ptr.FunPtr (I -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))))
 
 {-# NOINLINE baz2_ptr #-}
@@ -324,11 +324,11 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_2aac4344645e
 -}
 baz2_ptr :: Ptr.FunPtr (I -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))))
 baz2_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_2aac4344645e949e
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2e558de67f4f715d
 
-{-| __unique:__ @Example_get_baz3_ptr@
+{-| __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz3_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_df109ce3836adf2e" hs_bindgen_test_macrosmacro_in_fundecl_df109ce3836adf2e ::
+foreign import ccall unsafe "hs_bindgen_7aba9db18419135a" hs_bindgen_7aba9db18419135a ::
      IO (Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I)))))
 
 {-# NOINLINE baz3_ptr #-}
@@ -341,11 +341,11 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_df109ce3836a
 -}
 baz3_ptr :: Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I))))
 baz3_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_df109ce3836adf2e
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7aba9db18419135a
 
-{-| __unique:__ @Example_get_no_args_no_void_ptr@
+{-| __unique:__ @test_macrosmacro_in_fundecl_Example_get_no_args_no_void_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_6594699f2f8bc19e" hs_bindgen_test_macrosmacro_in_fundecl_6594699f2f8bc19e ::
+foreign import ccall unsafe "hs_bindgen_35d1920cc9d86b63" hs_bindgen_35d1920cc9d86b63 ::
      IO (Ptr.FunPtr (IO I))
 
 {-# NOINLINE no_args_no_void_ptr #-}
@@ -358,4 +358,4 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_6594699f2f8b
 -}
 no_args_no_void_ptr :: Ptr.FunPtr (IO I)
 no_args_no_void_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macrosmacro_in_fundecl_6594699f2f8bc19e
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_35d1920cc9d86b63

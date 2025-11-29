@@ -6,14 +6,13 @@ module HsBindgen.Backend.UniqueSymbol (
     UniqueSymbol(..)
   , unsafeUniqueHsName
   , uniqueCName
-  , getUniqueSymbol
+  , globallyUnique
   ) where
 
 import Crypto.Hash.SHA256 (hash)
 import Data.ByteString.Base16 qualified as B16
 import Data.ByteString.Char8 qualified as B
 import Data.Char (isLetter)
-import Data.List (intercalate)
 import Data.Text qualified as Text
 import GHC.Unicode (isDigit)
 
@@ -55,28 +54,28 @@ uniqueCName = C.Name . Text.pack . unique
 -- must make sure to pick globally unique names. We do this by generating names
 -- of the following shape:
 --
--- > "hs_bindgen_" ++ 'UniqueId' ++ "_" ++ hashOf 'BaseModuleName' str
+-- > "hs_bindgen_" ++ hashOf 'UniqueId' 'BaseModuleName' 'String'
 --
--- where @str@ is some arbitrary string, which the caller must ensure is unique
--- for a given 'UniqueId' and 'BaseModuleName'. We do not include the base
--- module name or @str@ themselves (unhashed) as part of the name, to avoid
--- problems with linkers that only use a fixed length prefix of names.
-getUniqueSymbol :: UniqueId -> BaseModuleName -> String -> UniqueSymbol
-getUniqueSymbol (UniqueId uniqueId) baseModuleName str = UniqueSymbol{
+-- where @'String'@ is some arbitrary string, which the caller must ensure is
+-- unique for a given @'UniqueId'@ and @'BaseModuleName'@.
+--
+-- We only use the hash in the name to avoid problems with linkers that only use
+-- a fixed length prefix of names; callers should ensure that
+-- @UniqueSymbol.source@ in included in a suitable comment.
+globallyUnique :: UniqueId -> BaseModuleName -> String -> UniqueSymbol
+globallyUnique (UniqueId uniqueId) baseModuleName str = UniqueSymbol{
       unique
     , source
     }
   where
     unique :: String
-    unique = intercalate "_" $ concat [
-          [ "hs_bindgen" ]
-        , [ x | let x = sanitizeUniqueId uniqueId, not (null x) ]
-        , [ hashString source ]
-        ]
+    unique = "hs_bindgen_" ++ hashString source
 
     source :: String
     source = concat [
-          baseModuleNameToString baseModuleName
+          sanitizeUniqueId uniqueId
+        , "_"
+        , baseModuleNameToString baseModuleName
         , "_"
         , str
         ]

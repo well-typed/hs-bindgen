@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <program-analysis/program_slicing_selection.h>"
-  , "enum FileOperationStatus hs_bindgen_test_programanalysisprogram_slici_30208b4335c608a6 ("
+  , "enum FileOperationStatus hs_bindgen_654858ed6a5db417 ("
   , "  FILE *arg1,"
   , "  void *arg2,"
   , "  size_t arg3"
@@ -29,9 +29,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 
-    __unique:__ @Example_Unsafe_read_file_chunk@
+    __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
 -}
-foreign import ccall unsafe "hs_bindgen_test_programanalysisprogram_slici_30208b4335c608a6" read_file_chunk ::
+foreign import ccall unsafe "hs_bindgen_654858ed6a5db417" read_file_chunk ::
      Ptr.Ptr HsBindgen.Runtime.Prelude.CFile
      {- ^ __C declaration:__ @file_ptr@
      -}

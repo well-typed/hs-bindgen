@@ -3,46 +3,46 @@
 -- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile examples/golden/manual/zero_copy.h
 -- #include <manual/zero_copy.h>
--- signed int hs_bindgen_test_manualzero_copy_811a21177b595fd7 (
+-- signed int hs_bindgen_350cceac1101d344 (
 --   struct vector const *arg1,
 --   struct vector *arg2
 -- )
 -- {
 --   return reverse(arg1, arg2);
 -- }
--- void hs_bindgen_test_manualzero_copy_2eb5dd013684775e (
+-- void hs_bindgen_2ff371c815d92b04 (
 --   triplet *arg1,
 --   triplet *arg2
 -- )
 -- {
 --   transpose(arg1, arg2);
 -- }
--- signed int hs_bindgen_test_manualzero_copy_d027e55aaf1def2d (
+-- signed int hs_bindgen_f9655173d51bbaac (
 --   struct vector const *arg1,
 --   struct vector *arg2
 -- )
 -- {
 --   return reverse(arg1, arg2);
 -- }
--- void hs_bindgen_test_manualzero_copy_bae8c3744560ca28 (
+-- void hs_bindgen_ea25667627dd5ed2 (
 --   triplet *arg1,
 --   triplet *arg2
 -- )
 -- {
 --   transpose(arg1, arg2);
 -- }
--- /* Example_get_reverse_ptr */
+-- /* test_manualzero_copy_Example_get_reverse_ptr */
 -- __attribute__ ((const))
--- signed int (*hs_bindgen_test_manualzero_copy_6c907b09c096f10f (void)) (
+-- signed int (*hs_bindgen_d76d6b95b7803c78 (void)) (
 --   struct vector const *arg1,
 --   struct vector *arg2
 -- )
 -- {
 --   return &reverse;
 -- }
--- /* Example_get_transpose_ptr */
+-- /* test_manualzero_copy_Example_get_transpose_ptr */
 -- __attribute__ ((const))
--- void (*hs_bindgen_test_manualzero_copy_c8ec17b4322959b0 (void)) (
+-- void (*hs_bindgen_f72c56033fb58d5e (void)) (
 --   matrix const arg1,
 --   matrix arg2
 -- )
@@ -615,18 +615,16 @@ instance HasCField Matrix "un_Matrix"
 
     __exported by:__ @manual\/zero_copy.h@
 
-    __unique:__ @Example_Unsafe_reverse@
+    __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
 -}
-foreign import ccall safe "hs_bindgen_test_manualzero_copy_811a21177b595fd7" reverse :: Ptr Vector ->
-                                                                                        Ptr Vector ->
-                                                                                        IO CInt
+foreign import ccall safe "hs_bindgen_350cceac1101d344" reverse :: Ptr Vector ->
+                                                                   Ptr Vector -> IO CInt
 {-| Pointer-based API for 'transpose'
 
-__unique:__ @Example_Unsafe_transpose@
+__unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
 -}
-foreign import ccall safe "hs_bindgen_test_manualzero_copy_2eb5dd013684775e" transpose_wrapper :: Ptr Triplet ->
-                                                                                                  Ptr Triplet ->
-                                                                                                  IO Unit
+foreign import ccall safe "hs_bindgen_2ff371c815d92b04" transpose_wrapper :: Ptr Triplet ->
+                                                                             Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h:85:6@
@@ -647,18 +645,16 @@ transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper ptr_2 x_1)
 
     __exported by:__ @manual\/zero_copy.h@
 
-    __unique:__ @Example_Unsafe_reverse@
+    __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
 -}
-foreign import ccall safe "hs_bindgen_test_manualzero_copy_d027e55aaf1def2d" reverse :: Ptr Vector ->
-                                                                                        Ptr Vector ->
-                                                                                        IO CInt
+foreign import ccall safe "hs_bindgen_f9655173d51bbaac" reverse :: Ptr Vector ->
+                                                                   Ptr Vector -> IO CInt
 {-| Pointer-based API for 'transpose'
 
-__unique:__ @Example_Unsafe_transpose@
+__unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
 -}
-foreign import ccall safe "hs_bindgen_test_manualzero_copy_bae8c3744560ca28" transpose_wrapper :: Ptr Triplet ->
-                                                                                                  Ptr Triplet ->
-                                                                                                  IO Unit
+foreign import ccall safe "hs_bindgen_ea25667627dd5ed2" transpose_wrapper :: Ptr Triplet ->
+                                                                             Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h:85:6@
@@ -673,11 +669,11 @@ transpose :: Matrix -> Ptr Triplet -> IO Unit
     __exported by:__ @manual\/zero_copy.h@
 -}
 transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper ptr_2 x_1)
-{-| __unique:__ @Example_get_reverse_ptr@
+{-| __unique:__ @test_manualzero_copy_Example_get_reverse_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_manualzero_copy_6c907b09c096f10f" hs_bindgen_test_manualzero_copy_6c907b09c096f10f :: IO (FunPtr (Ptr Vector ->
-                                                                                                                                             Ptr Vector ->
-                                                                                                                                             IO CInt))
+foreign import ccall safe "hs_bindgen_d76d6b95b7803c78" hs_bindgen_d76d6b95b7803c78 :: IO (FunPtr (Ptr Vector ->
+                                                                                                   Ptr Vector ->
+                                                                                                   IO CInt))
 {-# NOINLINE reverse_ptr #-}
 {-| __C declaration:__ @reverse@
 
@@ -692,12 +688,12 @@ reverse_ptr :: FunPtr (Ptr Vector -> Ptr Vector -> IO CInt)
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-reverse_ptr = unsafePerformIO hs_bindgen_test_manualzero_copy_6c907b09c096f10f
-{-| __unique:__ @Example_get_transpose_ptr@
+reverse_ptr = unsafePerformIO hs_bindgen_d76d6b95b7803c78
+{-| __unique:__ @test_manualzero_copy_Example_get_transpose_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_manualzero_copy_c8ec17b4322959b0" hs_bindgen_test_manualzero_copy_c8ec17b4322959b0 :: IO (FunPtr (Matrix ->
-                                                                                                                                             Matrix ->
-                                                                                                                                             IO Unit))
+foreign import ccall safe "hs_bindgen_f72c56033fb58d5e" hs_bindgen_f72c56033fb58d5e :: IO (FunPtr (Matrix ->
+                                                                                                   Matrix ->
+                                                                                                   IO Unit))
 {-# NOINLINE transpose_ptr #-}
 {-| __C declaration:__ @transpose@
 
@@ -712,4 +708,4 @@ transpose_ptr :: FunPtr (Matrix -> Matrix -> IO Unit)
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose_ptr = unsafePerformIO hs_bindgen_test_manualzero_copy_c8ec17b4322959b0
+transpose_ptr = unsafePerformIO hs_bindgen_f72c56033fb58d5e

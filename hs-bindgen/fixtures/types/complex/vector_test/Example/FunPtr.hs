@@ -14,9 +14,9 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/complex/vector_test.h>"
-  , "/* Example_get_new_vector_ptr */"
+  , "/* test_typescomplexvector_test_Example_get_new_vector_ptr */"
   , "__attribute__ ((const))"
-  , "vector *(*hs_bindgen_test_typescomplexvector_test_b5c8c2592960cc04 (void)) ("
+  , "vector *(*hs_bindgen_a9bd57bd55b4e697 (void)) ("
   , "  double arg1,"
   , "  double arg2"
   , ")"
@@ -25,9 +25,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @Example_get_new_vector_ptr@
+{-| __unique:__ @test_typescomplexvector_test_Example_get_new_vector_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexvector_test_b5c8c2592960cc04" hs_bindgen_test_typescomplexvector_test_b5c8c2592960cc04 ::
+foreign import ccall unsafe "hs_bindgen_a9bd57bd55b4e697" hs_bindgen_a9bd57bd55b4e697 ::
      IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector)))
 
 {-# NOINLINE new_vector_ptr #-}
@@ -40,4 +40,4 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexvector_test_b5c8c259296
 -}
 new_vector_ptr :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector))
 new_vector_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexvector_test_b5c8c2592960cc04
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a9bd57bd55b4e697

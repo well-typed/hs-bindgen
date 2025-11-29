@@ -13,23 +13,23 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <documentation/doxygen_docs.h>"
-  , "/* Example_get_global_counter_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_global_counter_ptr */"
   , "__attribute__ ((const))"
-  , "signed int *hs_bindgen_test_documentationdoxygen_docs_b64b5b9b22522112 (void)"
+  , "signed int *hs_bindgen_a568b76e8feb0427 (void)"
   , "{"
   , "  return &global_counter;"
   , "}"
-  , "/* Example_get_version_string_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_version_string_ptr */"
   , "__attribute__ ((const))"
-  , "char const **hs_bindgen_test_documentationdoxygen_docs_b69007acfe74b444 (void)"
+  , "char const **hs_bindgen_dd671052fd43d189 (void)"
   , "{"
   , "  return &version_string;"
   , "}"
   ]))
 
-{-| __unique:__ @Example_get_global_counter_ptr@
+{-| __unique:__ @test_documentationdoxygen_docs_Example_get_global_counter_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_documentationdoxygen_docs_b64b5b9b22522112" hs_bindgen_test_documentationdoxygen_docs_b64b5b9b22522112 ::
+foreign import ccall unsafe "hs_bindgen_a568b76e8feb0427" hs_bindgen_a568b76e8feb0427 ::
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE global_counter_ptr #-}
@@ -50,11 +50,11 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 global_counter_ptr :: Ptr.Ptr FC.CInt
 global_counter_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_documentationdoxygen_docs_b64b5b9b22522112
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a568b76e8feb0427
 
-{-| __unique:__ @Example_get_version_string_ptr@
+{-| __unique:__ @test_documentationdoxygen_docs_Example_get_version_string_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_documentationdoxygen_docs_b69007acfe74b444" hs_bindgen_test_documentationdoxygen_docs_b69007acfe74b444 ::
+foreign import ccall unsafe "hs_bindgen_dd671052fd43d189" hs_bindgen_dd671052fd43d189 ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CChar))
 
 {-# NOINLINE version_string_ptr #-}
@@ -73,4 +73,4 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 version_string_ptr :: Ptr.Ptr (Ptr.Ptr FC.CChar)
 version_string_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_documentationdoxygen_docs_b69007acfe74b444
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dd671052fd43d189
