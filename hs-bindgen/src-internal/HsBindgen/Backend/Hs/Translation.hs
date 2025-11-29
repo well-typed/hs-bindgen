@@ -3,7 +3,6 @@ module HsBindgen.Backend.Hs.Translation (
     generateDeclarations
   ) where
 
-import Control.Arrow
 import Control.Monad.State qualified as State
 import Crypto.Hash.SHA256 (hash)
 import Data.ByteString.Base16 qualified as B16
@@ -24,6 +23,7 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Config
+import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
@@ -37,7 +37,6 @@ import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.PrettyC qualified as PC
 
@@ -400,7 +399,7 @@ structDecs opts haddockConfig info struct spec fields = do
     structFields :: Vec n Hs.Field
     structFields = flip Vec.map fields $ \f -> Hs.Field {
         fieldName    = C.nameHs (C.fieldName (C.structFieldInfo f))
-      , fieldType    = typ (C.structFieldType f)
+      , fieldType    = Type.topLevel (C.structFieldType f)
       , fieldOrigin  = Origin.StructField f
       , fieldComment = generateHaddocksWithFieldInfo haddockConfig info (C.structFieldInfo f)
       }
@@ -482,7 +481,7 @@ structDecs opts haddockConfig info struct spec fields = do
                           defineInstanceComment      = Nothing
                         , defineInstanceDeclarations =
                             Hs.InstanceHasFLAM hsStruct
-                                               (typ (C.structFieldType flam))
+                                               (Type.topLevel (C.structFieldType flam))
                                                (C.structFieldOffset flam `div` 8)
                         }
 
@@ -534,7 +533,7 @@ structFieldDecls structName f = [
     fieldName = C.nameHs (C.fieldName (C.structFieldInfo f))
 
     fieldType :: HsType
-    fieldType = typ (C.structFieldType f)
+    fieldType = Type.topLevel (C.structFieldType f)
 
     hasFieldDecl :: Hs.HasFieldInstance
     hasFieldDecl = Hs.HasFieldInstance {
@@ -679,7 +678,7 @@ unionDecs haddockConfig info union spec = do
         -- TODO: Should the name mangler take care of the "get" and "set" prefixes?
         getAccessorDecls :: C.UnionField -> [Hs.Decl]
         getAccessorDecls C.UnionField{..} =
-          let hsType = typ unionFieldType
+          let hsType = Type.topLevel unionFieldType
               fInsts = getInstances instanceMap newtypeName insts [hsType]
               getterName = "get_" <> C.nameHs (C.fieldName unionFieldInfo)
               setterName = "set_" <> C.nameHs (C.fieldName unionFieldInfo)
@@ -760,7 +759,7 @@ unionFieldDecls unionName f = [
     fieldName = C.nameHs (C.fieldName (C.unionFieldInfo f))
 
     fieldType :: HsType
-    fieldType = typ (C.unionFieldType f)
+    fieldType = Type.topLevel (C.unionFieldType f)
 
     hasFieldDecl :: Hs.HasFieldInstance
     hasFieldDecl = Hs.HasFieldInstance {
@@ -815,7 +814,7 @@ enumDecs opts haddockConfig info e spec = do
     newtypeField :: Hs.Field
     newtypeField = Hs.Field {
         fieldName    = C.newtypeField (C.enumNames e)
-      , fieldType    = typ (C.enumType e)
+      , fieldType    = Type.topLevel (C.enumType e)
       , fieldOrigin  = Origin.GeneratedField
       , fieldComment = Nothing
       }
@@ -956,7 +955,7 @@ typedefDecs opts haddockConfig info typedef spec = do
     newtypeField :: Hs.Field
     newtypeField = Hs.Field {
         fieldName    = C.newtypeField (C.typedefNames typedef)
-      , fieldType    = typ (C.typedefType typedef)
+      , fieldType    = Type.topLevel (C.typedefType typedef)
       , fieldOrigin  = Origin.GeneratedField
       , fieldComment = Nothing
       }
@@ -1193,7 +1192,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
         newtypeDecl : storableDecl ++ optDecls
       where
         fieldType :: HsType
-        fieldType = typ ty
+        fieldType = Type.topLevel ty
 
         insts :: Set Hs.TypeClass
         insts = getInstances instanceMap newtypeName candidateInsts [fieldType]
@@ -1247,95 +1246,6 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
           ]
 
 {-------------------------------------------------------------------------------
-  Types
--------------------------------------------------------------------------------}
-
-data TypeContext =
-    CTop     -- ^ Anything else
-  | CFunArg  -- ^ Function argument
-  | CFunRes  -- ^ Function result
-  | CPtrArg  -- ^ Pointer argument
-  deriving stock (Show)
-
-typ :: HasCallStack => C.Type -> Hs.HsType
-typ = typ' CTop
-
-typ' :: HasCallStack => TypeContext -> C.Type -> Hs.HsType
-typ' ctx = go ctx
-  where
-    go :: TypeContext -> C.Type -> Hs.HsType
-    go _ (C.TypeTypedef (C.TypedefRegular name _)) =
-        Hs.HsTypRef (C.nameHs name)
-    go c (C.TypeTypedef (C.TypedefSquashed _name ty)) =
-        go c ty
-    go _ (C.TypeStruct name _origin) =
-        Hs.HsTypRef (C.nameHs name)
-    go _ (C.TypeUnion name _origin) =
-        Hs.HsTypRef (C.nameHs name)
-    go _ (C.TypeEnum name _origin) =
-        Hs.HsTypRef (C.nameHs name)
-    go _ (C.TypeMacroTypedef name _origin) =
-        Hs.HsTypRef (C.nameHs name)
-    go c C.TypeVoid =
-        Hs.HsPrimType (goVoid c)
-    go _ (C.TypePrim p) =
-        Hs.HsPrimType (goPrim p)
-    go _ (C.TypePointer t)
-      -- Use a 'FunPtr' if the type is a function type. We inspect the
-      -- /canonical/ type because we want to see through typedefs and type
-      -- qualifiers like @const@.
-      | C.isCanonicalTypeFunction t
-      = Hs.HsFunPtr (go CPtrArg t)
-      | otherwise
-      = Hs.HsPtr (go CPtrArg t)
-    go _ (C.TypeConstArray n ty) =
-        Hs.HsConstArray n $ go CTop ty
-    go _ (C.TypeIncompleteArray ty) =
-        Hs.HsIncompleteArray $ go CTop ty
-    go _ (C.TypeFun xs y) =
-        foldr (\x res -> Hs.HsFun (go CFunArg x) res) (Hs.HsIO (go CFunRes y)) xs
-    go _ (C.TypeBlock ty) =
-        HsBlock $ go CTop ty
-    go _ (C.TypeExtBinding ext) =
-        Hs.HsExtBinding (C.extHsRef ext) (C.extCSpec ext) (C.extHsSpec ext)
-    go c (C.TypeQualified C.TypeQualifierConst ty) =
-        go c ty
-    go _ (C.TypeComplex p) =
-        Hs.HsComplexType (goPrim p)
-
-    goPrim :: C.PrimType -> HsPrimType
-    goPrim C.PrimBool           = HsPrimCBool
-    goPrim (C.PrimIntegral i s) = integralType i s
-    goPrim (C.PrimFloating f)   = floatingType f
-    goPrim C.PrimPtrDiff        = HsPrimCPtrDiff
-    goPrim C.PrimSize           = HsPrimCSize
-    goPrim (C.PrimChar sign)    =
-        case sign of
-          C.PrimSignImplicit _          -> HsPrimCChar
-          C.PrimSignExplicit C.Signed   -> HsPrimCSChar
-          C.PrimSignExplicit C.Unsigned -> HsPrimCUChar
-
-    goVoid :: TypeContext -> HsPrimType
-    goVoid CFunRes = HsPrimUnit
-    goVoid CPtrArg = HsPrimVoid
-    goVoid c       = panicPure $ "unexpected type void in context " ++ show c
-
-integralType :: C.PrimIntType -> C.PrimSign -> HsPrimType
-integralType C.PrimInt      C.Signed   = HsPrimCInt
-integralType C.PrimInt      C.Unsigned = HsPrimCUInt
-integralType C.PrimShort    C.Signed   = HsPrimCShort
-integralType C.PrimShort    C.Unsigned = HsPrimCUShort
-integralType C.PrimLong     C.Signed   = HsPrimCLong
-integralType C.PrimLong     C.Unsigned = HsPrimCULong
-integralType C.PrimLongLong C.Signed   = HsPrimCLLong
-integralType C.PrimLongLong C.Unsigned = HsPrimCULLong
-
-floatingType :: C.PrimFloatType -> HsPrimType
-floatingType = \case
-  C.PrimFloat  -> HsPrimCFloat
-  C.PrimDouble -> HsPrimCDouble
-
-{-------------------------------------------------------------------------------
   Function
 -------------------------------------------------------------------------------}
 
@@ -1359,20 +1269,22 @@ data WrappedType
 -- | Checks if a type is unsupported by Haskell's FFI
 --
 hasUnsupportedType :: C.GetCanonicalType t => t -> Bool
-hasUnsupportedType = C.getCanonicalType >>> \case
-    C.TypeStruct {}          -> True
-    C.TypeUnion {}           -> True
-    C.TypeComplex {}         -> True
-    C.TypeConstArray {}      -> True
-    C.TypeIncompleteArray {} -> True
-    C.TypePrim {}            -> False
-    C.TypeEnum {}            -> False
-    C.TypeMacroTypedef {}    -> False
-    C.TypePointer {}         -> False
-    C.TypeFun {}             -> False
-    C.TypeVoid               -> False
-    C.TypeBlock {}           -> False
-    C.TypeExtBinding {}      -> False
+hasUnsupportedType = aux . C.getCanonicalType
+  where
+    aux :: C.CanonicalType -> Bool
+    aux C.TypeStruct {}          = True
+    aux C.TypeUnion {}           = True
+    aux C.TypeComplex {}         = True
+    aux C.TypeConstArray {}      = True
+    aux C.TypeIncompleteArray {} = True
+    aux C.TypePrim {}            = False
+    aux C.TypeEnum {}            = False
+    aux C.TypeMacroTypedef {}    = False
+    aux C.TypePointer {}         = False
+    aux C.TypeFun {}             = False
+    aux C.TypeVoid               = False
+    aux C.TypeBlock {}           = False
+    aux C.TypeExtBinding {}      = False
 
 -- | Fancy types are heap types or constant arrays. We create high-level
 -- wrapper for fancy types.
@@ -1468,7 +1380,7 @@ hsWrapperDeclFunction
     -> Maybe HsDoc.Comment    -- ^ function comment
     -> Hs.Decl
 hsWrapperDeclFunction hiName loName res wrappedArgs wrapperParams cFunc mbComment =
-  let resType = typ' CFunRes $ unwrapOrigType res
+  let resType = Type.inContext Type.FunRes $ unwrapOrigType res
    in case res of
         HeapType {} ->
           Hs.DeclFunction $ Hs.FunctionDecl
@@ -1626,7 +1538,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
     -- Parameters for FFI import
     ffiParams = [ Hs.FunctionParameter
                    { functionParameterName    = fmap C.nameHs mbName
-                   , functionParameterType    = typ' CFunArg (unwrapType (wrapType ty))
+                   , functionParameterType    = Type.inContext Type.FunArg (unwrapType (wrapType ty))
                    , functionParameterComment = Nothing
                    }
                 | (mbName, ty) <- C.functionArgs f
@@ -1638,7 +1550,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
     -- Parameters for wrapper decl
     wrapperParams = [ Hs.FunctionParameter
                      { functionParameterName    = fmap C.nameHs mbName
-                     , functionParameterType    = typ' CFunArg (unwrapOrigType (wrapType ty))
+                     , functionParameterType    = Type.inContext Type.FunArg (unwrapOrigType (wrapType ty))
                      , functionParameterComment = Nothing
                      }
                   | (mbName, ty) <- C.functionArgs f
@@ -1655,8 +1567,8 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
     resType :: ResultType HsType
     resType =
       case res of
-        HeapType {} -> HeapResultType $ typ' CFunRes $ unwrapType res
-        WrapType {} -> NormalResultType $ hsIO $ typ' CFunRes $ unwrapType res
+        HeapType {} -> HeapResultType $ Type.inContext Type.FunRes $ unwrapType res
+        WrapType {} -> NormalResultType $ hsIO $ Type.inContext Type.FunRes $ unwrapType res
         CAType {}   -> panicPure "ConstantArray cannot occur as a result type"
         AType {}    -> panicPure "Array cannot occur as a result type"
 
@@ -1725,8 +1637,8 @@ functionTypeFFIStubsAndFunPtrInstances ::
 functionTypeFFIStubsAndFunPtrInstances args res =
   let ft = (C.TypeFun args res)
       tf = C.TypePointer ft
-      tfHsType    = typ tf
-      ftHsType    = typ ft
+      tfHsType    = Type.topLevel tf
+      ftHsType    = Type.topLevel ft
       ffiStubTo   = genNameFromArgs args res "to"
       ffiStubFrom = genNameFromArgs args res "from"
    in [ Hs.DeclForeignImport Hs.ForeignImportDecl
@@ -1848,7 +1760,7 @@ global opts haddockConfig moduleName instsMap info ty _spec
       addressStubDecs opts haddockConfig moduleName info ty _spec
 
     getConstGetterOfType :: C.Type -> [Hs.Decl]
-    getConstGetterOfType t = constGetter (typ t) instsMap info pureStubName
+    getConstGetterOfType t = constGetter (Type.topLevel t) instsMap info pureStubName
 
 -- | Getter for a constant (i.e., @const@) global variable
 --
@@ -1934,7 +1846,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
     stubImportName = Hs.Name $ T.pack stubName.unique
 
     stubImportType :: ResultType HsType
-    stubImportType = NormalResultType $ HsIO $ typ stubType
+    stubImportType = NormalResultType $ HsIO $ Type.topLevel stubType
 
     stubName :: UniqueSymbol
     stubName =
@@ -2000,7 +1912,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
         }
 
     runnerName = Hs.Name $ Hs.getIdentifier (C.nameHsIdent (C.declId info)) <> "_ptr"
-    runnerType = SHs.translateType (typ stubType)
+    runnerType = SHs.translateType (Type.topLevel stubType)
     runnerExpr = SHs.EGlobal SHs.IO_unsafePerformIO
                 `SHs.EApp` SHs.EFree stubImportName
 
