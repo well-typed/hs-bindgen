@@ -20,6 +20,7 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Config
+import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
 import HsBindgen.Backend.Hs.Translation.ToFromFunPtr qualified as ToFromFunPtr
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.SHs.AST
@@ -1425,31 +1426,31 @@ functionDecs ::
   -> C.Function
   -> C.DeclSpec
   -> [Hs.Decl]
-functionDecs safety opts haddockConfig moduleName info f _spec =
-    funDecl : [
-        hsWrapperDeclFunction highlevelName importName res wrappedArgTypes wrapParsedArgs f mbWrapComment
+functionDecs safety opts haddockConfig moduleName info f _spec = concat [
+      funDecls
+    , [ hsWrapperDeclFunction highlevelName importName res wrappedArgTypes wrapParsedArgs f mbWrapComment
       | areFancy
       ]
+    ]
   where
     areFancy = anyFancy (res : wrappedArgTypes)
-    funDecl :: Hs.Decl
-    funDecl = Hs.DeclForeignImport $ Hs.ForeignImportDecl
-        { foreignImportName       = importName
-        , foreignImportResultType = snd resType
-        , foreignImportParameters = if areFancy then ffiParams else ffiParsedArgs
-        , foreignImportOrigName   = uniqueCName wrapperName
-        , foreignImportCallConv   = CallConvUserlandCAPI userlandCapiWrapper
-        , foreignImportOrigin     = Origin.Function f
-        , foreignImportSafety     = safety
-
-        , foreignImportComment = mconcat [
+    funDecls :: [Hs.Decl]
+    funDecls =
+        HsFI.foreignImportDecs
+          importName
+          (snd resType)
+          (if areFancy then ffiParams else ffiParsedArgs)
+          (uniqueCName wrapperName)
+          (CallConvUserlandCAPI userlandCapiWrapper)
+          (Origin.Function f)
+          (mconcat [
               if areFancy
                 then Just nonFancyComment
                 else mbFFIComment
             , ioComment
             , Just $ HsDoc.uniqueSymbol wrapperName
-            ]
-        }
+            ])
+          safety
 
     userlandCapiWrapper :: UserlandCapiWrapper
     userlandCapiWrapper = UserlandCapiWrapper {
@@ -1733,7 +1734,7 @@ addressStubDecs ::
      , Hs.Name 'Hs.NsVar
      )
 addressStubDecs opts haddockConfig moduleName info ty _spec =
-    (foreignImport : runnerDecls, runnerName)
+    (foreignImport ++ runnerDecls, runnerName)
   where
     -- *** Stub (impure) ***
 
@@ -1777,21 +1778,20 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
 
     mbComment = generateHaddocksWithInfo haddockConfig info
 
-    foreignImport :: Hs.Decl
-    foreignImport = Hs.DeclForeignImport $ Hs.ForeignImportDecl
-        { foreignImportName       = stubImportName
-        , foreignImportParameters = []
-        , foreignImportResultType = stubImportType
-        , foreignImportOrigName   = uniqueCName stubName
-        , foreignImportCallConv   = CallConvUserlandCAPI userlandCapiWrapper
-        , foreignImportOrigin     = Origin.Global ty
-        , foreignImportComment    = Just $ HsDoc.uniqueSymbol stubName
-
+    foreignImport :: [Hs.Decl]
+    foreignImport =
+        HsFI.foreignImportDecs
+          stubImportName
+          stubImportType
+          []
+          (uniqueCName stubName)
+          (CallConvUserlandCAPI userlandCapiWrapper)
+          (Origin.Global ty)
+          (Just $ HsDoc.uniqueSymbol stubName)
           -- These imports can be unsafe. We're binding to simple address stubs,
           -- so there are no callbacks into Haskell code. Moreover, they are
           -- short running code.
-        , foreignImportSafety = SHs.Unsafe
-        }
+          SHs.Unsafe
 
     -- *** Stub (pure) ***
 
