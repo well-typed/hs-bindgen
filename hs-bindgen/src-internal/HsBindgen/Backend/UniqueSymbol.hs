@@ -4,6 +4,8 @@
 module HsBindgen.Backend.UniqueSymbol (
     -- * Generating unique names
     UniqueSymbol(..)
+  , unsafeUniqueHsName
+  , uniqueCName
   , getUniqueSymbol
   ) where
 
@@ -12,10 +14,13 @@ import Data.ByteString.Base16 qualified as B16
 import Data.ByteString.Char8 qualified as B
 import Data.Char (isLetter)
 import Data.List (intercalate)
+import Data.Text qualified as Text
 import GHC.Unicode (isDigit)
 
 import HsBindgen.Config.Prelims
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Generating unique names
@@ -34,6 +39,15 @@ data UniqueSymbol = UniqueSymbol{
     , source :: String
     }
   deriving (Show, Eq, Generic)
+
+-- | Construct Haskell name from unique symbol
+--
+-- Caller must ensure that namespace rules are adhered to.
+unsafeUniqueHsName :: UniqueSymbol -> Hs.Name ns
+unsafeUniqueHsName = Hs.Name . Text.pack . unique
+
+uniqueCName :: UniqueSymbol -> C.Name
+uniqueCName = C.Name . Text.pack . unique
 
 -- | Globally unique symbol
 --

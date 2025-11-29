@@ -78,6 +78,7 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Frontend.AST.External (CheckedMacroExpr)
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
@@ -131,7 +132,7 @@ data ForeignImportDecl = ForeignImportDecl
     { foreignImportName       :: Hs.Name Hs.NsVar
     , foreignImportParameters :: [FunctionParameter]
     , foreignImportResultType :: ResultType HsType
-    , foreignImportOrigName   :: Text
+    , foreignImportOrigName   :: C.Name
     , foreignImportCallConv   :: CallConv
     , foreignImportOrigin     :: Origin.ForeignImport
     , foreignImportComment    :: Maybe HsDoc.Comment

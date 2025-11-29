@@ -368,17 +368,17 @@ instance Pretty SDecl where
           (callconv, impent) =
             case foreignImportCallConv of
               CallConvUserlandCAPI _ -> ("ccall",
-                  string $ Text.unpack foreignImportOrigName
+                  string $ Text.unpack (C.getName foreignImportOrigName)
                 )
               CallConvGhcCAPI header -> ("capi", hcat [
                   string header
-                , string $ Text.unpack foreignImportOrigName
+                , string $ Text.unpack (C.getName foreignImportOrigName)
                 ])
               CallConvGhcCCall style -> ("ccall", hcat [
                   case style of
                     ImportAsValue -> ""
                     ImportAsPtr   -> "&"
-                , string $ Text.unpack foreignImportOrigName
+                , string $ Text.unpack (C.getName foreignImportOrigName)
                 ])
 
           prettyFunctionComment = maybe empty (pretty . TopLevelComment) foreignImportComment
