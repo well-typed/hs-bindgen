@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/qualifiers/type_qualifiers.h>"
-  , "/* get_list_example_ptr */"
+  , "/* ExampleNothingget_list_example_ptr */"
   , "__attribute__ ((const))"
   , "_Bool (*hs_bindgen_test_typesqualifierstype_qualifie_24b25f22222ce366 (void)) ("
   , "  char const **arg1,"

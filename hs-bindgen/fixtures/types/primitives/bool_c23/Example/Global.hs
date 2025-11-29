@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/primitives/bool_c23.h>"
-  , "/* get_b_ptr */"
+  , "/* ExampleNothingget_b_ptr */"
   , "__attribute__ ((const))"
   , "_Bool *hs_bindgen_test_typesprimitivesbool_c23_fcd0c984d664f6ee (void)"
   , "{"

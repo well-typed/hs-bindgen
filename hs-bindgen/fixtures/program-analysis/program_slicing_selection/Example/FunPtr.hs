@@ -14,7 +14,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <program-analysis/program_slicing_selection.h>"
-  , "/* get_read_file_chunk_ptr */"
+  , "/* ExampleNothingget_read_file_chunk_ptr */"
   , "__attribute__ ((const))"
   , "enum FileOperationStatus (*hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4 (void)) ("
   , "  FILE *arg1,"

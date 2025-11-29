@@ -25,7 +25,7 @@
 -- {
 --   return read_file_chunk(arg1, arg2, arg3);
 -- }
--- /* get_read_file_chunk_ptr */
+-- /* ExampleNothingget_read_file_chunk_ptr */
 -- __attribute__ ((const))
 -- enum FileOperationStatus (*hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4 (void)) (
 --   FILE *arg1,

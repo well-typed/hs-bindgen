@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <functions/decls_in_signature.h>"
-  , "/* get_normal_ptr */"
+  , "/* ExampleNothingget_normal_ptr */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_test_functionsdecls_in_signature_b040d51578b7b05e (void)) ("
   , "  struct opaque *arg1,"
@@ -23,7 +23,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &normal;"
   , "}"
-  , "/* get_f1_ptr */"
+  , "/* ExampleNothingget_f1_ptr */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_test_functionsdecls_in_signature_5469bdc0395f86c1 (void)) ("
   , "  struct named_struct arg1"
@@ -31,7 +31,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &f1;"
   , "}"
-  , "/* get_f2_ptr */"
+  , "/* ExampleNothingget_f2_ptr */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_test_functionsdecls_in_signature_490ca7e8c8282a69 (void)) ("
   , "  union named_union arg1"

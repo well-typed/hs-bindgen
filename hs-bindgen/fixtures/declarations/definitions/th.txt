@@ -12,7 +12,7 @@
 -- {
 --   return foo(arg1);
 -- }
--- /* get_foo_ptr */
+-- /* ExampleNothingget_foo_ptr */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_test_declarationsdefinitions_32925a42980e81cd (void)) (
 --   double arg1
@@ -20,7 +20,7 @@
 -- {
 --   return &foo;
 -- }
--- /* get_n_ptr */
+-- /* ExampleNothingget_n_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c (void)
 -- {

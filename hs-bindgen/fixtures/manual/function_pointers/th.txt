@@ -108,7 +108,7 @@
 -- {
 --   return apply1_nopointer_res();
 -- }
--- /* get_square_ptr */
+-- /* ExampleNothingget_square_ptr */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9 (void)) (
 --   signed int arg1
@@ -116,7 +116,7 @@
 -- {
 --   return &square;
 -- }
--- /* get_plus_ptr */
+-- /* ExampleNothingget_plus_ptr */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_test_manualfunction_pointers_bf838c747898dc42 (void)) (
 --   signed int arg1,
@@ -125,7 +125,7 @@
 -- {
 --   return &plus;
 -- }
--- /* get_apply1_ptr */
+-- /* ExampleNothingget_apply1_ptr */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_test_manualfunction_pointers_4d1935e01bc37070 (void)) (
 --   signed int (*arg1) (
@@ -136,7 +136,7 @@
 -- {
 --   return &apply1;
 -- }
--- /* get_apply2_ptr */
+-- /* ExampleNothingget_apply2_ptr */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a (void)) (
 --   signed int (*arg1) (
@@ -149,7 +149,7 @@
 -- {
 --   return &apply2;
 -- }
--- /* get_apply1_pointer_arg_ptr */
+-- /* ExampleNothingget_apply1_pointer_arg_ptr */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca (void)) (
 --   int2int *arg1,
@@ -158,7 +158,7 @@
 -- {
 --   return &apply1_pointer_arg;
 -- }
--- /* get_apply1_nopointer_arg_ptr */
+-- /* ExampleNothingget_apply1_nopointer_arg_ptr */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81 (void)) (
 --   int2int *arg1,
@@ -167,7 +167,7 @@
 -- {
 --   return &apply1_nopointer_arg;
 -- }
--- /* get_apply1_nopointer_res_ptr */
+-- /* ExampleNothingget_apply1_nopointer_res_ptr */
 -- __attribute__ ((const))
 -- signed int (*const (*hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f (void)) (void)) (
 --   int2int *arg1,
@@ -176,7 +176,7 @@
 -- {
 --   return &apply1_nopointer_res;
 -- }
--- /* get_apply1_nopointer_var_ptr */
+-- /* ExampleNothingget_apply1_nopointer_var_ptr */
 -- __attribute__ ((const))
 -- signed int (*const *hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6 (void)) (
 --   int2int *arg1,
@@ -185,13 +185,13 @@
 -- {
 --   return &apply1_nopointer_var;
 -- }
--- /* get_apply1_struct_ptr */
+-- /* ExampleNothingget_apply1_struct_ptr */
 -- __attribute__ ((const))
 -- struct Apply1Struct const *hs_bindgen_test_manualfunction_pointers_6799ff6bc99dff2a (void)
 -- {
 --   return &apply1_struct;
 -- }
--- /* get_apply1_union_ptr */
+-- /* ExampleNothingget_apply1_union_ptr */
 -- __attribute__ ((const))
 -- union Apply1Union const *hs_bindgen_test_manualfunction_pointers_d32b4879673188b6 (void)
 -- {

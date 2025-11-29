@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <functions/fun_attributes.h>"
-  , "/* get_i_ptr */"
+  , "/* ExampleNothingget_i_ptr */"
   , "__attribute__ ((const))"
   , "signed int *hs_bindgen_test_functionsfun_attributes_cdc30ae5fb72cd6e (void)"
   , "{"

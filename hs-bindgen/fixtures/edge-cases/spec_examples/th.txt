@@ -20,7 +20,7 @@
 -- {
 --   resample(arg1, arg2, arg3, arg4, arg5);
 -- }
--- /* get_resample_ptr */
+-- /* ExampleNothingget_resample_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5 (void)) (
 --   int32_T *arg1,

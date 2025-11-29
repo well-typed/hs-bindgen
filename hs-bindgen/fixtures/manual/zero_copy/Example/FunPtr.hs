@@ -14,7 +14,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <manual/zero_copy.h>"
-  , "/* get_reverse_ptr */"
+  , "/* ExampleNothingget_reverse_ptr */"
   , "__attribute__ ((const))"
   , "signed int (*hs_bindgen_test_manualzero_copy_c3d266ec84fe0678 (void)) ("
   , "  struct vector const *arg1,"
@@ -23,7 +23,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &reverse;"
   , "}"
-  , "/* get_transpose_ptr */"
+  , "/* ExampleNothingget_transpose_ptr */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_test_manualzero_copy_fc1dad225b555299 (void)) ("
   , "  matrix const arg1,"

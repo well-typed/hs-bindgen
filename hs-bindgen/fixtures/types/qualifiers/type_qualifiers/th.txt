@@ -17,7 +17,7 @@
 -- {
 --   return list_example(arg1, arg2);
 -- }
--- /* get_list_example_ptr */
+-- /* ExampleNothingget_list_example_ptr */
 -- __attribute__ ((const))
 -- _Bool (*hs_bindgen_test_typesqualifierstype_qualifie_24b25f22222ce366 (void)) (
 --   char const **arg1,
@@ -26,25 +26,25 @@
 -- {
 --   return &list_example;
 -- }
--- /* get_a_ptr */
+-- /* ExampleNothingget_a_ptr */
 -- __attribute__ ((const))
 -- signed int const *hs_bindgen_test_typesqualifierstype_qualifie_3afcbd8536cf21bd (void)
 -- {
 --   return &a;
 -- }
--- /* get_b_ptr */
+-- /* ExampleNothingget_b_ptr */
 -- __attribute__ ((const))
 -- signed int const **hs_bindgen_test_typesqualifierstype_qualifie_fcd0c984d664f6ee (void)
 -- {
 --   return &b;
 -- }
--- /* get_c_ptr */
+-- /* ExampleNothingget_c_ptr */
 -- __attribute__ ((const))
 -- signed int *const *hs_bindgen_test_typesqualifierstype_qualifie_d61ea07e27589aef (void)
 -- {
 --   return &c;
 -- }
--- /* get_d_ptr */
+-- /* ExampleNothingget_d_ptr */
 -- __attribute__ ((const))
 -- signed int const *const *hs_bindgen_test_typesqualifierstype_qualifie_d1d6489b06a70107 (void)
 -- {

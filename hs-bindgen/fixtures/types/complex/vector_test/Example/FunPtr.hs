@@ -14,7 +14,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/complex/vector_test.h>"
-  , "/* get_new_vector_ptr */"
+  , "/* ExampleNothingget_new_vector_ptr */"
   , "__attribute__ ((const))"
   , "vector *(*hs_bindgen_test_typescomplexvector_test_7672b9e7f001c998 (void)) ("
   , "  double arg1,"

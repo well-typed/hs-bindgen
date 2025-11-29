@@ -33,7 +33,7 @@
 -- {
 --   *arg3 = add_complex(*arg1, *arg2);
 -- }
--- /* get_multiply_complex_f_ptr */
+-- /* ExampleNothingget_multiply_complex_f_ptr */
 -- __attribute__ ((const))
 -- float _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_a7d89c01385c8c56 (void)) (
 --   float _Complex arg1,
@@ -42,7 +42,7 @@
 -- {
 --   return &multiply_complex_f;
 -- }
--- /* get_add_complex_ptr */
+-- /* ExampleNothingget_add_complex_ptr */
 -- __attribute__ ((const))
 -- double _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_b6226a5bde741b3f (void)) (
 --   double _Complex arg1,
@@ -51,85 +51,85 @@
 -- {
 --   return &add_complex;
 -- }
--- /* get_global_complex_float_ptr */
+-- /* ExampleNothingget_global_complex_float_ptr */
 -- __attribute__ ((const))
 -- float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_69e4d4972011967b (void)
 -- {
 --   return &global_complex_float;
 -- }
--- /* get_global_complex_double_ptr */
+-- /* ExampleNothingget_global_complex_double_ptr */
 -- __attribute__ ((const))
 -- double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_c3633906ced5dab3 (void)
 -- {
 --   return &global_complex_double;
 -- }
--- /* get_global_complex_float_flipped_ptr */
+-- /* ExampleNothingget_global_complex_float_flipped_ptr */
 -- __attribute__ ((const))
 -- float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_7ef41813e25ff8c1 (void)
 -- {
 --   return &global_complex_float_flipped;
 -- }
--- /* get_global_complex_double_flipped_ptr */
+-- /* ExampleNothingget_global_complex_double_flipped_ptr */
 -- __attribute__ ((const))
 -- double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_abdd562bd1b14921 (void)
 -- {
 --   return &global_complex_double_flipped;
 -- }
--- /* get_global_Complex_float_ptr */
+-- /* ExampleNothingget_global_Complex_float_ptr */
 -- __attribute__ ((const))
 -- float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_02f701d4163d6ce7 (void)
 -- {
 --   return &global_Complex_float;
 -- }
--- /* get_global_Complex_double_ptr */
+-- /* ExampleNothingget_global_Complex_double_ptr */
 -- __attribute__ ((const))
 -- double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_a6117bb5e7cacd17 (void)
 -- {
 --   return &global_Complex_double;
 -- }
--- /* get_global_Complex_float_flipped_ptr */
+-- /* ExampleNothingget_global_Complex_float_flipped_ptr */
 -- __attribute__ ((const))
 -- float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_da2309480d364cee (void)
 -- {
 --   return &global_Complex_float_flipped;
 -- }
--- /* get_global_Complex_double_flipped_ptr */
+-- /* ExampleNothingget_global_Complex_double_flipped_ptr */
 -- __attribute__ ((const))
 -- double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_467427dc59fbef50 (void)
 -- {
 --   return &global_Complex_double_flipped;
 -- }
--- /* get_const_complex_float_ptr */
+-- /* ExampleNothingget_const_complex_float_ptr */
 -- __attribute__ ((const))
 -- float _Complex const *hs_bindgen_test_typescomplexhsb_complex_test_bb0fb18f3dfee47d (void)
 -- {
 --   return &const_complex_float;
 -- }
--- /* get_const_complex_double_ptr */
+-- /* ExampleNothingget_const_complex_double_ptr */
 -- __attribute__ ((const))
 -- double _Complex const *hs_bindgen_test_typescomplexhsb_complex_test_f491f52e529a459a (void)
 -- {
 --   return &const_complex_double;
 -- }
--- /* get_volatile_complex_float_ptr */
+-- /* ExampleNothingget_volatile_complex_float_ptr */
 -- __attribute__ ((const))
 -- float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_ecb5f4a0ccb7ee75 (void)
 -- {
 --   return &volatile_complex_float;
 -- }
--- /* get_volatile_complex_double_ptr */
+-- /* ExampleNothingget_volatile_complex_double_ptr */
 -- __attribute__ ((const))
 -- double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_6b136090c38a69c4 (void)
 -- {
 --   return &volatile_complex_double;
 -- }
--- /* get_complex_float_array_ptr */
+-- /* ExampleNothingget_complex_float_array_ptr */
 -- __attribute__ ((const))
 -- float _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_55b7fb104be53f70 (void))[10]
 -- {
 --   return &complex_float_array;
 -- }
--- /* get_complex_double_array_ptr */
+-- /* ExampleNothingget_complex_double_array_ptr */
 -- __attribute__ ((const))
 -- double _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_0b63f3bda9243457 (void))[10]
 -- {

@@ -12,7 +12,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <functions/varargs.h>"
-  , "/* get_h_ptr */"
+  , "/* ExampleNothingget_h_ptr */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_test_functionsvarargs_6344539fe0b25338 (void)) (void)"
   , "{"

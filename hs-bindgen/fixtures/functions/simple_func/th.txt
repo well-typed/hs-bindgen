@@ -58,7 +58,7 @@
 -- {
 --   return fun(arg1, arg2);
 -- }
--- /* get_erf_ptr */
+-- /* ExampleNothingget_erf_ptr */
 -- __attribute__ ((const))
 -- double (*hs_bindgen_test_functionssimple_func_723348151ff43970 (void)) (
 --   double arg1
@@ -66,7 +66,7 @@
 -- {
 --   return &erf;
 -- }
--- /* get_bad_fma_ptr */
+-- /* ExampleNothingget_bad_fma_ptr */
 -- __attribute__ ((const))
 -- double (*hs_bindgen_test_functionssimple_func_f3190cb919f94cd9 (void)) (
 --   double arg1,
@@ -76,19 +76,19 @@
 -- {
 --   return &bad_fma;
 -- }
--- /* get_no_args_ptr */
+-- /* ExampleNothingget_no_args_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_functionssimple_func_fbdbb067d942094e (void)) (void)
 -- {
 --   return &no_args;
 -- }
--- /* get_no_args_no_void_ptr */
+-- /* ExampleNothingget_no_args_no_void_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_functionssimple_func_452280b5085b4ccd (void)) (void)
 -- {
 --   return &no_args_no_void;
 -- }
--- /* get_fun_ptr */
+-- /* ExampleNothingget_fun_ptr */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_test_functionssimple_func_b16b846810561073 (void)) (
 --   char arg1,

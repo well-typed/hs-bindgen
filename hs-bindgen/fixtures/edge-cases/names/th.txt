@@ -200,151 +200,151 @@
 -- {
 --   via();
 -- }
--- /* get_by_ptr */
+-- /* ExampleNothingget_by_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_3e566432e1b7bdd8 (void)) (void)
 -- {
 --   return &by;
 -- }
--- /* get_forall_ptr */
+-- /* ExampleNothingget_forall_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_a56841d4692515a9 (void)) (void)
 -- {
 --   return &forall;
 -- }
--- /* get_mdo_ptr */
+-- /* ExampleNothingget_mdo_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_4b14baa1fbc8f378 (void)) (void)
 -- {
 --   return &mdo;
 -- }
--- /* get_pattern_ptr */
+-- /* ExampleNothingget_pattern_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_b393d3c39de80903 (void)) (void)
 -- {
 --   return &pattern;
 -- }
--- /* get_proc_ptr */
+-- /* ExampleNothingget_proc_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_f73545ae9224ff2d (void)) (void)
 -- {
 --   return &proc;
 -- }
--- /* get_rec_ptr */
+-- /* ExampleNothingget_rec_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_0dd0f0805657312b (void)) (void)
 -- {
 --   return &rec;
 -- }
--- /* get_using_ptr */
+-- /* ExampleNothingget_using_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_aa3ce68f2bc5f037 (void)) (void)
 -- {
 --   return &using;
 -- }
--- /* get_anyclass_ptr */
+-- /* ExampleNothingget_anyclass_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_9f90f5dd46a351a4 (void)) (void)
 -- {
 --   return &anyclass;
 -- }
--- /* get_capi_ptr */
+-- /* ExampleNothingget_capi_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_3513093206483c6f (void)) (void)
 -- {
 --   return &capi;
 -- }
--- /* get_cases_ptr */
+-- /* ExampleNothingget_cases_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_af7d0bdd6562f7d9 (void)) (void)
 -- {
 --   return &cases;
 -- }
--- /* get_ccall_ptr */
+-- /* ExampleNothingget_ccall_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_79b6583362113331 (void)) (void)
 -- {
 --   return &ccall;
 -- }
--- /* get_dynamic_ptr */
+-- /* ExampleNothingget_dynamic_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_5c19071f2f4eaf45 (void)) (void)
 -- {
 --   return &dynamic;
 -- }
--- /* get_export_ptr */
+-- /* ExampleNothingget_export_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_98505ac7a8664e29 (void)) (void)
 -- {
 --   return &export;
 -- }
--- /* get_family_ptr */
+-- /* ExampleNothingget_family_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_849e77496a12f443 (void)) (void)
 -- {
 --   return &family;
 -- }
--- /* get_group_ptr */
+-- /* ExampleNothingget_group_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_41e72434cbcfa0d5 (void)) (void)
 -- {
 --   return &group;
 -- }
--- /* get_interruptible_ptr */
+-- /* ExampleNothingget_interruptible_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_d016728709223884 (void)) (void)
 -- {
 --   return &interruptible;
 -- }
--- /* get_javascript_ptr */
+-- /* ExampleNothingget_javascript_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_fa5819996081f2b8 (void)) (void)
 -- {
 --   return &javascript;
 -- }
--- /* get_label_ptr */
+-- /* ExampleNothingget_label_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_0004d966bf5f8027 (void)) (void)
 -- {
 --   return &label;
 -- }
--- /* get_prim_ptr */
+-- /* ExampleNothingget_prim_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_d9ec78c543d7f0ea (void)) (void)
 -- {
 --   return &prim;
 -- }
--- /* get_role_ptr */
+-- /* ExampleNothingget_role_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_89449e7f8f90fc97 (void)) (void)
 -- {
 --   return &role;
 -- }
--- /* get_safe_ptr */
+-- /* ExampleNothingget_safe_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_983c057a9645fd29 (void)) (void)
 -- {
 --   return &safe;
 -- }
--- /* get_stdcall_ptr */
+-- /* ExampleNothingget_stdcall_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_8ea4a9581868a08c (void)) (void)
 -- {
 --   return &stdcall;
 -- }
--- /* get_stock_ptr */
+-- /* ExampleNothingget_stock_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_9d4197174428177d (void)) (void)
 -- {
 --   return &stock;
 -- }
--- /* get_unsafe_ptr */
+-- /* ExampleNothingget_unsafe_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_6eb48adc74567d6d (void)) (void)
 -- {
 --   return &unsafe;
 -- }
--- /* get_via_ptr */
+-- /* ExampleNothingget_via_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesnames_64eddb721da8c268 (void)) (void)
 -- {

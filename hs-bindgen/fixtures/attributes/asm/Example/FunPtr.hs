@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <attributes/asm.h>"
-  , "/* get_asm_labeled_function_ptr */"
+  , "/* ExampleNothingget_asm_labeled_function_ptr */"
   , "__attribute__ ((const))"
   , "signed int (*hs_bindgen_test_attributesasm_b6d695e6a1f2622e (void)) ("
   , "  signed int arg1,"

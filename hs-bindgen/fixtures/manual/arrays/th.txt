@@ -26,7 +26,7 @@
 -- {
 --   pretty_print_triplets(arg1);
 -- }
--- /* get_transpose_ptr */
+-- /* ExampleNothingget_transpose_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_manualarrays_fc1dad225b555299 (void)) (
 --   matrix const arg1,
@@ -35,7 +35,7 @@
 -- {
 --   return &transpose;
 -- }
--- /* get_pretty_print_triplets_ptr */
+-- /* ExampleNothingget_pretty_print_triplets_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_manualarrays_0b485cea747ee35d (void)) (
 --   triplet_ptrs arg1
@@ -43,37 +43,37 @@
 -- {
 --   return &pretty_print_triplets;
 -- }
--- /* get_arr1_ptr */
+-- /* ExampleNothingget_arr1_ptr */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_test_manualarrays_1693226264ba4aeb (void))[1]
 -- {
 --   return &arr1;
 -- }
--- /* get_arr2_ptr */
+-- /* ExampleNothingget_arr2_ptr */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_test_manualarrays_dafcf99a73b93389 (void))[3]
 -- {
 --   return &arr2;
 -- }
--- /* get_arr3_ptr */
+-- /* ExampleNothingget_arr3_ptr */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_test_manualarrays_ca1016acc3449dee (void))[]
 -- {
 --   return &arr3;
 -- }
--- /* get_sudoku_ptr */
+-- /* ExampleNothingget_sudoku_ptr */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_test_manualarrays_76857c9492b9374d (void))[3][3]
 -- {
 --   return &sudoku;
 -- }
--- /* get_triplets_ptr */
+-- /* ExampleNothingget_triplets_ptr */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_test_manualarrays_76f4df4c63822352 (void))[][3]
 -- {
 --   return &triplets;
 -- }
--- /* get_global_triplet_ptrs_ptr */
+-- /* ExampleNothingget_global_triplet_ptrs_ptr */
 -- __attribute__ ((const))
 -- triplet_ptrs *hs_bindgen_test_manualarrays_f5de5a56e036b125 (void)
 -- {

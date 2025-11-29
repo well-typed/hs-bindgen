@@ -14,13 +14,13 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/adios.h>"
-  , "/* get_\978\978_ptr */"
+  , "/* ExampleNothingget_\978\978_ptr */"
   , "__attribute__ ((const))"
   , "signed int *hs_bindgen_test_edgecasesadios_e4b974661ff038a0 (void)"
   , "{"
   , "  return &\978\978;"
   , "}"
-  , "/* get_\978\978\978_ptr */"
+  , "/* ExampleNothingget_\978\978\978_ptr */"
   , "__attribute__ ((const))"
   , "signed int const *hs_bindgen_test_edgecasesadios_c538a25ba7055dd4 (void)"
   , "{"
