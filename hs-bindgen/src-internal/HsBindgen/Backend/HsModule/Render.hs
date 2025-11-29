@@ -152,7 +152,8 @@ instance Pretty CommentKind where
             PartOfDeclarationComment c -> ("{- ^", "-}", c)
             THComment c                -> ("", "", c)
         indentation = length commentStart - 1
-        fromCCtxDoc = [ (\n -> "__C declaration:__ @"
+        fromCCtxDoc = catMaybes [
+                        (\n -> "__C declaration:__ @"
                             >< textToCtxDoc n
                             >< "@") <$> commentOrigin
                       , (\p -> "__defined at:__ @"
@@ -177,7 +178,7 @@ instance Pretty CommentKind where
           [] | Nothing <- commentTitle
              , not (null fromCCtxDoc) ->
                 string commentStart
-            <+> vsep (catMaybes fromCCtxDoc)
+            <+> vsep fromCCtxDoc
              $$ string commentEnd
              | Just _ <- commentTitle
              , null fromCCtxDoc ->
@@ -188,13 +189,13 @@ instance Pretty CommentKind where
              , not (null fromCCtxDoc) ->
                 string commentStart
             <+> firstContent
-            $+$ vsep (catMaybes fromCCtxDoc)
+            $+$ vsep fromCCtxDoc
              $$ string commentEnd
              | otherwise -> empty
 
           _ -> vsep (string commentStart <+> firstContent
                      : map (nest indentation . pretty) commentChildren)
-            $+$ vcat [ vsep (catMaybes fromCCtxDoc)
+            $+$ vcat [ vsep fromCCtxDoc
                      , string commentEnd
                      ]
 
