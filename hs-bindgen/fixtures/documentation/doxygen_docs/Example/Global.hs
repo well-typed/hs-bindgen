@@ -13,23 +13,23 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <documentation/doxygen_docs.h>"
-  , "/* ExampleNothingget_global_counter_ptr */"
+  , "/* Example_get_global_counter_ptr */"
   , "__attribute__ ((const))"
-  , "signed int *hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660 (void)"
+  , "signed int *hs_bindgen_test_documentationdoxygen_docs_b64b5b9b22522112 (void)"
   , "{"
   , "  return &global_counter;"
   , "}"
-  , "/* ExampleNothingget_version_string_ptr */"
+  , "/* Example_get_version_string_ptr */"
   , "__attribute__ ((const))"
-  , "char const **hs_bindgen_test_documentationdoxygen_docs_0f1cef8c70bbdf2c (void)"
+  , "char const **hs_bindgen_test_documentationdoxygen_docs_b69007acfe74b444 (void)"
   , "{"
   , "  return &version_string;"
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_global_counter_ptr@
+{-| __unique:__ @Example_get_global_counter_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660" hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660 ::
+foreign import ccall unsafe "hs_bindgen_test_documentationdoxygen_docs_b64b5b9b22522112" hs_bindgen_test_documentationdoxygen_docs_b64b5b9b22522112 ::
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE global_counter_ptr #-}
@@ -50,11 +50,11 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 global_counter_ptr :: Ptr.Ptr FC.CInt
 global_counter_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_documentationdoxygen_docs_b64b5b9b22522112
 
-{-| __unique:__ @ExampleNothingget_version_string_ptr@
+{-| __unique:__ @Example_get_version_string_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_documentationdoxygen_docs_0f1cef8c70bbdf2c" hs_bindgen_test_documentationdoxygen_docs_0f1cef8c70bbdf2c ::
+foreign import ccall unsafe "hs_bindgen_test_documentationdoxygen_docs_b69007acfe74b444" hs_bindgen_test_documentationdoxygen_docs_b69007acfe74b444 ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CChar))
 
 {-# NOINLINE version_string_ptr #-}
@@ -73,4 +73,4 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 version_string_ptr :: Ptr.Ptr (Ptr.Ptr FC.CChar)
 version_string_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_documentationdoxygen_docs_0f1cef8c70bbdf2c
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_documentationdoxygen_docs_b69007acfe74b444

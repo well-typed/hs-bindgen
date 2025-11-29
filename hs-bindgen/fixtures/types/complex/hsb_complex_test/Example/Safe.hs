@@ -15,7 +15,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/complex/hsb_complex_test.h>"
-  , "void hs_bindgen_test_typescomplexhsb_complex_test_b84ea846e04d5fd6 ("
+  , "void hs_bindgen_test_typescomplexhsb_complex_test_634ad44874fa147e ("
   , "  float _Complex *arg1,"
   , "  float _Complex *arg2,"
   , "  float _Complex *arg3"
@@ -23,7 +23,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  *arg3 = multiply_complex_f(*arg1, *arg2);"
   , "}"
-  , "void hs_bindgen_test_typescomplexhsb_complex_test_8dd079d1707c36b3 ("
+  , "void hs_bindgen_test_typescomplexhsb_complex_test_f642ffc89285b447 ("
   , "  double _Complex *arg1,"
   , "  double _Complex *arg2,"
   , "  double _Complex *arg3"
@@ -35,9 +35,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 {-| Pointer-based API for 'multiply_complex_f'
 
-__unique:__ @ExampleJust Safemultiply_complex_f@
+__unique:__ @Example_Safe_multiply_complex_f@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_b84ea846e04d5fd6" multiply_complex_f_wrapper ::
+foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_634ad44874fa147e" multiply_complex_f_wrapper ::
      Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
@@ -67,9 +67,9 @@ multiply_complex_f =
 
 {-| Pointer-based API for 'add_complex'
 
-__unique:__ @ExampleJust Safeadd_complex@
+__unique:__ @Example_Safe_add_complex@
 -}
-foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_8dd079d1707c36b3" add_complex_wrapper ::
+foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_f642ffc89285b447" add_complex_wrapper ::
      Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)

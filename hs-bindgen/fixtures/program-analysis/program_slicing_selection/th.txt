@@ -9,7 +9,7 @@
 -- addDependentFile musl-include/x86_64/errno.h
 -- addDependentFile examples/golden/program-analysis/program_slicing_selection.h
 -- #include <program-analysis/program_slicing_selection.h>
--- enum FileOperationStatus hs_bindgen_test_programanalysisprogram_slici_13b0ed81415a625a (
+-- enum FileOperationStatus hs_bindgen_test_programanalysisprogram_slici_956d20b69b315188 (
 --   FILE *arg1,
 --   void *arg2,
 --   size_t arg3
@@ -17,7 +17,7 @@
 -- {
 --   return read_file_chunk(arg1, arg2, arg3);
 -- }
--- enum FileOperationStatus hs_bindgen_test_programanalysisprogram_slici_3ade0bc94fb1ed45 (
+-- enum FileOperationStatus hs_bindgen_test_programanalysisprogram_slici_30208b4335c608a6 (
 --   FILE *arg1,
 --   void *arg2,
 --   size_t arg3
@@ -25,9 +25,9 @@
 -- {
 --   return read_file_chunk(arg1, arg2, arg3);
 -- }
--- /* ExampleNothingget_read_file_chunk_ptr */
+-- /* Example_get_read_file_chunk_ptr */
 -- __attribute__ ((const))
--- enum FileOperationStatus (*hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4 (void)) (
+-- enum FileOperationStatus (*hs_bindgen_test_programanalysisprogram_slici_ab68facc19dee6e4 (void)) (
 --   FILE *arg1,
 --   void *arg2,
 --   size_t arg3
@@ -222,9 +222,9 @@ instance TyEq ty
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 
-    __unique:__ @ExampleJust Unsaferead_file_chunk@
+    __unique:__ @Example_Unsafe_read_file_chunk@
 -}
-foreign import ccall safe "hs_bindgen_test_programanalysisprogram_slici_13b0ed81415a625a" read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
+foreign import ccall safe "hs_bindgen_test_programanalysisprogram_slici_956d20b69b315188" read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
                                                                                                              Ptr Void ->
                                                                                                              HsBindgen.Runtime.Prelude.CSize ->
                                                                                                              IO FileOperationStatus
@@ -234,15 +234,15 @@ foreign import ccall safe "hs_bindgen_test_programanalysisprogram_slici_13b0ed81
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 
-    __unique:__ @ExampleJust Unsaferead_file_chunk@
+    __unique:__ @Example_Unsafe_read_file_chunk@
 -}
-foreign import ccall safe "hs_bindgen_test_programanalysisprogram_slici_3ade0bc94fb1ed45" read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
+foreign import ccall safe "hs_bindgen_test_programanalysisprogram_slici_30208b4335c608a6" read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
                                                                                                              Ptr Void ->
                                                                                                              HsBindgen.Runtime.Prelude.CSize ->
                                                                                                              IO FileOperationStatus
-{-| __unique:__ @ExampleNothingget_read_file_chunk_ptr@
+{-| __unique:__ @Example_get_read_file_chunk_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4" hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4 :: IO (FunPtr (Ptr HsBindgen.Runtime.Prelude.CFile ->
+foreign import ccall safe "hs_bindgen_test_programanalysisprogram_slici_ab68facc19dee6e4" hs_bindgen_test_programanalysisprogram_slici_ab68facc19dee6e4 :: IO (FunPtr (Ptr HsBindgen.Runtime.Prelude.CFile ->
                                                                                                                                                                        Ptr Void ->
                                                                                                                                                                        HsBindgen.Runtime.Prelude.CSize ->
                                                                                                                                                                        IO FileOperationStatus))
@@ -262,4 +262,4 @@ read_file_chunk_ptr :: FunPtr (Ptr HsBindgen.Runtime.Prelude.CFile ->
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
-read_file_chunk_ptr = unsafePerformIO hs_bindgen_test_programanalysisprogram_slici_cc45351e6b02b3b4
+read_file_chunk_ptr = unsafePerformIO hs_bindgen_test_programanalysisprogram_slici_ab68facc19dee6e4

@@ -11,7 +11,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/special/parse_failure_long_double.h>"
-  , "void hs_bindgen_test_typesspecialparse_failure_lo_5ebf8088e71802cc ("
+  , "void hs_bindgen_test_typesspecialparse_failure_lo_32bd2e777c5160a9 ("
   , "  signed int arg1"
   , ")"
   , "{"
@@ -25,8 +25,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 
-    __unique:__ @ExampleJust Unsafefun2@
+    __unique:__ @Example_Unsafe_fun2@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typesspecialparse_failure_lo_5ebf8088e71802cc" fun2 ::
+foreign import ccall unsafe "hs_bindgen_test_typesspecialparse_failure_lo_32bd2e777c5160a9" fun2 ::
      FC.CInt
   -> IO ()

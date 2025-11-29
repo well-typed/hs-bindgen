@@ -63,6 +63,7 @@ getUniqueSymbol (UniqueId uniqueId) baseModuleName str = UniqueSymbol{
     source :: String
     source = concat [
           baseModuleNameToString baseModuleName
+        , "_"
         , str
         ]
 

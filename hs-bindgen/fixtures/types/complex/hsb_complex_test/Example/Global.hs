@@ -17,95 +17,95 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/complex/hsb_complex_test.h>"
-  , "/* ExampleNothingget_global_complex_float_ptr */"
+  , "/* Example_get_global_complex_float_ptr */"
   , "__attribute__ ((const))"
-  , "float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_69e4d4972011967b (void)"
+  , "float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_ecedfd9f3efcf9a8 (void)"
   , "{"
   , "  return &global_complex_float;"
   , "}"
-  , "/* ExampleNothingget_global_complex_double_ptr */"
+  , "/* Example_get_global_complex_double_ptr */"
   , "__attribute__ ((const))"
-  , "double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_c3633906ced5dab3 (void)"
+  , "double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_bbff9f51358a2ee7 (void)"
   , "{"
   , "  return &global_complex_double;"
   , "}"
-  , "/* ExampleNothingget_global_complex_float_flipped_ptr */"
+  , "/* Example_get_global_complex_float_flipped_ptr */"
   , "__attribute__ ((const))"
-  , "float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_7ef41813e25ff8c1 (void)"
+  , "float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_be2baa8e46d89330 (void)"
   , "{"
   , "  return &global_complex_float_flipped;"
   , "}"
-  , "/* ExampleNothingget_global_complex_double_flipped_ptr */"
+  , "/* Example_get_global_complex_double_flipped_ptr */"
   , "__attribute__ ((const))"
-  , "double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_abdd562bd1b14921 (void)"
+  , "double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_18101f0ad07c7118 (void)"
   , "{"
   , "  return &global_complex_double_flipped;"
   , "}"
-  , "/* ExampleNothingget_global_Complex_float_ptr */"
+  , "/* Example_get_global_Complex_float_ptr */"
   , "__attribute__ ((const))"
-  , "float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_02f701d4163d6ce7 (void)"
+  , "float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_453812c7adb09751 (void)"
   , "{"
   , "  return &global_Complex_float;"
   , "}"
-  , "/* ExampleNothingget_global_Complex_double_ptr */"
+  , "/* Example_get_global_Complex_double_ptr */"
   , "__attribute__ ((const))"
-  , "double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_a6117bb5e7cacd17 (void)"
+  , "double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_49d7bb1ada9d9366 (void)"
   , "{"
   , "  return &global_Complex_double;"
   , "}"
-  , "/* ExampleNothingget_global_Complex_float_flipped_ptr */"
+  , "/* Example_get_global_Complex_float_flipped_ptr */"
   , "__attribute__ ((const))"
-  , "float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_da2309480d364cee (void)"
+  , "float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_fbaae6d3c15d0f63 (void)"
   , "{"
   , "  return &global_Complex_float_flipped;"
   , "}"
-  , "/* ExampleNothingget_global_Complex_double_flipped_ptr */"
+  , "/* Example_get_global_Complex_double_flipped_ptr */"
   , "__attribute__ ((const))"
-  , "double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_467427dc59fbef50 (void)"
+  , "double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_c332651c627dc427 (void)"
   , "{"
   , "  return &global_Complex_double_flipped;"
   , "}"
-  , "/* ExampleNothingget_const_complex_float_ptr */"
+  , "/* Example_get_const_complex_float_ptr */"
   , "__attribute__ ((const))"
-  , "float _Complex const *hs_bindgen_test_typescomplexhsb_complex_test_bb0fb18f3dfee47d (void)"
+  , "float _Complex const *hs_bindgen_test_typescomplexhsb_complex_test_4d059fc79bb89894 (void)"
   , "{"
   , "  return &const_complex_float;"
   , "}"
-  , "/* ExampleNothingget_const_complex_double_ptr */"
+  , "/* Example_get_const_complex_double_ptr */"
   , "__attribute__ ((const))"
-  , "double _Complex const *hs_bindgen_test_typescomplexhsb_complex_test_f491f52e529a459a (void)"
+  , "double _Complex const *hs_bindgen_test_typescomplexhsb_complex_test_95a4edcc0f996f70 (void)"
   , "{"
   , "  return &const_complex_double;"
   , "}"
-  , "/* ExampleNothingget_volatile_complex_float_ptr */"
+  , "/* Example_get_volatile_complex_float_ptr */"
   , "__attribute__ ((const))"
-  , "float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_ecb5f4a0ccb7ee75 (void)"
+  , "float _Complex *hs_bindgen_test_typescomplexhsb_complex_test_329349d35aef5e10 (void)"
   , "{"
   , "  return &volatile_complex_float;"
   , "}"
-  , "/* ExampleNothingget_volatile_complex_double_ptr */"
+  , "/* Example_get_volatile_complex_double_ptr */"
   , "__attribute__ ((const))"
-  , "double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_6b136090c38a69c4 (void)"
+  , "double _Complex *hs_bindgen_test_typescomplexhsb_complex_test_7c3ccbd8bf1c7730 (void)"
   , "{"
   , "  return &volatile_complex_double;"
   , "}"
-  , "/* ExampleNothingget_complex_float_array_ptr */"
+  , "/* Example_get_complex_float_array_ptr */"
   , "__attribute__ ((const))"
-  , "float _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_55b7fb104be53f70 (void))[10]"
+  , "float _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_7a3792988944f3d2 (void))[10]"
   , "{"
   , "  return &complex_float_array;"
   , "}"
-  , "/* ExampleNothingget_complex_double_array_ptr */"
+  , "/* Example_get_complex_double_array_ptr */"
   , "__attribute__ ((const))"
-  , "double _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_0b63f3bda9243457 (void))[10]"
+  , "double _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_8b8ce8a9f096c34e (void))[10]"
   , "{"
   , "  return &complex_double_array;"
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_global_complex_float_ptr@
+{-| __unique:__ @Example_get_global_complex_float_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_69e4d4972011967b" hs_bindgen_test_typescomplexhsb_complex_test_69e4d4972011967b ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_ecedfd9f3efcf9a8" hs_bindgen_test_typescomplexhsb_complex_test_ecedfd9f3efcf9a8 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
 
 {-# NOINLINE global_complex_float_ptr #-}
@@ -118,11 +118,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_69e4d4
 -}
 global_complex_float_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 global_complex_float_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_69e4d4972011967b
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_ecedfd9f3efcf9a8
 
-{-| __unique:__ @ExampleNothingget_global_complex_double_ptr@
+{-| __unique:__ @Example_get_global_complex_double_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_c3633906ced5dab3" hs_bindgen_test_typescomplexhsb_complex_test_c3633906ced5dab3 ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_bbff9f51358a2ee7" hs_bindgen_test_typescomplexhsb_complex_test_bbff9f51358a2ee7 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
 
 {-# NOINLINE global_complex_double_ptr #-}
@@ -135,11 +135,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_c36339
 -}
 global_complex_double_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 global_complex_double_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_c3633906ced5dab3
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_bbff9f51358a2ee7
 
-{-| __unique:__ @ExampleNothingget_global_complex_float_flipped_ptr@
+{-| __unique:__ @Example_get_global_complex_float_flipped_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_7ef41813e25ff8c1" hs_bindgen_test_typescomplexhsb_complex_test_7ef41813e25ff8c1 ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_be2baa8e46d89330" hs_bindgen_test_typescomplexhsb_complex_test_be2baa8e46d89330 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
 
 {-# NOINLINE global_complex_float_flipped_ptr #-}
@@ -152,11 +152,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_7ef418
 -}
 global_complex_float_flipped_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 global_complex_float_flipped_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_7ef41813e25ff8c1
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_be2baa8e46d89330
 
-{-| __unique:__ @ExampleNothingget_global_complex_double_flipped_ptr@
+{-| __unique:__ @Example_get_global_complex_double_flipped_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_abdd562bd1b14921" hs_bindgen_test_typescomplexhsb_complex_test_abdd562bd1b14921 ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_18101f0ad07c7118" hs_bindgen_test_typescomplexhsb_complex_test_18101f0ad07c7118 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
 
 {-# NOINLINE global_complex_double_flipped_ptr #-}
@@ -169,11 +169,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_abdd56
 -}
 global_complex_double_flipped_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 global_complex_double_flipped_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_abdd562bd1b14921
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_18101f0ad07c7118
 
-{-| __unique:__ @ExampleNothingget_global_Complex_float_ptr@
+{-| __unique:__ @Example_get_global_Complex_float_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_02f701d4163d6ce7" hs_bindgen_test_typescomplexhsb_complex_test_02f701d4163d6ce7 ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_453812c7adb09751" hs_bindgen_test_typescomplexhsb_complex_test_453812c7adb09751 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
 
 {-# NOINLINE global_Complex_float_ptr #-}
@@ -186,11 +186,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_02f701
 -}
 global_Complex_float_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 global_Complex_float_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_02f701d4163d6ce7
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_453812c7adb09751
 
-{-| __unique:__ @ExampleNothingget_global_Complex_double_ptr@
+{-| __unique:__ @Example_get_global_Complex_double_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_a6117bb5e7cacd17" hs_bindgen_test_typescomplexhsb_complex_test_a6117bb5e7cacd17 ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_49d7bb1ada9d9366" hs_bindgen_test_typescomplexhsb_complex_test_49d7bb1ada9d9366 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
 
 {-# NOINLINE global_Complex_double_ptr #-}
@@ -203,11 +203,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_a6117b
 -}
 global_Complex_double_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 global_Complex_double_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_a6117bb5e7cacd17
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_49d7bb1ada9d9366
 
-{-| __unique:__ @ExampleNothingget_global_Complex_float_flipped_ptr@
+{-| __unique:__ @Example_get_global_Complex_float_flipped_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_da2309480d364cee" hs_bindgen_test_typescomplexhsb_complex_test_da2309480d364cee ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_fbaae6d3c15d0f63" hs_bindgen_test_typescomplexhsb_complex_test_fbaae6d3c15d0f63 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
 
 {-# NOINLINE global_Complex_float_flipped_ptr #-}
@@ -220,11 +220,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_da2309
 -}
 global_Complex_float_flipped_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 global_Complex_float_flipped_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_da2309480d364cee
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_fbaae6d3c15d0f63
 
-{-| __unique:__ @ExampleNothingget_global_Complex_double_flipped_ptr@
+{-| __unique:__ @Example_get_global_Complex_double_flipped_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_467427dc59fbef50" hs_bindgen_test_typescomplexhsb_complex_test_467427dc59fbef50 ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_c332651c627dc427" hs_bindgen_test_typescomplexhsb_complex_test_c332651c627dc427 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
 
 {-# NOINLINE global_Complex_double_flipped_ptr #-}
@@ -237,11 +237,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_467427
 -}
 global_Complex_double_flipped_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 global_Complex_double_flipped_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_467427dc59fbef50
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_c332651c627dc427
 
-{-| __unique:__ @ExampleNothingget_const_complex_float_ptr@
+{-| __unique:__ @Example_get_const_complex_float_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_bb0fb18f3dfee47d" hs_bindgen_test_typescomplexhsb_complex_test_bb0fb18f3dfee47d ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_4d059fc79bb89894" hs_bindgen_test_typescomplexhsb_complex_test_4d059fc79bb89894 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
 
 {-# NOINLINE const_complex_float_ptr #-}
@@ -254,7 +254,7 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_bb0fb1
 -}
 const_complex_float_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 const_complex_float_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_bb0fb18f3dfee47d
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_4d059fc79bb89894
 
 {-# NOINLINE const_complex_float #-}
 
@@ -262,9 +262,9 @@ const_complex_float :: Data.Complex.Complex FC.CFloat
 const_complex_float =
   GHC.IO.Unsafe.unsafePerformIO (F.peek const_complex_float_ptr)
 
-{-| __unique:__ @ExampleNothingget_const_complex_double_ptr@
+{-| __unique:__ @Example_get_const_complex_double_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_f491f52e529a459a" hs_bindgen_test_typescomplexhsb_complex_test_f491f52e529a459a ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_95a4edcc0f996f70" hs_bindgen_test_typescomplexhsb_complex_test_95a4edcc0f996f70 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
 
 {-# NOINLINE const_complex_double_ptr #-}
@@ -277,7 +277,7 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_f491f5
 -}
 const_complex_double_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 const_complex_double_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_f491f52e529a459a
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_95a4edcc0f996f70
 
 {-# NOINLINE const_complex_double #-}
 
@@ -285,9 +285,9 @@ const_complex_double :: Data.Complex.Complex FC.CDouble
 const_complex_double =
   GHC.IO.Unsafe.unsafePerformIO (F.peek const_complex_double_ptr)
 
-{-| __unique:__ @ExampleNothingget_volatile_complex_float_ptr@
+{-| __unique:__ @Example_get_volatile_complex_float_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_ecb5f4a0ccb7ee75" hs_bindgen_test_typescomplexhsb_complex_test_ecb5f4a0ccb7ee75 ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_329349d35aef5e10" hs_bindgen_test_typescomplexhsb_complex_test_329349d35aef5e10 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
 
 {-# NOINLINE volatile_complex_float_ptr #-}
@@ -300,11 +300,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_ecb5f4
 -}
 volatile_complex_float_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 volatile_complex_float_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_ecb5f4a0ccb7ee75
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_329349d35aef5e10
 
-{-| __unique:__ @ExampleNothingget_volatile_complex_double_ptr@
+{-| __unique:__ @Example_get_volatile_complex_double_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_6b136090c38a69c4" hs_bindgen_test_typescomplexhsb_complex_test_6b136090c38a69c4 ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_7c3ccbd8bf1c7730" hs_bindgen_test_typescomplexhsb_complex_test_7c3ccbd8bf1c7730 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
 
 {-# NOINLINE volatile_complex_double_ptr #-}
@@ -317,11 +317,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_6b1360
 -}
 volatile_complex_double_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 volatile_complex_double_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_6b136090c38a69c4
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_7c3ccbd8bf1c7730
 
-{-| __unique:__ @ExampleNothingget_complex_float_array_ptr@
+{-| __unique:__ @Example_get_complex_float_array_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_55b7fb104be53f70" hs_bindgen_test_typescomplexhsb_complex_test_55b7fb104be53f70 ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_7a3792988944f3d2" hs_bindgen_test_typescomplexhsb_complex_test_7a3792988944f3d2 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) (Data.Complex.Complex FC.CFloat)))
 
 {-# NOINLINE complex_float_array_ptr #-}
@@ -334,11 +334,11 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_55b7fb
 -}
 complex_float_array_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) (Data.Complex.Complex FC.CFloat))
 complex_float_array_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_55b7fb104be53f70
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_7a3792988944f3d2
 
-{-| __unique:__ @ExampleNothingget_complex_double_array_ptr@
+{-| __unique:__ @Example_get_complex_double_array_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_0b63f3bda9243457" hs_bindgen_test_typescomplexhsb_complex_test_0b63f3bda9243457 ::
+foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_8b8ce8a9f096c34e" hs_bindgen_test_typescomplexhsb_complex_test_8b8ce8a9f096c34e ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) (Data.Complex.Complex FC.CDouble)))
 
 {-# NOINLINE complex_double_array_ptr #-}
@@ -351,4 +351,4 @@ foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_0b63f3
 -}
 complex_double_array_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) (Data.Complex.Complex FC.CDouble))
 complex_double_array_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_0b63f3bda9243457
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_8b8ce8a9f096c34e

@@ -15,9 +15,9 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/spec_examples.h>"
-  , "/* ExampleNothingget_resample_ptr */"
+  , "/* Example_get_resample_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5 (void)) ("
+  , "void (*hs_bindgen_test_edgecasesspec_examples_3ea2e35a95907188 (void)) ("
   , "  int32_T *arg1,"
   , "  cint16_T arg2[30720000],"
   , "  int64_T arg3,"
@@ -29,9 +29,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_resample_ptr@
+{-| __unique:__ @Example_get_resample_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5" hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesspec_examples_3ea2e35a95907188" hs_bindgen_test_edgecasesspec_examples_3ea2e35a95907188 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()))
 
 {-# NOINLINE resample_ptr #-}
@@ -44,4 +44,4 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesspec_examples_46b04422dcd0
 -}
 resample_ptr :: Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ())
 resample_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesspec_examples_3ea2e35a95907188

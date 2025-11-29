@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <functions/decls_in_signature.h>"
-  , "void hs_bindgen_test_functionsdecls_in_signature_001a08d4459ec455 ("
+  , "void hs_bindgen_test_functionsdecls_in_signature_e00d37d92376d959 ("
   , "  struct opaque *arg1,"
   , "  struct outside *arg2,"
   , "  struct outside *arg3"
@@ -21,13 +21,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  normal(arg1, arg2, *arg3);"
   , "}"
-  , "void hs_bindgen_test_functionsdecls_in_signature_a2f84d2570ef3892 ("
+  , "void hs_bindgen_test_functionsdecls_in_signature_b2cefd7907644d46 ("
   , "  struct named_struct *arg1"
   , ")"
   , "{"
   , "  f1(*arg1);"
   , "}"
-  , "void hs_bindgen_test_functionsdecls_in_signature_1d043de05a457e90 ("
+  , "void hs_bindgen_test_functionsdecls_in_signature_a58b72650fa977ee ("
   , "  union named_union *arg1"
   , ")"
   , "{"
@@ -37,9 +37,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 {-| Pointer-based API for 'normal'
 
-__unique:__ @ExampleJust Safenormal@
+__unique:__ @Example_Safe_normal@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_001a08d4459ec455" normal_wrapper ::
+foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_e00d37d92376d959" normal_wrapper ::
      Ptr.Ptr Opaque
   -> Ptr.Ptr Outside
   -> Ptr.Ptr Outside
@@ -69,9 +69,9 @@ normal =
 
 {-| Pointer-based API for 'f1'
 
-__unique:__ @ExampleJust Safef1@
+__unique:__ @Example_Safe_f1@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_a2f84d2570ef3892" f1_wrapper ::
+foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_b2cefd7907644d46" f1_wrapper ::
      Ptr.Ptr Named_struct
   -> IO ()
 
@@ -94,9 +94,9 @@ f1 = \x0 -> F.with x0 (\y1 -> f1_wrapper y1)
 
 {-| Pointer-based API for 'f2'
 
-__unique:__ @ExampleJust Safef2@
+__unique:__ @Example_Safe_f2@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_1d043de05a457e90" f2_wrapper ::
+foreign import ccall safe "hs_bindgen_test_functionsdecls_in_signature_a58b72650fa977ee" f2_wrapper ::
      Ptr.Ptr Named_union
   -> IO ()
 

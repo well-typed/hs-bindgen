@@ -10,7 +10,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <functions/varargs.h>"
-  , "void hs_bindgen_test_functionsvarargs_ec9e8ecfd27bead3 (void)"
+  , "void hs_bindgen_test_functionsvarargs_e86ca48940396130 (void)"
   , "{"
   , "  h();"
   , "}"
@@ -22,7 +22,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @functions\/varargs.h@
 
-    __unique:__ @ExampleJust Unsafeh@
+    __unique:__ @Example_Unsafe_h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionsvarargs_ec9e8ecfd27bead3" h ::
+foreign import ccall unsafe "hs_bindgen_test_functionsvarargs_e86ca48940396130" h ::
      IO ()

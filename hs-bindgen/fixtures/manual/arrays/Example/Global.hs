@@ -17,47 +17,47 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <manual/arrays.h>"
-  , "/* ExampleNothingget_arr1_ptr */"
+  , "/* Example_get_arr1_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_test_manualarrays_1693226264ba4aeb (void))[1]"
+  , "signed int (*hs_bindgen_test_manualarrays_51f7c8357919d458 (void))[1]"
   , "{"
   , "  return &arr1;"
   , "}"
-  , "/* ExampleNothingget_arr2_ptr */"
+  , "/* Example_get_arr2_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_test_manualarrays_dafcf99a73b93389 (void))[3]"
+  , "signed int (*hs_bindgen_test_manualarrays_a4d2a767c8544a15 (void))[3]"
   , "{"
   , "  return &arr2;"
   , "}"
-  , "/* ExampleNothingget_arr3_ptr */"
+  , "/* Example_get_arr3_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_test_manualarrays_ca1016acc3449dee (void))[]"
+  , "signed int (*hs_bindgen_test_manualarrays_1c7096cbfd263693 (void))[]"
   , "{"
   , "  return &arr3;"
   , "}"
-  , "/* ExampleNothingget_sudoku_ptr */"
+  , "/* Example_get_sudoku_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_test_manualarrays_76857c9492b9374d (void))[3][3]"
+  , "signed int (*hs_bindgen_test_manualarrays_cba54669012dc91b (void))[3][3]"
   , "{"
   , "  return &sudoku;"
   , "}"
-  , "/* ExampleNothingget_triplets_ptr */"
+  , "/* Example_get_triplets_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_test_manualarrays_76f4df4c63822352 (void))[][3]"
+  , "signed int (*hs_bindgen_test_manualarrays_bc550c327b4b6c80 (void))[][3]"
   , "{"
   , "  return &triplets;"
   , "}"
-  , "/* ExampleNothingget_global_triplet_ptrs_ptr */"
+  , "/* Example_get_global_triplet_ptrs_ptr */"
   , "__attribute__ ((const))"
-  , "triplet_ptrs *hs_bindgen_test_manualarrays_f5de5a56e036b125 (void)"
+  , "triplet_ptrs *hs_bindgen_test_manualarrays_595f5b61389ed8d0 (void)"
   , "{"
   , "  return &global_triplet_ptrs;"
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_arr1_ptr@
+{-| __unique:__ @Example_get_arr1_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_1693226264ba4aeb" hs_bindgen_test_manualarrays_1693226264ba4aeb ::
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_51f7c8357919d458" hs_bindgen_test_manualarrays_51f7c8357919d458 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt))
 
 {-# NOINLINE arr1_ptr #-}
@@ -72,11 +72,11 @@ __exported by:__ @manual\/arrays.h@
 -}
 arr1_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt)
 arr1_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_1693226264ba4aeb
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_51f7c8357919d458
 
-{-| __unique:__ @ExampleNothingget_arr2_ptr@
+{-| __unique:__ @Example_get_arr2_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_dafcf99a73b93389" hs_bindgen_test_manualarrays_dafcf99a73b93389 ::
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_a4d2a767c8544a15" hs_bindgen_test_manualarrays_a4d2a767c8544a15 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
 
 {-# NOINLINE arr2_ptr #-}
@@ -91,11 +91,11 @@ __exported by:__ @manual\/arrays.h@
 -}
 arr2_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 arr2_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_dafcf99a73b93389
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_a4d2a767c8544a15
 
-{-| __unique:__ @ExampleNothingget_arr3_ptr@
+{-| __unique:__ @Example_get_arr3_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_ca1016acc3449dee" hs_bindgen_test_manualarrays_ca1016acc3449dee ::
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_1c7096cbfd263693" hs_bindgen_test_manualarrays_1c7096cbfd263693 ::
      IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
 
 {-# NOINLINE arr3_ptr #-}
@@ -110,11 +110,11 @@ __exported by:__ @manual\/arrays.h@
 -}
 arr3_ptr :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
 arr3_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_ca1016acc3449dee
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_1c7096cbfd263693
 
-{-| __unique:__ @ExampleNothingget_sudoku_ptr@
+{-| __unique:__ @Example_get_sudoku_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_76857c9492b9374d" hs_bindgen_test_manualarrays_76857c9492b9374d ::
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_cba54669012dc91b" hs_bindgen_test_manualarrays_cba54669012dc91b ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 
 {-# NOINLINE sudoku_ptr #-}
@@ -129,11 +129,11 @@ __exported by:__ @manual\/arrays.h@
 -}
 sudoku_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
 sudoku_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_76857c9492b9374d
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_cba54669012dc91b
 
-{-| __unique:__ @ExampleNothingget_triplets_ptr@
+{-| __unique:__ @Example_get_triplets_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_76f4df4c63822352" hs_bindgen_test_manualarrays_76f4df4c63822352 ::
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_bc550c327b4b6c80" hs_bindgen_test_manualarrays_bc550c327b4b6c80 ::
      IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 
 {-# NOINLINE triplets_ptr #-}
@@ -148,11 +148,11 @@ __exported by:__ @manual\/arrays.h@
 -}
 triplets_ptr :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
 triplets_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_76f4df4c63822352
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_bc550c327b4b6c80
 
-{-| __unique:__ @ExampleNothingget_global_triplet_ptrs_ptr@
+{-| __unique:__ @Example_get_global_triplet_ptrs_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_f5de5a56e036b125" hs_bindgen_test_manualarrays_f5de5a56e036b125 ::
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_595f5b61389ed8d0" hs_bindgen_test_manualarrays_595f5b61389ed8d0 ::
      IO (Ptr.Ptr Triplet_ptrs)
 
 {-# NOINLINE global_triplet_ptrs_ptr #-}
@@ -167,4 +167,4 @@ __exported by:__ @manual\/arrays.h@
 -}
 global_triplet_ptrs_ptr :: Ptr.Ptr Triplet_ptrs
 global_triplet_ptrs_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_f5de5a56e036b125
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_595f5b61389ed8d0

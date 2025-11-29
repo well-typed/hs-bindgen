@@ -12,7 +12,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/spec_examples.h>"
-  , "void hs_bindgen_test_edgecasesspec_examples_7d4128962cfce15d ("
+  , "void hs_bindgen_test_edgecasesspec_examples_0db7ef5c8646d575 ("
   , "  int32_T *arg1,"
   , "  cint16_T *arg2,"
   , "  int64_T arg3,"
@@ -30,9 +30,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @edge-cases\/spec_examples.h@
 
-    __unique:__ @ExampleJust Saferesample@
+    __unique:__ @Example_Safe_resample@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_7d4128962cfce15d" resample ::
+foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_0db7ef5c8646d575" resample ::
      Ptr.Ptr Int32_T
      {- ^ __C declaration:__ @res_m_num_valid_samples@
      -}

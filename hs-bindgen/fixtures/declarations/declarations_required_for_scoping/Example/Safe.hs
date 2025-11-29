@@ -11,7 +11,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <declarations/declarations_required_for_scoping.h>"
-  , "void hs_bindgen_test_declarationsdeclarations_requ_fcce70013c76ce8b ("
+  , "void hs_bindgen_test_declarationsdeclarations_requ_59d88239da8fef6b ("
   , "  A arg1"
   , ")"
   , "{"
@@ -25,9 +25,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 
-    __unique:__ @ExampleJust Safef@
+    __unique:__ @Example_Safe_f@
 -}
-foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_fcce70013c76ce8b" f ::
+foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_59d88239da8fef6b" f ::
      A
      {- ^ __C declaration:__ @x@
      -}

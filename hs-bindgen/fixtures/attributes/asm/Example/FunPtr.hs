@@ -13,9 +13,9 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <attributes/asm.h>"
-  , "/* ExampleNothingget_asm_labeled_function_ptr */"
+  , "/* Example_get_asm_labeled_function_ptr */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_test_attributesasm_b6d695e6a1f2622e (void)) ("
+  , "signed int (*hs_bindgen_test_attributesasm_731570336331493d (void)) ("
   , "  signed int arg1,"
   , "  signed int arg2"
   , ")"
@@ -24,9 +24,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_asm_labeled_function_ptr@
+{-| __unique:__ @Example_get_asm_labeled_function_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_attributesasm_b6d695e6a1f2622e" hs_bindgen_test_attributesasm_b6d695e6a1f2622e ::
+foreign import ccall unsafe "hs_bindgen_test_attributesasm_731570336331493d" hs_bindgen_test_attributesasm_731570336331493d ::
      IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE asm_labeled_function_ptr #-}
@@ -39,4 +39,4 @@ foreign import ccall unsafe "hs_bindgen_test_attributesasm_b6d695e6a1f2622e" hs_
 -}
 asm_labeled_function_ptr :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
 asm_labeled_function_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesasm_b6d695e6a1f2622e
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_attributesasm_731570336331493d

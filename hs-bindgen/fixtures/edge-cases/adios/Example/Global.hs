@@ -14,23 +14,23 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/adios.h>"
-  , "/* ExampleNothingget_\978\978_ptr */"
+  , "/* Example_get_\978\978_ptr */"
   , "__attribute__ ((const))"
-  , "signed int *hs_bindgen_test_edgecasesadios_e4b974661ff038a0 (void)"
+  , "signed int *hs_bindgen_test_edgecasesadios_a27c24be75e20133 (void)"
   , "{"
   , "  return &\978\978;"
   , "}"
-  , "/* ExampleNothingget_\978\978\978_ptr */"
+  , "/* Example_get_\978\978\978_ptr */"
   , "__attribute__ ((const))"
-  , "signed int const *hs_bindgen_test_edgecasesadios_c538a25ba7055dd4 (void)"
+  , "signed int const *hs_bindgen_test_edgecasesadios_1875f3779c35a7ab (void)"
   , "{"
   , "  return &\978\978\978;"
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_ϒϒ_ptr@
+{-| __unique:__ @Example_get_ϒϒ_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_e4b974661ff038a0" hs_bindgen_test_edgecasesadios_e4b974661ff038a0 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_a27c24be75e20133" hs_bindgen_test_edgecasesadios_a27c24be75e20133 ::
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE cϒϒ_ptr #-}
@@ -43,11 +43,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_e4b974661ff038a0" hs
 -}
 cϒϒ_ptr :: Ptr.Ptr FC.CInt
 cϒϒ_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_e4b974661ff038a0
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_a27c24be75e20133
 
-{-| __unique:__ @ExampleNothingget_ϒϒϒ_ptr@
+{-| __unique:__ @Example_get_ϒϒϒ_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_c538a25ba7055dd4" hs_bindgen_test_edgecasesadios_c538a25ba7055dd4 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_1875f3779c35a7ab" hs_bindgen_test_edgecasesadios_1875f3779c35a7ab ::
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE cϒϒϒ_ptr #-}
@@ -60,7 +60,7 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_c538a25ba7055dd4" hs
 -}
 cϒϒϒ_ptr :: Ptr.Ptr FC.CInt
 cϒϒϒ_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_c538a25ba7055dd4
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_1875f3779c35a7ab
 
 {-# NOINLINE cϒϒϒ #-}
 

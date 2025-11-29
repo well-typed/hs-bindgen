@@ -1680,7 +1680,8 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
 
     wrapperName :: UniqueSymbol
     wrapperName = getUniqueSymbol opts.translationUniqueId moduleName $ concat [
-          show (Just safety)
+          show safety
+        , "_"
         , innerName
         ]
 
@@ -1937,10 +1938,8 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
 
     stubName :: UniqueSymbol
     stubName =
-        getUniqueSymbol opts.translationUniqueId moduleName $ concat [
-            show (Nothing :: Maybe Safety)
-          , "get_" ++ varName ++ "_ptr"
-          ]
+        getUniqueSymbol opts.translationUniqueId moduleName $
+          "get_" ++ varName ++ "_ptr"
 
     varName :: String
     varName = T.unpack (C.getName . C.nameC . C.declId $ info)

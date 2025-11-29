@@ -15,14 +15,14 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <manual/arrays.h>"
-  , "void hs_bindgen_test_manualarrays_f3d0c8dd1a83b3d0 ("
+  , "void hs_bindgen_test_manualarrays_2eb5dd013684775e ("
   , "  triplet *arg1,"
   , "  triplet *arg2"
   , ")"
   , "{"
   , "  transpose(arg1, arg2);"
   , "}"
-  , "void hs_bindgen_test_manualarrays_27135f4747eb87db ("
+  , "void hs_bindgen_test_manualarrays_0e4dd58b2279f2a1 ("
   , "  signed int (**arg1)[3]"
   , ")"
   , "{"
@@ -32,9 +32,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 {-| Pointer-based API for 'transpose'
 
-__unique:__ @ExampleJust Safetranspose@
+__unique:__ @Example_Safe_transpose@
 -}
-foreign import ccall safe "hs_bindgen_test_manualarrays_f3d0c8dd1a83b3d0" transpose_wrapper ::
+foreign import ccall safe "hs_bindgen_test_manualarrays_2eb5dd013684775e" transpose_wrapper ::
      Ptr.Ptr Triplet
   -> Ptr.Ptr Triplet
   -> IO ()
@@ -67,9 +67,9 @@ __defined at:__ @manual\/arrays.h:50:13@
 
 __exported by:__ @manual\/arrays.h@
 
-__unique:__ @ExampleJust Safepretty_print_triplets@
+__unique:__ @Example_Safe_pretty_print_triplets@
 -}
-foreign import ccall safe "hs_bindgen_test_manualarrays_27135f4747eb87db" pretty_print_triplets ::
+foreign import ccall safe "hs_bindgen_test_manualarrays_0e4dd58b2279f2a1" pretty_print_triplets ::
      Ptr.Ptr (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
      {- ^ __C declaration:__ @x@
      -}

@@ -13,17 +13,17 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <declarations/definitions.h>"
-  , "/* ExampleNothingget_n_ptr */"
+  , "/* Example_get_n_ptr */"
   , "__attribute__ ((const))"
-  , "signed int *hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c (void)"
+  , "signed int *hs_bindgen_test_declarationsdefinitions_bbd39fd4bdb7f276 (void)"
   , "{"
   , "  return &n;"
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_n_ptr@
+{-| __unique:__ @Example_get_n_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c" hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c ::
+foreign import ccall unsafe "hs_bindgen_test_declarationsdefinitions_bbd39fd4bdb7f276" hs_bindgen_test_declarationsdefinitions_bbd39fd4bdb7f276 ::
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE n_ptr #-}
@@ -36,4 +36,4 @@ foreign import ccall unsafe "hs_bindgen_test_declarationsdefinitions_cfec0f95f22
 -}
 n_ptr :: Ptr.Ptr FC.CInt
 n_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_declarationsdefinitions_bbd39fd4bdb7f276

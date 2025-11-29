@@ -1,80 +1,80 @@
 -- addDependentFile examples/golden/functions/fun_attributes_conflict.h
 -- #include <functions/fun_attributes_conflict.h>
--- signed int hs_bindgen_test_functionsfun_attributes_confl_5f961556d5c4089a (
+-- signed int hs_bindgen_test_functionsfun_attributes_confl_05d3c772b0f20aca (
 --   signed int arg1
 -- )
 -- {
 --   return square_cp(arg1);
 -- }
--- signed int hs_bindgen_test_functionsfun_attributes_confl_7dbcbb58ce184f13 (
+-- signed int hs_bindgen_test_functionsfun_attributes_confl_f7ae8bbb46093b47 (
 --   signed int arg1
 -- )
 -- {
 --   return square_pc(arg1);
 -- }
--- signed int hs_bindgen_test_functionsfun_attributes_confl_79823cdb6d9c52ff (
+-- signed int hs_bindgen_test_functionsfun_attributes_confl_9e232358bd3bc8ef (
 --   signed int arg1
 -- )
 -- {
 --   return square_cc(arg1);
 -- }
--- signed int hs_bindgen_test_functionsfun_attributes_confl_3dd09f52296e7452 (
+-- signed int hs_bindgen_test_functionsfun_attributes_confl_809cafa7c31c4634 (
 --   signed int arg1
 -- )
 -- {
 --   return square_pp(arg1);
 -- }
--- signed int hs_bindgen_test_functionsfun_attributes_confl_564ce99eace0df40 (
+-- signed int hs_bindgen_test_functionsfun_attributes_confl_579aec1d49212412 (
 --   signed int arg1
 -- )
 -- {
 --   return square_cp(arg1);
 -- }
--- signed int hs_bindgen_test_functionsfun_attributes_confl_216e7c195e335424 (
+-- signed int hs_bindgen_test_functionsfun_attributes_confl_f409a6ef5d2e2660 (
 --   signed int arg1
 -- )
 -- {
 --   return square_pc(arg1);
 -- }
--- signed int hs_bindgen_test_functionsfun_attributes_confl_64cd3d5e7e4c6a2d (
+-- signed int hs_bindgen_test_functionsfun_attributes_confl_018929ca284a6211 (
 --   signed int arg1
 -- )
 -- {
 --   return square_cc(arg1);
 -- }
--- signed int hs_bindgen_test_functionsfun_attributes_confl_fab086c774e84aae (
+-- signed int hs_bindgen_test_functionsfun_attributes_confl_75e74a414278132a (
 --   signed int arg1
 -- )
 -- {
 --   return square_pp(arg1);
 -- }
--- /* ExampleNothingget_square_cp_ptr */
+-- /* Example_get_square_cp_ptr */
 -- __attribute__ ((const))
--- signed int (*hs_bindgen_test_functionsfun_attributes_confl_a488b67527d299f8 (void)) (
+-- signed int (*hs_bindgen_test_functionsfun_attributes_confl_574f80bee9afb32c (void)) (
 --   signed int arg1
 -- )
 -- {
 --   return &square_cp;
 -- }
--- /* ExampleNothingget_square_pc_ptr */
+-- /* Example_get_square_pc_ptr */
 -- __attribute__ ((const))
--- signed int (*hs_bindgen_test_functionsfun_attributes_confl_c4cea088a40be2f5 (void)) (
+-- signed int (*hs_bindgen_test_functionsfun_attributes_confl_e9ce4ba3fb76d372 (void)) (
 --   signed int arg1
 -- )
 -- {
 --   return &square_pc;
 -- }
--- /* ExampleNothingget_square_cc_ptr */
+-- /* Example_get_square_cc_ptr */
 -- __attribute__ ((const))
--- signed int (*hs_bindgen_test_functionsfun_attributes_confl_3bc327fede4fc009 (void)) (
+-- signed int (*hs_bindgen_test_functionsfun_attributes_confl_947c37eebdf37d61 (void)) (
 --   signed int arg1
 -- )
 -- {
 --   return &square_cc;
 -- }
--- /* ExampleNothingget_square_pp_ptr */
+-- /* Example_get_square_pp_ptr */
 -- __attribute__ ((const))
--- signed int (*hs_bindgen_test_functionsfun_attributes_confl_dca75c8c02c209b2 (void)) (
+-- signed int (*hs_bindgen_test_functionsfun_attributes_confl_3f8b3de3936ce25a (void)) (
 --   signed int arg1
 -- )
 -- {
@@ -90,9 +90,9 @@ __defined at:__ @functions\/fun_attributes_conflict.h:9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 
-__unique:__ @ExampleJust Unsafesquare_cp@
+__unique:__ @Example_Unsafe_square_cp@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_5f961556d5c4089a" square_cp :: CInt ->
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_05d3c772b0f20aca" square_cp :: CInt ->
                                                                                                         CInt
 {-| __C declaration:__ @square_pc@
 
@@ -100,9 +100,9 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_5f96155
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 
-    __unique:__ @ExampleJust Unsafesquare_pc@
+    __unique:__ @Example_Unsafe_square_pc@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_7dbcbb58ce184f13" square_pc :: CInt ->
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_f7ae8bbb46093b47" square_pc :: CInt ->
                                                                                                         CInt
 {-| __C declaration:__ @square_cc@
 
@@ -110,9 +110,9 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_7dbcbb5
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 
-    __unique:__ @ExampleJust Unsafesquare_cc@
+    __unique:__ @Example_Unsafe_square_cc@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_79823cdb6d9c52ff" square_cc :: CInt ->
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_9e232358bd3bc8ef" square_cc :: CInt ->
                                                                                                         CInt
 {-|
 
@@ -124,9 +124,9 @@ __defined at:__ @functions\/fun_attributes_conflict.h:15:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 
-__unique:__ @ExampleJust Unsafesquare_pp@
+__unique:__ @Example_Unsafe_square_pp@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_3dd09f52296e7452" square_pp :: CInt ->
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_809cafa7c31c4634" square_pp :: CInt ->
                                                                                                         IO CInt
 {-| Conflicting attributes on functions for llvm/clang versions 18 and up
 
@@ -138,9 +138,9 @@ __defined at:__ @functions\/fun_attributes_conflict.h:9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 
-__unique:__ @ExampleJust Unsafesquare_cp@
+__unique:__ @Example_Unsafe_square_cp@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_564ce99eace0df40" square_cp :: CInt ->
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_579aec1d49212412" square_cp :: CInt ->
                                                                                                         CInt
 {-| __C declaration:__ @square_pc@
 
@@ -148,9 +148,9 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_564ce99
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 
-    __unique:__ @ExampleJust Unsafesquare_pc@
+    __unique:__ @Example_Unsafe_square_pc@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_216e7c195e335424" square_pc :: CInt ->
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_f409a6ef5d2e2660" square_pc :: CInt ->
                                                                                                         CInt
 {-| __C declaration:__ @square_cc@
 
@@ -158,9 +158,9 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_216e7c1
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 
-    __unique:__ @ExampleJust Unsafesquare_cc@
+    __unique:__ @Example_Unsafe_square_cc@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_64cd3d5e7e4c6a2d" square_cc :: CInt ->
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_018929ca284a6211" square_cc :: CInt ->
                                                                                                         CInt
 {-|
 
@@ -172,13 +172,13 @@ __defined at:__ @functions\/fun_attributes_conflict.h:15:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 
-__unique:__ @ExampleJust Unsafesquare_pp@
+__unique:__ @Example_Unsafe_square_pp@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_fab086c774e84aae" square_pp :: CInt ->
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_75e74a414278132a" square_pp :: CInt ->
                                                                                                         IO CInt
-{-| __unique:__ @ExampleNothingget_square_cp_ptr@
+{-| __unique:__ @Example_get_square_cp_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_a488b67527d299f8" hs_bindgen_test_functionsfun_attributes_confl_a488b67527d299f8 :: IO (FunPtr (CInt ->
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_574f80bee9afb32c" hs_bindgen_test_functionsfun_attributes_confl_574f80bee9afb32c :: IO (FunPtr (CInt ->
                                                                                                                                                                          IO CInt))
 {-# NOINLINE square_cp_ptr #-}
 {-| Conflicting attributes on functions for llvm/clang versions 18 and up
@@ -202,10 +202,10 @@ __defined at:__ @functions\/fun_attributes_conflict.h:9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
-square_cp_ptr = unsafePerformIO hs_bindgen_test_functionsfun_attributes_confl_a488b67527d299f8
-{-| __unique:__ @ExampleNothingget_square_pc_ptr@
+square_cp_ptr = unsafePerformIO hs_bindgen_test_functionsfun_attributes_confl_574f80bee9afb32c
+{-| __unique:__ @Example_get_square_pc_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_c4cea088a40be2f5" hs_bindgen_test_functionsfun_attributes_confl_c4cea088a40be2f5 :: IO (FunPtr (CInt ->
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_e9ce4ba3fb76d372" hs_bindgen_test_functionsfun_attributes_confl_e9ce4ba3fb76d372 :: IO (FunPtr (CInt ->
                                                                                                                                                                          IO CInt))
 {-# NOINLINE square_pc_ptr #-}
 {-| __C declaration:__ @square_pc@
@@ -221,10 +221,10 @@ square_pc_ptr :: FunPtr (CInt -> IO CInt)
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
-square_pc_ptr = unsafePerformIO hs_bindgen_test_functionsfun_attributes_confl_c4cea088a40be2f5
-{-| __unique:__ @ExampleNothingget_square_cc_ptr@
+square_pc_ptr = unsafePerformIO hs_bindgen_test_functionsfun_attributes_confl_e9ce4ba3fb76d372
+{-| __unique:__ @Example_get_square_cc_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_3bc327fede4fc009" hs_bindgen_test_functionsfun_attributes_confl_3bc327fede4fc009 :: IO (FunPtr (CInt ->
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_947c37eebdf37d61" hs_bindgen_test_functionsfun_attributes_confl_947c37eebdf37d61 :: IO (FunPtr (CInt ->
                                                                                                                                                                          IO CInt))
 {-# NOINLINE square_cc_ptr #-}
 {-| __C declaration:__ @square_cc@
@@ -240,10 +240,10 @@ square_cc_ptr :: FunPtr (CInt -> IO CInt)
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
-square_cc_ptr = unsafePerformIO hs_bindgen_test_functionsfun_attributes_confl_3bc327fede4fc009
-{-| __unique:__ @ExampleNothingget_square_pp_ptr@
+square_cc_ptr = unsafePerformIO hs_bindgen_test_functionsfun_attributes_confl_947c37eebdf37d61
+{-| __unique:__ @Example_get_square_pp_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_dca75c8c02c209b2" hs_bindgen_test_functionsfun_attributes_confl_dca75c8c02c209b2 :: IO (FunPtr (CInt ->
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_3f8b3de3936ce25a" hs_bindgen_test_functionsfun_attributes_confl_3f8b3de3936ce25a :: IO (FunPtr (CInt ->
                                                                                                                                                                          IO CInt))
 {-# NOINLINE square_pp_ptr #-}
 {-| __C declaration:__ @square_pp@
@@ -259,4 +259,4 @@ square_pp_ptr :: FunPtr (CInt -> IO CInt)
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
-square_pp_ptr = unsafePerformIO hs_bindgen_test_functionsfun_attributes_confl_dca75c8c02c209b2
+square_pp_ptr = unsafePerformIO hs_bindgen_test_functionsfun_attributes_confl_3f8b3de3936ce25a

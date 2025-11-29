@@ -1,28 +1,28 @@
 -- addDependentFile examples/golden/declarations/definitions.h
 -- #include <declarations/definitions.h>
--- signed int hs_bindgen_test_declarationsdefinitions_5a514c66396155ff (
+-- signed int hs_bindgen_test_declarationsdefinitions_fe0d19fe5d8de38b (
 --   double arg1
 -- )
 -- {
 --   return foo(arg1);
 -- }
--- signed int hs_bindgen_test_declarationsdefinitions_84e4eb047d6694cd (
+-- signed int hs_bindgen_test_declarationsdefinitions_87dfaafb91f5acde (
 --   double arg1
 -- )
 -- {
 --   return foo(arg1);
 -- }
--- /* ExampleNothingget_foo_ptr */
+-- /* Example_get_foo_ptr */
 -- __attribute__ ((const))
--- signed int (*hs_bindgen_test_declarationsdefinitions_32925a42980e81cd (void)) (
+-- signed int (*hs_bindgen_test_declarationsdefinitions_21a0306ae50be9fc (void)) (
 --   double arg1
 -- )
 -- {
 --   return &foo;
 -- }
--- /* ExampleNothingget_n_ptr */
+-- /* Example_get_n_ptr */
 -- __attribute__ ((const))
--- signed int *hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c (void)
+-- signed int *hs_bindgen_test_declarationsdefinitions_bbd39fd4bdb7f276 (void)
 -- {
 --   return &n;
 -- }
@@ -160,9 +160,9 @@ instance TyEq ty (CFieldType Y "y_o") =>
 
     __exported by:__ @declarations\/definitions.h@
 
-    __unique:__ @ExampleJust Unsafefoo@
+    __unique:__ @Example_Unsafe_foo@
 -}
-foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_5a514c66396155ff" foo :: CDouble ->
+foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_fe0d19fe5d8de38b" foo :: CDouble ->
                                                                                             IO CInt
 {-| __C declaration:__ @foo@
 
@@ -170,13 +170,13 @@ foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_5a514c6639615
 
     __exported by:__ @declarations\/definitions.h@
 
-    __unique:__ @ExampleJust Unsafefoo@
+    __unique:__ @Example_Unsafe_foo@
 -}
-foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_84e4eb047d6694cd" foo :: CDouble ->
+foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_87dfaafb91f5acde" foo :: CDouble ->
                                                                                             IO CInt
-{-| __unique:__ @ExampleNothingget_foo_ptr@
+{-| __unique:__ @Example_get_foo_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_32925a42980e81cd" hs_bindgen_test_declarationsdefinitions_32925a42980e81cd :: IO (FunPtr (CDouble ->
+foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_21a0306ae50be9fc" hs_bindgen_test_declarationsdefinitions_21a0306ae50be9fc :: IO (FunPtr (CDouble ->
                                                                                                                                                              IO CInt))
 {-# NOINLINE foo_ptr #-}
 {-| __C declaration:__ @foo@
@@ -192,10 +192,10 @@ foo_ptr :: FunPtr (CDouble -> IO CInt)
 
     __exported by:__ @declarations\/definitions.h@
 -}
-foo_ptr = unsafePerformIO hs_bindgen_test_declarationsdefinitions_32925a42980e81cd
-{-| __unique:__ @ExampleNothingget_n_ptr@
+foo_ptr = unsafePerformIO hs_bindgen_test_declarationsdefinitions_21a0306ae50be9fc
+{-| __unique:__ @Example_get_n_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c" hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c :: IO (Ptr CInt)
+foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_bbd39fd4bdb7f276" hs_bindgen_test_declarationsdefinitions_bbd39fd4bdb7f276 :: IO (Ptr CInt)
 {-# NOINLINE n_ptr #-}
 {-| __C declaration:__ @n@
 
@@ -210,4 +210,4 @@ n_ptr :: Ptr CInt
 
     __exported by:__ @declarations\/definitions.h@
 -}
-n_ptr = unsafePerformIO hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c
+n_ptr = unsafePerformIO hs_bindgen_test_declarationsdefinitions_bbd39fd4bdb7f276

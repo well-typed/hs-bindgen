@@ -12,29 +12,29 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/adios.h>"
-  , "/* ExampleNothingget_\978_ptr */"
+  , "/* Example_get_\978_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesadios_857cc80028e9fd4d (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesadios_4ee45318a3dadc32 (void)) (void)"
   , "{"
   , "  return &\978;"
   , "}"
-  , "/* ExampleNothingget_\25308\25308_ptr */"
+  , "/* Example_get_\25308\25308_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7 (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesadios_8ca938fecd1fdc3e (void)) (void)"
   , "{"
   , "  return &\25308\25308;"
   , "}"
-  , "/* ExampleNothingget_Say\25308\25308_ptr */"
+  , "/* Example_get_Say\25308\25308_ptr */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_test_edgecasesadios_2879b42f75005d3b (void)) (void)"
+  , "void (*hs_bindgen_test_edgecasesadios_0cd292c555830a4c (void)) (void)"
   , "{"
   , "  return &Say\25308\25308;"
   , "}"
   ]))
 
-{-| __unique:__ @ExampleNothingget_ϒ_ptr@
+{-| __unique:__ @Example_get_ϒ_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_857cc80028e9fd4d" hs_bindgen_test_edgecasesadios_857cc80028e9fd4d ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_4ee45318a3dadc32" hs_bindgen_test_edgecasesadios_4ee45318a3dadc32 ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE cϒ_ptr #-}
@@ -47,11 +47,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_857cc80028e9fd4d" hs
 -}
 cϒ_ptr :: Ptr.FunPtr (IO ())
 cϒ_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_857cc80028e9fd4d
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_4ee45318a3dadc32
 
-{-| __unique:__ @ExampleNothingget_拜拜_ptr@
+{-| __unique:__ @Example_get_拜拜_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7" hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7 ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_8ca938fecd1fdc3e" hs_bindgen_test_edgecasesadios_8ca938fecd1fdc3e ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE 拜拜_ptr #-}
@@ -64,11 +64,11 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7" hs
 -}
 拜拜_ptr :: Ptr.FunPtr (IO ())
 拜拜_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_8ca938fecd1fdc3e
 
-{-| __unique:__ @ExampleNothingget_Say拜拜_ptr@
+{-| __unique:__ @Example_get_Say拜拜_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_2879b42f75005d3b" hs_bindgen_test_edgecasesadios_2879b42f75005d3b ::
+foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_0cd292c555830a4c" hs_bindgen_test_edgecasesadios_0cd292c555830a4c ::
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE say拜拜_ptr #-}
@@ -81,4 +81,4 @@ foreign import ccall unsafe "hs_bindgen_test_edgecasesadios_2879b42f75005d3b" hs
 -}
 say拜拜_ptr :: Ptr.FunPtr (IO ())
 say拜拜_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_2879b42f75005d3b
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_edgecasesadios_0cd292c555830a4c

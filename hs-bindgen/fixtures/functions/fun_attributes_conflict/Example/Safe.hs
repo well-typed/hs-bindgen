@@ -11,25 +11,25 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <functions/fun_attributes_conflict.h>"
-  , "signed int hs_bindgen_test_functionsfun_attributes_confl_5f961556d5c4089a ("
+  , "signed int hs_bindgen_test_functionsfun_attributes_confl_05d3c772b0f20aca ("
   , "  signed int arg1"
   , ")"
   , "{"
   , "  return square_cp(arg1);"
   , "}"
-  , "signed int hs_bindgen_test_functionsfun_attributes_confl_7dbcbb58ce184f13 ("
+  , "signed int hs_bindgen_test_functionsfun_attributes_confl_f7ae8bbb46093b47 ("
   , "  signed int arg1"
   , ")"
   , "{"
   , "  return square_pc(arg1);"
   , "}"
-  , "signed int hs_bindgen_test_functionsfun_attributes_confl_79823cdb6d9c52ff ("
+  , "signed int hs_bindgen_test_functionsfun_attributes_confl_9e232358bd3bc8ef ("
   , "  signed int arg1"
   , ")"
   , "{"
   , "  return square_cc(arg1);"
   , "}"
-  , "signed int hs_bindgen_test_functionsfun_attributes_confl_3dd09f52296e7452 ("
+  , "signed int hs_bindgen_test_functionsfun_attributes_confl_809cafa7c31c4634 ("
   , "  signed int arg1"
   , ")"
   , "{"
@@ -47,9 +47,9 @@ __defined at:__ @functions\/fun_attributes_conflict.h:9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 
-__unique:__ @ExampleJust Safesquare_cp@
+__unique:__ @Example_Safe_square_cp@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_5f961556d5c4089a" square_cp ::
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_05d3c772b0f20aca" square_cp ::
      FC.CInt
      {- ^ __C declaration:__ @x@
      -}
@@ -61,9 +61,9 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_5f96155
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 
-    __unique:__ @ExampleJust Safesquare_pc@
+    __unique:__ @Example_Safe_square_pc@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_7dbcbb58ce184f13" square_pc ::
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_f7ae8bbb46093b47" square_pc ::
      FC.CInt
      {- ^ __C declaration:__ @x@
      -}
@@ -75,9 +75,9 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_7dbcbb5
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 
-    __unique:__ @ExampleJust Safesquare_cc@
+    __unique:__ @Example_Safe_square_cc@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_79823cdb6d9c52ff" square_cc ::
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_9e232358bd3bc8ef" square_cc ::
      FC.CInt
      {- ^ __C declaration:__ @x@
      -}
@@ -93,9 +93,9 @@ __defined at:__ @functions\/fun_attributes_conflict.h:15:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 
-__unique:__ @ExampleJust Safesquare_pp@
+__unique:__ @Example_Safe_square_pp@
 -}
-foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_3dd09f52296e7452" square_pp ::
+foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_809cafa7c31c4634" square_pp ::
      FC.CInt
      {- ^ __C declaration:__ @x@
      -}

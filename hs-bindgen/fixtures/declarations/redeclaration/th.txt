@@ -1,8 +1,8 @@
 -- addDependentFile examples/golden/declarations/redeclaration.h
 -- #include <declarations/redeclaration.h>
--- /* ExampleNothingget_x_ptr */
+-- /* Example_get_x_ptr */
 -- __attribute__ ((const))
--- signed int *hs_bindgen_test_declarationsredeclaration_10b125673bf2041b (void)
+-- signed int *hs_bindgen_test_declarationsredeclaration_8e2611056411c1b6 (void)
 -- {
 --   return &x;
 -- }
@@ -171,9 +171,9 @@ instance HasCField Y "y_o"
 instance TyEq ty (CFieldType Y "y_o") =>
          HasField "y_o" (Ptr Y) (Ptr ty)
     where getField = ptrToCField (Proxy @"y_o")
-{-| __unique:__ @ExampleNothingget_x_ptr@
+{-| __unique:__ @Example_get_x_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_declarationsredeclaration_10b125673bf2041b" hs_bindgen_test_declarationsredeclaration_10b125673bf2041b :: IO (Ptr CInt)
+foreign import ccall safe "hs_bindgen_test_declarationsredeclaration_8e2611056411c1b6" hs_bindgen_test_declarationsredeclaration_8e2611056411c1b6 :: IO (Ptr CInt)
 {-# NOINLINE x_ptr #-}
 {-| __C declaration:__ @x@
 
@@ -188,4 +188,4 @@ x_ptr :: Ptr CInt
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
-x_ptr = unsafePerformIO hs_bindgen_test_declarationsredeclaration_10b125673bf2041b
+x_ptr = unsafePerformIO hs_bindgen_test_declarationsredeclaration_8e2611056411c1b6

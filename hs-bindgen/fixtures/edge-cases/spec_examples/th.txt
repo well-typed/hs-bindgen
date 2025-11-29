@@ -1,6 +1,6 @@
 -- addDependentFile examples/golden/edge-cases/spec_examples.h
 -- #include <edge-cases/spec_examples.h>
--- void hs_bindgen_test_edgecasesspec_examples_7d4128962cfce15d (
+-- void hs_bindgen_test_edgecasesspec_examples_0db7ef5c8646d575 (
 --   int32_T *arg1,
 --   cint16_T *arg2,
 --   int64_T arg3,
@@ -10,7 +10,7 @@
 -- {
 --   resample(arg1, arg2, arg3, arg4, arg5);
 -- }
--- void hs_bindgen_test_edgecasesspec_examples_f31d4400b3244637 (
+-- void hs_bindgen_test_edgecasesspec_examples_e5baddd455f150d8 (
 --   int32_T *arg1,
 --   cint16_T *arg2,
 --   int64_T arg3,
@@ -20,9 +20,9 @@
 -- {
 --   resample(arg1, arg2, arg3, arg4, arg5);
 -- }
--- /* ExampleNothingget_resample_ptr */
+-- /* Example_get_resample_ptr */
 -- __attribute__ ((const))
--- void (*hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5 (void)) (
+-- void (*hs_bindgen_test_edgecasesspec_examples_3ea2e35a95907188 (void)) (
 --   int32_T *arg1,
 --   cint16_T arg2[30720000],
 --   int64_T arg3,
@@ -292,9 +292,9 @@ data C
 
     __exported by:__ @edge-cases\/spec_examples.h@
 
-    __unique:__ @ExampleJust Unsaferesample@
+    __unique:__ @Example_Unsafe_resample@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_7d4128962cfce15d" resample :: Ptr Int32_T ->
+foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_0db7ef5c8646d575" resample :: Ptr Int32_T ->
                                                                                                 Ptr Cint16_T ->
                                                                                                 Int64_T ->
                                                                                                 Int64_T ->
@@ -306,17 +306,17 @@ foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_7d4128962cfce1
 
     __exported by:__ @edge-cases\/spec_examples.h@
 
-    __unique:__ @ExampleJust Unsaferesample@
+    __unique:__ @Example_Unsafe_resample@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_f31d4400b3244637" resample :: Ptr Int32_T ->
+foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_e5baddd455f150d8" resample :: Ptr Int32_T ->
                                                                                                 Ptr Cint16_T ->
                                                                                                 Int64_T ->
                                                                                                 Int64_T ->
                                                                                                 Ptr Cint16_T ->
                                                                                                 IO Unit
-{-| __unique:__ @ExampleNothingget_resample_ptr@
+{-| __unique:__ @Example_get_resample_ptr@
 -}
-foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5" hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5 :: IO (FunPtr (Ptr Int32_T ->
+foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_3ea2e35a95907188" hs_bindgen_test_edgecasesspec_examples_3ea2e35a95907188 :: IO (FunPtr (Ptr Int32_T ->
                                                                                                                                                            ConstantArray 30720000
                                                                                                                                                                          Cint16_T ->
                                                                                                                                                            Int64_T ->
@@ -340,4 +340,4 @@ resample_ptr :: FunPtr (Ptr Int32_T ->
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
-resample_ptr = unsafePerformIO hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5
+resample_ptr = unsafePerformIO hs_bindgen_test_edgecasesspec_examples_3ea2e35a95907188

@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <functions/callbacks.h>"
-  , "signed int hs_bindgen_test_functionscallbacks_f0d72410d79899b5 ("
+  , "signed int hs_bindgen_test_functionscallbacks_e16488829a23c5fe ("
   , "  void (*arg1) ("
   , "  signed int arg1"
   , "),"
@@ -22,7 +22,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return readFileWithProcessor(arg1, arg2);"
   , "}"
-  , "void hs_bindgen_test_functionscallbacks_a445b9cacb08ed71 ("
+  , "void hs_bindgen_test_functionscallbacks_216759b607d34c32 ("
   , "  void (*arg1) ("
   , "  signed int arg1"
   , "),"
@@ -31,44 +31,44 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  watchTemperature(arg1, arg2);"
   , "}"
-  , "void hs_bindgen_test_functionscallbacks_b71e59965bcc2316 ("
+  , "void hs_bindgen_test_functionscallbacks_5916e723fdbb34b6 ("
   , "  FileOpenedNotification arg1"
   , ")"
   , "{"
   , "  onFileOpened(arg1);"
   , "}"
-  , "void hs_bindgen_test_functionscallbacks_013e79fc3cd3b1b4 ("
+  , "void hs_bindgen_test_functionscallbacks_36659945bd2a7c79 ("
   , "  ProgressUpdate arg1"
   , ")"
   , "{"
   , "  onProgressChanged(arg1);"
   , "}"
-  , "signed int hs_bindgen_test_functionscallbacks_697a7b01b3d64c58 ("
+  , "signed int hs_bindgen_test_functionscallbacks_31257b874a9dc04b ("
   , "  DataValidator arg1,"
   , "  signed int arg2"
   , ")"
   , "{"
   , "  return validateInput(arg1, arg2);"
   , "}"
-  , "void hs_bindgen_test_functionscallbacks_f291b861b36d5a90 ("
+  , "void hs_bindgen_test_functionscallbacks_e88904fa033e8150 ("
   , "  MeasurementReceived arg1"
   , ")"
   , "{"
   , "  onNewMeasurement(arg1);"
   , "}"
-  , "void hs_bindgen_test_functionscallbacks_4f36523b7d965e44 ("
+  , "void hs_bindgen_test_functionscallbacks_1850c9d8bd241ef6 ("
   , "  MeasurementReceived2 arg1"
   , ")"
   , "{"
   , "  onNewMeasurement2(arg1);"
   , "}"
-  , "void hs_bindgen_test_functionscallbacks_92d54aaf9e8a1c8e ("
+  , "void hs_bindgen_test_functionscallbacks_8d123cfd1f90cb7e ("
   , "  SampleBufferFull arg1"
   , ")"
   , "{"
   , "  onBufferReady(arg1);"
   , "}"
-  , "void hs_bindgen_test_functionscallbacks_0e22183e51a42eab ("
+  , "void hs_bindgen_test_functionscallbacks_b1290894ad524433 ("
   , "  struct Measurement *arg1,"
   , "  void (*arg2) ("
   , "  struct Measurement *arg1,"
@@ -82,7 +82,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  transformMeasurement(arg1, arg2);"
   , "}"
-  , "void hs_bindgen_test_functionscallbacks_9b4727ea289ff135 ("
+  , "void hs_bindgen_test_functionscallbacks_02635b98b457a504 ("
   , "  void (*arg1) ("
   , "  struct Measurement *arg1,"
   , "  FileOpenedNotification arg2,"
@@ -92,27 +92,27 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  processWithCallbacks(arg1);"
   , "}"
-  , "void hs_bindgen_test_functionscallbacks_aea76777f06b51ce ("
+  , "void hs_bindgen_test_functionscallbacks_e4d5b3be199c58db ("
   , "  struct MeasurementHandler *arg1"
   , ")"
   , "{"
   , "  registerHandler(arg1);"
   , "}"
-  , "void hs_bindgen_test_functionscallbacks_54fc81d3b44b84d5 ("
+  , "void hs_bindgen_test_functionscallbacks_8572cac4db491eee ("
   , "  struct Measurement *arg1,"
   , "  struct DataPipeline *arg2"
   , ")"
   , "{"
   , "  executePipeline(arg1, arg2);"
   , "}"
-  , "void hs_bindgen_test_functionscallbacks_4bb32ee774218053 ("
+  , "void hs_bindgen_test_functionscallbacks_4a0a0ef2a86913f7 ("
   , "  struct Measurement *arg1,"
   , "  struct Processor *arg2"
   , ")"
   , "{"
   , "  runProcessor(arg1, arg2);"
   , "}"
-  , "void hs_bindgen_test_functionscallbacks_f453b618c9ab0234 ("
+  , "void hs_bindgen_test_functionscallbacks_ea7c0d159010a923 ("
   , "  struct Measurement *arg1,"
   , "  void (*arg2) ("
   , "  struct Measurement *arg1,"
@@ -127,7 +127,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  processMeasurementWithValidation(arg1, arg2);"
   , "}"
-  , "void hs_bindgen_test_functionscallbacks_b68b2cffacc97c1d ("
+  , "void hs_bindgen_test_functionscallbacks_bae09f29e7f99a8f ("
   , "  void (*arg1) ("
   , "  foo arg1"
   , ")"
@@ -135,7 +135,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  f(arg1);"
   , "}"
-  , "void hs_bindgen_test_functionscallbacks_14361e995fb5684a ("
+  , "void hs_bindgen_test_functionscallbacks_661cac524e84b1f7 ("
   , "  void (*arg1) ("
   , "  foo2 const arg1"
   , ")"
@@ -151,9 +151,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust UnsafereadFileWithProcessor@
+    __unique:__ @Example_Unsafe_readFileWithProcessor@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_f0d72410d79899b5" readFileWithProcessor ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_e16488829a23c5fe" readFileWithProcessor ::
      Ptr.FunPtr (FC.CInt -> IO ())
      {- ^ __C declaration:__ @processLine@
      -}
@@ -168,9 +168,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_f0d72410d79899b5
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust UnsafewatchTemperature@
+    __unique:__ @Example_Unsafe_watchTemperature@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_a445b9cacb08ed71" watchTemperature ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_216759b607d34c32" watchTemperature ::
      Ptr.FunPtr (FC.CInt -> IO ())
      {- ^ __C declaration:__ @onTempChange@
      -}
@@ -185,9 +185,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_a445b9cacb08ed71
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust UnsafeonFileOpened@
+    __unique:__ @Example_Unsafe_onFileOpened@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_b71e59965bcc2316" onFileOpened ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_5916e723fdbb34b6" onFileOpened ::
      FileOpenedNotification
      {- ^ __C declaration:__ @notify@
      -}
@@ -199,9 +199,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_b71e59965bcc2316
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust UnsafeonProgressChanged@
+    __unique:__ @Example_Unsafe_onProgressChanged@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_013e79fc3cd3b1b4" onProgressChanged ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_36659945bd2a7c79" onProgressChanged ::
      ProgressUpdate
      {- ^ __C declaration:__ @update@
      -}
@@ -213,9 +213,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_013e79fc3cd3b1b4
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust UnsafevalidateInput@
+    __unique:__ @Example_Unsafe_validateInput@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_697a7b01b3d64c58" validateInput ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_31257b874a9dc04b" validateInput ::
      DataValidator
      {- ^ __C declaration:__ @validator@
      -}
@@ -230,9 +230,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_697a7b01b3d64c58
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust UnsafeonNewMeasurement@
+    __unique:__ @Example_Unsafe_onNewMeasurement@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_f291b861b36d5a90" onNewMeasurement ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_e88904fa033e8150" onNewMeasurement ::
      MeasurementReceived
      {- ^ __C declaration:__ @handler@
      -}
@@ -244,9 +244,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_f291b861b36d5a90
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust UnsafeonNewMeasurement2@
+    __unique:__ @Example_Unsafe_onNewMeasurement2@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_4f36523b7d965e44" onNewMeasurement2 ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_1850c9d8bd241ef6" onNewMeasurement2 ::
      MeasurementReceived2
      {- ^ __C declaration:__ @handler@
      -}
@@ -258,9 +258,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_4f36523b7d965e44
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust UnsafeonBufferReady@
+    __unique:__ @Example_Unsafe_onBufferReady@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_92d54aaf9e8a1c8e" onBufferReady ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_8d123cfd1f90cb7e" onBufferReady ::
      SampleBufferFull
      {- ^ __C declaration:__ @handler@
      -}
@@ -272,9 +272,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_92d54aaf9e8a1c8e
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust UnsafetransformMeasurement@
+    __unique:__ @Example_Unsafe_transformMeasurement@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_0e22183e51a42eab" transformMeasurement ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_b1290894ad524433" transformMeasurement ::
      Ptr.Ptr Measurement
      {- ^ __C declaration:__ @data'@
      -}
@@ -289,9 +289,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_0e22183e51a42eab
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust UnsafeprocessWithCallbacks@
+    __unique:__ @Example_Unsafe_processWithCallbacks@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_9b4727ea289ff135" processWithCallbacks ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_02635b98b457a504" processWithCallbacks ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())
      {- ^ __C declaration:__ @handler@
      -}
@@ -303,9 +303,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_9b4727ea289ff135
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust UnsaferegisterHandler@
+    __unique:__ @Example_Unsafe_registerHandler@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_aea76777f06b51ce" registerHandler ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_e4d5b3be199c58db" registerHandler ::
      Ptr.Ptr MeasurementHandler
      {- ^ __C declaration:__ @handler@
      -}
@@ -317,9 +317,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_aea76777f06b51ce
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust UnsafeexecutePipeline@
+    __unique:__ @Example_Unsafe_executePipeline@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_54fc81d3b44b84d5" executePipeline ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_8572cac4db491eee" executePipeline ::
      Ptr.Ptr Measurement
      {- ^ __C declaration:__ @data'@
      -}
@@ -334,9 +334,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_54fc81d3b44b84d5
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust UnsaferunProcessor@
+    __unique:__ @Example_Unsafe_runProcessor@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_4bb32ee774218053" runProcessor ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_4a0a0ef2a86913f7" runProcessor ::
      Ptr.Ptr Measurement
      {- ^ __C declaration:__ @data'@
      -}
@@ -351,9 +351,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_4bb32ee774218053
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust UnsafeprocessMeasurementWithValidation@
+    __unique:__ @Example_Unsafe_processMeasurementWithValidation@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_f453b618c9ab0234" processMeasurementWithValidation ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_ea7c0d159010a923" processMeasurementWithValidation ::
      Ptr.Ptr Measurement
      {- ^ __C declaration:__ @data'@
      -}
@@ -368,9 +368,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_f453b618c9ab0234
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust Unsafef@
+    __unique:__ @Example_Unsafe_f@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_b68b2cffacc97c1d" f ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_bae09f29e7f99a8f" f ::
      Ptr.FunPtr (Foo -> IO ())
      {- ^ __C declaration:__ @callback@
      -}
@@ -382,9 +382,9 @@ foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_b68b2cffacc97c1d
 
     __exported by:__ @functions\/callbacks.h@
 
-    __unique:__ @ExampleJust Unsafef2@
+    __unique:__ @Example_Unsafe_f2@
 -}
-foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_14361e995fb5684a" f2 ::
+foreign import ccall unsafe "hs_bindgen_test_functionscallbacks_661cac524e84b1f7" f2 ::
      Ptr.FunPtr (Foo2 -> IO ())
      {- ^ __C declaration:__ @handler@
      -}
