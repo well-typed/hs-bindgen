@@ -14,7 +14,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/distilled_lib_1.h>"
-  , "/* get_some_fun_ptr */"
+  , "/* ExampleNothingget_some_fun_ptr */"
   , "__attribute__ ((const))"
   , "int32_t (*hs_bindgen_test_edgecasesdistilled_lib_1_969c7d0305e0614c (void)) ("
   , "  a_type_t *arg1,"

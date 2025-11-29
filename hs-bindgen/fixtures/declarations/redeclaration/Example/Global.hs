@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <declarations/redeclaration.h>"
-  , "/* get_x_ptr */"
+  , "/* ExampleNothingget_x_ptr */"
   , "__attribute__ ((const))"
   , "signed int *hs_bindgen_test_declarationsredeclaration_10b125673bf2041b (void)"
   , "{"

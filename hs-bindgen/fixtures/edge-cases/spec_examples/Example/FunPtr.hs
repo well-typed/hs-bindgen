@@ -15,7 +15,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/spec_examples.h>"
-  , "/* get_resample_ptr */"
+  , "/* ExampleNothingget_resample_ptr */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5 (void)) ("
   , "  int32_T *arg1,"

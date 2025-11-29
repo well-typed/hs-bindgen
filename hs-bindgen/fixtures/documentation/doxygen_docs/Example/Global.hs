@@ -13,13 +13,13 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <documentation/doxygen_docs.h>"
-  , "/* get_global_counter_ptr */"
+  , "/* ExampleNothingget_global_counter_ptr */"
   , "__attribute__ ((const))"
   , "signed int *hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660 (void)"
   , "{"
   , "  return &global_counter;"
   , "}"
-  , "/* get_version_string_ptr */"
+  , "/* ExampleNothingget_version_string_ptr */"
   , "__attribute__ ((const))"
   , "char const **hs_bindgen_test_documentationdoxygen_docs_0f1cef8c70bbdf2c (void)"
   , "{"

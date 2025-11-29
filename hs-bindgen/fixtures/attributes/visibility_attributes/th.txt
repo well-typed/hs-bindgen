@@ -240,301 +240,301 @@
 -- {
 --   f29();
 -- }
--- /* get_f0_ptr */
+-- /* ExampleNothingget_f0_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_a03f2cbeac50b3d3 (void)) (void)
 -- {
 --   return &f0;
 -- }
--- /* get_f1_ptr */
+-- /* ExampleNothingget_f1_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_5469bdc0395f86c1 (void)) (void)
 -- {
 --   return &f1;
 -- }
--- /* get_f2_ptr */
+-- /* ExampleNothingget_f2_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_490ca7e8c8282a69 (void)) (void)
 -- {
 --   return &f2;
 -- }
--- /* get_f3_ptr */
+-- /* ExampleNothingget_f3_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_38506a9ac5626bf2 (void)) (void)
 -- {
 --   return &f3;
 -- }
--- /* get_f4_ptr */
+-- /* ExampleNothingget_f4_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_10e5fac8fefa811b (void)) (void)
 -- {
 --   return &f4;
 -- }
--- /* get_f5_ptr */
+-- /* ExampleNothingget_f5_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_3f137e2ee71fd73b (void)) (void)
 -- {
 --   return &f5;
 -- }
--- /* get_f6_ptr */
+-- /* ExampleNothingget_f6_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_b69720e01b3b7ccd (void)) (void)
 -- {
 --   return &f6;
 -- }
--- /* get_f7_ptr */
+-- /* ExampleNothingget_f7_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_97be5f53b506f3b5 (void)) (void)
 -- {
 --   return &f7;
 -- }
--- /* get_f8_ptr */
+-- /* ExampleNothingget_f8_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_ae7ef3d579d77d0b (void)) (void)
 -- {
 --   return &f8;
 -- }
--- /* get_f9_ptr */
+-- /* ExampleNothingget_f9_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_ef6d611329a20b40 (void)) (void)
 -- {
 --   return &f9;
 -- }
--- /* get_f10_ptr */
+-- /* ExampleNothingget_f10_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_45797238134784ac (void)) (void)
 -- {
 --   return &f10;
 -- }
--- /* get_f11_ptr */
+-- /* ExampleNothingget_f11_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_f09c80553786e039 (void)) (void)
 -- {
 --   return &f11;
 -- }
--- /* get_f12_ptr */
+-- /* ExampleNothingget_f12_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_2e9999eac1cab3da (void)) (void)
 -- {
 --   return &f12;
 -- }
--- /* get_f13_ptr */
+-- /* ExampleNothingget_f13_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_32e5be8a3f3ac037 (void)) (void)
 -- {
 --   return &f13;
 -- }
--- /* get_f14_ptr */
+-- /* ExampleNothingget_f14_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_0b00a23924c6dc70 (void)) (void)
 -- {
 --   return &f14;
 -- }
--- /* get_f15_ptr */
+-- /* ExampleNothingget_f15_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_0d2891732562e5ef (void)) (void)
 -- {
 --   return &f15;
 -- }
--- /* get_f16_ptr */
+-- /* ExampleNothingget_f16_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_f25227febbe8db15 (void)) (void)
 -- {
 --   return &f16;
 -- }
--- /* get_f17_ptr */
+-- /* ExampleNothingget_f17_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_b90b1824c2839fd2 (void)) (void)
 -- {
 --   return &f17;
 -- }
--- /* get_f18_ptr */
+-- /* ExampleNothingget_f18_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_24ba8b98fe453a5c (void)) (void)
 -- {
 --   return &f18;
 -- }
--- /* get_f19_ptr */
+-- /* ExampleNothingget_f19_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_b857c57c0cf79909 (void)) (void)
 -- {
 --   return &f19;
 -- }
--- /* get_f20_ptr */
+-- /* ExampleNothingget_f20_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_d695cc521dd39753 (void)) (void)
 -- {
 --   return &f20;
 -- }
--- /* get_f21_ptr */
+-- /* ExampleNothingget_f21_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_7311dbbdd00abedc (void)) (void)
 -- {
 --   return &f21;
 -- }
--- /* get_f22_ptr */
+-- /* ExampleNothingget_f22_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_4246b9344ad4db0d (void)) (void)
 -- {
 --   return &f22;
 -- }
--- /* get_f23_ptr */
+-- /* ExampleNothingget_f23_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_dcef056ccb5953f9 (void)) (void)
 -- {
 --   return &f23;
 -- }
--- /* get_f24_ptr */
+-- /* ExampleNothingget_f24_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_9ab6df359be6d370 (void)) (void)
 -- {
 --   return &f24;
 -- }
--- /* get_f25_ptr */
+-- /* ExampleNothingget_f25_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_80cad6f0afd3f1fc (void)) (void)
 -- {
 --   return &f25;
 -- }
--- /* get_f26_ptr */
+-- /* ExampleNothingget_f26_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_b1580cdccf30f552 (void)) (void)
 -- {
 --   return &f26;
 -- }
--- /* get_f27_ptr */
+-- /* ExampleNothingget_f27_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_2e4891a5e2afe0df (void)) (void)
 -- {
 --   return &f27;
 -- }
--- /* get_f28_ptr */
+-- /* ExampleNothingget_f28_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_e2949a9b7b7cbfc0 (void)) (void)
 -- {
 --   return &f28;
 -- }
--- /* get_f29_ptr */
+-- /* ExampleNothingget_f29_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_attributesvisibility_attribut_1224b39f0e8e72cd (void)) (void)
 -- {
 --   return &f29;
 -- }
--- /* get_i0_ptr */
+-- /* ExampleNothingget_i0_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_216496b15d8f3143 (void)
 -- {
 --   return &i0;
 -- }
--- /* get_i1_ptr */
+-- /* ExampleNothingget_i1_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_8a4a155fb4b3e983 (void)
 -- {
 --   return &i1;
 -- }
--- /* get_i2_ptr */
+-- /* ExampleNothingget_i2_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_8a341976b53c3159 (void)
 -- {
 --   return &i2;
 -- }
--- /* get_i3_ptr */
+-- /* ExampleNothingget_i3_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_8a18e8a325536dc5 (void)
 -- {
 --   return &i3;
 -- }
--- /* get_i4_ptr */
+-- /* ExampleNothingget_i4_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_8a083f6803595ed2 (void)
 -- {
 --   return &i4;
 -- }
--- /* get_i5_ptr */
+-- /* ExampleNothingget_i5_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_b9d322a4c171d6fa (void)
 -- {
 --   return &i5;
 -- }
--- /* get_i6_ptr */
+-- /* ExampleNothingget_i6_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_2c4836056a76ae78 (void)
 -- {
 --   return &i6;
 -- }
--- /* get_i7_ptr */
+-- /* ExampleNothingget_i7_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_b9d40a2f9eb7062e (void)
 -- {
 --   return &i7;
 -- }
--- /* get_i8_ptr */
+-- /* ExampleNothingget_i8_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_3fd4c67173dc11ce (void)
 -- {
 --   return &i8;
 -- }
--- /* get_i9_ptr */
+-- /* ExampleNothingget_i9_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_b9ff2784975e7295 (void)
 -- {
 --   return &i9;
 -- }
--- /* get_i10_ptr */
+-- /* ExampleNothingget_i10_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_17a29f1f8c101878 (void)
 -- {
 --   return &i10;
 -- }
--- /* get_i11_ptr */
+-- /* ExampleNothingget_i11_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_4e591df5ac4216c9 (void)
 -- {
 --   return &i11;
 -- }
--- /* get_i12_ptr */
+-- /* ExampleNothingget_i12_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_7a8621a15e9246c4 (void)
 -- {
 --   return &i12;
 -- }
--- /* get_i13_ptr */
+-- /* ExampleNothingget_i13_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_96cb39c8a898775e (void)
 -- {
 --   return &i13;
 -- }
--- /* get_i14_ptr */
+-- /* ExampleNothingget_i14_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_9f817ee25723fbcd (void)
 -- {
 --   return &i14;
 -- }
--- /* get_i15_ptr */
+-- /* ExampleNothingget_i15_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_0f8755cf60822f2e (void)
 -- {
 --   return &i15;
 -- }
--- /* get_i16_ptr */
+-- /* ExampleNothingget_i16_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_3023a5c63e753d58 (void)
 -- {
 --   return &i16;
 -- }
--- /* get_i17_ptr */
+-- /* ExampleNothingget_i17_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_b5610fa653ca61e6 (void)
 -- {
 --   return &i17;
 -- }
--- /* get_i18_ptr */
+-- /* ExampleNothingget_i18_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_17edf053c36e012c (void)
 -- {
 --   return &i18;
 -- }
--- /* get_i19_ptr */
+-- /* ExampleNothingget_i19_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_attributesvisibility_attribut_df1c0751f896e6b8 (void)
 -- {

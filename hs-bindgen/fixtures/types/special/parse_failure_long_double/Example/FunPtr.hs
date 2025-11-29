@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/special/parse_failure_long_double.h>"
-  , "/* get_fun2_ptr */"
+  , "/* ExampleNothingget_fun2_ptr */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_test_typesspecialparse_failure_lo_d1bf59c1516f6bfa (void)) ("
   , "  signed int arg1"

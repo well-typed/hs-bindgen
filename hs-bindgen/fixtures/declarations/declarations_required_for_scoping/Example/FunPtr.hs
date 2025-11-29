@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <declarations/declarations_required_for_scoping.h>"
-  , "/* get_f_ptr */"
+  , "/* ExampleNothingget_f_ptr */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d (void)) ("
   , "  A arg1"

@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/distilled_lib_1.h>"
-  , "/* get_v_ptr */"
+  , "/* ExampleNothingget_v_ptr */"
   , "__attribute__ ((const))"
   , "var_t *hs_bindgen_test_edgecasesdistilled_lib_1_b9e65c51f976c6f6 (void)"
   , "{"

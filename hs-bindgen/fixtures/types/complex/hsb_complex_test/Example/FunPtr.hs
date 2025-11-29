@@ -14,7 +14,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/complex/hsb_complex_test.h>"
-  , "/* get_multiply_complex_f_ptr */"
+  , "/* ExampleNothingget_multiply_complex_f_ptr */"
   , "__attribute__ ((const))"
   , "float _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_a7d89c01385c8c56 (void)) ("
   , "  float _Complex arg1,"
@@ -23,7 +23,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &multiply_complex_f;"
   , "}"
-  , "/* get_add_complex_ptr */"
+  , "/* ExampleNothingget_add_complex_ptr */"
   , "__attribute__ ((const))"
   , "double _Complex (*hs_bindgen_test_typescomplexhsb_complex_test_b6226a5bde741b3f (void)) ("
   , "  double _Complex arg1,"

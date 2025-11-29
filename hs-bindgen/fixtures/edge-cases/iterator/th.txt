@@ -112,7 +112,7 @@
 -- {
 --   releaseVarCounter(arg1);
 -- }
--- /* get_makeToggle_ptr */
+-- /* ExampleNothingget_makeToggle_ptr */
 -- __attribute__ ((const))
 -- Toggle (*hs_bindgen_test_edgecasesiterator_504a6a44ef649697 (void)) (
 --   _Bool arg1
@@ -120,7 +120,7 @@
 -- {
 --   return &makeToggle;
 -- }
--- /* get_toggleNext_ptr */
+-- /* ExampleNothingget_toggleNext_ptr */
 -- __attribute__ ((const))
 -- _Bool (*hs_bindgen_test_edgecasesiterator_ee784d0363e34151 (void)) (
 --   Toggle arg1
@@ -128,7 +128,7 @@
 -- {
 --   return &toggleNext;
 -- }
--- /* get_releaseToggle_ptr */
+-- /* ExampleNothingget_releaseToggle_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesiterator_864850832eaf96b9 (void)) (
 --   Toggle arg1
@@ -136,7 +136,7 @@
 -- {
 --   return &releaseToggle;
 -- }
--- /* get_makeCounter_ptr */
+-- /* ExampleNothingget_makeCounter_ptr */
 -- __attribute__ ((const))
 -- Counter (*hs_bindgen_test_edgecasesiterator_48b98d306e2a8d53 (void)) (
 --   signed int arg1,
@@ -145,7 +145,7 @@
 -- {
 --   return &makeCounter;
 -- }
--- /* get_counterNext_ptr */
+-- /* ExampleNothingget_counterNext_ptr */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_test_edgecasesiterator_aeb21db5034e4d66 (void)) (
 --   Counter arg1
@@ -153,7 +153,7 @@
 -- {
 --   return &counterNext;
 -- }
--- /* get_releaseCounter_ptr */
+-- /* ExampleNothingget_releaseCounter_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesiterator_8e1661e238f6f451 (void)) (
 --   Counter arg1
@@ -161,7 +161,7 @@
 -- {
 --   return &releaseCounter;
 -- }
--- /* get_makeVarCounter_ptr */
+-- /* ExampleNothingget_makeVarCounter_ptr */
 -- __attribute__ ((const))
 -- VarCounter (*hs_bindgen_test_edgecasesiterator_b14e88e9cf7a56b8 (void)) (
 --   signed int arg1
@@ -169,7 +169,7 @@
 -- {
 --   return &makeVarCounter;
 -- }
--- /* get_varCounterNext_ptr */
+-- /* ExampleNothingget_varCounterNext_ptr */
 -- __attribute__ ((const))
 -- signed int (*hs_bindgen_test_edgecasesiterator_4d10204c4166188d (void)) (
 --   VarCounter arg1,
@@ -178,7 +178,7 @@
 -- {
 --   return &varCounterNext;
 -- }
--- /* get_releaseVarCounter_ptr */
+-- /* ExampleNothingget_releaseVarCounter_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesiterator_bde04ef01335be42 (void)) (
 --   VarCounter arg1

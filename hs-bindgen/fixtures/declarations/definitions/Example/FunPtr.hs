@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <declarations/definitions.h>"
-  , "/* get_foo_ptr */"
+  , "/* ExampleNothingget_foo_ptr */"
   , "__attribute__ ((const))"
   , "signed int (*hs_bindgen_test_declarationsdefinitions_32925a42980e81cd (void)) ("
   , "  double arg1"

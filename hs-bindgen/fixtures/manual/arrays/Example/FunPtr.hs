@@ -13,7 +13,7 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <manual/arrays.h>"
-  , "/* get_transpose_ptr */"
+  , "/* ExampleNothingget_transpose_ptr */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_test_manualarrays_fc1dad225b555299 (void)) ("
   , "  matrix const arg1,"
@@ -22,7 +22,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &transpose;"
   , "}"
-  , "/* get_pretty_print_triplets_ptr */"
+  , "/* ExampleNothingget_pretty_print_triplets_ptr */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_test_manualarrays_0b485cea747ee35d (void)) ("
   , "  triplet_ptrs arg1"

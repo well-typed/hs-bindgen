@@ -1930,20 +1930,17 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
     -- internal. Users should use functioned identified by @runnerName@ instead,
     -- which does not include 'IO' in the return type.
     stubImportName :: Hs.Name 'Hs.NsVar
-    stubImportName = Hs.Name $ T.pack stubNameMangled.unique
+    stubImportName = Hs.Name $ T.pack stubName.unique
 
     stubImportType :: ResultType HsType
     stubImportType = NormalResultType $ HsIO $ typ stubType
 
-    stubNameMangled :: UniqueSymbol
-    stubNameMangled =
+    stubName :: UniqueSymbol
+    stubName =
         getUniqueSymbol opts.translationUniqueId moduleName $ concat [
             show (Nothing :: Maybe Safety)
-          , stubName
+          , "get_" ++ varName ++ "_ptr"
           ]
-
-    stubName :: String
-    stubName = "get_" ++ varName ++ "_ptr"
 
     varName :: String
     varName = T.unpack (C.getName . C.nameC . C.declId $ info)
@@ -1953,14 +1950,14 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
 
     prettyStub :: String
     prettyStub = concat [
-          "/* ", stubName, " */\n"
+          "/* ", stubName.source, " */\n"
         , PC.prettyDecl stubDecl ""
         ]
 
     stubDecl :: PC.Decl
     stubDecl =
         PC.withArgs [] $ \args' ->
-          PC.FunDefn stubNameMangled.unique stubType C.HaskellPureFunction args'
+          PC.FunDefn stubName.unique stubType C.HaskellPureFunction args'
             [PC.Return $ PC.Address $ PC.NamedVar varName]
 
     userlandCapiWrapper :: UserlandCapiWrapper
@@ -1973,13 +1970,13 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
 
     foreignImport :: Hs.Decl
     foreignImport = Hs.DeclForeignImport $ Hs.ForeignImportDecl
-        { foreignImportName     = stubImportName
+        { foreignImportName       = stubImportName
         , foreignImportParameters = []
         , foreignImportResultType = stubImportType
-        , foreignImportOrigName = T.pack stubNameMangled.unique
-        , foreignImportCallConv = CallConvUserlandCAPI userlandCapiWrapper
-        , foreignImportOrigin   = Origin.Global ty
-        , foreignImportComment  = Just $ HsDoc.uniqueSymbol stubNameMangled
+        , foreignImportOrigName   = T.pack stubName.unique
+        , foreignImportCallConv   = CallConvUserlandCAPI userlandCapiWrapper
+        , foreignImportOrigin     = Origin.Global ty
+        , foreignImportComment    = Just $ HsDoc.uniqueSymbol stubName
 
           -- These imports can be unsafe. We're binding to simple address stubs,
           -- so there are no callbacks into Haskell code. Moreover, they are

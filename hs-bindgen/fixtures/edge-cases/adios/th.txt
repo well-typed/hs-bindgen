@@ -24,31 +24,31 @@
 -- {
 --   Say拜拜();
 -- }
--- /* get_ϒ_ptr */
+-- /* ExampleNothingget_ϒ_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesadios_857cc80028e9fd4d (void)) (void)
 -- {
 --   return &ϒ;
 -- }
--- /* get_拜拜_ptr */
+-- /* ExampleNothingget_拜拜_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesadios_8b289d4c7ae2c2a7 (void)) (void)
 -- {
 --   return &拜拜;
 -- }
--- /* get_Say拜拜_ptr */
+-- /* ExampleNothingget_Say拜拜_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_test_edgecasesadios_2879b42f75005d3b (void)) (void)
 -- {
 --   return &Say拜拜;
 -- }
--- /* get_ϒϒ_ptr */
+-- /* ExampleNothingget_ϒϒ_ptr */
 -- __attribute__ ((const))
 -- signed int *hs_bindgen_test_edgecasesadios_e4b974661ff038a0 (void)
 -- {
 --   return &ϒϒ;
 -- }
--- /* get_ϒϒϒ_ptr */
+-- /* ExampleNothingget_ϒϒϒ_ptr */
 -- __attribute__ ((const))
 -- signed int const *hs_bindgen_test_edgecasesadios_c538a25ba7055dd4 (void)
 -- {

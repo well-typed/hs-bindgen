@@ -190,7 +190,7 @@
 -- {
 --   return no_args_no_void();
 -- }
--- /* get_quux_ptr */
+-- /* ExampleNothingget_quux_ptr */
 -- __attribute__ ((const))
 -- char (*hs_bindgen_test_macrosmacro_in_fundecl_75296b863af23367 (void)) (
 --   F arg1,
@@ -199,7 +199,7 @@
 -- {
 --   return &quux;
 -- }
--- /* get_wam_ptr */
+-- /* ExampleNothingget_wam_ptr */
 -- __attribute__ ((const))
 -- C *(*hs_bindgen_test_macrosmacro_in_fundecl_fd1ccca5616729da (void)) (
 --   float arg1,
@@ -208,7 +208,7 @@
 -- {
 --   return &wam;
 -- }
--- /* get_foo1_ptr */
+-- /* ExampleNothingget_foo1_ptr */
 -- __attribute__ ((const))
 -- char *(*hs_bindgen_test_macrosmacro_in_fundecl_786c8d7bfea481fd (void)) (
 --   float arg1,
@@ -219,7 +219,7 @@
 -- {
 --   return &foo1;
 -- }
--- /* get_foo2_ptr */
+-- /* ExampleNothingget_foo2_ptr */
 -- __attribute__ ((const))
 -- char *(*hs_bindgen_test_macrosmacro_in_fundecl_42a47aecc35f5bda (void)) (
 --   F arg1,
@@ -230,7 +230,7 @@
 -- {
 --   return &foo2;
 -- }
--- /* get_foo3_ptr */
+-- /* ExampleNothingget_foo3_ptr */
 -- __attribute__ ((const))
 -- C *(*hs_bindgen_test_macrosmacro_in_fundecl_17760ec60140242e (void)) (
 --   float arg1,
@@ -241,7 +241,7 @@
 -- {
 --   return &foo3;
 -- }
--- /* get_bar1_ptr */
+-- /* ExampleNothingget_bar1_ptr */
 -- __attribute__ ((const))
 -- signed int (*(*hs_bindgen_test_macrosmacro_in_fundecl_13fa512840072e8d (void)) (
 --   signed long arg1
@@ -251,7 +251,7 @@
 -- {
 --   return &bar1;
 -- }
--- /* get_bar2_ptr */
+-- /* ExampleNothingget_bar2_ptr */
 -- __attribute__ ((const))
 -- signed int (*(*hs_bindgen_test_macrosmacro_in_fundecl_0d63f3c4f98f04a3 (void)) (
 --   L arg1
@@ -261,7 +261,7 @@
 -- {
 --   return &bar2;
 -- }
--- /* get_bar3_ptr */
+-- /* ExampleNothingget_bar3_ptr */
 -- __attribute__ ((const))
 -- signed int (*(*hs_bindgen_test_macrosmacro_in_fundecl_8bd44eebdbce7f71 (void)) (
 --   signed long arg1
@@ -271,7 +271,7 @@
 -- {
 --   return &bar3;
 -- }
--- /* get_bar4_ptr */
+-- /* ExampleNothingget_bar4_ptr */
 -- __attribute__ ((const))
 -- I (*(*hs_bindgen_test_macrosmacro_in_fundecl_0515cdde3c6f0f19 (void)) (
 --   signed long arg1
@@ -281,7 +281,7 @@
 -- {
 --   return &bar4;
 -- }
--- /* get_baz1_ptr */
+-- /* ExampleNothingget_baz1_ptr */
 -- __attribute__ ((const))
 -- signed int (*(*hs_bindgen_test_macrosmacro_in_fundecl_8edeef2444de2cee (void)) (
 --   signed int const arg1
@@ -289,7 +289,7 @@
 -- {
 --   return &baz1;
 -- }
--- /* get_baz2_ptr */
+-- /* ExampleNothingget_baz2_ptr */
 -- __attribute__ ((const))
 -- signed int (*(*hs_bindgen_test_macrosmacro_in_fundecl_61853d26cc39ced6 (void)) (
 --   I const arg1
@@ -297,7 +297,7 @@
 -- {
 --   return &baz2;
 -- }
--- /* get_baz3_ptr */
+-- /* ExampleNothingget_baz3_ptr */
 -- __attribute__ ((const))
 -- I (*(*hs_bindgen_test_macrosmacro_in_fundecl_b465262d2f67a146 (void)) (
 --   signed int const arg1
@@ -305,7 +305,7 @@
 -- {
 --   return &baz3;
 -- }
--- /* get_no_args_no_void_ptr */
+-- /* ExampleNothingget_no_args_no_void_ptr */
 -- __attribute__ ((const))
 -- I (*hs_bindgen_test_macrosmacro_in_fundecl_452280b5085b4ccd (void)) (void)
 -- {
