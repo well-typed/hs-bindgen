@@ -117,5 +117,8 @@ instance IsTrace Level HandleTypedefsMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
+instance CoercePassHaskellId Select HandleTypedefs where
+  coercePassHaskellId _ = id
+
 instance CoercePassId Select HandleTypedefs where
   coercePassId _ = coercePass

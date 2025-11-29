@@ -217,5 +217,8 @@ instance IsTrace Level SelectMsg where
 instance CoercePassId ResolveBindingSpecs Select where
   coercePassId _ = coercePass
 
+instance CoercePassHaskellId ResolveBindingSpecs Select where
+  coercePassHaskellId _ = id
+
 instance CoercePassTypedefRef ResolveBindingSpecs Select where
   coercePassTypedefRef _ = coercePass

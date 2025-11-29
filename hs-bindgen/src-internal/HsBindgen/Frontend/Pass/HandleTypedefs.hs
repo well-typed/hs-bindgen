@@ -51,43 +51,10 @@ handleDecl ::
 handleDecl td decl =
     case declKind of
       C.DeclTypedef dtd
-        | C.TypePointer (C.TypeFun args res) <- C.typedefType dtd ->
-          let derefDecl, mainDecl :: C.Decl HandleTypedefs
-              derefDecl = C.Decl {
-                  declInfo = declInfo' { C.declId = C.DeclIdNamed (curName <> "_Deref") (C.NameOriginGenerated (C.AnonId declLoc))
-                                       , C.declComment = Just
-                                                       $ C.Comment
-                                                       $ Clang.Comment
-                                                       [ Clang.Paragraph
-                                                         [ Clang.TextContent "Auxiliary type used by "
-                                                         , Clang.InlineRefCommand (C.ById (coercePass dId))
-                                                         ]
-                                                       ]
-                                       }
-                , declKind = handleUseSites td
-                           $ C.DeclTypedef $ C.Typedef {
-                               typedefType = C.TypeFun args res
-                             , typedefAnn  = NoAnn
-                             }
-                , declAnn  = def
-                }
-              mainDecl = C.Decl {
-                  C.declInfo = declInfo'
-                , C.declKind = C.DeclTypedef $ C.Typedef {
-                    typedefType = C.TypePointer
-                                . C.TypeTypedef
-                                . flip TypedefRegular (handleUseSites td $ C.TypeFun args res)
-                                . C.declId
-                                $ C.declInfo derefDecl
-                  , typedefAnn  = NoAnn
-                  }
-                , C.declAnn = declAnn
-                }
-           in ( Nothing
-              , Just [ derefDecl
-                     , mainDecl
-                     ]
-              )
+        | C.TypePointer (C.TypeFun args res) <- C.typedefType dtd -> (
+              Nothing
+            , Just $ introduceAuxFunType td declInfo' declAnn args res
+            )
         | otherwise ->
           case Map.lookup curName (TypedefAnalysis.squash td) of
             Just _ty -> (
@@ -107,7 +74,10 @@ handleDecl td decl =
                case Map.lookup curName (TypedefAnalysis.rename td) of
                  Nothing -> (Nothing, declInfo')
                  Just newDeclId -> (
-                     Just $ HandleTypedefsRenamedTagged declInfo' (C.declIdName newDeclId)
+                     Just $
+                       HandleTypedefsRenamedTagged
+                         declInfo'
+                         (C.declIdName newDeclId)
                    , declInfo {
                        C.declId = coercePass newDeclId
                      , C.declComment = fmap (handleUseSites td) declComment
@@ -122,7 +92,7 @@ handleDecl td decl =
            )
   where
     C.Decl{
-        declInfo = declInfo@C.DeclInfo{declId = dId, declComment, declLoc}
+        declInfo = declInfo@C.DeclInfo{declId = dId, declComment}
       , declKind
       , declAnn
       } = decl
@@ -132,6 +102,69 @@ handleDecl td decl =
 
     declInfo' :: C.DeclInfo HandleTypedefs
     declInfo' = coercePass declInfo
+
+-- | Introduce auxiliary type for typedef around function pointer
+--
+-- Given
+--
+-- > typedef void (*Foo)(int x);
+--
+-- we generate
+--
+-- > newtype Foo_Deref = Foo_Deref (CInt -> IO ())
+-- > newtype Foo       = Foo       (FunPtr Foo_Deref)
+introduceAuxFunType ::
+     TypedefAnalysis
+  -> C.DeclInfo HandleTypedefs
+  -> Ann "Decl" HandleTypedefs
+  -> [C.Type Select]
+  -> C.Type Select
+  -> [C.Decl HandleTypedefs]
+introduceAuxFunType td declInfo declAnn args res = [
+      derefDecl
+    , mainDecl
+    ]
+  where
+    derefDecl, mainDecl :: C.Decl HandleTypedefs
+    derefDecl = C.Decl {
+          declInfo = declInfo {
+              C.declId = C.DeclIdNamed C.NamedDeclId{
+                  name      = C.declIdName declInfo.declId <> "_Deref"
+                , origin    = C.NameOriginGenerated (C.AnonId declInfo.declLoc)
+                , haskellId = ()
+                }
+            , C.declComment = Just auxType
+            }
+        , declKind = handleUseSites td
+                   $ C.DeclTypedef $ C.Typedef {
+                       typedefType = C.TypeFun args res
+                     , typedefAnn  = NoAnn
+                     }
+        , declAnn  = def
+        }
+    mainDecl = C.Decl {
+          C.declInfo = declInfo
+        , C.declKind = C.DeclTypedef $ C.Typedef {
+            typedefType = C.TypePointer
+                        . C.TypeTypedef
+                        . flip TypedefRegular
+                            (handleUseSites td $ C.TypeFun args res)
+                        . C.declId
+                        $ C.declInfo derefDecl
+          , typedefAnn  = NoAnn
+          }
+        , C.declAnn = declAnn
+        }
+
+    auxType :: C.Comment HandleTypedefs
+    auxType = C.Comment $
+        Clang.Comment [
+          Clang.Paragraph [
+              Clang.TextContent "Auxiliary type used by "
+            , Clang.InlineRefCommand $
+                C.CommentRef (C.declIdName declInfo.declId) Nothing
+            ]
+        ]
 
 {-------------------------------------------------------------------------------
   Use sites
@@ -159,7 +192,7 @@ instance HandleUseSites C.FieldInfo where
     }
 
 instance HandleUseSites C.CommentRef where
-  handleUseSites _ (C.ById i) = C.ById (coercePass i)
+  handleUseSites _ (C.CommentRef c hs) = C.CommentRef c hs
 
 instance HandleUseSites C.Comment where
   handleUseSites td (C.Comment comment) =
@@ -263,5 +296,10 @@ instance HandleUseSites C.Type where
       squash :: TypedefRef Select -> C.Type HandleTypedefs
       squash (OrigTypedefRef name uTy) = C.TypeTypedef $
           case Map.lookup name (TypedefAnalysis.squash td) of
-            Nothing -> TypedefRegular (C.DeclIdNamed name C.NameOriginInSource) (go uTy)
             Just ty -> TypedefSquashed name (go ty)
+            Nothing -> let named = C.NamedDeclId{
+                                name
+                              , origin    = C.NameOriginInSource
+                              , haskellId = ()
+                              }
+                       in TypedefRegular (C.DeclIdNamed named) (go uTy)

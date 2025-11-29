@@ -1,6 +1,7 @@
 module HsBindgen.Frontend.AST.Coerce (
     CoercePass(..)
   , CoercePassId(..)
+  , CoercePassHaskellId(..)
   , CoercePassTypedefRef(..)
   ) where
 
@@ -20,6 +21,9 @@ import HsBindgen.Imports
 class CoercePassId (p :: Pass) (p' :: Pass) where
   coercePassId :: Proxy '(p, p') -> Id p -> Id p'
 
+class CoercePassHaskellId (p :: Pass) (p' :: Pass) where
+  coercePassHaskellId :: Proxy '(p, p') -> HaskellId p -> HaskellId p'
+
 class CoercePassTypedefRef (p :: Pass) (p' :: Pass) where
   coercePassTypedefRef :: Proxy '(p, p') -> TypedefRef p -> TypedefRef p'
 
@@ -30,10 +34,29 @@ class CoercePassTypedefRef (p :: Pass) (p' :: Pass) where
 class CoercePass a p p' where
   coercePass :: a p -> a p'
 
-instance CoercePass DeclId p p' where
+instance (
+      CoercePassHaskellId p p'
+    ) => CoercePass DeclId p p' where
   coercePass = \case
-      DeclIdNamed name origin -> DeclIdNamed name origin
-      DeclIdBuiltin name      -> DeclIdBuiltin name
+      DeclIdNamed   named   -> DeclIdNamed   (coercePass named)
+      DeclIdBuiltin builtin -> DeclIdBuiltin (coercePass builtin)
+
+instance (
+      CoercePassHaskellId p p'
+    ) => CoercePass NamedDeclId p p' where
+  coercePass named = NamedDeclId{
+        name      = named.name
+      , origin    = named.origin
+      , haskellId = coercePassHaskellId (Proxy @'(p, p')) named.haskellId
+      }
+
+instance (
+      CoercePassHaskellId p p'
+    ) => CoercePass BuiltinDeclId p p' where
+  coercePass builtin = BuiltinDeclId{
+        name      = builtin.name
+      , haskellId = coercePassHaskellId (Proxy @'(p, p')) builtin.haskellId
+      }
 
 instance (
       CoercePass Decl p p'
@@ -46,12 +69,13 @@ instance (
       }
 
 instance (
-      CoercePassId p p'
+      CoercePassHaskellId p p'
     ) => CoercePass CommentRef p p' where
-  coercePass (ById t) = ById (coercePassId (Proxy @'(p, p')) t)
+  coercePass (CommentRef c hs) =
+      CommentRef c (coercePassHaskellId (Proxy @'(p, p')) <$> hs)
 
 instance (
-      CoercePassId p p'
+      CoercePassHaskellId p p'
     ) => CoercePass CDoc.Comment (CommentRef p) (CommentRef p') where
   coercePass comment = fmap coercePass comment
 

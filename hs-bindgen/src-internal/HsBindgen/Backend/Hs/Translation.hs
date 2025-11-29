@@ -33,6 +33,7 @@ import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -131,28 +132,15 @@ scanAllFunctionPointerTypes =
 
 -- | Check if a type is defined in the current module
 isDefinedInCurrentModule :: DeclIndex -> C.Type -> Bool
-isDefinedInCurrentModule declIndex ty = case ty of
-  C.TypeStruct namePair origin                 -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindStruct)
-  C.TypeUnion namePair origin                  -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindUnion)
-  C.TypeEnum namePair origin                   -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindEnum)
-  C.TypePointer (C.TypeStruct namePair origin) -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindStruct)
-  C.TypePointer (C.TypeUnion namePair origin)  -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindUnion)
-  C.TypePointer (C.TypeEnum namePair origin)   -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindEnum)
-  C.TypeTypedef (C.TypedefRegular namePair _)  -> isInDeclIndex namePair C.NameOriginInSource C.NameKindOrdinary
-  C.TypeTypedef (C.TypedefSquashed name _)     -> isInDeclIndex (C.NamePair name (Hs.Identifier (C.getName name)))
-                                                               C.NameOriginInSource C.NameKindOrdinary
-  C.TypeQualified _ t                          -> isDefinedInCurrentModule declIndex t
-  _                                            -> False
+isDefinedInCurrentModule declIndex =
+    any isInDeclIndex . C.typeDeclIds
   where
-    isInDeclIndex :: C.NamePair -> C.NameOrigin -> C.NameKind -> Bool
-    isInDeclIndex namePair origin nameKind =
-      let prelimDeclId =
-            case origin of
-              C.NameOriginInSource           -> C.PrelimDeclIdNamed (C.nameC namePair)
-              C.NameOriginGenerated anonId   -> C.PrelimDeclIdAnon anonId
-              C.NameOriginRenamedFrom _      -> C.PrelimDeclIdNamed (C.nameC namePair)
-          qualPrelimDeclId = C.qualPrelimDeclId prelimDeclId nameKind
-      in isJust $ DeclIndex.lookup qualPrelimDeclId declIndex
+    isInDeclIndex :: C.QualDeclId MangleNames -> Bool
+    isInDeclIndex qualDeclId =
+        isJust $ DeclIndex.lookup qualPrelimDeclId declIndex
+      where
+        qualPrelimDeclId :: C.QualPrelimDeclId
+        qualPrelimDeclId = C.qualDeclIdToQualPrelimDeclId qualDeclId
 
 {-------------------------------------------------------------------------------
   Instance Map
@@ -392,7 +380,7 @@ structDecs opts haddockConfig info struct spec fields = do
     pure decls
   where
     structName :: Hs.Name Hs.NsTypeConstr
-    structName = C.nameHs (C.declId info)
+    structName = C.unsafeDeclIdHaskellName info.declId
 
     structFields :: Vec n Hs.Field
     structFields = flip Vec.map fields $ \f -> Hs.Field {
@@ -590,7 +578,7 @@ opaqueDecs cNameKind haddockConfig info spec = do
     return [decl]
   where
     name :: Hs.Name Hs.NsTypeConstr
-    name = C.nameHs (C.declId info)
+    name = C.unsafeDeclIdHaskellName info.declId
 
     decl :: Hs.Decl
     decl = Hs.DeclEmpty Hs.EmptyData {
@@ -620,7 +608,7 @@ unionDecs haddockConfig info union spec = do
     pure decls
   where
     newtypeName :: Hs.Name Hs.NsTypeConstr
-    newtypeName = C.nameHs (C.declId info)
+    newtypeName = C.unsafeDeclIdHaskellName info.declId
 
     insts :: Set Hs.TypeClass
     insts = Set.singleton Hs.Storable
@@ -804,7 +792,7 @@ enumDecs opts haddockConfig info e spec = do
       newtypeDecl : storableDecl : optDecls ++ cEnumInstanceDecls ++ valueDecls
   where
     newtypeName :: Hs.Name Hs.NsTypeConstr
-    newtypeName = C.nameHs (C.declId info)
+    newtypeName = C.unsafeDeclIdHaskellName info.declId
 
     newtypeConstr :: Hs.Name Hs.NsConstr
     newtypeConstr = C.newtypeConstr (C.enumNames e)
@@ -948,7 +936,7 @@ typedefDecs opts haddockConfig info typedef spec = do
     pure decls
   where
     newtypeName :: Hs.Name Hs.NsTypeConstr
-    newtypeName = C.nameHs (C.declId info)
+    newtypeName = C.unsafeDeclIdHaskellName info.declId
 
     newtypeField :: Hs.Field
     newtypeField = Hs.Field {
@@ -1138,7 +1126,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
     pure $ decls
   where
     newtypeName :: Hs.Name Hs.NsTypeConstr
-    newtypeName = C.nameHs (C.declId info)
+    newtypeName = C.unsafeDeclIdHaskellName info.declId
 
     candidateInsts :: Set Hs.TypeClass
     candidateInsts = Set.union (Set.singleton Hs.Storable) $
@@ -1471,7 +1459,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
             getMainHashIncludeArg info
         }
 
-    highlevelName = C.nameHs (C.declId info)
+    highlevelName = C.unsafeDeclIdHaskellName info.declId
     importName
         | areFancy  = highlevelName <> "_wrapper" -- TODO: Add to NameMangler pass
         | otherwise = highlevelName
@@ -1531,7 +1519,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
 
     -- Generation of C wrapper for userland-capi.
     innerName :: String
-    innerName = T.unpack (C.getName . C.nameC . C.declId $ info)
+    innerName = T.unpack $ C.getName (C.declIdName info.declId)
 
     wrapperName :: UniqueSymbol
     wrapperName = globallyUnique opts.translationUniqueId moduleName $ concat [
@@ -1694,7 +1682,7 @@ constGetter ty instsMap info pureStubName = concat [
         , varComment = Nothing
         }
 
-    getterName = C.nameHs (C.declId info)
+    getterName = C.unsafeDeclIdHaskellName info.declId
     getterType = SHs.translateType ty
     getterExpr = SHs.EGlobal SHs.IO_unsafePerformIO
                 `SHs.EApp` (SHs.EGlobal SHs.Storable_peek
@@ -1740,7 +1728,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
           "get_" ++ varName ++ "_ptr"
 
     varName :: String
-    varName = T.unpack (C.getName . C.nameC . C.declId $ info)
+    varName = T.unpack $ C.getName (C.declIdName info.declId)
 
     stubType :: C.Type
     stubType = C.TypePointer ty
@@ -1797,7 +1785,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
         , varComment = mbComment
         }
 
-    runnerName = Hs.Name $ Hs.getIdentifier (C.nameHsIdent (C.declId info)) <> "_ptr"
+    runnerName = Hs.Name $ Hs.getIdentifier (C.declIdHaskellId (C.declId info)) <> "_ptr"
     runnerType = SHs.translateType (Type.topLevel stubType)
     runnerExpr = SHs.EGlobal SHs.IO_unsafePerformIO
                 `SHs.EApp` SHs.EFree stubImportName
@@ -1821,4 +1809,4 @@ macroVarDecs haddockConfig info macroExpr = [
     ]
   where
     hsVarName :: Hs.Name Hs.NsVar
-    hsVarName = C.nameHs (C.declId info)
+    hsVarName = C.unsafeDeclIdHaskellName info.declId

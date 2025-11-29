@@ -69,5 +69,8 @@ data ConstructTranslationUnitMsg =
 instance CoercePassId Parse ConstructTranslationUnit where
   coercePassId _ = id
 
+instance CoercePassHaskellId Parse ConstructTranslationUnit where
+  coercePassHaskellId _ = id
+
 instance CoercePassTypedefRef Parse ConstructTranslationUnit where
   coercePassTypedefRef _ = coercePass

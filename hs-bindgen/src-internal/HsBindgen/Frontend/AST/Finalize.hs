@@ -64,8 +64,7 @@ instance Finalize Int.DeclInfo where
 
   finalize info = Ext.DeclInfo{
         declLoc
-      , declId = namePair
-      , declOrigin = nameOrigin
+      , declId
       , declAliases
       , declHeaderInfo
       , declComment = fmap finalize declComment
@@ -73,7 +72,7 @@ instance Finalize Int.DeclInfo where
     where
       Int.DeclInfo{
           declLoc
-        , declId = (namePair, nameOrigin)
+        , declId
         , declAliases
         , declHeaderInfo
         , declComment
@@ -109,7 +108,7 @@ instance Finalize Int.DeclKind where
 instance Finalize Int.CommentRef where
   type Finalized Int.CommentRef = Ext.CommentRef
 
-  finalize (Int.ById (x, _)) = Ext.ById x
+  finalize (Int.CommentRef c hs) = Ext.CommentRef c hs
 
 instance Finalize Int.Comment where
   type Finalized Int.Comment = CDoc.Comment Ext.CommentRef
@@ -268,27 +267,27 @@ instance Finalize Int.CheckedMacroType where
 instance Finalize Int.Type where
   type Finalized Int.Type = Ext.Type
 
-  finalize (Int.TypePrim prim)                 = Ext.TypePrim prim
-  finalize (Int.TypeStruct (np, origin))       = Ext.TypeStruct np origin
-  finalize (Int.TypeUnion (np, origin))        = Ext.TypeUnion np origin
-  finalize (Int.TypeEnum (np, origin))         = Ext.TypeEnum np origin
-  finalize (Int.TypeTypedef ref)               = Ext.TypeTypedef (finalize ref)
-  finalize (Int.TypePointer typ)               = Ext.TypePointer (finalize typ)
-  finalize (Int.TypeFun args res)              = Ext.TypeFun (map finalize args) (finalize res)
-  finalize (Int.TypeVoid)                      = Ext.TypeVoid
-  finalize (Int.TypeConstArray n typ)          = Ext.TypeConstArray n (finalize typ)
-  finalize (Int.TypeIncompleteArray typ)       = Ext.TypeIncompleteArray (finalize typ)
-  finalize (Int.TypeExtBinding ext)            = Ext.TypeExtBinding ext
-  finalize (Int.TypeBlock typ)                 = Ext.TypeBlock (finalize typ)
-  finalize (Int.TypeConst typ)                 = Ext.TypeQualified Ext.TypeQualifierConst (finalize typ)
-  finalize (Int.TypeMacroTypedef (np, origin)) = Ext.TypeMacroTypedef np origin
-  finalize (Int.TypeComplex prim)              = Ext.TypeComplex prim
+  finalize (Int.TypePrim prim)           = Ext.TypePrim prim
+  finalize (Int.TypeStruct declId)       = Ext.TypeStruct declId
+  finalize (Int.TypeUnion declId)        = Ext.TypeUnion declId
+  finalize (Int.TypeEnum declId)         = Ext.TypeEnum declId
+  finalize (Int.TypeTypedef ref)         = Ext.TypeTypedef (finalize ref)
+  finalize (Int.TypePointer typ)         = Ext.TypePointer (finalize typ)
+  finalize (Int.TypeFun args res)        = Ext.TypeFun (map finalize args) (finalize res)
+  finalize (Int.TypeVoid)                = Ext.TypeVoid
+  finalize (Int.TypeConstArray n typ)    = Ext.TypeConstArray n (finalize typ)
+  finalize (Int.TypeIncompleteArray typ) = Ext.TypeIncompleteArray (finalize typ)
+  finalize (Int.TypeExtBinding ext)      = Ext.TypeExtBinding ext
+  finalize (Int.TypeBlock typ)           = Ext.TypeBlock (finalize typ)
+  finalize (Int.TypeConst typ)           = Ext.TypeQualified Ext.TypeQualifierConst (finalize typ)
+  finalize (Int.TypeMacroTypedef declId) = Ext.TypeMacroTypedef declId
+  finalize (Int.TypeComplex prim)        = Ext.TypeComplex prim
 
 instance Finalize Int.RenamedTypedefRef where
   type Finalized Int.RenamedTypedefRef = Ext.TypedefRef
 
-  finalize (Int.TypedefRegular (np, _origin) uTy) = Ext.TypedefRegular np (finalize uTy)
-  finalize (Int.TypedefSquashed nm ty) = Ext.TypedefSquashed nm (finalize ty)
+  finalize (Int.TypedefRegular declId uTy) = Ext.TypedefRegular declId (finalize uTy)
+  finalize (Int.TypedefSquashed nm ty)     = Ext.TypedefSquashed nm (finalize ty)
 
 {-------------------------------------------------------------------------------
   Internal: FLAMs

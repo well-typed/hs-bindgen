@@ -12,6 +12,7 @@ module HsBindgen.Frontend.AST.External (
   , Decl(..)
   , Int.Availability(..)
   , DeclInfo(..)
+  , FinalDeclId
   , Int.HeaderInfo(..)
   , FieldInfo(..)
   , DeclKind(..)
@@ -52,6 +53,7 @@ module HsBindgen.Frontend.AST.External (
   , ArrayClassification(..)
   , getArrayElementType
   , isCanonicalTypeArray
+  , typeDeclIds
     -- ** Erasure
   , FullType
   , Full
@@ -89,9 +91,11 @@ import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -120,13 +124,17 @@ data Decl = Decl {
 
 data DeclInfo = DeclInfo {
       declLoc        :: SingleLoc
-    , declId         :: Int.NamePair
-    , declOrigin     :: C.NameOrigin
+    , declId         :: FinalDeclId
     , declAliases    :: [C.Name]
     , declHeaderInfo :: Maybe Int.HeaderInfo
     , declComment    :: Maybe (CDoc.Comment CommentRef)
     }
   deriving stock (Show, Eq, Generic)
+
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1267>
+-- It would probably make sense to move 'DeclId' into "AST.Internal", and then
+-- have a "finalized" version of it here.
+type FinalDeclId = C.DeclId MangleNames
 
 data FieldInfo = FieldInfo {
       fieldLoc     :: SingleLoc
@@ -261,12 +269,11 @@ data Function = Function {
   Comments
 -------------------------------------------------------------------------------}
 
--- | Needed for cross referencing identifiers when translating to Haddocks.
--- When parsing a referencing command, e.g. \\ref, we need an identifier that
--- passes through all the name mangling passes so that in the end we have
--- access to the right name to reference.
+-- | Cross-reference in a Doxygen comment
 --
-newtype CommentRef = ById Int.NamePair
+-- The Haskell identifier might not be known (if the reference is to a
+-- declaration not in the current translation unit).
+data CommentRef = CommentRef C.Name (Maybe Hs.Identifier)
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
@@ -296,9 +303,9 @@ type Type = FullType
 -- | C types in Trees That Shrink style
 data TypeF tag =
     TypePrim C.PrimType
-  | TypeStruct Int.NamePair C.NameOrigin
-  | TypeUnion Int.NamePair C.NameOrigin
-  | TypeEnum Int.NamePair C.NameOrigin
+  | TypeStruct FinalDeclId
+  | TypeUnion FinalDeclId
+  | TypeEnum FinalDeclId
   | TypeTypedef
     -- | NOTE: has a strictness annotation, which allows GHC to infer that
     -- pattern matches are redundant when @TypedefRefF tag ~ Void@.
@@ -306,7 +313,7 @@ data TypeF tag =
     -- TODO: macros should get annotations with underlying types just like
     -- typedefs, so that we can erase the macro types and replace them with
     -- their underlying type. See issue #1200.
-  | TypeMacroTypedef Int.NamePair C.NameOrigin
+  | TypeMacroTypedef FinalDeclId
   | TypePointer (TypeF tag)
   | TypeConstArray Natural (TypeF tag)
   | TypeFun [TypeF tag] (TypeF tag)
@@ -332,7 +339,7 @@ data TypeQualifier = TypeQualifierConst
 data TypedefRef =
     TypedefRegular
       -- | Name of the referenced typedef declaration
-      Int.NamePair
+      FinalDeclId
       -- | The underlying type of the referenced typedef declaration
       --
       -- NOTE: the underlying type can arbitrarily reference other types,
@@ -403,22 +410,62 @@ getArrayElementType (IncompleteArrayClassification ty) = ty
 -- | Is the canonical type an array type? If so, is it an array of known size or
 -- unknown size? And what is the /full type/ of the array elements?
 isCanonicalTypeArray :: FullType -> Maybe (ArrayClassification FullType)
-isCanonicalTypeArray ty = case ty of
-    TypePrim _pt -> Nothing
-    TypeStruct _np _no -> Nothing
-    TypeUnion _np _no -> Nothing
-    TypeEnum _np _no -> Nothing
-    TypeTypedef ref -> isCanonicalTypeArray (eraseTypedef ref)
-    TypeMacroTypedef _np _no -> Nothing
-    TypePointer _t -> Nothing
-    TypeConstArray n t -> Just (ConstantArrayClassification n t)
-    TypeFun _args _res -> Nothing
-    TypeVoid -> Nothing
-    TypeIncompleteArray t -> Just (IncompleteArrayClassification t)
-    TypeBlock _t -> Nothing
-    TypeQualified _q t -> isCanonicalTypeArray t
-    TypeExtBinding _reb -> Nothing
-    TypeComplex _pt -> Nothing
+isCanonicalTypeArray ty =
+    case ty of
+      TypePrim _pt             -> Nothing
+      TypeStruct _declId       -> Nothing
+      TypeUnion _declId        -> Nothing
+      TypeEnum _declId         -> Nothing
+      TypeTypedef ref          -> isCanonicalTypeArray (eraseTypedef ref)
+      TypeMacroTypedef _declId -> Nothing
+      TypePointer _t           -> Nothing
+      TypeConstArray n t       -> Just (ConstantArrayClassification n t)
+      TypeFun _args _res       -> Nothing
+      TypeVoid                 -> Nothing
+      TypeIncompleteArray t    -> Just (IncompleteArrayClassification t)
+      TypeBlock _t             -> Nothing
+      TypeQualified _q t       -> isCanonicalTypeArray t
+      TypeExtBinding _reb      -> Nothing
+      TypeComplex _pt          -> Nothing
+
+-- | (Non-external) declarations referred to in this type
+--
+-- These are declarations that would appear in the generated Haskell type
+-- whenever this type is used.
+--
+-- This does /not/ include any external declarations.
+typeDeclIds :: Type -> [C.QualDeclId MangleNames]
+typeDeclIds = \case
+    -- Primitive types
+    TypePrim _    -> []
+    TypeVoid      -> []
+    TypeComplex _ -> []
+
+    -- Interesting cases
+    --
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1267>
+    -- Once 'DeclId' always has the 'NameKind' this can be simplified.
+    TypeStruct       declId -> [C.QualDeclId declId (C.NameKindTagged C.TagKindStruct)]
+    TypeUnion        declId -> [C.QualDeclId declId (C.NameKindTagged C.TagKindUnion)]
+    TypeEnum         declId -> [C.QualDeclId declId (C.NameKindTagged C.TagKindEnum)]
+    TypeMacroTypedef declId -> [C.QualDeclId declId  C.NameKindOrdinary]
+    TypeTypedef      ref    -> auxTypedef    ref
+    TypeExtBinding   _ext   -> []
+
+    -- Recurse
+    TypePointer         t -> typeDeclIds t
+    TypeConstArray _    t -> typeDeclIds t
+    TypeIncompleteArray t -> typeDeclIds t
+    TypeBlock           t -> typeDeclIds t
+    TypeQualified _     t -> typeDeclIds t
+    TypeFun args res      -> concatMap typeDeclIds (args ++ [res])
+  where
+    auxTypedef :: TypedefRef -> [C.QualDeclId MangleNames]
+    auxTypedef = \case
+        TypedefRegular declId _underlying ->
+          [C.QualDeclId declId C.NameKindOrdinary]
+        TypedefSquashed _origName underlying  ->
+          typeDeclIds underlying
 
 {-------------------------------------------------------------------------------
   Types: Trees That Shrink
@@ -512,18 +559,18 @@ mapTypeF fRef fQual = go
   where
     go :: TypeF tag -> TypeF tag'
     go ty = case ty of
-      TypePrim pt -> TypePrim pt
-      TypeStruct np no -> TypeStruct np no
-      TypeUnion np no -> TypeUnion np no
-      TypeEnum np no -> TypeEnum np no
-      TypeTypedef ref -> fRef ref
-      TypeMacroTypedef np no -> TypeMacroTypedef np no
-      TypePointer t -> TypePointer $ go t
-      TypeConstArray n t -> TypeConstArray n $ go t
-      TypeFun args res -> TypeFun (go <$> args) (go res)
-      TypeVoid -> TypeVoid
-      TypeIncompleteArray t -> TypeIncompleteArray (go t)
-      TypeBlock t -> TypeBlock (go t)
-      TypeQualified q t -> fQual q t
-      TypeExtBinding reb -> TypeExtBinding reb
-      TypeComplex pt -> TypeComplex pt
+      TypePrim pt             -> TypePrim pt
+      TypeStruct declId       -> TypeStruct declId
+      TypeUnion declId        -> TypeUnion declId
+      TypeEnum declId         -> TypeEnum declId
+      TypeTypedef ref         -> fRef ref
+      TypeMacroTypedef declId -> TypeMacroTypedef declId
+      TypePointer t           -> TypePointer $ go t
+      TypeConstArray n t      -> TypeConstArray n $ go t
+      TypeFun args res        -> TypeFun (go <$> args) (go res)
+      TypeVoid                -> TypeVoid
+      TypeIncompleteArray t   -> TypeIncompleteArray (go t)
+      TypeBlock t             -> TypeBlock (go t)
+      TypeQualified q t       -> fQual q t
+      TypeExtBinding reb      -> TypeExtBinding reb
+      TypeComplex pt          -> TypeComplex pt

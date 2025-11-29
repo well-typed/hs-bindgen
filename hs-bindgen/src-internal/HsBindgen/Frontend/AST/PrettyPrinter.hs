@@ -141,15 +141,15 @@ showsType ::
   => (CTypePrecedence -> ShowS)  -- ^ variable name, or function name + arguments
   -> Type
   -> ShowS
-showsType x (TypePrim p)            = C.showsPrimType p . showChar ' ' . x 0
-showsType x (TypeStruct np o)       = showString "struct " . showsName np o . showChar ' ' . x 0
-showsType x (TypeUnion np o)        = showString "union " . showsName np o . showChar ' ' . x 0
-showsType x (TypeEnum np o)         = showString "enum " . showsName np o . showChar ' ' . x 0
-showsType x (TypeTypedef ref)       = showsTypedefName ref . showChar ' ' . x 0
-showsType x (TypeMacroTypedef np o) = showsName np o . showChar ' ' . x 0
-showsType x (TypePointer t)         = showsType (\d -> showParen (d > arrayPrec) $ showString "*" . x (pointerPrec + 1)) t
-showsType x (TypeConstArray n t)    = showsType (\_d -> x (arrayPrec + 1) . showChar '[' . shows n . showChar ']') t
-showsType x (TypeFun args res)      =
+showsType x (TypePrim p)              = C.showsPrimType p . showChar ' ' . x 0
+showsType x (TypeStruct declId)       = showString "struct " . showsDeclId declId . showChar ' ' . x 0
+showsType x (TypeUnion declId)        = showString "union " . showsDeclId declId . showChar ' ' . x 0
+showsType x (TypeEnum declId)         = showString "enum " . showsDeclId declId . showChar ' ' . x 0
+showsType x (TypeTypedef ref)         = showsTypedefName ref . showChar ' ' . x 0
+showsType x (TypeMacroTypedef declId) = showsDeclId declId . showChar ' ' . x 0
+showsType x (TypePointer t)           = showsType (\d -> showParen (d > arrayPrec) $ showString "*" . x (pointerPrec + 1)) t
+showsType x (TypeConstArray n t)      = showsType (\_d -> x (arrayPrec + 1) . showChar '[' . shows n . showChar ']') t
+showsType x (TypeFun args res)        =
     -- Note: we pass 'ImpureFunction' to 'showsFunctionType' so that no function
     -- attributes are included in the printed string. Function attributes should
     -- not appear inside types, rather only as part of top-level function
@@ -158,10 +158,10 @@ showsType x (TypeFun args res)      =
   where
     named :: Int -> Type -> (ShowS, Type)
     named i t = (showString "arg" . shows i, t)
-showsType x TypeVoid                = showString "void " . x 0
-showsType x (TypeIncompleteArray t) = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
-showsType x (TypeExtBinding ext)    = showCQualName (extCName ext) . showChar ' ' . x 0
-showsType x (TypeBlock t)           = showsType (\_d -> showString "^" . x 0) t
+showsType x TypeVoid                  = showString "void " . x 0
+showsType x (TypeIncompleteArray t)   = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
+showsType x (TypeExtBinding ext)      = showCQualName (extCName ext) . showChar ' ' . x 0
+showsType x (TypeBlock t)             = showsType (\_d -> showString "^" . x 0) t
 -- Type qualifiers like @const@ can appear before, and _after_ the type they
 -- refer to. For example,
 --
@@ -246,15 +246,20 @@ showAttributeNewline pur = case pur of
 showCQualName :: C.QualName -> ShowS
 showCQualName = showString . Text.unpack . C.qualNameText
 
-showsName :: NamePair -> NameOrigin -> String -> String
-showsName namePair = \case
-    NameOriginGenerated{}    -> showString "<anon>"
-    NameOriginRenamedFrom nm -> showsCName nm
-    _otherwise               -> showsCName (nameC namePair)
+showsDeclId :: FinalDeclId -> ShowS
+showsDeclId declId =
+    case declId of
+      DeclIdNamed named ->
+        case named.origin of
+          NameOriginInSource          -> showsCName named.name
+          NameOriginGenerated _anonId -> showString "<anon>"
+          NameOriginRenamedFrom orig  -> showsCName orig
+      DeclIdBuiltin builtin ->
+        showsCName builtin.name
 
 showsCName :: Name -> String -> String
 showsCName = showString . Text.unpack . getName
 
 showsTypedefName :: TypedefRef -> String -> String
-showsTypedefName (TypedefRegular  np _ty) = showsName  np NameOriginInSource
+showsTypedefName (TypedefRegular  np _ty) = showsDeclId np
 showsTypedefName (TypedefSquashed nm _ty) = showsCName nm

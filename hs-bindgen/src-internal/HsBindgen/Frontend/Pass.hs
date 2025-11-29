@@ -48,6 +48,15 @@ class IsPass (p :: Pass) where
   -- | Names of arguments (functions)
   type ArgumentName p :: Star
 
+  -- | Haskell identifier given to a declaration
+  --
+  -- This does not get instantiated until the 'MangleNames' pass.
+  --
+  -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1267>
+  -- This is part of a larger refactoring, and its usage will still change.
+  type HaskellId p :: Star
+  type HaskellId p = ()
+
   -- | Reference to a typedef
   --
   -- Initially this is just the name of the typedef, but after 'HandleTypedefs'

@@ -6,6 +6,7 @@ import Control.Monad.Reader
 import Control.Monad.State
 import Data.Bitraversable (bimapM)
 import Data.Map qualified as Map
+import Data.Maybe (listToMaybe)
 import Data.Proxy
 
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -144,49 +145,50 @@ class MangleDecl a where
 mangleDeclId ::
      C.DeclId HandleTypedefs
   -> [C.NameKind] -- ^ Possible name kinds
-  -> M (C.NamePair, C.NameOrigin)
+  -> M (C.DeclId MangleNames)
 mangleDeclId (C.DeclIdBuiltin _name) _kinds =
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1266>.
     -- Name mangling fails for built-ins: since they don't have a corresponding
     -- declaration, there will be no entry in the 'NameMap'.
     throwPure_TODO 1266 "Cannot mangle builtin name"
-mangleDeclId declId@(C.DeclIdNamed cName nameOrigin) kinds = do
+mangleDeclId declId@(C.DeclIdNamed named) kinds = do
+    mHsIdent <- mangleName named.name kinds
+    case mHsIdent of
+      Nothing -> panicPure $ "Missing declaration: " <> show declId
+      Just hs -> return $ C.DeclIdNamed C.NamedDeclId{
+          name      = named.name
+        , origin    = named.origin
+        , haskellId = hs
+        }
+
+-- | Mangle C name, using previously constructed name map
+--
+-- Returns 'Nothing' if no match is found. This should not happen for any
+-- declarations we're processing, but can happen for names found in comment
+-- references, which could be anything at all.
+mangleName :: C.Name -> [C.NameKind] -> M (Maybe Hs.Identifier)
+mangleName name kinds = do
     nm <- asks envNameMap
     let lookupKind :: C.NameKind -> Maybe Hs.Identifier
-        lookupKind kind = Map.lookup (C.QualName cName kind) nm
+        lookupKind kind = Map.lookup (C.QualName name kind) nm
+    return $ listToMaybe (mapMaybe lookupKind kinds)
 
-    case mapMaybe lookupKind kinds of
-      hs:_ -> return $ mkNamePair hs
-      []   ->
-        -- Name mangling failed
-        --
-        -- This can only happen if we did not register any declaration with the
-        -- given ID. This is most likely because the user did not select the
-        -- declaration. If the declaration was completely missing, Clang would
-        -- have complained already.
-        panicPure $ "Missing declaration: " <> show declId
-  where
-    mkNamePair :: Hs.Identifier -> (C.NamePair, C.NameOrigin)
-    mkNamePair hsName = (C.NamePair cName hsName, nameOrigin)
-
-mangleQualDeclId :: C.QualDeclId HandleTypedefs -> M (C.NamePair, C.NameOrigin)
+mangleQualDeclId :: C.QualDeclId HandleTypedefs -> M (C.DeclId MangleNames)
 mangleQualDeclId (C.QualDeclId declId kind) = mangleDeclId declId [kind]
 
 {-------------------------------------------------------------------------------
   Additional name mangling functionality
-
-  TODO: Perhaps some (or all) of this should be configurable.
 -------------------------------------------------------------------------------}
 
 mangleFieldName :: C.DeclInfo MangleNames -> C.Name -> M C.NamePair
 mangleFieldName info fieldCName = do
     fc <- asks envFixCandidate
-    let candidate = declCName <> "_" <> fieldCName
+    let candidate = C.declIdName declId <> "_" <> fieldCName
     let (fieldHsName, mError) = fromCName fc (Proxy @Hs.NsVar) candidate
     forM_ mError $ modify . (:)
     return $ C.NamePair fieldCName fieldHsName
   where
-    C.DeclInfo{declId = (C.NamePair declCName _declHsName, _origin)} = info
+    C.DeclInfo{declId} = info
 
 -- | Mangle enum constant name
 --
@@ -203,20 +205,16 @@ mangleEnumConstant _info cName = do
 --
 -- Right now we reuse the name of the type also for the constructor.
 mkStructNames :: C.DeclInfo MangleNames -> C.RecordNames
-mkStructNames info = C.RecordNames{
-      recordConstr = C.nameHs namePair
+mkStructNames C.DeclInfo{declId} = C.RecordNames{
+      recordConstr = C.unsafeDeclIdHaskellName declId
     }
-  where
-    C.DeclInfo{declId = (namePair, _origin)} = info
 
 -- | Generic construction of newtype names, given only the type name
 mkNewtypeNames :: C.DeclInfo MangleNames -> C.NewtypeNames
-mkNewtypeNames info = C.NewtypeNames{
-      newtypeConstr = C.nameHs namePair
-    , newtypeField  = "un_" <> C.nameHs namePair
+mkNewtypeNames C.DeclInfo{declId} = C.NewtypeNames{
+      newtypeConstr = C.unsafeDeclIdHaskellName declId
+    , newtypeField  = "un_" <> C.unsafeDeclIdHaskellName declId
     }
-  where
-    C.DeclInfo{declId = (namePair, _origin)} = info
 
 -- | Union names
 --
@@ -305,11 +303,11 @@ instance MangleDecl C.DeclKind where
       C.DeclGlobal <$> mangle ty
 
 instance Mangle C.CommentRef where
-  mangle (C.ById declId) =
+  mangle (C.CommentRef c _) = do
     -- NB: If this fails it means that we tried all possible name kinds and
     -- still didn't find any result. This might be because of a typo on the
     -- docs, or a missing reference.
-    C.ById <$> mangleDeclId declId [minBound .. maxBound]
+    C.CommentRef c <$> mangleName c [minBound .. maxBound]
 
 instance Mangle C.Comment where
   mangle (C.Comment comment) =
