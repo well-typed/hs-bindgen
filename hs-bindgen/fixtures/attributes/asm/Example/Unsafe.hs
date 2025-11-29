@@ -25,6 +25,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @attributes\/asm.h:4:5@
 
     __exported by:__ @attributes\/asm.h@
+
+    __unique:__ @ExampleJust Unsafeasm_labeled_function@
 -}
 foreign import ccall unsafe "hs_bindgen_test_attributesasm_289cb83358beadc0" asm_labeled_function ::
      FC.CInt

@@ -29,6 +29,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @edge-cases\/spec_examples.h:31:6@
 
     __exported by:__ @edge-cases\/spec_examples.h@
+
+    __unique:__ @ExampleJust Saferesample@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_7d4128962cfce15d" resample ::
      Ptr.Ptr Int32_T

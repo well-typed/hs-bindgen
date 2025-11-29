@@ -117,6 +117,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @macros\/macro_in_fundecl.h:12:6@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
+
+    __unique:__ @ExampleJust Unsafequux@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_7542f939354dfc0b" quux ::
      F
@@ -132,6 +134,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_7542f939354d
     __defined at:__ @macros\/macro_in_fundecl.h:13:4@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
+
+    __unique:__ @ExampleJust Unsafewam@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_e19961744945a727" wam ::
      FC.CFloat
@@ -147,6 +151,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_e19961744945
     __defined at:__ @macros\/macro_in_fundecl.h:16:7@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
+
+    __unique:__ @ExampleJust Unsafefoo1@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_3ce18d84b02c9784" foo1 ::
      FC.CFloat
@@ -162,6 +168,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_3ce18d84b02c
     __defined at:__ @macros\/macro_in_fundecl.h:17:7@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
+
+    __unique:__ @ExampleJust Unsafefoo2@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_483294beebe8552d" foo2 ::
      F
@@ -177,6 +185,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_483294beebe8
     __defined at:__ @macros\/macro_in_fundecl.h:18:4@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
+
+    __unique:__ @ExampleJust Unsafefoo3@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_5fb7e024e43f13d7" foo3 ::
      FC.CFloat
@@ -192,6 +202,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_5fb7e024e43f
     __defined at:__ @macros\/macro_in_fundecl.h:21:7@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
+
+    __unique:__ @ExampleJust Unsafebar1@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_5c62229deaba458d" bar1 ::
      FC.CLong
@@ -204,6 +216,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_5c62229deaba
     __defined at:__ @macros\/macro_in_fundecl.h:22:7@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
+
+    __unique:__ @ExampleJust Unsafebar2@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_120cb32a2369f37f" bar2 ::
      L
@@ -216,6 +230,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_120cb32a2369
     __defined at:__ @macros\/macro_in_fundecl.h:23:7@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
+
+    __unique:__ @ExampleJust Unsafebar3@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_8163c1d52847d0b4" bar3 ::
      FC.CLong
@@ -228,6 +244,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_8163c1d52847
     __defined at:__ @macros\/macro_in_fundecl.h:24:5@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
+
+    __unique:__ @ExampleJust Unsafebar4@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_d7df5128adb899bb" bar4 ::
      FC.CLong
@@ -240,6 +258,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_d7df5128adb8
     __defined at:__ @macros\/macro_in_fundecl.h:27:7@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
+
+    __unique:__ @ExampleJust Unsafebaz1@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_af25911956e2e01d" baz1 ::
      FC.CInt
@@ -252,6 +272,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_af25911956e2
     __defined at:__ @macros\/macro_in_fundecl.h:35:7@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
+
+    __unique:__ @ExampleJust Unsafebaz2@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_21c316299046fe75" baz2 ::
      I
@@ -264,6 +286,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_21c316299046
     __defined at:__ @macros\/macro_in_fundecl.h:43:5@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
+
+    __unique:__ @ExampleJust Unsafebaz3@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_8d077398ab5e3b39" baz3 ::
      FC.CInt
@@ -276,6 +300,8 @@ foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_8d077398ab5e
     __defined at:__ @macros\/macro_in_fundecl.h:53:3@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
+
+    __unique:__ @ExampleJust Unsafeno_args_no_void@
 -}
 foreign import ccall unsafe "hs_bindgen_test_macrosmacro_in_fundecl_26de47450bbc61e3" no_args_no_void ::
      IO I

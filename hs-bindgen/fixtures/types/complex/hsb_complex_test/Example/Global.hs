@@ -103,6 +103,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_global_complex_float_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_69e4d4972011967b" hs_bindgen_test_typescomplexhsb_complex_test_69e4d4972011967b ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
 
@@ -118,6 +120,8 @@ global_complex_float_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 global_complex_float_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_69e4d4972011967b
 
+{-| __unique:__ @ExampleNothingget_global_complex_double_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_c3633906ced5dab3" hs_bindgen_test_typescomplexhsb_complex_test_c3633906ced5dab3 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
 
@@ -133,6 +137,8 @@ global_complex_double_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 global_complex_double_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_c3633906ced5dab3
 
+{-| __unique:__ @ExampleNothingget_global_complex_float_flipped_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_7ef41813e25ff8c1" hs_bindgen_test_typescomplexhsb_complex_test_7ef41813e25ff8c1 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
 
@@ -148,6 +154,8 @@ global_complex_float_flipped_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 global_complex_float_flipped_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_7ef41813e25ff8c1
 
+{-| __unique:__ @ExampleNothingget_global_complex_double_flipped_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_abdd562bd1b14921" hs_bindgen_test_typescomplexhsb_complex_test_abdd562bd1b14921 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
 
@@ -163,6 +171,8 @@ global_complex_double_flipped_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 global_complex_double_flipped_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_abdd562bd1b14921
 
+{-| __unique:__ @ExampleNothingget_global_Complex_float_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_02f701d4163d6ce7" hs_bindgen_test_typescomplexhsb_complex_test_02f701d4163d6ce7 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
 
@@ -178,6 +188,8 @@ global_Complex_float_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 global_Complex_float_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_02f701d4163d6ce7
 
+{-| __unique:__ @ExampleNothingget_global_Complex_double_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_a6117bb5e7cacd17" hs_bindgen_test_typescomplexhsb_complex_test_a6117bb5e7cacd17 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
 
@@ -193,6 +205,8 @@ global_Complex_double_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 global_Complex_double_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_a6117bb5e7cacd17
 
+{-| __unique:__ @ExampleNothingget_global_Complex_float_flipped_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_da2309480d364cee" hs_bindgen_test_typescomplexhsb_complex_test_da2309480d364cee ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
 
@@ -208,6 +222,8 @@ global_Complex_float_flipped_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 global_Complex_float_flipped_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_da2309480d364cee
 
+{-| __unique:__ @ExampleNothingget_global_Complex_double_flipped_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_467427dc59fbef50" hs_bindgen_test_typescomplexhsb_complex_test_467427dc59fbef50 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
 
@@ -223,6 +239,8 @@ global_Complex_double_flipped_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 global_Complex_double_flipped_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_467427dc59fbef50
 
+{-| __unique:__ @ExampleNothingget_const_complex_float_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_bb0fb18f3dfee47d" hs_bindgen_test_typescomplexhsb_complex_test_bb0fb18f3dfee47d ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
 
@@ -244,6 +262,8 @@ const_complex_float :: Data.Complex.Complex FC.CFloat
 const_complex_float =
   GHC.IO.Unsafe.unsafePerformIO (F.peek const_complex_float_ptr)
 
+{-| __unique:__ @ExampleNothingget_const_complex_double_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_f491f52e529a459a" hs_bindgen_test_typescomplexhsb_complex_test_f491f52e529a459a ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
 
@@ -265,6 +285,8 @@ const_complex_double :: Data.Complex.Complex FC.CDouble
 const_complex_double =
   GHC.IO.Unsafe.unsafePerformIO (F.peek const_complex_double_ptr)
 
+{-| __unique:__ @ExampleNothingget_volatile_complex_float_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_ecb5f4a0ccb7ee75" hs_bindgen_test_typescomplexhsb_complex_test_ecb5f4a0ccb7ee75 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
 
@@ -280,6 +302,8 @@ volatile_complex_float_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 volatile_complex_float_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_ecb5f4a0ccb7ee75
 
+{-| __unique:__ @ExampleNothingget_volatile_complex_double_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_6b136090c38a69c4" hs_bindgen_test_typescomplexhsb_complex_test_6b136090c38a69c4 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
 
@@ -295,6 +319,8 @@ volatile_complex_double_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 volatile_complex_double_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_6b136090c38a69c4
 
+{-| __unique:__ @ExampleNothingget_complex_float_array_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_55b7fb104be53f70" hs_bindgen_test_typescomplexhsb_complex_test_55b7fb104be53f70 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) (Data.Complex.Complex FC.CFloat)))
 
@@ -310,6 +336,8 @@ complex_float_array_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArr
 complex_float_array_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_typescomplexhsb_complex_test_55b7fb104be53f70
 
+{-| __unique:__ @ExampleNothingget_complex_double_array_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typescomplexhsb_complex_test_0b63f3bda9243457" hs_bindgen_test_typescomplexhsb_complex_test_0b63f3bda9243457 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) (Data.Complex.Complex FC.CDouble)))
 

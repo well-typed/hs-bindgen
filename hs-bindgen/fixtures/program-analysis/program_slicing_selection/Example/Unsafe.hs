@@ -28,6 +28,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
+
+    __unique:__ @ExampleJust Unsaferead_file_chunk@
 -}
 foreign import ccall unsafe "hs_bindgen_test_programanalysisprogram_slici_3ade0bc94fb1ed45" read_file_chunk ::
      Ptr.Ptr HsBindgen.Runtime.Prelude.CFile

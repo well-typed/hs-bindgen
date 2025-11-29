@@ -21,6 +21,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @functions\/varargs.h:8:6@
 
     __exported by:__ @functions\/varargs.h@
+
+    __unique:__ @ExampleJust Safeh@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsvarargs_a17c4f0272bbe42a" h ::
      IO ()

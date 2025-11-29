@@ -32,6 +32,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 {-| Pointer-based API for 'transpose'
 
+__unique:__ @ExampleJust Unsafetranspose@
 -}
 foreign import ccall unsafe "hs_bindgen_test_manualarrays_d7aa7016f1b951b2" transpose_wrapper ::
      Ptr.Ptr Triplet
@@ -65,6 +66,8 @@ __C declaration:__ @pretty_print_triplets@
 __defined at:__ @manual\/arrays.h:50:13@
 
 __exported by:__ @manual\/arrays.h@
+
+__unique:__ @ExampleJust Unsafepretty_print_triplets@
 -}
 foreign import ccall unsafe "hs_bindgen_test_manualarrays_bfd9ee42829f9ddb" pretty_print_triplets ::
      Ptr.Ptr (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))

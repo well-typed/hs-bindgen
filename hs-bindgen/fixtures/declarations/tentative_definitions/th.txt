@@ -18,6 +18,8 @@
 -- {
 --   return &i3;
 -- }
+{-| __unique:__ @ExampleNothingget_i1_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983" hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983 :: IO (Ptr CInt)
 {-# NOINLINE i1_ptr #-}
 {-| __C declaration:__ @i1@
@@ -34,6 +36,8 @@ i1_ptr :: Ptr CInt
     __exported by:__ @declarations\/tentative_definitions.h@
 -}
 i1_ptr = unsafePerformIO hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983
+{-| __unique:__ @ExampleNothingget_i2_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_declarationstentative_definit_8a341976b53c3159" hs_bindgen_test_declarationstentative_definit_8a341976b53c3159 :: IO (Ptr CInt)
 {-# NOINLINE i2_ptr #-}
 {-| __C declaration:__ @i2@
@@ -50,6 +54,8 @@ i2_ptr :: Ptr CInt
     __exported by:__ @declarations\/tentative_definitions.h@
 -}
 i2_ptr = unsafePerformIO hs_bindgen_test_declarationstentative_definit_8a341976b53c3159
+{-| __unique:__ @ExampleNothingget_i3_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5" hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5 :: IO (Ptr CInt)
 {-# NOINLINE i3_ptr #-}
 {-| __C declaration:__ @i3@

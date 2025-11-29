@@ -291,6 +291,8 @@ data C
     __defined at:__ @edge-cases\/spec_examples.h:31:6@
 
     __exported by:__ @edge-cases\/spec_examples.h@
+
+    __unique:__ @ExampleJust Unsaferesample@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_7d4128962cfce15d" resample :: Ptr Int32_T ->
                                                                                                 Ptr Cint16_T ->
@@ -303,6 +305,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_7d4128962cfce1
     __defined at:__ @edge-cases\/spec_examples.h:31:6@
 
     __exported by:__ @edge-cases\/spec_examples.h@
+
+    __unique:__ @ExampleJust Unsaferesample@
 -}
 foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_f31d4400b3244637" resample :: Ptr Int32_T ->
                                                                                                 Ptr Cint16_T ->
@@ -310,6 +314,8 @@ foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_f31d4400b32446
                                                                                                 Int64_T ->
                                                                                                 Ptr Cint16_T ->
                                                                                                 IO Unit
+{-| __unique:__ @ExampleNothingget_resample_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5" hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5 :: IO (FunPtr (Ptr Int32_T ->
                                                                                                                                                            ConstantArray 30720000
                                                                                                                                                                          Cint16_T ->

@@ -27,6 +27,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_global_counter_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660" hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660 ::
      IO (Ptr.Ptr FC.CInt)
 
@@ -50,6 +52,8 @@ global_counter_ptr :: Ptr.Ptr FC.CInt
 global_counter_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_documentationdoxygen_docs_1a40d1e5fbd04660
 
+{-| __unique:__ @ExampleNothingget_version_string_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_documentationdoxygen_docs_0f1cef8c70bbdf2c" hs_bindgen_test_documentationdoxygen_docs_0f1cef8c70bbdf2c ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CChar))
 

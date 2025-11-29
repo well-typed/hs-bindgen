@@ -54,6 +54,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_erf_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_723348151ff43970" hs_bindgen_test_functionssimple_func_723348151ff43970 ::
      IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
 
@@ -69,6 +71,8 @@ erf_ptr :: Ptr.FunPtr (FC.CDouble -> IO FC.CDouble)
 erf_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionssimple_func_723348151ff43970
 
+{-| __unique:__ @ExampleNothingget_bad_fma_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_f3190cb919f94cd9" hs_bindgen_test_functionssimple_func_f3190cb919f94cd9 ::
      IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble))
 
@@ -84,6 +88,8 @@ bad_fma_ptr :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDoub
 bad_fma_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionssimple_func_f3190cb919f94cd9
 
+{-| __unique:__ @ExampleNothingget_no_args_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_fbdbb067d942094e" hs_bindgen_test_functionssimple_func_fbdbb067d942094e ::
      IO (Ptr.FunPtr (IO ()))
 
@@ -99,6 +105,8 @@ no_args_ptr :: Ptr.FunPtr (IO ())
 no_args_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionssimple_func_fbdbb067d942094e
 
+{-| __unique:__ @ExampleNothingget_no_args_no_void_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_452280b5085b4ccd" hs_bindgen_test_functionssimple_func_452280b5085b4ccd ::
      IO (Ptr.FunPtr (IO ()))
 
@@ -114,6 +122,8 @@ no_args_no_void_ptr :: Ptr.FunPtr (IO ())
 no_args_no_void_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_functionssimple_func_452280b5085b4ccd
 
+{-| __unique:__ @ExampleNothingget_fun_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_functionssimple_func_b16b846810561073" hs_bindgen_test_functionssimple_func_b16b846810561073 ::
      IO (Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt))
 

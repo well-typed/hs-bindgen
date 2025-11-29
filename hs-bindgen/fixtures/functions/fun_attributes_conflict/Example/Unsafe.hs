@@ -46,6 +46,8 @@ __C declaration:__ @square_cp@
 __defined at:__ @functions\/fun_attributes_conflict.h:9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
+
+__unique:__ @ExampleJust Unsafesquare_cp@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_confl_564ce99eace0df40" square_cp ::
      FC.CInt
@@ -58,6 +60,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_confl_564ce
     __defined at:__ @functions\/fun_attributes_conflict.h:11:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
+
+    __unique:__ @ExampleJust Unsafesquare_pc@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_confl_216e7c195e335424" square_pc ::
      FC.CInt
@@ -70,6 +74,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_confl_216e7
     __defined at:__ @functions\/fun_attributes_conflict.h:13:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
+
+    __unique:__ @ExampleJust Unsafesquare_cc@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_confl_64cd3d5e7e4c6a2d" square_cc ::
      FC.CInt
@@ -86,6 +92,8 @@ __C declaration:__ @square_pp@
 __defined at:__ @functions\/fun_attributes_conflict.h:15:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
+
+__unique:__ @ExampleJust Unsafesquare_pp@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_confl_fab086c774e84aae" square_pp ::
      FC.CInt

@@ -21,6 +21,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_i_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_cdc30ae5fb72cd6e" hs_bindgen_test_functionsfun_attributes_cdc30ae5fb72cd6e ::
      IO (Ptr.Ptr FC.CInt)
 

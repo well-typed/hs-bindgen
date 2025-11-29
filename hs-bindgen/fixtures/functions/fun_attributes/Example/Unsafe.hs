@@ -146,6 +146,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @functions\/fun_attributes.h:16:13@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafe__f1@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_b44da51a357ae983" __f1 ::
      IO ()
@@ -155,6 +157,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_b44da51a357
     __defined at:__ @functions\/fun_attributes.h:19:6@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafef1@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_c1788128a5b1c813" f1 ::
      IO ()
@@ -164,6 +168,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_c1788128a5b
     __defined at:__ @functions\/fun_attributes.h:23:7@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafemy_memalign@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_9ca07f6722bd48dc" my_memalign ::
      Size_t
@@ -175,6 +181,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_9ca07f6722b
     __defined at:__ @functions\/fun_attributes.h:28:7@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafemy_calloc@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_72df124450cc6d26" my_calloc ::
      Size_t
@@ -186,6 +194,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_72df124450c
     __defined at:__ @functions\/fun_attributes.h:29:7@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafemy_realloc@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_effc1fd567613950" my_realloc ::
      Ptr.Ptr Void
@@ -197,6 +207,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_effc1fd5676
     __defined at:__ @functions\/fun_attributes.h:34:7@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafemy_alloc1@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_b3544e53af074ef1" my_alloc1 ::
      Size_t
@@ -207,6 +219,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_b3544e53af0
     __defined at:__ @functions\/fun_attributes.h:35:7@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafemy_alloc2@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_0b659f90fec40284" my_alloc2 ::
      Size_t
@@ -217,6 +231,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_0b659f90fec
     __defined at:__ @functions\/fun_attributes.h:39:5@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafesquare@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_cb3c687f16289bb3" square ::
      FC.CInt
@@ -227,6 +243,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_cb3c687f162
     __defined at:__ @functions\/fun_attributes.h:48:5@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafeold_fn_deprecated@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_c48f18f4f06068eb" old_fn_deprecated ::
      IO FC.CInt
@@ -236,6 +254,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_c48f18f4f06
     __defined at:__ @functions\/fun_attributes.h:64:1@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafemy_dgettext@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_d492bd76e82890da" my_dgettext ::
      Ptr.Ptr FC.CChar
@@ -251,6 +271,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_d492bd76e82
     __defined at:__ @functions\/fun_attributes.h:75:9@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafefdopen@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_3c91a267bd66cc10" fdopen ::
      FC.CInt
@@ -262,6 +284,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_3c91a267bd6
     __defined at:__ @functions\/fun_attributes.h:79:65@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafef2@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_14361e995fb5684a" f2 ::
      IO ()
@@ -271,6 +295,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_14361e995fb
     __defined at:__ @functions\/fun_attributes.h:85:1@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafemy_memcpy@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_e8c4a96cefd6117e" my_memcpy ::
      Ptr.Ptr Void
@@ -289,6 +315,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_e8c4a96cefd
     __defined at:__ @functions\/fun_attributes.h:102:6@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafefatal@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_64aa41e835dbb892" fatal ::
      IO ()
@@ -302,6 +330,8 @@ __C declaration:__ @hash@
 __defined at:__ @functions\/fun_attributes.h:110:5@
 
 __exported by:__ @functions\/fun_attributes.h@
+
+__unique:__ @ExampleJust Unsafehash@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_88887d4b5f42f079" hash ::
      Ptr.Ptr FC.CChar
@@ -312,6 +342,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_88887d4b5f4
     __defined at:__ @functions\/fun_attributes.h:115:1@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafemymalloc@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_31e6e14ecb251fa2" mymalloc ::
      Size_t
@@ -324,6 +356,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_31e6e14ecb2
     __defined at:__ @functions\/fun_attributes.h:119:13@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafefoobar@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_bb77a71513994934" foobar ::
      IO ()
@@ -333,6 +367,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_bb77a715139
     __defined at:__ @functions\/fun_attributes.h:126:5@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafecore2_func@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_640ec5b51b0819d1" core2_func ::
      IO FC.CInt
@@ -342,6 +378,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_640ec5b51b0
     __defined at:__ @functions\/fun_attributes.h:127:5@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafesse3_func@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_a1f7636643d63586" sse3_func ::
      IO FC.CInt
@@ -351,6 +389,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_a1f7636643d
     __defined at:__ @functions\/fun_attributes.h:131:49@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafef3@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_2bef032cbe15ffd0" f3 ::
      IO ()
@@ -360,6 +400,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_2bef032cbe1
     __defined at:__ @functions\/fun_attributes.h:136:5@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafefn@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_8f406104a21ff66e" fn ::
      IO FC.CInt
@@ -369,6 +411,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_8f406104a21
     __defined at:__ @functions\/fun_attributes.h:142:12@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafey@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_4beb0cbf65b462bd" y ::
      IO FC.CInt
@@ -378,6 +422,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_4beb0cbf65b
     __defined at:__ @functions\/fun_attributes.h:145:12@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafex1@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_ac7386c785058f4d" x1 ::
      IO FC.CInt
@@ -387,6 +433,8 @@ foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_ac7386c7850
     __defined at:__ @functions\/fun_attributes.h:148:12@
 
     __exported by:__ @functions\/fun_attributes.h@
+
+    __unique:__ @ExampleJust Unsafex2@
 -}
 foreign import ccall unsafe "hs_bindgen_test_functionsfun_attributes_b6f428ed915f03cc" x2 ::
      IO FC.CInt

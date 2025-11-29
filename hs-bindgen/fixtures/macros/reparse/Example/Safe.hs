@@ -778,6 +778,8 @@ __C declaration:__ @args_char1@
 __defined at:__ @macros\/reparse.h:17:6@
 
 __exported by:__ @macros\/reparse.h@
+
+__unique:__ @ExampleJust Safeargs_char1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_394853579d622671" args_char1 ::
      A
@@ -793,6 +795,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_394853579d622671" args_
     __defined at:__ @macros\/reparse.h:18:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_char2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_da98fe949f347bb4" args_char2 ::
      A
@@ -808,6 +812,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_da98fe949f347bb4" args_
     __defined at:__ @macros\/reparse.h:19:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_char3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_1b54575fa299f64d" args_char3 ::
      A
@@ -823,6 +829,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_1b54575fa299f64d" args_
     __defined at:__ @macros\/reparse.h:21:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_short1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_5eb574c361d453a5" args_short1 ::
      A
@@ -838,6 +846,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_5eb574c361d453a5" args_
     __defined at:__ @macros\/reparse.h:22:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_short2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_47d5b6ac9938a676" args_short2 ::
      A
@@ -853,6 +863,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_47d5b6ac9938a676" args_
     __defined at:__ @macros\/reparse.h:23:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_short3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_7b3f1c99ea5c31ce" args_short3 ::
      A
@@ -868,6 +880,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_7b3f1c99ea5c31ce" args_
     __defined at:__ @macros\/reparse.h:25:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_int1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_3103fa698febc2e4" args_int1 ::
      A
@@ -883,6 +897,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3103fa698febc2e4" args_
     __defined at:__ @macros\/reparse.h:26:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_int2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_f73bd21e02a58e0f" args_int2 ::
      A
@@ -898,6 +914,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_f73bd21e02a58e0f" args_
     __defined at:__ @macros\/reparse.h:27:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_int3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_6d36b4892d340141" args_int3 ::
      A
@@ -913,6 +931,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_6d36b4892d340141" args_
     __defined at:__ @macros\/reparse.h:29:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_long1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_c80fdb5f86f0e67e" args_long1 ::
      A
@@ -928,6 +948,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_c80fdb5f86f0e67e" args_
     __defined at:__ @macros\/reparse.h:30:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_long2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_b0db0696cda23a78" args_long2 ::
      A
@@ -943,6 +965,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_b0db0696cda23a78" args_
     __defined at:__ @macros\/reparse.h:31:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_long3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_78868ddd9e2ed516" args_long3 ::
      A
@@ -958,6 +982,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_78868ddd9e2ed516" args_
     __defined at:__ @macros\/reparse.h:33:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_float@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_555dbd0a04bc0304" args_float ::
      A
@@ -973,6 +999,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_555dbd0a04bc0304" args_
     __defined at:__ @macros\/reparse.h:34:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_double@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_fe4a06766df0d1e6" args_double ::
      A
@@ -988,6 +1016,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_fe4a06766df0d1e6" args_
     __defined at:__ @macros\/reparse.h:35:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_bool1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_a607c108df5a1598" args_bool1 ::
      A
@@ -1000,6 +1030,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_a607c108df5a1598" args_
 
 {-| Pointer-based API for 'args_struct'
 
+__unique:__ @ExampleJust Safeargs_struct@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_2867c64e14a8b4b4" args_struct_wrapper ::
      A
@@ -1026,6 +1057,7 @@ args_struct =
 
 {-| Pointer-based API for 'args_union'
 
+__unique:__ @ExampleJust Safeargs_union@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_dbccce7991402835" args_union_wrapper ::
      A
@@ -1055,6 +1087,8 @@ args_union =
     __defined at:__ @macros\/reparse.h:39:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_enum@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_58e9df8b58217744" args_enum ::
      A
@@ -1070,6 +1104,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_58e9df8b58217744" args_
     __defined at:__ @macros\/reparse.h:41:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_pointer1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_da0ab238a099dc49" args_pointer1 ::
      A
@@ -1085,6 +1121,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_da0ab238a099dc49" args_
     __defined at:__ @macros\/reparse.h:42:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_pointer2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_abd9ce8bdda564f4" args_pointer2 ::
      A
@@ -1100,6 +1138,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_abd9ce8bdda564f4" args_
     __defined at:__ @macros\/reparse.h:43:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeargs_pointer3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_ed43d3d8eb25de8f" args_pointer3 ::
      A
@@ -1115,6 +1155,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_ed43d3d8eb25de8f" args_
     __defined at:__ @macros\/reparse.h:47:3@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_A@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_a45e66140bccd9e3" ret_A ::
      IO A
@@ -1124,6 +1166,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_a45e66140bccd9e3" ret_A
     __defined at:__ @macros\/reparse.h:49:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_char1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_44f364f98d9773fa" ret_char1 ::
      A
@@ -1136,6 +1180,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_44f364f98d9773fa" ret_c
     __defined at:__ @macros\/reparse.h:50:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_char2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_c0ccab4edfec7750" ret_char2 ::
      A
@@ -1148,6 +1194,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_c0ccab4edfec7750" ret_c
     __defined at:__ @macros\/reparse.h:51:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_char3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_22570fd6296f553c" ret_char3 ::
      A
@@ -1160,6 +1208,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_22570fd6296f553c" ret_c
     __defined at:__ @macros\/reparse.h:53:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_short1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_60148c950d753d1d" ret_short1 ::
      A
@@ -1172,6 +1222,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_60148c950d753d1d" ret_s
     __defined at:__ @macros\/reparse.h:54:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_short2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_1f5d60c2fc8391f8" ret_short2 ::
      A
@@ -1184,6 +1236,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_1f5d60c2fc8391f8" ret_s
     __defined at:__ @macros\/reparse.h:55:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_short3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_c35d296d9df5f67d" ret_short3 ::
      A
@@ -1196,6 +1250,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_c35d296d9df5f67d" ret_s
     __defined at:__ @macros\/reparse.h:57:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_int1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_edcb4249e75b3e31" ret_int1 ::
      A
@@ -1208,6 +1264,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_edcb4249e75b3e31" ret_i
     __defined at:__ @macros\/reparse.h:58:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_int2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_28e6902c5d5c160d" ret_int2 ::
      A
@@ -1220,6 +1278,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_28e6902c5d5c160d" ret_i
     __defined at:__ @macros\/reparse.h:59:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_int3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_42873a9aa50685f7" ret_int3 ::
      A
@@ -1232,6 +1292,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_42873a9aa50685f7" ret_i
     __defined at:__ @macros\/reparse.h:61:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_long1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_ef0217b739070465" ret_long1 ::
      A
@@ -1244,6 +1306,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_ef0217b739070465" ret_l
     __defined at:__ @macros\/reparse.h:62:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_long2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_0b8baea451432efe" ret_long2 ::
      A
@@ -1256,6 +1320,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_0b8baea451432efe" ret_l
     __defined at:__ @macros\/reparse.h:63:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_long3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_264e25c048487a65" ret_long3 ::
      A
@@ -1268,6 +1334,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_264e25c048487a65" ret_l
     __defined at:__ @macros\/reparse.h:65:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_float@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_d4f4783fa3bcf0fd" ret_float ::
      A
@@ -1280,6 +1348,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_d4f4783fa3bcf0fd" ret_f
     __defined at:__ @macros\/reparse.h:66:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_double@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_94ae038975c7b6e8" ret_double ::
      A
@@ -1292,6 +1362,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_94ae038975c7b6e8" ret_d
     __defined at:__ @macros\/reparse.h:67:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_bool1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_c6e57fb4c8ccc002" ret_bool1 ::
      A
@@ -1301,6 +1373,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_c6e57fb4c8ccc002" ret_b
 
 {-| Pointer-based API for 'ret_struct'
 
+__unique:__ @ExampleJust Saferet_struct@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_4d9a2038e7abf410" ret_struct_wrapper ::
      A
@@ -1325,6 +1398,7 @@ ret_struct =
 
 {-| Pointer-based API for 'ret_union'
 
+__unique:__ @ExampleJust Saferet_union@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_6614cf4950ce1e7c" ret_union_wrapper ::
      A
@@ -1352,6 +1426,8 @@ ret_union =
     __defined at:__ @macros\/reparse.h:71:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_enum@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_4a8e0e395958b0ed" ret_enum ::
      A
@@ -1364,6 +1440,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_4a8e0e395958b0ed" ret_e
     __defined at:__ @macros\/reparse.h:73:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_pointer1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_59ba78873de08998" ret_pointer1 ::
      A
@@ -1376,6 +1454,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_59ba78873de08998" ret_p
     __defined at:__ @macros\/reparse.h:74:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_pointer2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_f075faf1943231c1" ret_pointer2 ::
      A
@@ -1388,6 +1468,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_f075faf1943231c1" ret_p
     __defined at:__ @macros\/reparse.h:75:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Saferet_pointer3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_a865c16cbfd0f2b1" ret_pointer3 ::
      A
@@ -1400,6 +1482,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_a865c16cbfd0f2b1" ret_p
     __defined at:__ @macros\/reparse.h:79:5@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safebody1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_0dd10e2baacf20e1" body1 ::
      A
@@ -1412,12 +1496,15 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_0dd10e2baacf20e1" body1
     __defined at:__ @macros\/reparse.h:80:3@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safebody2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_e40f2da3eda8e4ab" body2 ::
      IO A
 
 {-| Pointer-based API for 'args_complex_float'
 
+__unique:__ @ExampleJust Safeargs_complex_float@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_cabceb6db44b7d81" args_complex_float_wrapper ::
      A
@@ -1445,6 +1532,7 @@ args_complex_float =
 
 {-| Pointer-based API for 'args_complex_double'
 
+__unique:__ @ExampleJust Safeargs_complex_double@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_ef2a09e9cd3eec0c" args_complex_double_wrapper ::
      A
@@ -1472,6 +1560,7 @@ args_complex_double =
 
 {-| Pointer-based API for 'ret_complex_float'
 
+__unique:__ @ExampleJust Saferet_complex_float@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_26ada386c6fc7617" ret_complex_float_wrapper ::
      A
@@ -1496,6 +1585,7 @@ ret_complex_float =
 
 {-| Pointer-based API for 'ret_complex_double'
 
+__unique:__ @ExampleJust Saferet_complex_double@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_b99f35785e9f9b5c" ret_complex_double_wrapper ::
      A
@@ -1523,6 +1613,8 @@ ret_complex_double =
     __defined at:__ @macros\/reparse.h:94:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safebespoke_args1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_4c1c48b67908e0ad" bespoke_args1 ::
      A
@@ -1538,6 +1630,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_4c1c48b67908e0ad" bespo
     __defined at:__ @macros\/reparse.h:95:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safebespoke_args2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_7bd6c9115d303872" bespoke_args2 ::
      A
@@ -1553,6 +1647,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_7bd6c9115d303872" bespo
     __defined at:__ @macros\/reparse.h:97:8@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safebespoke_ret1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_994d22fc993523bf" bespoke_ret1 ::
      A
@@ -1565,6 +1661,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_994d22fc993523bf" bespo
     __defined at:__ @macros\/reparse.h:98:8@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safebespoke_ret2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_c7649a4aa2e14a89" bespoke_ret2 ::
      A
@@ -1579,6 +1677,8 @@ __C declaration:__ @arr_args1@
 __defined at:__ @macros\/reparse.h:104:6@
 
 __exported by:__ @macros\/reparse.h@
+
+__unique:__ @ExampleJust Safearr_args1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_69045f97d21cfcd3" arr_args1 ::
      Ptr.Ptr A
@@ -1591,6 +1691,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_69045f97d21cfcd3" arr_a
     __defined at:__ @macros\/reparse.h:105:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safearr_args2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_75b7d6fa15700a72" arr_args2 ::
      Ptr.Ptr (Ptr.Ptr A)
@@ -1603,6 +1705,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_75b7d6fa15700a72" arr_a
     __defined at:__ @macros\/reparse.h:106:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safearr_args3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_64bcbef92728339f" arr_args3 ::
      Ptr.Ptr A
@@ -1615,6 +1719,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_64bcbef92728339f" arr_a
     __defined at:__ @macros\/reparse.h:107:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safearr_args4@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_1635b68f717cc6df" arr_args4 ::
      Ptr.Ptr (Ptr.Ptr A)
@@ -1629,6 +1735,8 @@ __C declaration:__ @funptr_args1@
 __defined at:__ @macros\/reparse.h:126:6@
 
 __exported by:__ @macros\/reparse.h@
+
+__unique:__ @ExampleJust Safefunptr_args1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_09ca38f534ba1397" funptr_args1 ::
      A
@@ -1644,6 +1752,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_09ca38f534ba1397" funpt
     __defined at:__ @macros\/reparse.h:127:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safefunptr_args2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_43e32eb1c4511130" funptr_args2 ::
      A
@@ -1659,6 +1769,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_43e32eb1c4511130" funpt
     __defined at:__ @macros\/reparse.h:128:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safefunptr_args3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_639eb292178302da" funptr_args3 ::
      A
@@ -1674,6 +1786,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_639eb292178302da" funpt
     __defined at:__ @macros\/reparse.h:129:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safefunptr_args4@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_deaef357745591d1" funptr_args4 ::
      A
@@ -1689,6 +1803,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_deaef357745591d1" funpt
     __defined at:__ @macros\/reparse.h:130:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safefunptr_args5@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_bd58865f6f33ce14" funptr_args5 ::
      A
@@ -1708,6 +1824,8 @@ __C declaration:__ @comments1@
 __defined at:__ @macros\/reparse.h:144:25@
 
 __exported by:__ @macros\/reparse.h@
+
+__unique:__ @ExampleJust Safecomments1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_a609cc59a266965e" comments1 ::
      A
@@ -1724,6 +1842,8 @@ __C declaration:__ @const_prim_before1@
 __defined at:__ @macros\/reparse.h:179:6@
 
 __exported by:__ @macros\/reparse.h@
+
+__unique:__ @ExampleJust Safeconst_prim_before1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_55af49e081d3af5c" const_prim_before1 ::
      A
@@ -1739,6 +1859,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_55af49e081d3af5c" const
     __defined at:__ @macros\/reparse.h:180:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_prim_before2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_17a6476d46f98f53" const_prim_before2 ::
      A
@@ -1754,6 +1876,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_17a6476d46f98f53" const
     __defined at:__ @macros\/reparse.h:181:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_prim_before3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_1fce4989a8ceca6d" const_prim_before3 ::
      A
@@ -1769,6 +1893,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_1fce4989a8ceca6d" const
     __defined at:__ @macros\/reparse.h:182:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_prim_after1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_0b8f21af35a88318" const_prim_after1 ::
      A
@@ -1784,6 +1910,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_0b8f21af35a88318" const
     __defined at:__ @macros\/reparse.h:183:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_prim_after2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_069042df961b78f1" const_prim_after2 ::
      A
@@ -1799,6 +1927,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_069042df961b78f1" const
     __defined at:__ @macros\/reparse.h:184:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_prim_after3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_14ab286beb6d7436" const_prim_after3 ::
      A
@@ -1814,6 +1944,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_14ab286beb6d7436" const
     __defined at:__ @macros\/reparse.h:188:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_withoutSign_before1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_3f5a39bd9a93581a" const_withoutSign_before1 ::
      A
@@ -1829,6 +1961,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3f5a39bd9a93581a" const
     __defined at:__ @macros\/reparse.h:189:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_withoutSign_before2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_5a190462ddfe8168" const_withoutSign_before2 ::
      A
@@ -1844,6 +1978,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_5a190462ddfe8168" const
     __defined at:__ @macros\/reparse.h:190:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_withoutSign_before3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_70a40d82bb46c21c" const_withoutSign_before3 ::
      A
@@ -1856,6 +1992,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_70a40d82bb46c21c" const
 
 {-| Pointer-based API for 'const_withoutSign_before4'
 
+__unique:__ @ExampleJust Safeconst_withoutSign_before4@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_81ce15a9b9be53f8" const_withoutSign_before4_wrapper ::
      A
@@ -1884,6 +2021,7 @@ const_withoutSign_before4 =
 
 {-| Pointer-based API for 'const_withoutSign_before5'
 
+__unique:__ @ExampleJust Safeconst_withoutSign_before5@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_39c58819fdca0585" const_withoutSign_before5_wrapper ::
      A
@@ -1915,6 +2053,8 @@ const_withoutSign_before5 =
     __defined at:__ @macros\/reparse.h:193:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_withoutSign_before6@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_4c5a32cae31a651c" const_withoutSign_before6 ::
      A
@@ -1930,6 +2070,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_4c5a32cae31a651c" const
     __defined at:__ @macros\/reparse.h:194:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_withoutSign_before7@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_0341b56dd9dde729" const_withoutSign_before7 ::
      A
@@ -1945,6 +2087,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_0341b56dd9dde729" const
     __defined at:__ @macros\/reparse.h:195:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_withoutSign_before8@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_d43c37be4d91bd6c" const_withoutSign_before8 ::
      A
@@ -1960,6 +2104,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_d43c37be4d91bd6c" const
     __defined at:__ @macros\/reparse.h:197:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_withoutSign_after1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_f456a2b015543748" const_withoutSign_after1 ::
      A
@@ -1975,6 +2121,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_f456a2b015543748" const
     __defined at:__ @macros\/reparse.h:198:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_withoutSign_after2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_729c897c9a9bfc92" const_withoutSign_after2 ::
      A
@@ -1990,6 +2138,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_729c897c9a9bfc92" const
     __defined at:__ @macros\/reparse.h:199:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_withoutSign_after3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_5e46eebba0299b49" const_withoutSign_after3 ::
      A
@@ -2002,6 +2152,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_5e46eebba0299b49" const
 
 {-| Pointer-based API for 'const_withoutSign_after4'
 
+__unique:__ @ExampleJust Safeconst_withoutSign_after4@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_18b842a824ecef09" const_withoutSign_after4_wrapper ::
      A
@@ -2030,6 +2181,7 @@ const_withoutSign_after4 =
 
 {-| Pointer-based API for 'const_withoutSign_after5'
 
+__unique:__ @ExampleJust Safeconst_withoutSign_after5@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_75feb5260081201b" const_withoutSign_after5_wrapper ::
      A
@@ -2061,6 +2213,8 @@ const_withoutSign_after5 =
     __defined at:__ @macros\/reparse.h:202:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_withoutSign_after6@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_3375ca58017bcbeb" const_withoutSign_after6 ::
      A
@@ -2076,6 +2230,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3375ca58017bcbeb" const
     __defined at:__ @macros\/reparse.h:203:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_withoutSign_after7@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_5da184668d3e18ba" const_withoutSign_after7 ::
      A
@@ -2091,6 +2247,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_5da184668d3e18ba" const
     __defined at:__ @macros\/reparse.h:204:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_withoutSign_after8@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_3cae7641509d64fa" const_withoutSign_after8 ::
      A
@@ -2106,6 +2264,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3cae7641509d64fa" const
     __defined at:__ @macros\/reparse.h:208:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_pointers_args1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_4dcc1a25c1ecaaa2" const_pointers_args1 ::
      A
@@ -2121,6 +2281,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_4dcc1a25c1ecaaa2" const
     __defined at:__ @macros\/reparse.h:209:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_pointers_args2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_fec0ae82f5b0ad81" const_pointers_args2 ::
      A
@@ -2136,6 +2298,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_fec0ae82f5b0ad81" const
     __defined at:__ @macros\/reparse.h:210:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_pointers_args3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_fe0313a1b7b08d51" const_pointers_args3 ::
      A
@@ -2151,6 +2315,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_fe0313a1b7b08d51" const
     __defined at:__ @macros\/reparse.h:211:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_pointers_args4@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_33f3fc94401a8bfe" const_pointers_args4 ::
      A
@@ -2166,6 +2332,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_33f3fc94401a8bfe" const
     __defined at:__ @macros\/reparse.h:212:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_pointers_args5@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_391d9682b9dc51ac" const_pointers_args5 ::
      A
@@ -2181,6 +2349,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_391d9682b9dc51ac" const
     __defined at:__ @macros\/reparse.h:214:19@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_pointers_ret1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_8bf23a9981153f56" const_pointers_ret1 ::
      A
@@ -2193,6 +2363,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_8bf23a9981153f56" const
     __defined at:__ @macros\/reparse.h:215:19@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_pointers_ret2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_849c6f0a166afc3c" const_pointers_ret2 ::
      A
@@ -2205,6 +2377,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_849c6f0a166afc3c" const
     __defined at:__ @macros\/reparse.h:216:19@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_pointers_ret3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_2bcb395289e776af" const_pointers_ret3 ::
      A
@@ -2217,6 +2391,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_2bcb395289e776af" const
     __defined at:__ @macros\/reparse.h:217:19@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_pointers_ret4@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_10d30d6be4435bb5" const_pointers_ret4 ::
      A
@@ -2229,6 +2405,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_10d30d6be4435bb5" const
     __defined at:__ @macros\/reparse.h:218:19@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_pointers_ret5@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_4e0a9385778eeea9" const_pointers_ret5 ::
      A
@@ -2238,6 +2416,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_4e0a9385778eeea9" const
 
 {-| Pointer-based API for 'const_array_elem1'
 
+__unique:__ @ExampleJust Safeconst_array_elem1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_216b4842313741d6" const_array_elem1_wrapper ::
      Ptr.Ptr A
@@ -2264,6 +2443,8 @@ const_array_elem1 =
     __defined at:__ @macros\/reparse.h:247:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safeconst_array_elem2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_1c0be30090d3f0b4" const_array_elem2 ::
      Ptr.Ptr (Ptr.Ptr A)
@@ -2273,6 +2454,7 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_1c0be30090d3f0b4" const
 
 {-| Pointer-based API for 'const_array_elem3'
 
+__unique:__ @ExampleJust Safeconst_array_elem3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_30c17e3a462eeecc" const_array_elem3_wrapper ::
      Ptr.Ptr (Ptr.Ptr A)
@@ -2301,6 +2483,8 @@ __C declaration:__ @noParams1@
 __defined at:__ @macros\/reparse.h:256:3@
 
 __exported by:__ @macros\/reparse.h@
+
+__unique:__ @ExampleJust SafenoParams1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_8ab2f7d7d9185985" noParams1 ::
      IO A
@@ -2310,6 +2494,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_8ab2f7d7d9185985" noPar
     __defined at:__ @macros\/reparse.h:257:3@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust SafenoParams2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_3154e7cc23e3e0f3" noParams2 ::
      IO A
@@ -2319,6 +2505,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3154e7cc23e3e0f3" noPar
     __defined at:__ @macros\/reparse.h:258:6@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust SafenoParams3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_3d23de5d2d770dfe" noParams3 ::
      A
@@ -2334,6 +2522,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_3d23de5d2d770dfe" noPar
     __defined at:__ @macros\/reparse.h:262:8@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safefunptr_ret1@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_cfe9601f75800453" funptr_ret1 ::
      A
@@ -2346,6 +2536,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_cfe9601f75800453" funpt
     __defined at:__ @macros\/reparse.h:263:8@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safefunptr_ret2@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_ca3824f5cf114f19" funptr_ret2 ::
      A
@@ -2358,6 +2550,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_ca3824f5cf114f19" funpt
     __defined at:__ @macros\/reparse.h:264:8@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safefunptr_ret3@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_2de886ad95f674f5" funptr_ret3 ::
      A
@@ -2370,6 +2564,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_2de886ad95f674f5" funpt
     __defined at:__ @macros\/reparse.h:265:8@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safefunptr_ret4@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_b4856eab77ec0cbf" funptr_ret4 ::
      A
@@ -2382,6 +2578,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_b4856eab77ec0cbf" funpt
     __defined at:__ @macros\/reparse.h:269:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safefunptr_ret5@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_39273a56f1a80904" funptr_ret5 ::
      A
@@ -2394,6 +2592,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_39273a56f1a80904" funpt
     __defined at:__ @macros\/reparse.h:270:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safefunptr_ret6@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_5e2dfa9b8f6075ee" funptr_ret6 ::
      A
@@ -2406,6 +2606,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_5e2dfa9b8f6075ee" funpt
     __defined at:__ @macros\/reparse.h:271:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safefunptr_ret7@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_0b65a87e08b5a1a7" funptr_ret7 ::
      A
@@ -2418,6 +2620,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_0b65a87e08b5a1a7" funpt
     __defined at:__ @macros\/reparse.h:272:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safefunptr_ret8@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_629050352113405f" funptr_ret8 ::
      A
@@ -2430,6 +2634,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_629050352113405f" funpt
     __defined at:__ @macros\/reparse.h:273:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safefunptr_ret9@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_a1dcda8f782ad284" funptr_ret9 ::
      A
@@ -2442,6 +2648,8 @@ foreign import ccall safe "hs_bindgen_test_macrosreparse_a1dcda8f782ad284" funpt
     __defined at:__ @macros\/reparse.h:274:20@
 
     __exported by:__ @macros\/reparse.h@
+
+    __unique:__ @ExampleJust Safefunptr_ret10@
 -}
 foreign import ccall safe "hs_bindgen_test_macrosreparse_ca08b018fda612eb" funptr_ret10 ::
      A

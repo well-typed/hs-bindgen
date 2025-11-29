@@ -23,6 +23,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_foo_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_declarationsdefinitions_32925a42980e81cd" hs_bindgen_test_declarationsdefinitions_32925a42980e81cd ::
      IO (Ptr.FunPtr (FC.CDouble -> IO FC.CInt))
 

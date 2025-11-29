@@ -81,13 +81,10 @@ generateHaddocksWithParams HaddockConfig{..} isField declLoc mHeaderInfo declId 
       -- sure to at least add a comment that will show the function parameter name
       -- if it exists.
       --
-      ( Just
-         HsDoc.Comment {
-           HsDoc.commentTitle      = Nothing
-         , HsDoc.commentOrigin     = commentCName
+      ( Just mempty {
+           HsDoc.commentOrigin     = commentCName
          , HsDoc.commentLocation   = commentLocation
          , HsDoc.commentHeaderInfo = mHeaderInfo
-         , HsDoc.commentChildren   = []
          }
       , map addFunctionParameterComment params)
 generateHaddocksWithParams HaddockConfig{..} isField declLoc mHeaderInfo declId declOrigin (Just CDoc.Comment{..}) params =
@@ -141,12 +138,12 @@ generateHaddocksWithParams HaddockConfig{..} isField declLoc mHeaderInfo declId 
                                 )
                     $ commentChildren'
 
-   in ( Just HsDoc.Comment {
-          commentTitle
-        , commentOrigin     = commentCName
-        , commentLocation   = commentLocation
-        , commentHeaderInfo = mHeaderInfo
-        , commentChildren   = finalChildren
+   in ( Just mempty {
+          HsDoc.commentTitle
+        , HsDoc.commentOrigin     = commentCName
+        , HsDoc.commentLocation   = commentLocation
+        , HsDoc.commentHeaderInfo = mHeaderInfo
+        , HsDoc.commentChildren   = finalChildren
         }
       , updatedParams
       )
@@ -162,14 +159,11 @@ generateHaddocksWithParams HaddockConfig{..} isField declLoc mHeaderInfo declId 
               )
         $ params ->
           let comment =
-                HsDoc.Comment {
-                  commentTitle      = Nothing
-                , commentOrigin     = if Text.null paramCommandName
-                                         then Nothing
-                                         else Just (Text.strip paramCommandName)
-                , commentLocation   = Nothing
-                , commentHeaderInfo = Nothing
-                , commentChildren   = convertBlockContent blockContent
+                mempty {
+                  HsDoc.commentOrigin   = if Text.null paramCommandName
+                                            then Nothing
+                                            else Just (Text.strip paramCommandName)
+                , HsDoc.commentChildren = convertBlockContent blockContent
                 }
            in (comment, paramCommandDirection):filterParamCommands cmds
         | otherwise -> filterParamCommands cmds
@@ -209,12 +203,8 @@ addFunctionParameterComment fp@Hs.FunctionParameter {..} =
         case functionParameterComment of
           Nothing ->
             fp { Hs.functionParameterComment =
-                   Just HsDoc.Comment {
-                          commentTitle      = Nothing
-                        , commentOrigin     = Hs.getName <$> functionParameterName
-                        , commentLocation   = Nothing
-                        , commentHeaderInfo = Nothing
-                        , commentChildren   = []
+                   Just mempty {
+                          HsDoc.commentOrigin = Hs.getName <$> functionParameterName
                         }
                }
           _ -> fp

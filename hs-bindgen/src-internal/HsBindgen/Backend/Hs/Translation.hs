@@ -24,10 +24,10 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Config
-import HsBindgen.Backend.Hs.Translation.UniqueSymbol
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
+import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.Internal
 import HsBindgen.Errors
@@ -683,18 +683,10 @@ unionDecs haddockConfig info union spec = do
               fInsts = getInstances instanceMap newtypeName insts [hsType]
               getterName = "get_" <> C.nameHs (C.fieldName unionFieldInfo)
               setterName = "set_" <> C.nameHs (C.fieldName unionFieldInfo)
-              commentRefName name = Just
-                HsDoc.Comment {
-                  commentTitle      = Nothing
-                , commentOrigin     = Nothing
-                , commentLocation   = Nothing
-                , commentHeaderInfo = Nothing
-                , commentChildren   = [ HsDoc.Paragraph
-                                        [ HsDoc.Bold [HsDoc.TextContent "See:"]
-                                        , HsDoc.Identifier name
-                                        ]
-                                      ]
-                }
+              commentRefName name = Just $ HsDoc.paragraph [
+                  HsDoc.Bold [HsDoc.TextContent "See:"]
+                , HsDoc.Identifier name
+                ]
           in  if Hs.Storable `Set.notMember` fInsts
                 then []
                 else
@@ -1605,8 +1597,15 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
         , foreignImportOrigName   = T.pack wrapperName.unique
         , foreignImportCallConv   = CallConvUserlandCAPI userlandCapiWrapper
         , foreignImportOrigin     = Origin.Function f
-        , foreignImportComment    = (if areFancy then Just nonFancyComment else mbFFIComment) <> ioComment
         , foreignImportSafety     = safety
+
+        , foreignImportComment = mconcat [
+              if areFancy
+                then Just nonFancyComment
+                else mbFFIComment
+            , ioComment
+            , Just $ HsDoc.uniqueSymbol wrapperName
+            ]
         }
 
     userlandCapiWrapper :: UserlandCapiWrapper
@@ -1657,33 +1656,11 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
     resType =
       case res of
         HeapType {} -> HeapResultType $ typ' CFunRes $ unwrapType res
-
         WrapType {} -> NormalResultType $ hsIO $ typ' CFunRes $ unwrapType res
+        CAType {}   -> panicPure "ConstantArray cannot occur as a result type"
+        AType {}    -> panicPure "Array cannot occur as a result type"
 
-        CAType {} ->
-            panicPure "ConstantArray cannot occur as a result type"
-
-        AType {} ->
-            panicPure "Array cannot occur as a result type"
-
-    -- | A comment to put on wrapper functions
-    --
-    -- "Pointer-based API for '<function>'"
-    nonFancyComment :: HsDoc.Comment
-    nonFancyComment =
-      HsDoc.Comment {
-        HsDoc.commentTitle      = Just
-          [ HsDoc.TextContent "Pointer-based API for"
-          , HsDoc.Identifier (Hs.getName highlevelName)
-          ]
-      , HsDoc.commentOrigin     = Nothing
-      , HsDoc.commentLocation   = Nothing
-      , HsDoc.commentHeaderInfo = Nothing
-      , HsDoc.commentChildren   = []
-
-      }
-
-    -- | Decide based on the function attributes whether to include 'IO' in the
+    -- Decide based on the function attributes whether to include 'IO' in the
     -- result type of the foreign import. See the documentation on
     -- 'C.FunctionPurity'.
     --
@@ -1691,35 +1668,11 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
     -- when @res@ is a heap type, in which case a @const@ or @pure@ attribute
     -- does not make much sense, and so we just return the result in 'IO'.
     hsIO :: Hs.HsType -> Hs.HsType
-    -- | C-pure functions can be safely encapsulated using 'unsafePerformIO' to
-    -- create a Haskell-pure functions. We include a comment in the generated
-    -- bindings to this effect.
     ioComment :: Maybe HsDoc.Comment
     (hsIO, ioComment) = case C.functionPurity (C.functionAttrs f) of
         C.HaskellPureFunction -> (id  , Nothing)
         C.CPureFunction       -> (HsIO, Just pureComment)
         C.ImpureFunction      -> (HsIO, Nothing)
-
-    -- | A comment to put on bindings for C-pure functions
-    --
-    -- "Marked @__attribute((pure))__@"
-    pureComment :: HsDoc.Comment
-    pureComment =
-      HsDoc.Comment {
-        HsDoc.commentTitle      = Nothing
-      , HsDoc.commentOrigin     = Nothing
-      , HsDoc.commentLocation   = Nothing
-      , HsDoc.commentHeaderInfo = Nothing
-      , HsDoc.commentChildren   =
-          [ HsDoc.Paragraph
-            [ HsDoc.TextContent "Marked"
-            , HsDoc.Monospace
-              [ HsDoc.Bold
-                [ HsDoc.TextContent "attribute((pure))" ]
-              ]
-            ]
-          ]
-      }
 
     -- Generation of C wrapper for userland-capi.
     innerName :: String
@@ -1729,6 +1682,31 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
     wrapperName = getUniqueSymbol opts.translationUniqueId moduleName $ concat [
           show (Just safety)
         , innerName
+        ]
+
+    --
+    -- Comments
+    --
+
+    -- "Pointer-based API for '<function>'"
+    nonFancyComment :: HsDoc.Comment
+    nonFancyComment = HsDoc.title [
+          HsDoc.TextContent "Pointer-based API for"
+        , HsDoc.Identifier (Hs.getName highlevelName)
+        ]
+
+    -- "Marked @__attribute((pure))__@"
+    --
+    -- C-pure functions can be safely encapsulated using 'unsafePerformIO' to
+    -- create a Haskell-pure functions. We include a comment in the generated
+    -- bindings to this effect.
+    pureComment :: HsDoc.Comment
+    pureComment = HsDoc.paragraph [
+          HsDoc.TextContent "Marked"
+        , HsDoc.Monospace
+          [ HsDoc.Bold
+            [ HsDoc.TextContent "attribute((pure))" ]
+          ]
         ]
 
 -- | Generate ToFunPtr/FromFunPtr instances for nested function pointer types
@@ -2001,11 +1979,12 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
         , foreignImportOrigName = T.pack stubNameMangled.unique
         , foreignImportCallConv = CallConvUserlandCAPI userlandCapiWrapper
         , foreignImportOrigin   = Origin.Global ty
-        , foreignImportComment  = Nothing
+        , foreignImportComment  = Just $ HsDoc.uniqueSymbol stubNameMangled
+
           -- These imports can be unsafe. We're binding to simple address stubs,
           -- so there are no callbacks into Haskell code. Moreover, they are
           -- short running code.
-        , foreignImportSafety   = SHs.Unsafe
+        , foreignImportSafety = SHs.Unsafe
         }
 
     -- *** Stub (pure) ***

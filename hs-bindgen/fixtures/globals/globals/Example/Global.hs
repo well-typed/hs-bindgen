@@ -199,6 +199,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_simpleGlobal_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_454b1c1a1b7d5b60" hs_bindgen_test_globalsglobals_454b1c1a1b7d5b60 ::
      IO (Ptr.Ptr FC.CInt)
 
@@ -216,6 +218,8 @@ simpleGlobal_ptr :: Ptr.Ptr FC.CInt
 simpleGlobal_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_454b1c1a1b7d5b60
 
+{-| __unique:__ @ExampleNothingget_compoundGlobal1_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_89495849c6dfe834" hs_bindgen_test_globalsglobals_89495849c6dfe834 ::
      IO (Ptr.Ptr Config)
 
@@ -231,6 +235,8 @@ compoundGlobal1_ptr :: Ptr.Ptr Config
 compoundGlobal1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_89495849c6dfe834
 
+{-| __unique:__ @ExampleNothingget_compoundGlobal2_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_4b79fc96cf429b3a" hs_bindgen_test_globalsglobals_4b79fc96cf429b3a ::
      IO (Ptr.Ptr Inline_struct)
 
@@ -246,6 +252,8 @@ compoundGlobal2_ptr :: Ptr.Ptr Inline_struct
 compoundGlobal2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_4b79fc96cf429b3a
 
+{-| __unique:__ @ExampleNothingget_nesInteger_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_e408a99291c13956" hs_bindgen_test_globalsglobals_e408a99291c13956 ::
      IO (Ptr.Ptr FC.CInt)
 
@@ -269,6 +277,8 @@ nesInteger_ptr :: Ptr.Ptr FC.CInt
 nesInteger_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_e408a99291c13956
 
+{-| __unique:__ @ExampleNothingget_nesFloating_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_572819a2ae538f9e" hs_bindgen_test_globalsglobals_572819a2ae538f9e ::
      IO (Ptr.Ptr FC.CFloat)
 
@@ -284,6 +294,8 @@ nesFloating_ptr :: Ptr.Ptr FC.CFloat
 nesFloating_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_572819a2ae538f9e
 
+{-| __unique:__ @ExampleNothingget_nesString1_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_b9c5b2253881699a" hs_bindgen_test_globalsglobals_b9c5b2253881699a ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CChar))
 
@@ -299,6 +311,8 @@ nesString1_ptr :: Ptr.Ptr (Ptr.Ptr FC.CChar)
 nesString1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_b9c5b2253881699a
 
+{-| __unique:__ @ExampleNothingget_nesString2_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_cea7b6d95dd81460" hs_bindgen_test_globalsglobals_cea7b6d95dd81460 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CChar))
 
@@ -314,6 +328,8 @@ nesString2_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.
 nesString2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_cea7b6d95dd81460
 
+{-| __unique:__ @ExampleNothingget_nesCharacter_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_1e474dd7b5a92e6a" hs_bindgen_test_globalsglobals_1e474dd7b5a92e6a ::
      IO (Ptr.Ptr FC.CChar)
 
@@ -329,6 +345,8 @@ nesCharacter_ptr :: Ptr.Ptr FC.CChar
 nesCharacter_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_1e474dd7b5a92e6a
 
+{-| __unique:__ @ExampleNothingget_nesParen_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_5e7165450285240d" hs_bindgen_test_globalsglobals_5e7165450285240d ::
      IO (Ptr.Ptr FC.CInt)
 
@@ -344,6 +362,8 @@ nesParen_ptr :: Ptr.Ptr FC.CInt
 nesParen_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_5e7165450285240d
 
+{-| __unique:__ @ExampleNothingget_nesUnary_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_f00692845b6c8efd" hs_bindgen_test_globalsglobals_f00692845b6c8efd ::
      IO (Ptr.Ptr FC.CInt)
 
@@ -359,6 +379,8 @@ nesUnary_ptr :: Ptr.Ptr FC.CInt
 nesUnary_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_f00692845b6c8efd
 
+{-| __unique:__ @ExampleNothingget_nesBinary_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_d737cdc355737c2b" hs_bindgen_test_globalsglobals_d737cdc355737c2b ::
      IO (Ptr.Ptr FC.CInt)
 
@@ -374,6 +396,8 @@ nesBinary_ptr :: Ptr.Ptr FC.CInt
 nesBinary_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_d737cdc355737c2b
 
+{-| __unique:__ @ExampleNothingget_nesConditional_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_a8a7382ba67a6c7d" hs_bindgen_test_globalsglobals_a8a7382ba67a6c7d ::
      IO (Ptr.Ptr FC.CInt)
 
@@ -389,6 +413,8 @@ nesConditional_ptr :: Ptr.Ptr FC.CInt
 nesConditional_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_a8a7382ba67a6c7d
 
+{-| __unique:__ @ExampleNothingget_nesCast_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_ea6b1f97253ae23c" hs_bindgen_test_globalsglobals_ea6b1f97253ae23c ::
      IO (Ptr.Ptr FC.CFloat)
 
@@ -404,6 +430,8 @@ nesCast_ptr :: Ptr.Ptr FC.CFloat
 nesCast_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_ea6b1f97253ae23c
 
+{-| __unique:__ @ExampleNothingget_nesCompound_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_34ed05675f69bccd" hs_bindgen_test_globalsglobals_34ed05675f69bccd ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
 
@@ -419,6 +447,8 @@ nesCompound_ptr :: Ptr.Ptr (Ptr.Ptr FC.CInt)
 nesCompound_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_34ed05675f69bccd
 
+{-| __unique:__ @ExampleNothingget_nesInitList_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_9e7c70b133f8e175" hs_bindgen_test_globalsglobals_9e7c70b133f8e175 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8))
 
@@ -434,6 +464,8 @@ nesInitList_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) Hs
 nesInitList_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_9e7c70b133f8e175
 
+{-| __unique:__ @ExampleNothingget_nesBool_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_bd8b34eff62c9b12" hs_bindgen_test_globalsglobals_bd8b34eff62c9b12 ::
      IO (Ptr.Ptr FC.CBool)
 
@@ -449,6 +481,8 @@ nesBool_ptr :: Ptr.Ptr FC.CBool
 nesBool_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_bd8b34eff62c9b12
 
+{-| __unique:__ @ExampleNothingget_streamBinary_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_235c0c54701b0df5" hs_bindgen_test_globalsglobals_235c0c54701b0df5 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.Prelude.Word8))
 
@@ -470,6 +504,8 @@ streamBinary_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096
 streamBinary_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_235c0c54701b0df5
 
+{-| __unique:__ @ExampleNothingget_streamBinary_len_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_b1ee511251d335dd" hs_bindgen_test_globalsglobals_b1ee511251d335dd ::
      IO (Ptr.Ptr HsBindgen.Runtime.Prelude.Word32)
 
@@ -485,6 +521,8 @@ streamBinary_len_ptr :: Ptr.Ptr HsBindgen.Runtime.Prelude.Word32
 streamBinary_len_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_b1ee511251d335dd
 
+{-| __unique:__ @ExampleNothingget_some_global_struct_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_6a47eaca372272ae" hs_bindgen_test_globalsglobals_6a47eaca372272ae ::
      IO (Ptr.Ptr Struct2_t)
 
@@ -500,6 +538,8 @@ some_global_struct_ptr :: Ptr.Ptr Struct2_t
 some_global_struct_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_6a47eaca372272ae
 
+{-| __unique:__ @ExampleNothingget_globalConstant_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_b8fe2f6ed308e786" hs_bindgen_test_globalsglobals_b8fe2f6ed308e786 ::
      IO (Ptr.Ptr FC.CInt)
 
@@ -525,6 +565,8 @@ globalConstant :: FC.CInt
 globalConstant =
   GHC.IO.Unsafe.unsafePerformIO (F.peek globalConstant_ptr)
 
+{-| __unique:__ @ExampleNothingget_anotherGlobalConstant_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_3f4a524bb162b165" hs_bindgen_test_globalsglobals_3f4a524bb162b165 ::
      IO (Ptr.Ptr ConstInt)
 
@@ -546,6 +588,8 @@ anotherGlobalConstant :: ConstInt
 anotherGlobalConstant =
   GHC.IO.Unsafe.unsafePerformIO (F.peek anotherGlobalConstant_ptr)
 
+{-| __unique:__ @ExampleNothingget_staticConst_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_834271d76b418960" hs_bindgen_test_globalsglobals_834271d76b418960 ::
      IO (Ptr.Ptr FC.CInt)
 
@@ -571,6 +615,8 @@ staticConst :: FC.CInt
 staticConst =
   GHC.IO.Unsafe.unsafePerformIO (F.peek staticConst_ptr)
 
+{-| __unique:__ @ExampleNothingget_classless_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_c98b4d346a0bb607" hs_bindgen_test_globalsglobals_c98b4d346a0bb607 ::
      IO (Ptr.Ptr FC.CInt)
 
@@ -594,6 +640,8 @@ classless :: FC.CInt
 classless =
   GHC.IO.Unsafe.unsafePerformIO (F.peek classless_ptr)
 
+{-| __unique:__ @ExampleNothingget_constArray1_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_e7a61097e2415261" hs_bindgen_test_globalsglobals_e7a61097e2415261 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt))
 
@@ -617,6 +665,8 @@ constArray1 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt
 constArray1 =
   GHC.IO.Unsafe.unsafePerformIO (F.peek constArray1_ptr)
 
+{-| __unique:__ @ExampleNothingget_constArray2_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_5e76637230135838" hs_bindgen_test_globalsglobals_5e76637230135838 ::
      IO (Ptr.Ptr ConstIntArray)
 
@@ -632,6 +682,8 @@ constArray2_ptr :: Ptr.Ptr ConstIntArray
 constArray2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_5e76637230135838
 
+{-| __unique:__ @ExampleNothingget_constTuple_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_c7d3a2347092dfe0" hs_bindgen_test_globalsglobals_c7d3a2347092dfe0 ::
      IO (Ptr.Ptr Tuple)
 
@@ -655,6 +707,8 @@ constTuple :: Tuple
 constTuple =
   GHC.IO.Unsafe.unsafePerformIO (F.peek constTuple_ptr)
 
+{-| __unique:__ @ExampleNothingget_nonConstTuple_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_3639a5c5b63aad84" hs_bindgen_test_globalsglobals_3639a5c5b63aad84 ::
      IO (Ptr.Ptr Tuple)
 
@@ -672,6 +726,8 @@ nonConstTuple_ptr :: Ptr.Ptr Tuple
 nonConstTuple_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_3639a5c5b63aad84
 
+{-| __unique:__ @ExampleNothingget_ptrToConstInt_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_9fd2e0d3b265dee4" hs_bindgen_test_globalsglobals_9fd2e0d3b265dee4 ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
 
@@ -689,6 +745,8 @@ ptrToConstInt_ptr :: Ptr.Ptr (Ptr.Ptr FC.CInt)
 ptrToConstInt_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globalsglobals_9fd2e0d3b265dee4
 
+{-| __unique:__ @ExampleNothingget_constPtrToInt_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_10cf1344894b0264" hs_bindgen_test_globalsglobals_10cf1344894b0264 ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
 
@@ -712,6 +770,8 @@ constPtrToInt :: Ptr.Ptr FC.CInt
 constPtrToInt =
   GHC.IO.Unsafe.unsafePerformIO (F.peek constPtrToInt_ptr)
 
+{-| __unique:__ @ExampleNothingget_constPtrToConstInt_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_globalsglobals_1b236183822e0d24" hs_bindgen_test_globalsglobals_1b236183822e0d24 ::
      IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
 

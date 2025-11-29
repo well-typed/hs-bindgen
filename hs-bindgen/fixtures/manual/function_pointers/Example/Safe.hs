@@ -74,6 +74,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __defined at:__ @manual\/function_pointers.h:5:12@
 
     __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @ExampleJust Safesquare@
 -}
 foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_55e5eb89e54abf83" square ::
      FC.CInt
@@ -84,6 +86,8 @@ foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_55e5eb89e54ab
     __defined at:__ @manual\/function_pointers.h:7:12@
 
     __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @ExampleJust Safeplus@
 -}
 foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_680daf766a044980" plus ::
      FC.CInt
@@ -95,6 +99,8 @@ foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_680daf766a044
     __defined at:__ @manual\/function_pointers.h:9:12@
 
     __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @ExampleJust Safeapply1@
 -}
 foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_abcb860034253564" apply1 ::
      Ptr.FunPtr (FC.CInt -> IO FC.CInt)
@@ -110,6 +116,8 @@ foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_abcb860034253
     __defined at:__ @manual\/function_pointers.h:11:12@
 
     __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @ExampleJust Safeapply2@
 -}
 foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_1ad13c166a710f40" apply2 ::
      Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
@@ -130,6 +138,8 @@ __C declaration:__ @apply1_pointer_arg@
 __defined at:__ @manual\/function_pointers.h:22:12@
 
 __exported by:__ @manual\/function_pointers.h@
+
+__unique:__ @ExampleJust Safeapply1_pointer_arg@
 -}
 foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_a8ef4d9e6ce68f54" apply1_pointer_arg ::
      Ptr.FunPtr Int2int
@@ -143,6 +153,8 @@ __C declaration:__ @apply1_nopointer_arg@
 __defined at:__ @manual\/function_pointers.h:26:12@
 
 __exported by:__ @manual\/function_pointers.h@
+
+__unique:__ @ExampleJust Safeapply1_nopointer_arg@
 -}
 foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_7dc4caa1f7f0caf0" apply1_nopointer_arg ::
      Ptr.FunPtr Int2int
@@ -156,6 +168,8 @@ __C declaration:__ @apply1_nopointer_res@
 __defined at:__ @manual\/function_pointers.h:31:21@
 
 __exported by:__ @manual\/function_pointers.h@
+
+__unique:__ @ExampleJust Safeapply1_nopointer_res@
 -}
 foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_3612aa0d10e36d5b" apply1_nopointer_res ::
      IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))

@@ -35,6 +35,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 {-| Pointer-based API for 'multiply_complex_f'
 
+__unique:__ @ExampleJust Safemultiply_complex_f@
 -}
 foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_b84ea846e04d5fd6" multiply_complex_f_wrapper ::
      Ptr.Ptr (Data.Complex.Complex FC.CFloat)
@@ -66,6 +67,7 @@ multiply_complex_f =
 
 {-| Pointer-based API for 'add_complex'
 
+__unique:__ @ExampleJust Safeadd_complex@
 -}
 foreign import ccall safe "hs_bindgen_test_typescomplexhsb_complex_test_8dd079d1707c36b3" add_complex_wrapper ::
      Ptr.Ptr (Data.Complex.Complex FC.CDouble)

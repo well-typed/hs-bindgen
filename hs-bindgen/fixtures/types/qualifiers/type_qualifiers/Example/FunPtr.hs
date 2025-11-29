@@ -24,6 +24,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_list_example_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_typesqualifierstype_qualifie_24b25f22222ce366" hs_bindgen_test_typesqualifierstype_qualifie_24b25f22222ce366 ::
      IO (Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
 

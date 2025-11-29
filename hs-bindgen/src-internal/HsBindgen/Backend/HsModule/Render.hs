@@ -35,6 +35,7 @@ import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Translation (translateType)
+import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 import HsBindgen.Imports
@@ -161,6 +162,10 @@ instance Pretty CommentKind where
                       , (\hinfo -> "__exported by:__ @"
                                 >< prettyMainHeaders hinfo
                                 >< "@") <$> commentHeaderInfo
+                      , (\u -> "__unique:__ @"
+                           >< string u.source
+                           >< "@"
+                        ) <$> commentUnique
                       ]
         firstContent =
           case commentTitle of

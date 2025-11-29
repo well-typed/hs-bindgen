@@ -89,6 +89,8 @@ __C declaration:__ @square_cp@
 __defined at:__ @functions\/fun_attributes_conflict.h:9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
+
+__unique:__ @ExampleJust Unsafesquare_cp@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_5f961556d5c4089a" square_cp :: CInt ->
                                                                                                         CInt
@@ -97,6 +99,8 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_5f96155
     __defined at:__ @functions\/fun_attributes_conflict.h:11:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
+
+    __unique:__ @ExampleJust Unsafesquare_pc@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_7dbcbb58ce184f13" square_pc :: CInt ->
                                                                                                         CInt
@@ -105,6 +109,8 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_7dbcbb5
     __defined at:__ @functions\/fun_attributes_conflict.h:13:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
+
+    __unique:__ @ExampleJust Unsafesquare_cc@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_79823cdb6d9c52ff" square_cc :: CInt ->
                                                                                                         CInt
@@ -117,6 +123,8 @@ __C declaration:__ @square_pp@
 __defined at:__ @functions\/fun_attributes_conflict.h:15:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
+
+__unique:__ @ExampleJust Unsafesquare_pp@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_3dd09f52296e7452" square_pp :: CInt ->
                                                                                                         IO CInt
@@ -129,6 +137,8 @@ __C declaration:__ @square_cp@
 __defined at:__ @functions\/fun_attributes_conflict.h:9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
+
+__unique:__ @ExampleJust Unsafesquare_cp@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_564ce99eace0df40" square_cp :: CInt ->
                                                                                                         CInt
@@ -137,6 +147,8 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_564ce99
     __defined at:__ @functions\/fun_attributes_conflict.h:11:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
+
+    __unique:__ @ExampleJust Unsafesquare_pc@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_216e7c195e335424" square_pc :: CInt ->
                                                                                                         CInt
@@ -145,6 +157,8 @@ foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_216e7c1
     __defined at:__ @functions\/fun_attributes_conflict.h:13:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
+
+    __unique:__ @ExampleJust Unsafesquare_cc@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_64cd3d5e7e4c6a2d" square_cc :: CInt ->
                                                                                                         CInt
@@ -157,9 +171,13 @@ __C declaration:__ @square_pp@
 __defined at:__ @functions\/fun_attributes_conflict.h:15:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
+
+__unique:__ @ExampleJust Unsafesquare_pp@
 -}
 foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_fab086c774e84aae" square_pp :: CInt ->
                                                                                                         IO CInt
+{-| __unique:__ @ExampleNothingget_square_cp_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_a488b67527d299f8" hs_bindgen_test_functionsfun_attributes_confl_a488b67527d299f8 :: IO (FunPtr (CInt ->
                                                                                                                                                                          IO CInt))
 {-# NOINLINE square_cp_ptr #-}
@@ -185,6 +203,8 @@ __defined at:__ @functions\/fun_attributes_conflict.h:9:5@
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_cp_ptr = unsafePerformIO hs_bindgen_test_functionsfun_attributes_confl_a488b67527d299f8
+{-| __unique:__ @ExampleNothingget_square_pc_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_c4cea088a40be2f5" hs_bindgen_test_functionsfun_attributes_confl_c4cea088a40be2f5 :: IO (FunPtr (CInt ->
                                                                                                                                                                          IO CInt))
 {-# NOINLINE square_pc_ptr #-}
@@ -202,6 +222,8 @@ square_pc_ptr :: FunPtr (CInt -> IO CInt)
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_pc_ptr = unsafePerformIO hs_bindgen_test_functionsfun_attributes_confl_c4cea088a40be2f5
+{-| __unique:__ @ExampleNothingget_square_cc_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_3bc327fede4fc009" hs_bindgen_test_functionsfun_attributes_confl_3bc327fede4fc009 :: IO (FunPtr (CInt ->
                                                                                                                                                                          IO CInt))
 {-# NOINLINE square_cc_ptr #-}
@@ -219,6 +241,8 @@ square_cc_ptr :: FunPtr (CInt -> IO CInt)
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_cc_ptr = unsafePerformIO hs_bindgen_test_functionsfun_attributes_confl_3bc327fede4fc009
+{-| __unique:__ @ExampleNothingget_square_pp_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_functionsfun_attributes_confl_dca75c8c02c209b2" hs_bindgen_test_functionsfun_attributes_confl_dca75c8c02c209b2 :: IO (FunPtr (CInt ->
                                                                                                                                                                          IO CInt))
 {-# NOINLINE square_pp_ptr #-}

@@ -33,6 +33,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| __unique:__ @ExampleNothingget_i1_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983" hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983 ::
      IO (Ptr.Ptr FC.CInt)
 
@@ -48,6 +50,8 @@ i1_ptr :: Ptr.Ptr FC.CInt
 i1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_declarationstentative_definit_8a4a155fb4b3e983
 
+{-| __unique:__ @ExampleNothingget_i2_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_declarationstentative_definit_8a341976b53c3159" hs_bindgen_test_declarationstentative_definit_8a341976b53c3159 ::
      IO (Ptr.Ptr FC.CInt)
 
@@ -63,6 +67,8 @@ i2_ptr :: Ptr.Ptr FC.CInt
 i2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_declarationstentative_definit_8a341976b53c3159
 
+{-| __unique:__ @ExampleNothingget_i3_ptr@
+-}
 foreign import ccall unsafe "hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5" hs_bindgen_test_declarationstentative_definit_8a18e8a325536dc5 ::
      IO (Ptr.Ptr FC.CInt)
 

@@ -159,6 +159,8 @@ instance TyEq ty (CFieldType Y "y_o") =>
     __defined at:__ @declarations\/definitions.h:13:5@
 
     __exported by:__ @declarations\/definitions.h@
+
+    __unique:__ @ExampleJust Unsafefoo@
 -}
 foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_5a514c66396155ff" foo :: CDouble ->
                                                                                             IO CInt
@@ -167,9 +169,13 @@ foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_5a514c6639615
     __defined at:__ @declarations\/definitions.h:13:5@
 
     __exported by:__ @declarations\/definitions.h@
+
+    __unique:__ @ExampleJust Unsafefoo@
 -}
 foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_84e4eb047d6694cd" foo :: CDouble ->
                                                                                             IO CInt
+{-| __unique:__ @ExampleNothingget_foo_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_32925a42980e81cd" hs_bindgen_test_declarationsdefinitions_32925a42980e81cd :: IO (FunPtr (CDouble ->
                                                                                                                                                              IO CInt))
 {-# NOINLINE foo_ptr #-}
@@ -187,6 +193,8 @@ foo_ptr :: FunPtr (CDouble -> IO CInt)
     __exported by:__ @declarations\/definitions.h@
 -}
 foo_ptr = unsafePerformIO hs_bindgen_test_declarationsdefinitions_32925a42980e81cd
+{-| __unique:__ @ExampleNothingget_n_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c" hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c :: IO (Ptr CInt)
 {-# NOINLINE n_ptr #-}
 {-| __C declaration:__ @n@

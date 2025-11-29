@@ -51,6 +51,8 @@ newtype A
     __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
+
+    __unique:__ @ExampleJust Unsafef@
 -}
 foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_fcce70013c76ce8b" f :: A ->
                                                                                                 IO Unit
@@ -59,9 +61,13 @@ foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_fcce700
     __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
+
+    __unique:__ @ExampleJust Unsafef@
 -}
 foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_b68b2cffacc97c1d" f :: A ->
                                                                                                 IO Unit
+{-| __unique:__ @ExampleNothingget_f_ptr@
+-}
 foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d" hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d :: IO (FunPtr (A ->
                                                                                                                                                                          IO Unit))
 {-# NOINLINE f_ptr #-}
