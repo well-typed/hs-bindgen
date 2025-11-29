@@ -134,18 +134,22 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Forward_declaration)
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"forward_declaration_f")
 
-foreign import ccall safe "wrapper" funPtr_fbe60ed6_to ::
+{-| __unique:__ @instance ToFunPtr ((Ptr.Ptr Forward_declaration) -> IO ())@
+-}
+foreign import ccall safe "wrapper" hs_bindgen_fbe9c5dca66824d3 ::
      ((Ptr.Ptr Forward_declaration) -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Forward_declaration) -> IO ()))
 
-foreign import ccall safe "dynamic" funPtr_fbe60ed6_from ::
+{-| __unique:__ @instance FromFunPtr ((Ptr.Ptr Forward_declaration) -> IO ())@
+-}
+foreign import ccall safe "dynamic" hs_bindgen_b3640137a9cf92cc ::
      Ptr.FunPtr ((Ptr.Ptr Forward_declaration) -> IO ())
   -> (Ptr.Ptr Forward_declaration) -> IO ()
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Forward_declaration) -> IO ()) where
 
-  toFunPtr = funPtr_fbe60ed6_to
+  toFunPtr = hs_bindgen_fbe9c5dca66824d3
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Forward_declaration) -> IO ()) where
 
-  fromFunPtr = funPtr_fbe60ed6_from
+  fromFunPtr = hs_bindgen_b3640137a9cf92cc

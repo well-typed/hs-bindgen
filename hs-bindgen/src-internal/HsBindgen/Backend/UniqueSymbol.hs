@@ -7,6 +7,7 @@ module HsBindgen.Backend.UniqueSymbol (
   , unsafeUniqueHsName
   , uniqueCName
   , globallyUnique
+  , locallyUnique
   ) where
 
 import Crypto.Hash.SHA256 (hash)
@@ -63,22 +64,24 @@ uniqueCName = C.Name . Text.pack . unique
 -- a fixed length prefix of names; callers should ensure that
 -- @UniqueSymbol.source@ in included in a suitable comment.
 globallyUnique :: UniqueId -> BaseModuleName -> String -> UniqueSymbol
-globallyUnique (UniqueId uniqueId) baseModuleName str = UniqueSymbol{
-      unique
+globallyUnique (UniqueId uniqueId) baseModuleName str =
+    locallyUnique $ concat [
+        sanitizeUniqueId uniqueId
+      , "_"
+      , baseModuleNameToString baseModuleName
+      , "_"
+      , str
+      ]
+
+-- | Produce symbol that is locally unique (that is, unique in a Haskell module)
+--
+-- This should /NOT/ be used for symbols used in C, since the C namespace is
+-- entirely flat; use 'globallyUnique' instead.
+locallyUnique :: String -> UniqueSymbol
+locallyUnique source = UniqueSymbol{
+      unique = "hs_bindgen_" ++ hashString source
     , source
     }
-  where
-    unique :: String
-    unique = "hs_bindgen_" ++ hashString source
-
-    source :: String
-    source = concat [
-          sanitizeUniqueId uniqueId
-        , "_"
-        , baseModuleNameToString baseModuleName
-        , "_"
-        , str
-        ]
 
 {-------------------------------------------------------------------------------
   Internal auxiliary
