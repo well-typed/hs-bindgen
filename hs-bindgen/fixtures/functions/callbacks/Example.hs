@@ -994,162 +994,202 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo2 "un_Foo2" where
 
   offset# = \_ -> \_ -> 0
 
-foreign import ccall safe "wrapper" funPtr_7a7e54ab_to ::
+{-| __unique:__ @instance ToFunPtr (Foo -> IO ())@
+-}
+foreign import ccall safe "wrapper" hs_bindgen_d2a71f330b782e41 ::
      (Foo -> IO ())
   -> IO (Ptr.FunPtr (Foo -> IO ()))
 
-foreign import ccall safe "dynamic" funPtr_7a7e54ab_from ::
+{-| __unique:__ @instance FromFunPtr (Foo -> IO ())@
+-}
+foreign import ccall safe "dynamic" hs_bindgen_c08440542d338bad ::
      Ptr.FunPtr (Foo -> IO ())
   -> Foo -> IO ()
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr (Foo -> IO ()) where
 
-  toFunPtr = funPtr_7a7e54ab_to
+  toFunPtr = hs_bindgen_d2a71f330b782e41
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr (Foo -> IO ()) where
 
-  fromFunPtr = funPtr_7a7e54ab_from
+  fromFunPtr = hs_bindgen_c08440542d338bad
 
-foreign import ccall safe "wrapper" funPtr_527712e4_to ::
+{-| __unique:__ @instance ToFunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt)@
+-}
+foreign import ccall safe "wrapper" hs_bindgen_4a7a09e6a9e8c907 ::
      ((Ptr.Ptr Measurement) -> IO FC.CInt)
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt))
 
-foreign import ccall safe "dynamic" funPtr_527712e4_from ::
+{-| __unique:__ @instance FromFunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt)@
+-}
+foreign import ccall safe "dynamic" hs_bindgen_2f679442a6d5613f ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt)
   -> (Ptr.Ptr Measurement) -> IO FC.CInt
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt) where
 
-  toFunPtr = funPtr_527712e4_to
+  toFunPtr = hs_bindgen_4a7a09e6a9e8c907
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt) where
 
-  fromFunPtr = funPtr_527712e4_from
+  fromFunPtr = hs_bindgen_2f679442a6d5613f
 
-foreign import ccall safe "wrapper" funPtr_2cc53fd3_to ::
+{-| __unique:__ @instance ToFunPtr ((Ptr.Ptr Measurement) -> IO ())@
+-}
+foreign import ccall safe "wrapper" hs_bindgen_ca2a1bac1cc0c128 ::
      ((Ptr.Ptr Measurement) -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ()))
 
-foreign import ccall safe "dynamic" funPtr_2cc53fd3_from ::
+{-| __unique:__ @instance FromFunPtr ((Ptr.Ptr Measurement) -> IO ())@
+-}
+foreign import ccall safe "dynamic" hs_bindgen_4d8a3980803a90f0 ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ())
   -> (Ptr.Ptr Measurement) -> IO ()
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> IO ()) where
 
-  toFunPtr = funPtr_2cc53fd3_to
+  toFunPtr = hs_bindgen_ca2a1bac1cc0c128
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> IO ()) where
 
-  fromFunPtr = funPtr_2cc53fd3_from
+  fromFunPtr = hs_bindgen_4d8a3980803a90f0
 
-foreign import ccall safe "wrapper" funPtr_6f6352e1_to ::
+{-| __unique:__ @instance ToFunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ())@
+-}
+foreign import ccall safe "wrapper" hs_bindgen_aa3ec59dec5e1fdf ::
      ((Ptr.Ptr Measurement) -> DataValidator -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ()))
 
-foreign import ccall safe "dynamic" funPtr_6f6352e1_from ::
+{-| __unique:__ @instance FromFunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ())@
+-}
+foreign import ccall safe "dynamic" hs_bindgen_db7fc2b6d55d3864 ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ())
   -> (Ptr.Ptr Measurement) -> DataValidator -> IO ()
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ()) where
 
-  toFunPtr = funPtr_6f6352e1_to
+  toFunPtr = hs_bindgen_aa3ec59dec5e1fdf
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ()) where
 
-  fromFunPtr = funPtr_6f6352e1_from
+  fromFunPtr = hs_bindgen_db7fc2b6d55d3864
 
-foreign import ccall safe "wrapper" funPtr_065333fd_to ::
+{-| __unique:__ @instance ToFunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())@
+-}
+foreign import ccall safe "wrapper" hs_bindgen_b0ef2ac592b19bed ::
      ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ()))
 
-foreign import ccall safe "dynamic" funPtr_065333fd_from ::
+{-| __unique:__ @instance FromFunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())@
+-}
+foreign import ccall safe "dynamic" hs_bindgen_17d0b0462779e216 ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())
   -> (Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ()
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ()) where
 
-  toFunPtr = funPtr_065333fd_to
+  toFunPtr = hs_bindgen_b0ef2ac592b19bed
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ()) where
 
-  fromFunPtr = funPtr_065333fd_from
+  fromFunPtr = hs_bindgen_17d0b0462779e216
 
-foreign import ccall safe "wrapper" funPtr_ac6a854e_to ::
+{-| __unique:__ @instance ToFunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())@
+-}
+foreign import ccall safe "wrapper" hs_bindgen_2d4b28b099f1cb6b ::
      ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ()))
 
-foreign import ccall safe "dynamic" funPtr_ac6a854e_from ::
+{-| __unique:__ @instance FromFunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())@
+-}
+foreign import ccall safe "dynamic" hs_bindgen_3aa04c4e63a856b2 ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())
   -> (Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ()
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ()) where
 
-  toFunPtr = funPtr_ac6a854e_to
+  toFunPtr = hs_bindgen_2d4b28b099f1cb6b
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ()) where
 
-  fromFunPtr = funPtr_ac6a854e_from
+  fromFunPtr = hs_bindgen_3aa04c4e63a856b2
 
-foreign import ccall safe "wrapper" funPtr_5e6e3f6b_to ::
+{-| __unique:__ @instance ToFunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ())@
+-}
+foreign import ccall safe "wrapper" hs_bindgen_4e441dd005b8df73 ::
      ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ()))
 
-foreign import ccall safe "dynamic" funPtr_5e6e3f6b_from ::
+{-| __unique:__ @instance FromFunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ())@
+-}
+foreign import ccall safe "dynamic" hs_bindgen_fbe9354fa822de59 ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ())
   -> (Ptr.Ptr Measurement) -> ProgressUpdate -> IO ()
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ()) where
 
-  toFunPtr = funPtr_5e6e3f6b_to
+  toFunPtr = hs_bindgen_4e441dd005b8df73
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ()) where
 
-  fromFunPtr = funPtr_5e6e3f6b_from
+  fromFunPtr = hs_bindgen_fbe9354fa822de59
 
-foreign import ccall safe "wrapper" funPtr_8b272628_to ::
+{-| __unique:__ @instance ToFunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())@
+-}
+foreign import ccall safe "wrapper" hs_bindgen_83f0d12162b8410b ::
      ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ()))
 
-foreign import ccall safe "dynamic" funPtr_8b272628_from ::
+{-| __unique:__ @instance FromFunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())@
+-}
+foreign import ccall safe "dynamic" hs_bindgen_f634a7da5fce9c42 ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())
   -> (Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ()
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ()) where
 
-  toFunPtr = funPtr_8b272628_to
+  toFunPtr = hs_bindgen_83f0d12162b8410b
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ()) where
 
-  fromFunPtr = funPtr_8b272628_from
+  fromFunPtr = hs_bindgen_f634a7da5fce9c42
 
-foreign import ccall safe "wrapper" funPtr_30a248a4_to ::
+{-| __unique:__ @instance ToFunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())@
+-}
+foreign import ccall safe "wrapper" hs_bindgen_ab767cc7cdbd64cb ::
      ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ()))
 
-foreign import ccall safe "dynamic" funPtr_30a248a4_from ::
+{-| __unique:__ @instance FromFunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())@
+-}
+foreign import ccall safe "dynamic" hs_bindgen_2f73a7e07a90e977 ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())
   -> (Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ()
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ()) where
 
-  toFunPtr = funPtr_30a248a4_to
+  toFunPtr = hs_bindgen_ab767cc7cdbd64cb
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ()) where
 
-  fromFunPtr = funPtr_30a248a4_from
+  fromFunPtr = hs_bindgen_2f73a7e07a90e977
 
-foreign import ccall safe "wrapper" funPtr_a3803a24_to ::
+{-| __unique:__ @instance ToFunPtr (Foo2 -> IO ())@
+-}
+foreign import ccall safe "wrapper" hs_bindgen_235fa4a89af25f04 ::
      (Foo2 -> IO ())
   -> IO (Ptr.FunPtr (Foo2 -> IO ()))
 
-foreign import ccall safe "dynamic" funPtr_a3803a24_from ::
+{-| __unique:__ @instance FromFunPtr (Foo2 -> IO ())@
+-}
+foreign import ccall safe "dynamic" hs_bindgen_8605b223a9ab9562 ::
      Ptr.FunPtr (Foo2 -> IO ())
   -> Foo2 -> IO ()
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr (Foo2 -> IO ()) where
 
-  toFunPtr = funPtr_a3803a24_to
+  toFunPtr = hs_bindgen_235fa4a89af25f04
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr (Foo2 -> IO ()) where
 
-  fromFunPtr = funPtr_a3803a24_from
+  fromFunPtr = hs_bindgen_8605b223a9ab9562

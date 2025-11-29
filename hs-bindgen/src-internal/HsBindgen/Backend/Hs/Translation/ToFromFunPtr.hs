@@ -8,23 +8,27 @@ module HsBindgen.Backend.Hs.Translation.ToFromFunPtr (
   , forNewtype
   ) where
 
-import Crypto.Hash.SHA256 (hash)
-import Data.ByteString.Base16 qualified as B16
-import Data.ByteString.Char8 qualified as B
-import Data.Text qualified as T
+import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
+import HsBindgen.Backend.HsModule.Render ()
 import HsBindgen.Backend.SHs.AST qualified as SHs
+import HsBindgen.Backend.SHs.Translation qualified as SHs
+import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Main API
+
+  NOTE: The names we generate here exist in Haskell only (they do not have
+  C counterparts); it therefore suffices if they are locally unique.
 -------------------------------------------------------------------------------}
 
 -- | Generate ToFunPtr/FromFunPtr instances for nested function pointer types
@@ -38,33 +42,45 @@ import HsBindgen.Language.Haskell qualified as Hs
 forFunction :: ([C.Type], C.Type) -> [Hs.Decl]
 forFunction (args, res) =
     instancesFor
-      (genNameFromArgs args res "to")
-      (genNameFromArgs args res "from")
-      (C.TypeFun args res)
-      (Type.topLevel ft)
+      (unsafeUniqueHsName nameTo   , Just $ HsDoc.uniqueSymbol nameTo)
+      (unsafeUniqueHsName nameFrom , Just $ HsDoc.uniqueSymbol nameFrom)
+      funC
+      funHs
   where
-    ft = C.TypeFun args res
+    funC  = C.TypeFun args res
+    funHs = Type.topLevel funC
+
+    nameTo, nameFrom :: UniqueSymbol
+    nameTo   = locallyUnique $ "instance ToFunPtr (" ++ prettyHsType funHs ++ ")"
+    nameFrom = locallyUnique $ "instance FromFunPtr (" ++ prettyHsType funHs ++ ")"
 
 -- | Generate instances for newtype around functions
 forNewtype :: Hs.Name Hs.NsTypeConstr -> ([C.Type], C.Type) -> [Hs.Decl]
 forNewtype newtypeName (args, res) =
     instancesFor
-      ("to" <> coerce newtypeName)
-      ("from" <> coerce newtypeName)
-      (C.TypeFun args res)
-      (HsTypRef newtypeName)
+      (nameTo   , Nothing)
+      (nameFrom , Nothing)
+      funC
+      funHs
+  where
+    funC  = C.TypeFun args res
+    funHs = HsTypRef newtypeName
+
+    nameTo, nameFrom :: Hs.Name Hs.NsVar
+    nameTo   = "to"   <> coerce newtypeName
+    nameFrom = "from" <> coerce newtypeName
 
 {-------------------------------------------------------------------------------
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
 instancesFor ::
-     Hs.Name Hs.NsVar    -- ^ Name of the @toFunPtr@ function
-  -> Hs.Name Hs.NsVar    -- ^ Name of the @fromFunPtr@ function
-  -> C.Type              -- ^ Type of the C function
-  -> HsType              -- ^ Corresponding Haskell type
+     (Hs.Name Hs.NsVar, Maybe HsDoc.Comment) -- ^ Name of the @toFunPtr@ fun
+  -> (Hs.Name Hs.NsVar, Maybe HsDoc.Comment) -- ^ Name of the @fromFunPtr@ fun
+  -> C.Type                                  -- ^ Type of the C function
+  -> HsType                                  -- ^ Corresponding Haskell type
   -> [Hs.Decl]
-instancesFor nameTo nameFrom funC funHs = [
+instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = [
       -- import for @ToFunPtr@ instance
       Hs.DeclForeignImport Hs.ForeignImportDecl{
           foreignImportName       = nameTo
@@ -73,7 +89,7 @@ instancesFor nameTo nameFrom funC funHs = [
         , foreignImportOrigName   = "wrapper"
         , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
         , foreignImportOrigin     = Origin.ToFunPtr funC
-        , foreignImportComment    = Nothing
+        , foreignImportComment    = nameToComment
         , foreignImportSafety     = SHs.Safe
         }
 
@@ -85,7 +101,7 @@ instancesFor nameTo nameFrom funC funHs = [
         , foreignImportOrigName   = "dynamic"
         , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
         , foreignImportOrigin     = Origin.FromFunPtr funC
-        , foreignImportComment    = Nothing
+        , foreignImportComment    = nameFromComment
         , foreignImportSafety     = SHs.Safe
         }
 
@@ -117,11 +133,9 @@ wrapperParam hsType = Hs.FunctionParameter{
     , functionParameterComment = Nothing
     }
 
--- | Generate a unique name for FFI stubs based on function signature
-genNameFromArgs :: [C.Type] -> C.Type -> String -> Hs.Name 'Hs.NsVar
-genNameFromArgs args' res' suffix =
-    Hs.Name $ T.pack $ "funPtr_" ++ typeHash args' res' ++ "_" ++ suffix
-  where
-    typeHash :: [C.Type] -> C.Type -> String
-    typeHash args res = B.unpack $ B.take 8 $ B16.encode $
-      hash $ B.pack $ show (args, res)
+-- TODO: Ideally this would live elsewhere
+prettyHsType :: HsType -> String
+prettyHsType =
+      PP.renderCtxDoc PP.defaultContext
+    . PP.pretty
+    . SHs.translateType
