@@ -1,4 +1,6 @@
-module HsBindgen.NameHint where
+module HsBindgen.NameHint (
+    NameHint(..)
+  ) where
 
 import Data.Char (toLower)
 

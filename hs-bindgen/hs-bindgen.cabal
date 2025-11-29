@@ -63,6 +63,7 @@ common lang
 library internal
   import:           lang
   hs-source-dirs:   src-internal
+  ghc-options:      -Wmissing-export-lists
 
   -- Modules containing public API.
   exposed-modules:  HsBindgen.Config

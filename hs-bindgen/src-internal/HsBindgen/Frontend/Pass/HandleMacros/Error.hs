@@ -11,8 +11,6 @@ import Text.SimplePrettyPrint qualified as PP
 import C.Expr.Parse.Infra qualified as CExpr.DSL
 import C.Expr.Typecheck.Expr qualified as CExpr.DSL
 
-import Clang.HighLevel.Types
-
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -46,38 +44,25 @@ data HandleMacrosError =
 instance PrettyForTrace HandleMacrosError where
   prettyForTrace = \case
       HandleMacrosErrorParse errType errExpr -> PP.vcat [
-          PP.hsep [
-              "Could not parse macro as type:"
-            , PP.nest 2 $ prettyForTrace errType
-            ]
-        , PP.hsep [
-              "nor as expression:"
-            , PP.nest 2 $ prettyParseError errExpr
-            ]
+          "Could not parse macro as type:"
+        , PP.nest 2 $ prettyForTrace errType
+        , "nor as expression:"
+        , PP.nest 2 $ prettyParseError errExpr
         ]
       HandleMacrosErrorEmpty name -> PP.hsep [
-            "Ignoring empty macro:"
-          , prettyForTrace name
-          ]
+          "Ignoring empty macro:"
+        , prettyForTrace name
+        ]
       HandleMacrosErrorTc x -> PP.hsep [
-            "Failed to typecheck macro:"
-          , PP.textToCtxDoc $ CExpr.DSL.pprTcMacroError x
-          ]
+          "Failed to typecheck macro:"
+        , PP.textToCtxDoc $ CExpr.DSL.pprTcMacroError x
+        ]
 
 prettyParseError :: CExpr.DSL.MacroParseError -> PP.CtxDoc
-prettyParseError err = PP.vcat [
-      PP.hsep [
-          "Reparse error: "
-        , fromString reparseError
-        ]
-    , PP.hsep . map (PP.textToCtxDoc . getTokenSpelling . tokenSpelling) $
-        reparseErrorTokens
-    ]
+prettyParseError err =
+    PP.renderedLines (\_maxWidth -> lines reparseError)
   where
-    CExpr.DSL.MacroParseError{
-        reparseError
-      , reparseErrorTokens
-      } = err
+    CExpr.DSL.MacroParseError{reparseError} = err
 
 instance IsTrace Level HandleMacrosError where
   getDefaultLogLevel = \case
