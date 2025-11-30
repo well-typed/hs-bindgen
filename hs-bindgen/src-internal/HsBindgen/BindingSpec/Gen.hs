@@ -158,6 +158,7 @@ genBindingSpec'
             hsIdentifier = Hs.Identifier $ Hs.getName (Hs.structName hsStruct)
             cTypeSpec = BindingSpec.CTypeSpec {
                 cTypeSpecIdentifier = Just hsIdentifier
+              , cTypeSpecRep        = Nothing  -- TODO implement
               }
             hsTypeSpec = BindingSpec.HsTypeSpec {
                 hsTypeSpecInstances =
@@ -186,6 +187,7 @@ genBindingSpec'
           hsIdentifier = Hs.Identifier $ Hs.getName (Hs.emptyDataName edata)
           cTypeSpec = BindingSpec.CTypeSpec {
               cTypeSpecIdentifier = Just hsIdentifier
+            , cTypeSpecRep        = Nothing  -- TODO implement
             }
           hsTypeSpec = def
       in  ( (cQualName, getHeaders declInfo, cTypeSpec)
@@ -209,6 +211,7 @@ genBindingSpec'
           hsIdentifier = Hs.Identifier $ Hs.getName (Hs.newtypeName hsNewtype)
           cTypeSpec = BindingSpec.CTypeSpec {
               cTypeSpecIdentifier = Just hsIdentifier
+            , cTypeSpecRep        = Nothing  -- TODO implement
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
               hsTypeSpecInstances =

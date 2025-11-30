@@ -23,6 +23,7 @@ module HsBindgen.BindingSpec.Private.V1 (
   , ResolvedBindingSpec
   , BindingSpecTarget(..)
   , CTypeSpec(..)
+  , CTypeRep(..)
   , HsTypeSpec(..)
     -- ** Instances
   , InstanceSpec(..)
@@ -165,16 +166,40 @@ isCompatBindingSpecTarget = \case
 --------------------------------------------------------------------------------
 
 -- | Binding specification for a C type
-newtype CTypeSpec = CTypeSpec {
+data CTypeSpec = CTypeSpec {
       -- | Haskell identifier
       cTypeSpecIdentifier :: Maybe Hs.Identifier
+    , -- | C type representation
+      cTypeSpecRep        :: Maybe CTypeRep
     }
   deriving stock (Show, Eq, Ord, Generic)
 
 instance Default CTypeSpec where
   def = CTypeSpec {
       cTypeSpecIdentifier = Nothing
+    , cTypeSpecRep        = Nothing
     }
+
+--------------------------------------------------------------------------------
+
+-- | C type representation
+data CTypeRep =
+    -- | Default representation
+    --
+    -- The C declaration corresponds to both a type and a constructor.
+    CTypeRepDefault
+
+  | -- | Opaque representation
+    --
+    -- The C declaration corresponds to a type only, so it may only be used via
+    -- a reference.
+    CTypeRepOpaque
+
+  | -- | Alias representation
+    --
+    -- The C type should be considered an alias of a different C type.
+    CTypeRepAlias
+  deriving stock (Bounded, Enum, Eq, Generic, Ord, Show)
 
 --------------------------------------------------------------------------------
 
@@ -382,21 +407,38 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
 
     keyPosition :: Text -> Int
     keyPosition = \case
-      "version"               ->  0  -- ABindingSpec:1
-      "hs_bindgen"            ->  1  -- AVersion:1
-      "binding_specification" ->  2  -- AVersion:2
-      "omit"                  ->  3  -- AOmittable:1
-      "class"                 ->  4  -- AInstanceSpecMapping:1, AConstraintSpec:1
-      "strategy"              ->  5  -- AInstanceSpecMapping:2
-      "constraints"           ->  6  -- AInstanceSpecMapping:3
-      "target"                ->  7  -- ABindingSpec:2
-      "hsmodule"              ->  8  -- ABindingSpec:3, AConstraintSpec:2
-      "ctypes"                ->  9  -- ABindingSpec:4
-      "hstypes"               -> 10  -- ABindingSpec:5
-      "headers"               -> 11  -- ACTypeSpecMapping:1
-      "cname"                 -> 12  -- ACTypeSpecMapping:2
-      "hsname"                -> 13  -- ACTypeSpecMapping:3, AConstraintSpec:3
-      "instances"             -> 14  -- ACTypeSpecMapping:4
+      -- ABindingSpec:1
+      "version"               ->  0
+      -- AVersion:1
+      "hs_bindgen"            ->  1
+      -- AVersion:2
+      "binding_specification" ->  2
+      -- AOmittable:1
+      "omit"                  ->  3
+      -- AInstanceSpecMapping:1, AConstraintSpec:1
+      "class"                 ->  4
+      -- AInstanceSpecMapping:2
+      "strategy"              ->  5
+      -- AInstanceSpecMapping:3
+      "constraints"           ->  6
+      -- ABindingSpec:2
+      "target"                ->  7
+      -- ABindingSpec:3, AConstraintSpec:2
+      "hsmodule"              ->  8
+      -- ABindingSpec:4
+      "ctypes"                ->  9
+      -- ABindingSpec:5
+      "hstypes"               -> 10
+      -- ACTypeSpecMapping:1
+      "headers"               -> 11
+      -- ACTypeSpecMapping:2
+      "cname"                 -> 12
+      -- ACTypeSpecMapping:3, AHsTypeSpecMapping:1, AConstraintSpec:3
+      "hsname"                -> 13
+      -- ACTypeSpecMapping:4
+      "representation"        -> 14
+      -- AHsTypeSpecMapping:2
+      "instances"             -> 15
       key -> panicPure $ "Unknown key: " ++ show key
 
 {-------------------------------------------------------------------------------
@@ -629,6 +671,7 @@ data ACTypeSpecMapping = ACTypeSpecMapping {
       aCTypeSpecMappingHeaders    :: [FilePath]
     , aCTypeSpecMappingCName      :: Text
     , aCTypeSpecMappingIdentifier :: Maybe Hs.Identifier
+    , aCTypeSpecMappingRep        :: Maybe ACTypeRep
     }
   deriving stock Show
 
@@ -637,13 +680,47 @@ instance Aeson.FromJSON ACTypeSpecMapping where
     aCTypeSpecMappingHeaders    <- o .:  "headers" >>= listFromJSON
     aCTypeSpecMappingCName      <- o .:  "cname"
     aCTypeSpecMappingIdentifier <- o .:? "hsname"
+    aCTypeSpecMappingRep        <- o .:? "representation"
     return ACTypeSpecMapping{..}
 
 instance Aeson.ToJSON ACTypeSpecMapping where
   toJSON ACTypeSpecMapping{..} = Aeson.Object . KM.fromList $ catMaybes [
       Just ("headers" .= listToJSON aCTypeSpecMappingHeaders)
     , Just ("cname"   .= aCTypeSpecMappingCName)
-    , ("hsname"    .=) <$> aCTypeSpecMappingIdentifier
+    , ("hsname"         .=) <$> aCTypeSpecMappingIdentifier
+    , ("representation" .=) <$> aCTypeSpecMappingRep
+    ]
+
+--------------------------------------------------------------------------------
+
+newtype ACTypeRep = ACTypeRep {
+      unACTypeRep :: CTypeRep
+    }
+  deriving stock Show
+
+instance Aeson.FromJSON ACTypeRep where
+  parseJSON = fmap ACTypeRep . aux
+    where
+      aux :: Aeson.Value -> Aeson.Parser CTypeRep
+      aux = Aeson.withText "ACTypeRep" $ \t ->
+        case Map.lookup t cTypeRepFromText of
+          Just cTypeRep -> return cTypeRep
+          Nothing ->
+            Aeson.parseFail $ "unknown C representation: " ++ Text.unpack t
+
+instance Aeson.ToJSON ACTypeRep where
+  toJSON = Aeson.String . cTypeRepText . unACTypeRep
+
+cTypeRepText :: CTypeRep -> Text
+cTypeRepText = \case
+    CTypeRepDefault -> "default"
+    CTypeRepOpaque  -> "opaque"
+    CTypeRepAlias   -> "alias"
+
+cTypeRepFromText :: Map Text CTypeRep
+cTypeRepFromText = Map.fromList [
+      (cTypeRepText cTypeRep, cTypeRep)
+    | cTypeRep <- [minBound..]
     ]
 
 --------------------------------------------------------------------------------
@@ -822,6 +899,7 @@ mkCTypeMap path =
             ARequire ACTypeSpecMapping{..} ->
               let cTypeSpec = CTypeSpec {
                       cTypeSpecIdentifier = aCTypeSpecMappingIdentifier
+                    , cTypeSpecRep        = unACTypeRep <$> aCTypeSpecMappingRep
                     }
               in  ( aCTypeSpecMappingCName
                   , aCTypeSpecMappingHeaders
@@ -930,6 +1008,7 @@ toAOCTypes cTypeMap = [
               map getHashIncludeArg (Set.toAscList headers)
           , aCTypeSpecMappingCName = C.qualNameText cQualName
           , aCTypeSpecMappingIdentifier = cTypeSpecIdentifier
+          , aCTypeSpecMappingRep        = ACTypeRep <$> cTypeSpecRep
           }
         Omit -> AOmit AKCTypeSpecMapping {
             akCTypeSpecMappingHeaders =

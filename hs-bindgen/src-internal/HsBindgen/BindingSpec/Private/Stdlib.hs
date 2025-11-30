@@ -48,44 +48,44 @@ bindingSpec = BindingSpec.BindingSpec{..}
     bindingSpecHsTypes :: Map Hs.Identifier BindingSpec.HsTypeSpec
     (bindingSpecCTypes, bindingSpecHsTypes) = aux [
         -- Integral types
-        mkT "int8_t"         "Int8"     intI inttypesH
-      , mkT "int16_t"        "Int16"    intI inttypesH
-      , mkT "int32_t"        "Int32"    intI inttypesH
-      , mkT "int64_t"        "Int64"    intI inttypesH
-      , mkT "uint8_t"        "Word8"    intI inttypesH
-      , mkT "uint16_t"       "Word16"   intI inttypesH
-      , mkT "uint32_t"       "Word32"   intI inttypesH
-      , mkT "uint64_t"       "Word64"   intI inttypesH
-      , mkT "int_least8_t"   "Int8"     intI inttypesH
-      , mkT "int_least16_t"  "Int16"    intI inttypesH
-      , mkT "int_least32_t"  "Int32"    intI inttypesH
-      , mkT "int_least64_t"  "Int64"    intI inttypesH
-      , mkT "uint_least8_t"  "Word8"    intI inttypesH
-      , mkT "uint_least16_t" "Word16"   intI inttypesH
-      , mkT "uint_least32_t" "Word32"   intI inttypesH
-      , mkT "uint_least64_t" "Word64"   intI inttypesH
-      , mkT "int_fast8_t"    "Int8"     intI inttypesH
-      , mkT "int_fast16_t"   "Int16"    intI inttypesH
-      , mkT "int_fast32_t"   "Int32"    intI inttypesH
-      , mkT "int_fast64_t"   "Int64"    intI inttypesH
-      , mkT "uint_fast8_t"   "Word8"    intI inttypesH
-      , mkT "uint_fast16_t"  "Word16"   intI inttypesH
-      , mkT "uint_fast32_t"  "Word32"   intI inttypesH
-      , mkT "uint_fast64_t"  "Word64"   intI inttypesH
-      , mkT "intmax_t"       "CIntMax"  intI inttypesH
-      , mkT "uintmax_t"      "CUIntMax" intI inttypesH
-      , mkT "intptr_t"       "CIntPtr"  intI inttypesH
-      , mkT "uintptr_t"      "CUIntPtr" intI inttypesH
+        mkT "int8_t"         "Int8"     cD intI inttypesH
+      , mkT "int16_t"        "Int16"    cD intI inttypesH
+      , mkT "int32_t"        "Int32"    cD intI inttypesH
+      , mkT "int64_t"        "Int64"    cD intI inttypesH
+      , mkT "uint8_t"        "Word8"    cD intI inttypesH
+      , mkT "uint16_t"       "Word16"   cD intI inttypesH
+      , mkT "uint32_t"       "Word32"   cD intI inttypesH
+      , mkT "uint64_t"       "Word64"   cD intI inttypesH
+      , mkT "int_least8_t"   "Int8"     cD intI inttypesH
+      , mkT "int_least16_t"  "Int16"    cD intI inttypesH
+      , mkT "int_least32_t"  "Int32"    cD intI inttypesH
+      , mkT "int_least64_t"  "Int64"    cD intI inttypesH
+      , mkT "uint_least8_t"  "Word8"    cD intI inttypesH
+      , mkT "uint_least16_t" "Word16"   cD intI inttypesH
+      , mkT "uint_least32_t" "Word32"   cD intI inttypesH
+      , mkT "uint_least64_t" "Word64"   cD intI inttypesH
+      , mkT "int_fast8_t"    "Int8"     cD intI inttypesH
+      , mkT "int_fast16_t"   "Int16"    cD intI inttypesH
+      , mkT "int_fast32_t"   "Int32"    cD intI inttypesH
+      , mkT "int_fast64_t"   "Int64"    cD intI inttypesH
+      , mkT "uint_fast8_t"   "Word8"    cD intI inttypesH
+      , mkT "uint_fast16_t"  "Word16"   cD intI inttypesH
+      , mkT "uint_fast32_t"  "Word32"   cD intI inttypesH
+      , mkT "uint_fast64_t"  "Word64"   cD intI inttypesH
+      , mkT "intmax_t"       "CIntMax"  cD intI inttypesH
+      , mkT "uintmax_t"      "CUIntMax" cD intI inttypesH
+      , mkT "intptr_t"       "CIntPtr"  cD intI inttypesH
+      , mkT "uintptr_t"      "CUIntPtr" cD intI inttypesH
         -- Floating types
-      , mkT "fenv_t"    "CFenvT"    [] $ mkH ["fenv.h"]
-      , mkT "fexcept_t" "CFexceptT" [] $ mkH ["fenv.h"]
+      , mkT "fenv_t"    "CFenvT"    cO [] $ mkH ["fenv.h"]
+      , mkT "fexcept_t" "CFexceptT" cO [] $ mkH ["fenv.h"]
         -- Mathematical types
-      , mkT "div_t"     "CDivT"     divI $ mkH ["stdlib.h"]
-      , mkT "ldiv_t"    "CLdivT"    divI $ mkH ["stdlib.h"]
-      , mkT "lldiv_t"   "CLldivT"   divI $ mkH ["stdlib.h"]
-      , mkT "imaxdiv_t" "CImaxdivT" divI $ mkH ["inttypes.h"]
+      , mkT "div_t"     "CDivT"     cD divI $ mkH ["stdlib.h"]
+      , mkT "ldiv_t"    "CLdivT"    cD divI $ mkH ["stdlib.h"]
+      , mkT "lldiv_t"   "CLldivT"   cD divI $ mkH ["stdlib.h"]
+      , mkT "imaxdiv_t" "CImaxdivT" cD divI $ mkH ["inttypes.h"]
         -- Standard definitions
-      , mkT "size_t" "CSize" intI $ mkH [
+      , mkT "size_t" "CSize" cD intI $ mkH [
             "signal.h"
           , "stddef.h"
           , "stdio.h"
@@ -95,32 +95,36 @@ bindingSpec = BindingSpec.BindingSpec{..}
           , "uchar.h"
           , "wchar.h"
           ]
-      , mkT "ptrdiff_t" "CPtrdiff" intI $ mkH ["stddef.h"]
+      , mkT "ptrdiff_t" "CPtrdiff" cD intI $ mkH ["stddef.h"]
         -- Non-local jump types
-      , mkT "jmp_buf" "CJmpBuf" [] $ mkH ["setjmp.h"]
+      , mkT "jmp_buf" "CJmpBuf" cO [] $ mkH ["setjmp.h"]
         -- Wide character types
-      , mkT "wchar_t" "CWchar" intI $ mkH [
+      , mkT "wchar_t" "CWchar" cD intI $ mkH [
             "inttypes.h"
           , "stddef.h"
           , "stdlib.h"
           , "wchar.h"
           ]
-      , mkT "wint_t"    "CWintT"    intI $ mkH ["wchar.h", "wctype.h"]
-      , mkT "mbstate_t" "CMbstateT" []   $ mkH ["uchar.h", "wchar.h"]
-      , mkT "wctrans_t" "CWctransT" eqI  $ mkH ["wctype.h"]
-      , mkT "wctype_t"  "CWctypeT"  eqI  $ mkH ["wchar.h", "wctype.h"]
-      , mkT "char16_t"  "CChar16T"  intI $ mkH ["uchar.h"]
-      , mkT "char32_t"  "CChar32T"  intI $ mkH ["uchar.h"]
+      , mkT "wint_t"    "CWintT"    cD intI $ mkH ["wchar.h", "wctype.h"]
+      , mkT "mbstate_t" "CMbstateT" cO []   $ mkH ["uchar.h", "wchar.h"]
+      , mkT "wctrans_t" "CWctransT" cD eqI  $ mkH ["wctype.h"]
+      , mkT "wctype_t"  "CWctypeT"  cD eqI  $ mkH ["wchar.h", "wctype.h"]
+      , mkT "char16_t"  "CChar16T"  cD intI $ mkH ["uchar.h"]
+      , mkT "char32_t"  "CChar32T"  cD intI $ mkH ["uchar.h"]
         -- Time types
-      , mkT "time_t"    "CTime"  timeI $ mkH ["signal.h", "time.h"]
-      , mkT "clock_t"   "CClock" timeI $ mkH ["signal.h", "time.h"]
-      , mkT "struct tm" "CTm"    eqI   $ mkH ["time.h"]
+      , mkT "time_t"    "CTime"  cD timeI $ mkH ["signal.h", "time.h"]
+      , mkT "clock_t"   "CClock" cD timeI $ mkH ["signal.h", "time.h"]
+      , mkT "struct tm" "CTm"    cD eqI   $ mkH ["time.h"]
         -- File types
-      , mkT "FILE"   "CFile" [] $ mkH ["stdio.h", "wchar.h"]
-      , mkT "fpos_t" "CFpos" [] $ mkH ["stdio.h"]
+      , mkT "FILE"   "CFile" cO [] $ mkH ["stdio.h", "wchar.h"]
+      , mkT "fpos_t" "CFpos" cO [] $ mkH ["stdio.h"]
         -- Signal types
-      , mkT "sig_atomic_t" "CSigAtomic" intI $ mkH ["signal.h"]
+      , mkT "sig_atomic_t" "CSigAtomic" cD intI $ mkH ["signal.h"]
       ]
+
+    cD, cO :: BindingSpec.CTypeRep
+    cD = BindingSpec.CTypeRepDefault
+    cO = BindingSpec.CTypeRepOpaque
 
     inttypesH :: Set HashIncludeArg
     inttypesH = mkH ["inttypes.h", "stdint.h"]
@@ -190,6 +194,7 @@ mkH = Set.fromList . map HashIncludeArg
 mkT ::
      Text
   -> Hs.Identifier
+  -> BindingSpec.CTypeRep
   -> [Hs.TypeClass]
   -> Set HashIncludeArg
   -> ( ( C.QualName
@@ -197,7 +202,7 @@ mkT ::
        )
      , (Hs.Identifier, BindingSpec.HsTypeSpec)
      )
-mkT t hsIdentifier insts headers = case C.parseQualName t of
+mkT t hsIdentifier cTypeRep insts headers = case C.parseQualName t of
     Nothing -> panicPure $ "invalid qualified name: " ++ show t
     Just cQualName ->
       ( (cQualName, [(headers, Require cTypeSpec)])
@@ -207,6 +212,7 @@ mkT t hsIdentifier insts headers = case C.parseQualName t of
     cTypeSpec :: BindingSpec.CTypeSpec
     cTypeSpec = BindingSpec.CTypeSpec {
         cTypeSpecIdentifier = Just hsIdentifier
+      , cTypeSpecRep        = Just cTypeRep
       }
 
     hsTypeSpec :: BindingSpec.HsTypeSpec
