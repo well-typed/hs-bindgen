@@ -6,7 +6,7 @@ usage() {
     cat <<EOF
 Usage: $(basename "$0") [OPTIONS]
 
-Compile generated .pp.hs fixture files to verify they produce valid Haskell code.
+Compile generated .hs fixture files to verify they produce valid Haskell code.
 
 Options:
   -j N    Number of parallel jobs (default: 4)
@@ -26,6 +26,12 @@ KNOWN_FAILURES=(
     declarations/redeclaration   # Multiple declarations (intentional test case)
     types/typedefs/typenames     # Multiple declarations (hs-bindgen namespace possible bug/feature)
 )
+
+# The number of fixtures that are known to exist (including known failures)
+#
+# This number is used for sanity checks. Make sure to update this number when
+# new fixtures are added or old ones are removed.
+KNOWN_FIXTURES_COUNT=82
 
 # Default options
 JOBS=4
@@ -68,8 +74,8 @@ fi
 # Extract the name of the fixture
 #
 # Examples:
-# * Given a path of the form $FIXTURES_DIR/foo/Example.pp.hs, returns foo
-# * Given a path of the form $FIXTURES_DIR/manual/foo/Example.pp.hs, returns manual/foo
+# * Given a path of the form $FIXTURES_DIR/foo/Example.hs, returns foo
+# * Given a path of the form $FIXTURES_DIR/manual/foo/Example.hs, returns manual/foo
 get_fixture_name() {
     local file="$1"
     local fixture_dir
@@ -102,10 +108,10 @@ compile_fixture() {
     # NOTE: I (Joris) am not 100% sure, but it looks like the order in which the
     # files are passed to the GHC invocation matters for module dependency
     # resolution. We sort by directory depth first (shallower files first), then
-    # alphabetically. This ensures Example.pp.hs is compiled before Example/*.pp.hs,
+    # alphabetically. This ensures Example.hs is compiled before Example/*.hs,
     # which is necessary since the submodules import the main Example module.
     local files
-    files=$(find "$FIXTURES_DIR/$fixture_name/" -type f -name "*.pp.hs" -print0 | \
+    files=$(find "$FIXTURES_DIR/$fixture_name/" -type f -name "*.hs" -print0 | \
         xargs -0 -I {} sh -c 'echo $(echo "{}" | tr -cd "/" | wc -c) "{}"' | \
         sort -n | \
         cut -d' ' -f2- | \
@@ -165,6 +171,7 @@ compile_fixture() {
 export -f compile_fixture
 export -f is_known_failure
 export KNOWN_FAILURES
+export KNOWN_FIXTURES_COUNT
 export HS_BINDGEN_DIR
 export EXAMPLES_DIR
 export FIXTURES_DIR
@@ -174,7 +181,7 @@ echo "Collecting fixtures..."
 FIXTURES_TO_COMPILE=()
 FIXTURES_SKIPPED=()
 
-# Use find to recursively search for all .pp.hs files
+# Use find to recursively search for all .hs files
 while IFS= read -r -d '' file; do
     fixture_name=$(get_fixture_name "$file")
     if [[ "$FORCE_ALL" == "false" ]] && is_known_failure "$fixture_name"; then
@@ -182,18 +189,26 @@ while IFS= read -r -d '' file; do
     else
         FIXTURES_TO_COMPILE+=("$fixture_name")
     fi
-done < <(find "$FIXTURES_DIR" -type f -name "Example.pp.hs" -print0 | sort -z)
+done < <(find "$FIXTURES_DIR" -type f -name "Example.hs" -print0 | sort -z)
+
+FIXTURES_FOUND_COUNT=$(( ${#FIXTURES_TO_COMPILE[@]} + ${#FIXTURES_SKIPPED[@]} ))
 
 echo ""
 echo "========================================="
 echo "Fixture Compilation Report"
 echo "========================================="
-echo "Total fixtures: $(find "$FIXTURES_DIR" -type f -name "Example.pp.hs" | wc -l)"
+echo "Total known fixtures: $KNOWN_FIXTURES_COUNT"
+echo "Total found fixtures: $FIXTURES_FOUND_COUNT"
 echo "To compile: ${#FIXTURES_TO_COMPILE[@]}"
 echo "Skipped (known failures): ${#FIXTURES_SKIPPED[@]}"
 echo "Parallel jobs: $JOBS"
 echo "========================================="
 echo ""
+
+if [[ $KNOWN_FIXTURES_COUNT -ne $FIXTURES_FOUND_COUNT ]]; then
+    echo "Error: total known fixtures is not equal to total found fixtures. Did you forget to update \$KNOWN_FIXTURES_COUNT?"
+    exit 1
+fi
 
 if [[ ${#FIXTURES_SKIPPED[@]} -gt 0 ]]; then
     echo "Skipped fixtures (use -f to force):"
