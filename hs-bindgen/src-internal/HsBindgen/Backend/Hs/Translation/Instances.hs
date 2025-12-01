@@ -18,10 +18,10 @@ type InstanceMap = Map (Name NsTypeConstr) (Set TypeClass)
 
 getInstances ::
      HasCallStack
-  => InstanceMap       -- ^ Current state
-  -> Name NsTypeConstr -- ^ Name of current type
-  -> Set TypeClass     -- ^ Candidate instances
-  -> [HsType]          -- ^ Dependencies
+  => InstanceMap               -- ^ Current state
+  -> Maybe (Name NsTypeConstr) -- ^ Name of current type (optionaL)
+  -> Set TypeClass             -- ^ Candidate instances
+  -> [HsType]                  -- ^ Dependencies
   -> Set TypeClass
 getInstances instanceMap name = aux
   where
@@ -32,7 +32,7 @@ getInstances instanceMap name = aux
       | otherwise = case hsType of
           HsPrimType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
           HsTypRef name'
-            | name' == name -> aux acc hsTypes
+            | Just name' == name -> aux acc hsTypes
             | otherwise -> case Map.lookup name' instanceMap of
                 Just instances -> aux (acc /\ instances) hsTypes
                 Nothing -> panicPure $ "type not found: " ++ show name'

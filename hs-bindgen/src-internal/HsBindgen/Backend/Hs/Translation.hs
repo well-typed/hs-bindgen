@@ -241,7 +241,7 @@ structDecs opts haddockConfig info struct spec fields = do
         -- #1286.
       where
         insts :: Set Hs.TypeClass
-        insts = Hs.getInstances instanceMap structName candidateInsts $
+        insts = Hs.getInstances instanceMap (Just structName) candidateInsts $
           Hs.fieldType <$> Vec.toList structFields
 
         hsStruct :: Hs.Struct n
@@ -503,7 +503,7 @@ unionDecs haddockConfig info union spec = do
         getAccessorDecls :: C.UnionField -> [Hs.Decl]
         getAccessorDecls C.UnionField{..} =
           let hsType = Type.topLevel unionFieldType
-              fInsts = Hs.getInstances instanceMap newtypeName insts [hsType]
+              fInsts = Hs.getInstances instanceMap (Just newtypeName) insts [hsType]
               getterName = "get_" <> C.nameHs (C.fieldName unionFieldInfo)
               setterName = "set_" <> C.nameHs (C.fieldName unionFieldInfo)
               commentRefName name = Just $ HsDoc.paragraph [
@@ -822,7 +822,7 @@ typedefDecs opts haddockConfig info typedef spec = do
         insts =
           Hs.getInstances
             instanceMap
-            newtypeName
+            (Just newtypeName)
             candidateInsts
             [Hs.fieldType newtypeField]
 
@@ -979,7 +979,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
         fieldType = Type.topLevel ty
 
         insts :: Set Hs.TypeClass
-        insts = Hs.getInstances instanceMap newtypeName candidateInsts [fieldType]
+        insts = Hs.getInstances instanceMap (Just newtypeName) candidateInsts [fieldType]
 
         hsNewtype :: Hs.Newtype
         hsNewtype = Hs.Newtype {
@@ -1530,7 +1530,7 @@ constGetter ty instsMap info pureStubName = concat [
           -- superclass constraints. See issue #993.
           Hs.Storable
             `elem`
-              Hs.getInstances instsMap "unused" (Set.singleton Hs.Storable) [ty]
+              Hs.getInstances instsMap Nothing (Set.singleton Hs.Storable) [ty]
         ]
   where
     -- *** Getter ***
