@@ -7,6 +7,7 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -145,6 +146,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_99bda9cd8097b0ea" readFileWithProcessor_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -> IO FC.CInt)
+
 {-| __C declaration:__ @readFileWithProcessor@
 
     __defined at:__ @functions\/callbacks.h:4:5@
@@ -153,7 +159,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __unique:__ @test_functionscallbacks_Example_Safe_readFileWithProcessor@
 -}
-foreign import ccall safe "hs_bindgen_99bda9cd8097b0ea" readFileWithProcessor ::
+readFileWithProcessor ::
      Ptr.FunPtr (FC.CInt -> IO ())
      {- ^ __C declaration:__ @processLine@
      -}
@@ -161,6 +167,13 @@ foreign import ccall safe "hs_bindgen_99bda9cd8097b0ea" readFileWithProcessor ::
      {- ^ __C declaration:__ @fileId@
      -}
   -> IO FC.CInt
+readFileWithProcessor =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType readFileWithProcessor_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_84b75366c836fc85" watchTemperature_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -> IO ())
 
 {-| __C declaration:__ @watchTemperature@
 
@@ -170,7 +183,7 @@ foreign import ccall safe "hs_bindgen_99bda9cd8097b0ea" readFileWithProcessor ::
 
     __unique:__ @test_functionscallbacks_Example_Safe_watchTemperature@
 -}
-foreign import ccall safe "hs_bindgen_84b75366c836fc85" watchTemperature ::
+watchTemperature ::
      Ptr.FunPtr (FC.CInt -> IO ())
      {- ^ __C declaration:__ @onTempChange@
      -}
@@ -178,6 +191,13 @@ foreign import ccall safe "hs_bindgen_84b75366c836fc85" watchTemperature ::
      {- ^ __C declaration:__ @sensorId@
      -}
   -> IO ()
+watchTemperature =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType watchTemperature_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_f2580f574faa3697" onFileOpened_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FileOpenedNotification -> IO ())
 
 {-| __C declaration:__ @onFileOpened@
 
@@ -187,11 +207,18 @@ foreign import ccall safe "hs_bindgen_84b75366c836fc85" watchTemperature ::
 
     __unique:__ @test_functionscallbacks_Example_Safe_onFileOpened@
 -}
-foreign import ccall safe "hs_bindgen_f2580f574faa3697" onFileOpened ::
+onFileOpened ::
      FileOpenedNotification
      {- ^ __C declaration:__ @notify@
      -}
   -> IO ()
+onFileOpened =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType onFileOpened_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_654057b291ee37ea" onProgressChanged_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (ProgressUpdate -> IO ())
 
 {-| __C declaration:__ @onProgressChanged@
 
@@ -201,11 +228,18 @@ foreign import ccall safe "hs_bindgen_f2580f574faa3697" onFileOpened ::
 
     __unique:__ @test_functionscallbacks_Example_Safe_onProgressChanged@
 -}
-foreign import ccall safe "hs_bindgen_654057b291ee37ea" onProgressChanged ::
+onProgressChanged ::
      ProgressUpdate
      {- ^ __C declaration:__ @update@
      -}
   -> IO ()
+onProgressChanged =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType onProgressChanged_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_5df7aac6996be10f" validateInput_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (DataValidator -> FC.CInt -> IO FC.CInt)
 
 {-| __C declaration:__ @validateInput@
 
@@ -215,7 +249,7 @@ foreign import ccall safe "hs_bindgen_654057b291ee37ea" onProgressChanged ::
 
     __unique:__ @test_functionscallbacks_Example_Safe_validateInput@
 -}
-foreign import ccall safe "hs_bindgen_5df7aac6996be10f" validateInput ::
+validateInput ::
      DataValidator
      {- ^ __C declaration:__ @validator@
      -}
@@ -223,6 +257,13 @@ foreign import ccall safe "hs_bindgen_5df7aac6996be10f" validateInput ::
      {- ^ __C declaration:__ @rawValue@
      -}
   -> IO FC.CInt
+validateInput =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType validateInput_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_8f1bb1c4d2b5355f" onNewMeasurement_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (MeasurementReceived -> IO ())
 
 {-| __C declaration:__ @onNewMeasurement@
 
@@ -232,11 +273,18 @@ foreign import ccall safe "hs_bindgen_5df7aac6996be10f" validateInput ::
 
     __unique:__ @test_functionscallbacks_Example_Safe_onNewMeasurement@
 -}
-foreign import ccall safe "hs_bindgen_8f1bb1c4d2b5355f" onNewMeasurement ::
+onNewMeasurement ::
      MeasurementReceived
      {- ^ __C declaration:__ @handler@
      -}
   -> IO ()
+onNewMeasurement =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType onNewMeasurement_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d805e39c6cbdd620" onNewMeasurement2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (MeasurementReceived2 -> IO ())
 
 {-| __C declaration:__ @onNewMeasurement2@
 
@@ -246,11 +294,18 @@ foreign import ccall safe "hs_bindgen_8f1bb1c4d2b5355f" onNewMeasurement ::
 
     __unique:__ @test_functionscallbacks_Example_Safe_onNewMeasurement2@
 -}
-foreign import ccall safe "hs_bindgen_d805e39c6cbdd620" onNewMeasurement2 ::
+onNewMeasurement2 ::
      MeasurementReceived2
      {- ^ __C declaration:__ @handler@
      -}
   -> IO ()
+onNewMeasurement2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType onNewMeasurement2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_8d803591bcf10ba5" onBufferReady_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (SampleBufferFull -> IO ())
 
 {-| __C declaration:__ @onBufferReady@
 
@@ -260,11 +315,18 @@ foreign import ccall safe "hs_bindgen_d805e39c6cbdd620" onNewMeasurement2 ::
 
     __unique:__ @test_functionscallbacks_Example_Safe_onBufferReady@
 -}
-foreign import ccall safe "hs_bindgen_8d803591bcf10ba5" onBufferReady ::
+onBufferReady ::
      SampleBufferFull
      {- ^ __C declaration:__ @handler@
      -}
   -> IO ()
+onBufferReady =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType onBufferReady_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_16c298a15b737eb2" transformMeasurement_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())) -> IO ())
 
 {-| __C declaration:__ @transformMeasurement@
 
@@ -274,7 +336,7 @@ foreign import ccall safe "hs_bindgen_8d803591bcf10ba5" onBufferReady ::
 
     __unique:__ @test_functionscallbacks_Example_Safe_transformMeasurement@
 -}
-foreign import ccall safe "hs_bindgen_16c298a15b737eb2" transformMeasurement ::
+transformMeasurement ::
      Ptr.Ptr Measurement
      {- ^ __C declaration:__ @data'@
      -}
@@ -282,6 +344,13 @@ foreign import ccall safe "hs_bindgen_16c298a15b737eb2" transformMeasurement ::
      {- ^ __C declaration:__ @transformer@
      -}
   -> IO ()
+transformMeasurement =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType transformMeasurement_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_e6a073138e56764f" processWithCallbacks_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())) -> IO ())
 
 {-| __C declaration:__ @processWithCallbacks@
 
@@ -291,11 +360,18 @@ foreign import ccall safe "hs_bindgen_16c298a15b737eb2" transformMeasurement ::
 
     __unique:__ @test_functionscallbacks_Example_Safe_processWithCallbacks@
 -}
-foreign import ccall safe "hs_bindgen_e6a073138e56764f" processWithCallbacks ::
+processWithCallbacks ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())
      {- ^ __C declaration:__ @handler@
      -}
   -> IO ()
+processWithCallbacks =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType processWithCallbacks_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_ece0d4f94c2319f0" registerHandler_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr MeasurementHandler) -> IO ())
 
 {-| __C declaration:__ @registerHandler@
 
@@ -305,11 +381,18 @@ foreign import ccall safe "hs_bindgen_e6a073138e56764f" processWithCallbacks ::
 
     __unique:__ @test_functionscallbacks_Example_Safe_registerHandler@
 -}
-foreign import ccall safe "hs_bindgen_ece0d4f94c2319f0" registerHandler ::
+registerHandler ::
      Ptr.Ptr MeasurementHandler
      {- ^ __C declaration:__ @handler@
      -}
   -> IO ()
+registerHandler =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType registerHandler_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d66d7470a7a213b0" executePipeline_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr Measurement) -> (Ptr.Ptr DataPipeline) -> IO ())
 
 {-| __C declaration:__ @executePipeline@
 
@@ -319,7 +402,7 @@ foreign import ccall safe "hs_bindgen_ece0d4f94c2319f0" registerHandler ::
 
     __unique:__ @test_functionscallbacks_Example_Safe_executePipeline@
 -}
-foreign import ccall safe "hs_bindgen_d66d7470a7a213b0" executePipeline ::
+executePipeline ::
      Ptr.Ptr Measurement
      {- ^ __C declaration:__ @data'@
      -}
@@ -327,6 +410,13 @@ foreign import ccall safe "hs_bindgen_d66d7470a7a213b0" executePipeline ::
      {- ^ __C declaration:__ @pipeline@
      -}
   -> IO ()
+executePipeline =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType executePipeline_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_e925d3ce6e5fb395" runProcessor_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr Measurement) -> (Ptr.Ptr Processor) -> IO ())
 
 {-| __C declaration:__ @runProcessor@
 
@@ -336,7 +426,7 @@ foreign import ccall safe "hs_bindgen_d66d7470a7a213b0" executePipeline ::
 
     __unique:__ @test_functionscallbacks_Example_Safe_runProcessor@
 -}
-foreign import ccall safe "hs_bindgen_e925d3ce6e5fb395" runProcessor ::
+runProcessor ::
      Ptr.Ptr Measurement
      {- ^ __C declaration:__ @data'@
      -}
@@ -344,6 +434,13 @@ foreign import ccall safe "hs_bindgen_e925d3ce6e5fb395" runProcessor ::
      {- ^ __C declaration:__ @processor@
      -}
   -> IO ()
+runProcessor =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType runProcessor_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_1e432e1595a1ef55" processMeasurementWithValidation_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())) -> IO ())
 
 {-| __C declaration:__ @processMeasurementWithValidation@
 
@@ -353,7 +450,7 @@ foreign import ccall safe "hs_bindgen_e925d3ce6e5fb395" runProcessor ::
 
     __unique:__ @test_functionscallbacks_Example_Safe_processMeasurementWithValidation@
 -}
-foreign import ccall safe "hs_bindgen_1e432e1595a1ef55" processMeasurementWithValidation ::
+processMeasurementWithValidation ::
      Ptr.Ptr Measurement
      {- ^ __C declaration:__ @data'@
      -}
@@ -361,6 +458,13 @@ foreign import ccall safe "hs_bindgen_1e432e1595a1ef55" processMeasurementWithVa
      {- ^ __C declaration:__ @processor@
      -}
   -> IO ()
+processMeasurementWithValidation =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType processMeasurementWithValidation_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d5cd030edf2e0364" f_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.FunPtr (Foo -> IO ())) -> IO ())
 
 {-| __C declaration:__ @f@
 
@@ -370,11 +474,18 @@ foreign import ccall safe "hs_bindgen_1e432e1595a1ef55" processMeasurementWithVa
 
     __unique:__ @test_functionscallbacks_Example_Safe_f@
 -}
-foreign import ccall safe "hs_bindgen_d5cd030edf2e0364" f ::
+f ::
      Ptr.FunPtr (Foo -> IO ())
      {- ^ __C declaration:__ @callback@
      -}
   -> IO ()
+f =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType f_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_a10eec74074627ba" f2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.FunPtr (Foo2 -> IO ())) -> IO ())
 
 {-| __C declaration:__ @f2@
 
@@ -384,8 +495,10 @@ foreign import ccall safe "hs_bindgen_d5cd030edf2e0364" f ::
 
     __unique:__ @test_functionscallbacks_Example_Safe_f2@
 -}
-foreign import ccall safe "hs_bindgen_a10eec74074627ba" f2 ::
+f2 ::
      Ptr.FunPtr (Foo2 -> IO ())
      {- ^ __C declaration:__ @handler@
      -}
   -> IO ()
+f2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType f2_base

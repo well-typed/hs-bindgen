@@ -50,6 +50,11 @@
 -- {
 --   return &d;
 -- }
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_32187cc02676ee72" list_example_base :: BaseForeignType (Ptr (Ptr CChar) ->
+                                                                                              HsBindgen.Runtime.Prelude.CSize ->
+                                                                                              IO CBool)
 {-| __C declaration:__ @list_example@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:14:6@
@@ -58,9 +63,8 @@
 
     __unique:__ @test_typesqualifierstype_qualifie_Example_Unsafe_list_example@
 -}
-foreign import ccall safe "hs_bindgen_32187cc02676ee72" list_example :: Ptr (Ptr CChar) ->
-                                                                        HsBindgen.Runtime.Prelude.CSize ->
-                                                                        IO CBool
+list_example :: Ptr (Ptr CChar) ->
+                HsBindgen.Runtime.Prelude.CSize -> IO CBool
 {-| __C declaration:__ @list_example@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:14:6@
@@ -69,14 +73,43 @@ foreign import ccall safe "hs_bindgen_32187cc02676ee72" list_example :: Ptr (Ptr
 
     __unique:__ @test_typesqualifierstype_qualifie_Example_Unsafe_list_example@
 -}
-foreign import ccall safe "hs_bindgen_360934a08f19eaab" list_example :: Ptr (Ptr CChar) ->
-                                                                        HsBindgen.Runtime.Prelude.CSize ->
-                                                                        IO CBool
+list_example = fromBaseForeignType list_example_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_360934a08f19eaab" list_example_base :: BaseForeignType (Ptr (Ptr CChar) ->
+                                                                                              HsBindgen.Runtime.Prelude.CSize ->
+                                                                                              IO CBool)
+{-| __C declaration:__ @list_example@
+
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h:14:6@
+
+    __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+
+    __unique:__ @test_typesqualifierstype_qualifie_Example_Unsafe_list_example@
+-}
+list_example :: Ptr (Ptr CChar) ->
+                HsBindgen.Runtime.Prelude.CSize -> IO CBool
+{-| __C declaration:__ @list_example@
+
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h:14:6@
+
+    __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+
+    __unique:__ @test_typesqualifierstype_qualifie_Example_Unsafe_list_example@
+-}
+list_example = fromBaseForeignType list_example_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_33c0388dc987452a" hs_bindgen_33c0388dc987452a_base :: BaseForeignType (IO (FunPtr (Ptr (Ptr CChar) ->
+                                                                                                                         HsBindgen.Runtime.Prelude.CSize ->
+                                                                                                                         IO CBool)))
 {-| __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example_ptr@
 -}
-foreign import ccall safe "hs_bindgen_33c0388dc987452a" hs_bindgen_33c0388dc987452a :: IO (FunPtr (Ptr (Ptr CChar) ->
-                                                                                                   HsBindgen.Runtime.Prelude.CSize ->
-                                                                                                   IO CBool))
+hs_bindgen_33c0388dc987452a :: IO (FunPtr (Ptr (Ptr CChar) ->
+                                           HsBindgen.Runtime.Prelude.CSize -> IO CBool))
+{-| __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example_ptr@
+-}
+hs_bindgen_33c0388dc987452a = fromBaseForeignType hs_bindgen_33c0388dc987452a_base
 {-# NOINLINE list_example_ptr #-}
 {-| __C declaration:__ @list_example@
 
@@ -93,9 +126,15 @@ list_example_ptr :: FunPtr (Ptr (Ptr CChar) ->
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
 list_example_ptr = unsafePerformIO hs_bindgen_33c0388dc987452a
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_64d60cae0690e115" hs_bindgen_64d60cae0690e115_base :: BaseForeignType (IO (Ptr CInt))
 {-| __unique:__ @test_typesqualifierstype_qualifie_Example_get_a_ptr@
 -}
-foreign import ccall safe "hs_bindgen_64d60cae0690e115" hs_bindgen_64d60cae0690e115 :: IO (Ptr CInt)
+hs_bindgen_64d60cae0690e115 :: IO (Ptr CInt)
+{-| __unique:__ @test_typesqualifierstype_qualifie_Example_get_a_ptr@
+-}
+hs_bindgen_64d60cae0690e115 = fromBaseForeignType hs_bindgen_64d60cae0690e115_base
 {-# NOINLINE a_ptr #-}
 {-| __C declaration:__ @a@
 
@@ -114,9 +153,15 @@ a_ptr = unsafePerformIO hs_bindgen_64d60cae0690e115
 {-# NOINLINE a #-}
 a :: CInt
 a = unsafePerformIO (peek a_ptr)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_e2844224d896e170" hs_bindgen_e2844224d896e170_base :: BaseForeignType (IO (Ptr (Ptr CInt)))
 {-| __unique:__ @test_typesqualifierstype_qualifie_Example_get_b_ptr@
 -}
-foreign import ccall safe "hs_bindgen_e2844224d896e170" hs_bindgen_e2844224d896e170 :: IO (Ptr (Ptr CInt))
+hs_bindgen_e2844224d896e170 :: IO (Ptr (Ptr CInt))
+{-| __unique:__ @test_typesqualifierstype_qualifie_Example_get_b_ptr@
+-}
+hs_bindgen_e2844224d896e170 = fromBaseForeignType hs_bindgen_e2844224d896e170_base
 {-# NOINLINE b_ptr #-}
 {-| __C declaration:__ @b@
 
@@ -132,9 +177,15 @@ b_ptr :: Ptr (Ptr CInt)
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
 b_ptr = unsafePerformIO hs_bindgen_e2844224d896e170
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_ab653695917fba40" hs_bindgen_ab653695917fba40_base :: BaseForeignType (IO (Ptr (Ptr CInt)))
 {-| __unique:__ @test_typesqualifierstype_qualifie_Example_get_c_ptr@
 -}
-foreign import ccall safe "hs_bindgen_ab653695917fba40" hs_bindgen_ab653695917fba40 :: IO (Ptr (Ptr CInt))
+hs_bindgen_ab653695917fba40 :: IO (Ptr (Ptr CInt))
+{-| __unique:__ @test_typesqualifierstype_qualifie_Example_get_c_ptr@
+-}
+hs_bindgen_ab653695917fba40 = fromBaseForeignType hs_bindgen_ab653695917fba40_base
 {-# NOINLINE c_ptr #-}
 {-| __C declaration:__ @c@
 
@@ -153,9 +204,15 @@ c_ptr = unsafePerformIO hs_bindgen_ab653695917fba40
 {-# NOINLINE c #-}
 c :: Ptr CInt
 c = unsafePerformIO (peek c_ptr)
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_8e02c92809ce6a69" hs_bindgen_8e02c92809ce6a69_base :: BaseForeignType (IO (Ptr (Ptr CInt)))
 {-| __unique:__ @test_typesqualifierstype_qualifie_Example_get_d_ptr@
 -}
-foreign import ccall safe "hs_bindgen_8e02c92809ce6a69" hs_bindgen_8e02c92809ce6a69 :: IO (Ptr (Ptr CInt))
+hs_bindgen_8e02c92809ce6a69 :: IO (Ptr (Ptr CInt))
+{-| __unique:__ @test_typesqualifierstype_qualifie_Example_get_d_ptr@
+-}
+hs_bindgen_8e02c92809ce6a69 = fromBaseForeignType hs_bindgen_8e02c92809ce6a69_base
 {-# NOINLINE d_ptr #-}
 {-| __C declaration:__ @d@
 

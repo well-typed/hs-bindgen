@@ -7,6 +7,7 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -26,10 +27,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_166bda29e26e15f7" hs_bindgen_166bda29e26e15f7_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus)))
+
 {-| __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_166bda29e26e15f7" hs_bindgen_166bda29e26e15f7 ::
+hs_bindgen_166bda29e26e15f7 ::
      IO (Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus))
+hs_bindgen_166bda29e26e15f7 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_166bda29e26e15f7_base
 
 {-# NOINLINE read_file_chunk_ptr #-}
 

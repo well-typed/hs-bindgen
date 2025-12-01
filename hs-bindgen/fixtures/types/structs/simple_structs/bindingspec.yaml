@@ -68,6 +68,7 @@ hstypes:
 - hsname: S7a
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
@@ -79,6 +80,7 @@ hstypes:
 - hsname: S7b
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable

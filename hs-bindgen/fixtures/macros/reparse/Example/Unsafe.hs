@@ -10,6 +10,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
@@ -771,6 +772,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_c1716e300ba327c7" args_char1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CChar -> IO ())
+
 {-| Function declarations
 
 __C declaration:__ @args_char1@
@@ -781,7 +787,7 @@ __exported by:__ @macros\/reparse.h@
 
 __unique:__ @test_macrosreparse_Example_Unsafe_args_char1@
 -}
-foreign import ccall unsafe "hs_bindgen_c1716e300ba327c7" args_char1 ::
+args_char1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -789,6 +795,13 @@ foreign import ccall unsafe "hs_bindgen_c1716e300ba327c7" args_char1 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_char1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_char1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_3ef14607a6187aaa" args_char2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CSChar -> IO ())
 
 {-| __C declaration:__ @args_char2@
 
@@ -798,7 +811,7 @@ foreign import ccall unsafe "hs_bindgen_c1716e300ba327c7" args_char1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_char2@
 -}
-foreign import ccall unsafe "hs_bindgen_3ef14607a6187aaa" args_char2 ::
+args_char2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -806,6 +819,13 @@ foreign import ccall unsafe "hs_bindgen_3ef14607a6187aaa" args_char2 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_char2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_char2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_5b0a626f64912f9d" args_char3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CUChar -> IO ())
 
 {-| __C declaration:__ @args_char3@
 
@@ -815,7 +835,7 @@ foreign import ccall unsafe "hs_bindgen_3ef14607a6187aaa" args_char2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_char3@
 -}
-foreign import ccall unsafe "hs_bindgen_5b0a626f64912f9d" args_char3 ::
+args_char3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -823,6 +843,13 @@ foreign import ccall unsafe "hs_bindgen_5b0a626f64912f9d" args_char3 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_char3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_char3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_36e4501239085bc1" args_short1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CShort -> IO ())
 
 {-| __C declaration:__ @args_short1@
 
@@ -832,7 +859,7 @@ foreign import ccall unsafe "hs_bindgen_5b0a626f64912f9d" args_char3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_short1@
 -}
-foreign import ccall unsafe "hs_bindgen_36e4501239085bc1" args_short1 ::
+args_short1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -840,6 +867,13 @@ foreign import ccall unsafe "hs_bindgen_36e4501239085bc1" args_short1 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_short1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_short1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a187e0233daeb237" args_short2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CShort -> IO ())
 
 {-| __C declaration:__ @args_short2@
 
@@ -849,7 +883,7 @@ foreign import ccall unsafe "hs_bindgen_36e4501239085bc1" args_short1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_short2@
 -}
-foreign import ccall unsafe "hs_bindgen_a187e0233daeb237" args_short2 ::
+args_short2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -857,6 +891,13 @@ foreign import ccall unsafe "hs_bindgen_a187e0233daeb237" args_short2 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_short2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_short2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_2460adeff61561ce" args_short3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CUShort -> IO ())
 
 {-| __C declaration:__ @args_short3@
 
@@ -866,7 +907,7 @@ foreign import ccall unsafe "hs_bindgen_a187e0233daeb237" args_short2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_short3@
 -}
-foreign import ccall unsafe "hs_bindgen_2460adeff61561ce" args_short3 ::
+args_short3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -874,6 +915,13 @@ foreign import ccall unsafe "hs_bindgen_2460adeff61561ce" args_short3 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_short3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_short3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_4f13ab06db79b7f2" args_int1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CInt -> IO ())
 
 {-| __C declaration:__ @args_int1@
 
@@ -883,7 +931,7 @@ foreign import ccall unsafe "hs_bindgen_2460adeff61561ce" args_short3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_int1@
 -}
-foreign import ccall unsafe "hs_bindgen_4f13ab06db79b7f2" args_int1 ::
+args_int1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -891,6 +939,13 @@ foreign import ccall unsafe "hs_bindgen_4f13ab06db79b7f2" args_int1 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_int1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_int1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_f1657d18f6f8a1ed" args_int2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CInt -> IO ())
 
 {-| __C declaration:__ @args_int2@
 
@@ -900,7 +955,7 @@ foreign import ccall unsafe "hs_bindgen_4f13ab06db79b7f2" args_int1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_int2@
 -}
-foreign import ccall unsafe "hs_bindgen_f1657d18f6f8a1ed" args_int2 ::
+args_int2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -908,6 +963,13 @@ foreign import ccall unsafe "hs_bindgen_f1657d18f6f8a1ed" args_int2 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_int2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_int2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_9ac58b8eb806be42" args_int3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CUInt -> IO ())
 
 {-| __C declaration:__ @args_int3@
 
@@ -917,7 +979,7 @@ foreign import ccall unsafe "hs_bindgen_f1657d18f6f8a1ed" args_int2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_int3@
 -}
-foreign import ccall unsafe "hs_bindgen_9ac58b8eb806be42" args_int3 ::
+args_int3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -925,6 +987,13 @@ foreign import ccall unsafe "hs_bindgen_9ac58b8eb806be42" args_int3 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_int3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_int3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_f73c59fe22a9870e" args_long1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CLong -> IO ())
 
 {-| __C declaration:__ @args_long1@
 
@@ -934,7 +1003,7 @@ foreign import ccall unsafe "hs_bindgen_9ac58b8eb806be42" args_int3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_long1@
 -}
-foreign import ccall unsafe "hs_bindgen_f73c59fe22a9870e" args_long1 ::
+args_long1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -942,6 +1011,13 @@ foreign import ccall unsafe "hs_bindgen_f73c59fe22a9870e" args_long1 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_long1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_long1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_84a824853fc83077" args_long2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CLong -> IO ())
 
 {-| __C declaration:__ @args_long2@
 
@@ -951,7 +1027,7 @@ foreign import ccall unsafe "hs_bindgen_f73c59fe22a9870e" args_long1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_long2@
 -}
-foreign import ccall unsafe "hs_bindgen_84a824853fc83077" args_long2 ::
+args_long2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -959,6 +1035,13 @@ foreign import ccall unsafe "hs_bindgen_84a824853fc83077" args_long2 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_long2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_long2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_c4c1a08ddf9cd5bc" args_long3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CULong -> IO ())
 
 {-| __C declaration:__ @args_long3@
 
@@ -968,7 +1051,7 @@ foreign import ccall unsafe "hs_bindgen_84a824853fc83077" args_long2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_long3@
 -}
-foreign import ccall unsafe "hs_bindgen_c4c1a08ddf9cd5bc" args_long3 ::
+args_long3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -976,6 +1059,13 @@ foreign import ccall unsafe "hs_bindgen_c4c1a08ddf9cd5bc" args_long3 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_long3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_long3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_58a6b5f118525c6c" args_float_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CFloat -> IO ())
 
 {-| __C declaration:__ @args_float@
 
@@ -985,7 +1075,7 @@ foreign import ccall unsafe "hs_bindgen_c4c1a08ddf9cd5bc" args_long3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_float@
 -}
-foreign import ccall unsafe "hs_bindgen_58a6b5f118525c6c" args_float ::
+args_float ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -993,6 +1083,13 @@ foreign import ccall unsafe "hs_bindgen_58a6b5f118525c6c" args_float ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_float =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_float_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_ffc58625c3a51d8f" args_double_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CDouble -> IO ())
 
 {-| __C declaration:__ @args_double@
 
@@ -1002,7 +1099,7 @@ foreign import ccall unsafe "hs_bindgen_58a6b5f118525c6c" args_float ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_double@
 -}
-foreign import ccall unsafe "hs_bindgen_ffc58625c3a51d8f" args_double ::
+args_double ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1010,6 +1107,13 @@ foreign import ccall unsafe "hs_bindgen_ffc58625c3a51d8f" args_double ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_double =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_double_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_51fb2da1d100c9a7" args_bool1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CBool -> IO ())
 
 {-| __C declaration:__ @args_bool1@
 
@@ -1019,7 +1123,7 @@ foreign import ccall unsafe "hs_bindgen_ffc58625c3a51d8f" args_double ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_bool1@
 -}
-foreign import ccall unsafe "hs_bindgen_51fb2da1d100c9a7" args_bool1 ::
+args_bool1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1027,15 +1131,24 @@ foreign import ccall unsafe "hs_bindgen_51fb2da1d100c9a7" args_bool1 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_bool1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_bool1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_b2d19f91a7b9f7d3" args_struct_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr Some_struct) -> IO ())
 
 {-| Pointer-based API for 'args_struct'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_args_struct@
 -}
-foreign import ccall unsafe "hs_bindgen_b2d19f91a7b9f7d3" args_struct_wrapper ::
+args_struct_wrapper ::
      A
   -> Ptr.Ptr Some_struct
   -> IO ()
+args_struct_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_struct_wrapper_base
 
 {-| __C declaration:__ @args_struct@
 
@@ -1055,14 +1168,21 @@ args_struct =
   \x0 ->
     \x1 -> F.with x1 (\y2 -> args_struct_wrapper x0 y2)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_bc74164a05d282c7" args_union_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr Some_union) -> IO ())
+
 {-| Pointer-based API for 'args_union'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_args_union@
 -}
-foreign import ccall unsafe "hs_bindgen_bc74164a05d282c7" args_union_wrapper ::
+args_union_wrapper ::
      A
   -> Ptr.Ptr Some_union
   -> IO ()
+args_union_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_union_wrapper_base
 
 {-| __C declaration:__ @args_union@
 
@@ -1082,6 +1202,11 @@ args_union =
   \x0 ->
     \x1 -> F.with x1 (\y2 -> args_union_wrapper x0 y2)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_69f08c1d9f5e590e" args_enum_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> Some_enum -> IO ())
+
 {-| __C declaration:__ @args_enum@
 
     __defined at:__ @macros\/reparse.h:39:6@
@@ -1090,7 +1215,7 @@ args_union =
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_enum@
 -}
-foreign import ccall unsafe "hs_bindgen_69f08c1d9f5e590e" args_enum ::
+args_enum ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1098,6 +1223,13 @@ foreign import ccall unsafe "hs_bindgen_69f08c1d9f5e590e" args_enum ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_enum =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_enum_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_785b005f35d4d7ec" args_pointer1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr FC.CInt) -> IO ())
 
 {-| __C declaration:__ @args_pointer1@
 
@@ -1107,7 +1239,7 @@ foreign import ccall unsafe "hs_bindgen_69f08c1d9f5e590e" args_enum ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_pointer1@
 -}
-foreign import ccall unsafe "hs_bindgen_785b005f35d4d7ec" args_pointer1 ::
+args_pointer1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1115,6 +1247,13 @@ foreign import ccall unsafe "hs_bindgen_785b005f35d4d7ec" args_pointer1 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_pointer1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_pointer1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_edc45a1b9750dcd3" args_pointer2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr (Ptr.Ptr FC.CInt)) -> IO ())
 
 {-| __C declaration:__ @args_pointer2@
 
@@ -1124,7 +1263,7 @@ foreign import ccall unsafe "hs_bindgen_785b005f35d4d7ec" args_pointer1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_pointer2@
 -}
-foreign import ccall unsafe "hs_bindgen_edc45a1b9750dcd3" args_pointer2 ::
+args_pointer2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1132,6 +1271,13 @@ foreign import ccall unsafe "hs_bindgen_edc45a1b9750dcd3" args_pointer2 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+args_pointer2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_pointer2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_102895862f35ca35" args_pointer3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr Void) -> IO ())
 
 {-| __C declaration:__ @args_pointer3@
 
@@ -1141,7 +1287,7 @@ foreign import ccall unsafe "hs_bindgen_edc45a1b9750dcd3" args_pointer2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_args_pointer3@
 -}
-foreign import ccall unsafe "hs_bindgen_102895862f35ca35" args_pointer3 ::
+args_pointer3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1149,6 +1295,13 @@ foreign import ccall unsafe "hs_bindgen_102895862f35ca35" args_pointer3 ::
      {- ^ __C declaration:__ @arg3@
      -}
   -> IO ()
+args_pointer3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_pointer3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_78f9ea765accb501" ret_A_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO A)
 
 {-| __C declaration:__ @ret_A@
 
@@ -1158,8 +1311,15 @@ foreign import ccall unsafe "hs_bindgen_102895862f35ca35" args_pointer3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_A@
 -}
-foreign import ccall unsafe "hs_bindgen_78f9ea765accb501" ret_A ::
+ret_A ::
      IO A
+ret_A =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_A_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_e1e99ef9fc54a288" ret_char1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CChar)
 
 {-| __C declaration:__ @ret_char1@
 
@@ -1169,11 +1329,18 @@ foreign import ccall unsafe "hs_bindgen_78f9ea765accb501" ret_A ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_char1@
 -}
-foreign import ccall unsafe "hs_bindgen_e1e99ef9fc54a288" ret_char1 ::
+ret_char1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CChar
+ret_char1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_char1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_f6217639a7e142d3" ret_char2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CSChar)
 
 {-| __C declaration:__ @ret_char2@
 
@@ -1183,11 +1350,18 @@ foreign import ccall unsafe "hs_bindgen_e1e99ef9fc54a288" ret_char1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_char2@
 -}
-foreign import ccall unsafe "hs_bindgen_f6217639a7e142d3" ret_char2 ::
+ret_char2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CSChar
+ret_char2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_char2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_759b6cec946323f4" ret_char3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CUChar)
 
 {-| __C declaration:__ @ret_char3@
 
@@ -1197,11 +1371,18 @@ foreign import ccall unsafe "hs_bindgen_f6217639a7e142d3" ret_char2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_char3@
 -}
-foreign import ccall unsafe "hs_bindgen_759b6cec946323f4" ret_char3 ::
+ret_char3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CUChar
+ret_char3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_char3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_bf062c8332405f82" ret_short1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CShort)
 
 {-| __C declaration:__ @ret_short1@
 
@@ -1211,11 +1392,18 @@ foreign import ccall unsafe "hs_bindgen_759b6cec946323f4" ret_char3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_short1@
 -}
-foreign import ccall unsafe "hs_bindgen_bf062c8332405f82" ret_short1 ::
+ret_short1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CShort
+ret_short1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_short1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_3d9d5e4b8135169a" ret_short2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CShort)
 
 {-| __C declaration:__ @ret_short2@
 
@@ -1225,11 +1413,18 @@ foreign import ccall unsafe "hs_bindgen_bf062c8332405f82" ret_short1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_short2@
 -}
-foreign import ccall unsafe "hs_bindgen_3d9d5e4b8135169a" ret_short2 ::
+ret_short2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CShort
+ret_short2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_short2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_63b44610868e424f" ret_short3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CUShort)
 
 {-| __C declaration:__ @ret_short3@
 
@@ -1239,11 +1434,18 @@ foreign import ccall unsafe "hs_bindgen_3d9d5e4b8135169a" ret_short2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_short3@
 -}
-foreign import ccall unsafe "hs_bindgen_63b44610868e424f" ret_short3 ::
+ret_short3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CUShort
+ret_short3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_short3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_1a8d68c887085fbf" ret_int1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CInt)
 
 {-| __C declaration:__ @ret_int1@
 
@@ -1253,11 +1455,18 @@ foreign import ccall unsafe "hs_bindgen_63b44610868e424f" ret_short3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_int1@
 -}
-foreign import ccall unsafe "hs_bindgen_1a8d68c887085fbf" ret_int1 ::
+ret_int1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CInt
+ret_int1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_int1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_f64653c7b4576075" ret_int2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CInt)
 
 {-| __C declaration:__ @ret_int2@
 
@@ -1267,11 +1476,18 @@ foreign import ccall unsafe "hs_bindgen_1a8d68c887085fbf" ret_int1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_int2@
 -}
-foreign import ccall unsafe "hs_bindgen_f64653c7b4576075" ret_int2 ::
+ret_int2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CInt
+ret_int2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_int2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_d2030910b711f1d8" ret_int3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CUInt)
 
 {-| __C declaration:__ @ret_int3@
 
@@ -1281,11 +1497,18 @@ foreign import ccall unsafe "hs_bindgen_f64653c7b4576075" ret_int2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_int3@
 -}
-foreign import ccall unsafe "hs_bindgen_d2030910b711f1d8" ret_int3 ::
+ret_int3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CUInt
+ret_int3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_int3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_2d6a30810e6b27e3" ret_long1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CLong)
 
 {-| __C declaration:__ @ret_long1@
 
@@ -1295,11 +1518,18 @@ foreign import ccall unsafe "hs_bindgen_d2030910b711f1d8" ret_int3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_long1@
 -}
-foreign import ccall unsafe "hs_bindgen_2d6a30810e6b27e3" ret_long1 ::
+ret_long1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CLong
+ret_long1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_long1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_02885fe1cf2771da" ret_long2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CLong)
 
 {-| __C declaration:__ @ret_long2@
 
@@ -1309,11 +1539,18 @@ foreign import ccall unsafe "hs_bindgen_2d6a30810e6b27e3" ret_long1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_long2@
 -}
-foreign import ccall unsafe "hs_bindgen_02885fe1cf2771da" ret_long2 ::
+ret_long2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CLong
+ret_long2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_long2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_888c9704132541d5" ret_long3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CULong)
 
 {-| __C declaration:__ @ret_long3@
 
@@ -1323,11 +1560,18 @@ foreign import ccall unsafe "hs_bindgen_02885fe1cf2771da" ret_long2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_long3@
 -}
-foreign import ccall unsafe "hs_bindgen_888c9704132541d5" ret_long3 ::
+ret_long3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CULong
+ret_long3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_long3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_2d2ce0d386f26293" ret_float_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CFloat)
 
 {-| __C declaration:__ @ret_float@
 
@@ -1337,11 +1581,18 @@ foreign import ccall unsafe "hs_bindgen_888c9704132541d5" ret_long3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_float@
 -}
-foreign import ccall unsafe "hs_bindgen_2d2ce0d386f26293" ret_float ::
+ret_float ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CFloat
+ret_float =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_float_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_de353a737de53428" ret_double_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CDouble)
 
 {-| __C declaration:__ @ret_double@
 
@@ -1351,11 +1602,18 @@ foreign import ccall unsafe "hs_bindgen_2d2ce0d386f26293" ret_float ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_double@
 -}
-foreign import ccall unsafe "hs_bindgen_de353a737de53428" ret_double ::
+ret_double ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CDouble
+ret_double =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_double_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_91e2ab77e68f0288" ret_bool1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CBool)
 
 {-| __C declaration:__ @ret_bool1@
 
@@ -1365,20 +1623,29 @@ foreign import ccall unsafe "hs_bindgen_de353a737de53428" ret_double ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_bool1@
 -}
-foreign import ccall unsafe "hs_bindgen_91e2ab77e68f0288" ret_bool1 ::
+ret_bool1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CBool
+ret_bool1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_bool1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_9f29c7eee02f6d53" ret_struct_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr Some_struct) -> IO ())
 
 {-| Pointer-based API for 'ret_struct'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_ret_struct@
 -}
-foreign import ccall unsafe "hs_bindgen_9f29c7eee02f6d53" ret_struct_wrapper ::
+ret_struct_wrapper ::
      A
   -> Ptr.Ptr Some_struct
   -> IO ()
+ret_struct_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_struct_wrapper_base
 
 {-| __C declaration:__ @ret_struct@
 
@@ -1396,14 +1663,21 @@ ret_struct =
     HsBindgen.Runtime.CAPI.allocaAndPeek (\z1 ->
                                             ret_struct_wrapper x0 z1)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_6844bf5f5a5f6681" ret_union_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr Some_union) -> IO ())
+
 {-| Pointer-based API for 'ret_union'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_ret_union@
 -}
-foreign import ccall unsafe "hs_bindgen_6844bf5f5a5f6681" ret_union_wrapper ::
+ret_union_wrapper ::
      A
   -> Ptr.Ptr Some_union
   -> IO ()
+ret_union_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_union_wrapper_base
 
 {-| __C declaration:__ @ret_union@
 
@@ -1421,6 +1695,11 @@ ret_union =
     HsBindgen.Runtime.CAPI.allocaAndPeek (\z1 ->
                                             ret_union_wrapper x0 z1)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_f96c4bc30b6b17e8" ret_enum_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO Some_enum)
+
 {-| __C declaration:__ @ret_enum@
 
     __defined at:__ @macros\/reparse.h:71:20@
@@ -1429,11 +1708,18 @@ ret_union =
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_enum@
 -}
-foreign import ccall unsafe "hs_bindgen_f96c4bc30b6b17e8" ret_enum ::
+ret_enum ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO Some_enum
+ret_enum =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_enum_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_bfb6069e1423e7a5" ret_pointer1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.Ptr FC.CInt))
 
 {-| __C declaration:__ @ret_pointer1@
 
@@ -1443,11 +1729,18 @@ foreign import ccall unsafe "hs_bindgen_f96c4bc30b6b17e8" ret_enum ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_pointer1@
 -}
-foreign import ccall unsafe "hs_bindgen_bfb6069e1423e7a5" ret_pointer1 ::
+ret_pointer1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr FC.CInt)
+ret_pointer1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_pointer1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_ffae633548386d89" ret_pointer2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.Ptr (Ptr.Ptr FC.CInt)))
 
 {-| __C declaration:__ @ret_pointer2@
 
@@ -1457,11 +1750,18 @@ foreign import ccall unsafe "hs_bindgen_bfb6069e1423e7a5" ret_pointer1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_pointer2@
 -}
-foreign import ccall unsafe "hs_bindgen_ffae633548386d89" ret_pointer2 ::
+ret_pointer2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
+ret_pointer2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_pointer2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_550cb4a23c6ab2ff" ret_pointer3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.Ptr Void))
 
 {-| __C declaration:__ @ret_pointer3@
 
@@ -1471,11 +1771,18 @@ foreign import ccall unsafe "hs_bindgen_ffae633548386d89" ret_pointer2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_ret_pointer3@
 -}
-foreign import ccall unsafe "hs_bindgen_550cb4a23c6ab2ff" ret_pointer3 ::
+ret_pointer3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr Void)
+ret_pointer3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_pointer3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_f7a7a45a80ae39f7" body1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CInt)
 
 {-| __C declaration:__ @body1@
 
@@ -1485,11 +1792,18 @@ foreign import ccall unsafe "hs_bindgen_550cb4a23c6ab2ff" ret_pointer3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_body1@
 -}
-foreign import ccall unsafe "hs_bindgen_f7a7a45a80ae39f7" body1 ::
+body1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CInt
+body1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType body1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_364e73b014d7d4df" body2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO A)
 
 {-| __C declaration:__ @body2@
 
@@ -1499,17 +1813,26 @@ foreign import ccall unsafe "hs_bindgen_f7a7a45a80ae39f7" body1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_body2@
 -}
-foreign import ccall unsafe "hs_bindgen_364e73b014d7d4df" body2 ::
+body2 ::
      IO A
+body2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType body2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_88b4cd11afc4f6c1" args_complex_float_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr (Data.Complex.Complex FC.CFloat)) -> IO ())
 
 {-| Pointer-based API for 'args_complex_float'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_args_complex_float@
 -}
-foreign import ccall unsafe "hs_bindgen_88b4cd11afc4f6c1" args_complex_float_wrapper ::
+args_complex_float_wrapper ::
      A
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> IO ()
+args_complex_float_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_complex_float_wrapper_base
 
 {-| __C declaration:__ @args_complex_float@
 
@@ -1530,14 +1853,21 @@ args_complex_float =
     \x1 ->
       F.with x1 (\y2 -> args_complex_float_wrapper x0 y2)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_0ddc53d8e91cb32a" args_complex_double_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr (Data.Complex.Complex FC.CDouble)) -> IO ())
+
 {-| Pointer-based API for 'args_complex_double'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_args_complex_double@
 -}
-foreign import ccall unsafe "hs_bindgen_0ddc53d8e91cb32a" args_complex_double_wrapper ::
+args_complex_double_wrapper ::
      A
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> IO ()
+args_complex_double_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType args_complex_double_wrapper_base
 
 {-| __C declaration:__ @args_complex_double@
 
@@ -1558,14 +1888,21 @@ args_complex_double =
     \x1 ->
       F.with x1 (\y2 -> args_complex_double_wrapper x0 y2)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_eb82eb840e288900" ret_complex_float_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr (Data.Complex.Complex FC.CFloat)) -> IO ())
+
 {-| Pointer-based API for 'ret_complex_float'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_ret_complex_float@
 -}
-foreign import ccall unsafe "hs_bindgen_eb82eb840e288900" ret_complex_float_wrapper ::
+ret_complex_float_wrapper ::
      A
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> IO ()
+ret_complex_float_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_complex_float_wrapper_base
 
 {-| __C declaration:__ @ret_complex_float@
 
@@ -1583,14 +1920,21 @@ ret_complex_float =
     HsBindgen.Runtime.CAPI.allocaAndPeek (\z1 ->
                                             ret_complex_float_wrapper x0 z1)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_cbc25ea9cbdd2365" ret_complex_double_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr (Data.Complex.Complex FC.CDouble)) -> IO ())
+
 {-| Pointer-based API for 'ret_complex_double'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_ret_complex_double@
 -}
-foreign import ccall unsafe "hs_bindgen_cbc25ea9cbdd2365" ret_complex_double_wrapper ::
+ret_complex_double_wrapper ::
      A
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> IO ()
+ret_complex_double_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ret_complex_double_wrapper_base
 
 {-| __C declaration:__ @ret_complex_double@
 
@@ -1608,6 +1952,11 @@ ret_complex_double =
     HsBindgen.Runtime.CAPI.allocaAndPeek (\z1 ->
                                             ret_complex_double_wrapper x0 z1)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_3258de4ffd2c08af" bespoke_args1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CBool -> IO ())
+
 {-| __C declaration:__ @bespoke_args1@
 
     __defined at:__ @macros\/reparse.h:94:6@
@@ -1616,7 +1965,7 @@ ret_complex_double =
 
     __unique:__ @test_macrosreparse_Example_Unsafe_bespoke_args1@
 -}
-foreign import ccall unsafe "hs_bindgen_3258de4ffd2c08af" bespoke_args1 ::
+bespoke_args1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1624,6 +1973,13 @@ foreign import ccall unsafe "hs_bindgen_3258de4ffd2c08af" bespoke_args1 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+bespoke_args1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType bespoke_args1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_74b2cd1defdd5609" bespoke_args2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> HsBindgen.Runtime.Prelude.CSize -> IO ())
 
 {-| __C declaration:__ @bespoke_args2@
 
@@ -1633,7 +1989,7 @@ foreign import ccall unsafe "hs_bindgen_3258de4ffd2c08af" bespoke_args1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_bespoke_args2@
 -}
-foreign import ccall unsafe "hs_bindgen_74b2cd1defdd5609" bespoke_args2 ::
+bespoke_args2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1641,6 +1997,13 @@ foreign import ccall unsafe "hs_bindgen_74b2cd1defdd5609" bespoke_args2 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+bespoke_args2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType bespoke_args2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_5405c1e037d1e115" bespoke_ret1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO FC.CBool)
 
 {-| __C declaration:__ @bespoke_ret1@
 
@@ -1650,11 +2013,18 @@ foreign import ccall unsafe "hs_bindgen_74b2cd1defdd5609" bespoke_args2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_bespoke_ret1@
 -}
-foreign import ccall unsafe "hs_bindgen_5405c1e037d1e115" bespoke_ret1 ::
+bespoke_ret1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO FC.CBool
+bespoke_ret1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType bespoke_ret1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a6a3e5a828532360" bespoke_ret2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO HsBindgen.Runtime.Prelude.CSize)
 
 {-| __C declaration:__ @bespoke_ret2@
 
@@ -1664,11 +2034,18 @@ foreign import ccall unsafe "hs_bindgen_5405c1e037d1e115" bespoke_ret1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_bespoke_ret2@
 -}
-foreign import ccall unsafe "hs_bindgen_a6a3e5a828532360" bespoke_ret2 ::
+bespoke_ret2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO HsBindgen.Runtime.Prelude.CSize
+bespoke_ret2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType bespoke_ret2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_4956a52bf5073b9f" arr_args1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr A) -> IO ())
 
 {-| Arrays
 
@@ -1680,11 +2057,18 @@ __exported by:__ @macros\/reparse.h@
 
 __unique:__ @test_macrosreparse_Example_Unsafe_arr_args1@
 -}
-foreign import ccall unsafe "hs_bindgen_4956a52bf5073b9f" arr_args1 ::
+arr_args1 ::
      Ptr.Ptr A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO ()
+arr_args1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType arr_args1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_0fc8b091085a88e9" arr_args2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr (Ptr.Ptr A)) -> IO ())
 
 {-| __C declaration:__ @arr_args2@
 
@@ -1694,11 +2078,18 @@ foreign import ccall unsafe "hs_bindgen_4956a52bf5073b9f" arr_args1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_arr_args2@
 -}
-foreign import ccall unsafe "hs_bindgen_0fc8b091085a88e9" arr_args2 ::
+arr_args2 ::
      Ptr.Ptr (Ptr.Ptr A)
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO ()
+arr_args2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType arr_args2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_ca6f1bc1a29b85f8" arr_args3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr A) -> IO ())
 
 {-| __C declaration:__ @arr_args3@
 
@@ -1708,11 +2099,18 @@ foreign import ccall unsafe "hs_bindgen_0fc8b091085a88e9" arr_args2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_arr_args3@
 -}
-foreign import ccall unsafe "hs_bindgen_ca6f1bc1a29b85f8" arr_args3 ::
+arr_args3 ::
      Ptr.Ptr A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO ()
+arr_args3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType arr_args3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a168ae0de206febe" arr_args4_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr (Ptr.Ptr A)) -> IO ())
 
 {-| __C declaration:__ @arr_args4@
 
@@ -1722,11 +2120,18 @@ foreign import ccall unsafe "hs_bindgen_ca6f1bc1a29b85f8" arr_args3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_arr_args4@
 -}
-foreign import ccall unsafe "hs_bindgen_a168ae0de206febe" arr_args4 ::
+arr_args4 ::
      Ptr.Ptr (Ptr.Ptr A)
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO ()
+arr_args4 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType arr_args4_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_8e63f57f1f5d662e" funptr_args1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.FunPtr (IO ())) -> IO ())
 
 {-| Function pointers
 
@@ -1738,7 +2143,7 @@ __exported by:__ @macros\/reparse.h@
 
 __unique:__ @test_macrosreparse_Example_Unsafe_funptr_args1@
 -}
-foreign import ccall unsafe "hs_bindgen_8e63f57f1f5d662e" funptr_args1 ::
+funptr_args1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1746,6 +2151,13 @@ foreign import ccall unsafe "hs_bindgen_8e63f57f1f5d662e" funptr_args1 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+funptr_args1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType funptr_args1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_927bd07f48d05d21" funptr_args2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.FunPtr (IO FC.CInt)) -> IO ())
 
 {-| __C declaration:__ @funptr_args2@
 
@@ -1755,7 +2167,7 @@ foreign import ccall unsafe "hs_bindgen_8e63f57f1f5d662e" funptr_args1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_funptr_args2@
 -}
-foreign import ccall unsafe "hs_bindgen_927bd07f48d05d21" funptr_args2 ::
+funptr_args2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1763,6 +2175,13 @@ foreign import ccall unsafe "hs_bindgen_927bd07f48d05d21" funptr_args2 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+funptr_args2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType funptr_args2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_c82e078d3c54a6bc" funptr_args3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.FunPtr (FC.CInt -> IO ())) -> IO ())
 
 {-| __C declaration:__ @funptr_args3@
 
@@ -1772,7 +2191,7 @@ foreign import ccall unsafe "hs_bindgen_927bd07f48d05d21" funptr_args2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_funptr_args3@
 -}
-foreign import ccall unsafe "hs_bindgen_c82e078d3c54a6bc" funptr_args3 ::
+funptr_args3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1780,6 +2199,13 @@ foreign import ccall unsafe "hs_bindgen_c82e078d3c54a6bc" funptr_args3 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+funptr_args3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType funptr_args3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_211ad1ac5399caec" funptr_args4_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar)) -> IO ())
 
 {-| __C declaration:__ @funptr_args4@
 
@@ -1789,7 +2215,7 @@ foreign import ccall unsafe "hs_bindgen_c82e078d3c54a6bc" funptr_args3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_funptr_args4@
 -}
-foreign import ccall unsafe "hs_bindgen_211ad1ac5399caec" funptr_args4 ::
+funptr_args4 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1797,6 +2223,13 @@ foreign import ccall unsafe "hs_bindgen_211ad1ac5399caec" funptr_args4 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+funptr_args4 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType funptr_args4_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_9057c59d70e815d7" funptr_args5_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))) -> IO ())
 
 {-| __C declaration:__ @funptr_args5@
 
@@ -1806,7 +2239,7 @@ foreign import ccall unsafe "hs_bindgen_211ad1ac5399caec" funptr_args4 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_funptr_args5@
 -}
-foreign import ccall unsafe "hs_bindgen_9057c59d70e815d7" funptr_args5 ::
+funptr_args5 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1814,6 +2247,13 @@ foreign import ccall unsafe "hs_bindgen_9057c59d70e815d7" funptr_args5 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+funptr_args5 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType funptr_args5_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_153515e0ff74574f" comments1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO ())
 
 {-| Comments in awkward places
 
@@ -1827,11 +2267,18 @@ __exported by:__ @macros\/reparse.h@
 
 __unique:__ @test_macrosreparse_Example_Unsafe_comments1@
 -}
-foreign import ccall unsafe "hs_bindgen_153515e0ff74574f" comments1 ::
+comments1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO ()
+comments1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType comments1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_8cc833db463cc95c" const_prim_before1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CChar -> IO ())
 
 {-| `const` qualifier
 
@@ -1845,7 +2292,7 @@ __exported by:__ @macros\/reparse.h@
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_prim_before1@
 -}
-foreign import ccall unsafe "hs_bindgen_8cc833db463cc95c" const_prim_before1 ::
+const_prim_before1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1853,6 +2300,13 @@ foreign import ccall unsafe "hs_bindgen_8cc833db463cc95c" const_prim_before1 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_prim_before1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_prim_before1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_d767bbef00031d57" const_prim_before2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CSChar -> IO ())
 
 {-| __C declaration:__ @const_prim_before2@
 
@@ -1862,7 +2316,7 @@ foreign import ccall unsafe "hs_bindgen_8cc833db463cc95c" const_prim_before1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_prim_before2@
 -}
-foreign import ccall unsafe "hs_bindgen_d767bbef00031d57" const_prim_before2 ::
+const_prim_before2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1870,6 +2324,13 @@ foreign import ccall unsafe "hs_bindgen_d767bbef00031d57" const_prim_before2 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_prim_before2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_prim_before2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a36dfeb811993297" const_prim_before3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CUChar -> IO ())
 
 {-| __C declaration:__ @const_prim_before3@
 
@@ -1879,7 +2340,7 @@ foreign import ccall unsafe "hs_bindgen_d767bbef00031d57" const_prim_before2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_prim_before3@
 -}
-foreign import ccall unsafe "hs_bindgen_a36dfeb811993297" const_prim_before3 ::
+const_prim_before3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1887,6 +2348,13 @@ foreign import ccall unsafe "hs_bindgen_a36dfeb811993297" const_prim_before3 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_prim_before3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_prim_before3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_d7fa2440be24e954" const_prim_after1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CChar -> IO ())
 
 {-| __C declaration:__ @const_prim_after1@
 
@@ -1896,7 +2364,7 @@ foreign import ccall unsafe "hs_bindgen_a36dfeb811993297" const_prim_before3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_prim_after1@
 -}
-foreign import ccall unsafe "hs_bindgen_d7fa2440be24e954" const_prim_after1 ::
+const_prim_after1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1904,6 +2372,13 @@ foreign import ccall unsafe "hs_bindgen_d7fa2440be24e954" const_prim_after1 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_prim_after1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_prim_after1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_c169229f24baf752" const_prim_after2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CSChar -> IO ())
 
 {-| __C declaration:__ @const_prim_after2@
 
@@ -1913,7 +2388,7 @@ foreign import ccall unsafe "hs_bindgen_d7fa2440be24e954" const_prim_after1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_prim_after2@
 -}
-foreign import ccall unsafe "hs_bindgen_c169229f24baf752" const_prim_after2 ::
+const_prim_after2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1921,6 +2396,13 @@ foreign import ccall unsafe "hs_bindgen_c169229f24baf752" const_prim_after2 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_prim_after2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_prim_after2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_c0780f7624ed1d3e" const_prim_after3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CUChar -> IO ())
 
 {-| __C declaration:__ @const_prim_after3@
 
@@ -1930,7 +2412,7 @@ foreign import ccall unsafe "hs_bindgen_c169229f24baf752" const_prim_after2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_prim_after3@
 -}
-foreign import ccall unsafe "hs_bindgen_c0780f7624ed1d3e" const_prim_after3 ::
+const_prim_after3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1938,6 +2420,13 @@ foreign import ccall unsafe "hs_bindgen_c0780f7624ed1d3e" const_prim_after3 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_prim_after3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_prim_after3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_fda903bc1139b1d6" const_withoutSign_before1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CFloat -> IO ())
 
 {-| __C declaration:__ @const_withoutSign_before1@
 
@@ -1947,7 +2436,7 @@ foreign import ccall unsafe "hs_bindgen_c0780f7624ed1d3e" const_prim_after3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before1@
 -}
-foreign import ccall unsafe "hs_bindgen_fda903bc1139b1d6" const_withoutSign_before1 ::
+const_withoutSign_before1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1955,6 +2444,13 @@ foreign import ccall unsafe "hs_bindgen_fda903bc1139b1d6" const_withoutSign_befo
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_before1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_before1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a5a70f3be654ea00" const_withoutSign_before2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CDouble -> IO ())
 
 {-| __C declaration:__ @const_withoutSign_before2@
 
@@ -1964,7 +2460,7 @@ foreign import ccall unsafe "hs_bindgen_fda903bc1139b1d6" const_withoutSign_befo
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before2@
 -}
-foreign import ccall unsafe "hs_bindgen_a5a70f3be654ea00" const_withoutSign_before2 ::
+const_withoutSign_before2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1972,6 +2468,13 @@ foreign import ccall unsafe "hs_bindgen_a5a70f3be654ea00" const_withoutSign_befo
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_before2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_before2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_b813910f6a632ce2" const_withoutSign_before3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CBool -> IO ())
 
 {-| __C declaration:__ @const_withoutSign_before3@
 
@@ -1981,7 +2484,7 @@ foreign import ccall unsafe "hs_bindgen_a5a70f3be654ea00" const_withoutSign_befo
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before3@
 -}
-foreign import ccall unsafe "hs_bindgen_b813910f6a632ce2" const_withoutSign_before3 ::
+const_withoutSign_before3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -1989,15 +2492,24 @@ foreign import ccall unsafe "hs_bindgen_b813910f6a632ce2" const_withoutSign_befo
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_before3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_before3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_dc22b02b2f53aa5b" const_withoutSign_before4_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr Some_struct) -> IO ())
 
 {-| Pointer-based API for 'const_withoutSign_before4'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before4@
 -}
-foreign import ccall unsafe "hs_bindgen_dc22b02b2f53aa5b" const_withoutSign_before4_wrapper ::
+const_withoutSign_before4_wrapper ::
      A
   -> Ptr.Ptr Some_struct
   -> IO ()
+const_withoutSign_before4_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_before4_wrapper_base
 
 {-| __C declaration:__ @const_withoutSign_before4@
 
@@ -2019,14 +2531,21 @@ const_withoutSign_before4 =
       F.with x1 (\y2 ->
                    const_withoutSign_before4_wrapper x0 y2)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_503736261279760d" const_withoutSign_before5_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr Some_union) -> IO ())
+
 {-| Pointer-based API for 'const_withoutSign_before5'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before5@
 -}
-foreign import ccall unsafe "hs_bindgen_503736261279760d" const_withoutSign_before5_wrapper ::
+const_withoutSign_before5_wrapper ::
      A
   -> Ptr.Ptr Some_union
   -> IO ()
+const_withoutSign_before5_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_before5_wrapper_base
 
 {-| __C declaration:__ @const_withoutSign_before5@
 
@@ -2048,6 +2567,11 @@ const_withoutSign_before5 =
       F.with x1 (\y2 ->
                    const_withoutSign_before5_wrapper x0 y2)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_ed0a8c0e15f5d2ce" const_withoutSign_before6_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> Some_enum -> IO ())
+
 {-| __C declaration:__ @const_withoutSign_before6@
 
     __defined at:__ @macros\/reparse.h:193:6@
@@ -2056,7 +2580,7 @@ const_withoutSign_before5 =
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before6@
 -}
-foreign import ccall unsafe "hs_bindgen_ed0a8c0e15f5d2ce" const_withoutSign_before6 ::
+const_withoutSign_before6 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2064,6 +2588,13 @@ foreign import ccall unsafe "hs_bindgen_ed0a8c0e15f5d2ce" const_withoutSign_befo
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_before6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_before6_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_4659c22d39cc1bb3" const_withoutSign_before7_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CBool -> IO ())
 
 {-| __C declaration:__ @const_withoutSign_before7@
 
@@ -2073,7 +2604,7 @@ foreign import ccall unsafe "hs_bindgen_ed0a8c0e15f5d2ce" const_withoutSign_befo
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before7@
 -}
-foreign import ccall unsafe "hs_bindgen_4659c22d39cc1bb3" const_withoutSign_before7 ::
+const_withoutSign_before7 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2081,6 +2612,13 @@ foreign import ccall unsafe "hs_bindgen_4659c22d39cc1bb3" const_withoutSign_befo
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_before7 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_before7_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_530245b77093b08c" const_withoutSign_before8_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> HsBindgen.Runtime.Prelude.CSize -> IO ())
 
 {-| __C declaration:__ @const_withoutSign_before8@
 
@@ -2090,7 +2628,7 @@ foreign import ccall unsafe "hs_bindgen_4659c22d39cc1bb3" const_withoutSign_befo
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before8@
 -}
-foreign import ccall unsafe "hs_bindgen_530245b77093b08c" const_withoutSign_before8 ::
+const_withoutSign_before8 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2098,6 +2636,13 @@ foreign import ccall unsafe "hs_bindgen_530245b77093b08c" const_withoutSign_befo
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_before8 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_before8_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_c31a804bd742193e" const_withoutSign_after1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CFloat -> IO ())
 
 {-| __C declaration:__ @const_withoutSign_after1@
 
@@ -2107,7 +2652,7 @@ foreign import ccall unsafe "hs_bindgen_530245b77093b08c" const_withoutSign_befo
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after1@
 -}
-foreign import ccall unsafe "hs_bindgen_c31a804bd742193e" const_withoutSign_after1 ::
+const_withoutSign_after1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2115,6 +2660,13 @@ foreign import ccall unsafe "hs_bindgen_c31a804bd742193e" const_withoutSign_afte
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_after1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_after1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_53756fa3a68ab067" const_withoutSign_after2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CDouble -> IO ())
 
 {-| __C declaration:__ @const_withoutSign_after2@
 
@@ -2124,7 +2676,7 @@ foreign import ccall unsafe "hs_bindgen_c31a804bd742193e" const_withoutSign_afte
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after2@
 -}
-foreign import ccall unsafe "hs_bindgen_53756fa3a68ab067" const_withoutSign_after2 ::
+const_withoutSign_after2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2132,6 +2684,13 @@ foreign import ccall unsafe "hs_bindgen_53756fa3a68ab067" const_withoutSign_afte
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_after2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_after2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_4134ad71149d6139" const_withoutSign_after3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CBool -> IO ())
 
 {-| __C declaration:__ @const_withoutSign_after3@
 
@@ -2141,7 +2700,7 @@ foreign import ccall unsafe "hs_bindgen_53756fa3a68ab067" const_withoutSign_afte
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after3@
 -}
-foreign import ccall unsafe "hs_bindgen_4134ad71149d6139" const_withoutSign_after3 ::
+const_withoutSign_after3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2149,15 +2708,24 @@ foreign import ccall unsafe "hs_bindgen_4134ad71149d6139" const_withoutSign_afte
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_after3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_after3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_3de6157427334101" const_withoutSign_after4_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr Some_struct) -> IO ())
 
 {-| Pointer-based API for 'const_withoutSign_after4'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after4@
 -}
-foreign import ccall unsafe "hs_bindgen_3de6157427334101" const_withoutSign_after4_wrapper ::
+const_withoutSign_after4_wrapper ::
      A
   -> Ptr.Ptr Some_struct
   -> IO ()
+const_withoutSign_after4_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_after4_wrapper_base
 
 {-| __C declaration:__ @const_withoutSign_after4@
 
@@ -2179,14 +2747,21 @@ const_withoutSign_after4 =
       F.with x1 (\y2 ->
                    const_withoutSign_after4_wrapper x0 y2)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_fc4ef8c9107c1ae6" const_withoutSign_after5_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr Some_union) -> IO ())
+
 {-| Pointer-based API for 'const_withoutSign_after5'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after5@
 -}
-foreign import ccall unsafe "hs_bindgen_fc4ef8c9107c1ae6" const_withoutSign_after5_wrapper ::
+const_withoutSign_after5_wrapper ::
      A
   -> Ptr.Ptr Some_union
   -> IO ()
+const_withoutSign_after5_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_after5_wrapper_base
 
 {-| __C declaration:__ @const_withoutSign_after5@
 
@@ -2208,6 +2783,11 @@ const_withoutSign_after5 =
       F.with x1 (\y2 ->
                    const_withoutSign_after5_wrapper x0 y2)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_5e20c60b725ae606" const_withoutSign_after6_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> Some_enum -> IO ())
+
 {-| __C declaration:__ @const_withoutSign_after6@
 
     __defined at:__ @macros\/reparse.h:202:6@
@@ -2216,7 +2796,7 @@ const_withoutSign_after5 =
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after6@
 -}
-foreign import ccall unsafe "hs_bindgen_5e20c60b725ae606" const_withoutSign_after6 ::
+const_withoutSign_after6 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2224,6 +2804,13 @@ foreign import ccall unsafe "hs_bindgen_5e20c60b725ae606" const_withoutSign_afte
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_after6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_after6_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a0f20d4b9a07ff5b" const_withoutSign_after7_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> FC.CBool -> IO ())
 
 {-| __C declaration:__ @const_withoutSign_after7@
 
@@ -2233,7 +2820,7 @@ foreign import ccall unsafe "hs_bindgen_5e20c60b725ae606" const_withoutSign_afte
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after7@
 -}
-foreign import ccall unsafe "hs_bindgen_a0f20d4b9a07ff5b" const_withoutSign_after7 ::
+const_withoutSign_after7 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2241,6 +2828,13 @@ foreign import ccall unsafe "hs_bindgen_a0f20d4b9a07ff5b" const_withoutSign_afte
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_after7 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_after7_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_3a020035eb2fe7f8" const_withoutSign_after8_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> HsBindgen.Runtime.Prelude.CSize -> IO ())
 
 {-| __C declaration:__ @const_withoutSign_after8@
 
@@ -2250,7 +2844,7 @@ foreign import ccall unsafe "hs_bindgen_a0f20d4b9a07ff5b" const_withoutSign_afte
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after8@
 -}
-foreign import ccall unsafe "hs_bindgen_3a020035eb2fe7f8" const_withoutSign_after8 ::
+const_withoutSign_after8 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2258,6 +2852,13 @@ foreign import ccall unsafe "hs_bindgen_3a020035eb2fe7f8" const_withoutSign_afte
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_withoutSign_after8 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_withoutSign_after8_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_17623ba5065bf95d" const_pointers_args1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr FC.CInt) -> IO ())
 
 {-| __C declaration:__ @const_pointers_args1@
 
@@ -2267,7 +2868,7 @@ foreign import ccall unsafe "hs_bindgen_3a020035eb2fe7f8" const_withoutSign_afte
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_args1@
 -}
-foreign import ccall unsafe "hs_bindgen_17623ba5065bf95d" const_pointers_args1 ::
+const_pointers_args1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2275,6 +2876,13 @@ foreign import ccall unsafe "hs_bindgen_17623ba5065bf95d" const_pointers_args1 :
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_pointers_args1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_pointers_args1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_02d08ccd5df88a98" const_pointers_args2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr FC.CInt) -> IO ())
 
 {-| __C declaration:__ @const_pointers_args2@
 
@@ -2284,7 +2892,7 @@ foreign import ccall unsafe "hs_bindgen_17623ba5065bf95d" const_pointers_args1 :
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_args2@
 -}
-foreign import ccall unsafe "hs_bindgen_02d08ccd5df88a98" const_pointers_args2 ::
+const_pointers_args2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2292,6 +2900,13 @@ foreign import ccall unsafe "hs_bindgen_02d08ccd5df88a98" const_pointers_args2 :
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_pointers_args2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_pointers_args2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_50c423f2237cb6b5" const_pointers_args3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr FC.CInt) -> IO ())
 
 {-| __C declaration:__ @const_pointers_args3@
 
@@ -2301,7 +2916,7 @@ foreign import ccall unsafe "hs_bindgen_02d08ccd5df88a98" const_pointers_args2 :
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_args3@
 -}
-foreign import ccall unsafe "hs_bindgen_50c423f2237cb6b5" const_pointers_args3 ::
+const_pointers_args3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2309,6 +2924,13 @@ foreign import ccall unsafe "hs_bindgen_50c423f2237cb6b5" const_pointers_args3 :
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_pointers_args3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_pointers_args3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_99c29c45d78348e9" const_pointers_args4_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr FC.CInt) -> IO ())
 
 {-| __C declaration:__ @const_pointers_args4@
 
@@ -2318,7 +2940,7 @@ foreign import ccall unsafe "hs_bindgen_50c423f2237cb6b5" const_pointers_args3 :
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_args4@
 -}
-foreign import ccall unsafe "hs_bindgen_99c29c45d78348e9" const_pointers_args4 ::
+const_pointers_args4 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2326,6 +2948,13 @@ foreign import ccall unsafe "hs_bindgen_99c29c45d78348e9" const_pointers_args4 :
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_pointers_args4 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_pointers_args4_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_6a92dbfae24b1bcd" const_pointers_args5_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.Ptr FC.CInt) -> IO ())
 
 {-| __C declaration:__ @const_pointers_args5@
 
@@ -2335,7 +2964,7 @@ foreign import ccall unsafe "hs_bindgen_99c29c45d78348e9" const_pointers_args4 :
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_args5@
 -}
-foreign import ccall unsafe "hs_bindgen_6a92dbfae24b1bcd" const_pointers_args5 ::
+const_pointers_args5 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2343,6 +2972,13 @@ foreign import ccall unsafe "hs_bindgen_6a92dbfae24b1bcd" const_pointers_args5 :
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+const_pointers_args5 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_pointers_args5_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_0c07f1e0256fd705" const_pointers_ret1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.Ptr FC.CInt))
 
 {-| __C declaration:__ @const_pointers_ret1@
 
@@ -2352,11 +2988,18 @@ foreign import ccall unsafe "hs_bindgen_6a92dbfae24b1bcd" const_pointers_args5 :
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_ret1@
 -}
-foreign import ccall unsafe "hs_bindgen_0c07f1e0256fd705" const_pointers_ret1 ::
+const_pointers_ret1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr FC.CInt)
+const_pointers_ret1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_pointers_ret1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_d12c8210ff3c3711" const_pointers_ret2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.Ptr FC.CInt))
 
 {-| __C declaration:__ @const_pointers_ret2@
 
@@ -2366,11 +3009,18 @@ foreign import ccall unsafe "hs_bindgen_0c07f1e0256fd705" const_pointers_ret1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_ret2@
 -}
-foreign import ccall unsafe "hs_bindgen_d12c8210ff3c3711" const_pointers_ret2 ::
+const_pointers_ret2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr FC.CInt)
+const_pointers_ret2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_pointers_ret2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a58bc0be6f564801" const_pointers_ret3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.Ptr FC.CInt))
 
 {-| __C declaration:__ @const_pointers_ret3@
 
@@ -2380,11 +3030,18 @@ foreign import ccall unsafe "hs_bindgen_d12c8210ff3c3711" const_pointers_ret2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_ret3@
 -}
-foreign import ccall unsafe "hs_bindgen_a58bc0be6f564801" const_pointers_ret3 ::
+const_pointers_ret3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr FC.CInt)
+const_pointers_ret3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_pointers_ret3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_622bb8150470138b" const_pointers_ret4_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.Ptr FC.CInt))
 
 {-| __C declaration:__ @const_pointers_ret4@
 
@@ -2394,11 +3051,18 @@ foreign import ccall unsafe "hs_bindgen_a58bc0be6f564801" const_pointers_ret3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_ret4@
 -}
-foreign import ccall unsafe "hs_bindgen_622bb8150470138b" const_pointers_ret4 ::
+const_pointers_ret4 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr FC.CInt)
+const_pointers_ret4 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_pointers_ret4_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_d49bd331ad2077e5" const_pointers_ret5_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.Ptr FC.CInt))
 
 {-| __C declaration:__ @const_pointers_ret5@
 
@@ -2408,19 +3072,28 @@ foreign import ccall unsafe "hs_bindgen_622bb8150470138b" const_pointers_ret4 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_ret5@
 -}
-foreign import ccall unsafe "hs_bindgen_d49bd331ad2077e5" const_pointers_ret5 ::
+const_pointers_ret5 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.Ptr FC.CInt)
+const_pointers_ret5 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_pointers_ret5_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_224608f780bff5bd" const_array_elem1_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr A) -> IO ())
 
 {-| Pointer-based API for 'const_array_elem1'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem1@
 -}
-foreign import ccall unsafe "hs_bindgen_224608f780bff5bd" const_array_elem1_wrapper ::
+const_array_elem1_wrapper ::
      Ptr.Ptr A
   -> IO ()
+const_array_elem1_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_array_elem1_wrapper_base
 
 {-| __C declaration:__ @const_array_elem1@
 
@@ -2438,6 +3111,11 @@ const_array_elem1 =
     HsBindgen.Runtime.IncompleteArray.withPtr x0 (\ptr1 ->
                                                     const_array_elem1_wrapper ptr1)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_9aa74ad89f2c1fba" const_array_elem2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr (Ptr.Ptr A)) -> IO ())
+
 {-| __C declaration:__ @const_array_elem2@
 
     __defined at:__ @macros\/reparse.h:247:6@
@@ -2446,19 +3124,28 @@ const_array_elem1 =
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem2@
 -}
-foreign import ccall unsafe "hs_bindgen_9aa74ad89f2c1fba" const_array_elem2 ::
+const_array_elem2 ::
      Ptr.Ptr (Ptr.Ptr A)
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO ()
+const_array_elem2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_array_elem2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_6a328300c5ef0c9e" const_array_elem3_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr (Ptr.Ptr A)) -> IO ())
 
 {-| Pointer-based API for 'const_array_elem3'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem3@
 -}
-foreign import ccall unsafe "hs_bindgen_6a328300c5ef0c9e" const_array_elem3_wrapper ::
+const_array_elem3_wrapper ::
      Ptr.Ptr (Ptr.Ptr A)
   -> IO ()
+const_array_elem3_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType const_array_elem3_wrapper_base
 
 {-| __C declaration:__ @const_array_elem3@
 
@@ -2476,6 +3163,11 @@ const_array_elem3 =
     HsBindgen.Runtime.IncompleteArray.withPtr x0 (\ptr1 ->
                                                     const_array_elem3_wrapper ptr1)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_13a7d78e11555d58" noParams1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO A)
+
 {-| Other examples we reparsed /incorrectly/ before language-c
 
 __C declaration:__ @noParams1@
@@ -2486,8 +3178,15 @@ __exported by:__ @macros\/reparse.h@
 
 __unique:__ @test_macrosreparse_Example_Unsafe_noParams1@
 -}
-foreign import ccall unsafe "hs_bindgen_13a7d78e11555d58" noParams1 ::
+noParams1 ::
      IO A
+noParams1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType noParams1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_672f4691ee7a367c" noParams2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO A)
 
 {-| __C declaration:__ @noParams2@
 
@@ -2497,8 +3196,15 @@ foreign import ccall unsafe "hs_bindgen_13a7d78e11555d58" noParams1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_noParams2@
 -}
-foreign import ccall unsafe "hs_bindgen_672f4691ee7a367c" noParams2 ::
+noParams2 ::
      IO A
+noParams2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType noParams2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_591f84e2163a5d18" noParams3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> (Ptr.FunPtr (IO FC.CInt)) -> IO ())
 
 {-| __C declaration:__ @noParams3@
 
@@ -2508,7 +3214,7 @@ foreign import ccall unsafe "hs_bindgen_672f4691ee7a367c" noParams2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_noParams3@
 -}
-foreign import ccall unsafe "hs_bindgen_591f84e2163a5d18" noParams3 ::
+noParams3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
@@ -2516,6 +3222,13 @@ foreign import ccall unsafe "hs_bindgen_591f84e2163a5d18" noParams3 ::
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
+noParams3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType noParams3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_8cdf7774adb0f0b4" funptr_ret1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.FunPtr (IO ())))
 
 {-| __C declaration:__ @funptr_ret1@
 
@@ -2525,11 +3238,18 @@ foreign import ccall unsafe "hs_bindgen_591f84e2163a5d18" noParams3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_funptr_ret1@
 -}
-foreign import ccall unsafe "hs_bindgen_8cdf7774adb0f0b4" funptr_ret1 ::
+funptr_ret1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (IO ()))
+funptr_ret1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType funptr_ret1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a4e08267a9070ede" funptr_ret2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.FunPtr (IO FC.CInt)))
 
 {-| __C declaration:__ @funptr_ret2@
 
@@ -2539,11 +3259,18 @@ foreign import ccall unsafe "hs_bindgen_8cdf7774adb0f0b4" funptr_ret1 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_funptr_ret2@
 -}
-foreign import ccall unsafe "hs_bindgen_a4e08267a9070ede" funptr_ret2 ::
+funptr_ret2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (IO FC.CInt))
+funptr_ret2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType funptr_ret2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_65fa30510d244cbf" funptr_ret3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.FunPtr (FC.CInt -> IO ())))
 
 {-| __C declaration:__ @funptr_ret3@
 
@@ -2553,11 +3280,18 @@ foreign import ccall unsafe "hs_bindgen_a4e08267a9070ede" funptr_ret2 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_funptr_ret3@
 -}
-foreign import ccall unsafe "hs_bindgen_65fa30510d244cbf" funptr_ret3 ::
+funptr_ret3 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> IO ()))
+funptr_ret3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType funptr_ret3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_da12eaec295883aa" funptr_ret4_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar)))
 
 {-| __C declaration:__ @funptr_ret4@
 
@@ -2567,11 +3301,18 @@ foreign import ccall unsafe "hs_bindgen_65fa30510d244cbf" funptr_ret3 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_funptr_ret4@
 -}
-foreign import ccall unsafe "hs_bindgen_da12eaec295883aa" funptr_ret4 ::
+funptr_ret4 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar))
+funptr_ret4 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType funptr_ret4_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_281c53214b1cdcb4" funptr_ret5_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))))
 
 {-| __C declaration:__ @funptr_ret5@
 
@@ -2581,11 +3322,18 @@ foreign import ccall unsafe "hs_bindgen_da12eaec295883aa" funptr_ret4 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_funptr_ret5@
 -}
-foreign import ccall unsafe "hs_bindgen_281c53214b1cdcb4" funptr_ret5 ::
+funptr_ret5 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+funptr_ret5 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType funptr_ret5_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_16628c257aa64a76" funptr_ret6_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))))
 
 {-| __C declaration:__ @funptr_ret6@
 
@@ -2595,11 +3343,18 @@ foreign import ccall unsafe "hs_bindgen_281c53214b1cdcb4" funptr_ret5 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_funptr_ret6@
 -}
-foreign import ccall unsafe "hs_bindgen_16628c257aa64a76" funptr_ret6 ::
+funptr_ret6 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+funptr_ret6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType funptr_ret6_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_79fb0c30f546a547" funptr_ret7_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))))
 
 {-| __C declaration:__ @funptr_ret7@
 
@@ -2609,11 +3364,18 @@ foreign import ccall unsafe "hs_bindgen_16628c257aa64a76" funptr_ret6 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_funptr_ret7@
 -}
-foreign import ccall unsafe "hs_bindgen_79fb0c30f546a547" funptr_ret7 ::
+funptr_ret7 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+funptr_ret7 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType funptr_ret7_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_4668d2ff9d5bfc40" funptr_ret8_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))))
 
 {-| __C declaration:__ @funptr_ret8@
 
@@ -2623,11 +3385,18 @@ foreign import ccall unsafe "hs_bindgen_79fb0c30f546a547" funptr_ret7 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_funptr_ret8@
 -}
-foreign import ccall unsafe "hs_bindgen_4668d2ff9d5bfc40" funptr_ret8 ::
+funptr_ret8 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+funptr_ret8 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType funptr_ret8_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_c044d7074789febc" funptr_ret9_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))))
 
 {-| __C declaration:__ @funptr_ret9@
 
@@ -2637,11 +3406,18 @@ foreign import ccall unsafe "hs_bindgen_4668d2ff9d5bfc40" funptr_ret8 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_funptr_ret9@
 -}
-foreign import ccall unsafe "hs_bindgen_c044d7074789febc" funptr_ret9 ::
+funptr_ret9 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+funptr_ret9 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType funptr_ret9_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_628ced6eccc7783a" funptr_ret10_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))))
 
 {-| __C declaration:__ @funptr_ret10@
 
@@ -2651,8 +3427,10 @@ foreign import ccall unsafe "hs_bindgen_c044d7074789febc" funptr_ret9 ::
 
     __unique:__ @test_macrosreparse_Example_Unsafe_funptr_ret10@
 -}
-foreign import ccall unsafe "hs_bindgen_628ced6eccc7783a" funptr_ret10 ::
+funptr_ret10 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+funptr_ret10 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType funptr_ret10_base

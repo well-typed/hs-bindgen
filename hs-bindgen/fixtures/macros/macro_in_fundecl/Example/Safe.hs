@@ -9,6 +9,7 @@ module Example.Safe where
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -112,6 +113,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d345c332b6547629" quux_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (F -> FC.CChar -> IO FC.CChar)
+
 {-| __C declaration:__ @quux@
 
     __defined at:__ @macros\/macro_in_fundecl.h:12:6@
@@ -120,7 +126,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_quux@
 -}
-foreign import ccall safe "hs_bindgen_d345c332b6547629" quux ::
+quux ::
      F
      {- ^ __C declaration:__ @x@
      -}
@@ -128,6 +134,13 @@ foreign import ccall safe "hs_bindgen_d345c332b6547629" quux ::
      {- ^ __C declaration:__ @y@
      -}
   -> IO FC.CChar
+quux =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType quux_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_195036c94aad554b" wam_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CFloat -> (Ptr.Ptr C) -> IO (Ptr.Ptr C))
 
 {-| __C declaration:__ @wam@
 
@@ -137,7 +150,7 @@ foreign import ccall safe "hs_bindgen_d345c332b6547629" quux ::
 
     __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_wam@
 -}
-foreign import ccall safe "hs_bindgen_195036c94aad554b" wam ::
+wam ::
      FC.CFloat
      {- ^ __C declaration:__ @x@
      -}
@@ -145,6 +158,13 @@ foreign import ccall safe "hs_bindgen_195036c94aad554b" wam ::
      {- ^ __C declaration:__ @y@
      -}
   -> IO (Ptr.Ptr C)
+wam =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType wam_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_a40b504a8f7c1d11" foo1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr FC.CChar))
 
 {-| __C declaration:__ @foo1@
 
@@ -154,7 +174,7 @@ foreign import ccall safe "hs_bindgen_195036c94aad554b" wam ::
 
     __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_foo1@
 -}
-foreign import ccall safe "hs_bindgen_a40b504a8f7c1d11" foo1 ::
+foo1 ::
      FC.CFloat
      {- ^ __C declaration:__ @x@
      -}
@@ -162,6 +182,13 @@ foreign import ccall safe "hs_bindgen_a40b504a8f7c1d11" foo1 ::
      {- ^ __C declaration:__ @g@
      -}
   -> IO (Ptr.Ptr FC.CChar)
+foo1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType foo1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_83392129a2035c99" foo2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (F -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr FC.CChar))
 
 {-| __C declaration:__ @foo2@
 
@@ -171,7 +198,7 @@ foreign import ccall safe "hs_bindgen_a40b504a8f7c1d11" foo1 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_foo2@
 -}
-foreign import ccall safe "hs_bindgen_83392129a2035c99" foo2 ::
+foo2 ::
      F
      {- ^ __C declaration:__ @x@
      -}
@@ -179,6 +206,13 @@ foreign import ccall safe "hs_bindgen_83392129a2035c99" foo2 ::
      {- ^ __C declaration:__ @g@
      -}
   -> IO (Ptr.Ptr FC.CChar)
+foo2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType foo2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_0c7f4bce7905d355" foo3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr C))
 
 {-| __C declaration:__ @foo3@
 
@@ -188,7 +222,7 @@ foreign import ccall safe "hs_bindgen_83392129a2035c99" foo2 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_foo3@
 -}
-foreign import ccall safe "hs_bindgen_0c7f4bce7905d355" foo3 ::
+foo3 ::
      FC.CFloat
      {- ^ __C declaration:__ @x@
      -}
@@ -196,6 +230,13 @@ foreign import ccall safe "hs_bindgen_0c7f4bce7905d355" foo3 ::
      {- ^ __C declaration:__ @g@
      -}
   -> IO (Ptr.Ptr C)
+foo3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType foo3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_3471ca0525deb2c0" bar1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt)))
 
 {-| __C declaration:__ @bar1@
 
@@ -205,11 +246,18 @@ foreign import ccall safe "hs_bindgen_0c7f4bce7905d355" foo3 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar1@
 -}
-foreign import ccall safe "hs_bindgen_3471ca0525deb2c0" bar1 ::
+bar1 ::
      FC.CLong
      {- ^ __C declaration:__ @x@
      -}
   -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))
+bar1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType bar1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d5a4af88f772ff72" bar2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (L -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt)))
 
 {-| __C declaration:__ @bar2@
 
@@ -219,11 +267,18 @@ foreign import ccall safe "hs_bindgen_3471ca0525deb2c0" bar1 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar2@
 -}
-foreign import ccall safe "hs_bindgen_d5a4af88f772ff72" bar2 ::
+bar2 ::
      L
      {- ^ __C declaration:__ @x@
      -}
   -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))
+bar2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType bar2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_b289d62136acab77" bar3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CLong -> IO (Ptr.FunPtr (S -> IO FC.CInt)))
 
 {-| __C declaration:__ @bar3@
 
@@ -233,11 +288,18 @@ foreign import ccall safe "hs_bindgen_d5a4af88f772ff72" bar2 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar3@
 -}
-foreign import ccall safe "hs_bindgen_b289d62136acab77" bar3 ::
+bar3 ::
      FC.CLong
      {- ^ __C declaration:__ @x@
      -}
   -> IO (Ptr.FunPtr (S -> IO FC.CInt))
+bar3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType bar3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_2b5b36cf49f0e40e" bar4_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO I)))
 
 {-| __C declaration:__ @bar4@
 
@@ -247,11 +309,18 @@ foreign import ccall safe "hs_bindgen_b289d62136acab77" bar3 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar4@
 -}
-foreign import ccall safe "hs_bindgen_2b5b36cf49f0e40e" bar4 ::
+bar4 ::
      FC.CLong
      {- ^ __C declaration:__ @x@
      -}
   -> IO (Ptr.FunPtr (FC.CShort -> IO I))
+bar4 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType bar4_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_b56f5f3515f3cc33" baz1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))))
 
 {-| __C declaration:__ @baz1@
 
@@ -261,11 +330,18 @@ foreign import ccall safe "hs_bindgen_2b5b36cf49f0e40e" bar4 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz1@
 -}
-foreign import ccall safe "hs_bindgen_b56f5f3515f3cc33" baz1 ::
+baz1 ::
      FC.CInt
      {- ^ __C declaration:__ @i@
      -}
   -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+baz1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType baz1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_0b9b2e4d1699b6f3" baz2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (I -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))))
 
 {-| __C declaration:__ @baz2@
 
@@ -275,11 +351,18 @@ foreign import ccall safe "hs_bindgen_b56f5f3515f3cc33" baz1 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz2@
 -}
-foreign import ccall safe "hs_bindgen_0b9b2e4d1699b6f3" baz2 ::
+baz2 ::
      I
      {- ^ __C declaration:__ @i@
      -}
   -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+baz2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType baz2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_459eabcbd019687c" baz3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I))))
 
 {-| __C declaration:__ @baz3@
 
@@ -289,11 +372,18 @@ foreign import ccall safe "hs_bindgen_0b9b2e4d1699b6f3" baz2 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz3@
 -}
-foreign import ccall safe "hs_bindgen_459eabcbd019687c" baz3 ::
+baz3 ::
      FC.CInt
      {- ^ __C declaration:__ @i@
      -}
   -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I)))
+baz3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType baz3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_7ae4ab0ad4fb8cad" no_args_no_void_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO I)
 
 {-| __C declaration:__ @no_args_no_void@
 
@@ -303,5 +393,7 @@ foreign import ccall safe "hs_bindgen_459eabcbd019687c" baz3 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_no_args_no_void@
 -}
-foreign import ccall safe "hs_bindgen_7ae4ab0ad4fb8cad" no_args_no_void ::
+no_args_no_void ::
      IO I
+no_args_no_void =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType no_args_no_void_base

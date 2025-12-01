@@ -22,7 +22,10 @@ hstypes:
 - hsname: Fun_ptr
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Fun_ptr_Deref
+  instances:
+  - HasBaseForeignType

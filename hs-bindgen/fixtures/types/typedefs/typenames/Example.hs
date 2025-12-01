@@ -20,6 +20,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified Text.Read
 import HsBindgen.Runtime.TypeEquality (TyEq)
@@ -35,7 +36,7 @@ newtype Foo = Foo
   { un_Foo :: FC.CUInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Enum, Floating, Fractional, Num, Real, RealFloat, RealFrac)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Enum, Floating, Fractional, Num, Real, RealFloat, RealFrac)
 
 instance F.Storable Foo where
 
@@ -124,7 +125,7 @@ newtype Foo = Foo
   { un_Foo :: FC.CDouble
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Enum, Floating, Fractional, Num, Real, RealFloat, RealFrac)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Enum, Floating, Fractional, Num, Real, RealFloat, RealFrac)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "un_Foo")
          ) => GHC.Records.HasField "un_Foo" (Ptr.Ptr Foo) (Ptr.Ptr ty) where

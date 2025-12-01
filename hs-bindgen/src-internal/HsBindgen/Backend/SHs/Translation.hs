@@ -159,26 +159,27 @@ translateDeriveInstance Hs.DeriveInstance{..} = DDerivingInstance
       }
 
 translateTypeClass :: Hs.TypeClass -> ClosedType
-translateTypeClass Hs.Bits       = TGlobal Bits_class
-translateTypeClass Hs.Bounded    = TGlobal Bounded_class
-translateTypeClass Hs.Enum       = TGlobal Enum_class
-translateTypeClass Hs.Eq         = TGlobal Eq_class
-translateTypeClass Hs.FiniteBits = TGlobal FiniteBits_class
-translateTypeClass Hs.Floating   = TGlobal Floating_class
-translateTypeClass Hs.Fractional = TGlobal Fractional_class
-translateTypeClass Hs.Integral   = TGlobal Integral_class
-translateTypeClass Hs.Ix         = TGlobal Ix_class
-translateTypeClass Hs.Num        = TGlobal Num_class
-translateTypeClass Hs.Ord        = TGlobal Ord_class
-translateTypeClass Hs.Read       = TGlobal Read_class
-translateTypeClass Hs.ReadRaw    = TGlobal ReadRaw_class
-translateTypeClass Hs.Real       = TGlobal Real_class
-translateTypeClass Hs.RealFloat  = TGlobal RealFloat_class
-translateTypeClass Hs.RealFrac   = TGlobal RealFrac_class
-translateTypeClass Hs.Show       = TGlobal Show_class
-translateTypeClass Hs.StaticSize = TGlobal StaticSize_class
-translateTypeClass Hs.Storable   = TGlobal Storable_class
-translateTypeClass Hs.WriteRaw   = TGlobal WriteRaw_class
+translateTypeClass Hs.Bits                = TGlobal Bits_class
+translateTypeClass Hs.Bounded             = TGlobal Bounded_class
+translateTypeClass Hs.Enum                = TGlobal Enum_class
+translateTypeClass Hs.Eq                  = TGlobal Eq_class
+translateTypeClass Hs.FiniteBits          = TGlobal FiniteBits_class
+translateTypeClass Hs.Floating            = TGlobal Floating_class
+translateTypeClass Hs.Fractional          = TGlobal Fractional_class
+translateTypeClass Hs.Integral            = TGlobal Integral_class
+translateTypeClass Hs.Ix                  = TGlobal Ix_class
+translateTypeClass Hs.Num                 = TGlobal Num_class
+translateTypeClass Hs.Ord                 = TGlobal Ord_class
+translateTypeClass Hs.Read                = TGlobal Read_class
+translateTypeClass Hs.ReadRaw             = TGlobal ReadRaw_class
+translateTypeClass Hs.Real                = TGlobal Real_class
+translateTypeClass Hs.RealFloat           = TGlobal RealFloat_class
+translateTypeClass Hs.RealFrac            = TGlobal RealFrac_class
+translateTypeClass Hs.Show                = TGlobal Show_class
+translateTypeClass Hs.StaticSize          = TGlobal StaticSize_class
+translateTypeClass Hs.Storable            = TGlobal Storable_class
+translateTypeClass Hs.WriteRaw            = TGlobal WriteRaw_class
+translateTypeClass Hs.HasBaseForeignType  = TGlobal HasBaseForeignType_class
 
 translateForeignImportDecl :: Hs.ForeignImportDecl -> [SDecl]
 translateForeignImportDecl Hs.ForeignImportDecl { foreignImportParameters = args
@@ -247,6 +248,7 @@ translateType = \case
     Hs.HsBlock t            -> TGlobal Block_type `TApp` translateType t
     Hs.HsComplexType t      -> TApp (TGlobal ComplexType) (translateType (HsPrimType t))
     Hs.HsStrLit s           -> TStrLit s
+    Hs.HsBaseForeignType t  -> TGlobal HasBaseForeignType_BaseForeignType `TApp` translateType t
 
 {-------------------------------------------------------------------------------
   'Storable'

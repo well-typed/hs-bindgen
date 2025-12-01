@@ -9,6 +9,7 @@ module Example.Safe where
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -30,14 +31,21 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_cba7011c6d25362b" transpose_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr Triplet) -> (Ptr.Ptr Triplet) -> IO ())
+
 {-| Pointer-based API for 'transpose'
 
 __unique:__ @test_manualarrays_Example_Safe_transpose@
 -}
-foreign import ccall safe "hs_bindgen_cba7011c6d25362b" transpose_wrapper ::
+transpose_wrapper ::
      Ptr.Ptr Triplet
   -> Ptr.Ptr Triplet
   -> IO ()
+transpose_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType transpose_wrapper_base
 
 {-| __C declaration:__ @transpose@
 
@@ -59,6 +67,11 @@ transpose =
       HsBindgen.Runtime.ConstantArray.withPtr x0 (\ptr2 ->
                                                     transpose_wrapper ptr2 x1)
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_45d15697a99c626a" pretty_print_triplets_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))) -> IO ())
+
 {-| A function that prints the given triplet_ptrs
 
 __C declaration:__ @pretty_print_triplets@
@@ -69,8 +82,10 @@ __exported by:__ @manual\/arrays.h@
 
 __unique:__ @test_manualarrays_Example_Safe_pretty_print_triplets@
 -}
-foreign import ccall safe "hs_bindgen_45d15697a99c626a" pretty_print_triplets ::
+pretty_print_triplets ::
      Ptr.Ptr (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
      {- ^ __C declaration:__ @x@
      -}
   -> IO ()
+pretty_print_triplets =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType pretty_print_triplets_base

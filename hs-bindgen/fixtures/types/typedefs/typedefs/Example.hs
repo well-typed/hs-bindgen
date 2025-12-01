@@ -21,6 +21,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.FunPtr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import Data.Bits (FiniteBits)
 import HsBindgen.Runtime.TypeEquality (TyEq)
@@ -36,7 +37,7 @@ newtype Myint = Myint
   { un_Myint :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Myint) "un_Myint")
          ) => GHC.Records.HasField "un_Myint" (Ptr.Ptr Myint) (Ptr.Ptr ty) where
@@ -60,7 +61,7 @@ newtype Intptr = Intptr
   { un_Intptr :: Ptr.Ptr FC.CInt
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Intptr) "un_Intptr")
          ) => GHC.Records.HasField "un_Intptr" (Ptr.Ptr Intptr) (Ptr.Ptr ty) where
@@ -83,6 +84,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Intptr "un_Intptr" where
 newtype Int2int = Int2int
   { un_Int2int :: FC.CInt -> IO FC.CInt
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toInt2int ::
      Int2int
@@ -122,6 +124,7 @@ __exported by:__ @types\/typedefs\/typedefs.h@
 newtype FunctionPointer_Function_Deref = FunctionPointer_Function_Deref
   { un_FunctionPointer_Function_Deref :: IO ()
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toFunctionPointer_Function_Deref ::
      FunctionPointer_Function_Deref
@@ -162,7 +165,7 @@ newtype FunctionPointer_Function = FunctionPointer_Function
   { un_FunctionPointer_Function :: Ptr.FunPtr FunctionPointer_Function_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FunctionPointer_Function) "un_FunctionPointer_Function")
          ) => GHC.Records.HasField "un_FunctionPointer_Function" (Ptr.Ptr FunctionPointer_Function) (Ptr.Ptr ty) where
@@ -186,6 +189,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FunctionPointer_Function "un_Func
 newtype NonFunctionPointer_Function = NonFunctionPointer_Function
   { un_NonFunctionPointer_Function :: FC.CInt -> IO FC.CInt
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toNonFunctionPointer_Function ::
      NonFunctionPointer_Function
@@ -225,6 +229,7 @@ __exported by:__ @types\/typedefs\/typedefs.h@
 newtype F1_Deref = F1_Deref
   { un_F1_Deref :: IO ()
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toF1_Deref ::
      F1_Deref
@@ -264,7 +269,7 @@ newtype F1 = F1
   { un_F1 :: Ptr.FunPtr F1_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F1) "un_F1")
          ) => GHC.Records.HasField "un_F1" (Ptr.Ptr F1) (Ptr.Ptr ty) where
@@ -287,6 +292,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F1 "un_F1" where
 newtype G1 = G1
   { un_G1 :: IO ()
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toG1 ::
      G1
@@ -326,7 +332,7 @@ newtype G2 = G2
   { un_G2 :: Ptr.FunPtr G1
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType G2) "un_G2")
          ) => GHC.Records.HasField "un_G2" (Ptr.Ptr G2) (Ptr.Ptr ty) where
@@ -349,6 +355,7 @@ instance HsBindgen.Runtime.HasCField.HasCField G2 "un_G2" where
 newtype H1 = H1
   { un_H1 :: IO ()
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toH1 ::
      H1
@@ -387,6 +394,7 @@ instance HsBindgen.Runtime.HasCField.HasCField H1 "un_H1" where
 newtype H2 = H2
   { un_H2 :: H1
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType H2) "un_H2")
          ) => GHC.Records.HasField "un_H2" (Ptr.Ptr H2) (Ptr.Ptr ty) where
@@ -410,7 +418,7 @@ newtype H3 = H3
   { un_H3 :: Ptr.FunPtr H2
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType H3) "un_H3")
          ) => GHC.Records.HasField "un_H3" (Ptr.Ptr H3) (Ptr.Ptr ty) where

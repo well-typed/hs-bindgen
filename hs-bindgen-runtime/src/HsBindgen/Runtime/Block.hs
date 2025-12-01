@@ -1,3 +1,5 @@
+{-# LANGUAGE UndecidableInstances #-}
+
 -- | Bare-bones support for blocks
 --
 -- TODO: Ideally we would at least support @Block_copy@ and @Block_release@.
@@ -7,7 +9,10 @@ module HsBindgen.Runtime.Block (
     Block(..)
   ) where
 
-import Foreign
+import Foreign (Ptr)
+
+import HsBindgen.Runtime.HasBaseForeignType (HasBaseForeignType,
+                                             ViaNewtype (..))
 
 {-------------------------------------------------------------------------------
   Definition
@@ -27,3 +32,5 @@ import Foreign
 --
 -- > newtype VarCounter = VarCounter (Block (CInt -> IO CInt))
 newtype Block t = Block (Ptr ())
+
+deriving via ViaNewtype (Ptr ()) instance HasBaseForeignType (Block t)

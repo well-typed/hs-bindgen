@@ -6,6 +6,7 @@
 module Example.Unsafe where
 
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -42,6 +43,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_da5d889180d72efd" erf_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CDouble -> FC.CDouble)
+
 {-| __C declaration:__ @erf@
 
     __defined at:__ @functions\/simple_func.h:1:8@
@@ -50,11 +56,18 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __unique:__ @test_functionssimple_func_Example_Unsafe_erf@
 -}
-foreign import ccall unsafe "hs_bindgen_da5d889180d72efd" erf ::
+erf ::
      FC.CDouble
      {- ^ __C declaration:__ @arg@
      -}
   -> FC.CDouble
+erf =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType erf_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_d02f37accebc0cb3" bad_fma_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble)
 
 {-| __C declaration:__ @bad_fma@
 
@@ -64,7 +77,7 @@ foreign import ccall unsafe "hs_bindgen_da5d889180d72efd" erf ::
 
     __unique:__ @test_functionssimple_func_Example_Unsafe_bad_fma@
 -}
-foreign import ccall unsafe "hs_bindgen_d02f37accebc0cb3" bad_fma ::
+bad_fma ::
      FC.CDouble
      {- ^ __C declaration:__ @x@
      -}
@@ -75,6 +88,13 @@ foreign import ccall unsafe "hs_bindgen_d02f37accebc0cb3" bad_fma ::
      {- ^ __C declaration:__ @z@
      -}
   -> IO FC.CDouble
+bad_fma =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType bad_fma_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_9ea56ae4fab9a418" no_args_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO ())
 
 {-| __C declaration:__ @no_args@
 
@@ -84,8 +104,15 @@ foreign import ccall unsafe "hs_bindgen_d02f37accebc0cb3" bad_fma ::
 
     __unique:__ @test_functionssimple_func_Example_Unsafe_no_args@
 -}
-foreign import ccall unsafe "hs_bindgen_9ea56ae4fab9a418" no_args ::
+no_args ::
      IO ()
+no_args =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType no_args_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a3d1783059ec7820" no_args_no_void_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO ())
 
 {-| __C declaration:__ @no_args_no_void@
 
@@ -95,8 +122,15 @@ foreign import ccall unsafe "hs_bindgen_9ea56ae4fab9a418" no_args ::
 
     __unique:__ @test_functionssimple_func_Example_Unsafe_no_args_no_void@
 -}
-foreign import ccall unsafe "hs_bindgen_a3d1783059ec7820" no_args_no_void ::
+no_args_no_void ::
      IO ()
+no_args_no_void =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType no_args_no_void_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_91392ef466aa34e7" fun_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CChar -> FC.CDouble -> IO FC.CInt)
 
 {-| __C declaration:__ @fun@
 
@@ -106,7 +140,7 @@ foreign import ccall unsafe "hs_bindgen_a3d1783059ec7820" no_args_no_void ::
 
     __unique:__ @test_functionssimple_func_Example_Unsafe_fun@
 -}
-foreign import ccall unsafe "hs_bindgen_91392ef466aa34e7" fun ::
+fun ::
      FC.CChar
      {- ^ __C declaration:__ @x@
      -}
@@ -114,3 +148,5 @@ foreign import ccall unsafe "hs_bindgen_91392ef466aa34e7" fun ::
      {- ^ __C declaration:__ @y@
      -}
   -> IO FC.CInt
+fun =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType fun_base

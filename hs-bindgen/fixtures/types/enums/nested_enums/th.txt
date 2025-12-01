@@ -14,6 +14,7 @@ newtype EnumA
            __exported by:__ @types\/enums\/nested_enums.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable EnumA
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -112,6 +113,7 @@ newtype ExB_fieldB1
            __exported by:__ @types\/enums\/nested_enums.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable ExB_fieldB1
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int

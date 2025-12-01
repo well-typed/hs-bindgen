@@ -11,6 +11,7 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
 import Example
@@ -152,10 +153,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_dd2a346b95b769db" hs_bindgen_dd2a346b95b769db_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr0_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_dd2a346b95b769db" hs_bindgen_dd2a346b95b769db ::
+hs_bindgen_dd2a346b95b769db ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+hs_bindgen_dd2a346b95b769db =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_dd2a346b95b769db_base
 
 {-# NOINLINE arr0_ptr #-}
 
@@ -171,10 +179,17 @@ arr0_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 arr0_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dd2a346b95b769db
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_3867a46f740e141f" hs_bindgen_3867a46f740e141f_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr1_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_3867a46f740e141f" hs_bindgen_3867a46f740e141f ::
+hs_bindgen_3867a46f740e141f ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+hs_bindgen_3867a46f740e141f =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3867a46f740e141f_base
 
 {-# NOINLINE arr1_ptr #-}
 
@@ -190,10 +205,17 @@ arr1_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 arr1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3867a46f740e141f
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_c1b5868da3cfebbe" hs_bindgen_c1b5868da3cfebbe_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr2_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_c1b5868da3cfebbe" hs_bindgen_c1b5868da3cfebbe ::
+hs_bindgen_c1b5868da3cfebbe ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+hs_bindgen_c1b5868da3cfebbe =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c1b5868da3cfebbe_base
 
 {-# NOINLINE arr2_ptr #-}
 
@@ -209,10 +231,17 @@ arr2_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 arr2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c1b5868da3cfebbe
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_697b55cf10c5c7ae" hs_bindgen_697b55cf10c5c7ae_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr3_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_697b55cf10c5c7ae" hs_bindgen_697b55cf10c5c7ae ::
+hs_bindgen_697b55cf10c5c7ae ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+hs_bindgen_697b55cf10c5c7ae =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_697b55cf10c5c7ae_base
 
 {-# NOINLINE arr3_ptr #-}
 
@@ -228,10 +257,17 @@ arr3_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 arr3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_697b55cf10c5c7ae
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_f935cbe0a13b4987" hs_bindgen_f935cbe0a13b4987_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt)))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr6_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_f935cbe0a13b4987" hs_bindgen_f935cbe0a13b4987 ::
+hs_bindgen_f935cbe0a13b4987 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt))
+hs_bindgen_f935cbe0a13b4987 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f935cbe0a13b4987_base
 
 {-# NOINLINE arr6_ptr #-}
 
@@ -247,10 +283,17 @@ arr6_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt)
 arr6_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f935cbe0a13b4987
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_673085071176d81a" hs_bindgen_673085071176d81a_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr7_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_673085071176d81a" hs_bindgen_673085071176d81a ::
+hs_bindgen_673085071176d81a ::
      IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
+hs_bindgen_673085071176d81a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_673085071176d81a_base
 
 {-# NOINLINE arr7_ptr #-}
 
@@ -266,10 +309,17 @@ arr7_ptr :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
 arr7_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_673085071176d81a
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_3cf195887769eb3d" hs_bindgen_3cf195887769eb3d_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_1_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_3cf195887769eb3d" hs_bindgen_3cf195887769eb3d ::
+hs_bindgen_3cf195887769eb3d ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+hs_bindgen_3cf195887769eb3d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3cf195887769eb3d_base
 
 {-# NOINLINE arr_1_ptr #-}
 
@@ -285,10 +335,17 @@ arr_1_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 arr_1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3cf195887769eb3d
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_4621cb499a2b4cd3" hs_bindgen_4621cb499a2b4cd3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr Triplet))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_2_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_4621cb499a2b4cd3" hs_bindgen_4621cb499a2b4cd3 ::
+hs_bindgen_4621cb499a2b4cd3 ::
      IO (Ptr.Ptr Triplet)
+hs_bindgen_4621cb499a2b4cd3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_4621cb499a2b4cd3_base
 
 {-# NOINLINE arr_2_ptr #-}
 
@@ -304,10 +361,17 @@ arr_2_ptr :: Ptr.Ptr Triplet
 arr_2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4621cb499a2b4cd3
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_cb7148df8f0668ef" hs_bindgen_cb7148df8f0668ef_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_3_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_cb7148df8f0668ef" hs_bindgen_cb7148df8f0668ef ::
+hs_bindgen_cb7148df8f0668ef ::
      IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
+hs_bindgen_cb7148df8f0668ef =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_cb7148df8f0668ef_base
 
 {-# NOINLINE arr_3_ptr #-}
 
@@ -323,10 +387,17 @@ arr_3_ptr :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
 arr_3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cb7148df8f0668ef
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_f0a4984c74b89803" hs_bindgen_f0a4984c74b89803_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr List))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_4_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_f0a4984c74b89803" hs_bindgen_f0a4984c74b89803 ::
+hs_bindgen_f0a4984c74b89803 ::
      IO (Ptr.Ptr List)
+hs_bindgen_f0a4984c74b89803 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f0a4984c74b89803_base
 
 {-# NOINLINE arr_4_ptr #-}
 
@@ -342,10 +413,17 @@ arr_4_ptr :: Ptr.Ptr List
 arr_4_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f0a4984c74b89803
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_9f555ad1567e295a" hs_bindgen_9f555ad1567e295a_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_5_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_9f555ad1567e295a" hs_bindgen_9f555ad1567e295a ::
+hs_bindgen_9f555ad1567e295a ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+hs_bindgen_9f555ad1567e295a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9f555ad1567e295a_base
 
 {-# NOINLINE arr_5_ptr #-}
 
@@ -361,10 +439,17 @@ arr_5_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBind
 arr_5_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9f555ad1567e295a
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_f016939597566966" hs_bindgen_f016939597566966_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr Matrix))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_6_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_f016939597566966" hs_bindgen_f016939597566966 ::
+hs_bindgen_f016939597566966 ::
      IO (Ptr.Ptr Matrix)
+hs_bindgen_f016939597566966 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f016939597566966_base
 
 {-# NOINLINE arr_6_ptr #-}
 
@@ -380,10 +465,17 @@ arr_6_ptr :: Ptr.Ptr Matrix
 arr_6_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f016939597566966
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_bb1876e9c2ece223" hs_bindgen_bb1876e9c2ece223_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_7_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_bb1876e9c2ece223" hs_bindgen_bb1876e9c2ece223 ::
+hs_bindgen_bb1876e9c2ece223 ::
      IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+hs_bindgen_bb1876e9c2ece223 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_bb1876e9c2ece223_base
 
 {-# NOINLINE arr_7_ptr #-}
 
@@ -399,10 +491,17 @@ arr_7_ptr :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBind
 arr_7_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_bb1876e9c2ece223
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_dc2a31e3f871adec" hs_bindgen_dc2a31e3f871adec_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr Tripletlist))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_8_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_dc2a31e3f871adec" hs_bindgen_dc2a31e3f871adec ::
+hs_bindgen_dc2a31e3f871adec ::
      IO (Ptr.Ptr Tripletlist)
+hs_bindgen_dc2a31e3f871adec =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_dc2a31e3f871adec_base
 
 {-# NOINLINE arr_8_ptr #-}
 
@@ -418,10 +517,17 @@ arr_8_ptr :: Ptr.Ptr Tripletlist
 arr_8_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dc2a31e3f871adec
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_fc9438d00f745eee" hs_bindgen_fc9438d00f745eee_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_1_const_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_fc9438d00f745eee" hs_bindgen_fc9438d00f745eee ::
+hs_bindgen_fc9438d00f745eee ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+hs_bindgen_fc9438d00f745eee =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_fc9438d00f745eee_base
 
 {-# NOINLINE arr_1_const_ptr #-}
 
@@ -443,10 +549,17 @@ arr_1_const :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
 arr_1_const =
   GHC.IO.Unsafe.unsafePerformIO (F.peek arr_1_const_ptr)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_be3eba6be1a73c5d" hs_bindgen_be3eba6be1a73c5d_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr Triplet))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_2_const_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_be3eba6be1a73c5d" hs_bindgen_be3eba6be1a73c5d ::
+hs_bindgen_be3eba6be1a73c5d ::
      IO (Ptr.Ptr Triplet)
+hs_bindgen_be3eba6be1a73c5d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_be3eba6be1a73c5d_base
 
 {-# NOINLINE arr_2_const_ptr #-}
 
@@ -468,10 +581,17 @@ arr_2_const :: Triplet
 arr_2_const =
   GHC.IO.Unsafe.unsafePerformIO (F.peek arr_2_const_ptr)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_0c3c415a6bdd56a6" hs_bindgen_0c3c415a6bdd56a6_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_3_const_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_0c3c415a6bdd56a6" hs_bindgen_0c3c415a6bdd56a6 ::
+hs_bindgen_0c3c415a6bdd56a6 ::
      IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
+hs_bindgen_0c3c415a6bdd56a6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0c3c415a6bdd56a6_base
 
 {-# NOINLINE arr_3_const_ptr #-}
 
@@ -487,10 +607,17 @@ arr_3_const_ptr :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC
 arr_3_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0c3c415a6bdd56a6
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a6fa7483b9d48043" hs_bindgen_a6fa7483b9d48043_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr List))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_4_const_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_a6fa7483b9d48043" hs_bindgen_a6fa7483b9d48043 ::
+hs_bindgen_a6fa7483b9d48043 ::
      IO (Ptr.Ptr List)
+hs_bindgen_a6fa7483b9d48043 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a6fa7483b9d48043_base
 
 {-# NOINLINE arr_4_const_ptr #-}
 
@@ -506,10 +633,17 @@ arr_4_const_ptr :: Ptr.Ptr List
 arr_4_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a6fa7483b9d48043
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_93b436ac5ffd8c82" hs_bindgen_93b436ac5ffd8c82_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_5_const_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_93b436ac5ffd8c82" hs_bindgen_93b436ac5ffd8c82 ::
+hs_bindgen_93b436ac5ffd8c82 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+hs_bindgen_93b436ac5ffd8c82 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_93b436ac5ffd8c82_base
 
 {-# NOINLINE arr_5_const_ptr #-}
 
@@ -531,10 +665,17 @@ arr_5_const :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Run
 arr_5_const =
   GHC.IO.Unsafe.unsafePerformIO (F.peek arr_5_const_ptr)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_9e625256c9dc1a3f" hs_bindgen_9e625256c9dc1a3f_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr Matrix))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_6_const_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_9e625256c9dc1a3f" hs_bindgen_9e625256c9dc1a3f ::
+hs_bindgen_9e625256c9dc1a3f ::
      IO (Ptr.Ptr Matrix)
+hs_bindgen_9e625256c9dc1a3f =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9e625256c9dc1a3f_base
 
 {-# NOINLINE arr_6_const_ptr #-}
 
@@ -556,10 +697,17 @@ arr_6_const :: Matrix
 arr_6_const =
   GHC.IO.Unsafe.unsafePerformIO (F.peek arr_6_const_ptr)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_19cc3c6537ef51f0" hs_bindgen_19cc3c6537ef51f0_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_7_const_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_19cc3c6537ef51f0" hs_bindgen_19cc3c6537ef51f0 ::
+hs_bindgen_19cc3c6537ef51f0 ::
      IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+hs_bindgen_19cc3c6537ef51f0 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_19cc3c6537ef51f0_base
 
 {-# NOINLINE arr_7_const_ptr #-}
 
@@ -575,10 +723,17 @@ arr_7_const_ptr :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((
 arr_7_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_19cc3c6537ef51f0
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_9af0285a476aaf26" hs_bindgen_9af0285a476aaf26_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr Tripletlist))
+
 {-| __unique:__ @test_arraysarray_Example_get_arr_8_const_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_9af0285a476aaf26" hs_bindgen_9af0285a476aaf26 ::
+hs_bindgen_9af0285a476aaf26 ::
      IO (Ptr.Ptr Tripletlist)
+hs_bindgen_9af0285a476aaf26 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9af0285a476aaf26_base
 
 {-# NOINLINE arr_8_const_ptr #-}
 

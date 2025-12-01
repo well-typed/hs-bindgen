@@ -168,6 +168,7 @@ data TypeClass =
   | Real
   | RealFloat
   | RealFrac
+  | HasBaseForeignType
 
     -- Classes we can generate when all components have instances
   | StaticSize

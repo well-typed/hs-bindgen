@@ -63,5 +63,6 @@ data HsType =
   | HsBlock HsType
   | HsComplexType HsPrimType
   | HsStrLit String
+  | HsBaseForeignType HsType
   deriving stock (Generic, Show, Eq)
 

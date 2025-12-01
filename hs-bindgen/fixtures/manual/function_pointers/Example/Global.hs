@@ -9,6 +9,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -38,10 +39,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_ab897ed3a6702a69" hs_bindgen_ab897ed3a6702a69_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))))
+
 {-| __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_var_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_ab897ed3a6702a69" hs_bindgen_ab897ed3a6702a69 ::
+hs_bindgen_ab897ed3a6702a69 ::
      IO (Ptr.Ptr (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)))
+hs_bindgen_ab897ed3a6702a69 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_ab897ed3a6702a69_base
 
 {-# NOINLINE apply1_nopointer_var_ptr #-}
 
@@ -63,10 +71,17 @@ apply1_nopointer_var :: Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CIn
 apply1_nopointer_var =
   GHC.IO.Unsafe.unsafePerformIO (F.peek apply1_nopointer_var_ptr)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_448bdc6115d5924e" hs_bindgen_448bdc6115d5924e_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr Apply1Struct))
+
 {-| __unique:__ @test_manualfunction_pointers_Example_get_apply1_struct_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_448bdc6115d5924e" hs_bindgen_448bdc6115d5924e ::
+hs_bindgen_448bdc6115d5924e ::
      IO (Ptr.Ptr Apply1Struct)
+hs_bindgen_448bdc6115d5924e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_448bdc6115d5924e_base
 
 {-# NOINLINE apply1_struct_ptr #-}
 
@@ -86,10 +101,17 @@ apply1_struct :: Apply1Struct
 apply1_struct =
   GHC.IO.Unsafe.unsafePerformIO (F.peek apply1_struct_ptr)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_3f47656e6bb54e94" hs_bindgen_3f47656e6bb54e94_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr Apply1Union))
+
 {-| __unique:__ @test_manualfunction_pointers_Example_get_apply1_union_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_3f47656e6bb54e94" hs_bindgen_3f47656e6bb54e94 ::
+hs_bindgen_3f47656e6bb54e94 ::
      IO (Ptr.Ptr Apply1Union)
+hs_bindgen_3f47656e6bb54e94 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3f47656e6bb54e94_base
 
 {-# NOINLINE apply1_union_ptr #-}
 

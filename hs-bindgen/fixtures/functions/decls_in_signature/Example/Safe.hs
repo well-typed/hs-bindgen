@@ -7,6 +7,7 @@ module Example.Safe where
 
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -35,15 +36,22 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_920e5c20f770432b" normal_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> (Ptr.Ptr Outside) -> IO ())
+
 {-| Pointer-based API for 'normal'
 
 __unique:__ @test_functionsdecls_in_signature_Example_Safe_normal@
 -}
-foreign import ccall safe "hs_bindgen_920e5c20f770432b" normal_wrapper ::
+normal_wrapper ::
      Ptr.Ptr Opaque
   -> Ptr.Ptr Outside
   -> Ptr.Ptr Outside
   -> IO ()
+normal_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType normal_wrapper_base
 
 {-| __C declaration:__ @normal@
 
@@ -67,13 +75,20 @@ normal =
     \x1 ->
       \x2 -> F.with x2 (\y3 -> normal_wrapper x0 x1 y3)
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_baea2c7a0c8b9965" f1_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr Named_struct) -> IO ())
+
 {-| Pointer-based API for 'f1'
 
 __unique:__ @test_functionsdecls_in_signature_Example_Safe_f1@
 -}
-foreign import ccall safe "hs_bindgen_baea2c7a0c8b9965" f1_wrapper ::
+f1_wrapper ::
      Ptr.Ptr Named_struct
   -> IO ()
+f1_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType f1_wrapper_base
 
 {-| Error cases
 
@@ -92,13 +107,20 @@ f1 ::
   -> IO ()
 f1 = \x0 -> F.with x0 (\y1 -> f1_wrapper y1)
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_990d7be722ad5414" f2_wrapper_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr Named_union) -> IO ())
+
 {-| Pointer-based API for 'f2'
 
 __unique:__ @test_functionsdecls_in_signature_Example_Safe_f2@
 -}
-foreign import ccall safe "hs_bindgen_990d7be722ad5414" f2_wrapper ::
+f2_wrapper ::
      Ptr.Ptr Named_union
   -> IO ()
+f2_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType f2_wrapper_base
 
 {-| __C declaration:__ @f2@
 

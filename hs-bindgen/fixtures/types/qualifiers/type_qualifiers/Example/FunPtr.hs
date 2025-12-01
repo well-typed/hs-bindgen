@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -24,10 +25,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_33c0388dc987452a" hs_bindgen_33c0388dc987452a_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool)))
+
 {-| __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_33c0388dc987452a" hs_bindgen_33c0388dc987452a ::
+hs_bindgen_33c0388dc987452a ::
      IO (Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
+hs_bindgen_33c0388dc987452a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_33c0388dc987452a_base
 
 {-# NOINLINE list_example_ptr #-}
 

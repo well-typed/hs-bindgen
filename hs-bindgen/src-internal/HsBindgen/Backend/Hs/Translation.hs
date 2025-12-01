@@ -167,17 +167,19 @@ generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
         typedefDecs opts haddockConfig info d spec
       C.DeclOpaque cNameKind -> withCategoryM BType $
         opaqueDecs cNameKind haddockConfig info spec
-      C.DeclFunction f ->
+      C.DeclFunction f -> do
+        instsMap <- State.get
         let funDeclsWith safety =
-              functionDecs safety opts haddockConfig moduleName info f spec
+              functionDecs safety opts haddockConfig moduleName instsMap info f spec
             funType  = (C.TypeFun (snd <$> C.functionArgs f) (C.functionRes f))
             -- Declare a function pointer. We can pass this 'FunPtr' to C
             -- functions that take a function pointer of the appropriate type.
             funPtrDecls = fst $
-              addressStubDecs opts haddockConfig moduleName info funType spec
-        in  pure $ withCategory BSafe   (funDeclsWith SHs.Safe)
-                ++ withCategory BUnsafe (funDeclsWith SHs.Unsafe)
-                ++ withCategory BFunPtr  funPtrDecls
+              addressStubDecs opts haddockConfig moduleName instsMap info funType spec
+            safes = withCategory BSafe   (funDeclsWith SHs.Safe)
+            unsafes = withCategory BUnsafe (funDeclsWith SHs.Unsafe)
+            funPtrs = withCategory BFunPtr  funPtrDecls
+        pure $ safes ++ unsafes ++ funPtrs
       C.DeclMacro macro -> withCategoryM BType $
         macroDecs opts haddockConfig info macro spec
       C.DeclGlobal ty ->
@@ -627,7 +629,8 @@ enumDecs ::
 enumDecs opts haddockConfig info e spec = do
     State.modify' $ Map.insert newtypeName insts
     pure $
-      newtypeDecl : storableDecl : optDecls ++ cEnumInstanceDecls ++ valueDecls
+      newtypeDecl : storableDecl : HsFI.hasBaseForeignTypeDecs insts hsNewtype ++
+      optDecls ++ cEnumInstanceDecls ++ valueDecls
   where
     newtypeName :: Hs.Name Hs.NsTypeConstr
     newtypeName = C.unsafeDeclIdHaskellName info.declId
@@ -644,7 +647,7 @@ enumDecs opts haddockConfig info e spec = do
       }
 
     insts :: Set Hs.TypeClass
-    insts = Set.union (Set.fromList [Hs.Show, Hs.Read, Hs.Storable]) $
+    insts = Set.union (Set.fromList [Hs.Show, Hs.Read, Hs.Storable, Hs.HasBaseForeignType]) $
       Set.fromList (snd <$> translationDeriveEnum opts)
 
     hsNewtype :: Hs.Newtype
@@ -787,6 +790,7 @@ typedefDecs opts haddockConfig info typedef spec = do
     candidateInsts :: Set Hs.TypeClass
     candidateInsts = Set.unions
                    [ Set.singleton Hs.Storable
+                   , Set.singleton Hs.HasBaseForeignType
                    , Set.fromList (snd <$> translationDeriveTypedef opts)
                    ]
 
@@ -815,8 +819,9 @@ typedefDecs opts haddockConfig info typedef spec = do
     -- everything in aux is state-dependent
     aux :: Hs.InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux instanceMap = (insts,) $
-        (newtypeDecl : newtypeWrapper) ++ storableDecl ++ optDecls ++
-        typedefFieldDecls hsNewtype
+        newtypeDecl : newtypeWrapper ++ storableDecl ++ optDecls ++
+        typedefFieldDecls hsNewtype ++
+        HsFI.hasBaseForeignTypeDecs insts hsNewtype
       where
         insts :: Set Hs.TypeClass
         insts =
@@ -967,13 +972,16 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
     newtypeName = C.unsafeDeclIdHaskellName info.declId
 
     candidateInsts :: Set Hs.TypeClass
-    candidateInsts = Set.union (Set.singleton Hs.Storable) $
-      Set.fromList (snd <$> translationDeriveTypedef opts)
+    candidateInsts = Set.unions [
+        Set.singleton Hs.Storable
+      , Set.singleton Hs.HasBaseForeignType
+      , Set.fromList (snd <$> translationDeriveTypedef opts)
+      ]
 
     -- everything in aux is state-dependent
     aux :: C.Type -> Hs.InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux ty instanceMap = (insts,) $
-        newtypeDecl : storableDecl ++ optDecls
+        newtypeDecl : storableDecl ++ HsFI.hasBaseForeignTypeDecs insts hsNewtype ++ optDecls
       where
         fieldType :: HsType
         fieldType = Type.topLevel ty
@@ -1259,21 +1267,25 @@ functionDecs ::
   -> TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
+  -> Hs.InstanceMap
   -> C.DeclInfo
   -> C.Function
   -> C.DeclSpec
   -> [Hs.Decl]
-functionDecs safety opts haddockConfig moduleName info f _spec = concat [
-      funDecls
-    , [ hsWrapperDeclFunction highlevelName importName res wrappedArgTypes wrapParsedArgs f mbWrapComment
-      | areFancy
+functionDecs safety opts haddockConfig moduleName instsMap info f _spec =
+    concat [
+        funDecls
+      , [ hsWrapperDeclFunction highlevelName importName res wrappedArgTypes wrapParsedArgs f mbWrapComment
+        | areFancy
+        ]
       ]
-    ]
   where
     areFancy = anyFancy (res : wrappedArgTypes)
+
     funDecls :: [Hs.Decl]
     funDecls =
         HsFI.foreignImportDecs
+          instsMap
           importName
           (snd resType)
           (if areFancy then ffiParams else ffiParsedArgs)
@@ -1493,7 +1505,7 @@ global opts haddockConfig moduleName instsMap info ty _spec
     stubDecs :: [Hs.Decl]
     pureStubName :: Hs.Name Hs.NsVar
     (stubDecs, pureStubName) =
-      addressStubDecs opts haddockConfig moduleName info ty _spec
+      addressStubDecs opts haddockConfig moduleName instsMap info ty _spec
 
     getConstGetterOfType :: C.Type -> [Hs.Decl]
     getConstGetterOfType t = constGetter (Type.topLevel t) instsMap info pureStubName
@@ -1564,13 +1576,14 @@ addressStubDecs ::
      TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
+  -> Hs.InstanceMap
   -> C.DeclInfo -- ^ The given declaration
   -> C.Type -- ^ The type of the given declaration
   -> C.DeclSpec
   -> ( [Hs.Decl]
      , Hs.Name 'Hs.NsVar
      )
-addressStubDecs opts haddockConfig moduleName info ty _spec =
+addressStubDecs opts haddockConfig moduleName instsMap info ty _spec =
     (foreignImport ++ runnerDecls, runnerName)
   where
     -- *** Stub (impure) ***
@@ -1618,6 +1631,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
     foreignImport :: [Hs.Decl]
     foreignImport =
         HsFI.foreignImportDecs
+          instsMap
           stubImportName
           stubImportType
           []
