@@ -161,7 +161,8 @@ genBindingSpec'
               , cTypeSpecRep        = Nothing  -- TODO implement
               }
             hsTypeSpec = BindingSpec.HsTypeSpec {
-                hsTypeSpecInstances =
+                hsTypeSpecRep = Nothing -- TODO implement
+              , hsTypeSpecInstances =
                   mkInstSpecs
                     ( maybe Map.empty BindingSpec.hsTypeSpecInstances
                     . C.declSpecHs
@@ -214,7 +215,8 @@ genBindingSpec'
             , cTypeSpecRep        = Nothing  -- TODO implement
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
-              hsTypeSpecInstances =
+              hsTypeSpecRep = Nothing -- TODO implement
+            , hsTypeSpecInstances =
                 mkInstSpecs
                   ( maybe Map.empty BindingSpec.hsTypeSpecInstances
                   . C.declSpecHs

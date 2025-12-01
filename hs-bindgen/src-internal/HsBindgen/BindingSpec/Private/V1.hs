@@ -25,6 +25,8 @@ module HsBindgen.BindingSpec.Private.V1 (
   , CTypeSpec(..)
   , CTypeRep(..)
   , HsTypeSpec(..)
+  , HsTypeRep(..)
+  , HsRecordRep(..)
     -- ** Instances
   , InstanceSpec(..)
   , StrategySpec(..)
@@ -204,16 +206,46 @@ data CTypeRep =
 --------------------------------------------------------------------------------
 
 -- | Binding specification for a Haskell type
-newtype HsTypeSpec = HsTypeSpec {
-      -- | Instance specification
+data HsTypeSpec = HsTypeSpec {
+      -- | Haskell type representation
+      hsTypeSpecRep       :: Maybe HsTypeRep
+    , -- | Instance specification
       hsTypeSpecInstances :: Map Hs.TypeClass (Omittable InstanceSpec)
     }
   deriving stock (Show, Eq, Ord, Generic)
 
 instance Default HsTypeSpec where
   def = HsTypeSpec {
-      hsTypeSpecInstances = Map.empty
+      hsTypeSpecRep       = Nothing
+    , hsTypeSpecInstances = Map.empty
     }
+
+--------------------------------------------------------------------------------
+
+-- | Haskell type representation
+data HsTypeRep =
+    -- | Record representation
+    --
+    -- A type is generated using @data@.
+    HsTypeRepRecord HsRecordRep
+
+  | -- | Newtype representation
+    --
+    -- A type is generated using @newtype@.
+    HsTypeRepNewtype
+
+  | -- | Alias representation
+    --
+    -- A type is generated using @type@.
+    HsTypeRepAlias
+  deriving stock (Show, Eq, Ord, Generic)
+
+-- | Haskell record representation
+data HsRecordRep = HsRecordRep {
+      -- | Field names
+      hsRecordRepFields :: Maybe [Hs.Identifier]
+    }
+  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   Types: Instances
@@ -435,9 +467,9 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
       "cname"                 -> 12
       -- ACTypeSpecMapping:3, AHsTypeSpecMapping:1, AConstraintSpec:3
       "hsname"                -> 13
-      -- ACTypeSpecMapping:4
+      -- ACTypeSpecMapping:4, AHsTypeSpecMapping:2
       "representation"        -> 14
-      -- AHsTypeSpecMapping:2
+      -- AHsTypeSpecMapping:3
       "instances"             -> 15
       key -> panicPure $ "Unknown key: " ++ show key
 
@@ -727,6 +759,7 @@ cTypeRepFromText = Map.fromList [
 
 data AHsTypeSpecMapping = AHsTypeSpecMapping {
       aHsTypeSpecMappingIdentifier :: Hs.Identifier
+    , aHsTypeSpecMappingRep        :: Maybe AHsTypeRep
     , aHsTypeSpecMappingInstances  :: [AOInstanceSpecMapping]
     }
   deriving stock Show
@@ -734,14 +767,61 @@ data AHsTypeSpecMapping = AHsTypeSpecMapping {
 instance Aeson.FromJSON AHsTypeSpecMapping where
   parseJSON = Aeson.withObject "AHsTypeSpecMapping" $ \o -> do
     aHsTypeSpecMappingIdentifier <- o .:  "hsname"
+    aHsTypeSpecMappingRep        <- o .:? "representation"
     aHsTypeSpecMappingInstances  <- o .:? "instances" .!= []
     return AHsTypeSpecMapping{..}
 
 instance Aeson.ToJSON AHsTypeSpecMapping where
   toJSON AHsTypeSpecMapping{..} = Aeson.Object . KM.fromList $ catMaybes [
       Just ("hsname" .= aHsTypeSpecMappingIdentifier)
+    , ("representation" .=) <$> aHsTypeSpecMappingRep
     , ("instances" .=) <$> omitWhenNull aHsTypeSpecMappingInstances
     ]
+
+--------------------------------------------------------------------------------
+
+newtype AHsTypeRep = AHsTypeRep {
+      unAHsTypeRep :: HsTypeRep
+    }
+  deriving stock Show
+
+instance Aeson.FromJSON AHsTypeRep where
+  parseJSON = fmap AHsTypeRep . parseHsTypeRep
+    where
+      parseHsTypeRep :: Aeson.Value -> Aeson.Parser HsTypeRep
+      parseHsTypeRep = \case
+        Aeson.Object o | KM.size o == 1 && KM.member "record" o ->
+          HsTypeRepRecord
+            <$> Aeson.explicitParseField parseHsRecordRep o "record"
+        v -> Aeson.withText "AHsTypeRep" parseHsTypeRepText v
+
+      parseHsTypeRepText :: Text -> Aeson.Parser HsTypeRep
+      parseHsTypeRepText t = case t of
+        "record"  -> return (HsTypeRepRecord (HsRecordRep Nothing))
+        "newtype" -> return HsTypeRepNewtype
+        "alias"   -> return HsTypeRepAlias
+        _         ->
+          Aeson.parseFail $ "unknown Haskell representation: " ++ Text.unpack t
+
+      parseHsRecordRep :: Aeson.Value -> Aeson.Parser HsRecordRep
+      parseHsRecordRep = Aeson.withObject "HsRecordRep" $ \o -> do
+        hsRecordRepFields <- o .:? "fields"
+        return HsRecordRep{..}
+
+instance Aeson.ToJSON AHsTypeRep where
+  toJSON = aux . unAHsTypeRep
+    where
+      aux :: HsTypeRep -> Aeson.Value
+      aux = \case
+        HsTypeRepRecord hsRecordRep -> case hsRecordRepFields hsRecordRep of
+          Nothing -> Aeson.String "record"
+          Just fieldNames -> Aeson.Object $ KM.fromList [
+              ("record" .=) . Aeson.Object $ KM.fromList [
+                  "fields" .= fieldNames
+                ]
+            ]
+        HsTypeRepNewtype -> Aeson.String "newtype"
+        HsTypeRepAlias -> Aeson.String "alias"
 
 --------------------------------------------------------------------------------
 
@@ -964,7 +1044,8 @@ mkHsTypeMap path hsIds = fin . foldr auxInsert (Set.empty, Map.empty)
     auxInsert AHsTypeSpecMapping{..} (conflicts, acc) =
       let hsId       = aHsTypeSpecMappingIdentifier
           hsTypeSpec = HsTypeSpec {
-              hsTypeSpecInstances = mkInstanceMap aHsTypeSpecMappingInstances
+              hsTypeSpecRep       = unAHsTypeRep <$> aHsTypeSpecMappingRep
+            , hsTypeSpecInstances = mkInstanceMap aHsTypeSpecMappingInstances
             }
       in  case Map.insertLookupWithKey (\_ n _ -> n) hsId hsTypeSpec acc of
             (Nothing, acc') -> (conflicts,                 acc')
@@ -1023,6 +1104,7 @@ toAHsTypes :: Map Hs.Identifier HsTypeSpec -> [AHsTypeSpecMapping]
 toAHsTypes hsTypeMap = [
       AHsTypeSpecMapping {
           aHsTypeSpecMappingIdentifier = hsIdentifier
+        , aHsTypeSpecMappingRep        = AHsTypeRep <$> hsTypeSpecRep
         , aHsTypeSpecMappingInstances  = toAOInstances hsTypeSpecInstances
         }
     | (hsIdentifier, HsTypeSpec{..}) <- Map.toAscList hsTypeMap
