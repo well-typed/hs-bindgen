@@ -48,6 +48,7 @@ library
     HsBindgen.Runtime.ConstPtr
     HsBindgen.Runtime.FlexibleArrayMember
     HsBindgen.Runtime.FunPtr
+    HsBindgen.Runtime.HasBaseForeignType
     HsBindgen.Runtime.HasCField
     HsBindgen.Runtime.IncompleteArray
     HsBindgen.Runtime.LibC
@@ -58,6 +59,7 @@ library
     HsBindgen.Runtime.TypeEquality
 
   other-modules:
+    HsBindgen.Runtime.BaseForeignType
     HsBindgen.Runtime.FunPtr.Class
     HsBindgen.Runtime.TH.Instances
     HsBindgen.Runtime.TH.Types
