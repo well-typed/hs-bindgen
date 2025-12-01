@@ -21,13 +21,13 @@ import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
+import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.ToFromFunPtr qualified as ToFromFunPtr
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.Internal
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
@@ -144,175 +144,12 @@ isDefinedInCurrentModule declIndex =
         qualPrelimDeclId = C.qualDeclIdToQualPrelimDeclId qualDeclId
 
 {-------------------------------------------------------------------------------
-  Instance Map
--------------------------------------------------------------------------------}
-
-type InstanceMap = Map (Hs.Name Hs.NsTypeConstr) (Set Hs.TypeClass)
-
-getInstances ::
-     HasCallStack
-  => InstanceMap             -- ^ Current state
-  -> Hs.Name Hs.NsTypeConstr -- ^ Name of current type
-  -> Set Hs.TypeClass        -- ^ Candidate instances
-  -> [HsType]                -- ^ Dependencies
-  -> Set Hs.TypeClass
-getInstances instanceMap name = aux
-  where
-    aux :: Set Hs.TypeClass -> [HsType] -> Set Hs.TypeClass
-    aux acc [] = acc
-    aux acc (hsType:hsTypes)
-      | Set.null acc = acc
-      | otherwise = case hsType of
-          HsPrimType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
-          HsTypRef name'
-            | name' == name -> aux acc hsTypes
-            | otherwise -> case Map.lookup name' instanceMap of
-                Just instances -> aux (acc /\ instances) hsTypes
-                Nothing -> panicPure $ "type not found: " ++ show name'
-          HsConstArray _n hsType' ->
-            -- constrain by ConstantArray item type in next step
-            aux (acc /\ cArrayInsts) $ hsType' : hsTypes
-          HsIncompleteArray hsType' ->
-            -- constrain by Array item type in next step
-            aux (acc /\ arrayInsts) $ hsType' : hsTypes
-          HsPtr{} -> aux (acc /\ ptrInsts) hsTypes
-          HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
-          HsIO{} -> Set.empty
-          HsFun{} -> Set.empty
-          HsExtBinding _ref _cTypeSpec mHsTypeSpec ->
-            let acc' = case mHsTypeSpec of
-                  Just hsTypeSpec -> acc /\ hsTypeSpecInsts hsTypeSpec
-                  Nothing         -> acc
-            in  aux acc' hsTypes
-          HsByteArray{} ->
-            let acc' = acc /\ Set.fromList [Hs.Eq, Hs.Ord, Hs.Show]
-            in  aux acc' hsTypes
-          HsSizedByteArray{} ->
-            let acc' = acc /\ Set.fromList [Hs.Eq, Hs.Show]
-            in  aux acc' hsTypes
-          HsBlock t ->
-            aux acc (t:hsTypes)
-          HsComplexType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
-          HsStrLit{} -> Set.empty
-
-    (/\) :: Ord a => Set a -> Set a -> Set a
-    (/\) = Set.intersection
-
-    hsPrimTypeInsts :: HsPrimType -> Set Hs.TypeClass
-    hsPrimTypeInsts = \case
-      HsPrimVoid       -> Set.fromList [Hs.Eq, Hs.Ix, Hs.Ord, Hs.Read, Hs.Show]
-      HsPrimUnit       -> unitInsts
-      HsPrimCChar      -> integralInsts
-      HsPrimCSChar     -> integralInsts
-      HsPrimCUChar     -> integralInsts
-      HsPrimCInt       -> integralInsts
-      HsPrimCUInt      -> integralInsts
-      HsPrimCShort     -> integralInsts
-      HsPrimCUShort    -> integralInsts
-      HsPrimCLong      -> integralInsts
-      HsPrimCULong     -> integralInsts
-      HsPrimCPtrDiff   -> integralInsts
-      HsPrimCSize      -> integralInsts
-      HsPrimCLLong     -> integralInsts
-      HsPrimCULLong    -> integralInsts
-      HsPrimCBool      -> integralInsts
-      HsPrimCFloat     -> floatingInsts
-      HsPrimCDouble    -> floatingInsts
-      HsPrimCStringLen -> Set.fromList [Hs.Eq, Hs.Ord, Hs.Show]
-      HsPrimInt        -> integralInsts
-
-    unitInsts :: Set Hs.TypeClass
-    unitInsts = Set.fromList [
-        Hs.Eq
-      , Hs.Ord
-      , Hs.Read
-      , Hs.ReadRaw
-      , Hs.Show
-      , Hs.StaticSize
-      , Hs.Storable
-      , Hs.WriteRaw
-      ]
-
-    integralInsts :: Set Hs.TypeClass
-    integralInsts = Set.fromList [
-        Hs.Bits
-      , Hs.Bounded
-      , Hs.Enum
-      , Hs.Eq
-      , Hs.FiniteBits
-      , Hs.Integral
-      , Hs.Ix
-      , Hs.Num
-      , Hs.Ord
-      , Hs.Read
-      , Hs.ReadRaw
-      , Hs.Real
-      , Hs.Show
-      , Hs.StaticSize
-      , Hs.Storable
-      , Hs.WriteRaw
-      ]
-
-    floatingInsts :: Set Hs.TypeClass
-    floatingInsts = Set.fromList [
-        Hs.Enum
-      , Hs.Eq
-      , Hs.Floating
-      , Hs.Fractional
-      , Hs.Num
-      , Hs.Ord
-      , Hs.Read
-      , Hs.ReadRaw
-      , Hs.Real
-      , Hs.RealFloat
-      , Hs.RealFrac
-      , Hs.Show
-      , Hs.StaticSize
-      , Hs.Storable
-      , Hs.WriteRaw
-      ]
-
-    ptrInsts :: Set Hs.TypeClass
-    ptrInsts = Set.fromList [
-        Hs.Eq
-      , Hs.Ord
-      , Hs.ReadRaw
-      , Hs.Show
-      , Hs.StaticSize
-      , Hs.Storable
-      , Hs.WriteRaw
-      ]
-
-    cArrayInsts :: Set Hs.TypeClass
-    cArrayInsts = Set.fromList [
-        Hs.Eq
-      , Hs.ReadRaw
-      , Hs.Show
-      , Hs.StaticSize
-      , Hs.Storable
-      , Hs.WriteRaw
-      ]
-
-    arrayInsts :: Set Hs.TypeClass
-    arrayInsts = Set.fromList [
-        Hs.Eq
-      , Hs.Show
-      ]
-
-    hsTypeSpecInsts :: BindingSpec.HsTypeSpec -> Set Hs.TypeClass
-    hsTypeSpecInsts hsTypeSpec = Set.fromAscList [
-        cls
-      | (cls, BindingSpec.Require{}) <-
-           Map.toAscList (BindingSpec.hsTypeSpecInstances hsTypeSpec)
-      ]
-
-{-------------------------------------------------------------------------------
   Declarations
 ------------------------------------------------------------------------------}
 
 -- TODO: Take DeclSpec into account
 generateDecs ::
-     State.MonadState InstanceMap m
+     State.MonadState Hs.InstanceMap m
   => TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
@@ -367,7 +204,7 @@ reifyStructFields struct k = Vec.reifyList (C.structFields struct) k
 
 -- | Generate declarations for given C struct
 structDecs :: forall n m.
-     (SNatI n, State.MonadState InstanceMap m)
+     (SNatI n, State.MonadState Hs.InstanceMap m)
   => TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
@@ -396,7 +233,7 @@ structDecs opts haddockConfig info struct spec fields = do
       Set.fromList (snd <$> translationDeriveStruct opts)
 
     -- everything in aux is state-dependent
-    aux :: InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
+    aux :: Hs.InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux instanceMap = (insts,) $
         structDecl : storableDecl ++ optDecls ++ hasFlamDecl ++
         concatMap (structFieldDecls structName) (C.structFields struct)
@@ -404,7 +241,7 @@ structDecs opts haddockConfig info struct spec fields = do
         -- #1286.
       where
         insts :: Set Hs.TypeClass
-        insts = getInstances instanceMap structName candidateInsts $
+        insts = Hs.getInstances instanceMap structName candidateInsts $
           Hs.fieldType <$> Vec.toList structFields
 
         hsStruct :: Hs.Struct n
@@ -568,7 +405,7 @@ pokeStructField ptr f x = case C.structFieldWidth f of
 -------------------------------------------------------------------------------}
 
 opaqueDecs ::
-     State.MonadState InstanceMap m
+     State.MonadState Hs.InstanceMap m
   => C.NameKind
   -> HaddockConfig
   -> C.DeclInfo
@@ -597,7 +434,7 @@ opaqueDecs cNameKind haddockConfig info spec = do
 -------------------------------------------------------------------------------}
 
 unionDecs ::
-     State.MonadState InstanceMap m
+     State.MonadState Hs.InstanceMap m
   => HaddockConfig
   -> C.DeclInfo
   -> C.Union
@@ -654,7 +491,7 @@ unionDecs haddockConfig info union spec = do
         (fromIntegral (C.unionAlignment union))
 
     -- everything in aux is state-dependent
-    aux :: InstanceMap -> [Hs.Decl]
+    aux :: Hs.InstanceMap -> [Hs.Decl]
     aux instanceMap =
         newtypeDecl : storableDecl : accessorDecls ++
         concatMap (unionFieldDecls newtypeName) (C.unionFields union)
@@ -666,7 +503,7 @@ unionDecs haddockConfig info union spec = do
         getAccessorDecls :: C.UnionField -> [Hs.Decl]
         getAccessorDecls C.UnionField{..} =
           let hsType = Type.topLevel unionFieldType
-              fInsts = getInstances instanceMap newtypeName insts [hsType]
+              fInsts = Hs.getInstances instanceMap newtypeName insts [hsType]
               getterName = "get_" <> C.nameHs (C.fieldName unionFieldInfo)
               setterName = "set_" <> C.nameHs (C.fieldName unionFieldInfo)
               commentRefName name = Just $ HsDoc.paragraph [
@@ -780,7 +617,7 @@ unionFieldDecls unionName f = [
 -------------------------------------------------------------------------------}
 
 enumDecs ::
-     State.MonadState InstanceMap m
+     State.MonadState Hs.InstanceMap m
   => TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
@@ -924,7 +761,7 @@ enumDecs opts haddockConfig info e spec = do
 -------------------------------------------------------------------------------}
 
 typedefDecs ::
-     State.MonadState InstanceMap m
+     State.MonadState Hs.InstanceMap m
   => TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
@@ -976,14 +813,14 @@ typedefDecs opts haddockConfig info typedef spec = do
         _ -> []
 
     -- everything in aux is state-dependent
-    aux :: InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
+    aux :: Hs.InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux instanceMap = (insts,) $
         (newtypeDecl : newtypeWrapper) ++ storableDecl ++ optDecls ++
         typedefFieldDecls hsNewtype
       where
         insts :: Set Hs.TypeClass
         insts =
-          getInstances
+          Hs.getInstances
             instanceMap
             newtypeName
             candidateInsts
@@ -1101,7 +938,7 @@ typedefFieldDecls hsNewType = [
 -------------------------------------------------------------------------------}
 
 macroDecs ::
-     State.MonadState InstanceMap m
+     State.MonadState Hs.InstanceMap m
   => TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
@@ -1114,7 +951,7 @@ macroDecs opts haddockConfig info checkedMacro spec =
       C.MacroExpr expr -> pure $ macroVarDecs haddockConfig info expr
 
 macroDecsTypedef ::
-     State.MonadState InstanceMap m
+     State.MonadState Hs.InstanceMap m
   => TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
@@ -1134,7 +971,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
       Set.fromList (snd <$> translationDeriveTypedef opts)
 
     -- everything in aux is state-dependent
-    aux :: C.Type -> InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
+    aux :: C.Type -> Hs.InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux ty instanceMap = (insts,) $
         newtypeDecl : storableDecl ++ optDecls
       where
@@ -1142,7 +979,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
         fieldType = Type.topLevel ty
 
         insts :: Set Hs.TypeClass
-        insts = getInstances instanceMap newtypeName candidateInsts [fieldType]
+        insts = Hs.getInstances instanceMap newtypeName candidateInsts [fieldType]
 
         hsNewtype :: Hs.Newtype
         hsNewtype = Hs.Newtype {
@@ -1640,7 +1477,7 @@ global ::
      TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
-  -> InstanceMap
+  -> Hs.InstanceMap
   -> C.DeclInfo
   -> C.Type
   -> C.DeclSpec
@@ -1672,7 +1509,7 @@ global opts haddockConfig moduleName instsMap info ty _spec
 -- unknown size do not have a 'Storable' instance.
 constGetter ::
      HsType
-  -> InstanceMap
+  -> Hs.InstanceMap
   -> C.DeclInfo
   -> Hs.Name Hs.NsVar
   -> [Hs.Decl]
@@ -1693,7 +1530,7 @@ constGetter ty instsMap info pureStubName = concat [
           -- superclass constraints. See issue #993.
           Hs.Storable
             `elem`
-              getInstances instsMap "unused" (Set.singleton Hs.Storable) [ty]
+              Hs.getInstances instsMap "unused" (Set.singleton Hs.Storable) [ty]
         ]
   where
     -- *** Getter ***
