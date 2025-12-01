@@ -14,6 +14,7 @@ newtype MyEnum
            __exported by:__ @edge-cases\/uses_utf8.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable MyEnum
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int

@@ -105,12 +105,14 @@ hstypes:
 - hsname: Struct5_t
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Struct6
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable

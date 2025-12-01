@@ -159,6 +159,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasBaseForeignType
   - Integral
   - Ix
   - Num
@@ -192,6 +193,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasBaseForeignType
   - Integral
   - Ix
   - Num
@@ -207,6 +209,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasBaseForeignType
   - Integral
   - Ix
   - Num
@@ -218,52 +221,73 @@ hstypes:
 - hsname: Const_funptr1
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Const_funptr1_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: Const_funptr2
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Const_funptr2_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: Const_funptr3
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Const_funptr3_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: Const_funptr4
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Const_funptr4_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: Const_funptr5
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Const_funptr5_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: Const_funptr6
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Const_funptr6_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: Const_funptr7
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Const_funptr7_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: Const_typedef1
   instances:
   - Bits
@@ -271,6 +295,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasBaseForeignType
   - Integral
   - Ix
   - Num
@@ -286,6 +311,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasBaseForeignType
   - Integral
   - Ix
   - Num
@@ -297,30 +323,35 @@ hstypes:
 - hsname: Const_typedef3
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Const_typedef4
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Const_typedef5
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Const_typedef6
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Const_typedef7
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
@@ -337,38 +368,53 @@ hstypes:
 - hsname: Funptr_typedef1
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Funptr_typedef1_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: Funptr_typedef2
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Funptr_typedef2_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: Funptr_typedef3
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Funptr_typedef3_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: Funptr_typedef4
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Funptr_typedef4_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: Funptr_typedef5
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Funptr_typedef5_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: INT
   instances:
   - Bits
@@ -376,6 +422,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasBaseForeignType
   - Integral
   - Ix
   - Num
@@ -387,18 +434,21 @@ hstypes:
 - hsname: INTCP
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: INTP
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Some_enum
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show
@@ -418,6 +468,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasBaseForeignType
   - Integral
   - Ix
   - Num
@@ -429,12 +480,14 @@ hstypes:
 - hsname: Typedef2
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Typedef3
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable

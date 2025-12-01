@@ -436,6 +436,7 @@ newtype FileOpenedNotification_Deref
 
       __exported by:__ @functions\/callbacks.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toFileOpenedNotification_Deref :: FileOpenedNotification_Deref ->
                                                                       IO (FunPtr FileOpenedNotification_Deref)
 foreign import ccall safe "dynamic" fromFileOpenedNotification_Deref :: FunPtr FileOpenedNotification_Deref ->
@@ -471,7 +472,7 @@ newtype FileOpenedNotification
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty
               (CFieldType FileOpenedNotification "un_FileOpenedNotification") =>
          HasField "un_FileOpenedNotification"
@@ -498,6 +499,7 @@ newtype ProgressUpdate_Deref
 
       __exported by:__ @functions\/callbacks.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toProgressUpdate_Deref :: ProgressUpdate_Deref ->
                                                               IO (FunPtr ProgressUpdate_Deref)
 foreign import ccall safe "dynamic" fromProgressUpdate_Deref :: FunPtr ProgressUpdate_Deref ->
@@ -531,7 +533,7 @@ newtype ProgressUpdate
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType ProgressUpdate "un_ProgressUpdate") =>
          HasField "un_ProgressUpdate" (Ptr ProgressUpdate) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_ProgressUpdate")
@@ -553,6 +555,7 @@ newtype DataValidator_Deref
 
       __exported by:__ @functions\/callbacks.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toDataValidator_Deref :: DataValidator_Deref ->
                                                              IO (FunPtr DataValidator_Deref)
 foreign import ccall safe "dynamic" fromDataValidator_Deref :: FunPtr DataValidator_Deref ->
@@ -586,7 +589,7 @@ newtype DataValidator
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType DataValidator "un_DataValidator") =>
          HasField "un_DataValidator" (Ptr DataValidator) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_DataValidator")
@@ -657,6 +660,7 @@ newtype MeasurementReceived_Deref
 
       __exported by:__ @functions\/callbacks.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toMeasurementReceived_Deref :: MeasurementReceived_Deref ->
                                                                    IO (FunPtr MeasurementReceived_Deref)
 foreign import ccall safe "dynamic" fromMeasurementReceived_Deref :: FunPtr MeasurementReceived_Deref ->
@@ -692,7 +696,7 @@ newtype MeasurementReceived
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty
               (CFieldType MeasurementReceived "un_MeasurementReceived") =>
          HasField "un_MeasurementReceived"
@@ -745,7 +749,7 @@ newtype MeasurementReceived2
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty
               (CFieldType MeasurementReceived2 "un_MeasurementReceived2") =>
          HasField "un_MeasurementReceived2"
@@ -798,7 +802,7 @@ newtype SampleBufferFull
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty
               (CFieldType SampleBufferFull "un_SampleBufferFull") =>
          HasField "un_SampleBufferFull" (Ptr SampleBufferFull) (Ptr ty)
@@ -1127,6 +1131,7 @@ newtype Processor_mode
            __exported by:__ @functions\/callbacks.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable Processor_mode
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -1259,6 +1264,7 @@ newtype Foo
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,
@@ -1289,6 +1295,7 @@ newtype Foo2
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,

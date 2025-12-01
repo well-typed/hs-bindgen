@@ -627,7 +627,8 @@ enumDecs ::
 enumDecs opts haddockConfig info e spec = do
     State.modify' $ Map.insert newtypeName insts
     pure $
-      newtypeDecl : storableDecl : optDecls ++ cEnumInstanceDecls ++ valueDecls
+      newtypeDecl : storableDecl : HsFI.hasBaseForeignTypeDecs insts hsNewtype ++
+      optDecls ++ cEnumInstanceDecls ++ valueDecls
   where
     newtypeName :: Hs.Name Hs.NsTypeConstr
     newtypeName = C.unsafeDeclIdHaskellName info.declId
@@ -644,7 +645,7 @@ enumDecs opts haddockConfig info e spec = do
       }
 
     insts :: Set Hs.TypeClass
-    insts = Set.union (Set.fromList [Hs.Show, Hs.Read, Hs.Storable]) $
+    insts = Set.union (Set.fromList [Hs.Show, Hs.Read, Hs.Storable, Hs.HasBaseForeignType]) $
       Set.fromList (snd <$> translationDeriveEnum opts)
 
     hsNewtype :: Hs.Newtype
@@ -787,6 +788,7 @@ typedefDecs opts haddockConfig info typedef spec = do
     candidateInsts :: Set Hs.TypeClass
     candidateInsts = Set.unions
                    [ Set.singleton Hs.Storable
+                   , Set.singleton Hs.HasBaseForeignType
                    , Set.fromList (snd <$> translationDeriveTypedef opts)
                    ]
 
@@ -815,8 +817,9 @@ typedefDecs opts haddockConfig info typedef spec = do
     -- everything in aux is state-dependent
     aux :: Hs.InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux instanceMap = (insts,) $
-        (newtypeDecl : newtypeWrapper) ++ storableDecl ++ optDecls ++
-        typedefFieldDecls hsNewtype
+        newtypeDecl : newtypeWrapper ++ storableDecl ++ optDecls ++
+        typedefFieldDecls hsNewtype ++
+        HsFI.hasBaseForeignTypeDecs insts hsNewtype
       where
         insts :: Set Hs.TypeClass
         insts =
@@ -967,13 +970,16 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
     newtypeName = C.unsafeDeclIdHaskellName info.declId
 
     candidateInsts :: Set Hs.TypeClass
-    candidateInsts = Set.union (Set.singleton Hs.Storable) $
-      Set.fromList (snd <$> translationDeriveTypedef opts)
+    candidateInsts = Set.unions [
+        Set.singleton Hs.Storable
+      , Set.singleton Hs.HasBaseForeignType
+      , Set.fromList (snd <$> translationDeriveTypedef opts)
+      ]
 
     -- everything in aux is state-dependent
     aux :: C.Type -> Hs.InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux ty instanceMap = (insts,) $
-        newtypeDecl : storableDecl ++ optDecls
+        newtypeDecl : storableDecl ++ HsFI.hasBaseForeignTypeDecs insts hsNewtype ++ optDecls
       where
         fieldType :: HsType
         fieldType = Type.topLevel ty

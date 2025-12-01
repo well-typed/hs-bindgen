@@ -35,6 +35,7 @@ hstypes:
 - hsname: EnumA
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show
@@ -42,6 +43,7 @@ hstypes:
 - hsname: EnumB
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show
@@ -49,6 +51,7 @@ hstypes:
 - hsname: EnumC
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show
@@ -56,6 +59,7 @@ hstypes:
 - hsname: EnumD_t
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show
@@ -63,6 +67,7 @@ hstypes:
 - hsname: First
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show
@@ -70,6 +75,7 @@ hstypes:
 - hsname: Nonseq
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show
@@ -77,6 +83,7 @@ hstypes:
 - hsname: Packed
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show
@@ -84,6 +91,7 @@ hstypes:
 - hsname: Same
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show
@@ -91,6 +99,7 @@ hstypes:
 - hsname: Second
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show

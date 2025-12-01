@@ -119,6 +119,9 @@ data Global =
   | Proxy_type
   | Proxy_constructor
 
+    -- HasBaseForeignType
+  | HasBaseForeignType_class
+
     -- Unsafe
   | IO_unsafePerformIO
 

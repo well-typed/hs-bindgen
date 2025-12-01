@@ -73,17 +73,23 @@ hstypes:
 - hsname: DataValidator
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: DataValidator_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: FileOpenedNotification
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: FileOpenedNotification_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: Foo
   instances:
   - Bits
@@ -91,6 +97,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasBaseForeignType
   - Integral
   - Ix
   - Num
@@ -106,6 +113,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasBaseForeignType
   - Integral
   - Ix
   - Num
@@ -127,17 +135,21 @@ hstypes:
 - hsname: MeasurementReceived
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: MeasurementReceived2
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: MeasurementReceived2_Deref
 - hsname: MeasurementReceived_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: Processor
   instances:
   - Storable
@@ -147,6 +159,7 @@ hstypes:
 - hsname: Processor_mode
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show
@@ -154,13 +167,17 @@ hstypes:
 - hsname: ProgressUpdate
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: ProgressUpdate_Deref
+  instances:
+  - HasBaseForeignType
 - hsname: SampleBufferFull
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable

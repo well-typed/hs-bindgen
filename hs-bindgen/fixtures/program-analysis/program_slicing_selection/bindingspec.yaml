@@ -19,6 +19,7 @@ hstypes:
 - hsname: FileOperationStatus
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show

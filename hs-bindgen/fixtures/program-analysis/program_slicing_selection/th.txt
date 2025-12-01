@@ -50,6 +50,7 @@ newtype FileOperationStatus
            __exported by:__ @program-analysis\/program_slicing_selection.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable FileOperationStatus
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int

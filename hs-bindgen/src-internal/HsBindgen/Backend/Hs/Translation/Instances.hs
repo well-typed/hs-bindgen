@@ -44,8 +44,8 @@ getInstances instanceMap name = aux
             aux (acc /\ arrayInsts) $ hsType' : hsTypes
           HsPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
-          HsIO{} -> Set.empty
-          HsFun{} -> Set.empty
+          HsIO t  -> aux (acc /\ ioInsts) (t : hsTypes)
+          HsFun arg res -> aux (acc /\ funInsts) (arg : res : hsTypes)
           HsExtBinding _ref _cTypeSpec mHsTypeSpec ->
             let acc' = case mHsTypeSpec of
                   Just hsTypeSpec -> acc /\ hsTypeSpecInsts hsTypeSpec
@@ -58,12 +58,21 @@ getInstances instanceMap name = aux
             let acc' = acc /\ Set.fromList [Eq, Show]
             in  aux acc' hsTypes
           HsBlock t ->
-            aux acc (t:hsTypes)
+            aux (blockInsts /\ acc) (t:hsTypes)
           HsComplexType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
           HsStrLit{} -> Set.empty
 
     (/\) :: Ord a => Set a -> Set a -> Set a
     (/\) = Set.intersection
+
+    ioInsts :: Set TypeClass
+    ioInsts = Set.singleton HasBaseForeignType
+
+    funInsts :: Set TypeClass
+    funInsts = Set.singleton HasBaseForeignType
+
+    blockInsts :: Set TypeClass
+    blockInsts = Set.singleton HasBaseForeignType
 
     hsPrimTypeInsts :: HsPrimType -> Set TypeClass
     hsPrimTypeInsts = \case
@@ -98,6 +107,7 @@ getInstances instanceMap name = aux
       , StaticSize
       , Storable
       , WriteRaw
+      , HasBaseForeignType
       ]
 
     integralInsts :: Set TypeClass
@@ -118,6 +128,7 @@ getInstances instanceMap name = aux
       , StaticSize
       , Storable
       , WriteRaw
+      , HasBaseForeignType
       ]
 
     floatingInsts :: Set TypeClass
@@ -137,6 +148,7 @@ getInstances instanceMap name = aux
       , StaticSize
       , Storable
       , WriteRaw
+      , HasBaseForeignType
       ]
 
     ptrInsts :: Set TypeClass
@@ -148,6 +160,7 @@ getInstances instanceMap name = aux
       , StaticSize
       , Storable
       , WriteRaw
+      , HasBaseForeignType
       ]
 
     cArrayInsts :: Set TypeClass
