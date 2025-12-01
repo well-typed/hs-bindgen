@@ -6,6 +6,7 @@
 module Example.Safe where
 
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -24,6 +25,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_8a72aafc705daf44" resample_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr Int32_T) -> (Ptr.Ptr Cint16_T) -> Int64_T -> Int64_T -> (Ptr.Ptr Cint16_T) -> IO ())
+
 {-| __C declaration:__ @resample@
 
     __defined at:__ @edge-cases\/spec_examples.h:31:6@
@@ -32,7 +38,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __unique:__ @test_edgecasesspec_examples_Example_Safe_resample@
 -}
-foreign import ccall safe "hs_bindgen_8a72aafc705daf44" resample ::
+resample ::
      Ptr.Ptr Int32_T
      {- ^ __C declaration:__ @res_m_num_valid_samples@
      -}
@@ -49,3 +55,5 @@ foreign import ccall safe "hs_bindgen_8a72aafc705daf44" resample ::
      {- ^ __C declaration:__ @res_m_iq_resampled_int@
      -}
   -> IO ()
+resample =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType resample_base

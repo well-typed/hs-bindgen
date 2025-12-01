@@ -12,6 +12,7 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -103,10 +104,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a6dcbf0ebef057c9" hs_bindgen_a6dcbf0ebef057c9_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat)))
+
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_float_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_a6dcbf0ebef057c9" hs_bindgen_a6dcbf0ebef057c9 ::
+hs_bindgen_a6dcbf0ebef057c9 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
+hs_bindgen_a6dcbf0ebef057c9 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a6dcbf0ebef057c9_base
 
 {-# NOINLINE global_complex_float_ptr #-}
 
@@ -120,10 +128,17 @@ global_complex_float_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 global_complex_float_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a6dcbf0ebef057c9
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_6102571a73986812" hs_bindgen_6102571a73986812_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble)))
+
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_double_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_6102571a73986812" hs_bindgen_6102571a73986812 ::
+hs_bindgen_6102571a73986812 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
+hs_bindgen_6102571a73986812 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_6102571a73986812_base
 
 {-# NOINLINE global_complex_double_ptr #-}
 
@@ -137,10 +152,17 @@ global_complex_double_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 global_complex_double_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6102571a73986812
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_1b0a02397e2ea2f6" hs_bindgen_1b0a02397e2ea2f6_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat)))
+
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_float_flipped_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_1b0a02397e2ea2f6" hs_bindgen_1b0a02397e2ea2f6 ::
+hs_bindgen_1b0a02397e2ea2f6 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
+hs_bindgen_1b0a02397e2ea2f6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_1b0a02397e2ea2f6_base
 
 {-# NOINLINE global_complex_float_flipped_ptr #-}
 
@@ -154,10 +176,17 @@ global_complex_float_flipped_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 global_complex_float_flipped_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1b0a02397e2ea2f6
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_4be2464f88314410" hs_bindgen_4be2464f88314410_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble)))
+
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_double_flipped_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_4be2464f88314410" hs_bindgen_4be2464f88314410 ::
+hs_bindgen_4be2464f88314410 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
+hs_bindgen_4be2464f88314410 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_4be2464f88314410_base
 
 {-# NOINLINE global_complex_double_flipped_ptr #-}
 
@@ -171,10 +200,17 @@ global_complex_double_flipped_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 global_complex_double_flipped_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4be2464f88314410
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_aa07323f7398ff97" hs_bindgen_aa07323f7398ff97_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat)))
+
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_float_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_aa07323f7398ff97" hs_bindgen_aa07323f7398ff97 ::
+hs_bindgen_aa07323f7398ff97 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
+hs_bindgen_aa07323f7398ff97 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_aa07323f7398ff97_base
 
 {-# NOINLINE global_Complex_float_ptr #-}
 
@@ -188,10 +224,17 @@ global_Complex_float_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 global_Complex_float_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_aa07323f7398ff97
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_190b07a847b36556" hs_bindgen_190b07a847b36556_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble)))
+
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_double_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_190b07a847b36556" hs_bindgen_190b07a847b36556 ::
+hs_bindgen_190b07a847b36556 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
+hs_bindgen_190b07a847b36556 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_190b07a847b36556_base
 
 {-# NOINLINE global_Complex_double_ptr #-}
 
@@ -205,10 +248,17 @@ global_Complex_double_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 global_Complex_double_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_190b07a847b36556
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_017435f1022a672c" hs_bindgen_017435f1022a672c_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat)))
+
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_float_flipped_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_017435f1022a672c" hs_bindgen_017435f1022a672c ::
+hs_bindgen_017435f1022a672c ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
+hs_bindgen_017435f1022a672c =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_017435f1022a672c_base
 
 {-# NOINLINE global_Complex_float_flipped_ptr #-}
 
@@ -222,10 +272,17 @@ global_Complex_float_flipped_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 global_Complex_float_flipped_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_017435f1022a672c
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_aec6991fbd3ffdbb" hs_bindgen_aec6991fbd3ffdbb_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble)))
+
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_double_flipped_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_aec6991fbd3ffdbb" hs_bindgen_aec6991fbd3ffdbb ::
+hs_bindgen_aec6991fbd3ffdbb ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
+hs_bindgen_aec6991fbd3ffdbb =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_aec6991fbd3ffdbb_base
 
 {-# NOINLINE global_Complex_double_flipped_ptr #-}
 
@@ -239,10 +296,17 @@ global_Complex_double_flipped_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 global_Complex_double_flipped_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_aec6991fbd3ffdbb
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_3ea97dc5fdb27263" hs_bindgen_3ea97dc5fdb27263_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat)))
+
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_float_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_3ea97dc5fdb27263" hs_bindgen_3ea97dc5fdb27263 ::
+hs_bindgen_3ea97dc5fdb27263 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
+hs_bindgen_3ea97dc5fdb27263 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3ea97dc5fdb27263_base
 
 {-# NOINLINE const_complex_float_ptr #-}
 
@@ -262,10 +326,17 @@ const_complex_float :: Data.Complex.Complex FC.CFloat
 const_complex_float =
   GHC.IO.Unsafe.unsafePerformIO (F.peek const_complex_float_ptr)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_086209fa0eb9a3ee" hs_bindgen_086209fa0eb9a3ee_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble)))
+
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_double_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_086209fa0eb9a3ee" hs_bindgen_086209fa0eb9a3ee ::
+hs_bindgen_086209fa0eb9a3ee ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
+hs_bindgen_086209fa0eb9a3ee =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_086209fa0eb9a3ee_base
 
 {-# NOINLINE const_complex_double_ptr #-}
 
@@ -285,10 +356,17 @@ const_complex_double :: Data.Complex.Complex FC.CDouble
 const_complex_double =
   GHC.IO.Unsafe.unsafePerformIO (F.peek const_complex_double_ptr)
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_00177fb0da38717b" hs_bindgen_00177fb0da38717b_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat)))
+
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_volatile_complex_float_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_00177fb0da38717b" hs_bindgen_00177fb0da38717b ::
+hs_bindgen_00177fb0da38717b ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
+hs_bindgen_00177fb0da38717b =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_00177fb0da38717b_base
 
 {-# NOINLINE volatile_complex_float_ptr #-}
 
@@ -302,10 +380,17 @@ volatile_complex_float_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
 volatile_complex_float_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_00177fb0da38717b
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_72f5727716adf5ac" hs_bindgen_72f5727716adf5ac_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble)))
+
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_volatile_complex_double_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_72f5727716adf5ac" hs_bindgen_72f5727716adf5ac ::
+hs_bindgen_72f5727716adf5ac ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
+hs_bindgen_72f5727716adf5ac =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_72f5727716adf5ac_base
 
 {-# NOINLINE volatile_complex_double_ptr #-}
 
@@ -319,10 +404,17 @@ volatile_complex_double_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
 volatile_complex_double_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_72f5727716adf5ac
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_229c51ee9572efe8" hs_bindgen_229c51ee9572efe8_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) (Data.Complex.Complex FC.CFloat))))
+
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_float_array_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_229c51ee9572efe8" hs_bindgen_229c51ee9572efe8 ::
+hs_bindgen_229c51ee9572efe8 ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) (Data.Complex.Complex FC.CFloat)))
+hs_bindgen_229c51ee9572efe8 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_229c51ee9572efe8_base
 
 {-# NOINLINE complex_float_array_ptr #-}
 
@@ -336,10 +428,17 @@ complex_float_array_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArr
 complex_float_array_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_229c51ee9572efe8
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_b2b11d22608bbfec" hs_bindgen_b2b11d22608bbfec_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) (Data.Complex.Complex FC.CDouble))))
+
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_double_array_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_b2b11d22608bbfec" hs_bindgen_b2b11d22608bbfec ::
+hs_bindgen_b2b11d22608bbfec ::
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) (Data.Complex.Complex FC.CDouble)))
+hs_bindgen_b2b11d22608bbfec =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b2b11d22608bbfec_base
 
 {-# NOINLINE complex_double_array_ptr #-}
 

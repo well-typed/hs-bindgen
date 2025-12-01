@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -34,10 +35,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_d76d6b95b7803c78" hs_bindgen_d76d6b95b7803c78_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.FunPtr ((Ptr.Ptr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt)))
+
 {-| __unique:__ @test_manualzero_copy_Example_get_reverse_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_d76d6b95b7803c78" hs_bindgen_d76d6b95b7803c78 ::
+hs_bindgen_d76d6b95b7803c78 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt))
+hs_bindgen_d76d6b95b7803c78 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d76d6b95b7803c78_base
 
 {-# NOINLINE reverse_ptr #-}
 
@@ -51,10 +59,17 @@ reverse_ptr :: Ptr.FunPtr ((Ptr.Ptr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt)
 reverse_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d76d6b95b7803c78
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_f72c56033fb58d5e" hs_bindgen_f72c56033fb58d5e_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.FunPtr (Matrix -> Matrix -> IO ())))
+
 {-| __unique:__ @test_manualzero_copy_Example_get_transpose_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_f72c56033fb58d5e" hs_bindgen_f72c56033fb58d5e ::
+hs_bindgen_f72c56033fb58d5e ::
      IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
+hs_bindgen_f72c56033fb58d5e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f72c56033fb58d5e_base
 
 {-# NOINLINE transpose_ptr #-}
 

@@ -248,6 +248,7 @@ translateType = \case
     Hs.HsBlock t            -> TGlobal Block_type `TApp` translateType t
     Hs.HsComplexType t      -> TApp (TGlobal ComplexType) (translateType (HsPrimType t))
     Hs.HsStrLit s           -> TStrLit s
+    Hs.HsBaseForeignType t  -> TGlobal HasBaseForeignType_BaseForeignType `TApp` translateType t
 
 {-------------------------------------------------------------------------------
   'Storable'

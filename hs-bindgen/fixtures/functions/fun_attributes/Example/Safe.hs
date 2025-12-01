@@ -7,6 +7,7 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -141,6 +142,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_0560fe42a40f777f" __f1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO ())
+
 {-| __C declaration:__ @__f1@
 
     __defined at:__ @functions\/fun_attributes.h:16:13@
@@ -149,8 +155,15 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __unique:__ @test_functionsfun_attributes_Example_Safe___f1@
 -}
-foreign import ccall safe "hs_bindgen_0560fe42a40f777f" __f1 ::
+__f1 ::
      IO ()
+__f1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType __f1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_1a4676387075dc40" f1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO ())
 
 {-| __C declaration:__ @f1@
 
@@ -160,8 +173,15 @@ foreign import ccall safe "hs_bindgen_0560fe42a40f777f" __f1 ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_f1@
 -}
-foreign import ccall safe "hs_bindgen_1a4676387075dc40" f1 ::
+f1 ::
      IO ()
+f1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType f1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_63adcb061045c5ac" my_memalign_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (Size_t -> Size_t -> IO (Ptr.Ptr Void))
 
 {-| __C declaration:__ @my_memalign@
 
@@ -171,10 +191,17 @@ foreign import ccall safe "hs_bindgen_1a4676387075dc40" f1 ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_my_memalign@
 -}
-foreign import ccall safe "hs_bindgen_63adcb061045c5ac" my_memalign ::
+my_memalign ::
      Size_t
   -> Size_t
   -> IO (Ptr.Ptr Void)
+my_memalign =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType my_memalign_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_733b29547ce864f6" my_calloc_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (Size_t -> Size_t -> IO (Ptr.Ptr Void))
 
 {-| __C declaration:__ @my_calloc@
 
@@ -184,10 +211,17 @@ foreign import ccall safe "hs_bindgen_63adcb061045c5ac" my_memalign ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_my_calloc@
 -}
-foreign import ccall safe "hs_bindgen_733b29547ce864f6" my_calloc ::
+my_calloc ::
      Size_t
   -> Size_t
   -> IO (Ptr.Ptr Void)
+my_calloc =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType my_calloc_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_4c69efa2a8a2b7c0" my_realloc_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void))
 
 {-| __C declaration:__ @my_realloc@
 
@@ -197,10 +231,17 @@ foreign import ccall safe "hs_bindgen_733b29547ce864f6" my_calloc ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_my_realloc@
 -}
-foreign import ccall safe "hs_bindgen_4c69efa2a8a2b7c0" my_realloc ::
+my_realloc ::
      Ptr.Ptr Void
   -> Size_t
   -> IO (Ptr.Ptr Void)
+my_realloc =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType my_realloc_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_1eae846583dd415c" my_alloc1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (Size_t -> IO (Ptr.Ptr Void))
 
 {-| __C declaration:__ @my_alloc1@
 
@@ -210,9 +251,16 @@ foreign import ccall safe "hs_bindgen_4c69efa2a8a2b7c0" my_realloc ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_my_alloc1@
 -}
-foreign import ccall safe "hs_bindgen_1eae846583dd415c" my_alloc1 ::
+my_alloc1 ::
      Size_t
   -> IO (Ptr.Ptr Void)
+my_alloc1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType my_alloc1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_790482b4016de326" my_alloc2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (Size_t -> IO (Ptr.Ptr Void))
 
 {-| __C declaration:__ @my_alloc2@
 
@@ -222,9 +270,16 @@ foreign import ccall safe "hs_bindgen_1eae846583dd415c" my_alloc1 ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_my_alloc2@
 -}
-foreign import ccall safe "hs_bindgen_790482b4016de326" my_alloc2 ::
+my_alloc2 ::
      Size_t
   -> IO (Ptr.Ptr Void)
+my_alloc2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType my_alloc2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_3f72dedf649beccd" square_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CInt -> FC.CInt)
 
 {-| __C declaration:__ @square@
 
@@ -234,9 +289,16 @@ foreign import ccall safe "hs_bindgen_790482b4016de326" my_alloc2 ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_square@
 -}
-foreign import ccall safe "hs_bindgen_3f72dedf649beccd" square ::
+square ::
      FC.CInt
   -> FC.CInt
+square =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType square_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_a8f71f2272dae572" old_fn_deprecated_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO FC.CInt)
 
 {-| __C declaration:__ @old_fn_deprecated@
 
@@ -246,8 +308,15 @@ foreign import ccall safe "hs_bindgen_3f72dedf649beccd" square ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_old_fn_deprecated@
 -}
-foreign import ccall safe "hs_bindgen_a8f71f2272dae572" old_fn_deprecated ::
+old_fn_deprecated ::
      IO FC.CInt
+old_fn_deprecated =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType old_fn_deprecated_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_11a623401451cca5" my_dgettext_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr FC.CChar) -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FC.CChar))
 
 {-| __C declaration:__ @my_dgettext@
 
@@ -257,7 +326,7 @@ foreign import ccall safe "hs_bindgen_a8f71f2272dae572" old_fn_deprecated ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_my_dgettext@
 -}
-foreign import ccall safe "hs_bindgen_11a623401451cca5" my_dgettext ::
+my_dgettext ::
      Ptr.Ptr FC.CChar
      {- ^ __C declaration:__ @my_domain@
      -}
@@ -265,6 +334,13 @@ foreign import ccall safe "hs_bindgen_11a623401451cca5" my_dgettext ::
      {- ^ __C declaration:__ @my_format@
      -}
   -> IO (Ptr.Ptr FC.CChar)
+my_dgettext =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType my_dgettext_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_30143e337a327ef0" fdopen_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CInt -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FILE))
 
 {-| __C declaration:__ @fdopen@
 
@@ -274,10 +350,17 @@ foreign import ccall safe "hs_bindgen_11a623401451cca5" my_dgettext ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_fdopen@
 -}
-foreign import ccall safe "hs_bindgen_30143e337a327ef0" fdopen ::
+fdopen ::
      FC.CInt
   -> Ptr.Ptr FC.CChar
   -> IO (Ptr.Ptr FILE)
+fdopen =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType fdopen_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_7b2c420d0febf062" f2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO ())
 
 {-| __C declaration:__ @f2@
 
@@ -287,8 +370,15 @@ foreign import ccall safe "hs_bindgen_30143e337a327ef0" fdopen ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_f2@
 -}
-foreign import ccall safe "hs_bindgen_7b2c420d0febf062" f2 ::
+f2 ::
      IO ()
+f2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType f2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_af1f131d9e98a2ff" my_memcpy_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr Void) -> (Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void))
 
 {-| __C declaration:__ @my_memcpy@
 
@@ -298,7 +388,7 @@ foreign import ccall safe "hs_bindgen_7b2c420d0febf062" f2 ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_my_memcpy@
 -}
-foreign import ccall safe "hs_bindgen_af1f131d9e98a2ff" my_memcpy ::
+my_memcpy ::
      Ptr.Ptr Void
      {- ^ __C declaration:__ @dest@
      -}
@@ -309,6 +399,13 @@ foreign import ccall safe "hs_bindgen_af1f131d9e98a2ff" my_memcpy ::
      {- ^ __C declaration:__ @len@
      -}
   -> IO (Ptr.Ptr Void)
+my_memcpy =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType my_memcpy_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_0afa6ff8226517c8" fatal_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO ())
 
 {-| __C declaration:__ @fatal@
 
@@ -318,8 +415,15 @@ foreign import ccall safe "hs_bindgen_af1f131d9e98a2ff" my_memcpy ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_fatal@
 -}
-foreign import ccall safe "hs_bindgen_0afa6ff8226517c8" fatal ::
+fatal ::
      IO ()
+fatal =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType fatal_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_948fc14ee9d5d56f" hash_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr FC.CChar) -> IO FC.CInt)
 
 {-|
 
@@ -333,9 +437,16 @@ __exported by:__ @functions\/fun_attributes.h@
 
 __unique:__ @test_functionsfun_attributes_Example_Safe_hash@
 -}
-foreign import ccall safe "hs_bindgen_948fc14ee9d5d56f" hash ::
+hash ::
      Ptr.Ptr FC.CChar
   -> IO FC.CInt
+hash =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hash_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_60517fb6ae2517ff" mymalloc_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (Size_t -> IO (Ptr.Ptr Void))
 
 {-| __C declaration:__ @mymalloc@
 
@@ -345,11 +456,18 @@ foreign import ccall safe "hs_bindgen_948fc14ee9d5d56f" hash ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_mymalloc@
 -}
-foreign import ccall safe "hs_bindgen_60517fb6ae2517ff" mymalloc ::
+mymalloc ::
      Size_t
      {- ^ __C declaration:__ @len@
      -}
   -> IO (Ptr.Ptr Void)
+mymalloc =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType mymalloc_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_f1451b46f1bd3813" foobar_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO ())
 
 {-| __C declaration:__ @foobar@
 
@@ -359,8 +477,15 @@ foreign import ccall safe "hs_bindgen_60517fb6ae2517ff" mymalloc ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_foobar@
 -}
-foreign import ccall safe "hs_bindgen_f1451b46f1bd3813" foobar ::
+foobar ::
      IO ()
+foobar =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType foobar_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_07f5843dd5c65611" core2_func_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO FC.CInt)
 
 {-| __C declaration:__ @core2_func@
 
@@ -370,8 +495,15 @@ foreign import ccall safe "hs_bindgen_f1451b46f1bd3813" foobar ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_core2_func@
 -}
-foreign import ccall safe "hs_bindgen_07f5843dd5c65611" core2_func ::
+core2_func ::
      IO FC.CInt
+core2_func =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType core2_func_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_2c7c9e9a45042696" sse3_func_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO FC.CInt)
 
 {-| __C declaration:__ @sse3_func@
 
@@ -381,8 +513,15 @@ foreign import ccall safe "hs_bindgen_07f5843dd5c65611" core2_func ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_sse3_func@
 -}
-foreign import ccall safe "hs_bindgen_2c7c9e9a45042696" sse3_func ::
+sse3_func ::
      IO FC.CInt
+sse3_func =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType sse3_func_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_4ff2d7abd6099082" f3_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO ())
 
 {-| __C declaration:__ @f3@
 
@@ -392,8 +531,15 @@ foreign import ccall safe "hs_bindgen_2c7c9e9a45042696" sse3_func ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_f3@
 -}
-foreign import ccall safe "hs_bindgen_4ff2d7abd6099082" f3 ::
+f3 ::
      IO ()
+f3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType f3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_c3ae037518ec9b4e" fn_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO FC.CInt)
 
 {-| __C declaration:__ @fn@
 
@@ -403,8 +549,15 @@ foreign import ccall safe "hs_bindgen_4ff2d7abd6099082" f3 ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_fn@
 -}
-foreign import ccall safe "hs_bindgen_c3ae037518ec9b4e" fn ::
+fn ::
      IO FC.CInt
+fn =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType fn_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_da9708096863a242" y_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO FC.CInt)
 
 {-| __C declaration:__ @y@
 
@@ -414,8 +567,15 @@ foreign import ccall safe "hs_bindgen_c3ae037518ec9b4e" fn ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_y@
 -}
-foreign import ccall safe "hs_bindgen_da9708096863a242" y ::
+y ::
      IO FC.CInt
+y =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType y_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_037c35609f7728b3" x1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO FC.CInt)
 
 {-| __C declaration:__ @x1@
 
@@ -425,8 +585,15 @@ foreign import ccall safe "hs_bindgen_da9708096863a242" y ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_x1@
 -}
-foreign import ccall safe "hs_bindgen_037c35609f7728b3" x1 ::
+x1 ::
      IO FC.CInt
+x1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType x1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_2c3e8d78049741c3" x2_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO FC.CInt)
 
 {-| __C declaration:__ @x2@
 
@@ -436,5 +603,7 @@ foreign import ccall safe "hs_bindgen_037c35609f7728b3" x1 ::
 
     __unique:__ @test_functionsfun_attributes_Example_Safe_x2@
 -}
-foreign import ccall safe "hs_bindgen_2c3e8d78049741c3" x2 ::
+x2 ::
      IO FC.CInt
+x2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType x2_base

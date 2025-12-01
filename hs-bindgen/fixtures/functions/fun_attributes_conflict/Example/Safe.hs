@@ -6,6 +6,7 @@
 module Example.Safe where
 
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -37,6 +38,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_5d7162df3a16d8d5" square_cp_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CInt -> FC.CInt)
+
 {-| Conflicting attributes on functions for llvm/clang versions 18 and up
 
   Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
@@ -49,11 +55,18 @@ __exported by:__ @functions\/fun_attributes_conflict.h@
 
 __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cp@
 -}
-foreign import ccall safe "hs_bindgen_5d7162df3a16d8d5" square_cp ::
+square_cp ::
      FC.CInt
      {- ^ __C declaration:__ @x@
      -}
   -> FC.CInt
+square_cp =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType square_cp_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_7f240b4e0c2eea24" square_pc_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CInt -> FC.CInt)
 
 {-| __C declaration:__ @square_pc@
 
@@ -63,11 +76,18 @@ foreign import ccall safe "hs_bindgen_5d7162df3a16d8d5" square_cp ::
 
     __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pc@
 -}
-foreign import ccall safe "hs_bindgen_7f240b4e0c2eea24" square_pc ::
+square_pc ::
      FC.CInt
      {- ^ __C declaration:__ @x@
      -}
   -> FC.CInt
+square_pc =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType square_pc_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d32b50f04af10764" square_cc_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CInt -> FC.CInt)
 
 {-| __C declaration:__ @square_cc@
 
@@ -77,11 +97,18 @@ foreign import ccall safe "hs_bindgen_7f240b4e0c2eea24" square_pc ::
 
     __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cc@
 -}
-foreign import ccall safe "hs_bindgen_d32b50f04af10764" square_cc ::
+square_cc ::
      FC.CInt
      {- ^ __C declaration:__ @x@
      -}
   -> FC.CInt
+square_cc =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType square_cc_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_fab6c9860ff1400b" square_pp_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CInt -> IO FC.CInt)
 
 {-|
 
@@ -95,8 +122,10 @@ __exported by:__ @functions\/fun_attributes_conflict.h@
 
 __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pp@
 -}
-foreign import ccall safe "hs_bindgen_fab6c9860ff1400b" square_pp ::
+square_pp ::
      FC.CInt
      {- ^ __C declaration:__ @x@
      -}
   -> IO FC.CInt
+square_pp =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType square_pp_base

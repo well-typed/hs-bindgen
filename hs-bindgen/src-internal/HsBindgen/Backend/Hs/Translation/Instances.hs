@@ -61,6 +61,7 @@ getInstances instanceMap name = aux
             aux (blockInsts /\ acc) (t:hsTypes)
           HsComplexType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
           HsStrLit{} -> Set.empty
+          HsBaseForeignType{} -> Set.empty
 
     (/\) :: Ord a => Set a -> Set a -> Set a
     (/\) = Set.intersection

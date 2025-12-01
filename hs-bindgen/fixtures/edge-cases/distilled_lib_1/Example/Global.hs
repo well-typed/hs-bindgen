@@ -7,6 +7,7 @@ module Example.Global where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -21,10 +22,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_9b325860ee78839e" hs_bindgen_9b325860ee78839e_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.Ptr Var_t))
+
 {-| __unique:__ @test_edgecasesdistilled_lib_1_Example_get_v_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_9b325860ee78839e" hs_bindgen_9b325860ee78839e ::
+hs_bindgen_9b325860ee78839e ::
      IO (Ptr.Ptr Var_t)
+hs_bindgen_9b325860ee78839e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9b325860ee78839e_base
 
 {-# NOINLINE v_ptr #-}
 

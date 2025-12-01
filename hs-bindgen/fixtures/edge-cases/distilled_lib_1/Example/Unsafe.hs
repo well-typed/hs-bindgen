@@ -6,6 +6,7 @@
 module Example.Unsafe where
 
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -22,6 +23,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_2a91c367a9380a63" some_fun_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (Ptr.Ptr HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32)
+
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
@@ -30,7 +36,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
 -}
-foreign import ccall unsafe "hs_bindgen_2a91c367a9380a63" some_fun ::
+some_fun ::
      Ptr.Ptr A_type_t
      {- ^ __C declaration:__ @i@
      -}
@@ -41,3 +47,5 @@ foreign import ccall unsafe "hs_bindgen_2a91c367a9380a63" some_fun ::
      {- ^ __C declaration:__ @k@
      -}
   -> IO HsBindgen.Runtime.Prelude.Int32
+some_fun =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType some_fun_base

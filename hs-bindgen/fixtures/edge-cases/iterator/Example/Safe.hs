@@ -6,6 +6,7 @@
 module Example.Safe where
 
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -70,6 +71,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_9d01035006b66206" makeToggle_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CBool -> IO Toggle)
+
 {-| __C declaration:__ @makeToggle@
 
     __defined at:__ @edge-cases\/iterator.h:4:8@
@@ -78,11 +84,18 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __unique:__ @test_edgecasesiterator_Example_Safe_makeToggle@
 -}
-foreign import ccall safe "hs_bindgen_9d01035006b66206" makeToggle ::
+makeToggle ::
      FC.CBool
      {- ^ __C declaration:__ @start@
      -}
   -> IO Toggle
+makeToggle =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType makeToggle_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_ccd3ba727d0c0cf4" toggleNext_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (Toggle -> IO FC.CBool)
 
 {-| __C declaration:__ @toggleNext@
 
@@ -92,11 +105,18 @@ foreign import ccall safe "hs_bindgen_9d01035006b66206" makeToggle ::
 
     __unique:__ @test_edgecasesiterator_Example_Safe_toggleNext@
 -}
-foreign import ccall safe "hs_bindgen_ccd3ba727d0c0cf4" toggleNext ::
+toggleNext ::
      Toggle
      {- ^ __C declaration:__ @block@
      -}
   -> IO FC.CBool
+toggleNext =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType toggleNext_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_602b40e971b06c72" releaseToggle_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (Toggle -> IO ())
 
 {-| __C declaration:__ @releaseToggle@
 
@@ -106,11 +126,18 @@ foreign import ccall safe "hs_bindgen_ccd3ba727d0c0cf4" toggleNext ::
 
     __unique:__ @test_edgecasesiterator_Example_Safe_releaseToggle@
 -}
-foreign import ccall safe "hs_bindgen_602b40e971b06c72" releaseToggle ::
+releaseToggle ::
      Toggle
      {- ^ __C declaration:__ @block@
      -}
   -> IO ()
+releaseToggle =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType releaseToggle_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_234fa6f1fb089e1d" makeCounter_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CInt -> FC.CInt -> IO Counter)
 
 {-| __C declaration:__ @makeCounter@
 
@@ -120,7 +147,7 @@ foreign import ccall safe "hs_bindgen_602b40e971b06c72" releaseToggle ::
 
     __unique:__ @test_edgecasesiterator_Example_Safe_makeCounter@
 -}
-foreign import ccall safe "hs_bindgen_234fa6f1fb089e1d" makeCounter ::
+makeCounter ::
      FC.CInt
      {- ^ __C declaration:__ @start@
      -}
@@ -128,6 +155,13 @@ foreign import ccall safe "hs_bindgen_234fa6f1fb089e1d" makeCounter ::
      {- ^ __C declaration:__ @increment@
      -}
   -> IO Counter
+makeCounter =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType makeCounter_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_f0fca62d78f225c3" counterNext_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (Counter -> IO FC.CInt)
 
 {-| __C declaration:__ @counterNext@
 
@@ -137,11 +171,18 @@ foreign import ccall safe "hs_bindgen_234fa6f1fb089e1d" makeCounter ::
 
     __unique:__ @test_edgecasesiterator_Example_Safe_counterNext@
 -}
-foreign import ccall safe "hs_bindgen_f0fca62d78f225c3" counterNext ::
+counterNext ::
      Counter
      {- ^ __C declaration:__ @block@
      -}
   -> IO FC.CInt
+counterNext =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType counterNext_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_e42dcbee8a114957" releaseCounter_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (Counter -> IO ())
 
 {-| __C declaration:__ @releaseCounter@
 
@@ -151,11 +192,18 @@ foreign import ccall safe "hs_bindgen_f0fca62d78f225c3" counterNext ::
 
     __unique:__ @test_edgecasesiterator_Example_Safe_releaseCounter@
 -}
-foreign import ccall safe "hs_bindgen_e42dcbee8a114957" releaseCounter ::
+releaseCounter ::
      Counter
      {- ^ __C declaration:__ @block@
      -}
   -> IO ()
+releaseCounter =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType releaseCounter_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_2bee4eb5b4d895c1" makeVarCounter_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CInt -> IO VarCounter)
 
 {-| __C declaration:__ @makeVarCounter@
 
@@ -165,11 +213,18 @@ foreign import ccall safe "hs_bindgen_e42dcbee8a114957" releaseCounter ::
 
     __unique:__ @test_edgecasesiterator_Example_Safe_makeVarCounter@
 -}
-foreign import ccall safe "hs_bindgen_2bee4eb5b4d895c1" makeVarCounter ::
+makeVarCounter ::
      FC.CInt
      {- ^ __C declaration:__ @start@
      -}
   -> IO VarCounter
+makeVarCounter =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType makeVarCounter_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_276b9cb5320fec37" varCounterNext_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (VarCounter -> FC.CInt -> IO FC.CInt)
 
 {-| __C declaration:__ @varCounterNext@
 
@@ -179,7 +234,7 @@ foreign import ccall safe "hs_bindgen_2bee4eb5b4d895c1" makeVarCounter ::
 
     __unique:__ @test_edgecasesiterator_Example_Safe_varCounterNext@
 -}
-foreign import ccall safe "hs_bindgen_276b9cb5320fec37" varCounterNext ::
+varCounterNext ::
      VarCounter
      {- ^ __C declaration:__ @block@
      -}
@@ -187,6 +242,13 @@ foreign import ccall safe "hs_bindgen_276b9cb5320fec37" varCounterNext ::
      {- ^ __C declaration:__ @increment@
      -}
   -> IO FC.CInt
+varCounterNext =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType varCounterNext_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_8423b076f7c9df21" releaseVarCounter_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (VarCounter -> IO ())
 
 {-| __C declaration:__ @releaseVarCounter@
 
@@ -196,8 +258,10 @@ foreign import ccall safe "hs_bindgen_276b9cb5320fec37" varCounterNext ::
 
     __unique:__ @test_edgecasesiterator_Example_Safe_releaseVarCounter@
 -}
-foreign import ccall safe "hs_bindgen_8423b076f7c9df21" releaseVarCounter ::
+releaseVarCounter ::
      VarCounter
      {- ^ __C declaration:__ @block@
      -}
   -> IO ()
+releaseVarCounter =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType releaseVarCounter_base

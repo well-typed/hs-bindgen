@@ -9,6 +9,7 @@ module Example.FunPtr where
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -29,10 +30,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_c940a9562d0838b1" hs_bindgen_c940a9562d0838b1_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ())))
+
 {-| __unique:__ @test_edgecasesspec_examples_Example_get_resample_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_c940a9562d0838b1" hs_bindgen_c940a9562d0838b1 ::
+hs_bindgen_c940a9562d0838b1 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()))
+hs_bindgen_c940a9562d0838b1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c940a9562d0838b1_base
 
 {-# NOINLINE resample_ptr #-}
 

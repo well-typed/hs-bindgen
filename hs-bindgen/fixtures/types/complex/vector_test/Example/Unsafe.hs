@@ -7,6 +7,7 @@ module Example.Unsafe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -22,6 +23,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_1af353788955c7a2" new_vector_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector))
+
 {-| __C declaration:__ @new_vector@
 
     __defined at:__ @types\/complex\/vector_test.h:6:9@
@@ -30,7 +36,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __unique:__ @test_typescomplexvector_test_Example_Unsafe_new_vector@
 -}
-foreign import ccall unsafe "hs_bindgen_1af353788955c7a2" new_vector ::
+new_vector ::
      FC.CDouble
      {- ^ __C declaration:__ @x@
      -}
@@ -38,3 +44,5 @@ foreign import ccall unsafe "hs_bindgen_1af353788955c7a2" new_vector ::
      {- ^ __C declaration:__ @y@
      -}
   -> IO (Ptr.Ptr Vector)
+new_vector =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType new_vector_base

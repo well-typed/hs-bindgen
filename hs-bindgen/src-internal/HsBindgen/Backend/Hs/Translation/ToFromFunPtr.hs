@@ -83,7 +83,7 @@ instancesFor ::
   -> [Hs.Decl]
 instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = concat [
       -- import for @ToFunPtr@ instance
-      HsFI.foreignImportDecs
+      HsFI.vanillaForeignImportDecs
         nameTo
         (HsIO (HsFunPtr funHs))
         [wrapperParam funHs]
@@ -94,7 +94,7 @@ instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = co
         SHs.Safe
 
       -- import for @FromFunPtr@ instance
-    , HsFI.foreignImportDecs
+    , HsFI.vanillaForeignImportDecs
         nameFrom
         funHs
         [wrapperParam $ HsFunPtr funHs]

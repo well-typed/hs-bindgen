@@ -7,6 +7,7 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
 import Example
@@ -26,10 +27,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a045a07b1f36239d" hs_bindgen_a045a07b1f36239d_base ::
+     HsBindgen.Runtime.HasBaseForeignType.BaseForeignType (IO (Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32)))
+
 {-| __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun_ptr@
 -}
-foreign import ccall unsafe "hs_bindgen_a045a07b1f36239d" hs_bindgen_a045a07b1f36239d ::
+hs_bindgen_a045a07b1f36239d ::
      IO (Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32))
+hs_bindgen_a045a07b1f36239d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a045a07b1f36239d_base
 
 {-# NOINLINE some_fun_ptr #-}
 

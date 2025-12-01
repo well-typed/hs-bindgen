@@ -139,6 +139,8 @@ mkGlobal = \case
 
       -- HasBaseForeignType
       HasBaseForeignType_class -> ''HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType
+      HasBaseForeignType_BaseForeignType -> ''HsBindgen.Runtime.HasBaseForeignType.BaseForeignType
+      HasBaseForeignType_fromBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType
 
       -- Unsafe
       IO_unsafePerformIO -> 'System.IO.Unsafe.unsafePerformIO
@@ -366,6 +368,8 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
 
     -- HasBaseForeignType
     HasBaseForeignType_class -> panicPure "class in expression"
+    HasBaseForeignType_BaseForeignType -> panicPure "type in expression"
+    HasBaseForeignType_fromBaseForeignType -> TH.varE name
 
     -- Unsafe
     IO_unsafePerformIO -> TH.varE name
