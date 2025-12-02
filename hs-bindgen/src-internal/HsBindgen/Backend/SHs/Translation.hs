@@ -170,6 +170,7 @@ translateTypeClass Hs.Integral   = TGlobal Integral_class
 translateTypeClass Hs.Ix         = TGlobal Ix_class
 translateTypeClass Hs.Num        = TGlobal Num_class
 translateTypeClass Hs.Ord        = TGlobal Ord_class
+translateTypeClass Hs.Prim       = TGlobal Prim_class
 translateTypeClass Hs.Read       = TGlobal Read_class
 translateTypeClass Hs.ReadRaw    = TGlobal ReadRaw_class
 translateTypeClass Hs.Real       = TGlobal Real_class

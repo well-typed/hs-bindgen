@@ -13,6 +13,7 @@ import Data.Ix qualified
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Maybe qualified
+import Data.Primitive.Types qualified
 import Data.Proxy qualified
 import Data.Text qualified as Text
 import Data.Void qualified
@@ -154,6 +155,7 @@ mkGlobal = \case
       Read_readPrec     -> 'Text.Read.readPrec
       Read_readList     -> 'Text.Read.readList
       Read_readListPrec -> 'Text.Read.readListPrec
+      Prim_class        -> ''Data.Primitive.Types.Prim
 
       Real_class       -> ''Real
       RealFloat_class  -> ''RealFloat
@@ -384,6 +386,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     RealFrac_class    -> panicPure "class in expression"
     Show_class        -> panicPure "class in expression"
     Show_showsPrec    -> TH.varE name
+    Prim_class        -> panicPure "class in expression"
 
     NomEq_class -> panicPure "class in expression"
 
