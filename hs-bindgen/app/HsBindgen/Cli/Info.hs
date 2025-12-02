@@ -18,6 +18,7 @@ import Options.Applicative hiding (info)
 import HsBindgen.App
 import HsBindgen.Cli.Info.BuiltinMacros qualified as BuiltinMacros
 import HsBindgen.Cli.Info.IncludeGraph qualified as IncludeGraph
+import HsBindgen.Cli.Info.Instances qualified as Instances
 import HsBindgen.Cli.Info.Libclang qualified as Libclang
 import HsBindgen.Cli.Info.ResolveHeader qualified as ResolveHeader
 import HsBindgen.Cli.Info.UseDeclGraph qualified as UseDeclGraph
@@ -37,6 +38,7 @@ info = progDesc "Informational commands, useful when creating bindings"
 data Cmd =
     CmdBuiltinMacros BuiltinMacros.Opts
   | CmdIncludeGraph  IncludeGraph.Opts
+  | CmdInstances     ()
   | CmdLibclang      Libclang.Opts
   | CmdResolveHeader ResolveHeader.Opts
   | CmdUseDeclGraph  UseDeclGraph.Opts
@@ -53,6 +55,11 @@ parseCmd = subparser $ mconcat [
         CmdIncludeGraph
         IncludeGraph.parseOpts
         IncludeGraph.info
+    , cmd
+        "instances"
+        CmdInstances
+        (pure ())
+        Instances.info
     , cmd
         "libclang"
         CmdLibclang
@@ -78,6 +85,7 @@ exec :: GlobalOpts -> Cmd -> IO ()
 exec gopts = \case
     CmdBuiltinMacros opts -> BuiltinMacros.exec gopts opts
     CmdIncludeGraph  opts -> IncludeGraph.exec  gopts opts
+    CmdInstances     ()   -> Instances.exec
     CmdLibclang      opts -> Libclang.exec      gopts opts
     CmdResolveHeader opts -> ResolveHeader.exec gopts opts
     CmdUseDeclGraph  opts -> UseDeclGraph.exec  gopts opts

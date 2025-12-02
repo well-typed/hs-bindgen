@@ -187,6 +187,7 @@ library internal
     HsBindgen.Frontend.RootHeader
     HsBindgen.Guasi
     HsBindgen.Imports
+    HsBindgen.Instances
     HsBindgen.Language.C
     HsBindgen.Language.Haskell
     HsBindgen.NameHint
@@ -286,6 +287,7 @@ executable hs-bindgen-cli
     HsBindgen.Cli.Info
     HsBindgen.Cli.Info.BuiltinMacros
     HsBindgen.Cli.Info.IncludeGraph
+    HsBindgen.Cli.Info.Instances
     HsBindgen.Cli.Info.Libclang
     HsBindgen.Cli.Info.ResolveHeader
     HsBindgen.Cli.Info.UseDeclGraph
