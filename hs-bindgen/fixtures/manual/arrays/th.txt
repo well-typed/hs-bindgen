@@ -1,7 +1,7 @@
 -- addDependentFile examples/golden/manual/arrays.h
 -- #include <manual/arrays.h>
 -- void hs_bindgen_cba7011c6d25362b (
---   triplet *arg1,
+--   triplet const *arg1,
 --   triplet *arg2
 -- )
 -- {
@@ -14,7 +14,7 @@
 --   pretty_print_triplets(arg1);
 -- }
 -- void hs_bindgen_f9f2776d121db261 (
---   triplet *arg1,
+--   triplet const *arg1,
 --   triplet *arg2
 -- )
 -- {
@@ -154,7 +154,7 @@ instance HasCField Triplet_ptrs "un_Triplet_ptrs"
 
 __unique:__ @test_manualarrays_Example_Unsafe_transpose@
 -}
-foreign import ccall safe "hs_bindgen_cba7011c6d25362b" transpose_wrapper :: Ptr Triplet ->
+foreign import ccall safe "hs_bindgen_cba7011c6d25362b" transpose_wrapper :: ConstPtr Triplet ->
                                                                              Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
@@ -169,7 +169,7 @@ transpose :: Matrix -> Ptr Triplet -> IO Unit
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper ptr_2 x_1)
+transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper (ConstPtr ptr_2) x_1)
 {-| A function that prints the given triplet_ptrs
 
 __C declaration:__ @pretty_print_triplets@
@@ -187,7 +187,7 @@ foreign import ccall safe "hs_bindgen_45d15697a99c626a" pretty_print_triplets ::
 
 __unique:__ @test_manualarrays_Example_Unsafe_transpose@
 -}
-foreign import ccall safe "hs_bindgen_f9f2776d121db261" transpose_wrapper :: Ptr Triplet ->
+foreign import ccall safe "hs_bindgen_f9f2776d121db261" transpose_wrapper :: ConstPtr Triplet ->
                                                                              Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
@@ -202,7 +202,7 @@ transpose :: Matrix -> Ptr Triplet -> IO Unit
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper ptr_2 x_1)
+transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper (ConstPtr ptr_2) x_1)
 {-| A function that prints the given triplet_ptrs
 
 __C declaration:__ @pretty_print_triplets@

@@ -43,6 +43,7 @@ import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
+import HsBindgen.Runtime.ConstPtr qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.FunPtr qualified
 import HsBindgen.Runtime.HasCField qualified
@@ -138,6 +139,11 @@ mkGlobal = \case
 
       -- Unsafe
       IO_unsafePerformIO -> 'System.IO.Unsafe.unsafePerformIO
+
+      -- ConstPtr
+      ConstPtr_type        -> ''HsBindgen.Runtime.ConstPtr.ConstPtr
+      ConstPtr_constructor -> 'HsBindgen.Runtime.ConstPtr.ConstPtr
+      ConstPtr_unConstPtr  -> 'HsBindgen.Runtime.ConstPtr.unConstPtr
 
       Bits_class        -> ''Data.Bits.Bits
       Bounded_class     -> ''Bounded
@@ -362,6 +368,11 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
 
     -- Unsafe
     IO_unsafePerformIO -> TH.varE name
+
+    -- ConstPtr
+    ConstPtr_type        -> panicPure "type in expression"
+    ConstPtr_constructor -> TH.conE name
+    ConstPtr_unConstPtr  -> TH.varE name
 
     -- Other type classes
     Bits_class        -> panicPure "class in expression"

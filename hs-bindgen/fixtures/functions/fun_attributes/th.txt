@@ -580,7 +580,8 @@ foreign import ccall safe "hs_bindgen_a8f71f2272dae572" old_fn_deprecated :: IO 
     __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_dgettext@
 -}
 foreign import ccall safe "hs_bindgen_11a623401451cca5" my_dgettext :: Ptr CChar ->
-                                                                       Ptr CChar -> IO (Ptr CChar)
+                                                                       ConstPtr CChar ->
+                                                                       IO (Ptr CChar)
 {-| __C declaration:__ @fdopen@
 
     __defined at:__ @functions\/fun_attributes.h:75:9@
@@ -590,7 +591,7 @@ foreign import ccall safe "hs_bindgen_11a623401451cca5" my_dgettext :: Ptr CChar
     __unique:__ @test_functionsfun_attributes_Example_Unsafe_fdopen@
 -}
 foreign import ccall safe "hs_bindgen_30143e337a327ef0" fdopen :: CInt ->
-                                                                  Ptr CChar -> IO (Ptr FILE)
+                                                                  ConstPtr CChar -> IO (Ptr FILE)
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/fun_attributes.h:79:65@
@@ -609,7 +610,7 @@ foreign import ccall safe "hs_bindgen_7b2c420d0febf062" f2 :: IO Unit
     __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_memcpy@
 -}
 foreign import ccall safe "hs_bindgen_af1f131d9e98a2ff" my_memcpy :: Ptr Void ->
-                                                                     Ptr Void ->
+                                                                     ConstPtr Void ->
                                                                      Size_t -> IO (Ptr Void)
 {-| __C declaration:__ @fatal@
 
@@ -812,7 +813,8 @@ foreign import ccall safe "hs_bindgen_f51c36dd7e8f4133" old_fn_deprecated :: IO 
     __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_dgettext@
 -}
 foreign import ccall safe "hs_bindgen_bf6f222178bd7c31" my_dgettext :: Ptr CChar ->
-                                                                       Ptr CChar -> IO (Ptr CChar)
+                                                                       ConstPtr CChar ->
+                                                                       IO (Ptr CChar)
 {-| __C declaration:__ @fdopen@
 
     __defined at:__ @functions\/fun_attributes.h:75:9@
@@ -822,7 +824,7 @@ foreign import ccall safe "hs_bindgen_bf6f222178bd7c31" my_dgettext :: Ptr CChar
     __unique:__ @test_functionsfun_attributes_Example_Unsafe_fdopen@
 -}
 foreign import ccall safe "hs_bindgen_830629dc11c2fdfc" fdopen :: CInt ->
-                                                                  Ptr CChar -> IO (Ptr FILE)
+                                                                  ConstPtr CChar -> IO (Ptr FILE)
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/fun_attributes.h:79:65@
@@ -841,7 +843,7 @@ foreign import ccall safe "hs_bindgen_a5f34f5beb1c74f1" f2 :: IO Unit
     __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_memcpy@
 -}
 foreign import ccall safe "hs_bindgen_0f3586df383dffea" my_memcpy :: Ptr Void ->
-                                                                     Ptr Void ->
+                                                                     ConstPtr Void ->
                                                                      Size_t -> IO (Ptr Void)
 {-| __C declaration:__ @fatal@
 
@@ -1122,7 +1124,7 @@ old_fn_deprecated_ptr = unsafePerformIO hs_bindgen_75b7d9140b40148e
 {-| __unique:__ @test_functionsfun_attributes_Example_get_my_dgettext_ptr@
 -}
 foreign import ccall safe "hs_bindgen_880fe66e7b0bf3df" hs_bindgen_880fe66e7b0bf3df :: IO (FunPtr (Ptr CChar ->
-                                                                                                   Ptr CChar ->
+                                                                                                   ConstPtr CChar ->
                                                                                                    IO (Ptr CChar)))
 {-# NOINLINE my_dgettext_ptr #-}
 {-| __C declaration:__ @my_dgettext@
@@ -1132,7 +1134,7 @@ foreign import ccall safe "hs_bindgen_880fe66e7b0bf3df" hs_bindgen_880fe66e7b0bf
     __exported by:__ @functions\/fun_attributes.h@
 -}
 my_dgettext_ptr :: FunPtr (Ptr CChar ->
-                           Ptr CChar -> IO (Ptr CChar))
+                           ConstPtr CChar -> IO (Ptr CChar))
 {-| __C declaration:__ @my_dgettext@
 
     __defined at:__ @functions\/fun_attributes.h:64:1@
@@ -1143,7 +1145,7 @@ my_dgettext_ptr = unsafePerformIO hs_bindgen_880fe66e7b0bf3df
 {-| __unique:__ @test_functionsfun_attributes_Example_get_fdopen_ptr@
 -}
 foreign import ccall safe "hs_bindgen_e36b210e874d5d42" hs_bindgen_e36b210e874d5d42 :: IO (FunPtr (CInt ->
-                                                                                                   Ptr CChar ->
+                                                                                                   ConstPtr CChar ->
                                                                                                    IO (Ptr FILE)))
 {-# NOINLINE fdopen_ptr #-}
 {-| __C declaration:__ @fdopen@
@@ -1152,7 +1154,7 @@ foreign import ccall safe "hs_bindgen_e36b210e874d5d42" hs_bindgen_e36b210e874d5
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-fdopen_ptr :: FunPtr (CInt -> Ptr CChar -> IO (Ptr FILE))
+fdopen_ptr :: FunPtr (CInt -> ConstPtr CChar -> IO (Ptr FILE))
 {-| __C declaration:__ @fdopen@
 
     __defined at:__ @functions\/fun_attributes.h:75:9@
@@ -1181,7 +1183,7 @@ f2_ptr = unsafePerformIO hs_bindgen_193dba4a732d39a4
 {-| __unique:__ @test_functionsfun_attributes_Example_get_my_memcpy_ptr@
 -}
 foreign import ccall safe "hs_bindgen_95f5193f59c47586" hs_bindgen_95f5193f59c47586 :: IO (FunPtr (Ptr Void ->
-                                                                                                   Ptr Void ->
+                                                                                                   ConstPtr Void ->
                                                                                                    Size_t ->
                                                                                                    IO (Ptr Void)))
 {-# NOINLINE my_memcpy_ptr #-}
@@ -1192,7 +1194,7 @@ foreign import ccall safe "hs_bindgen_95f5193f59c47586" hs_bindgen_95f5193f59c47
     __exported by:__ @functions\/fun_attributes.h@
 -}
 my_memcpy_ptr :: FunPtr (Ptr Void ->
-                         Ptr Void -> Size_t -> IO (Ptr Void))
+                         ConstPtr Void -> Size_t -> IO (Ptr Void))
 {-| __C declaration:__ @my_memcpy@
 
     __defined at:__ @functions\/fun_attributes.h:85:1@

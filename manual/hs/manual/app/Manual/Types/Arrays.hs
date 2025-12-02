@@ -7,6 +7,7 @@ import GHC.TypeNats
 
 import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.IncompleteArray qualified as IA
+import HsBindgen.Runtime.ConstPtr
 
 import Manual.Tools
 
@@ -72,7 +73,7 @@ transposeMatrix :: Arrays.Matrix -> IO Arrays.Matrix
 transposeMatrix inputMatrix =
     CA.withPtr inputMatrix $ \inputPtr -> do
       F.alloca $ \(outputPtr :: Ptr Arrays.Matrix) -> do
-        Arrays.transpose_wrapper (inputPtr) (snd $ CA.toFirstElemPtr outputPtr)
+        Arrays.transpose_wrapper (ConstPtr inputPtr) (snd $ CA.toFirstElemPtr outputPtr)
         peek outputPtr
 
 {-------------------------------------------------------------------------------

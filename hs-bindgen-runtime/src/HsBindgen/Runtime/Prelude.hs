@@ -105,6 +105,9 @@ module HsBindgen.Runtime.Prelude (
     -- * Blocks
   , module HsBindgen.Runtime.Block
 
+    -- * ConstPtr
+  , module HsBindgen.Runtime.ConstPtr
+
     -- * Auxiliary functions
   , Data.List.unlines
   ) where
@@ -116,6 +119,7 @@ import Foreign.C qualified
 
 import HsBindgen.Runtime.Block
 import HsBindgen.Runtime.CAPI
+import HsBindgen.Runtime.ConstPtr
 import HsBindgen.Runtime.LibC qualified as LibC
 import HsBindgen.Runtime.SizedByteArray qualified as SizedByteArray
 

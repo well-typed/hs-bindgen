@@ -1,0 +1,56 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: Example
+ctypes:
+- headers: manual/globals.h
+  cname: ConstInt
+  hsname: ConstInt
+- headers: manual/globals.h
+  cname: struct globalConfig
+  hsname: GlobalConfig
+- headers: manual/globals.h
+  cname: list
+  hsname: List
+- headers: manual/globals.h
+  cname: triplet
+  hsname: Triplet
+- headers: manual/globals.h
+  cname: struct tuple
+  hsname: Tuple
+hstypes:
+- hsname: ConstInt
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: GlobalConfig
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: List
+  instances:
+  - Eq
+  - Show
+- hsname: Triplet
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Tuple
+  instances:
+  - Eq
+  - Show
+  - Storable

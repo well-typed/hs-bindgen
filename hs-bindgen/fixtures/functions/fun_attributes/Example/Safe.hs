@@ -7,6 +7,7 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -261,7 +262,7 @@ foreign import ccall safe "hs_bindgen_11a623401451cca5" my_dgettext ::
      Ptr.Ptr FC.CChar
      {- ^ __C declaration:__ @my_domain@
      -}
-  -> Ptr.Ptr FC.CChar
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
      {- ^ __C declaration:__ @my_format@
      -}
   -> IO (Ptr.Ptr FC.CChar)
@@ -276,7 +277,7 @@ foreign import ccall safe "hs_bindgen_11a623401451cca5" my_dgettext ::
 -}
 foreign import ccall safe "hs_bindgen_30143e337a327ef0" fdopen ::
      FC.CInt
-  -> Ptr.Ptr FC.CChar
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
   -> IO (Ptr.Ptr FILE)
 
 {-| __C declaration:__ @f2@
@@ -302,7 +303,7 @@ foreign import ccall safe "hs_bindgen_af1f131d9e98a2ff" my_memcpy ::
      Ptr.Ptr Void
      {- ^ __C declaration:__ @dest@
      -}
-  -> Ptr.Ptr Void
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
      {- ^ __C declaration:__ @src@
      -}
   -> Size_t

@@ -235,6 +235,7 @@ translateType :: Hs.HsType -> ClosedType
 translateType = \case
     Hs.HsPrimType t         -> TGlobal (PrimType t)
     Hs.HsTypRef r           -> TCon r
+    Hs.HsConstPtr t         -> TApp (TGlobal ConstPtr_type) (translateType t)
     Hs.HsPtr t              -> TApp (TGlobal Foreign_Ptr) (translateType t)
     Hs.HsFunPtr t           -> TApp (TGlobal Foreign_FunPtr) (translateType t)
     Hs.HsConstArray n t     -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)

@@ -26,6 +26,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
+import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasCField
@@ -833,7 +834,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef2 "un_Const_typedef2
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_typedef3 = Const_typedef3
-  { un_Const_typedef3 :: Ptr.Ptr A
+  { un_Const_typedef3 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
@@ -847,7 +848,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef3) "un_
 instance HsBindgen.Runtime.HasCField.HasCField Const_typedef3 "un_Const_typedef3" where
 
   type CFieldType Const_typedef3 "un_Const_typedef3" =
-    Ptr.Ptr A
+    HsBindgen.Runtime.ConstPtr.ConstPtr A
 
   offset# = \_ -> \_ -> 0
 
@@ -858,7 +859,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef3 "un_Const_typedef3
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_typedef4 = Const_typedef4
-  { un_Const_typedef4 :: Ptr.Ptr A
+  { un_Const_typedef4 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
@@ -872,7 +873,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef4) "un_
 instance HsBindgen.Runtime.HasCField.HasCField Const_typedef4 "un_Const_typedef4" where
 
   type CFieldType Const_typedef4 "un_Const_typedef4" =
-    Ptr.Ptr A
+    HsBindgen.Runtime.ConstPtr.ConstPtr A
 
   offset# = \_ -> \_ -> 0
 
@@ -908,7 +909,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef5 "un_Const_typedef5
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_typedef6 = Const_typedef6
-  { un_Const_typedef6 :: Ptr.Ptr A
+  { un_Const_typedef6 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
@@ -922,7 +923,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef6) "un_
 instance HsBindgen.Runtime.HasCField.HasCField Const_typedef6 "un_Const_typedef6" where
 
   type CFieldType Const_typedef6 "un_Const_typedef6" =
-    Ptr.Ptr A
+    HsBindgen.Runtime.ConstPtr.ConstPtr A
 
   offset# = \_ -> \_ -> 0
 
@@ -933,7 +934,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef6 "un_Const_typedef6
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_typedef7 = Const_typedef7
-  { un_Const_typedef7 :: Ptr.Ptr A
+  { un_Const_typedef7 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
@@ -947,7 +948,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef7) "un_
 instance HsBindgen.Runtime.HasCField.HasCField Const_typedef7 "un_Const_typedef7" where
 
   type CFieldType Const_typedef7 "un_Const_typedef7" =
-    Ptr.Ptr A
+    HsBindgen.Runtime.ConstPtr.ConstPtr A
 
   offset# = \_ -> \_ -> 0
 
@@ -972,14 +973,14 @@ data Example_struct_with_const = Example_struct_with_const
 
          __exported by:__ @macros\/reparse.h@
     -}
-  , example_struct_with_const_const_field3 :: Ptr.Ptr A
+  , example_struct_with_const_const_field3 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
     {- ^ __C declaration:__ @const_field3@
 
          __defined at:__ @macros\/reparse.h:231:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
-  , example_struct_with_const_const_field4 :: Ptr.Ptr A
+  , example_struct_with_const_const_field4 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
     {- ^ __C declaration:__ @const_field4@
 
          __defined at:__ @macros\/reparse.h:232:19@
@@ -993,14 +994,14 @@ data Example_struct_with_const = Example_struct_with_const
 
          __exported by:__ @macros\/reparse.h@
     -}
-  , example_struct_with_const_const_field6 :: Ptr.Ptr A
+  , example_struct_with_const_const_field6 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
     {- ^ __C declaration:__ @const_field6@
 
          __defined at:__ @macros\/reparse.h:234:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
-  , example_struct_with_const_const_field7 :: Ptr.Ptr A
+  , example_struct_with_const_const_field7 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
     {- ^ __C declaration:__ @const_field7@
 
          __defined at:__ @macros\/reparse.h:235:19@
@@ -1076,7 +1077,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct_with_
 instance HsBindgen.Runtime.HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field3" where
 
   type CFieldType Example_struct_with_const "example_struct_with_const_const_field3" =
-    Ptr.Ptr A
+    HsBindgen.Runtime.ConstPtr.ConstPtr A
 
   offset# = \_ -> \_ -> 8
 
@@ -1089,7 +1090,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct_with_
 instance HsBindgen.Runtime.HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field4" where
 
   type CFieldType Example_struct_with_const "example_struct_with_const_const_field4" =
-    Ptr.Ptr A
+    HsBindgen.Runtime.ConstPtr.ConstPtr A
 
   offset# = \_ -> \_ -> 16
 
@@ -1115,7 +1116,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct_with_
 instance HsBindgen.Runtime.HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field6" where
 
   type CFieldType Example_struct_with_const "example_struct_with_const_const_field6" =
-    Ptr.Ptr A
+    HsBindgen.Runtime.ConstPtr.ConstPtr A
 
   offset# = \_ -> \_ -> 32
 
@@ -1128,7 +1129,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct_with_
 instance HsBindgen.Runtime.HasCField.HasCField Example_struct_with_const "example_struct_with_const_const_field7" where
 
   type CFieldType Example_struct_with_const "example_struct_with_const_const_field7" =
-    Ptr.Ptr A
+    HsBindgen.Runtime.ConstPtr.ConstPtr A
 
   offset# = \_ -> \_ -> 40
 
@@ -1273,7 +1274,7 @@ __defined at:__ @macros\/reparse.h:240:27@
 __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr3_Deref = Const_funptr3_Deref
-  { un_Const_funptr3_Deref :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
+  { un_Const_funptr3_Deref :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
   }
 
 foreign import ccall safe "wrapper" toConst_funptr3_Deref ::
@@ -1301,7 +1302,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr3_Deref)
 instance HsBindgen.Runtime.HasCField.HasCField Const_funptr3_Deref "un_Const_funptr3_Deref" where
 
   type CFieldType Const_funptr3_Deref "un_Const_funptr3_Deref" =
-    FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
+    FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
 
   offset# = \_ -> \_ -> 0
 
@@ -1337,7 +1338,7 @@ __defined at:__ @macros\/reparse.h:241:27@
 __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr4_Deref = Const_funptr4_Deref
-  { un_Const_funptr4_Deref :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
+  { un_Const_funptr4_Deref :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
   }
 
 foreign import ccall safe "wrapper" toConst_funptr4_Deref ::
@@ -1365,7 +1366,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr4_Deref)
 instance HsBindgen.Runtime.HasCField.HasCField Const_funptr4_Deref "un_Const_funptr4_Deref" where
 
   type CFieldType Const_funptr4_Deref "un_Const_funptr4_Deref" =
-    FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
+    FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
 
   offset# = \_ -> \_ -> 0
 
@@ -1465,7 +1466,7 @@ __defined at:__ @macros\/reparse.h:243:27@
 __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr6_Deref = Const_funptr6_Deref
-  { un_Const_funptr6_Deref :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
+  { un_Const_funptr6_Deref :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
   }
 
 foreign import ccall safe "wrapper" toConst_funptr6_Deref ::
@@ -1493,7 +1494,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr6_Deref)
 instance HsBindgen.Runtime.HasCField.HasCField Const_funptr6_Deref "un_Const_funptr6_Deref" where
 
   type CFieldType Const_funptr6_Deref "un_Const_funptr6_Deref" =
-    FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
+    FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
 
   offset# = \_ -> \_ -> 0
 
@@ -1529,7 +1530,7 @@ __defined at:__ @macros\/reparse.h:244:27@
 __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr7_Deref = Const_funptr7_Deref
-  { un_Const_funptr7_Deref :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
+  { un_Const_funptr7_Deref :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
   }
 
 foreign import ccall safe "wrapper" toConst_funptr7_Deref ::
@@ -1557,7 +1558,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr7_Deref)
 instance HsBindgen.Runtime.HasCField.HasCField Const_funptr7_Deref "un_Const_funptr7_Deref" where
 
   type CFieldType Const_funptr7_Deref "un_Const_funptr7_Deref" =
-    FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
+    FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
 
   offset# = \_ -> \_ -> 0
 
@@ -1629,7 +1630,7 @@ newtype INTP = INTP
     __exported by:__ @macros\/reparse.h@
 -}
 newtype INTCP = INTCP
-  { un_INTCP :: Ptr.Ptr FC.CInt
+  { un_INTCP :: HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)

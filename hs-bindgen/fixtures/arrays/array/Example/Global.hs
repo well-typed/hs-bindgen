@@ -10,6 +10,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
@@ -421,7 +422,7 @@ arr_8_ptr =
 {-| __unique:__ @test_arraysarray_Example_get_arr_1_const_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_fc9438d00f745eee" hs_bindgen_fc9438d00f745eee ::
-     IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
 
 {-# NOINLINE arr_1_const_ptr #-}
 
@@ -433,7 +434,7 @@ __defined at:__ @arrays\/array.h:90:18@
 
 __exported by:__ @arrays\/array.h@
 -}
-arr_1_const_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+arr_1_const_ptr :: HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 arr_1_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fc9438d00f745eee
 
@@ -441,12 +442,12 @@ arr_1_const_ptr =
 
 arr_1_const :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
 arr_1_const =
-  GHC.IO.Unsafe.unsafePerformIO (F.peek arr_1_const_ptr)
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr arr_1_const_ptr))
 
 {-| __unique:__ @test_arraysarray_Example_get_arr_2_const_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_be3eba6be1a73c5d" hs_bindgen_be3eba6be1a73c5d ::
-     IO (Ptr.Ptr Triplet)
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr Triplet)
 
 {-# NOINLINE arr_2_const_ptr #-}
 
@@ -458,7 +459,7 @@ __defined at:__ @arrays\/array.h:93:22@
 
 __exported by:__ @arrays\/array.h@
 -}
-arr_2_const_ptr :: Ptr.Ptr Triplet
+arr_2_const_ptr :: HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
 arr_2_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_be3eba6be1a73c5d
 
@@ -466,12 +467,12 @@ arr_2_const_ptr =
 
 arr_2_const :: Triplet
 arr_2_const =
-  GHC.IO.Unsafe.unsafePerformIO (F.peek arr_2_const_ptr)
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr arr_2_const_ptr))
 
 {-| __unique:__ @test_arraysarray_Example_get_arr_3_const_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_0c3c415a6bdd56a6" hs_bindgen_0c3c415a6bdd56a6 ::
-     IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
 
 {-# NOINLINE arr_3_const_ptr #-}
 
@@ -483,14 +484,14 @@ __defined at:__ @arrays\/array.h:96:18@
 
 __exported by:__ @arrays\/array.h@
 -}
-arr_3_const_ptr :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
+arr_3_const_ptr :: HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
 arr_3_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0c3c415a6bdd56a6
 
 {-| __unique:__ @test_arraysarray_Example_get_arr_4_const_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_a6fa7483b9d48043" hs_bindgen_a6fa7483b9d48043 ::
-     IO (Ptr.Ptr List)
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr List)
 
 {-# NOINLINE arr_4_const_ptr #-}
 
@@ -502,14 +503,14 @@ __defined at:__ @arrays\/array.h:99:19@
 
 __exported by:__ @arrays\/array.h@
 -}
-arr_4_const_ptr :: Ptr.Ptr List
+arr_4_const_ptr :: HsBindgen.Runtime.ConstPtr.ConstPtr List
 arr_4_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a6fa7483b9d48043
 
 {-| __unique:__ @test_arraysarray_Example_get_arr_5_const_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_93b436ac5ffd8c82" hs_bindgen_93b436ac5ffd8c82 ::
-     IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 
 {-# NOINLINE arr_5_const_ptr #-}
 
@@ -521,7 +522,7 @@ __defined at:__ @arrays\/array.h:102:18@
 
 __exported by:__ @arrays\/array.h@
 -}
-arr_5_const_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+arr_5_const_ptr :: HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
 arr_5_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_93b436ac5ffd8c82
 
@@ -529,12 +530,12 @@ arr_5_const_ptr =
 
 arr_5_const :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 arr_5_const =
-  GHC.IO.Unsafe.unsafePerformIO (F.peek arr_5_const_ptr)
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr arr_5_const_ptr))
 
 {-| __unique:__ @test_arraysarray_Example_get_arr_6_const_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_9e625256c9dc1a3f" hs_bindgen_9e625256c9dc1a3f ::
-     IO (Ptr.Ptr Matrix)
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr Matrix)
 
 {-# NOINLINE arr_6_const_ptr #-}
 
@@ -546,7 +547,7 @@ __defined at:__ @arrays\/array.h:105:21@
 
 __exported by:__ @arrays\/array.h@
 -}
-arr_6_const_ptr :: Ptr.Ptr Matrix
+arr_6_const_ptr :: HsBindgen.Runtime.ConstPtr.ConstPtr Matrix
 arr_6_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9e625256c9dc1a3f
 
@@ -554,12 +555,12 @@ arr_6_const_ptr =
 
 arr_6_const :: Matrix
 arr_6_const =
-  GHC.IO.Unsafe.unsafePerformIO (F.peek arr_6_const_ptr)
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr arr_6_const_ptr))
 
 {-| __unique:__ @test_arraysarray_Example_get_arr_7_const_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_19cc3c6537ef51f0" hs_bindgen_19cc3c6537ef51f0 ::
-     IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 
 {-# NOINLINE arr_7_const_ptr #-}
 
@@ -571,14 +572,14 @@ __defined at:__ @arrays\/array.h:108:18@
 
 __exported by:__ @arrays\/array.h@
 -}
-arr_7_const_ptr :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+arr_7_const_ptr :: HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
 arr_7_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_19cc3c6537ef51f0
 
 {-| __unique:__ @test_arraysarray_Example_get_arr_8_const_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_9af0285a476aaf26" hs_bindgen_9af0285a476aaf26 ::
-     IO (Ptr.Ptr Tripletlist)
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr Tripletlist)
 
 {-# NOINLINE arr_8_const_ptr #-}
 
@@ -590,6 +591,6 @@ __defined at:__ @arrays\/array.h:111:26@
 
 __exported by:__ @arrays\/array.h@
 -}
-arr_8_const_ptr :: Ptr.Ptr Tripletlist
+arr_8_const_ptr :: HsBindgen.Runtime.ConstPtr.ConstPtr Tripletlist
 arr_8_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9af0285a476aaf26

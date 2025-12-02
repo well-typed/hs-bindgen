@@ -673,9 +673,9 @@ __exported by:__ @manual\/function_pointers.h@
 apply1_nopointer_res_ptr = unsafePerformIO hs_bindgen_c9d47a6b0f980aa5
 {-| __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_var_ptr@
 -}
-foreign import ccall safe "hs_bindgen_ab897ed3a6702a69" hs_bindgen_ab897ed3a6702a69 :: IO (Ptr (FunPtr (FunPtr Int2int ->
-                                                                                                        CInt ->
-                                                                                                        IO CInt)))
+foreign import ccall safe "hs_bindgen_ab897ed3a6702a69" hs_bindgen_ab897ed3a6702a69 :: IO (ConstPtr (FunPtr (FunPtr Int2int ->
+                                                                                                             CInt ->
+                                                                                                             IO CInt)))
 {-# NOINLINE apply1_nopointer_var_ptr #-}
 {-| A global variable pointing to a function like apply1_nopointer().
 
@@ -685,8 +685,8 @@ __defined at:__ @manual\/function_pointers.h:34:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
-apply1_nopointer_var_ptr :: Ptr (FunPtr (FunPtr Int2int ->
-                                         CInt -> IO CInt))
+apply1_nopointer_var_ptr :: ConstPtr (FunPtr (FunPtr Int2int ->
+                                              CInt -> IO CInt))
 {-| A global variable pointing to a function like apply1_nopointer().
 
 __C declaration:__ @apply1_nopointer_var@
@@ -698,10 +698,10 @@ __exported by:__ @manual\/function_pointers.h@
 apply1_nopointer_var_ptr = unsafePerformIO hs_bindgen_ab897ed3a6702a69
 {-# NOINLINE apply1_nopointer_var #-}
 apply1_nopointer_var :: FunPtr (FunPtr Int2int -> CInt -> IO CInt)
-apply1_nopointer_var = unsafePerformIO (peek apply1_nopointer_var_ptr)
+apply1_nopointer_var = unsafePerformIO (peek (unConstPtr apply1_nopointer_var_ptr))
 {-| __unique:__ @test_manualfunction_pointers_Example_get_apply1_struct_ptr@
 -}
-foreign import ccall safe "hs_bindgen_448bdc6115d5924e" hs_bindgen_448bdc6115d5924e :: IO (Ptr Apply1Struct)
+foreign import ccall safe "hs_bindgen_448bdc6115d5924e" hs_bindgen_448bdc6115d5924e :: IO (ConstPtr Apply1Struct)
 {-# NOINLINE apply1_struct_ptr #-}
 {-| __C declaration:__ @apply1_struct@
 
@@ -709,7 +709,7 @@ foreign import ccall safe "hs_bindgen_448bdc6115d5924e" hs_bindgen_448bdc6115d59
 
     __exported by:__ @manual\/function_pointers.h@
 -}
-apply1_struct_ptr :: Ptr Apply1Struct
+apply1_struct_ptr :: ConstPtr Apply1Struct
 {-| __C declaration:__ @apply1_struct@
 
     __defined at:__ @manual\/function_pointers.h:40:34@
@@ -719,10 +719,10 @@ apply1_struct_ptr :: Ptr Apply1Struct
 apply1_struct_ptr = unsafePerformIO hs_bindgen_448bdc6115d5924e
 {-# NOINLINE apply1_struct #-}
 apply1_struct :: Apply1Struct
-apply1_struct = unsafePerformIO (peek apply1_struct_ptr)
+apply1_struct = unsafePerformIO (peek (unConstPtr apply1_struct_ptr))
 {-| __unique:__ @test_manualfunction_pointers_Example_get_apply1_union_ptr@
 -}
-foreign import ccall safe "hs_bindgen_3f47656e6bb54e94" hs_bindgen_3f47656e6bb54e94 :: IO (Ptr Apply1Union)
+foreign import ccall safe "hs_bindgen_3f47656e6bb54e94" hs_bindgen_3f47656e6bb54e94 :: IO (ConstPtr Apply1Union)
 {-# NOINLINE apply1_union_ptr #-}
 {-| __C declaration:__ @apply1_union@
 
@@ -730,7 +730,7 @@ foreign import ccall safe "hs_bindgen_3f47656e6bb54e94" hs_bindgen_3f47656e6bb54
 
     __exported by:__ @manual\/function_pointers.h@
 -}
-apply1_union_ptr :: Ptr Apply1Union
+apply1_union_ptr :: ConstPtr Apply1Union
 {-| __C declaration:__ @apply1_union@
 
     __defined at:__ @manual\/function_pointers.h:46:32@
@@ -740,4 +740,4 @@ apply1_union_ptr :: Ptr Apply1Union
 apply1_union_ptr = unsafePerformIO hs_bindgen_3f47656e6bb54e94
 {-# NOINLINE apply1_union #-}
 apply1_union :: Apply1Union
-apply1_union = unsafePerformIO (peek apply1_union_ptr)
+apply1_union = unsafePerformIO (peek (unConstPtr apply1_union_ptr))

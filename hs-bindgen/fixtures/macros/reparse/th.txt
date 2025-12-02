@@ -3204,7 +3204,7 @@ instance HasCField Const_typedef2 "un_Const_typedef2"
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_typedef3
-    = Const_typedef3 {un_Const_typedef3 :: (Ptr A)}
+    = Const_typedef3 {un_Const_typedef3 :: (ConstPtr A)}
       {- ^ __C declaration:__ @const_typedef3@
 
            __defined at:__ @macros\/reparse.h:222:25@
@@ -3217,7 +3217,8 @@ instance TyEq ty (CFieldType Const_typedef3 "un_Const_typedef3") =>
          HasField "un_Const_typedef3" (Ptr Const_typedef3) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_typedef3")
 instance HasCField Const_typedef3 "un_Const_typedef3"
-    where type CFieldType Const_typedef3 "un_Const_typedef3" = Ptr A
+    where type CFieldType Const_typedef3
+                          "un_Const_typedef3" = ConstPtr A
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_typedef4@
 
@@ -3226,7 +3227,7 @@ instance HasCField Const_typedef3 "un_Const_typedef3"
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_typedef4
-    = Const_typedef4 {un_Const_typedef4 :: (Ptr A)}
+    = Const_typedef4 {un_Const_typedef4 :: (ConstPtr A)}
       {- ^ __C declaration:__ @const_typedef4@
 
            __defined at:__ @macros\/reparse.h:223:25@
@@ -3239,7 +3240,8 @@ instance TyEq ty (CFieldType Const_typedef4 "un_Const_typedef4") =>
          HasField "un_Const_typedef4" (Ptr Const_typedef4) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_typedef4")
 instance HasCField Const_typedef4 "un_Const_typedef4"
-    where type CFieldType Const_typedef4 "un_Const_typedef4" = Ptr A
+    where type CFieldType Const_typedef4
+                          "un_Const_typedef4" = ConstPtr A
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_typedef5@
 
@@ -3270,7 +3272,7 @@ instance HasCField Const_typedef5 "un_Const_typedef5"
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_typedef6
-    = Const_typedef6 {un_Const_typedef6 :: (Ptr A)}
+    = Const_typedef6 {un_Const_typedef6 :: (ConstPtr A)}
       {- ^ __C declaration:__ @const_typedef6@
 
            __defined at:__ @macros\/reparse.h:225:25@
@@ -3283,7 +3285,8 @@ instance TyEq ty (CFieldType Const_typedef6 "un_Const_typedef6") =>
          HasField "un_Const_typedef6" (Ptr Const_typedef6) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_typedef6")
 instance HasCField Const_typedef6 "un_Const_typedef6"
-    where type CFieldType Const_typedef6 "un_Const_typedef6" = Ptr A
+    where type CFieldType Const_typedef6
+                          "un_Const_typedef6" = ConstPtr A
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_typedef7@
 
@@ -3292,7 +3295,7 @@ instance HasCField Const_typedef6 "un_Const_typedef6"
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_typedef7
-    = Const_typedef7 {un_Const_typedef7 :: (Ptr A)}
+    = Const_typedef7 {un_Const_typedef7 :: (ConstPtr A)}
       {- ^ __C declaration:__ @const_typedef7@
 
            __defined at:__ @macros\/reparse.h:226:25@
@@ -3305,7 +3308,8 @@ instance TyEq ty (CFieldType Const_typedef7 "un_Const_typedef7") =>
          HasField "un_Const_typedef7" (Ptr Const_typedef7) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_typedef7")
 instance HasCField Const_typedef7 "un_Const_typedef7"
-    where type CFieldType Const_typedef7 "un_Const_typedef7" = Ptr A
+    where type CFieldType Const_typedef7
+                          "un_Const_typedef7" = ConstPtr A
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @example_struct_with_const@
 
@@ -3328,14 +3332,14 @@ data Example_struct_with_const
 
                                       __exported by:__ @macros\/reparse.h@
                                  -},
-                                 example_struct_with_const_const_field3 :: (Ptr A)
+                                 example_struct_with_const_const_field3 :: (ConstPtr A)
                                  {- ^ __C declaration:__ @const_field3@
 
                                       __defined at:__ @macros\/reparse.h:231:19@
 
                                       __exported by:__ @macros\/reparse.h@
                                  -},
-                                 example_struct_with_const_const_field4 :: (Ptr A)
+                                 example_struct_with_const_const_field4 :: (ConstPtr A)
                                  {- ^ __C declaration:__ @const_field4@
 
                                       __defined at:__ @macros\/reparse.h:232:19@
@@ -3349,14 +3353,14 @@ data Example_struct_with_const
 
                                       __exported by:__ @macros\/reparse.h@
                                  -},
-                                 example_struct_with_const_const_field6 :: (Ptr A)
+                                 example_struct_with_const_const_field6 :: (ConstPtr A)
                                  {- ^ __C declaration:__ @const_field6@
 
                                       __defined at:__ @macros\/reparse.h:234:19@
 
                                       __exported by:__ @macros\/reparse.h@
                                  -},
-                                 example_struct_with_const_const_field7 :: (Ptr A)
+                                 example_struct_with_const_const_field7 :: (ConstPtr A)
                                  {- ^ __C declaration:__ @const_field7@
 
                                       __defined at:__ @macros\/reparse.h:235:19@
@@ -3409,7 +3413,7 @@ instance TyEq ty
 instance HasCField Example_struct_with_const
                    "example_struct_with_const_const_field3"
     where type CFieldType Example_struct_with_const
-                          "example_struct_with_const_const_field3" = Ptr A
+                          "example_struct_with_const_const_field3" = ConstPtr A
           offset# = \_ -> \_ -> 8
 instance TyEq ty
               (CFieldType Example_struct_with_const
@@ -3421,7 +3425,7 @@ instance TyEq ty
 instance HasCField Example_struct_with_const
                    "example_struct_with_const_const_field4"
     where type CFieldType Example_struct_with_const
-                          "example_struct_with_const_const_field4" = Ptr A
+                          "example_struct_with_const_const_field4" = ConstPtr A
           offset# = \_ -> \_ -> 16
 instance TyEq ty
               (CFieldType Example_struct_with_const
@@ -3445,7 +3449,7 @@ instance TyEq ty
 instance HasCField Example_struct_with_const
                    "example_struct_with_const_const_field6"
     where type CFieldType Example_struct_with_const
-                          "example_struct_with_const_const_field6" = Ptr A
+                          "example_struct_with_const_const_field6" = ConstPtr A
           offset# = \_ -> \_ -> 32
 instance TyEq ty
               (CFieldType Example_struct_with_const
@@ -3457,7 +3461,7 @@ instance TyEq ty
 instance HasCField Example_struct_with_const
                    "example_struct_with_const_const_field7"
     where type CFieldType Example_struct_with_const
-                          "example_struct_with_const_const_field7" = Ptr A
+                          "example_struct_with_const_const_field7" = ConstPtr A
           offset# = \_ -> \_ -> 40
 instance TyEq ty
               (CFieldType Example_struct_with_const
@@ -3586,7 +3590,7 @@ __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr3_Deref
     = Const_funptr3_Deref {un_Const_funptr3_Deref :: (CInt ->
-                                                      CDouble -> IO (Ptr A))}
+                                                      CDouble -> IO (ConstPtr A))}
       {- ^ Auxiliary type used by 'Const_funptr3'
 
       __defined at:__ @macros\/reparse.h:240:27@
@@ -3609,7 +3613,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"un_Const_funptr3_Deref")
 instance HasCField Const_funptr3_Deref "un_Const_funptr3_Deref"
     where type CFieldType Const_funptr3_Deref
-                          "un_Const_funptr3_Deref" = CInt -> CDouble -> IO (Ptr A)
+                          "un_Const_funptr3_Deref" = CInt -> CDouble -> IO (ConstPtr A)
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr3@
 
@@ -3642,7 +3646,7 @@ __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr4_Deref
     = Const_funptr4_Deref {un_Const_funptr4_Deref :: (CInt ->
-                                                      CDouble -> IO (Ptr A))}
+                                                      CDouble -> IO (ConstPtr A))}
       {- ^ Auxiliary type used by 'Const_funptr4'
 
       __defined at:__ @macros\/reparse.h:241:27@
@@ -3665,7 +3669,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"un_Const_funptr4_Deref")
 instance HasCField Const_funptr4_Deref "un_Const_funptr4_Deref"
     where type CFieldType Const_funptr4_Deref
-                          "un_Const_funptr4_Deref" = CInt -> CDouble -> IO (Ptr A)
+                          "un_Const_funptr4_Deref" = CInt -> CDouble -> IO (ConstPtr A)
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr4@
 
@@ -3754,7 +3758,7 @@ __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr6_Deref
     = Const_funptr6_Deref {un_Const_funptr6_Deref :: (CInt ->
-                                                      CDouble -> IO (Ptr A))}
+                                                      CDouble -> IO (ConstPtr A))}
       {- ^ Auxiliary type used by 'Const_funptr6'
 
       __defined at:__ @macros\/reparse.h:243:27@
@@ -3777,7 +3781,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"un_Const_funptr6_Deref")
 instance HasCField Const_funptr6_Deref "un_Const_funptr6_Deref"
     where type CFieldType Const_funptr6_Deref
-                          "un_Const_funptr6_Deref" = CInt -> CDouble -> IO (Ptr A)
+                          "un_Const_funptr6_Deref" = CInt -> CDouble -> IO (ConstPtr A)
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr6@
 
@@ -3810,7 +3814,7 @@ __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr7_Deref
     = Const_funptr7_Deref {un_Const_funptr7_Deref :: (CInt ->
-                                                      CDouble -> IO (Ptr A))}
+                                                      CDouble -> IO (ConstPtr A))}
       {- ^ Auxiliary type used by 'Const_funptr7'
 
       __defined at:__ @macros\/reparse.h:244:27@
@@ -3833,7 +3837,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"un_Const_funptr7_Deref")
 instance HasCField Const_funptr7_Deref "un_Const_funptr7_Deref"
     where type CFieldType Const_funptr7_Deref
-                          "un_Const_funptr7_Deref" = CInt -> CDouble -> IO (Ptr A)
+                          "un_Const_funptr7_Deref" = CInt -> CDouble -> IO (ConstPtr A)
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr7@
 
@@ -3929,7 +3933,7 @@ newtype INTP
     __exported by:__ @macros\/reparse.h@
 -}
 newtype INTCP
-    = INTCP {un_INTCP :: (Ptr CInt)}
+    = INTCP {un_INTCP :: (ConstPtr CInt)}
       {- ^ __C declaration:__ @INTCP@
 
            __defined at:__ @macros\/reparse.h:283:9@
@@ -4774,7 +4778,7 @@ foreign import ccall safe "hs_bindgen_6517cc8d39aead93" const_withoutSign_before
 __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before4@
 -}
 foreign import ccall safe "hs_bindgen_68c7661e95060488" const_withoutSign_before4_wrapper :: A ->
-                                                                                             Ptr Some_struct ->
+                                                                                             ConstPtr Some_struct ->
                                                                                              IO Unit
 {-| __C declaration:__ @const_withoutSign_before4@
 
@@ -4789,13 +4793,13 @@ const_withoutSign_before4 :: A -> Some_struct -> IO Unit
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before4 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_before4_wrapper x_0 y_2)
+const_withoutSign_before4 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_before4_wrapper x_0 (ConstPtr y_2))
 {-| Pointer-based API for 'const_withoutSign_before5'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before5@
 -}
 foreign import ccall safe "hs_bindgen_42b3b0bf73a7a51a" const_withoutSign_before5_wrapper :: A ->
-                                                                                             Ptr Some_union ->
+                                                                                             ConstPtr Some_union ->
                                                                                              IO Unit
 {-| __C declaration:__ @const_withoutSign_before5@
 
@@ -4810,7 +4814,7 @@ const_withoutSign_before5 :: A -> Some_union -> IO Unit
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before5 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_before5_wrapper x_0 y_2)
+const_withoutSign_before5 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_before5_wrapper x_0 (ConstPtr y_2))
 {-| __C declaration:__ @const_withoutSign_before6@
 
     __defined at:__ @macros\/reparse.h:193:6@
@@ -4881,7 +4885,7 @@ foreign import ccall safe "hs_bindgen_9aa934d44ec3790c" const_withoutSign_after3
 __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after4@
 -}
 foreign import ccall safe "hs_bindgen_043d2869e29bedcf" const_withoutSign_after4_wrapper :: A ->
-                                                                                            Ptr Some_struct ->
+                                                                                            ConstPtr Some_struct ->
                                                                                             IO Unit
 {-| __C declaration:__ @const_withoutSign_after4@
 
@@ -4896,13 +4900,13 @@ const_withoutSign_after4 :: A -> Some_struct -> IO Unit
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after4 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_after4_wrapper x_0 y_2)
+const_withoutSign_after4 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_after4_wrapper x_0 (ConstPtr y_2))
 {-| Pointer-based API for 'const_withoutSign_after5'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after5@
 -}
 foreign import ccall safe "hs_bindgen_b5f9bca1de9d69de" const_withoutSign_after5_wrapper :: A ->
-                                                                                            Ptr Some_union ->
+                                                                                            ConstPtr Some_union ->
                                                                                             IO Unit
 {-| __C declaration:__ @const_withoutSign_after5@
 
@@ -4917,7 +4921,7 @@ const_withoutSign_after5 :: A -> Some_union -> IO Unit
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after5 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_after5_wrapper x_0 y_2)
+const_withoutSign_after5 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_after5_wrapper x_0 (ConstPtr y_2))
 {-| __C declaration:__ @const_withoutSign_after6@
 
     __defined at:__ @macros\/reparse.h:202:6@
@@ -4959,7 +4963,8 @@ foreign import ccall safe "hs_bindgen_ae74c8dcdc2ec9eb" const_withoutSign_after8
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_args1@
 -}
 foreign import ccall safe "hs_bindgen_07606c41eadf9146" const_pointers_args1 :: A ->
-                                                                                Ptr CInt -> IO Unit
+                                                                                ConstPtr CInt ->
+                                                                                IO Unit
 {-| __C declaration:__ @const_pointers_args2@
 
     __defined at:__ @macros\/reparse.h:209:6@
@@ -4969,7 +4974,8 @@ foreign import ccall safe "hs_bindgen_07606c41eadf9146" const_pointers_args1 :: 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_args2@
 -}
 foreign import ccall safe "hs_bindgen_3836769f3a3416ac" const_pointers_args2 :: A ->
-                                                                                Ptr CInt -> IO Unit
+                                                                                ConstPtr CInt ->
+                                                                                IO Unit
 {-| __C declaration:__ @const_pointers_args3@
 
     __defined at:__ @macros\/reparse.h:210:6@
@@ -4989,7 +4995,8 @@ foreign import ccall safe "hs_bindgen_12f19ea593aefd3f" const_pointers_args3 :: 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_args4@
 -}
 foreign import ccall safe "hs_bindgen_5a50e98897696d57" const_pointers_args4 :: A ->
-                                                                                Ptr CInt -> IO Unit
+                                                                                ConstPtr CInt ->
+                                                                                IO Unit
 {-| __C declaration:__ @const_pointers_args5@
 
     __defined at:__ @macros\/reparse.h:212:6@
@@ -4999,7 +5006,8 @@ foreign import ccall safe "hs_bindgen_5a50e98897696d57" const_pointers_args4 :: 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_args5@
 -}
 foreign import ccall safe "hs_bindgen_666701f7cb61bd15" const_pointers_args5 :: A ->
-                                                                                Ptr CInt -> IO Unit
+                                                                                ConstPtr CInt ->
+                                                                                IO Unit
 {-| __C declaration:__ @const_pointers_ret1@
 
     __defined at:__ @macros\/reparse.h:214:19@
@@ -5009,7 +5017,7 @@ foreign import ccall safe "hs_bindgen_666701f7cb61bd15" const_pointers_args5 :: 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_ret1@
 -}
 foreign import ccall safe "hs_bindgen_b94fbc3dfd285563" const_pointers_ret1 :: A ->
-                                                                               IO (Ptr CInt)
+                                                                               IO (ConstPtr CInt)
 {-| __C declaration:__ @const_pointers_ret2@
 
     __defined at:__ @macros\/reparse.h:215:19@
@@ -5019,7 +5027,7 @@ foreign import ccall safe "hs_bindgen_b94fbc3dfd285563" const_pointers_ret1 :: A
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_ret2@
 -}
 foreign import ccall safe "hs_bindgen_33e2960e26b79450" const_pointers_ret2 :: A ->
-                                                                               IO (Ptr CInt)
+                                                                               IO (ConstPtr CInt)
 {-| __C declaration:__ @const_pointers_ret3@
 
     __defined at:__ @macros\/reparse.h:216:19@
@@ -5039,7 +5047,7 @@ foreign import ccall safe "hs_bindgen_50c6e2fe4f3fb777" const_pointers_ret3 :: A
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_ret4@
 -}
 foreign import ccall safe "hs_bindgen_edc014695d896c8d" const_pointers_ret4 :: A ->
-                                                                               IO (Ptr CInt)
+                                                                               IO (ConstPtr CInt)
 {-| __C declaration:__ @const_pointers_ret5@
 
     __defined at:__ @macros\/reparse.h:218:19@
@@ -5049,12 +5057,12 @@ foreign import ccall safe "hs_bindgen_edc014695d896c8d" const_pointers_ret4 :: A
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_ret5@
 -}
 foreign import ccall safe "hs_bindgen_6d3308cc5847f033" const_pointers_ret5 :: A ->
-                                                                               IO (Ptr CInt)
+                                                                               IO (ConstPtr CInt)
 {-| Pointer-based API for 'const_array_elem1'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem1@
 -}
-foreign import ccall safe "hs_bindgen_678576320923a4d1" const_array_elem1_wrapper :: Ptr A ->
+foreign import ccall safe "hs_bindgen_678576320923a4d1" const_array_elem1_wrapper :: ConstPtr A ->
                                                                                      IO Unit
 {-| __C declaration:__ @const_array_elem1@
 
@@ -5069,7 +5077,7 @@ const_array_elem1 :: IncompleteArray A -> IO Unit
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem1 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem1_wrapper ptr_1)
+const_array_elem1 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem1_wrapper (ConstPtr ptr_1))
 {-| __C declaration:__ @const_array_elem2@
 
     __defined at:__ @macros\/reparse.h:247:6@
@@ -5078,13 +5086,13 @@ const_array_elem1 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem1_wrapper ptr
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem2@
 -}
-foreign import ccall safe "hs_bindgen_b317941dde4eeff2" const_array_elem2 :: Ptr (Ptr A) ->
+foreign import ccall safe "hs_bindgen_b317941dde4eeff2" const_array_elem2 :: Ptr (ConstPtr A) ->
                                                                              IO Unit
 {-| Pointer-based API for 'const_array_elem3'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem3@
 -}
-foreign import ccall safe "hs_bindgen_707e602e6beb1bb6" const_array_elem3_wrapper :: Ptr (Ptr A) ->
+foreign import ccall safe "hs_bindgen_707e602e6beb1bb6" const_array_elem3_wrapper :: ConstPtr (Ptr A) ->
                                                                                      IO Unit
 {-| __C declaration:__ @const_array_elem3@
 
@@ -5099,7 +5107,7 @@ const_array_elem3 :: IncompleteArray (Ptr A) -> IO Unit
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem3 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem3_wrapper ptr_1)
+const_array_elem3 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem3_wrapper (ConstPtr ptr_1))
 {-| Other examples we reparsed /incorrectly/ before language-c
 
 __C declaration:__ @noParams1@
@@ -5195,7 +5203,7 @@ foreign import ccall safe "hs_bindgen_13e6ae43abf40aee" funptr_ret5 :: A ->
 foreign import ccall safe "hs_bindgen_a4a3a86f28ca6299" funptr_ret6 :: A ->
                                                                        IO (FunPtr (CInt ->
                                                                                    CDouble ->
-                                                                                   IO (Ptr CInt)))
+                                                                                   IO (ConstPtr CInt)))
 {-| __C declaration:__ @funptr_ret7@
 
     __defined at:__ @macros\/reparse.h:271:20@
@@ -5207,7 +5215,7 @@ foreign import ccall safe "hs_bindgen_a4a3a86f28ca6299" funptr_ret6 :: A ->
 foreign import ccall safe "hs_bindgen_eae9dff04c88d00b" funptr_ret7 :: A ->
                                                                        IO (FunPtr (CInt ->
                                                                                    CDouble ->
-                                                                                   IO (Ptr CInt)))
+                                                                                   IO (ConstPtr CInt)))
 {-| __C declaration:__ @funptr_ret8@
 
     __defined at:__ @macros\/reparse.h:272:20@
@@ -5231,7 +5239,7 @@ foreign import ccall safe "hs_bindgen_894457d90a2fc8db" funptr_ret8 :: A ->
 foreign import ccall safe "hs_bindgen_c893eb15ad9bc68c" funptr_ret9 :: A ->
                                                                        IO (FunPtr (CInt ->
                                                                                    CDouble ->
-                                                                                   IO (Ptr CInt)))
+                                                                                   IO (ConstPtr CInt)))
 {-| __C declaration:__ @funptr_ret10@
 
     __defined at:__ @macros\/reparse.h:274:20@
@@ -5243,7 +5251,7 @@ foreign import ccall safe "hs_bindgen_c893eb15ad9bc68c" funptr_ret9 :: A ->
 foreign import ccall safe "hs_bindgen_d96c258298a44b28" funptr_ret10 :: A ->
                                                                         IO (FunPtr (CInt ->
                                                                                     CDouble ->
-                                                                                    IO (Ptr CInt)))
+                                                                                    IO (ConstPtr CInt)))
 {-| Function declarations
 
 __C declaration:__ @args_char1@
@@ -6080,7 +6088,7 @@ foreign import ccall safe "hs_bindgen_b813910f6a632ce2" const_withoutSign_before
 __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before4@
 -}
 foreign import ccall safe "hs_bindgen_dc22b02b2f53aa5b" const_withoutSign_before4_wrapper :: A ->
-                                                                                             Ptr Some_struct ->
+                                                                                             ConstPtr Some_struct ->
                                                                                              IO Unit
 {-| __C declaration:__ @const_withoutSign_before4@
 
@@ -6095,13 +6103,13 @@ const_withoutSign_before4 :: A -> Some_struct -> IO Unit
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before4 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_before4_wrapper x_0 y_2)
+const_withoutSign_before4 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_before4_wrapper x_0 (ConstPtr y_2))
 {-| Pointer-based API for 'const_withoutSign_before5'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before5@
 -}
 foreign import ccall safe "hs_bindgen_503736261279760d" const_withoutSign_before5_wrapper :: A ->
-                                                                                             Ptr Some_union ->
+                                                                                             ConstPtr Some_union ->
                                                                                              IO Unit
 {-| __C declaration:__ @const_withoutSign_before5@
 
@@ -6116,7 +6124,7 @@ const_withoutSign_before5 :: A -> Some_union -> IO Unit
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_before5 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_before5_wrapper x_0 y_2)
+const_withoutSign_before5 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_before5_wrapper x_0 (ConstPtr y_2))
 {-| __C declaration:__ @const_withoutSign_before6@
 
     __defined at:__ @macros\/reparse.h:193:6@
@@ -6187,7 +6195,7 @@ foreign import ccall safe "hs_bindgen_4134ad71149d6139" const_withoutSign_after3
 __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after4@
 -}
 foreign import ccall safe "hs_bindgen_3de6157427334101" const_withoutSign_after4_wrapper :: A ->
-                                                                                            Ptr Some_struct ->
+                                                                                            ConstPtr Some_struct ->
                                                                                             IO Unit
 {-| __C declaration:__ @const_withoutSign_after4@
 
@@ -6202,13 +6210,13 @@ const_withoutSign_after4 :: A -> Some_struct -> IO Unit
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after4 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_after4_wrapper x_0 y_2)
+const_withoutSign_after4 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_after4_wrapper x_0 (ConstPtr y_2))
 {-| Pointer-based API for 'const_withoutSign_after5'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after5@
 -}
 foreign import ccall safe "hs_bindgen_fc4ef8c9107c1ae6" const_withoutSign_after5_wrapper :: A ->
-                                                                                            Ptr Some_union ->
+                                                                                            ConstPtr Some_union ->
                                                                                             IO Unit
 {-| __C declaration:__ @const_withoutSign_after5@
 
@@ -6223,7 +6231,7 @@ const_withoutSign_after5 :: A -> Some_union -> IO Unit
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_withoutSign_after5 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_after5_wrapper x_0 y_2)
+const_withoutSign_after5 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_after5_wrapper x_0 (ConstPtr y_2))
 {-| __C declaration:__ @const_withoutSign_after6@
 
     __defined at:__ @macros\/reparse.h:202:6@
@@ -6265,7 +6273,8 @@ foreign import ccall safe "hs_bindgen_3a020035eb2fe7f8" const_withoutSign_after8
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_args1@
 -}
 foreign import ccall safe "hs_bindgen_17623ba5065bf95d" const_pointers_args1 :: A ->
-                                                                                Ptr CInt -> IO Unit
+                                                                                ConstPtr CInt ->
+                                                                                IO Unit
 {-| __C declaration:__ @const_pointers_args2@
 
     __defined at:__ @macros\/reparse.h:209:6@
@@ -6275,7 +6284,8 @@ foreign import ccall safe "hs_bindgen_17623ba5065bf95d" const_pointers_args1 :: 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_args2@
 -}
 foreign import ccall safe "hs_bindgen_02d08ccd5df88a98" const_pointers_args2 :: A ->
-                                                                                Ptr CInt -> IO Unit
+                                                                                ConstPtr CInt ->
+                                                                                IO Unit
 {-| __C declaration:__ @const_pointers_args3@
 
     __defined at:__ @macros\/reparse.h:210:6@
@@ -6295,7 +6305,8 @@ foreign import ccall safe "hs_bindgen_50c423f2237cb6b5" const_pointers_args3 :: 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_args4@
 -}
 foreign import ccall safe "hs_bindgen_99c29c45d78348e9" const_pointers_args4 :: A ->
-                                                                                Ptr CInt -> IO Unit
+                                                                                ConstPtr CInt ->
+                                                                                IO Unit
 {-| __C declaration:__ @const_pointers_args5@
 
     __defined at:__ @macros\/reparse.h:212:6@
@@ -6305,7 +6316,8 @@ foreign import ccall safe "hs_bindgen_99c29c45d78348e9" const_pointers_args4 :: 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_args5@
 -}
 foreign import ccall safe "hs_bindgen_6a92dbfae24b1bcd" const_pointers_args5 :: A ->
-                                                                                Ptr CInt -> IO Unit
+                                                                                ConstPtr CInt ->
+                                                                                IO Unit
 {-| __C declaration:__ @const_pointers_ret1@
 
     __defined at:__ @macros\/reparse.h:214:19@
@@ -6315,7 +6327,7 @@ foreign import ccall safe "hs_bindgen_6a92dbfae24b1bcd" const_pointers_args5 :: 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_ret1@
 -}
 foreign import ccall safe "hs_bindgen_0c07f1e0256fd705" const_pointers_ret1 :: A ->
-                                                                               IO (Ptr CInt)
+                                                                               IO (ConstPtr CInt)
 {-| __C declaration:__ @const_pointers_ret2@
 
     __defined at:__ @macros\/reparse.h:215:19@
@@ -6325,7 +6337,7 @@ foreign import ccall safe "hs_bindgen_0c07f1e0256fd705" const_pointers_ret1 :: A
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_ret2@
 -}
 foreign import ccall safe "hs_bindgen_d12c8210ff3c3711" const_pointers_ret2 :: A ->
-                                                                               IO (Ptr CInt)
+                                                                               IO (ConstPtr CInt)
 {-| __C declaration:__ @const_pointers_ret3@
 
     __defined at:__ @macros\/reparse.h:216:19@
@@ -6345,7 +6357,7 @@ foreign import ccall safe "hs_bindgen_a58bc0be6f564801" const_pointers_ret3 :: A
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_ret4@
 -}
 foreign import ccall safe "hs_bindgen_622bb8150470138b" const_pointers_ret4 :: A ->
-                                                                               IO (Ptr CInt)
+                                                                               IO (ConstPtr CInt)
 {-| __C declaration:__ @const_pointers_ret5@
 
     __defined at:__ @macros\/reparse.h:218:19@
@@ -6355,12 +6367,12 @@ foreign import ccall safe "hs_bindgen_622bb8150470138b" const_pointers_ret4 :: A
     __unique:__ @test_macrosreparse_Example_Unsafe_const_pointers_ret5@
 -}
 foreign import ccall safe "hs_bindgen_d49bd331ad2077e5" const_pointers_ret5 :: A ->
-                                                                               IO (Ptr CInt)
+                                                                               IO (ConstPtr CInt)
 {-| Pointer-based API for 'const_array_elem1'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem1@
 -}
-foreign import ccall safe "hs_bindgen_224608f780bff5bd" const_array_elem1_wrapper :: Ptr A ->
+foreign import ccall safe "hs_bindgen_224608f780bff5bd" const_array_elem1_wrapper :: ConstPtr A ->
                                                                                      IO Unit
 {-| __C declaration:__ @const_array_elem1@
 
@@ -6375,7 +6387,7 @@ const_array_elem1 :: IncompleteArray A -> IO Unit
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem1 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem1_wrapper ptr_1)
+const_array_elem1 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem1_wrapper (ConstPtr ptr_1))
 {-| __C declaration:__ @const_array_elem2@
 
     __defined at:__ @macros\/reparse.h:247:6@
@@ -6384,13 +6396,13 @@ const_array_elem1 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem1_wrapper ptr
 
     __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem2@
 -}
-foreign import ccall safe "hs_bindgen_9aa74ad89f2c1fba" const_array_elem2 :: Ptr (Ptr A) ->
+foreign import ccall safe "hs_bindgen_9aa74ad89f2c1fba" const_array_elem2 :: Ptr (ConstPtr A) ->
                                                                              IO Unit
 {-| Pointer-based API for 'const_array_elem3'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem3@
 -}
-foreign import ccall safe "hs_bindgen_6a328300c5ef0c9e" const_array_elem3_wrapper :: Ptr (Ptr A) ->
+foreign import ccall safe "hs_bindgen_6a328300c5ef0c9e" const_array_elem3_wrapper :: ConstPtr (Ptr A) ->
                                                                                      IO Unit
 {-| __C declaration:__ @const_array_elem3@
 
@@ -6405,7 +6417,7 @@ const_array_elem3 :: IncompleteArray (Ptr A) -> IO Unit
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem3 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem3_wrapper ptr_1)
+const_array_elem3 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem3_wrapper (ConstPtr ptr_1))
 {-| Other examples we reparsed /incorrectly/ before language-c
 
 __C declaration:__ @noParams1@
@@ -6501,7 +6513,7 @@ foreign import ccall safe "hs_bindgen_281c53214b1cdcb4" funptr_ret5 :: A ->
 foreign import ccall safe "hs_bindgen_16628c257aa64a76" funptr_ret6 :: A ->
                                                                        IO (FunPtr (CInt ->
                                                                                    CDouble ->
-                                                                                   IO (Ptr CInt)))
+                                                                                   IO (ConstPtr CInt)))
 {-| __C declaration:__ @funptr_ret7@
 
     __defined at:__ @macros\/reparse.h:271:20@
@@ -6513,7 +6525,7 @@ foreign import ccall safe "hs_bindgen_16628c257aa64a76" funptr_ret6 :: A ->
 foreign import ccall safe "hs_bindgen_79fb0c30f546a547" funptr_ret7 :: A ->
                                                                        IO (FunPtr (CInt ->
                                                                                    CDouble ->
-                                                                                   IO (Ptr CInt)))
+                                                                                   IO (ConstPtr CInt)))
 {-| __C declaration:__ @funptr_ret8@
 
     __defined at:__ @macros\/reparse.h:272:20@
@@ -6537,7 +6549,7 @@ foreign import ccall safe "hs_bindgen_4668d2ff9d5bfc40" funptr_ret8 :: A ->
 foreign import ccall safe "hs_bindgen_c044d7074789febc" funptr_ret9 :: A ->
                                                                        IO (FunPtr (CInt ->
                                                                                    CDouble ->
-                                                                                   IO (Ptr CInt)))
+                                                                                   IO (ConstPtr CInt)))
 {-| __C declaration:__ @funptr_ret10@
 
     __defined at:__ @macros\/reparse.h:274:20@
@@ -6549,7 +6561,7 @@ foreign import ccall safe "hs_bindgen_c044d7074789febc" funptr_ret9 :: A ->
 foreign import ccall safe "hs_bindgen_628ced6eccc7783a" funptr_ret10 :: A ->
                                                                         IO (FunPtr (CInt ->
                                                                                     CDouble ->
-                                                                                    IO (Ptr CInt)))
+                                                                                    IO (ConstPtr CInt)))
 {-| __unique:__ @test_macrosreparse_Example_get_args_char1_ptr@
 -}
 foreign import ccall safe "hs_bindgen_83aaba90c800683a" hs_bindgen_83aaba90c800683a :: IO (FunPtr (A ->
@@ -8263,7 +8275,7 @@ const_withoutSign_after8_ptr = unsafePerformIO hs_bindgen_05c7bd4fa507a58c
 {-| __unique:__ @test_macrosreparse_Example_get_const_pointers_args1_ptr@
 -}
 foreign import ccall safe "hs_bindgen_dfa6f2ec505f391a" hs_bindgen_dfa6f2ec505f391a :: IO (FunPtr (A ->
-                                                                                                   Ptr CInt ->
+                                                                                                   ConstPtr CInt ->
                                                                                                    IO Unit))
 {-# NOINLINE const_pointers_args1_ptr #-}
 {-| __C declaration:__ @const_pointers_args1@
@@ -8272,7 +8284,7 @@ foreign import ccall safe "hs_bindgen_dfa6f2ec505f391a" hs_bindgen_dfa6f2ec505f3
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_args1_ptr :: FunPtr (A -> Ptr CInt -> IO Unit)
+const_pointers_args1_ptr :: FunPtr (A -> ConstPtr CInt -> IO Unit)
 {-| __C declaration:__ @const_pointers_args1@
 
     __defined at:__ @macros\/reparse.h:208:6@
@@ -8283,7 +8295,7 @@ const_pointers_args1_ptr = unsafePerformIO hs_bindgen_dfa6f2ec505f391a
 {-| __unique:__ @test_macrosreparse_Example_get_const_pointers_args2_ptr@
 -}
 foreign import ccall safe "hs_bindgen_2f758756849ca2b5" hs_bindgen_2f758756849ca2b5 :: IO (FunPtr (A ->
-                                                                                                   Ptr CInt ->
+                                                                                                   ConstPtr CInt ->
                                                                                                    IO Unit))
 {-# NOINLINE const_pointers_args2_ptr #-}
 {-| __C declaration:__ @const_pointers_args2@
@@ -8292,7 +8304,7 @@ foreign import ccall safe "hs_bindgen_2f758756849ca2b5" hs_bindgen_2f758756849ca
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_args2_ptr :: FunPtr (A -> Ptr CInt -> IO Unit)
+const_pointers_args2_ptr :: FunPtr (A -> ConstPtr CInt -> IO Unit)
 {-| __C declaration:__ @const_pointers_args2@
 
     __defined at:__ @macros\/reparse.h:209:6@
@@ -8323,7 +8335,7 @@ const_pointers_args3_ptr = unsafePerformIO hs_bindgen_1f9d3190b4433852
 {-| __unique:__ @test_macrosreparse_Example_get_const_pointers_args4_ptr@
 -}
 foreign import ccall safe "hs_bindgen_1579ab85f0fa217b" hs_bindgen_1579ab85f0fa217b :: IO (FunPtr (A ->
-                                                                                                   Ptr CInt ->
+                                                                                                   ConstPtr CInt ->
                                                                                                    IO Unit))
 {-# NOINLINE const_pointers_args4_ptr #-}
 {-| __C declaration:__ @const_pointers_args4@
@@ -8332,7 +8344,7 @@ foreign import ccall safe "hs_bindgen_1579ab85f0fa217b" hs_bindgen_1579ab85f0fa2
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_args4_ptr :: FunPtr (A -> Ptr CInt -> IO Unit)
+const_pointers_args4_ptr :: FunPtr (A -> ConstPtr CInt -> IO Unit)
 {-| __C declaration:__ @const_pointers_args4@
 
     __defined at:__ @macros\/reparse.h:211:6@
@@ -8343,7 +8355,7 @@ const_pointers_args4_ptr = unsafePerformIO hs_bindgen_1579ab85f0fa217b
 {-| __unique:__ @test_macrosreparse_Example_get_const_pointers_args5_ptr@
 -}
 foreign import ccall safe "hs_bindgen_b4770dc5310bc558" hs_bindgen_b4770dc5310bc558 :: IO (FunPtr (A ->
-                                                                                                   Ptr CInt ->
+                                                                                                   ConstPtr CInt ->
                                                                                                    IO Unit))
 {-# NOINLINE const_pointers_args5_ptr #-}
 {-| __C declaration:__ @const_pointers_args5@
@@ -8352,7 +8364,7 @@ foreign import ccall safe "hs_bindgen_b4770dc5310bc558" hs_bindgen_b4770dc5310bc
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_args5_ptr :: FunPtr (A -> Ptr CInt -> IO Unit)
+const_pointers_args5_ptr :: FunPtr (A -> ConstPtr CInt -> IO Unit)
 {-| __C declaration:__ @const_pointers_args5@
 
     __defined at:__ @macros\/reparse.h:212:6@
@@ -8363,7 +8375,7 @@ const_pointers_args5_ptr = unsafePerformIO hs_bindgen_b4770dc5310bc558
 {-| __unique:__ @test_macrosreparse_Example_get_const_pointers_ret1_ptr@
 -}
 foreign import ccall safe "hs_bindgen_8422fbf55ee37cbb" hs_bindgen_8422fbf55ee37cbb :: IO (FunPtr (A ->
-                                                                                                   IO (Ptr CInt)))
+                                                                                                   IO (ConstPtr CInt)))
 {-# NOINLINE const_pointers_ret1_ptr #-}
 {-| __C declaration:__ @const_pointers_ret1@
 
@@ -8371,7 +8383,7 @@ foreign import ccall safe "hs_bindgen_8422fbf55ee37cbb" hs_bindgen_8422fbf55ee37
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_ret1_ptr :: FunPtr (A -> IO (Ptr CInt))
+const_pointers_ret1_ptr :: FunPtr (A -> IO (ConstPtr CInt))
 {-| __C declaration:__ @const_pointers_ret1@
 
     __defined at:__ @macros\/reparse.h:214:19@
@@ -8382,7 +8394,7 @@ const_pointers_ret1_ptr = unsafePerformIO hs_bindgen_8422fbf55ee37cbb
 {-| __unique:__ @test_macrosreparse_Example_get_const_pointers_ret2_ptr@
 -}
 foreign import ccall safe "hs_bindgen_7d62d267cb012ebf" hs_bindgen_7d62d267cb012ebf :: IO (FunPtr (A ->
-                                                                                                   IO (Ptr CInt)))
+                                                                                                   IO (ConstPtr CInt)))
 {-# NOINLINE const_pointers_ret2_ptr #-}
 {-| __C declaration:__ @const_pointers_ret2@
 
@@ -8390,7 +8402,7 @@ foreign import ccall safe "hs_bindgen_7d62d267cb012ebf" hs_bindgen_7d62d267cb012
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_ret2_ptr :: FunPtr (A -> IO (Ptr CInt))
+const_pointers_ret2_ptr :: FunPtr (A -> IO (ConstPtr CInt))
 {-| __C declaration:__ @const_pointers_ret2@
 
     __defined at:__ @macros\/reparse.h:215:19@
@@ -8420,7 +8432,7 @@ const_pointers_ret3_ptr = unsafePerformIO hs_bindgen_d56e13b56b7e1cf7
 {-| __unique:__ @test_macrosreparse_Example_get_const_pointers_ret4_ptr@
 -}
 foreign import ccall safe "hs_bindgen_bedc6b38f49c61ea" hs_bindgen_bedc6b38f49c61ea :: IO (FunPtr (A ->
-                                                                                                   IO (Ptr CInt)))
+                                                                                                   IO (ConstPtr CInt)))
 {-# NOINLINE const_pointers_ret4_ptr #-}
 {-| __C declaration:__ @const_pointers_ret4@
 
@@ -8428,7 +8440,7 @@ foreign import ccall safe "hs_bindgen_bedc6b38f49c61ea" hs_bindgen_bedc6b38f49c6
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_ret4_ptr :: FunPtr (A -> IO (Ptr CInt))
+const_pointers_ret4_ptr :: FunPtr (A -> IO (ConstPtr CInt))
 {-| __C declaration:__ @const_pointers_ret4@
 
     __defined at:__ @macros\/reparse.h:217:19@
@@ -8439,7 +8451,7 @@ const_pointers_ret4_ptr = unsafePerformIO hs_bindgen_bedc6b38f49c61ea
 {-| __unique:__ @test_macrosreparse_Example_get_const_pointers_ret5_ptr@
 -}
 foreign import ccall safe "hs_bindgen_8d027f9f58006eb9" hs_bindgen_8d027f9f58006eb9 :: IO (FunPtr (A ->
-                                                                                                   IO (Ptr CInt)))
+                                                                                                   IO (ConstPtr CInt)))
 {-# NOINLINE const_pointers_ret5_ptr #-}
 {-| __C declaration:__ @const_pointers_ret5@
 
@@ -8447,7 +8459,7 @@ foreign import ccall safe "hs_bindgen_8d027f9f58006eb9" hs_bindgen_8d027f9f58006
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_pointers_ret5_ptr :: FunPtr (A -> IO (Ptr CInt))
+const_pointers_ret5_ptr :: FunPtr (A -> IO (ConstPtr CInt))
 {-| __C declaration:__ @const_pointers_ret5@
 
     __defined at:__ @macros\/reparse.h:218:19@
@@ -8476,7 +8488,7 @@ const_array_elem1_ptr :: FunPtr (IncompleteArray A -> IO Unit)
 const_array_elem1_ptr = unsafePerformIO hs_bindgen_882567df89856ac9
 {-| __unique:__ @test_macrosreparse_Example_get_const_array_elem2_ptr@
 -}
-foreign import ccall safe "hs_bindgen_70e4ab7a50eb5360" hs_bindgen_70e4ab7a50eb5360 :: IO (FunPtr (IncompleteArray (Ptr A) ->
+foreign import ccall safe "hs_bindgen_70e4ab7a50eb5360" hs_bindgen_70e4ab7a50eb5360 :: IO (FunPtr (IncompleteArray (ConstPtr A) ->
                                                                                                    IO Unit))
 {-# NOINLINE const_array_elem2_ptr #-}
 {-| __C declaration:__ @const_array_elem2@
@@ -8485,7 +8497,7 @@ foreign import ccall safe "hs_bindgen_70e4ab7a50eb5360" hs_bindgen_70e4ab7a50eb5
 
     __exported by:__ @macros\/reparse.h@
 -}
-const_array_elem2_ptr :: FunPtr (IncompleteArray (Ptr A) ->
+const_array_elem2_ptr :: FunPtr (IncompleteArray (ConstPtr A) ->
                                  IO Unit)
 {-| __C declaration:__ @const_array_elem2@
 
@@ -8681,7 +8693,7 @@ funptr_ret5_ptr = unsafePerformIO hs_bindgen_3cb2c77a66e6f46f
 foreign import ccall safe "hs_bindgen_3a28c985fce638f9" hs_bindgen_3a28c985fce638f9 :: IO (FunPtr (A ->
                                                                                                    IO (FunPtr (CInt ->
                                                                                                                CDouble ->
-                                                                                                               IO (Ptr CInt)))))
+                                                                                                               IO (ConstPtr CInt)))))
 {-# NOINLINE funptr_ret6_ptr #-}
 {-| __C declaration:__ @funptr_ret6@
 
@@ -8690,7 +8702,7 @@ foreign import ccall safe "hs_bindgen_3a28c985fce638f9" hs_bindgen_3a28c985fce63
     __exported by:__ @macros\/reparse.h@
 -}
 funptr_ret6_ptr :: FunPtr (A ->
-                           IO (FunPtr (CInt -> CDouble -> IO (Ptr CInt))))
+                           IO (FunPtr (CInt -> CDouble -> IO (ConstPtr CInt))))
 {-| __C declaration:__ @funptr_ret6@
 
     __defined at:__ @macros\/reparse.h:270:20@
@@ -8703,7 +8715,7 @@ funptr_ret6_ptr = unsafePerformIO hs_bindgen_3a28c985fce638f9
 foreign import ccall safe "hs_bindgen_e155fd240d710be2" hs_bindgen_e155fd240d710be2 :: IO (FunPtr (A ->
                                                                                                    IO (FunPtr (CInt ->
                                                                                                                CDouble ->
-                                                                                                               IO (Ptr CInt)))))
+                                                                                                               IO (ConstPtr CInt)))))
 {-# NOINLINE funptr_ret7_ptr #-}
 {-| __C declaration:__ @funptr_ret7@
 
@@ -8712,7 +8724,7 @@ foreign import ccall safe "hs_bindgen_e155fd240d710be2" hs_bindgen_e155fd240d710
     __exported by:__ @macros\/reparse.h@
 -}
 funptr_ret7_ptr :: FunPtr (A ->
-                           IO (FunPtr (CInt -> CDouble -> IO (Ptr CInt))))
+                           IO (FunPtr (CInt -> CDouble -> IO (ConstPtr CInt))))
 {-| __C declaration:__ @funptr_ret7@
 
     __defined at:__ @macros\/reparse.h:271:20@
@@ -8747,7 +8759,7 @@ funptr_ret8_ptr = unsafePerformIO hs_bindgen_61261c2147d69f98
 foreign import ccall safe "hs_bindgen_e3c71dfaf82486c8" hs_bindgen_e3c71dfaf82486c8 :: IO (FunPtr (A ->
                                                                                                    IO (FunPtr (CInt ->
                                                                                                                CDouble ->
-                                                                                                               IO (Ptr CInt)))))
+                                                                                                               IO (ConstPtr CInt)))))
 {-# NOINLINE funptr_ret9_ptr #-}
 {-| __C declaration:__ @funptr_ret9@
 
@@ -8756,7 +8768,7 @@ foreign import ccall safe "hs_bindgen_e3c71dfaf82486c8" hs_bindgen_e3c71dfaf8248
     __exported by:__ @macros\/reparse.h@
 -}
 funptr_ret9_ptr :: FunPtr (A ->
-                           IO (FunPtr (CInt -> CDouble -> IO (Ptr CInt))))
+                           IO (FunPtr (CInt -> CDouble -> IO (ConstPtr CInt))))
 {-| __C declaration:__ @funptr_ret9@
 
     __defined at:__ @macros\/reparse.h:273:20@
@@ -8769,7 +8781,7 @@ funptr_ret9_ptr = unsafePerformIO hs_bindgen_e3c71dfaf82486c8
 foreign import ccall safe "hs_bindgen_6a47446b9176f0bf" hs_bindgen_6a47446b9176f0bf :: IO (FunPtr (A ->
                                                                                                    IO (FunPtr (CInt ->
                                                                                                                CDouble ->
-                                                                                                               IO (Ptr CInt)))))
+                                                                                                               IO (ConstPtr CInt)))))
 {-# NOINLINE funptr_ret10_ptr #-}
 {-| __C declaration:__ @funptr_ret10@
 
@@ -8778,7 +8790,7 @@ foreign import ccall safe "hs_bindgen_6a47446b9176f0bf" hs_bindgen_6a47446b9176f
     __exported by:__ @macros\/reparse.h@
 -}
 funptr_ret10_ptr :: FunPtr (A ->
-                            IO (FunPtr (CInt -> CDouble -> IO (Ptr CInt))))
+                            IO (FunPtr (CInt -> CDouble -> IO (ConstPtr CInt))))
 {-| __C declaration:__ @funptr_ret10@
 
     __defined at:__ @macros\/reparse.h:274:20@

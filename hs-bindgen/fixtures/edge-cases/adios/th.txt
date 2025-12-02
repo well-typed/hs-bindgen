@@ -242,7 +242,7 @@ cϒϒ_ptr :: Ptr CInt
 cϒϒ_ptr = unsafePerformIO hs_bindgen_a5a7bbe6b8c53539
 {-| __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ_ptr@
 -}
-foreign import ccall safe "hs_bindgen_31d6bde39787c8b8" hs_bindgen_31d6bde39787c8b8 :: IO (Ptr CInt)
+foreign import ccall safe "hs_bindgen_31d6bde39787c8b8" hs_bindgen_31d6bde39787c8b8 :: IO (ConstPtr CInt)
 {-# NOINLINE cϒϒϒ_ptr #-}
 {-| __C declaration:__ @ϒϒϒ@
 
@@ -250,7 +250,7 @@ foreign import ccall safe "hs_bindgen_31d6bde39787c8b8" hs_bindgen_31d6bde39787c
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-cϒϒϒ_ptr :: Ptr CInt
+cϒϒϒ_ptr :: ConstPtr CInt
 {-| __C declaration:__ @ϒϒϒ@
 
     __defined at:__ @edge-cases\/adios.h:24:18@
@@ -260,4 +260,4 @@ cϒϒϒ_ptr :: Ptr CInt
 cϒϒϒ_ptr = unsafePerformIO hs_bindgen_31d6bde39787c8b8
 {-# NOINLINE cϒϒϒ #-}
 cϒϒϒ :: CInt
-cϒϒϒ = unsafePerformIO (peek cϒϒϒ_ptr)
+cϒϒϒ = unsafePerformIO (peek (unConstPtr cϒϒϒ_ptr))

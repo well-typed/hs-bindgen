@@ -5,12 +5,6 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: globals/globals.h
-  cname: ConstInt
-  hsname: ConstInt
-- headers: globals/globals.h
-  cname: ConstIntArray
-  hsname: ConstIntArray
-- headers: globals/globals.h
   cname: struct config
   hsname: Config
 - headers: globals/globals.h
@@ -23,9 +17,6 @@ ctypes:
   cname: struct2_t
   hsname: Struct2_t
 - headers: globals/globals.h
-  cname: struct tuple
-  hsname: Tuple
-- headers: globals/globals.h
   cname: version_t
   hsname: Version_t
 hstypes:
@@ -34,25 +25,6 @@ hstypes:
   - Eq
   - Show
   - Storable
-- hsname: ConstInt
-  instances:
-  - Bits
-  - Bounded
-  - Enum
-  - Eq
-  - FiniteBits
-  - Integral
-  - Ix
-  - Num
-  - Ord
-  - Read
-  - Real
-  - Show
-  - Storable
-- hsname: ConstIntArray
-  instances:
-  - Eq
-  - Show
 - hsname: Inline_struct
   instances:
   - Eq
@@ -64,11 +36,6 @@ hstypes:
   - Show
   - Storable
 - hsname: Struct2_t
-  instances:
-  - Eq
-  - Show
-  - Storable
-- hsname: Tuple
   instances:
   - Eq
   - Show

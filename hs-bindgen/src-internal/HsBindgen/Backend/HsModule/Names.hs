@@ -42,6 +42,7 @@ import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
+import HsBindgen.Runtime.ConstPtr qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.IncompleteArray qualified
@@ -180,6 +181,10 @@ moduleOf ident m0 = case parts of
     ["GHC", "Num"]                   -> iPrelude
     ["GHC", "Maybe"]                 -> iPrelude
     ["GHC", "Ix"]                    -> HsImportModule "Data.Ix"   (Just "Ix")
+    -- Always imports @HsBindgen.Runtime.ConstPtr@, even if it re-exports from
+    -- @Foreign.C.ConstPtr@
+    ["GHC", "Foreign", "C", "ConstPtr"] -> HsImportModule "HsBindgen.Runtime.ConstPtr" Nothing
+    ["Foreign", "C", "ConstPtr"]        -> HsImportModule "HsBindgen.Runtime.ConstPtr" Nothing
     ("GHC" : "Foreign" : "C" : _)    -> HsImportModule "Foreign.C" (Just "FC")
     ("Foreign" : "C" : _)            -> HsImportModule "Foreign.C" (Just "FC")
     -- We'd prefer to use `Foreign.Ptr` because it is a stable and
@@ -324,6 +329,11 @@ resolveGlobal = \case
 
     -- Unsafe
     IO_unsafePerformIO -> importQ 'System.IO.Unsafe.unsafePerformIO
+
+    -- ConstPtr
+    ConstPtr_type        -> importQ ''HsBindgen.Runtime.ConstPtr.ConstPtr
+    ConstPtr_constructor -> importQ 'HsBindgen.Runtime.ConstPtr.ConstPtr
+    ConstPtr_unConstPtr  -> importQ 'HsBindgen.Runtime.ConstPtr.unConstPtr
 
     Bits_class        -> importQ ''Data.Bits.Bits
     Bounded_class     -> importU ''Bounded

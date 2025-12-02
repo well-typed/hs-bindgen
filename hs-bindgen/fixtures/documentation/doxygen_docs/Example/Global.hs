@@ -8,6 +8,7 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -55,7 +56,7 @@ global_counter_ptr =
 {-| __unique:__ @test_documentationdoxygen_docs_Example_get_version_string_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_dd671052fd43d189" hs_bindgen_dd671052fd43d189 ::
-     IO (Ptr.Ptr (Ptr.Ptr FC.CChar))
+     IO (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar))
 
 {-# NOINLINE version_string_ptr #-}
 
@@ -71,6 +72,6 @@ __defined at:__ @documentation\/doxygen_docs.h:67:20@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-version_string_ptr :: Ptr.Ptr (Ptr.Ptr FC.CChar)
+version_string_ptr :: Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
 version_string_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dd671052fd43d189

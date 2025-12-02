@@ -98,15 +98,3 @@ __attribute__ ((pure)) int hash (char * s) {
 __attribute__ ((const)) int square (int x) {
   return x * x;
 }
-
-/**
- * Globals
- */
-
-struct globalConfig globalConfig = {5, 8};
-
-void printGlobalConfig() {
-    printf("numThreads = %d, numWorkers = %d\n",
-      globalConfig.numThreads,
-      globalConfig.numWorkers);
-}

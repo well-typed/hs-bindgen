@@ -8,6 +8,7 @@ module Example.Unsafe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.Prelude
 import Example
@@ -16,7 +17,7 @@ import Prelude (IO)
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <manual/arrays.h>"
   , "void hs_bindgen_f9f2776d121db261 ("
-  , "  triplet *arg1,"
+  , "  triplet const *arg1,"
   , "  triplet *arg2"
   , ")"
   , "{"
@@ -35,7 +36,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 __unique:__ @test_manualarrays_Example_Unsafe_transpose@
 -}
 foreign import ccall unsafe "hs_bindgen_f9f2776d121db261" transpose_wrapper ::
-     Ptr.Ptr Triplet
+     HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
   -> Ptr.Ptr Triplet
   -> IO ()
 
@@ -57,7 +58,7 @@ transpose =
   \x0 ->
     \x1 ->
       HsBindgen.Runtime.ConstantArray.withPtr x0 (\ptr2 ->
-                                                    transpose_wrapper ptr2 x1)
+                                                    transpose_wrapper (HsBindgen.Runtime.ConstPtr.ConstPtr ptr2) x1)
 
 {-| A function that prints the given triplet_ptrs
 

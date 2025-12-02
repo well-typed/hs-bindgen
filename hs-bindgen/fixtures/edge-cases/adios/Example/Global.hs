@@ -9,6 +9,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -48,7 +49,7 @@ cϒϒ_ptr =
 {-| __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_31d6bde39787c8b8" hs_bindgen_31d6bde39787c8b8 ::
-     IO (Ptr.Ptr FC.CInt)
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 
 {-# NOINLINE cϒϒϒ_ptr #-}
 
@@ -58,7 +59,7 @@ foreign import ccall unsafe "hs_bindgen_31d6bde39787c8b8" hs_bindgen_31d6bde3978
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-cϒϒϒ_ptr :: Ptr.Ptr FC.CInt
+cϒϒϒ_ptr :: HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
 cϒϒϒ_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_31d6bde39787c8b8
 
@@ -66,4 +67,4 @@ cϒϒϒ_ptr =
 
 cϒϒϒ :: FC.CInt
 cϒϒϒ =
-  GHC.IO.Unsafe.unsafePerformIO (F.peek cϒϒϒ_ptr)
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr cϒϒϒ_ptr))

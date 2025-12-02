@@ -42,6 +42,7 @@ getInstances instanceMap name = aux
           HsIncompleteArray hsType' ->
             -- constrain by Array item type in next step
             aux (acc /\ arrayInsts) $ hsType' : hsTypes
+          HsConstPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsIO{} -> Set.empty

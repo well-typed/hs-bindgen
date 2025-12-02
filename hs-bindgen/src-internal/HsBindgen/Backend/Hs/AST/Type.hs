@@ -53,6 +53,7 @@ data HsType =
   | HsTypRef (Hs.Name Hs.NsTypeConstr)
   | HsConstArray Natural HsType
   | HsIncompleteArray HsType
+  | HsConstPtr HsType
   | HsPtr HsType
   | HsFunPtr HsType
   | HsIO HsType
