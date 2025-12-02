@@ -15,6 +15,7 @@ import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
+import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.HsModule.Render ()
 import HsBindgen.Backend.SHs.AST qualified as SHs
@@ -80,50 +81,50 @@ instancesFor ::
   -> C.Type                                  -- ^ Type of the C function
   -> HsType                                  -- ^ Corresponding Haskell type
   -> [Hs.Decl]
-instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = [
+instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = concat [
       -- import for @ToFunPtr@ instance
-      Hs.DeclForeignImport Hs.ForeignImportDecl{
-          foreignImportName       = nameTo
-        , foreignImportResultType = HsIO (HsFunPtr funHs)
-        , foreignImportParameters = [wrapperParam funHs]
-        , foreignImportOrigName   = "wrapper"
-        , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
-        , foreignImportOrigin     = Origin.ToFunPtr funC
-        , foreignImportComment    = nameToComment
-        , foreignImportSafety     = SHs.Safe
-        }
+      HsFI.foreignImportDecs
+        nameTo
+        (HsIO (HsFunPtr funHs))
+        [wrapperParam funHs]
+        "wrapper"
+        (CallConvGhcCCall ImportAsValue)
+        (Origin.ToFunPtr funC)
+        nameToComment
+        SHs.Safe
 
       -- import for @FromFunPtr@ instance
-    , Hs.DeclForeignImport Hs.ForeignImportDecl{
-          foreignImportName       = nameFrom
-        , foreignImportResultType = funHs
-        , foreignImportParameters = [wrapperParam $ HsFunPtr funHs]
-        , foreignImportOrigName   = "dynamic"
-        , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
-        , foreignImportOrigin     = Origin.FromFunPtr funC
-        , foreignImportComment    = nameFromComment
-        , foreignImportSafety     = SHs.Safe
-        }
+    , HsFI.foreignImportDecs
+        nameFrom
+        funHs
+        [wrapperParam $ HsFunPtr funHs]
+        "dynamic"
+        (CallConvGhcCCall ImportAsValue)
+        (Origin.ToFunPtr funC)
+        nameFromComment
+        SHs.Safe
 
       -- @ToFunPtr@ instance proper
-    , Hs.DeclDefineInstance Hs.DefineInstance{
-          defineInstanceComment      = Nothing
-        , defineInstanceDeclarations = Hs.InstanceToFunPtr
-            Hs.ToFunPtrInstance{
-                toFunPtrInstanceType = funHs
-              , toFunPtrInstanceBody = nameTo
-              }
-        }
+    , [ Hs.DeclDefineInstance Hs.DefineInstance{
+            defineInstanceComment      = Nothing
+          , defineInstanceDeclarations = Hs.InstanceToFunPtr
+              Hs.ToFunPtrInstance{
+                  toFunPtrInstanceType = funHs
+                , toFunPtrInstanceBody = nameTo
+                }
+          }
+      ]
 
       -- @FromFunPtr@ instance proper
-    , Hs.DeclDefineInstance Hs.DefineInstance{
-          defineInstanceComment      = Nothing
-        , defineInstanceDeclarations = Hs.InstanceFromFunPtr
-            Hs.FromFunPtrInstance{
-                fromFunPtrInstanceType = funHs
-              , fromFunPtrInstanceBody = nameFrom
-              }
-        }
+    , [ Hs.DeclDefineInstance Hs.DefineInstance{
+            defineInstanceComment      = Nothing
+          , defineInstanceDeclarations = Hs.InstanceFromFunPtr
+              Hs.FromFunPtrInstance{
+                  fromFunPtrInstanceType = funHs
+                , fromFunPtrInstanceBody = nameFrom
+                }
+          }
+      ]
     ]
 
 wrapperParam :: HsType -> Hs.FunctionParameter
