@@ -14,7 +14,6 @@ module HsBindgen.Cli.Preprocess (
   ) where
 
 import Options.Applicative hiding (info)
-import System.Directory (createDirectoryIfMissing, doesDirectoryExist)
 
 import HsBindgen
 import HsBindgen.App
@@ -22,7 +21,6 @@ import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer (FileSystemException (..))
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -65,16 +63,7 @@ parseOpts =
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec GlobalOpts{..} Opts{..} = do
-    -- Validate or create output directory based on policy
-    case outputDirPolicy of
-      CreateDirStructure      ->
-        createDirectoryIfMissing True hsOutputDir
-      DoNotCreateDirStructure -> do
-        exists <- doesDirectoryExist hsOutputDir
-        unless exists $
-          throwIO (OutputDirectoryMissingException hsOutputDir)
-
+exec GlobalOpts{..} Opts{..} =
     void $ run $ artefacts
   where
     bindgenConfig :: BindgenConfig
