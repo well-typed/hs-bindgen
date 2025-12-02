@@ -5,7 +5,7 @@ module HsBindgen.Frontend.Pass.Select.IsPass (
   , SelectConfig(..)
     -- * Trace messages
   , SelectReason(..)
-  , UnusabilityReason(..)
+  , Unselectable(..)
   , SelectStatus(..)
   , SelectMsg(..)
   ) where
@@ -15,7 +15,6 @@ import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
-import Clang.Paths
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
@@ -102,31 +101,33 @@ data SelectStatus =
   | Selected SelectReason
   deriving stock (Show)
 
-data UnusabilityReason =
-    UnusableR Unusable
-  | UnusableNotSelected
+data Unselectable =
+    -- | A declaration can not be selected because it or one of its dependencies
+    --   is unusable.
+    UnselectableBecauseUnusable Unusable
+    -- | A declaration can not be selected because one of its dependencies has
+    --   not been selected.
+  | TransitiveDependencyNotSelected
   deriving stock (Show)
 
-instance PrettyForTrace UnusabilityReason where
+instance PrettyForTrace Unselectable where
   prettyForTrace r = case r of
-    UnusableR x         -> prettyForTrace x
-    UnusableNotSelected -> "not selected"
+    UnselectableBecauseUnusable x   -> prettyForTrace x
+    TransitiveDependencyNotSelected -> "transitive dependency not selected"
 
 -- | Select trace messages
 data SelectMsg =
     -- | Information about selection status; issued for all available
     --declarations.
     SelectStatusInfo (C.Decl Select) SelectStatus
-    -- | Info message about using an external declaration.
-  | SelectUseExternal C.QualPrelimDeclId
     -- | The user has selected a declaration that is available but at least one
     -- of its transitive dependencies is _unavailable_.
-  | TransitiveDependencyOfDeclarationUnavailable
+  | TransitiveDependencyOfDeclarationUnselectable
       (C.Decl Select)
       SelectReason
       C.QualPrelimDeclId
-      UnusabilityReason
-      (Maybe SingleLoc)
+      Unselectable
+      [SingleLoc]
     -- | The user has selected a deprecated declaration. Maybe they want to
     -- de-select deprecated declaration?
   | SelectDeprecated (C.Decl Select)
@@ -144,8 +145,6 @@ data SelectMsg =
     -- | Delayed handle macros message for macros the user wants to select
     -- directly, but we have failed to parse.
   | SelectMacroFailure FailedMacro
-    -- | The user tried to select an omitted declaration.
-  | SelectOmitted (C.QualName, SourcePath)
     -- | Inform the user that no declarations matched the select predicate.
   | SelectNoDeclarationsMatched
   deriving stock (Show)
@@ -156,15 +155,15 @@ instance PrettyForTrace SelectMsg where
       prettyForTrace x >< " not selected"
     SelectStatusInfo x (Selected r) ->
       prettyForTrace x >< " selected (" >< prettyForTrace r >< ")"
-    SelectUseExternal x -> "Selected external declaration:" <+> prettyForTrace x
-    TransitiveDependencyOfDeclarationUnavailable x s i r ml -> PP.hcat [
+    TransitiveDependencyOfDeclarationUnselectable x s i r ml -> PP.hcat [
         prettyForTrace x
       , " selected ("
       , prettyForTrace s
       , ") but depends on "
       , case ml of
-          Nothing -> prettyForTrace i >< " (no source location available)"
-          Just l  -> prettyForTrace (C.Located l i)
+          []  -> prettyForTrace i >< " (no source location available)"
+          [l] -> prettyForTrace (C.Located l i)
+          ls  -> prettyForTrace i <+> PP.hlist '(' ')' (map PP.showToCtxDoc ls)
       , ", which is unavailable: "
       , prettyForTrace r
       ]
@@ -181,12 +180,6 @@ instance PrettyForTrace SelectMsg where
     SelectParseFailure x -> hangWith $ prettyForTrace x
     SelectConflict     x -> hangWith $ prettyForTrace x
     SelectMacroFailure x -> hangWith $ prettyForTrace x
-    SelectOmitted (x, p) -> hangWith $ PP.hcat [
-        "omitted by prescriptive binding specification: "
-      , prettyForTrace x
-      , " at "
-      , PP.showToCtxDoc p
-      ]
     SelectNoDeclarationsMatched ->
       "No declarations matched the select predicate"
     where
@@ -196,28 +189,24 @@ instance PrettyForTrace SelectMsg where
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
     SelectStatusInfo{}                             -> Info
-    SelectUseExternal{}                            -> Info
-    TransitiveDependencyOfDeclarationUnavailable{} -> Warning
+    TransitiveDependencyOfDeclarationUnselectable{} -> Warning
     SelectDeprecated{}                             -> Notice
     SelectParseSuccess x                           -> getDefaultLogLevel x
     SelectParseNotAttempted{}                      -> Warning
     SelectParseFailure x                           -> getDefaultLogLevel x
     SelectConflict{}                               -> Warning
     SelectMacroFailure x                           -> getDefaultLogLevel x
-    SelectOmitted{}                                -> Warning
     SelectNoDeclarationsMatched                    -> Warning
   getSource  = const HsBindgen
   getTraceId = \case
     SelectStatusInfo{}                             -> "select"
-    SelectUseExternal{}                            -> "select"
-    TransitiveDependencyOfDeclarationUnavailable{} -> "select"
+    TransitiveDependencyOfDeclarationUnselectable{} -> "select"
     SelectDeprecated{}                             -> "select"
     SelectParseSuccess x                           -> "select-" <> getTraceId x
     SelectParseNotAttempted{}                      -> "select-parse"
     SelectParseFailure x                           -> "select-" <> getTraceId x
     SelectConflict{}                               -> "select"
     SelectMacroFailure x                           -> "select-" <> getTraceId x
-    SelectOmitted{}                                -> "select"
     SelectNoDeclarationsMatched                    -> "select"
 
 {-------------------------------------------------------------------------------

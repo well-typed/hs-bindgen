@@ -12,8 +12,9 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , ParseNotAttempted(..)
   , ParseFailure(..)
   , ParseResult(..)
-  , getDecl
-  , getQualPrelimDeclId
+  , getParseResultDecl
+  , getParseResultLoc
+  , getParseResultDeclId
   , parseSucceed
   , parseSucceedWith
   , parseDoNotAttempt
@@ -203,8 +204,7 @@ newtype ParseNotAttempted = ParseNotAttempted {
 
 instance PrettyForTrace ParseNotAttempted where
   prettyForTrace (ParseNotAttempted x) =
-    PP.hang "Parse not attempted: " 2 $
-      prettyForTrace x
+    PP.hang "Parse not attempted: " 2 $ prettyForTrace x
 
 -- | Declarations that match the parse predicate but that we fail to parse and
 -- reify
@@ -229,16 +229,22 @@ data ParseResult =
   deriving stock (Show, Generic)
   deriving anyclass (PrettyForTrace)
 
-getDecl :: ParseResult -> Either ParseResult (C.Decl Parse)
-getDecl = \case
-  ParseResultSuccess ParseSuccess{..} -> Right psDecl
-  other                               -> Left other
+getParseResultDecl :: ParseResult -> Either ParseResult (C.Decl Parse)
+getParseResultDecl = \case
+    ParseResultSuccess ParseSuccess{..} -> Right psDecl
+    other                               -> Left other
 
-getQualPrelimDeclId :: ParseResult -> QualPrelimDeclId
-getQualPrelimDeclId = \case
-  ParseResultSuccess       ParseSuccess{..}     -> psQualPrelimDeclId
-  ParseResultNotAttempted (ParseNotAttempted x) -> x.declId
-  ParseResultFailure      (ParseFailure x)      -> x.declId
+getParseResultLoc :: ParseResult -> SingleLoc
+getParseResultLoc = \case
+    ParseResultSuccess       ParseSuccess{psDecl} -> psDecl.declInfo.declLoc
+    ParseResultNotAttempted (ParseNotAttempted m) -> m.loc
+    ParseResultFailure      (ParseFailure m)      -> m.loc
+
+getParseResultDeclId :: ParseResult -> QualPrelimDeclId
+getParseResultDeclId = \case
+    ParseResultSuccess       ParseSuccess{..}     -> psQualPrelimDeclId
+    ParseResultNotAttempted (ParseNotAttempted x) -> x.declId
+    ParseResultFailure      (ParseFailure x)      -> x.declId
 
 parseSucceed :: C.Decl Parse -> ParseResult
 parseSucceed = parseSucceedWith []

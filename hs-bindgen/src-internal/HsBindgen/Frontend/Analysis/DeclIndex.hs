@@ -10,7 +10,7 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
     Usable(..)
   , Unusable(..)
   , Entry(..)
-  , DeclIndex
+  , DeclIndex -- opaque
     -- * Construction
   , fromParseResults
     -- * Query parse successes
@@ -40,8 +40,9 @@ import Prelude hiding (lookup)
 import Control.Monad.State
 import Data.Foldable qualified as Foldable
 import Data.Function
+import Data.List.NonEmpty ((<|))
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
-import Optics.Core (over)
 
 import Clang.HighLevel.Types
 import Clang.Paths
@@ -82,13 +83,14 @@ data Usable =
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
 data Unusable =
-      UnusableParseNotAttempted ParseNotAttempted
+      UnusableParseNotAttempted (NonEmpty ParseNotAttempted)
     | UnusableParseFailure      ParseFailure
     | UnusableConflict          ConflictingDeclarations
     | UnusableFailedMacro       FailedMacro
       -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Attach
       -- information required to match the select predicate also to omitted
       -- declarations.
+      -- | Omitted by prescriptive binding specifications
     | UnusableOmitted           (C.QualName, SourcePath)
     deriving stock (Show, Generic)
 
@@ -164,15 +166,15 @@ fromParseResults results = flip execState emptyIndex $ mapM_ aux results
   where
     aux :: ParseResult -> State DeclIndex ()
     aux new = modify' $
-        DeclIndex . Map.alter (handleDeclaration declId new) declId . unDeclIndex
+        DeclIndex . Map.alter (Just . handleParseResult declId new) declId . unDeclIndex
       where
         declId :: C.QualPrelimDeclId
-        declId = getQualPrelimDeclId new
+        declId = getParseResultDeclId new
 
-    handleDeclaration ::
-      C.QualPrelimDeclId -> ParseResult -> Maybe Entry -> Maybe Entry
-    handleDeclaration declId new = \case
-      Nothing -> Just $ parseResultToEntry new
+    handleParseResult ::
+      C.QualPrelimDeclId -> ParseResult -> Maybe Entry -> Entry
+    handleParseResult declId new = \case
+      Nothing -> parseResultToEntry new
       -- We remove duplicates with /different/ values and store them as
       -- 'ConflictingDeclarations'. We could detect and handle some but not all
       -- of these duplicates; for now, we remove them all.
@@ -195,49 +197,38 @@ fromParseResults results = flip execState emptyIndex $ mapM_ aux results
       -- the @DeclIndex@ has been built (at this point the macro is merely a
       -- list of tokens). So whether the macro is something we can handle or not
       -- is irrelevant at this point.
-      Just oldDuplicate -> Just $ case oldDuplicate of
+      Just old -> case old of
         UsableE oldUsable -> case oldUsable of
-          UsableSuccess oldParseSuccess
-            -- Redeclaration but with the same definition. This can happen, for
-            -- example for opaque structs. We stick with the first but add the
-            -- parse messages of the second.
-            | ParseResultSuccess newParseSuccess <- new
-            , sameParseResult (ParseResultSuccess oldParseSuccess) new ->
-                UsableE $ UsableSuccess $ over #psAttachedMsgs
-                  (++ newParseSuccess.psAttachedMsgs)
-                  oldParseSuccess
-            | otherwise ->
+          UsableSuccess oldParseSuccess -> case new of
+            ParseResultSuccess newParseSuccess
+              -- Redeclaration but with the same definition. This can happen, for
+              -- example for opaque structs. We stick with the first declaration.
+              | sameDefinition oldParseSuccess.psDecl.declKind newParseSuccess.psDecl.declKind ->
+                old
+              | otherwise ->
                 newConflict oldParseSuccess.psDecl.declInfo.declLoc
-          -- TODO_PR: Should not happen because we have no external entries yet.
-          -- Panic?
-          UsableExternal -> UsableE UsableExternal
+            ParseResultNotAttempted _ -> old
+            ParseResultFailure _      -> parseResultToEntry new
+          UsableExternal ->
+            panicPure "handleParseResult: usable external"
         UnusableE oldUnusable -> case oldUnusable of
-          (UnusableParseNotAttempted r)
-            | sameParseResult (ParseResultNotAttempted r) new ->
-                oldDuplicate
+          (UnusableParseNotAttempted nasOld)
+            | ParseResultNotAttempted naNew <- new ->
+                UnusableE $ UnusableParseNotAttempted $ naNew <| nasOld
             | otherwise ->
-                newConflict (unParseNotAttempted r).loc
-          UnusableParseFailure r
-            | sameParseResult (ParseResultFailure r) new ->
-                oldDuplicate
-            | otherwise ->
-                newConflict (unParseFailure r).loc
-          UnusableConflict c -> addConflict c
-          -- TODO_PR: Should not happen because we have no failed macros yet.
-          -- Panic?
-          UnusableFailedMacro r -> UnusableE $ UnusableFailedMacro r
-          -- TODO_PR: Should not happen because we have no omitted entries yet.
-          -- Panic?
-          UnusableOmitted o -> UnusableE $ UnusableOmitted o
+                parseResultToEntry new
+          UnusableParseFailure _ -> old
+          UnusableConflict c     -> addConflicts c
+          UnusableFailedMacro x  ->
+            panicPure $ "handleParseResult: unusable failed macro" <> show x
+          UnusableOmitted     x  ->
+            panicPure $ "handelParseResult: unusable omitted" <> show x
       where
         newLoc :: SingleLoc
-        newLoc = case new of
-          ParseResultSuccess       ParseSuccess{psDecl} -> psDecl.declInfo.declLoc
-          ParseResultNotAttempted (ParseNotAttempted m) -> m.loc
-          ParseResultFailure      (ParseFailure m)      -> m.loc
+        newLoc = getParseResultLoc new
 
-        addConflict :: ConflictingDeclarations -> Entry
-        addConflict c =
+        addConflicts :: ConflictingDeclarations  -> Entry
+        addConflicts c =
           UnusableE $ UnusableConflict $
             addConflictingLoc c newLoc
 
@@ -248,28 +239,20 @@ fromParseResults results = flip execState emptyIndex $ mapM_ aux results
 
         parseResultToEntry :: ParseResult -> Entry
         parseResultToEntry = \case
-          ParseResultSuccess      r -> UsableE   $ UsableSuccess             r
-          ParseResultNotAttempted r -> UnusableE $ UnusableParseNotAttempted r
-          ParseResultFailure      r -> UnusableE $ UnusableParseFailure      r
+          ParseResultSuccess      r -> UsableE   $ UsableSuccess               r
+          ParseResultNotAttempted r -> UnusableE $ UnusableParseNotAttempted $ r :| []
+          ParseResultFailure      r -> UnusableE $ UnusableParseFailure        r
 
-sameParseResult :: ParseResult -> ParseResult -> Bool
-sameParseResult a b = case (a, b) of
-  (ParseResultSuccess x1      , ParseResultSuccess x2) ->
-    sameDefinition x1.psDecl.declKind x2.psDecl.declKind
-  (ParseResultNotAttempted x1 , ParseResultNotAttempted x2) -> x1 == x2
-  (ParseResultFailure x1      , ParseResultFailure x2)      -> x1 == x2
-  (_                          , _)                          -> False
+    sameDefinition :: C.DeclKind Parse -> C.DeclKind Parse -> Bool
+    sameDefinition a b =
+        case (a, b) of
+          (C.DeclMacro macroA, C.DeclMacro macroB) ->
+            sameMacro macroA macroB
+          _otherwise ->
+            a == b
 
-sameDefinition :: C.DeclKind Parse -> C.DeclKind Parse -> Bool
-sameDefinition a b =
-    case (a, b) of
-      (C.DeclMacro macroA, C.DeclMacro macroB) ->
-        sameMacro macroA macroB
-      _otherwise ->
-        a == b
-
-sameMacro :: UnparsedMacro -> UnparsedMacro -> Bool
-sameMacro = (==) `on` (map tokenSpelling . unparsedTokens)
+    sameMacro :: UnparsedMacro -> UnparsedMacro -> Bool
+    sameMacro = (==) `on` (map tokenSpelling . unparsedTokens)
 
 {-------------------------------------------------------------------------------
   Query parse successes
@@ -308,36 +291,30 @@ lookupEntry x = Map.lookup x . unDeclIndex
 toList :: DeclIndex -> [(C.QualPrelimDeclId, Entry)]
 toList = Map.toList . unDeclIndex
 
--- | Get the source location of a declaration.
-lookupLoc :: C.QualPrelimDeclId -> DeclIndex -> Maybe SingleLoc
+-- | Get the source locations of a declaration.
+lookupLoc :: C.QualPrelimDeclId -> DeclIndex -> [SingleLoc]
 lookupLoc d (DeclIndex i) = case Map.lookup d i of
-  Nothing            -> Nothing
+  Nothing            -> []
   Just (UsableE e)   -> case e of
-    UsableSuccess x -> Just $ x.psDecl.declInfo.declLoc
-    UsableExternal  -> Nothing
-  Just (UnusableE e) -> case e of
-    UnusableParseNotAttempted (ParseNotAttempted x) -> Just $ x.loc
-    UnusableParseFailure (ParseFailure x)           -> Just $ x.loc
-    -- TODO_PR: What should we do for conflicting declarations? Return the
-    -- minimum location (relevant for sorting select messages), return all
-    -- locations, or return none? See also 'lookupUnusableLoc' below.
-    UnusableConflict x                              -> Just $ getMinimumLoc x
-    UnusableFailedMacro (FailedMacro x)             -> Just $ x.loc
-    UnusableOmitted{}                               -> Nothing
+    UsableSuccess x -> [x.psDecl.declInfo.declLoc]
+    UsableExternal  -> []
+  Just (UnusableE e) -> unusableToLoc e
 
--- TODO_PR: We use this function when looking for missing declarations during
--- resolution of external binding specifications. Do we want to get all
--- locations for conflicting declarations here?
+-- | Get the source locations of an unusable declaration.
 lookupUnusableLoc :: C.QualPrelimDeclId -> DeclIndex -> [SingleLoc]
 lookupUnusableLoc d (DeclIndex i) = case Map.lookup d i of
   Nothing            -> []
   Just (UsableE _)   -> []
-  Just (UnusableE e) -> case e of
-    UnusableParseNotAttempted (ParseNotAttempted x) -> [x.loc]
-    UnusableParseFailure (ParseFailure x)           -> [x.loc]
-    UnusableConflict x                              -> getLocs x
-    UnusableFailedMacro (FailedMacro x)             -> [x.loc]
-    UnusableOmitted{}                               -> []
+  Just (UnusableE e) -> unusableToLoc e
+
+unusableToLoc :: Unusable -> [SingleLoc]
+unusableToLoc = \case
+    UnusableParseNotAttempted xs ->
+      [x.loc | (ParseNotAttempted x) <- NonEmpty.toList xs]
+    UnusableParseFailure (ParseFailure x) -> [x.loc]
+    UnusableConflict x                    -> getLocs x
+    UnusableFailedMacro (FailedMacro x)   -> [x.loc]
+    UnusableOmitted{}                     -> []
 
 -- | Get the identifiers of all declarations in the index.
 keysSet :: DeclIndex -> Set C.QualPrelimDeclId
@@ -372,6 +349,8 @@ registerMacroFailures xs index = Foldable.foldl' insert index xs
 -- Match function to find selection roots.
 type Match = C.QualPrelimDeclId -> SingleLoc -> C.Availability -> Bool
 
+-- | Limit the declaration index to those entries that match the select
+--   predicate. Do not include anything external nor omitted.
 selectDeclIndex :: Match -> DeclIndex -> DeclIndex
 selectDeclIndex p = DeclIndex . Map.filter matchEntry . unDeclIndex
   where
@@ -380,19 +359,17 @@ selectDeclIndex p = DeclIndex . Map.filter matchEntry . unDeclIndex
       UsableE e -> case e of
         UsableSuccess (ParseSuccess i d _) ->
           p i d.declInfo.declLoc d.declInfo.declAvailability
-        -- TODO_PR: We should match external declarations.
         UsableExternal ->
           False
       UnusableE e -> case e of
-        UnusableParseNotAttempted (ParseNotAttempted m) ->
-          matchMsg m
+        UnusableParseNotAttempted xs ->
+          any (matchMsg . unParseNotAttempted) xs
         UnusableParseFailure (ParseFailure m) ->
           matchMsg m
         UnusableConflict x ->
           or [p (getDeclId x) l C.Available | l <- getLocs x ]
         UnusableFailedMacro (FailedMacro m) ->
           matchMsg m
-        -- TODO_PR: We should match omitted declarations.
         UnusableOmitted{} ->
           False
 

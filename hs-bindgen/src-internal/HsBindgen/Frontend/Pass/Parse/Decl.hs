@@ -257,7 +257,7 @@ structDecl info = \curr -> do
 
         foldRecurseWith (declOrFieldDecl $ structFieldDecl info) $ \xs -> do
           let (otherRs, fields) = first concat $ partitionEithers xs
-              (fails, otherDecls) = partitionEithers $ map getDecl otherRs
+              (fails, otherDecls) = partitionEithers $ map getParseResultDecl otherRs
           mPartitioned <- partitionChildren otherDecls fields
           pure $ (fails ++) $ case mPartitioned of
             Just decls ->
@@ -318,7 +318,7 @@ unionDecl info = \curr -> do
 
         foldRecurseWith (declOrFieldDecl $ unionFieldDecl info) $ \xs -> do
           let (otherRs, fields) = first concat $ partitionEithers xs
-              (fails, otherDecls) = partitionEithers $ map getDecl otherRs
+              (fails, otherDecls) = partitionEithers $ map getParseResultDecl otherRs
           mPartitioned <- partitionChildren otherDecls fields
           pure $ (fails ++) $ case mPartitioned of
             Just decls ->
@@ -517,7 +517,7 @@ functionDecl info = \curr -> do
           _ -> foldRecurseWith nestedDecl $ \nestedDecls -> do
             let declsAndAttrs = concat nestedDecls
                 (parseRs, attrs) = partitionEithers declsAndAttrs
-                (fails, decls)   = partitionEithers $ map getDecl parseRs
+                (fails, decls)   = partitionEithers $ map getParseResultDecl parseRs
                 purity = C.decideFunctionPurity attrs
                 (anonDecls, otherDecls) = partitionAnonDecls decls
 
@@ -638,7 +638,7 @@ varDecl info = \curr -> do
         foldContinue
       _ -> foldRecurseWith nestedDecl $ \nestedRs -> do
         let
-          (fails, nestedDecls)    = partitionEithers $ map getDecl $ concat nestedRs
+          (fails, nestedDecls)    = partitionEithers $ map getParseResultDecl $ concat nestedRs
           (anonDecls, otherDecls) = partitionAnonDecls nestedDecls
 
         -- This declaration may act as a definition even if it has no

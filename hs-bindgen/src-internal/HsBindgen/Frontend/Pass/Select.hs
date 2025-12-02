@@ -3,6 +3,7 @@ module HsBindgen.Frontend.Pass.Select (
   ) where
 
 import Data.List (sortBy)
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Ord (comparing)
 import Data.Set ((\\))
@@ -51,17 +52,17 @@ type Decl = C.Decl Select
 -- 2. A declaration is available if the declaration itself and all of its
 --    transitive dependencies are available.
 --
--- @TransitiveUsability@ deals with the second type.
+-- @TransitiveSelectability@ deals with the second type.
 --
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
-data TransitiveUsability =
-    TransitivelyUsable
+data TransitiveSelectability =
+    TransitivelySelectable
     -- | For each transitive dependency, we try to give the root cause of
     -- unavailability.
     --
     -- We should use a "non-empty" map here.
-  | TransitivelyUnusable (Map DeclId UnusabilityReason)
+  | TransitivelyUnselectable (Map DeclId Unselectable)
   deriving stock (Show)
 
 {-------------------------------------------------------------------------------
@@ -111,49 +112,49 @@ selectDecls
           DisableProgramSlicing -> (rootIds        , Set.empty)
           EnableProgramSlicing  -> (rootAndTransIds, strictTransIds)
 
-        getTransitiveAvailability :: DeclId -> TransitiveUsability
-        getTransitiveAvailability x
-          | Map.null unusabilityReasons = TransitivelyUsable
-          | otherwise                   = TransitivelyUnusable unusabilityReasons
+        getTransitiveSelectability :: DeclId -> TransitiveSelectability
+        getTransitiveSelectability x
+          | Map.null unusabilityReasons = TransitivelySelectable
+          | otherwise                   = TransitivelyUnselectable unusabilityReasons
           where
-            -- We check the transitive usability of declarations in the list of
-            -- declarations attached to the translation unit (these have been
-            -- successfully reified). That is, there is no need to process
-            -- strict transitive dependencies only (i.e., to remove 'x' from
-            -- 'transDeps').
             transDeps :: Set DeclId
-            transDeps = UseDeclGraph.getTransitiveDeps useDeclGraph [x]
+            transDeps = UseDeclGraph.getStrictTransitiveDeps useDeclGraph [x]
 
-            unusables :: Map DeclId UnusabilityReason
-            unusables = UnusableR <$> DeclIndex.getUnusables index transDeps
+            unusables :: Map DeclId Unselectable
+            unusables =
+              UnselectableBecauseUnusable <$> DeclIndex.getUnusables index transDeps
 
-            nonselected :: Map DeclId UnusabilityReason
+            nonselected :: Map DeclId Unselectable
             nonselected  =
-              Map.fromSet (const UnusableNotSelected) $
+              Map.fromSet (const TransitiveDependencyNotSelected) $
                 transDeps \\ selectedIds
 
-            unusabilityReasons :: Map DeclId UnusabilityReason
+            unusabilityReasons :: Map DeclId Unselectable
             unusabilityReasons =
               Map.unionWith
-                getMostNaturalUnusabilityReason
+                getMostNaturalUnselectable
                 unusables
                 nonselected
 
-            getMostNaturalUnusabilityReason ::
-              UnusabilityReason -> UnusabilityReason -> UnusabilityReason
-            getMostNaturalUnusabilityReason l r = case (l,r) of
-              (UnusableNotSelected, UnusableR u        ) -> case u of
-                UnusableParseNotAttempted _ -> r
-                _otherReason                -> l
-              (UnusableR u        , UnusableNotSelected) -> case u of
-                UnusableParseNotAttempted _ -> l
-                _otherReason                -> r
-              (_                  , _                  ) -> l
+            -- Get the reason that is most useful to the user about why a
+            -- declaration is unselectable.
+            getMostNaturalUnselectable ::
+              Unselectable -> Unselectable -> Unselectable
+            getMostNaturalUnselectable l r = case (l,r) of
+              (TransitiveDependencyNotSelected, UnselectableBecauseUnusable u  ) ->
+                case u of
+                  UnusableParseNotAttempted _ -> r
+                  _otherReason                -> l
+              (UnselectableBecauseUnusable u  , TransitiveDependencyNotSelected) ->
+                case u of
+                  UnusableParseNotAttempted _ -> l
+                  _otherReason                -> r
+              (_, _) -> l
 
         selectDecl :: Decl -> (Maybe Decl, [Msg Select])
         selectDecl =
           selectDeclWith
-            getTransitiveAvailability
+            getTransitiveSelectability
             index
             rootIds
             additionalSelectedTransIds
@@ -199,6 +200,7 @@ selectDecls
         -- We compare the use sites of anonymous declarations with the original
         -- @declId@, so we can detect cycles involving anonymous declarations in
         -- the use-decl graph. We believe these cycles can not exist.
+        go :: DeclId -> C.QualPrelimDeclId -> SingleLoc -> C.Availability -> Bool
         go origDeclId declId loc availability = case declId of
             C.QualPrelimDeclIdNamed name kind ->
               let -- We have parsed some declarations that are required for
@@ -259,7 +261,7 @@ selectDecls
 -------------------------------------------------------------------------------}
 
 selectDeclWith ::
-    (DeclId -> TransitiveUsability)
+    (DeclId -> TransitiveSelectability)
   -> DeclIndex
   -- | Selection roots.
   -> Set DeclId
@@ -269,23 +271,23 @@ selectDeclWith ::
   -> Decl
   -> (Maybe Decl, [Msg Select])
 selectDeclWith
-  getTransitiveAvailability
+  getTransitiveSelectability
   declIndex
   rootIds
   additionalSelectedTransIds
   decl =
     case ( isSelectedRoot
          , isAdditionalSelectedTransDep
-         , transitiveAvailability ) of
+         , transitiveSelectability ) of
       -- Declaration is a selection root.
-      (True, False, TransitivelyUsable) ->
+      (True, False, TransitivelySelectable) ->
         (Just decl, getSelMsgs SelectionRoot)
-      (True, False, TransitivelyUnusable rs) ->
+      (True, False, TransitivelyUnselectable rs) ->
         (Nothing, getUnavailMsgs SelectionRoot rs)
       -- Declaration is an additionally selected transitive dependency.
-      (False, True, TransitivelyUsable) ->
+      (False, True, TransitivelySelectable) ->
         (Just decl, getSelMsgs TransitiveDependency)
-      (False, True, TransitivelyUnusable rs) ->
+      (False, True, TransitivelyUnselectable rs) ->
         (Nothing, getUnavailMsgs TransitiveDependency rs)
       -- Declaration is not selected.
       (False, False, _) ->
@@ -303,16 +305,16 @@ selectDeclWith
     -- These are also always strict transitive dependencies.
     isAdditionalSelectedTransDep =
       Set.member declId additionalSelectedTransIds
-    transitiveAvailability = getTransitiveAvailability declId
+    transitiveSelectability = getTransitiveSelectability declId
 
     getSelMsgs :: SelectReason -> [Msg Select]
     getSelMsgs selectReason =
       let selectDepr   = [ SelectDeprecated decl | isDeprecated decl.declInfo ]
       in  SelectStatusInfo decl (Selected selectReason) : selectDepr
 
-    getUnavailMsgs :: SelectReason -> Map DeclId UnusabilityReason -> [Msg Select]
+    getUnavailMsgs :: SelectReason -> Map DeclId Unselectable -> [Msg Select]
     getUnavailMsgs selectReason unavailReason =
-      [ TransitiveDependencyOfDeclarationUnavailable
+      [ TransitiveDependencyOfDeclarationUnselectable
           decl selectReason i r (DeclIndex.lookupLoc i declIndex)
       | (i, r) <- Map.toList unavailReason ]
 
@@ -326,23 +328,19 @@ selectDeclWith
 -------------------------------------------------------------------------------}
 
 getDelayedMsgs :: DeclIndex -> [Msg Select]
-getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
+getDelayedMsgs = concatMap (getSelectMsg . snd) . DeclIndex.toList
   where
-    getSelectMsg :: DeclId -> DeclIndex.Entry -> [SelectMsg]
-    getSelectMsg declId = \case
+    getSelectMsg :: DeclIndex.Entry -> [SelectMsg]
+    getSelectMsg = \case
       UsableE e -> case e of
         UsableSuccess s -> map SelectParseSuccess $ psAttachedMsgs s
-        -- TODO_PR: This case will only happen when we actually match the select
-        -- predicate on external declarations.
-        UsableExternal  -> [SelectUseExternal declId]
+        UsableExternal  -> []
       UnusableE e -> case e of
-        UnusableParseNotAttempted x -> [SelectParseNotAttempted x]
-        UnusableParseFailure x      -> [SelectParseFailure x]
-        UnusableConflict x          -> [SelectConflict x]
-        UnusableFailedMacro x       -> [SelectMacroFailure x]
-        -- TODO_PR: This case will only happen when we actually match the select
-        -- predicate on omitted declarations.
-        UnusableOmitted x           -> [SelectOmitted x]
+        UnusableParseNotAttempted xs -> map SelectParseNotAttempted $ NonEmpty.toList xs
+        UnusableParseFailure x       -> [SelectParseFailure x]
+        UnusableConflict x           -> [SelectConflict x]
+        UnusableFailedMacro x        -> [SelectMacroFailure x]
+        UnusableOmitted{}            -> []
 
 {-------------------------------------------------------------------------------
   Sort messages
@@ -370,19 +368,15 @@ compareSingleLocs xs x y =
 
 getSingleLoc :: Msg Select -> Maybe SingleLoc
 getSingleLoc = \case
-  SelectStatusInfo d _                                   -> fromD d
-  -- TODO_PR: Location info for externals?
-  SelectUseExternal{}                                    -> Nothing
-  TransitiveDependencyOfDeclarationUnavailable d _ _ _ _ -> fromD d
-  SelectDeprecated d                                     -> fromD d
-  SelectParseSuccess m                                   -> fromM m
-  SelectParseNotAttempted (ParseNotAttempted m)          -> fromM m
-  SelectParseFailure      (ParseFailure      m)          -> fromM m
-  SelectConflict c                                       -> Just $ getMinimumLoc c
-  SelectMacroFailure      (FailedMacro       m)          -> fromM m
-  -- TODO_PR: Location info for omissions?
-  SelectOmitted{}                                        -> Nothing
-  SelectNoDeclarationsMatched                            -> Nothing
+  SelectStatusInfo d _                                    -> fromD d
+  TransitiveDependencyOfDeclarationUnselectable d _ _ _ _ -> fromD d
+  SelectDeprecated d                                      -> fromD d
+  SelectParseSuccess m                                    -> fromM m
+  SelectParseNotAttempted (ParseNotAttempted m)           -> fromM m
+  SelectParseFailure      (ParseFailure      m)           -> fromM m
+  SelectConflict c                                        -> Just $ getMinimumLoc c
+  SelectMacroFailure      (FailedMacro       m)           -> fromM m
+  SelectNoDeclarationsMatched                             -> Nothing
   where
     fromD = Just . C.declLoc . C.declInfo
     fromM = Just . loc

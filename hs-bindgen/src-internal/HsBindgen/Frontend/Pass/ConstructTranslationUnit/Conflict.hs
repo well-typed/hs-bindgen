@@ -1,5 +1,5 @@
 module HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (
-    ConflictingDeclarations
+    ConflictingDeclarations -- opaque
   , conflictingDeclarations
   , addConflictingLoc
   , getDeclId
@@ -16,7 +16,7 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
--- | Abstract data type describing conflicting declarations
+-- | Multiple declarations for the same identifier
 data ConflictingDeclarations = ConflictingDeclarations {
         conflictId   :: C.QualPrelimDeclId
       , conflictLocs :: Set SingleLoc
@@ -48,7 +48,7 @@ conflictingDeclarations :: C.QualPrelimDeclId -> SingleLoc -> SingleLoc -> Confl
 conflictingDeclarations d l1 l2 = ConflictingDeclarations d $ Set.fromList [l1, l2]
 
 addConflictingLoc :: ConflictingDeclarations -> SingleLoc -> ConflictingDeclarations
-addConflictingLoc (ConflictingDeclarations d ls) l = ConflictingDeclarations d $ Set.insert l ls
+addConflictingLoc (ConflictingDeclarations d xs) x = ConflictingDeclarations d $ Set.insert x xs
 
 getDeclId :: ConflictingDeclarations -> C.QualPrelimDeclId
 getDeclId = conflictId
