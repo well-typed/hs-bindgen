@@ -13,7 +13,7 @@ import Data.Ix qualified
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Maybe qualified
-import Data.Primitive.Types qualified
+import Data.Primitive.Types qualified as Primitive
 import Data.Proxy qualified
 import Data.Text qualified as Text
 import Data.Void qualified
@@ -155,7 +155,7 @@ mkGlobal = \case
       Read_readPrec     -> 'Text.Read.readPrec
       Read_readList     -> 'Text.Read.readList
       Read_readListPrec -> 'Text.Read.readListPrec
-      Prim_class        -> ''Data.Primitive.Types.Prim
+      Prim_class        -> ''Primitive.Prim
 
       Real_class       -> ''Real
       RealFloat_class  -> ''RealFloat
