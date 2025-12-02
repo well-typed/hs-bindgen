@@ -217,7 +217,7 @@ adjustFunctionTypesToPointers = go False
           C.TypePointer (C.TypeFun args' res')
       C.TypeVoid -> C.TypeVoid
       C.TypeConstArray n t -> C.TypeConstArray n $ go ctx t
-      C.TypeExtBinding eb -> C.TypeExtBinding eb
+      C.TypeExtBinding eb -> absurd eb
       C.TypeIncompleteArray t -> C.TypeIncompleteArray $ go ctx t
       -- This is a slightly weird case. From what I understand, blocks are
       -- similar to pointers. So, I'm treating them like pointers.
