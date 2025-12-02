@@ -7,44 +7,109 @@
 -- > import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 -- > import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 module HsBindgen.Frontend.Analysis.DeclIndex (
-    DeclIndex(..)
+    Usable(..)
+  , Unusable(..)
+  , Entry(..)
+  , DeclIndex -- opaque
     -- * Construction
-  , DeclIndexError(..)
   , fromParseResults
-    -- * Query
+    -- * Query parse successes
   , lookup
   , (!)
-  , lookupAttachedParseMsgs
   , getDecls
+    -- * Other queries
+  , lookupEntry
+  , toList
+  , lookupLoc
+  , lookupUnusableLoc
   , keysSet
+  , getOmitted
+    -- * Support for macro failures
+  , registerMacroFailures
+    -- * Support for binding specifications
+  , registerOmittedDeclarations
+  , registerExternalDeclarations
     -- * Support for selection
   , Match
   , selectDeclIndex
+  , getUnusables
   ) where
 
 import Prelude hiding (lookup)
 
 import Control.Monad.State
+import Data.Foldable qualified as Foldable
 import Data.Function
+import Data.List.NonEmpty ((<|))
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
-import Data.Set qualified as Set
-import Optics.Core (over, set, (%))
-import Text.SimplePrettyPrint (hcat, showToCtxDoc)
 
 import Clang.HighLevel.Types
-import Clang.Paths (SourcePath)
+import Clang.Paths
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
 import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Imports
+import HsBindgen.Imports hiding (toList)
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
+
+-- | Usable declaration
+--
+-- A declaration is usable if we successfully reified the declaration or if it
+-- is external.
+--
+-- (We avoid the term available, because it is overloaded with Clang's
+-- CXAvailabilityKind).
+data Usable =
+      UsableSuccess ParseSuccess
+      -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Attach
+      -- information required to match the select predicate also to external
+      -- declarations.
+    | UsableExternal
+    deriving stock (Show, Generic)
+
+-- | Unusable declaration
+--
+-- A declaration is unusable if we did not reify the declaration. We can not
+-- generate bindings for unusable declarations.
+--
+-- (We avoid the term available, because it is overloaded with Clang's
+-- CXAvailabilityKind).
+data Unusable =
+      UnusableParseNotAttempted (NonEmpty ParseNotAttempted)
+    | UnusableParseFailure      ParseFailure
+    | UnusableConflict          ConflictingDeclarations
+    | UnusableFailedMacro       FailedMacro
+      -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Attach
+      -- information required to match the select predicate also to omitted
+      -- declarations.
+      -- | Omitted by prescriptive binding specifications
+    | UnusableOmitted           (C.QualName, SourcePath)
+    deriving stock (Show, Generic)
+
+instance PrettyForTrace Unusable where
+  prettyForTrace = \case
+    UnusableParseNotAttempted{} ->
+      "parse not attempted: (!) adjust parse predicate"
+    UnusableParseFailure{} ->
+      "parse failed"
+    UnusableConflict{} ->
+      "conflicting declarations"
+    UnusableFailedMacro{} ->
+      "macro parsing or type-checking failed"
+    UnusableOmitted{} ->
+      "omitted by prescriptive binding specification"
+
+-- | Entry of declaration index
+data Entry = UsableE Usable | UnusableE Unusable
+    deriving stock (Show, Generic)
 
 -- | Index of all declarations
 --
@@ -54,9 +119,9 @@ import HsBindgen.Util.Tracer
 --
 -- When we replace a declaration by an external one while resolving binding
 -- specifications, it is not deleted from the declaration index but reclassified
--- as 'external'. In the "HsBindgen.Frontend.Analysis.UseDeclGraph", dependency
--- edges from use sites to the replaced declaration are deleted, because the use
--- sites now depend on the external Haskell type.
+-- as 'UsableExternal'. In the "HsBindgen.Frontend.Analysis.UseDeclGraph",
+-- dependency edges from use sites to the replaced declaration are deleted,
+-- because the use sites now depend on the external Haskell type.
 --
 -- For example, assume the C code
 --
@@ -84,217 +149,198 @@ import HsBindgen.Util.Tracer
 --
 -- The edge from D3 to D2 was removed, since D3 now depends on a Haskell type
 -- R3, which is not part of the use-decl graph.
---
--- The records
--- - 'succeeded', 'notAttempted', and 'failed' store parse results;
--- - 'failedMacros' stores failed macros; and
--- - 'omitted' and 'external' store binding specifications.
-data DeclIndex = DeclIndex {
-      succeeded    :: !(Map C.QualPrelimDeclId ParseSuccess)
-    , notAttempted :: !(Map C.QualPrelimDeclId ParseNotAttempted)
-    , failed       :: !(Map C.QualPrelimDeclId ParseFailure)
-    , failedMacros :: !(Map C.QualPrelimDeclId HandleMacrosParseMsg)
-    , omitted      :: !(Map C.QualPrelimDeclId (C.QualName, SourcePath))
-      -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Attach
-      -- information required to match the select predicate also to external
-      -- declarations.
-    , external     :: !(Set C.QualPrelimDeclId)
+newtype DeclIndex = DeclIndex {
+      unDeclIndex   :: Map C.QualPrelimDeclId Entry
     }
   deriving stock (Show, Generic)
 
 emptyIndex :: DeclIndex
-emptyIndex =
-   DeclIndex Map.empty Map.empty Map.empty Map.empty Map.empty Set.empty
+emptyIndex = DeclIndex Map.empty
 
 {-------------------------------------------------------------------------------
   Construction
 -------------------------------------------------------------------------------}
 
--- | Construction state (internal type)
-data PartialIndex = PartialIndex{
-      index  :: DeclIndex
-    , errors :: !(Map C.QualPrelimDeclId DeclIndexError)
-    }
-  deriving (Generic)
-
-fromParseResults :: HasCallStack => [ParseResult] -> (DeclIndex, [DeclIndexError])
-fromParseResults results =
-      fromPartialIndex
-    . flip execState (PartialIndex emptyIndex Map.empty)
-    $ mapM_ aux results
+fromParseResults :: [ParseResult] -> DeclIndex
+fromParseResults results = flip execState emptyIndex $ mapM_ aux results
   where
-    fromPartialIndex :: PartialIndex -> (DeclIndex, [DeclIndexError])
-    fromPartialIndex (PartialIndex i e) =
-      -- We assert that no key is used twice. This assertion is not strictly
-      -- necessary, and we may want to remove it in the future.
-      let ss = Map.keysSet i.succeeded
-          os = Map.keysSet i.notAttempted
-          fs = Map.keysSet i.failed
-          is = Set.intersection
-          sharedKeys = Set.unions [is ss os, is ss fs, is os fs]
-      in  if sharedKeys == Set.empty then
-            (i, Map.elems e)
-          else
-            panicPure $
-              "DeclIndex.fromParseResults: shared keys: " <> show sharedKeys
-
-    aux :: ParseResult -> State PartialIndex ()
-    aux parse = modify' $ \oldIndex@PartialIndex{..} ->
-        if Map.member qualPrelimDeclId errors then
-          -- Ignore further definitions of the same ID after an error
-          oldIndex
-        else case parse of
-          ParseResultSuccess x ->
-              let (succeeded', mErr) = flip runState Nothing $
-                     Map.alterF
-                       (insert x)
-                       qualPrelimDeclId
-                       index.succeeded
-              in PartialIndex{
-                  index  = set #succeeded succeeded' index
-                , errors = case mErr of
-                    Nothing  -> errors
-                    Just err -> Map.insert qualPrelimDeclId err errors
-                }
-          ParseResultNotAttempted x ->
-            over
-              ( #index % #notAttempted )
-              ( insertFailure qualPrelimDeclId x )
-              oldIndex
-          ParseResultFailure x ->
-            over
-              ( #index % #failed )
-              ( insertFailure qualPrelimDeclId x )
-              oldIndex
+    aux :: ParseResult -> State DeclIndex ()
+    aux new = modify' $
+        DeclIndex . Map.alter (Just . handleParseResult declId new) declId . unDeclIndex
       where
-        qualPrelimDeclId :: C.QualPrelimDeclId
-        qualPrelimDeclId = getQualPrelimDeclId parse
+        declId :: C.QualPrelimDeclId
+        declId = getParseResultDeclId new
 
-    insert ::
-         ParseSuccess
-      -> Maybe ParseSuccess
-      -> State (Maybe DeclIndexError) (Maybe ParseSuccess)
-    insert new mOld = state $ \_ ->
-        case mOld of
-          Nothing ->
-              -- The normal case: no previous declaration exists
-              success new
-
-          Just old
-            | sameDefinition new.psDecl.declKind old.psDecl.declKind ->
-                -- Redeclaration but with the same definition. This can happen,
-                -- for example for opaque structs. We stick with the first but
-                -- add the parse messages of the second.
-                success $ over #psAttachedMsgs (++ new.psAttachedMsgs) old
-
+    handleParseResult ::
+      C.QualPrelimDeclId -> ParseResult -> Maybe Entry -> Entry
+    handleParseResult declId new = \case
+      Nothing -> parseResultToEntry new
+      -- We remove duplicates with /different/ values and store them as
+      -- 'ConflictingDeclarations'. We could detect and handle some but not all
+      -- of these duplicates; for now, we remove them all.
+      --
+      -- Duplicates may arise, for example, if a declaration is redefined by a
+      -- macro; for other kinds of declarations, clang will have reported an
+      -- error already.
+      --
+      -- There are cases where one declaration is an actual C construct like a
+      -- variable declaration, but the new declaration is a macro of the same
+      -- name that simply defers to the C construct. This is apparently a valid
+      -- pattern, which for example occurs in @stdio.h@:
+      --
+      -- > typedef int FILE;
+      -- > extern FILE *const stdin;
+      -- > #define stdin (stdin)
+      --
+      -- Note that in examples like this, we will always "succeed" in parsing
+      -- the macro, because proper macro handling does not happen until after
+      -- the @DeclIndex@ has been built (at this point the macro is merely a
+      -- list of tokens). So whether the macro is something we can handle or not
+      -- is irrelevant at this point.
+      Just old -> case old of
+        UsableE oldUsable -> case oldUsable of
+          UsableSuccess oldParseSuccess -> case new of
+            ParseResultSuccess newParseSuccess
+              -- Redeclaration but with the same definition. This can happen, for
+              -- example for opaque structs. We stick with the first declaration.
+              | sameDefinition oldParseSuccess.psDecl.declKind newParseSuccess.psDecl.declKind ->
+                old
+              | otherwise ->
+                newConflict oldParseSuccess.psDecl.declInfo.declLoc
+            ParseResultNotAttempted _ -> old
+            ParseResultFailure _      -> parseResultToEntry new
+          UsableExternal ->
+            panicPure "handleParseResult: usable external"
+        UnusableE oldUnusable -> case oldUnusable of
+          (UnusableParseNotAttempted nasOld)
+            | ParseResultNotAttempted naNew <- new ->
+                UnusableE $ UnusableParseNotAttempted $ naNew <| nasOld
             | otherwise ->
-                -- Redeclaration with a /different/ value. This is only legal
-                -- for macros; for other kinds of declarations, clang will have
-                -- reported an error already.
-                --
-                -- TODO: there are cases where one declaration is an actual C
-                -- construct like a variable declaration, but the new
-                -- declaration is a macro of the same name that simply defers to
-                -- the C construct. This is apparently a valid pattern, which
-                -- for example occurs in @stdio.h@:
-                --
-                -- > typedef int FILE;
-                -- > extern FILE *const stdin;
-                -- > #define stdin  (stdin)
-                --
-                -- See issue #1155.
-                failure $ Redeclaration{
-                    redeclarationId  = C.declQualPrelimDeclId $ new.psDecl
-                  , redeclarationOld = old.psDecl.declInfo.declLoc
-                  , redeclarationNew = new.psDecl.declInfo.declLoc
-                  }
-     where
-       -- No errors; set (or replace) value in the map
-       success :: a -> (Maybe a, Maybe DeclIndexError)
-       success x = (Just x, Nothing)
+                parseResultToEntry new
+          UnusableParseFailure _ -> old
+          UnusableConflict c     -> addConflicts c
+          UnusableFailedMacro x  ->
+            panicPure $ "handleParseResult: unusable failed macro" <> show x
+          UnusableOmitted     x  ->
+            panicPure $ "handelParseResult: unusable omitted" <> show x
+      where
+        newLoc :: SingleLoc
+        newLoc = getParseResultLoc new
 
-       -- In case of an error, /remove/ the value from the map
-       failure :: e -> (Maybe a, Maybe e)
-       failure err = (Nothing, Just err)
+        addConflicts :: ConflictingDeclarations  -> Entry
+        addConflicts c =
+          UnusableE $ UnusableConflict $
+            addConflictingLoc c newLoc
 
-    -- For failures, we just stick with the first failure.
-    insertFailure :: Ord k => k -> a -> Map k a -> Map k a
-    insertFailure key x =
-      Map.alter ( \case
-        Nothing -> Just x
-        Just x' -> Just x'
-        ) key
+        newConflict :: SingleLoc -> Entry
+        newConflict oldLoc =
+          UnusableE $ UnusableConflict $
+            conflictingDeclarations declId oldLoc newLoc
 
-sameDefinition :: C.DeclKind Parse -> C.DeclKind Parse -> Bool
-sameDefinition a b =
-    case (a, b) of
-      (C.DeclMacro macroA, C.DeclMacro macroB) ->
-        sameMacro macroA macroB
-      _otherwise ->
-        a == b
+        parseResultToEntry :: ParseResult -> Entry
+        parseResultToEntry = \case
+          ParseResultSuccess      r -> UsableE   $ UsableSuccess               r
+          ParseResultNotAttempted r -> UnusableE $ UnusableParseNotAttempted $ r :| []
+          ParseResultFailure      r -> UnusableE $ UnusableParseFailure        r
 
-sameMacro :: UnparsedMacro -> UnparsedMacro -> Bool
-sameMacro = (==) `on` (map tokenSpelling . unparsedTokens)
+    sameDefinition :: C.DeclKind Parse -> C.DeclKind Parse -> Bool
+    sameDefinition a b =
+        case (a, b) of
+          (C.DeclMacro macroA, C.DeclMacro macroB) ->
+            sameMacro macroA macroB
+          _otherwise ->
+            a == b
+
+    sameMacro :: UnparsedMacro -> UnparsedMacro -> Bool
+    sameMacro = (==) `on` (map tokenSpelling . unparsedTokens)
 
 {-------------------------------------------------------------------------------
-  Construction errors
+  Query parse successes
 -------------------------------------------------------------------------------}
 
-data DeclIndexError =
-    Redeclaration {
-        redeclarationId  :: C.QualPrelimDeclId
-      , redeclarationOld :: SingleLoc
-      , redeclarationNew :: SingleLoc
-      }
-  deriving stock (Show, Eq)
-
-instance PrettyForTrace DeclIndexError where
-  prettyForTrace Redeclaration{..} = hcat [
-        prettyForTrace redeclarationId
-      , " declared at "
-      , showToCtxDoc redeclarationOld
-      , " was redeclared at "
-      , showToCtxDoc redeclarationNew
-      , ". No binding generated."
-      ]
-
-instance IsTrace Level DeclIndexError where
-  getDefaultLogLevel = \case
-      -- Redeclarations can only happen for macros, so we issue a warning,
-      -- rather than an error.
-      Redeclaration{} -> Warning
-  getSource  = const HsBindgen
-  getTraceId = const "decl-index-error"
-
-{-------------------------------------------------------------------------------
-  Query
--------------------------------------------------------------------------------}
-
+-- | Lookup parse success.
 lookup :: C.QualPrelimDeclId -> DeclIndex -> Maybe (C.Decl Parse)
-lookup qualPrelimDeclId =
-  fmap psDecl . Map.lookup qualPrelimDeclId . succeeded
+lookup qualPrelimDeclId (DeclIndex i) = case Map.lookup qualPrelimDeclId i of
+  Nothing                          -> Nothing
+  Just (UsableE (UsableSuccess x)) -> Just $ x.psDecl
+  _                                -> Nothing
 
+-- | Unsafe! Get parse success.
 (!) :: HasCallStack => DeclIndex -> C.QualPrelimDeclId -> C.Decl Parse
 (!) declIndex qualPrelimDeclId =
     fromMaybe (panicPure $ "Unknown key: " ++ show qualPrelimDeclId) $
        lookup qualPrelimDeclId declIndex
 
-lookupAttachedParseMsgs :: C.QualPrelimDeclId -> DeclIndex -> [AttachedParseMsg DelayedParseMsg]
-lookupAttachedParseMsgs qualPrelimDeclId =
-  maybe [] psAttachedMsgs . Map.lookup qualPrelimDeclId . succeeded
-
+-- | Get all parse successes.
 getDecls :: DeclIndex -> [C.Decl Parse]
-getDecls = map psDecl . Map.elems . succeeded
+getDecls = mapMaybe toDecl . Map.elems . unDeclIndex
+  where
+    toDecl = \case
+      UsableE (UsableSuccess x) -> Just x.psDecl
+      _otherEntries             -> Nothing
 
+{-------------------------------------------------------------------------------
+  Other queries
+-------------------------------------------------------------------------------}
+
+-- | Lookup an entry of a declaration index.
+lookupEntry :: C.QualPrelimDeclId -> DeclIndex -> Maybe Entry
+lookupEntry x = Map.lookup x . unDeclIndex
+
+-- | Get all entries of a declaration index.
+toList :: DeclIndex -> [(C.QualPrelimDeclId, Entry)]
+toList = Map.toList . unDeclIndex
+
+-- | Get the source locations of a declaration.
+lookupLoc :: C.QualPrelimDeclId -> DeclIndex -> [SingleLoc]
+lookupLoc d (DeclIndex i) = case Map.lookup d i of
+  Nothing            -> []
+  Just (UsableE e)   -> case e of
+    UsableSuccess x -> [x.psDecl.declInfo.declLoc]
+    UsableExternal  -> []
+  Just (UnusableE e) -> unusableToLoc e
+
+-- | Get the source locations of an unusable declaration.
+lookupUnusableLoc :: C.QualPrelimDeclId -> DeclIndex -> [SingleLoc]
+lookupUnusableLoc d (DeclIndex i) = case Map.lookup d i of
+  Nothing            -> []
+  Just (UsableE _)   -> []
+  Just (UnusableE e) -> unusableToLoc e
+
+unusableToLoc :: Unusable -> [SingleLoc]
+unusableToLoc = \case
+    UnusableParseNotAttempted xs ->
+      [x.loc | (ParseNotAttempted x) <- NonEmpty.toList xs]
+    UnusableParseFailure (ParseFailure x) -> [x.loc]
+    UnusableConflict x                    -> getLocs x
+    UnusableFailedMacro (FailedMacro x)   -> [x.loc]
+    UnusableOmitted{}                     -> []
+
+-- | Get the identifiers of all declarations in the index.
 keysSet :: DeclIndex -> Set C.QualPrelimDeclId
-keysSet DeclIndex{..} = Set.unions [
-      Map.keysSet succeeded
-    , Map.keysSet notAttempted
-    , Map.keysSet failed
-    , Map.keysSet failedMacros
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1301: Also add
-    -- 'omitted' here and deal with the 'omitted' case in selection.
-    ]
+keysSet = Map.keysSet . unDeclIndex
+
+-- | Get omitted entries.
+getOmitted :: DeclIndex -> Map C.QualPrelimDeclId (C.QualName, SourcePath)
+getOmitted = Map.mapMaybe toOmitted . unDeclIndex
+  where
+    toOmitted :: Entry -> Maybe (C.QualName, SourcePath)
+    toOmitted = \case
+      UsableE _ -> Nothing
+      UnusableE e -> case e of
+        UnusableOmitted x -> Just x
+        _otherEntry       -> Nothing
+
+{-------------------------------------------------------------------------------
+  Support for macro failures
+-------------------------------------------------------------------------------}
+
+registerMacroFailures :: [FailedMacro] -> DeclIndex -> DeclIndex
+registerMacroFailures xs index = Foldable.foldl' insert index xs
+  where
+    insert :: DeclIndex -> FailedMacro -> DeclIndex
+    insert (DeclIndex i) x =
+      DeclIndex $ Map.insert (unFailedMacro x).declId (UnusableE $ UnusableFailedMacro x) i
 
 {-------------------------------------------------------------------------------
   Support for selection
@@ -303,28 +349,54 @@ keysSet DeclIndex{..} = Set.unions [
 -- Match function to find selection roots.
 type Match = C.QualPrelimDeclId -> SingleLoc -> C.Availability -> Bool
 
+-- | Limit the declaration index to those entries that match the select
+--   predicate. Do not include anything external nor omitted.
 selectDeclIndex :: Match -> DeclIndex -> DeclIndex
-selectDeclIndex p DeclIndex{..} = DeclIndex {
-      succeeded    = Map.filter matchSuccess      succeeded
-    , notAttempted = Map.filter matchNotAttempted notAttempted
-    , failed       = Map.filter matchFailed       failed
-    , failedMacros = Map.filter matchFailedMacros failedMacros
-    , omitted
-    , external
-    }
+selectDeclIndex p = DeclIndex . Map.filter matchEntry . unDeclIndex
   where
+    matchEntry :: Entry -> Bool
+    matchEntry = \case
+      UsableE e -> case e of
+        UsableSuccess (ParseSuccess i d _) ->
+          p i d.declInfo.declLoc d.declInfo.declAvailability
+        UsableExternal ->
+          False
+      UnusableE e -> case e of
+        UnusableParseNotAttempted xs ->
+          any (matchMsg . unParseNotAttempted) xs
+        UnusableParseFailure (ParseFailure m) ->
+          matchMsg m
+        UnusableConflict x ->
+          or [p (getDeclId x) l C.Available | l <- getLocs x ]
+        UnusableFailedMacro (FailedMacro m) ->
+          matchMsg m
+        UnusableOmitted{} ->
+          False
+
     matchMsg :: AttachedParseMsg a -> Bool
     matchMsg m = p m.declId m.loc m.availability
 
-    matchSuccess :: ParseSuccess -> Bool
-    matchSuccess (ParseSuccess i d _) =
-      p i d.declInfo.declLoc d.declInfo.declAvailability
+-- | Restrict the declaration index to unusable declarations in a given set.
+getUnusables :: DeclIndex -> Set C.QualPrelimDeclId -> Map C.QualPrelimDeclId Unusable
+getUnusables (DeclIndex i) xs = Map.mapMaybe retainUnusable $ Map.restrictKeys i xs
+  where
+    retainUnusable :: Entry -> Maybe Unusable
+    retainUnusable = \case
+      UsableE   _ -> Nothing
+      UnusableE x -> Just x
 
-    matchNotAttempted :: ParseNotAttempted -> Bool
-    matchNotAttempted (ParseNotAttempted m) = matchMsg m
+{-------------------------------------------------------------------------------
+  Supprot for binding specifications
+-------------------------------------------------------------------------------}
 
-    matchFailed :: ParseFailure -> Bool
-    matchFailed (ParseFailure m) = matchMsg m
+registerOmittedDeclarations ::
+  Map C.QualPrelimDeclId (C.QualName, SourcePath) -> DeclIndex  -> DeclIndex
+registerOmittedDeclarations xs =
+      DeclIndex . Map.union (UnusableE . UnusableOmitted <$> xs) . unDeclIndex
 
-    matchFailedMacros :: HandleMacrosParseMsg -> Bool
-    matchFailedMacros (HandleMacrosParseMsg m) = matchMsg m
+registerExternalDeclarations :: Set C.QualPrelimDeclId -> DeclIndex  -> DeclIndex
+registerExternalDeclarations xs index = Foldable.foldl' insert index xs
+  where
+    insert :: DeclIndex -> C.QualPrelimDeclId -> DeclIndex
+    insert (DeclIndex i) x =
+      DeclIndex $ Map.insert x (UsableE UsableExternal) i

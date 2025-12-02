@@ -2,7 +2,6 @@
 // select!
 #include "select_scoping_header.h"
 
-
 // This declaration is parsed _and_ selected.
 typedef int ParsedAndSelected1;
 
@@ -12,4 +11,4 @@ typedef ParsedAndNotSelected ParsedAndSelected2;
 
 // This declaration is parsed _and_ selected. The dependency is _not_ parsed nor
 // selected (custom parse predicate).
-typedef struct PossiblyNotParsedDefinitelyNotSelected ParsedAndSelected3;
+typedef struct ParseNotAttemptedNotSelected ParsedAndSelected3;

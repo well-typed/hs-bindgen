@@ -16,6 +16,7 @@ module HsBindgen.Frontend.Analysis.UseDeclGraph (
     -- * Query
   , toDecls
   , getTransitiveDeps
+  , getStrictTransitiveDeps
     -- * Deletion
   , deleteDeps
     -- * Debugging
@@ -26,6 +27,7 @@ import Data.DynGraph.Labelled (DynGraph)
 import Data.DynGraph.Labelled qualified as DynGraph
 import Data.List qualified as List
 import Data.Map qualified as Map
+import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
 import Clang.Paths
@@ -117,6 +119,9 @@ toDecls index (Wrap graph) =
 
 getTransitiveDeps :: UseDeclGraph -> [C.QualPrelimDeclId] -> Set C.QualPrelimDeclId
 getTransitiveDeps = DynGraph.reaches . unwrap
+
+getStrictTransitiveDeps :: UseDeclGraph -> [C.QualPrelimDeclId] -> Set C.QualPrelimDeclId
+getStrictTransitiveDeps graph xs =  getTransitiveDeps graph xs Set.\\ (Set.fromList xs)
 
 {-------------------------------------------------------------------------------
   Deletion

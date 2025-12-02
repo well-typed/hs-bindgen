@@ -1,7 +1,7 @@
 module HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (
     ConstructTranslationUnit
   , DeclMeta(..)
-  , ConstructTranslationUnitMsg(..)
+  , ConstructTranslationUnitMsg
   ) where
 
 import HsBindgen.Frontend.Analysis.DeclIndex
@@ -57,10 +57,16 @@ data DeclMeta = DeclMeta {
   Trace messages
 -------------------------------------------------------------------------------}
 
-data ConstructTranslationUnitMsg =
-    ConstructTranslationUnitErrorDeclIndex DeclIndexError
+data ConstructTranslationUnitMsg
   deriving stock    (Show, Generic)
-  deriving anyclass (PrettyForTrace, IsTrace Level)
+
+instance PrettyForTrace ConstructTranslationUnitMsg where
+  prettyForTrace = const "no message available"
+
+instance IsTrace Level ConstructTranslationUnitMsg where
+  getDefaultLogLevel = const Debug
+  getSource          = const HsBindgen
+  getTraceId         = const "construct-translation-unit"
 
 {-------------------------------------------------------------------------------
   CoercePass

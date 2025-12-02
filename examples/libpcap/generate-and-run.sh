@@ -11,6 +11,7 @@ export PROJECT_ROOT
     echo "# Building libpcap"
     echo "# "
 
+    rm -rfv libpcap*
     wget https://www.tcpdump.org/release/libpcap-1.10.5.tar.xz
     tar -xf libpcap-1.10.5.tar.xz
     mv libpcap-1.10.5 libpcap

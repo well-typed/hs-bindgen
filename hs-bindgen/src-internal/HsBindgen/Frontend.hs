@@ -213,7 +213,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     -- Omitted types
     frontendOmitTypes <- cache "frontendOmitTypes" $
-      Map.elems . view ( #unitAnn % #declIndex % #omitted ) <$>
+      Map.elems . DeclIndex.getOmitted . view ( #unitAnn % #declIndex) <$>
         resolveBindingSpecsPass
 
     -- Declarations.

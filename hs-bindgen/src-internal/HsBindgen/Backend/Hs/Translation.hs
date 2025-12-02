@@ -29,7 +29,7 @@ import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.Internal
 import HsBindgen.Errors
-import HsBindgen.Frontend.Analysis.DeclIndex
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Naming qualified as C

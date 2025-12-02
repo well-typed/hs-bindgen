@@ -1,6 +1,6 @@
 module HsBindgen.Frontend.Pass.HandleMacros.Error (
     -- * Parse
-    HandleMacrosParseMsg(..)
+    FailedMacro(..)
   , HandleMacrosError(..)
     -- * Reparse
   , HandleMacrosReparseMsg(..)
@@ -22,8 +22,8 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 -- | Macro parse messages; see also 'HandleMacrosReparseMsg'
-newtype HandleMacrosParseMsg = HandleMacrosParseMsg {
-    unHandleMacrosParseMsg :: AttachedParseMsg HandleMacrosError
+newtype FailedMacro = FailedMacro {
+    unFailedMacro :: AttachedParseMsg HandleMacrosError
   }
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
@@ -76,7 +76,7 @@ instance IsTrace Level HandleMacrosError where
   Reparse messages
 -------------------------------------------------------------------------------}
 
--- | Macro reparse messages; see also 'HandleMacrosParseMsg'
+-- | Macro reparse messages; see also 'FailedMacro'
 data HandleMacrosReparseMsg =
     -- | We could not reparse a fragment of C (to recover macro use sites)
     HandleMacrosErrorReparse LanC.Error

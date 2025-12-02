@@ -1,0 +1,2 @@
+-- addDependentFile examples/golden/edge-cases/duplicate_macro.h
+-- addDependentFile examples/golden/edge-cases/duplicate.h

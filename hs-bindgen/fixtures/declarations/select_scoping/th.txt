@@ -2,7 +2,7 @@
 -- addDependentFile examples/golden/declarations/select_scoping.h
 {-| __C declaration:__ @ParsedAndSelected1@
 
-    __defined at:__ @declarations\/select_scoping.h:7:13@
+    __defined at:__ @declarations\/select_scoping.h:6:13@
 
     __exported by:__ @declarations\/select_scoping.h@
 -}
@@ -10,7 +10,7 @@ newtype ParsedAndSelected1
     = ParsedAndSelected1 {un_ParsedAndSelected1 :: CInt}
       {- ^ __C declaration:__ @ParsedAndSelected1@
 
-           __defined at:__ @declarations\/select_scoping.h:7:13@
+           __defined at:__ @declarations\/select_scoping.h:6:13@
 
            __exported by:__ @declarations\/select_scoping.h@
       -}

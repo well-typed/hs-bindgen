@@ -26,9 +26,15 @@ libclang_flags=(
 # the declarations into an `hs-bindgen`-internal abstract syntax tree. These
 # flags affect the parsing/reifying step.
 parse_flags=(
-    # TODO: We panic without `--parse-all`, see
-    # https://github.com/well-typed/hs-bindgen/issues/1155.
-    --parse-all
+    # The external binding specifications we provide for the C standard library
+    # do not cover all definitions. We instruct `hs-bindgen` to parse additional
+    # headers.
+    --parse-by-header-path "struct_timeval.h"
+    --parse-by-header-path "socket.h"
+    # By default `hs-bindgen` parses all headers in the main header directory,
+    # but we adjust the parse predicate above, and so need to provide this
+    # option.
+    --parse-from-main-header-dirs
 )
 
 # We only generate bindings for a sub-set of all parsed/reified declarations.
@@ -56,9 +62,8 @@ select_flags=(
 # For example, activate Info-level log messages to see which declarations are
 # selected/not selected, or which C macros we succeed or fail to parse.
 debug_flags=(
-    # # Run `hs-bindgen` with log level "Info".
+    # # Run `hs-bindgen` with log level "Info" or "Debug".
     # -v3
-    # # Run `hs-bindgen` with log level "Debug".
     # -v4
 )
 

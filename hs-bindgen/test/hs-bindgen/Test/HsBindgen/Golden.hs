@@ -23,8 +23,10 @@ import Clang.Version
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
+import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
@@ -159,9 +161,11 @@ test_attributes_visibility_attributes =
            (AttachedParseMsg i _ _ ParseNonPublicVisibility))) ->
            Just $ expectFromQualPrelimDeclId i
          TraceFrontend (FrontendSelect (SelectParseFailure
-           (ParseFailure (AttachedParseMsg i _ _ (ParseUnknownStorageClass (unsafeFromSimpleEnum -> CX_SC_Static)))))) ->
+           (ParseFailure (AttachedParseMsg i _ _
+             (ParseUnknownStorageClass (unsafeFromSimpleEnum -> CX_SC_Static)))))) ->
            Just $ expectFromQualPrelimDeclId i
-         TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-extern-initializer"})) ->
+         TraceFrontend (FrontendClang
+           (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-extern-initializer"})) ->
            Just Tolerated
          _otherwise ->
            Nothing
@@ -259,6 +263,29 @@ test_documentation_data_kind_pragma =
 
 test_edge_cases_adios :: TestCase
 test_edge_cases_adios = defaultTest "edge-cases/adios"
+
+test_edge_cases_duplicate :: TestCase
+test_edge_cases_duplicate = (defaultTest "edge-cases/duplicate") {
+    testOnFrontendConfig = \cfg -> cfg{
+        frontendParsePredicate  = BTrue
+      , frontendSelectPredicate = BOr
+          (BIf (SelectDecl (DeclNameMatches "function")))
+          (BIf (SelectDecl (DeclNameMatches "duplicate")))
+      }
+  , testTracePredicate = customTracePredicate [
+        "duplicate-conflict"
+      , "duplicate-transitive-fail"
+      ] $ \case
+      TraceFrontend (FrontendSelect (SelectConflict _)) ->
+         Just $ Expected "duplicate-conflict"
+      TraceFrontend (FrontendSelect
+        (TransitiveDependencyOfDeclarationUnselectable _ _ _
+        (UnselectableBecauseUnusable (UnusableConflict _)) _)) ->
+         Just $ Expected "duplicate-transitive-fail"
+      _otherwise ->
+         Nothing
+
+  }
 
 test_edge_cases_distilled_lib_1 :: TestCase
 test_edge_cases_distilled_lib_1 = defaultTest "edge-cases/distilled_lib_1"
@@ -452,8 +479,8 @@ test_macros_macro_redefines_global =
           , C.QualPrelimDeclIdNamed "stderr" C.NameKindOrdinary
           ]
   in testTraceCustom "macros/macro_redefines_global" declsWithMsgs $ \case
-    TraceFrontend (FrontendConstructTranslationUnit (ConstructTranslationUnitErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
-      Just $ Expected x
+    TraceFrontend (FrontendSelect (SelectConflict x)) ->
+      Just $ Expected $ getDeclId x
     _otherwise ->
       Nothing
 
@@ -468,7 +495,7 @@ test_types_special_parse_failure_long_double =
 
 test_declarations_tentative_definitions :: TestCase
 test_declarations_tentative_definitions =
-  testTraceCustom "declarations/tentative_definitions" ["i1", "i2", "i3", "i3"] $ \case
+  testTraceCustom "declarations/tentative_definitions" ["i1", "i2", "i3"] $ \case
     TraceFrontend (FrontendSelect (SelectParseSuccess
       (AttachedParseMsg i _ _ ParsePotentialDuplicateSymbol{}))) ->
       Just $ expectFromQualPrelimDeclId i
@@ -561,7 +588,7 @@ test_types_failing_implicit_fields_union =
 test_declarations_failing_declaration_unselected_b :: TestCase
 test_declarations_failing_declaration_unselected_b =
   failingTestCustom "declarations/failing/declaration_unselected_b" ["select" :: String] $ \case
-    (TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (_, UnavailableNotSelected) _))) ->
+    (TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnselectable _ _ _ TransitiveDependencyNotSelected _))) ->
       Just $ Expected "select"
     _otherwise ->
       Nothing
@@ -569,7 +596,7 @@ test_declarations_failing_declaration_unselected_b =
 test_declarations_failing_redeclaration_different :: TestCase
 test_declarations_failing_redeclaration_different =
   failingTestSimple "declarations/failing/redeclaration_different" $ \case
-    TraceFrontend (FrontendConstructTranslationUnit (ConstructTranslationUnitErrorDeclIndex (Redeclaration {}))) ->
+    TraceFrontend (FrontendSelect (SelectConflict _)) ->
       Just (Expected ())
     TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
       if "macro redefined" `Text.isInfixOf` diagnosticSpelling x
@@ -778,9 +805,9 @@ test_functions_fun_attributes =
         Just $ expectFromQualPrelimDeclId i
       TraceFrontend (FrontendSelect (SelectDeprecated x)) ->
         Just $ expectFromDeclSelect x
-      TraceFrontend (FrontendSelect (SelectParseNotAttempted (ParseNotAttempted
-        (AttachedParseMsg n _ _ DeclarationUnavailable)))) ->
-        Just $ expectFromQualPrelimDeclId n
+      TraceFrontend (FrontendSelect (SelectParseNotAttempted
+        (ParseNotAttempted (AttachedParseMsg n _ _ DeclarationUnavailable)))) ->
+          Just $ expectFromQualPrelimDeclId n
       _otherwise ->
         Nothing
   }
@@ -871,9 +898,9 @@ test_program_analysis_program_slicing_simple =
         "selected foo"
       , "selected uint32_t"
       ] $ \case
-      TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+      TraceFrontend (FrontendSelect (SelectStatusInfo decl (Selected SelectionRoot))) ->
         expectSelected decl.declInfo $ Set.singleton "foo"
-      TraceFrontend (FrontendSelect (SelectStatusInfo (Selected TransitiveDependency) decl)) ->
+      TraceFrontend (FrontendSelect (SelectStatusInfo decl (Selected TransitiveDependency))) ->
         expectSelected decl.declInfo $ Set.singleton "uint32_t"
       _otherwise ->
         Nothing
@@ -889,9 +916,12 @@ test_program_analysis_selection_fail =
     ] $ \case
       TraceFrontend (FrontendSelect (SelectParseFailure _)) ->
         Just $ Expected "Fail"
-      TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (_, UnavailableParseFailed) decl)) ->
+      TraceFrontend (FrontendSelect
+        (TransitiveDependencyOfDeclarationUnselectable decl _ _
+          (UnselectableBecauseUnusable (UnusableParseFailure _)) _)) ->
         Just $ expectFromDeclSelect decl
-      TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+      TraceFrontend (FrontendSelect
+        (SelectStatusInfo decl (Selected SelectionRoot))) ->
         Just $ expectFromDeclSelect decl
       _otherwise -> Nothing
 
@@ -908,9 +938,11 @@ test_program_analysis_selection_fail_variant_1 =
       , "DependOnFailByReference"
       , "OkBefore", "OkAfter"
       ] $ \case
-        TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (_, UnavailableNotSelected) decl)) ->
+        TraceFrontend (FrontendSelect
+          (TransitiveDependencyOfDeclarationUnselectable decl _ _ TransitiveDependencyNotSelected _)) ->
           Just $ expectFromDeclSelect decl
-        TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+        TraceFrontend (FrontendSelect
+          (SelectStatusInfo decl (Selected SelectionRoot))) ->
           Just $ expectFromDeclSelect decl
         _otherwise -> Nothing
   }
@@ -929,9 +961,12 @@ test_program_analysis_selection_fail_variant_2 =
       , "DependOnFailByReference"
       , "OkBefore", "OkAfter"
       ] $ \case
-        TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (_, UnavailableParseFailed) decl)) ->
+        TraceFrontend (FrontendSelect
+          (TransitiveDependencyOfDeclarationUnselectable decl _ _
+            (UnselectableBecauseUnusable (UnusableParseFailure _)) _)) ->
           Just $ expectFromDeclSelect decl
-        TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+        TraceFrontend (FrontendSelect
+          (SelectStatusInfo decl (Selected SelectionRoot))) ->
           Just $ expectFromDeclSelect decl
         _otherwise -> Nothing
   , testHasOutput = False
@@ -947,7 +982,7 @@ test_program_analysis_selection_fail_variant_3 =
       , frontendProgramSlicing = EnableProgramSlicing
       }
   , testTracePredicate = customTracePredicate' ["OkBefore"] $ \case
-        TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+        TraceFrontend (FrontendSelect (SelectStatusInfo decl (Selected SelectionRoot))) ->
           Just $ expectFromDeclSelect decl
         _otherwise -> Nothing
   }
@@ -956,7 +991,8 @@ test_program_analysis_failing_selection_bad :: TestCase
 test_program_analysis_failing_selection_bad =
   (defaultFailingTest "program-analysis/failing/selection_bad"){
     testTracePredicate = customTracePredicate ["size_t_select"] $ \case
-      (TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable SelectionRoot (_, UnavailableNotSelected) _))) ->
+      (TraceFrontend (FrontendSelect
+        (TransitiveDependencyOfDeclarationUnselectable _ SelectionRoot _ TransitiveDependencyNotSelected _))) ->
         Just $ Expected "size_t_select"
       _other -> Nothing
   }
@@ -984,20 +1020,14 @@ test_program_analysis_program_slicing_selection =
         "selected FileOperationRecord"
       , "selected FileOperationStatus"
       , "selected read_file_chunk"
-        -- Macro redefines a global variable
-      , "QualPrelimDeclIdNamed \"stdin\" NameKindOrdinary"
-      , "QualPrelimDeclIdNamed \"stdout\" NameKindOrdinary"
-      , "QualPrelimDeclIdNamed \"stderr\" NameKindOrdinary"
       ] $ \case
-      TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+      TraceFrontend (FrontendSelect (SelectStatusInfo decl (Selected SelectionRoot))) ->
         expectSelected decl.declInfo $ Set.fromList [
             "FileOperationRecord"
           , "read_file_chunk"
           ]
-      TraceFrontend (FrontendSelect (SelectStatusInfo (Selected TransitiveDependency) decl)) ->
+      TraceFrontend (FrontendSelect (SelectStatusInfo decl (Selected TransitiveDependency))) ->
         expectSelected decl.declInfo $ Set.singleton "FileOperationStatus"
-      TraceFrontend (FrontendConstructTranslationUnit (ConstructTranslationUnitErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
-        Just $ Expected (show x)
       _otherwise ->
         Nothing
   }
@@ -1023,12 +1053,12 @@ test_declarations_select_scoping =
     , "ParsedAndSelected3"
     ] $ \case
       (TraceFrontend (FrontendSelect
-        (TransitiveDependencyOfDeclarationUnavailable _
-          (_, UnavailableNotSelected) _))) ->
+        (TransitiveDependencyOfDeclarationUnselectable _ _
+          _ TransitiveDependencyNotSelected _))) ->
           Just $ Expected "ParsedAndSelected2"
       (TraceFrontend (FrontendSelect
-        (TransitiveDependencyOfDeclarationUnavailable _
-          (_, UnavailableParseNotAttempted) _))) ->
+        (TransitiveDependencyOfDeclarationUnselectable _ _
+          _ (UnselectableBecauseUnusable (UnusableParseNotAttempted _)) _))) ->
           Just $ Expected "ParsedAndSelected3"
       _otherwise -> Nothing
   }
@@ -1049,7 +1079,8 @@ test_edge_cases_failing_select_no_match :: TestCase
 test_edge_cases_failing_select_no_match =
   (defaultFailingTest "edge-cases/failing/select_no_match") {
     testOnFrontendConfig = \cfg -> cfg {
-        frontendSelectPredicate = BIf (SelectDecl (DeclNameMatches "this_pattern_will_never_match"))
+        frontendSelectPredicate = BIf $
+          SelectDecl (DeclNameMatches "this_pattern_will_never_match")
       }
   , testTracePredicate = singleTracePredicate $ \case
       TraceFrontend (FrontendSelect SelectNoDeclarationsMatched) ->
@@ -1096,6 +1127,7 @@ testCases = manualTestCases ++ [
     , test_documentation_data_kind_pragma
     , test_documentation_doxygen_docs
     , test_edge_cases_adios
+    , test_edge_cases_duplicate
     , test_edge_cases_distilled_lib_1
     , test_edge_cases_failing_select_no_match
     , test_edge_cases_failing_thread_local

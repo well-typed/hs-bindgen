@@ -46,10 +46,6 @@ import HsBindgen.Util.Tracer
 -- 'IncludeDir' data constructor 'Pkg').
 type Config = Config_ IncludeDir
 
--- TODO_PR: We use this now also for binding specifications; so, technically
--- speaking this is not an include directory anymore, but a file path possibly
--- relative to the package root.
-
 -- | C include directory added to the C include search path
 data IncludeDir =
     Dir FilePath
