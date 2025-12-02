@@ -15,19 +15,15 @@ module HsBindgen
   , writeTests
   ) where
 
-import Data.Foldable (foldrM)
-import Data.Foldable qualified as Foldable
+import Control.Monad (join)
 import Data.Map qualified as Map
-import System.Directory (createDirectoryIfMissing, doesDirectoryExist,
-                         doesFileExist)
-import System.FilePath (takeDirectory, (</>))
+import System.FilePath ((</>))
 
 import HsBindgen.Artefact
 import HsBindgen.Backend
 import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.BindingSpec.Gen
-import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Boot
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
@@ -55,7 +51,7 @@ hsBindgen
   bindgenConfig@BindgenConfig{..}
   uncheckedHashIncludeArgs
   artefacts = do
-    (result, fsActions) <- fmap (either ((, []) . Left) id) $ withTracer tracerConfig $ \tracer tracerUnsafeRef -> do
+    result <- fmap join $ withTracer tracerConfig $ \tracer tracerUnsafeRef -> do
       -- Boot and frontend require unsafe tracer and `libclang`.
       let tracerFrontend :: Tracer FrontendMsg
           tracerFrontend = contramap TraceFrontend tracer
@@ -75,18 +71,14 @@ hsBindgen
         runArtefacts
           tracerSafe
           tracerUnsafeRef
+          bindgenBackendConfig
           bootArtefact
           frontendArtefact
           backendArtefact
           artefacts
 
     -- Execute file system actions based on FileOverwritePolicy
-    value <- either throwIO pure result
-    executeFileSystemActions
-      (backendOutputDirPolicy bindgenBackendConfig)
-      (backendFileOverwrite bindgenBackendConfig)
-      fsActions
-    return value
+    either throwIO pure result
   where
     tracerConfigSafe :: TracerConfig SafeLevel a
     tracerConfigSafe = TracerConfig {
@@ -96,56 +88,6 @@ hsBindgen
       , tShowTimeStamp  = tShowTimeStamp tracerConfig
       , tShowCallStack  = tShowCallStack tracerConfig
       }
-
-{-------------------------------------------------------------------------------
-  Execute file system actions
--------------------------------------------------------------------------------}
-
--- | Execute collected file system actions based on FileOverwritePolicy
-executeFileSystemActions :: OutputDirPolicy -> FileOverwritePolicy -> [FileSystemAction] -> IO ()
-executeFileSystemActions outputDirPolicy fop actions = do
-  -- Get the first directory path that exists if any
-  mbDirPath <-
-    foldrM (\f mbp -> do
-             case f of
-               CreateDir path
-                 | Just _ <- mbp -> pure mbp
-                 | otherwise -> do
-                   fileExists <- doesDirectoryExist path
-                   pure $ if fileExists
-                             then Just path
-                             else mbp
-               _ -> pure mbp
-           ) Nothing actions
-  -- Get the first file path that exists if any
-  mbFilePath <-
-    foldrM (\f mbp -> do
-             case f of
-               WriteFile _ path _
-                 | Just _ <- mbp -> pure mbp
-                 | otherwise -> do
-                   fileExists <- doesFileExist path
-                   pure $ if fileExists
-                             then Just path
-                             else mbp
-               _ -> pure mbp
-           ) Nothing actions
-  case outputDirPolicy of
-    DoNotCreateDirStructure
-      | Just outputDir <- mbDirPath ->
-        throwIO (OutputDirectoryMissingException outputDir)
-    _ -> pure ()
-  case fop of
-    ProtectExistingFiles
-      | Just path <- mbFilePath -> throwIO (FileAlreadyExistsException path)
-    _ -> forM_ actions $ \case
-          CreateDir outputDir ->
-            createDirectoryIfMissing True outputDir
-          WriteFile _ path content -> do
-            createDirectoryIfMissing True (takeDirectory path)
-            case content of
-              TextContent str -> writeFile path str
-              BindingSpecContent ubs -> BindingSpec.writeFile path ubs
 
 {-------------------------------------------------------------------------------
   Custom build artefacts
@@ -244,7 +186,7 @@ writeByCategory ::
   -> ByCategory String
   -> Artefact ()
 writeByCategory what hsOutputDir moduleBaseName =
-    Foldable.foldl' (>>) (pure ()) . map (uncurry writeCategory) . Map.toList . unByCategory
+    mapM_ (uncurry writeCategory) . Map.toList . unByCategory
   where
     writeCategory :: BindingCategory -> String -> Artefact ()
     writeCategory cat str = do
