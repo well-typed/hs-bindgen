@@ -46,7 +46,6 @@ info = progDesc $ mconcat [
 data Opts = Opts {
       input  :: FilePath
     , output :: FilePath
-    , outputDirPolicy :: OutputDirPolicy
     , fileOverwritePolicy :: FileOverwritePolicy
     }
   deriving (Show, Eq)
@@ -65,7 +64,6 @@ parseOpts = do
     input  <- strArgument $ metavar "IN"
     output <- strArgument $ metavar "OUT"
 
-    outputDirPolicy <- parseOutputDirPolicy
     fileOverwritePolicy <- parseFileOverwritePolicy
     return Opts{..}
 
@@ -118,7 +116,7 @@ exec literateOpts = do
         bindgenConfig =
           toBindgenConfig
             config
-            (literateOpts.outputDirPolicy)
+            CreateDirStructure
             (literateOpts.fileOverwritePolicy )
             uniqueId
             baseModuleName

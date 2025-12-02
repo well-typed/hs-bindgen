@@ -5,6 +5,7 @@ module HsBindgen.Config (
     Config_(..)
   , UniqueId(..)
   , BaseModuleName(..)
+  , BackendConfig(..)
   , toBindgenConfig
   , OutputDirPolicy (..)
   , FileOverwritePolicy (..)
