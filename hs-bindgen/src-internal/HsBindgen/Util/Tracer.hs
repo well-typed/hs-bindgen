@@ -475,6 +475,7 @@ withTracer' TracerConfig{..} action = do
 -------------------------------------------------------------------------------}
 
 data TraceException a = TraceException [a]
+                      | TraceFileSystemException FileSystemException
   deriving Show
 
 instance (Show a, Typeable a) => Exception (TraceException a) where
@@ -482,6 +483,7 @@ instance (Show a, Typeable a) => Exception (TraceException a) where
     fromException = hsBindgenExceptionFromException
     -- We only display errors in tests.
     displayException (TraceException _) = "An error happened (see above)"
+    displayException (TraceFileSystemException e) = displayException e
 
 
 data FileSystemException =
