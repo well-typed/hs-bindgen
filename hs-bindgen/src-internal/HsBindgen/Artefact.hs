@@ -215,7 +215,7 @@ runArtefacts
       _ <- case outputDirPolicy of
              DoNotCreateDirStructure
                | Just outputDir <- mbDirPath ->
-                 return (Left (TraceFileSystemException (OutputDirectoryMissingException outputDir)))
+                 return (Left (TraceFileSystemException (OutputDirectoryAlreadyExistsException outputDir)))
              _ -> pure (Right ())
 
       case fop of

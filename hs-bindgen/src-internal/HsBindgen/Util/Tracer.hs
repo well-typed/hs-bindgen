@@ -488,7 +488,7 @@ instance (Show a, Typeable a) => Exception (TraceException a) where
 
 data FileSystemException =
       FileAlreadyExistsException FilePath
-    | OutputDirectoryMissingException FilePath
+    | OutputDirectoryAlreadyExistsException FilePath
   deriving Show
 
 instance Exception FileSystemException where
@@ -499,8 +499,8 @@ instance Exception FileSystemException where
     , ""
     , "Use --overwrite-files to allow overwriting existing files, or delete the file manually."
     ]
-  displayException (OutputDirectoryMissingException path) = unlines
-    [ "Output directory does not exist: " ++ path
+  displayException (OutputDirectoryAlreadyExistsException path) = unlines
+    [ "Output directory already exists: " ++ path
     , ""
     , "Use --create-output-dirs to create it automatically, or create the directory manually."
     ]
