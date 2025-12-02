@@ -396,7 +396,7 @@ data Newtype = Newtype {
 data ForeignImport = ForeignImport
     { foreignImportName       :: Hs.Name Hs.NsVar
     , foreignImportParameters :: [FunctionParameter]
-    , foreignImportResultType :: ResultType ClosedType
+    , foreignImportResultType :: ClosedType
     , foreignImportOrigName   :: C.Name
     , foreignImportCallConv   :: CallConv
     , foreignImportOrigin     :: Origin.ForeignImport

@@ -27,7 +27,7 @@ import C.Expr.Syntax qualified as CExpr.DSL
 import Clang.HighLevel.Types
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..), ResultType (..))
+import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..))
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.HsModule.Capi (renderCapiWrapper)
@@ -152,7 +152,8 @@ instance Pretty CommentKind where
             PartOfDeclarationComment c -> ("{- ^", "-}", c)
             THComment c                -> ("", "", c)
         indentation = length commentStart - 1
-        fromCCtxDoc = [ (\n -> "__C declaration:__ @"
+        fromCCtxDoc = catMaybes [
+                        (\n -> "__C declaration:__ @"
                             >< textToCtxDoc n
                             >< "@") <$> commentOrigin
                       , (\p -> "__defined at:__ @"
@@ -177,7 +178,7 @@ instance Pretty CommentKind where
           [] | Nothing <- commentTitle
              , not (null fromCCtxDoc) ->
                 string commentStart
-            <+> vsep (catMaybes fromCCtxDoc)
+            <+> vsep fromCCtxDoc
              $$ string commentEnd
              | Just _ <- commentTitle
              , null fromCCtxDoc ->
@@ -188,13 +189,13 @@ instance Pretty CommentKind where
              , not (null fromCCtxDoc) ->
                 string commentStart
             <+> firstContent
-            $+$ vsep (catMaybes fromCCtxDoc)
+            $+$ vsep fromCCtxDoc
              $$ string commentEnd
              | otherwise -> empty
 
           _ -> vsep (string commentStart <+> firstContent
                      : map (nest indentation . pretty) commentChildren)
-            $+$ vcat [ vsep (catMaybes fromCCtxDoc)
+            $+$ vcat [ vsep fromCCtxDoc
                      , string commentEnd
                      ]
 
@@ -398,8 +399,7 @@ instance Pretty SDecl where
       let prettyTopLevelComment = maybe empty (pretty . TopLevelComment) functionComment
        in  prettyTopLevelComment
         $$ pretty functionName <+> "::"
-        $$ nest 5 (prettyForeignImportType (NormalResultType functionResultType)
-                                           functionParameters)
+        $$ nest 5 (prettyForeignImportType functionResultType functionParameters)
         $$ fsep
              [ pretty functionName <+> char '='
              , nest 2 $ pretty functionBody
@@ -455,7 +455,7 @@ safety Unsafe = "unsafe"
 instance ctx ~ EmptyCtx => Pretty (SType ctx) where
   prettyPrec = prettyType EmptyEnv
 
-prettyForeignImportType :: ResultType ClosedType -> [FunctionParameter] -> CtxDoc
+prettyForeignImportType :: ClosedType -> [FunctionParameter] -> CtxDoc
 prettyForeignImportType resultType params =
   case params of
     [] -> prettyResultType resultType
@@ -468,12 +468,7 @@ prettyForeignImportType resultType params =
       $$ maybe empty (pretty . PartOfDeclarationComment) functionParameterComment
 
 
-    prettyResultType = \case
-      NormalResultType t -> prettyType EmptyEnv 0 t
-      HeapResultType t   ->
-        let finalResType = TApp (TGlobal IO_type) (TGlobal (PrimType HsPrimUnit))
-         in prettyType EmptyEnv 0 t
-         $$ nest (-3) ("->" <+> prettyType EmptyEnv 0 finalResType)
+    prettyResultType t = prettyType EmptyEnv 0 t
 
     prettyParams []     = prettyResultType resultType
     prettyParams (p:ps) =

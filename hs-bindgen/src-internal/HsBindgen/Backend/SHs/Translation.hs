@@ -195,7 +195,7 @@ translateForeignImportDecl Hs.ForeignImportDecl { foreignImportParameters = args
                       , ..
                       }
                 ) args
-        , foreignImportResultType = fmap translateType resType
+        , foreignImportResultType = translateType resType
         , ..
         }
     ]
