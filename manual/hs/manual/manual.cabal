@@ -55,6 +55,7 @@ executable run-manual
     , hs-bindgen-runtime
     , hs-game
     , hs-vector
+    , primitive
 
   -- External.
   build-depends:   vector
