@@ -230,34 +230,40 @@ processTypedef ::
   -> C.Typedef ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
 processTypedef info C.Typedef{typedefType, typedefAnn} = do
-    modify $ \st -> st{
-        stateReparseEnv = updateEnv (stateReparseEnv st)
-      }
-    case typedefAnn of
-      ReparseNotNeeded ->
-        withoutReparse
-      -- HACK: If the @typedef@ refers to a @enum@ or a @struct@, we do not
-      -- reparse the complete declaration, which will fail due to
-      --
-      -- "unsupported member declaration list in struct specifier", or
-      -- "unsupported enumerator list in enum specifier".
-      --
-      -- Instead, we defer the reparse to the @enumerator@ or @field@, which is
-      -- also labeled as 'ReparseNeeded'.
-      --
-      -- See https://github.com/well-typed/hs-bindgen/issues/707.
-      ReparseNeeded tokens -> case typedefType of
-        C.TypeEnum _   -> withoutReparse
-        C.TypeStruct _ -> withoutReparse
-        _otherwise     -> reparseWith LanC.reparseTypedef tokens withoutReparse withReparse
-  where
-    name :: C.Name
-    name = case C.declId info of
-      C.PrelimDeclIdNamed n -> n
-      _otherwise            -> panicPure "unexpected anonymous typedef"
+    case info.declId of
+      C.PrelimDeclIdNamed name _kind -> do
+        modify $ \st -> st{
+            stateReparseEnv = updateEnv name (stateReparseEnv st)
+          }
+        case typedefAnn of
+          ReparseNotNeeded -> withoutReparse
 
-    updateEnv :: LanC.ReparseEnv HandleMacros -> LanC.ReparseEnv HandleMacros
-    updateEnv = Map.insert name (C.TypeTypedef (OrigTypedefRef name (coercePass typedefType)))
+          -- HACK: If the @typedef@ refers to a @enum@ or a @struct@, we do not
+          -- reparse the complete declaration, which will fail due to
+          --
+          -- "unsupported member declaration list in struct specifier", or
+          -- "unsupported enumerator list in enum specifier".
+          --
+          -- Instead, we defer the reparse to the @enumerator@ or @field@, which
+          -- is also labeled as 'ReparseNeeded'.
+          --
+          -- See https://github.com/well-typed/hs-bindgen/issues/707.
+          ReparseNeeded tokens -> case typedefType of
+            C.TypeEnum _   -> withoutReparse
+            C.TypeStruct _ -> withoutReparse
+            _otherwise     ->
+              reparseWith LanC.reparseTypedef tokens withoutReparse withReparse
+      _otherwise ->
+        -- Built-in typedefs exist, but don't have a corresponding declaration;
+        -- anonymous typedefs don't exist at all.
+        panicPure $ "processTypedef: impossible: " ++ show info.declId
+  where
+    updateEnv ::
+         C.Name
+      -> LanC.ReparseEnv HandleMacros -> LanC.ReparseEnv HandleMacros
+    updateEnv name =
+        Map.insert name $
+          C.TypeTypedef (OrigTypedefRef name (coercePass typedefType))
 
     withoutReparse :: M (C.Decl HandleMacros)
     withoutReparse = return C.Decl{
@@ -283,21 +289,26 @@ processMacro ::
      C.DeclInfo HandleMacros
   -> UnparsedMacro -> M (Either FailedMacro (C.Decl HandleMacros))
 processMacro info (UnparsedMacro tokens) = do
-    -- Simply omit macros from the AST that we cannot parse
-    bimap addInfo toDecl <$> parseMacro name tokens
+    case info.declId of
+      C.PrelimDeclIdNamed name _kind ->
+        bimap (addInfo name) toDecl <$> parseMacro name tokens
+      C.PrelimDeclIdBuiltin{} ->
+        -- Built-in macros certainly exist, and /in principle/ even have a
+        -- definition, but we currently don't get access to that definition
+        -- <https://github.com/well-typed/libclang/issues/17>.
+        -- We currently therefore always skip them in the parser.
+        panicPure $ "Unexpected: " ++ show info.declId
+      C.PrelimDeclIdAnon{} ->
+        -- Anonymous macros cannot exist at all.
+        panicPure $ "Impossible: " ++ show info.declId
   where
-    name :: C.Name
-    name = case C.declId info of
-      C.PrelimDeclIdNamed n -> n
-      _otherwise            -> panicPure "unexpected anonymous macro"
-
-    qualPrelimDeclId :: C.QualPrelimDeclId
-    qualPrelimDeclId = C.QualPrelimDeclIdNamed name C.NameKindOrdinary
-
-    addInfo :: HandleMacrosError -> FailedMacro
-    addInfo =
-      FailedMacro .
-        AttachedParseMsg qualPrelimDeclId info.declLoc C.Available
+    addInfo :: C.Name -> HandleMacrosError -> FailedMacro
+    addInfo name =
+          FailedMacro
+        . AttachedParseMsg
+            (C.PrelimDeclIdNamed name C.NameKindOrdinary)
+            info.declLoc
+            C.Available
 
     toDecl :: C.CheckedMacro HandleMacros -> C.Decl HandleMacros
     toDecl checked = C.Decl{
@@ -438,7 +449,8 @@ parseMacro name tokens  = state     $ \st ->
          LanC.ReparseEnv HandleMacros
       -> LanC.ReparseEnv HandleMacros
     updateReparseEnv =
-        Map.insert name (C.TypeMacroTypedef $ C.PrelimDeclIdNamed name)
+        Map.insert name $
+          C.TypeMacroTypedef (C.PrelimDeclIdNamed name C.NameKindOrdinary)
 
     dropEval ::
          CExpr.DSL.Quant (CExpr.DSL.FunValue, CExpr.DSL.Type 'CExpr.DSL.Ty)

@@ -42,14 +42,14 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
       -> ParseTypeExceptionInContext ParseTypeExceptionContext
       -> ParseDecl (Maybe [ParseResult])
     handleTypeException curr err = do
-        info <- getDeclInfo curr
+        info <- getDeclInfo curr contextNameKind
         -- TODO https://github.com/well-typed/hs-bindgen/issues/1249: Only emit
         -- the trace when we use the declaration that we fail to parse.
         when (contextRequiredForScoping == RequiredForScoping) $
           recordImmediateTrace $
             ParseOfDeclarationRequiredForScopingFailed info (parseException err)
         pure $ Just $
-          [ parseFail info contextNameKind $
+          [ parseFail info $
               ParseUnsupportedType (parseException err) ]
       where
         ParseTypeExceptionContext{..} = parseContext err
@@ -58,9 +58,9 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
   Info that we collect for all declarations
 -------------------------------------------------------------------------------}
 
-getDeclInfo :: CXCursor -> ParseDecl (C.DeclInfo Parse)
-getDeclInfo = \curr -> do
-    declId         <- C.getPrelimDeclId curr
+getDeclInfo :: CXCursor -> NameKind -> ParseDecl (C.DeclInfo Parse)
+getDeclInfo = \curr nameKind -> do
+    declId         <- C.getPrelimDeclId curr nameKind
     declLoc        <- HighLevel.clang_getCursorLocation' curr
     declHeaderInfo <- getHeaderInfo (singleLocPath declLoc)
     sAvailability  <- clang_getCursorAvailability curr
@@ -138,8 +138,38 @@ type Parser = CXCursor -> ParseDecl (Next ParseDecl [ParseResult])
 
 -- | Declarations
 parseDecl :: HasCallStack => Parser
-parseDecl = \curr -> do
-    info <- getDeclInfo curr
+parseDecl curr = dispatchWithArg curr $ \case
+      -- Ordinary kinds that we parse
+      CXCursor_FunctionDecl    -> parseDeclWith functionDecl    NotRequiredForScoping C.NameKindOrdinary
+      CXCursor_VarDecl         -> parseDeclWith varDecl         NotRequiredForScoping C.NameKindOrdinary
+      CXCursor_TypedefDecl     -> parseDeclWith typedefDecl     RequiredForScoping    C.NameKindOrdinary
+      CXCursor_MacroDefinition -> parseDeclWith macroDefinition NotRequiredForScoping C.NameKindOrdinary
+
+      -- Tagged kinds that we parse
+      CXCursor_StructDecl -> parseDeclWith structDecl NotRequiredForScoping (C.NameKindTagged C.TagKindStruct)
+      CXCursor_UnionDecl  -> parseDeclWith unionDecl  NotRequiredForScoping (C.NameKindTagged C.TagKindUnion)
+      CXCursor_EnumDecl   -> parseDeclWith enumDecl   NotRequiredForScoping (C.NameKindTagged C.TagKindEnum)
+
+      -- Process macro expansions independent of any select predicates
+      CXCursor_MacroExpansion -> macroExpansion
+
+      -- Kinds that we skip over
+      CXCursor_AlignedAttr        -> \_ -> foldContinue
+      CXCursor_InclusionDirective -> \_ -> foldContinue
+      CXCursor_PackedAttr         -> \_ -> foldContinue
+      CXCursor_UnexposedAttr      -> \_ -> foldContinue
+      CXCursor_UnexposedDecl      -> \_ -> foldContinue
+
+      -- Report error for declarations we don't recognize
+      kind -> unknownCursorKind kind
+
+parseDeclWith ::
+     (C.DeclInfo Parse -> Parser)
+  -> RequiredForScoping
+  -> C.NameKind
+  -> Parser
+parseDeclWith parser requiredForScoping kind curr = do
+    info <- getDeclInfo curr kind
     let isBuiltin = case C.declId info of
           C.PrelimDeclIdBuiltin{} -> True
           _otherwise              -> False
@@ -147,56 +177,18 @@ parseDecl = \curr -> do
           C.Unavailable -> True
           _otherwise    -> False
 
-        parseWith ::
-             (C.DeclInfo Parse -> Parser)
-          -> RequiredForScoping
-          -> C.NameKind
-          -> ParseDecl (Next ParseDecl [ParseResult])
-        parseWith parser requiredForScoping kind
-          | isBuiltin = foldContinueWith
-              [parseDoNotAttempt info kind DeclarationBuiltin]
-          | isUnavailable = foldContinueWith
-              [parseDoNotAttempt info kind DeclarationUnavailable]
-          | RequiredForScoping <- requiredForScoping =
-              parser info curr
-          | otherwise = do
-              matched <- evalPredicate info
-              if matched
-              then parser info curr
-              else foldContinueWith
-                [parseDoNotAttempt info kind ParsePredicateNotMatched]
-
-    dispatch curr $ \case
-      -- Ordinary kinds that we parse
-      CXCursor_FunctionDecl ->
-        parseWith functionDecl    NotRequiredForScoping C.NameKindOrdinary
-      CXCursor_VarDecl ->
-        parseWith varDecl         NotRequiredForScoping C.NameKindOrdinary
-      CXCursor_TypedefDecl ->
-        parseWith typedefDecl     RequiredForScoping    C.NameKindOrdinary
-      CXCursor_MacroDefinition ->
-        parseWith macroDefinition NotRequiredForScoping C.NameKindOrdinary
-
-      -- Tagged kinds that we parse
-      CXCursor_StructDecl ->
-        parseWith structDecl NotRequiredForScoping (C.NameKindTagged C.TagKindStruct)
-      CXCursor_UnionDecl ->
-        parseWith unionDecl  NotRequiredForScoping (C.NameKindTagged C.TagKindUnion)
-      CXCursor_EnumDecl ->
-        parseWith enumDecl   NotRequiredForScoping (C.NameKindTagged C.TagKindEnum)
-
-      -- Process macro expansions independent of any select predicates
-      CXCursor_MacroExpansion -> macroExpansion curr
-
-      -- Kinds that we skip over
-      CXCursor_AlignedAttr        -> foldContinue
-      CXCursor_InclusionDirective -> foldContinue
-      CXCursor_PackedAttr         -> foldContinue
-      CXCursor_UnexposedAttr      -> foldContinue
-      CXCursor_UnexposedDecl      -> foldContinue
-
-      -- Report error for declarations we don't recognize
-      kind -> unknownCursorKind curr kind
+    if | isBuiltin -> foldContinueWith
+           [parseDoNotAttempt info DeclarationBuiltin]
+       | isUnavailable -> foldContinueWith
+           [parseDoNotAttempt info DeclarationUnavailable]
+       | RequiredForScoping <- requiredForScoping ->
+           parser info curr
+       | otherwise -> do
+           matched <- evalPredicate info
+           if matched
+           then parser info curr
+           else foldContinueWith
+             [parseDoNotAttempt info ParsePredicateNotMatched]
 
 -- | Macros
 --
@@ -264,8 +256,7 @@ structDecl info = \curr -> do
               map parseSucceed $ decls ++ [mkStruct fields]
             Nothing ->
               -- If the struct has implicit fields, don't generate anything.
-              [ parseFail info (NameKindTagged TagKindStruct) $
-                  ParseUnsupportedImplicitFields ]
+              [parseFail info $ ParseUnsupportedImplicitFields ]
       DefinitionUnavailable ->
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -325,8 +316,7 @@ unionDecl info = \curr -> do
               map parseSucceed $ decls ++ [mkUnion fields]
             Nothing ->
               -- If the struct has implicit fields, don't generate anything.
-              [ parseFail info (NameKindTagged TagKindUnion) $
-                ParseUnsupportedImplicitFields ]
+              [parseFail info ParseUnsupportedImplicitFields]
       DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -470,7 +460,7 @@ enumDecl info = \curr -> do
         dispatch curr $ \case
           CXCursor_EnumConstantDecl -> enumConstantDecl curr
           CXCursor_PackedAttr       -> foldContinue
-          kind                      -> unknownCursorKind curr kind
+          kind                      -> unknownCursorKind kind curr
 
 enumConstantDecl :: CXCursor -> ParseDecl (Next ParseDecl (C.EnumConstant Parse))
 enumConstantDecl = \curr -> do
@@ -526,7 +516,7 @@ functionDecl info = \curr -> do
 
             pure $ (fails ++) $
               if not (null anonDecls) then
-                [ parseFail info NameKindOrdinary ParseUnexpectedAnonInSignature ]
+                [parseFail info ParseUnexpectedAnonInSignature]
               else
                 let nonPublicVisibility = [
                         ParseNonPublicVisibility
@@ -560,7 +550,7 @@ functionDecl info = \curr -> do
               return (mbArgName, argCType)
             pure $ Right (args', res)
           C.TypeTypedef{} ->
-            pure $ Left $ [ parseFail info NameKindOrdinary ParseFunctionOfTypeTypedef ]
+            pure $ Left [parseFail info ParseFunctionOfTypeTypedef]
           otherType ->
             panicIO $ "expected function type, but got " <> show otherType
 
@@ -649,7 +639,7 @@ varDecl info = \curr -> do
 
         pure $ (fails ++) $
           if not (null anonDecls) then
-            [parseFail info NameKindOrdinary ParseUnexpectedAnonInExtern]
+            [parseFail info ParseUnexpectedAnonInExtern]
           else (map parseSucceed otherDecls ++) $
             let nonPublicVisibility = [
                     ParseNonPublicVisibility
@@ -660,7 +650,6 @@ varDecl info = \curr -> do
                   | isDefn && linkage == ExternalLinkage
                   ]
                 msgs = nonPublicVisibility ++ potentialDuplicate
-                parseFail' = parseFail info NameKindOrdinary
 
             in  case cls of
               VarGlobal ->
@@ -670,9 +659,9 @@ varDecl info = \curr -> do
                 singleton $
                   parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
               VarThreadLocal ->
-                  [parseFail' ParseUnsupportedTLS]
+                  [parseFail info ParseUnsupportedTLS]
               VarUnsupported storage ->
-                  [parseFail' $ ParseUnknownStorageClass storage]
+                  [parseFail info $ ParseUnknownStorageClass storage]
   where
     -- Look for nested declarations inside the global variable type
     nestedDecl :: Fold ParseDecl [ParseResult]
@@ -814,11 +803,11 @@ detectStructImplicitFields nestedDecls outerFields =
           C.DeclUnion union   -> map Right (C.unionFields union)
           _otherwise          -> []
 
-    fieldDeps :: [C.QualPrelimDeclId]
+    fieldDeps :: [C.PrelimDeclId]
     fieldDeps = map snd $ concatMap (depsOfType . either C.structFieldType C.unionFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = C.declQualPrelimDeclId decl `elem` fieldDeps
+    declIsUsed decl = decl.declInfo.declId `elem` fieldDeps
 
 -- | Detect implicit fields inside a union
 --
@@ -845,11 +834,11 @@ detectUnionImplicitFields nestedDecls outerFields =
           C.DeclUnion union   -> map Right (C.unionFields union)
           _otherwise          -> []
 
-    fieldDeps :: [C.QualPrelimDeclId]
+    fieldDeps :: [C.PrelimDeclId]
     fieldDeps = map snd $ concatMap (depsOfType . either C.structFieldType C.unionFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = C.declQualPrelimDeclId decl `elem` fieldDeps
+    declIsUsed decl = decl.declInfo.declId `elem` fieldDeps
 
 data VarClassification =
     -- | The simplest case: a simple global variable

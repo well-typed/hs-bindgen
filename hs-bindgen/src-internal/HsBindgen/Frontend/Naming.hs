@@ -53,11 +53,8 @@ module HsBindgen.Frontend.Naming (
 
     -- * PrelimDeclId
   , PrelimDeclId(..)
+  , prelimDeclIdName
   , getPrelimDeclId
-    -- ** QualPrelimDeclId
-  , QualPrelimDeclId(..)
-  , qualPrelimDeclId
-  , qualPrelimDeclIdSafe
 
     -- * NameOrigin
   , NameOrigin(..)
@@ -74,7 +71,7 @@ module HsBindgen.Frontend.Naming (
   , QualDeclId(..)
   , qualDeclIdName
   , declIdToQualDeclId
-  , qualDeclIdToQualPrelimDeclId
+  , qualDeclIdToPrelimDeclId
 
     -- * Located
   , Located(..)
@@ -241,43 +238,58 @@ instance PrettyForTrace AnonId where
 -- proper names in the 'NameAnon' pass.
 data PrelimDeclId =
     -- | Named declaration
-    PrelimDeclIdNamed Name
+    PrelimDeclIdNamed Name NameKind
 
     -- | Anonymous declaration
     --
     -- This can only happen for tagged types: structs, unions and enums
-  | PrelimDeclIdAnon AnonId
+  | PrelimDeclIdAnon AnonId NameKind
 
     -- | Built-in declaration
     --
     -- Note: since builtin declarations don't have a definition, we cannot
     -- in general generate bindings for them.  If there are /specific/ builtin
     -- declarations we should support, we need to special-case them.
-  | PrelimDeclIdBuiltin Name
+  | PrelimDeclIdBuiltin Name NameKind
   deriving stock (Show, Eq, Ord)
 
-instance IsString PrelimDeclId where
-  fromString = PrelimDeclIdNamed . fromString
+prelimDeclIdName :: PrelimDeclId -> Maybe Name
+prelimDeclIdName = \case
+    PrelimDeclIdNamed   name   _kind -> Just name
+    PrelimDeclIdAnon   _anonId _kind -> Nothing
+    PrelimDeclIdBuiltin name   _kind -> Just name
 
 instance PrettyForTrace PrelimDeclId where
   prettyForTrace = \case
-    PrelimDeclIdNamed   name   -> prettyForTrace name
-    PrelimDeclIdAnon    anonId -> PP.parens $ prettyForTrace anonId
-    PrelimDeclIdBuiltin name   -> prettyForTrace name
+      PrelimDeclIdNamed n k ->
+        prettyForTrace (QualName n k)
+      PrelimDeclIdAnon anonId kind ->
+        PP.singleQuotes $
+          case kind of
+            NameKindTagged kind' ->
+                  PP.textToCtxDoc (tagKindPrefix kind')
+              <+> PP.parens (prettyForTrace anonId)
+            NameKindOrdinary ->
+              panicPure "unexpected anonymous ordinary name"
+      PrelimDeclIdBuiltin n k ->
+        prettyForTrace (QualName n k)
 
 instance PrettyForTrace (Located PrelimDeclId) where
-  prettyForTrace (Located loc prelimDeclId) = case prelimDeclId of
-    PrelimDeclIdNamed{} ->
-      prettyForTraceLoc prelimDeclId loc
-    PrelimDeclIdAnon{} ->
-      -- No need to repeat the source location in this case
-      prettyForTrace prelimDeclId
-    PrelimDeclIdBuiltin{} ->
-      -- Builtins don't /have/ a location
-      prettyForTrace prelimDeclId
+  prettyForTrace (Located l i) =
+      case i of
+        PrelimDeclIdNamed n k ->
+          prettyForTraceLoc (QualName n k) l
+        PrelimDeclIdAnon{}  ->
+          -- No need to repeat the source location in this case
+          prettyForTrace i
+        PrelimDeclIdBuiltin n k ->
+          prettyForTraceLoc (QualName n k) l
 
-getPrelimDeclId :: MonadIO m => CXCursor -> m PrelimDeclId
-getPrelimDeclId curr = do
+getPrelimDeclId :: MonadIO m => CXCursor -> NameKind -> m PrelimDeclId
+getPrelimDeclId curr nameKind = do
+    -- TODO: <https://github.com/well-typed/hs-bindgen/pull/1292>
+    -- Update this comment.
+    --
     -- This function distinguishes /anonymous/ and /named/ declarations, but the
     -- Clang meaning of /anonymous/ is different from what we need.  We consider
     -- a @struct@, @union@, or @enum@ declaration /anonymous/ if there is no
@@ -291,65 +303,13 @@ getPrelimDeclId curr = do
     spelling <- HighLevel.clang_getCursorSpelling curr
     case spelling of
       UserProvided name ->
-        return $ PrelimDeclIdNamed (Name name)
-      ClangGenerated _ ->
-        PrelimDeclIdAnon . AnonId . multiLocExpansion
-          <$> HighLevel.clang_getCursorLocation curr
+        return $ PrelimDeclIdNamed (Name name) nameKind
+      ClangGenerated _ -> do
+        anonId <- AnonId . multiLocExpansion
+                    <$> HighLevel.clang_getCursorLocation curr
+        return $ PrelimDeclIdAnon anonId nameKind
       ClangBuiltin name ->
-        return $ PrelimDeclIdBuiltin (Name name)
-
-{-------------------------------------------------------------------------------
-  QualPrelimDeclId
--------------------------------------------------------------------------------}
-
--- | Preliminary declaration identifier, with named identifiers qualified by
--- 'NameKind' and anonymous identifiers qualified by 'TagKind'
---
--- This type is used when names with different tag kinds must be distinguished.
-data QualPrelimDeclId =
-    QualPrelimDeclIdNamed Name NameKind
-  | QualPrelimDeclIdAnon AnonId TagKind
-  | QualPrelimDeclIdBuiltin Name
-  deriving stock (Show, Eq, Ord)
-
-instance PrettyForTrace QualPrelimDeclId where
-  prettyForTrace = \case
-    QualPrelimDeclIdNamed n k -> prettyForTrace (QualName n k)
-    QualPrelimDeclIdAnon anonId kind -> PP.singleQuotes $
-        PP.textToCtxDoc (tagKindPrefix kind) <+> PP.parens (prettyForTrace anonId)
-    QualPrelimDeclIdBuiltin name   -> prettyForTrace name
-
-instance PrettyForTrace (Located QualPrelimDeclId) where
-  prettyForTrace (Located l i) = case i of
-    QualPrelimDeclIdNamed n k  -> prettyForTraceLoc (QualName n k) l
-    QualPrelimDeclIdAnon  n t  ->
-      let txt = PP.singleQuotes $
-                  PP.textToCtxDoc (tagKindPrefix t) <+> PP.parens (prettyForTrace n)
-      in  prettyForTraceLoc' txt l
-    QualPrelimDeclIdBuiltin n -> prettyForTraceLoc n l
-
-qualPrelimDeclId :: HasCallStack => PrelimDeclId -> NameKind -> QualPrelimDeclId
-qualPrelimDeclId prelimDeclId kind = case prelimDeclId of
-    PrelimDeclIdNamed   name   -> QualPrelimDeclIdNamed name kind
-    PrelimDeclIdAnon    anonId -> case kind of
-      NameKindTagged tagKind -> QualPrelimDeclIdAnon anonId tagKind
-      NameKindOrdinary       -> panicPure $
-        "qualPrelimDeclId: ordinary anonymous: " ++ show anonId
-    PrelimDeclIdBuiltin name   -> QualPrelimDeclIdBuiltin name
-
--- TODO #1220.
-qualPrelimDeclIdSafe :: PrelimDeclId -> NameKind -> QualPrelimDeclId
-qualPrelimDeclIdSafe prelimDeclId kind = case prelimDeclId of
-    PrelimDeclIdNamed   name   -> QualPrelimDeclIdNamed name kind
-    PrelimDeclIdAnon    anonId -> case kind of
-      NameKindTagged tagKind -> QualPrelimDeclIdAnon anonId tagKind
-      NameKindOrdinary       ->
-        QualPrelimDeclIdNamed
-          (Name $ Text.pack $
-             "qualPrelimDeclIdSafe: impossible ordinary anonymous: "
-             ++ show anonId)
-          NameKindOrdinary
-    PrelimDeclIdBuiltin name   -> QualPrelimDeclIdBuiltin name
+        return $ PrelimDeclIdBuiltin (Name name) nameKind
 
 {-------------------------------------------------------------------------------
   NameOrigin
@@ -508,19 +468,16 @@ qualDeclIdName = declIdName . qualDeclId
 declIdToQualDeclId :: DeclId p -> NameKind -> QualDeclId p
 declIdToQualDeclId = QualDeclId
 
-qualDeclIdToQualPrelimDeclId :: HasCallStack => QualDeclId p -> QualPrelimDeclId
-qualDeclIdToQualPrelimDeclId (QualDeclId declId kind) =
+qualDeclIdToPrelimDeclId :: QualDeclId p -> PrelimDeclId
+qualDeclIdToPrelimDeclId (QualDeclId declId kind) =
     case declId of
       DeclIdNamed named ->
-        qualPrelimDeclId
-          ( case named.origin of
-              NameOriginGenerated   anon -> PrelimDeclIdAnon  anon
-              NameOriginRenamedFrom orig -> PrelimDeclIdNamed orig
-              NameOriginInSource         -> PrelimDeclIdNamed named.name
-          )
-          kind
+        case named.origin of
+          NameOriginGenerated   anon -> PrelimDeclIdAnon  anon       kind
+          NameOriginRenamedFrom orig -> PrelimDeclIdNamed orig       kind
+          NameOriginInSource         -> PrelimDeclIdNamed named.name kind
       DeclIdBuiltin builtin ->
-        QualPrelimDeclIdBuiltin builtin.name
+        PrelimDeclIdBuiltin builtin.name kind
 
 {-------------------------------------------------------------------------------
   Located
@@ -533,10 +490,11 @@ qualDeclIdToQualPrelimDeclId (QualDeclId declId kind) =
 data Located a = Located SingleLoc a
 
 prettyForTraceLoc :: PrettyForTrace a => a -> SingleLoc -> CtxDoc
-prettyForTraceLoc x l = prettyForTraceLoc' (prettyForTrace x) l
-
-prettyForTraceLoc' :: CtxDoc -> SingleLoc -> CtxDoc
-prettyForTraceLoc' x l = PP.hsep [x, "at", PP.showToCtxDoc l]
+prettyForTraceLoc x l = PP.hsep [
+      prettyForTrace x
+    , "at"
+    , PP.showToCtxDoc l
+    ]
 
 prettyForTraceOriginLoc :: NameOrigin -> SingleLoc -> CtxDoc
 prettyForTraceOriginLoc o l =

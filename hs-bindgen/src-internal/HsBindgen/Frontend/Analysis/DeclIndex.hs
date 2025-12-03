@@ -150,7 +150,7 @@ data Entry = UsableE Usable | UnusableE Unusable
 -- The edge from D3 to D2 was removed, since D3 now depends on a Haskell type
 -- R3, which is not part of the use-decl graph.
 newtype DeclIndex = DeclIndex {
-      unDeclIndex   :: Map C.QualPrelimDeclId Entry
+      unDeclIndex :: Map C.PrelimDeclId Entry
     }
   deriving stock (Show, Generic)
 
@@ -168,11 +168,11 @@ fromParseResults results = flip execState emptyIndex $ mapM_ aux results
     aux new = modify' $
         DeclIndex . Map.alter (Just . handleParseResult declId new) declId . unDeclIndex
       where
-        declId :: C.QualPrelimDeclId
+        declId :: C.PrelimDeclId
         declId = getParseResultDeclId new
 
     handleParseResult ::
-      C.QualPrelimDeclId -> ParseResult -> Maybe Entry -> Entry
+      C.PrelimDeclId -> ParseResult -> Maybe Entry -> Entry
     handleParseResult declId new = \case
       Nothing -> parseResultToEntry new
       -- We remove duplicates with /different/ values and store them as
@@ -259,14 +259,14 @@ fromParseResults results = flip execState emptyIndex $ mapM_ aux results
 -------------------------------------------------------------------------------}
 
 -- | Lookup parse success.
-lookup :: C.QualPrelimDeclId -> DeclIndex -> Maybe (C.Decl Parse)
+lookup :: C.PrelimDeclId -> DeclIndex -> Maybe (C.Decl Parse)
 lookup qualPrelimDeclId (DeclIndex i) = case Map.lookup qualPrelimDeclId i of
   Nothing                          -> Nothing
   Just (UsableE (UsableSuccess x)) -> Just $ x.psDecl
   _                                -> Nothing
 
 -- | Unsafe! Get parse success.
-(!) :: HasCallStack => DeclIndex -> C.QualPrelimDeclId -> C.Decl Parse
+(!) :: HasCallStack => DeclIndex -> C.PrelimDeclId -> C.Decl Parse
 (!) declIndex qualPrelimDeclId =
     fromMaybe (panicPure $ "Unknown key: " ++ show qualPrelimDeclId) $
        lookup qualPrelimDeclId declIndex
@@ -284,15 +284,15 @@ getDecls = mapMaybe toDecl . Map.elems . unDeclIndex
 -------------------------------------------------------------------------------}
 
 -- | Lookup an entry of a declaration index.
-lookupEntry :: C.QualPrelimDeclId -> DeclIndex -> Maybe Entry
+lookupEntry :: C.PrelimDeclId -> DeclIndex -> Maybe Entry
 lookupEntry x = Map.lookup x . unDeclIndex
 
 -- | Get all entries of a declaration index.
-toList :: DeclIndex -> [(C.QualPrelimDeclId, Entry)]
+toList :: DeclIndex -> [(C.PrelimDeclId, Entry)]
 toList = Map.toList . unDeclIndex
 
 -- | Get the source locations of a declaration.
-lookupLoc :: C.QualPrelimDeclId -> DeclIndex -> [SingleLoc]
+lookupLoc :: C.PrelimDeclId -> DeclIndex -> [SingleLoc]
 lookupLoc d (DeclIndex i) = case Map.lookup d i of
   Nothing            -> []
   Just (UsableE e)   -> case e of
@@ -301,7 +301,7 @@ lookupLoc d (DeclIndex i) = case Map.lookup d i of
   Just (UnusableE e) -> unusableToLoc e
 
 -- | Get the source locations of an unusable declaration.
-lookupUnusableLoc :: C.QualPrelimDeclId -> DeclIndex -> [SingleLoc]
+lookupUnusableLoc :: C.PrelimDeclId -> DeclIndex -> [SingleLoc]
 lookupUnusableLoc d (DeclIndex i) = case Map.lookup d i of
   Nothing            -> []
   Just (UsableE _)   -> []
@@ -317,11 +317,11 @@ unusableToLoc = \case
     UnusableOmitted{}                     -> []
 
 -- | Get the identifiers of all declarations in the index.
-keysSet :: DeclIndex -> Set C.QualPrelimDeclId
+keysSet :: DeclIndex -> Set C.PrelimDeclId
 keysSet = Map.keysSet . unDeclIndex
 
 -- | Get omitted entries.
-getOmitted :: DeclIndex -> Map C.QualPrelimDeclId (C.QualName, SourcePath)
+getOmitted :: DeclIndex -> Map C.PrelimDeclId (C.QualName, SourcePath)
 getOmitted = Map.mapMaybe toOmitted . unDeclIndex
   where
     toOmitted :: Entry -> Maybe (C.QualName, SourcePath)
@@ -347,7 +347,7 @@ registerMacroFailures xs index = Foldable.foldl' insert index xs
 -------------------------------------------------------------------------------}
 
 -- Match function to find selection roots.
-type Match = C.QualPrelimDeclId -> SingleLoc -> C.Availability -> Bool
+type Match = C.PrelimDeclId -> SingleLoc -> C.Availability -> Bool
 
 -- | Limit the declaration index to those entries that match the select
 --   predicate. Do not include anything external nor omitted.
@@ -377,7 +377,7 @@ selectDeclIndex p = DeclIndex . Map.filter matchEntry . unDeclIndex
     matchMsg m = p m.declId m.loc m.availability
 
 -- | Restrict the declaration index to unusable declarations in a given set.
-getUnusables :: DeclIndex -> Set C.QualPrelimDeclId -> Map C.QualPrelimDeclId Unusable
+getUnusables :: DeclIndex -> Set C.PrelimDeclId -> Map C.PrelimDeclId Unusable
 getUnusables (DeclIndex i) xs = Map.mapMaybe retainUnusable $ Map.restrictKeys i xs
   where
     retainUnusable :: Entry -> Maybe Unusable
@@ -390,13 +390,13 @@ getUnusables (DeclIndex i) xs = Map.mapMaybe retainUnusable $ Map.restrictKeys i
 -------------------------------------------------------------------------------}
 
 registerOmittedDeclarations ::
-  Map C.QualPrelimDeclId (C.QualName, SourcePath) -> DeclIndex  -> DeclIndex
+  Map C.PrelimDeclId (C.QualName, SourcePath) -> DeclIndex  -> DeclIndex
 registerOmittedDeclarations xs =
       DeclIndex . Map.union (UnusableE . UnusableOmitted <$> xs) . unDeclIndex
 
-registerExternalDeclarations :: Set C.QualPrelimDeclId -> DeclIndex  -> DeclIndex
+registerExternalDeclarations :: Set C.PrelimDeclId -> DeclIndex  -> DeclIndex
 registerExternalDeclarations xs index = Foldable.foldl' insert index xs
   where
-    insert :: DeclIndex -> C.QualPrelimDeclId -> DeclIndex
+    insert :: DeclIndex -> C.PrelimDeclId -> DeclIndex
     insert (DeclIndex i) x =
       DeclIndex $ Map.insert x (UsableE UsableExternal) i

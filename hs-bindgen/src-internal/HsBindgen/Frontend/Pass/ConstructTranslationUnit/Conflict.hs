@@ -18,7 +18,7 @@ import HsBindgen.Util.Tracer
 
 -- | Multiple declarations for the same identifier
 data ConflictingDeclarations = ConflictingDeclarations {
-        conflictId   :: C.QualPrelimDeclId
+        conflictId   :: C.PrelimDeclId
       , conflictLocs :: Set SingleLoc
       }
   deriving stock (Eq, Show)
@@ -44,13 +44,13 @@ instance IsTrace Level ConflictingDeclarations where
   getTraceId = const "decl-index"
 
 -- | Create conflicting declarations.
-conflictingDeclarations :: C.QualPrelimDeclId -> SingleLoc -> SingleLoc -> ConflictingDeclarations
+conflictingDeclarations :: C.PrelimDeclId -> SingleLoc -> SingleLoc -> ConflictingDeclarations
 conflictingDeclarations d l1 l2 = ConflictingDeclarations d $ Set.fromList [l1, l2]
 
 addConflictingLoc :: ConflictingDeclarations -> SingleLoc -> ConflictingDeclarations
 addConflictingLoc (ConflictingDeclarations d xs) x = ConflictingDeclarations d $ Set.insert x xs
 
-getDeclId :: ConflictingDeclarations -> C.QualPrelimDeclId
+getDeclId :: ConflictingDeclarations -> C.PrelimDeclId
 getDeclId = conflictId
 
 getLocs :: ConflictingDeclarations -> [SingleLoc]

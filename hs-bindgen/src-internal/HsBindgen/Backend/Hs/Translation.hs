@@ -140,8 +140,8 @@ isDefinedInCurrentModule declIndex =
     isInDeclIndex qualDeclId =
         isJust $ DeclIndex.lookup qualPrelimDeclId declIndex
       where
-        qualPrelimDeclId :: C.QualPrelimDeclId
-        qualPrelimDeclId = C.qualDeclIdToQualPrelimDeclId qualDeclId
+        qualPrelimDeclId :: C.PrelimDeclId
+        qualPrelimDeclId = C.qualDeclIdToPrelimDeclId qualDeclId
 
 {-------------------------------------------------------------------------------
   Declarations

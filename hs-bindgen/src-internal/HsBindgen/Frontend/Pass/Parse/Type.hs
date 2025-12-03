@@ -8,8 +8,6 @@ import Data.Data (Typeable)
 import GHC.Stack
 
 import Clang.Enum.Simple
-import Clang.HighLevel qualified as HighLevel
-import Clang.HighLevel.Types (CursorSpelling (..))
 import Clang.LowLevel.Core
 
 import HsBindgen.Errors
@@ -103,15 +101,21 @@ pointer = clang_getPointeeType >=> fmap C.TypePointer . cxtype
 
 fromDecl :: HasCallStack => CXType -> ParseType (C.Type Parse)
 fromDecl ty = do
-    decl   <- clang_getTypeDeclaration ty
-    declId <- C.getPrelimDeclId decl
+    decl <- clang_getTypeDeclaration ty
     dispatchDecl decl $ \case
-      CXCursor_EnumDecl    -> return $ C.TypeEnum   declId
-      CXCursor_StructDecl  -> return $ C.TypeStruct declId
-      CXCursor_UnionDecl   -> return $ C.TypeUnion  declId
+      CXCursor_EnumDecl ->
+        C.TypeEnum <$>
+          C.getPrelimDeclId decl (C.NameKindTagged C.TagKindEnum)
+      CXCursor_StructDecl ->
+        C.TypeStruct <$>
+          C.getPrelimDeclId decl (C.NameKindTagged C.TagKindStruct)
+      CXCursor_UnionDecl -> do
+        C.TypeUnion <$>
+          C.getPrelimDeclId decl (C.NameKindTagged C.TagKindUnion)
       CXCursor_TypedefDecl -> do
+        declId <- C.getPrelimDeclId decl C.NameKindOrdinary
         getUnderlyingTypeCursorSpelling decl >>= \case
-          ClangBuiltin "__builtin_va_list" | declId == C.PrelimDeclIdNamed "va_list" ->
+          "__builtin_va_list" ->
             throwError UnsupportedVariadicFunction
           _ -> do
             n   <- typedefName declId
@@ -122,9 +126,12 @@ fromDecl ty = do
   where
     typedefName :: C.PrelimDeclId -> ParseType C.Name
     typedefName = \case
-      C.PrelimDeclIdNamed name   -> return name
-      C.PrelimDeclIdAnon{}       -> panicPure "Unexpected anonymous typedef"
-      C.PrelimDeclIdBuiltin name -> throwError $ UnsupportedBuiltin name
+        C.PrelimDeclIdNamed name _kind ->
+          return name
+        C.PrelimDeclIdAnon{} ->
+          panicPure "Unexpected anonymous typedef"
+        C.PrelimDeclIdBuiltin name _kind ->
+          throwError $ UnsupportedBuiltin name
 
     getUnderlyingCXType :: MonadIO m => CXCursor -> m CXType
     getUnderlyingCXType typedefCurr = do
@@ -135,11 +142,11 @@ fromDecl ty = do
         Right{}                 -> return uTy
         _otherwise              -> panicPure "Invalid underlying type"
 
-    getUnderlyingTypeCursorSpelling :: MonadIO m => CXCursor -> m CursorSpelling
+    getUnderlyingTypeCursorSpelling :: MonadIO m => CXCursor -> m Text
     getUnderlyingTypeCursorSpelling typedefCurr = do
       uTy <- getUnderlyingCXType typedefCurr
       uDecl  <- clang_getTypeDeclaration uTy
-      HighLevel.clang_getCursorSpelling uDecl
+      clang_getCursorSpelling uDecl
 
     addTypedefContextHandler :: C.Name -> SomeException -> IO a
     addTypedefContextHandler n e

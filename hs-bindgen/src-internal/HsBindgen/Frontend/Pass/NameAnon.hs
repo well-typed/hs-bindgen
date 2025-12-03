@@ -54,11 +54,11 @@ data RenameEnv = RenameEnv {
     , envDeclUse   :: DeclUseGraph
     }
 
-findNamedUseOf :: RenameEnv -> C.QualPrelimDeclId -> Maybe UseOfDecl
+findNamedUseOf :: RenameEnv -> C.PrelimDeclId -> Maybe UseOfDecl
 findNamedUseOf RenameEnv{envDeclIndex, envDeclUse} qualPrelimDeclId =
     DeclUseGraph.findNamedUseOf envDeclIndex envDeclUse qualPrelimDeclId
 
-findAliasesOf :: RenameEnv -> C.QualPrelimDeclId -> [C.Name]
+findAliasesOf :: RenameEnv -> C.PrelimDeclId -> [C.Name]
 findAliasesOf RenameEnv{envDeclUse} = DeclUseGraph.findAliasesOf envDeclUse
 
 {-------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ nameDecl ::
   -> C.Decl HandleMacros
   -> Either (Msg NameAnon) (C.Decl NameAnon)
 nameDecl env decl = do
-    case getDeclId env qualPrelimDeclId declId of
+    case getDeclId env declId of
       Left _        -> Left  $ NameAnonSkipped declInfo
       Right declId' -> Right $ C.Decl{
         declInfo = C.DeclInfo{
@@ -91,8 +91,8 @@ nameDecl env decl = do
     C.Decl{declInfo, declKind, declAnn} = decl
     C.DeclInfo{..} = declInfo
 
-    qualPrelimDeclId :: C.QualPrelimDeclId
-    qualPrelimDeclId = C.declQualPrelimDeclId decl
+    qualPrelimDeclId :: C.PrelimDeclId
+    qualPrelimDeclId = decl.declInfo.declId
 
 -- | Get the declaration identifier
 --
@@ -101,23 +101,19 @@ nameDecl env decl = do
 -- so we use an 'Either'. See 'getDeclIdParseMsgKey'.
 --
 -- See also <https://github.com/well-typed/hs-bindgen/issues/1036>.
-getDeclId ::
-     RenameEnv
-  -> C.QualPrelimDeclId
-  -> Id HandleMacros
-  -> Either (Id NameAnon) (Id NameAnon)
-getDeclId env qualPrelimDeclId declId =
+getDeclId :: RenameEnv -> Id HandleMacros -> Either (Id NameAnon) (Id NameAnon)
+getDeclId env declId =
    case declId of
-     C.PrelimDeclIdNamed n ->
+     C.PrelimDeclIdNamed n _kind ->
        Right $ C.DeclIdNamed C.NamedDeclId{
            name      = n
          , origin    = C.NameOriginInSource
          , haskellId = ()
          }
-     C.PrelimDeclIdAnon anonId -> do
+     C.PrelimDeclIdAnon anonId _kind -> do
        let origin :: C.NameOrigin
            origin = C.NameOriginGenerated anonId
-       case nameForAnon <$> findNamedUseOf env qualPrelimDeclId of
+       case nameForAnon <$> findNamedUseOf env declId of
          Just name -> Right $ C.DeclIdNamed C.NamedDeclId{
              name
            , origin
@@ -128,7 +124,7 @@ getDeclId env qualPrelimDeclId declId =
            , origin
            , haskellId = ()
            }
-     C.PrelimDeclIdBuiltin name ->
+     C.PrelimDeclIdBuiltin name _kind ->
        Right $ C.DeclIdBuiltin C.BuiltinDeclId{
            name
          , haskellId = ()
@@ -234,14 +230,10 @@ instance NameUseSites C.Type where
       go :: C.Type HandleMacros -> C.Type NameAnon
 
       -- Cases where we actually need to do work
-      go (C.TypeStruct uid) = C.TypeStruct . nameUseSite $
-        C.qualPrelimDeclId uid (C.NameKindTagged C.TagKindStruct)
-      go (C.TypeUnion uid) = C.TypeUnion . nameUseSite $
-        C.qualPrelimDeclId uid (C.NameKindTagged C.TagKindUnion)
-      go (C.TypeEnum uid) = C.TypeEnum . nameUseSite $
-        C.qualPrelimDeclId uid (C.NameKindTagged C.TagKindEnum)
-      go (C.TypeMacroTypedef uid) = C.TypeMacroTypedef . nameUseSite $
-        C.qualPrelimDeclId uid C.NameKindOrdinary
+      go (C.TypeStruct       uid) = C.TypeStruct       $ nameUseSite uid
+      go (C.TypeUnion        uid) = C.TypeUnion        $ nameUseSite uid
+      go (C.TypeEnum         uid) = C.TypeEnum         $ nameUseSite uid
+      go (C.TypeMacroTypedef uid) = C.TypeMacroTypedef $ nameUseSite uid
 
       -- Recursive cases
       go (C.TypePointer ty)         = C.TypePointer (go ty)
@@ -253,29 +245,29 @@ instance NameUseSites C.Type where
 
       -- Simple cases
       go (C.TypePrim prim)      = C.TypePrim prim
-      go (C.TypeTypedef ref)   = C.TypeTypedef (nameUseSitesTypedefRef env ref)
+      go (C.TypeTypedef ref)    = C.TypeTypedef (nameUseSitesTypedefRef env ref)
       go (C.TypeVoid)           = C.TypeVoid
       go (C.TypeExtBinding ext) = absurd ext
       go (C.TypeComplex prim)   = C.TypeComplex prim
 
       -- Rename specific use site
       --
-      -- NOTE: there /must/ be at least one use site, because we are renaming one!
-      nameUseSite :: C.QualPrelimDeclId -> C.DeclId NameAnon
+      -- NOTE: there must be at least one use site, because we are renaming one!
+      nameUseSite :: C.PrelimDeclId -> C.DeclId NameAnon
       nameUseSite qualPrelimDeclId =
           case qualPrelimDeclId of
-            C.QualPrelimDeclIdNamed name _ns ->
+            C.PrelimDeclIdNamed name _kind ->
               C.DeclIdNamed C.NamedDeclId{
                   name
                 , origin    = C.NameOriginInSource
                 , haskellId = ()
                 }
-            C.QualPrelimDeclIdBuiltin name  ->
+            C.PrelimDeclIdBuiltin name _kind  ->
               C.DeclIdBuiltin C.BuiltinDeclId{
                   name
                 , haskellId = ()
                 }
-            C.QualPrelimDeclIdAnon anonId _tk ->
+            C.PrelimDeclIdAnon anonId _kind ->
               case findNamedUseOf env qualPrelimDeclId of
                 Just useOfAnon -> C.DeclIdNamed C.NamedDeclId{
                     name      = nameForAnon useOfAnon
@@ -285,7 +277,10 @@ instance NameUseSites C.Type where
                 Nothing ->
                   panicPure "unused anonymous declaration?"
 
-nameUseSitesTypedefRef :: RenameEnv -> TypedefRef HandleMacros -> TypedefRef NameAnon
+nameUseSitesTypedefRef ::
+     RenameEnv
+  -> TypedefRef HandleMacros
+  -> TypedefRef NameAnon
 nameUseSitesTypedefRef env (OrigTypedefRef n uTy) =
     OrigTypedefRef n (nameUseSites env uTy)
 

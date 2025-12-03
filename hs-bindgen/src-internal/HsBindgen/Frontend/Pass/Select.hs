@@ -39,7 +39,7 @@ import HsBindgen.Imports
 -------------------------------------------------------------------------------}
 
 -- Identifier of declaration.
-type DeclId = C.QualPrelimDeclId
+type DeclId = C.PrelimDeclId
 
 -- Declaration itself.
 type Decl = C.Decl Select
@@ -199,9 +199,9 @@ selectDecls
     match :: Match
     match = \declId -> go declId
       where
-        go :: C.QualPrelimDeclId -> SingleLoc -> C.Availability -> Bool
+        go :: C.PrelimDeclId -> SingleLoc -> C.Availability -> Bool
         go declId loc availability = case declId of
-            C.QualPrelimDeclIdNamed name kind ->
+            C.PrelimDeclIdNamed name kind ->
               let -- We have parsed some declarations that are required for
                   -- scoping but that actually do not match the parse predicate.
                   -- We want to avoid selecting these declarations. This is only
@@ -223,9 +223,9 @@ selectDecls
                       selectConfigPredicate
               in parsed && selected
             -- Apply the select predicate to the use site.
-            anon@(C.QualPrelimDeclIdAnon{}) -> matchAnon anon
+            anon@(C.PrelimDeclIdAnon{}) -> matchAnon anon
             -- Never select builtins.
-            C.QualPrelimDeclIdBuiltin _ -> False
+            C.PrelimDeclIdBuiltin{} -> False
 
         matchAnon :: DeclId -> Bool
         matchAnon anon =
@@ -294,7 +294,7 @@ selectDeclWith
           "Declaration is selection root and transitive dependency: "
           ++ show decl.declInfo
   where
-    declId    = C.declOrigQualPrelimDeclId decl
+    declId    = C.declOrigPrelimDeclId decl
     -- We check three conditions:
     isSelectedRoot = Set.member declId rootIds
     -- These are also always strict transitive dependencies.

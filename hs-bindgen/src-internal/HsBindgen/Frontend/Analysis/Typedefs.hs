@@ -165,18 +165,18 @@ analyseTypedef declUseGraph uid typedef =
         go ByRef ty
     go _ _otherType =
         mempty
--- typedef (struct { };) abc_syn
+
     -- Get use sites, except any self-references
-    getUseSites :: C.QualPrelimDeclId -> [(C.QualPrelimDeclId, Usage)]
+    getUseSites :: C.PrelimDeclId -> [(C.PrelimDeclId, Usage)]
     getUseSites qualPrelimDeclId =
        DeclUseGraph.getUseSitesNoSelfReferences declUseGraph qualPrelimDeclId
 
 -- | Typedef of some tagged datatype
 typedefOfTagged ::
-     C.Name                      -- ^ Name of the typedef
-  -> ValOrRef                    -- ^ Does the typedef wrap the datatype directly?
-  -> TaggedTypeId                -- ^ Tagged type information
-  -> [(C.QualPrelimDeclId, Usage)] -- ^ All use sites of the struct
+     C.Name                     -- ^ Name of the typedef
+  -> ValOrRef                   -- ^ Does the typedef wrap the datatype directly?
+  -> TaggedTypeId               -- ^ Tagged type information
+  -> [(C.PrelimDeclId, Usage)]  -- ^ All use sites of the struct
   -> TypedefAnalysis
 typedefOfTagged typedefName valOrRef taggedType@TaggedTypeId{..} useSites
     -- Struct and typedef same name, no intervening pointers
@@ -243,6 +243,9 @@ updateOrigin (C.DeclIdNamed old) =
   TaggedTypeId
 
   This is only used within the context of this module.
+
+  TODO <https://github.com/well-typed/hs-bindgen/issues/1267>
+  Delete this once DeclId /is/ QualDeclId.
 -------------------------------------------------------------------------------}
 
 -- | Tagged type
@@ -258,9 +261,9 @@ data TaggedTypeId = TaggedTypeId {
 taggedTypeIdName :: TaggedTypeId -> C.Name
 taggedTypeIdName = C.declIdName . taggedTypeDeclId
 
-taggedTypeIdToQualPrelimDeclId :: TaggedTypeId -> C.QualPrelimDeclId
+taggedTypeIdToQualPrelimDeclId :: TaggedTypeId -> C.PrelimDeclId
 taggedTypeIdToQualPrelimDeclId (TaggedTypeId declId tk) =
-    C.qualDeclIdToQualPrelimDeclId $ C.QualDeclId{
+    C.qualDeclIdToPrelimDeclId $ C.QualDeclId{
         qualDeclId     = declId
       , qualDeclIdKind = C.NameKindTagged tk
       }

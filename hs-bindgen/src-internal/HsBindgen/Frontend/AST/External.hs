@@ -73,7 +73,7 @@ module HsBindgen.Frontend.AST.External (
   , C.parseQualName
   , C.AnonId(..)
   , C.NameOrigin(..)
-  , C.QualPrelimDeclId(..)
+  , C.PrelimDeclId(..)
   , C.DeclId(..)
   , C.QualDeclId(..)
   , Int.NamePair(..)

@@ -81,7 +81,7 @@ resolveBindingSpecs
       -> MState
       -> C.TranslationUnit ResolveBindingSpecs
     reassemble decls' useDeclGraph MState{..} =
-      let externalIds :: Set C.QualPrelimDeclId
+      let externalIds :: Set C.PrelimDeclId
           externalIds = Map.keysSet stateExtTypes
 
           index' :: DeclIndex
@@ -146,9 +146,9 @@ data MEnv = MEnv {
 
 data MState = MState {
       stateTraces    :: [Msg ResolveBindingSpecs] -- ^ reverse order
-    , stateExtTypes  :: Map C.QualPrelimDeclId (C.Type ResolveBindingSpecs)
+    , stateExtTypes  :: Map C.PrelimDeclId (C.Type ResolveBindingSpecs)
     , stateNoPTypes  :: Map C.QualName [Set SourcePath]
-    , stateOmitTypes :: Map C.QualPrelimDeclId (C.QualName, SourcePath)
+    , stateOmitTypes :: Map C.PrelimDeclId (C.QualName, SourcePath)
     }
   deriving (Show)
 
@@ -166,7 +166,7 @@ insertTrace msg st = st {
     }
 
 insertExtType ::
-     C.QualPrelimDeclId
+     C.PrelimDeclId
   -> C.Type ResolveBindingSpecs
   -> MState
   -> MState
@@ -190,7 +190,7 @@ deleteNoPType cQualName path st = st {
         | otherwise -> aux (s : acc) ss
       [] -> Just acc
 
-insertOmittedType :: C.QualPrelimDeclId -> C.QualName -> SourcePath -> MState -> MState
+insertOmittedType :: C.PrelimDeclId -> C.QualName -> SourcePath -> MState -> MState
 insertOmittedType cQualPrelimDeclId cQualName path st = st {
       stateOmitTypes = Map.insert cQualPrelimDeclId (cQualName, path) (stateOmitTypes st)
     }
@@ -223,7 +223,7 @@ resolveTop ::
        )
 resolveTop decl = Reader.ask >>= \MEnv{..} -> do
     let cQualName         = C.declQualName decl
-        cQualPrelimDeclId = C.declOrigQualPrelimDeclId decl
+        cQualPrelimDeclId = C.declOrigPrelimDeclId decl
         sourcePath        = singleLocPath $ C.declLoc (C.declInfo decl)
         declPaths         = IncludeGraph.reaches envIncludeGraph sourcePath
         mMsg              = Just $ ResolveBindingSpecsOmittedType cQualName
@@ -454,7 +454,7 @@ instance Resolve C.Type where
       aux mk cQualDeclId@C.QualDeclId{..} =
         Reader.ask >>= \MEnv{..} -> State.get >>= \MState{..} -> do
           let cQualName = C.QualName qualDeclIdName qualDeclIdKind
-              cQualPrelimDeclId = C.qualDeclIdToQualPrelimDeclId cQualDeclId
+              cQualPrelimDeclId = C.qualDeclIdToPrelimDeclId cQualDeclId
           -- Check for selected external binding
           case Map.lookup cQualPrelimDeclId stateExtTypes of
             Just ty -> do
@@ -495,7 +495,7 @@ resolveCommentReference (C.Comment comment) =
 -- | Lookup qualified name in the 'ExternalResolvedBindingSpec'
 resolveExtBinding ::
      C.QualName
-  -> C.QualPrelimDeclId
+  -> C.PrelimDeclId
   -> Set SourcePath
      -- | Message to emit for omitted types.
   -> Maybe ResolveBindingSpecsMsg
