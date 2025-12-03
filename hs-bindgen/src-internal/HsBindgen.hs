@@ -13,6 +13,9 @@ module HsBindgen
   , writeBindingsMultiple
   , writeBindingSpec
   , writeTests
+
+    -- * Test infrastructure
+  , hsBindgen_
   ) where
 
 import Data.Map qualified as Map
@@ -47,12 +50,27 @@ hsBindgen ::
   -> [UncheckedHashIncludeArg]
   -> Artefact a
   -> IO a
-hsBindgen
+hsBindgen t b i a = do
+    eRes <- hsBindgen_ t b i a
+    case eRes of
+      Left err -> do
+        putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace err
+        exitFailure
+      Right r  -> pure r
+
+-- | Like 'hsBindgen' but does not exit with failure when an error has occurred.
+hsBindgen_ ::
+     TracerConfig Level TraceMsg
+  -> BindgenConfig
+  -> [UncheckedHashIncludeArg]
+  -> Artefact a
+  -> IO (Either RunArtefactError a)
+hsBindgen_
   tracerConfig
   bindgenConfig@BindgenConfig{..}
   uncheckedHashIncludeArgs
-  artefacts = do
-    result <- withTracerRef tracerConfig $ \tracer tracerUnsafeRef -> do
+  artefacts =
+    withTracerRef tracerConfig $ \tracer tracerUnsafeRef -> do
       -- Boot and frontend require unsafe tracer and `libclang`.
       let tracerFrontend :: Tracer FrontendMsg
           tracerFrontend = contramap TraceFrontend tracer
@@ -77,12 +95,6 @@ hsBindgen
           frontendArtefact
           backendArtefact
           artefacts
-
-    case result of
-      Left err -> do
-        putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace err
-        exitFailure
-      Right r  -> pure r
   where
     tracerConfigSafe :: TracerConfig SafeLevel a
     tracerConfigSafe = TracerConfig {

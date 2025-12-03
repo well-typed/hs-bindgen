@@ -592,44 +592,44 @@ test_functions_varargs = testTraceCustom "functions/varargs" ["f", "g", "g"] $ \
   _otherwise ->
     Nothing
 
-test_types_failing_long_double :: TestCase
-test_types_failing_long_double =
-  failingTestSimple "types/failing/long_double" $ \case
+test_types_long_double :: TestCase
+test_types_long_double =
+  testTraceSimple "types/special/long_double" $ \case
     TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure
       (AttachedParseMsg _ _ _ (ParseUnsupportedType UnsupportedLongDouble))))) ->
       Just $ Expected ()
     _otherwise ->
       Nothing
 
-test_types_failing_implicit_fields_struct :: TestCase
-test_types_failing_implicit_fields_struct =
-  failingTestSimple "types/failing/implicit_fields_struct" $ \case
+test_types_implicit_fields_struct :: TestCase
+test_types_implicit_fields_struct =
+  testTraceSimple "types/structs/implicit_fields_struct" $ \case
     TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure
       (AttachedParseMsg _ _ _ ParseUnsupportedImplicitFields)))) ->
       Just $ Expected ()
     _otherwise ->
       Nothing
 
-test_types_failing_implicit_fields_union :: TestCase
-test_types_failing_implicit_fields_union =
-  failingTestSimple "types/failing/implicit_fields_union" $ \case
+test_types_implicit_fields_union :: TestCase
+test_types_implicit_fields_union =
+  testTraceSimple "types/unions/implicit_fields_union" $ \case
     TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure
       (AttachedParseMsg _ _ _ ParseUnsupportedImplicitFields)))) ->
       Just $ Expected ()
     _otherwise ->
       Nothing
 
-test_declarations_failing_declaration_unselected_b :: TestCase
-test_declarations_failing_declaration_unselected_b =
-  failingTestCustom "declarations/failing/declaration_unselected_b" ["select" :: String] $ \case
+test_declarations_declaration_unselected_b :: TestCase
+test_declarations_declaration_unselected_b =
+  testTraceCustom "declarations/declaration_unselected_b" ["select" :: String] $ \case
     (TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnselectable _ _ _ TransitiveDependencyNotSelected _))) ->
       Just $ Expected "select"
     _otherwise ->
       Nothing
 
-test_declarations_failing_redeclaration_different :: TestCase
-test_declarations_failing_redeclaration_different =
-  failingTestSimple "declarations/failing/redeclaration_different" $ \case
+test_declarations_redeclaration_different :: TestCase
+test_declarations_redeclaration_different =
+  testTraceSimple "declarations/redeclaration_different" $ \case
     TraceFrontend (FrontendSelect (SelectConflict _)) ->
       Just (Expected ())
     TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
@@ -653,9 +653,9 @@ test_declarations_failing_tentative_definitions_linkage =
     _otherwise ->
       Nothing
 
-test_edge_cases_failing_unsupported_builtin :: TestCase
-test_edge_cases_failing_unsupported_builtin =
-  failingTestSimple "edge-cases/failing/unsupported_builtin" $ \case
+test_edge_cases_unsupported_builtin :: TestCase
+test_edge_cases_unsupported_builtin =
+  testTraceSimple "edge-cases/unsupported_builtin" $ \case
     TraceFrontend (
         FrontendSelect (
             TransitiveDependencyOfDeclarationUnselectable
@@ -1005,7 +1005,6 @@ test_program_analysis_selection_fail_variant_2 =
           (SelectStatusInfo decl (Selected SelectionRoot))) ->
           Just $ expectFromDeclSelect decl
         _otherwise -> Nothing
-  , testHasOutput = False
   }
 
 test_program_analysis_selection_fail_variant_3 :: TestCase
@@ -1023,9 +1022,9 @@ test_program_analysis_selection_fail_variant_3 =
         _otherwise -> Nothing
   }
 
-test_program_analysis_failing_selection_bad :: TestCase
-test_program_analysis_failing_selection_bad =
-  (defaultFailingTest "program-analysis/failing/selection_bad"){
+test_program_analysis_selection_bad :: TestCase
+test_program_analysis_selection_bad =
+  (defaultTest "program-analysis/selection_bad"){
     testTracePredicate = customTracePredicate ["size_t_select"] $ \case
       (TraceFrontend (FrontendSelect
         (TransitiveDependencyOfDeclarationUnselectable _ SelectionRoot _ TransitiveDependencyNotSelected _))) ->
@@ -1148,9 +1147,9 @@ test_declarations_select_scoping =
       _otherwise -> Nothing
   }
 
-test_edge_cases_failing_thread_local :: TestCase
-test_edge_cases_failing_thread_local =
-  (defaultFailingTest "edge-cases/failing/thread_local"){
+test_edge_cases_thread_local :: TestCase
+test_edge_cases_thread_local =
+  (defaultTest "edge-cases/thread_local"){
     testClangVersion   = Just (>= (16, 0, 0))
   , testTracePredicate = singleTracePredicate $ \case
       TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure
@@ -1160,9 +1159,9 @@ test_edge_cases_failing_thread_local =
         Nothing
   }
 
-test_edge_cases_failing_select_no_match :: TestCase
-test_edge_cases_failing_select_no_match =
-  (defaultFailingTest "edge-cases/failing/select_no_match") {
+test_edge_cases_select_no_match :: TestCase
+test_edge_cases_select_no_match =
+  (defaultTest "edge-cases/select_no_match") {
     testOnFrontendConfig = \cfg -> cfg {
         frontendSelectPredicate = BIf $
           SelectDecl (DeclNameMatches "this_pattern_will_never_match")
@@ -1200,8 +1199,8 @@ testCases = manualTestCases ++ [
     , test_binding_specs_bs_pre_target_mismatch
     , test_declarations_declarations_required_for_scoping
     , test_declarations_definitions
-    , test_declarations_failing_declaration_unselected_b
-    , test_declarations_failing_redeclaration_different
+    , test_declarations_declaration_unselected_b
+    , test_declarations_redeclaration_different
     , test_declarations_failing_tentative_definitions_linkage
     , test_declarations_forward_declaration
     , test_declarations_opaque_declaration
@@ -1214,9 +1213,9 @@ testCases = manualTestCases ++ [
     , test_edge_cases_adios
     , test_edge_cases_duplicate
     , test_edge_cases_distilled_lib_1
-    , test_edge_cases_failing_select_no_match
-    , test_edge_cases_failing_thread_local
-    , test_edge_cases_failing_unsupported_builtin
+    , test_edge_cases_select_no_match
+    , test_edge_cases_thread_local
+    , test_edge_cases_unsupported_builtin
     , test_edge_cases_flam
     , test_edge_cases_headers
     , test_edge_cases_iterator
@@ -1244,7 +1243,7 @@ testCases = manualTestCases ++ [
     , test_macros_macros
     , test_macros_reparse
     , test_program_analysis_delay_traces
-    , test_program_analysis_failing_selection_bad
+    , test_program_analysis_selection_bad
     , test_program_analysis_program_slicing_selection
     , test_program_analysis_program_slicing_simple
     , test_program_analysis_selection_fail
@@ -1261,9 +1260,9 @@ testCases = manualTestCases ++ [
     , test_types_enums_enum_cpp_syntax
     , test_types_enums_enums
     , test_types_enums_nested_enums
-    , test_types_failing_implicit_fields_struct
-    , test_types_failing_implicit_fields_union
-    , test_types_failing_long_double
+    , test_types_implicit_fields_struct
+    , test_types_implicit_fields_union
+    , test_types_long_double
     , test_types_nested_nested_types
     , test_types_primitives_bool
     , test_types_primitives_bool_c23

@@ -1,0 +1,1 @@
+-- addDependentFile examples/golden/types/structs/implicit_fields_struct.h

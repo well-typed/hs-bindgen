@@ -1,0 +1,1 @@
+-- addDependentFile examples/golden/types/special/long_double.h

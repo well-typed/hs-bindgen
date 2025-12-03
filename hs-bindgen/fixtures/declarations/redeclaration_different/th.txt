@@ -1,0 +1,1 @@
+-- addDependentFile examples/golden/declarations/redeclaration_different.h
