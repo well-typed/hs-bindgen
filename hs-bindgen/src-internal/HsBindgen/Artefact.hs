@@ -11,8 +11,8 @@ where
 
 import Control.Monad (liftM)
 import Control.Monad.Except (ExceptT (..), MonadError (..), runExceptT)
-import Control.Monad.Reader (ReaderT (..))
-import Control.Monad.State (MonadState (..), StateT (..), modify)
+import Control.Monad.Reader (ReaderT (..), asks)
+import Control.Monad.State (StateT (..), gets, modify)
 import Control.Monad.Trans.Class (lift)
 import Data.IORef (IORef)
 import System.Directory (createDirectoryIfMissing, doesDirectoryExist,
@@ -145,8 +145,8 @@ runArtefacts :: forall e a.
   -> Artefact a
   -> IO (Either (TraceException e) a)
 runArtefacts
-  tracer
-  tracerStateRef
+  tracerSafe
+  tracerUnsafeStateRef
   BackendConfig{..}
   BootArtefact{..}
   FrontendArtefact{..}
@@ -154,20 +154,20 @@ runArtefacts
   artefact = runArtefactE run env
   where
     env :: ArtefactEnv
-    env = ArtefactEnv tracer
+    env = ArtefactEnv tracerSafe
 
-    run :: ExceptT (TraceException e) ArtefactM a
+    run :: ArtefactE e a
     run = do
       -- The 'Bind' operator of 'Artefact' checks for 'Error' traces.
       result  <- runArtefact artefact
-      actions <- get
+      actions <- gets reverse
 
       -- Before creating directories or writing output files, we verify
       -- adherence to the provided policies.
       checkOutputDirPolicy actions
       checkFileOverwritePolicy actions
 
-      liftIO $ executeFileSystemActions actions
+      lift $ executeFileSystemActions actions
       pure result
 
     runArtefact :: forall x. Artefact x -> ArtefactE e x
@@ -196,7 +196,7 @@ runArtefacts
       (Bind x f)          -> do
         r <- runArtefact x
         -- Check tracer state for 'Error' traces
-        mbError <- checkTracerState tracerStateRef
+        mbError <- checkTracerState tracerUnsafeStateRef
         case mbError of
           Just err -> throwError err
           Nothing  -> runArtefact $ f r
@@ -242,32 +242,46 @@ runArtefacts
           in  throwError err
         _ok -> pure ()
 
-    executeFileSystemActions :: [FileSystemAction] -> IO ()
+    traceA :: ArtefactMsg -> ArtefactM ()
+    traceA m = do
+      t <- asks artefactTracer
+      traceWith t m
+
+    executeFileSystemActions :: [FileSystemAction] -> ArtefactM ()
     executeFileSystemActions as =
       forM_ as $ \case
-        CreateDir outputDir ->
-          createDirectoryIfMissing True outputDir
-        WriteFile _ path content -> do
-          createDirectoryIfMissing True (takeDirectory path)
-          case content of
-            TextContent str -> writeFile path str
-            BindingSpecContent ubs -> BindingSpec.writeFile path ubs
+        CreateDir outputDir -> do
+          traceA $ RunArtefactCreateDir outputDir
+          liftIO $ createDirectoryIfMissing True outputDir
+        WriteFile what path content -> do
+          traceA $ RunArtefactWriteFile path what
+          liftIO $ do
+            createDirectoryIfMissing True (takeDirectory path)
+            case content of
+              TextContent str        -> writeFile path str
+              BindingSpecContent ubs -> BindingSpec.writeFile path ubs
 
 {-------------------------------------------------------------------------------
   Traces
 -------------------------------------------------------------------------------}
 
-data ArtefactMsg = RunArtefactWriteFile FilePath FileContent
+data ArtefactMsg =
+    RunArtefactCreateDir FilePath
+  | RunArtefactWriteFile FilePath String
   deriving stock (Show, Generic)
 
 instance PrettyForTrace ArtefactMsg where
   prettyForTrace = \case
+    RunArtefactCreateDir path ->
+      "Creating directory" <+> PP.showToCtxDoc path
     RunArtefactWriteFile path what ->
       "Writing" <+> PP.showToCtxDoc what <+> "to file" <+> PP.showToCtxDoc path
 
 instance IsTrace SafeLevel ArtefactMsg where
   getDefaultLogLevel = \case
-    RunArtefactWriteFile _ _ -> SafeInfo
+    RunArtefactCreateDir{} -> SafeInfo
+    RunArtefactWriteFile{} -> SafeInfo
   getSource = const HsBindgen
   getTraceId = \case
-    RunArtefactWriteFile _ _ -> "run-artefact-write-file"
+    RunArtefactCreateDir{} -> "run-artefact-create-dir"
+    RunArtefactWriteFile{} -> "run-artefact-write-file"
