@@ -26,6 +26,7 @@ hstypes:
   instances:
   - Storable
 - hsname: Opaque
+  representation: opaque
 - hsname: Outside
   instances:
   - Eq

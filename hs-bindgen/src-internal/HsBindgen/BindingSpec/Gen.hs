@@ -190,7 +190,10 @@ genBindingSpec'
               cTypeSpecIdentifier = Just hsIdentifier
             , cTypeSpecRep        = Nothing  -- TODO implement
             }
-          hsTypeSpec = def
+          hsTypeSpec = BindingSpec.HsTypeSpec {
+              hsTypeSpecRep       = Just BindingSpec.HsTypeRepOpaque
+            , hsTypeSpecInstances = Map.empty
+            }
       in  ( (cQualName, getHeaders declInfo, cTypeSpec)
           , (hsIdentifier, hsTypeSpec)
           )

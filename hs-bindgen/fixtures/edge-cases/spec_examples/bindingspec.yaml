@@ -37,6 +37,7 @@ hstypes:
   - Show
   - Storable
 - hsname: C
+  representation: opaque
 - hsname: Cint16_T
   instances:
   - Eq

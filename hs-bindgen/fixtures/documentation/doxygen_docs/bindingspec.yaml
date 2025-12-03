@@ -93,7 +93,9 @@ hstypes:
   - Show
   - Storable
 - hsname: Forward_declared_struct
+  representation: opaque
 - hsname: Forward_declared_union
+  representation: opaque
 - hsname: Processor_fn_t
   instances:
   - Eq

@@ -96,7 +96,9 @@ hstypes:
   - Show
   - Storable
 - hsname: Struct3_t
+  representation: opaque
 - hsname: Struct4_t
+  representation: opaque
 - hsname: Struct5
   instances:
   - Eq

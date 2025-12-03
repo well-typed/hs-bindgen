@@ -91,7 +91,7 @@ bindingSpec = BindingSpec.BindingSpec{..}
 
     floatingTypes :: [(CTypeKV, HsTypeKV)]
     floatingTypes =
-      let aux (t, hsIdentifier) = mkType t hsIdentifier cO hsE [] ["fenv.h"]
+      let aux (t, hsIdentifier) = mkType t hsIdentifier cO hsO [] ["fenv.h"]
       in  map aux [
               ("fenv_t",    "CFenvT")
             , ("fexcept_t", "CFexceptT")
@@ -126,7 +126,7 @@ bindingSpec = BindingSpec.BindingSpec{..}
 
     nonLocalJumpTypes :: [(CTypeKV, HsTypeKV)]
     nonLocalJumpTypes = [
-        mkType "jmp_buf" "CJmpBuf" cO hsE [] ["setjmp.h"]
+        mkType "jmp_buf" "CJmpBuf" cO hsO [] ["setjmp.h"]
       ]
 
     wcharTypes :: [(CTypeKV, HsTypeKV)]
@@ -138,7 +138,7 @@ bindingSpec = BindingSpec.BindingSpec{..}
           , "wchar.h"
           ]
       , mkType "wint_t"    "CWintT"    cD hsN intI ["wchar.h", "wctype.h"]
-      , mkType "mbstate_t" "CMbstateT" cO hsE []   ["uchar.h", "wchar.h"]
+      , mkType "mbstate_t" "CMbstateT" cO hsO []   ["uchar.h", "wchar.h"]
       , mkType "wctrans_t" "CWctransT" cD hsN eqI  ["wctype.h"]
       , mkType "wctype_t"  "CWctypeT"  cD hsN eqI  ["wchar.h", "wctype.h"]
       , mkType "char16_t"  "CChar16T"  cD hsN intI ["uchar.h"]
@@ -165,8 +165,8 @@ bindingSpec = BindingSpec.BindingSpec{..}
 
     fileTypes :: [(CTypeKV, HsTypeKV)]
     fileTypes = [
-        mkType "FILE"   "CFile" cO hsE [] ["stdio.h", "wchar.h"]
-      , mkType "fpos_t" "CFpos" cO hsE [] ["stdio.h"]
+        mkType "FILE"   "CFile" cO hsO [] ["stdio.h", "wchar.h"]
+      , mkType "fpos_t" "CFpos" cO hsO [] ["stdio.h"]
       ]
 
     signalTypes :: [(CTypeKV, HsTypeKV)]
@@ -267,6 +267,6 @@ cO = BindingSpec.CTypeRepOpaque
 mkHsR :: [Hs.Identifier] -> BindingSpec.HsTypeRep
 mkHsR = BindingSpec.HsTypeRepRecord . BindingSpec.HsRecordRep . Just
 
-hsE, hsN :: BindingSpec.HsTypeRep
-hsE = mkHsR []
+hsN, hsO :: BindingSpec.HsTypeRep
 hsN = BindingSpec.HsTypeRepNewtype
+hsO = BindingSpec.HsTypeRepOpaque

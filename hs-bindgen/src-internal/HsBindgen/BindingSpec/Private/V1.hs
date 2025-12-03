@@ -226,13 +226,18 @@ instance Default HsTypeSpec where
 data HsTypeRep =
     -- | Record representation
     --
-    -- A type is generated using @data@.
+    -- A type and constructor is generated using @data@.
     HsTypeRepRecord HsRecordRep
 
   | -- | Newtype representation
     --
-    -- A type is generated using @newtype@.
+    -- A type and constructor is generated using @newtype@.
     HsTypeRepNewtype
+
+  | -- | Opaque representation
+    --
+    -- A type but no constructor is generated using @data@.
+    HsTypeRepOpaque
 
   | -- | Alias representation
     --
@@ -799,6 +804,7 @@ instance Aeson.FromJSON AHsTypeRep where
       parseHsTypeRepText t = case t of
         "record"  -> return (HsTypeRepRecord (HsRecordRep Nothing))
         "newtype" -> return HsTypeRepNewtype
+        "opaque"  -> return HsTypeRepOpaque
         "alias"   -> return HsTypeRepAlias
         _         ->
           Aeson.parseFail $ "unknown Haskell representation: " ++ Text.unpack t
@@ -821,7 +827,8 @@ instance Aeson.ToJSON AHsTypeRep where
                 ]
             ]
         HsTypeRepNewtype -> Aeson.String "newtype"
-        HsTypeRepAlias -> Aeson.String "alias"
+        HsTypeRepOpaque  -> Aeson.String "opaque"
+        HsTypeRepAlias   -> Aeson.String "alias"
 
 --------------------------------------------------------------------------------
 
