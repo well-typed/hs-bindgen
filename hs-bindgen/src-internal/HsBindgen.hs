@@ -77,7 +77,9 @@ hsBindgen
           backendArtefact
           artefacts
 
-    -- Execute file system actions based on FileOverwritePolicy
+    -- case result of
+    --   Left err -> _
+    --   Right _  -> _
     either throwIO pure result
   where
     tracerConfigSafe :: TracerConfig SafeLevel a
@@ -97,7 +99,7 @@ hsBindgen
 writeIncludeGraph :: Maybe FilePath -> Artefact ()
 writeIncludeGraph mPath = do
     (p, includeGraph) <- IncludeGraph
-    write "include graph" mPath $
+    Lift $ write "include graph" mPath $
       IncludeGraph.dumpMermaid p includeGraph
 
 -- | Write @use-decl@ graph to file.
@@ -105,7 +107,7 @@ writeUseDeclGraph :: Maybe FilePath -> Artefact ()
 writeUseDeclGraph mPath = do
     index <- DeclIndex
     useDeclGraph <- UseDeclGraph
-    write "use-decl graph" mPath $
+    Lift $ write "use-decl graph" mPath $
       UseDeclGraph.dumpMermaid index useDeclGraph
 
 -- | Get bindings (single module).
@@ -123,7 +125,7 @@ getBindings safety = do
 writeBindings :: Safety -> Maybe FilePath -> Artefact ()
 writeBindings safety mPath = do
     bindings <- getBindings safety
-    write "bindings" mPath bindings
+    Lift $ write "bindings" mPath bindings
 
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: Artefact (ByCategory String)
@@ -156,7 +158,7 @@ writeBindingSpec path = do
           getMainHeaders
           omitTypes
           (fromMaybe [] (Map.lookup BType $ unByCategory hsDecls))
-  FileWrite "Binding specifications" path (BindingSpecContent bindingSpec)
+  Lift $ delayWriteFile "Binding specifications" path (BindingSpecContent bindingSpec)
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
@@ -175,9 +177,9 @@ writeTests testDir = do
   Helpers
 -------------------------------------------------------------------------------}
 
-write :: String -> Maybe FilePath -> String -> Artefact ()
+write :: String -> Maybe FilePath -> String -> ArtefactM ()
 write _    Nothing     str = liftIO $ putStrLn str
-write what (Just path) str = FileWrite what path (TextContent str)
+write what (Just path) str = delayWriteFile what path (TextContent str)
 
 writeByCategory ::
      String
@@ -190,7 +192,7 @@ writeByCategory what hsOutputDir moduleBaseName =
   where
     writeCategory :: BindingCategory -> String -> Artefact ()
     writeCategory cat str = do
-        write whatWithCategory (Just path) str
+        Lift $ write whatWithCategory (Just path) str
       where
         moduleName :: Hs.ModuleName
         moduleName = fromBaseModuleName moduleBaseName (Just cat)

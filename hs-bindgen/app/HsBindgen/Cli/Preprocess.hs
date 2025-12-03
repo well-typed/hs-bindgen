@@ -17,6 +17,7 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
+import HsBindgen.Artefact (delayMkDir)
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.RootHeader
@@ -74,6 +75,6 @@ exec GlobalOpts{..} Opts{..} =
 
     artefacts :: Artefact ()
     artefacts = do
-        DirectoryCreate hsOutputDir
+        Lift $ delayMkDir hsOutputDir
         writeBindingsMultiple hsOutputDir
         forM_ outputBindingSpec writeBindingSpec
