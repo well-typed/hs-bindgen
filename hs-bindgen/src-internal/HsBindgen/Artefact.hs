@@ -11,8 +11,9 @@ where
 
 import Control.Monad (liftM)
 import Control.Monad.Except (ExceptT (..), MonadError (..), runExceptT)
+import Control.Monad.Reader (ReaderT (..))
+import Control.Monad.State (MonadState (..), StateT (..), modify)
 import Control.Monad.Trans.Class (lift)
-import Control.Monad.Trans.RWS.CPS (RWST, runRWST, tell)
 import Data.IORef (IORef)
 import System.Directory (createDirectoryIfMissing, doesDirectoryExist,
                          doesFileExist)
@@ -99,7 +100,7 @@ instance MonadIO Artefact where
   Artefact monad
 -------------------------------------------------------------------------------}
 
-type ArtefactM = RWST ArtefactEnv [FileSystemAction] () IO
+type ArtefactM = StateT [FileSystemAction] (ReaderT ArtefactEnv IO)
 
 data ArtefactEnv = ArtefactEnv {
       artefactTracer :: Tracer ArtefactMsg
@@ -109,6 +110,14 @@ data ArtefactEnv = ArtefactEnv {
 data FileSystemAction =
       CreateDir FilePath
     | WriteFile String FilePath FileContent
+
+runArtefactM :: ArtefactM a -> ArtefactEnv -> IO (a, [FileSystemAction])
+runArtefactM a = runReaderT (runStateT a [])
+
+type ArtefactE e = ExceptT (TraceException e) ArtefactM
+
+runArtefactE :: ArtefactE e a -> ArtefactEnv -> IO (Either (TraceException e) a)
+runArtefactE a e = fst <$> runArtefactM (runExceptT a) e
 
 -- | Content to be written to a file
 --
@@ -142,18 +151,26 @@ runArtefacts
   BootArtefact{..}
   FrontendArtefact{..}
   BackendArtefact{..}
-  artefact = do
-    (eResult, _, actions) <- runRWST (runExceptT (runArtefact artefact)) env ()
-    eUnit <- executeFileSystemActions backendOutputDirPolicy backendFileOverwrite actions
-    pure $ do
-      r <- eResult
-      _ <- eUnit
-      return r
+  artefact = runArtefactE run env
   where
     env :: ArtefactEnv
     env = ArtefactEnv tracer
 
-    runArtefact :: forall x. Artefact x -> ExceptT (TraceException e) ArtefactM x
+    run :: ExceptT (TraceException e) ArtefactM a
+    run = do
+      -- The 'Bind' operator of 'Artefact' checks for 'Error' traces.
+      result  <- runArtefact artefact
+      actions <- get
+
+      -- Before creating directories or writing output files, we verify
+      -- adherence to the provided policies.
+      checkOutputDirPolicy actions
+      checkFileOverwritePolicy actions
+
+      liftIO $ executeFileSystemActions actions
+      pure result
+
+    runArtefact :: forall x. Artefact x -> ArtefactE e x
     runArtefact = \case
       --Boot.
       Target              -> liftIO bootTarget
@@ -175,8 +192,8 @@ runArtefacts
       FinalModuleUnsafe   -> liftIO backendFinalModuleUnsafe
       FinalModules        -> liftIO backendFinalModules
       -- Lift and sequence.
-      (Lift f)            -> lift f
-      (Bind x   f)        -> do
+      (Lift   f)          -> lift f
+      (Bind x f)          -> do
         r <- runArtefact x
         -- Check tracer state for 'Error' traces
         mbError <- checkTracerState tracerStateRef
@@ -184,17 +201,8 @@ runArtefacts
           Just err -> throwError err
           Nothing  -> runArtefact $ f r
       -- File system operations.
-      DirectoryCreate path        -> lift $ tell [CreateDir path]
-      FileWrite what path content -> lift $ tell [WriteFile what path content]
-
-    lookForExistingFile :: [FileSystemAction] -> IO (Maybe FilePath)
-    lookForExistingFile [] = pure Nothing
-    lookForExistingFile (WriteFile _ path _ : as) = do
-      fileExists <- doesFileExist path
-      if fileExists
-         then pure (Just path)
-         else lookForExistingFile as
-    lookForExistingFile (_ : as) = lookForExistingFile as
+      DirectoryCreate path        -> modify (CreateDir path :)
+      FileWrite what path content -> modify (WriteFile what path content :)
 
     lookForExistingDir :: [FileSystemAction] -> IO (Maybe FilePath)
     lookForExistingDir [] = pure Nothing
@@ -205,31 +213,45 @@ runArtefacts
          else lookForExistingFile as
     lookForExistingDir (_ : as) = lookForExistingDir as
 
-    executeFileSystemActions :: OutputDirPolicy -> FileOverwritePolicy -> [FileSystemAction] -> IO (Either (TraceException e) ())
-    executeFileSystemActions outputDirPolicy fop actions = do
+    checkOutputDirPolicy :: [FileSystemAction] -> ArtefactE e ()
+    checkOutputDirPolicy as = do
       -- Get the first directory path that exists if any
-      mbDirPath <- lookForExistingDir actions
+      mbDirPath <- liftIO $ lookForExistingDir as
+      case (mbDirPath, backendOutputDirPolicy) of
+        (Just d, DoNotCreateDirStructure) ->
+          let err = TraceFileSystemException (OutputDirectoryAlreadyExistsException d)
+          in  throwError err
+        _ok -> pure ()
+
+    lookForExistingFile :: [FileSystemAction] -> IO (Maybe FilePath)
+    lookForExistingFile [] = pure Nothing
+    lookForExistingFile (WriteFile _ path _ : as) = do
+      fileExists <- doesFileExist path
+      if fileExists
+         then pure (Just path)
+         else lookForExistingFile as
+    lookForExistingFile (_ : as) = lookForExistingFile as
+
+    checkFileOverwritePolicy :: [FileSystemAction] -> ArtefactE e ()
+    checkFileOverwritePolicy as = do
       -- Get the first file path that exists if any
-      mbFilePath <- lookForExistingFile actions
+      mbFilePath <- liftIO $ lookForExistingFile as
+      case (mbFilePath, backendFileOverwrite) of
+        (Just f, ProtectExistingFiles) ->
+          let err = TraceFileSystemException (FileAlreadyExistsException f)
+          in  throwError err
+        _ok -> pure ()
 
-      _ <- case outputDirPolicy of
-             DoNotCreateDirStructure
-               | Just outputDir <- mbDirPath ->
-                 return (Left (TraceFileSystemException (OutputDirectoryAlreadyExistsException outputDir)))
-             _ -> pure (Right ())
-
-      case fop of
-        ProtectExistingFiles
-          | Just path <- mbFilePath ->
-            return (Left (TraceFileSystemException (FileAlreadyExistsException path)))
-        _ -> Right <$> (forM_ actions $ \case
-              CreateDir outputDir ->
-                createDirectoryIfMissing True outputDir
-              WriteFile _ path content -> do
-                createDirectoryIfMissing True (takeDirectory path)
-                case content of
-                  TextContent str -> writeFile path str
-                  BindingSpecContent ubs -> BindingSpec.writeFile path ubs)
+    executeFileSystemActions :: [FileSystemAction] -> IO ()
+    executeFileSystemActions as =
+      forM_ as $ \case
+        CreateDir outputDir ->
+          createDirectoryIfMissing True outputDir
+        WriteFile _ path content -> do
+          createDirectoryIfMissing True (takeDirectory path)
+          case content of
+            TextContent str -> writeFile path str
+            BindingSpecContent ubs -> BindingSpec.writeFile path ubs
 
 {-------------------------------------------------------------------------------
   Traces
