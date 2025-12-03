@@ -15,6 +15,8 @@ import Data.Text qualified as T
 import Foreign.C.Types (CUInt)
 import GHC.Generics (Generic)
 import Options.Applicative qualified as OA
+import System.Exit (exitFailure)
+import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Bitfield
 import Clang.Enum.Simple
@@ -75,7 +77,7 @@ clangAstDump opts@Options{..} = do
     putStrLn $ "## `" ++ getHashIncludeArg optFile ++ "`"
     putStrLn ""
 
-    eitherRes <- withTracer tracerConf $ \tracer _ -> do
+    eitherRes <- withTracer tracerConf $ \tracer -> do
       cArgs <- either throwIO return $ getClangArgs cArgsConfig
       let tracerResolve = contramap DumpTraceResolveHeader tracer
           tracerClang   = contramap DumpTraceClang         tracer
@@ -96,7 +98,9 @@ clangAstDump opts@Options{..} = do
               | not optBuiltin && isBuiltIn file      -> foldContinue
               | otherwise                             -> foldDecls opts cursor
     case eitherRes of
-      Left  e  -> throwIO e
+      Left  e  -> do
+        putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace e
+        exitFailure
       Right _  -> pure ()
   where
     tracerConf :: TracerConfig Level DumpTrace

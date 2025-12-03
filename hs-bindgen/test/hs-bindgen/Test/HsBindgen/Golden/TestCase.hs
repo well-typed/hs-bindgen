@@ -20,12 +20,9 @@ module Test.HsBindgen.Golden.TestCase (
   , failingTestCustom
     -- * Execution
   , runTestHsBindgen
-  , runTestHsBindgen'
   ) where
 
-import Control.Exception (Exception (..), SomeException (..), handle)
 import System.FilePath
-import Test.Common.HsBindgen.Trace (reportTrace)
 import Test.Common.HsBindgen.TracePredicate
 import Test.HsBindgen.Resources
 import Test.Tasty (TestName)
@@ -235,25 +232,9 @@ withTestTraceConfig report TestCase{testTracePredicate} =
     withTraceConfigPredicate report testTracePredicate
 
 -- | Run 'hsBindgen'.
---
--- On 'TraceException's, print error traces.
 runTestHsBindgen ::
   (String -> IO ()) -> IO TestResources -> TestCase -> Artefact a -> IO a
-runTestHsBindgen report testResources test artefact =
-    handle exceptionHandler $
-      runTestHsBindgen' report testResources test artefact
-  where
-    exceptionHandler :: SomeException -> IO a
-    exceptionHandler e@(SomeException e')
-      | Just (TraceException @TraceMsg es) <- fromException e =
-          mapM_  printTrace es >> throwIO e'
-      | otherwise = throwIO e'
-    printTrace = print . reportTrace
-
--- | Like 'runTestHsBindgen', but do not print error traces.
-runTestHsBindgen' ::
-  (String -> IO ()) -> IO TestResources -> TestCase -> Artefact a -> IO a
-runTestHsBindgen' report testResources test artefacts = do
+runTestHsBindgen report testResources test artefacts = do
     bootConfig <- getTestBootConfig testResources test
     let frontendConfig = getTestFrontendConfig test
         backendConfig  = getTestBackendConfig test

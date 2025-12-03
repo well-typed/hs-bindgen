@@ -69,6 +69,7 @@ data TraceMsg =
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
 
+
 {-------------------------------------------------------------------------------
   Log level customization
 -------------------------------------------------------------------------------}
