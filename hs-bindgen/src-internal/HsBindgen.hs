@@ -138,7 +138,7 @@ writeBindingsMultiple :: FilePath -> Artefact ()
 writeBindingsMultiple hsOutputDir = do
     moduleBaseName     <- FinalModuleBaseName
     bindingsByCategory <- getBindingsMultiple
-    writeByCategory "bindings" hsOutputDir moduleBaseName bindingsByCategory
+    writeByCategory "Bindings" hsOutputDir moduleBaseName bindingsByCategory
 
 -- | Write binding specifications to file.
 writeBindingSpec :: FilePath -> Artefact ()
@@ -156,7 +156,7 @@ writeBindingSpec path = do
           getMainHeaders
           omitTypes
           (fromMaybe [] (Map.lookup BType $ unByCategory hsDecls))
-  FileWrite "binding specifications" path (BindingSpecContent bindingSpec)
+  FileWrite "Binding specifications" path (BindingSpecContent bindingSpec)
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
