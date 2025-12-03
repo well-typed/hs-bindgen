@@ -183,14 +183,7 @@ runArtefacts
       -- The 'Bind' operator of 'Artefact' checks for 'Error' traces.
       (result, actions)  <-
         withExceptT (const ErrorReported) $
-          runArtefactM env $ do
-            -- TODO_PR.
-            r <- runArtefact artefact
-            -- Check tracer state for 'Error' traces
-            mbError <- checkTracerState tracerUnsafeStateRef
-            case mbError of
-              Just err -> throwError err
-              Nothing  -> pure r
+          runArtefactM env $ runArtefact artefact
 
       -- Before creating directories or writing output files, we verify
       -- adherence to the provided policies.
@@ -201,37 +194,35 @@ runArtefacts
       pure result
 
     runArtefact :: forall x. Artefact x -> ArtefactM x
-    runArtefact = \case
-      --Boot.
-      Target              -> liftIO bootTarget
-      HashIncludeArgs     -> liftIO bootHashIncludeArgs
-      -- Frontend.
-      IncludeGraph        -> liftIO frontendIncludeGraph
-      GetMainHeaders      -> liftIO frontendGetMainHeaders
-      DeclIndex           -> liftIO frontendIndex
-      UseDeclGraph        -> liftIO frontendUseDeclGraph
-      DeclUseGraph        -> liftIO frontendDeclUseGraph
-      OmitTypes           -> liftIO frontendOmitTypes
-      ReifiedC            -> liftIO frontendCDecls
-      Dependencies        -> liftIO frontendDependencies
-      -- Backend.
-      HsDecls             -> liftIO backendHsDecls
-      FinalDecls          -> liftIO backendFinalDecls
-      FinalModuleBaseName -> pure backendFinalModuleBaseName
-      FinalModuleSafe     -> liftIO backendFinalModuleSafe
-      FinalModuleUnsafe   -> liftIO backendFinalModuleUnsafe
-      FinalModules        -> liftIO backendFinalModules
-      -- Lift and sequence.
-      (Lift   f)          -> f
-      (Bind x f)          -> do
-        r <- runArtefact x
-        runArtefact $ f r
-        -- TODO_PR.
-        -- -- Check tracer state for 'Error' traces
-        -- mbError <- checkTracerState tracerUnsafeStateRef
-        -- case mbError of
-        --   Just err -> throwError err
-        --   Nothing  -> runArtefact $ f r
+    runArtefact a = do
+      r <- case a of
+        --Boot.
+        Target              -> liftIO bootTarget
+        HashIncludeArgs     -> liftIO bootHashIncludeArgs
+        -- Frontend.
+        IncludeGraph        -> liftIO frontendIncludeGraph
+        GetMainHeaders      -> liftIO frontendGetMainHeaders
+        DeclIndex           -> liftIO frontendIndex
+        UseDeclGraph        -> liftIO frontendUseDeclGraph
+        DeclUseGraph        -> liftIO frontendDeclUseGraph
+        OmitTypes           -> liftIO frontendOmitTypes
+        ReifiedC            -> liftIO frontendCDecls
+        Dependencies        -> liftIO frontendDependencies
+        -- Backend.
+        HsDecls             -> liftIO backendHsDecls
+        FinalDecls          -> liftIO backendFinalDecls
+        FinalModuleBaseName -> pure backendFinalModuleBaseName
+        FinalModuleSafe     -> liftIO backendFinalModuleSafe
+        FinalModuleUnsafe   -> liftIO backendFinalModuleUnsafe
+        FinalModules        -> liftIO backendFinalModules
+        -- Lift and sequence.
+        (Lift   f)          -> f
+        (Bind x f)          -> runArtefact x >>= runArtefact . f
+      -- After each step, check tracer state for 'Error' traces.
+      mbError <- checkTracerState tracerUnsafeStateRef
+      case mbError of
+        Just err -> throwError err
+        Nothing  -> pure r
 
     lookForExistingDir :: [FileSystemAction] -> IO (Maybe FilePath)
     lookForExistingDir [] = pure Nothing
@@ -244,16 +235,16 @@ runArtefacts
 
     checkOutputDirPolicy :: [FileSystemAction] -> ExceptT RunArtefactError IO ()
     checkOutputDirPolicy as = do
-      -- TODO_PR: If we create the dir structure, we don't need to check if
-      -- directories exist, or not.
-      --
-      -- Get the first directory path that exists if any
-      mbDirPath <- liftIO $ lookForExistingDir as
-      case (mbDirPath, backendOutputDirPolicy) of
-        (Just d, DoNotCreateDirStructure) ->
-          let err = FileSystemError (DirectoryAlreadyExists d)
-          in  throwError err
-        _ok -> pure ()
+      case backendOutputDirPolicy of
+        CreateDirStructure -> pure ()
+        DoNotCreateDirStructure -> do
+          -- Get the first directory path that exists if any
+          mbDirPath <- liftIO $ lookForExistingDir as
+          case mbDirPath of
+            Nothing -> pure ()
+            Just d  ->
+              let err = FileSystemError (DirectoryAlreadyExists d)
+              in  throwError err
 
     lookForExistingFile :: [FileSystemAction] -> IO (Maybe FilePath)
     lookForExistingFile [] = pure Nothing
@@ -266,16 +257,16 @@ runArtefacts
 
     checkFileOverwritePolicy :: [FileSystemAction] -> ExceptT RunArtefactError IO ()
     checkFileOverwritePolicy as = do
-      -- TODO_PR: If we create the dir structure, we don't need to check if
-      -- directories exist, or not.
-      --
-      -- Get the first file path that exists if any
-      mbFilePath <- liftIO $ lookForExistingFile as
-      case (mbFilePath, backendFileOverwrite) of
-        (Just f, ProtectExistingFiles) ->
-          let err = FileSystemError (FileAlreadyExists f)
-          in  throwError err
-        _ok -> pure ()
+      case backendFileOverwrite of
+        AllowFileOverwrite -> pure ()
+        ProtectExistingFiles -> do
+          -- Get the first file path that exists if any
+          mbFilePath <- liftIO $ lookForExistingFile as
+          case mbFilePath of
+            Nothing -> pure ()
+            Just f  ->
+              let err = FileSystemError (FileAlreadyExists f)
+              in  throwError err
 
     executeFileSystemActions :: [FileSystemAction] -> IO ()
     executeFileSystemActions as =
