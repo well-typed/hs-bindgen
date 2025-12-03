@@ -197,13 +197,10 @@ selectDecls
     useDeclGraph = unitAnn.declUseDecl
 
     match :: Match
-    match = \declId -> go declId declId
+    match = \declId -> go declId
       where
-        -- We compare the use sites of anonymous declarations with the original
-        -- @declId@, so we can detect cycles involving anonymous declarations in
-        -- the use-decl graph. We believe these cycles can not exist.
-        go :: DeclId -> C.QualPrelimDeclId -> SingleLoc -> C.Availability -> Bool
-        go origDeclId declId loc availability = case declId of
+        go :: C.QualPrelimDeclId -> SingleLoc -> C.Availability -> Bool
+        go declId loc availability = case declId of
             C.QualPrelimDeclIdNamed name kind ->
               let -- We have parsed some declarations that are required for
                   -- scoping but that actually do not match the parse predicate.
@@ -226,14 +223,14 @@ selectDecls
                       selectConfigPredicate
               in parsed && selected
             -- Apply the select predicate to the use site.
-            anon@(C.QualPrelimDeclIdAnon{}) -> matchAnon origDeclId anon
+            anon@(C.QualPrelimDeclIdAnon{}) -> matchAnon anon
             -- Never select builtins.
             C.QualPrelimDeclIdBuiltin _ -> False
 
-        matchAnon :: DeclId -> DeclId -> Bool
-        matchAnon origDeclId anon =
+        matchAnon :: DeclId -> Bool
+        matchAnon anon =
           case DeclUseGraph.getUseSites unitAnn.declDeclUse anon of
-            [(declId, _)] -> matchUseSite origDeclId declId
+            [(declId, _)] -> matchUseSite declId
             -- Unused anonymous declarations are removed in the @NameAnon@
             -- pass. Here we are using the decl-use graph to find use sites,
             -- and so we still can encounter unused anonymous declarations.
@@ -242,12 +239,8 @@ selectDecls
               "anonymous declaration with multiple use sites: "
               ++ show anon ++ " used by " ++ show xs
 
-        matchUseSite :: DeclId -> DeclId -> Bool
-        matchUseSite origDeclId declIdUseSite
-          | declIdUseSite == origDeclId = panicPure $
-              "unexpected cycle involving anonymous declaration: "
-              ++ show origDeclId
-          | otherwise =
+        matchUseSite :: DeclId -> Bool
+        matchUseSite declIdUseSite =
           case DeclIndex.lookup declIdUseSite index of
             -- TODO https://github.com/well-typed/hs-bindgen/issues/1273:
             -- Implement trace messages stating why we deselect the anonymous
