@@ -36,7 +36,7 @@ import Clang.LowLevel.Core
 
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming (NameKind, QualPrelimDeclId)
+import HsBindgen.Frontend.Naming (NameKind, PrelimDeclId)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Type.Monad
@@ -144,7 +144,7 @@ getUnparsedMacro unit curr = do
 -------------------------------------------------------------------------------}
 
 data ParseSuccess = ParseSuccess {
-      psQualPrelimDeclId :: C.QualPrelimDeclId
+      psQualPrelimDeclId :: C.PrelimDeclId
     , psDecl             :: C.Decl Parse
     , psAttachedMsgs     :: [AttachedParseMsg DelayedParseMsg]
     }
@@ -240,7 +240,7 @@ getParseResultLoc = \case
     ParseResultNotAttempted (ParseNotAttempted m) -> m.loc
     ParseResultFailure      (ParseFailure m)      -> m.loc
 
-getParseResultDeclId :: ParseResult -> QualPrelimDeclId
+getParseResultDeclId :: ParseResult -> PrelimDeclId
 getParseResultDeclId = \case
     ParseResultSuccess       ParseSuccess{..}     -> psQualPrelimDeclId
     ParseResultNotAttempted (ParseNotAttempted x) -> x.declId
@@ -251,31 +251,28 @@ parseSucceed = parseSucceedWith []
 
 parseSucceedWith :: [DelayedParseMsg] -> C.Decl Parse -> ParseResult
 parseSucceedWith msgs decl =
-    ParseResultSuccess $ ParseSuccess qualPrelimDeclId decl $
-      map (AttachedParseMsg qualPrelimDeclId declLoc declAvailability) msgs
+    ParseResultSuccess $ ParseSuccess declId decl $
+      map (AttachedParseMsg declId declLoc declAvailability) msgs
   where
-    qualPrelimDeclId = C.declQualPrelimDeclId decl
     C.DeclInfo{..} = decl.declInfo
 
 parseDoNotAttempt ::
      C.DeclInfo Parse
-  -> C.NameKind
   -> ParseNotAttemptedReason
   -> ParseResult
-parseDoNotAttempt C.DeclInfo{..} kind reason =
+parseDoNotAttempt C.DeclInfo{..} reason =
     ParseResultNotAttempted $
       ParseNotAttempted $
         AttachedParseMsg
-          (C.qualPrelimDeclIdSafe declId kind)
+          declId
           declLoc
           declAvailability
           reason
 
-parseFail ::
-  C.DeclInfo Parse -> C.NameKind -> DelayedParseMsg -> ParseResult
-parseFail info kind msg = ParseResultFailure $ ParseFailure $
+parseFail :: C.DeclInfo Parse -> DelayedParseMsg -> ParseResult
+parseFail info msg = ParseResultFailure $ ParseFailure $
       AttachedParseMsg
-        (C.qualPrelimDeclId info.declId kind)
+        info.declId
         info.declLoc
         info.declAvailability
         msg
@@ -329,7 +326,7 @@ instance IsTrace Level ImmediateParseMsg where
   getTraceId = const "parse-immediate"
 
 data AttachedParseMsg a = AttachedParseMsg {
-    declId       :: QualPrelimDeclId
+    declId       :: PrelimDeclId
   , loc          :: SingleLoc
   , availability :: C.Availability
   , msg          :: a

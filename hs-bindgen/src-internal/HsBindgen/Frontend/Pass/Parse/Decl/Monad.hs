@@ -25,6 +25,7 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
   , unknownCursorKind
     -- * Utility: dispatching
   , dispatch
+  , dispatchWithArg
   ) where
 
 import Data.IORef
@@ -165,8 +166,8 @@ recordImmediateTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
   Errors
 -------------------------------------------------------------------------------}
 
-unknownCursorKind :: MonadIO m => CXCursor -> CXCursorKind -> m x
-unknownCursorKind curr kind = do
+unknownCursorKind :: MonadIO m => CXCursorKind -> CXCursor -> m x
+unknownCursorKind kind curr = do
     loc      <- HighLevel.clang_getCursorLocation' curr
     spelling <- clang_getCursorKindSpelling (simpleEnum kind)
     panicIO $ concat [
@@ -188,3 +189,10 @@ dispatch curr k = do
     case mKind of
       Right kind -> k kind
       Left  i    -> panicIO $ "Unrecognized CXCursorKind " ++ show i
+
+dispatchWithArg ::
+     MonadIO m
+  => CXCursor
+  -> (CXCursorKind -> CXCursor -> m a)
+  -> m a
+dispatchWithArg x f = dispatch x $ \kind -> f kind x

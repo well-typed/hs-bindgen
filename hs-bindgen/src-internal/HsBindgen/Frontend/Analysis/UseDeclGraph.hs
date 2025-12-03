@@ -52,11 +52,11 @@ import HsBindgen.Imports
 -- Whenever declaration A uses (depends on) declaration B, there will be
 -- an edge from A to B in this graph.
 newtype UseDeclGraph = Wrap {
-      unwrap :: DynGraph Usage C.QualPrelimDeclId
+      unwrap :: DynGraph Usage C.PrelimDeclId
     }
   deriving stock (Show, Eq)
 
-toDynGraph :: UseDeclGraph -> DynGraph Usage C.QualPrelimDeclId
+toDynGraph :: UseDeclGraph -> DynGraph Usage C.PrelimDeclId
 toDynGraph = unwrap
 
 {-------------------------------------------------------------------------------
@@ -75,23 +75,23 @@ fromSortedDecls decls = Wrap $
     -- We first insert all declarations, so that they are assigned vertices.
     -- Since we do this in source order, this ensures that we preserve source
     -- order as much as possible in 'toDecls' (modulo dependencies).
-    let vertices :: DynGraph Usage C.QualPrelimDeclId
+    let vertices :: DynGraph Usage C.PrelimDeclId
         vertices = foldl' (flip addVertex) DynGraph.empty decls
     in foldl' (flip addEdges) vertices decls
   where
     addVertex, addEdges ::
          C.Decl Parse
-      -> DynGraph Usage C.QualPrelimDeclId
-      -> DynGraph Usage C.QualPrelimDeclId
-    addVertex d g = DynGraph.insertVertex (C.declQualPrelimDeclId d) g
+      -> DynGraph Usage C.PrelimDeclId
+      -> DynGraph Usage C.PrelimDeclId
+    addVertex d g = DynGraph.insertVertex d.declInfo.declId g
     addEdges  d g = foldl' (flip (addEdge d)) g (depsOfDecl $ C.declKind d)
 
     addEdge ::
          C.Decl Parse
-      -> (Usage, C.QualPrelimDeclId)
-      -> DynGraph Usage C.QualPrelimDeclId
-      -> DynGraph Usage C.QualPrelimDeclId
-    addEdge d (l, d') = DynGraph.insertEdge (C.declQualPrelimDeclId d) l d'
+      -> (Usage, C.PrelimDeclId)
+      -> DynGraph Usage C.PrelimDeclId
+      -> DynGraph Usage C.PrelimDeclId
+    addEdge d (l, d') = DynGraph.insertEdge d.declInfo.declId l d'
 
 {-------------------------------------------------------------------------------
   Query
@@ -117,10 +117,10 @@ toDecls index (Wrap graph) =
     usedByVal :: Usage -> Bool
     usedByVal = (== ByValue) . usageMode
 
-getTransitiveDeps :: UseDeclGraph -> [C.QualPrelimDeclId] -> Set C.QualPrelimDeclId
+getTransitiveDeps :: UseDeclGraph -> [C.PrelimDeclId] -> Set C.PrelimDeclId
 getTransitiveDeps = DynGraph.reaches . unwrap
 
-getStrictTransitiveDeps :: UseDeclGraph -> [C.QualPrelimDeclId] -> Set C.QualPrelimDeclId
+getStrictTransitiveDeps :: UseDeclGraph -> [C.PrelimDeclId] -> Set C.PrelimDeclId
 getStrictTransitiveDeps graph xs =  getTransitiveDeps graph xs Set.\\ (Set.fromList xs)
 
 {-------------------------------------------------------------------------------
@@ -129,7 +129,7 @@ getStrictTransitiveDeps graph xs =  getTransitiveDeps graph xs Set.\\ (Set.fromL
 
 -- | Delete dependencies
 deleteDeps ::
-     [C.QualPrelimDeclId]
+     [C.PrelimDeclId]
   -> UseDeclGraph
   -> UseDeclGraph
 deleteDeps depIds = Wrap . DynGraph.deleteEdgesTo depIds . unwrap

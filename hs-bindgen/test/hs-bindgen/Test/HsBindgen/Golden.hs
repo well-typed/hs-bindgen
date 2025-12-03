@@ -473,11 +473,11 @@ test_declarations_redeclaration = testTraceCustom "declarations/redeclaration" [
 
 test_macros_macro_redefines_global :: TestCase
 test_macros_macro_redefines_global =
-  let declsWithMsgs :: [C.QualPrelimDeclId]
+  let declsWithMsgs :: [C.PrelimDeclId]
       declsWithMsgs = [
-            C.QualPrelimDeclIdNamed "stdin"  C.NameKindOrdinary
-          , C.QualPrelimDeclIdNamed "stdout" C.NameKindOrdinary
-          , C.QualPrelimDeclIdNamed "stderr" C.NameKindOrdinary
+            C.PrelimDeclIdNamed "stdin"  C.NameKindOrdinary
+          , C.PrelimDeclIdNamed "stdout" C.NameKindOrdinary
+          , C.PrelimDeclIdNamed "stderr" C.NameKindOrdinary
           ]
   in testTraceCustom "macros/macro_redefines_global" declsWithMsgs $ \case
     TraceFrontend (FrontendSelect (SelectConflict x)) ->
@@ -1269,11 +1269,11 @@ manualTestCases = [
     , defaultTest "manual/zero_copy"
     ]
 
-expectFromQualPrelimDeclId :: C.QualPrelimDeclId -> TraceExpectation Text
+expectFromQualPrelimDeclId :: C.PrelimDeclId -> TraceExpectation Text
 expectFromQualPrelimDeclId = Expected . \case
-  C.QualPrelimDeclIdNamed   n _ -> C.getName n
-  C.QualPrelimDeclIdAnon    n _ -> Text.pack $ show n
-  C.QualPrelimDeclIdBuiltin n   -> C.getName n
+    C.PrelimDeclIdNamed   n _ -> C.getName n
+    C.PrelimDeclIdAnon    n _ -> Text.pack $ show n
+    C.PrelimDeclIdBuiltin n _ -> C.getName n
 
 expectFromDeclInfoSelect :: C.DeclInfo Select -> TraceExpectation Text
 expectFromDeclInfoSelect = Expected . C.getName . C.declIdName . C.declId

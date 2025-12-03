@@ -125,7 +125,7 @@ data SelectMsg =
   | TransitiveDependencyOfDeclarationUnselectable
       (C.Decl Select)
       SelectReason
-      C.QualPrelimDeclId
+      C.PrelimDeclId
       Unselectable
       [SingleLoc]
     -- | The user has selected a deprecated declaration. Maybe they want to

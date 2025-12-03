@@ -45,7 +45,7 @@ import HsBindgen.Imports
 --
 -- This graph has edges from def sites to use sites.
 newtype DeclUseGraph = Wrap {
-      unwrap :: DynGraph Usage C.QualPrelimDeclId
+      unwrap :: DynGraph Usage C.PrelimDeclId
     }
   deriving stock (Show, Eq)
 
@@ -60,7 +60,7 @@ fromUseDecl = Wrap . DynGraph.reverse . UseDeclGraph.toDynGraph
   Transitive usage
 -------------------------------------------------------------------------------}
 
-getUseSitesTransitively :: DeclUseGraph -> [C.QualPrelimDeclId] -> Set C.QualPrelimDeclId
+getUseSitesTransitively :: DeclUseGraph -> [C.PrelimDeclId] -> Set C.PrelimDeclId
 getUseSitesTransitively = DynGraph.reaches . unwrap
 
 {-------------------------------------------------------------------------------
@@ -72,39 +72,34 @@ data UseOfDecl =
   | UsedByFieldOfAnon ValOrRef (FieldName Parse) UseOfDecl
   deriving stock (Show)
 
--- | Find direct or indirect use by a named declaration, if it exists
+-- | Find direct or indirect use of an anon decl by a named decl, if any
 findNamedUseOf ::
      HasCallStack
   => DeclIndex
   -> DeclUseGraph
-  -> C.QualPrelimDeclId
+  -> C.PrelimDeclId
   -> Maybe UseOfDecl
-findNamedUseOf declIndex (Wrap graph) =
-      flip evalState id
-    . DynGraph.findTrailFrom
+findNamedUseOf declIndex (Wrap graph) = \anonDecl ->
+    flip evalState id $
+      DynGraph.findTrailFrom
         graph
         (aux . map (first (declIndex DeclIndex.!)))
+        anonDecl
   where
     aux ::
          [(C.Decl Parse, Usage)] -- ^ Direct use sites
       -> State
            (UseOfDecl -> UseOfDecl)
-           (Either C.QualPrelimDeclId (Maybe UseOfDecl))
+           (Either C.PrelimDeclId (Maybe UseOfDecl))
     aux [(d, u)] = do
         let uid = C.declId (C.declInfo d)
-            mName =
-              case uid of
-                C.PrelimDeclIdNamed   name -> Just name
-                C.PrelimDeclIdAnon    _    -> Nothing
-                C.PrelimDeclIdBuiltin name -> Just name
-        case mName of
+        case C.prelimDeclIdName uid of
           Just name -> do
             f <- get
             return $ Right . Just $ f (UsedByNamed u name)
           Nothing -> do
             modify (. usedByAnon d u)
-            return . Left . C.qualPrelimDeclId uid $
-              (C.declKindNameKind (C.declKind d))
+            return $ Left uid
     aux [] =
         return $ Right Nothing
     aux (_:_:_) =
@@ -121,22 +116,23 @@ findNamedUseOf declIndex (Wrap graph) =
   Direct usage
 -------------------------------------------------------------------------------}
 
-getUseSites :: DeclUseGraph -> C.QualPrelimDeclId -> [(C.QualPrelimDeclId, Usage)]
+getUseSites :: DeclUseGraph -> C.PrelimDeclId -> [(C.PrelimDeclId, Usage)]
 getUseSites (Wrap graph) = Set.toList . DynGraph.neighbors graph
 
-getUseSitesNoSelfReferences :: DeclUseGraph -> C.QualPrelimDeclId -> [(C.QualPrelimDeclId, Usage)]
+getUseSitesNoSelfReferences :: DeclUseGraph -> C.PrelimDeclId -> [(C.PrelimDeclId, Usage)]
 getUseSitesNoSelfReferences graph qualPrelimDeclId =
   filter (not . isSelfReference) $ getUseSites graph qualPrelimDeclId
     where
-      isSelfReference :: (C.QualPrelimDeclId, Usage) -> Bool
+      isSelfReference :: (C.PrelimDeclId, Usage) -> Bool
       isSelfReference (qualPrelimDeclId', _usage) =
         qualPrelimDeclId == qualPrelimDeclId'
 
-findAliasesOf :: DeclUseGraph -> C.QualPrelimDeclId -> [C.Name]
-findAliasesOf graph =
-    mapMaybe (uncurry aux) . getUseSites graph
+findAliasesOf :: DeclUseGraph -> C.PrelimDeclId -> [C.Name]
+findAliasesOf graph source =
+    mapMaybe (uncurry aux) $ getUseSites graph source
   where
-    aux :: C.QualPrelimDeclId -> Usage -> Maybe C.Name
-    aux (C.QualPrelimDeclIdNamed cname _) (UsedInTypedef UseDeclGraph.ByValue) =
-      Just cname
+    aux :: C.PrelimDeclId -> Usage -> Maybe C.Name
+    aux target (UsedInTypedef UseDeclGraph.ByValue) =
+        -- Typedefs must have a name
+        C.prelimDeclIdName target
     aux _ _ = Nothing

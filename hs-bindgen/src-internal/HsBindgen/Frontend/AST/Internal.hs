@@ -41,8 +41,7 @@ module HsBindgen.Frontend.AST.Internal (
     -- * Show
   , ValidPass
     -- * Helper functions
-  , declQualPrelimDeclId
-  , declOrigQualPrelimDeclId
+  , declOrigPrelimDeclId
   , declQualName
   , declQualDeclId
   , declKindNameKind
@@ -566,14 +565,9 @@ instance Id p ~ C.DeclId p => PrettyForTrace (Decl p) where
   Helper functions
 -------------------------------------------------------------------------------}
 
-declQualPrelimDeclId :: HasCallStack =>
-    Id p ~ C.PrelimDeclId => Decl p -> C.QualPrelimDeclId
-declQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
-    C.qualPrelimDeclId declId (declKindNameKind declKind)
-
-declOrigQualPrelimDeclId :: Id p ~ C.DeclId p => Decl p -> C.QualPrelimDeclId
-declOrigQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
-    C.qualDeclIdToQualPrelimDeclId $
+declOrigPrelimDeclId :: Id p ~ C.DeclId p => Decl p -> C.PrelimDeclId
+declOrigPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
+    C.qualDeclIdToPrelimDeclId $
       C.declIdToQualDeclId declId (declKindNameKind declKind)
 
 declQualDeclId :: Id p ~ C.DeclId p => Decl p -> C.QualDeclId p
