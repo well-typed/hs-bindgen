@@ -3,7 +3,7 @@
 -- For failing test cases, we verify the trace messages.
 module Test.HsBindgen.Golden.Check.FailingTrace (check) where
 
-import Control.Exception (Exception (..), SomeException (..), handle, throwIO)
+import Control.Exception (SomeException, handle)
 import Control.Monad (void)
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
@@ -11,8 +11,6 @@ import Test.Tasty (TestTree)
 import Test.Tasty.HUnit
 
 import HsBindgen
-import HsBindgen.TraceMsg
-import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Tests
@@ -25,15 +23,10 @@ check testResources test = testCase (testName test) $ do
     -- Use 'runTestHsBindgen'' to avoid that expected error traces clutter the
     -- terminal.
     handle exceptionHandler $ void $
-      runTestHsBindgen' noReport testResources test artefact
+      runTestHsBindgen noReport testResources test artefact
   where
     exceptionHandler :: SomeException -> IO ()
-    exceptionHandler e@(SomeException e')
-      | Just (TraceException @TraceMsg _) <- fromException e =
-          pure ()
-      | otherwise = do
-          putStrLn $ "Other exception: " ++ displayException e'
-          throwIO e'
+    exceptionHandler _ = pure ()
 
     noReport :: a -> IO ()
     noReport = const $ pure ()

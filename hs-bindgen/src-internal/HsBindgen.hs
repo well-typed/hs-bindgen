@@ -15,9 +15,10 @@ module HsBindgen
   , writeTests
   ) where
 
-import Control.Monad (join)
 import Data.Map qualified as Map
+import System.Exit (exitFailure)
 import System.FilePath ((</>))
+import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Artefact
 import HsBindgen.Backend
@@ -51,7 +52,7 @@ hsBindgen
   bindgenConfig@BindgenConfig{..}
   uncheckedHashIncludeArgs
   artefacts = do
-    result <- fmap join $ withTracer tracerConfig $ \tracer tracerUnsafeRef -> do
+    result <- withTracerRef tracerConfig $ \tracer tracerUnsafeRef -> do
       -- Boot and frontend require unsafe tracer and `libclang`.
       let tracerFrontend :: Tracer FrontendMsg
           tracerFrontend = contramap TraceFrontend tracer
@@ -77,10 +78,11 @@ hsBindgen
           backendArtefact
           artefacts
 
-    -- case result of
-    --   Left err -> _
-    --   Right _  -> _
-    either throwIO pure result
+    case result of
+      Left err -> do
+        putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace err
+        exitFailure
+      Right r  -> pure r
   where
     tracerConfigSafe :: TracerConfig SafeLevel a
     tracerConfigSafe = TracerConfig {

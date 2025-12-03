@@ -13,15 +13,14 @@ module HsBindgen.Cli.BindingSpec.StdLib (
   , exec
   ) where
 
-import Control.Monad ((<=<))
 import Data.ByteString qualified as BS
 import Options.Applicative hiding (info)
+import System.Exit (exitFailure)
 
 import HsBindgen.App
 import HsBindgen.BindingSpec
 import HsBindgen.Boot
 import HsBindgen.Config.ClangArgs
-import HsBindgen.Imports
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -61,11 +60,15 @@ parseOpts =
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
-    spec <-
-      either throwIO pure <=< withTracer tracerConfig $ \tracer _ -> do
+    mSpec <- withTracer tracerConfig $ \tracer -> do
         (clangArgs, _target) <-
           getClangArgsAndTarget (contramap TraceBoot tracer) clangArgsConfig
         getStdlibBindingSpec
           (contramap (TraceBoot . BootBindingSpec) tracer)
           clangArgs
-    maybe BS.putStr BS.writeFile output $ encodeBindingSpecYaml spec
+    case mSpec of
+      Left _ -> do
+        putStrLn $ "An error happened (see above)"
+        exitFailure
+      Right spec ->
+        maybe BS.putStr BS.writeFile output $ encodeBindingSpecYaml spec

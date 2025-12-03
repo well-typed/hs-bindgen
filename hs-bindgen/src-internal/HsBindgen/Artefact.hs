@@ -3,6 +3,9 @@ module HsBindgen.Artefact (
     Artefact(..)
   , runArtefacts
   , ArtefactMsg(..)
+    -- ** Error
+  , RunArtefactError(..)
+  , FileSystemError(..)
     -- * ArtefactM
   , ArtefactM -- opaque
   , ArtefactEnv(..)
@@ -14,7 +17,8 @@ module HsBindgen.Artefact (
 where
 
 import Control.Monad (liftM)
-import Control.Monad.Except (ExceptT (..), MonadError (..), runExceptT)
+import Control.Monad.Except (ExceptT (..), MonadError (..), runExceptT,
+                             withExceptT)
 import Control.Monad.Reader (ReaderT (..))
 import Control.Monad.State (StateT (..), modify)
 import Data.IORef (IORef)
@@ -46,7 +50,6 @@ import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
-import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -105,7 +108,7 @@ newtype ArtefactM a = WrapArtefactM {
     unwrapArtefactM ::
       StateT [FileSystemAction]
         (ReaderT ArtefactEnv
-          (ExceptT (TraceException TraceMsg) IO))
+          (ExceptT AnErrorHappened IO))
         a
   }
   deriving newtype (
@@ -113,7 +116,7 @@ newtype ArtefactM a = WrapArtefactM {
     , Applicative
     , Monad
     , MonadIO
-    , MonadError (TraceException TraceMsg)
+    , MonadError AnErrorHappened
     )
 
 data ArtefactEnv = ArtefactEnv {
@@ -125,10 +128,9 @@ data FileSystemAction =
       MkDir FilePath
     | WriteFile String FilePath FileContent
 
-runArtefactM :: ArtefactEnv -> ArtefactM a -> ET IO (a, [FileSystemAction])
+runArtefactM ::
+  ArtefactEnv -> ArtefactM a -> ExceptT AnErrorHappened IO (a, [FileSystemAction])
 runArtefactM env = flip runReaderT env . flip runStateT [] . unwrapArtefactM
-
-type ET m = ExceptT (TraceException TraceMsg) m
 
 -- * Delayed directory create.
 delayMkDir :: FilePath -> ArtefactM ()
@@ -157,13 +159,13 @@ data FileContent
 -- artefacts, using, for example, the 'Functor' interface, or 'Lift').
 runArtefacts :: forall a.
      Tracer ArtefactMsg
-  -> IORef (TracerState TraceMsg)
+  -> IORef TracerState
   -> BackendConfig
   -> BootArtefact
   -> FrontendArtefact
   -> BackendArtefact
   -> Artefact a
-  -> IO (Either (TraceException TraceMsg) a)
+  -> IO (Either RunArtefactError a)
 runArtefacts
   tracerSafe
   tracerUnsafeStateRef
@@ -176,10 +178,18 @@ runArtefacts
     env :: ArtefactEnv
     env = ArtefactEnv tracerSafe
 
-    run :: ET IO a
+    run :: ExceptT RunArtefactError IO a
     run = do
       -- The 'Bind' operator of 'Artefact' checks for 'Error' traces.
-      (result, actions)  <- runArtefactM env (runArtefact artefact)
+      (result, actions)  <-
+        withExceptT (const ErrorReported) $
+          runArtefactM env $ do
+            r <- runArtefact artefact
+            -- Check tracer state for 'Error' traces
+            mbError <- checkTracerState tracerUnsafeStateRef
+            case mbError of
+              Just err -> throwError err
+              Nothing  -> pure r
 
       -- Before creating directories or writing output files, we verify
       -- adherence to the provided policies.
@@ -214,11 +224,12 @@ runArtefacts
       (Lift   f)          -> f
       (Bind x f)          -> do
         r <- runArtefact x
-        -- Check tracer state for 'Error' traces
-        mbError <- checkTracerState tracerUnsafeStateRef
-        case mbError of
-          Just err -> throwError err
-          Nothing  -> runArtefact $ f r
+        runArtefact $ f r
+        -- -- Check tracer state for 'Error' traces
+        -- mbError <- checkTracerState tracerUnsafeStateRef
+        -- case mbError of
+        --   Just err -> throwError err
+        --   Nothing  -> runArtefact $ f r
 
     lookForExistingDir :: [FileSystemAction] -> IO (Maybe FilePath)
     lookForExistingDir [] = pure Nothing
@@ -229,7 +240,7 @@ runArtefacts
          else lookForExistingFile as
     lookForExistingDir (_ : as) = lookForExistingDir as
 
-    checkOutputDirPolicy :: [FileSystemAction] -> ET IO ()
+    checkOutputDirPolicy :: [FileSystemAction] -> ExceptT RunArtefactError IO ()
     checkOutputDirPolicy as = do
       -- TODO_PR: If we create the dir structure, we don't need to check if
       -- directories exist, or not.
@@ -238,7 +249,7 @@ runArtefacts
       mbDirPath <- liftIO $ lookForExistingDir as
       case (mbDirPath, backendOutputDirPolicy) of
         (Just d, DoNotCreateDirStructure) ->
-          let err = TraceFileSystemException (OutputDirectoryAlreadyExistsException d)
+          let err = FileSystemError (DirectoryAlreadyExists d)
           in  throwError err
         _ok -> pure ()
 
@@ -251,7 +262,7 @@ runArtefacts
          else lookForExistingFile as
     lookForExistingFile (_ : as) = lookForExistingFile as
 
-    checkFileOverwritePolicy :: [FileSystemAction] -> ET IO ()
+    checkFileOverwritePolicy :: [FileSystemAction] -> ExceptT RunArtefactError IO ()
     checkFileOverwritePolicy as = do
       -- TODO_PR: If we create the dir structure, we don't need to check if
       -- directories exist, or not.
@@ -260,7 +271,7 @@ runArtefacts
       mbFilePath <- liftIO $ lookForExistingFile as
       case (mbFilePath, backendFileOverwrite) of
         (Just f, ProtectExistingFiles) ->
-          let err = TraceFileSystemException (FileAlreadyExistsException f)
+          let err = FileSystemError (FileAlreadyExists f)
           in  throwError err
         _ok -> pure ()
 
@@ -301,3 +312,33 @@ instance IsTrace SafeLevel ArtefactMsg where
   getTraceId = \case
     RunArtefactCreateDir{} -> "run-artefact-create-dir"
     RunArtefactWriteFile{} -> "run-artefact-write-file"
+
+{-------------------------------------------------------------------------------
+  Errors
+-------------------------------------------------------------------------------}
+
+data RunArtefactError =
+      ErrorReported
+    | FileSystemError FileSystemError
+  deriving stock Show
+
+instance PrettyForTrace RunArtefactError where
+  prettyForTrace = \case
+    ErrorReported     -> "An error happened (see above)"
+    FileSystemError e -> prettyForTrace e
+
+data FileSystemError =
+      DirectoryAlreadyExists FilePath
+    | FileAlreadyExists      FilePath
+  deriving Show
+
+instance PrettyForTrace FileSystemError where
+  prettyForTrace = \case
+    DirectoryAlreadyExists fp -> PP.vsep [
+        "Output directory already exists:" <+> PP.string fp
+      , "Use --create-output-dirs to create it automatically, or create the directory manually."
+      ]
+    FileAlreadyExists fp -> PP.vsep [
+        "Output file already exists:" <+> PP.string fp
+      , "Use --overwrite-files to allow overwriting existing files, or delete the file manually."
+      ]
