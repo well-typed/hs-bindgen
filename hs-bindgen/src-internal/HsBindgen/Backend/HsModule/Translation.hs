@@ -1,5 +1,4 @@
 {-# LANGUAGE RecordWildCards #-}
-{-# LANGUAGE TypeData #-}
 
 module HsBindgen.Backend.HsModule.Translation (
     -- * GhcPragma

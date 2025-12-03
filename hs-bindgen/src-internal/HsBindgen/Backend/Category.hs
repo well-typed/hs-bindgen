@@ -1,5 +1,4 @@
 {-# LANGUAGE OverloadedLabels #-}
-{-# LANGUAGE TypeData #-}
 
 -- | This module is intended for unqualified import because some declarations
 -- | are reexported from the public Template Haskell interface.
@@ -135,7 +134,7 @@ lensForTermCategory = \case
   CGlobal -> #cGlobal
 
 -- | A category may contain types or terms.
-type data CategoryLvl = LvlType | LvlTerm
+data CategoryLvl = LvlType | LvlTerm
 
 newtype RenameTerm = RenameTerm (Text -> Text)
 
