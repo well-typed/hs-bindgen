@@ -357,6 +357,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Check.TH
     Test.HsBindgen.Golden.TestCase
     Test.HsBindgen.Integration.ExitCode
+    Test.HsBindgen.Integration.OverwritePolicy
     Test.HsBindgen.Prop.Selection
     Test.HsBindgen.Resources
     Test.HsBindgen.Unit.ClangArgs

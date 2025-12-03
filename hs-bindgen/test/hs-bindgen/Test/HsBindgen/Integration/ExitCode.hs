@@ -59,6 +59,7 @@ testSuccessCaseProcess testResources = testCase "success returns exit code 0" $ 
     (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
                                                [ "preprocess"
                                                , "--create-output-dirs"
+                                               , "--overwrite-files"
                                                , "--hs-output-dir"
                                                , tmpDir
                                                , headerPath
@@ -75,6 +76,8 @@ testUnresolvedIncludeProcess = testCase "unresolved include returns non-zero" $ 
     writeFile tempHeader "#include <nonexistent/totally-bogus-header-12345.h>\n"
     (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
                                                [ "preprocess"
+                                               , "--create-output-dirs"
+                                               , "--overwrite-files"
                                                , "--hs-output-dir"
                                                , tmpDir
                                                , tempHeader
