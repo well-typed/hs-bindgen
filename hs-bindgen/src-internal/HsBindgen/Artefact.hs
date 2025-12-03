@@ -1,19 +1,22 @@
 module HsBindgen.Artefact (
+    -- * Artefact
     Artefact(..)
-  , ArtefactM
-  , ArtefactEnv(..)
-  , FileSystemAction(..)
   , runArtefacts
   , ArtefactMsg(..)
+    -- * ArtefactM
+  , ArtefactM -- opaque
+  , ArtefactEnv(..)
+    -- ** Actions
   , FileContent(..)
+  , delayMkDir
+  , delayWriteFile
   )
 where
 
 import Control.Monad (liftM)
 import Control.Monad.Except (ExceptT (..), MonadError (..), runExceptT)
-import Control.Monad.Reader (ReaderT (..), asks)
-import Control.Monad.State (StateT (..), gets, modify)
-import Control.Monad.Trans.Class (lift)
+import Control.Monad.Reader (ReaderT (..))
+import Control.Monad.State (StateT (..), modify)
 import Data.IORef (IORef)
 import System.Directory (createDirectoryIfMissing, doesDirectoryExist,
                          doesFileExist)
@@ -43,6 +46,7 @@ import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
+import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -70,9 +74,6 @@ data Artefact (a :: Star) where
   FinalModuleSafe     :: Artefact HsModule
   FinalModuleUnsafe   :: Artefact HsModule
   FinalModules        :: Artefact (ByCategory HsModule)
-  -- * File system actions
-  DirectoryCreate     :: FilePath -> Artefact ()
-  FileWrite           :: String -> FilePath -> FileContent -> Artefact ()
   -- * Lift and sequence artefacts
   Lift                :: ArtefactM a -> Artefact a
   Bind                :: Artefact b  -> (b -> Artefact c ) -> Artefact c
@@ -100,7 +101,20 @@ instance MonadIO Artefact where
   Artefact monad
 -------------------------------------------------------------------------------}
 
-type ArtefactM = StateT [FileSystemAction] (ReaderT ArtefactEnv IO)
+newtype ArtefactM a = WrapArtefactM {
+    unwrapArtefactM ::
+      StateT [FileSystemAction]
+        (ReaderT ArtefactEnv
+          (ExceptT (TraceException TraceMsg) IO))
+        a
+  }
+  deriving newtype (
+      Functor
+    , Applicative
+    , Monad
+    , MonadIO
+    , MonadError (TraceException TraceMsg)
+    )
 
 data ArtefactEnv = ArtefactEnv {
       artefactTracer :: Tracer ArtefactMsg
@@ -108,16 +122,23 @@ data ArtefactEnv = ArtefactEnv {
 
 -- | A file system action to be executed
 data FileSystemAction =
-      CreateDir FilePath
+      MkDir FilePath
     | WriteFile String FilePath FileContent
 
-runArtefactM :: ArtefactM a -> ArtefactEnv -> IO (a, [FileSystemAction])
-runArtefactM a = runReaderT (runStateT a [])
+runArtefactM :: ArtefactEnv -> ArtefactM a -> ET IO (a, [FileSystemAction])
+runArtefactM env = flip runReaderT env . flip runStateT [] . unwrapArtefactM
 
-type ArtefactE e = ExceptT (TraceException e) ArtefactM
+type ET m = ExceptT (TraceException TraceMsg) m
 
-runArtefactE :: ArtefactE e a -> ArtefactEnv -> IO (Either (TraceException e) a)
-runArtefactE a e = fst <$> runArtefactM (runExceptT a) e
+-- * Delayed directory create.
+delayMkDir :: FilePath -> ArtefactM ()
+delayMkDir fp =
+  WrapArtefactM $ modify (MkDir fp :)
+
+-- * Delayed directory create.
+delayWriteFile :: String -> FilePath -> FileContent -> ArtefactM ()
+delayWriteFile what fp content =
+  WrapArtefactM $ modify (WriteFile what fp content :)
 
 -- | Content to be written to a file
 --
@@ -134,16 +155,15 @@ data FileContent
 --
 -- All top-level artefacts will be cached (this is not true for computed
 -- artefacts, using, for example, the 'Functor' interface, or 'Lift').
---
-runArtefacts :: forall e a.
+runArtefacts :: forall a.
      Tracer ArtefactMsg
-  -> IORef (TracerState e)
+  -> IORef (TracerState TraceMsg)
   -> BackendConfig
   -> BootArtefact
   -> FrontendArtefact
   -> BackendArtefact
   -> Artefact a
-  -> IO (Either (TraceException e) a)
+  -> IO (Either (TraceException TraceMsg) a)
 runArtefacts
   tracerSafe
   tracerUnsafeStateRef
@@ -151,26 +171,25 @@ runArtefacts
   BootArtefact{..}
   FrontendArtefact{..}
   BackendArtefact{..}
-  artefact = runArtefactE run env
+  artefact = runExceptT run
   where
     env :: ArtefactEnv
     env = ArtefactEnv tracerSafe
 
-    run :: ArtefactE e a
+    run :: ET IO a
     run = do
       -- The 'Bind' operator of 'Artefact' checks for 'Error' traces.
-      result  <- runArtefact artefact
-      actions <- gets reverse
+      (result, actions)  <- runArtefactM env (runArtefact artefact)
 
       -- Before creating directories or writing output files, we verify
       -- adherence to the provided policies.
-      checkOutputDirPolicy actions
+      checkOutputDirPolicy     actions
       checkFileOverwritePolicy actions
 
-      lift $ executeFileSystemActions actions
+      liftIO $ executeFileSystemActions actions
       pure result
 
-    runArtefact :: forall x. Artefact x -> ArtefactE e x
+    runArtefact :: forall x. Artefact x -> ArtefactM x
     runArtefact = \case
       --Boot.
       Target              -> liftIO bootTarget
@@ -192,7 +211,7 @@ runArtefacts
       FinalModuleUnsafe   -> liftIO backendFinalModuleUnsafe
       FinalModules        -> liftIO backendFinalModules
       -- Lift and sequence.
-      (Lift   f)          -> lift f
+      (Lift   f)          -> f
       (Bind x f)          -> do
         r <- runArtefact x
         -- Check tracer state for 'Error' traces
@@ -200,21 +219,21 @@ runArtefacts
         case mbError of
           Just err -> throwError err
           Nothing  -> runArtefact $ f r
-      -- File system operations.
-      DirectoryCreate path        -> modify (CreateDir path :)
-      FileWrite what path content -> modify (WriteFile what path content :)
 
     lookForExistingDir :: [FileSystemAction] -> IO (Maybe FilePath)
     lookForExistingDir [] = pure Nothing
-    lookForExistingDir (CreateDir path : as) = do
+    lookForExistingDir (MkDir path : as) = do
       fileExists <- doesDirectoryExist path
       if fileExists
          then pure (Just path)
          else lookForExistingFile as
     lookForExistingDir (_ : as) = lookForExistingDir as
 
-    checkOutputDirPolicy :: [FileSystemAction] -> ArtefactE e ()
+    checkOutputDirPolicy :: [FileSystemAction] -> ET IO ()
     checkOutputDirPolicy as = do
+      -- TODO_PR: If we create the dir structure, we don't need to check if
+      -- directories exist, or not.
+      --
       -- Get the first directory path that exists if any
       mbDirPath <- liftIO $ lookForExistingDir as
       case (mbDirPath, backendOutputDirPolicy) of
@@ -232,8 +251,11 @@ runArtefacts
          else lookForExistingFile as
     lookForExistingFile (_ : as) = lookForExistingFile as
 
-    checkFileOverwritePolicy :: [FileSystemAction] -> ArtefactE e ()
+    checkFileOverwritePolicy :: [FileSystemAction] -> ET IO ()
     checkFileOverwritePolicy as = do
+      -- TODO_PR: If we create the dir structure, we don't need to check if
+      -- directories exist, or not.
+      --
       -- Get the first file path that exists if any
       mbFilePath <- liftIO $ lookForExistingFile as
       case (mbFilePath, backendFileOverwrite) of
@@ -242,24 +264,18 @@ runArtefacts
           in  throwError err
         _ok -> pure ()
 
-    traceA :: ArtefactMsg -> ArtefactM ()
-    traceA m = do
-      t <- asks artefactTracer
-      traceWith t m
-
-    executeFileSystemActions :: [FileSystemAction] -> ArtefactM ()
+    executeFileSystemActions :: [FileSystemAction] -> IO ()
     executeFileSystemActions as =
       forM_ as $ \case
-        CreateDir outputDir -> do
-          traceA $ RunArtefactCreateDir outputDir
-          liftIO $ createDirectoryIfMissing True outputDir
+        MkDir outputDir -> do
+          traceWith tracerSafe $ RunArtefactCreateDir outputDir
+          createDirectoryIfMissing True outputDir
         WriteFile what path content -> do
-          traceA $ RunArtefactWriteFile path what
-          liftIO $ do
-            createDirectoryIfMissing True (takeDirectory path)
-            case content of
-              TextContent str        -> writeFile path str
-              BindingSpecContent ubs -> BindingSpec.writeFile path ubs
+          traceWith tracerSafe $ RunArtefactWriteFile path what
+          createDirectoryIfMissing True (takeDirectory path)
+          case content of
+            TextContent str        -> writeFile path str
+            BindingSpecContent ubs -> BindingSpec.writeFile path ubs
 
 {-------------------------------------------------------------------------------
   Traces
