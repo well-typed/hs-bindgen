@@ -1,6 +1,6 @@
 module Test.HsBindgen.Integration.ExitCode (tests) where
 
-import Control.Exception (SomeException, try)
+import Control.Monad (void)
 import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
@@ -30,10 +30,7 @@ testSuccessCase :: IO TestResources -> TestTree
 testSuccessCase testResources = testCase "success does not throw" $ do
   let test = defaultTest "functions/simple_func"
       noReport = const $ pure ()
-  result <- try $ runTestHsBindgen noReport testResources test FinalDecls
-  case result of
-    Right  _                   -> pure ()
-    Left  (e :: SomeException) -> assertFailure $ "Unexpected exception: " ++ show e
+  void $ runTestHsBindgenSuccess noReport testResources test FinalDecls
 
 -- | Test unresolved #include (issue #1197 scenario)
 --
@@ -51,11 +48,7 @@ testUnresolvedInclude testResources = testCase "unresolved include throws except
           }
         noReport = const $ pure ()
 
-    result <- try $ runTestHsBindgen noReport testResources test FinalDecls
-    case result of
-      Left  (_ :: SomeException) -> pure ()
-      Right  _                   ->
-        assertFailure "Expected exception for unresolved include but got success"
+    void $ runTestHsBindgenFailure noReport testResources test FinalDecls
 
 -- | Test that actual process exit code
 testSuccessCaseProcess :: IO TestResources -> TestTree
@@ -73,7 +66,7 @@ testSuccessCaseProcess testResources = testCase "success returns exit code 0" $ 
                                                ""
     exitCode @?= ExitSuccess
 
--- Test unresolved #include (the original issue scenario)
+-- | Test unresolved #include (the original issue scenario)
 testUnresolvedIncludeProcess :: TestTree
 testUnresolvedIncludeProcess = testCase "unresolved include returns non-zero" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do

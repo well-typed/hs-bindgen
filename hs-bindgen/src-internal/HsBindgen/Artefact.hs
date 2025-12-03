@@ -184,6 +184,7 @@ runArtefacts
       (result, actions)  <-
         withExceptT (const ErrorReported) $
           runArtefactM env $ do
+            -- TODO_PR.
             r <- runArtefact artefact
             -- Check tracer state for 'Error' traces
             mbError <- checkTracerState tracerUnsafeStateRef
@@ -225,6 +226,7 @@ runArtefacts
       (Bind x f)          -> do
         r <- runArtefact x
         runArtefact $ f r
+        -- TODO_PR.
         -- -- Check tracer state for 'Error' traces
         -- mbError <- checkTracerState tracerUnsafeStateRef
         -- case mbError of

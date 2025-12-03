@@ -19,17 +19,20 @@ module Test.HsBindgen.Golden.TestCase (
   , failingTestSimple
   , failingTestCustom
     -- * Execution
-  , runTestHsBindgen
+  , runTestHsBindgenSuccess
+  , runTestHsBindgenFailure
   ) where
 
 import System.FilePath
 import Test.Common.HsBindgen.TracePredicate
 import Test.HsBindgen.Resources
 import Test.Tasty (TestName)
+import Test.Tasty.HUnit (assertFailure)
 
 import Clang.HighLevel.Types qualified as Clang
 
 import HsBindgen
+import HsBindgen.Artefact (RunArtefactError)
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
@@ -226,22 +229,47 @@ getTestBackendConfig TestCase{..} = getTestDefaultBackendConfig testName testPat
 withTestTraceConfig ::
      (String -> IO ())
   -> TestCase
-  -> (TracerConfig Level TraceMsg -> IO b)
-  -> IO b
+  -> (TracerConfig Level TraceMsg -> IO a)
+  -> IO a
 withTestTraceConfig report TestCase{testTracePredicate} =
     withTraceConfigPredicate report testTracePredicate
 
 -- | Run 'hsBindgen'.
 runTestHsBindgen ::
-  (String -> IO ()) -> IO TestResources -> TestCase -> Artefact a -> IO a
+    (String -> IO ())
+  -> IO TestResources
+  -> TestCase
+  -> Artefact a
+  -> IO (Either RunArtefactError a)
 runTestHsBindgen report testResources test artefacts = do
     bootConfig <- getTestBootConfig testResources test
     let frontendConfig = getTestFrontendConfig test
         backendConfig  = getTestBackendConfig test
         bindgenConfig  = BindgenConfig bootConfig frontendConfig backendConfig
     withTestTraceConfig report test $ \traceConfig ->
-      hsBindgen
+      hsBindgen_
         traceConfig
         bindgenConfig
         [testInputInclude test]
         artefacts
+
+runTestHsBindgenSuccess ::
+  (String -> IO ()) -> IO TestResources -> TestCase -> Artefact b -> IO b
+runTestHsBindgenSuccess report resources test artefacts = do
+    eRes <- runTestHsBindgen report resources test artefacts
+    case eRes of
+      Left er -> assertFailure (show er)
+      Right r -> pure r
+
+runTestHsBindgenFailure ::
+      Show b
+  => (String -> IO ())
+  -> IO TestResources
+  -> TestCase
+  -> Artefact b
+  -> IO RunArtefactError
+runTestHsBindgenFailure report resources test artefacts = do
+    eRes <- runTestHsBindgen report resources test artefacts
+    case eRes of
+      Left er -> pure er
+      Right r -> assertFailure (show r)

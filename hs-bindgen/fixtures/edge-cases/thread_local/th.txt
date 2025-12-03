@@ -1,0 +1,1 @@
+-- addDependentFile examples/golden/edge-cases/thread_local.h
