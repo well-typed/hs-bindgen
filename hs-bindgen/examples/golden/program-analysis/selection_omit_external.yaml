@@ -1,0 +1,9 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: any
+hsmodule: Example
+ctypes:
+- omit:
+    headers: program-analysis/selection_omit_external_root.h
+    cname: struct Omitted

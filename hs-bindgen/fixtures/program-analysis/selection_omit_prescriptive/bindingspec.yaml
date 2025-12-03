@@ -1,0 +1,9 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: Example
+ctypes:
+- omit:
+    headers: program-analysis/selection_omit_prescriptive.h
+    cname: struct Omitted

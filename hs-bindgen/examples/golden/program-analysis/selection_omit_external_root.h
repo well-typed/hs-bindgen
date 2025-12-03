@@ -1,0 +1,3 @@
+struct Omitted {
+  int n;
+};

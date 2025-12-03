@@ -222,11 +222,13 @@ resolveTop ::
            )
        )
 resolveTop decl = Reader.ask >>= \MEnv{..} -> do
-    let cQualName  = C.declQualName decl
+    let cQualName         = C.declQualName decl
         cQualPrelimDeclId = C.declOrigQualPrelimDeclId decl
-        sourcePath = singleLocPath $ C.declLoc (C.declInfo decl)
-        declPaths  = IncludeGraph.reaches envIncludeGraph sourcePath
-    isExt <- isJust <$> resolveExtBinding cQualName cQualPrelimDeclId declPaths
+        sourcePath        = singleLocPath $ C.declLoc (C.declInfo decl)
+        declPaths         = IncludeGraph.reaches envIncludeGraph sourcePath
+        mMsg              = Just $ ResolveBindingSpecsOmittedType cQualName
+    isExt <- isJust <$>
+      resolveExtBinding cQualName cQualPrelimDeclId declPaths mMsg
     if isExt
       then do
         State.modify' $ insertTrace (ResolveBindingSpecsExtDecl cQualName)
@@ -453,10 +455,6 @@ instance Resolve C.Type where
         Reader.ask >>= \MEnv{..} -> State.get >>= \MState{..} -> do
           let cQualName = C.QualName qualDeclIdName qualDeclIdKind
               cQualPrelimDeclId = C.qualDeclIdToQualPrelimDeclId cQualDeclId
-          -- Check for type omitted by binding specification
-          when (Map.member cQualPrelimDeclId stateOmitTypes) $
-            State.modify' $
-              insertTrace (ResolveBindingSpecsOmittedTypeUse cQualName)
           -- Check for selected external binding
           case Map.lookup cQualPrelimDeclId stateExtTypes of
             Just ty -> do
@@ -473,7 +471,7 @@ instance Resolve C.Type where
                           (IncludeGraph.reaches envIncludeGraph . singleLocPath)
                           locs
                   mTy <- fmap C.TypeExtBinding <$>
-                    resolveExtBinding cQualName cQualPrelimDeclId declPaths
+                    resolveExtBinding cQualName cQualPrelimDeclId declPaths Nothing
                   case mTy of
                     Just ty -> do
                       State.modify' $
@@ -499,8 +497,10 @@ resolveExtBinding ::
      C.QualName
   -> C.QualPrelimDeclId
   -> Set SourcePath
+     -- | Message to emit for omitted types.
+  -> Maybe ResolveBindingSpecsMsg
   -> M (Maybe ResolvedExtBinding)
-resolveExtBinding cQualName cQualPrelimDeclId declPaths  = do
+resolveExtBinding cQualName cQualPrelimDeclId declPaths mMsg = do
     MEnv{envExtSpecs} <- Reader.ask
     case BindingSpec.lookupMergedBindingSpecs cQualName declPaths envExtSpecs of
       Just (hsModuleName, BindingSpec.Require cTypeSpec, mHsTypeSpec) ->
@@ -522,8 +522,7 @@ resolveExtBinding cQualName cQualPrelimDeclId declPaths  = do
               insertTrace (ResolveBindingSpecsExtHsRefNoIdentifier cQualName)
             return Nothing
       Just (_hsModuleName, BindingSpec.Omit, _mHsTypeSpec) -> do
-        State.modify' $
-          insertTrace (ResolveBindingSpecsOmittedTypeUse cQualName)
+        forM_ mMsg $ \msg -> State.modify' $ insertTrace msg
         return Nothing
       Nothing ->
         return Nothing

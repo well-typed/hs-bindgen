@@ -31,7 +31,7 @@ KNOWN_FAILURES=(
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=83
+KNOWN_FIXTURES_COUNT=86
 
 # Default options
 JOBS=4
@@ -40,20 +40,20 @@ FORCE_ALL=false
 # Parse options
 while getopts "j:fh" opt; do
     case "$opt" in
-        j)
-            JOBS="$OPTARG"
-            ;;
-        f)
-            FORCE_ALL=true
-            ;;
-        h)
-            usage
-            exit 0
-            ;;
-        *)
-            usage >&2
-            exit 1
-            ;;
+    j)
+        JOBS="$OPTARG"
+        ;;
+    f)
+        FORCE_ALL=true
+        ;;
+    h)
+        usage
+        exit 0
+        ;;
+    *)
+        usage >&2
+        exit 1
+        ;;
     esac
 done
 shift $((OPTIND - 1))
@@ -83,7 +83,7 @@ get_fixture_name() {
     local fixture_name
     fixture_name="${fixture_dir#"$FIXTURES_DIR/"}"
     fixture_name="${fixture_name%/}"
-    echo "$fixture_name" > /dev/stdout
+    echo "$fixture_name" >/dev/stdout
 }
 
 # Function to check if a file is in the known failures list
@@ -111,10 +111,10 @@ compile_fixture() {
     # alphabetically. This ensures Example.hs is compiled before Example/*.hs,
     # which is necessary since the submodules import the main Example module.
     local files
-    files=$(find "$FIXTURES_DIR/$fixture_name/" -type f -name "*.hs" -print0 | \
-        xargs -0 -I {} sh -c 'echo $(echo "{}" | tr -cd "/" | wc -c) "{}"' | \
-        sort -n | \
-        cut -d' ' -f2- | \
+    files=$(find "$FIXTURES_DIR/$fixture_name/" -type f -name "*.hs" -print0 |
+        xargs -0 -I {} sh -c 'echo $(echo "{}" | tr -cd "/" | wc -c) "{}"' |
+        sort -n |
+        cut -d' ' -f2- |
         tr '\n' ' ')
 
     # Use a temporary output file to avoid polluting the fixtures directory
@@ -191,7 +191,7 @@ while IFS= read -r -d '' file; do
     fi
 done < <(find "$FIXTURES_DIR" -type f -name "Example.hs" -print0 | sort -z)
 
-FIXTURES_FOUND_COUNT=$(( ${#FIXTURES_TO_COMPILE[@]} + ${#FIXTURES_SKIPPED[@]} ))
+FIXTURES_FOUND_COUNT=$((${#FIXTURES_TO_COMPILE[@]} + ${#FIXTURES_SKIPPED[@]}))
 
 echo ""
 echo "========================================="
