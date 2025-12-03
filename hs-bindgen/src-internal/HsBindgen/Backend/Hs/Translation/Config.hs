@@ -57,6 +57,7 @@ instance Default TranslationConfig where
         , (Hs.DeriveNewtype, Hs.Fractional)
         , (Hs.DeriveNewtype, Hs.Integral)
         , (Hs.DeriveNewtype, Hs.Num)
+        , (Hs.DeriveNewtype, Hs.Prim)
         , (Hs.DeriveNewtype, Hs.Real)
         , (Hs.DeriveNewtype, Hs.RealFloat)
         , (Hs.DeriveNewtype, Hs.RealFrac)

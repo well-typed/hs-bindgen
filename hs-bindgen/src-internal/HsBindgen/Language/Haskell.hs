@@ -165,6 +165,7 @@ data TypeClass =
   | Fractional
   | Integral
   | Num
+  | Prim
   | Real
   | RealFloat
   | RealFrac
