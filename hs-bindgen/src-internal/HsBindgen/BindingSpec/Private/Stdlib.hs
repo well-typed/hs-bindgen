@@ -268,5 +268,5 @@ mkHsR :: [Hs.Identifier] -> BindingSpec.HsTypeRep
 mkHsR = BindingSpec.HsTypeRepRecord . BindingSpec.HsRecordRep . Just
 
 hsN, hsO :: BindingSpec.HsTypeRep
-hsN = BindingSpec.HsTypeRepNewtype
+hsN = BindingSpec.HsTypeRepNewtype def
 hsO = BindingSpec.HsTypeRepOpaque

@@ -27,6 +27,7 @@ module HsBindgen.BindingSpec.Private.V1 (
   , HsTypeSpec(..)
   , HsTypeRep(..)
   , HsRecordRep(..)
+  , HsNewtypeRep(..)
     -- ** Instances
   , InstanceSpec(..)
   , StrategySpec(..)
@@ -232,7 +233,7 @@ data HsTypeRep =
   | -- | Newtype representation
     --
     -- A type and constructor is generated using @newtype@.
-    HsTypeRepNewtype
+    HsTypeRepNewtype HsNewtypeRep
 
   | -- | Opaque representation
     --
@@ -251,6 +252,23 @@ data HsRecordRep = HsRecordRep {
       hsRecordRepFields :: Maybe [Hs.Identifier]
     }
   deriving stock (Show, Eq, Ord, Generic)
+
+instance Default HsRecordRep where
+  def = HsRecordRep {
+      hsRecordRepFields = Nothing
+    }
+
+-- | Haskell newtype representation
+data HsNewtypeRep = HsNewtypeRep {
+      -- | Field name
+      hsNewtypeRepField :: Maybe Hs.Identifier
+    }
+  deriving stock (Show, Eq, Ord, Generic)
+
+instance Default HsNewtypeRep where
+  def = HsNewtypeRep {
+      hsNewtypeRepField = Nothing
+    }
 
 {-------------------------------------------------------------------------------
   Types: Instances
@@ -798,12 +816,15 @@ instance Aeson.FromJSON AHsTypeRep where
         Aeson.Object o | KM.size o == 1 && KM.member "record" o ->
           HsTypeRepRecord
             <$> Aeson.explicitParseField parseHsRecordRep o "record"
+        Aeson.Object o | KM.size o == 1 && KM.member "newtype" o ->
+          HsTypeRepNewtype
+            <$> Aeson.explicitParseField parseHsNewtypeRep o "newtype"
         v -> Aeson.withText "AHsTypeRep" parseHsTypeRepText v
 
       parseHsTypeRepText :: Text -> Aeson.Parser HsTypeRep
       parseHsTypeRepText t = case t of
-        "record"  -> return (HsTypeRepRecord (HsRecordRep Nothing))
-        "newtype" -> return HsTypeRepNewtype
+        "record"  -> return (HsTypeRepRecord def)
+        "newtype" -> return (HsTypeRepNewtype def)
         "opaque"  -> return HsTypeRepOpaque
         "alias"   -> return HsTypeRepAlias
         _         ->
@@ -813,6 +834,18 @@ instance Aeson.FromJSON AHsTypeRep where
       parseHsRecordRep = Aeson.withObject "HsRecordRep" $ \o -> do
         hsRecordRepFields <- o .:? "fields"
         return HsRecordRep{..}
+
+      parseHsNewtypeRep :: Aeson.Value -> Aeson.Parser HsNewtypeRep
+      parseHsNewtypeRep = Aeson.withObject "HsNewtypeRep" $ \o -> do
+        fields <- o .:? "fields"
+        hsNewtypeRepField <- case fields of
+          Nothing          -> return Nothing
+          Just [fieldName] -> return (Just fieldName)
+          Just []          ->
+            Aeson.parseFail "newtype representation with no fields"
+          Just{}           ->
+            Aeson.parseFail "newtype representation with more than one field"
+        return HsNewtypeRep{..}
 
 instance Aeson.ToJSON AHsTypeRep where
   toJSON = aux . unAHsTypeRep
@@ -826,9 +859,15 @@ instance Aeson.ToJSON AHsTypeRep where
                   "fields" .= fieldNames
                 ]
             ]
-        HsTypeRepNewtype -> Aeson.String "newtype"
-        HsTypeRepOpaque  -> Aeson.String "opaque"
-        HsTypeRepAlias   -> Aeson.String "alias"
+        HsTypeRepNewtype hsNewtypeRep -> case hsNewtypeRepField hsNewtypeRep of
+          Nothing -> Aeson.String "newtype"
+          Just fieldName -> Aeson.Object $ KM.fromList [
+              ("newtype" .=) . Aeson.Object $ KM.fromList [
+                  "fields" .= [fieldName]
+                ]
+            ]
+        HsTypeRepOpaque -> Aeson.String "opaque"
+        HsTypeRepAlias  -> Aeson.String "alias"
 
 --------------------------------------------------------------------------------
 
