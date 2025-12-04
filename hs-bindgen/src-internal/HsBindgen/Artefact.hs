@@ -224,26 +224,26 @@ runArtefacts
         Just err -> throwError err
         Nothing  -> pure r
 
-    lookForExistingDir :: [FileSystemAction] -> IO (Maybe FilePath)
-    lookForExistingDir [] = pure Nothing
-    lookForExistingDir (MkDir path : as) = do
-      fileExists <- doesDirectoryExist path
-      if fileExists
-         then pure (Just path)
-         else lookForExistingFile as
-    lookForExistingDir (_ : as) = lookForExistingDir as
+    lookForNonExistingDir :: [FileSystemAction] -> IO (Maybe FilePath)
+    lookForNonExistingDir [] = pure Nothing
+    lookForNonExistingDir (MkDir path : as) = do
+      dirExists <- doesDirectoryExist path
+      if dirExists
+         then lookForNonExistingDir as
+         else pure (Just path)
+    lookForNonExistingDir (_ : as) = lookForNonExistingDir as
 
     checkOutputDirPolicy :: [FileSystemAction] -> ExceptT RunArtefactError IO ()
     checkOutputDirPolicy as = do
       case backendOutputDirPolicy of
         CreateDirStructure -> pure ()
         DoNotCreateDirStructure -> do
-          -- Get the first directory path that exists if any
-          mbDirPath <- liftIO $ lookForExistingDir as
+          -- Get the first directory path that does not exist if any
+          mbDirPath <- liftIO $ lookForNonExistingDir as
           case mbDirPath of
             Nothing -> pure ()
             Just d  ->
-              let err = FileSystemError (DirectoryAlreadyExists d)
+              let err = FileSystemError (DirectoryDoesNotExist d)
               in  throwError err
 
     lookForExistingFile :: [FileSystemAction] -> IO (Maybe FilePath)
@@ -321,14 +321,14 @@ instance PrettyForTrace RunArtefactError where
     FileSystemError e -> prettyForTrace e
 
 data FileSystemError =
-      DirectoryAlreadyExists FilePath
+      DirectoryDoesNotExist FilePath
     | FileAlreadyExists      FilePath
   deriving Show
 
 instance PrettyForTrace FileSystemError where
   prettyForTrace = \case
-    DirectoryAlreadyExists fp -> PP.vsep [
-        "Output directory already exists:" <+> PP.string fp
+    DirectoryDoesNotExist fp -> PP.vsep [
+        "Output directory does not exist:" <+> PP.string fp
       , "Use --create-output-dirs to create it automatically, or create the directory manually."
       ]
     FileAlreadyExists fp -> PP.vsep [
