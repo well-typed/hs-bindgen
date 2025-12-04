@@ -172,6 +172,11 @@ instance Pretty CommentKind where
           case commentTitle of
             Nothing -> empty
             Just ct -> hsep (map pretty ct)
+        singleLineStart =
+          case commentKind of
+            TopLevelComment _          -> "-- |"
+            PartOfDeclarationComment _ -> "-- ^"
+            THComment _                -> ""
         -- If the comment only has the the origin C Name then use that has the
         -- title.
      in case commentChildren of
@@ -182,9 +187,8 @@ instance Pretty CommentKind where
              $$ string commentEnd
              | Just _ <- commentTitle
              , null fromCCtxDoc ->
-                string commentStart
-            <+> firstContent
-             $$ string commentEnd
+                -- Title-only comment: use single-line style
+                string singleLineStart <+> firstContent
              | Just _  <- commentTitle
              , not (null fromCCtxDoc) ->
                 string commentStart
