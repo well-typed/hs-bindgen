@@ -10,12 +10,12 @@ module HsBindgen.Artefact (
     -- * Policies
   , FileOverwritePolicy(..)
   , OutputDirPolicy(..)
-    -- * File descriptions
+    -- * File description
   , FileDescription(..)
   , FileLocation(..)
   , RelativeToOutputDir(..)
   , FileContent(..)
-    -- * Artefact monad
+    -- * ArtefactM monad
   , ArtefactM -- opaque
   , ArtefactEnv(..)
     -- ** Actions
@@ -46,6 +46,7 @@ import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Boot
+import HsBindgen.Cache (Cached (getCached))
 import HsBindgen.Config
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Frontend
@@ -103,10 +104,6 @@ instance Monad Artefact where
   (>>=) :: Artefact a -> (a -> Artefact b) -> Artefact b
   (>>=) = Bind
 
-instance MonadIO Artefact where
-  liftIO :: IO a -> Artefact a
-  liftIO = Lift . liftIO
-
 {-------------------------------------------------------------------------------
   Run artefacts
 -------------------------------------------------------------------------------}
@@ -139,45 +136,47 @@ runArtefacts
       -- The 'Bind' operator of 'Artefact' checks for 'Error' traces.
       (result, actions)  <-
         withExceptT (const ErrorReported) $
-          runArtefactM env $ runArtefact artefact
+          runArtefactM env $
+            runArtefact artefact
 
-      -- Before creating directories or writing output files, we verify
-      -- adherence to the provided policies.
-      mapM_ checkPolicy actions
+      -- -- TODO_PR: Run checks outside.
+      --     -- After each step, check tracer state for 'Error' traces.
+      --     mbError <- checkTracerState tracerUnsafeStateRef
+      --     case mbError of
+      --       Just err -> throwError err
+      --       Nothing  -> pure r
 
-      liftIO $ executeFileSystemActions actions
-      pure result
+      -- -- Before creating directories or writing output files, we verify
+      -- -- adherence to the provided policies.
+      -- mapM_ checkPolicy actions
+
+      -- liftIO $ executeFileSystemActions actions
+      -- pure result
 
     runArtefact :: forall x. Artefact x -> ArtefactM x
-    runArtefact a = do
-      r <- case a of
+    runArtefact = \case
         --Boot.
-        Target              -> liftIO bootTarget
-        HashIncludeArgs     -> liftIO bootHashIncludeArgs
+        Target              -> aGetCached bootTarget
+        HashIncludeArgs     -> aGetCached bootHashIncludeArgs
         -- Frontend.
-        IncludeGraph        -> liftIO frontendIncludeGraph
-        GetMainHeaders      -> liftIO frontendGetMainHeaders
-        DeclIndex           -> liftIO frontendIndex
-        UseDeclGraph        -> liftIO frontendUseDeclGraph
-        DeclUseGraph        -> liftIO frontendDeclUseGraph
-        OmitTypes           -> liftIO frontendOmitTypes
-        ReifiedC            -> liftIO frontendCDecls
-        Dependencies        -> liftIO frontendDependencies
+        IncludeGraph        -> aGetCached frontendIncludeGraph
+        GetMainHeaders      -> aGetCached frontendGetMainHeaders
+        DeclIndex           -> aGetCached frontendIndex
+        UseDeclGraph        -> aGetCached frontendUseDeclGraph
+        DeclUseGraph        -> aGetCached frontendDeclUseGraph
+        OmitTypes           -> aGetCached frontendOmitTypes
+        ReifiedC            -> aGetCached frontendCDecls
+        Dependencies        -> aGetCached frontendDependencies
         -- Backend.
-        HsDecls             -> liftIO backendHsDecls
-        FinalDecls          -> liftIO backendFinalDecls
+        HsDecls             -> aGetCached backendHsDecls
+        FinalDecls          -> aGetCached backendFinalDecls
         FinalModuleBaseName -> pure backendFinalModuleBaseName
-        FinalModuleSafe     -> liftIO backendFinalModuleSafe
-        FinalModuleUnsafe   -> liftIO backendFinalModuleUnsafe
-        FinalModules        -> liftIO backendFinalModules
+        FinalModuleSafe     -> aGetCached backendFinalModuleSafe
+        FinalModuleUnsafe   -> aGetCached backendFinalModuleUnsafe
+        FinalModules        -> aGetCached backendFinalModules
         -- Lift and sequence.
         (Lift   f)          -> f
         (Bind x f)          -> runArtefact x >>= runArtefact . f
-      -- After each step, check tracer state for 'Error' traces.
-      mbError <- checkTracerState tracerUnsafeStateRef
-      case mbError of
-        Just err -> throwError err
-        Nothing  -> pure r
 
     checkPolicy :: FileSystemAction -> ExceptT RunArtefactError IO ()
     checkPolicy (WriteFile fd) = case fd.location of
@@ -320,7 +319,7 @@ data FileContent
     deriving Show
 
 {-------------------------------------------------------------------------------
-  Artefact monad
+  ArtefactM monad
 -------------------------------------------------------------------------------}
 
 newtype ArtefactM a = WrapArtefactM {
@@ -334,7 +333,6 @@ newtype ArtefactM a = WrapArtefactM {
       Functor
     , Applicative
     , Monad
-    , MonadIO
     , MonadError AnErrorHappened
     )
 
@@ -345,6 +343,14 @@ data ArtefactEnv = ArtefactEnv {
 runArtefactM ::
   ArtefactEnv -> ArtefactM a -> ExceptT AnErrorHappened IO (a, [FileSystemAction])
 runArtefactM env = flip runReaderT env . flip runStateT [] . unwrapArtefactM
+
+
+-- | Private (i.e., /not public/) API :-).
+artefactIO :: IO a -> ArtefactM a
+artefactIO = WrapArtefactM . liftIO
+
+aGetCached :: Cached a -> ArtefactM a
+aGetCached = artefactIO . getCached
 
 {-------------------------------------------------------------------------------
   Actions

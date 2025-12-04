@@ -49,35 +49,37 @@ boot
 
     checkBackendConfig (contramap BootBackendConfig tracer) bindgenBackendConfig
 
-    getHashIncludeArgs <- cache "hashIncludeArgs" $ do
+    getHashIncludeArgs <- cache "hashIncludeArgs" $ Cached $ do
       let tracer' = contramap BootHashIncludeArg tracer
       withTrace BootStatusHashIncludeArgs $
         mapM (hashIncludeArgWithTrace tracer') uncheckedHashIncludeArgs
 
-    getClangArgsAndTarget' <- cache "clangArgsAndTarget" $
+    getClangArgsAndTarget' <- cache "clangArgsAndTarget" $ Cached $
       getClangArgsAndTarget tracer clangArgsConfig
 
-    getClangArgs <- cache "clangArgs" . withTrace BootStatusClangArgs $
+    getClangArgs <- cache "clangArgs" $ withTrace BootStatusClangArgs $
       fst <$> getClangArgsAndTarget'
 
-    getTarget <- cache "target" . withTrace BootStatusTarget $
+    getTarget <- cache "target" $ withTrace BootStatusTarget $
       snd <$> getClangArgsAndTarget'
 
     getBindingSpecs <- cache "loadBindingSpecs" $ do
       clangArgs <- getClangArgs
       target <- getTarget
-      loadBindingSpecs
+      liftIO $ loadBindingSpecs
         (contramap BootBindingSpec tracer)
         clangArgs
         target
         (fromBaseModuleName baseModuleName (Just BType))
         (bootBindingSpecConfig bindgenBootConfig)
 
-    getExternalBindingSpecs <- cache "getExternalBindingSpecs" $ do
-      withTrace BootStatusExternalBindingSpecs $ fmap fst getBindingSpecs
+    getExternalBindingSpecs <- cache "getExternalBindingSpecs" $
+      withTrace BootStatusExternalBindingSpecs $
+        fmap fst $ getBindingSpecs
 
-    getPrescriptiveBindingSpec <- cache "getPrescriptiveBindingSpec" $ do
-      withTrace BootStatusPrescriptiveBindingSpec $ fmap snd getBindingSpecs
+    getPrescriptiveBindingSpec <- cache "getPrescriptiveBindingSpec" $
+      withTrace BootStatusPrescriptiveBindingSpec $
+        fmap snd $ getBindingSpecs
 
     pure BootArtefact {
           bootBaseModule              = baseModuleName
@@ -98,16 +100,16 @@ boot
     tracerBootStatus :: Tracer BootStatusMsg
     tracerBootStatus = contramap BootStatus tracer
 
-    traceStatus :: BootStatusMsg -> IO ()
+    traceStatus :: MonadIO m => BootStatusMsg -> m ()
     traceStatus = traceWith tracerBootStatus
 
-    withTrace :: (a -> BootStatusMsg) -> IO a -> IO a
+    withTrace :: MonadIO m => (a -> BootStatusMsg) -> m a -> m a
     withTrace c a = do
       x <- a
       traceStatus $ c x
       pure x
 
-    cache :: String -> IO a -> IO (IO a)
+    cache :: String -> Cached a -> IO (Cached a)
     cache = cacheWith (contramap (BootCache . SafeTrace) tracer) . Just
 
 -- | Determine Clang arguments and target
@@ -187,11 +189,11 @@ getClangTarget tracer clangArgs = do
 data BootArtefact = BootArtefact {
     bootBaseModule              :: BaseModuleName
   , bootCStandard               :: CStandard
-  , bootClangArgs               :: IO ClangArgs
-  , bootTarget                  :: IO ClangArgs.Target
-  , bootHashIncludeArgs         :: IO [HashIncludeArg]
-  , bootExternalBindingSpecs    :: IO MergedBindingSpecs
-  , bootPrescriptiveBindingSpec :: IO PrescriptiveBindingSpec
+  , bootClangArgs               :: Cached ClangArgs
+  , bootTarget                  :: Cached ClangArgs.Target
+  , bootHashIncludeArgs         :: Cached [HashIncludeArg]
+  , bootExternalBindingSpecs    :: Cached MergedBindingSpecs
+  , bootPrescriptiveBindingSpec :: Cached PrescriptiveBindingSpec
   }
 
 {-------------------------------------------------------------------------------

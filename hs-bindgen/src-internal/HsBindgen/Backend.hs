@@ -57,7 +57,7 @@ backend tracer BackendConfig{..} BootArtefact{..} FrontendArtefact{..} = do
   where
     moduleBaseName = bootBaseModule
 
-    cache :: IO a -> IO (IO a)
+    cache :: Cached a -> IO (Cached a)
     cache = cacheWith (contramap BackendCache tracer) Nothing
 
 {-------------------------------------------------------------------------------
@@ -65,12 +65,12 @@ backend tracer BackendConfig{..} BootArtefact{..} FrontendArtefact{..} = do
 -------------------------------------------------------------------------------}
 
 data BackendArtefact = BackendArtefact {
-    backendHsDecls             :: IO (SHs.ByCategory [Hs.Decl])
-  , backendFinalDecls          :: IO (SHs.ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
+    backendHsDecls             :: Cached (SHs.ByCategory [Hs.Decl])
+  , backendFinalDecls          :: Cached (SHs.ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
   , backendFinalModuleBaseName :: BaseModuleName
-  , backendFinalModuleSafe     :: IO HsModule
-  , backendFinalModuleUnsafe   :: IO HsModule
-  , backendFinalModules        :: IO (SHs.ByCategory HsModule)
+  , backendFinalModuleSafe     :: Cached HsModule
+  , backendFinalModuleUnsafe   :: Cached HsModule
+  , backendFinalModules        :: Cached (SHs.ByCategory HsModule)
   }
 
 {-------------------------------------------------------------------------------
