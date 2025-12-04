@@ -58,6 +58,8 @@ inContext ctx = go ctx
       -- qualifiers like @const@.
       | C.isCanonicalTypeFunction t
       = Hs.HsFunPtr (go PtrArg t)
+      | C.isErasedTypeConstQualified t
+      = Hs.HsConstPtr (go PtrArg t)
       | otherwise
       = Hs.HsPtr (go PtrArg t)
     go _ (C.TypeConstArray n ty) =

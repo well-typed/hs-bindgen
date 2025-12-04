@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -37,7 +38,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 {-| __unique:__ @test_manualzero_copy_Example_get_reverse_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_d76d6b95b7803c78" hs_bindgen_d76d6b95b7803c78 ::
-     IO (Ptr.FunPtr ((Ptr.Ptr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt))
+     IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt))
 
 {-# NOINLINE reverse_ptr #-}
 
@@ -47,7 +48,7 @@ foreign import ccall unsafe "hs_bindgen_d76d6b95b7803c78" hs_bindgen_d76d6b95b78
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-reverse_ptr :: Ptr.FunPtr ((Ptr.Ptr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt)
+reverse_ptr :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt)
 reverse_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d76d6b95b7803c78
 

@@ -844,10 +844,6 @@ test_globals_globals =
           , "streamBinary"
           , "streamBinary_len"
           , "some_global_struct"
-            -- Other warnings
-          , "unusableAnon"
-            -- Duplicate symbols
-          , "classless"
           ]
   in (defaultTest "globals/globals") {
        testTracePredicate = customTracePredicate' declsWithWarnings $ \case
@@ -1266,6 +1262,23 @@ manualTestCases :: [TestCase]
 manualTestCases = [
       defaultTest "manual/arrays"
     , defaultTest "manual/function_pointers"
+    , let declsWithWarnings = [
+              -- unexpected anon in extern
+              "unusableAnon"
+              -- potential duplicate symbols
+            , "nonExternGlobalInt"
+            ] in
+      (defaultTest "manual/globals") {
+          testTracePredicate = customTracePredicate' declsWithWarnings $ \case
+            TraceFrontend (FrontendSelect (SelectParseSuccess
+              (AttachedParseMsg i _ _ ParsePotentialDuplicateSymbol{}))) ->
+              Just $ expectFromQualPrelimDeclId i
+            TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure
+              (AttachedParseMsg i _ _ ParseUnexpectedAnonInExtern)))) ->
+              Just $ expectFromQualPrelimDeclId i
+            _otherwise ->
+              Nothing
+        }
     , defaultTest "manual/zero_copy"
     ]
 

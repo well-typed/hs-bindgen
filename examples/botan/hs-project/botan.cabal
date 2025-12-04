@@ -43,7 +43,8 @@ library
 
   hs-source-dirs:  src
   extra-libraries: botan-3
-  ghc-options:     -Wno-missing-export-lists
+  ghc-options:
+    -Wno-missing-export-lists -optc -Wno-deprecated-declarations
 
 executable botan
   import:         warnings, language

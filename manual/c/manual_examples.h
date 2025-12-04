@@ -192,16 +192,3 @@ static inline int mod_10(int x) { return x % 10; }
 int hash (char * s) __attribute__ ((pure));
 
 int square (int x) __attribute__ ((const));
-
-/**
- * Globals
- */
-
-struct globalConfig {
-  int numThreads;
-  int numWorkers;
-};
-
-extern struct globalConfig globalConfig;
-
-void printGlobalConfig();

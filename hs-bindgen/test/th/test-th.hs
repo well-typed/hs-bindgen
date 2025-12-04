@@ -22,6 +22,7 @@ import Test.Tasty.HUnit (Assertion, HasCallStack, assertFailure, testCase,
 
 import HsBindgen.Runtime.CAPI (allocaAndPeek)
 import HsBindgen.Runtime.CEnum qualified as CEnum
+import HsBindgen.Runtime.ConstPtr
 import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.FlexibleArrayMember (FLAMLengthMismatch (FLAMLengthMismatch))
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
@@ -167,7 +168,7 @@ test01 = testGroup "test_01"
 
     , testCase "fixed-size-array" $ do
         let v = CA.repeat 4 :: CA.ConstantArray 3 CInt
-        res <- CA.withPtr v (\ptr -> Test01.sum3_wrapper 5 ptr)
+        res <- CA.withPtr v (\ptr -> Test01.sum3_wrapper 5 (ConstPtr ptr))
         21 @?= res
         [4,4,4] @?= CA.toList v -- modification in sum3 aren't visible in original array.
 

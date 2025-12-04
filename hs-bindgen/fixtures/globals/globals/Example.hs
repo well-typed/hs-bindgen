@@ -1,7 +1,6 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -12,19 +11,15 @@
 
 module Example where
 
-import qualified Data.Bits as Bits
-import qualified Data.Ix as Ix
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
-import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
-import Data.Bits (FiniteBits)
 import HsBindgen.Runtime.TypeEquality (TyEq)
-import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
+import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @config@
 
@@ -388,123 +383,3 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct2_t) "struct2_
 
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"struct2_t_field1")
-
-{-| Constant, through typedef
-
-__C declaration:__ @ConstInt@
-
-__defined at:__ @globals\/globals.h:448:19@
-
-__exported by:__ @globals\/globals.h@
--}
-newtype ConstInt = ConstInt
-  { un_ConstInt :: FC.CInt
-  }
-  deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
-
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ConstInt) "un_ConstInt")
-         ) => GHC.Records.HasField "un_ConstInt" (Ptr.Ptr ConstInt) (Ptr.Ptr ty) where
-
-  getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_ConstInt")
-
-instance HsBindgen.Runtime.HasCField.HasCField ConstInt "un_ConstInt" where
-
-  type CFieldType ConstInt "un_ConstInt" = FC.CInt
-
-  offset# = \_ -> \_ -> 0
-
-{-| An array of uknown size containing constant integers
-
-__C declaration:__ @ConstIntArray@
-
-__defined at:__ @globals\/globals.h:463:19@
-
-__exported by:__ @globals\/globals.h@
--}
-newtype ConstIntArray = ConstIntArray
-  { un_ConstIntArray :: HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
-  }
-  deriving stock (Eq, Show)
-
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ConstIntArray) "un_ConstIntArray")
-         ) => GHC.Records.HasField "un_ConstIntArray" (Ptr.Ptr ConstIntArray) (Ptr.Ptr ty) where
-
-  getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_ConstIntArray")
-
-instance HsBindgen.Runtime.HasCField.HasCField ConstIntArray "un_ConstIntArray" where
-
-  type CFieldType ConstIntArray "un_ConstIntArray" =
-    HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
-
-  offset# = \_ -> \_ -> 0
-
-{-| __C declaration:__ @tuple@
-
-    __defined at:__ @globals\/globals.h:466:8@
-
-    __exported by:__ @globals\/globals.h@
--}
-data Tuple = Tuple
-  { tuple_x :: FC.CInt
-    {- ^ __C declaration:__ @x@
-
-         __defined at:__ @globals\/globals.h:466:20@
-
-         __exported by:__ @globals\/globals.h@
-    -}
-  , tuple_y :: FC.CInt
-    {- ^ __C declaration:__ @y@
-
-         __defined at:__ @globals\/globals.h:466:33@
-
-         __exported by:__ @globals\/globals.h@
-    -}
-  }
-  deriving stock (Eq, Show)
-
-instance F.Storable Tuple where
-
-  sizeOf = \_ -> (8 :: Int)
-
-  alignment = \_ -> (4 :: Int)
-
-  peek =
-    \ptr0 ->
-          pure Tuple
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"tuple_x") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"tuple_y") ptr0
-
-  poke =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          Tuple tuple_x2 tuple_y3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"tuple_x") ptr0 tuple_x2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"tuple_y") ptr0 tuple_y3
-
-instance HsBindgen.Runtime.HasCField.HasCField Tuple "tuple_x" where
-
-  type CFieldType Tuple "tuple_x" = FC.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tuple) "tuple_x")
-         ) => GHC.Records.HasField "tuple_x" (Ptr.Ptr Tuple) (Ptr.Ptr ty) where
-
-  getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"tuple_x")
-
-instance HsBindgen.Runtime.HasCField.HasCField Tuple "tuple_y" where
-
-  type CFieldType Tuple "tuple_y" = FC.CInt
-
-  offset# = \_ -> \_ -> 4
-
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tuple) "tuple_y")
-         ) => GHC.Records.HasField "tuple_y" (Ptr.Ptr Tuple) (Ptr.Ptr ty) where
-
-  getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"tuple_y")

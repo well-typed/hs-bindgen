@@ -43,6 +43,7 @@ import Foreign.C.Types (CInt, CSize)
 import Foreign.Marshal (alloca, allocaBytes)
 import Foreign.Storable (Storable (peek, poke))
 
+import HsBindgen.Runtime.ConstPtr qualified as HBR
 import HsBindgen.Runtime.IncompleteArray qualified as HBR
 
 import Generated.Botan (Botan_rng_t, Botan_srp6_server_session_t)
@@ -123,8 +124,8 @@ srp6ServerSessionStep1 (ServerSession s) (Verifier verifier) groupId hashId (RNG
           s
           verifier
           verifierLen
-          groupIdPtr
-          hashIdPtr
+          (HBR.ConstPtr groupIdPtr)
+          (HBR.ConstPtr hashIdPtr)
           rngObj
           bPtr
           bLenPtr
@@ -171,12 +172,12 @@ srp6GenerateVerifier (Username user) (Password pw) (Salt salt) groupId hashId =
       poke verifierLenPtr maxLen
       throwErrnoIfNegative "botan_srp6_generate_verifier" $
         botan_srp6_generate_verifier
-          userPtr
-          pwPtr
+          (HBR.ConstPtr userPtr)
+          (HBR.ConstPtr pwPtr)
           salt
           saltLen
-          groupIdPtr
-          hashIdPtr
+          (HBR.ConstPtr groupIdPtr)
+          (HBR.ConstPtr hashIdPtr)
           verifierPtr
           verifierLenPtr
       verifierLen <- peek verifierLenPtr
@@ -207,10 +208,10 @@ srp6ClientAgree (Username user) (Password pw) groupId hashId (Salt salt) (B b) (
       poke kLenPtr maxLen
       throwErrnoIfNegative "botan_srp6_client_agree" $
         botan_srp6_client_agree
-          userPtr
-          pwPtr
-          groupIdPtr
-          hashIdPtr
+          (HBR.ConstPtr userPtr)
+          (HBR.ConstPtr pwPtr)
+          (HBR.ConstPtr groupIdPtr)
+          (HBR.ConstPtr hashIdPtr)
           salt
           saltLen
           b
@@ -231,7 +232,7 @@ srp6GroupSize groupId =
     withCString (groupIdString groupId) $ \groupIdPtr ->
     alloca $ \resPtr -> do
       throwErrnoIfNegative "botan_srp6_group_size" $
-        botan_srp6_group_size groupIdPtr resPtr
+        botan_srp6_group_size (HBR.ConstPtr groupIdPtr) resPtr
       peek resPtr
 
 {-------------------------------------------------------------------------------
@@ -260,7 +261,7 @@ rngInit :: RNGType -> IO RNG
 rngInit rngType =
     withCString (rngTypeString rngType) $ \rngTypePtr ->
     alloca $ \ptr -> do
-      throwErrnoIfNegative "botan_rng_init" $ botan_rng_init ptr rngTypePtr
+      throwErrnoIfNegative "botan_rng_init" $ botan_rng_init ptr (HBR.ConstPtr rngTypePtr)
       RNG <$> peek ptr
 
 rngDestroy :: RNG -> IO ()

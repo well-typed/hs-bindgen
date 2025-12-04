@@ -1104,10 +1104,27 @@ wrapType ty
 
 -- | Type in low-level Haskell wrapper
 unwrapType :: WrappedType -> C.Type
-unwrapType (WrapType ty)   = ty
-unwrapType (HeapType ty)   = C.TypePointer ty
-unwrapType (CAType _ _ ty) = C.TypePointer ty
-unwrapType (AType _ ty)    = C.TypePointer ty
+unwrapType = \case
+    WrapType ty -> ty
+    HeapType ty -> C.TypePointer ty
+    CAType aTy _ eTy -> firstElemPtr aTy eTy
+    AType aTy eTy -> firstElemPtr aTy eTy
+  where
+    -- NOTE: if an array type is const-qualified, then its array element type is
+    -- also const-qualified, and vice versa.
+    firstElemPtr :: C.Type -> C.Type -> C.Type
+    firstElemPtr aTy eTy
+      -- The array element type has a const qualifier.
+      | C.isErasedTypeConstQualified eTy
+      = C.TypePointer eTy
+      -- The array type has a const qualifier, but the array element type does
+      -- not.
+      | C.isErasedTypeConstQualified aTy
+      = C.TypePointer $ C.TypeQualified C.TypeQualifierConst eTy
+      -- No const qualifiers on either the array type or the array element type.
+      | otherwise
+      = C.TypePointer eTy
+
 
 -- | Type in high-level Haskell wrapper
 unwrapOrigType :: WrappedType -> C.Type
@@ -1197,58 +1214,80 @@ hsWrapperDeclFunction hiName loName res wrappedArgs wrapperParams cFunc mbCommen
     goA env []     = goA' env (tabulateEnv (sizeEnv env) id) []
     goA env (x:xs) = SHs.ELam "x" $ goA (env :> x) xs
 
-    goA' :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [Idx ctx] -> SHs.SExpr ctx
+    goA' :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [(Bool, Idx ctx)] -> SHs.SExpr ctx
     goA' EmptyEnv    EmptyEnv  zs
         = shsApps (SHs.EGlobal SHs.CAPI_allocaAndPeek)
-          [ SHs.ELam "z" $ shsApps (SHs.EFree loName) (map SHs.EBound (fmap IS zs ++ [IZ]))
+          [ SHs.ELam "z" $ shsApps (SHs.EFree loName)
+              (map
+                (\(useConstPtr, x) -> constPtr useConstPtr $ SHs.EBound x)
+                (fmap (second IS) zs ++ [(False, IZ)]))
           ]
+      where
+        constPtr :: Bool -> SHs.SExpr ctx -> SHs.SExpr ctx
+        constPtr useConstPtr
+          | useConstPtr = SHs.EApp (SHs.EGlobal SHs.ConstPtr_constructor)
+          | otherwise = id
 
     goA' (tys :> ty) (xs :> x) zs = case ty of
-        HeapType {} -> shsApps (SHs.EGlobal SHs.CAPI_with)
+        HeapType ty' -> shsApps (SHs.EGlobal SHs.CAPI_with) $
+            let useConstPtr = C.isErasedTypeConstQualified ty' in
             [ SHs.EBound x
-            , SHs.ELam "y" $ goA' tys (IS <$> xs) (IZ : fmap IS zs)
+            , SHs.ELam "y" $ goA' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
             ]
 
-        CAType {} -> shsApps (SHs.EGlobal SHs.ConstantArray_withPtr)
+        CAType aTy _ _ -> shsApps (SHs.EGlobal SHs.ConstantArray_withPtr) $
+            let useConstPtr = C.isErasedTypeConstQualified aTy in
             [ SHs.EBound x
-            , SHs.ELam "ptr" $ goA' tys (IS <$> xs) (IZ : fmap IS zs)
+            , SHs.ELam "ptr" $ goA' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
             ]
 
-        AType {} -> shsApps (SHs.EGlobal SHs.IncompleteArray_withPtr)
+        AType aTy _ -> shsApps (SHs.EGlobal SHs.IncompleteArray_withPtr) $
+            let useConstPtr = C.isErasedTypeConstQualified aTy in
             [ SHs.EBound x
-            , SHs.ELam "ptr" $ goA' tys (IS <$> xs) (IZ : fmap IS zs)
+            , SHs.ELam "ptr" $ goA' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
             ]
 
-        WrapType {} ->
-            goA' tys xs (x : zs)
+        WrapType{} ->
+            goA' tys xs ((False, x) : zs)
 
     -- wrapper for non-fancy result.
     goB :: Env ctx WrappedType -> [WrappedType] -> SHs.SExpr ctx
     goB env []     = goB' env (tabulateEnv (sizeEnv env) id) []
     goB env (x:xs) = SHs.ELam "x" $ goB (env :> x) xs
 
-    goB' :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [Idx ctx] -> SHs.SExpr ctx
+    goB' :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [(Bool, Idx ctx)] -> SHs.SExpr ctx
     goB' EmptyEnv    EmptyEnv  zs
-        = shsApps (SHs.EFree loName) (map SHs.EBound zs)
+        = shsApps (SHs.EFree loName)
+            (map
+              (\(useConstPtr, x) -> constPtr useConstPtr $ SHs.EBound x)
+              zs)
+      where
+        constPtr :: Bool -> SHs.SExpr ctx -> SHs.SExpr ctx
+        constPtr useConstPtr
+          | useConstPtr = SHs.EApp (SHs.EGlobal SHs.ConstPtr_constructor)
+          | otherwise = id
 
     goB' (tys :> ty) (xs :> x) zs = case ty of
-        HeapType {} -> shsApps (SHs.EGlobal SHs.CAPI_with)
+        HeapType ty' -> shsApps (SHs.EGlobal SHs.CAPI_with) $
+          let useConstPtr = C.isErasedTypeConstQualified ty' in
           [ SHs.EBound x
-          , SHs.ELam "y" $ goB' tys (IS <$> xs) (IZ : fmap IS zs)
+          , SHs.ELam "y" $ goB' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
           ]
 
-        CAType {} -> shsApps (SHs.EGlobal SHs.ConstantArray_withPtr)
+        CAType aTy _ _ -> shsApps (SHs.EGlobal SHs.ConstantArray_withPtr) $
+            let useConstPtr = C.isErasedTypeConstQualified aTy in
             [ SHs.EBound x
-            , SHs.ELam "ptr" $ goB' tys (IS <$> xs) (IZ : fmap IS zs)
+            , SHs.ELam "ptr" $ goB' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
             ]
 
-        AType {} -> shsApps (SHs.EGlobal SHs.IncompleteArray_withPtr)
+        AType aTy _ -> shsApps (SHs.EGlobal SHs.IncompleteArray_withPtr) $
+            let useConstPtr = C.isErasedTypeConstQualified aTy in
             [ SHs.EBound x
-            , SHs.ELam "ptr" $ goB' tys (IS <$> xs) (IZ : fmap IS zs)
+            , SHs.ELam "ptr" $ goB' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
             ]
 
         WrapType {} ->
-            goB' tys xs (x : zs)
+            goB' tys xs ((False, x) : zs)
 
 shsApps :: SHs.SExpr ctx -> [SHs.SExpr ctx] -> SHs.SExpr ctx
 shsApps = foldl' SHs.EApp
@@ -1548,7 +1587,8 @@ constGetter ty instsMap info pureStubName = concat [
     getterType = SHs.translateType ty
     getterExpr = SHs.EGlobal SHs.IO_unsafePerformIO
                 `SHs.EApp` (SHs.EGlobal SHs.Storable_peek
-                `SHs.EApp` SHs.EFree pureStubName)
+                `SHs.EApp` (SHs.EGlobal SHs.ConstPtr_unConstPtr
+                `SHs.EApp` SHs.EFree pureStubName))
 
 -- | Create a stub C function that returns the address of a given declaration,
 -- and create a binding to that stub C function.

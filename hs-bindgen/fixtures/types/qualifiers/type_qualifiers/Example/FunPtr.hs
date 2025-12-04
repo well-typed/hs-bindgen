@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -27,7 +28,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 {-| __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_33c0388dc987452a" hs_bindgen_33c0388dc987452a ::
-     IO (Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
+     IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
 
 {-# NOINLINE list_example_ptr #-}
 
@@ -37,6 +38,6 @@ foreign import ccall unsafe "hs_bindgen_33c0388dc987452a" hs_bindgen_33c0388dc98
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
-list_example_ptr :: Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool)
+list_example_ptr :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool)
 list_example_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_33c0388dc987452a

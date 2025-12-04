@@ -11,7 +11,7 @@
 --   return reverse(arg1, arg2);
 -- }
 -- void hs_bindgen_2ff371c815d92b04 (
---   triplet *arg1,
+--   triplet const *arg1,
 --   triplet *arg2
 -- )
 -- {
@@ -25,7 +25,7 @@
 --   return reverse(arg1, arg2);
 -- }
 -- void hs_bindgen_ea25667627dd5ed2 (
---   triplet *arg1,
+--   triplet const *arg1,
 --   triplet *arg2
 -- )
 -- {
@@ -617,13 +617,13 @@ instance HasCField Matrix "un_Matrix"
 
     __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
 -}
-foreign import ccall safe "hs_bindgen_350cceac1101d344" reverse :: Ptr Vector ->
+foreign import ccall safe "hs_bindgen_350cceac1101d344" reverse :: ConstPtr Vector ->
                                                                    Ptr Vector -> IO CInt
 {-| Pointer-based API for 'transpose'
 
 __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
 -}
-foreign import ccall safe "hs_bindgen_2ff371c815d92b04" transpose_wrapper :: Ptr Triplet ->
+foreign import ccall safe "hs_bindgen_2ff371c815d92b04" transpose_wrapper :: ConstPtr Triplet ->
                                                                              Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
@@ -638,7 +638,7 @@ transpose :: Matrix -> Ptr Triplet -> IO Unit
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper ptr_2 x_1)
+transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper (ConstPtr ptr_2) x_1)
 {-| __C declaration:__ @reverse@
 
     __defined at:__ @manual\/zero_copy.h:77:5@
@@ -647,13 +647,13 @@ transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper ptr_2 x_1)
 
     __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
 -}
-foreign import ccall safe "hs_bindgen_f9655173d51bbaac" reverse :: Ptr Vector ->
+foreign import ccall safe "hs_bindgen_f9655173d51bbaac" reverse :: ConstPtr Vector ->
                                                                    Ptr Vector -> IO CInt
 {-| Pointer-based API for 'transpose'
 
 __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
 -}
-foreign import ccall safe "hs_bindgen_ea25667627dd5ed2" transpose_wrapper :: Ptr Triplet ->
+foreign import ccall safe "hs_bindgen_ea25667627dd5ed2" transpose_wrapper :: ConstPtr Triplet ->
                                                                              Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
@@ -668,10 +668,10 @@ transpose :: Matrix -> Ptr Triplet -> IO Unit
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper ptr_2 x_1)
+transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper (ConstPtr ptr_2) x_1)
 {-| __unique:__ @test_manualzero_copy_Example_get_reverse_ptr@
 -}
-foreign import ccall safe "hs_bindgen_d76d6b95b7803c78" hs_bindgen_d76d6b95b7803c78 :: IO (FunPtr (Ptr Vector ->
+foreign import ccall safe "hs_bindgen_d76d6b95b7803c78" hs_bindgen_d76d6b95b7803c78 :: IO (FunPtr (ConstPtr Vector ->
                                                                                                    Ptr Vector ->
                                                                                                    IO CInt))
 {-# NOINLINE reverse_ptr #-}
@@ -681,7 +681,7 @@ foreign import ccall safe "hs_bindgen_d76d6b95b7803c78" hs_bindgen_d76d6b95b7803
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-reverse_ptr :: FunPtr (Ptr Vector -> Ptr Vector -> IO CInt)
+reverse_ptr :: FunPtr (ConstPtr Vector -> Ptr Vector -> IO CInt)
 {-| __C declaration:__ @reverse@
 
     __defined at:__ @manual\/zero_copy.h:77:5@

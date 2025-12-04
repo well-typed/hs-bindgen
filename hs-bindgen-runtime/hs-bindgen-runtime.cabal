@@ -45,6 +45,7 @@ library
     HsBindgen.Runtime.CBoolSem
     HsBindgen.Runtime.CEnum
     HsBindgen.Runtime.ConstantArray
+    HsBindgen.Runtime.ConstPtr
     HsBindgen.Runtime.FlexibleArrayMember
     HsBindgen.Runtime.FunPtr
     HsBindgen.Runtime.HasCField

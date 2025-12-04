@@ -10,6 +10,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
+import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
@@ -1996,7 +1997,7 @@ __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before4@
 -}
 foreign import ccall unsafe "hs_bindgen_dc22b02b2f53aa5b" const_withoutSign_before4_wrapper ::
      A
-  -> Ptr.Ptr Some_struct
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Some_struct
   -> IO ()
 
 {-| __C declaration:__ @const_withoutSign_before4@
@@ -2017,7 +2018,7 @@ const_withoutSign_before4 =
   \x0 ->
     \x1 ->
       F.with x1 (\y2 ->
-                   const_withoutSign_before4_wrapper x0 y2)
+                   const_withoutSign_before4_wrapper x0 (HsBindgen.Runtime.ConstPtr.ConstPtr y2))
 
 {-| Pointer-based API for 'const_withoutSign_before5'
 
@@ -2025,7 +2026,7 @@ __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_before5@
 -}
 foreign import ccall unsafe "hs_bindgen_503736261279760d" const_withoutSign_before5_wrapper ::
      A
-  -> Ptr.Ptr Some_union
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Some_union
   -> IO ()
 
 {-| __C declaration:__ @const_withoutSign_before5@
@@ -2046,7 +2047,7 @@ const_withoutSign_before5 =
   \x0 ->
     \x1 ->
       F.with x1 (\y2 ->
-                   const_withoutSign_before5_wrapper x0 y2)
+                   const_withoutSign_before5_wrapper x0 (HsBindgen.Runtime.ConstPtr.ConstPtr y2))
 
 {-| __C declaration:__ @const_withoutSign_before6@
 
@@ -2156,7 +2157,7 @@ __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after4@
 -}
 foreign import ccall unsafe "hs_bindgen_3de6157427334101" const_withoutSign_after4_wrapper ::
      A
-  -> Ptr.Ptr Some_struct
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Some_struct
   -> IO ()
 
 {-| __C declaration:__ @const_withoutSign_after4@
@@ -2177,7 +2178,7 @@ const_withoutSign_after4 =
   \x0 ->
     \x1 ->
       F.with x1 (\y2 ->
-                   const_withoutSign_after4_wrapper x0 y2)
+                   const_withoutSign_after4_wrapper x0 (HsBindgen.Runtime.ConstPtr.ConstPtr y2))
 
 {-| Pointer-based API for 'const_withoutSign_after5'
 
@@ -2185,7 +2186,7 @@ __unique:__ @test_macrosreparse_Example_Unsafe_const_withoutSign_after5@
 -}
 foreign import ccall unsafe "hs_bindgen_fc4ef8c9107c1ae6" const_withoutSign_after5_wrapper ::
      A
-  -> Ptr.Ptr Some_union
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Some_union
   -> IO ()
 
 {-| __C declaration:__ @const_withoutSign_after5@
@@ -2206,7 +2207,7 @@ const_withoutSign_after5 =
   \x0 ->
     \x1 ->
       F.with x1 (\y2 ->
-                   const_withoutSign_after5_wrapper x0 y2)
+                   const_withoutSign_after5_wrapper x0 (HsBindgen.Runtime.ConstPtr.ConstPtr y2))
 
 {-| __C declaration:__ @const_withoutSign_after6@
 
@@ -2271,7 +2272,7 @@ foreign import ccall unsafe "hs_bindgen_17623ba5065bf95d" const_pointers_args1 :
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> Ptr.Ptr FC.CInt
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
@@ -2288,7 +2289,7 @@ foreign import ccall unsafe "hs_bindgen_02d08ccd5df88a98" const_pointers_args2 :
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> Ptr.Ptr FC.CInt
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
@@ -2322,7 +2323,7 @@ foreign import ccall unsafe "hs_bindgen_99c29c45d78348e9" const_pointers_args4 :
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> Ptr.Ptr FC.CInt
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
@@ -2339,7 +2340,7 @@ foreign import ccall unsafe "hs_bindgen_6a92dbfae24b1bcd" const_pointers_args5 :
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> Ptr.Ptr FC.CInt
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
@@ -2356,7 +2357,7 @@ foreign import ccall unsafe "hs_bindgen_0c07f1e0256fd705" const_pointers_ret1 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> IO (Ptr.Ptr FC.CInt)
+  -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 
 {-| __C declaration:__ @const_pointers_ret2@
 
@@ -2370,7 +2371,7 @@ foreign import ccall unsafe "hs_bindgen_d12c8210ff3c3711" const_pointers_ret2 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> IO (Ptr.Ptr FC.CInt)
+  -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 
 {-| __C declaration:__ @const_pointers_ret3@
 
@@ -2398,7 +2399,7 @@ foreign import ccall unsafe "hs_bindgen_622bb8150470138b" const_pointers_ret4 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> IO (Ptr.Ptr FC.CInt)
+  -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 
 {-| __C declaration:__ @const_pointers_ret5@
 
@@ -2412,14 +2413,14 @@ foreign import ccall unsafe "hs_bindgen_d49bd331ad2077e5" const_pointers_ret5 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> IO (Ptr.Ptr FC.CInt)
+  -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 
 {-| Pointer-based API for 'const_array_elem1'
 
 __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem1@
 -}
 foreign import ccall unsafe "hs_bindgen_224608f780bff5bd" const_array_elem1_wrapper ::
-     Ptr.Ptr A
+     HsBindgen.Runtime.ConstPtr.ConstPtr A
   -> IO ()
 
 {-| __C declaration:__ @const_array_elem1@
@@ -2436,7 +2437,7 @@ const_array_elem1 ::
 const_array_elem1 =
   \x0 ->
     HsBindgen.Runtime.IncompleteArray.withPtr x0 (\ptr1 ->
-                                                    const_array_elem1_wrapper ptr1)
+                                                    const_array_elem1_wrapper (HsBindgen.Runtime.ConstPtr.ConstPtr ptr1))
 
 {-| __C declaration:__ @const_array_elem2@
 
@@ -2447,7 +2448,7 @@ const_array_elem1 =
     __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem2@
 -}
 foreign import ccall unsafe "hs_bindgen_9aa74ad89f2c1fba" const_array_elem2 ::
-     Ptr.Ptr (Ptr.Ptr A)
+     Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr A)
      {- ^ __C declaration:__ @arg1@
      -}
   -> IO ()
@@ -2457,7 +2458,7 @@ foreign import ccall unsafe "hs_bindgen_9aa74ad89f2c1fba" const_array_elem2 ::
 __unique:__ @test_macrosreparse_Example_Unsafe_const_array_elem3@
 -}
 foreign import ccall unsafe "hs_bindgen_6a328300c5ef0c9e" const_array_elem3_wrapper ::
-     Ptr.Ptr (Ptr.Ptr A)
+     HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr A)
   -> IO ()
 
 {-| __C declaration:__ @const_array_elem3@
@@ -2474,7 +2475,7 @@ const_array_elem3 ::
 const_array_elem3 =
   \x0 ->
     HsBindgen.Runtime.IncompleteArray.withPtr x0 (\ptr1 ->
-                                                    const_array_elem3_wrapper ptr1)
+                                                    const_array_elem3_wrapper (HsBindgen.Runtime.ConstPtr.ConstPtr ptr1))
 
 {-| Other examples we reparsed /incorrectly/ before language-c
 
@@ -2599,7 +2600,7 @@ foreign import ccall unsafe "hs_bindgen_16628c257aa64a76" funptr_ret6 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
 
 {-| __C declaration:__ @funptr_ret7@
 
@@ -2613,7 +2614,7 @@ foreign import ccall unsafe "hs_bindgen_79fb0c30f546a547" funptr_ret7 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
 
 {-| __C declaration:__ @funptr_ret8@
 
@@ -2641,7 +2642,7 @@ foreign import ccall unsafe "hs_bindgen_c044d7074789febc" funptr_ret9 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
 
 {-| __C declaration:__ @funptr_ret10@
 
@@ -2655,4 +2656,4 @@ foreign import ccall unsafe "hs_bindgen_628ced6eccc7783a" funptr_ret10 ::
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))

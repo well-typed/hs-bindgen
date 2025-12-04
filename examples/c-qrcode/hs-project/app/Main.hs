@@ -9,6 +9,7 @@ import Data.Word (Word8)
 import Foreign qualified as F
 import Foreign.C qualified as F
 
+import HsBindgen.Runtime.ConstPtr
 import HsBindgen.Runtime.IncompleteArray qualified as IA
 
 import QRCodeGenerator.Generated qualified as QR
@@ -63,7 +64,7 @@ basicDemo = do
   F.withCAString "Hello, world!" $ \text ->
     F.allocaArray (fromIntegral QR.qrcodegen_BUFFER_LEN_MAX) $ \tempBuffer -> do
       F.allocaArray (fromIntegral QR.qrcodegen_BUFFER_LEN_MAX) $ \qrCode -> do
-        b <- QR.qrcodegen_encodeText text tempBuffer qrCode QR.Qrcodegen_Ecc_LOW
+        b <- QR.qrcodegen_encodeText (ConstPtr text) tempBuffer qrCode QR.Qrcodegen_Ecc_LOW
                                      QR.qrcodegen_VERSION_MIN QR.qrcodegen_VERSION_MAX
                                      QR.Qrcodegen_Mask_AUTO (F.fromBool True)
         qrCodeIA <- fromPtr (fromIntegral QR.qrcodegen_BUFFER_LEN_MAX) qrCode

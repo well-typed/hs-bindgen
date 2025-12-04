@@ -11,6 +11,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
@@ -242,7 +243,7 @@ global_Complex_double_flipped_ptr =
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_float_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_3ea97dc5fdb27263" hs_bindgen_3ea97dc5fdb27263 ::
-     IO (Ptr.Ptr (Data.Complex.Complex FC.CFloat))
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr (Data.Complex.Complex FC.CFloat))
 
 {-# NOINLINE const_complex_float_ptr #-}
 
@@ -252,7 +253,7 @@ foreign import ccall unsafe "hs_bindgen_3ea97dc5fdb27263" hs_bindgen_3ea97dc5fdb
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-const_complex_float_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
+const_complex_float_ptr :: HsBindgen.Runtime.ConstPtr.ConstPtr (Data.Complex.Complex FC.CFloat)
 const_complex_float_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3ea97dc5fdb27263
 
@@ -260,12 +261,12 @@ const_complex_float_ptr =
 
 const_complex_float :: Data.Complex.Complex FC.CFloat
 const_complex_float =
-  GHC.IO.Unsafe.unsafePerformIO (F.peek const_complex_float_ptr)
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr const_complex_float_ptr))
 
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_double_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_086209fa0eb9a3ee" hs_bindgen_086209fa0eb9a3ee ::
-     IO (Ptr.Ptr (Data.Complex.Complex FC.CDouble))
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr (Data.Complex.Complex FC.CDouble))
 
 {-# NOINLINE const_complex_double_ptr #-}
 
@@ -275,7 +276,7 @@ foreign import ccall unsafe "hs_bindgen_086209fa0eb9a3ee" hs_bindgen_086209fa0eb
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
-const_complex_double_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
+const_complex_double_ptr :: HsBindgen.Runtime.ConstPtr.ConstPtr (Data.Complex.Complex FC.CDouble)
 const_complex_double_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_086209fa0eb9a3ee
 
@@ -283,7 +284,7 @@ const_complex_double_ptr =
 
 const_complex_double :: Data.Complex.Complex FC.CDouble
 const_complex_double =
-  GHC.IO.Unsafe.unsafePerformIO (F.peek const_complex_double_ptr)
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr const_complex_double_ptr))
 
 {-| __unique:__ @test_typescomplexhsb_complex_test_Example_get_volatile_complex_float_ptr@
 -}

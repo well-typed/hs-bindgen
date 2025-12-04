@@ -8,6 +8,7 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -346,7 +347,7 @@ old_fn_deprecated_ptr =
 {-| __unique:__ @test_functionsfun_attributes_Example_get_my_dgettext_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_880fe66e7b0bf3df" hs_bindgen_880fe66e7b0bf3df ::
-     IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FC.CChar)))
+     IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO (Ptr.Ptr FC.CChar)))
 
 {-# NOINLINE my_dgettext_ptr #-}
 
@@ -356,14 +357,14 @@ foreign import ccall unsafe "hs_bindgen_880fe66e7b0bf3df" hs_bindgen_880fe66e7b0
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_dgettext_ptr :: Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FC.CChar))
+my_dgettext_ptr :: Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO (Ptr.Ptr FC.CChar))
 my_dgettext_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_880fe66e7b0bf3df
 
 {-| __unique:__ @test_functionsfun_attributes_Example_get_fdopen_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_e36b210e874d5d42" hs_bindgen_e36b210e874d5d42 ::
-     IO (Ptr.FunPtr (FC.CInt -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FILE)))
+     IO (Ptr.FunPtr (FC.CInt -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO (Ptr.Ptr FILE)))
 
 {-# NOINLINE fdopen_ptr #-}
 
@@ -373,7 +374,7 @@ foreign import ccall unsafe "hs_bindgen_e36b210e874d5d42" hs_bindgen_e36b210e874
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-fdopen_ptr :: Ptr.FunPtr (FC.CInt -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FILE))
+fdopen_ptr :: Ptr.FunPtr (FC.CInt -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO (Ptr.Ptr FILE))
 fdopen_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e36b210e874d5d42
 
@@ -397,7 +398,7 @@ f2_ptr =
 {-| __unique:__ @test_functionsfun_attributes_Example_get_my_memcpy_ptr@
 -}
 foreign import ccall unsafe "hs_bindgen_95f5193f59c47586" hs_bindgen_95f5193f59c47586 ::
-     IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void)))
+     IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.ConstPtr.ConstPtr Void) -> Size_t -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE my_memcpy_ptr #-}
 
@@ -407,7 +408,7 @@ foreign import ccall unsafe "hs_bindgen_95f5193f59c47586" hs_bindgen_95f5193f59c
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-my_memcpy_ptr :: Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void))
+my_memcpy_ptr :: Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.ConstPtr.ConstPtr Void) -> Size_t -> IO (Ptr.Ptr Void))
 my_memcpy_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_95f5193f59c47586
 

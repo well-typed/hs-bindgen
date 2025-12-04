@@ -7,6 +7,7 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.Prelude
 import Example
@@ -22,7 +23,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "  return reverse(arg1, arg2);"
   , "}"
   , "void hs_bindgen_2ff371c815d92b04 ("
-  , "  triplet *arg1,"
+  , "  triplet const *arg1,"
   , "  triplet *arg2"
   , ")"
   , "{"
@@ -39,7 +40,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __unique:__ @test_manualzero_copy_Example_Safe_reverse@
 -}
 foreign import ccall safe "hs_bindgen_350cceac1101d344" reverse ::
-     Ptr.Ptr Vector
+     HsBindgen.Runtime.ConstPtr.ConstPtr Vector
      {- ^ __C declaration:__ @input@
      -}
   -> Ptr.Ptr Vector
@@ -52,7 +53,7 @@ foreign import ccall safe "hs_bindgen_350cceac1101d344" reverse ::
 __unique:__ @test_manualzero_copy_Example_Safe_transpose@
 -}
 foreign import ccall safe "hs_bindgen_2ff371c815d92b04" transpose_wrapper ::
-     Ptr.Ptr Triplet
+     HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
   -> Ptr.Ptr Triplet
   -> IO ()
 
@@ -74,4 +75,4 @@ transpose =
   \x0 ->
     \x1 ->
       HsBindgen.Runtime.ConstantArray.withPtr x0 (\ptr2 ->
-                                                    transpose_wrapper ptr2 x1)
+                                                    transpose_wrapper (HsBindgen.Runtime.ConstPtr.ConstPtr ptr2) x1)

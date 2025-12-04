@@ -7,6 +7,7 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -138,7 +139,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 -}
 foreign import ccall safe "hs_bindgen_7eada9f65d982412" process_data ::
-     Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
+     HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8
      {- ^
 
         [__@input_data@ /(input)/__]: Input data buffer
@@ -180,7 +181,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_file@
 -}
 foreign import ccall safe "hs_bindgen_fb85499c501da1a7" process_file ::
-     Ptr.Ptr FC.CChar
+     HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
      {- ^
 
         [__@filename@ /(input)/__]: The @char*@ filename to process
@@ -310,7 +311,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_list_example@
 -}
 foreign import ccall safe "hs_bindgen_825411dc114e599b" list_example ::
-     Ptr.Ptr (Ptr.Ptr FC.CChar)
+     Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
      {- ^
 
         [__@items@ /(input)/__]: Array of items
@@ -381,7 +382,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_detailed_return_codes@
 -}
 foreign import ccall safe "hs_bindgen_c8ca619ec2e70d8d" detailed_return_codes ::
-     Ptr.Ptr FC.CChar
+     HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
      {- ^
 
         [__@input@ /(input)/__]: Input string
@@ -505,7 +506,7 @@ foreign import ccall safe "hs_bindgen_294db77671f95524" my_memcpy ::
 
      __C declaration:__ @dest@
      -}
-  -> Ptr.Ptr Void
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
      {- ^
 
         [__@src@ /(input)/__]: Source buffer (restrict)
@@ -628,7 +629,7 @@ foreign import ccall safe "hs_bindgen_c4e7e99dba20204d" complex_function ::
 
      __C declaration:__ @config@
      -}
-  -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8
      {- ^ __C declaration:__ @data'@
      -}
   -> HsBindgen.Runtime.Prelude.CSize

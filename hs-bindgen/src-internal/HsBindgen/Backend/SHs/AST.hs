@@ -122,6 +122,11 @@ data Global =
     -- Unsafe
   | IO_unsafePerformIO
 
+    -- ConstPtr
+  | ConstPtr_type
+  | ConstPtr_constructor
+  | ConstPtr_unConstPtr
+
     -- Other type classes
   | Bits_class
   | Bounded_class

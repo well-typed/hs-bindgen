@@ -10,6 +10,7 @@ import Foreign.C.Types
 import HsBindgen.Runtime.ConstantArray as CA
 import HsBindgen.Runtime.FlexibleArrayMember
 import HsBindgen.Runtime.HasCField
+import HsBindgen.Runtime.ConstPtr
 import HsBindgen.Runtime.Ptr
 
 import Manual.Tools
@@ -148,7 +149,7 @@ withDrawing shape colour k =
 transpose :: Ptr Gen.Matrix -> Ptr Gen.Matrix -> IO ()
 transpose inputPtr outputPtr =
     Gen.transpose_wrapper
-      inputPtr.un_Matrix.toFirstElemPtr
+      (ConstPtr inputPtr.un_Matrix.toFirstElemPtr)
       outputPtr.un_Matrix.toFirstElemPtr
 
 instance HasFlexibleArrayLength CChar Gen.Vector where

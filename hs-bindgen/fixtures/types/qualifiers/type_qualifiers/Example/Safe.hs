@@ -7,6 +7,7 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -30,7 +31,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
     __unique:__ @test_typesqualifierstype_qualifie_Example_Safe_list_example@
 -}
 foreign import ccall safe "hs_bindgen_32187cc02676ee72" list_example ::
-     Ptr.Ptr (Ptr.Ptr FC.CChar)
+     Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
      {- ^ __C declaration:__ @items@
      -}
   -> HsBindgen.Runtime.Prelude.CSize
