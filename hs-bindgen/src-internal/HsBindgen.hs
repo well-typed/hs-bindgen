@@ -93,6 +93,7 @@ hsBindgenE
           frontendArtefact
           backendArtefact
           artefacts
+
   where
     tracerConfigSafe :: TracerConfig SafeLevel a
     tracerConfigSafe = TracerConfig {
@@ -102,6 +103,9 @@ hsBindgenE
       , tShowTimeStamp  = tShowTimeStamp tracerConfig
       , tShowCallStack  = tShowCallStack tracerConfig
       }
+
+-- eitherErrorOrIOActions <- withTracer $ \tracer -> runArtefact ...
+-- checkPolicy actions
 
 {-------------------------------------------------------------------------------
   Custom build artefacts
