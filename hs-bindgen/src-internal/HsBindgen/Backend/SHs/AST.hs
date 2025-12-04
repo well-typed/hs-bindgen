@@ -10,8 +10,6 @@ module HsBindgen.Backend.SHs.AST (
     SAlt (..),
     PatExpr (..),
     SDecl (..),
-    ByCategory(..),
-    mapByCategory,
     Pragma (..),
     ClosedType,
     SType (..),
@@ -29,8 +27,6 @@ module HsBindgen.Backend.SHs.AST (
     PatternSynonym (..),
 ) where
 
-import Data.Map qualified as Map
-
 import C.Char qualified as CExpr.Runtime
 
 import HsBindgen.Backend.Hs.AST.Strategy qualified as Hs
@@ -39,7 +35,6 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Config.Prelims
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -287,8 +282,8 @@ data SAlt ctx where
 deriving stock instance Show (SAlt ctx)
 
 -- | Simple declarations
-data SDecl =
-    DVar Var
+data SDecl
+  = DVar Var
   | DInst Instance
   | DRecord Record
   | DNewtype Newtype
@@ -299,12 +294,6 @@ data SDecl =
   | DPatternSynonym PatternSynonym
   | DPragma Pragma
   deriving stock (Show)
-
-newtype ByCategory a = ByCategory { unByCategory :: Map BindingCategory a }
-  deriving newtype (Functor, Foldable, Show)
-
-mapByCategory :: (BindingCategory -> a -> b) -> ByCategory a -> ByCategory b
-mapByCategory f = ByCategory . Map.mapWithKey f . unByCategory
 
 type ClosedType = SType EmptyCtx
 
@@ -335,7 +324,7 @@ data Var = Var {
     , varExpr    :: ClosedExpr
     , varComment :: Maybe HsDoc.Comment
     }
-  deriving stock (Show)
+  deriving stock (Show, Generic)
 
 data Instance = Instance {
       instanceClass   :: Global

@@ -4,10 +4,11 @@ module HsBindgen.Backend
   , BackendMsg(..)
   ) where
 
+import HsBindgen.Backend.Category
+import HsBindgen.Backend.Category.ApplyChoice
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Translation qualified as Hs
-import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Simplify qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
@@ -29,26 +30,22 @@ backend :: Tracer BackendMsg
   -> IO BackendArtefact
 backend tracer BackendConfig{..} BootArtefact{..} FrontendArtefact{..} = do
     -- 1. Reified C declarations to @Hs@ declarations.
-    backendHsDecls <- cache $
+    backendHsDeclsAll <- cache $
       Hs.generateDeclarations
         backendTranslationConfig
         backendHaddockConfig
         moduleBaseName <$> frontendIndex
                        <*> frontendCDecls
 
+    backendHsDecls <- cache $ do
+      decls <- backendHsDeclsAll
+      pure $ applyBindingCategoryChoice backendBindingCategoryChoice decls
+
     -- 2. @Hs@ declarations to simple @Hs@ declarations.
     sHsDecls <- cache $ SHs.translateDecls <$> backendHsDecls
 
     -- 3. Simplify.
     backendFinalDecls <- cache $ SHs.simplifySHs <$> sHsDecls
-
-    -- 4. Translate to modules.
-    backendFinalModuleSafe <- cache $
-      translateModuleSingle SHs.Safe moduleBaseName <$> backendFinalDecls
-    backendFinalModuleUnsafe <- cache $
-      translateModuleSingle SHs.Unsafe moduleBaseName <$> backendFinalDecls
-    backendFinalModules <- cache $
-      translateModuleMultiple moduleBaseName <$> backendFinalDecls
 
     pure $ BackendArtefact {
       backendFinalModuleBaseName = moduleBaseName
@@ -65,12 +62,9 @@ backend tracer BackendConfig{..} BootArtefact{..} FrontendArtefact{..} = do
 -------------------------------------------------------------------------------}
 
 data BackendArtefact = BackendArtefact {
-    backendHsDecls             :: IO (SHs.ByCategory [Hs.Decl])
-  , backendFinalDecls          :: IO (SHs.ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
+    backendHsDecls             :: IO (ByCategory_ [Hs.Decl])
+  , backendFinalDecls          :: IO (ByCategory_ ([UserlandCapiWrapper], [SHs.SDecl]))
   , backendFinalModuleBaseName :: BaseModuleName
-  , backendFinalModuleSafe     :: IO HsModule
-  , backendFinalModuleUnsafe   :: IO HsModule
-  , backendFinalModules        :: IO (SHs.ByCategory HsModule)
   }
 
 {-------------------------------------------------------------------------------

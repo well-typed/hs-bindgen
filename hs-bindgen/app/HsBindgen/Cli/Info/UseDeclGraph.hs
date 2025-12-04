@@ -64,5 +64,5 @@ parseOutput' = strOption $ mconcat [
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = writeUseDeclGraph output
-        bindgenConfig = toBindgenConfig config uniqueId baseModuleName
+        bindgenConfig = toBindgenConfig config uniqueId baseModuleName def
     void $ hsBindgen tracerConfig bindgenConfig inputs artefact

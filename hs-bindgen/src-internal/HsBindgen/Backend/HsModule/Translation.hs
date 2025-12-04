@@ -10,13 +10,13 @@ module HsBindgen.Backend.HsModule.Translation (
     -- * Translation
   , translateModuleMultiple
   , translateModuleSingle
-  , mergeDecls
   ) where
 
 import Data.Foldable qualified as Foldable
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type qualified as Hs
@@ -70,46 +70,28 @@ data HsModule = HsModule {
 
 translateModuleMultiple ::
      BaseModuleName
-  -> ByCategory ([UserlandCapiWrapper], [SDecl])
-  -> ByCategory HsModule
+  -> ByCategory_ ([UserlandCapiWrapper], [SDecl])
+  -> ByCategory_ (Maybe HsModule)
 translateModuleMultiple moduleBaseName declsByCat =
-  mapByCategory go declsByCat
+    mapWithCategory_ go declsByCat
   where
-    go :: BindingCategory -> ([UserlandCapiWrapper], [SDecl]) -> HsModule
-    go cat (wrappers, decls) =
-      translateModule' (Just cat) moduleBaseName wrappers decls
+    go :: Category -> ([UserlandCapiWrapper], [SDecl]) -> Maybe HsModule
+    go _ ([], []) = Nothing
+    go cat xs     = Just $ translateModule' (Just cat) moduleBaseName xs
 
 translateModuleSingle ::
-     Safety
-  -> BaseModuleName
-  -> ByCategory ([UserlandCapiWrapper], [SDecl])
+     BaseModuleName
+  -> ByCategory_ ([UserlandCapiWrapper], [SDecl])
   -> HsModule
-translateModuleSingle safety name declsByCat =
-  translateModule' Nothing name wrappers decls
-  where
-    wrappers :: [UserlandCapiWrapper]
-    decls :: [SDecl]
-    (wrappers, decls) = mergeDecls safety declsByCat
-
-mergeDecls ::
-  Safety
-  -> ByCategory ([UserlandCapiWrapper], [SDecl])
-  -> ([UserlandCapiWrapper], [SDecl])
-mergeDecls safety declsByCat =
-    Foldable.fold $ ByCategory $ removeSafetyCategory $ unByCategory declsByCat
-  where
-    safetyToRemove = case safety of
-      Safe   -> BUnsafe
-      Unsafe -> BSafe
-    removeSafetyCategory = Map.filterWithKey (\k _ -> k /= safetyToRemove)
+translateModuleSingle name declsByCat =
+    translateModule' Nothing name $ Foldable.fold declsByCat
 
 translateModule' ::
-     Maybe BindingCategory
+     Maybe Category
   -> BaseModuleName
-  -> [UserlandCapiWrapper]
-  -> [SDecl]
+  -> ([UserlandCapiWrapper], [SDecl])
   -> HsModule
-translateModule' mcat moduleBaseName hsModuleUserlandCapiWrappers hsModuleDecls =
+translateModule' mcat moduleBaseName (hsModuleUserlandCapiWrappers, hsModuleDecls) =
     let hsModulePragmas =
           resolvePragmas hsModuleUserlandCapiWrappers hsModuleDecls
         hsModuleImports =
@@ -151,7 +133,7 @@ resolveDeclPragmas decl =
 -- | Resolve imports in a list of declarations
 resolveImports ::
      BaseModuleName
-  -> Maybe BindingCategory
+  -> Maybe Category
   -> [UserlandCapiWrapper]
   -> [SDecl]
   -> [ImportListItem]
@@ -169,10 +151,10 @@ resolveImports baseModule cat wrappers ds =
     bindingCatImport False = mempty
     bindingCatImport True = case cat of
       Nothing    -> mempty
-      Just BType -> mempty
+      Just CType -> mempty
       _otherCat  ->
         let base = HsImportModule{
-                hsImportModuleName  = fromBaseModuleName baseModule (Just BType)
+                hsImportModuleName  = fromBaseModuleName baseModule (Just CType)
               , hsImportModuleAlias = Nothing
               }
         in  Set.singleton $ UnqualifiedImportListItem base Nothing

@@ -17,14 +17,15 @@ module HsBindgen
 
 import Control.Monad (join)
 import Control.Monad.Trans.Reader (ask)
-import Data.Map qualified as Map
+import Optics.Core (view)
 import System.Directory (createDirectoryIfMissing)
 import System.FilePath (takeDirectory, (</>))
 
 import HsBindgen.Artefact
 import HsBindgen.Backend
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.HsModule.Render
-import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
 import HsBindgen.Config.Internal
@@ -109,25 +110,26 @@ writeUseDeclGraph mPath = do
          $ UseDeclGraph.dumpMermaid index useDeclGraph
 
 -- | Get bindings (single module).
-getBindings :: Safety -> Artefact String
-getBindings safety = do
-    finalModule <- finalModuleArtefact
-    Lift $ pure . render $ finalModule
-  where finalModuleArtefact = case safety of
-          Safe   -> FinalModuleSafe
-          Unsafe -> FinalModuleUnsafe
+getBindings :: Artefact String
+getBindings = do
+    name  <- FinalModuleBaseName
+    decls <- FinalDecls
+    pure $ render $ translateModuleSingle name decls
 
 -- | Write bindings to file.
 --
 -- If no file is given, print to standard output.
-writeBindings :: Safety -> Maybe FilePath -> Artefact ()
-writeBindings safety mPath = do
-    bindings <- getBindings safety
+writeBindings :: Maybe FilePath -> Artefact ()
+writeBindings mPath = do
+    bindings <- getBindings
     Lift $ write "bindings" mPath bindings
 
 -- | Get bindings (one module per binding category).
-getBindingsMultiple :: Artefact (ByCategory String)
-getBindingsMultiple = fmap render <$> FinalModules
+getBindingsMultiple :: Artefact (ByCategory_ (Maybe String))
+getBindingsMultiple = do
+  name  <- FinalModuleBaseName
+  decls <- FinalDecls
+  pure $ fmap render <$> translateModuleMultiple name decls
 
 -- | Write bindings to files in provided output directory.
 --
@@ -154,11 +156,11 @@ writeBindingSpec path = do
   liftIO $
     genBindingSpec
       target
-      (fromBaseModuleName moduleBaseName (Just BType))
+      (fromBaseModuleName moduleBaseName (Just CType))
       path
       getMainHeaders
       omitTypes
-      (fromMaybe [] (Map.lookup BType $ unByCategory hsDecls))
+      (view (lensForCategory CType) hsDecls)
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
@@ -190,13 +192,14 @@ writeByCategory ::
      String
   -> FilePath
   -> BaseModuleName
-  -> ByCategory String
+  -> ByCategory_ (Maybe String)
   -> ArtefactM ()
 writeByCategory what hsOutputDir moduleBaseName =
-    mapM_ (uncurry writeCategory) . Map.toList . unByCategory
+    sequence_ . mapWithCategory_ writeCategory
   where
-    writeCategory :: BindingCategory -> String -> ArtefactM ()
-    writeCategory cat str = do
+    writeCategory :: Category -> Maybe String -> ArtefactM ()
+    writeCategory _    Nothing   = pure ()
+    writeCategory cat (Just str) = do
         write whatWithCategory (Just path) str
       where
         moduleName :: Hs.ModuleName

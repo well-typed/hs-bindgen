@@ -24,7 +24,7 @@ import Text.Read (readMaybe)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.Category (useSafeCategory)
 import HsBindgen.Config
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
@@ -73,7 +73,6 @@ data Lit = Lit {
     , config         :: Config
     , uniqueId       :: UniqueId
     , baseModuleName :: BaseModuleName
-    , safety         :: Safety
     , inputs         :: [UncheckedHashIncludeArg]
     }
 
@@ -83,21 +82,7 @@ parseLit = Lit
   <*> parseConfig
   <*> parseUniqueId
   <*> parseBaseModuleName
-  <*> parseSafety
   <*> parseInputs
-
-parseSafety :: Parser Safety
-parseSafety = asum [
-      flag' Safe $ mconcat [
-          long "safe"
-        , help "Use _safe_ foreign function imports (default)"
-        ]
-    , flag' Unsafe $ mconcat [
-          long "unsafe"
-        , help "Use _unsafe_ foreign function imports"
-        ]
-    , pure Safe
-    ]
 
 {-------------------------------------------------------------------------------
   Execution
@@ -110,9 +95,12 @@ exec literateOpts = do
     Lit{..} <- maybe (throwIO' "cannot parse arguments in literate file") return $
       pureParseLit args
     let GlobalOpts{..} = globalOpts
-        bindgenConfig = toBindgenConfig config uniqueId baseModuleName
+        -- TODO https://github.com/well-typed/hs-bindgen/issues/1328: Which command
+        -- line options to adjust the binding category predicate do we want to
+        -- provide?
+        bindgenConfig = toBindgenConfig config uniqueId baseModuleName useSafeCategory
     void $ hsBindgen tracerConfig bindgenConfig inputs $
-      writeBindings safety (Just literateOpts.output)
+      writeBindings (Just literateOpts.output)
   where
     throwIO' :: String -> IO a
     throwIO' = throwIO . LiterateFileException literateOpts.input

@@ -57,5 +57,5 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = writeTests output
-        bindgenConfig = toBindgenConfig config uniqueId def
+        bindgenConfig = toBindgenConfig config uniqueId def def
     void $ hsBindgen tracerConfig bindgenConfig inputs artefact

@@ -2,8 +2,8 @@
 module Test.HsBindgen.Golden.Check.PP (check) where
 
 import Control.Monad (when)
-import Data.Map.Strict qualified as Map
 import Data.Maybe (fromMaybe)
+import Optics.Core (view)
 import System.Directory (createDirectoryIfMissing)
 import System.FilePath ((</>))
 import Test.Common.Util.Tasty
@@ -14,7 +14,7 @@ import Test.Tasty
 
 import HsBindgen (getBindingsMultiple)
 import HsBindgen hiding (getBindingsMultiple)
-import HsBindgen.Backend.SHs.AST (ByCategory (..))
+import HsBindgen.Backend.Category
 import HsBindgen.Config.Prelims
 import HsBindgen.Errors (panicIO)
 import HsBindgen.Language.Haskell qualified as Hs
@@ -34,7 +34,7 @@ check testResources test =
           -- it can render all modules at the same time, but it's cheap to do so
           -- in practice.
           let artefacts = (,) <$> FinalModuleBaseName <*> getBindingsMultiple
-          (baseName,(ByCategory output))
+          (baseName, output)
             <- runTestHsBindgen report testResources test artefacts
 
           -- A sanity check to make sure that that the modules we're rendering
@@ -42,11 +42,13 @@ check testResources test =
           when (baseName /= "Example") $
             panicIO "The module base name should be Example!"
 
+
           -- Render the Haskell module
-          let ppOutput = fromMaybe (renderEmptyModule bc) (output Map.!? bc)
+          let ppOutput =
+                fromMaybe (renderEmptyModule bc) (view (lensForCategory bc) output)
           return $ ActualValue ppOutput
 
-      | (bc :: BindingCategory) <- [minBound .. maxBound]
+      | (bc :: Category) <- allCategories
       ]
   where
     -- === Filepaths
@@ -71,7 +73,7 @@ check testResources test =
           (\_ -> k)
 
     -- | The names of sub-modules are based solely on the binding category
-    fixture :: BindingCategory -> FilePath
+    fixture :: Category -> FilePath
     fixture bc = testOutputDir test </> Hs.moduleNamePath moduleName
       where
         moduleName :: Hs.ModuleName
@@ -85,7 +87,7 @@ check testResources test =
     -- compile!) with the correct module name.
 
     -- | Render an empty module
-    renderEmptyModule :: BindingCategory -> String
+    renderEmptyModule :: Category -> String
     renderEmptyModule bc = concat [
           "module "
         , Hs.moduleNameToString moduleName
