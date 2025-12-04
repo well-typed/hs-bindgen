@@ -1,17 +1,24 @@
 module HsBindgen.Artefact (
-    -- * Artefact
+    -- * Artefacts
     Artefact(..)
   , runArtefacts
+    -- * Traces
   , ArtefactMsg(..)
-    -- ** Error
+    -- * Errors
   , RunArtefactError(..)
   , FileSystemError(..)
-    -- * ArtefactM
+    -- * Policies
+  , FileOverwritePolicy(..)
+  , OutputDirPolicy(..)
+    -- * File descriptions
+  , FileDescription(..)
+  , FileLocation(..)
+  , RelativeToOutputDir(..)
+  , FileContent(..)
+    -- * Artefact monad
   , ArtefactM -- opaque
   , ArtefactEnv(..)
     -- ** Actions
-  , FileContent(..)
-  , delayMkDir
   , delayWriteFile
   )
 where
@@ -24,7 +31,7 @@ import Control.Monad.State (StateT (..), modify)
 import Data.IORef (IORef)
 import System.Directory (createDirectoryIfMissing, doesDirectoryExist,
                          doesFileExist)
-import System.FilePath (takeDirectory)
+import System.FilePath (takeDirectory, (</>))
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
@@ -101,55 +108,6 @@ instance MonadIO Artefact where
   liftIO = Lift . liftIO
 
 {-------------------------------------------------------------------------------
-  Artefact monad
--------------------------------------------------------------------------------}
-
-newtype ArtefactM a = WrapArtefactM {
-    unwrapArtefactM ::
-      StateT [FileSystemAction]
-        (ReaderT ArtefactEnv
-          (ExceptT AnErrorHappened IO))
-        a
-  }
-  deriving newtype (
-      Functor
-    , Applicative
-    , Monad
-    , MonadIO
-    , MonadError AnErrorHappened
-    )
-
-data ArtefactEnv = ArtefactEnv {
-      artefactTracer :: Tracer ArtefactMsg
-    }
-
--- | A file system action to be executed
-data FileSystemAction =
-      MkDir FilePath
-    | WriteFile String FilePath FileContent
-
-runArtefactM ::
-  ArtefactEnv -> ArtefactM a -> ExceptT AnErrorHappened IO (a, [FileSystemAction])
-runArtefactM env = flip runReaderT env . flip runStateT [] . unwrapArtefactM
-
--- * Delayed directory create.
-delayMkDir :: FilePath -> ArtefactM ()
-delayMkDir fp =
-  WrapArtefactM $ modify (MkDir fp :)
-
--- * Delayed directory create.
-delayWriteFile :: String -> FilePath -> FileContent -> ArtefactM ()
-delayWriteFile what fp content =
-  WrapArtefactM $ modify (WriteFile what fp content :)
-
--- | Content to be written to a file
---
-data FileContent
-    = TextContent String
-    | BindingSpecContent UnresolvedBindingSpec
-    deriving Show
-
-{-------------------------------------------------------------------------------
   Run artefacts
 -------------------------------------------------------------------------------}
 
@@ -160,7 +118,6 @@ data FileContent
 runArtefacts :: forall a.
      Tracer ArtefactMsg
   -> IORef TracerState
-  -> BackendConfig
   -> BootArtefact
   -> FrontendArtefact
   -> BackendArtefact
@@ -169,7 +126,6 @@ runArtefacts :: forall a.
 runArtefacts
   tracerSafe
   tracerUnsafeStateRef
-  BackendConfig{..}
   BootArtefact{..}
   FrontendArtefact{..}
   BackendArtefact{..}
@@ -187,8 +143,7 @@ runArtefacts
 
       -- Before creating directories or writing output files, we verify
       -- adherence to the provided policies.
-      checkOutputDirPolicy     actions
-      checkFileOverwritePolicy actions
+      mapM_ checkPolicy actions
 
       liftIO $ executeFileSystemActions actions
       pure result
@@ -224,60 +179,34 @@ runArtefacts
         Just err -> throwError err
         Nothing  -> pure r
 
-    lookForNonExistingDir :: [FileSystemAction] -> IO (Maybe FilePath)
-    lookForNonExistingDir [] = pure Nothing
-    lookForNonExistingDir (MkDir path : as) = do
-      dirExists <- doesDirectoryExist path
-      if dirExists
-         then lookForNonExistingDir as
-         else pure (Just path)
-    lookForNonExistingDir (_ : as) = lookForNonExistingDir as
-
-    checkOutputDirPolicy :: [FileSystemAction] -> ExceptT RunArtefactError IO ()
-    checkOutputDirPolicy as = do
-      case backendOutputDirPolicy of
-        CreateDirStructure -> pure ()
-        DoNotCreateDirStructure -> do
-          -- Get the first directory path that does not exist if any
-          mbDirPath <- liftIO $ lookForNonExistingDir as
-          case mbDirPath of
-            Nothing -> pure ()
-            Just d  ->
-              let err = FileSystemError (DirectoryDoesNotExist d)
-              in  throwError err
-
-    lookForExistingFile :: [FileSystemAction] -> IO (Maybe FilePath)
-    lookForExistingFile [] = pure Nothing
-    lookForExistingFile (WriteFile _ path _ : as) = do
-      fileExists <- doesFileExist path
-      if fileExists
-         then pure (Just path)
-         else lookForExistingFile as
-    lookForExistingFile (_ : as) = lookForExistingFile as
-
-    checkFileOverwritePolicy :: [FileSystemAction] -> ExceptT RunArtefactError IO ()
-    checkFileOverwritePolicy as = do
-      case backendFileOverwrite of
-        AllowFileOverwrite -> pure ()
-        ProtectExistingFiles -> do
-          -- Get the first file path that exists if any
-          mbFilePath <- liftIO $ lookForExistingFile as
-          case mbFilePath of
-            Nothing -> pure ()
-            Just f  ->
-              let err = FileSystemError (FileAlreadyExists f)
-              in  throwError err
+    checkPolicy :: FileSystemAction -> ExceptT RunArtefactError IO ()
+    checkPolicy (WriteFile fd) = case fd.location of
+      UserSpecified path -> do
+        let baseDir = takeDirectory path
+        dirExists  <- liftIO $ doesDirectoryExist baseDir
+        fileExists <- liftIO $ doesFileExist path
+        unless dirExists $
+          throwError $ FileSystemError $ DirectoryDoesNotExist baseDir
+        when (fileExists && fd.fileOverwritePolicy == DoNotOverwriteFiles) $
+          throwError $ FileSystemError $ FileAlreadyExists path
+      RelativeFileLocation RelativeToOutputDir{..} -> do
+        let path = outputDir </> localPath
+        dirExists  <- liftIO $ doesDirectoryExist outputDir
+        fileExists <- liftIO $ doesFileExist path
+        unless (dirExists || outputDirPolicy == CreateOutputDirs ) $
+          throwError $ FileSystemError $ DirectoryDoesNotExist outputDir
+        when (fileExists && fd.fileOverwritePolicy == DoNotOverwriteFiles) $
+          throwError $ FileSystemError $ FileAlreadyExists path
 
     executeFileSystemActions :: [FileSystemAction] -> IO ()
     executeFileSystemActions as =
       forM_ as $ \case
-        MkDir outputDir -> do
-          traceWith tracerSafe $ RunArtefactCreateDir outputDir
-          createDirectoryIfMissing True outputDir
-        WriteFile what path content -> do
-          traceWith tracerSafe $ RunArtefactWriteFile path what
+        WriteFile fd -> do
+          let path = fileLocationToPath fd.location
+          traceWith tracerSafe $ RunArtefactWriteFile path fd.description
+          -- Creating the directory is justified by checking the policy first.
           createDirectoryIfMissing True (takeDirectory path)
-          case content of
+          case fd.content of
             TextContent str        -> writeFile path str
             BindingSpecContent ubs -> BindingSpec.writeFile path ubs
 
@@ -322,7 +251,7 @@ instance PrettyForTrace RunArtefactError where
 
 data FileSystemError =
       DirectoryDoesNotExist FilePath
-    | FileAlreadyExists      FilePath
+    | FileAlreadyExists     FilePath
   deriving Show
 
 instance PrettyForTrace FileSystemError where
@@ -335,3 +264,95 @@ instance PrettyForTrace FileSystemError where
         "Output file already exists:" <+> PP.string fp
       , "Use --overwrite-files to allow overwriting existing files, or delete the file manually."
       ]
+
+{-------------------------------------------------------------------------------
+  Policies
+-------------------------------------------------------------------------------}
+
+data FileOverwritePolicy
+  = AllowFileOverwrite
+  | DoNotOverwriteFiles
+  deriving (Show, Eq)
+
+instance Default FileOverwritePolicy where
+  def = DoNotOverwriteFiles
+
+data OutputDirPolicy
+  = CreateOutputDirs
+  | DoNotCreateOutputDirs
+  deriving (Show, Eq)
+
+instance Default OutputDirPolicy where
+  def = DoNotCreateOutputDirs
+
+{-------------------------------------------------------------------------------
+  File description
+-------------------------------------------------------------------------------}
+
+data FileDescription = FileDescription {
+      description         :: String
+    , location            :: FileLocation
+    , fileOverwritePolicy :: FileOverwritePolicy
+    , content             :: FileContent
+    }
+
+data FileLocation =
+      -- | We never create directories for user-specified file paths.
+      UserSpecified FilePath
+    | RelativeFileLocation RelativeToOutputDir
+
+data RelativeToOutputDir = RelativeToOutputDir {
+      outputDir       :: FilePath
+    , localPath       :: FilePath
+    , outputDirPolicy :: OutputDirPolicy
+    }
+
+fileLocationToPath :: FileLocation -> FilePath
+fileLocationToPath = \case
+  UserSpecified p -> p
+  RelativeFileLocation (RelativeToOutputDir d p _) -> d </> p
+
+-- | Content to be written to a file
+--
+data FileContent
+    = TextContent String
+    | BindingSpecContent UnresolvedBindingSpec
+    deriving Show
+
+{-------------------------------------------------------------------------------
+  Artefact monad
+-------------------------------------------------------------------------------}
+
+newtype ArtefactM a = WrapArtefactM {
+    unwrapArtefactM ::
+      StateT [FileSystemAction]
+        (ReaderT ArtefactEnv
+          (ExceptT AnErrorHappened IO))
+        a
+  }
+  deriving newtype (
+      Functor
+    , Applicative
+    , Monad
+    , MonadIO
+    , MonadError AnErrorHappened
+    )
+
+data ArtefactEnv = ArtefactEnv {
+      artefactTracer :: Tracer ArtefactMsg
+    }
+
+runArtefactM ::
+  ArtefactEnv -> ArtefactM a -> ExceptT AnErrorHappened IO (a, [FileSystemAction])
+runArtefactM env = flip runReaderT env . flip runStateT [] . unwrapArtefactM
+
+{-------------------------------------------------------------------------------
+  Actions
+-------------------------------------------------------------------------------}
+
+-- | Delayed directory create.
+delayWriteFile :: FileDescription -> ArtefactM ()
+delayWriteFile fd = WrapArtefactM $ modify (WriteFile fd :)
+
+-- | A file system action to be executed
+data FileSystemAction = WriteFile FileDescription

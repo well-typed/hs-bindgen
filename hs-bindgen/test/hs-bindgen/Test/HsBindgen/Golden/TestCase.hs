@@ -247,7 +247,7 @@ runTestHsBindgen report testResources test artefacts = do
         backendConfig  = getTestBackendConfig test
         bindgenConfig  = BindgenConfig bootConfig frontendConfig backendConfig
     withTestTraceConfig report test $ \traceConfig ->
-      hsBindgen_
+      hsBindgenE
         traceConfig
         bindgenConfig
         [testInputInclude test]

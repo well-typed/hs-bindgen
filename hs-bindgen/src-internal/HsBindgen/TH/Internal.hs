@@ -224,8 +224,6 @@ toBindgenConfigTH packageRoot config = do
         bindgenConfig =
           toBindgenConfig
             (toFilePath packageRoot <$> config)
-            def
-            def
             uniqueId
             hsModuleName
     pure bindgenConfig

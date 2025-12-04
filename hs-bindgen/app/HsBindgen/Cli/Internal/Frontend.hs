@@ -18,6 +18,7 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
+import HsBindgen.Artefact
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
 
@@ -56,5 +57,5 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = ReifiedC >>= liftIO . print
-        bindgenConfig = toBindgenConfig config DoNotCreateDirStructure fileOverwritePolicy uniqueId baseModuleName
+        bindgenConfig = toBindgenConfig config uniqueId baseModuleName
     hsBindgen tracerConfig bindgenConfig inputs artefact

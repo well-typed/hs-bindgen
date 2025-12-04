@@ -17,7 +17,7 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.Artefact (delayMkDir)
+import HsBindgen.Artefact
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.RootHeader
@@ -68,13 +68,12 @@ exec GlobalOpts{..} Opts{..} =
     void $ run $ artefacts
   where
     bindgenConfig :: BindgenConfig
-    bindgenConfig = toBindgenConfig config outputDirPolicy fileOverwritePolicy uniqueId baseModuleName
+    bindgenConfig = toBindgenConfig config uniqueId baseModuleName
 
     run :: Artefact a -> IO a
     run = hsBindgen tracerConfig bindgenConfig inputs
 
     artefacts :: Artefact ()
     artefacts = do
-        Lift $ delayMkDir hsOutputDir
-        writeBindingsMultiple hsOutputDir
-        forM_ outputBindingSpec writeBindingSpec
+        writeBindingsMultiple fileOverwritePolicy outputDirPolicy hsOutputDir
+        forM_ outputBindingSpec (writeBindingSpec fileOverwritePolicy)
