@@ -158,9 +158,11 @@ genBindingSpec'
             hsIdentifier = Hs.Identifier $ Hs.getName (Hs.structName hsStruct)
             cTypeSpec = BindingSpec.CTypeSpec {
                 cTypeSpecIdentifier = Just hsIdentifier
+              , cTypeSpecRep        = Nothing  -- TODO implement
               }
             hsTypeSpec = BindingSpec.HsTypeSpec {
-                hsTypeSpecInstances =
+                hsTypeSpecRep = Nothing -- TODO implement
+              , hsTypeSpecInstances =
                   mkInstSpecs
                     ( maybe Map.empty BindingSpec.hsTypeSpecInstances
                     . C.declSpecHs
@@ -186,8 +188,12 @@ genBindingSpec'
           hsIdentifier = Hs.Identifier $ Hs.getName (Hs.emptyDataName edata)
           cTypeSpec = BindingSpec.CTypeSpec {
               cTypeSpecIdentifier = Just hsIdentifier
+            , cTypeSpecRep        = Nothing  -- TODO implement
             }
-          hsTypeSpec = def
+          hsTypeSpec = BindingSpec.HsTypeSpec {
+              hsTypeSpecRep       = Just BindingSpec.HsTypeRepOpaque
+            , hsTypeSpecInstances = Map.empty
+            }
       in  ( (cQualName, getHeaders declInfo, cTypeSpec)
           , (hsIdentifier, hsTypeSpec)
           )
@@ -209,9 +215,11 @@ genBindingSpec'
           hsIdentifier = Hs.Identifier $ Hs.getName (Hs.newtypeName hsNewtype)
           cTypeSpec = BindingSpec.CTypeSpec {
               cTypeSpecIdentifier = Just hsIdentifier
+            , cTypeSpecRep        = Nothing  -- TODO implement
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
-              hsTypeSpecInstances =
+              hsTypeSpecRep = Nothing -- TODO implement
+            , hsTypeSpecInstances =
                 mkInstSpecs
                   ( maybe Map.empty BindingSpec.hsTypeSpecInstances
                   . C.declSpecHs

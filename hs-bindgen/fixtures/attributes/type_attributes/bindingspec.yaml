@@ -98,6 +98,7 @@ hstypes:
   - Show
   - Storable
 - hsname: Wait
+  representation: opaque
 - hsname: Wait_status_ptr_t
   instances:
   - Storable
