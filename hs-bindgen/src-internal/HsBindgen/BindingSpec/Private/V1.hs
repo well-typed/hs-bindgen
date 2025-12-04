@@ -248,26 +248,32 @@ data HsTypeRep =
 
 -- | Haskell record representation
 data HsRecordRep = HsRecordRep {
-      -- | Field names
-      hsRecordRepFields :: Maybe [Hs.Identifier]
+      -- | Constructor name
+      hsRecordRepConstructor :: Maybe Hs.Identifier
+    , -- | Field names
+      hsRecordRepFields      :: Maybe [Hs.Identifier]
     }
   deriving stock (Show, Eq, Ord, Generic)
 
 instance Default HsRecordRep where
   def = HsRecordRep {
-      hsRecordRepFields = Nothing
+      hsRecordRepConstructor = Nothing
+    , hsRecordRepFields      = Nothing
     }
 
 -- | Haskell newtype representation
 data HsNewtypeRep = HsNewtypeRep {
-      -- | Field name
-      hsNewtypeRepField :: Maybe Hs.Identifier
+      -- | Constructor name
+      hsNewtypeRepConstructor :: Maybe Hs.Identifier
+    , -- | Field name
+      hsNewtypeRepField       :: Maybe Hs.Identifier
     }
   deriving stock (Show, Eq, Ord, Generic)
 
 instance Default HsNewtypeRep where
   def = HsNewtypeRep {
-      hsNewtypeRepField = Nothing
+      hsNewtypeRepConstructor = Nothing
+    , hsNewtypeRepField       = Nothing
     }
 
 {-------------------------------------------------------------------------------
@@ -494,6 +500,14 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
       "representation"        -> 14
       -- AHsTypeSpecMapping:3
       "instances"             -> 15
+      -- AHsTypeRep:1
+      "record"                -> 16
+      -- AHsTypeRep:2
+      "newtype"               -> 17
+      -- HsRecordRep:1, HsNewtypeRep:1
+      "constructor"           -> 18
+      -- HsRecordRep:2, HsNewtypeRep:2
+      "fields"                -> 19
       key -> panicPure $ "Unknown key: " ++ show key
 
 {-------------------------------------------------------------------------------
@@ -832,11 +846,13 @@ instance Aeson.FromJSON AHsTypeRep where
 
       parseHsRecordRep :: Aeson.Value -> Aeson.Parser HsRecordRep
       parseHsRecordRep = Aeson.withObject "HsRecordRep" $ \o -> do
-        hsRecordRepFields <- o .:? "fields"
+        hsRecordRepConstructor <- o .:? "constructor"
+        hsRecordRepFields      <- o .:? "fields"
         return HsRecordRep{..}
 
       parseHsNewtypeRep :: Aeson.Value -> Aeson.Parser HsNewtypeRep
       parseHsNewtypeRep = Aeson.withObject "HsNewtypeRep" $ \o -> do
+        hsNewtypeRepConstructor <- o .:? "constructor"
         fields <- o .:? "fields"
         hsNewtypeRepField <- case fields of
           Nothing          -> return Nothing
@@ -852,20 +868,24 @@ instance Aeson.ToJSON AHsTypeRep where
     where
       aux :: HsTypeRep -> Aeson.Value
       aux = \case
-        HsTypeRepRecord hsRecordRep -> case hsRecordRepFields hsRecordRep of
-          Nothing -> Aeson.String "record"
-          Just fieldNames -> Aeson.Object $ KM.fromList [
-              ("record" .=) . Aeson.Object $ KM.fromList [
-                  "fields" .= fieldNames
-                ]
-            ]
-        HsTypeRepNewtype hsNewtypeRep -> case hsNewtypeRepField hsNewtypeRep of
-          Nothing -> Aeson.String "newtype"
-          Just fieldName -> Aeson.Object $ KM.fromList [
-              ("newtype" .=) . Aeson.Object $ KM.fromList [
-                  "fields" .= [fieldName]
-                ]
-            ]
+        HsTypeRepRecord x@HsRecordRep{..}
+          | x == def  -> Aeson.String "record"
+          | otherwise ->
+                Aeson.Object . KM.singleton "record"
+              . Aeson.Object . KM.fromList
+              $ catMaybes [
+                    ("constructor" .=) <$> hsRecordRepConstructor
+                  , ("fields"      .=) <$> hsRecordRepFields
+                  ]
+        HsTypeRepNewtype x@HsNewtypeRep{..}
+          | x == def  -> Aeson.String "newtype"
+          | otherwise ->
+                Aeson.Object . KM.singleton "newtype"
+              . Aeson.Object . KM.fromList
+              $ catMaybes [
+                    ("constructor" .=) <$> hsNewtypeRepConstructor
+                  , ("fields"      .=) <$> fmap (: []) hsNewtypeRepField
+                  ]
         HsTypeRepOpaque -> Aeson.String "opaque"
         HsTypeRepAlias  -> Aeson.String "alias"
 

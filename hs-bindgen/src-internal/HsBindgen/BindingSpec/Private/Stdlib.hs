@@ -57,7 +57,7 @@ bindingSpec = BindingSpec.BindingSpec{..}
     integralTypes :: [(CTypeKV, HsTypeKV)]
     integralTypes =
       let aux (t, hsIdentifier) =
-            mkType t hsIdentifier cD hsN intI ["inttypes.h", "stdint.h"]
+            mkTypeN t hsIdentifier cD intI ["inttypes.h", "stdint.h"]
       in  map aux [
               ("int8_t",         "Int8")
             , ("int16_t",        "Int16")
@@ -99,19 +99,19 @@ bindingSpec = BindingSpec.BindingSpec{..}
 
     mathTypes :: [(CTypeKV, HsTypeKV)]
     mathTypes = [
-        let hsR = mkHsR ["cDivT_quot", "cDivT_rem"]
+        let hsR = mkHsR "CDivT" ["cDivT_quot", "cDivT_rem"]
         in  mkType "div_t"     "CDivT"     cD hsR divI ["stdlib.h"]
-      , let hsR = mkHsR ["cLdivT_quot", "cLdivT_rem"]
+      , let hsR = mkHsR "CLdivT" ["cLdivT_quot", "cLdivT_rem"]
         in  mkType "ldiv_t"    "CLdivT"    cD hsR divI ["stdlib.h"]
-      , let hsR = mkHsR ["cLldivT_quot", "cLldivT_rem"]
+      , let hsR = mkHsR "CLldivT" ["cLldivT_quot", "cLldivT_rem"]
         in  mkType "lldiv_t"   "CLldivT"   cD hsR divI ["stdlib.h"]
-      , let hsR = mkHsR ["cImaxdivT_quot", "cImaxdivT_rem"]
+      , let hsR = mkHsR "CImaxdivT" ["cImaxdivT_quot", "cImaxdivT_rem"]
         in  mkType "imaxdiv_t" "CImaxdivT" cD hsR divI ["inttypes.h"]
       ]
 
     stdTypes :: [(CTypeKV, HsTypeKV)]
     stdTypes = [
-        mkType "size_t" "CSize" cD hsN intI [
+        mkTypeN "size_t" "CSize" cD intI [
             "signal.h"
           , "stddef.h"
           , "stdio.h"
@@ -121,7 +121,7 @@ bindingSpec = BindingSpec.BindingSpec{..}
           , "uchar.h"
           , "wchar.h"
           ]
-      , mkType "ptrdiff_t" "CPtrdiff" cD hsN intI ["stddef.h"]
+      , mkTypeN "ptrdiff_t" "CPtrdiff" cD intI ["stddef.h"]
       ]
 
     nonLocalJumpTypes :: [(CTypeKV, HsTypeKV)]
@@ -131,25 +131,25 @@ bindingSpec = BindingSpec.BindingSpec{..}
 
     wcharTypes :: [(CTypeKV, HsTypeKV)]
     wcharTypes = [
-        mkType "wchar_t" "CWchar" cD hsN intI [
+        mkTypeN "wchar_t" "CWchar" cD intI [
             "inttypes.h"
           , "stddef.h"
           , "stdlib.h"
           , "wchar.h"
           ]
-      , mkType "wint_t"    "CWintT"    cD hsN intI ["wchar.h", "wctype.h"]
-      , mkType "mbstate_t" "CMbstateT" cO hsO []   ["uchar.h", "wchar.h"]
-      , mkType "wctrans_t" "CWctransT" cD hsN eqI  ["wctype.h"]
-      , mkType "wctype_t"  "CWctypeT"  cD hsN eqI  ["wchar.h", "wctype.h"]
-      , mkType "char16_t"  "CChar16T"  cD hsN intI ["uchar.h"]
-      , mkType "char32_t"  "CChar32T"  cD hsN intI ["uchar.h"]
+      , mkTypeN "wint_t"    "CWintT"    cD     intI ["wchar.h", "wctype.h"]
+      , mkType  "mbstate_t" "CMbstateT" cO hsO []   ["uchar.h", "wchar.h"]
+      , mkTypeN "wctrans_t" "CWctransT" cD     eqI  ["wctype.h"]
+      , mkTypeN "wctype_t"  "CWctypeT"  cD     eqI  ["wchar.h", "wctype.h"]
+      , mkTypeN "char16_t"  "CChar16T"  cD     intI ["uchar.h"]
+      , mkTypeN "char32_t"  "CChar32T"  cD     intI ["uchar.h"]
       ]
 
     timeTypes :: [(CTypeKV, HsTypeKV)]
     timeTypes = [
-        mkType "time_t"  "CTime"  cD hsN timeI ["signal.h", "time.h"]
-      , mkType "clock_t" "CClock" cD hsN timeI ["signal.h", "time.h"]
-      , let hsR = mkHsR [
+        mkTypeN "time_t"  "CTime"  cD timeI ["signal.h", "time.h"]
+      , mkTypeN "clock_t" "CClock" cD timeI ["signal.h", "time.h"]
+      , let hsR = mkHsR "CTm" [
                 "cTm_sec"
               , "cTm_min"
               , "cTm_hour"
@@ -171,7 +171,7 @@ bindingSpec = BindingSpec.BindingSpec{..}
 
     signalTypes :: [(CTypeKV, HsTypeKV)]
     signalTypes = [
-        mkType "sig_atomic_t" "CSigAtomic" cD hsN intI ["signal.h"]
+        mkTypeN "sig_atomic_t" "CSigAtomic" cD intI ["signal.h"]
       ]
 
     divI, eqI, intI, timeI :: [Hs.TypeClass]
@@ -213,19 +213,26 @@ bindingSpec = BindingSpec.BindingSpec{..}
   Auxiliary functions
 -------------------------------------------------------------------------------}
 
+-- | Concise alias for the C type 'Map'
 type CTypeMap =
   Map C.QualName [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)]
 
+-- | Concise alias for the key and value tuple corresponding to an entry in a
+-- 'CTypeMap'
 type CTypeKV =
   (C.QualName, [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)])
 
+-- | Concise alias for the Haskell type 'Map'
 type HsTypeMap = Map Hs.Identifier BindingSpec.HsTypeSpec
 
+-- | Concise alias for the key and value tuple corresponding to an entry in a
+-- 'HsTypeMap'
 type HsTypeKV = (Hs.Identifier, BindingSpec.HsTypeSpec)
 
 mkMaps :: [(CTypeKV, HsTypeKV)] -> (CTypeMap, HsTypeMap)
 mkMaps = bimap Map.fromList Map.fromList . unzip
 
+-- | Construct the 'CTypeKV' and 'HsTypeKV' for a type
 mkType ::
      Text
   -> Hs.Identifier
@@ -260,13 +267,44 @@ mkType t hsIdentifier cTypeRep hsTypeRep insts headers' =
           ]
       }
 
+-- | Concise aliases for 'BindingSpec.CTypeRepDefault' and
+-- 'BindingSpec.CTypeRepOpaque'
 cD, cO :: BindingSpec.CTypeRep
 cD = BindingSpec.CTypeRepDefault
 cO = BindingSpec.CTypeRepOpaque
 
-mkHsR :: [Hs.Identifier] -> BindingSpec.HsTypeRep
-mkHsR = BindingSpec.HsTypeRepRecord . BindingSpec.HsRecordRep . Just
-
-hsN, hsO :: BindingSpec.HsTypeRep
-hsN = BindingSpec.HsTypeRepNewtype def
+-- | Concise alias for 'BindingSpec.HsTypeRepOpaque'
+hsO :: BindingSpec.HsTypeRep
 hsO = BindingSpec.HsTypeRepOpaque
+
+-- | Construct a 'BindingSpec.HsTypeRepRecord' with the specified constructor
+-- and field names
+mkHsR :: Hs.Identifier -> [Hs.Identifier] -> BindingSpec.HsTypeRep
+mkHsR constructorName fieldNames = BindingSpec.HsTypeRepRecord $
+    BindingSpec.HsRecordRep {
+        hsRecordRepConstructor = Just constructorName
+      , hsRecordRepFields      = Just fieldNames
+      }
+
+-- | Construct a 'BindingSpec.HsTypeRepNewtype' with the specified constructor
+-- name and no field names
+--
+-- The standard @newtype@ types do not have field names.
+mkHsN :: Hs.Identifier -> BindingSpec.HsTypeRep
+mkHsN constructorName = BindingSpec.HsTypeRepNewtype $
+    BindingSpec.HsNewtypeRep {
+        hsNewtypeRepConstructor = Just constructorName
+      , hsNewtypeRepField       = Nothing
+      }
+
+-- | Variant of 'mkType' that creates a 'BindingSpec.HsTypeRepNewtype' where the
+-- constructor has the same name as the type
+mkTypeN ::
+     Text
+  -> Hs.Identifier
+  -> BindingSpec.CTypeRep
+  -> [Hs.TypeClass]
+  -> [FilePath]
+  -> (CTypeKV, HsTypeKV)
+mkTypeN t hsIdentifier cTypeRep insts headers =
+    mkType t hsIdentifier cTypeRep (mkHsN hsIdentifier) insts headers
