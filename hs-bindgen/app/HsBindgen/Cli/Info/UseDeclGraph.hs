@@ -17,6 +17,7 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
+import HsBindgen.Artefact
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
@@ -65,6 +66,6 @@ parseOutput' = strOption $ mconcat [
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
-    let artefact = writeUseDeclGraph output
-        bindgenConfig = toBindgenConfig config DoNotCreateDirStructure fileOverwritePolicy uniqueId baseModuleName
+    let artefact = writeUseDeclGraph fileOverwritePolicy output
+        bindgenConfig = toBindgenConfig config uniqueId baseModuleName
     void $ hsBindgen tracerConfig bindgenConfig inputs artefact

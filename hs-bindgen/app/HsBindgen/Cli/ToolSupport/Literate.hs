@@ -24,6 +24,7 @@ import Text.Read (readMaybe)
 
 import HsBindgen
 import HsBindgen.App
+import HsBindgen.Artefact
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config
 import HsBindgen.Errors
@@ -107,24 +108,22 @@ parseSafety = asum [
 -------------------------------------------------------------------------------}
 
 exec :: Opts -> IO ()
-exec literateOpts = do
+exec Opts{..} = do
     args <- maybe (throwIO' "cannot parse literate file") return . readMaybe
-      =<< readFile literateOpts.input
+      =<< readFile input
     Lit{..} <- maybe (throwIO' "cannot parse arguments in literate file") return $
       pureParseLit args
     let GlobalOpts{..} = globalOpts
         bindgenConfig =
           toBindgenConfig
             config
-            CreateDirStructure
-            (literateOpts.fileOverwritePolicy )
             uniqueId
             baseModuleName
     void $ hsBindgen tracerConfig bindgenConfig inputs $
-      writeBindings safety (Just literateOpts.output)
+      writeBindings fileOverwritePolicy safety output
   where
     throwIO' :: String -> IO a
-    throwIO' = throwIO . LiterateFileException literateOpts.input
+    throwIO' = throwIO . LiterateFileException input
 
     pureParseLit :: [String] -> Maybe Lit
     pureParseLit =

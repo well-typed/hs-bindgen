@@ -57,5 +57,5 @@ exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = writeTests output
         -- AllowFileOverwrite for tests
-        bindgenConfig = toBindgenConfig config CreateDirStructure AllowFileOverwrite uniqueId baseModuleName
+        bindgenConfig = toBindgenConfig config uniqueId baseModuleName
     void $ hsBindgen tracerConfig bindgenConfig inputs artefact

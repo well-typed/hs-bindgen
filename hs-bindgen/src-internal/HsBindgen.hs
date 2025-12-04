@@ -15,12 +15,11 @@ module HsBindgen
   , writeTests
 
     -- * Test infrastructure
-  , hsBindgen_
+  , hsBindgenE
   ) where
 
 import Data.Map qualified as Map
 import System.Exit (ExitCode (..), exitWith)
-import System.FilePath ((</>))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Artefact
@@ -51,7 +50,7 @@ hsBindgen ::
   -> Artefact a
   -> IO a
 hsBindgen t b i a = do
-    eRes <- hsBindgen_ t b i a
+    eRes <- hsBindgenE t b i a
     case eRes of
       Left err -> do
         putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace err
@@ -59,13 +58,13 @@ hsBindgen t b i a = do
       Right r  -> pure r
 
 -- | Like 'hsBindgen' but does not exit with failure when an error has occurred.
-hsBindgen_ ::
+hsBindgenE ::
      TracerConfig Level TraceMsg
   -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> Artefact a
   -> IO (Either RunArtefactError a)
-hsBindgen_
+hsBindgenE
   tracerConfig
   bindgenConfig@BindgenConfig{..}
   uncheckedHashIncludeArgs
@@ -90,7 +89,6 @@ hsBindgen_
         runArtefacts
           tracerSafe
           tracerUnsafeRef
-          bindgenBackendConfig
           bootArtefact
           frontendArtefact
           backendArtefact
@@ -110,19 +108,23 @@ hsBindgen_
 -------------------------------------------------------------------------------}
 
 -- | Write the include graph to `STDOUT` or a file.
-writeIncludeGraph :: Maybe FilePath -> Artefact ()
-writeIncludeGraph mPath = do
-    (p, includeGraph) <- IncludeGraph
-    Lift $ write "include graph" mPath $
-      IncludeGraph.dumpMermaid p includeGraph
+writeIncludeGraph :: FileOverwritePolicy -> Maybe FilePath -> Artefact ()
+writeIncludeGraph pol mPath = do
+    (predicate, includeGraph) <- IncludeGraph
+    let rendered = IncludeGraph.dumpMermaid predicate includeGraph
+    case mPath of
+      Nothing   -> liftIO $ putStrLn rendered
+      Just path -> Lift $ write pol "include graph" (UserSpecified path) rendered
 
 -- | Write @use-decl@ graph to file.
-writeUseDeclGraph :: Maybe FilePath -> Artefact ()
-writeUseDeclGraph mPath = do
+writeUseDeclGraph :: FileOverwritePolicy -> Maybe FilePath -> Artefact ()
+writeUseDeclGraph pol mPath = do
     index <- DeclIndex
     useDeclGraph <- UseDeclGraph
-    Lift $ write "use-decl graph" mPath $
-      UseDeclGraph.dumpMermaid index useDeclGraph
+    let rendered = UseDeclGraph.dumpMermaid index useDeclGraph
+    case mPath of
+      Nothing   -> liftIO $ putStrLn rendered
+      Just path -> Lift $ write pol "use-decl graph" (UserSpecified path) rendered
 
 -- | Get bindings (single module).
 getBindings :: Safety -> Artefact String
@@ -134,12 +136,10 @@ getBindings safety = do
           Unsafe -> FinalModuleUnsafe
 
 -- | Write bindings to file.
---
--- If no file is given, print to standard output.
-writeBindings :: Safety -> Maybe FilePath -> Artefact ()
-writeBindings safety mPath = do
+writeBindings :: FileOverwritePolicy -> Safety -> FilePath -> Artefact ()
+writeBindings fileOverwritePolicy safety path = do
     bindings <- getBindings safety
-    Lift $ write "bindings" mPath bindings
+    Lift $ write fileOverwritePolicy "bindings" (UserSpecified path) bindings
 
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: Artefact (ByCategory String)
@@ -150,29 +150,46 @@ getBindingsMultiple = fmap render <$> FinalModules
 -- Each file contains a different binding category.
 --
 -- If no file is given, print to standard output.
-writeBindingsMultiple :: FilePath -> Artefact ()
-writeBindingsMultiple hsOutputDir = do
+writeBindingsMultiple ::
+     FileOverwritePolicy
+  -> OutputDirPolicy
+  -> FilePath
+  -> Artefact ()
+writeBindingsMultiple fileOverwritePolicy outputDirPolicy hsOutputDir = do
     moduleBaseName     <- FinalModuleBaseName
     bindingsByCategory <- getBindingsMultiple
-    writeByCategory "Bindings" hsOutputDir moduleBaseName bindingsByCategory
+    writeByCategory
+      fileOverwritePolicy
+      outputDirPolicy
+      "Bindings"
+      hsOutputDir
+      moduleBaseName
+      bindingsByCategory
 
 -- | Write binding specifications to file.
-writeBindingSpec :: FilePath -> Artefact ()
-writeBindingSpec path = do
-  target         <- Target
-  moduleBaseName <- FinalModuleBaseName
-  getMainHeaders <- GetMainHeaders
-  omitTypes      <- OmitTypes
-  hsDecls        <- HsDecls
-  -- Binding specifications only specify types.
-  let bindingSpec =
-        genBindingSpec
-          target
-          (fromBaseModuleName moduleBaseName (Just BType))
-          getMainHeaders
-          omitTypes
-          (fromMaybe [] (Map.lookup BType $ unByCategory hsDecls))
-  Lift $ delayWriteFile "Binding specifications" path (BindingSpecContent bindingSpec)
+writeBindingSpec :: FileOverwritePolicy -> FilePath -> Artefact ()
+writeBindingSpec fileOverwritePolicy path = do
+    target         <- Target
+    moduleBaseName <- FinalModuleBaseName
+    getMainHeaders <- GetMainHeaders
+    omitTypes      <- OmitTypes
+    hsDecls        <- HsDecls
+    -- Binding specifications only specify types.
+    let bindingSpec =
+          genBindingSpec
+            target
+            (fromBaseModuleName moduleBaseName (Just BType))
+            getMainHeaders
+            omitTypes
+            (fromMaybe [] (Map.lookup BType $ unByCategory hsDecls))
+        fileDescription =
+          FileDescription {
+              description = "Binding specifications"
+            , location    = UserSpecified path
+            , fileOverwritePolicy
+            , content     = BindingSpecContent  bindingSpec
+            }
+    Lift $ delayWriteFile fileDescription
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
@@ -191,29 +208,33 @@ writeTests testDir = do
   Helpers
 -------------------------------------------------------------------------------}
 
-write :: String -> Maybe FilePath -> String -> ArtefactM ()
-write _    Nothing     str = liftIO $ putStrLn str
-write what (Just path) str = delayWriteFile what path (TextContent str)
+write :: FileOverwritePolicy -> String -> FileLocation -> String -> ArtefactM ()
+write pol what loc str =
+    delayWriteFile $ FileDescription what loc pol (TextContent str)
 
 writeByCategory ::
-     String
+     FileOverwritePolicy
+  -> OutputDirPolicy
+  -> String
   -> FilePath
   -> BaseModuleName
   -> ByCategory String
   -> Artefact ()
-writeByCategory what hsOutputDir moduleBaseName =
+writeByCategory
+  fileOverwritePolicy outputDirPolicy what outputDir moduleBaseName =
     mapM_ (uncurry writeCategory) . Map.toList . unByCategory
   where
     writeCategory :: BindingCategory -> String -> Artefact ()
-    writeCategory cat str = do
-        Lift $ write whatWithCategory (Just path) str
+    writeCategory cat str =
+        Lift $ write fileOverwritePolicy whatWithCategory location str
       where
-        moduleName :: Hs.ModuleName
-        moduleName = fromBaseModuleName moduleBaseName (Just cat)
-
-        path :: FilePath
-        path = hsOutputDir </> Hs.moduleNamePath moduleName
+        localPath :: FilePath
+        localPath = Hs.moduleNamePath $ fromBaseModuleName moduleBaseName (Just cat)
 
         whatWithCategory :: String
         whatWithCategory = what ++ " (" ++ show cat ++ ")"
 
+        location :: FileLocation
+        location =
+          RelativeFileLocation $
+            RelativeToOutputDir {outputDir, localPath, outputDirPolicy}
