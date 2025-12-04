@@ -19,7 +19,7 @@ module HsBindgen
   ) where
 
 import Data.Map qualified as Map
-import System.Exit (exitFailure)
+import System.Exit (ExitCode (..), exitWith)
 import System.FilePath ((</>))
 import Text.SimplePrettyPrint qualified as PP
 
@@ -55,7 +55,7 @@ hsBindgen t b i a = do
     case eRes of
       Left err -> do
         putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace err
-        exitFailure
+        exitWith (ExitFailure 2)
       Right r  -> pure r
 
 -- | Like 'hsBindgen' but does not exit with failure when an error has occurred.

@@ -83,4 +83,4 @@ testUnresolvedIncludeProcess = testCase "unresolved include returns non-zero" $ 
                                                , tempHeader
                                                ]
                                                ""
-    exitCode @?= ExitFailure 1
+    exitCode @?= ExitFailure 2

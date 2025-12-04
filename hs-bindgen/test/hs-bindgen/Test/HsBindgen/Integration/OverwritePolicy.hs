@@ -21,14 +21,15 @@ testDirOverwritePolicy testResources = testCase "do not create output directory 
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
     root <- getTestPackageRoot testResources
     let headerPath = root </> "examples/golden/functions/simple_func.h"
+        outDir = tmpDir </> "src"
     (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
                                                [ "preprocess"
                                                , "--hs-output-dir"
-                                               , tmpDir
+                                               , outDir
                                                , headerPath
                                                ]
                                                ""
-    exitCode @?= ExitFailure 1
+    exitCode @?= ExitFailure 2
 
 testFileOverwritePolicy :: IO TestResources -> TestTree
 testFileOverwritePolicy testResources = testCase "do not overwrite existing files by default" $ do
@@ -46,7 +47,7 @@ testFileOverwritePolicy testResources = testCase "do not overwrite existing file
                                                , headerPath
                                                ]
                                                ""
-    exitCode @?= ExitFailure 1
+    exitCode @?= ExitFailure 2
 
 testOverwritePolicies :: IO TestResources -> TestTree
 testOverwritePolicies testResources = testCase "create directories and overwrite files if told by user" $ do
