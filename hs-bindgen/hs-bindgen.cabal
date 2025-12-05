@@ -116,6 +116,7 @@ library internal
     HsBindgen.Config.FixCandidate.ReservedNames
     HsBindgen.Config.Internal
     HsBindgen.Config.Prelims
+    HsBindgen.DelayedIO
     HsBindgen.Eff
     HsBindgen.Errors
     HsBindgen.Frontend
