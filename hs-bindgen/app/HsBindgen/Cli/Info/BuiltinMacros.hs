@@ -138,6 +138,7 @@ getMacros tracer clangArgs names =
       . unlines
       $ helperMacros ++ map mkDecl names
 
+    -- https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html
     helperMacros :: [String]
     helperMacros = [
         "#define STREX(x) #x"
@@ -188,6 +189,7 @@ getParamMacros tracer clangArgs names =
       . unlines
       $ helperMacros ++ map mkDecl names
 
+    -- https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html
     helperMacros :: [String]
     helperMacros = [
         "#define STREX(x) #x"
