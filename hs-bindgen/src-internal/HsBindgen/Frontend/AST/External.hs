@@ -72,10 +72,8 @@ module HsBindgen.Frontend.AST.External (
   , C.qualNameText
   , C.parseQualName
   , C.AnonId(..)
-  , C.NameOrigin(..)
   , C.PrelimDeclId(..)
   , C.DeclId(..)
-  , C.QualDeclId(..)
   , Int.NamePair(..)
   , Int.nameHs
   , Int.RecordNames(..)
@@ -303,9 +301,7 @@ type Type = FullType
 -- | C types in Trees That Shrink style
 data TypeF tag =
     TypePrim C.PrimType
-  | TypeStruct FinalDeclId
-  | TypeUnion FinalDeclId
-  | TypeEnum FinalDeclId
+  | TypeRef FinalDeclId
   | TypeTypedef
     -- | NOTE: has a strictness annotation, which allows GHC to infer that
     -- pattern matches are redundant when @TypedefRefF tag ~ Void@.
@@ -313,7 +309,6 @@ data TypeF tag =
     -- TODO: macros should get annotations with underlying types just like
     -- typedefs, so that we can erase the macro types and replace them with
     -- their underlying type. See issue #1200.
-  | TypeMacroTypedef FinalDeclId
   | TypePointer (TypeF tag)
   | TypeConstArray Natural (TypeF tag)
   | TypeFun [TypeF tag] (TypeF tag)
@@ -336,17 +331,17 @@ deriving stock instance (Ord (TypedefRefF tag), Ord (TypeQualifierF tag))   => O
 data TypeQualifier = TypeQualifierConst
   deriving stock (Show, Eq, Ord, Generic)
 
-data TypedefRef =
-    TypedefRegular
+data TypedefRef = TypedefRef {
       -- | Name of the referenced typedef declaration
-      FinalDeclId
+      declId :: FinalDeclId
+
       -- | The underlying type of the referenced typedef declaration
       --
       -- NOTE: the underlying type can arbitrarily reference other types,
       -- including typedefs that we have not parsed. Use the underlying type with
       -- care!
-      Type
-  | TypedefSquashed C.Name Type
+    , underlying :: Type
+    }
   deriving stock (Show, Eq, Ord, Generic)
 
 isVoid :: Type -> Bool
@@ -370,25 +365,25 @@ isErasedTypeConstQualified ty = case getErasedType ty of
 isCanonicalTypeFunction :: GetCanonicalType t => t -> Bool
 isCanonicalTypeFunction ty = case getCanonicalType ty of
     TypeFun{} -> True
-    _ -> False
+    _         -> False
 
 -- | Is the canonical type a struct type?
 isCanonicalTypeStruct :: GetCanonicalType t => t -> Bool
 isCanonicalTypeStruct ty = case getCanonicalType ty of
-    TypeStruct{} -> True
-    _ -> False
+    TypeRef dId -> dId.nameKind == C.NameKindTagged C.TagKindStruct
+    _otherwise  -> False
 
 -- | Is the canonical type a union type?
 isCanonicalTypeUnion :: GetCanonicalType t => t -> Bool
 isCanonicalTypeUnion ty = case getCanonicalType ty of
-    TypeUnion{} -> True
-    _ -> False
+    TypeRef dId -> dId.nameKind == C.NameKindTagged C.TagKindUnion
+    _otherwise  -> False
 
 -- | Is the canonical type a complex type?
 isCanonicalTypeComplex :: GetCanonicalType t => t -> Bool
 isCanonicalTypeComplex ty = case getCanonicalType ty of
     TypeComplex{} -> True
-    _ -> False
+    _otherwise    -> False
 
 -- | An array of known size or unknown size
 data ArrayClassification t =
@@ -412,21 +407,18 @@ getArrayElementType (IncompleteArrayClassification ty) = ty
 isCanonicalTypeArray :: FullType -> Maybe (ArrayClassification FullType)
 isCanonicalTypeArray ty =
     case ty of
-      TypePrim _pt             -> Nothing
-      TypeStruct _declId       -> Nothing
-      TypeUnion _declId        -> Nothing
-      TypeEnum _declId         -> Nothing
-      TypeTypedef ref          -> isCanonicalTypeArray (eraseTypedef ref)
-      TypeMacroTypedef _declId -> Nothing
-      TypePointer _t           -> Nothing
-      TypeConstArray n t       -> Just (ConstantArrayClassification n t)
-      TypeFun _args _res       -> Nothing
-      TypeVoid                 -> Nothing
-      TypeIncompleteArray t    -> Just (IncompleteArrayClassification t)
-      TypeBlock _t             -> Nothing
-      TypeQualified _q t       -> isCanonicalTypeArray t
-      TypeExtBinding _reb      -> Nothing
-      TypeComplex _pt          -> Nothing
+      TypePrim _pt          -> Nothing
+      TypeRef _declId       -> Nothing
+      TypeTypedef ref       -> isCanonicalTypeArray (eraseTypedef ref)
+      TypePointer _t        -> Nothing
+      TypeConstArray n t    -> Just (ConstantArrayClassification n t)
+      TypeFun _args _res    -> Nothing
+      TypeVoid              -> Nothing
+      TypeIncompleteArray t -> Just (IncompleteArrayClassification t)
+      TypeBlock _t          -> Nothing
+      TypeQualified _q t    -> isCanonicalTypeArray t
+      TypeExtBinding _reb   -> Nothing
+      TypeComplex _pt       -> Nothing
 
 -- | (Non-external) declarations referred to in this type
 --
@@ -434,7 +426,7 @@ isCanonicalTypeArray ty =
 -- whenever this type is used.
 --
 -- This does /not/ include any external declarations.
-typeDeclIds :: Type -> [C.QualDeclId MangleNames]
+typeDeclIds :: Type -> [C.DeclId MangleNames]
 typeDeclIds = \case
     -- Primitive types
     TypePrim _    -> []
@@ -442,15 +434,9 @@ typeDeclIds = \case
     TypeComplex _ -> []
 
     -- Interesting cases
-    --
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1267>
-    -- Once 'DeclId' always has the 'NameKind' this can be simplified.
-    TypeStruct       declId -> [C.QualDeclId declId (C.NameKindTagged C.TagKindStruct)]
-    TypeUnion        declId -> [C.QualDeclId declId (C.NameKindTagged C.TagKindUnion)]
-    TypeEnum         declId -> [C.QualDeclId declId (C.NameKindTagged C.TagKindEnum)]
-    TypeMacroTypedef declId -> [C.QualDeclId declId  C.NameKindOrdinary]
-    TypeTypedef      ref    -> auxTypedef    ref
-    TypeExtBinding   _ext   -> []
+    TypeRef         declId -> [declId]
+    TypeTypedef     ref    -> [ref.declId]
+    TypeExtBinding  _ext   -> []
 
     -- Recurse
     TypePointer         t -> typeDeclIds t
@@ -459,13 +445,6 @@ typeDeclIds = \case
     TypeBlock           t -> typeDeclIds t
     TypeQualified _     t -> typeDeclIds t
     TypeFun args res      -> concatMap typeDeclIds (args ++ [res])
-  where
-    auxTypedef :: TypedefRef -> [C.QualDeclId MangleNames]
-    auxTypedef = \case
-        TypedefRegular declId _underlying ->
-          [C.QualDeclId declId C.NameKindOrdinary]
-        TypedefSquashed _origName underlying  ->
-          typeDeclIds underlying
 
 {-------------------------------------------------------------------------------
   Types: Trees That Shrink
@@ -542,9 +521,7 @@ instance GetCanonicalType Type where
 -- NOTE: the underlying type can arbitrarily reference other types, including
 -- typedefs that we have not parsed. Use the underlying type with care!
 eraseTypedef :: TypedefRef -> Type
-eraseTypedef = \case
-      TypedefRegular _ t' -> t'
-      TypedefSquashed _ t' -> t'
+eraseTypedef = (.underlying)
 
 -- | Map 'TypeF's from one tag to another
 mapTypeF ::
@@ -559,18 +536,15 @@ mapTypeF fRef fQual = go
   where
     go :: TypeF tag -> TypeF tag'
     go ty = case ty of
-      TypePrim pt             -> TypePrim pt
-      TypeStruct declId       -> TypeStruct declId
-      TypeUnion declId        -> TypeUnion declId
-      TypeEnum declId         -> TypeEnum declId
-      TypeTypedef ref         -> fRef ref
-      TypeMacroTypedef declId -> TypeMacroTypedef declId
-      TypePointer t           -> TypePointer $ go t
-      TypeConstArray n t      -> TypeConstArray n $ go t
-      TypeFun args res        -> TypeFun (go <$> args) (go res)
-      TypeVoid                -> TypeVoid
-      TypeIncompleteArray t   -> TypeIncompleteArray (go t)
-      TypeBlock t             -> TypeBlock (go t)
-      TypeQualified q t       -> fQual q t
-      TypeExtBinding reb      -> TypeExtBinding reb
-      TypeComplex pt          -> TypeComplex pt
+      TypePrim pt           -> TypePrim pt
+      TypeRef declId        -> TypeRef declId
+      TypeTypedef ref       -> fRef ref
+      TypePointer t         -> TypePointer $ go t
+      TypeConstArray n t    -> TypeConstArray n $ go t
+      TypeFun args res      -> TypeFun (go <$> args) (go res)
+      TypeVoid              -> TypeVoid
+      TypeIncompleteArray t -> TypeIncompleteArray (go t)
+      TypeBlock t           -> TypeBlock (go t)
+      TypeQualified q t     -> fQual q t
+      TypeExtBinding reb    -> TypeExtBinding reb
+      TypeComplex pt        -> TypeComplex pt

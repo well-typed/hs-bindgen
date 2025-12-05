@@ -122,26 +122,26 @@ scanAllFunctionPointerTypes =
       fp@(C.TypePointer (C.TypeFun args res)) ->
            Set.singleton fp
         <> foldMap scanTypeForFunctionPointers (res : args)
-      C.TypePointer t                       -> scanTypeForFunctionPointers t
-      C.TypeIncompleteArray  t              -> scanTypeForFunctionPointers t
-      C.TypeConstArray _ t                  -> scanTypeForFunctionPointers t
-      C.TypeBlock t                         -> scanTypeForFunctionPointers t
-      C.TypeQualified _ t                   -> scanTypeForFunctionPointers t
-      C.TypeTypedef (C.TypedefRegular _ t)  -> scanTypeForFunctionPointers t
-      C.TypeTypedef (C.TypedefSquashed _ t) -> scanTypeForFunctionPointers t
-      _                                     -> Set.empty
+      C.TypePointer t                  -> scanTypeForFunctionPointers t
+      C.TypeIncompleteArray  t         -> scanTypeForFunctionPointers t
+      C.TypeConstArray _ t             -> scanTypeForFunctionPointers t
+      C.TypeBlock t                    -> scanTypeForFunctionPointers t
+      C.TypeQualified _ t              -> scanTypeForFunctionPointers t
+      C.TypeTypedef (C.TypedefRef _ t) -> scanTypeForFunctionPointers t
+      _                                -> Set.empty
 
 -- | Check if a type is defined in the current module
 isDefinedInCurrentModule :: DeclIndex -> C.Type -> Bool
 isDefinedInCurrentModule declIndex =
     any isInDeclIndex . C.typeDeclIds
   where
-    isInDeclIndex :: C.QualDeclId MangleNames -> Bool
-    isInDeclIndex qualDeclId =
-        isJust $ DeclIndex.lookup qualPrelimDeclId declIndex
-      where
-        qualPrelimDeclId :: C.PrelimDeclId
-        qualPrelimDeclId = C.qualDeclIdToPrelimDeclId qualDeclId
+    isInDeclIndex :: C.DeclId MangleNames -> Bool
+    isInDeclIndex declId =
+        case declId.origDeclId of
+          C.OrigDeclId orig ->
+            isJust $ DeclIndex.lookup orig declIndex
+          C.AuxForDecl _parent ->
+            False
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -1056,19 +1056,24 @@ hasUnsupportedType :: C.GetCanonicalType t => t -> Bool
 hasUnsupportedType = aux . C.getCanonicalType
   where
     aux :: C.CanonicalType -> Bool
-    aux C.TypeStruct {}          = True
-    aux C.TypeUnion {}           = True
+    aux (C.TypeRef declId)       = auxRef declId
     aux C.TypeComplex {}         = True
     aux C.TypeConstArray {}      = True
     aux C.TypeIncompleteArray {} = True
     aux C.TypePrim {}            = False
-    aux C.TypeEnum {}            = False
-    aux C.TypeMacroTypedef {}    = False
     aux C.TypePointer {}         = False
     aux C.TypeFun {}             = False
     aux C.TypeVoid               = False
     aux C.TypeBlock {}           = False
     aux C.TypeExtBinding {}      = False
+
+    auxRef :: C.FinalDeclId -> Bool
+    auxRef declId =
+        case declId.nameKind of
+          C.NameKindOrdinary               -> False
+          C.NameKindTagged C.TagKindStruct -> True
+          C.NameKindTagged C.TagKindUnion  -> True
+          C.NameKindTagged C.TagKindEnum   -> False
 
 -- | Fancy types are heap types or constant arrays. We create high-level
 -- wrapper for fancy types.
@@ -1686,7 +1691,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
         , varComment = mbComment
         }
 
-    runnerName = Hs.Name $ Hs.getIdentifier (C.declIdHaskellId (C.declId info)) <> "_ptr"
+    runnerName = Hs.Name $ Hs.getIdentifier info.declId.haskellId <> "_ptr"
     runnerType = SHs.translateType (Type.topLevel stubType)
     runnerExpr = SHs.EGlobal SHs.IO_unsafePerformIO
                 `SHs.EApp` SHs.EFree stubImportName

@@ -5,10 +5,16 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/structs/simple_structs.h
+  cname: struct @S7a_Deref
+  hsname: S7a_Deref
+- headers: types/structs/simple_structs.h
+  cname: struct @S7b_Deref
+  hsname: S7b_Deref
+- headers: types/structs/simple_structs.h
   cname: struct S1
   hsname: S1
 - headers: types/structs/simple_structs.h
-  cname: struct S2
+  cname: S2_t
   hsname: S2_t
 - headers: types/structs/simple_structs.h
   cname: S3_t
@@ -17,23 +23,17 @@ ctypes:
   cname: struct S4
   hsname: S4
 - headers: types/structs/simple_structs.h
-  cname: struct S5
+  cname: S5
   hsname: S5
 - headers: types/structs/simple_structs.h
-  cname: struct S6
+  cname: S6
   hsname: S6
 - headers: types/structs/simple_structs.h
   cname: S7a
   hsname: S7a
 - headers: types/structs/simple_structs.h
-  cname: S7a_Deref
-  hsname: S7a_Deref
-- headers: types/structs/simple_structs.h
   cname: S7b
   hsname: S7b
-- headers: types/structs/simple_structs.h
-  cname: S7b_Deref
-  hsname: S7b_Deref
 hstypes:
 - hsname: S1
   instances:

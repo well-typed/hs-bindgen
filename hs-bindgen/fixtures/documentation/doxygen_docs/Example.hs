@@ -296,6 +296,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Event_callback_t "un_Event_callba
 
   This structure demonstrates field documentation.
 
+__C declaration:__ @config_t@
+
 __defined at:__ @documentation\/doxygen_docs.h:232:9@
 
 __exported by:__ @documentation\/doxygen_docs.h@
@@ -462,6 +464,8 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Config_t) "config_t_
   Enumeration with documented values
 
   This enum shows different status codes.
+
+__C declaration:__ @status_code_t@
 
 __defined at:__ @documentation\/doxygen_docs.h:258:9@
 
@@ -680,6 +684,8 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t_as_part
 
   This union demonstrates different data representations.
 
+__C declaration:__ @data_union_t@
+
 __defined at:__ @documentation\/doxygen_docs.h:281:9@
 
 __exported by:__ @documentation\/doxygen_docs.h@
@@ -863,6 +869,8 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t) "data_
   Bit field structure
 
   Demonstrates bit field documentation.
+
+__C declaration:__ @bitfield_t@
 
 __defined at:__ @documentation\/doxygen_docs.h:302:9@
 

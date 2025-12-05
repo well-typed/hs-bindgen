@@ -36,7 +36,6 @@ instance IsPass ConstructTranslationUnit where
   type Id           ConstructTranslationUnit = C.PrelimDeclId
   type FieldName    ConstructTranslationUnit = C.Name
   type ArgumentName ConstructTranslationUnit = Maybe C.Name
-  type TypedefRef   ConstructTranslationUnit = OrigTypedefRef ConstructTranslationUnit
   type MacroBody    ConstructTranslationUnit = UnparsedMacro
   type ExtBinding   ConstructTranslationUnit = Void
   type Ann ix       ConstructTranslationUnit = AnnConstructTranslationUnit ix
@@ -77,6 +76,3 @@ instance CoercePassId Parse ConstructTranslationUnit where
 
 instance CoercePassHaskellId Parse ConstructTranslationUnit where
   coercePassHaskellId _ = id
-
-instance CoercePassTypedefRef Parse ConstructTranslationUnit where
-  coercePassTypedefRef _ = coercePass

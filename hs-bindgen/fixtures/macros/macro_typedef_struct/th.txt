@@ -23,7 +23,9 @@ newtype MY_TYPE
                       Ix,
                       Num,
                       Real)
-{-| __defined at:__ @macros\/macro_typedef_struct.h:3:9@
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @macros\/macro_typedef_struct.h:3:9@
 
     __exported by:__ @macros\/macro_typedef_struct.h@
 -}
@@ -42,7 +44,9 @@ data Bar
 
                 __exported by:__ @macros\/macro_typedef_struct.h@
            -}}
-      {- ^ __defined at:__ @macros\/macro_typedef_struct.h:3:9@
+      {- ^ __C declaration:__ @bar@
+
+           __defined at:__ @macros\/macro_typedef_struct.h:3:9@
 
            __exported by:__ @macros\/macro_typedef_struct.h@
       -}

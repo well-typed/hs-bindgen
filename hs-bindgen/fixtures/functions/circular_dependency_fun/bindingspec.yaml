@@ -10,9 +10,6 @@ ctypes:
 - headers: functions/circular_dependency_fun.h
   cname: fun_ptr
   hsname: Fun_ptr
-- headers: functions/circular_dependency_fun.h
-  cname: fun_ptr_Deref
-  hsname: Fun_ptr_Deref
 hstypes:
 - hsname: Forward_declaration
   instances:
@@ -25,4 +22,3 @@ hstypes:
   - Ord
   - Show
   - Storable
-- hsname: Fun_ptr_Deref

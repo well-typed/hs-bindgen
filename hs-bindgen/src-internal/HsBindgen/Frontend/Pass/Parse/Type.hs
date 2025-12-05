@@ -103,35 +103,20 @@ fromDecl :: HasCallStack => CXType -> ParseType (C.Type Parse)
 fromDecl ty = do
     decl <- clang_getTypeDeclaration ty
     dispatchDecl decl $ \case
-      CXCursor_EnumDecl ->
-        C.TypeEnum <$>
-          C.getPrelimDeclId decl (C.NameKindTagged C.TagKindEnum)
-      CXCursor_StructDecl ->
-        C.TypeStruct <$>
-          C.getPrelimDeclId decl (C.NameKindTagged C.TagKindStruct)
-      CXCursor_UnionDecl -> do
-        C.TypeUnion <$>
-          C.getPrelimDeclId decl (C.NameKindTagged C.TagKindUnion)
+      CXCursor_EnumDecl   -> typeRef decl C.TagKindEnum
+      CXCursor_StructDecl -> typeRef decl C.TagKindStruct
+      CXCursor_UnionDecl  -> typeRef decl C.TagKindUnion
+
       CXCursor_TypedefDecl -> do
         declId <- C.getPrelimDeclId decl C.NameKindOrdinary
-        getUnderlyingTypeCursorSpelling decl >>= \case
-          "__builtin_va_list" ->
-            throwError UnsupportedVariadicFunction
-          _ -> do
-            n   <- typedefName declId
-            uTy <- liftIO $ handle (addTypedefContextHandler n) $
-                     run (cxtype =<< getUnderlyingCXType decl)
-            pure (C.TypeTypedef $ OrigTypedefRef n uTy)
-      kind                 -> throwError $ UnexpectedTypeDecl (Right kind)
+        uTy <- liftIO $ handle (addTypedefContextHandler declId) $
+                 run (cxtype =<< getUnderlyingCXType decl)
+        pure (C.TypeTypedef declId uTy)
+
+      kind -> throwError $ UnexpectedTypeDecl (Right kind)
   where
-    typedefName :: C.PrelimDeclId -> ParseType C.Name
-    typedefName = \case
-        C.PrelimDeclIdNamed name _kind ->
-          return name
-        C.PrelimDeclIdAnon{} ->
-          panicPure "Unexpected anonymous typedef"
-        C.PrelimDeclIdBuiltin name _kind ->
-          throwError $ UnsupportedBuiltin name
+    typeRef :: MonadIO m => CXCursor -> C.TagKind -> m (C.Type Parse)
+    typeRef decl kind = C.TypeRef <$> C.getPrelimDeclId decl (C.NameKindTagged kind)
 
     getUnderlyingCXType :: MonadIO m => CXCursor -> m CXType
     getUnderlyingCXType typedefCurr = do
@@ -142,13 +127,7 @@ fromDecl ty = do
         Right{}                 -> return uTy
         _otherwise              -> panicPure "Invalid underlying type"
 
-    getUnderlyingTypeCursorSpelling :: MonadIO m => CXCursor -> m Text
-    getUnderlyingTypeCursorSpelling typedefCurr = do
-      uTy <- getUnderlyingCXType typedefCurr
-      uDecl  <- clang_getTypeDeclaration uTy
-      clang_getCursorSpelling uDecl
-
-    addTypedefContextHandler :: C.Name -> SomeException -> IO a
+    addTypedefContextHandler :: C.PrelimDeclId -> SomeException -> IO a
     addTypedefContextHandler n e
       | Just e' <- (fromException @ParseTypeException e) =
           throwIO (UnsupportedUnderlyingType n e')
@@ -205,15 +184,12 @@ adjustFunctionTypesToPointers = go False
     go :: Bool -> C.Type Parse -> C.Type Parse
     go ctx = \case
       C.TypePrim pt -> C.TypePrim pt
-      C.TypeStruct n -> C.TypeStruct n
-      C.TypeUnion n -> C.TypeUnion n
-      C.TypeEnum n -> C.TypeEnum n
-      C.TypeTypedef (OrigTypedefRef n uTy)
+      C.TypeRef n -> C.TypeRef n
+      C.TypeTypedef n uTy
           | isCanonicalFunctionType uTy && not ctx
-          -> C.TypePointer $ C.TypeTypedef (OrigTypedefRef n (go True uTy))
+          -> C.TypePointer $ C.TypeTypedef n (go True uTy)
           | otherwise
-          -> C.TypeTypedef (OrigTypedefRef n (go True uTy))
-      C.TypeMacroTypedef n -> C.TypeMacroTypedef n
+          -> C.TypeTypedef n (go True uTy)
       C.TypePointer t -> C.TypePointer $ go True t
       C.TypeFun args res -> do
         let args' = map (go False) args
@@ -234,7 +210,7 @@ adjustFunctionTypesToPointers = go False
 
     -- | Canonical types have all typedefs and type qualifiers removed.
     isCanonicalFunctionType :: C.Type Parse -> Bool
-    isCanonicalFunctionType (C.TypeTypedef (OrigTypedefRef _ uTy)) = isCanonicalFunctionType uTy
-    isCanonicalFunctionType (C.TypeConst ty) = isCanonicalFunctionType ty
-    isCanonicalFunctionType (C.TypeFun{}) = True
-    isCanonicalFunctionType _ = False
+    isCanonicalFunctionType (C.TypeTypedef _ uTy) = isCanonicalFunctionType uTy
+    isCanonicalFunctionType (C.TypeConst ty)      = isCanonicalFunctionType ty
+    isCanonicalFunctionType (C.TypeFun{})         = True
+    isCanonicalFunctionType _                     = False

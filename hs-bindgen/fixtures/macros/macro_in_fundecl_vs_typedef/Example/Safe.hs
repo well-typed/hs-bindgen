@@ -77,7 +77,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "  struct_name2(arg1, arg2);"
   , "}"
   , "void hs_bindgen_0ff3632971f092bb ("
-  , "  struct struct4 *arg1,"
+  , "  struct4 *arg1,"
   , "  MC arg2"
   , ")"
   , "{"

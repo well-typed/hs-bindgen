@@ -34,7 +34,9 @@ import Data.Void (Void)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
-{-| __defined at:__ @edge-cases\/distilled_lib_1.h:9:9@
+{-| __C declaration:__ @another_typedef_struct_t@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:9:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -104,7 +106,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Another_typedef_stru
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"another_typedef_struct_t_bar")
 
-{-| __defined at:__ @edge-cases\/distilled_lib_1.h:10:9@
+{-| __C declaration:__ @another_typedef_enum_e@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:10:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -581,7 +585,9 @@ a_DEFINE_2 = (2 :: FC.CInt)
 tWO_ARGS :: ((,) FC.CInt) FC.CInt
 tWO_ARGS = (,) (13398 :: FC.CInt) (30874 :: FC.CInt)
 
-{-| __defined at:__ @edge-cases\/distilled_lib_1.h:61:9@
+{-| __C declaration:__ @a_typedef_enum_e@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:61:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}

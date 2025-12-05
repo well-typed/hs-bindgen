@@ -35,8 +35,8 @@ generateHaddocksWithInfo config declInfo =
     fst $ generateHaddocksWithParams config declInfo Args{
         isField     = False
       , loc         = declInfo.declLoc
-      , nameC       = C.declIdName      declInfo.declId
-      , nameHsIdent = C.declIdHaskellId declInfo.declId
+      , nameC       = C.declIdName declInfo.declId
+      , nameHsIdent = declInfo.declId.haskellId
       , comment     = declInfo.declComment
       , params      = []
       }
@@ -65,8 +65,8 @@ generateHaddocksWithInfoParams config declInfo params =
     generateHaddocksWithParams config declInfo Args{
         isField     = False
       , loc         = declInfo.declLoc
-      , nameC       = C.declIdName      declInfo.declId
-      , nameHsIdent = C.declIdHaskellId declInfo.declId
+      , nameC       = C.declIdName declInfo.declId
+      , nameHsIdent = declInfo.declId.haskellId
       , comment     = declInfo.declComment
       , params
       }
@@ -96,8 +96,8 @@ data Args = Args{
 generateHaddocksWithParams :: HaddockConfig -> DeclInfo -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
 generateHaddocksWithParams HaddockConfig{..} declInfo Args{comment = Nothing, ..} =
   let (commentCName, commentLocation) =
-        case C.declIdIsGenerated declInfo.declId of
-          Just _
+        case C.declIdCName declInfo.declId of
+          Nothing
             | not isField                -> ( Nothing
                                             , Just (updateSingleLoc pathStyle loc)
                                             )
@@ -116,8 +116,8 @@ generateHaddocksWithParams HaddockConfig{..} declInfo Args{comment = Nothing, ..
       , map addFunctionParameterComment params)
 generateHaddocksWithParams HaddockConfig{..} declInfo Args{comment = Just CDoc.Comment{..}, ..} =
   let (commentCName, commentLocation) =
-        case C.declIdIsGenerated declInfo.declId of
-          Just _
+        case C.declIdCName declInfo.declId of
+          Nothing
             | not isField                -> ( Nothing
                                             , Just (updateSingleLoc pathStyle loc)
                                             )

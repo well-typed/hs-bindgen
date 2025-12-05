@@ -5,6 +5,9 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: documentation/doxygen_docs.h
+  cname: struct @data_union_t_as_parts
+  hsname: Data_union_t_as_parts
+- headers: documentation/doxygen_docs.h
   cname: bitfield_t
   hsname: Bitfield_t
 - headers: documentation/doxygen_docs.h
@@ -17,14 +20,8 @@ ctypes:
   cname: data_union_t
   hsname: Data_union_t
 - headers: documentation/doxygen_docs.h
-  cname: data_union_t_as_parts
-  hsname: Data_union_t_as_parts
-- headers: documentation/doxygen_docs.h
   cname: event_callback_t
   hsname: Event_callback_t
-- headers: documentation/doxygen_docs.h
-  cname: event_callback_t_Deref
-  hsname: Event_callback_t_Deref
 - headers: documentation/doxygen_docs.h
   cname: filename_t
   hsname: Filename_t
@@ -40,9 +37,6 @@ ctypes:
 - headers: documentation/doxygen_docs.h
   cname: processor_fn_t
   hsname: Processor_fn_t
-- headers: documentation/doxygen_docs.h
-  cname: processor_fn_t_Deref
-  hsname: Processor_fn_t_Deref
 - headers: documentation/doxygen_docs.h
   cname: size_type
   hsname: Size_type
@@ -81,7 +75,6 @@ hstypes:
   - Ord
   - Show
   - Storable
-- hsname: Event_callback_t_Deref
 - hsname: Filename_t
   instances:
   - Eq
@@ -102,7 +95,6 @@ hstypes:
   - Ord
   - Show
   - Storable
-- hsname: Processor_fn_t_Deref
 - hsname: Size_type
   instances:
   - Bits

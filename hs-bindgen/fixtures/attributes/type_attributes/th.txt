@@ -212,13 +212,17 @@ instance TyEq ty
               (CFieldType My_packed_struct "my_packed_struct_s") =>
          HasField "my_packed_struct_s" (Ptr My_packed_struct) (Ptr ty)
     where getField = ptrToCField (Proxy @"my_packed_struct_s")
-{-| __defined at:__ @attributes\/type_attributes.h:26:9@
+{-| __C declaration:__ @wait_status_ptr_t@
+
+    __defined at:__ @attributes\/type_attributes.h:26:9@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
 newtype Wait_status_ptr_t
     = Wait_status_ptr_t {un_Wait_status_ptr_t :: ByteArray}
-      {- ^ __defined at:__ @attributes\/type_attributes.h:26:9@
+      {- ^ __C declaration:__ @wait_status_ptr_t@
+
+           __defined at:__ @attributes\/type_attributes.h:26:9@
 
            __exported by:__ @attributes\/type_attributes.h@
       -}

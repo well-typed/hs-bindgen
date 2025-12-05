@@ -212,7 +212,9 @@ instance HasCField Inline_struct "inline_struct_y"
 instance TyEq ty (CFieldType Inline_struct "inline_struct_y") =>
          HasField "inline_struct_y" (Ptr Inline_struct) (Ptr ty)
     where getField = ptrToCField (Proxy @"inline_struct_y")
-{-| __defined at:__ @globals\/globals.h:406:9@
+{-| __C declaration:__ @version_t@
+
+    __defined at:__ @globals\/globals.h:406:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -238,7 +240,9 @@ data Version_t
 
                       __exported by:__ @globals\/globals.h@
                  -}}
-      {- ^ __defined at:__ @globals\/globals.h:406:9@
+      {- ^ __C declaration:__ @version_t@
+
+           __defined at:__ @globals\/globals.h:406:9@
 
            __exported by:__ @globals\/globals.h@
       -}
@@ -272,7 +276,9 @@ instance HasCField Version_t "version_t_patch"
 instance TyEq ty (CFieldType Version_t "version_t_patch") =>
          HasField "version_t_patch" (Ptr Version_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"version_t_patch")
-{-| __defined at:__ @globals\/globals.h:413:9@
+{-| __C declaration:__ @struct1_t@
+
+    __defined at:__ @globals\/globals.h:413:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -298,7 +304,9 @@ data Struct1_t
 
                       __exported by:__ @globals\/globals.h@
                  -}}
-      {- ^ __defined at:__ @globals\/globals.h:413:9@
+      {- ^ __C declaration:__ @struct1_t@
+
+           __defined at:__ @globals\/globals.h:413:9@
 
            __exported by:__ @globals\/globals.h@
       -}
@@ -330,7 +338,9 @@ instance HasCField Struct1_t "struct1_t_version"
 instance TyEq ty (CFieldType Struct1_t "struct1_t_version") =>
          HasField "struct1_t_version" (Ptr Struct1_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"struct1_t_version")
-{-| __defined at:__ @globals\/globals.h:420:9@
+{-| __C declaration:__ @struct2_t@
+
+    __defined at:__ @globals\/globals.h:420:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -342,7 +352,9 @@ data Struct2_t
 
                       __exported by:__ @globals\/globals.h@
                  -}}
-      {- ^ __defined at:__ @globals\/globals.h:420:9@
+      {- ^ __C declaration:__ @struct2_t@
+
+           __defined at:__ @globals\/globals.h:420:9@
 
            __exported by:__ @globals\/globals.h@
       -}

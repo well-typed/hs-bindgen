@@ -111,7 +111,7 @@ data ParseTypeException =
     -- @double complex@. @struct Point complex@ is not allowed.
   | UnexpectedComplexType CXType
 
-  | UnsupportedUnderlyingType C.Name ParseTypeException
+  | UnsupportedUnderlyingType C.PrelimDeclId ParseTypeException
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace ParseTypeException where

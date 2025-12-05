@@ -23,7 +23,7 @@ ctypes:
   cname: struct3_t
   hsname: Struct3_t
 - headers: macros/macro_in_fundecl_vs_typedef.h
-  cname: struct struct4
+  cname: struct4
   hsname: Struct4
 hstypes:
 - hsname: MC

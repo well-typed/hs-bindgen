@@ -5,7 +5,7 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: attributes/attributes.h
-  cname: struct __sFILE
+  cname: FILE
   hsname: FILE
 - headers: attributes/attributes.h
   cname: struct bar

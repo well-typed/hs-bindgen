@@ -17,6 +17,8 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage (..), ValOrRef (..))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass (Select)
 import HsBindgen.Imports
 
@@ -106,12 +108,12 @@ import HsBindgen.Imports
 -- thing also in the case of this name clash.
 data TypedefAnalysis = TypedefAnalysis {
       -- | Declarations (structs, unions, or enums) that need to be renamed
-      rename :: Map C.Name (C.DeclId Select)
+      rename :: Map (C.DeclId Select) (C.DeclId HandleTypedefs)
 
       -- | Typedefs that need to be squashed
       --
       -- We record what use sites of the typedef should be replaced with.
-    , squash :: Map C.Name (C.Type Select)
+    , squash :: Map (C.DeclId Select) (C.DeclId HandleTypedefs)
     }
   deriving stock (Show, Eq)
 
@@ -121,7 +123,7 @@ instance Semigroup TypedefAnalysis where
       , squash = combine squash
       }
     where
-      combine :: (TypedefAnalysis -> Map C.Name a) -> Map C.Name a
+      combine :: Ord k => (TypedefAnalysis -> Map k a) -> Map k a
       combine f =
           Map.unionWith
             (panicPure "TypedefAnalysis: unexpected overlap")
@@ -154,130 +156,101 @@ analyseTypedef ::
   -> C.DeclId Select
   -> C.Typedef Select
   -> TypedefAnalysis
-analyseTypedef declUseGraph uid typedef =
-    go ByValue $ C.typedefType typedef
+analyseTypedef declUseGraph typedefId typedef =
+   case taggedPayload typedefType of
+     Nothing      -> mempty
+     Just payload -> typedefOfDecl typedefId payload $
+                       getUseSites payload.origDeclId
   where
-    go :: ValOrRef -> C.Type Select -> TypedefAnalysis
-    go valOrRef ty | Just taggedTypeId <- toTaggedTypeId ty =
-        typedefOfTagged (C.declIdName uid) valOrRef taggedTypeId $
-          getUseSites (taggedTypeIdToQualPrelimDeclId taggedTypeId)
-    go _ (C.TypePointer ty) =
-        go ByRef ty
-    go _ _otherType =
-        mempty
+    C.Typedef{typedefType, typedefAnn = NoAnn} = typedef
 
-    -- Get use sites, except any self-references
     getUseSites :: C.PrelimDeclId -> [(C.PrelimDeclId, Usage)]
     getUseSites qualPrelimDeclId =
        DeclUseGraph.getUseSitesNoSelfReferences declUseGraph qualPrelimDeclId
 
--- | Typedef of some tagged datatype
-typedefOfTagged ::
-     C.Name                     -- ^ Name of the typedef
-  -> ValOrRef                   -- ^ Does the typedef wrap the datatype directly?
-  -> TaggedTypeId               -- ^ Tagged type information
-  -> [(C.PrelimDeclId, Usage)]  -- ^ All use sites of the struct
+typedefOfDecl ::
+     C.DeclId Select             -- ^ Typedef ID
+  -> TaggedPayload               -- ^ Payload
+  -> [(C.PrelimDeclId, Usage)]   -- ^ Use sites of the payload
   -> TypedefAnalysis
-typedefOfTagged typedefName valOrRef taggedType@TaggedTypeId{..} useSites
-    -- Struct and typedef same name, no intervening pointers
-  | ByValue <- valOrRef, typedefName == taggedTypeIdName taggedType
-  = mempty{
-        squash = Map.singleton typedefName (fromTaggedTypeId taggedType)
+typedefOfDecl typedefId payload useSites
+  | shouldSquash
+  = let newId :: C.DeclId HandleTypedefs
+        newId = C.DeclId{
+            name       = C.DeclIdNamed $ C.declIdName typedefId
+          , nameKind   = payload.declId.nameKind
+          , origDeclId = typedefId.origDeclId
+          , haskellId  = ()
+          }
+    in mempty{
+        squash = Map.singleton typedefId      newId
+      , rename = Map.singleton payload.declId newId
       }
 
-    -- Struct and typedef same name, with intervening pointers
-  | ByRef <- valOrRef, typedefName == taggedTypeIdName taggedType
-  = let newDeclId = C.DeclIdNamed C.NamedDeclId{
-            name      = typedefName <> "_Deref"
-          , origin    = updateOrigin taggedTypeDeclId
-          , haskellId = ()
+  | shouldRename
+  = let newId :: C.DeclId HandleTypedefs
+        newId = C.DeclId{
+            name       = C.DeclIdNamed $ C.declIdName typedefId <> "_Deref"
+          , nameKind   = payload.declId.nameKind
+          , origDeclId = payload.declId.origDeclId
+          , haskellId  = ()
           }
     in mempty{
-           rename = Map.singleton (taggedTypeIdName taggedType) newDeclId
-         }
+        rename = Map.singleton payload.declId newId
+      }
 
-    -- Single use site of the struct
-    -- (which must therefore necessarily be this very struct)
-    --
-    -- In this case we want to use the name of the typedef rather than the
-    -- name of the struct, as normally the typedef is the main type and intended
-    -- to be used throughout the code.
-  | ByValue <- valOrRef, [_] <- useSites
-  = let newDeclId = C.DeclIdNamed C.NamedDeclId{
-            name      = typedefName
-          , origin    = updateOrigin taggedTypeDeclId
-          , haskellId = ()
-          }
-        newTagged = TaggedTypeId{
-            taggedTypeDeclId = newDeclId
-          , taggedTypeIdKind
-          }
-    in mempty{
-           squash = Map.singleton typedefName (fromTaggedTypeId newTagged)
-         , rename = Map.singleton (taggedTypeIdName taggedType) newDeclId
-         }
-
-    -- if there are multiple uses, and the names don't match, don't do anything
   | otherwise
   = mempty
   where
-
--- | Update origin information for renamed tagged datatype
---
--- If we rename a datatype with a name which was /already/ not original, we
--- leave the origin information unchanged.
-updateOrigin :: C.DeclId Select -> C.NameOrigin
-updateOrigin (C.DeclIdBuiltin _name) =
-    -- TODO: Ideally we'd have a separate pass to deal with builtin types,
-    -- and strengthen the types in such as a way that we don't have to deal with
-    -- this case here.
-    -- See also <https://github.com/well-typed/hs-bindgen/issues/1266>
-    panicPure "Unexpected builtin"
-updateOrigin (C.DeclIdNamed old) =
-    case old.origin of
-      C.NameOriginInSource           -> C.NameOriginRenamedFrom old.name
-      C.NameOriginGenerated   anonId -> C.NameOriginGenerated   anonId
-      C.NameOriginRenamedFrom orig   -> C.NameOriginRenamedFrom orig
+    shouldSquash, shouldRename :: Bool
+    shouldSquash = and [
+          payload.valOrRef == ByValue
+        , or [ C.declIdName typedefId == C.declIdName payload.declId
+             , length useSites == 1
+             ]
+        ]
+    shouldRename = and [
+          payload.valOrRef == ByRef
+        , C.declIdName typedefId == C.declIdName payload.declId
+        ]
 
 {-------------------------------------------------------------------------------
-  TaggedTypeId
-
-  This is only used within the context of this module.
-
-  TODO <https://github.com/well-typed/hs-bindgen/issues/1267>
-  Delete this once DeclId /is/ QualDeclId.
+  Internal auxiliary
 -------------------------------------------------------------------------------}
 
--- | Tagged type
---
--- This is nearly identical to 'C.QualDeclId', except that we use 'C.TagKind'
--- rather than 'C.NameKind' (in other words, we rule out 'C.NameKindOrdinary').
-data TaggedTypeId = TaggedTypeId {
-      taggedTypeDeclId :: C.DeclId Select
-    , taggedTypeIdKind :: C.TagKind
+data TaggedPayload = TaggedPayload{
+      valOrRef   :: ValOrRef
+    , declId     :: C.DeclId Select
+    , tagKind    :: C.TagKind
+    , origDeclId :: C.PrelimDeclId
     }
-  deriving stock (Eq, Generic, Ord, Show)
 
-taggedTypeIdName :: TaggedTypeId -> C.Name
-taggedTypeIdName = C.declIdName . taggedTypeDeclId
-
-taggedTypeIdToQualPrelimDeclId :: TaggedTypeId -> C.PrelimDeclId
-taggedTypeIdToQualPrelimDeclId (TaggedTypeId declId tk) =
-    C.qualDeclIdToPrelimDeclId $ C.QualDeclId{
-        qualDeclId     = declId
-      , qualDeclIdKind = C.NameKindTagged tk
-      }
-
-toTaggedTypeId :: C.Type Select -> Maybe TaggedTypeId
-toTaggedTypeId = \case
-    C.TypeStruct declId -> Just $ TaggedTypeId declId C.TagKindStruct
-    C.TypeUnion  declId -> Just $ TaggedTypeId declId C.TagKindUnion
-    C.TypeEnum   declId -> Just $ TaggedTypeId declId C.TagKindEnum
-    _otherwise          -> Nothing
-
-fromTaggedTypeId :: TaggedTypeId -> C.Type Select
-fromTaggedTypeId (TaggedTypeId declId kind) =
-    case kind of
-      C.TagKindStruct -> C.TypeStruct declId
-      C.TagKindUnion  -> C.TypeUnion  declId
-      C.TagKindEnum   -> C.TypeEnum   declId
+-- | Tagged declaration (struct, union, enum) wrapped by this typedef, if any
+taggedPayload :: C.Type Select -> Maybe TaggedPayload
+taggedPayload = go ByValue
+  where
+    go :: ValOrRef -> C.Type Select -> Maybe TaggedPayload
+    go valOrRef = \case
+        C.TypeRef declId -> do
+          -- We only need to worry about typedefs around tagged declarations,
+          -- because only then there is a chance of name clashes (in Haskell we
+          -- do not distinguish between the tagged and ordinary namespaces).
+          tagKind <-
+            case declId.nameKind of
+              C.NameKindTagged kind -> Just kind
+              C.NameKindOrdinary    -> Nothing
+          -- Auxiliary declarations are not introduced until @HandleTypedefs@
+          origDeclId <-
+            case declId.origDeclId of
+              C.OrigDeclId orig    -> Just orig
+              C.AuxForDecl _parent -> panicPure "Unexpected aux decl"
+          return $ TaggedPayload{
+              valOrRef
+            , declId
+            , tagKind
+            , origDeclId
+            }
+        C.TypePointer ty ->
+          go ByRef ty
+        _otherwise ->
+          Nothing

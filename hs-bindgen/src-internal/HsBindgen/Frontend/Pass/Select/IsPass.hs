@@ -48,7 +48,6 @@ instance IsPass Select where
   type Id           Select = C.DeclId Select
   type FieldName    Select = C.Name
   type ArgumentName Select = Maybe C.Name
-  type TypedefRef   Select = OrigTypedefRef Select
   -- NOTE Using @CheckedMacro Select@ is incompatible with 'CoercePass'
   type MacroBody    Select = CheckedMacro ResolveBindingSpecs
   type ExtBinding   Select = ResolvedExtBinding
@@ -218,6 +217,3 @@ instance CoercePassId ResolveBindingSpecs Select where
 
 instance CoercePassHaskellId ResolveBindingSpecs Select where
   coercePassHaskellId _ = id
-
-instance CoercePassTypedefRef ResolveBindingSpecs Select where
-  coercePassTypedefRef _ = coercePass

@@ -11,7 +11,7 @@ ctypes:
   cname: struct colour
   hsname: Colour
 - headers: manual/zero_copy.h
-  cname: struct drawing
+  cname: drawing
   hsname: Drawing
 - headers: manual/zero_copy.h
   cname: matrix
@@ -29,7 +29,7 @@ ctypes:
   cname: union shape
   hsname: Shape
 - headers: manual/zero_copy.h
-  cname: struct tic_tac_toe
+  cname: tic_tac_toe
   hsname: Tic_tac_toe
 - headers: manual/zero_copy.h
   cname: triplet

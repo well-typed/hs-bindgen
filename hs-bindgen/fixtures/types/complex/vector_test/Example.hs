@@ -20,7 +20,9 @@ import qualified HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-{-| __defined at:__ @types\/complex\/vector_test.h:1:9@
+{-| __C declaration:__ @vector@
+
+    __defined at:__ @types\/complex\/vector_test.h:1:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}

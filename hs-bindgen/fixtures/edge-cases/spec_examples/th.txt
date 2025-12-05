@@ -126,7 +126,9 @@ instance TyEq ty (CFieldType Int64_T "un_Int64_T") =>
 instance HasCField Int64_T "un_Int64_T"
     where type CFieldType Int64_T "un_Int64_T" = CLLong
           offset# = \_ -> \_ -> 0
-{-| __defined at:__ @edge-cases\/spec_examples.h:14:9@
+{-| __C declaration:__ @cint16_T@
+
+    __defined at:__ @edge-cases\/spec_examples.h:14:9@
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
@@ -145,7 +147,9 @@ data Cint16_T
 
                      __exported by:__ @edge-cases\/spec_examples.h@
                 -}}
-      {- ^ __defined at:__ @edge-cases\/spec_examples.h:14:9@
+      {- ^ __C declaration:__ @cint16_T@
+
+           __defined at:__ @edge-cases\/spec_examples.h:14:9@
 
            __exported by:__ @edge-cases\/spec_examples.h@
       -}

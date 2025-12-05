@@ -142,24 +142,19 @@ class MangleDecl a where
        C.DeclInfo MangleNames
     -> a HandleTypedefs -> M (a MangleNames)
 
-mangleDeclId ::
-     C.DeclId HandleTypedefs
-  -> [C.NameKind] -- ^ Possible name kinds
-  -> M (C.DeclId MangleNames)
-mangleDeclId (C.DeclIdBuiltin _name) _kinds =
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1266>.
-    -- Name mangling fails for built-ins: since they don't have a corresponding
-    -- declaration, there will be no entry in the 'NameMap'.
-    throwPure_TODO 1266 "Cannot mangle builtin name"
-mangleDeclId declId@(C.DeclIdNamed named) kinds = do
-    mHsIdent <- mangleName named.name kinds
-    case mHsIdent of
-      Nothing -> panicPure $ "Missing declaration: " <> show declId
-      Just hs -> return $ C.DeclIdNamed C.NamedDeclId{
-          name      = named.name
-        , origin    = named.origin
-        , haskellId = hs
-        }
+mangleDeclId :: C.DeclId HandleTypedefs -> M (C.DeclId MangleNames)
+mangleDeclId declId =
+    case declId.name of
+      C.DeclIdBuiltin _name ->
+        -- TODO <https://github.com/well-typed/hs-bindgen/issues/1266>.
+        -- Name mangling fails for built-ins: since they don't have a
+        -- corresponding declaration, there will be no entry in the 'NameMap'.
+        throwPure_TODO 1266 "Cannot mangle builtin name"
+      C.DeclIdNamed name -> do
+        mHsIdent <- mangleName name [declId.nameKind]
+        case mHsIdent of
+          Nothing -> panicPure $ "Missing declaration: " <> show declId
+          Just hs -> return $ declId{C.haskellId = hs}
 
 -- | Mangle C name, using previously constructed name map
 --
@@ -172,9 +167,6 @@ mangleName name kinds = do
     let lookupKind :: C.NameKind -> Maybe Hs.Identifier
         lookupKind kind = Map.lookup (C.QualName name kind) nm
     return $ listToMaybe (mapMaybe lookupKind kinds)
-
-mangleQualDeclId :: C.QualDeclId HandleTypedefs -> M (C.DeclId MangleNames)
-mangleQualDeclId (C.QualDeclId declId kind) = mangleDeclId declId [kind]
 
 {-------------------------------------------------------------------------------
   Additional name mangling functionality
@@ -264,7 +256,7 @@ instance Mangle C.TranslationUnit where
 
 instance Mangle C.Decl where
   mangle decl = do
-      declId' <- mangleQualDeclId (C.declQualDeclId decl)
+      declId'      <- mangleDeclId declId
       declComment' <- traverse mangle declComment
 
       let info :: C.DeclInfo MangleNames
@@ -450,17 +442,13 @@ instance MangleDecl C.CheckedMacroType where
 
 instance Mangle C.Type where
   mangle = \case
-      C.TypeStruct declId -> C.TypeStruct <$>
-        mangleDeclId declId [C.NameKindTagged C.TagKindStruct]
-      C.TypeUnion declId -> C.TypeUnion <$>
-        mangleDeclId declId [C.NameKindTagged C.TagKindUnion]
-      C.TypeEnum declId -> C.TypeEnum <$>
-        mangleDeclId declId [C.NameKindTagged C.TagKindEnum]
-      C.TypeMacroTypedef declId -> C.TypeMacroTypedef <$>
-        mangleDeclId declId [C.NameKindOrdinary]
+      -- Interesting cases
+      C.TypeRef     declId     -> C.TypeRef <$> mangleDeclId declId
+      C.TypeTypedef declId uTy -> C.TypeTypedef
+                                    <$> mangleDeclId declId
+                                    <*> mangle uTy
 
       -- Recursive cases
-      C.TypeTypedef ref         -> C.TypeTypedef <$> mangle ref
       C.TypePointer typ         -> C.TypePointer <$> mangle typ
       C.TypeFun args res        -> C.TypeFun <$> mapM mangle args <*> mangle res
       C.TypeConstArray n typ    -> C.TypeConstArray n <$> mangle typ
@@ -473,16 +461,6 @@ instance Mangle C.Type where
       C.TypeVoid           -> return $ C.TypeVoid
       C.TypeExtBinding ext -> return $ C.TypeExtBinding ext
       C.TypeComplex prim   -> return $ C.TypeComplex prim
-
-instance Mangle RenamedTypedefRef where
-  mangle (TypedefRegular declId uTy) = do
-    -- NOTE: it would have been slightly dangerous to recurse into the
-    -- underlying type here if the mangling were stateful. Now we're simply
-    -- applying renamings, so we are fine.
-    uTy' <- mangle uTy
-    flip TypedefRegular uTy' <$> mangleDeclId declId [C.NameKindOrdinary]
-  mangle (TypedefSquashed cName ty) =
-    TypedefSquashed cName <$> mangle ty
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

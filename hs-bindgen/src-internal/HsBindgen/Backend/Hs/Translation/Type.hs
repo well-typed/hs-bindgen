@@ -36,17 +36,9 @@ inContext :: HasCallStack => TypeContext -> C.Type -> Hs.HsType
 inContext ctx = go ctx
   where
     go :: TypeContext -> C.Type -> Hs.HsType
-    go _ (C.TypeTypedef (C.TypedefRegular declId _)) =
+    go _ (C.TypeTypedef (C.TypedefRef declId _)) =
         Hs.HsTypRef (C.unsafeDeclIdHaskellName declId)
-    go c (C.TypeTypedef (C.TypedefSquashed _name ty)) =
-        go c ty
-    go _ (C.TypeStruct declId) =
-        Hs.HsTypRef (C.unsafeDeclIdHaskellName declId)
-    go _ (C.TypeUnion declId) =
-        Hs.HsTypRef (C.unsafeDeclIdHaskellName declId)
-    go _ (C.TypeEnum declId) =
-        Hs.HsTypRef (C.unsafeDeclIdHaskellName declId)
-    go _ (C.TypeMacroTypedef declId) =
+    go _ (C.TypeRef declId) =
         Hs.HsTypRef (C.unsafeDeclIdHaskellName declId)
     go c C.TypeVoid =
         Hs.HsPrimType (void c)

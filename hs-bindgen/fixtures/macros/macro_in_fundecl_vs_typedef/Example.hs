@@ -107,7 +107,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct1) "struct1_a"
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"struct1_a")
 
-{-| __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:19:9@
+{-| __C declaration:__ @struct2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:19:9@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}

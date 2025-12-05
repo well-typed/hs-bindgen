@@ -238,20 +238,15 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
         case typedefAnn of
           ReparseNotNeeded -> withoutReparse
 
-          -- HACK: If the @typedef@ refers to a @enum@ or a @struct@, we do not
-          -- reparse the complete declaration, which will fail due to
-          --
-          -- "unsupported member declaration list in struct specifier", or
-          -- "unsupported enumerator list in enum specifier".
-          --
-          -- Instead, we defer the reparse to the @enumerator@ or @field@, which
-          -- is also labeled as 'ReparseNeeded'.
-          --
+          -- If the @typedef@ refers to another type, we do not reparse the
+          -- typedef, but instead defer reparsing to that other type.
           -- See https://github.com/well-typed/hs-bindgen/issues/707.
+          --
+          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1382>
+          -- We should allow for pointers.
           ReparseNeeded tokens -> case typedefType of
-            C.TypeEnum _   -> withoutReparse
-            C.TypeStruct _ -> withoutReparse
-            _otherwise     ->
+            C.TypeRef _ -> withoutReparse
+            _otherwise  ->
               reparseWith LanC.reparseTypedef tokens withoutReparse withReparse
       _otherwise ->
         -- Built-in typedefs exist, but don't have a corresponding declaration;
@@ -263,7 +258,7 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
       -> LanC.ReparseEnv HandleMacros -> LanC.ReparseEnv HandleMacros
     updateEnv name =
         Map.insert name $
-          C.TypeTypedef (OrigTypedefRef name (coercePass typedefType))
+          C.TypeTypedef info.declId (coercePass typedefType)
 
     withoutReparse :: M (C.Decl HandleMacros)
     withoutReparse = return C.Decl{
@@ -450,7 +445,7 @@ parseMacro name tokens  = state     $ \st ->
       -> LanC.ReparseEnv HandleMacros
     updateReparseEnv =
         Map.insert name $
-          C.TypeMacroTypedef (C.PrelimDeclIdNamed name C.NameKindOrdinary)
+          C.TypeRef (C.PrelimDeclIdNamed name C.NameKindOrdinary)
 
     dropEval ::
          CExpr.DSL.Quant (CExpr.DSL.FunValue, CExpr.DSL.Type 'CExpr.DSL.Ty)

@@ -23,7 +23,9 @@
 -- {
 --   return &new_vector;
 -- }
-{-| __defined at:__ @types\/complex\/vector_test.h:1:9@
+{-| __C declaration:__ @vector@
+
+    __defined at:__ @types\/complex\/vector_test.h:1:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
@@ -42,7 +44,9 @@ data Vector
 
                    __exported by:__ @types\/complex\/vector_test.h@
               -}}
-      {- ^ __defined at:__ @types\/complex\/vector_test.h:1:9@
+      {- ^ __C declaration:__ @vector@
+
+           __defined at:__ @types\/complex\/vector_test.h:1:9@
 
            __exported by:__ @types\/complex\/vector_test.h@
       -}

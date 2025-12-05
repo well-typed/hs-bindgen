@@ -12,7 +12,9 @@ import qualified HsBindgen.Runtime.Prelude
 import qualified Text.Read
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
-{-| __defined at:__ @types\/enums\/enum_cpp_syntax.h:4:9@
+{-| __C declaration:__ @foo_enum@
+
+    __defined at:__ @types\/enums\/enum_cpp_syntax.h:4:9@
 
     __exported by:__ @types\/enums\/enum_cpp_syntax.h@
 -}

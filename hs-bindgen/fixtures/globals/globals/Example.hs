@@ -159,7 +159,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Inline_struct) "inli
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"inline_struct_y")
 
-{-| __defined at:__ @globals\/globals.h:406:9@
+{-| __C declaration:__ @version_t@
+
+    __defined at:__ @globals\/globals.h:406:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -249,7 +251,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Version_t) "version_
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"version_t_patch")
 
-{-| __defined at:__ @globals\/globals.h:413:9@
+{-| __C declaration:__ @struct1_t@
+
+    __defined at:__ @globals\/globals.h:413:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -338,7 +342,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct1_t) "struct1_
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"struct1_t_version")
 
-{-| __defined at:__ @globals\/globals.h:420:9@
+{-| __C declaration:__ @struct2_t@
+
+    __defined at:__ @globals\/globals.h:420:9@
 
     __exported by:__ @globals\/globals.h@
 -}

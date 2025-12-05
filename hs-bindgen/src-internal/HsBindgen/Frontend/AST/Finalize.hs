@@ -7,7 +7,6 @@ import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass qualified as Int
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Imports
 
@@ -268,10 +267,8 @@ instance Finalize Int.Type where
   type Finalized Int.Type = Ext.Type
 
   finalize (Int.TypePrim prim)           = Ext.TypePrim prim
-  finalize (Int.TypeStruct declId)       = Ext.TypeStruct declId
-  finalize (Int.TypeUnion declId)        = Ext.TypeUnion declId
-  finalize (Int.TypeEnum declId)         = Ext.TypeEnum declId
-  finalize (Int.TypeTypedef ref)         = Ext.TypeTypedef (finalize ref)
+  finalize (Int.TypeRef declId)          = Ext.TypeRef declId
+  finalize (Int.TypeTypedef declId uTy)  = Ext.TypeTypedef $ Ext.TypedefRef declId (finalize uTy)
   finalize (Int.TypePointer typ)         = Ext.TypePointer (finalize typ)
   finalize (Int.TypeFun args res)        = Ext.TypeFun (map finalize args) (finalize res)
   finalize (Int.TypeVoid)                = Ext.TypeVoid
@@ -280,14 +277,7 @@ instance Finalize Int.Type where
   finalize (Int.TypeExtBinding ext)      = Ext.TypeExtBinding ext
   finalize (Int.TypeBlock typ)           = Ext.TypeBlock (finalize typ)
   finalize (Int.TypeConst typ)           = Ext.TypeQualified Ext.TypeQualifierConst (finalize typ)
-  finalize (Int.TypeMacroTypedef declId) = Ext.TypeMacroTypedef declId
   finalize (Int.TypeComplex prim)        = Ext.TypeComplex prim
-
-instance Finalize Int.RenamedTypedefRef where
-  type Finalized Int.RenamedTypedefRef = Ext.TypedefRef
-
-  finalize (Int.TypedefRegular declId uTy) = Ext.TypedefRegular declId (finalize uTy)
-  finalize (Int.TypedefSquashed nm ty)     = Ext.TypedefSquashed nm (finalize ty)
 
 {-------------------------------------------------------------------------------
   Internal: FLAMs

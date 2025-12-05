@@ -14,7 +14,6 @@ module HsBindgen.BindingSpec.Gen (
 import Data.ByteString (ByteString)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
-import Data.Maybe (listToMaybe)
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
@@ -129,32 +128,36 @@ genBindingSpec'
       Hs.DeclSimple{}         -> id
 
     insertType ::
-         ( (C.QualName, Set HashIncludeArg, BindingSpec.CTypeSpec)
+         ( (C.DeclInfo, BindingSpec.CTypeSpec)
          , (Hs.Identifier, BindingSpec.HsTypeSpec)
          )
       -> UnresolvedBindingSpec
       -> UnresolvedBindingSpec
-    insertType ((cQualName, headers, cTypeSpec), (hsId, hsTypeSpec)) spec =
-      spec {
-          BindingSpec.bindingSpecCTypes =
-            Map.insertWith (++) cQualName [(headers, Require cTypeSpec)] $
-              BindingSpec.bindingSpecCTypes spec
-        , BindingSpec.bindingSpecHsTypes =
-            Map.insert hsId hsTypeSpec $ BindingSpec.bindingSpecHsTypes spec
-        }
+    insertType ((declInfo, cTypeSpec), (hsId, hsTypeSpec)) spec =
+        case getCQualName declInfo.declId of
+          Nothing        -> spec
+          Just cQualName -> spec{
+              BindingSpec.bindingSpecCTypes =
+                Map.insertWith (++)
+                  cQualName
+                  [(getHeaders declInfo, Require cTypeSpec)]
+                  (BindingSpec.bindingSpecCTypes spec)
+            , BindingSpec.bindingSpecHsTypes =
+                Map.insert
+                  hsId
+                  hsTypeSpec
+                  (BindingSpec.bindingSpecHsTypes spec)
+            }
 
     auxStruct ::
          Hs.Struct n
-      -> ( (C.QualName, Set HashIncludeArg, BindingSpec.CTypeSpec)
+      -> ( (C.DeclInfo, BindingSpec.CTypeSpec)
          , (Hs.Identifier, BindingSpec.HsTypeSpec)
          )
     auxStruct hsStruct = case Hs.structOrigin hsStruct of
       Nothing -> panicPure "auxStruct: structOrigin is Nothing"
       Just originDecl ->
         let declInfo = HsOrigin.declInfo originDecl
-            cQualName = getCQualName declInfo $
-              case HsOrigin.declKind originDecl of
-                HsOrigin.Struct{} -> C.NameKindTagged C.TagKindStruct
             hsIdentifier = Hs.Identifier $ Hs.getName (Hs.structName hsStruct)
             cTypeSpec = BindingSpec.CTypeSpec {
                 cTypeSpecIdentifier = Just hsIdentifier
@@ -170,21 +173,18 @@ genBindingSpec'
                     )
                     (Hs.structInstances hsStruct)
               }
-        in  ( (cQualName, getHeaders declInfo, cTypeSpec)
+        in  ( (declInfo, cTypeSpec)
             , (hsIdentifier, hsTypeSpec)
             )
 
     auxEmptyData ::
          Hs.EmptyData
-      -> ( (C.QualName, Set HashIncludeArg, BindingSpec.CTypeSpec)
+      -> ( (C.DeclInfo, BindingSpec.CTypeSpec)
          , (Hs.Identifier, BindingSpec.HsTypeSpec)
          )
     auxEmptyData edata =
       let originDecl = Hs.emptyDataOrigin edata
           declInfo = HsOrigin.declInfo originDecl
-          cQualName = getCQualName declInfo $
-            case HsOrigin.declKind originDecl of
-              HsOrigin.Opaque cNameKind -> cNameKind
           hsIdentifier = Hs.Identifier $ Hs.getName (Hs.emptyDataName edata)
           cTypeSpec = BindingSpec.CTypeSpec {
               cTypeSpecIdentifier = Just hsIdentifier
@@ -194,24 +194,18 @@ genBindingSpec'
               hsTypeSpecRep       = Just BindingSpec.HsTypeRepOpaque
             , hsTypeSpecInstances = Map.empty
             }
-      in  ( (cQualName, getHeaders declInfo, cTypeSpec)
+      in  ( (declInfo, cTypeSpec)
           , (hsIdentifier, hsTypeSpec)
           )
 
     auxNewtype ::
          Hs.Newtype
-      -> ( (C.QualName, Set HashIncludeArg, BindingSpec.CTypeSpec)
+      -> ( (C.DeclInfo, BindingSpec.CTypeSpec)
          , (Hs.Identifier, BindingSpec.HsTypeSpec)
          )
     auxNewtype hsNewtype =
       let originDecl = Hs.newtypeOrigin hsNewtype
           declInfo = HsOrigin.declInfo originDecl
-          cQualName = getCQualName declInfo $
-            case HsOrigin.declKind originDecl of
-              HsOrigin.Enum{}    -> C.NameKindTagged C.TagKindEnum
-              HsOrigin.Typedef{} -> C.NameKindOrdinary
-              HsOrigin.Union{}   -> C.NameKindTagged C.TagKindUnion
-              HsOrigin.Macro{}   -> C.NameKindOrdinary
           hsIdentifier = Hs.Identifier $ Hs.getName (Hs.newtypeName hsNewtype)
           cTypeSpec = BindingSpec.CTypeSpec {
               cTypeSpecIdentifier = Just hsIdentifier
@@ -227,7 +221,7 @@ genBindingSpec'
                   )
                   (Hs.newtypeInstances hsNewtype)
             }
-      in  ( (cQualName, getHeaders declInfo, cTypeSpec)
+      in  ( (declInfo, cTypeSpec)
           , (hsIdentifier, hsTypeSpec)
           )
 
@@ -240,23 +234,35 @@ genBindingSpec'
 -- if a name is detected as anonymous, which we cannot reliably do anymore. I'm
 -- wondering if we can get rid of this source altogether, and simply record the
 -- C name as part of the DeclInfo.
-getCQualName :: C.DeclInfo -> C.NameKind -> C.QualName
-getCQualName declInfo cNameKind =
-    case declInfo.declId of
-      C.DeclIdNamed named ->
-        case named.origin of
-          C.NameOriginInSource ->
-            C.QualName cName cNameKind
-          C.NameOriginGenerated{} ->
-            let cName' = fromMaybe cName (listToMaybe (C.declAliases declInfo))
-            in  C.QualName cName' C.NameKindOrdinary
-          C.NameOriginRenamedFrom fromCName ->
-            C.QualName fromCName cNameKind
-      C.DeclIdBuiltin builtin ->
-        C.QualName builtin.name cNameKind
+getCQualName :: C.FinalDeclId -> Maybe C.QualName
+getCQualName declId =
+    case declId.origDeclId of
+      C.OrigDeclId orig ->
+        Just $ auxOrig orig
+      C.AuxForDecl _parent ->
+        -- TODO <https://github.com/well-typed/hs-bindgen/issues/1379>
+        Nothing
   where
-    cName :: C.Name
-    cName = C.declIdName declInfo.declId
+    auxOrig :: PrelimDeclId -> QualName
+    auxOrig = \case
+        PrelimDeclIdNamed cName kind ->
+          C.QualName cName kind
+        PrelimDeclIdAnon _anonId kind ->
+          -- Anonymous declarations can only arise in very specific situations:
+          --
+          -- * Anonymous declarations without any use sites are removed
+          -- * Anonymous declarations inside typedefs are given a name, but their
+          --   /original/ declaration is set to be the typedef instead.
+          --
+          -- However, anonymous structs inside other structs or unions will
+          -- remain anonymous. For these we instead use the name assigned by
+          -- the @NameAnon@ pass.
+          --
+          -- TODO <https://github.com/well-typed/hs-bindgen/issues/844>
+          -- This is WIP.
+          C.QualName ("@" <> declIdName declId) kind
+        PrelimDeclIdBuiltin cName kind ->
+          C.QualName cName kind
 
 -- TODO strategy
 -- TODO constraints

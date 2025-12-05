@@ -194,19 +194,13 @@ instance CanApply p
         tag <- checkNotAnon "anonymous struct or union" mTag
         checkNoDef "struct or union definition" mDef
         let typ = case su of
-                    LanC.CStructTag ->
-                      TypeStruct $
-                        PrelimDeclIdNamed tag (NameKindTagged TagKindStruct)
-                    LanC.CUnionTag ->
-                      TypeUnion $
-                        PrelimDeclIdNamed tag (NameKindTagged TagKindUnion)
+                    LanC.CStructTag -> typeRef tag TagKindStruct
+                    LanC.CUnionTag  -> typeRef tag TagKindUnion
         notFun typ partial
       LanC.CEnumType (LanC.CEnum mTag mDef _attrs _a) _a' -> \partial -> do
         tag <- checkNotAnon "anonymous enum" mTag
         checkNoDef "enum definition" mDef
-        let typ = TypeEnum $
-                    PrelimDeclIdNamed tag (NameKindTagged TagKindUnion)
-        notFun typ partial
+        notFun (typeRef tag TagKindEnum) $ partial
       LanC.CTypeDef name _a -> \partial -> do
         let name' = mkName name
         typeEnv <- getReparseEnv
@@ -217,6 +211,9 @@ instance CanApply p
       charSign :: Maybe PrimSign -> PrimSignChar
       charSign Nothing     = PrimSignImplicit Nothing
       charSign (Just sign) = PrimSignExplicit sign
+
+      typeRef :: Name -> TagKind -> Type p
+      typeRef tag kind = TypeRef $ PrelimDeclIdNamed tag (NameKindTagged kind)
 
       checkNotAnon :: String -> Maybe LanC.Ident -> FromLanC p Name
       checkNotAnon _   (Just name) = return $ mkName name

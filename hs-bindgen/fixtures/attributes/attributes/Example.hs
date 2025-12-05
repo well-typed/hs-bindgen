@@ -157,7 +157,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_i")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"bar_i")
 
-{-| __defined at:__ @attributes\/attributes.h:22:9@
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @attributes\/attributes.h:22:9@
 
     __exported by:__ @attributes\/attributes.h@
 -}
@@ -223,7 +225,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Baz) "baz_i")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"baz_i")
 
-{-| __defined at:__ @attributes\/attributes.h:28:9@
+{-| __C declaration:__ @qux@
+
+    __defined at:__ @attributes\/attributes.h:28:9@
 
     __exported by:__ @attributes\/attributes.h@
 -}
