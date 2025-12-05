@@ -165,6 +165,9 @@ foldDecls opts@Options{..} = \cursor -> do
         resultType <- clang_getResultType cursorType
         traceU 1 "result" =<< clang_getTypeSpelling resultType
         pure False
+      Right CXCursor_VarDecl -> do
+        traceU 1 "eval result" =<< HighLevel.clang_evaluate cursor
+        pure False
       Right CXCursor_TypedefDecl -> do
         dumpType cursor cursorType isDecl
         traceU 1 "typedef name" =<< clang_getTypedefName cursorType
