@@ -4,7 +4,6 @@
 module C.Expr.Parse.Infra (
     -- * Parser type
     Parser
-  , ParserState -- opaque
   , runParser
     -- * Parse errors
   , MacroParseError(..)
@@ -39,12 +38,7 @@ import Clang.Paths
   Parser type
 -------------------------------------------------------------------------------}
 
-type Parser = Parsec [Token TokenSpelling] ParserState
-
-data ParserState = ParserState
-
-initParserState :: ParserState
-initParserState = ParserState
+type Parser = Parsec [Token TokenSpelling] ()
 
 runParser ::
      HasCallStack
@@ -52,7 +46,7 @@ runParser ::
   -> [Token TokenSpelling]
   -> Either MacroParseError a
 runParser p tokens =
-    first unrecognized $ Parsec.runParser p initParserState sourcePath tokens
+    first unrecognized $ Parsec.runParser p () sourcePath tokens
   where
     sourcePath :: FilePath
     sourcePath =

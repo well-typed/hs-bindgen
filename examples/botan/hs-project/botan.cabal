@@ -38,6 +38,7 @@ library
 
   build-depends:
     , base
+    , c-expr-runtime
     , hs-bindgen-runtime
     , vector
 

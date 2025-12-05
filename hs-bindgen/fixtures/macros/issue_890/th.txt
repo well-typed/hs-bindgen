@@ -1,0 +1,71 @@
+-- addDependentFile examples/golden/macros/issue_890.h
+{-| __C declaration:__ @A@
+
+    __defined at:__ @macros\/issue_890.h:1:9@
+
+    __exported by:__ @macros\/issue_890.h@
+-}
+a :: CInt
+{-| __C declaration:__ @A@
+
+    __defined at:__ @macros\/issue_890.h:1:9@
+
+    __exported by:__ @macros\/issue_890.h@
+-}
+a = 0 :: CInt
+{-| __C declaration:__ @B@
+
+    __defined at:__ @macros\/issue_890.h:2:9@
+
+    __exported by:__ @macros\/issue_890.h@
+-}
+b :: forall a_0 . Add a_0 CInt => a_0 -> AddRes a_0 CInt
+{-| __C declaration:__ @B@
+
+    __defined at:__ @macros\/issue_890.h:2:9@
+
+    __exported by:__ @macros\/issue_890.h@
+-}
+b = \x_0 -> (+) x_0 (1 :: CInt)
+{-| __C declaration:__ @C@
+
+    __defined at:__ @macros\/issue_890.h:3:9@
+
+    __exported by:__ @macros\/issue_890.h@
+-}
+c :: CInt
+{-| __C declaration:__ @C@
+
+    __defined at:__ @macros\/issue_890.h:3:9@
+
+    __exported by:__ @macros\/issue_890.h@
+-}
+c = b (0 :: CInt)
+{-| __C declaration:__ @D@
+
+    __defined at:__ @macros\/issue_890.h:4:9@
+
+    __exported by:__ @macros\/issue_890.h@
+-}
+d :: CInt
+{-| __C declaration:__ @D@
+
+    __defined at:__ @macros\/issue_890.h:4:9@
+
+    __exported by:__ @macros\/issue_890.h@
+-}
+d = b a
+{-| __C declaration:__ @E@
+
+    __defined at:__ @macros\/issue_890.h:5:9@
+
+    __exported by:__ @macros\/issue_890.h@
+-}
+e :: CInt
+{-| __C declaration:__ @E@
+
+    __defined at:__ @macros\/issue_890.h:5:9@
+
+    __exported by:__ @macros\/issue_890.h@
+-}
+e = b (1 :: CInt)

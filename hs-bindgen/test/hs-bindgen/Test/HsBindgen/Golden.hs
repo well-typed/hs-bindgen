@@ -485,6 +485,10 @@ test_macros_macro_redefines_global =
     _otherwise ->
       Nothing
 
+test_macros_issue_890 :: TestCase
+test_macros_issue_890 =
+  defaultTest "macros/issue_890"
+
 test_types_special_parse_failure_long_double :: TestCase
 test_types_special_parse_failure_long_double =
   testTraceCustom "types/special/parse_failure_long_double" ["fun1", "struct1"] $ \case
@@ -1192,6 +1196,7 @@ testCases = manualTestCases ++ [
     , test_functions_simple_func
     , test_functions_varargs
     , test_globals_globals
+    , test_macros_issue_890
     , test_macros_macro_functions
     , test_macros_macro_in_fundecl
     , test_macros_macro_in_fundecl_vs_typedef

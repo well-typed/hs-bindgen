@@ -4,11 +4,13 @@ module C.Expr.Parse.Expr (parseExpr) where
 
 import Control.Monad
 import Data.Functor.Identity
+import Data.Text (Text)
 import Data.Type.Nat
 import Data.Vec.Lazy
 import Text.Parsec
 import Text.Parsec.Expr
 
+import Clang.Enum.Simple
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
@@ -73,7 +75,7 @@ mTerm =
       , MVar NoXVar <$> var <*> option [] actualArgs
       ]
 
-    ops :: OperatorTable [Token TokenSpelling] ParserState Identity (MTerm Ps)
+    ops :: OperatorTable [Token TokenSpelling] () Identity (MTerm Ps)
     ops = []
 
 var :: Parser Name
@@ -222,3 +224,41 @@ sepBy2 p sep = do
   x2 <- p
   xs <- many $ sep >> p
   return (x1, x2, xs)
+
+{-------------------------------------------------------------------------------
+  Debugging
+-------------------------------------------------------------------------------}
+
+-- | Debug parser
+--
+-- Example:
+--
+-- > _parseTestWith parseExpr [(CXToken_Identifier, "M"), (CXToken_Literal, "1")]
+-- > _parseTestWith literalInteger [(CXToken_Literal, "1")]
+_parseTestWith ::
+     Show a
+  => Parser a
+  -> [(CXTokenKind, Text)]
+  -> IO ()
+_parseTestWith p = parseTest p . Prelude.map mkToken
+  where
+    mkToken :: (CXTokenKind, Text) -> Token TokenSpelling
+    mkToken (kind, spelling) = Token{
+          tokenKind       = simpleEnum kind
+        , tokenSpelling   = TokenSpelling spelling
+        , tokenExtent     = Range nullLoc nullLoc
+        , tokenCursorKind = simpleEnum CXCursor_UnexposedDecl -- irrelevant
+        }
+
+    nullLoc :: MultiLoc
+    nullLoc = MultiLoc{
+          multiLocExpansion = SingleLoc{
+              singleLocPath   = "<test>"
+            , singleLocLine   = 1
+            , singleLocColumn = 1
+            , singleLocOffset = 1
+            }
+        , multiLocPresumed  = Nothing
+        , multiLocSpelling  = Nothing
+        , multiLocFile      = Nothing
+        }
