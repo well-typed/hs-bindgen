@@ -2,36 +2,28 @@ module HsBindgen.Artefact (
     -- * Artefacts
     Artefact(..)
   , runArtefacts
-    -- * Traces
-  , ArtefactMsg(..)
-    -- * Errors
-  , RunArtefactError(..)
-  , FileSystemError(..)
     -- * Policies
   , FileOverwritePolicy(..)
   , OutputDirPolicy(..)
     -- * File description
   , FileDescription(..)
   , FileLocation(..)
+  , fileLocationToPath
   , RelativeToOutputDir(..)
   , FileContent(..)
     -- * ArtefactM monad
   , ArtefactM -- opaque
-  , ArtefactEnv(..)
     -- ** Actions
-  , delayWriteFile
+  , delay
+  , DelayedIO(..)
+    -- * Errors
+  , DelayedIOError(..)
   )
 where
 
 import Control.Monad (liftM)
-import Control.Monad.Except (ExceptT (..), MonadError (..), runExceptT,
-                             withExceptT)
-import Control.Monad.Reader (ReaderT (..))
 import Control.Monad.State (StateT (..), modify)
-import Data.IORef (IORef)
-import System.Directory (createDirectoryIfMissing, doesDirectoryExist,
-                         doesFileExist)
-import System.FilePath (takeDirectory, (</>))
+import System.FilePath ((</>))
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
@@ -44,7 +36,6 @@ import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)
-import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Boot
 import HsBindgen.Cache (Cached (getCached))
 import HsBindgen.Config
@@ -113,46 +104,17 @@ instance Monad Artefact where
 -- All top-level artefacts will be cached (this is not true for computed
 -- artefacts, using, for example, the 'Functor' interface, or 'Lift').
 runArtefacts :: forall a.
-     Tracer ArtefactMsg
-  -> IORef TracerState
-  -> BootArtefact
+     BootArtefact
   -> FrontendArtefact
   -> BackendArtefact
   -> Artefact a
-  -> IO (Either RunArtefactError a)
+  -> IO (a, [DelayedIO])
 runArtefacts
-  tracerSafe
-  tracerUnsafeStateRef
   BootArtefact{..}
   FrontendArtefact{..}
   BackendArtefact{..}
-  artefact = runExceptT run
+  artefact = runArtefactM $ runArtefact artefact
   where
-    env :: ArtefactEnv
-    env = ArtefactEnv tracerSafe
-
-    run :: ExceptT RunArtefactError IO a
-    run = do
-      -- The 'Bind' operator of 'Artefact' checks for 'Error' traces.
-      (result, actions)  <-
-        withExceptT (const ErrorReported) $
-          runArtefactM env $
-            runArtefact artefact
-
-      -- -- TODO_PR: Run checks outside.
-      --     -- After each step, check tracer state for 'Error' traces.
-      --     mbError <- checkTracerState tracerUnsafeStateRef
-      --     case mbError of
-      --       Just err -> throwError err
-      --       Nothing  -> pure r
-
-      -- -- Before creating directories or writing output files, we verify
-      -- -- adherence to the provided policies.
-      -- mapM_ checkPolicy actions
-
-      -- liftIO $ executeFileSystemActions actions
-      -- pure result
-
     runArtefact :: forall x. Artefact x -> ArtefactM x
     runArtefact = \case
         --Boot.
@@ -177,92 +139,6 @@ runArtefacts
         -- Lift and sequence.
         (Lift   f)          -> f
         (Bind x f)          -> runArtefact x >>= runArtefact . f
-
-    checkPolicy :: FileSystemAction -> ExceptT RunArtefactError IO ()
-    checkPolicy (WriteFile fd) = case fd.location of
-      UserSpecified path -> do
-        let baseDir = takeDirectory path
-        dirExists  <- liftIO $ doesDirectoryExist baseDir
-        fileExists <- liftIO $ doesFileExist path
-        unless dirExists $
-          throwError $ FileSystemError $ DirectoryDoesNotExist baseDir
-        when (fileExists && fd.fileOverwritePolicy == DoNotOverwriteFiles) $
-          throwError $ FileSystemError $ FileAlreadyExists path
-      RelativeFileLocation RelativeToOutputDir{..} -> do
-        let path = outputDir </> localPath
-        dirExists  <- liftIO $ doesDirectoryExist outputDir
-        fileExists <- liftIO $ doesFileExist path
-        unless (dirExists || outputDirPolicy == CreateOutputDirs ) $
-          throwError $ FileSystemError $ DirectoryDoesNotExist outputDir
-        when (fileExists && fd.fileOverwritePolicy == DoNotOverwriteFiles) $
-          throwError $ FileSystemError $ FileAlreadyExists path
-
-    executeFileSystemActions :: [FileSystemAction] -> IO ()
-    executeFileSystemActions as =
-      forM_ as $ \case
-        WriteFile fd -> do
-          let path = fileLocationToPath fd.location
-          traceWith tracerSafe $ RunArtefactWriteFile path fd.description
-          -- Creating the directory is justified by checking the policy first.
-          createDirectoryIfMissing True (takeDirectory path)
-          case fd.content of
-            TextContent str        -> writeFile path str
-            BindingSpecContent ubs -> BindingSpec.writeFile path ubs
-
-{-------------------------------------------------------------------------------
-  Traces
--------------------------------------------------------------------------------}
-
-data ArtefactMsg =
-    RunArtefactCreateDir FilePath
-  | RunArtefactWriteFile FilePath String
-  deriving stock (Show, Generic)
-
-instance PrettyForTrace ArtefactMsg where
-  prettyForTrace = \case
-    RunArtefactCreateDir path ->
-      "Creating directory" <+> PP.showToCtxDoc path
-    RunArtefactWriteFile path what ->
-      "Writing" <+> PP.showToCtxDoc what <+> "to file" <+> PP.showToCtxDoc path
-
-instance IsTrace SafeLevel ArtefactMsg where
-  getDefaultLogLevel = \case
-    RunArtefactCreateDir{} -> SafeInfo
-    RunArtefactWriteFile{} -> SafeInfo
-  getSource = const HsBindgen
-  getTraceId = \case
-    RunArtefactCreateDir{} -> "run-artefact-create-dir"
-    RunArtefactWriteFile{} -> "run-artefact-write-file"
-
-{-------------------------------------------------------------------------------
-  Errors
--------------------------------------------------------------------------------}
-
-data RunArtefactError =
-      ErrorReported
-    | FileSystemError FileSystemError
-  deriving stock Show
-
-instance PrettyForTrace RunArtefactError where
-  prettyForTrace = \case
-    ErrorReported     -> "An error happened (see above)"
-    FileSystemError e -> prettyForTrace e
-
-data FileSystemError =
-      DirectoryDoesNotExist FilePath
-    | FileAlreadyExists     FilePath
-  deriving Show
-
-instance PrettyForTrace FileSystemError where
-  prettyForTrace = \case
-    DirectoryDoesNotExist fp -> PP.vsep [
-        "Output directory does not exist:" <+> PP.string fp
-      , "Use --create-output-dirs to create it automatically, or create the directory manually."
-      ]
-    FileAlreadyExists fp -> PP.vsep [
-        "Output file already exists:" <+> PP.string fp
-      , "Use --overwrite-files to allow overwriting existing files, or delete the file manually."
-      ]
 
 {-------------------------------------------------------------------------------
   Policies
@@ -323,27 +199,16 @@ data FileContent
 -------------------------------------------------------------------------------}
 
 newtype ArtefactM a = WrapArtefactM {
-    unwrapArtefactM ::
-      StateT [FileSystemAction]
-        (ReaderT ArtefactEnv
-          (ExceptT AnErrorHappened IO))
-        a
+    unwrapArtefactM :: StateT [DelayedIO] IO a
   }
   deriving newtype (
       Functor
     , Applicative
     , Monad
-    , MonadError AnErrorHappened
     )
 
-data ArtefactEnv = ArtefactEnv {
-      artefactTracer :: Tracer ArtefactMsg
-    }
-
-runArtefactM ::
-  ArtefactEnv -> ArtefactM a -> ExceptT AnErrorHappened IO (a, [FileSystemAction])
-runArtefactM env = flip runReaderT env . flip runStateT [] . unwrapArtefactM
-
+runArtefactM :: ArtefactM a -> IO (a, [DelayedIO])
+runArtefactM = flip runStateT [] . unwrapArtefactM
 
 -- | Private (i.e., /not public/) API :-).
 artefactIO :: IO a -> ArtefactM a
@@ -356,9 +221,33 @@ aGetCached = artefactIO . getCached
   Actions
 -------------------------------------------------------------------------------}
 
--- | Delayed directory create.
-delayWriteFile :: FileDescription -> ArtefactM ()
-delayWriteFile fd = WrapArtefactM $ modify (WriteFile fd :)
+-- | Register a delayed IO action. The action will only be performed if the
+-- | artefacts are obtained without Error traces, and if the output policies
+-- | align.
+delay :: DelayedIO -> ArtefactM ()
+delay a = WrapArtefactM $ modify (a :)
 
 -- | A file system action to be executed
-data FileSystemAction = WriteFile FileDescription
+data DelayedIO =
+      WriteFile FileDescription
+    | PutStrLn  String
+
+{-------------------------------------------------------------------------------
+  Errors
+-------------------------------------------------------------------------------}
+
+data DelayedIOError =
+      DirectoryDoesNotExist FilePath
+    | FileAlreadyExists     FilePath
+  deriving Show
+
+instance PrettyForTrace DelayedIOError where
+  prettyForTrace = \case
+    DirectoryDoesNotExist fp -> PP.vsep [
+        "Output directory does not exist:" <+> PP.string fp
+      , "Use --create-output-dirs to create it automatically, or create the directory manually."
+      ]
+    FileAlreadyExists fp -> PP.vsep [
+        "Output file already exists:" <+> PP.string fp
+      , "Use --overwrite-files to allow overwriting existing files, or delete the file manually."
+      ]

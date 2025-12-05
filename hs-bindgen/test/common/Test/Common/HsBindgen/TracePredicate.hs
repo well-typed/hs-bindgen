@@ -121,7 +121,7 @@ withTracePredicate
   -> TracePredicate a -> (Tracer a -> IO b) -> IO b
 withTracePredicate report predicate action =
   withTraceConfigPredicate report predicate $ \traceConfig ->
-    withTracerRef traceConfig (\t _ -> action t)
+    withTracerUnsafe traceConfig (\t _ -> action t)
 
 -- | Run an action with a tracer configuration that collects all trace messages.
 --

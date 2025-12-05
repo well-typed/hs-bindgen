@@ -14,12 +14,21 @@ module HsBindgen
   , writeBindingSpec
   , writeTests
 
+    -- * Errors
+  , BindgenError(..)
+
     -- * Test infrastructure
   , hsBindgenE
   ) where
 
+import Control.Monad.Except (MonadError (..))
+import Control.Monad.Trans.Except (ExceptT, runExceptT)
 import Data.Map qualified as Map
+import System.Directory (createDirectoryIfMissing, doesDirectoryExist,
+                         doesFileExist)
 import System.Exit (ExitCode (..), exitWith)
+import System.FilePath (takeDirectory, (</>))
+import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Artefact
@@ -27,15 +36,16 @@ import HsBindgen.Backend
 import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.BindingSpec.Gen
+import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Boot
 import HsBindgen.Config.Internal
+import HsBindgen.Errors (throwPure_TODO)
 import HsBindgen.Frontend
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Test (genTests)
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -63,13 +73,13 @@ hsBindgenE ::
   -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> Artefact a
-  -> IO (Either RunArtefactError a)
+  -> IO (Either BindgenError a)
 hsBindgenE
   tracerConfig
   bindgenConfig@BindgenConfig{..}
   uncheckedHashIncludeArgs
-  artefacts =
-    withTracerRef tracerConfig $ \tracer tracerUnsafeRef -> do
+  artefacts = do
+    eRes <- withTracer tracerConfig $ \tracer -> do
       -- Boot and frontend require unsafe tracer and `libclang`.
       let tracerFrontend :: Tracer FrontendMsg
           tracerFrontend = contramap TraceFrontend tracer
@@ -85,14 +95,17 @@ hsBindgenE
       backendArtefact <- withTracerSafe tracerConfigSafe $ \tracerSafe -> do
         backend tracerSafe bindgenBackendConfig bootArtefact frontendArtefact
       -- 4. Artefacts.
-      withTracerSafe tracerConfigSafe $ \tracerSafe -> do
-        runArtefacts
-          tracerSafe
-          tracerUnsafeRef
-          bootArtefact
-          frontendArtefact
-          backendArtefact
-          artefacts
+      runArtefacts bootArtefact frontendArtefact backendArtefact artefacts
+
+    runExceptT $ withTracerSafe tracerConfigSafe $ \tracer ->
+        case eRes of
+          Left er       -> throwError $ BindgenErrorReported er
+          Right (r, as) -> do
+            -- Before creating directories or writing output files, we verify
+            -- adherence to the provided policies.
+            mapM_ checkPolicy as
+            liftIO $ executeFileSystemActions tracer as
+            pure r
 
   where
     tracerConfigSafe :: TracerConfig SafeLevel a
@@ -104,8 +117,39 @@ hsBindgenE
       , tShowCallStack  = tShowCallStack tracerConfig
       }
 
--- eitherErrorOrIOActions <- withTracer $ \tracer -> runArtefact ...
--- checkPolicy actions
+    checkPolicy :: DelayedIO -> ExceptT BindgenError IO ()
+    checkPolicy (PutStrLn   _) = pure ()
+    checkPolicy (WriteFile fd) = case fd.location of
+      UserSpecified path -> do
+        let baseDir = takeDirectory path
+        dirExists  <- liftIO $ doesDirectoryExist baseDir
+        fileExists <- liftIO $ doesFileExist path
+        unless dirExists $
+          throwError $ BindgenFileSystemError $ DirectoryDoesNotExist baseDir
+        when (fileExists && fd.fileOverwritePolicy == DoNotOverwriteFiles) $
+          throwError $ BindgenFileSystemError $ FileAlreadyExists path
+      RelativeFileLocation RelativeToOutputDir{..} -> do
+        let path = outputDir </> localPath
+        dirExists  <- liftIO $ doesDirectoryExist outputDir
+        fileExists <- liftIO $ doesFileExist path
+        unless (dirExists || outputDirPolicy == CreateOutputDirs ) $
+          throwError $ BindgenFileSystemError $ DirectoryDoesNotExist outputDir
+        when (fileExists && fd.fileOverwritePolicy == DoNotOverwriteFiles) $
+          throwError $ BindgenFileSystemError $ FileAlreadyExists path
+
+    executeFileSystemActions :: Tracer BindgenMsg -> [DelayedIO] -> IO ()
+    executeFileSystemActions tracer as =
+      forM_ as $ \case
+        PutStrLn   x -> putStrLn x
+        WriteFile fd -> do
+          let path = fileLocationToPath fd.location
+          traceWith tracer $ BindgenWriteFile path fd.description
+          -- Creating the directory is justified by checking the policy first.
+          createDirectoryIfMissing True (takeDirectory path)
+          case fd.content of
+            TextContent str        -> writeFile path str
+            BindingSpecContent ubs -> BindingSpec.writeFile path ubs
+
 
 {-------------------------------------------------------------------------------
   Custom build artefacts
@@ -117,7 +161,7 @@ writeIncludeGraph pol mPath = do
     (predicate, includeGraph) <- IncludeGraph
     let rendered = IncludeGraph.dumpMermaid predicate includeGraph
     case mPath of
-      Nothing   -> liftIO $ putStrLn rendered
+      Nothing   -> Lift $ delay $ PutStrLn rendered
       Just path -> Lift $ write pol "include graph" (UserSpecified path) rendered
 
 -- | Write @use-decl@ graph to file.
@@ -127,7 +171,7 @@ writeUseDeclGraph pol mPath = do
     useDeclGraph <- UseDeclGraph
     let rendered = UseDeclGraph.dumpMermaid index useDeclGraph
     case mPath of
-      Nothing   -> liftIO $ putStrLn rendered
+      Nothing   -> Lift $ delay $ PutStrLn rendered
       Just path -> Lift $ write pol "use-decl graph" (UserSpecified path) rendered
 
 -- | Get bindings (single module).
@@ -193,20 +237,21 @@ writeBindingSpec fileOverwritePolicy path = do
             , fileOverwritePolicy
             , content     = BindingSpecContent  bindingSpec
             }
-    Lift $ delayWriteFile fileDescription
+    Lift $ delay $ WriteFile fileDescription
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
-writeTests testDir = do
-    moduleBaseName  <- FinalModuleBaseName
-    hashIncludeArgs <- HashIncludeArgs
-    hsDecls         <- HsDecls
-    liftIO $
-      genTests
-        hashIncludeArgs
-        hsDecls
-        moduleBaseName
-        testDir
+writeTests _testDir = do
+    -- moduleBaseName  <- FinalModuleBaseName
+    -- hashIncludeArgs <- HashIncludeArgs
+    -- hsDecls         <- HsDecls
+    -- liftIO $
+    --   genTests
+    --     hashIncludeArgs
+    --     hsDecls
+    --     moduleBaseName
+    --     testDir
+    throwPure_TODO 22 "Test generation  integrated into the artefact API"
 
 {-------------------------------------------------------------------------------
   Helpers
@@ -214,7 +259,7 @@ writeTests testDir = do
 
 write :: FileOverwritePolicy -> String -> FileLocation -> String -> ArtefactM ()
 write pol what loc str =
-    delayWriteFile $ FileDescription what loc pol (TextContent str)
+    delay $ WriteFile $ FileDescription what loc pol (TextContent str)
 
 writeByCategory ::
      FileOverwritePolicy
@@ -242,3 +287,42 @@ writeByCategory
         location =
           RelativeFileLocation $
             RelativeToOutputDir {outputDir, localPath, outputDirPolicy}
+
+{-------------------------------------------------------------------------------
+  Errors
+-------------------------------------------------------------------------------}
+
+data BindgenError =
+      BindgenErrorReported   AnErrorHappened
+    | BindgenFileSystemError DelayedIOError
+    deriving stock (Show)
+
+instance PrettyForTrace BindgenError where
+  prettyForTrace = \case
+    BindgenErrorReported   e -> prettyForTrace e
+    BindgenFileSystemError e -> prettyForTrace e
+
+{-------------------------------------------------------------------------------
+  Traces
+-------------------------------------------------------------------------------}
+
+data BindgenMsg =
+    BindgenCreateDir FilePath
+  | BindgenWriteFile FilePath String
+  deriving stock (Show, Generic)
+
+instance PrettyForTrace BindgenMsg where
+  prettyForTrace = \case
+    BindgenCreateDir path ->
+      "Creating directory" <+> PP.showToCtxDoc path
+    BindgenWriteFile path what ->
+      "Writing" <+> PP.showToCtxDoc what <+> "to file" <+> PP.showToCtxDoc path
+
+instance IsTrace SafeLevel BindgenMsg where
+  getDefaultLogLevel = \case
+    BindgenCreateDir{} -> SafeInfo
+    BindgenWriteFile{} -> SafeInfo
+  getSource = const HsBindgen
+  getTraceId = \case
+    BindgenCreateDir{} -> "bindgen-create-dir"
+    BindgenWriteFile{} -> "bindgen-write-file"

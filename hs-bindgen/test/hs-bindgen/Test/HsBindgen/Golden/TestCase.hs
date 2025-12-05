@@ -32,7 +32,6 @@ import Test.Tasty.HUnit (assertFailure)
 import Clang.HighLevel.Types qualified as Clang
 
 import HsBindgen
-import HsBindgen.Artefact (RunArtefactError)
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
@@ -240,7 +239,7 @@ runTestHsBindgen ::
   -> IO TestResources
   -> TestCase
   -> Artefact a
-  -> IO (Either RunArtefactError a)
+  -> IO (Either BindgenError a)
 runTestHsBindgen report testResources test artefacts = do
     bootConfig <- getTestBootConfig testResources test
     let frontendConfig = getTestFrontendConfig test
@@ -267,7 +266,7 @@ runTestHsBindgenFailure ::
   -> IO TestResources
   -> TestCase
   -> Artefact b
-  -> IO RunArtefactError
+  -> IO BindgenError
 runTestHsBindgenFailure report resources test artefacts = do
     eRes <- runTestHsBindgen report resources test artefacts
     case eRes of

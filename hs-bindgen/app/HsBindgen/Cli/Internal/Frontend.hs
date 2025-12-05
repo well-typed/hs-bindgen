@@ -13,7 +13,6 @@ module HsBindgen.Cli.Internal.Frontend (
   , exec
   ) where
 
-import Control.Monad.IO.Class
 import Options.Applicative hiding (info)
 
 import HsBindgen
@@ -56,6 +55,6 @@ parseOpts =
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
-    let artefact = ReifiedC >>= liftIO . print
+    let artefact = ReifiedC >>= Lift . delay . PutStrLn . show
         bindgenConfig = toBindgenConfig config uniqueId baseModuleName
     hsBindgen tracerConfig bindgenConfig inputs artefact
