@@ -31,7 +31,6 @@ module HsBindgen.Util.Tracer (
     -- * Tracers
   , withTracer
   , TracerState(..)
-  , withTracerRef
   , checkTracerState
   , AnErrorHappened(..)
     -- * Safe tracers
@@ -39,6 +38,8 @@ module HsBindgen.Util.Tracer (
   , SafeTrace(..)
     -- * Re-exports
   , Contravariant(..)
+    -- * Test infrastructure
+  , withTracerUnsafe
   ) where
 
 import Control.Tracer (Contravariant (..))
@@ -419,7 +420,7 @@ withTracer :: forall m e a. (MonadIO m , IsTrace Level e)
   => TracerConfig Level e
   -> (Tracer e -> m a)
   -> m (Either AnErrorHappened a)
-withTracer tracerConf action = withTracerRef tracerConf action'
+withTracer tracerConf action = withTracerUnsafe tracerConf action'
   where
     action' :: Tracer e -> IORef TracerState -> m (Either AnErrorHappened a)
     action' tracer ref = do
@@ -441,11 +442,13 @@ defTracerState = TracerState Debug
 -- | Run an action with a tracer.
 --
 -- The caller is responsible for checking for errors in the tracer state.
-withTracerRef :: forall m e a. (MonadIO m, IsTrace Level e)
+--
+-- Used in tests.
+withTracerUnsafe :: forall m e a. (MonadIO m, IsTrace Level e)
   => TracerConfig Level e
   -> (Tracer e -> IORef TracerState -> m a)
   -> m a
-withTracerRef TracerConfig{..} action = do
+withTracerUnsafe TracerConfig{..} action = do
   (report, ansiColor) <- getOutputConfig
   fmap fst $ withIORef defTracerState $ \ref ->
     action (mkTracer
@@ -477,6 +480,7 @@ withTracerRef TracerConfig{..} action = do
 -- We do not store/report the actual errors, because we have emitted them
 -- previously.
 data AnErrorHappened = AnErrorHappened
+    deriving stock (Show)
 
 instance PrettyForTrace AnErrorHappened where
   prettyForTrace AnErrorHappened = "An error happened (see above)"
@@ -495,7 +499,7 @@ withTracerSafe :: forall m e a. (MonadIO m, IsTrace SafeLevel e)
   -> (Tracer e -> m a)
   -> m a
 withTracerSafe tracerConf action =
-    withTracerRef tracerConf' (\t _ -> action' t)
+    withTracerUnsafe tracerConf' (\t _ -> action' t)
   where
     action' :: Tracer (SafeTrace e) -> m a
     action' = action . contramap SafeTrace

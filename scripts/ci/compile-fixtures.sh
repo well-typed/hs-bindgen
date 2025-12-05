@@ -31,7 +31,7 @@ KNOWN_FAILURES=(
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=88
+KNOWN_FIXTURES_COUNT=98
 
 # Default options
 JOBS=4

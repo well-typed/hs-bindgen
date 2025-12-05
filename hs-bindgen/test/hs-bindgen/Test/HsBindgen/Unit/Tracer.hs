@@ -178,7 +178,7 @@ testTracerIO customLogLevel traces = do
         }
   -- NB: Use and test the tracer functionality provided by @hs-bindgen:lib@,
   -- and not by the tests (e.g., 'withTracePredicate').
-  (TracerState maxLogLevel) <- withTracerRef tracerConfig $ \tracer ref -> do
+  (TracerState maxLogLevel) <- withTracerUnsafe tracerConfig $ \tracer ref -> do
     mapM_ (traceWith tracer) traces
     readIORef ref
   pure maxLogLevel
