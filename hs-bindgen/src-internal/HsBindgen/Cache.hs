@@ -1,33 +1,44 @@
 module HsBindgen.Cache (
-    cacheWith
+    Cached(..)
+  , cacheWith
   , CacheMsg(..)
   )
 where
 
 import Control.Concurrent (MVar, modifyMVar, newMVar)
+import Control.Monad.IO.Class
 import GHC.Generics (Generic)
 import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Util.Tracer
 
+newtype Cached a = Cached {  getCached :: IO a }
+  deriving newtype (Functor, Applicative, Monad, MonadIO)
+
 -- | Cache a computation with a name.
 --
 -- Names only serve for debug messages. They need not be unique.
-cacheWith :: Tracer CacheMsg -> Maybe String -> IO a -> IO (IO a)
-cacheWith tracer name computeRes = do
+cacheWith :: Tracer CacheMsg -> Maybe String -> Cached a -> IO (Cached a)
+cacheWith tracerCache name action = do
   cacheVar <- newMVar Nothing
-  pure $ getWithCache tracer name cacheVar computeRes
+  pure $ getWithCache tracerCache name cacheVar action
 
-getWithCache :: Tracer CacheMsg -> Maybe String -> MVar (Maybe a) -> IO a -> IO a
-getWithCache tracer name cacheVar computeRes = modifyMVar cacheVar $ \case
-    Nothing -> do
-      traceWith tracer $ CacheMiss name
-      !newRes <- computeRes
-      pure (Just newRes, newRes)
-    Just cachedRes -> do
-      traceWith tracer $ CacheHit name
-      pure (Just cachedRes, cachedRes)
+getWithCache ::
+     Tracer CacheMsg
+  -> Maybe String
+  -> MVar (Maybe a)
+  -> Cached a
+  -> Cached a
+getWithCache tracerCache name cacheVar action = Cached $
+    modifyMVar cacheVar $ \case
+      Nothing -> do
+        traceWith tracerCache $ CacheMiss name
+        !newRes <- getCached action
+        pure (Just newRes, newRes)
+      Just cachedRes -> do
+        traceWith tracerCache $ CacheHit name
+        pure (Just cachedRes, cachedRes)
 
 {-------------------------------------------------------------------------------
   Traces

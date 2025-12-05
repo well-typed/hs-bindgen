@@ -1,0 +1,26 @@
+-- addDependentFile examples/golden/program-analysis/selection_bad_size_t.h
+-- addDependentFile examples/golden/program-analysis/selection_bad.h
+{-| __C declaration:__ @A@
+
+    __defined at:__ @program-analysis\/selection_bad.h:3:9@
+
+    __exported by:__ @program-analysis\/selection_bad.h@
+-}
+newtype A
+    = A {un_A :: CInt}
+      {- ^ __C declaration:__ @A@
+
+           __defined at:__ @program-analysis\/selection_bad.h:3:9@
+
+           __exported by:__ @program-analysis\/selection_bad.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)

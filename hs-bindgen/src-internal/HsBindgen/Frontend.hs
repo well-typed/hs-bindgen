@@ -105,10 +105,10 @@ frontend ::
 frontend tracer FrontendConfig{..} BootArtefact{..} = do
     parsePass <- cache "parse" $ fmap (fromMaybe emptyParseResult) $ do
       setup <- getSetup
-      withClang (contramap FrontendClang tracer) setup $ \unit -> Just <$> do
+      rootHeader <- getRootHeader
+      liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> Just <$> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude) <-
           processIncludes unit
-        rootHeader <- getRootHeader
         parseResults <- parseDecls
           (contramap FrontendParse tracer)
           rootHeader
@@ -226,10 +226,10 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     pure FrontendArtefact{..}
   where
-    getRootHeader :: IO RootHeader
+    getRootHeader :: Cached RootHeader
     getRootHeader = fromMainFiles <$> bootHashIncludeArgs
 
-    getSetup :: IO ClangSetup
+    getSetup :: Cached ClangSetup
     getSetup = do
       clangArgs <- bootClangArgs
       hContent <- content <$> getRootHeader
@@ -267,7 +267,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       , const (Left "empty")
       )
 
-    cache :: String -> IO a -> IO (IO a)
+    cache :: String -> Cached a -> IO (Cached a)
     cache = cacheWith (contramap (FrontendCache . SafeTrace) tracer) . Just
 
 {-------------------------------------------------------------------------------
@@ -275,14 +275,14 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 -------------------------------------------------------------------------------}
 
 data FrontendArtefact = FrontendArtefact {
-    frontendIncludeGraph   :: IO (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
-  , frontendGetMainHeaders :: IO GetMainHeaders
-  , frontendIndex          :: IO DeclIndex.DeclIndex
-  , frontendUseDeclGraph   :: IO UseDeclGraph.UseDeclGraph
-  , frontendDeclUseGraph   :: IO DeclUseGraph.DeclUseGraph
-  , frontendOmitTypes      :: IO [(C.QualName, SourcePath)]
-  , frontendCDecls         :: IO [C.Decl]
-  , frontendDependencies   :: IO [SourcePath]
+    frontendIncludeGraph   :: Cached (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
+  , frontendGetMainHeaders :: Cached GetMainHeaders
+  , frontendIndex          :: Cached DeclIndex.DeclIndex
+  , frontendUseDeclGraph   :: Cached UseDeclGraph.UseDeclGraph
+  , frontendDeclUseGraph   :: Cached DeclUseGraph.DeclUseGraph
+  , frontendOmitTypes      :: Cached [(C.QualName, SourcePath)]
+  , frontendCDecls         :: Cached [C.Decl]
+  , frontendDependencies   :: Cached [SourcePath]
   }
 
 {-------------------------------------------------------------------------------

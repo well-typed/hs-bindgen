@@ -26,7 +26,7 @@ check testResources test =
               <*> OmitTypes
               <*> HsDecls
       (target, getMainHeaders, omitTypes, hsDecls) <-
-        runTestHsBindgen report testResources test artefacts
+        runTestHsBindgenSuccess report testResources test artefacts
 
       let output :: String
           output = UTF8.toString $

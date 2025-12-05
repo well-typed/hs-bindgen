@@ -19,16 +19,15 @@ module Test.HsBindgen.Golden.TestCase (
   , failingTestSimple
   , failingTestCustom
     -- * Execution
-  , runTestHsBindgen
-  , runTestHsBindgen'
+  , runTestHsBindgenSuccess
+  , runTestHsBindgenFailure
   ) where
 
-import Control.Exception (Exception (..), SomeException (..), handle)
 import System.FilePath
-import Test.Common.HsBindgen.Trace (reportTrace)
 import Test.Common.HsBindgen.TracePredicate
 import Test.HsBindgen.Resources
 import Test.Tasty (TestName)
+import Test.Tasty.HUnit (assertFailure)
 
 import Clang.HighLevel.Types qualified as Clang
 
@@ -229,38 +228,47 @@ getTestBackendConfig TestCase{..} = getTestDefaultBackendConfig testName testPat
 withTestTraceConfig ::
      (String -> IO ())
   -> TestCase
-  -> (TracerConfig Level TraceMsg -> IO b)
-  -> IO b
+  -> (TracerConfig Level TraceMsg -> IO a)
+  -> IO a
 withTestTraceConfig report TestCase{testTracePredicate} =
     withTraceConfigPredicate report testTracePredicate
 
 -- | Run 'hsBindgen'.
---
--- On 'TraceException's, print error traces.
 runTestHsBindgen ::
-  (String -> IO ()) -> IO TestResources -> TestCase -> Artefact a -> IO a
-runTestHsBindgen report testResources test artefact =
-    handle exceptionHandler $
-      runTestHsBindgen' report testResources test artefact
-  where
-    exceptionHandler :: SomeException -> IO a
-    exceptionHandler e@(SomeException e')
-      | Just (TraceException @TraceMsg es) <- fromException e =
-          mapM_  printTrace es >> throwIO e'
-      | otherwise = throwIO e'
-    printTrace = print . reportTrace
-
--- | Like 'runTestHsBindgen', but do not print error traces.
-runTestHsBindgen' ::
-  (String -> IO ()) -> IO TestResources -> TestCase -> Artefact a -> IO a
-runTestHsBindgen' report testResources test artefacts = do
+    (String -> IO ())
+  -> IO TestResources
+  -> TestCase
+  -> Artefact a
+  -> IO (Either BindgenError a)
+runTestHsBindgen report testResources test artefacts = do
     bootConfig <- getTestBootConfig testResources test
     let frontendConfig = getTestFrontendConfig test
         backendConfig  = getTestBackendConfig test
         bindgenConfig  = BindgenConfig bootConfig frontendConfig backendConfig
     withTestTraceConfig report test $ \traceConfig ->
-      hsBindgen
+      hsBindgenE
         traceConfig
         bindgenConfig
         [testInputInclude test]
         artefacts
+
+runTestHsBindgenSuccess ::
+  (String -> IO ()) -> IO TestResources -> TestCase -> Artefact b -> IO b
+runTestHsBindgenSuccess report resources test artefacts = do
+    eRes <- runTestHsBindgen report resources test artefacts
+    case eRes of
+      Left er -> assertFailure (show er)
+      Right r -> pure r
+
+runTestHsBindgenFailure ::
+      Show b
+  => (String -> IO ())
+  -> IO TestResources
+  -> TestCase
+  -> Artefact b
+  -> IO BindgenError
+runTestHsBindgenFailure report resources test artefacts = do
+    eRes <- runTestHsBindgen report resources test artefacts
+    case eRes of
+      Left er -> pure er
+      Right r -> assertFailure (show r)

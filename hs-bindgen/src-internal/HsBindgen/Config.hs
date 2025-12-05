@@ -5,11 +5,8 @@ module HsBindgen.Config (
     Config_(..)
   , UniqueId(..)
   , BaseModuleName(..)
+  , BackendConfig(..)
   , toBindgenConfig
-
-    -- * Client
-  , OutputDirPolicy(..)
-
     -- * Template Haskell
   , ConfigTH(..)
   )
@@ -75,20 +72,6 @@ toBindgenConfig Config{..} uniqueId baseModuleName =
             pathStyle = haddockPathStyle
           }
       }
-
-{-------------------------------------------------------------------------------
-  Client
--------------------------------------------------------------------------------}
-
--- NOTE: Stable public API.
-
-data OutputDirPolicy
-  = CreateDirStructure
-  | DoNotCreateDirStructure
-  deriving (Show, Eq)
-
-instance Default OutputDirPolicy where
-  def = DoNotCreateDirStructure
 
 {-------------------------------------------------------------------------------
   Template Haskell

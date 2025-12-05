@@ -1,6 +1,6 @@
 module Test.HsBindgen.Integration.ExitCode (tests) where
 
-import Control.Exception (fromException, try)
+import Control.Monad (void)
 import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
@@ -12,8 +12,6 @@ import Test.Tasty
 import Test.Tasty.HUnit
 
 import HsBindgen.Artefact (Artefact (..))
-import HsBindgen.TraceMsg
-import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Tests
@@ -27,52 +25,32 @@ tests testResources = testGroup "Integration.ExitCode" [
   , testUnresolvedIncludeProcess
   ]
 
--- | Test that should successful complete without throwing TraceException
---
+-- | Test that should complete successfully
 testSuccessCase :: IO TestResources -> TestTree
 testSuccessCase testResources = testCase "success does not throw" $ do
   let test = defaultTest "functions/simple_func"
       noReport = const $ pure ()
-
-  result <- try $ runTestHsBindgen' noReport testResources test FinalDecls
-  case result of
-    Right _ -> pure ()
-    Left e'
-      | Just (TraceException @TraceMsg _)
-        <- fromException e' ->
-          assertFailure "Expected success but got TraceException"
-      | otherwise ->
-        assertFailure $ "Unexpected exception: " ++ show e'
+  void $ runTestHsBindgenSuccess noReport testResources test FinalDecls
 
 -- | Test unresolved #include (issue #1197 scenario)
 --
 -- Should fail
---
 testUnresolvedInclude :: IO TestResources -> TestTree
-testUnresolvedInclude testResources = testCase "unresolved include throws TraceException" $ do
+testUnresolvedInclude testResources = testCase "unresolved include throws exception" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
     let tempHeader = tmpDir </> "test-unresolved.h"
     writeFile tempHeader "#include <nonexistent/totally-bogus-header-12345.h>\n"
 
     let test = (defaultFailingTest "test-unresolved") {
             testInputDir = tmpDir
-            -- Tolerate all traces - we want to test TraceException propagation
+            -- Tolerate all traces - we want to test exception propagation
           , testTracePredicate = customTracePredicate [] $ \_ -> Just Tolerated
           }
         noReport = const $ pure ()
 
-    result <- try $ runTestHsBindgen' noReport testResources test FinalDecls
-    case result of
-      Left e'
-        | Just (TraceException @TraceMsg _)
-          <- fromException e' -> pure ()
-        | otherwise ->
-            assertFailure $ "Expected TraceException but got: " ++ show e'
-      Right _ ->
-        assertFailure "Expected TraceException for unresolved include but got success"
+    void $ runTestHsBindgenFailure noReport testResources test FinalDecls
 
 -- | Test that actual process exit code
---
 testSuccessCaseProcess :: IO TestResources -> TestTree
 testSuccessCaseProcess testResources = testCase "success returns exit code 0" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
@@ -80,6 +58,8 @@ testSuccessCaseProcess testResources = testCase "success returns exit code 0" $ 
     let headerPath = root </> "examples/golden/functions/simple_func.h"
     (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
                                                [ "preprocess"
+                                               , "--create-output-dirs"
+                                               , "--overwrite-files"
                                                , "--hs-output-dir"
                                                , tmpDir
                                                , headerPath
@@ -87,7 +67,7 @@ testSuccessCaseProcess testResources = testCase "success returns exit code 0" $ 
                                                ""
     exitCode @?= ExitSuccess
 
--- Test unresolved #include (the original issue scenario)
+-- | Test unresolved #include (the original issue scenario)
 testUnresolvedIncludeProcess :: TestTree
 testUnresolvedIncludeProcess = testCase "unresolved include returns non-zero" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
@@ -96,9 +76,11 @@ testUnresolvedIncludeProcess = testCase "unresolved include returns non-zero" $ 
     writeFile tempHeader "#include <nonexistent/totally-bogus-header-12345.h>\n"
     (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
                                                [ "preprocess"
+                                               , "--create-output-dirs"
+                                               , "--overwrite-files"
                                                , "--hs-output-dir"
                                                , tmpDir
                                                , tempHeader
                                                ]
                                                ""
-    exitCode @?= ExitFailure 1
+    exitCode @?= ExitFailure 2

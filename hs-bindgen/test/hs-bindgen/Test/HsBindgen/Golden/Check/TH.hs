@@ -44,7 +44,7 @@ check testResources test =
         -- We do not have access to 'Q', and so have to compute the 'getThDecls'
         -- artefact manually.
         (deps, decls) <-
-          runTestHsBindgen report testResources test artefacts
+          runTestHsBindgenSuccess report testResources test artefacts
 
         let thDecls :: Qu [TH.Dec]
             thDecls = uncurry (getThDecls deps) $ Foldable.fold decls

@@ -20,6 +20,7 @@ module HsBindgen.App (
     -- ** Output options
   , parseHsOutputDir
   , parseOutputDirPolicy
+  , parseFileOverwritePolicy
   , parseGenBindingSpec
   , parseGenTestsOutput
     -- ** Input arguments
@@ -42,6 +43,7 @@ import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
+import HsBindgen.DelayedIO
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
@@ -480,9 +482,15 @@ parseHsOutputDir = strOption $ mconcat [
     ]
 
 parseOutputDirPolicy :: Parser OutputDirPolicy
-parseOutputDirPolicy = flag DoNotCreateDirStructure CreateDirStructure $ mconcat [
+parseOutputDirPolicy = flag DoNotCreateOutputDirs CreateOutputDirs $ mconcat [
       long "create-output-dirs"
-    , help "Create the output directory if it does not exist"
+    , help "Create the specified output directories if they do not exist"
+    ]
+
+parseFileOverwritePolicy :: Parser FileOverwritePolicy
+parseFileOverwritePolicy = flag DoNotOverwriteFiles AllowFileOverwrite $ mconcat [
+      long "overwrite-files"
+    , help "Allow overwriting existing output files"
     ]
 
 parseGenBindingSpec :: Parser FilePath

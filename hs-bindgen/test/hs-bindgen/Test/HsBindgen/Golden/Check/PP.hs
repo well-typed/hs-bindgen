@@ -35,7 +35,7 @@ check testResources test =
           -- in practice.
           let artefacts = (,) <$> FinalModuleBaseName <*> getBindingsMultiple
           (baseName,(ByCategory output))
-            <- runTestHsBindgen report testResources test artefacts
+            <- runTestHsBindgenSuccess report testResources test artefacts
 
           -- A sanity check to make sure that that the modules we're rendering
           -- have the expected @Example@ base name.

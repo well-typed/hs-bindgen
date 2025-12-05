@@ -13,13 +13,19 @@ module HsBindgen
   , writeBindingsMultiple
   , writeBindingSpec
   , writeTests
+
+    -- * Errors
+  , BindgenError(..)
+
+    -- * Test infrastructure
+  , hsBindgenE
   ) where
 
-import Control.Monad (join)
-import Control.Monad.Trans.Reader (ask)
+import Control.Monad.Except (MonadError (..), withExceptT)
+import Control.Monad.Trans.Except (runExceptT)
 import Data.Map qualified as Map
-import System.Directory (createDirectoryIfMissing)
-import System.FilePath (takeDirectory, (</>))
+import System.Exit (ExitCode (..), exitWith)
+import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Artefact
 import HsBindgen.Backend
@@ -28,13 +34,14 @@ import HsBindgen.Backend.SHs.AST
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
 import HsBindgen.Config.Internal
+import HsBindgen.DelayedIO
+import HsBindgen.Errors (throwPure_TODO)
 import HsBindgen.Frontend
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Test (genTests)
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -48,12 +55,27 @@ hsBindgen ::
   -> [UncheckedHashIncludeArg]
   -> Artefact a
   -> IO a
-hsBindgen
+hsBindgen t b i a = do
+    eRes <- hsBindgenE t b i a
+    case eRes of
+      Left err -> do
+        putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace err
+        exitWith (ExitFailure 2)
+      Right r  -> pure r
+
+-- | Like 'hsBindgen' but does not exit with failure when an error has occurred.
+hsBindgenE ::
+     TracerConfig Level TraceMsg
+  -> BindgenConfig
+  -> [UncheckedHashIncludeArg]
+  -> Artefact a
+  -> IO (Either BindgenError a)
+hsBindgenE
   tracerConfig
   bindgenConfig@BindgenConfig{..}
   uncheckedHashIncludeArgs
   artefacts = do
-    result <- fmap join $ withTracer tracerConfig $ \tracer tracerUnsafeRef -> do
+    eRes <- withTracer tracerConfig $ \tracer -> do
       -- Boot and frontend require unsafe tracer and `libclang`.
       let tracerFrontend :: Tracer FrontendMsg
           tracerFrontend = contramap TraceFrontend tracer
@@ -69,16 +91,18 @@ hsBindgen
       backendArtefact <- withTracerSafe tracerConfigSafe $ \tracerSafe -> do
         backend tracerSafe bindgenBackendConfig bootArtefact frontendArtefact
       -- 4. Artefacts.
-      withTracerSafe tracerConfigSafe $ \tracerSafe -> do
-        runArtefacts
-          tracerSafe
-          tracerUnsafeRef
-          bootArtefact
-          frontendArtefact
-          backendArtefact
-          artefacts
+      runArtefacts bootArtefact frontendArtefact backendArtefact artefacts
 
-    either throwIO pure result
+    runExceptT $ withTracerSafe tracerConfigSafe $ \tracer ->
+        case eRes of
+          Left er       -> throwError $ BindgenErrorReported er
+          Right (r, as) -> do
+            -- Before creating directories or writing output files, we verify
+            -- adherence to the provided policies.
+            withExceptT (BindgenDelayedIOError) $ mapM_ checkPolicy as
+            liftIO $ executeFileSystemActions tracer as
+            pure r
+
   where
     tracerConfigSafe :: TracerConfig SafeLevel a
     tracerConfigSafe = TracerConfig {
@@ -94,19 +118,23 @@ hsBindgen
 -------------------------------------------------------------------------------}
 
 -- | Write the include graph to `STDOUT` or a file.
-writeIncludeGraph :: Maybe FilePath -> Artefact ()
-writeIncludeGraph mPath = do
-    (p, includeGraph) <- IncludeGraph
-    Lift $ write "include graph" mPath
-         $ IncludeGraph.dumpMermaid p includeGraph
+writeIncludeGraph :: FileOverwritePolicy -> Maybe FilePath -> Artefact ()
+writeIncludeGraph pol mPath = do
+    (predicate, includeGraph) <- IncludeGraph
+    let rendered = IncludeGraph.dumpMermaid predicate includeGraph
+    case mPath of
+      Nothing   -> Lift $ delay $ WriteToStdOut $ TextContent rendered
+      Just path -> Lift $ write pol "include graph" (UserSpecified path) rendered
 
 -- | Write @use-decl@ graph to file.
-writeUseDeclGraph :: Maybe FilePath -> Artefact ()
-writeUseDeclGraph mPath = do
+writeUseDeclGraph :: FileOverwritePolicy -> Maybe FilePath -> Artefact ()
+writeUseDeclGraph pol mPath = do
     index <- DeclIndex
     useDeclGraph <- UseDeclGraph
-    Lift $ write "use-decl graph" mPath
-         $ UseDeclGraph.dumpMermaid index useDeclGraph
+    let rendered = UseDeclGraph.dumpMermaid index useDeclGraph
+    case mPath of
+      Nothing   -> Lift $ delay $ WriteToStdOut $ TextContent rendered
+      Just path -> Lift $ write pol "use-decl graph" (UserSpecified path) rendered
 
 -- | Get bindings (single module).
 getBindings :: Safety -> Artefact String
@@ -118,12 +146,10 @@ getBindings safety = do
           Unsafe -> FinalModuleUnsafe
 
 -- | Write bindings to file.
---
--- If no file is given, print to standard output.
-writeBindings :: Safety -> Maybe FilePath -> Artefact ()
-writeBindings safety mPath = do
+writeBindings :: FileOverwritePolicy -> Safety -> FilePath -> Artefact ()
+writeBindings fileOverwritePolicy safety path = do
     bindings <- getBindings safety
-    Lift $ write "bindings" mPath bindings
+    Lift $ write fileOverwritePolicy "bindings" (UserSpecified path) bindings
 
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: Artefact (ByCategory String)
@@ -134,77 +160,106 @@ getBindingsMultiple = fmap render <$> FinalModules
 -- Each file contains a different binding category.
 --
 -- If no file is given, print to standard output.
-writeBindingsMultiple :: FilePath -> Artefact ()
-writeBindingsMultiple hsOutputDir = do
+writeBindingsMultiple ::
+     FileOverwritePolicy
+  -> OutputDirPolicy
+  -> FilePath
+  -> Artefact ()
+writeBindingsMultiple fileOverwritePolicy outputDirPolicy hsOutputDir = do
     moduleBaseName     <- FinalModuleBaseName
     bindingsByCategory <- getBindingsMultiple
-    Lift $ writeByCategory "bindings" hsOutputDir moduleBaseName bindingsByCategory
+    writeByCategory
+      fileOverwritePolicy
+      outputDirPolicy
+      "Bindings"
+      hsOutputDir
+      moduleBaseName
+      bindingsByCategory
 
 -- | Write binding specifications to file.
-writeBindingSpec :: FilePath -> Artefact ()
-writeBindingSpec path = do
-  target         <- Target
-  moduleBaseName <- FinalModuleBaseName
-  getMainHeaders <- GetMainHeaders
-  omitTypes      <- OmitTypes
-  hsDecls        <- HsDecls
-  tracer         <- Lift $ artefactTracer <$> ask
-  traceWith tracer $ RunArtefactWriteFile "binding specifications" path
-  -- Binding specifications only specify types.
-  liftIO $
-    genBindingSpec
-      target
-      (fromBaseModuleName moduleBaseName (Just BType))
-      path
-      getMainHeaders
-      omitTypes
-      (fromMaybe [] (Map.lookup BType $ unByCategory hsDecls))
+writeBindingSpec :: FileOverwritePolicy -> FilePath -> Artefact ()
+writeBindingSpec fileOverwritePolicy path = do
+    target         <- Target
+    moduleBaseName <- FinalModuleBaseName
+    getMainHeaders <- GetMainHeaders
+    omitTypes      <- OmitTypes
+    hsDecls        <- HsDecls
+    -- Binding specifications only specify types.
+    let bindingSpec =
+          genBindingSpec
+            target
+            (fromBaseModuleName moduleBaseName (Just BType))
+            getMainHeaders
+            omitTypes
+            (fromMaybe [] (Map.lookup BType $ unByCategory hsDecls))
+        fileDescription =
+          FileDescription {
+              description = "Binding specifications"
+            , location    = UserSpecified path
+            , fileOverwritePolicy
+            , content     = BindingSpecContent  bindingSpec
+            }
+    Lift $ delay $ WriteToFile fileDescription
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
-writeTests testDir = do
-    moduleBaseName  <- FinalModuleBaseName
-    hashIncludeArgs <- HashIncludeArgs
-    hsDecls         <- HsDecls
-    liftIO $
-      genTests
-        hashIncludeArgs
-        hsDecls
-        moduleBaseName
-        testDir
+writeTests _testDir = do
+    -- moduleBaseName  <- FinalModuleBaseName
+    -- hashIncludeArgs <- HashIncludeArgs
+    -- hsDecls         <- HsDecls
+    -- liftIO $
+    --   genTests
+    --     hashIncludeArgs
+    --     hsDecls
+    --     moduleBaseName
+    --     testDir
+    throwPure_TODO 22 "Test generation integrated into the artefact API"
 
 {-------------------------------------------------------------------------------
   Helpers
 -------------------------------------------------------------------------------}
 
-write :: String -> Maybe FilePath -> String -> ArtefactM ()
-write _    Nothing     str = liftIO $ putStrLn str
-write what (Just path) str = do
-      tracer <- artefactTracer <$> ask
-      traceWith tracer $ RunArtefactWriteFile what path
-      liftIO $ do
-        createDirectoryIfMissing True $ takeDirectory path
-        writeFile path str
+write :: FileOverwritePolicy -> String -> FileLocation -> String -> DelayedIOM ()
+write pol what loc str =
+    delay $ WriteToFile $ FileDescription what loc pol (TextContent str)
 
 writeByCategory ::
-     String
+     FileOverwritePolicy
+  -> OutputDirPolicy
+  -> String
   -> FilePath
   -> BaseModuleName
   -> ByCategory String
-  -> ArtefactM ()
-writeByCategory what hsOutputDir moduleBaseName =
+  -> Artefact ()
+writeByCategory
+  fileOverwritePolicy outputDirPolicy what outputDir moduleBaseName =
     mapM_ (uncurry writeCategory) . Map.toList . unByCategory
   where
-    writeCategory :: BindingCategory -> String -> ArtefactM ()
-    writeCategory cat str = do
-        write whatWithCategory (Just path) str
+    writeCategory :: BindingCategory -> String -> Artefact ()
+    writeCategory cat str =
+        Lift $ write fileOverwritePolicy whatWithCategory location str
       where
-        moduleName :: Hs.ModuleName
-        moduleName = fromBaseModuleName moduleBaseName (Just cat)
-
-        path :: FilePath
-        path = hsOutputDir </> Hs.moduleNamePath moduleName
+        localPath :: FilePath
+        localPath = Hs.moduleNamePath $ fromBaseModuleName moduleBaseName (Just cat)
 
         whatWithCategory :: String
         whatWithCategory = what ++ " (" ++ show cat ++ ")"
 
+        location :: FileLocation
+        location =
+          RelativeFileLocation $
+            RelativeToOutputDir {outputDir, localPath, outputDirPolicy}
+
+{-------------------------------------------------------------------------------
+  Errors
+-------------------------------------------------------------------------------}
+
+data BindgenError =
+      BindgenErrorReported  AnErrorHappened
+    | BindgenDelayedIOError DelayedIOError
+    deriving stock (Show)
+
+instance PrettyForTrace BindgenError where
+  prettyForTrace = \case
+    BindgenErrorReported  e -> prettyForTrace e
+    BindgenDelayedIOError e -> prettyForTrace e

@@ -38,7 +38,8 @@ echo "# "
 echo "# Updating cabal.project.local"
 echo "# "
 
-LINE=$(cat <<-EOF
+LINE=$(
+    cat <<-EOF
 package botan
     extra-include-dirs:
         $BOTAN_DIR/build/include/public
@@ -46,7 +47,7 @@ package botan
         $BOTAN_DIR
 EOF
 )
-grep -qxF "$LINE" "$SCRIPT_DIR/hs-project/cabal.project.local" || echo "$LINE" >> "$SCRIPT_DIR/hs-project/cabal.project.local"
+grep -qxF "$LINE" "$SCRIPT_DIR/hs-project/cabal.project.local" || echo "$LINE" >>"$SCRIPT_DIR/hs-project/cabal.project.local"
 cat "$SCRIPT_DIR/hs-project/cabal.project.local"
 
 echo "# "
