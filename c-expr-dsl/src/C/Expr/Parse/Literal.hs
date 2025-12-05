@@ -6,6 +6,7 @@ module C.Expr.Parse.Literal (
   , parseLiteralString
   ) where
 
+import Control.Applicative (asum)
 import Control.Monad
 import Data.Char
 import Data.Maybe (catMaybes, fromMaybe, mapMaybe)
@@ -67,11 +68,18 @@ parseLiteralInteger = do
     return (fromIntegral val, ty)
   where
     aux :: TokenParser (Base, [Digit], [IntSuffix])
-    aux = do
-        b  <- base
-        ds <- many1 $ digitInBase True b
-        ss <- many intSuffix
-        return (b, ds, ss)
+    aux = asum [
+          try $ do
+            b  <- base
+            ds <- many1 $ digitInBase True b
+            ss <- many intSuffix
+            return (b, ds, ss)
+        , do
+            let b = BaseDec
+            ds <- many1 $ digitInBase True b
+            ss <- many intSuffix
+            return (b, ds, ss)
+        ]
 
 readInBase :: Base -> [Digit] -> Natural
 readInBase b ds =
@@ -178,7 +186,6 @@ base = choice [
       BaseHex <$ caseInsensitive' "0x"
     , BaseBin <$ caseInsensitive' "0b"
     , BaseOct <$ caseInsensitive' "0"
-    , BaseDec <$ lookAhead (satisfy $ \c -> c >= '1' && c <= '9')
     ]
 
 -- | Parse digit in the given base
