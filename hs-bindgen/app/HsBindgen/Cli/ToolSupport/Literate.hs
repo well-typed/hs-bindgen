@@ -24,9 +24,9 @@ import Text.Read (readMaybe)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.Artefact
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config
+import HsBindgen.DelayedIO
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
 

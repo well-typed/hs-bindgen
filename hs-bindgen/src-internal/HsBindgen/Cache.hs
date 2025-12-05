@@ -14,10 +14,7 @@ import Text.SimplePrettyPrint qualified as PP
 import HsBindgen.Util.Tracer
 
 newtype Cached a = Cached {  getCached :: IO a }
-  deriving newtype (Functor, Applicative, Monad)
-
-instance MonadIO Cached where
-  liftIO = Cached . liftIO
+  deriving newtype (Functor, Applicative, Monad, MonadIO)
 
 -- | Cache a computation with a name.
 --

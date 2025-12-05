@@ -17,8 +17,8 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.Artefact
 import HsBindgen.Config
+import HsBindgen.DelayedIO
 import HsBindgen.Frontend.RootHeader
 
 {-------------------------------------------------------------------------------
@@ -55,6 +55,6 @@ parseOpts =
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
-    let artefact = ReifiedC >>= Lift . delay . PutStrLn . show
+    let artefact = ReifiedC >>= Lift . delay . WriteToStdOut . TextContent . show
         bindgenConfig = toBindgenConfig config uniqueId baseModuleName
     hsBindgen tracerConfig bindgenConfig inputs artefact

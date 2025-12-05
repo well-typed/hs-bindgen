@@ -17,8 +17,8 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.Artefact
 import HsBindgen.Config
+import HsBindgen.DelayedIO
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 
