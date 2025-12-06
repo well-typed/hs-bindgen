@@ -123,7 +123,6 @@ data Decl = Decl {
 data DeclInfo = DeclInfo {
       declLoc        :: SingleLoc
     , declId         :: FinalDeclId
-    , declAliases    :: [C.Name]
     , declHeaderInfo :: Maybe Int.HeaderInfo
     , declComment    :: Maybe (CDoc.Comment CommentRef)
     }

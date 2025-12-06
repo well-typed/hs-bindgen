@@ -57,9 +57,6 @@ findNamedUseOf :: RenameEnv -> C.PrelimDeclId -> Maybe UseOfDecl
 findNamedUseOf RenameEnv{envDeclIndex, envDeclUse} qualPrelimDeclId =
     DeclUseGraph.findNamedUseOf envDeclIndex envDeclUse qualPrelimDeclId
 
-findAliasesOf :: RenameEnv -> C.PrelimDeclId -> [C.Name]
-findAliasesOf RenameEnv{envDeclUse} = DeclUseGraph.findAliasesOf envDeclUse
-
 {-------------------------------------------------------------------------------
   Declarations
 -------------------------------------------------------------------------------}
@@ -77,7 +74,6 @@ nameDecl env decl = do
       Just declId' -> Right $ C.Decl{
         declInfo = C.DeclInfo{
             declId = declId'
-          , declAliases = findAliasesOf env qualPrelimDeclId
           , declLoc
           , declHeaderInfo
           , declAvailability
@@ -89,9 +85,6 @@ nameDecl env decl = do
   where
     C.Decl{declInfo, declKind, declAnn} = decl
     C.DeclInfo{..} = declInfo
-
-    qualPrelimDeclId :: C.PrelimDeclId
-    qualPrelimDeclId = decl.declInfo.declId
 
 -- | Get the declaration identifier
 --

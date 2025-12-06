@@ -64,7 +64,6 @@ instance Finalize Int.DeclInfo where
   finalize info = Ext.DeclInfo{
         declLoc
       , declId
-      , declAliases
       , declHeaderInfo
       , declComment = fmap finalize declComment
       }
@@ -72,7 +71,6 @@ instance Finalize Int.DeclInfo where
       Int.DeclInfo{
           declLoc
         , declId
-        , declAliases
         , declHeaderInfo
         , declComment
         } = info

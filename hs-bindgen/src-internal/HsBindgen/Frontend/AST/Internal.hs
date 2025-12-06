@@ -124,7 +124,6 @@ data Availability =
 data DeclInfo p = DeclInfo{
       declLoc     :: SingleLoc
     , declId      :: Id p
-    , declAliases :: [C.Name]
 
       -- | Source header information
       --

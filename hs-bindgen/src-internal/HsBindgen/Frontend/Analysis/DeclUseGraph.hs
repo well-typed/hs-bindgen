@@ -17,7 +17,6 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph (
     -- * Direct usage
   , getUseSites
   , getUseSitesNoSelfReferences
-  , findAliasesOf
   ) where
 
 import Control.Monad.State
@@ -127,12 +126,3 @@ getUseSitesNoSelfReferences graph qualPrelimDeclId =
       isSelfReference (qualPrelimDeclId', _usage) =
         qualPrelimDeclId == qualPrelimDeclId'
 
-findAliasesOf :: DeclUseGraph -> C.PrelimDeclId -> [C.Name]
-findAliasesOf graph source =
-    mapMaybe (uncurry aux) $ getUseSites graph source
-  where
-    aux :: C.PrelimDeclId -> Usage -> Maybe C.Name
-    aux target (UsedInTypedef UseDeclGraph.ByValue) =
-        -- Typedefs must have a name
-        C.prelimDeclIdName target
-    aux _ _ = Nothing
