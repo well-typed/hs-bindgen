@@ -57,13 +57,6 @@ class IsPass (p :: Pass) where
   type HaskellId p :: Star
   type HaskellId p = ()
 
-  -- | Reference to a typedef
-  --
-  -- Initially this is just the name of the typedef, but after 'HandleTypedefs'
-  -- we distinguish between regular typedefs and squashed typedefs (in which
-  -- case it's the type that it got replaced with).
-  type TypedefRef p :: Star
-
   -- | Macro body
   --
   -- Parsing macros is non-trivial, and requires knowledge of other macros in

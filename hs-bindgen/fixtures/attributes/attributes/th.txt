@@ -93,7 +93,9 @@ instance HasCField Bar "bar_i"
 instance TyEq ty (CFieldType Bar "bar_i") =>
          HasField "bar_i" (Ptr Bar) (Ptr ty)
     where getField = ptrToCField (Proxy @"bar_i")
-{-| __defined at:__ @attributes\/attributes.h:22:9@
+{-| __C declaration:__ @baz@
+
+    __defined at:__ @attributes\/attributes.h:22:9@
 
     __exported by:__ @attributes\/attributes.h@
 -}
@@ -112,7 +114,9 @@ data Baz
 
                 __exported by:__ @attributes\/attributes.h@
            -}}
-      {- ^ __defined at:__ @attributes\/attributes.h:22:9@
+      {- ^ __C declaration:__ @baz@
+
+           __defined at:__ @attributes\/attributes.h:22:9@
 
            __exported by:__ @attributes\/attributes.h@
       -}
@@ -136,7 +140,9 @@ instance HasCField Baz "baz_i"
 instance TyEq ty (CFieldType Baz "baz_i") =>
          HasField "baz_i" (Ptr Baz) (Ptr ty)
     where getField = ptrToCField (Proxy @"baz_i")
-{-| __defined at:__ @attributes\/attributes.h:28:9@
+{-| __C declaration:__ @qux@
+
+    __defined at:__ @attributes\/attributes.h:28:9@
 
     __exported by:__ @attributes\/attributes.h@
 -}
@@ -155,7 +161,9 @@ data Qux
 
                 __exported by:__ @attributes\/attributes.h@
            -}}
-      {- ^ __defined at:__ @attributes\/attributes.h:28:9@
+      {- ^ __C declaration:__ @qux@
+
+           __defined at:__ @attributes\/attributes.h:28:9@
 
            __exported by:__ @attributes\/attributes.h@
       -}

@@ -11,7 +11,6 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -41,7 +40,6 @@ instance IsPass MangleNames where
   type FieldName    MangleNames = C.NamePair
   type ArgumentName MangleNames = Maybe C.NamePair
   type HaskellId    MangleNames = Hs.Identifier
-  type TypedefRef   MangleNames = RenamedTypedefRef MangleNames
   type MacroBody    MangleNames = C.CheckedMacro MangleNames
   type ExtBinding   MangleNames = ResolvedExtBinding
   type Ann ix       MangleNames = AnnMangleNames ix

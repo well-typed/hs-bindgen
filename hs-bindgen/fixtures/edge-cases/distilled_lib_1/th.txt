@@ -36,7 +36,9 @@
 -- {
 --   return &v;
 -- }
-{-| __defined at:__ @edge-cases\/distilled_lib_1.h:9:9@
+{-| __C declaration:__ @another_typedef_struct_t@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:9:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -55,7 +57,9 @@ data Another_typedef_struct_t
 
                                      __exported by:__ @edge-cases\/distilled_lib_1.h@
                                 -}}
-      {- ^ __defined at:__ @edge-cases\/distilled_lib_1.h:9:9@
+      {- ^ __C declaration:__ @another_typedef_struct_t@
+
+           __defined at:__ @edge-cases\/distilled_lib_1.h:9:9@
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
@@ -91,13 +95,17 @@ instance TyEq ty
                   (Ptr Another_typedef_struct_t)
                   (Ptr ty)
     where getField = ptrToCField (Proxy @"another_typedef_struct_t_bar")
-{-| __defined at:__ @edge-cases\/distilled_lib_1.h:10:9@
+{-| __C declaration:__ @another_typedef_enum_e@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:10:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype Another_typedef_enum_e
     = Another_typedef_enum_e {un_Another_typedef_enum_e :: CUInt}
-      {- ^ __defined at:__ @edge-cases\/distilled_lib_1.h:10:9@
+      {- ^ __C declaration:__ @another_typedef_enum_e@
+
+           __defined at:__ @edge-cases\/distilled_lib_1.h:10:9@
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
@@ -539,13 +547,17 @@ tWO_ARGS :: (,) CInt CInt
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 tWO_ARGS = (,) (13398 :: CInt) (30874 :: CInt)
-{-| __defined at:__ @edge-cases\/distilled_lib_1.h:61:9@
+{-| __C declaration:__ @a_typedef_enum_e@
+
+    __defined at:__ @edge-cases\/distilled_lib_1.h:61:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype A_typedef_enum_e
     = A_typedef_enum_e {un_A_typedef_enum_e :: CUChar}
-      {- ^ __defined at:__ @edge-cases\/distilled_lib_1.h:61:9@
+      {- ^ __C declaration:__ @a_typedef_enum_e@
+
+           __defined at:__ @edge-cases\/distilled_lib_1.h:61:9@
 
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}

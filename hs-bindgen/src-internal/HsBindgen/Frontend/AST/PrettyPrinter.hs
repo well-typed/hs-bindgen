@@ -8,6 +8,7 @@ module HsBindgen.Frontend.AST.PrettyPrinter (
 
 import Data.Text qualified as Text
 
+import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
@@ -142,11 +143,8 @@ showsType ::
   -> Type
   -> ShowS
 showsType x (TypePrim p)              = C.showsPrimType p . showChar ' ' . x 0
-showsType x (TypeStruct declId)       = showString "struct " . showsDeclId declId . showChar ' ' . x 0
-showsType x (TypeUnion declId)        = showString "union " . showsDeclId declId . showChar ' ' . x 0
-showsType x (TypeEnum declId)         = showString "enum " . showsDeclId declId . showChar ' ' . x 0
-showsType x (TypeTypedef ref)         = showsTypedefName ref . showChar ' ' . x 0
-showsType x (TypeMacroTypedef declId) = showsDeclId declId . showChar ' ' . x 0
+showsType x (TypeRef declId)          = showsDeclId declId . showChar ' ' . x 0
+showsType x (TypeTypedef ref)         = showsDeclId ref.declId . showChar ' ' . x 0
 showsType x (TypePointer t)           = showsType (\d -> showParen (d > arrayPrec) $ showString "*" . x (pointerPrec + 1)) t
 showsType x (TypeConstArray n t)      = showsType (\_d -> x (arrayPrec + 1) . showChar '[' . shows n . showChar ']') t
 showsType x (TypeFun args res)        =
@@ -248,18 +246,29 @@ showCQualName = showString . Text.unpack . C.qualNameText
 
 showsDeclId :: FinalDeclId -> ShowS
 showsDeclId declId =
-    case declId of
-      DeclIdNamed named ->
-        case named.origin of
-          NameOriginInSource          -> showsCName named.name
-          NameOriginGenerated _anonId -> showString "<anon>"
-          NameOriginRenamedFrom orig  -> showsCName orig
-      DeclIdBuiltin builtin ->
-        showsCName builtin.name
+    case declId.origDeclId of
+      C.OrigDeclId orig    -> showsOrigId orig
+      C.AuxForDecl _parent -> panicPure "non-existent C declaration"
+
+showsOrigId :: PrelimDeclId -> ShowS
+showsOrigId = \case
+    PrelimDeclIdNamed name kind ->
+        showsNameKind kind
+      . showsCName name
+    PrelimDeclIdAnon{} ->
+      panicPure "cannot refer to anonymous declaration"
+    PrelimDeclIdBuiltin name kind ->
+        showsNameKind kind
+      . showsCName name
+
+showsNameKind :: NameKind -> ShowS
+showsNameKind = \case
+    NameKindOrdinary    -> id
+    NameKindTagged kind ->
+      case kind of
+       TagKindStruct -> showString "struct "
+       TagKindEnum   -> showString "enum "
+       TagKindUnion  -> showString "union "
 
 showsCName :: Name -> String -> String
 showsCName = showString . Text.unpack . getName
-
-showsTypedefName :: TypedefRef -> String -> String
-showsTypedefName (TypedefRegular  np _ty) = showsDeclId np
-showsTypedefName (TypedefSquashed nm _ty) = showsCName nm

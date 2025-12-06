@@ -100,7 +100,9 @@ instance HsBindgen.Runtime.HasCField.HasCField Int64_T "un_Int64_T" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __defined at:__ @edge-cases\/spec_examples.h:14:9@
+{-| __C declaration:__ @cint16_T@
+
+    __defined at:__ @edge-cases\/spec_examples.h:14:9@
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}

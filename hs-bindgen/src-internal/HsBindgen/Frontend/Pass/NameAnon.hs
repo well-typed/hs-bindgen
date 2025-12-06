@@ -16,7 +16,6 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
-import HsBindgen.Frontend.Pass.Parse.IsPass (OrigTypedefRef (..))
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -58,9 +57,6 @@ findNamedUseOf :: RenameEnv -> C.PrelimDeclId -> Maybe UseOfDecl
 findNamedUseOf RenameEnv{envDeclIndex, envDeclUse} qualPrelimDeclId =
     DeclUseGraph.findNamedUseOf envDeclIndex envDeclUse qualPrelimDeclId
 
-findAliasesOf :: RenameEnv -> C.PrelimDeclId -> [C.Name]
-findAliasesOf RenameEnv{envDeclUse} = DeclUseGraph.findAliasesOf envDeclUse
-
 {-------------------------------------------------------------------------------
   Declarations
 -------------------------------------------------------------------------------}
@@ -73,12 +69,11 @@ nameDecl ::
   -> C.Decl HandleMacros
   -> Either (Msg NameAnon) (C.Decl NameAnon)
 nameDecl env decl = do
-    case getDeclId env declId of
-      Left _        -> Left  $ NameAnonSkipped declInfo
-      Right declId' -> Right $ C.Decl{
+    case constructDeclId env declId of
+      Nothing      -> Left  $ NameAnonSkipped declInfo
+      Just declId' -> Right $ C.Decl{
         declInfo = C.DeclInfo{
             declId = declId'
-          , declAliases = findAliasesOf env qualPrelimDeclId
           , declLoc
           , declHeaderInfo
           , declAvailability
@@ -91,44 +86,34 @@ nameDecl env decl = do
     C.Decl{declInfo, declKind, declAnn} = decl
     C.DeclInfo{..} = declInfo
 
-    qualPrelimDeclId :: C.PrelimDeclId
-    qualPrelimDeclId = decl.declInfo.declId
-
 -- | Get the declaration identifier
 --
--- May fail for anonymous declarations, if they have no use sites; in which case
--- we used to return 'Nothing'. However, we do not want to lose parse messages,
--- so we use an 'Either'. See 'getDeclIdParseMsgKey'.
---
--- See also <https://github.com/well-typed/hs-bindgen/issues/1036>.
-getDeclId :: RenameEnv -> Id HandleMacros -> Either (Id NameAnon) (Id NameAnon)
-getDeclId env declId =
-   case declId of
-     C.PrelimDeclIdNamed n _kind ->
-       Right $ C.DeclIdNamed C.NamedDeclId{
-           name      = n
-         , origin    = C.NameOriginInSource
-         , haskellId = ()
-         }
-     C.PrelimDeclIdAnon anonId _kind -> do
-       let origin :: C.NameOrigin
-           origin = C.NameOriginGenerated anonId
-       case nameForAnon <$> findNamedUseOf env declId of
-         Just name -> Right $ C.DeclIdNamed C.NamedDeclId{
-             name
-           , origin
-           , haskellId = ()
+-- Returns 'Nothing' for unused anonmyous declarations.
+constructDeclId :: RenameEnv -> Id HandleMacros -> Maybe (Id NameAnon)
+constructDeclId env declId =
+     case declId of
+       C.PrelimDeclIdNamed name kind ->
+         Just $ C.DeclId{
+             name       = C.DeclIdNamed name
+           , nameKind   = kind
+           , origDeclId = C.OrigDeclId declId
+           , haskellId  = ()
            }
-         Nothing -> Left $ C.DeclIdNamed C.NamedDeclId{
-             name      = "unused_anonymous"
-           , origin
-           , haskellId = ()
+       C.PrelimDeclIdAnon _anonId kind -> do
+         useOfAnon <- findNamedUseOf env declId
+         Just $ C.DeclId{
+             name       = C.DeclIdNamed (nameForAnon useOfAnon)
+           , nameKind   = kind
+           , origDeclId = C.OrigDeclId declId
+           , haskellId  = ()
            }
-     C.PrelimDeclIdBuiltin name _kind ->
-       Right $ C.DeclIdBuiltin C.BuiltinDeclId{
-           name
-         , haskellId = ()
-         }
+       C.PrelimDeclIdBuiltin name kind ->
+         Just $ C.DeclId{
+             name       = C.DeclIdBuiltin name
+           , nameKind   = kind
+           , origDeclId = C.OrigDeclId declId
+           , haskellId  = ()
+           }
 
 {-------------------------------------------------------------------------------
   Use sites
@@ -229,11 +214,11 @@ instance NameUseSites C.Type where
     where
       go :: C.Type HandleMacros -> C.Type NameAnon
 
-      -- Cases where we actually need to do work
-      go (C.TypeStruct       uid) = C.TypeStruct       $ nameUseSite uid
-      go (C.TypeUnion        uid) = C.TypeUnion        $ nameUseSite uid
-      go (C.TypeEnum         uid) = C.TypeEnum         $ nameUseSite uid
-      go (C.TypeMacroTypedef uid) = C.TypeMacroTypedef $ nameUseSite uid
+      -- Actual modifications
+      go (C.TypeRef uid)       = C.TypeRef $ nameUseSite env uid
+      go (C.TypeTypedef n uTy) = C.TypeTypedef
+                                   (nameUseSite env n)
+                                   (nameUseSites env uTy)
 
       -- Recursive cases
       go (C.TypePointer ty)         = C.TypePointer (go ty)
@@ -245,44 +230,18 @@ instance NameUseSites C.Type where
 
       -- Simple cases
       go (C.TypePrim prim)      = C.TypePrim prim
-      go (C.TypeTypedef ref)    = C.TypeTypedef (nameUseSitesTypedefRef env ref)
       go (C.TypeVoid)           = C.TypeVoid
       go (C.TypeExtBinding ext) = absurd ext
       go (C.TypeComplex prim)   = C.TypeComplex prim
 
-      -- Rename specific use site
-      --
-      -- NOTE: there must be at least one use site, because we are renaming one!
-      nameUseSite :: C.PrelimDeclId -> C.DeclId NameAnon
-      nameUseSite qualPrelimDeclId =
-          case qualPrelimDeclId of
-            C.PrelimDeclIdNamed name _kind ->
-              C.DeclIdNamed C.NamedDeclId{
-                  name
-                , origin    = C.NameOriginInSource
-                , haskellId = ()
-                }
-            C.PrelimDeclIdBuiltin name _kind  ->
-              C.DeclIdBuiltin C.BuiltinDeclId{
-                  name
-                , haskellId = ()
-                }
-            C.PrelimDeclIdAnon anonId _kind ->
-              case findNamedUseOf env qualPrelimDeclId of
-                Just useOfAnon -> C.DeclIdNamed C.NamedDeclId{
-                    name      = nameForAnon useOfAnon
-                  , origin    = C.NameOriginGenerated anonId
-                  , haskellId = ()
-                  }
-                Nothing ->
-                  panicPure "unused anonymous declaration?"
-
-nameUseSitesTypedefRef ::
-     RenameEnv
-  -> TypedefRef HandleMacros
-  -> TypedefRef NameAnon
-nameUseSitesTypedefRef env (OrigTypedefRef n uTy) =
-    OrigTypedefRef n (nameUseSites env uTy)
+-- | Rename specific use site
+--
+-- NOTE: there must be at least one use site, because we are renaming one!
+nameUseSite :: RenameEnv -> C.PrelimDeclId -> C.DeclId NameAnon
+nameUseSite env prelimDeclId =
+    case constructDeclId env prelimDeclId of
+      Nothing    -> panicPure "unused anonymous declaration?"
+      Just declId -> declId
 
 {-------------------------------------------------------------------------------
   Name generation

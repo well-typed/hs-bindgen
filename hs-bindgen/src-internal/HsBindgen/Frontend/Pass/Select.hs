@@ -294,7 +294,16 @@ selectDeclWith
           "Declaration is selection root and transitive dependency: "
           ++ show decl.declInfo
   where
-    declId    = C.declOrigPrelimDeclId decl
+    declId :: C.PrelimDeclId
+    declId =
+        case decl.declInfo.declId.origDeclId of
+          C.OrigDeclId orig ->
+            orig
+          C.AuxForDecl parent ->
+            -- Auxiliary types are introduced to support some \"parent\" type,
+            -- so it doesn't really make sense to select these independently.
+            parent
+
     -- We check three conditions:
     isSelectedRoot = Set.member declId rootIds
     -- These are also always strict transitive dependencies.

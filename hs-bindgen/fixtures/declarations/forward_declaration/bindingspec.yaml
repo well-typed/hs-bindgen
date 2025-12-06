@@ -5,7 +5,7 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: declarations/forward_declaration.h
-  cname: struct S1
+  cname: S1_t
   hsname: S1_t
 - headers: declarations/forward_declaration.h
   cname: struct S2

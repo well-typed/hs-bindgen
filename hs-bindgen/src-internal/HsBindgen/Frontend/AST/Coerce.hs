@@ -2,7 +2,6 @@ module HsBindgen.Frontend.AST.Coerce (
     CoercePass(..)
   , CoercePassId(..)
   , CoercePassHaskellId(..)
-  , CoercePassTypedefRef(..)
   ) where
 
 import Prelude hiding (Enum)
@@ -24,9 +23,6 @@ class CoercePassId (p :: Pass) (p' :: Pass) where
 class CoercePassHaskellId (p :: Pass) (p' :: Pass) where
   coercePassHaskellId :: Proxy '(p, p') -> HaskellId p -> HaskellId p'
 
-class CoercePassTypedefRef (p :: Pass) (p' :: Pass) where
-  coercePassTypedefRef :: Proxy '(p, p') -> TypedefRef p -> TypedefRef p'
-
 {-------------------------------------------------------------------------------
   Coercing between passes
 -------------------------------------------------------------------------------}
@@ -37,25 +33,8 @@ class CoercePass a p p' where
 instance (
       CoercePassHaskellId p p'
     ) => CoercePass DeclId p p' where
-  coercePass = \case
-      DeclIdNamed   named   -> DeclIdNamed   (coercePass named)
-      DeclIdBuiltin builtin -> DeclIdBuiltin (coercePass builtin)
-
-instance (
-      CoercePassHaskellId p p'
-    ) => CoercePass NamedDeclId p p' where
-  coercePass named = NamedDeclId{
-        name      = named.name
-      , origin    = named.origin
-      , haskellId = coercePassHaskellId (Proxy @'(p, p')) named.haskellId
-      }
-
-instance (
-      CoercePassHaskellId p p'
-    ) => CoercePass BuiltinDeclId p p' where
-  coercePass builtin = BuiltinDeclId{
-        name      = builtin.name
-      , haskellId = coercePassHaskellId (Proxy @'(p, p')) builtin.haskellId
+  coercePass declId = declId{
+        haskellId = coercePassHaskellId (Proxy @'(p, p')) declId.haskellId
       }
 
 instance (
@@ -246,16 +225,12 @@ instance (
 instance (
       CoercePassId p p'
     , ArgumentName p ~ ArgumentName p'
-    , CoercePassTypedefRef p p'
     , ExtBinding p ~ ExtBinding p'
     ) => CoercePass Type p p' where
   coercePass = \case
       TypePrim prim           -> TypePrim prim
-      TypeStruct uid          -> TypeStruct (goId uid)
-      TypeUnion uid           -> TypeUnion (goId uid)
-      TypeEnum uid            -> TypeEnum (goId uid)
-      TypeTypedef typedef     -> TypeTypedef (goTypedefRef typedef)
-      TypeMacroTypedef uid    -> TypeMacroTypedef (goId uid)
+      TypeRef uid             -> TypeRef (goId uid)
+      TypeTypedef uid uTy     -> TypeTypedef (goId uid) (coercePass uTy)
       TypePointer typ         -> TypePointer (coercePass typ)
       TypeFun args res        -> TypeFun (map coercePass args) (coercePass res)
       TypeVoid                -> TypeVoid
@@ -268,6 +243,3 @@ instance (
     where
       goId :: Id p -> Id p'
       goId = coercePassId (Proxy @'(p, p'))
-
-      goTypedefRef :: TypedefRef p -> TypedefRef p'
-      goTypedefRef = coercePassTypedefRef (Proxy @'(p, p'))

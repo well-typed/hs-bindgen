@@ -135,7 +135,9 @@
 -- {
 --   return &complex_double_array;
 -- }
-{-| __defined at:__ @types\/complex\/hsb_complex_test.h:24:9@
+{-| __C declaration:__ @complex_object_t@
+
+    __defined at:__ @types\/complex\/hsb_complex_test.h:24:9@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
@@ -161,7 +163,9 @@ data Complex_object_t
 
                              __exported by:__ @types\/complex\/hsb_complex_test.h@
                         -}}
-      {- ^ __defined at:__ @types\/complex\/hsb_complex_test.h:24:9@
+      {- ^ __C declaration:__ @complex_object_t@
+
+           __defined at:__ @types\/complex\/hsb_complex_test.h:24:9@
 
            __exported by:__ @types\/complex\/hsb_complex_test.h@
       -}

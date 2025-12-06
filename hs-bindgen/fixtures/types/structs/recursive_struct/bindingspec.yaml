@@ -5,10 +5,10 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/structs/recursive_struct.h
-  cname: struct linked_list_A_s
+  cname: linked_list_A_t
   hsname: Linked_list_A_t
 - headers: types/structs/recursive_struct.h
-  cname: struct linked_list_B_t
+  cname: linked_list_B_t
   hsname: Linked_list_B_t
 hstypes:
 - hsname: Linked_list_A_t

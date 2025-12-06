@@ -38,44 +38,23 @@ ctypes:
   cname: const_funptr1
   hsname: Const_funptr1
 - headers: macros/reparse.h
-  cname: const_funptr1_Deref
-  hsname: Const_funptr1_Deref
-- headers: macros/reparse.h
   cname: const_funptr2
   hsname: Const_funptr2
-- headers: macros/reparse.h
-  cname: const_funptr2_Deref
-  hsname: Const_funptr2_Deref
 - headers: macros/reparse.h
   cname: const_funptr3
   hsname: Const_funptr3
 - headers: macros/reparse.h
-  cname: const_funptr3_Deref
-  hsname: Const_funptr3_Deref
-- headers: macros/reparse.h
   cname: const_funptr4
   hsname: Const_funptr4
-- headers: macros/reparse.h
-  cname: const_funptr4_Deref
-  hsname: Const_funptr4_Deref
 - headers: macros/reparse.h
   cname: const_funptr5
   hsname: Const_funptr5
 - headers: macros/reparse.h
-  cname: const_funptr5_Deref
-  hsname: Const_funptr5_Deref
-- headers: macros/reparse.h
   cname: const_funptr6
   hsname: Const_funptr6
 - headers: macros/reparse.h
-  cname: const_funptr6_Deref
-  hsname: Const_funptr6_Deref
-- headers: macros/reparse.h
   cname: const_funptr7
   hsname: Const_funptr7
-- headers: macros/reparse.h
-  cname: const_funptr7_Deref
-  hsname: Const_funptr7_Deref
 - headers: macros/reparse.h
   cname: const_typedef1
   hsname: Const_typedef1
@@ -107,32 +86,17 @@ ctypes:
   cname: funptr_typedef1
   hsname: Funptr_typedef1
 - headers: macros/reparse.h
-  cname: funptr_typedef1_Deref
-  hsname: Funptr_typedef1_Deref
-- headers: macros/reparse.h
   cname: funptr_typedef2
   hsname: Funptr_typedef2
-- headers: macros/reparse.h
-  cname: funptr_typedef2_Deref
-  hsname: Funptr_typedef2_Deref
 - headers: macros/reparse.h
   cname: funptr_typedef3
   hsname: Funptr_typedef3
 - headers: macros/reparse.h
-  cname: funptr_typedef3_Deref
-  hsname: Funptr_typedef3_Deref
-- headers: macros/reparse.h
   cname: funptr_typedef4
   hsname: Funptr_typedef4
 - headers: macros/reparse.h
-  cname: funptr_typedef4_Deref
-  hsname: Funptr_typedef4_Deref
-- headers: macros/reparse.h
   cname: funptr_typedef5
   hsname: Funptr_typedef5
-- headers: macros/reparse.h
-  cname: funptr_typedef5_Deref
-  hsname: Funptr_typedef5_Deref
 - headers: macros/reparse.h
   cname: enum some_enum
   hsname: Some_enum
@@ -221,49 +185,42 @@ hstypes:
   - Ord
   - Show
   - Storable
-- hsname: Const_funptr1_Deref
 - hsname: Const_funptr2
   instances:
   - Eq
   - Ord
   - Show
   - Storable
-- hsname: Const_funptr2_Deref
 - hsname: Const_funptr3
   instances:
   - Eq
   - Ord
   - Show
   - Storable
-- hsname: Const_funptr3_Deref
 - hsname: Const_funptr4
   instances:
   - Eq
   - Ord
   - Show
   - Storable
-- hsname: Const_funptr4_Deref
 - hsname: Const_funptr5
   instances:
   - Eq
   - Ord
   - Show
   - Storable
-- hsname: Const_funptr5_Deref
 - hsname: Const_funptr6
   instances:
   - Eq
   - Ord
   - Show
   - Storable
-- hsname: Const_funptr6_Deref
 - hsname: Const_funptr7
   instances:
   - Eq
   - Ord
   - Show
   - Storable
-- hsname: Const_funptr7_Deref
 - hsname: Const_typedef1
   instances:
   - Bits
@@ -340,35 +297,30 @@ hstypes:
   - Ord
   - Show
   - Storable
-- hsname: Funptr_typedef1_Deref
 - hsname: Funptr_typedef2
   instances:
   - Eq
   - Ord
   - Show
   - Storable
-- hsname: Funptr_typedef2_Deref
 - hsname: Funptr_typedef3
   instances:
   - Eq
   - Ord
   - Show
   - Storable
-- hsname: Funptr_typedef3_Deref
 - hsname: Funptr_typedef4
   instances:
   - Eq
   - Ord
   - Show
   - Storable
-- hsname: Funptr_typedef4_Deref
 - hsname: Funptr_typedef5
   instances:
   - Eq
   - Ord
   - Show
   - Storable
-- hsname: Funptr_typedef5_Deref
 - hsname: INT
   instances:
   - Bits

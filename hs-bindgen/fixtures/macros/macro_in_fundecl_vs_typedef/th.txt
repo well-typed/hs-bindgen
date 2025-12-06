@@ -64,7 +64,7 @@
 --   struct_name2(arg1, arg2);
 -- }
 -- void hs_bindgen_0ff3632971f092bb (
---   struct struct4 *arg1,
+--   struct4 *arg1,
 --   MC arg2
 -- )
 -- {
@@ -134,7 +134,7 @@
 --   struct_name2(arg1, arg2);
 -- }
 -- void hs_bindgen_38cce6bb1ac71578 (
---   struct struct4 *arg1,
+--   struct4 *arg1,
 --   MC arg2
 -- )
 -- {
@@ -224,7 +224,7 @@
 -- /* test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name3_ptr */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_680e8a5d673ce9c1 (void)) (
---   struct struct4 *arg1,
+--   struct4 *arg1,
 --   MC arg2
 -- )
 -- {
@@ -317,7 +317,9 @@ instance HasCField Struct1 "struct1_a"
 instance TyEq ty (CFieldType Struct1 "struct1_a") =>
          HasField "struct1_a" (Ptr Struct1) (Ptr ty)
     where getField = ptrToCField (Proxy @"struct1_a")
-{-| __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:19:9@
+{-| __C declaration:__ @struct2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:19:9@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -329,7 +331,9 @@ data Struct2
 
                     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
                -}}
-      {- ^ __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:19:9@
+      {- ^ __C declaration:__ @struct2@
+
+           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:19:9@
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}

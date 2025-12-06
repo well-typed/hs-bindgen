@@ -107,7 +107,9 @@ instance HasCField S2_t "s2_t_c"
 instance TyEq ty (CFieldType S2_t "s2_t_c") =>
          HasField "s2_t_c" (Ptr S2_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"s2_t_c")
-{-| __defined at:__ @types\/structs\/simple_structs.h:15:9@
+{-| __C declaration:__ @S3_t@
+
+    __defined at:__ @types\/structs\/simple_structs.h:15:9@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
@@ -119,7 +121,9 @@ data S3_t
 
                  __exported by:__ @types\/structs\/simple_structs.h@
             -}}
-      {- ^ __defined at:__ @types\/structs\/simple_structs.h:15:9@
+      {- ^ __C declaration:__ @S3_t@
+
+           __defined at:__ @types\/structs\/simple_structs.h:15:9@
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}

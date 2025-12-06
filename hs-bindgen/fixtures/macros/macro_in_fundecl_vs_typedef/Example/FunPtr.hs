@@ -98,7 +98,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "/* test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name3_ptr */"
   , "__attribute__ ((const))"
   , "void (*hs_bindgen_680e8a5d673ce9c1 (void)) ("
-  , "  struct struct4 *arg1,"
+  , "  struct4 *arg1,"
   , "  MC arg2"
   , ")"
   , "{"

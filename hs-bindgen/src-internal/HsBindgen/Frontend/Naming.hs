@@ -56,22 +56,14 @@ module HsBindgen.Frontend.Naming (
   , prelimDeclIdName
   , getPrelimDeclId
 
-    -- * NameOrigin
-  , NameOrigin(..)
-
     -- * DeclId
   , DeclId(..)
-  , NamedDeclId(..)
-  , BuiltinDeclId(..)
+  , DeclIdName(..)
+  , OrigDeclId(..)
   , declIdName
-  , declIdHaskellId
-  , declIdIsGenerated
+  , declIdQualName
   , unsafeDeclIdHaskellName
-    -- ** QualDeclId
-  , QualDeclId(..)
-  , qualDeclIdName
-  , declIdToQualDeclId
-  , qualDeclIdToPrelimDeclId
+  , declIdCName
 
     -- * Located
   , Located(..)
@@ -312,172 +304,87 @@ getPrelimDeclId curr nameKind = do
         return $ PrelimDeclIdBuiltin (Name name) nameKind
 
 {-------------------------------------------------------------------------------
-  NameOrigin
--------------------------------------------------------------------------------}
-
--- | C name origin
---
--- This type describes the origin of a C name.
-data NameOrigin =
-    -- | Name in source
-    --
-    -- The name may be used to construct a valid C type.
-    NameOriginInSource
-
-    -- | Name is generated
-    --
-    -- The name may not be used to construct a valid C type.
-  | NameOriginGenerated AnonId
-
-    -- | Name is renamed
-    --
-    -- The name may not be used to construct a valid C type, but this original
-    -- name may be used to construct a valid C type.
-  | NameOriginRenamedFrom Name
-  deriving stock (Show, Eq, Ord, Generic)
-
-instance PrettyForTrace NameOrigin where
-  prettyForTrace = \case
-    NameOriginInSource ->
-      PP.string "in source"
-    NameOriginGenerated anonId ->
-      PP.string "generated for" <+> prettyForTrace anonId
-    NameOriginRenamedFrom name ->
-      PP.string "renamed from" <+> prettyForTrace name
-
-{-------------------------------------------------------------------------------
   DeclId
+
+  TODO <https://github.com/well-typed/hs-bindgen/issues/1267>
+  Should 'NamedDeclId' and 'BuiltinDeclId' use 'QualName'?
+  Or should 'Name' just always be qualified itself?
 -------------------------------------------------------------------------------}
 
 -- | Declaration identifier
 --
 -- All declarations have names after renaming in the @NameAnon@ pass.  This type
 -- is used until the @MangleNames@ pass.
-data DeclId (p :: Pass) =
-    DeclIdNamed   (NamedDeclId   p)
-  | DeclIdBuiltin (BuiltinDeclId p)
-  deriving stock (Generic)
-
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1267>
--- The name here should be the name as it is used in C.
--- The 'origin' should go completely.
-data NamedDeclId (p :: Pass) = NamedDeclId{
-      name      :: Name
-    , origin    :: NameOrigin
-    , haskellId :: HaskellId p
+data DeclId (p :: Pass) = DeclId{
+      name       :: DeclIdName
+    , nameKind   :: NameKind
+    , origDeclId :: OrigDeclId
+    , haskellId  :: HaskellId p
     }
-  deriving stock (Generic)
 
-data BuiltinDeclId (p :: Pass) = BuiltinDeclId{
-      name      :: Name
-    , haskellId :: HaskellId p
-    }
-  deriving stock (Generic)
+deriving instance Show (HaskellId p) => Show (DeclId p)
+deriving instance Eq   (HaskellId p) => Eq   (DeclId p)
+deriving instance Ord  (HaskellId p) => Ord  (DeclId p)
+
+data DeclIdName =
+    DeclIdNamed Name
+  | DeclIdBuiltin Name
+  deriving stock (Show, Eq, Ord)
+
+data OrigDeclId =
+    -- | The original ID (as it appeared in the C source)
+    OrigDeclId PrelimDeclId
+
+    -- | Auxiliary declaration
+    --
+    -- In some cases we introduce auxiliary declarations that do not exist in
+    -- the C source. In this case, we record which original declaration this
+    -- declaration is in support of.
+  | AuxForDecl PrelimDeclId
+  deriving stock (Show, Eq, Ord)
 
 declIdName :: DeclId p -> Name
-declIdName (DeclIdNamed   named)   = named.name
-declIdName (DeclIdBuiltin builtin) = builtin.name
+declIdName = aux . (.name)
+  where
+    aux :: DeclIdName -> Name
+    aux (DeclIdNamed   name) = name
+    aux (DeclIdBuiltin name) = name
 
-declIdHaskellId :: DeclId p -> HaskellId p
-declIdHaskellId (DeclIdNamed   named)   = named.haskellId
-declIdHaskellId (DeclIdBuiltin builtin) = builtin.haskellId
-
-declIdIsGenerated :: DeclId p -> Maybe AnonId
-declIdIsGenerated = \case
-    DeclIdNamed named ->
-      case named.origin of
-        NameOriginGenerated anonId -> Just anonId
-        _otherwise                 -> Nothing
-    DeclIdBuiltin _builtin ->
-      Nothing
+declIdQualName :: DeclId p -> QualName
+declIdQualName declId = QualName (declIdName declId) declId.nameKind
 
 -- | Construct name in arbitrary name space
 --
 -- The caller must ensure that name rules are adhered to.
 unsafeDeclIdHaskellName :: HaskellId p ~ Hs.Identifier => DeclId p -> Hs.Name ns
 unsafeDeclIdHaskellName declId =
-    case declIdHaskellId declId of
+    case declId.haskellId of
       Hs.Identifier name -> Hs.Name name
 
-deriving instance Show (HaskellId p) => Show (DeclId p)
-deriving instance Eq   (HaskellId p) => Eq   (DeclId p)
-deriving instance Ord  (HaskellId p) => Ord  (DeclId p)
-
-deriving instance Show (HaskellId p) => Show (NamedDeclId p)
-deriving instance Eq   (HaskellId p) => Eq   (NamedDeclId p)
-deriving instance Ord  (HaskellId p) => Ord  (NamedDeclId p)
-
-deriving instance Show (HaskellId p) => Show (BuiltinDeclId p)
-deriving instance Eq   (HaskellId p) => Eq   (BuiltinDeclId p)
-deriving instance Ord  (HaskellId p) => Ord  (BuiltinDeclId p)
+-- | How do we refer to this declaration in C code?
+declIdCName :: DeclId p -> Maybe QualName
+declIdCName declId =
+   case declId.origDeclId of
+     AuxForDecl _parent -> Nothing
+     OrigDeclId orig    ->
+       case orig of
+         PrelimDeclIdNamed   name kind -> Just $ QualName name kind
+         PrelimDeclIdBuiltin name kind -> Just $ QualName name kind
+         PrelimDeclIdAnon{}            -> Nothing
 
 instance PrettyForTrace (DeclId p) where
-  prettyForTrace = \case
-      DeclIdNamed   named   -> prettyForTrace named
-      DeclIdBuiltin builtin -> prettyForTrace builtin
-
-instance PrettyForTrace (NamedDeclId p) where
-  prettyForTrace named = PP.hsep [
-        prettyForTrace named.name
-      , PP.parens (prettyForTrace named.origin)
-      ]
-
-instance PrettyForTrace (BuiltinDeclId p) where
-  prettyForTrace builtin = prettyForTrace builtin.name
+   prettyForTrace declId = PP.hsep [
+         prettyForTrace (declIdQualName declId)
+       , case declId.origDeclId of
+           OrigDeclId orig | prelimDeclIdName orig /= Just (declIdName declId) ->
+             PP.parens (prettyForTrace orig)
+           _otherwise ->
+             PP.empty
+       ]
 
 instance PrettyForTrace (Located (DeclId p)) where
   prettyForTrace (Located loc declId) =
-      case declId of
-        DeclIdNamed   named   -> prettyForTrace (Located loc named)
-        DeclIdBuiltin builtin -> prettyForTrace builtin
-
-instance PrettyForTrace (Located (NamedDeclId p)) where
-  prettyForTrace (Located loc named) = PP.hsep [
-        prettyForTrace          named.name
-      , prettyForTraceOriginLoc named.origin loc
-      ]
-
-{-------------------------------------------------------------------------------
-  QualDeclId
--------------------------------------------------------------------------------}
-
--- | Declaration identifier, qualified by 'NameKind'
-data QualDeclId p = QualDeclId {
-      qualDeclId     :: DeclId p
-    , qualDeclIdKind :: NameKind
-    }
-  deriving stock (Generic)
-
-deriving instance Show (HaskellId p) => Show (QualDeclId p)
-deriving instance Eq   (HaskellId p) => Eq   (QualDeclId p)
-deriving instance Ord  (HaskellId p) => Ord  (QualDeclId p)
-
-instance PrettyForTrace (Located (QualDeclId p)) where
-  prettyForTrace (Located loc QualDeclId{..}) =
-      case qualDeclId of
-        DeclIdNamed named -> PP.hsep [
-            prettyForTrace (QualName named.name qualDeclIdKind)
-          , prettyForTraceOriginLoc named.origin loc
-          ]
-        DeclIdBuiltin builtin ->
-          prettyForTrace (QualName builtin.name qualDeclIdKind)
-
-qualDeclIdName :: QualDeclId p -> Name
-qualDeclIdName = declIdName . qualDeclId
-
-declIdToQualDeclId :: DeclId p -> NameKind -> QualDeclId p
-declIdToQualDeclId = QualDeclId
-
-qualDeclIdToPrelimDeclId :: QualDeclId p -> PrelimDeclId
-qualDeclIdToPrelimDeclId (QualDeclId declId kind) =
-    case declId of
-      DeclIdNamed named ->
-        case named.origin of
-          NameOriginGenerated   anon -> PrelimDeclIdAnon  anon       kind
-          NameOriginRenamedFrom orig -> PrelimDeclIdNamed orig       kind
-          NameOriginInSource         -> PrelimDeclIdNamed named.name kind
-      DeclIdBuiltin builtin ->
-        PrelimDeclIdBuiltin builtin.name kind
+      prettyForTraceLoc declId loc
 
 {-------------------------------------------------------------------------------
   Located
@@ -495,7 +402,3 @@ prettyForTraceLoc x l = PP.hsep [
     , "at"
     , PP.showToCtxDoc l
     ]
-
-prettyForTraceOriginLoc :: NameOrigin -> SingleLoc -> CtxDoc
-prettyForTraceOriginLoc o l =
-    PP.parens $ PP.hsep [prettyForTrace o , "at" , PP.showToCtxDoc l]

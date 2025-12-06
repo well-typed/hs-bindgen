@@ -21,7 +21,9 @@ import qualified HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-{-| __defined at:__ @types\/complex\/hsb_complex_test.h:24:9@
+{-| __C declaration:__ @complex_object_t@
+
+    __defined at:__ @types\/complex\/hsb_complex_test.h:24:9@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}

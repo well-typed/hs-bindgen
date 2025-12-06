@@ -5,28 +5,28 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/typedefs/typedef_analysis.h
-  cname: struct struct1
-  hsname: Struct1_t
-- headers: types/typedefs/typedef_analysis.h
-  cname: struct struct10
+  cname: struct10_t
   hsname: Struct10_t
 - headers: types/typedefs/typedef_analysis.h
   cname: struct10_t_t
   hsname: Struct10_t_t
 - headers: types/typedefs/typedef_analysis.h
-  cname: struct struct11
+  cname: struct11_t
   hsname: Struct11_t
 - headers: types/typedefs/typedef_analysis.h
-  cname: struct struct12
+  cname: struct12_t
   hsname: Struct12_t
 - headers: types/typedefs/typedef_analysis.h
-  cname: struct struct2
+  cname: struct1_t
+  hsname: Struct1_t
+- headers: types/typedefs/typedef_analysis.h
+  cname: struct2_t
   hsname: Struct2_t
 - headers: types/typedefs/typedef_analysis.h
-  cname: struct struct3
+  cname: struct3_t
   hsname: Struct3_t
 - headers: types/typedefs/typedef_analysis.h
-  cname: struct struct4
+  cname: struct4_t
   hsname: Struct4_t
 - headers: types/typedefs/typedef_analysis.h
   cname: struct struct5
@@ -50,13 +50,13 @@ ctypes:
   cname: struct7b
   hsname: Struct7b
 - headers: types/typedefs/typedef_analysis.h
-  cname: struct struct8
+  cname: struct8
   hsname: Struct8
 - headers: types/typedefs/typedef_analysis.h
   cname: struct8b
   hsname: Struct8b
 - headers: types/typedefs/typedef_analysis.h
-  cname: struct struct9
+  cname: struct9
   hsname: Struct9
 - headers: types/typedefs/typedef_analysis.h
   cname: struct9_t

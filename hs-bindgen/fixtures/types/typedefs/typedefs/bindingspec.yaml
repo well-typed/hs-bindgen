@@ -8,17 +8,11 @@ ctypes:
   cname: FunctionPointer_Function
   hsname: FunctionPointer_Function
 - headers: types/typedefs/typedefs.h
-  cname: FunctionPointer_Function_Deref
-  hsname: FunctionPointer_Function_Deref
-- headers: types/typedefs/typedefs.h
   cname: NonFunctionPointer_Function
   hsname: NonFunctionPointer_Function
 - headers: types/typedefs/typedefs.h
   cname: f1
   hsname: F1
-- headers: types/typedefs/typedefs.h
-  cname: f1_Deref
-  hsname: F1_Deref
 - headers: types/typedefs/typedefs.h
   cname: g1
   hsname: G1
@@ -50,14 +44,12 @@ hstypes:
   - Ord
   - Show
   - Storable
-- hsname: F1_Deref
 - hsname: FunctionPointer_Function
   instances:
   - Eq
   - Ord
   - Show
   - Storable
-- hsname: FunctionPointer_Function_Deref
 - hsname: G1
 - hsname: G2
   instances:

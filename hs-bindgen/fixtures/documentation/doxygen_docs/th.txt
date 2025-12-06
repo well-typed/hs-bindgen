@@ -615,6 +615,8 @@ instance HasCField Event_callback_t "un_Event_callback_t"
 
   This structure demonstrates field documentation.
 
+__C declaration:__ @config_t@
+
 __defined at:__ @documentation\/doxygen_docs.h:232:9@
 
 __exported by:__ @documentation\/doxygen_docs.h@
@@ -683,6 +685,8 @@ data Config_t
 
          This structure demonstrates field documentation.
 
+      __C declaration:__ @config_t@
+
       __defined at:__ @documentation\/doxygen_docs.h:232:9@
 
       __exported by:__ @documentation\/doxygen_docs.h@
@@ -738,6 +742,8 @@ instance TyEq ty (CFieldType Config_t "config_t_user_data") =>
 
   This enum shows different status codes.
 
+__C declaration:__ @status_code_t@
+
 __defined at:__ @documentation\/doxygen_docs.h:258:9@
 
 __exported by:__ @documentation\/doxygen_docs.h@
@@ -749,6 +755,8 @@ newtype Status_code_t
          Enumeration with documented values
 
          This enum shows different status codes.
+
+      __C declaration:__ @status_code_t@
 
       __defined at:__ @documentation\/doxygen_docs.h:258:9@
 
@@ -970,6 +978,8 @@ instance TyEq ty
 
   This union demonstrates different data representations.
 
+__C declaration:__ @data_union_t@
+
 __defined at:__ @documentation\/doxygen_docs.h:281:9@
 
 __exported by:__ @documentation\/doxygen_docs.h@
@@ -983,6 +993,8 @@ newtype Data_union_t
          Union with documented fields
 
          This union demonstrates different data representations.
+
+      __C declaration:__ @data_union_t@
 
       __defined at:__ @documentation\/doxygen_docs.h:281:9@
 
@@ -1181,6 +1193,8 @@ instance TyEq ty
 
   Demonstrates bit field documentation.
 
+__C declaration:__ @bitfield_t@
+
 __defined at:__ @documentation\/doxygen_docs.h:302:9@
 
 __exported by:__ @documentation\/doxygen_docs.h@
@@ -1237,6 +1251,8 @@ data Bitfield_t
          Bit field structure
 
          Demonstrates bit field documentation.
+
+      __C declaration:__ @bitfield_t@
 
       __defined at:__ @documentation\/doxygen_docs.h:302:9@
 

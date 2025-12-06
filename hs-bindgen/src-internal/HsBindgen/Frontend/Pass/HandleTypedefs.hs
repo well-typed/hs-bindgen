@@ -4,6 +4,7 @@ import Data.Map.Strict qualified as Map
 
 import Clang.HighLevel.Documentation qualified as Clang
 
+import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.AST.Coerce
@@ -12,7 +13,6 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
-import HsBindgen.Frontend.Pass.Parse.IsPass (OrigTypedefRef (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 
@@ -48,57 +48,52 @@ handleDecl ::
      TypedefAnalysis
   -> C.Decl Select
   -> (Maybe (Msg HandleTypedefs), Maybe [C.Decl HandleTypedefs])
-handleDecl td decl =
-    case declKind of
-      C.DeclTypedef dtd
-        | C.TypePointer (C.TypeFun args res) <- C.typedefType dtd -> (
-              Nothing
-            , Just $ introduceAuxFunType td declInfo' declAnn args res
-            )
-        | otherwise ->
-          case Map.lookup curName (TypedefAnalysis.squash td) of
-            Just _ty -> (
-                Just $ HandleTypedefsSquashed declInfo'
-              , Nothing
-              )
-            Nothing -> (
-                Nothing
-              , Just [C.Decl{
-                    declInfo = declInfo'
-                  , declKind = handleUseSites td declKind
-                  , declAnn
-                  }]
-              )
-      _otherwise ->
-        let (mMsg, updatedInfo) =
-               case Map.lookup curName (TypedefAnalysis.rename td) of
-                 Nothing -> (Nothing, declInfo')
-                 Just newDeclId -> (
-                     Just $
-                       HandleTypedefsRenamedTagged
-                         declInfo'
-                         (C.declIdName newDeclId)
-                   , declInfo {
-                       C.declId = coercePass newDeclId
-                     , C.declComment = fmap (handleUseSites td) declComment
-                     }
-                   )
-        in ( mMsg
-           , Just [C.Decl{
-                  declInfo = updatedInfo
-                , declKind = handleUseSites td declKind
-                , declAnn
-               }]
-           )
+handleDecl td decl
+  -- Deal with typedefs around function pointers
+  -- (NOTE: Such typedefs are never squashed.)
+  | C.DeclTypedef dtd <- declKind
+  , C.TypePointer (C.TypeFun args res) <- C.typedefType dtd
+  = ( Nothing
+    , Just $ introduceAuxFunType td declInfo' declAnn args res
+    )
+
+  -- Check for typedefs we need to squash
+  | Just _ty <- Map.lookup dId td.squash
+  = ( Just $ HandleTypedefsSquashed declInfo'
+    , Nothing
+    )
+
+  -- Check for types we need to rename
+  --
+  -- We emit a \"rename\" only if we truly are renaming (in some cases we
+  -- just change some other properties of the identifier).
+  | Just newDeclId <- Map.lookup dId td.rename
+  = ( do guard $ C.declIdName declInfo'.declId /= C.declIdName newDeclId
+         Just $ HandleTypedefsRenamedTagged
+                  declInfo'
+                  (C.declIdName newDeclId)
+    , Just . (:[]) $ C.Decl{
+           declInfo = declInfo'{C.declId = newDeclId}
+         , declKind = handleUseSites td declKind
+         , declAnn
+        }
+    )
+
+  | otherwise
+  = ( Nothing
+    , Just . (:[]) $ C.Decl{
+           declInfo = declInfo'
+         , declKind = handleUseSites td declKind
+         , declAnn
+        }
+    )
+
   where
     C.Decl{
-        declInfo = declInfo@C.DeclInfo{declId = dId, declComment}
+        declInfo = declInfo@C.DeclInfo{declId = dId}
       , declKind
       , declAnn
       } = decl
-
-    curName :: C.Name
-    curName = C.declIdName dId
 
     declInfo' :: C.DeclInfo HandleTypedefs
     declInfo' = coercePass declInfo
@@ -128,10 +123,19 @@ introduceAuxFunType td declInfo declAnn args res = [
     derefDecl, mainDecl :: C.Decl HandleTypedefs
     derefDecl = C.Decl {
           declInfo = declInfo {
-              C.declId = C.DeclIdNamed C.NamedDeclId{
-                  name      = C.declIdName declInfo.declId <> "_Deref"
-                , origin    = C.NameOriginGenerated (C.AnonId declInfo.declLoc)
-                , haskellId = ()
+              C.declId = C.DeclId{
+                  name =
+                    C.DeclIdNamed $ C.declIdName declInfo.declId <> "_Deref"
+                , nameKind =
+                    C.NameKindOrdinary
+                , haskellId =
+                    ()
+                , origDeclId =
+                    case declInfo.declId.origDeclId of
+                      C.OrigDeclId orig    -> C.AuxForDecl orig
+                      C.AuxForDecl _parent ->
+                        -- Aux decls are not introduced until @HandleTypedefs@
+                        panicPure "Unexpected aux decl"
                 }
             , C.declComment = Just auxType
             }
@@ -146,8 +150,7 @@ introduceAuxFunType td declInfo declAnn args res = [
           C.declInfo = declInfo
         , C.declKind = C.DeclTypedef $ C.Typedef {
             typedefType = C.TypePointer
-                        . C.TypeTypedef
-                        . flip TypedefRegular
+                        . flip C.TypeTypedef
                             (handleUseSites td $ C.TypeFun args res)
                         . C.declId
                         $ C.declInfo derefDecl
@@ -184,20 +187,6 @@ instance HandleUseSites C.DeclKind where
       C.DeclFunction fun     -> C.DeclFunction (handleUseSites td fun)
       C.DeclGlobal ty        -> C.DeclGlobal (handleUseSites td ty)
 
-instance HandleUseSites C.FieldInfo where
-  handleUseSites td C.FieldInfo{..} =
-    C.FieldInfo {
-      fieldComment = handleUseSites td <$> fieldComment
-    , ..
-    }
-
-instance HandleUseSites C.CommentRef where
-  handleUseSites _ (C.CommentRef c hs) = C.CommentRef c hs
-
-instance HandleUseSites C.Comment where
-  handleUseSites td (C.Comment comment) =
-    C.Comment (fmap (handleUseSites td) comment)
-
 instance HandleUseSites C.Struct where
   handleUseSites td C.Struct{..} = C.Struct{
         structFields = map (handleUseSites td) structFields
@@ -206,7 +195,7 @@ instance HandleUseSites C.Struct where
 
 instance HandleUseSites C.StructField where
   handleUseSites td C.StructField{..} = C.StructField{
-        structFieldInfo = handleUseSites td structFieldInfo
+        structFieldInfo = coercePass structFieldInfo
       , structFieldType = handleUseSites td structFieldType
       , ..
       }
@@ -219,7 +208,7 @@ instance HandleUseSites C.Union where
 
 instance HandleUseSites C.UnionField where
   handleUseSites td C.UnionField{..} = C.UnionField{
-        unionFieldInfo = handleUseSites td unionFieldInfo
+        unionFieldInfo = coercePass unionFieldInfo
       , unionFieldType = handleUseSites td unionFieldType
       , ..
       }
@@ -259,12 +248,12 @@ instance HandleUseSites C.Type where
     where
       go :: C.Type Select -> C.Type HandleTypedefs
 
-      -- Simple cases
+      -- Trivial cases
 
-      go (C.TypePrim prim)        = C.TypePrim prim
-      go (C.TypeMacroTypedef uid) = C.TypeMacroTypedef (coercePass uid)
-      go (C.TypeVoid)             = C.TypeVoid
-      go (C.TypeExtBinding ext)   = C.TypeExtBinding ext
+      go (C.TypePrim prim)      = C.TypePrim prim
+      go (C.TypeComplex prim)   = C.TypeComplex prim
+      go (C.TypeVoid)           = C.TypeVoid
+      go (C.TypeExtBinding ext) = C.TypeExtBinding ext
 
       -- Recursive cases
 
@@ -277,29 +266,18 @@ instance HandleUseSites C.Type where
 
       -- Interesting cases: tagged types may be renamed, typedefs may be squashed
 
-      go (C.TypeStruct uid) = rename C.TypeStruct uid
-      go (C.TypeUnion  uid) = rename C.TypeUnion  uid
-      go (C.TypeEnum   uid) = rename C.TypeEnum   uid
+      go (C.TypeRef     uid)     = rename uid
+      go (C.TypeTypedef uid uTy) = squash uid uTy
 
-      go (C.TypeTypedef name) = squash name
+      rename :: C.DeclId Select -> C.Type HandleTypedefs
+      rename old = C.TypeRef $
+        case Map.lookup old td.rename of
+          Nothing  -> coercePass old
+          Just new -> new
 
-      go (C.TypeComplex prim) = C.TypeComplex prim
+      squash :: C.DeclId Select -> C.Type Select -> C.Type HandleTypedefs
+      squash old uTy =
+          case Map.lookup old td.squash of
+            Nothing  -> C.TypeTypedef (coercePass old) (go uTy)
+            Just new -> C.TypeTypedef new              (go uTy)
 
-      rename ::
-           (C.DeclId HandleTypedefs -> C.Type HandleTypedefs)
-        -> (C.DeclId Select         -> C.Type HandleTypedefs)
-      rename mkType uid =
-        case Map.lookup (C.declIdName uid) (TypedefAnalysis.rename td) of
-          Just newDeclId -> mkType $ coercePass newDeclId
-          Nothing        -> mkType $ coercePass uid
-
-      squash :: TypedefRef Select -> C.Type HandleTypedefs
-      squash (OrigTypedefRef name uTy) = C.TypeTypedef $
-          case Map.lookup name (TypedefAnalysis.squash td) of
-            Just ty -> TypedefSquashed name (go ty)
-            Nothing -> let named = C.NamedDeclId{
-                                name
-                              , origin    = C.NameOriginInSource
-                              , haskellId = ()
-                              }
-                       in TypedefRegular (C.DeclIdNamed named) (go uTy)

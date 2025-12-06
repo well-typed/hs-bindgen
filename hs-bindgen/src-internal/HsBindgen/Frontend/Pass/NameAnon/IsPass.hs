@@ -11,7 +11,6 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
-import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -30,7 +29,6 @@ instance IsPass NameAnon where
   type Id           NameAnon = C.DeclId NameAnon
   type FieldName    NameAnon = C.Name
   type ArgumentName NameAnon = Maybe C.Name
-  type TypedefRef   NameAnon = OrigTypedefRef NameAnon
   type MacroBody    NameAnon = C.CheckedMacro NameAnon
   type ExtBinding   NameAnon = Void
   type Ann ix       NameAnon = AnnNameAnon ix

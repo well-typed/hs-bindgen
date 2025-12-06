@@ -475,7 +475,9 @@ pattern PACKED_B = Packed 1
 pattern PACKED_C :: Packed
 pattern PACKED_C = Packed 2
 
-{-| __defined at:__ @types\/enums\/enums.h:30:9@
+{-| __C declaration:__ @enumA@
+
+    __defined at:__ @types\/enums\/enums.h:30:9@
 
     __exported by:__ @types\/enums\/enums.h@
 -}

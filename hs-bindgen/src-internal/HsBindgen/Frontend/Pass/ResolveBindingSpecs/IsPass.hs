@@ -13,7 +13,6 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (DeclMeta)
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
-import HsBindgen.Frontend.Pass.Parse.IsPass (OrigTypedefRef)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
@@ -45,7 +44,6 @@ instance IsPass ResolveBindingSpecs where
   type Id           ResolveBindingSpecs = C.DeclId ResolveBindingSpecs
   type FieldName    ResolveBindingSpecs = C.Name
   type ArgumentName ResolveBindingSpecs = Maybe C.Name
-  type TypedefRef   ResolveBindingSpecs = OrigTypedefRef ResolveBindingSpecs
   type MacroBody    ResolveBindingSpecs = CheckedMacro ResolveBindingSpecs
   type ExtBinding   ResolveBindingSpecs = ResolvedExtBinding
   type Ann ix       ResolveBindingSpecs = AnnResolveBindingSpecs ix

@@ -88,15 +88,8 @@ depsOfTypedef = depsOfType . typedefType
 depsOfType :: Type Parse -> [(ValOrRef, C.PrelimDeclId)]
 depsOfType = \case
     TypePrim{}             -> []
-    TypeStruct uid         -> [(ByValue, uid)]
-    TypeUnion uid          -> [(ByValue, uid)]
-    TypeEnum uid           -> [(ByValue, uid)]
-    TypeTypedef (OrigTypedefRef name _) -> [
-        ( ByValue
-        , C.PrelimDeclIdNamed name C.NameKindOrdinary
-        )
-      ]
-    TypeMacroTypedef uid   -> [(ByValue, uid)]
+    TypeRef uid            -> [(ByValue, uid)]
+    TypeTypedef uid _uTy   -> [(ByValue, uid)]
     TypePointer ty         -> first (const ByRef) <$> depsOfType ty
     TypeFun args res       -> concatMap depsOfType args <> depsOfType res
     TypeVoid               -> []

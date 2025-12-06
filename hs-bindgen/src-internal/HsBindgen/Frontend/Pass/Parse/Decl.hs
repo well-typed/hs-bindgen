@@ -79,7 +79,6 @@ getDeclInfo = \curr nameKind -> do
         info = C.DeclInfo{
             declId
           , declLoc
-          , declAliases = []
           , declHeaderInfo
           , declAvailability
           , declComment

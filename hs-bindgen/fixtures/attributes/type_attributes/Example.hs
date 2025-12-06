@@ -314,7 +314,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_packed_struct) "m
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"my_packed_struct_s")
 
-{-| __defined at:__ @attributes\/type_attributes.h:26:9@
+{-| __C declaration:__ @wait_status_ptr_t@
+
+    __defined at:__ @attributes\/type_attributes.h:26:9@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}

@@ -178,7 +178,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S2_t) "s2_t_c")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s2_t_c")
 
-{-| __defined at:__ @types\/structs\/simple_structs.h:15:9@
+{-| __C declaration:__ @S3_t@
+
+    __defined at:__ @types\/structs\/simple_structs.h:15:9@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}

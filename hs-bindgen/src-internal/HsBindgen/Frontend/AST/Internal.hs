@@ -41,10 +41,7 @@ module HsBindgen.Frontend.AST.Internal (
     -- * Show
   , ValidPass
     -- * Helper functions
-  , declOrigPrelimDeclId
   , declQualName
-  , declQualDeclId
-  , declKindNameKind
   ) where
 
 import Prelude hiding (Enum)
@@ -127,7 +124,6 @@ data Availability =
 data DeclInfo p = DeclInfo{
       declLoc     :: SingleLoc
     , declId      :: Id p
-    , declAliases :: [C.Name]
 
       -- | Source header information
       --
@@ -368,16 +364,8 @@ data CheckedMacroExpr = CheckedMacroExpr{
 
 data Type p =
     TypePrim C.PrimType
-  | TypeStruct (Id p)
-  | TypeUnion (Id p)
-  | TypeEnum (Id p)
-  | TypeTypedef (TypedefRef p)
-
-    -- | Macro-defined type
-    --
-    -- These behave very similar to 'TypeTypedef'.
-  | TypeMacroTypedef (Id p)
-
+  | TypeRef (Id p)
+  | TypeTypedef (Id p) (Type p)
   | TypePointer (Type p)
   | TypeFun [Type p] (Type p)
   | TypeVoid
@@ -472,7 +460,6 @@ class ( IsPass p
       , Show (HaskellId    p)
       , Show (Id           p)
       , Show (MacroBody    p)
-      , Show (TypedefRef   p)
 
       , Show (Ann "CheckedMacroType" p)
       , Show (Ann "Decl"             p)
@@ -501,7 +488,6 @@ class ( IsPass p
       , Eq (ExtBinding   p)
       , Eq (HaskellId    p)
       , Eq (MacroBody    p)
-      , Eq (TypedefRef   p)
 
       , Eq (Ann "CheckedMacroType" p)
       , Eq (Ann "Enum"             p)
@@ -554,34 +540,14 @@ deriving stock instance ValidPass p => Eq (UnionField       p)
 
 instance PrettyForTrace (C.Located (Id p)) => PrettyForTrace (DeclInfo p) where
   prettyForTrace DeclInfo{declId, declLoc} =
-    prettyForTrace $ C.Located declLoc declId
+      prettyForTrace $ C.Located declLoc declId
 
 instance Id p ~ C.DeclId p => PrettyForTrace (Decl p) where
-  prettyForTrace decl =
-    let qualDeclId = declQualDeclId decl
-    in  prettyForTrace $ C.Located (decl.declInfo.declLoc) qualDeclId
+  prettyForTrace decl = prettyForTrace decl.declInfo
 
 {-------------------------------------------------------------------------------
   Helper functions
 -------------------------------------------------------------------------------}
 
-declOrigPrelimDeclId :: Id p ~ C.DeclId p => Decl p -> C.PrelimDeclId
-declOrigPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
-    C.qualDeclIdToPrelimDeclId $
-      C.declIdToQualDeclId declId (declKindNameKind declKind)
-
-declQualDeclId :: Id p ~ C.DeclId p => Decl p -> C.QualDeclId p
-declQualDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
-    C.declIdToQualDeclId declId (declKindNameKind declKind)
-
 declQualName :: Id p ~ C.DeclId p => Decl p -> C.QualName
-declQualName Decl{declInfo = DeclInfo{declId}, declKind} =
-    C.QualName (C.declIdName declId) (declKindNameKind declKind)
-
-declKindNameKind :: DeclKind p -> C.NameKind
-declKindNameKind = \case
-    DeclStruct{}         -> C.NameKindTagged C.TagKindStruct
-    DeclUnion{}          -> C.NameKindTagged C.TagKindUnion
-    DeclEnum{}           -> C.NameKindTagged C.TagKindEnum
-    DeclOpaque cNameKind -> cNameKind
-    _otherwise           -> C.NameKindOrdinary
+declQualName decl = C.declIdQualName decl.declInfo.declId
