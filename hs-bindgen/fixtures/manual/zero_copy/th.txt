@@ -669,8 +669,7 @@ transpose :: Matrix -> Ptr Triplet -> IO Unit
     __exported by:__ @manual\/zero_copy.h@
 -}
 transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper (ConstPtr ptr_2) x_1)
-{-| __unique:__ @test_manualzero_copy_Example_get_reverse_ptr@
--}
+-- | __unique:__ @test_manualzero_copy_Example_get_reverse_ptr@
 foreign import ccall safe "hs_bindgen_d76d6b95b7803c78" hs_bindgen_d76d6b95b7803c78 :: IO (FunPtr (ConstPtr Vector ->
                                                                                                    Ptr Vector ->
                                                                                                    IO CInt))
@@ -689,8 +688,7 @@ reverse_ptr :: FunPtr (ConstPtr Vector -> Ptr Vector -> IO CInt)
     __exported by:__ @manual\/zero_copy.h@
 -}
 reverse_ptr = unsafePerformIO hs_bindgen_d76d6b95b7803c78
-{-| __unique:__ @test_manualzero_copy_Example_get_transpose_ptr@
--}
+-- | __unique:__ @test_manualzero_copy_Example_get_transpose_ptr@
 foreign import ccall safe "hs_bindgen_f72c56033fb58d5e" hs_bindgen_f72c56033fb58d5e :: IO (FunPtr (Matrix ->
                                                                                                    Matrix ->
                                                                                                    IO Unit))

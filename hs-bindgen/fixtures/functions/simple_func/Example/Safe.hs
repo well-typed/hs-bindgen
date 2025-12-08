@@ -52,8 +52,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 -}
 foreign import ccall safe "hs_bindgen_1c811bfb80de8f77" erf ::
      FC.CDouble
-     {- ^ __C declaration:__ @arg@
-     -}
+     -- ^ __C declaration:__ @arg@
   -> FC.CDouble
 
 {-| __C declaration:__ @bad_fma@
@@ -66,14 +65,11 @@ foreign import ccall safe "hs_bindgen_1c811bfb80de8f77" erf ::
 -}
 foreign import ccall safe "hs_bindgen_180022d3518c53bd" bad_fma ::
      FC.CDouble
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> FC.CDouble
-     {- ^ __C declaration:__ @y@
-     -}
+     -- ^ __C declaration:__ @y@
   -> FC.CDouble
-     {- ^ __C declaration:__ @z@
-     -}
+     -- ^ __C declaration:__ @z@
   -> IO FC.CDouble
 
 {-| __C declaration:__ @no_args@
@@ -108,9 +104,7 @@ foreign import ccall safe "hs_bindgen_d8523e2ccea5c7ba" no_args_no_void ::
 -}
 foreign import ccall safe "hs_bindgen_48cbd3cd1c6e874f" fun ::
      FC.CChar
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> FC.CDouble
-     {- ^ __C declaration:__ @y@
-     -}
+     -- ^ __C declaration:__ @y@
   -> IO FC.CInt

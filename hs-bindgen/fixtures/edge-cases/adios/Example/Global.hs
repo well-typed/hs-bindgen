@@ -29,8 +29,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @test_edgecasesadios_Example_get_ϒϒ_ptr@
--}
+-- | __unique:__ @test_edgecasesadios_Example_get_ϒϒ_ptr@
 foreign import ccall unsafe "hs_bindgen_a5a7bbe6b8c53539" hs_bindgen_a5a7bbe6b8c53539 ::
      IO (Ptr.Ptr FC.CInt)
 
@@ -46,8 +45,7 @@ cϒϒ_ptr :: Ptr.Ptr FC.CInt
 cϒϒ_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a5a7bbe6b8c53539
 
-{-| __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ_ptr@
--}
+-- | __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ_ptr@
 foreign import ccall unsafe "hs_bindgen_31d6bde39787c8b8" hs_bindgen_31d6bde39787c8b8 ::
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 

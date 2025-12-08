@@ -95,11 +95,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 -}
 foreign import ccall unsafe "hs_bindgen_df7e2b8e86de411a" quux1 ::
      MC
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> TC
-     {- ^ __C declaration:__ @y@
-     -}
+     -- ^ __C declaration:__ @y@
   -> IO FC.CChar
 
 {-| __C declaration:__ @quux2@
@@ -112,11 +110,9 @@ foreign import ccall unsafe "hs_bindgen_df7e2b8e86de411a" quux1 ::
 -}
 foreign import ccall unsafe "hs_bindgen_6f0b13ed02b696df" quux2 ::
      MC
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> FC.CChar
-     {- ^ __C declaration:__ @y@
-     -}
+     -- ^ __C declaration:__ @y@
   -> IO TC
 
 {-| __C declaration:__ @wam1@
@@ -129,11 +125,9 @@ foreign import ccall unsafe "hs_bindgen_6f0b13ed02b696df" quux2 ::
 -}
 foreign import ccall unsafe "hs_bindgen_f92059cc98dde342" wam1 ::
      FC.CFloat
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> Ptr.Ptr TC
-     {- ^ __C declaration:__ @y@
-     -}
+     -- ^ __C declaration:__ @y@
   -> IO (Ptr.Ptr MC)
 
 {-| __C declaration:__ @wam2@
@@ -146,11 +140,9 @@ foreign import ccall unsafe "hs_bindgen_f92059cc98dde342" wam1 ::
 -}
 foreign import ccall unsafe "hs_bindgen_3e6ecd1b2cc616bc" wam2 ::
      FC.CFloat
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> Ptr.Ptr MC
-     {- ^ __C declaration:__ @y@
-     -}
+     -- ^ __C declaration:__ @y@
   -> IO (Ptr.Ptr TC)
 
 {-| __C declaration:__ @struct_typedef1@
@@ -163,11 +155,9 @@ foreign import ccall unsafe "hs_bindgen_3e6ecd1b2cc616bc" wam2 ::
 -}
 foreign import ccall unsafe "hs_bindgen_ffa9d5a3e8f0f221" struct_typedef1 ::
      Ptr.Ptr Struct2
-     {- ^ __C declaration:__ @s@
-     -}
+     -- ^ __C declaration:__ @s@
   -> MC
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> IO ()
 
 {-| __C declaration:__ @struct_typedef2@
@@ -180,11 +170,9 @@ foreign import ccall unsafe "hs_bindgen_ffa9d5a3e8f0f221" struct_typedef1 ::
 -}
 foreign import ccall unsafe "hs_bindgen_4801667560542114" struct_typedef2 ::
      Ptr.Ptr Struct3_t
-     {- ^ __C declaration:__ @s@
-     -}
+     -- ^ __C declaration:__ @s@
   -> MC
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> IO ()
 
 {-| __C declaration:__ @struct_typedef3@
@@ -197,11 +185,9 @@ foreign import ccall unsafe "hs_bindgen_4801667560542114" struct_typedef2 ::
 -}
 foreign import ccall unsafe "hs_bindgen_04fa5bbd479146eb" struct_typedef3 ::
      Ptr.Ptr Struct4
-     {- ^ __C declaration:__ @s@
-     -}
+     -- ^ __C declaration:__ @s@
   -> MC
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> IO ()
 
 {-| __C declaration:__ @struct_name1@
@@ -214,11 +200,9 @@ foreign import ccall unsafe "hs_bindgen_04fa5bbd479146eb" struct_typedef3 ::
 -}
 foreign import ccall unsafe "hs_bindgen_08025fd0bd589ac2" struct_name1 ::
      Ptr.Ptr Struct1
-     {- ^ __C declaration:__ @s@
-     -}
+     -- ^ __C declaration:__ @s@
   -> MC
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> IO ()
 
 {-| __C declaration:__ @struct_name2@
@@ -231,11 +215,9 @@ foreign import ccall unsafe "hs_bindgen_08025fd0bd589ac2" struct_name1 ::
 -}
 foreign import ccall unsafe "hs_bindgen_9de286608f952fc7" struct_name2 ::
      Ptr.Ptr Struct3
-     {- ^ __C declaration:__ @s@
-     -}
+     -- ^ __C declaration:__ @s@
   -> MC
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> IO ()
 
 {-| __C declaration:__ @struct_name3@
@@ -248,9 +230,7 @@ foreign import ccall unsafe "hs_bindgen_9de286608f952fc7" struct_name2 ::
 -}
 foreign import ccall unsafe "hs_bindgen_38cce6bb1ac71578" struct_name3 ::
      Ptr.Ptr Struct4
-     {- ^ __C declaration:__ @s@
-     -}
+     -- ^ __C declaration:__ @s@
   -> MC
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> IO ()

@@ -41,8 +41,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @test_functionsdecls_in_signature_Example_get_normal_ptr@
--}
+-- | __unique:__ @test_functionsdecls_in_signature_Example_get_normal_ptr@
 foreign import ccall unsafe "hs_bindgen_3f49e28bee3f8746" hs_bindgen_3f49e28bee3f8746 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO ()))
 
@@ -58,8 +57,7 @@ normal_ptr :: Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO
 normal_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3f49e28bee3f8746
 
-{-| __unique:__ @test_functionsdecls_in_signature_Example_get_f1_ptr@
--}
+-- | __unique:__ @test_functionsdecls_in_signature_Example_get_f1_ptr@
 foreign import ccall unsafe "hs_bindgen_8de29d760cad0c00" hs_bindgen_8de29d760cad0c00 ::
      IO (Ptr.FunPtr (Named_struct -> IO ()))
 
@@ -79,8 +77,7 @@ f1_ptr :: Ptr.FunPtr (Named_struct -> IO ())
 f1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8de29d760cad0c00
 
-{-| __unique:__ @test_functionsdecls_in_signature_Example_get_f2_ptr@
--}
+-- | __unique:__ @test_functionsdecls_in_signature_Example_get_f2_ptr@
 foreign import ccall unsafe "hs_bindgen_7a2b955aeef7fcd9" hs_bindgen_7a2b955aeef7fcd9 ::
      IO (Ptr.FunPtr (Named_union -> IO ()))
 

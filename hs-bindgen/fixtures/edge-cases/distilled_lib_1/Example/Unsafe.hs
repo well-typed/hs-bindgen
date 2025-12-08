@@ -32,12 +32,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 -}
 foreign import ccall unsafe "hs_bindgen_2a91c367a9380a63" some_fun ::
      Ptr.Ptr A_type_t
-     {- ^ __C declaration:__ @i@
-     -}
+     -- ^ __C declaration:__ @i@
   -> HsBindgen.Runtime.Prelude.Word32
-     {- ^ __C declaration:__ @j@
-     -}
+     -- ^ __C declaration:__ @j@
   -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
-     {- ^ __C declaration:__ @k@
-     -}
+     -- ^ __C declaration:__ @k@
   -> IO HsBindgen.Runtime.Prelude.Int32

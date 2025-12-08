@@ -240,8 +240,7 @@ foreign import ccall safe "hs_bindgen_654858ed6a5db417" read_file_chunk :: Ptr H
                                                                            Ptr Void ->
                                                                            HsBindgen.Runtime.Prelude.CSize ->
                                                                            IO FileOperationStatus
-{-| __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk_ptr@
--}
+-- | __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk_ptr@
 foreign import ccall safe "hs_bindgen_166bda29e26e15f7" hs_bindgen_166bda29e26e15f7 :: IO (FunPtr (Ptr HsBindgen.Runtime.Prelude.CFile ->
                                                                                                    Ptr Void ->
                                                                                                    HsBindgen.Runtime.Prelude.CSize ->

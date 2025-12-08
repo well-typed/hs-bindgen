@@ -66,8 +66,7 @@ foreign import ccall safe "hs_bindgen_0d1c75136a36e326" f :: A ->
 -}
 foreign import ccall safe "hs_bindgen_93ed1628a0edf6b0" f :: A ->
                                                              IO Unit
-{-| __unique:__ @test_declarationsdeclarations_requ_Example_get_f_ptr@
--}
+-- | __unique:__ @test_declarationsdeclarations_requ_Example_get_f_ptr@
 foreign import ccall safe "hs_bindgen_2d056172b6e93949" hs_bindgen_2d056172b6e93949 :: IO (FunPtr (A ->
                                                                                                    IO Unit))
 {-# NOINLINE f_ptr #-}

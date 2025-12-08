@@ -784,11 +784,9 @@ __unique:__ @test_macrosreparse_Example_Safe_args_char1@
 -}
 foreign import ccall safe "hs_bindgen_f15610128336b06a" args_char1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CChar
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_char2@
@@ -801,11 +799,9 @@ foreign import ccall safe "hs_bindgen_f15610128336b06a" args_char1 ::
 -}
 foreign import ccall safe "hs_bindgen_087f45ca0a284a03" args_char2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CSChar
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_char3@
@@ -818,11 +814,9 @@ foreign import ccall safe "hs_bindgen_087f45ca0a284a03" args_char2 ::
 -}
 foreign import ccall safe "hs_bindgen_f6cb5c5a728c2404" args_char3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CUChar
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_short1@
@@ -835,11 +829,9 @@ foreign import ccall safe "hs_bindgen_f6cb5c5a728c2404" args_char3 ::
 -}
 foreign import ccall safe "hs_bindgen_d485767e0caa1f7c" args_short1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CShort
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_short2@
@@ -852,11 +844,9 @@ foreign import ccall safe "hs_bindgen_d485767e0caa1f7c" args_short1 ::
 -}
 foreign import ccall safe "hs_bindgen_833c96c437533e02" args_short2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CShort
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_short3@
@@ -869,11 +859,9 @@ foreign import ccall safe "hs_bindgen_833c96c437533e02" args_short2 ::
 -}
 foreign import ccall safe "hs_bindgen_0e1eedc3fcbcea7a" args_short3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CUShort
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_int1@
@@ -886,11 +874,9 @@ foreign import ccall safe "hs_bindgen_0e1eedc3fcbcea7a" args_short3 ::
 -}
 foreign import ccall safe "hs_bindgen_906f0ac7dfd36ab8" args_int1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CInt
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_int2@
@@ -903,11 +889,9 @@ foreign import ccall safe "hs_bindgen_906f0ac7dfd36ab8" args_int1 ::
 -}
 foreign import ccall safe "hs_bindgen_0edbc9b995b2a589" args_int2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CInt
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_int3@
@@ -920,11 +904,9 @@ foreign import ccall safe "hs_bindgen_0edbc9b995b2a589" args_int2 ::
 -}
 foreign import ccall safe "hs_bindgen_a5c223f58a255115" args_int3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CUInt
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_long1@
@@ -937,11 +919,9 @@ foreign import ccall safe "hs_bindgen_a5c223f58a255115" args_int3 ::
 -}
 foreign import ccall safe "hs_bindgen_41d1229384b9a529" args_long1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CLong
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_long2@
@@ -954,11 +934,9 @@ foreign import ccall safe "hs_bindgen_41d1229384b9a529" args_long1 ::
 -}
 foreign import ccall safe "hs_bindgen_a9a4b09fd3bd83db" args_long2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CLong
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_long3@
@@ -971,11 +949,9 @@ foreign import ccall safe "hs_bindgen_a9a4b09fd3bd83db" args_long2 ::
 -}
 foreign import ccall safe "hs_bindgen_31dc2e680b3f3eff" args_long3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CULong
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_float@
@@ -988,11 +964,9 @@ foreign import ccall safe "hs_bindgen_31dc2e680b3f3eff" args_long3 ::
 -}
 foreign import ccall safe "hs_bindgen_3d400757b5cbf4b7" args_float ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CFloat
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_double@
@@ -1005,11 +979,9 @@ foreign import ccall safe "hs_bindgen_3d400757b5cbf4b7" args_float ::
 -}
 foreign import ccall safe "hs_bindgen_70df07e39900487e" args_double ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CDouble
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_bool1@
@@ -1022,11 +994,9 @@ foreign import ccall safe "hs_bindgen_70df07e39900487e" args_double ::
 -}
 foreign import ccall safe "hs_bindgen_0b7c534fe683f843" args_bool1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CBool
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| Pointer-based API for 'args_struct'
@@ -1046,11 +1016,9 @@ foreign import ccall safe "hs_bindgen_b20e084f7b7941b5" args_struct_wrapper ::
 -}
 args_struct ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Some_struct
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_struct =
   \x0 ->
@@ -1073,11 +1041,9 @@ foreign import ccall safe "hs_bindgen_23aff33f33b6bdd1" args_union_wrapper ::
 -}
 args_union ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Some_union
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_union =
   \x0 ->
@@ -1093,11 +1059,9 @@ args_union =
 -}
 foreign import ccall safe "hs_bindgen_fdd58ae14ce15ed5" args_enum ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Some_enum
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_pointer1@
@@ -1110,11 +1074,9 @@ foreign import ccall safe "hs_bindgen_fdd58ae14ce15ed5" args_enum ::
 -}
 foreign import ccall safe "hs_bindgen_42ce2ec4fd2eda72" args_pointer1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_pointer2@
@@ -1127,11 +1089,9 @@ foreign import ccall safe "hs_bindgen_42ce2ec4fd2eda72" args_pointer1 ::
 -}
 foreign import ccall safe "hs_bindgen_01b2f6502d340abe" args_pointer2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Ptr.Ptr (Ptr.Ptr FC.CInt)
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @args_pointer3@
@@ -1144,11 +1104,9 @@ foreign import ccall safe "hs_bindgen_01b2f6502d340abe" args_pointer2 ::
 -}
 foreign import ccall safe "hs_bindgen_3e64133f9aaebbf1" args_pointer3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Ptr.Ptr Void
-     {- ^ __C declaration:__ @arg3@
-     -}
+     -- ^ __C declaration:__ @arg3@
   -> IO ()
 
 {-| __C declaration:__ @ret_A@
@@ -1172,8 +1130,7 @@ foreign import ccall safe "hs_bindgen_c830401b459192fb" ret_A ::
 -}
 foreign import ccall safe "hs_bindgen_18b24c6e67a5412e" ret_char1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CChar
 
 {-| __C declaration:__ @ret_char2@
@@ -1186,8 +1143,7 @@ foreign import ccall safe "hs_bindgen_18b24c6e67a5412e" ret_char1 ::
 -}
 foreign import ccall safe "hs_bindgen_2da1160aeef9ff64" ret_char2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CSChar
 
 {-| __C declaration:__ @ret_char3@
@@ -1200,8 +1156,7 @@ foreign import ccall safe "hs_bindgen_2da1160aeef9ff64" ret_char2 ::
 -}
 foreign import ccall safe "hs_bindgen_e3183f9de1b9f231" ret_char3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CUChar
 
 {-| __C declaration:__ @ret_short1@
@@ -1214,8 +1169,7 @@ foreign import ccall safe "hs_bindgen_e3183f9de1b9f231" ret_char3 ::
 -}
 foreign import ccall safe "hs_bindgen_c313966d4478e3f4" ret_short1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CShort
 
 {-| __C declaration:__ @ret_short2@
@@ -1228,8 +1182,7 @@ foreign import ccall safe "hs_bindgen_c313966d4478e3f4" ret_short1 ::
 -}
 foreign import ccall safe "hs_bindgen_737fbec310eb0719" ret_short2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CShort
 
 {-| __C declaration:__ @ret_short3@
@@ -1242,8 +1195,7 @@ foreign import ccall safe "hs_bindgen_737fbec310eb0719" ret_short2 ::
 -}
 foreign import ccall safe "hs_bindgen_b5bd9e111020db4e" ret_short3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CUShort
 
 {-| __C declaration:__ @ret_int1@
@@ -1256,8 +1208,7 @@ foreign import ccall safe "hs_bindgen_b5bd9e111020db4e" ret_short3 ::
 -}
 foreign import ccall safe "hs_bindgen_a30224259287f5f8" ret_int1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CInt
 
 {-| __C declaration:__ @ret_int2@
@@ -1270,8 +1221,7 @@ foreign import ccall safe "hs_bindgen_a30224259287f5f8" ret_int1 ::
 -}
 foreign import ccall safe "hs_bindgen_b5be09caf8cf5750" ret_int2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CInt
 
 {-| __C declaration:__ @ret_int3@
@@ -1284,8 +1234,7 @@ foreign import ccall safe "hs_bindgen_b5be09caf8cf5750" ret_int2 ::
 -}
 foreign import ccall safe "hs_bindgen_698e3f97470d83be" ret_int3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CUInt
 
 {-| __C declaration:__ @ret_long1@
@@ -1298,8 +1247,7 @@ foreign import ccall safe "hs_bindgen_698e3f97470d83be" ret_int3 ::
 -}
 foreign import ccall safe "hs_bindgen_c7e0705dd09be530" ret_long1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CLong
 
 {-| __C declaration:__ @ret_long2@
@@ -1312,8 +1260,7 @@ foreign import ccall safe "hs_bindgen_c7e0705dd09be530" ret_long1 ::
 -}
 foreign import ccall safe "hs_bindgen_74b1f5b8c56ff22c" ret_long2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CLong
 
 {-| __C declaration:__ @ret_long3@
@@ -1326,8 +1273,7 @@ foreign import ccall safe "hs_bindgen_74b1f5b8c56ff22c" ret_long2 ::
 -}
 foreign import ccall safe "hs_bindgen_c2d07eaaab82d408" ret_long3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CULong
 
 {-| __C declaration:__ @ret_float@
@@ -1340,8 +1286,7 @@ foreign import ccall safe "hs_bindgen_c2d07eaaab82d408" ret_long3 ::
 -}
 foreign import ccall safe "hs_bindgen_0edfbc7067faa1f7" ret_float ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CFloat
 
 {-| __C declaration:__ @ret_double@
@@ -1354,8 +1299,7 @@ foreign import ccall safe "hs_bindgen_0edfbc7067faa1f7" ret_float ::
 -}
 foreign import ccall safe "hs_bindgen_786ca672396b33be" ret_double ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CDouble
 
 {-| __C declaration:__ @ret_bool1@
@@ -1368,8 +1312,7 @@ foreign import ccall safe "hs_bindgen_786ca672396b33be" ret_double ::
 -}
 foreign import ccall safe "hs_bindgen_2e99f19b59650996" ret_bool1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CBool
 
 {-| Pointer-based API for 'ret_struct'
@@ -1389,8 +1332,7 @@ foreign import ccall safe "hs_bindgen_6c999121eed8178f" ret_struct_wrapper ::
 -}
 ret_struct ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO Some_struct
 ret_struct =
   \x0 ->
@@ -1414,8 +1356,7 @@ foreign import ccall safe "hs_bindgen_481ee5d2d9bd34db" ret_union_wrapper ::
 -}
 ret_union ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO Some_union
 ret_union =
   \x0 ->
@@ -1432,8 +1373,7 @@ ret_union =
 -}
 foreign import ccall safe "hs_bindgen_8bb240ba453b700d" ret_enum ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO Some_enum
 
 {-| __C declaration:__ @ret_pointer1@
@@ -1446,8 +1386,7 @@ foreign import ccall safe "hs_bindgen_8bb240ba453b700d" ret_enum ::
 -}
 foreign import ccall safe "hs_bindgen_c346ed2cd20b9af1" ret_pointer1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.Ptr FC.CInt)
 
 {-| __C declaration:__ @ret_pointer2@
@@ -1460,8 +1399,7 @@ foreign import ccall safe "hs_bindgen_c346ed2cd20b9af1" ret_pointer1 ::
 -}
 foreign import ccall safe "hs_bindgen_a21f618658151728" ret_pointer2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
 
 {-| __C declaration:__ @ret_pointer3@
@@ -1474,8 +1412,7 @@ foreign import ccall safe "hs_bindgen_a21f618658151728" ret_pointer2 ::
 -}
 foreign import ccall safe "hs_bindgen_2d8c6e2d2f395342" ret_pointer3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.Ptr Void)
 
 {-| __C declaration:__ @body1@
@@ -1488,8 +1425,7 @@ foreign import ccall safe "hs_bindgen_2d8c6e2d2f395342" ret_pointer3 ::
 -}
 foreign import ccall safe "hs_bindgen_b030d02030ed80bc" body1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CInt
 
 {-| __C declaration:__ @body2@
@@ -1520,11 +1456,9 @@ foreign import ccall safe "hs_bindgen_627a52a5c7617083" args_complex_float_wrapp
 -}
 args_complex_float ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Data.Complex.Complex FC.CFloat
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_complex_float =
   \x0 ->
@@ -1548,11 +1482,9 @@ foreign import ccall safe "hs_bindgen_392babebc1d83503" args_complex_double_wrap
 -}
 args_complex_double ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Data.Complex.Complex FC.CDouble
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 args_complex_double =
   \x0 ->
@@ -1576,8 +1508,7 @@ foreign import ccall safe "hs_bindgen_8958183ede73dea8" ret_complex_float_wrappe
 -}
 ret_complex_float ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Data.Complex.Complex FC.CFloat)
 ret_complex_float =
   \x0 ->
@@ -1601,8 +1532,7 @@ foreign import ccall safe "hs_bindgen_a95fabfd391a99aa" ret_complex_double_wrapp
 -}
 ret_complex_double ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Data.Complex.Complex FC.CDouble)
 ret_complex_double =
   \x0 ->
@@ -1619,11 +1549,9 @@ ret_complex_double =
 -}
 foreign import ccall safe "hs_bindgen_ad9f8630dd04a203" bespoke_args1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CBool
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @bespoke_args2@
@@ -1636,11 +1564,9 @@ foreign import ccall safe "hs_bindgen_ad9f8630dd04a203" bespoke_args1 ::
 -}
 foreign import ccall safe "hs_bindgen_4b34178a505131e2" bespoke_args2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> HsBindgen.Runtime.Prelude.CSize
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @bespoke_ret1@
@@ -1653,8 +1579,7 @@ foreign import ccall safe "hs_bindgen_4b34178a505131e2" bespoke_args2 ::
 -}
 foreign import ccall safe "hs_bindgen_94b225a6394496c1" bespoke_ret1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO FC.CBool
 
 {-| __C declaration:__ @bespoke_ret2@
@@ -1667,8 +1592,7 @@ foreign import ccall safe "hs_bindgen_94b225a6394496c1" bespoke_ret1 ::
 -}
 foreign import ccall safe "hs_bindgen_7c9a1792426b84a1" bespoke_ret2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO HsBindgen.Runtime.Prelude.CSize
 
 {-| Arrays
@@ -1683,8 +1607,7 @@ __unique:__ @test_macrosreparse_Example_Safe_arr_args1@
 -}
 foreign import ccall safe "hs_bindgen_e20689fe39004225" arr_args1 ::
      Ptr.Ptr A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO ()
 
 {-| __C declaration:__ @arr_args2@
@@ -1697,8 +1620,7 @@ foreign import ccall safe "hs_bindgen_e20689fe39004225" arr_args1 ::
 -}
 foreign import ccall safe "hs_bindgen_084796e4bfd3f4cd" arr_args2 ::
      Ptr.Ptr (Ptr.Ptr A)
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO ()
 
 {-| __C declaration:__ @arr_args3@
@@ -1711,8 +1633,7 @@ foreign import ccall safe "hs_bindgen_084796e4bfd3f4cd" arr_args2 ::
 -}
 foreign import ccall safe "hs_bindgen_a3d1560aaa4352df" arr_args3 ::
      Ptr.Ptr A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO ()
 
 {-| __C declaration:__ @arr_args4@
@@ -1725,8 +1646,7 @@ foreign import ccall safe "hs_bindgen_a3d1560aaa4352df" arr_args3 ::
 -}
 foreign import ccall safe "hs_bindgen_88659ccccc6c1f5f" arr_args4 ::
      Ptr.Ptr (Ptr.Ptr A)
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO ()
 
 {-| Function pointers
@@ -1741,11 +1661,9 @@ __unique:__ @test_macrosreparse_Example_Safe_funptr_args1@
 -}
 foreign import ccall safe "hs_bindgen_3448d03cfd41161a" funptr_args1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Ptr.FunPtr (IO ())
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @funptr_args2@
@@ -1758,11 +1676,9 @@ foreign import ccall safe "hs_bindgen_3448d03cfd41161a" funptr_args1 ::
 -}
 foreign import ccall safe "hs_bindgen_92d7386f0a327d25" funptr_args2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Ptr.FunPtr (IO FC.CInt)
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @funptr_args3@
@@ -1775,11 +1691,9 @@ foreign import ccall safe "hs_bindgen_92d7386f0a327d25" funptr_args2 ::
 -}
 foreign import ccall safe "hs_bindgen_2881f594f98043e6" funptr_args3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Ptr.FunPtr (FC.CInt -> IO ())
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @funptr_args4@
@@ -1792,11 +1706,9 @@ foreign import ccall safe "hs_bindgen_2881f594f98043e6" funptr_args3 ::
 -}
 foreign import ccall safe "hs_bindgen_1e85a05df4251f62" funptr_args4 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar)
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @funptr_args5@
@@ -1809,11 +1721,9 @@ foreign import ccall safe "hs_bindgen_1e85a05df4251f62" funptr_args4 ::
 -}
 foreign import ccall safe "hs_bindgen_ccf4db7511f0d6d6" funptr_args5 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| Comments in awkward places
@@ -1830,8 +1740,7 @@ __unique:__ @test_macrosreparse_Example_Safe_comments1@
 -}
 foreign import ccall safe "hs_bindgen_4c756db60673d221" comments1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO ()
 
 {-| `const` qualifier
@@ -1848,11 +1757,9 @@ __unique:__ @test_macrosreparse_Example_Safe_const_prim_before1@
 -}
 foreign import ccall safe "hs_bindgen_278568d7a2a3a4b6" const_prim_before1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CChar
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_prim_before2@
@@ -1865,11 +1772,9 @@ foreign import ccall safe "hs_bindgen_278568d7a2a3a4b6" const_prim_before1 ::
 -}
 foreign import ccall safe "hs_bindgen_87ee56525e5ea20c" const_prim_before2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CSChar
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_prim_before3@
@@ -1882,11 +1787,9 @@ foreign import ccall safe "hs_bindgen_87ee56525e5ea20c" const_prim_before2 ::
 -}
 foreign import ccall safe "hs_bindgen_c0b99594235bd99e" const_prim_before3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CUChar
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_prim_after1@
@@ -1899,11 +1802,9 @@ foreign import ccall safe "hs_bindgen_c0b99594235bd99e" const_prim_before3 ::
 -}
 foreign import ccall safe "hs_bindgen_d718b682f157fc18" const_prim_after1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CChar
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_prim_after2@
@@ -1916,11 +1817,9 @@ foreign import ccall safe "hs_bindgen_d718b682f157fc18" const_prim_after1 ::
 -}
 foreign import ccall safe "hs_bindgen_f2c5b3d5eca68433" const_prim_after2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CSChar
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_prim_after3@
@@ -1933,11 +1832,9 @@ foreign import ccall safe "hs_bindgen_f2c5b3d5eca68433" const_prim_after2 ::
 -}
 foreign import ccall safe "hs_bindgen_ae2d994e06667b23" const_prim_after3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CUChar
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_withoutSign_before1@
@@ -1950,11 +1847,9 @@ foreign import ccall safe "hs_bindgen_ae2d994e06667b23" const_prim_after3 ::
 -}
 foreign import ccall safe "hs_bindgen_6940b58e7f4397a7" const_withoutSign_before1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CFloat
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_withoutSign_before2@
@@ -1967,11 +1862,9 @@ foreign import ccall safe "hs_bindgen_6940b58e7f4397a7" const_withoutSign_before
 -}
 foreign import ccall safe "hs_bindgen_00b6fe2282e779b1" const_withoutSign_before2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CDouble
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_withoutSign_before3@
@@ -1984,11 +1877,9 @@ foreign import ccall safe "hs_bindgen_00b6fe2282e779b1" const_withoutSign_before
 -}
 foreign import ccall safe "hs_bindgen_6517cc8d39aead93" const_withoutSign_before3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CBool
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| Pointer-based API for 'const_withoutSign_before4'
@@ -2008,11 +1899,9 @@ foreign import ccall safe "hs_bindgen_68c7661e95060488" const_withoutSign_before
 -}
 const_withoutSign_before4 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Some_struct
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_withoutSign_before4 =
   \x0 ->
@@ -2037,11 +1926,9 @@ foreign import ccall safe "hs_bindgen_42b3b0bf73a7a51a" const_withoutSign_before
 -}
 const_withoutSign_before5 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Some_union
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_withoutSign_before5 =
   \x0 ->
@@ -2059,11 +1946,9 @@ const_withoutSign_before5 =
 -}
 foreign import ccall safe "hs_bindgen_c4aabe9834aac12f" const_withoutSign_before6 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Some_enum
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_withoutSign_before7@
@@ -2076,11 +1961,9 @@ foreign import ccall safe "hs_bindgen_c4aabe9834aac12f" const_withoutSign_before
 -}
 foreign import ccall safe "hs_bindgen_486090a7fb4e34d4" const_withoutSign_before7 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CBool
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_withoutSign_before8@
@@ -2093,11 +1976,9 @@ foreign import ccall safe "hs_bindgen_486090a7fb4e34d4" const_withoutSign_before
 -}
 foreign import ccall safe "hs_bindgen_23fa742b614176dd" const_withoutSign_before8 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> HsBindgen.Runtime.Prelude.CSize
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_withoutSign_after1@
@@ -2110,11 +1991,9 @@ foreign import ccall safe "hs_bindgen_23fa742b614176dd" const_withoutSign_before
 -}
 foreign import ccall safe "hs_bindgen_0aacd8a5d48f296d" const_withoutSign_after1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CFloat
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_withoutSign_after2@
@@ -2127,11 +2006,9 @@ foreign import ccall safe "hs_bindgen_0aacd8a5d48f296d" const_withoutSign_after1
 -}
 foreign import ccall safe "hs_bindgen_16ec2102221485b7" const_withoutSign_after2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CDouble
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_withoutSign_after3@
@@ -2144,11 +2021,9 @@ foreign import ccall safe "hs_bindgen_16ec2102221485b7" const_withoutSign_after2
 -}
 foreign import ccall safe "hs_bindgen_9aa934d44ec3790c" const_withoutSign_after3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CBool
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| Pointer-based API for 'const_withoutSign_after4'
@@ -2168,11 +2043,9 @@ foreign import ccall safe "hs_bindgen_043d2869e29bedcf" const_withoutSign_after4
 -}
 const_withoutSign_after4 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Some_struct
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_withoutSign_after4 =
   \x0 ->
@@ -2197,11 +2070,9 @@ foreign import ccall safe "hs_bindgen_b5f9bca1de9d69de" const_withoutSign_after5
 -}
 const_withoutSign_after5 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Some_union
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 const_withoutSign_after5 =
   \x0 ->
@@ -2219,11 +2090,9 @@ const_withoutSign_after5 =
 -}
 foreign import ccall safe "hs_bindgen_77d641d518b2504f" const_withoutSign_after6 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Some_enum
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_withoutSign_after7@
@@ -2236,11 +2105,9 @@ foreign import ccall safe "hs_bindgen_77d641d518b2504f" const_withoutSign_after6
 -}
 foreign import ccall safe "hs_bindgen_691b4f2909140b49" const_withoutSign_after7 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> FC.CBool
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_withoutSign_after8@
@@ -2253,11 +2120,9 @@ foreign import ccall safe "hs_bindgen_691b4f2909140b49" const_withoutSign_after7
 -}
 foreign import ccall safe "hs_bindgen_ae74c8dcdc2ec9eb" const_withoutSign_after8 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> HsBindgen.Runtime.Prelude.CSize
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_pointers_args1@
@@ -2270,11 +2135,9 @@ foreign import ccall safe "hs_bindgen_ae74c8dcdc2ec9eb" const_withoutSign_after8
 -}
 foreign import ccall safe "hs_bindgen_07606c41eadf9146" const_pointers_args1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_pointers_args2@
@@ -2287,11 +2150,9 @@ foreign import ccall safe "hs_bindgen_07606c41eadf9146" const_pointers_args1 ::
 -}
 foreign import ccall safe "hs_bindgen_3836769f3a3416ac" const_pointers_args2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_pointers_args3@
@@ -2304,11 +2165,9 @@ foreign import ccall safe "hs_bindgen_3836769f3a3416ac" const_pointers_args2 ::
 -}
 foreign import ccall safe "hs_bindgen_12f19ea593aefd3f" const_pointers_args3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_pointers_args4@
@@ -2321,11 +2180,9 @@ foreign import ccall safe "hs_bindgen_12f19ea593aefd3f" const_pointers_args3 ::
 -}
 foreign import ccall safe "hs_bindgen_5a50e98897696d57" const_pointers_args4 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_pointers_args5@
@@ -2338,11 +2195,9 @@ foreign import ccall safe "hs_bindgen_5a50e98897696d57" const_pointers_args4 ::
 -}
 foreign import ccall safe "hs_bindgen_666701f7cb61bd15" const_pointers_args5 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @const_pointers_ret1@
@@ -2355,8 +2210,7 @@ foreign import ccall safe "hs_bindgen_666701f7cb61bd15" const_pointers_args5 ::
 -}
 foreign import ccall safe "hs_bindgen_b94fbc3dfd285563" const_pointers_ret1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 
 {-| __C declaration:__ @const_pointers_ret2@
@@ -2369,8 +2223,7 @@ foreign import ccall safe "hs_bindgen_b94fbc3dfd285563" const_pointers_ret1 ::
 -}
 foreign import ccall safe "hs_bindgen_33e2960e26b79450" const_pointers_ret2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 
 {-| __C declaration:__ @const_pointers_ret3@
@@ -2383,8 +2236,7 @@ foreign import ccall safe "hs_bindgen_33e2960e26b79450" const_pointers_ret2 ::
 -}
 foreign import ccall safe "hs_bindgen_50c6e2fe4f3fb777" const_pointers_ret3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.Ptr FC.CInt)
 
 {-| __C declaration:__ @const_pointers_ret4@
@@ -2397,8 +2249,7 @@ foreign import ccall safe "hs_bindgen_50c6e2fe4f3fb777" const_pointers_ret3 ::
 -}
 foreign import ccall safe "hs_bindgen_edc014695d896c8d" const_pointers_ret4 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 
 {-| __C declaration:__ @const_pointers_ret5@
@@ -2411,8 +2262,7 @@ foreign import ccall safe "hs_bindgen_edc014695d896c8d" const_pointers_ret4 ::
 -}
 foreign import ccall safe "hs_bindgen_6d3308cc5847f033" const_pointers_ret5 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 
 {-| Pointer-based API for 'const_array_elem1'
@@ -2431,8 +2281,7 @@ foreign import ccall safe "hs_bindgen_678576320923a4d1" const_array_elem1_wrappe
 -}
 const_array_elem1 ::
      HsBindgen.Runtime.IncompleteArray.IncompleteArray A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO ()
 const_array_elem1 =
   \x0 ->
@@ -2449,8 +2298,7 @@ const_array_elem1 =
 -}
 foreign import ccall safe "hs_bindgen_b317941dde4eeff2" const_array_elem2 ::
      Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr A)
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO ()
 
 {-| Pointer-based API for 'const_array_elem3'
@@ -2469,8 +2317,7 @@ foreign import ccall safe "hs_bindgen_707e602e6beb1bb6" const_array_elem3_wrappe
 -}
 const_array_elem3 ::
      HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr A)
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO ()
 const_array_elem3 =
   \x0 ->
@@ -2511,11 +2358,9 @@ foreign import ccall safe "hs_bindgen_4350965157c891f5" noParams2 ::
 -}
 foreign import ccall safe "hs_bindgen_c4f59272a2b1c3b5" noParams3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> Ptr.FunPtr (IO FC.CInt)
-     {- ^ __C declaration:__ @arg2@
-     -}
+     -- ^ __C declaration:__ @arg2@
   -> IO ()
 
 {-| __C declaration:__ @funptr_ret1@
@@ -2528,8 +2373,7 @@ foreign import ccall safe "hs_bindgen_c4f59272a2b1c3b5" noParams3 ::
 -}
 foreign import ccall safe "hs_bindgen_387a04c01e23c320" funptr_ret1 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (IO ()))
 
 {-| __C declaration:__ @funptr_ret2@
@@ -2542,8 +2386,7 @@ foreign import ccall safe "hs_bindgen_387a04c01e23c320" funptr_ret1 ::
 -}
 foreign import ccall safe "hs_bindgen_6f0c14cd3478dc19" funptr_ret2 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (IO FC.CInt))
 
 {-| __C declaration:__ @funptr_ret3@
@@ -2556,8 +2399,7 @@ foreign import ccall safe "hs_bindgen_6f0c14cd3478dc19" funptr_ret2 ::
 -}
 foreign import ccall safe "hs_bindgen_08e8661d277cf7be" funptr_ret3 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> IO ()))
 
 {-| __C declaration:__ @funptr_ret4@
@@ -2570,8 +2412,7 @@ foreign import ccall safe "hs_bindgen_08e8661d277cf7be" funptr_ret3 ::
 -}
 foreign import ccall safe "hs_bindgen_609b5d953b68da92" funptr_ret4 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar))
 
 {-| __C declaration:__ @funptr_ret5@
@@ -2584,8 +2425,7 @@ foreign import ccall safe "hs_bindgen_609b5d953b68da92" funptr_ret4 ::
 -}
 foreign import ccall safe "hs_bindgen_13e6ae43abf40aee" funptr_ret5 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
 
 {-| __C declaration:__ @funptr_ret6@
@@ -2598,8 +2438,7 @@ foreign import ccall safe "hs_bindgen_13e6ae43abf40aee" funptr_ret5 ::
 -}
 foreign import ccall safe "hs_bindgen_a4a3a86f28ca6299" funptr_ret6 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
 
 {-| __C declaration:__ @funptr_ret7@
@@ -2612,8 +2451,7 @@ foreign import ccall safe "hs_bindgen_a4a3a86f28ca6299" funptr_ret6 ::
 -}
 foreign import ccall safe "hs_bindgen_eae9dff04c88d00b" funptr_ret7 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
 
 {-| __C declaration:__ @funptr_ret8@
@@ -2626,8 +2464,7 @@ foreign import ccall safe "hs_bindgen_eae9dff04c88d00b" funptr_ret7 ::
 -}
 foreign import ccall safe "hs_bindgen_894457d90a2fc8db" funptr_ret8 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
 
 {-| __C declaration:__ @funptr_ret9@
@@ -2640,8 +2477,7 @@ foreign import ccall safe "hs_bindgen_894457d90a2fc8db" funptr_ret8 ::
 -}
 foreign import ccall safe "hs_bindgen_c893eb15ad9bc68c" funptr_ret9 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
 
 {-| __C declaration:__ @funptr_ret10@
@@ -2654,6 +2490,5 @@ foreign import ccall safe "hs_bindgen_c893eb15ad9bc68c" funptr_ret9 ::
 -}
 foreign import ccall safe "hs_bindgen_d96c258298a44b28" funptr_ret10 ::
      A
-     {- ^ __C declaration:__ @arg1@
-     -}
+     -- ^ __C declaration:__ @arg1@
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))

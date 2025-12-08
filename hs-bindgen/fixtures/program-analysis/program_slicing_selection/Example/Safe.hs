@@ -33,12 +33,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 -}
 foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" read_file_chunk ::
      Ptr.Ptr HsBindgen.Runtime.Prelude.CFile
-     {- ^ __C declaration:__ @file_ptr@
-     -}
+     -- ^ __C declaration:__ @file_ptr@
   -> Ptr.Ptr Void
-     {- ^ __C declaration:__ @buffer@
-     -}
+     -- ^ __C declaration:__ @buffer@
   -> HsBindgen.Runtime.Prelude.CSize
-     {- ^ __C declaration:__ @bytes_to_read@
-     -}
+     -- ^ __C declaration:__ @bytes_to_read@
   -> IO FileOperationStatus

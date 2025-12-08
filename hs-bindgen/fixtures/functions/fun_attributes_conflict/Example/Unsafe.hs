@@ -51,8 +51,7 @@ __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cp@
 -}
 foreign import ccall unsafe "hs_bindgen_648d4f0fd0df4c79" square_cp ::
      FC.CInt
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> FC.CInt
 
 {-| __C declaration:__ @square_pc@
@@ -65,8 +64,7 @@ foreign import ccall unsafe "hs_bindgen_648d4f0fd0df4c79" square_cp ::
 -}
 foreign import ccall unsafe "hs_bindgen_632a1e6eb5ceeda7" square_pc ::
      FC.CInt
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> FC.CInt
 
 {-| __C declaration:__ @square_cc@
@@ -79,8 +77,7 @@ foreign import ccall unsafe "hs_bindgen_632a1e6eb5ceeda7" square_pc ::
 -}
 foreign import ccall unsafe "hs_bindgen_56d75b1ff2482f13" square_cc ::
      FC.CInt
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> FC.CInt
 
 {-|
@@ -97,6 +94,5 @@ __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pp@
 -}
 foreign import ccall unsafe "hs_bindgen_eac2f9645ef29119" square_pp ::
      FC.CInt
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> IO FC.CInt

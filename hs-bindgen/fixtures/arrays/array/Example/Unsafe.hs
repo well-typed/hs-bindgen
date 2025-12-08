@@ -186,11 +186,9 @@ __unique:__ @test_arraysarray_Example_Unsafe_fun_1@
 -}
 foreign import ccall unsafe "hs_bindgen_6d07a0b03f884547" fun_1 ::
      FC.CInt
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @xs@
-     -}
+     -- ^ __C declaration:__ @xs@
   -> IO FC.CInt
 
 {-| Array of known size, typedef
@@ -205,8 +203,7 @@ __unique:__ @test_arraysarray_Example_Unsafe_fun_2@
 -}
 foreign import ccall unsafe "hs_bindgen_04318f98a3ab8d08" fun_2 ::
      Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @xs@
-     -}
+     -- ^ __C declaration:__ @xs@
   -> IO FC.CInt
 
 {-| Array of unknown size
@@ -221,8 +218,7 @@ __unique:__ @test_arraysarray_Example_Unsafe_fun_3@
 -}
 foreign import ccall unsafe "hs_bindgen_2a7c5fa1040fa8db" fun_3 ::
      Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @xs@
-     -}
+     -- ^ __C declaration:__ @xs@
   -> IO FC.CInt
 
 {-| Array of unknown size, typedef
@@ -237,8 +233,7 @@ __unique:__ @test_arraysarray_Example_Unsafe_fun_4@
 -}
 foreign import ccall unsafe "hs_bindgen_810acc5cf8729d0e" fun_4 ::
      Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @xs@
-     -}
+     -- ^ __C declaration:__ @xs@
   -> IO FC.CInt
 
 {-| Multi-dimensional array of known size
@@ -253,8 +248,7 @@ __unique:__ @test_arraysarray_Example_Unsafe_fun_5@
 -}
 foreign import ccall unsafe "hs_bindgen_83b71f7defb3b27a" fun_5 ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @xss@
-     -}
+     -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 
 {-| Multi-dimensional array of known size, typedef
@@ -269,8 +263,7 @@ __unique:__ @test_arraysarray_Example_Unsafe_fun_6@
 -}
 foreign import ccall unsafe "hs_bindgen_62b76af3dc65da3f" fun_6 ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @xss@
-     -}
+     -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 
 {-| Multi-dimensional array of unknown size
@@ -285,8 +278,7 @@ __unique:__ @test_arraysarray_Example_Unsafe_fun_7@
 -}
 foreign import ccall unsafe "hs_bindgen_100aa7fb87a5ea74" fun_7 ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @xss@
-     -}
+     -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 
 {-| Multi-dimensional array of unknown size, typedef
@@ -301,8 +293,7 @@ __unique:__ @test_arraysarray_Example_Unsafe_fun_8@
 -}
 foreign import ccall unsafe "hs_bindgen_cd6646babeacd609" fun_8 ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @xss@
-     -}
+     -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 
 {-| Typedef-in-typedef
@@ -317,8 +308,7 @@ __unique:__ @test_arraysarray_Example_Unsafe_isSolved@
 -}
 foreign import ccall unsafe "hs_bindgen_560f1de9a83c3a6a" isSolved ::
      Ptr.Ptr Triplet
-     {- ^ __C declaration:__ @xss@
-     -}
+     -- ^ __C declaration:__ @xss@
   -> IO FC.CInt
 
 {-| Pointer-based API for 'fun_1_const'
@@ -341,14 +331,11 @@ __exported by:__ @arrays\/array.h@
 -}
 fun_1_const ::
      FC.CInt
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @xs@
-     -}
+     -- ^ __C declaration:__ @xs@
   -> (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
-     {- ^ __C declaration:__ @ys@
-     -}
+     -- ^ __C declaration:__ @ys@
   -> IO FC.CInt
 fun_1_const =
   \x0 ->
@@ -376,11 +363,9 @@ __exported by:__ @arrays\/array.h@
 -}
 fun_2_const ::
      Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @xs@
-     -}
+     -- ^ __C declaration:__ @xs@
   -> Triplet
-     {- ^ __C declaration:__ @ys@
-     -}
+     -- ^ __C declaration:__ @ys@
   -> IO FC.CInt
 fun_2_const =
   \x0 ->
@@ -407,11 +392,9 @@ __exported by:__ @arrays\/array.h@
 -}
 fun_3_const ::
      Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @xs@
-     -}
+     -- ^ __C declaration:__ @xs@
   -> HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
-     {- ^ __C declaration:__ @ys@
-     -}
+     -- ^ __C declaration:__ @ys@
   -> IO FC.CInt
 fun_3_const =
   \x0 ->
@@ -438,11 +421,9 @@ __exported by:__ @arrays\/array.h@
 -}
 fun_4_const ::
      Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @xs@
-     -}
+     -- ^ __C declaration:__ @xs@
   -> List
-     {- ^ __C declaration:__ @ys@
-     -}
+     -- ^ __C declaration:__ @ys@
   -> IO FC.CInt
 fun_4_const =
   \x0 ->
@@ -469,11 +450,9 @@ __exported by:__ @arrays\/array.h@
 -}
 fun_5_const ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @xss@
-     -}
+     -- ^ __C declaration:__ @xss@
   -> (HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @yss@
-     -}
+     -- ^ __C declaration:__ @yss@
   -> IO FC.CInt
 fun_5_const =
   \x0 ->
@@ -500,11 +479,9 @@ __exported by:__ @arrays\/array.h@
 -}
 fun_6_const ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @xss@
-     -}
+     -- ^ __C declaration:__ @xss@
   -> Matrix
-     {- ^ __C declaration:__ @yss@
-     -}
+     -- ^ __C declaration:__ @yss@
   -> IO FC.CInt
 fun_6_const =
   \x0 ->
@@ -531,11 +508,9 @@ __exported by:__ @arrays\/array.h@
 -}
 fun_7_const ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @xss@
-     -}
+     -- ^ __C declaration:__ @xss@
   -> HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @yss@
-     -}
+     -- ^ __C declaration:__ @yss@
   -> IO FC.CInt
 fun_7_const =
   \x0 ->
@@ -562,11 +537,9 @@ __exported by:__ @arrays\/array.h@
 -}
 fun_8_const ::
      Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @xss@
-     -}
+     -- ^ __C declaration:__ @xss@
   -> Tripletlist
-     {- ^ __C declaration:__ @yss@
-     -}
+     -- ^ __C declaration:__ @yss@
   -> IO FC.CInt
 fun_8_const =
   \x0 ->
@@ -593,11 +566,9 @@ __exported by:__ @arrays\/array.h@
 -}
 isSolved_const ::
      Ptr.Ptr Triplet
-     {- ^ __C declaration:__ @xss@
-     -}
+     -- ^ __C declaration:__ @xss@
   -> Sudoku
-     {- ^ __C declaration:__ @yss@
-     -}
+     -- ^ __C declaration:__ @yss@
   -> IO FC.CInt
 isSolved_const =
   \x0 ->

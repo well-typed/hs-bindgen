@@ -32,9 +32,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 -}
 foreign import ccall safe "hs_bindgen_32187cc02676ee72" list_example ::
      Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
-     {- ^ __C declaration:__ @items@
-     -}
+     -- ^ __C declaration:__ @items@
   -> HsBindgen.Runtime.Prelude.CSize
-     {- ^ __C declaration:__ @count@
-     -}
+     -- ^ __C declaration:__ @count@
   -> IO FC.CBool

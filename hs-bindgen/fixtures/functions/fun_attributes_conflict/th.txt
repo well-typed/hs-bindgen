@@ -176,8 +176,7 @@ __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pp@
 -}
 foreign import ccall safe "hs_bindgen_eac2f9645ef29119" square_pp :: CInt ->
                                                                      IO CInt
-{-| __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cp_ptr@
--}
+-- | __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cp_ptr@
 foreign import ccall safe "hs_bindgen_c7316eabb7ed43d1" hs_bindgen_c7316eabb7ed43d1 :: IO (FunPtr (CInt ->
                                                                                                    IO CInt))
 {-# NOINLINE square_cp_ptr #-}
@@ -203,8 +202,7 @@ __defined at:__ @functions\/fun_attributes_conflict.h:9:5@
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_cp_ptr = unsafePerformIO hs_bindgen_c7316eabb7ed43d1
-{-| __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pc_ptr@
--}
+-- | __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pc_ptr@
 foreign import ccall safe "hs_bindgen_246016175c264c62" hs_bindgen_246016175c264c62 :: IO (FunPtr (CInt ->
                                                                                                    IO CInt))
 {-# NOINLINE square_pc_ptr #-}
@@ -222,8 +220,7 @@ square_pc_ptr :: FunPtr (CInt -> IO CInt)
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_pc_ptr = unsafePerformIO hs_bindgen_246016175c264c62
-{-| __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cc_ptr@
--}
+-- | __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cc_ptr@
 foreign import ccall safe "hs_bindgen_927690360fc8e8ef" hs_bindgen_927690360fc8e8ef :: IO (FunPtr (CInt ->
                                                                                                    IO CInt))
 {-# NOINLINE square_cc_ptr #-}
@@ -241,8 +238,7 @@ square_cc_ptr :: FunPtr (CInt -> IO CInt)
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_cc_ptr = unsafePerformIO hs_bindgen_927690360fc8e8ef
-{-| __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pp_ptr@
--}
+-- | __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pp_ptr@
 foreign import ccall safe "hs_bindgen_a7faaa7acbf26148" hs_bindgen_a7faaa7acbf26148 :: IO (FunPtr (CInt ->
                                                                                                    IO CInt))
 {-# NOINLINE square_pp_ptr #-}

@@ -32,9 +32,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 -}
 foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" new_vector ::
      FC.CDouble
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> FC.CDouble
-     {- ^ __C declaration:__ @y@
-     -}
+     -- ^ __C declaration:__ @y@
   -> IO (Ptr.Ptr Vector)

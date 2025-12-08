@@ -408,8 +408,7 @@ f2 :: Named_union -> IO Unit
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 f2 = \x_0 -> with x_0 (\y_1 -> f2_wrapper y_1)
-{-| __unique:__ @test_functionsdecls_in_signature_Example_get_normal_ptr@
--}
+-- | __unique:__ @test_functionsdecls_in_signature_Example_get_normal_ptr@
 foreign import ccall safe "hs_bindgen_3f49e28bee3f8746" hs_bindgen_3f49e28bee3f8746 :: IO (FunPtr (Ptr Opaque ->
                                                                                                    Ptr Outside ->
                                                                                                    Outside ->
@@ -430,8 +429,7 @@ normal_ptr :: FunPtr (Ptr Opaque ->
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 normal_ptr = unsafePerformIO hs_bindgen_3f49e28bee3f8746
-{-| __unique:__ @test_functionsdecls_in_signature_Example_get_f1_ptr@
--}
+-- | __unique:__ @test_functionsdecls_in_signature_Example_get_f1_ptr@
 foreign import ccall safe "hs_bindgen_8de29d760cad0c00" hs_bindgen_8de29d760cad0c00 :: IO (FunPtr (Named_struct ->
                                                                                                    IO Unit))
 {-# NOINLINE f1_ptr #-}
@@ -457,8 +455,7 @@ __defined at:__ @functions\/decls_in_signature.h:17:6@
 __exported by:__ @functions\/decls_in_signature.h@
 -}
 f1_ptr = unsafePerformIO hs_bindgen_8de29d760cad0c00
-{-| __unique:__ @test_functionsdecls_in_signature_Example_get_f2_ptr@
--}
+-- | __unique:__ @test_functionsdecls_in_signature_Example_get_f2_ptr@
 foreign import ccall safe "hs_bindgen_7a2b955aeef7fcd9" hs_bindgen_7a2b955aeef7fcd9 :: IO (FunPtr (Named_union ->
                                                                                                    IO Unit))
 {-# NOINLINE f2_ptr #-}

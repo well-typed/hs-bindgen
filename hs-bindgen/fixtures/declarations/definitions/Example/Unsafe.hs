@@ -29,6 +29,5 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 -}
 foreign import ccall unsafe "hs_bindgen_07fd5b433f381094" foo ::
      FC.CDouble
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> IO FC.CInt

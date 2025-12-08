@@ -155,11 +155,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 -}
 foreign import ccall safe "hs_bindgen_99bda9cd8097b0ea" readFileWithProcessor ::
      Ptr.FunPtr (FC.CInt -> IO ())
-     {- ^ __C declaration:__ @processLine@
-     -}
+     -- ^ __C declaration:__ @processLine@
   -> FC.CInt
-     {- ^ __C declaration:__ @fileId@
-     -}
+     -- ^ __C declaration:__ @fileId@
   -> IO FC.CInt
 
 {-| __C declaration:__ @watchTemperature@
@@ -172,11 +170,9 @@ foreign import ccall safe "hs_bindgen_99bda9cd8097b0ea" readFileWithProcessor ::
 -}
 foreign import ccall safe "hs_bindgen_84b75366c836fc85" watchTemperature ::
      Ptr.FunPtr (FC.CInt -> IO ())
-     {- ^ __C declaration:__ @onTempChange@
-     -}
+     -- ^ __C declaration:__ @onTempChange@
   -> FC.CInt
-     {- ^ __C declaration:__ @sensorId@
-     -}
+     -- ^ __C declaration:__ @sensorId@
   -> IO ()
 
 {-| __C declaration:__ @onFileOpened@
@@ -189,8 +185,7 @@ foreign import ccall safe "hs_bindgen_84b75366c836fc85" watchTemperature ::
 -}
 foreign import ccall safe "hs_bindgen_f2580f574faa3697" onFileOpened ::
      FileOpenedNotification
-     {- ^ __C declaration:__ @notify@
-     -}
+     -- ^ __C declaration:__ @notify@
   -> IO ()
 
 {-| __C declaration:__ @onProgressChanged@
@@ -203,8 +198,7 @@ foreign import ccall safe "hs_bindgen_f2580f574faa3697" onFileOpened ::
 -}
 foreign import ccall safe "hs_bindgen_654057b291ee37ea" onProgressChanged ::
      ProgressUpdate
-     {- ^ __C declaration:__ @update@
-     -}
+     -- ^ __C declaration:__ @update@
   -> IO ()
 
 {-| __C declaration:__ @validateInput@
@@ -217,11 +211,9 @@ foreign import ccall safe "hs_bindgen_654057b291ee37ea" onProgressChanged ::
 -}
 foreign import ccall safe "hs_bindgen_5df7aac6996be10f" validateInput ::
      DataValidator
-     {- ^ __C declaration:__ @validator@
-     -}
+     -- ^ __C declaration:__ @validator@
   -> FC.CInt
-     {- ^ __C declaration:__ @rawValue@
-     -}
+     -- ^ __C declaration:__ @rawValue@
   -> IO FC.CInt
 
 {-| __C declaration:__ @onNewMeasurement@
@@ -234,8 +226,7 @@ foreign import ccall safe "hs_bindgen_5df7aac6996be10f" validateInput ::
 -}
 foreign import ccall safe "hs_bindgen_8f1bb1c4d2b5355f" onNewMeasurement ::
      MeasurementReceived
-     {- ^ __C declaration:__ @handler@
-     -}
+     -- ^ __C declaration:__ @handler@
   -> IO ()
 
 {-| __C declaration:__ @onNewMeasurement2@
@@ -248,8 +239,7 @@ foreign import ccall safe "hs_bindgen_8f1bb1c4d2b5355f" onNewMeasurement ::
 -}
 foreign import ccall safe "hs_bindgen_d805e39c6cbdd620" onNewMeasurement2 ::
      MeasurementReceived2
-     {- ^ __C declaration:__ @handler@
-     -}
+     -- ^ __C declaration:__ @handler@
   -> IO ()
 
 {-| __C declaration:__ @onBufferReady@
@@ -262,8 +252,7 @@ foreign import ccall safe "hs_bindgen_d805e39c6cbdd620" onNewMeasurement2 ::
 -}
 foreign import ccall safe "hs_bindgen_8d803591bcf10ba5" onBufferReady ::
      SampleBufferFull
-     {- ^ __C declaration:__ @handler@
-     -}
+     -- ^ __C declaration:__ @handler@
   -> IO ()
 
 {-| __C declaration:__ @transformMeasurement@
@@ -276,11 +265,9 @@ foreign import ccall safe "hs_bindgen_8d803591bcf10ba5" onBufferReady ::
 -}
 foreign import ccall safe "hs_bindgen_16c298a15b737eb2" transformMeasurement ::
      Ptr.Ptr Measurement
-     {- ^ __C declaration:__ @data'@
-     -}
+     -- ^ __C declaration:__ @data'@
   -> Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())
-     {- ^ __C declaration:__ @transformer@
-     -}
+     -- ^ __C declaration:__ @transformer@
   -> IO ()
 
 {-| __C declaration:__ @processWithCallbacks@
@@ -293,8 +280,7 @@ foreign import ccall safe "hs_bindgen_16c298a15b737eb2" transformMeasurement ::
 -}
 foreign import ccall safe "hs_bindgen_e6a073138e56764f" processWithCallbacks ::
      Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())
-     {- ^ __C declaration:__ @handler@
-     -}
+     -- ^ __C declaration:__ @handler@
   -> IO ()
 
 {-| __C declaration:__ @registerHandler@
@@ -307,8 +293,7 @@ foreign import ccall safe "hs_bindgen_e6a073138e56764f" processWithCallbacks ::
 -}
 foreign import ccall safe "hs_bindgen_ece0d4f94c2319f0" registerHandler ::
      Ptr.Ptr MeasurementHandler
-     {- ^ __C declaration:__ @handler@
-     -}
+     -- ^ __C declaration:__ @handler@
   -> IO ()
 
 {-| __C declaration:__ @executePipeline@
@@ -321,11 +306,9 @@ foreign import ccall safe "hs_bindgen_ece0d4f94c2319f0" registerHandler ::
 -}
 foreign import ccall safe "hs_bindgen_d66d7470a7a213b0" executePipeline ::
      Ptr.Ptr Measurement
-     {- ^ __C declaration:__ @data'@
-     -}
+     -- ^ __C declaration:__ @data'@
   -> Ptr.Ptr DataPipeline
-     {- ^ __C declaration:__ @pipeline@
-     -}
+     -- ^ __C declaration:__ @pipeline@
   -> IO ()
 
 {-| __C declaration:__ @runProcessor@
@@ -338,11 +321,9 @@ foreign import ccall safe "hs_bindgen_d66d7470a7a213b0" executePipeline ::
 -}
 foreign import ccall safe "hs_bindgen_e925d3ce6e5fb395" runProcessor ::
      Ptr.Ptr Measurement
-     {- ^ __C declaration:__ @data'@
-     -}
+     -- ^ __C declaration:__ @data'@
   -> Ptr.Ptr Processor
-     {- ^ __C declaration:__ @processor@
-     -}
+     -- ^ __C declaration:__ @processor@
   -> IO ()
 
 {-| __C declaration:__ @processMeasurementWithValidation@
@@ -355,11 +336,9 @@ foreign import ccall safe "hs_bindgen_e925d3ce6e5fb395" runProcessor ::
 -}
 foreign import ccall safe "hs_bindgen_1e432e1595a1ef55" processMeasurementWithValidation ::
      Ptr.Ptr Measurement
-     {- ^ __C declaration:__ @data'@
-     -}
+     -- ^ __C declaration:__ @data'@
   -> Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())
-     {- ^ __C declaration:__ @processor@
-     -}
+     -- ^ __C declaration:__ @processor@
   -> IO ()
 
 {-| __C declaration:__ @f@
@@ -372,8 +351,7 @@ foreign import ccall safe "hs_bindgen_1e432e1595a1ef55" processMeasurementWithVa
 -}
 foreign import ccall safe "hs_bindgen_d5cd030edf2e0364" f ::
      Ptr.FunPtr (Foo -> IO ())
-     {- ^ __C declaration:__ @callback@
-     -}
+     -- ^ __C declaration:__ @callback@
   -> IO ()
 
 {-| __C declaration:__ @f2@
@@ -386,6 +364,5 @@ foreign import ccall safe "hs_bindgen_d5cd030edf2e0364" f ::
 -}
 foreign import ccall safe "hs_bindgen_a10eec74074627ba" f2 ::
      Ptr.FunPtr (Foo2 -> IO ())
-     {- ^ __C declaration:__ @handler@
-     -}
+     -- ^ __C declaration:__ @handler@
   -> IO ()

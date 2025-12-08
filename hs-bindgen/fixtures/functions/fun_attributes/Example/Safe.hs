@@ -260,11 +260,9 @@ foreign import ccall safe "hs_bindgen_a8f71f2272dae572" old_fn_deprecated ::
 -}
 foreign import ccall safe "hs_bindgen_11a623401451cca5" my_dgettext ::
      Ptr.Ptr FC.CChar
-     {- ^ __C declaration:__ @my_domain@
-     -}
+     -- ^ __C declaration:__ @my_domain@
   -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
-     {- ^ __C declaration:__ @my_format@
-     -}
+     -- ^ __C declaration:__ @my_format@
   -> IO (Ptr.Ptr FC.CChar)
 
 {-| __C declaration:__ @fdopen@
@@ -301,14 +299,11 @@ foreign import ccall safe "hs_bindgen_7b2c420d0febf062" f2 ::
 -}
 foreign import ccall safe "hs_bindgen_af1f131d9e98a2ff" my_memcpy ::
      Ptr.Ptr Void
-     {- ^ __C declaration:__ @dest@
-     -}
+     -- ^ __C declaration:__ @dest@
   -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
-     {- ^ __C declaration:__ @src@
-     -}
+     -- ^ __C declaration:__ @src@
   -> Size_t
-     {- ^ __C declaration:__ @len@
-     -}
+     -- ^ __C declaration:__ @len@
   -> IO (Ptr.Ptr Void)
 
 {-| __C declaration:__ @fatal@
@@ -348,8 +343,7 @@ foreign import ccall safe "hs_bindgen_948fc14ee9d5d56f" hash ::
 -}
 foreign import ccall safe "hs_bindgen_60517fb6ae2517ff" mymalloc ::
      Size_t
-     {- ^ __C declaration:__ @len@
-     -}
+     -- ^ __C declaration:__ @len@
   -> IO (Ptr.Ptr Void)
 
 {-| __C declaration:__ @foobar@

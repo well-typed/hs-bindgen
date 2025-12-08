@@ -104,11 +104,9 @@ foreign import ccall safe "hs_bindgen_3dfb239ac098f471" plus ::
 -}
 foreign import ccall safe "hs_bindgen_983beb37938c4d96" apply1 ::
      Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-     {- ^ __C declaration:__ @f@
-     -}
+     -- ^ __C declaration:__ @f@
   -> FC.CInt
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> IO FC.CInt
 
 {-| __C declaration:__ @apply2@
@@ -121,14 +119,11 @@ foreign import ccall safe "hs_bindgen_983beb37938c4d96" apply1 ::
 -}
 foreign import ccall safe "hs_bindgen_8a62074f5475563b" apply2 ::
      Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
-     {- ^ __C declaration:__ @f@
-     -}
+     -- ^ __C declaration:__ @f@
   -> FC.CInt
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> FC.CInt
-     {- ^ __C declaration:__ @y@
-     -}
+     -- ^ __C declaration:__ @y@
   -> IO FC.CInt
 
 {-| Basically the same as apply1(), but here for illustratory purposes.

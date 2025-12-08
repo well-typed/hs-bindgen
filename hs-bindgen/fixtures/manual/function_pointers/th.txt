@@ -339,14 +339,12 @@ instance TyEq ty
                   (Ptr Apply1Union)
                   (Ptr ty)
     where getField = ptrToCField (Proxy @"apply1Union_apply1_nopointer_union_field")
-{-| __unique:__ @instance ToFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
--}
+-- | __unique:__ @instance ToFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
 foreign import ccall safe "wrapper" hs_bindgen_fe02c1e534fc52ea :: (FunPtr Int2int ->
                                                                     CInt -> IO CInt) ->
                                                                    IO (FunPtr (FunPtr Int2int ->
                                                                                CInt -> IO CInt))
-{-| __unique:__ @instance FromFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
--}
+-- | __unique:__ @instance FromFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
 foreign import ccall safe "dynamic" hs_bindgen_fc27363846cb6139 :: FunPtr (FunPtr Int2int ->
                                                                            CInt -> IO CInt) ->
                                                                    FunPtr Int2int -> CInt -> IO CInt
@@ -512,8 +510,7 @@ __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_nopointer_res@
 foreign import ccall safe "hs_bindgen_99a8340e6e6029c5" apply1_nopointer_res :: IO (FunPtr (FunPtr Int2int ->
                                                                                             CInt ->
                                                                                             IO CInt))
-{-| __unique:__ @test_manualfunction_pointers_Example_get_square_ptr@
--}
+-- | __unique:__ @test_manualfunction_pointers_Example_get_square_ptr@
 foreign import ccall safe "hs_bindgen_1820f088ae031e75" hs_bindgen_1820f088ae031e75 :: IO (FunPtr (CInt ->
                                                                                                    IO CInt))
 {-# NOINLINE square_ptr #-}
@@ -531,8 +528,7 @@ square_ptr :: FunPtr (CInt -> IO CInt)
     __exported by:__ @manual\/function_pointers.h@
 -}
 square_ptr = unsafePerformIO hs_bindgen_1820f088ae031e75
-{-| __unique:__ @test_manualfunction_pointers_Example_get_plus_ptr@
--}
+-- | __unique:__ @test_manualfunction_pointers_Example_get_plus_ptr@
 foreign import ccall safe "hs_bindgen_bbf0ff803f52cc45" hs_bindgen_bbf0ff803f52cc45 :: IO (FunPtr (CInt ->
                                                                                                    CInt ->
                                                                                                    IO CInt))
@@ -551,8 +547,7 @@ plus_ptr :: FunPtr (CInt -> CInt -> IO CInt)
     __exported by:__ @manual\/function_pointers.h@
 -}
 plus_ptr = unsafePerformIO hs_bindgen_bbf0ff803f52cc45
-{-| __unique:__ @test_manualfunction_pointers_Example_get_apply1_ptr@
--}
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_ptr@
 foreign import ccall safe "hs_bindgen_9515a684c6197849" hs_bindgen_9515a684c6197849 :: IO (FunPtr (FunPtr (CInt ->
                                                                                                            IO CInt) ->
                                                                                                    CInt ->
@@ -572,8 +567,7 @@ apply1_ptr :: FunPtr (FunPtr (CInt -> IO CInt) -> CInt -> IO CInt)
     __exported by:__ @manual\/function_pointers.h@
 -}
 apply1_ptr = unsafePerformIO hs_bindgen_9515a684c6197849
-{-| __unique:__ @test_manualfunction_pointers_Example_get_apply2_ptr@
--}
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply2_ptr@
 foreign import ccall safe "hs_bindgen_1bf5d46d7038cf34" hs_bindgen_1bf5d46d7038cf34 :: IO (FunPtr (FunPtr (CInt ->
                                                                                                            CInt ->
                                                                                                            IO CInt) ->
@@ -596,8 +590,7 @@ apply2_ptr :: FunPtr (FunPtr (CInt -> CInt -> IO CInt) ->
     __exported by:__ @manual\/function_pointers.h@
 -}
 apply2_ptr = unsafePerformIO hs_bindgen_1bf5d46d7038cf34
-{-| __unique:__ @test_manualfunction_pointers_Example_get_apply1_pointer_arg_ptr@
--}
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_pointer_arg_ptr@
 foreign import ccall safe "hs_bindgen_95e560983f86bd1d" hs_bindgen_95e560983f86bd1d :: IO (FunPtr (FunPtr Int2int ->
                                                                                                    CInt ->
                                                                                                    IO CInt))
@@ -621,8 +614,7 @@ __defined at:__ @manual\/function_pointers.h:22:12@
 __exported by:__ @manual\/function_pointers.h@
 -}
 apply1_pointer_arg_ptr = unsafePerformIO hs_bindgen_95e560983f86bd1d
-{-| __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_arg_ptr@
--}
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_arg_ptr@
 foreign import ccall safe "hs_bindgen_9738799dd67af2e9" hs_bindgen_9738799dd67af2e9 :: IO (FunPtr (FunPtr Int2int ->
                                                                                                    CInt ->
                                                                                                    IO CInt))
@@ -646,8 +638,7 @@ __defined at:__ @manual\/function_pointers.h:26:12@
 __exported by:__ @manual\/function_pointers.h@
 -}
 apply1_nopointer_arg_ptr = unsafePerformIO hs_bindgen_9738799dd67af2e9
-{-| __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_res_ptr@
--}
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_res_ptr@
 foreign import ccall safe "hs_bindgen_c9d47a6b0f980aa5" hs_bindgen_c9d47a6b0f980aa5 :: IO (FunPtr (IO (FunPtr (FunPtr Int2int ->
                                                                                                                CInt ->
                                                                                                                IO CInt))))
@@ -671,8 +662,7 @@ __defined at:__ @manual\/function_pointers.h:31:21@
 __exported by:__ @manual\/function_pointers.h@
 -}
 apply1_nopointer_res_ptr = unsafePerformIO hs_bindgen_c9d47a6b0f980aa5
-{-| __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_var_ptr@
--}
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_var_ptr@
 foreign import ccall safe "hs_bindgen_ab897ed3a6702a69" hs_bindgen_ab897ed3a6702a69 :: IO (ConstPtr (FunPtr (FunPtr Int2int ->
                                                                                                              CInt ->
                                                                                                              IO CInt)))
@@ -699,8 +689,7 @@ apply1_nopointer_var_ptr = unsafePerformIO hs_bindgen_ab897ed3a6702a69
 {-# NOINLINE apply1_nopointer_var #-}
 apply1_nopointer_var :: FunPtr (FunPtr Int2int -> CInt -> IO CInt)
 apply1_nopointer_var = unsafePerformIO (peek (unConstPtr apply1_nopointer_var_ptr))
-{-| __unique:__ @test_manualfunction_pointers_Example_get_apply1_struct_ptr@
--}
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_struct_ptr@
 foreign import ccall safe "hs_bindgen_448bdc6115d5924e" hs_bindgen_448bdc6115d5924e :: IO (ConstPtr Apply1Struct)
 {-# NOINLINE apply1_struct_ptr #-}
 {-| __C declaration:__ @apply1_struct@
@@ -720,8 +709,7 @@ apply1_struct_ptr = unsafePerformIO hs_bindgen_448bdc6115d5924e
 {-# NOINLINE apply1_struct #-}
 apply1_struct :: Apply1Struct
 apply1_struct = unsafePerformIO (peek (unConstPtr apply1_struct_ptr))
-{-| __unique:__ @test_manualfunction_pointers_Example_get_apply1_union_ptr@
--}
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_union_ptr@
 foreign import ccall safe "hs_bindgen_3f47656e6bb54e94" hs_bindgen_3f47656e6bb54e94 :: IO (ConstPtr Apply1Union)
 {-# NOINLINE apply1_union_ptr #-}
 {-| __C declaration:__ @apply1_union@

@@ -63,8 +63,7 @@ foreign import ccall unsafe "hs_bindgen_0bdddf60550fc97b" thing_fun_1_wrapper ::
 -}
 thing_fun_1 ::
      Thing
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> IO FC.CInt
 thing_fun_1 =
   \x0 -> F.with x0 (\y1 -> thing_fun_1_wrapper y1)
@@ -86,8 +85,7 @@ foreign import ccall unsafe "hs_bindgen_c293d866e22be6fc" thing_fun_2_wrapper ::
 -}
 thing_fun_2 ::
      FC.CInt
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> IO Thing
 thing_fun_2 =
   \x0 ->
@@ -113,14 +111,11 @@ foreign import ccall unsafe "hs_bindgen_cfd51a9e490a997c" thing_fun_3a_wrapper :
 -}
 thing_fun_3a ::
      FC.CInt
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> Thing
-     {- ^ __C declaration:__ @y@
-     -}
+     -- ^ __C declaration:__ @y@
   -> FC.CDouble
-     {- ^ __C declaration:__ @z@
-     -}
+     -- ^ __C declaration:__ @z@
   -> IO Thing
 thing_fun_3a =
   \x0 ->
@@ -148,14 +143,11 @@ foreign import ccall unsafe "hs_bindgen_23fac8ee5044da6e" thing_fun_3b_wrapper :
 -}
 thing_fun_3b ::
      FC.CInt
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> Thing
-     {- ^ __C declaration:__ @y@
-     -}
+     -- ^ __C declaration:__ @y@
   -> FC.CDouble
-     {- ^ __C declaration:__ @z@
-     -}
+     -- ^ __C declaration:__ @z@
   -> IO FC.CChar
 thing_fun_3b =
   \x0 ->

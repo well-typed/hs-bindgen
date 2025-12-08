@@ -34,18 +34,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 -}
 foreign import ccall safe "hs_bindgen_8a72aafc705daf44" resample ::
      Ptr.Ptr Int32_T
-     {- ^ __C declaration:__ @res_m_num_valid_samples@
-     -}
+     -- ^ __C declaration:__ @res_m_num_valid_samples@
   -> Ptr.Ptr Cint16_T
-     {- ^ __C declaration:__ @res_m_iq_int@
-     -}
+     -- ^ __C declaration:__ @res_m_iq_int@
   -> Int64_T
-     {- ^ __C declaration:__ @res_m_old_rate@
-     -}
+     -- ^ __C declaration:__ @res_m_old_rate@
   -> Int64_T
-     {- ^ __C declaration:__ @res_m_new_rate@
-     -}
+     -- ^ __C declaration:__ @res_m_new_rate@
   -> Ptr.Ptr Cint16_T
-     {- ^ __C declaration:__ @res_m_iq_resampled_int@
-     -}
+     -- ^ __C declaration:__ @res_m_iq_resampled_int@
   -> IO ()

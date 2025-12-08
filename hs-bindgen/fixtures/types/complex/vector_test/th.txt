@@ -90,8 +90,7 @@ foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" new_vector :: CDouble ->
 -}
 foreign import ccall safe "hs_bindgen_1af353788955c7a2" new_vector :: CDouble ->
                                                                       CDouble -> IO (Ptr Vector)
-{-| __unique:__ @test_typescomplexvector_test_Example_get_new_vector_ptr@
--}
+-- | __unique:__ @test_typescomplexvector_test_Example_get_new_vector_ptr@
 foreign import ccall safe "hs_bindgen_a9bd57bd55b4e697" hs_bindgen_a9bd57bd55b4e697 :: IO (FunPtr (CDouble ->
                                                                                                    CDouble ->
                                                                                                    IO (Ptr Vector)))

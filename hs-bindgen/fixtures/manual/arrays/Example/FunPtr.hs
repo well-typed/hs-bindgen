@@ -32,8 +32,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @test_manualarrays_Example_get_transpose_ptr@
--}
+-- | __unique:__ @test_manualarrays_Example_get_transpose_ptr@
 foreign import ccall unsafe "hs_bindgen_24c867a3e91cab5d" hs_bindgen_24c867a3e91cab5d ::
      IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
 
@@ -49,8 +48,7 @@ transpose_ptr :: Ptr.FunPtr (Matrix -> Matrix -> IO ())
 transpose_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_24c867a3e91cab5d
 
-{-| __unique:__ @test_manualarrays_Example_get_pretty_print_triplets_ptr@
--}
+-- | __unique:__ @test_manualarrays_Example_get_pretty_print_triplets_ptr@
 foreign import ccall unsafe "hs_bindgen_66af82cae0c5134a" hs_bindgen_66af82cae0c5134a ::
      IO (Ptr.FunPtr (Triplet_ptrs -> IO ()))
 

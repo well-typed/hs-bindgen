@@ -48,11 +48,9 @@ foreign import ccall safe "hs_bindgen_cba7011c6d25362b" transpose_wrapper ::
 -}
 transpose ::
      Matrix
-     {- ^ __C declaration:__ @input@
-     -}
+     -- ^ __C declaration:__ @input@
   -> Ptr.Ptr Triplet
-     {- ^ __C declaration:__ @output@
-     -}
+     -- ^ __C declaration:__ @output@
   -> IO ()
 transpose =
   \x0 ->
@@ -72,6 +70,5 @@ __unique:__ @test_manualarrays_Example_Safe_pretty_print_triplets@
 -}
 foreign import ccall safe "hs_bindgen_45d15697a99c626a" pretty_print_triplets ::
      Ptr.Ptr (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> IO ()

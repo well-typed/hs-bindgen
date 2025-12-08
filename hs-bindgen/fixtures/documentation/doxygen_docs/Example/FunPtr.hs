@@ -149,8 +149,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @test_documentationdoxygen_docs_Example_get_process_data_ptr@
--}
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_process_data_ptr@
 foreign import ccall unsafe "hs_bindgen_00ad1c4db6c865d6" hs_bindgen_00ad1c4db6c865d6 ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.CSize) -> IO FC.CInt))
 
@@ -180,8 +179,7 @@ process_data_ptr :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.R
 process_data_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_00ad1c4db6c865d6
 
-{-| __unique:__ @test_documentationdoxygen_docs_Example_get_process_file_ptr@
--}
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_process_file_ptr@
 foreign import ccall unsafe "hs_bindgen_17f9c7a037fa2ddf" hs_bindgen_17f9c7a037fa2ddf ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO FC.CBool))
 
@@ -207,8 +205,7 @@ process_file_ptr :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -
 process_file_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_17f9c7a037fa2ddf
 
-{-| __unique:__ @test_documentationdoxygen_docs_Example_get_calculate_value_ptr@
--}
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_calculate_value_ptr@
 foreign import ccall unsafe "hs_bindgen_8b08d5b99efae93b" hs_bindgen_8b08d5b99efae93b ::
      IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt))
 
@@ -241,8 +238,7 @@ calculate_value_ptr :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
 calculate_value_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8b08d5b99efae93b
 
-{-| __unique:__ @test_documentationdoxygen_docs_Example_get_html_example_ptr@
--}
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_html_example_ptr@
 foreign import ccall unsafe "hs_bindgen_bb00e40be97757d6" hs_bindgen_bb00e40be97757d6 ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CBool))
 
@@ -270,8 +266,7 @@ html_example_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CBool)
 html_example_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_bb00e40be97757d6
 
-{-| __unique:__ @test_documentationdoxygen_docs_Example_get_list_example_ptr@
--}
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_list_example_ptr@
 foreign import ccall unsafe "hs_bindgen_e53b2ca51c16f7df" hs_bindgen_e53b2ca51c16f7df ::
      IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
 
@@ -327,8 +322,7 @@ list_example_ptr :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC
 list_example_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e53b2ca51c16f7df
 
-{-| __unique:__ @test_documentationdoxygen_docs_Example_get_dangerous_function_ptr@
--}
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_dangerous_function_ptr@
 foreign import ccall unsafe "hs_bindgen_6f8fafd779560b0a" hs_bindgen_6f8fafd779560b0a ::
      IO (Ptr.FunPtr ((Ptr.Ptr Void) -> IO (Ptr.Ptr Void)))
 
@@ -358,8 +352,7 @@ dangerous_function_ptr :: Ptr.FunPtr ((Ptr.Ptr Void) -> IO (Ptr.Ptr Void))
 dangerous_function_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6f8fafd779560b0a
 
-{-| __unique:__ @test_documentationdoxygen_docs_Example_get_detailed_return_codes_ptr@
--}
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_detailed_return_codes_ptr@
 foreign import ccall unsafe "hs_bindgen_8316611dfa87497d" hs_bindgen_8316611dfa87497d ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO FC.CInt))
 
@@ -389,8 +382,7 @@ detailed_return_codes_ptr :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC
 detailed_return_codes_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8316611dfa87497d
 
-{-| __unique:__ @test_documentationdoxygen_docs_Example_get_old_function_ptr@
--}
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_old_function_ptr@
 foreign import ccall unsafe "hs_bindgen_9658582afd412d05" hs_bindgen_9658582afd412d05 ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
@@ -416,8 +408,7 @@ old_function_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 old_function_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9658582afd412d05
 
-{-| __unique:__ @test_documentationdoxygen_docs_Example_get_versioned_function_ptr@
--}
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_versioned_function_ptr@
 foreign import ccall unsafe "hs_bindgen_fed78653b04cad56" hs_bindgen_fed78653b04cad56 ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
@@ -443,8 +434,7 @@ versioned_function_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 versioned_function_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fed78653b04cad56
 
-{-| __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer_ptr@
--}
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer_ptr@
 foreign import ccall unsafe "hs_bindgen_54ecd4981536e33b" hs_bindgen_54ecd4981536e33b ::
      IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CInt))
 
@@ -470,8 +460,7 @@ process_buffer_ptr :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArra
 process_buffer_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_54ecd4981536e33b
 
-{-| __unique:__ @test_documentationdoxygen_docs_Example_get_my_memcpy_ptr@
--}
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_my_memcpy_ptr@
 foreign import ccall unsafe "hs_bindgen_f3280e35cf2dec18" hs_bindgen_f3280e35cf2dec18 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.ConstPtr.ConstPtr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr.Ptr Void)))
 
@@ -499,8 +488,7 @@ my_memcpy_ptr :: Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.ConstPtr.Const
 my_memcpy_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f3280e35cf2dec18
 
-{-| __unique:__ @test_documentationdoxygen_docs_Example_get_double_value_ptr@
--}
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_double_value_ptr@
 foreign import ccall unsafe "hs_bindgen_3c5017e63542a732" hs_bindgen_3c5017e63542a732 ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
@@ -524,8 +512,7 @@ double_value_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 double_value_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3c5017e63542a732
 
-{-| __unique:__ @test_documentationdoxygen_docs_Example_get_complex_function_ptr@
--}
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_complex_function_ptr@
 foreign import ccall unsafe "hs_bindgen_5c7ef3361588f78d" hs_bindgen_5c7ef3361588f78d ::
      IO (Ptr.FunPtr ((Ptr.Ptr Config_t) -> (HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8) -> HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t))
 
@@ -606,8 +593,7 @@ complex_function_ptr :: Ptr.FunPtr ((Ptr.Ptr Config_t) -> (HsBindgen.Runtime.Con
 complex_function_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_5c7ef3361588f78d
 
-{-| __unique:__ @test_documentationdoxygen_docs_Example_get_hash_ptr@
--}
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_hash_ptr@
 foreign import ccall unsafe "hs_bindgen_c5116c8a533d238c" hs_bindgen_c5116c8a533d238c ::
      IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt))
 
@@ -623,8 +609,7 @@ hash_ptr :: Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt)
 hash_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c5116c8a533d238c
 
-{-| __unique:__ @test_documentationdoxygen_docs_Example_get_square_ptr@
--}
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_square_ptr@
 foreign import ccall unsafe "hs_bindgen_f488217ac3b07e44" hs_bindgen_f488217ac3b07e44 ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 

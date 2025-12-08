@@ -25,8 +25,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @test_typescomplexvector_test_Example_get_new_vector_ptr@
--}
+-- | __unique:__ @test_typescomplexvector_test_Example_get_new_vector_ptr@
 foreign import ccall unsafe "hs_bindgen_a9bd57bd55b4e697" hs_bindgen_a9bd57bd55b4e697 ::
      IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector)))
 

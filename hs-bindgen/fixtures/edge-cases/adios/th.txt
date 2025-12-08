@@ -168,8 +168,7 @@ foreign import ccall safe "hs_bindgen_c1ab9527e537714b" 拜拜 :: IO Unit
     __unique:__ @test_edgecasesadios_Example_Unsafe_Say拜拜@
 -}
 foreign import ccall safe "hs_bindgen_d532055af9051fad" say拜拜 :: IO Unit
-{-| __unique:__ @test_edgecasesadios_Example_get_ϒ_ptr@
--}
+-- | __unique:__ @test_edgecasesadios_Example_get_ϒ_ptr@
 foreign import ccall safe "hs_bindgen_edd8d9690af73a14" hs_bindgen_edd8d9690af73a14 :: IO (FunPtr (IO Unit))
 {-# NOINLINE cϒ_ptr #-}
 {-| __C declaration:__ @ϒ@
@@ -186,8 +185,7 @@ cϒ_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/adios.h@
 -}
 cϒ_ptr = unsafePerformIO hs_bindgen_edd8d9690af73a14
-{-| __unique:__ @test_edgecasesadios_Example_get_拜拜_ptr@
--}
+-- | __unique:__ @test_edgecasesadios_Example_get_拜拜_ptr@
 foreign import ccall safe "hs_bindgen_53e9160a3156c412" hs_bindgen_53e9160a3156c412 :: IO (FunPtr (IO Unit))
 {-# NOINLINE 拜拜_ptr #-}
 {-| __C declaration:__ @拜拜@
@@ -204,8 +202,7 @@ foreign import ccall safe "hs_bindgen_53e9160a3156c412" hs_bindgen_53e9160a3156c
     __exported by:__ @edge-cases\/adios.h@
 -}
 拜拜_ptr = unsafePerformIO hs_bindgen_53e9160a3156c412
-{-| __unique:__ @test_edgecasesadios_Example_get_Say拜拜_ptr@
--}
+-- | __unique:__ @test_edgecasesadios_Example_get_Say拜拜_ptr@
 foreign import ccall safe "hs_bindgen_d263c2ebc6beb189" hs_bindgen_d263c2ebc6beb189 :: IO (FunPtr (IO Unit))
 {-# NOINLINE say拜拜_ptr #-}
 {-| __C declaration:__ @Say拜拜@
@@ -222,8 +219,7 @@ say拜拜_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/adios.h@
 -}
 say拜拜_ptr = unsafePerformIO hs_bindgen_d263c2ebc6beb189
-{-| __unique:__ @test_edgecasesadios_Example_get_ϒϒ_ptr@
--}
+-- | __unique:__ @test_edgecasesadios_Example_get_ϒϒ_ptr@
 foreign import ccall safe "hs_bindgen_a5a7bbe6b8c53539" hs_bindgen_a5a7bbe6b8c53539 :: IO (Ptr CInt)
 {-# NOINLINE cϒϒ_ptr #-}
 {-| __C declaration:__ @ϒϒ@
@@ -240,8 +236,7 @@ cϒϒ_ptr :: Ptr CInt
     __exported by:__ @edge-cases\/adios.h@
 -}
 cϒϒ_ptr = unsafePerformIO hs_bindgen_a5a7bbe6b8c53539
-{-| __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ_ptr@
--}
+-- | __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ_ptr@
 foreign import ccall safe "hs_bindgen_31d6bde39787c8b8" hs_bindgen_31d6bde39787c8b8 :: IO (ConstPtr CInt)
 {-# NOINLINE cϒϒϒ_ptr #-}
 {-| __C declaration:__ @ϒϒϒ@
