@@ -172,10 +172,19 @@ instance Pretty CommentKind where
           case commentTitle of
             Nothing -> empty
             Just ct -> hsep (map pretty ct)
+        singleLineStart =
+          case commentKind of
+            TopLevelComment _          -> "-- |"
+            PartOfDeclarationComment _ -> "-- ^"
+            THComment _                -> ""
         -- If the comment only has the the origin C Name then use that has the
         -- title.
      in case commentChildren of
           [] | Nothing <- commentTitle
+             , [singleMetadata] <- fromCCtxDoc ->
+                -- Single metadata line only: use single-line style
+                string singleLineStart <+> singleMetadata
+             | Nothing <- commentTitle
              , not (null fromCCtxDoc) ->
                 string commentStart
             <+> vsep fromCCtxDoc
