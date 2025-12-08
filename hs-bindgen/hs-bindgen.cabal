@@ -18,7 +18,6 @@ extra-source-files:
   examples/**/*.h
   examples/**/*.yaml
   fixtures/**/*.hs
-  fixtures/**/*.rs
   fixtures/**/*.txt
   fixtures/**/*.yaml
   musl-include/**/*.h
