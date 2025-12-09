@@ -1,0 +1,62 @@
+-- addDependentFile examples/golden/edge-cases/ordinary_anon_child.h
+-- addDependentFile examples/golden/edge-cases/ordinary_anon_parent.h
+-- #include <edge-cases/ordinary_anon_parent.h>
+-- double hs_bindgen_06a412f170b5ff91 (
+--   double arg1
+-- )
+-- {
+--   return _acos(arg1);
+-- }
+-- double hs_bindgen_dca60678b5047ee4 (
+--   double arg1
+-- )
+-- {
+--   return _acos(arg1);
+-- }
+-- /* test_edgecasesordinary_anon_paren_Example_get__acos_ptr */
+-- __attribute__ ((const))
+-- double (*hs_bindgen_bca479e11d297ab8 (void)) (
+--   double arg1
+-- )
+-- {
+--   return &_acos;
+-- }
+{-| __C declaration:__ @_acos@
+
+    __defined at:__ @ordinary_anon_child.h:4:1@
+
+    __exported by:__ @edge-cases\/ordinary_anon_parent.h@
+
+    __unique:__ @test_edgecasesordinary_anon_paren_Example_Unsafe__acos@
+-}
+foreign import ccall safe "hs_bindgen_06a412f170b5ff91" _acos :: CDouble ->
+                                                                 IO CDouble
+{-| __C declaration:__ @_acos@
+
+    __defined at:__ @ordinary_anon_child.h:4:1@
+
+    __exported by:__ @edge-cases\/ordinary_anon_parent.h@
+
+    __unique:__ @test_edgecasesordinary_anon_paren_Example_Unsafe__acos@
+-}
+foreign import ccall safe "hs_bindgen_dca60678b5047ee4" _acos :: CDouble ->
+                                                                 IO CDouble
+{-| __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos_ptr@
+-}
+foreign import ccall safe "hs_bindgen_bca479e11d297ab8" hs_bindgen_bca479e11d297ab8 :: IO (FunPtr (CDouble ->
+                                                                                                   IO CDouble))
+{-# NOINLINE _acos_ptr #-}
+{-| __C declaration:__ @_acos@
+
+    __defined at:__ @ordinary_anon_child.h:4:1@
+
+    __exported by:__ @edge-cases\/ordinary_anon_parent.h@
+-}
+_acos_ptr :: FunPtr (CDouble -> IO CDouble)
+{-| __C declaration:__ @_acos@
+
+    __defined at:__ @ordinary_anon_child.h:4:1@
+
+    __exported by:__ @edge-cases\/ordinary_anon_parent.h@
+-}
+_acos_ptr = unsafePerformIO hs_bindgen_bca479e11d297ab8

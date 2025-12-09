@@ -4,4 +4,4 @@ index-state: 2025-09-16T04:55:58Z
 source-repository-package
     type: git
     location: https://github.com/well-typed/libclang
-    tag: 0c6d4919a0c48a679cb1ec7a87a402c149a9821e
+    tag: b8305bd9c3e8e8f63d6f415553388be7f233ef45
