@@ -94,7 +94,7 @@ constructDeclId env declId =
      case declId of
        C.PrelimDeclIdNamed name kind ->
          Just $ C.DeclId{
-             name       = C.DeclIdNamed name
+             name       = name
            , nameKind   = kind
            , origDeclId = C.OrigDeclId declId
            , haskellId  = ()
@@ -102,14 +102,7 @@ constructDeclId env declId =
        C.PrelimDeclIdAnon _anonId kind -> do
          useOfAnon <- findNamedUseOf env declId
          Just $ C.DeclId{
-             name       = C.DeclIdNamed (nameForAnon useOfAnon)
-           , nameKind   = kind
-           , origDeclId = C.OrigDeclId declId
-           , haskellId  = ()
-           }
-       C.PrelimDeclIdBuiltin name kind ->
-         Just $ C.DeclId{
-             name       = C.DeclIdBuiltin name
+             name       = nameForAnon useOfAnon
            , nameKind   = kind
            , origDeclId = C.OrigDeclId declId
            , haskellId  = ()

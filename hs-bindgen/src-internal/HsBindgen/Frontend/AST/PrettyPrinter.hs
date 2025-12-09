@@ -257,9 +257,6 @@ showsOrigId = \case
       . showsCName name
     PrelimDeclIdAnon{} ->
       panicPure "cannot refer to anonymous declaration"
-    PrelimDeclIdBuiltin name kind ->
-        showsNameKind kind
-      . showsCName name
 
 showsNameKind :: NameKind -> ShowS
 showsNameKind = \case

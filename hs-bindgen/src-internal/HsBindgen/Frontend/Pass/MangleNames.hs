@@ -73,16 +73,13 @@ nameForDecl fc decl =
     case BindingSpec.cTypeSpecIdentifier =<< fst declAnn of
       Just hsName -> (choose hsName, Nothing)
       Nothing     -> withDeclNamespace declKind $ \ns ->
-                       first choose $ fromCName fc ns cName
+                       first choose $ fromCName fc ns declId.name
   where
     C.Decl{
         declInfo = C.DeclInfo{declId}
       , declKind
       , declAnn
       } = decl
-
-    cName :: C.Name
-    cName = C.declIdName declId
 
     choose :: Hs.Identifier -> (C.QualName, Hs.Identifier)
     choose hsName = (C.declQualName decl, hsName)
@@ -143,18 +140,11 @@ class MangleDecl a where
     -> a HandleTypedefs -> M (a MangleNames)
 
 mangleDeclId :: C.DeclId HandleTypedefs -> M (C.DeclId MangleNames)
-mangleDeclId declId =
-    case declId.name of
-      C.DeclIdBuiltin _name ->
-        -- TODO <https://github.com/well-typed/hs-bindgen/issues/1266>.
-        -- Name mangling fails for built-ins: since they don't have a
-        -- corresponding declaration, there will be no entry in the 'NameMap'.
-        throwPure_TODO 1266 "Cannot mangle builtin name"
-      C.DeclIdNamed name -> do
-        mHsIdent <- mangleName name [declId.nameKind]
-        case mHsIdent of
-          Nothing -> panicPure $ "Missing declaration: " <> show declId
-          Just hs -> return $ declId{C.haskellId = hs}
+mangleDeclId declId = do
+    mHsIdent <- mangleName declId.name [declId.nameKind]
+    case mHsIdent of
+      Nothing -> panicPure $ "Missing declaration: " <> show declId
+      Just hs -> return $ declId{C.haskellId = hs}
 
 -- | Mangle C name, using previously constructed name map
 --
@@ -175,7 +165,7 @@ mangleName name kinds = do
 mangleFieldName :: C.DeclInfo MangleNames -> C.Name -> M C.NamePair
 mangleFieldName info fieldCName = do
     fc <- asks envFixCandidate
-    let candidate = C.declIdName declId <> "_" <> fieldCName
+    let candidate = declId.name <> "_" <> fieldCName
     let (fieldHsName, mError) = fromCName fc (Proxy @Hs.NsVar) candidate
     forM_ mError $ modify . (:)
     return $ C.NamePair fieldCName fieldHsName

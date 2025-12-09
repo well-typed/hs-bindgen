@@ -101,19 +101,26 @@ pointer = clang_getPointeeType >=> fmap C.TypePointer . cxtype
 
 fromDecl :: HasCallStack => CXType -> ParseType (C.Type Parse)
 fromDecl ty = do
-    decl <- clang_getTypeDeclaration ty
-    dispatchDecl decl $ \case
-      CXCursor_EnumDecl   -> typeRef decl C.TagKindEnum
-      CXCursor_StructDecl -> typeRef decl C.TagKindStruct
-      CXCursor_UnionDecl  -> typeRef decl C.TagKindUnion
+    decl     <- clang_getTypeDeclaration ty
+    mBuiltin <- C.checkIsBuiltin decl
+    case mBuiltin of
+      Just builtin ->
+        -- Built-in types don't have a corresponding declaration; if we want
+        -- to support them, we have to special-case each one. For now, we don't
+        -- support any.
+        throwError $ UnsupportedBuiltin builtin
+      Nothing -> dispatchDecl decl $ \case
+        CXCursor_EnumDecl   -> typeRef decl C.TagKindEnum
+        CXCursor_StructDecl -> typeRef decl C.TagKindStruct
+        CXCursor_UnionDecl  -> typeRef decl C.TagKindUnion
 
-      CXCursor_TypedefDecl -> do
-        declId <- C.getPrelimDeclId decl C.NameKindOrdinary
-        uTy <- liftIO $ handle (addTypedefContextHandler declId) $
-                 run (cxtype =<< getUnderlyingCXType decl)
-        pure (C.TypeTypedef declId uTy)
+        CXCursor_TypedefDecl -> do
+          declId <- C.getPrelimDeclId decl C.NameKindOrdinary
+          uTy <- liftIO $ handle (addTypedefContextHandler declId) $
+                   run (cxtype =<< getUnderlyingCXType decl)
+          pure (C.TypeTypedef declId uTy)
 
-      kind -> throwError $ UnexpectedTypeDecl (Right kind)
+        kind -> throwError $ UnexpectedTypeDecl (Right kind)
   where
     typeRef :: MonadIO m => CXCursor -> C.TagKind -> m (C.Type Parse)
     typeRef decl kind = C.TypeRef <$> C.getPrelimDeclId decl (C.NameKindTagged kind)

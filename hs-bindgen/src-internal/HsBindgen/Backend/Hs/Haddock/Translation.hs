@@ -35,7 +35,7 @@ generateHaddocksWithInfo config declInfo =
     fst $ generateHaddocksWithParams config declInfo Args{
         isField     = False
       , loc         = declInfo.declLoc
-      , nameC       = C.declIdName declInfo.declId
+      , nameC       = declInfo.declId.name
       , nameHsIdent = declInfo.declId.haskellId
       , comment     = declInfo.declComment
       , params      = []
@@ -65,7 +65,7 @@ generateHaddocksWithInfoParams config declInfo params =
     generateHaddocksWithParams config declInfo Args{
         isField     = False
       , loc         = declInfo.declLoc
-      , nameC       = C.declIdName declInfo.declId
+      , nameC       = declInfo.declId.name
       , nameHsIdent = declInfo.declId.haskellId
       , comment     = declInfo.declComment
       , params

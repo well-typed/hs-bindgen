@@ -287,14 +287,8 @@ processMacro info (UnparsedMacro tokens) = do
     case info.declId of
       C.PrelimDeclIdNamed name _kind ->
         bimap (addInfo name) toDecl <$> parseMacro name tokens
-      C.PrelimDeclIdBuiltin{} ->
-        -- Built-in macros certainly exist, and /in principle/ even have a
-        -- definition, but we currently don't get access to that definition
-        -- <https://github.com/well-typed/libclang/issues/17>.
-        -- We currently therefore always skip them in the parser.
-        panicPure $ "Unexpected: " ++ show info.declId
       C.PrelimDeclIdAnon{} ->
-        -- Anonymous macros cannot exist at all.
+        -- Anonymous macros don't exist
         panicPure $ "Impossible: " ++ show info.declId
   where
     addInfo :: C.Name -> HandleMacrosError -> FailedMacro

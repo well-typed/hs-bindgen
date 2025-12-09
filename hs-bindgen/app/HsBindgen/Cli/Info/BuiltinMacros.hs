@@ -116,10 +116,11 @@ getBuiltinMacroNames tracer clangArgs =
       ClangInputMemory "hs-bindgen-builtins.h" ""
 
     visit :: Fold IO C.Name
-    visit = simpleFold $ \curr ->
-      C.getPrelimDeclId curr C.NameKindOrdinary >>= \case
-        C.PrelimDeclIdBuiltin name _kind -> foldContinueWith name
-        _otherwise                       -> foldBreak
+    visit = simpleFold $ \curr -> do
+      mBuiltin <- C.checkIsBuiltin curr
+      case mBuiltin of
+        Just name -> foldContinueWith (C.Name name)
+        Nothing   -> foldBreak
 
 -- | Get stringified definitions of the specified macros
 --
@@ -154,10 +155,9 @@ getMacros tracer clangArgs names =
     parseName = fmap C.Name . Text.stripPrefix "BUILTIN_X_" . C.getName
 
     visit :: Fold IO (C.Name, String)
-    visit = simpleFold $ \curr ->
+    visit = simpleFold $ \curr -> do
       C.getPrelimDeclId curr C.NameKindOrdinary >>= \case
         C.PrelimDeclIdAnon{}           -> foldContinue
-        C.PrelimDeclIdBuiltin{}        -> foldContinue
         C.PrelimDeclIdNamed name _kind ->
           (fromSimpleEnum <$> clang_getCursorKind curr) >>= \case
             Right CXCursor_VarDecl -> case parseName name of
@@ -208,7 +208,6 @@ getParamMacros tracer clangArgs names =
     visit = simpleFold $ \curr ->
       C.getPrelimDeclId curr C.NameKindOrdinary >>= \case
         C.PrelimDeclIdAnon{}           -> foldContinue
-        C.PrelimDeclIdBuiltin{}        -> foldContinue
         C.PrelimDeclIdNamed name _kind ->
           (fromSimpleEnum <$> clang_getCursorKind curr) >>= \case
             Right CXCursor_VarDecl -> case parseName name of

@@ -565,9 +565,9 @@ test_types_typedefs_typedef_analysis =
           ]
   in testTraceCustom "types/typedefs/typedef_analysis" declsWithMsgs $ \case
     TraceFrontend (FrontendHandleTypedefs (HandleTypedefsSquashed info)) ->
-      Just $ Expected $ Labelled "Squashed" $ C.declIdName (C.declId info)
+      Just $ Expected $ Labelled "Squashed" info.declId.name
     TraceFrontend (FrontendHandleTypedefs (HandleTypedefsRenamedTagged info _to)) ->
-      Just $ Expected $ Labelled "Renamed"  $ C.declIdName (C.declId info)
+      Just $ Expected $ Labelled "Renamed"  info.declId.name
     _otherwise ->
       Nothing
 
@@ -579,10 +579,8 @@ test_types_typedefs_typedefs = testTraceCustom "types/typedefs/typedefs" ["foo"]
   _otherwise ->
     Nothing
 
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1383>
--- Not sure why we get /two/ messages for @g@ here.
 test_functions_varargs :: TestCase
-test_functions_varargs = testTraceCustom "functions/varargs" ["f", "g", "g"] $ \case
+test_functions_varargs = testTraceCustom "functions/varargs" ["f", "g"] $ \case
   TraceFrontend (FrontendSelect (
       SelectParseFailure (ParseFailure (
         AttachedParseMsg
@@ -594,25 +592,18 @@ test_functions_varargs = testTraceCustom "functions/varargs" ["f", "g", "g"] $ \
     )) ->
     Just $ expectFromPrelimDeclId i
 
-  TraceFrontend (FrontendSelect (
-    TransitiveDependencyOfDeclarationUnselectable
-      decl
-      SelectionRoot
-      (C.PrelimDeclIdNamed "va_list" C.NameKindOrdinary)
-      TransitiveDependencyNotSelected
-      _
-    )) ->
-    Just $ expectFromDeclSelect decl
-
-  TraceFrontend (FrontendSelect (
-    TransitiveDependencyOfDeclarationUnselectable
-      decl
-      SelectionRoot
-      (C.PrelimDeclIdBuiltin "__builtin_va_list" C.NameKindOrdinary)
-      TransitiveDependencyNotSelected
-      _
-    )) ->
-    Just $ expectFromDeclSelect decl
+  TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure (
+      AttachedParseMsg
+        i
+        _
+        _
+        (ParseUnsupportedType (
+          UnsupportedUnderlyingType
+            (C.PrelimDeclIdNamed "va_list" C.NameKindOrdinary)
+            (UnsupportedBuiltin "__builtin_va_list")
+        ))
+    )))) ->
+    Just $ expectFromPrelimDeclId i
 
   _otherwise ->
     Nothing
@@ -680,17 +671,15 @@ test_declarations_failing_tentative_definitions_linkage =
 
 test_edge_cases_unsupported_builtin :: TestCase
 test_edge_cases_unsupported_builtin =
-  testTraceSimple "edge-cases/unsupported_builtin" $ \case
-    TraceFrontend (
-        FrontendSelect (
-            TransitiveDependencyOfDeclarationUnselectable
-            _decl
-            SelectionRoot
-            (C.PrelimDeclIdBuiltin "__builtin_va_list" C.NameKindOrdinary)
-            TransitiveDependencyNotSelected []
-          )
-      ) ->
-      Just $ Expected ()
+  testTraceCustom "edge-cases/unsupported_builtin" ["va_list"] $ \case
+    TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure (
+        AttachedParseMsg
+          declId
+          _
+          _
+          (ParseUnsupportedType (UnsupportedBuiltin "__builtin_va_list"))
+      )))) ->
+      Just $ expectFromPrelimDeclId declId
     _otherwise ->
       Nothing
 
@@ -1317,11 +1306,13 @@ expectSelected ::
      C.DeclInfo Select
   -> Set C.Name
   -> Maybe (TraceExpectation String)
-expectSelected info expectedNames = case C.declIdName (C.declId info) of
-  name
-    | Set.member name expectedNames ->
-        Just . Expected $ "selected " ++ Text.unpack (C.getName name)
-    | otherwise -> Just Unexpected
+expectSelected info expectedNames
+  | Set.member name expectedNames
+  = Just . Expected $ "selected " ++ Text.unpack (C.getName name)
+  | otherwise
+  = Just Unexpected
+  where
+    name = info.declId.name
 
 -- | Test cases for header files used in the manual
 manualTestCases :: [TestCase]
@@ -1352,10 +1343,10 @@ expectFromPrelimDeclId :: C.PrelimDeclId -> TraceExpectation Text
 expectFromPrelimDeclId = Expected . \case
     C.PrelimDeclIdNamed   n _ -> C.getName n
     C.PrelimDeclIdAnon    n _ -> Text.pack $ show n
-    C.PrelimDeclIdBuiltin n _ -> C.getName n
+    -- C.PrelimDeclIdBuiltin n _ -> C.getName n
 
 expectFromDeclInfoSelect :: C.DeclInfo Select -> TraceExpectation Text
-expectFromDeclInfoSelect = Expected . C.getName . C.declIdName . C.declId
+expectFromDeclInfoSelect info = Expected $ C.getName info.declId.name
 
 expectFromDeclSelect :: C.Decl Select -> TraceExpectation Text
 expectFromDeclSelect = expectFromDeclInfoSelect . C.declInfo

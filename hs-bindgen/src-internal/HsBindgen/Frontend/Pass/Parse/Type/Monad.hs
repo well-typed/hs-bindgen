@@ -105,7 +105,7 @@ data ParseTypeException =
   | UnsupportedLongDouble
 
     -- | Clang built-in declaration
-  | UnsupportedBuiltin C.Name
+  | UnsupportedBuiltin Text
 
     -- | Complex types can only be defined using primitive types, e.g.
     -- @double complex@. @struct Point complex@ is not allowed.
@@ -129,7 +129,7 @@ instance PrettyForTrace ParseTypeException where
       UnsupportedLongDouble ->
           "Unsupported long double"
       UnsupportedBuiltin name ->
-          "Unsupported built-in " >< prettyForTrace name
+          "Unsupported built-in " >< PP.showToCtxDoc name
       UnexpectedComplexType ty ->
           "Unexpected complex type " >< PP.showToCtxDoc ty
       UnsupportedUnderlyingType name err -> PP.hcat [
