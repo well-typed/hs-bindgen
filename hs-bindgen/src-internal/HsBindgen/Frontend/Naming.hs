@@ -55,12 +55,11 @@ module HsBindgen.Frontend.Naming (
   , PrelimDeclId(..)
   , prelimDeclIdName
   , getPrelimDeclId
+  , checkIsBuiltin
 
     -- * DeclId
   , DeclId(..)
-  , DeclIdName(..)
   , OrigDeclId(..)
-  , declIdName
   , declIdQualName
   , unsafeDeclIdHaskellName
   , declIdCName
@@ -236,20 +235,12 @@ data PrelimDeclId =
     --
     -- This can only happen for tagged types: structs, unions and enums
   | PrelimDeclIdAnon AnonId NameKind
-
-    -- | Built-in declaration
-    --
-    -- Note: since builtin declarations don't have a definition, we cannot
-    -- in general generate bindings for them.  If there are /specific/ builtin
-    -- declarations we should support, we need to special-case them.
-  | PrelimDeclIdBuiltin Name NameKind
   deriving stock (Show, Eq, Ord)
 
 prelimDeclIdName :: PrelimDeclId -> Maybe Name
 prelimDeclIdName = \case
     PrelimDeclIdNamed   name   _kind -> Just name
     PrelimDeclIdAnon   _anonId _kind -> Nothing
-    PrelimDeclIdBuiltin name   _kind -> Just name
 
 instance PrettyForTrace PrelimDeclId where
   prettyForTrace = \case
@@ -263,8 +254,6 @@ instance PrettyForTrace PrelimDeclId where
               <+> PP.parens (prettyForTrace anonId)
             NameKindOrdinary ->
               panicPure "unexpected anonymous ordinary name"
-      PrelimDeclIdBuiltin n k ->
-        prettyForTrace (QualName n k)
 
 instance PrettyForTrace (Located PrelimDeclId) where
   prettyForTrace (Located l i) =
@@ -274,53 +263,49 @@ instance PrettyForTrace (Located PrelimDeclId) where
         PrelimDeclIdAnon{}  ->
           -- No need to repeat the source location in this case
           prettyForTrace i
-        PrelimDeclIdBuiltin n k ->
-          prettyForTraceLoc (QualName n k) l
 
 getPrelimDeclId :: forall m. MonadIO m => CXCursor -> NameKind -> m PrelimDeclId
 getPrelimDeclId curr nameKind = do
     spelling  <- clang_getCursorSpelling curr
-    isBuiltin <- checkIsBuiltin
-    case isBuiltin of
-      True ->
-        return $ PrelimDeclIdBuiltin (Name spelling) nameKind
-      False | Text.null spelling ->
-        -- clang-15 and older use an empty string for anon declarations
-       markAsAnon
-      False | Text.elem ' ' spelling ->
-        -- clang-16 and newer assign names such as
-        --
-        -- > struct (unnamed at ....)
-        --
-        -- /except/ in one case: when we have an anonymous struct inside a
-        -- typedef, such as
-        --
-        -- > typedef struct { .. } foo;
-        --
-        -- newer versions of clang will assign the name @foo@ to the typedef.
-        -- This means that in this case we will misclassify the struct as
-        -- not-anonymous (and this will then also depend on the clang version:
-        -- for older versions we /will/ classify it as anonymous). However,
-        -- since we squash structs with a single use site inside a typedef
-        -- anyway, this misclassification does not matter.
-        markAsAnon
-      _otherwise ->
-        return $ PrelimDeclIdNamed (Name spelling) nameKind
+    if | Text.null spelling ->
+         -- clang-15 and older use an empty string for anon declarations
+         markAsAnon
+       | Text.elem ' ' spelling ->
+         -- clang-16 and newer assign names such as
+         --
+         -- > struct (unnamed at ....)
+         --
+         -- /except/ in one case: when we have an anonymous struct inside a
+         -- typedef, such as
+         --
+         -- > typedef struct { .. } foo;
+         --
+         -- newer versions of clang will assign the name @foo@ to the typedef.
+         -- This means that in this case we will misclassify the struct as
+         -- not-anonymous (and this will then also depend on the clang version:
+         -- for older versions we /will/ classify it as anonymous). However,
+         -- since we squash structs with a single use site inside a typedef
+         -- anyway, this misclassification does not matter.
+         markAsAnon
+       | otherwise ->
+         return $ PrelimDeclIdNamed (Name spelling) nameKind
   where
-    checkIsBuiltin :: m Bool
-    checkIsBuiltin = do
-        mRange <- clang_Cursor_getSpellingNameRange curr 0 0
-        case mRange of
-          Nothing    -> return False
-          Just range -> do
-            start <- clang_getRangeStart range
-            (file, _col, _line, _offset) <- clang_getExpansionLocation start
-            return $ isNullPtr file
-
     markAsAnon :: m PrelimDeclId
     markAsAnon = do
         loc <- HighLevel.clang_getCursorLocation' curr
         return $ PrelimDeclIdAnon (AnonId loc) nameKind
+
+checkIsBuiltin :: MonadIO m => CXCursor -> m (Maybe Text)
+checkIsBuiltin curr = do
+    mRange <- clang_Cursor_getSpellingNameRange curr 0 0
+    case mRange of
+      Nothing    -> return Nothing
+      Just range -> do
+        start <- clang_getRangeStart range
+        (file, _col, _line, _offset) <- clang_getExpansionLocation start
+        if isNullPtr file
+          then Just <$> clang_getCursorSpelling curr
+          else return Nothing
 
 {-------------------------------------------------------------------------------
   DeclId
@@ -335,7 +320,7 @@ getPrelimDeclId curr nameKind = do
 -- All declarations have names after renaming in the @NameAnon@ pass.  This type
 -- is used until the @MangleNames@ pass.
 data DeclId (p :: Pass) = DeclId{
-      name       :: DeclIdName
+      name       :: Name
     , nameKind   :: NameKind
     , origDeclId :: OrigDeclId
     , haskellId  :: HaskellId p
@@ -344,11 +329,6 @@ data DeclId (p :: Pass) = DeclId{
 deriving instance Show (HaskellId p) => Show (DeclId p)
 deriving instance Eq   (HaskellId p) => Eq   (DeclId p)
 deriving instance Ord  (HaskellId p) => Ord  (DeclId p)
-
-data DeclIdName =
-    DeclIdNamed Name
-  | DeclIdBuiltin Name
-  deriving stock (Show, Eq, Ord)
 
 data OrigDeclId =
     -- | The original ID (as it appeared in the C source)
@@ -362,15 +342,8 @@ data OrigDeclId =
   | AuxForDecl PrelimDeclId
   deriving stock (Show, Eq, Ord)
 
-declIdName :: DeclId p -> Name
-declIdName = aux . (.name)
-  where
-    aux :: DeclIdName -> Name
-    aux (DeclIdNamed   name) = name
-    aux (DeclIdBuiltin name) = name
-
 declIdQualName :: DeclId p -> QualName
-declIdQualName declId = QualName (declIdName declId) declId.nameKind
+declIdQualName declId = QualName declId.name declId.nameKind
 
 -- | Construct name in arbitrary name space
 --
@@ -388,14 +361,13 @@ declIdCName declId =
      OrigDeclId orig    ->
        case orig of
          PrelimDeclIdNamed   name kind -> Just $ QualName name kind
-         PrelimDeclIdBuiltin name kind -> Just $ QualName name kind
          PrelimDeclIdAnon{}            -> Nothing
 
 instance PrettyForTrace (DeclId p) where
    prettyForTrace declId = PP.hsep [
          prettyForTrace (declIdQualName declId)
        , case declId.origDeclId of
-           OrigDeclId orig | prelimDeclIdName orig /= Just (declIdName declId) ->
+           OrigDeclId orig | prelimDeclIdName orig /= Just declId.name ->
              PP.parens (prettyForTrace orig)
            _otherwise ->
              PP.empty

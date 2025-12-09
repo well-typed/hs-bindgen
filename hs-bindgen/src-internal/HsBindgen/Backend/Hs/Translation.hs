@@ -1425,7 +1425,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec = concat [
 
     -- Generation of C wrapper for userland-capi.
     innerName :: String
-    innerName = T.unpack $ C.getName (C.declIdName info.declId)
+    innerName = T.unpack $ C.getName info.declId.name
 
     wrapperName :: UniqueSymbol
     wrapperName = globallyUnique opts.translationUniqueId moduleName $ concat [
@@ -1635,7 +1635,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
           "get_" ++ varName ++ "_ptr"
 
     varName :: String
-    varName = T.unpack $ C.getName (C.declIdName info.declId)
+    varName = T.unpack $ C.getName info.declId.name
 
     stubType :: C.Type
     stubType = C.TypePointer ty

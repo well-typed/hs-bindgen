@@ -258,9 +258,7 @@ getCQualName declId =
           --
           -- TODO <https://github.com/well-typed/hs-bindgen/issues/844>
           -- This is WIP.
-          C.QualName ("@" <> declIdName declId) kind
-        PrelimDeclIdBuiltin cName kind ->
-          C.QualName cName kind
+          C.QualName ("@" <> declId.name) kind
 
 -- TODO strategy
 -- TODO constraints

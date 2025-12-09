@@ -224,8 +224,6 @@ selectDecls
               in parsed && selected
             -- Apply the select predicate to the use site.
             anon@(C.PrelimDeclIdAnon{}) -> matchAnon anon
-            -- Never select builtins.
-            C.PrelimDeclIdBuiltin{} -> False
 
         matchAnon :: DeclId -> Bool
         matchAnon anon =

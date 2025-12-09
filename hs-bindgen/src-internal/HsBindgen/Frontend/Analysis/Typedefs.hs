@@ -177,7 +177,7 @@ typedefOfDecl typedefId payload useSites
   | shouldSquash
   = let newId :: C.DeclId HandleTypedefs
         newId = C.DeclId{
-            name       = C.DeclIdNamed $ C.declIdName typedefId
+            name       = typedefId.name
           , nameKind   = payload.declId.nameKind
           , origDeclId = typedefId.origDeclId
           , haskellId  = ()
@@ -190,7 +190,7 @@ typedefOfDecl typedefId payload useSites
   | shouldRename
   = let newId :: C.DeclId HandleTypedefs
         newId = C.DeclId{
-            name       = C.DeclIdNamed $ C.declIdName typedefId <> "_Deref"
+            name       = typedefId.name <> "_Deref"
           , nameKind   = payload.declId.nameKind
           , origDeclId = payload.declId.origDeclId
           , haskellId  = ()
@@ -205,13 +205,13 @@ typedefOfDecl typedefId payload useSites
     shouldSquash, shouldRename :: Bool
     shouldSquash = and [
           payload.valOrRef == ByValue
-        , or [ C.declIdName typedefId == C.declIdName payload.declId
+        , or [ typedefId.name == payload.declId.name
              , length useSites == 1
              ]
         ]
     shouldRename = and [
           payload.valOrRef == ByRef
-        , C.declIdName typedefId == C.declIdName payload.declId
+        , typedefId.name == payload.declId.name
         ]
 
 {-------------------------------------------------------------------------------

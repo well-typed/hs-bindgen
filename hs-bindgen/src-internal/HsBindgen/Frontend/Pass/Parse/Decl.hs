@@ -169,16 +169,11 @@ parseDeclWith ::
   -> Parser
 parseDeclWith parser requiredForScoping kind curr = do
     info <- getDeclInfo curr kind
-    let isBuiltin = case C.declId info of
-          C.PrelimDeclIdBuiltin{} -> True
-          _otherwise              -> False
-        isUnavailable = case C.declAvailability info of
+    let isUnavailable = case C.declAvailability info of
           C.Unavailable -> True
           _otherwise    -> False
 
-    if | isBuiltin -> foldContinueWith
-           [parseDoNotAttempt info DeclarationBuiltin]
-       | isUnavailable -> foldContinueWith
+    if | isUnavailable -> foldContinueWith
            [parseDoNotAttempt info DeclarationUnavailable]
        | RequiredForScoping <- requiredForScoping ->
            parser info curr
@@ -197,15 +192,23 @@ parseDeclWith parser requiredForScoping kind curr = do
 -- NOTE: We rely on selection to filter out clang internal macro declarations.
 macroDefinition :: HasCallStack => C.DeclInfo Parse -> Parser
 macroDefinition info = \curr -> do
-    unit <- getTranslationUnit
-    let mkDecl :: UnparsedMacro -> C.Decl Parse
-        mkDecl body = C.Decl{
-            declInfo = info
-          , declKind = C.DeclMacro body
-          , declAnn  = NoAnn
-          }
-    decl <- mkDecl <$> getUnparsedMacro unit curr
-    foldContinueWith [parseSucceed decl]
+    -- For built-in macros we cannot get the list of tokens, so we skip them.
+    mBuiltin <- C.checkIsBuiltin curr
+    case mBuiltin of
+      Just _builtin ->
+        -- If there /specific/ built-in macros that we want to support, we need
+        -- to special-case them. For now, we just skip all of them.
+        foldContinue
+      Nothing -> do
+        unit <- getTranslationUnit
+        let mkDecl :: UnparsedMacro -> C.Decl Parse
+            mkDecl body = C.Decl{
+                declInfo = info
+              , declKind = C.DeclMacro body
+              , declAnn  = NoAnn
+              }
+        decl <- mkDecl <$> getUnparsedMacro unit curr
+        foldContinueWith [parseSucceed decl]
 
 structDecl :: C.DeclInfo Parse -> Parser
 structDecl info = \curr -> do

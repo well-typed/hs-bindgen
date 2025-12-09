@@ -68,10 +68,10 @@ handleDecl td decl
   -- We emit a \"rename\" only if we truly are renaming (in some cases we
   -- just change some other properties of the identifier).
   | Just newDeclId <- Map.lookup dId td.rename
-  = ( do guard $ C.declIdName declInfo'.declId /= C.declIdName newDeclId
+  = ( do guard $ declInfo'.declId.name /= newDeclId.name
          Just $ HandleTypedefsRenamedTagged
                   declInfo'
-                  (C.declIdName newDeclId)
+                  newDeclId.name
     , Just . (:[]) $ C.Decl{
            declInfo = declInfo'{C.declId = newDeclId}
          , declKind = handleUseSites td declKind
@@ -124,12 +124,9 @@ introduceAuxFunType td declInfo declAnn args res = [
     derefDecl = C.Decl {
           declInfo = declInfo {
               C.declId = C.DeclId{
-                  name =
-                    C.DeclIdNamed $ C.declIdName declInfo.declId <> "_Deref"
-                , nameKind =
-                    C.NameKindOrdinary
-                , haskellId =
-                    ()
+                  name       = declInfo.declId.name <> "_Deref"
+                , nameKind   = C.NameKindOrdinary
+                , haskellId  = ()
                 , origDeclId =
                     case declInfo.declId.origDeclId of
                       C.OrigDeclId orig    -> C.AuxForDecl orig
@@ -165,7 +162,7 @@ introduceAuxFunType td declInfo declAnn args res = [
           Clang.Paragraph [
               Clang.TextContent "Auxiliary type used by "
             , Clang.InlineRefCommand $
-                C.CommentRef (C.declIdName declInfo.declId) Nothing
+                C.CommentRef declInfo.declId.name Nothing
             ]
         ]
 
