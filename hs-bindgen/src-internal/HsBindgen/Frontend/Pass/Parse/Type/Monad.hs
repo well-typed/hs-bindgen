@@ -18,7 +18,9 @@ module HsBindgen.Frontend.Pass.Parse.Type.Monad (
 import Control.Exception
 import Control.Monad.Error.Class
 import Control.Monad.IO.Class
+import Control.Monad.State.Strict
 import Data.Data (Typeable)
+import Data.Map.Strict qualified as Map
 import Foreign.C
 import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
@@ -27,6 +29,7 @@ import Clang.Enum.Simple
 import Clang.LowLevel.Core
 
 import HsBindgen.Errors
+import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -36,24 +39,32 @@ import HsBindgen.Util.Tracer
 
   Parsing declarations and parsing types have different requirements, so each
   gets its own monad.
+
+  The ParseType monad includes state for caching typedef resolution to avoid
+  redundant type parsing during typedef chain resolution. It is parametrized
+  over the phase type to avoid circular dependencies.
 -------------------------------------------------------------------------------}
 
-newtype ParseType a = Wrap {
-      unwrap :: IO a
+newtype ParseType p a = Wrap {
+      unwrap :: StateT (Map CXType (C.Type p)) IO a
     }
   deriving newtype (
       Functor
     , Applicative
     , Monad
     , MonadIO
+    , MonadState (Map CXType (C.Type p))
     )
 
-instance MonadError ParseTypeException ParseType where
-  throwError err   = Wrap $ throwIO err
-  f `catchError` h = Wrap $ catch (unwrap f) (unwrap . h)
+instance MonadError ParseTypeException (ParseType p) where
+  throwError err   = Wrap $ lift $ throwIO err
+  f `catchError` h = Wrap
+                   $ StateT
+                   $ \s -> catch (runStateT (unwrap f) s)
+                                 (\e -> runStateT (unwrap (h e)) s)
 
-run :: MonadIO m => ParseType a -> m a
-run = liftIO . unwrap
+run :: MonadIO m => ParseType p a -> m a
+run = liftIO . flip evalStateT Map.empty . unwrap
 
 {-------------------------------------------------------------------------------
   Errors

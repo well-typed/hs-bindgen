@@ -4,7 +4,9 @@ module HsBindgen.Frontend.Pass.Parse.Type (fromCXType) where
 import Control.Exception (Exception (..), SomeException (..), handle)
 import Control.Monad
 import Control.Monad.Error.Class
+import Control.Monad.State.Strict
 import Data.Data (Typeable)
+import Data.Map.Strict qualified as Map
 import GHC.Stack
 
 import Clang.Enum.Simple
@@ -37,55 +39,64 @@ fromCXType context = liftIO . handle addContextHandler . run . cxtype
   Dispatch
 -------------------------------------------------------------------------------}
 
-cxtype :: HasCallStack => CXType -> ParseType (C.Type Parse)
+cxtype :: HasCallStack => CXType -> ParseType Parse (C.Type Parse)
 cxtype ty = do
-    reifiedType <- dispatchWithArg ty $ \case
-      CXType_Char_S     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Signed)
-      CXType_Char_U     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Unsigned)
-      CXType_SChar      -> prim $ C.PrimChar (C.PrimSignExplicit C.Signed)
-      CXType_UChar      -> prim $ C.PrimChar (C.PrimSignExplicit C.Unsigned)
-      CXType_Short      -> prim $ C.PrimIntegral C.PrimShort    C.Signed
-      CXType_UShort     -> prim $ C.PrimIntegral C.PrimShort    C.Unsigned
-      CXType_Int        -> prim $ C.PrimIntegral C.PrimInt      C.Signed
-      CXType_UInt       -> prim $ C.PrimIntegral C.PrimInt      C.Unsigned
-      CXType_Long       -> prim $ C.PrimIntegral C.PrimLong     C.Signed
-      CXType_ULong      -> prim $ C.PrimIntegral C.PrimLong     C.Unsigned
-      CXType_LongLong   -> prim $ C.PrimIntegral C.PrimLongLong C.Signed
-      CXType_ULongLong  -> prim $ C.PrimIntegral C.PrimLongLong C.Unsigned
-      CXType_Float      -> prim $ C.PrimFloating C.PrimFloat
-      CXType_Double     -> prim $ C.PrimFloating C.PrimDouble
-      CXType_LongDouble -> failure UnsupportedLongDouble
-      CXType_Bool       -> prim $ C.PrimBool
-      CXType_Complex    -> complex
+    -- Check cache first
+    cache <- get
+    case Map.lookup ty cache of
+      Just cached -> pure cached
+      Nothing -> do
+        -- Cache miss: parse and cache
+        reifiedType <- dispatchWithArg ty $ \case
+          CXType_Char_S     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Signed)
+          CXType_Char_U     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Unsigned)
+          CXType_SChar      -> prim $ C.PrimChar (C.PrimSignExplicit C.Signed)
+          CXType_UChar      -> prim $ C.PrimChar (C.PrimSignExplicit C.Unsigned)
+          CXType_Short      -> prim $ C.PrimIntegral C.PrimShort    C.Signed
+          CXType_UShort     -> prim $ C.PrimIntegral C.PrimShort    C.Unsigned
+          CXType_Int        -> prim $ C.PrimIntegral C.PrimInt      C.Signed
+          CXType_UInt       -> prim $ C.PrimIntegral C.PrimInt      C.Unsigned
+          CXType_Long       -> prim $ C.PrimIntegral C.PrimLong     C.Signed
+          CXType_ULong      -> prim $ C.PrimIntegral C.PrimLong     C.Unsigned
+          CXType_LongLong   -> prim $ C.PrimIntegral C.PrimLongLong C.Signed
+          CXType_ULongLong  -> prim $ C.PrimIntegral C.PrimLongLong C.Unsigned
+          CXType_Float      -> prim $ C.PrimFloating C.PrimFloat
+          CXType_Double     -> prim $ C.PrimFloating C.PrimDouble
+          CXType_LongDouble -> failure UnsupportedLongDouble
+          CXType_Bool       -> prim $ C.PrimBool
+          CXType_Complex    -> complex
 
-      CXType_Attributed      -> attributed
-      CXType_BlockPointer    -> blockPointer
-      CXType_ConstantArray   -> constantArray
-      CXType_Elaborated      -> elaborated
-      CXType_Enum            -> fromDecl
-      CXType_FunctionNoProto -> function False
-      CXType_FunctionProto   -> function True
-      CXType_IncompleteArray -> incompleteArray
-      CXType_Pointer         -> pointer
-      CXType_Record          -> fromDecl
-      CXType_Typedef         -> fromDecl
-      CXType_Void            -> const (pure C.TypeVoid)
+          CXType_Attributed      -> attributed
+          CXType_BlockPointer    -> blockPointer
+          CXType_ConstantArray   -> constantArray
+          CXType_Elaborated      -> elaborated
+          CXType_Enum            -> fromDecl
+          CXType_FunctionNoProto -> function False
+          CXType_FunctionProto   -> function True
+          CXType_IncompleteArray -> incompleteArray
+          CXType_Pointer         -> pointer
+          CXType_Record          -> fromDecl
+          CXType_Typedef         -> fromDecl
+          CXType_Void            -> const (pure C.TypeVoid)
 
-      kind -> failure $ UnexpectedTypeKind (Right kind)
-    isConst <- clang_isConstQualifiedType ty
-    pure $ if isConst then C.TypeConst reifiedType else reifiedType
+          kind -> failure $ UnexpectedTypeKind (Right kind)
+        isConst <- clang_isConstQualifiedType ty
+        let result = if isConst then C.TypeConst reifiedType else reifiedType
+        -- Cache the result
+        modify' (Map.insert ty result)
+        pure result
   where
-    failure :: ParseTypeException -> CXType -> ParseType (C.Type Parse)
+    failure :: ParseTypeException -> CXType -> ParseType Parse (C.Type Parse)
     failure err _ty = throwError err
 
 {-------------------------------------------------------------------------------
   Functions for each kind of type
 -------------------------------------------------------------------------------}
 
-prim :: C.PrimType -> CXType -> ParseType (C.Type Parse)
+prim :: C.PrimType -> CXType -> ParseType Parse (C.Type Parse)
 prim ty _ = return $ C.TypePrim ty
 
-complex :: CXType -> ParseType (C.Type Parse)
+complex :: CXType -> ParseType Parse (C.Type Parse)
 complex ty = do
   complexType <- clang_getElementType ty
   cty         <- cxtype complexType
@@ -93,13 +104,13 @@ complex ty = do
     C.TypePrim p -> pure (C.TypeComplex p)
     _            -> throwError $ UnexpectedComplexType complexType
 
-elaborated :: CXType -> ParseType (C.Type Parse)
+elaborated :: CXType -> ParseType Parse (C.Type Parse)
 elaborated = clang_Type_getNamedType >=> cxtype
 
-pointer :: CXType -> ParseType (C.Type Parse)
+pointer :: CXType -> ParseType Parse (C.Type Parse)
 pointer = clang_getPointeeType >=> fmap C.TypePointer . cxtype
 
-fromDecl :: HasCallStack => CXType -> ParseType (C.Type Parse)
+fromDecl :: HasCallStack => CXType -> ParseType Parse (C.Type Parse)
 fromDecl ty = do
     decl     <- clang_getTypeDeclaration ty
     mBuiltin <- C.checkIsBuiltin decl
@@ -140,7 +151,7 @@ fromDecl ty = do
           throwIO (UnsupportedUnderlyingType n e')
       | otherwise = throwIO e
 
-function :: Bool -> CXType -> ParseType (C.Type Parse)
+function :: Bool -> CXType -> ParseType Parse (C.Type Parse)
 function hasProto ty = do
     isVariadic <-
       -- Functions without a prototype (that is, without declared arguments)
@@ -159,21 +170,21 @@ function hasProto ty = do
       pure $ C.TypeFun (map adjustFunctionTypesToPointers args)
                        (adjustFunctionTypesToPointers res)
 
-constantArray :: CXType -> ParseType (C.Type Parse)
+constantArray :: CXType -> ParseType Parse (C.Type Parse)
 constantArray ty = do
     n   <- fromIntegral <$> clang_getArraySize ty
     ty' <- cxtype =<< clang_getArrayElementType ty
     return (C.TypeConstArray n ty')
 
-incompleteArray :: CXType -> ParseType (C.Type Parse)
+incompleteArray :: CXType -> ParseType Parse (C.Type Parse)
 incompleteArray ty = do
     ty' <- cxtype =<< clang_getArrayElementType ty
     return (C.TypeIncompleteArray ty')
 
-attributed :: CXType -> ParseType (C.Type Parse)
+attributed :: CXType -> ParseType Parse (C.Type Parse)
 attributed ty = cxtype =<< clang_Type_getModifiedType ty
 
-blockPointer :: CXType -> ParseType (C.Type Parse)
+blockPointer :: CXType -> ParseType Parse (C.Type Parse)
 blockPointer ty = do
     fun <- function True =<< clang_getPointeeType ty
     return (C.TypeBlock fun)
