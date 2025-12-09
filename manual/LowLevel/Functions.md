@@ -57,27 +57,27 @@ foreign import {-# details elided #-} square
   :: FC.CInt -> IO FC.CInt
 
 -- This is a wrapper around an internal foreign import. Details are elided.
-square_ptr :: F.FunPtr (FC.CInt -> IO FC.CInt)
+square :: F.FunPtr (FC.CInt -> IO FC.CInt)
 
 foreign import {-# details elided #-} apply
   :: F.FunPtr (FC.CInt -> IO FC.CInt) -> FC.CInt -> IO FC.CInt
 
 -- This is a wrapper around an internal foreign import. Details are elided.
-apply_ptr :: F.FunPtr ((F.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
+apply :: F.FunPtr ((F.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
 ```
 
 A binding to the address of a C function is generated using a stub, just like we
 do for bindings to global variables. See the [Globals][globals] section of the
 manual for more information about stubs.
 
-Note that we've also generated `apply_ptr`, even though we did not need it in
+Note that we've also generated `apply`, even though we did not need it in
 this case. `hs-bindgen` generates address stubs for *all* function declarations.
 
 We might use these bindings as follows:
 
 ```hs
 main = do
-  y <- apply square_ptr 4
+  y <- apply square 4
   print y -- prints 16
 ```
 
@@ -141,7 +141,7 @@ foreign import {-# details elided #-} apply1_nopointer_arg
   :: FunPtr Int2int -> CInt -> IO CInt
 ```
 
-Similarly, the address stubs `apply1_pointer_arg_ptr` and `apply1_nopointer_arg_ptr` that
+Similarly, the address stubs `apply1_pointer_arg` and `apply1_nopointer_arg` that
 we generate (see the ["Function pointers" section](#function-pointers)) would
 get the exact same type as the other.
 
