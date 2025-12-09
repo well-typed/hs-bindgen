@@ -28,7 +28,7 @@ import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
 {-| Auxiliary type used by 'F1'
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:9:16@
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:7:16@
 
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -67,7 +67,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F1_Deref "un_F1_Deref" where
 
 {-| __C declaration:__ @f1@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:9:16@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:7:16@
 
     __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -91,7 +91,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F1 "un_F1" where
 
 {-| Auxiliary type used by 'F2'
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:12:17@
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:10:17@
 
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -130,7 +130,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F2_Deref "un_F2_Deref" where
 
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:12:17@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:10:17@
 
     __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -155,7 +155,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F2 "un_F2" where
 
 {-| Auxiliary type used by 'F3'
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:15:18@
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:13:18@
 
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -194,7 +194,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F3_Deref "un_F3_Deref" where
 
 {-| __C declaration:__ @f3@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:15:18@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:13:18@
 
     __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -219,7 +219,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F3 "un_F3" where
 
 {-| Auxiliary type used by 'F4'
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:18:16@
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:16:16@
 
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -257,7 +257,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F4_Deref "un_F4_Deref" where
 
 {-| __C declaration:__ @f4@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:18:16@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:16:16@
 
     __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -282,7 +282,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F4 "un_F4" where
 
 {-| Auxiliary type used by 'F5'
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:21:17@
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:19:17@
 
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -320,7 +320,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F5_Deref "un_F5_Deref" where
 
 {-| __C declaration:__ @f5@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:21:17@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:19:17@
 
     __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -345,7 +345,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F5 "un_F5" where
 
 {-| __C declaration:__ @MyInt@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:24:13@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:22:13@
 
     __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -369,7 +369,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MyInt "un_MyInt" where
 
 {-| Auxiliary type used by 'F6'
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:25:17@
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:23:17@
 
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -408,7 +408,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F6_Deref "un_F6_Deref" where
 
 {-| __C declaration:__ @f6@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:25:17@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:23:17@
 
     __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
