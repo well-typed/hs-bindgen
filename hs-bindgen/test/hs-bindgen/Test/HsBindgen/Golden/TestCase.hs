@@ -257,8 +257,11 @@ runTestHsBindgenSuccess ::
 runTestHsBindgenSuccess report resources test artefacts = do
     eRes <- runTestHsBindgen report resources test artefacts
     case eRes of
-      Left er -> assertFailure (show er)
+      Left er -> assertFailure (msgWith er)
       Right r -> pure r
+  where
+    msgWith :: BindgenError -> String
+    msgWith e = "Expected 'hs-bindgen' to succeed, but received an error: " <> show e
 
 runTestHsBindgenFailure ::
       Show b
@@ -271,4 +274,11 @@ runTestHsBindgenFailure report resources test artefacts = do
     eRes <- runTestHsBindgen report resources test artefacts
     case eRes of
       Left er -> pure er
-      Right r -> assertFailure (show r)
+      Right r -> assertFailure (msgWith r)
+  where
+    msgWith :: Show b => b -> String
+    msgWith r = mconcat [
+        "Expected 'hs-bindgen' to fail, "
+      , "but it succeeded with the following list of declarations:\n"
+      , show r
+      ]
