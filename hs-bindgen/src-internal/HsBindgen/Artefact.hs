@@ -1,19 +1,11 @@
 module HsBindgen.Artefact (
+    -- * Artefacts
     Artefact(..)
-  , ArtefactM
-  , ArtefactEnv(..)
   , runArtefacts
-  , ArtefactMsg(..)
   )
 where
 
 import Control.Monad (liftM)
-import Control.Monad.Except (ExceptT (..), MonadError (..), runExceptT)
-import Control.Monad.Trans.Class (lift)
-import Control.Monad.Trans.Reader (ReaderT (runReaderT))
-import Data.IORef (IORef)
-import Text.SimplePrettyPrint ((<+>))
-import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Paths
 
@@ -26,6 +18,7 @@ import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Boot
 import HsBindgen.Config
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
+import HsBindgen.DelayedIO
 import HsBindgen.Frontend
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
@@ -35,7 +28,6 @@ import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Artefact
@@ -63,7 +55,7 @@ data Artefact (a :: Star) where
   FinalModuleUnsafe   :: Artefact HsModule
   FinalModules        :: Artefact (ByCategory HsModule)
   -- * Lift and sequence artefacts
-  Lift                :: ArtefactM a -> Artefact a
+  Lift                :: DelayedIOM a -> Artefact a
   Bind                :: Artefact b  -> (b -> Artefact c ) -> Artefact c
 
 instance Functor Artefact where
@@ -81,20 +73,6 @@ instance Monad Artefact where
   (>>=) :: Artefact a -> (a -> Artefact b) -> Artefact b
   (>>=) = Bind
 
-instance MonadIO Artefact where
-  liftIO :: IO a -> Artefact a
-  liftIO = Lift . liftIO
-
-{-------------------------------------------------------------------------------
-  Artefact monad
--------------------------------------------------------------------------------}
-
-type ArtefactM = ReaderT ArtefactEnv IO
-
-data ArtefactEnv = ArtefactEnv {
-      artefactTracer :: Tracer ArtefactMsg
-    }
-
 {-------------------------------------------------------------------------------
   Run artefacts
 -------------------------------------------------------------------------------}
@@ -103,71 +81,40 @@ data ArtefactEnv = ArtefactEnv {
 --
 -- All top-level artefacts will be cached (this is not true for computed
 -- artefacts, using, for example, the 'Functor' interface, or 'Lift').
-runArtefacts :: forall e a.
-     Tracer ArtefactMsg
-  -> IORef (TracerState e)
-  -> BootArtefact
+runArtefacts :: forall a.
+     BootArtefact
   -> FrontendArtefact
   -> BackendArtefact
   -> Artefact a
-  -> IO (Either (TraceException e) a)
+  -> IO (a, [DelayedIO])
 runArtefacts
-  tracer
-  tracerStateRef
   BootArtefact{..}
   FrontendArtefact{..}
   BackendArtefact{..}
-  artefact = runReaderT (runExceptT (runArtefact artefact)) env
+  artefact = second reverse <$> (runDelayedIOM $ runArtefact artefact)
   where
-    env :: ArtefactEnv
-    env = ArtefactEnv tracer
-
-    runArtefact :: forall x. Artefact x -> ExceptT (TraceException e) ArtefactM x
+    runArtefact :: forall x. Artefact x -> DelayedIOM x
     runArtefact = \case
-      --Boot.
-      Target              -> liftIO bootTarget
-      HashIncludeArgs     -> liftIO bootHashIncludeArgs
-      -- Frontend.
-      IncludeGraph        -> liftIO frontendIncludeGraph
-      GetMainHeaders      -> liftIO frontendGetMainHeaders
-      DeclIndex           -> liftIO frontendIndex
-      UseDeclGraph        -> liftIO frontendUseDeclGraph
-      DeclUseGraph        -> liftIO frontendDeclUseGraph
-      OmitTypes           -> liftIO frontendOmitTypes
-      ReifiedC            -> liftIO frontendCDecls
-      Dependencies        -> liftIO frontendDependencies
-      -- Backend.
-      HsDecls             -> liftIO backendHsDecls
-      FinalDecls          -> liftIO backendFinalDecls
-      FinalModuleBaseName -> pure backendFinalModuleBaseName
-      FinalModuleSafe     -> liftIO backendFinalModuleSafe
-      FinalModuleUnsafe   -> liftIO backendFinalModuleUnsafe
-      FinalModules        -> liftIO backendFinalModules
-      -- Lift and sequence.
-      (Lift f)            -> lift f
-      (Bind x   f)        -> do
-        r <- runArtefact x
-        -- Check tracer state for 'Error' traces
-        mbError <- checkTracerState tracerStateRef
-        case mbError of
-          Just err -> throwError err
-          Nothing  -> runArtefact $ f r
+        --Boot.
+        Target              -> runCached bootTarget
+        HashIncludeArgs     -> runCached bootHashIncludeArgs
+        -- Frontend.
+        IncludeGraph        -> runCached frontendIncludeGraph
+        GetMainHeaders      -> runCached frontendGetMainHeaders
+        DeclIndex           -> runCached frontendIndex
+        UseDeclGraph        -> runCached frontendUseDeclGraph
+        DeclUseGraph        -> runCached frontendDeclUseGraph
+        OmitTypes           -> runCached frontendOmitTypes
+        ReifiedC            -> runCached frontendCDecls
+        Dependencies        -> runCached frontendDependencies
+        -- Backend.
+        HsDecls             -> runCached backendHsDecls
+        FinalDecls          -> runCached backendFinalDecls
+        FinalModuleBaseName -> pure backendFinalModuleBaseName
+        FinalModuleSafe     -> runCached backendFinalModuleSafe
+        FinalModuleUnsafe   -> runCached backendFinalModuleUnsafe
+        FinalModules        -> runCached backendFinalModules
+        -- Lift and sequence.
+        (Lift   f)          -> f
+        (Bind x f)          -> runArtefact x >>= runArtefact . f
 
-{-------------------------------------------------------------------------------
-  Traces
--------------------------------------------------------------------------------}
-
-data ArtefactMsg = RunArtefactWriteFile String FilePath
-  deriving stock (Show, Generic)
-
-instance PrettyForTrace ArtefactMsg where
-  prettyForTrace = \case
-    RunArtefactWriteFile what path ->
-      "Writing" <+> PP.showToCtxDoc what <+> "to file" <+> PP.showToCtxDoc path
-
-instance IsTrace SafeLevel ArtefactMsg where
-  getDefaultLogLevel = \case
-    RunArtefactWriteFile _ _ -> SafeInfo
-  getSource = const HsBindgen
-  getTraceId = \case
-    RunArtefactWriteFile _ _ -> "run-artefact-write-file"

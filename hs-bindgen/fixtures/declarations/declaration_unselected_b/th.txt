@@ -1,0 +1,2 @@
+-- addDependentFile examples/golden/declarations/declaration_unselected_a.h
+-- addDependentFile examples/golden/declarations/declaration_unselected_b.h

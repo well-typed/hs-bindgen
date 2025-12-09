@@ -119,9 +119,9 @@ withTracePredicate
   :: (IsTrace Level a , Typeable a, Show a)
   => (String -> IO ())
   -> TracePredicate a -> (Tracer a -> IO b) -> IO b
-withTracePredicate report predicate action = fmap fst $
+withTracePredicate report predicate action =
   withTraceConfigPredicate report predicate $ \traceConfig ->
-    withTracer' traceConfig (\t _ -> action t)
+    withTracerUnsafe traceConfig (\t _ -> action t)
 
 -- | Run an action with a tracer configuration that collects all trace messages.
 --

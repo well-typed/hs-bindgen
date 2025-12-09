@@ -116,6 +116,7 @@ library internal
     HsBindgen.Config.FixCandidate.ReservedNames
     HsBindgen.Config.Internal
     HsBindgen.Config.Prelims
+    HsBindgen.DelayedIO
     HsBindgen.Eff
     HsBindgen.Errors
     HsBindgen.Frontend
@@ -281,7 +282,6 @@ executable hs-bindgen-cli
     , bytestring
     , containers
     , data-default
-    , directory
 
   -- External dependencies
   build-depends:
@@ -358,6 +358,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Check.TH
     Test.HsBindgen.Golden.TestCase
     Test.HsBindgen.Integration.ExitCode
+    Test.HsBindgen.Integration.OverwritePolicy
     Test.HsBindgen.Prop.Selection
     Test.HsBindgen.Resources
     Test.HsBindgen.Unit.ClangArgs

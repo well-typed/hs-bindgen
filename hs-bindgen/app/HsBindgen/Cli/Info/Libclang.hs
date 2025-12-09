@@ -15,6 +15,8 @@ module HsBindgen.Cli.Info.Libclang (
 
 import Options.Applicative hiding (info)
 import Prettyprinter.Util qualified as PP
+import System.Exit (exitFailure)
+import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Simple (SimpleEnum (..), simpleFromC)
 import Clang.LowLevel.Core (CXErrorCode (..))
@@ -53,8 +55,8 @@ parseOpts = Opts <$> parseClangArgsConfig
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec GlobalOpts{..} Opts{..} =
-    void . withTracer tracerConfigWithoutASTReadError $ \tracer _ -> do
+exec GlobalOpts{..} Opts{..} = do
+    eRes <- withTracer tracerConfigWithoutASTReadError $ \tracer -> do
       (clangArgs, _target) <-
         getClangArgsAndTarget (contramap TraceBoot tracer) clangArgsConfig
       let hasNoUserOptions = hasNoUserClangOptions clangArgsConfig
@@ -71,6 +73,11 @@ exec GlobalOpts{..} Opts{..} =
         (contramap (TraceFrontend . FrontendClang) tracer)
         setup
         (const (return Nothing))
+    case eRes of
+      Left e  -> do
+        putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace e
+        exitFailure
+      Right _ -> pure ()
   where
     -- Check if user provided any Clang options via command line
     --

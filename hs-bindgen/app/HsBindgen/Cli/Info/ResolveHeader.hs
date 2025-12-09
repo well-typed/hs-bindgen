@@ -17,6 +17,7 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Options.Applicative hiding (info)
 import System.Exit (ExitCode (ExitFailure))
+import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.App
 import HsBindgen.Boot
@@ -55,7 +56,7 @@ parseOpts =
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
-    eErr <- withTracer tracerConfig' $ \tracer _ -> do
+    eErr <- withTracer tracerConfig' $ \tracer -> do
       hashIncludeArgs <- checkInputs tracer inputs
       (clangArgs, _target) <-
         getClangArgsAndTarget (contramap TraceBoot tracer) clangArgsConfig
@@ -75,7 +76,8 @@ exec GlobalOpts{..} Opts{..} = do
     case eErr of
       Right False -> return ()
       Right True  -> throwIO (ExitFailure 1)
-      Left e      -> throwIO e
+      Left e      -> do
+        putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace e
   where
     tracerConfig' :: TracerConfig Level TraceMsg
     tracerConfig' = tracerConfig{

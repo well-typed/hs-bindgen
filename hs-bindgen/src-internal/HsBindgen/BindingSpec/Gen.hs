@@ -47,14 +47,12 @@ import HsBindgen.Language.Haskell qualified as Hs
 genBindingSpec ::
      ClangArgs.Target
   -> Hs.ModuleName
-  -> FilePath
   -> GetMainHeaders
   -> [(C.QualName, SourcePath)]
   -> [Hs.Decl]
-  -> IO ()
-genBindingSpec target hsModuleName path getMainHeaders omitTypes =
-      BindingSpec.writeFile path
-    . genBindingSpec' target hsModuleName getMainHeaders omitTypes
+  -> UnresolvedBindingSpec
+genBindingSpec target hsModuleName getMainHeaders omitTypes =
+  genBindingSpec' target hsModuleName getMainHeaders omitTypes
 
 {-------------------------------------------------------------------------------
   Internal API (for tests)

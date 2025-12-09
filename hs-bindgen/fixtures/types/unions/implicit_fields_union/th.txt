@@ -1,0 +1,1 @@
+-- addDependentFile examples/golden/types/unions/implicit_fields_union.h

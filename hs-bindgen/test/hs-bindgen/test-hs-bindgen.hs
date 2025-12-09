@@ -2,6 +2,7 @@ module Main (main) where
 
 import Test.HsBindgen.Golden qualified as Golden
 import Test.HsBindgen.Integration.ExitCode qualified as Integration.ExitCode
+import Test.HsBindgen.Integration.OverwritePolicy qualified as Integration.OverwritePolicy
 import Test.HsBindgen.Prop.Selection qualified as Prop.Selection
 import Test.HsBindgen.Resources
 import Test.HsBindgen.Unit.ClangArgs qualified as Unit.ClangArgs
@@ -21,6 +22,7 @@ main = defaultMain $ withTestResources $ \testResources ->
           ]
       , testGroup "integration tests" [
             Integration.ExitCode.tests testResources
+          , Integration.OverwritePolicy.tests testResources
           ]
       , testGroup "property tests" [
             Prop.Selection.tests
