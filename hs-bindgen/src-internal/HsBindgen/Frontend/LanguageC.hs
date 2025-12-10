@@ -39,7 +39,7 @@ import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
 import HsBindgen.Frontend.Naming
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -223,7 +223,7 @@ bespokeTypes = \case
    -- (i.e., are not part of the standard), we will pretend to know what these
    -- types are, but the actual type must come from a header, and we actually do
    -- not know what that defintion is.
-   C23 -> [("bool"   , TypePrim PrimBool)]
+   C23 -> [("bool"   , TypePrim C.PrimBool)]
    _otherwise -> []
 
 {-------------------------------------------------------------------------------

@@ -23,7 +23,7 @@ import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level: construct the partial AST
@@ -120,7 +120,9 @@ instance CanApply p
   'PartialType'
 -------------------------------------------------------------------------------}
 
-withSign :: ValidPass p => Update p (Maybe PrimSign -> PrimType) (PartialType p)
+withSign ::
+     ValidPass p
+  => Update p (Maybe C.PrimSign -> C.PrimType) (PartialType p)
 withSign f = \case
     PartialUnknown unknown -> do
       let UnknownType{unknownSign, unknownConst} = unknown
@@ -146,7 +148,7 @@ notFun typ = \case
     other ->
       unexpected $ show other
 
-setSign :: ValidPass p => Update p PrimSign (PartialType p)
+setSign :: ValidPass p => Update p C.PrimSign (PartialType p)
 setSign sign = \case
     PartialUnknown unknown ->
       return $ PartialUnknown $ Optics.set #unknownSign (Just sign) unknown
@@ -161,13 +163,13 @@ instance CanApply p
       LanC.CVoidType _a -> notFun $ TypeVoid
 
       -- Primitive types
-      LanC.CCharType   _a -> withSign $ PrimChar . charSign
-      LanC.CShortType  _a -> withSign $ PrimIntegral PrimShort . fromMaybe Signed
-      LanC.CIntType    _a -> withSign $ PrimIntegral PrimInt   . fromMaybe Signed
-      LanC.CLongType   _a -> withSign $ PrimIntegral PrimLong  . fromMaybe Signed
-      LanC.CFloatType  _a -> notFun $ TypePrim $ PrimFloating PrimFloat
-      LanC.CDoubleType _a -> notFun $ TypePrim $ PrimFloating PrimDouble
-      LanC.CBoolType   _a -> notFun $ TypePrim $ PrimBool
+      LanC.CCharType   _a -> withSign $ C.PrimChar . charSign
+      LanC.CShortType  _a -> withSign $ C.PrimIntegral C.PrimShort . fromMaybe C.Signed
+      LanC.CIntType    _a -> withSign $ C.PrimIntegral C.PrimInt   . fromMaybe C.Signed
+      LanC.CLongType   _a -> withSign $ C.PrimIntegral C.PrimLong  . fromMaybe C.Signed
+      LanC.CFloatType  _a -> notFun $ TypePrim $ C.PrimFloating C.PrimFloat
+      LanC.CDoubleType _a -> notFun $ TypePrim $ C.PrimFloating C.PrimDouble
+      LanC.CBoolType   _a -> notFun $ TypePrim $ C.PrimBool
 
       -- Complex types
       LanC.CComplexType _a -> \case
@@ -177,8 +179,8 @@ instance CanApply p
           unexpected $ show other
 
       -- Sign specifiers
-      LanC.CSignedType _a -> setSign Signed
-      LanC.CUnsigType  _a -> setSign Unsigned
+      LanC.CSignedType _a -> setSign C.Signed
+      LanC.CUnsigType  _a -> setSign C.Unsigned
 
       -- Unsupported types
       LanC.CInt128Type{}   -> \_ -> unsupported "CInt128Type"
@@ -208,9 +210,9 @@ instance CanApply p
           Nothing  -> unexpected $ "user-defined type " ++ show name
           Just typ -> notFun typ partial
     where
-      charSign :: Maybe PrimSign -> PrimSignChar
-      charSign Nothing     = PrimSignImplicit Nothing
-      charSign (Just sign) = PrimSignExplicit sign
+      charSign :: Maybe C.PrimSign -> C.PrimSignChar
+      charSign Nothing     = C.PrimSignImplicit Nothing
+      charSign (Just sign) = C.PrimSignExplicit sign
 
       typeRef :: Name -> TagKind -> Type p
       typeRef tag kind = TypeRef $ PrelimDeclIdNamed tag (NameKindTagged kind)

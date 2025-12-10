@@ -17,7 +17,7 @@ module HsBindgen.Frontend.LanguageC.PartialAST (
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -36,7 +36,7 @@ data PartialType p =
 
 -- | The type itself is not yet known, but may have some qualifiers
 data UnknownType = UnknownType{
-      unknownSign  :: Maybe PrimSign
+      unknownSign  :: Maybe C.PrimSign
     , unknownConst :: Bool
     }
   deriving stock (Show, Generic)
