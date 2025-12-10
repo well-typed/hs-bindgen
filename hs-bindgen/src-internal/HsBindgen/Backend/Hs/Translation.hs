@@ -1558,7 +1558,7 @@ constGetter ::
   -> Hs.Name Hs.NsVar
   -> [Hs.Decl]
 constGetter ty instsMap info pureStubName = concat [
-          [ Hs.DeclSimple $ SHs.DPragma (SHs.NOINLINE getterName)
+          [ Hs.DeclPragma (SHs.NOINLINE getterName)
           , getterDecl
           ]
         | -- We must have a storable instance available without any constraints.
@@ -1581,7 +1581,7 @@ constGetter ty instsMap info pureStubName = concat [
     --
     -- The "getter" peeks the value from the pointer
     getterDecl :: Hs.Decl
-    getterDecl = Hs.DeclSimple $ SHs.DVar $ SHs.Var {
+    getterDecl = Hs.DeclVar $ SHs.Var {
           varName    = getterName
         , varType    = getterType
         , varExpr    = getterExpr
@@ -1679,12 +1679,12 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
 
     runnerDecls :: [Hs.Decl]
     runnerDecls = [
-          Hs.DeclSimple $ SHs.DPragma (SHs.NOINLINE runnerName)
+          Hs.DeclPragma (SHs.NOINLINE runnerName)
         , runnerDecl
         ]
 
     runnerDecl :: Hs.Decl
-    runnerDecl = Hs.DeclSimple $ SHs.DVar $ SHs.Var {
+    runnerDecl = Hs.DeclVar $ SHs.Var {
           varName    = runnerName
         , varType    = runnerType
         , varExpr    = runnerExpr
