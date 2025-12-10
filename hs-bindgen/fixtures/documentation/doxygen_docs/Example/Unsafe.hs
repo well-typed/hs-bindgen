@@ -439,8 +439,7 @@ __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_versioned_function@
 -}
 foreign import ccall unsafe "hs_bindgen_da2dcc1473935665" versioned_function ::
      FC.CInt
-     {- ^ __C declaration:__ @data'@
-     -}
+     -- ^ __C declaration:__ @data'@
   -> IO FC.CInt
 
 {-|
@@ -630,8 +629,7 @@ foreign import ccall unsafe "hs_bindgen_fd6fce7c8d8b2f79" complex_function ::
      __C declaration:__ @config@
      -}
   -> HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8
-     {- ^ __C declaration:__ @data'@
-     -}
+     -- ^ __C declaration:__ @data'@
   -> HsBindgen.Runtime.Prelude.CSize
      {- ^
 
@@ -655,8 +653,7 @@ __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_hash@
 -}
 foreign import ccall unsafe "hs_bindgen_dd36c8b317ccfcc4" hash ::
      Ptr.Ptr FC.CChar
-     {- ^ __C declaration:__ @s@
-     -}
+     -- ^ __C declaration:__ @s@
   -> IO FC.CInt
 
 {-| __C declaration:__ @square@
@@ -669,6 +666,5 @@ foreign import ccall unsafe "hs_bindgen_dd36c8b317ccfcc4" hash ::
 -}
 foreign import ccall unsafe "hs_bindgen_6875e30a7fe8d30a" square ::
      FC.CInt
-     {- ^ __C declaration:__ @x@
-     -}
+     -- ^ __C declaration:__ @x@
   -> FC.CInt

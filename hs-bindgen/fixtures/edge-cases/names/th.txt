@@ -800,8 +800,7 @@ foreign import ccall safe "hs_bindgen_b9d80fa39d7ebb06" unsafe :: IO Unit
     __unique:__ @test_edgecasesnames_Example_Unsafe_via@
 -}
 foreign import ccall safe "hs_bindgen_708f6397f5e5ac73" via :: IO Unit
-{-| __unique:__ @test_edgecasesnames_Example_get_by_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_by_ptr@
 foreign import ccall safe "hs_bindgen_6974dc9d1fd9efdb" hs_bindgen_6974dc9d1fd9efdb :: IO (FunPtr (IO Unit))
 {-# NOINLINE by'_ptr #-}
 {-| __C declaration:__ @by@
@@ -818,8 +817,7 @@ by'_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 by'_ptr = unsafePerformIO hs_bindgen_6974dc9d1fd9efdb
-{-| __unique:__ @test_edgecasesnames_Example_get_forall_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_forall_ptr@
 foreign import ccall safe "hs_bindgen_3b643ea94c4ffa20" hs_bindgen_3b643ea94c4ffa20 :: IO (FunPtr (IO Unit))
 {-# NOINLINE forall'_ptr #-}
 {-| __C declaration:__ @forall@
@@ -836,8 +834,7 @@ forall'_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 forall'_ptr = unsafePerformIO hs_bindgen_3b643ea94c4ffa20
-{-| __unique:__ @test_edgecasesnames_Example_get_mdo_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_mdo_ptr@
 foreign import ccall safe "hs_bindgen_75a958dcb6aa760d" hs_bindgen_75a958dcb6aa760d :: IO (FunPtr (IO Unit))
 {-# NOINLINE mdo'_ptr #-}
 {-| __C declaration:__ @mdo@
@@ -854,8 +851,7 @@ mdo'_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 mdo'_ptr = unsafePerformIO hs_bindgen_75a958dcb6aa760d
-{-| __unique:__ @test_edgecasesnames_Example_get_pattern_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_pattern_ptr@
 foreign import ccall safe "hs_bindgen_2dca22d927c6b6c9" hs_bindgen_2dca22d927c6b6c9 :: IO (FunPtr (IO Unit))
 {-# NOINLINE pattern'_ptr #-}
 {-| __C declaration:__ @pattern@
@@ -872,8 +868,7 @@ pattern'_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 pattern'_ptr = unsafePerformIO hs_bindgen_2dca22d927c6b6c9
-{-| __unique:__ @test_edgecasesnames_Example_get_proc_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_proc_ptr@
 foreign import ccall safe "hs_bindgen_278f3b1df8a83886" hs_bindgen_278f3b1df8a83886 :: IO (FunPtr (IO Unit))
 {-# NOINLINE proc'_ptr #-}
 {-| __C declaration:__ @proc@
@@ -890,8 +885,7 @@ proc'_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 proc'_ptr = unsafePerformIO hs_bindgen_278f3b1df8a83886
-{-| __unique:__ @test_edgecasesnames_Example_get_rec_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_rec_ptr@
 foreign import ccall safe "hs_bindgen_3be0a960ee51c3e9" hs_bindgen_3be0a960ee51c3e9 :: IO (FunPtr (IO Unit))
 {-# NOINLINE rec'_ptr #-}
 {-| __C declaration:__ @rec@
@@ -908,8 +902,7 @@ rec'_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 rec'_ptr = unsafePerformIO hs_bindgen_3be0a960ee51c3e9
-{-| __unique:__ @test_edgecasesnames_Example_get_using_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_using_ptr@
 foreign import ccall safe "hs_bindgen_84e44d3bf799af26" hs_bindgen_84e44d3bf799af26 :: IO (FunPtr (IO Unit))
 {-# NOINLINE using'_ptr #-}
 {-| __C declaration:__ @using@
@@ -926,8 +919,7 @@ using'_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 using'_ptr = unsafePerformIO hs_bindgen_84e44d3bf799af26
-{-| __unique:__ @test_edgecasesnames_Example_get_anyclass_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_anyclass_ptr@
 foreign import ccall safe "hs_bindgen_95cf172ae2160046" hs_bindgen_95cf172ae2160046 :: IO (FunPtr (IO Unit))
 {-# NOINLINE anyclass_ptr #-}
 {-| __C declaration:__ @anyclass@
@@ -944,8 +936,7 @@ anyclass_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 anyclass_ptr = unsafePerformIO hs_bindgen_95cf172ae2160046
-{-| __unique:__ @test_edgecasesnames_Example_get_capi_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_capi_ptr@
 foreign import ccall safe "hs_bindgen_ea4d99f6c2e96742" hs_bindgen_ea4d99f6c2e96742 :: IO (FunPtr (IO Unit))
 {-# NOINLINE capi_ptr #-}
 {-| __C declaration:__ @capi@
@@ -962,8 +953,7 @@ capi_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 capi_ptr = unsafePerformIO hs_bindgen_ea4d99f6c2e96742
-{-| __unique:__ @test_edgecasesnames_Example_get_cases_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_cases_ptr@
 foreign import ccall safe "hs_bindgen_aff69f10c4c30a0d" hs_bindgen_aff69f10c4c30a0d :: IO (FunPtr (IO Unit))
 {-# NOINLINE cases_ptr #-}
 {-| __C declaration:__ @cases@
@@ -980,8 +970,7 @@ cases_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 cases_ptr = unsafePerformIO hs_bindgen_aff69f10c4c30a0d
-{-| __unique:__ @test_edgecasesnames_Example_get_ccall_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_ccall_ptr@
 foreign import ccall safe "hs_bindgen_f5db0ca2d6dce4d5" hs_bindgen_f5db0ca2d6dce4d5 :: IO (FunPtr (IO Unit))
 {-# NOINLINE ccall_ptr #-}
 {-| __C declaration:__ @ccall@
@@ -998,8 +987,7 @@ ccall_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 ccall_ptr = unsafePerformIO hs_bindgen_f5db0ca2d6dce4d5
-{-| __unique:__ @test_edgecasesnames_Example_get_dynamic_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_dynamic_ptr@
 foreign import ccall safe "hs_bindgen_d5e3711b7b2f435e" hs_bindgen_d5e3711b7b2f435e :: IO (FunPtr (IO Unit))
 {-# NOINLINE dynamic_ptr #-}
 {-| __C declaration:__ @dynamic@
@@ -1016,8 +1004,7 @@ dynamic_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 dynamic_ptr = unsafePerformIO hs_bindgen_d5e3711b7b2f435e
-{-| __unique:__ @test_edgecasesnames_Example_get_export_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_export_ptr@
 foreign import ccall safe "hs_bindgen_c3e4c5611dd8ffdf" hs_bindgen_c3e4c5611dd8ffdf :: IO (FunPtr (IO Unit))
 {-# NOINLINE export_ptr #-}
 {-| __C declaration:__ @export@
@@ -1034,8 +1021,7 @@ export_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 export_ptr = unsafePerformIO hs_bindgen_c3e4c5611dd8ffdf
-{-| __unique:__ @test_edgecasesnames_Example_get_family_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_family_ptr@
 foreign import ccall safe "hs_bindgen_658a25f6c844805b" hs_bindgen_658a25f6c844805b :: IO (FunPtr (IO Unit))
 {-# NOINLINE family_ptr #-}
 {-| __C declaration:__ @family@
@@ -1052,8 +1038,7 @@ family_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 family_ptr = unsafePerformIO hs_bindgen_658a25f6c844805b
-{-| __unique:__ @test_edgecasesnames_Example_get_group_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_group_ptr@
 foreign import ccall safe "hs_bindgen_0c7fb62fb95f0f38" hs_bindgen_0c7fb62fb95f0f38 :: IO (FunPtr (IO Unit))
 {-# NOINLINE group_ptr #-}
 {-| __C declaration:__ @group@
@@ -1070,8 +1055,7 @@ group_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 group_ptr = unsafePerformIO hs_bindgen_0c7fb62fb95f0f38
-{-| __unique:__ @test_edgecasesnames_Example_get_interruptible_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_interruptible_ptr@
 foreign import ccall safe "hs_bindgen_bb9472bbc501c78f" hs_bindgen_bb9472bbc501c78f :: IO (FunPtr (IO Unit))
 {-# NOINLINE interruptible_ptr #-}
 {-| __C declaration:__ @interruptible@
@@ -1088,8 +1072,7 @@ interruptible_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 interruptible_ptr = unsafePerformIO hs_bindgen_bb9472bbc501c78f
-{-| __unique:__ @test_edgecasesnames_Example_get_javascript_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_javascript_ptr@
 foreign import ccall safe "hs_bindgen_0c7eeee673af7865" hs_bindgen_0c7eeee673af7865 :: IO (FunPtr (IO Unit))
 {-# NOINLINE javascript_ptr #-}
 {-| __C declaration:__ @javascript@
@@ -1106,8 +1089,7 @@ javascript_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 javascript_ptr = unsafePerformIO hs_bindgen_0c7eeee673af7865
-{-| __unique:__ @test_edgecasesnames_Example_get_label_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_label_ptr@
 foreign import ccall safe "hs_bindgen_d16291c6c6c905ab" hs_bindgen_d16291c6c6c905ab :: IO (FunPtr (IO Unit))
 {-# NOINLINE label_ptr #-}
 {-| __C declaration:__ @label@
@@ -1124,8 +1106,7 @@ label_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 label_ptr = unsafePerformIO hs_bindgen_d16291c6c6c905ab
-{-| __unique:__ @test_edgecasesnames_Example_get_prim_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_prim_ptr@
 foreign import ccall safe "hs_bindgen_0657843e52c044fe" hs_bindgen_0657843e52c044fe :: IO (FunPtr (IO Unit))
 {-# NOINLINE prim_ptr #-}
 {-| __C declaration:__ @prim@
@@ -1142,8 +1123,7 @@ prim_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 prim_ptr = unsafePerformIO hs_bindgen_0657843e52c044fe
-{-| __unique:__ @test_edgecasesnames_Example_get_role_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_role_ptr@
 foreign import ccall safe "hs_bindgen_bdbcb244d39fa251" hs_bindgen_bdbcb244d39fa251 :: IO (FunPtr (IO Unit))
 {-# NOINLINE role_ptr #-}
 {-| __C declaration:__ @role@
@@ -1160,8 +1140,7 @@ role_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 role_ptr = unsafePerformIO hs_bindgen_bdbcb244d39fa251
-{-| __unique:__ @test_edgecasesnames_Example_get_safe_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_safe_ptr@
 foreign import ccall safe "hs_bindgen_400c28e571f13194" hs_bindgen_400c28e571f13194 :: IO (FunPtr (IO Unit))
 {-# NOINLINE safe_ptr #-}
 {-| __C declaration:__ @safe@
@@ -1178,8 +1157,7 @@ safe_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 safe_ptr = unsafePerformIO hs_bindgen_400c28e571f13194
-{-| __unique:__ @test_edgecasesnames_Example_get_stdcall_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_stdcall_ptr@
 foreign import ccall safe "hs_bindgen_15aff4a3542e1023" hs_bindgen_15aff4a3542e1023 :: IO (FunPtr (IO Unit))
 {-# NOINLINE stdcall_ptr #-}
 {-| __C declaration:__ @stdcall@
@@ -1196,8 +1174,7 @@ stdcall_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 stdcall_ptr = unsafePerformIO hs_bindgen_15aff4a3542e1023
-{-| __unique:__ @test_edgecasesnames_Example_get_stock_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_stock_ptr@
 foreign import ccall safe "hs_bindgen_9df7dc3f71a3ab76" hs_bindgen_9df7dc3f71a3ab76 :: IO (FunPtr (IO Unit))
 {-# NOINLINE stock_ptr #-}
 {-| __C declaration:__ @stock@
@@ -1214,8 +1191,7 @@ stock_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 stock_ptr = unsafePerformIO hs_bindgen_9df7dc3f71a3ab76
-{-| __unique:__ @test_edgecasesnames_Example_get_unsafe_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_unsafe_ptr@
 foreign import ccall safe "hs_bindgen_aebb5b55a2d78a79" hs_bindgen_aebb5b55a2d78a79 :: IO (FunPtr (IO Unit))
 {-# NOINLINE unsafe_ptr #-}
 {-| __C declaration:__ @unsafe@
@@ -1232,8 +1208,7 @@ unsafe_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 unsafe_ptr = unsafePerformIO hs_bindgen_aebb5b55a2d78a79
-{-| __unique:__ @test_edgecasesnames_Example_get_via_ptr@
--}
+-- | __unique:__ @test_edgecasesnames_Example_get_via_ptr@
 foreign import ccall safe "hs_bindgen_c6fe1f3a125fa32d" hs_bindgen_c6fe1f3a125fa32d :: IO (FunPtr (IO Unit))
 {-# NOINLINE via_ptr #-}
 {-| __C declaration:__ @via@

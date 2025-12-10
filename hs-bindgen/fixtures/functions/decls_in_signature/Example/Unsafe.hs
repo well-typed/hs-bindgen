@@ -53,14 +53,11 @@ foreign import ccall unsafe "hs_bindgen_247ee31a29b7e5a8" normal_wrapper ::
 -}
 normal ::
      Ptr.Ptr Opaque
-     {- ^ __C declaration:__ @ptr_to_opaque@
-     -}
+     -- ^ __C declaration:__ @ptr_to_opaque@
   -> Ptr.Ptr Outside
-     {- ^ __C declaration:__ @ptr_to_defined@
-     -}
+     -- ^ __C declaration:__ @ptr_to_defined@
   -> Outside
-     {- ^ __C declaration:__ @by_value@
-     -}
+     -- ^ __C declaration:__ @by_value@
   -> IO ()
 normal =
   \x0 ->
@@ -87,8 +84,7 @@ __exported by:__ @functions\/decls_in_signature.h@
 -}
 f1 ::
      Named_struct
-     {- ^ __C declaration:__ @arg@
-     -}
+     -- ^ __C declaration:__ @arg@
   -> IO ()
 f1 = \x0 -> F.with x0 (\y1 -> f1_wrapper y1)
 
@@ -108,7 +104,6 @@ foreign import ccall unsafe "hs_bindgen_e6bb0f3956383df9" f2_wrapper ::
 -}
 f2 ::
      Named_union
-     {- ^ __C declaration:__ @arg@
-     -}
+     -- ^ __C declaration:__ @arg@
   -> IO ()
 f2 = \x0 -> F.with x0 (\y1 -> f2_wrapper y1)

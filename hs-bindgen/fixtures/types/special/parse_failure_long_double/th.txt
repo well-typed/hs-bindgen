@@ -73,8 +73,7 @@ foreign import ccall safe "hs_bindgen_a1252a3becef09a6" fun2 :: CInt ->
 -}
 foreign import ccall safe "hs_bindgen_61793546aa44e36b" fun2 :: CInt ->
                                                                 IO Unit
-{-| __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2_ptr@
--}
+-- | __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2_ptr@
 foreign import ccall safe "hs_bindgen_c526f22b76547216" hs_bindgen_c526f22b76547216 :: IO (FunPtr (CInt ->
                                                                                                    IO Unit))
 {-# NOINLINE fun2_ptr #-}

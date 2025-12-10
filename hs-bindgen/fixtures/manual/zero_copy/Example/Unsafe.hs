@@ -41,11 +41,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 -}
 foreign import ccall unsafe "hs_bindgen_f9655173d51bbaac" reverse ::
      HsBindgen.Runtime.ConstPtr.ConstPtr Vector
-     {- ^ __C declaration:__ @input@
-     -}
+     -- ^ __C declaration:__ @input@
   -> Ptr.Ptr Vector
-     {- ^ __C declaration:__ @output@
-     -}
+     -- ^ __C declaration:__ @output@
   -> IO FC.CInt
 
 {-| Pointer-based API for 'transpose'
@@ -65,11 +63,9 @@ foreign import ccall unsafe "hs_bindgen_ea25667627dd5ed2" transpose_wrapper ::
 -}
 transpose ::
      Matrix
-     {- ^ __C declaration:__ @input@
-     -}
+     -- ^ __C declaration:__ @input@
   -> Ptr.Ptr Triplet
-     {- ^ __C declaration:__ @output@
-     -}
+     -- ^ __C declaration:__ @output@
   -> IO ()
 transpose =
   \x0 ->

@@ -295,8 +295,7 @@ thing_fun_3b :: CInt -> Thing -> CDouble -> IO CChar
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_3b = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> thing_fun_3b_wrapper x_0 y_3 x_2)
-{-| __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_1_ptr@
--}
+-- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_1_ptr@
 foreign import ccall safe "hs_bindgen_025103be0a357629" hs_bindgen_025103be0a357629 :: IO (FunPtr (Thing ->
                                                                                                    IO CInt))
 {-# NOINLINE thing_fun_1_ptr #-}
@@ -314,8 +313,7 @@ thing_fun_1_ptr :: FunPtr (Thing -> IO CInt)
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_1_ptr = unsafePerformIO hs_bindgen_025103be0a357629
-{-| __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_2_ptr@
--}
+-- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_2_ptr@
 foreign import ccall safe "hs_bindgen_e66f3bfa6ad4e4c8" hs_bindgen_e66f3bfa6ad4e4c8 :: IO (FunPtr (CInt ->
                                                                                                    IO Thing))
 {-# NOINLINE thing_fun_2_ptr #-}
@@ -333,8 +331,7 @@ thing_fun_2_ptr :: FunPtr (CInt -> IO Thing)
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_2_ptr = unsafePerformIO hs_bindgen_e66f3bfa6ad4e4c8
-{-| __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3a_ptr@
--}
+-- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3a_ptr@
 foreign import ccall safe "hs_bindgen_5fea3576dcdc292f" hs_bindgen_5fea3576dcdc292f :: IO (FunPtr (CInt ->
                                                                                                    Thing ->
                                                                                                    CDouble ->
@@ -354,8 +351,7 @@ thing_fun_3a_ptr :: FunPtr (CInt -> Thing -> CDouble -> IO Thing)
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_3a_ptr = unsafePerformIO hs_bindgen_5fea3576dcdc292f
-{-| __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3b_ptr@
--}
+-- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3b_ptr@
 foreign import ccall safe "hs_bindgen_8df67f0e3a4b504f" hs_bindgen_8df67f0e3a4b504f :: IO (FunPtr (CInt ->
                                                                                                    Thing ->
                                                                                                    CDouble ->

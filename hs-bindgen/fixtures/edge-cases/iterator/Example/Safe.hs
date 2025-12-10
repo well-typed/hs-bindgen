@@ -80,8 +80,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 -}
 foreign import ccall safe "hs_bindgen_9d01035006b66206" makeToggle ::
      FC.CBool
-     {- ^ __C declaration:__ @start@
-     -}
+     -- ^ __C declaration:__ @start@
   -> IO Toggle
 
 {-| __C declaration:__ @toggleNext@
@@ -94,8 +93,7 @@ foreign import ccall safe "hs_bindgen_9d01035006b66206" makeToggle ::
 -}
 foreign import ccall safe "hs_bindgen_ccd3ba727d0c0cf4" toggleNext ::
      Toggle
-     {- ^ __C declaration:__ @block@
-     -}
+     -- ^ __C declaration:__ @block@
   -> IO FC.CBool
 
 {-| __C declaration:__ @releaseToggle@
@@ -108,8 +106,7 @@ foreign import ccall safe "hs_bindgen_ccd3ba727d0c0cf4" toggleNext ::
 -}
 foreign import ccall safe "hs_bindgen_602b40e971b06c72" releaseToggle ::
      Toggle
-     {- ^ __C declaration:__ @block@
-     -}
+     -- ^ __C declaration:__ @block@
   -> IO ()
 
 {-| __C declaration:__ @makeCounter@
@@ -122,11 +119,9 @@ foreign import ccall safe "hs_bindgen_602b40e971b06c72" releaseToggle ::
 -}
 foreign import ccall safe "hs_bindgen_234fa6f1fb089e1d" makeCounter ::
      FC.CInt
-     {- ^ __C declaration:__ @start@
-     -}
+     -- ^ __C declaration:__ @start@
   -> FC.CInt
-     {- ^ __C declaration:__ @increment@
-     -}
+     -- ^ __C declaration:__ @increment@
   -> IO Counter
 
 {-| __C declaration:__ @counterNext@
@@ -139,8 +134,7 @@ foreign import ccall safe "hs_bindgen_234fa6f1fb089e1d" makeCounter ::
 -}
 foreign import ccall safe "hs_bindgen_f0fca62d78f225c3" counterNext ::
      Counter
-     {- ^ __C declaration:__ @block@
-     -}
+     -- ^ __C declaration:__ @block@
   -> IO FC.CInt
 
 {-| __C declaration:__ @releaseCounter@
@@ -153,8 +147,7 @@ foreign import ccall safe "hs_bindgen_f0fca62d78f225c3" counterNext ::
 -}
 foreign import ccall safe "hs_bindgen_e42dcbee8a114957" releaseCounter ::
      Counter
-     {- ^ __C declaration:__ @block@
-     -}
+     -- ^ __C declaration:__ @block@
   -> IO ()
 
 {-| __C declaration:__ @makeVarCounter@
@@ -167,8 +160,7 @@ foreign import ccall safe "hs_bindgen_e42dcbee8a114957" releaseCounter ::
 -}
 foreign import ccall safe "hs_bindgen_2bee4eb5b4d895c1" makeVarCounter ::
      FC.CInt
-     {- ^ __C declaration:__ @start@
-     -}
+     -- ^ __C declaration:__ @start@
   -> IO VarCounter
 
 {-| __C declaration:__ @varCounterNext@
@@ -181,11 +173,9 @@ foreign import ccall safe "hs_bindgen_2bee4eb5b4d895c1" makeVarCounter ::
 -}
 foreign import ccall safe "hs_bindgen_276b9cb5320fec37" varCounterNext ::
      VarCounter
-     {- ^ __C declaration:__ @block@
-     -}
+     -- ^ __C declaration:__ @block@
   -> FC.CInt
-     {- ^ __C declaration:__ @increment@
-     -}
+     -- ^ __C declaration:__ @increment@
   -> IO FC.CInt
 
 {-| __C declaration:__ @releaseVarCounter@
@@ -198,6 +188,5 @@ foreign import ccall safe "hs_bindgen_276b9cb5320fec37" varCounterNext ::
 -}
 foreign import ccall safe "hs_bindgen_8423b076f7c9df21" releaseVarCounter ::
      VarCounter
-     {- ^ __C declaration:__ @block@
-     -}
+     -- ^ __C declaration:__ @block@
   -> IO ()

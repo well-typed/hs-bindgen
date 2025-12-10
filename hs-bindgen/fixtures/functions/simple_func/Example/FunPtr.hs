@@ -54,8 +54,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @test_functionssimple_func_Example_get_erf_ptr@
--}
+-- | __unique:__ @test_functionssimple_func_Example_get_erf_ptr@
 foreign import ccall unsafe "hs_bindgen_1308338f62c45845" hs_bindgen_1308338f62c45845 ::
      IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
 
@@ -71,8 +70,7 @@ erf_ptr :: Ptr.FunPtr (FC.CDouble -> IO FC.CDouble)
 erf_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1308338f62c45845
 
-{-| __unique:__ @test_functionssimple_func_Example_get_bad_fma_ptr@
--}
+-- | __unique:__ @test_functionssimple_func_Example_get_bad_fma_ptr@
 foreign import ccall unsafe "hs_bindgen_457f7d0956688086" hs_bindgen_457f7d0956688086 ::
      IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble))
 
@@ -88,8 +86,7 @@ bad_fma_ptr :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDoub
 bad_fma_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_457f7d0956688086
 
-{-| __unique:__ @test_functionssimple_func_Example_get_no_args_ptr@
--}
+-- | __unique:__ @test_functionssimple_func_Example_get_no_args_ptr@
 foreign import ccall unsafe "hs_bindgen_db204712b6d929ba" hs_bindgen_db204712b6d929ba ::
      IO (Ptr.FunPtr (IO ()))
 
@@ -105,8 +102,7 @@ no_args_ptr :: Ptr.FunPtr (IO ())
 no_args_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_db204712b6d929ba
 
-{-| __unique:__ @test_functionssimple_func_Example_get_no_args_no_void_ptr@
--}
+-- | __unique:__ @test_functionssimple_func_Example_get_no_args_no_void_ptr@
 foreign import ccall unsafe "hs_bindgen_d8fd245fa84413ae" hs_bindgen_d8fd245fa84413ae ::
      IO (Ptr.FunPtr (IO ()))
 
@@ -122,8 +118,7 @@ no_args_no_void_ptr :: Ptr.FunPtr (IO ())
 no_args_no_void_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d8fd245fa84413ae
 
-{-| __unique:__ @test_functionssimple_func_Example_get_fun_ptr@
--}
+-- | __unique:__ @test_functionssimple_func_Example_get_fun_ptr@
 foreign import ccall unsafe "hs_bindgen_8541b259788f68ad" hs_bindgen_8541b259788f68ad ::
      IO (Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt))
 

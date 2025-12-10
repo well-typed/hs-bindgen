@@ -51,11 +51,9 @@ foreign import ccall safe "hs_bindgen_687af703c95fba0e" multiply_complex_f_wrapp
 -}
 multiply_complex_f ::
      Data.Complex.Complex FC.CFloat
-     {- ^ __C declaration:__ @a@
-     -}
+     -- ^ __C declaration:__ @a@
   -> Data.Complex.Complex FC.CFloat
-     {- ^ __C declaration:__ @b@
-     -}
+     -- ^ __C declaration:__ @b@
   -> IO (Data.Complex.Complex FC.CFloat)
 multiply_complex_f =
   \x0 ->
@@ -83,11 +81,9 @@ foreign import ccall safe "hs_bindgen_3ff14ee8c5914fc6" add_complex_wrapper ::
 -}
 add_complex ::
      Data.Complex.Complex FC.CDouble
-     {- ^ __C declaration:__ @a@
-     -}
+     -- ^ __C declaration:__ @a@
   -> Data.Complex.Complex FC.CDouble
-     {- ^ __C declaration:__ @b@
-     -}
+     -- ^ __C declaration:__ @b@
   -> IO (Data.Complex.Complex FC.CDouble)
 add_complex =
   \x0 ->

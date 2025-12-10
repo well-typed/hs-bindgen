@@ -178,8 +178,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @test_functionscallbacks_Example_get_readFileWithProcessor_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_readFileWithProcessor_ptr@
 foreign import ccall unsafe "hs_bindgen_11c3318ecc076134" hs_bindgen_11c3318ecc076134 ::
      IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -> IO FC.CInt))
 
@@ -195,8 +194,7 @@ readFileWithProcessor_ptr :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.C
 readFileWithProcessor_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_11c3318ecc076134
 
-{-| __unique:__ @test_functionscallbacks_Example_get_watchTemperature_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_watchTemperature_ptr@
 foreign import ccall unsafe "hs_bindgen_812229d77f36833a" hs_bindgen_812229d77f36833a ::
      IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -> IO ()))
 
@@ -212,8 +210,7 @@ watchTemperature_ptr :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -
 watchTemperature_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_812229d77f36833a
 
-{-| __unique:__ @test_functionscallbacks_Example_get_onFileOpened_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_onFileOpened_ptr@
 foreign import ccall unsafe "hs_bindgen_cd162abdd104aa42" hs_bindgen_cd162abdd104aa42 ::
      IO (Ptr.FunPtr (FileOpenedNotification -> IO ()))
 
@@ -229,8 +226,7 @@ onFileOpened_ptr :: Ptr.FunPtr (FileOpenedNotification -> IO ())
 onFileOpened_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cd162abdd104aa42
 
-{-| __unique:__ @test_functionscallbacks_Example_get_onProgressChanged_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_onProgressChanged_ptr@
 foreign import ccall unsafe "hs_bindgen_b66e61e98e8145a4" hs_bindgen_b66e61e98e8145a4 ::
      IO (Ptr.FunPtr (ProgressUpdate -> IO ()))
 
@@ -246,8 +242,7 @@ onProgressChanged_ptr :: Ptr.FunPtr (ProgressUpdate -> IO ())
 onProgressChanged_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b66e61e98e8145a4
 
-{-| __unique:__ @test_functionscallbacks_Example_get_validateInput_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_validateInput_ptr@
 foreign import ccall unsafe "hs_bindgen_4c20e93be5c3b5bb" hs_bindgen_4c20e93be5c3b5bb ::
      IO (Ptr.FunPtr (DataValidator -> FC.CInt -> IO FC.CInt))
 
@@ -263,8 +258,7 @@ validateInput_ptr :: Ptr.FunPtr (DataValidator -> FC.CInt -> IO FC.CInt)
 validateInput_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4c20e93be5c3b5bb
 
-{-| __unique:__ @test_functionscallbacks_Example_get_onNewMeasurement_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_onNewMeasurement_ptr@
 foreign import ccall unsafe "hs_bindgen_f0fa88e6072c2d7a" hs_bindgen_f0fa88e6072c2d7a ::
      IO (Ptr.FunPtr (MeasurementReceived -> IO ()))
 
@@ -280,8 +274,7 @@ onNewMeasurement_ptr :: Ptr.FunPtr (MeasurementReceived -> IO ())
 onNewMeasurement_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f0fa88e6072c2d7a
 
-{-| __unique:__ @test_functionscallbacks_Example_get_onNewMeasurement2_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_onNewMeasurement2_ptr@
 foreign import ccall unsafe "hs_bindgen_c72d8638d47aae13" hs_bindgen_c72d8638d47aae13 ::
      IO (Ptr.FunPtr (MeasurementReceived2 -> IO ()))
 
@@ -297,8 +290,7 @@ onNewMeasurement2_ptr :: Ptr.FunPtr (MeasurementReceived2 -> IO ())
 onNewMeasurement2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c72d8638d47aae13
 
-{-| __unique:__ @test_functionscallbacks_Example_get_onBufferReady_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_onBufferReady_ptr@
 foreign import ccall unsafe "hs_bindgen_7b54895b95bee198" hs_bindgen_7b54895b95bee198 ::
      IO (Ptr.FunPtr (SampleBufferFull -> IO ()))
 
@@ -314,8 +306,7 @@ onBufferReady_ptr :: Ptr.FunPtr (SampleBufferFull -> IO ())
 onBufferReady_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7b54895b95bee198
 
-{-| __unique:__ @test_functionscallbacks_Example_get_transformMeasurement_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_transformMeasurement_ptr@
 foreign import ccall unsafe "hs_bindgen_4215bdb12daf9024" hs_bindgen_4215bdb12daf9024 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())) -> IO ()))
 
@@ -331,8 +322,7 @@ transformMeasurement_ptr :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((P
 transformMeasurement_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4215bdb12daf9024
 
-{-| __unique:__ @test_functionscallbacks_Example_get_processWithCallbacks_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_processWithCallbacks_ptr@
 foreign import ccall unsafe "hs_bindgen_701c0161802d878b" hs_bindgen_701c0161802d878b ::
      IO (Ptr.FunPtr ((Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())) -> IO ()))
 
@@ -348,8 +338,7 @@ processWithCallbacks_ptr :: Ptr.FunPtr ((Ptr.FunPtr ((Ptr.Ptr Measurement) -> Fi
 processWithCallbacks_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_701c0161802d878b
 
-{-| __unique:__ @test_functionscallbacks_Example_get_registerHandler_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_registerHandler_ptr@
 foreign import ccall unsafe "hs_bindgen_90c9d96723cea577" hs_bindgen_90c9d96723cea577 ::
      IO (Ptr.FunPtr ((Ptr.Ptr MeasurementHandler) -> IO ()))
 
@@ -365,8 +354,7 @@ registerHandler_ptr :: Ptr.FunPtr ((Ptr.Ptr MeasurementHandler) -> IO ())
 registerHandler_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_90c9d96723cea577
 
-{-| __unique:__ @test_functionscallbacks_Example_get_executePipeline_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_executePipeline_ptr@
 foreign import ccall unsafe "hs_bindgen_bc33471040d45469" hs_bindgen_bc33471040d45469 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.Ptr DataPipeline) -> IO ()))
 
@@ -382,8 +370,7 @@ executePipeline_ptr :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.Ptr DataPipelin
 executePipeline_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_bc33471040d45469
 
-{-| __unique:__ @test_functionscallbacks_Example_get_runProcessor_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_runProcessor_ptr@
 foreign import ccall unsafe "hs_bindgen_86a8e8897172172b" hs_bindgen_86a8e8897172172b ::
      IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.Ptr Processor) -> IO ()))
 
@@ -399,8 +386,7 @@ runProcessor_ptr :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.Ptr Processor) -> 
 runProcessor_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_86a8e8897172172b
 
-{-| __unique:__ @test_functionscallbacks_Example_get_processMeasurementWithValidation_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_processMeasurementWithValidation_ptr@
 foreign import ccall unsafe "hs_bindgen_f4667aed4d51fd75" hs_bindgen_f4667aed4d51fd75 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())) -> IO ()))
 
@@ -416,8 +402,7 @@ processMeasurementWithValidation_ptr :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Pt
 processMeasurementWithValidation_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f4667aed4d51fd75
 
-{-| __unique:__ @test_functionscallbacks_Example_get_f_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_f_ptr@
 foreign import ccall unsafe "hs_bindgen_77b468218b567b37" hs_bindgen_77b468218b567b37 ::
      IO (Ptr.FunPtr ((Ptr.FunPtr (Foo -> IO ())) -> IO ()))
 
@@ -433,8 +418,7 @@ f_ptr :: Ptr.FunPtr ((Ptr.FunPtr (Foo -> IO ())) -> IO ())
 f_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_77b468218b567b37
 
-{-| __unique:__ @test_functionscallbacks_Example_get_f2_ptr@
--}
+-- | __unique:__ @test_functionscallbacks_Example_get_f2_ptr@
 foreign import ccall unsafe "hs_bindgen_d5a4de10d670d97d" hs_bindgen_d5a4de10d670d97d ::
      IO (Ptr.FunPtr ((Ptr.FunPtr (Foo2 -> IO ())) -> IO ()))
 

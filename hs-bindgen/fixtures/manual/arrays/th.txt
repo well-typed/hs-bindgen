@@ -216,8 +216,7 @@ __unique:__ @test_manualarrays_Example_Unsafe_pretty_print_triplets@
 foreign import ccall safe "hs_bindgen_e43b4d44aa0abd14" pretty_print_triplets :: Ptr (Ptr (ConstantArray 3
                                                                                                          CInt)) ->
                                                                                  IO Unit
-{-| __unique:__ @test_manualarrays_Example_get_transpose_ptr@
--}
+-- | __unique:__ @test_manualarrays_Example_get_transpose_ptr@
 foreign import ccall safe "hs_bindgen_24c867a3e91cab5d" hs_bindgen_24c867a3e91cab5d :: IO (FunPtr (Matrix ->
                                                                                                    Matrix ->
                                                                                                    IO Unit))
@@ -236,8 +235,7 @@ transpose_ptr :: FunPtr (Matrix -> Matrix -> IO Unit)
     __exported by:__ @manual\/arrays.h@
 -}
 transpose_ptr = unsafePerformIO hs_bindgen_24c867a3e91cab5d
-{-| __unique:__ @test_manualarrays_Example_get_pretty_print_triplets_ptr@
--}
+-- | __unique:__ @test_manualarrays_Example_get_pretty_print_triplets_ptr@
 foreign import ccall safe "hs_bindgen_66af82cae0c5134a" hs_bindgen_66af82cae0c5134a :: IO (FunPtr (Triplet_ptrs ->
                                                                                                    IO Unit))
 {-# NOINLINE pretty_print_triplets_ptr #-}
@@ -259,8 +257,7 @@ __defined at:__ @manual\/arrays.h:50:13@
 __exported by:__ @manual\/arrays.h@
 -}
 pretty_print_triplets_ptr = unsafePerformIO hs_bindgen_66af82cae0c5134a
-{-| __unique:__ @test_manualarrays_Example_get_arr1_ptr@
--}
+-- | __unique:__ @test_manualarrays_Example_get_arr1_ptr@
 foreign import ccall safe "hs_bindgen_57b6693818620aec" hs_bindgen_57b6693818620aec :: IO (Ptr (ConstantArray 1
                                                                                                               CInt))
 {-# NOINLINE arr1_ptr #-}
@@ -282,8 +279,7 @@ __defined at:__ @manual\/arrays.h:13:12@
 __exported by:__ @manual\/arrays.h@
 -}
 arr1_ptr = unsafePerformIO hs_bindgen_57b6693818620aec
-{-| __unique:__ @test_manualarrays_Example_get_arr2_ptr@
--}
+-- | __unique:__ @test_manualarrays_Example_get_arr2_ptr@
 foreign import ccall safe "hs_bindgen_928e8bd0dc2d0be1" hs_bindgen_928e8bd0dc2d0be1 :: IO (Ptr (ConstantArray 3
                                                                                                               CInt))
 {-# NOINLINE arr2_ptr #-}
@@ -305,8 +301,7 @@ __defined at:__ @manual\/arrays.h:16:12@
 __exported by:__ @manual\/arrays.h@
 -}
 arr2_ptr = unsafePerformIO hs_bindgen_928e8bd0dc2d0be1
-{-| __unique:__ @test_manualarrays_Example_get_arr3_ptr@
--}
+-- | __unique:__ @test_manualarrays_Example_get_arr3_ptr@
 foreign import ccall safe "hs_bindgen_e6493a6ad08768b6" hs_bindgen_e6493a6ad08768b6 :: IO (Ptr (IncompleteArray CInt))
 {-# NOINLINE arr3_ptr #-}
 {-| Global, extern, incomplete
@@ -327,8 +322,7 @@ __defined at:__ @manual\/arrays.h:19:12@
 __exported by:__ @manual\/arrays.h@
 -}
 arr3_ptr = unsafePerformIO hs_bindgen_e6493a6ad08768b6
-{-| __unique:__ @test_manualarrays_Example_get_sudoku_ptr@
--}
+-- | __unique:__ @test_manualarrays_Example_get_sudoku_ptr@
 foreign import ccall safe "hs_bindgen_e692ad991693d041" hs_bindgen_e692ad991693d041 :: IO (Ptr (ConstantArray 3
                                                                                                               (ConstantArray 3
                                                                                                                              CInt)))
@@ -351,8 +345,7 @@ __defined at:__ @manual\/arrays.h:22:12@
 __exported by:__ @manual\/arrays.h@
 -}
 sudoku_ptr = unsafePerformIO hs_bindgen_e692ad991693d041
-{-| __unique:__ @test_manualarrays_Example_get_triplets_ptr@
--}
+-- | __unique:__ @test_manualarrays_Example_get_triplets_ptr@
 foreign import ccall safe "hs_bindgen_04df9f2a3065bb07" hs_bindgen_04df9f2a3065bb07 :: IO (Ptr (IncompleteArray (ConstantArray 3
                                                                                                                                CInt)))
 {-# NOINLINE triplets_ptr #-}
@@ -374,8 +367,7 @@ __defined at:__ @manual\/arrays.h:26:12@
 __exported by:__ @manual\/arrays.h@
 -}
 triplets_ptr = unsafePerformIO hs_bindgen_04df9f2a3065bb07
-{-| __unique:__ @test_manualarrays_Example_get_global_triplet_ptrs_ptr@
--}
+-- | __unique:__ @test_manualarrays_Example_get_global_triplet_ptrs_ptr@
 foreign import ccall safe "hs_bindgen_7d8d8251f0367f2e" hs_bindgen_7d8d8251f0367f2e :: IO (Ptr Triplet_ptrs)
 {-# NOINLINE global_triplet_ptrs_ptr #-}
 {-| A global of triplet_ptrs

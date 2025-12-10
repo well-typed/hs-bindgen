@@ -638,8 +638,7 @@ foreign import ccall safe "hs_bindgen_9de286608f952fc7" struct_name2 :: Ptr Stru
 -}
 foreign import ccall safe "hs_bindgen_38cce6bb1ac71578" struct_name3 :: Ptr Struct4 ->
                                                                         MC -> IO Unit
-{-| __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_quux1_ptr@
--}
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_quux1_ptr@
 foreign import ccall safe "hs_bindgen_fb1d9bc73e620f06" hs_bindgen_fb1d9bc73e620f06 :: IO (FunPtr (MC ->
                                                                                                    TC ->
                                                                                                    IO CChar))
@@ -658,8 +657,7 @@ quux1_ptr :: FunPtr (MC -> TC -> IO CChar)
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 quux1_ptr = unsafePerformIO hs_bindgen_fb1d9bc73e620f06
-{-| __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_quux2_ptr@
--}
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_quux2_ptr@
 foreign import ccall safe "hs_bindgen_9dc824587cab07a2" hs_bindgen_9dc824587cab07a2 :: IO (FunPtr (MC ->
                                                                                                    CChar ->
                                                                                                    IO TC))
@@ -678,8 +676,7 @@ quux2_ptr :: FunPtr (MC -> CChar -> IO TC)
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 quux2_ptr = unsafePerformIO hs_bindgen_9dc824587cab07a2
-{-| __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_wam1_ptr@
--}
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_wam1_ptr@
 foreign import ccall safe "hs_bindgen_03d794639e412075" hs_bindgen_03d794639e412075 :: IO (FunPtr (CFloat ->
                                                                                                    Ptr TC ->
                                                                                                    IO (Ptr MC)))
@@ -698,8 +695,7 @@ wam1_ptr :: FunPtr (CFloat -> Ptr TC -> IO (Ptr MC))
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 wam1_ptr = unsafePerformIO hs_bindgen_03d794639e412075
-{-| __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_wam2_ptr@
--}
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_wam2_ptr@
 foreign import ccall safe "hs_bindgen_0a5eb04fc739212a" hs_bindgen_0a5eb04fc739212a :: IO (FunPtr (CFloat ->
                                                                                                    Ptr MC ->
                                                                                                    IO (Ptr TC)))
@@ -718,8 +714,7 @@ wam2_ptr :: FunPtr (CFloat -> Ptr MC -> IO (Ptr TC))
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 wam2_ptr = unsafePerformIO hs_bindgen_0a5eb04fc739212a
-{-| __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_typedef1_ptr@
--}
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_typedef1_ptr@
 foreign import ccall safe "hs_bindgen_6d4f35a86a00c68b" hs_bindgen_6d4f35a86a00c68b :: IO (FunPtr (Ptr Struct2 ->
                                                                                                    MC ->
                                                                                                    IO Unit))
@@ -738,8 +733,7 @@ struct_typedef1_ptr :: FunPtr (Ptr Struct2 -> MC -> IO Unit)
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef1_ptr = unsafePerformIO hs_bindgen_6d4f35a86a00c68b
-{-| __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_typedef2_ptr@
--}
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_typedef2_ptr@
 foreign import ccall safe "hs_bindgen_af92d1197a77fe13" hs_bindgen_af92d1197a77fe13 :: IO (FunPtr (Ptr Struct3_t ->
                                                                                                    MC ->
                                                                                                    IO Unit))
@@ -758,8 +752,7 @@ struct_typedef2_ptr :: FunPtr (Ptr Struct3_t -> MC -> IO Unit)
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef2_ptr = unsafePerformIO hs_bindgen_af92d1197a77fe13
-{-| __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_typedef3_ptr@
--}
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_typedef3_ptr@
 foreign import ccall safe "hs_bindgen_c5effcd02d3d5efd" hs_bindgen_c5effcd02d3d5efd :: IO (FunPtr (Ptr Struct4 ->
                                                                                                    MC ->
                                                                                                    IO Unit))
@@ -778,8 +771,7 @@ struct_typedef3_ptr :: FunPtr (Ptr Struct4 -> MC -> IO Unit)
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef3_ptr = unsafePerformIO hs_bindgen_c5effcd02d3d5efd
-{-| __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name1_ptr@
--}
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name1_ptr@
 foreign import ccall safe "hs_bindgen_842a0d61a7a895d6" hs_bindgen_842a0d61a7a895d6 :: IO (FunPtr (Ptr Struct1 ->
                                                                                                    MC ->
                                                                                                    IO Unit))
@@ -798,8 +790,7 @@ struct_name1_ptr :: FunPtr (Ptr Struct1 -> MC -> IO Unit)
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name1_ptr = unsafePerformIO hs_bindgen_842a0d61a7a895d6
-{-| __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name2_ptr@
--}
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name2_ptr@
 foreign import ccall safe "hs_bindgen_ead25a696827a8f7" hs_bindgen_ead25a696827a8f7 :: IO (FunPtr (Ptr Struct3 ->
                                                                                                    MC ->
                                                                                                    IO Unit))
@@ -818,8 +809,7 @@ struct_name2_ptr :: FunPtr (Ptr Struct3 -> MC -> IO Unit)
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name2_ptr = unsafePerformIO hs_bindgen_ead25a696827a8f7
-{-| __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name3_ptr@
--}
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name3_ptr@
 foreign import ccall safe "hs_bindgen_680e8a5d673ce9c1" hs_bindgen_680e8a5d673ce9c1 :: IO (FunPtr (Ptr Struct4 ->
                                                                                                    MC ->
                                                                                                    IO Unit))

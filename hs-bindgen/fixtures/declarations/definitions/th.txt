@@ -174,8 +174,7 @@ foreign import ccall safe "hs_bindgen_9cdc88a6d09442d6" foo :: CDouble ->
 -}
 foreign import ccall safe "hs_bindgen_07fd5b433f381094" foo :: CDouble ->
                                                                IO CInt
-{-| __unique:__ @test_declarationsdefinitions_Example_get_foo_ptr@
--}
+-- | __unique:__ @test_declarationsdefinitions_Example_get_foo_ptr@
 foreign import ccall safe "hs_bindgen_bc546207e3a9a16e" hs_bindgen_bc546207e3a9a16e :: IO (FunPtr (CDouble ->
                                                                                                    IO CInt))
 {-# NOINLINE foo_ptr #-}
@@ -193,8 +192,7 @@ foo_ptr :: FunPtr (CDouble -> IO CInt)
     __exported by:__ @declarations\/definitions.h@
 -}
 foo_ptr = unsafePerformIO hs_bindgen_bc546207e3a9a16e
-{-| __unique:__ @test_declarationsdefinitions_Example_get_n_ptr@
--}
+-- | __unique:__ @test_declarationsdefinitions_Example_get_n_ptr@
 foreign import ccall safe "hs_bindgen_d0561a54a41cb140" hs_bindgen_d0561a54a41cb140 :: IO (Ptr CInt)
 {-# NOINLINE n_ptr #-}
 {-| __C declaration:__ @n@

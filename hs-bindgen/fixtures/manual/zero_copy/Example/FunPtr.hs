@@ -35,8 +35,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| __unique:__ @test_manualzero_copy_Example_get_reverse_ptr@
--}
+-- | __unique:__ @test_manualzero_copy_Example_get_reverse_ptr@
 foreign import ccall unsafe "hs_bindgen_d76d6b95b7803c78" hs_bindgen_d76d6b95b7803c78 ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt))
 
@@ -52,8 +51,7 @@ reverse_ptr :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr Vector) -> (Ptr.
 reverse_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d76d6b95b7803c78
 
-{-| __unique:__ @test_manualzero_copy_Example_get_transpose_ptr@
--}
+-- | __unique:__ @test_manualzero_copy_Example_get_transpose_ptr@
 foreign import ccall unsafe "hs_bindgen_f72c56033fb58d5e" hs_bindgen_f72c56033fb58d5e ::
      IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
 
