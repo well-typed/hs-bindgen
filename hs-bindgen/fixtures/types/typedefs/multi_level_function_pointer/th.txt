@@ -1,0 +1,334 @@
+-- addDependentFile examples/golden/types/typedefs/multi_level_function_pointer.h
+{-| Auxiliary type used by 'F1'
+
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:7:16@
+
+__exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+-}
+newtype F1_Deref
+    = F1_Deref {un_F1_Deref :: (CInt -> CInt -> IO Unit)}
+      {- ^ Auxiliary type used by 'F1'
+
+      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:7:16@
+
+      __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+      -}
+foreign import ccall safe "wrapper" toF1_Deref :: F1_Deref ->
+                                                  IO (FunPtr F1_Deref)
+foreign import ccall safe "dynamic" fromF1_Deref :: FunPtr F1_Deref ->
+                                                    F1_Deref
+instance ToFunPtr F1_Deref
+    where toFunPtr = toF1_Deref
+instance FromFunPtr F1_Deref
+    where fromFunPtr = fromF1_Deref
+instance TyEq ty (CFieldType F1_Deref "un_F1_Deref") =>
+         HasField "un_F1_Deref" (Ptr F1_Deref) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_F1_Deref")
+instance HasCField F1_Deref "un_F1_Deref"
+    where type CFieldType F1_Deref "un_F1_Deref" = CInt ->
+                                                   CInt -> IO Unit
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @f1@
+
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:7:16@
+
+    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+-}
+newtype F1
+    = F1 {un_F1 :: (FunPtr F1_Deref)}
+      {- ^ __C declaration:__ @f1@
+
+           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:7:16@
+
+           __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+instance TyEq ty (CFieldType F1 "un_F1") =>
+         HasField "un_F1" (Ptr F1) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_F1")
+instance HasCField F1 "un_F1"
+    where type CFieldType F1 "un_F1" = FunPtr F1_Deref
+          offset# = \_ -> \_ -> 0
+{-| Auxiliary type used by 'F2'
+
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:10:17@
+
+__exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+-}
+newtype F2_Deref
+    = F2_Deref {un_F2_Deref :: (CInt -> CInt -> IO Unit)}
+      {- ^ Auxiliary type used by 'F2'
+
+      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:10:17@
+
+      __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+      -}
+foreign import ccall safe "wrapper" toF2_Deref :: F2_Deref ->
+                                                  IO (FunPtr F2_Deref)
+foreign import ccall safe "dynamic" fromF2_Deref :: FunPtr F2_Deref ->
+                                                    F2_Deref
+instance ToFunPtr F2_Deref
+    where toFunPtr = toF2_Deref
+instance FromFunPtr F2_Deref
+    where fromFunPtr = fromF2_Deref
+instance TyEq ty (CFieldType F2_Deref "un_F2_Deref") =>
+         HasField "un_F2_Deref" (Ptr F2_Deref) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_F2_Deref")
+instance HasCField F2_Deref "un_F2_Deref"
+    where type CFieldType F2_Deref "un_F2_Deref" = CInt ->
+                                                   CInt -> IO Unit
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @f2@
+
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:10:17@
+
+    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+-}
+newtype F2
+    = F2 {un_F2 :: (Ptr (FunPtr F2_Deref))}
+      {- ^ __C declaration:__ @f2@
+
+           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:10:17@
+
+           __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+instance TyEq ty (CFieldType F2 "un_F2") =>
+         HasField "un_F2" (Ptr F2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_F2")
+instance HasCField F2 "un_F2"
+    where type CFieldType F2 "un_F2" = Ptr (FunPtr F2_Deref)
+          offset# = \_ -> \_ -> 0
+{-| Auxiliary type used by 'F3'
+
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:13:18@
+
+__exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+-}
+newtype F3_Deref
+    = F3_Deref {un_F3_Deref :: (CInt -> CInt -> IO Unit)}
+      {- ^ Auxiliary type used by 'F3'
+
+      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:13:18@
+
+      __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+      -}
+foreign import ccall safe "wrapper" toF3_Deref :: F3_Deref ->
+                                                  IO (FunPtr F3_Deref)
+foreign import ccall safe "dynamic" fromF3_Deref :: FunPtr F3_Deref ->
+                                                    F3_Deref
+instance ToFunPtr F3_Deref
+    where toFunPtr = toF3_Deref
+instance FromFunPtr F3_Deref
+    where fromFunPtr = fromF3_Deref
+instance TyEq ty (CFieldType F3_Deref "un_F3_Deref") =>
+         HasField "un_F3_Deref" (Ptr F3_Deref) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_F3_Deref")
+instance HasCField F3_Deref "un_F3_Deref"
+    where type CFieldType F3_Deref "un_F3_Deref" = CInt ->
+                                                   CInt -> IO Unit
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @f3@
+
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:13:18@
+
+    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+-}
+newtype F3
+    = F3 {un_F3 :: (Ptr (Ptr (FunPtr F3_Deref)))}
+      {- ^ __C declaration:__ @f3@
+
+           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:13:18@
+
+           __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+instance TyEq ty (CFieldType F3 "un_F3") =>
+         HasField "un_F3" (Ptr F3) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_F3")
+instance HasCField F3 "un_F3"
+    where type CFieldType F3 "un_F3" = Ptr (Ptr (FunPtr F3_Deref))
+          offset# = \_ -> \_ -> 0
+{-| Auxiliary type used by 'F4'
+
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:16:16@
+
+__exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+-}
+newtype F4_Deref
+    = F4_Deref {un_F4_Deref :: (IO CInt)}
+      {- ^ Auxiliary type used by 'F4'
+
+      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:16:16@
+
+      __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+      -}
+foreign import ccall safe "wrapper" toF4_Deref :: F4_Deref ->
+                                                  IO (FunPtr F4_Deref)
+foreign import ccall safe "dynamic" fromF4_Deref :: FunPtr F4_Deref ->
+                                                    F4_Deref
+instance ToFunPtr F4_Deref
+    where toFunPtr = toF4_Deref
+instance FromFunPtr F4_Deref
+    where fromFunPtr = fromF4_Deref
+instance TyEq ty (CFieldType F4_Deref "un_F4_Deref") =>
+         HasField "un_F4_Deref" (Ptr F4_Deref) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_F4_Deref")
+instance HasCField F4_Deref "un_F4_Deref"
+    where type CFieldType F4_Deref "un_F4_Deref" = IO CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @f4@
+
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:16:16@
+
+    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+-}
+newtype F4
+    = F4 {un_F4 :: (Ptr (FunPtr F4_Deref))}
+      {- ^ __C declaration:__ @f4@
+
+           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:16:16@
+
+           __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+instance TyEq ty (CFieldType F4 "un_F4") =>
+         HasField "un_F4" (Ptr F4) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_F4")
+instance HasCField F4 "un_F4"
+    where type CFieldType F4 "un_F4" = Ptr (FunPtr F4_Deref)
+          offset# = \_ -> \_ -> 0
+{-| Auxiliary type used by 'F5'
+
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:19:17@
+
+__exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+-}
+newtype F5_Deref
+    = F5_Deref {un_F5_Deref :: (IO Unit)}
+      {- ^ Auxiliary type used by 'F5'
+
+      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:19:17@
+
+      __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+      -}
+foreign import ccall safe "wrapper" toF5_Deref :: F5_Deref ->
+                                                  IO (FunPtr F5_Deref)
+foreign import ccall safe "dynamic" fromF5_Deref :: FunPtr F5_Deref ->
+                                                    F5_Deref
+instance ToFunPtr F5_Deref
+    where toFunPtr = toF5_Deref
+instance FromFunPtr F5_Deref
+    where fromFunPtr = fromF5_Deref
+instance TyEq ty (CFieldType F5_Deref "un_F5_Deref") =>
+         HasField "un_F5_Deref" (Ptr F5_Deref) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_F5_Deref")
+instance HasCField F5_Deref "un_F5_Deref"
+    where type CFieldType F5_Deref "un_F5_Deref" = IO Unit
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @f5@
+
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:19:17@
+
+    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+-}
+newtype F5
+    = F5 {un_F5 :: (Ptr (FunPtr F5_Deref))}
+      {- ^ __C declaration:__ @f5@
+
+           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:19:17@
+
+           __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+instance TyEq ty (CFieldType F5 "un_F5") =>
+         HasField "un_F5" (Ptr F5) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_F5")
+instance HasCField F5 "un_F5"
+    where type CFieldType F5 "un_F5" = Ptr (FunPtr F5_Deref)
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @MyInt@
+
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:22:13@
+
+    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+-}
+newtype MyInt
+    = MyInt {un_MyInt :: CInt}
+      {- ^ __C declaration:__ @MyInt@
+
+           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:22:13@
+
+           __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty (CFieldType MyInt "un_MyInt") =>
+         HasField "un_MyInt" (Ptr MyInt) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_MyInt")
+instance HasCField MyInt "un_MyInt"
+    where type CFieldType MyInt "un_MyInt" = CInt
+          offset# = \_ -> \_ -> 0
+{-| Auxiliary type used by 'F6'
+
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:23:17@
+
+__exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+-}
+newtype F6_Deref
+    = F6_Deref {un_F6_Deref :: (MyInt -> IO Unit)}
+      {- ^ Auxiliary type used by 'F6'
+
+      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:23:17@
+
+      __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+      -}
+foreign import ccall safe "wrapper" toF6_Deref :: F6_Deref ->
+                                                  IO (FunPtr F6_Deref)
+foreign import ccall safe "dynamic" fromF6_Deref :: FunPtr F6_Deref ->
+                                                    F6_Deref
+instance ToFunPtr F6_Deref
+    where toFunPtr = toF6_Deref
+instance FromFunPtr F6_Deref
+    where fromFunPtr = fromF6_Deref
+instance TyEq ty (CFieldType F6_Deref "un_F6_Deref") =>
+         HasField "un_F6_Deref" (Ptr F6_Deref) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_F6_Deref")
+instance HasCField F6_Deref "un_F6_Deref"
+    where type CFieldType F6_Deref "un_F6_Deref" = MyInt -> IO Unit
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @f6@
+
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:23:17@
+
+    __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+-}
+newtype F6
+    = F6 {un_F6 :: (Ptr (FunPtr F6_Deref))}
+      {- ^ __C declaration:__ @f6@
+
+           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:23:17@
+
+           __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+instance TyEq ty (CFieldType F6 "un_F6") =>
+         HasField "un_F6" (Ptr F6) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_F6")
+instance HasCField F6 "un_F6"
+    where type CFieldType F6 "un_F6" = Ptr (FunPtr F6_Deref)
+          offset# = \_ -> \_ -> 0

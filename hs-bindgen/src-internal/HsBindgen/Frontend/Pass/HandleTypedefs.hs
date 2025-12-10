@@ -44,17 +44,40 @@ handleTypedefs C.TranslationUnit{..} = (
   Declarations
 -------------------------------------------------------------------------------}
 
+-- | Strip pointer indirection to find function type
+--
+-- Examples:
+--
+-- * @TypePointer (TypeFun args res)@ returns @Just (args, res, 1)@
+-- * @TypePointer (TypePointer (TypeFun args res))@ returns @Just (args, res, 2)@
+-- * @TypePointer (TypePointer (TypePointer (TypeFun args res)))@ returns @Just (args, res, 3)@
+-- * @TypePointer TypeVoid@ returns @Nothing@
+--
+-- This handles arbitrary levels of pointer indirection (N >= 1).
+--
+stripPointersToFunction :: C.Type p -> Maybe ([C.Type p], C.Type p, Int)
+stripPointersToFunction = go 1
+  where
+    go :: Int -> C.Type p -> Maybe ([C.Type p], C.Type p, Int)
+    go !n (C.TypePointer inner) =
+      case inner of
+        C.TypeFun args res -> Just (args, res, n)
+        C.TypePointer _    -> go (n + 1) inner  -- Recurse through more pointers
+        _                  -> Nothing
+    go _ _ = Nothing
+
 handleDecl ::
      TypedefAnalysis
   -> C.Decl Select
   -> (Maybe (Msg HandleTypedefs), Maybe [C.Decl HandleTypedefs])
 handleDecl td decl
-  -- Deal with typedefs around function pointers
+  -- Deal with typedefs around function pointers (N levels of indirection)
   -- (NOTE: Such typedefs are never squashed.)
+  -- See issue #1380
   | C.DeclTypedef dtd <- declKind
-  , C.TypePointer (C.TypeFun args res) <- C.typedefType dtd
+  , Just (args, res, n) <- stripPointersToFunction (C.typedefType dtd)
   = ( Nothing
-    , Just $ introduceAuxFunType td declInfo' declAnn args res
+    , Just $ introduceAuxFunType td declInfo' declAnn n args res
     )
 
   -- Check for typedefs we need to squash
@@ -108,14 +131,26 @@ handleDecl td decl
 --
 -- > newtype Foo_Deref = Foo_Deref (CInt -> IO ())
 -- > newtype Foo       = Foo       (FunPtr Foo_Deref)
+--
+-- For multi-level pointers:
+--
+-- > typedef void (**Foo)(int x);
+--
+-- we generate
+--
+-- > newtype Foo_Deref = Foo_Deref (CInt -> IO ())
+-- > newtype Foo       = Foo       (Ptr (FunPtr Foo_Deref))
+--
 introduceAuxFunType ::
      TypedefAnalysis
   -> C.DeclInfo HandleTypedefs
   -> Ann "Decl" HandleTypedefs
-  -> [C.Type Select]
-  -> C.Type Select
+  -> Int                    -- ^ Number of indirection layers that  this
+                            -- function type had
+  -> [C.Type Select]         -- ^ Function arguments
+  -> C.Type Select           -- ^ Function result type
   -> [C.Decl HandleTypedefs]
-introduceAuxFunType td declInfo declAnn args res = [
+introduceAuxFunType td declInfo declAnn n args res = [
       derefDecl
     , mainDecl
     ]
@@ -146,11 +181,16 @@ introduceAuxFunType td declInfo declAnn args res = [
     mainDecl = C.Decl {
           C.declInfo = declInfo
         , C.declKind = C.DeclTypedef $ C.Typedef {
-            typedefType = C.TypePointer
-                        . flip C.TypeTypedef
-                            (handleUseSites td $ C.TypeFun args res)
-                        . C.declId
-                        $ C.declInfo derefDecl
+            typedefType =
+              -- Reconstruct all pointer layers around the TypeTypedef
+              -- For single pointer: TypePointer (TypeTypedef ...)
+              -- For double pointer: TypePointer (TypePointer (TypeTypedef ...))
+              -- etc.
+              let baseType = C.TypeTypedef
+                               (C.declId $ C.declInfo derefDecl)
+                               (handleUseSites td $ C.TypeFun args res)
+                  pointerLayers = replicate n C.TypePointer
+               in foldr ($) baseType pointerLayers
           , typedefAnn  = NoAnn
           }
         , C.declAnn = declAnn

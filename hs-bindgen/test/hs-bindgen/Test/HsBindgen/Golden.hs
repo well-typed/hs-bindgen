@@ -541,6 +541,10 @@ test_declarations_tentative_definitions =
     _otherwise ->
       Nothing
 
+test_types_typedefs_multi_level_function_pointer :: TestCase
+test_types_typedefs_multi_level_function_pointer =
+  defaultTest "types/typedefs/multi_level_function_pointer"
+
 test_types_typedefs_typedef_analysis :: TestCase
 test_types_typedefs_typedef_analysis =
   let declsWithMsgs :: [Labelled C.Name]
@@ -1294,6 +1298,7 @@ testCases = manualTestCases ++ [
     , test_types_structs_simple_structs
     , test_types_structs_struct_arg
     , test_types_structs_unnamed_struct
+    , test_types_typedefs_multi_level_function_pointer
     , test_types_typedefs_typedef_analysis
     , test_types_typedefs_typedefs
     , test_types_typedefs_typedef_vs_macro
