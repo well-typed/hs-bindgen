@@ -1,1 +1,0 @@
-module Example.Safe () where
