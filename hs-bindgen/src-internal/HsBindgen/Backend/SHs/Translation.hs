@@ -48,18 +48,19 @@ getUserlandCapiWrappers decls = mapMaybe getUserlandCapiWrapper decls
       _otherDecl -> Nothing
 
 translateDecl :: Hs.Decl -> [SDecl]
-translateDecl (Hs.DeclData d) = singleton $ translateDeclData d
-translateDecl (Hs.DeclEmpty d) = singleton $ translateDeclEmpty d
-translateDecl (Hs.DeclNewtype n) = singleton $ translateNewtype n
+translateDecl (Hs.DeclData d)           = singleton $ translateDeclData d
+translateDecl (Hs.DeclEmpty d)          = singleton $ translateDeclEmpty d
+translateDecl (Hs.DeclNewtype n)        = singleton $ translateNewtype n
 translateDecl (Hs.DeclDefineInstance i) = singleton $ translateDefineInstanceDecl i
 translateDecl (Hs.DeclDeriveInstance i) = singleton $ translateDeriveInstance i
-translateDecl (Hs.DeclMacroExpr e) = singleton $ translateMacroExpr e
-translateDecl (Hs.DeclForeignImport i) = translateForeignImportDecl i
-translateDecl (Hs.DeclFunction f) = singleton $ translateFunctionDecl f
-translateDecl (Hs.DeclPatSyn ps) = singleton $ translatePatSyn ps
-translateDecl (Hs.DeclUnionGetter u) = singleton $ translateUnionGetter u
-translateDecl (Hs.DeclUnionSetter u) = singleton $ translateUnionSetter u
-translateDecl (Hs.DeclSimple d) = [d]
+translateDecl (Hs.DeclMacroExpr e)      = singleton $ translateMacroExpr e
+translateDecl (Hs.DeclForeignImport i)  = translateForeignImportDecl i
+translateDecl (Hs.DeclFunction f)       = singleton $ translateFunctionDecl f
+translateDecl (Hs.DeclPatSyn ps)        = singleton $ translatePatSyn ps
+translateDecl (Hs.DeclUnionGetter u)    = singleton $ translateUnionGetter u
+translateDecl (Hs.DeclUnionSetter u)    = singleton $ translateUnionSetter u
+translateDecl (Hs.DeclVar d)            = [DVar d]
+translateDecl (Hs.DeclPragma d)         = [DPragma d]
 
 translateDefineInstanceDecl :: Hs.DefineInstance -> SDecl
 translateDefineInstanceDecl Hs.DefineInstance {..} =

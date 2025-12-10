@@ -216,7 +216,8 @@ data Decl where
     DeclMacroExpr       :: MacroExpr -> Decl
     DeclUnionGetter     :: UnionGetter -> Decl
     DeclUnionSetter     :: UnionSetter -> Decl
-    DeclSimple          :: SHs.SDecl -> Decl
+    DeclVar             :: SHs.Var -> Decl
+    DeclPragma          :: SHs.Pragma -> Decl
 deriving instance Show Decl
 
 data DefineInstance =
