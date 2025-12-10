@@ -58,9 +58,9 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Errors
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Guasi
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 
@@ -700,17 +700,17 @@ mkDecl = \case
             (callconv, impent) =
               case foreignImportCallConv of
                 CallConvUserlandCAPI _ -> (TH.CCall,
-                    Text.unpack (C.getName foreignImportOrigName)
+                    Text.unpack foreignImportOrigName.text
                   )
                 CallConvGhcCAPI header -> (TH.CApi, concat [
                     header
-                  , Text.unpack (C.getName foreignImportOrigName)
+                  , Text.unpack foreignImportOrigName.text
                   ])
                 CallConvGhcCCall style -> (TH.CCall, concat [
                     case style of
                       ImportAsValue -> ""
                       ImportAsPtr   -> "&"
-                  , Text.unpack (C.getName foreignImportOrigName)
+                  , Text.unpack foreignImportOrigName.text
                   ])
 
             importType = foldr (TFun . functionParameterType) (foreignImportResultType) foreignImportParameters

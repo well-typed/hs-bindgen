@@ -13,6 +13,7 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -34,8 +35,8 @@ type family AnnConstructTranslationUnit (ix :: Symbol) :: Star where
 
 instance IsPass ConstructTranslationUnit where
   type Id           ConstructTranslationUnit = C.PrelimDeclId
-  type FieldName    ConstructTranslationUnit = C.Name
-  type ArgumentName ConstructTranslationUnit = Maybe C.Name
+  type FieldName    ConstructTranslationUnit = C.ScopedName
+  type ArgumentName ConstructTranslationUnit = Maybe C.ScopedName
   type MacroBody    ConstructTranslationUnit = UnparsedMacro
   type ExtBinding   ConstructTranslationUnit = Void
   type Ann ix       ConstructTranslationUnit = AnnConstructTranslationUnit ix

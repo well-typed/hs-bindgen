@@ -29,6 +29,7 @@ import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -117,12 +118,12 @@ processStructField C.StructField{..} =
         }
 
     withReparse ::
-         (C.Type HandleMacros, FieldName HandleMacros)
+         (C.Type HandleMacros, Text)
       -> M (C.StructField HandleMacros)
     withReparse (ty, name) = return C.StructField{
           structFieldInfo =
             C.FieldInfo {
-              fieldName    = name
+              fieldName    = C.ScopedName name
             , fieldComment = fmap coercePass fieldComment
             , ..
             }
@@ -167,12 +168,12 @@ processUnionField C.UnionField{..} =
         }
 
     withReparse ::
-         (C.Type HandleMacros, FieldName HandleMacros)
+         (C.Type HandleMacros, Text)
       -> M (C.UnionField HandleMacros)
     withReparse (ty, name) = return $ C.UnionField{
           unionFieldInfo =
             C.FieldInfo {
-              fieldName    = name
+              fieldName    = C.ScopedName name
             , fieldComment = fmap coercePass fieldComment
             , ..
             }
@@ -231,9 +232,9 @@ processTypedef ::
   -> M (C.Decl HandleMacros)
 processTypedef info C.Typedef{typedefType, typedefAnn} = do
     case info.declId of
-      C.PrelimDeclIdNamed name _kind -> do
+      C.PrelimDeclIdNamed name -> do
         modify $ \st -> st{
-            stateReparseEnv = updateEnv name (stateReparseEnv st)
+            stateReparseEnv = updateEnv name.text (stateReparseEnv st)
           }
         case typedefAnn of
           ReparseNotNeeded -> withoutReparse
@@ -249,12 +250,11 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
             _otherwise  ->
               reparseWith LanC.reparseTypedef tokens withoutReparse withReparse
       _otherwise ->
-        -- Built-in typedefs exist, but don't have a corresponding declaration;
-        -- anonymous typedefs don't exist at all.
+        -- Anonymous typedefs don't exist
         panicPure $ "processTypedef: impossible: " ++ show info.declId
   where
     updateEnv ::
-         C.Name
+         Text
       -> LanC.ReparseEnv HandleMacros -> LanC.ReparseEnv HandleMacros
     updateEnv name =
         Map.insert name $
@@ -285,17 +285,17 @@ processMacro ::
   -> UnparsedMacro -> M (Either FailedMacro (C.Decl HandleMacros))
 processMacro info (UnparsedMacro tokens) = do
     case info.declId of
-      C.PrelimDeclIdNamed name _kind ->
-        bimap (addInfo name) toDecl <$> parseMacro name tokens
+      C.PrelimDeclIdNamed name ->
+        bimap addInfo toDecl <$> parseMacro name tokens
       C.PrelimDeclIdAnon{} ->
         -- Anonymous macros don't exist
         panicPure $ "Impossible: " ++ show info.declId
   where
-    addInfo :: C.Name -> HandleMacrosError -> FailedMacro
-    addInfo name =
+    addInfo :: HandleMacrosError -> FailedMacro
+    addInfo =
           FailedMacro
         . AttachedParseMsg
-            (C.PrelimDeclIdNamed name C.NameKindOrdinary)
+            info.declId
             info.declLoc
             C.Available
 
@@ -330,14 +330,14 @@ processFunction info C.Function{..} =
         }
 
     withReparse ::
-         (([(ArgumentName HandleMacros, C.Type HandleMacros)], C.Type HandleMacros), C.Name)
+         (([(Maybe Text, C.Type HandleMacros)], C.Type HandleMacros), Text)
       -> M (C.Decl HandleMacros)
     withReparse ((tys, ty), _name) = do
        -- TODO: We should assert that the name is the name we were expecting
        return $ C.Decl{
            declInfo = info
          , declKind = C.DeclFunction C.Function{
-               functionArgs = tys
+               functionArgs = map (first (fmap C.ScopedName)) tys
              , functionRes  = ty
              , functionAnn  = NoAnn
              , ..
@@ -403,7 +403,7 @@ runM standard = fmap stateErrors . flip runState (initMacroState standard) . unw
 --
 -- We also return the new macro type environment
 parseMacro ::
-     C.Name
+     C.DeclName
   -> [Token TokenSpelling]
   -> M (Either HandleMacrosError (C.CheckedMacro HandleMacros))
 parseMacro name []      = panicPure $ "macro " <> show name <> ": unexpected empty list of tokens"
@@ -438,8 +438,8 @@ parseMacro name tokens  = state     $ \st ->
          LanC.ReparseEnv HandleMacros
       -> LanC.ReparseEnv HandleMacros
     updateReparseEnv =
-        Map.insert name $
-          C.TypeRef (C.PrelimDeclIdNamed name C.NameKindOrdinary)
+        Map.insert name.text $
+          C.TypeRef (C.PrelimDeclIdNamed name)
 
     dropEval ::
          CExpr.DSL.Quant (CExpr.DSL.FunValue, CExpr.DSL.Type 'CExpr.DSL.Ty)

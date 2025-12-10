@@ -65,12 +65,8 @@ module HsBindgen.Frontend.AST.External (
   , GetCanonicalType(..)
   , eraseTypedef
     -- * Names
-  , C.Name(..)
   , C.TagKind(..)
   , C.NameKind(..)
-  , C.QualName(..)
-  , C.qualNameText
-  , C.parseQualName
   , C.AnonId(..)
   , C.PrelimDeclId(..)
   , C.DeclId(..)
@@ -270,7 +266,7 @@ data Function = Function {
 --
 -- The Haskell identifier might not be known (if the reference is to a
 -- declaration not in the current translation unit).
-data CommentRef = CommentRef C.Name (Maybe Hs.Identifier)
+data CommentRef = CommentRef Text (Maybe Hs.Identifier)
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
@@ -369,13 +365,13 @@ isCanonicalTypeFunction ty = case getCanonicalType ty of
 -- | Is the canonical type a struct type?
 isCanonicalTypeStruct :: GetCanonicalType t => t -> Bool
 isCanonicalTypeStruct ty = case getCanonicalType ty of
-    TypeRef dId -> dId.nameKind == C.NameKindTagged C.TagKindStruct
+    TypeRef dId -> dId.name.kind == C.NameKindTagged C.TagKindStruct
     _otherwise  -> False
 
 -- | Is the canonical type a union type?
 isCanonicalTypeUnion :: GetCanonicalType t => t -> Bool
 isCanonicalTypeUnion ty = case getCanonicalType ty of
-    TypeRef dId -> dId.nameKind == C.NameKindTagged C.TagKindUnion
+    TypeRef dId -> dId.name.kind == C.NameKindTagged C.TagKindUnion
     _otherwise  -> False
 
 -- | Is the canonical type a complex type?

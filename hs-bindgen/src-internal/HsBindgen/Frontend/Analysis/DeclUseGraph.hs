@@ -35,6 +35,7 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -67,7 +68,7 @@ getUseSitesTransitively = DynGraph.reaches . unwrap
 -------------------------------------------------------------------------------}
 
 data UseOfDecl =
-    UsedByNamed Usage C.Name
+    UsedByNamed Usage C.DeclName
   | UsedByFieldOfAnon ValOrRef (FieldName Parse) UseOfDecl
   deriving stock (Show)
 

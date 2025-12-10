@@ -44,9 +44,9 @@ import Data.Yaml.Internal qualified
 import Text.SimplePrettyPrint (hang, hangs', string, textToCtxDoc, (><))
 
 import HsBindgen.BindingSpec.Private.Version
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Resolve (ResolveHeaderMsg)
 import HsBindgen.Util.Tracer
@@ -65,7 +65,7 @@ data BindingSpecReadMsg =
   | BindingSpecReadIncompatibleTarget FilePath
   | BindingSpecReadAnyTargetNotEnforced FilePath
   | BindingSpecReadInvalidCName FilePath Text
-  | BindingSpecReadCTypeConflict FilePath C.QualName HashIncludeArg
+  | BindingSpecReadCTypeConflict FilePath C.DeclName HashIncludeArg
   | BindingSpecReadHsIdentifierNoRef FilePath Hs.Identifier
   | BindingSpecReadHsTypeConflict FilePath Hs.Identifier
   | BindingSpecReadHashIncludeArg FilePath HashIncludeArgMsg
@@ -124,9 +124,9 @@ instance PrettyForTrace BindingSpecReadMsg where
         >< string path
     BindingSpecReadInvalidCName path t ->
       "invalid C name in " >< string path >< ": " >< textToCtxDoc t
-    BindingSpecReadCTypeConflict path cQualName header ->
+    BindingSpecReadCTypeConflict path cDeclName header ->
       "multiple entries in " >< string path >< " for C type: "
-        >< textToCtxDoc (C.qualNameText cQualName)
+        >< textToCtxDoc (C.declNameText cDeclName)
         >< " (" >< string (getHashIncludeArg header) >< ")"
     BindingSpecReadHsIdentifierNoRef path hsIdentifier ->
       "Haskell identifier in " >< string path >< " not referenced by C type: "
@@ -147,7 +147,7 @@ instance PrettyForTrace BindingSpecReadMsg where
 data BindingSpecResolveMsg =
     BindingSpecResolveExternalHeader     ResolveHeaderMsg
   | BindingSpecResolvePrescriptiveHeader ResolveHeaderMsg
-  | BindingSpecResolveTypeDropped        C.QualName
+  | BindingSpecResolveTypeDropped        C.DeclName
   deriving stock (Show)
 
 instance IsTrace Level BindingSpecResolveMsg where
@@ -184,14 +184,14 @@ instance PrettyForTrace BindingSpecResolveMsg where
         "During resolution of prescriptive binding specification:"
         2
         (prettyForTrace x)
-    BindingSpecResolveTypeDropped cQualName ->
-      "Type dropped: " >< textToCtxDoc (C.qualNameText cQualName)
+    BindingSpecResolveTypeDropped cDeclName ->
+      "Type dropped: " >< textToCtxDoc (C.declNameText cDeclName)
 
 --------------------------------------------------------------------------------
 
 -- | Merge binding specification trace messages
 newtype BindingSpecMergeMsg =
-    BindingSpecMergeConflict C.QualName
+    BindingSpecMergeConflict C.DeclName
   deriving stock (Show)
 
 instance IsTrace Level BindingSpecMergeMsg where
@@ -201,9 +201,9 @@ instance IsTrace Level BindingSpecMergeMsg where
 
 instance PrettyForTrace BindingSpecMergeMsg where
   prettyForTrace = \case
-    BindingSpecMergeConflict cQualName ->
+    BindingSpecMergeConflict cDeclName ->
       "conflicting binding specifications for C type: "
-        >< textToCtxDoc (C.qualNameText cQualName)
+        >< textToCtxDoc (C.declNameText cDeclName)
 
 --------------------------------------------------------------------------------
 

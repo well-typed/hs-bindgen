@@ -46,6 +46,7 @@ import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 -- | Frontend.
@@ -280,7 +281,7 @@ data FrontendArtefact = FrontendArtefact {
   , frontendIndex          :: Cached DeclIndex.DeclIndex
   , frontendUseDeclGraph   :: Cached UseDeclGraph.UseDeclGraph
   , frontendDeclUseGraph   :: Cached DeclUseGraph.DeclUseGraph
-  , frontendOmitTypes      :: Cached [(C.QualName, SourcePath)]
+  , frontendOmitTypes      :: Cached [(C.DeclName, SourcePath)]
   , frontendCDecls         :: Cached [C.Decl]
   , frontendDependencies   :: Cached [SourcePath]
   }

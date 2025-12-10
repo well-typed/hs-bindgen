@@ -11,19 +11,18 @@ module HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen (
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Declarations
 -------------------------------------------------------------------------------}
 
-fromDecl :: PartialDecl p -> FromLanC p (Maybe Name, Type p)
+fromDecl :: PartialDecl p -> FromLanC p (Maybe CName, Type p)
 fromDecl PartialDecl{partialName, partialType} = do
     typ <- fromKnownType <$> fromPartialType partialType
     return (partialName, typ)
 
-fromNamedDecl :: PartialDecl p -> FromLanC p (Name, Type p)
+fromNamedDecl :: PartialDecl p -> FromLanC p (CName, Type p)
 fromNamedDecl PartialDecl{partialName, partialType} = do
     name <- partialFromJust partialName
     typ  <- fromKnownType <$> fromPartialType partialType
@@ -33,8 +32,8 @@ fromFunDecl ::
      ValidPass p
   => PartialDecl p
   -> FromLanC p (
-         Name
-       , ( [(Maybe Name, Type p)]
+         CName
+       , ( [(Maybe CName, Type p)]
          , Type p
          )
        )
@@ -61,7 +60,7 @@ fromTopLevelFun ::
      ValidPass p
   => KnownType p
   -> FromLanC p (
-         [(Maybe Name, Type p)]
+         [(Maybe CName, Type p)]
        , Type p
        )
 fromTopLevelFun = \case

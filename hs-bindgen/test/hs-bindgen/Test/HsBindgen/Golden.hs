@@ -32,6 +32,7 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict as Conflict
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
+import HsBindgen.Language.C qualified as C
 import HsBindgen.TraceMsg
 
 {-------------------------------------------------------------------------------
@@ -500,9 +501,9 @@ test_macros_macro_redefines_global :: TestCase
 test_macros_macro_redefines_global =
   let declsWithMsgs :: [C.PrelimDeclId]
       declsWithMsgs = [
-            C.PrelimDeclIdNamed "stdin"  C.NameKindOrdinary
-          , C.PrelimDeclIdNamed "stdout" C.NameKindOrdinary
-          , C.PrelimDeclIdNamed "stderr" C.NameKindOrdinary
+            C.PrelimDeclIdNamed $ C.DeclName "stdin"  C.NameKindOrdinary
+          , C.PrelimDeclIdNamed $ C.DeclName "stdout" C.NameKindOrdinary
+          , C.PrelimDeclIdNamed $ C.DeclName "stderr" C.NameKindOrdinary
           ]
   in testTraceCustom "macros/macro_redefines_global" declsWithMsgs $ \case
     TraceFrontend (FrontendSelect (SelectConflict x)) ->
@@ -547,25 +548,25 @@ test_types_typedefs_multi_level_function_pointer =
 
 test_types_typedefs_typedef_analysis :: TestCase
 test_types_typedefs_typedef_analysis =
-  let declsWithMsgs :: [Labelled C.Name]
+  let declsWithMsgs :: [Labelled C.DeclName]
       declsWithMsgs = [
-            Labelled "Renamed"  "struct1"
-          , Labelled "Squashed" "struct1_t"
-          , Labelled "Renamed"  "struct2"
-          , Labelled "Squashed" "struct2_t"
-          , Labelled "Renamed"  "struct3"
-          , Labelled "Squashed" "struct3_t"
-          , Labelled "Renamed"  "struct4"
-          , Labelled "Squashed" "struct4_t"
-          , Labelled "Renamed"  "struct6"
-          , Labelled "Squashed" "struct8"
-          , Labelled "Squashed" "struct9"
-          , Labelled "Renamed"  "struct10"
-          , Labelled "Squashed" "struct10_t"
-          , Labelled "Renamed"  "struct11"
-          , Labelled "Squashed" "struct11_t"
-          , Labelled "Renamed"  "struct12"
-          , Labelled "Squashed" "struct12_t"
+            Labelled "Renamed"  $ C.DeclName "struct1"    (C.NameKindTagged C.TagKindStruct)
+          , Labelled "Squashed" $ C.DeclName "struct1_t"   C.NameKindOrdinary
+          , Labelled "Renamed"  $ C.DeclName "struct2"    (C.NameKindTagged C.TagKindStruct)
+          , Labelled "Squashed" $ C.DeclName "struct2_t"   C.NameKindOrdinary
+          , Labelled "Renamed"  $ C.DeclName "struct3"    (C.NameKindTagged C.TagKindStruct)
+          , Labelled "Squashed" $ C.DeclName "struct3_t"   C.NameKindOrdinary
+          , Labelled "Renamed"  $ C.DeclName "struct4"    (C.NameKindTagged C.TagKindStruct)
+          , Labelled "Squashed" $ C.DeclName "struct4_t"   C.NameKindOrdinary
+          , Labelled "Renamed"  $ C.DeclName "struct6"    (C.NameKindTagged C.TagKindStruct)
+          , Labelled "Squashed" $ C.DeclName "struct8"     C.NameKindOrdinary
+          , Labelled "Squashed" $ C.DeclName "struct9"     C.NameKindOrdinary
+          , Labelled "Renamed"  $ C.DeclName "struct10"   (C.NameKindTagged C.TagKindStruct)
+          , Labelled "Squashed" $ C.DeclName "struct10_t"  C.NameKindOrdinary
+          , Labelled "Renamed"  $ C.DeclName "struct11"   (C.NameKindTagged C.TagKindStruct)
+          , Labelled "Squashed" $ C.DeclName "struct11_t"  C.NameKindOrdinary
+          , Labelled "Renamed"  $ C.DeclName "struct12"   (C.NameKindTagged C.TagKindStruct)
+          , Labelled "Squashed" $ C.DeclName "struct12_t"  C.NameKindOrdinary
           ]
   in testTraceCustom "types/typedefs/typedef_analysis" declsWithMsgs $ \case
     TraceFrontend (FrontendHandleTypedefs (HandleTypedefsSquashed info)) ->
@@ -603,7 +604,7 @@ test_functions_varargs = testTraceCustom "functions/varargs" ["f", "g"] $ \case
         _
         (ParseUnsupportedType (
           UnsupportedUnderlyingType
-            (C.PrelimDeclIdNamed "va_list" C.NameKindOrdinary)
+            (C.PrelimDeclIdNamed (C.DeclName "va_list" C.NameKindOrdinary))
             (UnsupportedBuiltin "__builtin_va_list")
         ))
     )))) ->
@@ -1089,7 +1090,7 @@ test_program_analysis_selection_omit_external_a =
         "Omitted"
       ] $ \case
         TraceFrontend (FrontendResolveBindingSpecs (ResolveBindingSpecsOmittedType x)) ->
-          Just $ Expected $ C.getName $ C.qualNameName x
+          Just $ Expected x.text
         _other -> Nothing
   }
 
@@ -1309,15 +1310,15 @@ testCases = manualTestCases ++ [
 
 expectSelected ::
      C.DeclInfo Select
-  -> Set C.Name
+  -> Set Text
   -> Maybe (TraceExpectation String)
 expectSelected info expectedNames
   | Set.member name expectedNames
-  = Just . Expected $ "selected " ++ Text.unpack (C.getName name)
+  = Just . Expected $ "selected " ++ Text.unpack name
   | otherwise
   = Just Unexpected
   where
-    name = info.declId.name
+    name = info.declId.name.text
 
 -- | Test cases for header files used in the manual
 manualTestCases :: [TestCase]
@@ -1346,12 +1347,12 @@ manualTestCases = [
 
 expectFromPrelimDeclId :: C.PrelimDeclId -> TraceExpectation Text
 expectFromPrelimDeclId = Expected . \case
-    C.PrelimDeclIdNamed   n _ -> C.getName n
+    C.PrelimDeclIdNamed   n   -> n.text
     C.PrelimDeclIdAnon    n _ -> Text.pack $ show n
     -- C.PrelimDeclIdBuiltin n _ -> C.getName n
 
 expectFromDeclInfoSelect :: C.DeclInfo Select -> TraceExpectation Text
-expectFromDeclInfoSelect info = Expected $ C.getName info.declId.name
+expectFromDeclInfoSelect info = Expected info.declId.name.text
 
 expectFromDeclSelect :: C.Decl Select -> TraceExpectation Text
 expectFromDeclSelect = expectFromDeclInfoSelect . C.declInfo

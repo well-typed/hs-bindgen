@@ -1,32 +1,5 @@
 -- | C naming and declaration identifiers
 --
--- This module defines many types that are used to identify C declarations in
--- various contexts.  A goal is to make invalid state unrepresentable.  For
--- example, if the 'NameKind' is determined by some context, then the identifier
--- type must not contain a 'NameKind' because it would be possible to have a
--- value that does not match the context.  Having many types can be confusing,
--- but it is required for this design goal.
---
--- An identifier must include a 'NameKind' to uniquely identify a declaration
--- without context.  Terminology /qualified/ indicates that a type includes a
--- 'NameKind'.  Such types have a @Qual@ prefix.
---
--- At a high level, there are three types of identifiers:
---
--- * /Names/ are general identifiers that can be parsed from user input
---   (strings).  For example, @struct foo@ can be parsed to a 'QualName', which
---   uniquely identifies a declaration without context.
--- * /Preliminary declaration IDs/ are assigned to declarations when they are
---   parsed.  Anonymous declarations are identified using 'AnonId', which
---   includes the source location, so such IDs /cannot/ be parsed from user
---   input.  Type 'QualPrelimDeclId' uniquely identifies a declaration without
---   context.
--- * /Declaration IDs/ are assigned to declarations when anonymous declarations
---   are named.  Types 'NameOrigin' provides information needed to determine the
---   original preliminary declaration ID.  Declaration IDs therefore include
---   source locations, so they /cannot/ be parsed from user input.  Type
---   'QualDeclId' uniquely identifies a declaration without context.
---
 -- Intended for qualified import within frontend.
 --
 -- > import HsBindgen.Frontend.Naming qualified as C
@@ -34,22 +7,8 @@
 -- Use outside of the frontend should be done via
 -- "HsBindgen.Frontend.AST.External".
 module HsBindgen.Frontend.Naming (
-    -- * Name
-    Name(..)
-
-    -- * TagKind
-  , TagKind(..)
-
-    -- * NameKind
-  , NameKind(..)
-
-    -- * QualName
-  , QualName(..)
-  , qualNameText
-  , parseQualName
-
     -- * AnonId
-  , AnonId(..)
+    AnonId(..)
 
     -- * PrelimDeclId
   , PrelimDeclId(..)
@@ -60,7 +19,6 @@ module HsBindgen.Frontend.Naming (
     -- * DeclId
   , DeclId(..)
   , OrigDeclId(..)
-  , declIdQualName
   , unsafeDeclIdHaskellName
   , declIdCName
 
@@ -80,130 +38,9 @@ import Clang.LowLevel.Core
 import HsBindgen.Errors
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
-
-{-------------------------------------------------------------------------------
-  Name
--------------------------------------------------------------------------------}
-
--- | C name
---
--- This type represents C names, including type names, field names, variable
--- names, function names, and macro names.
---
--- In type @struct foo@, the name is just @foo@.  The tag kind prefix is /not/
--- part of the name.
-newtype Name = Name {
-      getName :: Text
-    }
-  deriving newtype (Show, Eq, Ord, IsString, Semigroup)
-  deriving stock (Generic)
-
-instance PrettyForTrace Name where
-  prettyForTrace (Name name) = PP.singleQuotes $ PP.textToCtxDoc name
-
-{-------------------------------------------------------------------------------
-  TagKind
--------------------------------------------------------------------------------}
-
--- | C tag kind
---
--- This type distinguishes the kinds of C tags.
-data TagKind =
-    -- | @struct@ tag kind
-    TagKindStruct
-
-    -- | @union@ tag kind
-  | TagKindUnion
-
-    -- | @enum@ tag kind
-  | TagKindEnum
-  deriving stock (Show, Eq, Ord, Generic)
-
-instance PrettyForTrace TagKind where
-  prettyForTrace = PP.showToCtxDoc
-
-tagKindPrefix :: TagKind -> Text
-tagKindPrefix = \case
-    TagKindStruct -> "struct"
-    TagKindUnion  -> "union"
-    TagKindEnum   -> "enum"
-
-{-------------------------------------------------------------------------------
-  NameKind
--------------------------------------------------------------------------------}
-
--- | C name kind
---
--- This type distinguishes ordinary names and tagged names.  It is needed when
--- the kind is not determined by a context.
-data NameKind =
-    -- | Ordinary kind
-    --
-    -- An ordinary name is written without a prefix.
-    NameKindOrdinary
-
-    -- | Tagged kind
-    --
-    -- A tagged name is written with a prefix that specifies the tag kind.
-  | NameKindTagged TagKind
-  deriving stock (Show, Eq, Ord, Generic)
-
-instance Bounded NameKind where
-  minBound = NameKindOrdinary
-  maxBound = NameKindTagged TagKindEnum
-
-instance Enum NameKind where
-  toEnum = \case
-    0 -> NameKindOrdinary
-    1 -> NameKindTagged TagKindStruct
-    2 -> NameKindTagged TagKindUnion
-    3 -> NameKindTagged TagKindEnum
-    _ -> panicPure "invalid NameKind toEnum"
-
-  fromEnum = \case
-    NameKindOrdinary             -> 0
-    NameKindTagged TagKindStruct -> 1
-    NameKindTagged TagKindUnion  -> 2
-    NameKindTagged TagKindEnum   -> 3
-
-instance PrettyForTrace NameKind where
-  prettyForTrace = PP.showToCtxDoc
-
-nameKindPrefix :: NameKind -> Maybe Text
-nameKindPrefix = \case
-    NameKindOrdinary       -> Nothing
-    NameKindTagged tagKind -> Just (tagKindPrefix tagKind)
-
-{-------------------------------------------------------------------------------
-  QualName
--------------------------------------------------------------------------------}
-
--- | C name, qualified by the 'NameKind'
---
--- This is the parsed representation of a @libclang@ C spelling.
-data QualName = QualName {
-      qualNameName :: Name
-    , qualNameKind :: NameKind
-    }
-  deriving stock (Eq, Generic, Ord, Show)
-
-instance PrettyForTrace QualName where
-  prettyForTrace = PP.singleQuotes . PP.textToCtxDoc . qualNameText
-
-qualNameText :: QualName -> Text
-qualNameText QualName{..} = case nameKindPrefix qualNameKind of
-    Nothing     -> getName qualNameName
-    Just prefix -> prefix <> " " <> getName qualNameName
-
-parseQualName :: Text -> Maybe QualName
-parseQualName t = case Text.words t of
-    [n]           -> Just $ QualName (Name n) NameKindOrdinary
-    ["struct", n] -> Just $ QualName (Name n) (NameKindTagged TagKindStruct)
-    ["union",  n] -> Just $ QualName (Name n) (NameKindTagged TagKindUnion)
-    ["enum",   n] -> Just $ QualName (Name n) (NameKindTagged TagKindEnum)
-    _otherwise    -> Nothing
 
 {-------------------------------------------------------------------------------
   AnonId
@@ -229,42 +66,46 @@ instance PrettyForTrace AnonId where
 -- proper names in the 'NameAnon' pass.
 data PrelimDeclId =
     -- | Named declaration
-    PrelimDeclIdNamed Name NameKind
+    PrelimDeclIdNamed C.DeclName
 
     -- | Anonymous declaration
     --
     -- This can only happen for tagged types: structs, unions and enums
-  | PrelimDeclIdAnon AnonId NameKind
+  | PrelimDeclIdAnon AnonId C.NameKind
   deriving stock (Show, Eq, Ord)
 
-prelimDeclIdName :: PrelimDeclId -> Maybe Name
+prelimDeclIdName :: PrelimDeclId -> Maybe C.DeclName
 prelimDeclIdName = \case
-    PrelimDeclIdNamed   name   _kind -> Just name
-    PrelimDeclIdAnon   _anonId _kind -> Nothing
+    PrelimDeclIdNamed  name         -> Just name
+    PrelimDeclIdAnon  _anonId _kind -> Nothing
 
 instance PrettyForTrace PrelimDeclId where
   prettyForTrace = \case
-      PrelimDeclIdNamed n k ->
-        prettyForTrace (QualName n k)
+      PrelimDeclIdNamed n ->
+        prettyForTrace n
       PrelimDeclIdAnon anonId kind ->
         PP.singleQuotes $
           case kind of
-            NameKindTagged kind' ->
-                  PP.textToCtxDoc (tagKindPrefix kind')
+            C.NameKindTagged kind' ->
+                  PP.textToCtxDoc (C.tagKindPrefix kind')
               <+> PP.parens (prettyForTrace anonId)
-            NameKindOrdinary ->
+            C.NameKindOrdinary ->
               panicPure "unexpected anonymous ordinary name"
 
 instance PrettyForTrace (Located PrelimDeclId) where
   prettyForTrace (Located l i) =
       case i of
-        PrelimDeclIdNamed n k ->
-          prettyForTraceLoc (QualName n k) l
+        PrelimDeclIdNamed n ->
+          prettyForTraceLoc n l
         PrelimDeclIdAnon{}  ->
           -- No need to repeat the source location in this case
           prettyForTrace i
 
-getPrelimDeclId :: forall m. MonadIO m => CXCursor -> NameKind -> m PrelimDeclId
+getPrelimDeclId :: forall m.
+     MonadIO m
+  => CXCursor
+  -> C.NameKind
+  -> m PrelimDeclId
 getPrelimDeclId curr nameKind = do
     spelling  <- clang_getCursorSpelling curr
     if | Text.null spelling ->
@@ -288,7 +129,7 @@ getPrelimDeclId curr nameKind = do
          -- anyway, this misclassification does not matter.
          markAsAnon
        | otherwise ->
-         return $ PrelimDeclIdNamed (Name spelling) nameKind
+         return $ PrelimDeclIdNamed (C.DeclName spelling nameKind)
   where
     markAsAnon :: m PrelimDeclId
     markAsAnon = do
@@ -309,10 +150,6 @@ checkIsBuiltin curr = do
 
 {-------------------------------------------------------------------------------
   DeclId
-
-  TODO <https://github.com/well-typed/hs-bindgen/issues/1267>
-  Should 'NamedDeclId' and 'BuiltinDeclId' use 'QualName'?
-  Or should 'Name' just always be qualified itself?
 -------------------------------------------------------------------------------}
 
 -- | Declaration identifier
@@ -320,8 +157,7 @@ checkIsBuiltin curr = do
 -- All declarations have names after renaming in the @NameAnon@ pass.  This type
 -- is used until the @MangleNames@ pass.
 data DeclId (p :: Pass) = DeclId{
-      name       :: Name
-    , nameKind   :: NameKind
+      name       :: C.DeclName
     , origDeclId :: OrigDeclId
     , haskellId  :: HaskellId p
     }
@@ -342,9 +178,6 @@ data OrigDeclId =
   | AuxForDecl PrelimDeclId
   deriving stock (Show, Eq, Ord)
 
-declIdQualName :: DeclId p -> QualName
-declIdQualName declId = QualName declId.name declId.nameKind
-
 -- | Construct name in arbitrary name space
 --
 -- The caller must ensure that name rules are adhered to.
@@ -354,18 +187,18 @@ unsafeDeclIdHaskellName declId =
       Hs.Identifier name -> Hs.Name name
 
 -- | How do we refer to this declaration in C code?
-declIdCName :: DeclId p -> Maybe QualName
+declIdCName :: DeclId p -> Maybe C.DeclName
 declIdCName declId =
    case declId.origDeclId of
      AuxForDecl _parent -> Nothing
      OrigDeclId orig    ->
        case orig of
-         PrelimDeclIdNamed   name kind -> Just $ QualName name kind
-         PrelimDeclIdAnon{}            -> Nothing
+         PrelimDeclIdNamed  name -> Just name
+         PrelimDeclIdAnon{}      -> Nothing
 
 instance PrettyForTrace (DeclId p) where
    prettyForTrace declId = PP.hsep [
-         prettyForTrace (declIdQualName declId)
+         prettyForTrace declId.name
        , case declId.origDeclId of
            OrigDeclId orig | prelimDeclIdName orig /= Just declId.name ->
              PP.parens (prettyForTrace orig)

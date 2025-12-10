@@ -19,9 +19,9 @@ import Data.Set qualified as Set
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Errors
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -215,12 +215,12 @@ bindingSpec = BindingSpec.BindingSpec{..}
 
 -- | Concise alias for the C type 'Map'
 type CTypeMap =
-  Map C.QualName [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)]
+  Map C.DeclName [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)]
 
 -- | Concise alias for the key and value tuple corresponding to an entry in a
 -- 'CTypeMap'
 type CTypeKV =
-  (C.QualName, [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)])
+  (C.DeclName, [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)])
 
 -- | Concise alias for the Haskell type 'Map'
 type HsTypeMap = Map Hs.Identifier BindingSpec.HsTypeSpec
@@ -242,9 +242,9 @@ mkType ::
   -> [FilePath]
   -> (CTypeKV, HsTypeKV)
 mkType t hsIdentifier cTypeRep hsTypeRep insts headers' =
-    case C.parseQualName t of
-      Just cQualName ->
-        ( (cQualName, [(headers, Require cTypeSpec)])
+    case C.parseDeclName t of
+      Just cDeclName ->
+        ( (cDeclName, [(headers, Require cTypeSpec)])
         , (hsIdentifier, hsTypeSpec)
         )
       Nothing -> panicPure $ "invalid qualified name: " ++ show t

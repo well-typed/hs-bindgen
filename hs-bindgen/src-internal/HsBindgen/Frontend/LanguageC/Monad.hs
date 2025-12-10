@@ -26,7 +26,7 @@ import GHC.Stack
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Frontend.AST.Internal
-import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.LanguageC.PartialAST (CName)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -79,7 +79,7 @@ instance PrettyForTrace Error where
           ]
 
 -- | Types in scope when reparsing a particular declaration
-type ReparseEnv p = Map Name (Type p)
+type ReparseEnv p = Map CName (Type p)
 
 runFromLanC :: ReparseEnv p -> FromLanC p a -> Either Error a
 runFromLanC typeEnv =

@@ -27,8 +27,8 @@ import Text.Regex.PCRE.Text ()
 import Clang.Paths
 
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -167,13 +167,13 @@ matchSelect ::
      IsMainHeader
   -> IsInMainHeaderDir
   -> SourcePath
-  -> C.QualName
+  -> C.DeclName
   -> C.Availability
   -> Boolean SelectPredicate
   -> Bool
-matchSelect isMainHeader isInMainHeaderDir path qualName availability = eval $ \case
+matchSelect isMainHeader isInMainHeaderDir path declName availability = eval $ \case
     SelectHeader p -> matchHeaderPath isMainHeader isInMainHeaderDir path p
-    SelectDecl   p -> matchDecl qualName availability p
+    SelectDecl   p -> matchDecl declName availability p
 
 {-------------------------------------------------------------------------------
   Merging
@@ -248,9 +248,9 @@ matchHeaderPath isMainHeader isInMainHeaderDir path@(SourcePath pathT) = \case
     HeaderPathMatches re -> matchTest re pathT
 
 -- | Match 'DeclPredicate' predicates
-matchDecl :: C.QualName -> C.Availability -> DeclPredicate -> Bool
-matchDecl qualName availability = \case
-    DeclNameMatches re -> matchTest re $ C.qualNameText qualName
+matchDecl :: C.DeclName -> C.Availability -> DeclPredicate -> Bool
+matchDecl declName availability = \case
+    DeclNameMatches re -> matchTest re $ C.declNameText declName
     DeclDeprecated     -> isDeprecated
   where
     isDeprecated = case availability of

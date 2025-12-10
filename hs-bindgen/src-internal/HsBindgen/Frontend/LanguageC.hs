@@ -38,7 +38,6 @@ import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
-import HsBindgen.Frontend.Naming
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -56,10 +55,10 @@ type Parser p a =
 reparseFunDecl ::
      CanApply p
   => Parser p (
-         ( [(Maybe Name, Type p)]
+         ( [(Maybe CName, Type p)]
          , Type p
          )
-       , Name
+       , CName
        )
 reparseFunDecl = parseWith flattenFunDecl (fmap swap . fromFunDecl)
 
@@ -68,7 +67,7 @@ reparseTypedef :: CanApply p => Parser p (Type p)
 reparseTypedef = parseWith defaultFlatten (fmap snd . fromDecl)
 
 -- | Reparse struct/union field
-reparseField :: CanApply p => Parser p (Type p, Name)
+reparseField :: CanApply p => Parser p (Type p, CName)
 reparseField = parseWith defaultFlatten (fmap swap .  fromNamedDecl)
 
 -- | Parse macro-defined type
@@ -79,7 +78,7 @@ parseMacroType :: CanApply p => Parser p (Type p)
 parseMacroType = parseWith flattenMacroTypeDef (fromDecl >=> checkNotVoid)
   where
     -- @void@ does not make sense as a top-level type
-    checkNotVoid :: (Maybe Name, Type p) -> FromLanC p (Type p)
+    checkNotVoid :: (Maybe CName, Type p) -> FromLanC p (Type p)
     checkNotVoid (_name, typ) =
         case typ of
           TypeVoid   -> unsupported "type 'void'"
@@ -215,7 +214,7 @@ initReparseEnv standard = Map.fromList (bespokeTypes standard)
 -- | \"Primitive\" we expect the reparser to recognize
 --
 -- The language-c parser does not support these explicitly.
-bespokeTypes :: CStandard -> [(Name, Type p)]
+bespokeTypes :: CStandard -> [(CName, Type p)]
 bespokeTypes = \case
    -- Make sure that we really only replace keywords lacking definitions.
    --
@@ -252,11 +251,9 @@ getUniqueName = WrapWithNameSupply $ State.state aux
     aux (n:ns) = (n,ns)
     aux []     = panicPure "impossible: no more unique names"
 
-declarePredefined :: Name -> WithNameSupply LanC.Ident
-declarePredefined name = LanC.mkIdent LanC.nopos name' <$> getUniqueName
-  where
-    name' :: String
-    name' = Text.unpack $ getName name
+declarePredefined :: CName -> WithNameSupply LanC.Ident
+declarePredefined name =
+    LanC.mkIdent LanC.nopos (Text.unpack name) <$> getUniqueName
 
 {-------------------------------------------------------------------------------
   Debugging

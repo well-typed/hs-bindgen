@@ -37,6 +37,7 @@ import HsBindgen.Clang
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -75,7 +76,7 @@ exec GlobalOpts{..} Opts{..} =
       -- 3. Find failed macros, where the stringified macro is the macro name,
       --    and remove them from the results
       let failedNames =
-            [n | (n, v) <- Map.toList results1, Text.unpack (C.getName n) == v]
+            [n | (n, v) <- Map.toList results1, Text.unpack n == v]
           results2 = foldr Map.delete results1 failedNames
       -- 4. Try to get stringified values for the failed macros by passing a
       --    single paramater
@@ -93,19 +94,19 @@ exec GlobalOpts{..} Opts{..} =
         putStrLn $ renderResult name (Map.lookup name results3)
   where
     -- Output space even when @v@ is empty to match @clang@ behavior
-    renderResult :: C.Name -> Maybe String -> String
+    renderResult :: Text -> Maybe String -> String
     renderResult builtinName mValue =
-      let n = Text.unpack (C.getName builtinName)
+      let n = Text.unpack builtinName
           v = fromMaybe "UNKNOWN_MACRO_DEFINITION" mValue
       in  "#define " ++ n ++ ' ' : v
 
-    stripParams :: C.Name -> C.Name
-    stripParams = C.Name . Text.takeWhile (/= '(') . C.getName
+    stripParams :: Text -> Text
+    stripParams = Text.takeWhile (/= '(')
 
 -- | Get the names of all builtin macros
 --
 -- Parameterized macros do /not/ include the parameters.
-getBuiltinMacroNames :: Tracer ClangMsg -> ClangArgs -> IO [C.Name]
+getBuiltinMacroNames :: Tracer ClangMsg -> ClangArgs -> IO [Text]
 getBuiltinMacroNames tracer clangArgs =
     fmap (fromMaybe []) . withClang' tracer setup $ \unit -> do
       root <- clang_getTranslationUnitCursor unit
@@ -115,18 +116,18 @@ getBuiltinMacroNames tracer clangArgs =
     setup = defaultClangSetup clangArgs $
       ClangInputMemory "hs-bindgen-builtins.h" ""
 
-    visit :: Fold IO C.Name
+    visit :: Fold IO Text
     visit = simpleFold $ \curr -> do
       mBuiltin <- C.checkIsBuiltin curr
       case mBuiltin of
-        Just name -> foldContinueWith (C.Name name)
+        Just name -> foldContinueWith name
         Nothing   -> foldBreak
 
 -- | Get stringified definitions of the specified macros
 --
 -- The stringified definition of a parameteried macro is the macro name itself
 -- (not including the parameters).
-getMacros :: Tracer ClangMsg -> ClangArgs -> [C.Name] -> IO (Map C.Name String)
+getMacros :: Tracer ClangMsg -> ClangArgs -> [Text] -> IO (Map Text String)
 getMacros tracer clangArgs names =
     fmap (maybe Map.empty Map.fromList) . withClang' tracer setup $ \unit -> do
       root <- clang_getTranslationUnitCursor unit
@@ -146,21 +147,21 @@ getMacros tracer clangArgs names =
       , "#define STR(x) STREX(x)"
       ]
 
-    mkDecl :: C.Name -> String
+    mkDecl :: Text -> String
     mkDecl builtinName =
-      let name = Text.unpack (C.getName builtinName)
+      let name = Text.unpack builtinName
       in  "const char *BUILTIN_X_" ++ name ++ " = STR(" ++ name ++ ");"
 
-    parseName :: C.Name -> Maybe C.Name
-    parseName = fmap C.Name . Text.stripPrefix "BUILTIN_X_" . C.getName
+    parseName :: Text -> Maybe Text
+    parseName = Text.stripPrefix "BUILTIN_X_"
 
-    visit :: Fold IO (C.Name, String)
+    visit :: Fold IO (Text, String)
     visit = simpleFold $ \curr -> do
       C.getPrelimDeclId curr C.NameKindOrdinary >>= \case
-        C.PrelimDeclIdAnon{}           -> foldContinue
-        C.PrelimDeclIdNamed name _kind ->
+        C.PrelimDeclIdAnon{}     -> foldContinue
+        C.PrelimDeclIdNamed name ->
           (fromSimpleEnum <$> clang_getCursorKind curr) >>= \case
-            Right CXCursor_VarDecl -> case parseName name of
+            Right CXCursor_VarDecl -> case parseName name.text of
               Nothing          -> foldContinue
               Just builtinName -> HighLevel.clang_evaluate curr >>= \case
                 Just (EvalResultString s) -> foldContinueWith (builtinName, s)
@@ -175,8 +176,8 @@ getMacros tracer clangArgs names =
 getParamMacros ::
      Tracer ClangMsg
   -> ClangArgs
-  -> [C.Name]
-  -> IO (Map C.Name String)
+  -> [Text]
+  -> IO (Map Text String)
 getParamMacros tracer clangArgs names =
     fmap (maybe Map.empty Map.fromList) . withClang' tracer setup $ \unit -> do
       root <- clang_getTranslationUnitCursor unit
@@ -196,21 +197,21 @@ getParamMacros tracer clangArgs names =
       , "#define STR(x) STREX(x)"
       ]
 
-    mkDecl :: C.Name -> String
+    mkDecl :: Text -> String
     mkDecl builtinName =
-      let name = Text.unpack (C.getName builtinName)
+      let name = Text.unpack builtinName
       in  "const char *BUILTIN_X_" ++ name ++ " = STR(" ++ name ++ "(c));"
 
-    parseName :: C.Name -> Maybe C.Name
-    parseName = fmap C.Name . Text.stripPrefix "BUILTIN_X_" . C.getName
+    parseName :: Text -> Maybe Text
+    parseName = Text.stripPrefix "BUILTIN_X_"
 
-    visit :: Fold IO (C.Name, String)
+    visit :: Fold IO (Text, String)
     visit = simpleFold $ \curr ->
       C.getPrelimDeclId curr C.NameKindOrdinary >>= \case
-        C.PrelimDeclIdAnon{}           -> foldContinue
-        C.PrelimDeclIdNamed name _kind ->
+        C.PrelimDeclIdAnon{}     -> foldContinue
+        C.PrelimDeclIdNamed name ->
           (fromSimpleEnum <$> clang_getCursorKind curr) >>= \case
-            Right CXCursor_VarDecl -> case parseName name of
+            Right CXCursor_VarDecl -> case parseName name.text of
               Nothing          -> foldContinue
               Just builtinName -> HighLevel.clang_evaluate curr >>= \case
                 Just (EvalResultString s) -> case mangleValue s of
@@ -219,8 +220,8 @@ getParamMacros tracer clangArgs names =
                 _otherwise -> foldContinue
             _otherwise -> foldContinue
 
-    mangleName :: C.Name -> C.Name
-    mangleName = C.Name . (<> "(c)") . C.getName
+    mangleName :: Text -> Text
+    mangleName = (<> "(c)")
 
     mangleValue :: String -> Maybe String
     mangleValue = \case

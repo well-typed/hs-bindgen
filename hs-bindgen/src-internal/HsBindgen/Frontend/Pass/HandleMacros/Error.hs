@@ -12,9 +12,9 @@ import C.Expr.Parse.Infra qualified as CExpr.DSL
 import C.Expr.Typecheck.Expr qualified as CExpr.DSL
 
 import HsBindgen.Frontend.LanguageC qualified as LanC
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ data HandleMacrosError =
     -- macro as a type, and one for trying to parse the macro as an expression.
     HandleMacrosErrorParse LanC.Error CExpr.DSL.MacroParseError
 
-  | HandleMacrosErrorEmpty C.Name
+  | HandleMacrosErrorEmpty C.DeclName
 
     -- | We could not type-check the macro
   | HandleMacrosErrorTc CExpr.DSL.MacroTcError

@@ -51,7 +51,7 @@ mkPartialDecl = \case
     other ->
       unexpectedF other
 
-mkDecl :: CanApply p => LanC.CDeclaration a -> FromLanC p (Maybe Name, Type p)
+mkDecl :: CanApply p => LanC.CDeclaration a -> FromLanC p (Maybe CName, Type p)
 mkDecl = mkPartialDecl >=> fromDecl
 
 {-------------------------------------------------------------------------------
@@ -114,7 +114,7 @@ instance CanApply p
         >=> repeatedly (overM #partialType . apply) (reverse derived)
     where
       setName :: LanC.Ident -> (PartialDecl p) -> FromLanC p (PartialDecl p)
-      setName name = return . Optics.set #partialName (Just $ mkName name)
+      setName name = return . Optics.set #partialName (Just $ mkCName name)
 
 {-------------------------------------------------------------------------------
   'PartialType'
@@ -193,18 +193,18 @@ instance CanApply p
 
       -- User-defined types
       LanC.CSUType (LanC.CStruct su mTag mDef _attrs _a) _a' -> \partial -> do
-        tag <- checkNotAnon "anonymous struct or union" mTag
+        let tagKind = case su of
+                        LanC.CStructTag -> C.TagKindStruct
+                        LanC.CUnionTag  -> C.TagKindUnion
+        name <- checkNotAnon mTag tagKind
         checkNoDef "struct or union definition" mDef
-        let typ = case su of
-                    LanC.CStructTag -> typeRef tag TagKindStruct
-                    LanC.CUnionTag  -> typeRef tag TagKindUnion
-        notFun typ partial
+        notFun (typeRef name) partial
       LanC.CEnumType (LanC.CEnum mTag mDef _attrs _a) _a' -> \partial -> do
-        tag <- checkNotAnon "anonymous enum" mTag
+        name <- checkNotAnon mTag C.TagKindEnum
         checkNoDef "enum definition" mDef
-        notFun (typeRef tag TagKindEnum) $ partial
+        notFun (typeRef name) $ partial
       LanC.CTypeDef name _a -> \partial -> do
-        let name' = mkName name
+        let name' = mkCName name
         typeEnv <- getReparseEnv
         case Map.lookup name' typeEnv of
           Nothing  -> unexpected $ "user-defined type " ++ show name
@@ -214,12 +214,16 @@ instance CanApply p
       charSign Nothing     = C.PrimSignImplicit Nothing
       charSign (Just sign) = C.PrimSignExplicit sign
 
-      typeRef :: Name -> TagKind -> Type p
-      typeRef tag kind = TypeRef $ PrelimDeclIdNamed tag (NameKindTagged kind)
+      typeRef :: C.DeclName -> Type p
+      typeRef = TypeRef . PrelimDeclIdNamed
 
-      checkNotAnon :: String -> Maybe LanC.Ident -> FromLanC p Name
-      checkNotAnon _   (Just name) = return $ mkName name
-      checkNotAnon err Nothing     = unsupported err
+      checkNotAnon :: Maybe LanC.Ident -> C.TagKind -> FromLanC p C.DeclName
+      checkNotAnon mName tagKind =
+          case mName of
+            Just name ->
+              return $ C.DeclName (mkCName name) (C.NameKindTagged tagKind)
+            Nothing ->
+              unsupported $ "Anonymous " ++ show tagKind
 
       checkNoDef :: String -> Maybe def -> FromLanC p ()
       checkNoDef _   Nothing  = return ()
@@ -303,8 +307,8 @@ instance Apply p (LanC.CDerivedDeclarator a) (Type p) where
   Internal auxiliary: language-c
 -------------------------------------------------------------------------------}
 
-mkName :: LanC.Ident -> Name
-mkName (LanC.Ident name _hash _a) = Name $ Text.pack name
+mkCName :: LanC.Ident -> CName
+mkCName (LanC.Ident name _hash _a) = Text.pack name
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: optics

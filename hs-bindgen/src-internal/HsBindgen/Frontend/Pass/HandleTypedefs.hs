@@ -15,6 +15,7 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -159,8 +160,10 @@ introduceAuxFunType td declInfo declAnn n args res = [
     derefDecl = C.Decl {
           declInfo = declInfo {
               C.declId = C.DeclId{
-                  name       = declInfo.declId.name <> "_Deref"
-                , nameKind   = C.NameKindOrdinary
+                  name       = C.DeclName {
+                                   text = declInfo.declId.name.text <> "_Deref"
+                                 , kind = C.NameKindOrdinary
+                                 }
                 , haskellId  = ()
                 , origDeclId =
                     case declInfo.declId.origDeclId of
@@ -202,7 +205,7 @@ introduceAuxFunType td declInfo declAnn n args res = [
           Clang.Paragraph [
               Clang.TextContent "Auxiliary type used by "
             , Clang.InlineRefCommand $
-                C.CommentRef declInfo.declId.name Nothing
+                C.CommentRef declInfo.declId.name.text Nothing
             ]
         ]
 

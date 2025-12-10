@@ -9,14 +9,14 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 foreignImportDecs ::
      Hs.Name 'Hs.NsVar
   -> HsType
   -> [Hs.FunctionParameter]
-  -> C.Name
+  -> C.DeclName
   -> CallConv
   -> Origin.ForeignImport
   -> Maybe HsDoc.Comment

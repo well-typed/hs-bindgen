@@ -5,7 +5,7 @@ module HsBindgen.Backend.UniqueSymbol (
     -- * Generating unique names
     UniqueSymbol(..)
   , unsafeUniqueHsName
-  , uniqueCName
+  , uniqueCDeclName
   , globallyUnique
   , locallyUnique
   ) where
@@ -18,8 +18,8 @@ import Data.Text qualified as Text
 import GHC.Unicode (isDigit)
 
 import HsBindgen.Config.Prelims
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -46,8 +46,9 @@ data UniqueSymbol = UniqueSymbol{
 unsafeUniqueHsName :: UniqueSymbol -> Hs.Name ns
 unsafeUniqueHsName = Hs.Name . Text.pack . unique
 
-uniqueCName :: UniqueSymbol -> C.Name
-uniqueCName = C.Name . Text.pack . unique
+uniqueCDeclName :: UniqueSymbol -> C.DeclName
+uniqueCDeclName uniqueSymbol =
+    C.DeclName (Text.pack uniqueSymbol.unique) C.NameKindOrdinary
 
 -- | Globally unique symbol
 --

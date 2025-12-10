@@ -201,7 +201,7 @@ selectDecls
       where
         go :: C.PrelimDeclId -> SingleLoc -> C.Availability -> Bool
         go declId loc availability = case declId of
-            C.PrelimDeclIdNamed name kind ->
+            C.PrelimDeclIdNamed name ->
               let -- We have parsed some declarations that are required for
                   -- scoping but that actually do not match the parse predicate.
                   -- We want to avoid selecting these declarations. This is only
@@ -218,7 +218,7 @@ selectDecls
                       isMainHeader
                       isInMainHeaderDir
                       (singleLocPath loc)
-                      (C.QualName name kind)
+                      name
                       availability
                       selectConfigPredicate
               in parsed && selected

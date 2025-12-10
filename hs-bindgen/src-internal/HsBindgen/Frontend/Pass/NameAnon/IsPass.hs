@@ -12,6 +12,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -27,8 +28,8 @@ type family AnnNameAnon ix where
 
 instance IsPass NameAnon where
   type Id           NameAnon = C.DeclId NameAnon
-  type FieldName    NameAnon = C.Name
-  type ArgumentName NameAnon = Maybe C.Name
+  type FieldName    NameAnon = C.ScopedName
+  type ArgumentName NameAnon = Maybe C.ScopedName
   type MacroBody    NameAnon = C.CheckedMacro NameAnon
   type ExtBinding   NameAnon = Void
   type Ann ix       NameAnon = AnnNameAnon ix

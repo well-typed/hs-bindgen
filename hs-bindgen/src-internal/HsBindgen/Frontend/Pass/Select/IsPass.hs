@@ -29,6 +29,7 @@ import HsBindgen.Frontend.Pass.HandleMacros.Error (FailedMacro)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Predicate
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -46,8 +47,8 @@ type family AnnSelect ix where
 
 instance IsPass Select where
   type Id           Select = C.DeclId Select
-  type FieldName    Select = C.Name
-  type ArgumentName Select = Maybe C.Name
+  type FieldName    Select = C.ScopedName
+  type ArgumentName Select = Maybe C.ScopedName
   -- NOTE Using @CheckedMacro Select@ is incompatible with 'CoercePass'
   type MacroBody    Select = CheckedMacro ResolveBindingSpecs
   type ExtBinding   Select = ResolvedExtBinding

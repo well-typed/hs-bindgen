@@ -54,6 +54,7 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
 import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports hiding (toList)
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -91,7 +92,7 @@ data Unusable =
       -- information required to match the select predicate also to omitted
       -- declarations.
       -- | Omitted by prescriptive binding specifications
-    | UnusableOmitted           (C.QualName, SourcePath)
+    | UnusableOmitted           (C.DeclName, SourcePath)
     deriving stock (Show, Generic)
 
 instance PrettyForTrace Unusable where
@@ -321,10 +322,10 @@ keysSet :: DeclIndex -> Set C.PrelimDeclId
 keysSet = Map.keysSet . unDeclIndex
 
 -- | Get omitted entries.
-getOmitted :: DeclIndex -> Map C.PrelimDeclId (C.QualName, SourcePath)
+getOmitted :: DeclIndex -> Map C.PrelimDeclId (C.DeclName, SourcePath)
 getOmitted = Map.mapMaybe toOmitted . unDeclIndex
   where
-    toOmitted :: Entry -> Maybe (C.QualName, SourcePath)
+    toOmitted :: Entry -> Maybe (C.DeclName, SourcePath)
     toOmitted = \case
       UsableE _ -> Nothing
       UnusableE e -> case e of
@@ -390,7 +391,7 @@ getUnusables (DeclIndex i) xs = Map.mapMaybe retainUnusable $ Map.restrictKeys i
 -------------------------------------------------------------------------------}
 
 registerOmittedDeclarations ::
-  Map C.PrelimDeclId (C.QualName, SourcePath) -> DeclIndex  -> DeclIndex
+  Map C.PrelimDeclId (C.DeclName, SourcePath) -> DeclIndex  -> DeclIndex
 registerOmittedDeclarations xs =
       DeclIndex . Map.union (UnusableE . UnusableOmitted <$> xs) . unDeclIndex
 
