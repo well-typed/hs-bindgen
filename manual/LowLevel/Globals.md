@@ -13,22 +13,22 @@ extern struct globalConfig globalConfig;
 void printGlobalConfig();
 ```
 
-This results roughly in
+`hs-bindgen` translates the C code above roughly into
 
-```hs
+```haskell
 foreign import {-# details elided #-}
   hs_bindgen_e5d5a0f4ce4b2b08 :: IO (Ptr GlobalConfig)
 
-{-# NOINLINE globalConfig_ptr #-}
-globalConfig_ptr :: Ptr GlobalConfig
-globalConfig_ptr = unsafePerformIO hs_bindgen_e5d5a0f4ce4b2b08
+{-# NOINLINE globalConfig #-}
+globalConfig :: Ptr GlobalConfig
+globalConfig = unsafePerformIO hs_bindgen_e5d5a0f4ce4b2b08
 ```
 
-where `hs_bindgen_*` is randomly generated name. The `NOINLINE` pragma is there
-to ensure that the foreign import is evaluated only once. The usual definitions
-for structs and functions are also generated, including:
+where `hs_bindgen_*` is a randomly generated name. The `NOINLINE` pragma is
+there to ensure that the foreign import is evaluated only once. The usual
+definitions for `struct`s and functions are also generated, including:
 
-```hs
+```haskell
 data GlobalConfig = GlobalConfig {
       globalConfig_numThreads :: CInt
     , globalConfig_numWorkers :: CInt
@@ -40,12 +40,12 @@ instance Storable GlobalConfig where {-# details elided #-}
 
 We can use these bindings as follows:
 
-```hs
-do config <- peek Globals.globalConfig_ptr
+```haskell
+do config <- peek Globals.globalConfig
    print config
-   poke Globals.globalConfig_ptr $
+   poke Globals.globalConfig $
      config{Globals.globalConfig_numThreads = 3}
-   config' <- peek Globals.globalConfig_ptr
+   config' <- peek Globals.globalConfig
    print config'
 ```
 
@@ -60,13 +60,13 @@ int nonExternGlobalInt = 8;
 
 The code `hs-bindgen` produces for this is the same as for extern globals.
 
-```hs
+```haskell
 foreign import {-# details elided #-}
   hs_bindgen_f034badbc299f27b :: IO (Ptr CInt)
 
-{-# NOINLINE nonExternGlobalInt_ptr #-}
-nonExternGlobalInt_ptr :: Ptr CInt
-nonExternGlobalInt_ptr = unsafePerformIO hs_bindgen_f034badbc299f27b
+{-# NOINLINE nonExternGlobalInt #-}
+nonExternGlobalInt :: Ptr CInt
+nonExternGlobalInt = unsafePerformIO hs_bindgen_f034badbc299f27b
 ```
 
 In fact, the storage class specifier does not influence the bindings we
@@ -75,8 +75,8 @@ Haskell bindings would have been the same.
 
 We can use these bindings as follows:
 
-```hs
-do print =<< peek Globals.nonExternGlobalInt_ptr
+```haskell
+do print =<< peek Globals.nonExternGlobalInt
 ```
 
 However, such headers need to be treated with caution: if they are included more
@@ -97,8 +97,7 @@ thread_local extern int threadLocal;
 ```
 
 Taking a pointer of such a variable may not be safe, and we should generate a
-getter and setter instead. Such "global thread-local variables" should be
-exceedingly rare.
+getter and setter instead. "Global thread-local variables" are rare.
 
 ## Anonymous declarations
 
@@ -130,52 +129,50 @@ typedef const int ConstInt;
 static ConstInt anotherGlobalConstant = 123;
 ```
 
-The code `hs-bindgen` produces for these is the same as for non-constant global
-variables,
+`hs-bindgen` uses `ConstPtr` instead of `Ptr` for these non-constant global
+variables. Moreover, if a constant points to a value with a `Storable` instance,
+we generate additional utility functions that return the value of the constants
+directly:
 
-```hs
+```haskell
 foreign import {-# details elided #-}
   hs_bindgen_c83c3e4e014bf39c :: IO (ConstPtr CInt)
 
-{-# NOINLINE globalConstant_ptr #-}
-globalConstant_ptr :: ConstPtr CInt
-globalConstant_ptr = unsafePerformIO hs_bindgen_c83c3e4e014bf39c
+{-# NOINLINE hs_bindgen_4b7fabc21bc52057 #-}
+hs_bindgen_4b7fabc21bc52057 :: ConstPtr CInt
+hs_bindgen_4b7fabc21bc52057= unsafePerformIO hs_bindgen_c83c3e4e014bf39c
+
+{-# NOINLINE globalConstant #-}
+globalConstant :: CInt
+globalConstant = {-# details elided #-}
 
 newtype ConstInt = ConstInt { un_ConstInt :: CInt }
 
 foreign import {-# details elided #-}
   hs_bindgen_2d6b9a52b97910a9 :: IO (ConstPtr ConstInt)
 
-{-# NOINLINE anotherGlobalConstant_ptr #-}
-anotherGlobalConstant_ptr :: ConstPtr ConstInt
-anotherGlobalConstant_ptr = unsafePerformIO hs_bindgen_2d6b9a52b97910a9
-```
+{-# NOINLINE hs_bindgen_fad79735fe298c1f #-}
+hs_bindgen_fad79735fe298c1f :: ConstPtr ConstInt
+hs_bindgen_fad79735fe298c1f = unsafePerformIO hs_bindgen_2d6b9a52b97910a9
 
-but `hs-bindgen` uses `ConstPtr` rather than `Ptr`. Moreover, for constants we
-generate additional utility functions that return the value of the constants
-directly, but only if the pointed-to value has a `Storable` instance.
-
-```hs
-{-# NOINLINE globalConstant #-}
-globalConstant :: CInt
-globalConstant = {-# details elided #-}
-
-{-# NOINLINE anotherGlobalConstant}
+{-# NOINLINE anotherGlobalConstant #-}
 anotherGlobalConstant :: ConstInt
 anotherGlobalConstant = {-# details elided #-}
 ```
 
 Global constants can not be mutated in C unless unsafe casts are used, hence it
-is safe to bind the pointed-to-value. A caveat is that nothing prevents a user
-from `poke`-ing to a `ConstPtr` in Haskell land, but it being a `ConstPtr`
-should be a hint to the user not to do this.
+is safe to bind the pointed-to-value. The mangled name of the `ConstPtr`
+encourages usage of the values directly binding the pointed-to-value and
+indicates the `ConstPtr` being internal. However, nothing prevents a user from
+`poke`-ing to a `ConstPtr` in Haskell land, but it being a `ConstPtr` should be
+a hint to the user not to do this.
 
-We've also added `NOINLINE` pragmas so that `globalConstant` and
+We've also add `NOINLINE` pragmas so that `globalConstant` and
 `anotherGlobalConstant` are evaluated only once.
 
 We can then use the generated bindings as follows:
 
-```hs
+```haskell
 do print Globals.globalConstant
    print Globals.anotherGlobalConstant
 ```
@@ -213,7 +210,7 @@ extern const int * const constPtrToConstInt;
 `hs-bindgen` will roughly generate the following Haskell code, where most
 details except for type signatures are elided:
 
-```hs
+```haskell
 data Tuple = Tuple
   { tuple_x :: CInt
   , tuple_y :: CInt
@@ -224,61 +221,61 @@ instance Storable Tuple where {-# details elided #-}
 
 foreign import ccall unsafe "hs_bindgen_a804e6470cde45c2" hs_bindgen_a804e6470cde45c2 ::
      IO (ConstPtr ((ConstantArray 4) CInt))
-constArray1_ptr :: ConstPtr ((ConstantArray 4) CInt)
+hs_bindgen_6acdd0466d14ab3f :: ConstPtr ((ConstantArray 4) CInt)
 constArray1 :: (ConstantArray 4) CInt
 
 foreign import ccall unsafe "hs_bindgen_3cd4fc49a6bb5840" hs_bindgen_3cd4fc49a6bb5840 ::
      IO (ConstPtr (IncompleteArray CInt))
-constArray2_ptr :: ConstPtr (IncompleteArray CInt)
+constArray2 :: ConstPtr (IncompleteArray CInt)
 
 foreign import ccall unsafe "hs_bindgen_8c3024ef7f2b0594" hs_bindgen_8c3024ef7f2b0594 ::
      IO (ConstPtr Tuple)
-constTuple_ptr :: ConstPtr Tuple
+hs_bindgen_c9a3292a299edcd8 :: ConstPtr Tuple
 constTuple :: Tuple
 
 foreign import ccall unsafe "hs_bindgen_e1200a75ed20a2d2" hs_bindgen_e1200a75ed20a2d2 ::
      IO (Ptr Tuple)
-nonConstTuple_ptr :: Ptr Tuple
+nonConstTuple :: Ptr Tuple
 
 foreign import ccall unsafe "hs_bindgen_1d4f0442a6f47a9a" hs_bindgen_1d4f0442a6f47a9a ::
      IO (Ptr CInt)
-int_ptr :: Ptr CInt
+int :: Ptr CInt
 
 foreign import ccall unsafe "hs_bindgen_188ef9ca039f4abc" hs_bindgen_188ef9ca039f4abc ::
      IO (ConstPtr CInt)
-constInt_ptr :: ConstPtr CInt
+hs_bindgen_12ed4d294c0aeb5f :: ConstPtr CInt
 constInt :: CInt
 
 foreign import ccall unsafe "hs_bindgen_1fb9e392279def5a" hs_bindgen_1fb9e392279def5a ::
      IO (Ptr (Ptr CInt))
-ptrToInt_ptr :: Ptr (Ptr CInt)
+ptrToInt :: Ptr (Ptr CInt)
 
 foreign import ccall unsafe "hs_bindgen_4003d50d5f510514" hs_bindgen_4003d50d5f510514 ::
      IO (Ptr (ConstPtr CInt))
-ptrToConstInt_ptr :: Ptr (ConstPtr CInt)
+ptrToConstInt :: Ptr (ConstPtr CInt)
 
 foreign import ccall unsafe "hs_bindgen_c3df48685426f621" hs_bindgen_c3df48685426f621 ::
      IO (ConstPtr (Ptr CInt))
-constPtrToInt_ptr :: ConstPtr (Ptr CInt)
+hs_bindgen_ce37f0f07507c808 :: ConstPtr (Ptr CInt)
 constPtrToInt :: Ptr CInt
 
 foreign import ccall unsafe "hs_bindgen_7a4dc03eb19059c3" hs_bindgen_7a4dc03eb19059c3 ::
      IO (ConstPtr (ConstPtr CInt))
-constPtrToConstInt_ptr :: ConstPtr (ConstPtr CInt)
+hs_bindgen_4800a04940b1c189 :: ConstPtr (ConstPtr CInt)
 constPtrToConstInt :: ConstPtr CInt
 ```
 
 And we can use these bindings like so:
 
-```hs
+```haskell
 do print Globals.constArray1
-   print =<< IA.peekArray 5 Globals.constArray2_ptr.unConstPtr
+   print =<< IA.peekArray 5 Globals.constArray2.unConstPtr
    print Globals.constTuple
-   print =<< F.peek Globals.nonConstTuple_ptr
-   print =<< F.peek Globals.int_ptr
+   print =<< F.peek Globals.nonConstTuple
+   print =<< F.peek Globals.int
    print Globals.constInt
-   print =<< F.peek Globals.ptrToInt_ptr
-   print =<< F.peek Globals.ptrToConstInt_ptr
+   print =<< F.peek Globals.ptrToInt
+   print =<< F.peek Globals.ptrToConstInt
    print Globals.constPtrToInt
    print Globals.constPtrToConstInt
 ```
@@ -301,8 +298,8 @@ The approach to generating foreign imports for global variables is as follows:
   in `IO`. This foreign import is marked unsafe, since there is no possibility
   of callbacks into Haskell code. The name of the foreign import is the same as
   the mangled name of the stub C function. The import is meant to be internal,
-  so we do not have generate a descriptive name, and the mangled name prevents
-  name clashes with other Haskell identifiers.
+  so we do not have to generate a descriptive name, and the mangled name
+  prevents name clashes with other Haskell identifiers.
 
 * Then, we create a pure Haskell function that safely unsafely performs the `IO`
   and returns the pointer.
@@ -312,7 +309,9 @@ The approach to generating foreign imports for global variables is as follows:
   `Storable` instance in scope for the variable type, we generate a *pure*
   Haskell function that returns the value of the global constant, using a
   combination of `unsafePerformIO` and `peek` on the variable pointer. This is
-  safe, since the value of the global constant should not change.
+  safe, since the value of the global constant should not change. In this last
+  case, we also mangle the name of the variable pointer, to indicate it is
+  internal and encourage the use of the *pure* value.
 
 [issue-898]:https://github.com/well-typed/hs-bindgen/issues/898
 [pr-927]:https://github.com/well-typed/hs-bindgen/pull/927
@@ -329,30 +328,31 @@ extern int a;
 
 Stub:
 ```c
-/* get_a_ptr */ __attribute__ ((const)) int* fe8f4js8(void) { return &a; }
+/* get_a */ __attribute__ ((const)) int* fe8f4js8(void) { return &a; }
 ```
 
 Import:
-```hs
+```haskell
 foreign import ccall unsafe "fe8f4js8" fe8f4js8 :: IO (Ptr CInt)
 
-{-# NOINLINE a_ptr #-}
-a_ptr :: Ptr CInt
-a_ptr = unsafePerformIO fe8f4js8
+{-# NOINLINE a #-}
+a :: Ptr CInt
+a = unsafePerformIO fe8f4js8
 ```
 
 Memory layout:
-
-| type                     | name          | address | value   |
-| ------------------------ | ------------- | ------- | ------- |
-| int                      | a             | 1000    | 17      |
-|                          |               | ...     |         |
-| int* ; Ptr CInt          | a_ptr         | 2000    | 1000    |
+| type            | C name | Haskell name | address | value |
+|-----------------|--------|--------------|---------|-------|
+| int             | a      |              | 1000    | 17    |
+|                 |        |              | ...     |       |
+| int* ; Ptr CInt |        | a            | 2000    | 1000  |
 
 Constant:
-```hs
--- If the type of the global had been const-qualified instead, like @const int a2@, we would also generate the following
+```haskell
+-- If the type of the global had been const-qualified instead, like @const int
+-- a2@, we instead generate the following
 {-# NOINLINE a2 #-}
+hs_bindgen_3c1f548cbbd9c65b :: ConstPtr CInt
 a2 :: CInt
 ```
 
@@ -372,42 +372,42 @@ extern int * b;
 
 Stub:
 ```c
-/* get_b_ptr */ int** ae8fae8() { return &b; }
+/* get_b */ int** ae8fae8() { return &b; }
 ```
 
 Import:
-```hs
+```haskell
 foreign import ccall unsafe "ae8fae8" ae8fae8 :: IO (Ptr (Ptr CInt))
 
-{-# NOINLINE b_ptr #-}
-b_ptr :: Ptr (Ptr CInt)
-b_ptr = unsafePerformIO ae8fae8
+{-# NOINLINE b #-}
+b :: Ptr (Ptr CInt)
+b = unsafePerformIO ae8fae8
 
 -- The code below is not included in the generated bindings.
 -- It should be included by a user of the bindings if they want
 -- to use array utilities provided by @hs-bindgen-runtime@.
 
-b_constant_array_ptr :: IO (Ptr (ConstantArray 3 CInt))
-b_constant_array_ptr = toConstantArrayPtr (Proxy @3) <$> peek b_ptr
+b_constant_array :: IO (Ptr (ConstantArray 3 CInt))
+b_constant_array = toConstantArrayPtr (Proxy @3) <$> peek b
 
-b_incomplete_array_ptr :: IO (Ptr (IncompleteArray CInt))
-b_incomplete_array_ptr = toIncompleteArrayPtr <$> peek b_ptr
+b_incomplete_array :: IO (Ptr (IncompleteArray CInt))
+b_incomplete_array = toIncompleteArrayPtr <$> peek b
 ```
 
 Memory layout:
 
-| type                     | name          | address | value   |
-| ------------------------ | ------------- | ------- | ------- |
-| int                      |               | 1000    | 1       |
-|                          |               | 1004    | 2       |
-|                          |               | 1008    | 3       |
-|                          |               | ...     |         |
-| int*                     | y             | 2000    | 1000    |
-|                          |               | ...     |         |
-| int**; Ptr (Ptr CInt)    | y_ptr         | 3000    | 2000    |
+| type                  | C name | Haskell name | address | value |
+|-----------------------|--------|--------------|---------|-------|
+| int                   |        |              | 1000    | 1     |
+|                       |        |              | 1004    | 2     |
+|                       |        |              | 1008    | 3     |
+|                       |        |              | ...     |       |
+| int*                  | b      |              | 2000    | 1000  |
+|                       |        |              | ...     |       |
+| int**; Ptr (Ptr CInt) |        | b            | 3000    | 2000  |
 
 Constant:
-```hs
+```haskell
 -- If the type of the global had been const-qualified instead, like @const int
 -- * b2@, we would also generate the following. Note that we do this for
 -- const-pointer-to-int, not for pointer-to-const-int. The "outer" type should
@@ -443,39 +443,38 @@ extern triplet c;
 
 Stub:
 ```c
-/* get_c_ptr */ __attribute__ ((const)) triplet *f94u3030(void) { return &c; }
+/* get_c */ __attribute__ ((const)) triplet *f94u3030(void) { return &c; }
 ```
 
 Import:
-```hs
+```haskell
 newtype Triplet = Triplet (ConstantArray 3 CInt)
 foreign import ccall unsafe "f94u3030" f94u3030 :: IO (Ptr Triplet)
 
-{-# NOINLINE c_ptr #-}
-c_ptr :: Ptr Triplet
-c_ptr = unsafePerformIO f94u3030
+{-# NOINLINE c #-}
+c :: Ptr Triplet
+c = unsafePerformIO f94u3030
 
 -- The code below is not included in the generated bindings.
 -- It should be included by a user of the bindings if they want
 -- to use the array pointer as an array element pointer instead.
 
-c_elem_ptr :: Ptr CInt
-c_elem_ptr = snd $ toFirstElemPtr c_ptr
+c_elem :: Ptr CInt
+c_elem = snd $ toFirstElemPtr c
 ```
 
 Memory layout:
 
-| type                                   | name          | address | value   |
-| -------------------------------------- | ------------- | ------- | ------- |
-| int[3]                                 | c             | 1000    | 1       |
-|                                        |               | 1004    | 2       |
-|                                        |               | 1008    | 3       |
-|                                        |               | ...     |         |
-| (*int)[3] ; Ptr (ConstantArray 3 CInt) | c_ptr         | 2000    | 1000    |
+| type                                   | C name | Haskell name | address | value |
+|----------------------------------------|--------|--------------|---------|-------|
+| int[3]                                 | c      |              | 1000    | 1     |
+|                                        |        |              | 1004    | 2     |
+|                                        |        |              | 1008    | 3     |
+|                                        |        |              | ...     |       |
+| (*int)[3] ; Ptr (ConstantArray 3 CInt) |        | c            | 2000    | 1000  |
 
 Constant:
-```hs
-
+```haskell
 -- If the type of the global had been const-qualified instead, like @const
 -- triplet c2@, we would also generate the following
 {-# NOINLINE c2 #-}
@@ -496,38 +495,38 @@ extern list d;
 
 Stub:
 ```c
-/* get_d_ptr */ __attribute__ ((const)) list *poeyrb8a(void) { return &d; }
+/* get_d */ __attribute__ ((const)) list *poeyrb8a(void) { return &d; }
 ```
 
 Import:
-```hs
+```haskell
 newtype List = List (IncompleteArray CInt)
 foreign import ccall unsafe "poeyrb8a" poeyrb8a :: IO (Ptr List)
 
-{-# NOINLINE d_ptr #-}
-d_ptr :: Ptr List
-d_ptr = unsafePerformIO poeyrb8a
+{-# NOINLINE d #-}
+d :: Ptr List
+d = unsafePerformIO poeyrb8a
 
 -- The code below is not included in the generated bindings.
 -- It should be included by a user of the bindings if they want
 -- to use the array pointer as an array element pointer instead.
 
-d_elem_ptr :: Ptr CInt
-d_elem_ptr = toFirstElemPtr d_ptr
+d_elem :: Ptr CInt
+d_elem = toFirstElemPtr d
 ```
 
 Memory layout:
 
-| type                                  | name          | address | value   |
-| ------------------------------------- | ------------- | ------- | ------- |
-| int[]                                 | d             | 1000    | 1       |
-|                                       |               | 1004    | 2       |
-|                                       |               | 1008    | 3       |
-|                                       |               | ...     |         |
-| (*int)[] ; Ptr (IncompleteArray CInt) | d_ptr         | 2000    | 1000    |
+| type                                  | C name | Haskell name | address | value |
+|---------------------------------------|--------|--------------|---------|-------|
+| int[]                                 | d      |              | 1000    | 1     |
+|                                       |        |              | 1004    | 2     |
+|                                       |        |              | 1008    | 3     |
+|                                       |        |              | ...     |       |
+| (*int)[] ; Ptr (IncompleteArray CInt) |        | d            | 2000    | 1000  |
 
 Constant:
-```hs
+```haskell
 -- If the type of the global had been const-qualified instead, like @const list
 -- d2@, we would /not/ generate the following. It would fail to compile because
 -- 'IncompleteArray' does not have a 'Storable' instance, and therefore neither

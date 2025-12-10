@@ -12,9 +12,9 @@
 -- {
 --   fun2(arg1);
 -- }
--- /* test_typesspecialparse_failure_lo_Example_get_fun2_ptr */
+-- /* test_typesspecialparse_failure_lo_Example_get_fun2 */
 -- __attribute__ ((const))
--- void (*hs_bindgen_c526f22b76547216 (void)) (
+-- void (*hs_bindgen_d61a16f2d29260ed (void)) (
 --   signed int arg1
 -- )
 -- {
@@ -58,8 +58,6 @@ instance TyEq ty (CFieldType Struct2 "struct2_x") =>
     __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
-
-    __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 -}
 foreign import ccall safe "hs_bindgen_a1252a3becef09a6" fun2 :: CInt ->
                                                                 IO Unit
@@ -68,27 +66,25 @@ foreign import ccall safe "hs_bindgen_a1252a3becef09a6" fun2 :: CInt ->
     __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
-
-    __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 -}
 foreign import ccall safe "hs_bindgen_61793546aa44e36b" fun2 :: CInt ->
                                                                 IO Unit
-{-| __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2_ptr@
+{-| __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2@
 -}
-foreign import ccall safe "hs_bindgen_c526f22b76547216" hs_bindgen_c526f22b76547216 :: IO (FunPtr (CInt ->
+foreign import ccall safe "hs_bindgen_d61a16f2d29260ed" hs_bindgen_d61a16f2d29260ed :: IO (FunPtr (CInt ->
                                                                                                    IO Unit))
-{-# NOINLINE fun2_ptr #-}
+{-# NOINLINE fun2 #-}
 {-| __C declaration:__ @fun2@
 
     __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
-fun2_ptr :: FunPtr (CInt -> IO Unit)
+fun2 :: FunPtr (CInt -> IO Unit)
 {-| __C declaration:__ @fun2@
 
     __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
-fun2_ptr = unsafePerformIO hs_bindgen_c526f22b76547216
+fun2 = unsafePerformIO hs_bindgen_d61a16f2d29260ed

@@ -7,11 +7,10 @@ import Foreign.C qualified as FC
 
 import HsBindgen.Runtime.ConstantArray qualified as CA
 
-import Manual.Tools
-
 import Complex qualified
 import Complex.Global qualified as Complex
 import Complex.Safe qualified as Complex
+import Manual.Tools
 
 {-------------------------------------------------------------------------------
   Examples
@@ -42,13 +41,13 @@ examples = do
           putStrLn $ name <> ": " <> show value <> " -> " <> show read_val_2 <>
                     " (match: " <> show (value == read_val_2) <> ")"
 
-    test_complex "unsigned short" Complex.global_complex_unsigned_short_ptr (42 :+ 24 :: Complex FC.CUShort)
-    test_complex "short"          Complex.global_complex_short_ptr ((-10) :+ 15 :: Complex FC.CShort)
-    test_complex "unsigned int"   Complex.global_complex_unsigned_int_ptr (1000 :+ 2000 :: Complex FC.CUInt)
-    test_complex "int"            Complex.global_complex_int_ptr ((-500) :+ 750 :: Complex FC.CInt)
-    test_complex "char"           Complex.global_complex_char_ptr (65 :+ 90 :: Complex FC.CChar)
-    test_complex "float"          Complex.global_complex_float_ptr (1.5 :+ 2.5 :: Complex FC.CFloat)
-    test_complex "double"         Complex.global_complex_double_ptr (3.14159 :+ 2.71828 :: Complex FC.CDouble)
+    test_complex "unsigned short" Complex.global_complex_unsigned_short (42 :+ 24 :: Complex FC.CUShort)
+    test_complex "short"          Complex.global_complex_short ((-10) :+ 15 :: Complex FC.CShort)
+    test_complex "unsigned int"   Complex.global_complex_unsigned_int (1000 :+ 2000 :: Complex FC.CUInt)
+    test_complex "int"            Complex.global_complex_int ((-500) :+ 750 :: Complex FC.CInt)
+    test_complex "char"           Complex.global_complex_char (65 :+ 90 :: Complex FC.CChar)
+    test_complex "float"          Complex.global_complex_float (1.5 :+ 2.5 :: Complex FC.CFloat)
+    test_complex "double"         Complex.global_complex_double (3.14159 :+ 2.71828 :: Complex FC.CDouble)
 
     subsection "Arithmetic Functions"
 
@@ -98,12 +97,12 @@ examples = do
     putStrLn "Float array:"
 
     forM_ [0..4] $ \i -> do
-      val <- F.peekElemOff (F.castPtr Complex.complex_float_array_ptr) i
+      val <- F.peekElemOff (F.castPtr Complex.complex_float_array) i
       putStrLn $ "  [" <> show i <> "] = " <> show (val :: Complex FC.CFloat)
 
     putStrLn "Double array:"
     forM_ [0..4] $ \i -> do
-      val <- F.peekElemOff (F.castPtr Complex.complex_double_array_ptr) i
+      val <- F.peekElemOff (F.castPtr Complex.complex_double_array) i
       putStrLn $ "  [" <> show i <> "] = " <> show (val :: Complex FC.CDouble)
 
     -- Modify and verify
@@ -114,14 +113,14 @@ examples = do
         new_double :: Complex FC.CDouble
         new_double = 77.7 :+ 66.6
 
-    orig_float  <- F.peekElemOff (F.castPtr Complex.complex_float_array_ptr) 3
-    orig_double <- F.peekElemOff (F.castPtr Complex.complex_double_array_ptr) 3
+    orig_float  <- F.peekElemOff (F.castPtr Complex.complex_float_array) 3
+    orig_double <- F.peekElemOff (F.castPtr Complex.complex_double_array) 3
 
-    F.pokeElemOff (F.castPtr Complex.complex_float_array_ptr) 0 new_float
-    F.pokeElemOff (F.castPtr Complex.complex_double_array_ptr) 0 new_double
+    F.pokeElemOff (F.castPtr Complex.complex_float_array) 0 new_float
+    F.pokeElemOff (F.castPtr Complex.complex_double_array) 0 new_double
 
-    read_new_float :: Complex FC.CFloat   <- F.peekElemOff (F.castPtr Complex.complex_float_array_ptr) 3
-    read_new_double :: Complex FC.CDouble <- F.peekElemOff (F.castPtr Complex.complex_double_array_ptr) 3
+    read_new_float :: Complex FC.CFloat   <- F.peekElemOff (F.castPtr Complex.complex_float_array) 3
+    read_new_double :: Complex FC.CDouble <- F.peekElemOff (F.castPtr Complex.complex_double_array) 3
 
     putStrLn $ "  Float: " <> show (orig_float :: Complex FC.CFloat) <> " -> " <> show read_new_float
     putStrLn $ "  Double: " <> show (orig_double :: Complex FC.CDouble) <> " -> " <> show read_new_double
@@ -134,11 +133,11 @@ examples = do
           && abs (imagPart c1 - imagPart c2) < tol
 
     doubleArrayExpectedSum <- do
-      xs <- F.peek Complex.complex_double_array_ptr
+      xs <- F.peek Complex.complex_double_array
       pure $ sum $ CA.toList $ xs
     doubleArraySum <- do
-      array <- F.peek Complex.complex_double_array_ptr
+      array <- F.peek Complex.complex_double_array
       Complex.sum_complex_array array
-    putStrLn $ "  Sum of complex_double_array_ptr: " <> show doubleArraySum
+    putStrLn $ "  Sum of complex_double_array: " <> show doubleArraySum
     putStrLn $ "  Expected: " <> show doubleArrayExpectedSum
     putStrLn $ "  Match: " <> show (complexEq' 1e-12 doubleArraySum doubleArrayExpectedSum)
