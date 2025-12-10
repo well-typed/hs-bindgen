@@ -1692,6 +1692,7 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
         , runnerDecl
         ]
 
+    -- TODO_PR: Add source/unmangled of unique symbol.
     runnerDecl :: Hs.Decl
     runnerDecl = Hs.DeclSimple $ SHs.DVar $ SHs.Var {
           varName    = runnerName

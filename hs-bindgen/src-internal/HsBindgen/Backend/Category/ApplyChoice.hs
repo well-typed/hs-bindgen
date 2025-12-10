@@ -35,11 +35,14 @@ applyTerms = \case
         Hs.DeclPatSyn{}         -> p "PatSyn"
         Hs.DeclDefineInstance{} -> p "DefineInstance"
         Hs.DeclDeriveInstance{} -> p "DeriveInstance"
+        -- TODO_PR: These should not be renamed, but wait for PR 1.
         Hs.DeclForeignImport x  -> Hs.DeclForeignImport $ overN #foreignImportName f x
+        -- TODO_PR: Only rename non-unique symbols here (after PR 2).
         Hs.DeclFunction      x  -> Hs.DeclFunction      $ overN #functionDeclName  f x
         Hs.DeclMacroExpr{}      -> p "MacroExpr"
         Hs.DeclUnionGetter{}    -> p "UnionGetter"
         Hs.DeclUnionSetter{}    -> p "UnionSetter"
+        -- TODO_PR: This recursion should not exist after PR 0.
         Hs.DeclSimple        x  -> Hs.DeclSimple        $ renameSHsDeclWith f x
       where
         p :: String -> a
