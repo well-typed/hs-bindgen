@@ -257,3 +257,16 @@ declarePredefined name = LanC.mkIdent LanC.nopos name' <$> getUniqueName
   where
     name' :: String
     name' = Text.unpack $ getName name
+
+{-------------------------------------------------------------------------------
+  Debugging
+-------------------------------------------------------------------------------}
+
+_testLanCParser :: [String] -> String -> Either LanC.ParseError LanC.CExtDecl
+_testLanCParser predefinedTypes input = fst <$>
+    LanC.execParser
+      LanC.extDeclP
+      (LanC.inputStreamFromString input)
+      LanC.nopos
+      (map LanC.builtinIdent predefinedTypes)
+      LanC.newNameSupply
