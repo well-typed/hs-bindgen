@@ -2,7 +2,6 @@
 module Test.HsBindgen.Golden.Check.PP (check) where
 
 import Control.Monad (when)
-import Data.Maybe (fromMaybe)
 import Optics.Core (view)
 import System.Directory (createDirectoryIfMissing)
 import System.FilePath ((</>))
@@ -42,11 +41,11 @@ check testResources test =
           when (baseName /= "Example") $
             panicIO "The module base name should be Example!"
 
-
           -- Render the Haskell module
-          let ppOutput =
-                fromMaybe (renderEmptyModule bc) (view (lensForCategory bc) output)
-          return $ ActualValue ppOutput
+          let ppOutput = view (lensForCategory bc) output
+          return $ case ppOutput of
+            Nothing -> ActualNoOutput
+            Just x  -> ActualValue x
 
       | (bc :: Category) <- allCategories
       ]
@@ -75,24 +74,6 @@ check testResources test =
     -- | The names of sub-modules are based solely on the binding category
     fixture :: Category -> FilePath
     fixture bc = testOutputDir test </> Hs.moduleNamePath moduleName
-      where
-        moduleName :: Hs.ModuleName
-        moduleName = fromBaseModuleName "Example" (Just bc)
-
-    -- === Module names
-    --
-    -- @hs-bindgen@ does not produce output for modules that are
-    -- empty, but again since we are running a golden test and a golden test
-    -- expects /some/ output, we synthesise an empty module (that should
-    -- compile!) with the correct module name.
-
-    -- | Render an empty module
-    renderEmptyModule :: Category -> String
-    renderEmptyModule bc = concat [
-          "module "
-        , Hs.moduleNameToString moduleName
-        , " () where\n"
-        ]
       where
         moduleName :: Hs.ModuleName
         moduleName = fromBaseModuleName "Example" (Just bc)

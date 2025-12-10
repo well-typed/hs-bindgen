@@ -14,6 +14,7 @@ import Data.ByteString qualified as BS
 import Data.ByteString.UTF8 qualified as UTF8
 import Data.Either (isRight)
 import Data.Proxy
+import System.Directory (removeFile)
 import Test.Common.Util.Tasty.Golden
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -42,7 +43,7 @@ goldenAnsiDiff ::
   -> ((String -> IO ()) -> IO (ActualValue String))
   -> TestTree
 goldenAnsiDiff name fp actual =
-    goldenTestSteps name correct actual cmp update
+    goldenTestSteps name correct actual cmp update remove
   where
     correct :: IO String
     correct = do
@@ -56,3 +57,6 @@ goldenAnsiDiff name fp actual =
 
     update :: String -> IO ()
     update s = BS.writeFile fp (UTF8.fromString s)
+
+    remove :: IO ()
+    remove = removeFile fp
