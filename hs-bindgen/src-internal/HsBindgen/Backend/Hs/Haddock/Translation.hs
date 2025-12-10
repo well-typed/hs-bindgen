@@ -1,7 +1,7 @@
 module HsBindgen.Backend.Hs.Haddock.Translation (
-    generateHaddocksWithInfo
-  , generateHaddocksWithFieldInfo
-  , generateHaddocksWithInfoParams
+    getHaddocks
+  , getHaddocksFieldInfo
+  , getHaddocksDecorateParams
   ) where
 
 import Data.Char (isDigit)
@@ -31,9 +31,9 @@ import HsBindgen.Language.Haskell qualified as Hs
 
 -- | Convert a Clang comment to a Haddock comment
 --
-generateHaddocksWithInfo :: HaddockConfig -> DeclInfo -> Maybe HsDoc.Comment
-generateHaddocksWithInfo config declInfo =
-    fst $ generateHaddocksWithParams config declInfo Args{
+getHaddocks :: HaddockConfig -> DeclInfo -> Maybe HsDoc.Comment
+getHaddocks config declInfo =
+    fst $ generateHaddocksWithArgs config declInfo Args{
         isField     = False
       , loc         = declInfo.declLoc
       , nameC       = declInfo.declId.name.text
@@ -42,13 +42,13 @@ generateHaddocksWithInfo config declInfo =
       , params      = []
       }
 
-generateHaddocksWithFieldInfo
+getHaddocksFieldInfo
   :: HaddockConfig
   -> DeclInfo
   -> FieldInfo
   -> Maybe HsDoc.Comment
-generateHaddocksWithFieldInfo config declInfo FieldInfo{..} =
-    fst $ generateHaddocksWithParams config declInfo Args{
+getHaddocksFieldInfo config declInfo FieldInfo{..} =
+    fst $ generateHaddocksWithArgs config declInfo Args{
         isField     = True
       , loc         = fieldLoc
       , nameC       = fieldName.nameC.text
@@ -57,13 +57,15 @@ generateHaddocksWithFieldInfo config declInfo FieldInfo{..} =
       , params      = []
       }
 
-generateHaddocksWithInfoParams
+-- | Extract Haddock documentation for a function; enrich function parameters
+--   with parameter-specific documentation
+getHaddocksDecorateParams
   :: HaddockConfig
   -> DeclInfo
   -> [Hs.FunctionParameter]
   -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
-generateHaddocksWithInfoParams config declInfo params =
-    generateHaddocksWithParams config declInfo Args{
+getHaddocksDecorateParams config declInfo params =
+    generateHaddocksWithArgs config declInfo Args{
         isField     = False
       , loc         = declInfo.declLoc
       , nameC       = declInfo.declId.name.text
@@ -94,8 +96,8 @@ data Args = Args{
 --
 -- Returns the processed comment and the updated parameters list
 --
-generateHaddocksWithParams :: HaddockConfig -> DeclInfo -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
-generateHaddocksWithParams HaddockConfig{..} declInfo Args{comment = Nothing, ..} =
+generateHaddocksWithArgs :: HaddockConfig -> DeclInfo -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
+generateHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Nothing, ..} =
   let (commentCName, commentLocation) =
         case C.declIdCName declInfo.declId of
           Nothing
@@ -115,7 +117,7 @@ generateHaddocksWithParams HaddockConfig{..} declInfo Args{comment = Nothing, ..
          , HsDoc.commentHeaderInfo = declInfo.declHeaderInfo
          }
       , map addFunctionParameterComment params)
-generateHaddocksWithParams HaddockConfig{..} declInfo Args{comment = Just CDoc.Comment{..}, ..} =
+generateHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Just CDoc.Comment{..}, ..} =
   let (commentCName, commentLocation) =
         case C.declIdCName declInfo.declId of
           Nothing

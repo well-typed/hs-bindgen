@@ -63,7 +63,7 @@ instance Pretty HsModule where
       vcat (map pretty hsModulePragmas)
     : hsep ["module", string (Hs.moduleNameToString hsModuleName), "where"]
     : vcat (map pretty hsModuleImports)
-    : (renderWrappers hsModuleUserlandCapiWrappers)
+    : (renderWrappers hsModuleCWrappers)
     : map pretty hsModuleDecls
 
 {-------------------------------------------------------------------------------
@@ -280,13 +280,13 @@ instance Pretty HsDoc.CommentMeta where
   Declaration pretty-printing
 -------------------------------------------------------------------------------}
 
-renderWrappers :: [UserlandCapiWrapper] -> CtxDoc
+renderWrappers :: [CWrapper] -> CtxDoc
 renderWrappers wrappers
   | null src  = empty
   | otherwise = renderCapiWrapper src
   where
     src :: String
-    src = getUserlandCapiWrappersSource wrappers
+    src = getCWrappersSource wrappers
 
 instance Pretty SDecl where
   pretty = \case
@@ -399,7 +399,7 @@ instance Pretty SDecl where
                , callconv
                , safety foreignImportSafety
                , "\"" >< impent >< "\""
-               , pretty foreignImportName
+               , string foreignImportName.unique
                , "::"
                ]
        $$ nest 5 (prettyForeignImportType foreignImportResultType

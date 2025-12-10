@@ -11,7 +11,7 @@ import Clang.Paths
 
 import HsBindgen.Backend
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.CallConv (UserlandCapiWrapper)
+import HsBindgen.Backend.Hs.CallConv (CWrapper)
 import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
@@ -50,7 +50,7 @@ data Artefact (a :: Star) where
   Dependencies        :: Artefact [SourcePath]
   -- * Backend
   HsDecls             :: Artefact (ByCategory [Hs.Decl])
-  FinalDecls          :: Artefact (ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
+  FinalDecls          :: Artefact (ByCategory ([CWrapper], [SHs.SDecl]))
   FinalModuleBaseName :: Artefact BaseModuleName
   FinalModuleSafe     :: Artefact HsModule
   FinalModuleUnsafe   :: Artefact HsModule

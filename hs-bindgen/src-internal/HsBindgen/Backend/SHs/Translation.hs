@@ -17,6 +17,7 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Macro
+import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -27,20 +28,20 @@ import HsBindgen.NameHint
 -------------------------------------------------------------------------------}
 
 translateDecls ::
-  ByCategory [Hs.Decl] -> ByCategory ([UserlandCapiWrapper], [SDecl])
+  ByCategory [Hs.Decl] -> ByCategory ([CWrapper], [SDecl])
 translateDecls = fmap go
   where
-    go :: [Hs.Decl] -> ([UserlandCapiWrapper], [SDecl])
+    go :: [Hs.Decl] -> ([CWrapper], [SDecl])
     go decls = (wrappers, concatMap translateDecl decls)
       where
-        wrappers = getUserlandCapiWrappers decls
+        wrappers = getCWrappers decls
 
 -- Find and assemble C sources required by foreign imports.
-getUserlandCapiWrappers :: [Hs.Decl] -> [UserlandCapiWrapper]
-getUserlandCapiWrappers decls = mapMaybe getUserlandCapiWrapper decls
+getCWrappers :: [Hs.Decl] -> [CWrapper]
+getCWrappers decls = mapMaybe getCWrapper decls
   where
-    getUserlandCapiWrapper :: Hs.Decl -> Maybe UserlandCapiWrapper
-    getUserlandCapiWrapper = \case
+    getCWrapper :: Hs.Decl -> Maybe CWrapper
+    getCWrapper = \case
       Hs.DeclForeignImport (Hs.ForeignImportDecl{foreignImportCallConv}) ->
         case foreignImportCallConv of
           CallConvUserlandCAPI w -> Just w
@@ -92,7 +93,8 @@ translateDefineInstanceDecl Hs.DefineInstance {..} =
         , instanceArgs    = [ translateType toFunPtrInstanceType ]
         , instanceSuperClasses = []
         , instanceTypes   = []
-        , instanceDecs    = [(ToFunPtr_toFunPtr, EFree toFunPtrInstanceBody)]
+        , instanceDecs    = [( ToFunPtr_toFunPtr
+                             , EFree $ fromString toFunPtrInstanceBody.unique )]
         , instanceComment = defineInstanceComment
         }
     Hs.InstanceFromFunPtr Hs.FromFunPtrInstance{..} -> DInst
@@ -101,7 +103,8 @@ translateDefineInstanceDecl Hs.DefineInstance {..} =
         , instanceArgs    = [ translateType fromFunPtrInstanceType ]
         , instanceSuperClasses = []
         , instanceTypes   = []
-        , instanceDecs    = [(FromFunPtr_fromFunPtr, EFree fromFunPtrInstanceBody)]
+        , instanceDecs    = [( FromFunPtr_fromFunPtr
+                             , EFree $ fromString fromFunPtrInstanceBody.unique )]
         , instanceComment = defineInstanceComment
         }
 
@@ -199,9 +202,15 @@ translateForeignImportDecl Hs.ForeignImportDecl { foreignImportParameters = args
                       }
                 ) args
         , foreignImportResultType = translateType resType
+        , foreignImportComment = Just $ addUniqueSymbolToComment foreignImportComment
         , ..
         }
     ]
+  where
+    addUniqueSymbolToComment :: Maybe HsDoc.Comment -> HsDoc.Comment
+    addUniqueSymbolToComment = \case
+        Nothing -> HsDoc.uniqueSymbol foreignImportName
+        Just c  -> c { HsDoc.commentUnique = Just foreignImportName }
 
 translateFunctionDecl :: Hs.FunctionDecl -> SDecl
 translateFunctionDecl Hs.FunctionDecl {..} = DFunction
