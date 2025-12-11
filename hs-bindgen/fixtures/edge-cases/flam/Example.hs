@@ -25,7 +25,7 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @pascal@
+{-| __C declaration:__ @struct pascal@
 
     __defined at:__ @edge-cases\/flam.h:2:8@
 
@@ -124,7 +124,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Pascal) "pascal_len"
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"pascal_len")
 
-{-| __defined at:__ @edge-cases\/flam.h:10:2@
+{-| __C declaration:__ @struct \@foo_bar@
+
+    __defined at:__ @edge-cases\/flam.h:10:2@
 
     __exported by:__ @edge-cases\/flam.h@
 -}
@@ -246,7 +248,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo_bar) "foo_bar_y"
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_bar_y")
 
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @struct foo@
 
     __defined at:__ @edge-cases\/flam.h:8:8@
 
@@ -345,7 +347,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_len")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_len")
 
-{-| __C declaration:__ @diff@
+{-| __C declaration:__ @struct diff@
 
     __defined at:__ @edge-cases\/flam.h:17:8@
 
@@ -475,7 +477,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Diff) "diff_second")
 
 {-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
 
-__C declaration:__ @triplets@
+__C declaration:__ @struct triplets@
 
 __defined at:__ @edge-cases\/flam.h:26:8@
 

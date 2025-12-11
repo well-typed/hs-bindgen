@@ -14,10 +14,19 @@ ctypes:
   cname: struct1_t
   hsname: Struct1_t
 - headers: globals/globals.h
+  cname: struct struct1_t
+  hsname: Struct1_t
+- headers: globals/globals.h
   cname: struct2_t
   hsname: Struct2_t
 - headers: globals/globals.h
+  cname: struct struct2_t
+  hsname: Struct2_t
+- headers: globals/globals.h
   cname: version_t
+  hsname: Version_t
+- headers: globals/globals.h
+  cname: struct version_t
   hsname: Version_t
 hstypes:
 - hsname: Config

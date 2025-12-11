@@ -4,7 +4,6 @@
 module HsBindgen.Frontend.LanguageC.Monad (
     FromLanC(..)
   , ReparseEnv
-  , Error(..)
   , runFromLanC
   , getReparseEnv
     -- * Throwing errors
@@ -23,12 +22,12 @@ import Control.Monad.Reader (Reader)
 import Control.Monad.Reader qualified as Reader
 import Data.Foldable qualified as Foldable
 import GHC.Stack
-import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Frontend.AST.Internal
+import HsBindgen.Frontend.LanguageC.Error
 import HsBindgen.Frontend.LanguageC.PartialAST (CName)
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Definition
@@ -39,8 +38,8 @@ import HsBindgen.Util.Tracer
 -- The @p@ parameter indicates a @hs-bindgen@ pass; this will be instantiated
 -- to @HandleMacros@, but we leave it polymorphic here to avoid unnecessary
 -- mutual dependencies.
-newtype FromLanC p a = WrapFromLanC {
-      unwrapFromLanC :: ExceptT Error (Reader (ReparseEnv p)) a
+newtype FromLanC a = WrapFromLanC {
+      unwrapFromLanC :: ExceptT Error (Reader ReparseEnv) a
     }
   deriving newtype (
       Functor
@@ -49,55 +48,26 @@ newtype FromLanC p a = WrapFromLanC {
     , MonadError Error
     )
 
-data Error =
-    -- | We encountered something unexpected in the AST from language-c
-    --
-    -- This indicates a bug or something not yet implemented.
-    UpdateUnexpected CallStack String
-
-    -- | We encountered something in the language-c AST we don't not support
-    --
-    -- It is useful to distinguish known-to-be-unsupported from
-    -- unknown-to-be-supported ('UpdateUnexpected'): the latter indicates that
-    -- it's simply something we haven't considered yet, the former is a
-    -- conscious decision about features we currently don't want to support.
-  | UpdateUnsupported String
-  deriving stock (Show)
-
-instance PrettyForTrace Error where
-  prettyForTrace (UpdateUnexpected cs str) = PP.vsep [
-        PP.hsep [
-            "Encountered unexpected node in the language-c AST: "
-          , PP.string str
-          ]
-      , PP.string (prettyCallStack cs)
-      ]
-  prettyForTrace (UpdateUnsupported err) =
-        PP.hsep [
-            "Unsupported: "
-          , PP.string err
-          ]
-
 -- | Types in scope when reparsing a particular declaration
-type ReparseEnv p = Map CName (Type p)
+type ReparseEnv = Map CName (Type HandleMacros)
 
-runFromLanC :: ReparseEnv p -> FromLanC p a -> Either Error a
+runFromLanC :: ReparseEnv -> FromLanC a -> Either Error a
 runFromLanC typeEnv =
       flip Reader.runReader typeEnv
     . Except.runExceptT
     . unwrapFromLanC
 
-getReparseEnv :: FromLanC p (ReparseEnv p)
+getReparseEnv :: FromLanC ReparseEnv
 getReparseEnv = WrapFromLanC Reader.ask
 
 {-------------------------------------------------------------------------------
   Throwing errors
 -------------------------------------------------------------------------------}
 
-unexpected :: HasCallStack => String -> FromLanC p x
+unexpected :: HasCallStack => String -> FromLanC x
 unexpected = throwError . UpdateUnexpected callStack
 
-unsupported :: String -> FromLanC p x
+unsupported :: String -> FromLanC x
 unsupported = throwError . UpdateUnsupported
 
 data NodeOmitted = NodeOmitted
@@ -108,7 +78,7 @@ nodeOmitted = fmap (const NodeOmitted)
 
 unexpectedF ::
      (HasCallStack, Functor f, Show (f NodeOmitted))
-  => f a -> FromLanC p x
+  => f a -> FromLanC x
 unexpectedF = unexpected . show . nodeOmitted
 
 {-------------------------------------------------------------------------------
@@ -126,16 +96,16 @@ unexpectedF = unexpected . show . nodeOmitted
 --
 -- >    runUpdateM Map.empty $ repeatedly addSuffix [1..5] "str"
 -- > == Right "str_1_2_3_4_5"
-repeatedly :: forall p t a b.
+repeatedly :: forall t a b.
      Foldable t
-  => (  a -> b -> FromLanC p b)
-  -> (t a -> b -> FromLanC p b)
+  => (  a -> b -> FromLanC b)
+  -> (t a -> b -> FromLanC b)
 repeatedly f = go . Foldable.toList
   where
    --  go :: [a] -> b -> UpdateM b
     go []     b = return b
     go (a:as) b = f a b >>= \b' -> go as b'
 
-optionally :: (a -> b -> FromLanC p b) -> Maybe a -> b -> FromLanC p b
+optionally :: (a -> b -> FromLanC b) -> Maybe a -> b -> FromLanC b
 optionally = repeatedly
 

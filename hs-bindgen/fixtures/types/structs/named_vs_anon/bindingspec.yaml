@@ -23,10 +23,19 @@ ctypes:
   cname: f
   hsname: F
 - headers: types/structs/named_vs_anon.h
+  cname: struct f
+  hsname: F
+- headers: types/structs/named_vs_anon.h
   cname: g
   hsname: G
 - headers: types/structs/named_vs_anon.h
+  cname: struct g
+  hsname: G
+- headers: types/structs/named_vs_anon.h
   cname: h
+  hsname: H
+- headers: types/structs/named_vs_anon.h
+  cname: struct h
   hsname: H
 - headers: types/structs/named_vs_anon.h
   cname: struct struct1
@@ -47,10 +56,19 @@ ctypes:
   cname: typedef1
   hsname: Typedef1
 - headers: types/structs/named_vs_anon.h
+  cname: struct typedef1
+  hsname: Typedef1
+- headers: types/structs/named_vs_anon.h
   cname: typedef2
   hsname: Typedef2
 - headers: types/structs/named_vs_anon.h
+  cname: struct typedef2
+  hsname: Typedef2
+- headers: types/structs/named_vs_anon.h
   cname: typedef3
+  hsname: Typedef3
+- headers: types/structs/named_vs_anon.h
+  cname: struct typedef3
   hsname: Typedef3
 hstypes:
 - hsname: A

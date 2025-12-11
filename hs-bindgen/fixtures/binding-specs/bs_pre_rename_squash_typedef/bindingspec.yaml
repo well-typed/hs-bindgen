@@ -1,0 +1,25 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: Example
+ctypes:
+- headers: binding-specs/bs_pre_rename_squash_typedef.h
+  cname: bar
+  hsname: Piyo
+- headers: binding-specs/bs_pre_rename_squash_typedef.h
+  cname: struct foo
+  hsname: Piyo
+hstypes:
+- hsname: Piyo
+  representation:
+    record:
+      constructor: Piyo
+      fields:
+      - piyo_x
+      - piyo_y
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable

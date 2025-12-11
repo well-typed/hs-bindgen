@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/types/structs/bitfields.h
-{-| __C declaration:__ @flags@
+{-| __C declaration:__ @struct flags@
 
     __defined at:__ @types\/structs\/bitfields.h:1:8@
 
@@ -48,7 +48,7 @@ data Flags
 
                   __exported by:__ @types\/structs\/bitfields.h@
              -}}
-      {- ^ __C declaration:__ @flags@
+      {- ^ __C declaration:__ @struct flags@
 
            __defined at:__ @types\/structs\/bitfields.h:1:8@
 
@@ -169,7 +169,7 @@ instance HasCBitfield Flags "flags_bits"
 instance TyEq ty (CBitfieldType Flags "flags_bits") =>
          HasField "flags_bits" (Ptr Flags) (BitfieldPtr Flags "flags_bits")
     where getField = ptrToCBitfield (Proxy @"flags_bits")
-{-| __C declaration:__ @overflow32@
+{-| __C declaration:__ @struct overflow32@
 
     __defined at:__ @types\/structs\/bitfields.h:12:8@
 
@@ -197,7 +197,7 @@ data Overflow32
 
                        __exported by:__ @types\/structs\/bitfields.h@
                   -}}
-      {- ^ __C declaration:__ @overflow32@
+      {- ^ __C declaration:__ @struct overflow32@
 
            __defined at:__ @types\/structs\/bitfields.h:12:8@
 
@@ -272,7 +272,7 @@ instance TyEq ty (CBitfieldType Overflow32 "overflow32_z") =>
                   (Ptr Overflow32)
                   (BitfieldPtr Overflow32 "overflow32_z")
     where getField = ptrToCBitfield (Proxy @"overflow32_z")
-{-| __C declaration:__ @overflow32b@
+{-| __C declaration:__ @struct overflow32b@
 
     __defined at:__ @types\/structs\/bitfields.h:18:8@
 
@@ -300,7 +300,7 @@ data Overflow32b
 
                         __exported by:__ @types\/structs\/bitfields.h@
                    -}}
-      {- ^ __C declaration:__ @overflow32b@
+      {- ^ __C declaration:__ @struct overflow32b@
 
            __defined at:__ @types\/structs\/bitfields.h:18:8@
 
@@ -375,7 +375,7 @@ instance TyEq ty (CBitfieldType Overflow32b "overflow32b_z") =>
                   (Ptr Overflow32b)
                   (BitfieldPtr Overflow32b "overflow32b_z")
     where getField = ptrToCBitfield (Proxy @"overflow32b_z")
-{-| __C declaration:__ @overflow32c@
+{-| __C declaration:__ @struct overflow32c@
 
     __defined at:__ @types\/structs\/bitfields.h:24:8@
 
@@ -403,7 +403,7 @@ data Overflow32c
 
                         __exported by:__ @types\/structs\/bitfields.h@
                    -}}
-      {- ^ __C declaration:__ @overflow32c@
+      {- ^ __C declaration:__ @struct overflow32c@
 
            __defined at:__ @types\/structs\/bitfields.h:24:8@
 
@@ -478,7 +478,7 @@ instance TyEq ty (CBitfieldType Overflow32c "overflow32c_z") =>
                   (Ptr Overflow32c)
                   (BitfieldPtr Overflow32c "overflow32c_z")
     where getField = ptrToCBitfield (Proxy @"overflow32c_z")
-{-| __C declaration:__ @overflow64@
+{-| __C declaration:__ @struct overflow64@
 
     __defined at:__ @types\/structs\/bitfields.h:30:8@
 
@@ -499,7 +499,7 @@ data Overflow64
 
                        __exported by:__ @types\/structs\/bitfields.h@
                   -}}
-      {- ^ __C declaration:__ @overflow64@
+      {- ^ __C declaration:__ @struct overflow64@
 
            __defined at:__ @types\/structs\/bitfields.h:30:8@
 
@@ -554,7 +554,7 @@ instance TyEq ty (CBitfieldType Overflow64 "overflow64_y") =>
                   (Ptr Overflow64)
                   (BitfieldPtr Overflow64 "overflow64_y")
     where getField = ptrToCBitfield (Proxy @"overflow64_y")
-{-| __C declaration:__ @alignA@
+{-| __C declaration:__ @struct alignA@
 
     __defined at:__ @types\/structs\/bitfields.h:36:8@
 
@@ -575,7 +575,7 @@ data AlignA
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -}}
-      {- ^ __C declaration:__ @alignA@
+      {- ^ __C declaration:__ @struct alignA@
 
            __defined at:__ @types\/structs\/bitfields.h:36:8@
 
@@ -626,7 +626,7 @@ instance HasCBitfield AlignA "alignA_y"
 instance TyEq ty (CBitfieldType AlignA "alignA_y") =>
          HasField "alignA_y" (Ptr AlignA) (BitfieldPtr AlignA "alignA_y")
     where getField = ptrToCBitfield (Proxy @"alignA_y")
-{-| __C declaration:__ @alignB@
+{-| __C declaration:__ @struct alignB@
 
     __defined at:__ @types\/structs\/bitfields.h:41:8@
 
@@ -647,7 +647,7 @@ data AlignB
 
                    __exported by:__ @types\/structs\/bitfields.h@
               -}}
-      {- ^ __C declaration:__ @alignB@
+      {- ^ __C declaration:__ @struct alignB@
 
            __defined at:__ @types\/structs\/bitfields.h:41:8@
 

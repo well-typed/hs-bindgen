@@ -38,8 +38,8 @@ mkHaddocks config declInfo name =
       fst $ mkHaddocksWithArgs config declInfo Args{
           isField     = False
         , loc         = declInfo.declLoc
-        , nameC       = declInfo.declId.name.text
-        , nameHsIdent = declInfo.declId.haskellId
+        , nameC       = C.renderDeclId declInfo.declId.cName
+        , nameHsIdent = declInfo.declId.hsName
         , comment     = declInfo.declComment
         , params      = []
         }
@@ -71,8 +71,8 @@ mkHaddocksDecorateParams config declInfo name params =
     let (mbc, xs) = mkHaddocksWithArgs config declInfo Args{
         isField     = False
       , loc         = declInfo.declLoc
-      , nameC       = declInfo.declId.name.text
-      , nameHsIdent = declInfo.declId.haskellId
+      , nameC       = C.renderDeclId declInfo.declId.cName
+      , nameHsIdent = declInfo.declId.hsName
       , comment     = declInfo.declComment
       , params
       }
@@ -102,35 +102,19 @@ data Args = Args{
 --
 mkHaddocksWithArgs :: HaddockConfig -> DeclInfo -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
 mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Nothing, ..} =
-  let (commentCName, commentLocation) =
-        case C.declIdCName declInfo.declId of
-          Nothing
-            | not isField                -> ( Nothing
-                                            , Just (updateSingleLoc pathStyle loc)
-                                            )
-          _                              -> ( Just nameC
-                                            , Just (updateSingleLoc pathStyle loc)
-                                            )
-   in -- If there's no C.Comment to associate with any function parameter we make
+      -- If there's no C.Comment to associate with any function parameter we make
       -- sure to at least add a comment that will show the function parameter name
       -- if it exists.
       --
       ( Just mempty {
-           HsDoc.commentOrigin     = commentCName
-         , HsDoc.commentLocation   = commentLocation
+           HsDoc.commentOrigin     = Just nameC
+         , HsDoc.commentLocation   = Just $ updateSingleLoc pathStyle loc
          , HsDoc.commentHeaderInfo = declInfo.declHeaderInfo
          }
       , map addFunctionParameterComment params)
 mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Just CDoc.Comment{..}, ..} =
-  let (commentCName, commentLocation) =
-        case C.declIdCName declInfo.declId of
-          Nothing
-            | not isField                -> ( Nothing
-                                            , Just (updateSingleLoc pathStyle loc)
-                                            )
-          _                              -> ( Just nameC
-                                            , Just (updateSingleLoc pathStyle loc)
-                                            )
+  let commentCName = nameC
+      commentLocation = updateSingleLoc pathStyle loc
       (commentTitle, commentChildren') =
         case commentChildren of
           (CDoc.Paragraph [CDoc.TextContent ""]:rest) -> (Nothing, rest)
@@ -174,8 +158,8 @@ mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Just CDoc.Comment{.
 
    in ( Just mempty {
           HsDoc.commentTitle
-        , HsDoc.commentOrigin     = commentCName
-        , HsDoc.commentLocation   = commentLocation
+        , HsDoc.commentOrigin     = Just commentCName
+        , HsDoc.commentLocation   = Just commentLocation
         , HsDoc.commentHeaderInfo = declInfo.declHeaderInfo
         , HsDoc.commentChildren   = finalChildren
         }
@@ -408,7 +392,7 @@ convertInlineContent = \case
 
   CDoc.InlineRefCommand (CommentRef c mHsIdent) -> [
       case mHsIdent of
-        Just hs -> HsDoc.Identifier (Hs.getIdentifier hs)
+        Just hs -> HsDoc.Identifier hs.text
         Nothing -> HsDoc.Monospace [HsDoc.TextContent c]
     ]
 

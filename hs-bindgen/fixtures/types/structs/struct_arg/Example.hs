@@ -22,7 +22,7 @@ import qualified HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @thing@
+{-| __C declaration:__ @struct thing@
 
     __defined at:__ @types\/structs\/struct_arg.h:2:8@
 

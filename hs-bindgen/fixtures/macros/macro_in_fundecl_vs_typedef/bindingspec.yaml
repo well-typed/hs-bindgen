@@ -17,6 +17,9 @@ ctypes:
   cname: struct2
   hsname: Struct2
 - headers: macros/macro_in_fundecl_vs_typedef.h
+  cname: struct struct2
+  hsname: Struct2
+- headers: macros/macro_in_fundecl_vs_typedef.h
   cname: struct struct3
   hsname: Struct3
 - headers: macros/macro_in_fundecl_vs_typedef.h
@@ -24,6 +27,9 @@ ctypes:
   hsname: Struct3_t
 - headers: macros/macro_in_fundecl_vs_typedef.h
   cname: struct4
+  hsname: Struct4
+- headers: macros/macro_in_fundecl_vs_typedef.h
+  cname: struct struct4
   hsname: Struct4
 hstypes:
 - hsname: MC

@@ -31,6 +31,9 @@ ctypes:
 - headers: attributes/type_attributes.h
   cname: wait_status_ptr_t
   hsname: Wait_status_ptr_t
+- headers: attributes/type_attributes.h
+  cname: union wait_status_ptr_t
+  hsname: Wait_status_ptr_t
 hstypes:
 - hsname: More_aligned_int
   representation:

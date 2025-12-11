@@ -250,7 +250,7 @@ matchHeaderPath isMainHeader isInMainHeaderDir path@(SourcePath pathT) = \case
 -- | Match 'DeclPredicate' predicates
 matchDecl :: C.DeclName -> C.Availability -> DeclPredicate -> Bool
 matchDecl declName availability = \case
-    DeclNameMatches re -> matchTest re $ C.declNameText declName
+    DeclNameMatches re -> matchTest re $ C.renderDeclName declName
     DeclDeprecated     -> isDeprecated
   where
     isDeprecated = case availability of

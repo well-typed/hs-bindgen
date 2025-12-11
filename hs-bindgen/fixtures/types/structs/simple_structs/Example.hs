@@ -25,7 +25,7 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure)
 
-{-| __C declaration:__ @S1@
+{-| __C declaration:__ @struct S1@
 
     __defined at:__ @types\/structs\/simple_structs.h:2:8@
 
@@ -149,7 +149,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S1) "s1_b")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s1_b")
 
-{-| __C declaration:__ @S2_t@
+{-| __C declaration:__ @struct S2@
 
     __defined at:__ @types\/structs\/simple_structs.h:8:16@
 
@@ -302,7 +302,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S2_t) "s2_t_c")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s2_t_c")
 
-{-| __C declaration:__ @S3_t@
+{-| __C declaration:__ @struct S3_t@
 
     __defined at:__ @types\/structs\/simple_structs.h:15:9@
 
@@ -397,7 +397,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S3_t) "s3_t_a")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s3_t_a")
 
-{-| __C declaration:__ @S4@
+{-| __C declaration:__ @struct S4@
 
     __defined at:__ @types\/structs\/simple_structs.h:19:8@
 
@@ -486,7 +486,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S4) "s4_c")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s4_c")
 
-{-| __C declaration:__ @S5@
+{-| __C declaration:__ @struct S5@
 
     __defined at:__ @types\/structs\/simple_structs.h:26:16@
 
@@ -610,7 +610,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S5) "s5_b")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s5_b")
 
-{-| __C declaration:__ @S6@
+{-| __C declaration:__ @struct S6@
 
     __defined at:__ @types\/structs\/simple_structs.h:31:8@
 
@@ -734,7 +734,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S6) "s6_b")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s6_b")
 
-{-| __defined at:__ @types\/structs\/simple_structs.h:34:9@
+{-| __C declaration:__ @struct \@S7a_Deref@
+
+    __defined at:__ @types\/structs\/simple_structs.h:34:9@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
@@ -880,7 +882,9 @@ instance HsBindgen.Runtime.HasCField.HasCField S7a "un_S7a" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __defined at:__ @types\/structs\/simple_structs.h:35:9@
+{-| __C declaration:__ @struct \@S7b_Deref@
+
+    __defined at:__ @types\/structs\/simple_structs.h:35:9@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}

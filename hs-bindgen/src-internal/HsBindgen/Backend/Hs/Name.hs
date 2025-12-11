@@ -1,19 +1,21 @@
 module HsBindgen.Backend.Hs.Name (
     Name(..)
+  , ExportedName(..)
   , getName
     -- * Construction
   , unsafeHsIdHsName
-  , unsafeDeclIdHsName
   , unsafeUniqueHsName
   ) where
 import Data.Text qualified as Text
 
 import HsBindgen.Backend.UniqueSymbol
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.Language.Haskell qualified as Hs
+
+{-------------------------------------------------------------------------------
+  Definition
+-------------------------------------------------------------------------------}
 
 -- | Haskell name in namespace @ns@
 data Name (ns :: Namespace) =
@@ -21,16 +23,26 @@ data Name (ns :: Namespace) =
       --
       -- Term-level declarations with exported names should not have use sites
       -- and therefore they can easily be renamed.
-      ExportedName Text
+      ExportedName (ExportedName ns)
+
       -- | Auxiliary name used in the implementation of other declarations
       --
       -- Since those functions have use-sites, we should not normally rename them.
     | InternalName UniqueSymbol
   deriving stock (Eq, Ord, Show)
 
+-- | Exported name
+--
+-- The constructor is marked @Unsafe@ because callers need to ensure that
+-- namespacing rules are adhered to.
+newtype ExportedName (ns :: Namespace) = UnsafeExportedName {
+      text :: Text
+    }
+  deriving newtype (Eq, Ord, Show, IsString)
+
 getName :: Name ns -> Text
 getName = \case
-  ExportedName x -> x
+  ExportedName x -> x.text
   InternalName x -> Text.pack x.unique
 
 {-------------------------------------------------------------------------------
@@ -41,13 +53,7 @@ getName = \case
 --
 -- The caller must ensure that name rules are adhered to.
 unsafeHsIdHsName ::  Hs.Identifier -> Name ns
-unsafeHsIdHsName = ExportedName . getIdentifier
-
--- | Construct Haskell name in arbitrary name space
---
--- The caller must ensure that name rules are adhered to.
-unsafeDeclIdHsName :: (HaskellId p ~ Hs.Identifier) => DeclId p -> Name ns
-unsafeDeclIdHsName = unsafeHsIdHsName . haskellId
+unsafeHsIdHsName ident = ExportedName $ UnsafeExportedName ident.text
 
 -- | Construct Haskell name from unique symbol
 --

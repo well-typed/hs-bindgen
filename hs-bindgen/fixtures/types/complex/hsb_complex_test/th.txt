@@ -135,7 +135,7 @@
 -- {
 --   return &complex_double_array;
 -- }
-{-| __C declaration:__ @complex_object_t@
+{-| __C declaration:__ @struct complex_object_t@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h:24:9@
 
@@ -163,7 +163,7 @@ data Complex_object_t
 
                              __exported by:__ @types\/complex\/hsb_complex_test.h@
                         -}}
-      {- ^ __C declaration:__ @complex_object_t@
+      {- ^ __C declaration:__ @struct complex_object_t@
 
            __defined at:__ @types\/complex\/hsb_complex_test.h:24:9@
 

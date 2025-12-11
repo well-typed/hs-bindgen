@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/attributes/attributes.h
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @struct foo@
 
     __defined at:__ @attributes\/attributes.h:10:36@
 
@@ -20,7 +20,7 @@ data Foo
 
                 __exported by:__ @attributes\/attributes.h@
            -}}
-      {- ^ __C declaration:__ @foo@
+      {- ^ __C declaration:__ @struct foo@
 
            __defined at:__ @attributes\/attributes.h:10:36@
 
@@ -69,7 +69,7 @@ instance HasCField Foo "foo_i"
 instance TyEq ty (CFieldType Foo "foo_i") =>
          HasField "foo_i" (Ptr Foo) (Ptr ty)
     where getField = ptrToCField (Proxy @"foo_i")
-{-| __C declaration:__ @bar@
+{-| __C declaration:__ @struct bar@
 
     __defined at:__ @attributes\/attributes.h:16:15@
 
@@ -90,7 +90,7 @@ data Bar
 
                 __exported by:__ @attributes\/attributes.h@
            -}}
-      {- ^ __C declaration:__ @bar@
+      {- ^ __C declaration:__ @struct bar@
 
            __defined at:__ @attributes\/attributes.h:16:15@
 
@@ -139,7 +139,7 @@ instance HasCField Bar "bar_i"
 instance TyEq ty (CFieldType Bar "bar_i") =>
          HasField "bar_i" (Ptr Bar) (Ptr ty)
     where getField = ptrToCField (Proxy @"bar_i")
-{-| __C declaration:__ @baz@
+{-| __C declaration:__ @struct baz@
 
     __defined at:__ @attributes\/attributes.h:22:9@
 
@@ -160,7 +160,7 @@ data Baz
 
                 __exported by:__ @attributes\/attributes.h@
            -}}
-      {- ^ __C declaration:__ @baz@
+      {- ^ __C declaration:__ @struct baz@
 
            __defined at:__ @attributes\/attributes.h:22:9@
 
@@ -209,7 +209,7 @@ instance HasCField Baz "baz_i"
 instance TyEq ty (CFieldType Baz "baz_i") =>
          HasField "baz_i" (Ptr Baz) (Ptr ty)
     where getField = ptrToCField (Proxy @"baz_i")
-{-| __C declaration:__ @qux@
+{-| __C declaration:__ @struct qux@
 
     __defined at:__ @attributes\/attributes.h:28:9@
 
@@ -230,7 +230,7 @@ data Qux
 
                 __exported by:__ @attributes\/attributes.h@
            -}}
-      {- ^ __C declaration:__ @qux@
+      {- ^ __C declaration:__ @struct qux@
 
            __defined at:__ @attributes\/attributes.h:28:9@
 
@@ -279,7 +279,7 @@ instance HasCField Qux "qux_i"
 instance TyEq ty (CFieldType Qux "qux_i") =>
          HasField "qux_i" (Ptr Qux) (Ptr ty)
     where getField = ptrToCField (Proxy @"qux_i")
-{-| __C declaration:__ @FILE@
+{-| __C declaration:__ @struct __sFILE@
 
     __defined at:__ @attributes\/attributes.h:34:16@
 
@@ -307,7 +307,7 @@ data FILE
 
                  __exported by:__ @attributes\/attributes.h@
             -}}
-      {- ^ __C declaration:__ @FILE@
+      {- ^ __C declaration:__ @struct __sFILE@
 
            __defined at:__ @attributes\/attributes.h:34:16@
 

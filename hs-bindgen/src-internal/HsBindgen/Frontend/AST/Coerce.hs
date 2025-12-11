@@ -10,7 +10,6 @@ import Prelude hiding (Enum)
 import Clang.HighLevel.Documentation qualified as CDoc
 
 import HsBindgen.Frontend.AST.Internal
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 
@@ -48,13 +47,6 @@ class CoercePassMacroBody (p :: Pass) (p' :: Pass) where
 
 class CoercePass a p p' where
   coercePass :: a p -> a p'
-
-instance (
-      CoercePassHaskellId p p'
-    ) => CoercePass DeclId p p' where
-  coercePass declId = declId{
-        haskellId = coercePassHaskellId (Proxy @'(p, p')) declId.haskellId
-      }
 
 instance (
       CoercePass Decl p p'
@@ -130,10 +122,10 @@ instance (
       DeclUnion    x -> DeclUnion    $ coercePass x
       DeclTypedef  x -> DeclTypedef  $ coercePass x
       DeclEnum     x -> DeclEnum     $ coercePass x
-      DeclOpaque   x -> DeclOpaque x
-      DeclMacro    x -> DeclMacro    $ coercePassMacroBody (Proxy @'(p, p')) x
       DeclFunction x -> DeclFunction $ coercePass x
       DeclGlobal   x -> DeclGlobal   $ coercePass x
+      DeclMacro    x -> DeclMacro    $ coercePassMacroBody (Proxy @'(p, p')) x
+      DeclOpaque     -> DeclOpaque
 
 instance (
       CoercePass StructField p p'

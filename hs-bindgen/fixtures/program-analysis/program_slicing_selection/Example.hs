@@ -31,7 +31,7 @@ import qualified Text.Read
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
-{-| __C declaration:__ @FileOperationStatus@
+{-| __C declaration:__ @enum FileOperationStatus@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h:7:6@
 
@@ -153,7 +153,7 @@ pattern OUT_OF_MEMORY = FileOperationStatus 12
 pattern CUSTOM_ERROR_OTHER :: FileOperationStatus
 pattern CUSTOM_ERROR_OTHER = FileOperationStatus (-1)
 
-{-| __C declaration:__ @FileOperationRecord@
+{-| __C declaration:__ @struct FileOperationRecord@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h:16:8@
 

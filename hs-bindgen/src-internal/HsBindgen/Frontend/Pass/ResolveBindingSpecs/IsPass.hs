@@ -12,7 +12,7 @@ import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (DeclMeta)
-import HsBindgen.Frontend.Pass.NameAnon.IsPass
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -42,7 +42,7 @@ type family AnnResolveBindingSpecs ix where
   AnnResolveBindingSpecs _                 = NoAnn
 
 instance IsPass ResolveBindingSpecs where
-  type Id           ResolveBindingSpecs = C.DeclId ResolveBindingSpecs
+  type Id           ResolveBindingSpecs = C.DeclId
   type FieldName    ResolveBindingSpecs = C.ScopedName
   type ArgumentName ResolveBindingSpecs = Maybe C.ScopedName
   type MacroBody    ResolveBindingSpecs = CheckedMacro ResolveBindingSpecs
@@ -51,8 +51,8 @@ instance IsPass ResolveBindingSpecs where
   type Msg          ResolveBindingSpecs = ResolveBindingSpecsMsg
 
 data ResolvedExtBinding = ResolvedExtBinding{
-      -- | Name of the C declaration for which we are using this binding
-      extCName :: C.DeclName
+      -- | C declaration for which we are using this binding
+      extCDeclId :: C.DeclId
 
       -- | The Haskell type which will be used
     , extHsRef :: Hs.ExtRef
@@ -71,15 +71,15 @@ data ResolvedExtBinding = ResolvedExtBinding{
 
 data ResolveBindingSpecsMsg =
     ResolveBindingSpecsModuleMismatch       Hs.ModuleName Hs.ModuleName
-  | ResolveBindingSpecsExtHsRefNoIdentifier C.DeclName
-  | ResolveBindingSpecsNoHsTypeSpec         C.DeclName
-  | ResolveBindingSpecsNoHsTypeRep          C.DeclName
-  | ResolveBindingSpecsOmittedType          C.DeclName
-  | ResolveBindingSpecsTypeNotUsed          C.DeclName
-  | ResolveBindingSpecsExtDecl              C.DeclName
-  | ResolveBindingSpecsExtType              C.DeclName C.DeclName
-  | ResolveBindingSpecsPrescriptiveRequire  C.DeclName
-  | ResolveBindingSpecsPrescriptiveOmit     C.DeclName
+  | ResolveBindingSpecsExtHsRefNoIdentifier C.DeclId
+  | ResolveBindingSpecsNoHsTypeSpec         C.DeclId
+  | ResolveBindingSpecsNoHsTypeRep          C.DeclId
+  | ResolveBindingSpecsOmittedType          C.DeclId
+  | ResolveBindingSpecsTypeNotUsed          C.DeclId
+  | ResolveBindingSpecsExtDecl              C.DeclId
+  | ResolveBindingSpecsExtType              C.DeclId C.DeclId
+  | ResolveBindingSpecsPrescriptiveRequire  C.DeclId
+  | ResolveBindingSpecsPrescriptiveOmit     C.DeclId
   deriving stock (Show)
 
 instance PrettyForTrace ResolveBindingSpecsMsg where
@@ -89,35 +89,35 @@ instance PrettyForTrace ResolveBindingSpecsMsg where
           <+> prettyForTrace pSpecHsModuleName
           <+> "cannot be used to generate"
           <+> prettyForTrace hsModuleName
-      ResolveBindingSpecsExtHsRefNoIdentifier cDeclName ->
+      ResolveBindingSpecsExtHsRefNoIdentifier cDeclId ->
         "Haskell identifier not specified in binding specification:"
-          <+> prettyForTrace cDeclName
-      ResolveBindingSpecsNoHsTypeSpec cDeclName ->
+          <+> prettyForTrace cDeclId
+      ResolveBindingSpecsNoHsTypeSpec cDeclId ->
         "Haskell type spec not specified in binding specification:"
-          <+> prettyForTrace cDeclName
-      ResolveBindingSpecsNoHsTypeRep cDeclName ->
+          <+> prettyForTrace cDeclId
+      ResolveBindingSpecsNoHsTypeRep cDeclId ->
         "Haskell type rep not specified in binding specification:"
-          <+> prettyForTrace cDeclName
-      ResolveBindingSpecsOmittedType cDeclName ->
+          <+> prettyForTrace cDeclId
+      ResolveBindingSpecsOmittedType cDeclId ->
         "Type omitted by binding specification used:"
-          <+> prettyForTrace cDeclName
-      ResolveBindingSpecsTypeNotUsed cDeclName ->
+          <+> prettyForTrace cDeclId
+      ResolveBindingSpecsTypeNotUsed cDeclId ->
         "Binding specification for type not used:"
-          <+> prettyForTrace cDeclName
-      ResolveBindingSpecsExtDecl cDeclName ->
+          <+> prettyForTrace cDeclId
+      ResolveBindingSpecsExtDecl cDeclId ->
         "Declaration with external binding dropped:"
-          <+> prettyForTrace cDeclName
-      ResolveBindingSpecsExtType ctx cDeclName ->
+          <+> prettyForTrace cDeclId
+      ResolveBindingSpecsExtType ctx cDeclId ->
         "Within declaration"
           <+> prettyForTrace ctx
           <+> "type replaced with external binding:"
-          <+> prettyForTrace cDeclName
-      ResolveBindingSpecsPrescriptiveRequire cDeclName ->
+          <+> prettyForTrace cDeclId
+      ResolveBindingSpecsPrescriptiveRequire cDeclId ->
         "Prescriptive binding specification found:"
-          <+> prettyForTrace cDeclName
-      ResolveBindingSpecsPrescriptiveOmit cDeclName ->
+          <+> prettyForTrace cDeclId
+      ResolveBindingSpecsPrescriptiveOmit cDeclId ->
         "Declaration omitted by prescriptive binding specification:"
-          <+> prettyForTrace cDeclName
+          <+> prettyForTrace cDeclId
 
 instance IsTrace Level ResolveBindingSpecsMsg where
   getDefaultLogLevel = \case
@@ -138,7 +138,5 @@ instance IsTrace Level ResolveBindingSpecsMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassHaskellId NameAnon ResolveBindingSpecs
-
-instance CoercePassId NameAnon ResolveBindingSpecs where
-  coercePassId _ = coercePass
+instance CoercePassHaskellId HandleMacros ResolveBindingSpecs
+instance CoercePassId        HandleMacros ResolveBindingSpecs

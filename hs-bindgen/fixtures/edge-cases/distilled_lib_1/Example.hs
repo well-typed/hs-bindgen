@@ -40,7 +40,7 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
-{-| __C declaration:__ @another_typedef_struct_t@
+{-| __C declaration:__ @struct another_typedef_struct_t@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:9:9@
 
@@ -174,7 +174,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Another_typedef_stru
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"another_typedef_struct_t_bar")
 
-{-| __C declaration:__ @another_typedef_enum_e@
+{-| __C declaration:__ @enum another_typedef_enum_e@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:10:9@
 
@@ -341,7 +341,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Var_t "un_Var_t" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @a_typedef_struct_t@
+{-| __C declaration:__ @struct a_typedef_struct@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:35:16@
 
@@ -656,7 +656,7 @@ a_DEFINE_2 = (2 :: FC.CInt)
 tWO_ARGS :: ((,) FC.CInt) FC.CInt
 tWO_ARGS = (,) (13398 :: FC.CInt) (30874 :: FC.CInt)
 
-{-| __C declaration:__ @a_typedef_enum_e@
+{-| __C declaration:__ @enum a_typedef_enum_e@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:61:9@
 
@@ -769,6 +769,8 @@ pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 
 {-| Auxiliary type used by 'Callback_t'
+
+__C declaration:__ @callback_t@
 
 __defined at:__ @edge-cases\/distilled_lib_1.h:77:19@
 

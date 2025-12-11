@@ -35,7 +35,7 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
-{-| __C declaration:__ @point@
+{-| __C declaration:__ @struct point@
 
     __defined at:__ @manual\/zero_copy.h:12:8@
 
@@ -159,7 +159,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point) "point_y")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"point_y")
 
-{-| __C declaration:__ @rectangle@
+{-| __C declaration:__ @struct rectangle@
 
     __defined at:__ @manual\/zero_copy.h:17:8@
 
@@ -284,7 +284,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Rectangle) "rectangl
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"rectangle_bottomright")
 
-{-| __C declaration:__ @circle@
+{-| __C declaration:__ @struct circle@
 
     __defined at:__ @manual\/zero_copy.h:22:8@
 
@@ -408,7 +408,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Circle) "circle_radi
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"circle_radius")
 
-{-| __C declaration:__ @shape@
+{-| __C declaration:__ @union shape@
 
     __defined at:__ @manual\/zero_copy.h:30:7@
 
@@ -500,7 +500,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Shape) "shape_circle
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"shape_circle")
 
-{-| __C declaration:__ @colour@
+{-| __C declaration:__ @struct colour@
 
     __defined at:__ @manual\/zero_copy.h:39:8@
 
@@ -761,7 +761,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MyInt "un_MyInt" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @drawing@
+{-| __C declaration:__ @struct drawing@
 
     __defined at:__ @manual\/zero_copy.h:55:16@
 
@@ -831,7 +831,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Drawing) "drawing_co
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"drawing_colour")
 
-{-| __C declaration:__ @tic_tac_toe@
+{-| __C declaration:__ @struct tic_tac_toe@
 
     __defined at:__ @manual\/zero_copy.h:63:16@
 
@@ -923,7 +923,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tic_tac_toe) "tic_ta
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"tic_tac_toe_row3")
 
-{-| __C declaration:__ @vector@
+{-| __C declaration:__ @struct vector@
 
     __defined at:__ @manual\/zero_copy.h:72:8@
 

@@ -19,7 +19,7 @@ import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified Text.Read
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
-{-| __C declaration:__ @MyEnum@
+{-| __C declaration:__ @enum MyEnum@
 
     __defined at:__ @edge-cases\/uses_utf8.h:4:6@
 

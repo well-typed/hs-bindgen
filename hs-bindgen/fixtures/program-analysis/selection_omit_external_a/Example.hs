@@ -22,7 +22,7 @@ import qualified HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @UnrelatedDeclaration@
+{-| __C declaration:__ @struct UnrelatedDeclaration@
 
     __defined at:__ @program-analysis\/selection_omit_external_a.h:4:8@
 

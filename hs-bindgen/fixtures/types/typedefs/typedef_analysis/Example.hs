@@ -27,7 +27,7 @@ import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure, return)
 
 {-| Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`
 
-__C declaration:__ @struct1_t@
+__C declaration:__ @struct struct1@
 
 __defined at:__ @types\/typedefs\/typedef_analysis.h:7:8@
 
@@ -83,7 +83,7 @@ instance Data.Primitive.Types.Prim Struct1_t where
             case struct2 of
               Struct1_t -> s3
 
-{-| __C declaration:__ @struct2_t@
+{-| __C declaration:__ @struct struct2@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:11:16@
 
@@ -139,7 +139,7 @@ instance Data.Primitive.Types.Prim Struct2_t where
             case struct2 of
               Struct2_t -> s3
 
-{-| __C declaration:__ @struct3_t@
+{-| __C declaration:__ @struct struct3@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:14:8@
 
@@ -147,7 +147,7 @@ instance Data.Primitive.Types.Prim Struct2_t where
 -}
 data Struct3_t
 
-{-| __C declaration:__ @struct4_t@
+{-| __C declaration:__ @struct struct4@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:18:16@
 
@@ -155,7 +155,7 @@ data Struct3_t
 -}
 data Struct4_t
 
-{-| __C declaration:__ @struct5@
+{-| __C declaration:__ @struct struct5@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:21:8@
 
@@ -236,7 +236,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct5_t "un_Struct5_t" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @struct6_Deref@
+{-| __C declaration:__ @struct struct6@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:25:16@
 
@@ -317,7 +317,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct6 "un_Struct6" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @struct7@
+{-| __C declaration:__ @struct struct7@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:28:8@
 
@@ -421,7 +421,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct7b "un_Struct7b" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @struct8@
+{-| __C declaration:__ @struct struct8@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:33:8@
 
@@ -501,7 +501,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct8b "un_Struct8b" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @struct9@
+{-| __C declaration:__ @struct struct9@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:38:8@
 
@@ -581,7 +581,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct9_t "un_Struct9_t" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @struct10_t@
+{-| __C declaration:__ @struct struct10@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:46:8@
 
@@ -662,7 +662,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct10_t_t "un_Struct10_t_t" wh
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @struct11_t@
+{-| __C declaration:__ @struct struct11@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:51:8@
 
@@ -731,7 +731,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct11_t) "struct1
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"struct11_t_self")
 
-{-| __C declaration:__ @struct12_t@
+{-| __C declaration:__ @struct struct12@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:60:8@
 
@@ -800,7 +800,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct12_t) "struct1
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"struct12_t_self")
 
-{-| __C declaration:__ @use_sites@
+{-| __C declaration:__ @struct use_sites@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:66:8@
 

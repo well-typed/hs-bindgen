@@ -34,18 +34,20 @@ import Clang.Paths qualified as Clang
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal
+import HsBindgen.Frontend.LanguageC.Error
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
-type Parser p a =
-     ReparseEnv p
+type Parser a =
+     ReparseEnv
   -> [Clang.Token Clang.TokenSpelling]
   -> Either Error a
 
@@ -53,32 +55,33 @@ type Parser p a =
 --
 -- Returns the function parameters, function result, and function name.
 reparseFunDecl ::
-     CanApply p
-  => Parser p (
-         ( [(Maybe CName, Type p)]
-         , Type p
+     Parser (
+         ( [(Maybe CName, Type HandleMacros)]
+         , Type HandleMacros
          )
        , CName
        )
 reparseFunDecl = parseWith flattenFunDecl (fmap swap . fromFunDecl)
 
 -- | Reparse typedef
-reparseTypedef :: CanApply p => Parser p (Type p)
+reparseTypedef :: Parser (Type HandleMacros)
 reparseTypedef = parseWith defaultFlatten (fmap snd . fromDecl)
 
 -- | Reparse struct/union field
-reparseField :: CanApply p => Parser p (Type p, CName)
+reparseField :: Parser (Type HandleMacros, CName)
 reparseField = parseWith defaultFlatten (fmap swap .  fromNamedDecl)
 
 -- | Parse macro-defined type
 --
 -- Unlike the other parsers, this is not /re/parsing: we are parsing this macro
 -- for the first time.
-parseMacroType :: CanApply p => Parser p (Type p)
+parseMacroType :: Parser (Type HandleMacros)
 parseMacroType = parseWith flattenMacroTypeDef (fromDecl >=> checkNotVoid)
   where
     -- @void@ does not make sense as a top-level type
-    checkNotVoid :: (Maybe CName, Type p) -> FromLanC p (Type p)
+    checkNotVoid ::
+         (Maybe CName, Type HandleMacros)
+      -> FromLanC (Type HandleMacros)
     checkNotVoid (_name, typ) =
         case typ of
           TypeVoid   -> unsupported "type 'void'"
@@ -89,12 +92,11 @@ parseMacroType = parseWith flattenMacroTypeDef (fromDecl >=> checkNotVoid)
 -------------------------------------------------------------------------------}
 
 parseWith ::
-     CanApply p
-  => ([Clang.Token Clang.TokenSpelling] -> String)
+     ([Clang.Token Clang.TokenSpelling] -> String)
      -- ^ Flatten tokens into raw string we can feed to language-c
-  -> (PartialDecl p -> FromLanC p a)
+  -> (PartialDecl -> FromLanC a)
      -- ^ Construct our AST from the partial declaration
-  -> Parser p a
+  -> Parser a
 parseWith flatten fromPartial env tokens =
     runFromLanC env $ do
       partial <- parseUsingLanC (getLocation tokens) raw
@@ -104,10 +106,9 @@ parseWith flatten fromPartial env tokens =
     raw = flatten tokens
 
 parseUsingLanC ::
-     CanApply p
-  => Clang.MultiLoc -- ^ Approximate location of the string in the source
+     Clang.MultiLoc -- ^ Approximate location of the string in the source
   -> String         -- ^ Raw string
-  -> FromLanC p (PartialDecl p)
+  -> FromLanC PartialDecl
 parseUsingLanC mloc raw = do
     reparseEnv <- getReparseEnv
 
@@ -128,7 +129,7 @@ parseUsingLanC mloc raw = do
         decl <- fromCDeclExt fromLanC
         mkPartialDecl decl
 
-fromCDeclExt :: LanC.CExternalDeclaration a -> FromLanC p (LanC.CDeclaration a)
+fromCDeclExt :: LanC.CExternalDeclaration a -> FromLanC (LanC.CDeclaration a)
 fromCDeclExt = \case
     LanC.CDeclExt decl -> return decl
     other              -> unexpectedF other
@@ -208,13 +209,13 @@ prependToken token rest = concat [
 -- | Initial 'ReparseTypeEnv'
 --
 -- This is not quite empty: it contains some "built in" types.
-initReparseEnv :: CStandard -> ReparseEnv p
+initReparseEnv :: CStandard -> ReparseEnv
 initReparseEnv standard = Map.fromList (bespokeTypes standard)
 
 -- | \"Primitive\" we expect the reparser to recognize
 --
 -- The language-c parser does not support these explicitly.
-bespokeTypes :: CStandard -> [(CName, Type p)]
+bespokeTypes :: CStandard -> [(CName, Type HandleMacros)]
 bespokeTypes = \case
    -- Make sure that we really only replace keywords lacking definitions.
    --
@@ -222,7 +223,7 @@ bespokeTypes = \case
    -- (i.e., are not part of the standard), we will pretend to know what these
    -- types are, but the actual type must come from a header, and we actually do
    -- not know what that defintion is.
-   C23 -> [("bool"   , TypePrim C.PrimBool)]
+   C23 -> [("bool", TypePrim C.PrimBool)]
    _otherwise -> []
 
 {-------------------------------------------------------------------------------

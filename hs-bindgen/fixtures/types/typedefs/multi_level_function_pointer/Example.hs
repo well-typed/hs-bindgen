@@ -31,6 +31,8 @@ import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
 {-| Auxiliary type used by 'F1'
 
+__C declaration:__ @f1@
+
 __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:7:16@
 
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
@@ -96,6 +98,8 @@ instance HsBindgen.Runtime.HasCField.HasCField F1 "un_F1" where
   offset# = \_ -> \_ -> 0
 
 {-| Auxiliary type used by 'F2'
+
+__C declaration:__ @f2@
 
 __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:10:17@
 
@@ -164,6 +168,8 @@ instance HsBindgen.Runtime.HasCField.HasCField F2 "un_F2" where
 
 {-| Auxiliary type used by 'F3'
 
+__C declaration:__ @f3@
+
 __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:13:18@
 
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
@@ -231,6 +237,8 @@ instance HsBindgen.Runtime.HasCField.HasCField F3 "un_F3" where
 
 {-| Auxiliary type used by 'F4'
 
+__C declaration:__ @f4@
+
 __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:16:16@
 
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
@@ -296,6 +304,8 @@ instance HsBindgen.Runtime.HasCField.HasCField F4 "un_F4" where
   offset# = \_ -> \_ -> 0
 
 {-| Auxiliary type used by 'F5'
+
+__C declaration:__ @f5@
 
 __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:19:17@
 
@@ -386,6 +396,8 @@ instance HsBindgen.Runtime.HasCField.HasCField MyInt "un_MyInt" where
   offset# = \_ -> \_ -> 0
 
 {-| Auxiliary type used by 'F6'
+
+__C declaration:__ @f6@
 
 __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:23:17@
 

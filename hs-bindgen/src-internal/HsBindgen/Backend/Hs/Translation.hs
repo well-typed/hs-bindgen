@@ -16,6 +16,8 @@ import Data.Type.Nat (SNatI)
 import Data.Vec.Lazy qualified as Vec
 import Optics.Core (over)
 
+import Clang.HighLevel.Documentation qualified as Clang
+
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
@@ -43,7 +45,6 @@ import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -140,13 +141,8 @@ isDefinedInCurrentModule :: DeclIndex -> C.Type -> Bool
 isDefinedInCurrentModule declIndex =
     any isInDeclIndex . C.typeDeclIds
   where
-    isInDeclIndex :: C.DeclId MangleNames -> Bool
-    isInDeclIndex declId =
-        case declId.origDeclId of
-          C.OrigDeclId orig ->
-            isJust $ DeclIndex.lookup orig declIndex
-          C.AuxForDecl _parent ->
-            False
+    isInDeclIndex :: C.DeclIdPair -> Bool
+    isInDeclIndex declId = isJust $ DeclIndex.lookup declId.cName declIndex
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -168,9 +164,14 @@ generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
       C.DeclEnum e -> withCategoryM CType $
         enumDecs opts haddockConfig info e spec
       C.DeclTypedef d -> withCategoryM CType $
-        typedefDecs opts haddockConfig info d spec
-      C.DeclOpaque cNameKind -> withCategoryM CType $
-        opaqueDecs cNameKind haddockConfig info spec
+        -- Deal with typedefs around function pointers (#1380)
+        case d.typedefType of
+          C.TypePointers n (C.TypeFun args res) ->
+            typedefFunPtrDecs opts haddockConfig info n (args, res) d.typedefNames spec
+          _otherwise ->
+            typedefDecs opts haddockConfig info Origin.Typedef d spec
+      C.DeclOpaque -> withCategoryM CType $
+        opaqueDecs haddockConfig info spec
       C.DeclFunction f ->
         let funDeclsWith safety =
               functionDecs safety opts haddockConfig moduleName info f spec
@@ -221,7 +222,7 @@ structDecs opts haddockConfig info struct spec fields = do
     pure decls
   where
     structName :: Hs.Name Hs.NsTypeConstr
-    structName = Hs.unsafeDeclIdHsName info.declId
+    structName = Hs.unsafeHsIdHsName info.declId.hsName
 
     structFields :: Vec n Hs.Field
     structFields = flip Vec.map fields $ \f -> Hs.Field {
@@ -411,24 +412,24 @@ pokeStructField ptr f x = case C.structFieldWidth f of
 -------------------------------------------------------------------------------}
 
 opaqueDecs ::
-     C.NameKind
-  -> HaddockConfig
+     HaddockConfig
   -> C.DeclInfo
   -> C.DeclSpec
   -> HsM [Hs.Decl]
-opaqueDecs cNameKind haddockConfig info spec = do
+opaqueDecs haddockConfig info spec = do
     State.modifyInstanceMap' $ Map.insert name Set.empty
     return [decl]
   where
     name :: Hs.Name Hs.NsTypeConstr
-    name = Hs.unsafeDeclIdHsName info.declId
+    name = Hs.unsafeHsIdHsName info.declId.hsName
 
+    -- TODO: Do we still need the @Origin@ at all?
     decl :: Hs.Decl
     decl = Hs.DeclEmpty Hs.EmptyData {
         emptyDataName   = name
       , emptyDataOrigin = Origin.Decl{
             declInfo = info
-          , declKind = Origin.Opaque cNameKind
+          , declKind = Origin.Opaque info.declId.cName.name.kind
           , declSpec = spec
           }
       , emptyDataComment = mkHaddocks haddockConfig info name
@@ -454,7 +455,7 @@ unionDecs haddockConfig info union spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.unsafeDeclIdHsName info.declId
+        newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = C.newtypeConstr (C.unionNames union)
@@ -654,7 +655,7 @@ enumDecs opts haddockConfig info e spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.unsafeDeclIdHsName info.declId
+        newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = C.newtypeConstr (C.enumNames e)
@@ -800,10 +801,11 @@ typedefDecs ::
      TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
+  -> (C.Typedef -> Origin.Newtype)
   -> C.Typedef
   -> C.DeclSpec
   -> HsM [Hs.Decl]
-typedefDecs opts haddockConfig info typedef spec = do
+typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
     nt <- newtypeDec
     pure $ aux nt
   where
@@ -813,7 +815,7 @@ typedefDecs opts haddockConfig info typedef spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.unsafeDeclIdHsName info.declId
+        newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = C.newtypeConstr (C.typedefNames typedef)
@@ -829,7 +831,7 @@ typedefDecs opts haddockConfig info typedef spec = do
         newtypeOrigin :: Origin.Decl Origin.Newtype
         newtypeOrigin =  Origin.Decl{
             declInfo = info
-          , declKind = Origin.Typedef typedef
+          , declKind = mkNewtypeOrigin typedef
           , declSpec = spec
           }
 
@@ -979,6 +981,96 @@ typedefFieldDecls hsNewType = [
         , hasCFieldInstanceFieldOffset = 0
         }
 
+-- | Typedef around function pointer
+--
+-- Given
+--
+-- > typedef void (*f)(int x, int y);
+--
+-- We want to generate /two/ types:
+--
+-- > newtype F_Aux = F_Aux (FC.CInt -> FC.CInt -> IO ())
+-- > newtype F     = F (Ptr.FunPtr F_Deref)
+--
+-- so that @F_Aux@ can be given @ToFunPtr@/@FromFunPtr@ instances.
+typedefFunPtrDecs ::
+     TranslationConfig
+  -> HaddockConfig
+  -> C.DeclInfo
+  -> Int                 -- ^ Number of indirections
+  -> ([C.Type], C.Type)  -- ^ Function arguments and result
+  -> C.NewtypeNames
+  -> C.DeclSpec
+  -> HsM [Hs.Decl]
+typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
+    fmap concat $ sequence [
+        typedefDecs opts haddockConfig auxInfo  Origin.Aux     auxTypedef  auxSpec
+      , typedefDecs opts haddockConfig origInfo Origin.Typedef mainTypedef origSpec
+      ]
+  where
+    -- TODO: For historical reasons we currently implement this by making a
+    -- "fake" C declaration, and then translating that immediately to Haskell.
+    -- We should fuse this, and just generate the Haskell declarations directly.
+
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1379>
+    -- The name of this auxiliary type should be configurable.
+    --
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1427>
+    -- This should be called "_Aux" instead.
+    auxHsName :: Hs.Identifier
+    auxHsName = origInfo.declId.hsName <> "_Deref"
+
+    auxInfo :: C.DeclInfo
+    auxInfo = C.DeclInfo {
+          declLoc        = origInfo.declLoc
+        , declHeaderInfo = origInfo.declHeaderInfo
+        , declComment    = Just auxComment
+        , declId         = C.DeclIdPair{
+              -- Still refer to the /original/ C decl...?
+              cName  = origInfo.declId.cName
+            , hsName = auxHsName
+            }
+        }
+
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1433>
+    -- We should use @typedefInfo.declId@ instead of @typedefName.text@.
+    auxComment :: Clang.Comment C.CommentRef
+    auxComment = Clang.Comment [
+          Clang.Paragraph [
+              Clang.TextContent "Auxiliary type used by "
+            , Clang.InlineRefCommand $
+                C.CommentRef
+                  origInfo.declId.cName.name.text
+                  (Just origInfo.declId.hsName)
+            ]
+        ]
+
+    -- TODO: This duplicates logic from 'mkNewtypeNames' in the name mangler.
+    auxTypedef :: C.Typedef
+    auxTypedef = C.Typedef{
+          typedefType  = C.TypeFun args res
+        , typedefNames = C.NewtypeNames{
+              newtypeConstr = Hs.unsafeHsIdHsName $          auxHsName
+            , newtypeField  = Hs.unsafeHsIdHsName $ "un_" <> auxHsName
+            }
+        }
+
+    -- TODO: Is this right..?
+    auxSpec :: C.DeclSpec
+    auxSpec = C.DeclSpec{
+          declSpecC  = Nothing
+        , declSpecHs = Nothing
+        }
+
+    mainTypedef :: C.Typedef
+    mainTypedef = C.Typedef{
+          typedefNames = origNames
+        , typedefType  = C.TypePointers n $ C.TypeTypedef C.TypedefRef{
+              ref        = auxInfo.declId
+            , underlying = C.TypeFun args res
+            }
+        }
+
 {-------------------------------------------------------------------------------
   Macros
 -------------------------------------------------------------------------------}
@@ -1012,7 +1104,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.unsafeDeclIdHsName info.declId
+        newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = C.newtypeConstr (C.macroTypeNames macroType)
@@ -1203,7 +1295,7 @@ constGetter ty info pureStubName = singleton getterDecl
         , comment = Nothing
         }
 
-    getterName = Hs.unsafeDeclIdHsName info.declId
+    getterName = Hs.unsafeHsIdHsName info.declId.hsName
     getterType = SHs.translateType ty
     getterExpr = SHs.EGlobal SHs.IO_unsafePerformIO
                 `SHs.EApp` (SHs.EGlobal SHs.Storable_peek
@@ -1255,7 +1347,7 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
     stubName = Hs.InternalName stubSymbol
 
     varName :: String
-    varName = T.unpack info.declId.name.text
+    varName = T.unpack $ info.declId.cName.name.text
 
     stubType :: C.Type
     stubType = C.TypePointers 1 ty
@@ -1314,7 +1406,7 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
       Hs.InternalName x -> Just $ HsDoc.uniqueSymbol x
 
     name :: Text
-    name = Hs.getIdentifier info.declId.haskellId
+    name = info.declId.hsName.text
 
     uniquify :: Text -> UniqueSymbol
     uniquify =
@@ -1322,8 +1414,9 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
       . Text.unpack
 
     runnerName = case runnerNameSpec of
-        HaskellId      -> Hs.ExportedName name
+        HaskellId      -> Hs.ExportedName (Hs.UnsafeExportedName name)
         GlobalUniqueId -> Hs.InternalName $ uniquify name
+
     runnerType = SHs.translateType (Type.topLevel stubType)
     runnerExpr = SHs.EGlobal SHs.IO_unsafePerformIO
                 `SHs.EApp` SHs.EFree stubName
@@ -1347,7 +1440,7 @@ macroVarDecs haddockConfig info macroExpr = [
     ]
   where
     hsVarName :: Hs.Name Hs.NsVar
-    hsVarName = Hs.unsafeDeclIdHsName info.declId
+    hsVarName = Hs.unsafeHsIdHsName info.declId.hsName
 
 {-------------------------------------------------------------------------------
   Helpers
@@ -1370,9 +1463,9 @@ hasUnsupportedType = aux . C.getCanonicalType
     aux C.TypeBlock {}           = False
     aux C.TypeExtBinding {}      = False
 
-    auxRef :: C.FinalDeclId -> Bool
+    auxRef :: C.DeclIdPair -> Bool
     auxRef declId =
-        case declId.name.kind of
+        case declId.cName.name.kind of
           C.NameKindOrdinary               -> False
           C.NameKindTagged C.TagKindStruct -> True
           C.NameKindTagged C.TagKindUnion  -> True

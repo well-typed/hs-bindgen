@@ -1,0 +1,38 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: Example
+ctypes:
+- headers: edge-cases/anon_multiple_fields.h
+  cname: struct some_struct
+  hsname: Some_struct
+- headers: edge-cases/anon_multiple_fields.h
+  cname: struct @some_struct_field1
+  hsname: Some_struct_field1
+hstypes:
+- hsname: Some_struct
+  representation:
+    record:
+      constructor: Some_struct
+      fields:
+      - some_struct_field1
+      - some_struct_field2
+      - some_struct_field3
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable
+- hsname: Some_struct_field1
+  representation:
+    record:
+      constructor: Some_struct_field1
+      fields:
+      - some_struct_field1_x
+      - some_struct_field1_y
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable

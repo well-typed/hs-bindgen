@@ -23,7 +23,7 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @vector@
+{-| __C declaration:__ @struct vector@
 
     __defined at:__ @types\/complex\/vector_test.h:1:9@
 

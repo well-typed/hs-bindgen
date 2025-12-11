@@ -2,7 +2,7 @@
 -- addDependentFile musl-include/x86_64/bits/alltypes.h
 -- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile examples/golden/types/primitives/fixedwidth.h
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @struct foo@
 
     __defined at:__ @types\/primitives\/fixedwidth.h:3:8@
 
@@ -23,7 +23,7 @@ data Foo
 
                 __exported by:__ @types\/primitives\/fixedwidth.h@
            -}}
-      {- ^ __C declaration:__ @foo@
+      {- ^ __C declaration:__ @struct foo@
 
            __defined at:__ @types\/primitives\/fixedwidth.h:3:8@
 

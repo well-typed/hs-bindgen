@@ -28,7 +28,7 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @Dim2@
+{-| __C declaration:__ @struct Dim2@
 
     __defined at:__ @types\/unions\/unions.h:1:8@
 
@@ -152,7 +152,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim2) "dim2_y")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dim2_y")
 
-{-| __C declaration:__ @Dim3@
+{-| __C declaration:__ @struct Dim3@
 
     __defined at:__ @types\/unions\/unions.h:6:8@
 
@@ -305,7 +305,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim3) "dim3_z")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dim3_z")
 
-{-| __C declaration:__ @DimPayload@
+{-| __C declaration:__ @union DimPayload@
 
     __defined at:__ @types\/unions\/unions.h:12:7@
 
@@ -397,7 +397,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DimPayload) "dimPayl
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dimPayload_dim3")
 
-{-| __C declaration:__ @Dim@
+{-| __C declaration:__ @struct Dim@
 
     __defined at:__ @types\/unions\/unions.h:17:8@
 
@@ -464,7 +464,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim) "dim_payload")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dim_payload")
 
-{-| __C declaration:__ @DimPayloadB@
+{-| __C declaration:__ @union DimPayloadB@
 
     __defined at:__ @types\/unions\/unions.h:23:15@
 
@@ -556,7 +556,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DimPayloadB) "dimPay
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dimPayloadB_dim3")
 
-{-| __C declaration:__ @DimB@
+{-| __C declaration:__ @struct DimB@
 
     __defined at:__ @types\/unions\/unions.h:28:8@
 
@@ -623,7 +623,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DimB) "dimB_payload"
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dimB_payload")
 
-{-| __defined at:__ @types\/unions\/unions.h:35:5@
+{-| __C declaration:__ @struct \@AnonA_xy@
+
+    __defined at:__ @types\/unions\/unions.h:35:5@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
@@ -745,7 +747,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonA_xy) "anonA_xy_
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"anonA_xy_y")
 
-{-| __defined at:__ @types\/unions\/unions.h:36:5@
+{-| __C declaration:__ @struct \@AnonA_polar@
+
+    __defined at:__ @types\/unions\/unions.h:36:5@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
@@ -869,7 +873,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonA_polar) "anonA_
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"anonA_polar_p")
 
-{-| __C declaration:__ @AnonA@
+{-| __C declaration:__ @union AnonA@
 
     __defined at:__ @types\/unions\/unions.h:34:7@
 

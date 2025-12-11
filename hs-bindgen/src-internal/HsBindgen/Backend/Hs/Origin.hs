@@ -46,6 +46,7 @@ data Newtype =
   | Typedef C.Typedef
   | Union   C.Union
   | Macro   C.CheckedMacroType
+  | Aux     C.Typedef
   deriving stock (Generic, Show)
 
 data EmptyData =

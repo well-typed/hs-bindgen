@@ -31,7 +31,7 @@ import Prelude (Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pu
 
   Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
 
-__C declaration:__ @FILE@
+__C declaration:__ @struct FILE@
 
 __defined at:__ @functions\/fun_attributes.h:7:9@
 

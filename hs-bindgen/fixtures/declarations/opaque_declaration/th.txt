@@ -1,12 +1,12 @@
 -- addDependentFile examples/golden/declarations/opaque_declaration.h
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @struct foo@
 
     __defined at:__ @declarations\/opaque_declaration.h:1:8@
 
     __exported by:__ @declarations\/opaque_declaration.h@
 -}
 data Foo
-{-| __C declaration:__ @bar@
+{-| __C declaration:__ @struct bar@
 
     __defined at:__ @declarations\/opaque_declaration.h:4:8@
 
@@ -27,7 +27,7 @@ data Bar
 
                 __exported by:__ @declarations\/opaque_declaration.h@
            -}}
-      {- ^ __C declaration:__ @bar@
+      {- ^ __C declaration:__ @struct bar@
 
            __defined at:__ @declarations\/opaque_declaration.h:4:8@
 
@@ -53,7 +53,7 @@ instance HasCField Bar "bar_ptrB"
 instance TyEq ty (CFieldType Bar "bar_ptrB") =>
          HasField "bar_ptrB" (Ptr Bar) (Ptr ty)
     where getField = ptrToCField (Proxy @"bar_ptrB")
-{-| __C declaration:__ @baz@
+{-| __C declaration:__ @struct baz@
 
     __defined at:__ @declarations\/opaque_declaration.h:9:8@
 
@@ -61,7 +61,7 @@ instance TyEq ty (CFieldType Bar "bar_ptrB") =>
 -}
 data Baz
     = Baz {}
-      {- ^ __C declaration:__ @baz@
+      {- ^ __C declaration:__ @struct baz@
 
            __defined at:__ @declarations\/opaque_declaration.h:9:8@
 
@@ -85,14 +85,14 @@ instance Prim Baz
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Baz #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       Baz -> s_17
-{-| __C declaration:__ @quu@
+{-| __C declaration:__ @enum quu@
 
     __defined at:__ @declarations\/opaque_declaration.h:11:6@
 
     __exported by:__ @declarations\/opaque_declaration.h@
 -}
 data Quu
-{-| __C declaration:__ @opaque_union@
+{-| __C declaration:__ @union opaque_union@
 
     __defined at:__ @declarations\/opaque_declaration.h:13:7@
 

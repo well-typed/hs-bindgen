@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/types/structs/named_vs_anon.h
-{-| __C declaration:__ @a@
+{-| __C declaration:__ @struct a@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:15:8@
 
@@ -7,7 +7,7 @@
 -}
 data A
     = A {}
-      {- ^ __C declaration:__ @a@
+      {- ^ __C declaration:__ @struct a@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:15:8@
 
@@ -31,7 +31,7 @@ instance Prim A
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, A #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       A -> s_17
-{-| __C declaration:__ @struct1@
+{-| __C declaration:__ @struct struct1@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:16:8@
 
@@ -39,7 +39,7 @@ instance Prim A
 -}
 data Struct1
     = Struct1 {}
-      {- ^ __C declaration:__ @struct1@
+      {- ^ __C declaration:__ @struct struct1@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:16:8@
 
@@ -63,7 +63,7 @@ instance Prim Struct1
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct1 #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       Struct1 -> s_17
-{-| __C declaration:__ @b_s@
+{-| __C declaration:__ @struct b_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:19:8@
 
@@ -71,7 +71,7 @@ instance Prim Struct1
 -}
 data B_s
     = B_s {}
-      {- ^ __C declaration:__ @b_s@
+      {- ^ __C declaration:__ @struct b_s@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:19:8@
 
@@ -95,7 +95,7 @@ instance Prim B_s
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, B_s #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       B_s -> s_17
-{-| __C declaration:__ @struct2_s@
+{-| __C declaration:__ @struct struct2_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:20:8@
 
@@ -103,7 +103,7 @@ instance Prim B_s
 -}
 data Struct2_s
     = Struct2_s {}
-      {- ^ __C declaration:__ @struct2_s@
+      {- ^ __C declaration:__ @struct struct2_s@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:20:8@
 
@@ -127,7 +127,7 @@ instance Prim Struct2_s
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct2_s #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       Struct2_s -> s_17
-{-| __C declaration:__ @c@
+{-| __C declaration:__ @struct c@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:23:36@
 
@@ -135,7 +135,7 @@ instance Prim Struct2_s
 -}
 data C
     = C {}
-      {- ^ __C declaration:__ @c@
+      {- ^ __C declaration:__ @struct c@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:23:36@
 
@@ -159,7 +159,7 @@ instance Prim C
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, C #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       C -> s_17
-{-| __C declaration:__ @struct3@
+{-| __C declaration:__ @struct struct3@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:24:36@
 
@@ -167,7 +167,7 @@ instance Prim C
 -}
 data Struct3
     = Struct3 {}
-      {- ^ __C declaration:__ @struct3@
+      {- ^ __C declaration:__ @struct struct3@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:24:36@
 
@@ -191,7 +191,7 @@ instance Prim Struct3
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct3 #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       Struct3 -> s_17
-{-| __C declaration:__ @d@
+{-| __C declaration:__ @struct d@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:27:15@
 
@@ -199,7 +199,7 @@ instance Prim Struct3
 -}
 data D
     = D {}
-      {- ^ __C declaration:__ @d@
+      {- ^ __C declaration:__ @struct d@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:27:15@
 
@@ -223,7 +223,7 @@ instance Prim D
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, D #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       D -> s_17
-{-| __C declaration:__ @struct4@
+{-| __C declaration:__ @struct struct4@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:28:15@
 
@@ -231,7 +231,7 @@ instance Prim D
 -}
 data Struct4
     = Struct4 {}
-      {- ^ __C declaration:__ @struct4@
+      {- ^ __C declaration:__ @struct struct4@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:28:15@
 
@@ -255,7 +255,7 @@ instance Prim Struct4
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct4 #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       Struct4 -> s_17
-{-| __C declaration:__ @e_s@
+{-| __C declaration:__ @struct e_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:31:15@
 
@@ -263,7 +263,7 @@ instance Prim Struct4
 -}
 data E_s
     = E_s {}
-      {- ^ __C declaration:__ @e_s@
+      {- ^ __C declaration:__ @struct e_s@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:31:15@
 
@@ -287,7 +287,7 @@ instance Prim E_s
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, E_s #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       E_s -> s_17
-{-| __C declaration:__ @struct5_s@
+{-| __C declaration:__ @struct struct5_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:32:15@
 
@@ -295,7 +295,7 @@ instance Prim E_s
 -}
 data Struct5_s
     = Struct5_s {}
-      {- ^ __C declaration:__ @struct5_s@
+      {- ^ __C declaration:__ @struct struct5_s@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:32:15@
 
@@ -319,7 +319,7 @@ instance Prim Struct5_s
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct5_s #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       Struct5_s -> s_17
-{-| __C declaration:__ @f@
+{-| __C declaration:__ @struct f@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:35:9@
 
@@ -327,7 +327,7 @@ instance Prim Struct5_s
 -}
 data F
     = F {}
-      {- ^ __C declaration:__ @f@
+      {- ^ __C declaration:__ @struct f@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:35:9@
 
@@ -351,7 +351,7 @@ instance Prim F
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, F #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       F -> s_17
-{-| __C declaration:__ @typedef1@
+{-| __C declaration:__ @struct typedef1@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:36:9@
 
@@ -359,7 +359,7 @@ instance Prim F
 -}
 data Typedef1
     = Typedef1 {}
-      {- ^ __C declaration:__ @typedef1@
+      {- ^ __C declaration:__ @struct typedef1@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:36:9@
 
@@ -383,7 +383,7 @@ instance Prim Typedef1
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Typedef1 #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       Typedef1 -> s_17
-{-| __C declaration:__ @g@
+{-| __C declaration:__ @struct g@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:39:9@
 
@@ -391,7 +391,7 @@ instance Prim Typedef1
 -}
 data G
     = G {}
-      {- ^ __C declaration:__ @g@
+      {- ^ __C declaration:__ @struct g@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:39:9@
 
@@ -415,7 +415,7 @@ instance Prim G
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, G #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       G -> s_17
-{-| __C declaration:__ @typedef2@
+{-| __C declaration:__ @struct typedef2@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:40:9@
 
@@ -423,7 +423,7 @@ instance Prim G
 -}
 data Typedef2
     = Typedef2 {}
-      {- ^ __C declaration:__ @typedef2@
+      {- ^ __C declaration:__ @struct typedef2@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:40:9@
 
@@ -447,7 +447,7 @@ instance Prim Typedef2
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Typedef2 #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       Typedef2 -> s_17
-{-| __C declaration:__ @h@
+{-| __C declaration:__ @struct h@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:43:9@
 
@@ -455,7 +455,7 @@ instance Prim Typedef2
 -}
 data H
     = H {}
-      {- ^ __C declaration:__ @h@
+      {- ^ __C declaration:__ @struct h@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:43:9@
 
@@ -479,7 +479,7 @@ instance Prim H
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, H #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       H -> s_17
-{-| __C declaration:__ @typedef3@
+{-| __C declaration:__ @struct typedef3@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:44:9@
 
@@ -487,7 +487,7 @@ instance Prim H
 -}
 data Typedef3
     = Typedef3 {}
-      {- ^ __C declaration:__ @typedef3@
+      {- ^ __C declaration:__ @struct typedef3@
 
            __defined at:__ @types\/structs\/named_vs_anon.h:44:9@
 

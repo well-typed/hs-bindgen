@@ -13,7 +13,7 @@ module HsBindgen.Frontend.AST.External (
   , Decl(..)
   , Int.Availability(..)
   , DeclInfo(..)
-  , FinalDeclId
+  , C.DeclIdPair
   , Int.HeaderInfo(..)
   , FieldInfo(..)
   , DeclKind(..)
@@ -89,7 +89,6 @@ import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -122,16 +121,11 @@ data Decl = Decl {
 
 data DeclInfo = DeclInfo {
       declLoc        :: SingleLoc
-    , declId         :: FinalDeclId
+    , declId         :: C.DeclIdPair
     , declHeaderInfo :: Maybe Int.HeaderInfo
     , declComment    :: Maybe (CDoc.Comment CommentRef)
     }
   deriving stock (Show, Eq, Generic)
-
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1267>
--- It would probably make sense to move 'DeclId' into "AST.Internal", and then
--- have a "finalized" version of it here.
-type FinalDeclId = C.DeclId MangleNames
 
 data FieldInfo = FieldInfo {
       fieldLoc     :: SingleLoc
@@ -150,13 +144,12 @@ data DeclKind =
     -- When parsing, a C @struct@, @union@, or @enum@ may be opaque.  Users may
     -- specify any kind of type to be opaque using a prescriptive binding
     -- specification, however, including @typedef@ types.
-  | DeclOpaque C.NameKind
+  | DeclOpaque
   | DeclMacro CheckedMacro
   | DeclFunction Function
     -- | A global variable, whether it be declared @extern@, @static@ or neither.
   | DeclGlobal Type
   deriving stock (Show, Eq, Generic)
-
 
 {-------------------------------------------------------------------------------
   Information from the binding spec, minus naming information
@@ -246,8 +239,8 @@ data EnumConstant = EnumConstant {
 -------------------------------------------------------------------------------}
 
 data Typedef = Typedef {
-      typedefNames   :: Int.NewtypeNames
-    , typedefType    :: Type
+      typedefNames :: Int.NewtypeNames
+    , typedefType  :: Type
     }
   deriving stock (Show, Eq, Generic)
 
@@ -300,7 +293,7 @@ type Type = FullType
 -- | C types in Trees That Shrink style
 data TypeF tag =
     TypePrim C.PrimType
-  | TypeRef FinalDeclId
+  | TypeRef C.DeclIdPair
   | TypeTypedef
     -- | NOTE: has a strictness annotation, which allows GHC to infer that
     -- pattern matches are redundant when @TypedefRefF tag ~ Void@.
@@ -385,7 +378,7 @@ data TypeQualifier = TypeQualifierConst
 
 data TypedefRef = TypedefRef {
       -- | Name of the referenced typedef declaration
-      declId :: FinalDeclId
+      ref :: C.DeclIdPair
 
       -- | The underlying type of the referenced typedef declaration
       --
@@ -422,13 +415,13 @@ isCanonicalTypeFunction ty = case getCanonicalType ty of
 -- | Is the canonical type a struct type?
 isCanonicalTypeStruct :: GetCanonicalType t => t -> Bool
 isCanonicalTypeStruct ty = case getCanonicalType ty of
-    TypeRef dId -> dId.name.kind == C.NameKindTagged C.TagKindStruct
+    TypeRef ref -> ref.cName.name.kind == C.NameKindTagged C.TagKindStruct
     _otherwise  -> False
 
 -- | Is the canonical type a union type?
 isCanonicalTypeUnion :: GetCanonicalType t => t -> Bool
 isCanonicalTypeUnion ty = case getCanonicalType ty of
-    TypeRef dId -> dId.name.kind == C.NameKindTagged C.TagKindUnion
+    TypeRef ref -> ref.cName.name.kind == C.NameKindTagged C.TagKindUnion
     _otherwise  -> False
 
 -- | Is the canonical type a complex type?
@@ -478,7 +471,7 @@ isCanonicalTypeArray ty =
 -- whenever this type is used.
 --
 -- This does /not/ include any external declarations.
-typeDeclIds :: Type -> [C.DeclId MangleNames]
+typeDeclIds :: Type -> [C.DeclIdPair]
 typeDeclIds = \case
     -- Primitive types
     TypePrim _    -> []
@@ -486,9 +479,9 @@ typeDeclIds = \case
     TypeComplex _ -> []
 
     -- Interesting cases
-    TypeRef         declId -> [declId]
-    TypeTypedef     ref    -> [ref.declId]
-    TypeExtBinding  _ext   -> []
+    TypeRef         declId  -> [declId]
+    TypeTypedef     typedef -> [typedef.ref]
+    TypeExtBinding  _ext    -> []
 
     -- Recurse
     TypePointers _      t -> typeDeclIds t

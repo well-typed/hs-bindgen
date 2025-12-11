@@ -7,6 +7,9 @@ ctypes:
 - headers: types/complex/hsb_complex_test.h
   cname: complex_object_t
   hsname: Complex_object_t
+- headers: types/complex/hsb_complex_test.h
+  cname: struct complex_object_t
+  hsname: Complex_object_t
 hstypes:
 - hsname: Complex_object_t
   representation:

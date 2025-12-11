@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/types/primitives/primitive_types.h
-{-| __C declaration:__ @primitive@
+{-| __C declaration:__ @struct primitive@
 
     __defined at:__ @types\/primitives\/primitive_types.h:1:8@
 
@@ -202,7 +202,7 @@ data Primitive
 
                       __exported by:__ @types\/primitives\/primitive_types.h@
                  -}}
-      {- ^ __C declaration:__ @primitive@
+      {- ^ __C declaration:__ @struct primitive@
 
            __defined at:__ @types\/primitives\/primitive_types.h:1:8@
 

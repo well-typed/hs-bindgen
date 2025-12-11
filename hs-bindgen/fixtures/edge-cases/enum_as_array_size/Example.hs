@@ -19,7 +19,7 @@ import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified Text.Read
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
-{-| __C declaration:__ @test@
+{-| __C declaration:__ @enum test@
 
     __defined at:__ @edge-cases\/enum_as_array_size.h:3:6@
 

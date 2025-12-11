@@ -740,7 +740,7 @@ instance HasCField Tripletlist "un_Tripletlist"
     where type CFieldType Tripletlist
                           "un_Tripletlist" = IncompleteArray (ConstantArray 3 CInt)
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @Example@
+{-| __C declaration:__ @struct Example@
 
     __defined at:__ @arrays\/array.h:49:8@
 
@@ -761,7 +761,7 @@ data Example
 
                     __exported by:__ @arrays\/array.h@
                -}}
-      {- ^ __C declaration:__ @Example@
+      {- ^ __C declaration:__ @struct Example@
 
            __defined at:__ @arrays\/array.h:49:8@
 

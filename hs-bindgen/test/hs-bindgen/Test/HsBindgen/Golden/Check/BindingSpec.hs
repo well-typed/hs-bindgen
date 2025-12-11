@@ -20,12 +20,13 @@ check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "bindingspec" fixture $ \report -> do
       let artefacts =
-            (,,,)
+            (,,,,)
               <$> Target
               <*> GetMainHeaders
               <*> OmitTypes
+              <*> SquashedTypes
               <*> HsDecls
-      (target, getMainHeaders, omitTypes, hsDecls) <-
+      (target, getMainHeaders, omitTypes, squashedTypes, hsDecls) <-
         runTestHsBindgenSuccess report testResources test artefacts
 
       let output :: String
@@ -35,6 +36,7 @@ check testResources test =
                 "Example"
                 getMainHeaders
                 omitTypes
+                squashedTypes
                 -- TODO https://github.com/well-typed/hs-bindgen/issues/1089:
                 -- Test all binding categories.
                 (concat hsDecls)

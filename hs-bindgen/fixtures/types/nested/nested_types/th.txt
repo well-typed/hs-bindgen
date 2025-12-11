@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/types/nested/nested_types.h
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @struct foo@
 
     __defined at:__ @types\/nested\/nested_types.h:1:8@
 
@@ -20,7 +20,7 @@ data Foo
 
                 __exported by:__ @types\/nested\/nested_types.h@
            -}}
-      {- ^ __C declaration:__ @foo@
+      {- ^ __C declaration:__ @struct foo@
 
            __defined at:__ @types\/nested\/nested_types.h:1:8@
 
@@ -69,7 +69,7 @@ instance HasCField Foo "foo_c"
 instance TyEq ty (CFieldType Foo "foo_c") =>
          HasField "foo_c" (Ptr Foo) (Ptr ty)
     where getField = ptrToCField (Proxy @"foo_c")
-{-| __C declaration:__ @bar@
+{-| __C declaration:__ @struct bar@
 
     __defined at:__ @types\/nested\/nested_types.h:6:8@
 
@@ -90,7 +90,7 @@ data Bar
 
                 __exported by:__ @types\/nested\/nested_types.h@
            -}}
-      {- ^ __C declaration:__ @bar@
+      {- ^ __C declaration:__ @struct bar@
 
            __defined at:__ @types\/nested\/nested_types.h:6:8@
 
@@ -139,7 +139,9 @@ instance HasCField Bar "bar_foo2"
 instance TyEq ty (CFieldType Bar "bar_foo2") =>
          HasField "bar_foo2" (Ptr Bar) (Ptr ty)
     where getField = ptrToCField (Proxy @"bar_foo2")
-{-| __defined at:__ @types\/nested\/nested_types.h:12:5@
+{-| __C declaration:__ @struct \@ex3_ex3_struct@
+
+    __defined at:__ @types\/nested\/nested_types.h:12:5@
 
     __exported by:__ @types\/nested\/nested_types.h@
 -}
@@ -158,7 +160,9 @@ data Ex3_ex3_struct
 
                            __exported by:__ @types\/nested\/nested_types.h@
                       -}}
-      {- ^ __defined at:__ @types\/nested\/nested_types.h:12:5@
+      {- ^ __C declaration:__ @struct \@ex3_ex3_struct@
+
+           __defined at:__ @types\/nested\/nested_types.h:12:5@
 
            __exported by:__ @types\/nested\/nested_types.h@
       -}
@@ -207,7 +211,7 @@ instance TyEq ty
               (CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_b") =>
          HasField "ex3_ex3_struct_ex3_b" (Ptr Ex3_ex3_struct) (Ptr ty)
     where getField = ptrToCField (Proxy @"ex3_ex3_struct_ex3_b")
-{-| __C declaration:__ @ex3@
+{-| __C declaration:__ @struct ex3@
 
     __defined at:__ @types\/nested\/nested_types.h:11:8@
 
@@ -228,7 +232,7 @@ data Ex3
 
                 __exported by:__ @types\/nested\/nested_types.h@
            -}}
-      {- ^ __C declaration:__ @ex3@
+      {- ^ __C declaration:__ @struct ex3@
 
            __defined at:__ @types\/nested\/nested_types.h:11:8@
 
@@ -277,7 +281,7 @@ instance HasCField Ex3 "ex3_ex3_c"
 instance TyEq ty (CFieldType Ex3 "ex3_ex3_c") =>
          HasField "ex3_ex3_c" (Ptr Ex3) (Ptr ty)
     where getField = ptrToCField (Proxy @"ex3_ex3_c")
-{-| __C declaration:__ @ex4_odd@
+{-| __C declaration:__ @struct ex4_odd@
 
     __defined at:__ @types\/nested\/nested_types.h:22:8@
 
@@ -298,7 +302,7 @@ data Ex4_odd
 
                     __exported by:__ @types\/nested\/nested_types.h@
                -}}
-      {- ^ __C declaration:__ @ex4_odd@
+      {- ^ __C declaration:__ @struct ex4_odd@
 
            __defined at:__ @types\/nested\/nested_types.h:22:8@
 
@@ -324,7 +328,7 @@ instance HasCField Ex4_odd "ex4_odd_next"
 instance TyEq ty (CFieldType Ex4_odd "ex4_odd_next") =>
          HasField "ex4_odd_next" (Ptr Ex4_odd) (Ptr ty)
     where getField = ptrToCField (Proxy @"ex4_odd_next")
-{-| __C declaration:__ @ex4_even@
+{-| __C declaration:__ @struct ex4_even@
 
     __defined at:__ @types\/nested\/nested_types.h:24:12@
 
@@ -345,7 +349,7 @@ data Ex4_even
 
                      __exported by:__ @types\/nested\/nested_types.h@
                 -}}
-      {- ^ __C declaration:__ @ex4_even@
+      {- ^ __C declaration:__ @struct ex4_even@
 
            __defined at:__ @types\/nested\/nested_types.h:24:12@
 

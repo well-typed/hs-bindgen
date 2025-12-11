@@ -143,8 +143,8 @@ showsType ::
   -> Type
   -> ShowS
 showsType x (TypePrim p)              = C.showsPrimType p . showChar ' ' . x 0
-showsType x (TypeRef declId)          = showsDeclId declId . showChar ' ' . x 0
-showsType x (TypeTypedef ref)         = showsDeclId ref.declId . showChar ' ' . x 0
+showsType x (TypeRef ref)             = showsDeclId ref.cName . showChar ' ' . x 0
+showsType x (TypeTypedef typedef)     = showsDeclId typedef.ref.cName . showChar ' ' . x 0
 showsType x (TypePointers n t)        = showsType (\d -> showParen (d > arrayPrec)
                                       $ foldr (.) id (replicate n (showString "*"))
                                       . x (pointerPrec + 1)) t
@@ -160,7 +160,7 @@ showsType x (TypeFun args res)        =
     named i t = (showString "arg" . shows i, t)
 showsType x TypeVoid                  = showString "void " . x 0
 showsType x (TypeIncompleteArray t)   = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
-showsType x (TypeExtBinding ext)      = showsDeclName (extCName ext) . showChar ' ' . x 0
+showsType x (TypeExtBinding ext)      = showsDeclId (extCDeclId ext) . showChar ' ' . x 0
 showsType x (TypeBlock t)             = showsType (\_d -> showString "^" . x 0) t
 -- Type qualifiers like @const@ can appear before, and _after_ the type they
 -- refer to. For example,
@@ -243,18 +243,10 @@ showAttributeNewline pur = case pur of
     HaskellPureFunction -> showChar '\n'
     CPureFunction -> showChar '\n'
 
-showsDeclId :: FinalDeclId -> ShowS
-showsDeclId declId =
-    case declId.origDeclId of
-      C.OrigDeclId orig    -> showsOrigId orig
-      C.AuxForDecl _parent -> panicPure "non-existent C declaration"
-
-showsOrigId :: PrelimDeclId -> ShowS
-showsOrigId = \case
-    PrelimDeclIdNamed name ->
-      showsDeclName name
-    PrelimDeclIdAnon{} ->
-      panicPure "cannot refer to anonymous declaration"
+showsDeclId :: DeclId -> ShowS
+showsDeclId declId
+  | declId.isAnon = panicPure $ "Cannot refer to anon decl " ++ show declId
+  | otherwise     = showsDeclName declId.name
 
 showsDeclName :: C.DeclName -> ShowS
 showsDeclName (C.DeclName name kind) = showsNameKind kind . showsText name
@@ -268,5 +260,5 @@ showsNameKind = \case
        TagKindEnum   -> showString "enum "
        TagKindUnion  -> showString "union "
 
-showsText :: Text -> String -> String
+showsText :: Text -> ShowS
 showsText = showString . Text.unpack

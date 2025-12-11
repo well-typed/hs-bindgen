@@ -9,7 +9,7 @@ import qualified Data.Primitive.Types
 import qualified Foreign as F
 import Prelude (Eq, Int, Show, pure, return)
 
-{-| __C declaration:__ @a@
+{-| __C declaration:__ @struct a@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:15:8@
 
@@ -63,7 +63,7 @@ instance Data.Primitive.Types.Prim A where
             case struct2 of
               A -> s3
 
-{-| __C declaration:__ @struct1@
+{-| __C declaration:__ @struct struct1@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:16:8@
 
@@ -119,7 +119,7 @@ instance Data.Primitive.Types.Prim Struct1 where
             case struct2 of
               Struct1 -> s3
 
-{-| __C declaration:__ @b_s@
+{-| __C declaration:__ @struct b_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:19:8@
 
@@ -173,7 +173,7 @@ instance Data.Primitive.Types.Prim B_s where
             case struct2 of
               B_s -> s3
 
-{-| __C declaration:__ @struct2_s@
+{-| __C declaration:__ @struct struct2_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:20:8@
 
@@ -229,7 +229,7 @@ instance Data.Primitive.Types.Prim Struct2_s where
             case struct2 of
               Struct2_s -> s3
 
-{-| __C declaration:__ @c@
+{-| __C declaration:__ @struct c@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:23:36@
 
@@ -283,7 +283,7 @@ instance Data.Primitive.Types.Prim C where
             case struct2 of
               C -> s3
 
-{-| __C declaration:__ @struct3@
+{-| __C declaration:__ @struct struct3@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:24:36@
 
@@ -339,7 +339,7 @@ instance Data.Primitive.Types.Prim Struct3 where
             case struct2 of
               Struct3 -> s3
 
-{-| __C declaration:__ @d@
+{-| __C declaration:__ @struct d@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:27:15@
 
@@ -393,7 +393,7 @@ instance Data.Primitive.Types.Prim D where
             case struct2 of
               D -> s3
 
-{-| __C declaration:__ @struct4@
+{-| __C declaration:__ @struct struct4@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:28:15@
 
@@ -449,7 +449,7 @@ instance Data.Primitive.Types.Prim Struct4 where
             case struct2 of
               Struct4 -> s3
 
-{-| __C declaration:__ @e_s@
+{-| __C declaration:__ @struct e_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:31:15@
 
@@ -503,7 +503,7 @@ instance Data.Primitive.Types.Prim E_s where
             case struct2 of
               E_s -> s3
 
-{-| __C declaration:__ @struct5_s@
+{-| __C declaration:__ @struct struct5_s@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:32:15@
 
@@ -559,7 +559,7 @@ instance Data.Primitive.Types.Prim Struct5_s where
             case struct2 of
               Struct5_s -> s3
 
-{-| __C declaration:__ @f@
+{-| __C declaration:__ @struct f@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:35:9@
 
@@ -613,7 +613,7 @@ instance Data.Primitive.Types.Prim F where
             case struct2 of
               F -> s3
 
-{-| __C declaration:__ @typedef1@
+{-| __C declaration:__ @struct typedef1@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:36:9@
 
@@ -669,7 +669,7 @@ instance Data.Primitive.Types.Prim Typedef1 where
             case struct2 of
               Typedef1 -> s3
 
-{-| __C declaration:__ @g@
+{-| __C declaration:__ @struct g@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:39:9@
 
@@ -723,7 +723,7 @@ instance Data.Primitive.Types.Prim G where
             case struct2 of
               G -> s3
 
-{-| __C declaration:__ @typedef2@
+{-| __C declaration:__ @struct typedef2@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:40:9@
 
@@ -779,7 +779,7 @@ instance Data.Primitive.Types.Prim Typedef2 where
             case struct2 of
               Typedef2 -> s3
 
-{-| __C declaration:__ @h@
+{-| __C declaration:__ @struct h@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:43:9@
 
@@ -833,7 +833,7 @@ instance Data.Primitive.Types.Prim H where
             case struct2 of
               H -> s3
 
-{-| __C declaration:__ @typedef3@
+{-| __C declaration:__ @struct typedef3@
 
     __defined at:__ @types\/structs\/named_vs_anon.h:44:9@
 

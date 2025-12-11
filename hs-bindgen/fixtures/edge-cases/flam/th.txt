@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/edge-cases/flam.h
-{-| __C declaration:__ @pascal@
+{-| __C declaration:__ @struct pascal@
 
     __defined at:__ @edge-cases\/flam.h:2:8@
 
@@ -13,7 +13,7 @@ data Pascal
 
                    __exported by:__ @edge-cases\/flam.h@
               -}}
-      {- ^ __C declaration:__ @pascal@
+      {- ^ __C declaration:__ @struct pascal@
 
            __defined at:__ @edge-cases\/flam.h:2:8@
 
@@ -47,7 +47,9 @@ instance HasCField Pascal "pascal_len"
 instance TyEq ty (CFieldType Pascal "pascal_len") =>
          HasField "pascal_len" (Ptr Pascal) (Ptr ty)
     where getField = ptrToCField (Proxy @"pascal_len")
-{-| __defined at:__ @edge-cases\/flam.h:10:2@
+{-| __C declaration:__ @struct \@foo_bar@
+
+    __defined at:__ @edge-cases\/flam.h:10:2@
 
     __exported by:__ @edge-cases\/flam.h@
 -}
@@ -66,7 +68,9 @@ data Foo_bar
 
                     __exported by:__ @edge-cases\/flam.h@
                -}}
-      {- ^ __defined at:__ @edge-cases\/flam.h:10:2@
+      {- ^ __C declaration:__ @struct \@foo_bar@
+
+           __defined at:__ @edge-cases\/flam.h:10:2@
 
            __exported by:__ @edge-cases\/flam.h@
       -}
@@ -113,7 +117,7 @@ instance HasCField Foo_bar "foo_bar_y"
 instance TyEq ty (CFieldType Foo_bar "foo_bar_y") =>
          HasField "foo_bar_y" (Ptr Foo_bar) (Ptr ty)
     where getField = ptrToCField (Proxy @"foo_bar_y")
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @struct foo@
 
     __defined at:__ @edge-cases\/flam.h:8:8@
 
@@ -127,7 +131,7 @@ data Foo
 
                 __exported by:__ @edge-cases\/flam.h@
            -}}
-      {- ^ __C declaration:__ @foo@
+      {- ^ __C declaration:__ @struct foo@
 
            __defined at:__ @edge-cases\/flam.h:8:8@
 
@@ -161,7 +165,7 @@ instance HasCField Foo "foo_len"
 instance TyEq ty (CFieldType Foo "foo_len") =>
          HasField "foo_len" (Ptr Foo) (Ptr ty)
     where getField = ptrToCField (Proxy @"foo_len")
-{-| __C declaration:__ @diff@
+{-| __C declaration:__ @struct diff@
 
     __defined at:__ @edge-cases\/flam.h:17:8@
 
@@ -182,7 +186,7 @@ data Diff
 
                  __exported by:__ @edge-cases\/flam.h@
             -}}
-      {- ^ __C declaration:__ @diff@
+      {- ^ __C declaration:__ @struct diff@
 
            __defined at:__ @edge-cases\/flam.h:17:8@
 
@@ -235,7 +239,7 @@ instance TyEq ty (CFieldType Diff "diff_second") =>
     where getField = ptrToCField (Proxy @"diff_second")
 {-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
 
-__C declaration:__ @triplets@
+__C declaration:__ @struct triplets@
 
 __defined at:__ @edge-cases\/flam.h:26:8@
 
@@ -251,7 +255,7 @@ data Triplets
                 -}}
       {- ^ The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
 
-      __C declaration:__ @triplets@
+      __C declaration:__ @struct triplets@
 
       __defined at:__ @edge-cases\/flam.h:26:8@
 

@@ -19,7 +19,7 @@ import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified Text.Read
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
-{-| __C declaration:__ @first@
+{-| __C declaration:__ @enum first@
 
     __defined at:__ @types\/enums\/enums.h:4:6@
 
@@ -111,7 +111,7 @@ pattern FIRST1 = First 0
 pattern FIRST2 :: First
 pattern FIRST2 = First 1
 
-{-| __C declaration:__ @second@
+{-| __C declaration:__ @enum second@
 
     __defined at:__ @types\/enums\/enums.h:9:6@
 
@@ -213,7 +213,7 @@ pattern SECOND_B = Second 0
 pattern SECOND_C :: Second
 pattern SECOND_C = Second 1
 
-{-| __C declaration:__ @same@
+{-| __C declaration:__ @enum same@
 
     __defined at:__ @types\/enums\/enums.h:15:6@
 
@@ -303,7 +303,7 @@ pattern SAME_A = Same 1
 pattern SAME_B :: Same
 pattern SAME_B = Same 1
 
-{-| __C declaration:__ @nonseq@
+{-| __C declaration:__ @enum nonseq@
 
     __defined at:__ @types\/enums\/enums.h:20:6@
 
@@ -395,7 +395,7 @@ pattern NONSEQ_B = Nonseq 301
 pattern NONSEQ_C :: Nonseq
 pattern NONSEQ_C = Nonseq 404
 
-{-| __C declaration:__ @packed@
+{-| __C declaration:__ @enum packed@
 
     __defined at:__ @types\/enums\/enums.h:26:6@
 
@@ -497,7 +497,7 @@ pattern PACKED_B = Packed 1
 pattern PACKED_C :: Packed
 pattern PACKED_C = Packed 2
 
-{-| __C declaration:__ @enumA@
+{-| __C declaration:__ @enum enumA@
 
     __defined at:__ @types\/enums\/enums.h:30:9@
 
@@ -589,7 +589,7 @@ pattern A_FOO = EnumA 0
 pattern A_BAR :: EnumA
 pattern A_BAR = EnumA 1
 
-{-| __C declaration:__ @enumB@
+{-| __C declaration:__ @enum enumB@
 
     __defined at:__ @types\/enums\/enums.h:32:14@
 
@@ -681,7 +681,7 @@ pattern B_FOO = EnumB 0
 pattern B_BAR :: EnumB
 pattern B_BAR = EnumB 1
 
-{-| __C declaration:__ @enumC@
+{-| __C declaration:__ @enum enumC@
 
     __defined at:__ @types\/enums\/enums.h:34:6@
 
@@ -773,7 +773,7 @@ pattern C_FOO = EnumC 0
 pattern C_BAR :: EnumC
 pattern C_BAR = EnumC 1
 
-{-| __C declaration:__ @enumD_t@
+{-| __C declaration:__ @enum enumD@
 
     __defined at:__ @types\/enums\/enums.h:37:6@
 

@@ -2,14 +2,12 @@
 
 -- | Construct the partial AST from the language-C AST
 module HsBindgen.Frontend.LanguageC.PartialAST.FromLanC (
-    CanApply
-  , mkPartialDecl
+    mkPartialDecl
   , mkDecl
   ) where
 
 import Control.Monad
 import Data.Map qualified as Map
-import Data.Maybe (fromMaybe)
 import Data.Text qualified as Text
 import GHC.Stack
 import Language.C qualified as LanC
@@ -21,8 +19,9 @@ import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
-import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -31,17 +30,7 @@ import HsBindgen.Language.C qualified as C
   start with no information, then gradually apply updates
 -------------------------------------------------------------------------------}
 
--- | Requirements on the hs-bindgen pass
---
--- See also discussion of 'FromLanC'.
-class    (ValidPass p, Id p ~ PrelimDeclId) => CanApply p where
-instance (ValidPass p, Id p ~ PrelimDeclId) => CanApply p where
-
-mkPartialDecl ::
-     ( HasCallStack
-     , CanApply p
-     )
-  => LanC.CDeclaration a -> FromLanC p (PartialDecl p)
+mkPartialDecl :: HasCallStack => LanC.CDeclaration a -> FromLanC PartialDecl
 mkPartialDecl = \case
     LanC.CDecl declspecs declr _a ->
         (     repeatedly apply declspecs
@@ -51,24 +40,23 @@ mkPartialDecl = \case
     other ->
       unexpectedF other
 
-mkDecl :: CanApply p => LanC.CDeclaration a -> FromLanC p (Maybe CName, Type p)
+mkDecl :: LanC.CDeclaration a -> FromLanC (Maybe CName, Type HandleMacros)
 mkDecl = mkPartialDecl >=> fromDecl
 
 {-------------------------------------------------------------------------------
   Apply updates
 -------------------------------------------------------------------------------}
 
-class Apply p a b where
-  apply :: Update p a b
+class Apply a b where
+  apply :: Update a b
 
-type Update p a b = HasCallStack => a -> b -> FromLanC p b
+type Update a b = HasCallStack => a -> b -> FromLanC b
 
 {-------------------------------------------------------------------------------
   'PartialDecl'
 -------------------------------------------------------------------------------}
 
-instance CanApply p
-      => Apply p (LanC.CDeclarationSpecifier a) (PartialDecl p) where
+instance Apply (LanC.CDeclarationSpecifier a) PartialDecl where
   apply = \case
       LanC.CTypeSpec x -> overM #partialType $ apply x
       LanC.CTypeQual x -> overM #partialType $ apply x
@@ -89,13 +77,12 @@ instance CanApply p
 -- | See discussion of @init-declarator-list@ for 'CDecl'
 --
 -- <https://hackage-content.haskell.org/package/language-c-0.10.0/docs/Language-C-Syntax-AST.html#t:CDecl>
-instance CanApply p
-      => Apply p
-          ( Maybe (LanC.CDeclarator  a)
-          , Maybe (LanC.CInitializer a)
-          , Maybe (LanC.CExpression  a)
-          )
-          (PartialDecl p) where
+instance Apply
+           ( Maybe (LanC.CDeclarator  a)
+           , Maybe (LanC.CInitializer a)
+           , Maybe (LanC.CExpression  a)
+           )
+           PartialDecl where
   apply = \case
       (Just decl, Nothing, Nothing) ->
         apply decl
@@ -106,23 +93,20 @@ instance CanApply p
           , nodeOmitted expr
           )
 
-instance CanApply p
-      => Apply p (LanC.CDeclarator a) (PartialDecl p) where
+instance Apply (LanC.CDeclarator a) PartialDecl where
   apply = \case
       LanC.CDeclr name derived _asmname _attrs _a ->
             optionally setName name
         >=> repeatedly (overM #partialType . apply) (reverse derived)
     where
-      setName :: LanC.Ident -> (PartialDecl p) -> FromLanC p (PartialDecl p)
+      setName :: LanC.Ident -> PartialDecl -> FromLanC PartialDecl
       setName name = return . Optics.set #partialName (Just $ mkCName name)
 
 {-------------------------------------------------------------------------------
   'PartialType'
 -------------------------------------------------------------------------------}
 
-withSign ::
-     ValidPass p
-  => Update p (Maybe C.PrimSign -> C.PrimType) (PartialType p)
+withSign :: Update (Maybe C.PrimSign -> C.PrimType) PartialType
 withSign f = \case
     PartialUnknown unknown -> do
       let UnknownType{unknownSign, unknownConst} = unknown
@@ -133,7 +117,7 @@ withSign f = \case
     other ->
       unexpected $ show other
 
-notFun :: ValidPass p => Update p (Type p) (PartialType p)
+notFun :: Update (Type HandleMacros) PartialType
 notFun typ = \case
     PartialUnknown unknown -> do
       let UnknownType{unknownSign, unknownConst} = unknown
@@ -148,7 +132,7 @@ notFun typ = \case
     other ->
       unexpected $ show other
 
-setSign :: ValidPass p => Update p C.PrimSign (PartialType p)
+setSign :: Update C.PrimSign PartialType
 setSign sign = \case
     PartialUnknown unknown ->
       return $ PartialUnknown $ Optics.set #unknownSign (Just sign) unknown
@@ -156,8 +140,7 @@ setSign sign = \case
       unexpected $ show other
 
 -- | Transition from unknown types to known types
-instance CanApply p
-      => Apply p (LanC.CTypeSpecifier a) (PartialType p) where
+instance Apply (LanC.CTypeSpecifier a) PartialType where
   apply = \case
       -- Void (for function result types only)
       LanC.CVoidType _a -> notFun $ TypeVoid
@@ -214,10 +197,10 @@ instance CanApply p
       charSign Nothing     = C.PrimSignImplicit Nothing
       charSign (Just sign) = C.PrimSignExplicit sign
 
-      typeRef :: C.DeclName -> Type p
-      typeRef = TypeRef . PrelimDeclIdNamed
+      typeRef :: C.DeclName -> Type HandleMacros
+      typeRef name = TypeRef $ C.DeclId{name, isAnon = False}
 
-      checkNotAnon :: Maybe LanC.Ident -> C.TagKind -> FromLanC p C.DeclName
+      checkNotAnon :: Maybe LanC.Ident -> C.TagKind -> FromLanC C.DeclName
       checkNotAnon mName tagKind =
           case mName of
             Just name ->
@@ -225,17 +208,16 @@ instance CanApply p
             Nothing ->
               unsupported $ "Anonymous " ++ show tagKind
 
-      checkNoDef :: String -> Maybe def -> FromLanC p ()
+      checkNoDef :: String -> Maybe def -> FromLanC ()
       checkNoDef _   Nothing  = return ()
       checkNoDef err (Just _) = unsupported err
 
-instance Apply p (LanC.CTypeQualifier a) (PartialType p) where
+instance Apply (LanC.CTypeQualifier a) PartialType where
   apply qual = \case
       PartialKnown   typ -> PartialKnown   <$> apply qual typ
       PartialUnknown typ -> PartialUnknown <$> apply qual typ
 
-instance CanApply p
-      => Apply p (LanC.CDerivedDeclarator a) (PartialType p) where
+instance Apply (LanC.CDerivedDeclarator a) PartialType where
   apply deriv partial = case partial of
       PartialUnknown{} ->
         unexpected $ show (nodeOmitted deriv, partial)
@@ -246,7 +228,7 @@ instance CanApply p
   'UnknownType'
 -------------------------------------------------------------------------------}
 
-instance Apply p (LanC.CTypeQualifier a) UnknownType where
+instance Apply (LanC.CTypeQualifier a) UnknownType where
   apply = \case
       LanC.CConstQual _a ->
         return . Optics.set #unknownConst True
@@ -257,14 +239,13 @@ instance Apply p (LanC.CTypeQualifier a) UnknownType where
   'KnownType'
 -------------------------------------------------------------------------------}
 
-defaultApplyKnownType :: Apply p a (Type p) => Update p a (KnownType p)
+defaultApplyKnownType :: Apply a (Type HandleMacros) => Update a KnownType
 defaultApplyKnownType x = fmap KnownType . apply x . fromKnownType
 
-instance Apply p (LanC.CTypeQualifier a) (KnownType p) where
+instance Apply (LanC.CTypeQualifier a) KnownType where
   apply = defaultApplyKnownType
 
-instance CanApply p
-      => Apply p (LanC.CDerivedDeclarator a) (KnownType p) where
+instance Apply (LanC.CDerivedDeclarator a) KnownType where
   apply deriv = case deriv of
       LanC.CPtrDeclr{} -> defaultApplyKnownType deriv
       LanC.CArrDeclr{} -> defaultApplyKnownType deriv
@@ -278,13 +259,13 @@ instance CanApply p
   'Type' 'p'
 -------------------------------------------------------------------------------}
 
-instance Apply p (LanC.CTypeQualifier a) (Type p) where
+instance Apply (LanC.CTypeQualifier a) (Type HandleMacros) where
   apply = \case
       LanC.CConstQual _ -> return . TypeConst
       LanC.CRestrQual _ -> return -- ignore @__restrict@
       other             -> \_ -> unexpectedF other
 
-instance Apply p (LanC.CDerivedDeclarator a) (Type p) where
+instance Apply (LanC.CDerivedDeclarator a) (Type HandleMacros) where
   apply = \case
       LanC.CPtrDeclr quals _a ->
         repeatedly apply quals . TypePointers 1
@@ -319,7 +300,7 @@ overM l f a = flip (Optics.set l) a <$> f (Optics.view l a)
 
 viewFunParams ::
      Either [LanC.Ident] ([LanC.CDeclaration a], Bool)
-  -> FromLanC p [LanC.CDeclaration a]
+  -> FromLanC [LanC.CDeclaration a]
 viewFunParams = \case
     Left params ->
       unsupported $ "old-style parameters " ++ show params

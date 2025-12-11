@@ -25,6 +25,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -46,10 +47,10 @@ inContext :: HasCallStack => TypeContext -> C.Type -> Hs.HsType
 inContext ctx = go ctx
   where
     go :: TypeContext -> C.Type -> Hs.HsType
-    go _ (C.TypeTypedef (C.TypedefRef declId _)) =
-        Hs.HsTypRef (Hs.unsafeDeclIdHsName declId)
-    go _ (C.TypeRef declId) =
-        Hs.HsTypRef (Hs.unsafeDeclIdHsName declId)
+    go _ (C.TypeTypedef (C.TypedefRef ref _)) =
+        Hs.HsTypRef (Hs.unsafeHsIdHsName ref.hsName)
+    go _ (C.TypeRef ref) =
+        Hs.HsTypRef (Hs.unsafeHsIdHsName ref.hsName)
     go c C.TypeVoid =
         Hs.HsPrimType (void c)
     go _ (C.TypePrim p) =

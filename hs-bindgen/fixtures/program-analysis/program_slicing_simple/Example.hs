@@ -52,7 +52,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Uint32_t "un_Uint32_t" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @struct foo@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h:3:8@
 

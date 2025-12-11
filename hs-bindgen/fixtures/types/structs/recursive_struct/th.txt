@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/types/structs/recursive_struct.h
-{-| __C declaration:__ @linked_list_A_t@
+{-| __C declaration:__ @struct linked_list_A_s@
 
     __defined at:__ @types\/structs\/recursive_struct.h:1:16@
 
@@ -20,7 +20,7 @@ data Linked_list_A_t
 
                             __exported by:__ @types\/structs\/recursive_struct.h@
                        -}}
-      {- ^ __C declaration:__ @linked_list_A_t@
+      {- ^ __C declaration:__ @struct linked_list_A_s@
 
            __defined at:__ @types\/structs\/recursive_struct.h:1:16@
 
@@ -49,7 +49,7 @@ instance TyEq ty
               (CFieldType Linked_list_A_t "linked_list_A_t_next") =>
          HasField "linked_list_A_t_next" (Ptr Linked_list_A_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"linked_list_A_t_next")
-{-| __C declaration:__ @linked_list_B_t@
+{-| __C declaration:__ @struct linked_list_B_t@
 
     __defined at:__ @types\/structs\/recursive_struct.h:9:8@
 
@@ -70,7 +70,7 @@ data Linked_list_B_t
 
                             __exported by:__ @types\/structs\/recursive_struct.h@
                        -}}
-      {- ^ __C declaration:__ @linked_list_B_t@
+      {- ^ __C declaration:__ @struct linked_list_B_t@
 
            __defined at:__ @types\/structs\/recursive_struct.h:9:8@
 

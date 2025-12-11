@@ -158,7 +158,7 @@ instance Pretty CommentKind where
         -- Only user-facing metadata should trigger Haddock comment syntax.
         userFacingMetadata = catMaybes [
                         (\n -> "__C declaration:__ @"
-                            >< textToCtxDoc n
+                            >< textToCtxDoc (escapeAtSigns n)
                             >< "@") <$> commentOrigin
                       , (\p -> "__defined at:__ @"
                             >< uncurry prettyHashIncludeArgLoc p
@@ -854,7 +854,7 @@ instance Pretty Hs.ModuleName where
   pretty = string . Hs.moduleNameToString
 
 instance Pretty Hs.Identifier where
-  pretty = string . Text.unpack . Hs.getIdentifier
+  pretty = string . Text.unpack . (.text)
 
 instance Pretty Hs.ExtRef where
   pretty Hs.ExtRef{..} =
@@ -868,3 +868,11 @@ instance Pretty Hs.ExtRef where
 unsnoc :: [a] -> Maybe ([a], a)
 unsnoc = foldr (\x -> Just . maybe ([], x) (\(~(a, b)) -> (x : a, b))) Nothing
 {-# INLINABLE unsnoc #-}
+
+escapeAtSigns :: Text -> Text
+escapeAtSigns = Text.pack . concatMap aux . Text.unpack
+  where
+    aux :: Char -> [Char]
+    aux '@' = "\\@"
+    aux c   = [c]
+

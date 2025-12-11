@@ -45,10 +45,13 @@ applyTerms = \case
         p :: String -> a
         p e = panicPure $ "applyTerms.renameHsDeclWith (" <> show d <> "): unexpected " <> e
 
+        -- Don't rename internal names
         fN :: Hs.Name n -> Hs.Name n
         fN = \case
-          Hs.ExportedName x -> Hs.ExportedName $ f x
-          Hs.InternalName x -> Hs.InternalName x
+            Hs.ExportedName x ->
+              Hs.ExportedName . Hs.UnsafeExportedName $ f x.text
+            Hs.InternalName x ->
+              Hs.InternalName x
 
         overN :: Lens' a (Hs.Name n) -> a -> a
         overN l = over l fN

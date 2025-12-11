@@ -28,7 +28,7 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
-{-| __C declaration:__ @bools1@
+{-| __C declaration:__ @struct bools1@
 
     __defined at:__ @types\/primitives\/bool.h:1:8@
 
@@ -152,7 +152,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bools1) "bools1_y")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"bools1_y")
 
-{-| __C declaration:__ @bools2@
+{-| __C declaration:__ @struct bools2@
 
     __defined at:__ @types\/primitives\/bool.h:8:8@
 
@@ -288,7 +288,7 @@ newtype BOOL = BOOL
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-{-| __C declaration:__ @bools3@
+{-| __C declaration:__ @struct bools3@
 
     __defined at:__ @types\/primitives\/bool.h:15:8@
 

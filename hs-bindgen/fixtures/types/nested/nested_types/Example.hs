@@ -23,7 +23,7 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @struct foo@
 
     __defined at:__ @types\/nested\/nested_types.h:1:8@
 
@@ -147,7 +147,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_c")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_c")
 
-{-| __C declaration:__ @bar@
+{-| __C declaration:__ @struct bar@
 
     __defined at:__ @types\/nested\/nested_types.h:6:8@
 
@@ -271,7 +271,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_foo2")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"bar_foo2")
 
-{-| __defined at:__ @types\/nested\/nested_types.h:12:5@
+{-| __C declaration:__ @struct \@ex3_ex3_struct@
+
+    __defined at:__ @types\/nested\/nested_types.h:12:5@
 
     __exported by:__ @types\/nested\/nested_types.h@
 -}
@@ -395,7 +397,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Ex3_ex3_struct) "ex3
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"ex3_ex3_struct_ex3_b")
 
-{-| __C declaration:__ @ex3@
+{-| __C declaration:__ @struct ex3@
 
     __defined at:__ @types\/nested\/nested_types.h:11:8@
 
@@ -519,7 +521,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Ex3) "ex3_ex3_c")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"ex3_ex3_c")
 
-{-| __C declaration:__ @ex4_odd@
+{-| __C declaration:__ @struct ex4_odd@
 
     __defined at:__ @types\/nested\/nested_types.h:22:8@
 
@@ -588,7 +590,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Ex4_odd) "ex4_odd_ne
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"ex4_odd_next")
 
-{-| __C declaration:__ @ex4_even@
+{-| __C declaration:__ @struct ex4_even@
 
     __defined at:__ @types\/nested\/nested_types.h:24:12@
 

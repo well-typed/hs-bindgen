@@ -70,7 +70,7 @@ processDecl C.Decl{declInfo, declKind} =
       C.DeclStruct struct    -> Right <$> processStruct info' struct
       C.DeclUnion union      -> Right <$> processUnion info' union
       C.DeclEnum enum        -> Right <$> processEnum info' enum
-      C.DeclOpaque cNameKind -> Right <$> processOpaque (C.DeclOpaque cNameKind) info'
+      C.DeclOpaque           -> Right <$> processOpaque C.DeclOpaque info'
       C.DeclFunction fun     -> Right <$> processFunction info' fun
       C.DeclGlobal ty        -> Right <$> processGlobal info' C.DeclGlobal ty
   where
@@ -95,13 +95,16 @@ processStruct info C.Struct{..} =
         , declAnn  = NoAnn
         }
 
-processStructField :: C.StructField ConstructTranslationUnit -> M (C.StructField HandleMacros)
+processStructField ::
+     C.StructField ConstructTranslationUnit
+  -> M (C.StructField HandleMacros)
 processStructField C.StructField{..} =
     case structFieldAnn of
       ReparseNotNeeded ->
         withoutReparse
       ReparseNeeded tokens ->
         reparseWith LanC.reparseField tokens withoutReparse withReparse
+        -- reparseWith LanC.reparseField tokens withoutReparse withReparse
   where
     C.FieldInfo{..} = structFieldInfo
 
@@ -231,31 +234,24 @@ processTypedef ::
   -> C.Typedef ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
 processTypedef info C.Typedef{typedefType, typedefAnn} = do
-    case info.declId of
-      C.PrelimDeclIdNamed name -> do
-        modify $ \st -> st{
-            stateReparseEnv = updateEnv name.text (stateReparseEnv st)
-          }
-        case typedefAnn of
-          ReparseNotNeeded -> withoutReparse
+      modify $ \st -> st{
+          stateReparseEnv = updateEnv info.declId.name.text (stateReparseEnv st)
+        }
+      case typedefAnn of
+        ReparseNotNeeded -> withoutReparse
 
-          -- If the @typedef@ refers to another type, we do not reparse the
-          -- typedef, but instead defer reparsing to that other type.
-          -- See https://github.com/well-typed/hs-bindgen/issues/707.
-          --
-          -- TODO <https://github.com/well-typed/hs-bindgen/issues/1382>
-          -- We should allow for pointers.
-          ReparseNeeded tokens -> case typedefType of
-            C.TypeRef _ -> withoutReparse
-            _otherwise  ->
-              reparseWith LanC.reparseTypedef tokens withoutReparse withReparse
-      _otherwise ->
-        -- Anonymous typedefs don't exist
-        panicPure $ "processTypedef: impossible: " ++ show info.declId
+        -- If the @typedef@ refers to another type, we do not reparse the
+        -- typedef, but instead defer reparsing to that other type.
+        -- See https://github.com/well-typed/hs-bindgen/issues/707.
+        --
+        -- TODO <https://github.com/well-typed/hs-bindgen/issues/1382>
+        -- We should allow for pointers.
+        ReparseNeeded tokens -> case typedefType of
+          C.TypeRef _ -> withoutReparse
+          _otherwise  ->
+            reparseWith LanC.reparseTypedef tokens withoutReparse withReparse
   where
-    updateEnv ::
-         Text
-      -> LanC.ReparseEnv HandleMacros -> LanC.ReparseEnv HandleMacros
+    updateEnv :: Text -> LanC.ReparseEnv -> LanC.ReparseEnv
     updateEnv name =
         Map.insert name $
           C.TypeTypedef info.declId (coercePass typedefType)
@@ -284,20 +280,14 @@ processMacro ::
      C.DeclInfo HandleMacros
   -> UnparsedMacro -> M (Either FailedMacro (C.Decl HandleMacros))
 processMacro info (UnparsedMacro tokens) = do
-    case info.declId of
-      C.PrelimDeclIdNamed name ->
-        bimap addInfo toDecl <$> parseMacro name tokens
-      C.PrelimDeclIdAnon{} ->
-        -- Anonymous macros don't exist
-        panicPure $ "Impossible: " ++ show info.declId
+    bimap addInfo toDecl <$> parseMacro info.declId.name tokens
   where
     addInfo :: HandleMacrosError -> FailedMacro
-    addInfo =
-          FailedMacro
-        . AttachedParseMsg
-            info.declId
-            info.declLoc
-            C.Available
+    addInfo macroError = FailedMacro{
+          name = info.declId.name
+        , loc  = info.declLoc
+        , macroError
+        }
 
     toDecl :: C.CheckedMacro HandleMacros -> C.Decl HandleMacros
     toDecl checked = C.Decl{
@@ -382,7 +372,7 @@ data MacroState = MacroState {
     , stateMacroEnv :: CExpr.DSL.TypeEnv
 
       -- | Newtypes and macro-defined types in scope
-    , stateReparseEnv :: LanC.ReparseEnv HandleMacros
+    , stateReparseEnv :: LanC.ReparseEnv
     }
 
 initMacroState :: CStandard -> MacroState
@@ -432,14 +422,11 @@ parseMacro name tokens  = state     $ \st ->
                 Left errTc -> (Left $ HandleMacrosErrorTc errTc, st)
           Left errExpr ->
               (Left $ HandleMacrosErrorParse errType errExpr, st)
-
   where
-    updateReparseEnv ::
-         LanC.ReparseEnv HandleMacros
-      -> LanC.ReparseEnv HandleMacros
+    updateReparseEnv :: LanC.ReparseEnv -> LanC.ReparseEnv
     updateReparseEnv =
         Map.insert name.text $
-          C.TypeRef (C.PrelimDeclIdNamed name)
+          C.TypeRef $ C.DeclId{name, isAnon = False}
 
     dropEval ::
          CExpr.DSL.Quant (CExpr.DSL.FunValue, CExpr.DSL.Type 'CExpr.DSL.Ty)
@@ -451,10 +438,10 @@ parseMacro name tokens  = state     $ \st ->
 -- Failing to parse macros results in warnings, but never irrecoverable errors;
 -- we therefore always want a fallback.
 reparseWith ::
-     LanC.Parser HandleMacros a  -- ^ Parser
-  -> [Token TokenSpelling]       -- ^ Raw tokens
-  -> M r                         -- ^ If parsing fails
-  -> (a -> M r)                  -- ^ If parsing succeeds
+     LanC.Parser a          -- ^ Parser
+  -> [Token TokenSpelling]  -- ^ Raw tokens
+  -> M r                    -- ^ If parsing fails
+  -> (a -> M r)             -- ^ If parsing succeeds
   -> M r
 reparseWith p tokens onFailure onSuccess = state $ \st ->
     case p (stateReparseEnv st) tokens of

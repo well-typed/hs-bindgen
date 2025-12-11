@@ -6,7 +6,7 @@
 -- {
 --   return &test_array;
 -- }
-{-| __C declaration:__ @test@
+{-| __C declaration:__ @enum test@
 
     __defined at:__ @edge-cases\/enum_as_array_size.h:3:6@
 
@@ -14,7 +14,7 @@
 -}
 newtype Test
     = Test {un_Test :: CUInt}
-      {- ^ __C declaration:__ @test@
+      {- ^ __C declaration:__ @enum test@
 
            __defined at:__ @edge-cases\/enum_as_array_size.h:3:6@
 

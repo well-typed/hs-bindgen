@@ -1,6 +1,6 @@
 -- addDependentFile examples/golden/program-analysis/selection_omit_external_root.h
 -- addDependentFile examples/golden/program-analysis/selection_omit_external_a.h
-{-| __C declaration:__ @UnrelatedDeclaration@
+{-| __C declaration:__ @struct UnrelatedDeclaration@
 
     __defined at:__ @program-analysis\/selection_omit_external_a.h:4:8@
 
@@ -14,7 +14,7 @@ data UnrelatedDeclaration
 
                                  __exported by:__ @program-analysis\/selection_omit_external_a.h@
                             -}}
-      {- ^ __C declaration:__ @UnrelatedDeclaration@
+      {- ^ __C declaration:__ @struct UnrelatedDeclaration@
 
            __defined at:__ @program-analysis\/selection_omit_external_a.h:4:8@
 

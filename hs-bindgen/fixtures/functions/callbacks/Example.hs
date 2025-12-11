@@ -42,6 +42,8 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Rea
 
 {-| Auxiliary type used by 'FileOpenedNotification'
 
+__C declaration:__ @FileOpenedNotification@
+
 __defined at:__ @functions\/callbacks.h:10:16@
 
 __exported by:__ @functions\/callbacks.h@
@@ -108,6 +110,8 @@ instance HsBindgen.Runtime.HasCField.HasCField FileOpenedNotification "un_FileOp
   offset# = \_ -> \_ -> 0
 
 {-| Auxiliary type used by 'ProgressUpdate'
+
+__C declaration:__ @ProgressUpdate@
 
 __defined at:__ @functions\/callbacks.h:11:16@
 
@@ -176,6 +180,8 @@ instance HsBindgen.Runtime.HasCField.HasCField ProgressUpdate "un_ProgressUpdate
 
 {-| Auxiliary type used by 'DataValidator'
 
+__C declaration:__ @DataValidator@
+
 __defined at:__ @functions\/callbacks.h:12:15@
 
 __exported by:__ @functions\/callbacks.h@
@@ -241,7 +247,7 @@ instance HsBindgen.Runtime.HasCField.HasCField DataValidator "un_DataValidator" 
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @Measurement@
+{-| __C declaration:__ @struct Measurement@
 
     __defined at:__ @functions\/callbacks.h:21:8@
 
@@ -369,6 +375,8 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Measurement) "measur
 
 {-| Auxiliary type used by 'MeasurementReceived'
 
+__C declaration:__ @MeasurementReceived@
+
 __defined at:__ @functions\/callbacks.h:26:16@
 
 __exported by:__ @functions\/callbacks.h@
@@ -436,6 +444,8 @@ instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived "un_Measureme
 
 {-| Auxiliary type used by 'MeasurementReceived2'
 
+__C declaration:__ @MeasurementReceived2@
+
 __defined at:__ @functions\/callbacks.h:29:16@
 
 __exported by:__ @functions\/callbacks.h@
@@ -484,6 +494,8 @@ instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived2 "un_Measurem
 
 {-| Auxiliary type used by 'SampleBufferFull'
 
+__C declaration:__ @SampleBufferFull@
+
 __defined at:__ @functions\/callbacks.h:32:16@
 
 __exported by:__ @functions\/callbacks.h@
@@ -530,7 +542,7 @@ instance HsBindgen.Runtime.HasCField.HasCField SampleBufferFull "un_SampleBuffer
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @MeasurementHandler@
+{-| __C declaration:__ @struct MeasurementHandler@
 
     __defined at:__ @functions\/callbacks.h:50:8@
 
@@ -625,7 +637,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementHandler) 
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"measurementHandler_onError")
 
-{-| __C declaration:__ @DataPipeline@
+{-| __C declaration:__ @struct DataPipeline@
 
     __defined at:__ @functions\/callbacks.h:58:8@
 
@@ -720,7 +732,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataPipeline) "dataP
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dataPipeline_postProcess")
 
-{-| __C declaration:__ @ProcessorCallback@
+{-| __C declaration:__ @union ProcessorCallback@
 
     __defined at:__ @functions\/callbacks.h:69:7@
 
@@ -854,7 +866,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProcessorCallback) "
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"processorCallback_withProgress")
 
-{-| __defined at:__ @functions\/callbacks.h:76:3@
+{-| __C declaration:__ @enum \@Processor_mode@
+
+    __defined at:__ @functions\/callbacks.h:76:3@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -954,7 +968,7 @@ pattern MODE_VALIDATED = Processor_mode 1
 pattern MODE_PROGRESS :: Processor_mode
 pattern MODE_PROGRESS = Processor_mode 2
 
-{-| __C declaration:__ @Processor@
+{-| __C declaration:__ @struct Processor@
 
     __defined at:__ @functions\/callbacks.h:75:8@
 

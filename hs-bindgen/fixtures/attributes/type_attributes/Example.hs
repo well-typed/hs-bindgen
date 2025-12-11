@@ -35,7 +35,7 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
-{-| __C declaration:__ @S@
+{-| __C declaration:__ @struct S@
 
     __defined at:__ @attributes\/type_attributes.h:8:8@
 
@@ -108,7 +108,7 @@ instance HsBindgen.Runtime.HasCField.HasCField More_aligned_int "un_More_aligned
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @S2@
+{-| __C declaration:__ @struct S2@
 
     __defined at:__ @attributes\/type_attributes.h:11:8@
 
@@ -156,7 +156,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S2) "s2_f")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s2_f")
 
-{-| __C declaration:__ @my_unpacked_struct@
+{-| __C declaration:__ @struct my_unpacked_struct@
 
     __defined at:__ @attributes\/type_attributes.h:13:8@
 
@@ -282,7 +282,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_unpacked_struct) 
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"my_unpacked_struct_i")
 
-{-| __C declaration:__ @my_packed_struct@
+{-| __C declaration:__ @struct my_packed_struct@
 
     __defined at:__ @attributes\/type_attributes.h:19:37@
 
@@ -438,7 +438,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_packed_struct) "m
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"my_packed_struct_s")
 
-{-| __C declaration:__ @wait_status_ptr_t@
+{-| __C declaration:__ @union wait_status_ptr_t@
 
     __defined at:__ @attributes\/type_attributes.h:26:9@
 
@@ -532,7 +532,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Wait_status_ptr_t) "
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"wait_status_ptr_t___up")
 
-{-| __C declaration:__ @wait@
+{-| __C declaration:__ @union wait@
 
     __defined at:__ @attributes\/type_attributes.h:29:9@
 

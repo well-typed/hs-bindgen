@@ -171,7 +171,7 @@ cnameToHint (DSL.Name t) = fromString (T.unpack t)
 macroName :: DSL.Name -> Hs.Name Hs.NsVar
 macroName (DSL.Name cName) =
     case FixCandidate.fixCandidate fix cName of
-      Just hsName -> hsName
+      Just hsName -> Hs.ExportedName hsName
       Nothing     ->
         panicPure $ "Unable to construct name for macro " ++ show cName
   where

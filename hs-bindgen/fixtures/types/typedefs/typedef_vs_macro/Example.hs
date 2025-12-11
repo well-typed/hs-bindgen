@@ -112,7 +112,7 @@ newtype M3 = M3
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-{-| __C declaration:__ @ExampleStruct@
+{-| __C declaration:__ @struct ExampleStruct@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h:8:8@
 
@@ -318,7 +318,7 @@ newtype Uint64_t = Uint64_t
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @struct foo@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h:17:8@
 

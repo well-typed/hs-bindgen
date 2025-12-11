@@ -6,136 +6,124 @@
 -- > import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 module HsBindgen.Frontend.Analysis.Typedefs (
     TypedefAnalysis(..)
+  , Conclusion(..)
+  , Rename(..)
   , fromDecls
   ) where
 
 import Data.Map.Strict qualified as Map
 
+import Clang.HighLevel.Types
+import Clang.Paths
+
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph (Usage (..), ValOrRef (..))
+import HsBindgen.Frontend.AST.Deps (Usage (..))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
+import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass (Select)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
 
--- | Analyzed typedefs
+-- | Typedef analysis
 --
--- == Context
---
--- The relevant passes of the frontend, in order, are
---
--- * Assign names to anonymous declarations
---   (so that binding specifications can refer to them)
--- * Resolve external and prescriptive binding specifications
---   (so that they can override which typedefs we squash and which we don't)
--- * Handle typedefs
---   (assisted by the analysis in this module)
---
--- == Motivation
---
--- The goal of this analysis is two-fold:
---
--- 1. Avoid name clashes.
---
---    C uses a different namespace for "Tags" and for "Ordinary" names. This
---    means that the following code is perfectly fine:
---
---    > typedef struct game_state *game_state;
---
---    It is however important that we do not use the same name (\"Game_state\")
---    in Haskel for both @struct game_state@ and the (typedef) @game_state@.
---
--- 2. Avoid unnecessary newtypes in Haskell.
---
---    Many typedefs around structs (or unions/enums) are there for syntactic
---    convenience only:
---
---    > typedef struct foo {..} foo;
---
---    In this case it is not necessary to create two separate Haskell types
---    for @struct foo@ and (the typedef @foo@; indeed, doing so would result in
---    less usable bindings.
---
--- These two points are related: if we don't generate two separate types, there
--- cannot be any name clashes.
---
--- == Approach
---
--- We do not generate a separate Haskell type for the C @typedef@ when the
--- typedef wraps the struct /directly/, such as
---
--- > struct foo {..};
--- > typedef struct foo foo_t;
---
--- or
---
--- > typedef struct foo { .. } foo_t;
---
--- or
---
--- > struct foo; // opaque
--- > typedef struct foo foo_t;
---
--- but /not/
---
--- > struct foo {..};
--- > typedef struct foo *foo_t; // intervening pointer
---
--- Provided that one of the following two conditions is satisfied:
---
--- * The struct and the typedef have the same name, or
--- * The /only/ use of the struct is in the typedef (or recursively in the
---   definition of the struct itself).
---
--- This leaves one possible name clash: a typedef which is a pointer to a struct
--- of the same name:
---
--- > typedef struct foo {} *foo;
---
--- There is no obvious solution here. If the struct would have been anonymous
---
--- > typedef struct {} *foo;
---
--- we would have assigned the name @foo_Deref@; for consistency we do the same
--- thing also in the case of this name clash.
-data TypedefAnalysis = TypedefAnalysis {
-      -- | Declarations (structs, unions, or enums) that need to be renamed
-      rename :: Map (C.DeclId Select) (C.DeclId HandleTypedefs)
-
-      -- | Typedefs that need to be squashed
-      --
-      -- We record what use sites of the typedef should be replaced with.
-    , squash :: Map (C.DeclId Select) (C.DeclId HandleTypedefs)
+-- See 'Conclusion' for detailed discussion.
+newtype TypedefAnalysis = TypedefAnalysis{
+      analysis :: Map C.DeclId Conclusion
     }
-  deriving stock (Show, Eq)
+  deriving stock (Show)
+  deriving newtype (Monoid)
 
 instance Semigroup TypedefAnalysis where
-  a <> b = TypedefAnalysis {
-        rename = combine rename
-      , squash = combine squash
+  a <> b = TypedefAnalysis{
+        analysis = Map.unionWithKey unexpectedOverlap a.analysis b.analysis
       }
     where
-      combine :: Ord k => (TypedefAnalysis -> Map k a) -> Map k a
-      combine f =
-          Map.unionWith
-            (panicPure "TypedefAnalysis: unexpected overlap")
-            (f a)
-            (f b)
+      unexpectedOverlap :: C.DeclId -> Conclusion -> Conclusion -> Conclusion
+      unexpectedOverlap declId conclusion1 conclusion2 =
+          panicPure $ concat [
+              "Unexpected overlap for "
+            , show declId
+            , ": "
+            , show (conclusion1, conclusion2)
+            ]
 
-instance Monoid TypedefAnalysis where
-  mempty = TypedefAnalysis {
-        rename = Map.empty
-      , squash = Map.empty
-      }
+-- | What should we do with a particular declaration?
+--
+-- NOTE: The /absence/ of a conclusion in the 'TypedefAnalysis' indicates that
+-- we should leave the declaration as-is.
+data Conclusion =
+    -- | Squash typedef
+    --
+    -- Squashing means removing the declaration of the typedef from the list of
+    -- declarations altogether, so that we do not generate a Haskell datatype
+    -- for it. We squash typedefs if
+    --
+    -- 1. We have a typedef around a declaration of the same name
+    --
+    --    > typedef struct foo { .. } foo;
+    --
+    --    This helps avoid name clashes in Haskell.
+    --
+    -- 2. The typedef is the /only/ reference to the underlying decl:
+    --
+    --    > typedef struct foo { .. } foo_t;
+    --
+    --    In this case @foo_t@ is just a syntactic convenience for @struct foo@,
+    --    rather than indicating some kind of semantic difference. Since the
+    --    @struct@ prefix is /anyway/ not present in Haskell, that syntactic
+    --    convenience is irrelevant there and we squash this typedef also.
+    --
+    -- The name mangler must be instructed to use the name of the typedef for
+    -- the struct; this after all is how C code will most likely refer to this
+    -- struct. /If/ the only two cases for squashing are the ones listed above,
+    -- this would automatically take care of use sites: assigning the name of
+    -- the typedef to the struct (in Haskell) would make no difference if they
+    -- have the same name, and would only affect the typedef itself if the names
+    -- are different, because in that case that is the /only/ use of the struct.
+    -- However, if in the future we make squashing configurable, and for example
+    -- make it possible to squash @foo_t@ in
+    --
+    -- > typedef struct foo { .. } foo_t;
+    -- > void f(struct foo x);
+    --
+    -- then use sites would also need to be handled explicitly; see also
+    -- <https://github.com/well-typed/hs-bindgen/issues/1356>.
+    Squash SourcePath C.DeclId
+
+    -- | Rename the Haskell type corresponding to this C type
+    --
+    -- C distinguishes between the \"tagged\" namespace and thet \"ordinary\"
+    -- namespace, so that there is no name clash in
+    --
+    -- > typedef struct foo { .. } * foo;
+    --
+    -- In Haskell these live in the /same/ namespace, and so we cannot assign
+    -- the same name to both of these types. We also cannot /squash/ the typedef
+    -- in this case, because @struct foo@ and (the typedef) @foo@ are
+    -- /different/ types. We must therefore instruct the name mangler to use
+    -- a different name for one of these two types, we add a suffix.
+    --
+    -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1432>
+    -- These suffixes could result in name clashes.
+  | Rename Rename
+  deriving stock (Show)
+
+data Rename =
+    AddSuffix Hs.Identifier
+  | UseNameOf C.DeclId
+  deriving stock (Show)
+
+conclude :: C.DeclId -> Conclusion -> TypedefAnalysis
+conclude declId conclusion = TypedefAnalysis $ Map.singleton declId conclusion
 
 {-------------------------------------------------------------------------------
   Analysis proper
@@ -144,118 +132,98 @@ instance Monoid TypedefAnalysis where
 fromDecls :: DeclUseGraph -> [C.Decl Select] -> TypedefAnalysis
 fromDecls declUseGraph = mconcat . map aux
   where
-    aux :: C.Decl Select -> TypedefAnalysis
-    aux C.Decl{declInfo, declKind} =
-        case declKind of
-          C.DeclTypedef typedef ->
-            analyseTypedef declUseGraph (C.declId declInfo) typedef
-          _otherwise ->
-            mempty
+     aux :: C.Decl Select -> TypedefAnalysis
+     aux decl =
+         case decl.declKind of
+           C.DeclTypedef typedef ->
+             analyseTypedef declUseGraph decl.declInfo typedef
+           _otherwise ->
+             mempty
 
 analyseTypedef ::
-     DeclUseGraph
-  -> C.DeclId Select
+      DeclUseGraph
+  -> C.DeclInfo Select
   -> C.Typedef Select
   -> TypedefAnalysis
-analyseTypedef declUseGraph typedefId typedef =
-   case taggedPayload typedefType of
-     Nothing      -> mempty
-     Just payload -> typedefOfDecl typedefId payload $
-                       getUseSites payload.origDeclId
+analyseTypedef declUseGraph typedefInfo typedef =
+    case taggedPayload typedefType of
+      Nothing      -> mempty
+      Just payload -> typedefOfTagged typedefInfo payload $
+                        getUseSites payload.declId
   where
     C.Typedef{typedefType, typedefAnn = NoAnn} = typedef
 
-    getUseSites :: C.PrelimDeclId -> [(C.PrelimDeclId, Usage)]
+    getUseSites :: C.DeclId -> [(C.DeclId, Usage AssignAnonIds)]
     getUseSites qualPrelimDeclId =
        DeclUseGraph.getUseSitesNoSelfReferences declUseGraph qualPrelimDeclId
 
-typedefOfDecl ::
-     C.DeclId Select             -- ^ Typedef ID
-  -> TaggedPayload               -- ^ Payload
-  -> [(C.PrelimDeclId, Usage)]   -- ^ Use sites of the payload
+-- | Typedef around tagged payload
+typedefOfTagged ::
+     C.DeclInfo Select                 -- ^ Typedef info
+  -> TaggedPayload                     -- ^ Payload
+  -> [(C.DeclId, Usage AssignAnonIds)] -- ^ Use sites of the payload
   -> TypedefAnalysis
-typedefOfDecl typedefId payload useSites
+typedefOfTagged typedefInfo payload useSites
   | shouldSquash
-  = let newId :: C.DeclId HandleTypedefs
-        newId = C.DeclId{
-            name       = C.DeclName{
-                             text = typedefId.name.text
-                           , kind = payload.declId.name.kind
-                           }
-          , origDeclId = typedefId.origDeclId
-          , haskellId  = ()
-          }
-    in mempty{
-        squash = Map.singleton typedefId      newId
-      , rename = Map.singleton payload.declId newId
-      }
+  = mconcat [
+        conclude typedefInfo.declId $
+          Squash (singleLocPath typedefInfo.declLoc) payload.declId
+      , conclude payload.declId $ Rename (UseNameOf typedefInfo.declId)
+      ]
 
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1427>
+    -- Use "_Aux" instead.
   | shouldRename
-  = let newId :: C.DeclId HandleTypedefs
-        newId = C.DeclId{
-            name       = C.DeclName{
-                            text = typedefId.name.text <> "_Deref"
-                          , kind = payload.declId.name.kind
-                           }
-          , origDeclId = payload.declId.origDeclId
-          , haskellId  = ()
-          }
-    in mempty{
-        rename = Map.singleton payload.declId newId
-      }
+  = conclude payload.declId $ Rename (AddSuffix "_Deref")
 
   | otherwise
   = mempty
   where
     shouldSquash, shouldRename :: Bool
     shouldSquash = and [
-          payload.valOrRef == ByValue
-        , or [ typedefId.name.text == payload.declId.name.text
+          payload.direct
+        , or [ typedefInfo.declId.name.text == payload.declId.name.text
              , length useSites == 1
              ]
         ]
     shouldRename = and [
-          payload.valOrRef == ByRef
-        , typedefId.name.text == payload.declId.name.text
+          not payload.direct
+        , typedefInfo.declId.name.text == payload.declId.name.text
         ]
 
 {-------------------------------------------------------------------------------
-  Internal auxiliary
+  Internal auxiliary: typedefs around "tagged" decls (structs, unions, enums)
+
+  We only need to worry about typedefs around tagged declarations, because only
+  then there is a chance of name clashes (in Haskell we do not distinguish
+  between the tagged and ordinary namespaces).
 -------------------------------------------------------------------------------}
 
 data TaggedPayload = TaggedPayload{
-      valOrRef   :: ValOrRef
-    , declId     :: C.DeclId Select
-    , tagKind    :: C.TagKind
-    , origDeclId :: C.PrelimDeclId
+      direct  :: Bool
+    , declId  :: C.DeclId
     }
 
 -- | Tagged declaration (struct, union, enum) wrapped by this typedef, if any
 taggedPayload :: C.Type Select -> Maybe TaggedPayload
-taggedPayload = go ByValue
+taggedPayload = go True
   where
-    go :: ValOrRef -> C.Type Select -> Maybe TaggedPayload
-    go valOrRef = \case
-        C.TypeRef declId -> do
-          -- We only need to worry about typedefs around tagged declarations,
-          -- because only then there is a chance of name clashes (in Haskell we
-          -- do not distinguish between the tagged and ordinary namespaces).
-          tagKind <-
-            case declId.name.kind of
-              C.NameKindTagged kind -> Just kind
-              C.NameKindOrdinary    -> Nothing
-          -- Auxiliary declarations are not introduced until @HandleTypedefs@
-          origDeclId <-
-            case declId.origDeclId of
-              C.OrigDeclId orig    -> Just orig
-              C.AuxForDecl _parent -> panicPure "Unexpected aux decl"
-          return $ TaggedPayload{
-              valOrRef
-            , declId
-            , tagKind
-            , origDeclId
-            }
-        C.TypePointers _ ty ->
-          go ByRef ty
+    go :: Bool -> C.Type Select -> Maybe TaggedPayload
+    go direct = \case
+        C.TypeRef declId     -> typeRef direct declId
+        C.TypePointers _n ty -> go False ty
         _otherwise ->
+          -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1445>
+          -- This is wrong. This deals with
+          --
+          -- > typedef struct {..} * foo;
+          --
+          -- but not, for exmaple
+          --
+          -- > typedef struct {..} foo[10];
           Nothing
+
+    typeRef :: Bool -> C.DeclId -> Maybe TaggedPayload
+    typeRef direct declId = do
+        void $ C.checkIsTagged declId.name.kind
+        return TaggedPayload{direct, declId}

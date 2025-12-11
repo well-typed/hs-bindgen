@@ -13,9 +13,10 @@ import Clang.HighLevel.Types
 import Clang.Paths
 
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex, Entry (..), Match,
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex, Entry (..),
                                               Unusable (..), Usable (..))
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
@@ -28,22 +29,19 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
-import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Data types
 -------------------------------------------------------------------------------}
 
--- Identifier of declaration.
-type DeclId = C.PrelimDeclId
-
 -- Declaration itself.
 type Decl = C.Decl Select
-
 
 -- | Internal data type! This data type 'Unselectable' refers to declarations
 -- that are not selectable _from the perspective of `hs-bindgen`_; and, in
@@ -76,7 +74,7 @@ data TransitiveSelectability =
     -- unavailability.
     --
     -- We should use a "non-empty" map here.
-  | TransitivelyUnselectable (Map DeclId Unselectable)
+  | TransitivelyUnselectable (Map C.DeclId Unselectable)
   deriving stock (Show)
 
 {-------------------------------------------------------------------------------
@@ -84,8 +82,7 @@ data TransitiveSelectability =
 -------------------------------------------------------------------------------}
 
 selectDecls ::
-     HasCallStack
-  => IsMainHeader
+     IsMainHeader
   -> IsInMainHeaderDir
   -> Config Select
   -> C.TranslationUnit ResolveBindingSpecs
@@ -98,52 +95,52 @@ selectDecls
     let -- Directly match the select predicate on the 'DeclIndex', obtaining
         -- information about succeeded _and failed_ selection roots.
         selectedIndex :: DeclIndex
-        selectedIndex = DeclIndex.selectDeclIndex match index
+        selectedIndex = selectDeclIndex unitAnn.declDeclUse match index
 
         -- Identifiers of selection roots. Some of them may be unavailable
         -- (i.e., not in the 'succeeded' map, and hence, not in the list of
         -- declarations attached to the translation unit).
-        rootIds :: Set DeclId
+        rootIds :: Set C.DeclId
         rootIds = DeclIndex.keysSet selectedIndex
 
         -- Identifiers of transitive dependencies including selection roots.
-        rootAndTransIds :: Set DeclId
+        rootAndTransIds :: Set C.DeclId
         rootAndTransIds =
           UseDeclGraph.getTransitiveDeps useDeclGraph $
             Set.toList rootIds
 
         -- Identifiers of transitive dependencies excluding selection roots.
-        strictTransIds :: Set DeclId
+        strictTransIds :: Set C.DeclId
         strictTransIds = rootAndTransIds \\ rootIds
 
         -- Identifiers of all selected declarations.
-        selectedIds :: Set DeclId
+        selectedIds :: Set C.DeclId
         -- Identifiers of (additional) transitive dependencies selected due to
         -- program slicing. This is the only point where we differentiate
         -- between selection with or without program slicing.
-        additionalSelectedTransIds :: Set DeclId
+        additionalSelectedTransIds :: Set C.DeclId
         (selectedIds, additionalSelectedTransIds) = case selectConfigProgramSlicing of
           DisableProgramSlicing -> (rootIds        , Set.empty)
           EnableProgramSlicing  -> (rootAndTransIds, strictTransIds)
 
-        getTransitiveSelectability :: DeclId -> TransitiveSelectability
+        getTransitiveSelectability :: C.DeclId -> TransitiveSelectability
         getTransitiveSelectability x
           | Map.null unusabilityReasons = TransitivelySelectable
           | otherwise                   = TransitivelyUnselectable unusabilityReasons
           where
-            transDeps :: Set DeclId
+            transDeps :: Set C.DeclId
             transDeps = UseDeclGraph.getStrictTransitiveDeps useDeclGraph [x]
 
-            unusables :: Map DeclId Unselectable
+            unusables :: Map C.DeclId Unselectable
             unusables =
               UnselectableBecauseUnusable <$> DeclIndex.getUnusables index transDeps
 
-            nonselected :: Map DeclId Unselectable
+            nonselected :: Map C.DeclId Unselectable
             nonselected  =
               Map.fromSet (const TransitiveDependencyNotSelected) $
                 transDeps \\ selectedIds
 
-            unusabilityReasons :: Map DeclId Unselectable
+            unusabilityReasons :: Map C.DeclId Unselectable
             unusabilityReasons =
               Map.unionWith
                 getMostNaturalUnselectable
@@ -157,13 +154,13 @@ selectDecls
             getMostNaturalUnselectable l r = case (l,r) of
               (TransitiveDependencyNotSelected, UnselectableBecauseUnusable u  ) ->
                 case u of
-                  UnusableParseNotAttempted _ -> r
-                  UnusableOmitted _           -> r
+                  UnusableParseNotAttempted{} -> r
+                  UnusableOmitted{}           -> r
                   _otherReason                -> l
               (UnselectableBecauseUnusable u  , TransitiveDependencyNotSelected) ->
                 case u of
-                  UnusableParseNotAttempted _ -> l
-                  UnusableOmitted _           -> l
+                  UnusableParseNotAttempted{} -> l
+                  UnusableOmitted{}           -> l
                   _otherReason                -> r
               (_, _) -> l
 
@@ -211,70 +208,40 @@ selectDecls
     useDeclGraph = unitAnn.declUseDecl
 
     match :: Match
-    match = \declId -> go declId
+    match name loc availability = parsed && selected
       where
-        go :: C.PrelimDeclId -> SingleLoc -> C.Availability -> Bool
-        go declId loc availability = case declId of
-            C.PrelimDeclIdNamed name ->
-              let -- We have parsed some declarations that are required for
-                  -- scoping but that actually do not match the parse predicate.
-                  -- We want to avoid selecting these declarations. This is only
-                  -- problematic if the select predicate is wider than the parse
-                  -- predicate (which is seldom the case).
-                  parsed =
-                    matchParse
-                      isMainHeader
-                      isInMainHeaderDir
-                      (singleLocPath loc)
-                      selectConfigParsePredicate
-                  selected =
-                    matchSelect
-                      isMainHeader
-                      isInMainHeaderDir
-                      (singleLocPath loc)
-                      name
-                      availability
-                      selectConfigPredicate
-              in parsed && selected
-            -- Apply the select predicate to the use site.
-            anon@(C.PrelimDeclIdAnon{}) -> matchAnon anon
-
-        matchAnon :: DeclId -> Bool
-        matchAnon anon =
-          case DeclUseGraph.getUseSites unitAnn.declDeclUse anon of
-            [(declId, _)] -> matchUseSite declId
-            -- Unused anonymous declarations are removed in the @NameAnon@
-            -- pass. Here we are using the decl-use graph to find use sites,
-            -- and so we still can encounter unused anonymous declarations.
-            []            -> False
-            xs            -> panicPure $
-              "anonymous declaration with multiple use sites: "
-              ++ show anon ++ " used by " ++ show xs
-
-        matchUseSite :: DeclId -> Bool
-        matchUseSite declIdUseSite =
-          case DeclIndex.lookup declIdUseSite index of
-            -- TODO https://github.com/well-typed/hs-bindgen/issues/1273:
-            -- Implement trace messages stating why we deselect the anonymous
-            -- declarations (e.g., Is the use site an external declaration?).
-            Nothing   -> False
-            Just decl -> match
-                           declIdUseSite
-                           (C.declLoc $ C.declInfo decl)
-                           (C.declAvailability $ C.declInfo decl)
+        -- We have parsed some declarations that are required for scoping but
+        -- that actually do not match the parse predicate. We want to avoid
+        -- selecting these declarations. This is only problematic if the select
+        -- predicate is wider than the parse predicate (rarely the case).
+        parsed, selected :: Bool
+        parsed =
+          matchParse
+            isMainHeader
+            isInMainHeaderDir
+            (singleLocPath loc)
+            selectConfigParsePredicate
+        selected =
+          matchSelect
+            isMainHeader
+            isInMainHeaderDir
+            (singleLocPath loc)
+            name
+            availability
+            selectConfigPredicate
 
 {-------------------------------------------------------------------------------
   Fold declarations
 -------------------------------------------------------------------------------}
 
 selectDeclWith ::
-    (DeclId -> TransitiveSelectability)
+    (C.DeclId -> TransitiveSelectability)
   -> DeclIndex
   -- | Selection roots.
-  -> Set DeclId
+  -> Set C.DeclId
   -- | Additionally selected transitive dependencies (non-empty when program
   --   slicing is enabled).
-  -> Set DeclId
+  -> Set C.DeclId
   -> Decl
   -> (Maybe Decl, [Msg Select])
 selectDeclWith
@@ -306,15 +273,8 @@ selectDeclWith
           "Declaration is selection root and transitive dependency: "
           ++ show decl.declInfo
   where
-    declId :: C.PrelimDeclId
-    declId =
-        case decl.declInfo.declId.origDeclId of
-          C.OrigDeclId orig ->
-            orig
-          C.AuxForDecl parent ->
-            -- Auxiliary types are introduced to support some \"parent\" type,
-            -- so it doesn't really make sense to select these independently.
-            parent
+    declId :: C.DeclId
+    declId = decl.declInfo.declId
 
     -- We check three conditions:
     isSelectedRoot = Set.member declId rootIds
@@ -328,7 +288,7 @@ selectDeclWith
       let selectDepr   = [ SelectDeprecated decl | isDeprecated decl.declInfo ]
       in  SelectStatusInfo decl (Selected selectReason) : selectDepr
 
-    getUnavailMsgs :: SelectReason -> Map DeclId Unselectable -> [Msg Select]
+    getUnavailMsgs :: SelectReason -> Map C.DeclId Unselectable -> [Msg Select]
     getUnavailMsgs selectReason unavailReason =
       [ case r of
           UnselectableBecauseUnusable u ->
@@ -350,19 +310,27 @@ selectDeclWith
 -------------------------------------------------------------------------------}
 
 getDelayedMsgs :: DeclIndex -> [Msg Select]
-getDelayedMsgs = concatMap (getSelectMsg . snd) . DeclIndex.toList
+getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
   where
-    getSelectMsg :: DeclIndex.Entry -> [SelectMsg]
-    getSelectMsg = \case
+    getSelectMsg :: C.DeclId -> Entry -> [SelectMsg]
+    getSelectMsg declId = \case
       UsableE e -> case e of
-        UsableSuccess s -> map SelectParseSuccess $ psAttachedMsgs s
-        UsableExternal  -> []
+        UsableSuccess success ->
+          map (SelectParseSuccess declId success.decl.declInfo.declLoc) $
+            success.delayedParseMsgs
+        UsableExternal   -> []
+        UsableSquashed{} -> []
       UnusableE e -> case e of
-        UnusableParseNotAttempted xs -> map SelectParseNotAttempted $ NonEmpty.toList xs
-        UnusableParseFailure x       -> [SelectParseFailure x]
-        UnusableConflict x           -> [SelectConflict x]
-        UnusableFailedMacro x        -> [SelectMacroFailure x]
-        UnusableOmitted{}            -> []
+        UnusableParseNotAttempted loc xs ->
+          map (SelectParseNotAttempted declId loc) $ NonEmpty.toList xs
+        UnusableParseFailure loc x ->
+          [SelectParseFailure declId loc x]
+        UnusableConflict x ->
+          [SelectConflict declId x]
+        UnusableFailedMacro x ->
+          [SelectMacroFailure x]
+        UnusableOmitted{} ->
+          []
 
 {-------------------------------------------------------------------------------
   Sort messages
@@ -394,15 +362,14 @@ getSingleLoc = \case
   TransitiveDependencyOfDeclarationUnusable    d _ _ _ _ -> fromD d
   TransitiveDependencyOfDeclarationNotSelected d _ _   _ -> fromD d
   SelectDeprecated d                                     -> fromD d
-  SelectParseSuccess m                                   -> fromM m
-  SelectParseNotAttempted (ParseNotAttempted m)          -> fromM m
-  SelectParseFailure      (ParseFailure      m)          -> fromM m
-  SelectConflict c                                       -> Just $ getMinimumLoc c
-  SelectMacroFailure      (FailedMacro       m)          -> fromM m
+  SelectParseSuccess _declId loc _                       -> Just loc
+  SelectParseNotAttempted _declId loc _                  -> Just loc
+  SelectParseFailure _declId loc _                       -> Just loc
+  SelectConflict _declId c                               -> Just $ getMinimumLoc c
+  SelectMacroFailure failedMacro                         -> Just $ failedMacro.loc
   SelectNoDeclarationsMatched                            -> Nothing
   where
     fromD = Just . C.declLoc . C.declInfo
-    fromM = Just . loc
 
 compareMsgs :: Map SourcePath Int -> Msg Select -> Msg Select -> Ordering
 compareMsgs orderMap x y =
@@ -418,3 +385,104 @@ sortSelectMsgs includeGraph = sortBy (compareMsgs orderMap)
     -- Compute the order map once.
     orderMap :: Map SourcePath Int
     orderMap = IncludeGraph.toOrderMap includeGraph
+
+{-------------------------------------------------------------------------------
+  Apply the selection predicate
+-------------------------------------------------------------------------------}
+
+-- Match function to find selection roots.
+type Match = C.DeclName -> SingleLoc -> C.Availability -> Bool
+
+-- | Limit the declaration index to those entries that match the select
+--   predicate. Do not include anything external nor omitted.
+selectDeclIndex :: DeclUseGraph -> Match -> DeclIndex -> DeclIndex
+selectDeclIndex declUseGraph p declIndex =
+    DeclIndex.filter matchEntry declIndex
+  where
+    matchEntry :: C.DeclId -> Entry -> Bool
+    matchEntry declId entry =
+        case entryInfo entry of
+          Nothing ->
+            -- External or omittted declarations have already been removed from
+            -- the list of declarations
+            False
+          Just (locs, availability) ->
+            if declId.isAnon
+              then matchAnon declId
+              else or [p declId.name loc availability| loc <- locs]
+
+    matchDeclId :: C.DeclId -> Bool
+    matchDeclId declId =
+        case DeclIndex.lookupEntry declId declIndex of
+          Just entry -> matchEntry declId entry
+          Nothing    -> panicPure $ "unknown " ++ show declId
+
+    -- Extract info from 'Entry' needed to match against the selection predicate
+    --
+    -- Returns 'Nothing' for external or omitted declarations.
+    -- Returns multiple locations only for conflicts.
+    entryInfo :: Entry -> Maybe ([SingleLoc], C.Availability)
+    entryInfo = \case
+        UsableE e -> case e of
+          UsableSuccess success ->
+            let info = success.decl.declInfo
+            in Just ([info.declLoc], info.declAvailability)
+          UsableExternal ->
+            Nothing
+          UsableSquashed{} ->
+            Nothing
+        UnusableE e -> case e of
+          UnusableParseNotAttempted loc _ ->
+            Just ([loc], C.Available)
+          UnusableParseFailure loc _ ->
+            Just ([loc], C.Available)
+          UnusableConflict x ->
+            Just (getLocs x, C.Available)
+          UnusableFailedMacro failedMacro ->
+            Just ([failedMacro.loc], C.Available)
+          UnusableOmitted{} ->
+            Nothing
+
+    -- We match anonymous declarations based on their use sites.
+    --
+    -- Looking at the use sites means we treat anonymous declarations in a very
+    -- similar way to auxiliary declarations. It's however worth spelling out
+    -- why this is possible. There are two main classes of anonymous
+    -- declarations. The first is anonymous declarations inside of typedefs:
+    --
+    -- > typedef struct { .. } foo;
+    --
+    -- Selecting the typedef but not the struct makes no sense; selecting the
+    -- struct but not the typedef does, but is already captured by support for
+    -- squashing typedefs.
+    --
+    -- The second class is anonymous declarations inside structs or unions:
+    --
+    -- > struct outer {
+    -- >    struct { .. } field1, field2;
+    -- >    struct { .. } field3;
+    -- > }
+    -- >
+    --
+    -- Like for typedefs, it doesn't really make sense to select the outer
+    -- struct but not the inner struct. It could /in principle/ make sense to
+    -- select the inner but not the outer, but it seems a pretty rare use case,
+    -- and not a big deal if the outer struct will "come along" even if only the
+    -- inner struct is needed.
+    matchAnon :: C.DeclId -> Bool
+    matchAnon anon =
+       case DeclUseGraph.getUseSites declUseGraph anon of
+         (declId, _) :_ ->
+           -- The only way that anonymous declarations can have multiple use
+           -- sites is when multiple fields are defined together:
+           --
+           -- > struct foo {
+           -- >   struct { .. } x, y, z;
+           -- > }
+           --
+           -- From the perspective of selection, any of these will do.
+           matchDeclId declId
+         [] ->
+           -- Unused anonymous declarations have already been removed in the
+           -- @AssignAnonIds@ pass.
+           panicPure "Unexpected unused anonymous declaration"

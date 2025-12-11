@@ -104,7 +104,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Int64_T "un_Int64_T" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @cint16_T@
+{-| __C declaration:__ @struct cint16_T@
 
     __defined at:__ @edge-cases\/spec_examples.h:14:9@
 
@@ -228,7 +228,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Cint16_T) "cint16_T_
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"cint16_T_im")
 
-{-| __C declaration:__ @B@
+{-| __C declaration:__ @struct B@
 
     __defined at:__ @edge-cases\/spec_examples.h:19:8@
 
@@ -282,7 +282,7 @@ instance Data.Primitive.Types.Prim B where
             case struct2 of
               B -> s3
 
-{-| __C declaration:__ @A@
+{-| __C declaration:__ @struct A@
 
     __defined at:__ @edge-cases\/spec_examples.h:23:8@
 
@@ -414,7 +414,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "a_c")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"a_c")
 
-{-| __C declaration:__ @C@
+{-| __C declaration:__ @struct C@
 
     __defined at:__ @edge-cases\/spec_examples.h:28:10@
 

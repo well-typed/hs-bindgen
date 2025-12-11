@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/types/enums/enums.h
-{-| __C declaration:__ @first@
+{-| __C declaration:__ @enum first@
 
     __defined at:__ @types\/enums\/enums.h:4:6@
 
@@ -7,7 +7,7 @@
 -}
 newtype First
     = First {un_First :: CUInt}
-      {- ^ __C declaration:__ @first@
+      {- ^ __C declaration:__ @enum first@
 
            __defined at:__ @types\/enums\/enums.h:4:6@
 
@@ -70,7 +70,7 @@ pattern FIRST2 :: First
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern FIRST2 = First 1
-{-| __C declaration:__ @second@
+{-| __C declaration:__ @enum second@
 
     __defined at:__ @types\/enums\/enums.h:9:6@
 
@@ -78,7 +78,7 @@ pattern FIRST2 = First 1
 -}
 newtype Second
     = Second {un_Second :: CInt}
-      {- ^ __C declaration:__ @second@
+      {- ^ __C declaration:__ @enum second@
 
            __defined at:__ @types\/enums\/enums.h:9:6@
 
@@ -156,7 +156,7 @@ pattern SECOND_C :: Second
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern SECOND_C = Second 1
-{-| __C declaration:__ @same@
+{-| __C declaration:__ @enum same@
 
     __defined at:__ @types\/enums\/enums.h:15:6@
 
@@ -164,7 +164,7 @@ pattern SECOND_C = Second 1
 -}
 newtype Same
     = Same {un_Same :: CUInt}
-      {- ^ __C declaration:__ @same@
+      {- ^ __C declaration:__ @enum same@
 
            __defined at:__ @types\/enums\/enums.h:15:6@
 
@@ -226,7 +226,7 @@ pattern SAME_B :: Same
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern SAME_B = Same 1
-{-| __C declaration:__ @nonseq@
+{-| __C declaration:__ @enum nonseq@
 
     __defined at:__ @types\/enums\/enums.h:20:6@
 
@@ -234,7 +234,7 @@ pattern SAME_B = Same 1
 -}
 newtype Nonseq
     = Nonseq {un_Nonseq :: CUInt}
-      {- ^ __C declaration:__ @nonseq@
+      {- ^ __C declaration:__ @enum nonseq@
 
            __defined at:__ @types\/enums\/enums.h:20:6@
 
@@ -307,7 +307,7 @@ pattern NONSEQ_C :: Nonseq
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern NONSEQ_C = Nonseq 404
-{-| __C declaration:__ @packed@
+{-| __C declaration:__ @enum packed@
 
     __defined at:__ @types\/enums\/enums.h:26:6@
 
@@ -315,7 +315,7 @@ pattern NONSEQ_C = Nonseq 404
 -}
 newtype Packed
     = Packed {un_Packed :: CUChar}
-      {- ^ __C declaration:__ @packed@
+      {- ^ __C declaration:__ @enum packed@
 
            __defined at:__ @types\/enums\/enums.h:26:6@
 
@@ -393,7 +393,7 @@ pattern PACKED_C :: Packed
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern PACKED_C = Packed 2
-{-| __C declaration:__ @enumA@
+{-| __C declaration:__ @enum enumA@
 
     __defined at:__ @types\/enums\/enums.h:30:9@
 
@@ -401,7 +401,7 @@ pattern PACKED_C = Packed 2
 -}
 newtype EnumA
     = EnumA {un_EnumA :: CUInt}
-      {- ^ __C declaration:__ @enumA@
+      {- ^ __C declaration:__ @enum enumA@
 
            __defined at:__ @types\/enums\/enums.h:30:9@
 
@@ -464,7 +464,7 @@ pattern A_BAR :: EnumA
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern A_BAR = EnumA 1
-{-| __C declaration:__ @enumB@
+{-| __C declaration:__ @enum enumB@
 
     __defined at:__ @types\/enums\/enums.h:32:14@
 
@@ -472,7 +472,7 @@ pattern A_BAR = EnumA 1
 -}
 newtype EnumB
     = EnumB {un_EnumB :: CUInt}
-      {- ^ __C declaration:__ @enumB@
+      {- ^ __C declaration:__ @enum enumB@
 
            __defined at:__ @types\/enums\/enums.h:32:14@
 
@@ -535,7 +535,7 @@ pattern B_BAR :: EnumB
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern B_BAR = EnumB 1
-{-| __C declaration:__ @enumC@
+{-| __C declaration:__ @enum enumC@
 
     __defined at:__ @types\/enums\/enums.h:34:6@
 
@@ -543,7 +543,7 @@ pattern B_BAR = EnumB 1
 -}
 newtype EnumC
     = EnumC {un_EnumC :: CUInt}
-      {- ^ __C declaration:__ @enumC@
+      {- ^ __C declaration:__ @enum enumC@
 
            __defined at:__ @types\/enums\/enums.h:34:6@
 
@@ -606,7 +606,7 @@ pattern C_BAR :: EnumC
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern C_BAR = EnumC 1
-{-| __C declaration:__ @enumD_t@
+{-| __C declaration:__ @enum enumD@
 
     __defined at:__ @types\/enums\/enums.h:37:6@
 
@@ -614,7 +614,7 @@ pattern C_BAR = EnumC 1
 -}
 newtype EnumD_t
     = EnumD_t {un_EnumD_t :: CUInt}
-      {- ^ __C declaration:__ @enumD_t@
+      {- ^ __C declaration:__ @enum enumD@
 
            __defined at:__ @types\/enums\/enums.h:37:6@
 

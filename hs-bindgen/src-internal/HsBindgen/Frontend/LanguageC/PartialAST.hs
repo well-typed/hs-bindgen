@@ -16,6 +16,7 @@ module HsBindgen.Frontend.LanguageC.PartialAST (
   ) where
 
 import HsBindgen.Frontend.AST.Internal
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -23,15 +24,15 @@ import HsBindgen.Language.C qualified as C
   Definition
 -------------------------------------------------------------------------------}
 
-data PartialDecl p = PartialDecl{
+data PartialDecl = PartialDecl{
       partialName :: Maybe CName
-    , partialType :: PartialType p
+    , partialType :: PartialType
     }
   deriving stock (Show, Generic)
 
-data PartialType p =
+data PartialType =
     PartialUnknown UnknownType
-  | PartialKnown (KnownType p)
+  | PartialKnown KnownType
   deriving stock (Show)
 
 -- | The type itself is not yet known, but may have some qualifiers
@@ -41,14 +42,14 @@ data UnknownType = UnknownType{
     }
   deriving stock (Show, Generic)
 
-data KnownType p =
-    KnownType (Type p)
+data KnownType =
+    KnownType (Type HandleMacros)
 
     -- | Special case for top-level functions, so we can record argument names
     --
     -- It's not necessary to do this recursively: we only want argument names
     -- for top-level function declarations (not for function pointers).
-  | TopLevelFun [(Maybe CName, Type p)] (Type p)
+  | TopLevelFun [(Maybe CName, Type HandleMacros)] (Type HandleMacros)
   deriving stock (Show)
 
 -- | Name
@@ -64,13 +65,13 @@ type CName = Text
   Starting point: no information known
 -------------------------------------------------------------------------------}
 
-unknownDecl :: PartialDecl p
+unknownDecl :: PartialDecl
 unknownDecl = PartialDecl{
       partialName = Nothing
     , partialType = unknownType
     }
 
-unknownType :: PartialType p
+unknownType :: PartialType
 unknownType = PartialUnknown UnknownType{
       unknownSign  = Nothing
     , unknownConst = False

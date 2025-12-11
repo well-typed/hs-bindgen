@@ -22,6 +22,7 @@ import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Config.Prelims
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -98,10 +99,10 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
         [ aliasCWrapper, restoreOrigSignature ]
   where
     origName :: Text
-    origName = info.declId.name.text
+    origName = info.declId.cName.name.text
 
     mangledOrigId :: Hs.Identifier
-    mangledOrigId = info.declId.haskellId
+    mangledOrigId = info.declId.hsName
 
     mangledOrigName :: Hs.Name Hs.NsVar
     mangledOrigName = Hs.unsafeHsIdHsName mangledOrigId
@@ -181,7 +182,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
         pointerComment :: HsDoc.Comment
         pointerComment = HsDoc.title [
               HsDoc.TextContent "Pointer-based API for"
-            , HsDoc.Identifier $ Hs.getIdentifier mangledOrigId
+            , HsDoc.Identifier mangledOrigId.text
             ]
 
     -- Alias to the original C function. This function _does have_ the same

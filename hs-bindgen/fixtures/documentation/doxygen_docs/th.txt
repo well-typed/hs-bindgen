@@ -406,7 +406,7 @@ instance HasCField Size_type "un_Size_type"
 
   Forward declaration with documentation
 
-__C declaration:__ @forward_declared_struct@
+__C declaration:__ @struct forward_declared_struct@
 
 __defined at:__ @documentation\/doxygen_docs.h:72:8@
 
@@ -417,7 +417,7 @@ data Forward_declared_struct
 
   Forward declaration of union
 
-__C declaration:__ @forward_declared_union@
+__C declaration:__ @union forward_declared_union@
 
 __defined at:__ @documentation\/doxygen_docs.h:77:7@
 
@@ -430,7 +430,7 @@ data Forward_declared_union
 
   Color enumeration without typedef
 
-__C declaration:__ @color_enum@
+__C declaration:__ @enum color_enum@
 
 __defined at:__ @documentation\/doxygen_docs.h:83:6@
 
@@ -444,7 +444,7 @@ newtype Color_enum
 
          Color enumeration without typedef
 
-      __C declaration:__ @color_enum@
+      __C declaration:__ @enum color_enum@
 
       __defined at:__ @documentation\/doxygen_docs.h:83:6@
 
@@ -536,6 +536,8 @@ __exported by:__ @documentation\/doxygen_docs.h@
 pattern COLOR_BLUE = Color_enum 2
 {-| Auxiliary type used by 'Event_callback_t'
 
+__C declaration:__ @event_callback_t@
+
 __defined at:__ @documentation\/doxygen_docs.h:225:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
@@ -544,6 +546,8 @@ newtype Event_callback_t_Deref
     = Event_callback_t_Deref {un_Event_callback_t_Deref :: (CInt ->
                                                             Ptr Void -> IO CInt)}
       {- ^ Auxiliary type used by 'Event_callback_t'
+
+      __C declaration:__ @event_callback_t@
 
       __defined at:__ @documentation\/doxygen_docs.h:225:15@
 
@@ -621,7 +625,7 @@ instance HasCField Event_callback_t "un_Event_callback_t"
 
   This structure demonstrates field documentation.
 
-__C declaration:__ @config_t@
+__C declaration:__ @struct config_t@
 
 __defined at:__ @documentation\/doxygen_docs.h:232:9@
 
@@ -691,7 +695,7 @@ data Config_t
 
          This structure demonstrates field documentation.
 
-      __C declaration:__ @config_t@
+      __C declaration:__ @struct config_t@
 
       __defined at:__ @documentation\/doxygen_docs.h:232:9@
 
@@ -748,7 +752,7 @@ instance TyEq ty (CFieldType Config_t "config_t_user_data") =>
 
   This enum shows different status codes.
 
-__C declaration:__ @status_code_t@
+__C declaration:__ @enum status_code_t@
 
 __defined at:__ @documentation\/doxygen_docs.h:258:9@
 
@@ -762,7 +766,7 @@ newtype Status_code_t
 
          This enum shows different status codes.
 
-      __C declaration:__ @status_code_t@
+      __C declaration:__ @enum status_code_t@
 
       __defined at:__ @documentation\/doxygen_docs.h:258:9@
 
@@ -911,6 +915,8 @@ pattern STATUS_ERROR = Status_code_t (-99)
 
   Allows access to high and low parts separately
 
+__C declaration:__ @struct \@data_union_t_as_parts@
+
 __defined at:__ @documentation\/doxygen_docs.h:290:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
@@ -943,6 +949,8 @@ data Data_union_t_as_parts
          Structured representation
 
          Allows access to high and low parts separately
+
+      __C declaration:__ @struct \@data_union_t_as_parts@
 
       __defined at:__ @documentation\/doxygen_docs.h:290:5@
 
@@ -986,7 +994,7 @@ instance TyEq ty
 
   This union demonstrates different data representations.
 
-__C declaration:__ @data_union_t@
+__C declaration:__ @union data_union_t@
 
 __defined at:__ @documentation\/doxygen_docs.h:281:9@
 
@@ -1002,7 +1010,7 @@ newtype Data_union_t
 
          This union demonstrates different data representations.
 
-      __C declaration:__ @data_union_t@
+      __C declaration:__ @union data_union_t@
 
       __defined at:__ @documentation\/doxygen_docs.h:281:9@
 
@@ -1202,7 +1210,7 @@ instance TyEq ty
 
   Demonstrates bit field documentation.
 
-__C declaration:__ @bitfield_t@
+__C declaration:__ @struct bitfield_t@
 
 __defined at:__ @documentation\/doxygen_docs.h:302:9@
 
@@ -1261,7 +1269,7 @@ data Bitfield_t
 
          Demonstrates bit field documentation.
 
-      __C declaration:__ @bitfield_t@
+      __C declaration:__ @struct bitfield_t@
 
       __defined at:__ @documentation\/doxygen_docs.h:302:9@
 
@@ -1357,6 +1365,8 @@ instance TyEq ty
     where getField = ptrToCBitfield (Proxy @"bitfield_t_reserved")
 {-| Auxiliary type used by 'Processor_fn_t'
 
+__C declaration:__ @processor_fn_t@
+
 __defined at:__ @documentation\/doxygen_docs.h:317:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
@@ -1365,6 +1375,8 @@ newtype Processor_fn_t_Deref
     = Processor_fn_t_Deref {un_Processor_fn_t_Deref :: (CInt ->
                                                         Ptr Void -> IO CInt)}
       {- ^ Auxiliary type used by 'Processor_fn_t'
+
+      __C declaration:__ @processor_fn_t@
 
       __defined at:__ @documentation\/doxygen_docs.h:317:15@
 
@@ -1481,7 +1493,7 @@ instance HasCField Filename_t "un_Filename_t"
 
   __returns:__ Allocated structure
 
-__C declaration:__ @flexible_array@
+__C declaration:__ @struct flexible_array@
 
 __defined at:__ @documentation\/doxygen_docs.h:360:8@
 
@@ -1507,7 +1519,7 @@ data Flexible_array
 
          __returns:__ Allocated structure
 
-      __C declaration:__ @flexible_array@
+      __C declaration:__ @struct flexible_array@
 
       __defined at:__ @documentation\/doxygen_docs.h:360:8@
 

@@ -5,14 +5,14 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/unions/unions.h
+  cname: union AnonA
+  hsname: AnonA
+- headers: types/unions/unions.h
   cname: struct @AnonA_polar
   hsname: AnonA_polar
 - headers: types/unions/unions.h
   cname: struct @AnonA_xy
   hsname: AnonA_xy
-- headers: types/unions/unions.h
-  cname: union AnonA
-  hsname: AnonA
 - headers: types/unions/unions.h
   cname: struct Dim
   hsname: Dim
@@ -30,6 +30,9 @@ ctypes:
   hsname: DimPayload
 - headers: types/unions/unions.h
   cname: DimPayloadB
+  hsname: DimPayloadB
+- headers: types/unions/unions.h
+  cname: union DimPayloadB
   hsname: DimPayloadB
 hstypes:
 - hsname: AnonA

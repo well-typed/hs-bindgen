@@ -46,8 +46,6 @@ module HsBindgen.Frontend.AST.Internal (
   , NewtypeNames(..)
     -- * Show
   , ValidPass
-    -- * Helper functions
-  , declName
   ) where
 
 import Prelude hiding (Enum)
@@ -171,7 +169,7 @@ data DeclKind p =
     -- When parsing, a C @struct@, @union@, or @enum@ may be opaque.  Users may
     -- specify any kind of type to be opaque using a prescriptive binding
     -- specification, however, including @typedef@ types.
-  | DeclOpaque C.NameKind
+  | DeclOpaque
   | DeclMacro (MacroBody p)
   | DeclFunction (Function p)
     -- | A global variable, whether it be declared @extern@, @static@ or neither.
@@ -607,15 +605,7 @@ deriving stock instance ValidPass p => Eq (UnionField       p)
 -------------------------------------------------------------------------------}
 
 instance PrettyForTrace (C.Located (Id p)) => PrettyForTrace (DeclInfo p) where
-  prettyForTrace DeclInfo{declId, declLoc} =
-      prettyForTrace $ C.Located declLoc declId
+  prettyForTrace info = prettyForTrace $ C.Located info.declLoc info.declId
 
-instance Id p ~ C.DeclId p => PrettyForTrace (Decl p) where
+instance PrettyForTrace (C.Located (Id p)) => PrettyForTrace (Decl p) where
   prettyForTrace decl = prettyForTrace decl.declInfo
-
-{-------------------------------------------------------------------------------
-  Helper functions
--------------------------------------------------------------------------------}
-
-declName :: Id p ~ C.DeclId p => Decl p -> C.DeclName
-declName decl = decl.declInfo.declId.name

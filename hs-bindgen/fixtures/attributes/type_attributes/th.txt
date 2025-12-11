@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/attributes/type_attributes.h
-{-| __C declaration:__ @S@
+{-| __C declaration:__ @struct S@
 
     __defined at:__ @attributes\/type_attributes.h:8:8@
 
@@ -13,7 +13,7 @@ data S
 
               __exported by:__ @attributes\/type_attributes.h@
          -}}
-      {- ^ __C declaration:__ @S@
+      {- ^ __C declaration:__ @struct S@
 
            __defined at:__ @attributes\/type_attributes.h:8:8@
 
@@ -65,7 +65,7 @@ instance TyEq ty
 instance HasCField More_aligned_int "un_More_aligned_int"
     where type CFieldType More_aligned_int "un_More_aligned_int" = CInt
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @S2@
+{-| __C declaration:__ @struct S2@
 
     __defined at:__ @attributes\/type_attributes.h:11:8@
 
@@ -79,7 +79,7 @@ data S2
 
                __exported by:__ @attributes\/type_attributes.h@
           -}}
-      {- ^ __C declaration:__ @S2@
+      {- ^ __C declaration:__ @struct S2@
 
            __defined at:__ @attributes\/type_attributes.h:11:8@
 
@@ -98,7 +98,7 @@ instance HasCField S2 "s2_f"
 instance TyEq ty (CFieldType S2 "s2_f") =>
          HasField "s2_f" (Ptr S2) (Ptr ty)
     where getField = ptrToCField (Proxy @"s2_f")
-{-| __C declaration:__ @my_unpacked_struct@
+{-| __C declaration:__ @struct my_unpacked_struct@
 
     __defined at:__ @attributes\/type_attributes.h:13:8@
 
@@ -119,7 +119,7 @@ data My_unpacked_struct
 
                                __exported by:__ @attributes\/type_attributes.h@
                           -}}
-      {- ^ __C declaration:__ @my_unpacked_struct@
+      {- ^ __C declaration:__ @struct my_unpacked_struct@
 
            __defined at:__ @attributes\/type_attributes.h:13:8@
 
@@ -172,7 +172,7 @@ instance TyEq ty
               (CFieldType My_unpacked_struct "my_unpacked_struct_i") =>
          HasField "my_unpacked_struct_i" (Ptr My_unpacked_struct) (Ptr ty)
     where getField = ptrToCField (Proxy @"my_unpacked_struct_i")
-{-| __C declaration:__ @my_packed_struct@
+{-| __C declaration:__ @struct my_packed_struct@
 
     __defined at:__ @attributes\/type_attributes.h:19:37@
 
@@ -200,7 +200,7 @@ data My_packed_struct
 
                              __exported by:__ @attributes\/type_attributes.h@
                         -}}
-      {- ^ __C declaration:__ @my_packed_struct@
+      {- ^ __C declaration:__ @struct my_packed_struct@
 
            __defined at:__ @attributes\/type_attributes.h:19:37@
 
@@ -270,7 +270,7 @@ instance TyEq ty
               (CFieldType My_packed_struct "my_packed_struct_s") =>
          HasField "my_packed_struct_s" (Ptr My_packed_struct) (Ptr ty)
     where getField = ptrToCField (Proxy @"my_packed_struct_s")
-{-| __C declaration:__ @wait_status_ptr_t@
+{-| __C declaration:__ @union wait_status_ptr_t@
 
     __defined at:__ @attributes\/type_attributes.h:26:9@
 
@@ -278,7 +278,7 @@ instance TyEq ty
 -}
 newtype Wait_status_ptr_t
     = Wait_status_ptr_t {un_Wait_status_ptr_t :: ByteArray}
-      {- ^ __C declaration:__ @wait_status_ptr_t@
+      {- ^ __C declaration:__ @union wait_status_ptr_t@
 
            __defined at:__ @attributes\/type_attributes.h:26:9@
 
@@ -371,7 +371,7 @@ instance TyEq ty
               (CFieldType Wait_status_ptr_t "wait_status_ptr_t___up") =>
          HasField "wait_status_ptr_t___up" (Ptr Wait_status_ptr_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"wait_status_ptr_t___up")
-{-| __C declaration:__ @wait@
+{-| __C declaration:__ @union wait@
 
     __defined at:__ @attributes\/type_attributes.h:29:9@
 

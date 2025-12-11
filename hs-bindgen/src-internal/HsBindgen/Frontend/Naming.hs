@@ -18,8 +18,11 @@ module HsBindgen.Frontend.Naming (
 
     -- * DeclId
   , DeclId(..)
-  , OrigDeclId(..)
-  , declIdCName
+  , renderDeclId
+  , parseDeclId
+
+    -- * DeclIdPair
+  , DeclIdPair(..)
 
     -- * Located
   , Located(..)
@@ -35,9 +38,9 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 
 {-------------------------------------------------------------------------------
@@ -45,13 +48,16 @@ import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 -------------------------------------------------------------------------------}
 
 -- | Anonymous declaration identifier
-newtype AnonId = AnonId SingleLoc
+data AnonId = AnonId{
+      loc  :: SingleLoc
+    , kind :: C.NameKind
+    }
   deriving stock (Show, Eq, Ord, Generic)
 
 -- | We mimic the syntax used by Clang itself for anonymous declarations
 instance PrettyForTrace AnonId where
-  prettyForTrace (AnonId loc) = PP.string $
-    "unnamed at " ++ HighLevel.prettySingleLoc ShowFile loc
+  prettyForTrace anonId = PP.string $
+    "unnamed at " ++ HighLevel.prettySingleLoc ShowFile anonId.loc
 
 {-------------------------------------------------------------------------------
   PrelimDeclId
@@ -69,21 +75,21 @@ data PrelimDeclId =
     -- | Anonymous declaration
     --
     -- This can only happen for tagged types: structs, unions and enums
-  | PrelimDeclIdAnon AnonId C.NameKind
+  | PrelimDeclIdAnon AnonId
   deriving stock (Show, Eq, Ord)
 
 prelimDeclIdName :: PrelimDeclId -> Maybe C.DeclName
 prelimDeclIdName = \case
-    PrelimDeclIdNamed  name         -> Just name
-    PrelimDeclIdAnon  _anonId _kind -> Nothing
+    PrelimDeclIdNamed  name   -> Just name
+    PrelimDeclIdAnon  _anonId -> Nothing
 
 instance PrettyForTrace PrelimDeclId where
   prettyForTrace = \case
       PrelimDeclIdNamed n ->
         prettyForTrace n
-      PrelimDeclIdAnon anonId kind ->
+      PrelimDeclIdAnon anonId ->
         PP.singleQuotes $
-          case kind of
+          case anonId.kind of
             C.NameKindTagged kind' ->
                   PP.textToCtxDoc (C.tagKindPrefix kind')
               <+> PP.parens (prettyForTrace anonId)
@@ -132,7 +138,7 @@ getPrelimDeclId curr nameKind = do
     markAsAnon :: m PrelimDeclId
     markAsAnon = do
         loc <- HighLevel.clang_getCursorLocation' curr
-        return $ PrelimDeclIdAnon (AnonId loc) nameKind
+        return $ PrelimDeclIdAnon (AnonId loc nameKind)
 
 checkIsBuiltin :: MonadIO m => CXCursor -> m (Maybe Text)
 checkIsBuiltin curr = do
@@ -148,57 +154,65 @@ checkIsBuiltin curr = do
 
 {-------------------------------------------------------------------------------
   DeclId
+
+  TODO: .Naming module should go.
 -------------------------------------------------------------------------------}
 
--- | Declaration identifier
---
--- All declarations have names after renaming in the @NameAnon@ pass.  This type
--- is used until the @MangleNames@ pass.
-data DeclId (p :: Pass) = DeclId{
-      name       :: C.DeclName
-    , origDeclId :: OrigDeclId
-    , haskellId  :: HaskellId p
+-- | Identifier for a declaration that appears in the C source
+data DeclId = DeclId{
+      -- | Name of the declaration
+      --
+      -- For named (non-anonymous) declarations, this is /always/ the name as it
+      -- appears in the C source; any renaming of declarations we do in
+      -- @hs-bindgen@ happens in the generated /Haskell/ code, not the C
+      -- declarations.
+      --
+      -- For anonymous declarations, this is the name as it is assigned by the
+      -- @AssignAnonIds@ pass, which is also how we then refer to this
+      -- declaration in binding specs. The user-facing syntax for anonymous
+      -- declarations uses an \@-sign in the name; that is not present in the
+      -- Haskell value.
+      name :: C.DeclName
+
+      -- | Is this declaration anonymous?
+      --
+      -- We do /NOT/ record the original anon ID here, because that is a source
+      -- location, which is impossible to construct in many places (for example,
+      -- when parsing @struct \@foo@ in binding specs).
+    , isAnon :: Bool
     }
-
-deriving instance Show (HaskellId p) => Show (DeclId p)
-deriving instance Eq   (HaskellId p) => Eq   (DeclId p)
-deriving instance Ord  (HaskellId p) => Ord  (DeclId p)
-
-data OrigDeclId =
-    -- | The original ID (as it appeared in the C source)
-    OrigDeclId PrelimDeclId
-
-    -- | Auxiliary declaration
-    --
-    -- In some cases we introduce auxiliary declarations that do not exist in
-    -- the C source. In this case, we record which original declaration this
-    -- declaration is in support of.
-  | AuxForDecl PrelimDeclId
   deriving stock (Show, Eq, Ord)
 
--- | How do we refer to this declaration in C code?
-declIdCName :: DeclId p -> Maybe C.DeclName
-declIdCName declId =
-   case declId.origDeclId of
-     AuxForDecl _parent -> Nothing
-     OrigDeclId orig    ->
-       case orig of
-         PrelimDeclIdNamed  name -> Just name
-         PrelimDeclIdAnon{}      -> Nothing
+-- | User-facing syntax for 'DeclId'
+renderDeclId :: DeclId -> Text
+renderDeclId declId
+  | declId.isAnon = C.renderDeclName $ C.mapDeclNameText ("@" <>) declId.name
+  | otherwise     = C.renderDeclName declId.name
 
-instance PrettyForTrace (DeclId p) where
-   prettyForTrace declId = PP.hsep [
-         prettyForTrace declId.name
-       , case declId.origDeclId of
-           OrigDeclId orig | prelimDeclIdName orig /= Just declId.name ->
-             PP.parens (prettyForTrace orig)
-           _otherwise ->
-             PP.empty
-       ]
+-- | Parse user-facing syntax for 'DeclId'
+parseDeclId :: Text -> Maybe DeclId
+parseDeclId t = do
+    declName <- C.parseDeclName t
+    return $ case Text.uncons declName.text of
+      Just ('@', n) -> DeclId{name = C.DeclName n declName.kind, isAnon = True}
+      _otherwise    -> DeclId{name = declName, isAnon = False}
 
-instance PrettyForTrace (Located (DeclId p)) where
+instance PrettyForTrace DeclId where
+  prettyForTrace = PP.singleQuotes . PP.textToCtxDoc . renderDeclId
+
+instance PrettyForTrace (Located DeclId) where
   prettyForTrace (Located loc declId) =
       prettyForTraceLoc declId loc
+
+{-------------------------------------------------------------------------------
+  DeclIdPair
+-------------------------------------------------------------------------------}
+
+data DeclIdPair = DeclIdPair{
+      cName  :: DeclId
+    , hsName :: Hs.Identifier
+    }
+  deriving stock (Show, Eq, Ord)
 
 {-------------------------------------------------------------------------------
   Located

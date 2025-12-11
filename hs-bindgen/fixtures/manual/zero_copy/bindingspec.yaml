@@ -14,6 +14,9 @@ ctypes:
   cname: drawing
   hsname: Drawing
 - headers: manual/zero_copy.h
+  cname: struct drawing
+  hsname: Drawing
+- headers: manual/zero_copy.h
   cname: matrix
   hsname: Matrix
 - headers: manual/zero_copy.h
@@ -30,6 +33,9 @@ ctypes:
   hsname: Shape
 - headers: manual/zero_copy.h
   cname: tic_tac_toe
+  hsname: Tic_tac_toe
+- headers: manual/zero_copy.h
+  cname: struct tic_tac_toe
   hsname: Tic_tac_toe
 - headers: manual/zero_copy.h
   cname: triplet

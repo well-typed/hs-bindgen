@@ -1,6 +1,8 @@
 -- addDependentFile examples/golden/functions/circular_dependency_fun.h
 {-| Auxiliary type used by 'Fun_ptr'
 
+__C declaration:__ @fun_ptr@
+
 __defined at:__ @functions\/circular_dependency_fun.h:3:16@
 
 __exported by:__ @functions\/circular_dependency_fun.h@
@@ -9,6 +11,8 @@ newtype Fun_ptr_Deref
     = Fun_ptr_Deref {un_Fun_ptr_Deref :: (Ptr Forward_declaration ->
                                           IO Unit)}
       {- ^ Auxiliary type used by 'Fun_ptr'
+
+      __C declaration:__ @fun_ptr@
 
       __defined at:__ @functions\/circular_dependency_fun.h:3:16@
 
@@ -54,7 +58,7 @@ instance TyEq ty (CFieldType Fun_ptr "un_Fun_ptr") =>
 instance HasCField Fun_ptr "un_Fun_ptr"
     where type CFieldType Fun_ptr "un_Fun_ptr" = FunPtr Fun_ptr_Deref
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @forward_declaration@
+{-| __C declaration:__ @struct forward_declaration@
 
     __defined at:__ @functions\/circular_dependency_fun.h:5:8@
 
@@ -68,7 +72,7 @@ data Forward_declaration
 
                                 __exported by:__ @functions\/circular_dependency_fun.h@
                            -}}
-      {- ^ __C declaration:__ @forward_declaration@
+      {- ^ __C declaration:__ @struct forward_declaration@
 
            __defined at:__ @functions\/circular_dependency_fun.h:5:8@
 

@@ -27,18 +27,17 @@ import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.AST.Finalize
 import HsBindgen.Frontend.AST.Internal hiding (Type)
 import HsBindgen.Frontend.Pass hiding (Config)
+import HsBindgen.Frontend.Pass.AssignAnonIds
+import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
-import HsBindgen.Frontend.Pass.HandleTypedefs
-import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.MangleNames
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
-import HsBindgen.Frontend.Pass.NameAnon
-import HsBindgen.Frontend.Pass.NameAnon.IsPass
 import HsBindgen.Frontend.Pass.Parse
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select
@@ -47,58 +46,98 @@ import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
--- | Frontend.
+-- | Frontend
 --
--- Overview of passes (see documentation of 'HsBindgen.Frontend.Pass.IsPass'):
+-- = Overview of passes
 --
--- 1. 'Parse' (impure; all other passes are pure)
--- 2. 'ConstructTranslationUnit'
--- 3. 'HandleMacros'
--- 4. 'NameAnon'
--- 5. 'ResolveBindingSpecs'
--- 6. 'Select'
--- 7. 'HandleTypedefs'
--- 8. 'MangleNames'
+-- See the documentation of 'HsBindgen.Frontend.Pass.IsPass'.
 --
--- Although the passes and their order are subject to change, we have to honor
--- various constraints:
+-- == 1. "HsBindgen.Frontend.Pass.Parse"
 --
--- - 'ConstructTranslationUnit' must come before the following passes because we need to process
---   declarations before their uses.
+-- "HsBindgen.Frontend.Pass.Parse" traverses the @libclang@ AST, getting all
+-- information that we need from @libclang@ and constructing a pure Haskell
+-- representation (see "HsBindgen.Frontend.AST.Internal").  It is the only pass
+-- that runs in 'IO', to interface with @libclang@.
 --
--- - 'HandleMacros': The macro parser needs to know which things are in scope
---   (other macros as well as typedefs), so we must process declarations in the
---   right order; that is, 'handleMacros' must be done after sorting the
---   declarations.
+-- Constraints:
 --
---   In principle it could run before or after renaming: macros can neither
---   refer to nor introduce new anonymous declarations, so the relative ordering
---   of these two passes does not really matter. However, as part of renaming we
---   replace typedefs around anonymous structs by named structs:
+-- * Must be first, to get the declarations from @libclang@
 --
---   > typedef struct { .. fields .. } foo;
+-- == 2. "HsBindgen.Frontend.Pass.AssignAnonIds"
 --
---   On the C side however @foo@ must be referred to as @foo@, not @struct foo@;
---   to avoid confusion, it is therefore cleaner to run macro parsing and
---   declaration reparsing /prior/ to this transformation.
+-- "HsBindgen.Frontend.Pass.AssignAnonIds" assigns names to all anonymous
+-- declarations, replacing 'HsBindgen.Frontend.Naming.PrelimDeclId' by
+-- 'HsBindgen.Frontend.Naming.DeclId', which is used from this point forward.
 --
--- - 'NameAnon' must come before 'ResolveBindingSpecs' because it enables users
---   to configure anonymous types using our generated names for them.
+-- Constraints:
 --
--- - 'ResolveBindingSpecs' must come before 'HandleTypedefs' to enable users to
---   configure if a specific typedef is squashed for not.
+-- * Must be before "HsBindgen.Frontend.Pass.ConstructTranslationUnit" so that
+--   'HsBindgen.Frontend.Naming.DeclId' can be used as the key for the
+--   'DeclIndex.DeclIndex', 'UseDeclGraph.UseDeclGraph', and
+--   'DeclUseGraph.DeclUseGraph'
+-- * Must be before "HsBindgen.Frontend.Pass.ResolveBindingSpecs" so that
+--   binding specifications can use the assigned names
 --
--- - 'Select' must come after 'ResolveBindingSpecs' so that selection is done
---   after declarations have been omitted via prescriptive binding
---   specification.  It must come before 'HandleTypedefs' because selection
---   should be done before renaming to be consistent with 'ResolveBindingSpecs'.
+-- == 3. "HsBindgen.Frontend.Pass.ConstructTranslationUnit"
 --
--- - 'MangleNames': Name mangling depends on information from the binding spec,
---   and must therefore happen after 'ResolveBindingSpecs'. It could be put into
---   the 'Hs' phase, but we have to draw the line somewhere.
+-- "HsBindgen.Frontend.Pass.ConstructTranslationUnit" constructs a list of
+-- sorted declarations as well as the 'DeclIndex.DeclIndex',
+-- 'UseDeclGraph.UseDeclGraph', and 'DeclUseGraph.DeclUseGraph'.
+--
+-- Constraints:
+--
+-- * Must be before the rest of the passes because they use these structures and
+--   depend on the ordering of the declarations
+--
+-- == 4. "HsBindgen.Frontend.Pass.HandleMacros"
+--
+-- "HsBindgen.Frontend.Pass.HandleMacros" typechecks macros and reparses
+-- declarations with macros.  In order to construct the correct scope at any
+-- point, ordering is critical.  Note that macros may neither refer to nor
+-- introduce new anonymous declarations, so running
+-- "HsBindgen.Frontend.Pass.AssignAnonIds" before
+-- "HsBindgen.Frontend.Pass.HandleMacros" is fine.
+--
+-- == 5. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
+--
+-- "HsBindgen.Frontend.Pass.ResolveBindingSpecs" has two responsibilities:
+--
+-- * It matches declarations/uses with external binding specifications, removing
+--   matching declarations and replacing uses with external references.
+-- * It matches declarations with prescriptive binding specifications, either
+--   omitting them or annotating the declarations with specifications to be used
+--   in later passes.
+--
+-- Constraints:
+--
+-- * Must be before "HsBindgen.Frontend.Pass.Select" because prescriptive
+--   binding specs may omit declarations and external binding specs may remove
+--   declarations, and program slicing must take this into account
+-- * Must be before "HsBindgen.Frontend.Pass.HandleTypedefs" because
+--   prescriptive binding specs may configure squashing
+-- * Must be before "HsBindgen.Frontend.Pass.MangleNames" because prescriptive
+--   binding specs may specify arbitrary names
+--
+-- == 6. "HsBindgen.Frontend.Pass.Select"
+--
+-- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
+-- and program slicing.  It also emits delayed trace messages for declarations
+-- that are selected.
+--
+-- Constraints:
+--
+-- * Must be before "HsBindgen.Frontend.Pass.HandleTypedefs" so that predicates
+--   can refer to @typedef@s that are later squashed, which is especially
+--   important when program slicing is enabled
+--
+-- == 7. "HsBindgen.Frontend.Pass.MangleNames"
+--
+-- "HsBindgen.Frontend.Pass.MangleNames" assigns Haskell names for types,
+-- constructors, fields, etc. It also deals with name clashes that can arise
+-- from typedefs, squashing "unneeded" typedefs.
 frontend ::
      Tracer FrontendMsg
   -> FrontendConfig
@@ -127,11 +166,19 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
           , toGetMainHeaders getMainHeadersAndInclude
           )
 
-    constructTranslationUnitPass <- cache "sort" $ do
-      (afterParse, includeGraph, _, _, _) <- parsePass
+    assignAnonIdsPass <- cache "assignAnonIds" $ do
+      (afterParse, _, _, _, _) <- parsePass
+      let (afterAssignAnonIds, msgsAssignAnonIds) = assignAnonIds afterParse
+      forM_ msgsAssignAnonIds $ traceWith tracer . FrontendAssignAnonIds
+      pure afterAssignAnonIds
+
+    constructTranslationUnitPass <- cache "constructTranslationUnit" $ do
+      (_, includeGraph, _, _, _) <- parsePass
+      afterAssignAnonIds <- assignAnonIdsPass
       let (afterConstructTranslationUnit, msgsConstructTranslationUnit) =
-            constructTranslationUnit afterParse includeGraph
-      forM_ msgsConstructTranslationUnit $ traceWith tracer . FrontendConstructTranslationUnit
+            constructTranslationUnit afterAssignAnonIds includeGraph
+      forM_ msgsConstructTranslationUnit $
+        traceWith tracer . FrontendConstructTranslationUnit
       pure afterConstructTranslationUnit
 
     handleMacrosPass <- cache "handleMacros" $ do
@@ -141,14 +188,8 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       forM_ msgsHandleMacros $ traceWith tracer . FrontendHandleMacros
       pure afterHandleMacros
 
-    nameAnonPass <- cache "nameAnon" $ do
-      afterHandleMacros <- handleMacrosPass
-      let (afterNameAnon, msgsNameAnon) = nameAnon afterHandleMacros
-      forM_ msgsNameAnon $ traceWith tracer . FrontendNameAnon
-      pure afterNameAnon
-
     resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
-      afterNameAnon <- nameAnonPass
+      afterHandleMacros <- handleMacrosPass
       target   <- bootTarget
       extSpecs <- bootExternalBindingSpecs
       pSpec    <- bootPrescriptiveBindingSpec
@@ -158,7 +199,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
               (fromBaseModuleName bootBaseModule (Just CType))
               extSpecs
               pSpec
-              afterNameAnon
+              afterHandleMacros
       forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
       pure afterResolveBindingSpecs
 
@@ -174,15 +215,9 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       forM_ msgsSelect $ traceWith tracer . FrontendSelect
       pure afterSelect
 
-    handleTypedefsPass <- cache "handleTypedefs" $ do
-      afterSelect <- selectPass
-      let (afterHandleTypedefs, msgsHandleTypedefs) = handleTypedefs afterSelect
-      forM_ msgsHandleTypedefs $ traceWith tracer . FrontendHandleTypedefs
-      pure afterHandleTypedefs
-
     mangleNamesPass <- cache "mangleNames" $ do
-      afterHandleTypedefs <- handleTypedefsPass
-      let (afterMangleNames, msgsMangleNames) = mangleNames afterHandleTypedefs
+      afterSelect <- selectPass
+      let (afterMangleNames, msgsMangleNames) = mangleNames afterSelect
       forM_ msgsMangleNames $ traceWith tracer . FrontendMangleNames
       pure afterMangleNames
 
@@ -215,8 +250,13 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     -- Omitted types
     frontendOmitTypes <- cache "frontendOmitTypes" $
-      Map.elems . DeclIndex.getOmitted . view ( #unitAnn % #declIndex) <$>
+      Map.toList . DeclIndex.getOmitted . view ( #unitAnn % #declIndex) <$>
         resolveBindingSpecsPass
+
+    -- Squashed types
+    frontendSquashedTypes <- cache "frontendSquashedTypes" $
+      Map.toList . DeclIndex.getSquashed . view ( #unitAnn % #declIndex) <$>
+        mangleNamesPass
 
     -- Declarations.
     frontendCDecls <- cache "frontendDecls" $
@@ -255,7 +295,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
         frontendSelectPredicate
 
     emptyParseResult :: (
-        [ParseResult]
+        [ParseResult Parse]
       , IncludeGraph
       , IsMainHeader
       , IsInMainHeaderDir
@@ -282,7 +322,8 @@ data FrontendArtefact = FrontendArtefact {
   , frontendIndex          :: Cached DeclIndex.DeclIndex
   , frontendUseDeclGraph   :: Cached UseDeclGraph.UseDeclGraph
   , frontendDeclUseGraph   :: Cached DeclUseGraph.DeclUseGraph
-  , frontendOmitTypes      :: Cached [(C.DeclName, SourcePath)]
+  , frontendOmitTypes      :: Cached [(C.DeclId, SourcePath)]
+  , frontendSquashedTypes  :: Cached [(C.DeclId, (SourcePath, Hs.Identifier))]
   , frontendCDecls         :: Cached [C.Decl]
   , frontendDependencies   :: Cached [SourcePath]
   }
@@ -297,12 +338,11 @@ data FrontendArtefact = FrontendArtefact {
 data FrontendMsg =
     FrontendClang ClangMsg
   | FrontendParse (Msg Parse)
+  | FrontendAssignAnonIds (Msg AssignAnonIds)
   | FrontendConstructTranslationUnit (Msg ConstructTranslationUnit)
   | FrontendHandleMacros (Msg HandleMacros)
-  | FrontendNameAnon (Msg NameAnon)
   | FrontendResolveBindingSpecs (Msg ResolveBindingSpecs)
   | FrontendSelect (Msg Select)
-  | FrontendHandleTypedefs (Msg HandleTypedefs)
   | FrontendMangleNames (Msg MangleNames)
   | FrontendCache (SafeTrace CacheMsg)
   deriving stock    (Show, Generic)

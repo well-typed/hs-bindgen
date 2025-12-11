@@ -5,10 +5,10 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: documentation/doxygen_docs.h
-  cname: struct @data_union_t_as_parts
-  hsname: Data_union_t_as_parts
-- headers: documentation/doxygen_docs.h
   cname: bitfield_t
+  hsname: Bitfield_t
+- headers: documentation/doxygen_docs.h
+  cname: struct bitfield_t
   hsname: Bitfield_t
 - headers: documentation/doxygen_docs.h
   cname: enum color_enum
@@ -17,8 +17,17 @@ ctypes:
   cname: config_t
   hsname: Config_t
 - headers: documentation/doxygen_docs.h
+  cname: struct config_t
+  hsname: Config_t
+- headers: documentation/doxygen_docs.h
   cname: data_union_t
   hsname: Data_union_t
+- headers: documentation/doxygen_docs.h
+  cname: union data_union_t
+  hsname: Data_union_t
+- headers: documentation/doxygen_docs.h
+  cname: struct @data_union_t_as_parts
+  hsname: Data_union_t_as_parts
 - headers: documentation/doxygen_docs.h
   cname: event_callback_t
   hsname: Event_callback_t
@@ -42,6 +51,9 @@ ctypes:
   hsname: Size_type
 - headers: documentation/doxygen_docs.h
   cname: status_code_t
+  hsname: Status_code_t
+- headers: documentation/doxygen_docs.h
+  cname: enum status_code_t
   hsname: Status_code_t
 hstypes:
 - hsname: Bitfield_t

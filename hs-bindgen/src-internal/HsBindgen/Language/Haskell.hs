@@ -78,10 +78,10 @@ instance PrettyForTrace ModuleName where
 --
 -- This type is used to reference Haskell types, constructors, fields, etc.  It
 -- does /not/ specify a 'Namespace' like the 'Name' type below.
-newtype Identifier = Identifier { getIdentifier :: Text }
-  deriving stock (Generic)
+newtype Identifier = Identifier { text :: Text }
+  deriving stock (Eq, Ord, Generic)
   -- 'Show' instance valid due to 'IsString' instance
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show, Semigroup)
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, IsString, Show, Semigroup)
 
 -- | External reference
 --

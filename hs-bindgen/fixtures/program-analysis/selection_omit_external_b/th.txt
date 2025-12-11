@@ -1,6 +1,6 @@
 -- addDependentFile examples/golden/program-analysis/selection_omit_external_root.h
 -- addDependentFile examples/golden/program-analysis/selection_omit_external_b.h
-{-| __C declaration:__ @Omitted@
+{-| __C declaration:__ @struct Omitted@
 
     __defined at:__ @selection_omit_external_root.h:1:8@
 
@@ -14,7 +14,7 @@ data Omitted
 
                     __exported by:__ @program-analysis\/selection_omit_external_b.h@
                -}}
-      {- ^ __C declaration:__ @Omitted@
+      {- ^ __C declaration:__ @struct Omitted@
 
            __defined at:__ @selection_omit_external_root.h:1:8@
 
@@ -46,7 +46,7 @@ instance HasCField Omitted "omitted_n"
 instance TyEq ty (CFieldType Omitted "omitted_n") =>
          HasField "omitted_n" (Ptr Omitted) (Ptr ty)
     where getField = ptrToCField (Proxy @"omitted_n")
-{-| __C declaration:__ @DirectlyDependsOnOmitted@
+{-| __C declaration:__ @struct DirectlyDependsOnOmitted@
 
     __defined at:__ @program-analysis\/selection_omit_external_b.h:4:8@
 
@@ -60,7 +60,7 @@ data DirectlyDependsOnOmitted
 
                                      __exported by:__ @program-analysis\/selection_omit_external_b.h@
                                 -}}
-      {- ^ __C declaration:__ @DirectlyDependsOnOmitted@
+      {- ^ __C declaration:__ @struct DirectlyDependsOnOmitted@
 
            __defined at:__ @program-analysis\/selection_omit_external_b.h:4:8@
 
@@ -100,7 +100,7 @@ instance TyEq ty
                   (Ptr DirectlyDependsOnOmitted)
                   (Ptr ty)
     where getField = ptrToCField (Proxy @"directlyDependsOnOmitted_o")
-{-| __C declaration:__ @IndirectlyDependsOnOmitted@
+{-| __C declaration:__ @struct IndirectlyDependsOnOmitted@
 
     __defined at:__ @program-analysis\/selection_omit_external_b.h:8:8@
 
@@ -114,7 +114,7 @@ data IndirectlyDependsOnOmitted
 
                                        __exported by:__ @program-analysis\/selection_omit_external_b.h@
                                   -}}
-      {- ^ __C declaration:__ @IndirectlyDependsOnOmitted@
+      {- ^ __C declaration:__ @struct IndirectlyDependsOnOmitted@
 
            __defined at:__ @program-analysis\/selection_omit_external_b.h:8:8@
 

@@ -58,7 +58,7 @@ instance TyEq ty (CFieldType Uint32_t "un_Uint32_t") =>
 instance HasCField Uint32_t "un_Uint32_t"
     where type CFieldType Uint32_t "un_Uint32_t" = CUInt
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @struct foo@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h:3:8@
 
@@ -79,7 +79,7 @@ data Foo
 
                 __exported by:__ @program-analysis\/program_slicing_simple.h@
            -}}
-      {- ^ __C declaration:__ @foo@
+      {- ^ __C declaration:__ @struct foo@
 
            __defined at:__ @program-analysis\/program_slicing_simple.h:3:8@
 
