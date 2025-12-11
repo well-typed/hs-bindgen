@@ -44,6 +44,20 @@ type DeclId = C.PrelimDeclId
 -- Declaration itself.
 type Decl = C.Decl Select
 
+
+-- | Internal data type! This data type 'Unselectable' refers to declarations
+-- that are not selectable _from the perspective of `hs-bindgen`_; and, in
+-- particular, not from the perspective of the user (they can change the select
+-- predicate).
+data Unselectable =
+    -- | We (i.e., `hs-bindgen`) can not select a declaration selected because
+    --   it or one of its dependencies is unusable.
+    UnselectableBecauseUnusable Unusable
+    -- | We (i.e., `hs-bindgen`) can not select a declaration because one of its
+    --   dependencies has not been selected by the user.
+  | TransitiveDependencyNotSelected
+  deriving stock (Show)
+
 -- | We have to treat with two notions of usability here:
 --
 -- 1. A declaration can be usable because it is in the list of declarations
@@ -316,9 +330,15 @@ selectDeclWith
 
     getUnavailMsgs :: SelectReason -> Map DeclId Unselectable -> [Msg Select]
     getUnavailMsgs selectReason unavailReason =
-      [ TransitiveDependencyOfDeclarationUnselectable
-          decl selectReason i r (DeclIndex.lookupLoc i declIndex)
-      | (i, r) <- Map.toList unavailReason ]
+      [ case r of
+          UnselectableBecauseUnusable u ->
+            TransitiveDependencyOfDeclarationUnusable
+              decl selectReason i u (DeclIndex.lookupLoc i declIndex)
+          TransitiveDependencyNotSelected ->
+            TransitiveDependencyOfDeclarationNotSelected
+              decl selectReason i   (DeclIndex.lookupLoc i declIndex)
+      | (i, r) <- Map.toList unavailReason
+      ]
 
     isDeprecated :: C.DeclInfo Select -> Bool
     isDeprecated info = case C.declAvailability info of
@@ -370,15 +390,16 @@ compareSingleLocs xs x y =
 
 getSingleLoc :: Msg Select -> Maybe SingleLoc
 getSingleLoc = \case
-  SelectStatusInfo d _                                    -> fromD d
-  TransitiveDependencyOfDeclarationUnselectable d _ _ _ _ -> fromD d
-  SelectDeprecated d                                      -> fromD d
-  SelectParseSuccess m                                    -> fromM m
-  SelectParseNotAttempted (ParseNotAttempted m)           -> fromM m
-  SelectParseFailure      (ParseFailure      m)           -> fromM m
-  SelectConflict c                                        -> Just $ getMinimumLoc c
-  SelectMacroFailure      (FailedMacro       m)           -> fromM m
-  SelectNoDeclarationsMatched                             -> Nothing
+  SelectStatusInfo d _                                   -> fromD d
+  TransitiveDependencyOfDeclarationUnusable    d _ _ _ _ -> fromD d
+  TransitiveDependencyOfDeclarationNotSelected d _ _   _ -> fromD d
+  SelectDeprecated d                                     -> fromD d
+  SelectParseSuccess m                                   -> fromM m
+  SelectParseNotAttempted (ParseNotAttempted m)          -> fromM m
+  SelectParseFailure      (ParseFailure      m)          -> fromM m
+  SelectConflict c                                       -> Just $ getMinimumLoc c
+  SelectMacroFailure      (FailedMacro       m)          -> fromM m
+  SelectNoDeclarationsMatched                            -> Nothing
   where
     fromD = Just . C.declLoc . C.declInfo
     fromM = Just . loc

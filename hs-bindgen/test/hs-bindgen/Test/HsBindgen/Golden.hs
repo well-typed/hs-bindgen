@@ -282,8 +282,8 @@ test_edge_cases_duplicate = (defaultTest "edge-cases/duplicate") {
       TraceFrontend (FrontendSelect (SelectConflict _)) ->
          Just $ Expected "duplicate-conflict"
       TraceFrontend (FrontendSelect
-        (TransitiveDependencyOfDeclarationUnselectable _ _ _
-        (UnselectableBecauseUnusable (UnusableConflict _)) _)) ->
+        (TransitiveDependencyOfDeclarationUnusable _ _ _
+        (UnusableConflict _) _)) ->
          Just $ Expected "duplicate-transitive-fail"
       _otherwise ->
          Nothing
@@ -300,7 +300,9 @@ test_edge_cases_clang_generated_collision =
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1389>
       -- For now we report a collision between the two @struct foo@
       -- declarations, but no collision between those and the typedef.
-      TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnselectable{})) ->
+      TraceFrontend (FrontendSelect
+        (TransitiveDependencyOfDeclarationUnusable _ _ _
+        (UnusableConflict _) _)) ->
         Just Tolerated
       _otherwise ->
         Nothing
@@ -643,7 +645,7 @@ test_types_implicit_fields_union =
 test_declarations_declaration_unselected_b :: TestCase
 test_declarations_declaration_unselected_b =
   testTraceCustom "declarations/declaration_unselected_b" ["select" :: String] $ \case
-    (TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnselectable _ _ _ TransitiveDependencyNotSelected _))) ->
+    (TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationNotSelected{}))) ->
       Just $ Expected "select"
     _otherwise ->
       Nothing
@@ -972,8 +974,8 @@ test_program_analysis_selection_fail =
       TraceFrontend (FrontendSelect (SelectParseFailure _)) ->
         Just $ Expected "Fail"
       TraceFrontend (FrontendSelect
-        (TransitiveDependencyOfDeclarationUnselectable decl _ _
-          (UnselectableBecauseUnusable (UnusableParseFailure _)) _)) ->
+        (TransitiveDependencyOfDeclarationUnusable decl _ _
+          (UnusableParseFailure _) _)) ->
         Just $ expectFromDeclSelect decl
       TraceFrontend (FrontendSelect
         (SelectStatusInfo decl (Selected SelectionRoot))) ->
@@ -994,7 +996,7 @@ test_program_analysis_selection_fail_variant_1 =
       , "OkBefore", "OkAfter"
       ] $ \case
         TraceFrontend (FrontendSelect
-          (TransitiveDependencyOfDeclarationUnselectable decl _ _ TransitiveDependencyNotSelected _)) ->
+          (TransitiveDependencyOfDeclarationNotSelected decl _ _ _)) ->
           Just $ expectFromDeclSelect decl
         TraceFrontend (FrontendSelect
           (SelectStatusInfo decl (Selected SelectionRoot))) ->
@@ -1017,8 +1019,8 @@ test_program_analysis_selection_fail_variant_2 =
       , "OkBefore", "OkAfter"
       ] $ \case
         TraceFrontend (FrontendSelect
-          (TransitiveDependencyOfDeclarationUnselectable decl _ _
-            (UnselectableBecauseUnusable (UnusableParseFailure _)) _)) ->
+          (TransitiveDependencyOfDeclarationUnusable decl _ _
+            (UnusableParseFailure _) _)) ->
           Just $ expectFromDeclSelect decl
         TraceFrontend (FrontendSelect
           (SelectStatusInfo decl (Selected SelectionRoot))) ->
@@ -1046,7 +1048,7 @@ test_program_analysis_selection_bad =
   (defaultTest "program-analysis/selection_bad"){
     testTracePredicate = customTracePredicate ["size_t_select"] $ \case
       (TraceFrontend (FrontendSelect
-        (TransitiveDependencyOfDeclarationUnselectable _ SelectionRoot _ TransitiveDependencyNotSelected _))) ->
+        (TransitiveDependencyOfDeclarationNotSelected _ SelectionRoot _ _))) ->
         Just $ Expected "size_t_select"
       _other -> Nothing
   }
@@ -1070,8 +1072,8 @@ test_program_analysis_selection_omit_prescriptive =
       , "BindingSpec-AnyTarget"
       ] $ \case
         TraceFrontend (FrontendSelect
-          (TransitiveDependencyOfDeclarationUnselectable x _ _
-            (UnselectableBecauseUnusable (UnusableOmitted _)) _)) ->
+          (TransitiveDependencyOfDeclarationUnusable x _ _
+            (UnusableOmitted _) _)) ->
             Just $ expectFromDeclSelect x
         TraceBoot (BootBindingSpec (BindingSpecReadMsg
           (BindingSpecReadAnyTargetNotEnforced{}))) ->
@@ -1156,12 +1158,11 @@ test_declarations_select_scoping =
     , "ParsedAndSelected3"
     ] $ \case
       (TraceFrontend (FrontendSelect
-        (TransitiveDependencyOfDeclarationUnselectable _ _
-          _ TransitiveDependencyNotSelected _))) ->
+        (TransitiveDependencyOfDeclarationNotSelected{}))) ->
           Just $ Expected "ParsedAndSelected2"
       (TraceFrontend (FrontendSelect
-        (TransitiveDependencyOfDeclarationUnselectable _ _
-          _ (UnselectableBecauseUnusable (UnusableParseNotAttempted _)) _))) ->
+        (TransitiveDependencyOfDeclarationUnusable _ _
+          _ (UnusableParseNotAttempted _) _))) ->
           Just $ Expected "ParsedAndSelected3"
       _otherwise -> Nothing
   }

@@ -5,7 +5,6 @@ module HsBindgen.Frontend.Pass.Select.IsPass (
   , SelectConfig(..)
     -- * Trace messages
   , SelectReason(..)
-  , Unselectable(..)
   , SelectStatus(..)
   , SelectMsg(..)
   ) where
@@ -101,32 +100,25 @@ data SelectStatus =
   | Selected SelectReason
   deriving stock (Show)
 
-data Unselectable =
-    -- | A declaration can not be selected because it or one of its dependencies
-    --   is unusable.
-    UnselectableBecauseUnusable Unusable
-    -- | A declaration can not be selected because one of its dependencies has
-    --   not been selected.
-  | TransitiveDependencyNotSelected
-  deriving stock (Show)
-
-instance PrettyForTrace Unselectable where
-  prettyForTrace r = case r of
-    UnselectableBecauseUnusable x   -> prettyForTrace x
-    TransitiveDependencyNotSelected -> "transitive dependency not selected"
-
 -- | Select trace messages
 data SelectMsg =
     -- | Information about selection status; issued for all available
     --declarations.
     SelectStatusInfo (C.Decl Select) SelectStatus
     -- | The user has selected a declaration that is available but at least one
-    -- of its transitive dependencies is _unavailable_.
-  | TransitiveDependencyOfDeclarationUnselectable
+    -- of its transitive dependencies is 'Unusable'.
+  | TransitiveDependencyOfDeclarationUnusable
       (C.Decl Select)
       SelectReason
       C.PrelimDeclId
-      Unselectable
+      Unusable
+      [SingleLoc]
+    -- | The user has selected a declaration that is available but at least one
+    -- of its transitive dependencies is not selected.
+  | TransitiveDependencyOfDeclarationNotSelected
+      (C.Decl Select)
+      SelectReason
+      C.PrelimDeclId
       [SingleLoc]
     -- | The user has selected a deprecated declaration. Maybe they want to
     -- de-select deprecated declaration?
@@ -155,18 +147,24 @@ instance PrettyForTrace SelectMsg where
       prettyForTrace x >< " not selected"
     SelectStatusInfo x (Selected r) ->
       prettyForTrace x >< " selected (" >< prettyForTrace r >< ")"
-    TransitiveDependencyOfDeclarationUnselectable x s i r ml -> PP.hcat [
-        prettyForTrace x
-      , " selected ("
-      , prettyForTrace s
-      , ") but depends on "
-      , case ml of
-          []  -> prettyForTrace i >< " (no source location available)"
-          [l] -> prettyForTrace (C.Located l i)
-          ls  -> prettyForTrace i <+> PP.hlist '(' ')' (map PP.showToCtxDoc ls)
-      , ", which is unavailable: "
-      , prettyForTrace r
-      ]
+    TransitiveDependencyOfDeclarationUnusable x s i r ls ->
+      let intro = PP.hcat [
+              prettyForTrace x
+            , " (" >< prettyForTrace s >< ")"
+            , " because a transitive dependency is unusable:"
+            ]
+      in  hangWith $ PP.hang intro 2 $ prettyDep i ls >< ": " >< prettyForTrace r
+    TransitiveDependencyOfDeclarationNotSelected x s i ls ->
+      let intro = PP.hcat [
+              prettyForTrace x
+            , " (" >< prettyForTrace s >< ")"
+            , " because a transitive dependency is not selected:"
+            ]
+          outro = PP.vcat [
+              prettyDep i ls
+            , "Consider adjusting the select predicate"
+            ]
+      in  hangWith $ PP.hang intro 2 outro
     SelectDeprecated x -> PP.hang
         "Selected a deprecated declaration: " 2 $ PP.vcat [
           prettyForTrace x
@@ -186,10 +184,17 @@ instance PrettyForTrace SelectMsg where
       hangWith :: CtxDoc -> CtxDoc
       hangWith x = PP.hang "Could not select declaration:" 2 x
 
+      prettyDep :: C.PrelimDeclId -> [SingleLoc] -> CtxDoc
+      prettyDep i = \case
+        []  -> prettyForTrace i >< " (no source location available)"
+        [l] -> prettyForTrace (C.Located l i)
+        ls  -> prettyForTrace i <+> PP.hlist '(' ')' (map PP.showToCtxDoc ls)
+
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
     SelectStatusInfo{}                             -> Info
-    TransitiveDependencyOfDeclarationUnselectable{} -> Warning
+    TransitiveDependencyOfDeclarationUnusable{}    -> Warning
+    TransitiveDependencyOfDeclarationNotSelected{} -> Warning
     SelectDeprecated{}                             -> Notice
     SelectParseSuccess x                           -> getDefaultLogLevel x
     SelectParseNotAttempted{}                      -> Warning
@@ -200,7 +205,8 @@ instance IsTrace Level SelectMsg where
   getSource  = const HsBindgen
   getTraceId = \case
     SelectStatusInfo{}                             -> "select"
-    TransitiveDependencyOfDeclarationUnselectable{} -> "select"
+    TransitiveDependencyOfDeclarationUnusable{}    -> "select"
+    TransitiveDependencyOfDeclarationNotSelected{} -> "select"
     SelectDeprecated{}                             -> "select"
     SelectParseSuccess x                           -> "select-" <> getTraceId x
     SelectParseNotAttempted{}                      -> "select-parse"
