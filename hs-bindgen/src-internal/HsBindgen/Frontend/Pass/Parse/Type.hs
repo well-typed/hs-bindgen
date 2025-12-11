@@ -4,9 +4,7 @@ module HsBindgen.Frontend.Pass.Parse.Type (fromCXType) where
 import Control.Exception (Exception (..), SomeException (..), handle)
 import Control.Monad
 import Control.Monad.Error.Class
-import Control.Monad.State.Strict
 import Data.Data (Typeable)
-import Data.Map.Strict qualified as Map
 import GHC.Stack
 
 import Clang.Enum.Simple
@@ -16,7 +14,11 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.Monad
+import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseType,
+                                                 ParseTypeExceptionInContext (..),
+                                                 dispatchDecl, dispatchWithArg,
+                                                 run)
+import HsBindgen.Frontend.Pass.Parse.Type.Monad qualified as ParseType
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -41,50 +43,41 @@ fromCXType context = liftIO . handle addContextHandler . run . cxtype
 
 cxtype :: HasCallStack => CXType -> ParseType (C.Type Parse)
 cxtype ty = do
-    -- Check cache first
-    cache <- get
-    case Map.lookup ty cache of
-      Just cached -> pure cached
-      Nothing -> do
-        -- Cache miss: parse and cache
-        reifiedType <- dispatchWithArg ty $ \case
-          CXType_Char_S     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Signed)
-          CXType_Char_U     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Unsigned)
-          CXType_SChar      -> prim $ C.PrimChar (C.PrimSignExplicit C.Signed)
-          CXType_UChar      -> prim $ C.PrimChar (C.PrimSignExplicit C.Unsigned)
-          CXType_Short      -> prim $ C.PrimIntegral C.PrimShort    C.Signed
-          CXType_UShort     -> prim $ C.PrimIntegral C.PrimShort    C.Unsigned
-          CXType_Int        -> prim $ C.PrimIntegral C.PrimInt      C.Signed
-          CXType_UInt       -> prim $ C.PrimIntegral C.PrimInt      C.Unsigned
-          CXType_Long       -> prim $ C.PrimIntegral C.PrimLong     C.Signed
-          CXType_ULong      -> prim $ C.PrimIntegral C.PrimLong     C.Unsigned
-          CXType_LongLong   -> prim $ C.PrimIntegral C.PrimLongLong C.Signed
-          CXType_ULongLong  -> prim $ C.PrimIntegral C.PrimLongLong C.Unsigned
-          CXType_Float      -> prim $ C.PrimFloating C.PrimFloat
-          CXType_Double     -> prim $ C.PrimFloating C.PrimDouble
-          CXType_LongDouble -> failure UnsupportedLongDouble
-          CXType_Bool       -> prim $ C.PrimBool
-          CXType_Complex    -> complex
+    reifiedType <- dispatchWithArg ty $ \case
+      CXType_Char_S     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Signed)
+      CXType_Char_U     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Unsigned)
+      CXType_SChar      -> prim $ C.PrimChar (C.PrimSignExplicit C.Signed)
+      CXType_UChar      -> prim $ C.PrimChar (C.PrimSignExplicit C.Unsigned)
+      CXType_Short      -> prim $ C.PrimIntegral C.PrimShort    C.Signed
+      CXType_UShort     -> prim $ C.PrimIntegral C.PrimShort    C.Unsigned
+      CXType_Int        -> prim $ C.PrimIntegral C.PrimInt      C.Signed
+      CXType_UInt       -> prim $ C.PrimIntegral C.PrimInt      C.Unsigned
+      CXType_Long       -> prim $ C.PrimIntegral C.PrimLong     C.Signed
+      CXType_ULong      -> prim $ C.PrimIntegral C.PrimLong     C.Unsigned
+      CXType_LongLong   -> prim $ C.PrimIntegral C.PrimLongLong C.Signed
+      CXType_ULongLong  -> prim $ C.PrimIntegral C.PrimLongLong C.Unsigned
+      CXType_Float      -> prim $ C.PrimFloating C.PrimFloat
+      CXType_Double     -> prim $ C.PrimFloating C.PrimDouble
+      CXType_LongDouble -> failure UnsupportedLongDouble
+      CXType_Bool       -> prim $ C.PrimBool
+      CXType_Complex    -> complex
 
-          CXType_Attributed      -> attributed
-          CXType_BlockPointer    -> blockPointer
-          CXType_ConstantArray   -> constantArray
-          CXType_Elaborated      -> elaborated
-          CXType_Enum            -> fromDecl
-          CXType_FunctionNoProto -> function False
-          CXType_FunctionProto   -> function True
-          CXType_IncompleteArray -> incompleteArray
-          CXType_Pointer         -> pointer
-          CXType_Record          -> fromDecl
-          CXType_Typedef         -> fromDecl
-          CXType_Void            -> const (pure C.TypeVoid)
+      CXType_Attributed      -> attributed
+      CXType_BlockPointer    -> blockPointer
+      CXType_ConstantArray   -> constantArray
+      CXType_Elaborated      -> elaborated
+      CXType_Enum            -> fromDecl
+      CXType_FunctionNoProto -> function False
+      CXType_FunctionProto   -> function True
+      CXType_IncompleteArray -> incompleteArray
+      CXType_Pointer         -> pointer
+      CXType_Record          -> fromDecl
+      CXType_Typedef         -> fromDecl
+      CXType_Void            -> const (pure C.TypeVoid)
 
-          kind -> failure $ UnexpectedTypeKind (Right kind)
-        isConst <- clang_isConstQualifiedType ty
-        let result = if isConst then C.TypeConst reifiedType else reifiedType
-        -- Cache the result
-        modify' (Map.insert ty result)
-        pure result
+      kind -> failure $ UnexpectedTypeKind (Right kind)
+    isConst <- clang_isConstQualifiedType ty
+    pure $ if isConst then C.TypeConst reifiedType else reifiedType
   where
     failure :: ParseTypeException -> CXType -> ParseType (C.Type Parse)
     failure err _ty = throwError err
@@ -127,9 +120,20 @@ fromDecl ty = do
 
         CXCursor_TypedefDecl -> do
           declId <- C.getPrelimDeclId decl C.NameKindOrdinary
-          uTy <- liftIO $ handle (addTypedefContextHandler declId) $
-                   run (cxtype =<< getUnderlyingCXType decl)
-          pure (C.TypeTypedef declId uTy)
+          case C.prelimDeclIdName declId of
+            Nothing -> panicPure "typedef without name"
+            Just declName -> do
+              -- Check cache first
+              mCached <- ParseType.lookupCache declName
+              case mCached of
+                Just cached -> pure cached
+                Nothing -> do
+                  -- Cache miss: parse and cache the result
+                  uTy <- liftIO $ handle (addTypedefContextHandler declId) $
+                           run (cxtype =<< getUnderlyingCXType decl)
+                  let result = C.TypeTypedef declId uTy
+                  ParseType.insertCache declName result
+                  pure result
 
         kind -> throwError $ UnexpectedTypeDecl (Right kind)
   where

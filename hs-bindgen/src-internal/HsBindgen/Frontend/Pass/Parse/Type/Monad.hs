@@ -6,6 +6,9 @@
 module HsBindgen.Frontend.Pass.Parse.Type.Monad (
     ParseType -- opaque
   , run
+    -- * Caching API
+  , lookupCache
+  , insertCache
     -- * Errors
   , ParseTypeExceptionInContext(..)
   , ParseTypeException(..)
@@ -28,6 +31,7 @@ import Clang.LowLevel.Core
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -36,19 +40,18 @@ import HsBindgen.Imports
   gets its own monad.
 
   The ParseType monad includes state for caching typedef resolution to avoid
-  redundant type parsing during typedef chain resolution. It is parametrized
-  over the phase type to avoid circular dependencies.
+  redundant type parsing during typedef chain resolution. The cache maps typedef
+  names to their resolved types.
 -------------------------------------------------------------------------------}
 
 newtype ParseType a = Wrap {
-      unwrap :: StateT (Map CXType (C.Type Parse)) IO a
+      unwrap :: StateT (Map C.DeclName (C.Type Parse)) IO a
     }
   deriving newtype (
       Functor
     , Applicative
     , Monad
     , MonadIO
-    , MonadState (Map CXType (C.Type Parse))
     )
 
 instance MonadError ParseTypeException ParseType where
@@ -60,6 +63,18 @@ instance MonadError ParseTypeException ParseType where
 
 run :: MonadIO m => ParseType a -> m a
 run = liftIO . flip evalStateT Map.empty . unwrap
+
+{-------------------------------------------------------------------------------
+  Caching API
+-------------------------------------------------------------------------------}
+
+-- | Look up a typedef in the cache
+lookupCache :: C.DeclName -> ParseType (Maybe (C.Type Parse))
+lookupCache name = Wrap $ Map.lookup name <$> get
+
+-- | Insert a typedef into the cache
+insertCache :: C.DeclName -> C.Type Parse -> ParseType ()
+insertCache name ty = Wrap $ modify' (Map.insert name ty)
 
 {-------------------------------------------------------------------------------
   Errors
