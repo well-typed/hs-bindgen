@@ -403,7 +403,7 @@ instance Resolve C.Type where
           Nothing -> C.TypeTypedef (coercePass uid) <$> resolve ctx uTy
 
       -- Recursive cases
-      C.TypePointer t         -> C.TypePointer <$> resolve ctx t
+      C.TypePointers n t      -> C.TypePointers n <$> resolve ctx t
       C.TypeFun args res      ->
         C.TypeFun <$> mapM (resolve ctx) args <*> resolve ctx res
       C.TypeConstArray n t    -> C.TypeConstArray n <$> resolve ctx t

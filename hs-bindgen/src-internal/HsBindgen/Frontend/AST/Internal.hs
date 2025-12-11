@@ -1,3 +1,5 @@
+{-# LANGUAGE PatternSynonyms #-}
+
 -- | Internal AST as it is constructed step by step in the frontend
 --
 -- Intended for qualified import.
@@ -32,7 +34,11 @@ module HsBindgen.Frontend.AST.Internal (
   , CheckedMacroType(..)
   , CheckedMacroExpr(..)
     -- * Types (at use sites)
-  , Type(..)
+  , Type(TypePrim, TypeRef, TypeTypedef, TypeFun, TypeVoid,
+         TypeConstArray, TypeExtBinding, TypeIncompleteArray, TypeBlock,
+         TypeConst, TypeComplex)
+    -- ** Pattern synonyms for safe pointer handling
+  , pattern TypePointers
     -- * Haskell names
   , NamePair(..)
   , nameHs
@@ -366,7 +372,7 @@ data Type p =
     TypePrim C.PrimType
   | TypeRef (Id p)
   | TypeTypedef (Id p) (Type p)
-  | TypePointer (Type p)
+  | TypeUnsafePointer (Type p)
   | TypeFun [Type p] (Type p)
   | TypeVoid
   | TypeConstArray Natural (Type p)
@@ -401,6 +407,60 @@ data Type p =
     -- | A complex floating-point type, such as @float complex@ or
     -- @double complex@. This also allows one to define, e.g. @char complex@
   | TypeComplex C.PrimType
+
+{-------------------------------------------------------------------------------
+  Pattern synonyms for safe pointer handling
+-------------------------------------------------------------------------------}
+
+-- | Bidirectional pattern synonym for N layers of pointer indirection
+--
+-- This pattern can be used both for matching and construction.
+--
+-- Examples (matching):
+--   * @TypePointers 1 inner@ matches @TypeUnsafePointer inner@
+--   * @TypePointers 2 inner@ matches @TypeUnsafePointer (TypeUnsafePointer inner)@
+--   * @TypePointers 3 inner@ matches @TypeUnsafePointer (TypeUnsafePointer (TypeUnsafePointer inner))@
+--
+-- Examples (construction):
+--   * @TypePointers 1 someType@ creates @TypeUnsafePointer someType@
+--   * @TypePointers 2 someType@ creates @TypeUnsafePointer (TypeUnsafePointer someType)@
+--
+-- The inner type can be anything (TypeFun, TypeRef, TypePrim, etc.).
+--
+pattern TypePointers :: Int -> Type p -> Type p
+pattern TypePointers n inner <- (stripPointers -> Just (n, inner))
+  where
+    TypePointers n inner = buildPointers n inner
+
+-- | Helper for TypePointers pattern synonym (matching direction)
+--
+-- Strips all pointer layers and returns the count and inner type.
+-- Returns Nothing if there are no pointer layers.
+stripPointers :: Type p -> Maybe (Int, Type p)
+stripPointers = go 0
+  where
+    go :: Int -> Type p -> Maybe (Int, Type p)
+    go !n (TypeUnsafePointer inner) = go (n + 1) inner
+    go !n inner
+      | n > 0     = Just (n, inner)
+      | otherwise = Nothing
+
+-- | Helper for TypePointers pattern synonym (construction direction)
+--
+-- Builds N layers of pointers around an inner type.
+buildPointers :: Int -> Type p -> Type p
+buildPointers n inner
+  | n <= 0    = inner
+  | otherwise = TypeUnsafePointer (buildPointers (n - 1) inner)
+
+-- | COMPLETE pragma to ensure exhaustiveness checking works
+--
+-- This tells GHC that pattern matching on these patterns (instead of the raw
+-- TypeUnsafePointer) is complete and exhaustive.
+--
+{-# COMPLETE TypePrim, TypeRef, TypeTypedef, TypePointers, TypeFun, TypeVoid,
+             TypeConstArray, TypeExtBinding, TypeIncompleteArray, TypeBlock,
+             TypeConst, TypeComplex #-}
 
 {-------------------------------------------------------------------------------
   Haskell names

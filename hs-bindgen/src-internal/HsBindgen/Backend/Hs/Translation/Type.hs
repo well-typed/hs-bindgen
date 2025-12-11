@@ -44,16 +44,19 @@ inContext ctx = go ctx
         Hs.HsPrimType (void c)
     go _ (C.TypePrim p) =
         Hs.HsPrimType (primType p)
-    go _ (C.TypePointer t)
+    go _ (C.TypePointers n t)
       -- Use a 'FunPtr' if the type is a function type. We inspect the
       -- /canonical/ type because we want to see through typedefs and type
       -- qualifiers like @const@.
       | C.isCanonicalTypeFunction t
-      = Hs.HsFunPtr (go PtrArg t)
+      = foldr ($) (Hs.HsFunPtr (go PtrArg t))
+                  (replicate (n - 1) Hs.HsPtr)
       | C.isErasedTypeConstQualified t
-      = Hs.HsConstPtr (go PtrArg t)
+      = foldr ($) (Hs.HsConstPtr (go PtrArg t))
+                  (replicate (n - 1) Hs.HsPtr)
       | otherwise
-      = Hs.HsPtr (go PtrArg t)
+      = foldr ($) (go PtrArg t)
+                  (replicate n Hs.HsPtr)
     go _ (C.TypeConstArray n ty) =
         Hs.HsConstArray n $ go Top ty
     go _ (C.TypeIncompleteArray ty) =

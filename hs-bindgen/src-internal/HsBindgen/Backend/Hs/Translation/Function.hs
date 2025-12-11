@@ -335,7 +335,7 @@ toIsPrimitiveType ty
         C.ConstantArrayClassification n eTy -> CAType ty n eTy
         C.IncompleteArrayClassification eTy -> AType ty eTy
     else
-      PrimitiveType $ C.TypePointer (C.getArrayElementType aTy)
+      PrimitiveType $ C.TypePointers 1 (C.getArrayElementType aTy)
 
   -- Other types
   | otherwise
@@ -345,7 +345,7 @@ toIsPrimitiveType ty
 toPrimitiveType :: IsPrimitiveType -> C.Type
 toPrimitiveType = \case
     PrimitiveType ty -> ty
-    HeapType ty -> C.TypePointer ty
+    HeapType ty -> C.TypePointers 1 ty
     CAType aTy _ eTy -> firstElemPtr aTy eTy
     AType aTy eTy -> firstElemPtr aTy eTy
   where
@@ -355,14 +355,14 @@ toPrimitiveType = \case
     firstElemPtr aTy eTy
       -- The array element type has a const qualifier.
       | C.isErasedTypeConstQualified eTy
-      = C.TypePointer eTy
+      = C.TypePointers 1 eTy
       -- The array type has a const qualifier, but the array element type does
       -- not.
       | C.isErasedTypeConstQualified aTy
-      = C.TypePointer $ C.TypeQualified C.TypeQualifierConst eTy
+      = C.TypePointers 1 $ C.TypeQualified C.TypeQualifierConst eTy
       -- No const qualifiers on either the array type or the array element type.
       | otherwise
-      = C.TypePointer eTy
+      = C.TypePointers 1 eTy
 
 
 -- | Recover type used in `restoreOrigSignature`

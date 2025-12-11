@@ -267,7 +267,7 @@ instance Finalize Int.Type where
   finalize (Int.TypePrim prim)           = Ext.TypePrim prim
   finalize (Int.TypeRef declId)          = Ext.TypeRef declId
   finalize (Int.TypeTypedef declId uTy)  = Ext.TypeTypedef $ Ext.TypedefRef declId (finalize uTy)
-  finalize (Int.TypePointer typ)         = Ext.TypePointer (finalize typ)
+  finalize (Int.TypePointers n typ)      = Ext.TypePointers n (finalize typ)
   finalize (Int.TypeFun args res)        = Ext.TypeFun (map finalize args) (finalize res)
   finalize (Int.TypeVoid)                = Ext.TypeVoid
   finalize (Int.TypeConstArray n typ)    = Ext.TypeConstArray n (finalize typ)
