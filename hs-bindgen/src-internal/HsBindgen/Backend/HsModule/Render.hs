@@ -39,6 +39,7 @@ import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 
@@ -378,17 +379,17 @@ instance Pretty SDecl where
           (callconv, impent) =
             case foreignImportCallConv of
               CallConvUserlandCAPI _ -> ("ccall",
-                  string $ Text.unpack (C.getName foreignImportOrigName)
+                  string $ Text.unpack foreignImportOrigName.text
                 )
               CallConvGhcCAPI header -> ("capi", hcat [
                   string header
-                , string $ Text.unpack (C.getName foreignImportOrigName)
+                , string $ Text.unpack foreignImportOrigName.text
                 ])
               CallConvGhcCCall style -> ("ccall", hcat [
                   case style of
                     ImportAsValue -> ""
                     ImportAsPtr   -> "&"
-                , string $ Text.unpack (C.getName foreignImportOrigName)
+                , string $ Text.unpack foreignImportOrigName.text
                 ])
 
           prettyFunctionComment = maybe empty (pretty . TopLevelComment) foreignImportComment

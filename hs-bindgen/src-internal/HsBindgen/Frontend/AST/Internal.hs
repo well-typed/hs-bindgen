@@ -41,7 +41,7 @@ module HsBindgen.Frontend.AST.Internal (
     -- * Show
   , ValidPass
     -- * Helper functions
-  , declQualName
+  , declName
   ) where
 
 import Prelude hiding (Enum)
@@ -332,7 +332,7 @@ newtype Comment p =
 -- between namespaces (i.e., @struct foo@ is simply referred to as @foo@). In
 -- 'MangleNames' we will /search/ for a matching name and set the @HaskellId@
 -- accordingly, so that we can generate an approprate reference in the Haddocks.
-data CommentRef p = CommentRef C.Name (Maybe (HaskellId p))
+data CommentRef p = CommentRef Text (Maybe (HaskellId p))
 
 {-------------------------------------------------------------------------------
   Macros
@@ -406,12 +406,15 @@ data Type p =
   Haskell names
 -------------------------------------------------------------------------------}
 
--- | Pair of a C name and the corresponding Haskell name
+-- | Pair of a (scoped) C name and the corresponding Haskell name
+--
+-- This is only used for scoped names: field names, macro arguments, etc. It is
+-- /not/ used for declarations.
 --
 -- Invariant: the 'Hs.Identifier' must satisfy the rules for legal Haskell
 -- names, for its intended use (constructor, variable, ..).
 data NamePair = NamePair {
-      nameC       :: C.Name
+      nameC       :: C.ScopedName
     , nameHsIdent :: Hs.Identifier
     }
   deriving stock (Show, Eq, Ord, Generic)
@@ -549,5 +552,5 @@ instance Id p ~ C.DeclId p => PrettyForTrace (Decl p) where
   Helper functions
 -------------------------------------------------------------------------------}
 
-declQualName :: Id p ~ C.DeclId p => Decl p -> C.QualName
-declQualName decl = C.declIdQualName decl.declInfo.declId
+declName :: Id p ~ C.DeclId p => Decl p -> C.DeclName
+declName decl = decl.declInfo.declId.name

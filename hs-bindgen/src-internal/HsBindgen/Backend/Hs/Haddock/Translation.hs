@@ -22,6 +22,7 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.AST.External
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -35,7 +36,7 @@ generateHaddocksWithInfo config declInfo =
     fst $ generateHaddocksWithParams config declInfo Args{
         isField     = False
       , loc         = declInfo.declLoc
-      , nameC       = declInfo.declId.name
+      , nameC       = declInfo.declId.name.text
       , nameHsIdent = declInfo.declId.haskellId
       , comment     = declInfo.declComment
       , params      = []
@@ -50,7 +51,7 @@ generateHaddocksWithFieldInfo config declInfo FieldInfo{..} =
     fst $ generateHaddocksWithParams config declInfo Args{
         isField     = True
       , loc         = fieldLoc
-      , nameC       = fieldName.nameC
+      , nameC       = fieldName.nameC.text
       , nameHsIdent = fieldName.nameHsIdent
       , comment     = fieldComment
       , params      = []
@@ -65,7 +66,7 @@ generateHaddocksWithInfoParams config declInfo params =
     generateHaddocksWithParams config declInfo Args{
         isField     = False
       , loc         = declInfo.declLoc
-      , nameC       = declInfo.declId.name
+      , nameC       = declInfo.declId.name.text
       , nameHsIdent = declInfo.declId.haskellId
       , comment     = declInfo.declComment
       , params
@@ -79,7 +80,7 @@ generateHaddocksWithInfoParams config declInfo params =
 data Args = Args{
       isField     :: Bool
     , loc         :: C.SingleLoc
-    , nameC       :: C.Name
+    , nameC       :: Text
     , nameHsIdent :: Hs.Identifier
     , comment     :: Maybe (CDoc.Comment CommentRef)
     , params      :: [Hs.FunctionParameter]
@@ -101,7 +102,7 @@ generateHaddocksWithParams HaddockConfig{..} declInfo Args{comment = Nothing, ..
             | not isField                -> ( Nothing
                                             , Just (updateSingleLoc pathStyle loc)
                                             )
-          _                              -> ( Just (getName nameC)
+          _                              -> ( Just nameC
                                             , Just (updateSingleLoc pathStyle loc)
                                             )
    in -- If there's no C.Comment to associate with any function parameter we make
@@ -121,7 +122,7 @@ generateHaddocksWithParams HaddockConfig{..} declInfo Args{comment = Just CDoc.C
             | not isField                -> ( Nothing
                                             , Just (updateSingleLoc pathStyle loc)
                                             )
-          _                              -> ( Just (getName nameC)
+          _                              -> ( Just nameC
                                             , Just (updateSingleLoc pathStyle loc)
                                             )
       (commentTitle, commentChildren') =
@@ -402,7 +403,7 @@ convertInlineContent = \case
   CDoc.InlineRefCommand (CommentRef c mHsIdent) -> [
       case mHsIdent of
         Just hs -> HsDoc.Identifier (Hs.getIdentifier hs)
-        Nothing -> HsDoc.Monospace [HsDoc.TextContent $ C.getName c]
+        Nothing -> HsDoc.Monospace [HsDoc.TextContent c]
     ]
 
   -- HTML is not currently supported

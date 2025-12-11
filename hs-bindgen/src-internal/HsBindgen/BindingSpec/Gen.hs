@@ -31,6 +31,7 @@ import HsBindgen.Frontend.Naming as C
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -48,7 +49,7 @@ genBindingSpec ::
      ClangArgs.Target
   -> Hs.ModuleName
   -> GetMainHeaders
-  -> [(C.QualName, SourcePath)]
+  -> [(C.DeclName, SourcePath)]
   -> [Hs.Decl]
   -> UnresolvedBindingSpec
 genBindingSpec target hsModuleName getMainHeaders omitTypes =
@@ -63,7 +64,7 @@ genBindingSpecYaml ::
      ClangArgs.Target
   -> Hs.ModuleName
   -> GetMainHeaders
-  -> [(C.QualName, SourcePath)]
+  -> [(C.DeclName, SourcePath)]
   -> [Hs.Decl]
   -> ByteString
 genBindingSpecYaml target hsModuleName getMainHeaders omitTypes =
@@ -79,7 +80,7 @@ genBindingSpec' ::
      ClangArgs.Target
   -> Hs.ModuleName
   -> GetMainHeaders
-  -> [(C.QualName, SourcePath)]
+  -> [(C.DeclName, SourcePath)]
   -> [Hs.Decl]
   -> UnresolvedBindingSpec
 genBindingSpec'
@@ -94,8 +95,8 @@ genBindingSpec'
         BindingSpec.bindingSpecTarget = BindingSpec.SpecificTarget target
       , BindingSpec.bindingSpecModule = hsModuleName
       , BindingSpec.bindingSpecCTypes = Map.fromListWith (++) [
-            (cQualName, [(getMainHeaders' path, Omit)])
-          | (cQualName, path) <- omitTypes
+            (cDeclName, [(getMainHeaders' path, Omit)])
+          | (cDeclName, path) <- omitTypes
           ]
       , BindingSpec.bindingSpecHsTypes = Map.empty
       }
@@ -133,12 +134,12 @@ genBindingSpec'
       -> UnresolvedBindingSpec
       -> UnresolvedBindingSpec
     insertType ((declInfo, cTypeSpec), (hsId, hsTypeSpec)) spec =
-        case getCQualName declInfo.declId of
+        case getCDeclName declInfo.declId of
           Nothing        -> spec
-          Just cQualName -> spec{
+          Just cDeclName -> spec{
               BindingSpec.bindingSpecCTypes =
                 Map.insertWith (++)
-                  cQualName
+                  cDeclName
                   [(getHeaders declInfo, Require cTypeSpec)]
                   (BindingSpec.bindingSpecCTypes spec)
             , BindingSpec.bindingSpecHsTypes =
@@ -227,14 +228,8 @@ genBindingSpec'
     getHeaders :: C.DeclInfo -> Set HashIncludeArg
     getHeaders = getMainHeaders' . singleLocPath . C.declLoc
 
--- TODO <https://github.com/well-typed/hs-bindgen/issues/1267>
--- I suspect that this is where things go wrong in
--- <https://github.com/well-typed/hs-bindgen/pull/1292>; we only look at aliases
--- if a name is detected as anonymous, which we cannot reliably do anymore. I'm
--- wondering if we can get rid of this source altogether, and simply record the
--- C name as part of the DeclInfo.
-getCQualName :: C.FinalDeclId -> Maybe C.QualName
-getCQualName declId =
+getCDeclName :: C.FinalDeclId -> Maybe C.DeclName
+getCDeclName declId =
     case declId.origDeclId of
       C.OrigDeclId orig ->
         Just $ auxOrig orig
@@ -242,10 +237,9 @@ getCQualName declId =
         -- TODO <https://github.com/well-typed/hs-bindgen/issues/1379>
         Nothing
   where
-    auxOrig :: PrelimDeclId -> QualName
+    auxOrig :: PrelimDeclId -> C.DeclName
     auxOrig = \case
-        PrelimDeclIdNamed cName kind ->
-          C.QualName cName kind
+        PrelimDeclIdNamed cName       -> cName
         PrelimDeclIdAnon _anonId kind ->
           -- Anonymous declarations can only arise in very specific situations:
           --
@@ -259,7 +253,7 @@ getCQualName declId =
           --
           -- TODO <https://github.com/well-typed/hs-bindgen/issues/844>
           -- This is WIP.
-          C.QualName ("@" <> declId.name) kind
+          C.DeclName ("@" <> declId.name.text) kind
 
 -- TODO strategy
 -- TODO constraints

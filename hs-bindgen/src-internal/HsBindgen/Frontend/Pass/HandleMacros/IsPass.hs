@@ -10,6 +10,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -25,8 +26,8 @@ type family AnnHandleMacros (ix :: Symbol) :: Star where
 
 instance IsPass HandleMacros where
   type Id           HandleMacros = C.PrelimDeclId
-  type FieldName    HandleMacros = C.Name
-  type ArgumentName HandleMacros = Maybe C.Name
+  type FieldName    HandleMacros = C.ScopedName
+  type ArgumentName HandleMacros = Maybe C.ScopedName
   type MacroBody    HandleMacros = CheckedMacro HandleMacros
   type ExtBinding   HandleMacros = Void
   type Ann ix       HandleMacros = AnnHandleMacros ix

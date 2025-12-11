@@ -23,7 +23,7 @@ import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level: construct the partial AST
@@ -51,7 +51,7 @@ mkPartialDecl = \case
     other ->
       unexpectedF other
 
-mkDecl :: CanApply p => LanC.CDeclaration a -> FromLanC p (Maybe Name, Type p)
+mkDecl :: CanApply p => LanC.CDeclaration a -> FromLanC p (Maybe CName, Type p)
 mkDecl = mkPartialDecl >=> fromDecl
 
 {-------------------------------------------------------------------------------
@@ -114,13 +114,15 @@ instance CanApply p
         >=> repeatedly (overM #partialType . apply) (reverse derived)
     where
       setName :: LanC.Ident -> (PartialDecl p) -> FromLanC p (PartialDecl p)
-      setName name = return . Optics.set #partialName (Just $ mkName name)
+      setName name = return . Optics.set #partialName (Just $ mkCName name)
 
 {-------------------------------------------------------------------------------
   'PartialType'
 -------------------------------------------------------------------------------}
 
-withSign :: ValidPass p => Update p (Maybe PrimSign -> PrimType) (PartialType p)
+withSign ::
+     ValidPass p
+  => Update p (Maybe C.PrimSign -> C.PrimType) (PartialType p)
 withSign f = \case
     PartialUnknown unknown -> do
       let UnknownType{unknownSign, unknownConst} = unknown
@@ -146,7 +148,7 @@ notFun typ = \case
     other ->
       unexpected $ show other
 
-setSign :: ValidPass p => Update p PrimSign (PartialType p)
+setSign :: ValidPass p => Update p C.PrimSign (PartialType p)
 setSign sign = \case
     PartialUnknown unknown ->
       return $ PartialUnknown $ Optics.set #unknownSign (Just sign) unknown
@@ -161,13 +163,13 @@ instance CanApply p
       LanC.CVoidType _a -> notFun $ TypeVoid
 
       -- Primitive types
-      LanC.CCharType   _a -> withSign $ PrimChar . charSign
-      LanC.CShortType  _a -> withSign $ PrimIntegral PrimShort . fromMaybe Signed
-      LanC.CIntType    _a -> withSign $ PrimIntegral PrimInt   . fromMaybe Signed
-      LanC.CLongType   _a -> withSign $ PrimIntegral PrimLong  . fromMaybe Signed
-      LanC.CFloatType  _a -> notFun $ TypePrim $ PrimFloating PrimFloat
-      LanC.CDoubleType _a -> notFun $ TypePrim $ PrimFloating PrimDouble
-      LanC.CBoolType   _a -> notFun $ TypePrim $ PrimBool
+      LanC.CCharType   _a -> withSign $ C.PrimChar . charSign
+      LanC.CShortType  _a -> withSign $ C.PrimIntegral C.PrimShort . fromMaybe C.Signed
+      LanC.CIntType    _a -> withSign $ C.PrimIntegral C.PrimInt   . fromMaybe C.Signed
+      LanC.CLongType   _a -> withSign $ C.PrimIntegral C.PrimLong  . fromMaybe C.Signed
+      LanC.CFloatType  _a -> notFun $ TypePrim $ C.PrimFloating C.PrimFloat
+      LanC.CDoubleType _a -> notFun $ TypePrim $ C.PrimFloating C.PrimDouble
+      LanC.CBoolType   _a -> notFun $ TypePrim $ C.PrimBool
 
       -- Complex types
       LanC.CComplexType _a -> \case
@@ -177,8 +179,8 @@ instance CanApply p
           unexpected $ show other
 
       -- Sign specifiers
-      LanC.CSignedType _a -> setSign Signed
-      LanC.CUnsigType  _a -> setSign Unsigned
+      LanC.CSignedType _a -> setSign C.Signed
+      LanC.CUnsigType  _a -> setSign C.Unsigned
 
       -- Unsupported types
       LanC.CInt128Type{}   -> \_ -> unsupported "CInt128Type"
@@ -191,33 +193,37 @@ instance CanApply p
 
       -- User-defined types
       LanC.CSUType (LanC.CStruct su mTag mDef _attrs _a) _a' -> \partial -> do
-        tag <- checkNotAnon "anonymous struct or union" mTag
+        let tagKind = case su of
+                        LanC.CStructTag -> C.TagKindStruct
+                        LanC.CUnionTag  -> C.TagKindUnion
+        name <- checkNotAnon mTag tagKind
         checkNoDef "struct or union definition" mDef
-        let typ = case su of
-                    LanC.CStructTag -> typeRef tag TagKindStruct
-                    LanC.CUnionTag  -> typeRef tag TagKindUnion
-        notFun typ partial
+        notFun (typeRef name) partial
       LanC.CEnumType (LanC.CEnum mTag mDef _attrs _a) _a' -> \partial -> do
-        tag <- checkNotAnon "anonymous enum" mTag
+        name <- checkNotAnon mTag C.TagKindEnum
         checkNoDef "enum definition" mDef
-        notFun (typeRef tag TagKindEnum) $ partial
+        notFun (typeRef name) $ partial
       LanC.CTypeDef name _a -> \partial -> do
-        let name' = mkName name
+        let name' = mkCName name
         typeEnv <- getReparseEnv
         case Map.lookup name' typeEnv of
           Nothing  -> unexpected $ "user-defined type " ++ show name
           Just typ -> notFun typ partial
     where
-      charSign :: Maybe PrimSign -> PrimSignChar
-      charSign Nothing     = PrimSignImplicit Nothing
-      charSign (Just sign) = PrimSignExplicit sign
+      charSign :: Maybe C.PrimSign -> C.PrimSignChar
+      charSign Nothing     = C.PrimSignImplicit Nothing
+      charSign (Just sign) = C.PrimSignExplicit sign
 
-      typeRef :: Name -> TagKind -> Type p
-      typeRef tag kind = TypeRef $ PrelimDeclIdNamed tag (NameKindTagged kind)
+      typeRef :: C.DeclName -> Type p
+      typeRef = TypeRef . PrelimDeclIdNamed
 
-      checkNotAnon :: String -> Maybe LanC.Ident -> FromLanC p Name
-      checkNotAnon _   (Just name) = return $ mkName name
-      checkNotAnon err Nothing     = unsupported err
+      checkNotAnon :: Maybe LanC.Ident -> C.TagKind -> FromLanC p C.DeclName
+      checkNotAnon mName tagKind =
+          case mName of
+            Just name ->
+              return $ C.DeclName (mkCName name) (C.NameKindTagged tagKind)
+            Nothing ->
+              unsupported $ "Anonymous " ++ show tagKind
 
       checkNoDef :: String -> Maybe def -> FromLanC p ()
       checkNoDef _   Nothing  = return ()
@@ -301,8 +307,8 @@ instance Apply p (LanC.CDerivedDeclarator a) (Type p) where
   Internal auxiliary: language-c
 -------------------------------------------------------------------------------}
 
-mkName :: LanC.Ident -> Name
-mkName (LanC.Ident name _hash _a) = Name $ Text.pack name
+mkCName :: LanC.Ident -> CName
+mkCName (LanC.Ident name _hash _a) = Text.pack name
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: optics

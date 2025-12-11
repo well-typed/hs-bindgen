@@ -37,6 +37,7 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.PrettyC qualified as PC
 
@@ -1069,7 +1070,7 @@ hasUnsupportedType = aux . C.getCanonicalType
 
     auxRef :: C.FinalDeclId -> Bool
     auxRef declId =
-        case declId.nameKind of
+        case declId.name.kind of
           C.NameKindOrdinary               -> False
           C.NameKindTagged C.TagKindStruct -> True
           C.NameKindTagged C.TagKindUnion  -> True
@@ -1321,7 +1322,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec = concat [
           importName
           (snd resType)
           (if areFancy then ffiParams else ffiParsedArgs)
-          (uniqueCName wrapperName)
+          (uniqueCDeclName wrapperName)
           (CallConvUserlandCAPI userlandCapiWrapper)
           (Origin.Function f)
           (mconcat [
@@ -1425,7 +1426,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec = concat [
 
     -- Generation of C wrapper for userland-capi.
     innerName :: String
-    innerName = T.unpack $ C.getName info.declId.name
+    innerName = T.unpack info.declId.name.text
 
     wrapperName :: UniqueSymbol
     wrapperName = globallyUnique opts.translationUniqueId moduleName $ concat [
@@ -1635,7 +1636,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
           "get_" ++ varName ++ "_ptr"
 
     varName :: String
-    varName = T.unpack $ C.getName info.declId.name
+    varName = T.unpack info.declId.name.text
 
     stubType :: C.Type
     stubType = C.TypePointer ty
@@ -1666,7 +1667,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
           stubImportName
           stubImportType
           []
-          (uniqueCName stubName)
+          (uniqueCDeclName stubName)
           (CallConvUserlandCAPI userlandCapiWrapper)
           (Origin.Global ty)
           (Just $ HsDoc.uniqueSymbol stubName)

@@ -28,6 +28,7 @@ import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Artefact
@@ -44,7 +45,7 @@ data Artefact (a :: Star) where
   DeclIndex           :: Artefact DeclIndex.DeclIndex
   UseDeclGraph        :: Artefact UseDeclGraph.UseDeclGraph
   DeclUseGraph        :: Artefact DeclUseGraph.DeclUseGraph
-  OmitTypes           :: Artefact [(C.QualName, SourcePath)]
+  OmitTypes           :: Artefact [(C.DeclName, SourcePath)]
   ReifiedC            :: Artefact [C.Decl]
   Dependencies        :: Artefact [SourcePath]
   -- * Backend

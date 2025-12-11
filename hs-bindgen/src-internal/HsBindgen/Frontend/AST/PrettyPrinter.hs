@@ -158,7 +158,7 @@ showsType x (TypeFun args res)        =
     named i t = (showString "arg" . shows i, t)
 showsType x TypeVoid                  = showString "void " . x 0
 showsType x (TypeIncompleteArray t)   = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
-showsType x (TypeExtBinding ext)      = showCQualName (extCName ext) . showChar ' ' . x 0
+showsType x (TypeExtBinding ext)      = showsDeclName (extCName ext) . showChar ' ' . x 0
 showsType x (TypeBlock t)             = showsType (\_d -> showString "^" . x 0) t
 -- Type qualifiers like @const@ can appear before, and _after_ the type they
 -- refer to. For example,
@@ -241,9 +241,6 @@ showAttributeNewline pur = case pur of
     HaskellPureFunction -> showChar '\n'
     CPureFunction -> showChar '\n'
 
-showCQualName :: C.QualName -> ShowS
-showCQualName = showString . Text.unpack . C.qualNameText
-
 showsDeclId :: FinalDeclId -> ShowS
 showsDeclId declId =
     case declId.origDeclId of
@@ -252,11 +249,13 @@ showsDeclId declId =
 
 showsOrigId :: PrelimDeclId -> ShowS
 showsOrigId = \case
-    PrelimDeclIdNamed name kind ->
-        showsNameKind kind
-      . showsCName name
+    PrelimDeclIdNamed name ->
+      showsDeclName name
     PrelimDeclIdAnon{} ->
       panicPure "cannot refer to anonymous declaration"
+
+showsDeclName :: C.DeclName -> ShowS
+showsDeclName (C.DeclName name kind) = showsNameKind kind . showsText name
 
 showsNameKind :: NameKind -> ShowS
 showsNameKind = \case
@@ -267,5 +266,5 @@ showsNameKind = \case
        TagKindEnum   -> showString "enum "
        TagKindUnion  -> showString "union "
 
-showsCName :: Name -> String -> String
-showsCName = showString . Text.unpack . getName
+showsText :: Text -> String -> String
+showsText = showString . Text.unpack

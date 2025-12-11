@@ -14,6 +14,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -31,8 +32,8 @@ type family AnnHandleTypedefs ix where
 
 instance IsPass HandleTypedefs where
   type Id           HandleTypedefs = C.DeclId HandleTypedefs
-  type FieldName    HandleTypedefs = C.Name
-  type ArgumentName HandleTypedefs = Maybe C.Name
+  type FieldName    HandleTypedefs = C.ScopedName
+  type ArgumentName HandleTypedefs = Maybe C.ScopedName
   type MacroBody    HandleTypedefs = C.CheckedMacro HandleTypedefs
   type ExtBinding   HandleTypedefs = ResolvedExtBinding
   type Ann ix       HandleTypedefs = AnnHandleTypedefs ix
@@ -44,7 +45,7 @@ instance IsPass HandleTypedefs where
 
 data HandleTypedefsMsg =
     HandleTypedefsSquashed (C.DeclInfo HandleTypedefs)
-  | HandleTypedefsRenamedTagged (C.DeclInfo HandleTypedefs) C.Name
+  | HandleTypedefsRenamedTagged (C.DeclInfo HandleTypedefs) C.DeclName
   deriving stock (Show)
 
 instance PrettyForTrace HandleTypedefsMsg where

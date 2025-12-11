@@ -21,6 +21,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass (Select)
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -177,8 +178,10 @@ typedefOfDecl typedefId payload useSites
   | shouldSquash
   = let newId :: C.DeclId HandleTypedefs
         newId = C.DeclId{
-            name       = typedefId.name
-          , nameKind   = payload.declId.nameKind
+            name       = C.DeclName{
+                             text = typedefId.name.text
+                           , kind = payload.declId.name.kind
+                           }
           , origDeclId = typedefId.origDeclId
           , haskellId  = ()
           }
@@ -190,8 +193,10 @@ typedefOfDecl typedefId payload useSites
   | shouldRename
   = let newId :: C.DeclId HandleTypedefs
         newId = C.DeclId{
-            name       = typedefId.name <> "_Deref"
-          , nameKind   = payload.declId.nameKind
+            name       = C.DeclName{
+                            text = typedefId.name.text <> "_Deref"
+                          , kind = payload.declId.name.kind
+                           }
           , origDeclId = payload.declId.origDeclId
           , haskellId  = ()
           }
@@ -205,13 +210,13 @@ typedefOfDecl typedefId payload useSites
     shouldSquash, shouldRename :: Bool
     shouldSquash = and [
           payload.valOrRef == ByValue
-        , or [ typedefId.name == payload.declId.name
+        , or [ typedefId.name.text == payload.declId.name.text
              , length useSites == 1
              ]
         ]
     shouldRename = and [
           payload.valOrRef == ByRef
-        , typedefId.name == payload.declId.name
+        , typedefId.name.text == payload.declId.name.text
         ]
 
 {-------------------------------------------------------------------------------
@@ -236,7 +241,7 @@ taggedPayload = go ByValue
           -- because only then there is a chance of name clashes (in Haskell we
           -- do not distinguish between the tagged and ordinary namespaces).
           tagKind <-
-            case declId.nameKind of
+            case declId.name.kind of
               C.NameKindTagged kind -> Just kind
               C.NameKindOrdinary    -> Nothing
           -- Auxiliary declarations are not introduced until @HandleTypedefs@

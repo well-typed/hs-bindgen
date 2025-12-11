@@ -17,6 +17,7 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -92,18 +93,16 @@ nameDecl env decl = do
 constructDeclId :: RenameEnv -> Id HandleMacros -> Maybe (Id NameAnon)
 constructDeclId env declId =
      case declId of
-       C.PrelimDeclIdNamed name kind ->
+       C.PrelimDeclIdNamed name ->
          Just $ C.DeclId{
              name       = name
-           , nameKind   = kind
            , origDeclId = C.OrigDeclId declId
            , haskellId  = ()
            }
        C.PrelimDeclIdAnon _anonId kind -> do
          useOfAnon <- findNamedUseOf env declId
          Just $ C.DeclId{
-             name       = nameForAnon useOfAnon
-           , nameKind   = kind
+             name       = C.DeclName (nameForAnon useOfAnon) kind
            , origDeclId = C.OrigDeclId declId
            , haskellId  = ()
            }
@@ -245,16 +244,16 @@ nameUseSite env prelimDeclId =
 -------------------------------------------------------------------------------}
 
 -- | Construct name for anonymous declaration
-nameForAnon :: UseOfDecl -> C.Name
+nameForAnon :: UseOfDecl -> Text
 nameForAnon = \case
       UsedByNamed (UsedInTypedef ByValue) typedefName ->
-        typedefName
+        typedefName.text
       UsedByNamed (UsedInTypedef ByRef) typedefName ->
-        typedefName <> "_Deref"
+        typedefName.text <> "_Deref"
       UsedByNamed (UsedInField _valOrRef fieldName) typeName ->
-        typeName <> "_" <> fieldName
+        typeName.text <> "_" <> fieldName.text
       UsedByFieldOfAnon _valOrRef fieldName useOfAnon ->
-        nameForAnon useOfAnon <> "_" <> fieldName
+        nameForAnon useOfAnon <> "_" <> fieldName.text
 
       -- Anonymous declarations in functions or globals are unsupported. See
       -- 'functionDecl' and 'varDecl' in "HsBindgen.Frontend.Pass.Parse.Decl".

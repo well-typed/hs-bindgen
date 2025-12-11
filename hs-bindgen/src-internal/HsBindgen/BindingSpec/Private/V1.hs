@@ -79,9 +79,9 @@ import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.Version
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Errors
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Orphans ()
 import HsBindgen.Resolve
@@ -125,12 +125,12 @@ data BindingSpec header = BindingSpec {
 
       -- | C type specifications
       --
-      -- A C type is identified using a 'C.QualName' and a set of headers that
-      -- provide the type.  For a given 'C.QualName', the sets of headers are
+      -- A C type is identified using a 'C.DeclName' and a set of headers that
+      -- provide the type.  For a given 'C.DeclName', the sets of headers are
       -- disjoint.  The type of this map is therefore equivalent to
-      -- @'Map' 'C.QualName' ('Map' header ('Omittable' 'CTypeSpec'))@, but this
+      -- @'Map' 'C.DeclName' ('Map' header ('Omittable' 'CTypeSpec'))@, but this
       -- type is used as an optimization.
-    , bindingSpecCTypes :: Map C.QualName [(Set header, Omittable CTypeSpec)]
+    , bindingSpecCTypes :: Map C.DeclName [(Set header, Omittable CTypeSpec)]
 
       -- | Haskell type specifications
     , bindingSpecHsTypes :: Map Hs.Identifier HsTypeSpec
@@ -344,19 +344,19 @@ isCompatTarget :: BindingSpec header -> ClangArgs.Target -> Bool
 isCompatTarget = isCompatBindingSpecTarget . bindingSpecTarget
 
 -- | Get the C types in a binding specification
-getCTypes :: ResolvedBindingSpec -> Map C.QualName [Set SourcePath]
+getCTypes :: ResolvedBindingSpec -> Map C.DeclName [Set SourcePath]
 getCTypes =
       fmap (map (Set.map snd . fst))
     . bindingSpecCTypes
 
 -- | Lookup a C type in a 'ResolvedBindingSpec'
 lookupCTypeSpec ::
-     C.QualName
+     C.DeclName
   -> Set SourcePath
   -> ResolvedBindingSpec
   -> Maybe (Hs.ModuleName, Omittable CTypeSpec)
-lookupCTypeSpec cQualName headers spec = do
-    ps <- Map.lookup cQualName (bindingSpecCTypes spec)
+lookupCTypeSpec cDeclName headers spec = do
+    ps <- Map.lookup cDeclName (bindingSpecCTypes spec)
     oCTypeSpec <- lookupBy (not . Set.disjoint headers . Set.map snd) ps
     return (bindingSpecModule spec, oCTypeSpec)
 
@@ -538,27 +538,27 @@ resolve tracer injResolveHeader args uSpec = do
             rHeaders -> Just (Set.fromList rHeaders)
 
         resolveType ::
-             C.QualName
+             C.DeclName
           -> (Set HashIncludeArg, a)
           -> IO (Maybe (Set (HashIncludeArg, SourcePath), a))
-        resolveType cQualName (uHeaders, x) = case resolveSet uHeaders of
+        resolveType cDeclName (uHeaders, x) = case resolveSet uHeaders of
           Just rHeaders -> return $ Just (rHeaders, x)
           Nothing       -> do
-            traceWith tracer $ BindingSpecResolveTypeDropped cQualName
+            traceWith tracer $ BindingSpecResolveTypeDropped cDeclName
             return Nothing
 
         resolveTypes ::
-             C.QualName
+             C.DeclName
           -> [(Set HashIncludeArg, a)]
           -> IO
                ( Maybe
-                   (C.QualName, [(Set (HashIncludeArg, SourcePath), a)])
+                   (C.DeclName, [(Set (HashIncludeArg, SourcePath), a)])
                )
-        resolveTypes cQualName uKVs =
-          mapMaybeM (resolveType cQualName) uKVs >>= \case
+        resolveTypes cDeclName uKVs =
+          mapMaybeM (resolveType cDeclName) uKVs >>= \case
             rKVs
               | null rKVs -> return Nothing
-              | otherwise -> return $ Just (cQualName, rKVs)
+              | otherwise -> return $ Just (cDeclName, rKVs)
 
     cTypes <- Map.fromList <$>
       mapMaybeM (uncurry resolveTypes) (Map.toList (bindingSpecCTypes uSpec))
@@ -583,7 +583,7 @@ resolve tracer injResolveHeader args uSpec = do
 -- optimization for resolving external binding specifications.
 newtype MergedBindingSpecs = MergedBindingSpecs {
       mergedBindingSpecs ::
-        Map C.QualName [(Set SourcePath, ResolvedBindingSpec)]
+        Map C.DeclName [(Set SourcePath, ResolvedBindingSpec)]
     }
   deriving stock (Show)
 
@@ -598,19 +598,19 @@ merge =
       bimap mkTypeErrs (MergedBindingSpecs . snd)
     . foldl' mergeSpec (Set.empty, (Map.empty, Map.empty))
   where
-    mkTypeErrs :: Set C.QualName -> [BindingSpecMergeMsg]
+    mkTypeErrs :: Set C.DeclName -> [BindingSpecMergeMsg]
     mkTypeErrs = fmap BindingSpecMergeConflict . Set.toList
 
     mergeSpec ::
-         ( Set C.QualName
-         , ( Map C.QualName (Set HashIncludeArg)
-           , Map C.QualName [(Set SourcePath, ResolvedBindingSpec)]
+         ( Set C.DeclName
+         , ( Map C.DeclName (Set HashIncludeArg)
+           , Map C.DeclName [(Set SourcePath, ResolvedBindingSpec)]
            )
          )
       -> ResolvedBindingSpec
-      -> ( Set C.QualName
-         , ( Map C.QualName (Set HashIncludeArg)
-           , Map C.QualName [(Set SourcePath, ResolvedBindingSpec)]
+      -> ( Set C.DeclName
+         , ( Map C.DeclName (Set HashIncludeArg)
+           , Map C.DeclName [(Set SourcePath, ResolvedBindingSpec)]
            )
          )
     mergeSpec ctx spec =
@@ -620,37 +620,37 @@ merge =
 
     mergeType ::
          ResolvedBindingSpec
-      -> ( Set C.QualName
-         , ( Map C.QualName (Set HashIncludeArg)
-           , Map C.QualName [(Set SourcePath, ResolvedBindingSpec)]
+      -> ( Set C.DeclName
+         , ( Map C.DeclName (Set HashIncludeArg)
+           , Map C.DeclName [(Set SourcePath, ResolvedBindingSpec)]
            )
          )
-      -> (C.QualName, [Set (HashIncludeArg, SourcePath)])
-      -> ( Set C.QualName
-         , ( Map C.QualName (Set HashIncludeArg)
-           , Map C.QualName [(Set SourcePath, ResolvedBindingSpec)]
+      -> (C.DeclName, [Set (HashIncludeArg, SourcePath)])
+      -> ( Set C.DeclName
+         , ( Map C.DeclName (Set HashIncludeArg)
+           , Map C.DeclName [(Set SourcePath, ResolvedBindingSpec)]
            )
          )
-    mergeType spec (dupSet, (seenMap, acc)) (cQualName, sourceSets) =
+    mergeType spec (dupSet, (seenMap, acc)) (cDeclName, sourceSets) =
       let seenS = Set.unions $ map (Set.map fst) sourceSets
           keyS  = Set.unions $ map (Set.map snd) sourceSets
-          acc'  = Map.insertWith (++) cQualName [(keyS, spec)] acc
-      in  case Map.insertLookupWithKey (const (<>)) cQualName seenS seenMap of
+          acc'  = Map.insertWith (++) cDeclName [(keyS, spec)] acc
+      in  case Map.insertLookupWithKey (const (<>)) cDeclName seenS seenMap of
             (Nothing, seenMap') -> (dupSet, (seenMap', acc'))
             (Just eS, seenMap')
               | Set.disjoint eS seenS -> (dupSet, (seenMap', acc'))
-              | otherwise -> (Set.insert cQualName dupSet, (seenMap', acc'))
+              | otherwise -> (Set.insert cDeclName dupSet, (seenMap', acc'))
 
 -- | Lookup type specs in 'MergedBindingSpecs'
 lookupMergedBindingSpecs ::
-     C.QualName
+     C.DeclName
   -> Set SourcePath
   -> MergedBindingSpecs
   -> Maybe (Hs.ModuleName, Omittable CTypeSpec, Maybe HsTypeSpec)
-lookupMergedBindingSpecs cQualName headers specs = do
+lookupMergedBindingSpecs cDeclName headers specs = do
     spec <- lookupBy (not . Set.disjoint headers)
-      =<< Map.lookup cQualName (mergedBindingSpecs specs)
-    (hsModuleName, oCTypeSpec) <- lookupCTypeSpec cQualName headers spec
+      =<< Map.lookup cDeclName (mergedBindingSpecs specs)
+    (hsModuleName, oCTypeSpec) <- lookupCTypeSpec cDeclName headers spec
     let mHsTypeSpec = case oCTypeSpec of
           Require cTypeSpec -> do
             hsIdentifier <- cTypeSpecIdentifier cTypeSpec
@@ -1000,7 +1000,7 @@ mkCTypeMap ::
   -> [AOCTypeSpecMapping]
   -> ( [BindingSpecReadMsg]
      , Set Hs.Identifier
-     , Map C.QualName [(Set HashIncludeArg, Omittable CTypeSpec)]
+     , Map C.DeclName [(Set HashIncludeArg, Omittable CTypeSpec)]
      )
 mkCTypeMap path =
     fin . foldr auxInsert (Set.empty, [], Map.empty, Set.empty, Map.empty)
@@ -1008,20 +1008,20 @@ mkCTypeMap path =
     fin ::
          ( Set Text
          , [HashIncludeArgMsg]
-         , Map C.QualName (Set HashIncludeArg)
+         , Map C.DeclName (Set HashIncludeArg)
          , Set Hs.Identifier
-         , Map C.QualName [(Set HashIncludeArg, Omittable CTypeSpec)]
+         , Map C.DeclName [(Set HashIncludeArg, Omittable CTypeSpec)]
          )
       -> ( [BindingSpecReadMsg]
          , Set Hs.Identifier
-         , Map C.QualName [(Set HashIncludeArg, Omittable CTypeSpec)]
+         , Map C.DeclName [(Set HashIncludeArg, Omittable CTypeSpec)]
          )
     fin (invalids, msgs, conflicts, hsIds, cTypeMap) =
       let invalidErrs = BindingSpecReadInvalidCName path <$> Set.toList invalids
           argErrs = BindingSpecReadHashIncludeArg path <$> msgs
           conflictErrs = [
-              BindingSpecReadCTypeConflict path cQualName header
-            | (cQualName, headers) <- Map.toList conflicts
+              BindingSpecReadCTypeConflict path cDeclName header
+            | (cDeclName, headers) <- Map.toList conflicts
             , header <- Set.toList headers
             ]
       in  (invalidErrs ++ argErrs ++ conflictErrs, hsIds, cTypeMap)
@@ -1030,15 +1030,15 @@ mkCTypeMap path =
          AOCTypeSpecMapping
       -> ( Set Text
          , [HashIncludeArgMsg]
-         , Map C.QualName (Set HashIncludeArg)
+         , Map C.DeclName (Set HashIncludeArg)
          , Set Hs.Identifier
-         , Map C.QualName [(Set HashIncludeArg, Omittable CTypeSpec)]
+         , Map C.DeclName [(Set HashIncludeArg, Omittable CTypeSpec)]
          )
       -> ( Set Text
          , [HashIncludeArgMsg]
-         , Map C.QualName (Set HashIncludeArg)
+         , Map C.DeclName (Set HashIncludeArg)
          , Set Hs.Identifier
-         , Map C.QualName [(Set HashIncludeArg, Omittable CTypeSpec)]
+         , Map C.DeclName [(Set HashIncludeArg, Omittable CTypeSpec)]
          )
     auxInsert aoCTypeMapping (invalids, msgs, conflicts, hsIds, acc) =
       let (cname, headers, mHsId, oCTypeSpec) = case aoCTypeMapping of
@@ -1061,30 +1061,30 @@ mkCTypeMap path =
           (msgs', headers') = bimap ((msgs ++) . concat) Set.fromList $
             unzip (map hashIncludeArg headers)
           hsIds' = maybe hsIds (`Set.insert` hsIds) mHsId
-      in  case C.parseQualName cname of
+      in  case C.parseDeclName cname of
             Nothing ->
               (Set.insert cname invalids, msgs', conflicts, hsIds', acc)
-            Just cQualName ->
+            Just cDeclName ->
               let newV = [(headers', oCTypeSpec)]
-                  x = Map.insertLookupWithKey (const (++)) cQualName newV acc
+                  x = Map.insertLookupWithKey (const (++)) cDeclName newV acc
               in  case x of
                     (Nothing, acc') ->
                       (invalids, msgs', conflicts, hsIds', acc')
                     (Just oldV, acc') ->
-                      let conflicts' = auxDup cQualName newV oldV conflicts
+                      let conflicts' = auxDup cDeclName newV oldV conflicts
                       in  (invalids, msgs', conflicts', hsIds', acc')
 
     auxDup ::
-         C.QualName
+         C.DeclName
       -> [(Set HashIncludeArg, a)]
       -> [(Set HashIncludeArg, a)]
-      -> Map C.QualName (Set HashIncludeArg)
-      -> Map C.QualName (Set HashIncludeArg)
-    auxDup cQualName newV oldV =
+      -> Map C.DeclName (Set HashIncludeArg)
+      -> Map C.DeclName (Set HashIncludeArg)
+    auxDup cDeclName newV oldV =
       case Set.intersection (mconcat (fst <$> newV)) (mconcat (fst <$> oldV)) of
         commonHeaders
           | Set.null commonHeaders -> id
-          | otherwise -> Map.insertWith Set.union cQualName commonHeaders
+          | otherwise -> Map.insertWith Set.union cDeclName commonHeaders
 
 mkHsTypeMap ::
      FilePath
@@ -1146,23 +1146,23 @@ toABindingSpec BindingSpec{..} = ABindingSpec {
     }
 
 toAOCTypes ::
-     Map C.QualName [(Set HashIncludeArg, Omittable CTypeSpec)]
+     Map C.DeclName [(Set HashIncludeArg, Omittable CTypeSpec)]
   -> [AOCTypeSpecMapping]
 toAOCTypes cTypeMap = [
       case oCTypeSpec of
         Require CTypeSpec{..} -> ARequire ACTypeSpecMapping {
             aCTypeSpecMappingHeaders =
               map getHashIncludeArg (Set.toAscList headers)
-          , aCTypeSpecMappingCName = C.qualNameText cQualName
+          , aCTypeSpecMappingCName = C.declNameText cDeclName
           , aCTypeSpecMappingIdentifier = cTypeSpecIdentifier
           , aCTypeSpecMappingRep        = ACTypeRep <$> cTypeSpecRep
           }
         Omit -> AOmit AKCTypeSpecMapping {
             akCTypeSpecMappingHeaders =
               map getHashIncludeArg (Set.toAscList headers)
-          , akCTypeSpecMappingCName = C.qualNameText cQualName
+          , akCTypeSpecMappingCName = C.declNameText cDeclName
           }
-    | (cQualName, xs) <- Map.toAscList cTypeMap
+    | (cDeclName, xs) <- Map.toAscList cTypeMap
     , (headers, oCTypeSpec) <- xs
     ]
 

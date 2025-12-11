@@ -19,6 +19,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -56,7 +57,7 @@ mangleNames unit =
   even if there are errors.
 -------------------------------------------------------------------------------}
 
-type NameMap = Map C.QualName Hs.Identifier
+type NameMap = Map C.DeclName Hs.Identifier
 
 chooseNames ::
      FixCandidate Maybe
@@ -68,12 +69,12 @@ chooseNames fc decls =
 nameForDecl ::
      FixCandidate Maybe
   -> C.Decl HandleTypedefs
-  -> ((C.QualName, Hs.Identifier), Maybe (Msg MangleNames))
+  -> ((C.DeclName, Hs.Identifier), Maybe (Msg MangleNames))
 nameForDecl fc decl =
     case BindingSpec.cTypeSpecIdentifier =<< fst declAnn of
       Just hsName -> (choose hsName, Nothing)
       Nothing     -> withDeclNamespace declKind $ \ns ->
-                       first choose $ fromCName fc ns declId.name
+                       first choose $ fromCName fc ns declId.name.text
   where
     C.Decl{
         declInfo = C.DeclInfo{declId}
@@ -81,16 +82,16 @@ nameForDecl fc decl =
       , declAnn
       } = decl
 
-    choose :: Hs.Identifier -> (C.QualName, Hs.Identifier)
-    choose hsName = (C.declQualName decl, hsName)
+    choose :: Hs.Identifier -> (C.DeclName, Hs.Identifier)
+    choose hsName = (C.declName decl, hsName)
 
 fromCName :: forall ns.
      Hs.SingNamespace ns
   => FixCandidate Maybe
   -> Proxy ns
-  -> C.Name
+  -> Text
   -> (Hs.Identifier, Maybe (Msg MangleNames))
-fromCName fc _ (C.Name cName) =
+fromCName fc _ cName =
     case mFixed of
       Just (Hs.Name hsName) -> (Hs.Identifier hsName, Nothing)
       Nothing -> (Hs.Identifier "", Just $ MangleNamesCouldNotMangle cName)
@@ -141,7 +142,7 @@ class MangleDecl a where
 
 mangleDeclId :: C.DeclId HandleTypedefs -> M (C.DeclId MangleNames)
 mangleDeclId declId = do
-    mHsIdent <- mangleName declId.name [declId.nameKind]
+    mHsIdent <- mangleName declId.name.text [declId.name.kind]
     case mHsIdent of
       Nothing -> panicPure $ "Missing declaration: " <> show declId
       Just hs -> return $ declId{C.haskellId = hs}
@@ -151,21 +152,21 @@ mangleDeclId declId = do
 -- Returns 'Nothing' if no match is found. This should not happen for any
 -- declarations we're processing, but can happen for names found in comment
 -- references, which could be anything at all.
-mangleName :: C.Name -> [C.NameKind] -> M (Maybe Hs.Identifier)
+mangleName :: Text -> [C.NameKind] -> M (Maybe Hs.Identifier)
 mangleName name kinds = do
     nm <- asks envNameMap
     let lookupKind :: C.NameKind -> Maybe Hs.Identifier
-        lookupKind kind = Map.lookup (C.QualName name kind) nm
+        lookupKind kind = Map.lookup (C.DeclName name kind) nm
     return $ listToMaybe (mapMaybe lookupKind kinds)
 
 {-------------------------------------------------------------------------------
   Additional name mangling functionality
 -------------------------------------------------------------------------------}
 
-mangleFieldName :: C.DeclInfo MangleNames -> C.Name -> M C.NamePair
+mangleFieldName :: C.DeclInfo MangleNames -> C.ScopedName -> M C.NamePair
 mangleFieldName info fieldCName = do
     fc <- asks envFixCandidate
-    let candidate = declId.name <> "_" <> fieldCName
+    let candidate = declId.name.text <> "_" <> fieldCName.text
     let (fieldHsName, mError) = fromCName fc (Proxy @Hs.NsVar) candidate
     forM_ mError $ modify . (:)
     return $ C.NamePair fieldCName fieldHsName
@@ -176,10 +177,10 @@ mangleFieldName info fieldCName = do
 --
 -- Since these live in the global namespace, we do not prepend the name of
 -- the enclosing enum.
-mangleEnumConstant :: C.DeclInfo MangleNames -> C.Name -> M C.NamePair
+mangleEnumConstant :: C.DeclInfo MangleNames -> C.ScopedName -> M C.NamePair
 mangleEnumConstant _info cName = do
     fc <- asks envFixCandidate
-    let (hsName, mError) = fromCName fc (Proxy @Hs.NsConstr) cName
+    let (hsName, mError) = fromCName fc (Proxy @Hs.NsConstr) cName.text
     forM_ mError $ modify . (:)
     return $ C.NamePair cName hsName
 
@@ -227,10 +228,10 @@ mkMacroTypeNames = mkNewtypeNames
 -- Function argument names are not really used when generating Haskell code.
 -- They are more relevant for documentation purposes so we don't do any
 -- mangling.
-mangleArgumentName :: C.Name -> M C.NamePair
+mangleArgumentName :: C.ScopedName -> M C.NamePair
 mangleArgumentName argName = do
     fc <- asks envFixCandidate
-    let (hsName, mError) = fromCName fc (Proxy @Hs.NsVar) argName
+    let (hsName, mError) = fromCName fc (Proxy @Hs.NsVar) argName.text
     forM_ mError $ modify . (:)
     return $ C.NamePair argName hsName
 

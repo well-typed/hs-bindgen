@@ -15,7 +15,6 @@ import Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming (NameKind (..), TagKind (..))
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad
@@ -24,6 +23,7 @@ import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeExceptionInContext (..))
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -58,7 +58,7 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
   Info that we collect for all declarations
 -------------------------------------------------------------------------------}
 
-getDeclInfo :: CXCursor -> NameKind -> ParseDecl (C.DeclInfo Parse)
+getDeclInfo :: CXCursor -> C.NameKind -> ParseDecl (C.DeclInfo Parse)
 getDeclInfo = \curr nameKind -> do
     declId         <- C.getPrelimDeclId curr nameKind
     declLoc        <- HighLevel.clang_getCursorLocation' curr
@@ -110,7 +110,7 @@ getHeaderInfo path
 getFieldInfo :: CXCursor -> ParseDecl (C.FieldInfo Parse)
 getFieldInfo = \curr -> do
   fieldLoc     <- HighLevel.clang_getCursorLocation' curr
-  fieldName    <- C.Name <$> clang_getCursorDisplayName curr
+  fieldName    <- C.ScopedName <$> clang_getCursorDisplayName curr
   fieldComment <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
 
   return C.FieldInfo {
@@ -351,7 +351,7 @@ structFieldDecl info = \curr -> do
     structFieldType   <-
       let ctx = ParseTypeExceptionContext
                   info
-                  (NameKindTagged TagKindStruct)
+                  (C.NameKindTagged C.TagKindStruct)
                   NotRequiredForScoping
       in fromCXType' ctx
         =<< clang_getCursorType curr
@@ -379,7 +379,7 @@ unionFieldDecl info = \curr -> do
     unionFieldType <-
       let ctx = ParseTypeExceptionContext
                   info
-                  (NameKindTagged TagKindUnion)
+                  (C.NameKindTagged C.TagKindUnion)
                   NotRequiredForScoping
       in fromCXType' ctx
         =<< clang_getCursorType curr
@@ -394,7 +394,7 @@ typedefDecl :: C.DeclInfo Parse -> Parser
 typedefDecl info = \curr -> do
     let ctx = ParseTypeExceptionContext
                 info
-                NameKindOrdinary
+                C.NameKindOrdinary
                 RequiredForScoping
     typedefType <- fromCXType' ctx
                      =<< clang_getTypedefDeclUnderlyingType curr
@@ -427,7 +427,7 @@ enumDecl info = \curr -> do
         ety       <-
           let ctx = ParseTypeExceptionContext
                       info
-                      (NameKindTagged TagKindEnum)
+                      (C.NameKindTagged C.TagKindEnum)
                       NotRequiredForScoping
           in  fromCXType' ctx
             =<< clang_getEnumDeclIntegerType curr
@@ -481,7 +481,7 @@ functionDecl info = \curr -> do
     typ        <-
       let ctx = ParseTypeExceptionContext
                   info
-                  NameKindOrdinary
+                  C.NameKindOrdinary
                   NotRequiredForScoping
       in  fromCXType' ctx =<< clang_getCursorType curr
     guardTypeFunction curr typ >>= \case
@@ -536,7 +536,7 @@ functionDecl info = \curr -> do
     guardTypeFunction ::
          CXCursor
       -> C.Type Parse
-      -> ParseDecl (Either [ParseResult] ([(Maybe C.Name, C.Type Parse)], C.Type Parse))
+      -> ParseDecl (Either [ParseResult] ([(Maybe C.ScopedName, C.Type Parse)], C.Type Parse))
     guardTypeFunction curr ty =
         case ty of
           C.TypeFun args res -> do
@@ -547,7 +547,7 @@ functionDecl info = \curr -> do
               let mbArgName =
                     if Text.null argName
                        then Nothing
-                       else Just (C.Name argName)
+                       else Just (C.ScopedName argName)
 
               return (mbArgName, argCType)
             pure $ Right (args', res)
@@ -608,7 +608,7 @@ varDecl info = \curr -> do
     typ        <-
       let ctx = ParseTypeExceptionContext
                   info
-                  NameKindOrdinary
+                  C.NameKindOrdinary
                   NotRequiredForScoping
       in  fromCXType' ctx =<< clang_getCursorType curr
     cls        <- classifyVarDecl curr
@@ -736,7 +736,7 @@ parseCommentReferences :: CDoc.Comment Text -> C.Comment Parse
 parseCommentReferences comment = C.Comment (fmap auxRefs comment)
   where
     auxRefs :: Text -> C.CommentRef Parse
-    auxRefs ref = C.CommentRef (C.Name ref) Nothing
+    auxRefs ref = C.CommentRef ref Nothing
 
 -- | Partition declarations into anonymous and non-anonymous
 --

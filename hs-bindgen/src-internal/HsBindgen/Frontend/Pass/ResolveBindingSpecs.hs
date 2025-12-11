@@ -34,6 +34,7 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Monad (mapMaybeM)
 
@@ -147,8 +148,8 @@ data MEnv = MEnv {
 data MState = MState {
       stateTraces    :: [Msg ResolveBindingSpecs] -- ^ reverse order
     , stateExtTypes  :: Map C.PrelimDeclId (C.Type ResolveBindingSpecs)
-    , stateNoPTypes  :: Map C.QualName [Set SourcePath]
-    , stateOmitTypes :: Map C.PrelimDeclId (C.QualName, SourcePath)
+    , stateNoPTypes  :: Map C.DeclName [Set SourcePath]
+    , stateOmitTypes :: Map C.PrelimDeclId (C.DeclName, SourcePath)
     }
   deriving (Show)
 
@@ -175,9 +176,9 @@ insertExtType cQualPrelimDeclId typ st = st {
         Map.insert cQualPrelimDeclId typ (stateExtTypes st)
     }
 
-deleteNoPType :: C.QualName -> SourcePath -> MState -> MState
-deleteNoPType cQualName path st = st {
-      stateNoPTypes = Map.update (aux []) cQualName (stateNoPTypes st)
+deleteNoPType :: C.DeclName -> SourcePath -> MState -> MState
+deleteNoPType cDeclName path st = st {
+      stateNoPTypes = Map.update (aux []) cDeclName (stateNoPTypes st)
     }
   where
     aux :: [Set SourcePath] -> [Set SourcePath] -> Maybe [Set SourcePath]
@@ -190,9 +191,9 @@ deleteNoPType cQualName path st = st {
         | otherwise -> aux (s : acc) ss
       [] -> Just acc
 
-insertOmittedType :: C.PrelimDeclId -> C.QualName -> SourcePath -> MState -> MState
-insertOmittedType cQualPrelimDeclId cQualName path st = st {
-      stateOmitTypes = Map.insert cQualPrelimDeclId (cQualName, path) (stateOmitTypes st)
+insertOmittedType :: C.PrelimDeclId -> C.DeclName -> SourcePath -> MState -> MState
+insertOmittedType cQualPrelimDeclId cDeclName path st = st {
+      stateOmitTypes = Map.insert cQualPrelimDeclId (cDeclName, path) (stateOmitTypes st)
     }
 
 {-------------------------------------------------------------------------------
@@ -224,30 +225,30 @@ resolveTop ::
 resolveTop decl = Reader.ask >>= \MEnv{..} ->
     case decl.declInfo.declId.origDeclId of
       C.OrigDeclId cOrigDeclId -> do
-        let cQualName   = C.declQualName decl
+        let cDeclName   = C.declName decl
             sourcePath  = singleLocPath $ C.declLoc (C.declInfo decl)
             declPaths   = IncludeGraph.reaches envIncludeGraph sourcePath
-            mMsg        = Just $ ResolveBindingSpecsOmittedType cQualName
+            mMsg        = Just $ ResolveBindingSpecsOmittedType cDeclName
         isExt <- isJust <$>
-          resolveExtBinding cQualName cOrigDeclId declPaths mMsg
+          resolveExtBinding cDeclName cOrigDeclId declPaths mMsg
         if isExt
           then do
-            State.modify' $ insertTrace (ResolveBindingSpecsExtDecl cQualName)
+            State.modify' $ insertTrace (ResolveBindingSpecsExtDecl cDeclName)
             return Nothing
-          else case BindingSpec.lookupCTypeSpec cQualName declPaths envPSpec of
+          else case BindingSpec.lookupCTypeSpec cDeclName declPaths envPSpec of
             Just (_hsModuleName, BindingSpec.Require cTypeSpec) -> do
               State.modify' $
-                  insertTrace (ResolveBindingSpecsPrescriptiveRequire cQualName)
-                . deleteNoPType cQualName sourcePath
+                  insertTrace (ResolveBindingSpecsPrescriptiveRequire cDeclName)
+                . deleteNoPType cDeclName sourcePath
               let mHsTypeSpec = do
                     hsIdentifier <- BindingSpec.cTypeSpecIdentifier cTypeSpec
                     BindingSpec.lookupHsTypeSpec hsIdentifier envPSpec
               return $ Just (decl, (Just cTypeSpec, mHsTypeSpec))
             Just (_hsModuleName, BindingSpec.Omit) -> do
               State.modify' $
-                  insertTrace (ResolveBindingSpecsPrescriptiveOmit cQualName)
-                . deleteNoPType cQualName sourcePath
-                . insertOmittedType cOrigDeclId cQualName sourcePath
+                  insertTrace (ResolveBindingSpecsPrescriptiveOmit cDeclName)
+                . deleteNoPType cDeclName sourcePath
+                . insertOmittedType cOrigDeclId cDeclName sourcePath
               return Nothing
             Nothing -> return $ Just (decl, (Nothing, Nothing))
       C.AuxForDecl _parent ->
@@ -264,7 +265,7 @@ resolveDeep ::
   -> (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
   -> M (C.Decl ResolveBindingSpecs)
 resolveDeep decl@C.Decl{..} mTypeSpecs = do
-    declKind' <- resolve (C.declQualName decl) declKind
+    declKind' <- resolve (C.declName decl) declKind
     return C.Decl {
         declInfo = coercePass declInfo
       , declKind = declKind'
@@ -277,7 +278,7 @@ resolveDeep decl@C.Decl{..} mTypeSpecs = do
 
 class Resolve a where
   resolve ::
-       C.QualName -- context declaration
+       C.DeclName -- context declaration
     -> a NameAnon
     -> M (a ResolveBindingSpecs)
 
@@ -446,7 +447,7 @@ instance Resolve C.Type where
           case Map.lookup cOrigDeclId stateExtTypes of
             Just ty -> do
               State.modify' $
-                insertTrace (ResolveBindingSpecsExtType ctx cQualName)
+                insertTrace (ResolveBindingSpecsExtType ctx cDeclName)
               return $ Just ty
             Nothing -> do
               -- Check for external binding of type that is unusable.
@@ -458,16 +459,16 @@ instance Resolve C.Type where
                           (IncludeGraph.reaches envIncludeGraph . singleLocPath)
                           locs
                   mTy <- fmap C.TypeExtBinding <$>
-                    resolveExtBinding cQualName cOrigDeclId declPaths Nothing
+                    resolveExtBinding cDeclName cOrigDeclId declPaths Nothing
                   case mTy of
                     Just ty -> do
                       State.modify' $
-                          insertTrace (ResolveBindingSpecsExtType ctx cQualName)
+                          insertTrace (ResolveBindingSpecsExtType ctx cDeclName)
                         . insertExtType cOrigDeclId ty
                       return (Just ty)
                     Nothing -> return Nothing
         where
-          cQualName = C.declIdQualName cDeclId
+          cDeclName = cDeclId.name
 
 {-------------------------------------------------------------------------------
   Internal: auxiliary functions
@@ -481,20 +482,20 @@ resolveCommentReference (C.Comment comment) =
 
 -- | Lookup qualified name in the 'ExternalResolvedBindingSpec'
 resolveExtBinding ::
-     C.QualName
+     C.DeclName
   -> C.PrelimDeclId
   -> Set SourcePath
      -- | Message to emit for omitted types.
   -> Maybe ResolveBindingSpecsMsg
   -> M (Maybe ResolvedExtBinding)
-resolveExtBinding cQualName cQualPrelimDeclId declPaths mMsg = do
+resolveExtBinding cDeclName cQualPrelimDeclId declPaths mMsg = do
     MEnv{envExtSpecs} <- Reader.ask
-    case BindingSpec.lookupMergedBindingSpecs cQualName declPaths envExtSpecs of
+    case BindingSpec.lookupMergedBindingSpecs cDeclName declPaths envExtSpecs of
       Just (hsModuleName, BindingSpec.Require cTypeSpec, mHsTypeSpec) ->
         case BindingSpec.cTypeSpecIdentifier cTypeSpec of
           Just hsIdentifier -> do
             let resolved = ResolvedExtBinding {
-                    extCName  = cQualName
+                    extCName  = cDeclName
                   , extHsRef  = Hs.ExtRef hsModuleName hsIdentifier
                   , extCSpec  = cTypeSpec
                   , extHsSpec = mHsTypeSpec
@@ -506,7 +507,7 @@ resolveExtBinding cQualName cQualPrelimDeclId declPaths mMsg = do
             return (Just resolved)
           Nothing -> do
             State.modify' $
-              insertTrace (ResolveBindingSpecsExtHsRefNoIdentifier cQualName)
+              insertTrace (ResolveBindingSpecsExtHsRefNoIdentifier cDeclName)
             return Nothing
       Just (_hsModuleName, BindingSpec.Omit, _mHsTypeSpec) -> do
         forM_ mMsg $ \msg -> State.modify' $ insertTrace msg

@@ -10,21 +10,21 @@ module HsBindgen.Frontend.LanguageC.PartialAST (
   , PartialType(..)
   , UnknownType(..)
   , KnownType(..)
+  , CName
     -- * Starting point: no information known
   , unknownDecl
   ) where
 
 import HsBindgen.Frontend.AST.Internal
-import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
-import HsBindgen.Language.C
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
 -------------------------------------------------------------------------------}
 
 data PartialDecl p = PartialDecl{
-      partialName :: Maybe Name
+      partialName :: Maybe CName
     , partialType :: PartialType p
     }
   deriving stock (Show, Generic)
@@ -36,7 +36,7 @@ data PartialType p =
 
 -- | The type itself is not yet known, but may have some qualifiers
 data UnknownType = UnknownType{
-      unknownSign  :: Maybe PrimSign
+      unknownSign  :: Maybe C.PrimSign
     , unknownConst :: Bool
     }
   deriving stock (Show, Generic)
@@ -48,8 +48,17 @@ data KnownType p =
     --
     -- It's not necessary to do this recursively: we only want argument names
     -- for top-level function declarations (not for function pointers).
-  | TopLevelFun [(Maybe Name, Type p)] (Type p)
+  | TopLevelFun [(Maybe CName, Type p)] (Type p)
   deriving stock (Show)
+
+-- | Name
+--
+-- Since @language-c@ does not really distinguish between a top-level
+-- declaration or the \"declaration\" of a function argument, we use 'Text' here
+-- rather than 'C.DeclName' or 'C.ScopedName'. Since we do not actually parse
+-- top-level struct/enum/union declarations (i.e., deal with \"ordinary\" names
+-- only anyway), this causes no trouble.
+type CName = Text
 
 {-------------------------------------------------------------------------------
   Starting point: no information known

@@ -33,11 +33,12 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming (NameKind, PrelimDeclId)
+import HsBindgen.Frontend.Naming (PrelimDeclId)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Type.Monad
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -56,8 +57,8 @@ type family AnnParse (ix :: Symbol) :: Star where
 
 instance IsPass Parse where
   type Id           Parse = C.PrelimDeclId
-  type FieldName    Parse = C.Name
-  type ArgumentName Parse = Maybe C.Name
+  type FieldName    Parse = C.ScopedName
+  type ArgumentName Parse = Maybe C.ScopedName
   type MacroBody    Parse = UnparsedMacro
   type ExtBinding   Parse = Void
   type Ann ix       Parse = AnnParse ix
@@ -234,7 +235,7 @@ data RequiredForScoping = RequiredForScoping | NotRequiredForScoping
 
 data ParseTypeExceptionContext = ParseTypeExceptionContext {
       contextInfo               :: C.DeclInfo Parse
-    , contextNameKind           :: NameKind
+    , contextNameKind           :: C.NameKind
     , contextRequiredForScoping :: RequiredForScoping
     }
   deriving stock (Show)

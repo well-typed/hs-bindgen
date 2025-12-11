@@ -23,6 +23,7 @@ import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -87,7 +88,7 @@ instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = co
         nameTo
         (HsIO (HsFunPtr funHs))
         [wrapperParam funHs]
-        "wrapper"
+        (C.DeclName "wrapper" C.NameKindOrdinary)
         (CallConvGhcCCall ImportAsValue)
         (Origin.ToFunPtr funC)
         nameToComment
@@ -98,7 +99,7 @@ instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = co
         nameFrom
         funHs
         [wrapperParam $ HsFunPtr funHs]
-        "dynamic"
+        (C.DeclName "dynamic" C.NameKindOrdinary)
         (CallConvGhcCCall ImportAsValue)
         (Origin.ToFunPtr funC)
         nameFromComment
