@@ -120,6 +120,7 @@ library internal
     HsBindgen.Eff
     HsBindgen.Errors
     HsBindgen.Frontend
+    HsBindgen.Frontend.Analysis.AnonUsage
     HsBindgen.Frontend.Analysis.DeclIndex
     HsBindgen.Frontend.Analysis.DeclUseGraph
     HsBindgen.Frontend.Analysis.IncludeGraph
@@ -138,6 +139,8 @@ library internal
     HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
     HsBindgen.Frontend.Naming
     HsBindgen.Frontend.Pass
+    HsBindgen.Frontend.Pass.AssignAnonIds
+    HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
     HsBindgen.Frontend.Pass.ConstructTranslationUnit
     HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
     HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
