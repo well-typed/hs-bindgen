@@ -139,6 +139,7 @@ data Global =
   | Ix_class
   | Num_class
   | Ord_class
+  | Prim_class
   | Read_class
   | Read_readPrec
   | Read_readList

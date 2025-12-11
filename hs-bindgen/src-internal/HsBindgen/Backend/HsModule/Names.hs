@@ -21,6 +21,7 @@ import Data.List qualified as L
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Maybe qualified
+import Data.Primitive.Types qualified as Primitive
 import Data.Proxy qualified
 import Data.Set qualified as Set
 import Data.Void qualified
@@ -346,6 +347,7 @@ resolveGlobal = \case
     Ix_class          -> importQ ''Data.Ix.Ix
     Num_class         -> importU ''Num
     Ord_class         -> importU ''Ord
+    Prim_class        -> importQ ''Primitive.Prim
     Read_class        -> importU ''Read
     Read_readPrec     -> importQ 'Text.Read.readPrec
     Read_readList     -> importQ 'Text.Read.readList
