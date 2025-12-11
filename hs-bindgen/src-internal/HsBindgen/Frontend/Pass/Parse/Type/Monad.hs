@@ -6,6 +6,9 @@
 module HsBindgen.Frontend.Pass.Parse.Type.Monad (
     ParseType -- opaque
   , run
+    -- * Caching API
+  , lookupCache
+  , insertCache
     -- * Errors
   , ParseTypeExceptionInContext(..)
   , ParseTypeException(..)
@@ -18,28 +21,31 @@ module HsBindgen.Frontend.Pass.Parse.Type.Monad (
 import Control.Exception
 import Control.Monad.Error.Class
 import Control.Monad.IO.Class
+import Control.Monad.State.Strict
 import Data.Data (Typeable)
-import Foreign.C
-import Text.SimplePrettyPrint ((><))
-import Text.SimplePrettyPrint qualified as PP
+import Data.Map.Strict qualified as Map
 
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
 
-import HsBindgen.Errors
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
 
   Parsing declarations and parsing types have different requirements, so each
   gets its own monad.
+
+  The ParseType monad includes state for caching typedef resolution to avoid
+  redundant type parsing during typedef chain resolution. The cache maps typedef
+  names to their resolved types.
 -------------------------------------------------------------------------------}
 
 newtype ParseType a = Wrap {
-      unwrap :: IO a
+      unwrap :: StateT (Map C.DeclName (C.Type Parse)) IO a
     }
   deriving newtype (
       Functor
@@ -49,11 +55,26 @@ newtype ParseType a = Wrap {
     )
 
 instance MonadError ParseTypeException ParseType where
-  throwError err   = Wrap $ throwIO err
-  f `catchError` h = Wrap $ catch (unwrap f) (unwrap . h)
+  throwError err   = Wrap $ lift $ throwIO err
+  f `catchError` h = Wrap
+                   $ StateT
+                   $ \s -> catch (runStateT (unwrap f) s)
+                                 (\e -> runStateT (unwrap (h e)) s)
 
 run :: MonadIO m => ParseType a -> m a
-run = liftIO . unwrap
+run = liftIO . flip evalStateT Map.empty . unwrap
+
+{-------------------------------------------------------------------------------
+  Caching API
+-------------------------------------------------------------------------------}
+
+-- | Look up a typedef in the cache
+lookupCache :: C.DeclName -> ParseType (Maybe (C.Type Parse))
+lookupCache name = Wrap $ Map.lookup name <$> get
+
+-- | Insert a typedef into the cache
+insertCache :: C.DeclName -> C.Type Parse -> ParseType ()
+insertCache name ty = Wrap $ modify' (Map.insert name ty)
 
 {-------------------------------------------------------------------------------
   Errors
@@ -83,87 +104,6 @@ data ParseTypeExceptionInContext ctx =
 
 instance (Show ctx, Typeable ctx) => Exception (ParseTypeExceptionInContext ctx)
 
-data ParseTypeException =
-    -- | We encountered an unexpected type kind
-    --
-    -- This is always a bug in hs-bindgen: if this kind of type is unsupported,
-    -- we should explicitly check for it and throw an appropriate exception.
-    --
-    -- If this is a @Left@ value, it means that our @libclang@ bindings are
-    -- incomplete.
-    UnexpectedTypeKind (Either CInt CXTypeKind)
-
-    -- | We encountered an unexpected type declaration
-    --
-    -- Similar comments apply as for 'UnexpectedTypeKind'.
-  | UnexpectedTypeDecl (Either CInt CXCursorKind)
-
-    -- | We do not support variadic (varargs) functions
-  | UnsupportedVariadicFunction
-
-    -- | We do not support @long double@
-  | UnsupportedLongDouble
-
-    -- | Clang built-in declaration
-  | UnsupportedBuiltin Text
-
-    -- | Complex types can only be defined using primitive types, e.g.
-    -- @double complex@. @struct Point complex@ is not allowed.
-  | UnexpectedComplexType CXType
-
-  | UnsupportedUnderlyingType C.PrelimDeclId ParseTypeException
-  deriving stock (Show, Eq, Ord)
-
-instance PrettyForTrace ParseTypeException where
-  prettyForTrace = \case
-      UnexpectedTypeKind (Right kind) ->
-          unexpected $ "type kind " >< PP.showToCtxDoc kind
-      UnexpectedTypeKind (Left i) ->
-          unexpected $ "type kind " >< PP.showToCtxDoc i
-      UnexpectedTypeDecl (Right kind) ->
-          unexpected $ "type declaration " >< PP.showToCtxDoc kind
-      UnexpectedTypeDecl (Left i) ->
-          unexpected $ "type declaration " >< PP.showToCtxDoc i
-      UnsupportedVariadicFunction ->
-          "Unsupported variadic (varargs) function"
-      UnsupportedLongDouble ->
-          "Unsupported long double"
-      UnsupportedBuiltin name ->
-          "Unsupported built-in " >< PP.showToCtxDoc name
-      UnexpectedComplexType ty ->
-          "Unexpected complex type " >< PP.showToCtxDoc ty
-      UnsupportedUnderlyingType name err -> PP.hcat [
-            "Unsupported underlying type of typedef "
-          , PP.showToCtxDoc name
-          , ": "
-          , prettyForTrace err
-          ]
-    where
-      unexpected :: PP.CtxDoc -> PP.CtxDoc
-      unexpected msg = PP.vcat [
-            "Unexpected " >< msg
-          , PP.string pleaseReport
-          ]
-
--- | We use 'Error' for bugs, and 'Warning' for known-to-be-unsupported
---
--- This ensures that for declarations that use known-to-be-unsupported types, we
--- can just register a parse failure and avoid generating bindings for that
--- declaration.
-instance IsTrace Level ParseTypeException where
-  getDefaultLogLevel = \case
-    UnexpectedTypeKind{}          -> Error
-    UnexpectedTypeDecl{}          -> Error
-    UnsupportedVariadicFunction   -> Warning
-    UnsupportedLongDouble         -> Warning
-    UnsupportedBuiltin{}          -> Warning
-    UnexpectedComplexType{}       -> Error
-    UnsupportedUnderlyingType _ x -> getDefaultLogLevel x
-  getSource  = const HsBindgen
-  getTraceId = const "parse-type-exception"
-
-instance Exception ParseTypeException where
-  displayException = PP.renderCtxDoc (PP.mkContext 100) . prettyForTrace
 
 {-------------------------------------------------------------------------------
   Utility: dispatching based on the cursor kind

@@ -14,7 +14,11 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.Monad
+import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseType,
+                                                 ParseTypeExceptionInContext (..),
+                                                 dispatchDecl, dispatchWithArg,
+                                                 run)
+import HsBindgen.Frontend.Pass.Parse.Type.Monad qualified as ParseType
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -116,9 +120,20 @@ fromDecl ty = do
 
         CXCursor_TypedefDecl -> do
           declId <- C.getPrelimDeclId decl C.NameKindOrdinary
-          uTy <- liftIO $ handle (addTypedefContextHandler declId) $
-                   run (cxtype =<< getUnderlyingCXType decl)
-          pure (C.TypeTypedef declId uTy)
+          case C.prelimDeclIdName declId of
+            Nothing -> panicPure "typedef without name"
+            Just declName -> do
+              -- Check cache first
+              mCached <- ParseType.lookupCache declName
+              case mCached of
+                Just cached -> pure cached
+                Nothing -> do
+                  -- Cache miss: parse and cache the result
+                  uTy <- liftIO $ handle (addTypedefContextHandler declId) $
+                           run (cxtype =<< getUnderlyingCXType decl)
+                  let result = C.TypeTypedef declId uTy
+                  ParseType.insertCache declName result
+                  pure result
 
         kind -> throwError $ UnexpectedTypeDecl (Right kind)
   where
