@@ -39,7 +39,7 @@ fromCXType context = liftIO . handle addContextHandler . run . cxtype
   Dispatch
 -------------------------------------------------------------------------------}
 
-cxtype :: HasCallStack => CXType -> ParseType Parse (C.Type Parse)
+cxtype :: HasCallStack => CXType -> ParseType (C.Type Parse)
 cxtype ty = do
     -- Check cache first
     cache <- get
@@ -86,17 +86,17 @@ cxtype ty = do
         modify' (Map.insert ty result)
         pure result
   where
-    failure :: ParseTypeException -> CXType -> ParseType Parse (C.Type Parse)
+    failure :: ParseTypeException -> CXType -> ParseType (C.Type Parse)
     failure err _ty = throwError err
 
 {-------------------------------------------------------------------------------
   Functions for each kind of type
 -------------------------------------------------------------------------------}
 
-prim :: C.PrimType -> CXType -> ParseType Parse (C.Type Parse)
+prim :: C.PrimType -> CXType -> ParseType (C.Type Parse)
 prim ty _ = return $ C.TypePrim ty
 
-complex :: CXType -> ParseType Parse (C.Type Parse)
+complex :: CXType -> ParseType (C.Type Parse)
 complex ty = do
   complexType <- clang_getElementType ty
   cty         <- cxtype complexType
@@ -104,13 +104,13 @@ complex ty = do
     C.TypePrim p -> pure (C.TypeComplex p)
     _            -> throwError $ UnexpectedComplexType complexType
 
-elaborated :: CXType -> ParseType Parse (C.Type Parse)
+elaborated :: CXType -> ParseType (C.Type Parse)
 elaborated = clang_Type_getNamedType >=> cxtype
 
-pointer :: CXType -> ParseType Parse (C.Type Parse)
+pointer :: CXType -> ParseType (C.Type Parse)
 pointer = clang_getPointeeType >=> fmap C.TypePointer . cxtype
 
-fromDecl :: HasCallStack => CXType -> ParseType Parse (C.Type Parse)
+fromDecl :: HasCallStack => CXType -> ParseType (C.Type Parse)
 fromDecl ty = do
     decl     <- clang_getTypeDeclaration ty
     mBuiltin <- C.checkIsBuiltin decl
@@ -151,7 +151,7 @@ fromDecl ty = do
           throwIO (UnsupportedUnderlyingType n e')
       | otherwise = throwIO e
 
-function :: Bool -> CXType -> ParseType Parse (C.Type Parse)
+function :: Bool -> CXType -> ParseType (C.Type Parse)
 function hasProto ty = do
     isVariadic <-
       -- Functions without a prototype (that is, without declared arguments)
@@ -170,21 +170,21 @@ function hasProto ty = do
       pure $ C.TypeFun (map adjustFunctionTypesToPointers args)
                        (adjustFunctionTypesToPointers res)
 
-constantArray :: CXType -> ParseType Parse (C.Type Parse)
+constantArray :: CXType -> ParseType (C.Type Parse)
 constantArray ty = do
     n   <- fromIntegral <$> clang_getArraySize ty
     ty' <- cxtype =<< clang_getArrayElementType ty
     return (C.TypeConstArray n ty')
 
-incompleteArray :: CXType -> ParseType Parse (C.Type Parse)
+incompleteArray :: CXType -> ParseType (C.Type Parse)
 incompleteArray ty = do
     ty' <- cxtype =<< clang_getArrayElementType ty
     return (C.TypeIncompleteArray ty')
 
-attributed :: CXType -> ParseType Parse (C.Type Parse)
+attributed :: CXType -> ParseType (C.Type Parse)
 attributed ty = cxtype =<< clang_Type_getModifiedType ty
 
-blockPointer :: CXType -> ParseType Parse (C.Type Parse)
+blockPointer :: CXType -> ParseType (C.Type Parse)
 blockPointer ty = do
     fun <- function True =<< clang_getPointeeType ty
     return (C.TypeBlock fun)

@@ -18,12 +18,15 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , parseDoNotAttempt
   , parseFail
   , RequiredForScoping(..)
+  , ParseTypeException(..)
   , ParseTypeExceptionContext(..)
   , ImmediateParseMsg(..)
   , AttachedParseMsg(..)
   , DelayedParseMsg(..)
   ) where
 
+import Control.Exception
+import Foreign.C
 import Text.SimplePrettyPrint (CtxDoc, ($$), (><))
 import Text.SimplePrettyPrint qualified as PP
 
@@ -32,11 +35,11 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
+import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming (PrelimDeclId)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Parse.Type.Monad
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
@@ -474,3 +477,89 @@ instance IsTrace Level DelayedParseMsg where
       ParseFunctionOfTypeTypedef{}     -> Warning
   getSource  = const HsBindgen
   getTraceId = const "parse-delayed"
+
+{-------------------------------------------------------------------------------
+  ParseTypeException
+-------------------------------------------------------------------------------}
+
+data ParseTypeException =
+    -- | We encountered an unexpected type kind
+    --
+    -- This is always a bug in hs-bindgen: if this kind of type is unsupported,
+    -- we should explicitly check for it and throw an appropriate exception.
+    --
+    -- If this is a @Left@ value, it means that our @libclang@ bindings are
+    -- incomplete.
+    UnexpectedTypeKind (Either CInt CXTypeKind)
+
+    -- | We encountered an unexpected type declaration
+    --
+    -- Similar comments apply as for 'UnexpectedTypeKind'.
+  | UnexpectedTypeDecl (Either CInt CXCursorKind)
+
+    -- | We do not support variadic (varargs) functions
+  | UnsupportedVariadicFunction
+
+    -- | We do not support @long double@
+  | UnsupportedLongDouble
+
+    -- | Clang built-in declaration
+  | UnsupportedBuiltin Text
+
+    -- | Complex types can only be defined using primitive types, e.g.
+    -- @double complex@. @struct Point complex@ is not allowed.
+  | UnexpectedComplexType CXType
+
+  | UnsupportedUnderlyingType C.PrelimDeclId ParseTypeException
+  deriving stock (Show, Eq, Ord)
+
+instance PrettyForTrace ParseTypeException where
+  prettyForTrace = \case
+      UnexpectedTypeKind (Right kind) ->
+          unexpected $ "type kind " >< PP.showToCtxDoc kind
+      UnexpectedTypeKind (Left i) ->
+          unexpected $ "type kind " >< PP.showToCtxDoc i
+      UnexpectedTypeDecl (Right kind) ->
+          unexpected $ "type declaration " >< PP.showToCtxDoc kind
+      UnexpectedTypeDecl (Left i) ->
+          unexpected $ "type declaration " >< PP.showToCtxDoc i
+      UnsupportedVariadicFunction ->
+          "Unsupported variadic (varargs) function"
+      UnsupportedLongDouble ->
+          "Unsupported long double"
+      UnsupportedBuiltin name ->
+          "Unsupported built-in " >< PP.showToCtxDoc name
+      UnexpectedComplexType ty ->
+          "Unexpected complex type " >< PP.showToCtxDoc ty
+      UnsupportedUnderlyingType name err -> PP.hcat [
+            "Unsupported underlying type of typedef "
+          , PP.showToCtxDoc name
+          , ": "
+          , prettyForTrace err
+          ]
+    where
+      unexpected :: PP.CtxDoc -> PP.CtxDoc
+      unexpected msg = PP.vcat [
+            "Unexpected " >< msg
+          , PP.string pleaseReport
+          ]
+
+-- | We use 'Error' for bugs, and 'Warning' for known-to-be-unsupported
+--
+-- This ensures that for declarations that use known-to-be-unsupported types, we
+-- can just register a parse failure and avoid generating bindings for that
+-- declaration.
+instance IsTrace Level ParseTypeException where
+  getDefaultLogLevel = \case
+    UnexpectedTypeKind{}          -> Error
+    UnexpectedTypeDecl{}          -> Error
+    UnsupportedVariadicFunction   -> Warning
+    UnsupportedLongDouble         -> Warning
+    UnsupportedBuiltin{}          -> Warning
+    UnexpectedComplexType{}       -> Error
+    UnsupportedUnderlyingType _ x -> getDefaultLogLevel x
+  getSource  = const HsBindgen
+  getTraceId = const "parse-type-exception"
+
+instance Exception ParseTypeException where
+  displayException = PP.renderCtxDoc (PP.mkContext 100) . prettyForTrace
