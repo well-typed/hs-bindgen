@@ -101,7 +101,7 @@ elaborated :: CXType -> ParseType (C.Type Parse)
 elaborated = clang_Type_getNamedType >=> cxtype
 
 pointer :: CXType -> ParseType (C.Type Parse)
-pointer = clang_getPointeeType >=> fmap C.TypePointer . cxtype
+pointer = clang_getPointeeType >=> fmap (C.TypePointers 1) . cxtype
 
 fromDecl :: HasCallStack => CXType -> ParseType (C.Type Parse)
 fromDecl ty = do
@@ -209,17 +209,17 @@ adjustFunctionTypesToPointers = go False
       C.TypeRef n -> C.TypeRef n
       C.TypeTypedef n uTy
           | isCanonicalFunctionType uTy && not ctx
-          -> C.TypePointer $ C.TypeTypedef n (go True uTy)
+          -> C.TypePointers 1 $ C.TypeTypedef n (go True uTy)
           | otherwise
           -> C.TypeTypedef n (go True uTy)
-      C.TypePointer t -> C.TypePointer $ go True t
+      C.TypePointers n t -> C.TypePointers n $ go True t
       C.TypeFun args res -> do
         let args' = map (go False) args
             res' = go False res
         if ctx then
           C.TypeFun args' res'
         else
-          C.TypePointer (C.TypeFun args' res')
+          C.TypePointers 1 (C.TypeFun args' res')
       C.TypeVoid -> C.TypeVoid
       C.TypeConstArray n t -> C.TypeConstArray n $ go ctx t
       C.TypeExtBinding eb -> absurd eb

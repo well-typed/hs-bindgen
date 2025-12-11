@@ -255,7 +255,7 @@ taggedPayload = go ByValue
             , tagKind
             , origDeclId
             }
-        C.TypePointer ty ->
+        C.TypePointers _ ty ->
           go ByRef ty
         _otherwise ->
           Nothing

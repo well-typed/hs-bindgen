@@ -1,4 +1,5 @@
 {-# LANGUAGE EmptyCase #-}
+{-# LANGUAGE PatternSynonyms #-}
 
 -- | The final C AST after the frontend is done
 --
@@ -41,7 +42,11 @@ module HsBindgen.Frontend.AST.External (
   , Int.FunctionPurity(..)
     -- * Types
   , Type
-  , TypeF(..)
+  , TypeF(TypePrim, TypeRef, TypeTypedef, TypeFun, TypeVoid,
+          TypeConstArray, TypeIncompleteArray, TypeBlock, TypeQualified,
+          TypeExtBinding, TypeComplex)
+    -- ** Pattern synonyms for safe pointer handling
+  , pattern TypePointers
   , TypeQualifier(..)
   , ResolveBindingSpecs.ResolvedExtBinding(..)
   , isVoid
@@ -304,7 +309,7 @@ data TypeF tag =
     -- TODO: macros should get annotations with underlying types just like
     -- typedefs, so that we can erase the macro types and replace them with
     -- their underlying type. See issue #1200.
-  | TypePointer (TypeF tag)
+  | TypeUnsafePointer (TypeF tag)
   | TypeConstArray Natural (TypeF tag)
   | TypeFun [TypeF tag] (TypeF tag)
   | TypeVoid
@@ -322,6 +327,59 @@ data TypeF tag =
 deriving stock instance (Show (TypedefRefF tag), Show (TypeQualifierF tag)) => Show (TypeF tag)
 deriving stock instance (Eq (TypedefRefF tag), Eq (TypeQualifierF tag))     => Eq (TypeF tag)
 deriving stock instance (Ord (TypedefRefF tag), Ord (TypeQualifierF tag))   => Ord (TypeF tag)
+
+{-------------------------------------------------------------------------------
+  Pattern synonyms for safe pointer handling
+-------------------------------------------------------------------------------}
+
+-- | Bidirectional pattern synonym for N layers of pointer indirection
+--
+-- This pattern can be used both for matching and construction.
+--
+-- Examples (matching):
+--   * @TypePointers 1 inner@ matches @TypeUnsafePointer inner@
+--   * @TypePointers 2 inner@ matches @TypeUnsafePointer (TypeUnsafePointer inner)@
+--   * @TypePointers 3 inner@ matches @TypeUnsafePointer (TypeUnsafePointer (TypeUnsafePointer inner))@
+--
+-- Examples (construction):
+--   * @TypePointers 1 someType@ creates @TypeUnsafePointer someType@
+--   * @TypePointers 2 someType@ creates @TypeUnsafePointer (TypeUnsafePointer someType)@
+--
+-- The inner type can be anything (TypeFun, TypeRef, TypePrim, etc.).
+--
+pattern TypePointers :: Int -> TypeF tag -> TypeF tag
+pattern TypePointers n inner <- (stripPointersF -> Just (n, inner))
+  where
+    TypePointers n inner = buildPointersF n inner
+
+-- | Helper for TypePointers pattern synonym (matching direction)
+--
+-- Strips all pointer layers and returns the count and inner type.
+-- Returns Nothing if there are no pointer layers.
+stripPointersF :: TypeF tag -> Maybe (Int, TypeF tag)
+stripPointersF = go 0
+  where
+    go :: Int -> TypeF tag -> Maybe (Int, TypeF tag)
+    go !n (TypeUnsafePointer inner) = go (n + 1) inner
+    go !n inner
+      | n > 0     = Just (n, inner)
+      | otherwise = Nothing
+
+-- | Helper for TypePointers pattern synonym (construction direction)
+--
+-- Builds N layers of pointers around an inner type.
+buildPointersF :: Int -> TypeF tag -> TypeF tag
+buildPointersF n inner
+  | n <= 0    = inner
+  | otherwise = TypeUnsafePointer (buildPointersF (n - 1) inner)
+
+-- | COMPLETE pragma to ensure exhaustiveness checking works
+--
+-- This tells GHC that pattern matching on these patterns (instead of the raw
+-- TypeUnsafePointer) is complete and exhaustive.
+{-# COMPLETE TypePrim, TypeRef, TypeTypedef, TypePointers, TypeFun, TypeVoid,
+             TypeConstArray, TypeIncompleteArray, TypeBlock, TypeQualified,
+             TypeExtBinding, TypeComplex #-}
 
 data TypeQualifier = TypeQualifierConst
   deriving stock (Show, Eq, Ord, Generic)
@@ -405,7 +463,7 @@ isCanonicalTypeArray ty =
       TypePrim _pt          -> Nothing
       TypeRef _declId       -> Nothing
       TypeTypedef ref       -> isCanonicalTypeArray (eraseTypedef ref)
-      TypePointer _t        -> Nothing
+      TypePointers _n _t    -> Nothing
       TypeConstArray n t    -> Just (ConstantArrayClassification n t)
       TypeFun _args _res    -> Nothing
       TypeVoid              -> Nothing
@@ -434,7 +492,7 @@ typeDeclIds = \case
     TypeExtBinding  _ext   -> []
 
     -- Recurse
-    TypePointer         t -> typeDeclIds t
+    TypePointers _      t -> typeDeclIds t
     TypeConstArray _    t -> typeDeclIds t
     TypeIncompleteArray t -> typeDeclIds t
     TypeBlock           t -> typeDeclIds t
@@ -534,7 +592,7 @@ mapTypeF fRef fQual = go
       TypePrim pt           -> TypePrim pt
       TypeRef declId        -> TypeRef declId
       TypeTypedef ref       -> fRef ref
-      TypePointer t         -> TypePointer $ go t
+      TypePointers n t      -> TypePointers n $ go t
       TypeConstArray n t    -> TypeConstArray n $ go t
       TypeFun args res      -> TypeFun (go <$> args) (go res)
       TypeVoid              -> TypeVoid

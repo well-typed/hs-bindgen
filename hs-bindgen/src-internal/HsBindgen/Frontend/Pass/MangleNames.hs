@@ -440,7 +440,7 @@ instance Mangle C.Type where
                                     <*> mangle uTy
 
       -- Recursive cases
-      C.TypePointer typ         -> C.TypePointer <$> mangle typ
+      C.TypePointers n typ      -> C.TypePointers n <$> mangle typ
       C.TypeFun args res        -> C.TypeFun <$> mapM mangle args <*> mangle res
       C.TypeConstArray n typ    -> C.TypeConstArray n <$> mangle typ
       C.TypeIncompleteArray typ -> C.TypeIncompleteArray <$> mangle typ

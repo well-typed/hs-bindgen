@@ -213,7 +213,7 @@ instance NameUseSites C.Type where
                                    (nameUseSites env uTy)
 
       -- Recursive cases
-      go (C.TypePointer ty)         = C.TypePointer (go ty)
+      go (C.TypePointers n ty)      = C.TypePointers n (go ty)
       go (C.TypeFun args res)       = C.TypeFun (map go args) (go res)
       go (C.TypeConstArray n ty)    = C.TypeConstArray n (go ty)
       go (C.TypeIncompleteArray ty) = C.TypeIncompleteArray (go ty)
