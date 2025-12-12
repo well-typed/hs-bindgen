@@ -26,6 +26,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FunPtr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Prelude
 import qualified Text.Read
@@ -116,6 +117,7 @@ newtype Another_typedef_enum_e = Another_typedef_enum_e
   { un_Another_typedef_enum_e :: FC.CUInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable Another_typedef_enum_e where
 
@@ -232,7 +234,7 @@ newtype A_type_t = A_type_t
   { un_A_type_t :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_type_t) "un_A_type_t")
          ) => GHC.Records.HasField "un_A_type_t" (Ptr.Ptr A_type_t) (Ptr.Ptr ty) where
@@ -256,7 +258,7 @@ newtype Var_t = Var_t
   { un_Var_t :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Var_t) "un_Var_t")
          ) => GHC.Records.HasField "un_Var_t" (Ptr.Ptr Var_t) (Ptr.Ptr ty) where
@@ -595,6 +597,7 @@ newtype A_typedef_enum_e = A_typedef_enum_e
   { un_A_typedef_enum_e :: FC.CUChar
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable A_typedef_enum_e where
 
@@ -703,6 +706,7 @@ __exported by:__ @edge-cases\/distilled_lib_1.h@
 newtype Callback_t_Deref = Callback_t_Deref
   { un_Callback_t_Deref :: (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toCallback_t_Deref ::
      Callback_t_Deref
@@ -743,7 +747,7 @@ newtype Callback_t = Callback_t
   { un_Callback_t :: Ptr.FunPtr Callback_t_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Callback_t) "un_Callback_t")
          ) => GHC.Records.HasField "un_Callback_t" (Ptr.Ptr Callback_t) (Ptr.Ptr ty) where

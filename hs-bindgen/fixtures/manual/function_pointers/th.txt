@@ -211,6 +211,7 @@ newtype Int2int
 
            __exported by:__ @manual\/function_pointers.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toInt2int :: Int2int ->
                                                  IO (FunPtr Int2int)
 foreign import ccall safe "dynamic" fromInt2int :: FunPtr Int2int ->

@@ -70,6 +70,7 @@ newtype Adio'0301s
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,
@@ -100,6 +101,7 @@ newtype C数字
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,

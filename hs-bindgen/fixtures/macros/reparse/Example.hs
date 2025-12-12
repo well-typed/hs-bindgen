@@ -29,6 +29,7 @@ import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FunPtr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.SizedByteArray
@@ -47,7 +48,7 @@ newtype A = A
   { un_A :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 {-| __C declaration:__ @some_struct@
 
@@ -95,6 +96,7 @@ newtype Some_enum = Some_enum
   { un_Some_enum :: FC.CUInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable Some_enum where
 
@@ -273,7 +275,7 @@ newtype Typedef1 = Typedef1
   { un_Typedef1 :: A
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Typedef1) "un_Typedef1")
          ) => GHC.Records.HasField "un_Typedef1" (Ptr.Ptr Typedef1) (Ptr.Ptr ty) where
@@ -297,7 +299,7 @@ newtype Typedef2 = Typedef2
   { un_Typedef2 :: Ptr.Ptr A
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Typedef2) "un_Typedef2")
          ) => GHC.Records.HasField "un_Typedef2" (Ptr.Ptr Typedef2) (Ptr.Ptr ty) where
@@ -321,7 +323,7 @@ newtype Typedef3 = Typedef3
   { un_Typedef3 :: Ptr.Ptr (Ptr.Ptr A)
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Typedef3) "un_Typedef3")
          ) => GHC.Records.HasField "un_Typedef3" (Ptr.Ptr Typedef3) (Ptr.Ptr ty) where
@@ -345,6 +347,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef1_Deref = Funptr_typedef1_Deref
   { un_Funptr_typedef1_Deref :: IO A
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toFunptr_typedef1_Deref ::
      Funptr_typedef1_Deref
@@ -385,7 +388,7 @@ newtype Funptr_typedef1 = Funptr_typedef1
   { un_Funptr_typedef1 :: Ptr.FunPtr Funptr_typedef1_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef1) "un_Funptr_typedef1")
          ) => GHC.Records.HasField "un_Funptr_typedef1" (Ptr.Ptr Funptr_typedef1) (Ptr.Ptr ty) where
@@ -409,6 +412,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef2_Deref = Funptr_typedef2_Deref
   { un_Funptr_typedef2_Deref :: IO (Ptr.Ptr A)
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toFunptr_typedef2_Deref ::
      Funptr_typedef2_Deref
@@ -449,7 +453,7 @@ newtype Funptr_typedef2 = Funptr_typedef2
   { un_Funptr_typedef2 :: Ptr.FunPtr Funptr_typedef2_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef2) "un_Funptr_typedef2")
          ) => GHC.Records.HasField "un_Funptr_typedef2" (Ptr.Ptr Funptr_typedef2) (Ptr.Ptr ty) where
@@ -473,6 +477,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef3_Deref = Funptr_typedef3_Deref
   { un_Funptr_typedef3_Deref :: IO (Ptr.Ptr (Ptr.Ptr A))
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toFunptr_typedef3_Deref ::
      Funptr_typedef3_Deref
@@ -513,7 +518,7 @@ newtype Funptr_typedef3 = Funptr_typedef3
   { un_Funptr_typedef3 :: Ptr.FunPtr Funptr_typedef3_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef3) "un_Funptr_typedef3")
          ) => GHC.Records.HasField "un_Funptr_typedef3" (Ptr.Ptr Funptr_typedef3) (Ptr.Ptr ty) where
@@ -537,6 +542,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef4_Deref = Funptr_typedef4_Deref
   { un_Funptr_typedef4_Deref :: FC.CInt -> FC.CDouble -> IO A
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toFunptr_typedef4_Deref ::
      Funptr_typedef4_Deref
@@ -577,7 +583,7 @@ newtype Funptr_typedef4 = Funptr_typedef4
   { un_Funptr_typedef4 :: Ptr.FunPtr Funptr_typedef4_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef4) "un_Funptr_typedef4")
          ) => GHC.Records.HasField "un_Funptr_typedef4" (Ptr.Ptr Funptr_typedef4) (Ptr.Ptr ty) where
@@ -601,6 +607,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef5_Deref = Funptr_typedef5_Deref
   { un_Funptr_typedef5_Deref :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toFunptr_typedef5_Deref ::
      Funptr_typedef5_Deref
@@ -641,7 +648,7 @@ newtype Funptr_typedef5 = Funptr_typedef5
   { un_Funptr_typedef5 :: Ptr.FunPtr Funptr_typedef5_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef5) "un_Funptr_typedef5")
          ) => GHC.Records.HasField "un_Funptr_typedef5" (Ptr.Ptr Funptr_typedef5) (Ptr.Ptr ty) where
@@ -666,7 +673,7 @@ newtype Comments2 = Comments2
   { un_Comments2 :: A
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Comments2) "un_Comments2")
          ) => GHC.Records.HasField "un_Comments2" (Ptr.Ptr Comments2) (Ptr.Ptr ty) where
@@ -787,7 +794,7 @@ newtype Const_typedef1 = Const_typedef1
   { un_Const_typedef1 :: A
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef1) "un_Const_typedef1")
          ) => GHC.Records.HasField "un_Const_typedef1" (Ptr.Ptr Const_typedef1) (Ptr.Ptr ty) where
@@ -812,7 +819,7 @@ newtype Const_typedef2 = Const_typedef2
   { un_Const_typedef2 :: A
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef2) "un_Const_typedef2")
          ) => GHC.Records.HasField "un_Const_typedef2" (Ptr.Ptr Const_typedef2) (Ptr.Ptr ty) where
@@ -837,7 +844,7 @@ newtype Const_typedef3 = Const_typedef3
   { un_Const_typedef3 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef3) "un_Const_typedef3")
          ) => GHC.Records.HasField "un_Const_typedef3" (Ptr.Ptr Const_typedef3) (Ptr.Ptr ty) where
@@ -862,7 +869,7 @@ newtype Const_typedef4 = Const_typedef4
   { un_Const_typedef4 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef4) "un_Const_typedef4")
          ) => GHC.Records.HasField "un_Const_typedef4" (Ptr.Ptr Const_typedef4) (Ptr.Ptr ty) where
@@ -887,7 +894,7 @@ newtype Const_typedef5 = Const_typedef5
   { un_Const_typedef5 :: Ptr.Ptr A
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef5) "un_Const_typedef5")
          ) => GHC.Records.HasField "un_Const_typedef5" (Ptr.Ptr Const_typedef5) (Ptr.Ptr ty) where
@@ -912,7 +919,7 @@ newtype Const_typedef6 = Const_typedef6
   { un_Const_typedef6 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef6) "un_Const_typedef6")
          ) => GHC.Records.HasField "un_Const_typedef6" (Ptr.Ptr Const_typedef6) (Ptr.Ptr ty) where
@@ -937,7 +944,7 @@ newtype Const_typedef7 = Const_typedef7
   { un_Const_typedef7 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef7) "un_Const_typedef7")
          ) => GHC.Records.HasField "un_Const_typedef7" (Ptr.Ptr Const_typedef7) (Ptr.Ptr ty) where
@@ -1148,6 +1155,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr1_Deref = Const_funptr1_Deref
   { un_Const_funptr1_Deref :: FC.CInt -> FC.CDouble -> IO A
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toConst_funptr1_Deref ::
      Const_funptr1_Deref
@@ -1188,7 +1196,7 @@ newtype Const_funptr1 = Const_funptr1
   { un_Const_funptr1 :: Ptr.FunPtr Const_funptr1_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr1) "un_Const_funptr1")
          ) => GHC.Records.HasField "un_Const_funptr1" (Ptr.Ptr Const_funptr1) (Ptr.Ptr ty) where
@@ -1212,6 +1220,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr2_Deref = Const_funptr2_Deref
   { un_Const_funptr2_Deref :: FC.CInt -> FC.CDouble -> IO A
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toConst_funptr2_Deref ::
      Const_funptr2_Deref
@@ -1252,7 +1261,7 @@ newtype Const_funptr2 = Const_funptr2
   { un_Const_funptr2 :: Ptr.FunPtr Const_funptr2_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr2) "un_Const_funptr2")
          ) => GHC.Records.HasField "un_Const_funptr2" (Ptr.Ptr Const_funptr2) (Ptr.Ptr ty) where
@@ -1276,6 +1285,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr3_Deref = Const_funptr3_Deref
   { un_Const_funptr3_Deref :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toConst_funptr3_Deref ::
      Const_funptr3_Deref
@@ -1316,7 +1326,7 @@ newtype Const_funptr3 = Const_funptr3
   { un_Const_funptr3 :: Ptr.FunPtr Const_funptr3_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr3) "un_Const_funptr3")
          ) => GHC.Records.HasField "un_Const_funptr3" (Ptr.Ptr Const_funptr3) (Ptr.Ptr ty) where
@@ -1340,6 +1350,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr4_Deref = Const_funptr4_Deref
   { un_Const_funptr4_Deref :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toConst_funptr4_Deref ::
      Const_funptr4_Deref
@@ -1380,7 +1391,7 @@ newtype Const_funptr4 = Const_funptr4
   { un_Const_funptr4 :: Ptr.FunPtr Const_funptr4_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr4) "un_Const_funptr4")
          ) => GHC.Records.HasField "un_Const_funptr4" (Ptr.Ptr Const_funptr4) (Ptr.Ptr ty) where
@@ -1404,6 +1415,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr5_Deref = Const_funptr5_Deref
   { un_Const_funptr5_Deref :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toConst_funptr5_Deref ::
      Const_funptr5_Deref
@@ -1444,7 +1456,7 @@ newtype Const_funptr5 = Const_funptr5
   { un_Const_funptr5 :: Ptr.FunPtr Const_funptr5_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr5) "un_Const_funptr5")
          ) => GHC.Records.HasField "un_Const_funptr5" (Ptr.Ptr Const_funptr5) (Ptr.Ptr ty) where
@@ -1468,6 +1480,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr6_Deref = Const_funptr6_Deref
   { un_Const_funptr6_Deref :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toConst_funptr6_Deref ::
      Const_funptr6_Deref
@@ -1508,7 +1521,7 @@ newtype Const_funptr6 = Const_funptr6
   { un_Const_funptr6 :: Ptr.FunPtr Const_funptr6_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr6) "un_Const_funptr6")
          ) => GHC.Records.HasField "un_Const_funptr6" (Ptr.Ptr Const_funptr6) (Ptr.Ptr ty) where
@@ -1532,6 +1545,7 @@ __exported by:__ @macros\/reparse.h@
 newtype Const_funptr7_Deref = Const_funptr7_Deref
   { un_Const_funptr7_Deref :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toConst_funptr7_Deref ::
      Const_funptr7_Deref
@@ -1572,7 +1586,7 @@ newtype Const_funptr7 = Const_funptr7
   { un_Const_funptr7 :: Ptr.FunPtr Const_funptr7_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr7) "un_Const_funptr7")
          ) => GHC.Records.HasField "un_Const_funptr7" (Ptr.Ptr Const_funptr7) (Ptr.Ptr ty) where
@@ -1597,7 +1611,7 @@ newtype BOOL = BOOL
   { un_BOOL :: FC.CBool
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 {-| __C declaration:__ @INT@
 
@@ -1609,7 +1623,7 @@ newtype INT = INT
   { un_INT :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 {-| __C declaration:__ @INTP@
 
@@ -1621,7 +1635,7 @@ newtype INTP = INTP
   { un_INTP :: Ptr.Ptr FC.CInt
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 {-| __C declaration:__ @INTCP@
 
@@ -1633,4 +1647,4 @@ newtype INTCP = INTCP
   { un_INTCP :: HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)

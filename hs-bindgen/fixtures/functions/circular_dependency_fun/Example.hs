@@ -18,6 +18,7 @@ import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.FunPtr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, IO, Int, Ord, Show, pure)
@@ -31,6 +32,7 @@ __exported by:__ @functions\/circular_dependency_fun.h@
 newtype Fun_ptr_Deref = Fun_ptr_Deref
   { un_Fun_ptr_Deref :: (Ptr.Ptr Forward_declaration) -> IO ()
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toFun_ptr_Deref ::
      Fun_ptr_Deref
@@ -71,7 +73,7 @@ newtype Fun_ptr = Fun_ptr
   { un_Fun_ptr :: Ptr.FunPtr Fun_ptr_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr) "un_Fun_ptr")
          ) => GHC.Records.HasField "un_Fun_ptr" (Ptr.Ptr Fun_ptr) (Ptr.Ptr ty) where

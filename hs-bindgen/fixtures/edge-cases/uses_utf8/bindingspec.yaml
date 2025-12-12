@@ -11,6 +11,7 @@ hstypes:
 - hsname: MyEnum
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show

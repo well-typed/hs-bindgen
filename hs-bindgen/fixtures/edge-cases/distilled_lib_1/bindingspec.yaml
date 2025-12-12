@@ -33,6 +33,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasBaseForeignType
   - Integral
   - Ix
   - Num
@@ -44,6 +45,7 @@ hstypes:
 - hsname: A_typedef_enum_e
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show
@@ -56,6 +58,7 @@ hstypes:
 - hsname: Another_typedef_enum_e
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show
@@ -68,6 +71,7 @@ hstypes:
 - hsname: Callback_t
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
@@ -78,6 +82,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasBaseForeignType
   - Integral
   - Ix
   - Num

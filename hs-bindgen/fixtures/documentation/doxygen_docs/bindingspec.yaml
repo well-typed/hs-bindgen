@@ -52,6 +52,7 @@ hstypes:
 - hsname: Color_enum
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show
@@ -72,6 +73,7 @@ hstypes:
 - hsname: Event_callback_t
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
@@ -92,6 +94,7 @@ hstypes:
 - hsname: Processor_fn_t
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
@@ -102,6 +105,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasBaseForeignType
   - Integral
   - Ix
   - Num
@@ -113,6 +117,7 @@ hstypes:
 - hsname: Status_code_t
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show

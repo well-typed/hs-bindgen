@@ -45,6 +45,7 @@ import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.ConstPtr qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
+import HsBindgen.Runtime.HasBaseForeignType qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
@@ -327,6 +328,9 @@ resolveGlobal = \case
     -- Proxy
     Proxy_type        -> importQ ''Data.Proxy.Proxy
     Proxy_constructor -> importQ 'Data.Proxy.Proxy
+
+    -- HasBaseForeignType
+    HasBaseForeignType_class -> importQ ''HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType
 
     -- Unsafe
     IO_unsafePerformIO -> importQ 'System.IO.Unsafe.unsafePerformIO

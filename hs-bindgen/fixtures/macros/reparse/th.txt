@@ -2489,6 +2489,7 @@ newtype A
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,
@@ -2548,6 +2549,7 @@ newtype Some_enum
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable Some_enum
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -2697,6 +2699,7 @@ newtype Typedef1
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,
@@ -2726,7 +2729,7 @@ newtype Typedef2
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Typedef2 "un_Typedef2") =>
          HasField "un_Typedef2" (Ptr Typedef2) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Typedef2")
@@ -2748,7 +2751,7 @@ newtype Typedef3
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Typedef3 "un_Typedef3") =>
          HasField "un_Typedef3" (Ptr Typedef3) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Typedef3")
@@ -2769,6 +2772,7 @@ newtype Funptr_typedef1_Deref
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toFunptr_typedef1_Deref :: Funptr_typedef1_Deref ->
                                                                IO (FunPtr Funptr_typedef1_Deref)
 foreign import ccall safe "dynamic" fromFunptr_typedef1_Deref :: FunPtr Funptr_typedef1_Deref ->
@@ -2802,7 +2806,7 @@ newtype Funptr_typedef1
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty
               (CFieldType Funptr_typedef1 "un_Funptr_typedef1") =>
          HasField "un_Funptr_typedef1" (Ptr Funptr_typedef1) (Ptr ty)
@@ -2825,6 +2829,7 @@ newtype Funptr_typedef2_Deref
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toFunptr_typedef2_Deref :: Funptr_typedef2_Deref ->
                                                                IO (FunPtr Funptr_typedef2_Deref)
 foreign import ccall safe "dynamic" fromFunptr_typedef2_Deref :: FunPtr Funptr_typedef2_Deref ->
@@ -2858,7 +2863,7 @@ newtype Funptr_typedef2
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty
               (CFieldType Funptr_typedef2 "un_Funptr_typedef2") =>
          HasField "un_Funptr_typedef2" (Ptr Funptr_typedef2) (Ptr ty)
@@ -2881,6 +2886,7 @@ newtype Funptr_typedef3_Deref
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toFunptr_typedef3_Deref :: Funptr_typedef3_Deref ->
                                                                IO (FunPtr Funptr_typedef3_Deref)
 foreign import ccall safe "dynamic" fromFunptr_typedef3_Deref :: FunPtr Funptr_typedef3_Deref ->
@@ -2914,7 +2920,7 @@ newtype Funptr_typedef3
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty
               (CFieldType Funptr_typedef3 "un_Funptr_typedef3") =>
          HasField "un_Funptr_typedef3" (Ptr Funptr_typedef3) (Ptr ty)
@@ -2938,6 +2944,7 @@ newtype Funptr_typedef4_Deref
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toFunptr_typedef4_Deref :: Funptr_typedef4_Deref ->
                                                                IO (FunPtr Funptr_typedef4_Deref)
 foreign import ccall safe "dynamic" fromFunptr_typedef4_Deref :: FunPtr Funptr_typedef4_Deref ->
@@ -2971,7 +2978,7 @@ newtype Funptr_typedef4
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty
               (CFieldType Funptr_typedef4 "un_Funptr_typedef4") =>
          HasField "un_Funptr_typedef4" (Ptr Funptr_typedef4) (Ptr ty)
@@ -2995,6 +3002,7 @@ newtype Funptr_typedef5_Deref
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toFunptr_typedef5_Deref :: Funptr_typedef5_Deref ->
                                                                IO (FunPtr Funptr_typedef5_Deref)
 foreign import ccall safe "dynamic" fromFunptr_typedef5_Deref :: FunPtr Funptr_typedef5_Deref ->
@@ -3028,7 +3036,7 @@ newtype Funptr_typedef5
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty
               (CFieldType Funptr_typedef5 "un_Funptr_typedef5") =>
          HasField "un_Funptr_typedef5" (Ptr Funptr_typedef5) (Ptr ty)
@@ -3053,6 +3061,7 @@ newtype Comments2
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,
@@ -3153,6 +3162,7 @@ newtype Const_typedef1
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,
@@ -3183,6 +3193,7 @@ newtype Const_typedef2
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,
@@ -3212,7 +3223,7 @@ newtype Const_typedef3
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Const_typedef3 "un_Const_typedef3") =>
          HasField "un_Const_typedef3" (Ptr Const_typedef3) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_typedef3")
@@ -3235,7 +3246,7 @@ newtype Const_typedef4
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Const_typedef4 "un_Const_typedef4") =>
          HasField "un_Const_typedef4" (Ptr Const_typedef4) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_typedef4")
@@ -3258,7 +3269,7 @@ newtype Const_typedef5
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Const_typedef5 "un_Const_typedef5") =>
          HasField "un_Const_typedef5" (Ptr Const_typedef5) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_typedef5")
@@ -3280,7 +3291,7 @@ newtype Const_typedef6
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Const_typedef6 "un_Const_typedef6") =>
          HasField "un_Const_typedef6" (Ptr Const_typedef6) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_typedef6")
@@ -3303,7 +3314,7 @@ newtype Const_typedef7
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Const_typedef7 "un_Const_typedef7") =>
          HasField "un_Const_typedef7" (Ptr Const_typedef7) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_typedef7")
@@ -3485,6 +3496,7 @@ newtype Const_funptr1_Deref
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toConst_funptr1_Deref :: Const_funptr1_Deref ->
                                                              IO (FunPtr Const_funptr1_Deref)
 foreign import ccall safe "dynamic" fromConst_funptr1_Deref :: FunPtr Const_funptr1_Deref ->
@@ -3518,7 +3530,7 @@ newtype Const_funptr1
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Const_funptr1 "un_Const_funptr1") =>
          HasField "un_Const_funptr1" (Ptr Const_funptr1) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_funptr1")
@@ -3541,6 +3553,7 @@ newtype Const_funptr2_Deref
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toConst_funptr2_Deref :: Const_funptr2_Deref ->
                                                              IO (FunPtr Const_funptr2_Deref)
 foreign import ccall safe "dynamic" fromConst_funptr2_Deref :: FunPtr Const_funptr2_Deref ->
@@ -3574,7 +3587,7 @@ newtype Const_funptr2
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Const_funptr2 "un_Const_funptr2") =>
          HasField "un_Const_funptr2" (Ptr Const_funptr2) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_funptr2")
@@ -3597,6 +3610,7 @@ newtype Const_funptr3_Deref
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toConst_funptr3_Deref :: Const_funptr3_Deref ->
                                                              IO (FunPtr Const_funptr3_Deref)
 foreign import ccall safe "dynamic" fromConst_funptr3_Deref :: FunPtr Const_funptr3_Deref ->
@@ -3630,7 +3644,7 @@ newtype Const_funptr3
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Const_funptr3 "un_Const_funptr3") =>
          HasField "un_Const_funptr3" (Ptr Const_funptr3) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_funptr3")
@@ -3653,6 +3667,7 @@ newtype Const_funptr4_Deref
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toConst_funptr4_Deref :: Const_funptr4_Deref ->
                                                              IO (FunPtr Const_funptr4_Deref)
 foreign import ccall safe "dynamic" fromConst_funptr4_Deref :: FunPtr Const_funptr4_Deref ->
@@ -3686,7 +3701,7 @@ newtype Const_funptr4
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Const_funptr4 "un_Const_funptr4") =>
          HasField "un_Const_funptr4" (Ptr Const_funptr4) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_funptr4")
@@ -3709,6 +3724,7 @@ newtype Const_funptr5_Deref
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toConst_funptr5_Deref :: Const_funptr5_Deref ->
                                                              IO (FunPtr Const_funptr5_Deref)
 foreign import ccall safe "dynamic" fromConst_funptr5_Deref :: FunPtr Const_funptr5_Deref ->
@@ -3742,7 +3758,7 @@ newtype Const_funptr5
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Const_funptr5 "un_Const_funptr5") =>
          HasField "un_Const_funptr5" (Ptr Const_funptr5) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_funptr5")
@@ -3765,6 +3781,7 @@ newtype Const_funptr6_Deref
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toConst_funptr6_Deref :: Const_funptr6_Deref ->
                                                              IO (FunPtr Const_funptr6_Deref)
 foreign import ccall safe "dynamic" fromConst_funptr6_Deref :: FunPtr Const_funptr6_Deref ->
@@ -3798,7 +3815,7 @@ newtype Const_funptr6
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Const_funptr6 "un_Const_funptr6") =>
          HasField "un_Const_funptr6" (Ptr Const_funptr6) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_funptr6")
@@ -3821,6 +3838,7 @@ newtype Const_funptr7_Deref
 
       __exported by:__ @macros\/reparse.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toConst_funptr7_Deref :: Const_funptr7_Deref ->
                                                              IO (FunPtr Const_funptr7_Deref)
 foreign import ccall safe "dynamic" fromConst_funptr7_Deref :: FunPtr Const_funptr7_Deref ->
@@ -3854,7 +3872,7 @@ newtype Const_funptr7
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Const_funptr7 "un_Const_funptr7") =>
          HasField "un_Const_funptr7" (Ptr Const_funptr7) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Const_funptr7")
@@ -3878,6 +3896,7 @@ newtype BOOL
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,
@@ -3902,6 +3921,7 @@ newtype INT
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,
@@ -3925,7 +3945,7 @@ newtype INTP
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 {-| __C declaration:__ @INTCP@
 
     __defined at:__ @macros\/reparse.h:283:9@
@@ -3941,7 +3961,7 @@ newtype INTCP
            __exported by:__ @macros\/reparse.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 {-| Function declarations
 
 __C declaration:__ @args_char1@

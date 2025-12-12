@@ -47,6 +47,7 @@ import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.ConstPtr qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.FunPtr qualified
+import HsBindgen.Runtime.HasBaseForeignType qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
@@ -137,6 +138,9 @@ mkGlobal = \case
       -- Proxy
       Proxy_type -> ''Data.Proxy.Proxy
       Proxy_constructor -> 'Data.Proxy.Proxy
+
+      -- HasBaseForeignType
+      HasBaseForeignType_class -> ''HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType
 
       -- Unsafe
       IO_unsafePerformIO -> 'System.IO.Unsafe.unsafePerformIO
@@ -367,6 +371,9 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     -- Proxy
     Proxy_type -> panicPure "type in expression"
     Proxy_constructor -> TH.conE name
+
+    -- HasBaseForeignType
+    HasBaseForeignType_class -> panicPure "class in expression"
 
     -- Unsafe
     IO_unsafePerformIO -> TH.varE name

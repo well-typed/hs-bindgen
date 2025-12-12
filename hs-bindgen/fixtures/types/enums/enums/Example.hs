@@ -1,7 +1,9 @@
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
@@ -9,6 +11,7 @@ import qualified Data.List.NonEmpty
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified Text.Read
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
@@ -22,6 +25,7 @@ newtype First = First
   { un_First :: FC.CUInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable First where
 
@@ -111,6 +115,7 @@ newtype Second = Second
   { un_Second :: FC.CInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable Second where
 
@@ -210,6 +215,7 @@ newtype Same = Same
   { un_Same :: FC.CUInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable Same where
 
@@ -297,6 +303,7 @@ newtype Nonseq = Nonseq
   { un_Nonseq :: FC.CUInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable Nonseq where
 
@@ -386,6 +393,7 @@ newtype Packed = Packed
   { un_Packed :: FC.CUChar
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable Packed where
 
@@ -485,6 +493,7 @@ newtype EnumA = EnumA
   { un_EnumA :: FC.CUInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable EnumA where
 
@@ -574,6 +583,7 @@ newtype EnumB = EnumB
   { un_EnumB :: FC.CUInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable EnumB where
 
@@ -663,6 +673,7 @@ newtype EnumC = EnumC
   { un_EnumC :: FC.CUInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable EnumC where
 
@@ -752,6 +763,7 @@ newtype EnumD_t = EnumD_t
   { un_EnumD_t :: FC.CUInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable EnumD_t where
 
