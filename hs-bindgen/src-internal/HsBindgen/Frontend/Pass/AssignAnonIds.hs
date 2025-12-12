@@ -2,42 +2,43 @@ module HsBindgen.Frontend.Pass.AssignAnonIds (
     assignAnonIds
   ) where
 
-import Control.Monad.State
 import Data.Either (partitionEithers)
 import Data.Map qualified as Map
+import Data.Tuple
 
-import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis (..))
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Msg
+import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
+{-------------------------------------------------------------------------------
+  Top-level
+-------------------------------------------------------------------------------}
+
 -- | Assign name to all anonymous declarations
 assignAnonIds ::
-      C.TranslationUnit Parse
-  -> (C.TranslationUnit AssignAnonIds, [Msg AssignAnonIds])
-assignAnonIds unit =
-    let (msgs, decls') =
-           partitionEithers $
-             map (updateDecl chosenNames) unit.unitDecls
-    in  ( C.TranslationUnit{
-              unitDecls        = decls'
-            , unitIncludeGraph = unit.unitIncludeGraph
-            , unitAnn          = NoAnn
-            }
-        , msgs
-        )
+     [ParseResult Parse]
+  -> ([ParseResult AssignAnonIds], [ImmediateAssignAnonIdsMsg])
+assignAnonIds parseResults =
+    swap . partitionEithers $
+      map (updateParseResult chosenNames) parseResults
   where
-    chosenNames :: Map C.AnonId Text
+    decls :: [C.Decl Parse]
+    decls = mapMaybe getParseResultMaybeDecl parseResults
+
+    chosenNames :: ChosenNames
     chosenNames =
         chooseNames
-          (AnonUsageAnalysis.fromDecls unit.unitDecls)
-          (mapMaybe anonDeclId unit.unitDecls)
+          (AnonUsageAnalysis.fromDecls decls)
+          (mapMaybe anonDeclId decls)
 
     anonDeclId :: C.Decl Parse -> Maybe C.AnonId
     anonDeclId decl =
@@ -46,138 +47,103 @@ assignAnonIds unit =
           C.PrelimDeclIdAnon anonId _kind -> Just anonId
 
 {-------------------------------------------------------------------------------
-  Choose names
+  Update 'ParseResults' with chosen names
 -------------------------------------------------------------------------------}
 
-data AssignedName =
-    AssignedName Text
-  | FailedToAssignName
-
-getAssignedName :: AssignedName -> Maybe Text
-getAssignedName = \case
-    AssignedName name  -> Just name
-    FailedToAssignName -> Nothing
-
--- | Memoized assigned names
---
--- To avoid considering the same 'C.AnonId' over and over again, we maintain an
--- map for values already considered.
-type Memoize = State (Map C.AnonId AssignedName)
-
-checkMemoized :: C.AnonId -> Memoize (Maybe AssignedName)
-checkMemoized = gets . Map.lookup
-
-memoize :: C.AnonId -> AssignedName -> Memoize ()
-memoize anonId = modify . Map.insert anonId
-
--- | Choose names
-chooseNames :: AnonUsageAnalysis -> [C.AnonId] -> Map C.AnonId Text
-chooseNames (AnonUsageAnalysis usageAnalysis) =
-      Map.mapMaybe getAssignedName
-    . flip execState Map.empty
-    . mapM nameFor
+updateParseResult ::
+     ChosenNames
+  -> ParseResult Parse
+  -> Either ImmediateAssignAnonIdsMsg (ParseResult AssignAnonIds)
+updateParseResult chosenNames result =
+    case result.classification of
+      ParseResultSuccess success -> do
+        flip auxSuccess success <$>
+          updateDefInto chosenNames success.decl.declInfo
+      ParseResultNotAttempted notAttempted ->
+        flip auxNotAttempted notAttempted <$>
+          updateDefSite chosenNames result.declId
+      ParseResultFailure failure ->
+        flip auxFailure failure <$>
+          updateDefSite chosenNames result.declId
   where
-    -- Name for the given 'C.AnonId'
-    --
-    -- Returns 'Nothing' if we fail to assign a name.
-    nameFor :: C.AnonId -> Memoize (Maybe Text)
-    nameFor anonId = do
-        mMemoized <- checkMemoized anonId
-        case mMemoized of
-          Just memoized -> return $ getAssignedName memoized
-          Nothing       ->
-            case Map.lookup anonId usageAnalysis of
-              Nothing -> do
-                -- Unused (or unusable) anonymous declaration
-                memoize anonId FailedToAssignName
-                return Nothing
-              Just usage ->
-                nameForUsage usage
-
-    nameForUsage :: AnonUsageAnalysis.Context -> Memoize (Maybe Text)
-    nameForUsage = \case
-        AnonUsageAnalysis.Field declInfo fieldInfo ->
-          fmap (nameForField fieldInfo) <$> declName declInfo
-        AnonUsageAnalysis.TypedefVal declInfo ->
-          fmap nameForTypedefVal <$> declName declInfo
-        AnonUsageAnalysis.TypedefRef declInfo ->
-          fmap nameForTypedefRef <$> declName declInfo
-
-    declName :: C.DeclInfo Parse -> Memoize (Maybe Text)
-    declName declInfo =
-        case declInfo.declId of
-          C.PrelimDeclIdNamed (C.DeclName name _kind) ->
-            return $ Just name
-          C.PrelimDeclIdAnon anonId _kind ->
-            nameFor anonId
-
-    nameForField :: C.FieldInfo Parse -> Text -> Text
-    nameForField field typeName = typeName <> "_" <> field.fieldName.text
-
-    -- Assign the name of the typedef to the struct
-    -- NOTE: Only necessary in clang < 16; later clang do this automatically.
-    nameForTypedefVal :: Text -> Text
-    nameForTypedefVal = id
-
-    -- Typedef around a pointer to an anonymous struct
-    --
-    -- Fortunately, clang does not assign a name to the struct in this situation
-    -- (or rather, it assigns a name such as "(unnamed struct at ..)", so we can
-    -- detect this case.
-    nameForTypedefRef :: Text -> Text
-    nameForTypedefRef typeName = typeName <> "_" <> "Deref"
-
-{-------------------------------------------------------------------------------
-  Use chosen names
--------------------------------------------------------------------------------}
-
-updateDecl ::
-     Map C.AnonId Text
-  -> C.Decl Parse
-  -> Either AssignAnonIdsMsg (C.Decl AssignAnonIds)
-updateDecl chosenNames decl =
-    reconstruct
-      <$> updateDeclInfo chosenNames decl.declInfo
-      <*> first mkMsg (updateUseSites chosenNames decl.declKind)
-  where
-    reconstruct ::
+    auxSuccess ::
          C.DeclInfo AssignAnonIds
-      -> C.DeclKind AssignAnonIds
-      -> C.Decl AssignAnonIds
-    reconstruct info' kind' = C.Decl{
-        declInfo = info'
-      , declKind = kind'
-      , declAnn  = NoAnn
-      }
-
-    mkMsg :: SkippedUse -> AssignAnonIdsMsg
-    mkMsg (SkippedUse anonId kind) =
-      AssignAnonIdsSkippedUse decl.declInfo anonId kind
-
-updateDeclInfo ::
-     Map C.AnonId Text
-  -> C.DeclInfo Parse
-  -> Either AssignAnonIdsMsg (C.DeclInfo AssignAnonIds)
-updateDeclInfo chosenNames info =
-    case origDeclId of
-      C.PrelimDeclIdNamed name ->
-        Right $ reconstruct name
-      C.PrelimDeclIdAnon anonId kind ->
-        case Map.lookup anonId chosenNames of
-          Nothing   -> Left  $ AssignAnonIdsSkippedDecl info
-          Just name -> Right $ reconstruct $ C.DeclName name kind
-  where
-    origDeclId = info.declId
-
-    reconstruct :: C.DeclName -> C.DeclInfo AssignAnonIds
-    reconstruct name' = C.DeclInfo{
-          declId = C.DeclId{
-              name       = name'
-            , origDeclId = C.OrigDeclId origDeclId
-            , haskellId  = ()
+      -> ParseSuccess Parse -> ParseResult AssignAnonIds
+    auxSuccess declInfo' success =
+        case updateUseSites chosenNames success.decl.declKind of
+          Left (UnusableAnonDecl anonId) -> ParseResult{
+              declId         = declInfo'.declId
+            , declLoc        = result.declLoc
+            , classification = ParseResultFailure $ ParseFailure $
+                                 ParseUnusableAnonDecl anonId
+            }
+          Right declKind' -> ParseResult{
+              declId         = declInfo'.declId
+            , declLoc        = result.declLoc
+            , classification = ParseResultSuccess ParseSuccess{
+                  decl = C.Decl{
+                      declInfo = declInfo'
+                    , declKind = declKind'
+                    , declAnn  = NoAnn
+                    }
+                , delayedParseMsgs = success.delayedParseMsgs
+                }
             }
 
-         -- The rest stays the same
+    auxNotAttempted ::
+         C.DeclId AssignAnonIds
+      -> ParseNotAttempted -> ParseResult AssignAnonIds
+    auxNotAttempted declId' notAttempted = ParseResult{
+          declId         = declId'
+        , declLoc        = result.declLoc
+        , classification = ParseResultNotAttempted notAttempted
+        }
+
+    auxFailure ::
+         C.DeclId AssignAnonIds
+      -> ParseFailure -> ParseResult AssignAnonIds
+    auxFailure declId' failure = ParseResult{
+          declId         = declId'
+        , declLoc        = result.declLoc
+        , classification = ParseResultFailure failure
+        }
+
+{-------------------------------------------------------------------------------
+  Update definition sites
+-------------------------------------------------------------------------------}
+
+updateDefSite ::
+     ChosenNames
+  -> Id Parse
+  -> Either ImmediateAssignAnonIdsMsg (Id AssignAnonIds)
+updateDefSite chosenNames origDeclId =
+    case origDeclId of
+      C.PrelimDeclIdNamed name ->
+        Right $ C.DeclId{
+            name       = name
+          , origDeclId = C.OrigDeclId origDeclId
+          , haskellId  = ()
+          }
+      C.PrelimDeclIdAnon anonId kind ->
+        case Map.lookup anonId chosenNames of
+          Nothing   -> Left $ AssignAnonIdsSkippedDecl anonId
+          Just name ->
+            Right $ C.DeclId{
+                name       = C.DeclName name kind
+              , origDeclId = C.OrigDeclId origDeclId
+              , haskellId  = ()
+              }
+
+updateDefInto ::
+     ChosenNames
+  -> C.DeclInfo Parse
+  -> Either ImmediateAssignAnonIdsMsg (C.DeclInfo AssignAnonIds)
+updateDefInto chosenNames info =
+    reconstruct <$> updateDefSite chosenNames info.declId
+  where
+    reconstruct :: C.DeclId AssignAnonIds -> C.DeclInfo AssignAnonIds
+    reconstruct declId' = C.DeclInfo{
+          declId           = declId'
         , declLoc          = info.declLoc
         , declHeaderInfo   = info.declHeaderInfo
         , declAvailability = info.declAvailability
@@ -188,17 +154,18 @@ updateDeclInfo chosenNames info =
   Update use sites
 -------------------------------------------------------------------------------}
 
-data SkippedUse = SkippedUse C.AnonId C.NameKind
+-- | We encountered an unusable anonymous declaration
+--
+-- If a \"outer\" declaration (e.g. a function declaration) contains an unusable
+-- anonymous declaration, updating the use sites of that outer declaration will
+-- fail (because we do not assign names to unusable anonymous declarations).
+data UnusableAnonDecl = UnusableAnonDecl C.AnonId
 
 class UpdateUseSites a where
-  -- | Update use sites
-  --
-  -- Unusable anonymous types, such as an anonymous type in a function
-  -- signature, cannot be updated.
   updateUseSites ::
-       Map C.AnonId Text
+       ChosenNames
     -> a Parse
-    -> Either SkippedUse (a AssignAnonIds)
+    -> Either UnusableAnonDecl (a AssignAnonIds)
 
 instance UpdateUseSites C.DeclKind where
   updateUseSites chosenNames = \case
@@ -237,7 +204,6 @@ instance UpdateUseSites C.StructField where
       reconstruct structFieldType' = C.StructField {
           structFieldInfo = coercePass structFieldInfo
         , structFieldType = structFieldType'
-        , structFieldAnn  = NoAnn
         , ..
         }
 
@@ -259,7 +225,6 @@ instance UpdateUseSites C.UnionField where
       reconstruct unionFieldType' = C.UnionField {
           unionFieldInfo = coercePass unionFieldInfo
         , unionFieldType = unionFieldType'
-        , unionFieldAnn  = NoAnn
         , ..
         }
 
@@ -270,7 +235,7 @@ instance UpdateUseSites C.Typedef where
       reconstruct :: C.Type AssignAnonIds -> C.Typedef AssignAnonIds
       reconstruct typedefType' = C.Typedef {
           typedefType = typedefType'
-        , typedefAnn  = NoAnn
+        , ..
         }
 
 instance UpdateUseSites C.Enum where
@@ -299,14 +264,13 @@ instance UpdateUseSites C.Function where
       reconstruct functionArgs' functionRes' = C.Function {
           functionArgs = functionArgs'
         , functionRes  = functionRes'
-        , functionAnn  = NoAnn
         , ..
         }
 
 instance UpdateUseSites C.Type where
   updateUseSites chosenNames = go
     where
-      go :: C.Type Parse -> Either SkippedUse (C.Type AssignAnonIds)
+      go :: C.Type Parse -> Either UnusableAnonDecl (C.Type AssignAnonIds)
       go = \case
         -- Actual modifications
         C.TypeRef uid      -> C.TypeRef <$> updateDeclId uid
@@ -328,12 +292,12 @@ instance UpdateUseSites C.Type where
 
       updateDeclId ::
            C.PrelimDeclId
-        -> Either SkippedUse (C.DeclId AssignAnonIds)
+        -> Either UnusableAnonDecl (C.DeclId AssignAnonIds)
       updateDeclId cPrelimDeclId = case cPrelimDeclId of
         C.PrelimDeclIdNamed name -> Right $
           C.DeclId name (C.OrigDeclId cPrelimDeclId) ()
         C.PrelimDeclIdAnon anonId kind ->
           case Map.lookup anonId chosenNames of
-            Nothing   -> Left  $ SkippedUse anonId kind
+            Nothing   -> Left  $ UnusableAnonDecl anonId
             Just name -> Right $
               C.DeclId (C.DeclName name kind) (C.OrigDeclId cPrelimDeclId) ()

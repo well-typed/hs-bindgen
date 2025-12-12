@@ -1,6 +1,6 @@
 module HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (
     AssignAnonIds
-  , AssignAnonIdsMsg(..)
+  , ImmediateAssignAnonIdsMsg(..)
   ) where
 
 import Text.SimplePrettyPrint qualified as PP
@@ -17,8 +17,13 @@ import HsBindgen.Util.Tracer
 type AssignAnonIds :: Pass
 data AssignAnonIds a deriving anyclass ValidPass
 
+-- We preserve the annotations from the @Parse@ pass
 type family AnnAssignAnonIds ix where
-   AnnAssignAnonIds _ = NoAnn
+  AnnAssignAnonIds "StructField" = ReparseInfo
+  AnnAssignAnonIds "UnionField"  = ReparseInfo
+  AnnAssignAnonIds "Typedef"     = ReparseInfo
+  AnnAssignAnonIds "Function"    = ReparseInfo
+  AnnAssignAnonIds _             = NoAnn
 
 instance IsPass AssignAnonIds where
   type Id           AssignAnonIds = C.DeclId AssignAnonIds
@@ -27,42 +32,34 @@ instance IsPass AssignAnonIds where
   type MacroBody    AssignAnonIds = UnparsedMacro
   type ExtBinding   AssignAnonIds = Void
   type Ann ix       AssignAnonIds = AnnAssignAnonIds ix
-  type Msg          AssignAnonIds = AssignAnonIdsMsg
+  type Msg          AssignAnonIds = ImmediateAssignAnonIdsMsg
 
 {-------------------------------------------------------------------------------
   Trace messages
 -------------------------------------------------------------------------------}
 
-data AssignAnonIdsMsg =
+data ImmediateAssignAnonIdsMsg =
     -- | Skipped unused anonymous declaration
     --
     -- @clang@ will produce a warning for this ("declaration does not declare
     -- anything"); we issue a separate message here in case we skip over
     -- something that we shouldn't.
-    AssignAnonIdsSkippedDecl (DeclInfo Parse)
-  | -- | Skipped unusable anonymous type
-    AssignAnonIdsSkippedUse (DeclInfo Parse) C.AnonId C.NameKind
-  deriving stock (Show)
+    AssignAnonIdsSkippedDecl C.AnonId
 
-instance PrettyForTrace AssignAnonIdsMsg where
+
+instance PrettyForTrace ImmediateAssignAnonIdsMsg where
   prettyForTrace = \case
       AssignAnonIdsSkippedDecl info -> PP.hsep [
           "Skipped unused or unusable anonynous declaration"
         , prettyForTrace info
         ]
-      AssignAnonIdsSkippedUse info anonId _cNameKind -> PP.hsep [
-          "Skipped declaration"
-        , prettyForTrace info
-        , "with unusable anonymous type"
-        , prettyForTrace anonId
-        ]
 
-instance IsTrace Level AssignAnonIdsMsg where
+instance IsTrace Level ImmediateAssignAnonIdsMsg where
   getDefaultLogLevel = \case
       AssignAnonIdsSkippedDecl{} -> Debug -- clang already warned
-      AssignAnonIdsSkippedUse{}  -> Debug -- already warned
+
   getSource  = const HsBindgen
-  getTraceId = const "name-anon"
+  getTraceId = const "assign-anon-ids"
 
 {-------------------------------------------------------------------------------
   CoercePass

@@ -22,10 +22,12 @@ import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error (FailedMacro)
-import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Msg
+import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Language.C qualified as C
@@ -110,7 +112,7 @@ data SelectMsg =
   | TransitiveDependencyOfDeclarationUnusable
       (C.Decl Select)
       SelectReason
-      C.PrelimDeclId
+      (C.DeclId AssignAnonIds)
       Unusable
       [SingleLoc]
     -- | The user has selected a declaration that is available but at least one
@@ -118,19 +120,19 @@ data SelectMsg =
   | TransitiveDependencyOfDeclarationNotSelected
       (C.Decl Select)
       SelectReason
-      C.PrelimDeclId
+      (C.DeclId AssignAnonIds)
       [SingleLoc]
     -- | The user has selected a deprecated declaration. Maybe they want to
     -- de-select deprecated declaration?
   | SelectDeprecated (C.Decl Select)
     -- | Delayed parse message for actually selected declarations.
-  | SelectParseSuccess (AttachedParseMsg DelayedParseMsg)
+  | SelectParseSuccess (C.DeclId AssignAnonIds) SingleLoc DelayedParseMsg
     -- | Delayed parse message for declarations the user wants to select
     -- directly, but we have not attempted to parse.
-  | SelectParseNotAttempted ParseNotAttempted
+  | SelectParseNotAttempted (C.DeclId AssignAnonIds) SingleLoc ParseNotAttempted
     -- | Delayed parse message for declarations the user wants to select
     -- directly, but we have failed to parse.
-  | SelectParseFailure ParseFailure
+  | SelectParseFailure (C.DeclId AssignAnonIds) SingleLoc ParseFailure
     -- | Delayed construct translation unit message for conflicting declarations
     -- the user wants to select directly.
   | SelectConflict ConflictingDeclarations
@@ -170,12 +172,18 @@ instance PrettyForTrace SelectMsg where
           prettyForTrace x
         , "You may want to de-select it"
         ]
-    SelectParseSuccess x -> PP.hang "During parse:" 2 (prettyForTrace x)
-    SelectParseNotAttempted x -> hangWith $ PP.vcat [
-        prettyForTrace x
-      , "Consider changing the parse predicate"
-      ]
-    SelectParseFailure x -> hangWith $ prettyForTrace x
+    SelectParseSuccess declId loc x ->
+      PP.hang (prettyForTrace (C.Located loc declId) >< ":") 2 $
+        PP.hang "During parse:" 2 (prettyForTrace x)
+    SelectParseNotAttempted declId loc x ->
+      PP.hang (prettyForTrace (C.Located loc declId) >< ":") 2 $
+        hangWith $ PP.vcat [
+            prettyForTrace x
+          , "Consider changing the parse predicate"
+          ]
+    SelectParseFailure declId loc x ->
+      PP.hang (prettyForTrace (C.Located loc declId) >< ":") 2 $
+        hangWith $ prettyForTrace x
     SelectConflict     x -> hangWith $ prettyForTrace x
     SelectMacroFailure x -> hangWith $ prettyForTrace x
     SelectNoDeclarationsMatched ->
@@ -184,7 +192,7 @@ instance PrettyForTrace SelectMsg where
       hangWith :: CtxDoc -> CtxDoc
       hangWith x = PP.hang "Could not select declaration:" 2 x
 
-      prettyDep :: C.PrelimDeclId -> [SingleLoc] -> CtxDoc
+      prettyDep :: C.DeclId AssignAnonIds -> [SingleLoc] -> CtxDoc
       prettyDep i = \case
         []  -> prettyForTrace i >< " (no source location available)"
         [l] -> prettyForTrace (C.Located l i)
@@ -196,9 +204,9 @@ instance IsTrace Level SelectMsg where
     TransitiveDependencyOfDeclarationUnusable{}    -> Warning
     TransitiveDependencyOfDeclarationNotSelected{} -> Warning
     SelectDeprecated{}                             -> Notice
-    SelectParseSuccess x                           -> getDefaultLogLevel x
+    SelectParseSuccess _declId _loc x              -> getDefaultLogLevel x
     SelectParseNotAttempted{}                      -> Warning
-    SelectParseFailure x                           -> getDefaultLogLevel x
+    SelectParseFailure _declId _loc x              -> getDefaultLogLevel x
     SelectConflict{}                               -> Warning
     SelectMacroFailure x                           -> getDefaultLogLevel x
     SelectNoDeclarationsMatched                    -> Warning
@@ -208,9 +216,9 @@ instance IsTrace Level SelectMsg where
     TransitiveDependencyOfDeclarationUnusable{}    -> "select"
     TransitiveDependencyOfDeclarationNotSelected{} -> "select"
     SelectDeprecated{}                             -> "select"
-    SelectParseSuccess x                           -> "select-" <> getTraceId x
+    SelectParseSuccess _declId _loc x              -> "select-" <> getTraceId x
     SelectParseNotAttempted{}                      -> "select-parse"
-    SelectParseFailure x                           -> "select-" <> getTraceId x
+    SelectParseFailure _declId _loc x              -> "select-" <> getTraceId x
     SelectConflict{}                               -> "select"
     SelectMacroFailure x                           -> "select-" <> getTraceId x
     SelectNoDeclarationsMatched                    -> "select"
@@ -223,4 +231,7 @@ instance CoercePassId ResolveBindingSpecs Select where
   coercePassId _ = coercePass
 
 instance CoercePassHaskellId ResolveBindingSpecs Select where
+  coercePassHaskellId _ = id
+
+instance CoercePassHaskellId Select AssignAnonIds where
   coercePassHaskellId _ = id

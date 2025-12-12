@@ -6,13 +6,16 @@ module HsBindgen.Frontend.Pass.HandleMacros.Error (
   , HandleMacrosReparseMsg(..)
   ) where
 
+import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
+
+import Clang.HighLevel.Types
 
 import C.Expr.Parse.Infra qualified as CExpr.DSL
 import C.Expr.Typecheck.Expr qualified as CExpr.DSL
 
 import HsBindgen.Frontend.LanguageC qualified as LanC
-import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
@@ -22,11 +25,27 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 -- | Macro parse messages; see also 'HandleMacrosReparseMsg'
-newtype FailedMacro = FailedMacro {
-    unFailedMacro :: AttachedParseMsg HandleMacrosError
+data FailedMacro = FailedMacro {
+    name       :: C.DeclName
+  , loc        :: SingleLoc
+  , macroError :: HandleMacrosError
   }
-  deriving stock    (Show, Generic)
-  deriving anyclass (PrettyForTrace, IsTrace Level)
+  deriving stock (Show, Generic)
+
+instance PrettyForTrace FailedMacro where
+  prettyForTrace failure =
+      PP.hang (prettyForTrace lDeclId >< ":") 2 $
+        prettyForTrace failure.macroError
+    where
+      -- TODO: It would be better if we could just use 'Located C.DeclName'
+      lDeclId :: C.Located (C.PrelimDeclId)
+      lDeclId = C.Located failure.loc $
+                 C.PrelimDeclIdNamed failure.name
+
+instance IsTrace Level FailedMacro where
+  getDefaultLogLevel = getDefaultLogLevel . (.macroError)
+  getSource          = getSource          . (.macroError)
+  getTraceId         = getTraceId         . (.macroError)
 
 data HandleMacrosError =
     -- | We could not parse the macro (macro def sites)

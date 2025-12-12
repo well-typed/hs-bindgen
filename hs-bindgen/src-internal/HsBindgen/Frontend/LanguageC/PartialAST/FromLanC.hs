@@ -2,14 +2,13 @@
 
 -- | Construct the partial AST from the language-C AST
 module HsBindgen.Frontend.LanguageC.PartialAST.FromLanC (
-    CanApply
+    CanApply(..)
   , mkPartialDecl
   , mkDecl
   ) where
 
 import Control.Monad
 import Data.Map qualified as Map
-import Data.Maybe (fromMaybe)
 import Data.Text qualified as Text
 import GHC.Stack
 import Language.C qualified as LanC
@@ -21,8 +20,8 @@ import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
-import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
+import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -34,8 +33,8 @@ import HsBindgen.Language.C qualified as C
 -- | Requirements on the hs-bindgen pass
 --
 -- See also discussion of 'FromLanC'.
-class    (ValidPass p, Id p ~ PrelimDeclId) => CanApply p where
-instance (ValidPass p, Id p ~ PrelimDeclId) => CanApply p where
+class ValidPass p => CanApply p where
+  constructId :: Proxy p -> C.DeclName -> Id p
 
 mkPartialDecl ::
      ( HasCallStack
@@ -215,7 +214,7 @@ instance CanApply p
       charSign (Just sign) = C.PrimSignExplicit sign
 
       typeRef :: C.DeclName -> Type p
-      typeRef = TypeRef . PrelimDeclIdNamed
+      typeRef = TypeRef . constructId (Proxy @p)
 
       checkNotAnon :: Maybe LanC.Ident -> C.TagKind -> FromLanC p C.DeclName
       checkNotAnon mName tagKind =

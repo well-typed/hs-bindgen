@@ -12,7 +12,7 @@ import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (DeclMeta)
-import HsBindgen.Frontend.Pass.NameAnon.IsPass
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -128,8 +128,8 @@ instance IsTrace Level ResolveBindingSpecsMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassHaskellId NameAnon ResolveBindingSpecs where
+instance CoercePassHaskellId HandleMacros ResolveBindingSpecs where
   coercePassHaskellId _ = id
 
-instance CoercePassId NameAnon ResolveBindingSpecs where
+instance CoercePassId HandleMacros ResolveBindingSpecs where
   coercePassId _ = coercePass

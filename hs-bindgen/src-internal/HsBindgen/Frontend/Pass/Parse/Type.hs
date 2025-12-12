@@ -1,8 +1,8 @@
 -- | Fold types
 module HsBindgen.Frontend.Pass.Parse.Type (fromCXType) where
 
-import Control.Exception (Exception (..), SomeException (..), handle)
 import Control.Monad
+import Control.Monad.Catch
 import Control.Monad.Error.Class
 import Data.Data (Typeable)
 import GHC.Stack
@@ -14,10 +14,8 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseType,
-                                                 ParseTypeExceptionInContext (..),
-                                                 dispatchDecl, dispatchWithArg,
-                                                 run)
+import HsBindgen.Frontend.Pass.Parse.Msg
+import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseType)
 import HsBindgen.Frontend.Pass.Parse.Type.Monad qualified as ParseType
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -29,12 +27,13 @@ import HsBindgen.Language.C qualified as C
 fromCXType :: forall ctx m.
   (MonadIO m, Show ctx, Typeable ctx, HasCallStack)
   => ctx -> CXType -> m (C.Type Parse)
-fromCXType context = liftIO . handle addContextHandler . run . cxtype
+fromCXType context =
+    liftIO . handle addContextHandler . ParseType.run . cxtype
   where
     addContextHandler :: SomeException -> IO a
     addContextHandler e
       | Just e' <- (fromException @ParseTypeException e) =
-          throwIO (ParseTypeExceptionInContext context e')
+          throwIO (ParseType.ParseTypeExceptionInContext context e')
       | otherwise = throwIO e
 
 {-------------------------------------------------------------------------------
@@ -43,7 +42,7 @@ fromCXType context = liftIO . handle addContextHandler . run . cxtype
 
 cxtype :: HasCallStack => CXType -> ParseType (C.Type Parse)
 cxtype ty = do
-    reifiedType <- dispatchWithArg ty $ \case
+    reifiedType <- ParseType.dispatchWithArg ty $ \case
       CXType_Char_S     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Signed)
       CXType_Char_U     -> prim $ C.PrimChar (C.PrimSignImplicit $ Just C.Unsigned)
       CXType_SChar      -> prim $ C.PrimChar (C.PrimSignExplicit C.Signed)
@@ -113,7 +112,7 @@ fromDecl ty = do
         -- to support them, we have to special-case each one. For now, we don't
         -- support any.
         throwError $ UnsupportedBuiltin builtin
-      Nothing -> dispatchDecl decl $ \case
+      Nothing -> ParseType.dispatchDecl decl $ \case
         CXCursor_EnumDecl   -> typeRef decl C.TagKindEnum
         CXCursor_StructDecl -> typeRef decl C.TagKindStruct
         CXCursor_UnionDecl  -> typeRef decl C.TagKindUnion
@@ -129,8 +128,8 @@ fromDecl ty = do
                 Just cached -> pure cached
                 Nothing -> do
                   -- Cache miss: parse and cache the result
-                  uTy <- liftIO $ handle (addTypedefContextHandler declId) $
-                           run (cxtype =<< getUnderlyingCXType decl)
+                  uTy <- handle (addTypedefContextHandler declId) $
+                           cxtype =<< getUnderlyingCXType decl
                   let result = C.TypeTypedef declId uTy
                   ParseType.insertCache declName result
                   pure result
@@ -149,11 +148,12 @@ fromDecl ty = do
         Right{}                 -> return uTy
         _otherwise              -> panicPure "Invalid underlying type"
 
-    addTypedefContextHandler :: C.PrelimDeclId -> SomeException -> IO a
+    addTypedefContextHandler :: C.PrelimDeclId -> SomeException -> ParseType a
     addTypedefContextHandler n e
-      | Just e' <- (fromException @ParseTypeException e) =
-          throwIO (UnsupportedUnderlyingType n e')
-      | otherwise = throwIO e
+      | Just e' <- (fromException @ParseTypeException e)
+      = throwM (UnsupportedUnderlyingType n e')
+      | otherwise
+      = throwM e
 
 function :: Bool -> CXType -> ParseType (C.Type Parse)
 function hasProto ty = do
