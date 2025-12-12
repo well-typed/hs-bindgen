@@ -87,6 +87,7 @@ library internal
     HsBindgen.Backend.Hs.Translation.Config
     HsBindgen.Backend.Hs.Translation.ForeignImport
     HsBindgen.Backend.Hs.Translation.Instances
+    HsBindgen.Backend.Hs.Translation.Newtype
     HsBindgen.Backend.Hs.Translation.State
     HsBindgen.Backend.Hs.Translation.ToFromFunPtr
     HsBindgen.Backend.Hs.Translation.Type
