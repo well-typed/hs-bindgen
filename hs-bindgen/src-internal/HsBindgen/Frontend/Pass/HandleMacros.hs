@@ -41,13 +41,13 @@ handleMacros ::
   ->  C.TranslationUnit ConstructTranslationUnit
   -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
 handleMacros standard C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
-    reassemble $ runM standard .
+    reconstruct $ runM standard .
       fmap partitionEithers $ mapM processDecl unitDecls
   where
-    reassemble ::
+    reconstruct ::
          (([FailedMacro] , [C.Decl HandleMacros]) , [Msg HandleMacros])
       -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
-    reassemble ((failedMacros, decls'), msgs) =
+    reconstruct ((failedMacros, decls'), msgs) =
       let index' :: DeclIndex
           index' = DeclIndex.registerMacroFailures failedMacros unitAnn.declIndex
 
