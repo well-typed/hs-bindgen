@@ -41,7 +41,6 @@ import Control.Monad.State
 import Data.Foldable qualified as Foldable
 import Data.Function
 import Data.List.NonEmpty ((<|))
-import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 
 import Clang.HighLevel.Types
@@ -50,9 +49,11 @@ import Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
 import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports hiding (toList)
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
@@ -69,7 +70,7 @@ import HsBindgen.Util.Tracer
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
 data Usable =
-      UsableSuccess ParseSuccess
+      UsableSuccess (ParseSuccess AssignAnonIds)
       -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Attach
       -- information required to match the select predicate also to external
       -- declarations.
@@ -84,8 +85,8 @@ data Usable =
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
 data Unusable =
-      UnusableParseNotAttempted (NonEmpty ParseNotAttempted)
-    | UnusableParseFailure      ParseFailure
+      UnusableParseNotAttempted SingleLoc (NonEmpty ParseNotAttempted)
+    | UnusableParseFailure      SingleLoc ParseFailure
     | UnusableConflict          ConflictingDeclarations
     | UnusableFailedMacro       FailedMacro
       -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Attach
@@ -109,8 +110,10 @@ instance PrettyForTrace Unusable where
       "omitted by prescriptive binding specification"
 
 -- | Entry of declaration index
-data Entry = UsableE Usable | UnusableE Unusable
-    deriving stock (Show, Generic)
+data Entry =
+    UsableE Usable
+  | UnusableE Unusable
+  deriving stock (Show, Generic)
 
 -- | Index of all declarations
 --
@@ -151,7 +154,7 @@ data Entry = UsableE Usable | UnusableE Unusable
 -- The edge from D3 to D2 was removed, since D3 now depends on a Haskell type
 -- R3, which is not part of the use-decl graph.
 newtype DeclIndex = DeclIndex {
-      unDeclIndex :: Map C.PrelimDeclId Entry
+      unDeclIndex :: Map (C.DeclId AssignAnonIds) Entry
     }
   deriving stock (Show, Generic)
 
@@ -162,18 +165,22 @@ emptyIndex = DeclIndex Map.empty
   Construction
 -------------------------------------------------------------------------------}
 
-fromParseResults :: [ParseResult] -> DeclIndex
+fromParseResults :: [ParseResult AssignAnonIds] -> DeclIndex
 fromParseResults results = flip execState emptyIndex $ mapM_ aux results
   where
-    aux :: ParseResult -> State DeclIndex ()
+    aux :: ParseResult AssignAnonIds -> State DeclIndex ()
     aux new = modify' $
-        DeclIndex . Map.alter (Just . handleParseResult declId new) declId . unDeclIndex
+          DeclIndex
+        . Map.alter (Just . handleParseResult declId new) declId
+        . unDeclIndex
       where
-        declId :: C.PrelimDeclId
-        declId = getParseResultDeclId new
+        declId :: C.DeclId AssignAnonIds
+        declId = new.declId
 
     handleParseResult ::
-      C.PrelimDeclId -> ParseResult -> Maybe Entry -> Entry
+         C.DeclId AssignAnonIds
+      -> ParseResult AssignAnonIds
+      -> Maybe Entry -> Entry
     handleParseResult declId new = \case
       Nothing -> parseResultToEntry new
       -- We remove duplicates with /different/ values and store them as
@@ -200,33 +207,37 @@ fromParseResults results = flip execState emptyIndex $ mapM_ aux results
       -- is irrelevant at this point.
       Just old -> case old of
         UsableE oldUsable -> case oldUsable of
-          UsableSuccess oldParseSuccess -> case new of
+          UsableSuccess oldParseSuccess -> case new.classification of
             ParseResultSuccess newParseSuccess
               -- Redeclaration but with the same definition. This can happen, for
               -- example for opaque structs. We stick with the first declaration.
-              | sameDefinition oldParseSuccess.psDecl.declKind newParseSuccess.psDecl.declKind ->
-                old
+              | sameDefinition
+                    oldParseSuccess.decl.declKind
+                    newParseSuccess.decl.declKind ->
+                  old
               | otherwise ->
-                newConflict oldParseSuccess.psDecl.declInfo.declLoc
+                  newConflict oldParseSuccess.decl.declInfo.declLoc
             ParseResultNotAttempted _ -> old
             ParseResultFailure _      -> parseResultToEntry new
           UsableExternal ->
             panicPure "handleParseResult: usable external"
         UnusableE oldUnusable -> case oldUnusable of
-          (UnusableParseNotAttempted nasOld)
-            | ParseResultNotAttempted naNew <- new ->
-                UnusableE $ UnusableParseNotAttempted $ naNew <| nasOld
+          (UnusableParseNotAttempted loc nasOld)
+            | ParseResultNotAttempted naNew <- new.classification ->
+                UnusableE $ UnusableParseNotAttempted loc $ naNew <| nasOld
             | otherwise ->
                 parseResultToEntry new
-          UnusableParseFailure _ -> old
-          UnusableConflict c     -> addConflicts c
+          UnusableParseFailure _ _ ->
+            old
+          UnusableConflict c ->
+            addConflicts c
           UnusableFailedMacro x  ->
             panicPure $ "handleParseResult: unusable failed macro" <> show x
           UnusableOmitted     x  ->
             panicPure $ "handelParseResult: unusable omitted" <> show x
       where
         newLoc :: SingleLoc
-        newLoc = getParseResultLoc new
+        newLoc = new.declLoc
 
         addConflicts :: ConflictingDeclarations  -> Entry
         addConflicts c =
@@ -238,13 +249,16 @@ fromParseResults results = flip execState emptyIndex $ mapM_ aux results
           UnusableE $ UnusableConflict $
             conflictingDeclarations declId oldLoc newLoc
 
-        parseResultToEntry :: ParseResult -> Entry
-        parseResultToEntry = \case
-          ParseResultSuccess      r -> UsableE   $ UsableSuccess               r
-          ParseResultNotAttempted r -> UnusableE $ UnusableParseNotAttempted $ r :| []
-          ParseResultFailure      r -> UnusableE $ UnusableParseFailure        r
+        parseResultToEntry :: ParseResult AssignAnonIds -> Entry
+        parseResultToEntry result = case result.classification of
+          ParseResultSuccess r ->
+            UsableE $ UsableSuccess r
+          ParseResultNotAttempted r ->
+            UnusableE $ UnusableParseNotAttempted result.declLoc $ r :| []
+          ParseResultFailure r ->
+            UnusableE $ UnusableParseFailure result.declLoc r
 
-    sameDefinition :: C.DeclKind Parse -> C.DeclKind Parse -> Bool
+    sameDefinition :: C.DeclKind AssignAnonIds -> C.DeclKind AssignAnonIds -> Bool
     sameDefinition a b =
         case (a, b) of
           (C.DeclMacro macroA, C.DeclMacro macroB) ->
@@ -260,24 +274,28 @@ fromParseResults results = flip execState emptyIndex $ mapM_ aux results
 -------------------------------------------------------------------------------}
 
 -- | Lookup parse success.
-lookup :: C.PrelimDeclId -> DeclIndex -> Maybe (C.Decl Parse)
-lookup qualPrelimDeclId (DeclIndex i) = case Map.lookup qualPrelimDeclId i of
+lookup :: C.DeclId AssignAnonIds -> DeclIndex -> Maybe (C.Decl AssignAnonIds)
+lookup declId (DeclIndex i) = case Map.lookup declId i of
   Nothing                          -> Nothing
-  Just (UsableE (UsableSuccess x)) -> Just $ x.psDecl
+  Just (UsableE (UsableSuccess x)) -> Just $ x.decl
   _                                -> Nothing
 
 -- | Unsafe! Get parse success.
-(!) :: HasCallStack => DeclIndex -> C.PrelimDeclId -> C.Decl Parse
-(!) declIndex qualPrelimDeclId =
-    fromMaybe (panicPure $ "Unknown key: " ++ show qualPrelimDeclId) $
-       lookup qualPrelimDeclId declIndex
+(!) ::
+     HasCallStack
+  => DeclIndex
+  -> C.DeclId AssignAnonIds
+  -> C.Decl AssignAnonIds
+(!) declIndex declId =
+    fromMaybe (panicPure $ "Unknown key: " ++ show declId) $
+       lookup declId declIndex
 
 -- | Get all parse successes.
-getDecls :: DeclIndex -> [C.Decl Parse]
+getDecls :: DeclIndex -> [C.Decl AssignAnonIds]
 getDecls = mapMaybe toDecl . Map.elems . unDeclIndex
   where
     toDecl = \case
-      UsableE (UsableSuccess x) -> Just x.psDecl
+      UsableE (UsableSuccess x) -> Just x.decl
       _otherEntries             -> Nothing
 
 {-------------------------------------------------------------------------------
@@ -285,49 +303,48 @@ getDecls = mapMaybe toDecl . Map.elems . unDeclIndex
 -------------------------------------------------------------------------------}
 
 -- | Lookup an entry of a declaration index.
-lookupEntry :: C.PrelimDeclId -> DeclIndex -> Maybe Entry
+lookupEntry :: C.DeclId AssignAnonIds -> DeclIndex -> Maybe Entry
 lookupEntry x = Map.lookup x . unDeclIndex
 
 -- | Get all entries of a declaration index.
-toList :: DeclIndex -> [(C.PrelimDeclId, Entry)]
+toList :: DeclIndex -> [(C.DeclId AssignAnonIds, Entry)]
 toList = Map.toList . unDeclIndex
 
 -- | Get the source locations of a declaration.
-lookupLoc :: C.PrelimDeclId -> DeclIndex -> [SingleLoc]
+lookupLoc :: C.DeclId AssignAnonIds -> DeclIndex -> [SingleLoc]
 lookupLoc d (DeclIndex i) = case Map.lookup d i of
-  Nothing            -> []
-  Just (UsableE e)   -> case e of
-    UsableSuccess x -> [x.psDecl.declInfo.declLoc]
+  Nothing                -> []
+  Just (UnusableE e)     -> unusableToLoc e
+  Just (UsableE e)       -> case e of
+    UsableSuccess x -> [x.decl.declInfo.declLoc]
     UsableExternal  -> []
-  Just (UnusableE e) -> unusableToLoc e
 
 -- | Get the source locations of an unusable declaration.
-lookupUnusableLoc :: C.PrelimDeclId -> DeclIndex -> [SingleLoc]
+lookupUnusableLoc :: C.DeclId AssignAnonIds -> DeclIndex -> [SingleLoc]
 lookupUnusableLoc d (DeclIndex i) = case Map.lookup d i of
   Nothing            -> []
-  Just (UsableE _)   -> []
   Just (UnusableE e) -> unusableToLoc e
+  Just (UsableE _)   -> []
 
 unusableToLoc :: Unusable -> [SingleLoc]
 unusableToLoc = \case
-    UnusableParseNotAttempted xs ->
-      [x.loc | (ParseNotAttempted x) <- NonEmpty.toList xs]
-    UnusableParseFailure (ParseFailure x) -> [x.loc]
+    UnusableParseNotAttempted loc _       -> [loc]
+    UnusableParseFailure loc _            -> [loc]
     UnusableConflict x                    -> getLocs x
-    UnusableFailedMacro (FailedMacro x)   -> [x.loc]
+    UnusableFailedMacro failedMacro       -> [failedMacro.loc]
     UnusableOmitted{}                     -> []
 
 -- | Get the identifiers of all declarations in the index.
-keysSet :: DeclIndex -> Set C.PrelimDeclId
+keysSet :: DeclIndex -> Set (C.DeclId AssignAnonIds)
 keysSet = Map.keysSet . unDeclIndex
 
 -- | Get omitted entries.
-getOmitted :: DeclIndex -> Map C.PrelimDeclId (C.DeclName, SourcePath)
+getOmitted :: DeclIndex -> Map (C.DeclId AssignAnonIds) (C.DeclName, SourcePath)
 getOmitted = Map.mapMaybe toOmitted . unDeclIndex
   where
     toOmitted :: Entry -> Maybe (C.DeclName, SourcePath)
     toOmitted = \case
-      UsableE _ -> Nothing
+      UsableE   _ -> Nothing
       UnusableE e -> case e of
         UnusableOmitted x -> Just x
         _otherEntry       -> Nothing
@@ -340,46 +357,58 @@ registerMacroFailures :: [FailedMacro] -> DeclIndex -> DeclIndex
 registerMacroFailures xs index = Foldable.foldl' insert index xs
   where
     insert :: DeclIndex -> FailedMacro -> DeclIndex
-    insert (DeclIndex i) x =
-      DeclIndex $ Map.insert (unFailedMacro x).declId (UnusableE $ UnusableFailedMacro x) i
+    insert (DeclIndex i) failedMacro = DeclIndex $
+        Map.insert
+          declId
+          (UnusableE $ UnusableFailedMacro failedMacro)
+          i
+      where
+        declId :: C.DeclId AssignAnonIds
+        declId = C.DeclId{
+              name       = failedMacro.name
+            , origDeclId = C.OrigDeclId $ C.PrelimDeclIdNamed failedMacro.name
+            , haskellId  = ()
+            }
 
 {-------------------------------------------------------------------------------
   Support for selection
 -------------------------------------------------------------------------------}
 
 -- Match function to find selection roots.
-type Match = C.PrelimDeclId -> SingleLoc -> C.Availability -> Bool
+type Match = C.DeclId AssignAnonIds -> SingleLoc -> C.Availability -> Bool
 
 -- | Limit the declaration index to those entries that match the select
 --   predicate. Do not include anything external nor omitted.
 selectDeclIndex :: Match -> DeclIndex -> DeclIndex
-selectDeclIndex p = DeclIndex . Map.filter matchEntry . unDeclIndex
+selectDeclIndex p = DeclIndex . Map.filterWithKey matchEntry . unDeclIndex
   where
-    matchEntry :: Entry -> Bool
-    matchEntry = \case
-      UsableE e -> case e of
-        UsableSuccess (ParseSuccess i d _) ->
-          p i d.declInfo.declLoc d.declInfo.declAvailability
-        UsableExternal ->
-          False
-      UnusableE e -> case e of
-        UnusableParseNotAttempted xs ->
-          any (matchMsg . unParseNotAttempted) xs
-        UnusableParseFailure (ParseFailure m) ->
-          matchMsg m
-        UnusableConflict x ->
-          or [p (getDeclId x) l C.Available | l <- getLocs x ]
-        UnusableFailedMacro (FailedMacro m) ->
-          matchMsg m
-        UnusableOmitted{} ->
-          False
-
-    matchMsg :: AttachedParseMsg a -> Bool
-    matchMsg m = p m.declId m.loc m.availability
+    matchEntry :: C.DeclId AssignAnonIds -> Entry -> Bool
+    matchEntry declId = \case
+        UsableE e -> case e of
+          UsableSuccess success ->
+            let info = success.decl.declInfo
+            in p declId info.declLoc info.declAvailability
+          UsableExternal ->
+            False
+        UnusableE e -> case e of
+          UnusableParseNotAttempted loc _ ->
+            p declId loc C.Available
+          UnusableParseFailure loc _ ->
+            p declId loc C.Available
+          UnusableConflict x ->
+            or [p (getDeclId x) l C.Available | l <- getLocs x]
+          UnusableFailedMacro failedMacro ->
+            p declId failedMacro.loc C.Available
+          UnusableOmitted{} ->
+            False
 
 -- | Restrict the declaration index to unusable declarations in a given set.
-getUnusables :: DeclIndex -> Set C.PrelimDeclId -> Map C.PrelimDeclId Unusable
-getUnusables (DeclIndex i) xs = Map.mapMaybe retainUnusable $ Map.restrictKeys i xs
+getUnusables ::
+     DeclIndex
+  -> Set (C.DeclId AssignAnonIds)
+  -> Map (C.DeclId AssignAnonIds) Unusable
+getUnusables (DeclIndex i) xs =
+    Map.mapMaybe retainUnusable $ Map.restrictKeys i xs
   where
     retainUnusable :: Entry -> Maybe Unusable
     retainUnusable = \case
@@ -391,13 +420,16 @@ getUnusables (DeclIndex i) xs = Map.mapMaybe retainUnusable $ Map.restrictKeys i
 -------------------------------------------------------------------------------}
 
 registerOmittedDeclarations ::
-  Map C.PrelimDeclId (C.DeclName, SourcePath) -> DeclIndex  -> DeclIndex
+     Map (C.DeclId AssignAnonIds) (C.DeclName, SourcePath)
+  -> DeclIndex  -> DeclIndex
 registerOmittedDeclarations xs =
       DeclIndex . Map.union (UnusableE . UnusableOmitted <$> xs) . unDeclIndex
 
-registerExternalDeclarations :: Set C.PrelimDeclId -> DeclIndex  -> DeclIndex
+registerExternalDeclarations ::
+     Set (C.DeclId AssignAnonIds)
+  -> DeclIndex -> DeclIndex
 registerExternalDeclarations xs index = Foldable.foldl' insert index xs
   where
-    insert :: DeclIndex -> C.PrelimDeclId -> DeclIndex
+    insert :: DeclIndex -> C.DeclId AssignAnonIds -> DeclIndex
     insert (DeclIndex i) x =
       DeclIndex $ Map.insert x (UsableE UsableExternal) i

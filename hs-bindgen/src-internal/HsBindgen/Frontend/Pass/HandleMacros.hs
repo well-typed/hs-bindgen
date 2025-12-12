@@ -95,13 +95,16 @@ processStruct info C.Struct{..} =
         , declAnn  = NoAnn
         }
 
-processStructField :: C.StructField ConstructTranslationUnit -> M (C.StructField HandleMacros)
+processStructField ::
+     C.StructField ConstructTranslationUnit
+  -> M (C.StructField HandleMacros)
 processStructField C.StructField{..} =
     case structFieldAnn of
       ReparseNotNeeded ->
         withoutReparse
       ReparseNeeded tokens ->
         reparseWith LanC.reparseField tokens withoutReparse withReparse
+        -- reparseWith LanC.reparseField tokens withoutReparse withReparse
   where
     C.FieldInfo{..} = structFieldInfo
 
@@ -231,8 +234,8 @@ processTypedef ::
   -> C.Typedef ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
 processTypedef info C.Typedef{typedefType, typedefAnn} = do
-    case info.declId of
-      C.PrelimDeclIdNamed name -> do
+    case C.declIdCName info.declId of
+      Just name -> do
         modify $ \st -> st{
             stateReparseEnv = updateEnv name.text (stateReparseEnv st)
           }
@@ -249,7 +252,7 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
             C.TypeRef _ -> withoutReparse
             _otherwise  ->
               reparseWith LanC.reparseTypedef tokens withoutReparse withReparse
-      _otherwise ->
+      Nothing ->
         -- Anonymous typedefs don't exist
         panicPure $ "processTypedef: impossible: " ++ show info.declId
   where
@@ -284,20 +287,19 @@ processMacro ::
      C.DeclInfo HandleMacros
   -> UnparsedMacro -> M (Either FailedMacro (C.Decl HandleMacros))
 processMacro info (UnparsedMacro tokens) = do
-    case info.declId of
-      C.PrelimDeclIdNamed name ->
-        bimap addInfo toDecl <$> parseMacro name tokens
-      C.PrelimDeclIdAnon{} ->
+    case C.declIdCName info.declId of
+      Just name ->
+        bimap (addInfo name) toDecl <$> parseMacro name tokens
+      Nothing ->
         -- Anonymous macros don't exist
         panicPure $ "Impossible: " ++ show info.declId
   where
-    addInfo :: HandleMacrosError -> FailedMacro
-    addInfo =
-          FailedMacro
-        . AttachedParseMsg
-            info.declId
-            info.declLoc
-            C.Available
+    addInfo :: C.DeclName -> HandleMacrosError -> FailedMacro
+    addInfo name macroError = FailedMacro{
+          name
+        , loc = info.declLoc
+        , macroError
+        }
 
     toDecl :: C.CheckedMacro HandleMacros -> C.Decl HandleMacros
     toDecl checked = C.Decl{
@@ -432,14 +434,13 @@ parseMacro name tokens  = state     $ \st ->
                 Left errTc -> (Left $ HandleMacrosErrorTc errTc, st)
           Left errExpr ->
               (Left $ HandleMacrosErrorParse errType errExpr, st)
-
   where
     updateReparseEnv ::
          LanC.ReparseEnv HandleMacros
       -> LanC.ReparseEnv HandleMacros
     updateReparseEnv =
         Map.insert name.text $
-          C.TypeRef (C.PrelimDeclIdNamed name)
+          C.TypeRef $ constructId (Proxy @HandleMacros) name
 
     dropEval ::
          CExpr.DSL.Quant (CExpr.DSL.FunValue, CExpr.DSL.Type 'CExpr.DSL.Ty)

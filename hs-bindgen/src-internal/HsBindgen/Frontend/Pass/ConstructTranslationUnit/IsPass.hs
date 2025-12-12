@@ -11,7 +11,8 @@ import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
+import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo, UnparsedMacro)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
@@ -34,7 +35,7 @@ type family AnnConstructTranslationUnit (ix :: Symbol) :: Star where
   AnnConstructTranslationUnit _                 = NoAnn
 
 instance IsPass ConstructTranslationUnit where
-  type Id           ConstructTranslationUnit = C.PrelimDeclId
+  type Id           ConstructTranslationUnit = C.DeclId ConstructTranslationUnit
   type FieldName    ConstructTranslationUnit = C.ScopedName
   type ArgumentName ConstructTranslationUnit = Maybe C.ScopedName
   type MacroBody    ConstructTranslationUnit = UnparsedMacro
@@ -58,7 +59,7 @@ data DeclMeta = DeclMeta {
 -------------------------------------------------------------------------------}
 
 data ConstructTranslationUnitMsg
-  deriving stock    (Show, Generic)
+  deriving stock (Show, Generic)
 
 instance PrettyForTrace ConstructTranslationUnitMsg where
   prettyForTrace = const "no message available"
@@ -72,8 +73,8 @@ instance IsTrace Level ConstructTranslationUnitMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId Parse ConstructTranslationUnit where
-  coercePassId _ = id
+instance CoercePassId AssignAnonIds ConstructTranslationUnit where
+  coercePassId _ = coercePass
 
-instance CoercePassHaskellId Parse ConstructTranslationUnit where
+instance CoercePassHaskellId AssignAnonIds ConstructTranslationUnit where
   coercePassHaskellId _ = id

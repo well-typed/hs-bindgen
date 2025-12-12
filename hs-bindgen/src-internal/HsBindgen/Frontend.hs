@@ -54,9 +54,9 @@ import HsBindgen.Util.Tracer
 -- Overview of passes (see documentation of 'HsBindgen.Frontend.Pass.IsPass'):
 --
 -- 1. 'Parse' (impure; all other passes are pure)
--- 2. 'ConstructTranslationUnit'
--- 3. 'HandleMacros'
--- 4. 'NameAnon'
+-- 2. 'AssignAnonIds'
+-- 3. 'ConstructTranslationUnit'
+-- 4. 'HandleMacros'
 -- 5. 'ResolveBindingSpecs'
 -- 6. 'Select'
 -- 7. 'HandleTypedefs'
@@ -65,27 +65,24 @@ import HsBindgen.Util.Tracer
 -- Although the passes and their order are subject to change, we have to honor
 -- various constraints:
 --
--- - 'ConstructTranslationUnit' must come before the following passes because we need to process
---   declarations before their uses.
+-- - 'AssignAnonIds' is run first, so that from this point forward we can always
+--   deal with 'DeclId'.
+--
+--   The relative ordering between 'AssignAnonIds' and 'HandleMacros' does not
+--   matter: macros can neither refer to nor introduce new anonymous
+--   declarations.)
+--
+--   It /is/ however important that 'AssignAnonIds' runs prior to
+--   'ResolveBindingSpecs', because it enables users to configure anonymous
+--   types using our generated names for them.
+--
+-- - 'ConstructTranslationUnit' must come before the following passes because we
+--   need to process declarations before their uses.
 --
 -- - 'HandleMacros': The macro parser needs to know which things are in scope
 --   (other macros as well as typedefs), so we must process declarations in the
 --   right order; that is, 'handleMacros' must be done after sorting the
 --   declarations.
---
---   In principle it could run before or after renaming: macros can neither
---   refer to nor introduce new anonymous declarations, so the relative ordering
---   of these two passes does not really matter. However, as part of renaming we
---   replace typedefs around anonymous structs by named structs:
---
---   > typedef struct { .. fields .. } foo;
---
---   On the C side however @foo@ must be referred to as @foo@, not @struct foo@;
---   to avoid confusion, it is therefore cleaner to run macro parsing and
---   declaration reparsing /prior/ to this transformation.
---
--- - 'NameAnon' must come before 'ResolveBindingSpecs' because it enables users
---   to configure anonymous types using our generated names for them.
 --
 -- - 'ResolveBindingSpecs' must come before 'HandleTypedefs' to enable users to
 --   configure if a specific typedef is squashed for not.

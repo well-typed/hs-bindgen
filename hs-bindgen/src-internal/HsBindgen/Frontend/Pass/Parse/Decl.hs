@@ -19,6 +19,8 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Msg
+import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeExceptionInContext (..))
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
@@ -34,13 +36,13 @@ import HsBindgen.Language.C qualified as C
 -- We only attach an exception handler for top-level declarations: if something
 -- goes wrong with a nested declaration, we want to skip the entire outer
 -- declaration.
-topLevelDecl :: Fold ParseDecl [ParseResult]
+topLevelDecl :: Fold ParseDecl [ParseResult Parse]
 topLevelDecl = foldWithHandler handleTypeException parseDecl
   where
     handleTypeException ::
          CXCursor
       -> ParseTypeExceptionInContext ParseTypeExceptionContext
-      -> ParseDecl (Maybe [ParseResult])
+      -> ParseDecl (Maybe [ParseResult Parse])
     handleTypeException curr err = do
         info <- getDeclInfo curr contextNameKind
         -- TODO https://github.com/well-typed/hs-bindgen/issues/1249: Only emit
@@ -133,7 +135,7 @@ getReparseInfo = \curr -> do
   Functions for each kind of declaration
 -------------------------------------------------------------------------------}
 
-type Parser = CXCursor -> ParseDecl (Next ParseDecl [ParseResult])
+type Parser = CXCursor -> ParseDecl (Next ParseDecl [ParseResult Parse])
 
 -- | Declarations
 parseDecl :: HasCallStack => Parser
@@ -250,8 +252,9 @@ structDecl info = \curr -> do
                 (used, unused) = detectStructImplicitFields otherDecls fields
 
         foldRecurseWith (declOrFieldDecl $ structFieldDecl info) $ \xs -> do
-          let (otherRs, fields) = first concat $ partitionEithers xs
-              (fails, otherDecls) = partitionEithers $ map getParseResultDecl otherRs
+          let (otherRs, fields)   = first concat $ partitionEithers xs
+              (fails, otherDecls) = partitionEithers $
+                                      map getParseResultEitherDecl otherRs
           mPartitioned <- partitionChildren otherDecls fields
           pure $ (fails ++) $ case mPartitioned of
             Just decls ->
@@ -310,8 +313,9 @@ unionDecl info = \curr -> do
                 (used, unused) = detectUnionImplicitFields otherDecls fields
 
         foldRecurseWith (declOrFieldDecl $ unionFieldDecl info) $ \xs -> do
-          let (otherRs, fields) = first concat $ partitionEithers xs
-              (fails, otherDecls) = partitionEithers $ map getParseResultDecl otherRs
+          let (otherRs, fields)   = first concat $ partitionEithers xs
+              (fails, otherDecls) = partitionEithers $
+                                      map getParseResultEitherDecl otherRs
           mPartitioned <- partitionChildren otherDecls fields
           pure $ (fails ++) $ case mPartitioned of
             Just decls ->
@@ -332,7 +336,7 @@ unionDecl info = \curr -> do
 
 declOrFieldDecl ::
      (CXCursor -> ParseDecl (a Parse))
-  -> Fold ParseDecl (Either [ParseResult] (a Parse))
+  -> Fold ParseDecl (Either [ParseResult Parse] (a Parse))
 declOrFieldDecl fieldDecl = simpleFold $ \curr -> do
     kind <- fromSimpleEnum <$> clang_getCursorKind curr
     case kind of
@@ -509,7 +513,8 @@ functionDecl info = \curr -> do
           _ -> foldRecurseWith nestedDecl $ \nestedDecls -> do
             let declsAndAttrs = concat nestedDecls
                 (parseRs, attrs) = partitionEithers declsAndAttrs
-                (fails, decls)   = partitionEithers $ map getParseResultDecl parseRs
+                (fails, decls)   = partitionEithers $
+                                     map getParseResultEitherDecl parseRs
                 purity = C.decideFunctionPurity attrs
                 (anonDecls, otherDecls) = partitionAnonDecls decls
 
@@ -530,13 +535,18 @@ functionDecl info = \curr -> do
                       ]
                     funDeclResult =
                       parseSucceedWith
-                        (nonPublicVisibility ++ potentialDuplicate) $ mkDecl purity
+                        (nonPublicVisibility ++ potentialDuplicate)
+                        (mkDecl purity)
                 in map parseSucceed otherDecls ++ [funDeclResult]
   where
     guardTypeFunction ::
          CXCursor
       -> C.Type Parse
-      -> ParseDecl (Either [ParseResult] ([(Maybe C.ScopedName, C.Type Parse)], C.Type Parse))
+      -> ParseDecl (
+            Either
+              [ParseResult Parse]
+              ([(Maybe C.ScopedName, C.Type Parse)], C.Type Parse)
+          )
     guardTypeFunction curr ty =
         case ty of
           C.TypeFun args res -> do
@@ -559,7 +569,7 @@ functionDecl info = \curr -> do
     -- Look for (unsupported) declarations inside function parameters, and for
     -- function attributes. Function attributes are returned separately, so that
     -- we can pair them with the parent function.
-    nestedDecl :: Fold ParseDecl [Either ParseResult C.FunctionPurity]
+    nestedDecl :: Fold ParseDecl [Either (ParseResult Parse) C.FunctionPurity]
     nestedDecl = simpleFold $ \curr -> do
         kind <- fromSimpleEnum <$> clang_getCursorKind curr
         case kind of
@@ -630,7 +640,9 @@ varDecl info = \curr -> do
         foldContinue
       _ -> foldRecurseWith nestedDecl $ \nestedRs -> do
         let
-          (fails, nestedDecls)    = partitionEithers $ map getParseResultDecl $ concat nestedRs
+          (fails, nestedDecls)    = partitionEithers $
+                                      map getParseResultEitherDecl $
+                                        concat nestedRs
           (anonDecls, otherDecls) = partitionAnonDecls nestedDecls
 
         -- This declaration may act as a definition even if it has no
@@ -655,18 +667,16 @@ varDecl info = \curr -> do
 
             in  case cls of
               VarGlobal ->
-                singleton $
-                  parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
+                singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
               VarConst ->
-                singleton $
-                  parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
+                singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
               VarThreadLocal ->
-                  [parseFail info ParseUnsupportedTLS]
+                [parseFail info ParseUnsupportedTLS]
               VarUnsupported storage ->
-                  [parseFail info $ ParseUnknownStorageClass storage]
+                [parseFail info $ ParseUnknownStorageClass storage]
   where
     -- Look for nested declarations inside the global variable type
-    nestedDecl :: Fold ParseDecl [ParseResult]
+    nestedDecl :: Fold ParseDecl [ParseResult Parse]
     nestedDecl = simpleFold $ \curr -> do
         kind <- fromSimpleEnum <$> clang_getCursorKind curr
         case kind of
