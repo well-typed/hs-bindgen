@@ -22,6 +22,8 @@ import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
+import HsBindgen.Backend.Hs.Translation.State (TranslationState)
+import HsBindgen.Backend.Hs.Translation.State qualified as State
 import HsBindgen.Backend.Hs.Translation.ToFromFunPtr qualified as ToFromFunPtr
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.SHs.AST
@@ -83,7 +85,7 @@ generateDeclarations' ::
   -> [C.Decl]
   -> [WithCategory Hs.Decl]
 generateDeclarations' opts haddockConfig moduleName declIndex decs =
-    flip State.evalState Map.empty $ do
+    flip State.evalState State.emptyTranslationState $ do
       let scannedFunctionPointerTypes = scanAllFunctionPointerTypes decs
           -- Generate ToFunPtr/FromFunPtr instances for nested callback types
           -- These go in the main module to avoid orphan instances
@@ -150,7 +152,7 @@ isDefinedInCurrentModule declIndex =
 
 -- TODO: Take DeclSpec into account
 generateDecs ::
-     State.MonadState Hs.InstanceMap m
+     State.MonadState TranslationState m
   => TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
@@ -181,10 +183,10 @@ generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
                 ++ withCategory BFunPtr  funPtrDecls
       C.DeclMacro macro -> withCategoryM BType $
         macroDecs opts haddockConfig info macro spec
-      C.DeclGlobal ty ->
-        State.get >>= \instsMap ->
-          pure $ withCategory BGlobal $
-            global opts haddockConfig moduleName instsMap info ty spec
+      C.DeclGlobal ty -> do
+        transState <- State.get
+        pure $ withCategory BGlobal $
+          global opts haddockConfig moduleName transState info ty spec
     where
       withCategory :: BindingCategory -> [a] -> [WithCategory a]
       withCategory c = map (WithCategory c)
@@ -205,7 +207,7 @@ reifyStructFields struct k = Vec.reifyList (C.structFields struct) k
 
 -- | Generate declarations for given C struct
 structDecs :: forall n m.
-     (SNatI n, State.MonadState Hs.InstanceMap m)
+     (SNatI n, State.MonadState TranslationState m)
   => TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
@@ -214,8 +216,8 @@ structDecs :: forall n m.
   -> Vec n C.StructField
   -> m [Hs.Decl]
 structDecs opts haddockConfig info struct spec fields = do
-    (insts, decls) <- aux <$> State.get
-    State.modify' $ Map.insert structName insts
+    (insts, decls) <- aux <$> State.gets State.instanceMap
+    State.modifyInstanceMap' $ Map.insert structName insts
     pure decls
   where
     structName :: Hs.Name Hs.NsTypeConstr
@@ -406,14 +408,14 @@ pokeStructField ptr f x = case C.structFieldWidth f of
 -------------------------------------------------------------------------------}
 
 opaqueDecs ::
-     State.MonadState Hs.InstanceMap m
+     State.MonadState TranslationState m
   => C.NameKind
   -> HaddockConfig
   -> C.DeclInfo
   -> C.DeclSpec
   -> m [Hs.Decl]
 opaqueDecs cNameKind haddockConfig info spec = do
-    State.modify' $ Map.insert name Set.empty
+    State.modifyInstanceMap' $ Map.insert name Set.empty
     return [decl]
   where
     name :: Hs.Name Hs.NsTypeConstr
@@ -435,7 +437,7 @@ opaqueDecs cNameKind haddockConfig info spec = do
 -------------------------------------------------------------------------------}
 
 unionDecs ::
-     State.MonadState Hs.InstanceMap m
+     State.MonadState TranslationState m
   => HaddockConfig
   -> C.DeclInfo
   -> C.Union
@@ -443,7 +445,7 @@ unionDecs ::
   -> m [Hs.Decl]
 unionDecs haddockConfig info union spec = do
     decls <- aux <$> State.get
-    State.modify' $ Map.insert newtypeName insts
+    State.modifyInstanceMap' $ Map.insert newtypeName insts
     pure decls
   where
     newtypeName :: Hs.Name Hs.NsTypeConstr
@@ -492,8 +494,8 @@ unionDecs haddockConfig info union spec = do
         (fromIntegral (C.unionAlignment union))
 
     -- everything in aux is state-dependent
-    aux :: Hs.InstanceMap -> [Hs.Decl]
-    aux instanceMap =
+    aux :: TranslationState -> [Hs.Decl]
+    aux transState =
         newtypeDecl : storableDecl : accessorDecls ++
         concatMap (unionFieldDecls newtypeName) (C.unionFields union)
       where
@@ -504,7 +506,7 @@ unionDecs haddockConfig info union spec = do
         getAccessorDecls :: C.UnionField -> [Hs.Decl]
         getAccessorDecls C.UnionField{..} =
           let hsType = Type.topLevel unionFieldType
-              fInsts = Hs.getInstances instanceMap (Just newtypeName) insts [hsType]
+              fInsts = Hs.getInstances (transState.instanceMap) (Just newtypeName) insts [hsType]
               getterName = "get_" <> C.nameHs (C.fieldName unionFieldInfo)
               setterName = "set_" <> C.nameHs (C.fieldName unionFieldInfo)
               commentRefName name = Just $ HsDoc.paragraph [
@@ -618,7 +620,7 @@ unionFieldDecls unionName f = [
 -------------------------------------------------------------------------------}
 
 enumDecs ::
-     State.MonadState Hs.InstanceMap m
+     State.MonadState TranslationState m
   => TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
@@ -626,7 +628,7 @@ enumDecs ::
   -> C.DeclSpec
   -> m [Hs.Decl]
 enumDecs opts haddockConfig info e spec = do
-    State.modify' $ Map.insert newtypeName insts
+    State.modifyInstanceMap' $ Map.insert newtypeName insts
     pure $
       newtypeDecl : storableDecl : HsFI.hasBaseForeignTypeDecs insts hsNewtype ++
       optDecls ++ cEnumInstanceDecls ++ valueDecls
@@ -763,7 +765,7 @@ enumDecs opts haddockConfig info e spec = do
 -------------------------------------------------------------------------------}
 
 typedefDecs ::
-     State.MonadState Hs.InstanceMap m
+     forall m. State.MonadState TranslationState m
   => TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
@@ -772,7 +774,7 @@ typedefDecs ::
   -> m [Hs.Decl]
 typedefDecs opts haddockConfig info typedef spec = do
     (insts, decls) <- aux <$> State.get
-    State.modify' $ Map.insert newtypeName insts
+    State.modifyInstanceMap' $ Map.insert newtypeName insts
     pure decls
   where
     newtypeName :: Hs.Name Hs.NsTypeConstr
@@ -816,8 +818,8 @@ typedefDecs opts haddockConfig info typedef spec = do
         _ -> []
 
     -- everything in aux is state-dependent
-    aux :: Hs.InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
-    aux instanceMap = (insts,) $
+    aux :: TranslationState -> (Set Hs.TypeClass, [Hs.Decl])
+    aux transState = (insts,) $
         newtypeDecl : newtypeWrapper ++ storableDecl ++ optDecls ++
         typedefFieldDecls hsNewtype ++
         HsFI.hasBaseForeignTypeDecs insts hsNewtype
@@ -825,7 +827,7 @@ typedefDecs opts haddockConfig info typedef spec = do
         insts :: Set Hs.TypeClass
         insts =
           Hs.getInstances
-            instanceMap
+            (transState.instanceMap)
             (Just newtypeName)
             candidateInsts
             [Hs.fieldType newtypeField]
@@ -942,7 +944,7 @@ typedefFieldDecls hsNewType = [
 -------------------------------------------------------------------------------}
 
 macroDecs ::
-     State.MonadState Hs.InstanceMap m
+     State.MonadState TranslationState m
   => TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
@@ -955,7 +957,7 @@ macroDecs opts haddockConfig info checkedMacro spec =
       C.MacroExpr expr -> pure $ macroVarDecs haddockConfig info expr
 
 macroDecsTypedef ::
-     State.MonadState Hs.InstanceMap m
+     State.MonadState TranslationState m
   => TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
@@ -964,7 +966,7 @@ macroDecsTypedef ::
   -> m [Hs.Decl]
 macroDecsTypedef opts haddockConfig info macroType spec = do
     (insts, decls) <- aux (C.macroType macroType) <$> State.get
-    State.modify' $ Map.insert newtypeName insts
+    State.modifyInstanceMap' $ Map.insert newtypeName insts
     pure $ decls
   where
     newtypeName :: Hs.Name Hs.NsTypeConstr
@@ -978,15 +980,15 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
       ]
 
     -- everything in aux is state-dependent
-    aux :: C.Type -> Hs.InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
-    aux ty instanceMap = (insts,) $
+    aux :: C.Type -> TranslationState -> (Set Hs.TypeClass, [Hs.Decl])
+    aux ty transState = (insts,) $
         newtypeDecl : storableDecl ++ HsFI.hasBaseForeignTypeDecs insts hsNewtype ++ optDecls
       where
         fieldType :: HsType
         fieldType = Type.topLevel ty
 
         insts :: Set Hs.TypeClass
-        insts = Hs.getInstances instanceMap (Just newtypeName) candidateInsts [fieldType]
+        insts = Hs.getInstances transState.instanceMap (Just newtypeName) candidateInsts [fieldType]
 
         hsNewtype :: Hs.Newtype
         hsNewtype = Hs.Newtype {
@@ -1322,6 +1324,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec = concat [
     ]
   where
     areFancy = anyFancy (res : wrappedArgTypes)
+
     funDecls :: [Hs.Decl]
     funDecls =
         HsFI.foreignImportDecs
@@ -1528,12 +1531,12 @@ global ::
      TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
-  -> Hs.InstanceMap
+  -> TranslationState
   -> C.DeclInfo
   -> C.Type
   -> C.DeclSpec
   -> [Hs.Decl]
-global opts haddockConfig moduleName instsMap info ty _spec
+global opts haddockConfig moduleName transState info ty _spec
     -- Generate getter if the type is @const@-qualified. We inspect the /erased/
     -- type because we want to see through newtypes as well.
     | C.isErasedTypeConstQualified ty = stubDecs ++ getConstGetterOfType ty
@@ -1547,7 +1550,7 @@ global opts haddockConfig moduleName instsMap info ty _spec
       addressStubDecs opts haddockConfig moduleName info ty _spec
 
     getConstGetterOfType :: C.Type -> [Hs.Decl]
-    getConstGetterOfType t = constGetter (Type.topLevel t) instsMap info pureStubName
+    getConstGetterOfType t = constGetter (Type.topLevel t) transState info pureStubName
 
 -- | Getter for a constant (i.e., @const@) global variable
 --
@@ -1560,11 +1563,11 @@ global opts haddockConfig moduleName instsMap info ty _spec
 -- unknown size do not have a 'Storable' instance.
 constGetter ::
      HsType
-  -> Hs.InstanceMap
+  -> TranslationState
   -> C.DeclInfo
   -> Hs.Name Hs.NsVar
   -> [Hs.Decl]
-constGetter ty instsMap info pureStubName = concat [
+constGetter ty transState info pureStubName = concat [
           [ Hs.DeclPragma (SHs.NOINLINE getterName)
           , getterDecl
           ]
@@ -1581,7 +1584,7 @@ constGetter ty instsMap info pureStubName = concat [
           -- superclass constraints. See issue #993.
           Hs.Storable
             `elem`
-              Hs.getInstances instsMap Nothing (Set.singleton Hs.Storable) [ty]
+              Hs.getInstances (State.instanceMap transState) Nothing (Set.singleton Hs.Storable) [ty]
         ]
   where
     -- *** Getter ***
