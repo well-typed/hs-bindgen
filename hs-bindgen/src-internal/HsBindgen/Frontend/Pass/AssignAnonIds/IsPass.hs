@@ -24,7 +24,7 @@ instance IsPass AssignAnonIds where
   type Id           AssignAnonIds = C.DeclId AssignAnonIds
   type FieldName    AssignAnonIds = C.ScopedName
   type ArgumentName AssignAnonIds = Maybe C.ScopedName
-  type MacroBody    AssignAnonIds = CheckedMacro AssignAnonIds
+  type MacroBody    AssignAnonIds = UnparsedMacro
   type ExtBinding   AssignAnonIds = Void
   type Ann ix       AssignAnonIds = AnnAssignAnonIds ix
   type Msg          AssignAnonIds = AssignAnonIdsMsg
@@ -39,19 +39,28 @@ data AssignAnonIdsMsg =
     -- @clang@ will produce a warning for this ("declaration does not declare
     -- anything"); we issue a separate message here in case we skip over
     -- something that we shouldn't.
-    AssignAnonIdsSkipped (DeclInfo Parse)
+    AssignAnonIdsSkippedDecl (DeclInfo Parse)
+  | -- | Skipped unusable anonymous type
+    AssignAnonIdsSkippedUse (DeclInfo Parse) C.AnonId C.NameKind
   deriving stock (Show)
 
 instance PrettyForTrace AssignAnonIdsMsg where
   prettyForTrace = \case
-      AssignAnonIdsSkipped info -> PP.hsep [
+      AssignAnonIdsSkippedDecl info -> PP.hsep [
           "Skipped unused or unusable anonynous declaration"
         , prettyForTrace info
+        ]
+      AssignAnonIdsSkippedUse info anonId _cNameKind -> PP.hsep [
+          "Skipped declaration"
+        , prettyForTrace info
+        , "with unusable anonymous type"
+        , prettyForTrace anonId
         ]
 
 instance IsTrace Level AssignAnonIdsMsg where
   getDefaultLogLevel = \case
-      AssignAnonIdsSkipped{} -> Debug -- clang already warned
+      AssignAnonIdsSkippedDecl{} -> Debug -- clang already warned
+      AssignAnonIdsSkippedUse{}  -> Debug -- already warned
   getSource  = const HsBindgen
   getTraceId = const "name-anon"
 
