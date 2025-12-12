@@ -5,6 +5,7 @@
 ## Binding specs
 external/
 ## Haskell files
-hs/manual/generated/**/*.hs
+hs/manual/generated/**/*
+hs/manual/src-ffitype/Generated/*
 hs/hs-game/generated/**/*.hs
 hs/hs-vector/generated/**/*.hs

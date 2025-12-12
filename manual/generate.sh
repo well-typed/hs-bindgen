@@ -20,7 +20,7 @@ fi
 mkdir -p external
 
 echo "# "
-echo "# Basic examples"
+echo "# Manual"
 echo "# "
 
 mkdir -p hs/manual/generated
@@ -104,6 +104,48 @@ cabal run hs-bindgen-cli -- \
     --hs-output-dir hs/manual/generated \
     --module ZeroCopy \
     zero_copy.h
+
+
+echo "# "
+echo "# Manual: ffitype"
+echo "# "
+
+cabal run hs-bindgen-cli -- \
+    preprocess \
+    -I c/ \
+    --unique-id com.hs-bindgen.manual.ffitype \
+    --hs-output-dir hs/manual/src-ffitype \
+    --module Generated.FFIType.A \
+    --select-by-decl-name "A" \
+    --gen-binding-spec external/A.bindingspec.yaml \
+    --create-output-dirs \
+    --overwrite-files \
+    ffitype.h
+
+cabal run hs-bindgen-cli -- \
+    preprocess \
+    -I c/ \
+    --unique-id com.hs-bindgen.manual.ffitype \
+    --hs-output-dir hs/manual/src-ffitype \
+    --module Generated.FFIType.B \
+    --select-by-decl-name "B" \
+    --gen-binding-spec external/B.bindingspec.yaml \
+    --external-binding-spec external/A.bindingspec.yaml \
+    --create-output-dirs \
+    --overwrite-files \
+    ffitype.h
+
+cabal run hs-bindgen-cli -- \
+    preprocess \
+    -I c/ \
+    --unique-id com.hs-bindgen.manual.ffitype \
+    --hs-output-dir hs/manual/src-ffitype \
+    --module Generated.FFIType \
+    --external-binding-spec external/A.bindingspec.yaml \
+    --external-binding-spec external/B.bindingspec.yaml \
+    --create-output-dirs \
+    --overwrite-files \
+    ffitype.h
 
 echo "# "
 echo "# External bindings: vector example"
