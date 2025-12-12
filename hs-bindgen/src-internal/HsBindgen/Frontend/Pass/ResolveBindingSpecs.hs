@@ -72,16 +72,16 @@ resolveBindingSpecs
         useDeclGraph =
           UseDeclGraph.deleteDeps (Map.keys stateExtTypes) unitAnn.declUseDecl
         notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys stateNoPTypes
-    in  ( reassemble decls useDeclGraph state
+    in  ( reconstruct decls useDeclGraph state
         , pSpecErrs ++ reverse stateTraces ++ notUsedErrs
         )
   where
-    reassemble ::
+    reconstruct ::
          [C.Decl ResolveBindingSpecs]
       -> UseDeclGraph
       -> MState
       -> C.TranslationUnit ResolveBindingSpecs
-    reassemble decls' useDeclGraph MState{..} =
+    reconstruct decls' useDeclGraph MState{..} =
       let externalIds :: Set C.PrelimDeclId
           externalIds = Map.keysSet stateExtTypes
 
@@ -258,7 +258,7 @@ resolveTop decl = Reader.ask >>= \MEnv{..} ->
 
 -- Pass two: deep
 --
--- Types within the declaration are resolved, and it is reassembled for the
+-- Types within the declaration are resolved, and it is reconstructed for the
 -- current pass.
 resolveDeep ::
      C.Decl NameAnon
@@ -294,80 +294,80 @@ instance Resolve C.DeclKind where
       C.DeclGlobal ty        -> C.DeclGlobal   <$> resolve ctx ty
 
 instance Resolve C.Struct where
-  resolve ctx C.Struct{..} = reassemble <$> mapM (resolve ctx) structFields
+  resolve ctx C.Struct{..} = reconstruct <$> mapM (resolve ctx) structFields
     where
-      reassemble ::
+      reconstruct ::
            [C.StructField ResolveBindingSpecs]
         -> C.Struct ResolveBindingSpecs
-      reassemble structFields' = C.Struct {
+      reconstruct structFields' = C.Struct {
           structFields = structFields'
         , ..
         }
 
 instance Resolve C.StructField where
-  resolve ctx C.StructField{..} = reassemble <$> resolve ctx structFieldType
+  resolve ctx C.StructField{..} = reconstruct <$> resolve ctx structFieldType
     where
-      reassemble ::
+      reconstruct ::
            C.Type ResolveBindingSpecs
         -> C.StructField ResolveBindingSpecs
-      reassemble structFieldType' = C.StructField {
+      reconstruct structFieldType' = C.StructField {
           structFieldInfo = coercePass structFieldInfo
         , structFieldType = structFieldType'
         , ..
         }
 
 instance Resolve C.Union where
-  resolve ctx C.Union{..} = reassemble <$> mapM (resolve ctx) unionFields
+  resolve ctx C.Union{..} = reconstruct <$> mapM (resolve ctx) unionFields
     where
-      reassemble ::
+      reconstruct ::
            [C.UnionField ResolveBindingSpecs]
         -> C.Union ResolveBindingSpecs
-      reassemble unionFields' = C.Union {
+      reconstruct unionFields' = C.Union {
           unionFields = unionFields'
         , ..
         }
 
 instance Resolve C.UnionField where
-  resolve ctx C.UnionField{..} = reassemble <$> resolve ctx unionFieldType
+  resolve ctx C.UnionField{..} = reconstruct <$> resolve ctx unionFieldType
     where
-      reassemble :: C.Type ResolveBindingSpecs
+      reconstruct :: C.Type ResolveBindingSpecs
                  -> C.UnionField ResolveBindingSpecs
-      reassemble unionFieldType' = C.UnionField {
+      reconstruct unionFieldType' = C.UnionField {
           unionFieldInfo = coercePass unionFieldInfo
         , unionFieldType = unionFieldType'
         , ..
         }
 
 instance Resolve C.Enum where
-  resolve ctx C.Enum{..} = reassemble <$> resolve ctx enumType
+  resolve ctx C.Enum{..} = reconstruct <$> resolve ctx enumType
     where
-      reassemble :: C.Type ResolveBindingSpecs -> C.Enum ResolveBindingSpecs
-      reassemble enumType' = C.Enum {
+      reconstruct :: C.Type ResolveBindingSpecs -> C.Enum ResolveBindingSpecs
+      reconstruct enumType' = C.Enum {
           enumType      = enumType'
         , enumConstants = map coercePass enumConstants
         , ..
         }
 
 instance Resolve C.Typedef where
-  resolve ctx C.Typedef{..} = reassemble <$> resolve ctx typedefType
+  resolve ctx C.Typedef{..} = reconstruct <$> resolve ctx typedefType
     where
-      reassemble :: C.Type ResolveBindingSpecs -> C.Typedef ResolveBindingSpecs
-      reassemble typedefType' = C.Typedef {
+      reconstruct :: C.Type ResolveBindingSpecs -> C.Typedef ResolveBindingSpecs
+      reconstruct typedefType' = C.Typedef {
             typedefType = typedefType'
           , ..
           }
 
 instance Resolve C.Function where
   resolve ctx C.Function{..} =
-    reassemble
+    reconstruct
       <$> mapM (\(mbName, ty) -> (mbName,) <$> resolve ctx ty) functionArgs
       <*> resolve ctx functionRes
     where
-      reassemble ::
+      reconstruct ::
            [(ArgumentName ResolveBindingSpecs, C.Type ResolveBindingSpecs)]
         -> C.Type ResolveBindingSpecs
         -> C.Function ResolveBindingSpecs
-      reassemble functionArgs' functionRes' = C.Function {
+      reconstruct functionArgs' functionRes' = C.Function {
           functionArgs = functionArgs'
         , functionRes  = functionRes'
         , ..
@@ -379,12 +379,12 @@ instance Resolve C.CheckedMacro where
     C.MacroExpr expr -> return (C.MacroExpr expr)
 
 instance Resolve C.CheckedMacroType where
-  resolve ctx C.CheckedMacroType{..} = reassemble <$> resolve ctx macroType
+  resolve ctx C.CheckedMacroType{..} = reconstruct <$> resolve ctx macroType
     where
-      reassemble ::
+      reconstruct ::
            C.Type ResolveBindingSpecs
         -> C.CheckedMacroType ResolveBindingSpecs
-      reassemble macroType' = C.CheckedMacroType {
+      reconstruct macroType' = C.CheckedMacroType {
           macroType = macroType'
         , ..
         }
