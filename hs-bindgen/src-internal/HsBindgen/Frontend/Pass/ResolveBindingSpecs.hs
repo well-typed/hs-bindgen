@@ -307,16 +307,11 @@ instance Resolve C.Struct where
 instance Resolve C.StructField where
   resolve ctx C.StructField{..} = reassemble <$> resolve ctx structFieldType
     where
-      C.FieldInfo{..} = structFieldInfo
       reassemble ::
            C.Type ResolveBindingSpecs
         -> C.StructField ResolveBindingSpecs
       reassemble structFieldType' = C.StructField {
-          structFieldInfo =
-            C.FieldInfo {
-              fieldComment = fmap resolveCommentReference fieldComment
-            , ..
-            }
+          structFieldInfo = coercePass structFieldInfo
         , structFieldType = structFieldType'
         , ..
         }
@@ -335,15 +330,10 @@ instance Resolve C.Union where
 instance Resolve C.UnionField where
   resolve ctx C.UnionField{..} = reassemble <$> resolve ctx unionFieldType
     where
-      C.FieldInfo{..} = unionFieldInfo
       reassemble :: C.Type ResolveBindingSpecs
                  -> C.UnionField ResolveBindingSpecs
       reassemble unionFieldType' = C.UnionField {
-          unionFieldInfo =
-            C.FieldInfo {
-              fieldComment = fmap resolveCommentReference fieldComment
-            , ..
-            }
+          unionFieldInfo = coercePass unionFieldInfo
         , unionFieldType = unionFieldType'
         , ..
         }
@@ -473,12 +463,6 @@ instance Resolve C.Type where
 {-------------------------------------------------------------------------------
   Internal: auxiliary functions
 -------------------------------------------------------------------------------}
-
-resolveCommentReference ::
-     C.Comment NameAnon
-  -> C.Comment ResolveBindingSpecs
-resolveCommentReference (C.Comment comment) =
-    C.Comment (fmap coercePass comment)
 
 -- | Lookup qualified name in the 'ExternalResolvedBindingSpec'
 resolveExtBinding ::
