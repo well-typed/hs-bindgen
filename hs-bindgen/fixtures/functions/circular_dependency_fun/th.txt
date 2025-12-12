@@ -15,10 +15,20 @@ newtype Fun_ptr_Deref
       __exported by:__ @functions\/circular_dependency_fun.h@
       -}
     deriving newtype HasBaseForeignType
-foreign import ccall safe "wrapper" toFun_ptr_Deref :: Fun_ptr_Deref ->
-                                                       IO (FunPtr Fun_ptr_Deref)
-foreign import ccall safe "dynamic" fromFun_ptr_Deref :: FunPtr Fun_ptr_Deref ->
-                                                         Fun_ptr_Deref
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toFun_ptr_Deref_base :: (Ptr Void ->
+                                                             IO Unit) ->
+                                                            IO (FunPtr (Ptr Void -> IO Unit))
+toFun_ptr_Deref :: Fun_ptr_Deref -> IO (FunPtr Fun_ptr_Deref)
+toFun_ptr_Deref = \fun_0 -> fmap castFunPtrFromBaseForeignType (toFun_ptr_Deref_base (toBaseForeignType fun_0))
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromFun_ptr_Deref_base :: FunPtr (Ptr Void ->
+                                                                      IO Unit) ->
+                                                              Ptr Void -> IO Unit
+fromFun_ptr_Deref :: FunPtr Fun_ptr_Deref -> Fun_ptr_Deref
+fromFun_ptr_Deref = \funPtr_0 -> fromBaseForeignType (fromFun_ptr_Deref_base (castFunPtrToBaseForeignType funPtr_0))
 instance ToFunPtr Fun_ptr_Deref
     where toFunPtr = toFun_ptr_Deref
 instance FromFunPtr Fun_ptr_Deref
@@ -87,16 +97,29 @@ instance TyEq ty
               (CFieldType Forward_declaration "forward_declaration_f") =>
          HasField "forward_declaration_f" (Ptr Forward_declaration) (Ptr ty)
     where getField = ptrToCField (Proxy @"forward_declaration_f")
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" hs_bindgen_fbe9c5dca66824d3_base :: (Ptr Void ->
+                                                                         IO Unit) ->
+                                                                        IO (FunPtr (Ptr Void ->
+                                                                                    IO Unit))
 -- | __unique:__ @instance ToFunPtr ((Ptr.Ptr Forward_declaration) -> IO ())@
-foreign import ccall safe "wrapper" hs_bindgen_fbe9c5dca66824d3 :: (Ptr Forward_declaration ->
-                                                                    IO Unit) ->
-                                                                   IO (FunPtr (Ptr Forward_declaration ->
-                                                                               IO Unit))
+hs_bindgen_fbe9c5dca66824d3 :: (Ptr Forward_declaration ->
+                                IO Unit) ->
+                               IO (FunPtr (Ptr Forward_declaration -> IO Unit))
+-- | __unique:__ @instance ToFunPtr ((Ptr.Ptr Forward_declaration) -> IO ())@
+hs_bindgen_fbe9c5dca66824d3 = \fun_0 -> fmap castFunPtrFromBaseForeignType (hs_bindgen_fbe9c5dca66824d3_base (toBaseForeignType fun_0))
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" hs_bindgen_b3640137a9cf92cc_base :: FunPtr (Ptr Void ->
+                                                                                IO Unit) ->
+                                                                        Ptr Void -> IO Unit
 -- | __unique:__ @instance FromFunPtr ((Ptr.Ptr Forward_declaration) -> IO ())@
-foreign import ccall safe "dynamic" hs_bindgen_b3640137a9cf92cc :: FunPtr (Ptr Forward_declaration ->
-                                                                           IO Unit) ->
-                                                                   Ptr Forward_declaration ->
-                                                                   IO Unit
+hs_bindgen_b3640137a9cf92cc :: FunPtr (Ptr Forward_declaration ->
+                                       IO Unit) ->
+                               Ptr Forward_declaration -> IO Unit
+-- | __unique:__ @instance FromFunPtr ((Ptr.Ptr Forward_declaration) -> IO ())@
+hs_bindgen_b3640137a9cf92cc = \funPtr_0 -> fromBaseForeignType (hs_bindgen_b3640137a9cf92cc_base (castFunPtrToBaseForeignType funPtr_0))
 instance ToFunPtr (Ptr Forward_declaration -> IO Unit)
     where toFunPtr = hs_bindgen_fbe9c5dca66824d3
 instance FromFunPtr (Ptr Forward_declaration -> IO Unit)

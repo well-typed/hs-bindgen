@@ -8,7 +8,9 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -21,9 +23,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_1e3421d11afdb5be" hs_bindgen_1e3421d11afdb5be_base ::
+     IO (Ptr.Ptr Void)
+
 -- | __unique:__ @test_typesprimitivesbool_c23_Example_get_b_ptr@
-foreign import ccall unsafe "hs_bindgen_1e3421d11afdb5be" hs_bindgen_1e3421d11afdb5be ::
+hs_bindgen_1e3421d11afdb5be ::
      IO (Ptr.Ptr FC.CBool)
+hs_bindgen_1e3421d11afdb5be =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_1e3421d11afdb5be_base
 
 {-# NOINLINE b_ptr #-}
 

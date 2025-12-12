@@ -122,6 +122,10 @@ data Global =
 
     -- HasBaseForeignType
   | HasBaseForeignType_class
+  | HasBaseForeignType_toBaseForeignType
+  | HasBaseForeignType_fromBaseForeignType
+  | HasBaseForeignType_castFunPtrToBaseForeignType
+  | HasBaseForeignType_castFunPtrFromBaseForeignType
 
     -- Unsafe
   | IO_unsafePerformIO
@@ -130,6 +134,9 @@ data Global =
   | ConstPtr_type
   | ConstPtr_constructor
   | ConstPtr_unConstPtr
+
+    -- Functor
+  | Functor_fmap
 
     -- Other type classes
   | Bits_class

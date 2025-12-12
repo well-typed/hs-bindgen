@@ -7,7 +7,9 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -41,9 +43,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_3f49e28bee3f8746" hs_bindgen_3f49e28bee3f8746_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_functionsdecls_in_signature_Example_get_normal_ptr@
-foreign import ccall unsafe "hs_bindgen_3f49e28bee3f8746" hs_bindgen_3f49e28bee3f8746 ::
+hs_bindgen_3f49e28bee3f8746 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO ()))
+hs_bindgen_3f49e28bee3f8746 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3f49e28bee3f8746_base
 
 {-# NOINLINE normal_ptr #-}
 
@@ -57,9 +66,16 @@ normal_ptr :: Ptr.FunPtr ((Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO
 normal_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3f49e28bee3f8746
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_8de29d760cad0c00" hs_bindgen_8de29d760cad0c00_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_functionsdecls_in_signature_Example_get_f1_ptr@
-foreign import ccall unsafe "hs_bindgen_8de29d760cad0c00" hs_bindgen_8de29d760cad0c00 ::
+hs_bindgen_8de29d760cad0c00 ::
      IO (Ptr.FunPtr (Named_struct -> IO ()))
+hs_bindgen_8de29d760cad0c00 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_8de29d760cad0c00_base
 
 {-# NOINLINE f1_ptr #-}
 
@@ -77,9 +93,16 @@ f1_ptr :: Ptr.FunPtr (Named_struct -> IO ())
 f1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8de29d760cad0c00
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_7a2b955aeef7fcd9" hs_bindgen_7a2b955aeef7fcd9_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_functionsdecls_in_signature_Example_get_f2_ptr@
-foreign import ccall unsafe "hs_bindgen_7a2b955aeef7fcd9" hs_bindgen_7a2b955aeef7fcd9 ::
+hs_bindgen_7a2b955aeef7fcd9 ::
      IO (Ptr.FunPtr (Named_union -> IO ()))
+hs_bindgen_7a2b955aeef7fcd9 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_7a2b955aeef7fcd9_base
 
 {-# NOINLINE f2_ptr #-}
 

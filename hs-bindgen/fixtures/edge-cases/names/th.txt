@@ -350,6 +350,9 @@
 -- {
 --   return &via;
 -- }
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_601290db9e101424" by'_base :: IO Unit
 {-| __C declaration:__ @by@
 
     __defined at:__ @edge-cases\/names.h:3:6@
@@ -358,223 +361,7 @@
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_by@
 -}
-foreign import ccall safe "hs_bindgen_601290db9e101424" by' :: IO Unit
-{-| __C declaration:__ @forall@
-
-    __defined at:__ @edge-cases\/names.h:4:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_forall@
--}
-foreign import ccall safe "hs_bindgen_f03dbed5eebb711a" forall' :: IO Unit
-{-| __C declaration:__ @mdo@
-
-    __defined at:__ @edge-cases\/names.h:5:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_mdo@
--}
-foreign import ccall safe "hs_bindgen_d1e3196c869f9fa1" mdo' :: IO Unit
-{-| __C declaration:__ @pattern@
-
-    __defined at:__ @edge-cases\/names.h:6:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_pattern@
--}
-foreign import ccall safe "hs_bindgen_d3dcd898c88fb2e0" pattern' :: IO Unit
-{-| __C declaration:__ @proc@
-
-    __defined at:__ @edge-cases\/names.h:7:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_proc@
--}
-foreign import ccall safe "hs_bindgen_7f08456473f564e3" proc' :: IO Unit
-{-| __C declaration:__ @rec@
-
-    __defined at:__ @edge-cases\/names.h:8:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_rec@
--}
-foreign import ccall safe "hs_bindgen_5df814c22f546599" rec' :: IO Unit
-{-| __C declaration:__ @using@
-
-    __defined at:__ @edge-cases\/names.h:9:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_using@
--}
-foreign import ccall safe "hs_bindgen_3877b6deb653b5a4" using' :: IO Unit
-{-| __C declaration:__ @anyclass@
-
-    __defined at:__ @edge-cases\/names.h:12:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_anyclass@
--}
-foreign import ccall safe "hs_bindgen_7b8790d04357731b" anyclass :: IO Unit
-{-| __C declaration:__ @capi@
-
-    __defined at:__ @edge-cases\/names.h:13:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_capi@
--}
-foreign import ccall safe "hs_bindgen_0bf4ab515f3279b9" capi :: IO Unit
-{-| __C declaration:__ @cases@
-
-    __defined at:__ @edge-cases\/names.h:14:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_cases@
--}
-foreign import ccall safe "hs_bindgen_fa8166b2793e4236" cases :: IO Unit
-{-| __C declaration:__ @ccall@
-
-    __defined at:__ @edge-cases\/names.h:15:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_ccall@
--}
-foreign import ccall safe "hs_bindgen_decc2d43a62d063d" ccall :: IO Unit
-{-| __C declaration:__ @dynamic@
-
-    __defined at:__ @edge-cases\/names.h:16:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_dynamic@
--}
-foreign import ccall safe "hs_bindgen_b5a75e2b6434134b" dynamic :: IO Unit
-{-| __C declaration:__ @export@
-
-    __defined at:__ @edge-cases\/names.h:17:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_export@
--}
-foreign import ccall safe "hs_bindgen_406f7b014573b3d3" export :: IO Unit
-{-| __C declaration:__ @family@
-
-    __defined at:__ @edge-cases\/names.h:18:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_family@
--}
-foreign import ccall safe "hs_bindgen_14aab2af04efc222" family :: IO Unit
-{-| __C declaration:__ @group@
-
-    __defined at:__ @edge-cases\/names.h:19:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_group@
--}
-foreign import ccall safe "hs_bindgen_ee9285b26b11b393" group :: IO Unit
-{-| __C declaration:__ @interruptible@
-
-    __defined at:__ @edge-cases\/names.h:20:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_interruptible@
--}
-foreign import ccall safe "hs_bindgen_b2463d5c1d51883e" interruptible :: IO Unit
-{-| __C declaration:__ @javascript@
-
-    __defined at:__ @edge-cases\/names.h:21:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_javascript@
--}
-foreign import ccall safe "hs_bindgen_55a55462d9cd296c" javascript :: IO Unit
-{-| __C declaration:__ @label@
-
-    __defined at:__ @edge-cases\/names.h:22:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_label@
--}
-foreign import ccall safe "hs_bindgen_227f34efb176d1fb" label :: IO Unit
-{-| __C declaration:__ @prim@
-
-    __defined at:__ @edge-cases\/names.h:23:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_prim@
--}
-foreign import ccall safe "hs_bindgen_51c6e0d18dce403a" prim :: IO Unit
-{-| __C declaration:__ @role@
-
-    __defined at:__ @edge-cases\/names.h:24:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_role@
--}
-foreign import ccall safe "hs_bindgen_f85f2418d208e6a0" role :: IO Unit
-{-| __C declaration:__ @safe@
-
-    __defined at:__ @edge-cases\/names.h:25:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_safe@
--}
-foreign import ccall safe "hs_bindgen_0855ecbc4b53ebbb" safe :: IO Unit
-{-| __C declaration:__ @stdcall@
-
-    __defined at:__ @edge-cases\/names.h:26:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_stdcall@
--}
-foreign import ccall safe "hs_bindgen_e5238d13788a6df9" stdcall :: IO Unit
-{-| __C declaration:__ @stock@
-
-    __defined at:__ @edge-cases\/names.h:27:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_stock@
--}
-foreign import ccall safe "hs_bindgen_cf38d8bd096a7a42" stock :: IO Unit
-{-| __C declaration:__ @unsafe@
-
-    __defined at:__ @edge-cases\/names.h:28:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_unsafe@
--}
-foreign import ccall safe "hs_bindgen_fda9b083b24404f0" unsafe :: IO Unit
-{-| __C declaration:__ @via@
-
-    __defined at:__ @edge-cases\/names.h:29:6@
-
-    __exported by:__ @edge-cases\/names.h@
-
-    __unique:__ @test_edgecasesnames_Example_Unsafe_via@
--}
-foreign import ccall safe "hs_bindgen_1d2a76a3a595be25" via :: IO Unit
+by' :: IO Unit
 {-| __C declaration:__ @by@
 
     __defined at:__ @edge-cases\/names.h:3:6@
@@ -583,7 +370,10 @@ foreign import ccall safe "hs_bindgen_1d2a76a3a595be25" via :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_by@
 -}
-foreign import ccall safe "hs_bindgen_28b998af1f39a743" by' :: IO Unit
+by' = fromBaseForeignType by'_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_f03dbed5eebb711a" forall'_base :: IO Unit
 {-| __C declaration:__ @forall@
 
     __defined at:__ @edge-cases\/names.h:4:6@
@@ -592,7 +382,19 @@ foreign import ccall safe "hs_bindgen_28b998af1f39a743" by' :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_forall@
 -}
-foreign import ccall safe "hs_bindgen_5d7ea7c4d11a5fc8" forall' :: IO Unit
+forall' :: IO Unit
+{-| __C declaration:__ @forall@
+
+    __defined at:__ @edge-cases\/names.h:4:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_forall@
+-}
+forall' = fromBaseForeignType forall'_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d1e3196c869f9fa1" mdo'_base :: IO Unit
 {-| __C declaration:__ @mdo@
 
     __defined at:__ @edge-cases\/names.h:5:6@
@@ -601,7 +403,19 @@ foreign import ccall safe "hs_bindgen_5d7ea7c4d11a5fc8" forall' :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_mdo@
 -}
-foreign import ccall safe "hs_bindgen_2d65448c684c09d5" mdo' :: IO Unit
+mdo' :: IO Unit
+{-| __C declaration:__ @mdo@
+
+    __defined at:__ @edge-cases\/names.h:5:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_mdo@
+-}
+mdo' = fromBaseForeignType mdo'_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d3dcd898c88fb2e0" pattern'_base :: IO Unit
 {-| __C declaration:__ @pattern@
 
     __defined at:__ @edge-cases\/names.h:6:6@
@@ -610,7 +424,19 @@ foreign import ccall safe "hs_bindgen_2d65448c684c09d5" mdo' :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_pattern@
 -}
-foreign import ccall safe "hs_bindgen_13fe653d670d3712" pattern' :: IO Unit
+pattern' :: IO Unit
+{-| __C declaration:__ @pattern@
+
+    __defined at:__ @edge-cases\/names.h:6:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_pattern@
+-}
+pattern' = fromBaseForeignType pattern'_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_7f08456473f564e3" proc'_base :: IO Unit
 {-| __C declaration:__ @proc@
 
     __defined at:__ @edge-cases\/names.h:7:6@
@@ -619,7 +445,19 @@ foreign import ccall safe "hs_bindgen_13fe653d670d3712" pattern' :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_proc@
 -}
-foreign import ccall safe "hs_bindgen_e9cc2037d33041aa" proc' :: IO Unit
+proc' :: IO Unit
+{-| __C declaration:__ @proc@
+
+    __defined at:__ @edge-cases\/names.h:7:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_proc@
+-}
+proc' = fromBaseForeignType proc'_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_5df814c22f546599" rec'_base :: IO Unit
 {-| __C declaration:__ @rec@
 
     __defined at:__ @edge-cases\/names.h:8:6@
@@ -628,7 +466,19 @@ foreign import ccall safe "hs_bindgen_e9cc2037d33041aa" proc' :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_rec@
 -}
-foreign import ccall safe "hs_bindgen_4a1e741f9ef596ff" rec' :: IO Unit
+rec' :: IO Unit
+{-| __C declaration:__ @rec@
+
+    __defined at:__ @edge-cases\/names.h:8:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_rec@
+-}
+rec' = fromBaseForeignType rec'_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_3877b6deb653b5a4" using'_base :: IO Unit
 {-| __C declaration:__ @using@
 
     __defined at:__ @edge-cases\/names.h:9:6@
@@ -637,7 +487,19 @@ foreign import ccall safe "hs_bindgen_4a1e741f9ef596ff" rec' :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_using@
 -}
-foreign import ccall safe "hs_bindgen_ef6f3f22c615db58" using' :: IO Unit
+using' :: IO Unit
+{-| __C declaration:__ @using@
+
+    __defined at:__ @edge-cases\/names.h:9:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_using@
+-}
+using' = fromBaseForeignType using'_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_7b8790d04357731b" anyclass_base :: IO Unit
 {-| __C declaration:__ @anyclass@
 
     __defined at:__ @edge-cases\/names.h:12:6@
@@ -646,7 +508,19 @@ foreign import ccall safe "hs_bindgen_ef6f3f22c615db58" using' :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_anyclass@
 -}
-foreign import ccall safe "hs_bindgen_3c7afeaaf3ff040b" anyclass :: IO Unit
+anyclass :: IO Unit
+{-| __C declaration:__ @anyclass@
+
+    __defined at:__ @edge-cases\/names.h:12:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_anyclass@
+-}
+anyclass = fromBaseForeignType anyclass_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_0bf4ab515f3279b9" capi_base :: IO Unit
 {-| __C declaration:__ @capi@
 
     __defined at:__ @edge-cases\/names.h:13:6@
@@ -655,7 +529,19 @@ foreign import ccall safe "hs_bindgen_3c7afeaaf3ff040b" anyclass :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_capi@
 -}
-foreign import ccall safe "hs_bindgen_0518740d4c3caa1d" capi :: IO Unit
+capi :: IO Unit
+{-| __C declaration:__ @capi@
+
+    __defined at:__ @edge-cases\/names.h:13:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_capi@
+-}
+capi = fromBaseForeignType capi_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_fa8166b2793e4236" cases_base :: IO Unit
 {-| __C declaration:__ @cases@
 
     __defined at:__ @edge-cases\/names.h:14:6@
@@ -664,7 +550,19 @@ foreign import ccall safe "hs_bindgen_0518740d4c3caa1d" capi :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_cases@
 -}
-foreign import ccall safe "hs_bindgen_61f14ad7bb2e3d54" cases :: IO Unit
+cases :: IO Unit
+{-| __C declaration:__ @cases@
+
+    __defined at:__ @edge-cases\/names.h:14:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_cases@
+-}
+cases = fromBaseForeignType cases_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_decc2d43a62d063d" ccall_base :: IO Unit
 {-| __C declaration:__ @ccall@
 
     __defined at:__ @edge-cases\/names.h:15:6@
@@ -673,7 +571,19 @@ foreign import ccall safe "hs_bindgen_61f14ad7bb2e3d54" cases :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_ccall@
 -}
-foreign import ccall safe "hs_bindgen_ace8c96ed6673c3b" ccall :: IO Unit
+ccall :: IO Unit
+{-| __C declaration:__ @ccall@
+
+    __defined at:__ @edge-cases\/names.h:15:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_ccall@
+-}
+ccall = fromBaseForeignType ccall_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_b5a75e2b6434134b" dynamic_base :: IO Unit
 {-| __C declaration:__ @dynamic@
 
     __defined at:__ @edge-cases\/names.h:16:6@
@@ -682,7 +592,19 @@ foreign import ccall safe "hs_bindgen_ace8c96ed6673c3b" ccall :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_dynamic@
 -}
-foreign import ccall safe "hs_bindgen_8865833b99552d03" dynamic :: IO Unit
+dynamic :: IO Unit
+{-| __C declaration:__ @dynamic@
+
+    __defined at:__ @edge-cases\/names.h:16:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_dynamic@
+-}
+dynamic = fromBaseForeignType dynamic_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_406f7b014573b3d3" export_base :: IO Unit
 {-| __C declaration:__ @export@
 
     __defined at:__ @edge-cases\/names.h:17:6@
@@ -691,7 +613,19 @@ foreign import ccall safe "hs_bindgen_8865833b99552d03" dynamic :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_export@
 -}
-foreign import ccall safe "hs_bindgen_15729ba251f5ec57" export :: IO Unit
+export :: IO Unit
+{-| __C declaration:__ @export@
+
+    __defined at:__ @edge-cases\/names.h:17:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_export@
+-}
+export = fromBaseForeignType export_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_14aab2af04efc222" family_base :: IO Unit
 {-| __C declaration:__ @family@
 
     __defined at:__ @edge-cases\/names.h:18:6@
@@ -700,7 +634,19 @@ foreign import ccall safe "hs_bindgen_15729ba251f5ec57" export :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_family@
 -}
-foreign import ccall safe "hs_bindgen_e6a4f7e833da2687" family :: IO Unit
+family :: IO Unit
+{-| __C declaration:__ @family@
+
+    __defined at:__ @edge-cases\/names.h:18:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_family@
+-}
+family = fromBaseForeignType family_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_ee9285b26b11b393" group_base :: IO Unit
 {-| __C declaration:__ @group@
 
     __defined at:__ @edge-cases\/names.h:19:6@
@@ -709,7 +655,19 @@ foreign import ccall safe "hs_bindgen_e6a4f7e833da2687" family :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_group@
 -}
-foreign import ccall safe "hs_bindgen_d4dd1bb5e95de858" group :: IO Unit
+group :: IO Unit
+{-| __C declaration:__ @group@
+
+    __defined at:__ @edge-cases\/names.h:19:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_group@
+-}
+group = fromBaseForeignType group_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_b2463d5c1d51883e" interruptible_base :: IO Unit
 {-| __C declaration:__ @interruptible@
 
     __defined at:__ @edge-cases\/names.h:20:6@
@@ -718,7 +676,19 @@ foreign import ccall safe "hs_bindgen_d4dd1bb5e95de858" group :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_interruptible@
 -}
-foreign import ccall safe "hs_bindgen_516f1ad5aba6de29" interruptible :: IO Unit
+interruptible :: IO Unit
+{-| __C declaration:__ @interruptible@
+
+    __defined at:__ @edge-cases\/names.h:20:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_interruptible@
+-}
+interruptible = fromBaseForeignType interruptible_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_55a55462d9cd296c" javascript_base :: IO Unit
 {-| __C declaration:__ @javascript@
 
     __defined at:__ @edge-cases\/names.h:21:6@
@@ -727,7 +697,19 @@ foreign import ccall safe "hs_bindgen_516f1ad5aba6de29" interruptible :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_javascript@
 -}
-foreign import ccall safe "hs_bindgen_214230db174dc3e6" javascript :: IO Unit
+javascript :: IO Unit
+{-| __C declaration:__ @javascript@
+
+    __defined at:__ @edge-cases\/names.h:21:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_javascript@
+-}
+javascript = fromBaseForeignType javascript_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_227f34efb176d1fb" label_base :: IO Unit
 {-| __C declaration:__ @label@
 
     __defined at:__ @edge-cases\/names.h:22:6@
@@ -736,7 +718,19 @@ foreign import ccall safe "hs_bindgen_214230db174dc3e6" javascript :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_label@
 -}
-foreign import ccall safe "hs_bindgen_88f1f0cf9c0f080e" label :: IO Unit
+label :: IO Unit
+{-| __C declaration:__ @label@
+
+    __defined at:__ @edge-cases\/names.h:22:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_label@
+-}
+label = fromBaseForeignType label_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_51c6e0d18dce403a" prim_base :: IO Unit
 {-| __C declaration:__ @prim@
 
     __defined at:__ @edge-cases\/names.h:23:6@
@@ -745,7 +739,19 @@ foreign import ccall safe "hs_bindgen_88f1f0cf9c0f080e" label :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_prim@
 -}
-foreign import ccall safe "hs_bindgen_93a4c73f587dcf3c" prim :: IO Unit
+prim :: IO Unit
+{-| __C declaration:__ @prim@
+
+    __defined at:__ @edge-cases\/names.h:23:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_prim@
+-}
+prim = fromBaseForeignType prim_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_f85f2418d208e6a0" role_base :: IO Unit
 {-| __C declaration:__ @role@
 
     __defined at:__ @edge-cases\/names.h:24:6@
@@ -754,7 +760,19 @@ foreign import ccall safe "hs_bindgen_93a4c73f587dcf3c" prim :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_role@
 -}
-foreign import ccall safe "hs_bindgen_a267fe5585862ecc" role :: IO Unit
+role :: IO Unit
+{-| __C declaration:__ @role@
+
+    __defined at:__ @edge-cases\/names.h:24:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_role@
+-}
+role = fromBaseForeignType role_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_0855ecbc4b53ebbb" safe_base :: IO Unit
 {-| __C declaration:__ @safe@
 
     __defined at:__ @edge-cases\/names.h:25:6@
@@ -763,7 +781,19 @@ foreign import ccall safe "hs_bindgen_a267fe5585862ecc" role :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_safe@
 -}
-foreign import ccall safe "hs_bindgen_ddac4cdf91c756a8" safe :: IO Unit
+safe :: IO Unit
+{-| __C declaration:__ @safe@
+
+    __defined at:__ @edge-cases\/names.h:25:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_safe@
+-}
+safe = fromBaseForeignType safe_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_e5238d13788a6df9" stdcall_base :: IO Unit
 {-| __C declaration:__ @stdcall@
 
     __defined at:__ @edge-cases\/names.h:26:6@
@@ -772,7 +802,19 @@ foreign import ccall safe "hs_bindgen_ddac4cdf91c756a8" safe :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_stdcall@
 -}
-foreign import ccall safe "hs_bindgen_8dd57b02f322a7ae" stdcall :: IO Unit
+stdcall :: IO Unit
+{-| __C declaration:__ @stdcall@
+
+    __defined at:__ @edge-cases\/names.h:26:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_stdcall@
+-}
+stdcall = fromBaseForeignType stdcall_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_cf38d8bd096a7a42" stock_base :: IO Unit
 {-| __C declaration:__ @stock@
 
     __defined at:__ @edge-cases\/names.h:27:6@
@@ -781,7 +823,19 @@ foreign import ccall safe "hs_bindgen_8dd57b02f322a7ae" stdcall :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_stock@
 -}
-foreign import ccall safe "hs_bindgen_3b69e1860d72507c" stock :: IO Unit
+stock :: IO Unit
+{-| __C declaration:__ @stock@
+
+    __defined at:__ @edge-cases\/names.h:27:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_stock@
+-}
+stock = fromBaseForeignType stock_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_fda9b083b24404f0" unsafe_base :: IO Unit
 {-| __C declaration:__ @unsafe@
 
     __defined at:__ @edge-cases\/names.h:28:6@
@@ -790,7 +844,19 @@ foreign import ccall safe "hs_bindgen_3b69e1860d72507c" stock :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_unsafe@
 -}
-foreign import ccall safe "hs_bindgen_b9d80fa39d7ebb06" unsafe :: IO Unit
+unsafe :: IO Unit
+{-| __C declaration:__ @unsafe@
+
+    __defined at:__ @edge-cases\/names.h:28:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_unsafe@
+-}
+unsafe = fromBaseForeignType unsafe_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_1d2a76a3a595be25" via_base :: IO Unit
 {-| __C declaration:__ @via@
 
     __defined at:__ @edge-cases\/names.h:29:6@
@@ -799,9 +865,548 @@ foreign import ccall safe "hs_bindgen_b9d80fa39d7ebb06" unsafe :: IO Unit
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_via@
 -}
-foreign import ccall safe "hs_bindgen_708f6397f5e5ac73" via :: IO Unit
+via :: IO Unit
+{-| __C declaration:__ @via@
+
+    __defined at:__ @edge-cases\/names.h:29:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_via@
+-}
+via = fromBaseForeignType via_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_28b998af1f39a743" by'_base :: IO Unit
+{-| __C declaration:__ @by@
+
+    __defined at:__ @edge-cases\/names.h:3:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_by@
+-}
+by' :: IO Unit
+{-| __C declaration:__ @by@
+
+    __defined at:__ @edge-cases\/names.h:3:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_by@
+-}
+by' = fromBaseForeignType by'_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_5d7ea7c4d11a5fc8" forall'_base :: IO Unit
+{-| __C declaration:__ @forall@
+
+    __defined at:__ @edge-cases\/names.h:4:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_forall@
+-}
+forall' :: IO Unit
+{-| __C declaration:__ @forall@
+
+    __defined at:__ @edge-cases\/names.h:4:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_forall@
+-}
+forall' = fromBaseForeignType forall'_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_2d65448c684c09d5" mdo'_base :: IO Unit
+{-| __C declaration:__ @mdo@
+
+    __defined at:__ @edge-cases\/names.h:5:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_mdo@
+-}
+mdo' :: IO Unit
+{-| __C declaration:__ @mdo@
+
+    __defined at:__ @edge-cases\/names.h:5:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_mdo@
+-}
+mdo' = fromBaseForeignType mdo'_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_13fe653d670d3712" pattern'_base :: IO Unit
+{-| __C declaration:__ @pattern@
+
+    __defined at:__ @edge-cases\/names.h:6:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_pattern@
+-}
+pattern' :: IO Unit
+{-| __C declaration:__ @pattern@
+
+    __defined at:__ @edge-cases\/names.h:6:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_pattern@
+-}
+pattern' = fromBaseForeignType pattern'_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_e9cc2037d33041aa" proc'_base :: IO Unit
+{-| __C declaration:__ @proc@
+
+    __defined at:__ @edge-cases\/names.h:7:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_proc@
+-}
+proc' :: IO Unit
+{-| __C declaration:__ @proc@
+
+    __defined at:__ @edge-cases\/names.h:7:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_proc@
+-}
+proc' = fromBaseForeignType proc'_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_4a1e741f9ef596ff" rec'_base :: IO Unit
+{-| __C declaration:__ @rec@
+
+    __defined at:__ @edge-cases\/names.h:8:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_rec@
+-}
+rec' :: IO Unit
+{-| __C declaration:__ @rec@
+
+    __defined at:__ @edge-cases\/names.h:8:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_rec@
+-}
+rec' = fromBaseForeignType rec'_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_ef6f3f22c615db58" using'_base :: IO Unit
+{-| __C declaration:__ @using@
+
+    __defined at:__ @edge-cases\/names.h:9:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_using@
+-}
+using' :: IO Unit
+{-| __C declaration:__ @using@
+
+    __defined at:__ @edge-cases\/names.h:9:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_using@
+-}
+using' = fromBaseForeignType using'_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_3c7afeaaf3ff040b" anyclass_base :: IO Unit
+{-| __C declaration:__ @anyclass@
+
+    __defined at:__ @edge-cases\/names.h:12:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_anyclass@
+-}
+anyclass :: IO Unit
+{-| __C declaration:__ @anyclass@
+
+    __defined at:__ @edge-cases\/names.h:12:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_anyclass@
+-}
+anyclass = fromBaseForeignType anyclass_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_0518740d4c3caa1d" capi_base :: IO Unit
+{-| __C declaration:__ @capi@
+
+    __defined at:__ @edge-cases\/names.h:13:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_capi@
+-}
+capi :: IO Unit
+{-| __C declaration:__ @capi@
+
+    __defined at:__ @edge-cases\/names.h:13:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_capi@
+-}
+capi = fromBaseForeignType capi_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_61f14ad7bb2e3d54" cases_base :: IO Unit
+{-| __C declaration:__ @cases@
+
+    __defined at:__ @edge-cases\/names.h:14:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_cases@
+-}
+cases :: IO Unit
+{-| __C declaration:__ @cases@
+
+    __defined at:__ @edge-cases\/names.h:14:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_cases@
+-}
+cases = fromBaseForeignType cases_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_ace8c96ed6673c3b" ccall_base :: IO Unit
+{-| __C declaration:__ @ccall@
+
+    __defined at:__ @edge-cases\/names.h:15:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_ccall@
+-}
+ccall :: IO Unit
+{-| __C declaration:__ @ccall@
+
+    __defined at:__ @edge-cases\/names.h:15:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_ccall@
+-}
+ccall = fromBaseForeignType ccall_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_8865833b99552d03" dynamic_base :: IO Unit
+{-| __C declaration:__ @dynamic@
+
+    __defined at:__ @edge-cases\/names.h:16:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_dynamic@
+-}
+dynamic :: IO Unit
+{-| __C declaration:__ @dynamic@
+
+    __defined at:__ @edge-cases\/names.h:16:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_dynamic@
+-}
+dynamic = fromBaseForeignType dynamic_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_15729ba251f5ec57" export_base :: IO Unit
+{-| __C declaration:__ @export@
+
+    __defined at:__ @edge-cases\/names.h:17:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_export@
+-}
+export :: IO Unit
+{-| __C declaration:__ @export@
+
+    __defined at:__ @edge-cases\/names.h:17:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_export@
+-}
+export = fromBaseForeignType export_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_e6a4f7e833da2687" family_base :: IO Unit
+{-| __C declaration:__ @family@
+
+    __defined at:__ @edge-cases\/names.h:18:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_family@
+-}
+family :: IO Unit
+{-| __C declaration:__ @family@
+
+    __defined at:__ @edge-cases\/names.h:18:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_family@
+-}
+family = fromBaseForeignType family_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d4dd1bb5e95de858" group_base :: IO Unit
+{-| __C declaration:__ @group@
+
+    __defined at:__ @edge-cases\/names.h:19:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_group@
+-}
+group :: IO Unit
+{-| __C declaration:__ @group@
+
+    __defined at:__ @edge-cases\/names.h:19:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_group@
+-}
+group = fromBaseForeignType group_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_516f1ad5aba6de29" interruptible_base :: IO Unit
+{-| __C declaration:__ @interruptible@
+
+    __defined at:__ @edge-cases\/names.h:20:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_interruptible@
+-}
+interruptible :: IO Unit
+{-| __C declaration:__ @interruptible@
+
+    __defined at:__ @edge-cases\/names.h:20:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_interruptible@
+-}
+interruptible = fromBaseForeignType interruptible_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_214230db174dc3e6" javascript_base :: IO Unit
+{-| __C declaration:__ @javascript@
+
+    __defined at:__ @edge-cases\/names.h:21:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_javascript@
+-}
+javascript :: IO Unit
+{-| __C declaration:__ @javascript@
+
+    __defined at:__ @edge-cases\/names.h:21:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_javascript@
+-}
+javascript = fromBaseForeignType javascript_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_88f1f0cf9c0f080e" label_base :: IO Unit
+{-| __C declaration:__ @label@
+
+    __defined at:__ @edge-cases\/names.h:22:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_label@
+-}
+label :: IO Unit
+{-| __C declaration:__ @label@
+
+    __defined at:__ @edge-cases\/names.h:22:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_label@
+-}
+label = fromBaseForeignType label_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_93a4c73f587dcf3c" prim_base :: IO Unit
+{-| __C declaration:__ @prim@
+
+    __defined at:__ @edge-cases\/names.h:23:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_prim@
+-}
+prim :: IO Unit
+{-| __C declaration:__ @prim@
+
+    __defined at:__ @edge-cases\/names.h:23:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_prim@
+-}
+prim = fromBaseForeignType prim_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_a267fe5585862ecc" role_base :: IO Unit
+{-| __C declaration:__ @role@
+
+    __defined at:__ @edge-cases\/names.h:24:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_role@
+-}
+role :: IO Unit
+{-| __C declaration:__ @role@
+
+    __defined at:__ @edge-cases\/names.h:24:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_role@
+-}
+role = fromBaseForeignType role_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_ddac4cdf91c756a8" safe_base :: IO Unit
+{-| __C declaration:__ @safe@
+
+    __defined at:__ @edge-cases\/names.h:25:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_safe@
+-}
+safe :: IO Unit
+{-| __C declaration:__ @safe@
+
+    __defined at:__ @edge-cases\/names.h:25:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_safe@
+-}
+safe = fromBaseForeignType safe_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_8dd57b02f322a7ae" stdcall_base :: IO Unit
+{-| __C declaration:__ @stdcall@
+
+    __defined at:__ @edge-cases\/names.h:26:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_stdcall@
+-}
+stdcall :: IO Unit
+{-| __C declaration:__ @stdcall@
+
+    __defined at:__ @edge-cases\/names.h:26:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_stdcall@
+-}
+stdcall = fromBaseForeignType stdcall_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_3b69e1860d72507c" stock_base :: IO Unit
+{-| __C declaration:__ @stock@
+
+    __defined at:__ @edge-cases\/names.h:27:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_stock@
+-}
+stock :: IO Unit
+{-| __C declaration:__ @stock@
+
+    __defined at:__ @edge-cases\/names.h:27:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_stock@
+-}
+stock = fromBaseForeignType stock_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_b9d80fa39d7ebb06" unsafe_base :: IO Unit
+{-| __C declaration:__ @unsafe@
+
+    __defined at:__ @edge-cases\/names.h:28:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_unsafe@
+-}
+unsafe :: IO Unit
+{-| __C declaration:__ @unsafe@
+
+    __defined at:__ @edge-cases\/names.h:28:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_unsafe@
+-}
+unsafe = fromBaseForeignType unsafe_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_708f6397f5e5ac73" via_base :: IO Unit
+{-| __C declaration:__ @via@
+
+    __defined at:__ @edge-cases\/names.h:29:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_via@
+-}
+via :: IO Unit
+{-| __C declaration:__ @via@
+
+    __defined at:__ @edge-cases\/names.h:29:6@
+
+    __exported by:__ @edge-cases\/names.h@
+
+    __unique:__ @test_edgecasesnames_Example_Unsafe_via@
+-}
+via = fromBaseForeignType via_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_6974dc9d1fd9efdb" hs_bindgen_6974dc9d1fd9efdb_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_by_ptr@
-foreign import ccall safe "hs_bindgen_6974dc9d1fd9efdb" hs_bindgen_6974dc9d1fd9efdb :: IO (FunPtr (IO Unit))
+hs_bindgen_6974dc9d1fd9efdb :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_by_ptr@
+hs_bindgen_6974dc9d1fd9efdb = fromBaseForeignType hs_bindgen_6974dc9d1fd9efdb_base
 {-# NOINLINE by'_ptr #-}
 {-| __C declaration:__ @by@
 
@@ -817,8 +1422,13 @@ by'_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 by'_ptr = unsafePerformIO hs_bindgen_6974dc9d1fd9efdb
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_3b643ea94c4ffa20" hs_bindgen_3b643ea94c4ffa20_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_forall_ptr@
-foreign import ccall safe "hs_bindgen_3b643ea94c4ffa20" hs_bindgen_3b643ea94c4ffa20 :: IO (FunPtr (IO Unit))
+hs_bindgen_3b643ea94c4ffa20 :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_forall_ptr@
+hs_bindgen_3b643ea94c4ffa20 = fromBaseForeignType hs_bindgen_3b643ea94c4ffa20_base
 {-# NOINLINE forall'_ptr #-}
 {-| __C declaration:__ @forall@
 
@@ -834,8 +1444,13 @@ forall'_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 forall'_ptr = unsafePerformIO hs_bindgen_3b643ea94c4ffa20
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_75a958dcb6aa760d" hs_bindgen_75a958dcb6aa760d_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_mdo_ptr@
-foreign import ccall safe "hs_bindgen_75a958dcb6aa760d" hs_bindgen_75a958dcb6aa760d :: IO (FunPtr (IO Unit))
+hs_bindgen_75a958dcb6aa760d :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_mdo_ptr@
+hs_bindgen_75a958dcb6aa760d = fromBaseForeignType hs_bindgen_75a958dcb6aa760d_base
 {-# NOINLINE mdo'_ptr #-}
 {-| __C declaration:__ @mdo@
 
@@ -851,8 +1466,13 @@ mdo'_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 mdo'_ptr = unsafePerformIO hs_bindgen_75a958dcb6aa760d
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_2dca22d927c6b6c9" hs_bindgen_2dca22d927c6b6c9_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_pattern_ptr@
-foreign import ccall safe "hs_bindgen_2dca22d927c6b6c9" hs_bindgen_2dca22d927c6b6c9 :: IO (FunPtr (IO Unit))
+hs_bindgen_2dca22d927c6b6c9 :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_pattern_ptr@
+hs_bindgen_2dca22d927c6b6c9 = fromBaseForeignType hs_bindgen_2dca22d927c6b6c9_base
 {-# NOINLINE pattern'_ptr #-}
 {-| __C declaration:__ @pattern@
 
@@ -868,8 +1488,13 @@ pattern'_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 pattern'_ptr = unsafePerformIO hs_bindgen_2dca22d927c6b6c9
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_278f3b1df8a83886" hs_bindgen_278f3b1df8a83886_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_proc_ptr@
-foreign import ccall safe "hs_bindgen_278f3b1df8a83886" hs_bindgen_278f3b1df8a83886 :: IO (FunPtr (IO Unit))
+hs_bindgen_278f3b1df8a83886 :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_proc_ptr@
+hs_bindgen_278f3b1df8a83886 = fromBaseForeignType hs_bindgen_278f3b1df8a83886_base
 {-# NOINLINE proc'_ptr #-}
 {-| __C declaration:__ @proc@
 
@@ -885,8 +1510,13 @@ proc'_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 proc'_ptr = unsafePerformIO hs_bindgen_278f3b1df8a83886
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_3be0a960ee51c3e9" hs_bindgen_3be0a960ee51c3e9_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_rec_ptr@
-foreign import ccall safe "hs_bindgen_3be0a960ee51c3e9" hs_bindgen_3be0a960ee51c3e9 :: IO (FunPtr (IO Unit))
+hs_bindgen_3be0a960ee51c3e9 :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_rec_ptr@
+hs_bindgen_3be0a960ee51c3e9 = fromBaseForeignType hs_bindgen_3be0a960ee51c3e9_base
 {-# NOINLINE rec'_ptr #-}
 {-| __C declaration:__ @rec@
 
@@ -902,8 +1532,13 @@ rec'_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 rec'_ptr = unsafePerformIO hs_bindgen_3be0a960ee51c3e9
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_84e44d3bf799af26" hs_bindgen_84e44d3bf799af26_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_using_ptr@
-foreign import ccall safe "hs_bindgen_84e44d3bf799af26" hs_bindgen_84e44d3bf799af26 :: IO (FunPtr (IO Unit))
+hs_bindgen_84e44d3bf799af26 :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_using_ptr@
+hs_bindgen_84e44d3bf799af26 = fromBaseForeignType hs_bindgen_84e44d3bf799af26_base
 {-# NOINLINE using'_ptr #-}
 {-| __C declaration:__ @using@
 
@@ -919,8 +1554,13 @@ using'_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 using'_ptr = unsafePerformIO hs_bindgen_84e44d3bf799af26
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_95cf172ae2160046" hs_bindgen_95cf172ae2160046_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_anyclass_ptr@
-foreign import ccall safe "hs_bindgen_95cf172ae2160046" hs_bindgen_95cf172ae2160046 :: IO (FunPtr (IO Unit))
+hs_bindgen_95cf172ae2160046 :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_anyclass_ptr@
+hs_bindgen_95cf172ae2160046 = fromBaseForeignType hs_bindgen_95cf172ae2160046_base
 {-# NOINLINE anyclass_ptr #-}
 {-| __C declaration:__ @anyclass@
 
@@ -936,8 +1576,13 @@ anyclass_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 anyclass_ptr = unsafePerformIO hs_bindgen_95cf172ae2160046
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_ea4d99f6c2e96742" hs_bindgen_ea4d99f6c2e96742_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_capi_ptr@
-foreign import ccall safe "hs_bindgen_ea4d99f6c2e96742" hs_bindgen_ea4d99f6c2e96742 :: IO (FunPtr (IO Unit))
+hs_bindgen_ea4d99f6c2e96742 :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_capi_ptr@
+hs_bindgen_ea4d99f6c2e96742 = fromBaseForeignType hs_bindgen_ea4d99f6c2e96742_base
 {-# NOINLINE capi_ptr #-}
 {-| __C declaration:__ @capi@
 
@@ -953,8 +1598,13 @@ capi_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 capi_ptr = unsafePerformIO hs_bindgen_ea4d99f6c2e96742
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_aff69f10c4c30a0d" hs_bindgen_aff69f10c4c30a0d_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_cases_ptr@
-foreign import ccall safe "hs_bindgen_aff69f10c4c30a0d" hs_bindgen_aff69f10c4c30a0d :: IO (FunPtr (IO Unit))
+hs_bindgen_aff69f10c4c30a0d :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_cases_ptr@
+hs_bindgen_aff69f10c4c30a0d = fromBaseForeignType hs_bindgen_aff69f10c4c30a0d_base
 {-# NOINLINE cases_ptr #-}
 {-| __C declaration:__ @cases@
 
@@ -970,8 +1620,13 @@ cases_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 cases_ptr = unsafePerformIO hs_bindgen_aff69f10c4c30a0d
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_f5db0ca2d6dce4d5" hs_bindgen_f5db0ca2d6dce4d5_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_ccall_ptr@
-foreign import ccall safe "hs_bindgen_f5db0ca2d6dce4d5" hs_bindgen_f5db0ca2d6dce4d5 :: IO (FunPtr (IO Unit))
+hs_bindgen_f5db0ca2d6dce4d5 :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_ccall_ptr@
+hs_bindgen_f5db0ca2d6dce4d5 = fromBaseForeignType hs_bindgen_f5db0ca2d6dce4d5_base
 {-# NOINLINE ccall_ptr #-}
 {-| __C declaration:__ @ccall@
 
@@ -987,8 +1642,13 @@ ccall_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 ccall_ptr = unsafePerformIO hs_bindgen_f5db0ca2d6dce4d5
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d5e3711b7b2f435e" hs_bindgen_d5e3711b7b2f435e_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_dynamic_ptr@
-foreign import ccall safe "hs_bindgen_d5e3711b7b2f435e" hs_bindgen_d5e3711b7b2f435e :: IO (FunPtr (IO Unit))
+hs_bindgen_d5e3711b7b2f435e :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_dynamic_ptr@
+hs_bindgen_d5e3711b7b2f435e = fromBaseForeignType hs_bindgen_d5e3711b7b2f435e_base
 {-# NOINLINE dynamic_ptr #-}
 {-| __C declaration:__ @dynamic@
 
@@ -1004,8 +1664,13 @@ dynamic_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 dynamic_ptr = unsafePerformIO hs_bindgen_d5e3711b7b2f435e
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_c3e4c5611dd8ffdf" hs_bindgen_c3e4c5611dd8ffdf_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_export_ptr@
-foreign import ccall safe "hs_bindgen_c3e4c5611dd8ffdf" hs_bindgen_c3e4c5611dd8ffdf :: IO (FunPtr (IO Unit))
+hs_bindgen_c3e4c5611dd8ffdf :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_export_ptr@
+hs_bindgen_c3e4c5611dd8ffdf = fromBaseForeignType hs_bindgen_c3e4c5611dd8ffdf_base
 {-# NOINLINE export_ptr #-}
 {-| __C declaration:__ @export@
 
@@ -1021,8 +1686,13 @@ export_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 export_ptr = unsafePerformIO hs_bindgen_c3e4c5611dd8ffdf
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_658a25f6c844805b" hs_bindgen_658a25f6c844805b_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_family_ptr@
-foreign import ccall safe "hs_bindgen_658a25f6c844805b" hs_bindgen_658a25f6c844805b :: IO (FunPtr (IO Unit))
+hs_bindgen_658a25f6c844805b :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_family_ptr@
+hs_bindgen_658a25f6c844805b = fromBaseForeignType hs_bindgen_658a25f6c844805b_base
 {-# NOINLINE family_ptr #-}
 {-| __C declaration:__ @family@
 
@@ -1038,8 +1708,13 @@ family_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 family_ptr = unsafePerformIO hs_bindgen_658a25f6c844805b
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_0c7fb62fb95f0f38" hs_bindgen_0c7fb62fb95f0f38_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_group_ptr@
-foreign import ccall safe "hs_bindgen_0c7fb62fb95f0f38" hs_bindgen_0c7fb62fb95f0f38 :: IO (FunPtr (IO Unit))
+hs_bindgen_0c7fb62fb95f0f38 :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_group_ptr@
+hs_bindgen_0c7fb62fb95f0f38 = fromBaseForeignType hs_bindgen_0c7fb62fb95f0f38_base
 {-# NOINLINE group_ptr #-}
 {-| __C declaration:__ @group@
 
@@ -1055,8 +1730,13 @@ group_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 group_ptr = unsafePerformIO hs_bindgen_0c7fb62fb95f0f38
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_bb9472bbc501c78f" hs_bindgen_bb9472bbc501c78f_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_interruptible_ptr@
-foreign import ccall safe "hs_bindgen_bb9472bbc501c78f" hs_bindgen_bb9472bbc501c78f :: IO (FunPtr (IO Unit))
+hs_bindgen_bb9472bbc501c78f :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_interruptible_ptr@
+hs_bindgen_bb9472bbc501c78f = fromBaseForeignType hs_bindgen_bb9472bbc501c78f_base
 {-# NOINLINE interruptible_ptr #-}
 {-| __C declaration:__ @interruptible@
 
@@ -1072,8 +1752,13 @@ interruptible_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 interruptible_ptr = unsafePerformIO hs_bindgen_bb9472bbc501c78f
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_0c7eeee673af7865" hs_bindgen_0c7eeee673af7865_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_javascript_ptr@
-foreign import ccall safe "hs_bindgen_0c7eeee673af7865" hs_bindgen_0c7eeee673af7865 :: IO (FunPtr (IO Unit))
+hs_bindgen_0c7eeee673af7865 :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_javascript_ptr@
+hs_bindgen_0c7eeee673af7865 = fromBaseForeignType hs_bindgen_0c7eeee673af7865_base
 {-# NOINLINE javascript_ptr #-}
 {-| __C declaration:__ @javascript@
 
@@ -1089,8 +1774,13 @@ javascript_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 javascript_ptr = unsafePerformIO hs_bindgen_0c7eeee673af7865
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d16291c6c6c905ab" hs_bindgen_d16291c6c6c905ab_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_label_ptr@
-foreign import ccall safe "hs_bindgen_d16291c6c6c905ab" hs_bindgen_d16291c6c6c905ab :: IO (FunPtr (IO Unit))
+hs_bindgen_d16291c6c6c905ab :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_label_ptr@
+hs_bindgen_d16291c6c6c905ab = fromBaseForeignType hs_bindgen_d16291c6c6c905ab_base
 {-# NOINLINE label_ptr #-}
 {-| __C declaration:__ @label@
 
@@ -1106,8 +1796,13 @@ label_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 label_ptr = unsafePerformIO hs_bindgen_d16291c6c6c905ab
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_0657843e52c044fe" hs_bindgen_0657843e52c044fe_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_prim_ptr@
-foreign import ccall safe "hs_bindgen_0657843e52c044fe" hs_bindgen_0657843e52c044fe :: IO (FunPtr (IO Unit))
+hs_bindgen_0657843e52c044fe :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_prim_ptr@
+hs_bindgen_0657843e52c044fe = fromBaseForeignType hs_bindgen_0657843e52c044fe_base
 {-# NOINLINE prim_ptr #-}
 {-| __C declaration:__ @prim@
 
@@ -1123,8 +1818,13 @@ prim_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 prim_ptr = unsafePerformIO hs_bindgen_0657843e52c044fe
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_bdbcb244d39fa251" hs_bindgen_bdbcb244d39fa251_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_role_ptr@
-foreign import ccall safe "hs_bindgen_bdbcb244d39fa251" hs_bindgen_bdbcb244d39fa251 :: IO (FunPtr (IO Unit))
+hs_bindgen_bdbcb244d39fa251 :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_role_ptr@
+hs_bindgen_bdbcb244d39fa251 = fromBaseForeignType hs_bindgen_bdbcb244d39fa251_base
 {-# NOINLINE role_ptr #-}
 {-| __C declaration:__ @role@
 
@@ -1140,8 +1840,13 @@ role_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 role_ptr = unsafePerformIO hs_bindgen_bdbcb244d39fa251
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_400c28e571f13194" hs_bindgen_400c28e571f13194_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_safe_ptr@
-foreign import ccall safe "hs_bindgen_400c28e571f13194" hs_bindgen_400c28e571f13194 :: IO (FunPtr (IO Unit))
+hs_bindgen_400c28e571f13194 :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_safe_ptr@
+hs_bindgen_400c28e571f13194 = fromBaseForeignType hs_bindgen_400c28e571f13194_base
 {-# NOINLINE safe_ptr #-}
 {-| __C declaration:__ @safe@
 
@@ -1157,8 +1862,13 @@ safe_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 safe_ptr = unsafePerformIO hs_bindgen_400c28e571f13194
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_15aff4a3542e1023" hs_bindgen_15aff4a3542e1023_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_stdcall_ptr@
-foreign import ccall safe "hs_bindgen_15aff4a3542e1023" hs_bindgen_15aff4a3542e1023 :: IO (FunPtr (IO Unit))
+hs_bindgen_15aff4a3542e1023 :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_stdcall_ptr@
+hs_bindgen_15aff4a3542e1023 = fromBaseForeignType hs_bindgen_15aff4a3542e1023_base
 {-# NOINLINE stdcall_ptr #-}
 {-| __C declaration:__ @stdcall@
 
@@ -1174,8 +1884,13 @@ stdcall_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 stdcall_ptr = unsafePerformIO hs_bindgen_15aff4a3542e1023
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_9df7dc3f71a3ab76" hs_bindgen_9df7dc3f71a3ab76_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_stock_ptr@
-foreign import ccall safe "hs_bindgen_9df7dc3f71a3ab76" hs_bindgen_9df7dc3f71a3ab76 :: IO (FunPtr (IO Unit))
+hs_bindgen_9df7dc3f71a3ab76 :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_stock_ptr@
+hs_bindgen_9df7dc3f71a3ab76 = fromBaseForeignType hs_bindgen_9df7dc3f71a3ab76_base
 {-# NOINLINE stock_ptr #-}
 {-| __C declaration:__ @stock@
 
@@ -1191,8 +1906,13 @@ stock_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 stock_ptr = unsafePerformIO hs_bindgen_9df7dc3f71a3ab76
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_aebb5b55a2d78a79" hs_bindgen_aebb5b55a2d78a79_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_unsafe_ptr@
-foreign import ccall safe "hs_bindgen_aebb5b55a2d78a79" hs_bindgen_aebb5b55a2d78a79 :: IO (FunPtr (IO Unit))
+hs_bindgen_aebb5b55a2d78a79 :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_unsafe_ptr@
+hs_bindgen_aebb5b55a2d78a79 = fromBaseForeignType hs_bindgen_aebb5b55a2d78a79_base
 {-# NOINLINE unsafe_ptr #-}
 {-| __C declaration:__ @unsafe@
 
@@ -1208,8 +1928,13 @@ unsafe_ptr :: FunPtr (IO Unit)
     __exported by:__ @edge-cases\/names.h@
 -}
 unsafe_ptr = unsafePerformIO hs_bindgen_aebb5b55a2d78a79
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_c6fe1f3a125fa32d" hs_bindgen_c6fe1f3a125fa32d_base :: IO (FunPtr Void)
 -- | __unique:__ @test_edgecasesnames_Example_get_via_ptr@
-foreign import ccall safe "hs_bindgen_c6fe1f3a125fa32d" hs_bindgen_c6fe1f3a125fa32d :: IO (FunPtr (IO Unit))
+hs_bindgen_c6fe1f3a125fa32d :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_edgecasesnames_Example_get_via_ptr@
+hs_bindgen_c6fe1f3a125fa32d = fromBaseForeignType hs_bindgen_c6fe1f3a125fa32d_base
 {-# NOINLINE via_ptr #-}
 {-| __C declaration:__ @via@
 

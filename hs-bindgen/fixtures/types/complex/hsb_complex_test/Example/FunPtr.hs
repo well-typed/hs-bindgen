@@ -9,7 +9,9 @@ import qualified Data.Complex
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -34,9 +36,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_8c8d85daac0162fd" hs_bindgen_8c8d85daac0162fd_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_typescomplexhsb_complex_test_Example_get_multiply_complex_f_ptr@
-foreign import ccall unsafe "hs_bindgen_8c8d85daac0162fd" hs_bindgen_8c8d85daac0162fd ::
+hs_bindgen_8c8d85daac0162fd ::
      IO (Ptr.FunPtr ((Data.Complex.Complex FC.CFloat) -> (Data.Complex.Complex FC.CFloat) -> IO (Data.Complex.Complex FC.CFloat)))
+hs_bindgen_8c8d85daac0162fd =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_8c8d85daac0162fd_base
 
 {-# NOINLINE multiply_complex_f_ptr #-}
 
@@ -50,9 +59,16 @@ multiply_complex_f_ptr :: Ptr.FunPtr ((Data.Complex.Complex FC.CFloat) -> (Data.
 multiply_complex_f_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8c8d85daac0162fd
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_656a87248425c79a" hs_bindgen_656a87248425c79a_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_typescomplexhsb_complex_test_Example_get_add_complex_ptr@
-foreign import ccall unsafe "hs_bindgen_656a87248425c79a" hs_bindgen_656a87248425c79a ::
+hs_bindgen_656a87248425c79a ::
      IO (Ptr.FunPtr ((Data.Complex.Complex FC.CDouble) -> (Data.Complex.Complex FC.CDouble) -> IO (Data.Complex.Complex FC.CDouble)))
+hs_bindgen_656a87248425c79a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_656a87248425c79a_base
 
 {-# NOINLINE add_complex_ptr #-}
 

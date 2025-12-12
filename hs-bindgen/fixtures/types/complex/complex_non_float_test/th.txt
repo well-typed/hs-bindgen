@@ -31,8 +31,13 @@
 -- {
 --   return &global_complex_char;
 -- }
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_f06a1feab15d0572" hs_bindgen_f06a1feab15d0572_base :: IO (Ptr Void)
 -- | __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_short_ptr@
-foreign import ccall safe "hs_bindgen_f06a1feab15d0572" hs_bindgen_f06a1feab15d0572 :: IO (Ptr (Complex CUShort))
+hs_bindgen_f06a1feab15d0572 :: IO (Ptr (Complex CUShort))
+-- | __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_short_ptr@
+hs_bindgen_f06a1feab15d0572 = fromBaseForeignType hs_bindgen_f06a1feab15d0572_base
 {-# NOINLINE global_complex_unsigned_short_ptr #-}
 {-| __C declaration:__ @global_complex_unsigned_short@
 
@@ -48,8 +53,13 @@ global_complex_unsigned_short_ptr :: Ptr (Complex CUShort)
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
 global_complex_unsigned_short_ptr = unsafePerformIO hs_bindgen_f06a1feab15d0572
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_96f1e350c6c42760" hs_bindgen_96f1e350c6c42760_base :: IO (Ptr Void)
 -- | __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_short_ptr@
-foreign import ccall safe "hs_bindgen_96f1e350c6c42760" hs_bindgen_96f1e350c6c42760 :: IO (Ptr (Complex CShort))
+hs_bindgen_96f1e350c6c42760 :: IO (Ptr (Complex CShort))
+-- | __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_short_ptr@
+hs_bindgen_96f1e350c6c42760 = fromBaseForeignType hs_bindgen_96f1e350c6c42760_base
 {-# NOINLINE global_complex_short_ptr #-}
 {-| __C declaration:__ @global_complex_short@
 
@@ -65,8 +75,13 @@ global_complex_short_ptr :: Ptr (Complex CShort)
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
 global_complex_short_ptr = unsafePerformIO hs_bindgen_96f1e350c6c42760
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_f11054676f537692" hs_bindgen_f11054676f537692_base :: IO (Ptr Void)
 -- | __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_int_ptr@
-foreign import ccall safe "hs_bindgen_f11054676f537692" hs_bindgen_f11054676f537692 :: IO (Ptr (Complex CUInt))
+hs_bindgen_f11054676f537692 :: IO (Ptr (Complex CUInt))
+-- | __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_int_ptr@
+hs_bindgen_f11054676f537692 = fromBaseForeignType hs_bindgen_f11054676f537692_base
 {-# NOINLINE global_complex_unsigned_int_ptr #-}
 {-| __C declaration:__ @global_complex_unsigned_int@
 
@@ -82,8 +97,13 @@ global_complex_unsigned_int_ptr :: Ptr (Complex CUInt)
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
 global_complex_unsigned_int_ptr = unsafePerformIO hs_bindgen_f11054676f537692
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_c5a5feb6d6df39b6" hs_bindgen_c5a5feb6d6df39b6_base :: IO (Ptr Void)
 -- | __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_int_ptr@
-foreign import ccall safe "hs_bindgen_c5a5feb6d6df39b6" hs_bindgen_c5a5feb6d6df39b6 :: IO (Ptr (Complex CInt))
+hs_bindgen_c5a5feb6d6df39b6 :: IO (Ptr (Complex CInt))
+-- | __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_int_ptr@
+hs_bindgen_c5a5feb6d6df39b6 = fromBaseForeignType hs_bindgen_c5a5feb6d6df39b6_base
 {-# NOINLINE global_complex_int_ptr #-}
 {-| __C declaration:__ @global_complex_int@
 
@@ -99,8 +119,13 @@ global_complex_int_ptr :: Ptr (Complex CInt)
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
 global_complex_int_ptr = unsafePerformIO hs_bindgen_c5a5feb6d6df39b6
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_4265dc893a126b40" hs_bindgen_4265dc893a126b40_base :: IO (Ptr Void)
 -- | __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_char_ptr@
-foreign import ccall safe "hs_bindgen_4265dc893a126b40" hs_bindgen_4265dc893a126b40 :: IO (Ptr (Complex CChar))
+hs_bindgen_4265dc893a126b40 :: IO (Ptr (Complex CChar))
+-- | __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_char_ptr@
+hs_bindgen_4265dc893a126b40 = fromBaseForeignType hs_bindgen_4265dc893a126b40_base
 {-# NOINLINE global_complex_char_ptr #-}
 {-| __C declaration:__ @global_complex_char@
 

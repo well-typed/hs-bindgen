@@ -33,8 +33,10 @@ import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.SizedByteArray
+import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
+import Data.Void (Void)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, return, showsPrec)
 
@@ -349,13 +351,31 @@ newtype Funptr_typedef1_Deref = Funptr_typedef1_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toFunptr_typedef1_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toFunptr_typedef1_Deref_base ::
+     IO FC.CInt
+  -> IO (Ptr.FunPtr (IO FC.CInt))
+
+toFunptr_typedef1_Deref ::
      Funptr_typedef1_Deref
   -> IO (Ptr.FunPtr Funptr_typedef1_Deref)
+toFunptr_typedef1_Deref =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toFunptr_typedef1_Deref_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromFunptr_typedef1_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromFunptr_typedef1_Deref_base ::
+     Ptr.FunPtr (IO FC.CInt)
+  -> IO FC.CInt
+
+fromFunptr_typedef1_Deref ::
      Ptr.FunPtr Funptr_typedef1_Deref
   -> Funptr_typedef1_Deref
+fromFunptr_typedef1_Deref =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromFunptr_typedef1_Deref_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef1_Deref where
 
@@ -414,13 +434,31 @@ newtype Funptr_typedef2_Deref = Funptr_typedef2_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toFunptr_typedef2_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toFunptr_typedef2_Deref_base ::
+     IO (Ptr.Ptr Void)
+  -> IO (Ptr.FunPtr (IO (Ptr.Ptr Void)))
+
+toFunptr_typedef2_Deref ::
      Funptr_typedef2_Deref
   -> IO (Ptr.FunPtr Funptr_typedef2_Deref)
+toFunptr_typedef2_Deref =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toFunptr_typedef2_Deref_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromFunptr_typedef2_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromFunptr_typedef2_Deref_base ::
+     Ptr.FunPtr (IO (Ptr.Ptr Void))
+  -> IO (Ptr.Ptr Void)
+
+fromFunptr_typedef2_Deref ::
      Ptr.FunPtr Funptr_typedef2_Deref
   -> Funptr_typedef2_Deref
+fromFunptr_typedef2_Deref =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromFunptr_typedef2_Deref_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef2_Deref where
 
@@ -479,13 +517,31 @@ newtype Funptr_typedef3_Deref = Funptr_typedef3_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toFunptr_typedef3_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toFunptr_typedef3_Deref_base ::
+     IO (Ptr.Ptr Void)
+  -> IO (Ptr.FunPtr (IO (Ptr.Ptr Void)))
+
+toFunptr_typedef3_Deref ::
      Funptr_typedef3_Deref
   -> IO (Ptr.FunPtr Funptr_typedef3_Deref)
+toFunptr_typedef3_Deref =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toFunptr_typedef3_Deref_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromFunptr_typedef3_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromFunptr_typedef3_Deref_base ::
+     Ptr.FunPtr (IO (Ptr.Ptr Void))
+  -> IO (Ptr.Ptr Void)
+
+fromFunptr_typedef3_Deref ::
      Ptr.FunPtr Funptr_typedef3_Deref
   -> Funptr_typedef3_Deref
+fromFunptr_typedef3_Deref =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromFunptr_typedef3_Deref_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef3_Deref where
 
@@ -544,13 +600,31 @@ newtype Funptr_typedef4_Deref = Funptr_typedef4_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toFunptr_typedef4_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toFunptr_typedef4_Deref_base ::
+     (FC.CInt -> FC.CDouble -> IO FC.CInt)
+  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CInt))
+
+toFunptr_typedef4_Deref ::
      Funptr_typedef4_Deref
   -> IO (Ptr.FunPtr Funptr_typedef4_Deref)
+toFunptr_typedef4_Deref =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toFunptr_typedef4_Deref_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromFunptr_typedef4_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromFunptr_typedef4_Deref_base ::
+     Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CInt)
+  -> FC.CInt -> FC.CDouble -> IO FC.CInt
+
+fromFunptr_typedef4_Deref ::
      Ptr.FunPtr Funptr_typedef4_Deref
   -> Funptr_typedef4_Deref
+fromFunptr_typedef4_Deref =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromFunptr_typedef4_Deref_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef4_Deref where
 
@@ -609,13 +683,31 @@ newtype Funptr_typedef5_Deref = Funptr_typedef5_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toFunptr_typedef5_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toFunptr_typedef5_Deref_base ::
+     (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr Void))
+  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr Void)))
+
+toFunptr_typedef5_Deref ::
      Funptr_typedef5_Deref
   -> IO (Ptr.FunPtr Funptr_typedef5_Deref)
+toFunptr_typedef5_Deref =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toFunptr_typedef5_Deref_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromFunptr_typedef5_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromFunptr_typedef5_Deref_base ::
+     Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr Void))
+  -> FC.CInt -> FC.CDouble -> IO (Ptr.Ptr Void)
+
+fromFunptr_typedef5_Deref ::
      Ptr.FunPtr Funptr_typedef5_Deref
   -> Funptr_typedef5_Deref
+fromFunptr_typedef5_Deref =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromFunptr_typedef5_Deref_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef5_Deref where
 
@@ -1157,13 +1249,31 @@ newtype Const_funptr1_Deref = Const_funptr1_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toConst_funptr1_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toConst_funptr1_Deref_base ::
+     (FC.CInt -> FC.CDouble -> IO FC.CInt)
+  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CInt))
+
+toConst_funptr1_Deref ::
      Const_funptr1_Deref
   -> IO (Ptr.FunPtr Const_funptr1_Deref)
+toConst_funptr1_Deref =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toConst_funptr1_Deref_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromConst_funptr1_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromConst_funptr1_Deref_base ::
+     Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CInt)
+  -> FC.CInt -> FC.CDouble -> IO FC.CInt
+
+fromConst_funptr1_Deref ::
      Ptr.FunPtr Const_funptr1_Deref
   -> Const_funptr1_Deref
+fromConst_funptr1_Deref =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromConst_funptr1_Deref_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr1_Deref where
 
@@ -1222,13 +1332,31 @@ newtype Const_funptr2_Deref = Const_funptr2_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toConst_funptr2_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toConst_funptr2_Deref_base ::
+     (FC.CInt -> FC.CDouble -> IO FC.CInt)
+  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CInt))
+
+toConst_funptr2_Deref ::
      Const_funptr2_Deref
   -> IO (Ptr.FunPtr Const_funptr2_Deref)
+toConst_funptr2_Deref =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toConst_funptr2_Deref_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromConst_funptr2_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromConst_funptr2_Deref_base ::
+     Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CInt)
+  -> FC.CInt -> FC.CDouble -> IO FC.CInt
+
+fromConst_funptr2_Deref ::
      Ptr.FunPtr Const_funptr2_Deref
   -> Const_funptr2_Deref
+fromConst_funptr2_Deref =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromConst_funptr2_Deref_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr2_Deref where
 
@@ -1287,13 +1415,31 @@ newtype Const_funptr3_Deref = Const_funptr3_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toConst_funptr3_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toConst_funptr3_Deref_base ::
+     (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void))
+  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)))
+
+toConst_funptr3_Deref ::
      Const_funptr3_Deref
   -> IO (Ptr.FunPtr Const_funptr3_Deref)
+toConst_funptr3_Deref =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toConst_funptr3_Deref_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromConst_funptr3_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromConst_funptr3_Deref_base ::
+     Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void))
+  -> FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+
+fromConst_funptr3_Deref ::
      Ptr.FunPtr Const_funptr3_Deref
   -> Const_funptr3_Deref
+fromConst_funptr3_Deref =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromConst_funptr3_Deref_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr3_Deref where
 
@@ -1352,13 +1498,31 @@ newtype Const_funptr4_Deref = Const_funptr4_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toConst_funptr4_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toConst_funptr4_Deref_base ::
+     (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void))
+  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)))
+
+toConst_funptr4_Deref ::
      Const_funptr4_Deref
   -> IO (Ptr.FunPtr Const_funptr4_Deref)
+toConst_funptr4_Deref =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toConst_funptr4_Deref_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromConst_funptr4_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromConst_funptr4_Deref_base ::
+     Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void))
+  -> FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+
+fromConst_funptr4_Deref ::
      Ptr.FunPtr Const_funptr4_Deref
   -> Const_funptr4_Deref
+fromConst_funptr4_Deref =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromConst_funptr4_Deref_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr4_Deref where
 
@@ -1417,13 +1581,31 @@ newtype Const_funptr5_Deref = Const_funptr5_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toConst_funptr5_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toConst_funptr5_Deref_base ::
+     (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr Void))
+  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr Void)))
+
+toConst_funptr5_Deref ::
      Const_funptr5_Deref
   -> IO (Ptr.FunPtr Const_funptr5_Deref)
+toConst_funptr5_Deref =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toConst_funptr5_Deref_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromConst_funptr5_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromConst_funptr5_Deref_base ::
+     Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr Void))
+  -> FC.CInt -> FC.CDouble -> IO (Ptr.Ptr Void)
+
+fromConst_funptr5_Deref ::
      Ptr.FunPtr Const_funptr5_Deref
   -> Const_funptr5_Deref
+fromConst_funptr5_Deref =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromConst_funptr5_Deref_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr5_Deref where
 
@@ -1482,13 +1664,31 @@ newtype Const_funptr6_Deref = Const_funptr6_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toConst_funptr6_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toConst_funptr6_Deref_base ::
+     (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void))
+  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)))
+
+toConst_funptr6_Deref ::
      Const_funptr6_Deref
   -> IO (Ptr.FunPtr Const_funptr6_Deref)
+toConst_funptr6_Deref =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toConst_funptr6_Deref_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromConst_funptr6_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromConst_funptr6_Deref_base ::
+     Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void))
+  -> FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+
+fromConst_funptr6_Deref ::
      Ptr.FunPtr Const_funptr6_Deref
   -> Const_funptr6_Deref
+fromConst_funptr6_Deref =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromConst_funptr6_Deref_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr6_Deref where
 
@@ -1547,13 +1747,31 @@ newtype Const_funptr7_Deref = Const_funptr7_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toConst_funptr7_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toConst_funptr7_Deref_base ::
+     (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void))
+  -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)))
+
+toConst_funptr7_Deref ::
      Const_funptr7_Deref
   -> IO (Ptr.FunPtr Const_funptr7_Deref)
+toConst_funptr7_Deref =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toConst_funptr7_Deref_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromConst_funptr7_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromConst_funptr7_Deref_base ::
+     Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void))
+  -> FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+
+fromConst_funptr7_Deref ::
      Ptr.FunPtr Const_funptr7_Deref
   -> Const_funptr7_Deref
+fromConst_funptr7_Deref =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromConst_funptr7_Deref_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr7_Deref where
 

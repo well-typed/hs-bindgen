@@ -10,7 +10,9 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -139,9 +141,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_9ba032a8ddf22326" hs_bindgen_9ba032a8ddf22326_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_quux_ptr@
-foreign import ccall unsafe "hs_bindgen_9ba032a8ddf22326" hs_bindgen_9ba032a8ddf22326 ::
+hs_bindgen_9ba032a8ddf22326 ::
      IO (Ptr.FunPtr (F -> FC.CChar -> IO FC.CChar))
+hs_bindgen_9ba032a8ddf22326 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9ba032a8ddf22326_base
 
 {-# NOINLINE quux_ptr #-}
 
@@ -155,9 +164,16 @@ quux_ptr :: Ptr.FunPtr (F -> FC.CChar -> IO FC.CChar)
 quux_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9ba032a8ddf22326
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_dafcba2967781c8d" hs_bindgen_dafcba2967781c8d_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_wam_ptr@
-foreign import ccall unsafe "hs_bindgen_dafcba2967781c8d" hs_bindgen_dafcba2967781c8d ::
+hs_bindgen_dafcba2967781c8d ::
      IO (Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr C) -> IO (Ptr.Ptr C)))
+hs_bindgen_dafcba2967781c8d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_dafcba2967781c8d_base
 
 {-# NOINLINE wam_ptr #-}
 
@@ -171,9 +187,16 @@ wam_ptr :: Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr C) -> IO (Ptr.Ptr C))
 wam_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dafcba2967781c8d
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_27ded2f560eadb5b" hs_bindgen_27ded2f560eadb5b_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo1_ptr@
-foreign import ccall unsafe "hs_bindgen_27ded2f560eadb5b" hs_bindgen_27ded2f560eadb5b ::
+hs_bindgen_27ded2f560eadb5b ::
      IO (Ptr.FunPtr (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr FC.CChar)))
+hs_bindgen_27ded2f560eadb5b =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_27ded2f560eadb5b_base
 
 {-# NOINLINE foo1_ptr #-}
 
@@ -187,9 +210,16 @@ foo1_ptr :: Ptr.FunPtr (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO 
 foo1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_27ded2f560eadb5b
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_2f92fb3aace15650" hs_bindgen_2f92fb3aace15650_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo2_ptr@
-foreign import ccall unsafe "hs_bindgen_2f92fb3aace15650" hs_bindgen_2f92fb3aace15650 ::
+hs_bindgen_2f92fb3aace15650 ::
      IO (Ptr.FunPtr (F -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr FC.CChar)))
+hs_bindgen_2f92fb3aace15650 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2f92fb3aace15650_base
 
 {-# NOINLINE foo2_ptr #-}
 
@@ -203,9 +233,16 @@ foo2_ptr :: Ptr.FunPtr (F -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr
 foo2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2f92fb3aace15650
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_06568a4cca591e6c" hs_bindgen_06568a4cca591e6c_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo3_ptr@
-foreign import ccall unsafe "hs_bindgen_06568a4cca591e6c" hs_bindgen_06568a4cca591e6c ::
+hs_bindgen_06568a4cca591e6c ::
      IO (Ptr.FunPtr (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr C)))
+hs_bindgen_06568a4cca591e6c =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_06568a4cca591e6c_base
 
 {-# NOINLINE foo3_ptr #-}
 
@@ -219,9 +256,16 @@ foo3_ptr :: Ptr.FunPtr (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO 
 foo3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_06568a4cca591e6c
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_d9248136916656f7" hs_bindgen_d9248136916656f7_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar1_ptr@
-foreign import ccall unsafe "hs_bindgen_d9248136916656f7" hs_bindgen_d9248136916656f7 ::
+hs_bindgen_d9248136916656f7 ::
      IO (Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))))
+hs_bindgen_d9248136916656f7 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d9248136916656f7_base
 
 {-# NOINLINE bar1_ptr #-}
 
@@ -235,9 +279,16 @@ bar1_ptr :: Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt)))
 bar1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d9248136916656f7
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_2638a77b200d9571" hs_bindgen_2638a77b200d9571_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar2_ptr@
-foreign import ccall unsafe "hs_bindgen_2638a77b200d9571" hs_bindgen_2638a77b200d9571 ::
+hs_bindgen_2638a77b200d9571 ::
      IO (Ptr.FunPtr (L -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))))
+hs_bindgen_2638a77b200d9571 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2638a77b200d9571_base
 
 {-# NOINLINE bar2_ptr #-}
 
@@ -251,9 +302,16 @@ bar2_ptr :: Ptr.FunPtr (L -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt)))
 bar2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2638a77b200d9571
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_ebbd5d09631f1f45" hs_bindgen_ebbd5d09631f1f45_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar3_ptr@
-foreign import ccall unsafe "hs_bindgen_ebbd5d09631f1f45" hs_bindgen_ebbd5d09631f1f45 ::
+hs_bindgen_ebbd5d09631f1f45 ::
      IO (Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (S -> IO FC.CInt))))
+hs_bindgen_ebbd5d09631f1f45 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_ebbd5d09631f1f45_base
 
 {-# NOINLINE bar3_ptr #-}
 
@@ -267,9 +325,16 @@ bar3_ptr :: Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (S -> IO FC.CInt)))
 bar3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ebbd5d09631f1f45
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_7082943a6d3dd96f" hs_bindgen_7082943a6d3dd96f_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar4_ptr@
-foreign import ccall unsafe "hs_bindgen_7082943a6d3dd96f" hs_bindgen_7082943a6d3dd96f ::
+hs_bindgen_7082943a6d3dd96f ::
      IO (Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO I))))
+hs_bindgen_7082943a6d3dd96f =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_7082943a6d3dd96f_base
 
 {-# NOINLINE bar4_ptr #-}
 
@@ -283,9 +348,16 @@ bar4_ptr :: Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO I)))
 bar4_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7082943a6d3dd96f
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_d13a2e48d313bb66" hs_bindgen_d13a2e48d313bb66_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz1_ptr@
-foreign import ccall unsafe "hs_bindgen_d13a2e48d313bb66" hs_bindgen_d13a2e48d313bb66 ::
+hs_bindgen_d13a2e48d313bb66 ::
      IO (Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))))
+hs_bindgen_d13a2e48d313bb66 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d13a2e48d313bb66_base
 
 {-# NOINLINE baz1_ptr #-}
 
@@ -299,9 +371,16 @@ baz1_ptr :: Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray
 baz1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d13a2e48d313bb66
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_2e558de67f4f715d" hs_bindgen_2e558de67f4f715d_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz2_ptr@
-foreign import ccall unsafe "hs_bindgen_2e558de67f4f715d" hs_bindgen_2e558de67f4f715d ::
+hs_bindgen_2e558de67f4f715d ::
      IO (Ptr.FunPtr (I -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))))
+hs_bindgen_2e558de67f4f715d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2e558de67f4f715d_base
 
 {-# NOINLINE baz2_ptr #-}
 
@@ -315,9 +394,16 @@ baz2_ptr :: Ptr.FunPtr (I -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.Const
 baz2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2e558de67f4f715d
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_7aba9db18419135a" hs_bindgen_7aba9db18419135a_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz3_ptr@
-foreign import ccall unsafe "hs_bindgen_7aba9db18419135a" hs_bindgen_7aba9db18419135a ::
+hs_bindgen_7aba9db18419135a ::
      IO (Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I)))))
+hs_bindgen_7aba9db18419135a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_7aba9db18419135a_base
 
 {-# NOINLINE baz3_ptr #-}
 
@@ -331,9 +417,16 @@ baz3_ptr :: Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray
 baz3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7aba9db18419135a
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_35d1920cc9d86b63" hs_bindgen_35d1920cc9d86b63_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_no_args_no_void_ptr@
-foreign import ccall unsafe "hs_bindgen_35d1920cc9d86b63" hs_bindgen_35d1920cc9d86b63 ::
+hs_bindgen_35d1920cc9d86b63 ::
      IO (Ptr.FunPtr (IO I))
+hs_bindgen_35d1920cc9d86b63 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_35d1920cc9d86b63_base
 
 {-# NOINLINE no_args_no_void_ptr #-}
 

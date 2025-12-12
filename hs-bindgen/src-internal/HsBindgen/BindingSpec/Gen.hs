@@ -114,19 +114,21 @@ genBindingSpec'
       -> UnresolvedBindingSpec
       -> UnresolvedBindingSpec
     aux = \case
-      Hs.DeclData struct      -> insertType $ auxStruct    struct
-      Hs.DeclEmpty edata      -> insertType $ auxEmptyData edata
-      Hs.DeclNewtype ntype    -> insertType $ auxNewtype   ntype
-      Hs.DeclPatSyn{}         -> id
-      Hs.DeclDefineInstance{} -> id
-      Hs.DeclDeriveInstance{} -> id
-      Hs.DeclForeignImport{}  -> id
-      Hs.DeclFunction{}       -> id
-      Hs.DeclMacroExpr{}      -> id
-      Hs.DeclUnionGetter{}    -> id
-      Hs.DeclUnionSetter{}    -> id
-      Hs.DeclVar{}            -> id
-      Hs.DeclPragma{}         -> id
+      Hs.DeclData struct            -> insertType $ auxStruct    struct
+      Hs.DeclEmpty edata            -> insertType $ auxEmptyData edata
+      Hs.DeclNewtype ntype          -> insertType $ auxNewtype   ntype
+      Hs.DeclPatSyn{}               -> id
+      Hs.DeclDefineInstance{}       -> id
+      Hs.DeclDeriveInstance{}       -> id
+      Hs.DeclForeignImport{}        -> id
+      Hs.DeclForeignImportWrapper{} -> id
+      Hs.DeclForeignImportDynamic{} -> id
+      Hs.DeclFunction{}             -> id
+      Hs.DeclMacroExpr{}            -> id
+      Hs.DeclUnionGetter{}          -> id
+      Hs.DeclUnionSetter{}          -> id
+      Hs.DeclVar{}                  -> id
+      Hs.DeclPragma{}               -> id
 
     insertType ::
          ( (C.DeclInfo, BindingSpec.CTypeSpec)

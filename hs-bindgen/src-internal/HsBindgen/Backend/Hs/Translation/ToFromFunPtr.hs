@@ -12,18 +12,15 @@ import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
-import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
-import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
+import HsBindgen.Backend.Hs.Translation.State (TranslationState)
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.HsModule.Render ()
-import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -41,9 +38,10 @@ import HsBindgen.Language.Haskell qualified as Hs
 -- the respective ToFunPtr and FromFunPtr instances.
 --
 -- These instances are placed in the main module to avoid orphan instances.
-forFunction :: ([C.Type], C.Type) -> [Hs.Decl]
-forFunction (args, res) =
+forFunction :: TranslationState -> ([C.Type], C.Type) -> [Hs.Decl]
+forFunction transState (args, res) =
     instancesFor
+      transState
       (unsafeUniqueHsName nameTo   , Just $ HsDoc.uniqueSymbol nameTo)
       (unsafeUniqueHsName nameFrom , Just $ HsDoc.uniqueSymbol nameFrom)
       funC
@@ -57,9 +55,10 @@ forFunction (args, res) =
     nameFrom = locallyUnique $ "instance FromFunPtr (" ++ prettyHsType funHs ++ ")"
 
 -- | Generate instances for newtype around functions
-forNewtype :: Hs.Name Hs.NsTypeConstr -> ([C.Type], C.Type) -> [Hs.Decl]
-forNewtype newtypeName (args, res) =
+forNewtype :: TranslationState -> Hs.Name Hs.NsTypeConstr -> ([C.Type], C.Type) -> [Hs.Decl]
+forNewtype transState newtypeName (args, res) =
     instancesFor
+      transState
       (nameTo   , Nothing)
       (nameFrom , Nothing)
       funC
@@ -77,33 +76,28 @@ forNewtype newtypeName (args, res) =
 -------------------------------------------------------------------------------}
 
 instancesFor ::
-     (Hs.Name Hs.NsVar, Maybe HsDoc.Comment) -- ^ Name of the @toFunPtr@ fun
+     TranslationState
+  -> (Hs.Name Hs.NsVar, Maybe HsDoc.Comment) -- ^ Name of the @toFunPtr@ fun
   -> (Hs.Name Hs.NsVar, Maybe HsDoc.Comment) -- ^ Name of the @fromFunPtr@ fun
   -> C.Type                                  -- ^ Type of the C function
   -> HsType                                  -- ^ Corresponding Haskell type
   -> [Hs.Decl]
-instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = concat [
+instancesFor transState (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = concat [
       -- import for @ToFunPtr@ instance
-      HsFI.foreignImportDecs
+      HsFI.foreignImportWrapperDecs
+        transState
         nameTo
-        (HsIO (HsFunPtr funHs))
-        [wrapperParam funHs]
-        (C.DeclName "wrapper" C.NameKindOrdinary)
-        (CallConvGhcCCall ImportAsValue)
-        (Origin.ToFunPtr funC)
+        funHs
+        funC
         nameToComment
-        SHs.Safe
 
       -- import for @FromFunPtr@ instance
-    , HsFI.foreignImportDecs
+    , HsFI.foreignImportDynamicDecs
+        transState
         nameFrom
         funHs
-        [wrapperParam $ HsFunPtr funHs]
-        (C.DeclName "dynamic" C.NameKindOrdinary)
-        (CallConvGhcCCall ImportAsValue)
-        (Origin.ToFunPtr funC)
+        funC
         nameFromComment
-        SHs.Safe
 
       -- @ToFunPtr@ instance proper
     , [ Hs.DeclDefineInstance Hs.DefineInstance{
@@ -127,13 +121,6 @@ instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = co
           }
       ]
     ]
-
-wrapperParam :: HsType -> Hs.FunctionParameter
-wrapperParam hsType = Hs.FunctionParameter{
-      functionParameterName    = Nothing
-    , functionParameterType    = hsType
-    , functionParameterComment = Nothing
-    }
 
 -- TODO: Ideally this would live elsewhere
 prettyHsType :: HsType -> String

@@ -9,6 +9,7 @@ module HsBindgen.Backend.Hs.Translation.Type (
   , inContext
     -- * FFI types
   , NewtypeMap
+  , toBaseForeignType
   , toFFIType
   ) where
 
@@ -16,6 +17,8 @@ import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
 import GHC.Stack
 import Text.Printf (printf)
+
+import HsBindgen.Runtime.BaseForeignType qualified as BFT
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
@@ -123,6 +126,97 @@ floatingType C.PrimDouble = HsPrimCDouble
 -------------------------------------------------------------------------------}
 
 type NewtypeMap = Map (Hs.Name Hs.NsTypeConstr) HsType
+
+toBaseForeignType :: NewtypeMap -> HsType -> HsBaseForeignType
+toBaseForeignType ntMap t = HsBaseForeignType $ go t
+  where
+    go :: HsType -> BFT.BaseForeignType
+    go = \case
+      HsPrimType pt -> unHsBaseForeignType $ primToBaseForeignType pt
+      HsTypRef name
+        | Just t' <- Map.lookup name ntMap
+        -> go t'
+        -- If the referenced type is not in the newtype map, then it is
+        -- assumed to be a struct or union
+        | otherwise
+        -> no
+      HsConstArray{} -> no
+      HsIncompleteArray{} -> no
+      HsPtr{} -> BFT.Basic FFIType.Ptr
+      HsFunPtr{} -> BFT.Basic FFIType.FunPtr
+      HsStablePtr{} -> BFT.Basic FFIType.StablePtr
+      HsConstPtr{} -> BFT.Builtin FFIType.ConstPtr
+      HsIO t' -> BFT.IO $ go t'
+      HsFun s t' -> BFT.FunArrow (go s) (go t')
+      HsExtBinding extRef _ mHsTypeSpec ->
+          case mHsTypeSpec >>= BindingSpec.hsTypeSpecFFIType of
+            Nothing ->
+              panicPure $
+              printf "toBaseForeignType: no ffitype found for external reference %s"
+                    (show extRef)
+            Just t' -> case t' of
+              FFIType.Function -> no
+              FFIType.Data -> no
+              FFIType.Array -> no
+              FFIType.Basic t'' -> BFT.Basic t''
+              FFIType.Builtin t'' -> BFT.Builtin t''
+
+      HsByteArray -> no
+      HsSizedByteArray{} -> no
+      HsBlock{} -> BFT.Basic FFIType.Ptr
+      HsComplexType{} -> no
+      HsStrLit{} -> no
+    no = panicPure "primToBaseForeignType: %s is not a a base foreign type" (show t)
+
+primToBaseForeignType :: HsPrimType -> HsBaseForeignType
+primToBaseForeignType pt = HsBaseForeignType $ case pt of
+    HsPrimVoid -> no
+    HsPrimUnit -> BFT.Unit
+    HsPrimCStringLen -> no
+    HsPrimChar -> BFT.Basic FFIType.Char
+    HsPrimInt -> BFT.Basic FFIType.Int
+    HsPrimDouble -> BFT.Basic FFIType.Double
+    HsPrimFloat -> BFT.Basic FFIType.Float
+    HsPrimBool -> BFT.Basic FFIType.Bool
+    HsPrimInt8 -> BFT.Basic FFIType.Int8
+    HsPrimInt16 -> BFT.Basic FFIType.Int16
+    HsPrimInt32 -> BFT.Basic FFIType.Int32
+    HsPrimInt64 -> BFT.Basic FFIType.Int64
+    HsPrimWord -> BFT.Basic FFIType.Word
+    HsPrimWord8 -> BFT.Basic FFIType.Word8
+    HsPrimWord16 -> BFT.Basic FFIType.Word16
+    HsPrimWord32 -> BFT.Basic FFIType.Word32
+    HsPrimWord64 -> BFT.Basic FFIType.Word64
+    HsPrimIntPtr -> BFT.Builtin FFIType.IntPtr
+    HsPrimWordPtr -> BFT.Builtin FFIType.WordPtr
+    HsPrimCChar -> BFT.Builtin FFIType.CChar
+    HsPrimCSChar -> BFT.Builtin FFIType.CSChar
+    HsPrimCUChar -> BFT.Builtin FFIType.CUChar
+    HsPrimCShort -> BFT.Builtin FFIType.CShort
+    HsPrimCUShort -> BFT.Builtin FFIType.CUShort
+    HsPrimCInt -> BFT.Builtin FFIType.CInt
+    HsPrimCUInt -> BFT.Builtin FFIType.CUInt
+    HsPrimCLong -> BFT.Builtin FFIType.CLong
+    HsPrimCULong -> BFT.Builtin FFIType.CULong
+    HsPrimCPtrdiff -> BFT.Builtin FFIType.CPtrdiff
+    HsPrimCSize -> BFT.Builtin FFIType.CSize
+    HsPrimCWchar -> BFT.Builtin FFIType.CWchar
+    HsPrimCSigAtomic -> BFT.Builtin FFIType.CSigAtomic
+    HsPrimCLLong -> BFT.Builtin FFIType.CLLong
+    HsPrimCULLong -> BFT.Builtin FFIType.CULLong
+    HsPrimCBool -> BFT.Builtin FFIType.CBool
+    HsPrimCIntPtr -> BFT.Builtin FFIType.CIntPtr
+    HsPrimCUIntPtr -> BFT.Builtin FFIType.CUIntPtr
+    HsPrimCIntMax -> BFT.Builtin FFIType.CIntMax
+    HsPrimCUIntMax -> BFT.Builtin FFIType.CUIntMax
+    HsPrimCClock -> BFT.Builtin FFIType.CClock
+    HsPrimCTime -> BFT.Builtin FFIType.CTime
+    HsPrimCUSeconds -> BFT.Builtin FFIType.CUSeconds
+    HsPrimCSUSeconds -> BFT.Builtin FFIType.CSUSeconds
+    HsPrimCFloat -> BFT.Builtin FFIType.CFloat
+    HsPrimCDouble -> BFT.Builtin FFIType.CDouble
+  where
+    no = panicPure "primToBaseForeignType: %s is not a a base foreign type" (show pt)
 
 toFFIType :: NewtypeMap -> HsType -> FFIType.FFIType
 toFFIType ntMap = \case

@@ -7,7 +7,9 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -32,9 +34,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_24c867a3e91cab5d" hs_bindgen_24c867a3e91cab5d_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_manualarrays_Example_get_transpose_ptr@
-foreign import ccall unsafe "hs_bindgen_24c867a3e91cab5d" hs_bindgen_24c867a3e91cab5d ::
+hs_bindgen_24c867a3e91cab5d ::
      IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
+hs_bindgen_24c867a3e91cab5d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_24c867a3e91cab5d_base
 
 {-# NOINLINE transpose_ptr #-}
 
@@ -48,9 +57,16 @@ transpose_ptr :: Ptr.FunPtr (Matrix -> Matrix -> IO ())
 transpose_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_24c867a3e91cab5d
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_66af82cae0c5134a" hs_bindgen_66af82cae0c5134a_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_manualarrays_Example_get_pretty_print_triplets_ptr@
-foreign import ccall unsafe "hs_bindgen_66af82cae0c5134a" hs_bindgen_66af82cae0c5134a ::
+hs_bindgen_66af82cae0c5134a ::
      IO (Ptr.FunPtr (Triplet_ptrs -> IO ()))
+hs_bindgen_66af82cae0c5134a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_66af82cae0c5134a_base
 
 {-# NOINLINE pretty_print_triplets_ptr #-}
 

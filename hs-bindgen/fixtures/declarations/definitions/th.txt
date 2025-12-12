@@ -154,6 +154,10 @@ instance HasCField Y "y_o"
 instance TyEq ty (CFieldType Y "y_o") =>
          HasField "y_o" (Ptr Y) (Ptr ty)
     where getField = ptrToCField (Proxy @"y_o")
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_9cdc88a6d09442d6" foo_base :: CDouble ->
+                                                                    IO CInt
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h:13:5@
@@ -162,8 +166,7 @@ instance TyEq ty (CFieldType Y "y_o") =>
 
     __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@
 -}
-foreign import ccall safe "hs_bindgen_9cdc88a6d09442d6" foo :: CDouble ->
-                                                               IO CInt
+foo :: CDouble -> IO CInt
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h:13:5@
@@ -172,11 +175,36 @@ foreign import ccall safe "hs_bindgen_9cdc88a6d09442d6" foo :: CDouble ->
 
     __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@
 -}
-foreign import ccall safe "hs_bindgen_07fd5b433f381094" foo :: CDouble ->
-                                                               IO CInt
+foo = fromBaseForeignType foo_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_07fd5b433f381094" foo_base :: CDouble ->
+                                                                    IO CInt
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @declarations\/definitions.h:13:5@
+
+    __exported by:__ @declarations\/definitions.h@
+
+    __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@
+-}
+foo :: CDouble -> IO CInt
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @declarations\/definitions.h:13:5@
+
+    __exported by:__ @declarations\/definitions.h@
+
+    __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@
+-}
+foo = fromBaseForeignType foo_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_bc546207e3a9a16e" hs_bindgen_bc546207e3a9a16e_base :: IO (FunPtr Void)
 -- | __unique:__ @test_declarationsdefinitions_Example_get_foo_ptr@
-foreign import ccall safe "hs_bindgen_bc546207e3a9a16e" hs_bindgen_bc546207e3a9a16e :: IO (FunPtr (CDouble ->
-                                                                                                   IO CInt))
+hs_bindgen_bc546207e3a9a16e :: IO (FunPtr (CDouble -> IO CInt))
+-- | __unique:__ @test_declarationsdefinitions_Example_get_foo_ptr@
+hs_bindgen_bc546207e3a9a16e = fromBaseForeignType hs_bindgen_bc546207e3a9a16e_base
 {-# NOINLINE foo_ptr #-}
 {-| __C declaration:__ @foo@
 
@@ -192,8 +220,13 @@ foo_ptr :: FunPtr (CDouble -> IO CInt)
     __exported by:__ @declarations\/definitions.h@
 -}
 foo_ptr = unsafePerformIO hs_bindgen_bc546207e3a9a16e
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d0561a54a41cb140" hs_bindgen_d0561a54a41cb140_base :: IO (Ptr Void)
 -- | __unique:__ @test_declarationsdefinitions_Example_get_n_ptr@
-foreign import ccall safe "hs_bindgen_d0561a54a41cb140" hs_bindgen_d0561a54a41cb140 :: IO (Ptr CInt)
+hs_bindgen_d0561a54a41cb140 :: IO (Ptr CInt)
+-- | __unique:__ @test_declarationsdefinitions_Example_get_n_ptr@
+hs_bindgen_d0561a54a41cb140 = fromBaseForeignType hs_bindgen_d0561a54a41cb140_base
 {-# NOINLINE n_ptr #-}
 {-| __C declaration:__ @n@
 

@@ -23,7 +23,11 @@ runHsM :: HsM a -> a
 runHsM (HsM m) = evalState m emptyTranslationState
 
 data TranslationState = TranslationState {
+    -- | A mapping of type names to their class instances
     instanceMap :: InstanceMap
+    -- | A mapping of newtype names to their underlying type
+    --
+    -- If a name is not in the mapping, then it is assumed not to be a newtype.
   , newtypeMap :: NewtypeMap
   }
 
