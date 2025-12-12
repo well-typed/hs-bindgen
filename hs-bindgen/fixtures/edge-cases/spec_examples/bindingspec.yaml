@@ -59,6 +59,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CShort
 - hsname: Int32_T
   instances:
   - Bits
@@ -75,6 +76,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: Int64_T
   instances:
   - Bits
@@ -91,3 +93,4 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CLLong

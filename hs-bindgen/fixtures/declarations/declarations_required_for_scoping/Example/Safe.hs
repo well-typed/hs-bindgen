@@ -5,6 +5,8 @@
 
 module Example.Safe where
 
+import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -19,6 +21,12 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_0d1c75136a36e326" f_base ::
+     FC.CSize
+  -> IO ()
+
 {-| __C declaration:__ @f@
 
     __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
@@ -27,7 +35,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __unique:__ @test_declarationsdeclarations_requ_Example_Safe_f@
 -}
-foreign import ccall safe "hs_bindgen_0d1c75136a36e326" f ::
+f ::
      A
      -- ^ __C declaration:__ @x@
   -> IO ()
+f =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType f_base

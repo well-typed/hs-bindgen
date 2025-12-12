@@ -17,9 +17,12 @@ hstypes:
 - hsname: Counter
   instances:
   - HasBaseForeignType
+  baseforeigntype: Ptr
 - hsname: Toggle
   instances:
   - HasBaseForeignType
+  baseforeigntype: Ptr
 - hsname: VarCounter
   instances:
   - HasBaseForeignType
+  baseforeigntype: Ptr

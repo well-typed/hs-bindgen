@@ -8,6 +8,7 @@ module Example.Safe where
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstPtr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -116,6 +117,14 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_7eada9f65d982412" process_data_base ::
+     HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> Ptr.Ptr Void
+  -> Ptr.Ptr Void
+  -> IO FC.CInt
+
 {-|
 
   Function with detailed parameter documentation
@@ -138,7 +147,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 -}
-foreign import ccall safe "hs_bindgen_7eada9f65d982412" process_data ::
+process_data ::
      HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8
      {- ^
 
@@ -161,6 +170,14 @@ foreign import ccall safe "hs_bindgen_7eada9f65d982412" process_data ::
      __C declaration:__ @size@
      -}
   -> IO FC.CInt
+process_data =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType process_data_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_fb85499c501da1a7" process_file_base ::
+     HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> IO FC.CBool
 
 {-|
 
@@ -180,7 +197,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_file@
 -}
-foreign import ccall safe "hs_bindgen_fb85499c501da1a7" process_file ::
+process_file ::
      HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
      {- ^
 
@@ -189,6 +206,15 @@ foreign import ccall safe "hs_bindgen_fb85499c501da1a7" process_file ::
      __C declaration:__ @filename@
      -}
   -> IO FC.CBool
+process_file =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType process_file_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_a73fc7b108035c5c" calculate_value_base ::
+     FC.CInt
+  -> FC.CInt
+  -> IO FC.CInt
 
 {-|
 
@@ -215,7 +241,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_calculate_value@
 -}
-foreign import ccall safe "hs_bindgen_a73fc7b108035c5c" calculate_value ::
+calculate_value ::
      FC.CInt
      {- ^
 
@@ -231,6 +257,14 @@ foreign import ccall safe "hs_bindgen_a73fc7b108035c5c" calculate_value ::
      __C declaration:__ @multiplier@
      -}
   -> IO FC.CInt
+calculate_value =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType calculate_value_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_9b7f6745401b4652" html_example_base ::
+     FC.CInt
+  -> IO FC.CBool
 
 {-|
 
@@ -252,7 +286,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_example@
 -}
-foreign import ccall safe "hs_bindgen_9b7f6745401b4652" html_example ::
+html_example ::
      FC.CInt
      {- ^
 
@@ -260,6 +294,15 @@ foreign import ccall safe "hs_bindgen_9b7f6745401b4652" html_example ::
 
      __C declaration:__ @value@
      -}
+  -> IO FC.CBool
+html_example =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType html_example_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_825411dc114e599b" list_example_base ::
+     Ptr.Ptr Void
+  -> FC.CSize
   -> IO FC.CBool
 
 {-|
@@ -310,7 +353,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_list_example@
 -}
-foreign import ccall safe "hs_bindgen_825411dc114e599b" list_example ::
+list_example ::
      Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
      {- ^
 
@@ -326,6 +369,14 @@ foreign import ccall safe "hs_bindgen_825411dc114e599b" list_example ::
      __C declaration:__ @count@
      -}
   -> IO FC.CBool
+list_example =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType list_example_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_17264dcff7e9b698" dangerous_function_base ::
+     Ptr.Ptr Void
+  -> IO (Ptr.Ptr Void)
 
 {-|
 
@@ -349,7 +400,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_dangerous_function@
 -}
-foreign import ccall safe "hs_bindgen_17264dcff7e9b698" dangerous_function ::
+dangerous_function ::
      Ptr.Ptr Void
      {- ^
 
@@ -358,6 +409,14 @@ foreign import ccall safe "hs_bindgen_17264dcff7e9b698" dangerous_function ::
      __C declaration:__ @ptr@
      -}
   -> IO (Ptr.Ptr Void)
+dangerous_function =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType dangerous_function_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_c8ca619ec2e70d8d" detailed_return_codes_base ::
+     HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> IO FC.CInt
 
 {-|
 
@@ -381,7 +440,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_detailed_return_codes@
 -}
-foreign import ccall safe "hs_bindgen_c8ca619ec2e70d8d" detailed_return_codes ::
+detailed_return_codes ::
      HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar
      {- ^
 
@@ -389,6 +448,14 @@ foreign import ccall safe "hs_bindgen_c8ca619ec2e70d8d" detailed_return_codes ::
 
      __C declaration:__ @input@
      -}
+  -> IO FC.CInt
+detailed_return_codes =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType detailed_return_codes_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_25e1070e2ce10048" old_function_base ::
+     FC.CInt
   -> IO FC.CInt
 
 {-|
@@ -409,7 +476,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_old_function@
 -}
-foreign import ccall safe "hs_bindgen_25e1070e2ce10048" old_function ::
+old_function ::
      FC.CInt
      {- ^
 
@@ -417,6 +484,14 @@ foreign import ccall safe "hs_bindgen_25e1070e2ce10048" old_function ::
 
      __C declaration:__ @old_param@
      -}
+  -> IO FC.CInt
+old_function =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType old_function_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_a9eeeb09808e71cc" versioned_function_base ::
+     FC.CInt
   -> IO FC.CInt
 
 {-|
@@ -437,9 +512,18 @@ __exported by:__ @documentation\/doxygen_docs.h@
 
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_versioned_function@
 -}
-foreign import ccall safe "hs_bindgen_a9eeeb09808e71cc" versioned_function ::
+versioned_function ::
      FC.CInt
      -- ^ __C declaration:__ @data'@
+  -> IO FC.CInt
+versioned_function =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType versioned_function_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_0c0057f1700372a7" process_buffer_base ::
+     Ptr.Ptr Void
+  -> FC.CSize
   -> IO FC.CInt
 
 {-|
@@ -460,7 +544,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
 -}
-foreign import ccall safe "hs_bindgen_0c0057f1700372a7" process_buffer ::
+process_buffer ::
      Ptr.Ptr FC.CChar
      {- ^
 
@@ -476,6 +560,16 @@ foreign import ccall safe "hs_bindgen_0c0057f1700372a7" process_buffer ::
      __C declaration:__ @size@
      -}
   -> IO FC.CInt
+process_buffer =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType process_buffer_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_294db77671f95524" my_memcpy_base ::
+     Ptr.Ptr Void
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> FC.CSize
+  -> IO (Ptr.Ptr Void)
 
 {-|
 
@@ -497,7 +591,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_my_memcpy@
 -}
-foreign import ccall safe "hs_bindgen_294db77671f95524" my_memcpy ::
+my_memcpy ::
      Ptr.Ptr Void
      {- ^
 
@@ -520,6 +614,14 @@ foreign import ccall safe "hs_bindgen_294db77671f95524" my_memcpy ::
      __C declaration:__ @n@
      -}
   -> IO (Ptr.Ptr Void)
+my_memcpy =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType my_memcpy_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_f5bc63a9952c2618" double_value_base ::
+     FC.CInt
+  -> IO FC.CInt
 
 {-|
 
@@ -537,7 +639,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_double_value@
 -}
-foreign import ccall safe "hs_bindgen_f5bc63a9952c2618" double_value ::
+double_value ::
      FC.CInt
      {- ^
 
@@ -545,6 +647,16 @@ foreign import ccall safe "hs_bindgen_f5bc63a9952c2618" double_value ::
 
      __C declaration:__ @x@
      -}
+  -> IO FC.CInt
+double_value =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType double_value_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_c4e7e99dba20204d" complex_function_base ::
+     Ptr.Ptr Void
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> FC.CSize
   -> IO FC.CInt
 
 {-|
@@ -620,7 +732,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_complex_function@
 -}
-foreign import ccall safe "hs_bindgen_c4e7e99dba20204d" complex_function ::
+complex_function ::
      Ptr.Ptr Config_t
      {- ^
 
@@ -638,6 +750,14 @@ foreign import ccall safe "hs_bindgen_c4e7e99dba20204d" complex_function ::
      __C declaration:__ @size@
      -}
   -> IO Status_code_t
+complex_function =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType complex_function_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_935f2aead358d9ef" hash_base ::
+     Ptr.Ptr Void
+  -> IO FC.CInt
 
 {-|
 
@@ -651,10 +771,18 @@ __exported by:__ @documentation\/doxygen_docs.h@
 
 __unique:__ @test_documentationdoxygen_docs_Example_Safe_hash@
 -}
-foreign import ccall safe "hs_bindgen_935f2aead358d9ef" hash ::
+hash ::
      Ptr.Ptr FC.CChar
      -- ^ __C declaration:__ @s@
   -> IO FC.CInt
+hash =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hash_base
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_39fef54c23d4e1ee" square_base ::
+     FC.CInt
+  -> FC.CInt
 
 {-| __C declaration:__ @square@
 
@@ -664,7 +792,9 @@ foreign import ccall safe "hs_bindgen_935f2aead358d9ef" hash ::
 
     __unique:__ @test_documentationdoxygen_docs_Example_Safe_square@
 -}
-foreign import ccall safe "hs_bindgen_39fef54c23d4e1ee" square ::
+square ::
      FC.CInt
      -- ^ __C declaration:__ @x@
   -> FC.CInt
+square =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType square_base

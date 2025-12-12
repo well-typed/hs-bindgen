@@ -42,6 +42,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: A_typedef_enum_e
   instances:
   - Eq
@@ -50,6 +51,7 @@ hstypes:
   - Read
   - Show
   - Storable
+  baseforeigntype: CUChar
 - hsname: A_typedef_struct_t
   instances:
   - Eq
@@ -63,6 +65,7 @@ hstypes:
   - Read
   - Show
   - Storable
+  baseforeigntype: CUInt
 - hsname: Another_typedef_struct_t
   instances:
   - Eq
@@ -75,6 +78,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Var_t
   instances:
   - Bits
@@ -91,3 +95,4 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt

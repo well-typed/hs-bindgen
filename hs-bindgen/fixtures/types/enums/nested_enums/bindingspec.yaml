@@ -25,6 +25,7 @@ hstypes:
   - Read
   - Show
   - Storable
+  baseforeigntype: CUInt
 - hsname: ExA
   instances:
   - Eq
@@ -43,3 +44,4 @@ hstypes:
   - Read
   - Show
   - Storable
+  baseforeigntype: CUInt

@@ -97,6 +97,8 @@ getInstances instanceMap name = aux
       HsPrimCDouble    -> floatingInsts
       HsPrimCStringLen -> Set.fromList [Eq, Ord, Show]
       HsPrimInt        -> integralInsts
+      HsPrimWord32     -> integralInsts
+      HsPrimInt32 -> integralInsts
 
     unitInsts :: Set TypeClass
     unitInsts = Set.fromList [

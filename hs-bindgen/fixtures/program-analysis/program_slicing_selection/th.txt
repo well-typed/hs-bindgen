@@ -217,6 +217,11 @@ instance TyEq ty
                   (Ptr FileOperationRecord)
                   (Ptr ty)
     where getField = ptrToCField (Proxy @"fileOperationRecord_bytes_processed")
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" read_file_chunk_base :: Ptr Void ->
+                                                                                Ptr Void ->
+                                                                                CSize -> IO CInt
 {-| __C declaration:__ @read_file_chunk@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@
@@ -225,10 +230,9 @@ instance TyEq ty
 
     __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
 -}
-foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
-                                                                           Ptr Void ->
-                                                                           HsBindgen.Runtime.Prelude.CSize ->
-                                                                           IO FileOperationStatus
+read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
+                   Ptr Void ->
+                   HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus
 {-| __C declaration:__ @read_file_chunk@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@
@@ -237,15 +241,42 @@ foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" read_file_chunk :: Ptr H
 
     __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
 -}
-foreign import ccall safe "hs_bindgen_654858ed6a5db417" read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
-                                                                           Ptr Void ->
-                                                                           HsBindgen.Runtime.Prelude.CSize ->
-                                                                           IO FileOperationStatus
+read_file_chunk = fromBaseForeignType read_file_chunk_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_654858ed6a5db417" read_file_chunk_base :: Ptr Void ->
+                                                                                Ptr Void ->
+                                                                                CSize -> IO CInt
+{-| __C declaration:__ @read_file_chunk@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+
+    __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
+-}
+read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
+                   Ptr Void ->
+                   HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus
+{-| __C declaration:__ @read_file_chunk@
+
+    __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@
+
+    __exported by:__ @program-analysis\/program_slicing_selection.h@
+
+    __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
+-}
+read_file_chunk = fromBaseForeignType read_file_chunk_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_166bda29e26e15f7" hs_bindgen_166bda29e26e15f7_base :: IO (FunPtr Void)
 -- | __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk_ptr@
-foreign import ccall safe "hs_bindgen_166bda29e26e15f7" hs_bindgen_166bda29e26e15f7 :: IO (FunPtr (Ptr HsBindgen.Runtime.Prelude.CFile ->
-                                                                                                   Ptr Void ->
-                                                                                                   HsBindgen.Runtime.Prelude.CSize ->
-                                                                                                   IO FileOperationStatus))
+hs_bindgen_166bda29e26e15f7 :: IO (FunPtr (Ptr HsBindgen.Runtime.Prelude.CFile ->
+                                           Ptr Void ->
+                                           HsBindgen.Runtime.Prelude.CSize ->
+                                           IO FileOperationStatus))
+-- | __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk_ptr@
+hs_bindgen_166bda29e26e15f7 = fromBaseForeignType hs_bindgen_166bda29e26e15f7_base
 {-# NOINLINE read_file_chunk_ptr #-}
 {-| __C declaration:__ @read_file_chunk@
 

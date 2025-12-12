@@ -212,10 +212,20 @@ newtype Int2int
            __exported by:__ @manual\/function_pointers.h@
       -}
     deriving newtype HasBaseForeignType
-foreign import ccall safe "wrapper" toInt2int :: Int2int ->
-                                                 IO (FunPtr Int2int)
-foreign import ccall safe "dynamic" fromInt2int :: FunPtr Int2int ->
-                                                   Int2int
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toInt2int_base :: (CInt ->
+                                                       IO CInt) ->
+                                                      IO (FunPtr (CInt -> IO CInt))
+toInt2int :: Int2int -> IO (FunPtr Int2int)
+toInt2int = \fun_0 -> fmap castFunPtrFromBaseForeignType (toInt2int_base (toBaseForeignType fun_0))
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromInt2int_base :: FunPtr (CInt ->
+                                                                IO CInt) ->
+                                                        CInt -> IO CInt
+fromInt2int :: FunPtr Int2int -> Int2int
+fromInt2int = \funPtr_0 -> fromBaseForeignType (fromInt2int_base (castFunPtrToBaseForeignType funPtr_0))
 instance ToFunPtr Int2int
     where toFunPtr = toInt2int
 instance FromFunPtr Int2int
@@ -340,19 +350,39 @@ instance TyEq ty
                   (Ptr Apply1Union)
                   (Ptr ty)
     where getField = ptrToCField (Proxy @"apply1Union_apply1_nopointer_union_field")
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" hs_bindgen_fe02c1e534fc52ea_base :: (FunPtr Void ->
+                                                                         CInt -> IO CInt) ->
+                                                                        IO (FunPtr (FunPtr Void ->
+                                                                                    CInt ->
+                                                                                    IO CInt))
 -- | __unique:__ @instance ToFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
-foreign import ccall safe "wrapper" hs_bindgen_fe02c1e534fc52ea :: (FunPtr Int2int ->
-                                                                    CInt -> IO CInt) ->
-                                                                   IO (FunPtr (FunPtr Int2int ->
-                                                                               CInt -> IO CInt))
+hs_bindgen_fe02c1e534fc52ea :: (FunPtr Int2int ->
+                                CInt -> IO CInt) ->
+                               IO (FunPtr (FunPtr Int2int -> CInt -> IO CInt))
+-- | __unique:__ @instance ToFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
+hs_bindgen_fe02c1e534fc52ea = \fun_0 -> fmap castFunPtrFromBaseForeignType (hs_bindgen_fe02c1e534fc52ea_base (toBaseForeignType fun_0))
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" hs_bindgen_fc27363846cb6139_base :: FunPtr (FunPtr Void ->
+                                                                                CInt -> IO CInt) ->
+                                                                        FunPtr Void ->
+                                                                        CInt -> IO CInt
 -- | __unique:__ @instance FromFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
-foreign import ccall safe "dynamic" hs_bindgen_fc27363846cb6139 :: FunPtr (FunPtr Int2int ->
-                                                                           CInt -> IO CInt) ->
-                                                                   FunPtr Int2int -> CInt -> IO CInt
+hs_bindgen_fc27363846cb6139 :: FunPtr (FunPtr Int2int ->
+                                       CInt -> IO CInt) ->
+                               FunPtr Int2int -> CInt -> IO CInt
+-- | __unique:__ @instance FromFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
+hs_bindgen_fc27363846cb6139 = \funPtr_0 -> fromBaseForeignType (hs_bindgen_fc27363846cb6139_base (castFunPtrToBaseForeignType funPtr_0))
 instance ToFunPtr (FunPtr Int2int -> CInt -> IO CInt)
     where toFunPtr = hs_bindgen_fe02c1e534fc52ea
 instance FromFunPtr (FunPtr Int2int -> CInt -> IO CInt)
     where fromFunPtr = hs_bindgen_fc27363846cb6139
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_8c6beff641297a13" square_base :: CInt ->
+                                                                       IO CInt
 {-| __C declaration:__ @square@
 
     __defined at:__ @manual\/function_pointers.h:5:12@
@@ -361,8 +391,20 @@ instance FromFunPtr (FunPtr Int2int -> CInt -> IO CInt)
 
     __unique:__ @test_manualfunction_pointers_Example_Unsafe_square@
 -}
-foreign import ccall safe "hs_bindgen_8c6beff641297a13" square :: CInt ->
-                                                                  IO CInt
+square :: CInt -> IO CInt
+{-| __C declaration:__ @square@
+
+    __defined at:__ @manual\/function_pointers.h:5:12@
+
+    __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_Unsafe_square@
+-}
+square = fromBaseForeignType square_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_3dfb239ac098f471" plus_base :: CInt ->
+                                                                     CInt -> IO CInt
 {-| __C declaration:__ @plus@
 
     __defined at:__ @manual\/function_pointers.h:7:12@
@@ -371,8 +413,20 @@ foreign import ccall safe "hs_bindgen_8c6beff641297a13" square :: CInt ->
 
     __unique:__ @test_manualfunction_pointers_Example_Unsafe_plus@
 -}
-foreign import ccall safe "hs_bindgen_3dfb239ac098f471" plus :: CInt ->
-                                                                CInt -> IO CInt
+plus :: CInt -> CInt -> IO CInt
+{-| __C declaration:__ @plus@
+
+    __defined at:__ @manual\/function_pointers.h:7:12@
+
+    __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_Unsafe_plus@
+-}
+plus = fromBaseForeignType plus_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_983beb37938c4d96" apply1_base :: FunPtr Void ->
+                                                                       CInt -> IO CInt
 {-| __C declaration:__ @apply1@
 
     __defined at:__ @manual\/function_pointers.h:9:12@
@@ -381,9 +435,20 @@ foreign import ccall safe "hs_bindgen_3dfb239ac098f471" plus :: CInt ->
 
     __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1@
 -}
-foreign import ccall safe "hs_bindgen_983beb37938c4d96" apply1 :: FunPtr (CInt ->
-                                                                          IO CInt) ->
-                                                                  CInt -> IO CInt
+apply1 :: FunPtr (CInt -> IO CInt) -> CInt -> IO CInt
+{-| __C declaration:__ @apply1@
+
+    __defined at:__ @manual\/function_pointers.h:9:12@
+
+    __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1@
+-}
+apply1 = fromBaseForeignType apply1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_8a62074f5475563b" apply2_base :: FunPtr Void ->
+                                                                       CInt -> CInt -> IO CInt
 {-| __C declaration:__ @apply2@
 
     __defined at:__ @manual\/function_pointers.h:11:12@
@@ -392,9 +457,21 @@ foreign import ccall safe "hs_bindgen_983beb37938c4d96" apply1 :: FunPtr (CInt -
 
     __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply2@
 -}
-foreign import ccall safe "hs_bindgen_8a62074f5475563b" apply2 :: FunPtr (CInt ->
-                                                                          CInt -> IO CInt) ->
-                                                                  CInt -> CInt -> IO CInt
+apply2 :: FunPtr (CInt -> CInt -> IO CInt) ->
+          CInt -> CInt -> IO CInt
+{-| __C declaration:__ @apply2@
+
+    __defined at:__ @manual\/function_pointers.h:11:12@
+
+    __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply2@
+-}
+apply2 = fromBaseForeignType apply2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_229d4041a92cd6b6" apply1_pointer_arg_base :: FunPtr Void ->
+                                                                                   CInt -> IO CInt
 {-| Basically the same as apply1(), but here for illustratory purposes.
 
 __C declaration:__ @apply1_pointer_arg@
@@ -405,75 +482,7 @@ __exported by:__ @manual\/function_pointers.h@
 
 __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_pointer_arg@
 -}
-foreign import ccall safe "hs_bindgen_229d4041a92cd6b6" apply1_pointer_arg :: FunPtr Int2int ->
-                                                                              CInt -> IO CInt
-{-| A version of apply1_pointer_arg() that declares to take a argument of function type, rather than a pointer-to-function type.
-
-__C declaration:__ @apply1_nopointer_arg@
-
-__defined at:__ @manual\/function_pointers.h:26:12@
-
-__exported by:__ @manual\/function_pointers.h@
-
-__unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_nopointer_arg@
--}
-foreign import ccall safe "hs_bindgen_de9f1109e03648e4" apply1_nopointer_arg :: FunPtr Int2int ->
-                                                                                CInt -> IO CInt
-{-| A function returning a pointer to a function like apply1_nopointer().
-
-__C declaration:__ @apply1_nopointer_res@
-
-__defined at:__ @manual\/function_pointers.h:31:21@
-
-__exported by:__ @manual\/function_pointers.h@
-
-__unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_nopointer_res@
--}
-foreign import ccall safe "hs_bindgen_8bea6b2106c55d5b" apply1_nopointer_res :: IO (FunPtr (FunPtr Int2int ->
-                                                                                            CInt ->
-                                                                                            IO CInt))
-{-| __C declaration:__ @square@
-
-    __defined at:__ @manual\/function_pointers.h:5:12@
-
-    __exported by:__ @manual\/function_pointers.h@
-
-    __unique:__ @test_manualfunction_pointers_Example_Unsafe_square@
--}
-foreign import ccall safe "hs_bindgen_db669c022bc12e81" square :: CInt ->
-                                                                  IO CInt
-{-| __C declaration:__ @plus@
-
-    __defined at:__ @manual\/function_pointers.h:7:12@
-
-    __exported by:__ @manual\/function_pointers.h@
-
-    __unique:__ @test_manualfunction_pointers_Example_Unsafe_plus@
--}
-foreign import ccall safe "hs_bindgen_0bb46b9dde136391" plus :: CInt ->
-                                                                CInt -> IO CInt
-{-| __C declaration:__ @apply1@
-
-    __defined at:__ @manual\/function_pointers.h:9:12@
-
-    __exported by:__ @manual\/function_pointers.h@
-
-    __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1@
--}
-foreign import ccall safe "hs_bindgen_3ff551d60859d359" apply1 :: FunPtr (CInt ->
-                                                                          IO CInt) ->
-                                                                  CInt -> IO CInt
-{-| __C declaration:__ @apply2@
-
-    __defined at:__ @manual\/function_pointers.h:11:12@
-
-    __exported by:__ @manual\/function_pointers.h@
-
-    __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply2@
--}
-foreign import ccall safe "hs_bindgen_4c92d113161d27cf" apply2 :: FunPtr (CInt ->
-                                                                          CInt -> IO CInt) ->
-                                                                  CInt -> CInt -> IO CInt
+apply1_pointer_arg :: FunPtr Int2int -> CInt -> IO CInt
 {-| Basically the same as apply1(), but here for illustratory purposes.
 
 __C declaration:__ @apply1_pointer_arg@
@@ -484,8 +493,11 @@ __exported by:__ @manual\/function_pointers.h@
 
 __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_pointer_arg@
 -}
-foreign import ccall safe "hs_bindgen_2f904bf3ce7a5f06" apply1_pointer_arg :: FunPtr Int2int ->
-                                                                              CInt -> IO CInt
+apply1_pointer_arg = fromBaseForeignType apply1_pointer_arg_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_de9f1109e03648e4" apply1_nopointer_arg_base :: FunPtr Void ->
+                                                                                     CInt -> IO CInt
 {-| A version of apply1_pointer_arg() that declares to take a argument of function type, rather than a pointer-to-function type.
 
 __C declaration:__ @apply1_nopointer_arg@
@@ -496,8 +508,21 @@ __exported by:__ @manual\/function_pointers.h@
 
 __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_nopointer_arg@
 -}
-foreign import ccall safe "hs_bindgen_966092b638965558" apply1_nopointer_arg :: FunPtr Int2int ->
-                                                                                CInt -> IO CInt
+apply1_nopointer_arg :: FunPtr Int2int -> CInt -> IO CInt
+{-| A version of apply1_pointer_arg() that declares to take a argument of function type, rather than a pointer-to-function type.
+
+__C declaration:__ @apply1_nopointer_arg@
+
+__defined at:__ @manual\/function_pointers.h:26:12@
+
+__exported by:__ @manual\/function_pointers.h@
+
+__unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_nopointer_arg@
+-}
+apply1_nopointer_arg = fromBaseForeignType apply1_nopointer_arg_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_8bea6b2106c55d5b" apply1_nopointer_res_base :: IO (FunPtr Void)
 {-| A function returning a pointer to a function like apply1_nopointer().
 
 __C declaration:__ @apply1_nopointer_res@
@@ -508,12 +533,193 @@ __exported by:__ @manual\/function_pointers.h@
 
 __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_nopointer_res@
 -}
-foreign import ccall safe "hs_bindgen_99a8340e6e6029c5" apply1_nopointer_res :: IO (FunPtr (FunPtr Int2int ->
-                                                                                            CInt ->
-                                                                                            IO CInt))
+apply1_nopointer_res :: IO (FunPtr (FunPtr Int2int ->
+                                    CInt -> IO CInt))
+{-| A function returning a pointer to a function like apply1_nopointer().
+
+__C declaration:__ @apply1_nopointer_res@
+
+__defined at:__ @manual\/function_pointers.h:31:21@
+
+__exported by:__ @manual\/function_pointers.h@
+
+__unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_nopointer_res@
+-}
+apply1_nopointer_res = fromBaseForeignType apply1_nopointer_res_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_db669c022bc12e81" square_base :: CInt ->
+                                                                       IO CInt
+{-| __C declaration:__ @square@
+
+    __defined at:__ @manual\/function_pointers.h:5:12@
+
+    __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_Unsafe_square@
+-}
+square :: CInt -> IO CInt
+{-| __C declaration:__ @square@
+
+    __defined at:__ @manual\/function_pointers.h:5:12@
+
+    __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_Unsafe_square@
+-}
+square = fromBaseForeignType square_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_0bb46b9dde136391" plus_base :: CInt ->
+                                                                     CInt -> IO CInt
+{-| __C declaration:__ @plus@
+
+    __defined at:__ @manual\/function_pointers.h:7:12@
+
+    __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_Unsafe_plus@
+-}
+plus :: CInt -> CInt -> IO CInt
+{-| __C declaration:__ @plus@
+
+    __defined at:__ @manual\/function_pointers.h:7:12@
+
+    __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_Unsafe_plus@
+-}
+plus = fromBaseForeignType plus_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_3ff551d60859d359" apply1_base :: FunPtr Void ->
+                                                                       CInt -> IO CInt
+{-| __C declaration:__ @apply1@
+
+    __defined at:__ @manual\/function_pointers.h:9:12@
+
+    __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1@
+-}
+apply1 :: FunPtr (CInt -> IO CInt) -> CInt -> IO CInt
+{-| __C declaration:__ @apply1@
+
+    __defined at:__ @manual\/function_pointers.h:9:12@
+
+    __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1@
+-}
+apply1 = fromBaseForeignType apply1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_4c92d113161d27cf" apply2_base :: FunPtr Void ->
+                                                                       CInt -> CInt -> IO CInt
+{-| __C declaration:__ @apply2@
+
+    __defined at:__ @manual\/function_pointers.h:11:12@
+
+    __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply2@
+-}
+apply2 :: FunPtr (CInt -> CInt -> IO CInt) ->
+          CInt -> CInt -> IO CInt
+{-| __C declaration:__ @apply2@
+
+    __defined at:__ @manual\/function_pointers.h:11:12@
+
+    __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_Unsafe_apply2@
+-}
+apply2 = fromBaseForeignType apply2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_2f904bf3ce7a5f06" apply1_pointer_arg_base :: FunPtr Void ->
+                                                                                   CInt -> IO CInt
+{-| Basically the same as apply1(), but here for illustratory purposes.
+
+__C declaration:__ @apply1_pointer_arg@
+
+__defined at:__ @manual\/function_pointers.h:22:12@
+
+__exported by:__ @manual\/function_pointers.h@
+
+__unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_pointer_arg@
+-}
+apply1_pointer_arg :: FunPtr Int2int -> CInt -> IO CInt
+{-| Basically the same as apply1(), but here for illustratory purposes.
+
+__C declaration:__ @apply1_pointer_arg@
+
+__defined at:__ @manual\/function_pointers.h:22:12@
+
+__exported by:__ @manual\/function_pointers.h@
+
+__unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_pointer_arg@
+-}
+apply1_pointer_arg = fromBaseForeignType apply1_pointer_arg_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_966092b638965558" apply1_nopointer_arg_base :: FunPtr Void ->
+                                                                                     CInt -> IO CInt
+{-| A version of apply1_pointer_arg() that declares to take a argument of function type, rather than a pointer-to-function type.
+
+__C declaration:__ @apply1_nopointer_arg@
+
+__defined at:__ @manual\/function_pointers.h:26:12@
+
+__exported by:__ @manual\/function_pointers.h@
+
+__unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_nopointer_arg@
+-}
+apply1_nopointer_arg :: FunPtr Int2int -> CInt -> IO CInt
+{-| A version of apply1_pointer_arg() that declares to take a argument of function type, rather than a pointer-to-function type.
+
+__C declaration:__ @apply1_nopointer_arg@
+
+__defined at:__ @manual\/function_pointers.h:26:12@
+
+__exported by:__ @manual\/function_pointers.h@
+
+__unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_nopointer_arg@
+-}
+apply1_nopointer_arg = fromBaseForeignType apply1_nopointer_arg_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_99a8340e6e6029c5" apply1_nopointer_res_base :: IO (FunPtr Void)
+{-| A function returning a pointer to a function like apply1_nopointer().
+
+__C declaration:__ @apply1_nopointer_res@
+
+__defined at:__ @manual\/function_pointers.h:31:21@
+
+__exported by:__ @manual\/function_pointers.h@
+
+__unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_nopointer_res@
+-}
+apply1_nopointer_res :: IO (FunPtr (FunPtr Int2int ->
+                                    CInt -> IO CInt))
+{-| A function returning a pointer to a function like apply1_nopointer().
+
+__C declaration:__ @apply1_nopointer_res@
+
+__defined at:__ @manual\/function_pointers.h:31:21@
+
+__exported by:__ @manual\/function_pointers.h@
+
+__unique:__ @test_manualfunction_pointers_Example_Unsafe_apply1_nopointer_res@
+-}
+apply1_nopointer_res = fromBaseForeignType apply1_nopointer_res_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_1820f088ae031e75" hs_bindgen_1820f088ae031e75_base :: IO (FunPtr Void)
 -- | __unique:__ @test_manualfunction_pointers_Example_get_square_ptr@
-foreign import ccall safe "hs_bindgen_1820f088ae031e75" hs_bindgen_1820f088ae031e75 :: IO (FunPtr (CInt ->
-                                                                                                   IO CInt))
+hs_bindgen_1820f088ae031e75 :: IO (FunPtr (CInt -> IO CInt))
+-- | __unique:__ @test_manualfunction_pointers_Example_get_square_ptr@
+hs_bindgen_1820f088ae031e75 = fromBaseForeignType hs_bindgen_1820f088ae031e75_base
 {-# NOINLINE square_ptr #-}
 {-| __C declaration:__ @square@
 
@@ -529,10 +735,14 @@ square_ptr :: FunPtr (CInt -> IO CInt)
     __exported by:__ @manual\/function_pointers.h@
 -}
 square_ptr = unsafePerformIO hs_bindgen_1820f088ae031e75
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_bbf0ff803f52cc45" hs_bindgen_bbf0ff803f52cc45_base :: IO (FunPtr Void)
 -- | __unique:__ @test_manualfunction_pointers_Example_get_plus_ptr@
-foreign import ccall safe "hs_bindgen_bbf0ff803f52cc45" hs_bindgen_bbf0ff803f52cc45 :: IO (FunPtr (CInt ->
-                                                                                                   CInt ->
-                                                                                                   IO CInt))
+hs_bindgen_bbf0ff803f52cc45 :: IO (FunPtr (CInt ->
+                                           CInt -> IO CInt))
+-- | __unique:__ @test_manualfunction_pointers_Example_get_plus_ptr@
+hs_bindgen_bbf0ff803f52cc45 = fromBaseForeignType hs_bindgen_bbf0ff803f52cc45_base
 {-# NOINLINE plus_ptr #-}
 {-| __C declaration:__ @plus@
 
@@ -548,11 +758,15 @@ plus_ptr :: FunPtr (CInt -> CInt -> IO CInt)
     __exported by:__ @manual\/function_pointers.h@
 -}
 plus_ptr = unsafePerformIO hs_bindgen_bbf0ff803f52cc45
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_9515a684c6197849" hs_bindgen_9515a684c6197849_base :: IO (FunPtr Void)
 -- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_ptr@
-foreign import ccall safe "hs_bindgen_9515a684c6197849" hs_bindgen_9515a684c6197849 :: IO (FunPtr (FunPtr (CInt ->
-                                                                                                           IO CInt) ->
-                                                                                                   CInt ->
-                                                                                                   IO CInt))
+hs_bindgen_9515a684c6197849 :: IO (FunPtr (FunPtr (CInt ->
+                                                   IO CInt) ->
+                                           CInt -> IO CInt))
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_ptr@
+hs_bindgen_9515a684c6197849 = fromBaseForeignType hs_bindgen_9515a684c6197849_base
 {-# NOINLINE apply1_ptr #-}
 {-| __C declaration:__ @apply1@
 
@@ -568,13 +782,15 @@ apply1_ptr :: FunPtr (FunPtr (CInt -> IO CInt) -> CInt -> IO CInt)
     __exported by:__ @manual\/function_pointers.h@
 -}
 apply1_ptr = unsafePerformIO hs_bindgen_9515a684c6197849
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_1bf5d46d7038cf34" hs_bindgen_1bf5d46d7038cf34_base :: IO (FunPtr Void)
 -- | __unique:__ @test_manualfunction_pointers_Example_get_apply2_ptr@
-foreign import ccall safe "hs_bindgen_1bf5d46d7038cf34" hs_bindgen_1bf5d46d7038cf34 :: IO (FunPtr (FunPtr (CInt ->
-                                                                                                           CInt ->
-                                                                                                           IO CInt) ->
-                                                                                                   CInt ->
-                                                                                                   CInt ->
-                                                                                                   IO CInt))
+hs_bindgen_1bf5d46d7038cf34 :: IO (FunPtr (FunPtr (CInt ->
+                                                   CInt -> IO CInt) ->
+                                           CInt -> CInt -> IO CInt))
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply2_ptr@
+hs_bindgen_1bf5d46d7038cf34 = fromBaseForeignType hs_bindgen_1bf5d46d7038cf34_base
 {-# NOINLINE apply2_ptr #-}
 {-| __C declaration:__ @apply2@
 
@@ -591,10 +807,14 @@ apply2_ptr :: FunPtr (FunPtr (CInt -> CInt -> IO CInt) ->
     __exported by:__ @manual\/function_pointers.h@
 -}
 apply2_ptr = unsafePerformIO hs_bindgen_1bf5d46d7038cf34
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_95e560983f86bd1d" hs_bindgen_95e560983f86bd1d_base :: IO (FunPtr Void)
 -- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_pointer_arg_ptr@
-foreign import ccall safe "hs_bindgen_95e560983f86bd1d" hs_bindgen_95e560983f86bd1d :: IO (FunPtr (FunPtr Int2int ->
-                                                                                                   CInt ->
-                                                                                                   IO CInt))
+hs_bindgen_95e560983f86bd1d :: IO (FunPtr (FunPtr Int2int ->
+                                           CInt -> IO CInt))
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_pointer_arg_ptr@
+hs_bindgen_95e560983f86bd1d = fromBaseForeignType hs_bindgen_95e560983f86bd1d_base
 {-# NOINLINE apply1_pointer_arg_ptr #-}
 {-| Basically the same as apply1(), but here for illustratory purposes.
 
@@ -615,10 +835,14 @@ __defined at:__ @manual\/function_pointers.h:22:12@
 __exported by:__ @manual\/function_pointers.h@
 -}
 apply1_pointer_arg_ptr = unsafePerformIO hs_bindgen_95e560983f86bd1d
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_9738799dd67af2e9" hs_bindgen_9738799dd67af2e9_base :: IO (FunPtr Void)
 -- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_arg_ptr@
-foreign import ccall safe "hs_bindgen_9738799dd67af2e9" hs_bindgen_9738799dd67af2e9 :: IO (FunPtr (FunPtr Int2int ->
-                                                                                                   CInt ->
-                                                                                                   IO CInt))
+hs_bindgen_9738799dd67af2e9 :: IO (FunPtr (FunPtr Int2int ->
+                                           CInt -> IO CInt))
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_arg_ptr@
+hs_bindgen_9738799dd67af2e9 = fromBaseForeignType hs_bindgen_9738799dd67af2e9_base
 {-# NOINLINE apply1_nopointer_arg_ptr #-}
 {-| A version of apply1_pointer_arg() that declares to take a argument of function type, rather than a pointer-to-function type.
 
@@ -639,10 +863,14 @@ __defined at:__ @manual\/function_pointers.h:26:12@
 __exported by:__ @manual\/function_pointers.h@
 -}
 apply1_nopointer_arg_ptr = unsafePerformIO hs_bindgen_9738799dd67af2e9
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_c9d47a6b0f980aa5" hs_bindgen_c9d47a6b0f980aa5_base :: IO (FunPtr Void)
 -- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_res_ptr@
-foreign import ccall safe "hs_bindgen_c9d47a6b0f980aa5" hs_bindgen_c9d47a6b0f980aa5 :: IO (FunPtr (IO (FunPtr (FunPtr Int2int ->
-                                                                                                               CInt ->
-                                                                                                               IO CInt))))
+hs_bindgen_c9d47a6b0f980aa5 :: IO (FunPtr (IO (FunPtr (FunPtr Int2int ->
+                                                       CInt -> IO CInt))))
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_res_ptr@
+hs_bindgen_c9d47a6b0f980aa5 = fromBaseForeignType hs_bindgen_c9d47a6b0f980aa5_base
 {-# NOINLINE apply1_nopointer_res_ptr #-}
 {-| A function returning a pointer to a function like apply1_nopointer().
 
@@ -663,10 +891,14 @@ __defined at:__ @manual\/function_pointers.h:31:21@
 __exported by:__ @manual\/function_pointers.h@
 -}
 apply1_nopointer_res_ptr = unsafePerformIO hs_bindgen_c9d47a6b0f980aa5
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_ab897ed3a6702a69" hs_bindgen_ab897ed3a6702a69_base :: IO (ConstPtr Void)
 -- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_var_ptr@
-foreign import ccall safe "hs_bindgen_ab897ed3a6702a69" hs_bindgen_ab897ed3a6702a69 :: IO (ConstPtr (FunPtr (FunPtr Int2int ->
-                                                                                                             CInt ->
-                                                                                                             IO CInt)))
+hs_bindgen_ab897ed3a6702a69 :: IO (ConstPtr (FunPtr (FunPtr Int2int ->
+                                                     CInt -> IO CInt)))
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_var_ptr@
+hs_bindgen_ab897ed3a6702a69 = fromBaseForeignType hs_bindgen_ab897ed3a6702a69_base
 {-# NOINLINE apply1_nopointer_var_ptr #-}
 {-| A global variable pointing to a function like apply1_nopointer().
 
@@ -690,8 +922,13 @@ apply1_nopointer_var_ptr = unsafePerformIO hs_bindgen_ab897ed3a6702a69
 {-# NOINLINE apply1_nopointer_var #-}
 apply1_nopointer_var :: FunPtr (FunPtr Int2int -> CInt -> IO CInt)
 apply1_nopointer_var = unsafePerformIO (peek (unConstPtr apply1_nopointer_var_ptr))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_448bdc6115d5924e" hs_bindgen_448bdc6115d5924e_base :: IO (ConstPtr Void)
 -- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_struct_ptr@
-foreign import ccall safe "hs_bindgen_448bdc6115d5924e" hs_bindgen_448bdc6115d5924e :: IO (ConstPtr Apply1Struct)
+hs_bindgen_448bdc6115d5924e :: IO (ConstPtr Apply1Struct)
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_struct_ptr@
+hs_bindgen_448bdc6115d5924e = fromBaseForeignType hs_bindgen_448bdc6115d5924e_base
 {-# NOINLINE apply1_struct_ptr #-}
 {-| __C declaration:__ @apply1_struct@
 
@@ -710,8 +947,13 @@ apply1_struct_ptr = unsafePerformIO hs_bindgen_448bdc6115d5924e
 {-# NOINLINE apply1_struct #-}
 apply1_struct :: Apply1Struct
 apply1_struct = unsafePerformIO (peek (unConstPtr apply1_struct_ptr))
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_3f47656e6bb54e94" hs_bindgen_3f47656e6bb54e94_base :: IO (ConstPtr Void)
 -- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_union_ptr@
-foreign import ccall safe "hs_bindgen_3f47656e6bb54e94" hs_bindgen_3f47656e6bb54e94 :: IO (ConstPtr Apply1Union)
+hs_bindgen_3f47656e6bb54e94 :: IO (ConstPtr Apply1Union)
+-- | __unique:__ @test_manualfunction_pointers_Example_get_apply1_union_ptr@
+hs_bindgen_3f47656e6bb54e94 = fromBaseForeignType hs_bindgen_3f47656e6bb54e94_base
 {-# NOINLINE apply1_union_ptr #-}
 {-| __C declaration:__ @apply1_union@
 

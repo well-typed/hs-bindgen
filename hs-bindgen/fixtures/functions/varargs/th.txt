@@ -16,6 +16,9 @@
 -- {
 --   return &h;
 -- }
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_77a4bac5bbe80f62" h_base :: IO Unit
 {-| __C declaration:__ @h@
 
     __defined at:__ @functions\/varargs.h:8:6@
@@ -24,7 +27,7 @@
 
     __unique:__ @test_functionsvarargs_Example_Unsafe_h@
 -}
-foreign import ccall safe "hs_bindgen_77a4bac5bbe80f62" h :: IO Unit
+h :: IO Unit
 {-| __C declaration:__ @h@
 
     __defined at:__ @functions\/varargs.h:8:6@
@@ -33,9 +36,35 @@ foreign import ccall safe "hs_bindgen_77a4bac5bbe80f62" h :: IO Unit
 
     __unique:__ @test_functionsvarargs_Example_Unsafe_h@
 -}
-foreign import ccall safe "hs_bindgen_32ebae80cc3543e1" h :: IO Unit
+h = fromBaseForeignType h_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_32ebae80cc3543e1" h_base :: IO Unit
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/varargs.h:8:6@
+
+    __exported by:__ @functions\/varargs.h@
+
+    __unique:__ @test_functionsvarargs_Example_Unsafe_h@
+-}
+h :: IO Unit
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/varargs.h:8:6@
+
+    __exported by:__ @functions\/varargs.h@
+
+    __unique:__ @test_functionsvarargs_Example_Unsafe_h@
+-}
+h = fromBaseForeignType h_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_1ee4c98815eaff8a" hs_bindgen_1ee4c98815eaff8a_base :: IO (FunPtr Void)
 -- | __unique:__ @test_functionsvarargs_Example_get_h_ptr@
-foreign import ccall safe "hs_bindgen_1ee4c98815eaff8a" hs_bindgen_1ee4c98815eaff8a :: IO (FunPtr (IO Unit))
+hs_bindgen_1ee4c98815eaff8a :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_functionsvarargs_Example_get_h_ptr@
+hs_bindgen_1ee4c98815eaff8a = fromBaseForeignType hs_bindgen_1ee4c98815eaff8a_base
 {-# NOINLINE h_ptr #-}
 {-| __C declaration:__ @h@
 

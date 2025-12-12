@@ -48,6 +48,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: My_packed_struct
   instances:
   - Eq
@@ -84,6 +85,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CShort
 - hsname: T1
   instances:
   - Bits
@@ -100,6 +102,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: Wait
   representation: opaque
 - hsname: Wait_status_ptr_t

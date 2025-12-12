@@ -26,6 +26,8 @@ import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.SizedByteArray
+import qualified Prelude as P
+import Data.Void (Void)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
@@ -40,13 +42,31 @@ newtype Int2int = Int2int
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toInt2int ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toInt2int_base ::
+     (FC.CInt -> IO FC.CInt)
+  -> IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+
+toInt2int ::
      Int2int
   -> IO (Ptr.FunPtr Int2int)
+toInt2int =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toInt2int_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromInt2int ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromInt2int_base ::
+     Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+  -> FC.CInt -> IO FC.CInt
+
+fromInt2int ::
      Ptr.FunPtr Int2int
   -> Int2int
+fromInt2int =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromInt2int_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Int2int where
 
@@ -173,15 +193,33 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Apply1Union) "apply1
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"apply1Union_apply1_nopointer_union_field")
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" hs_bindgen_fe02c1e534fc52ea_base ::
+     ((Ptr.FunPtr Void) -> FC.CInt -> IO FC.CInt)
+  -> IO (Ptr.FunPtr ((Ptr.FunPtr Void) -> FC.CInt -> IO FC.CInt))
+
 -- | __unique:__ @instance ToFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
-foreign import ccall safe "wrapper" hs_bindgen_fe02c1e534fc52ea ::
+hs_bindgen_fe02c1e534fc52ea ::
      ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
   -> IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+hs_bindgen_fe02c1e534fc52ea =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_fe02c1e534fc52ea_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" hs_bindgen_fc27363846cb6139_base ::
+     Ptr.FunPtr ((Ptr.FunPtr Void) -> FC.CInt -> IO FC.CInt)
+  -> (Ptr.FunPtr Void) -> FC.CInt -> IO FC.CInt
 
 -- | __unique:__ @instance FromFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
-foreign import ccall safe "dynamic" hs_bindgen_fc27363846cb6139 ::
+hs_bindgen_fc27363846cb6139 ::
      Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
   -> (Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt
+hs_bindgen_fc27363846cb6139 =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_fc27363846cb6139_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt) where
 

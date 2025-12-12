@@ -72,6 +72,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: Ptr
 - hsname: S7a_Deref
   instances:
   - Eq
@@ -84,6 +85,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: Ptr
 - hsname: S7b_Deref
   instances:
   - Eq

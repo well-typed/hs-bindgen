@@ -10,15 +10,18 @@ import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
+import Text.Printf (printf)
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type
+import HsBindgen.Backend.Hs.AST.Type qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
+import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Macro
 import HsBindgen.Errors
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 
@@ -48,19 +51,21 @@ getUserlandCapiWrappers decls = mapMaybe getUserlandCapiWrapper decls
       _otherDecl -> Nothing
 
 translateDecl :: Hs.Decl -> [SDecl]
-translateDecl (Hs.DeclData d)           = singleton $ translateDeclData d
-translateDecl (Hs.DeclEmpty d)          = singleton $ translateDeclEmpty d
-translateDecl (Hs.DeclNewtype n)        = singleton $ translateNewtype n
-translateDecl (Hs.DeclDefineInstance i) = singleton $ translateDefineInstanceDecl i
-translateDecl (Hs.DeclDeriveInstance i) = singleton $ translateDeriveInstance i
-translateDecl (Hs.DeclMacroExpr e)      = singleton $ translateMacroExpr e
-translateDecl (Hs.DeclForeignImport i)  = translateForeignImportDecl i
-translateDecl (Hs.DeclFunction f)       = singleton $ translateFunctionDecl f
-translateDecl (Hs.DeclPatSyn ps)        = singleton $ translatePatSyn ps
-translateDecl (Hs.DeclUnionGetter u)    = singleton $ translateUnionGetter u
-translateDecl (Hs.DeclUnionSetter u)    = singleton $ translateUnionSetter u
-translateDecl (Hs.DeclVar d)            = [DVar d]
-translateDecl (Hs.DeclPragma d)         = [DPragma d]
+translateDecl (Hs.DeclData d)                 = singleton $ translateDeclData d
+translateDecl (Hs.DeclEmpty d)                = singleton $ translateDeclEmpty d
+translateDecl (Hs.DeclNewtype n)              = singleton $ translateNewtype n
+translateDecl (Hs.DeclDefineInstance i)       = singleton $ translateDefineInstanceDecl i
+translateDecl (Hs.DeclDeriveInstance i)       = singleton $ translateDeriveInstance i
+translateDecl (Hs.DeclMacroExpr e)            = singleton $ translateMacroExpr e
+translateDecl (Hs.DeclForeignImport i)        = translateForeignImportDecl i
+translateDecl (Hs.DeclForeignImportWrapper i) = singleton $ translateForeignImportWrapperDecl i
+translateDecl (Hs.DeclForeignImportDynamic i) = singleton $ translateForeignImportDynamicDecl i
+translateDecl (Hs.DeclFunction f)             = singleton $ translateFunctionDecl f
+translateDecl (Hs.DeclPatSyn ps)              = singleton $ translatePatSyn ps
+translateDecl (Hs.DeclUnionGetter u)          = singleton $ translateUnionGetter u
+translateDecl (Hs.DeclUnionSetter u)          = singleton $ translateUnionSetter u
+translateDecl (Hs.DeclVar d)                  = [DVar d]
+translateDecl (Hs.DeclPragma d)               = [DPragma d]
 
 translateDefineInstanceDecl :: Hs.DefineInstance -> SDecl
 translateDefineInstanceDecl Hs.DefineInstance {..} =
@@ -194,14 +199,70 @@ translateForeignImportDecl Hs.ForeignImportDecl { foreignImportParameters = args
                                      , ..
                                      } ->
                     FunctionParameter
-                      { functionParameterType = translateType argType
+                      { functionParameterType = translateBaseForeignType argType
                       , ..
                       }
                 ) args
-        , foreignImportResultType = translateType resType
+        , foreignImportResultType = translateBaseForeignType resType
         , ..
         }
     ]
+
+translateForeignImportWrapperDecl :: Hs.ForeignImportWrapperDecl -> SDecl
+translateForeignImportWrapperDecl
+  Hs.ForeignImportWrapperDecl {
+      foreignImportWrapperName = name
+    , foreignImportWrapperForeignType = foreignType
+    , foreignImportWrapperOrigin = orig
+    , foreignImportWrapperComment = comment
+    }
+  = DForeignImport ForeignImport {
+        foreignImportName = name
+      , foreignImportParameters = [
+            FunctionParameter {
+                functionParameterName = Nothing
+              , functionParameterType = translateBaseForeignType foreignType
+              , functionParameterComment = Nothing
+              }
+          ]
+      , foreignImportResultType =
+          TGlobal IO_type `TApp`
+          (TGlobal Foreign_FunPtr `TApp`
+          translateBaseForeignType foreignType)
+      , foreignImportOrigName = C.DeclName "wrapper" C.NameKindOrdinary
+      , foreignImportCallConv = CallConvGhcCCall ImportAsValue
+      , foreignImportOrigin = Origin.ToFunPtr orig
+      , foreignImportComment = comment
+      , foreignImportSafety = Safe
+      }
+
+translateForeignImportDynamicDecl :: Hs.ForeignImportDynamicDecl -> SDecl
+translateForeignImportDynamicDecl
+  Hs.ForeignImportDynamicDecl {
+      foreignImportDynamicName = name
+    , foreignImportDynamicForeignType = foreignType
+    , foreignImportDynamicOrigin = orig
+    , foreignImportDynamicComment = comment
+    }
+  = DForeignImport ForeignImport {
+        foreignImportName = name
+      , foreignImportParameters = [
+            FunctionParameter {
+                functionParameterName = Nothing
+              , functionParameterType =
+                    TGlobal Foreign_FunPtr `TApp`
+                    translateBaseForeignType foreignType
+              , functionParameterComment = Nothing
+              }
+          ]
+      , foreignImportResultType =
+          translateBaseForeignType foreignType
+      , foreignImportOrigName = C.DeclName "dynamic" C.NameKindOrdinary
+      , foreignImportCallConv = CallConvGhcCCall ImportAsValue
+      , foreignImportOrigin = Origin.ToFunPtr orig
+      , foreignImportComment = comment
+      , foreignImportSafety = Safe
+      }
 
 translateFunctionDecl :: Hs.FunctionDecl -> SDecl
 translateFunctionDecl Hs.FunctionDecl {..} = DFunction
@@ -212,7 +273,7 @@ translateFunctionDecl Hs.FunctionDecl {..} = DFunction
            , functionComment    = functionDeclComment
            }
   where
-    translateFunctionParameter :: Hs.FunctionParameter -> FunctionParameter
+    translateFunctionParameter :: Hs.FunctionParameter Hs.HsType -> FunctionParameter
     translateFunctionParameter Hs.FunctionParameter{..} =
       FunctionParameter
         { functionParameterType = translateType functionParameterType
@@ -249,8 +310,71 @@ translateType = \case
     Hs.HsByteArray          -> TGlobal ByteArray_type
     Hs.HsSizedByteArray n m -> TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
     Hs.HsBlock t            -> TGlobal Block_type `TApp` translateType t
-    Hs.HsComplexType t      -> TApp (TGlobal ComplexType) (translateType (HsPrimType t))
+    Hs.HsComplexType t      -> TApp (TGlobal ComplexType) (translateType (Hs.HsPrimType t))
     Hs.HsStrLit s           -> TStrLit s
+
+translateBaseForeignType :: Hs.HsBaseForeignType -> ClosedType
+translateBaseForeignType = go . Hs.unHsBaseForeignType
+  where
+    prim = TGlobal . PrimType
+
+    go :: Hs.BaseForeignType -> ClosedType
+    go t = case t of
+        Hs.FunArrow s t' -> go s `TFun` go t'
+        Hs.Unit -> prim Hs.HsPrimUnit
+        Hs.IO t' -> TGlobal IO_type `TApp` go t'
+        Hs.Basic t' -> goBasic t'
+
+    goBasic t = case t of
+        Hs.Char -> panicNoTranslation
+        Hs.Int -> prim Hs.HsPrimInt
+        Hs.Double -> panicNoTranslation
+        Hs.Float -> panicNoTranslation
+        Hs.Bool -> panicNoTranslation
+        Hs.Int8 -> panicNoTranslation
+        Hs.Int16 -> panicNoTranslation
+        Hs.Int32 -> prim Hs.HsPrimInt32
+        Hs.Int64 -> panicNoTranslation
+        Hs.Word -> panicNoTranslation
+        Hs.Word8 -> panicNoTranslation
+        Hs.Word16 -> panicNoTranslation
+        Hs.Word32 -> prim Hs.HsPrimWord32
+        Hs.Word64 -> panicNoTranslation
+        Hs.Ptr -> TGlobal Foreign_Ptr `TApp` prim Hs.HsPrimVoid
+        Hs.FunPtr -> TGlobal Foreign_FunPtr `TApp` prim Hs.HsPrimVoid
+        Hs.IntPtr -> panicNoTranslation
+        Hs.WordPtr -> panicNoTranslation
+        Hs.StablePtr -> panicNoTranslation
+        Hs.ConstPtr -> TGlobal ConstPtr_type `TApp` prim Hs.HsPrimVoid
+        Hs.CChar -> prim Hs.HsPrimCChar
+        Hs.CSChar -> prim Hs.HsPrimCSChar
+        Hs.CUChar -> prim Hs.HsPrimCUChar
+        Hs.CShort -> prim Hs.HsPrimCShort
+        Hs.CUShort -> prim Hs.HsPrimCUShort
+        Hs.CInt -> prim Hs.HsPrimCInt
+        Hs.CUInt -> prim Hs.HsPrimCUInt
+        Hs.CLong -> prim Hs.HsPrimCLong
+        Hs.CULong -> prim Hs.HsPrimCULong
+        Hs.CPtrdiff -> prim Hs.HsPrimCPtrDiff
+        Hs.CSize -> prim Hs.HsPrimCSize
+        Hs.CWchar -> panicNoTranslation
+        Hs.CSigAtomic -> panicNoTranslation
+        Hs.CLLong -> prim Hs.HsPrimCLLong
+        Hs.CULLong -> prim Hs.HsPrimCULLong
+        Hs.CBool -> prim Hs.HsPrimCBool
+        Hs.CIntPtr -> panicNoTranslation
+        Hs.CUIntPtr -> panicNoTranslation
+        Hs.CIntMax -> panicNoTranslation
+        Hs.CUIntMax -> panicNoTranslation
+        Hs.CClock -> panicNoTranslation
+        Hs.CTime -> panicNoTranslation
+        Hs.CUSeconds -> panicNoTranslation
+        Hs.CSUSeconds -> panicNoTranslation
+        Hs.CFloat -> prim Hs.HsPrimCFloat
+        Hs.CDouble -> prim Hs.HsPrimCDouble
+      where
+        panicNoTranslation = panicPure $
+          printf "No translation for basic foreign type: %s" (show t)
 
 {-------------------------------------------------------------------------------
   'Storable'
@@ -311,7 +435,7 @@ translateHasCFieldInstance Hs.HasCFieldInstance{..} mbComment = do
       }
   where
     parentType = translateType hasCFieldInstanceParentType
-    fieldNameLitType = translateType $ HsStrLit $ T.unpack $ Hs.getName hasCFieldInstanceFieldName
+    fieldNameLitType = translateType $ Hs.HsStrLit $ T.unpack $ Hs.getName hasCFieldInstanceFieldName
     fieldType = translateType hasCFieldInstanceCFieldType
     o = fromIntegral hasCFieldInstanceFieldOffset
 
@@ -339,7 +463,7 @@ translateHasCBitfieldInstance Hs.HasCBitfieldInstance{..} mbComment = do
       }
   where
     parentType = translateType hasCBitfieldInstanceParentType
-    fieldNameLitType = translateType $ HsStrLit $ T.unpack $ Hs.getName hasCBitfieldInstanceFieldName
+    fieldNameLitType = translateType $ Hs.HsStrLit $ T.unpack $ Hs.getName hasCBitfieldInstanceFieldName
     fieldType = translateType hasCBitfieldInstanceCBitfieldType
     o = fromIntegral hasCBitfieldInstanceBitOffset
     w = fromIntegral hasCBitfieldInstanceBitWidth
@@ -382,7 +506,7 @@ translateHasFieldInstance Hs.HasFieldInstance{..} mbComment = do
 
     parentType = translateType hasFieldInstanceParentType
     parentPtr = TGlobal Foreign_Ptr `TApp` parentType
-    fieldNameLitType = translateType $ HsStrLit $ T.unpack $ Hs.getName hasFieldInstanceFieldName
+    fieldNameLitType = translateType $ Hs.HsStrLit $ T.unpack $ Hs.getName hasFieldInstanceFieldName
     -- TODO: this is not actually a free type variable. See issue #1287.
     tyTypeVar = TFree $ Hs.Name "ty"
 
@@ -438,7 +562,7 @@ translateUnionSetter Hs.UnionSetter{..} = DFunction
 
 translateCEnumInstance ::
      Hs.Struct (S Z)
-  -> HsType
+  -> Hs.HsType
   -> Map Integer (NonEmpty String)
   -> Bool
   -> Maybe HsDoc.Comment

@@ -111,6 +111,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: Ptr
 - hsname: Struct6
   instances:
   - Eq
@@ -118,6 +119,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: Ptr
 - hsname: Struct6_Deref
   instances:
   - Eq

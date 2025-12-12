@@ -5,6 +5,7 @@
 
 module Example.Unsafe where
 
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -112,6 +113,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_28b998af1f39a743" by'_base ::
+     IO ()
+
 {-| __C declaration:__ @by@
 
     __defined at:__ @edge-cases\/names.h:3:6@
@@ -120,7 +126,14 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_by@
 -}
-foreign import ccall unsafe "hs_bindgen_28b998af1f39a743" by' ::
+by' ::
+     IO ()
+by' =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType by'_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_5d7ea7c4d11a5fc8" forall'_base ::
      IO ()
 
 {-| __C declaration:__ @forall@
@@ -131,7 +144,14 @@ foreign import ccall unsafe "hs_bindgen_28b998af1f39a743" by' ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_forall@
 -}
-foreign import ccall unsafe "hs_bindgen_5d7ea7c4d11a5fc8" forall' ::
+forall' ::
+     IO ()
+forall' =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType forall'_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_2d65448c684c09d5" mdo'_base ::
      IO ()
 
 {-| __C declaration:__ @mdo@
@@ -142,7 +162,14 @@ foreign import ccall unsafe "hs_bindgen_5d7ea7c4d11a5fc8" forall' ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_mdo@
 -}
-foreign import ccall unsafe "hs_bindgen_2d65448c684c09d5" mdo' ::
+mdo' ::
+     IO ()
+mdo' =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType mdo'_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_13fe653d670d3712" pattern'_base ::
      IO ()
 
 {-| __C declaration:__ @pattern@
@@ -153,7 +180,14 @@ foreign import ccall unsafe "hs_bindgen_2d65448c684c09d5" mdo' ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_pattern@
 -}
-foreign import ccall unsafe "hs_bindgen_13fe653d670d3712" pattern' ::
+pattern' ::
+     IO ()
+pattern' =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType pattern'_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_e9cc2037d33041aa" proc'_base ::
      IO ()
 
 {-| __C declaration:__ @proc@
@@ -164,7 +198,14 @@ foreign import ccall unsafe "hs_bindgen_13fe653d670d3712" pattern' ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_proc@
 -}
-foreign import ccall unsafe "hs_bindgen_e9cc2037d33041aa" proc' ::
+proc' ::
+     IO ()
+proc' =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType proc'_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_4a1e741f9ef596ff" rec'_base ::
      IO ()
 
 {-| __C declaration:__ @rec@
@@ -175,7 +216,14 @@ foreign import ccall unsafe "hs_bindgen_e9cc2037d33041aa" proc' ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_rec@
 -}
-foreign import ccall unsafe "hs_bindgen_4a1e741f9ef596ff" rec' ::
+rec' ::
+     IO ()
+rec' =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType rec'_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_ef6f3f22c615db58" using'_base ::
      IO ()
 
 {-| __C declaration:__ @using@
@@ -186,7 +234,14 @@ foreign import ccall unsafe "hs_bindgen_4a1e741f9ef596ff" rec' ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_using@
 -}
-foreign import ccall unsafe "hs_bindgen_ef6f3f22c615db58" using' ::
+using' ::
+     IO ()
+using' =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType using'_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_3c7afeaaf3ff040b" anyclass_base ::
      IO ()
 
 {-| __C declaration:__ @anyclass@
@@ -197,7 +252,14 @@ foreign import ccall unsafe "hs_bindgen_ef6f3f22c615db58" using' ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_anyclass@
 -}
-foreign import ccall unsafe "hs_bindgen_3c7afeaaf3ff040b" anyclass ::
+anyclass ::
+     IO ()
+anyclass =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType anyclass_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_0518740d4c3caa1d" capi_base ::
      IO ()
 
 {-| __C declaration:__ @capi@
@@ -208,7 +270,14 @@ foreign import ccall unsafe "hs_bindgen_3c7afeaaf3ff040b" anyclass ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_capi@
 -}
-foreign import ccall unsafe "hs_bindgen_0518740d4c3caa1d" capi ::
+capi ::
+     IO ()
+capi =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType capi_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_61f14ad7bb2e3d54" cases_base ::
      IO ()
 
 {-| __C declaration:__ @cases@
@@ -219,7 +288,14 @@ foreign import ccall unsafe "hs_bindgen_0518740d4c3caa1d" capi ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_cases@
 -}
-foreign import ccall unsafe "hs_bindgen_61f14ad7bb2e3d54" cases ::
+cases ::
+     IO ()
+cases =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType cases_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_ace8c96ed6673c3b" ccall_base ::
      IO ()
 
 {-| __C declaration:__ @ccall@
@@ -230,7 +306,14 @@ foreign import ccall unsafe "hs_bindgen_61f14ad7bb2e3d54" cases ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_ccall@
 -}
-foreign import ccall unsafe "hs_bindgen_ace8c96ed6673c3b" ccall ::
+ccall ::
+     IO ()
+ccall =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType ccall_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_8865833b99552d03" dynamic_base ::
      IO ()
 
 {-| __C declaration:__ @dynamic@
@@ -241,7 +324,14 @@ foreign import ccall unsafe "hs_bindgen_ace8c96ed6673c3b" ccall ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_dynamic@
 -}
-foreign import ccall unsafe "hs_bindgen_8865833b99552d03" dynamic ::
+dynamic ::
+     IO ()
+dynamic =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType dynamic_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_15729ba251f5ec57" export_base ::
      IO ()
 
 {-| __C declaration:__ @export@
@@ -252,7 +342,14 @@ foreign import ccall unsafe "hs_bindgen_8865833b99552d03" dynamic ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_export@
 -}
-foreign import ccall unsafe "hs_bindgen_15729ba251f5ec57" export ::
+export ::
+     IO ()
+export =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType export_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_e6a4f7e833da2687" family_base ::
      IO ()
 
 {-| __C declaration:__ @family@
@@ -263,7 +360,14 @@ foreign import ccall unsafe "hs_bindgen_15729ba251f5ec57" export ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_family@
 -}
-foreign import ccall unsafe "hs_bindgen_e6a4f7e833da2687" family ::
+family ::
+     IO ()
+family =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType family_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_d4dd1bb5e95de858" group_base ::
      IO ()
 
 {-| __C declaration:__ @group@
@@ -274,7 +378,14 @@ foreign import ccall unsafe "hs_bindgen_e6a4f7e833da2687" family ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_group@
 -}
-foreign import ccall unsafe "hs_bindgen_d4dd1bb5e95de858" group ::
+group ::
+     IO ()
+group =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType group_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_516f1ad5aba6de29" interruptible_base ::
      IO ()
 
 {-| __C declaration:__ @interruptible@
@@ -285,7 +396,14 @@ foreign import ccall unsafe "hs_bindgen_d4dd1bb5e95de858" group ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_interruptible@
 -}
-foreign import ccall unsafe "hs_bindgen_516f1ad5aba6de29" interruptible ::
+interruptible ::
+     IO ()
+interruptible =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType interruptible_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_214230db174dc3e6" javascript_base ::
      IO ()
 
 {-| __C declaration:__ @javascript@
@@ -296,7 +414,14 @@ foreign import ccall unsafe "hs_bindgen_516f1ad5aba6de29" interruptible ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_javascript@
 -}
-foreign import ccall unsafe "hs_bindgen_214230db174dc3e6" javascript ::
+javascript ::
+     IO ()
+javascript =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType javascript_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_88f1f0cf9c0f080e" label_base ::
      IO ()
 
 {-| __C declaration:__ @label@
@@ -307,7 +432,14 @@ foreign import ccall unsafe "hs_bindgen_214230db174dc3e6" javascript ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_label@
 -}
-foreign import ccall unsafe "hs_bindgen_88f1f0cf9c0f080e" label ::
+label ::
+     IO ()
+label =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType label_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_93a4c73f587dcf3c" prim_base ::
      IO ()
 
 {-| __C declaration:__ @prim@
@@ -318,7 +450,14 @@ foreign import ccall unsafe "hs_bindgen_88f1f0cf9c0f080e" label ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_prim@
 -}
-foreign import ccall unsafe "hs_bindgen_93a4c73f587dcf3c" prim ::
+prim ::
+     IO ()
+prim =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType prim_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a267fe5585862ecc" role_base ::
      IO ()
 
 {-| __C declaration:__ @role@
@@ -329,7 +468,14 @@ foreign import ccall unsafe "hs_bindgen_93a4c73f587dcf3c" prim ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_role@
 -}
-foreign import ccall unsafe "hs_bindgen_a267fe5585862ecc" role ::
+role ::
+     IO ()
+role =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType role_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_ddac4cdf91c756a8" safe_base ::
      IO ()
 
 {-| __C declaration:__ @safe@
@@ -340,7 +486,14 @@ foreign import ccall unsafe "hs_bindgen_a267fe5585862ecc" role ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_safe@
 -}
-foreign import ccall unsafe "hs_bindgen_ddac4cdf91c756a8" safe ::
+safe ::
+     IO ()
+safe =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType safe_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_8dd57b02f322a7ae" stdcall_base ::
      IO ()
 
 {-| __C declaration:__ @stdcall@
@@ -351,7 +504,14 @@ foreign import ccall unsafe "hs_bindgen_ddac4cdf91c756a8" safe ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_stdcall@
 -}
-foreign import ccall unsafe "hs_bindgen_8dd57b02f322a7ae" stdcall ::
+stdcall ::
+     IO ()
+stdcall =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType stdcall_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_3b69e1860d72507c" stock_base ::
      IO ()
 
 {-| __C declaration:__ @stock@
@@ -362,7 +522,14 @@ foreign import ccall unsafe "hs_bindgen_8dd57b02f322a7ae" stdcall ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_stock@
 -}
-foreign import ccall unsafe "hs_bindgen_3b69e1860d72507c" stock ::
+stock ::
+     IO ()
+stock =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType stock_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_b9d80fa39d7ebb06" unsafe_base ::
      IO ()
 
 {-| __C declaration:__ @unsafe@
@@ -373,7 +540,14 @@ foreign import ccall unsafe "hs_bindgen_3b69e1860d72507c" stock ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_unsafe@
 -}
-foreign import ccall unsafe "hs_bindgen_b9d80fa39d7ebb06" unsafe ::
+unsafe ::
+     IO ()
+unsafe =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType unsafe_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_708f6397f5e5ac73" via_base ::
      IO ()
 
 {-| __C declaration:__ @via@
@@ -384,5 +558,7 @@ foreign import ccall unsafe "hs_bindgen_b9d80fa39d7ebb06" unsafe ::
 
     __unique:__ @test_edgecasesnames_Example_Unsafe_via@
 -}
-foreign import ccall unsafe "hs_bindgen_708f6397f5e5ac73" via ::
+via ::
      IO ()
+via =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType via_base

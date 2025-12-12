@@ -9,6 +9,7 @@ module HsBindgen.Backend.TH.Translation (
 import Control.Monad (liftM2)
 import Data.Bits qualified
 import Data.Complex qualified
+import Data.Int qualified
 import Data.Ix qualified
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
@@ -17,6 +18,7 @@ import Data.Primitive.Types qualified as Primitive
 import Data.Proxy qualified
 import Data.Text qualified as Text
 import Data.Void qualified
+import Data.Word qualified
 import Foreign qualified
 import Foreign.C.String qualified
 import Foreign.C.Types qualified
@@ -141,6 +143,10 @@ mkGlobal = \case
 
       -- HasBaseForeignType
       HasBaseForeignType_class -> ''HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType
+      HasBaseForeignType_toBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType
+      HasBaseForeignType_fromBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType
+      HasBaseForeignType_castFunPtrToBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType
+      HasBaseForeignType_castFunPtrFromBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType
 
       -- Unsafe
       IO_unsafePerformIO -> 'System.IO.Unsafe.unsafePerformIO
@@ -149,6 +155,10 @@ mkGlobal = \case
       ConstPtr_type        -> ''HsBindgen.Runtime.ConstPtr.ConstPtr
       ConstPtr_constructor -> 'HsBindgen.Runtime.ConstPtr.ConstPtr
       ConstPtr_unConstPtr  -> 'HsBindgen.Runtime.ConstPtr.unConstPtr
+
+      -- Functor
+      Functor_fmap -> 'fmap
+
 
       Bits_class        -> ''Data.Bits.Bits
       Bounded_class     -> ''Bounded
@@ -301,6 +311,8 @@ mkGlobalP HsPrimCPtrDiff   = ''Foreign.C.Types.CPtrdiff
 mkGlobalP HsPrimCSize      = ''Foreign.C.Types.CSize
 mkGlobalP HsPrimCStringLen = ''Foreign.C.String.CStringLen
 mkGlobalP HsPrimInt        = ''Int
+mkGlobalP HsPrimWord32     = ''Data.Word.Word32
+mkGlobalP HsPrimInt32      = ''Data.Int.Int32
 
 -- | Construct an 'TH.Exp' for a 'Global'
 mkGlobalExpr :: Quote q => Global -> q TH.Exp
@@ -374,6 +386,10 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
 
     -- HasBaseForeignType
     HasBaseForeignType_class -> panicPure "class in expression"
+    HasBaseForeignType_toBaseForeignType -> TH.varE name
+    HasBaseForeignType_fromBaseForeignType -> TH.varE name
+    HasBaseForeignType_castFunPtrToBaseForeignType -> TH.varE name
+    HasBaseForeignType_castFunPtrFromBaseForeignType -> TH.varE name
 
     -- Unsafe
     IO_unsafePerformIO -> TH.varE name
@@ -382,6 +398,9 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     ConstPtr_type        -> panicPure "type in expression"
     ConstPtr_constructor -> TH.conE name
     ConstPtr_unConstPtr  -> TH.varE name
+
+    -- Functor
+    Functor_fmap -> TH.varE name
 
     -- Other type classes
     Bits_class        -> panicPure "class in expression"

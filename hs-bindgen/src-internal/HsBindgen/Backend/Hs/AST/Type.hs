@@ -1,6 +1,8 @@
 module HsBindgen.Backend.Hs.AST.Type (
   HsPrimType (..),
   HsType (..),
+  HsBaseForeignType (..),
+  HsBasicForeignType (..),
 ) where
 
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -44,6 +46,9 @@ data HsPrimType
 
     | HsPrimInt
 
+    | HsPrimWord32
+    | HsPrimInt32
+
   -- Int8 Int16 Int32 Int64
   -- Word8 Word16 Word32 Word64
   deriving stock (Eq, Ord, Generic, Show)
@@ -66,3 +71,8 @@ data HsType =
   | HsStrLit String
   deriving stock (Generic, Show, Eq)
 
+newtype HsBaseForeignType = HsBaseForeignType { unHsBaseForeignType :: Hs.BaseForeignType }
+  deriving stock (Generic, Show, Eq)
+
+newtype HsBasicForeignType = HsBasicForeignType { unHsBasicForeignType :: Hs.BasicForeignType }
+  deriving stock (Generic, Show, Eq)

@@ -6,8 +6,13 @@
 -- {
 --   return &b;
 -- }
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_1e3421d11afdb5be" hs_bindgen_1e3421d11afdb5be_base :: IO (Ptr Void)
 -- | __unique:__ @test_typesprimitivesbool_c23_Example_get_b_ptr@
-foreign import ccall safe "hs_bindgen_1e3421d11afdb5be" hs_bindgen_1e3421d11afdb5be :: IO (Ptr CBool)
+hs_bindgen_1e3421d11afdb5be :: IO (Ptr CBool)
+-- | __unique:__ @test_typesprimitivesbool_c23_Example_get_b_ptr@
+hs_bindgen_1e3421d11afdb5be = fromBaseForeignType hs_bindgen_1e3421d11afdb5be_base
 {-# NOINLINE b_ptr #-}
 {-| __C declaration:__ @b@
 

@@ -15,7 +15,6 @@ common lang
   build-depends:
     , base                >=4.16 && <5
     , hs-bindgen-runtime
-    , primitive
 
   default-language: GHC2021
 

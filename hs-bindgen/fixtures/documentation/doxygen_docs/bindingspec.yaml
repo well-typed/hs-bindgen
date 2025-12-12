@@ -57,6 +57,7 @@ hstypes:
   - Read
   - Show
   - Storable
+  baseforeigntype: CUInt
 - hsname: Config_t
   instances:
   - Eq
@@ -77,6 +78,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Filename_t
   instances:
   - Eq
@@ -98,6 +100,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Size_type
   instances:
   - Bits
@@ -114,6 +117,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CSize
 - hsname: Status_code_t
   instances:
   - Eq
@@ -122,3 +126,4 @@ hstypes:
   - Read
   - Show
   - Storable
+  baseforeigntype: CInt

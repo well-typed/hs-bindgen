@@ -9,7 +9,9 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstPtr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -35,9 +37,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_d76d6b95b7803c78" hs_bindgen_d76d6b95b7803c78_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_manualzero_copy_Example_get_reverse_ptr@
-foreign import ccall unsafe "hs_bindgen_d76d6b95b7803c78" hs_bindgen_d76d6b95b7803c78 ::
+hs_bindgen_d76d6b95b7803c78 ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt))
+hs_bindgen_d76d6b95b7803c78 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d76d6b95b7803c78_base
 
 {-# NOINLINE reverse_ptr #-}
 
@@ -51,9 +60,16 @@ reverse_ptr :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr Vector) -> (Ptr.
 reverse_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d76d6b95b7803c78
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_f72c56033fb58d5e" hs_bindgen_f72c56033fb58d5e_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_manualzero_copy_Example_get_transpose_ptr@
-foreign import ccall unsafe "hs_bindgen_f72c56033fb58d5e" hs_bindgen_f72c56033fb58d5e ::
+hs_bindgen_f72c56033fb58d5e ::
      IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
+hs_bindgen_f72c56033fb58d5e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f72c56033fb58d5e_base
 
 {-# NOINLINE transpose_ptr #-}
 

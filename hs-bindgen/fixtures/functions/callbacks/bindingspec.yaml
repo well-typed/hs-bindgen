@@ -59,6 +59,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: FileOpenedNotification
   instances:
   - Eq
@@ -66,6 +67,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Foo
   instances:
   - Bits
@@ -82,6 +84,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: Foo2
   instances:
   - Bits
@@ -98,6 +101,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: Measurement
   instances:
   - Eq
@@ -115,6 +119,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: MeasurementReceived2
   instances:
   - Eq
@@ -122,6 +127,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Processor
   instances:
   - Storable
@@ -136,6 +142,7 @@ hstypes:
   - Read
   - Show
   - Storable
+  baseforeigntype: CUInt
 - hsname: ProgressUpdate
   instances:
   - Eq
@@ -143,6 +150,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: SampleBufferFull
   instances:
   - Eq
@@ -150,3 +158,4 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr

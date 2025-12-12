@@ -33,6 +33,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CBool
 - hsname: Bools1
   instances:
   - Eq

@@ -74,6 +74,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: Point
   instances:
   - Eq

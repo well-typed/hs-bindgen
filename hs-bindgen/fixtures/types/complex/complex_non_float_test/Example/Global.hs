@@ -9,7 +9,9 @@ import qualified Data.Complex
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -46,9 +48,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_f06a1feab15d0572" hs_bindgen_f06a1feab15d0572_base ::
+     IO (Ptr.Ptr Void)
+
 -- | __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_short_ptr@
-foreign import ccall unsafe "hs_bindgen_f06a1feab15d0572" hs_bindgen_f06a1feab15d0572 ::
+hs_bindgen_f06a1feab15d0572 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CUShort))
+hs_bindgen_f06a1feab15d0572 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f06a1feab15d0572_base
 
 {-# NOINLINE global_complex_unsigned_short_ptr #-}
 
@@ -62,9 +71,16 @@ global_complex_unsigned_short_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CUShort)
 global_complex_unsigned_short_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f06a1feab15d0572
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_96f1e350c6c42760" hs_bindgen_96f1e350c6c42760_base ::
+     IO (Ptr.Ptr Void)
+
 -- | __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_short_ptr@
-foreign import ccall unsafe "hs_bindgen_96f1e350c6c42760" hs_bindgen_96f1e350c6c42760 ::
+hs_bindgen_96f1e350c6c42760 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CShort))
+hs_bindgen_96f1e350c6c42760 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_96f1e350c6c42760_base
 
 {-# NOINLINE global_complex_short_ptr #-}
 
@@ -78,9 +94,16 @@ global_complex_short_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CShort)
 global_complex_short_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_96f1e350c6c42760
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_f11054676f537692" hs_bindgen_f11054676f537692_base ::
+     IO (Ptr.Ptr Void)
+
 -- | __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_int_ptr@
-foreign import ccall unsafe "hs_bindgen_f11054676f537692" hs_bindgen_f11054676f537692 ::
+hs_bindgen_f11054676f537692 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CUInt))
+hs_bindgen_f11054676f537692 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f11054676f537692_base
 
 {-# NOINLINE global_complex_unsigned_int_ptr #-}
 
@@ -94,9 +117,16 @@ global_complex_unsigned_int_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CUInt)
 global_complex_unsigned_int_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f11054676f537692
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_c5a5feb6d6df39b6" hs_bindgen_c5a5feb6d6df39b6_base ::
+     IO (Ptr.Ptr Void)
+
 -- | __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_int_ptr@
-foreign import ccall unsafe "hs_bindgen_c5a5feb6d6df39b6" hs_bindgen_c5a5feb6d6df39b6 ::
+hs_bindgen_c5a5feb6d6df39b6 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CInt))
+hs_bindgen_c5a5feb6d6df39b6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c5a5feb6d6df39b6_base
 
 {-# NOINLINE global_complex_int_ptr #-}
 
@@ -110,9 +140,16 @@ global_complex_int_ptr :: Ptr.Ptr (Data.Complex.Complex FC.CInt)
 global_complex_int_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c5a5feb6d6df39b6
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_4265dc893a126b40" hs_bindgen_4265dc893a126b40_base ::
+     IO (Ptr.Ptr Void)
+
 -- | __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_char_ptr@
-foreign import ccall unsafe "hs_bindgen_4265dc893a126b40" hs_bindgen_4265dc893a126b40 ::
+hs_bindgen_4265dc893a126b40 ::
      IO (Ptr.Ptr (Data.Complex.Complex FC.CChar))
+hs_bindgen_4265dc893a126b40 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_4265dc893a126b40_base
 
 {-# NOINLINE global_complex_char_ptr #-}
 

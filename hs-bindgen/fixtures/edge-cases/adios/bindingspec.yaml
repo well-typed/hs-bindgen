@@ -27,6 +27,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: C数字
   instances:
   - Bits
@@ -43,3 +44,4 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt

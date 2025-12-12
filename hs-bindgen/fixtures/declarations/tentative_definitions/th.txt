@@ -18,8 +18,13 @@
 -- {
 --   return &i3;
 -- }
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_a6c085c30d844c6a" hs_bindgen_a6c085c30d844c6a_base :: IO (Ptr Void)
 -- | __unique:__ @test_declarationstentative_definit_Example_get_i1_ptr@
-foreign import ccall safe "hs_bindgen_a6c085c30d844c6a" hs_bindgen_a6c085c30d844c6a :: IO (Ptr CInt)
+hs_bindgen_a6c085c30d844c6a :: IO (Ptr CInt)
+-- | __unique:__ @test_declarationstentative_definit_Example_get_i1_ptr@
+hs_bindgen_a6c085c30d844c6a = fromBaseForeignType hs_bindgen_a6c085c30d844c6a_base
 {-# NOINLINE i1_ptr #-}
 {-| __C declaration:__ @i1@
 
@@ -35,8 +40,13 @@ i1_ptr :: Ptr CInt
     __exported by:__ @declarations\/tentative_definitions.h@
 -}
 i1_ptr = unsafePerformIO hs_bindgen_a6c085c30d844c6a
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_f63a7b78dc0eb182" hs_bindgen_f63a7b78dc0eb182_base :: IO (Ptr Void)
 -- | __unique:__ @test_declarationstentative_definit_Example_get_i2_ptr@
-foreign import ccall safe "hs_bindgen_f63a7b78dc0eb182" hs_bindgen_f63a7b78dc0eb182 :: IO (Ptr CInt)
+hs_bindgen_f63a7b78dc0eb182 :: IO (Ptr CInt)
+-- | __unique:__ @test_declarationstentative_definit_Example_get_i2_ptr@
+hs_bindgen_f63a7b78dc0eb182 = fromBaseForeignType hs_bindgen_f63a7b78dc0eb182_base
 {-# NOINLINE i2_ptr #-}
 {-| __C declaration:__ @i2@
 
@@ -52,8 +62,13 @@ i2_ptr :: Ptr CInt
     __exported by:__ @declarations\/tentative_definitions.h@
 -}
 i2_ptr = unsafePerformIO hs_bindgen_f63a7b78dc0eb182
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_927fb780e7e73ba1" hs_bindgen_927fb780e7e73ba1_base :: IO (Ptr Void)
 -- | __unique:__ @test_declarationstentative_definit_Example_get_i3_ptr@
-foreign import ccall safe "hs_bindgen_927fb780e7e73ba1" hs_bindgen_927fb780e7e73ba1 :: IO (Ptr CInt)
+hs_bindgen_927fb780e7e73ba1 :: IO (Ptr CInt)
+-- | __unique:__ @test_declarationstentative_definit_Example_get_i3_ptr@
+hs_bindgen_927fb780e7e73ba1 = fromBaseForeignType hs_bindgen_927fb780e7e73ba1_base
 {-# NOINLINE i3_ptr #-}
 {-| __C declaration:__ @i3@
 
