@@ -10,7 +10,6 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST
-import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.Language.Haskell qualified as Hs
@@ -42,11 +41,10 @@ foreignImportDecs name resultType parameters origName callConv origin comment sa
         }
 
 hasBaseForeignTypeDecs ::
-     Set TypeClass
-  -> Hs.Newtype
+     Hs.Newtype
   -> [Hs.Decl]
-hasBaseForeignTypeDecs insts nt =
-     [mk | HasBaseForeignType `elem` insts]
+hasBaseForeignTypeDecs nt =
+     [mk | HasBaseForeignType `elem` nt.newtypeInstances]
   where
     mk :: Hs.Decl
     mk = Hs.DeclDeriveInstance

@@ -29,6 +29,7 @@ cabal run hs-bindgen-cli -- \
     preprocess \
     -I c/ \
     --create-output-dirs \
+    --overwrite-files \
     --unique-id com.hs-bindgen.manual.example \
     --hs-output-dir hs/manual/generated \
     --module Example \
@@ -38,6 +39,7 @@ cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
+    --overwrite-files \
     --unique-id com.hs-bindgen.manual.structs \
     --hs-output-dir hs/manual/generated \
     --module Structs \
@@ -47,6 +49,7 @@ cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
+    --overwrite-files \
     --unique-id com.hs-bindgen.manual.globals \
     --hs-output-dir hs/manual/generated \
     --module Globals \
@@ -56,6 +59,7 @@ cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
+    --overwrite-files \
     --unique-id com.hs-bindgen.manual.arrays \
     --hs-output-dir hs/manual/generated \
     --module Arrays \
@@ -65,6 +69,7 @@ cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
+    --overwrite-files \
     --unique-id com.hs-bindgen.manual.funptrs \
     --hs-output-dir hs/manual/generated \
     --module FunctionPointers \
@@ -74,6 +79,7 @@ cabal run hs-bindgen-cli -- \
     preprocess \
     -I c/ \
     --create-output-dirs \
+    --overwrite-files \
     --unique-id com.hs-bindgen.manual.complex \
     --hs-output-dir hs/manual/generated \
     --module Complex \
@@ -83,6 +89,7 @@ cabal run hs-bindgen-cli -- \
     preprocess \
     -I c/ \
     --create-output-dirs \
+    --overwrite-files \
     --unique-id com.hs-bindgen.manual.callbacks \
     --hs-output-dir hs/manual/generated \
     --module Callbacks \
@@ -92,6 +99,7 @@ cabal run hs-bindgen-cli -- \
     preprocess \
     -I c/ \
     --create-output-dirs \
+    --overwrite-files \
     --unique-id com.hs-bindgen.manual.zerocopy \
     --hs-output-dir hs/manual/generated \
     --module ZeroCopy \
@@ -107,6 +115,7 @@ cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
+    --overwrite-files \
     --unique-id com.hs-bindgen.manual.vector \
     --hs-output-dir hs/hs-vector/generated \
     --gen-binding-spec external/vector.yaml \
@@ -119,6 +128,7 @@ cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
+    --overwrite-files \
     --unique-id com.hs-bindgen.manual.vectorr \
     --hs-output-dir hs/hs-vector/generated \
     --external-binding-spec external/vector.yaml \
@@ -129,6 +139,7 @@ cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
+    --overwrite-files \
     --unique-id com.hs-bindgen.manual.vectorl \
     --hs-output-dir hs/hs-vector/generated \
     --external-binding-spec external/vector.yaml \
@@ -145,6 +156,7 @@ cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
+    --overwrite-files \
     --unique-id com.hs-bindgen.manual.game \
     --select-by-header-path 'game_internal\.h$' \
     --hs-output-dir hs/hs-game/generated \
@@ -157,6 +169,7 @@ cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
+    --overwrite-files \
     --unique-id com.hs-bindgen.manual.gamew \
     --hs-output-dir hs/hs-game/generated \
     --external-binding-spec external/game.yaml \
@@ -167,6 +180,7 @@ cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
     --create-output-dirs \
+    --overwrite-files \
     --unique-id com.hs-bindgen.manual.gamep \
     --hs-output-dir hs/hs-game/generated \
     --external-binding-spec external/game.yaml \
