@@ -161,14 +161,6 @@ annSortKey sourceMap C.Decl{declInfo = C.DeclInfo{declLoc}} =
   Debugging
 -------------------------------------------------------------------------------}
 
-dumpMermaid :: DeclIndex -> UseDeclGraph -> String
-dumpMermaid declIndex (Wrap graph) =
-    DynGraph.dumpMermaid
-      False
-      (const True)
-      (Just . show)
-      (\uid -> showDecl $ declIndex DeclIndex.! uid)
-      graph
-  where
-    showDecl :: C.Decl Parse -> String
-    showDecl C.Decl{declInfo = C.DeclInfo{declId}} = show declId
+dumpMermaid :: UseDeclGraph -> String
+dumpMermaid (Wrap graph) =
+    DynGraph.dumpMermaid False (const True) (Just . show) show graph

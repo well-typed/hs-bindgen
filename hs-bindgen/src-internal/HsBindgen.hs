@@ -129,9 +129,8 @@ writeIncludeGraph pol mPath = do
 -- | Write @use-decl@ graph to file.
 writeUseDeclGraph :: FileOverwritePolicy -> Maybe FilePath -> Artefact ()
 writeUseDeclGraph pol mPath = do
-    index <- DeclIndex
     useDeclGraph <- UseDeclGraph
-    let rendered = UseDeclGraph.dumpMermaid index useDeclGraph
+    let rendered = UseDeclGraph.dumpMermaid useDeclGraph
     case mPath of
       Nothing   -> Lift $ delay $ WriteToStdOut $ TextContent rendered
       Just path -> Lift $ write pol "use-decl graph" (UserSpecified path) rendered
