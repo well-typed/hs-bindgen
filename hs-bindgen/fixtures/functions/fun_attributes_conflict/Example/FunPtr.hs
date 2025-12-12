@@ -8,7 +8,9 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -47,9 +49,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_c7316eabb7ed43d1" hs_bindgen_c7316eabb7ed43d1_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cp_ptr@
-foreign import ccall unsafe "hs_bindgen_c7316eabb7ed43d1" hs_bindgen_c7316eabb7ed43d1 ::
+hs_bindgen_c7316eabb7ed43d1 ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+hs_bindgen_c7316eabb7ed43d1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c7316eabb7ed43d1_base
 
 {-# NOINLINE square_cp_ptr #-}
 
@@ -67,9 +76,16 @@ square_cp_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_cp_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c7316eabb7ed43d1
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_246016175c264c62" hs_bindgen_246016175c264c62_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pc_ptr@
-foreign import ccall unsafe "hs_bindgen_246016175c264c62" hs_bindgen_246016175c264c62 ::
+hs_bindgen_246016175c264c62 ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+hs_bindgen_246016175c264c62 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_246016175c264c62_base
 
 {-# NOINLINE square_pc_ptr #-}
 
@@ -83,9 +99,16 @@ square_pc_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_pc_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_246016175c264c62
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_927690360fc8e8ef" hs_bindgen_927690360fc8e8ef_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cc_ptr@
-foreign import ccall unsafe "hs_bindgen_927690360fc8e8ef" hs_bindgen_927690360fc8e8ef ::
+hs_bindgen_927690360fc8e8ef ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+hs_bindgen_927690360fc8e8ef =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_927690360fc8e8ef_base
 
 {-# NOINLINE square_cc_ptr #-}
 
@@ -99,9 +122,16 @@ square_cc_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_cc_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_927690360fc8e8ef
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a7faaa7acbf26148" hs_bindgen_a7faaa7acbf26148_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pp_ptr@
-foreign import ccall unsafe "hs_bindgen_a7faaa7acbf26148" hs_bindgen_a7faaa7acbf26148 ::
+hs_bindgen_a7faaa7acbf26148 ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+hs_bindgen_a7faaa7acbf26148 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a7faaa7acbf26148_base
 
 {-# NOINLINE square_pp_ptr #-}
 

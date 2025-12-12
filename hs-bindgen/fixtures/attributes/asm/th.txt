@@ -29,6 +29,10 @@
 -- {
 --   return &asm_labeled_variable;
 -- }
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_369133049bfc1e73" asm_labeled_function_base :: CInt ->
+                                                                                     CInt -> IO CInt
 {-| __C declaration:__ @asm_labeled_function@
 
     __defined at:__ @attributes\/asm.h:4:5@
@@ -37,8 +41,7 @@
 
     __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
 -}
-foreign import ccall safe "hs_bindgen_369133049bfc1e73" asm_labeled_function :: CInt ->
-                                                                                CInt -> IO CInt
+asm_labeled_function :: CInt -> CInt -> IO CInt
 {-| __C declaration:__ @asm_labeled_function@
 
     __defined at:__ @attributes\/asm.h:4:5@
@@ -47,12 +50,37 @@ foreign import ccall safe "hs_bindgen_369133049bfc1e73" asm_labeled_function :: 
 
     __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
 -}
-foreign import ccall safe "hs_bindgen_3ad6c287a2386382" asm_labeled_function :: CInt ->
-                                                                                CInt -> IO CInt
+asm_labeled_function = fromBaseForeignType asm_labeled_function_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_3ad6c287a2386382" asm_labeled_function_base :: CInt ->
+                                                                                     CInt -> IO CInt
+{-| __C declaration:__ @asm_labeled_function@
+
+    __defined at:__ @attributes\/asm.h:4:5@
+
+    __exported by:__ @attributes\/asm.h@
+
+    __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
+-}
+asm_labeled_function :: CInt -> CInt -> IO CInt
+{-| __C declaration:__ @asm_labeled_function@
+
+    __defined at:__ @attributes\/asm.h:4:5@
+
+    __exported by:__ @attributes\/asm.h@
+
+    __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
+-}
+asm_labeled_function = fromBaseForeignType asm_labeled_function_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_474c22f4687e6d7d" hs_bindgen_474c22f4687e6d7d_base :: IO (FunPtr Void)
 -- | __unique:__ @test_attributesasm_Example_get_asm_labeled_function_ptr@
-foreign import ccall safe "hs_bindgen_474c22f4687e6d7d" hs_bindgen_474c22f4687e6d7d :: IO (FunPtr (CInt ->
-                                                                                                   CInt ->
-                                                                                                   IO CInt))
+hs_bindgen_474c22f4687e6d7d :: IO (FunPtr (CInt ->
+                                           CInt -> IO CInt))
+-- | __unique:__ @test_attributesasm_Example_get_asm_labeled_function_ptr@
+hs_bindgen_474c22f4687e6d7d = fromBaseForeignType hs_bindgen_474c22f4687e6d7d_base
 {-# NOINLINE asm_labeled_function_ptr #-}
 {-| __C declaration:__ @asm_labeled_function@
 
@@ -68,8 +96,13 @@ asm_labeled_function_ptr :: FunPtr (CInt -> CInt -> IO CInt)
     __exported by:__ @attributes\/asm.h@
 -}
 asm_labeled_function_ptr = unsafePerformIO hs_bindgen_474c22f4687e6d7d
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_f26ea231d0d58288" hs_bindgen_f26ea231d0d58288_base :: IO (Ptr Void)
 -- | __unique:__ @test_attributesasm_Example_get_asm_labeled_variable_ptr@
-foreign import ccall safe "hs_bindgen_f26ea231d0d58288" hs_bindgen_f26ea231d0d58288 :: IO (Ptr CInt)
+hs_bindgen_f26ea231d0d58288 :: IO (Ptr CInt)
+-- | __unique:__ @test_attributesasm_Example_get_asm_labeled_variable_ptr@
+hs_bindgen_f26ea231d0d58288 = fromBaseForeignType hs_bindgen_f26ea231d0d58288_base
 {-# NOINLINE asm_labeled_variable_ptr #-}
 {-| __C declaration:__ @asm_labeled_variable@
 

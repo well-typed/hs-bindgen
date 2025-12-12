@@ -36,6 +36,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: GlobalConfig
   instances:
   - Eq

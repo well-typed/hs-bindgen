@@ -23,6 +23,9 @@ module HsBindgen.Language.Haskell (
   , Name(..)
     -- * Instances
   , TypeClass(..)
+    -- * Foreign types
+  , BaseForeignType(..)
+  , BasicForeignType(..)
   ) where
 
 import Data.Aeson qualified as Aeson
@@ -191,3 +194,87 @@ instance Aeson.ToJSON TypeClass where
 -- Order lexicographically, not by order of definition
 instance Ord TypeClass where
   compare = Ord.comparing show
+
+{-------------------------------------------------------------------------------
+  Base foreign type
+-------------------------------------------------------------------------------}
+
+data BaseForeignType =
+    -- === Foreign types ===
+    FunArrow BaseForeignType BaseForeignType
+
+    -- === Marshallable foreign result types ===
+  | Unit
+  | IO BaseForeignType
+
+    -- === Marshallable foreign types ===
+  | Basic BasicForeignType
+  deriving stock (Show, Eq)
+
+data BasicForeignType =
+    -- Prelude
+    Char
+  | Int
+  | Double
+  | Float
+  | Bool
+    -- Data.Int
+  | Int8
+  | Int16
+  | Int32
+  | Int64
+    -- Data.Word
+  | Word
+  | Word8
+  | Word16
+  | Word32
+  | Word64
+    -- Foreign.Ptr
+  | Ptr
+  | FunPtr
+  | IntPtr
+  | WordPtr
+    -- Foreign.StablePtr
+  | StablePtr
+    -- Foreign.C.ConstPtr
+  | ConstPtr
+    -- Foreign.C.Types
+  | CChar
+  | CSChar
+  | CUChar
+  | CShort
+  | CUShort
+  | CInt
+  | CUInt
+  | CLong
+  | CULong
+  | CPtrdiff
+  | CSize
+  | CWchar
+  | CSigAtomic
+  | CLLong
+  | CULLong
+  | CBool
+  | CIntPtr
+  | CUIntPtr
+  | CIntMax
+  | CUIntMax
+    -- Foreign.C.Types : Numeric types
+  | CClock
+  | CTime
+  | CUSeconds
+  | CSUSeconds
+    -- Foreign.C.Types : Floating type
+  | CFloat
+  | CDouble
+  deriving stock (Show, Eq, Ord, Generic, Read)
+
+instance Aeson.FromJSON BasicForeignType where
+  parseJSON = Aeson.withText "BasicForeignType" $ \t ->
+    let s = Text.unpack t
+    in  case readMaybe s of
+          Just bft -> return bft
+          Nothing   -> Aeson.parseFail $ "unknown basic foreign type: " ++ s
+
+instance Aeson.ToJSON BasicForeignType where
+  toJSON = Aeson.String . Text.pack . show

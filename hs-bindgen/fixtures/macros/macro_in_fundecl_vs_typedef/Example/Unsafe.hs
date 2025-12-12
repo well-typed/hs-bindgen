@@ -7,7 +7,9 @@ module Example.Unsafe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -85,6 +87,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_df7e2b8e86de411a" quux1_base ::
+     FC.CChar
+  -> FC.CChar
+  -> IO FC.CChar
+
 {-| __C declaration:__ @quux1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:8:6@
@@ -93,11 +102,20 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux1@
 -}
-foreign import ccall unsafe "hs_bindgen_df7e2b8e86de411a" quux1 ::
+quux1 ::
      MC
      -- ^ __C declaration:__ @x@
   -> TC
      -- ^ __C declaration:__ @y@
+  -> IO FC.CChar
+quux1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType quux1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_6f0b13ed02b696df" quux2_base ::
+     FC.CChar
+  -> FC.CChar
   -> IO FC.CChar
 
 {-| __C declaration:__ @quux2@
@@ -108,12 +126,21 @@ foreign import ccall unsafe "hs_bindgen_df7e2b8e86de411a" quux1 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux2@
 -}
-foreign import ccall unsafe "hs_bindgen_6f0b13ed02b696df" quux2 ::
+quux2 ::
      MC
      -- ^ __C declaration:__ @x@
   -> FC.CChar
      -- ^ __C declaration:__ @y@
   -> IO TC
+quux2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType quux2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_f92059cc98dde342" wam1_base ::
+     FC.CFloat
+  -> Ptr.Ptr Void
+  -> IO (Ptr.Ptr Void)
 
 {-| __C declaration:__ @wam1@
 
@@ -123,12 +150,21 @@ foreign import ccall unsafe "hs_bindgen_6f0b13ed02b696df" quux2 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam1@
 -}
-foreign import ccall unsafe "hs_bindgen_f92059cc98dde342" wam1 ::
+wam1 ::
      FC.CFloat
      -- ^ __C declaration:__ @x@
   -> Ptr.Ptr TC
      -- ^ __C declaration:__ @y@
   -> IO (Ptr.Ptr MC)
+wam1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType wam1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_3e6ecd1b2cc616bc" wam2_base ::
+     FC.CFloat
+  -> Ptr.Ptr Void
+  -> IO (Ptr.Ptr Void)
 
 {-| __C declaration:__ @wam2@
 
@@ -138,12 +174,21 @@ foreign import ccall unsafe "hs_bindgen_f92059cc98dde342" wam1 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam2@
 -}
-foreign import ccall unsafe "hs_bindgen_3e6ecd1b2cc616bc" wam2 ::
+wam2 ::
      FC.CFloat
      -- ^ __C declaration:__ @x@
   -> Ptr.Ptr MC
      -- ^ __C declaration:__ @y@
   -> IO (Ptr.Ptr TC)
+wam2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType wam2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_ffa9d5a3e8f0f221" struct_typedef1_base ::
+     Ptr.Ptr Void
+  -> FC.CChar
+  -> IO ()
 
 {-| __C declaration:__ @struct_typedef1@
 
@@ -153,11 +198,20 @@ foreign import ccall unsafe "hs_bindgen_3e6ecd1b2cc616bc" wam2 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef1@
 -}
-foreign import ccall unsafe "hs_bindgen_ffa9d5a3e8f0f221" struct_typedef1 ::
+struct_typedef1 ::
      Ptr.Ptr Struct2
      -- ^ __C declaration:__ @s@
   -> MC
      -- ^ __C declaration:__ @x@
+  -> IO ()
+struct_typedef1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType struct_typedef1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_4801667560542114" struct_typedef2_base ::
+     Ptr.Ptr Void
+  -> FC.CChar
   -> IO ()
 
 {-| __C declaration:__ @struct_typedef2@
@@ -168,11 +222,20 @@ foreign import ccall unsafe "hs_bindgen_ffa9d5a3e8f0f221" struct_typedef1 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef2@
 -}
-foreign import ccall unsafe "hs_bindgen_4801667560542114" struct_typedef2 ::
+struct_typedef2 ::
      Ptr.Ptr Struct3_t
      -- ^ __C declaration:__ @s@
   -> MC
      -- ^ __C declaration:__ @x@
+  -> IO ()
+struct_typedef2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType struct_typedef2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_04fa5bbd479146eb" struct_typedef3_base ::
+     Ptr.Ptr Void
+  -> FC.CChar
   -> IO ()
 
 {-| __C declaration:__ @struct_typedef3@
@@ -183,11 +246,20 @@ foreign import ccall unsafe "hs_bindgen_4801667560542114" struct_typedef2 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef3@
 -}
-foreign import ccall unsafe "hs_bindgen_04fa5bbd479146eb" struct_typedef3 ::
+struct_typedef3 ::
      Ptr.Ptr Struct4
      -- ^ __C declaration:__ @s@
   -> MC
      -- ^ __C declaration:__ @x@
+  -> IO ()
+struct_typedef3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType struct_typedef3_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_08025fd0bd589ac2" struct_name1_base ::
+     Ptr.Ptr Void
+  -> FC.CChar
   -> IO ()
 
 {-| __C declaration:__ @struct_name1@
@@ -198,11 +270,20 @@ foreign import ccall unsafe "hs_bindgen_04fa5bbd479146eb" struct_typedef3 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name1@
 -}
-foreign import ccall unsafe "hs_bindgen_08025fd0bd589ac2" struct_name1 ::
+struct_name1 ::
      Ptr.Ptr Struct1
      -- ^ __C declaration:__ @s@
   -> MC
      -- ^ __C declaration:__ @x@
+  -> IO ()
+struct_name1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType struct_name1_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_9de286608f952fc7" struct_name2_base ::
+     Ptr.Ptr Void
+  -> FC.CChar
   -> IO ()
 
 {-| __C declaration:__ @struct_name2@
@@ -213,11 +294,20 @@ foreign import ccall unsafe "hs_bindgen_08025fd0bd589ac2" struct_name1 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name2@
 -}
-foreign import ccall unsafe "hs_bindgen_9de286608f952fc7" struct_name2 ::
+struct_name2 ::
      Ptr.Ptr Struct3
      -- ^ __C declaration:__ @s@
   -> MC
      -- ^ __C declaration:__ @x@
+  -> IO ()
+struct_name2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType struct_name2_base
+
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_38cce6bb1ac71578" struct_name3_base ::
+     Ptr.Ptr Void
+  -> FC.CChar
   -> IO ()
 
 {-| __C declaration:__ @struct_name3@
@@ -228,9 +318,11 @@ foreign import ccall unsafe "hs_bindgen_9de286608f952fc7" struct_name2 ::
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name3@
 -}
-foreign import ccall unsafe "hs_bindgen_38cce6bb1ac71578" struct_name3 ::
+struct_name3 ::
      Ptr.Ptr Struct4
      -- ^ __C declaration:__ @s@
   -> MC
      -- ^ __C declaration:__ @x@
   -> IO ()
+struct_name3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType struct_name3_base

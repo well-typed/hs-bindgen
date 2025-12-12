@@ -212,6 +212,7 @@ data HsTypeSpec = HsTypeSpec {
       hsTypeSpecRep       :: Maybe HsTypeRep
     , -- | Instance specification
       hsTypeSpecInstances :: Map Hs.TypeClass (Omittable InstanceSpec)
+    , hsTypeSpecBaseForeignType :: Maybe Hs.BasicForeignType
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -219,6 +220,7 @@ instance Default HsTypeSpec where
   def = HsTypeSpec {
       hsTypeSpecRep       = Nothing
     , hsTypeSpecInstances = Map.empty
+    , hsTypeSpecBaseForeignType = Nothing
     }
 
 --------------------------------------------------------------------------------
@@ -508,6 +510,7 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
       "constructor"           -> 18
       -- HsRecordRep:2, HsNewtypeRep:2
       "fields"                -> 19
+      "baseforeigntype"       -> 20
       key -> panicPure $ "Unknown key: " ++ show key
 
 {-------------------------------------------------------------------------------
@@ -798,6 +801,7 @@ data AHsTypeSpecMapping = AHsTypeSpecMapping {
       aHsTypeSpecMappingIdentifier :: Hs.Identifier
     , aHsTypeSpecMappingRep        :: Maybe AHsTypeRep
     , aHsTypeSpecMappingInstances  :: [AOInstanceSpecMapping]
+    , aHsTypeSpecMappingBaseForeignType :: Maybe Hs.BasicForeignType
     }
   deriving stock Show
 
@@ -806,6 +810,7 @@ instance Aeson.FromJSON AHsTypeSpecMapping where
     aHsTypeSpecMappingIdentifier <- o .:  "hsname"
     aHsTypeSpecMappingRep        <- o .:? "representation"
     aHsTypeSpecMappingInstances  <- o .:? "instances" .!= []
+    aHsTypeSpecMappingBaseForeignType <- o .:? "baseforeigntype"
     return AHsTypeSpecMapping{..}
 
 instance Aeson.ToJSON AHsTypeSpecMapping where
@@ -813,6 +818,7 @@ instance Aeson.ToJSON AHsTypeSpecMapping where
       Just ("hsname" .= aHsTypeSpecMappingIdentifier)
     , ("representation" .=) <$> aHsTypeSpecMappingRep
     , ("instances" .=) <$> omitWhenNull aHsTypeSpecMappingInstances
+    , ("baseforeigntype" .=) <$> aHsTypeSpecMappingBaseForeignType
     ]
 
 --------------------------------------------------------------------------------
@@ -1112,6 +1118,7 @@ mkHsTypeMap path hsIds = fin . foldr auxInsert (Set.empty, Map.empty)
           hsTypeSpec = HsTypeSpec {
               hsTypeSpecRep       = unAHsTypeRep <$> aHsTypeSpecMappingRep
             , hsTypeSpecInstances = mkInstanceMap aHsTypeSpecMappingInstances
+            , hsTypeSpecBaseForeignType = aHsTypeSpecMappingBaseForeignType
             }
       in  case Map.insertLookupWithKey (\_ n _ -> n) hsId hsTypeSpec acc of
             (Nothing, acc') -> (conflicts,                 acc')
@@ -1172,6 +1179,7 @@ toAHsTypes hsTypeMap = [
           aHsTypeSpecMappingIdentifier = hsIdentifier
         , aHsTypeSpecMappingRep        = AHsTypeRep <$> hsTypeSpecRep
         , aHsTypeSpecMappingInstances  = toAOInstances hsTypeSpecInstances
+        , aHsTypeSpecMappingBaseForeignType = hsTypeSpecBaseForeignType
         }
     | (hsIdentifier, HsTypeSpec{..}) <- Map.toAscList hsTypeMap
     ]

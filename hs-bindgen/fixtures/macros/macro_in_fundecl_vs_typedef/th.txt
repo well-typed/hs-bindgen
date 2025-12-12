@@ -440,6 +440,10 @@ instance HasCField Struct4 "struct4_a"
 instance TyEq ty (CFieldType Struct4 "struct4_a") =>
          HasField "struct4_a" (Ptr Struct4) (Ptr ty)
     where getField = ptrToCField (Proxy @"struct4_a")
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_02e0e3b28d470fd4" quux1_base :: CChar ->
+                                                                      CChar -> IO CChar
 {-| __C declaration:__ @quux1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:8:6@
@@ -448,98 +452,7 @@ instance TyEq ty (CFieldType Struct4 "struct4_a") =>
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux1@
 -}
-foreign import ccall safe "hs_bindgen_02e0e3b28d470fd4" quux1 :: MC ->
-                                                                 TC -> IO CChar
-{-| __C declaration:__ @quux2@
-
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:9:4@
-
-    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-
-    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux2@
--}
-foreign import ccall safe "hs_bindgen_bb79188c8775e2e4" quux2 :: MC ->
-                                                                 CChar -> IO TC
-{-| __C declaration:__ @wam1@
-
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:10:5@
-
-    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-
-    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam1@
--}
-foreign import ccall safe "hs_bindgen_a398fb73645271c5" wam1 :: CFloat ->
-                                                                Ptr TC -> IO (Ptr MC)
-{-| __C declaration:__ @wam2@
-
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:11:5@
-
-    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-
-    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam2@
--}
-foreign import ccall safe "hs_bindgen_ad904da072e0711e" wam2 :: CFloat ->
-                                                                Ptr MC -> IO (Ptr TC)
-{-| __C declaration:__ @struct_typedef1@
-
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:23:6@
-
-    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-
-    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef1@
--}
-foreign import ccall safe "hs_bindgen_88e976dc10571000" struct_typedef1 :: Ptr Struct2 ->
-                                                                           MC -> IO Unit
-{-| __C declaration:__ @struct_typedef2@
-
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:24:6@
-
-    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-
-    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef2@
--}
-foreign import ccall safe "hs_bindgen_edb3806d45d7605b" struct_typedef2 :: Ptr Struct3_t ->
-                                                                           MC -> IO Unit
-{-| __C declaration:__ @struct_typedef3@
-
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:25:6@
-
-    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-
-    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef3@
--}
-foreign import ccall safe "hs_bindgen_7c7f3ab0dd790fe8" struct_typedef3 :: Ptr Struct4 ->
-                                                                           MC -> IO Unit
-{-| __C declaration:__ @struct_name1@
-
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:27:6@
-
-    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-
-    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name1@
--}
-foreign import ccall safe "hs_bindgen_2cfbb4f5834d4bcb" struct_name1 :: Ptr Struct1 ->
-                                                                        MC -> IO Unit
-{-| __C declaration:__ @struct_name2@
-
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:28:6@
-
-    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-
-    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name2@
--}
-foreign import ccall safe "hs_bindgen_c8b765fa70f95167" struct_name2 :: Ptr Struct3 ->
-                                                                        MC -> IO Unit
-{-| __C declaration:__ @struct_name3@
-
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:29:6@
-
-    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
-
-    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name3@
--}
-foreign import ccall safe "hs_bindgen_0ff3632971f092bb" struct_name3 :: Ptr Struct4 ->
-                                                                        MC -> IO Unit
+quux1 :: MC -> TC -> IO CChar
 {-| __C declaration:__ @quux1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:8:6@
@@ -548,8 +461,11 @@ foreign import ccall safe "hs_bindgen_0ff3632971f092bb" struct_name3 :: Ptr Stru
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux1@
 -}
-foreign import ccall safe "hs_bindgen_df7e2b8e86de411a" quux1 :: MC ->
-                                                                 TC -> IO CChar
+quux1 = fromBaseForeignType quux1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_bb79188c8775e2e4" quux2_base :: CChar ->
+                                                                      CChar -> IO CChar
 {-| __C declaration:__ @quux2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:9:4@
@@ -558,8 +474,20 @@ foreign import ccall safe "hs_bindgen_df7e2b8e86de411a" quux1 :: MC ->
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux2@
 -}
-foreign import ccall safe "hs_bindgen_6f0b13ed02b696df" quux2 :: MC ->
-                                                                 CChar -> IO TC
+quux2 :: MC -> CChar -> IO TC
+{-| __C declaration:__ @quux2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:9:4@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux2@
+-}
+quux2 = fromBaseForeignType quux2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_a398fb73645271c5" wam1_base :: CFloat ->
+                                                                     Ptr Void -> IO (Ptr Void)
 {-| __C declaration:__ @wam1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:10:5@
@@ -568,8 +496,20 @@ foreign import ccall safe "hs_bindgen_6f0b13ed02b696df" quux2 :: MC ->
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam1@
 -}
-foreign import ccall safe "hs_bindgen_f92059cc98dde342" wam1 :: CFloat ->
-                                                                Ptr TC -> IO (Ptr MC)
+wam1 :: CFloat -> Ptr TC -> IO (Ptr MC)
+{-| __C declaration:__ @wam1@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:10:5@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam1@
+-}
+wam1 = fromBaseForeignType wam1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_ad904da072e0711e" wam2_base :: CFloat ->
+                                                                     Ptr Void -> IO (Ptr Void)
 {-| __C declaration:__ @wam2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:11:5@
@@ -578,8 +518,20 @@ foreign import ccall safe "hs_bindgen_f92059cc98dde342" wam1 :: CFloat ->
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam2@
 -}
-foreign import ccall safe "hs_bindgen_3e6ecd1b2cc616bc" wam2 :: CFloat ->
-                                                                Ptr MC -> IO (Ptr TC)
+wam2 :: CFloat -> Ptr MC -> IO (Ptr TC)
+{-| __C declaration:__ @wam2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:11:5@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam2@
+-}
+wam2 = fromBaseForeignType wam2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_88e976dc10571000" struct_typedef1_base :: Ptr Void ->
+                                                                                CChar -> IO Unit
 {-| __C declaration:__ @struct_typedef1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:23:6@
@@ -588,8 +540,20 @@ foreign import ccall safe "hs_bindgen_3e6ecd1b2cc616bc" wam2 :: CFloat ->
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef1@
 -}
-foreign import ccall safe "hs_bindgen_ffa9d5a3e8f0f221" struct_typedef1 :: Ptr Struct2 ->
-                                                                           MC -> IO Unit
+struct_typedef1 :: Ptr Struct2 -> MC -> IO Unit
+{-| __C declaration:__ @struct_typedef1@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:23:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef1@
+-}
+struct_typedef1 = fromBaseForeignType struct_typedef1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_edb3806d45d7605b" struct_typedef2_base :: Ptr Void ->
+                                                                                CChar -> IO Unit
 {-| __C declaration:__ @struct_typedef2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:24:6@
@@ -598,8 +562,20 @@ foreign import ccall safe "hs_bindgen_ffa9d5a3e8f0f221" struct_typedef1 :: Ptr S
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef2@
 -}
-foreign import ccall safe "hs_bindgen_4801667560542114" struct_typedef2 :: Ptr Struct3_t ->
-                                                                           MC -> IO Unit
+struct_typedef2 :: Ptr Struct3_t -> MC -> IO Unit
+{-| __C declaration:__ @struct_typedef2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:24:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef2@
+-}
+struct_typedef2 = fromBaseForeignType struct_typedef2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_7c7f3ab0dd790fe8" struct_typedef3_base :: Ptr Void ->
+                                                                                CChar -> IO Unit
 {-| __C declaration:__ @struct_typedef3@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:25:6@
@@ -608,8 +584,20 @@ foreign import ccall safe "hs_bindgen_4801667560542114" struct_typedef2 :: Ptr S
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef3@
 -}
-foreign import ccall safe "hs_bindgen_04fa5bbd479146eb" struct_typedef3 :: Ptr Struct4 ->
-                                                                           MC -> IO Unit
+struct_typedef3 :: Ptr Struct4 -> MC -> IO Unit
+{-| __C declaration:__ @struct_typedef3@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:25:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef3@
+-}
+struct_typedef3 = fromBaseForeignType struct_typedef3_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_2cfbb4f5834d4bcb" struct_name1_base :: Ptr Void ->
+                                                                             CChar -> IO Unit
 {-| __C declaration:__ @struct_name1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:27:6@
@@ -618,8 +606,20 @@ foreign import ccall safe "hs_bindgen_04fa5bbd479146eb" struct_typedef3 :: Ptr S
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name1@
 -}
-foreign import ccall safe "hs_bindgen_08025fd0bd589ac2" struct_name1 :: Ptr Struct1 ->
-                                                                        MC -> IO Unit
+struct_name1 :: Ptr Struct1 -> MC -> IO Unit
+{-| __C declaration:__ @struct_name1@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:27:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name1@
+-}
+struct_name1 = fromBaseForeignType struct_name1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_c8b765fa70f95167" struct_name2_base :: Ptr Void ->
+                                                                             CChar -> IO Unit
 {-| __C declaration:__ @struct_name2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:28:6@
@@ -628,8 +628,20 @@ foreign import ccall safe "hs_bindgen_08025fd0bd589ac2" struct_name1 :: Ptr Stru
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name2@
 -}
-foreign import ccall safe "hs_bindgen_9de286608f952fc7" struct_name2 :: Ptr Struct3 ->
-                                                                        MC -> IO Unit
+struct_name2 :: Ptr Struct3 -> MC -> IO Unit
+{-| __C declaration:__ @struct_name2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:28:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name2@
+-}
+struct_name2 = fromBaseForeignType struct_name2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_0ff3632971f092bb" struct_name3_base :: Ptr Void ->
+                                                                             CChar -> IO Unit
 {-| __C declaration:__ @struct_name3@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:29:6@
@@ -638,12 +650,243 @@ foreign import ccall safe "hs_bindgen_9de286608f952fc7" struct_name2 :: Ptr Stru
 
     __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name3@
 -}
-foreign import ccall safe "hs_bindgen_38cce6bb1ac71578" struct_name3 :: Ptr Struct4 ->
-                                                                        MC -> IO Unit
+struct_name3 :: Ptr Struct4 -> MC -> IO Unit
+{-| __C declaration:__ @struct_name3@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:29:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name3@
+-}
+struct_name3 = fromBaseForeignType struct_name3_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_df7e2b8e86de411a" quux1_base :: CChar ->
+                                                                      CChar -> IO CChar
+{-| __C declaration:__ @quux1@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:8:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux1@
+-}
+quux1 :: MC -> TC -> IO CChar
+{-| __C declaration:__ @quux1@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:8:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux1@
+-}
+quux1 = fromBaseForeignType quux1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_6f0b13ed02b696df" quux2_base :: CChar ->
+                                                                      CChar -> IO CChar
+{-| __C declaration:__ @quux2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:9:4@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux2@
+-}
+quux2 :: MC -> CChar -> IO TC
+{-| __C declaration:__ @quux2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:9:4@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux2@
+-}
+quux2 = fromBaseForeignType quux2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_f92059cc98dde342" wam1_base :: CFloat ->
+                                                                     Ptr Void -> IO (Ptr Void)
+{-| __C declaration:__ @wam1@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:10:5@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam1@
+-}
+wam1 :: CFloat -> Ptr TC -> IO (Ptr MC)
+{-| __C declaration:__ @wam1@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:10:5@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam1@
+-}
+wam1 = fromBaseForeignType wam1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_3e6ecd1b2cc616bc" wam2_base :: CFloat ->
+                                                                     Ptr Void -> IO (Ptr Void)
+{-| __C declaration:__ @wam2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:11:5@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam2@
+-}
+wam2 :: CFloat -> Ptr MC -> IO (Ptr TC)
+{-| __C declaration:__ @wam2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:11:5@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam2@
+-}
+wam2 = fromBaseForeignType wam2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_ffa9d5a3e8f0f221" struct_typedef1_base :: Ptr Void ->
+                                                                                CChar -> IO Unit
+{-| __C declaration:__ @struct_typedef1@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:23:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef1@
+-}
+struct_typedef1 :: Ptr Struct2 -> MC -> IO Unit
+{-| __C declaration:__ @struct_typedef1@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:23:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef1@
+-}
+struct_typedef1 = fromBaseForeignType struct_typedef1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_4801667560542114" struct_typedef2_base :: Ptr Void ->
+                                                                                CChar -> IO Unit
+{-| __C declaration:__ @struct_typedef2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:24:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef2@
+-}
+struct_typedef2 :: Ptr Struct3_t -> MC -> IO Unit
+{-| __C declaration:__ @struct_typedef2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:24:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef2@
+-}
+struct_typedef2 = fromBaseForeignType struct_typedef2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_04fa5bbd479146eb" struct_typedef3_base :: Ptr Void ->
+                                                                                CChar -> IO Unit
+{-| __C declaration:__ @struct_typedef3@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:25:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef3@
+-}
+struct_typedef3 :: Ptr Struct4 -> MC -> IO Unit
+{-| __C declaration:__ @struct_typedef3@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:25:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef3@
+-}
+struct_typedef3 = fromBaseForeignType struct_typedef3_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_08025fd0bd589ac2" struct_name1_base :: Ptr Void ->
+                                                                             CChar -> IO Unit
+{-| __C declaration:__ @struct_name1@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:27:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name1@
+-}
+struct_name1 :: Ptr Struct1 -> MC -> IO Unit
+{-| __C declaration:__ @struct_name1@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:27:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name1@
+-}
+struct_name1 = fromBaseForeignType struct_name1_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_9de286608f952fc7" struct_name2_base :: Ptr Void ->
+                                                                             CChar -> IO Unit
+{-| __C declaration:__ @struct_name2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:28:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name2@
+-}
+struct_name2 :: Ptr Struct3 -> MC -> IO Unit
+{-| __C declaration:__ @struct_name2@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:28:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name2@
+-}
+struct_name2 = fromBaseForeignType struct_name2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_38cce6bb1ac71578" struct_name3_base :: Ptr Void ->
+                                                                             CChar -> IO Unit
+{-| __C declaration:__ @struct_name3@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:29:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name3@
+-}
+struct_name3 :: Ptr Struct4 -> MC -> IO Unit
+{-| __C declaration:__ @struct_name3@
+
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:29:6@
+
+    __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
+
+    __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name3@
+-}
+struct_name3 = fromBaseForeignType struct_name3_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_fb1d9bc73e620f06" hs_bindgen_fb1d9bc73e620f06_base :: IO (FunPtr Void)
 -- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_quux1_ptr@
-foreign import ccall safe "hs_bindgen_fb1d9bc73e620f06" hs_bindgen_fb1d9bc73e620f06 :: IO (FunPtr (MC ->
-                                                                                                   TC ->
-                                                                                                   IO CChar))
+hs_bindgen_fb1d9bc73e620f06 :: IO (FunPtr (MC -> TC -> IO CChar))
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_quux1_ptr@
+hs_bindgen_fb1d9bc73e620f06 = fromBaseForeignType hs_bindgen_fb1d9bc73e620f06_base
 {-# NOINLINE quux1_ptr #-}
 {-| __C declaration:__ @quux1@
 
@@ -659,10 +902,13 @@ quux1_ptr :: FunPtr (MC -> TC -> IO CChar)
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 quux1_ptr = unsafePerformIO hs_bindgen_fb1d9bc73e620f06
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_9dc824587cab07a2" hs_bindgen_9dc824587cab07a2_base :: IO (FunPtr Void)
 -- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_quux2_ptr@
-foreign import ccall safe "hs_bindgen_9dc824587cab07a2" hs_bindgen_9dc824587cab07a2 :: IO (FunPtr (MC ->
-                                                                                                   CChar ->
-                                                                                                   IO TC))
+hs_bindgen_9dc824587cab07a2 :: IO (FunPtr (MC -> CChar -> IO TC))
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_quux2_ptr@
+hs_bindgen_9dc824587cab07a2 = fromBaseForeignType hs_bindgen_9dc824587cab07a2_base
 {-# NOINLINE quux2_ptr #-}
 {-| __C declaration:__ @quux2@
 
@@ -678,10 +924,14 @@ quux2_ptr :: FunPtr (MC -> CChar -> IO TC)
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 quux2_ptr = unsafePerformIO hs_bindgen_9dc824587cab07a2
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_03d794639e412075" hs_bindgen_03d794639e412075_base :: IO (FunPtr Void)
 -- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_wam1_ptr@
-foreign import ccall safe "hs_bindgen_03d794639e412075" hs_bindgen_03d794639e412075 :: IO (FunPtr (CFloat ->
-                                                                                                   Ptr TC ->
-                                                                                                   IO (Ptr MC)))
+hs_bindgen_03d794639e412075 :: IO (FunPtr (CFloat ->
+                                           Ptr TC -> IO (Ptr MC)))
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_wam1_ptr@
+hs_bindgen_03d794639e412075 = fromBaseForeignType hs_bindgen_03d794639e412075_base
 {-# NOINLINE wam1_ptr #-}
 {-| __C declaration:__ @wam1@
 
@@ -697,10 +947,14 @@ wam1_ptr :: FunPtr (CFloat -> Ptr TC -> IO (Ptr MC))
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 wam1_ptr = unsafePerformIO hs_bindgen_03d794639e412075
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_0a5eb04fc739212a" hs_bindgen_0a5eb04fc739212a_base :: IO (FunPtr Void)
 -- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_wam2_ptr@
-foreign import ccall safe "hs_bindgen_0a5eb04fc739212a" hs_bindgen_0a5eb04fc739212a :: IO (FunPtr (CFloat ->
-                                                                                                   Ptr MC ->
-                                                                                                   IO (Ptr TC)))
+hs_bindgen_0a5eb04fc739212a :: IO (FunPtr (CFloat ->
+                                           Ptr MC -> IO (Ptr TC)))
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_wam2_ptr@
+hs_bindgen_0a5eb04fc739212a = fromBaseForeignType hs_bindgen_0a5eb04fc739212a_base
 {-# NOINLINE wam2_ptr #-}
 {-| __C declaration:__ @wam2@
 
@@ -716,10 +970,14 @@ wam2_ptr :: FunPtr (CFloat -> Ptr MC -> IO (Ptr TC))
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 wam2_ptr = unsafePerformIO hs_bindgen_0a5eb04fc739212a
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_6d4f35a86a00c68b" hs_bindgen_6d4f35a86a00c68b_base :: IO (FunPtr Void)
 -- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_typedef1_ptr@
-foreign import ccall safe "hs_bindgen_6d4f35a86a00c68b" hs_bindgen_6d4f35a86a00c68b :: IO (FunPtr (Ptr Struct2 ->
-                                                                                                   MC ->
-                                                                                                   IO Unit))
+hs_bindgen_6d4f35a86a00c68b :: IO (FunPtr (Ptr Struct2 ->
+                                           MC -> IO Unit))
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_typedef1_ptr@
+hs_bindgen_6d4f35a86a00c68b = fromBaseForeignType hs_bindgen_6d4f35a86a00c68b_base
 {-# NOINLINE struct_typedef1_ptr #-}
 {-| __C declaration:__ @struct_typedef1@
 
@@ -735,10 +993,14 @@ struct_typedef1_ptr :: FunPtr (Ptr Struct2 -> MC -> IO Unit)
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef1_ptr = unsafePerformIO hs_bindgen_6d4f35a86a00c68b
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_af92d1197a77fe13" hs_bindgen_af92d1197a77fe13_base :: IO (FunPtr Void)
 -- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_typedef2_ptr@
-foreign import ccall safe "hs_bindgen_af92d1197a77fe13" hs_bindgen_af92d1197a77fe13 :: IO (FunPtr (Ptr Struct3_t ->
-                                                                                                   MC ->
-                                                                                                   IO Unit))
+hs_bindgen_af92d1197a77fe13 :: IO (FunPtr (Ptr Struct3_t ->
+                                           MC -> IO Unit))
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_typedef2_ptr@
+hs_bindgen_af92d1197a77fe13 = fromBaseForeignType hs_bindgen_af92d1197a77fe13_base
 {-# NOINLINE struct_typedef2_ptr #-}
 {-| __C declaration:__ @struct_typedef2@
 
@@ -754,10 +1016,14 @@ struct_typedef2_ptr :: FunPtr (Ptr Struct3_t -> MC -> IO Unit)
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef2_ptr = unsafePerformIO hs_bindgen_af92d1197a77fe13
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_c5effcd02d3d5efd" hs_bindgen_c5effcd02d3d5efd_base :: IO (FunPtr Void)
 -- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_typedef3_ptr@
-foreign import ccall safe "hs_bindgen_c5effcd02d3d5efd" hs_bindgen_c5effcd02d3d5efd :: IO (FunPtr (Ptr Struct4 ->
-                                                                                                   MC ->
-                                                                                                   IO Unit))
+hs_bindgen_c5effcd02d3d5efd :: IO (FunPtr (Ptr Struct4 ->
+                                           MC -> IO Unit))
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_typedef3_ptr@
+hs_bindgen_c5effcd02d3d5efd = fromBaseForeignType hs_bindgen_c5effcd02d3d5efd_base
 {-# NOINLINE struct_typedef3_ptr #-}
 {-| __C declaration:__ @struct_typedef3@
 
@@ -773,10 +1039,14 @@ struct_typedef3_ptr :: FunPtr (Ptr Struct4 -> MC -> IO Unit)
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef3_ptr = unsafePerformIO hs_bindgen_c5effcd02d3d5efd
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_842a0d61a7a895d6" hs_bindgen_842a0d61a7a895d6_base :: IO (FunPtr Void)
 -- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name1_ptr@
-foreign import ccall safe "hs_bindgen_842a0d61a7a895d6" hs_bindgen_842a0d61a7a895d6 :: IO (FunPtr (Ptr Struct1 ->
-                                                                                                   MC ->
-                                                                                                   IO Unit))
+hs_bindgen_842a0d61a7a895d6 :: IO (FunPtr (Ptr Struct1 ->
+                                           MC -> IO Unit))
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name1_ptr@
+hs_bindgen_842a0d61a7a895d6 = fromBaseForeignType hs_bindgen_842a0d61a7a895d6_base
 {-# NOINLINE struct_name1_ptr #-}
 {-| __C declaration:__ @struct_name1@
 
@@ -792,10 +1062,14 @@ struct_name1_ptr :: FunPtr (Ptr Struct1 -> MC -> IO Unit)
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name1_ptr = unsafePerformIO hs_bindgen_842a0d61a7a895d6
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_ead25a696827a8f7" hs_bindgen_ead25a696827a8f7_base :: IO (FunPtr Void)
 -- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name2_ptr@
-foreign import ccall safe "hs_bindgen_ead25a696827a8f7" hs_bindgen_ead25a696827a8f7 :: IO (FunPtr (Ptr Struct3 ->
-                                                                                                   MC ->
-                                                                                                   IO Unit))
+hs_bindgen_ead25a696827a8f7 :: IO (FunPtr (Ptr Struct3 ->
+                                           MC -> IO Unit))
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name2_ptr@
+hs_bindgen_ead25a696827a8f7 = fromBaseForeignType hs_bindgen_ead25a696827a8f7_base
 {-# NOINLINE struct_name2_ptr #-}
 {-| __C declaration:__ @struct_name2@
 
@@ -811,10 +1085,14 @@ struct_name2_ptr :: FunPtr (Ptr Struct3 -> MC -> IO Unit)
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name2_ptr = unsafePerformIO hs_bindgen_ead25a696827a8f7
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_680e8a5d673ce9c1" hs_bindgen_680e8a5d673ce9c1_base :: IO (FunPtr Void)
 -- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name3_ptr@
-foreign import ccall safe "hs_bindgen_680e8a5d673ce9c1" hs_bindgen_680e8a5d673ce9c1 :: IO (FunPtr (Ptr Struct4 ->
-                                                                                                   MC ->
-                                                                                                   IO Unit))
+hs_bindgen_680e8a5d673ce9c1 :: IO (FunPtr (Ptr Struct4 ->
+                                           MC -> IO Unit))
+-- | __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name3_ptr@
+hs_bindgen_680e8a5d673ce9c1 = fromBaseForeignType hs_bindgen_680e8a5d673ce9c1_base
 {-# NOINLINE struct_name3_ptr #-}
 {-| __C declaration:__ @struct_name3@
 

@@ -16,6 +16,7 @@ module HsBindgen.Backend.HsModule.Names (
 import Data.Bits qualified
 import Data.Char qualified as Char
 import Data.Complex qualified as Complex
+import Data.Int qualified
 import Data.Ix qualified
 import Data.List qualified as L
 import Data.List.NonEmpty qualified as NonEmpty
@@ -25,6 +26,7 @@ import Data.Primitive.Types qualified as Primitive
 import Data.Proxy qualified
 import Data.Set qualified as Set
 import Data.Void qualified
+import Data.Word qualified
 import Foreign qualified
 import Foreign.C qualified
 import Foreign.C.String qualified
@@ -331,6 +333,10 @@ resolveGlobal = \case
 
     -- HasBaseForeignType
     HasBaseForeignType_class -> importQ ''HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType
+    HasBaseForeignType_toBaseForeignType -> importQ 'HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType
+    HasBaseForeignType_fromBaseForeignType -> importQ 'HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType
+    HasBaseForeignType_castFunPtrToBaseForeignType -> importQ 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType
+    HasBaseForeignType_castFunPtrFromBaseForeignType -> importQ 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType
 
     -- Unsafe
     IO_unsafePerformIO -> importQ 'System.IO.Unsafe.unsafePerformIO
@@ -339,6 +345,9 @@ resolveGlobal = \case
     ConstPtr_type        -> importQ ''HsBindgen.Runtime.ConstPtr.ConstPtr
     ConstPtr_constructor -> importQ 'HsBindgen.Runtime.ConstPtr.ConstPtr
     ConstPtr_unConstPtr  -> importQ 'HsBindgen.Runtime.ConstPtr.unConstPtr
+
+    -- Functor
+    Functor_fmap -> importQ 'fmap
 
     Bits_class        -> importQ ''Data.Bits.Bits
     Bounded_class     -> importU ''Bounded
@@ -474,6 +483,8 @@ resolveGlobal = \case
       HsPrimCSize      -> importQ ''Foreign.C.CSize
       HsPrimCStringLen -> importQ ''Foreign.C.String.CStringLen
       HsPrimInt        -> importU ''Int
+      HsPrimWord32     -> importU ''Data.Word.Word32
+      HsPrimInt32      -> importU ''Data.Int.Int32
 
     ComplexType -> importQ ''Complex.Complex
 

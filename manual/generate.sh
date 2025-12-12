@@ -117,8 +117,9 @@ cabal run hs-bindgen-cli -- \
     --hs-output-dir hs/manual/src-foreign-types \
     --module Generated.ForeignTypes.A \
     --select-by-decl-name "A" \
-    --gen-binding-spec hs/manual/src-foreign-types/Generated/ForeignTypes/A.bindingspec.yaml \
+    --gen-binding-spec external/A.bindingspec.yaml \
     --create-output-dirs \
+    --overwrite-files \
     foreign_types.h
 
 cabal run hs-bindgen-cli -- \
@@ -128,9 +129,10 @@ cabal run hs-bindgen-cli -- \
     --hs-output-dir hs/manual/src-foreign-types \
     --module Generated.ForeignTypes.B \
     --select-by-decl-name "B" \
-    --gen-binding-spec hs/manual/src-foreign-types/Generated/ForeignTypes/B.bindingspec.yaml \
-    --external-binding-spec hs/manual/src-foreign-types/Generated/ForeignTypes/A.bindingspec.yaml \
+    --gen-binding-spec external/B.bindingspec.yaml \
+    --external-binding-spec external/A.bindingspec.yaml \
     --create-output-dirs \
+    --overwrite-files \
     foreign_types.h
 
 cabal run hs-bindgen-cli -- \
@@ -139,9 +141,10 @@ cabal run hs-bindgen-cli -- \
     --unique-id com.hs-bindgen.manual.foreign-types \
     --hs-output-dir hs/manual/src-foreign-types \
     --module Generated.ForeignTypes \
-    --external-binding-spec hs/manual/src-foreign-types/Generated/ForeignTypes/A.bindingspec.yaml \
-    --external-binding-spec hs/manual/src-foreign-types/Generated/ForeignTypes/B.bindingspec.yaml \
+    --external-binding-spec external/A.bindingspec.yaml \
+    --external-binding-spec external/B.bindingspec.yaml \
     --create-output-dirs \
+    --overwrite-files \
     foreign_types.h
 
 echo "# "

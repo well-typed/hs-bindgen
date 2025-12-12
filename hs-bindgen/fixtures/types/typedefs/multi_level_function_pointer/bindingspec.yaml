@@ -33,6 +33,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: F2
   instances:
   - Eq
@@ -40,6 +41,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: Ptr
 - hsname: F3
   instances:
   - Eq
@@ -47,6 +49,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: Ptr
 - hsname: F4
   instances:
   - Eq
@@ -54,6 +57,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: Ptr
 - hsname: F5
   instances:
   - Eq
@@ -61,6 +65,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: Ptr
 - hsname: F6
   instances:
   - Eq
@@ -68,6 +73,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: Ptr
 - hsname: MyInt
   instances:
   - Bits
@@ -84,3 +90,4 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt

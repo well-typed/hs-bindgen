@@ -8,7 +8,9 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -33,9 +35,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a6c085c30d844c6a" hs_bindgen_a6c085c30d844c6a_base ::
+     IO (Ptr.Ptr Void)
+
 -- | __unique:__ @test_declarationstentative_definit_Example_get_i1_ptr@
-foreign import ccall unsafe "hs_bindgen_a6c085c30d844c6a" hs_bindgen_a6c085c30d844c6a ::
+hs_bindgen_a6c085c30d844c6a ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_a6c085c30d844c6a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a6c085c30d844c6a_base
 
 {-# NOINLINE i1_ptr #-}
 
@@ -49,9 +58,16 @@ i1_ptr :: Ptr.Ptr FC.CInt
 i1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a6c085c30d844c6a
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_f63a7b78dc0eb182" hs_bindgen_f63a7b78dc0eb182_base ::
+     IO (Ptr.Ptr Void)
+
 -- | __unique:__ @test_declarationstentative_definit_Example_get_i2_ptr@
-foreign import ccall unsafe "hs_bindgen_f63a7b78dc0eb182" hs_bindgen_f63a7b78dc0eb182 ::
+hs_bindgen_f63a7b78dc0eb182 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_f63a7b78dc0eb182 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f63a7b78dc0eb182_base
 
 {-# NOINLINE i2_ptr #-}
 
@@ -65,9 +81,16 @@ i2_ptr :: Ptr.Ptr FC.CInt
 i2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f63a7b78dc0eb182
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_927fb780e7e73ba1" hs_bindgen_927fb780e7e73ba1_base ::
+     IO (Ptr.Ptr Void)
+
 -- | __unique:__ @test_declarationstentative_definit_Example_get_i3_ptr@
-foreign import ccall unsafe "hs_bindgen_927fb780e7e73ba1" hs_bindgen_927fb780e7e73ba1 ::
+hs_bindgen_927fb780e7e73ba1 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_927fb780e7e73ba1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_927fb780e7e73ba1_base
 
 {-# NOINLINE i3_ptr #-}
 

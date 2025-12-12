@@ -45,6 +45,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: FunctionPointer_Function
   instances:
   - Eq
@@ -52,6 +53,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: G1
   instances:
   - HasBaseForeignType
@@ -62,6 +64,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: H1
   instances:
   - HasBaseForeignType
@@ -75,6 +78,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Int2int
   instances:
   - HasBaseForeignType
@@ -85,6 +89,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: Ptr
 - hsname: Myint
   instances:
   - Bits
@@ -101,6 +106,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: NonFunctionPointer_Function
   instances:
   - HasBaseForeignType

@@ -5,8 +5,11 @@
 
 module Example.Unsafe where
 
+import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -24,6 +27,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_2311fa9c0d0d6d06" resample_base ::
+     Ptr.Ptr Void
+  -> Ptr.Ptr Void
+  -> FC.CLLong
+  -> FC.CLLong
+  -> Ptr.Ptr Void
+  -> IO ()
+
 {-| __C declaration:__ @resample@
 
     __defined at:__ @edge-cases\/spec_examples.h:31:6@
@@ -32,7 +45,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __unique:__ @test_edgecasesspec_examples_Example_Unsafe_resample@
 -}
-foreign import ccall unsafe "hs_bindgen_2311fa9c0d0d6d06" resample ::
+resample ::
      Ptr.Ptr Int32_T
      -- ^ __C declaration:__ @res_m_num_valid_samples@
   -> Ptr.Ptr Cint16_T
@@ -44,3 +57,5 @@ foreign import ccall unsafe "hs_bindgen_2311fa9c0d0d6d06" resample ::
   -> Ptr.Ptr Cint16_T
      -- ^ __C declaration:__ @res_m_iq_resampled_int@
   -> IO ()
+resample =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType resample_base

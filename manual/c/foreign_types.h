@@ -1,4 +1,4 @@
-typedef int A;
+typedef char A;
 
 typedef A B;
 

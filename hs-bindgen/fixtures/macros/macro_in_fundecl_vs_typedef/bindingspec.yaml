@@ -42,6 +42,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CChar
 - hsname: Struct1
   instances:
   - Eq
@@ -83,3 +84,4 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CChar

@@ -55,6 +55,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: M2
   instances:
   - Bits
@@ -71,6 +72,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CChar
 - hsname: M3
   instances:
   - Eq
@@ -78,6 +80,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: Ptr
 - hsname: T1
   instances:
   - Bits
@@ -94,6 +97,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: T2
   instances:
   - Bits
@@ -110,6 +114,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CChar
 - hsname: Uint64_t
   instances:
   - Bits
@@ -126,3 +131,4 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt

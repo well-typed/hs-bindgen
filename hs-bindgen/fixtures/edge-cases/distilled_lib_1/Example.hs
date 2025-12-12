@@ -29,9 +29,11 @@ import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Prelude
+import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
+import GHC.Word (Word32)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
@@ -708,13 +710,31 @@ newtype Callback_t_Deref = Callback_t_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toCallback_t_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toCallback_t_Deref_base ::
+     ((Ptr.Ptr Void) -> Word32 -> IO Word32)
+  -> IO (Ptr.FunPtr ((Ptr.Ptr Void) -> Word32 -> IO Word32))
+
+toCallback_t_Deref ::
      Callback_t_Deref
   -> IO (Ptr.FunPtr Callback_t_Deref)
+toCallback_t_Deref =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toCallback_t_Deref_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromCallback_t_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromCallback_t_Deref_base ::
+     Ptr.FunPtr ((Ptr.Ptr Void) -> Word32 -> IO Word32)
+  -> (Ptr.Ptr Void) -> Word32 -> IO Word32
+
+fromCallback_t_Deref ::
      Ptr.FunPtr Callback_t_Deref
   -> Callback_t_Deref
+fromCallback_t_Deref =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromCallback_t_Deref_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Callback_t_Deref where
 

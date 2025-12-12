@@ -19,3 +19,4 @@ hstypes:
   - Read
   - Show
   - Storable
+  baseforeigntype: CUInt

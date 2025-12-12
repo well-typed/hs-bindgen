@@ -23,3 +23,4 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr

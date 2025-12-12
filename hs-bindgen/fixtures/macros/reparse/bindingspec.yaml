@@ -132,6 +132,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: Arr_typedef1
   instances:
   - Eq
@@ -166,6 +167,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CBool
 - hsname: Comments2
   instances:
   - Bits
@@ -182,6 +184,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: Const_funptr1
   instances:
   - Eq
@@ -189,6 +192,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Const_funptr2
   instances:
   - Eq
@@ -196,6 +200,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Const_funptr3
   instances:
   - Eq
@@ -203,6 +208,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Const_funptr4
   instances:
   - Eq
@@ -210,6 +216,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Const_funptr5
   instances:
   - Eq
@@ -217,6 +224,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Const_funptr6
   instances:
   - Eq
@@ -224,6 +232,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Const_funptr7
   instances:
   - Eq
@@ -231,6 +240,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Const_typedef1
   instances:
   - Bits
@@ -247,6 +257,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: Const_typedef2
   instances:
   - Bits
@@ -263,6 +274,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: Const_typedef3
   instances:
   - Eq
@@ -270,6 +282,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: ConstPtr
 - hsname: Const_typedef4
   instances:
   - Eq
@@ -277,6 +290,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: ConstPtr
 - hsname: Const_typedef5
   instances:
   - Eq
@@ -284,6 +298,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: Ptr
 - hsname: Const_typedef6
   instances:
   - Eq
@@ -291,6 +306,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: ConstPtr
 - hsname: Const_typedef7
   instances:
   - Eq
@@ -298,6 +314,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: ConstPtr
 - hsname: Example_struct
   instances:
   - Eq
@@ -315,6 +332,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Funptr_typedef2
   instances:
   - Eq
@@ -322,6 +340,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Funptr_typedef3
   instances:
   - Eq
@@ -329,6 +348,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Funptr_typedef4
   instances:
   - Eq
@@ -336,6 +356,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: Funptr_typedef5
   instances:
   - Eq
@@ -343,6 +364,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: FunPtr
 - hsname: INT
   instances:
   - Bits
@@ -359,6 +381,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: INTCP
   instances:
   - Eq
@@ -366,6 +389,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: ConstPtr
 - hsname: INTP
   instances:
   - Eq
@@ -373,6 +397,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: Ptr
 - hsname: Some_enum
   instances:
   - Eq
@@ -381,6 +406,7 @@ hstypes:
   - Read
   - Show
   - Storable
+  baseforeigntype: CUInt
 - hsname: Some_struct
   instances:
   - Eq
@@ -405,6 +431,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  baseforeigntype: CInt
 - hsname: Typedef2
   instances:
   - Eq
@@ -412,6 +439,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: Ptr
 - hsname: Typedef3
   instances:
   - Eq
@@ -419,3 +447,4 @@ hstypes:
   - Ord
   - Show
   - Storable
+  baseforeigntype: Ptr
