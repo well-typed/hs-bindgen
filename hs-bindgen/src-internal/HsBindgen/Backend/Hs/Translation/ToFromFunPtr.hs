@@ -8,6 +8,7 @@ module HsBindgen.Backend.Hs.Translation.ToFromFunPtr (
   , forNewtype
   ) where
 
+import Data.Text qualified as Text
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -22,7 +23,6 @@ import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -44,17 +44,21 @@ import HsBindgen.Language.Haskell qualified as Hs
 forFunction :: ([C.Type], C.Type) -> [Hs.Decl]
 forFunction (args, res) =
     instancesFor
-      (unsafeUniqueHsName nameTo   , Just $ HsDoc.uniqueSymbol nameTo)
-      (unsafeUniqueHsName nameFrom , Just $ HsDoc.uniqueSymbol nameFrom)
+      (nameTo  , Just $ HsDoc.uniqueSymbol nameTo)
+      (nameFrom, Just $ HsDoc.uniqueSymbol nameFrom)
       funC
       funHs
   where
     funC  = C.TypeFun args res
     funHs = Type.topLevel funC
 
+    nameWith :: String -> UniqueSymbol
+    nameWith s =
+      locallyUnique $ "instance " <> s <> " (" <> prettyHsType funHs <> ")"
+
     nameTo, nameFrom :: UniqueSymbol
-    nameTo   = locallyUnique $ "instance ToFunPtr (" ++ prettyHsType funHs ++ ")"
-    nameFrom = locallyUnique $ "instance FromFunPtr (" ++ prettyHsType funHs ++ ")"
+    nameTo   = nameWith "ToFunPtr"
+    nameFrom = nameWith "FromFunPtr"
 
 -- | Generate instances for newtype around functions
 forNewtype :: Hs.Name Hs.NsTypeConstr -> ([C.Type], C.Type) -> [Hs.Decl]
@@ -68,23 +72,26 @@ forNewtype newtypeName (args, res) =
     funC  = C.TypeFun args res
     funHs = HsTypRef newtypeName
 
-    nameTo, nameFrom :: Hs.Name Hs.NsVar
-    nameTo   = "to"   <> coerce newtypeName
-    nameFrom = "from" <> coerce newtypeName
+    nameWith :: String -> UniqueSymbol
+    nameWith s = locallyUnique $ s <> Text.unpack (Hs.getName newtypeName)
+
+    nameTo, nameFrom :: UniqueSymbol
+    nameTo   = nameWith "to"
+    nameFrom = nameWith "from"
 
 {-------------------------------------------------------------------------------
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
 instancesFor ::
-     (Hs.Name Hs.NsVar, Maybe HsDoc.Comment) -- ^ Name of the @toFunPtr@ fun
-  -> (Hs.Name Hs.NsVar, Maybe HsDoc.Comment) -- ^ Name of the @fromFunPtr@ fun
+     (UniqueSymbol, Maybe HsDoc.Comment) -- ^ Name of the @toFunPtr@ fun
+  -> (UniqueSymbol, Maybe HsDoc.Comment) -- ^ Name of the @fromFunPtr@ fun
   -> C.Type                                  -- ^ Type of the C function
   -> HsType                                  -- ^ Corresponding Haskell type
   -> [Hs.Decl]
-instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = concat [
+instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = [
       -- import for @ToFunPtr@ instance
-      HsFI.foreignImportDecs
+      HsFI.foreignImportDec
         nameTo
         (HsIO (HsFunPtr funHs))
         [wrapperParam funHs]
@@ -95,7 +102,7 @@ instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = co
         SHs.Safe
 
       -- import for @FromFunPtr@ instance
-    , HsFI.foreignImportDecs
+    , HsFI.foreignImportDec
         nameFrom
         funHs
         [wrapperParam $ HsFunPtr funHs]
@@ -106,26 +113,24 @@ instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = co
         SHs.Safe
 
       -- @ToFunPtr@ instance proper
-    , [ Hs.DeclDefineInstance Hs.DefineInstance{
-            defineInstanceComment      = Nothing
-          , defineInstanceDeclarations = Hs.InstanceToFunPtr
-              Hs.ToFunPtrInstance{
-                  toFunPtrInstanceType = funHs
-                , toFunPtrInstanceBody = nameTo
-                }
-          }
-      ]
+    , Hs.DeclDefineInstance Hs.DefineInstance{
+          defineInstanceComment      = Nothing
+        , defineInstanceDeclarations = Hs.InstanceToFunPtr
+            Hs.ToFunPtrInstance{
+                toFunPtrInstanceType = funHs
+              , toFunPtrInstanceBody = nameTo
+              }
+        }
 
       -- @FromFunPtr@ instance proper
-    , [ Hs.DeclDefineInstance Hs.DefineInstance{
-            defineInstanceComment      = Nothing
-          , defineInstanceDeclarations = Hs.InstanceFromFunPtr
-              Hs.FromFunPtrInstance{
-                  fromFunPtrInstanceType = funHs
-                , fromFunPtrInstanceBody = nameFrom
-                }
-          }
-      ]
+    , Hs.DeclDefineInstance Hs.DefineInstance{
+          defineInstanceComment      = Nothing
+        , defineInstanceDeclarations = Hs.InstanceFromFunPtr
+            Hs.FromFunPtrInstance{
+                fromFunPtrInstanceType = funHs
+              , fromFunPtrInstanceBody = nameFrom
+              }
+        }
     ]
 
 wrapperParam :: HsType -> Hs.FunctionParameter

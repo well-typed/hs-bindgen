@@ -66,7 +66,7 @@ backend tracer BackendConfig{..} BootArtefact{..} FrontendArtefact{..} = do
 
 data BackendArtefact = BackendArtefact {
     backendHsDecls             :: Cached (SHs.ByCategory [Hs.Decl])
-  , backendFinalDecls          :: Cached (SHs.ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
+  , backendFinalDecls          :: Cached (SHs.ByCategory ([CWrapper], [SHs.SDecl]))
   , backendFinalModuleBaseName :: BaseModuleName
   , backendFinalModuleSafe     :: Cached HsModule
   , backendFinalModuleUnsafe   :: Cached HsModule

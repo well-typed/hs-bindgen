@@ -58,6 +58,7 @@ import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Errors
 import HsBindgen.Guasi
 import HsBindgen.Imports
@@ -725,7 +726,7 @@ mkDecl = \case
                 <$> pure callconv
                 <*> pure safety
                 <*> pure impent
-                <*> pure (hsNameToTH foreignImportName)
+                <*> pure (TH.mkName foreignImportName.unique)
                 <*> mkType EmptyEnv importType
 
       DFunction Function {..} -> do
