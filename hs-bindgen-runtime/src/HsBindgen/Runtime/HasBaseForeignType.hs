@@ -151,6 +151,7 @@ type family FromBaseForeignType ft where
 
   -- === Marshallable foreign types ===
   FromBaseForeignType (BFT.Basic a) = FromBasicForeignType a
+  FromBaseForeignType (BFT.Builtin a) = FromBuiltinForeignType a
 
 type FromBasicForeignType :: BFT.BasicForeignType -> Type
 type family FromBasicForeignType ft where
@@ -174,41 +175,46 @@ type family FromBasicForeignType ft where
   -- Foreign.Ptr
   FromBasicForeignType BFT.Ptr     = Ptr Void
   FromBasicForeignType BFT.FunPtr  = FunPtr Void
-  FromBasicForeignType BFT.IntPtr  = IntPtr
-  FromBasicForeignType BFT.WordPtr = WordPtr
   -- Foreign.StablePtr
   FromBasicForeignType BFT.StablePtr = StablePtr Void
+
+type FromBuiltinForeignType :: BFT.BuiltinForeignType -> Type
+type family FromBuiltinForeignType ft where
+    -- Foreign.Ptr
+  FromBuiltinForeignType BFT.IntPtr  = IntPtr
+  FromBuiltinForeignType BFT.WordPtr = WordPtr
   -- Foreign.C.ConstPtr
-  FromBasicForeignType BFT.ConstPtr = ConstPtr Void
+  FromBuiltinForeignType BFT.ConstPtr = ConstPtr Void
   -- Foreign.C.Types
-  FromBasicForeignType BFT.CChar      = CChar
-  FromBasicForeignType BFT.CSChar     = CSChar
-  FromBasicForeignType BFT.CUChar     = CUChar
-  FromBasicForeignType BFT.CShort     = CShort
-  FromBasicForeignType BFT.CUShort    = CUShort
-  FromBasicForeignType BFT.CInt       = CInt
-  FromBasicForeignType BFT.CUInt      = CUInt
-  FromBasicForeignType BFT.CLong      = CLong
-  FromBasicForeignType BFT.CULong     = CULong
-  FromBasicForeignType BFT.CPtrdiff   = CPtrdiff
-  FromBasicForeignType BFT.CSize      = CSize
-  FromBasicForeignType BFT.CWchar     = CWchar
-  FromBasicForeignType BFT.CSigAtomic = CSigAtomic
-  FromBasicForeignType BFT.CLLong     = CLLong
-  FromBasicForeignType BFT.CULLong    = CULLong
-  FromBasicForeignType BFT.CBool      = CBool
-  FromBasicForeignType BFT.CIntPtr    = CIntPtr
-  FromBasicForeignType BFT.CUIntPtr   = CUIntPtr
-  FromBasicForeignType BFT.CIntMax    = CIntMax
-  FromBasicForeignType BFT.CUIntMax   = CUIntMax
+  FromBuiltinForeignType BFT.CChar      = CChar
+  FromBuiltinForeignType BFT.CSChar     = CSChar
+  FromBuiltinForeignType BFT.CUChar     = CUChar
+  FromBuiltinForeignType BFT.CShort     = CShort
+  FromBuiltinForeignType BFT.CUShort    = CUShort
+  FromBuiltinForeignType BFT.CInt       = CInt
+  FromBuiltinForeignType BFT.CUInt      = CUInt
+  FromBuiltinForeignType BFT.CLong      = CLong
+  FromBuiltinForeignType BFT.CULong     = CULong
+  FromBuiltinForeignType BFT.CPtrdiff   = CPtrdiff
+  FromBuiltinForeignType BFT.CSize      = CSize
+  FromBuiltinForeignType BFT.CWchar     = CWchar
+  FromBuiltinForeignType BFT.CSigAtomic = CSigAtomic
+  FromBuiltinForeignType BFT.CLLong     = CLLong
+  FromBuiltinForeignType BFT.CULLong    = CULLong
+  FromBuiltinForeignType BFT.CBool      = CBool
+  FromBuiltinForeignType BFT.CIntPtr    = CIntPtr
+  FromBuiltinForeignType BFT.CUIntPtr   = CUIntPtr
+  FromBuiltinForeignType BFT.CIntMax    = CIntMax
+  FromBuiltinForeignType BFT.CUIntMax   = CUIntMax
   -- Foreign.C.Types : Numeric types
-  FromBasicForeignType BFT.CClock     = CClock
-  FromBasicForeignType BFT.CTime      = CTime
-  FromBasicForeignType BFT.CUSeconds  = CUSeconds
-  FromBasicForeignType BFT.CSUSeconds = CSUSeconds
+  FromBuiltinForeignType BFT.CClock     = CClock
+  FromBuiltinForeignType BFT.CTime      = CTime
+  FromBuiltinForeignType BFT.CUSeconds  = CUSeconds
+  FromBuiltinForeignType BFT.CSUSeconds = CSUSeconds
   -- Foreign.C.Types : Floating type
-  FromBasicForeignType BFT.CFloat  = CFloat
-  FromBasicForeignType BFT.CDouble = CDouble
+  FromBuiltinForeignType BFT.CFloat  = CFloat
+  FromBuiltinForeignType BFT.CDouble = CDouble
+
 
 {-------------------------------------------------------------------------------
   Deriving-via
@@ -243,8 +249,8 @@ instance (Coercible a b, HasBaseForeignType a) => HasBaseForeignType (ViaCoercib
 type ViaBaseForeignType :: k -> Type -> Type
 newtype ViaBaseForeignType k a = ViaBaseForeignType a
 
-instance FromBaseForeignType fat ~ a => HasBaseForeignType (ViaBaseForeignType fat a) where
-  type ToBaseForeignType (ViaBaseForeignType fat a) = fat
+instance FromBaseForeignType ft ~ a => HasBaseForeignType (ViaBaseForeignType ft a) where
+  type ToBaseForeignType (ViaBaseForeignType ft a) = ft
   {-# INLINE toBaseType #-}
   toBaseType (ViaBaseForeignType x) = x
   {-# INLINE fromBaseType #-}
@@ -255,12 +261,24 @@ instance FromBaseForeignType fat ~ a => HasBaseForeignType (ViaBaseForeignType f
 type ViaBasicForeignType :: k -> Type -> Type
 newtype ViaBasicForeignType k a = ViaBasicForeignType a
 
-instance FromBaseForeignType (BFT.Basic fat) ~ a => HasBaseForeignType (ViaBasicForeignType fat a) where
-  type ToBaseForeignType (ViaBasicForeignType fat a) = BFT.Basic fat
+instance FromBaseForeignType (BFT.Basic ft) ~ a => HasBaseForeignType (ViaBasicForeignType ft a) where
+  type ToBaseForeignType (ViaBasicForeignType ft a) = BFT.Basic ft
   {-# INLINE toBaseType #-}
   toBaseType (ViaBasicForeignType x) = x
   {-# INLINE fromBaseType #-}
   fromBaseType x = ViaBasicForeignType x
+
+-- === Via a builtin foreign type ===
+
+type ViaBuiltinForeignType :: k -> Type -> Type
+newtype ViaBuiltinForeignType k a = ViaBuiltinForeignType a
+
+instance FromBaseForeignType (BFT.Builtin ft) ~ a => HasBaseForeignType (ViaBuiltinForeignType ft a) where
+  type ToBaseForeignType (ViaBuiltinForeignType ft a) = BFT.Builtin ft
+  {-# INLINE toBaseType #-}
+  toBaseType (ViaBuiltinForeignType x) = x
+  {-# INLINE fromBaseType #-}
+  fromBaseType x = ViaBuiltinForeignType x
 
 {-------------------------------------------------------------------------------
   Foreign types
@@ -289,12 +307,6 @@ instance HasBaseForeignType a => HasBaseForeignType (IO a) where
 {-------------------------------------------------------------------------------
   Marshallable foreign types
 -------------------------------------------------------------------------------}
-
--- NOTE: we use 'ViaBasicForeignType' rather than 'ViaNewtype' to derive
--- 'HasBaseForeignType' instances even for non-basic foreign types coming from the
--- "Foreign.C" modules. Most of these types, like 'CInt', are newtypes around
--- basic foreign types, but the specific basic foreign type depends on the
--- platform\/operating system.
 
 -- === Prelude ===
 
@@ -345,8 +357,8 @@ instance HasBaseForeignType (FunPtr a) where
 
 -- == Newtypes around basic foreign types ==
 
-deriving via ViaBasicForeignType BFT.IntPtr IntPtr instance HasBaseForeignType IntPtr
-deriving via ViaBasicForeignType BFT.WordPtr WordPtr instance HasBaseForeignType WordPtr
+deriving via ViaBuiltinForeignType BFT.IntPtr IntPtr instance HasBaseForeignType IntPtr
+deriving via ViaBuiltinForeignType BFT.WordPtr WordPtr instance HasBaseForeignType WordPtr
 
 -- === Foreign.StablePtr ===
 
@@ -368,7 +380,7 @@ castStablePtr = castPtrToStablePtr . castStablePtrToPtr
 -- == Newtypes around basic foreign types ==
 
 instance HasBaseForeignType (ConstPtr a) where
-  type ToBaseForeignType (ConstPtr a) = BFT.Basic BFT.ConstPtr
+  type ToBaseForeignType (ConstPtr a) = BFT.Builtin BFT.ConstPtr
   {-# INLINE toBaseType #-}
   toBaseType = coerce castPtr
   {-# INLINE fromBaseType #-}
@@ -384,40 +396,40 @@ deriving via ViaNewtype CInt instance HasBaseForeignType Errno
 
 -- == Newtypes around basic foreign types ==
 
-deriving via ViaBasicForeignType BFT.CChar CChar instance HasBaseForeignType CChar
-deriving via ViaBasicForeignType BFT.CSChar CSChar instance HasBaseForeignType CSChar
-deriving via ViaBasicForeignType BFT.CUChar CUChar instance HasBaseForeignType CUChar
-deriving via ViaBasicForeignType BFT.CShort CShort instance HasBaseForeignType CShort
-deriving via ViaBasicForeignType BFT.CUShort CUShort instance HasBaseForeignType CUShort
-deriving via ViaBasicForeignType BFT.CInt CInt instance HasBaseForeignType CInt
-deriving via ViaBasicForeignType BFT.CUInt CUInt instance HasBaseForeignType CUInt
-deriving via ViaBasicForeignType BFT.CLong CLong instance HasBaseForeignType CLong
-deriving via ViaBasicForeignType BFT.CULong CULong instance HasBaseForeignType CULong
-deriving via ViaBasicForeignType BFT.CPtrdiff CPtrdiff instance HasBaseForeignType CPtrdiff
-deriving via ViaBasicForeignType BFT.CSize CSize instance HasBaseForeignType CSize
-deriving via ViaBasicForeignType BFT.CWchar CWchar instance HasBaseForeignType CWchar
-deriving via ViaBasicForeignType BFT.CSigAtomic CSigAtomic instance HasBaseForeignType CSigAtomic
-deriving via ViaBasicForeignType BFT.CLLong CLLong instance HasBaseForeignType CLLong
-deriving via ViaBasicForeignType BFT.CULLong CULLong instance HasBaseForeignType CULLong
-deriving via ViaBasicForeignType BFT.CBool CBool instance HasBaseForeignType CBool
-deriving via ViaBasicForeignType BFT.CIntPtr CIntPtr instance HasBaseForeignType CIntPtr
-deriving via ViaBasicForeignType BFT.CUIntPtr CUIntPtr instance HasBaseForeignType CUIntPtr
-deriving via ViaBasicForeignType BFT.CIntMax CIntMax instance HasBaseForeignType CIntMax
-deriving via ViaBasicForeignType BFT.CUIntMax CUIntMax instance HasBaseForeignType CUIntMax
+deriving via ViaBuiltinForeignType BFT.CChar CChar instance HasBaseForeignType CChar
+deriving via ViaBuiltinForeignType BFT.CSChar CSChar instance HasBaseForeignType CSChar
+deriving via ViaBuiltinForeignType BFT.CUChar CUChar instance HasBaseForeignType CUChar
+deriving via ViaBuiltinForeignType BFT.CShort CShort instance HasBaseForeignType CShort
+deriving via ViaBuiltinForeignType BFT.CUShort CUShort instance HasBaseForeignType CUShort
+deriving via ViaBuiltinForeignType BFT.CInt CInt instance HasBaseForeignType CInt
+deriving via ViaBuiltinForeignType BFT.CUInt CUInt instance HasBaseForeignType CUInt
+deriving via ViaBuiltinForeignType BFT.CLong CLong instance HasBaseForeignType CLong
+deriving via ViaBuiltinForeignType BFT.CULong CULong instance HasBaseForeignType CULong
+deriving via ViaBuiltinForeignType BFT.CPtrdiff CPtrdiff instance HasBaseForeignType CPtrdiff
+deriving via ViaBuiltinForeignType BFT.CSize CSize instance HasBaseForeignType CSize
+deriving via ViaBuiltinForeignType BFT.CWchar CWchar instance HasBaseForeignType CWchar
+deriving via ViaBuiltinForeignType BFT.CSigAtomic CSigAtomic instance HasBaseForeignType CSigAtomic
+deriving via ViaBuiltinForeignType BFT.CLLong CLLong instance HasBaseForeignType CLLong
+deriving via ViaBuiltinForeignType BFT.CULLong CULLong instance HasBaseForeignType CULLong
+deriving via ViaBuiltinForeignType BFT.CBool CBool instance HasBaseForeignType CBool
+deriving via ViaBuiltinForeignType BFT.CIntPtr CIntPtr instance HasBaseForeignType CIntPtr
+deriving via ViaBuiltinForeignType BFT.CUIntPtr CUIntPtr instance HasBaseForeignType CUIntPtr
+deriving via ViaBuiltinForeignType BFT.CIntMax CIntMax instance HasBaseForeignType CIntMax
+deriving via ViaBuiltinForeignType BFT.CUIntMax CUIntMax instance HasBaseForeignType CUIntMax
 
 -- === Foreign.C.Types : Numeric types ===
 
 -- == Newtypes around basic foreign types ==
 
-deriving via ViaBasicForeignType BFT.CClock CClock instance HasBaseForeignType CClock
-deriving via ViaBasicForeignType BFT.CTime CTime instance HasBaseForeignType CTime
-deriving via ViaBasicForeignType BFT.CUSeconds CUSeconds instance HasBaseForeignType CUSeconds
-deriving via ViaBasicForeignType BFT.CSUSeconds CSUSeconds instance HasBaseForeignType CSUSeconds
+deriving via ViaBuiltinForeignType BFT.CClock CClock instance HasBaseForeignType CClock
+deriving via ViaBuiltinForeignType BFT.CTime CTime instance HasBaseForeignType CTime
+deriving via ViaBuiltinForeignType BFT.CUSeconds CUSeconds instance HasBaseForeignType CUSeconds
+deriving via ViaBuiltinForeignType BFT.CSUSeconds CSUSeconds instance HasBaseForeignType CSUSeconds
 
 -- === Foreign.C.Types : Floating types ===
 
 -- == Newtypes around basic foreign types ==
 
-deriving via ViaBasicForeignType BFT.CFloat CFloat instance HasBaseForeignType CFloat
-deriving via ViaBasicForeignType BFT.CDouble CDouble instance HasBaseForeignType CDouble
+deriving via ViaBuiltinForeignType BFT.CFloat CFloat instance HasBaseForeignType CFloat
+deriving via ViaBuiltinForeignType BFT.CDouble CDouble instance HasBaseForeignType CDouble
 
