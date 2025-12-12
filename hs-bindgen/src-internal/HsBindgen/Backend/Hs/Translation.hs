@@ -3,7 +3,7 @@ module HsBindgen.Backend.Hs.Translation (
     generateDeclarations
   ) where
 
-import Control.Monad.State qualified as State
+import Control.Monad.State qualified as State hiding (MonadState)
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
@@ -23,7 +23,7 @@ import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Newtype qualified as Hs
-import HsBindgen.Backend.Hs.Translation.State (TranslationState)
+import HsBindgen.Backend.Hs.Translation.State (HsM, TranslationState)
 import HsBindgen.Backend.Hs.Translation.State qualified as State
 import HsBindgen.Backend.Hs.Translation.ToFromFunPtr qualified as ToFromFunPtr
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
@@ -86,7 +86,7 @@ generateDeclarations' ::
   -> [C.Decl]
   -> [WithCategory Hs.Decl]
 generateDeclarations' opts haddockConfig moduleName declIndex decs =
-    flip State.evalState State.emptyTranslationState $ do
+    State.runHsM $ do
       let scannedFunctionPointerTypes = scanAllFunctionPointerTypes decs
           -- Generate ToFunPtr/FromFunPtr instances for nested callback types
           -- These go in the main module to avoid orphan instances
@@ -153,12 +153,11 @@ isDefinedInCurrentModule declIndex =
 
 -- TODO: Take DeclSpec into account
 generateDecs ::
-     State.MonadState TranslationState m
-  => TranslationConfig
+     TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
   -> C.Decl
-  -> m [WithCategory Hs.Decl]
+  -> HsM [WithCategory Hs.Decl]
 generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
     case kind of
       C.DeclStruct struct -> withCategoryM BType $
@@ -207,15 +206,15 @@ reifyStructFields ::
 reifyStructFields struct k = Vec.reifyList (C.structFields struct) k
 
 -- | Generate declarations for given C struct
-structDecs :: forall n m.
-     (SNatI n, State.MonadState TranslationState m)
+structDecs :: forall n.
+     SNatI n
   => TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
   -> C.Struct
   -> C.DeclSpec
   -> Vec n C.StructField
-  -> m [Hs.Decl]
+  -> HsM [Hs.Decl]
 structDecs opts haddockConfig info struct spec fields = do
     (insts, decls) <- aux <$> State.gets State.instanceMap
     State.modifyInstanceMap' $ Map.insert structName insts
@@ -409,12 +408,11 @@ pokeStructField ptr f x = case C.structFieldWidth f of
 -------------------------------------------------------------------------------}
 
 opaqueDecs ::
-     State.MonadState TranslationState m
-  => C.NameKind
+     C.NameKind
   -> HaddockConfig
   -> C.DeclInfo
   -> C.DeclSpec
-  -> m [Hs.Decl]
+  -> HsM [Hs.Decl]
 opaqueDecs cNameKind haddockConfig info spec = do
     State.modifyInstanceMap' $ Map.insert name Set.empty
     return [decl]
@@ -438,17 +436,16 @@ opaqueDecs cNameKind haddockConfig info spec = do
 -------------------------------------------------------------------------------}
 
 unionDecs ::
-     forall m. State.MonadState TranslationState m
-  => HaddockConfig
+     HaddockConfig
   -> C.DeclInfo
   -> C.Union
   -> C.DeclSpec
-  -> m [Hs.Decl]
+  -> HsM [Hs.Decl]
 unionDecs haddockConfig info union spec = do
     nt <- newtypeDec
     flip aux nt <$> State.get
   where
-    newtypeDec :: m Hs.Newtype
+    newtypeDec :: HsM Hs.Newtype
     newtypeDec =
         Hs.newtypeDec newtypeName newtypeConstr newtypeField
           newtypeOrigin newtypeComment candidateInsts knownInsts
@@ -628,18 +625,17 @@ unionFieldDecls unionName f = [
 -------------------------------------------------------------------------------}
 
 enumDecs ::
-     forall m. State.MonadState TranslationState m
-  => TranslationConfig
+     TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
   -> C.Enum
   -> C.DeclSpec
-  -> m [Hs.Decl]
+  -> HsM [Hs.Decl]
 enumDecs opts haddockConfig info e spec = do
     nt <- newtypeDec
     pure $ aux nt
   where
-    newtypeDec :: m Hs.Newtype
+    newtypeDec :: HsM Hs.Newtype
     newtypeDec =
         Hs.newtypeDec newtypeName newtypeConstr newtypeField
           newtypeOrigin newtypeComment candidateInsts knownInsts
@@ -778,18 +774,17 @@ enumDecs opts haddockConfig info e spec = do
 -------------------------------------------------------------------------------}
 
 typedefDecs ::
-     forall m. State.MonadState TranslationState m
-  => TranslationConfig
+     TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
   -> C.Typedef
   -> C.DeclSpec
-  -> m [Hs.Decl]
+  -> HsM [Hs.Decl]
 typedefDecs opts haddockConfig info typedef spec = do
     nt <- newtypeDec
     pure $ aux nt
   where
-    newtypeDec :: m Hs.Newtype
+    newtypeDec :: HsM Hs.Newtype
     newtypeDec =
         Hs.newtypeDec newtypeName newtypeConstr newtypeField
           newtypeOrigin newtypeComment candidateInsts knownInsts
@@ -954,31 +949,29 @@ typedefFieldDecls hsNewType = [
 -------------------------------------------------------------------------------}
 
 macroDecs ::
-     State.MonadState TranslationState m
-  => TranslationConfig
+     TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
   -> C.CheckedMacro
   -> C.DeclSpec
-  -> m [Hs.Decl]
+  -> HsM [Hs.Decl]
 macroDecs opts haddockConfig info checkedMacro spec =
     case checkedMacro of
       C.MacroType ty   -> macroDecsTypedef opts haddockConfig info ty spec
       C.MacroExpr expr -> pure $ macroVarDecs haddockConfig info expr
 
 macroDecsTypedef ::
-     forall m. State.MonadState TranslationState m
-  => TranslationConfig
+     TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
   -> C.CheckedMacroType
   -> C.DeclSpec
-  -> m [Hs.Decl]
+  -> HsM [Hs.Decl]
 macroDecsTypedef opts haddockConfig info macroType spec = do
     nt <- newtypeDec
     pure $ aux nt
   where
-    newtypeDec :: m Hs.Newtype
+    newtypeDec :: HsM Hs.Newtype
     newtypeDec =
         Hs.newtypeDec newtypeName newtypeConstr newtypeField
           newtypeOrigin newtypeComment candidateInsts knownInsts
