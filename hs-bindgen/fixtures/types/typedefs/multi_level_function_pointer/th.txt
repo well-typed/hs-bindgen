@@ -13,6 +13,7 @@ newtype F1_Deref
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toF1_Deref :: F1_Deref ->
                                                   IO (FunPtr F1_Deref)
 foreign import ccall safe "dynamic" fromF1_Deref :: FunPtr F1_Deref ->
@@ -43,7 +44,7 @@ newtype F1
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType F1 "un_F1") =>
          HasField "un_F1" (Ptr F1) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_F1")
@@ -64,6 +65,7 @@ newtype F2_Deref
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toF2_Deref :: F2_Deref ->
                                                   IO (FunPtr F2_Deref)
 foreign import ccall safe "dynamic" fromF2_Deref :: FunPtr F2_Deref ->
@@ -94,7 +96,7 @@ newtype F2
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType F2 "un_F2") =>
          HasField "un_F2" (Ptr F2) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_F2")
@@ -115,6 +117,7 @@ newtype F3_Deref
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toF3_Deref :: F3_Deref ->
                                                   IO (FunPtr F3_Deref)
 foreign import ccall safe "dynamic" fromF3_Deref :: FunPtr F3_Deref ->
@@ -145,7 +148,7 @@ newtype F3
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType F3 "un_F3") =>
          HasField "un_F3" (Ptr F3) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_F3")
@@ -166,6 +169,7 @@ newtype F4_Deref
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toF4_Deref :: F4_Deref ->
                                                   IO (FunPtr F4_Deref)
 foreign import ccall safe "dynamic" fromF4_Deref :: FunPtr F4_Deref ->
@@ -195,7 +199,7 @@ newtype F4
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType F4 "un_F4") =>
          HasField "un_F4" (Ptr F4) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_F4")
@@ -216,6 +220,7 @@ newtype F5_Deref
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toF5_Deref :: F5_Deref ->
                                                   IO (FunPtr F5_Deref)
 foreign import ccall safe "dynamic" fromF5_Deref :: FunPtr F5_Deref ->
@@ -245,7 +250,7 @@ newtype F5
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType F5 "un_F5") =>
          HasField "un_F5" (Ptr F5) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_F5")
@@ -268,6 +273,7 @@ newtype MyInt
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,
@@ -296,6 +302,7 @@ newtype F6_Deref
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toF6_Deref :: F6_Deref ->
                                                   IO (FunPtr F6_Deref)
 foreign import ccall safe "dynamic" fromF6_Deref :: FunPtr F6_Deref ->
@@ -325,7 +332,7 @@ newtype F6
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType F6 "un_F6") =>
          HasField "un_F6" (Ptr F6) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_F6")

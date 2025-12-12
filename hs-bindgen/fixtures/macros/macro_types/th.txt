@@ -14,7 +14,7 @@ newtype PtrInt
            __exported by:__ @macros\/macro_types.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 {-| __C declaration:__ @PtrPtrChar@
 
     __defined at:__ @macros\/macro_types.h:5:9@
@@ -30,7 +30,7 @@ newtype PtrPtrChar
            __exported by:__ @macros\/macro_types.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 {-| __C declaration:__ @MTy@
 
     __defined at:__ @macros\/macro_types.h:8:9@
@@ -47,6 +47,7 @@ newtype MTy
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Enum,
                       Floating,
                       Fractional,
@@ -70,6 +71,7 @@ newtype Tty
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Enum,
                       Floating,
                       Fractional,
@@ -99,6 +101,7 @@ newtype UINT8_T
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,
@@ -123,6 +126,7 @@ newtype BOOLEAN_T
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,
@@ -147,6 +151,7 @@ newtype Boolean_T
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,

@@ -386,6 +386,7 @@ newtype Size_type
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,
@@ -450,6 +451,7 @@ newtype Color_enum
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable Color_enum
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -546,6 +548,7 @@ newtype Event_callback_t_Deref
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toEvent_callback_t_Deref :: Event_callback_t_Deref ->
                                                                 IO (FunPtr Event_callback_t_Deref)
 foreign import ccall safe "dynamic" fromEvent_callback_t_Deref :: FunPtr Event_callback_t_Deref ->
@@ -600,7 +603,7 @@ newtype Event_callback_t
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty
               (CFieldType Event_callback_t "un_Event_callback_t") =>
          HasField "un_Event_callback_t" (Ptr Event_callback_t) (Ptr ty)
@@ -763,6 +766,7 @@ newtype Status_code_t
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable Status_code_t
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -1320,6 +1324,7 @@ newtype Processor_fn_t_Deref
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toProcessor_fn_t_Deref :: Processor_fn_t_Deref ->
                                                               IO (FunPtr Processor_fn_t_Deref)
 foreign import ccall safe "dynamic" fromProcessor_fn_t_Deref :: FunPtr Processor_fn_t_Deref ->
@@ -1377,7 +1382,7 @@ newtype Processor_fn_t
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Processor_fn_t "un_Processor_fn_t") =>
          HasField "un_Processor_fn_t" (Ptr Processor_fn_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Processor_fn_t")

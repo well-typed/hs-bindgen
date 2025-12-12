@@ -200,6 +200,7 @@ newtype Toggle
 
            __exported by:__ @edge-cases\/iterator.h@
       -}
+    deriving newtype HasBaseForeignType
 instance TyEq ty (CFieldType Toggle "un_Toggle") =>
          HasField "un_Toggle" (Ptr Toggle) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Toggle")
@@ -220,6 +221,7 @@ newtype Counter
 
            __exported by:__ @edge-cases\/iterator.h@
       -}
+    deriving newtype HasBaseForeignType
 instance TyEq ty (CFieldType Counter "un_Counter") =>
          HasField "un_Counter" (Ptr Counter) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Counter")
@@ -240,6 +242,7 @@ newtype VarCounter
 
            __exported by:__ @edge-cases\/iterator.h@
       -}
+    deriving newtype HasBaseForeignType
 instance TyEq ty (CFieldType VarCounter "un_VarCounter") =>
          HasField "un_VarCounter" (Ptr VarCounter) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_VarCounter")

@@ -29,36 +29,42 @@ hstypes:
 - hsname: F1
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: F2
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: F3
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: F4
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: F5
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: F6
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
@@ -69,6 +75,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasBaseForeignType
   - Integral
   - Ix
   - Num

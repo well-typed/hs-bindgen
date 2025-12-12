@@ -1,6 +1,7 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -16,6 +17,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.Block
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude (IO)
@@ -29,6 +31,7 @@ import Prelude (IO)
 newtype Toggle = Toggle
   { un_Toggle :: HsBindgen.Runtime.Block.Block (IO FC.CBool)
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Toggle) "un_Toggle")
          ) => GHC.Records.HasField "un_Toggle" (Ptr.Ptr Toggle) (Ptr.Ptr ty) where
@@ -52,6 +55,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Toggle "un_Toggle" where
 newtype Counter = Counter
   { un_Counter :: HsBindgen.Runtime.Block.Block (IO FC.CInt)
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Counter) "un_Counter")
          ) => GHC.Records.HasField "un_Counter" (Ptr.Ptr Counter) (Ptr.Ptr ty) where
@@ -75,6 +79,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Counter "un_Counter" where
 newtype VarCounter = VarCounter
   { un_VarCounter :: HsBindgen.Runtime.Block.Block (FC.CInt -> IO FC.CInt)
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType VarCounter) "un_VarCounter")
          ) => GHC.Records.HasField "un_VarCounter" (Ptr.Ptr VarCounter) (Ptr.Ptr ty) where

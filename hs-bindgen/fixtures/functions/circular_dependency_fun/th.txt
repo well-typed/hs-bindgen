@@ -14,6 +14,7 @@ newtype Fun_ptr_Deref
 
       __exported by:__ @functions\/circular_dependency_fun.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toFun_ptr_Deref :: Fun_ptr_Deref ->
                                                        IO (FunPtr Fun_ptr_Deref)
 foreign import ccall safe "dynamic" fromFun_ptr_Deref :: FunPtr Fun_ptr_Deref ->
@@ -44,7 +45,7 @@ newtype Fun_ptr
            __exported by:__ @functions\/circular_dependency_fun.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Fun_ptr "un_Fun_ptr") =>
          HasField "un_Fun_ptr" (Ptr Fun_ptr) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Fun_ptr")

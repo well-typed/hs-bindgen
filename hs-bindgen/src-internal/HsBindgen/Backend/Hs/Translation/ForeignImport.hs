@@ -1,6 +1,7 @@
--- | Generate Haskell foreign imports
+-- | Generate Haskell foreign imports (using the 'HasBaseForeignType' class)
 module HsBindgen.Backend.Hs.Translation.ForeignImport (
     foreignImportDecs
+  , hasBaseForeignTypeDecs
   ) where
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -9,7 +10,9 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell
 import HsBindgen.Language.Haskell qualified as Hs
 
 foreignImportDecs ::
@@ -37,3 +40,19 @@ foreignImportDecs name resultType parameters origName callConv origin comment sa
         , foreignImportComment      = comment
         , foreignImportSafety       = safety
         }
+
+hasBaseForeignTypeDecs ::
+     Set TypeClass
+  -> Hs.Newtype
+  -> [Hs.Decl]
+hasBaseForeignTypeDecs insts nt =
+     [mk | HasBaseForeignType `elem` insts]
+  where
+    mk :: Hs.Decl
+    mk = Hs.DeclDeriveInstance
+              Hs.DeriveInstance {
+                deriveInstanceStrategy = Hs.DeriveNewtype
+              , deriveInstanceClass    = HasBaseForeignType
+              , deriveInstanceName     = Hs.newtypeName nt
+              , deriveInstanceComment  = Nothing
+              }

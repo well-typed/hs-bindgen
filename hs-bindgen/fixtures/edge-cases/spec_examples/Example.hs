@@ -21,6 +21,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import Data.Bits (FiniteBits)
 import HsBindgen.Runtime.TypeEquality (TyEq)
@@ -38,7 +39,7 @@ newtype Int16_T = Int16_T
   { un_Int16_T :: FC.CShort
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int16_T) "un_Int16_T")
          ) => GHC.Records.HasField "un_Int16_T" (Ptr.Ptr Int16_T) (Ptr.Ptr ty) where
@@ -62,7 +63,7 @@ newtype Int32_T = Int32_T
   { un_Int32_T :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int32_T) "un_Int32_T")
          ) => GHC.Records.HasField "un_Int32_T" (Ptr.Ptr Int32_T) (Ptr.Ptr ty) where
@@ -86,7 +87,7 @@ newtype Int64_T = Int64_T
   { un_Int64_T :: FC.CLLong
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int64_T) "un_Int64_T")
          ) => GHC.Records.HasField "un_Int64_T" (Ptr.Ptr Int64_T) (Ptr.Ptr ty) where

@@ -19,6 +19,7 @@ hstypes:
 - hsname: Fun_ptr
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable

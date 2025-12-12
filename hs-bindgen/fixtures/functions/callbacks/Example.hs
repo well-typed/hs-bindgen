@@ -29,6 +29,7 @@ import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FunPtr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Text.Read
@@ -45,6 +46,7 @@ __exported by:__ @functions\/callbacks.h@
 newtype FileOpenedNotification_Deref = FileOpenedNotification_Deref
   { un_FileOpenedNotification_Deref :: IO ()
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toFileOpenedNotification_Deref ::
      FileOpenedNotification_Deref
@@ -85,7 +87,7 @@ newtype FileOpenedNotification = FileOpenedNotification
   { un_FileOpenedNotification :: Ptr.FunPtr FileOpenedNotification_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOpenedNotification) "un_FileOpenedNotification")
          ) => GHC.Records.HasField "un_FileOpenedNotification" (Ptr.Ptr FileOpenedNotification) (Ptr.Ptr ty) where
@@ -109,6 +111,7 @@ __exported by:__ @functions\/callbacks.h@
 newtype ProgressUpdate_Deref = ProgressUpdate_Deref
   { un_ProgressUpdate_Deref :: FC.CInt -> IO ()
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toProgressUpdate_Deref ::
      ProgressUpdate_Deref
@@ -149,7 +152,7 @@ newtype ProgressUpdate = ProgressUpdate
   { un_ProgressUpdate :: Ptr.FunPtr ProgressUpdate_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProgressUpdate) "un_ProgressUpdate")
          ) => GHC.Records.HasField "un_ProgressUpdate" (Ptr.Ptr ProgressUpdate) (Ptr.Ptr ty) where
@@ -173,6 +176,7 @@ __exported by:__ @functions\/callbacks.h@
 newtype DataValidator_Deref = DataValidator_Deref
   { un_DataValidator_Deref :: FC.CInt -> IO FC.CInt
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toDataValidator_Deref ::
      DataValidator_Deref
@@ -213,7 +217,7 @@ newtype DataValidator = DataValidator
   { un_DataValidator :: Ptr.FunPtr DataValidator_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataValidator) "un_DataValidator")
          ) => GHC.Records.HasField "un_DataValidator" (Ptr.Ptr DataValidator) (Ptr.Ptr ty) where
@@ -307,6 +311,7 @@ __exported by:__ @functions\/callbacks.h@
 newtype MeasurementReceived_Deref = MeasurementReceived_Deref
   { un_MeasurementReceived_Deref :: (Ptr.Ptr Measurement) -> IO ()
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toMeasurementReceived_Deref ::
      MeasurementReceived_Deref
@@ -347,7 +352,7 @@ newtype MeasurementReceived = MeasurementReceived
   { un_MeasurementReceived :: Ptr.FunPtr MeasurementReceived_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived) "un_MeasurementReceived")
          ) => GHC.Records.HasField "un_MeasurementReceived" (Ptr.Ptr MeasurementReceived) (Ptr.Ptr ty) where
@@ -395,7 +400,7 @@ newtype MeasurementReceived2 = MeasurementReceived2
   { un_MeasurementReceived2 :: Ptr.FunPtr MeasurementReceived2_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived2) "un_MeasurementReceived2")
          ) => GHC.Records.HasField "un_MeasurementReceived2" (Ptr.Ptr MeasurementReceived2) (Ptr.Ptr ty) where
@@ -443,7 +448,7 @@ newtype SampleBufferFull = SampleBufferFull
   { un_SampleBufferFull :: Ptr.FunPtr SampleBufferFull_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType SampleBufferFull) "un_SampleBufferFull")
          ) => GHC.Records.HasField "un_SampleBufferFull" (Ptr.Ptr SampleBufferFull) (Ptr.Ptr ty) where
@@ -788,6 +793,7 @@ newtype Processor_mode = Processor_mode
   { un_Processor_mode :: FC.CUInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable Processor_mode where
 
@@ -956,7 +962,7 @@ newtype Foo = Foo
   { un_Foo :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "un_Foo")
          ) => GHC.Records.HasField "un_Foo" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
@@ -980,7 +986,7 @@ newtype Foo2 = Foo2
   { un_Foo2 :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo2) "un_Foo2")
          ) => GHC.Records.HasField "un_Foo2" (Ptr.Ptr Foo2) (Ptr.Ptr ty) where

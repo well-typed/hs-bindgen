@@ -32,6 +32,7 @@ import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FlexibleArrayMember
 import qualified HsBindgen.Runtime.FunPtr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
@@ -66,7 +67,7 @@ newtype Size_type = Size_type
   { un_Size_type :: HsBindgen.Runtime.Prelude.CSize
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Size_type) "un_Size_type")
          ) => GHC.Records.HasField "un_Size_type" (Ptr.Ptr Size_type) (Ptr.Ptr ty) where
@@ -121,6 +122,7 @@ newtype Color_enum = Color_enum
   { un_Color_enum :: FC.CUInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable Color_enum where
 
@@ -225,6 +227,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Event_callback_t_Deref = Event_callback_t_Deref
   { un_Event_callback_t_Deref :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toEvent_callback_t_Deref ::
      Event_callback_t_Deref
@@ -275,7 +278,7 @@ newtype Event_callback_t = Event_callback_t
   { un_Event_callback_t :: Ptr.FunPtr Event_callback_t_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t) "un_Event_callback_t")
          ) => GHC.Records.HasField "un_Event_callback_t" (Ptr.Ptr Event_callback_t) (Ptr.Ptr ty) where
@@ -475,6 +478,7 @@ newtype Status_code_t = Status_code_t
   { un_Status_code_t :: FC.CInt
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable Status_code_t where
 
@@ -1021,6 +1025,7 @@ __exported by:__ @documentation\/doxygen_docs.h@
 newtype Processor_fn_t_Deref = Processor_fn_t_Deref
   { un_Processor_fn_t_Deref :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" toProcessor_fn_t_Deref ::
      Processor_fn_t_Deref
@@ -1073,7 +1078,7 @@ newtype Processor_fn_t = Processor_fn_t
   { un_Processor_fn_t :: Ptr.FunPtr Processor_fn_t_Deref
   }
   deriving stock (Eq, Ord, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t) "un_Processor_fn_t")
          ) => GHC.Records.HasField "un_Processor_fn_t" (Ptr.Ptr Processor_fn_t) (Ptr.Ptr ty) where

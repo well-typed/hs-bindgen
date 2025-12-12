@@ -41,34 +41,47 @@ hstypes:
 - hsname: F1
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: FunctionPointer_Function
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: G1
+  instances:
+  - HasBaseForeignType
 - hsname: G2
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: H1
+  instances:
+  - HasBaseForeignType
 - hsname: H2
+  instances:
+  - HasBaseForeignType
 - hsname: H3
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
 - hsname: Int2int
+  instances:
+  - HasBaseForeignType
 - hsname: Intptr
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Show
   - Storable
@@ -79,6 +92,7 @@ hstypes:
   - Enum
   - Eq
   - FiniteBits
+  - HasBaseForeignType
   - Integral
   - Ix
   - Num
@@ -88,3 +102,5 @@ hstypes:
   - Show
   - Storable
 - hsname: NonFunctionPointer_Function
+  instances:
+  - HasBaseForeignType

@@ -1,13 +1,16 @@
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.List.NonEmpty
 import qualified Foreign as F
 import qualified HsBindgen.Runtime.CEnum
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import qualified Text.Read
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
@@ -22,6 +25,7 @@ newtype Foo_enum = Foo_enum
   { un_Foo_enum :: HsBindgen.Runtime.Prelude.Word32
   }
   deriving stock (Eq, Ord)
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance F.Storable Foo_enum where
 

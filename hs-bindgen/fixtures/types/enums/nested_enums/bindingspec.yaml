@@ -20,6 +20,7 @@ hstypes:
 - hsname: EnumA
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show
@@ -37,6 +38,7 @@ hstypes:
 - hsname: ExB_fieldB1
   instances:
   - Eq
+  - HasBaseForeignType
   - Ord
   - Read
   - Show

@@ -1,8 +1,6 @@
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE NoImplicitPrelude #-}
-
--- TODO: finish documentation, including a manual section
 
 module HsBindgen.Runtime.HasBaseForeignType (
     -- * Class
@@ -17,31 +15,31 @@ module HsBindgen.Runtime.HasBaseForeignType (
   , ViaCoercible(..)
   ) where
 
-import Prelude (IO, fmap, type (~), ($), (.))
-import Prelude as Reexports (Bool, Char, Double, Float, Int, Word)
+import Prelude as Types (Bool, Char, Double, Float, Int, Word)
+import Prelude hiding (Bool, Char, Double, Float, Int, Word)
 
 import Data.Coerce (Coercible, coerce)
-import Data.Int as Reexports (Int16, Int32, Int64, Int8)
+import Data.Int as Types (Int16, Int32, Int64, Int8)
 import Data.Kind (Type)
 import Data.Void (Void)
-import Data.Word as Reexports (Word16, Word32, Word64, Word8)
-import Foreign.C.Error as Reexports (Errno (..))
-import Foreign.C.Types as Reexports (CBool (..), CChar (..), CClock (..),
-                                     CDouble (..), CFloat (..), CInt (..),
-                                     CIntMax (..), CIntPtr (..), CLLong (..),
-                                     CLong (..), CPtrdiff (..), CSChar (..),
-                                     CSUSeconds (..), CShort (..),
-                                     CSigAtomic (..), CSize (..), CTime (..),
-                                     CUChar (..), CUInt (..), CUIntMax (..),
-                                     CUIntPtr (..), CULLong (..), CULong (..),
-                                     CUSeconds (..), CUShort (..), CWchar (..))
+import Data.Word as Types (Word16, Word32, Word64, Word8)
+import Foreign.C.Error as Types (Errno (..))
+import Foreign.C.Types as Types (CBool (..), CChar (..), CClock (..),
+                                 CDouble (..), CFloat (..), CInt (..),
+                                 CIntMax (..), CIntPtr (..), CLLong (..),
+                                 CLong (..), CPtrdiff (..), CSChar (..),
+                                 CSUSeconds (..), CShort (..), CSigAtomic (..),
+                                 CSize (..), CTime (..), CUChar (..),
+                                 CUInt (..), CUIntMax (..), CUIntPtr (..),
+                                 CULLong (..), CULong (..), CUSeconds (..),
+                                 CUShort (..), CWchar (..))
 import Foreign.Ptr (castFunPtr, castPtr)
-import Foreign.Ptr as Reexports (FunPtr, IntPtr (..), Ptr, WordPtr (..))
+import Foreign.Ptr as Types (FunPtr, IntPtr (..), Ptr, WordPtr (..))
 import Foreign.StablePtr (castPtrToStablePtr, castStablePtrToPtr)
-import Foreign.StablePtr as Reexports (StablePtr)
+import Foreign.StablePtr as Types (StablePtr)
 
 import HsBindgen.Runtime.BaseForeignType qualified as BFT
-import HsBindgen.Runtime.ConstPtr as Reexports (ConstPtr (..))
+import HsBindgen.Runtime.ConstPtr as Types (ConstPtr (..))
 
 {-------------------------------------------------------------------------------
   Class

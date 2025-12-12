@@ -15,5 +15,11 @@ ctypes:
   hsname: VarCounter
 hstypes:
 - hsname: Counter
+  instances:
+  - HasBaseForeignType
 - hsname: Toggle
+  instances:
+  - HasBaseForeignType
 - hsname: VarCounter
+  instances:
+  - HasBaseForeignType

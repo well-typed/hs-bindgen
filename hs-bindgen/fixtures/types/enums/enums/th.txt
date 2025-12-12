@@ -14,6 +14,7 @@ newtype First
            __exported by:__ @types\/enums\/enums.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable First
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -83,6 +84,7 @@ newtype Second
            __exported by:__ @types\/enums\/enums.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable Second
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -167,6 +169,7 @@ newtype Same
            __exported by:__ @types\/enums\/enums.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable Same
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -235,6 +238,7 @@ newtype Nonseq
            __exported by:__ @types\/enums\/enums.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable Nonseq
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -314,6 +318,7 @@ newtype Packed
            __exported by:__ @types\/enums\/enums.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable Packed
     where sizeOf = \_ -> 1 :: Int
           alignment = \_ -> 1 :: Int
@@ -398,6 +403,7 @@ newtype EnumA
            __exported by:__ @types\/enums\/enums.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable EnumA
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -467,6 +473,7 @@ newtype EnumB
            __exported by:__ @types\/enums\/enums.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable EnumB
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -536,6 +543,7 @@ newtype EnumC
            __exported by:__ @types\/enums\/enums.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable EnumC
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -605,6 +613,7 @@ newtype EnumD_t
            __exported by:__ @types\/enums\/enums.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable EnumD_t
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int

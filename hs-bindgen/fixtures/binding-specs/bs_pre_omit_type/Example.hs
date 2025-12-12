@@ -19,6 +19,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import Data.Bits (FiniteBits)
 import HsBindgen.Runtime.TypeEquality (TyEq)
@@ -34,7 +35,7 @@ newtype Sym = Sym
   { un_Sym :: FC.CChar
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Sym) "un_Sym")
          ) => GHC.Records.HasField "un_Sym" (Ptr.Ptr Sym) (Ptr.Ptr ty) where

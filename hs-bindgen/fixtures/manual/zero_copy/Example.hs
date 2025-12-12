@@ -25,6 +25,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FlexibleArrayMember
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.SizedByteArray
 import Data.Bits (FiniteBits)
@@ -483,7 +484,7 @@ newtype MyInt = MyInt
   { un_MyInt :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyInt) "un_MyInt")
          ) => GHC.Records.HasField "un_MyInt" (Ptr.Ptr MyInt) (Ptr.Ptr ty) where

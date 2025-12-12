@@ -20,6 +20,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.IncompleteArray
 import Data.Bits (FiniteBits)
@@ -106,7 +107,7 @@ newtype ConstInt = ConstInt
   { un_ConstInt :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ConstInt) "un_ConstInt")
          ) => GHC.Records.HasField "un_ConstInt" (Ptr.Ptr ConstInt) (Ptr.Ptr ty) where

@@ -110,6 +110,7 @@ newtype Another_typedef_enum_e
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable Another_typedef_enum_e
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
@@ -222,6 +223,7 @@ newtype A_type_t
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,
@@ -252,6 +254,7 @@ newtype Var_t
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
+                      HasBaseForeignType,
                       Bits,
                       Bounded,
                       Enum,
@@ -562,6 +565,7 @@ newtype A_typedef_enum_e
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
 instance Storable A_typedef_enum_e
     where sizeOf = \_ -> 1 :: Int
           alignment = \_ -> 1 :: Int
@@ -662,6 +666,7 @@ newtype Callback_t_Deref
 
       __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
+    deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" toCallback_t_Deref :: Callback_t_Deref ->
                                                           IO (FunPtr Callback_t_Deref)
 foreign import ccall safe "dynamic" fromCallback_t_Deref :: FunPtr Callback_t_Deref ->
@@ -695,7 +700,7 @@ newtype Callback_t
            __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving stock (Eq, Ord, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, HasBaseForeignType)
 instance TyEq ty (CFieldType Callback_t "un_Callback_t") =>
          HasField "un_Callback_t" (Ptr Callback_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Callback_t")
