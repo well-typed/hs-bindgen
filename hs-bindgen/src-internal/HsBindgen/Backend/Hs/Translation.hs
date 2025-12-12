@@ -93,7 +93,7 @@ generateDeclarations' opts haddockConfig moduleName declIndex decs =
           --WithCategory c
           fFIStubsAndFunPtrInstances =
                    [ WithCategory BType d
-                   | C.TypePointer (C.TypeFun args res) <- Set.toList scannedFunctionPointerTypes
+                   | C.TypePointers _ (C.TypeFun args res) <- Set.toList scannedFunctionPointerTypes
                    , not (any hasUnsupportedType (res:args))
                    , any (isDefinedInCurrentModule declIndex) (res:args)
                    , d <- ToFromFunPtr.forFunction (args, res)
@@ -123,10 +123,11 @@ scanAllFunctionPointerTypes =
     -- | Recursively scan a type for all function pointers, including nested ones
     scanTypeForFunctionPointers :: C.Type -> Set C.Type
     scanTypeForFunctionPointers ty = case ty of
-      fp@(C.TypePointer (C.TypeFun args res)) ->
+      -- Use TypePointers pattern to safely match N levels of indirection
+      fp@(C.TypePointers _n (C.TypeFun args res)) ->
            Set.singleton fp
         <> foldMap scanTypeForFunctionPointers (res : args)
-      C.TypePointer t                  -> scanTypeForFunctionPointers t
+      C.TypePointers _ t               -> scanTypeForFunctionPointers t
       C.TypeIncompleteArray  t         -> scanTypeForFunctionPointers t
       C.TypeConstArray _ t             -> scanTypeForFunctionPointers t
       C.TypeBlock t                    -> scanTypeForFunctionPointers t
@@ -1075,7 +1076,7 @@ hasUnsupportedType = aux . C.getCanonicalType
     aux C.TypeConstArray {}      = True
     aux C.TypeIncompleteArray {} = True
     aux C.TypePrim {}            = False
-    aux C.TypePointer {}         = False
+    aux C.TypePointers {}        = False
     aux C.TypeFun {}             = False
     aux C.TypeVoid               = False
     aux C.TypeBlock {}           = False
@@ -1115,7 +1116,7 @@ wrapType ty
         C.ConstantArrayClassification n eTy -> CAType ty n eTy
         C.IncompleteArrayClassification eTy -> AType ty eTy
     else
-      WrapType $ C.TypePointer (C.getArrayElementType aTy)
+      WrapType $ C.TypePointers 1 (C.getArrayElementType aTy)
 
   -- Other types
   | otherwise
@@ -1125,7 +1126,7 @@ wrapType ty
 unwrapType :: WrappedType -> C.Type
 unwrapType = \case
     WrapType ty -> ty
-    HeapType ty -> C.TypePointer ty
+    HeapType ty -> C.TypePointers 1 ty
     CAType aTy _ eTy -> firstElemPtr aTy eTy
     AType aTy eTy -> firstElemPtr aTy eTy
   where
@@ -1135,14 +1136,14 @@ unwrapType = \case
     firstElemPtr aTy eTy
       -- The array element type has a const qualifier.
       | C.isErasedTypeConstQualified eTy
-      = C.TypePointer eTy
+      = C.TypePointers 1 eTy
       -- The array type has a const qualifier, but the array element type does
       -- not.
       | C.isErasedTypeConstQualified aTy
-      = C.TypePointer $ C.TypeQualified C.TypeQualifierConst eTy
+      = C.TypePointers 1 $ C.TypeQualified C.TypeQualifierConst eTy
       -- No const qualifiers on either the array type or the array element type.
       | otherwise
-      = C.TypePointer eTy
+      = C.TypePointers 1 eTy
 
 
 -- | Type in high-level Haskell wrapper
@@ -1653,7 +1654,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
     varName = T.unpack info.declId.name.text
 
     stubType :: C.Type
-    stubType = C.TypePointer ty
+    stubType = C.TypePointers 1 ty
 
     prettyStub :: String
     prettyStub = concat [

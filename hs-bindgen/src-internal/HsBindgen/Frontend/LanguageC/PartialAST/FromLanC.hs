@@ -287,7 +287,7 @@ instance Apply p (LanC.CTypeQualifier a) (Type p) where
 instance Apply p (LanC.CDerivedDeclarator a) (Type p) where
   apply = \case
       LanC.CPtrDeclr quals _a ->
-        repeatedly apply quals . TypePointer
+        repeatedly apply quals . TypePointers 1
       LanC.CArrDeclr quals (LanC.CNoArrSize isCompleteType) _a ->
         if isCompleteType
           then \_ -> unexpected "complete array without size"

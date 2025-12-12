@@ -231,7 +231,7 @@ instance (
       TypePrim prim           -> TypePrim prim
       TypeRef uid             -> TypeRef (goId uid)
       TypeTypedef uid uTy     -> TypeTypedef (goId uid) (coercePass uTy)
-      TypePointer typ         -> TypePointer (coercePass typ)
+      TypePointers n typ      -> TypePointers n (coercePass typ)
       TypeFun args res        -> TypeFun (map coercePass args) (coercePass res)
       TypeVoid                -> TypeVoid
       TypeConstArray n typ    -> TypeConstArray n (coercePass typ)
