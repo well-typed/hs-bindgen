@@ -35,35 +35,44 @@ hstypes:
 - hsname: AnonA
   instances:
   - Storable
+  ffitype: Data
 - hsname: AnonA_polar
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: AnonA_xy
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Dim
   instances:
   - Storable
+  ffitype: Data
 - hsname: Dim2
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Dim3
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: DimB
   instances:
   - Storable
+  ffitype: Data
 - hsname: DimPayload
   instances:
   - Storable
+  ffitype: Data
 - hsname: DimPayloadB
   instances:
   - Storable
+  ffitype: Data

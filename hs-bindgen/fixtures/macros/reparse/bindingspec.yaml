@@ -132,24 +132,29 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: Arr_typedef1
   instances:
   - Eq
   - Show
+  ffitype: Array
 - hsname: Arr_typedef2
   instances:
   - Eq
   - Show
+  ffitype: Array
 - hsname: Arr_typedef3
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Array
 - hsname: Arr_typedef4
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Array
 - hsname: BOOL
   instances:
   - Bits
@@ -166,6 +171,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CBool
 - hsname: Comments2
   instances:
   - Bits
@@ -182,6 +188,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: Const_funptr1
   instances:
   - Eq
@@ -189,6 +196,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr
 - hsname: Const_funptr2
   instances:
   - Eq
@@ -196,6 +204,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr
 - hsname: Const_funptr3
   instances:
   - Eq
@@ -203,6 +212,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr
 - hsname: Const_funptr4
   instances:
   - Eq
@@ -210,6 +220,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr
 - hsname: Const_funptr5
   instances:
   - Eq
@@ -217,6 +228,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr
 - hsname: Const_funptr6
   instances:
   - Eq
@@ -224,6 +236,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr
 - hsname: Const_funptr7
   instances:
   - Eq
@@ -231,6 +244,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr
 - hsname: Const_typedef1
   instances:
   - Bits
@@ -247,6 +261,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: Const_typedef2
   instances:
   - Bits
@@ -263,6 +278,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: Const_typedef3
   instances:
   - Eq
@@ -270,6 +286,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Builtin ConstPtr
 - hsname: Const_typedef4
   instances:
   - Eq
@@ -277,6 +294,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Builtin ConstPtr
 - hsname: Const_typedef5
   instances:
   - Eq
@@ -284,6 +302,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic Ptr
 - hsname: Const_typedef6
   instances:
   - Eq
@@ -291,6 +310,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Builtin ConstPtr
 - hsname: Const_typedef7
   instances:
   - Eq
@@ -298,16 +318,19 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Builtin ConstPtr
 - hsname: Example_struct
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Example_struct_with_const
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Funptr_typedef1
   instances:
   - Eq
@@ -315,6 +338,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr
 - hsname: Funptr_typedef2
   instances:
   - Eq
@@ -322,6 +346,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr
 - hsname: Funptr_typedef3
   instances:
   - Eq
@@ -329,6 +354,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr
 - hsname: Funptr_typedef4
   instances:
   - Eq
@@ -336,6 +362,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr
 - hsname: Funptr_typedef5
   instances:
   - Eq
@@ -343,6 +370,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr
 - hsname: INT
   instances:
   - Bits
@@ -359,6 +387,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: INTCP
   instances:
   - Eq
@@ -366,6 +395,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Builtin ConstPtr
 - hsname: INTP
   instances:
   - Eq
@@ -373,6 +403,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic Ptr
 - hsname: Some_enum
   instances:
   - Eq
@@ -381,14 +412,17 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CUInt
 - hsname: Some_struct
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Some_union
   instances:
   - Storable
+  ffitype: Data
 - hsname: Typedef1
   instances:
   - Bits
@@ -405,6 +439,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: Typedef2
   instances:
   - Eq
@@ -412,6 +447,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic Ptr
 - hsname: Typedef3
   instances:
   - Eq
@@ -419,3 +455,4 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic Ptr

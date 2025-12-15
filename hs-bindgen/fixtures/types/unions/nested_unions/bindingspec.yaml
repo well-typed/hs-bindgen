@@ -20,12 +20,16 @@ hstypes:
 - hsname: ExA
   instances:
   - Storable
+  ffitype: Data
 - hsname: ExB
   instances:
   - Storable
+  ffitype: Data
 - hsname: ExB_fieldB1
   instances:
   - Storable
+  ffitype: Data
 - hsname: UnionA
   instances:
   - Storable
+  ffitype: Data

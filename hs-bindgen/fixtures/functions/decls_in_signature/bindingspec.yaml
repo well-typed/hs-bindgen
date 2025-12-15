@@ -22,13 +22,17 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Named_union
   instances:
   - Storable
+  ffitype: Data
 - hsname: Opaque
   representation: opaque
+  ffitype: Data
 - hsname: Outside
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data

@@ -19,3 +19,4 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CUInt

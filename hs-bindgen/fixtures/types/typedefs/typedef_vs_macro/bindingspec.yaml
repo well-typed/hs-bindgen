@@ -34,11 +34,13 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Foo
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: M1
   instances:
   - Bits
@@ -55,6 +57,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: M2
   instances:
   - Bits
@@ -71,6 +74,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CChar
 - hsname: M3
   instances:
   - Eq
@@ -78,6 +82,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic Ptr
 - hsname: T1
   instances:
   - Bits
@@ -94,6 +99,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: T2
   instances:
   - Bits
@@ -110,6 +116,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CChar
 - hsname: Uint64_t
   instances:
   - Bits
@@ -126,3 +133,4 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt

@@ -22,6 +22,7 @@ import Clang.Paths
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
 import HsBindgen.BindingSpec.Private.Common
+import HsBindgen.BindingSpec.Private.FFIType qualified as FFIType
 import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
@@ -172,6 +173,7 @@ genBindingSpec'
                     $ HsOrigin.declSpec originDecl
                     )
                     (Hs.structInstances hsStruct)
+              , hsTypeSpecFFIType = Just FFIType.Data
               }
         in  ( (declInfo, cTypeSpec)
             , (hsIdentifier, hsTypeSpec)
@@ -193,6 +195,7 @@ genBindingSpec'
           hsTypeSpec = BindingSpec.HsTypeSpec {
               hsTypeSpecRep       = Just BindingSpec.HsTypeRepOpaque
             , hsTypeSpecInstances = Map.empty
+            , hsTypeSpecFFIType   = Just FFIType.Data
             }
       in  ( (declInfo, cTypeSpec)
           , (hsIdentifier, hsTypeSpec)
@@ -220,6 +223,7 @@ genBindingSpec'
                   $ HsOrigin.declSpec originDecl
                   )
                   (Hs.newtypeInstances hsNewtype)
+            , hsTypeSpecFFIType = Just $ Hs.newtypeFFIType hsNewtype
             }
       in  ( (declInfo, cTypeSpec)
           , (hsIdentifier, hsTypeSpec)

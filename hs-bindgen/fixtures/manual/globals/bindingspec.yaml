@@ -36,22 +36,27 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: GlobalConfig
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: List
   instances:
   - Eq
   - Show
+  ffitype: Array
 - hsname: Triplet
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Array
 - hsname: Tuple
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data

@@ -104,6 +104,7 @@ library internal
     HsBindgen.BindingSpec
     HsBindgen.BindingSpec.Gen
     HsBindgen.BindingSpec.Private.Common
+    HsBindgen.BindingSpec.Private.FFIType
     HsBindgen.BindingSpec.Private.Stdlib
     HsBindgen.BindingSpec.Private.V1
     HsBindgen.BindingSpec.Private.Version

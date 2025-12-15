@@ -40,6 +40,7 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CUInt
 - hsname: EnumB
   instances:
   - Eq
@@ -48,6 +49,7 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CUInt
 - hsname: EnumC
   instances:
   - Eq
@@ -56,6 +58,7 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CUInt
 - hsname: EnumD_t
   instances:
   - Eq
@@ -64,6 +67,7 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CUInt
 - hsname: First
   instances:
   - Eq
@@ -72,6 +76,7 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CUInt
 - hsname: Nonseq
   instances:
   - Eq
@@ -80,6 +85,7 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CUInt
 - hsname: Packed
   instances:
   - Eq
@@ -88,6 +94,7 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CUChar
 - hsname: Same
   instances:
   - Eq
@@ -96,6 +103,7 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CUInt
 - hsname: Second
   instances:
   - Eq
@@ -104,3 +112,4 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CInt

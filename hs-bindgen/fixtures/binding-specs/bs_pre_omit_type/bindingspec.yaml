@@ -27,3 +27,4 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CChar

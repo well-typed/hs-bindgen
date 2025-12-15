@@ -19,9 +19,12 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Apply1Union
   instances:
   - Storable
+  ffitype: Data
 - hsname: Int2int
   instances:
   - HasBaseForeignType
+  ffitype: Function

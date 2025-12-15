@@ -49,6 +49,7 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Color_enum
   instances:
   - Eq
@@ -57,19 +58,23 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CUInt
 - hsname: Config_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Data_union_t
   instances:
   - Storable
+  ffitype: Data
 - hsname: Data_union_t_as_parts
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Event_callback_t
   instances:
   - Eq
@@ -77,20 +82,25 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr
 - hsname: Filename_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Array
 - hsname: Flexible_array
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Forward_declared_struct
   representation: opaque
+  ffitype: Data
 - hsname: Forward_declared_union
   representation: opaque
+  ffitype: Data
 - hsname: Processor_fn_t
   instances:
   - Eq
@@ -98,6 +108,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr
 - hsname: Size_type
   instances:
   - Bits
@@ -114,6 +125,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CSize
 - hsname: Status_code_t
   instances:
   - Eq
@@ -122,3 +134,4 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CInt

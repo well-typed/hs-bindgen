@@ -9,6 +9,7 @@ module HsBindgen.Backend.TH.Translation (
 import Control.Monad (liftM2)
 import Data.Bits qualified
 import Data.Complex qualified
+import Data.Int qualified
 import Data.Ix qualified
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
@@ -17,10 +18,12 @@ import Data.Primitive.Types qualified as Primitive
 import Data.Proxy qualified
 import Data.Text qualified as Text
 import Data.Void qualified
+import Data.Word qualified
 import Foreign qualified
 import Foreign.C.String qualified
 import Foreign.C.Types qualified
 import Foreign.Ptr qualified
+import Foreign.StablePtr qualified
 import Foreign.Storable qualified
 import GHC.Exts (Int (..), sizeofByteArray#)
 import GHC.Exts qualified as IsList (IsList (..))
@@ -100,6 +103,7 @@ mkGlobal = \case
       Ptr_constructor       -> 'GHC.Ptr.Ptr
       Foreign_FunPtr        -> ''Foreign.Ptr.FunPtr
       Foreign_plusPtr       -> 'Foreign.Ptr.plusPtr
+      Foreign_StablePtr     -> ''Foreign.StablePtr.StablePtr
       ConstantArray         -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
       IncompleteArray       -> ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
       IO_type               -> ''IO
@@ -281,26 +285,53 @@ tupleTypeName n =
       | otherwise = "(" ++ replicate (n - 1) ',' ++ ")"
 
 mkGlobalP :: HsPrimType -> TH.Name
-mkGlobalP HsPrimVoid       = ''Data.Void.Void
-mkGlobalP HsPrimUnit       = ''()
-mkGlobalP HsPrimCChar      = ''Foreign.C.Types.CChar
-mkGlobalP HsPrimCUChar     = ''Foreign.C.Types.CUChar
-mkGlobalP HsPrimCSChar     = ''Foreign.C.Types.CSChar
-mkGlobalP HsPrimCInt       = ''Foreign.C.Types.CInt
-mkGlobalP HsPrimCUInt      = ''Foreign.C.Types.CUInt
-mkGlobalP HsPrimCShort     = ''Foreign.C.Types.CShort
-mkGlobalP HsPrimCUShort    = ''Foreign.C.Types.CUShort
-mkGlobalP HsPrimCLong      = ''Foreign.C.Types.CLong
-mkGlobalP HsPrimCULong     = ''Foreign.C.Types.CULong
-mkGlobalP HsPrimCLLong     = ''Foreign.C.Types.CLLong
-mkGlobalP HsPrimCULLong    = ''Foreign.C.Types.CULLong
-mkGlobalP HsPrimCFloat     = ''Foreign.C.Types.CFloat
-mkGlobalP HsPrimCDouble    = ''Foreign.C.Types.CDouble
-mkGlobalP HsPrimCBool      = ''Foreign.C.Types.CBool
-mkGlobalP HsPrimCPtrDiff   = ''Foreign.C.Types.CPtrdiff
-mkGlobalP HsPrimCSize      = ''Foreign.C.Types.CSize
-mkGlobalP HsPrimCStringLen = ''Foreign.C.String.CStringLen
-mkGlobalP HsPrimInt        = ''Int
+mkGlobalP = \case
+    HsPrimVoid -> ''Data.Void.Void
+    HsPrimUnit -> ''()
+    HsPrimCStringLen -> ''Foreign.C.String.CStringLen
+    HsPrimChar -> ''Char
+    HsPrimInt -> ''Int
+    HsPrimDouble -> ''Double
+    HsPrimFloat -> ''Float
+    HsPrimBool -> ''Bool
+    HsPrimInt8 -> ''Data.Int.Int8
+    HsPrimInt16 -> ''Data.Int.Int16
+    HsPrimInt32 -> ''Data.Int.Int32
+    HsPrimInt64 -> ''Data.Int.Int64
+    HsPrimWord -> ''Word
+    HsPrimWord8 -> ''Data.Word.Word8
+    HsPrimWord16 -> ''Data.Word.Word16
+    HsPrimWord32 -> ''Data.Word.Word32
+    HsPrimWord64 -> ''Data.Word.Word64
+    HsPrimIntPtr -> ''Foreign.Ptr.IntPtr
+    HsPrimWordPtr -> ''Foreign.Ptr.WordPtr
+    HsPrimCChar -> ''Foreign.C.Types.CChar
+    HsPrimCSChar -> ''Foreign.C.Types.CSChar
+    HsPrimCUChar -> ''Foreign.C.Types.CUChar
+    HsPrimCShort -> ''Foreign.C.Types.CShort
+    HsPrimCUShort -> ''Foreign.C.Types.CUShort
+    HsPrimCInt -> ''Foreign.C.Types.CInt
+    HsPrimCUInt -> ''Foreign.C.Types.CUInt
+    HsPrimCLong -> ''Foreign.C.Types.CLong
+    HsPrimCULong -> ''Foreign.C.Types.CULong
+    HsPrimCPtrdiff -> ''Foreign.C.Types.CPtrdiff
+    HsPrimCSize -> ''Foreign.C.Types.CSize
+    HsPrimCWchar -> ''Foreign.C.Types.CWchar
+    HsPrimCSigAtomic -> ''Foreign.C.Types.CSigAtomic
+    HsPrimCLLong -> ''Foreign.C.Types.CLLong
+    HsPrimCULLong -> ''Foreign.C.Types.CULLong
+    HsPrimCBool -> ''Foreign.C.Types.CBool
+    HsPrimCIntPtr -> ''Foreign.C.Types.CIntPtr
+    HsPrimCUIntPtr -> ''Foreign.C.Types.CUIntPtr
+    HsPrimCIntMax -> ''Foreign.C.Types.CIntMax
+    HsPrimCUIntMax -> ''Foreign.C.Types.CUIntMax
+    HsPrimCClock -> ''Foreign.C.Types.CClock
+    HsPrimCTime -> ''Foreign.C.Types.CTime
+    HsPrimCUSeconds -> ''Foreign.C.Types.CUSeconds
+    HsPrimCSUSeconds -> ''Foreign.C.Types.CSUSeconds
+    HsPrimCFloat -> ''Foreign.C.Types.CFloat
+    HsPrimCDouble -> ''Foreign.C.Types.CDouble
+
 
 -- | Construct an 'TH.Exp' for a 'Global'
 mkGlobalExpr :: Quote q => Global -> q TH.Exp
@@ -331,6 +362,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     Ptr_constructor       -> TH.conE name
     Foreign_FunPtr        -> panicPure "type in expression"
     Foreign_plusPtr       -> TH.varE name
+    Foreign_StablePtr     -> panicPure "type in expression"
     ConstantArray         -> panicPure "type in expression"
     IncompleteArray       -> panicPure "type in expression"
     IO_type               -> panicPure "type in expression"

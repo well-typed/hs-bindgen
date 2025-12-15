@@ -16,6 +16,7 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: MY_TYPE
   instances:
   - Bits
@@ -32,3 +33,4 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt

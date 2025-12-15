@@ -28,28 +28,34 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Ex3
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Ex3_ex3_struct
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Ex4_even
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Ex4_odd
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Foo
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data

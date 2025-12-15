@@ -25,23 +25,28 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Foo
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Foo_bar
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Pascal
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Triplets
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data

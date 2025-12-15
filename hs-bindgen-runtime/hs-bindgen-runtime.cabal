@@ -38,6 +38,7 @@ common lang
 library
   import:             lang
   exposed-modules:
+    HsBindgen.Runtime.BaseForeignType
     HsBindgen.Runtime.Bitfield
     HsBindgen.Runtime.Block
     HsBindgen.Runtime.ByteArray
@@ -59,7 +60,6 @@ library
     HsBindgen.Runtime.TypeEquality
 
   other-modules:
-    HsBindgen.Runtime.BaseForeignType
     HsBindgen.Runtime.FunPtr.Class
     HsBindgen.Runtime.TH.Instances
     HsBindgen.Runtime.TH.Types

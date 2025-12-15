@@ -31,33 +31,40 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: S1_c
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: S2
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: S2_inner
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: S2_inner_deep
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: S3
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: S3_c
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data

@@ -31,33 +31,40 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: AlignB
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Flags
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Overflow32
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Overflow32b
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Overflow32c
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Overflow64
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data

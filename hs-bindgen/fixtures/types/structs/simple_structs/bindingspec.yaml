@@ -40,31 +40,37 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: S2_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: S3_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: S4
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: S5
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: S6
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: S7a
   instances:
   - Eq
@@ -72,11 +78,13 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic Ptr
 - hsname: S7a_Deref
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: S7b
   instances:
   - Eq
@@ -84,8 +92,10 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic Ptr
 - hsname: S7b_Deref
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data

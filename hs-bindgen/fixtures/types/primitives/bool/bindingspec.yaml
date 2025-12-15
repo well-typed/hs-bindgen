@@ -33,18 +33,22 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CBool
 - hsname: Bools1
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Bools2
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Bools3
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data

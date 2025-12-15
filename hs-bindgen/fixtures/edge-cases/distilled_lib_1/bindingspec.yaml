@@ -42,6 +42,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: A_typedef_enum_e
   instances:
   - Eq
@@ -50,11 +51,13 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CUChar
 - hsname: A_typedef_struct_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Another_typedef_enum_e
   instances:
   - Eq
@@ -63,11 +66,13 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CUInt
 - hsname: Another_typedef_struct_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Callback_t
   instances:
   - Eq
@@ -75,6 +80,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr
 - hsname: Var_t
   instances:
   - Bits
@@ -91,3 +97,4 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt

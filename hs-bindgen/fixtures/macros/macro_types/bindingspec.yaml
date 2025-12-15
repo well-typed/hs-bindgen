@@ -42,6 +42,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CUChar
 - hsname: Boolean_T
   instances:
   - Bits
@@ -58,6 +59,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CUChar
 - hsname: MTy
   instances:
   - Enum
@@ -73,6 +75,7 @@ hstypes:
   - RealFrac
   - Show
   - Storable
+  ffitype: Builtin CFloat
 - hsname: PtrInt
   instances:
   - Eq
@@ -80,6 +83,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic Ptr
 - hsname: PtrPtrChar
   instances:
   - Eq
@@ -87,6 +91,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic Ptr
 - hsname: Tty
   instances:
   - Enum
@@ -102,6 +107,7 @@ hstypes:
   - RealFrac
   - Show
   - Storable
+  ffitype: Builtin CFloat
 - hsname: UINT8_T
   instances:
   - Bits
@@ -118,3 +124,4 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CUChar

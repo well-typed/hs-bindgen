@@ -70,40 +70,49 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct10_t_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct11_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct12_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct1_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct2_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct3_t
   representation: opaque
+  ffitype: Data
 - hsname: Struct4_t
   representation: opaque
+  ffitype: Data
 - hsname: Struct5
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct5_t
   instances:
   - Eq
@@ -111,6 +120,7 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic Ptr
 - hsname: Struct6
   instances:
   - Eq
@@ -118,48 +128,58 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic Ptr
 - hsname: Struct6_Deref
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct7
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct7a
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct7b
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct8
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct8b
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct9
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct9_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Use_sites
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data

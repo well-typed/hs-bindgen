@@ -16,3 +16,4 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Basic Word32

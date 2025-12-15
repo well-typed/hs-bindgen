@@ -48,26 +48,31 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: My_packed_struct
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: My_unpacked_struct
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: S
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: S2
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Short_a
   instances:
   - Bits
@@ -84,6 +89,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CShort
 - hsname: T1
   instances:
   - Bits
@@ -100,8 +106,11 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: Wait
   representation: opaque
+  ffitype: Data
 - hsname: Wait_status_ptr_t
   instances:
   - Storable
+  ffitype: Data

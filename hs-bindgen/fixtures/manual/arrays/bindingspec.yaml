@@ -19,12 +19,15 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Array
 - hsname: Triplet
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Array
 - hsname: Triplet_ptrs
   instances:
   - Eq
   - Show
+  ffitype: Array

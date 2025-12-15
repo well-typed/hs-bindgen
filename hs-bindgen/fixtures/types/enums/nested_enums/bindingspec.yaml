@@ -25,16 +25,19 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CUInt
 - hsname: ExA
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: ExB
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: ExB_fieldB1
   instances:
   - Eq
@@ -43,3 +46,4 @@ hstypes:
   - Read
   - Show
   - Storable
+  ffitype: Builtin CUInt

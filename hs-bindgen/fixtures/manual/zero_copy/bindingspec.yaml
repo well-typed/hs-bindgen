@@ -43,21 +43,25 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Colour
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Drawing
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Matrix
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Array
 - hsname: MyInt
   instances:
   - Bits
@@ -74,31 +78,38 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: Point
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Rectangle
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Shape
   instances:
   - Storable
+  ffitype: Data
 - hsname: Tic_tac_toe
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Triplet
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Array
 - hsname: Vector
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data

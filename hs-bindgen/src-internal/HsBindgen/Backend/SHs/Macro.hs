@@ -237,7 +237,7 @@ runtimeIntLike = \case
     Runtime.Long     Unsigned -> HsPrimCULong
     Runtime.LongLong Signed   -> HsPrimCLLong
     Runtime.LongLong Unsigned -> HsPrimCULLong
-    Runtime.PtrDiff           -> HsPrimCPtrDiff
+    Runtime.PtrDiff           -> HsPrimCPtrdiff
     Runtime.Size              -> HsPrimCSize
 
 runtimeFloating :: Runtime.FloatingType -> HsPrimType

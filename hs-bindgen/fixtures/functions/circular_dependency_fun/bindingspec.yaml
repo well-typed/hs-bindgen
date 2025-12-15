@@ -16,6 +16,7 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Fun_ptr
   instances:
   - Eq
@@ -23,3 +24,4 @@ hstypes:
   - Ord
   - Show
   - Storable
+  ffitype: Basic FunPtr

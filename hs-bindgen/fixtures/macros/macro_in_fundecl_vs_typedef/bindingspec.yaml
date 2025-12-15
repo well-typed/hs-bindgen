@@ -42,31 +42,37 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CChar
 - hsname: Struct1
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct2
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct3
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct3_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct4
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: TC
   instances:
   - Bits
@@ -83,3 +89,4 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CChar

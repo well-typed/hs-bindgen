@@ -16,6 +16,8 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: 'Y'
   instances:
   - Storable
+  ffitype: Data

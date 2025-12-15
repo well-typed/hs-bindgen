@@ -11,41 +11,57 @@ import HsBindgen.Language.Haskell qualified as Hs
   Types
 -------------------------------------------------------------------------------}
 
-data HsPrimType
-    = HsPrimVoid
+data HsPrimType =
+      -- * Others
+      HsPrimVoid
     | HsPrimUnit
+    | HsPrimCStringLen
+
+      -- * Basic foreign types (see 'BasicForeignType')
+    | HsPrimChar
+    | HsPrimInt
+    | HsPrimDouble
+    | HsPrimFloat
+    | HsPrimBool
+    | HsPrimInt8
+    | HsPrimInt16
+    | HsPrimInt32
+    | HsPrimInt64
+    | HsPrimWord
+    | HsPrimWord8
+    | HsPrimWord16
+    | HsPrimWord32
+    | HsPrimWord64
+
+      -- * Builtin foreign types (see 'BuiltinForeignType')
+    | HsPrimIntPtr
+    | HsPrimWordPtr
     | HsPrimCChar
     | HsPrimCSChar
     | HsPrimCUChar
-    | HsPrimCInt
-    | HsPrimCUInt
     | HsPrimCShort
     | HsPrimCUShort
+    | HsPrimCInt
+    | HsPrimCUInt
     | HsPrimCLong
     | HsPrimCULong
-    | HsPrimCPtrDiff
+    | HsPrimCPtrdiff
     | HsPrimCSize
-    -- CWchar
-    -- CSigAtomic
+    | HsPrimCWchar
+    | HsPrimCSigAtomic
     | HsPrimCLLong
     | HsPrimCULLong
     | HsPrimCBool
-    -- CIntPtr
-    -- CUIntPtr
-    -- CIntMax
-    -- CUIntMax
-    -- CClock
-    -- CTime
-    -- CUSeconds
-    -- CSUSeconds
+    | HsPrimCIntPtr
+    | HsPrimCUIntPtr
+    | HsPrimCIntMax
+    | HsPrimCUIntMax
+    | HsPrimCClock
+    | HsPrimCTime
+    | HsPrimCUSeconds
+    | HsPrimCSUSeconds
     | HsPrimCFloat
     | HsPrimCDouble
-    | HsPrimCStringLen
-
-    | HsPrimInt
-
-  -- Int8 Int16 Int32 Int64
-  -- Word8 Word16 Word32 Word64
   deriving stock (Eq, Ord, Generic, Show)
 
 data HsType =
@@ -53,9 +69,10 @@ data HsType =
   | HsTypRef (Hs.Name Hs.NsTypeConstr)
   | HsConstArray Natural HsType
   | HsIncompleteArray HsType
-  | HsConstPtr HsType
   | HsPtr HsType
   | HsFunPtr HsType
+  | HsStablePtr HsType
+  | HsConstPtr HsType
   | HsIO HsType
   | HsFun HsType HsType
   | HsExtBinding Hs.ExtRef BindingSpec.CTypeSpec (Maybe BindingSpec.HsTypeSpec)

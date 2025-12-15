@@ -31,18 +31,22 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: B
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: C
   representation: opaque
+  ffitype: Data
 - hsname: Cint16_T
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Int16_T
   instances:
   - Bits
@@ -59,6 +63,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CShort
 - hsname: Int32_T
   instances:
   - Bits
@@ -75,6 +80,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: Int64_T
   instances:
   - Bits
@@ -91,3 +97,4 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CLLong

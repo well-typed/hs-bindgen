@@ -58,78 +58,94 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: B_s
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: C
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: D
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: E_s
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: F
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: G
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: H
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct1
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct2_s
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct3
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct4
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct5_s
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Typedef1
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Typedef2
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Typedef3
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data

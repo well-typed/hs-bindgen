@@ -28,26 +28,32 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: List
   instances:
   - Eq
   - Show
+  ffitype: Array
 - hsname: Matrix
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Array
 - hsname: Sudoku
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Array
 - hsname: Triplet
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Array
 - hsname: Tripletlist
   instances:
   - Eq
   - Show
+  ffitype: Array

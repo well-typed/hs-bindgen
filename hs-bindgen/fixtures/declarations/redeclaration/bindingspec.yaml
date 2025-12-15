@@ -33,10 +33,13 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: X
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: 'Y'
   representation: opaque
+  ffitype: Data

@@ -33,6 +33,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: T2
   instances:
   - Bits
@@ -49,6 +50,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: T3
   instances:
   - Bits
@@ -65,6 +67,7 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt
 - hsname: T4
   instances:
   - Bits
@@ -81,3 +84,4 @@ hstypes:
   - Real
   - Show
   - Storable
+  ffitype: Builtin CInt

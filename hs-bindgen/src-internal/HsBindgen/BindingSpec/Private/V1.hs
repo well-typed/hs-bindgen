@@ -76,6 +76,7 @@ import Clang.Args
 import Clang.Paths
 
 import HsBindgen.BindingSpec.Private.Common
+import HsBindgen.BindingSpec.Private.FFIType (FFIType)
 import HsBindgen.BindingSpec.Private.Version
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Errors
@@ -212,6 +213,10 @@ data HsTypeSpec = HsTypeSpec {
       hsTypeSpecRep       :: Maybe HsTypeRep
     , -- | Instance specification
       hsTypeSpecInstances :: Map Hs.TypeClass (Omittable InstanceSpec)
+      -- | FFI type
+      --
+      -- TODO: can we merge this with the 'hsTypeSpecRep' field?
+    , hsTypeSpecFFIType   :: Maybe FFIType
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -219,6 +224,7 @@ instance Default HsTypeSpec where
   def = HsTypeSpec {
       hsTypeSpecRep       = Nothing
     , hsTypeSpecInstances = Map.empty
+    , hsTypeSpecFFIType   = Nothing
     }
 
 --------------------------------------------------------------------------------
@@ -508,6 +514,8 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
       "constructor"           -> 18
       -- HsRecordRep:2, HsNewtypeRep:2
       "fields"                -> 19
+      -- AHsTypeSpecMapping:4
+      "ffitype"               -> 20
       key -> panicPure $ "Unknown key: " ++ show key
 
 {-------------------------------------------------------------------------------
@@ -798,6 +806,7 @@ data AHsTypeSpecMapping = AHsTypeSpecMapping {
       aHsTypeSpecMappingIdentifier :: Hs.Identifier
     , aHsTypeSpecMappingRep        :: Maybe AHsTypeRep
     , aHsTypeSpecMappingInstances  :: [AOInstanceSpecMapping]
+    , aHsTypeSpecMappingFFIType    :: Maybe FFIType
     }
   deriving stock Show
 
@@ -806,6 +815,7 @@ instance Aeson.FromJSON AHsTypeSpecMapping where
     aHsTypeSpecMappingIdentifier <- o .:  "hsname"
     aHsTypeSpecMappingRep        <- o .:? "representation"
     aHsTypeSpecMappingInstances  <- o .:? "instances" .!= []
+    aHsTypeSpecMappingFFIType    <- o .:? "ffitype"
     return AHsTypeSpecMapping{..}
 
 instance Aeson.ToJSON AHsTypeSpecMapping where
@@ -813,6 +823,7 @@ instance Aeson.ToJSON AHsTypeSpecMapping where
       Just ("hsname" .= aHsTypeSpecMappingIdentifier)
     , ("representation" .=) <$> aHsTypeSpecMappingRep
     , ("instances" .=) <$> omitWhenNull aHsTypeSpecMappingInstances
+    , ("ffitype" .=) <$> aHsTypeSpecMappingFFIType
     ]
 
 --------------------------------------------------------------------------------
@@ -1112,6 +1123,7 @@ mkHsTypeMap path hsIds = fin . foldr auxInsert (Set.empty, Map.empty)
           hsTypeSpec = HsTypeSpec {
               hsTypeSpecRep       = unAHsTypeRep <$> aHsTypeSpecMappingRep
             , hsTypeSpecInstances = mkInstanceMap aHsTypeSpecMappingInstances
+            , hsTypeSpecFFIType   = aHsTypeSpecMappingFFIType
             }
       in  case Map.insertLookupWithKey (\_ n _ -> n) hsId hsTypeSpec acc of
             (Nothing, acc') -> (conflicts,                 acc')
@@ -1172,6 +1184,7 @@ toAHsTypes hsTypeMap = [
           aHsTypeSpecMappingIdentifier = hsIdentifier
         , aHsTypeSpecMappingRep        = AHsTypeRep <$> hsTypeSpecRep
         , aHsTypeSpecMappingInstances  = toAOInstances hsTypeSpecInstances
+        , aHsTypeSpecMappingFFIType    = hsTypeSpecFFIType
         }
     | (hsIdentifier, HsTypeSpec{..}) <- Map.toAscList hsTypeMap
     ]

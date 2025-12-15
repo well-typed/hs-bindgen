@@ -13,3 +13,4 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Array

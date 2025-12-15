@@ -77,6 +77,7 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
+import HsBindgen.BindingSpec.Private.FFIType qualified as FFIType
 import HsBindgen.Frontend.AST.External (CheckedMacroExpr)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -124,6 +125,7 @@ data Newtype = Newtype {
     , newtypeField     :: Field
     , newtypeOrigin    :: Origin.Decl Origin.Newtype
     , newtypeInstances :: Set Hs.TypeClass
+    , newtypeFFIType   :: FFIType.FFIType
     , newtypeComment   :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)

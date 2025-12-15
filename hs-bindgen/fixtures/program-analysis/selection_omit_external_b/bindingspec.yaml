@@ -19,13 +19,16 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: IndirectlyDependsOnOmitted
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Omitted
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data

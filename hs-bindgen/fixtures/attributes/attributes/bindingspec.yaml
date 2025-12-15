@@ -25,23 +25,28 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Baz
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: FILE
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Foo
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Qux
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data

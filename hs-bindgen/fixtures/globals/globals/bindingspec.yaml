@@ -25,23 +25,28 @@ hstypes:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Inline_struct
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct1_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Struct2_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
 - hsname: Version_t
   instances:
   - Eq
   - Show
   - Storable
+  ffitype: Data
