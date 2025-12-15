@@ -53,6 +53,10 @@ instance HasCField Struct2 "struct2_x"
 instance TyEq ty (CFieldType Struct2 "struct2_x") =>
          HasField "struct2_x" (Ptr Struct2) (Ptr ty)
     where getField = ptrToCField (Proxy @"struct2_x")
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_a1252a3becef09a6" fun2_base :: CInt ->
+                                                                     IO Unit
 {-| __C declaration:__ @fun2@
 
     __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
@@ -61,8 +65,7 @@ instance TyEq ty (CFieldType Struct2 "struct2_x") =>
 
     __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 -}
-foreign import ccall safe "hs_bindgen_a1252a3becef09a6" fun2 :: CInt ->
-                                                                IO Unit
+fun2 :: CInt -> IO Unit
 {-| __C declaration:__ @fun2@
 
     __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
@@ -71,11 +74,36 @@ foreign import ccall safe "hs_bindgen_a1252a3becef09a6" fun2 :: CInt ->
 
     __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 -}
-foreign import ccall safe "hs_bindgen_61793546aa44e36b" fun2 :: CInt ->
-                                                                IO Unit
+fun2 = fromBaseForeignType fun2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_61793546aa44e36b" fun2_base :: CInt ->
+                                                                     IO Unit
+{-| __C declaration:__ @fun2@
+
+    __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
+
+    __exported by:__ @types\/special\/parse_failure_long_double.h@
+
+    __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
+-}
+fun2 :: CInt -> IO Unit
+{-| __C declaration:__ @fun2@
+
+    __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
+
+    __exported by:__ @types\/special\/parse_failure_long_double.h@
+
+    __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
+-}
+fun2 = fromBaseForeignType fun2_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_c526f22b76547216" hs_bindgen_c526f22b76547216_base :: IO (FunPtr Void)
 -- | __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2_ptr@
-foreign import ccall safe "hs_bindgen_c526f22b76547216" hs_bindgen_c526f22b76547216 :: IO (FunPtr (CInt ->
-                                                                                                   IO Unit))
+hs_bindgen_c526f22b76547216 :: IO (FunPtr (CInt -> IO Unit))
+-- | __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2_ptr@
+hs_bindgen_c526f22b76547216 = fromBaseForeignType hs_bindgen_c526f22b76547216_base
 {-# NOINLINE fun2_ptr #-}
 {-| __C declaration:__ @fun2@
 

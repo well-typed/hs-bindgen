@@ -6,6 +6,7 @@
 module Example.Unsafe where
 
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -20,6 +21,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_3ad6c287a2386382" asm_labeled_function_base ::
+     FC.CInt
+  -> FC.CInt
+  -> IO FC.CInt
+
 {-| __C declaration:__ @asm_labeled_function@
 
     __defined at:__ @attributes\/asm.h:4:5@
@@ -28,9 +36,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
 -}
-foreign import ccall unsafe "hs_bindgen_3ad6c287a2386382" asm_labeled_function ::
+asm_labeled_function ::
      FC.CInt
      -- ^ __C declaration:__ @x@
   -> FC.CInt
      -- ^ __C declaration:__ @y@
   -> IO FC.CInt
+asm_labeled_function =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType asm_labeled_function_base

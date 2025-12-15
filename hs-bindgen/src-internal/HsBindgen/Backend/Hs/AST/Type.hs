@@ -1,7 +1,10 @@
 module HsBindgen.Backend.Hs.AST.Type (
   HsPrimType (..),
   HsType (..),
+  HsBaseForeignType (..),
 ) where
+
+import HsBindgen.Runtime.BaseForeignType
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
@@ -83,3 +86,5 @@ data HsType =
   | HsStrLit String
   deriving stock (Generic, Show, Eq)
 
+newtype HsBaseForeignType = HsBaseForeignType { unHsBaseForeignType :: BaseForeignType }
+  deriving stock (Generic, Show, Eq)

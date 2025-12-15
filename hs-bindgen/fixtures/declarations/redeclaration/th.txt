@@ -172,8 +172,13 @@ instance HasCField Y "y_o"
 instance TyEq ty (CFieldType Y "y_o") =>
          HasField "y_o" (Ptr Y) (Ptr ty)
     where getField = ptrToCField (Proxy @"y_o")
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_795a6cca43448561" hs_bindgen_795a6cca43448561_base :: IO (Ptr Void)
 -- | __unique:__ @test_declarationsredeclaration_Example_get_x_ptr@
-foreign import ccall safe "hs_bindgen_795a6cca43448561" hs_bindgen_795a6cca43448561 :: IO (Ptr CInt)
+hs_bindgen_795a6cca43448561 :: IO (Ptr CInt)
+-- | __unique:__ @test_declarationsredeclaration_Example_get_x_ptr@
+hs_bindgen_795a6cca43448561 = fromBaseForeignType hs_bindgen_795a6cca43448561_base
 {-# NOINLINE x_ptr #-}
 {-| __C declaration:__ @x@
 

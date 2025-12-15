@@ -8,7 +8,9 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -90,9 +92,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_7ac156a1e5f0a7d8" hs_bindgen_7ac156a1e5f0a7d8_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_edgecasesiterator_Example_get_makeToggle_ptr@
-foreign import ccall unsafe "hs_bindgen_7ac156a1e5f0a7d8" hs_bindgen_7ac156a1e5f0a7d8 ::
+hs_bindgen_7ac156a1e5f0a7d8 ::
      IO (Ptr.FunPtr (FC.CBool -> IO Toggle))
+hs_bindgen_7ac156a1e5f0a7d8 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_7ac156a1e5f0a7d8_base
 
 {-# NOINLINE makeToggle_ptr #-}
 
@@ -106,9 +115,16 @@ makeToggle_ptr :: Ptr.FunPtr (FC.CBool -> IO Toggle)
 makeToggle_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7ac156a1e5f0a7d8
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_ea9e16aea1caff87" hs_bindgen_ea9e16aea1caff87_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_edgecasesiterator_Example_get_toggleNext_ptr@
-foreign import ccall unsafe "hs_bindgen_ea9e16aea1caff87" hs_bindgen_ea9e16aea1caff87 ::
+hs_bindgen_ea9e16aea1caff87 ::
      IO (Ptr.FunPtr (Toggle -> IO FC.CBool))
+hs_bindgen_ea9e16aea1caff87 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_ea9e16aea1caff87_base
 
 {-# NOINLINE toggleNext_ptr #-}
 
@@ -122,9 +138,16 @@ toggleNext_ptr :: Ptr.FunPtr (Toggle -> IO FC.CBool)
 toggleNext_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ea9e16aea1caff87
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_1a2eb91b4ecd58ef" hs_bindgen_1a2eb91b4ecd58ef_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_edgecasesiterator_Example_get_releaseToggle_ptr@
-foreign import ccall unsafe "hs_bindgen_1a2eb91b4ecd58ef" hs_bindgen_1a2eb91b4ecd58ef ::
+hs_bindgen_1a2eb91b4ecd58ef ::
      IO (Ptr.FunPtr (Toggle -> IO ()))
+hs_bindgen_1a2eb91b4ecd58ef =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_1a2eb91b4ecd58ef_base
 
 {-# NOINLINE releaseToggle_ptr #-}
 
@@ -138,9 +161,16 @@ releaseToggle_ptr :: Ptr.FunPtr (Toggle -> IO ())
 releaseToggle_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1a2eb91b4ecd58ef
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_8254625fbaf5d305" hs_bindgen_8254625fbaf5d305_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_edgecasesiterator_Example_get_makeCounter_ptr@
-foreign import ccall unsafe "hs_bindgen_8254625fbaf5d305" hs_bindgen_8254625fbaf5d305 ::
+hs_bindgen_8254625fbaf5d305 ::
      IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter))
+hs_bindgen_8254625fbaf5d305 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_8254625fbaf5d305_base
 
 {-# NOINLINE makeCounter_ptr #-}
 
@@ -154,9 +184,16 @@ makeCounter_ptr :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter)
 makeCounter_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8254625fbaf5d305
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_aaec448c4bfb8541" hs_bindgen_aaec448c4bfb8541_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_edgecasesiterator_Example_get_counterNext_ptr@
-foreign import ccall unsafe "hs_bindgen_aaec448c4bfb8541" hs_bindgen_aaec448c4bfb8541 ::
+hs_bindgen_aaec448c4bfb8541 ::
      IO (Ptr.FunPtr (Counter -> IO FC.CInt))
+hs_bindgen_aaec448c4bfb8541 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_aaec448c4bfb8541_base
 
 {-# NOINLINE counterNext_ptr #-}
 
@@ -170,9 +207,16 @@ counterNext_ptr :: Ptr.FunPtr (Counter -> IO FC.CInt)
 counterNext_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_aaec448c4bfb8541
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_7046cfbf9189e5b5" hs_bindgen_7046cfbf9189e5b5_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_edgecasesiterator_Example_get_releaseCounter_ptr@
-foreign import ccall unsafe "hs_bindgen_7046cfbf9189e5b5" hs_bindgen_7046cfbf9189e5b5 ::
+hs_bindgen_7046cfbf9189e5b5 ::
      IO (Ptr.FunPtr (Counter -> IO ()))
+hs_bindgen_7046cfbf9189e5b5 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_7046cfbf9189e5b5_base
 
 {-# NOINLINE releaseCounter_ptr #-}
 
@@ -186,9 +230,16 @@ releaseCounter_ptr :: Ptr.FunPtr (Counter -> IO ())
 releaseCounter_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7046cfbf9189e5b5
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_c17e617bab3c2003" hs_bindgen_c17e617bab3c2003_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_edgecasesiterator_Example_get_makeVarCounter_ptr@
-foreign import ccall unsafe "hs_bindgen_c17e617bab3c2003" hs_bindgen_c17e617bab3c2003 ::
+hs_bindgen_c17e617bab3c2003 ::
      IO (Ptr.FunPtr (FC.CInt -> IO VarCounter))
+hs_bindgen_c17e617bab3c2003 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c17e617bab3c2003_base
 
 {-# NOINLINE makeVarCounter_ptr #-}
 
@@ -202,9 +253,16 @@ makeVarCounter_ptr :: Ptr.FunPtr (FC.CInt -> IO VarCounter)
 makeVarCounter_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c17e617bab3c2003
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_429fd2c32d78e77a" hs_bindgen_429fd2c32d78e77a_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_edgecasesiterator_Example_get_varCounterNext_ptr@
-foreign import ccall unsafe "hs_bindgen_429fd2c32d78e77a" hs_bindgen_429fd2c32d78e77a ::
+hs_bindgen_429fd2c32d78e77a ::
      IO (Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt))
+hs_bindgen_429fd2c32d78e77a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_429fd2c32d78e77a_base
 
 {-# NOINLINE varCounterNext_ptr #-}
 
@@ -218,9 +276,16 @@ varCounterNext_ptr :: Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt)
 varCounterNext_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_429fd2c32d78e77a
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_0059f6a0749bda00" hs_bindgen_0059f6a0749bda00_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_edgecasesiterator_Example_get_releaseVarCounter_ptr@
-foreign import ccall unsafe "hs_bindgen_0059f6a0749bda00" hs_bindgen_0059f6a0749bda00 ::
+hs_bindgen_0059f6a0749bda00 ::
      IO (Ptr.FunPtr (VarCounter -> IO ()))
+hs_bindgen_0059f6a0749bda00 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0059f6a0749bda00_base
 
 {-# NOINLINE releaseVarCounter_ptr #-}
 

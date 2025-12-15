@@ -67,10 +67,20 @@ newtype Int2int
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving newtype HasBaseForeignType
-foreign import ccall safe "wrapper" toInt2int :: Int2int ->
-                                                 IO (FunPtr Int2int)
-foreign import ccall safe "dynamic" fromInt2int :: FunPtr Int2int ->
-                                                   Int2int
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toInt2int_base :: (CInt ->
+                                                       IO CInt) ->
+                                                      IO (FunPtr (CInt -> IO CInt))
+toInt2int :: Int2int -> IO (FunPtr Int2int)
+toInt2int = \fun_0 -> fmap castFunPtrFromBaseForeignType (toInt2int_base (toBaseForeignType fun_0))
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromInt2int_base :: FunPtr (CInt ->
+                                                                IO CInt) ->
+                                                        CInt -> IO CInt
+fromInt2int :: FunPtr Int2int -> Int2int
+fromInt2int = \funPtr_0 -> fromBaseForeignType (fromInt2int_base (castFunPtrToBaseForeignType funPtr_0))
 instance ToFunPtr Int2int
     where toFunPtr = toInt2int
 instance FromFunPtr Int2int
@@ -96,10 +106,20 @@ newtype FunctionPointer_Function_Deref
       __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving newtype HasBaseForeignType
-foreign import ccall safe "wrapper" toFunctionPointer_Function_Deref :: FunctionPointer_Function_Deref ->
-                                                                        IO (FunPtr FunctionPointer_Function_Deref)
-foreign import ccall safe "dynamic" fromFunctionPointer_Function_Deref :: FunPtr FunctionPointer_Function_Deref ->
-                                                                          FunctionPointer_Function_Deref
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toFunctionPointer_Function_Deref_base :: IO Unit ->
+                                                                             IO (FunPtr (IO Unit))
+toFunctionPointer_Function_Deref :: FunctionPointer_Function_Deref ->
+                                    IO (FunPtr FunctionPointer_Function_Deref)
+toFunctionPointer_Function_Deref = \fun_0 -> fmap castFunPtrFromBaseForeignType (toFunctionPointer_Function_Deref_base (toBaseForeignType fun_0))
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromFunctionPointer_Function_Deref_base :: FunPtr (IO Unit) ->
+                                                                               IO Unit
+fromFunctionPointer_Function_Deref :: FunPtr FunctionPointer_Function_Deref ->
+                                      FunctionPointer_Function_Deref
+fromFunctionPointer_Function_Deref = \funPtr_0 -> fromBaseForeignType (fromFunctionPointer_Function_Deref_base (castFunPtrToBaseForeignType funPtr_0))
 instance ToFunPtr FunctionPointer_Function_Deref
     where toFunPtr = toFunctionPointer_Function_Deref
 instance FromFunPtr FunctionPointer_Function_Deref
@@ -160,10 +180,23 @@ newtype NonFunctionPointer_Function
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving newtype HasBaseForeignType
-foreign import ccall safe "wrapper" toNonFunctionPointer_Function :: NonFunctionPointer_Function ->
-                                                                     IO (FunPtr NonFunctionPointer_Function)
-foreign import ccall safe "dynamic" fromNonFunctionPointer_Function :: FunPtr NonFunctionPointer_Function ->
-                                                                       NonFunctionPointer_Function
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toNonFunctionPointer_Function_base :: (CInt ->
+                                                                           IO CInt) ->
+                                                                          IO (FunPtr (CInt ->
+                                                                                      IO CInt))
+toNonFunctionPointer_Function :: NonFunctionPointer_Function ->
+                                 IO (FunPtr NonFunctionPointer_Function)
+toNonFunctionPointer_Function = \fun_0 -> fmap castFunPtrFromBaseForeignType (toNonFunctionPointer_Function_base (toBaseForeignType fun_0))
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromNonFunctionPointer_Function_base :: FunPtr (CInt ->
+                                                                                    IO CInt) ->
+                                                                            CInt -> IO CInt
+fromNonFunctionPointer_Function :: FunPtr NonFunctionPointer_Function ->
+                                   NonFunctionPointer_Function
+fromNonFunctionPointer_Function = \funPtr_0 -> fromBaseForeignType (fromNonFunctionPointer_Function_base (castFunPtrToBaseForeignType funPtr_0))
 instance ToFunPtr NonFunctionPointer_Function
     where toFunPtr = toNonFunctionPointer_Function
 instance FromFunPtr NonFunctionPointer_Function
@@ -195,10 +228,18 @@ newtype F1_Deref
       __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving newtype HasBaseForeignType
-foreign import ccall safe "wrapper" toF1_Deref :: F1_Deref ->
-                                                  IO (FunPtr F1_Deref)
-foreign import ccall safe "dynamic" fromF1_Deref :: FunPtr F1_Deref ->
-                                                    F1_Deref
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toF1_Deref_base :: IO Unit ->
+                                                       IO (FunPtr (IO Unit))
+toF1_Deref :: F1_Deref -> IO (FunPtr F1_Deref)
+toF1_Deref = \fun_0 -> fmap castFunPtrFromBaseForeignType (toF1_Deref_base (toBaseForeignType fun_0))
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromF1_Deref_base :: FunPtr (IO Unit) ->
+                                                         IO Unit
+fromF1_Deref :: FunPtr F1_Deref -> F1_Deref
+fromF1_Deref = \funPtr_0 -> fromBaseForeignType (fromF1_Deref_base (castFunPtrToBaseForeignType funPtr_0))
 instance ToFunPtr F1_Deref
     where toFunPtr = toF1_Deref
 instance FromFunPtr F1_Deref
@@ -246,8 +287,18 @@ newtype G1
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving newtype HasBaseForeignType
-foreign import ccall safe "wrapper" toG1 :: G1 -> IO (FunPtr G1)
-foreign import ccall safe "dynamic" fromG1 :: FunPtr G1 -> G1
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toG1_base :: IO Unit ->
+                                                 IO (FunPtr (IO Unit))
+toG1 :: G1 -> IO (FunPtr G1)
+toG1 = \fun_0 -> fmap castFunPtrFromBaseForeignType (toG1_base (toBaseForeignType fun_0))
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromG1_base :: FunPtr (IO Unit) ->
+                                                   IO Unit
+fromG1 :: FunPtr G1 -> G1
+fromG1 = \funPtr_0 -> fromBaseForeignType (fromG1_base (castFunPtrToBaseForeignType funPtr_0))
 instance ToFunPtr G1
     where toFunPtr = toG1
 instance FromFunPtr G1
@@ -295,8 +346,18 @@ newtype H1
            __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving newtype HasBaseForeignType
-foreign import ccall safe "wrapper" toH1 :: H1 -> IO (FunPtr H1)
-foreign import ccall safe "dynamic" fromH1 :: FunPtr H1 -> H1
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toH1_base :: IO Unit ->
+                                                 IO (FunPtr (IO Unit))
+toH1 :: H1 -> IO (FunPtr H1)
+toH1 = \fun_0 -> fmap castFunPtrFromBaseForeignType (toH1_base (toBaseForeignType fun_0))
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromH1_base :: FunPtr (IO Unit) ->
+                                                   IO Unit
+fromH1 :: FunPtr H1 -> H1
+fromH1 = \funPtr_0 -> fromBaseForeignType (fromH1_base (castFunPtrToBaseForeignType funPtr_0))
 instance ToFunPtr H1
     where toFunPtr = toH1
 instance FromFunPtr H1

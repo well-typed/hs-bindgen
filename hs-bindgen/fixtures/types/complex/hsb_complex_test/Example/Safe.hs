@@ -10,7 +10,9 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -33,15 +35,25 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_687af703c95fba0e" multiply_complex_f_wrapper_base ::
+     Ptr.Ptr Void
+  -> Ptr.Ptr Void
+  -> Ptr.Ptr Void
+  -> IO ()
+
 {-| Pointer-based API for 'multiply_complex_f'
 
 __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_multiply_complex_f@
 -}
-foreign import ccall safe "hs_bindgen_687af703c95fba0e" multiply_complex_f_wrapper ::
+multiply_complex_f_wrapper ::
      Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> IO ()
+multiply_complex_f_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType multiply_complex_f_wrapper_base
 
 {-| __C declaration:__ @multiply_complex_f@
 
@@ -63,15 +75,25 @@ multiply_complex_f =
                                 HsBindgen.Runtime.CAPI.allocaAndPeek (\z4 ->
                                                                         multiply_complex_f_wrapper y3 y2 z4)))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_3ff14ee8c5914fc6" add_complex_wrapper_base ::
+     Ptr.Ptr Void
+  -> Ptr.Ptr Void
+  -> Ptr.Ptr Void
+  -> IO ()
+
 {-| Pointer-based API for 'add_complex'
 
 __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_add_complex@
 -}
-foreign import ccall safe "hs_bindgen_3ff14ee8c5914fc6" add_complex_wrapper ::
+add_complex_wrapper ::
      Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> IO ()
+add_complex_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType add_complex_wrapper_base
 
 {-| __C declaration:__ @add_complex@
 

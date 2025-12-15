@@ -6,6 +6,7 @@
 module Example.Unsafe where
 
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -19,6 +20,12 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_07fd5b433f381094" foo_base ::
+     FC.CDouble
+  -> IO FC.CInt
+
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h:13:5@
@@ -27,7 +34,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
     __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@
 -}
-foreign import ccall unsafe "hs_bindgen_07fd5b433f381094" foo ::
+foo ::
      FC.CDouble
      -- ^ __C declaration:__ @x@
   -> IO FC.CInt
+foo =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType foo_base

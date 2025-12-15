@@ -41,8 +41,10 @@ module HsBindgen.Backend.Hs.AST (
   , FunctionDecl(..)
     -- ** 'ToFunPtr'
   , ToFunPtrInstance(..)
+  , ForeignImportWrapperDecl(..)
     -- ** 'FromFunPtr'
   , FromFunPtrInstance(..)
+  , ForeignImportDynamicDecl(..)
     -- ** 'Storable'
   , StorableInstance(..)
   , PeekCField(..)
@@ -79,6 +81,7 @@ import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.BindingSpec.Private.FFIType qualified as FFIType
 import HsBindgen.Frontend.AST.External (CheckedMacroExpr)
+import HsBindgen.Frontend.AST.External qualified as C (Type)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -132,8 +135,8 @@ data Newtype = Newtype {
 
 data ForeignImportDecl = ForeignImportDecl
     { foreignImportName       :: Hs.Name Hs.NsVar
-    , foreignImportParameters :: [FunctionParameter]
-    , foreignImportResultType :: HsType
+    , foreignImportParameters :: [FunctionParameter HsBaseForeignType]
+    , foreignImportResultType :: HsBaseForeignType
     , foreignImportOrigName   :: C.DeclName
     , foreignImportCallConv   :: CallConv
     , foreignImportOrigin     :: Origin.ForeignImport
@@ -142,16 +145,16 @@ data ForeignImportDecl = ForeignImportDecl
     }
   deriving stock (Generic, Show)
 
-data FunctionParameter = FunctionParameter
+data FunctionParameter t = FunctionParameter
   { functionParameterName    :: Maybe (Hs.Name Hs.NsVar)
-  , functionParameterType    :: HsType
+  , functionParameterType    :: t
   , functionParameterComment :: Maybe HsDoc.Comment
   }
-  deriving stock (Generic, Show)
+  deriving stock (Generic, Show, Functor, Foldable, Traversable)
 
 data FunctionDecl = FunctionDecl
   { functionDeclName       :: Hs.Name Hs.NsVar
-  , functionDeclParameters :: [FunctionParameter]
+  , functionDeclParameters :: [FunctionParameter HsType]
   , functionDeclResultType :: HsType
   , functionDeclBody       :: SHs.ClosedExpr
   , functionDeclOrigin     :: Origin.ForeignImport
@@ -207,19 +210,21 @@ data Ap pure xs ctx = Ap (pure ctx) [xs ctx]
 -- | Top-level declaration
 type Decl :: Star
 data Decl where
-    DeclData            :: SNatI n => Struct n -> Decl
-    DeclEmpty           :: EmptyData -> Decl
-    DeclNewtype         :: Newtype -> Decl
-    DeclPatSyn          :: PatSyn -> Decl
-    DeclDefineInstance  :: DefineInstance -> Decl
-    DeclDeriveInstance  :: DeriveInstance -> Decl
-    DeclForeignImport   :: ForeignImportDecl -> Decl
-    DeclFunction        :: FunctionDecl -> Decl
-    DeclMacroExpr       :: MacroExpr -> Decl
-    DeclUnionGetter     :: UnionGetter -> Decl
-    DeclUnionSetter     :: UnionSetter -> Decl
-    DeclVar             :: SHs.Var -> Decl
-    DeclPragma          :: SHs.Pragma -> Decl
+    DeclData                 :: SNatI n => Struct n -> Decl
+    DeclEmpty                :: EmptyData -> Decl
+    DeclNewtype              :: Newtype -> Decl
+    DeclPatSyn               :: PatSyn -> Decl
+    DeclDefineInstance       :: DefineInstance -> Decl
+    DeclDeriveInstance       :: DeriveInstance -> Decl
+    DeclForeignImport        :: ForeignImportDecl -> Decl
+    DeclForeignImportDynamic :: ForeignImportDynamicDecl -> Decl
+    DeclForeignImportWrapper :: ForeignImportWrapperDecl -> Decl
+    DeclFunction             :: FunctionDecl -> Decl
+    DeclMacroExpr            :: MacroExpr -> Decl
+    DeclUnionGetter          :: UnionGetter -> Decl
+    DeclUnionSetter          :: UnionSetter -> Decl
+    DeclVar                  :: SHs.Var -> Decl
+    DeclPragma               :: SHs.Pragma -> Decl
 deriving instance Show Decl
 
 data DefineInstance =
@@ -329,6 +334,16 @@ data ToFunPtrInstance = ToFunPtrInstance
     }
   deriving stock (Generic, Show)
 
+-- | A dynamic wrapper
+--
+data ForeignImportWrapperDecl = ForeignImportWrapperDecl
+    { foreignImportWrapperName        :: Hs.Name Hs.NsVar
+    , foreignImportWrapperForeignType :: HsBaseForeignType
+    , foreignImportWrapperOrigin      :: C.Type
+    , foreignImportWrapperComment     :: Maybe HsDoc.Comment
+    }
+    deriving stock (Generic, Show)
+
 {-------------------------------------------------------------------------------
   'FromFunPtr'
 -------------------------------------------------------------------------------}
@@ -341,6 +356,16 @@ data FromFunPtrInstance = FromFunPtrInstance
     , fromFunPtrInstanceBody :: Hs.Name Hs.NsVar
     }
   deriving stock (Generic, Show)
+
+-- | A dynamic import
+--
+data ForeignImportDynamicDecl = ForeignImportDynamicDecl
+    { foreignImportDynamicName        :: Hs.Name Hs.NsVar
+    , foreignImportDynamicForeignType :: HsBaseForeignType
+    , foreignImportDynamicOrigin      :: C.Type
+    , foreignImportDynamicComment     :: Maybe HsDoc.Comment
+    }
+    deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
   'Storable'

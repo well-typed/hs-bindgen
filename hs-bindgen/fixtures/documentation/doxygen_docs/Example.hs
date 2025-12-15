@@ -36,6 +36,7 @@ import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
+import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
@@ -229,13 +230,31 @@ newtype Event_callback_t_Deref = Event_callback_t_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toEvent_callback_t_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toEvent_callback_t_Deref_base ::
+     (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt)
+  -> IO (Ptr.FunPtr (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt))
+
+toEvent_callback_t_Deref ::
      Event_callback_t_Deref
   -> IO (Ptr.FunPtr Event_callback_t_Deref)
+toEvent_callback_t_Deref =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toEvent_callback_t_Deref_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromEvent_callback_t_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromEvent_callback_t_Deref_base ::
+     Ptr.FunPtr (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt)
+  -> FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
+
+fromEvent_callback_t_Deref ::
      Ptr.FunPtr Event_callback_t_Deref
   -> Event_callback_t_Deref
+fromEvent_callback_t_Deref =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromEvent_callback_t_Deref_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Event_callback_t_Deref where
 
@@ -1027,13 +1046,31 @@ newtype Processor_fn_t_Deref = Processor_fn_t_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toProcessor_fn_t_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "wrapper" toProcessor_fn_t_Deref_base ::
+     (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt)
+  -> IO (Ptr.FunPtr (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt))
+
+toProcessor_fn_t_Deref ::
      Processor_fn_t_Deref
   -> IO (Ptr.FunPtr Processor_fn_t_Deref)
+toProcessor_fn_t_Deref =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (toProcessor_fn_t_Deref_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
-foreign import ccall safe "dynamic" fromProcessor_fn_t_Deref ::
+{-| This is an internal function.
+-}
+foreign import ccall safe "dynamic" fromProcessor_fn_t_Deref_base ::
+     Ptr.FunPtr (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt)
+  -> FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
+
+fromProcessor_fn_t_Deref ::
      Ptr.FunPtr Processor_fn_t_Deref
   -> Processor_fn_t_Deref
+fromProcessor_fn_t_Deref =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (fromProcessor_fn_t_Deref_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Processor_fn_t_Deref where
 

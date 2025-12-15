@@ -8,7 +8,9 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -24,9 +26,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_474c22f4687e6d7d" hs_bindgen_474c22f4687e6d7d_base ::
+     IO (Ptr.FunPtr Void)
+
 -- | __unique:__ @test_attributesasm_Example_get_asm_labeled_function_ptr@
-foreign import ccall unsafe "hs_bindgen_474c22f4687e6d7d" hs_bindgen_474c22f4687e6d7d ::
+hs_bindgen_474c22f4687e6d7d ::
      IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt))
+hs_bindgen_474c22f4687e6d7d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_474c22f4687e6d7d_base
 
 {-# NOINLINE asm_labeled_function_ptr #-}
 

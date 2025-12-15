@@ -60,8 +60,8 @@ generateHaddocksWithFieldInfo config declInfo FieldInfo{..} =
 generateHaddocksWithInfoParams
   :: HaddockConfig
   -> DeclInfo
-  -> [Hs.FunctionParameter]
-  -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
+  -> [Hs.FunctionParameter Hs.HsType]
+  -> (Maybe HsDoc.Comment, [Hs.FunctionParameter Hs.HsType])
 generateHaddocksWithInfoParams config declInfo params =
     generateHaddocksWithParams config declInfo Args{
         isField     = False
@@ -83,7 +83,7 @@ data Args = Args{
     , nameC       :: Text
     , nameHsIdent :: Hs.Identifier
     , comment     :: Maybe (CDoc.Comment CommentRef)
-    , params      :: [Hs.FunctionParameter]
+    , params      :: [Hs.FunctionParameter Hs.HsType]
     }
 
 -- | Convert a Clang comment to a Haddock comment, updating function parameters
@@ -94,7 +94,7 @@ data Args = Args{
 --
 -- Returns the processed comment and the updated parameters list
 --
-generateHaddocksWithParams :: HaddockConfig -> DeclInfo -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
+generateHaddocksWithParams :: HaddockConfig -> DeclInfo -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter Hs.HsType])
 generateHaddocksWithParams HaddockConfig{..} declInfo Args{comment = Nothing, ..} =
   let (commentCName, commentLocation) =
         case C.declIdCName declInfo.declId of
@@ -200,13 +200,13 @@ generateHaddocksWithParams HaddockConfig{..} declInfo Args{comment = Just CDoc.C
     -- Process 'C.ParamCommand and update matching parameter
     --
     processParamCommands :: [(HsDoc.Comment, Maybe CDoc.CXCommentParamPassDirection)]
-                         -> [Hs.FunctionParameter]
+                         -> [Hs.FunctionParameter Hs.HsType]
     processParamCommands paramCmds =
       go paramCmds params
       where
         go :: [(HsDoc.Comment, Maybe CDoc.CXCommentParamPassDirection)]
-           -> [Hs.FunctionParameter]
-           -> [Hs.FunctionParameter]
+           -> [Hs.FunctionParameter Hs.HsType]
+           -> [Hs.FunctionParameter Hs.HsType]
         go [] currentParams = currentParams
         go ((hsComment, _mbDirection):rest) currentParams =
           let updatedParams =
@@ -221,7 +221,7 @@ generateHaddocksWithParams HaddockConfig{..} declInfo Args{comment = Just CDoc.C
 -- | If the function parameter doesn't have any comments then add a simple
 -- comment with just its name (if exists).
 --
-addFunctionParameterComment :: Hs.FunctionParameter -> Hs.FunctionParameter
+addFunctionParameterComment :: Hs.FunctionParameter t -> Hs.FunctionParameter t
 addFunctionParameterComment fp@Hs.FunctionParameter {..} =
   case functionParameterName of
     Nothing -> fp

@@ -145,6 +145,10 @@ mkGlobal = \case
 
       -- HasBaseForeignType
       HasBaseForeignType_class -> ''HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType
+      HasBaseForeignType_toBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType
+      HasBaseForeignType_fromBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType
+      HasBaseForeignType_castFunPtrToBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType
+      HasBaseForeignType_castFunPtrFromBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType
 
       -- Unsafe
       IO_unsafePerformIO -> 'System.IO.Unsafe.unsafePerformIO
@@ -153,6 +157,9 @@ mkGlobal = \case
       ConstPtr_type        -> ''HsBindgen.Runtime.ConstPtr.ConstPtr
       ConstPtr_constructor -> 'HsBindgen.Runtime.ConstPtr.ConstPtr
       ConstPtr_unConstPtr  -> 'HsBindgen.Runtime.ConstPtr.unConstPtr
+
+      -- Functor
+      Functor_fmap -> 'fmap
 
       Bits_class        -> ''Data.Bits.Bits
       Bounded_class     -> ''Bounded
@@ -406,6 +413,10 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
 
     -- HasBaseForeignType
     HasBaseForeignType_class -> panicPure "class in expression"
+    HasBaseForeignType_toBaseForeignType -> TH.varE name
+    HasBaseForeignType_fromBaseForeignType -> TH.varE name
+    HasBaseForeignType_castFunPtrToBaseForeignType -> TH.varE name
+    HasBaseForeignType_castFunPtrFromBaseForeignType -> TH.varE name
 
     -- Unsafe
     IO_unsafePerformIO -> TH.varE name
@@ -414,6 +425,9 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     ConstPtr_type        -> panicPure "type in expression"
     ConstPtr_constructor -> TH.conE name
     ConstPtr_unConstPtr  -> TH.varE name
+
+    -- Functor
+    Functor_fmap -> TH.varE name
 
     -- Other type classes
     Bits_class        -> panicPure "class in expression"

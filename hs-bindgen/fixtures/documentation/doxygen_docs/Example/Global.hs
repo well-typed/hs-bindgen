@@ -9,7 +9,9 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstPtr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -28,9 +30,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_a568b76e8feb0427" hs_bindgen_a568b76e8feb0427_base ::
+     IO (Ptr.Ptr Void)
+
 -- | __unique:__ @test_documentationdoxygen_docs_Example_get_global_counter_ptr@
-foreign import ccall unsafe "hs_bindgen_a568b76e8feb0427" hs_bindgen_a568b76e8feb0427 ::
+hs_bindgen_a568b76e8feb0427 ::
      IO (Ptr.Ptr FC.CInt)
+hs_bindgen_a568b76e8feb0427 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a568b76e8feb0427_base
 
 {-# NOINLINE global_counter_ptr #-}
 
@@ -52,9 +61,16 @@ global_counter_ptr :: Ptr.Ptr FC.CInt
 global_counter_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a568b76e8feb0427
 
+{-| This is an internal function.
+-}
+foreign import ccall unsafe "hs_bindgen_dd671052fd43d189" hs_bindgen_dd671052fd43d189_base ::
+     IO (Ptr.Ptr Void)
+
 -- | __unique:__ @test_documentationdoxygen_docs_Example_get_version_string_ptr@
-foreign import ccall unsafe "hs_bindgen_dd671052fd43d189" hs_bindgen_dd671052fd43d189 ::
+hs_bindgen_dd671052fd43d189 ::
      IO (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar))
+hs_bindgen_dd671052fd43d189 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_dd671052fd43d189_base
 
 {-# NOINLINE version_string_ptr #-}
 

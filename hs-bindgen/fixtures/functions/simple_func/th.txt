@@ -97,6 +97,10 @@
 -- {
 --   return &fun;
 -- }
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_1c811bfb80de8f77" erf_base :: CDouble ->
+                                                                    CDouble
 {-| __C declaration:__ @erf@
 
     __defined at:__ @functions\/simple_func.h:1:8@
@@ -105,46 +109,7 @@
 
     __unique:__ @test_functionssimple_func_Example_Unsafe_erf@
 -}
-foreign import ccall safe "hs_bindgen_1c811bfb80de8f77" erf :: CDouble ->
-                                                               CDouble
-{-| __C declaration:__ @bad_fma@
-
-    __defined at:__ @functions\/simple_func.h:3:22@
-
-    __exported by:__ @functions\/simple_func.h@
-
-    __unique:__ @test_functionssimple_func_Example_Unsafe_bad_fma@
--}
-foreign import ccall safe "hs_bindgen_180022d3518c53bd" bad_fma :: CDouble ->
-                                                                   CDouble -> CDouble -> IO CDouble
-{-| __C declaration:__ @no_args@
-
-    __defined at:__ @functions\/simple_func.h:7:6@
-
-    __exported by:__ @functions\/simple_func.h@
-
-    __unique:__ @test_functionssimple_func_Example_Unsafe_no_args@
--}
-foreign import ccall safe "hs_bindgen_d72558f6f977200c" no_args :: IO Unit
-{-| __C declaration:__ @no_args_no_void@
-
-    __defined at:__ @functions\/simple_func.h:9:6@
-
-    __exported by:__ @functions\/simple_func.h@
-
-    __unique:__ @test_functionssimple_func_Example_Unsafe_no_args_no_void@
--}
-foreign import ccall safe "hs_bindgen_d8523e2ccea5c7ba" no_args_no_void :: IO Unit
-{-| __C declaration:__ @fun@
-
-    __defined at:__ @functions\/simple_func.h:11:5@
-
-    __exported by:__ @functions\/simple_func.h@
-
-    __unique:__ @test_functionssimple_func_Example_Unsafe_fun@
--}
-foreign import ccall safe "hs_bindgen_48cbd3cd1c6e874f" fun :: CChar ->
-                                                               CDouble -> IO CInt
+erf :: CDouble -> CDouble
 {-| __C declaration:__ @erf@
 
     __defined at:__ @functions\/simple_func.h:1:8@
@@ -153,8 +118,12 @@ foreign import ccall safe "hs_bindgen_48cbd3cd1c6e874f" fun :: CChar ->
 
     __unique:__ @test_functionssimple_func_Example_Unsafe_erf@
 -}
-foreign import ccall safe "hs_bindgen_da5d889180d72efd" erf :: CDouble ->
-                                                               CDouble
+erf = fromBaseForeignType erf_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_180022d3518c53bd" bad_fma_base :: CDouble ->
+                                                                        CDouble ->
+                                                                        CDouble -> IO CDouble
 {-| __C declaration:__ @bad_fma@
 
     __defined at:__ @functions\/simple_func.h:3:22@
@@ -163,8 +132,19 @@ foreign import ccall safe "hs_bindgen_da5d889180d72efd" erf :: CDouble ->
 
     __unique:__ @test_functionssimple_func_Example_Unsafe_bad_fma@
 -}
-foreign import ccall safe "hs_bindgen_d02f37accebc0cb3" bad_fma :: CDouble ->
-                                                                   CDouble -> CDouble -> IO CDouble
+bad_fma :: CDouble -> CDouble -> CDouble -> IO CDouble
+{-| __C declaration:__ @bad_fma@
+
+    __defined at:__ @functions\/simple_func.h:3:22@
+
+    __exported by:__ @functions\/simple_func.h@
+
+    __unique:__ @test_functionssimple_func_Example_Unsafe_bad_fma@
+-}
+bad_fma = fromBaseForeignType bad_fma_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d72558f6f977200c" no_args_base :: IO Unit
 {-| __C declaration:__ @no_args@
 
     __defined at:__ @functions\/simple_func.h:7:6@
@@ -173,7 +153,19 @@ foreign import ccall safe "hs_bindgen_d02f37accebc0cb3" bad_fma :: CDouble ->
 
     __unique:__ @test_functionssimple_func_Example_Unsafe_no_args@
 -}
-foreign import ccall safe "hs_bindgen_9ea56ae4fab9a418" no_args :: IO Unit
+no_args :: IO Unit
+{-| __C declaration:__ @no_args@
+
+    __defined at:__ @functions\/simple_func.h:7:6@
+
+    __exported by:__ @functions\/simple_func.h@
+
+    __unique:__ @test_functionssimple_func_Example_Unsafe_no_args@
+-}
+no_args = fromBaseForeignType no_args_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d8523e2ccea5c7ba" no_args_no_void_base :: IO Unit
 {-| __C declaration:__ @no_args_no_void@
 
     __defined at:__ @functions\/simple_func.h:9:6@
@@ -182,7 +174,20 @@ foreign import ccall safe "hs_bindgen_9ea56ae4fab9a418" no_args :: IO Unit
 
     __unique:__ @test_functionssimple_func_Example_Unsafe_no_args_no_void@
 -}
-foreign import ccall safe "hs_bindgen_a3d1783059ec7820" no_args_no_void :: IO Unit
+no_args_no_void :: IO Unit
+{-| __C declaration:__ @no_args_no_void@
+
+    __defined at:__ @functions\/simple_func.h:9:6@
+
+    __exported by:__ @functions\/simple_func.h@
+
+    __unique:__ @test_functionssimple_func_Example_Unsafe_no_args_no_void@
+-}
+no_args_no_void = fromBaseForeignType no_args_no_void_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_48cbd3cd1c6e874f" fun_base :: CChar ->
+                                                                    CDouble -> IO CInt
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/simple_func.h:11:5@
@@ -191,11 +196,132 @@ foreign import ccall safe "hs_bindgen_a3d1783059ec7820" no_args_no_void :: IO Un
 
     __unique:__ @test_functionssimple_func_Example_Unsafe_fun@
 -}
-foreign import ccall safe "hs_bindgen_91392ef466aa34e7" fun :: CChar ->
-                                                               CDouble -> IO CInt
+fun :: CChar -> CDouble -> IO CInt
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/simple_func.h:11:5@
+
+    __exported by:__ @functions\/simple_func.h@
+
+    __unique:__ @test_functionssimple_func_Example_Unsafe_fun@
+-}
+fun = fromBaseForeignType fun_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_da5d889180d72efd" erf_base :: CDouble ->
+                                                                    CDouble
+{-| __C declaration:__ @erf@
+
+    __defined at:__ @functions\/simple_func.h:1:8@
+
+    __exported by:__ @functions\/simple_func.h@
+
+    __unique:__ @test_functionssimple_func_Example_Unsafe_erf@
+-}
+erf :: CDouble -> CDouble
+{-| __C declaration:__ @erf@
+
+    __defined at:__ @functions\/simple_func.h:1:8@
+
+    __exported by:__ @functions\/simple_func.h@
+
+    __unique:__ @test_functionssimple_func_Example_Unsafe_erf@
+-}
+erf = fromBaseForeignType erf_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d02f37accebc0cb3" bad_fma_base :: CDouble ->
+                                                                        CDouble ->
+                                                                        CDouble -> IO CDouble
+{-| __C declaration:__ @bad_fma@
+
+    __defined at:__ @functions\/simple_func.h:3:22@
+
+    __exported by:__ @functions\/simple_func.h@
+
+    __unique:__ @test_functionssimple_func_Example_Unsafe_bad_fma@
+-}
+bad_fma :: CDouble -> CDouble -> CDouble -> IO CDouble
+{-| __C declaration:__ @bad_fma@
+
+    __defined at:__ @functions\/simple_func.h:3:22@
+
+    __exported by:__ @functions\/simple_func.h@
+
+    __unique:__ @test_functionssimple_func_Example_Unsafe_bad_fma@
+-}
+bad_fma = fromBaseForeignType bad_fma_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_9ea56ae4fab9a418" no_args_base :: IO Unit
+{-| __C declaration:__ @no_args@
+
+    __defined at:__ @functions\/simple_func.h:7:6@
+
+    __exported by:__ @functions\/simple_func.h@
+
+    __unique:__ @test_functionssimple_func_Example_Unsafe_no_args@
+-}
+no_args :: IO Unit
+{-| __C declaration:__ @no_args@
+
+    __defined at:__ @functions\/simple_func.h:7:6@
+
+    __exported by:__ @functions\/simple_func.h@
+
+    __unique:__ @test_functionssimple_func_Example_Unsafe_no_args@
+-}
+no_args = fromBaseForeignType no_args_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_a3d1783059ec7820" no_args_no_void_base :: IO Unit
+{-| __C declaration:__ @no_args_no_void@
+
+    __defined at:__ @functions\/simple_func.h:9:6@
+
+    __exported by:__ @functions\/simple_func.h@
+
+    __unique:__ @test_functionssimple_func_Example_Unsafe_no_args_no_void@
+-}
+no_args_no_void :: IO Unit
+{-| __C declaration:__ @no_args_no_void@
+
+    __defined at:__ @functions\/simple_func.h:9:6@
+
+    __exported by:__ @functions\/simple_func.h@
+
+    __unique:__ @test_functionssimple_func_Example_Unsafe_no_args_no_void@
+-}
+no_args_no_void = fromBaseForeignType no_args_no_void_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_91392ef466aa34e7" fun_base :: CChar ->
+                                                                    CDouble -> IO CInt
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/simple_func.h:11:5@
+
+    __exported by:__ @functions\/simple_func.h@
+
+    __unique:__ @test_functionssimple_func_Example_Unsafe_fun@
+-}
+fun :: CChar -> CDouble -> IO CInt
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/simple_func.h:11:5@
+
+    __exported by:__ @functions\/simple_func.h@
+
+    __unique:__ @test_functionssimple_func_Example_Unsafe_fun@
+-}
+fun = fromBaseForeignType fun_base
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_1308338f62c45845" hs_bindgen_1308338f62c45845_base :: IO (FunPtr Void)
 -- | __unique:__ @test_functionssimple_func_Example_get_erf_ptr@
-foreign import ccall safe "hs_bindgen_1308338f62c45845" hs_bindgen_1308338f62c45845 :: IO (FunPtr (CDouble ->
-                                                                                                   IO CDouble))
+hs_bindgen_1308338f62c45845 :: IO (FunPtr (CDouble -> IO CDouble))
+-- | __unique:__ @test_functionssimple_func_Example_get_erf_ptr@
+hs_bindgen_1308338f62c45845 = fromBaseForeignType hs_bindgen_1308338f62c45845_base
 {-# NOINLINE erf_ptr #-}
 {-| __C declaration:__ @erf@
 
@@ -211,11 +337,14 @@ erf_ptr :: FunPtr (CDouble -> IO CDouble)
     __exported by:__ @functions\/simple_func.h@
 -}
 erf_ptr = unsafePerformIO hs_bindgen_1308338f62c45845
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_457f7d0956688086" hs_bindgen_457f7d0956688086_base :: IO (FunPtr Void)
 -- | __unique:__ @test_functionssimple_func_Example_get_bad_fma_ptr@
-foreign import ccall safe "hs_bindgen_457f7d0956688086" hs_bindgen_457f7d0956688086 :: IO (FunPtr (CDouble ->
-                                                                                                   CDouble ->
-                                                                                                   CDouble ->
-                                                                                                   IO CDouble))
+hs_bindgen_457f7d0956688086 :: IO (FunPtr (CDouble ->
+                                           CDouble -> CDouble -> IO CDouble))
+-- | __unique:__ @test_functionssimple_func_Example_get_bad_fma_ptr@
+hs_bindgen_457f7d0956688086 = fromBaseForeignType hs_bindgen_457f7d0956688086_base
 {-# NOINLINE bad_fma_ptr #-}
 {-| __C declaration:__ @bad_fma@
 
@@ -231,8 +360,13 @@ bad_fma_ptr :: FunPtr (CDouble -> CDouble -> CDouble -> IO CDouble)
     __exported by:__ @functions\/simple_func.h@
 -}
 bad_fma_ptr = unsafePerformIO hs_bindgen_457f7d0956688086
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_db204712b6d929ba" hs_bindgen_db204712b6d929ba_base :: IO (FunPtr Void)
 -- | __unique:__ @test_functionssimple_func_Example_get_no_args_ptr@
-foreign import ccall safe "hs_bindgen_db204712b6d929ba" hs_bindgen_db204712b6d929ba :: IO (FunPtr (IO Unit))
+hs_bindgen_db204712b6d929ba :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_functionssimple_func_Example_get_no_args_ptr@
+hs_bindgen_db204712b6d929ba = fromBaseForeignType hs_bindgen_db204712b6d929ba_base
 {-# NOINLINE no_args_ptr #-}
 {-| __C declaration:__ @no_args@
 
@@ -248,8 +382,13 @@ no_args_ptr :: FunPtr (IO Unit)
     __exported by:__ @functions\/simple_func.h@
 -}
 no_args_ptr = unsafePerformIO hs_bindgen_db204712b6d929ba
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_d8fd245fa84413ae" hs_bindgen_d8fd245fa84413ae_base :: IO (FunPtr Void)
 -- | __unique:__ @test_functionssimple_func_Example_get_no_args_no_void_ptr@
-foreign import ccall safe "hs_bindgen_d8fd245fa84413ae" hs_bindgen_d8fd245fa84413ae :: IO (FunPtr (IO Unit))
+hs_bindgen_d8fd245fa84413ae :: IO (FunPtr (IO Unit))
+-- | __unique:__ @test_functionssimple_func_Example_get_no_args_no_void_ptr@
+hs_bindgen_d8fd245fa84413ae = fromBaseForeignType hs_bindgen_d8fd245fa84413ae_base
 {-# NOINLINE no_args_no_void_ptr #-}
 {-| __C declaration:__ @no_args_no_void@
 
@@ -265,10 +404,14 @@ no_args_no_void_ptr :: FunPtr (IO Unit)
     __exported by:__ @functions\/simple_func.h@
 -}
 no_args_no_void_ptr = unsafePerformIO hs_bindgen_d8fd245fa84413ae
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_8541b259788f68ad" hs_bindgen_8541b259788f68ad_base :: IO (FunPtr Void)
 -- | __unique:__ @test_functionssimple_func_Example_get_fun_ptr@
-foreign import ccall safe "hs_bindgen_8541b259788f68ad" hs_bindgen_8541b259788f68ad :: IO (FunPtr (CChar ->
-                                                                                                   CDouble ->
-                                                                                                   IO CInt))
+hs_bindgen_8541b259788f68ad :: IO (FunPtr (CChar ->
+                                           CDouble -> IO CInt))
+-- | __unique:__ @test_functionssimple_func_Example_get_fun_ptr@
+hs_bindgen_8541b259788f68ad = fromBaseForeignType hs_bindgen_8541b259788f68ad_base
 {-# NOINLINE fun_ptr #-}
 {-| __C declaration:__ @fun@
 

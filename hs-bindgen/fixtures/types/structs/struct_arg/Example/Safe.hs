@@ -9,7 +9,9 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -47,13 +49,21 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_4ad25504590fdd2b" thing_fun_1_wrapper_base ::
+     Ptr.Ptr Void
+  -> IO FC.CInt
+
 {-| Pointer-based API for 'thing_fun_1'
 
 __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
 -}
-foreign import ccall safe "hs_bindgen_4ad25504590fdd2b" thing_fun_1_wrapper ::
+thing_fun_1_wrapper ::
      Ptr.Ptr Thing
   -> IO FC.CInt
+thing_fun_1_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType thing_fun_1_wrapper_base
 
 {-| __C declaration:__ @thing_fun_1@
 
@@ -68,14 +78,23 @@ thing_fun_1 ::
 thing_fun_1 =
   \x0 -> F.with x0 (\y1 -> thing_fun_1_wrapper y1)
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_04a435522bf64978" thing_fun_2_wrapper_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> IO ()
+
 {-| Pointer-based API for 'thing_fun_2'
 
 __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_2@
 -}
-foreign import ccall safe "hs_bindgen_04a435522bf64978" thing_fun_2_wrapper ::
+thing_fun_2_wrapper ::
      FC.CInt
   -> Ptr.Ptr Thing
   -> IO ()
+thing_fun_2_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType thing_fun_2_wrapper_base
 
 {-| __C declaration:__ @thing_fun_2@
 
@@ -92,16 +111,27 @@ thing_fun_2 =
     HsBindgen.Runtime.CAPI.allocaAndPeek (\z1 ->
                                             thing_fun_2_wrapper x0 z1)
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_5e3271324df7ced2" thing_fun_3a_wrapper_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> FC.CDouble
+  -> Ptr.Ptr Void
+  -> IO ()
+
 {-| Pointer-based API for 'thing_fun_3a'
 
 __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3a@
 -}
-foreign import ccall safe "hs_bindgen_5e3271324df7ced2" thing_fun_3a_wrapper ::
+thing_fun_3a_wrapper ::
      FC.CInt
   -> Ptr.Ptr Thing
   -> FC.CDouble
   -> Ptr.Ptr Thing
   -> IO ()
+thing_fun_3a_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType thing_fun_3a_wrapper_base
 
 {-| __C declaration:__ @thing_fun_3a@
 
@@ -125,15 +155,25 @@ thing_fun_3a =
                      HsBindgen.Runtime.CAPI.allocaAndPeek (\z4 ->
                                                              thing_fun_3a_wrapper x0 y3 x2 z4))
 
+{-| This is an internal function.
+-}
+foreign import ccall safe "hs_bindgen_3525c7d1c72f2fae" thing_fun_3b_wrapper_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> FC.CDouble
+  -> IO FC.CChar
+
 {-| Pointer-based API for 'thing_fun_3b'
 
 __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3b@
 -}
-foreign import ccall safe "hs_bindgen_3525c7d1c72f2fae" thing_fun_3b_wrapper ::
+thing_fun_3b_wrapper ::
      FC.CInt
   -> Ptr.Ptr Thing
   -> FC.CDouble
   -> IO FC.CChar
+thing_fun_3b_wrapper =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType thing_fun_3b_wrapper_base
 
 {-| __C declaration:__ @thing_fun_3b@
 
