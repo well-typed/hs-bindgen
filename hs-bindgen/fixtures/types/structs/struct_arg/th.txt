@@ -129,12 +129,15 @@ instance HasCField Thing "thing_x"
 instance TyEq ty (CFieldType Thing "thing_x") =>
          HasField "thing_x" (Ptr Thing) (Ptr ty)
     where getField = ptrToCField (Proxy @"thing_x")
+-- | __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
+foreign import ccall safe "hs_bindgen_4ad25504590fdd2b" hs_bindgen_4ad25504590fdd2b :: Ptr Thing ->
+                                                                                       IO CInt
 {-| Pointer-based API for 'thing_fun_1'
-
-__unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_1@
 -}
-foreign import ccall safe "hs_bindgen_4ad25504590fdd2b" thing_fun_1_wrapper :: Ptr Thing ->
-                                                                               IO CInt
+thing_fun_1_wrapper :: Ptr Thing -> IO CInt
+{-| Pointer-based API for 'thing_fun_1'
+-}
+thing_fun_1_wrapper = hs_bindgen_4ad25504590fdd2b
 {-| __C declaration:__ @thing_fun_1@
 
     __defined at:__ @types\/structs\/struct_arg.h:6:5@
@@ -148,13 +151,17 @@ thing_fun_1 :: Thing -> IO CInt
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_1 = \x_0 -> with x_0 (\y_1 -> thing_fun_1_wrapper y_1)
+thing_fun_1 = \x_0 -> with x_0 (\y_1 -> hs_bindgen_4ad25504590fdd2b y_1)
+-- | __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_2@
+foreign import ccall safe "hs_bindgen_04a435522bf64978" hs_bindgen_04a435522bf64978 :: CInt ->
+                                                                                       Ptr Thing ->
+                                                                                       IO Unit
 {-| Pointer-based API for 'thing_fun_2'
-
-__unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_2@
 -}
-foreign import ccall safe "hs_bindgen_04a435522bf64978" thing_fun_2_wrapper :: CInt ->
-                                                                               Ptr Thing -> IO Unit
+thing_fun_2_wrapper :: CInt -> Ptr Thing -> IO Unit
+{-| Pointer-based API for 'thing_fun_2'
+-}
+thing_fun_2_wrapper = hs_bindgen_04a435522bf64978
 {-| __C declaration:__ @thing_fun_2@
 
     __defined at:__ @types\/structs\/struct_arg.h:7:14@
@@ -168,15 +175,20 @@ thing_fun_2 :: CInt -> IO Thing
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_2 = \x_0 -> allocaAndPeek (\z_1 -> thing_fun_2_wrapper x_0 z_1)
+thing_fun_2 = \x_0 -> allocaAndPeek (\z_1 -> hs_bindgen_04a435522bf64978 x_0 z_1)
+-- | __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3a@
+foreign import ccall safe "hs_bindgen_5e3271324df7ced2" hs_bindgen_5e3271324df7ced2 :: CInt ->
+                                                                                       Ptr Thing ->
+                                                                                       CDouble ->
+                                                                                       Ptr Thing ->
+                                                                                       IO Unit
 {-| Pointer-based API for 'thing_fun_3a'
-
-__unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3a@
 -}
-foreign import ccall safe "hs_bindgen_5e3271324df7ced2" thing_fun_3a_wrapper :: CInt ->
-                                                                                Ptr Thing ->
-                                                                                CDouble ->
-                                                                                Ptr Thing -> IO Unit
+thing_fun_3a_wrapper :: CInt ->
+                        Ptr Thing -> CDouble -> Ptr Thing -> IO Unit
+{-| Pointer-based API for 'thing_fun_3a'
+-}
+thing_fun_3a_wrapper = hs_bindgen_5e3271324df7ced2
 {-| __C declaration:__ @thing_fun_3a@
 
     __defined at:__ @types\/structs\/struct_arg.h:9:14@
@@ -190,14 +202,18 @@ thing_fun_3a :: CInt -> Thing -> CDouble -> IO Thing
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_3a = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> allocaAndPeek (\z_4 -> thing_fun_3a_wrapper x_0 y_3 x_2 z_4))
+thing_fun_3a = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> allocaAndPeek (\z_4 -> hs_bindgen_5e3271324df7ced2 x_0 y_3 x_2 z_4))
+-- | __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3b@
+foreign import ccall safe "hs_bindgen_3525c7d1c72f2fae" hs_bindgen_3525c7d1c72f2fae :: CInt ->
+                                                                                       Ptr Thing ->
+                                                                                       CDouble ->
+                                                                                       IO CChar
 {-| Pointer-based API for 'thing_fun_3b'
-
-__unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3b@
 -}
-foreign import ccall safe "hs_bindgen_3525c7d1c72f2fae" thing_fun_3b_wrapper :: CInt ->
-                                                                                Ptr Thing ->
-                                                                                CDouble -> IO CChar
+thing_fun_3b_wrapper :: CInt -> Ptr Thing -> CDouble -> IO CChar
+{-| Pointer-based API for 'thing_fun_3b'
+-}
+thing_fun_3b_wrapper = hs_bindgen_3525c7d1c72f2fae
 {-| __C declaration:__ @thing_fun_3b@
 
     __defined at:__ @types\/structs\/struct_arg.h:10:6@
@@ -211,13 +227,16 @@ thing_fun_3b :: CInt -> Thing -> CDouble -> IO CChar
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_3b = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> thing_fun_3b_wrapper x_0 y_3 x_2)
+thing_fun_3b = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> hs_bindgen_3525c7d1c72f2fae x_0 y_3 x_2)
+-- | __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_1@
+foreign import ccall safe "hs_bindgen_0bdddf60550fc97b" hs_bindgen_0bdddf60550fc97b :: Ptr Thing ->
+                                                                                       IO CInt
 {-| Pointer-based API for 'thing_fun_1'
-
-__unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_1@
 -}
-foreign import ccall safe "hs_bindgen_0bdddf60550fc97b" thing_fun_1_wrapper :: Ptr Thing ->
-                                                                               IO CInt
+thing_fun_1_wrapper :: Ptr Thing -> IO CInt
+{-| Pointer-based API for 'thing_fun_1'
+-}
+thing_fun_1_wrapper = hs_bindgen_0bdddf60550fc97b
 {-| __C declaration:__ @thing_fun_1@
 
     __defined at:__ @types\/structs\/struct_arg.h:6:5@
@@ -231,13 +250,17 @@ thing_fun_1 :: Thing -> IO CInt
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_1 = \x_0 -> with x_0 (\y_1 -> thing_fun_1_wrapper y_1)
+thing_fun_1 = \x_0 -> with x_0 (\y_1 -> hs_bindgen_0bdddf60550fc97b y_1)
+-- | __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_2@
+foreign import ccall safe "hs_bindgen_c293d866e22be6fc" hs_bindgen_c293d866e22be6fc :: CInt ->
+                                                                                       Ptr Thing ->
+                                                                                       IO Unit
 {-| Pointer-based API for 'thing_fun_2'
-
-__unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_2@
 -}
-foreign import ccall safe "hs_bindgen_c293d866e22be6fc" thing_fun_2_wrapper :: CInt ->
-                                                                               Ptr Thing -> IO Unit
+thing_fun_2_wrapper :: CInt -> Ptr Thing -> IO Unit
+{-| Pointer-based API for 'thing_fun_2'
+-}
+thing_fun_2_wrapper = hs_bindgen_c293d866e22be6fc
 {-| __C declaration:__ @thing_fun_2@
 
     __defined at:__ @types\/structs\/struct_arg.h:7:14@
@@ -251,15 +274,20 @@ thing_fun_2 :: CInt -> IO Thing
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_2 = \x_0 -> allocaAndPeek (\z_1 -> thing_fun_2_wrapper x_0 z_1)
+thing_fun_2 = \x_0 -> allocaAndPeek (\z_1 -> hs_bindgen_c293d866e22be6fc x_0 z_1)
+-- | __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3a@
+foreign import ccall safe "hs_bindgen_cfd51a9e490a997c" hs_bindgen_cfd51a9e490a997c :: CInt ->
+                                                                                       Ptr Thing ->
+                                                                                       CDouble ->
+                                                                                       Ptr Thing ->
+                                                                                       IO Unit
 {-| Pointer-based API for 'thing_fun_3a'
-
-__unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3a@
 -}
-foreign import ccall safe "hs_bindgen_cfd51a9e490a997c" thing_fun_3a_wrapper :: CInt ->
-                                                                                Ptr Thing ->
-                                                                                CDouble ->
-                                                                                Ptr Thing -> IO Unit
+thing_fun_3a_wrapper :: CInt ->
+                        Ptr Thing -> CDouble -> Ptr Thing -> IO Unit
+{-| Pointer-based API for 'thing_fun_3a'
+-}
+thing_fun_3a_wrapper = hs_bindgen_cfd51a9e490a997c
 {-| __C declaration:__ @thing_fun_3a@
 
     __defined at:__ @types\/structs\/struct_arg.h:9:14@
@@ -273,14 +301,18 @@ thing_fun_3a :: CInt -> Thing -> CDouble -> IO Thing
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_3a = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> allocaAndPeek (\z_4 -> thing_fun_3a_wrapper x_0 y_3 x_2 z_4))
+thing_fun_3a = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> allocaAndPeek (\z_4 -> hs_bindgen_cfd51a9e490a997c x_0 y_3 x_2 z_4))
+-- | __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3b@
+foreign import ccall safe "hs_bindgen_23fac8ee5044da6e" hs_bindgen_23fac8ee5044da6e :: CInt ->
+                                                                                       Ptr Thing ->
+                                                                                       CDouble ->
+                                                                                       IO CChar
 {-| Pointer-based API for 'thing_fun_3b'
-
-__unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3b@
 -}
-foreign import ccall safe "hs_bindgen_23fac8ee5044da6e" thing_fun_3b_wrapper :: CInt ->
-                                                                                Ptr Thing ->
-                                                                                CDouble -> IO CChar
+thing_fun_3b_wrapper :: CInt -> Ptr Thing -> CDouble -> IO CChar
+{-| Pointer-based API for 'thing_fun_3b'
+-}
+thing_fun_3b_wrapper = hs_bindgen_23fac8ee5044da6e
 {-| __C declaration:__ @thing_fun_3b@
 
     __defined at:__ @types\/structs\/struct_arg.h:10:6@
@@ -294,7 +326,7 @@ thing_fun_3b :: CInt -> Thing -> CDouble -> IO CChar
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_3b = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> thing_fun_3b_wrapper x_0 y_3 x_2)
+thing_fun_3b = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> hs_bindgen_23fac8ee5044da6e x_0 y_3 x_2)
 -- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_1_ptr@
 foreign import ccall safe "hs_bindgen_025103be0a357629" hs_bindgen_025103be0a357629 :: IO (FunPtr (Thing ->
                                                                                                    IO CInt))

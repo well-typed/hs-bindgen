@@ -16,13 +16,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+-- | __unique:__ @test_functionsvarargs_Example_Unsafe_h@
+foreign import ccall unsafe "hs_bindgen_32ebae80cc3543e1" hs_bindgen_32ebae80cc3543e1 ::
+     IO ()
+
 {-| __C declaration:__ @h@
 
     __defined at:__ @functions\/varargs.h:8:6@
 
     __exported by:__ @functions\/varargs.h@
-
-    __unique:__ @test_functionsvarargs_Example_Unsafe_h@
 -}
-foreign import ccall unsafe "hs_bindgen_32ebae80cc3543e1" h ::
+h ::
      IO ()
+h = hs_bindgen_32ebae80cc3543e1

@@ -35,15 +35,24 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| Pointer-based API for 'normal'
-
-__unique:__ @test_functionsdecls_in_signature_Example_Safe_normal@
--}
-foreign import ccall safe "hs_bindgen_920e5c20f770432b" normal_wrapper ::
+-- | __unique:__ @test_functionsdecls_in_signature_Example_Safe_normal@
+foreign import ccall safe "hs_bindgen_920e5c20f770432b" hs_bindgen_920e5c20f770432b ::
      Ptr.Ptr Opaque
   -> Ptr.Ptr Outside
   -> Ptr.Ptr Outside
   -> IO ()
+
+{-| Pointer-based API for 'normal'
+-}
+normal_wrapper ::
+     Ptr.Ptr Opaque
+     -- ^ __C declaration:__ @ptr_to_opaque@
+  -> Ptr.Ptr Outside
+     -- ^ __C declaration:__ @ptr_to_defined@
+  -> Ptr.Ptr Outside
+     -- ^ __C declaration:__ @by_value@
+  -> IO ()
+normal_wrapper = hs_bindgen_920e5c20f770432b
 
 {-| __C declaration:__ @normal@
 
@@ -62,15 +71,22 @@ normal ::
 normal =
   \x0 ->
     \x1 ->
-      \x2 -> F.with x2 (\y3 -> normal_wrapper x0 x1 y3)
+      \x2 ->
+        F.with x2 (\y3 ->
+                     hs_bindgen_920e5c20f770432b x0 x1 y3)
 
-{-| Pointer-based API for 'f1'
-
-__unique:__ @test_functionsdecls_in_signature_Example_Safe_f1@
--}
-foreign import ccall safe "hs_bindgen_baea2c7a0c8b9965" f1_wrapper ::
+-- | __unique:__ @test_functionsdecls_in_signature_Example_Safe_f1@
+foreign import ccall safe "hs_bindgen_baea2c7a0c8b9965" hs_bindgen_baea2c7a0c8b9965 ::
      Ptr.Ptr Named_struct
   -> IO ()
+
+{-| Pointer-based API for 'f1'
+-}
+f1_wrapper ::
+     Ptr.Ptr Named_struct
+     -- ^ __C declaration:__ @arg@
+  -> IO ()
+f1_wrapper = hs_bindgen_baea2c7a0c8b9965
 
 {-| Error cases
 
@@ -86,15 +102,22 @@ f1 ::
      Named_struct
      -- ^ __C declaration:__ @arg@
   -> IO ()
-f1 = \x0 -> F.with x0 (\y1 -> f1_wrapper y1)
+f1 =
+  \x0 ->
+    F.with x0 (\y1 -> hs_bindgen_baea2c7a0c8b9965 y1)
 
-{-| Pointer-based API for 'f2'
-
-__unique:__ @test_functionsdecls_in_signature_Example_Safe_f2@
--}
-foreign import ccall safe "hs_bindgen_990d7be722ad5414" f2_wrapper ::
+-- | __unique:__ @test_functionsdecls_in_signature_Example_Safe_f2@
+foreign import ccall safe "hs_bindgen_990d7be722ad5414" hs_bindgen_990d7be722ad5414 ::
      Ptr.Ptr Named_union
   -> IO ()
+
+{-| Pointer-based API for 'f2'
+-}
+f2_wrapper ::
+     Ptr.Ptr Named_union
+     -- ^ __C declaration:__ @arg@
+  -> IO ()
+f2_wrapper = hs_bindgen_990d7be722ad5414
 
 {-| __C declaration:__ @f2@
 
@@ -106,4 +129,6 @@ f2 ::
      Named_union
      -- ^ __C declaration:__ @arg@
   -> IO ()
-f2 = \x0 -> F.with x0 (\y1 -> f2_wrapper y1)
+f2 =
+  \x0 ->
+    F.with x0 (\y1 -> hs_bindgen_990d7be722ad5414 y1)

@@ -20,17 +20,22 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+-- | __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
+foreign import ccall unsafe "hs_bindgen_3ad6c287a2386382" hs_bindgen_3ad6c287a2386382 ::
+     FC.CInt
+  -> FC.CInt
+  -> IO FC.CInt
+
 {-| __C declaration:__ @asm_labeled_function@
 
     __defined at:__ @attributes\/asm.h:4:5@
 
     __exported by:__ @attributes\/asm.h@
-
-    __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
 -}
-foreign import ccall unsafe "hs_bindgen_3ad6c287a2386382" asm_labeled_function ::
+asm_labeled_function ::
      FC.CInt
      -- ^ __C declaration:__ @x@
   -> FC.CInt
      -- ^ __C declaration:__ @y@
   -> IO FC.CInt
+asm_labeled_function = hs_bindgen_3ad6c287a2386382

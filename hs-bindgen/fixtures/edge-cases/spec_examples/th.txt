@@ -293,32 +293,50 @@ instance TyEq ty (CFieldType A "a_c") =>
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
 data C
+-- | __unique:__ @test_edgecasesspec_examples_Example_Safe_resample@
+foreign import ccall safe "hs_bindgen_8a72aafc705daf44" hs_bindgen_8a72aafc705daf44 :: Ptr Int32_T ->
+                                                                                       Ptr Cint16_T ->
+                                                                                       Int64_T ->
+                                                                                       Int64_T ->
+                                                                                       Ptr Cint16_T ->
+                                                                                       IO Unit
 {-| __C declaration:__ @resample@
 
     __defined at:__ @edge-cases\/spec_examples.h:31:6@
 
     __exported by:__ @edge-cases\/spec_examples.h@
-
-    __unique:__ @test_edgecasesspec_examples_Example_Unsafe_resample@
 -}
-foreign import ccall safe "hs_bindgen_8a72aafc705daf44" resample :: Ptr Int32_T ->
-                                                                    Ptr Cint16_T ->
-                                                                    Int64_T ->
-                                                                    Int64_T ->
-                                                                    Ptr Cint16_T -> IO Unit
+resample :: Ptr Int32_T ->
+            Ptr Cint16_T -> Int64_T -> Int64_T -> Ptr Cint16_T -> IO Unit
 {-| __C declaration:__ @resample@
 
     __defined at:__ @edge-cases\/spec_examples.h:31:6@
 
     __exported by:__ @edge-cases\/spec_examples.h@
-
-    __unique:__ @test_edgecasesspec_examples_Example_Unsafe_resample@
 -}
-foreign import ccall safe "hs_bindgen_2311fa9c0d0d6d06" resample :: Ptr Int32_T ->
-                                                                    Ptr Cint16_T ->
-                                                                    Int64_T ->
-                                                                    Int64_T ->
-                                                                    Ptr Cint16_T -> IO Unit
+resample = hs_bindgen_8a72aafc705daf44
+-- | __unique:__ @test_edgecasesspec_examples_Example_Unsafe_resample@
+foreign import ccall safe "hs_bindgen_2311fa9c0d0d6d06" hs_bindgen_2311fa9c0d0d6d06 :: Ptr Int32_T ->
+                                                                                       Ptr Cint16_T ->
+                                                                                       Int64_T ->
+                                                                                       Int64_T ->
+                                                                                       Ptr Cint16_T ->
+                                                                                       IO Unit
+{-| __C declaration:__ @resample@
+
+    __defined at:__ @edge-cases\/spec_examples.h:31:6@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
+resample :: Ptr Int32_T ->
+            Ptr Cint16_T -> Int64_T -> Int64_T -> Ptr Cint16_T -> IO Unit
+{-| __C declaration:__ @resample@
+
+    __defined at:__ @edge-cases\/spec_examples.h:31:6@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
+resample = hs_bindgen_2311fa9c0d0d6d06
 -- | __unique:__ @test_edgecasesspec_examples_Example_get_resample_ptr@
 foreign import ccall safe "hs_bindgen_c940a9562d0838b1" hs_bindgen_c940a9562d0838b1 :: IO (FunPtr (Ptr Int32_T ->
                                                                                                    ConstantArray 30720000

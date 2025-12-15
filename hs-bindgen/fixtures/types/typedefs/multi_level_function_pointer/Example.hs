@@ -38,21 +38,23 @@ newtype F1_Deref = F1_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toF1_Deref ::
+-- | __unique:__ @toF1_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_fa93becf814ab275 ::
      F1_Deref
   -> IO (Ptr.FunPtr F1_Deref)
 
-foreign import ccall safe "dynamic" fromF1_Deref ::
+-- | __unique:__ @fromF1_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_5a971083f7b8024b ::
      Ptr.FunPtr F1_Deref
   -> F1_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr F1_Deref where
 
-  toFunPtr = toF1_Deref
+  toFunPtr = hs_bindgen_fa93becf814ab275
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr F1_Deref where
 
-  fromFunPtr = fromF1_Deref
+  fromFunPtr = hs_bindgen_5a971083f7b8024b
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F1_Deref) "un_F1_Deref")
          ) => GHC.Records.HasField "un_F1_Deref" (Ptr.Ptr F1_Deref) (Ptr.Ptr ty) where
@@ -102,21 +104,23 @@ newtype F2_Deref = F2_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toF2_Deref ::
+-- | __unique:__ @toF2_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_8741614e72e842ed ::
      F2_Deref
   -> IO (Ptr.FunPtr F2_Deref)
 
-foreign import ccall safe "dynamic" fromF2_Deref ::
+-- | __unique:__ @fromF2_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_4b21dd5f07b53aa8 ::
      Ptr.FunPtr F2_Deref
   -> F2_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr F2_Deref where
 
-  toFunPtr = toF2_Deref
+  toFunPtr = hs_bindgen_8741614e72e842ed
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr F2_Deref where
 
-  fromFunPtr = fromF2_Deref
+  fromFunPtr = hs_bindgen_4b21dd5f07b53aa8
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F2_Deref) "un_F2_Deref")
          ) => GHC.Records.HasField "un_F2_Deref" (Ptr.Ptr F2_Deref) (Ptr.Ptr ty) where
@@ -167,21 +171,23 @@ newtype F3_Deref = F3_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toF3_Deref ::
+-- | __unique:__ @toF3_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_04d39f91c5c62278 ::
      F3_Deref
   -> IO (Ptr.FunPtr F3_Deref)
 
-foreign import ccall safe "dynamic" fromF3_Deref ::
+-- | __unique:__ @fromF3_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_aee01b3475cc645c ::
      Ptr.FunPtr F3_Deref
   -> F3_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr F3_Deref where
 
-  toFunPtr = toF3_Deref
+  toFunPtr = hs_bindgen_04d39f91c5c62278
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr F3_Deref where
 
-  fromFunPtr = fromF3_Deref
+  fromFunPtr = hs_bindgen_aee01b3475cc645c
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F3_Deref) "un_F3_Deref")
          ) => GHC.Records.HasField "un_F3_Deref" (Ptr.Ptr F3_Deref) (Ptr.Ptr ty) where
@@ -232,21 +238,23 @@ newtype F4_Deref = F4_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toF4_Deref ::
+-- | __unique:__ @toF4_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_b1dc6cdfd1046f6c ::
      F4_Deref
   -> IO (Ptr.FunPtr F4_Deref)
 
-foreign import ccall safe "dynamic" fromF4_Deref ::
+-- | __unique:__ @fromF4_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_bf80b45e357edad9 ::
      Ptr.FunPtr F4_Deref
   -> F4_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr F4_Deref where
 
-  toFunPtr = toF4_Deref
+  toFunPtr = hs_bindgen_b1dc6cdfd1046f6c
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr F4_Deref where
 
-  fromFunPtr = fromF4_Deref
+  fromFunPtr = hs_bindgen_bf80b45e357edad9
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F4_Deref) "un_F4_Deref")
          ) => GHC.Records.HasField "un_F4_Deref" (Ptr.Ptr F4_Deref) (Ptr.Ptr ty) where
@@ -296,21 +304,23 @@ newtype F5_Deref = F5_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toF5_Deref ::
+-- | __unique:__ @toF5_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_82c23fe0d26463bd ::
      F5_Deref
   -> IO (Ptr.FunPtr F5_Deref)
 
-foreign import ccall safe "dynamic" fromF5_Deref ::
+-- | __unique:__ @fromF5_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_9e30690aa537cac5 ::
      Ptr.FunPtr F5_Deref
   -> F5_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr F5_Deref where
 
-  toFunPtr = toF5_Deref
+  toFunPtr = hs_bindgen_82c23fe0d26463bd
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr F5_Deref where
 
-  fromFunPtr = fromF5_Deref
+  fromFunPtr = hs_bindgen_9e30690aa537cac5
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F5_Deref) "un_F5_Deref")
          ) => GHC.Records.HasField "un_F5_Deref" (Ptr.Ptr F5_Deref) (Ptr.Ptr ty) where
@@ -384,21 +394,23 @@ newtype F6_Deref = F6_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toF6_Deref ::
+-- | __unique:__ @toF6_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_8c739a057f4c416d ::
      F6_Deref
   -> IO (Ptr.FunPtr F6_Deref)
 
-foreign import ccall safe "dynamic" fromF6_Deref ::
+-- | __unique:__ @fromF6_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_95e55fee8d4c2b5b ::
      Ptr.FunPtr F6_Deref
   -> F6_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr F6_Deref where
 
-  toFunPtr = toF6_Deref
+  toFunPtr = hs_bindgen_8c739a057f4c416d
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr F6_Deref where
 
-  fromFunPtr = fromF6_Deref
+  fromFunPtr = hs_bindgen_95e55fee8d4c2b5b
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType F6_Deref) "un_F6_Deref")
          ) => GHC.Records.HasField "un_F6_Deref" (Ptr.Ptr F6_Deref) (Ptr.Ptr ty) where

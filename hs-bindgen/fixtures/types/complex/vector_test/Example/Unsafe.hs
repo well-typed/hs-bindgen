@@ -22,17 +22,22 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+-- | __unique:__ @test_typescomplexvector_test_Example_Unsafe_new_vector@
+foreign import ccall unsafe "hs_bindgen_1af353788955c7a2" hs_bindgen_1af353788955c7a2 ::
+     FC.CDouble
+  -> FC.CDouble
+  -> IO (Ptr.Ptr Vector)
+
 {-| __C declaration:__ @new_vector@
 
     __defined at:__ @types\/complex\/vector_test.h:6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
-
-    __unique:__ @test_typescomplexvector_test_Example_Unsafe_new_vector@
 -}
-foreign import ccall unsafe "hs_bindgen_1af353788955c7a2" new_vector ::
+new_vector ::
      FC.CDouble
      -- ^ __C declaration:__ @x@
   -> FC.CDouble
      -- ^ __C declaration:__ @y@
   -> IO (Ptr.Ptr Vector)
+new_vector = hs_bindgen_1af353788955c7a2

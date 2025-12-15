@@ -437,14 +437,16 @@ newtype FileOpenedNotification_Deref
       __exported by:__ @functions\/callbacks.h@
       -}
     deriving newtype HasBaseForeignType
-foreign import ccall safe "wrapper" toFileOpenedNotification_Deref :: FileOpenedNotification_Deref ->
-                                                                      IO (FunPtr FileOpenedNotification_Deref)
-foreign import ccall safe "dynamic" fromFileOpenedNotification_Deref :: FunPtr FileOpenedNotification_Deref ->
-                                                                        FileOpenedNotification_Deref
+-- | __unique:__ @toFileOpenedNotification_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_71c9954059c4eb57 :: FileOpenedNotification_Deref ->
+                                                                   IO (FunPtr FileOpenedNotification_Deref)
+-- | __unique:__ @fromFileOpenedNotification_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_5197d76026e68499 :: FunPtr FileOpenedNotification_Deref ->
+                                                                   FileOpenedNotification_Deref
 instance ToFunPtr FileOpenedNotification_Deref
-    where toFunPtr = toFileOpenedNotification_Deref
+    where toFunPtr = hs_bindgen_71c9954059c4eb57
 instance FromFunPtr FileOpenedNotification_Deref
-    where fromFunPtr = fromFileOpenedNotification_Deref
+    where fromFunPtr = hs_bindgen_5197d76026e68499
 instance TyEq ty
               (CFieldType FileOpenedNotification_Deref
                           "un_FileOpenedNotification_Deref") =>
@@ -500,14 +502,16 @@ newtype ProgressUpdate_Deref
       __exported by:__ @functions\/callbacks.h@
       -}
     deriving newtype HasBaseForeignType
-foreign import ccall safe "wrapper" toProgressUpdate_Deref :: ProgressUpdate_Deref ->
-                                                              IO (FunPtr ProgressUpdate_Deref)
-foreign import ccall safe "dynamic" fromProgressUpdate_Deref :: FunPtr ProgressUpdate_Deref ->
-                                                                ProgressUpdate_Deref
+-- | __unique:__ @toProgressUpdate_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_dd7cdf530e3d4c8d :: ProgressUpdate_Deref ->
+                                                                   IO (FunPtr ProgressUpdate_Deref)
+-- | __unique:__ @fromProgressUpdate_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_3d2189b9fad82fae :: FunPtr ProgressUpdate_Deref ->
+                                                                   ProgressUpdate_Deref
 instance ToFunPtr ProgressUpdate_Deref
-    where toFunPtr = toProgressUpdate_Deref
+    where toFunPtr = hs_bindgen_dd7cdf530e3d4c8d
 instance FromFunPtr ProgressUpdate_Deref
-    where fromFunPtr = fromProgressUpdate_Deref
+    where fromFunPtr = hs_bindgen_3d2189b9fad82fae
 instance TyEq ty
               (CFieldType ProgressUpdate_Deref "un_ProgressUpdate_Deref") =>
          HasField "un_ProgressUpdate_Deref"
@@ -556,14 +560,16 @@ newtype DataValidator_Deref
       __exported by:__ @functions\/callbacks.h@
       -}
     deriving newtype HasBaseForeignType
-foreign import ccall safe "wrapper" toDataValidator_Deref :: DataValidator_Deref ->
-                                                             IO (FunPtr DataValidator_Deref)
-foreign import ccall safe "dynamic" fromDataValidator_Deref :: FunPtr DataValidator_Deref ->
-                                                               DataValidator_Deref
+-- | __unique:__ @toDataValidator_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_2dd1c35b0255a24e :: DataValidator_Deref ->
+                                                                   IO (FunPtr DataValidator_Deref)
+-- | __unique:__ @fromDataValidator_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_d128eab55aa429fc :: FunPtr DataValidator_Deref ->
+                                                                   DataValidator_Deref
 instance ToFunPtr DataValidator_Deref
-    where toFunPtr = toDataValidator_Deref
+    where toFunPtr = hs_bindgen_2dd1c35b0255a24e
 instance FromFunPtr DataValidator_Deref
-    where fromFunPtr = fromDataValidator_Deref
+    where fromFunPtr = hs_bindgen_d128eab55aa429fc
 instance TyEq ty
               (CFieldType DataValidator_Deref "un_DataValidator_Deref") =>
          HasField "un_DataValidator_Deref"
@@ -661,14 +667,16 @@ newtype MeasurementReceived_Deref
       __exported by:__ @functions\/callbacks.h@
       -}
     deriving newtype HasBaseForeignType
-foreign import ccall safe "wrapper" toMeasurementReceived_Deref :: MeasurementReceived_Deref ->
+-- | __unique:__ @toMeasurementReceived_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_d9413d8e35ffe643 :: MeasurementReceived_Deref ->
                                                                    IO (FunPtr MeasurementReceived_Deref)
-foreign import ccall safe "dynamic" fromMeasurementReceived_Deref :: FunPtr MeasurementReceived_Deref ->
-                                                                     MeasurementReceived_Deref
+-- | __unique:__ @fromMeasurementReceived_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_8af7f320063ba46e :: FunPtr MeasurementReceived_Deref ->
+                                                                   MeasurementReceived_Deref
 instance ToFunPtr MeasurementReceived_Deref
-    where toFunPtr = toMeasurementReceived_Deref
+    where toFunPtr = hs_bindgen_d9413d8e35ffe643
 instance FromFunPtr MeasurementReceived_Deref
-    where fromFunPtr = fromMeasurementReceived_Deref
+    where fromFunPtr = hs_bindgen_8af7f320063ba46e
 instance TyEq ty
               (CFieldType MeasurementReceived_Deref
                           "un_MeasurementReceived_Deref") =>
@@ -1491,368 +1499,622 @@ instance ToFunPtr (Foo2 -> IO Unit)
     where toFunPtr = hs_bindgen_235fa4a89af25f04
 instance FromFunPtr (Foo2 -> IO Unit)
     where fromFunPtr = hs_bindgen_8605b223a9ab9562
+-- | __unique:__ @test_functionscallbacks_Example_Safe_readFileWithProcessor@
+foreign import ccall safe "hs_bindgen_99bda9cd8097b0ea" hs_bindgen_99bda9cd8097b0ea :: FunPtr (CInt ->
+                                                                                               IO Unit) ->
+                                                                                       CInt ->
+                                                                                       IO CInt
 {-| __C declaration:__ @readFileWithProcessor@
 
     __defined at:__ @functions\/callbacks.h:4:5@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_readFileWithProcessor@
 -}
-foreign import ccall safe "hs_bindgen_99bda9cd8097b0ea" readFileWithProcessor :: FunPtr (CInt ->
-                                                                                         IO Unit) ->
-                                                                                 CInt -> IO CInt
-{-| __C declaration:__ @watchTemperature@
-
-    __defined at:__ @functions\/callbacks.h:5:6@
-
-    __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_watchTemperature@
--}
-foreign import ccall safe "hs_bindgen_84b75366c836fc85" watchTemperature :: FunPtr (CInt ->
-                                                                                    IO Unit) ->
-                                                                            CInt -> IO Unit
-{-| __C declaration:__ @onFileOpened@
-
-    __defined at:__ @functions\/callbacks.h:14:6@
-
-    __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_onFileOpened@
--}
-foreign import ccall safe "hs_bindgen_f2580f574faa3697" onFileOpened :: FileOpenedNotification ->
-                                                                        IO Unit
-{-| __C declaration:__ @onProgressChanged@
-
-    __defined at:__ @functions\/callbacks.h:15:6@
-
-    __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_onProgressChanged@
--}
-foreign import ccall safe "hs_bindgen_654057b291ee37ea" onProgressChanged :: ProgressUpdate ->
-                                                                             IO Unit
-{-| __C declaration:__ @validateInput@
-
-    __defined at:__ @functions\/callbacks.h:16:5@
-
-    __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_validateInput@
--}
-foreign import ccall safe "hs_bindgen_5df7aac6996be10f" validateInput :: DataValidator ->
-                                                                         CInt -> IO CInt
-{-| __C declaration:__ @onNewMeasurement@
-
-    __defined at:__ @functions\/callbacks.h:27:6@
-
-    __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_onNewMeasurement@
--}
-foreign import ccall safe "hs_bindgen_8f1bb1c4d2b5355f" onNewMeasurement :: MeasurementReceived ->
-                                                                            IO Unit
-{-| __C declaration:__ @onNewMeasurement2@
-
-    __defined at:__ @functions\/callbacks.h:30:6@
-
-    __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_onNewMeasurement2@
--}
-foreign import ccall safe "hs_bindgen_d805e39c6cbdd620" onNewMeasurement2 :: MeasurementReceived2 ->
-                                                                             IO Unit
-{-| __C declaration:__ @onBufferReady@
-
-    __defined at:__ @functions\/callbacks.h:33:6@
-
-    __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_onBufferReady@
--}
-foreign import ccall safe "hs_bindgen_8d803591bcf10ba5" onBufferReady :: SampleBufferFull ->
-                                                                         IO Unit
-{-| __C declaration:__ @transformMeasurement@
-
-    __defined at:__ @functions\/callbacks.h:38:6@
-
-    __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_transformMeasurement@
--}
-foreign import ccall safe "hs_bindgen_16c298a15b737eb2" transformMeasurement :: Ptr Measurement ->
-                                                                                FunPtr (Ptr Measurement ->
-                                                                                        FunPtr (CDouble ->
-                                                                                                CInt ->
-                                                                                                IO CDouble) ->
-                                                                                        CInt ->
-                                                                                        IO Unit) ->
-                                                                                IO Unit
-{-| __C declaration:__ @processWithCallbacks@
-
-    __defined at:__ @functions\/callbacks.h:43:6@
-
-    __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_processWithCallbacks@
--}
-foreign import ccall safe "hs_bindgen_e6a073138e56764f" processWithCallbacks :: FunPtr (Ptr Measurement ->
-                                                                                        FileOpenedNotification ->
-                                                                                        CInt ->
-                                                                                        IO Unit) ->
-                                                                                IO Unit
-{-| __C declaration:__ @registerHandler@
-
-    __defined at:__ @functions\/callbacks.h:56:6@
-
-    __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_registerHandler@
--}
-foreign import ccall safe "hs_bindgen_ece0d4f94c2319f0" registerHandler :: Ptr MeasurementHandler ->
-                                                                           IO Unit
-{-| __C declaration:__ @executePipeline@
-
-    __defined at:__ @functions\/callbacks.h:64:6@
-
-    __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_executePipeline@
--}
-foreign import ccall safe "hs_bindgen_d66d7470a7a213b0" executePipeline :: Ptr Measurement ->
-                                                                           Ptr DataPipeline ->
-                                                                           IO Unit
-{-| __C declaration:__ @runProcessor@
-
-    __defined at:__ @functions\/callbacks.h:80:6@
-
-    __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_runProcessor@
--}
-foreign import ccall safe "hs_bindgen_e925d3ce6e5fb395" runProcessor :: Ptr Measurement ->
-                                                                        Ptr Processor -> IO Unit
-{-| __C declaration:__ @processMeasurementWithValidation@
-
-    __defined at:__ @functions\/callbacks.h:85:6@
-
-    __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_processMeasurementWithValidation@
--}
-foreign import ccall safe "hs_bindgen_1e432e1595a1ef55" processMeasurementWithValidation :: Ptr Measurement ->
-                                                                                            FunPtr (Ptr Measurement ->
-                                                                                                    FunPtr (Ptr Measurement ->
-                                                                                                            DataValidator ->
-                                                                                                            CInt ->
-                                                                                                            IO Unit) ->
-                                                                                                    DataValidator ->
-                                                                                                    IO Unit) ->
-                                                                                            IO Unit
-{-| __C declaration:__ @f@
-
-    __defined at:__ @functions\/callbacks.h:96:6@
-
-    __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_f@
--}
-foreign import ccall safe "hs_bindgen_d5cd030edf2e0364" f :: FunPtr (Foo ->
-                                                                     IO Unit) ->
-                                                             IO Unit
-{-| __C declaration:__ @f2@
-
-    __defined at:__ @functions\/callbacks.h:97:6@
-
-    __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_f2@
--}
-foreign import ccall safe "hs_bindgen_a10eec74074627ba" f2 :: FunPtr (Foo2 ->
-                                                                      IO Unit) ->
-                                                              IO Unit
+readFileWithProcessor :: FunPtr (CInt -> IO Unit) ->
+                         CInt -> IO CInt
 {-| __C declaration:__ @readFileWithProcessor@
 
     __defined at:__ @functions\/callbacks.h:4:5@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_readFileWithProcessor@
 -}
-foreign import ccall safe "hs_bindgen_d07f3a3e526e7017" readFileWithProcessor :: FunPtr (CInt ->
-                                                                                         IO Unit) ->
-                                                                                 CInt -> IO CInt
+readFileWithProcessor = hs_bindgen_99bda9cd8097b0ea
+-- | __unique:__ @test_functionscallbacks_Example_Safe_watchTemperature@
+foreign import ccall safe "hs_bindgen_84b75366c836fc85" hs_bindgen_84b75366c836fc85 :: FunPtr (CInt ->
+                                                                                               IO Unit) ->
+                                                                                       CInt ->
+                                                                                       IO Unit
 {-| __C declaration:__ @watchTemperature@
 
     __defined at:__ @functions\/callbacks.h:5:6@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_watchTemperature@
 -}
-foreign import ccall safe "hs_bindgen_cb0219aedd5afed5" watchTemperature :: FunPtr (CInt ->
-                                                                                    IO Unit) ->
-                                                                            CInt -> IO Unit
+watchTemperature :: FunPtr (CInt -> IO Unit) -> CInt -> IO Unit
+{-| __C declaration:__ @watchTemperature@
+
+    __defined at:__ @functions\/callbacks.h:5:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+watchTemperature = hs_bindgen_84b75366c836fc85
+-- | __unique:__ @test_functionscallbacks_Example_Safe_onFileOpened@
+foreign import ccall safe "hs_bindgen_f2580f574faa3697" hs_bindgen_f2580f574faa3697 :: FileOpenedNotification ->
+                                                                                       IO Unit
 {-| __C declaration:__ @onFileOpened@
 
     __defined at:__ @functions\/callbacks.h:14:6@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_onFileOpened@
 -}
-foreign import ccall safe "hs_bindgen_d96938841a039f9b" onFileOpened :: FileOpenedNotification ->
-                                                                        IO Unit
+onFileOpened :: FileOpenedNotification -> IO Unit
+{-| __C declaration:__ @onFileOpened@
+
+    __defined at:__ @functions\/callbacks.h:14:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onFileOpened = hs_bindgen_f2580f574faa3697
+-- | __unique:__ @test_functionscallbacks_Example_Safe_onProgressChanged@
+foreign import ccall safe "hs_bindgen_654057b291ee37ea" hs_bindgen_654057b291ee37ea :: ProgressUpdate ->
+                                                                                       IO Unit
 {-| __C declaration:__ @onProgressChanged@
 
     __defined at:__ @functions\/callbacks.h:15:6@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_onProgressChanged@
 -}
-foreign import ccall safe "hs_bindgen_3cb24888fc3e1751" onProgressChanged :: ProgressUpdate ->
-                                                                             IO Unit
+onProgressChanged :: ProgressUpdate -> IO Unit
+{-| __C declaration:__ @onProgressChanged@
+
+    __defined at:__ @functions\/callbacks.h:15:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onProgressChanged = hs_bindgen_654057b291ee37ea
+-- | __unique:__ @test_functionscallbacks_Example_Safe_validateInput@
+foreign import ccall safe "hs_bindgen_5df7aac6996be10f" hs_bindgen_5df7aac6996be10f :: DataValidator ->
+                                                                                       CInt ->
+                                                                                       IO CInt
 {-| __C declaration:__ @validateInput@
 
     __defined at:__ @functions\/callbacks.h:16:5@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_validateInput@
 -}
-foreign import ccall safe "hs_bindgen_567ea6dc040b50a1" validateInput :: DataValidator ->
-                                                                         CInt -> IO CInt
+validateInput :: DataValidator -> CInt -> IO CInt
+{-| __C declaration:__ @validateInput@
+
+    __defined at:__ @functions\/callbacks.h:16:5@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+validateInput = hs_bindgen_5df7aac6996be10f
+-- | __unique:__ @test_functionscallbacks_Example_Safe_onNewMeasurement@
+foreign import ccall safe "hs_bindgen_8f1bb1c4d2b5355f" hs_bindgen_8f1bb1c4d2b5355f :: MeasurementReceived ->
+                                                                                       IO Unit
 {-| __C declaration:__ @onNewMeasurement@
 
     __defined at:__ @functions\/callbacks.h:27:6@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_onNewMeasurement@
 -}
-foreign import ccall safe "hs_bindgen_aab80c08edfa6b4b" onNewMeasurement :: MeasurementReceived ->
-                                                                            IO Unit
+onNewMeasurement :: MeasurementReceived -> IO Unit
+{-| __C declaration:__ @onNewMeasurement@
+
+    __defined at:__ @functions\/callbacks.h:27:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onNewMeasurement = hs_bindgen_8f1bb1c4d2b5355f
+-- | __unique:__ @test_functionscallbacks_Example_Safe_onNewMeasurement2@
+foreign import ccall safe "hs_bindgen_d805e39c6cbdd620" hs_bindgen_d805e39c6cbdd620 :: MeasurementReceived2 ->
+                                                                                       IO Unit
 {-| __C declaration:__ @onNewMeasurement2@
 
     __defined at:__ @functions\/callbacks.h:30:6@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_onNewMeasurement2@
 -}
-foreign import ccall safe "hs_bindgen_6c8fae51df7c46a1" onNewMeasurement2 :: MeasurementReceived2 ->
-                                                                             IO Unit
+onNewMeasurement2 :: MeasurementReceived2 -> IO Unit
+{-| __C declaration:__ @onNewMeasurement2@
+
+    __defined at:__ @functions\/callbacks.h:30:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onNewMeasurement2 = hs_bindgen_d805e39c6cbdd620
+-- | __unique:__ @test_functionscallbacks_Example_Safe_onBufferReady@
+foreign import ccall safe "hs_bindgen_8d803591bcf10ba5" hs_bindgen_8d803591bcf10ba5 :: SampleBufferFull ->
+                                                                                       IO Unit
 {-| __C declaration:__ @onBufferReady@
 
     __defined at:__ @functions\/callbacks.h:33:6@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_onBufferReady@
 -}
-foreign import ccall safe "hs_bindgen_d44afeb36d2ae523" onBufferReady :: SampleBufferFull ->
-                                                                         IO Unit
+onBufferReady :: SampleBufferFull -> IO Unit
+{-| __C declaration:__ @onBufferReady@
+
+    __defined at:__ @functions\/callbacks.h:33:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onBufferReady = hs_bindgen_8d803591bcf10ba5
+-- | __unique:__ @test_functionscallbacks_Example_Safe_transformMeasurement@
+foreign import ccall safe "hs_bindgen_16c298a15b737eb2" hs_bindgen_16c298a15b737eb2 :: Ptr Measurement ->
+                                                                                       FunPtr (Ptr Measurement ->
+                                                                                               FunPtr (CDouble ->
+                                                                                                       CInt ->
+                                                                                                       IO CDouble) ->
+                                                                                               CInt ->
+                                                                                               IO Unit) ->
+                                                                                       IO Unit
 {-| __C declaration:__ @transformMeasurement@
 
     __defined at:__ @functions\/callbacks.h:38:6@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_transformMeasurement@
 -}
-foreign import ccall safe "hs_bindgen_523fee13fb646cad" transformMeasurement :: Ptr Measurement ->
-                                                                                FunPtr (Ptr Measurement ->
-                                                                                        FunPtr (CDouble ->
-                                                                                                CInt ->
-                                                                                                IO CDouble) ->
-                                                                                        CInt ->
-                                                                                        IO Unit) ->
-                                                                                IO Unit
+transformMeasurement :: Ptr Measurement ->
+                        FunPtr (Ptr Measurement ->
+                                FunPtr (CDouble -> CInt -> IO CDouble) -> CInt -> IO Unit) ->
+                        IO Unit
+{-| __C declaration:__ @transformMeasurement@
+
+    __defined at:__ @functions\/callbacks.h:38:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+transformMeasurement = hs_bindgen_16c298a15b737eb2
+-- | __unique:__ @test_functionscallbacks_Example_Safe_processWithCallbacks@
+foreign import ccall safe "hs_bindgen_e6a073138e56764f" hs_bindgen_e6a073138e56764f :: FunPtr (Ptr Measurement ->
+                                                                                               FileOpenedNotification ->
+                                                                                               CInt ->
+                                                                                               IO Unit) ->
+                                                                                       IO Unit
 {-| __C declaration:__ @processWithCallbacks@
 
     __defined at:__ @functions\/callbacks.h:43:6@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_processWithCallbacks@
 -}
-foreign import ccall safe "hs_bindgen_98d0c5bd1271eeb7" processWithCallbacks :: FunPtr (Ptr Measurement ->
-                                                                                        FileOpenedNotification ->
-                                                                                        CInt ->
-                                                                                        IO Unit) ->
-                                                                                IO Unit
+processWithCallbacks :: FunPtr (Ptr Measurement ->
+                                FileOpenedNotification -> CInt -> IO Unit) ->
+                        IO Unit
+{-| __C declaration:__ @processWithCallbacks@
+
+    __defined at:__ @functions\/callbacks.h:43:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+processWithCallbacks = hs_bindgen_e6a073138e56764f
+-- | __unique:__ @test_functionscallbacks_Example_Safe_registerHandler@
+foreign import ccall safe "hs_bindgen_ece0d4f94c2319f0" hs_bindgen_ece0d4f94c2319f0 :: Ptr MeasurementHandler ->
+                                                                                       IO Unit
 {-| __C declaration:__ @registerHandler@
 
     __defined at:__ @functions\/callbacks.h:56:6@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_registerHandler@
 -}
-foreign import ccall safe "hs_bindgen_b96f4d4d7893e301" registerHandler :: Ptr MeasurementHandler ->
-                                                                           IO Unit
+registerHandler :: Ptr MeasurementHandler -> IO Unit
+{-| __C declaration:__ @registerHandler@
+
+    __defined at:__ @functions\/callbacks.h:56:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+registerHandler = hs_bindgen_ece0d4f94c2319f0
+-- | __unique:__ @test_functionscallbacks_Example_Safe_executePipeline@
+foreign import ccall safe "hs_bindgen_d66d7470a7a213b0" hs_bindgen_d66d7470a7a213b0 :: Ptr Measurement ->
+                                                                                       Ptr DataPipeline ->
+                                                                                       IO Unit
 {-| __C declaration:__ @executePipeline@
 
     __defined at:__ @functions\/callbacks.h:64:6@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_executePipeline@
 -}
-foreign import ccall safe "hs_bindgen_c062ded603732aae" executePipeline :: Ptr Measurement ->
-                                                                           Ptr DataPipeline ->
-                                                                           IO Unit
+executePipeline :: Ptr Measurement -> Ptr DataPipeline -> IO Unit
+{-| __C declaration:__ @executePipeline@
+
+    __defined at:__ @functions\/callbacks.h:64:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+executePipeline = hs_bindgen_d66d7470a7a213b0
+-- | __unique:__ @test_functionscallbacks_Example_Safe_runProcessor@
+foreign import ccall safe "hs_bindgen_e925d3ce6e5fb395" hs_bindgen_e925d3ce6e5fb395 :: Ptr Measurement ->
+                                                                                       Ptr Processor ->
+                                                                                       IO Unit
 {-| __C declaration:__ @runProcessor@
 
     __defined at:__ @functions\/callbacks.h:80:6@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_runProcessor@
 -}
-foreign import ccall safe "hs_bindgen_02d41a1f48eebff7" runProcessor :: Ptr Measurement ->
-                                                                        Ptr Processor -> IO Unit
+runProcessor :: Ptr Measurement -> Ptr Processor -> IO Unit
+{-| __C declaration:__ @runProcessor@
+
+    __defined at:__ @functions\/callbacks.h:80:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+runProcessor = hs_bindgen_e925d3ce6e5fb395
+-- | __unique:__ @test_functionscallbacks_Example_Safe_processMeasurementWithValidation@
+foreign import ccall safe "hs_bindgen_1e432e1595a1ef55" hs_bindgen_1e432e1595a1ef55 :: Ptr Measurement ->
+                                                                                       FunPtr (Ptr Measurement ->
+                                                                                               FunPtr (Ptr Measurement ->
+                                                                                                       DataValidator ->
+                                                                                                       CInt ->
+                                                                                                       IO Unit) ->
+                                                                                               DataValidator ->
+                                                                                               IO Unit) ->
+                                                                                       IO Unit
 {-| __C declaration:__ @processMeasurementWithValidation@
 
     __defined at:__ @functions\/callbacks.h:85:6@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_processMeasurementWithValidation@
 -}
-foreign import ccall safe "hs_bindgen_39704c8b14c2ce3c" processMeasurementWithValidation :: Ptr Measurement ->
-                                                                                            FunPtr (Ptr Measurement ->
-                                                                                                    FunPtr (Ptr Measurement ->
-                                                                                                            DataValidator ->
-                                                                                                            CInt ->
-                                                                                                            IO Unit) ->
-                                                                                                    DataValidator ->
-                                                                                                    IO Unit) ->
-                                                                                            IO Unit
+processMeasurementWithValidation :: Ptr Measurement ->
+                                    FunPtr (Ptr Measurement ->
+                                            FunPtr (Ptr Measurement ->
+                                                    DataValidator -> CInt -> IO Unit) ->
+                                            DataValidator -> IO Unit) ->
+                                    IO Unit
+{-| __C declaration:__ @processMeasurementWithValidation@
+
+    __defined at:__ @functions\/callbacks.h:85:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+processMeasurementWithValidation = hs_bindgen_1e432e1595a1ef55
+-- | __unique:__ @test_functionscallbacks_Example_Safe_f@
+foreign import ccall safe "hs_bindgen_d5cd030edf2e0364" hs_bindgen_d5cd030edf2e0364 :: FunPtr (Foo ->
+                                                                                               IO Unit) ->
+                                                                                       IO Unit
 {-| __C declaration:__ @f@
 
     __defined at:__ @functions\/callbacks.h:96:6@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_f@
 -}
-foreign import ccall safe "hs_bindgen_10c383cdf6eddb0d" f :: FunPtr (Foo ->
-                                                                     IO Unit) ->
-                                                             IO Unit
+f :: FunPtr (Foo -> IO Unit) -> IO Unit
+{-| __C declaration:__ @f@
+
+    __defined at:__ @functions\/callbacks.h:96:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+f = hs_bindgen_d5cd030edf2e0364
+-- | __unique:__ @test_functionscallbacks_Example_Safe_f2@
+foreign import ccall safe "hs_bindgen_a10eec74074627ba" hs_bindgen_a10eec74074627ba :: FunPtr (Foo2 ->
+                                                                                               IO Unit) ->
+                                                                                       IO Unit
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/callbacks.h:97:6@
 
     __exported by:__ @functions\/callbacks.h@
-
-    __unique:__ @test_functionscallbacks_Example_Unsafe_f2@
 -}
-foreign import ccall safe "hs_bindgen_831d03bed0065a4e" f2 :: FunPtr (Foo2 ->
-                                                                      IO Unit) ->
-                                                              IO Unit
+f2 :: FunPtr (Foo2 -> IO Unit) -> IO Unit
+{-| __C declaration:__ @f2@
+
+    __defined at:__ @functions\/callbacks.h:97:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+f2 = hs_bindgen_a10eec74074627ba
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_readFileWithProcessor@
+foreign import ccall safe "hs_bindgen_d07f3a3e526e7017" hs_bindgen_d07f3a3e526e7017 :: FunPtr (CInt ->
+                                                                                               IO Unit) ->
+                                                                                       CInt ->
+                                                                                       IO CInt
+{-| __C declaration:__ @readFileWithProcessor@
+
+    __defined at:__ @functions\/callbacks.h:4:5@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+readFileWithProcessor :: FunPtr (CInt -> IO Unit) ->
+                         CInt -> IO CInt
+{-| __C declaration:__ @readFileWithProcessor@
+
+    __defined at:__ @functions\/callbacks.h:4:5@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+readFileWithProcessor = hs_bindgen_d07f3a3e526e7017
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_watchTemperature@
+foreign import ccall safe "hs_bindgen_cb0219aedd5afed5" hs_bindgen_cb0219aedd5afed5 :: FunPtr (CInt ->
+                                                                                               IO Unit) ->
+                                                                                       CInt ->
+                                                                                       IO Unit
+{-| __C declaration:__ @watchTemperature@
+
+    __defined at:__ @functions\/callbacks.h:5:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+watchTemperature :: FunPtr (CInt -> IO Unit) -> CInt -> IO Unit
+{-| __C declaration:__ @watchTemperature@
+
+    __defined at:__ @functions\/callbacks.h:5:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+watchTemperature = hs_bindgen_cb0219aedd5afed5
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_onFileOpened@
+foreign import ccall safe "hs_bindgen_d96938841a039f9b" hs_bindgen_d96938841a039f9b :: FileOpenedNotification ->
+                                                                                       IO Unit
+{-| __C declaration:__ @onFileOpened@
+
+    __defined at:__ @functions\/callbacks.h:14:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onFileOpened :: FileOpenedNotification -> IO Unit
+{-| __C declaration:__ @onFileOpened@
+
+    __defined at:__ @functions\/callbacks.h:14:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onFileOpened = hs_bindgen_d96938841a039f9b
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_onProgressChanged@
+foreign import ccall safe "hs_bindgen_3cb24888fc3e1751" hs_bindgen_3cb24888fc3e1751 :: ProgressUpdate ->
+                                                                                       IO Unit
+{-| __C declaration:__ @onProgressChanged@
+
+    __defined at:__ @functions\/callbacks.h:15:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onProgressChanged :: ProgressUpdate -> IO Unit
+{-| __C declaration:__ @onProgressChanged@
+
+    __defined at:__ @functions\/callbacks.h:15:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onProgressChanged = hs_bindgen_3cb24888fc3e1751
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_validateInput@
+foreign import ccall safe "hs_bindgen_567ea6dc040b50a1" hs_bindgen_567ea6dc040b50a1 :: DataValidator ->
+                                                                                       CInt ->
+                                                                                       IO CInt
+{-| __C declaration:__ @validateInput@
+
+    __defined at:__ @functions\/callbacks.h:16:5@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+validateInput :: DataValidator -> CInt -> IO CInt
+{-| __C declaration:__ @validateInput@
+
+    __defined at:__ @functions\/callbacks.h:16:5@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+validateInput = hs_bindgen_567ea6dc040b50a1
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_onNewMeasurement@
+foreign import ccall safe "hs_bindgen_aab80c08edfa6b4b" hs_bindgen_aab80c08edfa6b4b :: MeasurementReceived ->
+                                                                                       IO Unit
+{-| __C declaration:__ @onNewMeasurement@
+
+    __defined at:__ @functions\/callbacks.h:27:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onNewMeasurement :: MeasurementReceived -> IO Unit
+{-| __C declaration:__ @onNewMeasurement@
+
+    __defined at:__ @functions\/callbacks.h:27:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onNewMeasurement = hs_bindgen_aab80c08edfa6b4b
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_onNewMeasurement2@
+foreign import ccall safe "hs_bindgen_6c8fae51df7c46a1" hs_bindgen_6c8fae51df7c46a1 :: MeasurementReceived2 ->
+                                                                                       IO Unit
+{-| __C declaration:__ @onNewMeasurement2@
+
+    __defined at:__ @functions\/callbacks.h:30:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onNewMeasurement2 :: MeasurementReceived2 -> IO Unit
+{-| __C declaration:__ @onNewMeasurement2@
+
+    __defined at:__ @functions\/callbacks.h:30:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onNewMeasurement2 = hs_bindgen_6c8fae51df7c46a1
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_onBufferReady@
+foreign import ccall safe "hs_bindgen_d44afeb36d2ae523" hs_bindgen_d44afeb36d2ae523 :: SampleBufferFull ->
+                                                                                       IO Unit
+{-| __C declaration:__ @onBufferReady@
+
+    __defined at:__ @functions\/callbacks.h:33:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onBufferReady :: SampleBufferFull -> IO Unit
+{-| __C declaration:__ @onBufferReady@
+
+    __defined at:__ @functions\/callbacks.h:33:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+onBufferReady = hs_bindgen_d44afeb36d2ae523
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_transformMeasurement@
+foreign import ccall safe "hs_bindgen_523fee13fb646cad" hs_bindgen_523fee13fb646cad :: Ptr Measurement ->
+                                                                                       FunPtr (Ptr Measurement ->
+                                                                                               FunPtr (CDouble ->
+                                                                                                       CInt ->
+                                                                                                       IO CDouble) ->
+                                                                                               CInt ->
+                                                                                               IO Unit) ->
+                                                                                       IO Unit
+{-| __C declaration:__ @transformMeasurement@
+
+    __defined at:__ @functions\/callbacks.h:38:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+transformMeasurement :: Ptr Measurement ->
+                        FunPtr (Ptr Measurement ->
+                                FunPtr (CDouble -> CInt -> IO CDouble) -> CInt -> IO Unit) ->
+                        IO Unit
+{-| __C declaration:__ @transformMeasurement@
+
+    __defined at:__ @functions\/callbacks.h:38:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+transformMeasurement = hs_bindgen_523fee13fb646cad
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_processWithCallbacks@
+foreign import ccall safe "hs_bindgen_98d0c5bd1271eeb7" hs_bindgen_98d0c5bd1271eeb7 :: FunPtr (Ptr Measurement ->
+                                                                                               FileOpenedNotification ->
+                                                                                               CInt ->
+                                                                                               IO Unit) ->
+                                                                                       IO Unit
+{-| __C declaration:__ @processWithCallbacks@
+
+    __defined at:__ @functions\/callbacks.h:43:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+processWithCallbacks :: FunPtr (Ptr Measurement ->
+                                FileOpenedNotification -> CInt -> IO Unit) ->
+                        IO Unit
+{-| __C declaration:__ @processWithCallbacks@
+
+    __defined at:__ @functions\/callbacks.h:43:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+processWithCallbacks = hs_bindgen_98d0c5bd1271eeb7
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_registerHandler@
+foreign import ccall safe "hs_bindgen_b96f4d4d7893e301" hs_bindgen_b96f4d4d7893e301 :: Ptr MeasurementHandler ->
+                                                                                       IO Unit
+{-| __C declaration:__ @registerHandler@
+
+    __defined at:__ @functions\/callbacks.h:56:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+registerHandler :: Ptr MeasurementHandler -> IO Unit
+{-| __C declaration:__ @registerHandler@
+
+    __defined at:__ @functions\/callbacks.h:56:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+registerHandler = hs_bindgen_b96f4d4d7893e301
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_executePipeline@
+foreign import ccall safe "hs_bindgen_c062ded603732aae" hs_bindgen_c062ded603732aae :: Ptr Measurement ->
+                                                                                       Ptr DataPipeline ->
+                                                                                       IO Unit
+{-| __C declaration:__ @executePipeline@
+
+    __defined at:__ @functions\/callbacks.h:64:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+executePipeline :: Ptr Measurement -> Ptr DataPipeline -> IO Unit
+{-| __C declaration:__ @executePipeline@
+
+    __defined at:__ @functions\/callbacks.h:64:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+executePipeline = hs_bindgen_c062ded603732aae
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_runProcessor@
+foreign import ccall safe "hs_bindgen_02d41a1f48eebff7" hs_bindgen_02d41a1f48eebff7 :: Ptr Measurement ->
+                                                                                       Ptr Processor ->
+                                                                                       IO Unit
+{-| __C declaration:__ @runProcessor@
+
+    __defined at:__ @functions\/callbacks.h:80:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+runProcessor :: Ptr Measurement -> Ptr Processor -> IO Unit
+{-| __C declaration:__ @runProcessor@
+
+    __defined at:__ @functions\/callbacks.h:80:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+runProcessor = hs_bindgen_02d41a1f48eebff7
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_processMeasurementWithValidation@
+foreign import ccall safe "hs_bindgen_39704c8b14c2ce3c" hs_bindgen_39704c8b14c2ce3c :: Ptr Measurement ->
+                                                                                       FunPtr (Ptr Measurement ->
+                                                                                               FunPtr (Ptr Measurement ->
+                                                                                                       DataValidator ->
+                                                                                                       CInt ->
+                                                                                                       IO Unit) ->
+                                                                                               DataValidator ->
+                                                                                               IO Unit) ->
+                                                                                       IO Unit
+{-| __C declaration:__ @processMeasurementWithValidation@
+
+    __defined at:__ @functions\/callbacks.h:85:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+processMeasurementWithValidation :: Ptr Measurement ->
+                                    FunPtr (Ptr Measurement ->
+                                            FunPtr (Ptr Measurement ->
+                                                    DataValidator -> CInt -> IO Unit) ->
+                                            DataValidator -> IO Unit) ->
+                                    IO Unit
+{-| __C declaration:__ @processMeasurementWithValidation@
+
+    __defined at:__ @functions\/callbacks.h:85:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+processMeasurementWithValidation = hs_bindgen_39704c8b14c2ce3c
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_f@
+foreign import ccall safe "hs_bindgen_10c383cdf6eddb0d" hs_bindgen_10c383cdf6eddb0d :: FunPtr (Foo ->
+                                                                                               IO Unit) ->
+                                                                                       IO Unit
+{-| __C declaration:__ @f@
+
+    __defined at:__ @functions\/callbacks.h:96:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+f :: FunPtr (Foo -> IO Unit) -> IO Unit
+{-| __C declaration:__ @f@
+
+    __defined at:__ @functions\/callbacks.h:96:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+f = hs_bindgen_10c383cdf6eddb0d
+-- | __unique:__ @test_functionscallbacks_Example_Unsafe_f2@
+foreign import ccall safe "hs_bindgen_831d03bed0065a4e" hs_bindgen_831d03bed0065a4e :: FunPtr (Foo2 ->
+                                                                                               IO Unit) ->
+                                                                                       IO Unit
+{-| __C declaration:__ @f2@
+
+    __defined at:__ @functions\/callbacks.h:97:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+f2 :: FunPtr (Foo2 -> IO Unit) -> IO Unit
+{-| __C declaration:__ @f2@
+
+    __defined at:__ @functions\/callbacks.h:97:6@
+
+    __exported by:__ @functions\/callbacks.h@
+-}
+f2 = hs_bindgen_831d03bed0065a4e
 -- | __unique:__ @test_functionscallbacks_Example_get_readFileWithProcessor_ptr@
 foreign import ccall safe "hs_bindgen_11c3318ecc076134" hs_bindgen_11c3318ecc076134 :: IO (FunPtr (FunPtr (CInt ->
                                                                                                            IO Unit) ->

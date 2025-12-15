@@ -40,21 +40,23 @@ newtype Int2int = Int2int
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toInt2int ::
+-- | __unique:__ @toInt2int@
+foreign import ccall safe "wrapper" hs_bindgen_a6c7dd49f5b9d470 ::
      Int2int
   -> IO (Ptr.FunPtr Int2int)
 
-foreign import ccall safe "dynamic" fromInt2int ::
+-- | __unique:__ @fromInt2int@
+foreign import ccall safe "dynamic" hs_bindgen_65378a8a3cf640ad ::
      Ptr.FunPtr Int2int
   -> Int2int
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Int2int where
 
-  toFunPtr = toInt2int
+  toFunPtr = hs_bindgen_a6c7dd49f5b9d470
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr Int2int where
 
-  fromFunPtr = fromInt2int
+  fromFunPtr = hs_bindgen_65378a8a3cf640ad
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int2int) "un_Int2int")
          ) => GHC.Records.HasField "un_Int2int" (Ptr.Ptr Int2int) (Ptr.Ptr ty) where

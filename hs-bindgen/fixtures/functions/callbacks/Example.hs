@@ -48,21 +48,23 @@ newtype FileOpenedNotification_Deref = FileOpenedNotification_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toFileOpenedNotification_Deref ::
+-- | __unique:__ @toFileOpenedNotification_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_71c9954059c4eb57 ::
      FileOpenedNotification_Deref
   -> IO (Ptr.FunPtr FileOpenedNotification_Deref)
 
-foreign import ccall safe "dynamic" fromFileOpenedNotification_Deref ::
+-- | __unique:__ @fromFileOpenedNotification_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_5197d76026e68499 ::
      Ptr.FunPtr FileOpenedNotification_Deref
   -> FileOpenedNotification_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr FileOpenedNotification_Deref where
 
-  toFunPtr = toFileOpenedNotification_Deref
+  toFunPtr = hs_bindgen_71c9954059c4eb57
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr FileOpenedNotification_Deref where
 
-  fromFunPtr = fromFileOpenedNotification_Deref
+  fromFunPtr = hs_bindgen_5197d76026e68499
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOpenedNotification_Deref) "un_FileOpenedNotification_Deref")
          ) => GHC.Records.HasField "un_FileOpenedNotification_Deref" (Ptr.Ptr FileOpenedNotification_Deref) (Ptr.Ptr ty) where
@@ -113,21 +115,23 @@ newtype ProgressUpdate_Deref = ProgressUpdate_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toProgressUpdate_Deref ::
+-- | __unique:__ @toProgressUpdate_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_dd7cdf530e3d4c8d ::
      ProgressUpdate_Deref
   -> IO (Ptr.FunPtr ProgressUpdate_Deref)
 
-foreign import ccall safe "dynamic" fromProgressUpdate_Deref ::
+-- | __unique:__ @fromProgressUpdate_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_3d2189b9fad82fae ::
      Ptr.FunPtr ProgressUpdate_Deref
   -> ProgressUpdate_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ProgressUpdate_Deref where
 
-  toFunPtr = toProgressUpdate_Deref
+  toFunPtr = hs_bindgen_dd7cdf530e3d4c8d
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr ProgressUpdate_Deref where
 
-  fromFunPtr = fromProgressUpdate_Deref
+  fromFunPtr = hs_bindgen_3d2189b9fad82fae
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProgressUpdate_Deref) "un_ProgressUpdate_Deref")
          ) => GHC.Records.HasField "un_ProgressUpdate_Deref" (Ptr.Ptr ProgressUpdate_Deref) (Ptr.Ptr ty) where
@@ -178,21 +182,23 @@ newtype DataValidator_Deref = DataValidator_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toDataValidator_Deref ::
+-- | __unique:__ @toDataValidator_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_2dd1c35b0255a24e ::
      DataValidator_Deref
   -> IO (Ptr.FunPtr DataValidator_Deref)
 
-foreign import ccall safe "dynamic" fromDataValidator_Deref ::
+-- | __unique:__ @fromDataValidator_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_d128eab55aa429fc ::
      Ptr.FunPtr DataValidator_Deref
   -> DataValidator_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr DataValidator_Deref where
 
-  toFunPtr = toDataValidator_Deref
+  toFunPtr = hs_bindgen_2dd1c35b0255a24e
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr DataValidator_Deref where
 
-  fromFunPtr = fromDataValidator_Deref
+  fromFunPtr = hs_bindgen_d128eab55aa429fc
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataValidator_Deref) "un_DataValidator_Deref")
          ) => GHC.Records.HasField "un_DataValidator_Deref" (Ptr.Ptr DataValidator_Deref) (Ptr.Ptr ty) where
@@ -313,21 +319,23 @@ newtype MeasurementReceived_Deref = MeasurementReceived_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toMeasurementReceived_Deref ::
+-- | __unique:__ @toMeasurementReceived_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_d9413d8e35ffe643 ::
      MeasurementReceived_Deref
   -> IO (Ptr.FunPtr MeasurementReceived_Deref)
 
-foreign import ccall safe "dynamic" fromMeasurementReceived_Deref ::
+-- | __unique:__ @fromMeasurementReceived_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_8af7f320063ba46e ::
      Ptr.FunPtr MeasurementReceived_Deref
   -> MeasurementReceived_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr MeasurementReceived_Deref where
 
-  toFunPtr = toMeasurementReceived_Deref
+  toFunPtr = hs_bindgen_d9413d8e35ffe643
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr MeasurementReceived_Deref where
 
-  fromFunPtr = fromMeasurementReceived_Deref
+  fromFunPtr = hs_bindgen_8af7f320063ba46e
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived_Deref) "un_MeasurementReceived_Deref")
          ) => GHC.Records.HasField "un_MeasurementReceived_Deref" (Ptr.Ptr MeasurementReceived_Deref) (Ptr.Ptr ty) where

@@ -24,15 +24,22 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+-- | __unique:__ @test_edgecasesspec_examples_Example_Unsafe_resample@
+foreign import ccall unsafe "hs_bindgen_2311fa9c0d0d6d06" hs_bindgen_2311fa9c0d0d6d06 ::
+     Ptr.Ptr Int32_T
+  -> Ptr.Ptr Cint16_T
+  -> Int64_T
+  -> Int64_T
+  -> Ptr.Ptr Cint16_T
+  -> IO ()
+
 {-| __C declaration:__ @resample@
 
     __defined at:__ @edge-cases\/spec_examples.h:31:6@
 
     __exported by:__ @edge-cases\/spec_examples.h@
-
-    __unique:__ @test_edgecasesspec_examples_Example_Unsafe_resample@
 -}
-foreign import ccall unsafe "hs_bindgen_2311fa9c0d0d6d06" resample ::
+resample ::
      Ptr.Ptr Int32_T
      -- ^ __C declaration:__ @res_m_num_valid_samples@
   -> Ptr.Ptr Cint16_T
@@ -44,3 +51,4 @@ foreign import ccall unsafe "hs_bindgen_2311fa9c0d0d6d06" resample ::
   -> Ptr.Ptr Cint16_T
      -- ^ __C declaration:__ @res_m_iq_resampled_int@
   -> IO ()
+resample = hs_bindgen_2311fa9c0d0d6d06

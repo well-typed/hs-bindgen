@@ -549,14 +549,16 @@ newtype Event_callback_t_Deref
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving newtype HasBaseForeignType
-foreign import ccall safe "wrapper" toEvent_callback_t_Deref :: Event_callback_t_Deref ->
-                                                                IO (FunPtr Event_callback_t_Deref)
-foreign import ccall safe "dynamic" fromEvent_callback_t_Deref :: FunPtr Event_callback_t_Deref ->
-                                                                  Event_callback_t_Deref
+-- | __unique:__ @toEvent_callback_t_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_0f8e2c78e0583f5e :: Event_callback_t_Deref ->
+                                                                   IO (FunPtr Event_callback_t_Deref)
+-- | __unique:__ @fromEvent_callback_t_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_9dbdfc6c37a7780f :: FunPtr Event_callback_t_Deref ->
+                                                                   Event_callback_t_Deref
 instance ToFunPtr Event_callback_t_Deref
-    where toFunPtr = toEvent_callback_t_Deref
+    where toFunPtr = hs_bindgen_0f8e2c78e0583f5e
 instance FromFunPtr Event_callback_t_Deref
-    where fromFunPtr = fromEvent_callback_t_Deref
+    where fromFunPtr = hs_bindgen_9dbdfc6c37a7780f
 instance TyEq ty
               (CFieldType Event_callback_t_Deref "un_Event_callback_t_Deref") =>
          HasField "un_Event_callback_t_Deref"
@@ -1325,14 +1327,16 @@ newtype Processor_fn_t_Deref
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
     deriving newtype HasBaseForeignType
-foreign import ccall safe "wrapper" toProcessor_fn_t_Deref :: Processor_fn_t_Deref ->
-                                                              IO (FunPtr Processor_fn_t_Deref)
-foreign import ccall safe "dynamic" fromProcessor_fn_t_Deref :: FunPtr Processor_fn_t_Deref ->
-                                                                Processor_fn_t_Deref
+-- | __unique:__ @toProcessor_fn_t_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_5f7a57f9f2b19661 :: Processor_fn_t_Deref ->
+                                                                   IO (FunPtr Processor_fn_t_Deref)
+-- | __unique:__ @fromProcessor_fn_t_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_a894574bbd080808 :: FunPtr Processor_fn_t_Deref ->
+                                                                   Processor_fn_t_Deref
 instance ToFunPtr Processor_fn_t_Deref
-    where toFunPtr = toProcessor_fn_t_Deref
+    where toFunPtr = hs_bindgen_5f7a57f9f2b19661
 instance FromFunPtr Processor_fn_t_Deref
-    where fromFunPtr = fromProcessor_fn_t_Deref
+    where fromFunPtr = hs_bindgen_a894574bbd080808
 instance TyEq ty
               (CFieldType Processor_fn_t_Deref "un_Processor_fn_t_Deref") =>
          HasField "un_Processor_fn_t_Deref"
@@ -1482,6 +1486,11 @@ instance TyEq ty
               (CFieldType Flexible_array "flexible_array_count") =>
          HasField "flexible_array_count" (Ptr Flexible_array) (Ptr ty)
     where getField = ptrToCField (Proxy @"flexible_array_count")
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
+foreign import ccall safe "hs_bindgen_7eada9f65d982412" hs_bindgen_7eada9f65d982412 :: ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                       Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                       Ptr HsBindgen.Runtime.Prelude.CSize ->
+                                                                                       IO CInt
 {-|
 
   Function with detailed parameter documentation
@@ -1501,13 +1510,34 @@ __C declaration:__ @process_data@
 __defined at:__ @documentation\/doxygen_docs.h:105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_data@
 -}
-foreign import ccall safe "hs_bindgen_7eada9f65d982412" process_data :: ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                        Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                        Ptr HsBindgen.Runtime.Prelude.CSize ->
-                                                                        IO CInt
+process_data :: ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
+                Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                Ptr HsBindgen.Runtime.Prelude.CSize -> IO CInt
+{-|
+
+  Function with detailed parameter documentation
+
+  This function shows different parameter directions and types.
+
+  [__@input_data@ /(input)/__]: Input data buffer
+
+  [__@output_data@ /(output)/__]: Output data buffer
+
+  [__@size@ /(input,output)/__]: Size of data, updated on return
+
+  __returns:__ Status code (0 = success, -1 = error)
+
+__C declaration:__ @process_data@
+
+__defined at:__ @documentation\/doxygen_docs.h:105:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+process_data = hs_bindgen_7eada9f65d982412
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_file@
+foreign import ccall safe "hs_bindgen_fb85499c501da1a7" hs_bindgen_fb85499c501da1a7 :: ConstPtr CChar ->
+                                                                                       IO CBool
 {-|
 
   Function with inline commands and formatting
@@ -1523,11 +1553,29 @@ __C declaration:__ @process_file@
 __defined at:__ @documentation\/doxygen_docs.h:116:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_file@
 -}
-foreign import ccall safe "hs_bindgen_fb85499c501da1a7" process_file :: ConstPtr CChar ->
-                                                                        IO CBool
+process_file :: ConstPtr CChar -> IO CBool
+{-|
+
+  Function with inline commands and formatting
+
+  This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
+
+  [__@filename@ /(input)/__]: The @char*@ filename to process
+
+  __returns:__ @true@ if successful, @false@ otherwise
+
+__C declaration:__ @process_file@
+
+__defined at:__ @documentation\/doxygen_docs.h:116:6@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+process_file = hs_bindgen_fb85499c501da1a7
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Safe_calculate_value@
+foreign import ccall safe "hs_bindgen_a73fc7b108035c5c" hs_bindgen_a73fc7b108035c5c :: CInt ->
+                                                                                       CInt ->
+                                                                                       IO CInt
 {-|
 
   Function with verbatim code blocks
@@ -1550,11 +1598,35 @@ __C declaration:__ @calculate_value@
 __defined at:__ @documentation\/doxygen_docs.h:131:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_calculate_value@
 -}
-foreign import ccall safe "hs_bindgen_a73fc7b108035c5c" calculate_value :: CInt ->
-                                                                           CInt -> IO CInt
+calculate_value :: CInt -> CInt -> IO CInt
+{-|
+
+  Function with verbatim code blocks
+
+  Example usage:
+
+  @
+  int result = calculate_value(10, 20);
+  printf("Result: %d@n", result);
+  @
+
+  [__@base@ /(input)/__]: Base value
+
+  [__@multiplier@ /(input)/__]: Multiplier value
+
+  __returns:__ Calculated result
+
+__C declaration:__ @calculate_value@
+
+__defined at:__ @documentation\/doxygen_docs.h:131:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+calculate_value = hs_bindgen_a73fc7b108035c5c
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Safe_html_example@
+foreign import ccall safe "hs_bindgen_9b7f6745401b4652" hs_bindgen_9b7f6745401b4652 :: CInt ->
+                                                                                       IO CBool
 {-|
 
   Function with HTML formatting
@@ -1572,11 +1644,31 @@ __C declaration:__ @html_example@
 __defined at:__ @documentation\/doxygen_docs.h:148:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_html_example@
 -}
-foreign import ccall safe "hs_bindgen_9b7f6745401b4652" html_example :: CInt ->
-                                                                        IO CBool
+html_example :: CInt -> IO CBool
+{-|
+
+  Function with HTML formatting
+
+  This function demonstrates HTML bold and italic text. It also shows HTML code formatting.
+
+  Input Output 0 false 1 true
+
+  [__@value@ /(input)/__]: Input value
+
+  __returns:__ Boolean result
+
+__C declaration:__ @html_example@
+
+__defined at:__ @documentation\/doxygen_docs.h:148:6@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+html_example = hs_bindgen_9b7f6745401b4652
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Safe_list_example@
+foreign import ccall safe "hs_bindgen_825411dc114e599b" hs_bindgen_825411dc114e599b :: Ptr (ConstPtr CChar) ->
+                                                                                       HsBindgen.Runtime.Prelude.CSize ->
+                                                                                       IO CBool
 {-|
 
   Function with lists and special formatting
@@ -1622,12 +1714,59 @@ __C declaration:__ @list_example@
 __defined at:__ @documentation\/doxygen_docs.h:174:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_list_example@
 -}
-foreign import ccall safe "hs_bindgen_825411dc114e599b" list_example :: Ptr (ConstPtr CChar) ->
-                                                                        HsBindgen.Runtime.Prelude.CSize ->
-                                                                        IO CBool
+list_example :: Ptr (ConstPtr CChar) ->
+                HsBindgen.Runtime.Prelude.CSize -> IO CBool
+{-|
+
+  Function with lists and special formatting
+
+  This function demonstrates:
+
+  * Bullet point lists
+
+  * Nested list item 1
+
+  * Nested list item 2
+
+  * Multiple items
+
+  * Nested formatting
+
+  Numbered list:
+
+  1. First @item@
+
+  1. item
+
+  2. Second __item__
+
+  3. Third item
+
+  Other numbered list:
+
+  1. A
+
+  2. B
+
+  3. C
+
+  [__@items@ /(input)/__]: Array of items
+
+  [__@count@ /(input)/__]: Number of items
+
+  __returns:__ Success status
+
+__C declaration:__ @list_example@
+
+__defined at:__ @documentation\/doxygen_docs.h:174:6@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+list_example = hs_bindgen_825411dc114e599b
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Safe_dangerous_function@
+foreign import ccall safe "hs_bindgen_17264dcff7e9b698" hs_bindgen_17264dcff7e9b698 :: Ptr Void ->
+                                                                                       IO (Ptr Void)
 {-|
 
   Function with warnings and notes
@@ -1647,11 +1786,32 @@ __C declaration:__ @dangerous_function@
 __defined at:__ @documentation\/doxygen_docs.h:186:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_dangerous_function@
 -}
-foreign import ccall safe "hs_bindgen_17264dcff7e9b698" dangerous_function :: Ptr Void ->
-                                                                              IO (Ptr Void)
+dangerous_function :: Ptr Void -> IO (Ptr Void)
+{-|
+
+  Function with warnings and notes
+
+  __/WARNING:/__ This function may cause side effects
+
+  __Note:__ Use with caution in multithreaded environments
+
+  __see:__ related_function() for similar functionality
+
+  [__@ptr@ /(input)/__]: Pointer to data
+
+  __returns:__ Modified pointer
+
+__C declaration:__ @dangerous_function@
+
+__defined at:__ @documentation\/doxygen_docs.h:186:7@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+dangerous_function = hs_bindgen_17264dcff7e9b698
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Safe_detailed_return_codes@
+foreign import ccall safe "hs_bindgen_c8ca619ec2e70d8d" hs_bindgen_c8ca619ec2e70d8d :: ConstPtr CChar ->
+                                                                                       IO CInt
 {-|
 
   Function with return value details
@@ -1671,11 +1831,32 @@ __C declaration:__ @detailed_return_codes@
 __defined at:__ @documentation\/doxygen_docs.h:197:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_detailed_return_codes@
 -}
-foreign import ccall safe "hs_bindgen_c8ca619ec2e70d8d" detailed_return_codes :: ConstPtr CChar ->
-                                                                                 IO CInt
+detailed_return_codes :: ConstPtr CChar -> IO CInt
+{-|
+
+  Function with return value details
+
+  [__@input@ /(input)/__]: Input string
+
+  __returns:__ 0 Success
+
+  __returns:__ -1 Invalid input
+
+  __returns:__ -2 Memory allocation failed
+
+  __returns:__ -3 Processing error
+
+__C declaration:__ @detailed_return_codes@
+
+__defined at:__ @documentation\/doxygen_docs.h:197:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+detailed_return_codes = hs_bindgen_c8ca619ec2e70d8d
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Safe_old_function@
+foreign import ccall safe "hs_bindgen_25e1070e2ce10048" hs_bindgen_25e1070e2ce10048 :: CInt ->
+                                                                                       IO CInt
 {-|
 
   Function with deprecated annotation
@@ -1691,11 +1872,28 @@ __C declaration:__ @old_function@
 __defined at:__ @documentation\/doxygen_docs.h:206:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_old_function@
 -}
-foreign import ccall safe "hs_bindgen_25e1070e2ce10048" old_function :: CInt ->
-                                                                        IO CInt
+old_function :: CInt -> IO CInt
+{-|
+
+  Function with deprecated annotation
+
+  __deprecated:__ Use new_function() instead
+
+  [__@old_param@ /(input)/__]: Legacy parameter
+
+  __returns:__ Legacy result
+
+__C declaration:__ @old_function@
+
+__defined at:__ @documentation\/doxygen_docs.h:206:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+old_function = hs_bindgen_25e1070e2ce10048
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Safe_versioned_function@
+foreign import ccall safe "hs_bindgen_a9eeeb09808e71cc" hs_bindgen_a9eeeb09808e71cc :: CInt ->
+                                                                                       IO CInt
 {-|
 
   Function with version information
@@ -1711,11 +1909,29 @@ __C declaration:__ @versioned_function@
 __defined at:__ @documentation\/doxygen_docs.h:216:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_versioned_function@
 -}
-foreign import ccall safe "hs_bindgen_a9eeeb09808e71cc" versioned_function :: CInt ->
-                                                                              IO CInt
+versioned_function :: CInt -> IO CInt
+{-|
+
+  Function with version information
+
+  @since:  1.0
+
+  [__@data@ /(input)/__]: Input data
+
+  __returns:__ Processed data
+
+__C declaration:__ @versioned_function@
+
+__defined at:__ @documentation\/doxygen_docs.h:216:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+versioned_function = hs_bindgen_a9eeeb09808e71cc
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_buffer@
+foreign import ccall safe "hs_bindgen_0c0057f1700372a7" hs_bindgen_0c0057f1700372a7 :: Ptr CChar ->
+                                                                                       HsBindgen.Runtime.Prelude.CSize ->
+                                                                                       IO CInt
 {-|
 
   Static array parameter
@@ -1731,12 +1947,31 @@ __C declaration:__ @process_buffer@
 __defined at:__ @documentation\/doxygen_docs.h:332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_buffer@
 -}
-foreign import ccall safe "hs_bindgen_0c0057f1700372a7" process_buffer :: Ptr CChar ->
-                                                                          HsBindgen.Runtime.Prelude.CSize ->
-                                                                          IO CInt
+process_buffer :: Ptr CChar ->
+                  HsBindgen.Runtime.Prelude.CSize -> IO CInt
+{-|
+
+  Static array parameter
+
+  [__@buffer@ /(input)/__]: Buffer with minimum size
+
+  [__@size@ /(input)/__]: Actual buffer size
+
+  __returns:__ Number of bytes written
+
+__C declaration:__ @process_buffer@
+
+__defined at:__ @documentation\/doxygen_docs.h:332:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+process_buffer = hs_bindgen_0c0057f1700372a7
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Safe_my_memcpy@
+foreign import ccall safe "hs_bindgen_294db77671f95524" hs_bindgen_294db77671f95524 :: Ptr Void ->
+                                                                                       ConstPtr Void ->
+                                                                                       HsBindgen.Runtime.Prelude.CSize ->
+                                                                                       IO (Ptr Void)
 {-|
 
   Function with restrict pointers
@@ -1754,13 +1989,31 @@ __C declaration:__ @my_memcpy@
 __defined at:__ @documentation\/doxygen_docs.h:342:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_my_memcpy@
 -}
-foreign import ccall safe "hs_bindgen_294db77671f95524" my_memcpy :: Ptr Void ->
-                                                                     ConstPtr Void ->
-                                                                     HsBindgen.Runtime.Prelude.CSize ->
-                                                                     IO (Ptr Void)
+my_memcpy :: Ptr Void ->
+             ConstPtr Void -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr Void)
+{-|
+
+  Function with restrict pointers
+
+  [__@dest@ /(input)/__]: Destination buffer (restrict)
+
+  [__@src@ /(input)/__]: Source buffer (restrict)
+
+  [__@n@ /(input)/__]: Number of bytes
+
+  __returns:__ Destination pointer
+
+__C declaration:__ @my_memcpy@
+
+__defined at:__ @documentation\/doxygen_docs.h:342:7@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+my_memcpy = hs_bindgen_294db77671f95524
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Safe_double_value@
+foreign import ccall safe "hs_bindgen_f5bc63a9952c2618" hs_bindgen_f5bc63a9952c2618 :: CInt ->
+                                                                                       IO CInt
 {-|
 
   Inline function
@@ -1774,11 +2027,28 @@ __C declaration:__ @double_value@
 __defined at:__ @documentation\/doxygen_docs.h:350:19@
 
 __exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_double_value@
 -}
-foreign import ccall safe "hs_bindgen_f5bc63a9952c2618" double_value :: CInt ->
-                                                                        IO CInt
+double_value :: CInt -> IO CInt
+{-|
+
+  Inline function
+
+  [__@x@ /(input)/__]: Input value
+
+  __returns:__ Doubled value
+
+__C declaration:__ @double_value@
+
+__defined at:__ @documentation\/doxygen_docs.h:350:19@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+double_value = hs_bindgen_f5bc63a9952c2618
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Safe_complex_function@
+foreign import ccall safe "hs_bindgen_c4e7e99dba20204d" hs_bindgen_c4e7e99dba20204d :: Ptr Config_t ->
+                                                                                       ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                       HsBindgen.Runtime.Prelude.CSize ->
+                                                                                       IO Status_code_t
 {-|
 
   Function with complex documentation
@@ -1849,334 +2119,10 @@ __C declaration:__ @complex_function@
 __defined at:__ @documentation\/doxygen_docs.h:423:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_complex_function@
 -}
-foreign import ccall safe "hs_bindgen_c4e7e99dba20204d" complex_function :: Ptr Config_t ->
-                                                                            ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                            HsBindgen.Runtime.Prelude.CSize ->
-                                                                            IO Status_code_t
-{-|
-
-  Marked @__attribute((pure))__@
-
-__C declaration:__ @hash@
-
-__defined at:__ @documentation\/doxygen_docs.h:427:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_hash@
--}
-foreign import ccall safe "hs_bindgen_935f2aead358d9ef" hash :: Ptr CChar ->
-                                                                IO CInt
-{-| __C declaration:__ @square@
-
-    __defined at:__ @documentation\/doxygen_docs.h:429:5@
-
-    __exported by:__ @documentation\/doxygen_docs.h@
-
-    __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_square@
--}
-foreign import ccall safe "hs_bindgen_39fef54c23d4e1ee" square :: CInt ->
-                                                                  CInt
-{-|
-
-  Function with detailed parameter documentation
-
-  This function shows different parameter directions and types.
-
-  [__@input_data@ /(input)/__]: Input data buffer
-
-  [__@output_data@ /(output)/__]: Output data buffer
-
-  [__@size@ /(input,output)/__]: Size of data, updated on return
-
-  __returns:__ Status code (0 = success, -1 = error)
-
-__C declaration:__ @process_data@
-
-__defined at:__ @documentation\/doxygen_docs.h:105:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_data@
--}
-foreign import ccall safe "hs_bindgen_e6085a910ba41ecb" process_data :: ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                        Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                        Ptr HsBindgen.Runtime.Prelude.CSize ->
-                                                                        IO CInt
-{-|
-
-  Function with inline commands and formatting
-
-  This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
-
-  [__@filename@ /(input)/__]: The @char*@ filename to process
-
-  __returns:__ @true@ if successful, @false@ otherwise
-
-__C declaration:__ @process_file@
-
-__defined at:__ @documentation\/doxygen_docs.h:116:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_file@
--}
-foreign import ccall safe "hs_bindgen_c27e893aea0b0a77" process_file :: ConstPtr CChar ->
-                                                                        IO CBool
-{-|
-
-  Function with verbatim code blocks
-
-  Example usage:
-
-  @
-  int result = calculate_value(10, 20);
-  printf("Result: %d@n", result);
-  @
-
-  [__@base@ /(input)/__]: Base value
-
-  [__@multiplier@ /(input)/__]: Multiplier value
-
-  __returns:__ Calculated result
-
-__C declaration:__ @calculate_value@
-
-__defined at:__ @documentation\/doxygen_docs.h:131:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_calculate_value@
--}
-foreign import ccall safe "hs_bindgen_bc1b0e25a72f4ec0" calculate_value :: CInt ->
-                                                                           CInt -> IO CInt
-{-|
-
-  Function with HTML formatting
-
-  This function demonstrates HTML bold and italic text. It also shows HTML code formatting.
-
-  Input Output 0 false 1 true
-
-  [__@value@ /(input)/__]: Input value
-
-  __returns:__ Boolean result
-
-__C declaration:__ @html_example@
-
-__defined at:__ @documentation\/doxygen_docs.h:148:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_html_example@
--}
-foreign import ccall safe "hs_bindgen_09abc3cb74562964" html_example :: CInt ->
-                                                                        IO CBool
-{-|
-
-  Function with lists and special formatting
-
-  This function demonstrates:
-
-  * Bullet point lists
-
-  * Nested list item 1
-
-  * Nested list item 2
-
-  * Multiple items
-
-  * Nested formatting
-
-  Numbered list:
-
-  1. First @item@
-
-  1. item
-
-  2. Second __item__
-
-  3. Third item
-
-  Other numbered list:
-
-  1. A
-
-  2. B
-
-  3. C
-
-  [__@items@ /(input)/__]: Array of items
-
-  [__@count@ /(input)/__]: Number of items
-
-  __returns:__ Success status
-
-__C declaration:__ @list_example@
-
-__defined at:__ @documentation\/doxygen_docs.h:174:6@
-
-__exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_list_example@
--}
-foreign import ccall safe "hs_bindgen_47cba1a95d265f84" list_example :: Ptr (ConstPtr CChar) ->
-                                                                        HsBindgen.Runtime.Prelude.CSize ->
-                                                                        IO CBool
-{-|
-
-  Function with warnings and notes
-
-  __/WARNING:/__ This function may cause side effects
-
-  __Note:__ Use with caution in multithreaded environments
-
-  __see:__ related_function() for similar functionality
-
-  [__@ptr@ /(input)/__]: Pointer to data
-
-  __returns:__ Modified pointer
-
-__C declaration:__ @dangerous_function@
-
-__defined at:__ @documentation\/doxygen_docs.h:186:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_dangerous_function@
--}
-foreign import ccall safe "hs_bindgen_e065fc013e4eccd6" dangerous_function :: Ptr Void ->
-                                                                              IO (Ptr Void)
-{-|
-
-  Function with return value details
-
-  [__@input@ /(input)/__]: Input string
-
-  __returns:__ 0 Success
-
-  __returns:__ -1 Invalid input
-
-  __returns:__ -2 Memory allocation failed
-
-  __returns:__ -3 Processing error
-
-__C declaration:__ @detailed_return_codes@
-
-__defined at:__ @documentation\/doxygen_docs.h:197:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_detailed_return_codes@
--}
-foreign import ccall safe "hs_bindgen_bc4f7e24b2ad4ace" detailed_return_codes :: ConstPtr CChar ->
-                                                                                 IO CInt
-{-|
-
-  Function with deprecated annotation
-
-  __deprecated:__ Use new_function() instead
-
-  [__@old_param@ /(input)/__]: Legacy parameter
-
-  __returns:__ Legacy result
-
-__C declaration:__ @old_function@
-
-__defined at:__ @documentation\/doxygen_docs.h:206:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_old_function@
--}
-foreign import ccall safe "hs_bindgen_8deec146389ae8b3" old_function :: CInt ->
-                                                                        IO CInt
-{-|
-
-  Function with version information
-
-  @since:  1.0
-
-  [__@data@ /(input)/__]: Input data
-
-  __returns:__ Processed data
-
-__C declaration:__ @versioned_function@
-
-__defined at:__ @documentation\/doxygen_docs.h:216:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_versioned_function@
--}
-foreign import ccall safe "hs_bindgen_da2dcc1473935665" versioned_function :: CInt ->
-                                                                              IO CInt
-{-|
-
-  Static array parameter
-
-  [__@buffer@ /(input)/__]: Buffer with minimum size
-
-  [__@size@ /(input)/__]: Actual buffer size
-
-  __returns:__ Number of bytes written
-
-__C declaration:__ @process_buffer@
-
-__defined at:__ @documentation\/doxygen_docs.h:332:5@
-
-__exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_buffer@
--}
-foreign import ccall safe "hs_bindgen_97c1191917e6eece" process_buffer :: Ptr CChar ->
-                                                                          HsBindgen.Runtime.Prelude.CSize ->
-                                                                          IO CInt
-{-|
-
-  Function with restrict pointers
-
-  [__@dest@ /(input)/__]: Destination buffer (restrict)
-
-  [__@src@ /(input)/__]: Source buffer (restrict)
-
-  [__@n@ /(input)/__]: Number of bytes
-
-  __returns:__ Destination pointer
-
-__C declaration:__ @my_memcpy@
-
-__defined at:__ @documentation\/doxygen_docs.h:342:7@
-
-__exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_my_memcpy@
--}
-foreign import ccall safe "hs_bindgen_58253bb560dc3eb3" my_memcpy :: Ptr Void ->
-                                                                     ConstPtr Void ->
-                                                                     HsBindgen.Runtime.Prelude.CSize ->
-                                                                     IO (Ptr Void)
-{-|
-
-  Inline function
-
-  [__@x@ /(input)/__]: Input value
-
-  __returns:__ Doubled value
-
-__C declaration:__ @double_value@
-
-__defined at:__ @documentation\/doxygen_docs.h:350:19@
-
-__exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_double_value@
--}
-foreign import ccall safe "hs_bindgen_44dd19b16ee38e5b" double_value :: CInt ->
-                                                                        IO CInt
+complex_function :: Ptr Config_t ->
+                    ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
+                    HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t
 {-|
 
   Function with complex documentation
@@ -2247,13 +2193,11 @@ __C declaration:__ @complex_function@
 __defined at:__ @documentation\/doxygen_docs.h:423:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_complex_function@
 -}
-foreign import ccall safe "hs_bindgen_fd6fce7c8d8b2f79" complex_function :: Ptr Config_t ->
-                                                                            ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                            HsBindgen.Runtime.Prelude.CSize ->
-                                                                            IO Status_code_t
+complex_function = hs_bindgen_c4e7e99dba20204d
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Safe_hash@
+foreign import ccall safe "hs_bindgen_935f2aead358d9ef" hs_bindgen_935f2aead358d9ef :: Ptr CChar ->
+                                                                                       IO CInt
 {-|
 
   Marked @__attribute((pure))__@
@@ -2263,21 +2207,787 @@ __C declaration:__ @hash@
 __defined at:__ @documentation\/doxygen_docs.h:427:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
-
-__unique:__ @test_documentationdoxygen_docs_Example_Unsafe_hash@
 -}
-foreign import ccall safe "hs_bindgen_dd36c8b317ccfcc4" hash :: Ptr CChar ->
-                                                                IO CInt
+hash :: Ptr CChar -> IO CInt
+{-|
+
+  Marked @__attribute((pure))__@
+
+__C declaration:__ @hash@
+
+__defined at:__ @documentation\/doxygen_docs.h:427:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+hash = hs_bindgen_935f2aead358d9ef
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Safe_square@
+foreign import ccall safe "hs_bindgen_39fef54c23d4e1ee" hs_bindgen_39fef54c23d4e1ee :: CInt ->
+                                                                                       CInt
 {-| __C declaration:__ @square@
 
     __defined at:__ @documentation\/doxygen_docs.h:429:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
-
-    __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_square@
 -}
-foreign import ccall safe "hs_bindgen_6875e30a7fe8d30a" square :: CInt ->
-                                                                  CInt
+square :: CInt -> CInt
+{-| __C declaration:__ @square@
+
+    __defined at:__ @documentation\/doxygen_docs.h:429:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+square = hs_bindgen_39fef54c23d4e1ee
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_data@
+foreign import ccall safe "hs_bindgen_e6085a910ba41ecb" hs_bindgen_e6085a910ba41ecb :: ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                       Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                       Ptr HsBindgen.Runtime.Prelude.CSize ->
+                                                                                       IO CInt
+{-|
+
+  Function with detailed parameter documentation
+
+  This function shows different parameter directions and types.
+
+  [__@input_data@ /(input)/__]: Input data buffer
+
+  [__@output_data@ /(output)/__]: Output data buffer
+
+  [__@size@ /(input,output)/__]: Size of data, updated on return
+
+  __returns:__ Status code (0 = success, -1 = error)
+
+__C declaration:__ @process_data@
+
+__defined at:__ @documentation\/doxygen_docs.h:105:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+process_data :: ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
+                Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                Ptr HsBindgen.Runtime.Prelude.CSize -> IO CInt
+{-|
+
+  Function with detailed parameter documentation
+
+  This function shows different parameter directions and types.
+
+  [__@input_data@ /(input)/__]: Input data buffer
+
+  [__@output_data@ /(output)/__]: Output data buffer
+
+  [__@size@ /(input,output)/__]: Size of data, updated on return
+
+  __returns:__ Status code (0 = success, -1 = error)
+
+__C declaration:__ @process_data@
+
+__defined at:__ @documentation\/doxygen_docs.h:105:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+process_data = hs_bindgen_e6085a910ba41ecb
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_file@
+foreign import ccall safe "hs_bindgen_c27e893aea0b0a77" hs_bindgen_c27e893aea0b0a77 :: ConstPtr CChar ->
+                                                                                       IO CBool
+{-|
+
+  Function with inline commands and formatting
+
+  This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
+
+  [__@filename@ /(input)/__]: The @char*@ filename to process
+
+  __returns:__ @true@ if successful, @false@ otherwise
+
+__C declaration:__ @process_file@
+
+__defined at:__ @documentation\/doxygen_docs.h:116:6@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+process_file :: ConstPtr CChar -> IO CBool
+{-|
+
+  Function with inline commands and formatting
+
+  This function uses @inline@ @code@ formatting and __bold__ text. It also demonstrates /emphasized/ text.
+
+  [__@filename@ /(input)/__]: The @char*@ filename to process
+
+  __returns:__ @true@ if successful, @false@ otherwise
+
+__C declaration:__ @process_file@
+
+__defined at:__ @documentation\/doxygen_docs.h:116:6@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+process_file = hs_bindgen_c27e893aea0b0a77
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_calculate_value@
+foreign import ccall safe "hs_bindgen_bc1b0e25a72f4ec0" hs_bindgen_bc1b0e25a72f4ec0 :: CInt ->
+                                                                                       CInt ->
+                                                                                       IO CInt
+{-|
+
+  Function with verbatim code blocks
+
+  Example usage:
+
+  @
+  int result = calculate_value(10, 20);
+  printf("Result: %d@n", result);
+  @
+
+  [__@base@ /(input)/__]: Base value
+
+  [__@multiplier@ /(input)/__]: Multiplier value
+
+  __returns:__ Calculated result
+
+__C declaration:__ @calculate_value@
+
+__defined at:__ @documentation\/doxygen_docs.h:131:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+calculate_value :: CInt -> CInt -> IO CInt
+{-|
+
+  Function with verbatim code blocks
+
+  Example usage:
+
+  @
+  int result = calculate_value(10, 20);
+  printf("Result: %d@n", result);
+  @
+
+  [__@base@ /(input)/__]: Base value
+
+  [__@multiplier@ /(input)/__]: Multiplier value
+
+  __returns:__ Calculated result
+
+__C declaration:__ @calculate_value@
+
+__defined at:__ @documentation\/doxygen_docs.h:131:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+calculate_value = hs_bindgen_bc1b0e25a72f4ec0
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_html_example@
+foreign import ccall safe "hs_bindgen_09abc3cb74562964" hs_bindgen_09abc3cb74562964 :: CInt ->
+                                                                                       IO CBool
+{-|
+
+  Function with HTML formatting
+
+  This function demonstrates HTML bold and italic text. It also shows HTML code formatting.
+
+  Input Output 0 false 1 true
+
+  [__@value@ /(input)/__]: Input value
+
+  __returns:__ Boolean result
+
+__C declaration:__ @html_example@
+
+__defined at:__ @documentation\/doxygen_docs.h:148:6@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+html_example :: CInt -> IO CBool
+{-|
+
+  Function with HTML formatting
+
+  This function demonstrates HTML bold and italic text. It also shows HTML code formatting.
+
+  Input Output 0 false 1 true
+
+  [__@value@ /(input)/__]: Input value
+
+  __returns:__ Boolean result
+
+__C declaration:__ @html_example@
+
+__defined at:__ @documentation\/doxygen_docs.h:148:6@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+html_example = hs_bindgen_09abc3cb74562964
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_list_example@
+foreign import ccall safe "hs_bindgen_47cba1a95d265f84" hs_bindgen_47cba1a95d265f84 :: Ptr (ConstPtr CChar) ->
+                                                                                       HsBindgen.Runtime.Prelude.CSize ->
+                                                                                       IO CBool
+{-|
+
+  Function with lists and special formatting
+
+  This function demonstrates:
+
+  * Bullet point lists
+
+  * Nested list item 1
+
+  * Nested list item 2
+
+  * Multiple items
+
+  * Nested formatting
+
+  Numbered list:
+
+  1. First @item@
+
+  1. item
+
+  2. Second __item__
+
+  3. Third item
+
+  Other numbered list:
+
+  1. A
+
+  2. B
+
+  3. C
+
+  [__@items@ /(input)/__]: Array of items
+
+  [__@count@ /(input)/__]: Number of items
+
+  __returns:__ Success status
+
+__C declaration:__ @list_example@
+
+__defined at:__ @documentation\/doxygen_docs.h:174:6@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+list_example :: Ptr (ConstPtr CChar) ->
+                HsBindgen.Runtime.Prelude.CSize -> IO CBool
+{-|
+
+  Function with lists and special formatting
+
+  This function demonstrates:
+
+  * Bullet point lists
+
+  * Nested list item 1
+
+  * Nested list item 2
+
+  * Multiple items
+
+  * Nested formatting
+
+  Numbered list:
+
+  1. First @item@
+
+  1. item
+
+  2. Second __item__
+
+  3. Third item
+
+  Other numbered list:
+
+  1. A
+
+  2. B
+
+  3. C
+
+  [__@items@ /(input)/__]: Array of items
+
+  [__@count@ /(input)/__]: Number of items
+
+  __returns:__ Success status
+
+__C declaration:__ @list_example@
+
+__defined at:__ @documentation\/doxygen_docs.h:174:6@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+list_example = hs_bindgen_47cba1a95d265f84
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_dangerous_function@
+foreign import ccall safe "hs_bindgen_e065fc013e4eccd6" hs_bindgen_e065fc013e4eccd6 :: Ptr Void ->
+                                                                                       IO (Ptr Void)
+{-|
+
+  Function with warnings and notes
+
+  __/WARNING:/__ This function may cause side effects
+
+  __Note:__ Use with caution in multithreaded environments
+
+  __see:__ related_function() for similar functionality
+
+  [__@ptr@ /(input)/__]: Pointer to data
+
+  __returns:__ Modified pointer
+
+__C declaration:__ @dangerous_function@
+
+__defined at:__ @documentation\/doxygen_docs.h:186:7@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+dangerous_function :: Ptr Void -> IO (Ptr Void)
+{-|
+
+  Function with warnings and notes
+
+  __/WARNING:/__ This function may cause side effects
+
+  __Note:__ Use with caution in multithreaded environments
+
+  __see:__ related_function() for similar functionality
+
+  [__@ptr@ /(input)/__]: Pointer to data
+
+  __returns:__ Modified pointer
+
+__C declaration:__ @dangerous_function@
+
+__defined at:__ @documentation\/doxygen_docs.h:186:7@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+dangerous_function = hs_bindgen_e065fc013e4eccd6
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_detailed_return_codes@
+foreign import ccall safe "hs_bindgen_bc4f7e24b2ad4ace" hs_bindgen_bc4f7e24b2ad4ace :: ConstPtr CChar ->
+                                                                                       IO CInt
+{-|
+
+  Function with return value details
+
+  [__@input@ /(input)/__]: Input string
+
+  __returns:__ 0 Success
+
+  __returns:__ -1 Invalid input
+
+  __returns:__ -2 Memory allocation failed
+
+  __returns:__ -3 Processing error
+
+__C declaration:__ @detailed_return_codes@
+
+__defined at:__ @documentation\/doxygen_docs.h:197:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+detailed_return_codes :: ConstPtr CChar -> IO CInt
+{-|
+
+  Function with return value details
+
+  [__@input@ /(input)/__]: Input string
+
+  __returns:__ 0 Success
+
+  __returns:__ -1 Invalid input
+
+  __returns:__ -2 Memory allocation failed
+
+  __returns:__ -3 Processing error
+
+__C declaration:__ @detailed_return_codes@
+
+__defined at:__ @documentation\/doxygen_docs.h:197:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+detailed_return_codes = hs_bindgen_bc4f7e24b2ad4ace
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_old_function@
+foreign import ccall safe "hs_bindgen_8deec146389ae8b3" hs_bindgen_8deec146389ae8b3 :: CInt ->
+                                                                                       IO CInt
+{-|
+
+  Function with deprecated annotation
+
+  __deprecated:__ Use new_function() instead
+
+  [__@old_param@ /(input)/__]: Legacy parameter
+
+  __returns:__ Legacy result
+
+__C declaration:__ @old_function@
+
+__defined at:__ @documentation\/doxygen_docs.h:206:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+old_function :: CInt -> IO CInt
+{-|
+
+  Function with deprecated annotation
+
+  __deprecated:__ Use new_function() instead
+
+  [__@old_param@ /(input)/__]: Legacy parameter
+
+  __returns:__ Legacy result
+
+__C declaration:__ @old_function@
+
+__defined at:__ @documentation\/doxygen_docs.h:206:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+old_function = hs_bindgen_8deec146389ae8b3
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_versioned_function@
+foreign import ccall safe "hs_bindgen_da2dcc1473935665" hs_bindgen_da2dcc1473935665 :: CInt ->
+                                                                                       IO CInt
+{-|
+
+  Function with version information
+
+  @since:  1.0
+
+  [__@data@ /(input)/__]: Input data
+
+  __returns:__ Processed data
+
+__C declaration:__ @versioned_function@
+
+__defined at:__ @documentation\/doxygen_docs.h:216:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+versioned_function :: CInt -> IO CInt
+{-|
+
+  Function with version information
+
+  @since:  1.0
+
+  [__@data@ /(input)/__]: Input data
+
+  __returns:__ Processed data
+
+__C declaration:__ @versioned_function@
+
+__defined at:__ @documentation\/doxygen_docs.h:216:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+versioned_function = hs_bindgen_da2dcc1473935665
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_process_buffer@
+foreign import ccall safe "hs_bindgen_97c1191917e6eece" hs_bindgen_97c1191917e6eece :: Ptr CChar ->
+                                                                                       HsBindgen.Runtime.Prelude.CSize ->
+                                                                                       IO CInt
+{-|
+
+  Static array parameter
+
+  [__@buffer@ /(input)/__]: Buffer with minimum size
+
+  [__@size@ /(input)/__]: Actual buffer size
+
+  __returns:__ Number of bytes written
+
+__C declaration:__ @process_buffer@
+
+__defined at:__ @documentation\/doxygen_docs.h:332:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+process_buffer :: Ptr CChar ->
+                  HsBindgen.Runtime.Prelude.CSize -> IO CInt
+{-|
+
+  Static array parameter
+
+  [__@buffer@ /(input)/__]: Buffer with minimum size
+
+  [__@size@ /(input)/__]: Actual buffer size
+
+  __returns:__ Number of bytes written
+
+__C declaration:__ @process_buffer@
+
+__defined at:__ @documentation\/doxygen_docs.h:332:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+process_buffer = hs_bindgen_97c1191917e6eece
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_my_memcpy@
+foreign import ccall safe "hs_bindgen_58253bb560dc3eb3" hs_bindgen_58253bb560dc3eb3 :: Ptr Void ->
+                                                                                       ConstPtr Void ->
+                                                                                       HsBindgen.Runtime.Prelude.CSize ->
+                                                                                       IO (Ptr Void)
+{-|
+
+  Function with restrict pointers
+
+  [__@dest@ /(input)/__]: Destination buffer (restrict)
+
+  [__@src@ /(input)/__]: Source buffer (restrict)
+
+  [__@n@ /(input)/__]: Number of bytes
+
+  __returns:__ Destination pointer
+
+__C declaration:__ @my_memcpy@
+
+__defined at:__ @documentation\/doxygen_docs.h:342:7@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+my_memcpy :: Ptr Void ->
+             ConstPtr Void -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr Void)
+{-|
+
+  Function with restrict pointers
+
+  [__@dest@ /(input)/__]: Destination buffer (restrict)
+
+  [__@src@ /(input)/__]: Source buffer (restrict)
+
+  [__@n@ /(input)/__]: Number of bytes
+
+  __returns:__ Destination pointer
+
+__C declaration:__ @my_memcpy@
+
+__defined at:__ @documentation\/doxygen_docs.h:342:7@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+my_memcpy = hs_bindgen_58253bb560dc3eb3
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_double_value@
+foreign import ccall safe "hs_bindgen_44dd19b16ee38e5b" hs_bindgen_44dd19b16ee38e5b :: CInt ->
+                                                                                       IO CInt
+{-|
+
+  Inline function
+
+  [__@x@ /(input)/__]: Input value
+
+  __returns:__ Doubled value
+
+__C declaration:__ @double_value@
+
+__defined at:__ @documentation\/doxygen_docs.h:350:19@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+double_value :: CInt -> IO CInt
+{-|
+
+  Inline function
+
+  [__@x@ /(input)/__]: Input value
+
+  __returns:__ Doubled value
+
+__C declaration:__ @double_value@
+
+__defined at:__ @documentation\/doxygen_docs.h:350:19@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+double_value = hs_bindgen_44dd19b16ee38e5b
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_complex_function@
+foreign import ccall safe "hs_bindgen_fd6fce7c8d8b2f79" hs_bindgen_fd6fce7c8d8b2f79 :: Ptr Config_t ->
+                                                                                       ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                       HsBindgen.Runtime.Prelude.CSize ->
+                                                                                       IO Status_code_t
+{-|
+
+  Function with complex documentation
+
+  This function demonstrates multiple documentation features:
+
+  __Description:__
+
+  Performs complex data processing with multiple steps.
+
+  __Algorithm:__
+
+  10. Validate input parameters
+
+  200. Allocate temporary buffers
+
+  3000. Process data in chunks
+
+  41235. Clean up resources
+
+  __Algorithm2:__
+
+  * Validate input parameters
+
+  * Allocate temporary buffers
+
+  * Process data in chunks
+
+  * Clean up resources
+
+  __Example:__
+
+  @
+  config_t cfg = {
+  .id = 1,
+  .name = "test",
+  .flags = 0,
+  .callback = my_callback,
+  .user_data = NULL
+  };
+
+  status_code_t result = complex_function(&cfg, data, size);
+  if (result != STATUS_OK) {
+  handle_error(result);
+  }
+  @
+
+  [__@config@ /(input)/__]: Configuration structure (see 'Config_t' )
+
+  [__@data@ /(input)/__]: Input data buffer
+
+  [__@size@ /(input)/__]: Size of input data
+
+  __returns:__ Status code indicating success or failure
+
+  __pre condition:__ config must not be NULL
+
+  __pre condition:__ data must not be NULL if size > 0
+
+  __post condition:__ Output data is written to config->user_data
+
+  __/WARNING:/__ May return NULL if memory allocation fails
+
+  __/WARNING:/__ Sets errno to EINVAL if parameters are invalid
+
+__C declaration:__ @complex_function@
+
+__defined at:__ @documentation\/doxygen_docs.h:423:15@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+complex_function :: Ptr Config_t ->
+                    ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
+                    HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t
+{-|
+
+  Function with complex documentation
+
+  This function demonstrates multiple documentation features:
+
+  __Description:__
+
+  Performs complex data processing with multiple steps.
+
+  __Algorithm:__
+
+  10. Validate input parameters
+
+  200. Allocate temporary buffers
+
+  3000. Process data in chunks
+
+  41235. Clean up resources
+
+  __Algorithm2:__
+
+  * Validate input parameters
+
+  * Allocate temporary buffers
+
+  * Process data in chunks
+
+  * Clean up resources
+
+  __Example:__
+
+  @
+  config_t cfg = {
+  .id = 1,
+  .name = "test",
+  .flags = 0,
+  .callback = my_callback,
+  .user_data = NULL
+  };
+
+  status_code_t result = complex_function(&cfg, data, size);
+  if (result != STATUS_OK) {
+  handle_error(result);
+  }
+  @
+
+  [__@config@ /(input)/__]: Configuration structure (see 'Config_t' )
+
+  [__@data@ /(input)/__]: Input data buffer
+
+  [__@size@ /(input)/__]: Size of input data
+
+  __returns:__ Status code indicating success or failure
+
+  __pre condition:__ config must not be NULL
+
+  __pre condition:__ data must not be NULL if size > 0
+
+  __post condition:__ Output data is written to config->user_data
+
+  __/WARNING:/__ May return NULL if memory allocation fails
+
+  __/WARNING:/__ Sets errno to EINVAL if parameters are invalid
+
+__C declaration:__ @complex_function@
+
+__defined at:__ @documentation\/doxygen_docs.h:423:15@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+complex_function = hs_bindgen_fd6fce7c8d8b2f79
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_hash@
+foreign import ccall safe "hs_bindgen_dd36c8b317ccfcc4" hs_bindgen_dd36c8b317ccfcc4 :: Ptr CChar ->
+                                                                                       IO CInt
+{-|
+
+  Marked @__attribute((pure))__@
+
+__C declaration:__ @hash@
+
+__defined at:__ @documentation\/doxygen_docs.h:427:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+hash :: Ptr CChar -> IO CInt
+{-|
+
+  Marked @__attribute((pure))__@
+
+__C declaration:__ @hash@
+
+__defined at:__ @documentation\/doxygen_docs.h:427:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
+-}
+hash = hs_bindgen_dd36c8b317ccfcc4
+-- | __unique:__ @test_documentationdoxygen_docs_Example_Unsafe_square@
+foreign import ccall safe "hs_bindgen_6875e30a7fe8d30a" hs_bindgen_6875e30a7fe8d30a :: CInt ->
+                                                                                       CInt
+{-| __C declaration:__ @square@
+
+    __defined at:__ @documentation\/doxygen_docs.h:429:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+square :: CInt -> CInt
+{-| __C declaration:__ @square@
+
+    __defined at:__ @documentation\/doxygen_docs.h:429:5@
+
+    __exported by:__ @documentation\/doxygen_docs.h@
+-}
+square = hs_bindgen_6875e30a7fe8d30a
 -- | __unique:__ @test_documentationdoxygen_docs_Example_get_process_data_ptr@
 foreign import ccall safe "hs_bindgen_00ad1c4db6c865d6" hs_bindgen_00ad1c4db6c865d6 :: IO (FunPtr (ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
                                                                                                    Ptr HsBindgen.Runtime.Prelude.Word8 ->

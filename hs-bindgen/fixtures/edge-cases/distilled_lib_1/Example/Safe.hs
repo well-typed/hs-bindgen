@@ -22,15 +22,20 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+-- | __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
+foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" hs_bindgen_57cb99ed92c001ad ::
+     Ptr.Ptr A_type_t
+  -> HsBindgen.Runtime.Prelude.Word32
+  -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
+  -> IO HsBindgen.Runtime.Prelude.Int32
+
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
-
-    __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 -}
-foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" some_fun ::
+some_fun ::
      Ptr.Ptr A_type_t
      -- ^ __C declaration:__ @i@
   -> HsBindgen.Runtime.Prelude.Word32
@@ -38,3 +43,4 @@ foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" some_fun ::
   -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
      -- ^ __C declaration:__ @k@
   -> IO HsBindgen.Runtime.Prelude.Int32
+some_fun = hs_bindgen_57cb99ed92c001ad

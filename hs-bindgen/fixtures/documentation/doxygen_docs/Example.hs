@@ -229,21 +229,23 @@ newtype Event_callback_t_Deref = Event_callback_t_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toEvent_callback_t_Deref ::
+-- | __unique:__ @toEvent_callback_t_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_0f8e2c78e0583f5e ::
      Event_callback_t_Deref
   -> IO (Ptr.FunPtr Event_callback_t_Deref)
 
-foreign import ccall safe "dynamic" fromEvent_callback_t_Deref ::
+-- | __unique:__ @fromEvent_callback_t_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_9dbdfc6c37a7780f ::
      Ptr.FunPtr Event_callback_t_Deref
   -> Event_callback_t_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Event_callback_t_Deref where
 
-  toFunPtr = toEvent_callback_t_Deref
+  toFunPtr = hs_bindgen_0f8e2c78e0583f5e
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr Event_callback_t_Deref where
 
-  fromFunPtr = fromEvent_callback_t_Deref
+  fromFunPtr = hs_bindgen_9dbdfc6c37a7780f
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t_Deref) "un_Event_callback_t_Deref")
          ) => GHC.Records.HasField "un_Event_callback_t_Deref" (Ptr.Ptr Event_callback_t_Deref) (Ptr.Ptr ty) where
@@ -1027,21 +1029,23 @@ newtype Processor_fn_t_Deref = Processor_fn_t_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toProcessor_fn_t_Deref ::
+-- | __unique:__ @toProcessor_fn_t_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_5f7a57f9f2b19661 ::
      Processor_fn_t_Deref
   -> IO (Ptr.FunPtr Processor_fn_t_Deref)
 
-foreign import ccall safe "dynamic" fromProcessor_fn_t_Deref ::
+-- | __unique:__ @fromProcessor_fn_t_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_a894574bbd080808 ::
      Ptr.FunPtr Processor_fn_t_Deref
   -> Processor_fn_t_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Processor_fn_t_Deref where
 
-  toFunPtr = toProcessor_fn_t_Deref
+  toFunPtr = hs_bindgen_5f7a57f9f2b19661
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr Processor_fn_t_Deref where
 
-  fromFunPtr = fromProcessor_fn_t_Deref
+  fromFunPtr = hs_bindgen_a894574bbd080808
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t_Deref) "un_Processor_fn_t_Deref")
          ) => GHC.Records.HasField "un_Processor_fn_t_Deref" (Ptr.Ptr Processor_fn_t_Deref) (Ptr.Ptr ty) where

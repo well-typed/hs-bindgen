@@ -15,14 +15,16 @@ newtype Fun_ptr_Deref
       __exported by:__ @functions\/circular_dependency_fun.h@
       -}
     deriving newtype HasBaseForeignType
-foreign import ccall safe "wrapper" toFun_ptr_Deref :: Fun_ptr_Deref ->
-                                                       IO (FunPtr Fun_ptr_Deref)
-foreign import ccall safe "dynamic" fromFun_ptr_Deref :: FunPtr Fun_ptr_Deref ->
-                                                         Fun_ptr_Deref
+-- | __unique:__ @toFun_ptr_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_83e60b3bb02cd08d :: Fun_ptr_Deref ->
+                                                                   IO (FunPtr Fun_ptr_Deref)
+-- | __unique:__ @fromFun_ptr_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_66799ec68b619f2a :: FunPtr Fun_ptr_Deref ->
+                                                                   Fun_ptr_Deref
 instance ToFunPtr Fun_ptr_Deref
-    where toFunPtr = toFun_ptr_Deref
+    where toFunPtr = hs_bindgen_83e60b3bb02cd08d
 instance FromFunPtr Fun_ptr_Deref
-    where fromFunPtr = fromFun_ptr_Deref
+    where fromFunPtr = hs_bindgen_66799ec68b619f2a
 instance TyEq ty (CFieldType Fun_ptr_Deref "un_Fun_ptr_Deref") =>
          HasField "un_Fun_ptr_Deref" (Ptr Fun_ptr_Deref) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Fun_ptr_Deref")
