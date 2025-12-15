@@ -25,6 +25,7 @@ import Foreign.C.Types qualified
 import Foreign.Ptr qualified
 import Foreign.StablePtr qualified
 import Foreign.Storable qualified
+import GHC.Base qualified
 import GHC.Exts (Int (..), sizeofByteArray#)
 import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Float (castDoubleToWord64, castFloatToWord32, castWord32ToFloat,
@@ -155,6 +156,19 @@ mkGlobal = \case
       ConstPtr_constructor -> 'HsBindgen.Runtime.ConstPtr.ConstPtr
       ConstPtr_unConstPtr  -> 'HsBindgen.Runtime.ConstPtr.unConstPtr
 
+      -- Prim
+      Prim_class           -> ''Primitive.Prim
+      Prim_sizeOf#         -> 'Primitive.sizeOf#
+      Prim_alignment#      -> 'Primitive.alignment#
+      Prim_indexByteArray# -> 'Primitive.indexByteArray#
+      Prim_readByteArray#  -> 'Primitive.readByteArray#
+      Prim_writeByteArray# -> 'Primitive.writeByteArray#
+      Prim_indexOffAddr#   -> 'Primitive.indexOffAddr#
+      Prim_readOffAddr#    -> 'Primitive.readOffAddr#
+      Prim_writeOffAddr#   -> 'Primitive.writeOffAddr#
+      Prim_add#            -> '(GHC.Base.+#)
+      Prim_mul#            -> '(GHC.Base.*#)
+
       Bits_class        -> ''Data.Bits.Bits
       Bounded_class     -> ''Bounded
       Enum_class        -> ''Enum
@@ -170,7 +184,6 @@ mkGlobal = \case
       Read_readPrec     -> 'Text.Read.readPrec
       Read_readList     -> 'Text.Read.readList
       Read_readListPrec -> 'Text.Read.readListPrec
-      Prim_class        -> ''Primitive.Prim
 
       Real_class       -> ''Real
       RealFloat_class  -> ''RealFloat
@@ -287,51 +300,52 @@ tupleTypeName n =
 
 mkGlobalP :: HsPrimType -> TH.Name
 mkGlobalP = \case
-    HsPrimVoid -> ''Data.Void.Void
-    HsPrimUnit -> ''()
+    HsPrimVoid       -> ''Data.Void.Void
+    HsPrimUnit       -> ''()
     HsPrimCStringLen -> ''Foreign.C.String.CStringLen
-    HsPrimChar -> ''Char
-    HsPrimInt -> ''Int
-    HsPrimDouble -> ''Double
-    HsPrimFloat -> ''Float
-    HsPrimBool -> ''Bool
-    HsPrimInt8 -> ''Data.Int.Int8
-    HsPrimInt16 -> ''Data.Int.Int16
-    HsPrimInt32 -> ''Data.Int.Int32
-    HsPrimInt64 -> ''Data.Int.Int64
-    HsPrimWord -> ''Word
-    HsPrimWord8 -> ''Data.Word.Word8
-    HsPrimWord16 -> ''Data.Word.Word16
-    HsPrimWord32 -> ''Data.Word.Word32
-    HsPrimWord64 -> ''Data.Word.Word64
-    HsPrimIntPtr -> ''Foreign.Ptr.IntPtr
-    HsPrimWordPtr -> ''Foreign.Ptr.WordPtr
-    HsPrimCChar -> ''Foreign.C.Types.CChar
-    HsPrimCSChar -> ''Foreign.C.Types.CSChar
-    HsPrimCUChar -> ''Foreign.C.Types.CUChar
-    HsPrimCShort -> ''Foreign.C.Types.CShort
-    HsPrimCUShort -> ''Foreign.C.Types.CUShort
-    HsPrimCInt -> ''Foreign.C.Types.CInt
-    HsPrimCUInt -> ''Foreign.C.Types.CUInt
-    HsPrimCLong -> ''Foreign.C.Types.CLong
-    HsPrimCULong -> ''Foreign.C.Types.CULong
-    HsPrimCPtrdiff -> ''Foreign.C.Types.CPtrdiff
-    HsPrimCSize -> ''Foreign.C.Types.CSize
-    HsPrimCWchar -> ''Foreign.C.Types.CWchar
+    HsPrimChar       -> ''Char
+    HsPrimInt        -> ''Int
+    HsPrimDouble     -> ''Double
+    HsPrimFloat      -> ''Float
+    HsPrimBool       -> ''Bool
+    HsPrimInt8       -> ''Data.Int.Int8
+    HsPrimInt16      -> ''Data.Int.Int16
+    HsPrimInt32      -> ''Data.Int.Int32
+    HsPrimInt64      -> ''Data.Int.Int64
+    HsPrimWord       -> ''Word
+    HsPrimWord8      -> ''Data.Word.Word8
+    HsPrimWord16     -> ''Data.Word.Word16
+    HsPrimWord32     -> ''Data.Word.Word32
+    HsPrimWord64     -> ''Data.Word.Word64
+    HsPrimIntPtr     -> ''Foreign.Ptr.IntPtr
+    HsPrimWordPtr    -> ''Foreign.Ptr.WordPtr
+    HsPrimUnboxedInt -> ''GHC.Base.Int#
+    HsPrimCChar      -> ''Foreign.C.Types.CChar
+    HsPrimCSChar     -> ''Foreign.C.Types.CSChar
+    HsPrimCUChar     -> ''Foreign.C.Types.CUChar
+    HsPrimCShort     -> ''Foreign.C.Types.CShort
+    HsPrimCUShort    -> ''Foreign.C.Types.CUShort
+    HsPrimCInt       -> ''Foreign.C.Types.CInt
+    HsPrimCUInt      -> ''Foreign.C.Types.CUInt
+    HsPrimCLong      -> ''Foreign.C.Types.CLong
+    HsPrimCULong     -> ''Foreign.C.Types.CULong
+    HsPrimCPtrdiff   -> ''Foreign.C.Types.CPtrdiff
+    HsPrimCSize      -> ''Foreign.C.Types.CSize
+    HsPrimCWchar     -> ''Foreign.C.Types.CWchar
     HsPrimCSigAtomic -> ''Foreign.C.Types.CSigAtomic
-    HsPrimCLLong -> ''Foreign.C.Types.CLLong
-    HsPrimCULLong -> ''Foreign.C.Types.CULLong
-    HsPrimCBool -> ''Foreign.C.Types.CBool
-    HsPrimCIntPtr -> ''Foreign.C.Types.CIntPtr
-    HsPrimCUIntPtr -> ''Foreign.C.Types.CUIntPtr
-    HsPrimCIntMax -> ''Foreign.C.Types.CIntMax
-    HsPrimCUIntMax -> ''Foreign.C.Types.CUIntMax
-    HsPrimCClock -> ''Foreign.C.Types.CClock
-    HsPrimCTime -> ''Foreign.C.Types.CTime
-    HsPrimCUSeconds -> ''Foreign.C.Types.CUSeconds
+    HsPrimCLLong     -> ''Foreign.C.Types.CLLong
+    HsPrimCULLong    -> ''Foreign.C.Types.CULLong
+    HsPrimCBool      -> ''Foreign.C.Types.CBool
+    HsPrimCIntPtr    -> ''Foreign.C.Types.CIntPtr
+    HsPrimCUIntPtr   -> ''Foreign.C.Types.CUIntPtr
+    HsPrimCIntMax    -> ''Foreign.C.Types.CIntMax
+    HsPrimCUIntMax   -> ''Foreign.C.Types.CUIntMax
+    HsPrimCClock     -> ''Foreign.C.Types.CClock
+    HsPrimCTime      -> ''Foreign.C.Types.CTime
+    HsPrimCUSeconds  -> ''Foreign.C.Types.CUSeconds
     HsPrimCSUSeconds -> ''Foreign.C.Types.CSUSeconds
-    HsPrimCFloat -> ''Foreign.C.Types.CFloat
-    HsPrimCDouble -> ''Foreign.C.Types.CDouble
+    HsPrimCFloat     -> ''Foreign.C.Types.CFloat
+    HsPrimCDouble    -> ''Foreign.C.Types.CDouble
 
 -- | Construct an 'TH.Exp' for a 'Global'
 mkGlobalExpr :: Quote q => Global -> q TH.Exp
@@ -415,6 +429,19 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     ConstPtr_constructor -> TH.conE name
     ConstPtr_unConstPtr  -> TH.varE name
 
+    -- Prim
+    Prim_class           -> panicPure "class in expression"
+    Prim_sizeOf#         -> TH.varE name
+    Prim_alignment#      -> TH.varE name
+    Prim_indexByteArray# -> TH.varE name
+    Prim_readByteArray#  -> TH.varE name
+    Prim_writeByteArray# -> TH.varE name
+    Prim_indexOffAddr#   -> TH.varE name
+    Prim_readOffAddr#    -> TH.varE name
+    Prim_writeOffAddr#   -> TH.varE name
+    Prim_add#            -> TH.varE name
+    Prim_mul#            -> TH.varE name
+
     -- Other type classes
     Bits_class        -> panicPure "class in expression"
     Bounded_class     -> panicPure "class in expression"
@@ -436,7 +463,6 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     RealFrac_class    -> panicPure "class in expression"
     Show_class        -> panicPure "class in expression"
     Show_showsPrec    -> TH.varE name
-    Prim_class        -> panicPure "class in expression"
 
     NomEq_class -> panicPure "class in expression"
 
@@ -536,7 +562,8 @@ mkExpr env = \case
       EBound x      -> TH.varE (lookupEnv x env)
       ECon n        -> hsConE n
       EIntegral i Nothing -> TH.litE (TH.IntegerL i)
-      EIntegral i (Just t)-> TH.sigE (TH.litE (TH.IntegerL i)) (mkPrimType t)
+      EIntegral i (Just HsPrimUnboxedInt) -> TH.sigE (TH.litE (TH.IntPrimL i)) (mkPrimType HsPrimUnboxedInt)
+      EIntegral i (Just t) -> TH.sigE (TH.litE (TH.IntegerL i)) (mkPrimType t)
       -- TH doesn't have floating-point literals, because it represents them
       -- using the Rational type, which is incorrect. (See GHC ticket #13124.)
       --
@@ -580,7 +607,7 @@ mkExpr env = \case
       EUnusedLam f ->
           TH.lamE [TH.wildP] (mkExpr env f)
       ECase x alts  -> TH.caseE (mkExpr env x)
-                         [ do
+                         ([ do
                               (xs, env') <- newNames env add hints
                               TH.match
                                  (hsConP c $ map TH.varP xs)
@@ -588,7 +615,32 @@ mkExpr env = \case
                                  []
                          | SAlt c add hints b <- alts
                          ]
+                         ++
+                         [ do
+                              -- SAltNoConstr has one name hint only
+                              -- guaranteed by the type.
+                              (xs, env') <- newNames env (AS AZ) hints
+                              case xs of
+                                []    -> panicPure "impossible happened"
+                                [v]   -> TH.match
+                                           (TH.varP v)
+                                           (TH.normalB $ mkExpr env' b)
+                                           []
+                                (_:_) -> panicPure "impossible happened"
+                         | SAltNoConstr hints b <- alts
+                         ]
+                         ++
+                         [ do
+                              (xs, env') <- newNames env add hints
+                              TH.match
+                                 (TH.unboxedTupP $ map TH.varP xs)
+                                 (TH.normalB $ mkExpr env' b)
+                                 []
+                         | SAltUnboxedTuple add hints b <- alts
+                         ]
+                         )
       ETup xs -> TH.tupE $ mkExpr env <$> xs
+      EUnboxedTup xs -> TH.unboxedTupE $ mkExpr env <$> xs
       EList xs -> TH.listE $ mkExpr env <$> xs
 
       ETypeApp f t -> TH.appTypeE (mkExpr env f) (mkType EmptyEnv t)

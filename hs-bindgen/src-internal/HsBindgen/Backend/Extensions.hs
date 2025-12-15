@@ -1,4 +1,5 @@
 {-# LANGUAGE MagicHash #-}
+
 module HsBindgen.Backend.Extensions (
     requiredExtensions,
 ) where
@@ -116,10 +117,17 @@ exprExtensions = \case
     EUnusedLam body -> exprExtensions body
     ECase x alts -> mconcat $
         exprExtensions x
-      : [ exprExtensions body
-        | SAlt _con _add _hints body <- alts
+      :  [ exprExtensions body
+         | SAlt _con _add _hints body <- alts
+         ]
+      ++ [ exprExtensions body
+        | SAltNoConstr _hints body <- alts
+        ]
+      ++ [ Set.singleton TH.UnboxedTuples <> exprExtensions body
+        | SAltUnboxedTuple _add _hints body <- alts
         ]
     ETup xs -> foldMap exprExtensions xs
+    EUnboxedTup xs -> Set.singleton TH.UnboxedTuples <> foldMap exprExtensions xs
     EList xs -> foldMap exprExtensions xs
     ETypeApp f t -> Set.singleton TH.TypeApplications <> exprExtensions f <> typeExtensions t
 

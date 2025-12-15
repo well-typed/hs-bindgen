@@ -27,6 +27,8 @@ module HsBindgen.Backend.SHs.AST (
     PatternSynonym (..),
 ) where
 
+import Data.Type.Nat (Nat1)
+
 import C.Char qualified as CExpr.Runtime
 
 import HsBindgen.Backend.Hs.AST.Strategy qualified as Hs
@@ -127,6 +129,19 @@ data Global =
   | ConstPtr_constructor
   | ConstPtr_unConstPtr
 
+    -- Prim
+  | Prim_class
+  | Prim_sizeOf#
+  | Prim_alignment#
+  | Prim_indexByteArray#
+  | Prim_readByteArray#
+  | Prim_writeByteArray#
+  | Prim_indexOffAddr#
+  | Prim_readOffAddr#
+  | Prim_writeOffAddr#
+  | Prim_add#
+  | Prim_mul#
+
     -- Other type classes
   | Bits_class
   | Bounded_class
@@ -139,7 +154,6 @@ data Global =
   | Ix_class
   | Num_class
   | Ord_class
-  | Prim_class
   | Read_class
   | Read_readPrec
   | Read_readList
@@ -261,6 +275,7 @@ data SExpr ctx =
   | EUnusedLam (SExpr ctx)
   | ECase (SExpr ctx) [SAlt ctx]
   | ETup [SExpr ctx]
+  | EUnboxedTup [SExpr ctx]
   | EList [SExpr ctx]
     -- | Type application using \@
   | ETypeApp (SExpr ctx) ClosedType
@@ -288,7 +303,12 @@ pattern EInt i <- EIntegral (fromInteger -> i) (Just HsPrimInt)
 
 -- | Case alternatives
 data SAlt ctx where
-    SAlt :: Hs.Name Hs.NsConstr -> Add n ctx ctx' -> Vec n NameHint -> SExpr ctx' -> SAlt ctx
+    SAlt
+      :: Hs.Name Hs.NsConstr -> Add n ctx ctx' -> Vec n NameHint -> SExpr ctx' -> SAlt ctx
+    SAltNoConstr
+      :: Vec Nat1 NameHint -> SExpr (S ctx) -> SAlt ctx
+    SAltUnboxedTuple
+      :: Add n ctx ctx' -> Vec n NameHint -> SExpr ctx' -> SAlt ctx
 
 deriving stock instance Show (SAlt ctx)
 

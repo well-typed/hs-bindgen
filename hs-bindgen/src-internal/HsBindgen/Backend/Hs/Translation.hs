@@ -232,13 +232,13 @@ structDecs opts haddockConfig info struct spec fields = do
       }
 
     candidateInsts :: Set Hs.TypeClass
-    candidateInsts = Set.union (Set.singleton Hs.Storable) $
+    candidateInsts = Set.union (Set.fromList [Hs.Storable, Hs.Prim]) $
       Set.fromList (snd <$> translationDeriveStruct opts)
 
     -- everything in aux is state-dependent
     aux :: Hs.InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux instanceMap = (insts,) $
-        structDecl : storableDecl ++ optDecls ++ hasFlamDecl ++
+        structDecl : storableDecl ++ primDecl ++ optDecls ++ hasFlamDecl ++
         concatMap (structFieldDecls structName) (C.structFields struct)
         -- TODO: generate zero-copy bindings for the FLAM field. See issue
         -- #1286.
@@ -285,6 +285,116 @@ structDecs opts haddockConfig info struct spec fields = do
                                         Vec.zipWith (pokeStructField (weaken wk I1)) fields xs
                                   }
                           }
+
+        primDecl :: [Hs.Decl]
+        primDecl
+          | Hs.Prim `Set.notMember` insts = []
+          | otherwise = singleton
+                      $ Hs.DeclDefineInstance
+                          Hs.DefineInstance {
+                            defineInstanceComment      = Nothing
+                          , defineInstanceDeclarations =
+                              Hs.InstancePrim
+                                  hsStruct
+                                  Hs.PrimInstance {
+                                    Hs.primSizeOf    = C.structSizeof struct
+                                  , Hs.primAlignment = C.structAlignment struct
+                                  -- indexByteArray# :: ByteArray# -> Int# -> a
+                                  , Hs.primIndexByteArray = Hs.Lambda "arr"
+                                                          $ Hs.Lambda "i"
+                                                          $ Hs.Apply (Hs.StructCon hsStruct)
+                                                          $ indexedByteArrayFields (IS IZ) IZ
+                                  -- readByteArray# :: MutableByteArray# s -> Int# -> State# s -> (# State# s, a #)
+                                  , Hs.primReadByteArray = Hs.Lambda "arr"
+                                                         $ Hs.Lambda "i"
+                                                         $ Hs.Lambda "s"
+                                                         $ Hs.ReadByteArrayFields readFieldData
+                                  -- writeByteArray# :: MutableByteArray# s -> Int# -> a -> State# s -> State# s
+                                  , Hs.primWriteByteArray = Hs.Lambda "arr"
+                                                          $ Hs.Lambda "i"
+                                                          $ Hs.Lambda "struct"
+                                                          $ Hs.Lambda "s"
+                                                          $ Hs.makeElimStruct (IS IZ) hsStruct
+                                                          $ \wk xs ->
+                                                              Hs.WriteByteArrayFields
+                                                                Hs.WritePrimFieldsData
+                                                                   { Hs.writeFields = zipWith (\(ty, pos) x -> (ty, pos, x))
+                                                                                              fieldTypesWithPos
+                                                                                              (toList xs)
+                                                                   , Hs.writeFieldsArg1 = weaken wk (IS (IS (IS IZ)))
+                                                                   , Hs.writeFieldsArg2 = weaken wk (IS (IS IZ))
+                                                                   , Hs.writeFieldsArg3 = weaken wk IZ
+                                                                   , Hs.writeNumFields  = numFields
+                                                                   }
+                                  -- indexOffAddr# :: Addr# -> Int# -> a
+                                  , Hs.primIndexOffAddr = Hs.Lambda "addr"
+                                                        $ Hs.Lambda "i"
+                                                        $ Hs.Apply (Hs.StructCon hsStruct)
+                                                        $ indexedOffAddrFields (IS IZ) IZ
+                                  -- readOffAddr# :: Addr# -> Int# -> State# s -> (# State# s, a #)
+                                  , Hs.primReadOffAddr = Hs.Lambda "addr"
+                                                       $ Hs.Lambda "i"
+                                                       $ Hs.Lambda "s"
+                                                       $ Hs.ReadOffAddrFields readFieldData
+                                  -- writeOffAddr# :: Addr# -> Int# -> a -> State# s -> State# s
+                                  , Hs.primWriteOffAddr = Hs.Lambda "addr"
+                                                        $ Hs.Lambda "i"
+                                                        $ Hs.Lambda "struct"
+                                                        $ Hs.Lambda "s"
+                                                        $ Hs.makeElimStruct (IS IZ) hsStruct
+                                                        $ \wk xs ->
+                                                            Hs.WriteOffAddrFields
+                                                               { Hs.writeAddrFieldData = Hs.WritePrimFieldsData
+                                                                    { Hs.writeFields = zipWith (\(ty, pos) x -> (ty, pos, x))
+                                                                                               fieldTypesWithPos
+                                                                                               (toList xs)
+                                                                    , Hs.writeFieldsArg1 = weaken wk (IS (IS (IS IZ)))
+                                                                    , Hs.writeFieldsArg2 = weaken wk (IS (IS IZ))
+                                                                    , Hs.writeFieldsArg3 = weaken wk IZ
+                                                                    , Hs.writeNumFields  = numFields
+                                                                    }
+                                                               }
+                                  }
+                          }
+          where
+            numFields = Vec.length fields
+            fieldTypesWithPos = [(Hs.fieldType f, pos) | (f, pos) <- zip (toList structFields) [0..]]
+
+            readFieldData = Hs.ReadPrimFieldsData {
+                Hs.readFields = fieldTypesWithPos
+              , Hs.readFieldsArg1 = IS (IS IZ)
+              , Hs.readFieldsArg2 = IS IZ
+              , Hs.readFieldsArg3 = IZ
+              , Hs.readNumFields = numFields
+              }
+
+            -- | Generate IndexByteArrayField for each struct field
+            indexedByteArrayFields :: Idx ctx -> Idx ctx -> [Hs.IndexByteArrayField ctx]
+            indexedByteArrayFields arrIdx elemIdx =
+              [ Hs.IndexByteArrayField
+                  Hs.IndexPrimFieldData
+                     { Hs.indexFieldType = fieldTy
+                     , Hs.indexFieldArg1 = arrIdx
+                     , Hs.indexFieldArg2 = elemIdx
+                     , Hs.indexFieldPos  = pos
+                     , Hs.indexNumFields = numFields
+                     }
+              | (fieldTy, pos) <- fieldTypesWithPos
+              ]
+
+            -- | Generate IndexOffAddrField for each struct field
+            indexedOffAddrFields :: Idx ctx -> Idx ctx -> [Hs.IndexOffAddrField ctx]
+            indexedOffAddrFields addrIdx elemIdx =
+              [ Hs.IndexOffAddrField
+                   Hs.IndexPrimFieldData
+                     { Hs.indexFieldType = fieldTy
+                     , Hs.indexFieldArg1 = addrIdx
+                     , Hs.indexFieldArg2 = elemIdx
+                     , Hs.indexFieldPos  = pos
+                     , Hs.indexNumFields = numFields
+                     }
+              | (fieldTy, pos) <- fieldTypesWithPos
+              ]
 
         optDecls :: [Hs.Decl]
         optDecls = [
@@ -483,7 +593,7 @@ unionDecs haddockConfig info union spec = do
     -- everything in aux is state-dependent
     aux :: TranslationState -> Hs.Newtype -> [Hs.Decl]
     aux transState nt =
-        Hs.DeclNewtype nt : storableDecl : accessorDecls ++
+        Hs.DeclNewtype nt : storableDecl : primDecl : accessorDecls ++
         concatMap (unionFieldDecls nt.newtypeName) (C.unionFields union)
       where
         storableDecl :: Hs.Decl
@@ -492,6 +602,16 @@ unionDecs haddockConfig info union spec = do
             Hs.DeriveInstance {
               deriveInstanceStrategy = Hs.DeriveVia sba
             , deriveInstanceClass    = Hs.Storable
+            , deriveInstanceName     = nt.newtypeName
+            , deriveInstanceComment  = Nothing
+            }
+
+        primDecl :: Hs.Decl
+        primDecl =
+          Hs.DeclDeriveInstance
+            Hs.DeriveInstance {
+              deriveInstanceStrategy = Hs.DeriveVia sba
+            , deriveInstanceClass    = Hs.Prim
             , deriveInstanceName     = nt.newtypeName
             , deriveInstanceComment  = Nothing
             }
@@ -674,7 +794,7 @@ enumDecs opts haddockConfig info e spec = do
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
     aux nt =
-        Hs.DeclNewtype nt : storableDecl : HsFI.hasBaseForeignTypeDecs nt ++
+        Hs.DeclNewtype nt : storableDecl : primDecl : HsFI.hasBaseForeignTypeDecs nt ++
         optDecls ++ cEnumInstanceDecls ++ valueDecls
       where
         hsStruct :: Hs.Struct (S Z)
@@ -702,6 +822,16 @@ enumDecs opts haddockConfig info e spec = do
                       Hs.Seq [ Hs.PokeByteOff I2 0 IZ ]
                 }
           }
+
+        primDecl :: Hs.Decl
+        primDecl =
+          Hs.DeclDeriveInstance
+            Hs.DeriveInstance {
+              deriveInstanceStrategy = Hs.DeriveVia nt.newtypeField.fieldType
+            , deriveInstanceClass    = Hs.Prim
+            , deriveInstanceName     = nt.newtypeName
+            , deriveInstanceComment  = Nothing
+            }
 
         optDecls :: [Hs.Decl]
         optDecls = [
@@ -826,7 +956,7 @@ typedefDecs opts haddockConfig info typedef spec = do
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
     aux nt =
-        Hs.DeclNewtype nt : newtypeWrapper ++ storableDecl ++ optDecls ++
+        Hs.DeclNewtype nt : newtypeWrapper ++ storableDecl ++ primDecl ++ optDecls ++
         typedefFieldDecls nt ++
         HsFI.hasBaseForeignTypeDecs nt
       where
@@ -840,6 +970,18 @@ typedefDecs opts haddockConfig info typedef spec = do
                 Hs.DeriveInstance {
                   deriveInstanceStrategy = Hs.DeriveNewtype
                 , deriveInstanceClass    = Hs.Storable
+                , deriveInstanceName     = nt.newtypeName
+                , deriveInstanceComment  = Nothing
+                }
+
+        primDecl :: [Hs.Decl]
+        primDecl
+          | Hs.Prim `Set.notMember` insts = []
+          | otherwise = singleton $
+              Hs.DeclDeriveInstance
+                Hs.DeriveInstance {
+                  deriveInstanceStrategy = Hs.DeriveNewtype
+                , deriveInstanceClass    = Hs.Prim
                 , deriveInstanceName     = nt.newtypeName
                 , deriveInstanceComment  = Nothing
                 }

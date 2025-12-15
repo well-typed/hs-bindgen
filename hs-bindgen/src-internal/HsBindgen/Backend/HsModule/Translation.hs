@@ -270,10 +270,17 @@ resolveExprImports = \case
     EUnusedLam body -> resolveExprImports body
     ECase x alts -> mconcat $
         resolveExprImports x
-      : [ resolveExprImports body
-        | SAlt _con _add _hints body <- alts
-        ]
+      :  [ resolveExprImports body
+         | SAlt _con _add _hints body <- alts
+         ]
+      ++ [ resolveExprImports body
+         | SAltNoConstr _hints body <- alts
+         ]
+      ++ [ resolveExprImports body
+         | SAltUnboxedTuple _add _hints body <- alts
+         ]
     ETup xs -> foldMap resolveExprImports xs
+    EUnboxedTup xs -> foldMap resolveExprImports xs
     EList xs -> foldMap resolveExprImports xs
     ETypeApp f t -> resolveExprImports f <> resolveTypeImports t
 

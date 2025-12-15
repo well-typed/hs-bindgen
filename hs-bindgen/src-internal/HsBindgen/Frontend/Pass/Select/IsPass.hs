@@ -187,7 +187,7 @@ instance PrettyForTrace SelectMsg where
       prettyDep i = \case
         []  -> prettyForTrace i >< " (no source location available)"
         [l] -> prettyForTrace (C.Located l i)
-        ls  -> prettyForTrace i <+> PP.hlist '(' ')' (map PP.showToCtxDoc ls)
+        ls  -> prettyForTrace i <+> PP.hlist "(" ")" (map PP.showToCtxDoc ls)
 
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case

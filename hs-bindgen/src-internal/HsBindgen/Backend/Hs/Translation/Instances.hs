@@ -96,6 +96,7 @@ getInstances instanceMap name = aux
       HsPrimWord64 -> integralInsts
       HsPrimIntPtr -> integralInsts
       HsPrimWordPtr -> integralInsts
+      HsPrimUnboxedInt -> unboxedInsts
       HsPrimCChar -> integralInsts
       HsPrimCSChar -> integralInsts
       HsPrimCUChar -> integralInsts
@@ -136,6 +137,9 @@ getInstances instanceMap name = aux
       , HasBaseForeignType
       ]
 
+    unboxedInsts :: Set TypeClass
+    unboxedInsts = Set.fromList []
+
     integralInsts :: Set TypeClass
     integralInsts = Set.fromList [
         Bits
@@ -147,6 +151,7 @@ getInstances instanceMap name = aux
       , Ix
       , Num
       , Ord
+      , Prim
       , Read
       , ReadRaw
       , Real
@@ -165,6 +170,7 @@ getInstances instanceMap name = aux
       , Fractional
       , Num
       , Ord
+      , Prim
       , Read
       , ReadRaw
       , Real

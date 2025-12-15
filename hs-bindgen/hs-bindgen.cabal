@@ -426,7 +426,10 @@ test-suite test-th
     , tasty-hunit
 
   -- External dependencies
-  build-depends:    vector ^>=0.13.2.0
+  build-depends:
+    , ghc-prim
+    , primitive
+    , vector     ^>=0.13.2.0
 
 test-suite test-pp
   type:               exitcode-stdio-1.0
@@ -459,7 +462,10 @@ test-suite test-pp
     , tasty-hunit
 
   -- External dependencies
-  build-depends:      vector ^>=0.13.2.0
+  build-depends:
+    , ghc-prim
+    , primitive
+    , vector     ^>=0.13.2.0
 
   if impl(ghc <9.4)
     build-depends: data-array-byte

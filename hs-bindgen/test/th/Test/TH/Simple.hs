@@ -8,11 +8,13 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE UndecidableInstances #-}
+{-# LANGUAGE UnboxedTuples #-}
 
 -- | Test simple Template Haskell interface.
 
 module Test.TH.Simple where
 
+import GHC.Prim
 import Optics ((%), (&), (.~))
 
 import HsBindgen.Runtime.Prelude qualified

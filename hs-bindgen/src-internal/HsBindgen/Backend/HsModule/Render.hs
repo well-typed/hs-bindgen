@@ -317,7 +317,7 @@ instance Pretty SDecl where
             | (c, ts) <- instanceSuperClasses
             ]
           -- @flist@ should either be @hlist@ or @vlist@
-          clsContext flist = flist '(' ')' constraints
+          clsContext flist = flist "(" ")" constraints
           clsHead = hsep (pretty (resolve instanceClass) : map (prettyPrec 1) instanceArgs)
           cls flist =
                 "instance"
@@ -346,7 +346,7 @@ instance Pretty SDecl where
           prettyTopLevelComment = maybe empty (pretty . TopLevelComment) dataComment
       in  prettyTopLevelComment
        $$ (hang d 2 $
-            vcat [ vlist '{' '}'
+            vcat [ vlist "{" "}"
                      [   hsep [ pretty (fieldName f)
                               , "::"
                               , pretty (fieldType f)
@@ -370,7 +370,7 @@ instance Pretty SDecl where
           prettyFieldComment = maybe empty (pretty . PartOfDeclarationComment) (fieldComment newtypeField)
       in  prettyComment
        $$ (hang d 2 $ vcat [
-             vlist '{' '}'
+             vlist "{" "}"
                [ hsep
                    [ pretty (fieldName newtypeField)
                    , "::"
@@ -548,6 +548,8 @@ prettyExpr env prec = \case
     ECon n   -> pretty n
 
     EIntegral i Nothing -> parensWhen (prec > 0 && i < 0) (showToCtxDoc i)
+    EIntegral i (Just HsPrimUnboxedInt) ->
+      parens $ hcat [showToCtxDoc i, "# :: ", prettyPrimType HsPrimUnboxedInt]
     EIntegral i (Just t) ->
       parens $ hcat [showToCtxDoc i, " :: ", prettyPrimType t]
     EChar (CExpr.Runtime.CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->
@@ -622,7 +624,7 @@ prettyExpr env prec = \case
       if null alts
         then hsep ["case", prettyExpr env 0 x, "of", "{}"]
         else hang (hsep ["case", prettyExpr env 0 x, "of"]) 2 $ vcat
-            [ withFreshNames env add hints $ \env' params ->
+            ([ withFreshNames env add hints $ \env' params ->
 
                 let l = hsep $ pretty cnst : params ++ ["->"]
                 in  ifFits l (fsep [l, nest 2 (prettyExpr env' 0 body)]) $
@@ -638,15 +640,50 @@ prettyExpr env prec = \case
 
             | SAlt cnst add hints body <- alts
             ]
+            ++
+            [ withFreshNames env (AS AZ) hints $ \env' params ->
+                let l = hsep $ params ++ ["->"]
+                in  ifFits l (fsep [l, nest 2 (prettyExpr env' 0 body)]) $
+                    case unsnoc params of
+                      Nothing -> fsep [l, nest 2 (prettyExpr env' 0 body)]
+                      Just (lParams, rParam) -> vcat $
+                          [ nest 2 param
+                          | param <- lParams
+                          ]
+                        ++ [nest 2 (rParam <+> "->")]
+                        ++ [nest 4 (prettyExpr env' 0 body)]
+
+            | SAltNoConstr hints body <- alts
+            ]
+            ++
+            [ withFreshNames env add hints $ \env' params ->
+                let l  = hlist "(# " " #)" params <+> "->"
+                in  ifFits l (fsep [l, nest 2 (prettyExpr env' 0 body)]) $
+                    case unsnoc params of
+                      Nothing -> fsep [l, nest 2 (prettyExpr env' 0 body)]
+                      Just (lParams, rParam) -> vcat $
+                          [ nest 2 param
+                          | param <- lParams
+                          ]
+                        ++ [nest 2 (rParam <+> "->")]
+                        ++ [nest 4 (prettyExpr env' 0 body)]
+
+            | SAltUnboxedTuple add hints body <- alts
+            ]
+            )
 
     ETup xs ->
       let ds = prettyExpr env 0 <$> xs
-          l  = hlist '(' ')' ds
-      in  ifFits l l $ vlist '(' ')' ds
+          l  = hlist "(" ")" ds
+      in  ifFits l l $ vlist "(" ")" ds
+    EUnboxedTup xs ->
+      let ds = prettyExpr env 0 <$> xs
+          l  = hlist "(# " " #)" ds
+      in  ifFits l l $ vlist "(# " " #)" ds
     EList xs ->
       let ds = prettyExpr env 0 <$> xs
-          l  = hlist '[' ']' ds
-      in  ifFits l l $ vlist '[' ']' ds
+          l  = hlist "[" "]" ds
+      in  ifFits l l $ vlist "[" "]" ds
 
     -- NOTE: the precedence is copied from the @EApp@ case above
     ETypeApp f t -> parensWhen (prec > 3) $ prettyExpr env 3 f <+> "@" >< prettyPrec 4 t
