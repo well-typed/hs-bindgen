@@ -136,6 +136,8 @@ writeUseDeclGraph pol mPath = do
       Nothing   -> Lift $ delay $ WriteToStdOut $ TextContent rendered
       Just path -> Lift $ write pol "use-decl graph" (UserSpecified path) rendered
 
+-- TODO_PR: Be careful when there are no declarations at all.
+
 -- | Get bindings (single module).
 getBindings :: Artefact String
 getBindings = do
@@ -143,11 +145,15 @@ getBindings = do
     decls <- FinalDecls
     pure $ render $ translateModuleSingle name decls
 
+-- TODO_PR: Be careful when there are no declarations at all.
+
 -- | Write bindings to file.
 writeBindings :: FileOverwritePolicy -> FilePath -> Artefact ()
 writeBindings fileOverwritePolicy path = do
     bindings <- getBindings
     Lift $ write fileOverwritePolicy "bindings" (UserSpecified path) bindings
+
+-- TODO_PR: Be careful when there are no declarations at all.
 
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: Artefact (ByCategory_ (Maybe String))
@@ -155,6 +161,8 @@ getBindingsMultiple = do
   name  <- FinalModuleBaseName
   decls <- FinalDecls
   pure $ fmap render <$> translateModuleMultiple name decls
+
+-- TODO_PR: Be careful when there are no declarations at all.
 
 -- | Write bindings to files in provided output directory.
 --

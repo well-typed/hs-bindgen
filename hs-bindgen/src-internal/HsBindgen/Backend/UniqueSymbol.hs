@@ -30,8 +30,6 @@ data UniqueSymbol = UniqueSymbol{
       -- | Generated unique symbol
       unique :: String
 
-      -- TODO_PR: Rename to 'unhashed'.
-
       -- | Source of the unique symbol
       --
       -- This is intended to be included in the generated output as a comment,

@@ -182,10 +182,5 @@ useUnsafeCategory = ByCategory {
     , cGlobal = IncludeTermCategory def
     }
 
--- TODO_PR: Golden test case for #1262.
-
--- TODO_PR: Check whether files for empty categories are NOT created (golden
--- tests and client). Recreate all fixtures and check they are non-empty.
-
 applyConst :: (a -> b) -> Const a c -> Const b c
 applyConst f = Const . f . getConst
