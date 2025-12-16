@@ -737,7 +737,7 @@ mkDecl = \case
                 <*> mkType EmptyEnv importType
 
       DFunction Function {..} -> do
-        let thFunctionName = hsNameToTH functionName
+        let thFunctionName = hsNameToTH $ fromFunctionName functionName
 
             functionType = foldr (TFun . functionParameterType) functionResultType functionParameters
 

@@ -32,7 +32,6 @@ module HsBindgen.Backend.SHs.AST (
 ) where
 
 import Data.Map qualified as Map
-import Data.Text qualified as Text
 
 import C.Char qualified as CExpr.Runtime
 
@@ -437,10 +436,10 @@ data FunctionName =
 fromFunctionName :: FunctionName -> Hs.Name Hs.NsVar
 fromFunctionName = \case
   Exported x -> x
-  Internal s -> Hs.Name $ Text.pack s.unique
+  Internal s -> unsafeUniqueHsName s
 
 data Function = Function {
-      functionName       :: Hs.Name Hs.NsVar
+      functionName       :: FunctionName
     , functionParameters :: [FunctionParameter]
     , functionResultType :: ClosedType
     , functionBody       :: ClosedExpr
