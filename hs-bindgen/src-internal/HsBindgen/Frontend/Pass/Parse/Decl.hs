@@ -398,14 +398,27 @@ typedefDecl info = \curr -> do
                 RequiredForScoping
     typedefType <- fromCXType' ctx
                      =<< clang_getTypedefDeclUnderlyingType curr
-    typedefAnn  <- getReparseInfo curr
+
+    declKind <-
+      case typedefType of
+      C.TypeVoid ->
+        -- We regard
+        --
+        -- > typedef void foo
+        --
+        -- as the declaration of an opaque type.
+        return $ C.DeclOpaque C.NameKindOrdinary
+      _otherwise -> do
+        typedefAnn <- getReparseInfo curr
+        return $ C.DeclTypedef C.Typedef{
+            typedefType
+          , typedefAnn
+          }
+
     let decl :: C.Decl Parse
         decl = C.Decl{
             declInfo = info
-          , declKind = C.DeclTypedef C.Typedef{
-                typedefType
-              , typedefAnn
-              }
+          , declKind = declKind
           , declAnn  = NoAnn
           }
     foldContinueWith [parseSucceed decl]

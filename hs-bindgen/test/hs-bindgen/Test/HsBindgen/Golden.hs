@@ -339,6 +339,9 @@ test_edge_cases_spec_examples = defaultTest "edge-cases/spec_examples"
 test_edge_cases_uses_utf8 :: TestCase
 test_edge_cases_uses_utf8 = defaultTest "edge-cases/uses_utf8"
 
+test_edge_cases_typedef_void :: TestCase
+test_edge_cases_typedef_void = defaultTest "edge-cases/typedef_void"
+
 test_functions_callbacks :: TestCase
 test_functions_callbacks = defaultTest "functions/callbacks"
 
@@ -1231,18 +1234,19 @@ testCases = manualTestCases ++ [
     , test_documentation_data_kind_pragma
     , test_documentation_doxygen_docs
     , test_edge_cases_adios
-    , test_edge_cases_duplicate
     , test_edge_cases_clang_generated_collision
     , test_edge_cases_distilled_lib_1
-    , test_edge_cases_select_no_match
-    , test_edge_cases_thread_local
-    , test_edge_cases_unsupported_builtin
+    , test_edge_cases_duplicate
     , test_edge_cases_flam
     , test_edge_cases_headers
     , test_edge_cases_iterator
     , test_edge_cases_names
     , test_edge_cases_ordinary_anon
+    , test_edge_cases_select_no_match
     , test_edge_cases_spec_examples
+    , test_edge_cases_thread_local
+    , test_edge_cases_typedef_void
+    , test_edge_cases_unsupported_builtin
     , test_edge_cases_uses_utf8
     , test_functions_callbacks
     , test_functions_circular_dependency_fun
