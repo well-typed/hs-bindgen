@@ -27,11 +27,31 @@ KNOWN_FAILURES=(
     types/typedefs/typenames     # Multiple declarations (hs-bindgen namespace possible bug/feature)
 )
 
+# Known fixtures without code - these will be skipped
+KNOWN_EMPTY=(
+    declarations/declaration_unselected_b
+    declarations/redeclaration_different
+    edge-cases/clang_generated_collision
+    edge-cases/duplicate
+    edge-cases/headers
+    edge-cases/select_no_match
+    edge-cases/thread_local
+    edge-cases/unsupported_builtin
+    macros/macro_type_void
+    program-analysis/delay_traces
+    program-analysis/selection_foo
+    program-analysis/selection_omit_prescriptive
+    types/special/long_double
+    types/structs/implicit_fields_struct
+    types/structs/unnamed-struct
+    types/unions/implicit_fields_union
+)
+
 # The number of fixtures that are known to exist (including known failures)
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=76
+KNOWN_FIXTURES_COUNT=104
 
 # Default options
 JOBS=4
@@ -91,6 +111,17 @@ is_known_failure() {
     local fixture_name="$1"
     for failure in "${KNOWN_FAILURES[@]}"; do
         if [[ "$fixture_name" == "$failure" ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+# Function to check if a file is in the known empty fixtures list
+is_known_empty() {
+    local fixture_name="$1"
+    for empty in "${KNOWN_EMPTY[@]}"; do
+        if [[ "$fixture_name" == "$empty" ]]; then
             return 0
         fi
     done
@@ -170,7 +201,9 @@ compile_fixture() {
 # Make these functions and variables available to child processes (subshells)
 export -f compile_fixture
 export -f is_known_failure
+export -f is_known_empty
 export KNOWN_FAILURES
+export KNOWN_EMPTY
 export KNOWN_FIXTURES_COUNT
 export HS_BINDGEN_DIR
 export EXAMPLES_DIR
@@ -180,18 +213,21 @@ export FIXTURES_DIR
 echo "Collecting fixtures..."
 FIXTURES_TO_COMPILE=()
 FIXTURES_SKIPPED=()
+FIXTURES_EMPTY=()
 
 # Use find to recursively search for all .hs files
 while IFS= read -r -d '' file; do
     fixture_name=$(get_fixture_name "$file")
     if [[ "$FORCE_ALL" == "false" ]] && is_known_failure "$fixture_name"; then
         FIXTURES_SKIPPED+=("$fixture_name")
+    elif [[ "$FORCE_ALL" == "false" ]] && is_known_empty "$fixture_name"; then
+        FIXTURES_EMPTY+=("$fixture_name")
     else
         FIXTURES_TO_COMPILE+=("$fixture_name")
     fi
-done < <(find "$FIXTURES_DIR" -type f -name "Example.hs" -print0 | sort -z)
+done < <(find "$FIXTURES_DIR" -type f -name "bindingspec.yaml" -print0 | sort -z)
 
-FIXTURES_FOUND_COUNT=$((${#FIXTURES_TO_COMPILE[@]} + ${#FIXTURES_SKIPPED[@]}))
+FIXTURES_FOUND_COUNT=$((${#FIXTURES_TO_COMPILE[@]} + ${#FIXTURES_SKIPPED[@]} + ${#FIXTURES_EMPTY[@]}))
 
 echo ""
 echo "========================================="
@@ -201,6 +237,7 @@ echo "Total known fixtures: $KNOWN_FIXTURES_COUNT"
 echo "Total found fixtures: $FIXTURES_FOUND_COUNT"
 echo "To compile: ${#FIXTURES_TO_COMPILE[@]}"
 echo "Skipped (known failures): ${#FIXTURES_SKIPPED[@]}"
+echo "Skipped (empty): ${#FIXTURES_EMPTY[@]}"
 echo "Parallel jobs: $JOBS"
 echo "========================================="
 echo ""
@@ -213,6 +250,14 @@ fi
 if [[ ${#FIXTURES_SKIPPED[@]} -gt 0 ]]; then
     echo "Skipped fixtures (use -f to force):"
     for file in "${FIXTURES_SKIPPED[@]}"; do
+        echo "  - $file"
+    done
+    echo ""
+fi
+
+if [[ ${#FIXTURES_EMPTY[@]} -gt 0 ]]; then
+    echo "Empty fixtures (use -f to force):"
+    for file in "${FIXTURES_EMPTY[@]}"; do
         echo "  - $file"
     done
     echo ""
