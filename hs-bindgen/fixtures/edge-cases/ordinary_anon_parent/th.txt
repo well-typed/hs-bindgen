@@ -13,9 +13,9 @@
 -- {
 --   return _acos(arg1);
 -- }
--- /* test_edgecasesordinary_anon_paren_Example_get__acos_ptr */
+-- /* test_edgecasesordinary_anon_paren_Example_get__acos */
 -- __attribute__ ((const))
--- double (*hs_bindgen_bca479e11d297ab8 (void)) (
+-- double (*hs_bindgen_147bbeebcb063844 (void)) (
 --   double arg1
 -- )
 -- {
@@ -55,21 +55,21 @@ _acos :: CDouble -> IO CDouble
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
 _acos = hs_bindgen_dca60678b5047ee4
--- | __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos_ptr@
-foreign import ccall safe "hs_bindgen_bca479e11d297ab8" hs_bindgen_bca479e11d297ab8 :: IO (FunPtr (CDouble ->
+-- | __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos@
+foreign import ccall safe "hs_bindgen_147bbeebcb063844" hs_bindgen_147bbeebcb063844 :: IO (FunPtr (CDouble ->
                                                                                                    IO CDouble))
-{-# NOINLINE _acos_ptr #-}
+{-# NOINLINE _acos #-}
 {-| __C declaration:__ @_acos@
 
     __defined at:__ @ordinary_anon_child.h:4:1@
 
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
-_acos_ptr :: FunPtr (CDouble -> IO CDouble)
+_acos :: FunPtr (CDouble -> IO CDouble)
 {-| __C declaration:__ @_acos@
 
     __defined at:__ @ordinary_anon_child.h:4:1@
 
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
-_acos_ptr = unsafePerformIO hs_bindgen_bca479e11d297ab8
+_acos = unsafePerformIO hs_bindgen_147bbeebcb063844

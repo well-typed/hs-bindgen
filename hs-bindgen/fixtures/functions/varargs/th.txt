@@ -10,9 +10,9 @@
 -- {
 --   h();
 -- }
--- /* test_functionsvarargs_Example_get_h_ptr */
+-- /* test_functionsvarargs_Example_get_h */
 -- __attribute__ ((const))
--- void (*hs_bindgen_1ee4c98815eaff8a (void)) (void)
+-- void (*hs_bindgen_d7b5ad93f4d7fa04 (void)) (void)
 -- {
 --   return &h;
 -- }
@@ -48,20 +48,20 @@ h :: IO Unit
     __exported by:__ @functions\/varargs.h@
 -}
 h = hs_bindgen_32ebae80cc3543e1
--- | __unique:__ @test_functionsvarargs_Example_get_h_ptr@
-foreign import ccall safe "hs_bindgen_1ee4c98815eaff8a" hs_bindgen_1ee4c98815eaff8a :: IO (FunPtr (IO Unit))
-{-# NOINLINE h_ptr #-}
+-- | __unique:__ @test_functionsvarargs_Example_get_h@
+foreign import ccall safe "hs_bindgen_d7b5ad93f4d7fa04" hs_bindgen_d7b5ad93f4d7fa04 :: IO (FunPtr (IO Unit))
+{-# NOINLINE h #-}
 {-| __C declaration:__ @h@
 
     __defined at:__ @functions\/varargs.h:8:6@
 
     __exported by:__ @functions\/varargs.h@
 -}
-h_ptr :: FunPtr (IO Unit)
+h :: FunPtr (IO Unit)
 {-| __C declaration:__ @h@
 
     __defined at:__ @functions\/varargs.h:8:6@
 
     __exported by:__ @functions\/varargs.h@
 -}
-h_ptr = unsafePerformIO hs_bindgen_1ee4c98815eaff8a
+h = unsafePerformIO hs_bindgen_d7b5ad93f4d7fa04

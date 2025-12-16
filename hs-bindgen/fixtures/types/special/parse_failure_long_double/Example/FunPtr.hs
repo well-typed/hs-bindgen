@@ -13,9 +13,9 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/special/parse_failure_long_double.h>"
-  , "/* test_typesspecialparse_failure_lo_Example_get_fun2_ptr */"
+  , "/* test_typesspecialparse_failure_lo_Example_get_fun2 */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_c526f22b76547216 (void)) ("
+  , "void (*hs_bindgen_d61a16f2d29260ed (void)) ("
   , "  signed int arg1"
   , ")"
   , "{"
@@ -23,11 +23,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2_ptr@
-foreign import ccall unsafe "hs_bindgen_c526f22b76547216" hs_bindgen_c526f22b76547216 ::
+-- | __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2@
+foreign import ccall unsafe "hs_bindgen_d61a16f2d29260ed" hs_bindgen_d61a16f2d29260ed ::
      IO (Ptr.FunPtr (FC.CInt -> IO ()))
 
-{-# NOINLINE fun2_ptr #-}
+{-# NOINLINE fun2 #-}
 
 {-| __C declaration:__ @fun2@
 
@@ -35,6 +35,6 @@ foreign import ccall unsafe "hs_bindgen_c526f22b76547216" hs_bindgen_c526f22b765
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
-fun2_ptr :: Ptr.FunPtr (FC.CInt -> IO ())
-fun2_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c526f22b76547216
+fun2 :: Ptr.FunPtr (FC.CInt -> IO ())
+fun2 =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d61a16f2d29260ed

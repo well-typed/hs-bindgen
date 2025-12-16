@@ -14,9 +14,9 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/distilled_lib_1.h>"
-  , "/* test_edgecasesdistilled_lib_1_Example_get_some_fun_ptr */"
+  , "/* test_edgecasesdistilled_lib_1_Example_get_some_fun */"
   , "__attribute__ ((const))"
-  , "int32_t (*hs_bindgen_a045a07b1f36239d (void)) ("
+  , "int32_t (*hs_bindgen_1ade3cfc18679577 (void)) ("
   , "  a_type_t *arg1,"
   , "  uint32_t arg2,"
   , "  uint8_t arg3[]"
@@ -26,11 +26,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun_ptr@
-foreign import ccall unsafe "hs_bindgen_a045a07b1f36239d" hs_bindgen_a045a07b1f36239d ::
+-- | __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun@
+foreign import ccall unsafe "hs_bindgen_1ade3cfc18679577" hs_bindgen_1ade3cfc18679577 ::
      IO (Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32))
 
-{-# NOINLINE some_fun_ptr #-}
+{-# NOINLINE some_fun #-}
 
 {-| __C declaration:__ @some_fun@
 
@@ -38,6 +38,6 @@ foreign import ccall unsafe "hs_bindgen_a045a07b1f36239d" hs_bindgen_a045a07b1f3
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
-some_fun_ptr :: Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32)
-some_fun_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a045a07b1f36239d
+some_fun :: Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32)
+some_fun =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1ade3cfc18679577

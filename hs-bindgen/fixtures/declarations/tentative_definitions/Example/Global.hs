@@ -13,31 +13,31 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <declarations/tentative_definitions.h>"
-  , "/* test_declarationstentative_definit_Example_get_i1_ptr */"
+  , "/* test_declarationstentative_definit_Example_get_i1 */"
   , "__attribute__ ((const))"
-  , "signed int *hs_bindgen_a6c085c30d844c6a (void)"
+  , "signed int *hs_bindgen_3a9fc2bb34e15eb6 (void)"
   , "{"
   , "  return &i1;"
   , "}"
-  , "/* test_declarationstentative_definit_Example_get_i2_ptr */"
+  , "/* test_declarationstentative_definit_Example_get_i2 */"
   , "__attribute__ ((const))"
-  , "signed int *hs_bindgen_f63a7b78dc0eb182 (void)"
+  , "signed int *hs_bindgen_831c291120790ea6 (void)"
   , "{"
   , "  return &i2;"
   , "}"
-  , "/* test_declarationstentative_definit_Example_get_i3_ptr */"
+  , "/* test_declarationstentative_definit_Example_get_i3 */"
   , "__attribute__ ((const))"
-  , "signed int *hs_bindgen_927fb780e7e73ba1 (void)"
+  , "signed int *hs_bindgen_6c7d3ba4369a4d65 (void)"
   , "{"
   , "  return &i3;"
   , "}"
   ]))
 
--- | __unique:__ @test_declarationstentative_definit_Example_get_i1_ptr@
-foreign import ccall unsafe "hs_bindgen_a6c085c30d844c6a" hs_bindgen_a6c085c30d844c6a ::
+-- | __unique:__ @test_declarationstentative_definit_Example_get_i1@
+foreign import ccall unsafe "hs_bindgen_3a9fc2bb34e15eb6" hs_bindgen_3a9fc2bb34e15eb6 ::
      IO (Ptr.Ptr FC.CInt)
 
-{-# NOINLINE i1_ptr #-}
+{-# NOINLINE i1 #-}
 
 {-| __C declaration:__ @i1@
 
@@ -45,15 +45,15 @@ foreign import ccall unsafe "hs_bindgen_a6c085c30d844c6a" hs_bindgen_a6c085c30d8
 
     __exported by:__ @declarations\/tentative_definitions.h@
 -}
-i1_ptr :: Ptr.Ptr FC.CInt
-i1_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a6c085c30d844c6a
+i1 :: Ptr.Ptr FC.CInt
+i1 =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3a9fc2bb34e15eb6
 
--- | __unique:__ @test_declarationstentative_definit_Example_get_i2_ptr@
-foreign import ccall unsafe "hs_bindgen_f63a7b78dc0eb182" hs_bindgen_f63a7b78dc0eb182 ::
+-- | __unique:__ @test_declarationstentative_definit_Example_get_i2@
+foreign import ccall unsafe "hs_bindgen_831c291120790ea6" hs_bindgen_831c291120790ea6 ::
      IO (Ptr.Ptr FC.CInt)
 
-{-# NOINLINE i2_ptr #-}
+{-# NOINLINE i2 #-}
 
 {-| __C declaration:__ @i2@
 
@@ -61,15 +61,15 @@ foreign import ccall unsafe "hs_bindgen_f63a7b78dc0eb182" hs_bindgen_f63a7b78dc0
 
     __exported by:__ @declarations\/tentative_definitions.h@
 -}
-i2_ptr :: Ptr.Ptr FC.CInt
-i2_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f63a7b78dc0eb182
+i2 :: Ptr.Ptr FC.CInt
+i2 =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_831c291120790ea6
 
--- | __unique:__ @test_declarationstentative_definit_Example_get_i3_ptr@
-foreign import ccall unsafe "hs_bindgen_927fb780e7e73ba1" hs_bindgen_927fb780e7e73ba1 ::
+-- | __unique:__ @test_declarationstentative_definit_Example_get_i3@
+foreign import ccall unsafe "hs_bindgen_6c7d3ba4369a4d65" hs_bindgen_6c7d3ba4369a4d65 ::
      IO (Ptr.Ptr FC.CInt)
 
-{-# NOINLINE i3_ptr #-}
+{-# NOINLINE i3 #-}
 
 {-| __C declaration:__ @i3@
 
@@ -77,6 +77,6 @@ foreign import ccall unsafe "hs_bindgen_927fb780e7e73ba1" hs_bindgen_927fb780e7e
 
     __exported by:__ @declarations\/tentative_definitions.h@
 -}
-i3_ptr :: Ptr.Ptr FC.CInt
-i3_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_927fb780e7e73ba1
+i3 :: Ptr.Ptr FC.CInt
+i3 =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6c7d3ba4369a4d65

@@ -13,9 +13,9 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/ordinary_anon_parent.h>"
-  , "/* test_edgecasesordinary_anon_paren_Example_get__acos_ptr */"
+  , "/* test_edgecasesordinary_anon_paren_Example_get__acos */"
   , "__attribute__ ((const))"
-  , "double (*hs_bindgen_bca479e11d297ab8 (void)) ("
+  , "double (*hs_bindgen_147bbeebcb063844 (void)) ("
   , "  double arg1"
   , ")"
   , "{"
@@ -23,11 +23,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos_ptr@
-foreign import ccall unsafe "hs_bindgen_bca479e11d297ab8" hs_bindgen_bca479e11d297ab8 ::
+-- | __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos@
+foreign import ccall unsafe "hs_bindgen_147bbeebcb063844" hs_bindgen_147bbeebcb063844 ::
      IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
 
-{-# NOINLINE _acos_ptr #-}
+{-# NOINLINE _acos #-}
 
 {-| __C declaration:__ @_acos@
 
@@ -35,6 +35,6 @@ foreign import ccall unsafe "hs_bindgen_bca479e11d297ab8" hs_bindgen_bca479e11d2
 
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
-_acos_ptr :: Ptr.FunPtr (FC.CDouble -> IO FC.CDouble)
-_acos_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_bca479e11d297ab8
+_acos :: Ptr.FunPtr (FC.CDouble -> IO FC.CDouble)
+_acos =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_147bbeebcb063844

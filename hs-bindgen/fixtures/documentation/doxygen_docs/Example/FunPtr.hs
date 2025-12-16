@@ -18,9 +18,9 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <documentation/doxygen_docs.h>"
-  , "/* test_documentationdoxygen_docs_Example_get_process_data_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_process_data */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_00ad1c4db6c865d6 (void)) ("
+  , "signed int (*hs_bindgen_4a5cd66a4f26f8d5 (void)) ("
   , "  uint8_t const *arg1,"
   , "  uint8_t *arg2,"
   , "  size_t *arg3"
@@ -28,84 +28,84 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &process_data;"
   , "}"
-  , "/* test_documentationdoxygen_docs_Example_get_process_file_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_process_file */"
   , "__attribute__ ((const))"
-  , "_Bool (*hs_bindgen_17f9c7a037fa2ddf (void)) ("
+  , "_Bool (*hs_bindgen_c8a059c65f18fea9 (void)) ("
   , "  char const *arg1"
   , ")"
   , "{"
   , "  return &process_file;"
   , "}"
-  , "/* test_documentationdoxygen_docs_Example_get_calculate_value_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_calculate_value */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_8b08d5b99efae93b (void)) ("
+  , "signed int (*hs_bindgen_5ab7e06724867ab3 (void)) ("
   , "  signed int arg1,"
   , "  signed int arg2"
   , ")"
   , "{"
   , "  return &calculate_value;"
   , "}"
-  , "/* test_documentationdoxygen_docs_Example_get_html_example_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_html_example */"
   , "__attribute__ ((const))"
-  , "_Bool (*hs_bindgen_bb00e40be97757d6 (void)) ("
+  , "_Bool (*hs_bindgen_3f74fb834b0cd46b (void)) ("
   , "  signed int arg1"
   , ")"
   , "{"
   , "  return &html_example;"
   , "}"
-  , "/* test_documentationdoxygen_docs_Example_get_list_example_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_list_example */"
   , "__attribute__ ((const))"
-  , "_Bool (*hs_bindgen_e53b2ca51c16f7df (void)) ("
+  , "_Bool (*hs_bindgen_2175b3c627db39cf (void)) ("
   , "  char const **arg1,"
   , "  size_t arg2"
   , ")"
   , "{"
   , "  return &list_example;"
   , "}"
-  , "/* test_documentationdoxygen_docs_Example_get_dangerous_function_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_dangerous_function */"
   , "__attribute__ ((const))"
-  , "void *(*hs_bindgen_6f8fafd779560b0a (void)) ("
+  , "void *(*hs_bindgen_b7a4debd18827a19 (void)) ("
   , "  void *arg1"
   , ")"
   , "{"
   , "  return &dangerous_function;"
   , "}"
-  , "/* test_documentationdoxygen_docs_Example_get_detailed_return_codes_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_detailed_return_codes */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_8316611dfa87497d (void)) ("
+  , "signed int (*hs_bindgen_9700b22f82eedafe (void)) ("
   , "  char const *arg1"
   , ")"
   , "{"
   , "  return &detailed_return_codes;"
   , "}"
-  , "/* test_documentationdoxygen_docs_Example_get_old_function_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_old_function */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_9658582afd412d05 (void)) ("
+  , "signed int (*hs_bindgen_49e0d34a627c6c19 (void)) ("
   , "  signed int arg1"
   , ")"
   , "{"
   , "  return &old_function;"
   , "}"
-  , "/* test_documentationdoxygen_docs_Example_get_versioned_function_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_versioned_function */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_fed78653b04cad56 (void)) ("
+  , "signed int (*hs_bindgen_180cd7537e40ce99 (void)) ("
   , "  signed int arg1"
   , ")"
   , "{"
   , "  return &versioned_function;"
   , "}"
-  , "/* test_documentationdoxygen_docs_Example_get_process_buffer_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_process_buffer */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_54ecd4981536e33b (void)) ("
+  , "signed int (*hs_bindgen_f4ccc6d90e8d3ebd (void)) ("
   , "  char arg1[64],"
   , "  size_t arg2"
   , ")"
   , "{"
   , "  return &process_buffer;"
   , "}"
-  , "/* test_documentationdoxygen_docs_Example_get_my_memcpy_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_my_memcpy */"
   , "__attribute__ ((const))"
-  , "void *(*hs_bindgen_f3280e35cf2dec18 (void)) ("
+  , "void *(*hs_bindgen_6a74d376c901b531 (void)) ("
   , "  void *arg1,"
   , "  void const *arg2,"
   , "  size_t arg3"
@@ -113,17 +113,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &my_memcpy;"
   , "}"
-  , "/* test_documentationdoxygen_docs_Example_get_double_value_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_double_value */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_3c5017e63542a732 (void)) ("
+  , "signed int (*hs_bindgen_156a92f3c5176105 (void)) ("
   , "  signed int arg1"
   , ")"
   , "{"
   , "  return &double_value;"
   , "}"
-  , "/* test_documentationdoxygen_docs_Example_get_complex_function_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_complex_function */"
   , "__attribute__ ((const))"
-  , "status_code_t (*hs_bindgen_5c7ef3361588f78d (void)) ("
+  , "status_code_t (*hs_bindgen_dfa39b6be50cb2ca (void)) ("
   , "  config_t *arg1,"
   , "  uint8_t const *arg2,"
   , "  size_t arg3"
@@ -131,17 +131,17 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &complex_function;"
   , "}"
-  , "/* test_documentationdoxygen_docs_Example_get_hash_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_hash */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_c5116c8a533d238c (void)) ("
+  , "signed int (*hs_bindgen_8ad88b79fd71f9d4 (void)) ("
   , "  char *arg1"
   , ")"
   , "{"
   , "  return &hash;"
   , "}"
-  , "/* test_documentationdoxygen_docs_Example_get_square_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_square */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_f488217ac3b07e44 (void)) ("
+  , "signed int (*hs_bindgen_7ede0f7ec1b30650 (void)) ("
   , "  signed int arg1"
   , ")"
   , "{"
@@ -149,11 +149,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_process_data_ptr@
-foreign import ccall unsafe "hs_bindgen_00ad1c4db6c865d6" hs_bindgen_00ad1c4db6c865d6 ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_process_data@
+foreign import ccall unsafe "hs_bindgen_4a5cd66a4f26f8d5" hs_bindgen_4a5cd66a4f26f8d5 ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.CSize) -> IO FC.CInt))
 
-{-# NOINLINE process_data_ptr #-}
+{-# NOINLINE process_data #-}
 
 {-|
 
@@ -175,15 +175,15 @@ __defined at:__ @documentation\/doxygen_docs.h:105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_data_ptr :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.CSize) -> IO FC.CInt)
-process_data_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_00ad1c4db6c865d6
+process_data :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.CSize) -> IO FC.CInt)
+process_data =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4a5cd66a4f26f8d5
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_process_file_ptr@
-foreign import ccall unsafe "hs_bindgen_17f9c7a037fa2ddf" hs_bindgen_17f9c7a037fa2ddf ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_process_file@
+foreign import ccall unsafe "hs_bindgen_c8a059c65f18fea9" hs_bindgen_c8a059c65f18fea9 ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO FC.CBool))
 
-{-# NOINLINE process_file_ptr #-}
+{-# NOINLINE process_file #-}
 
 {-|
 
@@ -201,15 +201,15 @@ __defined at:__ @documentation\/doxygen_docs.h:116:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_file_ptr :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO FC.CBool)
-process_file_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_17f9c7a037fa2ddf
+process_file :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO FC.CBool)
+process_file =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c8a059c65f18fea9
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_calculate_value_ptr@
-foreign import ccall unsafe "hs_bindgen_8b08d5b99efae93b" hs_bindgen_8b08d5b99efae93b ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_calculate_value@
+foreign import ccall unsafe "hs_bindgen_5ab7e06724867ab3" hs_bindgen_5ab7e06724867ab3 ::
      IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt))
 
-{-# NOINLINE calculate_value_ptr #-}
+{-# NOINLINE calculate_value #-}
 
 {-|
 
@@ -234,15 +234,15 @@ __defined at:__ @documentation\/doxygen_docs.h:131:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-calculate_value_ptr :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
-calculate_value_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8b08d5b99efae93b
+calculate_value :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
+calculate_value =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_5ab7e06724867ab3
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_html_example_ptr@
-foreign import ccall unsafe "hs_bindgen_bb00e40be97757d6" hs_bindgen_bb00e40be97757d6 ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_html_example@
+foreign import ccall unsafe "hs_bindgen_3f74fb834b0cd46b" hs_bindgen_3f74fb834b0cd46b ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CBool))
 
-{-# NOINLINE html_example_ptr #-}
+{-# NOINLINE html_example #-}
 
 {-|
 
@@ -262,15 +262,15 @@ __defined at:__ @documentation\/doxygen_docs.h:148:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-html_example_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CBool)
-html_example_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_bb00e40be97757d6
+html_example :: Ptr.FunPtr (FC.CInt -> IO FC.CBool)
+html_example =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3f74fb834b0cd46b
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_list_example_ptr@
-foreign import ccall unsafe "hs_bindgen_e53b2ca51c16f7df" hs_bindgen_e53b2ca51c16f7df ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_list_example@
+foreign import ccall unsafe "hs_bindgen_2175b3c627db39cf" hs_bindgen_2175b3c627db39cf ::
      IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
 
-{-# NOINLINE list_example_ptr #-}
+{-# NOINLINE list_example #-}
 
 {-|
 
@@ -318,15 +318,15 @@ __defined at:__ @documentation\/doxygen_docs.h:174:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-list_example_ptr :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool)
-list_example_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e53b2ca51c16f7df
+list_example :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool)
+list_example =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2175b3c627db39cf
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_dangerous_function_ptr@
-foreign import ccall unsafe "hs_bindgen_6f8fafd779560b0a" hs_bindgen_6f8fafd779560b0a ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_dangerous_function@
+foreign import ccall unsafe "hs_bindgen_b7a4debd18827a19" hs_bindgen_b7a4debd18827a19 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Void) -> IO (Ptr.Ptr Void)))
 
-{-# NOINLINE dangerous_function_ptr #-}
+{-# NOINLINE dangerous_function #-}
 
 {-|
 
@@ -348,15 +348,15 @@ __defined at:__ @documentation\/doxygen_docs.h:186:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-dangerous_function_ptr :: Ptr.FunPtr ((Ptr.Ptr Void) -> IO (Ptr.Ptr Void))
-dangerous_function_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6f8fafd779560b0a
+dangerous_function :: Ptr.FunPtr ((Ptr.Ptr Void) -> IO (Ptr.Ptr Void))
+dangerous_function =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b7a4debd18827a19
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_detailed_return_codes_ptr@
-foreign import ccall unsafe "hs_bindgen_8316611dfa87497d" hs_bindgen_8316611dfa87497d ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_detailed_return_codes@
+foreign import ccall unsafe "hs_bindgen_9700b22f82eedafe" hs_bindgen_9700b22f82eedafe ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO FC.CInt))
 
-{-# NOINLINE detailed_return_codes_ptr #-}
+{-# NOINLINE detailed_return_codes #-}
 
 {-|
 
@@ -378,15 +378,15 @@ __defined at:__ @documentation\/doxygen_docs.h:197:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-detailed_return_codes_ptr :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO FC.CInt)
-detailed_return_codes_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8316611dfa87497d
+detailed_return_codes :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO FC.CInt)
+detailed_return_codes =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9700b22f82eedafe
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_old_function_ptr@
-foreign import ccall unsafe "hs_bindgen_9658582afd412d05" hs_bindgen_9658582afd412d05 ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_old_function@
+foreign import ccall unsafe "hs_bindgen_49e0d34a627c6c19" hs_bindgen_49e0d34a627c6c19 ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
-{-# NOINLINE old_function_ptr #-}
+{-# NOINLINE old_function #-}
 
 {-|
 
@@ -404,15 +404,15 @@ __defined at:__ @documentation\/doxygen_docs.h:206:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-old_function_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-old_function_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9658582afd412d05
+old_function :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+old_function =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_49e0d34a627c6c19
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_versioned_function_ptr@
-foreign import ccall unsafe "hs_bindgen_fed78653b04cad56" hs_bindgen_fed78653b04cad56 ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_versioned_function@
+foreign import ccall unsafe "hs_bindgen_180cd7537e40ce99" hs_bindgen_180cd7537e40ce99 ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
-{-# NOINLINE versioned_function_ptr #-}
+{-# NOINLINE versioned_function #-}
 
 {-|
 
@@ -430,15 +430,15 @@ __defined at:__ @documentation\/doxygen_docs.h:216:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-versioned_function_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-versioned_function_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fed78653b04cad56
+versioned_function :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+versioned_function =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_180cd7537e40ce99
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer_ptr@
-foreign import ccall unsafe "hs_bindgen_54ecd4981536e33b" hs_bindgen_54ecd4981536e33b ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_process_buffer@
+foreign import ccall unsafe "hs_bindgen_f4ccc6d90e8d3ebd" hs_bindgen_f4ccc6d90e8d3ebd ::
      IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CInt))
 
-{-# NOINLINE process_buffer_ptr #-}
+{-# NOINLINE process_buffer #-}
 
 {-|
 
@@ -456,15 +456,15 @@ __defined at:__ @documentation\/doxygen_docs.h:332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_buffer_ptr :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CInt)
-process_buffer_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_54ecd4981536e33b
+process_buffer :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CInt)
+process_buffer =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f4ccc6d90e8d3ebd
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_my_memcpy_ptr@
-foreign import ccall unsafe "hs_bindgen_f3280e35cf2dec18" hs_bindgen_f3280e35cf2dec18 ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_my_memcpy@
+foreign import ccall unsafe "hs_bindgen_6a74d376c901b531" hs_bindgen_6a74d376c901b531 ::
      IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.ConstPtr.ConstPtr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr.Ptr Void)))
 
-{-# NOINLINE my_memcpy_ptr #-}
+{-# NOINLINE my_memcpy #-}
 
 {-|
 
@@ -484,15 +484,15 @@ __defined at:__ @documentation\/doxygen_docs.h:342:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-my_memcpy_ptr :: Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.ConstPtr.ConstPtr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr.Ptr Void))
-my_memcpy_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f3280e35cf2dec18
+my_memcpy :: Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.ConstPtr.ConstPtr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr.Ptr Void))
+my_memcpy =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6a74d376c901b531
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_double_value_ptr@
-foreign import ccall unsafe "hs_bindgen_3c5017e63542a732" hs_bindgen_3c5017e63542a732 ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_double_value@
+foreign import ccall unsafe "hs_bindgen_156a92f3c5176105" hs_bindgen_156a92f3c5176105 ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
-{-# NOINLINE double_value_ptr #-}
+{-# NOINLINE double_value #-}
 
 {-|
 
@@ -508,15 +508,15 @@ __defined at:__ @documentation\/doxygen_docs.h:350:19@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-double_value_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-double_value_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3c5017e63542a732
+double_value :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+double_value =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_156a92f3c5176105
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_complex_function_ptr@
-foreign import ccall unsafe "hs_bindgen_5c7ef3361588f78d" hs_bindgen_5c7ef3361588f78d ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_complex_function@
+foreign import ccall unsafe "hs_bindgen_dfa39b6be50cb2ca" hs_bindgen_dfa39b6be50cb2ca ::
      IO (Ptr.FunPtr ((Ptr.Ptr Config_t) -> (HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8) -> HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t))
 
-{-# NOINLINE complex_function_ptr #-}
+{-# NOINLINE complex_function #-}
 
 {-|
 
@@ -589,15 +589,15 @@ __defined at:__ @documentation\/doxygen_docs.h:423:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-complex_function_ptr :: Ptr.FunPtr ((Ptr.Ptr Config_t) -> (HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8) -> HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t)
-complex_function_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_5c7ef3361588f78d
+complex_function :: Ptr.FunPtr ((Ptr.Ptr Config_t) -> (HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8) -> HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t)
+complex_function =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dfa39b6be50cb2ca
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_hash_ptr@
-foreign import ccall unsafe "hs_bindgen_c5116c8a533d238c" hs_bindgen_c5116c8a533d238c ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_hash@
+foreign import ccall unsafe "hs_bindgen_8ad88b79fd71f9d4" hs_bindgen_8ad88b79fd71f9d4 ::
      IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt))
 
-{-# NOINLINE hash_ptr #-}
+{-# NOINLINE hash #-}
 
 {-| __C declaration:__ @hash@
 
@@ -605,15 +605,15 @@ foreign import ccall unsafe "hs_bindgen_c5116c8a533d238c" hs_bindgen_c5116c8a533
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-hash_ptr :: Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt)
-hash_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c5116c8a533d238c
+hash :: Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt)
+hash =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8ad88b79fd71f9d4
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_square_ptr@
-foreign import ccall unsafe "hs_bindgen_f488217ac3b07e44" hs_bindgen_f488217ac3b07e44 ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_square@
+foreign import ccall unsafe "hs_bindgen_7ede0f7ec1b30650" hs_bindgen_7ede0f7ec1b30650 ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
-{-# NOINLINE square_ptr #-}
+{-# NOINLINE square #-}
 
 {-| __C declaration:__ @square@
 
@@ -621,6 +621,6 @@ foreign import ccall unsafe "hs_bindgen_f488217ac3b07e44" hs_bindgen_f488217ac3b
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
-square_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-square_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f488217ac3b07e44
+square :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+square =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7ede0f7ec1b30650

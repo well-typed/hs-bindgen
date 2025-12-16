@@ -16,19 +16,19 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/enum_as_array_size.h>"
-  , "/* test_edgecasesenum_as_array_size_Example_get_test_array_ptr */"
+  , "/* test_edgecasesenum_as_array_size_Example_get_test_array */"
   , "__attribute__ ((const))"
-  , "char const (*hs_bindgen_c86f87bd85936ecd (void))[1]"
+  , "char const (*hs_bindgen_30b94bcf7e387817 (void))[1]"
   , "{"
   , "  return &test_array;"
   , "}"
   ]))
 
--- | __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array_ptr@
-foreign import ccall unsafe "hs_bindgen_c86f87bd85936ecd" hs_bindgen_c86f87bd85936ecd ::
+-- | __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array@
+foreign import ccall unsafe "hs_bindgen_30b94bcf7e387817" hs_bindgen_30b94bcf7e387817 ::
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar))
 
-{-# NOINLINE test_array_ptr #-}
+{-# NOINLINE hs_bindgen_e30c033f156164cc #-}
 
 {-| __C declaration:__ @test_array@
 
@@ -36,12 +36,12 @@ foreign import ccall unsafe "hs_bindgen_c86f87bd85936ecd" hs_bindgen_c86f87bd859
 
     __exported by:__ @edge-cases\/enum_as_array_size.h@
 -}
-test_array_ptr :: HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar)
-test_array_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c86f87bd85936ecd
+hs_bindgen_e30c033f156164cc :: HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar)
+hs_bindgen_e30c033f156164cc =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_30b94bcf7e387817
 
 {-# NOINLINE test_array #-}
 
 test_array :: (HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar
 test_array =
-  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr test_array_ptr))
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_e30c033f156164cc))

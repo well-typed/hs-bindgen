@@ -15,25 +15,25 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/adios.h>"
-  , "/* test_edgecasesadios_Example_get_\978\978_ptr */"
+  , "/* test_edgecasesadios_Example_get_\978\978 */"
   , "__attribute__ ((const))"
-  , "signed int *hs_bindgen_a5a7bbe6b8c53539 (void)"
+  , "signed int *hs_bindgen_aa137b95cfa81f42 (void)"
   , "{"
   , "  return &\978\978;"
   , "}"
-  , "/* test_edgecasesadios_Example_get_\978\978\978_ptr */"
+  , "/* test_edgecasesadios_Example_get_\978\978\978 */"
   , "__attribute__ ((const))"
-  , "signed int const *hs_bindgen_31d6bde39787c8b8 (void)"
+  , "signed int const *hs_bindgen_7e61df7271c4ff58 (void)"
   , "{"
   , "  return &\978\978\978;"
   , "}"
   ]))
 
--- | __unique:__ @test_edgecasesadios_Example_get_ϒϒ_ptr@
-foreign import ccall unsafe "hs_bindgen_a5a7bbe6b8c53539" hs_bindgen_a5a7bbe6b8c53539 ::
+-- | __unique:__ @test_edgecasesadios_Example_get_ϒϒ@
+foreign import ccall unsafe "hs_bindgen_aa137b95cfa81f42" hs_bindgen_aa137b95cfa81f42 ::
      IO (Ptr.Ptr FC.CInt)
 
-{-# NOINLINE cϒϒ_ptr #-}
+{-# NOINLINE cϒϒ #-}
 
 {-| __C declaration:__ @ϒϒ@
 
@@ -41,15 +41,15 @@ foreign import ccall unsafe "hs_bindgen_a5a7bbe6b8c53539" hs_bindgen_a5a7bbe6b8c
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-cϒϒ_ptr :: Ptr.Ptr FC.CInt
-cϒϒ_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a5a7bbe6b8c53539
+cϒϒ :: Ptr.Ptr FC.CInt
+cϒϒ =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_aa137b95cfa81f42
 
--- | __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ_ptr@
-foreign import ccall unsafe "hs_bindgen_31d6bde39787c8b8" hs_bindgen_31d6bde39787c8b8 ::
+-- | __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ@
+foreign import ccall unsafe "hs_bindgen_7e61df7271c4ff58" hs_bindgen_7e61df7271c4ff58 ::
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 
-{-# NOINLINE cϒϒϒ_ptr #-}
+{-# NOINLINE hs_bindgen_7af49c80665b9a25 #-}
 
 {-| __C declaration:__ @ϒϒϒ@
 
@@ -57,12 +57,12 @@ foreign import ccall unsafe "hs_bindgen_31d6bde39787c8b8" hs_bindgen_31d6bde3978
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-cϒϒϒ_ptr :: HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
-cϒϒϒ_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_31d6bde39787c8b8
+hs_bindgen_7af49c80665b9a25 :: HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
+hs_bindgen_7af49c80665b9a25 =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7e61df7271c4ff58
 
 {-# NOINLINE cϒϒϒ #-}
 
 cϒϒϒ :: FC.CInt
 cϒϒϒ =
-  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr cϒϒϒ_ptr))
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_7af49c80665b9a25))

@@ -12,17 +12,17 @@
 -- {
 --   return foo(arg1);
 -- }
--- /* test_declarationsdefinitions_Example_get_foo_ptr */
+-- /* test_declarationsdefinitions_Example_get_foo */
 -- __attribute__ ((const))
--- signed int (*hs_bindgen_bc546207e3a9a16e (void)) (
+-- signed int (*hs_bindgen_8bb82cd68ce8efe4 (void)) (
 --   double arg1
 -- )
 -- {
 --   return &foo;
 -- }
--- /* test_declarationsdefinitions_Example_get_n_ptr */
+-- /* test_declarationsdefinitions_Example_get_n */
 -- __attribute__ ((const))
--- signed int *hs_bindgen_d0561a54a41cb140 (void)
+-- signed int *hs_bindgen_417f0d4479c97357 (void)
 -- {
 --   return &n;
 -- }
@@ -188,38 +188,38 @@ foo :: CDouble -> IO CInt
     __exported by:__ @declarations\/definitions.h@
 -}
 foo = hs_bindgen_07fd5b433f381094
--- | __unique:__ @test_declarationsdefinitions_Example_get_foo_ptr@
-foreign import ccall safe "hs_bindgen_bc546207e3a9a16e" hs_bindgen_bc546207e3a9a16e :: IO (FunPtr (CDouble ->
+-- | __unique:__ @test_declarationsdefinitions_Example_get_foo@
+foreign import ccall safe "hs_bindgen_8bb82cd68ce8efe4" hs_bindgen_8bb82cd68ce8efe4 :: IO (FunPtr (CDouble ->
                                                                                                    IO CInt))
-{-# NOINLINE foo_ptr #-}
+{-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h:13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
-foo_ptr :: FunPtr (CDouble -> IO CInt)
+foo :: FunPtr (CDouble -> IO CInt)
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h:13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
-foo_ptr = unsafePerformIO hs_bindgen_bc546207e3a9a16e
--- | __unique:__ @test_declarationsdefinitions_Example_get_n_ptr@
-foreign import ccall safe "hs_bindgen_d0561a54a41cb140" hs_bindgen_d0561a54a41cb140 :: IO (Ptr CInt)
-{-# NOINLINE n_ptr #-}
+foo = unsafePerformIO hs_bindgen_8bb82cd68ce8efe4
+-- | __unique:__ @test_declarationsdefinitions_Example_get_n@
+foreign import ccall safe "hs_bindgen_417f0d4479c97357" hs_bindgen_417f0d4479c97357 :: IO (Ptr CInt)
+{-# NOINLINE n #-}
 {-| __C declaration:__ @n@
 
     __defined at:__ @declarations\/definitions.h:18:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
-n_ptr :: Ptr CInt
+n :: Ptr CInt
 {-| __C declaration:__ @n@
 
     __defined at:__ @declarations\/definitions.h:18:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
-n_ptr = unsafePerformIO hs_bindgen_d0561a54a41cb140
+n = unsafePerformIO hs_bindgen_417f0d4479c97357

@@ -1,8 +1,8 @@
 -- addDependentFile examples/golden/edge-cases/enum_as_array_size.h
 -- #include <edge-cases/enum_as_array_size.h>
--- /* test_edgecasesenum_as_array_size_Example_get_test_array_ptr */
+-- /* test_edgecasesenum_as_array_size_Example_get_test_array */
 -- __attribute__ ((const))
--- char const (*hs_bindgen_c86f87bd85936ecd (void))[1]
+-- char const (*hs_bindgen_30b94bcf7e387817 (void))[1]
 -- {
 --   return &test_array;
 -- }
@@ -76,24 +76,24 @@ pattern Test_count :: Test
     __exported by:__ @edge-cases\/enum_as_array_size.h@
 -}
 pattern Test_count = Test 1
--- | __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array_ptr@
-foreign import ccall safe "hs_bindgen_c86f87bd85936ecd" hs_bindgen_c86f87bd85936ecd :: IO (ConstPtr (ConstantArray 1
+-- | __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array@
+foreign import ccall safe "hs_bindgen_30b94bcf7e387817" hs_bindgen_30b94bcf7e387817 :: IO (ConstPtr (ConstantArray 1
                                                                                                                    CChar))
-{-# NOINLINE test_array_ptr #-}
+{-# NOINLINE hs_bindgen_e30c033f156164cc #-}
 {-| __C declaration:__ @test_array@
 
     __defined at:__ @edge-cases\/enum_as_array_size.h:8:19@
 
     __exported by:__ @edge-cases\/enum_as_array_size.h@
 -}
-test_array_ptr :: ConstPtr (ConstantArray 1 CChar)
+hs_bindgen_e30c033f156164cc :: ConstPtr (ConstantArray 1 CChar)
 {-| __C declaration:__ @test_array@
 
     __defined at:__ @edge-cases\/enum_as_array_size.h:8:19@
 
     __exported by:__ @edge-cases\/enum_as_array_size.h@
 -}
-test_array_ptr = unsafePerformIO hs_bindgen_c86f87bd85936ecd
+hs_bindgen_e30c033f156164cc = unsafePerformIO hs_bindgen_30b94bcf7e387817
 {-# NOINLINE test_array #-}
 test_array :: ConstantArray 1 CChar
-test_array = unsafePerformIO (peek (unConstPtr test_array_ptr))
+test_array = unsafePerformIO (peek (unConstPtr hs_bindgen_e30c033f156164cc))

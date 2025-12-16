@@ -13,19 +13,19 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <functions/fun_attributes.h>"
-  , "/* test_functionsfun_attributes_Example_get_i_ptr */"
+  , "/* test_functionsfun_attributes_Example_get_i */"
   , "__attribute__ ((const))"
-  , "signed int *hs_bindgen_ea890ba2b1b3e0a8 (void)"
+  , "signed int *hs_bindgen_cd32cb4982dd2d1a (void)"
   , "{"
   , "  return &i;"
   , "}"
   ]))
 
--- | __unique:__ @test_functionsfun_attributes_Example_get_i_ptr@
-foreign import ccall unsafe "hs_bindgen_ea890ba2b1b3e0a8" hs_bindgen_ea890ba2b1b3e0a8 ::
+-- | __unique:__ @test_functionsfun_attributes_Example_get_i@
+foreign import ccall unsafe "hs_bindgen_cd32cb4982dd2d1a" hs_bindgen_cd32cb4982dd2d1a ::
      IO (Ptr.Ptr FC.CInt)
 
-{-# NOINLINE i_ptr #-}
+{-# NOINLINE i #-}
 
 {-| __C declaration:__ @i@
 
@@ -33,6 +33,6 @@ foreign import ccall unsafe "hs_bindgen_ea890ba2b1b3e0a8" hs_bindgen_ea890ba2b1b
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-i_ptr :: Ptr.Ptr FC.CInt
-i_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ea890ba2b1b3e0a8
+i :: Ptr.Ptr FC.CInt
+i =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cd32cb4982dd2d1a
