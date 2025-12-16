@@ -725,6 +725,7 @@ varDecl info = \curr -> do
           -- The only other example I'm currently aware of is characters
           -- ('CXCursor_CharacterLiteral').
           Right CXCursor_UnexposedExpr -> foldContinue
+          Right CXCursor_DeclRefExpr   -> foldContinue
 
           -- @visibility@ attributes, where the value is obtained using
           -- @clang_getCursorVisibility@.

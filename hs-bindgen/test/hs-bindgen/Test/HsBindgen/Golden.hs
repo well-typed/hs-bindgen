@@ -267,6 +267,9 @@ test_documentation_data_kind_pragma =
 test_edge_cases_adios :: TestCase
 test_edge_cases_adios = defaultTest "edge-cases/adios"
 
+test_edge_cases_enum_as_array_size :: TestCase
+test_edge_cases_enum_as_array_size = defaultTest "edge-cases/enum_as_array_size"
+
 test_edge_cases_duplicate :: TestCase
 test_edge_cases_duplicate = (defaultTest "edge-cases/duplicate") {
     testOnFrontendConfig = \cfg -> cfg{
@@ -1237,6 +1240,7 @@ testCases = manualTestCases ++ [
     , test_edge_cases_clang_generated_collision
     , test_edge_cases_distilled_lib_1
     , test_edge_cases_duplicate
+    , test_edge_cases_enum_as_array_size
     , test_edge_cases_flam
     , test_edge_cases_headers
     , test_edge_cases_iterator

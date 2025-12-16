@@ -1,0 +1,99 @@
+-- addDependentFile examples/golden/edge-cases/enum_as_array_size.h
+-- #include <edge-cases/enum_as_array_size.h>
+-- /* test_edgecasesenum_as_array_size_Example_get_test_array_ptr */
+-- __attribute__ ((const))
+-- char const (*hs_bindgen_c86f87bd85936ecd (void))[1]
+-- {
+--   return &test_array;
+-- }
+{-| __C declaration:__ @test@
+
+    __defined at:__ @edge-cases\/enum_as_array_size.h:3:6@
+
+    __exported by:__ @edge-cases\/enum_as_array_size.h@
+-}
+newtype Test
+    = Test {un_Test :: CUInt}
+      {- ^ __C declaration:__ @test@
+
+           __defined at:__ @edge-cases\/enum_as_array_size.h:3:6@
+
+           __exported by:__ @edge-cases\/enum_as_array_size.h@
+      -}
+    deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
+instance Storable Test
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Test <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Test un_Test_3 -> pokeByteOff ptr_1 (0 :: Int) un_Test_3
+instance CEnum Test
+    where type CEnumZ Test = CUInt
+          toCEnum = Test
+          fromCEnum = un_Test
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "Test_a"),
+                                                         (1, singleton "Test_count")]
+          showsUndeclared = showsWrappedUndeclared "Test"
+          readPrecUndeclared = readPrecWrappedUndeclared "Test"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum Test
+    where minDeclaredValue = Test_a
+          maxDeclaredValue = Test_count
+instance Show Test
+    where showsPrec = showsCEnum
+instance Read Test
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @test_a@
+
+    __defined at:__ @edge-cases\/enum_as_array_size.h:4:3@
+
+    __exported by:__ @edge-cases\/enum_as_array_size.h@
+-}
+pattern Test_a :: Test
+{-| __C declaration:__ @test_a@
+
+    __defined at:__ @edge-cases\/enum_as_array_size.h:4:3@
+
+    __exported by:__ @edge-cases\/enum_as_array_size.h@
+-}
+pattern Test_a = Test 0
+{-| __C declaration:__ @test_count@
+
+    __defined at:__ @edge-cases\/enum_as_array_size.h:5:3@
+
+    __exported by:__ @edge-cases\/enum_as_array_size.h@
+-}
+pattern Test_count :: Test
+{-| __C declaration:__ @test_count@
+
+    __defined at:__ @edge-cases\/enum_as_array_size.h:5:3@
+
+    __exported by:__ @edge-cases\/enum_as_array_size.h@
+-}
+pattern Test_count = Test 1
+-- | __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array_ptr@
+foreign import ccall safe "hs_bindgen_c86f87bd85936ecd" hs_bindgen_c86f87bd85936ecd :: IO (ConstPtr (ConstantArray 1
+                                                                                                                   CChar))
+{-# NOINLINE test_array_ptr #-}
+{-| __C declaration:__ @test_array@
+
+    __defined at:__ @edge-cases\/enum_as_array_size.h:8:19@
+
+    __exported by:__ @edge-cases\/enum_as_array_size.h@
+-}
+test_array_ptr :: ConstPtr (ConstantArray 1 CChar)
+{-| __C declaration:__ @test_array@
+
+    __defined at:__ @edge-cases\/enum_as_array_size.h:8:19@
+
+    __exported by:__ @edge-cases\/enum_as_array_size.h@
+-}
+test_array_ptr = unsafePerformIO hs_bindgen_c86f87bd85936ecd
+{-# NOINLINE test_array #-}
+test_array :: ConstantArray 1 CChar
+test_array = unsafePerformIO (peek (unConstPtr test_array_ptr))
