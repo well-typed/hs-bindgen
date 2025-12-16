@@ -1,0 +1,47 @@
+{-# LANGUAGE CApiFFI #-}
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
+
+module Example.Global where
+
+import qualified Foreign as F
+import qualified Foreign.C as FC
+import qualified GHC.IO.Unsafe
+import qualified HsBindgen.Runtime.ConstPtr
+import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.Prelude
+import Prelude (IO)
+
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+  [ "#include <edge-cases/enum_as_array_size.h>"
+  , "/* test_edgecasesenum_as_array_size_Example_get_test_array_ptr */"
+  , "__attribute__ ((const))"
+  , "char const (*hs_bindgen_c86f87bd85936ecd (void))[1]"
+  , "{"
+  , "  return &test_array;"
+  , "}"
+  ]))
+
+-- | __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array_ptr@
+foreign import ccall unsafe "hs_bindgen_c86f87bd85936ecd" hs_bindgen_c86f87bd85936ecd ::
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar))
+
+{-# NOINLINE test_array_ptr #-}
+
+{-| __C declaration:__ @test_array@
+
+    __defined at:__ @edge-cases\/enum_as_array_size.h:8:19@
+
+    __exported by:__ @edge-cases\/enum_as_array_size.h@
+-}
+test_array_ptr :: HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar)
+test_array_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c86f87bd85936ecd
+
+{-# NOINLINE test_array #-}
+
+test_array :: (HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar
+test_array =
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr test_array_ptr))
