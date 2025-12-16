@@ -407,11 +407,12 @@ instance Pretty SDecl where
 
     DFunction Function{..} ->
       let prettyTopLevelComment = maybe empty (pretty . TopLevelComment) functionComment
+          prettyFunctionName = pretty $ fromFunctionName functionName
        in  prettyTopLevelComment
-        $$ pretty functionName <+> "::"
+        $$ prettyFunctionName <+> "::"
         $$ nest 5 (prettyForeignImportType functionResultType functionParameters)
         $$ fsep
-             [ pretty functionName <+> char '='
+             [ prettyFunctionName <+> char '='
              , nest 2 $ pretty functionBody
              ]
 

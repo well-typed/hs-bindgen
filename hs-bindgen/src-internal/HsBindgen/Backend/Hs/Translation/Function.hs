@@ -161,7 +161,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     aliasCWrapper :: Hs.Decl
     aliasCWrapper =
         Hs.DeclFunction $ Hs.FunctionDecl {
-            functionDeclName       = mangledOrigName <> "_wrapper"
+            functionDeclName       = SHs.Exported $ mangledOrigName <> "_wrapper"
           , functionDeclParameters = aliasParams
           , functionDeclResultType = resultType
           , functionDeclBody       = SHs.EFree $ fromString cWrapperName.unique
@@ -180,7 +180,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     aliasOrig :: Hs.Decl
     aliasOrig =
         Hs.DeclFunction $ Hs.FunctionDecl {
-             functionDeclName       = mangledOrigName
+             functionDeclName       = SHs.Exported mangledOrigName
            , functionDeclParameters = aliasParams
            , functionDeclResultType = resultType
            , functionDeclBody       = SHs.EFree $ unsafeUniqueHsName cWrapperName
@@ -425,7 +425,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams params cFunc mbC
     in  case primResult of
       HeapType {} ->
         Hs.DeclFunction $ Hs.FunctionDecl
-          { functionDeclName       = hiName
+          { functionDeclName       = SHs.Exported hiName
           , functionDeclParameters = params
           , functionDeclResultType = HsIO resType
           , functionDeclBody       = goA EmptyEnv primParams
@@ -435,7 +435,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams params cFunc mbC
 
       PrimitiveType {} ->
         Hs.DeclFunction $ Hs.FunctionDecl
-          { functionDeclName       = hiName
+          { functionDeclName       = SHs.Exported hiName
           , functionDeclParameters = params
           , functionDeclResultType = HsIO resType
           , functionDeclBody       = goB EmptyEnv primParams

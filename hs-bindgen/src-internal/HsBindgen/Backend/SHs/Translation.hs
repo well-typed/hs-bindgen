@@ -415,7 +415,7 @@ toNameHint (Hs.Name t) = NameHint (T.unpack t)
 
 translateUnionGetter :: Hs.UnionGetter -> SDecl
 translateUnionGetter Hs.UnionGetter{..} = DFunction
-  Function { functionName       = unionGetterName
+  Function { functionName       = Exported unionGetterName
            , functionParameters = [ FunctionParameter
                                      { functionParameterName    = Nothing
                                      , functionParameterType    = TCon unionGetterConstr
@@ -429,7 +429,7 @@ translateUnionGetter Hs.UnionGetter{..} = DFunction
 
 translateUnionSetter :: Hs.UnionSetter -> SDecl
 translateUnionSetter Hs.UnionSetter{..} = DFunction
-  Function { functionName       = unionSetterName
+  Function { functionName       = Exported unionSetterName
            , functionParameters = [ FunctionParameter
                                      { functionParameterName    = Nothing
                                      , functionParameterType    = translateType unionSetterType
