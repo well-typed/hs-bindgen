@@ -121,6 +121,13 @@ jobs:
     - name: 📥 Checkout
       uses: actions/checkout@v4
 
+    - name: (Debug) Check disk usage (init)
+      run: |
+        echo "--- Disk usage ---"
+        df -h
+        echo "--- Home directory size ---"
+        du -sh $HOME
+
     - name: 🛠️ Setup Haskell
       id: setup-haskell
       uses: haskell-actions/setup@v2
@@ -141,6 +148,13 @@ jobs:
       uses: ./.github/actions/setup-llvm
       with:
         version: ${{ matrix.llvm }}
+
+    - name: (Debug) Check disk usage (after GHC and LLVM install)
+      run: |
+        echo "--- Disk usage ---"
+        df -h
+        echo "--- Home directory size ---"
+        du -sh $HOME
 
     - name: 🛠️ cabal.project
       run: cp cabal.project.ci cabal.project
@@ -163,6 +177,13 @@ jobs:
 
     - name: 🏗️ Build
       run: cabal build all
+
+    - name: (Debug) Check disk usage (after build)
+      run: |
+        echo "--- Disk usage ---"
+        df -h
+        echo "--- Home directory size ---"
+        du -sh $HOME
 
     - name: 🧪 Debug (hs-bindgen)
       run: |
