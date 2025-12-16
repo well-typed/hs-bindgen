@@ -34,21 +34,23 @@ newtype Fun_ptr_Deref = Fun_ptr_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toFun_ptr_Deref ::
+-- | __unique:__ @toFun_ptr_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_83e60b3bb02cd08d ::
      Fun_ptr_Deref
   -> IO (Ptr.FunPtr Fun_ptr_Deref)
 
-foreign import ccall safe "dynamic" fromFun_ptr_Deref ::
+-- | __unique:__ @fromFun_ptr_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_66799ec68b619f2a ::
      Ptr.FunPtr Fun_ptr_Deref
   -> Fun_ptr_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Fun_ptr_Deref where
 
-  toFunPtr = toFun_ptr_Deref
+  toFunPtr = hs_bindgen_83e60b3bb02cd08d
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr Fun_ptr_Deref where
 
-  fromFunPtr = fromFun_ptr_Deref
+  fromFunPtr = hs_bindgen_66799ec68b619f2a
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr_Deref) "un_Fun_ptr_Deref")
          ) => GHC.Records.HasField "un_Fun_ptr_Deref" (Ptr.Ptr Fun_ptr_Deref) (Ptr.Ptr ty) where

@@ -57,11 +57,11 @@ data ImportListItem =
 
 -- | Haskell module
 data HsModule = HsModule {
-      hsModulePragmas              :: [GhcPragma]
-    , hsModuleName                 :: Hs.ModuleName
-    , hsModuleImports              :: [ImportListItem]
-    , hsModuleUserlandCapiWrappers :: [UserlandCapiWrapper]
-    , hsModuleDecls                :: [SDecl]
+      hsModulePragmas   :: [GhcPragma]
+    , hsModuleName      ::  Hs.ModuleName
+    , hsModuleImports   :: [ImportListItem]
+    , hsModuleCWrappers :: [CWrapper]
+    , hsModuleDecls     :: [SDecl]
     }
 
 {-------------------------------------------------------------------------------
@@ -70,31 +70,31 @@ data HsModule = HsModule {
 
 translateModuleMultiple ::
      BaseModuleName
-  -> ByCategory ([UserlandCapiWrapper], [SDecl])
+  -> ByCategory ([CWrapper], [SDecl])
   -> ByCategory HsModule
 translateModuleMultiple moduleBaseName declsByCat =
   mapByCategory go declsByCat
   where
-    go :: BindingCategory -> ([UserlandCapiWrapper], [SDecl]) -> HsModule
+    go :: BindingCategory -> ([CWrapper], [SDecl]) -> HsModule
     go cat (wrappers, decls) =
       translateModule' (Just cat) moduleBaseName wrappers decls
 
 translateModuleSingle ::
      Safety
   -> BaseModuleName
-  -> ByCategory ([UserlandCapiWrapper], [SDecl])
+  -> ByCategory ([CWrapper], [SDecl])
   -> HsModule
 translateModuleSingle safety name declsByCat =
   translateModule' Nothing name wrappers decls
   where
-    wrappers :: [UserlandCapiWrapper]
+    wrappers :: [CWrapper]
     decls :: [SDecl]
     (wrappers, decls) = mergeDecls safety declsByCat
 
 mergeDecls ::
   Safety
-  -> ByCategory ([UserlandCapiWrapper], [SDecl])
-  -> ([UserlandCapiWrapper], [SDecl])
+  -> ByCategory ([CWrapper], [SDecl])
+  -> ([CWrapper], [SDecl])
 mergeDecls safety declsByCat =
     Foldable.fold $ ByCategory $ removeSafetyCategory $ unByCategory declsByCat
   where
@@ -106,14 +106,14 @@ mergeDecls safety declsByCat =
 translateModule' ::
      Maybe BindingCategory
   -> BaseModuleName
-  -> [UserlandCapiWrapper]
+  -> [CWrapper]
   -> [SDecl]
   -> HsModule
-translateModule' mcat moduleBaseName hsModuleUserlandCapiWrappers hsModuleDecls =
+translateModule' mcat moduleBaseName hsModuleCWrappers hsModuleDecls =
     let hsModulePragmas =
-          resolvePragmas hsModuleUserlandCapiWrappers hsModuleDecls
+          resolvePragmas hsModuleCWrappers hsModuleDecls
         hsModuleImports =
-          resolveImports moduleBaseName mcat hsModuleUserlandCapiWrappers hsModuleDecls
+          resolveImports moduleBaseName mcat hsModuleCWrappers hsModuleDecls
         hsModuleName = fromBaseModuleName moduleBaseName mcat
     in  HsModule{..}
 
@@ -121,7 +121,7 @@ translateModule' mcat moduleBaseName hsModuleUserlandCapiWrappers hsModuleDecls 
   Auxiliary: Pragma resolution
 -------------------------------------------------------------------------------}
 
-resolvePragmas :: [UserlandCapiWrapper] -> [SDecl] -> [GhcPragma]
+resolvePragmas :: [CWrapper] -> [SDecl] -> [GhcPragma]
 resolvePragmas wrappers ds =
     Set.toAscList . mconcat $ haddockPrunePragmas : userlandCapiPragmas : constPragmas : map resolveDeclPragmas ds
   where
@@ -152,7 +152,7 @@ resolveDeclPragmas decl =
 resolveImports ::
      BaseModuleName
   -> Maybe BindingCategory
-  -> [UserlandCapiWrapper]
+  -> [CWrapper]
   -> [SDecl]
   -> [ImportListItem]
 resolveImports baseModule cat wrappers ds =

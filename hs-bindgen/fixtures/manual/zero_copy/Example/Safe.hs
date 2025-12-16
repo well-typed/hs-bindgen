@@ -31,29 +31,41 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+-- | __unique:__ @test_manualzero_copy_Example_Safe_reverse@
+foreign import ccall safe "hs_bindgen_350cceac1101d344" hs_bindgen_350cceac1101d344 ::
+     HsBindgen.Runtime.ConstPtr.ConstPtr Vector
+  -> Ptr.Ptr Vector
+  -> IO FC.CInt
+
 {-| __C declaration:__ @reverse@
 
     __defined at:__ @manual\/zero_copy.h:77:5@
 
     __exported by:__ @manual\/zero_copy.h@
-
-    __unique:__ @test_manualzero_copy_Example_Safe_reverse@
 -}
-foreign import ccall safe "hs_bindgen_350cceac1101d344" reverse ::
+reverse ::
      HsBindgen.Runtime.ConstPtr.ConstPtr Vector
      -- ^ __C declaration:__ @input@
   -> Ptr.Ptr Vector
      -- ^ __C declaration:__ @output@
   -> IO FC.CInt
+reverse = hs_bindgen_350cceac1101d344
 
-{-| Pointer-based API for 'transpose'
-
-__unique:__ @test_manualzero_copy_Example_Safe_transpose@
--}
-foreign import ccall safe "hs_bindgen_2ff371c815d92b04" transpose_wrapper ::
+-- | __unique:__ @test_manualzero_copy_Example_Safe_transpose@
+foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92b04 ::
      HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
   -> Ptr.Ptr Triplet
   -> IO ()
+
+{-| Pointer-based API for 'transpose'
+-}
+transpose_wrapper ::
+     HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
+     -- ^ __C declaration:__ @input@
+  -> Ptr.Ptr Triplet
+     -- ^ __C declaration:__ @output@
+  -> IO ()
+transpose_wrapper = hs_bindgen_2ff371c815d92b04
 
 {-| __C declaration:__ @transpose@
 
@@ -71,4 +83,4 @@ transpose =
   \x0 ->
     \x1 ->
       HsBindgen.Runtime.ConstantArray.withPtr x0 (\ptr2 ->
-                                                    transpose_wrapper (HsBindgen.Runtime.ConstPtr.ConstPtr ptr2) x1)
+                                                    hs_bindgen_2ff371c815d92b04 (HsBindgen.Runtime.ConstPtr.ConstPtr ptr2) x1)

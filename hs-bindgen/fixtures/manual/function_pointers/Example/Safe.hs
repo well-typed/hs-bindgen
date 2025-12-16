@@ -69,16 +69,26 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+-- | __unique:__ @test_manualfunction_pointers_Example_Safe_square@
+foreign import ccall safe "hs_bindgen_8c6beff641297a13" hs_bindgen_8c6beff641297a13 ::
+     FC.CInt
+  -> IO FC.CInt
+
 {-| __C declaration:__ @square@
 
     __defined at:__ @manual\/function_pointers.h:5:12@
 
     __exported by:__ @manual\/function_pointers.h@
-
-    __unique:__ @test_manualfunction_pointers_Example_Safe_square@
 -}
-foreign import ccall safe "hs_bindgen_8c6beff641297a13" square ::
+square ::
      FC.CInt
+  -> IO FC.CInt
+square = hs_bindgen_8c6beff641297a13
+
+-- | __unique:__ @test_manualfunction_pointers_Example_Safe_plus@
+foreign import ccall safe "hs_bindgen_3dfb239ac098f471" hs_bindgen_3dfb239ac098f471 ::
+     FC.CInt
+  -> FC.CInt
   -> IO FC.CInt
 
 {-| __C declaration:__ @plus@
@@ -86,11 +96,16 @@ foreign import ccall safe "hs_bindgen_8c6beff641297a13" square ::
     __defined at:__ @manual\/function_pointers.h:7:12@
 
     __exported by:__ @manual\/function_pointers.h@
-
-    __unique:__ @test_manualfunction_pointers_Example_Safe_plus@
 -}
-foreign import ccall safe "hs_bindgen_3dfb239ac098f471" plus ::
+plus ::
      FC.CInt
+  -> FC.CInt
+  -> IO FC.CInt
+plus = hs_bindgen_3dfb239ac098f471
+
+-- | __unique:__ @test_manualfunction_pointers_Example_Safe_apply1@
+foreign import ccall safe "hs_bindgen_983beb37938c4d96" hs_bindgen_983beb37938c4d96 ::
+     Ptr.FunPtr (FC.CInt -> IO FC.CInt)
   -> FC.CInt
   -> IO FC.CInt
 
@@ -99,14 +114,20 @@ foreign import ccall safe "hs_bindgen_3dfb239ac098f471" plus ::
     __defined at:__ @manual\/function_pointers.h:9:12@
 
     __exported by:__ @manual\/function_pointers.h@
-
-    __unique:__ @test_manualfunction_pointers_Example_Safe_apply1@
 -}
-foreign import ccall safe "hs_bindgen_983beb37938c4d96" apply1 ::
+apply1 ::
      Ptr.FunPtr (FC.CInt -> IO FC.CInt)
      -- ^ __C declaration:__ @f@
   -> FC.CInt
      -- ^ __C declaration:__ @x@
+  -> IO FC.CInt
+apply1 = hs_bindgen_983beb37938c4d96
+
+-- | __unique:__ @test_manualfunction_pointers_Example_Safe_apply2@
+foreign import ccall safe "hs_bindgen_8a62074f5475563b" hs_bindgen_8a62074f5475563b ::
+     Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
+  -> FC.CInt
+  -> FC.CInt
   -> IO FC.CInt
 
 {-| __C declaration:__ @apply2@
@@ -114,16 +135,21 @@ foreign import ccall safe "hs_bindgen_983beb37938c4d96" apply1 ::
     __defined at:__ @manual\/function_pointers.h:11:12@
 
     __exported by:__ @manual\/function_pointers.h@
-
-    __unique:__ @test_manualfunction_pointers_Example_Safe_apply2@
 -}
-foreign import ccall safe "hs_bindgen_8a62074f5475563b" apply2 ::
+apply2 ::
      Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
      -- ^ __C declaration:__ @f@
   -> FC.CInt
      -- ^ __C declaration:__ @x@
   -> FC.CInt
      -- ^ __C declaration:__ @y@
+  -> IO FC.CInt
+apply2 = hs_bindgen_8a62074f5475563b
+
+-- | __unique:__ @test_manualfunction_pointers_Example_Safe_apply1_pointer_arg@
+foreign import ccall safe "hs_bindgen_229d4041a92cd6b6" hs_bindgen_229d4041a92cd6b6 ::
+     Ptr.FunPtr Int2int
+  -> FC.CInt
   -> IO FC.CInt
 
 {-| Basically the same as apply1(), but here for illustratory purposes.
@@ -133,10 +159,15 @@ __C declaration:__ @apply1_pointer_arg@
 __defined at:__ @manual\/function_pointers.h:22:12@
 
 __exported by:__ @manual\/function_pointers.h@
-
-__unique:__ @test_manualfunction_pointers_Example_Safe_apply1_pointer_arg@
 -}
-foreign import ccall safe "hs_bindgen_229d4041a92cd6b6" apply1_pointer_arg ::
+apply1_pointer_arg ::
+     Ptr.FunPtr Int2int
+  -> FC.CInt
+  -> IO FC.CInt
+apply1_pointer_arg = hs_bindgen_229d4041a92cd6b6
+
+-- | __unique:__ @test_manualfunction_pointers_Example_Safe_apply1_nopointer_arg@
+foreign import ccall safe "hs_bindgen_de9f1109e03648e4" hs_bindgen_de9f1109e03648e4 ::
      Ptr.FunPtr Int2int
   -> FC.CInt
   -> IO FC.CInt
@@ -148,13 +179,16 @@ __C declaration:__ @apply1_nopointer_arg@
 __defined at:__ @manual\/function_pointers.h:26:12@
 
 __exported by:__ @manual\/function_pointers.h@
-
-__unique:__ @test_manualfunction_pointers_Example_Safe_apply1_nopointer_arg@
 -}
-foreign import ccall safe "hs_bindgen_de9f1109e03648e4" apply1_nopointer_arg ::
+apply1_nopointer_arg ::
      Ptr.FunPtr Int2int
   -> FC.CInt
   -> IO FC.CInt
+apply1_nopointer_arg = hs_bindgen_de9f1109e03648e4
+
+-- | __unique:__ @test_manualfunction_pointers_Example_Safe_apply1_nopointer_res@
+foreign import ccall safe "hs_bindgen_8bea6b2106c55d5b" hs_bindgen_8bea6b2106c55d5b ::
+     IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
 
 {-| A function returning a pointer to a function like apply1_nopointer().
 
@@ -163,8 +197,7 @@ __C declaration:__ @apply1_nopointer_res@
 __defined at:__ @manual\/function_pointers.h:31:21@
 
 __exported by:__ @manual\/function_pointers.h@
-
-__unique:__ @test_manualfunction_pointers_Example_Safe_apply1_nopointer_res@
 -}
-foreign import ccall safe "hs_bindgen_8bea6b2106c55d5b" apply1_nopointer_res ::
+apply1_nopointer_res ::
      IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+apply1_nopointer_res = hs_bindgen_8bea6b2106c55d5b

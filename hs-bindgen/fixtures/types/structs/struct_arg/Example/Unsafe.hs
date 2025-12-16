@@ -47,13 +47,18 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
-{-| Pointer-based API for 'thing_fun_1'
-
-__unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_1@
--}
-foreign import ccall unsafe "hs_bindgen_0bdddf60550fc97b" thing_fun_1_wrapper ::
+-- | __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_1@
+foreign import ccall unsafe "hs_bindgen_0bdddf60550fc97b" hs_bindgen_0bdddf60550fc97b ::
      Ptr.Ptr Thing
   -> IO FC.CInt
+
+{-| Pointer-based API for 'thing_fun_1'
+-}
+thing_fun_1_wrapper ::
+     Ptr.Ptr Thing
+     -- ^ __C declaration:__ @x@
+  -> IO FC.CInt
+thing_fun_1_wrapper = hs_bindgen_0bdddf60550fc97b
 
 {-| __C declaration:__ @thing_fun_1@
 
@@ -66,16 +71,23 @@ thing_fun_1 ::
      -- ^ __C declaration:__ @x@
   -> IO FC.CInt
 thing_fun_1 =
-  \x0 -> F.with x0 (\y1 -> thing_fun_1_wrapper y1)
+  \x0 ->
+    F.with x0 (\y1 -> hs_bindgen_0bdddf60550fc97b y1)
 
-{-| Pointer-based API for 'thing_fun_2'
-
-__unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_2@
--}
-foreign import ccall unsafe "hs_bindgen_c293d866e22be6fc" thing_fun_2_wrapper ::
+-- | __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_2@
+foreign import ccall unsafe "hs_bindgen_c293d866e22be6fc" hs_bindgen_c293d866e22be6fc ::
      FC.CInt
   -> Ptr.Ptr Thing
   -> IO ()
+
+{-| Pointer-based API for 'thing_fun_2'
+-}
+thing_fun_2_wrapper ::
+     FC.CInt
+     -- ^ __C declaration:__ @x@
+  -> Ptr.Ptr Thing
+  -> IO ()
+thing_fun_2_wrapper = hs_bindgen_c293d866e22be6fc
 
 {-| __C declaration:__ @thing_fun_2@
 
@@ -90,18 +102,28 @@ thing_fun_2 ::
 thing_fun_2 =
   \x0 ->
     HsBindgen.Runtime.CAPI.allocaAndPeek (\z1 ->
-                                            thing_fun_2_wrapper x0 z1)
+                                            hs_bindgen_c293d866e22be6fc x0 z1)
 
-{-| Pointer-based API for 'thing_fun_3a'
-
-__unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3a@
--}
-foreign import ccall unsafe "hs_bindgen_cfd51a9e490a997c" thing_fun_3a_wrapper ::
+-- | __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3a@
+foreign import ccall unsafe "hs_bindgen_cfd51a9e490a997c" hs_bindgen_cfd51a9e490a997c ::
      FC.CInt
   -> Ptr.Ptr Thing
   -> FC.CDouble
   -> Ptr.Ptr Thing
   -> IO ()
+
+{-| Pointer-based API for 'thing_fun_3a'
+-}
+thing_fun_3a_wrapper ::
+     FC.CInt
+     -- ^ __C declaration:__ @x@
+  -> Ptr.Ptr Thing
+     -- ^ __C declaration:__ @y@
+  -> FC.CDouble
+     -- ^ __C declaration:__ @z@
+  -> Ptr.Ptr Thing
+  -> IO ()
+thing_fun_3a_wrapper = hs_bindgen_cfd51a9e490a997c
 
 {-| __C declaration:__ @thing_fun_3a@
 
@@ -123,17 +145,26 @@ thing_fun_3a =
       \x2 ->
         F.with x1 (\y3 ->
                      HsBindgen.Runtime.CAPI.allocaAndPeek (\z4 ->
-                                                             thing_fun_3a_wrapper x0 y3 x2 z4))
+                                                             hs_bindgen_cfd51a9e490a997c x0 y3 x2 z4))
 
-{-| Pointer-based API for 'thing_fun_3b'
-
-__unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3b@
--}
-foreign import ccall unsafe "hs_bindgen_23fac8ee5044da6e" thing_fun_3b_wrapper ::
+-- | __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3b@
+foreign import ccall unsafe "hs_bindgen_23fac8ee5044da6e" hs_bindgen_23fac8ee5044da6e ::
      FC.CInt
   -> Ptr.Ptr Thing
   -> FC.CDouble
   -> IO FC.CChar
+
+{-| Pointer-based API for 'thing_fun_3b'
+-}
+thing_fun_3b_wrapper ::
+     FC.CInt
+     -- ^ __C declaration:__ @x@
+  -> Ptr.Ptr Thing
+     -- ^ __C declaration:__ @y@
+  -> FC.CDouble
+     -- ^ __C declaration:__ @z@
+  -> IO FC.CChar
+thing_fun_3b_wrapper = hs_bindgen_23fac8ee5044da6e
 
 {-| __C declaration:__ @thing_fun_3b@
 
@@ -153,4 +184,5 @@ thing_fun_3b =
   \x0 ->
     \x1 ->
       \x2 ->
-        F.with x1 (\y3 -> thing_fun_3b_wrapper x0 y3 x2)
+        F.with x1 (\y3 ->
+                     hs_bindgen_23fac8ee5044da6e x0 y3 x2)

@@ -19,15 +19,19 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+-- | __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
+foreign import ccall unsafe "hs_bindgen_93ed1628a0edf6b0" hs_bindgen_93ed1628a0edf6b0 ::
+     A
+  -> IO ()
+
 {-| __C declaration:__ @f@
 
     __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
-
-    __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
 -}
-foreign import ccall unsafe "hs_bindgen_93ed1628a0edf6b0" f ::
+f ::
      A
      -- ^ __C declaration:__ @x@
   -> IO ()
+f = hs_bindgen_93ed1628a0edf6b0

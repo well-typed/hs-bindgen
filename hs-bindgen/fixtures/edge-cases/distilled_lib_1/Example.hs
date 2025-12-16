@@ -708,21 +708,23 @@ newtype Callback_t_Deref = Callback_t_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
-foreign import ccall safe "wrapper" toCallback_t_Deref ::
+-- | __unique:__ @toCallback_t_Deref@
+foreign import ccall safe "wrapper" hs_bindgen_24eac512dce926e9 ::
      Callback_t_Deref
   -> IO (Ptr.FunPtr Callback_t_Deref)
 
-foreign import ccall safe "dynamic" fromCallback_t_Deref ::
+-- | __unique:__ @fromCallback_t_Deref@
+foreign import ccall safe "dynamic" hs_bindgen_893b8fa3b3f09882 ::
      Ptr.FunPtr Callback_t_Deref
   -> Callback_t_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Callback_t_Deref where
 
-  toFunPtr = toCallback_t_Deref
+  toFunPtr = hs_bindgen_24eac512dce926e9
 
 instance HsBindgen.Runtime.FunPtr.FromFunPtr Callback_t_Deref where
 
-  fromFunPtr = fromCallback_t_Deref
+  fromFunPtr = hs_bindgen_893b8fa3b3f09882
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Callback_t_Deref) "un_Callback_t_Deref")
          ) => GHC.Records.HasField "un_Callback_t_Deref" (Ptr.Ptr Callback_t_Deref) (Ptr.Ptr ty) where

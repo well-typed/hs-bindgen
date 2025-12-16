@@ -16,6 +16,8 @@ module HsBindgen.Backend.SHs.AST (
     ClosedType,
     SType (..),
     Var (..),
+    FunctionName(..),
+    fromFunctionName,
     Function (..),
     Instance (..),
     Field (..),
@@ -38,6 +40,7 @@ import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
+import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.Prelims
 import HsBindgen.Imports
@@ -403,7 +406,7 @@ data Newtype = Newtype {
 -- generate polymorphic type signatures.
 --
 data ForeignImport = ForeignImport
-    { foreignImportName       :: Hs.Name Hs.NsVar
+    { foreignImportName       :: UniqueSymbol
     , foreignImportParameters :: [FunctionParameter]
     , foreignImportResultType :: ClosedType
     , foreignImportOrigName   :: C.DeclName
@@ -421,8 +424,22 @@ data Safety = Safe | Unsafe
 instance Default Safety where
   def = Safe
 
+data FunctionName =
+      -- | Human-readable name that is to be exported
+      Exported (Hs.Name Hs.NsVar)
+      -- | Name of an auxiliary function used in the implementation of exported functions
+      --
+      -- Since those functions have use-sites, we should not normally be renamed.
+    | Internal UniqueSymbol
+  deriving stock (Generic, Show)
+
+fromFunctionName :: FunctionName -> Hs.Name Hs.NsVar
+fromFunctionName = \case
+  Exported x -> x
+  Internal s -> unsafeUniqueHsName s
+
 data Function = Function {
-      functionName       :: Hs.Name Hs.NsVar
+      functionName       :: FunctionName
     , functionParameters :: [FunctionParameter]
     , functionResultType :: ClosedType
     , functionBody       :: ClosedExpr

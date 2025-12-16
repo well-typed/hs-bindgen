@@ -19,14 +19,18 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+-- | __unique:__ @test_typesspecialparse_failure_lo_Example_Safe_fun2@
+foreign import ccall safe "hs_bindgen_a1252a3becef09a6" hs_bindgen_a1252a3becef09a6 ::
+     FC.CInt
+  -> IO ()
+
 {-| __C declaration:__ @fun2@
 
     __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
-
-    __unique:__ @test_typesspecialparse_failure_lo_Example_Safe_fun2@
 -}
-foreign import ccall safe "hs_bindgen_a1252a3becef09a6" fun2 ::
+fun2 ::
      FC.CInt
   -> IO ()
+fun2 = hs_bindgen_a1252a3becef09a6

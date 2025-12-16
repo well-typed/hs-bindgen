@@ -37,6 +37,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+-- | __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cp@
+foreign import ccall unsafe "hs_bindgen_648d4f0fd0df4c79" hs_bindgen_648d4f0fd0df4c79 ::
+     FC.CInt
+  -> FC.CInt
+
 {-| Conflicting attributes on functions for llvm/clang versions 18 and up
 
   Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
@@ -46,12 +51,16 @@ __C declaration:__ @square_cp@
 __defined at:__ @functions\/fun_attributes_conflict.h:9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
-
-__unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cp@
 -}
-foreign import ccall unsafe "hs_bindgen_648d4f0fd0df4c79" square_cp ::
+square_cp ::
      FC.CInt
      -- ^ __C declaration:__ @x@
+  -> FC.CInt
+square_cp = hs_bindgen_648d4f0fd0df4c79
+
+-- | __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pc@
+foreign import ccall unsafe "hs_bindgen_632a1e6eb5ceeda7" hs_bindgen_632a1e6eb5ceeda7 ::
+     FC.CInt
   -> FC.CInt
 
 {-| __C declaration:__ @square_pc@
@@ -59,12 +68,16 @@ foreign import ccall unsafe "hs_bindgen_648d4f0fd0df4c79" square_cp ::
     __defined at:__ @functions\/fun_attributes_conflict.h:11:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
-
-    __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pc@
 -}
-foreign import ccall unsafe "hs_bindgen_632a1e6eb5ceeda7" square_pc ::
+square_pc ::
      FC.CInt
      -- ^ __C declaration:__ @x@
+  -> FC.CInt
+square_pc = hs_bindgen_632a1e6eb5ceeda7
+
+-- | __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cc@
+foreign import ccall unsafe "hs_bindgen_56d75b1ff2482f13" hs_bindgen_56d75b1ff2482f13 ::
+     FC.CInt
   -> FC.CInt
 
 {-| __C declaration:__ @square_cc@
@@ -72,13 +85,17 @@ foreign import ccall unsafe "hs_bindgen_632a1e6eb5ceeda7" square_pc ::
     __defined at:__ @functions\/fun_attributes_conflict.h:13:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
-
-    __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_cc@
 -}
-foreign import ccall unsafe "hs_bindgen_56d75b1ff2482f13" square_cc ::
+square_cc ::
      FC.CInt
      -- ^ __C declaration:__ @x@
   -> FC.CInt
+square_cc = hs_bindgen_56d75b1ff2482f13
+
+-- | __unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pp@
+foreign import ccall unsafe "hs_bindgen_eac2f9645ef29119" hs_bindgen_eac2f9645ef29119 ::
+     FC.CInt
+  -> IO FC.CInt
 
 {-|
 
@@ -89,10 +106,9 @@ __C declaration:__ @square_pp@
 __defined at:__ @functions\/fun_attributes_conflict.h:15:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
-
-__unique:__ @test_functionsfun_attributes_confl_Example_Unsafe_square_pp@
 -}
-foreign import ccall unsafe "hs_bindgen_eac2f9645ef29119" square_pp ::
+square_pp ::
      FC.CInt
      -- ^ __C declaration:__ @x@
   -> IO FC.CInt
+square_pp = hs_bindgen_eac2f9645ef29119

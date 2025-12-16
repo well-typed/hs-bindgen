@@ -21,6 +21,7 @@ import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
+import HsBindgen.Backend.Hs.Translation.Function
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Newtype qualified as Hs
 import HsBindgen.Backend.Hs.Translation.State (HsM, TranslationState)
@@ -32,20 +33,17 @@ import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Config.Internal
-import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
-import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.PrettyC qualified as PC
 
-import DeBruijn (Add (..), Env (..), Idx (..), pattern I1, pattern I2, sizeEnv,
-                 tabulateEnv, weaken, zipWithEnv)
+import DeBruijn (Add (..), Idx (..), Weaken (..), pattern I1, pattern I2)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -194,7 +192,6 @@ generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
       withCategoryM :: Functor m => BindingCategory -> m [a] -> m [WithCategory a]
       withCategoryM c = fmap (withCategory c)
 
-
 {-------------------------------------------------------------------------------
   Structs
 -------------------------------------------------------------------------------}
@@ -228,7 +225,7 @@ structDecs opts haddockConfig info struct spec fields = do
         fieldName    = C.nameHs (C.fieldName (C.structFieldInfo f))
       , fieldType    = Type.topLevel (C.structFieldType f)
       , fieldOrigin  = Origin.StructField f
-      , fieldComment = generateHaddocksWithFieldInfo haddockConfig info (C.structFieldInfo f)
+      , fieldComment = getHaddocksFieldInfo haddockConfig info (C.structFieldInfo f)
       }
 
     candidateInsts :: Set Hs.TypeClass
@@ -258,7 +255,7 @@ structDecs opts haddockConfig info struct spec fields = do
               , declKind = Origin.Struct struct
               , declSpec = spec
               }
-          , structComment = generateHaddocksWithInfo haddockConfig info
+          , structComment = getHaddocks haddockConfig info
           }
 
         structDecl :: Hs.Decl
@@ -428,7 +425,7 @@ opaqueDecs cNameKind haddockConfig info spec = do
           , declKind = Origin.Opaque cNameKind
           , declSpec = spec
           }
-      , emptyDataComment = generateHaddocksWithInfo haddockConfig info
+      , emptyDataComment = getHaddocks haddockConfig info
       }
 
 {-------------------------------------------------------------------------------
@@ -472,7 +469,7 @@ unionDecs haddockConfig info union spec = do
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = generateHaddocksWithInfo haddockConfig info
+        newtypeComment = getHaddocks haddockConfig info
 
         candidateInsts :: Set Hs.TypeClass
         candidateInsts = Set.empty
@@ -526,7 +523,7 @@ unionDecs haddockConfig info union spec = do
                         unionGetterName    = getterName
                       , unionGetterType    = hsType
                       , unionGetterConstr  = nt.newtypeName
-                      , unionGetterComment = generateHaddocksWithFieldInfo haddockConfig info unionFieldInfo
+                      , unionGetterComment = getHaddocksFieldInfo haddockConfig info unionFieldInfo
                                           <> commentRefName (Hs.getName setterName)
                       }
                   , Hs.DeclUnionSetter
@@ -662,7 +659,7 @@ enumDecs opts haddockConfig info e spec = do
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = generateHaddocksWithInfo haddockConfig info
+        newtypeComment = getHaddocks haddockConfig info
 
         candidateInsts :: Set Hs.TypeClass
         candidateInsts = Set.empty
@@ -723,7 +720,7 @@ enumDecs opts haddockConfig info e spec = do
               , patSynConstr  = nt.newtypeConstr
               , patSynValue   = enumConstantValue
               , patSynOrigin  = Origin.EnumConstant enumValue
-              , patSynComment = generateHaddocksWithFieldInfo haddockConfig info enumConstantInfo
+              , patSynComment = getHaddocksFieldInfo haddockConfig info enumConstantInfo
               }
             | enumValue@C.EnumConstant{..} <- C.enumConstants e
             ]
@@ -811,7 +808,7 @@ typedefDecs opts haddockConfig info typedef spec = do
           }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment =  generateHaddocksWithInfo haddockConfig info
+        newtypeComment =  getHaddocks haddockConfig info
 
         candidateInsts :: Set Hs.TypeClass
         candidateInsts = Set.unions
@@ -998,7 +995,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = generateHaddocksWithInfo haddockConfig info
+        newtypeComment = getHaddocks haddockConfig info
 
         candidateInsts :: Set Hs.TypeClass
         candidateInsts = Set.unions [
@@ -1042,442 +1039,6 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
           | (strat, clss) <- translationDeriveTypedef opts
           , clss `Set.member` insts
           ]
-
-{-------------------------------------------------------------------------------
-  Function
--------------------------------------------------------------------------------}
-
-data WrappedType
-    = WrapType C.Type -- ^ ordinary, "primitive" types which can be handled by Haskell FFI directly
-    | HeapType C.Type -- ^ types passed on heap
-      -- | An array of known size, with const-qualified array elements
-      --
-      -- Only if the array elements are const qualified do we know for sure that
-      -- the array is read-only. In such cases, we generate a high-level
-      -- wrapper.
-    | CAType C.Type Natural C.Type
-      -- | An array of unknown size, with const-qualified array elements
-      --
-      -- Only if the array elements are const qualified do we know for sure that
-      -- the array is read-only. In such cases, we generate a high-level
-      -- wrapper.
-    | AType C.Type C.Type
-  deriving Show
-
--- | Checks if a type is unsupported by Haskell's FFI
---
-hasUnsupportedType :: C.GetCanonicalType t => t -> Bool
-hasUnsupportedType = aux . C.getCanonicalType
-  where
-    aux :: C.CanonicalType -> Bool
-    aux (C.TypeRef declId)       = auxRef declId
-    aux C.TypeComplex {}         = True
-    aux C.TypeConstArray {}      = True
-    aux C.TypeIncompleteArray {} = True
-    aux C.TypePrim {}            = False
-    aux C.TypePointer {}         = False
-    aux C.TypeFun {}             = False
-    aux C.TypeVoid               = False
-    aux C.TypeBlock {}           = False
-    aux C.TypeExtBinding {}      = False
-
-    auxRef :: C.FinalDeclId -> Bool
-    auxRef declId =
-        case declId.name.kind of
-          C.NameKindOrdinary               -> False
-          C.NameKindTagged C.TagKindStruct -> True
-          C.NameKindTagged C.TagKindUnion  -> True
-          C.NameKindTagged C.TagKindEnum   -> False
-
--- | Fancy types are heap types or constant arrays. We create high-level
--- wrapper for fancy types.
---
-anyFancy :: [WrappedType] -> Bool
-anyFancy types = any p types where
-    p WrapType {} = False
-    p HeapType {} = True
-    p CAType {}   = True
-    p AType {}    = True
-
--- | Types that we cannot directly pass via C FFI.
-wrapType ::  C.Type -> WrappedType
-wrapType ty
-  -- Heap types
-  | C.isCanonicalTypeStruct ty ||
-    C.isCanonicalTypeUnion ty ||
-    C.isCanonicalTypeComplex ty
-  = HeapType ty
-
-  -- Array types
-  | Just aTy <- C.isCanonicalTypeArray ty
-  = if C.isErasedTypeConstQualified ty then
-      case aTy of
-        C.ConstantArrayClassification n eTy -> CAType ty n eTy
-        C.IncompleteArrayClassification eTy -> AType ty eTy
-    else
-      WrapType $ C.TypePointer (C.getArrayElementType aTy)
-
-  -- Other types
-  | otherwise
-  = WrapType ty
-
--- | Type in low-level Haskell wrapper
-unwrapType :: WrappedType -> C.Type
-unwrapType = \case
-    WrapType ty -> ty
-    HeapType ty -> C.TypePointer ty
-    CAType aTy _ eTy -> firstElemPtr aTy eTy
-    AType aTy eTy -> firstElemPtr aTy eTy
-  where
-    -- NOTE: if an array type is const-qualified, then its array element type is
-    -- also const-qualified, and vice versa.
-    firstElemPtr :: C.Type -> C.Type -> C.Type
-    firstElemPtr aTy eTy
-      -- The array element type has a const qualifier.
-      | C.isErasedTypeConstQualified eTy
-      = C.TypePointer eTy
-      -- The array type has a const qualifier, but the array element type does
-      -- not.
-      | C.isErasedTypeConstQualified aTy
-      = C.TypePointer $ C.TypeQualified C.TypeQualifierConst eTy
-      -- No const qualifiers on either the array type or the array element type.
-      | otherwise
-      = C.TypePointer eTy
-
-
--- | Type in high-level Haskell wrapper
-unwrapOrigType :: WrappedType -> C.Type
-unwrapOrigType (WrapType ty)    = ty
-unwrapOrigType (HeapType ty)    = ty
-unwrapOrigType (CAType oty _ _) = oty
-unwrapOrigType (AType oty _)    = oty
-
-isVoidW :: WrappedType -> Bool
-isVoidW = C.isVoid . unwrapType
-
--- | Whether wrapped type is HeapType.
-isWrappedHeap :: WrappedType -> Bool
-isWrappedHeap WrapType {} = False
-isWrappedHeap HeapType {} = True
-isWrappedHeap CAType {}   = False
-isWrappedHeap AType {}    = False
-
--- | userland-api C wrapper.
-wrapperDecl
-    :: String         -- ^ true C name
-    -> String         -- ^ wrapper name
-    -> WrappedType    -- ^ result type
-    -> [WrappedType]  -- ^ arguments
-    -> PC.Decl
-wrapperDecl innerName wrapperName res args
-    | isVoidW res
-    = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (unwrapType <$> args')
-          [PC.Expr $ PC.Call innerName (callArgs args' (PC.argsToIdx args'))]
-
-    | isWrappedHeap res
-    = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (unwrapType <$> (args' :> res))
-          [PC.Assign (PC.LDeRef (PC.LVar IZ)) $ PC.Call innerName (callArgs args' (IS <$> PC.argsToIdx args'))]
-
-    | otherwise
-    = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName (unwrapType res) C.ImpureFunction (unwrapType <$> args')
-          [PC.Return $ PC.Call innerName (callArgs args' (PC.argsToIdx args'))]
-  where
-    callArgs :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
-    callArgs tys ids = toList (zipWithEnv f tys ids) where f ty idx = if isWrappedHeap ty then PC.DeRef (PC.Var idx) else PC.Var idx
-
--- | Generate a 'DeclFunction' for a high-level wrapper function
---
-hsWrapperDeclFunction
-    :: Hs.Name Hs.NsVar       -- ^ high-level name
-    -> Hs.Name Hs.NsVar       -- ^ low-level import name
-    -> WrappedType            -- ^ result type
-    -> [WrappedType]          -- ^ arguments
-    -> [Hs.FunctionParameter] -- ^ function parameter with comments
-    -> C.Function             -- ^ original C function
-    -> Maybe HsDoc.Comment    -- ^ function comment
-    -> Hs.Decl
-hsWrapperDeclFunction hiName loName res wrappedArgs wrapperParams cFunc mbComment =
-  let resType = Type.inContext Type.FunRes $ unwrapOrigType res
-   in case res of
-        HeapType {} ->
-          Hs.DeclFunction $ Hs.FunctionDecl
-            { functionDeclName       = hiName
-            , functionDeclParameters = wrapperParams
-            , functionDeclResultType = HsIO resType
-            , functionDeclBody       = goA EmptyEnv wrappedArgs
-            , functionDeclOrigin     = Origin.Function cFunc
-            , functionDeclComment    = mbComment
-            }
-
-        WrapType {} ->
-          Hs.DeclFunction $ Hs.FunctionDecl
-            { functionDeclName       = hiName
-            , functionDeclParameters = wrapperParams
-            , functionDeclResultType = HsIO resType
-            , functionDeclBody       = goB EmptyEnv wrappedArgs
-            , functionDeclOrigin     = Origin.Function cFunc
-            , functionDeclComment    = mbComment
-            }
-
-        CAType {} ->
-          panicPure "ConstantArray cannot occur as a result type"
-
-        AType {} ->
-          panicPure "Array cannot occur as a result type"
-  where
-    -- wrapper for fancy result
-    goA :: Env ctx WrappedType -> [WrappedType] -> SHs.SExpr ctx
-    goA env []     = goA' env (tabulateEnv (sizeEnv env) id) []
-    goA env (x:xs) = SHs.ELam "x" $ goA (env :> x) xs
-
-    goA' :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [(Bool, Idx ctx)] -> SHs.SExpr ctx
-    goA' EmptyEnv    EmptyEnv  zs
-        = shsApps (SHs.EGlobal SHs.CAPI_allocaAndPeek)
-          [ SHs.ELam "z" $ shsApps (SHs.EFree loName)
-              (map
-                (\(useConstPtr, x) -> constPtr useConstPtr $ SHs.EBound x)
-                (fmap (second IS) zs ++ [(False, IZ)]))
-          ]
-      where
-        constPtr :: Bool -> SHs.SExpr ctx -> SHs.SExpr ctx
-        constPtr useConstPtr
-          | useConstPtr = SHs.EApp (SHs.EGlobal SHs.ConstPtr_constructor)
-          | otherwise = id
-
-    goA' (tys :> ty) (xs :> x) zs = case ty of
-        HeapType ty' -> shsApps (SHs.EGlobal SHs.CAPI_with) $
-            let useConstPtr = C.isErasedTypeConstQualified ty' in
-            [ SHs.EBound x
-            , SHs.ELam "y" $ goA' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
-            ]
-
-        CAType aTy _ _ -> shsApps (SHs.EGlobal SHs.ConstantArray_withPtr) $
-            let useConstPtr = C.isErasedTypeConstQualified aTy in
-            [ SHs.EBound x
-            , SHs.ELam "ptr" $ goA' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
-            ]
-
-        AType aTy _ -> shsApps (SHs.EGlobal SHs.IncompleteArray_withPtr) $
-            let useConstPtr = C.isErasedTypeConstQualified aTy in
-            [ SHs.EBound x
-            , SHs.ELam "ptr" $ goA' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
-            ]
-
-        WrapType{} ->
-            goA' tys xs ((False, x) : zs)
-
-    -- wrapper for non-fancy result.
-    goB :: Env ctx WrappedType -> [WrappedType] -> SHs.SExpr ctx
-    goB env []     = goB' env (tabulateEnv (sizeEnv env) id) []
-    goB env (x:xs) = SHs.ELam "x" $ goB (env :> x) xs
-
-    goB' :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [(Bool, Idx ctx)] -> SHs.SExpr ctx
-    goB' EmptyEnv    EmptyEnv  zs
-        = shsApps (SHs.EFree loName)
-            (map
-              (\(useConstPtr, x) -> constPtr useConstPtr $ SHs.EBound x)
-              zs)
-      where
-        constPtr :: Bool -> SHs.SExpr ctx -> SHs.SExpr ctx
-        constPtr useConstPtr
-          | useConstPtr = SHs.EApp (SHs.EGlobal SHs.ConstPtr_constructor)
-          | otherwise = id
-
-    goB' (tys :> ty) (xs :> x) zs = case ty of
-        HeapType ty' -> shsApps (SHs.EGlobal SHs.CAPI_with) $
-          let useConstPtr = C.isErasedTypeConstQualified ty' in
-          [ SHs.EBound x
-          , SHs.ELam "y" $ goB' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
-          ]
-
-        CAType aTy _ _ -> shsApps (SHs.EGlobal SHs.ConstantArray_withPtr) $
-            let useConstPtr = C.isErasedTypeConstQualified aTy in
-            [ SHs.EBound x
-            , SHs.ELam "ptr" $ goB' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
-            ]
-
-        AType aTy _ -> shsApps (SHs.EGlobal SHs.IncompleteArray_withPtr) $
-            let useConstPtr = C.isErasedTypeConstQualified aTy in
-            [ SHs.EBound x
-            , SHs.ELam "ptr" $ goB' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
-            ]
-
-        WrapType {} ->
-            goB' tys xs ((False, x) : zs)
-
-shsApps :: SHs.SExpr ctx -> [SHs.SExpr ctx] -> SHs.SExpr ctx
-shsApps = foldl' SHs.EApp
-
-functionDecs ::
-     HasCallStack
-  => SHs.Safety
-  -> TranslationConfig
-  -> HaddockConfig
-  -> BaseModuleName
-  -> C.DeclInfo
-  -> C.Function
-  -> C.DeclSpec
-  -> [Hs.Decl]
-functionDecs safety opts haddockConfig moduleName info f _spec = concat [
-      funDecls
-    , [ hsWrapperDeclFunction highlevelName importName res wrappedArgTypes wrapParsedArgs f mbWrapComment
-      | areFancy
-      ]
-    ]
-  where
-    areFancy = anyFancy (res : wrappedArgTypes)
-
-    funDecls :: [Hs.Decl]
-    funDecls =
-        HsFI.foreignImportDecs
-          importName
-          (snd resType)
-          (if areFancy then ffiParams else ffiParsedArgs)
-          (uniqueCDeclName wrapperName)
-          (CallConvUserlandCAPI userlandCapiWrapper)
-          (Origin.Function f)
-          (mconcat [
-              if areFancy
-                then Just nonFancyComment
-                else mbFFIComment
-            , ioComment
-            , Just $ HsDoc.uniqueSymbol wrapperName
-            ])
-          safety
-
-    userlandCapiWrapper :: UserlandCapiWrapper
-    userlandCapiWrapper = UserlandCapiWrapper {
-          capiWrapperDefinition =
-            PC.prettyDecl (wrapperDecl innerName wrapperName.unique res wrappedArgTypes) ""
-        , capiWrapperImport =
-            getMainHashIncludeArg info
-        }
-
-    highlevelName = C.unsafeDeclIdHaskellName info.declId
-    importName
-        | areFancy  = highlevelName <> "_wrapper" -- TODO: Add to NameMangler pass
-        | otherwise = highlevelName
-
-    res = wrapType $ C.functionRes f
-
-    -- Parameters for FFI import
-    ffiParams = [ Hs.FunctionParameter
-                   { functionParameterName    = fmap C.nameHs mbName
-                   , functionParameterType    = Type.inContext Type.FunArg (unwrapType (wrapType ty))
-                   , functionParameterComment = Nothing
-                   }
-                | (mbName, ty) <- C.functionArgs f
-                ] ++ toList (fst resType)
-
-    (mbFFIComment, ffiParsedArgs) =
-      generateHaddocksWithInfoParams haddockConfig info ffiParams
-
-    -- Parameters for wrapper decl
-    wrapperParams = [ Hs.FunctionParameter
-                     { functionParameterName    = fmap C.nameHs mbName
-                     , functionParameterType    = Type.inContext Type.FunArg (unwrapOrigType (wrapType ty))
-                     , functionParameterComment = Nothing
-                     }
-                  | (mbName, ty) <- C.functionArgs f
-                  ]
-
-    (mbWrapComment, wrapParsedArgs) =
-      generateHaddocksWithInfoParams haddockConfig info wrapperParams
-
-    wrappedArgTypes =
-      [ wrapType ty
-      | (_, ty) <- C.functionArgs f
-      ]
-
-    -- | When translating a 'C.Type' there are C types which we
-    -- cannot pass directly using C FFI. We need to distinguish these.
-    --
-    -- Result types can be heap types, which are types we can't return by value
-    -- due to Haskell FFI limitation. Or they can be normal types supported by
-    -- Haskell FFI. This is also true for function arguments as well, result types
-    -- are a special case where unsupported result types become arguments.
-    resType :: (Maybe Hs.FunctionParameter, HsType)
-    resType =
-      case res of
-        -- A heap type that is not supported by the Haskell FFI as a function
-        -- result. We pass it as a function argument instead.
-        HeapType {} -> (Just Hs.FunctionParameter {
-            functionParameterName = Nothing
-          , functionParameterType = Type.inContext Type.FunArg $ unwrapType res
-          , functionParameterComment = Nothing
-          }
-          , hsIO $ HsPrimType HsPrimUnit
-          )
-
-        -- A "normal" result type that is supported by the Haskell FFI.
-        WrapType {} ->
-          ( Nothing
-          , hsIO $ Type.inContext Type.FunRes $ unwrapType res
-          )
-
-        CAType {} ->
-            panicPure "ConstantArray cannot occur as a result type"
-
-        AType {} ->
-            panicPure "Array cannot occur as a result type"
-
-    -- | Decide based on the function attributes whether to include 'IO' in the
-    -- result type of the foreign import. See the documentation on
-    -- 'C.FunctionPurity'.
-    --
-    -- An exception to the rules: the foreign import function returns @void@
-    -- when @res@ is a heap type, in which case a @const@ or @pure@ attribute
-    -- does not make much sense, and so we just return the result in 'IO'.
-    hsIO :: Hs.HsType -> Hs.HsType
-    ioComment :: Maybe HsDoc.Comment
-    (hsIO, ioComment) = case C.functionPurity (C.functionAttrs f) of
-        C.HaskellPureFunction -> (id  , Nothing)
-        C.CPureFunction       -> (HsIO, Just pureComment)
-        C.ImpureFunction      -> (HsIO, Nothing)
-
-    -- Generation of C wrapper for userland-capi.
-    innerName :: String
-    innerName = T.unpack info.declId.name.text
-
-    wrapperName :: UniqueSymbol
-    wrapperName = globallyUnique opts.translationUniqueId moduleName $ concat [
-          show safety
-        , "_"
-        , innerName
-        ]
-
-    --
-    -- Comments
-    --
-
-    -- "Pointer-based API for '<function>'"
-    nonFancyComment :: HsDoc.Comment
-    nonFancyComment = HsDoc.title [
-          HsDoc.TextContent "Pointer-based API for"
-        , HsDoc.Identifier (Hs.getName highlevelName)
-        ]
-
-    -- "Marked @__attribute((pure))__@"
-    --
-    -- C-pure functions can be safely encapsulated using 'unsafePerformIO' to
-    -- create a Haskell-pure functions. We include a comment in the generated
-    -- bindings to this effect.
-    pureComment :: HsDoc.Comment
-    pureComment = HsDoc.paragraph [
-          HsDoc.TextContent "Marked"
-        , HsDoc.Monospace
-          [ HsDoc.Bold
-            [ HsDoc.TextContent "attribute((pure))" ]
-          ]
-        ]
-
-getMainHashIncludeArg :: HasCallStack => C.DeclInfo -> HashIncludeArg
-getMainHashIncludeArg declInfo = case C.declHeaderInfo declInfo of
-    Nothing -> panicPure "no main header for builtin"
-    Just C.HeaderInfo{headerMainHeaders} -> NonEmpty.head headerMainHeaders
 
 {-------------------------------------------------------------------------------
   Globals
@@ -1631,16 +1192,9 @@ addressStubDecs ::
      , Hs.Name 'Hs.NsVar
      )
 addressStubDecs opts haddockConfig moduleName info ty _spec =
-    (foreignImport ++ runnerDecls, runnerName)
+    (foreignImport : runnerDecls, runnerName)
   where
     -- *** Stub (impure) ***
-
-    -- We reuse the mangled stub name here, since the import is supposed to be
-    -- internal. Users should use functioned identified by @runnerName@ instead,
-    -- which does not include 'IO' in the return type.
-    stubImportName :: Hs.Name 'Hs.NsVar
-    stubImportName = unsafeUniqueHsName stubName
-
     stubImportType :: HsType
     stubImportType = HsIO $ Type.topLevel stubType
 
@@ -1667,22 +1221,22 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
           PC.FunDefn stubName.unique stubType C.HaskellPureFunction args'
             [PC.Return $ PC.Address $ PC.NamedVar varName]
 
-    userlandCapiWrapper :: UserlandCapiWrapper
-    userlandCapiWrapper = UserlandCapiWrapper {
-          capiWrapperDefinition = prettyStub
-        , capiWrapperImport = getMainHashIncludeArg info
+    cWrapper :: CWrapper
+    cWrapper = CWrapper {
+          cWrapperDefinition = prettyStub
+        , cWrapperImport = getMainHashIncludeArg info
         }
 
-    mbComment = generateHaddocksWithInfo haddockConfig info
+    mbComment = getHaddocks haddockConfig info
 
-    foreignImport :: [Hs.Decl]
+    foreignImport :: Hs.Decl
     foreignImport =
-        HsFI.foreignImportDecs
-          stubImportName
+        HsFI.foreignImportDec
+          stubName
           stubImportType
           []
           (uniqueCDeclName stubName)
-          (CallConvUserlandCAPI userlandCapiWrapper)
+          (CallConvUserlandCAPI cWrapper)
           (Origin.Global ty)
           (Just $ HsDoc.uniqueSymbol stubName)
           -- These imports can be unsafe. We're binding to simple address stubs,
@@ -1709,7 +1263,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
     runnerName = Hs.Name $ Hs.getIdentifier info.declId.haskellId <> "_ptr"
     runnerType = SHs.translateType (Type.topLevel stubType)
     runnerExpr = SHs.EGlobal SHs.IO_unsafePerformIO
-                `SHs.EApp` SHs.EFree stubImportName
+                `SHs.EApp` SHs.EFree (fromString $ stubName.unique)
 
 {-------------------------------------------------------------------------------
   Macro
@@ -1725,9 +1279,38 @@ macroVarDecs haddockConfig info macroExpr = [
         Hs.MacroExpr
           { macroExprName    = hsVarName
           , macroExprBody    = macroExpr
-          , macroExprComment = generateHaddocksWithInfo haddockConfig info
+          , macroExprComment = getHaddocks haddockConfig info
           }
     ]
   where
     hsVarName :: Hs.Name Hs.NsVar
     hsVarName = C.unsafeDeclIdHaskellName info.declId
+
+{-------------------------------------------------------------------------------
+  Helpers
+-------------------------------------------------------------------------------}
+
+-- | Checks if a type is unsupported by Haskell's FFI
+--
+hasUnsupportedType :: C.GetCanonicalType t => t -> Bool
+hasUnsupportedType = aux . C.getCanonicalType
+  where
+    aux :: C.CanonicalType -> Bool
+    aux (C.TypeRef declId)       = auxRef declId
+    aux C.TypeComplex {}         = True
+    aux C.TypeConstArray {}      = True
+    aux C.TypeIncompleteArray {} = True
+    aux C.TypePrim {}            = False
+    aux C.TypePointer {}         = False
+    aux C.TypeFun {}             = False
+    aux C.TypeVoid               = False
+    aux C.TypeBlock {}           = False
+    aux C.TypeExtBinding {}      = False
+
+    auxRef :: C.FinalDeclId -> Bool
+    auxRef declId =
+        case declId.name.kind of
+          C.NameKindOrdinary               -> False
+          C.NameKindTagged C.TagKindStruct -> True
+          C.NameKindTagged C.TagKindUnion  -> True
+          C.NameKindTagged C.TagKindEnum   -> False

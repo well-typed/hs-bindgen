@@ -88,7 +88,7 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
         uncheckedHashIncludeArgs =
           reverse $ bindgenStateUncheckedHashIncludeArgs bindgenState
 
-        artefact :: Artefact ([SourcePath], ([UserlandCapiWrapper], [SHs.SDecl]))
+        artefact :: Artefact ([SourcePath], ([CWrapper], [SHs.SDecl]))
         artefact = do
           deps  <- Dependencies
           decls <- FinalDecls
@@ -129,7 +129,7 @@ hashInclude arg = do
 -------------------------------------------------------------------------------}
 
 -- | Get required extensions
-getExtensions :: [UserlandCapiWrapper] -> [SHs.SDecl] -> Set TH.Extension
+getExtensions :: [CWrapper] -> [SHs.SDecl] -> Set TH.Extension
 getExtensions wrappers decls = userlandCapiExt <> foldMap requiredExtensions decls
   where
     userlandCapiExt = case wrappers of
@@ -144,7 +144,7 @@ getExtensions wrappers decls = userlandCapiExt <> foldMap requiredExtensions dec
 getThDecls
     :: Guasi q
     => [SourcePath]
-    -> [UserlandCapiWrapper]
+    -> [CWrapper]
     -> [SHs.SDecl]
     -> q [TH.Dec]
 getThDecls deps wrappers decls = do
@@ -158,7 +158,7 @@ getThDecls deps wrappers decls = do
     fmap concat $ traverse mkDecl decls
   where
     wrapperSrc :: String
-    wrapperSrc = getUserlandCapiWrappersSource wrappers
+    wrapperSrc = getCWrappersSource wrappers
 
 {-------------------------------------------------------------------------------
   Helpers

@@ -22,17 +22,22 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
+-- | __unique:__ @test_typesqualifierstype_qualifie_Example_Unsafe_list_example@
+foreign import ccall unsafe "hs_bindgen_360934a08f19eaab" hs_bindgen_360934a08f19eaab ::
+     Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
+  -> HsBindgen.Runtime.Prelude.CSize
+  -> IO FC.CBool
+
 {-| __C declaration:__ @list_example@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:14:6@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
-
-    __unique:__ @test_typesqualifierstype_qualifie_Example_Unsafe_list_example@
 -}
-foreign import ccall unsafe "hs_bindgen_360934a08f19eaab" list_example ::
+list_example ::
      Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
      -- ^ __C declaration:__ @items@
   -> HsBindgen.Runtime.Prelude.CSize
      -- ^ __C declaration:__ @count@
   -> IO FC.CBool
+list_example = hs_bindgen_360934a08f19eaab

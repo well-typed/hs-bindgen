@@ -16,8 +16,8 @@ import HsBindgen.Language.Haskell qualified as Hs
 -------------------------------------------------------------------------------}
 
 simplifySHs ::
-     ByCategory ([UserlandCapiWrapper], [SDecl])
-  -> ByCategory ([UserlandCapiWrapper], [SDecl])
+     ByCategory ([CWrapper], [SDecl])
+  -> ByCategory ([CWrapper], [SDecl])
 simplifySHs = fmap (\(x, y) -> (x, go y))
   where
     go :: [SDecl] -> [SDecl]

@@ -76,7 +76,9 @@ import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
+import HsBindgen.Backend.SHs.AST (FunctionName)
 import HsBindgen.Backend.SHs.AST qualified as SHs
+import HsBindgen.Backend.UniqueSymbol (UniqueSymbol)
 import HsBindgen.Frontend.AST.External (CheckedMacroExpr)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -129,7 +131,7 @@ data Newtype = Newtype {
   deriving stock (Generic, Show)
 
 data ForeignImportDecl = ForeignImportDecl
-    { foreignImportName       :: Hs.Name Hs.NsVar
+    { foreignImportName       :: UniqueSymbol
     , foreignImportParameters :: [FunctionParameter]
     , foreignImportResultType :: HsType
     , foreignImportOrigName   :: C.DeclName
@@ -148,7 +150,7 @@ data FunctionParameter = FunctionParameter
   deriving stock (Generic, Show)
 
 data FunctionDecl = FunctionDecl
-  { functionDeclName       :: Hs.Name Hs.NsVar
+  { functionDeclName       :: FunctionName
   , functionDeclParameters :: [FunctionParameter]
   , functionDeclResultType :: HsType
   , functionDeclBody       :: SHs.ClosedExpr
@@ -323,7 +325,7 @@ data PatSyn = PatSyn
 type ToFunPtrInstance :: Star
 data ToFunPtrInstance = ToFunPtrInstance
     { toFunPtrInstanceType :: HsType
-    , toFunPtrInstanceBody :: Hs.Name Hs.NsVar
+    , toFunPtrInstanceBody :: UniqueSymbol
     }
   deriving stock (Generic, Show)
 
@@ -336,7 +338,7 @@ data ToFunPtrInstance = ToFunPtrInstance
 type FromFunPtrInstance :: Star
 data FromFunPtrInstance = FromFunPtrInstance
     { fromFunPtrInstanceType :: HsType
-    , fromFunPtrInstanceBody :: Hs.Name Hs.NsVar
+    , fromFunPtrInstanceBody :: UniqueSymbol
     }
   deriving stock (Generic, Show)
 
