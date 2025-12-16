@@ -36,6 +36,18 @@ runs:
       echo $SDKROOT
       echo "SDKROOT=$SDKROOT" >> "$GITHUB_ENV"
 
+  - name: Remove tarballs from temporary directory (Linux)
+    shell: bash
+    if: ${{ runner.os == 'Linux' }}
+    run: |
+        cd ${{ runner.temp }} || exit 1
+        pwd
+        echo "--- Temporary directory size BEFORE REMOVAL ---"
+        du -sh .
+        find . -maxdepth 1 -type f -exec rm -v {} +
+        echo "--- Temporary directory size AFTER REMOVAL ---"
+        du -sh .
+
   - name: Debug (LLVM/Clang)
     shell: bash
     run: |
