@@ -90,7 +90,7 @@ depsOfType = \case
     TypePrim{}             -> []
     TypeRef uid            -> [(ByValue, uid)]
     TypeTypedef uid _uTy   -> [(ByValue, uid)]
-    TypePointer ty         -> first (const ByRef) <$> depsOfType ty
+    TypePointers _ ty      -> first (const ByRef) <$> depsOfType ty
     TypeFun args res       -> concatMap depsOfType args <> depsOfType res
     TypeVoid               -> []
     TypeConstArray _ ty    -> depsOfType ty

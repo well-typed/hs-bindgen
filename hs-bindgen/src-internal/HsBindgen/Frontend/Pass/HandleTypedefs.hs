@@ -45,28 +45,6 @@ handleTypedefs C.TranslationUnit{..} = (
   Declarations
 -------------------------------------------------------------------------------}
 
--- | Strip pointer indirection to find function type
---
--- Examples:
---
--- * @TypePointer (TypeFun args res)@ returns @Just (args, res, 1)@
--- * @TypePointer (TypePointer (TypeFun args res))@ returns @Just (args, res, 2)@
--- * @TypePointer (TypePointer (TypePointer (TypeFun args res)))@ returns @Just (args, res, 3)@
--- * @TypePointer TypeVoid@ returns @Nothing@
---
--- This handles arbitrary levels of pointer indirection (N >= 1).
---
-stripPointersToFunction :: C.Type p -> Maybe ([C.Type p], C.Type p, Int)
-stripPointersToFunction = go 1
-  where
-    go :: Int -> C.Type p -> Maybe ([C.Type p], C.Type p, Int)
-    go !n (C.TypePointer inner) =
-      case inner of
-        C.TypeFun args res -> Just (args, res, n)
-        C.TypePointer _    -> go (n + 1) inner  -- Recurse through more pointers
-        _                  -> Nothing
-    go _ _ = Nothing
-
 handleDecl ::
      TypedefAnalysis
   -> C.Decl Select
@@ -76,7 +54,7 @@ handleDecl td decl
   -- (NOTE: Such typedefs are never squashed.)
   -- See issue #1380
   | C.DeclTypedef dtd <- declKind
-  , Just (args, res, n) <- stripPointersToFunction (C.typedefType dtd)
+  , C.TypePointers n (C.TypeFun args res) <- C.typedefType dtd
   = ( Nothing
     , Just $ introduceAuxFunType td declInfo' declAnn n args res
     )
@@ -184,16 +162,11 @@ introduceAuxFunType td declInfo declAnn n args res = [
     mainDecl = C.Decl {
           C.declInfo = declInfo
         , C.declKind = C.DeclTypedef $ C.Typedef {
-            typedefType =
-              -- Reconstruct all pointer layers around the TypeTypedef
-              -- For single pointer: TypePointer (TypeTypedef ...)
-              -- For double pointer: TypePointer (TypePointer (TypeTypedef ...))
-              -- etc.
-              let baseType = C.TypeTypedef
-                               (C.declId $ C.declInfo derefDecl)
-                               (handleUseSites td $ C.TypeFun args res)
-                  pointerLayers = replicate n C.TypePointer
-               in foldr ($) baseType pointerLayers
+            -- TypePointers pattern synonym reconstructs all pointer layers
+            -- around the TypeTypedef
+            typedefType = C.TypePointers n
+                        $ C.TypeTypedef (C.declId $ C.declInfo derefDecl)
+                                        (handleUseSites td $ C.TypeFun args res)
           , typedefAnn  = NoAnn
           }
         , C.declAnn = declAnn
@@ -297,7 +270,7 @@ instance HandleUseSites C.Type where
 
       -- Recursive cases
 
-      go (C.TypePointer ty)         = C.TypePointer (go ty)
+      go (C.TypePointers n ty)      = C.TypePointers n (go ty)
       go (C.TypeFun args res)       = C.TypeFun (map go args) (go res)
       go (C.TypeConstArray n ty)    = C.TypeConstArray n (go ty)
       go (C.TypeIncompleteArray ty) = C.TypeIncompleteArray (go ty)

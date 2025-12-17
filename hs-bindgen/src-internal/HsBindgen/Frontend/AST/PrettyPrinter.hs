@@ -145,7 +145,9 @@ showsType ::
 showsType x (TypePrim p)              = C.showsPrimType p . showChar ' ' . x 0
 showsType x (TypeRef declId)          = showsDeclId declId . showChar ' ' . x 0
 showsType x (TypeTypedef ref)         = showsDeclId ref.declId . showChar ' ' . x 0
-showsType x (TypePointer t)           = showsType (\d -> showParen (d > arrayPrec) $ showString "*" . x (pointerPrec + 1)) t
+showsType x (TypePointers n t)        = showsType (\d -> showParen (d > arrayPrec)
+                                      $ foldr (.) id (replicate n (showString "*"))
+                                      . x (pointerPrec + 1)) t
 showsType x (TypeConstArray n t)      = showsType (\_d -> x (arrayPrec + 1) . showChar '[' . shows n . showChar ']') t
 showsType x (TypeFun args res)        =
     -- Note: we pass 'ImpureFunction' to 'showsFunctionType' so that no function
