@@ -84,6 +84,7 @@ library internal
     HsBindgen.Backend.Hs.Haddock.Config
     HsBindgen.Backend.Hs.Haddock.Documentation
     HsBindgen.Backend.Hs.Haddock.Translation
+    HsBindgen.Backend.Hs.Name
     HsBindgen.Backend.Hs.Origin
     HsBindgen.Backend.Hs.Translation
     HsBindgen.Backend.Hs.Translation.Config

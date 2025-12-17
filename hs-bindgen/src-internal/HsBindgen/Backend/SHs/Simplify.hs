@@ -8,6 +8,7 @@ import Data.Set qualified as Set
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST.Strategy
 import HsBindgen.Backend.Hs.CallConv
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs

@@ -20,7 +20,6 @@ module HsBindgen.Language.Haskell (
   , SNamespace(..)
   , namespaceOf
   , SingNamespace(..)
-  , Name(..)
     -- * Instances
   , TypeClass(..)
   ) where
@@ -82,7 +81,7 @@ instance PrettyForTrace ModuleName where
 newtype Identifier = Identifier { getIdentifier :: Text }
   deriving stock (Generic)
   -- 'Show' instance valid due to 'IsString' instance
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show, Semigroup)
 
 -- | External reference
 --
@@ -136,11 +135,6 @@ class SingNamespace ns where
 instance SingNamespace 'NsTypeConstr where singNamespace = SNsTypeConstr
 instance SingNamespace 'NsConstr     where singNamespace = SNsConstr
 instance SingNamespace 'NsVar        where singNamespace = SNsVar
-
--- | Haskell name in namespace @ns@
-newtype Name (ns :: Namespace) = Name { getName :: Text }
-  -- 'Show' instance valid due to 'IsString' instance
-  deriving newtype (Eq, IsString, Ord, Semigroup, Show)
 
 {-------------------------------------------------------------------------------
   Instances

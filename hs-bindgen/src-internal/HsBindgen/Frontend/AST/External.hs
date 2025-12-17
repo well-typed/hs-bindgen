@@ -75,6 +75,7 @@ module HsBindgen.Frontend.AST.External (
   , C.DeclId(..)
   , Int.NamePair(..)
   , Int.nameHs
+  , Int.unsafeNameHsWith
   , Int.RecordNames(..)
   , Int.NewtypeNames(..)
   ) where

@@ -17,6 +17,7 @@ import C.Expr.Typecheck.Type qualified as DSL
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config.FixCandidate (FixCandidate)
 import HsBindgen.Config.FixCandidate qualified as FixCandidate

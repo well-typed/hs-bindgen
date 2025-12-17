@@ -19,7 +19,6 @@ module HsBindgen.Frontend.Naming (
     -- * DeclId
   , DeclId(..)
   , OrigDeclId(..)
-  , unsafeDeclIdHaskellName
   , declIdCName
 
     -- * Located
@@ -39,7 +38,6 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 
 {-------------------------------------------------------------------------------
@@ -177,14 +175,6 @@ data OrigDeclId =
     -- declaration is in support of.
   | AuxForDecl PrelimDeclId
   deriving stock (Show, Eq, Ord)
-
--- | Construct name in arbitrary name space
---
--- The caller must ensure that name rules are adhered to.
-unsafeDeclIdHaskellName :: HaskellId p ~ Hs.Identifier => DeclId p -> Hs.Name ns
-unsafeDeclIdHaskellName declId =
-    case declId.haskellId of
-      Hs.Identifier name -> Hs.Name name
 
 -- | How do we refer to this declaration in C code?
 declIdCName :: DeclId p -> Maybe C.DeclName

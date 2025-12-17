@@ -30,6 +30,7 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..))
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.HsModule.Capi (renderCapiWrapper)
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.HsModule.Translation
@@ -399,7 +400,7 @@ instance Pretty SDecl where
                , callconv
                , safety foreignImportSafety
                , "\"" >< impent >< "\""
-               , string foreignImportName.unique
+               , pretty foreignImportName
                , "::"
                ]
        $$ nest 5 (prettyForeignImportType foreignImportResultType
@@ -407,7 +408,7 @@ instance Pretty SDecl where
 
     DFunction Function{..} ->
       let prettyTopLevelComment = maybe empty (pretty . TopLevelComment) functionComment
-          prettyFunctionName = pretty $ fromFunctionName functionName
+          prettyFunctionName = pretty functionName
        in  prettyTopLevelComment
         $$ prettyFunctionName <+> "::"
         $$ nest 5 (prettyForeignImportType functionResultType functionParameters)
@@ -740,7 +741,7 @@ getInfixSpecialCase env = \case
 -------------------------------------------------------------------------------}
 
 instance Pretty (Hs.Name ns) where
-  pretty = string . Text.unpack . Hs.getName
+  pretty = textToCtxDoc . Hs.getName
 
 {-------------------------------------------------------------------------------
   ResolvedName pretty-printing

@@ -20,6 +20,7 @@ import Clang.HighLevel.Types
 import Clang.Paths
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)

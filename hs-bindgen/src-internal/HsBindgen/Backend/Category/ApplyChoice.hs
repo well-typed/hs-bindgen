@@ -8,10 +8,10 @@ import Optics.Core (Lens', over, view)
 
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Binding category choice
@@ -36,25 +36,23 @@ applyTerms = \case
         Hs.DeclDefineInstance{}        -> p "DefineInstance"
         Hs.DeclDeriveInstance{}        -> p "DeriveInstance"
         fi@Hs.DeclForeignImport{}      -> fi
-        Hs.DeclFunction fn             ->
-          Hs.DeclFunction $ case Hs.functionDeclName fn of
-            SHs.Exported n             -> fn { Hs.functionDeclName = SHs.Exported $ g n }
-            SHs.Internal _             -> fn
+        Hs.DeclFunction fn             -> Hs.DeclFunction $ overN #functionDeclName fn
         Hs.DeclMacroExpr{}             -> p "MacroExpr"
         Hs.DeclUnionGetter{}           -> p "UnionGetter"
         Hs.DeclUnionSetter{}           -> p "UnionSetter"
         Hs.DeclVar x                   -> Hs.DeclVar $ overN #varName x
-        Hs.DeclPragma (SHs.NOINLINE x) -> Hs.DeclPragma (SHs.NOINLINE $ g x)
+        Hs.DeclPragma (SHs.NOINLINE x) -> Hs.DeclPragma (SHs.NOINLINE $ fN x)
       where
         p :: String -> a
         p e = panicPure $ "applyTerms.renameHsDeclWith (" <> show d <> "): unexpected " <> e
 
-        g :: Hs.Name n -> Hs.Name n
-        g = Hs.Name . f . Hs.getName
+        fN :: Hs.Name n -> Hs.Name n
+        fN = \case
+          Hs.ExposedName  x -> Hs.ExposedName $ f x
+          Hs.InternalName x -> Hs.InternalName  x
 
         overN :: Lens' a (Hs.Name n) -> a -> a
-        overN l = over l g
-
+        overN l = over l fN
 
 -- | Choose binding categories and possibly rename declarations in term-level
 -- | categories.

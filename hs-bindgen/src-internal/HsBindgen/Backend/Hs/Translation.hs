@@ -23,6 +23,7 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig)
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
@@ -220,14 +221,14 @@ structDecs opts haddockConfig info struct spec fields = do
     pure decls
   where
     structName :: Hs.Name Hs.NsTypeConstr
-    structName = C.unsafeDeclIdHaskellName info.declId
+    structName = Hs.unsafeDeclIdHsName info.declId
 
     structFields :: Vec n Hs.Field
     structFields = flip Vec.map fields $ \f -> Hs.Field {
         fieldName    = C.nameHs (C.fieldName (C.structFieldInfo f))
       , fieldType    = Type.topLevel (C.structFieldType f)
       , fieldOrigin  = Origin.StructField f
-      , fieldComment = getHaddocksFieldInfo haddockConfig info (C.structFieldInfo f)
+      , fieldComment = mkHaddocksFieldInfo haddockConfig info (C.structFieldInfo f)
       }
 
     candidateInsts :: Set Hs.TypeClass
@@ -257,7 +258,7 @@ structDecs opts haddockConfig info struct spec fields = do
               , declKind = Origin.Struct struct
               , declSpec = spec
               }
-          , structComment = getHaddocks haddockConfig info
+          , structComment = mkHaddocks haddockConfig info structName
           }
 
         structDecl :: Hs.Decl
@@ -417,7 +418,7 @@ opaqueDecs cNameKind haddockConfig info spec = do
     return [decl]
   where
     name :: Hs.Name Hs.NsTypeConstr
-    name = C.unsafeDeclIdHaskellName info.declId
+    name = Hs.unsafeDeclIdHsName info.declId
 
     decl :: Hs.Decl
     decl = Hs.DeclEmpty Hs.EmptyData {
@@ -427,7 +428,7 @@ opaqueDecs cNameKind haddockConfig info spec = do
           , declKind = Origin.Opaque cNameKind
           , declSpec = spec
           }
-      , emptyDataComment = getHaddocks haddockConfig info
+      , emptyDataComment = mkHaddocks haddockConfig info name
       }
 
 {-------------------------------------------------------------------------------
@@ -450,7 +451,7 @@ unionDecs haddockConfig info union spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = C.unsafeDeclIdHaskellName info.declId
+        newtypeName = Hs.unsafeDeclIdHsName info.declId
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = C.newtypeConstr (C.unionNames union)
@@ -471,7 +472,7 @@ unionDecs haddockConfig info union spec = do
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = getHaddocks haddockConfig info
+        newtypeComment = mkHaddocks haddockConfig info newtypeName
 
         candidateInsts :: Set Hs.TypeClass
         candidateInsts = Set.empty
@@ -511,8 +512,8 @@ unionDecs haddockConfig info union spec = do
               fInsts = Hs.getInstances
                           (State.instanceMap transState) (Just nt.newtypeName)
                           (Set.singleton Hs.Storable) [hsType]
-              getterName = "get_" <> C.nameHs (C.fieldName unionFieldInfo)
-              setterName = "set_" <> C.nameHs (C.fieldName unionFieldInfo)
+              getterName = C.unsafeNameHsWith ("get_" <>) (C.fieldName unionFieldInfo)
+              setterName = C.unsafeNameHsWith ("set_" <>) (C.fieldName unionFieldInfo)
               commentRefName name = Just $ HsDoc.paragraph [
                   HsDoc.Bold [HsDoc.TextContent "See:"]
                 , HsDoc.Identifier name
@@ -525,7 +526,7 @@ unionDecs haddockConfig info union spec = do
                         unionGetterName    = getterName
                       , unionGetterType    = hsType
                       , unionGetterConstr  = nt.newtypeName
-                      , unionGetterComment = getHaddocksFieldInfo haddockConfig info unionFieldInfo
+                      , unionGetterComment = mkHaddocksFieldInfo haddockConfig info unionFieldInfo
                                           <> commentRefName (Hs.getName setterName)
                       }
                   , Hs.DeclUnionSetter
@@ -640,7 +641,7 @@ enumDecs opts haddockConfig info e spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = C.unsafeDeclIdHaskellName info.declId
+        newtypeName = Hs.unsafeDeclIdHsName info.declId
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = C.newtypeConstr (C.enumNames e)
@@ -661,7 +662,7 @@ enumDecs opts haddockConfig info e spec = do
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = getHaddocks haddockConfig info
+        newtypeComment = mkHaddocks haddockConfig info newtypeName
 
         candidateInsts :: Set Hs.TypeClass
         candidateInsts = Set.empty
@@ -722,7 +723,7 @@ enumDecs opts haddockConfig info e spec = do
               , patSynConstr  = nt.newtypeConstr
               , patSynValue   = enumConstantValue
               , patSynOrigin  = Origin.EnumConstant enumValue
-              , patSynComment = getHaddocksFieldInfo haddockConfig info enumConstantInfo
+              , patSynComment = mkHaddocksFieldInfo haddockConfig info enumConstantInfo
               }
             | enumValue@C.EnumConstant{..} <- C.enumConstants e
             ]
@@ -789,7 +790,7 @@ typedefDecs opts haddockConfig info typedef spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = C.unsafeDeclIdHaskellName info.declId
+        newtypeName = Hs.unsafeDeclIdHsName info.declId
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = C.newtypeConstr (C.typedefNames typedef)
@@ -810,7 +811,7 @@ typedefDecs opts haddockConfig info typedef spec = do
           }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment =  getHaddocks haddockConfig info
+        newtypeComment =  mkHaddocks haddockConfig info newtypeName
 
         candidateInsts :: Set Hs.TypeClass
         candidateInsts = Set.unions
@@ -976,7 +977,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = C.unsafeDeclIdHaskellName info.declId
+        newtypeName = Hs.unsafeDeclIdHsName info.declId
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = C.newtypeConstr (C.macroTypeNames macroType)
@@ -997,7 +998,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
             }
 
         newtypeComment :: Maybe HsDoc.Comment
-        newtypeComment = getHaddocks haddockConfig info
+        newtypeComment = mkHaddocks haddockConfig info newtypeName
 
         candidateInsts :: Set Hs.TypeClass
         candidateInsts = Set.unions [
@@ -1169,7 +1170,7 @@ constGetter ty info pureStubName = [
         , varComment = Nothing
         }
 
-    getterName = C.unsafeDeclIdHaskellName info.declId
+    getterName = Hs.unsafeDeclIdHsName info.declId
     getterType = SHs.translateType ty
     getterExpr = SHs.EGlobal SHs.IO_unsafePerformIO
                 `SHs.EApp` (SHs.EGlobal SHs.Storable_peek
@@ -1212,10 +1213,13 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
     stubImportType :: HsType
     stubImportType = HsIO $ Type.topLevel stubType
 
-    stubName :: UniqueSymbol
-    stubName =
+    stubSymbol :: UniqueSymbol
+    stubSymbol =
         globallyUnique opts.translationUniqueId moduleName $
           "get_" ++ varName
+
+    stubName :: Hs.Name Hs.NsVar
+    stubName = Hs.InternalName stubSymbol
 
     varName :: String
     varName = T.unpack info.declId.name.text
@@ -1225,14 +1229,14 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
 
     prettyStub :: String
     prettyStub = concat [
-          "/* ", stubName.source, " */\n"
+          "/* ", stubSymbol.source, " */\n"
         , PC.prettyDecl stubDecl ""
         ]
 
     stubDecl :: PC.Decl
     stubDecl =
         PC.withArgs [] $ \args' ->
-          PC.FunDefn stubName.unique stubType C.HaskellPureFunction args'
+          PC.FunDefn stubSymbol.unique stubType C.HaskellPureFunction args'
             [PC.Return $ PC.Address $ PC.NamedVar varName]
 
     cWrapper :: CWrapper
@@ -1241,7 +1245,7 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
         , cWrapperImport = getMainHashIncludeArg info
         }
 
-    mbComment = getHaddocks haddockConfig info
+    mbComment = mkHaddocks haddockConfig info runnerName
 
     foreignImport :: Hs.Decl
     foreignImport =
@@ -1249,10 +1253,9 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
           stubName
           stubImportType
           []
-          (uniqueCDeclName stubName)
+          (uniqueCDeclName stubSymbol)
           (CallConvUserlandCAPI cWrapper)
           (Origin.Global ty)
-          (Just $ HsDoc.uniqueSymbol stubName)
           -- These imports can be unsafe. We're binding to simple address stubs,
           -- so there are no callbacks into Haskell code. Moreover, they are
           -- short running code.
@@ -1266,31 +1269,33 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
         , runnerDecl
         ]
 
-    -- TODO_PR: Add source/unmangled of unique symbol.
     runnerDecl :: Hs.Decl
     runnerDecl = Hs.DeclVar $ SHs.Var {
           varName    = runnerName
         , varType    = runnerType
         , varExpr    = runnerExpr
-        , varComment = mbComment
+        , varComment = mbComment <> mbUniqueSymbolComment
         }
+
+    mbUniqueSymbolComment :: Maybe HsDoc.Comment
+    mbUniqueSymbolComment = case runnerName of
+      Hs.ExposedName  _ -> Nothing
+      Hs.InternalName x -> Just $ HsDoc.uniqueSymbol x
 
     name :: Text
     name = Hs.getIdentifier info.declId.haskellId
 
-    uniquify :: Text -> Text
+    uniquify :: Text -> UniqueSymbol
     uniquify =
-      Text.pack
-      . unique
-      . globallyUnique opts.translationUniqueId moduleName
+      globallyUnique opts.translationUniqueId moduleName
       . Text.unpack
 
-    runnerName = Hs.Name $ case runnerNameSpec of
-        HaskellId      -> name
-        GlobalUniqueId -> uniquify name
+    runnerName = case runnerNameSpec of
+        HaskellId      -> Hs.ExposedName name
+        GlobalUniqueId -> Hs.InternalName $ uniquify name
     runnerType = SHs.translateType (Type.topLevel stubType)
     runnerExpr = SHs.EGlobal SHs.IO_unsafePerformIO
-                `SHs.EApp` SHs.EFree (fromString $ stubName.unique)
+                `SHs.EApp` SHs.EFree stubName
 
 {-------------------------------------------------------------------------------
   Macro
@@ -1306,12 +1311,12 @@ macroVarDecs haddockConfig info macroExpr = [
         Hs.MacroExpr
           { macroExprName    = hsVarName
           , macroExprBody    = macroExpr
-          , macroExprComment = getHaddocks haddockConfig info
+          , macroExprComment = mkHaddocks haddockConfig info hsVarName
           }
     ]
   where
     hsVarName :: Hs.Name Hs.NsVar
-    hsVarName = C.unsafeDeclIdHaskellName info.declId
+    hsVarName = Hs.unsafeDeclIdHsName info.declId
 
 {-------------------------------------------------------------------------------
   Helpers

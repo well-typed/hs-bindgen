@@ -41,6 +41,7 @@ module HsBindgen.Frontend.AST.Internal (
     -- * Haskell names
   , NamePair(..)
   , nameHs
+  , unsafeNameHsWith
   , RecordNames(..)
   , NewtypeNames(..)
     -- * Show
@@ -58,6 +59,7 @@ import C.Expr.Typecheck.Type qualified as CExpr.DSL
 import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.HighLevel.Types
 
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
@@ -482,7 +484,11 @@ data NamePair = NamePair {
 --
 -- The invariant on 'NamePair' justifies this otherwise unsafe operation.
 nameHs :: NamePair -> Hs.Name ns
-nameHs NamePair{nameHsIdent = Hs.Identifier name} = Hs.Name name
+nameHs = Hs.unsafeHsIdHsName . nameHsIdent
+
+-- | Extract and amend namespaced Haskell name
+unsafeNameHsWith :: (Hs.Identifier -> Hs.Identifier) -> NamePair -> Hs.Name ns
+unsafeNameHsWith f = Hs.unsafeHsIdHsName .  f . nameHsIdent
 
 -- | Names for a Haskell record type
 --

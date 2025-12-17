@@ -9,17 +9,18 @@ import Data.Set qualified as Set
 
 import HsBindgen.Backend.Hs.AST
 import HsBindgen.Backend.Hs.AST.Type
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 
-type InstanceMap = Map (Name NsTypeConstr) (Set TypeClass)
+type InstanceMap = Map (Hs.Name NsTypeConstr) (Set TypeClass)
 
 getInstances ::
      HasCallStack
   => InstanceMap               -- ^ Current state
-  -> Maybe (Name NsTypeConstr) -- ^ Name of current type (optionaL)
+  -> Maybe (Hs.Name NsTypeConstr) -- ^ Name of current type (optionaL)
   -> Set TypeClass             -- ^ Candidate instances
   -> [HsType]                  -- ^ Dependencies
   -> Set TypeClass

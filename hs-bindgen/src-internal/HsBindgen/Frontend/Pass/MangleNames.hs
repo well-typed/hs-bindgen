@@ -9,6 +9,7 @@ import Data.Map qualified as Map
 import Data.Maybe (listToMaybe)
 import Data.Proxy
 
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
@@ -93,7 +94,7 @@ fromCName :: forall ns.
   -> (Hs.Identifier, Maybe (Msg MangleNames))
 fromCName fc _ cName =
     case mFixed of
-      Just (Hs.Name hsName) -> (Hs.Identifier hsName, Nothing)
+      Just hsName -> (Hs.Identifier $ Hs.getName hsName, Nothing)
       Nothing -> (Hs.Identifier "", Just $ MangleNamesCouldNotMangle cName)
   where
     mFixed :: Maybe (Hs.Name ns)
@@ -189,14 +190,14 @@ mangleEnumConstant _info cName = do
 -- Right now we reuse the name of the type also for the constructor.
 mkStructNames :: C.DeclInfo MangleNames -> C.RecordNames
 mkStructNames C.DeclInfo{declId} = C.RecordNames{
-      recordConstr = C.unsafeDeclIdHaskellName declId
+      recordConstr = Hs.unsafeDeclIdHsName declId
     }
 
 -- | Generic construction of newtype names, given only the type name
 mkNewtypeNames :: C.DeclInfo MangleNames -> C.NewtypeNames
 mkNewtypeNames C.DeclInfo{declId} = C.NewtypeNames{
-      newtypeConstr = C.unsafeDeclIdHaskellName declId
-    , newtypeField  = "un_" <> C.unsafeDeclIdHaskellName declId
+      newtypeConstr = Hs.unsafeDeclIdHsName declId
+    , newtypeField  = Hs.unsafeHsIdHsName $ "un_" <> declId.haskellId
     }
 
 -- | Union names

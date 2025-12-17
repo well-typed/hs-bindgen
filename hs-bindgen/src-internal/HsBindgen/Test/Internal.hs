@@ -8,11 +8,11 @@ module HsBindgen.Test.Internal (
 
 import Data.Char qualified as Char
 import Data.List qualified as List
-import Data.Text qualified as T
 import System.FilePath qualified as FilePath
-import Text.SimplePrettyPrint
+import Text.SimplePrettyPrint (CtxDoc)
+import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Backend.Hs.Name qualified as Hs
 
 {-------------------------------------------------------------------------------
   C function prefix
@@ -35,4 +35,4 @@ getCFunPrefix = List.map aux . FilePath.dropExtension
 -------------------------------------------------------------------------------}
 
 prettyHsName :: Hs.Name ns -> CtxDoc
-prettyHsName = string . T.unpack . Hs.getName
+prettyHsName = PP.textToCtxDoc . Hs.getName
