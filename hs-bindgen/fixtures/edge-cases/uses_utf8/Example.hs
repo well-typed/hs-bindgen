@@ -1,13 +1,16 @@
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.List.NonEmpty
+import qualified Data.Primitive.Types
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
@@ -44,6 +47,8 @@ instance F.Storable MyEnum where
         case s1 of
           MyEnum un_MyEnum2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_MyEnum2
+
+deriving via FC.CUInt instance Data.Primitive.Types.Prim MyEnum
 
 instance HsBindgen.Runtime.CEnum.CEnum MyEnum where
 

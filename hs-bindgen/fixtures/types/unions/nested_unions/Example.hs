@@ -14,6 +14,7 @@
 module Example where
 
 import qualified Data.Array.Byte
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -36,6 +37,8 @@ newtype UnionA = UnionA
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable UnionA
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim UnionA
 
 {-|
 
@@ -170,6 +173,8 @@ newtype ExB_fieldB1 = ExB_fieldB1
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance F.Storable ExB_fieldB1
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data.Primitive.Types.Prim ExB_fieldB1
 
 {-|
 

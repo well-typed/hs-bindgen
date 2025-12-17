@@ -29,6 +29,7 @@ hstypes:
       - bar_i
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Baz
@@ -40,6 +41,7 @@ hstypes:
       - baz_i
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: FILE
@@ -63,6 +65,7 @@ hstypes:
       - foo_i
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Qux
@@ -74,5 +77,6 @@ hstypes:
       - qux_i
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

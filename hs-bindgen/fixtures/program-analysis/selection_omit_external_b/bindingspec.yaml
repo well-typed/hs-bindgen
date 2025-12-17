@@ -22,6 +22,7 @@ hstypes:
       - directlyDependsOnOmitted_o
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: IndirectlyDependsOnOmitted
@@ -32,6 +33,7 @@ hstypes:
       - indirectlyDependsOnOmitted_d
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Omitted
@@ -42,5 +44,6 @@ hstypes:
       - omitted_n
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

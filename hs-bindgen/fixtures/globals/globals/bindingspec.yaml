@@ -29,6 +29,7 @@ hstypes:
       - config_y
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Inline_struct
@@ -40,6 +41,7 @@ hstypes:
       - inline_struct_y
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct1_t

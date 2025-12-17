@@ -16,6 +16,7 @@
 module Example where
 
 import qualified Data.Array.Byte
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -134,6 +135,8 @@ newtype Apply1Union = Apply1Union
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance F.Storable Apply1Union
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance Data.Primitive.Types.Prim Apply1Union
 
 {-|
 

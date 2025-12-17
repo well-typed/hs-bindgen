@@ -71,6 +71,29 @@ instance Storable Another_typedef_struct_t
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Another_typedef_struct_t another_typedef_struct_t_foo_3
                                                             another_typedef_struct_t_bar_4 -> pokeCField (Proxy @"another_typedef_struct_t_foo") ptr_1 another_typedef_struct_t_foo_3 >> pokeCField (Proxy @"another_typedef_struct_t_bar") ptr_1 another_typedef_struct_t_bar_4
+instance Prim Another_typedef_struct_t
+    where sizeOf# = \_ -> 8# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Another_typedef_struct_t (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       Another_typedef_struct_t v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      Another_typedef_struct_t another_typedef_struct_t_foo_13
+                                                                                               another_typedef_struct_t_bar_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) another_typedef_struct_t_foo_13 s_12 of
+                                                                                                                                  s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) another_typedef_struct_t_bar_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> Another_typedef_struct_t (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            Another_typedef_struct_t v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      Another_typedef_struct_t another_typedef_struct_t_foo_29
+                                                                                               another_typedef_struct_t_bar_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) another_typedef_struct_t_foo_29 s_28 of
+                                                                                                                                  s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) another_typedef_struct_t_bar_30 s_31
 instance HasCField Another_typedef_struct_t
                    "another_typedef_struct_t_foo"
     where type CFieldType Another_typedef_struct_t
@@ -117,6 +140,7 @@ instance Storable Another_typedef_enum_e
           peek = \ptr_0 -> pure Another_typedef_enum_e <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Another_typedef_enum_e un_Another_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) un_Another_typedef_enum_e_3
+deriving via CUInt instance Prim Another_typedef_enum_e
 instance CEnum Another_typedef_enum_e
     where type CEnumZ Another_typedef_enum_e = CUInt
           toCEnum = Another_typedef_enum_e
@@ -224,6 +248,7 @@ newtype A_type_t
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -255,6 +280,7 @@ newtype Var_t
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -572,6 +598,7 @@ instance Storable A_typedef_enum_e
           peek = \ptr_0 -> pure A_typedef_enum_e <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    A_typedef_enum_e un_A_typedef_enum_e_3 -> pokeByteOff ptr_1 (0 :: Int) un_A_typedef_enum_e_3
+deriving via CUChar instance Prim A_typedef_enum_e
 instance CEnum A_typedef_enum_e
     where type CEnumZ A_typedef_enum_e = CUChar
           toCEnum = A_typedef_enum_e

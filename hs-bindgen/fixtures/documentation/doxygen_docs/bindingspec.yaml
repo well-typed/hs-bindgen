@@ -55,6 +55,7 @@ hstypes:
       - bitfield_t_reserved
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Color_enum

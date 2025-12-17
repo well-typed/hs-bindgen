@@ -7,16 +7,19 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
+import GHC.Prim (Int#)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
@@ -54,6 +57,54 @@ instance F.Storable OkBefore where
         case s1 of
           OkBefore okBefore_x2 ->
             HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"okBefore_x") ptr0 okBefore_x2
+
+instance Data.Primitive.Types.Prim OkBefore where
+
+  sizeOf# = \_ -> (4# :: Int#)
+
+  alignment# = \_ -> (4# :: Int#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        OkBefore (Data.Primitive.Types.indexByteArray# arr0 i1)
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, OkBefore v4 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              OkBefore okBefore_x4 ->
+                Data.Primitive.Types.writeByteArray# arr0 i1 okBefore_x4 s3
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        OkBefore (Data.Primitive.Types.indexOffAddr# addr0 i1)
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, OkBefore v4 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              OkBefore okBefore_x4 ->
+                Data.Primitive.Types.writeOffAddr# addr0 i1 okBefore_x4 s3
 
 instance HsBindgen.Runtime.HasCField.HasCField OkBefore "okBefore_x" where
 

@@ -44,6 +44,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -105,6 +106,7 @@ hstypes:
       - another_typedef_struct_t_bar
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Callback_t
@@ -138,6 +140,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show

@@ -121,13 +121,15 @@ exprExtensions = \case
          | SAlt _con _add _hints body <- alts
          ]
       ++ [ exprExtensions body
-        | SAltNoConstr _hints body <- alts
-        ]
-      ++ [ Set.singleton TH.UnboxedTuples <> exprExtensions body
-        | SAltUnboxedTuple _add _hints body <- alts
-        ]
+         | SAltNoConstr _hints body <- alts
+         ]
+      ++ [ Set.fromList [TH.UnboxedTuples, TH.MagicHash]
+         <> exprExtensions body
+         | SAltUnboxedTuple _add _hints body <- alts
+         ]
     ETup xs -> foldMap exprExtensions xs
-    EUnboxedTup xs -> Set.singleton TH.UnboxedTuples <> foldMap exprExtensions xs
+    EUnboxedTup xs -> Set.fromList [TH.UnboxedTuples, TH.MagicHash]
+                   <> foldMap exprExtensions xs
     EList xs -> foldMap exprExtensions xs
     ETypeApp f t -> Set.singleton TH.TypeApplications <> exprExtensions f <> typeExtensions t
 

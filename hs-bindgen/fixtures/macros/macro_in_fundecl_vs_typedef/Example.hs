@@ -8,12 +8,14 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -22,6 +24,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import Data.Bits (FiniteBits)
+import GHC.Prim (Int#)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
@@ -35,7 +38,7 @@ newtype MC = MC
   { un_MC :: FC.CChar
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 {-| __C declaration:__ @TC@
 
@@ -47,7 +50,7 @@ newtype TC = TC
   { un_TC :: FC.CChar
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType TC) "un_TC")
          ) => GHC.Records.HasField "un_TC" (Ptr.Ptr TC) (Ptr.Ptr ty) where
@@ -96,6 +99,54 @@ instance F.Storable Struct1 where
           Struct1 struct1_a2 ->
             HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"struct1_a") ptr0 struct1_a2
 
+instance Data.Primitive.Types.Prim Struct1 where
+
+  sizeOf# = \_ -> (4# :: Int#)
+
+  alignment# = \_ -> (4# :: Int#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Struct1 (Data.Primitive.Types.indexByteArray# arr0 i1)
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Struct1 v4 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct1 struct1_a4 ->
+                Data.Primitive.Types.writeByteArray# arr0 i1 struct1_a4 s3
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Struct1 (Data.Primitive.Types.indexOffAddr# addr0 i1)
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Struct1 v4 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct1 struct1_a4 ->
+                Data.Primitive.Types.writeOffAddr# addr0 i1 struct1_a4 s3
+
 instance HsBindgen.Runtime.HasCField.HasCField Struct1 "struct1_a" where
 
   type CFieldType Struct1 "struct1_a" = FC.CInt
@@ -142,6 +193,54 @@ instance F.Storable Struct2 where
         case s1 of
           Struct2 struct2_a2 ->
             HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"struct2_a") ptr0 struct2_a2
+
+instance Data.Primitive.Types.Prim Struct2 where
+
+  sizeOf# = \_ -> (4# :: Int#)
+
+  alignment# = \_ -> (4# :: Int#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Struct2 (Data.Primitive.Types.indexByteArray# arr0 i1)
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Struct2 v4 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct2 struct2_a4 ->
+                Data.Primitive.Types.writeByteArray# arr0 i1 struct2_a4 s3
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Struct2 (Data.Primitive.Types.indexOffAddr# addr0 i1)
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Struct2 v4 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct2 struct2_a4 ->
+                Data.Primitive.Types.writeOffAddr# addr0 i1 struct2_a4 s3
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct2 "struct2_a" where
 
@@ -190,6 +289,54 @@ instance F.Storable Struct3 where
           Struct3 struct3_a2 ->
             HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"struct3_a") ptr0 struct3_a2
 
+instance Data.Primitive.Types.Prim Struct3 where
+
+  sizeOf# = \_ -> (4# :: Int#)
+
+  alignment# = \_ -> (4# :: Int#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Struct3 (Data.Primitive.Types.indexByteArray# arr0 i1)
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Struct3 v4 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct3 struct3_a4 ->
+                Data.Primitive.Types.writeByteArray# arr0 i1 struct3_a4 s3
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Struct3 (Data.Primitive.Types.indexOffAddr# addr0 i1)
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Struct3 v4 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct3 struct3_a4 ->
+                Data.Primitive.Types.writeOffAddr# addr0 i1 struct3_a4 s3
+
 instance HsBindgen.Runtime.HasCField.HasCField Struct3 "struct3_a" where
 
   type CFieldType Struct3 "struct3_a" = FC.CInt
@@ -212,7 +359,7 @@ newtype Struct3_t = Struct3_t
   { un_Struct3_t :: Struct3
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct3_t) "un_Struct3_t")
          ) => GHC.Records.HasField "un_Struct3_t" (Ptr.Ptr Struct3_t) (Ptr.Ptr ty) where
@@ -260,6 +407,54 @@ instance F.Storable Struct4 where
         case s1 of
           Struct4 struct4_a2 ->
             HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"struct4_a") ptr0 struct4_a2
+
+instance Data.Primitive.Types.Prim Struct4 where
+
+  sizeOf# = \_ -> (4# :: Int#)
+
+  alignment# = \_ -> (4# :: Int#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Struct4 (Data.Primitive.Types.indexByteArray# arr0 i1)
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Struct4 v4 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct4 struct4_a4 ->
+                Data.Primitive.Types.writeByteArray# arr0 i1 struct4_a4 s3
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Struct4 (Data.Primitive.Types.indexOffAddr# addr0 i1)
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Struct4 v4 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct4 struct4_a4 ->
+                Data.Primitive.Types.writeOffAddr# addr0 i1 struct4_a4 s3
 
 instance HsBindgen.Runtime.HasCField.HasCField Struct4 "struct4_a" where
 

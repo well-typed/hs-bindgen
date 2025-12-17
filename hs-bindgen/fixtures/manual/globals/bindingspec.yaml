@@ -38,6 +38,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -51,6 +52,7 @@ hstypes:
       - globalConfig_numWorkers
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: List
@@ -81,5 +83,6 @@ hstypes:
       - tuple_y
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

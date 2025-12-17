@@ -8,12 +8,14 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -22,6 +24,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import Data.Bits (FiniteBits)
+import GHC.Prim ((*#), (+#), Int#)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
@@ -35,7 +38,7 @@ newtype T1 = T1
   { un_T1 :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T1) "un_T1")
          ) => GHC.Records.HasField "un_T1" (Ptr.Ptr T1) (Ptr.Ptr ty) where
@@ -59,7 +62,7 @@ newtype T2 = T2
   { un_T2 :: FC.CChar
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T2) "un_T2")
          ) => GHC.Records.HasField "un_T2" (Ptr.Ptr T2) (Ptr.Ptr ty) where
@@ -83,7 +86,7 @@ newtype M1 = M1
   { un_M1 :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 {-| __C declaration:__ @M2@
 
@@ -95,7 +98,7 @@ newtype M2 = M2
   { un_M2 :: FC.CChar
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 {-| __C declaration:__ @M3@
 
@@ -175,6 +178,86 @@ instance F.Storable ExampleStruct where
               >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"exampleStruct_m1") ptr0 exampleStruct_m14
               >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"exampleStruct_m2") ptr0 exampleStruct_m25
 
+instance Data.Primitive.Types.Prim ExampleStruct where
+
+  sizeOf# = \_ -> (16# :: Int#)
+
+  alignment# = \_ -> (4# :: Int#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        ExampleStruct (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (1# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (2# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (3# :: Int#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (0# :: Int#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (1# :: Int#)) s3 of
+                (# s5, v6 #) ->
+                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (2# :: Int#)) s5 of
+                    (# s7, v8 #) ->
+                      case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (3# :: Int#)) s7 of
+                        (# s9, v10 #) -> (# s9, ExampleStruct v4 v6 v8 v10 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              ExampleStruct
+                exampleStruct_t14
+                exampleStruct_t25
+                exampleStruct_m16
+                exampleStruct_m27 ->
+                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (0# :: Int#)) exampleStruct_t14 s3 of
+                    s8 ->
+                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (1# :: Int#)) exampleStruct_t25 s8 of
+                        s9 ->
+                          case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (2# :: Int#)) exampleStruct_m16 s9 of
+                            s10 ->
+                              Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (3# :: Int#)) exampleStruct_m27 s10
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        ExampleStruct (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (1# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (2# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (3# :: Int#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (0# :: Int#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (1# :: Int#)) s3 of
+                (# s5, v6 #) ->
+                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (2# :: Int#)) s5 of
+                    (# s7, v8 #) ->
+                      case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (3# :: Int#)) s7 of
+                        (# s9, v10 #) -> (# s9, ExampleStruct v4 v6 v8 v10 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              ExampleStruct
+                exampleStruct_t14
+                exampleStruct_t25
+                exampleStruct_m16
+                exampleStruct_m27 ->
+                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (0# :: Int#)) exampleStruct_t14 s3 of
+                    s8 ->
+                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (1# :: Int#)) exampleStruct_t25 s8 of
+                        s9 ->
+                          case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (2# :: Int#)) exampleStruct_m16 s9 of
+                            s10 ->
+                              Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (3# :: Int#)) exampleStruct_m27 s10
+
 instance HsBindgen.Runtime.HasCField.HasCField ExampleStruct "exampleStruct_t1" where
 
   type CFieldType ExampleStruct "exampleStruct_t1" = T1
@@ -233,7 +316,7 @@ newtype Uint64_t = Uint64_t
   { un_Uint64_t :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 {-| __C declaration:__ @foo@
 

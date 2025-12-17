@@ -1,11 +1,13 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -14,6 +16,7 @@
 module Example where
 
 import qualified Data.List.NonEmpty
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -55,6 +58,8 @@ instance F.Storable EnumA where
         case s1 of
           EnumA un_EnumA2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_EnumA2
+
+deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumA
 
 instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
@@ -190,6 +195,8 @@ instance F.Storable ExB_fieldB1 where
         case s1 of
           ExB_fieldB1 un_ExB_fieldB12 ->
             F.pokeByteOff ptr0 (0 :: Int) un_ExB_fieldB12
+
+deriving via FC.CUInt instance Data.Primitive.Types.Prim ExB_fieldB1
 
 instance HsBindgen.Runtime.CEnum.CEnum ExB_fieldB1 where
 

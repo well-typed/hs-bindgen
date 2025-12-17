@@ -17,5 +17,6 @@ hstypes:
       - vector_y
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

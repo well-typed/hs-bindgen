@@ -18,5 +18,6 @@ hstypes:
       - complex_object_t_id
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

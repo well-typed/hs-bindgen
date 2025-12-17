@@ -7,16 +7,19 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
+import GHC.Prim ((*#), (+#), Int#)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
@@ -325,6 +328,332 @@ instance F.Storable Primitive where
               >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"primitive_ulli") ptr0 primitive_ulli27
               >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"primitive_f") ptr0 primitive_f28
               >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"primitive_d") ptr0 primitive_d29
+
+instance Data.Primitive.Types.Prim Primitive where
+
+  sizeOf# = \_ -> (152# :: Int#)
+
+  alignment# = \_ -> (8# :: Int#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Primitive (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (1# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (2# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (3# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (4# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (5# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (6# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (7# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (8# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (9# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (10# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (11# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (12# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (13# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (14# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (15# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (16# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (17# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (18# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (19# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (20# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (21# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (22# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (23# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (24# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (25# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (26# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (27# :: Int#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (0# :: Int#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (1# :: Int#)) s3 of
+                (# s5, v6 #) ->
+                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (2# :: Int#)) s5 of
+                    (# s7, v8 #) ->
+                      case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (3# :: Int#)) s7 of
+                        (# s9, v10 #) ->
+                          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (4# :: Int#)) s9 of
+                            (# s11, v12 #) ->
+                              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (5# :: Int#)) s11 of
+                                (# s13, v14 #) ->
+                                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (6# :: Int#)) s13 of
+                                    (# s15, v16 #) ->
+                                      case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (7# :: Int#)) s15 of
+                                        (# s17, v18 #) ->
+                                          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (8# :: Int#)) s17 of
+                                            (# s19, v20 #) ->
+                                              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (9# :: Int#)) s19 of
+                                                (# s21, v22 #) ->
+                                                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (10# :: Int#)) s21 of
+                                                    (# s23, v24 #) ->
+                                                      case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (11# :: Int#)) s23 of
+                                                        (# s25, v26 #) ->
+                                                          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (12# :: Int#)) s25 of
+                                                            (# s27, v28 #) ->
+                                                              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (13# :: Int#)) s27 of
+                                                                (# s29, v30 #) ->
+                                                                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (14# :: Int#)) s29 of
+                                                                    (# s31, v32 #) ->
+                                                                      case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (15# :: Int#)) s31 of
+                                                                        (# s33, v34 #) ->
+                                                                          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (16# :: Int#)) s33 of
+                                                                            (# s35, v36 #) ->
+                                                                              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (17# :: Int#)) s35 of
+                                                                                (# s37, v38 #) ->
+                                                                                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (18# :: Int#)) s37 of
+                                                                                    (# s39, v40 #) ->
+                                                                                      case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (19# :: Int#)) s39 of
+                                                                                        (# s41, v42 #) ->
+                                                                                          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (20# :: Int#)) s41 of
+                                                                                            (# s43, v44 #) ->
+                                                                                              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (21# :: Int#)) s43 of
+                                                                                                (# s45, v46 #) ->
+                                                                                                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (22# :: Int#)) s45 of
+                                                                                                    (# s47, v48 #) ->
+                                                                                                      case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (23# :: Int#)) s47 of
+                                                                                                        (# s49, v50 #) ->
+                                                                                                          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (24# :: Int#)) s49 of
+                                                                                                            (# s51, v52 #) ->
+                                                                                                              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (25# :: Int#)) s51 of
+                                                                                                                (# s53, v54 #) ->
+                                                                                                                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (26# :: Int#)) s53 of
+                                                                                                                    (# s55, v56 #) ->
+                                                                                                                      case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (27# :: Int#)) s55 of
+                                                                                                                        (# s57, v58 #) ->
+                                                                                                                          (#  s57
+                                                                                                                          , Primitive v4 v6 v8 v10 v12 v14 v16 v18 v20 v22 v24 v26 v28 v30 v32 v34 v36 v38 v40 v42 v44 v46 v48 v50 v52 v54 v56 v58
+                                                                                                                           #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Primitive
+                primitive_c4
+                primitive_sc5
+                primitive_uc6
+                primitive_s7
+                primitive_si8
+                primitive_ss9
+                primitive_ssi10
+                primitive_us11
+                primitive_usi12
+                primitive_i13
+                primitive_s214
+                primitive_si215
+                primitive_u16
+                primitive_ui17
+                primitive_l18
+                primitive_li19
+                primitive_sl20
+                primitive_sli21
+                primitive_ul22
+                primitive_uli23
+                primitive_ll24
+                primitive_lli25
+                primitive_sll26
+                primitive_slli27
+                primitive_ull28
+                primitive_ulli29
+                primitive_f30
+                primitive_d31 ->
+                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (0# :: Int#)) primitive_c4 s3 of
+                    s32 ->
+                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (1# :: Int#)) primitive_sc5 s32 of
+                        s33 ->
+                          case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (2# :: Int#)) primitive_uc6 s33 of
+                            s34 ->
+                              case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (3# :: Int#)) primitive_s7 s34 of
+                                s35 ->
+                                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (4# :: Int#)) primitive_si8 s35 of
+                                    s36 ->
+                                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (5# :: Int#)) primitive_ss9 s36 of
+                                        s37 ->
+                                          case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (6# :: Int#)) primitive_ssi10 s37 of
+                                            s38 ->
+                                              case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (7# :: Int#)) primitive_us11 s38 of
+                                                s39 ->
+                                                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (8# :: Int#)) primitive_usi12 s39 of
+                                                    s40 ->
+                                                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (9# :: Int#)) primitive_i13 s40 of
+                                                        s41 ->
+                                                          case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (10# :: Int#)) primitive_s214 s41 of
+                                                            s42 ->
+                                                              case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (11# :: Int#)) primitive_si215 s42 of
+                                                                s43 ->
+                                                                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (12# :: Int#)) primitive_u16 s43 of
+                                                                    s44 ->
+                                                                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (13# :: Int#)) primitive_ui17 s44 of
+                                                                        s45 ->
+                                                                          case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (14# :: Int#)) primitive_l18 s45 of
+                                                                            s46 ->
+                                                                              case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (15# :: Int#)) primitive_li19 s46 of
+                                                                                s47 ->
+                                                                                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (16# :: Int#)) primitive_sl20 s47 of
+                                                                                    s48 ->
+                                                                                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (17# :: Int#)) primitive_sli21 s48 of
+                                                                                        s49 ->
+                                                                                          case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (18# :: Int#)) primitive_ul22 s49 of
+                                                                                            s50 ->
+                                                                                              case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (19# :: Int#)) primitive_uli23 s50 of
+                                                                                                s51 ->
+                                                                                                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (20# :: Int#)) primitive_ll24 s51 of
+                                                                                                    s52 ->
+                                                                                                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (21# :: Int#)) primitive_lli25 s52 of
+                                                                                                        s53 ->
+                                                                                                          case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (22# :: Int#)) primitive_sll26 s53 of
+                                                                                                            s54 ->
+                                                                                                              case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (23# :: Int#)) primitive_slli27 s54 of
+                                                                                                                s55 ->
+                                                                                                                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (24# :: Int#)) primitive_ull28 s55 of
+                                                                                                                    s56 ->
+                                                                                                                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (25# :: Int#)) primitive_ulli29 s56 of
+                                                                                                                        s57 ->
+                                                                                                                          case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (26# :: Int#)) primitive_f30 s57 of
+                                                                                                                            s58 ->
+                                                                                                                              Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (28# :: Int#) i1) (27# :: Int#)) primitive_d31 s58
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Primitive (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (1# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (2# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (3# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (4# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (5# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (6# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (7# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (8# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (9# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (10# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (11# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (12# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (13# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (14# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (15# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (16# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (17# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (18# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (19# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (20# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (21# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (22# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (23# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (24# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (25# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (26# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (27# :: Int#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (0# :: Int#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (1# :: Int#)) s3 of
+                (# s5, v6 #) ->
+                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (2# :: Int#)) s5 of
+                    (# s7, v8 #) ->
+                      case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (3# :: Int#)) s7 of
+                        (# s9, v10 #) ->
+                          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (4# :: Int#)) s9 of
+                            (# s11, v12 #) ->
+                              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (5# :: Int#)) s11 of
+                                (# s13, v14 #) ->
+                                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (6# :: Int#)) s13 of
+                                    (# s15, v16 #) ->
+                                      case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (7# :: Int#)) s15 of
+                                        (# s17, v18 #) ->
+                                          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (8# :: Int#)) s17 of
+                                            (# s19, v20 #) ->
+                                              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (9# :: Int#)) s19 of
+                                                (# s21, v22 #) ->
+                                                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (10# :: Int#)) s21 of
+                                                    (# s23, v24 #) ->
+                                                      case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (11# :: Int#)) s23 of
+                                                        (# s25, v26 #) ->
+                                                          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (12# :: Int#)) s25 of
+                                                            (# s27, v28 #) ->
+                                                              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (13# :: Int#)) s27 of
+                                                                (# s29, v30 #) ->
+                                                                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (14# :: Int#)) s29 of
+                                                                    (# s31, v32 #) ->
+                                                                      case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (15# :: Int#)) s31 of
+                                                                        (# s33, v34 #) ->
+                                                                          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (16# :: Int#)) s33 of
+                                                                            (# s35, v36 #) ->
+                                                                              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (17# :: Int#)) s35 of
+                                                                                (# s37, v38 #) ->
+                                                                                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (18# :: Int#)) s37 of
+                                                                                    (# s39, v40 #) ->
+                                                                                      case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (19# :: Int#)) s39 of
+                                                                                        (# s41, v42 #) ->
+                                                                                          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (20# :: Int#)) s41 of
+                                                                                            (# s43, v44 #) ->
+                                                                                              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (21# :: Int#)) s43 of
+                                                                                                (# s45, v46 #) ->
+                                                                                                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (22# :: Int#)) s45 of
+                                                                                                    (# s47, v48 #) ->
+                                                                                                      case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (23# :: Int#)) s47 of
+                                                                                                        (# s49, v50 #) ->
+                                                                                                          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (24# :: Int#)) s49 of
+                                                                                                            (# s51, v52 #) ->
+                                                                                                              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (25# :: Int#)) s51 of
+                                                                                                                (# s53, v54 #) ->
+                                                                                                                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (26# :: Int#)) s53 of
+                                                                                                                    (# s55, v56 #) ->
+                                                                                                                      case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (27# :: Int#)) s55 of
+                                                                                                                        (# s57, v58 #) ->
+                                                                                                                          (#  s57
+                                                                                                                          , Primitive v4 v6 v8 v10 v12 v14 v16 v18 v20 v22 v24 v26 v28 v30 v32 v34 v36 v38 v40 v42 v44 v46 v48 v50 v52 v54 v56 v58
+                                                                                                                           #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Primitive
+                primitive_c4
+                primitive_sc5
+                primitive_uc6
+                primitive_s7
+                primitive_si8
+                primitive_ss9
+                primitive_ssi10
+                primitive_us11
+                primitive_usi12
+                primitive_i13
+                primitive_s214
+                primitive_si215
+                primitive_u16
+                primitive_ui17
+                primitive_l18
+                primitive_li19
+                primitive_sl20
+                primitive_sli21
+                primitive_ul22
+                primitive_uli23
+                primitive_ll24
+                primitive_lli25
+                primitive_sll26
+                primitive_slli27
+                primitive_ull28
+                primitive_ulli29
+                primitive_f30
+                primitive_d31 ->
+                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (0# :: Int#)) primitive_c4 s3 of
+                    s32 ->
+                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (1# :: Int#)) primitive_sc5 s32 of
+                        s33 ->
+                          case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (2# :: Int#)) primitive_uc6 s33 of
+                            s34 ->
+                              case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (3# :: Int#)) primitive_s7 s34 of
+                                s35 ->
+                                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (4# :: Int#)) primitive_si8 s35 of
+                                    s36 ->
+                                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (5# :: Int#)) primitive_ss9 s36 of
+                                        s37 ->
+                                          case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (6# :: Int#)) primitive_ssi10 s37 of
+                                            s38 ->
+                                              case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (7# :: Int#)) primitive_us11 s38 of
+                                                s39 ->
+                                                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (8# :: Int#)) primitive_usi12 s39 of
+                                                    s40 ->
+                                                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (9# :: Int#)) primitive_i13 s40 of
+                                                        s41 ->
+                                                          case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (10# :: Int#)) primitive_s214 s41 of
+                                                            s42 ->
+                                                              case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (11# :: Int#)) primitive_si215 s42 of
+                                                                s43 ->
+                                                                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (12# :: Int#)) primitive_u16 s43 of
+                                                                    s44 ->
+                                                                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (13# :: Int#)) primitive_ui17 s44 of
+                                                                        s45 ->
+                                                                          case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (14# :: Int#)) primitive_l18 s45 of
+                                                                            s46 ->
+                                                                              case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (15# :: Int#)) primitive_li19 s46 of
+                                                                                s47 ->
+                                                                                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (16# :: Int#)) primitive_sl20 s47 of
+                                                                                    s48 ->
+                                                                                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (17# :: Int#)) primitive_sli21 s48 of
+                                                                                        s49 ->
+                                                                                          case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (18# :: Int#)) primitive_ul22 s49 of
+                                                                                            s50 ->
+                                                                                              case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (19# :: Int#)) primitive_uli23 s50 of
+                                                                                                s51 ->
+                                                                                                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (20# :: Int#)) primitive_ll24 s51 of
+                                                                                                    s52 ->
+                                                                                                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (21# :: Int#)) primitive_lli25 s52 of
+                                                                                                        s53 ->
+                                                                                                          case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (22# :: Int#)) primitive_sll26 s53 of
+                                                                                                            s54 ->
+                                                                                                              case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (23# :: Int#)) primitive_slli27 s54 of
+                                                                                                                s55 ->
+                                                                                                                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (24# :: Int#)) primitive_ull28 s55 of
+                                                                                                                    s56 ->
+                                                                                                                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (25# :: Int#)) primitive_ulli29 s56 of
+                                                                                                                        s57 ->
+                                                                                                                          case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (26# :: Int#)) primitive_f30 s57 of
+                                                                                                                            s58 ->
+                                                                                                                              Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (28# :: Int#) i1) (27# :: Int#)) primitive_d31 s58
 
 instance HsBindgen.Runtime.HasCField.HasCField Primitive "primitive_c" where
 

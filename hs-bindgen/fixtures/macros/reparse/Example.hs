@@ -12,6 +12,7 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -20,6 +21,7 @@ import qualified Data.Array.Byte
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Data.List.NonEmpty
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -35,6 +37,7 @@ import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Text.Read
 import Data.Bits (FiniteBits)
+import GHC.Prim (Int#)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, return, showsPrec)
 
@@ -48,7 +51,7 @@ newtype A = A
   { un_A :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 {-| __C declaration:__ @some_struct@
 
@@ -74,6 +77,38 @@ instance F.Storable Some_struct where
         case s1 of
           Some_struct -> return ()
 
+instance Data.Primitive.Types.Prim Some_struct where
+
+  sizeOf# = \_ -> (0# :: Int#)
+
+  alignment# = \_ -> (1# :: Int#)
+
+  indexByteArray# = \arr0 -> \i1 -> Some_struct
+
+  readByteArray# =
+    \arr0 -> \i1 -> \s2 -> (# s2, Some_struct #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Some_struct -> s3
+
+  indexOffAddr# = \addr0 -> \i1 -> Some_struct
+
+  readOffAddr# =
+    \addr0 -> \i1 -> \s2 -> (# s2, Some_struct #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Some_struct -> s3
+
 {-| __C declaration:__ @some_union@
 
     __defined at:__ @macros\/reparse.h:8:7@
@@ -85,6 +120,8 @@ newtype Some_union = Some_union
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance F.Storable Some_union
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance Data.Primitive.Types.Prim Some_union
 
 {-| __C declaration:__ @some_enum@
 
@@ -115,6 +152,8 @@ instance F.Storable Some_enum where
         case s1 of
           Some_enum un_Some_enum2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_Some_enum2
+
+deriving via FC.CUInt instance Data.Primitive.Types.Prim Some_enum
 
 instance HsBindgen.Runtime.CEnum.CEnum Some_enum where
 
@@ -275,7 +314,7 @@ newtype Typedef1 = Typedef1
   { un_Typedef1 :: A
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Typedef1) "un_Typedef1")
          ) => GHC.Records.HasField "un_Typedef1" (Ptr.Ptr Typedef1) (Ptr.Ptr ty) where
@@ -683,7 +722,7 @@ newtype Comments2 = Comments2
   { un_Comments2 :: A
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Comments2) "un_Comments2")
          ) => GHC.Records.HasField "un_Comments2" (Ptr.Ptr Comments2) (Ptr.Ptr ty) where
@@ -804,7 +843,7 @@ newtype Const_typedef1 = Const_typedef1
   { un_Const_typedef1 :: A
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef1) "un_Const_typedef1")
          ) => GHC.Records.HasField "un_Const_typedef1" (Ptr.Ptr Const_typedef1) (Ptr.Ptr ty) where
@@ -829,7 +868,7 @@ newtype Const_typedef2 = Const_typedef2
   { un_Const_typedef2 :: A
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_typedef2) "un_Const_typedef2")
          ) => GHC.Records.HasField "un_Const_typedef2" (Ptr.Ptr Const_typedef2) (Ptr.Ptr ty) where
@@ -1635,7 +1674,7 @@ newtype BOOL = BOOL
   { un_BOOL :: FC.CBool
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 {-| __C declaration:__ @INT@
 
@@ -1647,7 +1686,7 @@ newtype INT = INT
   { un_INT :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 {-| __C declaration:__ @INTP@
 

@@ -32,6 +32,7 @@ hstypes:
       - bar_foo2
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Ex3
@@ -43,6 +44,7 @@ hstypes:
       - ex3_ex3_c
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Ex3_ex3_struct
@@ -54,6 +56,7 @@ hstypes:
       - ex3_ex3_struct_ex3_b
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Ex4_even
@@ -87,5 +90,6 @@ hstypes:
       - foo_c
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

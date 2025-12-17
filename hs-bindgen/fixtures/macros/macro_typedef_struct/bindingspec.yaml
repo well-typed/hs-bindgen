@@ -20,6 +20,7 @@ hstypes:
       - bar_y
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: MY_TYPE
@@ -40,6 +41,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show

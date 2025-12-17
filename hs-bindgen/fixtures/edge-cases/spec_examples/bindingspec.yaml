@@ -47,6 +47,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: C
@@ -60,6 +61,7 @@ hstypes:
       - cint16_T_im
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Int16_T
@@ -80,6 +82,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -102,6 +105,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -124,6 +128,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show

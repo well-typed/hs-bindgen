@@ -178,6 +178,39 @@ instance Storable Complex_object_t
                                    Complex_object_t complex_object_t_velocity_3
                                                     complex_object_t_position_4
                                                     complex_object_t_id_5 -> pokeCField (Proxy @"complex_object_t_velocity") ptr_1 complex_object_t_velocity_3 >> (pokeCField (Proxy @"complex_object_t_position") ptr_1 complex_object_t_position_4 >> pokeCField (Proxy @"complex_object_t_id") ptr_1 complex_object_t_id_5)
+instance Prim Complex_object_t
+    where sizeOf# = \_ -> 32# :: Int#
+          alignment# = \_ -> 8# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Complex_object_t (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (1# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (3# :: Int#) i_1) (2# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7,
+                                                                     v_8 #) -> case readByteArray# arr_2 ((+#) ((*#) (3# :: Int#) i_3) (2# :: Int#)) s_7 of
+                                                                               (# s_9,
+                                                                                  v_10 #) -> (# s_9,
+                                                                                                Complex_object_t v_6 v_8 v_10 #)
+          writeByteArray# = \arr_11 -> \i_12 -> \struct_13 -> \s_14 -> case struct_13 of
+                                                                       Complex_object_t complex_object_t_velocity_15
+                                                                                        complex_object_t_position_16
+                                                                                        complex_object_t_id_17 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (0# :: Int#)) complex_object_t_velocity_15 s_14 of
+                                                                                                                  s_18 -> case writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (1# :: Int#)) complex_object_t_position_16 s_18 of
+                                                                                                                          s_19 -> writeByteArray# arr_11 ((+#) ((*#) (3# :: Int#) i_12) (2# :: Int#)) complex_object_t_id_17 s_19
+          indexOffAddr# = \addr_20 -> \i_21 -> Complex_object_t (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (0# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (1# :: Int#))) (indexOffAddr# addr_20 ((+#) ((*#) (3# :: Int#) i_21) (2# :: Int#)))
+          readOffAddr# = \addr_22 -> \i_23 -> \s_24 -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (0# :: Int#)) s_24 of
+                                                       (# s_25,
+                                                          v_26 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (1# :: Int#)) s_25 of
+                                                                     (# s_27,
+                                                                        v_28 #) -> case readOffAddr# addr_22 ((+#) ((*#) (3# :: Int#) i_23) (2# :: Int#)) s_27 of
+                                                                                   (# s_29,
+                                                                                      v_30 #) -> (# s_29,
+                                                                                                    Complex_object_t v_26 v_28 v_30 #)
+          writeOffAddr# = \addr_31 -> \i_32 -> \struct_33 -> \s_34 -> case struct_33 of
+                                                                      Complex_object_t complex_object_t_velocity_35
+                                                                                       complex_object_t_position_36
+                                                                                       complex_object_t_id_37 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (0# :: Int#)) complex_object_t_velocity_35 s_34 of
+                                                                                                                 s_38 -> case writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (1# :: Int#)) complex_object_t_position_36 s_38 of
+                                                                                                                         s_39 -> writeOffAddr# addr_31 ((+#) ((*#) (3# :: Int#) i_32) (2# :: Int#)) complex_object_t_id_37 s_39
 instance HasCField Complex_object_t "complex_object_t_velocity"
     where type CFieldType Complex_object_t
                           "complex_object_t_velocity" = Complex CFloat

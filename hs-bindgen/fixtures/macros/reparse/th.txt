@@ -2490,6 +2490,7 @@ newtype A
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -2519,6 +2520,18 @@ instance Storable Some_struct
           peek = \ptr_0 -> pure Some_struct
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Some_struct -> return ()
+instance Prim Some_struct
+    where sizeOf# = \_ -> 0# :: Int#
+          alignment# = \_ -> 1# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Some_struct
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Some_struct #)
+          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
+                                                                   Some_struct -> s_8
+          indexOffAddr# = \addr_9 -> \i_10 -> Some_struct
+          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13,
+                                                          Some_struct #)
+          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
+                                                                      Some_struct -> s_17
 {-| __C declaration:__ @some_union@
 
     __defined at:__ @macros\/reparse.h:8:7@
@@ -2534,6 +2547,7 @@ newtype Some_union
            __exported by:__ @macros\/reparse.h@
       -}
 deriving via (SizedByteArray 0 1) instance Storable Some_union
+deriving via (SizedByteArray 0 1) instance Prim Some_union
 {-| __C declaration:__ @some_enum@
 
     __defined at:__ @macros\/reparse.h:9:6@
@@ -2556,6 +2570,7 @@ instance Storable Some_enum
           peek = \ptr_0 -> pure Some_enum <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Some_enum un_Some_enum_3 -> pokeByteOff ptr_1 (0 :: Int) un_Some_enum_3
+deriving via CUInt instance Prim Some_enum
 instance CEnum Some_enum
     where type CEnumZ Some_enum = CUInt
           toCEnum = Some_enum
@@ -2700,6 +2715,7 @@ newtype Typedef1
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -3072,6 +3088,7 @@ newtype Comments2
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -3173,6 +3190,7 @@ newtype Const_typedef1
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -3204,6 +3222,7 @@ newtype Const_typedef2
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -3921,6 +3940,7 @@ newtype BOOL
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -3946,6 +3966,7 @@ newtype INT
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,

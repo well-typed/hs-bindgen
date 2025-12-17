@@ -35,6 +35,29 @@ instance Storable Bools1
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Bools1 bools1_x_3
                                           bools1_y_4 -> pokeCField (Proxy @"bools1_x") ptr_1 bools1_x_3 >> pokeCField (Proxy @"bools1_y") ptr_1 bools1_y_4
+instance Prim Bools1
+    where sizeOf# = \_ -> 2# :: Int#
+          alignment# = \_ -> 1# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Bools1 (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       Bools1 v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      Bools1 bools1_x_13
+                                                                             bools1_y_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) bools1_x_13 s_12 of
+                                                                                            s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) bools1_y_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> Bools1 (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            Bools1 v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      Bools1 bools1_x_29
+                                                                             bools1_y_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) bools1_x_29 s_28 of
+                                                                                            s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) bools1_y_30 s_31
 instance HasCField Bools1 "bools1_x"
     where type CFieldType Bools1 "bools1_x" = CBool
           offset# = \_ -> \_ -> 0
@@ -82,6 +105,29 @@ instance Storable Bools2
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Bools2 bools2_x_3
                                           bools2_y_4 -> pokeCField (Proxy @"bools2_x") ptr_1 bools2_x_3 >> pokeCField (Proxy @"bools2_y") ptr_1 bools2_y_4
+instance Prim Bools2
+    where sizeOf# = \_ -> 2# :: Int#
+          alignment# = \_ -> 1# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Bools2 (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       Bools2 v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      Bools2 bools2_x_13
+                                                                             bools2_y_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) bools2_x_13 s_12 of
+                                                                                            s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) bools2_y_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> Bools2 (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            Bools2 v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      Bools2 bools2_x_29
+                                                                             bools2_y_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) bools2_x_29 s_28 of
+                                                                                            s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) bools2_y_30 s_31
 instance HasCField Bools2 "bools2_x"
     where type CFieldType Bools2 "bools2_x" = CBool
           offset# = \_ -> \_ -> 0
@@ -111,6 +157,7 @@ newtype BOOL
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -154,6 +201,29 @@ instance Storable Bools3
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Bools3 bools3_x_3
                                           bools3_y_4 -> pokeCField (Proxy @"bools3_x") ptr_1 bools3_x_3 >> pokeCField (Proxy @"bools3_y") ptr_1 bools3_y_4
+instance Prim Bools3
+    where sizeOf# = \_ -> 2# :: Int#
+          alignment# = \_ -> 1# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Bools3 (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       Bools3 v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      Bools3 bools3_x_13
+                                                                             bools3_y_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) bools3_x_13 s_12 of
+                                                                                            s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) bools3_y_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> Bools3 (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            Bools3 v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      Bools3 bools3_x_29
+                                                                             bools3_y_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) bools3_x_29 s_28 of
+                                                                                            s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) bools3_y_30 s_31
 instance HasCField Bools3 "bools3_x"
     where type CFieldType Bools3 "bools3_x" = BOOL
           offset# = \_ -> \_ -> 0

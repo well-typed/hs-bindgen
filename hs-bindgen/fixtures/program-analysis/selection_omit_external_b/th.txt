@@ -27,6 +27,19 @@ instance Storable Omitted
           peek = \ptr_0 -> pure Omitted <*> peekCField (Proxy @"omitted_n") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Omitted omitted_n_3 -> pokeCField (Proxy @"omitted_n") ptr_1 omitted_n_3
+instance Prim Omitted
+    where sizeOf# = \_ -> 4# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Omitted (indexByteArray# arr_0 i_1)
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
+                                                     (# s_5, v_6 #) -> (# s_5, Omitted v_6 #)
+          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
+                                                                    Omitted omitted_n_11 -> writeByteArray# arr_7 i_8 omitted_n_11 s_10
+          indexOffAddr# = \addr_12 -> \i_13 -> Omitted (indexOffAddr# addr_12 i_13)
+          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
+                                                       (# s_17, v_18 #) -> (# s_17, Omitted v_18 #)
+          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
+                                                                      Omitted omitted_n_23 -> writeOffAddr# addr_19 i_20 omitted_n_23 s_22
 instance HasCField Omitted "omitted_n"
     where type CFieldType Omitted "omitted_n" = CInt
           offset# = \_ -> \_ -> 0
@@ -60,6 +73,21 @@ instance Storable DirectlyDependsOnOmitted
           peek = \ptr_0 -> pure DirectlyDependsOnOmitted <*> peekCField (Proxy @"directlyDependsOnOmitted_o") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    DirectlyDependsOnOmitted directlyDependsOnOmitted_o_3 -> pokeCField (Proxy @"directlyDependsOnOmitted_o") ptr_1 directlyDependsOnOmitted_o_3
+instance Prim DirectlyDependsOnOmitted
+    where sizeOf# = \_ -> 4# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> DirectlyDependsOnOmitted (indexByteArray# arr_0 i_1)
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
+                                                     (# s_5, v_6 #) -> (# s_5,
+                                                                          DirectlyDependsOnOmitted v_6 #)
+          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
+                                                                    DirectlyDependsOnOmitted directlyDependsOnOmitted_o_11 -> writeByteArray# arr_7 i_8 directlyDependsOnOmitted_o_11 s_10
+          indexOffAddr# = \addr_12 -> \i_13 -> DirectlyDependsOnOmitted (indexOffAddr# addr_12 i_13)
+          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
+                                                       (# s_17, v_18 #) -> (# s_17,
+                                                                              DirectlyDependsOnOmitted v_18 #)
+          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
+                                                                      DirectlyDependsOnOmitted directlyDependsOnOmitted_o_23 -> writeOffAddr# addr_19 i_20 directlyDependsOnOmitted_o_23 s_22
 instance HasCField DirectlyDependsOnOmitted
                    "directlyDependsOnOmitted_o"
     where type CFieldType DirectlyDependsOnOmitted
@@ -99,6 +127,21 @@ instance Storable IndirectlyDependsOnOmitted
           peek = \ptr_0 -> pure IndirectlyDependsOnOmitted <*> peekCField (Proxy @"indirectlyDependsOnOmitted_d") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    IndirectlyDependsOnOmitted indirectlyDependsOnOmitted_d_3 -> pokeCField (Proxy @"indirectlyDependsOnOmitted_d") ptr_1 indirectlyDependsOnOmitted_d_3
+instance Prim IndirectlyDependsOnOmitted
+    where sizeOf# = \_ -> 4# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> IndirectlyDependsOnOmitted (indexByteArray# arr_0 i_1)
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
+                                                     (# s_5, v_6 #) -> (# s_5,
+                                                                          IndirectlyDependsOnOmitted v_6 #)
+          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
+                                                                    IndirectlyDependsOnOmitted indirectlyDependsOnOmitted_d_11 -> writeByteArray# arr_7 i_8 indirectlyDependsOnOmitted_d_11 s_10
+          indexOffAddr# = \addr_12 -> \i_13 -> IndirectlyDependsOnOmitted (indexOffAddr# addr_12 i_13)
+          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
+                                                       (# s_17, v_18 #) -> (# s_17,
+                                                                              IndirectlyDependsOnOmitted v_18 #)
+          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
+                                                                      IndirectlyDependsOnOmitted indirectlyDependsOnOmitted_d_23 -> writeOffAddr# addr_19 i_20 indirectlyDependsOnOmitted_d_23 s_22
 instance HasCField IndirectlyDependsOnOmitted
                    "indirectlyDependsOnOmitted_d"
     where type CFieldType IndirectlyDependsOnOmitted

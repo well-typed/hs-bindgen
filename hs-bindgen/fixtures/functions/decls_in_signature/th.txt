@@ -108,6 +108,29 @@ instance Storable Outside
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Outside outside_x_3
                                            outside_y_4 -> pokeCField (Proxy @"outside_x") ptr_1 outside_x_3 >> pokeCField (Proxy @"outside_y") ptr_1 outside_y_4
+instance Prim Outside
+    where sizeOf# = \_ -> 8# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Outside (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       Outside v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      Outside outside_x_13
+                                                                              outside_y_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) outside_x_13 s_12 of
+                                                                                              s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) outside_y_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> Outside (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            Outside v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      Outside outside_x_29
+                                                                              outside_y_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) outside_x_29 s_28 of
+                                                                                              s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) outside_y_30 s_31
 instance HasCField Outside "outside_x"
     where type CFieldType Outside "outside_x" = CInt
           offset# = \_ -> \_ -> 0
@@ -163,6 +186,29 @@ instance Storable Named_struct
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Named_struct named_struct_x_3
                                                 named_struct_y_4 -> pokeCField (Proxy @"named_struct_x") ptr_1 named_struct_x_3 >> pokeCField (Proxy @"named_struct_y") ptr_1 named_struct_y_4
+instance Prim Named_struct
+    where sizeOf# = \_ -> 8# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Named_struct (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       Named_struct v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      Named_struct named_struct_x_13
+                                                                                   named_struct_y_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) named_struct_x_13 s_12 of
+                                                                                                        s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) named_struct_y_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> Named_struct (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            Named_struct v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      Named_struct named_struct_x_29
+                                                                                   named_struct_y_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) named_struct_x_29 s_28 of
+                                                                                                        s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) named_struct_y_30 s_31
 instance HasCField Named_struct "named_struct_x"
     where type CFieldType Named_struct "named_struct_x" = CInt
           offset# = \_ -> \_ -> 0
@@ -190,6 +236,7 @@ newtype Named_union
            __exported by:__ @functions\/decls_in_signature.h@
       -}
 deriving via (SizedByteArray 4 4) instance Storable Named_union
+deriving via (SizedByteArray 4 4) instance Prim Named_union
 {-|
 
   __See:__ 'set_named_union_x'

@@ -1,13 +1,16 @@
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.List.NonEmpty
+import qualified Data.Primitive.Types
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
@@ -44,6 +47,8 @@ instance F.Storable First where
         case s1 of
           First un_First2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_First2
+
+deriving via FC.CUInt instance Data.Primitive.Types.Prim First
 
 instance HsBindgen.Runtime.CEnum.CEnum First where
 
@@ -134,6 +139,8 @@ instance F.Storable Second where
         case s1 of
           Second un_Second2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_Second2
+
+deriving via FC.CInt instance Data.Primitive.Types.Prim Second
 
 instance HsBindgen.Runtime.CEnum.CEnum Second where
 
@@ -235,6 +242,8 @@ instance F.Storable Same where
           Same un_Same2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_Same2
 
+deriving via FC.CUInt instance Data.Primitive.Types.Prim Same
+
 instance HsBindgen.Runtime.CEnum.CEnum Same where
 
   type CEnumZ Same = FC.CUInt
@@ -322,6 +331,8 @@ instance F.Storable Nonseq where
         case s1 of
           Nonseq un_Nonseq2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_Nonseq2
+
+deriving via FC.CUInt instance Data.Primitive.Types.Prim Nonseq
 
 instance HsBindgen.Runtime.CEnum.CEnum Nonseq where
 
@@ -412,6 +423,8 @@ instance F.Storable Packed where
         case s1 of
           Packed un_Packed2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_Packed2
+
+deriving via FC.CUChar instance Data.Primitive.Types.Prim Packed
 
 instance HsBindgen.Runtime.CEnum.CEnum Packed where
 
@@ -513,6 +526,8 @@ instance F.Storable EnumA where
           EnumA un_EnumA2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_EnumA2
 
+deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumA
+
 instance HsBindgen.Runtime.CEnum.CEnum EnumA where
 
   type CEnumZ EnumA = FC.CUInt
@@ -602,6 +617,8 @@ instance F.Storable EnumB where
         case s1 of
           EnumB un_EnumB2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_EnumB2
+
+deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumB
 
 instance HsBindgen.Runtime.CEnum.CEnum EnumB where
 
@@ -693,6 +710,8 @@ instance F.Storable EnumC where
           EnumC un_EnumC2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_EnumC2
 
+deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumC
+
 instance HsBindgen.Runtime.CEnum.CEnum EnumC where
 
   type CEnumZ EnumC = FC.CUInt
@@ -782,6 +801,8 @@ instance F.Storable EnumD_t where
         case s1 of
           EnumD_t un_EnumD_t2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_EnumD_t2
+
+deriving via FC.CUInt instance Data.Primitive.Types.Prim EnumD_t
 
 instance HsBindgen.Runtime.CEnum.CEnum EnumD_t where
 

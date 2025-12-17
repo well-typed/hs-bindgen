@@ -14,6 +14,7 @@ module Example where
 
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign
 import qualified Foreign as F
@@ -36,7 +37,7 @@ newtype Uint32_t = Uint32_t
   { un_Uint32_t :: FC.CUInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Uint32_t) "un_Uint32_t")
          ) => GHC.Records.HasField "un_Uint32_t" (Ptr.Ptr Uint32_t) (Ptr.Ptr ty) where

@@ -1,6 +1,7 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE ExplicitForAll #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
@@ -8,9 +9,11 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -18,6 +21,7 @@ module Example where
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Data.List.NonEmpty
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -32,6 +36,7 @@ import qualified HsBindgen.Runtime.Prelude
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
+import GHC.Prim ((*#), (+#), Int#)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
@@ -80,6 +85,68 @@ instance F.Storable Another_typedef_struct_t where
             another_typedef_struct_t_bar3 ->
                  HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"another_typedef_struct_t_foo") ptr0 another_typedef_struct_t_foo2
               >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"another_typedef_struct_t_bar") ptr0 another_typedef_struct_t_bar3
+
+instance Data.Primitive.Types.Prim Another_typedef_struct_t where
+
+  sizeOf# = \_ -> (8# :: Int#)
+
+  alignment# = \_ -> (4# :: Int#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Another_typedef_struct_t (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s3 of
+                (# s5, v6 #) ->
+                  (# s5, Another_typedef_struct_t v4 v6 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Another_typedef_struct_t
+                another_typedef_struct_t_foo4
+                another_typedef_struct_t_bar5 ->
+                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) another_typedef_struct_t_foo4 s3 of
+                    s6 ->
+                      Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) another_typedef_struct_t_bar5 s6
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Another_typedef_struct_t (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s3 of
+                (# s5, v6 #) ->
+                  (# s5, Another_typedef_struct_t v4 v6 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Another_typedef_struct_t
+                another_typedef_struct_t_foo4
+                another_typedef_struct_t_bar5 ->
+                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) another_typedef_struct_t_foo4 s3 of
+                    s6 ->
+                      Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) another_typedef_struct_t_bar5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField Another_typedef_struct_t "another_typedef_struct_t_foo" where
 
@@ -136,6 +203,8 @@ instance F.Storable Another_typedef_enum_e where
         case s1 of
           Another_typedef_enum_e un_Another_typedef_enum_e2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_Another_typedef_enum_e2
+
+deriving via FC.CUInt instance Data.Primitive.Types.Prim Another_typedef_enum_e
 
 instance HsBindgen.Runtime.CEnum.CEnum Another_typedef_enum_e where
 
@@ -234,7 +303,7 @@ newtype A_type_t = A_type_t
   { un_A_type_t :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_type_t) "un_A_type_t")
          ) => GHC.Records.HasField "un_A_type_t" (Ptr.Ptr A_type_t) (Ptr.Ptr ty) where
@@ -258,7 +327,7 @@ newtype Var_t = Var_t
   { un_Var_t :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Var_t) "un_Var_t")
          ) => GHC.Records.HasField "un_Var_t" (Ptr.Ptr Var_t) (Ptr.Ptr ty) where
@@ -616,6 +685,8 @@ instance F.Storable A_typedef_enum_e where
         case s1 of
           A_typedef_enum_e un_A_typedef_enum_e2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_A_typedef_enum_e2
+
+deriving via FC.CUChar instance Data.Primitive.Types.Prim A_typedef_enum_e
 
 instance HsBindgen.Runtime.CEnum.CEnum A_typedef_enum_e where
 

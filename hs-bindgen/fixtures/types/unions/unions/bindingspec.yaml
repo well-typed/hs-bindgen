@@ -49,6 +49,7 @@ hstypes:
       - anonA_polar_p
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: AnonA_xy
@@ -60,6 +61,7 @@ hstypes:
       - anonA_xy_y
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Dim
@@ -80,6 +82,7 @@ hstypes:
       - dim2_y
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Dim3
@@ -92,6 +95,7 @@ hstypes:
       - dim3_z
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: DimB

@@ -18,6 +18,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Size_t
@@ -38,6 +39,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show

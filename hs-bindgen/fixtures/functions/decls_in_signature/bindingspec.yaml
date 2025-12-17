@@ -26,6 +26,7 @@ hstypes:
       - named_struct_y
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Named_union
@@ -47,5 +48,6 @@ hstypes:
       - outside_y
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

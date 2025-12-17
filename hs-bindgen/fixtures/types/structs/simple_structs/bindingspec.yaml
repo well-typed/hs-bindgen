@@ -44,6 +44,7 @@ hstypes:
       - s1_b
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: S2_t
@@ -56,6 +57,7 @@ hstypes:
       - s2_t_c
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: S3_t
@@ -66,6 +68,7 @@ hstypes:
       - s3_t_a
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: S4
@@ -89,6 +92,7 @@ hstypes:
       - s5_b
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: S6
@@ -100,6 +104,7 @@ hstypes:
       - s6_b
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: S7a
@@ -124,6 +129,7 @@ hstypes:
       - s7a_Deref_b
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: S7b
@@ -148,5 +154,6 @@ hstypes:
       - s7b_Deref_b
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

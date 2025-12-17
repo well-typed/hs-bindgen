@@ -74,6 +74,17 @@ instance Storable Baz
           peek = \ptr_0 -> pure Baz
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Baz -> return ()
+instance Prim Baz
+    where sizeOf# = \_ -> 0# :: Int#
+          alignment# = \_ -> 1# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Baz
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Baz #)
+          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
+                                                                   Baz -> s_8
+          indexOffAddr# = \addr_9 -> \i_10 -> Baz
+          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Baz #)
+          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
+                                                                      Baz -> s_17
 {-| __C declaration:__ @quu@
 
     __defined at:__ @declarations\/opaque_declaration.h:11:6@

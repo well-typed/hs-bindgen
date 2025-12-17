@@ -16,6 +16,7 @@ newtype T1
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -47,6 +48,7 @@ newtype T2
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -78,6 +80,7 @@ newtype M1
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -103,6 +106,7 @@ newtype M2
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -178,6 +182,47 @@ instance Storable ExampleStruct
                                                  exampleStruct_t2_4
                                                  exampleStruct_m1_5
                                                  exampleStruct_m2_6 -> pokeCField (Proxy @"exampleStruct_t1") ptr_1 exampleStruct_t1_3 >> (pokeCField (Proxy @"exampleStruct_t2") ptr_1 exampleStruct_t2_4 >> (pokeCField (Proxy @"exampleStruct_m1") ptr_1 exampleStruct_m1_5 >> pokeCField (Proxy @"exampleStruct_m2") ptr_1 exampleStruct_m2_6))
+instance Prim ExampleStruct
+    where sizeOf# = \_ -> 16# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> ExampleStruct (indexByteArray# arr_0 ((+#) ((*#) (4# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (4# :: Int#) i_1) (1# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (4# :: Int#) i_1) (2# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (4# :: Int#) i_1) (3# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (4# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (4# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7,
+                                                                     v_8 #) -> case readByteArray# arr_2 ((+#) ((*#) (4# :: Int#) i_3) (2# :: Int#)) s_7 of
+                                                                               (# s_9,
+                                                                                  v_10 #) -> case readByteArray# arr_2 ((+#) ((*#) (4# :: Int#) i_3) (3# :: Int#)) s_9 of
+                                                                                             (# s_11,
+                                                                                                v_12 #) -> (# s_11,
+                                                                                                              ExampleStruct v_6 v_8 v_10 v_12 #)
+          writeByteArray# = \arr_13 -> \i_14 -> \struct_15 -> \s_16 -> case struct_15 of
+                                                                       ExampleStruct exampleStruct_t1_17
+                                                                                     exampleStruct_t2_18
+                                                                                     exampleStruct_m1_19
+                                                                                     exampleStruct_m2_20 -> case writeByteArray# arr_13 ((+#) ((*#) (4# :: Int#) i_14) (0# :: Int#)) exampleStruct_t1_17 s_16 of
+                                                                                                            s_21 -> case writeByteArray# arr_13 ((+#) ((*#) (4# :: Int#) i_14) (1# :: Int#)) exampleStruct_t2_18 s_21 of
+                                                                                                                    s_22 -> case writeByteArray# arr_13 ((+#) ((*#) (4# :: Int#) i_14) (2# :: Int#)) exampleStruct_m1_19 s_22 of
+                                                                                                                            s_23 -> writeByteArray# arr_13 ((+#) ((*#) (4# :: Int#) i_14) (3# :: Int#)) exampleStruct_m2_20 s_23
+          indexOffAddr# = \addr_24 -> \i_25 -> ExampleStruct (indexOffAddr# addr_24 ((+#) ((*#) (4# :: Int#) i_25) (0# :: Int#))) (indexOffAddr# addr_24 ((+#) ((*#) (4# :: Int#) i_25) (1# :: Int#))) (indexOffAddr# addr_24 ((+#) ((*#) (4# :: Int#) i_25) (2# :: Int#))) (indexOffAddr# addr_24 ((+#) ((*#) (4# :: Int#) i_25) (3# :: Int#)))
+          readOffAddr# = \addr_26 -> \i_27 -> \s_28 -> case readOffAddr# addr_26 ((+#) ((*#) (4# :: Int#) i_27) (0# :: Int#)) s_28 of
+                                                       (# s_29,
+                                                          v_30 #) -> case readOffAddr# addr_26 ((+#) ((*#) (4# :: Int#) i_27) (1# :: Int#)) s_29 of
+                                                                     (# s_31,
+                                                                        v_32 #) -> case readOffAddr# addr_26 ((+#) ((*#) (4# :: Int#) i_27) (2# :: Int#)) s_31 of
+                                                                                   (# s_33,
+                                                                                      v_34 #) -> case readOffAddr# addr_26 ((+#) ((*#) (4# :: Int#) i_27) (3# :: Int#)) s_33 of
+                                                                                                 (# s_35,
+                                                                                                    v_36 #) -> (# s_35,
+                                                                                                                  ExampleStruct v_30 v_32 v_34 v_36 #)
+          writeOffAddr# = \addr_37 -> \i_38 -> \struct_39 -> \s_40 -> case struct_39 of
+                                                                      ExampleStruct exampleStruct_t1_41
+                                                                                    exampleStruct_t2_42
+                                                                                    exampleStruct_m1_43
+                                                                                    exampleStruct_m2_44 -> case writeOffAddr# addr_37 ((+#) ((*#) (4# :: Int#) i_38) (0# :: Int#)) exampleStruct_t1_41 s_40 of
+                                                                                                           s_45 -> case writeOffAddr# addr_37 ((+#) ((*#) (4# :: Int#) i_38) (1# :: Int#)) exampleStruct_t2_42 s_45 of
+                                                                                                                   s_46 -> case writeOffAddr# addr_37 ((+#) ((*#) (4# :: Int#) i_38) (2# :: Int#)) exampleStruct_m1_43 s_46 of
+                                                                                                                           s_47 -> writeOffAddr# addr_37 ((+#) ((*#) (4# :: Int#) i_38) (3# :: Int#)) exampleStruct_m2_44 s_47
 instance HasCField ExampleStruct "exampleStruct_t1"
     where type CFieldType ExampleStruct "exampleStruct_t1" = T1
           offset# = \_ -> \_ -> 0
@@ -219,6 +264,7 @@ newtype Uint64_t
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,

@@ -1,11 +1,13 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
@@ -14,6 +16,7 @@
 module Example where
 
 import qualified Data.List.NonEmpty
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -56,6 +59,8 @@ instance F.Storable FileOperationStatus where
         case s1 of
           FileOperationStatus un_FileOperationStatus2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_FileOperationStatus2
+
+deriving via FC.CInt instance Data.Primitive.Types.Prim FileOperationStatus
 
 instance HsBindgen.Runtime.CEnum.CEnum FileOperationStatus where
 

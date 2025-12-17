@@ -292,6 +292,7 @@ newtype Apply1Union
       __exported by:__ @manual\/function_pointers.h@
       -}
 deriving via (SizedByteArray 8 8) instance Storable Apply1Union
+deriving via (SizedByteArray 8 8) instance Prim Apply1Union
 {-|
 
   __See:__ 'set_apply1Union_apply1_nopointer_union_field'

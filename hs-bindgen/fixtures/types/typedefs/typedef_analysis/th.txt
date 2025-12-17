@@ -24,6 +24,17 @@ instance Storable Struct1_t
           peek = \ptr_0 -> pure Struct1_t
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct1_t -> return ()
+instance Prim Struct1_t
+    where sizeOf# = \_ -> 0# :: Int#
+          alignment# = \_ -> 1# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Struct1_t
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct1_t #)
+          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
+                                                                   Struct1_t -> s_8
+          indexOffAddr# = \addr_9 -> \i_10 -> Struct1_t
+          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct1_t #)
+          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
+                                                                      Struct1_t -> s_17
 {-| __C declaration:__ @struct2_t@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:11:16@
@@ -45,6 +56,17 @@ instance Storable Struct2_t
           peek = \ptr_0 -> pure Struct2_t
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct2_t -> return ()
+instance Prim Struct2_t
+    where sizeOf# = \_ -> 0# :: Int#
+          alignment# = \_ -> 1# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Struct2_t
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct2_t #)
+          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
+                                                                   Struct2_t -> s_8
+          indexOffAddr# = \addr_9 -> \i_10 -> Struct2_t
+          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct2_t #)
+          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
+                                                                      Struct2_t -> s_17
 {-| __C declaration:__ @struct3_t@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:14:8@
@@ -80,6 +102,17 @@ instance Storable Struct5
           peek = \ptr_0 -> pure Struct5
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct5 -> return ()
+instance Prim Struct5
+    where sizeOf# = \_ -> 0# :: Int#
+          alignment# = \_ -> 1# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Struct5
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct5 #)
+          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
+                                                                   Struct5 -> s_8
+          indexOffAddr# = \addr_9 -> \i_10 -> Struct5
+          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct5 #)
+          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
+                                                                      Struct5 -> s_17
 {-| __C declaration:__ @struct5_t@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:22:25@
@@ -123,6 +156,18 @@ instance Storable Struct6_Deref
           peek = \ptr_0 -> pure Struct6_Deref
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct6_Deref -> return ()
+instance Prim Struct6_Deref
+    where sizeOf# = \_ -> 0# :: Int#
+          alignment# = \_ -> 1# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Struct6_Deref
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct6_Deref #)
+          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
+                                                                   Struct6_Deref -> s_8
+          indexOffAddr# = \addr_9 -> \i_10 -> Struct6_Deref
+          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13,
+                                                          Struct6_Deref #)
+          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
+                                                                      Struct6_Deref -> s_17
 {-| __C declaration:__ @struct6@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:25:28@
@@ -166,6 +211,17 @@ instance Storable Struct7
           peek = \ptr_0 -> pure Struct7
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct7 -> return ()
+instance Prim Struct7
+    where sizeOf# = \_ -> 0# :: Int#
+          alignment# = \_ -> 1# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Struct7
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct7 #)
+          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
+                                                                   Struct7 -> s_8
+          indexOffAddr# = \addr_9 -> \i_10 -> Struct7
+          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct7 #)
+          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
+                                                                      Struct7 -> s_17
 {-| __C declaration:__ @struct7a@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:29:24@
@@ -181,7 +237,7 @@ newtype Struct7a
            __exported by:__ @types\/typedefs\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Prim)
 instance TyEq ty (CFieldType Struct7a "un_Struct7a") =>
          HasField "un_Struct7a" (Ptr Struct7a) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Struct7a")
@@ -203,7 +259,7 @@ newtype Struct7b
            __exported by:__ @types\/typedefs\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Prim)
 instance TyEq ty (CFieldType Struct7b "un_Struct7b") =>
          HasField "un_Struct7b" (Ptr Struct7b) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Struct7b")
@@ -231,6 +287,17 @@ instance Storable Struct8
           peek = \ptr_0 -> pure Struct8
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct8 -> return ()
+instance Prim Struct8
+    where sizeOf# = \_ -> 0# :: Int#
+          alignment# = \_ -> 1# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Struct8
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct8 #)
+          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
+                                                                   Struct8 -> s_8
+          indexOffAddr# = \addr_9 -> \i_10 -> Struct8
+          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct8 #)
+          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
+                                                                      Struct8 -> s_17
 {-| __C declaration:__ @struct8b@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:35:24@
@@ -246,7 +313,7 @@ newtype Struct8b
            __exported by:__ @types\/typedefs\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Prim)
 instance TyEq ty (CFieldType Struct8b "un_Struct8b") =>
          HasField "un_Struct8b" (Ptr Struct8b) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Struct8b")
@@ -274,6 +341,17 @@ instance Storable Struct9
           peek = \ptr_0 -> pure Struct9
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct9 -> return ()
+instance Prim Struct9
+    where sizeOf# = \_ -> 0# :: Int#
+          alignment# = \_ -> 1# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Struct9
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct9 #)
+          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
+                                                                   Struct9 -> s_8
+          indexOffAddr# = \addr_9 -> \i_10 -> Struct9
+          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct9 #)
+          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
+                                                                      Struct9 -> s_17
 {-| __C declaration:__ @struct9_t@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:40:17@
@@ -289,7 +367,7 @@ newtype Struct9_t
            __exported by:__ @types\/typedefs\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Prim)
 instance TyEq ty (CFieldType Struct9_t "un_Struct9_t") =>
          HasField "un_Struct9_t" (Ptr Struct9_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Struct9_t")
@@ -317,6 +395,17 @@ instance Storable Struct10_t
           peek = \ptr_0 -> pure Struct10_t
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct10_t -> return ()
+instance Prim Struct10_t
+    where sizeOf# = \_ -> 0# :: Int#
+          alignment# = \_ -> 1# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Struct10_t
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct10_t #)
+          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
+                                                                   Struct10_t -> s_8
+          indexOffAddr# = \addr_9 -> \i_10 -> Struct10_t
+          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, Struct10_t #)
+          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
+                                                                      Struct10_t -> s_17
 {-| __C declaration:__ @struct10_t_t@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:48:20@
@@ -332,7 +421,7 @@ newtype Struct10_t_t
            __exported by:__ @types\/typedefs\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-    deriving newtype Storable
+    deriving newtype (Storable, Prim)
 instance TyEq ty (CFieldType Struct10_t_t "un_Struct10_t_t") =>
          HasField "un_Struct10_t_t" (Ptr Struct10_t_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Struct10_t_t")

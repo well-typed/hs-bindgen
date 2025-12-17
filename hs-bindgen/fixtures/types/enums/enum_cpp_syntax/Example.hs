@@ -1,13 +1,16 @@
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.List.NonEmpty
+import qualified Data.Primitive.Types
 import qualified Foreign as F
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.HasBaseForeignType
@@ -44,6 +47,8 @@ instance F.Storable Foo_enum where
         case s1 of
           Foo_enum un_Foo_enum2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_Foo_enum2
+
+deriving via HsBindgen.Runtime.Prelude.Word32 instance Data.Primitive.Types.Prim Foo_enum
 
 instance HsBindgen.Runtime.CEnum.CEnum Foo_enum where
 

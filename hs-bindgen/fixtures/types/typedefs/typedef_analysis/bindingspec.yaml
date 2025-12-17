@@ -72,6 +72,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct10_t_t
@@ -82,6 +83,7 @@ hstypes:
       - un_Struct10_t_t
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct11_t
@@ -113,6 +115,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct2_t
@@ -122,6 +125,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct3_t
@@ -135,6 +139,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct5_t
@@ -170,6 +175,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct7
@@ -179,6 +185,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct7a
@@ -189,6 +196,7 @@ hstypes:
       - un_Struct7a
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct7b
@@ -199,6 +207,7 @@ hstypes:
       - un_Struct7b
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct8
@@ -208,6 +217,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct8b
@@ -218,6 +228,7 @@ hstypes:
       - un_Struct8b
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct9
@@ -227,6 +238,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct9_t
@@ -237,6 +249,7 @@ hstypes:
       - un_Struct9_t
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Use_sites
