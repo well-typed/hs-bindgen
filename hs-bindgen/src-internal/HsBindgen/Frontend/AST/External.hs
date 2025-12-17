@@ -44,9 +44,7 @@ module HsBindgen.Frontend.AST.External (
   , Type
   , TypeF(TypePrim, TypeRef, TypeTypedef, TypeFun, TypeVoid,
           TypeConstArray, TypeIncompleteArray, TypeBlock, TypeQualified,
-          TypeExtBinding, TypeComplex)
-    -- ** Pattern synonyms for safe pointer handling
-  , pattern TypePointers
+          TypeExtBinding, TypeComplex, TypePointers)
   , TypeQualifier(..)
   , ResolveBindingSpecs.ResolvedExtBinding(..)
   , isVoid

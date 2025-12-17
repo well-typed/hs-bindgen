@@ -36,9 +36,8 @@ module HsBindgen.Frontend.AST.Internal (
     -- * Types (at use sites)
   , Type(TypePrim, TypeRef, TypeTypedef, TypeFun, TypeVoid,
          TypeConstArray, TypeExtBinding, TypeIncompleteArray, TypeBlock,
-         TypeConst, TypeComplex)
+         TypeConst, TypeComplex, TypePointers)
     -- ** Pattern synonyms for safe pointer handling
-  , pattern TypePointers
     -- * Haskell names
   , NamePair(..)
   , nameHs

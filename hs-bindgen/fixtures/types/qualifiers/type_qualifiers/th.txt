@@ -50,6 +50,42 @@
 -- {
 --   return &d;
 -- }
+-- /* test_typesqualifierstype_qualifie_Example_get_e_ptr */
+-- __attribute__ ((const))
+-- signed int const *const **hs_bindgen_7669b7dbb3cbc001 (void)
+-- {
+--   return &e;
+-- }
+-- /* test_typesqualifierstype_qualifie_Example_get_f_ptr */
+-- __attribute__ ((const))
+-- signed int const *const ***hs_bindgen_8641dc294b52f293 (void)
+-- {
+--   return &f;
+-- }
+-- /* test_typesqualifierstype_qualifie_Example_get_g_ptr */
+-- __attribute__ ((const))
+-- signed int const **const **hs_bindgen_07b0abd093294331 (void)
+-- {
+--   return &g;
+-- }
+-- /* test_typesqualifierstype_qualifie_Example_get_h_ptr */
+-- __attribute__ ((const))
+-- signed int const *const *const *const *hs_bindgen_88a59e84c3c59d06 (void)
+-- {
+--   return &h;
+-- }
+-- /* test_typesqualifierstype_qualifie_Example_get_i_ptr */
+-- __attribute__ ((const))
+-- signed int *const **const **hs_bindgen_08866fb8af16d42f (void)
+-- {
+--   return &i;
+-- }
+-- /* test_typesqualifierstype_qualifie_Example_get_j_ptr */
+-- __attribute__ ((const))
+-- signed int const *const *const ***hs_bindgen_ee2ae365c166ef95 (void)
+-- {
+--   return &j;
+-- }
 -- | __unique:__ @test_typesqualifierstype_qualifie_Example_Safe_list_example@
 foreign import ccall safe "hs_bindgen_32187cc02676ee72" hs_bindgen_32187cc02676ee72 :: Ptr (ConstPtr CChar) ->
                                                                                        HsBindgen.Runtime.Prelude.CSize ->
@@ -185,3 +221,108 @@ d_ptr = unsafePerformIO hs_bindgen_8e02c92809ce6a69
 {-# NOINLINE d #-}
 d :: ConstPtr CInt
 d = unsafePerformIO (peek (unConstPtr d_ptr))
+-- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_e_ptr@
+foreign import ccall safe "hs_bindgen_7669b7dbb3cbc001" hs_bindgen_7669b7dbb3cbc001 :: IO (Ptr (ConstPtr (ConstPtr CInt)))
+{-# NOINLINE e_ptr #-}
+{-| __C declaration:__ @e@
+
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h:18:26@
+
+    __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+-}
+e_ptr :: Ptr (ConstPtr (ConstPtr CInt))
+{-| __C declaration:__ @e@
+
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h:18:26@
+
+    __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+-}
+e_ptr = unsafePerformIO hs_bindgen_7669b7dbb3cbc001
+-- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_f_ptr@
+foreign import ccall safe "hs_bindgen_8641dc294b52f293" hs_bindgen_8641dc294b52f293 :: IO (Ptr (Ptr (ConstPtr (ConstPtr CInt))))
+{-# NOINLINE f_ptr #-}
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h:20:27@
+
+    __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+-}
+f_ptr :: Ptr (Ptr (ConstPtr (ConstPtr CInt)))
+{-| __C declaration:__ @f@
+
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h:20:27@
+
+    __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+-}
+f_ptr = unsafePerformIO hs_bindgen_8641dc294b52f293
+-- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_g_ptr@
+foreign import ccall safe "hs_bindgen_07b0abd093294331" hs_bindgen_07b0abd093294331 :: IO (Ptr (ConstPtr (Ptr (ConstPtr CInt))))
+{-# NOINLINE g_ptr #-}
+{-| __C declaration:__ @g@
+
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h:22:27@
+
+    __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+-}
+g_ptr :: Ptr (ConstPtr (Ptr (ConstPtr CInt)))
+{-| __C declaration:__ @g@
+
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h:22:27@
+
+    __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+-}
+g_ptr = unsafePerformIO hs_bindgen_07b0abd093294331
+-- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_h_ptr@
+foreign import ccall safe "hs_bindgen_88a59e84c3c59d06" hs_bindgen_88a59e84c3c59d06 :: IO (ConstPtr (ConstPtr (ConstPtr (ConstPtr CInt))))
+{-# NOINLINE h_ptr #-}
+{-| __C declaration:__ @h@
+
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h:24:39@
+
+    __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+-}
+h_ptr :: ConstPtr (ConstPtr (ConstPtr (ConstPtr CInt)))
+{-| __C declaration:__ @h@
+
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h:24:39@
+
+    __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+-}
+h_ptr = unsafePerformIO hs_bindgen_88a59e84c3c59d06
+{-# NOINLINE h #-}
+h :: ConstPtr (ConstPtr (ConstPtr CInt))
+h = unsafePerformIO (peek (unConstPtr h_ptr))
+-- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_i_ptr@
+foreign import ccall safe "hs_bindgen_08866fb8af16d42f" hs_bindgen_08866fb8af16d42f :: IO (Ptr (ConstPtr (Ptr (ConstPtr (Ptr CInt)))))
+{-# NOINLINE i_ptr #-}
+{-| __C declaration:__ @i@
+
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h:26:28@
+
+    __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+-}
+i_ptr :: Ptr (ConstPtr (Ptr (ConstPtr (Ptr CInt))))
+{-| __C declaration:__ @i@
+
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h:26:28@
+
+    __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+-}
+i_ptr = unsafePerformIO hs_bindgen_08866fb8af16d42f
+-- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_j_ptr@
+foreign import ccall safe "hs_bindgen_ee2ae365c166ef95" hs_bindgen_ee2ae365c166ef95 :: IO (Ptr (Ptr (ConstPtr (ConstPtr (ConstPtr CInt)))))
+{-# NOINLINE j_ptr #-}
+{-| __C declaration:__ @j@
+
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h:28:34@
+
+    __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+-}
+j_ptr :: Ptr (Ptr (ConstPtr (ConstPtr (ConstPtr CInt))))
+{-| __C declaration:__ @j@
+
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h:28:34@
+
+    __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+-}
+j_ptr = unsafePerformIO hs_bindgen_ee2ae365c166ef95
