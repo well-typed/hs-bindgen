@@ -26,6 +26,7 @@ library
   extra-libraries: pcap
   build-depends:
     , c-expr-runtime
+    , ghc-prim
     , hs-bindgen-runtime
     , primitive
 

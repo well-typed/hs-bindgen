@@ -1,13 +1,16 @@
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.List.NonEmpty
+import qualified Data.Primitive.Types
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.CEnum
@@ -44,6 +47,8 @@ instance F.Storable Test where
         case s1 of
           Test un_Test2 ->
             F.pokeByteOff ptr0 (0 :: Int) un_Test2
+
+deriving via FC.CUInt instance Data.Primitive.Types.Prim Test
 
 instance HsBindgen.Runtime.CEnum.CEnum Test where
 
