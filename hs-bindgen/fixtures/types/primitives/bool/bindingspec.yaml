@@ -18,6 +18,12 @@ ctypes:
   hsname: Bools3
 hstypes:
 - hsname: BOOL
+  representation:
+    newtype:
+      constructor: BOOL
+      fields:
+      - un_BOOL
+      ffitype: CBool
   instances:
   - Bits
   - Bounded

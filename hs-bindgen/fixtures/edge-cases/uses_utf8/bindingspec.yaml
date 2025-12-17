@@ -9,6 +9,12 @@ ctypes:
   hsname: MyEnum
 hstypes:
 - hsname: MyEnum
+  representation:
+    newtype:
+      constructor: MyEnum
+      fields:
+      - un_MyEnum
+      ffitype: CUInt
   instances:
   - Eq
   - HasBaseForeignType

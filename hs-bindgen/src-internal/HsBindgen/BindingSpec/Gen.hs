@@ -212,8 +212,13 @@ genBindingSpec'
               cTypeSpecIdentifier = Just hsIdentifier
             , cTypeSpecRep        = Nothing  -- TODO implement
             }
+          hsNewtypeRep = BindingSpec.HsNewtypeRep {
+              hsNewtypeRepConstructor = Just $ Hs.Identifier $ Hs.getName $ Hs.newtypeConstr hsNewtype
+            , hsNewtypeRepField = Just $ Hs.Identifier $ Hs.getName $ Hs.fieldName $ Hs.newtypeField hsNewtype
+            , hsNewtypeRepFFIType = Hs.newtypeFFIType hsNewtype
+            }
           hsTypeSpec = BindingSpec.HsTypeSpec {
-              hsTypeSpecRep = Nothing -- TODO implement
+              hsTypeSpecRep = Just $ BindingSpec.HsTypeRepNewtype $ hsNewtypeRep
             , hsTypeSpecInstances =
                 mkInstSpecs
                   ( maybe Map.empty BindingSpec.hsTypeSpecInstances

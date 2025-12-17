@@ -71,6 +71,11 @@ hstypes:
   - Show
   - Storable
 - hsname: Struct10_t_t
+  representation:
+    newtype:
+      constructor: Struct10_t_t
+      fields:
+      - un_Struct10_t_t
   instances:
   - Eq
   - Show
@@ -105,6 +110,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Struct5_t
+  representation:
+    newtype:
+      constructor: Struct5_t
+      fields:
+      - un_Struct5_t
+      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -112,6 +123,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Struct6
+  representation:
+    newtype:
+      constructor: Struct6
+      fields:
+      - un_Struct6
+      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -129,11 +146,21 @@ hstypes:
   - Show
   - Storable
 - hsname: Struct7a
+  representation:
+    newtype:
+      constructor: Struct7a
+      fields:
+      - un_Struct7a
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Struct7b
+  representation:
+    newtype:
+      constructor: Struct7b
+      fields:
+      - un_Struct7b
   instances:
   - Eq
   - Show
@@ -144,6 +171,11 @@ hstypes:
   - Show
   - Storable
 - hsname: Struct8b
+  representation:
+    newtype:
+      constructor: Struct8b
+      fields:
+      - un_Struct8b
   instances:
   - Eq
   - Show
@@ -154,6 +186,11 @@ hstypes:
   - Show
   - Storable
 - hsname: Struct9_t
+  representation:
+    newtype:
+      constructor: Struct9_t
+      fields:
+      - un_Struct9_t
   instances:
   - Eq
   - Show

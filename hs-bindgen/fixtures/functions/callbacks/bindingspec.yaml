@@ -53,6 +53,12 @@ hstypes:
   - Show
   - Storable
 - hsname: DataValidator
+  representation:
+    newtype:
+      constructor: DataValidator
+      fields:
+      - un_DataValidator
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -60,6 +66,12 @@ hstypes:
   - Show
   - Storable
 - hsname: FileOpenedNotification
+  representation:
+    newtype:
+      constructor: FileOpenedNotification
+      fields:
+      - un_FileOpenedNotification
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -67,6 +79,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Foo
+  representation:
+    newtype:
+      constructor: Foo
+      fields:
+      - un_Foo
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -83,6 +101,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Foo2
+  representation:
+    newtype:
+      constructor: Foo2
+      fields:
+      - un_Foo2
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -109,6 +133,12 @@ hstypes:
   - Show
   - Storable
 - hsname: MeasurementReceived
+  representation:
+    newtype:
+      constructor: MeasurementReceived
+      fields:
+      - un_MeasurementReceived
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -116,6 +146,12 @@ hstypes:
   - Show
   - Storable
 - hsname: MeasurementReceived2
+  representation:
+    newtype:
+      constructor: MeasurementReceived2
+      fields:
+      - un_MeasurementReceived2
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -126,9 +162,20 @@ hstypes:
   instances:
   - Storable
 - hsname: ProcessorCallback
+  representation:
+    newtype:
+      constructor: ProcessorCallback
+      fields:
+      - un_ProcessorCallback
   instances:
   - Storable
 - hsname: Processor_mode
+  representation:
+    newtype:
+      constructor: Processor_mode
+      fields:
+      - un_Processor_mode
+      ffitype: CUInt
   instances:
   - Eq
   - HasBaseForeignType
@@ -137,6 +184,12 @@ hstypes:
   - Show
   - Storable
 - hsname: ProgressUpdate
+  representation:
+    newtype:
+      constructor: ProgressUpdate
+      fields:
+      - un_ProgressUpdate
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -144,6 +197,12 @@ hstypes:
   - Show
   - Storable
 - hsname: SampleBufferFull
+  representation:
+    newtype:
+      constructor: SampleBufferFull
+      fields:
+      - un_SampleBufferFull
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType

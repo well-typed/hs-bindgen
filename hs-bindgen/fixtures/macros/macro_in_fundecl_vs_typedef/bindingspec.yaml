@@ -27,6 +27,12 @@ ctypes:
   hsname: Struct4
 hstypes:
 - hsname: MC
+  representation:
+    newtype:
+      constructor: MC
+      fields:
+      - un_MC
+      ffitype: CChar
   instances:
   - Bits
   - Bounded
@@ -58,6 +64,11 @@ hstypes:
   - Show
   - Storable
 - hsname: Struct3_t
+  representation:
+    newtype:
+      constructor: Struct3_t
+      fields:
+      - un_Struct3_t
   instances:
   - Eq
   - Show
@@ -68,6 +79,12 @@ hstypes:
   - Show
   - Storable
 - hsname: TC
+  representation:
+    newtype:
+      constructor: TC
+      fields:
+      - un_TC
+      ffitype: CChar
   instances:
   - Bits
   - Bounded

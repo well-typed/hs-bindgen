@@ -33,6 +33,12 @@ ctypes:
   hsname: Wait_status_ptr_t
 hstypes:
 - hsname: More_aligned_int
+  representation:
+    newtype:
+      constructor: More_aligned_int
+      fields:
+      - un_More_aligned_int
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -69,6 +75,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Short_a
+  representation:
+    newtype:
+      constructor: Short_a
+      fields:
+      - un_Short_a
+      ffitype: CShort
   instances:
   - Bits
   - Bounded
@@ -85,6 +97,12 @@ hstypes:
   - Show
   - Storable
 - hsname: T1
+  representation:
+    newtype:
+      constructor: T1
+      fields:
+      - un_T1
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -103,5 +121,10 @@ hstypes:
 - hsname: Wait
   representation: opaque
 - hsname: Wait_status_ptr_t
+  representation:
+    newtype:
+      constructor: Wait_status_ptr_t
+      fields:
+      - un_Wait_status_ptr_t
   instances:
   - Storable

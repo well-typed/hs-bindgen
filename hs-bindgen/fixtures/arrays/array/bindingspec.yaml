@@ -29,25 +29,50 @@ hstypes:
   - Show
   - Storable
 - hsname: List
+  representation:
+    newtype:
+      constructor: List
+      fields:
+      - un_List
   instances:
   - Eq
   - Show
 - hsname: Matrix
+  representation:
+    newtype:
+      constructor: Matrix
+      fields:
+      - un_Matrix
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Sudoku
+  representation:
+    newtype:
+      constructor: Sudoku
+      fields:
+      - un_Sudoku
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Triplet
+  representation:
+    newtype:
+      constructor: Triplet
+      fields:
+      - un_Triplet
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Tripletlist
+  representation:
+    newtype:
+      constructor: Tripletlist
+      fields:
+      - un_Tripletlist
   instances:
   - Eq
   - Show

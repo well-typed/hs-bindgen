@@ -9,6 +9,12 @@ ctypes:
   hsname: Test
 hstypes:
 - hsname: Test
+  representation:
+    newtype:
+      constructor: Test
+      fields:
+      - un_Test
+      ffitype: CUInt
   instances:
   - Eq
   - HasBaseForeignType

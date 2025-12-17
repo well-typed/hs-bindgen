@@ -44,6 +44,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Int16_T
+  representation:
+    newtype:
+      constructor: Int16_T
+      fields:
+      - un_Int16_T
+      ffitype: CShort
   instances:
   - Bits
   - Bounded
@@ -60,6 +66,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Int32_T
+  representation:
+    newtype:
+      constructor: Int32_T
+      fields:
+      - un_Int32_T
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -76,6 +88,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Int64_T
+  representation:
+    newtype:
+      constructor: Int64_T
+      fields:
+      - un_Int64_T
+      ffitype: CLLong
   instances:
   - Bits
   - Bounded

@@ -17,5 +17,10 @@ hstypes:
   - Show
   - Storable
 - hsname: 'Y'
+  representation:
+    newtype:
+      constructor: 'Y'
+      fields:
+      - un_Y
   instances:
   - Storable

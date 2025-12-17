@@ -23,6 +23,11 @@ hstypes:
   - Show
   - Storable
 - hsname: Named_union
+  representation:
+    newtype:
+      constructor: Named_union
+      fields:
+      - un_Named_union
   instances:
   - Storable
 - hsname: Opaque

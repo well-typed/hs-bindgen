@@ -54,11 +54,22 @@ hstypes:
   - Show
   - Storable
 - hsname: Matrix
+  representation:
+    newtype:
+      constructor: Matrix
+      fields:
+      - un_Matrix
   instances:
   - Eq
   - Show
   - Storable
 - hsname: MyInt
+  representation:
+    newtype:
+      constructor: MyInt
+      fields:
+      - un_MyInt
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -85,6 +96,11 @@ hstypes:
   - Show
   - Storable
 - hsname: Shape
+  representation:
+    newtype:
+      constructor: Shape
+      fields:
+      - un_Shape
   instances:
   - Storable
 - hsname: Tic_tac_toe
@@ -93,6 +109,11 @@ hstypes:
   - Show
   - Storable
 - hsname: Triplet
+  representation:
+    newtype:
+      constructor: Triplet
+      fields:
+      - un_Triplet
   instances:
   - Eq
   - Show

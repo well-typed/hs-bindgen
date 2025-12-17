@@ -17,6 +17,12 @@ hstypes:
   - Show
   - Storable
 - hsname: FileOperationStatus
+  representation:
+    newtype:
+      constructor: FileOperationStatus
+      fields:
+      - un_FileOperationStatus
+      ffitype: CInt
   instances:
   - Eq
   - HasBaseForeignType

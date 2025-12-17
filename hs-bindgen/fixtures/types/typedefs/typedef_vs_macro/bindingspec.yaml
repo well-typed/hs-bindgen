@@ -40,6 +40,12 @@ hstypes:
   - Show
   - Storable
 - hsname: M1
+  representation:
+    newtype:
+      constructor: M1
+      fields:
+      - un_M1
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -56,6 +62,12 @@ hstypes:
   - Show
   - Storable
 - hsname: M2
+  representation:
+    newtype:
+      constructor: M2
+      fields:
+      - un_M2
+      ffitype: CChar
   instances:
   - Bits
   - Bounded
@@ -72,6 +84,12 @@ hstypes:
   - Show
   - Storable
 - hsname: M3
+  representation:
+    newtype:
+      constructor: M3
+      fields:
+      - un_M3
+      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -79,6 +97,12 @@ hstypes:
   - Show
   - Storable
 - hsname: T1
+  representation:
+    newtype:
+      constructor: T1
+      fields:
+      - un_T1
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -95,6 +119,12 @@ hstypes:
   - Show
   - Storable
 - hsname: T2
+  representation:
+    newtype:
+      constructor: T2
+      fields:
+      - un_T2
+      ffitype: CChar
   instances:
   - Bits
   - Bounded
@@ -111,6 +141,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Uint64_t
+  representation:
+    newtype:
+      constructor: Uint64_t
+      fields:
+      - un_Uint64_t
+      ffitype: CInt
   instances:
   - Bits
   - Bounded

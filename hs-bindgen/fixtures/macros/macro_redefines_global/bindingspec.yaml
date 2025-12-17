@@ -9,6 +9,12 @@ ctypes:
   hsname: FILE
 hstypes:
 - hsname: FILE
+  representation:
+    newtype:
+      constructor: FILE
+      fields:
+      - un_FILE
+      ffitype: CInt
   instances:
   - Bits
   - Bounded

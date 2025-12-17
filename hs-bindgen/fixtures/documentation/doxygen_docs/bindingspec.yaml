@@ -50,6 +50,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Color_enum
+  representation:
+    newtype:
+      constructor: Color_enum
+      fields:
+      - un_Color_enum
+      ffitype: CUInt
   instances:
   - Eq
   - HasBaseForeignType
@@ -63,6 +69,11 @@ hstypes:
   - Show
   - Storable
 - hsname: Data_union_t
+  representation:
+    newtype:
+      constructor: Data_union_t
+      fields:
+      - un_Data_union_t
   instances:
   - Storable
 - hsname: Data_union_t_as_parts
@@ -71,6 +82,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Event_callback_t
+  representation:
+    newtype:
+      constructor: Event_callback_t
+      fields:
+      - un_Event_callback_t
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -78,6 +95,11 @@ hstypes:
   - Show
   - Storable
 - hsname: Filename_t
+  representation:
+    newtype:
+      constructor: Filename_t
+      fields:
+      - un_Filename_t
   instances:
   - Eq
   - Show
@@ -92,6 +114,12 @@ hstypes:
 - hsname: Forward_declared_union
   representation: opaque
 - hsname: Processor_fn_t
+  representation:
+    newtype:
+      constructor: Processor_fn_t
+      fields:
+      - un_Processor_fn_t
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -99,6 +127,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Size_type
+  representation:
+    newtype:
+      constructor: Size_type
+      fields:
+      - un_Size_type
+      ffitype: CSize
   instances:
   - Bits
   - Bounded
@@ -115,6 +149,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Status_code_t
+  representation:
+    newtype:
+      constructor: Status_code_t
+      fields:
+      - un_Status_code_t
+      ffitype: CInt
   instances:
   - Eq
   - HasBaseForeignType

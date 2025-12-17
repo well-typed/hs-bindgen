@@ -24,8 +24,18 @@ hstypes:
   instances:
   - Storable
 - hsname: ExB_fieldB1
+  representation:
+    newtype:
+      constructor: ExB_fieldB1
+      fields:
+      - un_ExB_fieldB1
   instances:
   - Storable
 - hsname: UnionA
+  representation:
+    newtype:
+      constructor: UnionA
+      fields:
+      - un_UnionA
   instances:
   - Storable

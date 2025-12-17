@@ -12,6 +12,7 @@ import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.State (TranslationState)
 import HsBindgen.Backend.Hs.Translation.State qualified as State
+import HsBindgen.Backend.Hs.Translation.Type qualified as Hs
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -31,6 +32,9 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
     State.modifyInstanceMap' $
       Map.insert hsNewtype.newtypeName
                  hsNewtype.newtypeInstances
+    State.modifyNewtypeMap' $
+      Map.insert hsNewtype.newtypeName
+                 hsNewtype.newtypeField.fieldType
     pure hsNewtype
   where
     aux :: TranslationState -> Hs.Newtype
@@ -40,6 +44,7 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
           , newtypeField = field
           , newtypeOrigin = orig
           , newtypeInstances = insts
+          , newtypeFFIType = Hs.toFFIType (transState.newtypeMap) fieldType
           , newtypeComment = comment
           }
       where

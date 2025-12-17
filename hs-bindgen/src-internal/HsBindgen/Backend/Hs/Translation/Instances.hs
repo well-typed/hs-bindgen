@@ -43,9 +43,10 @@ getInstances instanceMap name = aux
           HsIncompleteArray hsType' ->
             -- constrain by Array item type in next step
             aux (acc /\ arrayInsts) $ hsType' : hsTypes
-          HsConstPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
+          HsStablePtr{} -> aux (acc /\ ptrInsts) hsTypes
+          HsConstPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsIO t  -> aux (acc /\ ioInsts) (t : hsTypes)
           HsFun arg res -> aux (acc /\ funInsts) (arg : res : hsTypes)
           HsExtBinding _ref _cTypeSpec mHsTypeSpec ->
@@ -80,24 +81,49 @@ getInstances instanceMap name = aux
     hsPrimTypeInsts = \case
       HsPrimVoid       -> Set.fromList [Eq, Ix, Ord, Read, Show]
       HsPrimUnit       -> unitInsts
-      HsPrimCChar      -> integralInsts
-      HsPrimCSChar     -> integralInsts
-      HsPrimCUChar     -> integralInsts
-      HsPrimCInt       -> integralInsts
-      HsPrimCUInt      -> integralInsts
-      HsPrimCShort     -> integralInsts
-      HsPrimCUShort    -> integralInsts
-      HsPrimCLong      -> integralInsts
-      HsPrimCULong     -> integralInsts
-      HsPrimCPtrDiff   -> integralInsts
-      HsPrimCSize      -> integralInsts
-      HsPrimCLLong     -> integralInsts
-      HsPrimCULLong    -> integralInsts
-      HsPrimCBool      -> integralInsts
-      HsPrimCFloat     -> floatingInsts
-      HsPrimCDouble    -> floatingInsts
       HsPrimCStringLen -> Set.fromList [Eq, Ord, Show]
-      HsPrimInt        -> integralInsts
+      HsPrimChar -> Set.fromList [Eq, Ord, Show, Read]
+      HsPrimInt -> integralInsts
+      HsPrimDouble -> floatingInsts
+      HsPrimFloat -> floatingInsts
+      HsPrimBool -> integralInsts
+      HsPrimInt8 -> integralInsts
+      HsPrimInt16 -> integralInsts
+      HsPrimInt32 -> integralInsts
+      HsPrimInt64 -> integralInsts
+      HsPrimWord -> integralInsts
+      HsPrimWord8 -> integralInsts
+      HsPrimWord16 -> integralInsts
+      HsPrimWord32 -> integralInsts
+      HsPrimWord64 -> integralInsts
+      HsPrimIntPtr -> integralInsts
+      HsPrimWordPtr -> integralInsts
+      HsPrimCChar -> integralInsts
+      HsPrimCSChar -> integralInsts
+      HsPrimCUChar -> integralInsts
+      HsPrimCShort -> integralInsts
+      HsPrimCUShort -> integralInsts
+      HsPrimCInt -> integralInsts
+      HsPrimCUInt -> integralInsts
+      HsPrimCLong -> integralInsts
+      HsPrimCULong -> integralInsts
+      HsPrimCPtrdiff -> integralInsts
+      HsPrimCSize -> integralInsts
+      HsPrimCWchar -> integralInsts
+      HsPrimCSigAtomic -> integralInsts
+      HsPrimCLLong -> integralInsts
+      HsPrimCULLong -> integralInsts
+      HsPrimCBool -> integralInsts
+      HsPrimCIntPtr -> integralInsts
+      HsPrimCUIntPtr -> integralInsts
+      HsPrimCIntMax -> integralInsts
+      HsPrimCUIntMax -> integralInsts
+      HsPrimCClock -> integralInsts
+      HsPrimCTime -> integralInsts
+      HsPrimCUSeconds -> integralInsts
+      HsPrimCSUSeconds -> integralInsts
+      HsPrimCFloat -> floatingInsts
+      HsPrimCDouble -> floatingInsts
 
     unitInsts :: Set TypeClass
     unitInsts = Set.fromList [

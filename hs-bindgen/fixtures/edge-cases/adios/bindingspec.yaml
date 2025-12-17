@@ -12,6 +12,12 @@ ctypes:
   hsname: C数字
 hstypes:
 - hsname: Adio'0301s
+  representation:
+    newtype:
+      constructor: Adio'0301s
+      fields:
+      - un_Adio'0301s
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -28,6 +34,12 @@ hstypes:
   - Show
   - Storable
 - hsname: C数字
+  representation:
+    newtype:
+      constructor: C数字
+      fields:
+      - un_C数字
+      ffitype: CInt
   instances:
   - Bits
   - Bounded

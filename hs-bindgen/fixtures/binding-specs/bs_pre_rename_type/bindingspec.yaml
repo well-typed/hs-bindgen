@@ -9,6 +9,12 @@ ctypes:
   hsname: MySym
 hstypes:
 - hsname: MySym
+  representation:
+    newtype:
+      constructor: MySym
+      fields:
+      - un_MySym
+      ffitype: CChar
   instances:
   - Bits
   - Bounded

@@ -33,6 +33,11 @@ ctypes:
   hsname: DimPayloadB
 hstypes:
 - hsname: AnonA
+  representation:
+    newtype:
+      constructor: AnonA
+      fields:
+      - un_AnonA
   instances:
   - Storable
 - hsname: AnonA_polar
@@ -62,8 +67,18 @@ hstypes:
   instances:
   - Storable
 - hsname: DimPayload
+  representation:
+    newtype:
+      constructor: DimPayload
+      fields:
+      - un_DimPayload
   instances:
   - Storable
 - hsname: DimPayloadB
+  representation:
+    newtype:
+      constructor: DimPayloadB
+      fields:
+      - un_DimPayloadB
   instances:
   - Storable

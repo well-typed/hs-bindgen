@@ -15,11 +15,29 @@ ctypes:
   hsname: VarCounter
 hstypes:
 - hsname: Counter
+  representation:
+    newtype:
+      constructor: Counter
+      fields:
+      - un_Counter
+      ffitype: Ptr
   instances:
   - HasBaseForeignType
 - hsname: Toggle
+  representation:
+    newtype:
+      constructor: Toggle
+      fields:
+      - un_Toggle
+      ffitype: Ptr
   instances:
   - HasBaseForeignType
 - hsname: VarCounter
+  representation:
+    newtype:
+      constructor: VarCounter
+      fields:
+      - un_VarCounter
+      ffitype: Ptr
   instances:
   - HasBaseForeignType

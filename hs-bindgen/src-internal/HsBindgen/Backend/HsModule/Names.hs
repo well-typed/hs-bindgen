@@ -16,6 +16,7 @@ module HsBindgen.Backend.HsModule.Names (
 import Data.Bits qualified
 import Data.Char qualified as Char
 import Data.Complex qualified as Complex
+import Data.Int qualified
 import Data.Ix qualified
 import Data.List qualified as L
 import Data.List.NonEmpty qualified as NonEmpty
@@ -25,9 +26,11 @@ import Data.Primitive.Types qualified as Primitive
 import Data.Proxy qualified
 import Data.Set qualified as Set
 import Data.Void qualified
+import Data.Word qualified
 import Foreign qualified
 import Foreign.C qualified
 import Foreign.C.String qualified
+import Foreign.Ptr qualified
 import GHC.Float qualified
 import GHC.Ptr qualified
 import GHC.Records qualified
@@ -290,6 +293,7 @@ resolveGlobal = \case
     Ptr_constructor               -> importQ ''GHC.Ptr.Ptr
     Foreign_FunPtr                -> importQ ''Foreign.FunPtr
     Foreign_plusPtr               -> importQ 'Foreign.plusPtr
+    Foreign_StablePtr             -> importQ ''Foreign.StablePtr
     ConstantArray                 -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
     IncompleteArray               -> importQ ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
     IO_type                       -> importU ''IO
@@ -456,24 +460,49 @@ resolveGlobal = \case
     PrimType hsPrimType -> case hsPrimType of
       HsPrimVoid       -> importU ''Data.Void.Void
       HsPrimUnit       -> tupleResolvedName True 0
-      HsPrimCChar      -> importQ ''Foreign.C.CChar
-      HsPrimCSChar     -> importQ ''Foreign.C.CSChar
-      HsPrimCUChar     -> importQ ''Foreign.C.CUChar
-      HsPrimCInt       -> importQ ''Foreign.C.CInt
-      HsPrimCUInt      -> importQ ''Foreign.C.CUInt
-      HsPrimCShort     -> importQ ''Foreign.C.CShort
-      HsPrimCUShort    -> importQ ''Foreign.C.CUShort
-      HsPrimCLong      -> importQ ''Foreign.C.CLong
-      HsPrimCULong     -> importQ ''Foreign.C.CULong
-      HsPrimCLLong     -> importQ ''Foreign.C.CLLong
-      HsPrimCULLong    -> importQ ''Foreign.C.CULLong
-      HsPrimCBool      -> importQ ''Foreign.C.CBool
-      HsPrimCFloat     -> importQ ''Foreign.C.CFloat
-      HsPrimCDouble    -> importQ ''Foreign.C.CDouble
-      HsPrimCPtrDiff   -> importQ ''Foreign.C.CPtrdiff
-      HsPrimCSize      -> importQ ''Foreign.C.CSize
       HsPrimCStringLen -> importQ ''Foreign.C.String.CStringLen
-      HsPrimInt        -> importU ''Int
+      HsPrimChar -> importU ''Char
+      HsPrimInt -> importU ''Int
+      HsPrimDouble -> importU ''Double
+      HsPrimFloat -> importU ''Float
+      HsPrimBool -> importU ''Bool
+      HsPrimInt8 -> importQ ''Data.Int.Int8
+      HsPrimInt16 -> importQ ''Data.Int.Int16
+      HsPrimInt32 -> importQ ''Data.Int.Int32
+      HsPrimInt64 -> importQ ''Data.Int.Int64
+      HsPrimWord -> importQ ''Word
+      HsPrimWord8 -> importQ ''Data.Word.Word8
+      HsPrimWord16 -> importQ ''Data.Word.Word16
+      HsPrimWord32 -> importQ ''Data.Word.Word32
+      HsPrimWord64 -> importQ ''Data.Word.Word64
+      HsPrimIntPtr -> importQ ''Foreign.Ptr.IntPtr
+      HsPrimWordPtr -> importQ ''Foreign.Ptr.WordPtr
+      HsPrimCChar -> importQ ''Foreign.C.CChar
+      HsPrimCSChar -> importQ ''Foreign.C.CSChar
+      HsPrimCUChar -> importQ ''Foreign.C.CUChar
+      HsPrimCShort -> importQ ''Foreign.C.CShort
+      HsPrimCUShort -> importQ ''Foreign.C.CUShort
+      HsPrimCInt -> importQ ''Foreign.C.CInt
+      HsPrimCUInt -> importQ ''Foreign.C.CUInt
+      HsPrimCLong -> importQ ''Foreign.C.CLong
+      HsPrimCULong -> importQ ''Foreign.C.CULong
+      HsPrimCPtrdiff -> importQ ''Foreign.C.CPtrdiff
+      HsPrimCSize -> importQ ''Foreign.C.CSize
+      HsPrimCWchar -> importQ ''Foreign.C.CWchar
+      HsPrimCSigAtomic -> importQ ''Foreign.C.CSigAtomic
+      HsPrimCLLong -> importQ ''Foreign.C.CLLong
+      HsPrimCULLong -> importQ ''Foreign.C.CULLong
+      HsPrimCBool -> importQ ''Foreign.C.CBool
+      HsPrimCIntPtr -> importQ ''Foreign.C.CIntPtr
+      HsPrimCUIntPtr -> importQ ''Foreign.C.CUIntPtr
+      HsPrimCIntMax -> importQ ''Foreign.C.CIntMax
+      HsPrimCUIntMax -> importQ ''Foreign.C.CUIntMax
+      HsPrimCClock -> importQ ''Foreign.C.CClock
+      HsPrimCTime -> importQ ''Foreign.C.CTime
+      HsPrimCUSeconds -> importQ ''Foreign.C.CUSeconds
+      HsPrimCSUSeconds -> importQ ''Foreign.C.CSUSeconds
+      HsPrimCFloat -> importQ ''Foreign.C.CFloat
+      HsPrimCDouble -> importQ ''Foreign.C.CDouble
 
     ComplexType -> importQ ''Complex.Complex
 

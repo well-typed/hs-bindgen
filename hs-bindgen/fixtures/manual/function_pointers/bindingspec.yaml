@@ -20,8 +20,18 @@ hstypes:
   - Show
   - Storable
 - hsname: Apply1Union
+  representation:
+    newtype:
+      constructor: Apply1Union
+      fields:
+      - un_Apply1Union
   instances:
   - Storable
 - hsname: Int2int
+  representation:
+    newtype:
+      constructor: Int2int
+      fields:
+      - un_Int2int
   instances:
   - HasBaseForeignType

@@ -17,6 +17,12 @@ hstypes:
   - Show
   - Storable
 - hsname: MY_TYPE
+  representation:
+    newtype:
+      constructor: MY_TYPE
+      fields:
+      - un_MY_TYPE
+      ffitype: CInt
   instances:
   - Bits
   - Bounded

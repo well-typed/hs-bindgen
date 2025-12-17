@@ -17,6 +17,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Uint32_t
+  representation:
+    newtype:
+      constructor: Uint32_t
+      fields:
+      - un_Uint32_t
+      ffitype: CUInt
   instances:
   - Bits
   - Bounded
