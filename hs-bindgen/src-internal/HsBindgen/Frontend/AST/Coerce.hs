@@ -2,6 +2,7 @@ module HsBindgen.Frontend.AST.Coerce (
     CoercePass(..)
   , CoercePassId(..)
   , CoercePassHaskellId(..)
+  , CoercePassMacroBody(..)
   ) where
 
 import Prelude hiding (Enum)
@@ -20,8 +21,26 @@ import HsBindgen.Imports
 class CoercePassId (p :: Pass) (p' :: Pass) where
   coercePassId :: Proxy '(p, p') -> Id p -> Id p'
 
+  default coercePassId ::
+       (Id p ~ Id p')
+    => Proxy '(p, p') -> Id p -> Id p'
+  coercePassId _ = id
+
 class CoercePassHaskellId (p :: Pass) (p' :: Pass) where
   coercePassHaskellId :: Proxy '(p, p') -> HaskellId p -> HaskellId p'
+
+  default coercePassHaskellId ::
+       (HaskellId p ~ HaskellId p')
+    => Proxy '(p, p') -> HaskellId p -> HaskellId p'
+  coercePassHaskellId _ = id
+
+class CoercePassMacroBody (p :: Pass) (p' :: Pass) where
+  coercePassMacroBody :: Proxy '(p, p') -> MacroBody p -> MacroBody p'
+
+  default coercePassMacroBody ::
+       (MacroBody p ~ MacroBody p')
+    => Proxy '(p, p') -> MacroBody p -> MacroBody p'
+  coercePassMacroBody _ = id
 
 {-------------------------------------------------------------------------------
   Coercing between passes
@@ -104,17 +123,17 @@ instance (
     , CoercePass Typedef  p p'
     , CoercePass Function p p'
     , CoercePass Type     p p'
-    , MacroBody p ~ MacroBody p'
+    , CoercePassMacroBody p p'
     ) => CoercePass DeclKind p p' where
   coercePass = \case
-    DeclStruct struct     -> DeclStruct (coercePass struct)
-    DeclUnion union       -> DeclUnion (coercePass union)
-    DeclTypedef typedef   -> DeclTypedef (coercePass typedef)
-    DeclEnum enum         -> DeclEnum (coercePass enum)
-    DeclOpaque cNameKind  -> DeclOpaque cNameKind
-    DeclMacro macro       -> DeclMacro macro
-    DeclFunction function -> DeclFunction (coercePass function)
-    DeclGlobal ty         -> DeclGlobal (coercePass ty)
+      DeclStruct   x -> DeclStruct   $ coercePass x
+      DeclUnion    x -> DeclUnion    $ coercePass x
+      DeclTypedef  x -> DeclTypedef  $ coercePass x
+      DeclEnum     x -> DeclEnum     $ coercePass x
+      DeclOpaque   x -> DeclOpaque x
+      DeclMacro    x -> DeclMacro    $ coercePassMacroBody (Proxy @'(p, p')) x
+      DeclFunction x -> DeclFunction $ coercePass x
+      DeclGlobal   x -> DeclGlobal   $ coercePass x
 
 instance (
       CoercePass StructField p p'

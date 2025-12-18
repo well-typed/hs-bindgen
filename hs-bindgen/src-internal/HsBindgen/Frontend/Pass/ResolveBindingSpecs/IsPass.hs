@@ -128,8 +128,7 @@ instance IsTrace Level ResolveBindingSpecsMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassHaskellId NameAnon ResolveBindingSpecs where
-  coercePassHaskellId _ = id
+instance CoercePassHaskellId NameAnon ResolveBindingSpecs
 
 instance CoercePassId NameAnon ResolveBindingSpecs where
   coercePassId _ = coercePass

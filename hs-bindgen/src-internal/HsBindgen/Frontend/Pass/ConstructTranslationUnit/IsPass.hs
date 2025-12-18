@@ -72,8 +72,6 @@ instance IsTrace Level ConstructTranslationUnitMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId Parse ConstructTranslationUnit where
-  coercePassId _ = id
-
-instance CoercePassHaskellId Parse ConstructTranslationUnit where
-  coercePassHaskellId _ = id
+instance CoercePassHaskellId Parse ConstructTranslationUnit
+instance CoercePassMacroBody Parse ConstructTranslationUnit
+instance CoercePassId        Parse ConstructTranslationUnit
