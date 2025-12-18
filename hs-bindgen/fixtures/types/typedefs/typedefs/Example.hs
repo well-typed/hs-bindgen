@@ -86,12 +86,12 @@ newtype Int2int = Int2int
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- | __unique:__ @toInt2int@
+-- __unique:__ @toInt2int@
 foreign import ccall safe "wrapper" hs_bindgen_a6c7dd49f5b9d470 ::
      Int2int
   -> IO (Ptr.FunPtr Int2int)
 
--- | __unique:__ @fromInt2int@
+-- __unique:__ @fromInt2int@
 foreign import ccall safe "dynamic" hs_bindgen_65378a8a3cf640ad ::
      Ptr.FunPtr Int2int
   -> Int2int
@@ -128,12 +128,12 @@ newtype FunctionPointer_Function_Deref = FunctionPointer_Function_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- | __unique:__ @toFunctionPointer_Function_Deref@
+-- __unique:__ @toFunctionPointer_Function_Deref@
 foreign import ccall safe "wrapper" hs_bindgen_ee75ebb8a19735c1 ::
      FunctionPointer_Function_Deref
   -> IO (Ptr.FunPtr FunctionPointer_Function_Deref)
 
--- | __unique:__ @fromFunctionPointer_Function_Deref@
+-- __unique:__ @fromFunctionPointer_Function_Deref@
 foreign import ccall safe "dynamic" hs_bindgen_82a2a7d3ed6faa26 ::
      Ptr.FunPtr FunctionPointer_Function_Deref
   -> FunctionPointer_Function_Deref
@@ -195,12 +195,12 @@ newtype NonFunctionPointer_Function = NonFunctionPointer_Function
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- | __unique:__ @toNonFunctionPointer_Function@
+-- __unique:__ @toNonFunctionPointer_Function@
 foreign import ccall safe "wrapper" hs_bindgen_766ae751d60365e9 ::
      NonFunctionPointer_Function
   -> IO (Ptr.FunPtr NonFunctionPointer_Function)
 
--- | __unique:__ @fromNonFunctionPointer_Function@
+-- __unique:__ @fromNonFunctionPointer_Function@
 foreign import ccall safe "dynamic" hs_bindgen_36c7108d046bcbc3 ::
      Ptr.FunPtr NonFunctionPointer_Function
   -> NonFunctionPointer_Function
@@ -237,12 +237,12 @@ newtype F1_Deref = F1_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- | __unique:__ @toF1_Deref@
+-- __unique:__ @toF1_Deref@
 foreign import ccall safe "wrapper" hs_bindgen_fa93becf814ab275 ::
      F1_Deref
   -> IO (Ptr.FunPtr F1_Deref)
 
--- | __unique:__ @fromF1_Deref@
+-- __unique:__ @fromF1_Deref@
 foreign import ccall safe "dynamic" hs_bindgen_5a971083f7b8024b ::
      Ptr.FunPtr F1_Deref
   -> F1_Deref
@@ -302,12 +302,12 @@ newtype G1 = G1
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- | __unique:__ @toG1@
+-- __unique:__ @toG1@
 foreign import ccall safe "wrapper" hs_bindgen_fa5806570b682579 ::
      G1
   -> IO (Ptr.FunPtr G1)
 
--- | __unique:__ @fromG1@
+-- __unique:__ @fromG1@
 foreign import ccall safe "dynamic" hs_bindgen_8405c8e75aa78be5 ::
      Ptr.FunPtr G1
   -> G1
@@ -367,12 +367,12 @@ newtype H1 = H1
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- | __unique:__ @toH1@
+-- __unique:__ @toH1@
 foreign import ccall safe "wrapper" hs_bindgen_ffae0d1234ed018f ::
      H1
   -> IO (Ptr.FunPtr H1)
 
--- | __unique:__ @fromH1@
+-- __unique:__ @fromH1@
 foreign import ccall safe "dynamic" hs_bindgen_1a33688324e1924f ::
      Ptr.FunPtr H1
   -> H1

@@ -52,7 +52,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_1@
+-- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_1@
 foreign import ccall unsafe "hs_bindgen_17a14e7ffaa1e2e5" hs_bindgen_17a14e7ffaa1e2e5 ::
      IO (Ptr.FunPtr (Thing -> IO FC.CInt))
 
@@ -68,7 +68,7 @@ thing_fun_1 :: Ptr.FunPtr (Thing -> IO FC.CInt)
 thing_fun_1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_17a14e7ffaa1e2e5
 
--- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_2@
+-- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_2@
 foreign import ccall unsafe "hs_bindgen_91748ffd57eae163" hs_bindgen_91748ffd57eae163 ::
      IO (Ptr.FunPtr (FC.CInt -> IO Thing))
 
@@ -84,7 +84,7 @@ thing_fun_2 :: Ptr.FunPtr (FC.CInt -> IO Thing)
 thing_fun_2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_91748ffd57eae163
 
--- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3a@
+-- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3a@
 foreign import ccall unsafe "hs_bindgen_84d98a03314ff518" hs_bindgen_84d98a03314ff518 ::
      IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing))
 
@@ -100,7 +100,7 @@ thing_fun_3a :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing)
 thing_fun_3a =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_84d98a03314ff518
 
--- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3b@
+-- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3b@
 foreign import ccall unsafe "hs_bindgen_855ae9088b15005e" hs_bindgen_855ae9088b15005e ::
      IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar))
 

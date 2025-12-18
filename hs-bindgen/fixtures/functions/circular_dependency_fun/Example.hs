@@ -34,12 +34,12 @@ newtype Fun_ptr_Deref = Fun_ptr_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- | __unique:__ @toFun_ptr_Deref@
+-- __unique:__ @toFun_ptr_Deref@
 foreign import ccall safe "wrapper" hs_bindgen_83e60b3bb02cd08d ::
      Fun_ptr_Deref
   -> IO (Ptr.FunPtr Fun_ptr_Deref)
 
--- | __unique:__ @fromFun_ptr_Deref@
+-- __unique:__ @fromFun_ptr_Deref@
 foreign import ccall safe "dynamic" hs_bindgen_66799ec68b619f2a ::
      Ptr.FunPtr Fun_ptr_Deref
   -> Fun_ptr_Deref
@@ -138,12 +138,12 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Forward_declaration)
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"forward_declaration_f")
 
--- | __unique:__ @instance ToFunPtr ((Ptr.Ptr Forward_declaration) -> IO ())@
+-- __unique:__ @instance ToFunPtr ((Ptr.Ptr Forward_declaration) -> IO ())@
 foreign import ccall safe "wrapper" hs_bindgen_fbe9c5dca66824d3 ::
      ((Ptr.Ptr Forward_declaration) -> IO ())
   -> IO (Ptr.FunPtr ((Ptr.Ptr Forward_declaration) -> IO ()))
 
--- | __unique:__ @instance FromFunPtr ((Ptr.Ptr Forward_declaration) -> IO ())@
+-- __unique:__ @instance FromFunPtr ((Ptr.Ptr Forward_declaration) -> IO ())@
 foreign import ccall safe "dynamic" hs_bindgen_b3640137a9cf92cc ::
      Ptr.FunPtr ((Ptr.Ptr Forward_declaration) -> IO ())
   -> (Ptr.Ptr Forward_declaration) -> IO ()

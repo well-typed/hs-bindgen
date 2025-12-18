@@ -293,7 +293,7 @@ instance TyEq ty (CFieldType A "a_c") =>
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
 data C
--- | __unique:__ @test_edgecasesspec_examples_Example_Safe_resample@
+-- __unique:__ @test_edgecasesspec_examples_Example_Safe_resample@
 foreign import ccall safe "hs_bindgen_8a72aafc705daf44" hs_bindgen_8a72aafc705daf44 :: Ptr Int32_T ->
                                                                                        Ptr Cint16_T ->
                                                                                        Int64_T ->
@@ -315,7 +315,7 @@ resample :: Ptr Int32_T ->
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
 resample = hs_bindgen_8a72aafc705daf44
--- | __unique:__ @test_edgecasesspec_examples_Example_Unsafe_resample@
+-- __unique:__ @test_edgecasesspec_examples_Example_Unsafe_resample@
 foreign import ccall safe "hs_bindgen_2311fa9c0d0d6d06" hs_bindgen_2311fa9c0d0d6d06 :: Ptr Int32_T ->
                                                                                        Ptr Cint16_T ->
                                                                                        Int64_T ->
@@ -337,7 +337,7 @@ resample :: Ptr Int32_T ->
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
 resample = hs_bindgen_2311fa9c0d0d6d06
--- | __unique:__ @test_edgecasesspec_examples_Example_get_resample@
+-- __unique:__ @test_edgecasesspec_examples_Example_get_resample@
 foreign import ccall safe "hs_bindgen_2b8fc800dad87ec8" hs_bindgen_2b8fc800dad87ec8 :: IO (FunPtr (Ptr Int32_T ->
                                                                                                    ConstantArray 30720000
                                                                                                                  Cint16_T ->

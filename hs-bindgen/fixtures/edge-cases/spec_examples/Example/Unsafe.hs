@@ -24,7 +24,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_edgecasesspec_examples_Example_Unsafe_resample@
+-- __unique:__ @test_edgecasesspec_examples_Example_Unsafe_resample@
 foreign import ccall unsafe "hs_bindgen_2311fa9c0d0d6d06" hs_bindgen_2311fa9c0d0d6d06 ::
      Ptr.Ptr Int32_T
   -> Ptr.Ptr Cint16_T

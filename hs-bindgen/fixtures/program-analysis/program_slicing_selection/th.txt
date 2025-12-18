@@ -217,7 +217,7 @@ instance TyEq ty
                   (Ptr FileOperationRecord)
                   (Ptr ty)
     where getField = ptrToCField (Proxy @"fileOperationRecord_bytes_processed")
--- | __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
+-- __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
 foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" hs_bindgen_b2a91b3b7edf2ad3 :: Ptr HsBindgen.Runtime.Prelude.CFile ->
                                                                                        Ptr Void ->
                                                                                        HsBindgen.Runtime.Prelude.CSize ->
@@ -238,7 +238,7 @@ read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 read_file_chunk = hs_bindgen_b2a91b3b7edf2ad3
--- | __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
+-- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
 foreign import ccall safe "hs_bindgen_654858ed6a5db417" hs_bindgen_654858ed6a5db417 :: Ptr HsBindgen.Runtime.Prelude.CFile ->
                                                                                        Ptr Void ->
                                                                                        HsBindgen.Runtime.Prelude.CSize ->
@@ -259,7 +259,7 @@ read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 read_file_chunk = hs_bindgen_654858ed6a5db417
--- | __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
+-- __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
 foreign import ccall safe "hs_bindgen_6e12e70d71890a10" hs_bindgen_6e12e70d71890a10 :: IO (FunPtr (Ptr HsBindgen.Runtime.Prelude.CFile ->
                                                                                                    Ptr Void ->
                                                                                                    HsBindgen.Runtime.Prelude.CSize ->

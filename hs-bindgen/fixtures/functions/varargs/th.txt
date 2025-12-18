@@ -16,7 +16,7 @@
 -- {
 --   return &h;
 -- }
--- | __unique:__ @test_functionsvarargs_Example_Safe_h@
+-- __unique:__ @test_functionsvarargs_Example_Safe_h@
 foreign import ccall safe "hs_bindgen_77a4bac5bbe80f62" hs_bindgen_77a4bac5bbe80f62 :: IO Unit
 {-| __C declaration:__ @h@
 
@@ -32,7 +32,7 @@ h :: IO Unit
     __exported by:__ @functions\/varargs.h@
 -}
 h = hs_bindgen_77a4bac5bbe80f62
--- | __unique:__ @test_functionsvarargs_Example_Unsafe_h@
+-- __unique:__ @test_functionsvarargs_Example_Unsafe_h@
 foreign import ccall safe "hs_bindgen_32ebae80cc3543e1" hs_bindgen_32ebae80cc3543e1 :: IO Unit
 {-| __C declaration:__ @h@
 
@@ -48,7 +48,7 @@ h :: IO Unit
     __exported by:__ @functions\/varargs.h@
 -}
 h = hs_bindgen_32ebae80cc3543e1
--- | __unique:__ @test_functionsvarargs_Example_get_h@
+-- __unique:__ @test_functionsvarargs_Example_get_h@
 foreign import ccall safe "hs_bindgen_d7b5ad93f4d7fa04" hs_bindgen_d7b5ad93f4d7fa04 :: IO (FunPtr (IO Unit))
 {-# NOINLINE h #-}
 {-| __C declaration:__ @h@

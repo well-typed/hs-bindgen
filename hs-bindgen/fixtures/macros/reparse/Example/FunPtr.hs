@@ -991,7 +991,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_macrosreparse_Example_get_args_char1@
+-- __unique:__ @test_macrosreparse_Example_get_args_char1@
 foreign import ccall unsafe "hs_bindgen_ba0c80bfdbc677bd" hs_bindgen_ba0c80bfdbc677bd ::
      IO (Ptr.FunPtr (A -> FC.CChar -> IO ()))
 
@@ -1009,7 +1009,7 @@ args_char1 :: Ptr.FunPtr (A -> FC.CChar -> IO ())
 args_char1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ba0c80bfdbc677bd
 
--- | __unique:__ @test_macrosreparse_Example_get_args_char2@
+-- __unique:__ @test_macrosreparse_Example_get_args_char2@
 foreign import ccall unsafe "hs_bindgen_b1e8a2d5e3935f61" hs_bindgen_b1e8a2d5e3935f61 ::
      IO (Ptr.FunPtr (A -> FC.CSChar -> IO ()))
 
@@ -1025,7 +1025,7 @@ args_char2 :: Ptr.FunPtr (A -> FC.CSChar -> IO ())
 args_char2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b1e8a2d5e3935f61
 
--- | __unique:__ @test_macrosreparse_Example_get_args_char3@
+-- __unique:__ @test_macrosreparse_Example_get_args_char3@
 foreign import ccall unsafe "hs_bindgen_deb136b9b9d89650" hs_bindgen_deb136b9b9d89650 ::
      IO (Ptr.FunPtr (A -> FC.CUChar -> IO ()))
 
@@ -1041,7 +1041,7 @@ args_char3 :: Ptr.FunPtr (A -> FC.CUChar -> IO ())
 args_char3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_deb136b9b9d89650
 
--- | __unique:__ @test_macrosreparse_Example_get_args_short1@
+-- __unique:__ @test_macrosreparse_Example_get_args_short1@
 foreign import ccall unsafe "hs_bindgen_7a71d1e1867636bf" hs_bindgen_7a71d1e1867636bf ::
      IO (Ptr.FunPtr (A -> FC.CShort -> IO ()))
 
@@ -1057,7 +1057,7 @@ args_short1 :: Ptr.FunPtr (A -> FC.CShort -> IO ())
 args_short1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7a71d1e1867636bf
 
--- | __unique:__ @test_macrosreparse_Example_get_args_short2@
+-- __unique:__ @test_macrosreparse_Example_get_args_short2@
 foreign import ccall unsafe "hs_bindgen_ad7132b76947c638" hs_bindgen_ad7132b76947c638 ::
      IO (Ptr.FunPtr (A -> FC.CShort -> IO ()))
 
@@ -1073,7 +1073,7 @@ args_short2 :: Ptr.FunPtr (A -> FC.CShort -> IO ())
 args_short2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ad7132b76947c638
 
--- | __unique:__ @test_macrosreparse_Example_get_args_short3@
+-- __unique:__ @test_macrosreparse_Example_get_args_short3@
 foreign import ccall unsafe "hs_bindgen_f4842ac12be0c136" hs_bindgen_f4842ac12be0c136 ::
      IO (Ptr.FunPtr (A -> FC.CUShort -> IO ()))
 
@@ -1089,7 +1089,7 @@ args_short3 :: Ptr.FunPtr (A -> FC.CUShort -> IO ())
 args_short3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f4842ac12be0c136
 
--- | __unique:__ @test_macrosreparse_Example_get_args_int1@
+-- __unique:__ @test_macrosreparse_Example_get_args_int1@
 foreign import ccall unsafe "hs_bindgen_3dc6ae7bb850c676" hs_bindgen_3dc6ae7bb850c676 ::
      IO (Ptr.FunPtr (A -> FC.CInt -> IO ()))
 
@@ -1105,7 +1105,7 @@ args_int1 :: Ptr.FunPtr (A -> FC.CInt -> IO ())
 args_int1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3dc6ae7bb850c676
 
--- | __unique:__ @test_macrosreparse_Example_get_args_int2@
+-- __unique:__ @test_macrosreparse_Example_get_args_int2@
 foreign import ccall unsafe "hs_bindgen_a76cb45502a6ea40" hs_bindgen_a76cb45502a6ea40 ::
      IO (Ptr.FunPtr (A -> FC.CInt -> IO ()))
 
@@ -1121,7 +1121,7 @@ args_int2 :: Ptr.FunPtr (A -> FC.CInt -> IO ())
 args_int2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a76cb45502a6ea40
 
--- | __unique:__ @test_macrosreparse_Example_get_args_int3@
+-- __unique:__ @test_macrosreparse_Example_get_args_int3@
 foreign import ccall unsafe "hs_bindgen_99f48290fac28118" hs_bindgen_99f48290fac28118 ::
      IO (Ptr.FunPtr (A -> FC.CUInt -> IO ()))
 
@@ -1137,7 +1137,7 @@ args_int3 :: Ptr.FunPtr (A -> FC.CUInt -> IO ())
 args_int3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_99f48290fac28118
 
--- | __unique:__ @test_macrosreparse_Example_get_args_long1@
+-- __unique:__ @test_macrosreparse_Example_get_args_long1@
 foreign import ccall unsafe "hs_bindgen_60a477b55893fa8e" hs_bindgen_60a477b55893fa8e ::
      IO (Ptr.FunPtr (A -> FC.CLong -> IO ()))
 
@@ -1153,7 +1153,7 @@ args_long1 :: Ptr.FunPtr (A -> FC.CLong -> IO ())
 args_long1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_60a477b55893fa8e
 
--- | __unique:__ @test_macrosreparse_Example_get_args_long2@
+-- __unique:__ @test_macrosreparse_Example_get_args_long2@
 foreign import ccall unsafe "hs_bindgen_9ba7a90039c212ea" hs_bindgen_9ba7a90039c212ea ::
      IO (Ptr.FunPtr (A -> FC.CLong -> IO ()))
 
@@ -1169,7 +1169,7 @@ args_long2 :: Ptr.FunPtr (A -> FC.CLong -> IO ())
 args_long2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9ba7a90039c212ea
 
--- | __unique:__ @test_macrosreparse_Example_get_args_long3@
+-- __unique:__ @test_macrosreparse_Example_get_args_long3@
 foreign import ccall unsafe "hs_bindgen_b44cf380afb4d650" hs_bindgen_b44cf380afb4d650 ::
      IO (Ptr.FunPtr (A -> FC.CULong -> IO ()))
 
@@ -1185,7 +1185,7 @@ args_long3 :: Ptr.FunPtr (A -> FC.CULong -> IO ())
 args_long3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b44cf380afb4d650
 
--- | __unique:__ @test_macrosreparse_Example_get_args_float@
+-- __unique:__ @test_macrosreparse_Example_get_args_float@
 foreign import ccall unsafe "hs_bindgen_b46cc7463fd36e1a" hs_bindgen_b46cc7463fd36e1a ::
      IO (Ptr.FunPtr (A -> FC.CFloat -> IO ()))
 
@@ -1201,7 +1201,7 @@ args_float :: Ptr.FunPtr (A -> FC.CFloat -> IO ())
 args_float =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b46cc7463fd36e1a
 
--- | __unique:__ @test_macrosreparse_Example_get_args_double@
+-- __unique:__ @test_macrosreparse_Example_get_args_double@
 foreign import ccall unsafe "hs_bindgen_eb95876c1227b1d6" hs_bindgen_eb95876c1227b1d6 ::
      IO (Ptr.FunPtr (A -> FC.CDouble -> IO ()))
 
@@ -1217,7 +1217,7 @@ args_double :: Ptr.FunPtr (A -> FC.CDouble -> IO ())
 args_double =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_eb95876c1227b1d6
 
--- | __unique:__ @test_macrosreparse_Example_get_args_bool1@
+-- __unique:__ @test_macrosreparse_Example_get_args_bool1@
 foreign import ccall unsafe "hs_bindgen_340ecf91e1edd759" hs_bindgen_340ecf91e1edd759 ::
      IO (Ptr.FunPtr (A -> FC.CBool -> IO ()))
 
@@ -1233,7 +1233,7 @@ args_bool1 :: Ptr.FunPtr (A -> FC.CBool -> IO ())
 args_bool1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_340ecf91e1edd759
 
--- | __unique:__ @test_macrosreparse_Example_get_args_struct@
+-- __unique:__ @test_macrosreparse_Example_get_args_struct@
 foreign import ccall unsafe "hs_bindgen_940fccf4ff28ad11" hs_bindgen_940fccf4ff28ad11 ::
      IO (Ptr.FunPtr (A -> Some_struct -> IO ()))
 
@@ -1249,7 +1249,7 @@ args_struct :: Ptr.FunPtr (A -> Some_struct -> IO ())
 args_struct =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_940fccf4ff28ad11
 
--- | __unique:__ @test_macrosreparse_Example_get_args_union@
+-- __unique:__ @test_macrosreparse_Example_get_args_union@
 foreign import ccall unsafe "hs_bindgen_c0ae19f85578b58d" hs_bindgen_c0ae19f85578b58d ::
      IO (Ptr.FunPtr (A -> Some_union -> IO ()))
 
@@ -1265,7 +1265,7 @@ args_union :: Ptr.FunPtr (A -> Some_union -> IO ())
 args_union =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c0ae19f85578b58d
 
--- | __unique:__ @test_macrosreparse_Example_get_args_enum@
+-- __unique:__ @test_macrosreparse_Example_get_args_enum@
 foreign import ccall unsafe "hs_bindgen_6f4ca5d36cd98d5e" hs_bindgen_6f4ca5d36cd98d5e ::
      IO (Ptr.FunPtr (A -> Some_enum -> IO ()))
 
@@ -1281,7 +1281,7 @@ args_enum :: Ptr.FunPtr (A -> Some_enum -> IO ())
 args_enum =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6f4ca5d36cd98d5e
 
--- | __unique:__ @test_macrosreparse_Example_get_args_pointer1@
+-- __unique:__ @test_macrosreparse_Example_get_args_pointer1@
 foreign import ccall unsafe "hs_bindgen_8f02d93a83f3e2f3" hs_bindgen_8f02d93a83f3e2f3 ::
      IO (Ptr.FunPtr (A -> (Ptr.Ptr FC.CInt) -> IO ()))
 
@@ -1297,7 +1297,7 @@ args_pointer1 :: Ptr.FunPtr (A -> (Ptr.Ptr FC.CInt) -> IO ())
 args_pointer1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8f02d93a83f3e2f3
 
--- | __unique:__ @test_macrosreparse_Example_get_args_pointer2@
+-- __unique:__ @test_macrosreparse_Example_get_args_pointer2@
 foreign import ccall unsafe "hs_bindgen_3217d3d95482b1ac" hs_bindgen_3217d3d95482b1ac ::
      IO (Ptr.FunPtr (A -> (Ptr.Ptr (Ptr.Ptr FC.CInt)) -> IO ()))
 
@@ -1313,7 +1313,7 @@ args_pointer2 :: Ptr.FunPtr (A -> (Ptr.Ptr (Ptr.Ptr FC.CInt)) -> IO ())
 args_pointer2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3217d3d95482b1ac
 
--- | __unique:__ @test_macrosreparse_Example_get_args_pointer3@
+-- __unique:__ @test_macrosreparse_Example_get_args_pointer3@
 foreign import ccall unsafe "hs_bindgen_8e680c501eeba095" hs_bindgen_8e680c501eeba095 ::
      IO (Ptr.FunPtr (A -> (Ptr.Ptr Void) -> IO ()))
 
@@ -1329,7 +1329,7 @@ args_pointer3 :: Ptr.FunPtr (A -> (Ptr.Ptr Void) -> IO ())
 args_pointer3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8e680c501eeba095
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_A@
+-- __unique:__ @test_macrosreparse_Example_get_ret_A@
 foreign import ccall unsafe "hs_bindgen_dfceb7c79cda3aab" hs_bindgen_dfceb7c79cda3aab ::
      IO (Ptr.FunPtr (IO A))
 
@@ -1345,7 +1345,7 @@ ret_A :: Ptr.FunPtr (IO A)
 ret_A =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dfceb7c79cda3aab
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_char1@
+-- __unique:__ @test_macrosreparse_Example_get_ret_char1@
 foreign import ccall unsafe "hs_bindgen_d30074ed19081e69" hs_bindgen_d30074ed19081e69 ::
      IO (Ptr.FunPtr (A -> IO FC.CChar))
 
@@ -1361,7 +1361,7 @@ ret_char1 :: Ptr.FunPtr (A -> IO FC.CChar)
 ret_char1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d30074ed19081e69
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_char2@
+-- __unique:__ @test_macrosreparse_Example_get_ret_char2@
 foreign import ccall unsafe "hs_bindgen_c9a2d554e9d3e7e2" hs_bindgen_c9a2d554e9d3e7e2 ::
      IO (Ptr.FunPtr (A -> IO FC.CSChar))
 
@@ -1377,7 +1377,7 @@ ret_char2 :: Ptr.FunPtr (A -> IO FC.CSChar)
 ret_char2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c9a2d554e9d3e7e2
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_char3@
+-- __unique:__ @test_macrosreparse_Example_get_ret_char3@
 foreign import ccall unsafe "hs_bindgen_261f4f5dd5925788" hs_bindgen_261f4f5dd5925788 ::
      IO (Ptr.FunPtr (A -> IO FC.CUChar))
 
@@ -1393,7 +1393,7 @@ ret_char3 :: Ptr.FunPtr (A -> IO FC.CUChar)
 ret_char3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_261f4f5dd5925788
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_short1@
+-- __unique:__ @test_macrosreparse_Example_get_ret_short1@
 foreign import ccall unsafe "hs_bindgen_8d5fba739ef413a8" hs_bindgen_8d5fba739ef413a8 ::
      IO (Ptr.FunPtr (A -> IO FC.CShort))
 
@@ -1409,7 +1409,7 @@ ret_short1 :: Ptr.FunPtr (A -> IO FC.CShort)
 ret_short1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8d5fba739ef413a8
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_short2@
+-- __unique:__ @test_macrosreparse_Example_get_ret_short2@
 foreign import ccall unsafe "hs_bindgen_5dbda022b4ddeeb7" hs_bindgen_5dbda022b4ddeeb7 ::
      IO (Ptr.FunPtr (A -> IO FC.CShort))
 
@@ -1425,7 +1425,7 @@ ret_short2 :: Ptr.FunPtr (A -> IO FC.CShort)
 ret_short2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_5dbda022b4ddeeb7
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_short3@
+-- __unique:__ @test_macrosreparse_Example_get_ret_short3@
 foreign import ccall unsafe "hs_bindgen_8bfdaeda59194c69" hs_bindgen_8bfdaeda59194c69 ::
      IO (Ptr.FunPtr (A -> IO FC.CUShort))
 
@@ -1441,7 +1441,7 @@ ret_short3 :: Ptr.FunPtr (A -> IO FC.CUShort)
 ret_short3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8bfdaeda59194c69
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_int1@
+-- __unique:__ @test_macrosreparse_Example_get_ret_int1@
 foreign import ccall unsafe "hs_bindgen_6b977384ffcfa7c6" hs_bindgen_6b977384ffcfa7c6 ::
      IO (Ptr.FunPtr (A -> IO FC.CInt))
 
@@ -1457,7 +1457,7 @@ ret_int1 :: Ptr.FunPtr (A -> IO FC.CInt)
 ret_int1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6b977384ffcfa7c6
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_int2@
+-- __unique:__ @test_macrosreparse_Example_get_ret_int2@
 foreign import ccall unsafe "hs_bindgen_cc47d3f794021505" hs_bindgen_cc47d3f794021505 ::
      IO (Ptr.FunPtr (A -> IO FC.CInt))
 
@@ -1473,7 +1473,7 @@ ret_int2 :: Ptr.FunPtr (A -> IO FC.CInt)
 ret_int2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cc47d3f794021505
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_int3@
+-- __unique:__ @test_macrosreparse_Example_get_ret_int3@
 foreign import ccall unsafe "hs_bindgen_488fbaf79c234569" hs_bindgen_488fbaf79c234569 ::
      IO (Ptr.FunPtr (A -> IO FC.CUInt))
 
@@ -1489,7 +1489,7 @@ ret_int3 :: Ptr.FunPtr (A -> IO FC.CUInt)
 ret_int3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_488fbaf79c234569
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_long1@
+-- __unique:__ @test_macrosreparse_Example_get_ret_long1@
 foreign import ccall unsafe "hs_bindgen_8cf14a89b1268b17" hs_bindgen_8cf14a89b1268b17 ::
      IO (Ptr.FunPtr (A -> IO FC.CLong))
 
@@ -1505,7 +1505,7 @@ ret_long1 :: Ptr.FunPtr (A -> IO FC.CLong)
 ret_long1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8cf14a89b1268b17
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_long2@
+-- __unique:__ @test_macrosreparse_Example_get_ret_long2@
 foreign import ccall unsafe "hs_bindgen_617e98b076d9fd82" hs_bindgen_617e98b076d9fd82 ::
      IO (Ptr.FunPtr (A -> IO FC.CLong))
 
@@ -1521,7 +1521,7 @@ ret_long2 :: Ptr.FunPtr (A -> IO FC.CLong)
 ret_long2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_617e98b076d9fd82
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_long3@
+-- __unique:__ @test_macrosreparse_Example_get_ret_long3@
 foreign import ccall unsafe "hs_bindgen_e1892d8eb6a27221" hs_bindgen_e1892d8eb6a27221 ::
      IO (Ptr.FunPtr (A -> IO FC.CULong))
 
@@ -1537,7 +1537,7 @@ ret_long3 :: Ptr.FunPtr (A -> IO FC.CULong)
 ret_long3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e1892d8eb6a27221
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_float@
+-- __unique:__ @test_macrosreparse_Example_get_ret_float@
 foreign import ccall unsafe "hs_bindgen_db7561d69f707657" hs_bindgen_db7561d69f707657 ::
      IO (Ptr.FunPtr (A -> IO FC.CFloat))
 
@@ -1553,7 +1553,7 @@ ret_float :: Ptr.FunPtr (A -> IO FC.CFloat)
 ret_float =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_db7561d69f707657
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_double@
+-- __unique:__ @test_macrosreparse_Example_get_ret_double@
 foreign import ccall unsafe "hs_bindgen_e37ad3e87e7cf4de" hs_bindgen_e37ad3e87e7cf4de ::
      IO (Ptr.FunPtr (A -> IO FC.CDouble))
 
@@ -1569,7 +1569,7 @@ ret_double :: Ptr.FunPtr (A -> IO FC.CDouble)
 ret_double =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e37ad3e87e7cf4de
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_bool1@
+-- __unique:__ @test_macrosreparse_Example_get_ret_bool1@
 foreign import ccall unsafe "hs_bindgen_07705133d0d853ee" hs_bindgen_07705133d0d853ee ::
      IO (Ptr.FunPtr (A -> IO FC.CBool))
 
@@ -1585,7 +1585,7 @@ ret_bool1 :: Ptr.FunPtr (A -> IO FC.CBool)
 ret_bool1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_07705133d0d853ee
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_struct@
+-- __unique:__ @test_macrosreparse_Example_get_ret_struct@
 foreign import ccall unsafe "hs_bindgen_72cf2ef70b845850" hs_bindgen_72cf2ef70b845850 ::
      IO (Ptr.FunPtr (A -> IO Some_struct))
 
@@ -1601,7 +1601,7 @@ ret_struct :: Ptr.FunPtr (A -> IO Some_struct)
 ret_struct =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_72cf2ef70b845850
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_union@
+-- __unique:__ @test_macrosreparse_Example_get_ret_union@
 foreign import ccall unsafe "hs_bindgen_fe31acee84b319c8" hs_bindgen_fe31acee84b319c8 ::
      IO (Ptr.FunPtr (A -> IO Some_union))
 
@@ -1617,7 +1617,7 @@ ret_union :: Ptr.FunPtr (A -> IO Some_union)
 ret_union =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fe31acee84b319c8
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_enum@
+-- __unique:__ @test_macrosreparse_Example_get_ret_enum@
 foreign import ccall unsafe "hs_bindgen_0ec7e00f11946277" hs_bindgen_0ec7e00f11946277 ::
      IO (Ptr.FunPtr (A -> IO Some_enum))
 
@@ -1633,7 +1633,7 @@ ret_enum :: Ptr.FunPtr (A -> IO Some_enum)
 ret_enum =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0ec7e00f11946277
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_pointer1@
+-- __unique:__ @test_macrosreparse_Example_get_ret_pointer1@
 foreign import ccall unsafe "hs_bindgen_b09c0f340896fe06" hs_bindgen_b09c0f340896fe06 ::
      IO (Ptr.FunPtr (A -> IO (Ptr.Ptr FC.CInt)))
 
@@ -1649,7 +1649,7 @@ ret_pointer1 :: Ptr.FunPtr (A -> IO (Ptr.Ptr FC.CInt))
 ret_pointer1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b09c0f340896fe06
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_pointer2@
+-- __unique:__ @test_macrosreparse_Example_get_ret_pointer2@
 foreign import ccall unsafe "hs_bindgen_300fabb661902701" hs_bindgen_300fabb661902701 ::
      IO (Ptr.FunPtr (A -> IO (Ptr.Ptr (Ptr.Ptr FC.CInt))))
 
@@ -1665,7 +1665,7 @@ ret_pointer2 :: Ptr.FunPtr (A -> IO (Ptr.Ptr (Ptr.Ptr FC.CInt)))
 ret_pointer2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_300fabb661902701
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_pointer3@
+-- __unique:__ @test_macrosreparse_Example_get_ret_pointer3@
 foreign import ccall unsafe "hs_bindgen_12135a6384fcfda7" hs_bindgen_12135a6384fcfda7 ::
      IO (Ptr.FunPtr (A -> IO (Ptr.Ptr Void)))
 
@@ -1681,7 +1681,7 @@ ret_pointer3 :: Ptr.FunPtr (A -> IO (Ptr.Ptr Void))
 ret_pointer3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_12135a6384fcfda7
 
--- | __unique:__ @test_macrosreparse_Example_get_body1@
+-- __unique:__ @test_macrosreparse_Example_get_body1@
 foreign import ccall unsafe "hs_bindgen_f6ce3e885e11b623" hs_bindgen_f6ce3e885e11b623 ::
      IO (Ptr.FunPtr (A -> IO FC.CInt))
 
@@ -1697,7 +1697,7 @@ body1 :: Ptr.FunPtr (A -> IO FC.CInt)
 body1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f6ce3e885e11b623
 
--- | __unique:__ @test_macrosreparse_Example_get_body2@
+-- __unique:__ @test_macrosreparse_Example_get_body2@
 foreign import ccall unsafe "hs_bindgen_a7010032c19e6947" hs_bindgen_a7010032c19e6947 ::
      IO (Ptr.FunPtr (IO A))
 
@@ -1713,7 +1713,7 @@ body2 :: Ptr.FunPtr (IO A)
 body2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a7010032c19e6947
 
--- | __unique:__ @test_macrosreparse_Example_get_args_complex_float@
+-- __unique:__ @test_macrosreparse_Example_get_args_complex_float@
 foreign import ccall unsafe "hs_bindgen_b9a5de00354a54fe" hs_bindgen_b9a5de00354a54fe ::
      IO (Ptr.FunPtr (A -> (Data.Complex.Complex FC.CFloat) -> IO ()))
 
@@ -1729,7 +1729,7 @@ args_complex_float :: Ptr.FunPtr (A -> (Data.Complex.Complex FC.CFloat) -> IO ()
 args_complex_float =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b9a5de00354a54fe
 
--- | __unique:__ @test_macrosreparse_Example_get_args_complex_double@
+-- __unique:__ @test_macrosreparse_Example_get_args_complex_double@
 foreign import ccall unsafe "hs_bindgen_824a00413581d46c" hs_bindgen_824a00413581d46c ::
      IO (Ptr.FunPtr (A -> (Data.Complex.Complex FC.CDouble) -> IO ()))
 
@@ -1745,7 +1745,7 @@ args_complex_double :: Ptr.FunPtr (A -> (Data.Complex.Complex FC.CDouble) -> IO 
 args_complex_double =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_824a00413581d46c
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_complex_float@
+-- __unique:__ @test_macrosreparse_Example_get_ret_complex_float@
 foreign import ccall unsafe "hs_bindgen_685d6c0a58e9b874" hs_bindgen_685d6c0a58e9b874 ::
      IO (Ptr.FunPtr (A -> IO (Data.Complex.Complex FC.CFloat)))
 
@@ -1761,7 +1761,7 @@ ret_complex_float :: Ptr.FunPtr (A -> IO (Data.Complex.Complex FC.CFloat))
 ret_complex_float =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_685d6c0a58e9b874
 
--- | __unique:__ @test_macrosreparse_Example_get_ret_complex_double@
+-- __unique:__ @test_macrosreparse_Example_get_ret_complex_double@
 foreign import ccall unsafe "hs_bindgen_0dea6be8e06122eb" hs_bindgen_0dea6be8e06122eb ::
      IO (Ptr.FunPtr (A -> IO (Data.Complex.Complex FC.CDouble)))
 
@@ -1777,7 +1777,7 @@ ret_complex_double :: Ptr.FunPtr (A -> IO (Data.Complex.Complex FC.CDouble))
 ret_complex_double =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0dea6be8e06122eb
 
--- | __unique:__ @test_macrosreparse_Example_get_bespoke_args1@
+-- __unique:__ @test_macrosreparse_Example_get_bespoke_args1@
 foreign import ccall unsafe "hs_bindgen_cd799b883e59eadd" hs_bindgen_cd799b883e59eadd ::
      IO (Ptr.FunPtr (A -> FC.CBool -> IO ()))
 
@@ -1793,7 +1793,7 @@ bespoke_args1 :: Ptr.FunPtr (A -> FC.CBool -> IO ())
 bespoke_args1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cd799b883e59eadd
 
--- | __unique:__ @test_macrosreparse_Example_get_bespoke_args2@
+-- __unique:__ @test_macrosreparse_Example_get_bespoke_args2@
 foreign import ccall unsafe "hs_bindgen_eabc3e2c716b0250" hs_bindgen_eabc3e2c716b0250 ::
      IO (Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ()))
 
@@ -1809,7 +1809,7 @@ bespoke_args2 :: Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ())
 bespoke_args2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_eabc3e2c716b0250
 
--- | __unique:__ @test_macrosreparse_Example_get_bespoke_ret1@
+-- __unique:__ @test_macrosreparse_Example_get_bespoke_ret1@
 foreign import ccall unsafe "hs_bindgen_8a47565361a0290f" hs_bindgen_8a47565361a0290f ::
      IO (Ptr.FunPtr (A -> IO FC.CBool))
 
@@ -1825,7 +1825,7 @@ bespoke_ret1 :: Ptr.FunPtr (A -> IO FC.CBool)
 bespoke_ret1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8a47565361a0290f
 
--- | __unique:__ @test_macrosreparse_Example_get_bespoke_ret2@
+-- __unique:__ @test_macrosreparse_Example_get_bespoke_ret2@
 foreign import ccall unsafe "hs_bindgen_384c8ceed3a4ca90" hs_bindgen_384c8ceed3a4ca90 ::
      IO (Ptr.FunPtr (A -> IO HsBindgen.Runtime.Prelude.CSize))
 
@@ -1841,7 +1841,7 @@ bespoke_ret2 :: Ptr.FunPtr (A -> IO HsBindgen.Runtime.Prelude.CSize)
 bespoke_ret2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_384c8ceed3a4ca90
 
--- | __unique:__ @test_macrosreparse_Example_get_arr_args1@
+-- __unique:__ @test_macrosreparse_Example_get_arr_args1@
 foreign import ccall unsafe "hs_bindgen_b38b526cf0817bf0" hs_bindgen_b38b526cf0817bf0 ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray A) -> IO ()))
 
@@ -1859,7 +1859,7 @@ arr_args1 :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray A) -
 arr_args1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b38b526cf0817bf0
 
--- | __unique:__ @test_macrosreparse_Example_get_arr_args2@
+-- __unique:__ @test_macrosreparse_Example_get_arr_args2@
 foreign import ccall unsafe "hs_bindgen_2c0bca39b42ecbec" hs_bindgen_2c0bca39b42ecbec ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr A)) -> IO ()))
 
@@ -1875,7 +1875,7 @@ arr_args2 :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr
 arr_args2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2c0bca39b42ecbec
 
--- | __unique:__ @test_macrosreparse_Example_get_arr_args3@
+-- __unique:__ @test_macrosreparse_Example_get_arr_args3@
 foreign import ccall unsafe "hs_bindgen_82a8c15919ae3f33" hs_bindgen_82a8c15919ae3f33 ::
      IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 5) A) -> IO ()))
 
@@ -1891,7 +1891,7 @@ arr_args3 :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 5) A) -
 arr_args3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_82a8c15919ae3f33
 
--- | __unique:__ @test_macrosreparse_Example_get_arr_args4@
+-- __unique:__ @test_macrosreparse_Example_get_arr_args4@
 foreign import ccall unsafe "hs_bindgen_db074918e0d38cb5" hs_bindgen_db074918e0d38cb5 ::
      IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 5) (Ptr.Ptr A)) -> IO ()))
 
@@ -1907,7 +1907,7 @@ arr_args4 :: Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 5) (Ptr
 arr_args4 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_db074918e0d38cb5
 
--- | __unique:__ @test_macrosreparse_Example_get_funptr_args1@
+-- __unique:__ @test_macrosreparse_Example_get_funptr_args1@
 foreign import ccall unsafe "hs_bindgen_3fd6d1fbd060ffcf" hs_bindgen_3fd6d1fbd060ffcf ::
      IO (Ptr.FunPtr (A -> (Ptr.FunPtr (IO ())) -> IO ()))
 
@@ -1925,7 +1925,7 @@ funptr_args1 :: Ptr.FunPtr (A -> (Ptr.FunPtr (IO ())) -> IO ())
 funptr_args1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3fd6d1fbd060ffcf
 
--- | __unique:__ @test_macrosreparse_Example_get_funptr_args2@
+-- __unique:__ @test_macrosreparse_Example_get_funptr_args2@
 foreign import ccall unsafe "hs_bindgen_300abb7b10649797" hs_bindgen_300abb7b10649797 ::
      IO (Ptr.FunPtr (A -> (Ptr.FunPtr (IO FC.CInt)) -> IO ()))
 
@@ -1941,7 +1941,7 @@ funptr_args2 :: Ptr.FunPtr (A -> (Ptr.FunPtr (IO FC.CInt)) -> IO ())
 funptr_args2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_300abb7b10649797
 
--- | __unique:__ @test_macrosreparse_Example_get_funptr_args3@
+-- __unique:__ @test_macrosreparse_Example_get_funptr_args3@
 foreign import ccall unsafe "hs_bindgen_78d109e353e05225" hs_bindgen_78d109e353e05225 ::
      IO (Ptr.FunPtr (A -> (Ptr.FunPtr (FC.CInt -> IO ())) -> IO ()))
 
@@ -1957,7 +1957,7 @@ funptr_args3 :: Ptr.FunPtr (A -> (Ptr.FunPtr (FC.CInt -> IO ())) -> IO ())
 funptr_args3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_78d109e353e05225
 
--- | __unique:__ @test_macrosreparse_Example_get_funptr_args4@
+-- __unique:__ @test_macrosreparse_Example_get_funptr_args4@
 foreign import ccall unsafe "hs_bindgen_ee1815fa9e1c1131" hs_bindgen_ee1815fa9e1c1131 ::
      IO (Ptr.FunPtr (A -> (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar)) -> IO ()))
 
@@ -1973,7 +1973,7 @@ funptr_args4 :: Ptr.FunPtr (A -> (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CCh
 funptr_args4 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ee1815fa9e1c1131
 
--- | __unique:__ @test_macrosreparse_Example_get_funptr_args5@
+-- __unique:__ @test_macrosreparse_Example_get_funptr_args5@
 foreign import ccall unsafe "hs_bindgen_146c4cb7cf7def11" hs_bindgen_146c4cb7cf7def11 ::
      IO (Ptr.FunPtr (A -> (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))) -> IO ()))
 
@@ -1989,7 +1989,7 @@ funptr_args5 :: Ptr.FunPtr (A -> (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.P
 funptr_args5 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_146c4cb7cf7def11
 
--- | __unique:__ @test_macrosreparse_Example_get_comments1@
+-- __unique:__ @test_macrosreparse_Example_get_comments1@
 foreign import ccall unsafe "hs_bindgen_7f647ffb81758d69" hs_bindgen_7f647ffb81758d69 ::
      IO (Ptr.FunPtr (A -> IO ()))
 
@@ -2009,7 +2009,7 @@ comments1 :: Ptr.FunPtr (A -> IO ())
 comments1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7f647ffb81758d69
 
--- | __unique:__ @test_macrosreparse_Example_get_const_prim_before1@
+-- __unique:__ @test_macrosreparse_Example_get_const_prim_before1@
 foreign import ccall unsafe "hs_bindgen_ecf341da5dabe306" hs_bindgen_ecf341da5dabe306 ::
      IO (Ptr.FunPtr (A -> FC.CChar -> IO ()))
 
@@ -2029,7 +2029,7 @@ const_prim_before1 :: Ptr.FunPtr (A -> FC.CChar -> IO ())
 const_prim_before1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ecf341da5dabe306
 
--- | __unique:__ @test_macrosreparse_Example_get_const_prim_before2@
+-- __unique:__ @test_macrosreparse_Example_get_const_prim_before2@
 foreign import ccall unsafe "hs_bindgen_a0276bc4dac995c4" hs_bindgen_a0276bc4dac995c4 ::
      IO (Ptr.FunPtr (A -> FC.CSChar -> IO ()))
 
@@ -2045,7 +2045,7 @@ const_prim_before2 :: Ptr.FunPtr (A -> FC.CSChar -> IO ())
 const_prim_before2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a0276bc4dac995c4
 
--- | __unique:__ @test_macrosreparse_Example_get_const_prim_before3@
+-- __unique:__ @test_macrosreparse_Example_get_const_prim_before3@
 foreign import ccall unsafe "hs_bindgen_1555fc380f4c34ba" hs_bindgen_1555fc380f4c34ba ::
      IO (Ptr.FunPtr (A -> FC.CUChar -> IO ()))
 
@@ -2061,7 +2061,7 @@ const_prim_before3 :: Ptr.FunPtr (A -> FC.CUChar -> IO ())
 const_prim_before3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1555fc380f4c34ba
 
--- | __unique:__ @test_macrosreparse_Example_get_const_prim_after1@
+-- __unique:__ @test_macrosreparse_Example_get_const_prim_after1@
 foreign import ccall unsafe "hs_bindgen_e88405f039754f3c" hs_bindgen_e88405f039754f3c ::
      IO (Ptr.FunPtr (A -> FC.CChar -> IO ()))
 
@@ -2077,7 +2077,7 @@ const_prim_after1 :: Ptr.FunPtr (A -> FC.CChar -> IO ())
 const_prim_after1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e88405f039754f3c
 
--- | __unique:__ @test_macrosreparse_Example_get_const_prim_after2@
+-- __unique:__ @test_macrosreparse_Example_get_const_prim_after2@
 foreign import ccall unsafe "hs_bindgen_d267bc5333a36861" hs_bindgen_d267bc5333a36861 ::
      IO (Ptr.FunPtr (A -> FC.CSChar -> IO ()))
 
@@ -2093,7 +2093,7 @@ const_prim_after2 :: Ptr.FunPtr (A -> FC.CSChar -> IO ())
 const_prim_after2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d267bc5333a36861
 
--- | __unique:__ @test_macrosreparse_Example_get_const_prim_after3@
+-- __unique:__ @test_macrosreparse_Example_get_const_prim_after3@
 foreign import ccall unsafe "hs_bindgen_0e08cac4148d54cd" hs_bindgen_0e08cac4148d54cd ::
      IO (Ptr.FunPtr (A -> FC.CUChar -> IO ()))
 
@@ -2109,7 +2109,7 @@ const_prim_after3 :: Ptr.FunPtr (A -> FC.CUChar -> IO ())
 const_prim_after3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0e08cac4148d54cd
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before1@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before1@
 foreign import ccall unsafe "hs_bindgen_d7140c03594ba60a" hs_bindgen_d7140c03594ba60a ::
      IO (Ptr.FunPtr (A -> FC.CFloat -> IO ()))
 
@@ -2125,7 +2125,7 @@ const_withoutSign_before1 :: Ptr.FunPtr (A -> FC.CFloat -> IO ())
 const_withoutSign_before1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d7140c03594ba60a
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before2@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before2@
 foreign import ccall unsafe "hs_bindgen_92134abe381cef04" hs_bindgen_92134abe381cef04 ::
      IO (Ptr.FunPtr (A -> FC.CDouble -> IO ()))
 
@@ -2141,7 +2141,7 @@ const_withoutSign_before2 :: Ptr.FunPtr (A -> FC.CDouble -> IO ())
 const_withoutSign_before2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_92134abe381cef04
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before3@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before3@
 foreign import ccall unsafe "hs_bindgen_b80a2c12f1bdb050" hs_bindgen_b80a2c12f1bdb050 ::
      IO (Ptr.FunPtr (A -> FC.CBool -> IO ()))
 
@@ -2157,7 +2157,7 @@ const_withoutSign_before3 :: Ptr.FunPtr (A -> FC.CBool -> IO ())
 const_withoutSign_before3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b80a2c12f1bdb050
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before4@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before4@
 foreign import ccall unsafe "hs_bindgen_aa0ffa330554de35" hs_bindgen_aa0ffa330554de35 ::
      IO (Ptr.FunPtr (A -> Some_struct -> IO ()))
 
@@ -2173,7 +2173,7 @@ const_withoutSign_before4 :: Ptr.FunPtr (A -> Some_struct -> IO ())
 const_withoutSign_before4 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_aa0ffa330554de35
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before5@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before5@
 foreign import ccall unsafe "hs_bindgen_f59abb8a7dffe11f" hs_bindgen_f59abb8a7dffe11f ::
      IO (Ptr.FunPtr (A -> Some_union -> IO ()))
 
@@ -2189,7 +2189,7 @@ const_withoutSign_before5 :: Ptr.FunPtr (A -> Some_union -> IO ())
 const_withoutSign_before5 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f59abb8a7dffe11f
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before6@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before6@
 foreign import ccall unsafe "hs_bindgen_0df28ff2ac7fa1e0" hs_bindgen_0df28ff2ac7fa1e0 ::
      IO (Ptr.FunPtr (A -> Some_enum -> IO ()))
 
@@ -2205,7 +2205,7 @@ const_withoutSign_before6 :: Ptr.FunPtr (A -> Some_enum -> IO ())
 const_withoutSign_before6 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0df28ff2ac7fa1e0
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before7@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before7@
 foreign import ccall unsafe "hs_bindgen_fa8c89b169233a6a" hs_bindgen_fa8c89b169233a6a ::
      IO (Ptr.FunPtr (A -> FC.CBool -> IO ()))
 
@@ -2221,7 +2221,7 @@ const_withoutSign_before7 :: Ptr.FunPtr (A -> FC.CBool -> IO ())
 const_withoutSign_before7 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fa8c89b169233a6a
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before8@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_before8@
 foreign import ccall unsafe "hs_bindgen_e707228d3913a299" hs_bindgen_e707228d3913a299 ::
      IO (Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ()))
 
@@ -2237,7 +2237,7 @@ const_withoutSign_before8 :: Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize ->
 const_withoutSign_before8 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e707228d3913a299
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after1@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after1@
 foreign import ccall unsafe "hs_bindgen_7e7703a610cd6783" hs_bindgen_7e7703a610cd6783 ::
      IO (Ptr.FunPtr (A -> FC.CFloat -> IO ()))
 
@@ -2253,7 +2253,7 @@ const_withoutSign_after1 :: Ptr.FunPtr (A -> FC.CFloat -> IO ())
 const_withoutSign_after1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7e7703a610cd6783
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after2@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after2@
 foreign import ccall unsafe "hs_bindgen_988863a241cb28f2" hs_bindgen_988863a241cb28f2 ::
      IO (Ptr.FunPtr (A -> FC.CDouble -> IO ()))
 
@@ -2269,7 +2269,7 @@ const_withoutSign_after2 :: Ptr.FunPtr (A -> FC.CDouble -> IO ())
 const_withoutSign_after2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_988863a241cb28f2
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after3@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after3@
 foreign import ccall unsafe "hs_bindgen_c8182ee9a3467005" hs_bindgen_c8182ee9a3467005 ::
      IO (Ptr.FunPtr (A -> FC.CBool -> IO ()))
 
@@ -2285,7 +2285,7 @@ const_withoutSign_after3 :: Ptr.FunPtr (A -> FC.CBool -> IO ())
 const_withoutSign_after3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c8182ee9a3467005
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after4@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after4@
 foreign import ccall unsafe "hs_bindgen_de1e4bbac808bcbc" hs_bindgen_de1e4bbac808bcbc ::
      IO (Ptr.FunPtr (A -> Some_struct -> IO ()))
 
@@ -2301,7 +2301,7 @@ const_withoutSign_after4 :: Ptr.FunPtr (A -> Some_struct -> IO ())
 const_withoutSign_after4 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_de1e4bbac808bcbc
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after5@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after5@
 foreign import ccall unsafe "hs_bindgen_746fb03c27f16031" hs_bindgen_746fb03c27f16031 ::
      IO (Ptr.FunPtr (A -> Some_union -> IO ()))
 
@@ -2317,7 +2317,7 @@ const_withoutSign_after5 :: Ptr.FunPtr (A -> Some_union -> IO ())
 const_withoutSign_after5 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_746fb03c27f16031
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after6@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after6@
 foreign import ccall unsafe "hs_bindgen_dc174ac598e92a95" hs_bindgen_dc174ac598e92a95 ::
      IO (Ptr.FunPtr (A -> Some_enum -> IO ()))
 
@@ -2333,7 +2333,7 @@ const_withoutSign_after6 :: Ptr.FunPtr (A -> Some_enum -> IO ())
 const_withoutSign_after6 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dc174ac598e92a95
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after7@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after7@
 foreign import ccall unsafe "hs_bindgen_2c8ddc46cb100dd9" hs_bindgen_2c8ddc46cb100dd9 ::
      IO (Ptr.FunPtr (A -> FC.CBool -> IO ()))
 
@@ -2349,7 +2349,7 @@ const_withoutSign_after7 :: Ptr.FunPtr (A -> FC.CBool -> IO ())
 const_withoutSign_after7 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2c8ddc46cb100dd9
 
--- | __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after8@
+-- __unique:__ @test_macrosreparse_Example_get_const_withoutSign_after8@
 foreign import ccall unsafe "hs_bindgen_fdf87fbad31246de" hs_bindgen_fdf87fbad31246de ::
      IO (Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ()))
 
@@ -2365,7 +2365,7 @@ const_withoutSign_after8 :: Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> 
 const_withoutSign_after8 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fdf87fbad31246de
 
--- | __unique:__ @test_macrosreparse_Example_get_const_pointers_args1@
+-- __unique:__ @test_macrosreparse_Example_get_const_pointers_args1@
 foreign import ccall unsafe "hs_bindgen_38808e8aa92d3bcb" hs_bindgen_38808e8aa92d3bcb ::
      IO (Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt) -> IO ()))
 
@@ -2381,7 +2381,7 @@ const_pointers_args1 :: Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC
 const_pointers_args1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_38808e8aa92d3bcb
 
--- | __unique:__ @test_macrosreparse_Example_get_const_pointers_args2@
+-- __unique:__ @test_macrosreparse_Example_get_const_pointers_args2@
 foreign import ccall unsafe "hs_bindgen_4d37887fd82ab559" hs_bindgen_4d37887fd82ab559 ::
      IO (Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt) -> IO ()))
 
@@ -2397,7 +2397,7 @@ const_pointers_args2 :: Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC
 const_pointers_args2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4d37887fd82ab559
 
--- | __unique:__ @test_macrosreparse_Example_get_const_pointers_args3@
+-- __unique:__ @test_macrosreparse_Example_get_const_pointers_args3@
 foreign import ccall unsafe "hs_bindgen_fd675a45f1682dd5" hs_bindgen_fd675a45f1682dd5 ::
      IO (Ptr.FunPtr (A -> (Ptr.Ptr FC.CInt) -> IO ()))
 
@@ -2413,7 +2413,7 @@ const_pointers_args3 :: Ptr.FunPtr (A -> (Ptr.Ptr FC.CInt) -> IO ())
 const_pointers_args3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fd675a45f1682dd5
 
--- | __unique:__ @test_macrosreparse_Example_get_const_pointers_args4@
+-- __unique:__ @test_macrosreparse_Example_get_const_pointers_args4@
 foreign import ccall unsafe "hs_bindgen_824cb2084c63b803" hs_bindgen_824cb2084c63b803 ::
      IO (Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt) -> IO ()))
 
@@ -2429,7 +2429,7 @@ const_pointers_args4 :: Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC
 const_pointers_args4 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_824cb2084c63b803
 
--- | __unique:__ @test_macrosreparse_Example_get_const_pointers_args5@
+-- __unique:__ @test_macrosreparse_Example_get_const_pointers_args5@
 foreign import ccall unsafe "hs_bindgen_25bdd13aed8f26c4" hs_bindgen_25bdd13aed8f26c4 ::
      IO (Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt) -> IO ()))
 
@@ -2445,7 +2445,7 @@ const_pointers_args5 :: Ptr.FunPtr (A -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC
 const_pointers_args5 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_25bdd13aed8f26c4
 
--- | __unique:__ @test_macrosreparse_Example_get_const_pointers_ret1@
+-- __unique:__ @test_macrosreparse_Example_get_const_pointers_ret1@
 foreign import ccall unsafe "hs_bindgen_f494124b53592961" hs_bindgen_f494124b53592961 ::
      IO (Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
 
@@ -2461,7 +2461,7 @@ const_pointers_ret1 :: Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr 
 const_pointers_ret1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f494124b53592961
 
--- | __unique:__ @test_macrosreparse_Example_get_const_pointers_ret2@
+-- __unique:__ @test_macrosreparse_Example_get_const_pointers_ret2@
 foreign import ccall unsafe "hs_bindgen_32c4b858ef4f3bb8" hs_bindgen_32c4b858ef4f3bb8 ::
      IO (Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
 
@@ -2477,7 +2477,7 @@ const_pointers_ret2 :: Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr 
 const_pointers_ret2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_32c4b858ef4f3bb8
 
--- | __unique:__ @test_macrosreparse_Example_get_const_pointers_ret3@
+-- __unique:__ @test_macrosreparse_Example_get_const_pointers_ret3@
 foreign import ccall unsafe "hs_bindgen_110afe05c6d47b7c" hs_bindgen_110afe05c6d47b7c ::
      IO (Ptr.FunPtr (A -> IO (Ptr.Ptr FC.CInt)))
 
@@ -2493,7 +2493,7 @@ const_pointers_ret3 :: Ptr.FunPtr (A -> IO (Ptr.Ptr FC.CInt))
 const_pointers_ret3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_110afe05c6d47b7c
 
--- | __unique:__ @test_macrosreparse_Example_get_const_pointers_ret4@
+-- __unique:__ @test_macrosreparse_Example_get_const_pointers_ret4@
 foreign import ccall unsafe "hs_bindgen_042a426acfeaa051" hs_bindgen_042a426acfeaa051 ::
      IO (Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
 
@@ -2509,7 +2509,7 @@ const_pointers_ret4 :: Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr 
 const_pointers_ret4 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_042a426acfeaa051
 
--- | __unique:__ @test_macrosreparse_Example_get_const_pointers_ret5@
+-- __unique:__ @test_macrosreparse_Example_get_const_pointers_ret5@
 foreign import ccall unsafe "hs_bindgen_bc3cdc03ae3274bd" hs_bindgen_bc3cdc03ae3274bd ::
      IO (Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
 
@@ -2525,7 +2525,7 @@ const_pointers_ret5 :: Ptr.FunPtr (A -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr 
 const_pointers_ret5 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_bc3cdc03ae3274bd
 
--- | __unique:__ @test_macrosreparse_Example_get_const_array_elem1@
+-- __unique:__ @test_macrosreparse_Example_get_const_array_elem1@
 foreign import ccall unsafe "hs_bindgen_ae95c15a81eacd52" hs_bindgen_ae95c15a81eacd52 ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray A) -> IO ()))
 
@@ -2541,7 +2541,7 @@ const_array_elem1 :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteAr
 const_array_elem1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ae95c15a81eacd52
 
--- | __unique:__ @test_macrosreparse_Example_get_const_array_elem2@
+-- __unique:__ @test_macrosreparse_Example_get_const_array_elem2@
 foreign import ccall unsafe "hs_bindgen_9dbbae3758752935" hs_bindgen_9dbbae3758752935 ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray (HsBindgen.Runtime.ConstPtr.ConstPtr A)) -> IO ()))
 
@@ -2557,7 +2557,7 @@ const_array_elem2 :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteAr
 const_array_elem2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9dbbae3758752935
 
--- | __unique:__ @test_macrosreparse_Example_get_const_array_elem3@
+-- __unique:__ @test_macrosreparse_Example_get_const_array_elem3@
 foreign import ccall unsafe "hs_bindgen_9fdb904f0c0776ed" hs_bindgen_9fdb904f0c0776ed ::
      IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray (Ptr.Ptr A)) -> IO ()))
 
@@ -2573,7 +2573,7 @@ const_array_elem3 :: Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteAr
 const_array_elem3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9fdb904f0c0776ed
 
--- | __unique:__ @test_macrosreparse_Example_get_noParams1@
+-- __unique:__ @test_macrosreparse_Example_get_noParams1@
 foreign import ccall unsafe "hs_bindgen_cd9806a214acd0fa" hs_bindgen_cd9806a214acd0fa ::
      IO (Ptr.FunPtr (IO A))
 
@@ -2591,7 +2591,7 @@ noParams1 :: Ptr.FunPtr (IO A)
 noParams1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cd9806a214acd0fa
 
--- | __unique:__ @test_macrosreparse_Example_get_noParams2@
+-- __unique:__ @test_macrosreparse_Example_get_noParams2@
 foreign import ccall unsafe "hs_bindgen_7c7bf9b5a41ea4a9" hs_bindgen_7c7bf9b5a41ea4a9 ::
      IO (Ptr.FunPtr (IO A))
 
@@ -2607,7 +2607,7 @@ noParams2 :: Ptr.FunPtr (IO A)
 noParams2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7c7bf9b5a41ea4a9
 
--- | __unique:__ @test_macrosreparse_Example_get_noParams3@
+-- __unique:__ @test_macrosreparse_Example_get_noParams3@
 foreign import ccall unsafe "hs_bindgen_7f154653725d104d" hs_bindgen_7f154653725d104d ::
      IO (Ptr.FunPtr (A -> (Ptr.FunPtr (IO FC.CInt)) -> IO ()))
 
@@ -2623,7 +2623,7 @@ noParams3 :: Ptr.FunPtr (A -> (Ptr.FunPtr (IO FC.CInt)) -> IO ())
 noParams3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7f154653725d104d
 
--- | __unique:__ @test_macrosreparse_Example_get_funptr_ret1@
+-- __unique:__ @test_macrosreparse_Example_get_funptr_ret1@
 foreign import ccall unsafe "hs_bindgen_4460dd1d93c2df6f" hs_bindgen_4460dd1d93c2df6f ::
      IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (IO ()))))
 
@@ -2639,7 +2639,7 @@ funptr_ret1 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (IO ())))
 funptr_ret1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4460dd1d93c2df6f
 
--- | __unique:__ @test_macrosreparse_Example_get_funptr_ret2@
+-- __unique:__ @test_macrosreparse_Example_get_funptr_ret2@
 foreign import ccall unsafe "hs_bindgen_2b8d04e0fe71178b" hs_bindgen_2b8d04e0fe71178b ::
      IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (IO FC.CInt))))
 
@@ -2655,7 +2655,7 @@ funptr_ret2 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (IO FC.CInt)))
 funptr_ret2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2b8d04e0fe71178b
 
--- | __unique:__ @test_macrosreparse_Example_get_funptr_ret3@
+-- __unique:__ @test_macrosreparse_Example_get_funptr_ret3@
 foreign import ccall unsafe "hs_bindgen_27d05f98fe1e869b" hs_bindgen_27d05f98fe1e869b ::
      IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> IO ()))))
 
@@ -2671,7 +2671,7 @@ funptr_ret3 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> IO ())))
 funptr_ret3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_27d05f98fe1e869b
 
--- | __unique:__ @test_macrosreparse_Example_get_funptr_ret4@
+-- __unique:__ @test_macrosreparse_Example_get_funptr_ret4@
 foreign import ccall unsafe "hs_bindgen_f55fb889881240c6" hs_bindgen_f55fb889881240c6 ::
      IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar))))
 
@@ -2687,7 +2687,7 @@ funptr_ret4 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.C
 funptr_ret4 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f55fb889881240c6
 
--- | __unique:__ @test_macrosreparse_Example_get_funptr_ret5@
+-- __unique:__ @test_macrosreparse_Example_get_funptr_ret5@
 foreign import ccall unsafe "hs_bindgen_e59cbfc52cec7177" hs_bindgen_e59cbfc52cec7177 ::
      IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))))
 
@@ -2703,7 +2703,7 @@ funptr_ret5 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr
 funptr_ret5 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e59cbfc52cec7177
 
--- | __unique:__ @test_macrosreparse_Example_get_funptr_ret6@
+-- __unique:__ @test_macrosreparse_Example_get_funptr_ret6@
 foreign import ccall unsafe "hs_bindgen_f94486b884c7cd44" hs_bindgen_f94486b884c7cd44 ::
      IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))))
 
@@ -2719,7 +2719,7 @@ funptr_ret6 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsB
 funptr_ret6 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f94486b884c7cd44
 
--- | __unique:__ @test_macrosreparse_Example_get_funptr_ret7@
+-- __unique:__ @test_macrosreparse_Example_get_funptr_ret7@
 foreign import ccall unsafe "hs_bindgen_7810d75b42b3bed8" hs_bindgen_7810d75b42b3bed8 ::
      IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))))
 
@@ -2735,7 +2735,7 @@ funptr_ret7 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsB
 funptr_ret7 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7810d75b42b3bed8
 
--- | __unique:__ @test_macrosreparse_Example_get_funptr_ret8@
+-- __unique:__ @test_macrosreparse_Example_get_funptr_ret8@
 foreign import ccall unsafe "hs_bindgen_fc12014317abd6b4" hs_bindgen_fc12014317abd6b4 ::
      IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))))
 
@@ -2751,7 +2751,7 @@ funptr_ret8 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr
 funptr_ret8 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fc12014317abd6b4
 
--- | __unique:__ @test_macrosreparse_Example_get_funptr_ret9@
+-- __unique:__ @test_macrosreparse_Example_get_funptr_ret9@
 foreign import ccall unsafe "hs_bindgen_cf3bf1d8470acad4" hs_bindgen_cf3bf1d8470acad4 ::
      IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))))
 
@@ -2767,7 +2767,7 @@ funptr_ret9 :: Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsB
 funptr_ret9 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cf3bf1d8470acad4
 
--- | __unique:__ @test_macrosreparse_Example_get_funptr_ret10@
+-- __unique:__ @test_macrosreparse_Example_get_funptr_ret10@
 foreign import ccall unsafe "hs_bindgen_44a7eb47cf87f092" hs_bindgen_44a7eb47cf87f092 ::
      IO (Ptr.FunPtr (A -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))))
 

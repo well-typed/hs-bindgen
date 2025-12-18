@@ -139,7 +139,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_quux@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_get_quux@
 foreign import ccall unsafe "hs_bindgen_930b4f8122942dae" hs_bindgen_930b4f8122942dae ::
      IO (Ptr.FunPtr (F -> FC.CChar -> IO FC.CChar))
 
@@ -155,7 +155,7 @@ quux :: Ptr.FunPtr (F -> FC.CChar -> IO FC.CChar)
 quux =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_930b4f8122942dae
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_wam@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_get_wam@
 foreign import ccall unsafe "hs_bindgen_31f433dd4aceda85" hs_bindgen_31f433dd4aceda85 ::
      IO (Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr C) -> IO (Ptr.Ptr C)))
 
@@ -171,7 +171,7 @@ wam :: Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr C) -> IO (Ptr.Ptr C))
 wam =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_31f433dd4aceda85
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo1@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo1@
 foreign import ccall unsafe "hs_bindgen_8d7a85b3867041bf" hs_bindgen_8d7a85b3867041bf ::
      IO (Ptr.FunPtr (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr FC.CChar)))
 
@@ -187,7 +187,7 @@ foo1 :: Ptr.FunPtr (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr
 foo1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8d7a85b3867041bf
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo2@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo2@
 foreign import ccall unsafe "hs_bindgen_c9dcd020e5be4af9" hs_bindgen_c9dcd020e5be4af9 ::
      IO (Ptr.FunPtr (F -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr FC.CChar)))
 
@@ -203,7 +203,7 @@ foo2 :: Ptr.FunPtr (F -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr FC.
 foo2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c9dcd020e5be4af9
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo3@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_get_foo3@
 foreign import ccall unsafe "hs_bindgen_c2295c3f61edf4e7" hs_bindgen_c2295c3f61edf4e7 ::
      IO (Ptr.FunPtr (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr C)))
 
@@ -219,7 +219,7 @@ foo3 :: Ptr.FunPtr (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr
 foo3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c2295c3f61edf4e7
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar1@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar1@
 foreign import ccall unsafe "hs_bindgen_d9b2e6e188ecbfea" hs_bindgen_d9b2e6e188ecbfea ::
      IO (Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))))
 
@@ -235,7 +235,7 @@ bar1 :: Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt)))
 bar1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d9b2e6e188ecbfea
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar2@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar2@
 foreign import ccall unsafe "hs_bindgen_111db9707ae2a631" hs_bindgen_111db9707ae2a631 ::
      IO (Ptr.FunPtr (L -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))))
 
@@ -251,7 +251,7 @@ bar2 :: Ptr.FunPtr (L -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt)))
 bar2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_111db9707ae2a631
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar3@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar3@
 foreign import ccall unsafe "hs_bindgen_00996e2c7c9e793b" hs_bindgen_00996e2c7c9e793b ::
      IO (Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (S -> IO FC.CInt))))
 
@@ -267,7 +267,7 @@ bar3 :: Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (S -> IO FC.CInt)))
 bar3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_00996e2c7c9e793b
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar4@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_get_bar4@
 foreign import ccall unsafe "hs_bindgen_aa46ba685e4693da" hs_bindgen_aa46ba685e4693da ::
      IO (Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO I))))
 
@@ -283,7 +283,7 @@ bar4 :: Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO I)))
 bar4 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_aa46ba685e4693da
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz1@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz1@
 foreign import ccall unsafe "hs_bindgen_86b147342f608069" hs_bindgen_86b147342f608069 ::
      IO (Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))))
 
@@ -299,7 +299,7 @@ baz1 :: Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.Con
 baz1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_86b147342f608069
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz2@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz2@
 foreign import ccall unsafe "hs_bindgen_a7194966e4f375df" hs_bindgen_a7194966e4f375df ::
      IO (Ptr.FunPtr (I -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))))
 
@@ -315,7 +315,7 @@ baz2 :: Ptr.FunPtr (I -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantA
 baz2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a7194966e4f375df
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz3@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_get_baz3@
 foreign import ccall unsafe "hs_bindgen_cd69bb91c3e6d7ea" hs_bindgen_cd69bb91c3e6d7ea ::
      IO (Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I)))))
 
@@ -331,7 +331,7 @@ baz3 :: Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.Con
 baz3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cd69bb91c3e6d7ea
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_get_no_args_no_void@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_get_no_args_no_void@
 foreign import ccall unsafe "hs_bindgen_d5b5e70d96cc6b8d" hs_bindgen_d5b5e70d96cc6b8d ::
      IO (Ptr.FunPtr (IO I))
 

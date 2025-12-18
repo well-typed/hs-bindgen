@@ -14,10 +14,10 @@ newtype F1_Deref
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving newtype HasBaseForeignType
--- | __unique:__ @toF1_Deref@
+-- __unique:__ @toF1_Deref@
 foreign import ccall safe "wrapper" hs_bindgen_fa93becf814ab275 :: F1_Deref ->
                                                                    IO (FunPtr F1_Deref)
--- | __unique:__ @fromF1_Deref@
+-- __unique:__ @fromF1_Deref@
 foreign import ccall safe "dynamic" hs_bindgen_5a971083f7b8024b :: FunPtr F1_Deref ->
                                                                    F1_Deref
 instance ToFunPtr F1_Deref
@@ -68,10 +68,10 @@ newtype F2_Deref
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving newtype HasBaseForeignType
--- | __unique:__ @toF2_Deref@
+-- __unique:__ @toF2_Deref@
 foreign import ccall safe "wrapper" hs_bindgen_8741614e72e842ed :: F2_Deref ->
                                                                    IO (FunPtr F2_Deref)
--- | __unique:__ @fromF2_Deref@
+-- __unique:__ @fromF2_Deref@
 foreign import ccall safe "dynamic" hs_bindgen_4b21dd5f07b53aa8 :: FunPtr F2_Deref ->
                                                                    F2_Deref
 instance ToFunPtr F2_Deref
@@ -122,10 +122,10 @@ newtype F3_Deref
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving newtype HasBaseForeignType
--- | __unique:__ @toF3_Deref@
+-- __unique:__ @toF3_Deref@
 foreign import ccall safe "wrapper" hs_bindgen_04d39f91c5c62278 :: F3_Deref ->
                                                                    IO (FunPtr F3_Deref)
--- | __unique:__ @fromF3_Deref@
+-- __unique:__ @fromF3_Deref@
 foreign import ccall safe "dynamic" hs_bindgen_aee01b3475cc645c :: FunPtr F3_Deref ->
                                                                    F3_Deref
 instance ToFunPtr F3_Deref
@@ -176,10 +176,10 @@ newtype F4_Deref
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving newtype HasBaseForeignType
--- | __unique:__ @toF4_Deref@
+-- __unique:__ @toF4_Deref@
 foreign import ccall safe "wrapper" hs_bindgen_b1dc6cdfd1046f6c :: F4_Deref ->
                                                                    IO (FunPtr F4_Deref)
--- | __unique:__ @fromF4_Deref@
+-- __unique:__ @fromF4_Deref@
 foreign import ccall safe "dynamic" hs_bindgen_bf80b45e357edad9 :: FunPtr F4_Deref ->
                                                                    F4_Deref
 instance ToFunPtr F4_Deref
@@ -229,10 +229,10 @@ newtype F5_Deref
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving newtype HasBaseForeignType
--- | __unique:__ @toF5_Deref@
+-- __unique:__ @toF5_Deref@
 foreign import ccall safe "wrapper" hs_bindgen_82c23fe0d26463bd :: F5_Deref ->
                                                                    IO (FunPtr F5_Deref)
--- | __unique:__ @fromF5_Deref@
+-- __unique:__ @fromF5_Deref@
 foreign import ccall safe "dynamic" hs_bindgen_9e30690aa537cac5 :: FunPtr F5_Deref ->
                                                                    F5_Deref
 instance ToFunPtr F5_Deref
@@ -313,10 +313,10 @@ newtype F6_Deref
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
     deriving newtype HasBaseForeignType
--- | __unique:__ @toF6_Deref@
+-- __unique:__ @toF6_Deref@
 foreign import ccall safe "wrapper" hs_bindgen_8c739a057f4c416d :: F6_Deref ->
                                                                    IO (FunPtr F6_Deref)
--- | __unique:__ @fromF6_Deref@
+-- __unique:__ @fromF6_Deref@
 foreign import ccall safe "dynamic" hs_bindgen_95e55fee8d4c2b5b :: FunPtr F6_Deref ->
                                                                    F6_Deref
 instance ToFunPtr F6_Deref

@@ -90,7 +90,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_edgecasesiterator_Example_get_makeToggle@
+-- __unique:__ @test_edgecasesiterator_Example_get_makeToggle@
 foreign import ccall unsafe "hs_bindgen_ccdad25a057f8efd" hs_bindgen_ccdad25a057f8efd ::
      IO (Ptr.FunPtr (FC.CBool -> IO Toggle))
 
@@ -106,7 +106,7 @@ makeToggle :: Ptr.FunPtr (FC.CBool -> IO Toggle)
 makeToggle =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ccdad25a057f8efd
 
--- | __unique:__ @test_edgecasesiterator_Example_get_toggleNext@
+-- __unique:__ @test_edgecasesiterator_Example_get_toggleNext@
 foreign import ccall unsafe "hs_bindgen_fd8e19ba2d78baa9" hs_bindgen_fd8e19ba2d78baa9 ::
      IO (Ptr.FunPtr (Toggle -> IO FC.CBool))
 
@@ -122,7 +122,7 @@ toggleNext :: Ptr.FunPtr (Toggle -> IO FC.CBool)
 toggleNext =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fd8e19ba2d78baa9
 
--- | __unique:__ @test_edgecasesiterator_Example_get_releaseToggle@
+-- __unique:__ @test_edgecasesiterator_Example_get_releaseToggle@
 foreign import ccall unsafe "hs_bindgen_780e490698de9df1" hs_bindgen_780e490698de9df1 ::
      IO (Ptr.FunPtr (Toggle -> IO ()))
 
@@ -138,7 +138,7 @@ releaseToggle :: Ptr.FunPtr (Toggle -> IO ())
 releaseToggle =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_780e490698de9df1
 
--- | __unique:__ @test_edgecasesiterator_Example_get_makeCounter@
+-- __unique:__ @test_edgecasesiterator_Example_get_makeCounter@
 foreign import ccall unsafe "hs_bindgen_517dd14dbdb5e3ba" hs_bindgen_517dd14dbdb5e3ba ::
      IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter))
 
@@ -154,7 +154,7 @@ makeCounter :: Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter)
 makeCounter =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_517dd14dbdb5e3ba
 
--- | __unique:__ @test_edgecasesiterator_Example_get_counterNext@
+-- __unique:__ @test_edgecasesiterator_Example_get_counterNext@
 foreign import ccall unsafe "hs_bindgen_28d81dd8ce6aca30" hs_bindgen_28d81dd8ce6aca30 ::
      IO (Ptr.FunPtr (Counter -> IO FC.CInt))
 
@@ -170,7 +170,7 @@ counterNext :: Ptr.FunPtr (Counter -> IO FC.CInt)
 counterNext =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_28d81dd8ce6aca30
 
--- | __unique:__ @test_edgecasesiterator_Example_get_releaseCounter@
+-- __unique:__ @test_edgecasesiterator_Example_get_releaseCounter@
 foreign import ccall unsafe "hs_bindgen_849de94baad0430a" hs_bindgen_849de94baad0430a ::
      IO (Ptr.FunPtr (Counter -> IO ()))
 
@@ -186,7 +186,7 @@ releaseCounter :: Ptr.FunPtr (Counter -> IO ())
 releaseCounter =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_849de94baad0430a
 
--- | __unique:__ @test_edgecasesiterator_Example_get_makeVarCounter@
+-- __unique:__ @test_edgecasesiterator_Example_get_makeVarCounter@
 foreign import ccall unsafe "hs_bindgen_8eea20d99febeef3" hs_bindgen_8eea20d99febeef3 ::
      IO (Ptr.FunPtr (FC.CInt -> IO VarCounter))
 
@@ -202,7 +202,7 @@ makeVarCounter :: Ptr.FunPtr (FC.CInt -> IO VarCounter)
 makeVarCounter =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8eea20d99febeef3
 
--- | __unique:__ @test_edgecasesiterator_Example_get_varCounterNext@
+-- __unique:__ @test_edgecasesiterator_Example_get_varCounterNext@
 foreign import ccall unsafe "hs_bindgen_3ae982266c863a3d" hs_bindgen_3ae982266c863a3d ::
      IO (Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt))
 
@@ -218,7 +218,7 @@ varCounterNext :: Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt)
 varCounterNext =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_3ae982266c863a3d
 
--- | __unique:__ @test_edgecasesiterator_Example_get_releaseVarCounter@
+-- __unique:__ @test_edgecasesiterator_Example_get_releaseVarCounter@
 foreign import ccall unsafe "hs_bindgen_802a723805cb041f" hs_bindgen_802a723805cb041f ::
      IO (Ptr.FunPtr (VarCounter -> IO ()))
 

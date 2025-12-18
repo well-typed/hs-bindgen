@@ -22,7 +22,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
+-- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" hs_bindgen_57cb99ed92c001ad ::
      Ptr.Ptr A_type_t
   -> HsBindgen.Runtime.Prelude.Word32

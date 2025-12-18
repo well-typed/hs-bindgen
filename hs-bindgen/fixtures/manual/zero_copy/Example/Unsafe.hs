@@ -31,7 +31,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
+-- __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
 foreign import ccall unsafe "hs_bindgen_f9655173d51bbaac" hs_bindgen_f9655173d51bbaac ::
      HsBindgen.Runtime.ConstPtr.ConstPtr Vector
   -> Ptr.Ptr Vector
@@ -51,7 +51,7 @@ reverse ::
   -> IO FC.CInt
 reverse = hs_bindgen_f9655173d51bbaac
 
--- | __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
+-- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
 foreign import ccall unsafe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627dd5ed2 ::
      HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
   -> Ptr.Ptr Triplet

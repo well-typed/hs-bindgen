@@ -229,12 +229,12 @@ newtype Event_callback_t_Deref = Event_callback_t_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- | __unique:__ @toEvent_callback_t_Deref@
+-- __unique:__ @toEvent_callback_t_Deref@
 foreign import ccall safe "wrapper" hs_bindgen_0f8e2c78e0583f5e ::
      Event_callback_t_Deref
   -> IO (Ptr.FunPtr Event_callback_t_Deref)
 
--- | __unique:__ @fromEvent_callback_t_Deref@
+-- __unique:__ @fromEvent_callback_t_Deref@
 foreign import ccall safe "dynamic" hs_bindgen_9dbdfc6c37a7780f ::
      Ptr.FunPtr Event_callback_t_Deref
   -> Event_callback_t_Deref
@@ -1029,12 +1029,12 @@ newtype Processor_fn_t_Deref = Processor_fn_t_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- | __unique:__ @toProcessor_fn_t_Deref@
+-- __unique:__ @toProcessor_fn_t_Deref@
 foreign import ccall safe "wrapper" hs_bindgen_5f7a57f9f2b19661 ::
      Processor_fn_t_Deref
   -> IO (Ptr.FunPtr Processor_fn_t_Deref)
 
--- | __unique:__ @fromProcessor_fn_t_Deref@
+-- __unique:__ @fromProcessor_fn_t_Deref@
 foreign import ccall safe "dynamic" hs_bindgen_a894574bbd080808 ::
      Ptr.FunPtr Processor_fn_t_Deref
   -> Processor_fn_t_Deref

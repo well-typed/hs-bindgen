@@ -16,7 +16,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_functionsvarargs_Example_Safe_h@
+-- __unique:__ @test_functionsvarargs_Example_Safe_h@
 foreign import ccall safe "hs_bindgen_77a4bac5bbe80f62" hs_bindgen_77a4bac5bbe80f62 ::
      IO ()
 

@@ -667,10 +667,10 @@ newtype Callback_t_Deref
       __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving newtype HasBaseForeignType
--- | __unique:__ @toCallback_t_Deref@
+-- __unique:__ @toCallback_t_Deref@
 foreign import ccall safe "wrapper" hs_bindgen_24eac512dce926e9 :: Callback_t_Deref ->
                                                                    IO (FunPtr Callback_t_Deref)
--- | __unique:__ @fromCallback_t_Deref@
+-- __unique:__ @fromCallback_t_Deref@
 foreign import ccall safe "dynamic" hs_bindgen_893b8fa3b3f09882 :: FunPtr Callback_t_Deref ->
                                                                    Callback_t_Deref
 instance ToFunPtr Callback_t_Deref
@@ -710,7 +710,7 @@ instance HasCField Callback_t "un_Callback_t"
     where type CFieldType Callback_t
                           "un_Callback_t" = FunPtr Callback_t_Deref
           offset# = \_ -> \_ -> 0
--- | __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
+-- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" hs_bindgen_57cb99ed92c001ad :: Ptr A_type_t ->
                                                                                        HsBindgen.Runtime.Prelude.Word32 ->
                                                                                        Ptr HsBindgen.Runtime.Prelude.Word8 ->
@@ -732,7 +732,7 @@ some_fun :: Ptr A_type_t ->
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 some_fun = hs_bindgen_57cb99ed92c001ad
--- | __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
+-- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
 foreign import ccall safe "hs_bindgen_2a91c367a9380a63" hs_bindgen_2a91c367a9380a63 :: Ptr A_type_t ->
                                                                                        HsBindgen.Runtime.Prelude.Word32 ->
                                                                                        Ptr HsBindgen.Runtime.Prelude.Word8 ->
@@ -754,7 +754,7 @@ some_fun :: Ptr A_type_t ->
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 some_fun = hs_bindgen_2a91c367a9380a63
--- | __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun@
+-- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun@
 foreign import ccall safe "hs_bindgen_1ade3cfc18679577" hs_bindgen_1ade3cfc18679577 :: IO (FunPtr (Ptr A_type_t ->
                                                                                                    HsBindgen.Runtime.Prelude.Word32 ->
                                                                                                    IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
@@ -777,7 +777,7 @@ some_fun :: FunPtr (Ptr A_type_t ->
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 some_fun = unsafePerformIO hs_bindgen_1ade3cfc18679577
--- | __unique:__ @test_edgecasesdistilled_lib_1_Example_get_v@
+-- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_v@
 foreign import ccall safe "hs_bindgen_226b16768d8906f3" hs_bindgen_226b16768d8906f3 :: IO (Ptr Var_t)
 {-# NOINLINE v #-}
 {-| __C declaration:__ @v@

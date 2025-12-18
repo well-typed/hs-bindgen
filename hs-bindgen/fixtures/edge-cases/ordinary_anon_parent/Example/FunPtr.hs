@@ -23,7 +23,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos@
+-- __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos@
 foreign import ccall unsafe "hs_bindgen_147bbeebcb063844" hs_bindgen_147bbeebcb063844 ::
      IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
 

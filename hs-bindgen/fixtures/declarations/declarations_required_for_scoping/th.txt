@@ -47,7 +47,7 @@ newtype A
                       Ix,
                       Num,
                       Real)
--- | __unique:__ @test_declarationsdeclarations_requ_Example_Safe_f@
+-- __unique:__ @test_declarationsdeclarations_requ_Example_Safe_f@
 foreign import ccall safe "hs_bindgen_0d1c75136a36e326" hs_bindgen_0d1c75136a36e326 :: A ->
                                                                                        IO Unit
 {-| __C declaration:__ @f@
@@ -64,7 +64,7 @@ f :: A -> IO Unit
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
 f = hs_bindgen_0d1c75136a36e326
--- | __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
+-- __unique:__ @test_declarationsdeclarations_requ_Example_Unsafe_f@
 foreign import ccall safe "hs_bindgen_93ed1628a0edf6b0" hs_bindgen_93ed1628a0edf6b0 :: A ->
                                                                                        IO Unit
 {-| __C declaration:__ @f@
@@ -81,7 +81,7 @@ f :: A -> IO Unit
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
 f = hs_bindgen_93ed1628a0edf6b0
--- | __unique:__ @test_declarationsdeclarations_requ_Example_get_f@
+-- __unique:__ @test_declarationsdeclarations_requ_Example_get_f@
 foreign import ccall safe "hs_bindgen_0d4da37880af2263" hs_bindgen_0d4da37880af2263 :: IO (FunPtr (A ->
                                                                                                    IO Unit))
 {-# NOINLINE f #-}

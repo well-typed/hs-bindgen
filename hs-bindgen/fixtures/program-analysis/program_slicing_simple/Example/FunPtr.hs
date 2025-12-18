@@ -26,7 +26,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_programanalysisprogram_slici_Example_get_bar@
+-- __unique:__ @test_programanalysisprogram_slici_Example_get_bar@
 foreign import ccall unsafe "hs_bindgen_993162e0dadfa2c9" hs_bindgen_993162e0dadfa2c9 ::
      IO (Ptr.FunPtr (Foreign.Int64 -> Uint32_t -> IO FC.CInt))
 

@@ -33,7 +33,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_multiply_complex_f@
+-- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_multiply_complex_f@
 foreign import ccall unsafe "hs_bindgen_e5e3172c2163672b" hs_bindgen_e5e3172c2163672b ::
      Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
@@ -72,7 +72,7 @@ multiply_complex_f =
                                 HsBindgen.Runtime.CAPI.allocaAndPeek (\z4 ->
                                                                         hs_bindgen_e5e3172c2163672b y3 y2 z4)))
 
--- | __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_add_complex@
+-- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_add_complex@
 foreign import ccall unsafe "hs_bindgen_28f2705e917973ab" hs_bindgen_28f2705e917973ab ::
      Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)

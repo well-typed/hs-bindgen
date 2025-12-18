@@ -54,7 +54,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_functionssimple_func_Example_get_erf@
+-- __unique:__ @test_functionssimple_func_Example_get_erf@
 foreign import ccall unsafe "hs_bindgen_97654202e0d79fbb" hs_bindgen_97654202e0d79fbb ::
      IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
 
@@ -70,7 +70,7 @@ erf :: Ptr.FunPtr (FC.CDouble -> IO FC.CDouble)
 erf =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_97654202e0d79fbb
 
--- | __unique:__ @test_functionssimple_func_Example_get_bad_fma@
+-- __unique:__ @test_functionssimple_func_Example_get_bad_fma@
 foreign import ccall unsafe "hs_bindgen_4c8418e152e9ddbc" hs_bindgen_4c8418e152e9ddbc ::
      IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble))
 
@@ -86,7 +86,7 @@ bad_fma :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble)
 bad_fma =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4c8418e152e9ddbc
 
--- | __unique:__ @test_functionssimple_func_Example_get_no_args@
+-- __unique:__ @test_functionssimple_func_Example_get_no_args@
 foreign import ccall unsafe "hs_bindgen_a271856b1fcc9477" hs_bindgen_a271856b1fcc9477 ::
      IO (Ptr.FunPtr (IO ()))
 
@@ -102,7 +102,7 @@ no_args :: Ptr.FunPtr (IO ())
 no_args =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a271856b1fcc9477
 
--- | __unique:__ @test_functionssimple_func_Example_get_no_args_no_void@
+-- __unique:__ @test_functionssimple_func_Example_get_no_args_no_void@
 foreign import ccall unsafe "hs_bindgen_73f2a4bbf4a49702" hs_bindgen_73f2a4bbf4a49702 ::
      IO (Ptr.FunPtr (IO ()))
 
@@ -118,7 +118,7 @@ no_args_no_void :: Ptr.FunPtr (IO ())
 no_args_no_void =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_73f2a4bbf4a49702
 
--- | __unique:__ @test_functionssimple_func_Example_get_fun@
+-- __unique:__ @test_functionssimple_func_Example_get_fun@
 foreign import ccall unsafe "hs_bindgen_5416cbf886368c01" hs_bindgen_5416cbf886368c01 ::
      IO (Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt))
 

@@ -154,7 +154,9 @@ instance Pretty CommentKind where
             PartOfDeclarationComment c -> ("{- ^", "-}", c)
             THComment c                -> ("", "", c)
         indentation = length commentStart - 1
-        fromCCtxDoc = catMaybes [
+        -- Separate user-facing metadata (for documentation) from internal metadata.
+        -- Only user-facing metadata should trigger Haddock comment syntax.
+        userFacingMetadata = catMaybes [
                         (\n -> "__C declaration:__ @"
                             >< textToCtxDoc n
                             >< "@") <$> commentOrigin
@@ -165,11 +167,14 @@ instance Pretty CommentKind where
                       , (\hinfo -> "__exported by:__ @"
                                 >< prettyMainHeaders hinfo
                                 >< "@") <$> commentHeaderInfo
-                      , (\u -> "__unique:__ @"
+                      ]
+        internalMetadata = catMaybes [
+                        (\u -> "__unique:__ @"
                            >< string u.source
                            >< "@"
                         ) <$> commentUnique
                       ]
+        allMetadata = userFacingMetadata ++ internalMetadata
         firstContent =
           case commentTitle of
             Nothing -> empty
@@ -183,30 +188,35 @@ instance Pretty CommentKind where
         -- title.
      in case commentChildren of
           [] | Nothing <- commentTitle
-             , [singleMetadata] <- fromCCtxDoc ->
-                -- Single metadata line only: use single-line style
+             , [singleMetadata] <- userFacingMetadata ->
+                -- Single user-facing metadata: use Haddock single-line style
                 string singleLineStart <+> singleMetadata
              | Nothing <- commentTitle
-             , not (null fromCCtxDoc) ->
+             , null userFacingMetadata
+             , [singleMetadata] <- internalMetadata ->
+                -- Only internal metadata: use regular comment
+                "--" <+> singleMetadata
+             | Nothing <- commentTitle
+             , not (null allMetadata) ->
                 string commentStart
-            <+> vsep fromCCtxDoc
+            <+> vsep allMetadata
              $$ string commentEnd
              | Just _ <- commentTitle
-             , null fromCCtxDoc ->
+             , null allMetadata ->
                 string commentStart
             <+> firstContent
              $$ string commentEnd
              | Just _  <- commentTitle
-             , not (null fromCCtxDoc) ->
+             , not (null allMetadata) ->
                 string commentStart
             <+> firstContent
-            $+$ vsep fromCCtxDoc
+            $+$ vsep allMetadata
              $$ string commentEnd
              | otherwise -> empty
 
           _ -> vsep (string commentStart <+> firstContent
                      : map (nest indentation . pretty) commentChildren)
-            $+$ vcat [ vsep fromCCtxDoc
+            $+$ vcat [ vsep allMetadata
                      , string commentEnd
                      ]
 

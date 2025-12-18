@@ -47,7 +47,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
+-- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
 foreign import ccall safe "hs_bindgen_4ad25504590fdd2b" hs_bindgen_4ad25504590fdd2b ::
      Ptr.Ptr Thing
   -> IO FC.CInt
@@ -74,7 +74,7 @@ thing_fun_1 =
   \x0 ->
     F.with x0 (\y1 -> hs_bindgen_4ad25504590fdd2b y1)
 
--- | __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_2@
+-- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_2@
 foreign import ccall safe "hs_bindgen_04a435522bf64978" hs_bindgen_04a435522bf64978 ::
      FC.CInt
   -> Ptr.Ptr Thing
@@ -104,7 +104,7 @@ thing_fun_2 =
     HsBindgen.Runtime.CAPI.allocaAndPeek (\z1 ->
                                             hs_bindgen_04a435522bf64978 x0 z1)
 
--- | __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3a@
+-- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3a@
 foreign import ccall safe "hs_bindgen_5e3271324df7ced2" hs_bindgen_5e3271324df7ced2 ::
      FC.CInt
   -> Ptr.Ptr Thing
@@ -147,7 +147,7 @@ thing_fun_3a =
                      HsBindgen.Runtime.CAPI.allocaAndPeek (\z4 ->
                                                              hs_bindgen_5e3271324df7ced2 x0 y3 x2 z4))
 
--- | __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3b@
+-- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3b@
 foreign import ccall safe "hs_bindgen_3525c7d1c72f2fae" hs_bindgen_3525c7d1c72f2fae ::
      FC.CInt
   -> Ptr.Ptr Thing

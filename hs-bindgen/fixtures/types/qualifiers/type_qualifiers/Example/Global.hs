@@ -77,7 +77,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_a@
+-- __unique:__ @test_typesqualifierstype_qualifie_Example_get_a@
 foreign import ccall unsafe "hs_bindgen_b9f6c3995e03a64f" hs_bindgen_b9f6c3995e03a64f ::
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 
@@ -101,7 +101,7 @@ a :: FC.CInt
 a =
   GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_568187d7e5f899e0))
 
--- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_b@
+-- __unique:__ @test_typesqualifierstype_qualifie_Example_get_b@
 foreign import ccall unsafe "hs_bindgen_2a09e45ccb76e4da" hs_bindgen_2a09e45ccb76e4da ::
      IO (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))
 
@@ -117,7 +117,7 @@ b :: Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 b =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2a09e45ccb76e4da
 
--- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_c@
+-- __unique:__ @test_typesqualifierstype_qualifie_Example_get_c@
 foreign import ccall unsafe "hs_bindgen_9cef5885d51a5077" hs_bindgen_9cef5885d51a5077 ::
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr FC.CInt))
 
@@ -141,7 +141,7 @@ c :: Ptr.Ptr FC.CInt
 c =
   GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_86ab1f1ce8db256e))
 
--- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_d@
+-- __unique:__ @test_typesqualifierstype_qualifie_Example_get_d@
 foreign import ccall unsafe "hs_bindgen_039fc3584df4cf95" hs_bindgen_039fc3584df4cf95 ::
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))
 
@@ -165,7 +165,7 @@ d :: HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
 d =
   GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_f5892dac29d00ba8))
 
--- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_e@
+-- __unique:__ @test_typesqualifierstype_qualifie_Example_get_e@
 foreign import ccall unsafe "hs_bindgen_cdf2cbe09fc53047" hs_bindgen_cdf2cbe09fc53047 ::
      IO (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
 
@@ -181,7 +181,7 @@ e :: Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.Co
 e =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cdf2cbe09fc53047
 
--- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_f@
+-- __unique:__ @test_typesqualifierstype_qualifie_Example_get_f@
 foreign import ccall unsafe "hs_bindgen_93ddb0dbf8706068" hs_bindgen_93ddb0dbf8706068 ::
      IO (Ptr.Ptr (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))))
 
@@ -197,7 +197,7 @@ f :: Ptr.Ptr (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.Co
 f =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_93ddb0dbf8706068
 
--- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_g@
+-- __unique:__ @test_typesqualifierstype_qualifie_Example_get_g@
 foreign import ccall unsafe "hs_bindgen_e6c23ab326a206a8" hs_bindgen_e6c23ab326a206a8 ::
      IO (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))))
 
@@ -213,7 +213,7 @@ g :: Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr (HsBindgen.Runtime.Co
 g =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e6c23ab326a206a8
 
--- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_h@
+-- __unique:__ @test_typesqualifierstype_qualifie_Example_get_h@
 foreign import ccall unsafe "hs_bindgen_f23087f72d34068b" hs_bindgen_f23087f72d34068b ::
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))))
 
@@ -237,7 +237,7 @@ h :: HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr (H
 h =
   GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_2461912a034924cf))
 
--- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_i@
+-- __unique:__ @test_typesqualifierstype_qualifie_Example_get_i@
 foreign import ccall unsafe "hs_bindgen_ed73ead5c58fe94a" hs_bindgen_ed73ead5c58fe94a ::
      IO (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr FC.CInt)))))
 
@@ -253,7 +253,7 @@ i :: Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr (HsBindgen.Runtime.Co
 i =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ed73ead5c58fe94a
 
--- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_j@
+-- __unique:__ @test_typesqualifierstype_qualifie_Example_get_j@
 foreign import ccall unsafe "hs_bindgen_92d2adc70d4b87ee" hs_bindgen_92d2adc70d4b87ee ::
      IO (Ptr.Ptr (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))))
 
