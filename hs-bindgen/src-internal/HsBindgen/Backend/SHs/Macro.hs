@@ -34,19 +34,15 @@ import DeBruijn (EmptyCtx, Idx (..), Size (..), rzeroAdd)
 -------------------------------------------------------------------------------}
 
 translateMacroExpr :: Hs.MacroExpr -> SDecl
-translateMacroExpr expr = DVar Var{
-      varName    = name
-    , varType    = translateType macroExprType
-    , varExpr    = translateBody macroExprArgs macroExprBody
-    , varComment = comment
+translateMacroExpr Hs.MacroExpr{..} = DBinding Binding{
+      name       = name
+    , parameters = []
+    , result     = Result (translateType macroExprType) Nothing
+    , body       = translateBody macroExprArgs macroExprBody
+    , pragmas    = []
+    , comment    = comment
     }
   where
-    Hs.MacroExpr{
-        macroExprName    = name
-      , macroExprBody    = body
-      , macroExprComment = comment
-      } = expr
-
     macroExprArgs :: [DSL.Name]
     macroExprBody :: DSL.MExpr Ps
     macroExprType :: DSL.Quant (DSL.Type Ty)

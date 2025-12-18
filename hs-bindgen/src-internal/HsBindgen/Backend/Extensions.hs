@@ -14,9 +14,6 @@ import HsBindgen.Imports
 -- | Which GHC language extensions this declarations needs.
 requiredExtensions :: SDecl -> Set TH.Extension
 requiredExtensions = \case
-    DVar Var {..} ->
-         typeExtensions varType
-      <> exprExtensions varExpr
     DInst x -> mconcat . concat $ [
         [ext TH.MultiParamTypeClasses | length (instanceArgs x) >= 2]
       , [ext TH.TypeFamilies          | not (null (instanceTypes x))]
@@ -45,7 +42,7 @@ requiredExtensions = \case
     DEmptyData{} -> mconcat [
         ext TH.EmptyDataDecls
       ]
-    DDerivingInstance DerivingInstance {..} -> mconcat [
+    DDerivingInstance DerivingInstance{..} -> mconcat [
         Set.fromList [
             TH.DerivingStrategies
           , TH.StandaloneDeriving
@@ -53,21 +50,18 @@ requiredExtensions = \case
       , strategyExtensions derivingInstanceStrategy
       , typeExtensions derivingInstanceType
       ]
-    DForeignImport ForeignImport {..} -> mconcat [
+    DForeignImport ForeignImport{..} -> mconcat [
         -- Note: GHC doesn't require CApiFFI in TH: https://gitlab.haskell.org/ghc/ghc/-/issues/25774
         ext TH.CApiFFI
-      ,    foldMap (typeExtensions . functionParameterType)
-                   foreignImportParameters
-        <> typeExtensions foreignImportResultType
+      ,    foldMap (typeExtensions . (.typ)) foreignImportParameters
+        <> typeExtensions foreignImportResult.typ
       ]
-    DFunction Function {..} ->
-         foldMap (typeExtensions . functionParameterType) functionParameters
-      <> typeExtensions functionResultType
-      <> exprExtensions functionBody
+    DBinding Binding{..} ->
+         foldMap (typeExtensions . (.typ)) parameters
+      <> typeExtensions (result.typ)
+      <> exprExtensions body
     DPatternSynonym{} -> mconcat [
         ext TH.PatternSynonyms
-      ]
-    DPragma{} -> mconcat [
       ]
   where
     ext :: TH.Extension -> Set TH.Extension

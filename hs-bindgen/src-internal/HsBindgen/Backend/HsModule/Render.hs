@@ -301,16 +301,6 @@ renderWrappers wrappers
 
 instance Pretty SDecl where
   pretty = \case
-    DVar Var {..} ->
-      maybe empty (pretty . TopLevelComment) varComment
-      $$
-      (pretty varName <+> string "::" <+> pretty varType)
-      $$
-      fsep
-        [ pretty varName <+> char '='
-        , nest 2 $ pretty varExpr
-        ]
-
     DInst Instance{..} ->
       let constraints =
             [ hsep (pretty (resolve c) : (map (prettyPrec 1) ts))
@@ -361,7 +351,7 @@ instance Pretty SDecl where
 
     DEmptyData EmptyData{..} ->
       let prettyComment = maybe empty (pretty . TopLevelComment) emptyDataComment
-       in  prettyComment
+      in  prettyComment
         $$ hsep ["data", pretty emptyDataName]
 
     DNewtype Newtype{..} ->
@@ -403,9 +393,9 @@ instance Pretty SDecl where
                 , string $ Text.unpack foreignImportOrigName.text
                 ])
 
-          prettyFunctionComment = maybe empty (pretty . TopLevelComment) foreignImportComment
+          prettyComment = maybe empty (pretty . TopLevelComment) foreignImportComment
 
-      in  prettyFunctionComment
+      in  prettyComment
        $$ hsep [ "foreign import"
                , callconv
                , safety foreignImportSafety
@@ -413,33 +403,37 @@ instance Pretty SDecl where
                , pretty foreignImportName
                , "::"
                ]
-       $$ nest 5 (prettyForeignImportType foreignImportResultType
-                                          foreignImportParameters)
+       $$ nest 5 (prettyBindingType foreignImportParameters foreignImportResult)
 
-    DFunction Function{..} ->
-      let prettyTopLevelComment = maybe empty (pretty . TopLevelComment) functionComment
-          prettyFunctionName = pretty functionName
-       in  prettyTopLevelComment
-        $$ prettyFunctionName <+> "::"
-        $$ nest 5 (prettyForeignImportType functionResultType functionParameters)
-        $$ fsep
-             [ prettyFunctionName <+> char '='
-             , nest 2 $ pretty functionBody
-             ]
+    DBinding Binding{..} ->
+      let prettyComment = maybe empty (pretty . TopLevelComment) comment
+          prettyName    = pretty name
+          prettyTyp     = prettyBindingType parameters result
+          prettySignature =
+            if null parameters; then
+              prettyName <+> "::" <+> prettyTyp
+            else
+              prettyName <+> "::" $$  nest 5 prettyTyp
+      in  vcat (map (prettyPragma name) pragmas)
+       $$ prettyComment
+       $$ prettySignature
+       $$ fsep
+            [ prettyName <+> char '='
+            , nest 2 $ pretty body
+            ]
 
-    DDerivingInstance DerivingInstance {..} -> maybe empty (pretty . TopLevelComment) derivingInstanceComment
-                                            $$ "deriving" <+> strategy derivingInstanceStrategy
-                                                          <+> "instance"
-                                                          <+> pretty derivingInstanceType
+    DDerivingInstance DerivingInstance {..} ->
+      maybe empty (pretty . TopLevelComment) derivingInstanceComment
+        $$ "deriving" <+> strategy derivingInstanceStrategy
+                      <+> "instance"
+                      <+> pretty derivingInstanceType
 
     DPatternSynonym PatternSynonym {..} ->
-      let prettyEnumConstantComment = maybe empty (pretty . TopLevelComment) patSynComment
-       in vcat [ prettyEnumConstantComment
+      let prettyComment = maybe empty (pretty . TopLevelComment) patSynComment
+       in vcat [ prettyComment
                , "pattern" <+> pretty patSynName <+> "::" <+> pretty patSynType
                , "pattern" <+> pretty patSynName <+> "=" <+> pretty patSynRHS
                ]
-
-    DPragma p -> pragma p
 
 -- | Nested deriving clauses (as part of a datatype declaration)
 nestedDeriving :: [(Hs.Strategy ClosedType, [Global])] -> CtxDoc
@@ -461,8 +455,9 @@ strategy Hs.DeriveNewtype  = "newtype"
 strategy Hs.DeriveStock    = "stock"
 strategy (Hs.DeriveVia ty) = "via" <+> pretty ty
 
-pragma :: Pragma -> CtxDoc
-pragma (NOINLINE n) = "{-# NOINLINE" <+> pretty n <+> "#-}"
+prettyPragma :: Hs.Name Hs.NsVar -> Pragma -> CtxDoc
+prettyPragma n = \case
+  NOINLINE -> "{-# NOINLINE" <+> pretty n <+> "#-}"
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/94>
 -- We should generate both safe and unsafe bindings.
@@ -477,22 +472,22 @@ safety Unsafe = "unsafe"
 instance ctx ~ EmptyCtx => Pretty (SType ctx) where
   prettyPrec = prettyType EmptyEnv
 
-prettyForeignImportType :: ClosedType -> [FunctionParameter] -> CtxDoc
-prettyForeignImportType resultType params =
+prettyBindingType :: [Parameter] -> Result -> CtxDoc
+prettyBindingType params result =
   case params of
-    [] -> prettyResultType resultType
+    [] -> prettyResultType result.typ
     _  -> prettyParams params
   where
-    prettyParam FunctionParameter{..} =
-      case functionParameterType of
-        TFun {} -> prettyType EmptyEnv 1 functionParameterType
-        _       -> prettyType EmptyEnv 0 functionParameterType
-      $$ maybe empty (pretty . PartOfDeclarationComment) functionParameterComment
+    prettyParam p =
+      case p.typ of
+        TFun {} -> prettyType EmptyEnv 1 p.typ
+        _       -> prettyType EmptyEnv 0 p.typ
+      $$ maybe empty (pretty . PartOfDeclarationComment) p.comment
 
 
     prettyResultType t = prettyType EmptyEnv 0 t
 
-    prettyParams []     = prettyResultType resultType
+    prettyParams []     = prettyResultType result.typ
     prettyParams (p:ps) =
          prettyParam p
       $$ nest (-3) ("->" <+> prettyParams ps)

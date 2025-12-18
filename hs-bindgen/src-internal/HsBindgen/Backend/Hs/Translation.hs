@@ -35,7 +35,6 @@ import HsBindgen.Backend.Hs.Translation.State (HsM, TranslationState)
 import HsBindgen.Backend.Hs.Translation.State qualified as State
 import HsBindgen.Backend.Hs.Translation.ToFromFunPtr qualified as ToFromFunPtr
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
-import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
@@ -1190,20 +1189,18 @@ constGetter ::
   -> C.DeclInfo
   -> Hs.Name Hs.NsVar
   -> [Hs.Decl]
-constGetter ty info pureStubName = [
-      Hs.DeclPragma (SHs.NOINLINE getterName)
-    , getterDecl
-    ]
+constGetter ty info pureStubName = singleton getterDecl
   where
     -- *** Getter ***
     --
     -- The "getter" peeks the value from the pointer
     getterDecl :: Hs.Decl
-    getterDecl = Hs.DeclVar $ SHs.Var {
-          varName    = getterName
-        , varType    = getterType
-        , varExpr    = getterExpr
-        , varComment = Nothing
+    getterDecl = Hs.DeclVar $ Hs.Var {
+          name    = getterName
+        , typ     = getterType
+        , expr    = getterExpr
+        , pragmas = [SHs.NOINLINE]
+        , comment = Nothing
         }
 
     getterName = Hs.unsafeDeclIdHsName info.declId
@@ -1300,17 +1297,15 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
     -- *** Stub (pure) ***
 
     runnerDecls :: [Hs.Decl]
-    runnerDecls = [
-          Hs.DeclPragma (SHs.NOINLINE runnerName)
-        , runnerDecl
-        ]
+    runnerDecls = singleton runnerDecl
 
     runnerDecl :: Hs.Decl
-    runnerDecl = Hs.DeclVar $ SHs.Var {
-          varName    = runnerName
-        , varType    = runnerType
-        , varExpr    = runnerExpr
-        , varComment = mbComment <> mbUniqueSymbolComment
+    runnerDecl = Hs.DeclVar $ Hs.Var {
+          name    = runnerName
+        , typ     = runnerType
+        , expr    = runnerExpr
+        , pragmas = [SHs.NOINLINE]
+        , comment = mbComment <> mbUniqueSymbolComment
         }
 
     mbUniqueSymbolComment :: Maybe HsDoc.Comment
@@ -1345,9 +1340,9 @@ macroVarDecs ::
 macroVarDecs haddockConfig info macroExpr = [
       Hs.DeclMacroExpr $
         Hs.MacroExpr
-          { macroExprName    = hsVarName
-          , macroExprBody    = macroExpr
-          , macroExprComment = mkHaddocks haddockConfig info hsVarName
+          { name    = hsVarName
+          , body    = macroExpr
+          , comment = mkHaddocks haddockConfig info hsVarName
           }
     ]
   where

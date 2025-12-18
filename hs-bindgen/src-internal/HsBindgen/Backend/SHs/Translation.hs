@@ -13,6 +13,7 @@ import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 
 import HsBindgen.Backend.Category
+import HsBindgen.Backend.Hs.AST (FunctionParameter (functionParameterType))
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
@@ -63,11 +64,10 @@ translateDecl (Hs.DeclFunction f)       = singleton $ translateFunctionDecl f
 translateDecl (Hs.DeclPatSyn ps)        = singleton $ translatePatSyn ps
 translateDecl (Hs.DeclUnionGetter u)    = singleton $ translateUnionGetter u
 translateDecl (Hs.DeclUnionSetter u)    = singleton $ translateUnionSetter u
-translateDecl (Hs.DeclVar d)            = [DVar d]
-translateDecl (Hs.DeclPragma d)         = [DPragma d]
+translateDecl (Hs.DeclVar d)            = singleton $ translateDeclVar d
 
 translateDefineInstanceDecl :: Hs.DefineInstance -> SDecl
-translateDefineInstanceDecl Hs.DefineInstance {..} =
+translateDefineInstanceDecl Hs.DefineInstance{..} =
   case defineInstanceDeclarations of
     Hs.InstanceStorable struct i -> DInst $ translateStorableInstance struct i defineInstanceComment
     Hs.InstancePrim struct i -> DInst $ SHsPrim.translatePrimInstance struct i defineInstanceComment
@@ -191,41 +191,43 @@ translateTypeClass Hs.WriteRaw           = TGlobal WriteRaw_class
 translateTypeClass Hs.HasBaseForeignType = TGlobal HasBaseForeignType_class
 
 translateForeignImportDecl :: Hs.ForeignImportDecl -> [SDecl]
-translateForeignImportDecl Hs.ForeignImportDecl { foreignImportParameters = args
-                                                , foreignImportResultType = resType
-                                                , ..
-                                                } =
-    [  DForeignImport ForeignImport
-        { foreignImportParameters =
-          map (\Hs.FunctionParameter { functionParameterType = argType
-                                     , ..
-                                     } ->
-                    FunctionParameter
-                      { functionParameterType = translateType argType
-                      , ..
+translateForeignImportDecl Hs.ForeignImportDecl {
+      foreignImportParameters = args
+    , foreignImportResultType = resType
+    , ..
+    } = [
+        DForeignImport ForeignImport
+          { foreignImportParameters =
+              map (\Hs.FunctionParameter{..} ->
+                    Parameter {
+                        name    = functionParameterName
+                      , typ     = translateType functionParameterType
+                      , comment = functionParameterComment
                       }
-                ) args
-        , foreignImportResultType = translateType resType
-        , ..
-        }
-    ]
+                    ) args
+          , foreignImportResult = Result (translateType resType) Nothing
+          , ..
+          }
+      ]
 
 translateFunctionDecl :: Hs.FunctionDecl -> SDecl
-translateFunctionDecl Hs.FunctionDecl {..} = DFunction
-  Function { functionName       = functionDeclName
-           , functionParameters = map translateFunctionParameter functionDeclParameters
-           , functionResultType = translateType functionDeclResultType
-           , functionBody       = functionDeclBody
-           , functionComment    = functionDeclComment
-           }
+translateFunctionDecl Hs.FunctionDecl{..} = DBinding
+  Binding {
+      name
+    , parameters = map translateFunctionParameter parameters
+    , result = Result (translateType resultType) Nothing
+    , body
+    , pragmas
+    , comment
+    }
   where
-    translateFunctionParameter :: Hs.FunctionParameter -> FunctionParameter
+    translateFunctionParameter :: Hs.FunctionParameter -> Parameter
     translateFunctionParameter Hs.FunctionParameter{..} =
-      FunctionParameter
-        { functionParameterType = translateType functionParameterType
-        , ..
+      Parameter {
+          name    = functionParameterName
+        , typ     = translateType functionParameterType
+        , comment = functionParameterComment
         }
-
 
 translatePatSyn :: Hs.PatSyn -> SDecl
 translatePatSyn Hs.PatSyn {..} = DPatternSynonym
@@ -399,32 +401,52 @@ translateHasFieldInstance Hs.HasFieldInstance{..} mbComment = do
 -------------------------------------------------------------------------------}
 
 translateUnionGetter :: Hs.UnionGetter -> SDecl
-translateUnionGetter Hs.UnionGetter{..} = DFunction
-  Function { functionName       = unionGetterName
-           , functionParameters = [ FunctionParameter
-                                     { functionParameterName    = Nothing
-                                     , functionParameterType    = TCon unionGetterConstr
-                                     , functionParameterComment = Nothing
-                                     }
-                                  ]
-           , functionResultType = translateType unionGetterType
-           , functionBody       = EGlobal ByteArray_getUnionPayload
-           , functionComment    = unionGetterComment
-           }
+translateUnionGetter Hs.UnionGetter{..} = DBinding
+  Binding {
+      name       = unionGetterName
+    , parameters = [
+        Parameter {
+            name    = Nothing
+          , typ     = TCon unionGetterConstr
+          , comment = Nothing
+          }
+        ]
+    , result     = Result (translateType unionGetterType) Nothing
+    , body       = EGlobal ByteArray_getUnionPayload
+    , pragmas    = []
+    , comment    = unionGetterComment
+    }
 
 translateUnionSetter :: Hs.UnionSetter -> SDecl
-translateUnionSetter Hs.UnionSetter{..} = DFunction
-  Function { functionName       = unionSetterName
-           , functionParameters = [ FunctionParameter
-                                     { functionParameterName    = Nothing
-                                     , functionParameterType    = translateType unionSetterType
-                                     , functionParameterComment = Nothing
-                                     }
-                                  ]
-           , functionResultType = TCon unionSetterConstr
-           , functionBody       = EGlobal ByteArray_setUnionPayload
-           , functionComment    = unionSetterComment
-           }
+translateUnionSetter Hs.UnionSetter{..} = DBinding
+  Binding {
+      name       = unionSetterName
+    , parameters = [
+        Parameter {
+           name    = Nothing
+         , typ     = translateType unionSetterType
+         , comment = Nothing
+         }
+      ]
+    , result     = Result (TCon unionSetterConstr) Nothing
+    , body       = EGlobal ByteArray_setUnionPayload
+    , pragmas    = []
+    , comment    = unionSetterComment
+    }
+
+{-------------------------------------------------------------------------------
+  Variables
+-------------------------------------------------------------------------------}
+
+translateDeclVar :: Hs.Var -> SDecl
+translateDeclVar Hs.Var{..} = DBinding Binding {
+      name      = name
+    , parameters= []
+    , result    = Result typ Nothing
+    , body      = expr
+    , pragmas   = pragmas
+    , comment   = comment
+    }
 
 {-------------------------------------------------------------------------------
   Enums

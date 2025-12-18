@@ -27,6 +27,7 @@ module HsBindgen.Backend.Hs.AST (
   , UnionSetter(..)
   , DefineInstance(..)
   , DeriveInstance(..)
+  , Var(..)
     -- ** Variable declarations
   , MacroExpr(..)
   , VarDeclRHS(..)
@@ -163,12 +164,13 @@ data FunctionParameter = FunctionParameter
   deriving stock (Generic, Show)
 
 data FunctionDecl = FunctionDecl
-  { functionDeclName       :: Hs.Name Hs.NsVar
-  , functionDeclParameters :: [FunctionParameter]
-  , functionDeclResultType :: HsType
-  , functionDeclBody       :: SHs.ClosedExpr
-  , functionDeclOrigin     :: Origin.ForeignImport
-  , functionDeclComment    :: Maybe HsDoc.Comment
+  { name       :: Hs.Name Hs.NsVar
+  , parameters :: [FunctionParameter]
+  , resultType :: HsType
+  , body       :: SHs.ClosedExpr
+  , origin     :: Origin.ForeignImport
+  , pragmas    :: [SHs.Pragma]
+  , comment    :: Maybe HsDoc.Comment
   }
   deriving stock (Generic, Show)
 
@@ -195,6 +197,15 @@ data DeriveInstance = DeriveInstance
   , deriveInstanceComment  :: Maybe HsDoc.Comment
   }
   deriving stock (Generic, Show)
+
+data Var = Var {
+      name    :: Hs.Name Hs.NsVar
+    , typ     :: SHs.ClosedType
+    , expr    :: SHs.ClosedExpr
+    , pragmas :: [SHs.Pragma]
+    , comment :: Maybe HsDoc.Comment
+    }
+  deriving stock (Show, Generic)
 
 {-------------------------------------------------------------------------------
   Variable binding
@@ -228,18 +239,17 @@ data Ap pure xs ctx = Ap (pure ctx) [xs ctx]
 type Decl :: Star
 data Decl where
     DeclData            :: SNatI n => Struct n -> Decl
-    DeclEmpty           :: EmptyData -> Decl
-    DeclNewtype         :: Newtype -> Decl
-    DeclPatSyn          :: PatSyn -> Decl
-    DeclDefineInstance  :: DefineInstance -> Decl
-    DeclDeriveInstance  :: DeriveInstance -> Decl
-    DeclForeignImport   :: ForeignImportDecl -> Decl
-    DeclFunction        :: FunctionDecl -> Decl
-    DeclMacroExpr       :: MacroExpr -> Decl
-    DeclUnionGetter     :: UnionGetter -> Decl
-    DeclUnionSetter     :: UnionSetter -> Decl
-    DeclVar             :: SHs.Var -> Decl
-    DeclPragma          :: SHs.Pragma -> Decl
+    DeclEmpty           :: EmptyData           -> Decl
+    DeclNewtype         :: Newtype             -> Decl
+    DeclPatSyn          :: PatSyn              -> Decl
+    DeclDefineInstance  :: DefineInstance      -> Decl
+    DeclDeriveInstance  :: DeriveInstance      -> Decl
+    DeclForeignImport   :: ForeignImportDecl   -> Decl
+    DeclFunction        :: FunctionDecl        -> Decl
+    DeclMacroExpr       :: MacroExpr           -> Decl
+    DeclUnionGetter     :: UnionGetter         -> Decl
+    DeclUnionSetter     :: UnionSetter         -> Decl
+    DeclVar             :: Var                 -> Decl
 deriving instance Show Decl
 
 data DefineInstance =
@@ -278,14 +288,13 @@ deriving instance Show InstanceDecl
 
 -- | Macro expresson
 type MacroExpr :: Star
-data MacroExpr =
-  MacroExpr
+data MacroExpr = MacroExpr {
     -- | Name of variable/function.
-    { macroExprName    :: Hs.Name Hs.NsVar
+      name    :: Hs.Name Hs.NsVar
     -- | Type of variable/function.
-    , macroExprBody    :: CheckedMacroExpr
+    , body    :: CheckedMacroExpr
     -- | RHS of variable/function.
-    , macroExprComment :: Maybe HsDoc.Comment
+    , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 

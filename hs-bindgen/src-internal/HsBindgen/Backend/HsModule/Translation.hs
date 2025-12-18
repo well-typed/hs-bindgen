@@ -183,8 +183,6 @@ instance Monoid ImportAcc where
 -- | Resolve imports in a declaration
 resolveDeclImports :: SDecl -> ImportAcc
 resolveDeclImports = \case
-    DVar Var {..} ->
-      resolveTypeImports varType <> resolveExprImports varExpr
     DInst Instance{..} -> mconcat $
          [resolveGlobalImports instanceClass]
       ++ map resolveTypeImports instanceArgs
@@ -209,20 +207,18 @@ resolveDeclImports = \case
         resolveTypeImports $ fieldType newtypeField
       , resolveNestedDeriv newtypeDeriv
       ]
-    DDerivingInstance DerivingInstance {..} -> resolveStrategyImports derivingInstanceStrategy
+    DDerivingInstance DerivingInstance{..} -> resolveStrategyImports derivingInstanceStrategy
                                             <> resolveTypeImports derivingInstanceType
-    DForeignImport ForeignImport {..} ->
-         foldMap (resolveTypeImports . functionParameterType)
-                 foreignImportParameters
-      <> resolveTypeImports foreignImportResultType
-    DFunction Function {..} ->
-         foldMap (resolveTypeImports . functionParameterType) functionParameters
-      <> resolveTypeImports functionResultType
-      <> resolveExprImports functionBody
+    DForeignImport ForeignImport{..} ->
+         foldMap (resolveTypeImports . (.typ)) foreignImportParameters
+      <> resolveTypeImports foreignImportResult.typ
+    DBinding Binding{..} ->
+         foldMap (resolveTypeImports . (.typ)) parameters
+      <> resolveTypeImports result.typ
+      <> resolveExprImports body
     DPatternSynonym PatternSynonym {..} ->
         resolveTypeImports patSynType <>
         resolvePatExprImports patSynRHS
-    DPragma {} -> mempty
 
 -- | Resolve nested deriving clauses (part of a datatype declaration)
 resolveNestedDeriv :: [(Hs.Strategy ClosedType, [Global])] -> ImportAcc
