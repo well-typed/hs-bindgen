@@ -39,6 +39,7 @@ import Data.Maybe (catMaybes)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
+import HsBindgen
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config
@@ -55,11 +56,24 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      tracerConfig :: TracerConfig Level TraceMsg
+      tracerConfigUnsafe :: TracerConfig Level     TraceMsg
+    , tracerConfigSafe   :: TracerConfig SafeLevel SafeTraceMsg
     }
 
 parseGlobalOpts :: Parser GlobalOpts
-parseGlobalOpts = GlobalOpts <$> parseTracerConfig
+parseGlobalOpts = aux <$> parseTracerConfig
+  where
+    aux :: TracerConfig Level TraceMsg -> GlobalOpts
+    aux tracerConfigUnsafe =
+      let tracerConfigSafe :: TracerConfig SafeLevel SafeTraceMsg
+          tracerConfigSafe = TracerConfig {
+              tVerbosity = tVerbosity tracerConfigUnsafe
+            , tOutputConfig = def
+            , tCustomLogLevel = mempty
+            , tShowTimeStamp = tShowTimeStamp tracerConfigUnsafe
+            , tShowCallStack = tShowCallStack tracerConfigUnsafe
+            }
+      in  GlobalOpts tracerConfigUnsafe tracerConfigSafe
 
 {-------------------------------------------------------------------------------
   Tracer configuration

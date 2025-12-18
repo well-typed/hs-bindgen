@@ -6,14 +6,13 @@ import Foreign as F
 import GHC.TypeNats
 
 import HsBindgen.Runtime.ConstantArray qualified as CA
-import HsBindgen.Runtime.IncompleteArray qualified as IA
 import HsBindgen.Runtime.ConstPtr
-
-import Manual.Tools
+import HsBindgen.Runtime.IncompleteArray qualified as IA
 
 import Arrays qualified
 import Arrays.Global qualified as Arrays
 import Arrays.Safe qualified as Arrays
+import Manual.Tools
 
 {-------------------------------------------------------------------------------
   Array utilities
@@ -85,17 +84,17 @@ examples = do
     section "Arrays"
 
     subsection "Global variables"
-    reverseConstantArray Arrays.arr1_ptr
-    reverseConstantArrayElems Arrays.arr1_ptr
+    reverseConstantArray Arrays.arr1
+    reverseConstantArrayElems Arrays.arr1
 
-    reverseConstantArray Arrays.arr2_ptr
-    reverseConstantArrayElems Arrays.arr2_ptr
+    reverseConstantArray Arrays.arr2
+    reverseConstantArrayElems Arrays.arr2
 
-    reverseIncompleteArray 3 Arrays.arr3_ptr
-    reverseIncompleteArrayElems 3 Arrays.arr3_ptr
+    reverseIncompleteArray 3 Arrays.arr3
+    reverseIncompleteArrayElems 3 Arrays.arr3
 
-    print =<< F.peek Arrays.sudoku_ptr
-    print =<< IA.peekArray 2 Arrays.triplets_ptr
+    print =<< F.peek Arrays.sudoku
+    print =<< IA.peekArray 2 Arrays.triplets
 
     subsection "Matrix transpose"
     let inputMatrix = Arrays.Matrix $
@@ -109,8 +108,8 @@ examples = do
     print outputMatrix
 
     subsection "Complex example"
-    ts <- IA.peekArray 2 Arrays.triplets_ptr
-    let tripletAddresses = [advancePtr (IA.toFirstElemPtr Arrays.triplets_ptr) n | n <- [0..]]
+    ts <- IA.peekArray 2 Arrays.triplets
+    let tripletAddresses = [advancePtr (IA.toFirstElemPtr Arrays.triplets) n | n <- [0..]]
     print (zip (IA.toList ts) tripletAddresses)
-    print =<< IA.peekArray 3 Arrays.global_triplet_ptrs_ptr
-    Arrays.pretty_print_triplets (castPtr Arrays.global_triplet_ptrs_ptr)
+    print =<< IA.peekArray 3 Arrays.global_triplet_ptrs
+    Arrays.pretty_print_triplets (castPtr Arrays.global_triplet_ptrs)

@@ -13,19 +13,19 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <attributes/asm.h>"
-  , "/* test_attributesasm_Example_get_asm_labeled_variable_ptr */"
+  , "/* test_attributesasm_Example_get_asm_labeled_variable */"
   , "__attribute__ ((const))"
-  , "signed int *hs_bindgen_f26ea231d0d58288 (void)"
+  , "signed int *hs_bindgen_e637e98af1313f88 (void)"
   , "{"
   , "  return &asm_labeled_variable;"
   , "}"
   ]))
 
--- | __unique:__ @test_attributesasm_Example_get_asm_labeled_variable_ptr@
-foreign import ccall unsafe "hs_bindgen_f26ea231d0d58288" hs_bindgen_f26ea231d0d58288 ::
+-- | __unique:__ @test_attributesasm_Example_get_asm_labeled_variable@
+foreign import ccall unsafe "hs_bindgen_e637e98af1313f88" hs_bindgen_e637e98af1313f88 ::
      IO (Ptr.Ptr FC.CInt)
 
-{-# NOINLINE asm_labeled_variable_ptr #-}
+{-# NOINLINE asm_labeled_variable #-}
 
 {-| __C declaration:__ @asm_labeled_variable@
 
@@ -33,6 +33,6 @@ foreign import ccall unsafe "hs_bindgen_f26ea231d0d58288" hs_bindgen_f26ea231d0d
 
     __exported by:__ @attributes\/asm.h@
 -}
-asm_labeled_variable_ptr :: Ptr.Ptr FC.CInt
-asm_labeled_variable_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f26ea231d0d58288
+asm_labeled_variable :: Ptr.Ptr FC.CInt
+asm_labeled_variable =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e637e98af1313f88

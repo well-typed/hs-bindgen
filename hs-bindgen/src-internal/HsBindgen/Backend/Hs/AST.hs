@@ -75,8 +75,8 @@ import HsBindgen.Backend.Hs.AST.Strategy
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
-import HsBindgen.Backend.SHs.AST (FunctionName)
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol)
 import HsBindgen.Frontend.AST.External (CheckedMacroExpr)
@@ -131,7 +131,7 @@ data Newtype = Newtype {
   deriving stock (Generic, Show)
 
 data ForeignImportDecl = ForeignImportDecl
-    { foreignImportName       :: UniqueSymbol
+    { foreignImportName       :: Hs.Name Hs.NsVar
     , foreignImportParameters :: [FunctionParameter]
     , foreignImportResultType :: HsType
     , foreignImportOrigName   :: C.DeclName
@@ -150,7 +150,7 @@ data FunctionParameter = FunctionParameter
   deriving stock (Generic, Show)
 
 data FunctionDecl = FunctionDecl
-  { functionDeclName       :: FunctionName
+  { functionDeclName       :: Hs.Name Hs.NsVar
   , functionDeclParameters :: [FunctionParameter]
   , functionDeclResultType :: HsType
   , functionDeclBody       :: SHs.ClosedExpr

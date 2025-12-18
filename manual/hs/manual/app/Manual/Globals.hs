@@ -19,15 +19,15 @@ import Globals.Global qualified as Globals
 examples :: IO ()
 examples = do
     section "Global variables"
-    config <- peek Globals.globalConfig_ptr
+    config <- peek Globals.globalConfig
     print config
-    poke Globals.globalConfig_ptr $
+    poke Globals.globalConfig $
       config{Globals.globalConfig_numThreads = 3}
-    config' <- peek Globals.globalConfig_ptr
+    config' <- peek Globals.globalConfig
     print config'
 
     subsection "Non-extern globals"
-    print =<< peek Globals.nonExternGlobalInt_ptr
+    print =<< peek Globals.nonExternGlobalInt
 
     subsection "Constants"
     print Globals.globalConstant
@@ -35,12 +35,12 @@ examples = do
 
     subsubsection "Constant examples"
     print Globals.constArray1
-    print =<< IA.peekArray 5 Globals.constArray2_ptr.unConstPtr
+    print =<< IA.peekArray 5 Globals.constArray2.unConstPtr
     print Globals.constTuple
-    print =<< F.peek Globals.nonConstTuple_ptr
-    print =<< F.peek Globals.int_ptr
+    print =<< F.peek Globals.nonConstTuple
+    print =<< F.peek Globals.int
     print Globals.constInt
-    print =<< F.peek Globals.ptrToInt_ptr
-    print =<< F.peek Globals.ptrToConstInt_ptr
+    print =<< F.peek Globals.ptrToInt
+    print =<< F.peek Globals.ptrToConstInt
     print Globals.constPtrToInt
     print Globals.constPtrToConstInt

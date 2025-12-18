@@ -14,9 +14,9 @@
 -- {
 --   f(arg1);
 -- }
--- /* test_declarationsdeclarations_requ_Example_get_f_ptr */
+-- /* test_declarationsdeclarations_requ_Example_get_f */
 -- __attribute__ ((const))
--- void (*hs_bindgen_2d056172b6e93949 (void)) (
+-- void (*hs_bindgen_0d4da37880af2263 (void)) (
 --   A arg1
 -- )
 -- {
@@ -81,21 +81,21 @@ f :: A -> IO Unit
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
 f = hs_bindgen_93ed1628a0edf6b0
--- | __unique:__ @test_declarationsdeclarations_requ_Example_get_f_ptr@
-foreign import ccall safe "hs_bindgen_2d056172b6e93949" hs_bindgen_2d056172b6e93949 :: IO (FunPtr (A ->
+-- | __unique:__ @test_declarationsdeclarations_requ_Example_get_f@
+foreign import ccall safe "hs_bindgen_0d4da37880af2263" hs_bindgen_0d4da37880af2263 :: IO (FunPtr (A ->
                                                                                                    IO Unit))
-{-# NOINLINE f_ptr #-}
+{-# NOINLINE f #-}
 {-| __C declaration:__ @f@
 
     __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
-f_ptr :: FunPtr (A -> IO Unit)
+f :: FunPtr (A -> IO Unit)
 {-| __C declaration:__ @f@
 
     __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
-f_ptr = unsafePerformIO hs_bindgen_2d056172b6e93949
+f = unsafePerformIO hs_bindgen_0d4da37880af2263

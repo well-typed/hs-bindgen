@@ -14,25 +14,25 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/structs/struct_arg.h>"
-  , "/* test_typesstructsstruct_arg_Example_get_thing_fun_1_ptr */"
+  , "/* test_typesstructsstruct_arg_Example_get_thing_fun_1 */"
   , "__attribute__ ((const))"
-  , "signed int (*hs_bindgen_025103be0a357629 (void)) ("
+  , "signed int (*hs_bindgen_17a14e7ffaa1e2e5 (void)) ("
   , "  struct thing arg1"
   , ")"
   , "{"
   , "  return &thing_fun_1;"
   , "}"
-  , "/* test_typesstructsstruct_arg_Example_get_thing_fun_2_ptr */"
+  , "/* test_typesstructsstruct_arg_Example_get_thing_fun_2 */"
   , "__attribute__ ((const))"
-  , "struct thing (*hs_bindgen_e66f3bfa6ad4e4c8 (void)) ("
+  , "struct thing (*hs_bindgen_91748ffd57eae163 (void)) ("
   , "  signed int arg1"
   , ")"
   , "{"
   , "  return &thing_fun_2;"
   , "}"
-  , "/* test_typesstructsstruct_arg_Example_get_thing_fun_3a_ptr */"
+  , "/* test_typesstructsstruct_arg_Example_get_thing_fun_3a */"
   , "__attribute__ ((const))"
-  , "struct thing (*hs_bindgen_5fea3576dcdc292f (void)) ("
+  , "struct thing (*hs_bindgen_84d98a03314ff518 (void)) ("
   , "  signed int arg1,"
   , "  struct thing arg2,"
   , "  double arg3"
@@ -40,9 +40,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "{"
   , "  return &thing_fun_3a;"
   , "}"
-  , "/* test_typesstructsstruct_arg_Example_get_thing_fun_3b_ptr */"
+  , "/* test_typesstructsstruct_arg_Example_get_thing_fun_3b */"
   , "__attribute__ ((const))"
-  , "char (*hs_bindgen_8df67f0e3a4b504f (void)) ("
+  , "char (*hs_bindgen_855ae9088b15005e (void)) ("
   , "  signed int arg1,"
   , "  struct thing arg2,"
   , "  double arg3"
@@ -52,11 +52,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_1_ptr@
-foreign import ccall unsafe "hs_bindgen_025103be0a357629" hs_bindgen_025103be0a357629 ::
+-- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_1@
+foreign import ccall unsafe "hs_bindgen_17a14e7ffaa1e2e5" hs_bindgen_17a14e7ffaa1e2e5 ::
      IO (Ptr.FunPtr (Thing -> IO FC.CInt))
 
-{-# NOINLINE thing_fun_1_ptr #-}
+{-# NOINLINE thing_fun_1 #-}
 
 {-| __C declaration:__ @thing_fun_1@
 
@@ -64,15 +64,15 @@ foreign import ccall unsafe "hs_bindgen_025103be0a357629" hs_bindgen_025103be0a3
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_1_ptr :: Ptr.FunPtr (Thing -> IO FC.CInt)
-thing_fun_1_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_025103be0a357629
+thing_fun_1 :: Ptr.FunPtr (Thing -> IO FC.CInt)
+thing_fun_1 =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_17a14e7ffaa1e2e5
 
--- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_2_ptr@
-foreign import ccall unsafe "hs_bindgen_e66f3bfa6ad4e4c8" hs_bindgen_e66f3bfa6ad4e4c8 ::
+-- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_2@
+foreign import ccall unsafe "hs_bindgen_91748ffd57eae163" hs_bindgen_91748ffd57eae163 ::
      IO (Ptr.FunPtr (FC.CInt -> IO Thing))
 
-{-# NOINLINE thing_fun_2_ptr #-}
+{-# NOINLINE thing_fun_2 #-}
 
 {-| __C declaration:__ @thing_fun_2@
 
@@ -80,15 +80,15 @@ foreign import ccall unsafe "hs_bindgen_e66f3bfa6ad4e4c8" hs_bindgen_e66f3bfa6ad
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_2_ptr :: Ptr.FunPtr (FC.CInt -> IO Thing)
-thing_fun_2_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e66f3bfa6ad4e4c8
+thing_fun_2 :: Ptr.FunPtr (FC.CInt -> IO Thing)
+thing_fun_2 =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_91748ffd57eae163
 
--- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3a_ptr@
-foreign import ccall unsafe "hs_bindgen_5fea3576dcdc292f" hs_bindgen_5fea3576dcdc292f ::
+-- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3a@
+foreign import ccall unsafe "hs_bindgen_84d98a03314ff518" hs_bindgen_84d98a03314ff518 ::
      IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing))
 
-{-# NOINLINE thing_fun_3a_ptr #-}
+{-# NOINLINE thing_fun_3a #-}
 
 {-| __C declaration:__ @thing_fun_3a@
 
@@ -96,15 +96,15 @@ foreign import ccall unsafe "hs_bindgen_5fea3576dcdc292f" hs_bindgen_5fea3576dcd
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_3a_ptr :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing)
-thing_fun_3a_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_5fea3576dcdc292f
+thing_fun_3a :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing)
+thing_fun_3a =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_84d98a03314ff518
 
--- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3b_ptr@
-foreign import ccall unsafe "hs_bindgen_8df67f0e3a4b504f" hs_bindgen_8df67f0e3a4b504f ::
+-- | __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3b@
+foreign import ccall unsafe "hs_bindgen_855ae9088b15005e" hs_bindgen_855ae9088b15005e ::
      IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar))
 
-{-# NOINLINE thing_fun_3b_ptr #-}
+{-# NOINLINE thing_fun_3b #-}
 
 {-| __C declaration:__ @thing_fun_3b@
 
@@ -112,6 +112,6 @@ foreign import ccall unsafe "hs_bindgen_8df67f0e3a4b504f" hs_bindgen_8df67f0e3a4
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
-thing_fun_3b_ptr :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar)
-thing_fun_3b_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8df67f0e3a4b504f
+thing_fun_3b :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar)
+thing_fun_3b =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_855ae9088b15005e

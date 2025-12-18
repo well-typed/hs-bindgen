@@ -3,7 +3,6 @@
 module Test.HsBindgen.Unit.Tracer (tests) where
 
 import Data.Data (Typeable)
-import Data.Default (Default (..))
 import Data.Either (isLeft)
 import Data.IORef (readIORef)
 import Data.Proxy (Proxy (Proxy))
@@ -50,11 +49,8 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
         ]
     , testGroup "LeftOnError" [
           testCase "left" $ do
-              let noOutput :: Report a
-                  noOutput _ _ _ = pure ()
-                  tracerConf   = def {
+              let tracerConf   = quietTracerConfig {
                       tVerbosity    = Verbosity Debug
-                    , tOutputConfig = OutputCustom noOutput DisableAnsiColor
                     }
               res <- withTracer tracerConf $ \tracer -> do traceWith tracer er
               isLeft res @? "isLeft"
@@ -169,11 +165,9 @@ assertMaxLevelWithCustomLogLevel customLogLevel traces expectedLevel = do
 
 testTracerIO :: CustomLogLevel Level TestTrace -> [TestTrace] -> IO Level
 testTracerIO customLogLevel traces = do
-  let noOutput :: Report a
-      noOutput _ _ _ = pure ()
-      tracerConfig = (def :: TracerConfig Level TestTrace) {
+  let tracerConfig :: TracerConfig Level TestTrace
+      tracerConfig = quietTracerConfig {
           tVerbosity      = Verbosity Debug
-        , tOutputConfig   = OutputCustom noOutput DisableAnsiColor
         , tCustomLogLevel = customLogLevel
         }
   -- NB: Use and test the tracer functionality provided by @hs-bindgen:lib@,

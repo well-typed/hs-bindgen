@@ -12,19 +12,19 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <functions/varargs.h>"
-  , "/* test_functionsvarargs_Example_get_h_ptr */"
+  , "/* test_functionsvarargs_Example_get_h */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_1ee4c98815eaff8a (void)) (void)"
+  , "void (*hs_bindgen_d7b5ad93f4d7fa04 (void)) (void)"
   , "{"
   , "  return &h;"
   , "}"
   ]))
 
--- | __unique:__ @test_functionsvarargs_Example_get_h_ptr@
-foreign import ccall unsafe "hs_bindgen_1ee4c98815eaff8a" hs_bindgen_1ee4c98815eaff8a ::
+-- | __unique:__ @test_functionsvarargs_Example_get_h@
+foreign import ccall unsafe "hs_bindgen_d7b5ad93f4d7fa04" hs_bindgen_d7b5ad93f4d7fa04 ::
      IO (Ptr.FunPtr (IO ()))
 
-{-# NOINLINE h_ptr #-}
+{-# NOINLINE h #-}
 
 {-| __C declaration:__ @h@
 
@@ -32,6 +32,6 @@ foreign import ccall unsafe "hs_bindgen_1ee4c98815eaff8a" hs_bindgen_1ee4c98815e
 
     __exported by:__ @functions\/varargs.h@
 -}
-h_ptr :: Ptr.FunPtr (IO ())
-h_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1ee4c98815eaff8a
+h :: Ptr.FunPtr (IO ())
+h =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d7b5ad93f4d7fa04

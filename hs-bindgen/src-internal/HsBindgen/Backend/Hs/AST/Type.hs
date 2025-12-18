@@ -3,6 +3,7 @@ module HsBindgen.Backend.Hs.AST.Type (
   HsType (..),
 ) where
 
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs

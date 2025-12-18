@@ -80,8 +80,9 @@ exec GlobalOpts{..} Opts{..} = do
         putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace e
   where
     tracerConfig' :: TracerConfig Level TraceMsg
-    tracerConfig' = tracerConfig{
-        tCustomLogLevel = customLogLevel <> tCustomLogLevel tracerConfig
+    tracerConfig' = tracerConfigUnsafe{
+        tCustomLogLevel =
+          customLogLevel <> tCustomLogLevel tracerConfigUnsafe
       }
 
     customLogLevel :: CustomLogLevel Level TraceMsg

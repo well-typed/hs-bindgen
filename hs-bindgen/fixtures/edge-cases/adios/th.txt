@@ -24,33 +24,33 @@
 -- {
 --   Say拜拜();
 -- }
--- /* test_edgecasesadios_Example_get_ϒ_ptr */
+-- /* test_edgecasesadios_Example_get_ϒ */
 -- __attribute__ ((const))
--- void (*hs_bindgen_edd8d9690af73a14 (void)) (void)
+-- void (*hs_bindgen_0b1168f405aafe83 (void)) (void)
 -- {
 --   return &ϒ;
 -- }
--- /* test_edgecasesadios_Example_get_拜拜_ptr */
+-- /* test_edgecasesadios_Example_get_拜拜 */
 -- __attribute__ ((const))
--- void (*hs_bindgen_53e9160a3156c412 (void)) (void)
+-- void (*hs_bindgen_0a95358747546f1b (void)) (void)
 -- {
 --   return &拜拜;
 -- }
--- /* test_edgecasesadios_Example_get_Say拜拜_ptr */
+-- /* test_edgecasesadios_Example_get_Say拜拜 */
 -- __attribute__ ((const))
--- void (*hs_bindgen_d263c2ebc6beb189 (void)) (void)
+-- void (*hs_bindgen_a01e420336bfa879 (void)) (void)
 -- {
 --   return &Say拜拜;
 -- }
--- /* test_edgecasesadios_Example_get_ϒϒ_ptr */
+-- /* test_edgecasesadios_Example_get_ϒϒ */
 -- __attribute__ ((const))
--- signed int *hs_bindgen_a5a7bbe6b8c53539 (void)
+-- signed int *hs_bindgen_aa137b95cfa81f42 (void)
 -- {
 --   return &ϒϒ;
 -- }
--- /* test_edgecasesadios_Example_get_ϒϒϒ_ptr */
+-- /* test_edgecasesadios_Example_get_ϒϒϒ */
 -- __attribute__ ((const))
--- signed int const *hs_bindgen_31d6bde39787c8b8 (void)
+-- signed int const *hs_bindgen_7e61df7271c4ff58 (void)
 -- {
 --   return &ϒϒϒ;
 -- }
@@ -212,91 +212,95 @@ say拜拜 :: IO Unit
     __exported by:__ @edge-cases\/adios.h@
 -}
 say拜拜 = hs_bindgen_d532055af9051fad
--- | __unique:__ @test_edgecasesadios_Example_get_ϒ_ptr@
-foreign import ccall safe "hs_bindgen_edd8d9690af73a14" hs_bindgen_edd8d9690af73a14 :: IO (FunPtr (IO Unit))
-{-# NOINLINE cϒ_ptr #-}
+-- | __unique:__ @test_edgecasesadios_Example_get_ϒ@
+foreign import ccall safe "hs_bindgen_0b1168f405aafe83" hs_bindgen_0b1168f405aafe83 :: IO (FunPtr (IO Unit))
+{-# NOINLINE cϒ #-}
 {-| __C declaration:__ @ϒ@
 
     __defined at:__ @edge-cases\/adios.h:18:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-cϒ_ptr :: FunPtr (IO Unit)
+cϒ :: FunPtr (IO Unit)
 {-| __C declaration:__ @ϒ@
 
     __defined at:__ @edge-cases\/adios.h:18:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-cϒ_ptr = unsafePerformIO hs_bindgen_edd8d9690af73a14
--- | __unique:__ @test_edgecasesadios_Example_get_拜拜_ptr@
-foreign import ccall safe "hs_bindgen_53e9160a3156c412" hs_bindgen_53e9160a3156c412 :: IO (FunPtr (IO Unit))
-{-# NOINLINE 拜拜_ptr #-}
+cϒ = unsafePerformIO hs_bindgen_0b1168f405aafe83
+-- | __unique:__ @test_edgecasesadios_Example_get_拜拜@
+foreign import ccall safe "hs_bindgen_0a95358747546f1b" hs_bindgen_0a95358747546f1b :: IO (FunPtr (IO Unit))
+{-# NOINLINE 拜拜 #-}
 {-| __C declaration:__ @拜拜@
 
     __defined at:__ @edge-cases\/adios.h:27:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-拜拜_ptr :: FunPtr (IO Unit)
+拜拜 :: FunPtr (IO Unit)
 {-| __C declaration:__ @拜拜@
 
     __defined at:__ @edge-cases\/adios.h:27:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-拜拜_ptr = unsafePerformIO hs_bindgen_53e9160a3156c412
--- | __unique:__ @test_edgecasesadios_Example_get_Say拜拜_ptr@
-foreign import ccall safe "hs_bindgen_d263c2ebc6beb189" hs_bindgen_d263c2ebc6beb189 :: IO (FunPtr (IO Unit))
-{-# NOINLINE say拜拜_ptr #-}
+拜拜 = unsafePerformIO hs_bindgen_0a95358747546f1b
+-- | __unique:__ @test_edgecasesadios_Example_get_Say拜拜@
+foreign import ccall safe "hs_bindgen_a01e420336bfa879" hs_bindgen_a01e420336bfa879 :: IO (FunPtr (IO Unit))
+{-# NOINLINE say拜拜 #-}
 {-| __C declaration:__ @Say拜拜@
 
     __defined at:__ @edge-cases\/adios.h:31:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-say拜拜_ptr :: FunPtr (IO Unit)
+say拜拜 :: FunPtr (IO Unit)
 {-| __C declaration:__ @Say拜拜@
 
     __defined at:__ @edge-cases\/adios.h:31:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-say拜拜_ptr = unsafePerformIO hs_bindgen_d263c2ebc6beb189
--- | __unique:__ @test_edgecasesadios_Example_get_ϒϒ_ptr@
-foreign import ccall safe "hs_bindgen_a5a7bbe6b8c53539" hs_bindgen_a5a7bbe6b8c53539 :: IO (Ptr CInt)
-{-# NOINLINE cϒϒ_ptr #-}
+say拜拜 = unsafePerformIO hs_bindgen_a01e420336bfa879
+-- | __unique:__ @test_edgecasesadios_Example_get_ϒϒ@
+foreign import ccall safe "hs_bindgen_aa137b95cfa81f42" hs_bindgen_aa137b95cfa81f42 :: IO (Ptr CInt)
+{-# NOINLINE cϒϒ #-}
 {-| __C declaration:__ @ϒϒ@
 
     __defined at:__ @edge-cases\/adios.h:21:12@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-cϒϒ_ptr :: Ptr CInt
+cϒϒ :: Ptr CInt
 {-| __C declaration:__ @ϒϒ@
 
     __defined at:__ @edge-cases\/adios.h:21:12@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-cϒϒ_ptr = unsafePerformIO hs_bindgen_a5a7bbe6b8c53539
--- | __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ_ptr@
-foreign import ccall safe "hs_bindgen_31d6bde39787c8b8" hs_bindgen_31d6bde39787c8b8 :: IO (ConstPtr CInt)
-{-# NOINLINE cϒϒϒ_ptr #-}
+cϒϒ = unsafePerformIO hs_bindgen_aa137b95cfa81f42
+-- | __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ@
+foreign import ccall safe "hs_bindgen_7e61df7271c4ff58" hs_bindgen_7e61df7271c4ff58 :: IO (ConstPtr CInt)
+{-# NOINLINE hs_bindgen_7af49c80665b9a25 #-}
 {-| __C declaration:__ @ϒϒϒ@
 
     __defined at:__ @edge-cases\/adios.h:24:18@
 
     __exported by:__ @edge-cases\/adios.h@
+
+    __unique:__ @test_edgecasesadios_Example_cϒϒϒ@
 -}
-cϒϒϒ_ptr :: ConstPtr CInt
+hs_bindgen_7af49c80665b9a25 :: ConstPtr CInt
 {-| __C declaration:__ @ϒϒϒ@
 
     __defined at:__ @edge-cases\/adios.h:24:18@
 
     __exported by:__ @edge-cases\/adios.h@
+
+    __unique:__ @test_edgecasesadios_Example_cϒϒϒ@
 -}
-cϒϒϒ_ptr = unsafePerformIO hs_bindgen_31d6bde39787c8b8
+hs_bindgen_7af49c80665b9a25 = unsafePerformIO hs_bindgen_7e61df7271c4ff58
 {-# NOINLINE cϒϒϒ #-}
 cϒϒϒ :: CInt
-cϒϒϒ = unsafePerformIO (peek (unConstPtr cϒϒϒ_ptr))
+cϒϒϒ = unsafePerformIO (peek (unConstPtr hs_bindgen_7af49c80665b9a25))

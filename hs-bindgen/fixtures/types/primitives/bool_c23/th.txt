@@ -1,25 +1,25 @@
 -- addDependentFile examples/golden/types/primitives/bool_c23.h
 -- #include <types/primitives/bool_c23.h>
--- /* test_typesprimitivesbool_c23_Example_get_b_ptr */
+-- /* test_typesprimitivesbool_c23_Example_get_b */
 -- __attribute__ ((const))
--- _Bool *hs_bindgen_1e3421d11afdb5be (void)
+-- _Bool *hs_bindgen_31e1e443379b061b (void)
 -- {
 --   return &b;
 -- }
--- | __unique:__ @test_typesprimitivesbool_c23_Example_get_b_ptr@
-foreign import ccall safe "hs_bindgen_1e3421d11afdb5be" hs_bindgen_1e3421d11afdb5be :: IO (Ptr CBool)
-{-# NOINLINE b_ptr #-}
+-- | __unique:__ @test_typesprimitivesbool_c23_Example_get_b@
+foreign import ccall safe "hs_bindgen_31e1e443379b061b" hs_bindgen_31e1e443379b061b :: IO (Ptr CBool)
+{-# NOINLINE b #-}
 {-| __C declaration:__ @b@
 
     __defined at:__ @types\/primitives\/bool_c23.h:3:13@
 
     __exported by:__ @types\/primitives\/bool_c23.h@
 -}
-b_ptr :: Ptr CBool
+b :: Ptr CBool
 {-| __C declaration:__ @b@
 
     __defined at:__ @types\/primitives\/bool_c23.h:3:13@
 
     __exported by:__ @types\/primitives\/bool_c23.h@
 -}
-b_ptr = unsafePerformIO hs_bindgen_1e3421d11afdb5be
+b = unsafePerformIO hs_bindgen_31e1e443379b061b

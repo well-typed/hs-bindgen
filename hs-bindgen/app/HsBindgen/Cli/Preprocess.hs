@@ -67,11 +67,14 @@ exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} =
     void $ run $ artefacts
   where
+    -- TODO https://github.com/well-typed/hs-bindgen/issues/1328: Which command
+    -- line options to adjust the binding category predicate do we want to
+    -- provide?
     bindgenConfig :: BindgenConfig
-    bindgenConfig = toBindgenConfig config uniqueId baseModuleName
+    bindgenConfig = toBindgenConfig config uniqueId baseModuleName def
 
     run :: Artefact a -> IO a
-    run = hsBindgen tracerConfig bindgenConfig inputs
+    run = hsBindgen tracerConfigUnsafe tracerConfigSafe bindgenConfig inputs
 
     artefacts :: Artefact ()
     artefacts = do

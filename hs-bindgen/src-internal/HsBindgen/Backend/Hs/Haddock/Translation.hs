@@ -1,7 +1,7 @@
 module HsBindgen.Backend.Hs.Haddock.Translation (
-    getHaddocks
-  , getHaddocksFieldInfo
-  , getHaddocksDecorateParams
+    mkHaddocks
+  , mkHaddocksFieldInfo
+  , mkHaddocksDecorateParams
   ) where
 
 import Data.Char (isDigit)
@@ -19,6 +19,7 @@ import Clang.Paths qualified as C
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.AST.External
 import HsBindgen.Frontend.Naming qualified as C
@@ -31,24 +32,25 @@ import HsBindgen.Language.Haskell qualified as Hs
 
 -- | Convert a Clang comment to a Haddock comment
 --
-getHaddocks :: HaddockConfig -> DeclInfo -> Maybe HsDoc.Comment
-getHaddocks config declInfo =
-    fst $ generateHaddocksWithArgs config declInfo Args{
-        isField     = False
-      , loc         = declInfo.declLoc
-      , nameC       = declInfo.declId.name.text
-      , nameHsIdent = declInfo.declId.haskellId
-      , comment     = declInfo.declComment
-      , params      = []
-      }
+mkHaddocks :: HaddockConfig -> DeclInfo -> Hs.Name ns -> Maybe HsDoc.Comment
+mkHaddocks config declInfo name =
+    fmap (mbAddUniqueSymbolSource name) .
+      fst $ mkHaddocksWithArgs config declInfo Args{
+          isField     = False
+        , loc         = declInfo.declLoc
+        , nameC       = declInfo.declId.name.text
+        , nameHsIdent = declInfo.declId.haskellId
+        , comment     = declInfo.declComment
+        , params      = []
+        }
 
-getHaddocksFieldInfo
+mkHaddocksFieldInfo
   :: HaddockConfig
   -> DeclInfo
   -> FieldInfo
   -> Maybe HsDoc.Comment
-getHaddocksFieldInfo config declInfo FieldInfo{..} =
-    fst $ generateHaddocksWithArgs config declInfo Args{
+mkHaddocksFieldInfo config declInfo FieldInfo{..} =
+    fst $ mkHaddocksWithArgs config declInfo Args{
         isField     = True
       , loc         = fieldLoc
       , nameC       = fieldName.nameC.text
@@ -59,13 +61,14 @@ getHaddocksFieldInfo config declInfo FieldInfo{..} =
 
 -- | Extract Haddock documentation for a function; enrich function parameters
 --   with parameter-specific documentation
-getHaddocksDecorateParams
+mkHaddocksDecorateParams
   :: HaddockConfig
   -> DeclInfo
+  -> Hs.Name ns
   -> [Hs.FunctionParameter]
   -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
-getHaddocksDecorateParams config declInfo params =
-    generateHaddocksWithArgs config declInfo Args{
+mkHaddocksDecorateParams config declInfo name params =
+    let (mbc, xs) = mkHaddocksWithArgs config declInfo Args{
         isField     = False
       , loc         = declInfo.declLoc
       , nameC       = declInfo.declId.name.text
@@ -73,6 +76,7 @@ getHaddocksDecorateParams config declInfo params =
       , comment     = declInfo.declComment
       , params
       }
+    in  (mbAddUniqueSymbolSource name <$> mbc, xs)
 
 {-------------------------------------------------------------------------------
   Internal
@@ -96,8 +100,8 @@ data Args = Args{
 --
 -- Returns the processed comment and the updated parameters list
 --
-generateHaddocksWithArgs :: HaddockConfig -> DeclInfo -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
-generateHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Nothing, ..} =
+mkHaddocksWithArgs :: HaddockConfig -> DeclInfo -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
+mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Nothing, ..} =
   let (commentCName, commentLocation) =
         case C.declIdCName declInfo.declId of
           Nothing
@@ -117,7 +121,7 @@ generateHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Nothing, ..} 
          , HsDoc.commentHeaderInfo = declInfo.declHeaderInfo
          }
       , map addFunctionParameterComment params)
-generateHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Just CDoc.Comment{..}, ..} =
+mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Just CDoc.Comment{..}, ..} =
   let (commentCName, commentLocation) =
         case C.declIdCName declInfo.declId of
           Nothing
@@ -546,3 +550,8 @@ updateSingleLoc Short C.SingleLoc{..} =
   , ..
   }
 updateSingleLoc _     sloc = sloc
+
+mbAddUniqueSymbolSource :: Hs.Name ns -> HsDoc.Comment -> HsDoc.Comment
+mbAddUniqueSymbolSource = \case
+  Hs.ExportedName _ -> id
+  Hs.InternalName x -> (HsDoc.uniqueSymbol x <>)

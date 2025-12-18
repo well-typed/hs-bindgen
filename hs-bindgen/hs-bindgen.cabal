@@ -74,6 +74,8 @@ library internal
     HsBindgen
     HsBindgen.Artefact
     HsBindgen.Backend
+    HsBindgen.Backend.Category
+    HsBindgen.Backend.Category.ApplyChoice
     HsBindgen.Backend.Extensions
     HsBindgen.Backend.Hs.AST
     HsBindgen.Backend.Hs.AST.Strategy
@@ -82,6 +84,7 @@ library internal
     HsBindgen.Backend.Hs.Haddock.Config
     HsBindgen.Backend.Hs.Haddock.Documentation
     HsBindgen.Backend.Hs.Haddock.Translation
+    HsBindgen.Backend.Hs.Name
     HsBindgen.Backend.Hs.Origin
     HsBindgen.Backend.Hs.Translation
     HsBindgen.Backend.Hs.Translation.Config
@@ -381,6 +384,7 @@ test-suite test-hs-bindgen
     , directory
     , filepath
     , mtl
+    , optics-core
     , process
     , tasty
     , tasty-hunit

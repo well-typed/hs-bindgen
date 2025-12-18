@@ -1,8 +1,8 @@
 -- addDependentFile examples/golden/declarations/redeclaration.h
 -- #include <declarations/redeclaration.h>
--- /* test_declarationsredeclaration_Example_get_x_ptr */
+-- /* test_declarationsredeclaration_Example_get_x */
 -- __attribute__ ((const))
--- signed int *hs_bindgen_795a6cca43448561 (void)
+-- signed int *hs_bindgen_6f47e5cbb92690b9 (void)
 -- {
 --   return &x;
 -- }
@@ -172,20 +172,20 @@ instance HasCField Y "y_o"
 instance TyEq ty (CFieldType Y "y_o") =>
          HasField "y_o" (Ptr Y) (Ptr ty)
     where getField = ptrToCField (Proxy @"y_o")
--- | __unique:__ @test_declarationsredeclaration_Example_get_x_ptr@
-foreign import ccall safe "hs_bindgen_795a6cca43448561" hs_bindgen_795a6cca43448561 :: IO (Ptr CInt)
-{-# NOINLINE x_ptr #-}
+-- | __unique:__ @test_declarationsredeclaration_Example_get_x@
+foreign import ccall safe "hs_bindgen_6f47e5cbb92690b9" hs_bindgen_6f47e5cbb92690b9 :: IO (Ptr CInt)
+{-# NOINLINE x #-}
 {-| __C declaration:__ @x@
 
     __defined at:__ @declarations\/redeclaration.h:11:5@
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
-x_ptr :: Ptr CInt
+x :: Ptr CInt
 {-| __C declaration:__ @x@
 
     __defined at:__ @declarations\/redeclaration.h:11:5@
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
-x_ptr = unsafePerformIO hs_bindgen_795a6cca43448561
+x = unsafePerformIO hs_bindgen_6f47e5cbb92690b9

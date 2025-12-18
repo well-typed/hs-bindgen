@@ -25,9 +25,9 @@
 -- {
 --   return read_file_chunk(arg1, arg2, arg3);
 -- }
--- /* test_programanalysisprogram_slici_Example_get_read_file_chunk_ptr */
+-- /* test_programanalysisprogram_slici_Example_get_read_file_chunk */
 -- __attribute__ ((const))
--- enum FileOperationStatus (*hs_bindgen_166bda29e26e15f7 (void)) (
+-- enum FileOperationStatus (*hs_bindgen_6e12e70d71890a10 (void)) (
 --   FILE *arg1,
 --   void *arg2,
 --   size_t arg3
@@ -259,25 +259,25 @@ read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 read_file_chunk = hs_bindgen_654858ed6a5db417
--- | __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk_ptr@
-foreign import ccall safe "hs_bindgen_166bda29e26e15f7" hs_bindgen_166bda29e26e15f7 :: IO (FunPtr (Ptr HsBindgen.Runtime.Prelude.CFile ->
+-- | __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
+foreign import ccall safe "hs_bindgen_6e12e70d71890a10" hs_bindgen_6e12e70d71890a10 :: IO (FunPtr (Ptr HsBindgen.Runtime.Prelude.CFile ->
                                                                                                    Ptr Void ->
                                                                                                    HsBindgen.Runtime.Prelude.CSize ->
                                                                                                    IO FileOperationStatus))
-{-# NOINLINE read_file_chunk_ptr #-}
+{-# NOINLINE read_file_chunk #-}
 {-| __C declaration:__ @read_file_chunk@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
-read_file_chunk_ptr :: FunPtr (Ptr HsBindgen.Runtime.Prelude.CFile ->
-                               Ptr Void ->
-                               HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus)
+read_file_chunk :: FunPtr (Ptr HsBindgen.Runtime.Prelude.CFile ->
+                           Ptr Void ->
+                           HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus)
 {-| __C declaration:__ @read_file_chunk@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
-read_file_chunk_ptr = unsafePerformIO hs_bindgen_166bda29e26e15f7
+read_file_chunk = unsafePerformIO hs_bindgen_6e12e70d71890a10

@@ -14,6 +14,7 @@ module HsBindgen.Cli.GenTests (
   ) where
 
 import Control.Monad (void)
+import Data.Default (Default (..))
 import Options.Applicative hiding (info)
 
 import HsBindgen
@@ -56,6 +57,11 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = writeTests output
-        -- AllowFileOverwrite for tests
-        bindgenConfig = toBindgenConfig config uniqueId baseModuleName
-    void $ hsBindgen tracerConfig bindgenConfig inputs artefact
+        bindgenConfig = toBindgenConfig config uniqueId baseModuleName def
+    void $
+      hsBindgen
+        tracerConfigUnsafe
+        tracerConfigSafe
+        bindgenConfig
+        inputs
+        artefact

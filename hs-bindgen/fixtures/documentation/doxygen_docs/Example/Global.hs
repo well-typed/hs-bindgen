@@ -14,25 +14,25 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <documentation/doxygen_docs.h>"
-  , "/* test_documentationdoxygen_docs_Example_get_global_counter_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_global_counter */"
   , "__attribute__ ((const))"
-  , "signed int *hs_bindgen_a568b76e8feb0427 (void)"
+  , "signed int *hs_bindgen_f9dede86496f59c9 (void)"
   , "{"
   , "  return &global_counter;"
   , "}"
-  , "/* test_documentationdoxygen_docs_Example_get_version_string_ptr */"
+  , "/* test_documentationdoxygen_docs_Example_get_version_string */"
   , "__attribute__ ((const))"
-  , "char const **hs_bindgen_dd671052fd43d189 (void)"
+  , "char const **hs_bindgen_a294be08386c9257 (void)"
   , "{"
   , "  return &version_string;"
   , "}"
   ]))
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_global_counter_ptr@
-foreign import ccall unsafe "hs_bindgen_a568b76e8feb0427" hs_bindgen_a568b76e8feb0427 ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_global_counter@
+foreign import ccall unsafe "hs_bindgen_f9dede86496f59c9" hs_bindgen_f9dede86496f59c9 ::
      IO (Ptr.Ptr FC.CInt)
 
-{-# NOINLINE global_counter_ptr #-}
+{-# NOINLINE global_counter #-}
 
 {-|
 
@@ -48,15 +48,15 @@ __defined at:__ @documentation\/doxygen_docs.h:61:12@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-global_counter_ptr :: Ptr.Ptr FC.CInt
-global_counter_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a568b76e8feb0427
+global_counter :: Ptr.Ptr FC.CInt
+global_counter =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f9dede86496f59c9
 
--- | __unique:__ @test_documentationdoxygen_docs_Example_get_version_string_ptr@
-foreign import ccall unsafe "hs_bindgen_dd671052fd43d189" hs_bindgen_dd671052fd43d189 ::
+-- | __unique:__ @test_documentationdoxygen_docs_Example_get_version_string@
+foreign import ccall unsafe "hs_bindgen_a294be08386c9257" hs_bindgen_a294be08386c9257 ::
      IO (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar))
 
-{-# NOINLINE version_string_ptr #-}
+{-# NOINLINE version_string #-}
 
 {-|
 
@@ -70,6 +70,6 @@ __defined at:__ @documentation\/doxygen_docs.h:67:20@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-version_string_ptr :: Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
-version_string_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dd671052fd43d189
+version_string :: Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)
+version_string =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a294be08386c9257

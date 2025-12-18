@@ -29,6 +29,9 @@ data ActualValue a =
     -- | The value we want to test against the golden reference
     ActualValue a
 
+    -- | Sometimes we test for the absence of an output value
+  | ActualNoOutput
+
     -- | We failed to create the actual value
     --
     -- This is a test failure.
@@ -64,8 +67,10 @@ goldenTestSteps ::
      -- command.
   -> (a -> IO ())
      -- ^ Update the golden file
+  -> IO ()
+     -- ^ Remove the golden file
   -> TestTree
-goldenTestSteps t getGolden getActual comparison updateGolden =
+goldenTestSteps t getGolden getActual comparison updateGolden removeGolden =
     singleTest t GoldenSteps{..}
 
 {-------------------------------------------------------------------------------
@@ -77,6 +82,7 @@ data GoldenSteps = forall a. GoldenSteps {
     , getActual    :: (String -> IO ()) -> IO (ActualValue a)
     , comparison   :: a -> a -> IO (Maybe String)
     , updateGolden :: a -> IO ()
+    , removeGolden :: IO ()
     }
 
 -- | This option, when set to 'True', specifies that we should run in the
@@ -140,6 +146,21 @@ runGoldenSteps GoldenSteps{..} progress opts = do
       Right (ActualFailed err) ->
         testFailedWith err
 
+      Right ActualNoOutput -> do
+        mbRef <- try getGolden
+        case mbRef of
+         Left e
+           | Just e' <- fromException e, isDoesNotExistError e' ->
+             pure $ testPassed $ unlines msgs
+           | otherwise ->
+             throwIO e
+         Right _ -> do
+           if accept then do
+             removeGolden
+             testPassedWith "Golden file existed but test has no output; removed"
+           else do
+             testFailedWith "Test had no output, but golden file exists"
+
       Right (ActualValue new) -> do
         mbRef <- try getGolden
         case mbRef of
@@ -168,7 +189,7 @@ runGoldenSteps GoldenSteps{..} progress opts = do
               result <- comparison ref new
               case result of
                 Nothing ->
-                  return $ testPassed $ unlines msgs
+                  pure $ testPassed $ unlines msgs
                 Just _reason | accept -> do
                   -- test failed; accept the new version
                   updateGolden new

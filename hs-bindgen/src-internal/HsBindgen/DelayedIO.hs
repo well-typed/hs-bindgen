@@ -13,12 +13,15 @@ module HsBindgen.DelayedIO (
   , DelayedIOM -- opaque
   , runDelayedIOM
   , runCached
+  , emitTrace
     -- ** Actions
   , delay
   , DelayedIO(..)
-  , executeFileSystemActions
+  , executeDelayedIOActions
     -- * Errors
   , DelayedIOError(..)
+    -- * Traces
+  , DelayedIOMsg(..)
   ) where
 import Control.Monad.Except (ExceptT, MonadError (..))
 import Control.Monad.State (StateT (..), modify)
@@ -56,24 +59,25 @@ instance Default OutputDirPolicy where
   def = DoNotCreateOutputDirs
 
 checkPolicy :: DelayedIO -> ExceptT DelayedIOError IO ()
-checkPolicy (WriteToStdOut   _) = pure ()
-checkPolicy (WriteToFile fd) = case fd.location of
-  UserSpecified path -> do
-    let baseDir = takeDirectory path
-    dirExists  <- liftIO $ doesDirectoryExist baseDir
-    fileExists <- liftIO $ doesFileExist path
-    unless dirExists $
-      throwError $ DirectoryDoesNotExist baseDir
-    when (fileExists && fd.fileOverwritePolicy == DoNotOverwriteFiles) $
-      throwError $ FileAlreadyExists path
-  RelativeFileLocation RelativeToOutputDir{..} -> do
-    let path = outputDir </> localPath
-    dirExists  <- liftIO $ doesDirectoryExist outputDir
-    fileExists <- liftIO $ doesFileExist path
-    unless (dirExists || outputDirPolicy == CreateOutputDirs ) $
-      throwError $ DirectoryDoesNotExist outputDir
-    when (fileExists && fd.fileOverwritePolicy == DoNotOverwriteFiles) $
-      throwError $ FileAlreadyExists path
+checkPolicy = \case
+  WriteToStdOut{} -> pure ()
+  WriteToFile fd -> case fd.location of
+    UserSpecified path -> do
+      let baseDir = takeDirectory path
+      dirExists  <- liftIO $ doesDirectoryExist baseDir
+      fileExists <- liftIO $ doesFileExist path
+      unless dirExists $
+        throwError $ DirectoryDoesNotExist baseDir
+      when (fileExists && fd.fileOverwritePolicy == DoNotOverwriteFiles) $
+        throwError $ FileAlreadyExists path
+    RelativeFileLocation RelativeToOutputDir{..} -> do
+      let path = outputDir </> localPath
+      dirExists  <- liftIO $ doesDirectoryExist outputDir
+      fileExists <- liftIO $ doesFileExist path
+      unless (dirExists || outputDirPolicy == CreateOutputDirs ) $
+        throwError $ DirectoryDoesNotExist outputDir
+      when (fileExists && fd.fileOverwritePolicy == DoNotOverwriteFiles) $
+        throwError $ FileAlreadyExists path
 
 {-------------------------------------------------------------------------------
   File description
@@ -90,12 +94,14 @@ data FileLocation =
       -- | We never create directories for user-specified file paths.
       UserSpecified FilePath
     | RelativeFileLocation RelativeToOutputDir
+  deriving stock (Show, Generic)
 
 data RelativeToOutputDir = RelativeToOutputDir {
       outputDir       :: FilePath
     , localPath       :: FilePath
     , outputDirPolicy :: OutputDirPolicy
     }
+  deriving stock (Show, Generic)
 
 fileLocationToPath :: FileLocation -> FilePath
 fileLocationToPath = \case
@@ -126,11 +132,15 @@ runDelayedIOM :: DelayedIOM a -> IO (a, [DelayedIO])
 runDelayedIOM = flip runStateT [] . unwrapDelayedIOM
 
 -- | Private (i.e., /not public/) API :-).
-artefactIO :: IO a -> DelayedIOM a
-artefactIO = WrapDelayedIOM . liftIO
+unsafeIO :: IO a -> DelayedIOM a
+unsafeIO = WrapDelayedIOM . liftIO
+
+-- | Emit a trace while running artefacts.
+emitTrace :: Tracer a -> a -> DelayedIOM ()
+emitTrace t = unsafeIO . traceWith t
 
 runCached :: Cached a -> DelayedIOM a
-runCached = artefactIO . getCached
+runCached = unsafeIO . getCached
 
 {-------------------------------------------------------------------------------
   Actions
@@ -147,8 +157,8 @@ data DelayedIO =
       WriteToStdOut  FileContent
     | WriteToFile    FileDescription
 
-executeFileSystemActions :: Tracer DelayedIOMsg -> [DelayedIO] -> IO ()
-executeFileSystemActions tracer as =
+executeDelayedIOActions :: Tracer DelayedIOMsg -> [DelayedIO] -> IO ()
+executeDelayedIOActions tracer as =
   forM_ as $ \case
     WriteToStdOut x -> case x of
       TextContent str        -> putStrLn str
@@ -186,7 +196,8 @@ instance PrettyForTrace DelayedIOError where
   Traces
 -------------------------------------------------------------------------------}
 
-data DelayedIOMsg = DelayedIOWriteToFile FilePath String
+data DelayedIOMsg =
+      DelayedIOWriteToFile FilePath String
   deriving stock (Show, Generic)
 
 instance PrettyForTrace DelayedIOMsg where

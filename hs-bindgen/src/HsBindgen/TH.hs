@@ -39,11 +39,15 @@ module HsBindgen.TH (
   , Predicate.SelectPredicate(..)
   , Select.ProgramSlicing(..)
 
+     -- ** Binding categories
+  , Category.ByCategory(..)
+  , Category.Choice(..)
+  , Category.RenameTerm(..)
+  , Category.useSafeCategory
+  , Category.useUnsafeCategory
+
     -- ** Haddocks
   , Haddock.PathStyle(..)
-
-    -- ** Safety
-  , Safety.Safety(..)
 
     -- ** Tracer
   , Tracer.Verbosity(..)
@@ -56,8 +60,8 @@ module HsBindgen.TH (
 
 import Data.Default qualified as Default
 
+import HsBindgen.Backend.Category qualified as Category
 import HsBindgen.Backend.Hs.Haddock.Config qualified as Haddock
-import HsBindgen.Backend.SHs.AST qualified as Safety
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config qualified as Config
 import HsBindgen.Config.ClangArgs qualified as ClangArgs

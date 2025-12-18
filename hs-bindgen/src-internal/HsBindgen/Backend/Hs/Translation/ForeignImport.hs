@@ -8,23 +8,23 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST
-import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 
 foreignImportDec ::
-     UniqueSymbol
+     Hs.Name Hs.NsVar
   -> HsType
   -> [Hs.FunctionParameter]
   -> C.DeclName
   -> CallConv
   -> Origin.ForeignImport
-  -> Maybe HsDoc.Comment
   -> Safety
   -> Hs.Decl
-foreignImportDec name resultType parameters origName callConv origin comment safety =
+foreignImportDec name resultType parameters origName callConv origin safety =
     Hs.DeclForeignImport foreignImportDecl
     -- TODO: prevent the "newtype constructor not in scope" bug. See issue #1282.
   where
@@ -36,9 +36,14 @@ foreignImportDec name resultType parameters origName callConv origin comment saf
         , foreignImportOrigName     = origName
         , foreignImportCallConv     = callConv
         , foreignImportOrigin       = origin
-        , foreignImportComment      = comment
+        , foreignImportComment      = mbUniqueSymbol
         , foreignImportSafety       = safety
         }
+
+    mbUniqueSymbol :: Maybe HsDoc.Comment
+    mbUniqueSymbol = case name of
+      Hs.ExportedName _ -> Nothing
+      Hs.InternalName x -> Just $ HsDoc.uniqueSymbol x
 
 hasBaseForeignTypeDecs ::
      Hs.Newtype

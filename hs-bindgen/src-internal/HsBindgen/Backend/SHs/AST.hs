@@ -10,14 +10,10 @@ module HsBindgen.Backend.SHs.AST (
     SAlt (..),
     PatExpr (..),
     SDecl (..),
-    ByCategory(..),
-    mapByCategory,
     Pragma (..),
     ClosedType,
     SType (..),
     Var (..),
-    FunctionName(..),
-    fromFunctionName,
     Function (..),
     Instance (..),
     Field (..),
@@ -31,18 +27,15 @@ module HsBindgen.Backend.SHs.AST (
     PatternSynonym (..),
 ) where
 
-import Data.Map qualified as Map
-
 import C.Char qualified as CExpr.Runtime
 
 import HsBindgen.Backend.Hs.AST.Strategy qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
-import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Config.Prelims
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -312,12 +305,6 @@ data SDecl =
   | DPragma Pragma
   deriving stock (Show)
 
-newtype ByCategory a = ByCategory { unByCategory :: Map BindingCategory a }
-  deriving newtype (Functor, Foldable, Show)
-
-mapByCategory :: (BindingCategory -> a -> b) -> ByCategory a -> ByCategory b
-mapByCategory f = ByCategory . Map.mapWithKey f . unByCategory
-
 type ClosedType = SType EmptyCtx
 
 -- | Simple types
@@ -347,7 +334,7 @@ data Var = Var {
     , varExpr    :: ClosedExpr
     , varComment :: Maybe HsDoc.Comment
     }
-  deriving stock (Show)
+  deriving stock (Show, Generic)
 
 data Instance = Instance {
       instanceClass   :: Global
@@ -406,7 +393,7 @@ data Newtype = Newtype {
 -- generate polymorphic type signatures.
 --
 data ForeignImport = ForeignImport
-    { foreignImportName       :: UniqueSymbol
+    { foreignImportName       :: Hs.Name Hs.NsVar
     , foreignImportParameters :: [FunctionParameter]
     , foreignImportResultType :: ClosedType
     , foreignImportOrigName   :: C.DeclName
@@ -424,22 +411,8 @@ data Safety = Safe | Unsafe
 instance Default Safety where
   def = Safe
 
-data FunctionName =
-      -- | Human-readable name that is to be exported
-      Exported (Hs.Name Hs.NsVar)
-      -- | Name of an auxiliary function used in the implementation of exported functions
-      --
-      -- Since those functions have use-sites, we should not normally be renamed.
-    | Internal UniqueSymbol
-  deriving stock (Generic, Show)
-
-fromFunctionName :: FunctionName -> Hs.Name Hs.NsVar
-fromFunctionName = \case
-  Exported x -> x
-  Internal s -> unsafeUniqueHsName s
-
 data Function = Function {
-      functionName       :: FunctionName
+      functionName       :: Hs.Name Hs.NsVar
     , functionParameters :: [FunctionParameter]
     , functionResultType :: ClosedType
     , functionBody       :: ClosedExpr

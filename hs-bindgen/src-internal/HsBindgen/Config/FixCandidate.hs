@@ -27,6 +27,7 @@ import Data.Proxy
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Config.FixCandidate.ReservedNames (allReservedNames)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -97,7 +98,7 @@ fixCandidate FixCandidate{
               , reservedNames
               , onReservedName
               } =
-        handleReservedNames
+        pure . handleReservedNames
     <=< applyRuleSet
     <=< processInvalidChars
   where
@@ -117,11 +118,11 @@ fixCandidate FixCandidate{
         isValidChar :: Char -> Bool
         isValidChar c = Char.isAlphaNum c || c == '_' || c == '\''
 
-    handleReservedNames :: Hs.Name ns -> m (Hs.Name ns)
-    handleReservedNames name@(Hs.Name t) = return $
-        if t `Set.member` reservedNames
-          then Hs.Name $ onReservedName t
-          else name
+    handleReservedNames :: Hs.Name ns -> Hs.Name ns
+    handleReservedNames = \case
+      Hs.ExportedName name | name `Set.member` reservedNames ->
+        Hs.ExportedName $ onReservedName name
+      otherName -> otherName
 
 {-------------------------------------------------------------------------------
   Dealing with invalid characters
@@ -229,9 +230,9 @@ modifyFirstLetter onInvalidFirst =
     aux ruleset = \t -> do
         (firstChar, rest) <- Text.uncons t
         if | matchesRule firstChar ->
-               Just . Hs.Name $ Text.cons firstChar rest
+               Just . Hs.ExportedName $ Text.cons firstChar rest
            | matchesRule (adjustForRule firstChar) ->
-               Just . Hs.Name $ Text.cons (adjustForRule firstChar) rest
+               Just . Hs.ExportedName $ Text.cons (adjustForRule firstChar) rest
            | otherwise -> do
                let unhandledPrefix, afterUnhandled :: Text
                    (unhandledPrefix, afterUnhandled) = Text.span unusable t
@@ -273,7 +274,7 @@ prefixInvalidFirst prefixOther prefixVar cannotApply =
          prefix = case cannotApplyRuleset of
                SNameRuleSetOther -> prefixOther
                SNameRuleSetVar   -> prefixVar
-     in Hs.Name $ prefix <> unhandledPrefix <> aux usableSuffix
+     in Hs.ExportedName $ prefix <> unhandledPrefix <> aux usableSuffix
   where
     CannotApplyRuleset{
         cannotApplyRuleset
@@ -289,7 +290,7 @@ dropInvalidFirst CannotApplyRuleset{usableSuffix} =
     aux <$> usableSuffix
   where
     aux :: (Char, Char, Text) -> Hs.Name ns
-    aux (_, c, cs) = Hs.Name $ Text.cons c cs
+    aux (_, c, cs) = Hs.ExportedName $ Text.cons c cs
 
 {-------------------------------------------------------------------------------
   Reserved names

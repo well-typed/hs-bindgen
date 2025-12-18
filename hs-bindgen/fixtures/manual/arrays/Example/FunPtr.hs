@@ -13,18 +13,18 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <manual/arrays.h>"
-  , "/* test_manualarrays_Example_get_transpose_ptr */"
+  , "/* test_manualarrays_Example_get_transpose */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_24c867a3e91cab5d (void)) ("
+  , "void (*hs_bindgen_c99d8a3b0363a0fa (void)) ("
   , "  matrix const arg1,"
   , "  matrix arg2"
   , ")"
   , "{"
   , "  return &transpose;"
   , "}"
-  , "/* test_manualarrays_Example_get_pretty_print_triplets_ptr */"
+  , "/* test_manualarrays_Example_get_pretty_print_triplets */"
   , "__attribute__ ((const))"
-  , "void (*hs_bindgen_66af82cae0c5134a (void)) ("
+  , "void (*hs_bindgen_923b33cbbfeb5e7d (void)) ("
   , "  triplet_ptrs arg1"
   , ")"
   , "{"
@@ -32,11 +32,11 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_manualarrays_Example_get_transpose_ptr@
-foreign import ccall unsafe "hs_bindgen_24c867a3e91cab5d" hs_bindgen_24c867a3e91cab5d ::
+-- | __unique:__ @test_manualarrays_Example_get_transpose@
+foreign import ccall unsafe "hs_bindgen_c99d8a3b0363a0fa" hs_bindgen_c99d8a3b0363a0fa ::
      IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
 
-{-# NOINLINE transpose_ptr #-}
+{-# NOINLINE transpose #-}
 
 {-| __C declaration:__ @transpose@
 
@@ -44,15 +44,15 @@ foreign import ccall unsafe "hs_bindgen_24c867a3e91cab5d" hs_bindgen_24c867a3e91
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose_ptr :: Ptr.FunPtr (Matrix -> Matrix -> IO ())
-transpose_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_24c867a3e91cab5d
+transpose :: Ptr.FunPtr (Matrix -> Matrix -> IO ())
+transpose =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c99d8a3b0363a0fa
 
--- | __unique:__ @test_manualarrays_Example_get_pretty_print_triplets_ptr@
-foreign import ccall unsafe "hs_bindgen_66af82cae0c5134a" hs_bindgen_66af82cae0c5134a ::
+-- | __unique:__ @test_manualarrays_Example_get_pretty_print_triplets@
+foreign import ccall unsafe "hs_bindgen_923b33cbbfeb5e7d" hs_bindgen_923b33cbbfeb5e7d ::
      IO (Ptr.FunPtr (Triplet_ptrs -> IO ()))
 
-{-# NOINLINE pretty_print_triplets_ptr #-}
+{-# NOINLINE pretty_print_triplets #-}
 
 {-| A function that prints the given triplet_ptrs
 
@@ -62,6 +62,6 @@ __defined at:__ @manual\/arrays.h:50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
-pretty_print_triplets_ptr :: Ptr.FunPtr (Triplet_ptrs -> IO ())
-pretty_print_triplets_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_66af82cae0c5134a
+pretty_print_triplets :: Ptr.FunPtr (Triplet_ptrs -> IO ())
+pretty_print_triplets =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_923b33cbbfeb5e7d

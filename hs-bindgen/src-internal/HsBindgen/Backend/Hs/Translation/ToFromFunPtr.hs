@@ -14,7 +14,7 @@ import Text.SimplePrettyPrint qualified as PP
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
@@ -44,8 +44,8 @@ import HsBindgen.Language.Haskell qualified as Hs
 forFunction :: ([C.Type], C.Type) -> [Hs.Decl]
 forFunction (args, res) =
     instancesFor
-      (nameTo  , Just $ HsDoc.uniqueSymbol nameTo)
-      (nameFrom, Just $ HsDoc.uniqueSymbol nameFrom)
+      nameTo
+      nameFrom
       funC
       funHs
   where
@@ -64,8 +64,8 @@ forFunction (args, res) =
 forNewtype :: Hs.Name Hs.NsTypeConstr -> ([C.Type], C.Type) -> [Hs.Decl]
 forNewtype newtypeName (args, res) =
     instancesFor
-      (nameTo   , Nothing)
-      (nameFrom , Nothing)
+      nameTo
+      nameFrom
       funC
       funHs
   where
@@ -84,32 +84,30 @@ forNewtype newtypeName (args, res) =
 -------------------------------------------------------------------------------}
 
 instancesFor ::
-     (UniqueSymbol, Maybe HsDoc.Comment) -- ^ Name of the @toFunPtr@ fun
-  -> (UniqueSymbol, Maybe HsDoc.Comment) -- ^ Name of the @fromFunPtr@ fun
-  -> C.Type                                  -- ^ Type of the C function
-  -> HsType                                  -- ^ Corresponding Haskell type
+     UniqueSymbol -- ^ Name of the @toFunPtr@ fun
+  -> UniqueSymbol -- ^ Name of the @fromFunPtr@ fun
+  -> C.Type       -- ^ Type of the C function
+  -> HsType       -- ^ Corresponding Haskell type
   -> [Hs.Decl]
-instancesFor (nameTo, nameToComment) (nameFrom, nameFromComment) funC funHs = [
+instancesFor nameTo nameFrom funC funHs = [
       -- import for @ToFunPtr@ instance
       HsFI.foreignImportDec
-        nameTo
+        (Hs.InternalName nameTo)
         (HsIO (HsFunPtr funHs))
         [wrapperParam funHs]
         (C.DeclName "wrapper" C.NameKindOrdinary)
         (CallConvGhcCCall ImportAsValue)
         (Origin.ToFunPtr funC)
-        nameToComment
         SHs.Safe
 
       -- import for @FromFunPtr@ instance
     , HsFI.foreignImportDec
-        nameFrom
+        (Hs.InternalName nameFrom)
         funHs
         [wrapperParam $ HsFunPtr funHs]
         (C.DeclName "dynamic" C.NameKindOrdinary)
         (CallConvGhcCCall ImportAsValue)
         (Origin.ToFunPtr funC)
-        nameFromComment
         SHs.Safe
 
       -- @ToFunPtr@ instance proper

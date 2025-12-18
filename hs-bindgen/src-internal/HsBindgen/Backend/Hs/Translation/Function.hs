@@ -12,6 +12,7 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
@@ -21,7 +22,6 @@ import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Config.Prelims
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.Naming (unsafeDeclIdHaskellName)
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -100,15 +100,24 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     origName :: Text
     origName = info.declId.name.text
 
+    mangledOrigId :: Hs.Identifier
+    mangledOrigId = info.declId.haskellId
+
     mangledOrigName :: Hs.Name Hs.NsVar
-    mangledOrigName = unsafeDeclIdHaskellName $ info.declId
+    mangledOrigName = Hs.unsafeHsIdHsName mangledOrigId
+
+    -- TODO: Should the name mangler take care of the "_wrapper" suffix?
+    mangledOrigNameWrapper :: Hs.Name Hs.NsVar
+    mangledOrigNameWrapper = Hs.unsafeHsIdHsName $ mangledOrigId <> "_wrapper"
 
     cWrapperName :: UniqueSymbol
-    cWrapperName = globallyUnique opts.translationUniqueId moduleName $ concat [
-          show safety
-        , "_"
-        , T.unpack origName
-        ]
+    cWrapperName =
+        globallyUnique opts.translationUniqueId moduleName $
+          concat [
+              show safety
+            , "_"
+            , T.unpack origName
+            ]
 
     -- TODO https://github.com/well-typed/hs-bindgen/issues/569.
     hasPrimitiveSignature :: Bool
@@ -123,13 +132,12 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     foreignImport :: Hs.Decl
     foreignImport =
         HsFI.foreignImportDec
-          cWrapperName
+          (Hs.InternalName cWrapperName)
           resultType
           foreignImportParams
           (uniqueCDeclName cWrapperName)
           (CallConvUserlandCAPI cWrapper)
           (Origin.Function origCFun)
-          Nothing
           safety
       where
         cWrapperDecl :: PC.Decl
@@ -161,10 +169,10 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     aliasCWrapper :: Hs.Decl
     aliasCWrapper =
         Hs.DeclFunction $ Hs.FunctionDecl {
-            functionDeclName       = SHs.Exported $ mangledOrigName <> "_wrapper"
+            functionDeclName       = mangledOrigNameWrapper
           , functionDeclParameters = aliasParams
           , functionDeclResultType = resultType
-          , functionDeclBody       = SHs.EFree $ fromString cWrapperName.unique
+          , functionDeclBody       = SHs.EFree $ Hs.InternalName cWrapperName
           , functionDeclOrigin     = Origin.Function origCFun
           , functionDeclComment    = (Just pointerComment <> mbIoComment)
           }
@@ -172,7 +180,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
         pointerComment :: HsDoc.Comment
         pointerComment = HsDoc.title [
               HsDoc.TextContent "Pointer-based API for"
-            , HsDoc.Identifier (Hs.getName mangledOrigName)
+            , HsDoc.Identifier $ Hs.getIdentifier mangledOrigId
             ]
 
     -- Alias to the original C function. This function _does have_ the same
@@ -180,10 +188,10 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     aliasOrig :: Hs.Decl
     aliasOrig =
         Hs.DeclFunction $ Hs.FunctionDecl {
-             functionDeclName       = SHs.Exported mangledOrigName
+             functionDeclName       = mangledOrigName
            , functionDeclParameters = aliasParams
            , functionDeclResultType = resultType
-           , functionDeclBody       = SHs.EFree $ unsafeUniqueHsName cWrapperName
+           , functionDeclBody       = SHs.EFree $ Hs.InternalName cWrapperName
            , functionDeclOrigin     = Origin.Function origCFun
            , functionDeclComment    = mbAliasComment <> mbIoComment
           }
@@ -193,13 +201,13 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     -- documentation.
     aliasParams :: [Hs.FunctionParameter]
     (mbAliasComment, aliasParams) =
-      getHaddocksDecorateParams haddockConfig info foreignImportParams
+      mkHaddocksDecorateParams haddockConfig info mangledOrigName foreignImportParams
 
     restoreOrigSignature :: Hs.Decl
     restoreOrigSignature =
         getRestoreOrigSignatureDecl
           mangledOrigName
-          (unsafeUniqueHsName cWrapperName)
+          (Hs.InternalName cWrapperName)
           primResult
           primParams
           restoreOrigSignatureParams
@@ -219,7 +227,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
                }
             | (mbName, ty) <- C.functionArgs origCFun
             ]
-      in  getHaddocksDecorateParams haddockConfig info params
+      in  mkHaddocksDecorateParams haddockConfig info mangledOrigName params
 
     -- When translating a 'C.Type' there are C types which we cannot pass
     -- directly using C FFI. We need to distinguish these.
@@ -425,7 +433,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams params cFunc mbC
     in  case primResult of
       HeapType {} ->
         Hs.DeclFunction $ Hs.FunctionDecl
-          { functionDeclName       = SHs.Exported hiName
+          { functionDeclName       = hiName
           , functionDeclParameters = params
           , functionDeclResultType = HsIO resType
           , functionDeclBody       = goA EmptyEnv primParams
@@ -435,7 +443,7 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams params cFunc mbC
 
       PrimitiveType {} ->
         Hs.DeclFunction $ Hs.FunctionDecl
-          { functionDeclName       = SHs.Exported hiName
+          { functionDeclName       = hiName
           , functionDeclParameters = params
           , functionDeclResultType = HsIO resType
           , functionDeclBody       = goB EmptyEnv primParams

@@ -2,8 +2,8 @@ module HsBindgen.Test.C (
     genTestsC
   ) where
 
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.SHs.AST
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
 
@@ -13,10 +13,10 @@ import HsBindgen.Frontend.RootHeader
 
 -- | Generate C test header and source files
 genTestsC ::
-     FilePath             -- ^ C test header file path
-  -> FilePath             -- ^ C test source file path
-  -> [HashIncludeArg] -- ^ C header paths
-  -> ByCategory [Hs.Decl]            -- ^ Declarations
+     FilePath              -- ^ C test header file path
+  -> FilePath              -- ^ C test source file path
+  -> [HashIncludeArg]      -- ^ C header paths
+  -> ByCategory_ [Hs.Decl] -- ^ Declarations
   -> IO ()
 genTestsC = throwPure_TODO 22 "generate test suite"
 

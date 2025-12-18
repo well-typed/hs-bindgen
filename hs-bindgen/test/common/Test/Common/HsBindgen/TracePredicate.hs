@@ -13,6 +13,7 @@ module Test.Common.HsBindgen.TracePredicate (
   , customTracePredicate'
   , TraceExpectationException
     -- * Tracer
+  , quietTracerConfig
   , withTracePredicate
   , withTraceConfigPredicate
   ) where
@@ -112,13 +113,22 @@ customTracePredicate' names mpredicate = TracePredicate $ \traces -> do
   Tracer
 -------------------------------------------------------------------------------}
 
+quietTracerConfig :: TracerConfig l a
+quietTracerConfig = def {
+      tOutputConfig = OutputCustom noOutput DisableAnsiColor
+    }
+  where
+    noOutput _lvl _trace _traceStr = pure ()
+
 -- | Run an action with a tracer that collects all trace messages.
 --
 -- Use a 'Predicate' to decide whether traces are expected, or unexpected.
-withTracePredicate
-  :: (IsTrace Level a , Typeable a, Show a)
+withTracePredicate ::
+     (Typeable a, IsTrace Level a, Show a)
   => (String -> IO ())
-  -> TracePredicate a -> (Tracer a -> IO b) -> IO b
+  -> TracePredicate a
+  -> (Tracer a -> IO b)
+  -> IO b
 withTracePredicate report predicate action =
   withTraceConfigPredicate report predicate $ \traceConfig ->
     withTracerUnsafe traceConfig (\t _ -> action t)
@@ -126,18 +136,20 @@ withTracePredicate report predicate action =
 -- | Run an action with a tracer configuration that collects all trace messages.
 --
 -- Use a 'Predicate' to decide whether traces are expected, or unexpected.
-withTraceConfigPredicate
-  :: forall a b l. (IsTrace Level a , Typeable a, Show a)
+withTraceConfigPredicate ::
+     forall a b l. (Typeable a, IsTrace l a, Show l, Show a)
   => (String -> IO ())
-  -> TracePredicate a -> (TracerConfig l a -> IO b) -> IO b
+  -> TracePredicate a
+  -> (TracerConfig l a -> IO b)
+  -> IO b
 withTraceConfigPredicate report (TracePredicate predicate) action = do
   tracesRef <- newIORef []
   let writer :: Report a
       writer _ trace _ = modifyIORef' tracesRef ((:) trace)
       tracerConfig :: TracerConfig l a
       tracerConfig = def {
-          tVerbosity      = Verbosity Info
-        , tOutputConfig   = OutputCustom writer DisableAnsiColor
+          tVerbosity    = Verbosity Info
+        , tOutputConfig = OutputCustom writer DisableAnsiColor
         }
   (action tracerConfig) `finally` do
       traces <- readIORef tracesRef

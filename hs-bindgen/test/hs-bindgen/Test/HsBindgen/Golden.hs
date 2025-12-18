@@ -20,6 +20,9 @@ import Clang.Enum.Simple
 import Clang.LowLevel.Core
 import Clang.Version
 
+import HsBindgen.Backend.Category (ByCategory (..),
+                                   Choice (ExcludeCategory, IncludeTermCategory, IncludeTypeCategory),
+                                   RenameTerm (..))
 import HsBindgen.BindingSpec (BindingSpecReadMsg (..))
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.ClangArgs
@@ -354,6 +357,20 @@ test_functions_circular_dependency_fun =
 
 test_functions_simple_func :: TestCase
 test_functions_simple_func = defaultTest "functions/simple_func"
+
+test_functions_simple_func_rename :: TestCase
+test_functions_simple_func_rename =
+  (testVariant "functions/simple_func" "1.rename"){
+      testOnBackendConfig = \cfg -> cfg{
+          backendBindingCategoryChoice = ByCategory {
+              cType = IncludeTypeCategory
+            , cSafe = ExcludeCategory
+            , cUnsafe = ExcludeCategory
+            , cFunPtr = IncludeTermCategory $ RenameTerm $ \t -> t <> "_random_user_specified_suffix"
+            , cGlobal = ExcludeCategory
+            }
+        }
+    }
 
 test_macros_macro_functions :: TestCase
 test_macros_macro_functions = defaultTest "macros/macro_functions"
@@ -1258,6 +1275,7 @@ testCases = manualTestCases ++ [
     , test_functions_fun_attributes
     , test_functions_fun_attributes_conflict
     , test_functions_simple_func
+    , test_functions_simple_func_rename
     , test_functions_varargs
     , test_globals_globals
     , test_macros_issue_890

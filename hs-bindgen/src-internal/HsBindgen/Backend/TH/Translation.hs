@@ -58,8 +58,8 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.SHs.AST
-import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Errors
 import HsBindgen.Guasi
 import HsBindgen.Imports
@@ -733,11 +733,11 @@ mkDecl = \case
                 <$> pure callconv
                 <*> pure safety
                 <*> pure impent
-                <*> pure (TH.mkName foreignImportName.unique)
+                <*> pure (hsNameToTH foreignImportName)
                 <*> mkType EmptyEnv importType
 
       DFunction Function {..} -> do
-        let thFunctionName = hsNameToTH $ fromFunctionName functionName
+        let thFunctionName = hsNameToTH functionName
 
             functionType = foldr (TFun . functionParameterType) functionResultType functionParameters
 

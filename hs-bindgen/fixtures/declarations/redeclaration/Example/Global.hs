@@ -13,19 +13,19 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <declarations/redeclaration.h>"
-  , "/* test_declarationsredeclaration_Example_get_x_ptr */"
+  , "/* test_declarationsredeclaration_Example_get_x */"
   , "__attribute__ ((const))"
-  , "signed int *hs_bindgen_795a6cca43448561 (void)"
+  , "signed int *hs_bindgen_6f47e5cbb92690b9 (void)"
   , "{"
   , "  return &x;"
   , "}"
   ]))
 
--- | __unique:__ @test_declarationsredeclaration_Example_get_x_ptr@
-foreign import ccall unsafe "hs_bindgen_795a6cca43448561" hs_bindgen_795a6cca43448561 ::
+-- | __unique:__ @test_declarationsredeclaration_Example_get_x@
+foreign import ccall unsafe "hs_bindgen_6f47e5cbb92690b9" hs_bindgen_6f47e5cbb92690b9 ::
      IO (Ptr.Ptr FC.CInt)
 
-{-# NOINLINE x_ptr #-}
+{-# NOINLINE x #-}
 
 {-| __C declaration:__ @x@
 
@@ -33,6 +33,6 @@ foreign import ccall unsafe "hs_bindgen_795a6cca43448561" hs_bindgen_795a6cca434
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
-x_ptr :: Ptr.Ptr FC.CInt
-x_ptr =
-  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_795a6cca43448561
+x :: Ptr.Ptr FC.CInt
+x =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6f47e5cbb92690b9

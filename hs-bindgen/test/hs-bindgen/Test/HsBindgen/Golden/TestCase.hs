@@ -74,11 +74,14 @@ data TestCase = TestCase {
       -- If the predicate does not match, the test is skipped entirely.
     , testClangVersion :: Maybe ((Int, Int, Int) -> Bool)
 
-      -- | Modify the default test configuration
+      -- | Modify the default boot test configuration
     , testOnBootConfig :: BootConfig -> BootConfig
 
-      -- | Modify the default test configuration
+      -- | Modify the default frontend test configuration
     , testOnFrontendConfig :: FrontendConfig -> FrontendConfig
+
+      -- | Modify the default backend test configuration
+    , testOnBackendConfig :: BackendConfig -> BackendConfig
 
       -- | Configure if the @stdlib@ binding specification should be used
     , testStdlibSpec :: EnableStdlibBindingSpec
@@ -121,6 +124,7 @@ defaultTest fp = TestCase{
     , testClangVersion            = Nothing
     , testOnBootConfig            = id
     , testOnFrontendConfig        = id
+    , testOnBackendConfig         = id
     , testStdlibSpec              = EnableStdlibBindingSpec
     , testExtBindingSpecs         = []
     , testPrescriptiveBindingSpec = Nothing
@@ -223,7 +227,8 @@ getTestFrontendConfig :: TestCase -> FrontendConfig
 getTestFrontendConfig TestCase{..} = testOnFrontendConfig def
 
 getTestBackendConfig :: TestCase -> BackendConfig
-getTestBackendConfig TestCase{..} = getTestDefaultBackendConfig testName testPathStyle
+getTestBackendConfig TestCase{..} =
+  testOnBackendConfig $ getTestDefaultBackendConfig testName testPathStyle
 
 withTestTraceConfig ::
      (String -> IO ())
@@ -245,9 +250,10 @@ runTestHsBindgen report testResources test artefacts = do
     let frontendConfig = getTestFrontendConfig test
         backendConfig  = getTestBackendConfig test
         bindgenConfig  = BindgenConfig bootConfig frontendConfig backendConfig
-    withTestTraceConfig report test $ \traceConfig ->
+    withTestTraceConfig report test $ \traceConfigUnsafe ->
       hsBindgenE
-        traceConfig
+        traceConfigUnsafe
+        quietTracerConfig
         bindgenConfig
         [testInputInclude test]
         artefacts

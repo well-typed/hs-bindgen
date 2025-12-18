@@ -65,7 +65,7 @@ exec GlobalOpts{..} Opts{..} = do
 
       -- Emit informational message if no user options provided
       when (   hasNoUserOptions
-            && unwrapVerbosity (tVerbosity tracerConfig) >= Info) $ do
+            && unwrapVerbosity (tVerbosity tracerConfigUnsafe) >= Info) $ do
         traceWith (contramap (TraceFrontend . FrontendClang) tracer)
                   ClangInvokedWithoutOptions
 
@@ -94,10 +94,13 @@ exec GlobalOpts{..} Opts{..} = do
     -- logging
     --
     tracerConfigWithoutASTReadError =
-      tracerConfig
-        { tCustomLogLevel = CustomLogLevel $ \trace actualLevel ->
+      tracerConfigUnsafe {
+          tCustomLogLevel = CustomLogLevel $ \trace actualLevel ->
             case trace of
               TraceFrontend (FrontendClang (ClangErrorCode (SimpleEnum x)))
                 | Just CXError_ASTReadError <- simpleFromC x -> Debug
-              _ -> unCustomLogLevel (tCustomLogLevel tracerConfig) trace actualLevel
+              _ -> unCustomLogLevel
+                    (tCustomLogLevel tracerConfigUnsafe)
+                    trace
+                    actualLevel
         }

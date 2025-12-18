@@ -4,7 +4,6 @@
 module HsBindgen.Backend.UniqueSymbol (
     -- * Generating unique names
     UniqueSymbol(..)
-  , unsafeUniqueHsName
   , uniqueCDeclName
   , globallyUnique
   , locallyUnique
@@ -20,7 +19,6 @@ import GHC.Unicode (isDigit)
 import HsBindgen.Config.Prelims
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Generating unique names
@@ -38,13 +36,7 @@ data UniqueSymbol = UniqueSymbol{
       -- if they unexpectedly change).
     , source :: String
     }
-  deriving (Show, Eq, Generic)
-
--- | Construct Haskell name from unique symbol
---
--- Caller must ensure that namespace rules are adhered to.
-unsafeUniqueHsName :: UniqueSymbol -> Hs.Name ns
-unsafeUniqueHsName = Hs.Name . Text.pack . unique
+  deriving (Show, Eq, Ord, Generic)
 
 uniqueCDeclName :: UniqueSymbol -> C.DeclName
 uniqueCDeclName uniqueSymbol =

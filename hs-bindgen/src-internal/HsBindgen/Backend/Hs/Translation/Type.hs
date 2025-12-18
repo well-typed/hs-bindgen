@@ -13,9 +13,9 @@ import GHC.Stack
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
@@ -37,9 +37,9 @@ inContext ctx = go ctx
   where
     go :: TypeContext -> C.Type -> Hs.HsType
     go _ (C.TypeTypedef (C.TypedefRef declId _)) =
-        Hs.HsTypRef (C.unsafeDeclIdHaskellName declId)
+        Hs.HsTypRef (Hs.unsafeDeclIdHsName declId)
     go _ (C.TypeRef declId) =
-        Hs.HsTypRef (C.unsafeDeclIdHaskellName declId)
+        Hs.HsTypRef (Hs.unsafeDeclIdHsName declId)
     go c C.TypeVoid =
         Hs.HsPrimType (void c)
     go _ (C.TypePrim p) =

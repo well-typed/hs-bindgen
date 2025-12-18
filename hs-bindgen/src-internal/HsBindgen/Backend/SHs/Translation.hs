@@ -11,13 +11,14 @@ import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 
+import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Macro
-import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -28,7 +29,7 @@ import HsBindgen.NameHint
 -------------------------------------------------------------------------------}
 
 translateDecls ::
-  ByCategory [Hs.Decl] -> ByCategory ([CWrapper], [SDecl])
+  ByCategory_ [Hs.Decl] -> ByCategory_ ([CWrapper], [SDecl])
 translateDecls = fmap go
   where
     go :: [Hs.Decl] -> ([CWrapper], [SDecl])
@@ -94,7 +95,7 @@ translateDefineInstanceDecl Hs.DefineInstance {..} =
         , instanceSuperClasses = []
         , instanceTypes   = []
         , instanceDecs    = [( ToFunPtr_toFunPtr
-                             , EFree $ fromString toFunPtrInstanceBody.unique )]
+                             , EFree $ Hs.InternalName toFunPtrInstanceBody )]
         , instanceComment = defineInstanceComment
         }
     Hs.InstanceFromFunPtr Hs.FromFunPtrInstance{..} -> DInst
@@ -104,7 +105,7 @@ translateDefineInstanceDecl Hs.DefineInstance {..} =
         , instanceSuperClasses = []
         , instanceTypes   = []
         , instanceDecs    = [( FromFunPtr_fromFunPtr
-                             , EFree $ fromString fromFunPtrInstanceBody.unique )]
+                             , EFree $ Hs.InternalName fromFunPtrInstanceBody )]
         , instanceComment = defineInstanceComment
         }
 
@@ -202,15 +203,9 @@ translateForeignImportDecl Hs.ForeignImportDecl { foreignImportParameters = args
                       }
                 ) args
         , foreignImportResultType = translateType resType
-        , foreignImportComment = Just $ addUniqueSymbolToComment foreignImportComment
         , ..
         }
     ]
-  where
-    addUniqueSymbolToComment :: Maybe HsDoc.Comment -> HsDoc.Comment
-    addUniqueSymbolToComment = \case
-        Nothing -> HsDoc.uniqueSymbol foreignImportName
-        Just c  -> c { HsDoc.commentUnique = Just foreignImportName }
 
 translateFunctionDecl :: Hs.FunctionDecl -> SDecl
 translateFunctionDecl Hs.FunctionDecl {..} = DFunction
@@ -393,7 +388,7 @@ translateHasFieldInstance Hs.HasFieldInstance{..} mbComment = do
     parentPtr = TGlobal Foreign_Ptr `TApp` parentType
     fieldNameLitType = translateType $ HsStrLit $ T.unpack $ Hs.getName hasFieldInstanceFieldName
     -- TODO: this is not actually a free type variable. See issue #1287.
-    tyTypeVar = TFree $ Hs.Name "ty"
+    tyTypeVar = TFree $ Hs.ExportedName "ty"
 
 {-------------------------------------------------------------------------------
   Structs
@@ -407,7 +402,7 @@ translateElimStruct f (Hs.ElimStruct x struct add k) = ECase
     hints = fmap (toNameHint . Hs.fieldName) $ Hs.structFields struct
 
 toNameHint :: Hs.Name 'Hs.NsVar -> NameHint
-toNameHint (Hs.Name t) = NameHint (T.unpack t)
+toNameHint = NameHint . T.unpack . Hs.getName
 
 {-------------------------------------------------------------------------------
   Unions
@@ -415,7 +410,7 @@ toNameHint (Hs.Name t) = NameHint (T.unpack t)
 
 translateUnionGetter :: Hs.UnionGetter -> SDecl
 translateUnionGetter Hs.UnionGetter{..} = DFunction
-  Function { functionName       = Exported unionGetterName
+  Function { functionName       = unionGetterName
            , functionParameters = [ FunctionParameter
                                      { functionParameterName    = Nothing
                                      , functionParameterType    = TCon unionGetterConstr
@@ -429,7 +424,7 @@ translateUnionGetter Hs.UnionGetter{..} = DFunction
 
 translateUnionSetter :: Hs.UnionSetter -> SDecl
 translateUnionSetter Hs.UnionSetter{..} = DFunction
-  Function { functionName       = Exported unionSetterName
+  Function { functionName       = unionSetterName
            , functionParameters = [ FunctionParameter
                                      { functionParameterName    = Nothing
                                      , functionParameterType    = translateType unionSetterType

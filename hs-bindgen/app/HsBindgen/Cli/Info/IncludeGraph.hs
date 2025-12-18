@@ -67,5 +67,11 @@ parseOutput' = strOption $ mconcat [
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = writeIncludeGraph fileOverwritePolicy output
-        bindgenConfig = toBindgenConfig config uniqueId baseModuleName
-    void $ hsBindgen tracerConfig bindgenConfig inputs artefact
+        bindgenConfig = toBindgenConfig config uniqueId baseModuleName def
+    void $
+      hsBindgen
+        tracerConfigUnsafe
+        tracerConfigSafe
+        bindgenConfig
+        inputs
+        artefact

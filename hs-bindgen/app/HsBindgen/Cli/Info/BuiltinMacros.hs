@@ -65,7 +65,7 @@ parseOpts = Opts <$> parseClangArgsConfig
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} =
-    void . withTracer tracerConfig $ \tracer -> do
+    void . withTracer tracerConfigUnsafe $ \tracer -> do
       let tracerBoot  = contramap TraceBoot tracer
           tracerClang = contramap (TraceFrontend . FrontendClang) tracer
       (clangArgs, _target) <- getClangArgsAndTarget tracerBoot clangArgsConfig
