@@ -1,10 +1,12 @@
 module HsBindgen.Boot (
     runBoot
-  , getClangArgs
+  , ClangArtefacts (..)
+  , getClangArtefacts
   , BootArtefact (..)
   , BootMsg (..)
   ) where
 
+import Control.Exception (displayException)
 import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP
 
@@ -15,7 +17,9 @@ import HsBindgen.BindingSpec
 import HsBindgen.Cache
 import HsBindgen.Clang
 import HsBindgen.Clang.BuiltinIncDir
-import HsBindgen.Clang.CompareVersions
+import HsBindgen.Clang.CompareVersions (CompareVersionsMsg,
+                                        compareClangVersions)
+import HsBindgen.Clang.CStandard
 import HsBindgen.Clang.ExtraClangArgs
 import HsBindgen.Config.ClangArgs (ClangArgsConfig)
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
@@ -46,11 +50,17 @@ runBoot tracer config uncheckedHashIncludeArgs = do
       withTrace BootStatusHashIncludeArgs $
         mapM (hashIncludeArgWithTrace tracer') uncheckedHashIncludeArgs
 
-    getClangArgs' <- cache "clangArgs" $ Cached $
-      getClangArgs tracer config.boot.clangArgs
+    getClangArtefacts' <- cache "clangArtefacts" $ Cached $
+      getClangArtefacts tracer config.boot.clangArgs
+
+    getCStandard <- cache "cStandard" $ withTrace BootStatusCStandard $
+      (.cStandard) <$> getClangArtefacts'
+
+    getClangArgs <- cache "clangArgs" $ withTrace BootStatusClangArgs $
+      (.clangArgs) <$> getClangArtefacts'
 
     getBindingSpecs <- cache "loadBindingSpecs" $ do
-      clangArgs <- getClangArgs'
+      clangArgs <- getClangArgs
       liftIO $ loadBindingSpecs
         (contramap BootBindingSpec tracer)
         clangArgs
@@ -67,8 +77,8 @@ runBoot tracer config uncheckedHashIncludeArgs = do
 
     pure BootArtefact {
           baseModule              = config.boot.baseModule
-        , cStandard               = config.boot.clangArgs.cStandard
-        , clangArgs               = getClangArgs'
+        , cStandard               = getCStandard
+        , clangArgs               = getClangArgs
         , hashIncludeArgs         = getHashIncludeArgs
         , externalBindingSpecs    = getExternalBindingSpecs
         , prescriptiveBindingSpec = getPrescriptiveBindingSpec
@@ -89,19 +99,30 @@ runBoot tracer config uncheckedHashIncludeArgs = do
     cache :: String -> Cached a -> IO (Cached a)
     cache = cacheWith (contramap (BootCache . SafeTrace) tracer) . Just
 
--- | Determine Clang arguments
-getClangArgs :: Tracer BootMsg -> ClangArgsConfig FilePath -> IO ClangArgs
-getClangArgs tracer config0 = do
+data ClangArtefacts = ClangArtefacts {
+    cStandard :: ClangCStandard
+  , clangArgs :: ClangArgs
+  }
+
+-- | Determine Clang artefacts
+getClangArtefacts ::
+     Tracer BootMsg
+  -> ClangArgsConfig FilePath
+  -> IO ClangArtefacts
+getClangArtefacts tracer config0 = do
     compareClangVersions (contramap BootCompareClangVersions tracer)
-    -- Apply extra Clang arguments and builtin include directory to the config
     extraClangArgs <- getExtraClangArgs tracerExtraClangArgs
     mBuiltinIncDir <- getBuiltinIncDir tracerBuiltinIncDir config0.builtinIncDir
     let config =
             applyExtraClangArgs extraClangArgs
           . applyBuiltinIncDir  mBuiltinIncDir
           $ config0
-    -- Determine Clang arguments for the config
-    either throwIO return $ ClangArgs.clangArgsConfigToClangArgs config
+        clangArgs' = ClangArgs.clangArgsConfigToClangArgs config
+    cStandard' <- getClangCStandard' tracer clangArgs'
+    return ClangArtefacts{
+        cStandard = cStandard'
+      , clangArgs = clangArgs'
+      }
   where
     tracerBuiltinIncDir :: Tracer BuiltinIncDirMsg
     tracerBuiltinIncDir = contramap BootBuiltinIncDir tracer
@@ -109,13 +130,39 @@ getClangArgs tracer config0 = do
     tracerExtraClangArgs :: Tracer ExtraClangArgsMsg
     tracerExtraClangArgs = contramap BootExtraClangArgs tracer
 
+-- | Fatal exceptions
+data FatalException =
+    UnableToDetermineCStandardException
+  deriving Show
+
+instance Exception FatalException where
+  displayException = \case
+    UnableToDetermineCStandardException -> "Unable to determine C standard"
+
+-- | Determine the C standard using @libclang@
+--
+-- This function throws a 'UnableToDetermineCStandardException' if the call to
+-- @libclang@ fails or we are unable to determine the C standard.
+getClangCStandard' :: Tracer BootMsg -> ClangArgs -> IO ClangCStandard
+getClangCStandard' tracer clangArgs =
+    getClangCStandard clangArgs >>= \case
+      Just clangCStandard -> do
+        traceWith tracerCStandard $ BootCStandardClang clangCStandard
+        return clangCStandard
+      Nothing -> do
+        traceWith tracerCStandard BootCStandardFail
+        throwIO UnableToDetermineCStandardException
+  where
+    tracerCStandard :: Tracer BootCStandardMsg
+    tracerCStandard = contramap BootCStandard tracer
+
 {-------------------------------------------------------------------------------
   Artefact
 -------------------------------------------------------------------------------}
 
 data BootArtefact = BootArtefact {
       baseModule              :: BaseModuleName
-    , cStandard               :: CStandard
+    , cStandard               :: Cached ClangCStandard
     , clangArgs               :: Cached ClangArgs
     , hashIncludeArgs         :: Cached [HashIncludeArg]
     , externalBindingSpecs    :: Cached MergedBindingSpecs
@@ -128,6 +175,7 @@ data BootArtefact = BootArtefact {
 
 data BootStatusMsg =
     BootStatusStart                   BindgenConfig
+  | BootStatusCStandard               ClangCStandard
   | BootStatusClangArgs               ClangArgs
   | BootStatusHashIncludeArgs         [HashIncludeArg]
   | BootStatusExternalBindingSpecs    MergedBindingSpecs
@@ -141,6 +189,7 @@ bootStatus nm x =
 instance PrettyForTrace BootStatusMsg where
   prettyForTrace = \case
     BootStatusStart                   x -> bootStatus "BindgenConfig"           x
+    BootStatusCStandard               x -> bootStatus "ClangCStandard"          x
     BootStatusClangArgs               x -> bootStatus "ClangArgs"               x
     BootStatusHashIncludeArgs         x -> bootStatus "HashIncludeArgs"         x
     BootStatusExternalBindingSpecs    x -> bootStatus "ExternalBindingSpecs"    x
@@ -151,12 +200,33 @@ instance IsTrace Level BootStatusMsg where
   getSource          = const HsBindgen
   getTraceId         = const "boot-status"
 
+data BootCStandardMsg =
+    BootCStandardClang ClangCStandard
+  | BootCStandardFail
+  deriving stock (Show, Generic)
+
+instance PrettyForTrace BootCStandardMsg where
+  prettyForTrace = \case
+    BootCStandardClang std ->
+      "C standard determined by libclang: " >< PP.show std
+    BootCStandardFail ->
+      "Unable to determine C standard"
+
+instance IsTrace Level BootCStandardMsg where
+  getDefaultLogLevel = \case
+    BootCStandardClang{} -> Info
+    BootCStandardFail    -> Error
+
+  getSource  = const HsBindgen
+  getTraceId = const "boot-c-standard"
+
 -- | Boot trace messages
 data BootMsg =
     BootBackendConfig        BackendConfigMsg
   | BootBindingSpec          BindingSpecMsg
   | BootBuiltinIncDir        BuiltinIncDirMsg
   | BootClang                ClangMsg
+  | BootCStandard            BootCStandardMsg
   | BootExtraClangArgs       ExtraClangArgsMsg
   | BootHashIncludeArg       HashIncludeArgMsg
   | BootCompareClangVersions CompareVersionsMsg

@@ -29,7 +29,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     --hs-output-dir hs-project/generated \
     --unique-id blocksdemo.well-typed.com \
     --module Iterator \
-    --standard c23 \
+    --clang-option '-std=c2x' \
     --enable-blocks \
     iterator.h
 

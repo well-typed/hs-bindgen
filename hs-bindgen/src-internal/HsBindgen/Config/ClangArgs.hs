@@ -1,18 +1,12 @@
 module HsBindgen.Config.ClangArgs (
     -- * Types
     ClangArgsConfig(..)
-    -- ** C standard
-  , CStandard(..)
-  , Gnu(..)
-  , getStdClangArg
     -- ** Builtin include directory
   , BuiltinIncDirConfig(..)
     -- * Translation
   , InvalidClangArgs
   , clangArgsConfigToClangArgs
   ) where
-
-import Data.List qualified as List
 
 import Clang.Args
 
@@ -24,22 +18,16 @@ import HsBindgen.Imports
 
 -- | Configuration of @libclang@ command-line arguments
 --
--- We demand specification of the C standard since the default C standard
--- depends on the Clang version and if GNU extensions are enabled.
---
 -- `ClangArgsConfig` is not intended to be complete; instead, we have added
 -- configuration options most relevant to @hs-bindgen@. Pass other
 -- configurations options directly using command line arguments ('argsBefore',
 -- 'argsInner', and 'argsAfter').
+--
+-- Configuration of the C standard must be done via one of these options.
+-- @hs-bindgen@ queries @libclang@ to get the C standard.
 data ClangArgsConfig path = ClangArgsConfig {
-      -- | C standard
-      cStandard :: CStandard
-
-      -- | Enable GNU extensions?
-    , gnu :: Gnu
-
       -- | Builtin include directory configuration
-    , builtinIncDir :: BuiltinIncDirConfig
+      builtinIncDir :: BuiltinIncDirConfig
 
       -- | Directories that will be added to the include search path
       --
@@ -98,9 +86,7 @@ data ClangArgsConfig path = ClangArgsConfig {
 
 instance Default (ClangArgsConfig path) where
  def = ClangArgsConfig {
-      cStandard        = C17
-    , gnu              = DisableGnu
-    , builtinIncDir    = def
+      builtinIncDir    = def
     , extraIncludeDirs = []
     , defineMacros     = []
     , enableBlocks     = False
@@ -130,33 +116,23 @@ instance Default BuiltinIncDirConfig where
   Translation
 -------------------------------------------------------------------------------}
 
-clangArgsConfigToClangArgs ::
-     ClangArgsConfig FilePath
-  -> Either InvalidClangArgs ClangArgs
-clangArgsConfigToClangArgs config = do
-    argsInternal <- getArgsInternal
-    return . ClangArgs $ concat [
-        config.argsBefore
-      , argsInternal
-      , config.argsInner
-      , config.argsAfter
-      ]
+clangArgsConfigToClangArgs :: ClangArgsConfig FilePath -> ClangArgs
+clangArgsConfigToClangArgs config = ClangArgs $ concat [
+      config.argsBefore
+    , argsInternal
+    , config.argsInner
+    , config.argsAfter
+    ]
   where
-    getArgsInternal :: Either InvalidClangArgs [String]
-    getArgsInternal = concat <$> sequence [
-        List.singleton <$> getStdClangArg config.cStandard config.gnu
-
-      , return $ concat $ [
-            [ "-fblocks" | config.enableBlocks ]
-          ]
-
-      , return $ concat [
+    argsInternal :: [String]
+    argsInternal = concat [
+        concat [
             ["-I", path]
           | path <- config.extraIncludeDirs
           ]
-
-      , return $ concat [
+      , concat [
             ["-D" ++ defn]
           | defn <- config.defineMacros
           ]
+      , [ "-fblocks" | config.enableBlocks ]
       ]

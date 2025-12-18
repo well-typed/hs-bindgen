@@ -11,8 +11,6 @@ module Main where
 -- base
 import Control.Arrow
   ( first )
-import Control.Exception
-  ( throwIO )
 import Data.List
   ( isPrefixOf )
 import Data.String
@@ -108,9 +106,8 @@ main = do
       , "The test-suite will use whichever C header files it finds on your system."
       ]
 
-  stdClangArg <- either throwIO return $
-    Clang.getStdClangArg Clang.C23 Clang.DisableGnu
-  let platform = hostPlatform
+  let stdClangArg = "-std=c17"  -- C23 arg depends on libclang version
+      platform = hostPlatform
       clangArgs = Clang.ClangArgs $ stdClangArg :
         case platformOS hostPlatform of
           Windows -> ["-target", "x86_64-pc-windows"]

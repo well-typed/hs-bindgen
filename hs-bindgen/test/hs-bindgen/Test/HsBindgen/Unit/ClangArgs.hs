@@ -8,7 +8,6 @@ import Clang.LowLevel.Core
 import HsBindgen.Clang
 import HsBindgen.Clang.ExtraClangArgs (splitArguments)
 import HsBindgen.Config.ClangArgs
-import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -32,10 +31,7 @@ tests testResources = testGroup "Test.HsBindgen.Unit.ClangArgs" [
 testGetTargetTriple :: IO TestResources -> Assertion
 testGetTargetTriple testResources = do
     clangArgsConfig <- getTestDefaultClangArgsConfig testResources []
-    clangArgs <- either (panicIO . show) return $
-      clangArgsConfigToClangArgs clangArgsConfig
-
-    let setup :: ClangSetup
+    let clangArgs = clangArgsConfigToClangArgs clangArgsConfig
         setup = defaultClangSetup clangArgs $
                   ClangInputMemory "hs-bindgen-triple.h" ""
 

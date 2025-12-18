@@ -204,8 +204,8 @@ of the bracket C include search path.
 
 ```console
 hs-bindgen-cli preprocess \
-  --standard c23 \
   -I include \
+  --clang-option="-std=gnu23" \
   --clang-option="-idirafter/opt/acme-0.1.0/include" \
   --module Foo \
   --hs-output-dir src \
