@@ -553,5 +553,5 @@ updateSingleLoc _     sloc = sloc
 
 mbAddUniqueSymbolSource :: Hs.Name ns -> HsDoc.Comment -> HsDoc.Comment
 mbAddUniqueSymbolSource = \case
-  Hs.ExposedName  _ -> id
+  Hs.ExportedName _ -> id
   Hs.InternalName x -> (HsDoc.uniqueSymbol x <>)

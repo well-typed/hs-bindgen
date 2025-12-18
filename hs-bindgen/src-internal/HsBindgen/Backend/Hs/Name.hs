@@ -18,16 +18,19 @@ import HsBindgen.Language.Haskell qualified as Hs
 -- | Haskell name in namespace @ns@
 data Name (ns :: Namespace) =
       -- | Human-readable name that is to be exported
-      ExposedName Text
+      --
+      -- Term-level declarations with exported names should not have use sites
+      -- and therefore they can easily be renamed.
+      ExportedName Text
       -- | Auxiliary name used in the implementation of other declarations
       --
-      -- Since those functions have use-sites, we should normally rename them.
+      -- Since those functions have use-sites, we should not normally rename them.
     | InternalName UniqueSymbol
   deriving stock (Eq, Ord, Show)
 
 getName :: Name ns -> Text
 getName = \case
-  ExposedName  x -> x
+  ExportedName x -> x
   InternalName x -> Text.pack x.unique
 
 {-------------------------------------------------------------------------------
@@ -38,7 +41,7 @@ getName = \case
 --
 -- The caller must ensure that name rules are adhered to.
 unsafeHsIdHsName ::  Hs.Identifier -> Name ns
-unsafeHsIdHsName = ExposedName . getIdentifier
+unsafeHsIdHsName = ExportedName . getIdentifier
 
 -- | Construct Haskell name in arbitrary name space
 --

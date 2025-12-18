@@ -250,9 +250,10 @@ runTestHsBindgen report testResources test artefacts = do
     let frontendConfig = getTestFrontendConfig test
         backendConfig  = getTestBackendConfig test
         bindgenConfig  = BindgenConfig bootConfig frontendConfig backendConfig
-    withTestTraceConfig report test $ \traceConfig ->
+    withTestTraceConfig report test $ \traceConfigUnsafe ->
       hsBindgenE
-        traceConfig
+        traceConfigUnsafe
+        quietTracerConfig
         bindgenConfig
         [testInputInclude test]
         artefacts

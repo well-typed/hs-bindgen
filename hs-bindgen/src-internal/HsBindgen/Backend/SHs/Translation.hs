@@ -388,7 +388,7 @@ translateHasFieldInstance Hs.HasFieldInstance{..} mbComment = do
     parentPtr = TGlobal Foreign_Ptr `TApp` parentType
     fieldNameLitType = translateType $ HsStrLit $ T.unpack $ Hs.getName hasFieldInstanceFieldName
     -- TODO: this is not actually a free type variable. See issue #1287.
-    tyTypeVar = TFree $ Hs.ExposedName "ty"
+    tyTypeVar = TFree $ Hs.ExportedName "ty"
 
 {-------------------------------------------------------------------------------
   Structs

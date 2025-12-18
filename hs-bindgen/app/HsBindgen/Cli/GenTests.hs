@@ -58,4 +58,10 @@ exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = writeTests output
         bindgenConfig = toBindgenConfig config uniqueId baseModuleName def
-    void $ hsBindgen tracerConfig bindgenConfig inputs artefact
+    void $
+      hsBindgen
+        tracerConfigUnsafe
+        tracerConfigSafe
+        bindgenConfig
+        inputs
+        artefact

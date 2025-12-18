@@ -74,11 +74,16 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
 
     bindgenConfig <- toBindgenConfigTH config packageRoot bindingCategoryChoice
 
-    let tracerConfig :: TracerConfig Level TraceMsg
-        tracerConfig =
+    let tracerConfigUnsafe :: TracerConfig Level TraceMsg
+        tracerConfigUnsafe =
           tracerConfigDefTH
             & #tVerbosity .~ verbosity
             & #tCustomLogLevel .~ getCustomLogLevel customLogLevelSettings
+
+    let tracerConfigSafe :: TracerConfig SafeLevel SafeTraceMsg
+        tracerConfigSafe =
+          tracerConfigDefTH
+            & #tVerbosity .~ verbosity
 
         -- Traverse #include directives.
         bindgenState :: BindgenState
@@ -94,7 +99,8 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
 
     (deps, decls) <- liftIO $
       hsBindgen
-        tracerConfig
+        tracerConfigUnsafe
+        tracerConfigSafe
         bindgenConfig
         uncheckedHashIncludeArgs
         artefact

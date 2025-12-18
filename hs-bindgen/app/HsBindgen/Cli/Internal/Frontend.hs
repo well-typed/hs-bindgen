@@ -58,4 +58,9 @@ exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefact = ReifiedC >>= Lift . delay . WriteToStdOut . TextContent . show
         bindgenConfig = toBindgenConfig config uniqueId baseModuleName def
-    hsBindgen tracerConfig bindgenConfig inputs artefact
+    hsBindgen
+      tracerConfigUnsafe
+      tracerConfigSafe
+      bindgenConfig
+      inputs
+      artefact

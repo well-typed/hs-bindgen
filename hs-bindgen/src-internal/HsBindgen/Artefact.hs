@@ -2,10 +2,13 @@ module HsBindgen.Artefact (
     -- * Artefacts
     Artefact(..)
   , runArtefacts
+  , ArtefactMsg(..)
   )
 where
 
 import Control.Monad (liftM)
+import Text.SimplePrettyPrint ((<+>), (><))
+import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Paths
 
@@ -28,6 +31,7 @@ import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Artefact
@@ -51,7 +55,8 @@ data Artefact (a :: Star) where
   HsDecls             :: Artefact (ByCategory_ [Hs.Decl])
   FinalDecls          :: Artefact (ByCategory_ ([CWrapper], [SHs.SDecl]))
   FinalModuleBaseName :: Artefact BaseModuleName
-  -- * Lift and sequence artefacts
+  -- * Control flow
+  EmitTrace           :: ArtefactMsg -> Artefact ()
   Lift                :: DelayedIOM a -> Artefact a
   Bind                :: Artefact b  -> (b -> Artefact c ) -> Artefact c
 
@@ -79,12 +84,14 @@ instance Monad Artefact where
 -- All top-level artefacts will be cached (this is not true for computed
 -- artefacts, using, for example, the 'Functor' interface, or 'Lift').
 runArtefacts :: forall a.
-     BootArtefact
+     Tracer ArtefactMsg
+  -> BootArtefact
   -> FrontendArtefact
   -> BackendArtefact
   -> Artefact a
   -> IO (a, [DelayedIO])
 runArtefacts
+  tracer
   BootArtefact{..}
   FrontendArtefact{..}
   BackendArtefact{..}
@@ -108,6 +115,37 @@ runArtefacts
         HsDecls             -> runCached backendHsDecls
         FinalDecls          -> runCached backendFinalDecls
         FinalModuleBaseName -> pure backendFinalModuleBaseName
-        -- Lift and sequence.
+        -- Control flow
+        (EmitTrace x)       -> emitTrace tracer x
         (Lift   f)          -> f
         (Bind x f)          -> runArtefact x >>= runArtefact . f
+
+{-------------------------------------------------------------------------------
+  Traces
+-------------------------------------------------------------------------------}
+
+data ArtefactMsg =
+      NoBindingsSingleModule BaseModuleName
+    | NoBindingsMultipleModules BaseModuleName
+    | SkipWriteToFileNoBindings FileLocation
+  deriving stock (Show, Generic)
+
+instance PrettyForTrace ArtefactMsg where
+  prettyForTrace = \case
+    NoBindingsSingleModule md ->
+      "Module" <+> PP.showToCtxDoc md <+> "does not contain any bindings"
+    NoBindingsMultipleModules md ->
+      "All binding categories with base module name" <+> PP.showToCtxDoc md <+> "are empty"
+    SkipWriteToFileNoBindings fp ->
+      "Skipping 'write file' operation (" >< PP.showToCtxDoc fp >< "): file is empty"
+
+instance IsTrace SafeLevel ArtefactMsg where
+  getDefaultLogLevel = \case
+    NoBindingsSingleModule{}    -> SafeNotice
+    NoBindingsMultipleModules{} -> SafeNotice
+    SkipWriteToFileNoBindings{} -> SafeNotice
+  getSource = const HsBindgen
+  getTraceId = \case
+    NoBindingsSingleModule{}    -> "artefact-no-bindings-single"
+    NoBindingsMultipleModules{} -> "artefact-no-bindings-multiple"
+    SkipWriteToFileNoBindings{} -> "artefact-skip-write-file"

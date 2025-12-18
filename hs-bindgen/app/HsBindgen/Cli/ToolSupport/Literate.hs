@@ -103,7 +103,7 @@ exec Opts{..} = do
         -- line options to adjust the binding category predicate do we want to
         -- provide?
         bindgenConfig = toBindgenConfig config uniqueId baseModuleName useSafeCategory
-    void $ hsBindgen tracerConfig bindgenConfig inputs $
+    void $ hsBindgen tracerConfigUnsafe tracerConfigSafe bindgenConfig inputs $
       writeBindings fileOverwritePolicy output
   where
     throwIO' :: String -> IO a

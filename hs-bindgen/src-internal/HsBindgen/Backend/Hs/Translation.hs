@@ -1279,7 +1279,7 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
 
     mbUniqueSymbolComment :: Maybe HsDoc.Comment
     mbUniqueSymbolComment = case runnerName of
-      Hs.ExposedName  _ -> Nothing
+      Hs.ExportedName _ -> Nothing
       Hs.InternalName x -> Just $ HsDoc.uniqueSymbol x
 
     name :: Text
@@ -1291,7 +1291,7 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
       . Text.unpack
 
     runnerName = case runnerNameSpec of
-        HaskellId      -> Hs.ExposedName name
+        HaskellId      -> Hs.ExportedName name
         GlobalUniqueId -> Hs.InternalName $ uniquify name
     runnerType = SHs.translateType (Type.topLevel stubType)
     runnerExpr = SHs.EGlobal SHs.IO_unsafePerformIO

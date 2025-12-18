@@ -17,6 +17,9 @@ module HsBindgen
     -- * Errors
   , BindgenError(..)
 
+    -- * Traces
+  , SafeTraceMsg(..)
+
     -- * Test infrastructure
   , hsBindgenE
   ) where
@@ -51,13 +54,14 @@ import HsBindgen.Util.Tracer
 -- For a list of build artefacts, see the description and constructors of
 -- 'Artefact'.
 hsBindgen ::
-     TracerConfig Level TraceMsg
+     TracerConfig Level     TraceMsg
+  -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> Artefact a
   -> IO a
-hsBindgen t b i a = do
-    eRes <- hsBindgenE t b i a
+hsBindgen tu ts b i a = do
+    eRes <- hsBindgenE tu ts b i a
     case eRes of
       Left err -> do
         putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace err
@@ -66,53 +70,57 @@ hsBindgen t b i a = do
 
 -- | Like 'hsBindgen' but does not exit with failure when an error has occurred.
 hsBindgenE ::
-     TracerConfig Level TraceMsg
+     TracerConfig Level     TraceMsg
+  -> TracerConfig SafeLevel SafeTraceMsg
   -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> Artefact a
   -> IO (Either BindgenError a)
 hsBindgenE
-  tracerConfig
+  tracerConfigUnsafe
+  tracerConfigSafe
   bindgenConfig@BindgenConfig{..}
   uncheckedHashIncludeArgs
   artefacts = do
-    eRes <- withTracer tracerConfig $ \tracer -> do
-      -- Boot and frontend require unsafe tracer and `libclang`.
-      let tracerFrontend :: Tracer FrontendMsg
-          tracerFrontend = contramap TraceFrontend tracer
-          tracerBoot :: Tracer BootMsg
-          tracerBoot = contramap TraceBoot tracer
+    eRes <- withTracer tracerConfigUnsafe $ \tracerUnsafe -> do
       -- 1. Boot.
+      let tracerBoot :: Tracer BootMsg
+          tracerBoot = contramap TraceBoot tracerUnsafe
       bootArtefact <-
         boot tracerBoot bindgenConfig uncheckedHashIncludeArgs
       -- 2. Frontend.
+      let tracerFrontend :: Tracer FrontendMsg
+          tracerFrontend = contramap TraceFrontend tracerUnsafe
       frontendArtefact <-
         frontend tracerFrontend bindgenFrontendConfig bootArtefact
       -- 3. Backend.
-      backendArtefact <- withTracerSafe tracerConfigSafe $ \tracerSafe -> do
-        backend tracerSafe bindgenBackendConfig bootArtefact frontendArtefact
+      let tracerConfigBackend :: TracerConfig SafeLevel BackendMsg
+          tracerConfigBackend = contramap SafeBackendMsg tracerConfigSafe
+      backendArtefact <-
+        withTracerSafe tracerConfigBackend  $ \tracerSafe ->
+          backend tracerSafe bindgenBackendConfig bootArtefact frontendArtefact
       -- 4. Artefacts.
-      runArtefacts bootArtefact frontendArtefact backendArtefact artefacts
+      let tracerConfigArtefact :: TracerConfig SafeLevel ArtefactMsg
+          tracerConfigArtefact = contramap SafeArtefactMsg tracerConfigSafe
+      withTracerSafe tracerConfigArtefact $ \tracerSafe ->
+        runArtefacts
+          tracerSafe
+          bootArtefact
+          frontendArtefact
+          backendArtefact
+          artefacts
 
-    runExceptT $ withTracerSafe tracerConfigSafe $ \tracer ->
-        case eRes of
-          Left er       -> throwError $ BindgenErrorReported er
-          Right (r, as) -> do
-            -- Before creating directories or writing output files, we verify
-            -- adherence to the provided policies.
-            withExceptT (BindgenDelayedIOError) $ mapM_ checkPolicy as
-            liftIO $ executeFileSystemActions tracer as
-            pure r
-
-  where
-    tracerConfigSafe :: TracerConfig SafeLevel a
-    tracerConfigSafe = TracerConfig {
-        tVerbosity      = tVerbosity tracerConfig
-      , tOutputConfig   = def
-      , tCustomLogLevel = mempty
-      , tShowTimeStamp  = tShowTimeStamp tracerConfig
-      , tShowCallStack  = tShowCallStack tracerConfig
-      }
+    let tracerConfigDelayedIO :: TracerConfig SafeLevel DelayedIOMsg
+        tracerConfigDelayedIO = contramap SafeDelayedIOMsg tracerConfigSafe
+    runExceptT $ withTracerSafe tracerConfigDelayedIO $ \tracerSafe ->
+      case eRes of
+        Left er       -> throwError $ BindgenErrorReported er
+        Right (r, as) -> do
+          -- Before creating directories or writing output files, we verify
+          -- adherence to the provided policies.
+          withExceptT BindgenDelayedIOError $ mapM_ checkPolicy as
+          liftIO $ executeDelayedIOActions tracerSafe as
+          pure r
 
 {-------------------------------------------------------------------------------
   Custom build artefacts
@@ -125,7 +133,7 @@ writeIncludeGraph pol mPath = do
     let rendered = IncludeGraph.dumpMermaid predicate includeGraph
     case mPath of
       Nothing   -> Lift $ delay $ WriteToStdOut $ TextContent rendered
-      Just path -> Lift $ write pol "include graph" (UserSpecified path) rendered
+      Just path -> write pol "include graph" (UserSpecified path) rendered
 
 -- | Write @use-decl@ graph to file.
 writeUseDeclGraph :: FileOverwritePolicy -> Maybe FilePath -> Artefact ()
@@ -134,35 +142,31 @@ writeUseDeclGraph pol mPath = do
     let rendered = UseDeclGraph.dumpMermaid useDeclGraph
     case mPath of
       Nothing   -> Lift $ delay $ WriteToStdOut $ TextContent rendered
-      Just path -> Lift $ write pol "use-decl graph" (UserSpecified path) rendered
-
--- TODO_PR: Be careful when there are no declarations at all.
+      Just path -> write pol "use-decl graph" (UserSpecified path) rendered
 
 -- | Get bindings (single module).
 getBindings :: Artefact String
 getBindings = do
     name  <- FinalModuleBaseName
     decls <- FinalDecls
+    when (all nullDecls decls) $
+      EmitTrace $ NoBindingsSingleModule name
     pure $ render $ translateModuleSingle name decls
-
--- TODO_PR: Be careful when there are no declarations at all.
 
 -- | Write bindings to file.
 writeBindings :: FileOverwritePolicy -> FilePath -> Artefact ()
 writeBindings fileOverwritePolicy path = do
     bindings <- getBindings
-    Lift $ write fileOverwritePolicy "bindings" (UserSpecified path) bindings
-
--- TODO_PR: Be careful when there are no declarations at all.
+    write fileOverwritePolicy "bindings" (UserSpecified path) bindings
 
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: Artefact (ByCategory_ (Maybe String))
 getBindingsMultiple = do
-  name  <- FinalModuleBaseName
-  decls <- FinalDecls
-  pure $ fmap render <$> translateModuleMultiple name decls
-
--- TODO_PR: Be careful when there are no declarations at all.
+    name  <- FinalModuleBaseName
+    decls <- FinalDecls
+    when (all nullDecls decls) $
+      EmitTrace $ NoBindingsMultipleModules name
+    pure $ fmap render <$> translateModuleMultiple name decls
 
 -- | Write bindings to files in provided output directory.
 --
@@ -228,9 +232,12 @@ writeTests _testDir = do
   Helpers
 -------------------------------------------------------------------------------}
 
-write :: FileOverwritePolicy -> String -> FileLocation -> String -> DelayedIOM ()
-write pol what loc str =
-    delay $ WriteToFile $ FileDescription what loc pol (TextContent str)
+write :: FileOverwritePolicy -> String -> FileLocation -> String -> Artefact ()
+write pol what loc str
+  | null str =
+    EmitTrace $ SkipWriteToFileNoBindings loc
+  | otherwise =
+    Lift $ delay $ WriteToFile $ FileDescription what loc pol (TextContent str)
 
 writeByCategory ::
      FileOverwritePolicy
@@ -247,7 +254,7 @@ writeByCategory
     writeCategory :: Category -> Maybe String -> Artefact ()
     writeCategory _    Nothing   = pure ()
     writeCategory cat (Just str) =
-        Lift $ write fileOverwritePolicy whatWithCategory location str
+        write fileOverwritePolicy whatWithCategory location str
       where
         localPath :: FilePath
         localPath = Hs.moduleNamePath $ fromBaseModuleName moduleBaseName (Just cat)
@@ -259,6 +266,9 @@ writeByCategory
         location =
           RelativeFileLocation $
             RelativeToOutputDir {outputDir, localPath, outputDirPolicy}
+
+nullDecls :: ([a], [b]) -> Bool
+nullDecls (xs, ys) = null xs && null ys
 
 {-------------------------------------------------------------------------------
   Errors
@@ -273,3 +283,13 @@ instance PrettyForTrace BindgenError where
   prettyForTrace = \case
     BindgenErrorReported  e -> prettyForTrace e
     BindgenDelayedIOError e -> prettyForTrace e
+
+{-------------------------------------------------------------------------------
+  Traces
+-------------------------------------------------------------------------------}
+
+data SafeTraceMsg =
+      SafeBackendMsg  BackendMsg
+    | SafeArtefactMsg ArtefactMsg
+    | SafeDelayedIOMsg DelayedIOMsg
+  deriving (Show, Generic, PrettyForTrace, IsTrace SafeLevel)

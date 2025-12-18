@@ -23,7 +23,8 @@ import HsBindgen.Util.Tracer
 -- declarations.
 --
 -- The backend is pure and should not emit warnings or errors.
-backend :: Tracer BackendMsg
+backend ::
+     Tracer BackendMsg
   -> BackendConfig
   -> BootArtefact
   -> FrontendArtefact

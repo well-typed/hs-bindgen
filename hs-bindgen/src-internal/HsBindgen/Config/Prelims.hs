@@ -28,8 +28,8 @@ import HsBindgen.Util.Tracer
 -- For example, the base module name might be @Generated@, from which we
 -- derive @Generated@, @Generated.Safe@, etc.
 newtype BaseModuleName = BaseModuleName { baseModuleNameToText :: Text }
-  deriving stock (Show, Eq, Generic)
-  deriving newtype (IsString, FromJSON, ToJSON)
+  deriving stock (Eq, Generic)
+  deriving newtype (IsString, FromJSON, ToJSON, Show)
 
 instance Default BaseModuleName where
   def = "Generated"

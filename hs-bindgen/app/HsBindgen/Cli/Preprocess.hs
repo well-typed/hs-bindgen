@@ -74,7 +74,7 @@ exec GlobalOpts{..} Opts{..} =
     bindgenConfig = toBindgenConfig config uniqueId baseModuleName def
 
     run :: Artefact a -> IO a
-    run = hsBindgen tracerConfig bindgenConfig inputs
+    run = hsBindgen tracerConfigUnsafe tracerConfigSafe bindgenConfig inputs
 
     artefacts :: Artefact ()
     artefacts = do

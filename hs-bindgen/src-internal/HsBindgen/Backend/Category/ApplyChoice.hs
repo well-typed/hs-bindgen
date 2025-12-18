@@ -22,6 +22,7 @@ applyTypes = \case
   ExcludeCategory     -> const []
   IncludeTypeCategory -> id
 
+-- The list of declarations should only contain terms ('LvlTerm').
 applyTerms :: Choice LvlTerm -> [Hs.Decl] -> [Hs.Decl]
 applyTerms = \case
     ExcludeCategory                    -> const []
@@ -48,8 +49,8 @@ applyTerms = \case
 
         fN :: Hs.Name n -> Hs.Name n
         fN = \case
-          Hs.ExposedName  x -> Hs.ExposedName $ f x
-          Hs.InternalName x -> Hs.InternalName  x
+          Hs.ExportedName x -> Hs.ExportedName $ f x
+          Hs.InternalName x -> Hs.InternalName x
 
         overN :: Lens' a (Hs.Name n) -> a -> a
         overN l = over l fN

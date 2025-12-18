@@ -366,7 +366,7 @@ test_functions_simple_func_rename =
               cType = IncludeTypeCategory
             , cSafe = ExcludeCategory
             , cUnsafe = ExcludeCategory
-            , cFunPtr = IncludeTermCategory $ RenameTerm $ \t -> t <> "_suffix"
+            , cFunPtr = IncludeTermCategory $ RenameTerm $ \t -> t <> "_random_user_specified_suffix"
             , cGlobal = ExcludeCategory
             }
         }

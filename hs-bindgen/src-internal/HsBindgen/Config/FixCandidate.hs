@@ -120,8 +120,8 @@ fixCandidate FixCandidate{
 
     handleReservedNames :: Hs.Name ns -> Hs.Name ns
     handleReservedNames = \case
-      Hs.ExposedName name | name `Set.member` reservedNames ->
-        Hs.ExposedName $ onReservedName name
+      Hs.ExportedName name | name `Set.member` reservedNames ->
+        Hs.ExportedName $ onReservedName name
       otherName -> otherName
 
 {-------------------------------------------------------------------------------
@@ -230,9 +230,9 @@ modifyFirstLetter onInvalidFirst =
     aux ruleset = \t -> do
         (firstChar, rest) <- Text.uncons t
         if | matchesRule firstChar ->
-               Just . Hs.ExposedName $ Text.cons firstChar rest
+               Just . Hs.ExportedName $ Text.cons firstChar rest
            | matchesRule (adjustForRule firstChar) ->
-               Just . Hs.ExposedName $ Text.cons (adjustForRule firstChar) rest
+               Just . Hs.ExportedName $ Text.cons (adjustForRule firstChar) rest
            | otherwise -> do
                let unhandledPrefix, afterUnhandled :: Text
                    (unhandledPrefix, afterUnhandled) = Text.span unusable t
@@ -274,7 +274,7 @@ prefixInvalidFirst prefixOther prefixVar cannotApply =
          prefix = case cannotApplyRuleset of
                SNameRuleSetOther -> prefixOther
                SNameRuleSetVar   -> prefixVar
-     in Hs.ExposedName $ prefix <> unhandledPrefix <> aux usableSuffix
+     in Hs.ExportedName $ prefix <> unhandledPrefix <> aux usableSuffix
   where
     CannotApplyRuleset{
         cannotApplyRuleset
@@ -290,7 +290,7 @@ dropInvalidFirst CannotApplyRuleset{usableSuffix} =
     aux <$> usableSuffix
   where
     aux :: (Char, Char, Text) -> Hs.Name ns
-    aux (_, c, cs) = Hs.ExposedName $ Text.cons c cs
+    aux (_, c, cs) = Hs.ExportedName $ Text.cons c cs
 
 {-------------------------------------------------------------------------------
   Reserved names

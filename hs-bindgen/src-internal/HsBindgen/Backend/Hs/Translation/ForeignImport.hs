@@ -42,7 +42,7 @@ foreignImportDec name resultType parameters origName callConv origin safety =
 
     mbUniqueSymbol :: Maybe HsDoc.Comment
     mbUniqueSymbol = case name of
-      Hs.ExposedName  _ -> Nothing
+      Hs.ExportedName _ -> Nothing
       Hs.InternalName x -> Just $ HsDoc.uniqueSymbol x
 
 hasBaseForeignTypeDecs ::
