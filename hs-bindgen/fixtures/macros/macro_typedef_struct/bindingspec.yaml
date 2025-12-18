@@ -12,6 +12,12 @@ ctypes:
   hsname: Bar
 hstypes:
 - hsname: Bar
+  representation:
+    record:
+      constructor: Bar
+      fields:
+      - bar_x
+      - bar_y
   instances:
   - Eq
   - Show

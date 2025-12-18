@@ -48,6 +48,13 @@ ctypes:
   hsname: Foo2
 hstypes:
 - hsname: DataPipeline
+  representation:
+    record:
+      constructor: DataPipeline
+      fields:
+      - dataPipeline_preProcess
+      - dataPipeline_process
+      - dataPipeline_postProcess
   instances:
   - Eq
   - Show
@@ -123,11 +130,24 @@ hstypes:
   - Show
   - Storable
 - hsname: Measurement
+  representation:
+    record:
+      constructor: Measurement
+      fields:
+      - measurement_value
+      - measurement_timestamp
   instances:
   - Eq
   - Show
   - Storable
 - hsname: MeasurementHandler
+  representation:
+    record:
+      constructor: MeasurementHandler
+      fields:
+      - measurementHandler_onReceived
+      - measurementHandler_validate
+      - measurementHandler_onError
   instances:
   - Eq
   - Show
@@ -159,6 +179,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Processor
+  representation:
+    record:
+      constructor: Processor
+      fields:
+      - processor_mode
+      - processor_callback
   instances:
   - Storable
 - hsname: ProcessorCallback

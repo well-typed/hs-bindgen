@@ -9,6 +9,11 @@ ctypes:
   hsname: Struct2
 hstypes:
 - hsname: Struct2
+  representation:
+    record:
+      constructor: Struct2
+      fields:
+      - struct2_x
   instances:
   - Eq
   - Show

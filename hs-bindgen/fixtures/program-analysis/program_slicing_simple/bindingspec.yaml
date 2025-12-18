@@ -12,6 +12,12 @@ ctypes:
   hsname: Uint32_t
 hstypes:
 - hsname: Foo
+  representation:
+    record:
+      constructor: Foo
+      fields:
+      - foo_sixty_four
+      - foo_thirty_two
   instances:
   - Eq
   - Show

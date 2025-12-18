@@ -12,6 +12,10 @@ ctypes:
   hsname: Size_t
 hstypes:
 - hsname: FILE
+  representation:
+    record:
+      constructor: FILE
+      fields: []
   instances:
   - Eq
   - Show

@@ -9,6 +9,12 @@ ctypes:
   hsname: Vector
 hstypes:
 - hsname: Vector
+  representation:
+    record:
+      constructor: Vector
+      fields:
+      - vector_x
+      - vector_y
   instances:
   - Eq
   - Show

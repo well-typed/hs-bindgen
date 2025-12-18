@@ -24,6 +24,12 @@ ctypes:
   hsname: Tripletlist
 hstypes:
 - hsname: Example
+  representation:
+    record:
+      constructor: Example
+      fields:
+      - example_triple
+      - example_sudoku
   instances:
   - Eq
   - Show

@@ -12,11 +12,21 @@ ctypes:
   hsname: B
 hstypes:
 - hsname: A
+  representation:
+    record:
+      constructor: A
+      fields:
+      - a_toB
   instances:
   - Eq
   - Show
   - Storable
 - hsname: B
+  representation:
+    record:
+      constructor: B
+      fields:
+      - b_toA
   instances:
   - Eq
   - Show

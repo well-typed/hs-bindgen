@@ -27,36 +27,77 @@ ctypes:
   hsname: S3
 hstypes:
 - hsname: S1
+  representation:
+    record:
+      constructor: S1
+      fields:
+      - s1_c
+      - s1_d
   instances:
   - Eq
   - Show
   - Storable
 - hsname: S1_c
+  representation:
+    record:
+      constructor: S1_c
+      fields:
+      - s1_c_a
+      - s1_c_b
   instances:
   - Eq
   - Show
   - Storable
 - hsname: S2
+  representation:
+    record:
+      constructor: S2
+      fields:
+      - s2_inner
+      - s2_d
   instances:
   - Eq
   - Show
   - Storable
 - hsname: S2_inner
+  representation:
+    record:
+      constructor: S2_inner
+      fields:
+      - s2_inner_a
+      - s2_inner_deep
   instances:
   - Eq
   - Show
   - Storable
 - hsname: S2_inner_deep
+  representation:
+    record:
+      constructor: S2_inner_deep
+      fields:
+      - s2_inner_deep_b
   instances:
   - Eq
   - Show
   - Storable
 - hsname: S3
+  representation:
+    record:
+      constructor: S3
+      fields:
+      - s3_c
+      - s3_d
   instances:
   - Eq
   - Show
   - Storable
 - hsname: S3_c
+  representation:
+    record:
+      constructor: S3_c
+      fields:
+      - s3_c_a
+      - s3_c_b
   instances:
   - Eq
   - Show

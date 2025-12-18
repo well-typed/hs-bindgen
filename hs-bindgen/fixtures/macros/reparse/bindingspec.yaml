@@ -421,11 +421,29 @@ hstypes:
   - Show
   - Storable
 - hsname: Example_struct
+  representation:
+    record:
+      constructor: Example_struct
+      fields:
+      - example_struct_field1
+      - example_struct_field2
+      - example_struct_field3
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Example_struct_with_const
+  representation:
+    record:
+      constructor: Example_struct_with_const
+      fields:
+      - example_struct_with_const_const_field1
+      - example_struct_with_const_const_field2
+      - example_struct_with_const_const_field3
+      - example_struct_with_const_const_field4
+      - example_struct_with_const_const_field5
+      - example_struct_with_const_const_field6
+      - example_struct_with_const_const_field7
   instances:
   - Eq
   - Show
@@ -558,6 +576,10 @@ hstypes:
   - Show
   - Storable
 - hsname: Some_struct
+  representation:
+    record:
+      constructor: Some_struct
+      fields: []
   instances:
   - Eq
   - Show

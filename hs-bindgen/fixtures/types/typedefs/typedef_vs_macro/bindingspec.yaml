@@ -30,11 +30,24 @@ ctypes:
   hsname: Uint64_t
 hstypes:
 - hsname: ExampleStruct
+  representation:
+    record:
+      constructor: ExampleStruct
+      fields:
+      - exampleStruct_t1
+      - exampleStruct_t2
+      - exampleStruct_m1
+      - exampleStruct_m2
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Foo
+  representation:
+    record:
+      constructor: Foo
+      fields:
+      - foo_a
   instances:
   - Eq
   - Show

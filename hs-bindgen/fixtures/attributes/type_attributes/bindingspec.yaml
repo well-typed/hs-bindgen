@@ -55,21 +55,44 @@ hstypes:
   - Show
   - Storable
 - hsname: My_packed_struct
+  representation:
+    record:
+      constructor: My_packed_struct
+      fields:
+      - my_packed_struct_c
+      - my_packed_struct_i
+      - my_packed_struct_s
   instances:
   - Eq
   - Show
   - Storable
 - hsname: My_unpacked_struct
+  representation:
+    record:
+      constructor: My_unpacked_struct
+      fields:
+      - my_unpacked_struct_c
+      - my_unpacked_struct_i
   instances:
   - Eq
   - Show
   - Storable
 - hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_f
   instances:
   - Eq
   - Show
   - Storable
 - hsname: S2
+  representation:
+    record:
+      constructor: S2
+      fields:
+      - s2_f
   instances:
   - Eq
   - Show

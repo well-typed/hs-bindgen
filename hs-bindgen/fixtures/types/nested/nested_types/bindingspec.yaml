@@ -24,31 +24,67 @@ ctypes:
   hsname: Foo
 hstypes:
 - hsname: Bar
+  representation:
+    record:
+      constructor: Bar
+      fields:
+      - bar_foo1
+      - bar_foo2
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Ex3
+  representation:
+    record:
+      constructor: Ex3
+      fields:
+      - ex3_ex3_struct
+      - ex3_ex3_c
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Ex3_ex3_struct
+  representation:
+    record:
+      constructor: Ex3_ex3_struct
+      fields:
+      - ex3_ex3_struct_ex3_a
+      - ex3_ex3_struct_ex3_b
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Ex4_even
+  representation:
+    record:
+      constructor: Ex4_even
+      fields:
+      - ex4_even_value
+      - ex4_even_next
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Ex4_odd
+  representation:
+    record:
+      constructor: Ex4_odd
+      fields:
+      - ex4_odd_value
+      - ex4_odd_next
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Foo
+  representation:
+    record:
+      constructor: Foo
+      fields:
+      - foo_i
+      - foo_c
   instances:
   - Eq
   - Show

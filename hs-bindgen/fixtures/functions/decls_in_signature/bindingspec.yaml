@@ -18,6 +18,12 @@ ctypes:
   hsname: Outside
 hstypes:
 - hsname: Named_struct
+  representation:
+    record:
+      constructor: Named_struct
+      fields:
+      - named_struct_x
+      - named_struct_y
   instances:
   - Eq
   - Show
@@ -33,6 +39,12 @@ hstypes:
 - hsname: Opaque
   representation: opaque
 - hsname: Outside
+  representation:
+    record:
+      constructor: Outside
+      fields:
+      - outside_x
+      - outside_y
   instances:
   - Eq
   - Show

@@ -32,11 +32,21 @@ hstypes:
   - Show
   - Storable
 - hsname: ExA
+  representation:
+    record:
+      constructor: ExA
+      fields:
+      - exA_fieldA1
   instances:
   - Eq
   - Show
   - Storable
 - hsname: ExB
+  representation:
+    record:
+      constructor: ExB
+      fields:
+      - exB_fieldB1
   instances:
   - Eq
   - Show

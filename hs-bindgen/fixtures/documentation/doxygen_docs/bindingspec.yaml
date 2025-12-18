@@ -45,6 +45,14 @@ ctypes:
   hsname: Status_code_t
 hstypes:
 - hsname: Bitfield_t
+  representation:
+    record:
+      constructor: Bitfield_t
+      fields:
+      - bitfield_t_flag1
+      - bitfield_t_flag2
+      - bitfield_t_counter
+      - bitfield_t_reserved
   instances:
   - Eq
   - Show
@@ -64,6 +72,15 @@ hstypes:
   - Show
   - Storable
 - hsname: Config_t
+  representation:
+    record:
+      constructor: Config_t
+      fields:
+      - config_t_id
+      - config_t_name
+      - config_t_flags
+      - config_t_callback
+      - config_t_user_data
   instances:
   - Eq
   - Show
@@ -77,6 +94,12 @@ hstypes:
   instances:
   - Storable
 - hsname: Data_union_t_as_parts
+  representation:
+    record:
+      constructor: Data_union_t_as_parts
+      fields:
+      - data_union_t_as_parts_low
+      - data_union_t_as_parts_high
   instances:
   - Eq
   - Show
@@ -105,6 +128,11 @@ hstypes:
   - Show
   - Storable
 - hsname: Flexible_array
+  representation:
+    record:
+      constructor: Flexible_array
+      fields:
+      - flexible_array_count
   instances:
   - Eq
   - Show

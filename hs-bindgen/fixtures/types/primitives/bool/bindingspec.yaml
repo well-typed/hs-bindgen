@@ -40,16 +40,34 @@ hstypes:
   - Show
   - Storable
 - hsname: Bools1
+  representation:
+    record:
+      constructor: Bools1
+      fields:
+      - bools1_x
+      - bools1_y
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Bools2
+  representation:
+    record:
+      constructor: Bools2
+      fields:
+      - bools2_x
+      - bools2_y
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Bools3
+  representation:
+    record:
+      constructor: Bools3
+      fields:
+      - bools3_x
+      - bools3_y
   instances:
   - Eq
   - Show

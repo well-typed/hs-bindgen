@@ -18,9 +18,19 @@ ctypes:
   hsname: UnionA
 hstypes:
 - hsname: ExA
+  representation:
+    record:
+      constructor: ExA
+      fields:
+      - exA_fieldA1
   instances:
   - Storable
 - hsname: ExB
+  representation:
+    record:
+      constructor: ExB
+      fields:
+      - exB_fieldB1
   instances:
   - Storable
 - hsname: ExB_fieldB1

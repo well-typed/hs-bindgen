@@ -27,36 +27,85 @@ ctypes:
   hsname: Overflow64
 hstypes:
 - hsname: AlignA
+  representation:
+    record:
+      constructor: AlignA
+      fields:
+      - alignA_x
+      - alignA_y
   instances:
   - Eq
   - Show
   - Storable
 - hsname: AlignB
+  representation:
+    record:
+      constructor: AlignB
+      fields:
+      - alignB_x
+      - alignB_y
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Flags
+  representation:
+    record:
+      constructor: Flags
+      fields:
+      - flags_fieldX
+      - flags_flagA
+      - flags_flagB
+      - flags_flagC
+      - flags_fieldY
+      - flags_bits
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Overflow32
+  representation:
+    record:
+      constructor: Overflow32
+      fields:
+      - overflow32_x
+      - overflow32_y
+      - overflow32_z
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Overflow32b
+  representation:
+    record:
+      constructor: Overflow32b
+      fields:
+      - overflow32b_x
+      - overflow32b_y
+      - overflow32b_z
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Overflow32c
+  representation:
+    record:
+      constructor: Overflow32c
+      fields:
+      - overflow32c_x
+      - overflow32c_y
+      - overflow32c_z
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Overflow64
+  representation:
+    record:
+      constructor: Overflow64
+      fields:
+      - overflow64_x
+      - overflow64_y
   instances:
   - Eq
   - Show

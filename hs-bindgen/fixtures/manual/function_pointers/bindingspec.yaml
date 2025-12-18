@@ -15,6 +15,11 @@ ctypes:
   hsname: Int2int
 hstypes:
 - hsname: Apply1Struct
+  representation:
+    record:
+      constructor: Apply1Struct
+      fields:
+      - apply1Struct_apply1_nopointer_struct_field
   instances:
   - Eq
   - Show

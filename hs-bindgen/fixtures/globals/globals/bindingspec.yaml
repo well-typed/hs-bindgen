@@ -21,26 +21,57 @@ ctypes:
   hsname: Version_t
 hstypes:
 - hsname: Config
+  representation:
+    record:
+      constructor: Config
+      fields:
+      - config_x
+      - config_y
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Inline_struct
+  representation:
+    record:
+      constructor: Inline_struct
+      fields:
+      - inline_struct_x
+      - inline_struct_y
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Struct1_t
+  representation:
+    record:
+      constructor: Struct1_t
+      fields:
+      - struct1_t_x
+      - struct1_t_y
+      - struct1_t_version
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Struct2_t
+  representation:
+    record:
+      constructor: Struct2_t
+      fields:
+      - struct2_t_field1
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Version_t
+  representation:
+    record:
+      constructor: Version_t
+      fields:
+      - version_t_major
+      - version_t_minor
+      - version_t_patch
   instances:
   - Eq
   - Show

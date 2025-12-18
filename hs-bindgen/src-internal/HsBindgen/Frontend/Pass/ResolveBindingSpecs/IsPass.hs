@@ -61,7 +61,7 @@ data ResolvedExtBinding = ResolvedExtBinding{
     , extCSpec :: BindingSpec.CTypeSpec
 
       -- | Additional information about the Haskell type
-    , extHsSpec :: Maybe BindingSpec.HsTypeSpec
+    , extHsSpec :: BindingSpec.HsTypeSpec
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -72,6 +72,8 @@ data ResolvedExtBinding = ResolvedExtBinding{
 data ResolveBindingSpecsMsg =
     ResolveBindingSpecsModuleMismatch       Hs.ModuleName Hs.ModuleName
   | ResolveBindingSpecsExtHsRefNoIdentifier C.DeclName
+  | ResolveBindingSpecsNoHsTypeSpec         C.DeclName
+  | ResolveBindingSpecsNoHsTypeRep          C.DeclName
   | ResolveBindingSpecsOmittedType          C.DeclName
   | ResolveBindingSpecsTypeNotUsed          C.DeclName
   | ResolveBindingSpecsExtDecl              C.DeclName
@@ -89,6 +91,12 @@ instance PrettyForTrace ResolveBindingSpecsMsg where
           <+> prettyForTrace hsModuleName
       ResolveBindingSpecsExtHsRefNoIdentifier cDeclName ->
         "Haskell identifier not specified in binding specification:"
+          <+> prettyForTrace cDeclName
+      ResolveBindingSpecsNoHsTypeSpec cDeclName ->
+        "Haskell type spec not specified in binding specification:"
+          <+> prettyForTrace cDeclName
+      ResolveBindingSpecsNoHsTypeRep cDeclName ->
+        "Haskell type rep not specified in binding specification:"
           <+> prettyForTrace cDeclName
       ResolveBindingSpecsOmittedType cDeclName ->
         "Type omitted by binding specification used:"
@@ -115,6 +123,8 @@ instance IsTrace Level ResolveBindingSpecsMsg where
   getDefaultLogLevel = \case
     ResolveBindingSpecsModuleMismatch{}       -> Error
     ResolveBindingSpecsExtHsRefNoIdentifier{} -> Error
+    ResolveBindingSpecsNoHsTypeSpec{}         -> Error
+    ResolveBindingSpecsNoHsTypeRep{}          -> Error
     ResolveBindingSpecsOmittedType{}          -> Info
     ResolveBindingSpecsTypeNotUsed{}          -> Error
     ResolveBindingSpecsExtDecl{}              -> Info

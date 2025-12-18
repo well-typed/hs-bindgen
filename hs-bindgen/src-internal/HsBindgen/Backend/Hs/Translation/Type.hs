@@ -146,13 +146,15 @@ toFFIType ntMap = \case
     HsConstPtr{} -> yes $ BindingSpec.Builtin BFT.ConstPtr
     HsIO{} -> no
     HsFun{} -> no
-    HsExtBinding _ _ mHsTypeSpec -> do
-        typeSpec <- mHsTypeSpec
-        typeRep <- BindingSpec.hsTypeSpecRep typeSpec
-        case typeRep of
-          BindingSpec.HsTypeRepNewtype newtypeRep -> BindingSpec.hsNewtypeRepFFIType newtypeRep
-          -- only newtypes can have an FFI type
-          _ -> Nothing
+    HsExtBinding _ _ hsTypeSpec -> do
+        case BindingSpec.hsTypeSpecRep hsTypeSpec of
+          Just rep -> case rep of
+            BindingSpec.HsTypeRepNewtype newtypeRep -> BindingSpec.hsNewtypeRepFFIType newtypeRep
+            -- only newtypes can have an FFI type
+            _ -> Nothing
+          -- this should be impossible because the @ResolveBindingSpecs@ pass
+          -- checks that each haskell type spec has a haskell type rep.
+          _ -> panicPure "toFFIType: haskell type spec has no type rep"
     HsByteArray -> no
     HsSizedByteArray{} -> no
     HsBlock{} -> yes $ BindingSpec.Basic BFT.Ptr

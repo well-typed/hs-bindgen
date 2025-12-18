@@ -66,6 +66,10 @@ ctypes:
   hsname: Use_sites
 hstypes:
 - hsname: Struct10_t
+  representation:
+    record:
+      constructor: Struct10_t
+      fields: []
   instances:
   - Eq
   - Show
@@ -81,21 +85,41 @@ hstypes:
   - Show
   - Storable
 - hsname: Struct11_t
+  representation:
+    record:
+      constructor: Struct11_t
+      fields:
+      - struct11_t_x
+      - struct11_t_self
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Struct12_t
+  representation:
+    record:
+      constructor: Struct12_t
+      fields:
+      - struct12_t_x
+      - struct12_t_self
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Struct1_t
+  representation:
+    record:
+      constructor: Struct1_t
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Struct2_t
+  representation:
+    record:
+      constructor: Struct2_t
+      fields: []
   instances:
   - Eq
   - Show
@@ -105,6 +129,10 @@ hstypes:
 - hsname: Struct4_t
   representation: opaque
 - hsname: Struct5
+  representation:
+    record:
+      constructor: Struct5
+      fields: []
   instances:
   - Eq
   - Show
@@ -136,11 +164,19 @@ hstypes:
   - Show
   - Storable
 - hsname: Struct6_Deref
+  representation:
+    record:
+      constructor: Struct6_Deref
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Struct7
+  representation:
+    record:
+      constructor: Struct7
+      fields: []
   instances:
   - Eq
   - Show
@@ -166,6 +202,10 @@ hstypes:
   - Show
   - Storable
 - hsname: Struct8
+  representation:
+    record:
+      constructor: Struct8
+      fields: []
   instances:
   - Eq
   - Show
@@ -181,6 +221,10 @@ hstypes:
   - Show
   - Storable
 - hsname: Struct9
+  representation:
+    record:
+      constructor: Struct9
+      fields: []
   instances:
   - Eq
   - Show
@@ -196,6 +240,28 @@ hstypes:
   - Show
   - Storable
 - hsname: Use_sites
+  representation:
+    record:
+      constructor: Use_sites
+      fields:
+      - use_sites_useTypedef_struct1_t
+      - use_sites_useTypedef_struct2_t
+      - use_sites_useTypedef_struct3_t
+      - use_sites_useTypedef_struct4_t
+      - use_sites_useStruct_struct5
+      - use_sites_useTypedef_struct5_t
+      - use_sites_useStruct_struct6
+      - use_sites_useTypedef_struct6
+      - use_sites_useTypedef_struct7a
+      - use_sites_useTypedef_struct7b
+      - use_sites_useTypedef_struct8
+      - use_sites_useTypedef_struct8b
+      - use_sites_useTypedef_struct9
+      - use_sites_useTypedef_struct9_t
+      - use_sites_useTypedef_struct10_t
+      - use_sites_useTypedef_struct10_t_t
+      - use_sites_useTypedef_struct11_t
+      - use_sites_useTypedef_struct12_t
   instances:
   - Eq
   - Show

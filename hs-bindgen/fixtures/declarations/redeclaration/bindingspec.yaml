@@ -40,6 +40,11 @@ hstypes:
   - Show
   - Storable
 - hsname: X
+  representation:
+    record:
+      constructor: X
+      fields:
+      - x_n
   instances:
   - Eq
   - Show

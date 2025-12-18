@@ -49,10 +49,8 @@ getInstances instanceMap name = aux
           HsConstPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsIO t  -> aux (acc /\ ioInsts) (t : hsTypes)
           HsFun arg res -> aux (acc /\ funInsts) (arg : res : hsTypes)
-          HsExtBinding _ref _cTypeSpec mHsTypeSpec ->
-            let acc' = case mHsTypeSpec of
-                  Just hsTypeSpec -> acc /\ hsTypeSpecInsts hsTypeSpec
-                  Nothing         -> acc
+          HsExtBinding _ref _cTypeSpec hsTypeSpec ->
+            let acc' = acc /\ hsTypeSpecInsts hsTypeSpec
             in  aux acc' hsTypes
           HsByteArray{} ->
             let acc' = acc /\ Set.fromList [Eq, Ord, Show]

@@ -27,11 +27,24 @@ ctypes:
   hsname: Int64_T
 hstypes:
 - hsname: A
+  representation:
+    record:
+      constructor: A
+      fields:
+      - a_x
+      - a_label
+      - a_samples
+      - a_b
+      - a_c
   instances:
   - Eq
   - Show
   - Storable
 - hsname: B
+  representation:
+    record:
+      constructor: B
+      fields: []
   instances:
   - Eq
   - Show
@@ -39,6 +52,12 @@ hstypes:
 - hsname: C
   representation: opaque
 - hsname: Cint16_T
+  representation:
+    record:
+      constructor: Cint16_T
+      fields:
+      - cint16_T_re
+      - cint16_T_im
   instances:
   - Eq
   - Show

@@ -976,10 +976,11 @@ test_program_analysis_program_slicing_simple =
   , testExtBindingSpecs = [ "examples/golden/program-analysis/program_slicing_simple.yaml" ]
   , testTracePredicate = customTracePredicate [
         "selected foo"
+      , "selected bar"
       , "selected uint32_t"
       ] $ \case
       TraceFrontend (FrontendSelect (SelectStatusInfo decl (Selected SelectionRoot))) ->
-        expectSelected decl.declInfo $ Set.singleton "foo"
+        expectSelected decl.declInfo $ Set.fromList ["foo", "bar"]
       TraceFrontend (FrontendSelect (SelectStatusInfo decl (Selected TransitiveDependency))) ->
         expectSelected decl.declInfo $ Set.singleton "uint32_t"
       _otherwise ->

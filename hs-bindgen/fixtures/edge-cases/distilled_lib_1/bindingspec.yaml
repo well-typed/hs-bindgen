@@ -63,6 +63,21 @@ hstypes:
   - Show
   - Storable
 - hsname: A_typedef_struct_t
+  representation:
+    record:
+      constructor: A_typedef_struct_t
+      fields:
+      - a_typedef_struct_t_field_0
+      - a_typedef_struct_t_field_1
+      - a_typedef_struct_t_field_2
+      - a_typedef_struct_t_field_3
+      - a_typedef_struct_t_field_4
+      - a_typedef_struct_t_field_5
+      - a_typedef_struct_t_field_6
+      - a_typedef_struct_t_field_7
+      - a_typedef_struct_t_field_8
+      - a_typedef_struct_t_field_9
+      - a_typedef_struct_t_field_10
   instances:
   - Eq
   - Show
@@ -82,6 +97,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Another_typedef_struct_t
+  representation:
+    record:
+      constructor: Another_typedef_struct_t
+      fields:
+      - another_typedef_struct_t_foo
+      - another_typedef_struct_t_bar
   instances:
   - Eq
   - Show

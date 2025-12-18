@@ -12,6 +12,12 @@ ctypes:
   hsname: FileOperationStatus
 hstypes:
 - hsname: FileOperationRecord
+  representation:
+    record:
+      constructor: FileOperationRecord
+      fields:
+      - fileOperationRecord_status
+      - fileOperationRecord_bytes_processed
   instances:
   - Eq
   - Show

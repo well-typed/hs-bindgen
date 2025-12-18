@@ -43,6 +43,12 @@ hstypes:
   - Show
   - Storable
 - hsname: GlobalConfig
+  representation:
+    record:
+      constructor: GlobalConfig
+      fields:
+      - globalConfig_numThreads
+      - globalConfig_numWorkers
   instances:
   - Eq
   - Show
@@ -67,6 +73,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Tuple
+  representation:
+    record:
+      constructor: Tuple
+      fields:
+      - tuple_x
+      - tuple_y
   instances:
   - Eq
   - Show
