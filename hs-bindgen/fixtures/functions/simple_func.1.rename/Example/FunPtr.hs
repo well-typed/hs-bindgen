@@ -58,7 +58,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 foreign import ccall unsafe "hs_bindgen_7d72952bb141f2c8" hs_bindgen_7d72952bb141f2c8 ::
      IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
 
-{-# NOINLINE erf_suffix #-}
+{-# NOINLINE erf_random_user_specified_suffix #-}
 
 {-| __C declaration:__ @erf@
 
@@ -66,15 +66,15 @@ foreign import ccall unsafe "hs_bindgen_7d72952bb141f2c8" hs_bindgen_7d72952bb14
 
     __exported by:__ @functions\/simple_func.h@
 -}
-erf_suffix :: Ptr.FunPtr (FC.CDouble -> IO FC.CDouble)
-erf_suffix =
+erf_random_user_specified_suffix :: Ptr.FunPtr (FC.CDouble -> IO FC.CDouble)
+erf_random_user_specified_suffix =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7d72952bb141f2c8
 
 -- | __unique:__ @test_functionssimple_func_1_rename_Example_get_bad_fma@
 foreign import ccall unsafe "hs_bindgen_d8b56ce4d948e996" hs_bindgen_d8b56ce4d948e996 ::
      IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble))
 
-{-# NOINLINE bad_fma_suffix #-}
+{-# NOINLINE bad_fma_random_user_specified_suffix #-}
 
 {-| __C declaration:__ @bad_fma@
 
@@ -82,15 +82,15 @@ foreign import ccall unsafe "hs_bindgen_d8b56ce4d948e996" hs_bindgen_d8b56ce4d94
 
     __exported by:__ @functions\/simple_func.h@
 -}
-bad_fma_suffix :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble)
-bad_fma_suffix =
+bad_fma_random_user_specified_suffix :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble)
+bad_fma_random_user_specified_suffix =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d8b56ce4d948e996
 
 -- | __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args@
 foreign import ccall unsafe "hs_bindgen_b07b517c1cb304fc" hs_bindgen_b07b517c1cb304fc ::
      IO (Ptr.FunPtr (IO ()))
 
-{-# NOINLINE no_args_suffix #-}
+{-# NOINLINE no_args_random_user_specified_suffix #-}
 
 {-| __C declaration:__ @no_args@
 
@@ -98,15 +98,15 @@ foreign import ccall unsafe "hs_bindgen_b07b517c1cb304fc" hs_bindgen_b07b517c1cb
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args_suffix :: Ptr.FunPtr (IO ())
-no_args_suffix =
+no_args_random_user_specified_suffix :: Ptr.FunPtr (IO ())
+no_args_random_user_specified_suffix =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b07b517c1cb304fc
 
 -- | __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args_no_void@
 foreign import ccall unsafe "hs_bindgen_cc43ff8560009309" hs_bindgen_cc43ff8560009309 ::
      IO (Ptr.FunPtr (IO ()))
 
-{-# NOINLINE no_args_no_void_suffix #-}
+{-# NOINLINE no_args_no_void_random_user_specified_suffix #-}
 
 {-| __C declaration:__ @no_args_no_void@
 
@@ -114,15 +114,15 @@ foreign import ccall unsafe "hs_bindgen_cc43ff8560009309" hs_bindgen_cc43ff85600
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args_no_void_suffix :: Ptr.FunPtr (IO ())
-no_args_no_void_suffix =
+no_args_no_void_random_user_specified_suffix :: Ptr.FunPtr (IO ())
+no_args_no_void_random_user_specified_suffix =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cc43ff8560009309
 
 -- | __unique:__ @test_functionssimple_func_1_rename_Example_get_fun@
 foreign import ccall unsafe "hs_bindgen_14a306e8e8f0ba6c" hs_bindgen_14a306e8e8f0ba6c ::
      IO (Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt))
 
-{-# NOINLINE fun_suffix #-}
+{-# NOINLINE fun_random_user_specified_suffix #-}
 
 {-| __C declaration:__ @fun@
 
@@ -130,6 +130,6 @@ foreign import ccall unsafe "hs_bindgen_14a306e8e8f0ba6c" hs_bindgen_14a306e8e8f
 
     __exported by:__ @functions\/simple_func.h@
 -}
-fun_suffix :: Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt)
-fun_suffix =
+fun_random_user_specified_suffix :: Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt)
+fun_random_user_specified_suffix =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_14a306e8e8f0ba6c

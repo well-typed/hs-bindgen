@@ -344,6 +344,8 @@ foreign import ccall safe "hs_bindgen_d1d21f66d76e4647" hs_bindgen_d1d21f66d76e4
     __defined at:__ @manual\/globals.h:39:18@
 
     __exported by:__ @manual\/globals.h@
+
+    __unique:__ @test_manualglobals_Example_globalConstant@
 -}
 hs_bindgen_ec20fad59e967cf0 :: ConstPtr CInt
 {-| __C declaration:__ @globalConstant@
@@ -351,6 +353,8 @@ hs_bindgen_ec20fad59e967cf0 :: ConstPtr CInt
     __defined at:__ @manual\/globals.h:39:18@
 
     __exported by:__ @manual\/globals.h@
+
+    __unique:__ @test_manualglobals_Example_globalConstant@
 -}
 hs_bindgen_ec20fad59e967cf0 = unsafePerformIO hs_bindgen_d1d21f66d76e4647
 {-# NOINLINE globalConstant #-}
@@ -364,6 +368,8 @@ foreign import ccall safe "hs_bindgen_7b35192d93d6ddac" hs_bindgen_7b35192d93d6d
     __defined at:__ @manual\/globals.h:41:17@
 
     __exported by:__ @manual\/globals.h@
+
+    __unique:__ @test_manualglobals_Example_anotherGlobalConstant@
 -}
 hs_bindgen_c8344b69b41647d0 :: ConstPtr ConstInt
 {-| __C declaration:__ @anotherGlobalConstant@
@@ -371,6 +377,8 @@ hs_bindgen_c8344b69b41647d0 :: ConstPtr ConstInt
     __defined at:__ @manual\/globals.h:41:17@
 
     __exported by:__ @manual\/globals.h@
+
+    __unique:__ @test_manualglobals_Example_anotherGlobalConstant@
 -}
 hs_bindgen_c8344b69b41647d0 = unsafePerformIO hs_bindgen_7b35192d93d6ddac
 {-# NOINLINE anotherGlobalConstant #-}
@@ -387,6 +395,8 @@ __C declaration:__ @constArray1@
 __defined at:__ @manual\/globals.h:48:18@
 
 __exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constArray1@
 -}
 hs_bindgen_ab47d9c9aff882f7 :: ConstPtr (ConstantArray 4 CInt)
 {-| An array of known size of const ints
@@ -396,6 +406,8 @@ __C declaration:__ @constArray1@
 __defined at:__ @manual\/globals.h:48:18@
 
 __exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constArray1@
 -}
 hs_bindgen_ab47d9c9aff882f7 = unsafePerformIO hs_bindgen_8850207312ee9ee9
 {-# NOINLINE constArray1 #-}
@@ -432,6 +444,8 @@ __C declaration:__ @constTuple@
 __defined at:__ @manual\/globals.h:54:27@
 
 __exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constTuple@
 -}
 hs_bindgen_957dfe4346c1834f :: ConstPtr Tuple
 {-| A constant tuple
@@ -441,6 +455,8 @@ __C declaration:__ @constTuple@
 __defined at:__ @manual\/globals.h:54:27@
 
 __exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constTuple@
 -}
 hs_bindgen_957dfe4346c1834f = unsafePerformIO hs_bindgen_ab75c76aaa5e35e5
 {-# NOINLINE constTuple #-}
@@ -498,6 +514,8 @@ __C declaration:__ @constInt@
 __defined at:__ @manual\/globals.h:61:18@
 
 __exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constInt@
 -}
 hs_bindgen_e999b97ca3936542 :: ConstPtr CInt
 {-| A const int
@@ -507,6 +525,8 @@ __C declaration:__ @constInt@
 __defined at:__ @manual\/globals.h:61:18@
 
 __exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constInt@
 -}
 hs_bindgen_e999b97ca3936542 = unsafePerformIO hs_bindgen_8f863fd75ee6a8b5
 {-# NOINLINE constInt #-}
@@ -564,6 +584,8 @@ __C declaration:__ @constPtrToInt@
 __defined at:__ @manual\/globals.h:67:20@
 
 __exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constPtrToInt@
 -}
 hs_bindgen_7a3b424845cc1ed9 :: ConstPtr (Ptr CInt)
 {-| A const pointer to int
@@ -573,6 +595,8 @@ __C declaration:__ @constPtrToInt@
 __defined at:__ @manual\/globals.h:67:20@
 
 __exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constPtrToInt@
 -}
 hs_bindgen_7a3b424845cc1ed9 = unsafePerformIO hs_bindgen_78280019ff2647f8
 {-# NOINLINE constPtrToInt #-}
@@ -588,6 +612,8 @@ __C declaration:__ @constPtrToConstInt@
 __defined at:__ @manual\/globals.h:69:26@
 
 __exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constPtrToConstInt@
 -}
 hs_bindgen_5e25eac293910abb :: ConstPtr (ConstPtr CInt)
 {-| A const pointer to const int
@@ -597,6 +623,8 @@ __C declaration:__ @constPtrToConstInt@
 __defined at:__ @manual\/globals.h:69:26@
 
 __exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constPtrToConstInt@
 -}
 hs_bindgen_5e25eac293910abb = unsafePerformIO hs_bindgen_b7f5f49d98fc03a2
 {-# NOINLINE constPtrToConstInt #-}
@@ -627,6 +655,8 @@ foreign import ccall safe "hs_bindgen_69eaf4375e9019f6" hs_bindgen_69eaf4375e901
     __defined at:__ @manual\/globals.h:76:18@
 
     __exported by:__ @manual\/globals.h@
+
+    __unique:__ @test_manualglobals_Example_a2@
 -}
 hs_bindgen_604b6be28898361f :: ConstPtr CInt
 {-| __C declaration:__ @a2@
@@ -634,6 +664,8 @@ hs_bindgen_604b6be28898361f :: ConstPtr CInt
     __defined at:__ @manual\/globals.h:76:18@
 
     __exported by:__ @manual\/globals.h@
+
+    __unique:__ @test_manualglobals_Example_a2@
 -}
 hs_bindgen_604b6be28898361f = unsafePerformIO hs_bindgen_69eaf4375e9019f6
 {-# NOINLINE a2 #-}
@@ -698,6 +730,8 @@ foreign import ccall safe "hs_bindgen_05a85a68bb53daff" hs_bindgen_05a85a68bb53d
     __defined at:__ @manual\/globals.h:83:22@
 
     __exported by:__ @manual\/globals.h@
+
+    __unique:__ @test_manualglobals_Example_c2@
 -}
 hs_bindgen_14cc4924924d5040 :: ConstPtr Triplet
 {-| __C declaration:__ @c2@
@@ -705,6 +739,8 @@ hs_bindgen_14cc4924924d5040 :: ConstPtr Triplet
     __defined at:__ @manual\/globals.h:83:22@
 
     __exported by:__ @manual\/globals.h@
+
+    __unique:__ @test_manualglobals_Example_c2@
 -}
 hs_bindgen_14cc4924924d5040 = unsafePerformIO hs_bindgen_05a85a68bb53daff
 {-# NOINLINE c2 #-}

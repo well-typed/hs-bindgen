@@ -243,6 +243,8 @@ foreign import ccall unsafe "hs_bindgen_d94307879b0a380f" hs_bindgen_d94307879b0
     __defined at:__ @types\/complex\/hsb_complex_test.h:15:29@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
+
+    __unique:__ @test_typescomplexhsb_complex_test_Example_const_complex_float@
 -}
 hs_bindgen_554ede1a618d726f :: HsBindgen.Runtime.ConstPtr.ConstPtr (Data.Complex.Complex FC.CFloat)
 hs_bindgen_554ede1a618d726f =
@@ -265,6 +267,8 @@ foreign import ccall unsafe "hs_bindgen_de1422a11860ada5" hs_bindgen_de1422a1186
     __defined at:__ @types\/complex\/hsb_complex_test.h:16:29@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
+
+    __unique:__ @test_typescomplexhsb_complex_test_Example_const_complex_double@
 -}
 hs_bindgen_cf751023874b527f :: HsBindgen.Runtime.ConstPtr.ConstPtr (Data.Complex.Complex FC.CDouble)
 hs_bindgen_cf751023874b527f =

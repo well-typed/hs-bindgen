@@ -3039,6 +3039,8 @@ __C declaration:__ @arr_1_const@
 __defined at:__ @arrays\/array.h:90:18@
 
 __exported by:__ @arrays\/array.h@
+
+__unique:__ @test_arraysarray_Example_arr_1_const@
 -}
 hs_bindgen_a182a929fe06593d :: ConstPtr (ConstantArray 3 CInt)
 {-| Array of known size
@@ -3048,6 +3050,8 @@ __C declaration:__ @arr_1_const@
 __defined at:__ @arrays\/array.h:90:18@
 
 __exported by:__ @arrays\/array.h@
+
+__unique:__ @test_arraysarray_Example_arr_1_const@
 -}
 hs_bindgen_a182a929fe06593d = unsafePerformIO hs_bindgen_25089a5dd72254bc
 {-# NOINLINE arr_1_const #-}
@@ -3063,6 +3067,8 @@ __C declaration:__ @arr_2_const@
 __defined at:__ @arrays\/array.h:93:22@
 
 __exported by:__ @arrays\/array.h@
+
+__unique:__ @test_arraysarray_Example_arr_2_const@
 -}
 hs_bindgen_40c72338f5e41246 :: ConstPtr Triplet
 {-| Array of known size, typedef
@@ -3072,6 +3078,8 @@ __C declaration:__ @arr_2_const@
 __defined at:__ @arrays\/array.h:93:22@
 
 __exported by:__ @arrays\/array.h@
+
+__unique:__ @test_arraysarray_Example_arr_2_const@
 -}
 hs_bindgen_40c72338f5e41246 = unsafePerformIO hs_bindgen_a55a5562a096ae11
 {-# NOINLINE arr_2_const #-}
@@ -3131,6 +3139,8 @@ __C declaration:__ @arr_5_const@
 __defined at:__ @arrays\/array.h:102:18@
 
 __exported by:__ @arrays\/array.h@
+
+__unique:__ @test_arraysarray_Example_arr_5_const@
 -}
 hs_bindgen_be82907b3025ae62 :: ConstPtr (ConstantArray 4
                                                        (ConstantArray 3 CInt))
@@ -3141,6 +3151,8 @@ __C declaration:__ @arr_5_const@
 __defined at:__ @arrays\/array.h:102:18@
 
 __exported by:__ @arrays\/array.h@
+
+__unique:__ @test_arraysarray_Example_arr_5_const@
 -}
 hs_bindgen_be82907b3025ae62 = unsafePerformIO hs_bindgen_088c9ea4e73d1cfe
 {-# NOINLINE arr_5_const #-}
@@ -3156,6 +3168,8 @@ __C declaration:__ @arr_6_const@
 __defined at:__ @arrays\/array.h:105:21@
 
 __exported by:__ @arrays\/array.h@
+
+__unique:__ @test_arraysarray_Example_arr_6_const@
 -}
 hs_bindgen_50556ee70fdb04aa :: ConstPtr Matrix
 {-| Multi-dimensional array of known size, typedef
@@ -3165,6 +3179,8 @@ __C declaration:__ @arr_6_const@
 __defined at:__ @arrays\/array.h:105:21@
 
 __exported by:__ @arrays\/array.h@
+
+__unique:__ @test_arraysarray_Example_arr_6_const@
 -}
 hs_bindgen_50556ee70fdb04aa = unsafePerformIO hs_bindgen_bf69f287b3bf9fa4
 {-# NOINLINE arr_6_const #-}

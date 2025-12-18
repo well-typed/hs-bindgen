@@ -497,6 +497,8 @@ foreign import ccall safe "hs_bindgen_d94307879b0a380f" hs_bindgen_d94307879b0a3
     __defined at:__ @types\/complex\/hsb_complex_test.h:15:29@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
+
+    __unique:__ @test_typescomplexhsb_complex_test_Example_const_complex_float@
 -}
 hs_bindgen_554ede1a618d726f :: ConstPtr (Complex CFloat)
 {-| __C declaration:__ @const_complex_float@
@@ -504,6 +506,8 @@ hs_bindgen_554ede1a618d726f :: ConstPtr (Complex CFloat)
     __defined at:__ @types\/complex\/hsb_complex_test.h:15:29@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
+
+    __unique:__ @test_typescomplexhsb_complex_test_Example_const_complex_float@
 -}
 hs_bindgen_554ede1a618d726f = unsafePerformIO hs_bindgen_d94307879b0a380f
 {-# NOINLINE const_complex_float #-}
@@ -517,6 +521,8 @@ foreign import ccall safe "hs_bindgen_de1422a11860ada5" hs_bindgen_de1422a11860a
     __defined at:__ @types\/complex\/hsb_complex_test.h:16:29@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
+
+    __unique:__ @test_typescomplexhsb_complex_test_Example_const_complex_double@
 -}
 hs_bindgen_cf751023874b527f :: ConstPtr (Complex CDouble)
 {-| __C declaration:__ @const_complex_double@
@@ -524,6 +530,8 @@ hs_bindgen_cf751023874b527f :: ConstPtr (Complex CDouble)
     __defined at:__ @types\/complex\/hsb_complex_test.h:16:29@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
+
+    __unique:__ @test_typescomplexhsb_complex_test_Example_const_complex_double@
 -}
 hs_bindgen_cf751023874b527f = unsafePerformIO hs_bindgen_de1422a11860ada5
 {-# NOINLINE const_complex_double #-}

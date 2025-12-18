@@ -56,6 +56,8 @@ foreign import ccall unsafe "hs_bindgen_7e61df7271c4ff58" hs_bindgen_7e61df7271c
     __defined at:__ @edge-cases\/adios.h:24:18@
 
     __exported by:__ @edge-cases\/adios.h@
+
+    __unique:__ @test_edgecasesadios_Example_cϒϒϒ@
 -}
 hs_bindgen_7af49c80665b9a25 :: HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
 hs_bindgen_7af49c80665b9a25 =

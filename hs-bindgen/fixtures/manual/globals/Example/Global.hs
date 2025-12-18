@@ -196,6 +196,8 @@ foreign import ccall unsafe "hs_bindgen_d1d21f66d76e4647" hs_bindgen_d1d21f66d76
     __defined at:__ @manual\/globals.h:39:18@
 
     __exported by:__ @manual\/globals.h@
+
+    __unique:__ @test_manualglobals_Example_globalConstant@
 -}
 hs_bindgen_ec20fad59e967cf0 :: HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
 hs_bindgen_ec20fad59e967cf0 =
@@ -218,6 +220,8 @@ foreign import ccall unsafe "hs_bindgen_7b35192d93d6ddac" hs_bindgen_7b35192d93d
     __defined at:__ @manual\/globals.h:41:17@
 
     __exported by:__ @manual\/globals.h@
+
+    __unique:__ @test_manualglobals_Example_anotherGlobalConstant@
 -}
 hs_bindgen_c8344b69b41647d0 :: HsBindgen.Runtime.ConstPtr.ConstPtr ConstInt
 hs_bindgen_c8344b69b41647d0 =
@@ -242,6 +246,8 @@ __C declaration:__ @constArray1@
 __defined at:__ @manual\/globals.h:48:18@
 
 __exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constArray1@
 -}
 hs_bindgen_ab47d9c9aff882f7 :: HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
 hs_bindgen_ab47d9c9aff882f7 =
@@ -284,6 +290,8 @@ __C declaration:__ @constTuple@
 __defined at:__ @manual\/globals.h:54:27@
 
 __exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constTuple@
 -}
 hs_bindgen_957dfe4346c1834f :: HsBindgen.Runtime.ConstPtr.ConstPtr Tuple
 hs_bindgen_957dfe4346c1834f =
@@ -344,6 +352,8 @@ __C declaration:__ @constInt@
 __defined at:__ @manual\/globals.h:61:18@
 
 __exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constInt@
 -}
 hs_bindgen_e999b97ca3936542 :: HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
 hs_bindgen_e999b97ca3936542 =
@@ -404,6 +414,8 @@ __C declaration:__ @constPtrToInt@
 __defined at:__ @manual\/globals.h:67:20@
 
 __exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constPtrToInt@
 -}
 hs_bindgen_7a3b424845cc1ed9 :: HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr FC.CInt)
 hs_bindgen_7a3b424845cc1ed9 =
@@ -428,6 +440,8 @@ __C declaration:__ @constPtrToConstInt@
 __defined at:__ @manual\/globals.h:69:26@
 
 __exported by:__ @manual\/globals.h@
+
+__unique:__ @test_manualglobals_Example_constPtrToConstInt@
 -}
 hs_bindgen_5e25eac293910abb :: HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 hs_bindgen_5e25eac293910abb =
@@ -466,6 +480,8 @@ foreign import ccall unsafe "hs_bindgen_69eaf4375e9019f6" hs_bindgen_69eaf4375e9
     __defined at:__ @manual\/globals.h:76:18@
 
     __exported by:__ @manual\/globals.h@
+
+    __unique:__ @test_manualglobals_Example_a2@
 -}
 hs_bindgen_604b6be28898361f :: HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
 hs_bindgen_604b6be28898361f =
@@ -536,6 +552,8 @@ foreign import ccall unsafe "hs_bindgen_05a85a68bb53daff" hs_bindgen_05a85a68bb5
     __defined at:__ @manual\/globals.h:83:22@
 
     __exported by:__ @manual\/globals.h@
+
+    __unique:__ @test_manualglobals_Example_c2@
 -}
 hs_bindgen_14cc4924924d5040 :: HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
 hs_bindgen_14cc4924924d5040 =

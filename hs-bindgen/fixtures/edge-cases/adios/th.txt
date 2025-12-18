@@ -288,6 +288,8 @@ foreign import ccall safe "hs_bindgen_7e61df7271c4ff58" hs_bindgen_7e61df7271c4f
     __defined at:__ @edge-cases\/adios.h:24:18@
 
     __exported by:__ @edge-cases\/adios.h@
+
+    __unique:__ @test_edgecasesadios_Example_cϒϒϒ@
 -}
 hs_bindgen_7af49c80665b9a25 :: ConstPtr CInt
 {-| __C declaration:__ @ϒϒϒ@
@@ -295,6 +297,8 @@ hs_bindgen_7af49c80665b9a25 :: ConstPtr CInt
     __defined at:__ @edge-cases\/adios.h:24:18@
 
     __exported by:__ @edge-cases\/adios.h@
+
+    __unique:__ @test_edgecasesadios_Example_cϒϒϒ@
 -}
 hs_bindgen_7af49c80665b9a25 = unsafePerformIO hs_bindgen_7e61df7271c4ff58
 {-# NOINLINE cϒϒϒ #-}

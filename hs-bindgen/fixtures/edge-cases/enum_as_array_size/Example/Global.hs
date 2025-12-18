@@ -35,6 +35,8 @@ foreign import ccall unsafe "hs_bindgen_30b94bcf7e387817" hs_bindgen_30b94bcf7e3
     __defined at:__ @edge-cases\/enum_as_array_size.h:8:19@
 
     __exported by:__ @edge-cases\/enum_as_array_size.h@
+
+    __unique:__ @test_edgecasesenum_as_array_size_Example_test_array@
 -}
 hs_bindgen_e30c033f156164cc :: HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar)
 hs_bindgen_e30c033f156164cc =

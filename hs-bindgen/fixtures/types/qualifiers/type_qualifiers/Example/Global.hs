@@ -88,6 +88,8 @@ foreign import ccall unsafe "hs_bindgen_b9f6c3995e03a64f" hs_bindgen_b9f6c3995e0
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:5:18@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+
+    __unique:__ @test_typesqualifierstype_qualifie_Example_a@
 -}
 hs_bindgen_568187d7e5f899e0 :: HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
 hs_bindgen_568187d7e5f899e0 =
@@ -126,6 +128,8 @@ foreign import ccall unsafe "hs_bindgen_9cef5885d51a5077" hs_bindgen_9cef5885d51
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:9:19@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+
+    __unique:__ @test_typesqualifierstype_qualifie_Example_c@
 -}
 hs_bindgen_86ab1f1ce8db256e :: HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr FC.CInt)
 hs_bindgen_86ab1f1ce8db256e =
@@ -148,6 +152,8 @@ foreign import ccall unsafe "hs_bindgen_039fc3584df4cf95" hs_bindgen_039fc3584df
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:11:25@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+
+    __unique:__ @test_typesqualifierstype_qualifie_Example_d@
 -}
 hs_bindgen_f5892dac29d00ba8 :: HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 hs_bindgen_f5892dac29d00ba8 =
@@ -218,6 +224,8 @@ foreign import ccall unsafe "hs_bindgen_f23087f72d34068b" hs_bindgen_f23087f72d3
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:24:39@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
+
+    __unique:__ @test_typesqualifierstype_qualifie_Example_h@
 -}
 hs_bindgen_2461912a034924cf :: HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
 hs_bindgen_2461912a034924cf =

@@ -803,6 +803,8 @@ __C declaration:__ @apply1_nopointer_var@
 __defined at:__ @manual\/function_pointers.h:34:21@
 
 __exported by:__ @manual\/function_pointers.h@
+
+__unique:__ @test_manualfunction_pointers_Example_apply1_nopointer_var@
 -}
 hs_bindgen_505081298c324425 :: ConstPtr (FunPtr (FunPtr Int2int ->
                                                  CInt -> IO CInt))
@@ -813,6 +815,8 @@ __C declaration:__ @apply1_nopointer_var@
 __defined at:__ @manual\/function_pointers.h:34:21@
 
 __exported by:__ @manual\/function_pointers.h@
+
+__unique:__ @test_manualfunction_pointers_Example_apply1_nopointer_var@
 -}
 hs_bindgen_505081298c324425 = unsafePerformIO hs_bindgen_8ca6ae5d7bf88149
 {-# NOINLINE apply1_nopointer_var #-}
@@ -826,6 +830,8 @@ foreign import ccall safe "hs_bindgen_33a4962ebf2e9daf" hs_bindgen_33a4962ebf2e9
     __defined at:__ @manual\/function_pointers.h:40:34@
 
     __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_apply1_struct@
 -}
 hs_bindgen_96ffcf57d318ddc0 :: ConstPtr Apply1Struct
 {-| __C declaration:__ @apply1_struct@
@@ -833,6 +839,8 @@ hs_bindgen_96ffcf57d318ddc0 :: ConstPtr Apply1Struct
     __defined at:__ @manual\/function_pointers.h:40:34@
 
     __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_apply1_struct@
 -}
 hs_bindgen_96ffcf57d318ddc0 = unsafePerformIO hs_bindgen_33a4962ebf2e9daf
 {-# NOINLINE apply1_struct #-}
@@ -846,6 +854,8 @@ foreign import ccall safe "hs_bindgen_d1ddd3b607c95874" hs_bindgen_d1ddd3b607c95
     __defined at:__ @manual\/function_pointers.h:46:32@
 
     __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_apply1_union@
 -}
 hs_bindgen_8368fc70f5e0aec5 :: ConstPtr Apply1Union
 {-| __C declaration:__ @apply1_union@
@@ -853,6 +863,8 @@ hs_bindgen_8368fc70f5e0aec5 :: ConstPtr Apply1Union
     __defined at:__ @manual\/function_pointers.h:46:32@
 
     __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_apply1_union@
 -}
 hs_bindgen_8368fc70f5e0aec5 = unsafePerformIO hs_bindgen_d1ddd3b607c95874
 {-# NOINLINE apply1_union #-}

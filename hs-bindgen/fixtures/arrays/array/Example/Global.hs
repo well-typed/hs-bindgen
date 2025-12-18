@@ -418,6 +418,8 @@ __C declaration:__ @arr_1_const@
 __defined at:__ @arrays\/array.h:90:18@
 
 __exported by:__ @arrays\/array.h@
+
+__unique:__ @test_arraysarray_Example_arr_1_const@
 -}
 hs_bindgen_a182a929fe06593d :: HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 hs_bindgen_a182a929fe06593d =
@@ -442,6 +444,8 @@ __C declaration:__ @arr_2_const@
 __defined at:__ @arrays\/array.h:93:22@
 
 __exported by:__ @arrays\/array.h@
+
+__unique:__ @test_arraysarray_Example_arr_2_const@
 -}
 hs_bindgen_40c72338f5e41246 :: HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
 hs_bindgen_40c72338f5e41246 =
@@ -502,6 +506,8 @@ __C declaration:__ @arr_5_const@
 __defined at:__ @arrays\/array.h:102:18@
 
 __exported by:__ @arrays\/array.h@
+
+__unique:__ @test_arraysarray_Example_arr_5_const@
 -}
 hs_bindgen_be82907b3025ae62 :: HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
 hs_bindgen_be82907b3025ae62 =
@@ -526,6 +532,8 @@ __C declaration:__ @arr_6_const@
 __defined at:__ @arrays\/array.h:105:21@
 
 __exported by:__ @arrays\/array.h@
+
+__unique:__ @test_arraysarray_Example_arr_6_const@
 -}
 hs_bindgen_50556ee70fdb04aa :: HsBindgen.Runtime.ConstPtr.ConstPtr Matrix
 hs_bindgen_50556ee70fdb04aa =

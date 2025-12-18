@@ -52,6 +52,8 @@ __C declaration:__ @apply1_nopointer_var@
 __defined at:__ @manual\/function_pointers.h:34:21@
 
 __exported by:__ @manual\/function_pointers.h@
+
+__unique:__ @test_manualfunction_pointers_Example_apply1_nopointer_var@
 -}
 hs_bindgen_505081298c324425 :: HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
 hs_bindgen_505081298c324425 =
@@ -74,6 +76,8 @@ foreign import ccall unsafe "hs_bindgen_33a4962ebf2e9daf" hs_bindgen_33a4962ebf2
     __defined at:__ @manual\/function_pointers.h:40:34@
 
     __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_apply1_struct@
 -}
 hs_bindgen_96ffcf57d318ddc0 :: HsBindgen.Runtime.ConstPtr.ConstPtr Apply1Struct
 hs_bindgen_96ffcf57d318ddc0 =
@@ -96,6 +100,8 @@ foreign import ccall unsafe "hs_bindgen_d1ddd3b607c95874" hs_bindgen_d1ddd3b607c
     __defined at:__ @manual\/function_pointers.h:46:32@
 
     __exported by:__ @manual\/function_pointers.h@
+
+    __unique:__ @test_manualfunction_pointers_Example_apply1_union@
 -}
 hs_bindgen_8368fc70f5e0aec5 :: HsBindgen.Runtime.ConstPtr.ConstPtr Apply1Union
 hs_bindgen_8368fc70f5e0aec5 =
