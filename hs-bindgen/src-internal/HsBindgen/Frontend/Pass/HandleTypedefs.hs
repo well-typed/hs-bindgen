@@ -196,7 +196,7 @@ instance HandleUseSites C.DeclKind where
       C.DeclEnum enum        -> C.DeclEnum (handleUseSites td enum)
       C.DeclTypedef typedef  -> C.DeclTypedef (handleUseSites td typedef)
       C.DeclOpaque cNameKind -> C.DeclOpaque cNameKind
-      C.DeclMacro macro      -> C.DeclMacro (handleUseSites td (coercePass macro))
+      C.DeclMacro macro      -> C.DeclMacro (handleUseSites td macro)
       C.DeclFunction fun     -> C.DeclFunction (handleUseSites td fun)
       C.DeclGlobal ty        -> C.DeclGlobal (handleUseSites td ty)
 
