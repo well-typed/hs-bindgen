@@ -1,6 +1,7 @@
 module HsBindgen.Boot
   ( boot
-  , getClangArgsAndTarget
+  , ClangArtefacts(..)
+  , getClangArtefacts
   , BootArtefact (..)
   , BootTargetMsg (..)
   , BootMsg (..)
@@ -22,6 +23,7 @@ import HsBindgen.Clang
 import HsBindgen.Clang.BuiltinIncDir
 import HsBindgen.Clang.CompareVersions (CompareVersionsMsg,
                                         compareClangVersions)
+import HsBindgen.Clang.CStandard
 import HsBindgen.Clang.ExtraClangArgs
 import HsBindgen.Config.ClangArgs (ClangArgsConfig)
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
@@ -55,14 +57,17 @@ boot
       withTrace BootStatusHashIncludeArgs $
         mapM (hashIncludeArgWithTrace tracer') uncheckedHashIncludeArgs
 
-    getClangArgsAndTarget' <- cache "clangArgsAndTarget" $ Cached $
-      getClangArgsAndTarget tracer clangArgsConfig
+    getClangArtefacts' <- cache "clangArtefacts" $ Cached $
+      getClangArtefacts tracer clangArgsConfig
 
-    getClangArgs <- cache "clangArgs" $ withTrace BootStatusClangArgs $
-      fst <$> getClangArgsAndTarget'
+    getCStandard <- cache "cStandard" $ withTrace BootStatusCStandard $
+      clangArtefactsCStandard <$> getClangArtefacts'
 
     getTarget <- cache "target" $ withTrace BootStatusTarget $
-      snd <$> getClangArgsAndTarget'
+      clangArtefactsTarget <$> getClangArtefacts'
+
+    getClangArgs <- cache "clangArgs" $ withTrace BootStatusClangArgs $
+      clangArtefactsArgs <$> getClangArtefacts'
 
     getBindingSpecs <- cache "loadBindingSpecs" $ do
       clangArgs <- getClangArgs
@@ -84,9 +89,9 @@ boot
 
     pure BootArtefact {
           bootBaseModule              = baseModuleName
-        , bootCStandard               = clangArgsConfig.cStandard
-        , bootClangArgs               = getClangArgs
+        , bootCStandard               = getCStandard
         , bootTarget                  = getTarget
+        , bootClangArgs               = getClangArgs
         , bootHashIncludeArgs         = getHashIncludeArgs
         , bootExternalBindingSpecs    = getExternalBindingSpecs
         , bootPrescriptiveBindingSpec = getPrescriptiveBindingSpec
@@ -113,12 +118,18 @@ boot
     cache :: String -> Cached a -> IO (Cached a)
     cache = cacheWith (contramap (BootCache . SafeTrace) tracer) . Just
 
--- | Determine Clang arguments and target
-getClangArgsAndTarget ::
+data ClangArtefacts = ClangArtefacts {
+    clangArtefactsCStandard :: ClangCStandard
+  , clangArtefactsTarget    :: ClangArgs.Target
+  , clangArtefactsArgs      :: ClangArgs
+  }
+
+-- | Determine Clang artefacts
+getClangArtefacts ::
      Tracer BootMsg
   -> ClangArgsConfig FilePath
-  -> IO (ClangArgs, ClangArgs.Target)
-getClangArgsAndTarget tracer config0 = do
+  -> IO ClangArtefacts
+getClangArtefacts tracer config0 = do
     compareClangVersions (contramap BootCompareClangVersions tracer)
     -- Apply extra Clang arguments and builtin include directory to the config
     extraClangArgs <- getExtraClangArgs tracerExtraClangArgs
@@ -130,16 +141,20 @@ getClangArgsAndTarget tracer config0 = do
           $ config0
     -- Determine Clang arguments for the config
     clangArgs <- either throwIO return $ ClangArgs.getClangArgs config
-    case ClangArgs.target config of
-      -- If a target is specified, return Clang arguments and target
-      Just target -> return (clangArgs, target)
-      -- If a target is not specified:
-      Nothing -> do
-        -- Determine the target using @libclang@ with the Clang arguments
-        target <- getClangTarget tracer clangArgs
-        -- Recalculate the Clang arguments with the determined target
-        either throwIO (return . (, target)) $
-          ClangArgs.getClangArgs config { ClangArgs.target = Just target }
+    -- Determine C standard using @libclang@
+    clangArtefactsCStandard <- getClangCStandard' tracer clangArgs
+    -- Use specified target or determine using @libclang@
+    clangArtefactsTarget <-
+      maybe (getClangTarget tracer clangArgs) return $
+        ClangArgs.target config
+    -- Reclaculate Clang arguments if necessary
+    clangArtefactsArgs <-
+      if isJust config.target
+        then return clangArgs
+        else either throwIO return $ ClangArgs.getClangArgs config {
+            ClangArgs.target    = Just clangArtefactsTarget
+          }
+    return ClangArtefacts{..}
   where
     tracerBuiltinIncDir :: Tracer BuiltinIncDirMsg
     tracerBuiltinIncDir = contramap BootBuiltinIncDir tracer
@@ -147,13 +162,33 @@ getClangArgsAndTarget tracer config0 = do
     tracerExtraClangArgs :: Tracer ExtraClangArgsMsg
     tracerExtraClangArgs = contramap BootExtraClangArgs tracer
 
--- | Fatal error: unable to determine target
-data UnableToDetermineTargetException = UnableToDetermineTargetException
+-- | Fatal exceptions
+data FatalException =
+    UnableToDetermineCStandardException
+  | UnableToDetermineTargetException
   deriving Show
 
-instance Exception UnableToDetermineTargetException where
-  displayException UnableToDetermineTargetException =
-    "Unable to determine target"
+instance Exception FatalException where
+  displayException = \case
+    UnableToDetermineCStandardException -> "Unable to determine C standard"
+    UnableToDetermineTargetException    -> "Unable to determine target"
+
+-- | Determine the C standard using @libclang@
+--
+-- This function throws a 'UnableToDetermineCStandardException' if the call to
+-- @libclang@ fails or we are unable to determine the C standard.
+getClangCStandard' :: Tracer BootMsg -> ClangArgs -> IO ClangCStandard
+getClangCStandard' tracer clangArgs =
+    getClangCStandard clangArgs >>= \case
+      Just clangCStandard -> do
+        traceWith tracerCStandard $ BootCStandardClang clangCStandard
+        return clangCStandard
+      Nothing -> do
+        traceWith tracerCStandard BootCStandardFail
+        throwIO UnableToDetermineCStandardException
+  where
+    tracerCStandard :: Tracer BootCStandardMsg
+    tracerCStandard = contramap BootCStandard tracer
 
 -- | Determine the target using @libclang@
 --
@@ -189,9 +224,9 @@ getClangTarget tracer clangArgs = do
 
 data BootArtefact = BootArtefact {
     bootBaseModule              :: BaseModuleName
-  , bootCStandard               :: CStandard
-  , bootClangArgs               :: Cached ClangArgs
+  , bootCStandard               :: Cached ClangCStandard
   , bootTarget                  :: Cached ClangArgs.Target
+  , bootClangArgs               :: Cached ClangArgs
   , bootHashIncludeArgs         :: Cached [HashIncludeArg]
   , bootExternalBindingSpecs    :: Cached MergedBindingSpecs
   , bootPrescriptiveBindingSpec :: Cached PrescriptiveBindingSpec
@@ -203,8 +238,9 @@ data BootArtefact = BootArtefact {
 
 data BootStatusMsg =
     BootStatusStart                   BindgenConfig
-  | BootStatusClangArgs               ClangArgs
+  | BootStatusCStandard               ClangCStandard
   | BootStatusTarget                  ClangArgs.Target
+  | BootStatusClangArgs               ClangArgs
   | BootStatusHashIncludeArgs         [HashIncludeArg]
   | BootStatusExternalBindingSpecs    MergedBindingSpecs
   | BootStatusPrescriptiveBindingSpec PrescriptiveBindingSpec
@@ -217,8 +253,9 @@ bootStatus nm x =
 instance PrettyForTrace BootStatusMsg where
   prettyForTrace = \case
     BootStatusStart                   x -> bootStatus "BindgenConfig"           x
-    BootStatusClangArgs               x -> bootStatus "ClangArgs"               x
+    BootStatusCStandard               x -> bootStatus "ClangCStandard"          x
     BootStatusTarget                  x -> bootStatus "Target"                  x
+    BootStatusClangArgs               x -> bootStatus "ClangArgs"               x
     BootStatusHashIncludeArgs         x -> bootStatus "HashIncludeArgs"         x
     BootStatusExternalBindingSpecs    x -> bootStatus "ExternalBindingSpecs"    x
     BootStatusPrescriptiveBindingSpec x -> bootStatus "PrescriptiveBindingSpec" x
@@ -227,6 +264,26 @@ instance IsTrace Level BootStatusMsg where
   getDefaultLogLevel = const Debug
   getSource          = const HsBindgen
   getTraceId         = const "boot-status"
+
+data BootCStandardMsg =
+    BootCStandardClang ClangCStandard
+  | BootCStandardFail
+  deriving stock (Show, Generic)
+
+instance PrettyForTrace BootCStandardMsg where
+  prettyForTrace = \case
+    BootCStandardClang std ->
+      "C standard determined by libclang: " >< PP.showToCtxDoc std
+    BootCStandardFail ->
+      "Unable to determine C standard"
+
+instance IsTrace Level BootCStandardMsg where
+  getDefaultLogLevel = \case
+    BootCStandardClang{} -> Info
+    BootCStandardFail    -> Error
+
+  getSource  = const HsBindgen
+  getTraceId = const "boot-c-standard"
 
 data BootTargetMsg =
     BootTargetClang Text ClangArgs.Target
@@ -257,6 +314,7 @@ data BootMsg =
   | BootBindingSpec          BindingSpecMsg
   | BootBuiltinIncDir        BuiltinIncDirMsg
   | BootClang                ClangMsg
+  | BootCStandard            BootCStandardMsg
   | BootExtraClangArgs       ExtraClangArgsMsg
   | BootHashIncludeArg       HashIncludeArgMsg
   | BootCompareClangVersions CompareVersionsMsg

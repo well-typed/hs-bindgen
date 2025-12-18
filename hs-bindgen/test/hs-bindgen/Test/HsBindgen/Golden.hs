@@ -15,7 +15,6 @@ import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
 import Test.Tasty
 
-import Clang.Args
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
 import Clang.Version
@@ -27,6 +26,7 @@ import HsBindgen.BindingSpec (BindingSpecReadMsg (..))
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
+import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
@@ -115,10 +115,18 @@ test_attributes_asm :: TestCase
 test_attributes_asm = (defaultTest "attributes/asm") {
     testOnBootConfig = \cfg -> cfg {
         bootClangArgsConfig = (bootClangArgsConfig cfg) {
-            gnu = EnableGnu
+            argsBefore = [cStandardArg]
           }
       }
   }
+  where
+    cStandardArg :: String
+    cStandardArg = "-std=" ++ case clangVersion of
+      ClangVersion version
+        | version < (9, 0, 0)  -> panicPure "C23 requires clang-9 or later"
+        | version < (18, 0, 0) -> "gnu2x"
+        | otherwise            -> "gnu23"
+      ClangVersionUnknown v -> panicPure $ "unknown clang version: " ++ show v
 
 test_attributes_type_attributes :: TestCase
 test_attributes_type_attributes = (defaultTest "attributes/type_attributes") {

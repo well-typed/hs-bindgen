@@ -15,12 +15,13 @@ import System.FilePath ((</>))
 import Test.Common.Util.Cabal
 import Test.Tasty
 
-import Clang.Args
+import Clang.Version
 
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
+import HsBindgen.Errors (panicPure)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -66,11 +67,20 @@ getTestPackageRoot = fmap testPackageRoot
 mkTestClangArgsConfig :: FilePath -> ClangArgsConfig FilePath
 mkTestClangArgsConfig packageRoot = def {
       target = Just Target_Linux_Musl_X86_64
-    , cStandard = C23
     , extraIncludeDirs = [
           packageRoot </> "musl-include/x86_64"
         ]
+    , argsBefore = [cStandardArg]
     }
+  where
+    -- TODO per-test configuration: better default?
+    cStandardArg :: String
+    cStandardArg = "-std=" ++ case clangVersion of
+      ClangVersion version
+        | version < (9, 0, 0)  -> panicPure "C23 requires clang-9 or later"
+        | version < (18, 0, 0) -> "c2x"
+        | otherwise            -> "c23"
+      ClangVersionUnknown v -> panicPure $ "unknown clang version: " ++ show v
 
 getTestDefaultClangArgsConfig ::
      IO TestResources

@@ -16,8 +16,6 @@ module HsBindgen.TH (
     -- ** Clang arguments
   , ClangArgs.ClangArgsConfig(..)
   , ClangArgs.Target(..)
-  , ClangArgs.CStandard(..)
-  , ClangArgs.Gnu(..)
   , ClangArgs.BuiltinIncDirConfig(..)
   , TH.IncludeDir(..)
 

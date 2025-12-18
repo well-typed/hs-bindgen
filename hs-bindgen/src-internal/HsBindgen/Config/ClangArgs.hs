@@ -1,10 +1,6 @@
 module HsBindgen.Config.ClangArgs (
     -- * Types
     ClangArgsConfig(..)
-    -- ** C standard
-  , CStandard(..)
-  , Gnu(..)
-  , getStdClangArg
     -- ** Cross-compilation
   , Target(..)
   , targetTriple
@@ -29,24 +25,18 @@ import HsBindgen.Imports
 
 -- | Configuration of @libclang@ command-line arguments
 --
--- We demand specification of the C standard since the default C standard
--- depends on the Clang version and if GNU extensions are enabled.
---
 -- `ClangArgsConfig` is not intended to be complete; instead, we have added
 -- configuration options most relevant to @hs-bindgen@. Pass other
 -- configurations options directly using command line arguments ('argsBefore',
 -- 'argsInner', and 'argsAfter').
+--
+-- Configuration of the C standard must be done via one of these options.
+-- @hs-bindgen@ queries @libclang@ to get the C standard.
 data ClangArgsConfig path = ClangArgsConfig {
       -- | Target architecture
       --
       -- 'Nothing' compiles for the host architecture.
       target :: Maybe Target
-
-      -- | C standard
-    , cStandard :: CStandard
-
-      -- | Enable GNU extensions?
-    , gnu :: Gnu
 
       -- | Builtin include directory configuration
     , builtinIncDir :: BuiltinIncDirConfig
@@ -109,8 +99,6 @@ data ClangArgsConfig path = ClangArgsConfig {
 instance Default (ClangArgsConfig path) where
  def = ClangArgsConfig {
       target           = Nothing
-    , cStandard        = C17
-    , gnu              = DisableGnu
     , builtinIncDir    = def
     , extraIncludeDirs = []
     , defineMacros     = []
@@ -346,8 +334,6 @@ getClangArgsInternal :: ClangArgsConfig FilePath -> Either InvalidClangArgs [Str
 getClangArgsInternal ClangArgsConfig{..} = concat <$> sequence [
       ifGiven (targetTriple <$> target) $ \t ->
         return ["-target", t]
-
-    , List.singleton <$> getStdClangArg cStandard gnu
 
     , return $ concat $ [
           [ "-fblocks" | enableBlocks ]

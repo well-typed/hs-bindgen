@@ -17,6 +17,7 @@ import HsBindgen.Backend.Category (Category (..))
 import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Clang
+import HsBindgen.Clang.CStandard
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
@@ -136,8 +137,9 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     handleMacrosPass <- cache "handleMacros" $ do
       afterConstructTranslationUnit <- constructTranslationUnitPass
+      std <- cStandard <$> bootCStandard
       let (afterHandleMacros, msgsHandleMacros) =
-            handleMacros bootCStandard afterConstructTranslationUnit
+            handleMacros std afterConstructTranslationUnit
       forM_ msgsHandleMacros $ traceWith tracer . FrontendHandleMacros
       pure afterHandleMacros
 

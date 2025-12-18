@@ -61,8 +61,8 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     mSpec <- withTracer tracerConfigUnsafe $ \tracer -> do
-        (clangArgs, _target) <-
-          getClangArgsAndTarget (contramap TraceBoot tracer) clangArgsConfig
+        clangArgs <- clangArtefactsArgs <$>
+          getClangArtefacts (contramap TraceBoot tracer) clangArgsConfig
         getStdlibBindingSpec
           (contramap (TraceBoot . BootBindingSpec) tracer)
           clangArgs
