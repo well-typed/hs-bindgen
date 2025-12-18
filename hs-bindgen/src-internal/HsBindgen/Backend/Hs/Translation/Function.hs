@@ -469,13 +469,19 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams params cFunc mbC
 
     goA' :: Env ctx' IsPrimitiveType -> Env ctx' (Idx ctx) -> [(Bool, Idx ctx)] -> SHs.SExpr ctx
     goA' EmptyEnv    EmptyEnv  zs
-        = shsApps (SHs.EGlobal SHs.CAPI_allocaAndPeek)
-          [ SHs.ELam "z" $ shsApps (SHs.EFree loName)
+        = SHs.EApp (SHs.EGlobal allocaAndPeek) $
+            SHs.ELam "z" $ shsApps (SHs.EFree loName)
               (map
                 (\(useConstPtr, x) -> constPtr useConstPtr $ SHs.EBound x)
                 (fmap (second IS) zs ++ [(False, IZ)]))
-          ]
       where
+        allocaAndPeek :: SHs.Global
+        allocaAndPeek
+          | C.isErasedTypeConstQualified (toOrigType primResult)
+          = SHs.CAPI_allocaAndPeekConst
+          | otherwise
+          = SHs.CAPI_allocaAndPeek
+
         constPtr :: Bool -> SHs.SExpr ctx -> SHs.SExpr ctx
         constPtr useConstPtr
           | useConstPtr = SHs.EApp (SHs.EGlobal SHs.ConstPtr_constructor)

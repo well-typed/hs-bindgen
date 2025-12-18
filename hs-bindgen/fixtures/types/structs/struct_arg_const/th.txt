@@ -1,0 +1,301 @@
+-- addDependentFile examples/golden/types/structs/struct_arg_const.h
+-- #include <types/structs/struct_arg_const.h>
+-- void hs_bindgen_6cb8b51c110839ff (
+--   struct thing const *arg1
+-- )
+-- {
+--   fun_const_arg(*arg1);
+-- }
+-- void hs_bindgen_44ee619fd7228cf2 (
+--   struct thing const *arg1
+-- )
+-- {
+--   *arg1 = fun_const_result();
+-- }
+-- void hs_bindgen_3794a17277299018 (
+--   struct thing const *arg1,
+--   struct thing const *arg2
+-- )
+-- {
+--   *arg2 = fun_const(*arg1);
+-- }
+-- void hs_bindgen_16645ede9f5730aa (
+--   struct thing const *arg1
+-- )
+-- {
+--   fun_const_arg(*arg1);
+-- }
+-- void hs_bindgen_835e1cc568a75ba7 (
+--   struct thing const *arg1
+-- )
+-- {
+--   *arg1 = fun_const_result();
+-- }
+-- void hs_bindgen_cf49a7a211a8c12b (
+--   struct thing const *arg1,
+--   struct thing const *arg2
+-- )
+-- {
+--   *arg2 = fun_const(*arg1);
+-- }
+-- /* test_typesstructsstruct_arg_const_Example_get_fun_const_arg */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_444a89a1a48acd31 (void)) (
+--   struct thing const arg1
+-- )
+-- {
+--   return &fun_const_arg;
+-- }
+-- /* test_typesstructsstruct_arg_const_Example_get_fun_const_result */
+-- __attribute__ ((const))
+-- struct thing const (*hs_bindgen_3840e50b04084db6 (void)) (void)
+-- {
+--   return &fun_const_result;
+-- }
+-- /* test_typesstructsstruct_arg_const_Example_get_fun_const */
+-- __attribute__ ((const))
+-- struct thing const (*hs_bindgen_49a195a2b05d425e (void)) (
+--   struct thing const arg1
+-- )
+-- {
+--   return &fun_const;
+-- }
+{-| __C declaration:__ @struct thing@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:3:8@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+data Thing
+    = Thing {thing_x :: CInt
+             {- ^ __C declaration:__ @x@
+
+                  __defined at:__ @types\/structs\/struct_arg_const.h:4:9@
+
+                  __exported by:__ @types\/structs\/struct_arg_const.h@
+             -}}
+      {- ^ __C declaration:__ @struct thing@
+
+           __defined at:__ @types\/structs\/struct_arg_const.h:3:8@
+
+           __exported by:__ @types\/structs\/struct_arg_const.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Thing
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Thing <*> peekCField (Proxy @"thing_x") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Thing thing_x_3 -> pokeCField (Proxy @"thing_x") ptr_1 thing_x_3
+instance Prim Thing
+    where sizeOf# = \_ -> 4# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Thing (indexByteArray# arr_0 i_1)
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
+                                                     (# s_5, v_6 #) -> (# s_5, Thing v_6 #)
+          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
+                                                                    Thing thing_x_11 -> writeByteArray# arr_7 i_8 thing_x_11 s_10
+          indexOffAddr# = \addr_12 -> \i_13 -> Thing (indexOffAddr# addr_12 i_13)
+          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
+                                                       (# s_17, v_18 #) -> (# s_17, Thing v_18 #)
+          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
+                                                                      Thing thing_x_23 -> writeOffAddr# addr_19 i_20 thing_x_23 s_22
+instance HasCField Thing "thing_x"
+    where type CFieldType Thing "thing_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Thing "thing_x") =>
+         HasField "thing_x" (Ptr Thing) (Ptr ty)
+    where getField = ptrToCField (Proxy @"thing_x")
+-- __unique:__ @test_typesstructsstruct_arg_const_Example_Safe_fun_const_arg@
+foreign import ccall safe "hs_bindgen_6cb8b51c110839ff" hs_bindgen_6cb8b51c110839ff :: ConstPtr Thing ->
+                                                                                       IO Unit
+{-| Pointer-based API for 'fun_const_arg'
+-}
+fun_const_arg_wrapper :: ConstPtr Thing -> IO Unit
+{-| Pointer-based API for 'fun_const_arg'
+-}
+fun_const_arg_wrapper = hs_bindgen_6cb8b51c110839ff
+{-| __C declaration:__ @fun_const_arg@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:7:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const_arg :: Thing -> IO Unit
+{-| __C declaration:__ @fun_const_arg@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:7:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const_arg = \x_0 -> with x_0 (\y_1 -> hs_bindgen_6cb8b51c110839ff (ConstPtr y_1))
+-- __unique:__ @test_typesstructsstruct_arg_const_Example_Safe_fun_const_result@
+foreign import ccall safe "hs_bindgen_44ee619fd7228cf2" hs_bindgen_44ee619fd7228cf2 :: ConstPtr Thing ->
+                                                                                       IO Unit
+{-| Pointer-based API for 'fun_const_result'
+-}
+fun_const_result_wrapper :: ConstPtr Thing -> IO Unit
+{-| Pointer-based API for 'fun_const_result'
+-}
+fun_const_result_wrapper = hs_bindgen_44ee619fd7228cf2
+{-| __C declaration:__ @fun_const_result@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:8:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const_result :: IO Thing
+{-| __C declaration:__ @fun_const_result@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:8:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const_result = allocaAndPeekConst (\z_0 -> hs_bindgen_44ee619fd7228cf2 z_0)
+-- __unique:__ @test_typesstructsstruct_arg_const_Example_Safe_fun_const@
+foreign import ccall safe "hs_bindgen_3794a17277299018" hs_bindgen_3794a17277299018 :: ConstPtr Thing ->
+                                                                                       ConstPtr Thing ->
+                                                                                       IO Unit
+{-| Pointer-based API for 'fun_const'
+-}
+fun_const_wrapper :: ConstPtr Thing -> ConstPtr Thing -> IO Unit
+{-| Pointer-based API for 'fun_const'
+-}
+fun_const_wrapper = hs_bindgen_3794a17277299018
+{-| __C declaration:__ @fun_const@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:9:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const :: Thing -> IO Thing
+{-| __C declaration:__ @fun_const@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:9:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const = \x_0 -> with x_0 (\y_1 -> allocaAndPeekConst (\z_2 -> hs_bindgen_3794a17277299018 (ConstPtr y_1) z_2))
+-- __unique:__ @test_typesstructsstruct_arg_const_Example_Unsafe_fun_const_arg@
+foreign import ccall safe "hs_bindgen_16645ede9f5730aa" hs_bindgen_16645ede9f5730aa :: ConstPtr Thing ->
+                                                                                       IO Unit
+{-| Pointer-based API for 'fun_const_arg'
+-}
+fun_const_arg_wrapper :: ConstPtr Thing -> IO Unit
+{-| Pointer-based API for 'fun_const_arg'
+-}
+fun_const_arg_wrapper = hs_bindgen_16645ede9f5730aa
+{-| __C declaration:__ @fun_const_arg@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:7:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const_arg :: Thing -> IO Unit
+{-| __C declaration:__ @fun_const_arg@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:7:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const_arg = \x_0 -> with x_0 (\y_1 -> hs_bindgen_16645ede9f5730aa (ConstPtr y_1))
+-- __unique:__ @test_typesstructsstruct_arg_const_Example_Unsafe_fun_const_result@
+foreign import ccall safe "hs_bindgen_835e1cc568a75ba7" hs_bindgen_835e1cc568a75ba7 :: ConstPtr Thing ->
+                                                                                       IO Unit
+{-| Pointer-based API for 'fun_const_result'
+-}
+fun_const_result_wrapper :: ConstPtr Thing -> IO Unit
+{-| Pointer-based API for 'fun_const_result'
+-}
+fun_const_result_wrapper = hs_bindgen_835e1cc568a75ba7
+{-| __C declaration:__ @fun_const_result@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:8:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const_result :: IO Thing
+{-| __C declaration:__ @fun_const_result@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:8:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const_result = allocaAndPeekConst (\z_0 -> hs_bindgen_835e1cc568a75ba7 z_0)
+-- __unique:__ @test_typesstructsstruct_arg_const_Example_Unsafe_fun_const@
+foreign import ccall safe "hs_bindgen_cf49a7a211a8c12b" hs_bindgen_cf49a7a211a8c12b :: ConstPtr Thing ->
+                                                                                       ConstPtr Thing ->
+                                                                                       IO Unit
+{-| Pointer-based API for 'fun_const'
+-}
+fun_const_wrapper :: ConstPtr Thing -> ConstPtr Thing -> IO Unit
+{-| Pointer-based API for 'fun_const'
+-}
+fun_const_wrapper = hs_bindgen_cf49a7a211a8c12b
+{-| __C declaration:__ @fun_const@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:9:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const :: Thing -> IO Thing
+{-| __C declaration:__ @fun_const@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:9:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const = \x_0 -> with x_0 (\y_1 -> allocaAndPeekConst (\z_2 -> hs_bindgen_cf49a7a211a8c12b (ConstPtr y_1) z_2))
+-- __unique:__ @test_typesstructsstruct_arg_const_Example_get_fun_const_arg@
+foreign import ccall safe "hs_bindgen_444a89a1a48acd31" hs_bindgen_444a89a1a48acd31 :: IO (FunPtr (Thing ->
+                                                                                                   IO Unit))
+{-# NOINLINE fun_const_arg #-}
+{-| __C declaration:__ @fun_const_arg@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:7:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const_arg :: FunPtr (Thing -> IO Unit)
+{-| __C declaration:__ @fun_const_arg@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:7:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const_arg = unsafePerformIO hs_bindgen_444a89a1a48acd31
+-- __unique:__ @test_typesstructsstruct_arg_const_Example_get_fun_const_result@
+foreign import ccall safe "hs_bindgen_3840e50b04084db6" hs_bindgen_3840e50b04084db6 :: IO (FunPtr (IO Thing))
+{-# NOINLINE fun_const_result #-}
+{-| __C declaration:__ @fun_const_result@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:8:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const_result :: FunPtr (IO Thing)
+{-| __C declaration:__ @fun_const_result@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:8:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const_result = unsafePerformIO hs_bindgen_3840e50b04084db6
+-- __unique:__ @test_typesstructsstruct_arg_const_Example_get_fun_const@
+foreign import ccall safe "hs_bindgen_49a195a2b05d425e" hs_bindgen_49a195a2b05d425e :: IO (FunPtr (Thing ->
+                                                                                                   IO Thing))
+{-# NOINLINE fun_const #-}
+{-| __C declaration:__ @fun_const@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:9:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const :: FunPtr (Thing -> IO Thing)
+{-| __C declaration:__ @fun_const@
+
+    __defined at:__ @types\/structs\/struct_arg_const.h:9:20@
+
+    __exported by:__ @types\/structs\/struct_arg_const.h@
+-}
+fun_const = unsafePerformIO hs_bindgen_49a195a2b05d425e

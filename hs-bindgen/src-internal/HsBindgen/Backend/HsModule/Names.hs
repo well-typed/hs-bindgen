@@ -305,6 +305,7 @@ resolveGlobal = \case
     CharValue_fromAddr            -> importQ 'CExpr.Runtime.charValueFromAddr
     CAPI_with                     -> importQ 'Foreign.with
     CAPI_allocaAndPeek            -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeek
+    CAPI_allocaAndPeekConst       -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeekConst
     ConstantArray_withPtr         -> importQ 'HsBindgen.Runtime.ConstantArray.withPtr
     IncompleteArray_withPtr       -> importQ 'HsBindgen.Runtime.IncompleteArray.withPtr
 

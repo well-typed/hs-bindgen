@@ -89,6 +89,7 @@ data Global =
   | ByteArray_getUnionPayload
   | CAPI_with
   | CAPI_allocaAndPeek
+  | CAPI_allocaAndPeekConst
   | ConstantArray_withPtr
   | IncompleteArray_withPtr
 

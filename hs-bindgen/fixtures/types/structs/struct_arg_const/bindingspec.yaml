@@ -1,0 +1,21 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: Example
+ctypes:
+- headers: types/structs/struct_arg_const.h
+  cname: struct thing
+  hsname: Thing
+hstypes:
+- hsname: Thing
+  representation:
+    record:
+      constructor: Thing
+      fields:
+      - thing_x
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable

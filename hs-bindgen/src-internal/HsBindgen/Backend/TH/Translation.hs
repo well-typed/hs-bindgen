@@ -114,7 +114,8 @@ mkGlobal = \case
       CharValue_constructor  -> 'CExpr.Runtime.CharValue
       CharValue_fromAddr    -> 'CExpr.Runtime.charValueFromAddr
       CAPI_with             -> 'Foreign.with
-      CAPI_allocaAndPeek    -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
+      CAPI_allocaAndPeek      -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
+      CAPI_allocaAndPeekConst -> 'HsBindgen.Runtime.CAPI.allocaAndPeekConst
       ConstantArray_withPtr -> 'HsBindgen.Runtime.ConstantArray.withPtr
       IncompleteArray_withPtr -> 'HsBindgen.Runtime.IncompleteArray.withPtr
 
@@ -386,7 +387,8 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     ByteArray_setUnionPayload -> TH.varE name
     ByteArray_getUnionPayload -> TH.varE name
     CAPI_with             -> TH.varE name
-    CAPI_allocaAndPeek    -> TH.varE name
+    CAPI_allocaAndPeek      -> TH.varE name
+    CAPI_allocaAndPeekConst -> TH.varE name
     ConstantArray_withPtr -> TH.varE name
     IncompleteArray_withPtr -> TH.varE name
 
