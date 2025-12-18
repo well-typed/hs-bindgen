@@ -9,6 +9,12 @@ ctypes:
   hsname: A
 hstypes:
 - hsname: A
+  representation:
+    newtype:
+      constructor: A
+      fields:
+      - un_A
+      ffitype: CSize
   instances:
   - Bits
   - Bounded

@@ -21,6 +21,12 @@ ctypes:
   hsname: S
 hstypes:
 - hsname: C
+  representation:
+    newtype:
+      constructor: C
+      fields:
+      - un_C
+      ffitype: CChar
   instances:
   - Bits
   - Bounded
@@ -37,6 +43,12 @@ hstypes:
   - Show
   - Storable
 - hsname: F
+  representation:
+    newtype:
+      constructor: F
+      fields:
+      - un_F
+      ffitype: CFloat
   instances:
   - Enum
   - Eq
@@ -52,6 +64,12 @@ hstypes:
   - Show
   - Storable
 - hsname: I
+  representation:
+    newtype:
+      constructor: I
+      fields:
+      - un_I
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -68,6 +86,12 @@ hstypes:
   - Show
   - Storable
 - hsname: L
+  representation:
+    newtype:
+      constructor: L
+      fields:
+      - un_L
+      ffitype: CLong
   instances:
   - Bits
   - Bounded
@@ -84,6 +108,12 @@ hstypes:
   - Show
   - Storable
 - hsname: S
+  representation:
+    newtype:
+      constructor: S
+      fields:
+      - un_S
+      ffitype: CShort
   instances:
   - Bits
   - Bounded

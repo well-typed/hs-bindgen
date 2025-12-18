@@ -12,11 +12,23 @@ ctypes:
   hsname: Linked_list_B_t
 hstypes:
 - hsname: Linked_list_A_t
+  representation:
+    record:
+      constructor: Linked_list_A_t
+      fields:
+      - linked_list_A_t_x
+      - linked_list_A_t_next
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Linked_list_B_t
+  representation:
+    record:
+      constructor: Linked_list_B_t
+      fields:
+      - linked_list_B_t_x
+      - linked_list_B_t_next
   instances:
   - Eq
   - Show

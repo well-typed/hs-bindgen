@@ -21,26 +21,53 @@ ctypes:
   hsname: Triplets
 hstypes:
 - hsname: Diff
+  representation:
+    record:
+      constructor: Diff
+      fields:
+      - diff_first
+      - diff_second
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Foo
+  representation:
+    record:
+      constructor: Foo
+      fields:
+      - foo_len
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Foo_bar
+  representation:
+    record:
+      constructor: Foo_bar
+      fields:
+      - foo_bar_x
+      - foo_bar_y
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Pascal
+  representation:
+    record:
+      constructor: Pascal
+      fields:
+      - pascal_len
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Triplets
+  representation:
+    record:
+      constructor: Triplets
+      fields:
+      - triplets_len
   instances:
   - Eq
   - Show

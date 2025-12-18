@@ -15,16 +15,31 @@ ctypes:
   hsname: Omitted
 hstypes:
 - hsname: DirectlyDependsOnOmitted
+  representation:
+    record:
+      constructor: DirectlyDependsOnOmitted
+      fields:
+      - directlyDependsOnOmitted_o
   instances:
   - Eq
   - Show
   - Storable
 - hsname: IndirectlyDependsOnOmitted
+  representation:
+    record:
+      constructor: IndirectlyDependsOnOmitted
+      fields:
+      - indirectlyDependsOnOmitted_d
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Omitted
+  representation:
+    record:
+      constructor: Omitted
+      fields:
+      - omitted_n
   instances:
   - Eq
   - Show

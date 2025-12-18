@@ -9,6 +9,13 @@ ctypes:
   hsname: Complex_object_t
 hstypes:
 - hsname: Complex_object_t
+  representation:
+    record:
+      constructor: Complex_object_t
+      fields:
+      - complex_object_t_velocity
+      - complex_object_t_position
+      - complex_object_t_id
   instances:
   - Eq
   - Show

@@ -18,6 +18,12 @@ ctypes:
   hsname: 'Y'
 hstypes:
 - hsname: Int_t
+  representation:
+    newtype:
+      constructor: Int_t
+      fields:
+      - un_Int_t
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -34,6 +40,11 @@ hstypes:
   - Show
   - Storable
 - hsname: X
+  representation:
+    record:
+      constructor: X
+      fields:
+      - x_n
   instances:
   - Eq
   - Show

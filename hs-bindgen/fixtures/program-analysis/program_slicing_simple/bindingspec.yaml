@@ -12,11 +12,23 @@ ctypes:
   hsname: Uint32_t
 hstypes:
 - hsname: Foo
+  representation:
+    record:
+      constructor: Foo
+      fields:
+      - foo_sixty_four
+      - foo_thirty_two
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Uint32_t
+  representation:
+    newtype:
+      constructor: Uint32_t
+      fields:
+      - un_Uint32_t
+      ffitype: CUInt
   instances:
   - Bits
   - Bounded

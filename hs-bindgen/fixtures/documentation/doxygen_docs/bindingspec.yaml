@@ -45,11 +45,25 @@ ctypes:
   hsname: Status_code_t
 hstypes:
 - hsname: Bitfield_t
+  representation:
+    record:
+      constructor: Bitfield_t
+      fields:
+      - bitfield_t_flag1
+      - bitfield_t_flag2
+      - bitfield_t_counter
+      - bitfield_t_reserved
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Color_enum
+  representation:
+    newtype:
+      constructor: Color_enum
+      fields:
+      - un_Color_enum
+      ffitype: CUInt
   instances:
   - Eq
   - HasBaseForeignType
@@ -58,19 +72,45 @@ hstypes:
   - Show
   - Storable
 - hsname: Config_t
+  representation:
+    record:
+      constructor: Config_t
+      fields:
+      - config_t_id
+      - config_t_name
+      - config_t_flags
+      - config_t_callback
+      - config_t_user_data
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Data_union_t
+  representation:
+    newtype:
+      constructor: Data_union_t
+      fields:
+      - un_Data_union_t
   instances:
   - Storable
 - hsname: Data_union_t_as_parts
+  representation:
+    record:
+      constructor: Data_union_t_as_parts
+      fields:
+      - data_union_t_as_parts_low
+      - data_union_t_as_parts_high
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Event_callback_t
+  representation:
+    newtype:
+      constructor: Event_callback_t
+      fields:
+      - un_Event_callback_t
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -78,11 +118,21 @@ hstypes:
   - Show
   - Storable
 - hsname: Filename_t
+  representation:
+    newtype:
+      constructor: Filename_t
+      fields:
+      - un_Filename_t
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Flexible_array
+  representation:
+    record:
+      constructor: Flexible_array
+      fields:
+      - flexible_array_count
   instances:
   - Eq
   - Show
@@ -92,6 +142,12 @@ hstypes:
 - hsname: Forward_declared_union
   representation: opaque
 - hsname: Processor_fn_t
+  representation:
+    newtype:
+      constructor: Processor_fn_t
+      fields:
+      - un_Processor_fn_t
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -99,6 +155,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Size_type
+  representation:
+    newtype:
+      constructor: Size_type
+      fields:
+      - un_Size_type
+      ffitype: CSize
   instances:
   - Bits
   - Bounded
@@ -115,6 +177,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Status_code_t
+  representation:
+    newtype:
+      constructor: Status_code_t
+      fields:
+      - un_Status_code_t
+      ffitype: CInt
   instances:
   - Eq
   - HasBaseForeignType

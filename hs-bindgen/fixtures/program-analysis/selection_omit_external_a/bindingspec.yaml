@@ -9,6 +9,11 @@ ctypes:
   hsname: UnrelatedDeclaration
 hstypes:
 - hsname: UnrelatedDeclaration
+  representation:
+    record:
+      constructor: UnrelatedDeclaration
+      fields:
+      - unrelatedDeclaration_m
   instances:
   - Eq
   - Show

@@ -12,6 +12,12 @@ ctypes:
   hsname: Foo
 hstypes:
 - hsname: Foo
+  representation:
+    newtype:
+      constructor: Foo
+      fields:
+      - un_Foo
+      ffitype: CUInt
   instances:
   - Eq
   - HasBaseForeignType

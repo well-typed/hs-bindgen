@@ -9,6 +9,38 @@ ctypes:
   hsname: Primitive
 hstypes:
 - hsname: Primitive
+  representation:
+    record:
+      constructor: Primitive
+      fields:
+      - primitive_c
+      - primitive_sc
+      - primitive_uc
+      - primitive_s
+      - primitive_si
+      - primitive_ss
+      - primitive_ssi
+      - primitive_us
+      - primitive_usi
+      - primitive_i
+      - primitive_s2
+      - primitive_si2
+      - primitive_u
+      - primitive_ui
+      - primitive_l
+      - primitive_li
+      - primitive_sl
+      - primitive_sli
+      - primitive_ul
+      - primitive_uli
+      - primitive_ll
+      - primitive_lli
+      - primitive_sll
+      - primitive_slli
+      - primitive_ull
+      - primitive_ulli
+      - primitive_f
+      - primitive_d
   instances:
   - Eq
   - Show

@@ -21,11 +21,21 @@ ctypes:
   hsname: Quu
 hstypes:
 - hsname: Bar
+  representation:
+    record:
+      constructor: Bar
+      fields:
+      - bar_ptrA
+      - bar_ptrB
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Baz
+  representation:
+    record:
+      constructor: Baz
+      fields: []
   instances:
   - Eq
   - Show

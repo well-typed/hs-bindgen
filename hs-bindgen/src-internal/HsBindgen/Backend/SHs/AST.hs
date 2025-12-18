@@ -74,6 +74,7 @@ data Global =
   | Ptr_constructor
   | Foreign_FunPtr
   | Foreign_plusPtr
+  | Foreign_StablePtr
   | ConstantArray
   | IncompleteArray
   | IO_type
@@ -315,7 +316,7 @@ data SType ctx =
   | TFun (SType ctx) (SType ctx)
   | TLit Natural
   | TStrLit String
-  | TExt Hs.ExtRef BindingSpec.CTypeSpec (Maybe BindingSpec.HsTypeSpec)
+  | TExt Hs.ExtRef BindingSpec.CTypeSpec BindingSpec.HsTypeSpec
   | TBound (Idx ctx)
   | TFree (Hs.Name Hs.NsVar)
   | TApp (SType ctx) (SType ctx)

@@ -18,6 +18,12 @@ ctypes:
   hsname: ExB
 hstypes:
 - hsname: EnumA
+  representation:
+    newtype:
+      constructor: EnumA
+      fields:
+      - un_EnumA
+      ffitype: CUInt
   instances:
   - Eq
   - HasBaseForeignType
@@ -26,16 +32,32 @@ hstypes:
   - Show
   - Storable
 - hsname: ExA
+  representation:
+    record:
+      constructor: ExA
+      fields:
+      - exA_fieldA1
   instances:
   - Eq
   - Show
   - Storable
 - hsname: ExB
+  representation:
+    record:
+      constructor: ExB
+      fields:
+      - exB_fieldB1
   instances:
   - Eq
   - Show
   - Storable
 - hsname: ExB_fieldB1
+  representation:
+    newtype:
+      constructor: ExB_fieldB1
+      fields:
+      - un_ExB_fieldB1
+      ffitype: CUInt
   instances:
   - Eq
   - HasBaseForeignType

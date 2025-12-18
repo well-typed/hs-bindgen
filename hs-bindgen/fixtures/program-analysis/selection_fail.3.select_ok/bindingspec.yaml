@@ -9,6 +9,11 @@ ctypes:
   hsname: OkBefore
 hstypes:
 - hsname: OkBefore
+  representation:
+    record:
+      constructor: OkBefore
+      fields:
+      - okBefore_x
   instances:
   - Eq
   - Show

@@ -15,16 +15,31 @@ ctypes:
   hsname: Triplet_ptrs
 hstypes:
 - hsname: Matrix
+  representation:
+    newtype:
+      constructor: Matrix
+      fields:
+      - un_Matrix
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Triplet
+  representation:
+    newtype:
+      constructor: Triplet
+      fields:
+      - un_Triplet
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Triplet_ptrs
+  representation:
+    newtype:
+      constructor: Triplet_ptrs
+      fields:
+      - un_Triplet_ptrs
   instances:
   - Eq
   - Show

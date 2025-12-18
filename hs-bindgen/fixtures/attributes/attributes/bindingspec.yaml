@@ -21,26 +21,57 @@ ctypes:
   hsname: Qux
 hstypes:
 - hsname: Bar
+  representation:
+    record:
+      constructor: Bar
+      fields:
+      - bar_c
+      - bar_i
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Baz
+  representation:
+    record:
+      constructor: Baz
+      fields:
+      - baz_c
+      - baz_i
   instances:
   - Eq
   - Show
   - Storable
 - hsname: FILE
+  representation:
+    record:
+      constructor: FILE
+      fields:
+      - fILE__r
+      - fILE__w
+      - fILE__close
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Foo
+  representation:
+    record:
+      constructor: Foo
+      fields:
+      - foo_c
+      - foo_i
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Qux
+  representation:
+    record:
+      constructor: Qux
+      fields:
+      - qux_c
+      - qux_i
   instances:
   - Eq
   - Show

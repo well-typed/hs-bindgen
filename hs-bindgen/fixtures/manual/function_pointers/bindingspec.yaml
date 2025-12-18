@@ -15,13 +15,28 @@ ctypes:
   hsname: Int2int
 hstypes:
 - hsname: Apply1Struct
+  representation:
+    record:
+      constructor: Apply1Struct
+      fields:
+      - apply1Struct_apply1_nopointer_struct_field
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Apply1Union
+  representation:
+    newtype:
+      constructor: Apply1Union
+      fields:
+      - un_Apply1Union
   instances:
   - Storable
 - hsname: Int2int
+  representation:
+    newtype:
+      constructor: Int2int
+      fields:
+      - un_Int2int
   instances:
   - HasBaseForeignType

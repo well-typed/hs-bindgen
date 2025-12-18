@@ -12,11 +12,21 @@ ctypes:
   hsname: Size_t
 hstypes:
 - hsname: FILE
+  representation:
+    record:
+      constructor: FILE
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Size_t
+  representation:
+    newtype:
+      constructor: Size_t
+      fields:
+      - un_Size_t
+      ffitype: CInt
   instances:
   - Bits
   - Bounded

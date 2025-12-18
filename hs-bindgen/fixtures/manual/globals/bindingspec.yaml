@@ -21,6 +21,12 @@ ctypes:
   hsname: Tuple
 hstypes:
 - hsname: ConstInt
+  representation:
+    newtype:
+      constructor: ConstInt
+      fields:
+      - un_ConstInt
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -37,20 +43,42 @@ hstypes:
   - Show
   - Storable
 - hsname: GlobalConfig
+  representation:
+    record:
+      constructor: GlobalConfig
+      fields:
+      - globalConfig_numThreads
+      - globalConfig_numWorkers
   instances:
   - Eq
   - Show
   - Storable
 - hsname: List
+  representation:
+    newtype:
+      constructor: List
+      fields:
+      - un_List
   instances:
   - Eq
   - Show
 - hsname: Triplet
+  representation:
+    newtype:
+      constructor: Triplet
+      fields:
+      - un_Triplet
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Tuple
+  representation:
+    record:
+      constructor: Tuple
+      fields:
+      - tuple_x
+      - tuple_y
   instances:
   - Eq
   - Show

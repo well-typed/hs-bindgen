@@ -476,22 +476,32 @@ resolveExtBinding cDeclName cQualPrelimDeclId declPaths mMsg = do
     MEnv{envExtSpecs} <- Reader.ask
     case BindingSpec.lookupMergedBindingSpecs cDeclName declPaths envExtSpecs of
       Just (hsModuleName, BindingSpec.Require cTypeSpec, mHsTypeSpec) ->
-        case BindingSpec.cTypeSpecIdentifier cTypeSpec of
-          Just hsIdentifier -> do
+        case (BindingSpec.cTypeSpecIdentifier cTypeSpec, mHsTypeSpec) of
+          (Just hsIdentifier, Just hsTypeSpec) -> do
             let resolved = ResolvedExtBinding {
                     extCName  = cDeclName
                   , extHsRef  = Hs.ExtRef hsModuleName hsIdentifier
                   , extCSpec  = cTypeSpec
-                  , extHsSpec = mHsTypeSpec
+                  , extHsSpec = hsTypeSpec
                   }
-            State.modify' $
-              insertExtType
-                cQualPrelimDeclId
-                (C.TypeExtBinding resolved)
-            return (Just resolved)
-          Nothing -> do
+            case BindingSpec.hsTypeSpecRep hsTypeSpec of
+              Just _hsTypeSpecRep -> do
+                State.modify' $
+                  insertExtType
+                    cQualPrelimDeclId
+                    (C.TypeExtBinding resolved)
+                return (Just resolved)
+              Nothing -> do
+                State.modify' $
+                  insertTrace (ResolveBindingSpecsNoHsTypeRep cDeclName)
+                return Nothing
+          (Nothing, _) -> do
             State.modify' $
               insertTrace (ResolveBindingSpecsExtHsRefNoIdentifier cDeclName)
+            return Nothing
+          (_, Nothing) -> do
+            State.modify' $
+              insertTrace (ResolveBindingSpecsNoHsTypeSpec cDeclName)
             return Nothing
       Just (_hsModuleName, BindingSpec.Omit, _mHsTypeSpec) -> do
         forM_ mMsg $ \msg -> State.modify' $ insertTrace msg

@@ -1,5 +1,13 @@
 -- | Datatypes for the 'HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType'
 -- class.
+--
+-- These datatypes reify all possible values of the
+-- 'HsBindgen.Runtime.HasBaseForeignType.BaseForeignType' type. These datatypes
+-- are for internal use in the
+-- 'HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType' class, and they are
+-- exported for the @hs-bindgen@ package to use. You probably won't need to use
+-- these directly, but you might find the datatypes useful as documentation for
+-- the 'HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType' class.
 module HsBindgen.Runtime.BaseForeignType (
     BaseForeignType (..)
   , BasicForeignType (..)
@@ -8,9 +16,9 @@ module HsBindgen.Runtime.BaseForeignType (
 
 -- | A foreign type without newtypes
 --
--- This datatype does not restrict itself to true foreign types. For example,
--- @IO Unit `FunArrow` IO Unit@ is not a foreign type, but we can represent it
--- here. See the discussion on the
+-- This datatype does not restrict itself to valid foreign types. For example,
+-- @IO Unit `FunArrow` IO Unit@ is not a valid foreign type, but we can
+-- represent it nonetheless. See the discussion on the
 -- 'HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType' class for why this
 -- is okay.
 --
@@ -28,7 +36,7 @@ data BaseForeignType =
     -- === Marshallable foreign types ===
   | Basic BasicForeignType
   | Builtin BuiltinForeignType
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Ord)
 
 -- | A basic foreign type as described in the "8.4.2
 -- Foreign Types" section of the "Haskell 2010 Language" report:
@@ -57,7 +65,7 @@ data BasicForeignType =
   | FunPtr
     -- Foreign.StablePtr
   | StablePtr
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Ord, Enum, Bounded)
 
 -- | A builtin foreign type is a newtype around a basic foreign type that we
 -- have explicit support for.
@@ -107,4 +115,4 @@ data BuiltinForeignType =
     -- Foreign.C.Types : Floating type
   | CFloat
   | CDouble
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Ord, Enum, Bounded)

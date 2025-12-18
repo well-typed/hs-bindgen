@@ -12,11 +12,23 @@ ctypes:
   hsname: FileOperationStatus
 hstypes:
 - hsname: FileOperationRecord
+  representation:
+    record:
+      constructor: FileOperationRecord
+      fields:
+      - fileOperationRecord_status
+      - fileOperationRecord_bytes_processed
   instances:
   - Eq
   - Show
   - Storable
 - hsname: FileOperationStatus
+  representation:
+    newtype:
+      constructor: FileOperationStatus
+      fields:
+      - un_FileOperationStatus
+      ffitype: CInt
   instances:
   - Eq
   - HasBaseForeignType

@@ -117,6 +117,12 @@ ctypes:
   hsname: Typedef3
 hstypes:
 - hsname: A
+  representation:
+    newtype:
+      constructor: A
+      fields:
+      - un_A
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -133,24 +139,50 @@ hstypes:
   - Show
   - Storable
 - hsname: Arr_typedef1
+  representation:
+    newtype:
+      constructor: Arr_typedef1
+      fields:
+      - un_Arr_typedef1
   instances:
   - Eq
   - Show
 - hsname: Arr_typedef2
+  representation:
+    newtype:
+      constructor: Arr_typedef2
+      fields:
+      - un_Arr_typedef2
   instances:
   - Eq
   - Show
 - hsname: Arr_typedef3
+  representation:
+    newtype:
+      constructor: Arr_typedef3
+      fields:
+      - un_Arr_typedef3
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Arr_typedef4
+  representation:
+    newtype:
+      constructor: Arr_typedef4
+      fields:
+      - un_Arr_typedef4
   instances:
   - Eq
   - Show
   - Storable
 - hsname: BOOL
+  representation:
+    newtype:
+      constructor: BOOL
+      fields:
+      - un_BOOL
+      ffitype: CBool
   instances:
   - Bits
   - Bounded
@@ -167,6 +199,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Comments2
+  representation:
+    newtype:
+      constructor: Comments2
+      fields:
+      - un_Comments2
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -183,6 +221,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Const_funptr1
+  representation:
+    newtype:
+      constructor: Const_funptr1
+      fields:
+      - un_Const_funptr1
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -190,6 +234,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Const_funptr2
+  representation:
+    newtype:
+      constructor: Const_funptr2
+      fields:
+      - un_Const_funptr2
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -197,6 +247,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Const_funptr3
+  representation:
+    newtype:
+      constructor: Const_funptr3
+      fields:
+      - un_Const_funptr3
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -204,6 +260,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Const_funptr4
+  representation:
+    newtype:
+      constructor: Const_funptr4
+      fields:
+      - un_Const_funptr4
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -211,6 +273,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Const_funptr5
+  representation:
+    newtype:
+      constructor: Const_funptr5
+      fields:
+      - un_Const_funptr5
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -218,6 +286,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Const_funptr6
+  representation:
+    newtype:
+      constructor: Const_funptr6
+      fields:
+      - un_Const_funptr6
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -225,6 +299,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Const_funptr7
+  representation:
+    newtype:
+      constructor: Const_funptr7
+      fields:
+      - un_Const_funptr7
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -232,6 +312,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Const_typedef1
+  representation:
+    newtype:
+      constructor: Const_typedef1
+      fields:
+      - un_Const_typedef1
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -248,6 +334,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Const_typedef2
+  representation:
+    newtype:
+      constructor: Const_typedef2
+      fields:
+      - un_Const_typedef2
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -264,6 +356,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Const_typedef3
+  representation:
+    newtype:
+      constructor: Const_typedef3
+      fields:
+      - un_Const_typedef3
+      ffitype: ConstPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -271,6 +369,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Const_typedef4
+  representation:
+    newtype:
+      constructor: Const_typedef4
+      fields:
+      - un_Const_typedef4
+      ffitype: ConstPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -278,6 +382,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Const_typedef5
+  representation:
+    newtype:
+      constructor: Const_typedef5
+      fields:
+      - un_Const_typedef5
+      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -285,6 +395,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Const_typedef6
+  representation:
+    newtype:
+      constructor: Const_typedef6
+      fields:
+      - un_Const_typedef6
+      ffitype: ConstPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -292,6 +408,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Const_typedef7
+  representation:
+    newtype:
+      constructor: Const_typedef7
+      fields:
+      - un_Const_typedef7
+      ffitype: ConstPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -299,16 +421,40 @@ hstypes:
   - Show
   - Storable
 - hsname: Example_struct
+  representation:
+    record:
+      constructor: Example_struct
+      fields:
+      - example_struct_field1
+      - example_struct_field2
+      - example_struct_field3
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Example_struct_with_const
+  representation:
+    record:
+      constructor: Example_struct_with_const
+      fields:
+      - example_struct_with_const_const_field1
+      - example_struct_with_const_const_field2
+      - example_struct_with_const_const_field3
+      - example_struct_with_const_const_field4
+      - example_struct_with_const_const_field5
+      - example_struct_with_const_const_field6
+      - example_struct_with_const_const_field7
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Funptr_typedef1
+  representation:
+    newtype:
+      constructor: Funptr_typedef1
+      fields:
+      - un_Funptr_typedef1
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -316,6 +462,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Funptr_typedef2
+  representation:
+    newtype:
+      constructor: Funptr_typedef2
+      fields:
+      - un_Funptr_typedef2
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -323,6 +475,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Funptr_typedef3
+  representation:
+    newtype:
+      constructor: Funptr_typedef3
+      fields:
+      - un_Funptr_typedef3
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -330,6 +488,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Funptr_typedef4
+  representation:
+    newtype:
+      constructor: Funptr_typedef4
+      fields:
+      - un_Funptr_typedef4
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -337,6 +501,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Funptr_typedef5
+  representation:
+    newtype:
+      constructor: Funptr_typedef5
+      fields:
+      - un_Funptr_typedef5
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -344,6 +514,12 @@ hstypes:
   - Show
   - Storable
 - hsname: INT
+  representation:
+    newtype:
+      constructor: INT
+      fields:
+      - un_INT
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -360,6 +536,12 @@ hstypes:
   - Show
   - Storable
 - hsname: INTCP
+  representation:
+    newtype:
+      constructor: INTCP
+      fields:
+      - un_INTCP
+      ffitype: ConstPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -367,6 +549,12 @@ hstypes:
   - Show
   - Storable
 - hsname: INTP
+  representation:
+    newtype:
+      constructor: INTP
+      fields:
+      - un_INTP
+      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -374,6 +562,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Some_enum
+  representation:
+    newtype:
+      constructor: Some_enum
+      fields:
+      - un_Some_enum
+      ffitype: CUInt
   instances:
   - Eq
   - HasBaseForeignType
@@ -382,14 +576,29 @@ hstypes:
   - Show
   - Storable
 - hsname: Some_struct
+  representation:
+    record:
+      constructor: Some_struct
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Some_union
+  representation:
+    newtype:
+      constructor: Some_union
+      fields:
+      - un_Some_union
   instances:
   - Storable
 - hsname: Typedef1
+  representation:
+    newtype:
+      constructor: Typedef1
+      fields:
+      - un_Typedef1
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -406,6 +615,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Typedef2
+  representation:
+    newtype:
+      constructor: Typedef2
+      fields:
+      - un_Typedef2
+      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -413,6 +628,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Typedef3
+  representation:
+    newtype:
+      constructor: Typedef3
+      fields:
+      - un_Typedef3
+      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType

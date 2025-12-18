@@ -12,11 +12,22 @@ ctypes:
   hsname: Fun_ptr
 hstypes:
 - hsname: Forward_declaration
+  representation:
+    record:
+      constructor: Forward_declaration
+      fields:
+      - forward_declaration_f
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Fun_ptr
+  representation:
+    newtype:
+      constructor: Fun_ptr
+      fields:
+      - un_Fun_ptr
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType

@@ -9,6 +9,12 @@ ctypes:
   hsname: Foo_enum
 hstypes:
 - hsname: Foo_enum
+  representation:
+    newtype:
+      constructor: Foo_enum
+      fields:
+      - un_Foo_enum
+      ffitype: Word32
   instances:
   - Eq
   - HasBaseForeignType

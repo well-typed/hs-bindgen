@@ -9,6 +9,11 @@ ctypes:
   hsname: Triplet
 hstypes:
 - hsname: Triplet
+  representation:
+    newtype:
+      constructor: Triplet
+      fields:
+      - un_Triplet
   instances:
   - Eq
   - Show

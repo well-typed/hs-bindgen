@@ -9,6 +9,9 @@ ctypes:
   hsname: Int64
 hstypes:
 - hsname: Int64
+  representation:
+    newtype:
+      ffitype: Int64
   instances:
   - Bits
   - Bounded

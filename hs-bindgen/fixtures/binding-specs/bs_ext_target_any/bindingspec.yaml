@@ -9,6 +9,12 @@ ctypes:
   hsname: Sym
 hstypes:
 - hsname: Sym
+  representation:
+    newtype:
+      constructor: Sym
+      fields:
+      - un_Sym
+      ffitype: CChar
   instances:
   - Bits
   - Bounded

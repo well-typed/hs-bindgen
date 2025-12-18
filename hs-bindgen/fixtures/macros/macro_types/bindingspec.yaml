@@ -27,6 +27,12 @@ ctypes:
   hsname: Tty
 hstypes:
 - hsname: BOOLEAN_T
+  representation:
+    newtype:
+      constructor: BOOLEAN_T
+      fields:
+      - un_BOOLEAN_T
+      ffitype: CUChar
   instances:
   - Bits
   - Bounded
@@ -43,6 +49,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Boolean_T
+  representation:
+    newtype:
+      constructor: Boolean_T
+      fields:
+      - un_Boolean_T
+      ffitype: CUChar
   instances:
   - Bits
   - Bounded
@@ -59,6 +71,12 @@ hstypes:
   - Show
   - Storable
 - hsname: MTy
+  representation:
+    newtype:
+      constructor: MTy
+      fields:
+      - un_MTy
+      ffitype: CFloat
   instances:
   - Enum
   - Eq
@@ -74,6 +92,12 @@ hstypes:
   - Show
   - Storable
 - hsname: PtrInt
+  representation:
+    newtype:
+      constructor: PtrInt
+      fields:
+      - un_PtrInt
+      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -81,6 +105,12 @@ hstypes:
   - Show
   - Storable
 - hsname: PtrPtrChar
+  representation:
+    newtype:
+      constructor: PtrPtrChar
+      fields:
+      - un_PtrPtrChar
+      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -88,6 +118,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Tty
+  representation:
+    newtype:
+      constructor: Tty
+      fields:
+      - un_Tty
+      ffitype: CFloat
   instances:
   - Enum
   - Eq
@@ -103,6 +139,12 @@ hstypes:
   - Show
   - Storable
 - hsname: UINT8_T
+  representation:
+    newtype:
+      constructor: UINT8_T
+      fields:
+      - un_UINT8_T
+      ffitype: CUChar
   instances:
   - Bits
   - Bounded

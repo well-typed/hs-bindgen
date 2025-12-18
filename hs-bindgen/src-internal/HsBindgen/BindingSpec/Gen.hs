@@ -15,6 +15,7 @@ import Data.ByteString (ByteString)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
+import Data.Vec.Lazy qualified as Vec
 
 import Clang.HighLevel.Types
 import Clang.Paths
@@ -164,8 +165,15 @@ genBindingSpec'
                 cTypeSpecIdentifier = Just hsIdentifier
               , cTypeSpecRep        = Nothing  -- TODO implement
               }
+            hsRecordRep = BindingSpec.HsRecordRep {
+                hsRecordRepConstructor = Just $ Hs.Identifier $ Hs.getName $ Hs.structConstr hsStruct
+              , hsRecordRepFields = Just [
+                    Hs.Identifier $ Hs.getName $ Hs.fieldName field
+                  | field <- Vec.toList $ Hs.structFields hsStruct
+                  ]
+              }
             hsTypeSpec = BindingSpec.HsTypeSpec {
-                hsTypeSpecRep = Nothing -- TODO implement
+                hsTypeSpecRep = Just $ BindingSpec.HsTypeRepRecord hsRecordRep
               , hsTypeSpecInstances =
                   mkInstSpecs
                     ( maybe Map.empty BindingSpec.hsTypeSpecInstances
@@ -212,8 +220,13 @@ genBindingSpec'
               cTypeSpecIdentifier = Just hsIdentifier
             , cTypeSpecRep        = Nothing  -- TODO implement
             }
+          hsNewtypeRep = BindingSpec.HsNewtypeRep {
+              hsNewtypeRepConstructor = Just $ Hs.Identifier $ Hs.getName $ Hs.newtypeConstr hsNewtype
+            , hsNewtypeRepField = Just $ Hs.Identifier $ Hs.getName $ Hs.fieldName $ Hs.newtypeField hsNewtype
+            , hsNewtypeRepFFIType = Hs.newtypeFFIType hsNewtype
+            }
           hsTypeSpec = BindingSpec.HsTypeSpec {
-              hsTypeSpecRep = Nothing -- TODO implement
+              hsTypeSpecRep = Just $ BindingSpec.HsTypeRepNewtype hsNewtypeRep
             , hsTypeSpecInstances =
                 mkInstSpecs
                   ( maybe Map.empty BindingSpec.hsTypeSpecInstances

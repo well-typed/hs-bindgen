@@ -33,6 +33,12 @@ ctypes:
   hsname: Wait_status_ptr_t
 hstypes:
 - hsname: More_aligned_int
+  representation:
+    newtype:
+      constructor: More_aligned_int
+      fields:
+      - un_More_aligned_int
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -49,26 +55,55 @@ hstypes:
   - Show
   - Storable
 - hsname: My_packed_struct
+  representation:
+    record:
+      constructor: My_packed_struct
+      fields:
+      - my_packed_struct_c
+      - my_packed_struct_i
+      - my_packed_struct_s
   instances:
   - Eq
   - Show
   - Storable
 - hsname: My_unpacked_struct
+  representation:
+    record:
+      constructor: My_unpacked_struct
+      fields:
+      - my_unpacked_struct_c
+      - my_unpacked_struct_i
   instances:
   - Eq
   - Show
   - Storable
 - hsname: S
+  representation:
+    record:
+      constructor: S
+      fields:
+      - s_f
   instances:
   - Eq
   - Show
   - Storable
 - hsname: S2
+  representation:
+    record:
+      constructor: S2
+      fields:
+      - s2_f
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Short_a
+  representation:
+    newtype:
+      constructor: Short_a
+      fields:
+      - un_Short_a
+      ffitype: CShort
   instances:
   - Bits
   - Bounded
@@ -85,6 +120,12 @@ hstypes:
   - Show
   - Storable
 - hsname: T1
+  representation:
+    newtype:
+      constructor: T1
+      fields:
+      - un_T1
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -103,5 +144,10 @@ hstypes:
 - hsname: Wait
   representation: opaque
 - hsname: Wait_status_ptr_t
+  representation:
+    newtype:
+      constructor: Wait_status_ptr_t
+      fields:
+      - un_Wait_status_ptr_t
   instances:
   - Storable

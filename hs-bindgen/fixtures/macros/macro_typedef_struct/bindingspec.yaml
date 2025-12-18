@@ -12,11 +12,23 @@ ctypes:
   hsname: Bar
 hstypes:
 - hsname: Bar
+  representation:
+    record:
+      constructor: Bar
+      fields:
+      - bar_x
+      - bar_y
   instances:
   - Eq
   - Show
   - Storable
 - hsname: MY_TYPE
+  representation:
+    newtype:
+      constructor: MY_TYPE
+      fields:
+      - un_MY_TYPE
+      ffitype: CInt
   instances:
   - Bits
   - Bounded

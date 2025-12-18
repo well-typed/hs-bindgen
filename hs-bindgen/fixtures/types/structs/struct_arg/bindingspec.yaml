@@ -9,6 +9,11 @@ ctypes:
   hsname: Thing
 hstypes:
 - hsname: Thing
+  representation:
+    record:
+      constructor: Thing
+      fields:
+      - thing_x
   instances:
   - Eq
   - Show

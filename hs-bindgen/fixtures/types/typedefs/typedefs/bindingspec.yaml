@@ -39,6 +39,12 @@ ctypes:
   hsname: Myint
 hstypes:
 - hsname: F1
+  representation:
+    newtype:
+      constructor: F1
+      fields:
+      - un_F1
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -46,6 +52,12 @@ hstypes:
   - Show
   - Storable
 - hsname: FunctionPointer_Function
+  representation:
+    newtype:
+      constructor: FunctionPointer_Function
+      fields:
+      - un_FunctionPointer_Function
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -53,9 +65,20 @@ hstypes:
   - Show
   - Storable
 - hsname: G1
+  representation:
+    newtype:
+      constructor: G1
+      fields:
+      - un_G1
   instances:
   - HasBaseForeignType
 - hsname: G2
+  representation:
+    newtype:
+      constructor: G2
+      fields:
+      - un_G2
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -63,12 +86,28 @@ hstypes:
   - Show
   - Storable
 - hsname: H1
+  representation:
+    newtype:
+      constructor: H1
+      fields:
+      - un_H1
   instances:
   - HasBaseForeignType
 - hsname: H2
+  representation:
+    newtype:
+      constructor: H2
+      fields:
+      - un_H2
   instances:
   - HasBaseForeignType
 - hsname: H3
+  representation:
+    newtype:
+      constructor: H3
+      fields:
+      - un_H3
+      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -76,9 +115,20 @@ hstypes:
   - Show
   - Storable
 - hsname: Int2int
+  representation:
+    newtype:
+      constructor: Int2int
+      fields:
+      - un_Int2int
   instances:
   - HasBaseForeignType
 - hsname: Intptr
+  representation:
+    newtype:
+      constructor: Intptr
+      fields:
+      - un_Intptr
+      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -86,6 +136,12 @@ hstypes:
   - Show
   - Storable
 - hsname: Myint
+  representation:
+    newtype:
+      constructor: Myint
+      fields:
+      - un_Myint
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -102,5 +158,10 @@ hstypes:
   - Show
   - Storable
 - hsname: NonFunctionPointer_Function
+  representation:
+    newtype:
+      constructor: NonFunctionPointer_Function
+      fields:
+      - un_NonFunctionPointer_Function
   instances:
   - HasBaseForeignType

@@ -39,26 +39,58 @@ ctypes:
   hsname: Vector
 hstypes:
 - hsname: Circle
+  representation:
+    record:
+      constructor: Circle
+      fields:
+      - circle_midpoint
+      - circle_radius
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Colour
+  representation:
+    record:
+      constructor: Colour
+      fields:
+      - colour_opacity
+      - colour_brightness
+      - colour_red
+      - colour_green
+      - colour_blue
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Drawing
+  representation:
+    record:
+      constructor: Drawing
+      fields:
+      - drawing_shape
+      - drawing_colour
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Matrix
+  representation:
+    newtype:
+      constructor: Matrix
+      fields:
+      - un_Matrix
   instances:
   - Eq
   - Show
   - Storable
 - hsname: MyInt
+  representation:
+    newtype:
+      constructor: MyInt
+      fields:
+      - un_MyInt
+      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -75,29 +107,63 @@ hstypes:
   - Show
   - Storable
 - hsname: Point
+  representation:
+    record:
+      constructor: Point
+      fields:
+      - point_x
+      - point_y
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Rectangle
+  representation:
+    record:
+      constructor: Rectangle
+      fields:
+      - rectangle_topleft
+      - rectangle_bottomright
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Shape
+  representation:
+    newtype:
+      constructor: Shape
+      fields:
+      - un_Shape
   instances:
   - Storable
 - hsname: Tic_tac_toe
+  representation:
+    record:
+      constructor: Tic_tac_toe
+      fields:
+      - tic_tac_toe_row1
+      - tic_tac_toe_row2
+      - tic_tac_toe_row3
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Triplet
+  representation:
+    newtype:
+      constructor: Triplet
+      fields:
+      - un_Triplet
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Vector
+  representation:
+    record:
+      constructor: Vector
+      fields:
+      - vector_len
   instances:
   - Eq
   - Show

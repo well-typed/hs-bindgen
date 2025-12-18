@@ -54,81 +54,145 @@ ctypes:
   hsname: Typedef3
 hstypes:
 - hsname: A
+  representation:
+    record:
+      constructor: A
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: B_s
+  representation:
+    record:
+      constructor: B_s
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: C
+  representation:
+    record:
+      constructor: C
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: D
+  representation:
+    record:
+      constructor: D
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: E_s
+  representation:
+    record:
+      constructor: E_s
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: F
+  representation:
+    record:
+      constructor: F
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: G
+  representation:
+    record:
+      constructor: G
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: H
+  representation:
+    record:
+      constructor: H
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Struct1
+  representation:
+    record:
+      constructor: Struct1
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Struct2_s
+  representation:
+    record:
+      constructor: Struct2_s
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Struct3
+  representation:
+    record:
+      constructor: Struct3
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Struct4
+  representation:
+    record:
+      constructor: Struct4
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Struct5_s
+  representation:
+    record:
+      constructor: Struct5_s
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Typedef1
+  representation:
+    record:
+      constructor: Typedef1
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Typedef2
+  representation:
+    record:
+      constructor: Typedef2
+      fields: []
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Typedef3
+  representation:
+    record:
+      constructor: Typedef3
+      fields: []
   instances:
   - Eq
   - Show

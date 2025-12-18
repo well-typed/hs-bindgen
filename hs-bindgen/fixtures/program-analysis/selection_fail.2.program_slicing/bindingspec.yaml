@@ -12,11 +12,21 @@ ctypes:
   hsname: OkBefore
 hstypes:
 - hsname: OkAfter
+  representation:
+    record:
+      constructor: OkAfter
+      fields:
+      - okAfter_x
   instances:
   - Eq
   - Show
   - Storable
 - hsname: OkBefore
+  representation:
+    record:
+      constructor: OkBefore
+      fields:
+      - okBefore_x
   instances:
   - Eq
   - Show

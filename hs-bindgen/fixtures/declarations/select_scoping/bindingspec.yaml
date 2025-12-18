@@ -9,6 +9,12 @@ ctypes:
   hsname: ParsedAndSelected1
 hstypes:
 - hsname: ParsedAndSelected1
+  representation:
+    newtype:
+      constructor: ParsedAndSelected1
+      fields:
+      - un_ParsedAndSelected1
+      ffitype: CInt
   instances:
   - Bits
   - Bounded

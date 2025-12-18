@@ -79,6 +79,7 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol)
+import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Frontend.AST.External (CheckedMacroExpr)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -126,6 +127,7 @@ data Newtype = Newtype {
     , newtypeField     :: Field
     , newtypeOrigin    :: Origin.Decl Origin.Newtype
     , newtypeInstances :: Set Hs.TypeClass
+    , newtypeFFIType   :: Maybe BindingSpec.FFIType
     , newtypeComment   :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)

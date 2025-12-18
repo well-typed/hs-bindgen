@@ -12,11 +12,21 @@ ctypes:
   hsname: S2
 hstypes:
 - hsname: S1_t
+  representation:
+    record:
+      constructor: S1_t
+      fields:
+      - s1_t_a
   instances:
   - Eq
   - Show
   - Storable
 - hsname: S2
+  representation:
+    record:
+      constructor: S2
+      fields:
+      - s2_a
   instances:
   - Eq
   - Show

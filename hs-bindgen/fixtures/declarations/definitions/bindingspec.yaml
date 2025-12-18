@@ -12,10 +12,20 @@ ctypes:
   hsname: 'Y'
 hstypes:
 - hsname: X
+  representation:
+    record:
+      constructor: X
+      fields:
+      - x_n
   instances:
   - Eq
   - Show
   - Storable
 - hsname: 'Y'
+  representation:
+    newtype:
+      constructor: 'Y'
+      fields:
+      - un_Y
   instances:
   - Storable

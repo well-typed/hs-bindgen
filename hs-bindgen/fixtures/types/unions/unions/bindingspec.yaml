@@ -33,37 +33,89 @@ ctypes:
   hsname: DimPayloadB
 hstypes:
 - hsname: AnonA
+  representation:
+    newtype:
+      constructor: AnonA
+      fields:
+      - un_AnonA
   instances:
   - Storable
 - hsname: AnonA_polar
+  representation:
+    record:
+      constructor: AnonA_polar
+      fields:
+      - anonA_polar_r
+      - anonA_polar_p
   instances:
   - Eq
   - Show
   - Storable
 - hsname: AnonA_xy
+  representation:
+    record:
+      constructor: AnonA_xy
+      fields:
+      - anonA_xy_x
+      - anonA_xy_y
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Dim
+  representation:
+    record:
+      constructor: Dim
+      fields:
+      - dim_tag
+      - dim_payload
   instances:
   - Storable
 - hsname: Dim2
+  representation:
+    record:
+      constructor: Dim2
+      fields:
+      - dim2_x
+      - dim2_y
   instances:
   - Eq
   - Show
   - Storable
 - hsname: Dim3
+  representation:
+    record:
+      constructor: Dim3
+      fields:
+      - dim3_x
+      - dim3_y
+      - dim3_z
   instances:
   - Eq
   - Show
   - Storable
 - hsname: DimB
+  representation:
+    record:
+      constructor: DimB
+      fields:
+      - dimB_tag
+      - dimB_payload
   instances:
   - Storable
 - hsname: DimPayload
+  representation:
+    newtype:
+      constructor: DimPayload
+      fields:
+      - un_DimPayload
   instances:
   - Storable
 - hsname: DimPayloadB
+  representation:
+    newtype:
+      constructor: DimPayloadB
+      fields:
+      - un_DimPayloadB
   instances:
   - Storable
