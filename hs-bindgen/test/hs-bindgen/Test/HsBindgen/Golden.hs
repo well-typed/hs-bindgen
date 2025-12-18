@@ -437,6 +437,9 @@ test_types_structs_simple_structs = defaultTest "types/structs/simple_structs"
 test_types_structs_struct_arg :: TestCase
 test_types_structs_struct_arg = defaultTest "types/structs/struct_arg"
 
+test_types_structs_struct_arg_const :: TestCase
+test_types_structs_struct_arg_const = defaultTest "types/structs/struct_arg_const"
+
 test_types_typedefs_typedef_vs_macro :: TestCase
 test_types_typedefs_typedef_vs_macro =
   defaultTest "types/typedefs/typedef_vs_macro"
@@ -1326,6 +1329,7 @@ testCases = manualTestCases ++ [
     , test_types_structs_recursive_struct
     , test_types_structs_simple_structs
     , test_types_structs_struct_arg
+    , test_types_structs_struct_arg_const
     , test_types_structs_unnamed_struct
     , test_types_typedefs_multi_level_function_pointer
     , test_types_typedefs_typedef_analysis
