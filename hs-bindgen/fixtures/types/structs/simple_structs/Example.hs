@@ -21,7 +21,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
-import GHC.Prim ((*#), (+#), Int#)
+import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure)
 
@@ -71,22 +71,22 @@ instance F.Storable S1 where
 
 instance Data.Primitive.Types.Prim S1 where
 
-  sizeOf# = \_ -> (8# :: Int#)
+  sizeOf# = \_ -> (8#)
 
-  alignment# = \_ -> (4# :: Int#)
+  alignment# = \_ -> (4#)
 
   indexByteArray# =
     \arr0 ->
       \i1 ->
-        S1 (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)))
+        S1 (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readByteArray# =
     \arr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
                 (# s5, v6 #) -> (# s5, S1 v4 v6 #)
 
   writeByteArray# =
@@ -96,22 +96,22 @@ instance Data.Primitive.Types.Prim S1 where
           \s3 ->
             case struct2 of
               S1 s1_a4 s1_b5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s1_a4 s3 of
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s1_a4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s1_b5 s6
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s1_b5 s6
 
   indexOffAddr# =
     \addr0 ->
       \i1 ->
-        S1 (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)))
+        S1 (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readOffAddr# =
     \addr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
                 (# s5, v6 #) -> (# s5, S1 v4 v6 #)
 
   writeOffAddr# =
@@ -121,9 +121,9 @@ instance Data.Primitive.Types.Prim S1 where
           \s3 ->
             case struct2 of
               S1 s1_a4 s1_b5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s1_a4 s3 of
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s1_a4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s1_b5 s6
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s1_b5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField S1 "s1_a" where
 
@@ -204,24 +204,24 @@ instance F.Storable S2_t where
 
 instance Data.Primitive.Types.Prim S2_t where
 
-  sizeOf# = \_ -> (12# :: Int#)
+  sizeOf# = \_ -> (12#)
 
-  alignment# = \_ -> (4# :: Int#)
+  alignment# = \_ -> (4#)
 
   indexByteArray# =
     \arr0 ->
       \i1 ->
-        S2_t (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)))
+        S2_t (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)))
 
   readByteArray# =
     \arr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
                 (# s5, v6 #) ->
-                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)) s5 of
+                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
                     (# s7, v8 #) -> (# s7, S2_t v4 v6 v8 #)
 
   writeByteArray# =
@@ -231,26 +231,26 @@ instance Data.Primitive.Types.Prim S2_t where
           \s3 ->
             case struct2 of
               S2_t s2_t_a4 s2_t_b5 s2_t_c6 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#)) s2_t_a4 s3 of
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) s2_t_a4 s3 of
                   s7 ->
-                    case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#)) s2_t_b5 s7 of
+                    case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) s2_t_b5 s7 of
                       s8 ->
-                        Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)) s2_t_c6 s8
+                        Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) s2_t_c6 s8
 
   indexOffAddr# =
     \addr0 ->
       \i1 ->
-        S2_t (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)))
+        S2_t (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)))
 
   readOffAddr# =
     \addr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
                 (# s5, v6 #) ->
-                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)) s5 of
+                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
                     (# s7, v8 #) -> (# s7, S2_t v4 v6 v8 #)
 
   writeOffAddr# =
@@ -260,11 +260,11 @@ instance Data.Primitive.Types.Prim S2_t where
           \s3 ->
             case struct2 of
               S2_t s2_t_a4 s2_t_b5 s2_t_c6 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#)) s2_t_a4 s3 of
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) s2_t_a4 s3 of
                   s7 ->
-                    case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#)) s2_t_b5 s7 of
+                    case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) s2_t_b5 s7 of
                       s8 ->
-                        Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)) s2_t_c6 s8
+                        Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) s2_t_c6 s8
 
 instance HsBindgen.Runtime.HasCField.HasCField S2_t "s2_t_a" where
 
@@ -339,9 +339,9 @@ instance F.Storable S3_t where
 
 instance Data.Primitive.Types.Prim S3_t where
 
-  sizeOf# = \_ -> (1# :: Int#)
+  sizeOf# = \_ -> (1#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# =
     \arr0 ->
@@ -532,22 +532,22 @@ instance F.Storable S5 where
 
 instance Data.Primitive.Types.Prim S5 where
 
-  sizeOf# = \_ -> (8# :: Int#)
+  sizeOf# = \_ -> (8#)
 
-  alignment# = \_ -> (4# :: Int#)
+  alignment# = \_ -> (4#)
 
   indexByteArray# =
     \arr0 ->
       \i1 ->
-        S5 (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)))
+        S5 (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readByteArray# =
     \arr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
                 (# s5, v6 #) -> (# s5, S5 v4 v6 #)
 
   writeByteArray# =
@@ -557,22 +557,22 @@ instance Data.Primitive.Types.Prim S5 where
           \s3 ->
             case struct2 of
               S5 s5_a4 s5_b5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s5_a4 s3 of
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s5_a4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s5_b5 s6
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s5_b5 s6
 
   indexOffAddr# =
     \addr0 ->
       \i1 ->
-        S5 (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)))
+        S5 (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readOffAddr# =
     \addr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
                 (# s5, v6 #) -> (# s5, S5 v4 v6 #)
 
   writeOffAddr# =
@@ -582,9 +582,9 @@ instance Data.Primitive.Types.Prim S5 where
           \s3 ->
             case struct2 of
               S5 s5_a4 s5_b5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s5_a4 s3 of
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s5_a4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s5_b5 s6
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s5_b5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField S5 "s5_a" where
 
@@ -656,22 +656,22 @@ instance F.Storable S6 where
 
 instance Data.Primitive.Types.Prim S6 where
 
-  sizeOf# = \_ -> (8# :: Int#)
+  sizeOf# = \_ -> (8#)
 
-  alignment# = \_ -> (4# :: Int#)
+  alignment# = \_ -> (4#)
 
   indexByteArray# =
     \arr0 ->
       \i1 ->
-        S6 (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)))
+        S6 (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readByteArray# =
     \arr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
                 (# s5, v6 #) -> (# s5, S6 v4 v6 #)
 
   writeByteArray# =
@@ -681,22 +681,22 @@ instance Data.Primitive.Types.Prim S6 where
           \s3 ->
             case struct2 of
               S6 s6_a4 s6_b5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s6_a4 s3 of
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s6_a4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s6_b5 s6
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s6_b5 s6
 
   indexOffAddr# =
     \addr0 ->
       \i1 ->
-        S6 (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)))
+        S6 (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readOffAddr# =
     \addr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
                 (# s5, v6 #) -> (# s5, S6 v4 v6 #)
 
   writeOffAddr# =
@@ -706,9 +706,9 @@ instance Data.Primitive.Types.Prim S6 where
           \s3 ->
             case struct2 of
               S6 s6_a4 s6_b5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s6_a4 s3 of
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s6_a4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s6_b5 s6
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s6_b5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField S6 "s6_a" where
 
@@ -778,22 +778,22 @@ instance F.Storable S7a_Deref where
 
 instance Data.Primitive.Types.Prim S7a_Deref where
 
-  sizeOf# = \_ -> (8# :: Int#)
+  sizeOf# = \_ -> (8#)
 
-  alignment# = \_ -> (4# :: Int#)
+  alignment# = \_ -> (4#)
 
   indexByteArray# =
     \arr0 ->
       \i1 ->
-        S7a_Deref (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)))
+        S7a_Deref (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readByteArray# =
     \arr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
                 (# s5, v6 #) -> (# s5, S7a_Deref v4 v6 #)
 
   writeByteArray# =
@@ -803,22 +803,22 @@ instance Data.Primitive.Types.Prim S7a_Deref where
           \s3 ->
             case struct2 of
               S7a_Deref s7a_Deref_a4 s7a_Deref_b5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s7a_Deref_a4 s3 of
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s7a_Deref_a4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s7a_Deref_b5 s6
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s7a_Deref_b5 s6
 
   indexOffAddr# =
     \addr0 ->
       \i1 ->
-        S7a_Deref (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)))
+        S7a_Deref (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readOffAddr# =
     \addr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
                 (# s5, v6 #) -> (# s5, S7a_Deref v4 v6 #)
 
   writeOffAddr# =
@@ -828,9 +828,9 @@ instance Data.Primitive.Types.Prim S7a_Deref where
           \s3 ->
             case struct2 of
               S7a_Deref s7a_Deref_a4 s7a_Deref_b5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s7a_Deref_a4 s3 of
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s7a_Deref_a4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s7a_Deref_b5 s6
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s7a_Deref_b5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField S7a_Deref "s7a_Deref_a" where
 
@@ -924,22 +924,22 @@ instance F.Storable S7b_Deref where
 
 instance Data.Primitive.Types.Prim S7b_Deref where
 
-  sizeOf# = \_ -> (8# :: Int#)
+  sizeOf# = \_ -> (8#)
 
-  alignment# = \_ -> (4# :: Int#)
+  alignment# = \_ -> (4#)
 
   indexByteArray# =
     \arr0 ->
       \i1 ->
-        S7b_Deref (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)))
+        S7b_Deref (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readByteArray# =
     \arr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
                 (# s5, v6 #) -> (# s5, S7b_Deref v4 v6 #)
 
   writeByteArray# =
@@ -949,22 +949,22 @@ instance Data.Primitive.Types.Prim S7b_Deref where
           \s3 ->
             case struct2 of
               S7b_Deref s7b_Deref_a4 s7b_Deref_b5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s7b_Deref_a4 s3 of
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s7b_Deref_a4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s7b_Deref_b5 s6
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s7b_Deref_b5 s6
 
   indexOffAddr# =
     \addr0 ->
       \i1 ->
-        S7b_Deref (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)))
+        S7b_Deref (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readOffAddr# =
     \addr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
                 (# s5, v6 #) -> (# s5, S7b_Deref v4 v6 #)
 
   writeOffAddr# =
@@ -974,9 +974,9 @@ instance Data.Primitive.Types.Prim S7b_Deref where
           \s3 ->
             case struct2 of
               S7b_Deref s7b_Deref_a4 s7b_Deref_b5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s7b_Deref_a4 s3 of
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s7b_Deref_a4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s7b_Deref_b5 s6
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s7b_Deref_b5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField S7b_Deref "s7b_Deref_a" where
 

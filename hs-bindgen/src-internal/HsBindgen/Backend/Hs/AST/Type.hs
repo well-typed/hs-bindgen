@@ -34,9 +34,6 @@ data HsPrimType =
     | HsPrimWord32
     | HsPrimWord64
 
-      -- * Unboxed types
-    | HsPrimUnboxedInt
-
       -- * Builtin foreign types (see 'BuiltinForeignType')
     | HsPrimIntPtr
     | HsPrimWordPtr

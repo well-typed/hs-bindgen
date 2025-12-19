@@ -7,7 +7,6 @@ module Example where
 
 import qualified Data.Primitive.Types
 import qualified Foreign as F
-import GHC.Prim (Int#)
 import Prelude (Eq, Int, Show, pure, return)
 
 {-| __C declaration:__ @a@
@@ -36,9 +35,9 @@ instance F.Storable A where
 
 instance Data.Primitive.Types.Prim A where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> A
 
@@ -90,9 +89,9 @@ instance F.Storable Struct1 where
 
 instance Data.Primitive.Types.Prim Struct1 where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Struct1
 
@@ -146,9 +145,9 @@ instance F.Storable B_s where
 
 instance Data.Primitive.Types.Prim B_s where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> B_s
 
@@ -200,9 +199,9 @@ instance F.Storable Struct2_s where
 
 instance Data.Primitive.Types.Prim Struct2_s where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Struct2_s
 
@@ -256,9 +255,9 @@ instance F.Storable C where
 
 instance Data.Primitive.Types.Prim C where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> C
 
@@ -310,9 +309,9 @@ instance F.Storable Struct3 where
 
 instance Data.Primitive.Types.Prim Struct3 where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Struct3
 
@@ -366,9 +365,9 @@ instance F.Storable D where
 
 instance Data.Primitive.Types.Prim D where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> D
 
@@ -420,9 +419,9 @@ instance F.Storable Struct4 where
 
 instance Data.Primitive.Types.Prim Struct4 where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Struct4
 
@@ -476,9 +475,9 @@ instance F.Storable E_s where
 
 instance Data.Primitive.Types.Prim E_s where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> E_s
 
@@ -530,9 +529,9 @@ instance F.Storable Struct5_s where
 
 instance Data.Primitive.Types.Prim Struct5_s where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Struct5_s
 
@@ -586,9 +585,9 @@ instance F.Storable F where
 
 instance Data.Primitive.Types.Prim F where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> F
 
@@ -640,9 +639,9 @@ instance F.Storable Typedef1 where
 
 instance Data.Primitive.Types.Prim Typedef1 where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Typedef1
 
@@ -696,9 +695,9 @@ instance F.Storable G where
 
 instance Data.Primitive.Types.Prim G where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> G
 
@@ -750,9 +749,9 @@ instance F.Storable Typedef2 where
 
 instance Data.Primitive.Types.Prim Typedef2 where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Typedef2
 
@@ -806,9 +805,9 @@ instance F.Storable H where
 
 instance Data.Primitive.Types.Prim H where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> H
 
@@ -860,9 +859,9 @@ instance F.Storable Typedef3 where
 
 instance Data.Primitive.Types.Prim Typedef3 where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Typedef3
 

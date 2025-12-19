@@ -490,7 +490,6 @@ resolveGlobal = \case
       HsPrimWord64 -> importQ ''Data.Word.Word64
       HsPrimIntPtr -> importQ ''Foreign.Ptr.IntPtr
       HsPrimWordPtr -> importQ ''Foreign.Ptr.WordPtr
-      HsPrimUnboxedInt -> importU ''GHC.Base.Int#
       HsPrimCChar -> importQ ''Foreign.C.CChar
       HsPrimCSChar -> importQ ''Foreign.C.CSChar
       HsPrimCUChar -> importQ ''Foreign.C.CUChar

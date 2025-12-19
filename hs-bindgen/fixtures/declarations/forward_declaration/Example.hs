@@ -19,7 +19,6 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
-import GHC.Prim (Int#)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
@@ -60,9 +59,9 @@ instance F.Storable S1_t where
 
 instance Data.Primitive.Types.Prim S1_t where
 
-  sizeOf# = \_ -> (4# :: Int#)
+  sizeOf# = \_ -> (4#)
 
-  alignment# = \_ -> (4# :: Int#)
+  alignment# = \_ -> (4#)
 
   indexByteArray# =
     \arr0 ->
@@ -155,9 +154,9 @@ instance F.Storable S2 where
 
 instance Data.Primitive.Types.Prim S2 where
 
-  sizeOf# = \_ -> (4# :: Int#)
+  sizeOf# = \_ -> (4#)
 
-  alignment# = \_ -> (4# :: Int#)
+  alignment# = \_ -> (4#)
 
   indexByteArray# =
     \arr0 ->

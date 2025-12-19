@@ -24,7 +24,6 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import Data.Bits (FiniteBits)
-import GHC.Prim (Int#)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
@@ -101,9 +100,9 @@ instance F.Storable Struct1 where
 
 instance Data.Primitive.Types.Prim Struct1 where
 
-  sizeOf# = \_ -> (4# :: Int#)
+  sizeOf# = \_ -> (4#)
 
-  alignment# = \_ -> (4# :: Int#)
+  alignment# = \_ -> (4#)
 
   indexByteArray# =
     \arr0 ->
@@ -196,9 +195,9 @@ instance F.Storable Struct2 where
 
 instance Data.Primitive.Types.Prim Struct2 where
 
-  sizeOf# = \_ -> (4# :: Int#)
+  sizeOf# = \_ -> (4#)
 
-  alignment# = \_ -> (4# :: Int#)
+  alignment# = \_ -> (4#)
 
   indexByteArray# =
     \arr0 ->
@@ -291,9 +290,9 @@ instance F.Storable Struct3 where
 
 instance Data.Primitive.Types.Prim Struct3 where
 
-  sizeOf# = \_ -> (4# :: Int#)
+  sizeOf# = \_ -> (4#)
 
-  alignment# = \_ -> (4# :: Int#)
+  alignment# = \_ -> (4#)
 
   indexByteArray# =
     \arr0 ->
@@ -410,9 +409,9 @@ instance F.Storable Struct4 where
 
 instance Data.Primitive.Types.Prim Struct4 where
 
-  sizeOf# = \_ -> (4# :: Int#)
+  sizeOf# = \_ -> (4#)
 
-  alignment# = \_ -> (4# :: Int#)
+  alignment# = \_ -> (4#)
 
   indexByteArray# =
     \arr0 ->

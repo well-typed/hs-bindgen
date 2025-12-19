@@ -263,6 +263,7 @@ data SExpr ctx =
   | EBound (Idx ctx)
   | EFree (Hs.Name Hs.NsVar)
   | ECon (Hs.Name Hs.NsConstr)
+  | EUnboxedIntegral Integer
   | EIntegral Integer (Maybe HsPrimType)
   | EFloat Float HsPrimType -- ^ Type annotation to distinguish Float/CFLoat
   | EDouble Double HsPrimType

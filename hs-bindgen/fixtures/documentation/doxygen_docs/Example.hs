@@ -41,7 +41,7 @@ import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
-import GHC.Prim ((*#), (+#), Int#)
+import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
@@ -969,26 +969,26 @@ instance F.Storable Bitfield_t where
 
 instance Data.Primitive.Types.Prim Bitfield_t where
 
-  sizeOf# = \_ -> (4# :: Int#)
+  sizeOf# = \_ -> (4#)
 
-  alignment# = \_ -> (4# :: Int#)
+  alignment# = \_ -> (4#)
 
   indexByteArray# =
     \arr0 ->
       \i1 ->
-        Bitfield_t (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (1# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (2# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (3# :: Int#)))
+        Bitfield_t (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4#) i1) (1#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4#) i1) (2#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (4#) i1) (3#)))
 
   readByteArray# =
     \arr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4#) i1) (1#)) s3 of
                 (# s5, v6 #) ->
-                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (2# :: Int#)) s5 of
+                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4#) i1) (2#)) s5 of
                     (# s7, v8 #) ->
-                      case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (3# :: Int#)) s7 of
+                      case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (4#) i1) (3#)) s7 of
                         (# s9, v10 #) -> (# s9, Bitfield_t v4 v6 v8 v10 #)
 
   writeByteArray# =
@@ -1002,30 +1002,30 @@ instance Data.Primitive.Types.Prim Bitfield_t where
                 bitfield_t_flag25
                 bitfield_t_counter6
                 bitfield_t_reserved7 ->
-                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (0# :: Int#)) bitfield_t_flag14 s3 of
+                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4#) i1) (0#)) bitfield_t_flag14 s3 of
                     s8 ->
-                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (1# :: Int#)) bitfield_t_flag25 s8 of
+                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4#) i1) (1#)) bitfield_t_flag25 s8 of
                         s9 ->
-                          case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (2# :: Int#)) bitfield_t_counter6 s9 of
+                          case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4#) i1) (2#)) bitfield_t_counter6 s9 of
                             s10 ->
-                              Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4# :: Int#) i1) (3# :: Int#)) bitfield_t_reserved7 s10
+                              Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (4#) i1) (3#)) bitfield_t_reserved7 s10
 
   indexOffAddr# =
     \addr0 ->
       \i1 ->
-        Bitfield_t (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (1# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (2# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (3# :: Int#)))
+        Bitfield_t (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4#) i1) (1#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4#) i1) (2#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (4#) i1) (3#)))
 
   readOffAddr# =
     \addr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4#) i1) (1#)) s3 of
                 (# s5, v6 #) ->
-                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (2# :: Int#)) s5 of
+                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4#) i1) (2#)) s5 of
                     (# s7, v8 #) ->
-                      case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (3# :: Int#)) s7 of
+                      case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (4#) i1) (3#)) s7 of
                         (# s9, v10 #) -> (# s9, Bitfield_t v4 v6 v8 v10 #)
 
   writeOffAddr# =
@@ -1039,13 +1039,13 @@ instance Data.Primitive.Types.Prim Bitfield_t where
                 bitfield_t_flag25
                 bitfield_t_counter6
                 bitfield_t_reserved7 ->
-                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (0# :: Int#)) bitfield_t_flag14 s3 of
+                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4#) i1) (0#)) bitfield_t_flag14 s3 of
                     s8 ->
-                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (1# :: Int#)) bitfield_t_flag25 s8 of
+                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4#) i1) (1#)) bitfield_t_flag25 s8 of
                         s9 ->
-                          case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (2# :: Int#)) bitfield_t_counter6 s9 of
+                          case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4#) i1) (2#)) bitfield_t_counter6 s9 of
                             s10 ->
-                              Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4# :: Int#) i1) (3# :: Int#)) bitfield_t_reserved7 s10
+                              Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (4#) i1) (3#)) bitfield_t_reserved7 s10
 
 instance HsBindgen.Runtime.HasCField.HasCBitfield Bitfield_t "bitfield_t_flag1" where
 

@@ -251,6 +251,7 @@ resolveExprImports = \case
     EFree {} -> mempty
     ECon _n -> mempty
     EIntegral _ t -> maybe mempty resolvePrimTypeImports t
+    EUnboxedIntegral _ -> mempty
     EChar {} -> mconcat $ map resolveGlobalImports
                   [ CharValue_tycon
                   , CharValue_constructor

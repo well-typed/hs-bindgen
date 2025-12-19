@@ -20,7 +20,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
-import GHC.Prim ((*#), (+#), Int#)
+import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
@@ -82,24 +82,24 @@ instance F.Storable Complex_object_t where
 
 instance Data.Primitive.Types.Prim Complex_object_t where
 
-  sizeOf# = \_ -> (32# :: Int#)
+  sizeOf# = \_ -> (32#)
 
-  alignment# = \_ -> (8# :: Int#)
+  alignment# = \_ -> (8#)
 
   indexByteArray# =
     \arr0 ->
       \i1 ->
-        Complex_object_t (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)))
+        Complex_object_t (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)))
 
   readByteArray# =
     \arr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
                 (# s5, v6 #) ->
-                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)) s5 of
+                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
                     (# s7, v8 #) -> (# s7, Complex_object_t v4 v6 v8 #)
 
   writeByteArray# =
@@ -112,26 +112,26 @@ instance Data.Primitive.Types.Prim Complex_object_t where
                 complex_object_t_velocity4
                 complex_object_t_position5
                 complex_object_t_id6 ->
-                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#)) complex_object_t_velocity4 s3 of
+                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) complex_object_t_velocity4 s3 of
                     s7 ->
-                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#)) complex_object_t_position5 s7 of
+                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) complex_object_t_position5 s7 of
                         s8 ->
-                          Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)) complex_object_t_id6 s8
+                          Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) complex_object_t_id6 s8
 
   indexOffAddr# =
     \addr0 ->
       \i1 ->
-        Complex_object_t (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)))
+        Complex_object_t (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)))
 
   readOffAddr# =
     \addr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
                 (# s5, v6 #) ->
-                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)) s5 of
+                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
                     (# s7, v8 #) -> (# s7, Complex_object_t v4 v6 v8 #)
 
   writeOffAddr# =
@@ -144,11 +144,11 @@ instance Data.Primitive.Types.Prim Complex_object_t where
                 complex_object_t_velocity4
                 complex_object_t_position5
                 complex_object_t_id6 ->
-                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#)) complex_object_t_velocity4 s3 of
+                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) complex_object_t_velocity4 s3 of
                     s7 ->
-                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#)) complex_object_t_position5 s7 of
+                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) complex_object_t_position5 s7 of
                         s8 ->
-                          Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)) complex_object_t_id6 s8
+                          Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) complex_object_t_id6 s8
 
 instance HsBindgen.Runtime.HasCField.HasCField Complex_object_t "complex_object_t_velocity" where
 

@@ -31,7 +31,7 @@ import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.SizedByteArray
 import Data.Bits (FiniteBits)
-import GHC.Prim ((*#), (+#), Int#)
+import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
@@ -202,22 +202,22 @@ instance F.Storable My_unpacked_struct where
 
 instance Data.Primitive.Types.Prim My_unpacked_struct where
 
-  sizeOf# = \_ -> (8# :: Int#)
+  sizeOf# = \_ -> (8#)
 
-  alignment# = \_ -> (4# :: Int#)
+  alignment# = \_ -> (4#)
 
   indexByteArray# =
     \arr0 ->
       \i1 ->
-        My_unpacked_struct (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)))
+        My_unpacked_struct (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readByteArray# =
     \arr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
                 (# s5, v6 #) -> (# s5, My_unpacked_struct v4 v6 #)
 
   writeByteArray# =
@@ -227,22 +227,22 @@ instance Data.Primitive.Types.Prim My_unpacked_struct where
           \s3 ->
             case struct2 of
               My_unpacked_struct my_unpacked_struct_c4 my_unpacked_struct_i5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) my_unpacked_struct_c4 s3 of
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) my_unpacked_struct_c4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) my_unpacked_struct_i5 s6
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) my_unpacked_struct_i5 s6
 
   indexOffAddr# =
     \addr0 ->
       \i1 ->
-        My_unpacked_struct (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)))
+        My_unpacked_struct (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readOffAddr# =
     \addr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
                 (# s5, v6 #) -> (# s5, My_unpacked_struct v4 v6 #)
 
   writeOffAddr# =
@@ -252,9 +252,9 @@ instance Data.Primitive.Types.Prim My_unpacked_struct where
           \s3 ->
             case struct2 of
               My_unpacked_struct my_unpacked_struct_c4 my_unpacked_struct_i5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (0# :: Int#)) my_unpacked_struct_c4 s3 of
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) my_unpacked_struct_c4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2# :: Int#) i1) (1# :: Int#)) my_unpacked_struct_i5 s6
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) my_unpacked_struct_i5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField My_unpacked_struct "my_unpacked_struct_c" where
 
@@ -337,24 +337,24 @@ instance F.Storable My_packed_struct where
 
 instance Data.Primitive.Types.Prim My_packed_struct where
 
-  sizeOf# = \_ -> (13# :: Int#)
+  sizeOf# = \_ -> (13#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# =
     \arr0 ->
       \i1 ->
-        My_packed_struct (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)))
+        My_packed_struct (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)))
 
   readByteArray# =
     \arr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
                 (# s5, v6 #) ->
-                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)) s5 of
+                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
                     (# s7, v8 #) -> (# s7, My_packed_struct v4 v6 v8 #)
 
   writeByteArray# =
@@ -364,26 +364,26 @@ instance Data.Primitive.Types.Prim My_packed_struct where
           \s3 ->
             case struct2 of
               My_packed_struct my_packed_struct_c4 my_packed_struct_i5 my_packed_struct_s6 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#)) my_packed_struct_c4 s3 of
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) my_packed_struct_c4 s3 of
                   s7 ->
-                    case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#)) my_packed_struct_i5 s7 of
+                    case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) my_packed_struct_i5 s7 of
                       s8 ->
-                        Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)) my_packed_struct_s6 s8
+                        Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) my_packed_struct_s6 s8
 
   indexOffAddr# =
     \addr0 ->
       \i1 ->
-        My_packed_struct (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)))
+        My_packed_struct (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)))
 
   readOffAddr# =
     \addr0 ->
       \i1 ->
         \s2 ->
-          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#)) s2 of
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
             (# s3, v4 #) ->
-              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#)) s3 of
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
                 (# s5, v6 #) ->
-                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)) s5 of
+                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
                     (# s7, v8 #) -> (# s7, My_packed_struct v4 v6 v8 #)
 
   writeOffAddr# =
@@ -393,11 +393,11 @@ instance Data.Primitive.Types.Prim My_packed_struct where
           \s3 ->
             case struct2 of
               My_packed_struct my_packed_struct_c4 my_packed_struct_i5 my_packed_struct_s6 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (0# :: Int#)) my_packed_struct_c4 s3 of
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) my_packed_struct_c4 s3 of
                   s7 ->
-                    case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (1# :: Int#)) my_packed_struct_i5 s7 of
+                    case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) my_packed_struct_i5 s7 of
                       s8 ->
-                        Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3# :: Int#) i1) (2# :: Int#)) my_packed_struct_s6 s8
+                        Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) my_packed_struct_s6 s8
 
 instance HsBindgen.Runtime.HasCField.HasCField My_packed_struct "my_packed_struct_c" where
 

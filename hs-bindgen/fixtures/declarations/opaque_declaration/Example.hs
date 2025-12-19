@@ -19,7 +19,6 @@ import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
-import GHC.Prim (Int#)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure, return)
 
@@ -125,9 +124,9 @@ instance F.Storable Baz where
 
 instance Data.Primitive.Types.Prim Baz where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Baz
 

@@ -37,7 +37,6 @@ import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Text.Read
 import Data.Bits (FiniteBits)
-import GHC.Prim (Int#)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, return, showsPrec)
 
@@ -79,9 +78,9 @@ instance F.Storable Some_struct where
 
 instance Data.Primitive.Types.Prim Some_struct where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Some_struct
 

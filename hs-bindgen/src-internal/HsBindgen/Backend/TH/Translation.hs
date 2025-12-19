@@ -319,7 +319,6 @@ mkGlobalP = \case
     HsPrimWord64     -> ''Data.Word.Word64
     HsPrimIntPtr     -> ''Foreign.Ptr.IntPtr
     HsPrimWordPtr    -> ''Foreign.Ptr.WordPtr
-    HsPrimUnboxedInt -> ''GHC.Base.Int#
     HsPrimCChar      -> ''Foreign.C.Types.CChar
     HsPrimCSChar     -> ''Foreign.C.Types.CSChar
     HsPrimCUChar     -> ''Foreign.C.Types.CUChar
@@ -561,8 +560,8 @@ mkExpr env = \case
       EFree n       -> hsVarE n
       EBound x      -> TH.varE (lookupEnv x env)
       ECon n        -> hsConE n
+      EUnboxedIntegral i -> TH.sigE (TH.litE (TH.IntPrimL i)) (TH.conT ''GHC.Base.Int#)
       EIntegral i Nothing -> TH.litE (TH.IntegerL i)
-      EIntegral i (Just HsPrimUnboxedInt) -> TH.sigE (TH.litE (TH.IntPrimL i)) (mkPrimType HsPrimUnboxedInt)
       EIntegral i (Just t) -> TH.sigE (TH.litE (TH.IntegerL i)) (mkPrimType t)
       -- TH doesn't have floating-point literals, because it represents them
       -- using the Rational type, which is incorrect. (See GHC ticket #13124.)

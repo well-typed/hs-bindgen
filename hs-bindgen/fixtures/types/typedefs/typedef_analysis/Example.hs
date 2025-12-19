@@ -22,7 +22,6 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
-import GHC.Prim (Int#)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure, return)
 
@@ -54,9 +53,9 @@ instance F.Storable Struct1_t where
 
 instance Data.Primitive.Types.Prim Struct1_t where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Struct1_t
 
@@ -110,9 +109,9 @@ instance F.Storable Struct2_t where
 
 instance Data.Primitive.Types.Prim Struct2_t where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Struct2_t
 
@@ -182,9 +181,9 @@ instance F.Storable Struct5 where
 
 instance Data.Primitive.Types.Prim Struct5 where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Struct5
 
@@ -263,9 +262,9 @@ instance F.Storable Struct6_Deref where
 
 instance Data.Primitive.Types.Prim Struct6_Deref where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Struct6_Deref
 
@@ -344,9 +343,9 @@ instance F.Storable Struct7 where
 
 instance Data.Primitive.Types.Prim Struct7 where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Struct7
 
@@ -448,9 +447,9 @@ instance F.Storable Struct8 where
 
 instance Data.Primitive.Types.Prim Struct8 where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Struct8
 
@@ -528,9 +527,9 @@ instance F.Storable Struct9 where
 
 instance Data.Primitive.Types.Prim Struct9 where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Struct9
 
@@ -608,9 +607,9 @@ instance F.Storable Struct10_t where
 
 instance Data.Primitive.Types.Prim Struct10_t where
 
-  sizeOf# = \_ -> (0# :: Int#)
+  sizeOf# = \_ -> (0#)
 
-  alignment# = \_ -> (1# :: Int#)
+  alignment# = \_ -> (1#)
 
   indexByteArray# = \arr0 -> \i1 -> Struct10_t
 

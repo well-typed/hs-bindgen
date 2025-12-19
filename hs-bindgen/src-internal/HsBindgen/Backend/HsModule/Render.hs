@@ -548,8 +548,8 @@ prettyExpr env prec = \case
     ECon n   -> pretty n
 
     EIntegral i Nothing -> parensWhen (prec > 0 && i < 0) (showToCtxDoc i)
-    EIntegral i (Just HsPrimUnboxedInt) ->
-      parens $ hcat [showToCtxDoc i, "# :: ", prettyPrimType HsPrimUnboxedInt]
+    EUnboxedIntegral i ->
+      parens $ hcat [showToCtxDoc i, "#"]
     EIntegral i (Just t) ->
       parens $ hcat [showToCtxDoc i, " :: ", prettyPrimType t]
     EChar (CExpr.Runtime.CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->

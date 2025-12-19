@@ -42,8 +42,8 @@ translatePrimInstance struct Hs.PrimInstance{..} mbComment =
       , instanceSuperClasses = []
       , instanceTypes = []
       , instanceDecs  = [
-            (Prim_sizeOf#         , EUnusedLam $ EIntegral (toInteger primSizeOf) (Just HsPrimUnboxedInt))
-          , (Prim_alignment#      , EUnusedLam $ EIntegral (toInteger primAlignment) (Just HsPrimUnboxedInt))
+            (Prim_sizeOf#         , EUnusedLam $ EUnboxedIntegral (toInteger primSizeOf))
+          , (Prim_alignment#      , EUnusedLam $ EUnboxedIntegral (toInteger primAlignment))
           , (Prim_indexByteArray# , indexBA)
           , (Prim_readByteArray#  , readBA)
           , (Prim_writeByteArray# , writeBA)
@@ -358,15 +358,15 @@ computeIndexAt elemIdx fieldPos numFields =
               , fieldPosExpr
               ]
   where
-    numFieldsExpr = EIntegral (toInteger numFields) (Just HsPrimUnboxedInt)
-    fieldPosExpr  = EIntegral (toInteger fieldPos) (Just HsPrimUnboxedInt)
+    numFieldsExpr = EUnboxedIntegral (toInteger numFields)
+    fieldPosExpr  = EUnboxedIntegral (toInteger fieldPos)
 
 -- | Compute array/addr index: numFields *# elementIndex +# fieldPosition
 computeIndex :: Idx ctx -> Int -> Int -> SExpr ctx
 computeIndex elemIdx fieldPos numFields =
     -- Generate: numFields# *# i# +# fieldPos#
-    let numFieldsExpr = EIntegral (toInteger numFields) (Just HsPrimUnboxedInt)
-        fieldPosExpr  = EIntegral (toInteger fieldPos) (Just HsPrimUnboxedInt)
+    let numFieldsExpr = EUnboxedIntegral (toInteger numFields)
+        fieldPosExpr  = EUnboxedIntegral (toInteger fieldPos)
         elemIdxExpr   = EBound elemIdx
     in if numFields == 1
        then elemIdxExpr  -- Optimization: if single field, just use element index

@@ -105,6 +105,7 @@ exprExtensions = \case
     EFree{} -> mempty
     ECon{} -> mempty
     EIntegral{} -> mempty
+    EUnboxedIntegral{} -> mempty
     EChar {} -> mempty
     EString {} -> mempty
     ECString {} -> Set.singleton TH.MagicHash
