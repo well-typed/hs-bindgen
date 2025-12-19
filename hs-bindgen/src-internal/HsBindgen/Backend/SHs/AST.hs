@@ -302,11 +302,31 @@ pattern EInt i <- EIntegral (fromInteger -> i) (Just HsPrimInt)
     EInt i = EIntegral (fromIntegral i) (Just HsPrimInt)
 
 -- | Case alternatives
+--
+-- Represents different kinds of pattern matching alternatives in case expressions.
+--
+-- Examples:
+--
+-- > case x of
+-- >   Just y -> ...     -- SAlt with constructor "Just"
+-- >   5# -> ...         -- SAltNoConstr for primitive literal
+-- >   (# a, b #) -> ... -- SAltUnboxedTuple
+--
 data SAlt ctx where
+    -- | Constructor pattern: @Con x y z -> body@
+    --
+    -- Pattern matches against a data constructor with fields.
     SAlt
       :: Hs.Name Hs.NsConstr -> Add n ctx ctx' -> Vec n NameHint -> SExpr ctx' -> SAlt ctx
+    -- | Non-constructor pattern: @5# -> body@ or @x -> body@
+    --
+    -- Used for matching primitive values, literals, or catch-all variables.
+    -- Always binds exactly one variable (hence Vec Nat1).
     SAltNoConstr
       :: Vec Nat1 NameHint -> SExpr (S ctx) -> SAlt ctx
+    -- | Unboxed tuple pattern: @(# x, y #) -> body@
+    --
+    -- Pattern matches against unboxed tuples.
     SAltUnboxedTuple
       :: Add n ctx ctx' -> Vec n NameHint -> SExpr ctx' -> SAlt ctx
 

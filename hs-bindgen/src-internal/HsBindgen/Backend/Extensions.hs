@@ -117,16 +117,15 @@ exprExtensions = \case
     EUnusedLam body -> exprExtensions body
     ECase x alts -> mconcat $
         exprExtensions x
-      :  [ exprExtensions body
-         | SAlt _con _add _hints body <- alts
-         ]
-      ++ [ exprExtensions body
-         | SAltNoConstr _hints body <- alts
-         ]
-      ++ [ Set.fromList [TH.UnboxedTuples, TH.MagicHash]
-         <> exprExtensions body
-         | SAltUnboxedTuple _add _hints body <- alts
-         ]
+      : [ case alt of
+            SAlt _con _add _hints body ->
+              exprExtensions body
+            SAltNoConstr _hints body ->
+              exprExtensions body
+            SAltUnboxedTuple _add _hints body ->
+              Set.fromList [TH.UnboxedTuples, TH.MagicHash] <> exprExtensions body
+        | alt <- alts
+        ]
     ETup xs -> foldMap exprExtensions xs
     EUnboxedTup xs -> Set.fromList [TH.UnboxedTuples, TH.MagicHash]
                    <> foldMap exprExtensions xs

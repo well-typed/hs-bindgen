@@ -607,38 +607,32 @@ mkExpr env = \case
       EUnusedLam f ->
           TH.lamE [TH.wildP] (mkExpr env f)
       ECase x alts  -> TH.caseE (mkExpr env x)
-                         ([ do
-                              (xs, env') <- newNames env add hints
-                              TH.match
-                                 (hsConP c $ map TH.varP xs)
-                                 (TH.normalB $ mkExpr env' b)
-                                 []
-                         | SAlt c add hints b <- alts
+                         [ case alt of
+                             SAlt c add hints b -> do
+                               (xs, env') <- newNames env add hints
+                               TH.match
+                                  (hsConP c $ map TH.varP xs)
+                                  (TH.normalB $ mkExpr env' b)
+                                  []
+                             SAltNoConstr hints b -> do
+                               -- SAltNoConstr has one name hint only
+                               -- guaranteed by the type.
+                               (xs, env') <- newNames env (AS AZ) hints
+                               case xs of
+                                 []    -> panicPure "impossible happened"
+                                 [v]   -> TH.match
+                                            (TH.varP v)
+                                            (TH.normalB $ mkExpr env' b)
+                                            []
+                                 (_:_) -> panicPure "impossible happened"
+                             SAltUnboxedTuple add hints b -> do
+                               (xs, env') <- newNames env add hints
+                               TH.match
+                                  (TH.unboxedTupP $ map TH.varP xs)
+                                  (TH.normalB $ mkExpr env' b)
+                                  []
+                         | alt <- alts
                          ]
-                         ++
-                         [ do
-                              -- SAltNoConstr has one name hint only
-                              -- guaranteed by the type.
-                              (xs, env') <- newNames env (AS AZ) hints
-                              case xs of
-                                []    -> panicPure "impossible happened"
-                                [v]   -> TH.match
-                                           (TH.varP v)
-                                           (TH.normalB $ mkExpr env' b)
-                                           []
-                                (_:_) -> panicPure "impossible happened"
-                         | SAltNoConstr hints b <- alts
-                         ]
-                         ++
-                         [ do
-                              (xs, env') <- newNames env add hints
-                              TH.match
-                                 (TH.unboxedTupP $ map TH.varP xs)
-                                 (TH.normalB $ mkExpr env' b)
-                                 []
-                         | SAltUnboxedTuple add hints b <- alts
-                         ]
-                         )
       ETup xs -> TH.tupE $ mkExpr env <$> xs
       EUnboxedTup xs -> TH.unboxedTupE $ mkExpr env <$> xs
       EList xs -> TH.listE $ mkExpr env <$> xs

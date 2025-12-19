@@ -30,6 +30,7 @@ import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
 import HsBindgen.Backend.Hs.Translation.Function
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Newtype qualified as Hs
+import HsBindgen.Backend.Hs.Translation.Prim qualified as HsPrim
 import HsBindgen.Backend.Hs.Translation.State (HsM, TranslationState)
 import HsBindgen.Backend.Hs.Translation.State qualified as State
 import HsBindgen.Backend.Hs.Translation.ToFromFunPtr qualified as ToFromFunPtr
@@ -287,114 +288,7 @@ structDecs opts haddockConfig info struct spec fields = do
                           }
 
         primDecl :: [Hs.Decl]
-        primDecl
-          | Hs.Prim `Set.notMember` insts = []
-          | otherwise = singleton
-                      $ Hs.DeclDefineInstance
-                          Hs.DefineInstance {
-                            defineInstanceComment      = Nothing
-                          , defineInstanceDeclarations =
-                              Hs.InstancePrim
-                                  hsStruct
-                                  Hs.PrimInstance {
-                                    Hs.primSizeOf    = C.structSizeof struct
-                                  , Hs.primAlignment = C.structAlignment struct
-                                  -- indexByteArray# :: ByteArray# -> Int# -> a
-                                  , Hs.primIndexByteArray = Hs.Lambda "arr"
-                                                          $ Hs.Lambda "i"
-                                                          $ Hs.Apply (Hs.StructCon hsStruct)
-                                                          $ indexedByteArrayFields (IS IZ) IZ
-                                  -- readByteArray# :: MutableByteArray# s -> Int# -> State# s -> (# State# s, a #)
-                                  , Hs.primReadByteArray = Hs.Lambda "arr"
-                                                         $ Hs.Lambda "i"
-                                                         $ Hs.Lambda "s"
-                                                         $ Hs.ReadByteArrayFields readFieldData
-                                  -- writeByteArray# :: MutableByteArray# s -> Int# -> a -> State# s -> State# s
-                                  , Hs.primWriteByteArray = Hs.Lambda "arr"
-                                                          $ Hs.Lambda "i"
-                                                          $ Hs.Lambda "struct"
-                                                          $ Hs.Lambda "s"
-                                                          $ Hs.makeElimStruct (IS IZ) hsStruct
-                                                          $ \wk xs ->
-                                                              Hs.WriteByteArrayFields
-                                                                Hs.WritePrimFieldsData
-                                                                   { Hs.writeFields = zipWith (\(ty, pos) x -> (ty, pos, x))
-                                                                                              fieldTypesWithPos
-                                                                                              (toList xs)
-                                                                   , Hs.writeFieldsArg1 = weaken wk (IS (IS (IS IZ)))
-                                                                   , Hs.writeFieldsArg2 = weaken wk (IS (IS IZ))
-                                                                   , Hs.writeFieldsArg3 = weaken wk IZ
-                                                                   , Hs.writeNumFields  = numFields
-                                                                   }
-                                  -- indexOffAddr# :: Addr# -> Int# -> a
-                                  , Hs.primIndexOffAddr = Hs.Lambda "addr"
-                                                        $ Hs.Lambda "i"
-                                                        $ Hs.Apply (Hs.StructCon hsStruct)
-                                                        $ indexedOffAddrFields (IS IZ) IZ
-                                  -- readOffAddr# :: Addr# -> Int# -> State# s -> (# State# s, a #)
-                                  , Hs.primReadOffAddr = Hs.Lambda "addr"
-                                                       $ Hs.Lambda "i"
-                                                       $ Hs.Lambda "s"
-                                                       $ Hs.ReadOffAddrFields readFieldData
-                                  -- writeOffAddr# :: Addr# -> Int# -> a -> State# s -> State# s
-                                  , Hs.primWriteOffAddr = Hs.Lambda "addr"
-                                                        $ Hs.Lambda "i"
-                                                        $ Hs.Lambda "struct"
-                                                        $ Hs.Lambda "s"
-                                                        $ Hs.makeElimStruct (IS IZ) hsStruct
-                                                        $ \wk xs ->
-                                                            Hs.WriteOffAddrFields
-                                                               { Hs.writeAddrFieldData = Hs.WritePrimFieldsData
-                                                                    { Hs.writeFields = zipWith (\(ty, pos) x -> (ty, pos, x))
-                                                                                               fieldTypesWithPos
-                                                                                               (toList xs)
-                                                                    , Hs.writeFieldsArg1 = weaken wk (IS (IS (IS IZ)))
-                                                                    , Hs.writeFieldsArg2 = weaken wk (IS (IS IZ))
-                                                                    , Hs.writeFieldsArg3 = weaken wk IZ
-                                                                    , Hs.writeNumFields  = numFields
-                                                                    }
-                                                               }
-                                  }
-                          }
-          where
-            numFields = Vec.length fields
-            fieldTypesWithPos = [(Hs.fieldType f, pos) | (f, pos) <- zip (toList structFields) [0..]]
-
-            readFieldData = Hs.ReadPrimFieldsData {
-                Hs.readFields = fieldTypesWithPos
-              , Hs.readFieldsArg1 = IS (IS IZ)
-              , Hs.readFieldsArg2 = IS IZ
-              , Hs.readFieldsArg3 = IZ
-              , Hs.readNumFields = numFields
-              }
-
-            -- | Generate IndexByteArrayField for each struct field
-            indexedByteArrayFields :: Idx ctx -> Idx ctx -> [Hs.IndexByteArrayField ctx]
-            indexedByteArrayFields arrIdx elemIdx =
-              [ Hs.IndexByteArrayField
-                  Hs.IndexPrimFieldData
-                     { Hs.indexFieldType = fieldTy
-                     , Hs.indexFieldArg1 = arrIdx
-                     , Hs.indexFieldArg2 = elemIdx
-                     , Hs.indexFieldPos  = pos
-                     , Hs.indexNumFields = numFields
-                     }
-              | (fieldTy, pos) <- fieldTypesWithPos
-              ]
-
-            -- | Generate IndexOffAddrField for each struct field
-            indexedOffAddrFields :: Idx ctx -> Idx ctx -> [Hs.IndexOffAddrField ctx]
-            indexedOffAddrFields addrIdx elemIdx =
-              [ Hs.IndexOffAddrField
-                   Hs.IndexPrimFieldData
-                     { Hs.indexFieldType = fieldTy
-                     , Hs.indexFieldArg1 = addrIdx
-                     , Hs.indexFieldArg2 = elemIdx
-                     , Hs.indexFieldPos  = pos
-                     , Hs.indexNumFields = numFields
-                     }
-              | (fieldTy, pos) <- fieldTypesWithPos
-              ]
+        primDecl = HsPrim.mkPrimInstance insts hsStruct struct
 
         optDecls :: [Hs.Decl]
         optDecls = [

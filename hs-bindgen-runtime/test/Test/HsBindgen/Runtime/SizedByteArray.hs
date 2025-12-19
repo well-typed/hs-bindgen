@@ -12,7 +12,7 @@ import Foreign.Marshal.Alloc (allocaBytes)
 import Foreign.Ptr (castPtr)
 import Foreign.Storable (Storable (..))
 import GHC.TypeNats (KnownNat)
-import Test.QuickCheck (Property, ioProperty, (===))
+import Test.QuickCheck (Positive (..), Property, Small (..), ioProperty, (===))
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (testCase, (@?=))
 import Test.Tasty.QuickCheck (testProperty)
@@ -96,28 +96,30 @@ test_indexByteArray_multiple = do
     toBytes (PA.indexPrimArray arr 1) @?= [0x55, 0x66, 0x77, 0x88]
     toBytes (PA.indexPrimArray arr 2) @?= [0xAA, 0xBB, 0xCC, 0xDD]
 
-prop_readByteArray_roundtrip :: [Word8] -> Property
-prop_readByteArray_roundtrip bytes = ioProperty $ do
+prop_readByteArray_roundtrip :: [Word8] -> Positive (Small Int) -> Property
+prop_readByteArray_roundtrip bytes (Positive (Small idx)) = ioProperty $ do
     let input = mkSizedByteArray @8 @8 (take 8 $ bytes ++ repeat 0)
+    let arraySize = 8 * (idx + 1)  -- Ensure array is large enough for the index
 
-    -- Create a mutable array, write the value, read it back
-    marr <- BA.newByteArray 8
-    BA.writeByteArray marr 0 input
-    result <- BA.readByteArray marr 0
+    -- Create a mutable array, write the value at index idx, read it back
+    marr <- BA.newByteArray arraySize
+    BA.writeByteArray marr idx input
+    result <- BA.readByteArray marr idx
 
     return $ toBytes input === toBytes (result :: SizedByteArray 8 8)
 
-prop_writeByteArray_roundtrip :: [Word8] -> Property
-prop_writeByteArray_roundtrip bytes = ioProperty $ do
+prop_writeByteArray_roundtrip :: [Word8] -> Positive (Small Int) -> Property
+prop_writeByteArray_roundtrip bytes (Positive (Small idx)) = ioProperty $ do
     let input = mkSizedByteArray @8 @8 (take 8 $ bytes ++ repeat 0)
+    let arraySize = 8 * (idx + 1)  -- Ensure array is large enough for the index
 
-    -- Create a mutable array and write to it
-    marr <- BA.newByteArray 8
-    BA.writeByteArray marr 0 input
-    arr <- BA.freezeByteArray marr 0 8
+    -- Create a mutable array and write to it at index idx
+    marr <- BA.newByteArray arraySize
+    BA.writeByteArray marr idx input
+    arr <- BA.freezeByteArray marr 0 arraySize
 
-    -- Read back using indexByteArray
-    let result = BA.indexByteArray arr 0 :: SizedByteArray 8 8
+    -- Read back using indexByteArray at index idx
+    let result = BA.indexByteArray arr idx :: SizedByteArray 8 8
 
     return $ toBytes input === toBytes result
 
@@ -125,14 +127,15 @@ prop_writeByteArray_roundtrip bytes = ioProperty $ do
   Addr operations tests
 -------------------------------------------------------------------------------}
 
-prop_readOffAddr_roundtrip :: Word32 -> Property
-prop_readOffAddr_roundtrip val = ioProperty $
-    allocaBytes 4 $ \ptr -> do
-        -- Write a Word32 value
-        poke ptr val
+prop_readOffAddr_roundtrip :: Word32 -> Positive (Small Int) -> Property
+prop_readOffAddr_roundtrip val (Positive (Small idx)) = ioProperty $ do
+    let arraySize = 4 * (idx + 1)  -- Ensure array is large enough for the index
+    allocaBytes arraySize $ \ptr -> do
+        -- Write a Word32 value at offset idx
+        pokeElemOff ptr idx val
 
-        -- Read it as SizedByteArray
-        result <- PP.readOffPtr (castPtr ptr) 0 :: IO (SizedByteArray 4 4)
+        -- Read it as SizedByteArray at index idx
+        result <- PP.readOffPtr (castPtr ptr) idx :: IO (SizedByteArray 4 4)
 
         -- Write it back to a different location
         allocaBytes 4 $ \ptr2 -> do
@@ -142,31 +145,34 @@ prop_readOffAddr_roundtrip val = ioProperty $
             val' <- peek ptr2
             return $ val === val'
 
-prop_writeOffAddr_roundtrip :: Word64 -> Property
-prop_writeOffAddr_roundtrip val = ioProperty $
+prop_writeOffAddr_roundtrip :: Word64 -> Positive (Small Int) -> Property
+prop_writeOffAddr_roundtrip val (Positive (Small idx)) = ioProperty $ do
+    let arraySize = 8 * (idx + 1)  -- Ensure array is large enough for the index
     allocaBytes 8 $ \ptr -> do
         -- Create a SizedByteArray from Word64
         poke ptr val
         input <- PP.readOffPtr (castPtr ptr) 0 :: IO (SizedByteArray 8 8)
 
-        -- Write it to a new location
-        allocaBytes 8 $ \ptr2 -> do
-            PP.writeOffPtr (castPtr ptr2) 0 input
+        -- Write it to a new location at index idx
+        allocaBytes arraySize $ \ptr2 -> do
+            PP.writeOffPtr (castPtr ptr2) idx input
 
-            -- Read back as Word64
-            val' <- peek ptr2
+            -- Read back as Word64 from index idx
+            val' <- peekElemOff ptr2 idx
             return $ val === val'
 
-prop_indexOffAddr_consistency :: Word32 -> Property
-prop_indexOffAddr_consistency val = ioProperty $
-    allocaBytes 4 $ \ptr -> do
-        poke ptr val
+prop_indexOffAddr_consistency :: Word32 -> Positive (Small Int) -> Property
+prop_indexOffAddr_consistency val (Positive (Small idx)) = ioProperty $ do
+    let arraySize = 4 * (idx + 1)  -- Ensure array is large enough for the index
+    allocaBytes arraySize $ \ptr -> do
+        -- Write value at index idx
+        pokeElemOff ptr idx val
 
-        -- Read using indexOffPtr
-        let indexed = PP.indexOffPtr (castPtr ptr) 0 :: SizedByteArray 4 4
+        -- Read using indexOffPtr at index idx
+        let indexed = PP.indexOffPtr (castPtr ptr) idx :: SizedByteArray 4 4
 
-        -- Read using readOffPtr
-        readResult <- PP.readOffPtr (castPtr ptr) 0 :: IO (SizedByteArray 4 4)
+        -- Read using readOffPtr at index idx
+        readResult <- PP.readOffPtr (castPtr ptr) idx :: IO (SizedByteArray 4 4)
 
         return $ toBytes indexed === toBytes readResult
 
