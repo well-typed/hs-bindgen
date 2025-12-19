@@ -108,6 +108,17 @@ jobs:
       matrix: ${{ fromJSON(needs.setup-matrix.outputs.matrix) }}
       fail-fast: false
 
+    env:
+      # Increment this number to reset caches.
+      #
+      # Caches of the cabal store generally grow in size: new packages are
+      # added, but never removed. Unless we start with a fresh cabal store once
+      # in a while. The cache-reset-number is part of the cache key, and if it
+      # is incremented, then the "Restor cache" step fails to restore a cache,
+      # meaning we will start with an empty cabal store that we will then save a
+      # new cache for.
+      cache-reset-number: 0
+
     defaults:
       run:
         shell: bash
@@ -166,7 +177,7 @@ jobs:
       id: cache-cabal-restore
       uses: actions/cache/restore@v4
       env:
-        key: build-and-test-${{ matrix.runner }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm }}
+        key: build-and-test-${{ env.cache-reset-number }}-${{ matrix.runner }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm }}
       with:
         path: ${{ steps.setup-haskell.outputs.cabal-store }}
         key: ${{ env.key }}-plan-${{ hashFiles('dist-newstyle/cache/plan.json') }}

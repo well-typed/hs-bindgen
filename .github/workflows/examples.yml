@@ -47,6 +47,15 @@ jobs:
     env:
       # We assume that the example executable lives in this directory
       hs-project-directory: './examples/${{matrix.example}}/hs-project'
+      # Increment this number to reset caches.
+      #
+      # Caches of the cabal store generally grow in size: new packages are
+      # added, but never removed. Unless we start with a fresh cabal store once
+      # in a while. The cache-reset-number is part of the cache key, and if it
+      # is incremented, then the "Restor cache" step fails to restore a cache,
+      # meaning we will start with an empty cabal store that we will then save a
+      # new cache for.
+      cache-reset-number: 0
 
     steps:
     - name: 📥 Checkout repository
@@ -98,7 +107,7 @@ jobs:
       id: cache-cabal-restore
       uses: actions/cache/restore@v4
       env:
-        key: build-example-${{ matrix.example }}-${{ matrix.runner }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm-version }}
+        key: build-example-${{ matrix.example }}-${{ env.cache-reset-number }}-${{ matrix.runner }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm-version }}
         plan-file-hs-bindgen-cli: './dist-newstyle/cache/plan.json'
         plan-file-example: '${{env.hs-project-directory}}/dist-newstyle/cache/plan.json'
       with:
