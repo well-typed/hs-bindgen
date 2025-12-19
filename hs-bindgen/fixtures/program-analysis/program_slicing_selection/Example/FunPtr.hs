@@ -31,7 +31,6 @@ foreign import ccall unsafe "hs_bindgen_6e12e70d71890a10" hs_bindgen_6e12e70d718
      IO (Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus))
 
 {-# NOINLINE read_file_chunk #-}
-
 {-| __C declaration:__ @read_file_chunk@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@

@@ -198,6 +198,5 @@ __defined at:__ @manual\/function_pointers.h:31:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
-apply1_nopointer_res ::
-     IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+apply1_nopointer_res :: IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
 apply1_nopointer_res = hs_bindgen_99a8340e6e6029c5

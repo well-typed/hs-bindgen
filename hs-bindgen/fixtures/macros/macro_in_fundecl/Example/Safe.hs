@@ -341,6 +341,5 @@ foreign import ccall safe "hs_bindgen_7ae4ab0ad4fb8cad" hs_bindgen_7ae4ab0ad4fb8
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-no_args_no_void ::
-     IO I
+no_args_no_void :: IO I
 no_args_no_void = hs_bindgen_7ae4ab0ad4fb8cad

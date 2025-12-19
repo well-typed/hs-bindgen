@@ -82,7 +82,6 @@ foreign import ccall unsafe "hs_bindgen_b9f6c3995e03a64f" hs_bindgen_b9f6c3995e0
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 
 {-# NOINLINE hs_bindgen_568187d7e5f899e0 #-}
-
 {-| __C declaration:__ @a@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:5:18@
@@ -96,7 +95,6 @@ hs_bindgen_568187d7e5f899e0 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b9f6c3995e03a64f
 
 {-# NOINLINE a #-}
-
 a :: FC.CInt
 a =
   GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_568187d7e5f899e0))
@@ -106,7 +104,6 @@ foreign import ccall unsafe "hs_bindgen_2a09e45ccb76e4da" hs_bindgen_2a09e45ccb7
      IO (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))
 
 {-# NOINLINE b #-}
-
 {-| __C declaration:__ @b@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:7:19@
@@ -122,7 +119,6 @@ foreign import ccall unsafe "hs_bindgen_9cef5885d51a5077" hs_bindgen_9cef5885d51
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr FC.CInt))
 
 {-# NOINLINE hs_bindgen_86ab1f1ce8db256e #-}
-
 {-| __C declaration:__ @c@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:9:19@
@@ -136,7 +132,6 @@ hs_bindgen_86ab1f1ce8db256e =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9cef5885d51a5077
 
 {-# NOINLINE c #-}
-
 c :: Ptr.Ptr FC.CInt
 c =
   GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_86ab1f1ce8db256e))
@@ -146,7 +141,6 @@ foreign import ccall unsafe "hs_bindgen_039fc3584df4cf95" hs_bindgen_039fc3584df
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))
 
 {-# NOINLINE hs_bindgen_f5892dac29d00ba8 #-}
-
 {-| __C declaration:__ @d@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:11:25@
@@ -160,7 +154,6 @@ hs_bindgen_f5892dac29d00ba8 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_039fc3584df4cf95
 
 {-# NOINLINE d #-}
-
 d :: HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
 d =
   GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_f5892dac29d00ba8))
@@ -170,7 +163,6 @@ foreign import ccall unsafe "hs_bindgen_cdf2cbe09fc53047" hs_bindgen_cdf2cbe09fc
      IO (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
 
 {-# NOINLINE e #-}
-
 {-| __C declaration:__ @e@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:18:26@
@@ -186,7 +178,6 @@ foreign import ccall unsafe "hs_bindgen_93ddb0dbf8706068" hs_bindgen_93ddb0dbf87
      IO (Ptr.Ptr (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))))
 
 {-# NOINLINE f #-}
-
 {-| __C declaration:__ @f@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:20:27@
@@ -202,7 +193,6 @@ foreign import ccall unsafe "hs_bindgen_e6c23ab326a206a8" hs_bindgen_e6c23ab326a
      IO (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))))
 
 {-# NOINLINE g #-}
-
 {-| __C declaration:__ @g@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:22:27@
@@ -218,7 +208,6 @@ foreign import ccall unsafe "hs_bindgen_f23087f72d34068b" hs_bindgen_f23087f72d3
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))))
 
 {-# NOINLINE hs_bindgen_2461912a034924cf #-}
-
 {-| __C declaration:__ @h@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:24:39@
@@ -232,7 +221,6 @@ hs_bindgen_2461912a034924cf =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f23087f72d34068b
 
 {-# NOINLINE h #-}
-
 h :: HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))
 h =
   GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_2461912a034924cf))
@@ -242,7 +230,6 @@ foreign import ccall unsafe "hs_bindgen_ed73ead5c58fe94a" hs_bindgen_ed73ead5c58
      IO (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr FC.CInt)))))
 
 {-# NOINLINE i #-}
-
 {-| __C declaration:__ @i@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:26:28@
@@ -258,7 +245,6 @@ foreign import ccall unsafe "hs_bindgen_92d2adc70d4b87ee" hs_bindgen_92d2adc70d4
      IO (Ptr.Ptr (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))))
 
 {-# NOINLINE j #-}
-
 {-| __C declaration:__ @j@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:28:34@

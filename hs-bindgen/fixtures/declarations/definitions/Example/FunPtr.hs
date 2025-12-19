@@ -28,7 +28,6 @@ foreign import ccall unsafe "hs_bindgen_8bb82cd68ce8efe4" hs_bindgen_8bb82cd68ce
      IO (Ptr.FunPtr (FC.CDouble -> IO FC.CInt))
 
 {-# NOINLINE foo #-}
-
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h:13:5@

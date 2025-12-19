@@ -40,7 +40,6 @@ foreign import ccall unsafe "hs_bindgen_44cb8687c63f0086" hs_bindgen_44cb8687c63
      IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt))
 
 {-# NOINLINE reverse #-}
-
 {-| __C declaration:__ @reverse@
 
     __defined at:__ @manual\/zero_copy.h:77:5@
@@ -56,7 +55,6 @@ foreign import ccall unsafe "hs_bindgen_1bf30b28aefee5bf" hs_bindgen_1bf30b28aef
      IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
 
 {-# NOINLINE transpose #-}
-
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h:85:6@

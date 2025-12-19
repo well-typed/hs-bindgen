@@ -57,7 +57,6 @@ foreign import ccall unsafe "hs_bindgen_17a14e7ffaa1e2e5" hs_bindgen_17a14e7ffaa
      IO (Ptr.FunPtr (Thing -> IO FC.CInt))
 
 {-# NOINLINE thing_fun_1 #-}
-
 {-| __C declaration:__ @thing_fun_1@
 
     __defined at:__ @types\/structs\/struct_arg.h:6:5@
@@ -73,7 +72,6 @@ foreign import ccall unsafe "hs_bindgen_91748ffd57eae163" hs_bindgen_91748ffd57e
      IO (Ptr.FunPtr (FC.CInt -> IO Thing))
 
 {-# NOINLINE thing_fun_2 #-}
-
 {-| __C declaration:__ @thing_fun_2@
 
     __defined at:__ @types\/structs\/struct_arg.h:7:14@
@@ -89,7 +87,6 @@ foreign import ccall unsafe "hs_bindgen_84d98a03314ff518" hs_bindgen_84d98a03314
      IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing))
 
 {-# NOINLINE thing_fun_3a #-}
-
 {-| __C declaration:__ @thing_fun_3a@
 
     __defined at:__ @types\/structs\/struct_arg.h:9:14@
@@ -105,7 +102,6 @@ foreign import ccall unsafe "hs_bindgen_855ae9088b15005e" hs_bindgen_855ae9088b1
      IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar))
 
 {-# NOINLINE thing_fun_3b #-}
-
 {-| __C declaration:__ @thing_fun_3b@
 
     __defined at:__ @types\/structs\/struct_arg.h:10:6@

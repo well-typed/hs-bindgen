@@ -39,7 +39,6 @@ foreign import ccall unsafe "hs_bindgen_29b4fea741132943" hs_bindgen_29b4fea7411
      IO (Ptr.FunPtr ((Data.Complex.Complex FC.CFloat) -> (Data.Complex.Complex FC.CFloat) -> IO (Data.Complex.Complex FC.CFloat)))
 
 {-# NOINLINE multiply_complex_f #-}
-
 {-| __C declaration:__ @multiply_complex_f@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h:21:16@
@@ -55,7 +54,6 @@ foreign import ccall unsafe "hs_bindgen_b53577d6ad8dd36c" hs_bindgen_b53577d6ad8
      IO (Ptr.FunPtr ((Data.Complex.Complex FC.CDouble) -> (Data.Complex.Complex FC.CDouble) -> IO (Data.Complex.Complex FC.CDouble)))
 
 {-# NOINLINE add_complex #-}
-
 {-| __C declaration:__ @add_complex@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h:22:16@

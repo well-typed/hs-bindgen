@@ -183,7 +183,6 @@ foreign import ccall unsafe "hs_bindgen_793b9ca86a272b6a" hs_bindgen_793b9ca86a2
      IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE readFileWithProcessor #-}
-
 {-| __C declaration:__ @readFileWithProcessor@
 
     __defined at:__ @functions\/callbacks.h:4:5@
@@ -199,7 +198,6 @@ foreign import ccall unsafe "hs_bindgen_a2b606291df27114" hs_bindgen_a2b606291df
      IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -> IO ()))
 
 {-# NOINLINE watchTemperature #-}
-
 {-| __C declaration:__ @watchTemperature@
 
     __defined at:__ @functions\/callbacks.h:5:6@
@@ -215,7 +213,6 @@ foreign import ccall unsafe "hs_bindgen_2c00a09a05e4c87b" hs_bindgen_2c00a09a05e
      IO (Ptr.FunPtr (FileOpenedNotification -> IO ()))
 
 {-# NOINLINE onFileOpened #-}
-
 {-| __C declaration:__ @onFileOpened@
 
     __defined at:__ @functions\/callbacks.h:14:6@
@@ -231,7 +228,6 @@ foreign import ccall unsafe "hs_bindgen_84066778519d3ea8" hs_bindgen_84066778519
      IO (Ptr.FunPtr (ProgressUpdate -> IO ()))
 
 {-# NOINLINE onProgressChanged #-}
-
 {-| __C declaration:__ @onProgressChanged@
 
     __defined at:__ @functions\/callbacks.h:15:6@
@@ -247,7 +243,6 @@ foreign import ccall unsafe "hs_bindgen_4d522e3ec1eb0b9f" hs_bindgen_4d522e3ec1e
      IO (Ptr.FunPtr (DataValidator -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE validateInput #-}
-
 {-| __C declaration:__ @validateInput@
 
     __defined at:__ @functions\/callbacks.h:16:5@
@@ -263,7 +258,6 @@ foreign import ccall unsafe "hs_bindgen_a26d6914af82ade0" hs_bindgen_a26d6914af8
      IO (Ptr.FunPtr (MeasurementReceived -> IO ()))
 
 {-# NOINLINE onNewMeasurement #-}
-
 {-| __C declaration:__ @onNewMeasurement@
 
     __defined at:__ @functions\/callbacks.h:27:6@
@@ -279,7 +273,6 @@ foreign import ccall unsafe "hs_bindgen_2c377b597bd80e50" hs_bindgen_2c377b597bd
      IO (Ptr.FunPtr (MeasurementReceived2 -> IO ()))
 
 {-# NOINLINE onNewMeasurement2 #-}
-
 {-| __C declaration:__ @onNewMeasurement2@
 
     __defined at:__ @functions\/callbacks.h:30:6@
@@ -295,7 +288,6 @@ foreign import ccall unsafe "hs_bindgen_d1ce142d0c667e22" hs_bindgen_d1ce142d0c6
      IO (Ptr.FunPtr (SampleBufferFull -> IO ()))
 
 {-# NOINLINE onBufferReady #-}
-
 {-| __C declaration:__ @onBufferReady@
 
     __defined at:__ @functions\/callbacks.h:33:6@
@@ -311,7 +303,6 @@ foreign import ccall unsafe "hs_bindgen_2e8d6b201521b14a" hs_bindgen_2e8d6b20152
      IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())) -> IO ()))
 
 {-# NOINLINE transformMeasurement #-}
-
 {-| __C declaration:__ @transformMeasurement@
 
     __defined at:__ @functions\/callbacks.h:38:6@
@@ -327,7 +318,6 @@ foreign import ccall unsafe "hs_bindgen_7f4acb7260277d86" hs_bindgen_7f4acb72602
      IO (Ptr.FunPtr ((Ptr.FunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())) -> IO ()))
 
 {-# NOINLINE processWithCallbacks #-}
-
 {-| __C declaration:__ @processWithCallbacks@
 
     __defined at:__ @functions\/callbacks.h:43:6@
@@ -343,7 +333,6 @@ foreign import ccall unsafe "hs_bindgen_80684ecfa6d982b7" hs_bindgen_80684ecfa6d
      IO (Ptr.FunPtr ((Ptr.Ptr MeasurementHandler) -> IO ()))
 
 {-# NOINLINE registerHandler #-}
-
 {-| __C declaration:__ @registerHandler@
 
     __defined at:__ @functions\/callbacks.h:56:6@
@@ -359,7 +348,6 @@ foreign import ccall unsafe "hs_bindgen_1714a267564c9f6f" hs_bindgen_1714a267564
      IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.Ptr DataPipeline) -> IO ()))
 
 {-# NOINLINE executePipeline #-}
-
 {-| __C declaration:__ @executePipeline@
 
     __defined at:__ @functions\/callbacks.h:64:6@
@@ -375,7 +363,6 @@ foreign import ccall unsafe "hs_bindgen_fedf80fe8e91dc7a" hs_bindgen_fedf80fe8e9
      IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.Ptr Processor) -> IO ()))
 
 {-# NOINLINE runProcessor #-}
-
 {-| __C declaration:__ @runProcessor@
 
     __defined at:__ @functions\/callbacks.h:80:6@
@@ -391,7 +378,6 @@ foreign import ccall unsafe "hs_bindgen_443cb57c681c2cab" hs_bindgen_443cb57c681
      IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())) -> IO ()))
 
 {-# NOINLINE processMeasurementWithValidation #-}
-
 {-| __C declaration:__ @processMeasurementWithValidation@
 
     __defined at:__ @functions\/callbacks.h:85:6@
@@ -407,7 +393,6 @@ foreign import ccall unsafe "hs_bindgen_7cf6cffd19682c36" hs_bindgen_7cf6cffd196
      IO (Ptr.FunPtr ((Ptr.FunPtr (Foo -> IO ())) -> IO ()))
 
 {-# NOINLINE f #-}
-
 {-| __C declaration:__ @f@
 
     __defined at:__ @functions\/callbacks.h:96:6@
@@ -423,7 +408,6 @@ foreign import ccall unsafe "hs_bindgen_81fde2984e04c791" hs_bindgen_81fde2984e0
      IO (Ptr.FunPtr ((Ptr.FunPtr (Foo2 -> IO ())) -> IO ()))
 
 {-# NOINLINE f2 #-}
-
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/callbacks.h:97:6@

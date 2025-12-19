@@ -31,7 +31,6 @@ foreign import ccall unsafe "hs_bindgen_1ade3cfc18679577" hs_bindgen_1ade3cfc186
      IO (Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32))
 
 {-# NOINLINE some_fun #-}
-
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@

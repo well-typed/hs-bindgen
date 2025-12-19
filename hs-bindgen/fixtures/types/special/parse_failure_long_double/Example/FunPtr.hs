@@ -28,7 +28,6 @@ foreign import ccall unsafe "hs_bindgen_d61a16f2d29260ed" hs_bindgen_d61a16f2d29
      IO (Ptr.FunPtr (FC.CInt -> IO ()))
 
 {-# NOINLINE fun2 #-}
-
 {-| __C declaration:__ @fun2@
 
     __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@

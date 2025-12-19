@@ -26,7 +26,6 @@ foreign import ccall unsafe "hs_bindgen_417f0d4479c97357" hs_bindgen_417f0d4479c
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE n #-}
-
 {-| __C declaration:__ @n@
 
     __defined at:__ @declarations\/definitions.h:18:5@

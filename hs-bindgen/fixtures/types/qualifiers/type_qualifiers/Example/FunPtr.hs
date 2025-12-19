@@ -30,7 +30,6 @@ foreign import ccall unsafe "hs_bindgen_a19bc138e7f2759b" hs_bindgen_a19bc138e7f
      IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
 
 {-# NOINLINE list_example #-}
-
 {-| __C declaration:__ @list_example@
 
     __defined at:__ @types\/qualifiers\/type_qualifiers.h:14:6@

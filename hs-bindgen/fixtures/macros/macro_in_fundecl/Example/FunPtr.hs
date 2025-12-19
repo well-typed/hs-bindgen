@@ -144,7 +144,6 @@ foreign import ccall unsafe "hs_bindgen_930b4f8122942dae" hs_bindgen_930b4f81229
      IO (Ptr.FunPtr (F -> FC.CChar -> IO FC.CChar))
 
 {-# NOINLINE quux #-}
-
 {-| __C declaration:__ @quux@
 
     __defined at:__ @macros\/macro_in_fundecl.h:12:6@
@@ -160,7 +159,6 @@ foreign import ccall unsafe "hs_bindgen_31f433dd4aceda85" hs_bindgen_31f433dd4ac
      IO (Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr C) -> IO (Ptr.Ptr C)))
 
 {-# NOINLINE wam #-}
-
 {-| __C declaration:__ @wam@
 
     __defined at:__ @macros\/macro_in_fundecl.h:13:4@
@@ -176,7 +174,6 @@ foreign import ccall unsafe "hs_bindgen_8d7a85b3867041bf" hs_bindgen_8d7a85b3867
      IO (Ptr.FunPtr (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr FC.CChar)))
 
 {-# NOINLINE foo1 #-}
-
 {-| __C declaration:__ @foo1@
 
     __defined at:__ @macros\/macro_in_fundecl.h:16:7@
@@ -192,7 +189,6 @@ foreign import ccall unsafe "hs_bindgen_c9dcd020e5be4af9" hs_bindgen_c9dcd020e5b
      IO (Ptr.FunPtr (F -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr FC.CChar)))
 
 {-# NOINLINE foo2 #-}
-
 {-| __C declaration:__ @foo2@
 
     __defined at:__ @macros\/macro_in_fundecl.h:17:7@
@@ -208,7 +204,6 @@ foreign import ccall unsafe "hs_bindgen_c2295c3f61edf4e7" hs_bindgen_c2295c3f61e
      IO (Ptr.FunPtr (FC.CFloat -> (Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> IO (Ptr.Ptr C)))
 
 {-# NOINLINE foo3 #-}
-
 {-| __C declaration:__ @foo3@
 
     __defined at:__ @macros\/macro_in_fundecl.h:18:4@
@@ -224,7 +219,6 @@ foreign import ccall unsafe "hs_bindgen_d9b2e6e188ecbfea" hs_bindgen_d9b2e6e188e
      IO (Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))))
 
 {-# NOINLINE bar1 #-}
-
 {-| __C declaration:__ @bar1@
 
     __defined at:__ @macros\/macro_in_fundecl.h:21:7@
@@ -240,7 +234,6 @@ foreign import ccall unsafe "hs_bindgen_111db9707ae2a631" hs_bindgen_111db9707ae
      IO (Ptr.FunPtr (L -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))))
 
 {-# NOINLINE bar2 #-}
-
 {-| __C declaration:__ @bar2@
 
     __defined at:__ @macros\/macro_in_fundecl.h:22:7@
@@ -256,7 +249,6 @@ foreign import ccall unsafe "hs_bindgen_00996e2c7c9e793b" hs_bindgen_00996e2c7c9
      IO (Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (S -> IO FC.CInt))))
 
 {-# NOINLINE bar3 #-}
-
 {-| __C declaration:__ @bar3@
 
     __defined at:__ @macros\/macro_in_fundecl.h:23:7@
@@ -272,7 +264,6 @@ foreign import ccall unsafe "hs_bindgen_aa46ba685e4693da" hs_bindgen_aa46ba685e4
      IO (Ptr.FunPtr (FC.CLong -> IO (Ptr.FunPtr (FC.CShort -> IO I))))
 
 {-# NOINLINE bar4 #-}
-
 {-| __C declaration:__ @bar4@
 
     __defined at:__ @macros\/macro_in_fundecl.h:24:5@
@@ -288,7 +279,6 @@ foreign import ccall unsafe "hs_bindgen_86b147342f608069" hs_bindgen_86b147342f6
      IO (Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))))
 
 {-# NOINLINE baz1 #-}
-
 {-| __C declaration:__ @baz1@
 
     __defined at:__ @macros\/macro_in_fundecl.h:27:7@
@@ -304,7 +294,6 @@ foreign import ccall unsafe "hs_bindgen_a7194966e4f375df" hs_bindgen_a7194966e4f
      IO (Ptr.FunPtr (I -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))))
 
 {-# NOINLINE baz2 #-}
-
 {-| __C declaration:__ @baz2@
 
     __defined at:__ @macros\/macro_in_fundecl.h:35:7@
@@ -320,7 +309,6 @@ foreign import ccall unsafe "hs_bindgen_cd69bb91c3e6d7ea" hs_bindgen_cd69bb91c3e
      IO (Ptr.FunPtr (FC.CInt -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I)))))
 
 {-# NOINLINE baz3 #-}
-
 {-| __C declaration:__ @baz3@
 
     __defined at:__ @macros\/macro_in_fundecl.h:43:5@
@@ -336,7 +324,6 @@ foreign import ccall unsafe "hs_bindgen_d5b5e70d96cc6b8d" hs_bindgen_d5b5e70d96c
      IO (Ptr.FunPtr (IO I))
 
 {-# NOINLINE no_args_no_void #-}
-
 {-| __C declaration:__ @no_args_no_void@
 
     __defined at:__ @macros\/macro_in_fundecl.h:53:3@

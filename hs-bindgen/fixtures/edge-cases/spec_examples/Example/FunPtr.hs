@@ -34,7 +34,6 @@ foreign import ccall unsafe "hs_bindgen_2b8fc800dad87ec8" hs_bindgen_2b8fc800dad
      IO (Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()))
 
 {-# NOINLINE resample #-}
-
 {-| __C declaration:__ @resample@
 
     __defined at:__ @edge-cases\/spec_examples.h:31:6@

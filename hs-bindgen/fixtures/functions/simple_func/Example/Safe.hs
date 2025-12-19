@@ -92,8 +92,7 @@ foreign import ccall safe "hs_bindgen_d72558f6f977200c" hs_bindgen_d72558f6f9772
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args ::
-     IO ()
+no_args :: IO ()
 no_args = hs_bindgen_d72558f6f977200c
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_no_args_no_void@
@@ -106,8 +105,7 @@ foreign import ccall safe "hs_bindgen_d8523e2ccea5c7ba" hs_bindgen_d8523e2ccea5c
 
     __exported by:__ @functions\/simple_func.h@
 -}
-no_args_no_void ::
-     IO ()
+no_args_no_void :: IO ()
 no_args_no_void = hs_bindgen_d8523e2ccea5c7ba
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_fun@

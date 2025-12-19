@@ -26,6 +26,5 @@ foreign import ccall safe "hs_bindgen_77a4bac5bbe80f62" hs_bindgen_77a4bac5bbe80
 
     __exported by:__ @functions\/varargs.h@
 -}
-h ::
-     IO ()
+h :: IO ()
 h = hs_bindgen_77a4bac5bbe80f62

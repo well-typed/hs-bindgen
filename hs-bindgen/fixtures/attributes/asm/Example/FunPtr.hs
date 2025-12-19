@@ -29,7 +29,6 @@ foreign import ccall unsafe "hs_bindgen_4f7c4fceed28f171" hs_bindgen_4f7c4fceed2
      IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE asm_labeled_function #-}
-
 {-| __C declaration:__ @asm_labeled_function@
 
     __defined at:__ @attributes\/asm.h:4:5@

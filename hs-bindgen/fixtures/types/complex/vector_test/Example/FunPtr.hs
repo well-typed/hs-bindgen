@@ -30,7 +30,6 @@ foreign import ccall unsafe "hs_bindgen_cb36cf0957839e33" hs_bindgen_cb36cf09578
      IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector)))
 
 {-# NOINLINE new_vector #-}
-
 {-| __C declaration:__ @new_vector@
 
     __defined at:__ @types\/complex\/vector_test.h:6:9@

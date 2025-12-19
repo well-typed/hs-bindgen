@@ -1230,8 +1230,7 @@ foreign import ccall unsafe "hs_bindgen_78f9ea765accb501" hs_bindgen_78f9ea765ac
 
     __exported by:__ @macros\/reparse.h@
 -}
-ret_A ::
-     IO A
+ret_A :: IO A
 ret_A = hs_bindgen_78f9ea765accb501
 
 -- __unique:__ @test_macrosreparse_Example_Unsafe_ret_char1@
@@ -1644,8 +1643,7 @@ foreign import ccall unsafe "hs_bindgen_364e73b014d7d4df" hs_bindgen_364e73b014d
 
     __exported by:__ @macros\/reparse.h@
 -}
-body2 ::
-     IO A
+body2 :: IO A
 body2 = hs_bindgen_364e73b014d7d4df
 
 -- __unique:__ @test_macrosreparse_Example_Unsafe_args_complex_float@
@@ -2833,8 +2831,7 @@ __defined at:__ @macros\/reparse.h:256:3@
 
 __exported by:__ @macros\/reparse.h@
 -}
-noParams1 ::
-     IO A
+noParams1 :: IO A
 noParams1 = hs_bindgen_13a7d78e11555d58
 
 -- __unique:__ @test_macrosreparse_Example_Unsafe_noParams2@
@@ -2847,8 +2844,7 @@ foreign import ccall unsafe "hs_bindgen_672f4691ee7a367c" hs_bindgen_672f4691ee7
 
     __exported by:__ @macros\/reparse.h@
 -}
-noParams2 ::
-     IO A
+noParams2 :: IO A
 noParams2 = hs_bindgen_672f4691ee7a367c
 
 -- __unique:__ @test_macrosreparse_Example_Unsafe_noParams3@
