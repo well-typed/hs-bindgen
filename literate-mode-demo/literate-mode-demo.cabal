@@ -1,0 +1,34 @@
+cabal-version: 3.0
+name:          literate-mode-demo
+version:       0.1.0.0
+license:       BSD-3-Clause
+license-file:  LICENSE
+author:        Edsko de Vries
+maintainer:    edsko@well-typed.com
+build-type:    Simple
+
+common lang
+  ghc-options:      -Wall
+  default-language: GHC2021
+  build-depends:    base >= 4.18 && < 5
+
+executable literate-mode-demo
+  import:         lang
+  main-is:        Main.hs
+  hs-source-dirs: app
+
+  other-modules:
+      SomeRandomFile
+
+  ghc-options:
+      -- Specify the "Literate Haskell processor"
+      -pgmL custom-literate-haskell-processor
+  build-tool-depends:
+      literate-mode-demo:custom-literate-haskell-processor
+
+executable custom-literate-haskell-processor
+  import:         lang
+  main-is:        CustomLiterateHaskellProcessor.hs
+  hs-source-dirs: clhp
+  ghc-options:    -main-is CustomLiterateHaskellProcessor
+
