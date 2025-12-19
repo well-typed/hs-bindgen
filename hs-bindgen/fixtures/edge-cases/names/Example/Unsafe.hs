@@ -112,7 +112,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_by@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_by@
 foreign import ccall unsafe "hs_bindgen_28b998af1f39a743" hs_bindgen_28b998af1f39a743 ::
      IO ()
 
@@ -126,7 +126,7 @@ by' ::
      IO ()
 by' = hs_bindgen_28b998af1f39a743
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_forall@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_forall@
 foreign import ccall unsafe "hs_bindgen_5d7ea7c4d11a5fc8" hs_bindgen_5d7ea7c4d11a5fc8 ::
      IO ()
 
@@ -140,7 +140,7 @@ forall' ::
      IO ()
 forall' = hs_bindgen_5d7ea7c4d11a5fc8
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_mdo@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_mdo@
 foreign import ccall unsafe "hs_bindgen_2d65448c684c09d5" hs_bindgen_2d65448c684c09d5 ::
      IO ()
 
@@ -154,7 +154,7 @@ mdo' ::
      IO ()
 mdo' = hs_bindgen_2d65448c684c09d5
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_pattern@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_pattern@
 foreign import ccall unsafe "hs_bindgen_13fe653d670d3712" hs_bindgen_13fe653d670d3712 ::
      IO ()
 
@@ -168,7 +168,7 @@ pattern' ::
      IO ()
 pattern' = hs_bindgen_13fe653d670d3712
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_proc@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_proc@
 foreign import ccall unsafe "hs_bindgen_e9cc2037d33041aa" hs_bindgen_e9cc2037d33041aa ::
      IO ()
 
@@ -182,7 +182,7 @@ proc' ::
      IO ()
 proc' = hs_bindgen_e9cc2037d33041aa
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_rec@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_rec@
 foreign import ccall unsafe "hs_bindgen_4a1e741f9ef596ff" hs_bindgen_4a1e741f9ef596ff ::
      IO ()
 
@@ -196,7 +196,7 @@ rec' ::
      IO ()
 rec' = hs_bindgen_4a1e741f9ef596ff
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_using@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_using@
 foreign import ccall unsafe "hs_bindgen_ef6f3f22c615db58" hs_bindgen_ef6f3f22c615db58 ::
      IO ()
 
@@ -210,7 +210,7 @@ using' ::
      IO ()
 using' = hs_bindgen_ef6f3f22c615db58
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_anyclass@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_anyclass@
 foreign import ccall unsafe "hs_bindgen_3c7afeaaf3ff040b" hs_bindgen_3c7afeaaf3ff040b ::
      IO ()
 
@@ -224,7 +224,7 @@ anyclass ::
      IO ()
 anyclass = hs_bindgen_3c7afeaaf3ff040b
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_capi@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_capi@
 foreign import ccall unsafe "hs_bindgen_0518740d4c3caa1d" hs_bindgen_0518740d4c3caa1d ::
      IO ()
 
@@ -238,7 +238,7 @@ capi ::
      IO ()
 capi = hs_bindgen_0518740d4c3caa1d
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_cases@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_cases@
 foreign import ccall unsafe "hs_bindgen_61f14ad7bb2e3d54" hs_bindgen_61f14ad7bb2e3d54 ::
      IO ()
 
@@ -252,7 +252,7 @@ cases ::
      IO ()
 cases = hs_bindgen_61f14ad7bb2e3d54
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_ccall@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_ccall@
 foreign import ccall unsafe "hs_bindgen_ace8c96ed6673c3b" hs_bindgen_ace8c96ed6673c3b ::
      IO ()
 
@@ -266,7 +266,7 @@ ccall ::
      IO ()
 ccall = hs_bindgen_ace8c96ed6673c3b
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_dynamic@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_dynamic@
 foreign import ccall unsafe "hs_bindgen_8865833b99552d03" hs_bindgen_8865833b99552d03 ::
      IO ()
 
@@ -280,7 +280,7 @@ dynamic ::
      IO ()
 dynamic = hs_bindgen_8865833b99552d03
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_export@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_export@
 foreign import ccall unsafe "hs_bindgen_15729ba251f5ec57" hs_bindgen_15729ba251f5ec57 ::
      IO ()
 
@@ -294,7 +294,7 @@ export ::
      IO ()
 export = hs_bindgen_15729ba251f5ec57
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_family@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_family@
 foreign import ccall unsafe "hs_bindgen_e6a4f7e833da2687" hs_bindgen_e6a4f7e833da2687 ::
      IO ()
 
@@ -308,7 +308,7 @@ family ::
      IO ()
 family = hs_bindgen_e6a4f7e833da2687
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_group@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_group@
 foreign import ccall unsafe "hs_bindgen_d4dd1bb5e95de858" hs_bindgen_d4dd1bb5e95de858 ::
      IO ()
 
@@ -322,7 +322,7 @@ group ::
      IO ()
 group = hs_bindgen_d4dd1bb5e95de858
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_interruptible@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_interruptible@
 foreign import ccall unsafe "hs_bindgen_516f1ad5aba6de29" hs_bindgen_516f1ad5aba6de29 ::
      IO ()
 
@@ -336,7 +336,7 @@ interruptible ::
      IO ()
 interruptible = hs_bindgen_516f1ad5aba6de29
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_javascript@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_javascript@
 foreign import ccall unsafe "hs_bindgen_214230db174dc3e6" hs_bindgen_214230db174dc3e6 ::
      IO ()
 
@@ -350,7 +350,7 @@ javascript ::
      IO ()
 javascript = hs_bindgen_214230db174dc3e6
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_label@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_label@
 foreign import ccall unsafe "hs_bindgen_88f1f0cf9c0f080e" hs_bindgen_88f1f0cf9c0f080e ::
      IO ()
 
@@ -364,7 +364,7 @@ label ::
      IO ()
 label = hs_bindgen_88f1f0cf9c0f080e
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_prim@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_prim@
 foreign import ccall unsafe "hs_bindgen_93a4c73f587dcf3c" hs_bindgen_93a4c73f587dcf3c ::
      IO ()
 
@@ -378,7 +378,7 @@ prim ::
      IO ()
 prim = hs_bindgen_93a4c73f587dcf3c
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_role@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_role@
 foreign import ccall unsafe "hs_bindgen_a267fe5585862ecc" hs_bindgen_a267fe5585862ecc ::
      IO ()
 
@@ -392,7 +392,7 @@ role ::
      IO ()
 role = hs_bindgen_a267fe5585862ecc
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_safe@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_safe@
 foreign import ccall unsafe "hs_bindgen_ddac4cdf91c756a8" hs_bindgen_ddac4cdf91c756a8 ::
      IO ()
 
@@ -406,7 +406,7 @@ safe ::
      IO ()
 safe = hs_bindgen_ddac4cdf91c756a8
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_stdcall@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_stdcall@
 foreign import ccall unsafe "hs_bindgen_8dd57b02f322a7ae" hs_bindgen_8dd57b02f322a7ae ::
      IO ()
 
@@ -420,7 +420,7 @@ stdcall ::
      IO ()
 stdcall = hs_bindgen_8dd57b02f322a7ae
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_stock@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_stock@
 foreign import ccall unsafe "hs_bindgen_3b69e1860d72507c" hs_bindgen_3b69e1860d72507c ::
      IO ()
 
@@ -434,7 +434,7 @@ stock ::
      IO ()
 stock = hs_bindgen_3b69e1860d72507c
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_unsafe@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_unsafe@
 foreign import ccall unsafe "hs_bindgen_b9d80fa39d7ebb06" hs_bindgen_b9d80fa39d7ebb06 ::
      IO ()
 
@@ -448,7 +448,7 @@ unsafe ::
      IO ()
 unsafe = hs_bindgen_b9d80fa39d7ebb06
 
--- | __unique:__ @test_edgecasesnames_Example_Unsafe_via@
+-- __unique:__ @test_edgecasesnames_Example_Unsafe_via@
 foreign import ccall unsafe "hs_bindgen_708f6397f5e5ac73" hs_bindgen_708f6397f5e5ac73 ::
      IO ()
 

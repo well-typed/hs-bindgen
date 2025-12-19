@@ -47,7 +47,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cp@
+-- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cp@
 foreign import ccall unsafe "hs_bindgen_9445b7269de35e9e" hs_bindgen_9445b7269de35e9e ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
@@ -67,7 +67,7 @@ square_cp :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_cp =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9445b7269de35e9e
 
--- | __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pc@
+-- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pc@
 foreign import ccall unsafe "hs_bindgen_b0c647124e93645d" hs_bindgen_b0c647124e93645d ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
@@ -83,7 +83,7 @@ square_pc :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_pc =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b0c647124e93645d
 
--- | __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cc@
+-- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_cc@
 foreign import ccall unsafe "hs_bindgen_87ee2f018e6d262a" hs_bindgen_87ee2f018e6d262a ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
@@ -99,7 +99,7 @@ square_cc :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_cc =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_87ee2f018e6d262a
 
--- | __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pp@
+-- __unique:__ @test_functionsfun_attributes_confl_Example_get_square_pp@
 foreign import ccall unsafe "hs_bindgen_0f31a17bf5ee4e4f" hs_bindgen_0f31a17bf5ee4e4f ::
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 

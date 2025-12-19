@@ -19,7 +19,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_edgecasesordinary_anon_paren_Example_Unsafe__acos@
+-- __unique:__ @test_edgecasesordinary_anon_paren_Example_Unsafe__acos@
 foreign import ccall unsafe "hs_bindgen_dca60678b5047ee4" hs_bindgen_dca60678b5047ee4 ::
      FC.CDouble
   -> IO FC.CDouble

@@ -76,12 +76,12 @@ newtype S = S
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
--- | __unique:__ @instance ToFunPtr (FC.CShort -> IO I)@
+-- __unique:__ @instance ToFunPtr (FC.CShort -> IO I)@
 foreign import ccall safe "wrapper" hs_bindgen_074b9de694d8f359 ::
      (FC.CShort -> IO I)
   -> IO (Ptr.FunPtr (FC.CShort -> IO I))
 
--- | __unique:__ @instance FromFunPtr (FC.CShort -> IO I)@
+-- __unique:__ @instance FromFunPtr (FC.CShort -> IO I)@
 foreign import ccall safe "dynamic" hs_bindgen_c7a8adce35e64925 ::
      Ptr.FunPtr (FC.CShort -> IO I)
   -> FC.CShort -> IO I
@@ -94,12 +94,12 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr (FC.CShort -> IO I) where
 
   fromFunPtr = hs_bindgen_c7a8adce35e64925
 
--- | __unique:__ @instance ToFunPtr (S -> IO FC.CInt)@
+-- __unique:__ @instance ToFunPtr (S -> IO FC.CInt)@
 foreign import ccall safe "wrapper" hs_bindgen_ffdbafa239adf14e ::
      (S -> IO FC.CInt)
   -> IO (Ptr.FunPtr (S -> IO FC.CInt))
 
--- | __unique:__ @instance FromFunPtr (S -> IO FC.CInt)@
+-- __unique:__ @instance FromFunPtr (S -> IO FC.CInt)@
 foreign import ccall safe "dynamic" hs_bindgen_9c8a77fe3560cebd ::
      Ptr.FunPtr (S -> IO FC.CInt)
   -> S -> IO FC.CInt

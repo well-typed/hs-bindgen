@@ -20,7 +20,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_functionsvarargs_Example_get_h@
+-- __unique:__ @test_functionsvarargs_Example_get_h@
 foreign import ccall unsafe "hs_bindgen_d7b5ad93f4d7fa04" hs_bindgen_d7b5ad93f4d7fa04 ::
      IO (Ptr.FunPtr (IO ()))
 

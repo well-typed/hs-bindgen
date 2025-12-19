@@ -35,7 +35,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_functionsdecls_in_signature_Example_Unsafe_normal@
+-- __unique:__ @test_functionsdecls_in_signature_Example_Unsafe_normal@
 foreign import ccall unsafe "hs_bindgen_247ee31a29b7e5a8" hs_bindgen_247ee31a29b7e5a8 ::
      Ptr.Ptr Opaque
   -> Ptr.Ptr Outside
@@ -75,7 +75,7 @@ normal =
         F.with x2 (\y3 ->
                      hs_bindgen_247ee31a29b7e5a8 x0 x1 y3)
 
--- | __unique:__ @test_functionsdecls_in_signature_Example_Unsafe_f1@
+-- __unique:__ @test_functionsdecls_in_signature_Example_Unsafe_f1@
 foreign import ccall unsafe "hs_bindgen_dad6e1aa83dec458" hs_bindgen_dad6e1aa83dec458 ::
      Ptr.Ptr Named_struct
   -> IO ()
@@ -106,7 +106,7 @@ f1 =
   \x0 ->
     F.with x0 (\y1 -> hs_bindgen_dad6e1aa83dec458 y1)
 
--- | __unique:__ @test_functionsdecls_in_signature_Example_Unsafe_f2@
+-- __unique:__ @test_functionsdecls_in_signature_Example_Unsafe_f2@
 foreign import ccall unsafe "hs_bindgen_e6bb0f3956383df9" hs_bindgen_e6bb0f3956383df9 ::
      Ptr.Ptr Named_union
   -> IO ()

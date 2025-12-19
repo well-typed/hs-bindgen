@@ -37,7 +37,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cp@
+-- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cp@
 foreign import ccall safe "hs_bindgen_5d7162df3a16d8d5" hs_bindgen_5d7162df3a16d8d5 ::
      FC.CInt
   -> FC.CInt
@@ -58,7 +58,7 @@ square_cp ::
   -> FC.CInt
 square_cp = hs_bindgen_5d7162df3a16d8d5
 
--- | __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pc@
+-- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pc@
 foreign import ccall safe "hs_bindgen_7f240b4e0c2eea24" hs_bindgen_7f240b4e0c2eea24 ::
      FC.CInt
   -> FC.CInt
@@ -75,7 +75,7 @@ square_pc ::
   -> FC.CInt
 square_pc = hs_bindgen_7f240b4e0c2eea24
 
--- | __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cc@
+-- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_cc@
 foreign import ccall safe "hs_bindgen_d32b50f04af10764" hs_bindgen_d32b50f04af10764 ::
      FC.CInt
   -> FC.CInt
@@ -92,7 +92,7 @@ square_cc ::
   -> FC.CInt
 square_cc = hs_bindgen_d32b50f04af10764
 
--- | __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pp@
+-- __unique:__ @test_functionsfun_attributes_confl_Example_Safe_square_pp@
 foreign import ccall safe "hs_bindgen_fab6c9860ff1400b" hs_bindgen_fab6c9860ff1400b ::
      FC.CInt
   -> IO FC.CInt

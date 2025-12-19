@@ -31,7 +31,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_manualarrays_Example_Safe_transpose@
+-- __unique:__ @test_manualarrays_Example_Safe_transpose@
 foreign import ccall safe "hs_bindgen_cba7011c6d25362b" hs_bindgen_cba7011c6d25362b ::
      HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
   -> Ptr.Ptr Triplet
@@ -65,7 +65,7 @@ transpose =
       HsBindgen.Runtime.ConstantArray.withPtr x0 (\ptr2 ->
                                                     hs_bindgen_cba7011c6d25362b (HsBindgen.Runtime.ConstPtr.ConstPtr ptr2) x1)
 
--- | __unique:__ @test_manualarrays_Example_Safe_pretty_print_triplets@
+-- __unique:__ @test_manualarrays_Example_Safe_pretty_print_triplets@
 foreign import ccall safe "hs_bindgen_45d15697a99c626a" hs_bindgen_45d15697a99c626a ::
      Ptr.Ptr (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
   -> IO ()

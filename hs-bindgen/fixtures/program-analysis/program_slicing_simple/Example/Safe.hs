@@ -22,7 +22,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
+-- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_48dbbf4b09b5b3c1" hs_bindgen_48dbbf4b09b5b3c1 ::
      Foreign.Int64
   -> Uint32_t

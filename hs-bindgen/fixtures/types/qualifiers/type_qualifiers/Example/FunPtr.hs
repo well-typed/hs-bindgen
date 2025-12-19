@@ -25,7 +25,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example@
+-- __unique:__ @test_typesqualifierstype_qualifie_Example_get_list_example@
 foreign import ccall unsafe "hs_bindgen_a19bc138e7f2759b" hs_bindgen_a19bc138e7f2759b ::
      IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
 

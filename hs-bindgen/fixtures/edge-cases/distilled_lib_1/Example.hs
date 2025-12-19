@@ -708,12 +708,12 @@ newtype Callback_t_Deref = Callback_t_Deref
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- | __unique:__ @toCallback_t_Deref@
+-- __unique:__ @toCallback_t_Deref@
 foreign import ccall safe "wrapper" hs_bindgen_24eac512dce926e9 ::
      Callback_t_Deref
   -> IO (Ptr.FunPtr Callback_t_Deref)
 
--- | __unique:__ @fromCallback_t_Deref@
+-- __unique:__ @fromCallback_t_Deref@
 foreign import ccall safe "dynamic" hs_bindgen_893b8fa3b3f09882 ::
      Ptr.FunPtr Callback_t_Deref
   -> Callback_t_Deref

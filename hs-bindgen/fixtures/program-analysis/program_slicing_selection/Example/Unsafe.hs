@@ -23,7 +23,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
+-- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
 foreign import ccall unsafe "hs_bindgen_654858ed6a5db417" hs_bindgen_654858ed6a5db417 ::
      Ptr.Ptr HsBindgen.Runtime.Prelude.CFile
   -> Ptr.Ptr Void

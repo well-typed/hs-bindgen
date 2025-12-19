@@ -70,7 +70,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_edgecasesiterator_Example_Unsafe_makeToggle@
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeToggle@
 foreign import ccall unsafe "hs_bindgen_1b7a6a61a9c0da07" hs_bindgen_1b7a6a61a9c0da07 ::
      FC.CBool
   -> IO Toggle
@@ -87,7 +87,7 @@ makeToggle ::
   -> IO Toggle
 makeToggle = hs_bindgen_1b7a6a61a9c0da07
 
--- | __unique:__ @test_edgecasesiterator_Example_Unsafe_toggleNext@
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_toggleNext@
 foreign import ccall unsafe "hs_bindgen_4d2d650f2c8798d6" hs_bindgen_4d2d650f2c8798d6 ::
      Toggle
   -> IO FC.CBool
@@ -104,7 +104,7 @@ toggleNext ::
   -> IO FC.CBool
 toggleNext = hs_bindgen_4d2d650f2c8798d6
 
--- | __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseToggle@
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseToggle@
 foreign import ccall unsafe "hs_bindgen_ddbe11e76502cbdc" hs_bindgen_ddbe11e76502cbdc ::
      Toggle
   -> IO ()
@@ -121,7 +121,7 @@ releaseToggle ::
   -> IO ()
 releaseToggle = hs_bindgen_ddbe11e76502cbdc
 
--- | __unique:__ @test_edgecasesiterator_Example_Unsafe_makeCounter@
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeCounter@
 foreign import ccall unsafe "hs_bindgen_2b04d558934551d2" hs_bindgen_2b04d558934551d2 ::
      FC.CInt
   -> FC.CInt
@@ -141,7 +141,7 @@ makeCounter ::
   -> IO Counter
 makeCounter = hs_bindgen_2b04d558934551d2
 
--- | __unique:__ @test_edgecasesiterator_Example_Unsafe_counterNext@
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_counterNext@
 foreign import ccall unsafe "hs_bindgen_5bba69c8bfbeedf0" hs_bindgen_5bba69c8bfbeedf0 ::
      Counter
   -> IO FC.CInt
@@ -158,7 +158,7 @@ counterNext ::
   -> IO FC.CInt
 counterNext = hs_bindgen_5bba69c8bfbeedf0
 
--- | __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseCounter@
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseCounter@
 foreign import ccall unsafe "hs_bindgen_429845bb55a5a7b5" hs_bindgen_429845bb55a5a7b5 ::
      Counter
   -> IO ()
@@ -175,7 +175,7 @@ releaseCounter ::
   -> IO ()
 releaseCounter = hs_bindgen_429845bb55a5a7b5
 
--- | __unique:__ @test_edgecasesiterator_Example_Unsafe_makeVarCounter@
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_makeVarCounter@
 foreign import ccall unsafe "hs_bindgen_4421633e88fc96c4" hs_bindgen_4421633e88fc96c4 ::
      FC.CInt
   -> IO VarCounter
@@ -192,7 +192,7 @@ makeVarCounter ::
   -> IO VarCounter
 makeVarCounter = hs_bindgen_4421633e88fc96c4
 
--- | __unique:__ @test_edgecasesiterator_Example_Unsafe_varCounterNext@
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_varCounterNext@
 foreign import ccall unsafe "hs_bindgen_31edd817cb78027d" hs_bindgen_31edd817cb78027d ::
      VarCounter
   -> FC.CInt
@@ -212,7 +212,7 @@ varCounterNext ::
   -> IO FC.CInt
 varCounterNext = hs_bindgen_31edd817cb78027d
 
--- | __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseVarCounter@
+-- __unique:__ @test_edgecasesiterator_Example_Unsafe_releaseVarCounter@
 foreign import ccall unsafe "hs_bindgen_32e5b257124f69a2" hs_bindgen_32e5b257124f69a2 ::
      VarCounter
   -> IO ()

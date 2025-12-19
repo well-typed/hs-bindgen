@@ -24,7 +24,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_edgecasesadios_Example_Unsafe_ϒ@
+-- __unique:__ @test_edgecasesadios_Example_Unsafe_ϒ@
 foreign import ccall unsafe "hs_bindgen_1814d14d59d9daf7" hs_bindgen_1814d14d59d9daf7 ::
      IO ()
 
@@ -38,7 +38,7 @@ cϒ ::
      IO ()
 cϒ = hs_bindgen_1814d14d59d9daf7
 
--- | __unique:__ @test_edgecasesadios_Example_Unsafe_拜拜@
+-- __unique:__ @test_edgecasesadios_Example_Unsafe_拜拜@
 foreign import ccall unsafe "hs_bindgen_c1ab9527e537714b" hs_bindgen_c1ab9527e537714b ::
      IO ()
 
@@ -52,7 +52,7 @@ foreign import ccall unsafe "hs_bindgen_c1ab9527e537714b" hs_bindgen_c1ab9527e53
      IO ()
 拜拜 = hs_bindgen_c1ab9527e537714b
 
--- | __unique:__ @test_edgecasesadios_Example_Unsafe_Say拜拜@
+-- __unique:__ @test_edgecasesadios_Example_Unsafe_Say拜拜@
 foreign import ccall unsafe "hs_bindgen_d532055af9051fad" hs_bindgen_d532055af9051fad ::
      IO ()
 

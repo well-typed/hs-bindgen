@@ -21,7 +21,7 @@
 -- {
 --   return &_acos;
 -- }
--- | __unique:__ @test_edgecasesordinary_anon_paren_Example_Safe__acos@
+-- __unique:__ @test_edgecasesordinary_anon_paren_Example_Safe__acos@
 foreign import ccall safe "hs_bindgen_06a412f170b5ff91" hs_bindgen_06a412f170b5ff91 :: CDouble ->
                                                                                        IO CDouble
 {-| __C declaration:__ @_acos@
@@ -38,7 +38,7 @@ _acos :: CDouble -> IO CDouble
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
 _acos = hs_bindgen_06a412f170b5ff91
--- | __unique:__ @test_edgecasesordinary_anon_paren_Example_Unsafe__acos@
+-- __unique:__ @test_edgecasesordinary_anon_paren_Example_Unsafe__acos@
 foreign import ccall safe "hs_bindgen_dca60678b5047ee4" hs_bindgen_dca60678b5047ee4 :: CDouble ->
                                                                                        IO CDouble
 {-| __C declaration:__ @_acos@
@@ -55,7 +55,7 @@ _acos :: CDouble -> IO CDouble
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}
 _acos = hs_bindgen_dca60678b5047ee4
--- | __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos@
+-- __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos@
 foreign import ccall safe "hs_bindgen_147bbeebcb063844" hs_bindgen_147bbeebcb063844 :: IO (FunPtr (CDouble ->
                                                                                                    IO CDouble))
 {-# NOINLINE _acos #-}

@@ -21,7 +21,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_typesprimitivesbool_c23_Example_get_b@
+-- __unique:__ @test_typesprimitivesbool_c23_Example_get_b@
 foreign import ccall unsafe "hs_bindgen_31e1e443379b061b" hs_bindgen_31e1e443379b061b ::
      IO (Ptr.Ptr FC.CBool)
 

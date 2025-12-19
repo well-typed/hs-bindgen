@@ -112,7 +112,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "}"
   ]))
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_quux@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_quux@
 foreign import ccall safe "hs_bindgen_d345c332b6547629" hs_bindgen_d345c332b6547629 ::
      F
   -> FC.CChar
@@ -132,7 +132,7 @@ quux ::
   -> IO FC.CChar
 quux = hs_bindgen_d345c332b6547629
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_wam@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_wam@
 foreign import ccall safe "hs_bindgen_195036c94aad554b" hs_bindgen_195036c94aad554b ::
      FC.CFloat
   -> Ptr.Ptr C
@@ -152,7 +152,7 @@ wam ::
   -> IO (Ptr.Ptr C)
 wam = hs_bindgen_195036c94aad554b
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_foo1@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_foo1@
 foreign import ccall safe "hs_bindgen_a40b504a8f7c1d11" hs_bindgen_a40b504a8f7c1d11 ::
      FC.CFloat
   -> Ptr.FunPtr (FC.CInt -> IO FC.CInt)
@@ -172,7 +172,7 @@ foo1 ::
   -> IO (Ptr.Ptr FC.CChar)
 foo1 = hs_bindgen_a40b504a8f7c1d11
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_foo2@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_foo2@
 foreign import ccall safe "hs_bindgen_83392129a2035c99" hs_bindgen_83392129a2035c99 ::
      F
   -> Ptr.FunPtr (FC.CInt -> IO FC.CInt)
@@ -192,7 +192,7 @@ foo2 ::
   -> IO (Ptr.Ptr FC.CChar)
 foo2 = hs_bindgen_83392129a2035c99
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_foo3@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_foo3@
 foreign import ccall safe "hs_bindgen_0c7f4bce7905d355" hs_bindgen_0c7f4bce7905d355 ::
      FC.CFloat
   -> Ptr.FunPtr (FC.CInt -> IO FC.CInt)
@@ -212,7 +212,7 @@ foo3 ::
   -> IO (Ptr.Ptr C)
 foo3 = hs_bindgen_0c7f4bce7905d355
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar1@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar1@
 foreign import ccall safe "hs_bindgen_3471ca0525deb2c0" hs_bindgen_3471ca0525deb2c0 ::
      FC.CLong
   -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))
@@ -229,7 +229,7 @@ bar1 ::
   -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))
 bar1 = hs_bindgen_3471ca0525deb2c0
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar2@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar2@
 foreign import ccall safe "hs_bindgen_d5a4af88f772ff72" hs_bindgen_d5a4af88f772ff72 ::
      L
   -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))
@@ -246,7 +246,7 @@ bar2 ::
   -> IO (Ptr.FunPtr (FC.CShort -> IO FC.CInt))
 bar2 = hs_bindgen_d5a4af88f772ff72
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar3@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar3@
 foreign import ccall safe "hs_bindgen_b289d62136acab77" hs_bindgen_b289d62136acab77 ::
      FC.CLong
   -> IO (Ptr.FunPtr (S -> IO FC.CInt))
@@ -263,7 +263,7 @@ bar3 ::
   -> IO (Ptr.FunPtr (S -> IO FC.CInt))
 bar3 = hs_bindgen_b289d62136acab77
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar4@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_bar4@
 foreign import ccall safe "hs_bindgen_2b5b36cf49f0e40e" hs_bindgen_2b5b36cf49f0e40e ::
      FC.CLong
   -> IO (Ptr.FunPtr (FC.CShort -> IO I))
@@ -280,7 +280,7 @@ bar4 ::
   -> IO (Ptr.FunPtr (FC.CShort -> IO I))
 bar4 = hs_bindgen_2b5b36cf49f0e40e
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz1@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz1@
 foreign import ccall safe "hs_bindgen_b56f5f3515f3cc33" hs_bindgen_b56f5f3515f3cc33 ::
      FC.CInt
   -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
@@ -297,7 +297,7 @@ baz1 ::
   -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 baz1 = hs_bindgen_b56f5f3515f3cc33
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz2@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz2@
 foreign import ccall safe "hs_bindgen_0b9b2e4d1699b6f3" hs_bindgen_0b9b2e4d1699b6f3 ::
      I
   -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
@@ -314,7 +314,7 @@ baz2 ::
   -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 baz2 = hs_bindgen_0b9b2e4d1699b6f3
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz3@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_baz3@
 foreign import ccall safe "hs_bindgen_459eabcbd019687c" hs_bindgen_459eabcbd019687c ::
      FC.CInt
   -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I)))
@@ -331,7 +331,7 @@ baz3 ::
   -> IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 2) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) I)))
 baz3 = hs_bindgen_459eabcbd019687c
 
--- | __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_no_args_no_void@
+-- __unique:__ @test_macrosmacro_in_fundecl_Example_Safe_no_args_no_void@
 foreign import ccall safe "hs_bindgen_7ae4ab0ad4fb8cad" hs_bindgen_7ae4ab0ad4fb8cad ::
      IO I
 

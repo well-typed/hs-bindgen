@@ -6,7 +6,7 @@
 -- {
 --   return &b;
 -- }
--- | __unique:__ @test_typesprimitivesbool_c23_Example_get_b@
+-- __unique:__ @test_typesprimitivesbool_c23_Example_get_b@
 foreign import ccall safe "hs_bindgen_31e1e443379b061b" hs_bindgen_31e1e443379b061b :: IO (Ptr CBool)
 {-# NOINLINE b #-}
 {-| __C declaration:__ @b@
