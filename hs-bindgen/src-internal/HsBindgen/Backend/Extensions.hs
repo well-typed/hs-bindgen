@@ -96,6 +96,7 @@ globalExtensions = \case
     NomEq_class -> Set.singleton TH.TypeOperators
     HasField_class -> Set.singleton TH.UndecidableInstances
     HasBaseForeignType_class -> Set.singleton TH.UndecidableInstances
+    Prim_class -> Set.singleton TH.UnboxedTuples
     _ -> mempty
 
 exprExtensions :: SExpr ctx -> Set TH.Extension
