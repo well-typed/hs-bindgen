@@ -60,6 +60,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: B_s
@@ -69,6 +70,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: C
@@ -78,6 +80,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: D
@@ -87,6 +90,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: E_s
@@ -96,6 +100,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: F
@@ -105,6 +110,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: G
@@ -114,6 +120,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: H
@@ -123,6 +130,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct1
@@ -132,6 +140,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct2_s
@@ -141,6 +150,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct3
@@ -150,6 +160,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct4
@@ -159,6 +170,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Struct5_s
@@ -168,6 +180,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Typedef1
@@ -177,6 +190,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Typedef2
@@ -186,6 +200,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Typedef3
@@ -195,5 +210,6 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

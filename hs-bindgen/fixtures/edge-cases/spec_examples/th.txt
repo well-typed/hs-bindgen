@@ -53,6 +53,7 @@ newtype Int16_T
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -84,6 +85,7 @@ newtype Int32_T
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -115,6 +117,7 @@ newtype Int64_T
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -164,6 +167,29 @@ instance Storable Cint16_T
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Cint16_T cint16_T_re_3
                                             cint16_T_im_4 -> pokeCField (Proxy @"cint16_T_re") ptr_1 cint16_T_re_3 >> pokeCField (Proxy @"cint16_T_im") ptr_1 cint16_T_im_4
+instance Prim Cint16_T
+    where sizeOf# = \_ -> 4# :: Int#
+          alignment# = \_ -> 2# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Cint16_T (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       Cint16_T v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      Cint16_T cint16_T_re_13
+                                                                               cint16_T_im_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) cint16_T_re_13 s_12 of
+                                                                                                 s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) cint16_T_im_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> Cint16_T (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            Cint16_T v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      Cint16_T cint16_T_re_29
+                                                                               cint16_T_im_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) cint16_T_re_29 s_28 of
+                                                                                                 s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) cint16_T_im_30 s_31
 instance HasCField Cint16_T "cint16_T_re"
     where type CFieldType Cint16_T "cint16_T_re" = Int16_T
           offset# = \_ -> \_ -> 0
@@ -197,6 +223,17 @@ instance Storable B
           peek = \ptr_0 -> pure B
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    B -> return ()
+instance Prim B
+    where sizeOf# = \_ -> 0# :: Int#
+          alignment# = \_ -> 1# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> B
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, B #)
+          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
+                                                                   B -> s_8
+          indexOffAddr# = \addr_9 -> \i_10 -> B
+          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, B #)
+          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
+                                                                      B -> s_17
 {-| __C declaration:__ @A@
 
     __defined at:__ @edge-cases\/spec_examples.h:23:8@

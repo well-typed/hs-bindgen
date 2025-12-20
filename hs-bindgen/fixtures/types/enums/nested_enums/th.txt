@@ -21,6 +21,7 @@ instance Storable EnumA
           peek = \ptr_0 -> pure EnumA <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    EnumA un_EnumA_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumA_3
+deriving via CUInt instance Prim EnumA
 instance CEnum EnumA
     where type CEnumZ EnumA = CUInt
           toCEnum = EnumA
@@ -120,6 +121,7 @@ instance Storable ExB_fieldB1
           peek = \ptr_0 -> pure ExB_fieldB1 <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    ExB_fieldB1 un_ExB_fieldB1_3 -> pokeByteOff ptr_1 (0 :: Int) un_ExB_fieldB1_3
+deriving via CUInt instance Prim ExB_fieldB1
 instance CEnum ExB_fieldB1
     where type CEnumZ ExB_fieldB1 = CUInt
           toCEnum = ExB_fieldB1

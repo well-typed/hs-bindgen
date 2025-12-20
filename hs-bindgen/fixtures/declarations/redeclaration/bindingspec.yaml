@@ -35,6 +35,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -47,6 +48,7 @@ hstypes:
       - x_n
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: 'Y'

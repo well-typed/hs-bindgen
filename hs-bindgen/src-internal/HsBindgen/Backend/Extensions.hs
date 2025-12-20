@@ -1,4 +1,5 @@
 {-# LANGUAGE MagicHash #-}
+
 module HsBindgen.Backend.Extensions (
     requiredExtensions,
 ) where
@@ -95,6 +96,7 @@ globalExtensions = \case
     NomEq_class -> Set.singleton TH.TypeOperators
     HasField_class -> Set.singleton TH.UndecidableInstances
     HasBaseForeignType_class -> Set.singleton TH.UndecidableInstances
+    Prim_class -> Set.singleton TH.UnboxedTuples
     _ -> mempty
 
 exprExtensions :: SExpr ctx -> Set TH.Extension
@@ -104,6 +106,7 @@ exprExtensions = \case
     EFree{} -> mempty
     ECon{} -> mempty
     EIntegral{} -> mempty
+    EUnboxedIntegral{} -> mempty
     EChar {} -> mempty
     EString {} -> mempty
     ECString {} -> Set.singleton TH.MagicHash
@@ -116,10 +119,18 @@ exprExtensions = \case
     EUnusedLam body -> exprExtensions body
     ECase x alts -> mconcat $
         exprExtensions x
-      : [ exprExtensions body
-        | SAlt _con _add _hints body <- alts
+      : [ case alt of
+            SAlt _con _add _hints body ->
+              exprExtensions body
+            SAltNoConstr _hints body ->
+              exprExtensions body
+            SAltUnboxedTuple _add _hints body ->
+              Set.fromList [TH.UnboxedTuples, TH.MagicHash] <> exprExtensions body
+        | alt <- alts
         ]
     ETup xs -> foldMap exprExtensions xs
+    EUnboxedTup xs -> Set.fromList [TH.UnboxedTuples, TH.MagicHash]
+                   <> foldMap exprExtensions xs
     EList xs -> foldMap exprExtensions xs
     ETypeApp f t -> Set.singleton TH.TypeApplications <> exprExtensions f <> typeExtensions t
 

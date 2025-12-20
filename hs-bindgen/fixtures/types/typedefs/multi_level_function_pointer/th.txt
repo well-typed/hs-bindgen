@@ -284,6 +284,7 @@ newtype MyInt
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,

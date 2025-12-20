@@ -16,6 +16,7 @@ newtype Foo
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Enum,
                       Floating,
                       Fractional,
@@ -29,6 +30,7 @@ instance Storable Foo
           peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Foo un_Foo_3 -> pokeByteOff ptr_1 (0 :: Int) un_Foo_3
+deriving via CUInt instance Prim Foo
 instance CEnum Foo
     where type CEnumZ Foo = CUInt
           toCEnum = Foo
@@ -94,6 +96,7 @@ newtype Foo
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Enum,
                       Floating,
                       Fractional,

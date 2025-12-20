@@ -1,4 +1,3 @@
-{-# LANGUAGE MagicHash #-}
 
 -- | Haskell AST
 --
@@ -19,6 +18,7 @@ module HsBindgen.Backend.Hs.AST (
   , HsType(..)
     -- * Variable binding
   , Lambda(..)
+  , Apply(..)
   , Ap(..)
     -- * Declarations
   , Decl(..)
@@ -47,6 +47,17 @@ module HsBindgen.Backend.Hs.AST (
   , StorableInstance(..)
   , PeekCField(..)
   , PokeCField(..)
+    -- ** 'Prim'
+  , PrimInstance(..)
+  , IndexPrimFieldData(..)
+  , IndexByteArrayField(..)
+  , IndexOffAddrField(..)
+  , ReadPrimFieldsData(..)
+  , ReadByteArrayFields(..)
+  , ReadOffAddrFields(..)
+  , WritePrimFieldsData(..)
+  , WriteByteArrayFields(..)
+  , WriteOffAddrFields(..)
     -- ** 'HasCField'
   , HasCFieldInstance(..)
     -- ** 'HasCBitfield'
@@ -197,8 +208,15 @@ data Lambda t ctx = Lambda
 
 deriving instance Show (t (S ctx)) => Show (Lambda t ctx)
 
--- | Applicative structure
+-- | Direct application (non-applicative)
+--
+-- Unlike 'Ap' which uses applicative composition (<*>), DirectApply directly
+-- applies a constructor to a list of expressions.
+--
+data Apply pure xs ctx = Apply (pure ctx) [xs ctx]
+  deriving stock (Generic, Show)
 
+-- | Applicative structure
 data Ap pure xs ctx = Ap (pure ctx) [xs ctx]
   deriving stock (Generic, Show)
 
@@ -235,6 +253,7 @@ data DefineInstance =
 type InstanceDecl :: Star
 data InstanceDecl where
     InstanceStorable :: Struct n -> StorableInstance -> InstanceDecl
+    InstancePrim :: Struct n -> PrimInstance -> InstanceDecl
     InstanceHasCField :: HasCFieldInstance -> InstanceDecl
     InstanceHasCBitfield :: HasCBitfieldInstance -> InstanceDecl
     InstanceHasField :: HasFieldInstance -> InstanceDecl
@@ -376,6 +395,151 @@ data PokeCField ctx =
     PokeCField HsType (Idx ctx) (Idx ctx)
   | PokeCBitfield HsType (Idx ctx) (Idx ctx)
   | PokeByteOff (Idx ctx) Int (Idx ctx)
+  deriving stock (Generic, Show)
+
+{-------------------------------------------------------------------------------
+  'Prim'
+-------------------------------------------------------------------------------}
+
+-- | Prim instance for a struct
+--
+-- Generates explicit implementations of all Prim methods for structs
+-- where all fields are Prim instances.
+--
+-- Unlike Storable which uses byte offsets and pointer operations, Prim uses
+-- element indices and direct primitive operations. The key difference:
+--
+-- * Storable: @peekByteOff ptr byteOffset@
+-- * Prim: @indexByteArray# arr# (numFields# *# i# +# fieldPos#)@
+--
+-- <https://hackage.haskell.org/package/primitive/docs/Data-Primitive-Types.html#t:Prim>
+--
+type PrimInstance :: Star
+data PrimInstance = PrimInstance
+    { primSizeOf           :: Int  -- ^ Total size in bytes
+    , primAlignment        :: Int  -- ^ Alignment requirement
+    -- | indexByteArray# :: ByteArray# -> Int# -> a
+    -- Takes array and element index, returns struct by indexing each field
+    -- Body: StructCon with direct field calls (no applicative)
+    , primIndexByteArray   :: Lambda (Lambda (Apply StructCon IndexByteArrayField)) EmptyCtx
+    -- | readByteArray# :: MutableByteArray# s -> Int# -> State# s -> (# State# s, a #)
+    -- Takes array, element index, and state; returns new state and struct
+    , primReadByteArray    :: Lambda (Lambda (Lambda ReadByteArrayFields)) EmptyCtx
+    -- | writeByteArray# :: MutableByteArray# s -> Int# -> a -> State# s -> State# s
+    -- Takes array, element index, struct value, and state; returns new state
+    , primWriteByteArray   :: Lambda (Lambda (Lambda (Lambda (ElimStruct WriteByteArrayFields)))) EmptyCtx
+    -- | indexOffAddr# :: Addr# -> Int# -> a
+    -- Takes address and element index, returns struct by indexing each field
+    -- Body: StructCon with direct field calls (no applicative)
+    , primIndexOffAddr     :: Lambda (Lambda (Apply StructCon IndexOffAddrField)) EmptyCtx
+    -- | readOffAddr# :: Addr# -> Int# -> State# s -> (# State# s, a #)
+    -- Takes address, element index, and state; returns new state and struct
+    , primReadOffAddr      :: Lambda (Lambda (Lambda ReadOffAddrFields)) EmptyCtx
+    -- | writeOffAddr# :: Addr# -> Int# -> a -> State# s -> State# s
+    -- Takes address, element index, struct value, and state; returns new state
+    , primWriteOffAddr     :: Lambda (Lambda (Lambda (Lambda (ElimStruct WriteOffAddrFields)))) EmptyCtx
+    }
+  deriving stock (Generic, Show)
+
+-- | Common field metadata for indexing operations
+--
+data IndexPrimFieldData ctx = IndexPrimFieldData
+    { indexFieldType :: HsType  -- ^ Field type
+    , indexFieldArg1 :: Idx ctx -- ^ First argument variable
+    , indexFieldArg2 :: Idx ctx -- ^ Second argument variable
+    , indexFieldPos  :: Int     -- ^ Field position (0-based)
+    , indexNumFields :: Int     -- ^ Total number of fields
+    }
+  deriving stock (Generic, Show)
+
+-- | Index a field from ByteArray# using indexByteArray#
+--
+-- For a struct with n fields at element index i, field f is at position: n*i + f
+-- Example: @indexByteArray# arr# (3# *# i# +# 1#)@ for field 1 of a 3-field struct
+--
+type IndexByteArrayField :: Ctx -> Star
+newtype IndexByteArrayField ctx =
+  IndexByteArrayField { getIndexByteArrayFieldData :: IndexPrimFieldData ctx }
+  deriving stock (Generic, Show)
+
+-- | Index a field from Addr# using indexOffAddr#
+--
+-- For a struct with n fields at element index i, field f is at position: n*i + f
+-- Example: @indexOffAddr# addr# (3# *# i# +# 1#)@ for field 1 of a 3-field struct
+type IndexOffAddrField :: Ctx -> Star
+newtype IndexOffAddrField ctx =
+  IndexOffAddrField { getIndexOffAddrFieldData :: IndexPrimFieldData ctx }
+  deriving stock (Generic, Show)
+
+-- | Common field metadata for read operations
+--
+data ReadPrimFieldsData ctx = ReadPrimFieldsData
+    { readFields     :: [(HsType, Int)] -- ^ Fields: (type, position)
+    , readFieldsArg1 :: Idx ctx         -- ^ First argument variable
+    , readFieldsArg2 :: Idx ctx         -- ^ Second argument variable
+    , readFieldsArg3 :: Idx ctx         -- ^ Third argument variable
+    , readNumFields  :: Int             -- ^ Total number of fields
+    }
+  deriving stock (Generic, Show)
+
+-- | Read fields from MutableByteArray# with state threading
+--
+-- Generates nested case expressions to thread State# through multiple reads:
+--
+-- > case readByteArray# arr# (n# *# i# +# 0#) s0 of
+-- >   (# s1, x #) -> case readByteArray# arr# (n# *# i# +# 1#) s1 of
+-- >     (# s2, y #) -> (# s2, Struct x y #)
+--
+type ReadByteArrayFields :: Ctx -> Star
+data ReadByteArrayFields ctx =
+  ReadByteArrayFields { getReadByteArrayFieldData :: ReadPrimFieldsData ctx }
+  deriving stock (Generic, Show)
+
+-- | Read fields from Addr# with state threading
+--
+-- Generates nested case expressions to thread State# through multiple reads:
+--
+-- > case readOffAddr# addr# (n# *# i# +# 0#) s0 of
+-- >   (# s1, x #) -> case readOffAddr# addr# (n# *# i# +# 1#) s1 of
+-- >     (# s2, y #) -> (# s2, Struct x y #)
+--
+type ReadOffAddrFields :: Ctx -> Star
+data ReadOffAddrFields ctx =
+  ReadOffAddrFields { getReadOffAddrFieldData :: ReadPrimFieldsData ctx }
+  deriving stock (Generic, Show)
+
+-- | Common field metadata for write operations
+data WritePrimFieldsData ctx = WritePrimFieldsData
+    { writeFields     :: [(HsType, Int, Idx ctx)] -- ^ Fields: (type, position, value variable)
+    , writeFieldsArg1 :: Idx ctx                  -- ^ First argument variable
+    , writeFieldsArg2 :: Idx ctx                  -- ^ Second argument variable
+    , writeFieldsArg3 :: Idx ctx                  -- ^ Third argument variable
+    , writeNumFields  :: Int                      -- ^ Total number of fields
+    }
+  deriving stock (Generic, Show)
+
+-- | Write fields to MutableByteArray# with state threading
+--
+-- Generates sequential writes that thread State# through:
+--
+-- > case writeByteArray# arr# (n# *# i# +# 0#) x s0 of
+-- >   s1 -> writeByteArray# arr# (n# *# i# +# 1#) y s1
+--
+type WriteByteArrayFields :: Ctx -> Star
+data WriteByteArrayFields ctx =
+  WriteByteArrayFields { getWriteByteArrayFieldData :: WritePrimFieldsData ctx }
+  deriving stock (Generic, Show)
+
+-- | Write fields to Addr# with state threading
+--
+-- Generates sequential writes that thread State# through:
+--
+-- > case writeOffAddr# addr# (n# *# i# +# 0#) x s0 of
+-- >   s1 -> writeOffAddr# addr# (n# *# i# +# 1#) y s1
+--
+type WriteOffAddrFields :: Ctx -> Star
+data WriteOffAddrFields ctx =
+  WriteOffAddrFields { writeAddrFieldData :: WritePrimFieldsData ctx }
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------

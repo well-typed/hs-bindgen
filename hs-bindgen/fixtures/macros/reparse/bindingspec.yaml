@@ -134,6 +134,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -194,6 +195,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -216,6 +218,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -329,6 +332,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -351,6 +355,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -531,6 +536,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -582,6 +588,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Some_union
@@ -610,6 +617,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show

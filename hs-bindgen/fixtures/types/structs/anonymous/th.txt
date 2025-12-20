@@ -30,6 +30,29 @@ instance Storable S1_c
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S1_c s1_c_a_3
                                         s1_c_b_4 -> pokeCField (Proxy @"s1_c_a") ptr_1 s1_c_a_3 >> pokeCField (Proxy @"s1_c_b") ptr_1 s1_c_b_4
+instance Prim S1_c
+    where sizeOf# = \_ -> 8# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> S1_c (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       S1_c v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      S1_c s1_c_a_13
+                                                                           s1_c_b_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) s1_c_a_13 s_12 of
+                                                                                        s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) s1_c_b_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> S1_c (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            S1_c v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      S1_c s1_c_a_29
+                                                                           s1_c_b_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) s1_c_a_29 s_28 of
+                                                                                        s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) s1_c_b_30 s_31
 instance HasCField S1_c "s1_c_a"
     where type CFieldType S1_c "s1_c_a" = CInt
           offset# = \_ -> \_ -> 0
@@ -77,6 +100,29 @@ instance Storable S1
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S1 s1_c_3
                                       s1_d_4 -> pokeCField (Proxy @"s1_c") ptr_1 s1_c_3 >> pokeCField (Proxy @"s1_d") ptr_1 s1_d_4
+instance Prim S1
+    where sizeOf# = \_ -> 12# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> S1 (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       S1 v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      S1 s1_c_13
+                                                                         s1_d_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) s1_c_13 s_12 of
+                                                                                    s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) s1_d_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> S1 (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            S1 v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      S1 s1_c_29
+                                                                         s1_d_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) s1_c_29 s_28 of
+                                                                                    s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) s1_d_30 s_31
 instance HasCField S1 "s1_c"
     where type CFieldType S1 "s1_c" = S1_c
           offset# = \_ -> \_ -> 0
@@ -112,6 +158,20 @@ instance Storable S2_inner_deep
           peek = \ptr_0 -> pure S2_inner_deep <*> peekCField (Proxy @"s2_inner_deep_b") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S2_inner_deep s2_inner_deep_b_3 -> pokeCField (Proxy @"s2_inner_deep_b") ptr_1 s2_inner_deep_b_3
+instance Prim S2_inner_deep
+    where sizeOf# = \_ -> 4# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> S2_inner_deep (indexByteArray# arr_0 i_1)
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
+                                                     (# s_5, v_6 #) -> (# s_5, S2_inner_deep v_6 #)
+          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
+                                                                    S2_inner_deep s2_inner_deep_b_11 -> writeByteArray# arr_7 i_8 s2_inner_deep_b_11 s_10
+          indexOffAddr# = \addr_12 -> \i_13 -> S2_inner_deep (indexOffAddr# addr_12 i_13)
+          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
+                                                       (# s_17, v_18 #) -> (# s_17,
+                                                                              S2_inner_deep v_18 #)
+          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
+                                                                      S2_inner_deep s2_inner_deep_b_23 -> writeOffAddr# addr_19 i_20 s2_inner_deep_b_23 s_22
 instance HasCField S2_inner_deep "s2_inner_deep_b"
     where type CFieldType S2_inner_deep "s2_inner_deep_b" = CInt
           offset# = \_ -> \_ -> 0
@@ -149,6 +209,29 @@ instance Storable S2_inner
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S2_inner s2_inner_a_3
                                             s2_inner_deep_4 -> pokeCField (Proxy @"s2_inner_a") ptr_1 s2_inner_a_3 >> pokeCField (Proxy @"s2_inner_deep") ptr_1 s2_inner_deep_4
+instance Prim S2_inner
+    where sizeOf# = \_ -> 8# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> S2_inner (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       S2_inner v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      S2_inner s2_inner_a_13
+                                                                               s2_inner_deep_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) s2_inner_a_13 s_12 of
+                                                                                                   s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) s2_inner_deep_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> S2_inner (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            S2_inner v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      S2_inner s2_inner_a_29
+                                                                               s2_inner_deep_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) s2_inner_a_29 s_28 of
+                                                                                                   s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) s2_inner_deep_30 s_31
 instance HasCField S2_inner "s2_inner_a"
     where type CFieldType S2_inner "s2_inner_a" = CInt
           offset# = \_ -> \_ -> 0
@@ -196,6 +279,29 @@ instance Storable S2
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S2 s2_inner_3
                                       s2_d_4 -> pokeCField (Proxy @"s2_inner") ptr_1 s2_inner_3 >> pokeCField (Proxy @"s2_d") ptr_1 s2_d_4
+instance Prim S2
+    where sizeOf# = \_ -> 12# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> S2 (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       S2 v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      S2 s2_inner_13
+                                                                         s2_d_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) s2_inner_13 s_12 of
+                                                                                    s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) s2_d_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> S2 (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            S2 v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      S2 s2_inner_29
+                                                                         s2_d_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) s2_inner_29 s_28 of
+                                                                                    s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) s2_d_30 s_31
 instance HasCField S2 "s2_inner"
     where type CFieldType S2 "s2_inner" = S2_inner
           offset# = \_ -> \_ -> 0
@@ -286,6 +392,29 @@ instance Storable S3_c
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S3_c s3_c_a_3
                                         s3_c_b_4 -> pokeCField (Proxy @"s3_c_a") ptr_1 s3_c_a_3 >> pokeCField (Proxy @"s3_c_b") ptr_1 s3_c_b_4
+instance Prim S3_c
+    where sizeOf# = \_ -> 8# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> S3_c (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       S3_c v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      S3_c s3_c_a_13
+                                                                           s3_c_b_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) s3_c_a_13 s_12 of
+                                                                                        s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) s3_c_b_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> S3_c (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            S3_c v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      S3_c s3_c_a_29
+                                                                           s3_c_b_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) s3_c_a_29 s_28 of
+                                                                                        s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) s3_c_b_30 s_31
 instance HasCField S3_c "s3_c_a"
     where type CFieldType S3_c "s3_c_a" = CInt
           offset# = \_ -> \_ -> 0

@@ -38,6 +38,7 @@ hstypes:
       fields: []
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Foo

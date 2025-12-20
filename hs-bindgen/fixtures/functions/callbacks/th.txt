@@ -638,6 +638,29 @@ instance Storable Measurement
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Measurement measurement_value_3
                                                measurement_timestamp_4 -> pokeCField (Proxy @"measurement_value") ptr_1 measurement_value_3 >> pokeCField (Proxy @"measurement_timestamp") ptr_1 measurement_timestamp_4
+instance Prim Measurement
+    where sizeOf# = \_ -> 16# :: Int#
+          alignment# = \_ -> 8# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Measurement (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       Measurement v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      Measurement measurement_value_13
+                                                                                  measurement_timestamp_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) measurement_value_13 s_12 of
+                                                                                                              s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) measurement_timestamp_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> Measurement (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            Measurement v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      Measurement measurement_value_29
+                                                                                  measurement_timestamp_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) measurement_value_29 s_28 of
+                                                                                                              s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) measurement_timestamp_30 s_31
 instance HasCField Measurement "measurement_value"
     where type CFieldType Measurement "measurement_value" = CDouble
           offset# = \_ -> \_ -> 0
@@ -983,6 +1006,7 @@ newtype ProcessorCallback
       -}
 deriving via (SizedByteArray 8
                              8) instance Storable ProcessorCallback
+deriving via (SizedByteArray 8 8) instance Prim ProcessorCallback
 {-|
 
   __See:__ 'set_processorCallback_simple'
@@ -1146,6 +1170,7 @@ instance Storable Processor_mode
           peek = \ptr_0 -> pure Processor_mode <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Processor_mode un_Processor_mode_3 -> pokeByteOff ptr_1 (0 :: Int) un_Processor_mode_3
+deriving via CUInt instance Prim Processor_mode
 instance CEnum Processor_mode
     where type CEnumZ Processor_mode = CUInt
           toCEnum = Processor_mode
@@ -1273,6 +1298,7 @@ newtype Foo
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -1304,6 +1330,7 @@ newtype Foo2
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,

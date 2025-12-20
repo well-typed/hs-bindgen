@@ -251,6 +251,7 @@ resolveExprImports = \case
     EFree {} -> mempty
     ECon _n -> mempty
     EIntegral _ t -> maybe mempty resolvePrimTypeImports t
+    EUnboxedIntegral _ -> mempty
     EChar {} -> mconcat $ map resolveGlobalImports
                   [ CharValue_tycon
                   , CharValue_constructor
@@ -270,10 +271,14 @@ resolveExprImports = \case
     EUnusedLam body -> resolveExprImports body
     ECase x alts -> mconcat $
         resolveExprImports x
-      : [ resolveExprImports body
-        | SAlt _con _add _hints body <- alts
+      : [ case alt of
+            SAlt _con _add _hints body -> resolveExprImports body
+            SAltNoConstr _hints body -> resolveExprImports body
+            SAltUnboxedTuple _add _hints body -> resolveExprImports body
+        | alt <- alts
         ]
     ETup xs -> foldMap resolveExprImports xs
+    EUnboxedTup xs -> foldMap resolveExprImports xs
     EList xs -> foldMap resolveExprImports xs
     ETypeApp f t -> resolveExprImports f <> resolveTypeImports t
 

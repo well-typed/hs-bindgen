@@ -103,6 +103,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -125,6 +126,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -138,6 +140,7 @@ hstypes:
       - measurement_timestamp
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: MeasurementHandler

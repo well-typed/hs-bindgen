@@ -16,5 +16,6 @@ hstypes:
       - struct2_x
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

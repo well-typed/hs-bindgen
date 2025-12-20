@@ -31,6 +31,7 @@ import Foreign qualified
 import Foreign.C qualified
 import Foreign.C.String qualified
 import Foreign.Ptr qualified
+import GHC.Base qualified
 import GHC.Float qualified
 import GHC.Ptr qualified
 import GHC.Records qualified
@@ -344,6 +345,19 @@ resolveGlobal = \case
     ConstPtr_constructor -> importQ 'HsBindgen.Runtime.ConstPtr.ConstPtr
     ConstPtr_unConstPtr  -> importQ 'HsBindgen.Runtime.ConstPtr.unConstPtr
 
+    -- Prim
+    Prim_class           -> importQ ''Primitive.Prim
+    Prim_sizeOf#         -> importQ 'Primitive.sizeOf#
+    Prim_alignment#      -> importQ 'Primitive.alignment#
+    Prim_indexByteArray# -> importQ 'Primitive.indexByteArray#
+    Prim_readByteArray#  -> importQ 'Primitive.readByteArray#
+    Prim_writeByteArray# -> importQ 'Primitive.writeByteArray#
+    Prim_indexOffAddr#   -> importQ 'Primitive.indexOffAddr#
+    Prim_readOffAddr#    -> importQ 'Primitive.readOffAddr#
+    Prim_writeOffAddr#   -> importQ 'Primitive.writeOffAddr#
+    Prim_add#            -> importU '(GHC.Base.+#)
+    Prim_mul#            -> importU '(GHC.Base.*#)
+
     Bits_class        -> importQ ''Data.Bits.Bits
     Bounded_class     -> importU ''Bounded
     Enum_class        -> importU ''Enum
@@ -355,7 +369,6 @@ resolveGlobal = \case
     Ix_class          -> importQ ''Data.Ix.Ix
     Num_class         -> importU ''Num
     Ord_class         -> importU ''Ord
-    Prim_class        -> importQ ''Primitive.Prim
     Read_class        -> importU ''Read
     Read_readPrec     -> importQ 'Text.Read.readPrec
     Read_readList     -> importQ 'Text.Read.readList

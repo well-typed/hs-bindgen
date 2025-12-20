@@ -1,4 +1,5 @@
 {-# LANGUAGE MagicHash #-}
+{-# LANGUAGE UnboxedTuples #-}
 
 -- | Simplified HS translation (from high level HS)
 module HsBindgen.Backend.SHs.Translation (
@@ -19,10 +20,11 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Macro
+import HsBindgen.Backend.SHs.Translation.Common
+import HsBindgen.Backend.SHs.Translation.Prim qualified as SHsPrim
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.NameHint
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -68,6 +70,7 @@ translateDefineInstanceDecl :: Hs.DefineInstance -> SDecl
 translateDefineInstanceDecl Hs.DefineInstance {..} =
   case defineInstanceDeclarations of
     Hs.InstanceStorable struct i -> DInst $ translateStorableInstance struct i defineInstanceComment
+    Hs.InstancePrim struct i -> DInst $ SHsPrim.translatePrimInstance struct i defineInstanceComment
     Hs.InstanceHasCField i -> DInst $ translateHasCFieldInstance i defineInstanceComment
     Hs.InstanceHasCBitfield i -> DInst $ translateHasCBitfieldInstance i defineInstanceComment
     Hs.InstanceHasField i -> DInst $ translateHasFieldInstance i defineInstanceComment
@@ -392,20 +395,6 @@ translateHasFieldInstance Hs.HasFieldInstance{..} mbComment = do
     tyTypeVar = TFree $ Hs.ExportedName "ty"
 
 {-------------------------------------------------------------------------------
-  Structs
--------------------------------------------------------------------------------}
-
-translateElimStruct :: (forall ctx'. t ctx' -> SExpr ctx') -> Hs.ElimStruct t ctx -> SExpr ctx
-translateElimStruct f (Hs.ElimStruct x struct add k) = ECase
-    (EBound x)
-    [SAlt (Hs.structConstr struct) add hints (f k)]
-  where
-    hints = fmap (toNameHint . Hs.fieldName) $ Hs.structFields struct
-
-toNameHint :: Hs.Name 'Hs.NsVar -> NameHint
-toNameHint = NameHint . T.unpack . Hs.getName
-
-{-------------------------------------------------------------------------------
   Unions
 -------------------------------------------------------------------------------}
 
@@ -554,31 +543,3 @@ translateCEnumInstanceRead struct mbComment = Instance {
   where
     tcon :: ClosedType
     tcon = TCon $ Hs.structName struct
-
-{-------------------------------------------------------------------------------
-  Internal auxiliary: derived functionality
--------------------------------------------------------------------------------}
-
--- | Apply function to many arguments
-appMany :: Global -> [SExpr ctx] -> SExpr ctx
-appMany = foldl' EApp . EGlobal
-
--- | Struct constructor
-structCon :: Hs.StructCon ctx -> SExpr ctx
-structCon (Hs.StructCon s) = ECon (Hs.structConstr s)
-
--- | Idiom brackets
-idiom :: (pure ctx -> SExpr ctx) -> (xs ctx -> SExpr ctx) -> Hs.Ap pure xs ctx -> SExpr ctx
-idiom f g (Hs.Ap p xs) = foldl'
-    (\ acc x -> EInfix Applicative_seq acc (g x))
-    (EApp (EGlobal Applicative_pure) (f p))
-    xs
-
--- | Translate lambda
-lambda :: (t (S ctx) -> SExpr (S ctx)) -> Hs.Lambda t ctx -> SExpr ctx
-lambda f (Hs.Lambda hint t) = ELam hint (f t)
-
--- | Monad sequencing
-doAll :: (t ctx -> SExpr ctx) -> Hs.Seq t ctx -> SExpr ctx
-doAll _ (Hs.Seq []) = EGlobal Monad_return `EApp` EGlobal (Tuple_constructor 0)
-doAll f (Hs.Seq ss) = foldr1 (EInfix Monad_seq) (map f ss)

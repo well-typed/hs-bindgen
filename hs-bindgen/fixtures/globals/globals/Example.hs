@@ -7,10 +7,12 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -18,6 +20,7 @@ import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Prelude
+import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
@@ -64,6 +67,62 @@ instance F.Storable Config where
           Config config_x2 config_y3 ->
                HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"config_x") ptr0 config_x2
             >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"config_y") ptr0 config_y3
+
+instance Data.Primitive.Types.Prim Config where
+
+  sizeOf# = \_ -> (8#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Config (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Config v4 v6 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Config config_x4 config_y5 ->
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) config_x4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) config_y5 s6
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Config (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Config v4 v6 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Config config_x4 config_y5 ->
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) config_x4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) config_y5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField Config "config_x" where
 
@@ -132,6 +191,62 @@ instance F.Storable Inline_struct where
           Inline_struct inline_struct_x2 inline_struct_y3 ->
                HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"inline_struct_x") ptr0 inline_struct_x2
             >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"inline_struct_y") ptr0 inline_struct_y3
+
+instance Data.Primitive.Types.Prim Inline_struct where
+
+  sizeOf# = \_ -> (8#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Inline_struct (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Inline_struct v4 v6 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Inline_struct inline_struct_x4 inline_struct_y5 ->
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) inline_struct_x4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) inline_struct_y5 s6
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Inline_struct (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Inline_struct v4 v6 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Inline_struct inline_struct_x4 inline_struct_y5 ->
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) inline_struct_x4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) inline_struct_y5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField Inline_struct "inline_struct_x" where
 

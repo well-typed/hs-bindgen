@@ -8,10 +8,12 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
@@ -119,6 +121,36 @@ instance F.Storable Baz where
       \s1 ->
         case s1 of
           Baz -> return ()
+
+instance Data.Primitive.Types.Prim Baz where
+
+  sizeOf# = \_ -> (0#)
+
+  alignment# = \_ -> (1#)
+
+  indexByteArray# = \arr0 -> \i1 -> Baz
+
+  readByteArray# = \arr0 -> \i1 -> \s2 -> (# s2, Baz #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Baz -> s3
+
+  indexOffAddr# = \addr0 -> \i1 -> Baz
+
+  readOffAddr# = \addr0 -> \i1 -> \s2 -> (# s2, Baz #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Baz -> s3
 
 {-| __C declaration:__ @quu@
 

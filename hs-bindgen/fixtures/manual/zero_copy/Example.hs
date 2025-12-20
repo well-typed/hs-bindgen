@@ -10,6 +10,7 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
@@ -17,6 +18,7 @@ module Example where
 import qualified Data.Array.Byte
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -29,6 +31,7 @@ import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.SizedByteArray
 import Data.Bits (FiniteBits)
+import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
@@ -75,6 +78,62 @@ instance F.Storable Point where
           Point point_x2 point_y3 ->
                HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"point_x") ptr0 point_x2
             >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"point_y") ptr0 point_y3
+
+instance Data.Primitive.Types.Prim Point where
+
+  sizeOf# = \_ -> (8#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Point (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Point v4 v6 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Point point_x4 point_y5 ->
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) point_x4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) point_y5 s6
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Point (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Point v4 v6 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Point point_x4 point_y5 ->
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) point_x4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) point_y5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField Point "point_x" where
 
@@ -143,6 +202,62 @@ instance F.Storable Rectangle where
           Rectangle rectangle_topleft2 rectangle_bottomright3 ->
                HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"rectangle_topleft") ptr0 rectangle_topleft2
             >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"rectangle_bottomright") ptr0 rectangle_bottomright3
+
+instance Data.Primitive.Types.Prim Rectangle where
+
+  sizeOf# = \_ -> (16#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Rectangle (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Rectangle v4 v6 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Rectangle rectangle_topleft4 rectangle_bottomright5 ->
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) rectangle_topleft4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) rectangle_bottomright5 s6
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Rectangle (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Rectangle v4 v6 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Rectangle rectangle_topleft4 rectangle_bottomright5 ->
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) rectangle_topleft4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) rectangle_bottomright5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField Rectangle "rectangle_topleft" where
 
@@ -213,6 +328,62 @@ instance F.Storable Circle where
                HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"circle_midpoint") ptr0 circle_midpoint2
             >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"circle_radius") ptr0 circle_radius3
 
+instance Data.Primitive.Types.Prim Circle where
+
+  sizeOf# = \_ -> (12#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Circle (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Circle v4 v6 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Circle circle_midpoint4 circle_radius5 ->
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) circle_midpoint4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) circle_radius5 s6
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Circle (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Circle v4 v6 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Circle circle_midpoint4 circle_radius5 ->
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) circle_midpoint4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) circle_radius5 s6
+
 instance HsBindgen.Runtime.HasCField.HasCField Circle "circle_midpoint" where
 
   type CFieldType Circle "circle_midpoint" = Point
@@ -248,6 +419,8 @@ newtype Shape = Shape
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 4 instance F.Storable Shape
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 4 instance Data.Primitive.Types.Prim Shape
 
 {-|
 
@@ -403,6 +576,96 @@ instance F.Storable Colour where
               >> HsBindgen.Runtime.HasCField.pokeCBitfield (Data.Proxy.Proxy @"colour_green") ptr0 colour_green5
               >> HsBindgen.Runtime.HasCField.pokeCBitfield (Data.Proxy.Proxy @"colour_blue") ptr0 colour_blue6
 
+instance Data.Primitive.Types.Prim Colour where
+
+  sizeOf# = \_ -> (4#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Colour (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (5#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (5#) i1) (1#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (5#) i1) (2#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (5#) i1) (3#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (5#) i1) (4#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (5#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (5#) i1) (1#)) s3 of
+                (# s5, v6 #) ->
+                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (5#) i1) (2#)) s5 of
+                    (# s7, v8 #) ->
+                      case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (5#) i1) (3#)) s7 of
+                        (# s9, v10 #) ->
+                          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (5#) i1) (4#)) s9 of
+                            (# s11, v12 #) -> (# s11, Colour v4 v6 v8 v10 v12 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Colour
+                colour_opacity4
+                colour_brightness5
+                colour_red6
+                colour_green7
+                colour_blue8 ->
+                  case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (5#) i1) (0#)) colour_opacity4 s3 of
+                    s9 ->
+                      case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (5#) i1) (1#)) colour_brightness5 s9 of
+                        s10 ->
+                          case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (5#) i1) (2#)) colour_red6 s10 of
+                            s11 ->
+                              case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (5#) i1) (3#)) colour_green7 s11 of
+                                s12 ->
+                                  Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (5#) i1) (4#)) colour_blue8 s12
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Colour (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (5#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (5#) i1) (1#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (5#) i1) (2#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (5#) i1) (3#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (5#) i1) (4#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (5#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (5#) i1) (1#)) s3 of
+                (# s5, v6 #) ->
+                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (5#) i1) (2#)) s5 of
+                    (# s7, v8 #) ->
+                      case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (5#) i1) (3#)) s7 of
+                        (# s9, v10 #) ->
+                          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (5#) i1) (4#)) s9 of
+                            (# s11, v12 #) -> (# s11, Colour v4 v6 v8 v10 v12 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Colour
+                colour_opacity4
+                colour_brightness5
+                colour_red6
+                colour_green7
+                colour_blue8 ->
+                  case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (5#) i1) (0#)) colour_opacity4 s3 of
+                    s9 ->
+                      case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (5#) i1) (1#)) colour_brightness5 s9 of
+                        s10 ->
+                          case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (5#) i1) (2#)) colour_red6 s10 of
+                            s11 ->
+                              case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (5#) i1) (3#)) colour_green7 s11 of
+                                s12 ->
+                                  Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (5#) i1) (4#)) colour_blue8 s12
+
 instance HsBindgen.Runtime.HasCField.HasCBitfield Colour "colour_opacity" where
 
   type CBitfieldType Colour "colour_opacity" = FC.CUInt
@@ -484,7 +747,7 @@ newtype MyInt = MyInt
   { un_MyInt :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MyInt) "un_MyInt")
          ) => GHC.Records.HasField "un_MyInt" (Ptr.Ptr MyInt) (Ptr.Ptr ty) where
@@ -694,6 +957,54 @@ instance F.Storable Vector where
         case s1 of
           Vector vector_len2 ->
             HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"vector_len") ptr0 vector_len2
+
+instance Data.Primitive.Types.Prim Vector where
+
+  sizeOf# = \_ -> (4#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Vector (Data.Primitive.Types.indexByteArray# arr0 i1)
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Vector v4 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Vector vector_len4 ->
+                Data.Primitive.Types.writeByteArray# arr0 i1 vector_len4 s3
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Vector (Data.Primitive.Types.indexOffAddr# addr0 i1)
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Vector v4 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Vector vector_len4 ->
+                Data.Primitive.Types.writeOffAddr# addr0 i1 vector_len4 s3
 
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar Vector where
 

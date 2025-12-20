@@ -35,6 +35,7 @@ hstypes:
       - s1_d
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: S1_c
@@ -46,6 +47,7 @@ hstypes:
       - s1_c_b
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: S2
@@ -57,6 +59,7 @@ hstypes:
       - s2_d
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: S2_inner
@@ -68,6 +71,7 @@ hstypes:
       - s2_inner_deep
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: S2_inner_deep
@@ -78,6 +82,7 @@ hstypes:
       - s2_inner_deep_b
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: S3
@@ -100,5 +105,6 @@ hstypes:
       - s3_c_b
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

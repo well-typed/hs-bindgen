@@ -48,6 +48,7 @@ newtype MTy
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Enum,
                       Floating,
                       Fractional,
@@ -72,6 +73,7 @@ newtype Tty
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Enum,
                       Floating,
                       Fractional,
@@ -102,6 +104,7 @@ newtype UINT8_T
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -127,6 +130,7 @@ newtype BOOLEAN_T
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,
@@ -152,6 +156,7 @@ newtype Boolean_T
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       HasBaseForeignType,
+                      Prim,
                       Bits,
                       Bounded,
                       Enum,

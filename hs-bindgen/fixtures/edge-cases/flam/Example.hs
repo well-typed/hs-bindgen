@@ -7,10 +7,12 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -19,6 +21,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FlexibleArrayMember
 import qualified HsBindgen.Runtime.HasCField
+import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
@@ -56,6 +59,54 @@ instance F.Storable Pascal where
         case s1 of
           Pascal pascal_len2 ->
             HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"pascal_len") ptr0 pascal_len2
+
+instance Data.Primitive.Types.Prim Pascal where
+
+  sizeOf# = \_ -> (4#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Pascal (Data.Primitive.Types.indexByteArray# arr0 i1)
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Pascal v4 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Pascal pascal_len4 ->
+                Data.Primitive.Types.writeByteArray# arr0 i1 pascal_len4 s3
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Pascal (Data.Primitive.Types.indexOffAddr# addr0 i1)
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Pascal v4 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Pascal pascal_len4 ->
+                Data.Primitive.Types.writeOffAddr# addr0 i1 pascal_len4 s3
 
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar Pascal where
 
@@ -114,6 +165,62 @@ instance F.Storable Foo_bar where
           Foo_bar foo_bar_x2 foo_bar_y3 ->
                HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"foo_bar_x") ptr0 foo_bar_x2
             >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"foo_bar_y") ptr0 foo_bar_y3
+
+instance Data.Primitive.Types.Prim Foo_bar where
+
+  sizeOf# = \_ -> (8#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Foo_bar (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Foo_bar v4 v6 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Foo_bar foo_bar_x4 foo_bar_y5 ->
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) foo_bar_x4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) foo_bar_y5 s6
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Foo_bar (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Foo_bar v4 v6 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Foo_bar foo_bar_x4 foo_bar_y5 ->
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) foo_bar_x4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) foo_bar_y5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField Foo_bar "foo_bar_x" where
 
@@ -174,6 +281,54 @@ instance F.Storable Foo where
           Foo foo_len2 ->
             HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"foo_len") ptr0 foo_len2
 
+instance Data.Primitive.Types.Prim Foo where
+
+  sizeOf# = \_ -> (4#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Foo (Data.Primitive.Types.indexByteArray# arr0 i1)
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Foo v4 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Foo foo_len4 ->
+                Data.Primitive.Types.writeByteArray# arr0 i1 foo_len4 s3
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Foo (Data.Primitive.Types.indexOffAddr# addr0 i1)
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Foo v4 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Foo foo_len4 ->
+                Data.Primitive.Types.writeOffAddr# addr0 i1 foo_len4 s3
+
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember Foo_bar Foo where
 
   flexibleArrayMemberOffset = \_ty0 -> 4
@@ -233,6 +388,62 @@ instance F.Storable Diff where
           Diff diff_first2 diff_second3 ->
                HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"diff_first") ptr0 diff_first2
             >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"diff_second") ptr0 diff_second3
+
+instance Data.Primitive.Types.Prim Diff where
+
+  sizeOf# = \_ -> (16#)
+
+  alignment# = \_ -> (8#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Diff (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Diff v4 v6 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Diff diff_first4 diff_second5 ->
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) diff_first4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) diff_second5 s6
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Diff (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Diff v4 v6 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Diff diff_first4 diff_second5 ->
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) diff_first4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) diff_second5 s6
 
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar Diff where
 
@@ -298,6 +509,54 @@ instance F.Storable Triplets where
         case s1 of
           Triplets triplets_len2 ->
             HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"triplets_len") ptr0 triplets_len2
+
+instance Data.Primitive.Types.Prim Triplets where
+
+  sizeOf# = \_ -> (4#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Triplets (Data.Primitive.Types.indexByteArray# arr0 i1)
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Triplets v4 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Triplets triplets_len4 ->
+                Data.Primitive.Types.writeByteArray# arr0 i1 triplets_len4 s3
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Triplets (Data.Primitive.Types.indexOffAddr# addr0 i1)
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Triplets v4 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Triplets triplets_len4 ->
+                Data.Primitive.Types.writeOffAddr# addr0 i1 triplets_len4 s3
 
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) Triplets where
 

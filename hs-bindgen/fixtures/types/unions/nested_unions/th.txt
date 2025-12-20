@@ -14,6 +14,7 @@ newtype UnionA
            __exported by:__ @types\/unions\/nested_unions.h@
       -}
 deriving via (SizedByteArray 4 4) instance Storable UnionA
+deriving via (SizedByteArray 4 4) instance Prim UnionA
 {-|
 
   __See:__ 'set_unionA_a'
@@ -137,6 +138,7 @@ newtype ExB_fieldB1
            __exported by:__ @types\/unions\/nested_unions.h@
       -}
 deriving via (SizedByteArray 4 4) instance Storable ExB_fieldB1
+deriving via (SizedByteArray 4 4) instance Prim ExB_fieldB1
 {-|
 
   __See:__ 'set_exB_fieldB1_a'

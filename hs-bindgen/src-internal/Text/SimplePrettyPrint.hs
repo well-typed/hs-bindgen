@@ -300,9 +300,9 @@ parensWhen = \case
     True  -> parens
 
 -- | Format a list horizontally
-hlist :: Char -> Char -> [CtxDoc] -> CtxDoc
+hlist :: String -> String -> [CtxDoc] -> CtxDoc
 hlist cL cR ds =
-    hcat $ char cL : (List.intersperse (string ", ") ds) ++ [char cR]
+    hcat $ string cL : (List.intersperse (string ", ") ds) ++ [string cR]
 
 -- | Parenthesize a document vertically
 vparens :: CtxDoc -> CtxDoc
@@ -315,13 +315,13 @@ vparensWhen = \case
     True  -> vparens
 
 -- | Format a list vertically (one item per line)
-vlist :: Char -> Char -> [CtxDoc] -> CtxDoc
+vlist :: String -> String -> [CtxDoc] -> CtxDoc
 vlist cL cR = \case
-    [] -> char cL >< char cR
+    [] -> string cL >< string cR
     (d:ds') -> vcat
-      $ (char cL <+> d)
+      $ (string cL <+> d)
       : [char ',' <+> d' | d' <- ds']
-      ++ [char cR]
+      ++ [string cR]
 
 -- | Nest/indent a document by the specified number of spaces
 nest :: Int -> CtxDoc -> CtxDoc

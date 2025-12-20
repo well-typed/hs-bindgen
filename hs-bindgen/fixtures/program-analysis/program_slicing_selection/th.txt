@@ -57,6 +57,7 @@ instance Storable FileOperationStatus
           peek = \ptr_0 -> pure FileOperationStatus <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    FileOperationStatus un_FileOperationStatus_3 -> pokeByteOff ptr_1 (0 :: Int) un_FileOperationStatus_3
+deriving via CInt instance Prim FileOperationStatus
 instance CEnum FileOperationStatus
     where type CEnumZ FileOperationStatus = CInt
           toCEnum = FileOperationStatus

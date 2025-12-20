@@ -43,5 +43,6 @@ hstypes:
       - primitive_d
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

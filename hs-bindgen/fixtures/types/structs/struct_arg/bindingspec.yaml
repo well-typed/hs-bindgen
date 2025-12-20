@@ -16,5 +16,6 @@ hstypes:
       - thing_x
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

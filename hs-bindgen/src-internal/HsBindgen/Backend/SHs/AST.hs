@@ -27,6 +27,8 @@ module HsBindgen.Backend.SHs.AST (
     PatternSynonym (..),
 ) where
 
+import Data.Type.Nat (Nat1)
+
 import C.Char qualified as CExpr.Runtime
 
 import HsBindgen.Backend.Hs.AST.Strategy qualified as Hs
@@ -127,6 +129,19 @@ data Global =
   | ConstPtr_constructor
   | ConstPtr_unConstPtr
 
+    -- Prim
+  | Prim_class
+  | Prim_sizeOf#
+  | Prim_alignment#
+  | Prim_indexByteArray#
+  | Prim_readByteArray#
+  | Prim_writeByteArray#
+  | Prim_indexOffAddr#
+  | Prim_readOffAddr#
+  | Prim_writeOffAddr#
+  | Prim_add#
+  | Prim_mul#
+
     -- Other type classes
   | Bits_class
   | Bounded_class
@@ -139,7 +154,6 @@ data Global =
   | Ix_class
   | Num_class
   | Ord_class
-  | Prim_class
   | Read_class
   | Read_readPrec
   | Read_readList
@@ -249,6 +263,7 @@ data SExpr ctx =
   | EBound (Idx ctx)
   | EFree (Hs.Name Hs.NsVar)
   | ECon (Hs.Name Hs.NsConstr)
+  | EUnboxedIntegral Integer
   | EIntegral Integer (Maybe HsPrimType)
   | EFloat Float HsPrimType -- ^ Type annotation to distinguish Float/CFLoat
   | EDouble Double HsPrimType
@@ -261,6 +276,7 @@ data SExpr ctx =
   | EUnusedLam (SExpr ctx)
   | ECase (SExpr ctx) [SAlt ctx]
   | ETup [SExpr ctx]
+  | EUnboxedTup [SExpr ctx]
   | EList [SExpr ctx]
     -- | Type application using \@
   | ETypeApp (SExpr ctx) ClosedType
@@ -287,8 +303,33 @@ pattern EInt i <- EIntegral (fromInteger -> i) (Just HsPrimInt)
     EInt i = EIntegral (fromIntegral i) (Just HsPrimInt)
 
 -- | Case alternatives
+--
+-- Represents different kinds of pattern matching alternatives in case expressions.
+--
+-- Examples:
+--
+-- > case x of
+-- >   Just y -> ...     -- SAlt with constructor "Just"
+-- >   5# -> ...         -- SAltNoConstr for primitive literal
+-- >   (# a, b #) -> ... -- SAltUnboxedTuple
+--
 data SAlt ctx where
-    SAlt :: Hs.Name Hs.NsConstr -> Add n ctx ctx' -> Vec n NameHint -> SExpr ctx' -> SAlt ctx
+    -- | Constructor pattern: @Con x y z -> body@
+    --
+    -- Pattern matches against a data constructor with fields.
+    SAlt
+      :: Hs.Name Hs.NsConstr -> Add n ctx ctx' -> Vec n NameHint -> SExpr ctx' -> SAlt ctx
+    -- | Non-constructor pattern: @5# -> body@ or @x -> body@
+    --
+    -- Used for matching primitive values, literals, or catch-all variables.
+    -- Always binds exactly one variable (hence Vec Nat1).
+    SAltNoConstr
+      :: Vec Nat1 NameHint -> SExpr (S ctx) -> SAlt ctx
+    -- | Unboxed tuple pattern: @(# x, y #) -> body@
+    --
+    -- Pattern matches against unboxed tuples.
+    SAltUnboxedTuple
+      :: Add n ctx ctx' -> Vec n NameHint -> SExpr ctx' -> SAlt ctx
 
 deriving stock instance Show (SAlt ctx)
 

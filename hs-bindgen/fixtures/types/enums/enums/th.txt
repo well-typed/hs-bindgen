@@ -21,6 +21,7 @@ instance Storable First
           peek = \ptr_0 -> pure First <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    First un_First_3 -> pokeByteOff ptr_1 (0 :: Int) un_First_3
+deriving via CUInt instance Prim First
 instance CEnum First
     where type CEnumZ First = CUInt
           toCEnum = First
@@ -91,6 +92,7 @@ instance Storable Second
           peek = \ptr_0 -> pure Second <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Second un_Second_3 -> pokeByteOff ptr_1 (0 :: Int) un_Second_3
+deriving via CInt instance Prim Second
 instance CEnum Second
     where type CEnumZ Second = CInt
           toCEnum = Second
@@ -176,6 +178,7 @@ instance Storable Same
           peek = \ptr_0 -> pure Same <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Same un_Same_3 -> pokeByteOff ptr_1 (0 :: Int) un_Same_3
+deriving via CUInt instance Prim Same
 instance CEnum Same
     where type CEnumZ Same = CUInt
           toCEnum = Same
@@ -245,6 +248,7 @@ instance Storable Nonseq
           peek = \ptr_0 -> pure Nonseq <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Nonseq un_Nonseq_3 -> pokeByteOff ptr_1 (0 :: Int) un_Nonseq_3
+deriving via CUInt instance Prim Nonseq
 instance CEnum Nonseq
     where type CEnumZ Nonseq = CUInt
           toCEnum = Nonseq
@@ -325,6 +329,7 @@ instance Storable Packed
           peek = \ptr_0 -> pure Packed <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Packed un_Packed_3 -> pokeByteOff ptr_1 (0 :: Int) un_Packed_3
+deriving via CUChar instance Prim Packed
 instance CEnum Packed
     where type CEnumZ Packed = CUChar
           toCEnum = Packed
@@ -410,6 +415,7 @@ instance Storable EnumA
           peek = \ptr_0 -> pure EnumA <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    EnumA un_EnumA_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumA_3
+deriving via CUInt instance Prim EnumA
 instance CEnum EnumA
     where type CEnumZ EnumA = CUInt
           toCEnum = EnumA
@@ -480,6 +486,7 @@ instance Storable EnumB
           peek = \ptr_0 -> pure EnumB <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    EnumB un_EnumB_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumB_3
+deriving via CUInt instance Prim EnumB
 instance CEnum EnumB
     where type CEnumZ EnumB = CUInt
           toCEnum = EnumB
@@ -550,6 +557,7 @@ instance Storable EnumC
           peek = \ptr_0 -> pure EnumC <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    EnumC un_EnumC_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumC_3
+deriving via CUInt instance Prim EnumC
 instance CEnum EnumC
     where type CEnumZ EnumC = CUInt
           toCEnum = EnumC
@@ -620,6 +628,7 @@ instance Storable EnumD_t
           peek = \ptr_0 -> pure EnumD_t <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    EnumD_t un_EnumD_t_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumD_t_3
+deriving via CUInt instance Prim EnumD_t
 instance CEnum EnumD_t
     where type CEnumZ EnumD_t = CUInt
           toCEnum = EnumD_t

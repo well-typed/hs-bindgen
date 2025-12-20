@@ -44,6 +44,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -66,6 +67,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -85,6 +87,7 @@ hstypes:
   - HasBaseForeignType
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - RealFloat
@@ -132,6 +135,7 @@ hstypes:
   - HasBaseForeignType
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - RealFloat
@@ -156,6 +160,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show

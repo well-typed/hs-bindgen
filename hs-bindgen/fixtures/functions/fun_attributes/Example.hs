@@ -8,12 +8,14 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -53,6 +55,37 @@ instance F.Storable FILE where
         case s1 of
           FILE -> return ()
 
+instance Data.Primitive.Types.Prim FILE where
+
+  sizeOf# = \_ -> (0#)
+
+  alignment# = \_ -> (1#)
+
+  indexByteArray# = \arr0 -> \i1 -> FILE
+
+  readByteArray# =
+    \arr0 -> \i1 -> \s2 -> (# s2, FILE #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              FILE -> s3
+
+  indexOffAddr# = \addr0 -> \i1 -> FILE
+
+  readOffAddr# = \addr0 -> \i1 -> \s2 -> (# s2, FILE #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              FILE -> s3
+
 {-| __C declaration:__ @size_t@
 
     __defined at:__ @functions\/fun_attributes.h:8:13@
@@ -63,7 +96,7 @@ newtype Size_t = Size_t
   { un_Size_t :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
-  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+  deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Size_t) "un_Size_t")
          ) => GHC.Records.HasField "un_Size_t" (Ptr.Ptr Size_t) (Ptr.Ptr ty) where

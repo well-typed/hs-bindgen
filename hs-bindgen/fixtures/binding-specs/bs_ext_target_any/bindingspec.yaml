@@ -26,6 +26,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show

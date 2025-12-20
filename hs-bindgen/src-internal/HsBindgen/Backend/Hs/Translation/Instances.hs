@@ -147,6 +147,7 @@ getInstances instanceMap name = aux
       , Ix
       , Num
       , Ord
+      , Prim
       , Read
       , ReadRaw
       , Real
@@ -165,6 +166,7 @@ getInstances instanceMap name = aux
       , Fractional
       , Num
       , Ord
+      , Prim
       , Read
       , ReadRaw
       , Real

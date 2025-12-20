@@ -9,11 +9,13 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.Array.Byte
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -22,6 +24,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.SizedByteArray
+import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
@@ -68,6 +71,62 @@ instance F.Storable Dim2 where
           Dim2 dim2_x2 dim2_y3 ->
                HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dim2_x") ptr0 dim2_x2
             >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dim2_y") ptr0 dim2_y3
+
+instance Data.Primitive.Types.Prim Dim2 where
+
+  sizeOf# = \_ -> (8#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Dim2 (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Dim2 v4 v6 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Dim2 dim2_x4 dim2_y5 ->
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) dim2_x4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) dim2_y5 s6
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Dim2 (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, Dim2 v4 v6 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Dim2 dim2_x4 dim2_y5 ->
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) dim2_x4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) dim2_y5 s6
 
 instance HsBindgen.Runtime.HasCField.HasCField Dim2 "dim2_x" where
 
@@ -146,6 +205,70 @@ instance F.Storable Dim3 where
             >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dim3_y") ptr0 dim3_y3
             >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dim3_z") ptr0 dim3_z4
 
+instance Data.Primitive.Types.Prim Dim3 where
+
+  sizeOf# = \_ -> (12#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Dim3 (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
+                (# s5, v6 #) ->
+                  case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
+                    (# s7, v8 #) -> (# s7, Dim3 v4 v6 v8 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Dim3 dim3_x4 dim3_y5 dim3_z6 ->
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (0#)) dim3_x4 s3 of
+                  s7 ->
+                    case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (1#)) dim3_y5 s7 of
+                      s8 ->
+                        Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (3#) i1) (2#)) dim3_z6 s8
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Dim3 (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) s3 of
+                (# s5, v6 #) ->
+                  case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) s5 of
+                    (# s7, v8 #) -> (# s7, Dim3 v4 v6 v8 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Dim3 dim3_x4 dim3_y5 dim3_z6 ->
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (0#)) dim3_x4 s3 of
+                  s7 ->
+                    case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (1#)) dim3_y5 s7 of
+                      s8 ->
+                        Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (3#) i1) (2#)) dim3_z6 s8
+
 instance HsBindgen.Runtime.HasCField.HasCField Dim3 "dim3_x" where
 
   type CFieldType Dim3 "dim3_x" = FC.CInt
@@ -193,6 +316,8 @@ newtype DimPayload = DimPayload
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable DimPayload
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance Data.Primitive.Types.Prim DimPayload
 
 {-|
 
@@ -350,6 +475,8 @@ newtype DimPayloadB = DimPayloadB
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance F.Storable DimPayloadB
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance Data.Primitive.Types.Prim DimPayloadB
 
 {-|
 
@@ -538,6 +665,62 @@ instance F.Storable AnonA_xy where
                HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"anonA_xy_x") ptr0 anonA_xy_x2
             >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"anonA_xy_y") ptr0 anonA_xy_y3
 
+instance Data.Primitive.Types.Prim AnonA_xy where
+
+  sizeOf# = \_ -> (16#)
+
+  alignment# = \_ -> (8#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        AnonA_xy (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, AnonA_xy v4 v6 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              AnonA_xy anonA_xy_x4 anonA_xy_y5 ->
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) anonA_xy_x4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) anonA_xy_y5 s6
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        AnonA_xy (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, AnonA_xy v4 v6 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              AnonA_xy anonA_xy_x4 anonA_xy_y5 ->
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) anonA_xy_x4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) anonA_xy_y5 s6
+
 instance HsBindgen.Runtime.HasCField.HasCField AnonA_xy "anonA_xy_x" where
 
   type CFieldType AnonA_xy "anonA_xy_x" = FC.CDouble
@@ -604,6 +787,62 @@ instance F.Storable AnonA_polar where
                HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"anonA_polar_r") ptr0 anonA_polar_r2
             >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"anonA_polar_p") ptr0 anonA_polar_p3
 
+instance Data.Primitive.Types.Prim AnonA_polar where
+
+  sizeOf# = \_ -> (16#)
+
+  alignment# = \_ -> (8#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        AnonA_polar (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, AnonA_polar v4 v6 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              AnonA_polar anonA_polar_r4 anonA_polar_p5 ->
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) anonA_polar_r4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) anonA_polar_p5 s6
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        AnonA_polar (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
+            (# s3, v4 #) ->
+              case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
+                (# s5, v6 #) -> (# s5, AnonA_polar v4 v6 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              AnonA_polar anonA_polar_r4 anonA_polar_p5 ->
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) anonA_polar_r4 s3 of
+                  s6 ->
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) anonA_polar_p5 s6
+
 instance HsBindgen.Runtime.HasCField.HasCField AnonA_polar "anonA_polar_r" where
 
   type CFieldType AnonA_polar "anonA_polar_r" =
@@ -641,6 +880,8 @@ newtype AnonA = AnonA
   }
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance F.Storable AnonA
+
+deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance Data.Primitive.Types.Prim AnonA
 
 {-|
 

@@ -63,6 +63,9 @@ data HsPrimType =
     | HsPrimCSUSeconds
     | HsPrimCFloat
     | HsPrimCDouble
+
+  -- Int8 Int16 Int32 Int64
+  -- Word8 Word16 Word32 Word64
   deriving stock (Eq, Ord, Generic, Show)
 
 data HsType =

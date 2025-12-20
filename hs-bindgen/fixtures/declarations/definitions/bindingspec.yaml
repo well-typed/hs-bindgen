@@ -19,6 +19,7 @@ hstypes:
       - x_n
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: 'Y'

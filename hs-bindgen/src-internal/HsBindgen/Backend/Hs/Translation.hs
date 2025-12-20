@@ -30,6 +30,7 @@ import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
 import HsBindgen.Backend.Hs.Translation.Function
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Newtype qualified as Hs
+import HsBindgen.Backend.Hs.Translation.Prim qualified as HsPrim
 import HsBindgen.Backend.Hs.Translation.State (HsM, TranslationState)
 import HsBindgen.Backend.Hs.Translation.State qualified as State
 import HsBindgen.Backend.Hs.Translation.ToFromFunPtr qualified as ToFromFunPtr
@@ -232,13 +233,13 @@ structDecs opts haddockConfig info struct spec fields = do
       }
 
     candidateInsts :: Set Hs.TypeClass
-    candidateInsts = Set.union (Set.singleton Hs.Storable) $
+    candidateInsts = Set.union (Set.fromList [Hs.Storable, Hs.Prim]) $
       Set.fromList (snd <$> translationDeriveStruct opts)
 
     -- everything in aux is state-dependent
     aux :: Hs.InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux instanceMap = (insts,) $
-        structDecl : storableDecl ++ optDecls ++ hasFlamDecl ++
+        structDecl : storableDecl ++ primDecl ++ optDecls ++ hasFlamDecl ++
         concatMap (structFieldDecls structName) (C.structFields struct)
         -- TODO: generate zero-copy bindings for the FLAM field. See issue
         -- #1286.
@@ -285,6 +286,9 @@ structDecs opts haddockConfig info struct spec fields = do
                                         Vec.zipWith (pokeStructField (weaken wk I1)) fields xs
                                   }
                           }
+
+        primDecl :: [Hs.Decl]
+        primDecl = HsPrim.mkPrimInstance insts hsStruct struct
 
         optDecls :: [Hs.Decl]
         optDecls = [
@@ -483,7 +487,7 @@ unionDecs haddockConfig info union spec = do
     -- everything in aux is state-dependent
     aux :: TranslationState -> Hs.Newtype -> [Hs.Decl]
     aux transState nt =
-        Hs.DeclNewtype nt : storableDecl : accessorDecls ++
+        Hs.DeclNewtype nt : storableDecl : primDecl : accessorDecls ++
         concatMap (unionFieldDecls nt.newtypeName) (C.unionFields union)
       where
         storableDecl :: Hs.Decl
@@ -492,6 +496,16 @@ unionDecs haddockConfig info union spec = do
             Hs.DeriveInstance {
               deriveInstanceStrategy = Hs.DeriveVia sba
             , deriveInstanceClass    = Hs.Storable
+            , deriveInstanceName     = nt.newtypeName
+            , deriveInstanceComment  = Nothing
+            }
+
+        primDecl :: Hs.Decl
+        primDecl =
+          Hs.DeclDeriveInstance
+            Hs.DeriveInstance {
+              deriveInstanceStrategy = Hs.DeriveVia sba
+            , deriveInstanceClass    = Hs.Prim
             , deriveInstanceName     = nt.newtypeName
             , deriveInstanceComment  = Nothing
             }
@@ -674,7 +688,7 @@ enumDecs opts haddockConfig info e spec = do
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
     aux nt =
-        Hs.DeclNewtype nt : storableDecl : HsFI.hasBaseForeignTypeDecs nt ++
+        Hs.DeclNewtype nt : storableDecl : primDecl : HsFI.hasBaseForeignTypeDecs nt ++
         optDecls ++ cEnumInstanceDecls ++ valueDecls
       where
         hsStruct :: Hs.Struct (S Z)
@@ -702,6 +716,16 @@ enumDecs opts haddockConfig info e spec = do
                       Hs.Seq [ Hs.PokeByteOff I2 0 IZ ]
                 }
           }
+
+        primDecl :: Hs.Decl
+        primDecl =
+          Hs.DeclDeriveInstance
+            Hs.DeriveInstance {
+              deriveInstanceStrategy = Hs.DeriveVia nt.newtypeField.fieldType
+            , deriveInstanceClass    = Hs.Prim
+            , deriveInstanceName     = nt.newtypeName
+            , deriveInstanceComment  = Nothing
+            }
 
         optDecls :: [Hs.Decl]
         optDecls = [
@@ -826,7 +850,7 @@ typedefDecs opts haddockConfig info typedef spec = do
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
     aux nt =
-        Hs.DeclNewtype nt : newtypeWrapper ++ storableDecl ++ optDecls ++
+        Hs.DeclNewtype nt : newtypeWrapper ++ storableDecl ++ primDecl ++ optDecls ++
         typedefFieldDecls nt ++
         HsFI.hasBaseForeignTypeDecs nt
       where
@@ -840,6 +864,18 @@ typedefDecs opts haddockConfig info typedef spec = do
                 Hs.DeriveInstance {
                   deriveInstanceStrategy = Hs.DeriveNewtype
                 , deriveInstanceClass    = Hs.Storable
+                , deriveInstanceName     = nt.newtypeName
+                , deriveInstanceComment  = Nothing
+                }
+
+        primDecl :: [Hs.Decl]
+        primDecl
+          | Hs.Prim `Set.notMember` insts = []
+          | otherwise = singleton $
+              Hs.DeclDeriveInstance
+                Hs.DeriveInstance {
+                  deriveInstanceStrategy = Hs.DeriveNewtype
+                , deriveInstanceClass    = Hs.Prim
                 , deriveInstanceName     = nt.newtypeName
                 , deriveInstanceComment  = Nothing
                 }

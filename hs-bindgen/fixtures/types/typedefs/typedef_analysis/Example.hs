@@ -9,10 +9,12 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
+import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -49,6 +51,38 @@ instance F.Storable Struct1_t where
         case s1 of
           Struct1_t -> return ()
 
+instance Data.Primitive.Types.Prim Struct1_t where
+
+  sizeOf# = \_ -> (0#)
+
+  alignment# = \_ -> (1#)
+
+  indexByteArray# = \arr0 -> \i1 -> Struct1_t
+
+  readByteArray# =
+    \arr0 -> \i1 -> \s2 -> (# s2, Struct1_t #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct1_t -> s3
+
+  indexOffAddr# = \addr0 -> \i1 -> Struct1_t
+
+  readOffAddr# =
+    \addr0 -> \i1 -> \s2 -> (# s2, Struct1_t #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct1_t -> s3
+
 {-| __C declaration:__ @struct2_t@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:11:16@
@@ -72,6 +106,38 @@ instance F.Storable Struct2_t where
       \s1 ->
         case s1 of
           Struct2_t -> return ()
+
+instance Data.Primitive.Types.Prim Struct2_t where
+
+  sizeOf# = \_ -> (0#)
+
+  alignment# = \_ -> (1#)
+
+  indexByteArray# = \arr0 -> \i1 -> Struct2_t
+
+  readByteArray# =
+    \arr0 -> \i1 -> \s2 -> (# s2, Struct2_t #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct2_t -> s3
+
+  indexOffAddr# = \addr0 -> \i1 -> Struct2_t
+
+  readOffAddr# =
+    \addr0 -> \i1 -> \s2 -> (# s2, Struct2_t #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct2_t -> s3
 
 {-| __C declaration:__ @struct3_t@
 
@@ -112,6 +178,38 @@ instance F.Storable Struct5 where
       \s1 ->
         case s1 of
           Struct5 -> return ()
+
+instance Data.Primitive.Types.Prim Struct5 where
+
+  sizeOf# = \_ -> (0#)
+
+  alignment# = \_ -> (1#)
+
+  indexByteArray# = \arr0 -> \i1 -> Struct5
+
+  readByteArray# =
+    \arr0 -> \i1 -> \s2 -> (# s2, Struct5 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct5 -> s3
+
+  indexOffAddr# = \addr0 -> \i1 -> Struct5
+
+  readOffAddr# =
+    \addr0 -> \i1 -> \s2 -> (# s2, Struct5 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct5 -> s3
 
 {-| __C declaration:__ @struct5_t@
 
@@ -162,6 +260,38 @@ instance F.Storable Struct6_Deref where
         case s1 of
           Struct6_Deref -> return ()
 
+instance Data.Primitive.Types.Prim Struct6_Deref where
+
+  sizeOf# = \_ -> (0#)
+
+  alignment# = \_ -> (1#)
+
+  indexByteArray# = \arr0 -> \i1 -> Struct6_Deref
+
+  readByteArray# =
+    \arr0 -> \i1 -> \s2 -> (# s2, Struct6_Deref #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct6_Deref -> s3
+
+  indexOffAddr# = \addr0 -> \i1 -> Struct6_Deref
+
+  readOffAddr# =
+    \addr0 -> \i1 -> \s2 -> (# s2, Struct6_Deref #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct6_Deref -> s3
+
 {-| __C declaration:__ @struct6@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:25:28@
@@ -211,6 +341,38 @@ instance F.Storable Struct7 where
         case s1 of
           Struct7 -> return ()
 
+instance Data.Primitive.Types.Prim Struct7 where
+
+  sizeOf# = \_ -> (0#)
+
+  alignment# = \_ -> (1#)
+
+  indexByteArray# = \arr0 -> \i1 -> Struct7
+
+  readByteArray# =
+    \arr0 -> \i1 -> \s2 -> (# s2, Struct7 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct7 -> s3
+
+  indexOffAddr# = \addr0 -> \i1 -> Struct7
+
+  readOffAddr# =
+    \addr0 -> \i1 -> \s2 -> (# s2, Struct7 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct7 -> s3
+
 {-| __C declaration:__ @struct7a@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:29:24@
@@ -221,7 +383,7 @@ newtype Struct7a = Struct7a
   { un_Struct7a :: Struct7
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct7a) "un_Struct7a")
          ) => GHC.Records.HasField "un_Struct7a" (Ptr.Ptr Struct7a) (Ptr.Ptr ty) where
@@ -245,7 +407,7 @@ newtype Struct7b = Struct7b
   { un_Struct7b :: Struct7
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct7b) "un_Struct7b")
          ) => GHC.Records.HasField "un_Struct7b" (Ptr.Ptr Struct7b) (Ptr.Ptr ty) where
@@ -283,6 +445,38 @@ instance F.Storable Struct8 where
         case s1 of
           Struct8 -> return ()
 
+instance Data.Primitive.Types.Prim Struct8 where
+
+  sizeOf# = \_ -> (0#)
+
+  alignment# = \_ -> (1#)
+
+  indexByteArray# = \arr0 -> \i1 -> Struct8
+
+  readByteArray# =
+    \arr0 -> \i1 -> \s2 -> (# s2, Struct8 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct8 -> s3
+
+  indexOffAddr# = \addr0 -> \i1 -> Struct8
+
+  readOffAddr# =
+    \addr0 -> \i1 -> \s2 -> (# s2, Struct8 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct8 -> s3
+
 {-| __C declaration:__ @struct8b@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:35:24@
@@ -293,7 +487,7 @@ newtype Struct8b = Struct8b
   { un_Struct8b :: Struct8
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct8b) "un_Struct8b")
          ) => GHC.Records.HasField "un_Struct8b" (Ptr.Ptr Struct8b) (Ptr.Ptr ty) where
@@ -331,6 +525,38 @@ instance F.Storable Struct9 where
         case s1 of
           Struct9 -> return ()
 
+instance Data.Primitive.Types.Prim Struct9 where
+
+  sizeOf# = \_ -> (0#)
+
+  alignment# = \_ -> (1#)
+
+  indexByteArray# = \arr0 -> \i1 -> Struct9
+
+  readByteArray# =
+    \arr0 -> \i1 -> \s2 -> (# s2, Struct9 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct9 -> s3
+
+  indexOffAddr# = \addr0 -> \i1 -> Struct9
+
+  readOffAddr# =
+    \addr0 -> \i1 -> \s2 -> (# s2, Struct9 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct9 -> s3
+
 {-| __C declaration:__ @struct9_t@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:40:17@
@@ -341,7 +567,7 @@ newtype Struct9_t = Struct9_t
   { un_Struct9_t :: Struct9
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct9_t) "un_Struct9_t")
          ) => GHC.Records.HasField "un_Struct9_t" (Ptr.Ptr Struct9_t) (Ptr.Ptr ty) where
@@ -379,6 +605,38 @@ instance F.Storable Struct10_t where
         case s1 of
           Struct10_t -> return ()
 
+instance Data.Primitive.Types.Prim Struct10_t where
+
+  sizeOf# = \_ -> (0#)
+
+  alignment# = \_ -> (1#)
+
+  indexByteArray# = \arr0 -> \i1 -> Struct10_t
+
+  readByteArray# =
+    \arr0 -> \i1 -> \s2 -> (# s2, Struct10_t #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct10_t -> s3
+
+  indexOffAddr# = \addr0 -> \i1 -> Struct10_t
+
+  readOffAddr# =
+    \addr0 -> \i1 -> \s2 -> (# s2, Struct10_t #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Struct10_t -> s3
+
 {-| __C declaration:__ @struct10_t_t@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:48:20@
@@ -389,7 +647,7 @@ newtype Struct10_t_t = Struct10_t_t
   { un_Struct10_t_t :: Struct10_t
   }
   deriving stock (Eq, Show)
-  deriving newtype (F.Storable)
+  deriving newtype (F.Storable, Data.Primitive.Types.Prim)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct10_t_t) "un_Struct10_t_t")
          ) => GHC.Records.HasField "un_Struct10_t_t" (Ptr.Ptr Struct10_t_t) (Ptr.Ptr ty) where

@@ -92,6 +92,7 @@ library internal
     HsBindgen.Backend.Hs.Translation.Function
     HsBindgen.Backend.Hs.Translation.Instances
     HsBindgen.Backend.Hs.Translation.Newtype
+    HsBindgen.Backend.Hs.Translation.Prim
     HsBindgen.Backend.Hs.Translation.State
     HsBindgen.Backend.Hs.Translation.ToFromFunPtr
     HsBindgen.Backend.Hs.Translation.Type
@@ -103,6 +104,8 @@ library internal
     HsBindgen.Backend.SHs.Macro
     HsBindgen.Backend.SHs.Simplify
     HsBindgen.Backend.SHs.Translation
+    HsBindgen.Backend.SHs.Translation.Common
+    HsBindgen.Backend.SHs.Translation.Prim
     HsBindgen.Backend.TH.Translation
     HsBindgen.Backend.UniqueSymbol
     HsBindgen.BindingSpec
@@ -426,7 +429,10 @@ test-suite test-th
     , tasty-hunit
 
   -- External dependencies
-  build-depends:    vector ^>=0.13.2.0
+  build-depends:
+    , ghc-prim
+    , primitive
+    , vector     ^>=0.13.2.0
 
 test-suite test-pp
   type:               exitcode-stdio-1.0
@@ -459,7 +465,10 @@ test-suite test-pp
     , tasty-hunit
 
   -- External dependencies
-  build-depends:      vector ^>=0.13.2.0
+  build-depends:
+    , ghc-prim
+    , primitive
+    , vector     ^>=0.13.2.0
 
   if impl(ghc <9.4)
     build-depends: data-array-byte

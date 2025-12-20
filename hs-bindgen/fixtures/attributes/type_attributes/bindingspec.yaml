@@ -50,6 +50,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -64,6 +65,7 @@ hstypes:
       - my_packed_struct_s
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: My_unpacked_struct
@@ -75,6 +77,7 @@ hstypes:
       - my_unpacked_struct_i
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: S
@@ -115,6 +118,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show
@@ -137,6 +141,7 @@ hstypes:
   - Ix
   - Num
   - Ord
+  - Prim
   - Read
   - Real
   - Show

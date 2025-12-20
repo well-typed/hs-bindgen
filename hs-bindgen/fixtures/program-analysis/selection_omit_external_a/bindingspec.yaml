@@ -16,5 +16,6 @@ hstypes:
       - unrelatedDeclaration_m
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

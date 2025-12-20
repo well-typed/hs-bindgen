@@ -27,6 +27,21 @@ instance Storable UnrelatedDeclaration
           peek = \ptr_0 -> pure UnrelatedDeclaration <*> peekCField (Proxy @"unrelatedDeclaration_m") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    UnrelatedDeclaration unrelatedDeclaration_m_3 -> pokeCField (Proxy @"unrelatedDeclaration_m") ptr_1 unrelatedDeclaration_m_3
+instance Prim UnrelatedDeclaration
+    where sizeOf# = \_ -> 4# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> UnrelatedDeclaration (indexByteArray# arr_0 i_1)
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
+                                                     (# s_5, v_6 #) -> (# s_5,
+                                                                          UnrelatedDeclaration v_6 #)
+          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
+                                                                    UnrelatedDeclaration unrelatedDeclaration_m_11 -> writeByteArray# arr_7 i_8 unrelatedDeclaration_m_11 s_10
+          indexOffAddr# = \addr_12 -> \i_13 -> UnrelatedDeclaration (indexOffAddr# addr_12 i_13)
+          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
+                                                       (# s_17, v_18 #) -> (# s_17,
+                                                                              UnrelatedDeclaration v_18 #)
+          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
+                                                                      UnrelatedDeclaration unrelatedDeclaration_m_23 -> writeOffAddr# addr_19 i_20 unrelatedDeclaration_m_23 s_22
 instance HasCField UnrelatedDeclaration "unrelatedDeclaration_m"
     where type CFieldType UnrelatedDeclaration
                           "unrelatedDeclaration_m" = CInt

@@ -24,6 +24,7 @@ instance Storable Foo_enum
           peek = \ptr_0 -> pure Foo_enum <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Foo_enum un_Foo_enum_3 -> pokeByteOff ptr_1 (0 :: Int) un_Foo_enum_3
+deriving via HsBindgen.Runtime.Prelude.Word32 instance Prim Foo_enum
 instance CEnum Foo_enum
     where type CEnumZ Foo_enum = HsBindgen.Runtime.Prelude.Word32
           toCEnum = Foo_enum

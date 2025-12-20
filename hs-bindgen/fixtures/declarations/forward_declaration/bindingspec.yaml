@@ -19,6 +19,7 @@ hstypes:
       - s1_t_a
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: S2
@@ -29,5 +30,6 @@ hstypes:
       - s2_a
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

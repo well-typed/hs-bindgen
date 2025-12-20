@@ -29,6 +29,7 @@ hstypes:
       - diff_second
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Foo
@@ -39,6 +40,7 @@ hstypes:
       - foo_len
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Foo_bar
@@ -50,6 +52,7 @@ hstypes:
       - foo_bar_y
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Pascal
@@ -60,6 +63,7 @@ hstypes:
       - pascal_len
   instances:
   - Eq
+  - Prim
   - Show
   - Storable
 - hsname: Triplets
@@ -70,5 +74,6 @@ hstypes:
       - triplets_len
   instances:
   - Eq
+  - Prim
   - Show
   - Storable

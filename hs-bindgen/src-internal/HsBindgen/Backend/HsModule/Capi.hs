@@ -34,7 +34,7 @@ renderCapiWrapper src = PP.vcat [
        , ".addCSource (HsBindgen.Runtime.Prelude.unlines"
        ]
   , PP.hcat [
-        PP.nest 2 (PP.vlist '[' ']' linesDocs)
+        PP.nest 2 (PP.vlist "[" "]" linesDocs)
       , "))"
       ]
   ]

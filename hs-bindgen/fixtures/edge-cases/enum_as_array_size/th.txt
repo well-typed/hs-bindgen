@@ -28,6 +28,7 @@ instance Storable Test
           peek = \ptr_0 -> pure Test <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Test un_Test_3 -> pokeByteOff ptr_1 (0 :: Int) un_Test_3
+deriving via CUInt instance Prim Test
 instance CEnum Test
     where type CEnumZ Test = CUInt
           toCEnum = Test
