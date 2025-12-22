@@ -59,7 +59,6 @@ foreign import ccall unsafe "hs_bindgen_97654202e0d79fbb" hs_bindgen_97654202e0d
      IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
 
 {-# NOINLINE erf #-}
-
 {-| __C declaration:__ @erf@
 
     __defined at:__ @functions\/simple_func.h:1:8@
@@ -75,7 +74,6 @@ foreign import ccall unsafe "hs_bindgen_4c8418e152e9ddbc" hs_bindgen_4c8418e152e
      IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> FC.CDouble -> IO FC.CDouble))
 
 {-# NOINLINE bad_fma #-}
-
 {-| __C declaration:__ @bad_fma@
 
     __defined at:__ @functions\/simple_func.h:3:22@
@@ -91,7 +89,6 @@ foreign import ccall unsafe "hs_bindgen_a271856b1fcc9477" hs_bindgen_a271856b1fc
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE no_args #-}
-
 {-| __C declaration:__ @no_args@
 
     __defined at:__ @functions\/simple_func.h:7:6@
@@ -107,7 +104,6 @@ foreign import ccall unsafe "hs_bindgen_73f2a4bbf4a49702" hs_bindgen_73f2a4bbf4a
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE no_args_no_void #-}
-
 {-| __C declaration:__ @no_args_no_void@
 
     __defined at:__ @functions\/simple_func.h:9:6@
@@ -123,7 +119,6 @@ foreign import ccall unsafe "hs_bindgen_5416cbf886368c01" hs_bindgen_5416cbf8863
      IO (Ptr.FunPtr (FC.CChar -> FC.CDouble -> IO FC.CInt))
 
 {-# NOINLINE fun #-}
-
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/simple_func.h:11:5@

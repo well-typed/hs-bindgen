@@ -37,7 +37,6 @@ foreign import ccall unsafe "hs_bindgen_0b1168f405aafe83" hs_bindgen_0b1168f405a
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE cϒ #-}
-
 {-| __C declaration:__ @ϒ@
 
     __defined at:__ @edge-cases\/adios.h:18:6@
@@ -53,7 +52,6 @@ foreign import ccall unsafe "hs_bindgen_0a95358747546f1b" hs_bindgen_0a953587475
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE 拜拜 #-}
-
 {-| __C declaration:__ @拜拜@
 
     __defined at:__ @edge-cases\/adios.h:27:6@
@@ -69,7 +67,6 @@ foreign import ccall unsafe "hs_bindgen_a01e420336bfa879" hs_bindgen_a01e420336b
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE say拜拜 #-}
-
 {-| __C declaration:__ @Say拜拜@
 
     __defined at:__ @edge-cases\/adios.h:31:6@

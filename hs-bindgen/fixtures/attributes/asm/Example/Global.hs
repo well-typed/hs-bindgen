@@ -26,7 +26,6 @@ foreign import ccall unsafe "hs_bindgen_e637e98af1313f88" hs_bindgen_e637e98af13
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE asm_labeled_variable #-}
-
 {-| __C declaration:__ @asm_labeled_variable@
 
     __defined at:__ @attributes\/asm.h:2:12@

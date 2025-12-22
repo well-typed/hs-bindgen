@@ -672,15 +672,6 @@ mkPrimType = TH.conT . mkGlobalP
 
 mkDecl :: forall q. Guasi q => SDecl -> q [TH.Dec]
 mkDecl = \case
-      DVar Var {..} -> do
-        let thVarName = hsNameToTH varName
-
-        sequence $
-          [ withDecDoc varComment $
-              TH.sigD thVarName (mkType EmptyEnv varType)
-          , simpleDecl thVarName varExpr
-          ]
-
       DInst i  -> do
         instanceDec <-
           TH.instanceD
@@ -773,7 +764,7 @@ mkDecl = \case
               (TH.cxt [])
               (mkType EmptyEnv derivingInstanceType)
 
-      DForeignImport ForeignImport {..} -> do
+      DForeignImport ForeignImport{..} -> do
         -- Variable names here refer to the syntax of foreign declarations at
         -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1540008.4>
         --
@@ -800,7 +791,7 @@ mkDecl = \case
                   , Text.unpack foreignImportOrigName.text
                   ])
 
-            importType = foldr (TFun . functionParameterType) (foreignImportResultType) foreignImportParameters
+            importType = foldr (TFun . (.typ)) foreignImportResult.typ foreignImportParameters
 
         fmap singleton $
           withDecDoc foreignImportComment $
@@ -812,17 +803,18 @@ mkDecl = \case
                 <*> pure (hsNameToTH foreignImportName)
                 <*> mkType EmptyEnv importType
 
-      DFunction Function {..} -> do
-        let thFunctionName = hsNameToTH functionName
-
-            functionType = foldr (TFun . functionParameterType) functionResultType functionParameters
+      DBinding Binding{..} -> do
+        let bindingName = hsNameToTH name
+            bindingType = foldr (TFun . (.typ)) result.typ parameters
 
         sequence $
-          [ withDecDoc functionComment $
-              TH.SigD <$> pure thFunctionName
-                      <*> mkType EmptyEnv functionType
-          , simpleDecl thFunctionName functionBody
-          ]
+          map (pragma name) pragmas
+          ++ [
+              withDecDoc comment $
+                TH.SigD <$> pure bindingName
+                  <*> mkType EmptyEnv bindingType
+            , simpleDecl bindingName body
+            ]
 
       DPatternSynonym ps -> do
         let thPatSynName = hsNameToTH (patSynName ps)
@@ -838,12 +830,6 @@ mkDecl = \case
             TH.implBidir
             (mkPat (patSynRHS ps))
           ]
-
-      DPragma p ->
-          case p of
-            NOINLINE n ->
-              singleton <$>
-                TH.pragInlD (hsNameToTH n) TH.NoInline TH.FunLike TH.AllPhases
     where
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr EmptyEnv f) []
@@ -855,6 +841,11 @@ mkDecl = \case
                 (TH.TySynEqn Nothing)
                 (mkType EmptyEnv (foldl (\acc x -> acc `TApp` x) (TGlobal g) typArgs))
                 (mkType EmptyEnv typSyn)
+
+      pragma :: Hs.Name Hs.NsVar -> Pragma -> q TH.Dec
+      pragma n = \case
+        NOINLINE ->
+            TH.pragInlD (hsNameToTH n) TH.NoInline TH.FunLike TH.AllPhases
 
 -- | Nested deriving clauses (part of a datatype declaration)
 nestedDeriving :: forall q.

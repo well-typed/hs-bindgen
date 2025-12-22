@@ -196,7 +196,6 @@ foreign import ccall unsafe "hs_bindgen_99da7108788a2cf4" hs_bindgen_99da7108788
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE __f1 #-}
-
 {-| __C declaration:__ @__f1@
 
     __defined at:__ @functions\/fun_attributes.h:16:13@
@@ -212,7 +211,6 @@ foreign import ccall unsafe "hs_bindgen_a0d2ec6ffc23fc5a" hs_bindgen_a0d2ec6ffc2
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f1 #-}
-
 {-| __C declaration:__ @f1@
 
     __defined at:__ @functions\/fun_attributes.h:19:6@
@@ -228,7 +226,6 @@ foreign import ccall unsafe "hs_bindgen_16a2a5a807cc26ec" hs_bindgen_16a2a5a807c
      IO (Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE my_memalign #-}
-
 {-| __C declaration:__ @my_memalign@
 
     __defined at:__ @functions\/fun_attributes.h:23:7@
@@ -244,7 +241,6 @@ foreign import ccall unsafe "hs_bindgen_976df97f9c9c1223" hs_bindgen_976df97f9c9
      IO (Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE my_calloc #-}
-
 {-| __C declaration:__ @my_calloc@
 
     __defined at:__ @functions\/fun_attributes.h:28:7@
@@ -260,7 +256,6 @@ foreign import ccall unsafe "hs_bindgen_4021d3c6eae30c8c" hs_bindgen_4021d3c6eae
      IO (Ptr.FunPtr ((Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE my_realloc #-}
-
 {-| __C declaration:__ @my_realloc@
 
     __defined at:__ @functions\/fun_attributes.h:29:7@
@@ -276,7 +271,6 @@ foreign import ccall unsafe "hs_bindgen_2ca35d0827c76ff7" hs_bindgen_2ca35d0827c
      IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE my_alloc1 #-}
-
 {-| __C declaration:__ @my_alloc1@
 
     __defined at:__ @functions\/fun_attributes.h:34:7@
@@ -292,7 +286,6 @@ foreign import ccall unsafe "hs_bindgen_a43746fed9206f42" hs_bindgen_a43746fed92
      IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE my_alloc2 #-}
-
 {-| __C declaration:__ @my_alloc2@
 
     __defined at:__ @functions\/fun_attributes.h:35:7@
@@ -308,7 +301,6 @@ foreign import ccall unsafe "hs_bindgen_d41557222fd2ab94" hs_bindgen_d41557222fd
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE square #-}
-
 {-| __C declaration:__ @square@
 
     __defined at:__ @functions\/fun_attributes.h:39:5@
@@ -324,7 +316,6 @@ foreign import ccall unsafe "hs_bindgen_beee43878922a900" hs_bindgen_beee4387892
      IO (Ptr.FunPtr (IO FC.CInt))
 
 {-# NOINLINE old_fn_deprecated #-}
-
 {-| __C declaration:__ @old_fn_deprecated@
 
     __defined at:__ @functions\/fun_attributes.h:48:5@
@@ -340,7 +331,6 @@ foreign import ccall unsafe "hs_bindgen_f95f43d50ed8f2b4" hs_bindgen_f95f43d50ed
      IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO (Ptr.Ptr FC.CChar)))
 
 {-# NOINLINE my_dgettext #-}
-
 {-| __C declaration:__ @my_dgettext@
 
     __defined at:__ @functions\/fun_attributes.h:64:1@
@@ -356,7 +346,6 @@ foreign import ccall unsafe "hs_bindgen_986260288574592d" hs_bindgen_98626028857
      IO (Ptr.FunPtr (FC.CInt -> (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO (Ptr.Ptr FILE)))
 
 {-# NOINLINE fdopen #-}
-
 {-| __C declaration:__ @fdopen@
 
     __defined at:__ @functions\/fun_attributes.h:75:9@
@@ -372,7 +361,6 @@ foreign import ccall unsafe "hs_bindgen_fa90d405c15977a2" hs_bindgen_fa90d405c15
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f2 #-}
-
 {-| __C declaration:__ @f2@
 
     __defined at:__ @functions\/fun_attributes.h:79:65@
@@ -388,7 +376,6 @@ foreign import ccall unsafe "hs_bindgen_481e3a75205c85f2" hs_bindgen_481e3a75205
      IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.ConstPtr.ConstPtr Void) -> Size_t -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE my_memcpy #-}
-
 {-| __C declaration:__ @my_memcpy@
 
     __defined at:__ @functions\/fun_attributes.h:85:1@
@@ -404,7 +391,6 @@ foreign import ccall unsafe "hs_bindgen_99cc62837ebec657" hs_bindgen_99cc62837eb
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE fatal #-}
-
 {-| __C declaration:__ @fatal@
 
     __defined at:__ @functions\/fun_attributes.h:102:6@
@@ -420,7 +406,6 @@ foreign import ccall unsafe "hs_bindgen_196cbfce2a9df94f" hs_bindgen_196cbfce2a9
      IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt))
 
 {-# NOINLINE hash #-}
-
 {-| __C declaration:__ @hash@
 
     __defined at:__ @functions\/fun_attributes.h:110:5@
@@ -436,7 +421,6 @@ foreign import ccall unsafe "hs_bindgen_ae6b503283507bd2" hs_bindgen_ae6b5032835
      IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE mymalloc #-}
-
 {-| __C declaration:__ @mymalloc@
 
     __defined at:__ @functions\/fun_attributes.h:115:1@
@@ -452,7 +436,6 @@ foreign import ccall unsafe "hs_bindgen_ad3e5c88477c9e92" hs_bindgen_ad3e5c88477
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE foobar #-}
-
 {-| __C declaration:__ @foobar@
 
     __defined at:__ @functions\/fun_attributes.h:119:13@
@@ -468,7 +451,6 @@ foreign import ccall unsafe "hs_bindgen_508f28109ff2076e" hs_bindgen_508f28109ff
      IO (Ptr.FunPtr (IO FC.CInt))
 
 {-# NOINLINE core2_func #-}
-
 {-| __C declaration:__ @core2_func@
 
     __defined at:__ @functions\/fun_attributes.h:126:5@
@@ -484,7 +466,6 @@ foreign import ccall unsafe "hs_bindgen_6e4f5b53b36a3ecb" hs_bindgen_6e4f5b53b36
      IO (Ptr.FunPtr (IO FC.CInt))
 
 {-# NOINLINE sse3_func #-}
-
 {-| __C declaration:__ @sse3_func@
 
     __defined at:__ @functions\/fun_attributes.h:127:5@
@@ -500,7 +481,6 @@ foreign import ccall unsafe "hs_bindgen_e39d5186f5da6c3f" hs_bindgen_e39d5186f5d
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f3 #-}
-
 {-| __C declaration:__ @f3@
 
     __defined at:__ @functions\/fun_attributes.h:131:49@
@@ -516,7 +496,6 @@ foreign import ccall unsafe "hs_bindgen_acb0e567f47dc0eb" hs_bindgen_acb0e567f47
      IO (Ptr.FunPtr (IO FC.CInt))
 
 {-# NOINLINE fn #-}
-
 {-| __C declaration:__ @fn@
 
     __defined at:__ @functions\/fun_attributes.h:136:5@
@@ -532,7 +511,6 @@ foreign import ccall unsafe "hs_bindgen_a1f58949b267b87f" hs_bindgen_a1f58949b26
      IO (Ptr.FunPtr (IO FC.CInt))
 
 {-# NOINLINE y #-}
-
 {-| __C declaration:__ @y@
 
     __defined at:__ @functions\/fun_attributes.h:142:12@
@@ -548,7 +526,6 @@ foreign import ccall unsafe "hs_bindgen_06bd05eb2df3a936" hs_bindgen_06bd05eb2df
      IO (Ptr.FunPtr (IO FC.CInt))
 
 {-# NOINLINE x1 #-}
-
 {-| __C declaration:__ @x1@
 
     __defined at:__ @functions\/fun_attributes.h:145:12@
@@ -564,7 +541,6 @@ foreign import ccall unsafe "hs_bindgen_f2ae2154ea32940b" hs_bindgen_f2ae2154ea3
      IO (Ptr.FunPtr (IO FC.CInt))
 
 {-# NOINLINE x2 #-}
-
 {-| __C declaration:__ @x2@
 
     __defined at:__ @functions\/fun_attributes.h:148:12@

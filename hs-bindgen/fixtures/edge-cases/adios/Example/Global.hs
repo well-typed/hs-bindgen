@@ -34,7 +34,6 @@ foreign import ccall unsafe "hs_bindgen_aa137b95cfa81f42" hs_bindgen_aa137b95cfa
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE cϒϒ #-}
-
 {-| __C declaration:__ @ϒϒ@
 
     __defined at:__ @edge-cases\/adios.h:21:12@
@@ -50,7 +49,6 @@ foreign import ccall unsafe "hs_bindgen_7e61df7271c4ff58" hs_bindgen_7e61df7271c
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
 
 {-# NOINLINE hs_bindgen_7af49c80665b9a25 #-}
-
 {-| __C declaration:__ @ϒϒϒ@
 
     __defined at:__ @edge-cases\/adios.h:24:18@
@@ -64,7 +62,6 @@ hs_bindgen_7af49c80665b9a25 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_7e61df7271c4ff58
 
 {-# NOINLINE cϒϒϒ #-}
-
 cϒϒϒ :: FC.CInt
 cϒϒϒ =
   GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_7af49c80665b9a25))

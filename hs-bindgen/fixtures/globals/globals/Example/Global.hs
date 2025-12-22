@@ -137,7 +137,6 @@ foreign import ccall unsafe "hs_bindgen_4f8e7b3d91414aa8" hs_bindgen_4f8e7b3d914
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE simpleGlobal #-}
-
 {-| Global variables
 
 __C declaration:__ @simpleGlobal@
@@ -155,7 +154,6 @@ foreign import ccall unsafe "hs_bindgen_7f4cd619c55119dd" hs_bindgen_7f4cd619c55
      IO (Ptr.Ptr Config)
 
 {-# NOINLINE compoundGlobal1 #-}
-
 {-| __C declaration:__ @compoundGlobal1@
 
     __defined at:__ @globals\/globals.h:16:22@
@@ -171,7 +169,6 @@ foreign import ccall unsafe "hs_bindgen_ed5c7196c3291592" hs_bindgen_ed5c7196c32
      IO (Ptr.Ptr Inline_struct)
 
 {-# NOINLINE compoundGlobal2 #-}
-
 {-| __C declaration:__ @compoundGlobal2@
 
     __defined at:__ @globals\/globals.h:19:47@
@@ -187,7 +184,6 @@ foreign import ccall unsafe "hs_bindgen_0be07820afb78239" hs_bindgen_0be07820afb
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE nesInteger #-}
-
 {-| Non-extern non-static global variables
 
   These kinds of variables need to be treated with care, to avoid duplicate symbols, but do exist in the wild.
@@ -211,7 +207,6 @@ foreign import ccall unsafe "hs_bindgen_e3497c0a80a77750" hs_bindgen_e3497c0a80a
      IO (Ptr.Ptr FC.CFloat)
 
 {-# NOINLINE nesFloating #-}
-
 {-| __C declaration:__ @nesFloating@
 
     __defined at:__ @globals\/globals.h:36:9@
@@ -227,7 +222,6 @@ foreign import ccall unsafe "hs_bindgen_78918168bc760476" hs_bindgen_78918168bc7
      IO (Ptr.Ptr (Ptr.Ptr FC.CChar))
 
 {-# NOINLINE nesString1 #-}
-
 {-| __C declaration:__ @nesString1@
 
     __defined at:__ @globals\/globals.h:38:9@
@@ -243,7 +237,6 @@ foreign import ccall unsafe "hs_bindgen_c6c52463f890e752" hs_bindgen_c6c52463f89
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CChar))
 
 {-# NOINLINE nesString2 #-}
-
 {-| __C declaration:__ @nesString2@
 
     __defined at:__ @globals\/globals.h:39:9@
@@ -259,7 +252,6 @@ foreign import ccall unsafe "hs_bindgen_9b33d990c25069a0" hs_bindgen_9b33d990c25
      IO (Ptr.Ptr FC.CChar)
 
 {-# NOINLINE nesCharacter #-}
-
 {-| __C declaration:__ @nesCharacter@
 
     __defined at:__ @globals\/globals.h:40:9@
@@ -275,7 +267,6 @@ foreign import ccall unsafe "hs_bindgen_561a1d5a05307329" hs_bindgen_561a1d5a053
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE nesParen #-}
-
 {-| __C declaration:__ @nesParen@
 
     __defined at:__ @globals\/globals.h:41:9@
@@ -291,7 +282,6 @@ foreign import ccall unsafe "hs_bindgen_4d3d64def4cf943f" hs_bindgen_4d3d64def4c
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE nesUnary #-}
-
 {-| __C declaration:__ @nesUnary@
 
     __defined at:__ @globals\/globals.h:42:9@
@@ -307,7 +297,6 @@ foreign import ccall unsafe "hs_bindgen_dcb8301e1cb444b7" hs_bindgen_dcb8301e1cb
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE nesBinary #-}
-
 {-| __C declaration:__ @nesBinary@
 
     __defined at:__ @globals\/globals.h:43:9@
@@ -323,7 +312,6 @@ foreign import ccall unsafe "hs_bindgen_798d6b9c7136a5d0" hs_bindgen_798d6b9c713
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE nesConditional #-}
-
 {-| __C declaration:__ @nesConditional@
 
     __defined at:__ @globals\/globals.h:44:9@
@@ -339,7 +327,6 @@ foreign import ccall unsafe "hs_bindgen_9c15dc9805f8abb8" hs_bindgen_9c15dc9805f
      IO (Ptr.Ptr FC.CFloat)
 
 {-# NOINLINE nesCast #-}
-
 {-| __C declaration:__ @nesCast@
 
     __defined at:__ @globals\/globals.h:45:9@
@@ -355,7 +342,6 @@ foreign import ccall unsafe "hs_bindgen_089dfddcc6667ac2" hs_bindgen_089dfddcc66
      IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
 
 {-# NOINLINE nesCompound #-}
-
 {-| __C declaration:__ @nesCompound@
 
     __defined at:__ @globals\/globals.h:46:9@
@@ -371,7 +357,6 @@ foreign import ccall unsafe "hs_bindgen_798af9a98bfc3030" hs_bindgen_798af9a98bf
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8))
 
 {-# NOINLINE nesInitList #-}
-
 {-| __C declaration:__ @nesInitList@
 
     __defined at:__ @globals\/globals.h:47:9@
@@ -387,7 +372,6 @@ foreign import ccall unsafe "hs_bindgen_846b0fde4d102012" hs_bindgen_846b0fde4d1
      IO (Ptr.Ptr FC.CBool)
 
 {-# NOINLINE nesBool #-}
-
 {-| __C declaration:__ @nesBool@
 
     __defined at:__ @globals\/globals.h:48:9@
@@ -403,7 +387,6 @@ foreign import ccall unsafe "hs_bindgen_b243f9b292f8b883" hs_bindgen_b243f9b292f
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4096) HsBindgen.Runtime.Prelude.Word8))
 
 {-# NOINLINE streamBinary #-}
-
 {-| Additional examples of global variables, abstracted from real examples
 
   The `streamBinary`/`streamBinary_len` example comes from [1], and is an example of a non-extern non-static global (indeed, the header does not even use  once @ or similar).
@@ -425,7 +408,6 @@ foreign import ccall unsafe "hs_bindgen_60adad2a6178e6cc" hs_bindgen_60adad2a617
      IO (Ptr.Ptr HsBindgen.Runtime.Prelude.Word32)
 
 {-# NOINLINE streamBinary_len #-}
-
 {-| __C declaration:__ @streamBinary_len@
 
     __defined at:__ @globals\/globals.h:404:10@
@@ -441,7 +423,6 @@ foreign import ccall unsafe "hs_bindgen_fe50ca9a4fea641c" hs_bindgen_fe50ca9a4fe
      IO (Ptr.Ptr Struct2_t)
 
 {-# NOINLINE some_global_struct #-}
-
 {-| __C declaration:__ @some_global_struct@
 
     __defined at:__ @globals\/globals.h:425:11@

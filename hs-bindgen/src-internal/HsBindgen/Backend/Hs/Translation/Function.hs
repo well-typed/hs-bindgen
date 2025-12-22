@@ -169,12 +169,13 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     aliasCWrapper :: Hs.Decl
     aliasCWrapper =
         Hs.DeclFunction $ Hs.FunctionDecl {
-            functionDeclName       = mangledOrigNameWrapper
-          , functionDeclParameters = aliasParams
-          , functionDeclResultType = resultType
-          , functionDeclBody       = SHs.EFree $ Hs.InternalName cWrapperName
-          , functionDeclOrigin     = Origin.Function origCFun
-          , functionDeclComment    = (Just pointerComment <> mbIoComment)
+            name       = mangledOrigNameWrapper
+          , parameters = aliasParams
+          , resultType = resultType
+          , body       = SHs.EFree $ Hs.InternalName cWrapperName
+          , origin     = Origin.Function origCFun
+          , pragmas    = []
+          , comment    = (Just pointerComment <> mbIoComment)
           }
       where
         pointerComment :: HsDoc.Comment
@@ -188,12 +189,13 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     aliasOrig :: Hs.Decl
     aliasOrig =
         Hs.DeclFunction $ Hs.FunctionDecl {
-             functionDeclName       = mangledOrigName
-           , functionDeclParameters = aliasParams
-           , functionDeclResultType = resultType
-           , functionDeclBody       = SHs.EFree $ Hs.InternalName cWrapperName
-           , functionDeclOrigin     = Origin.Function origCFun
-           , functionDeclComment    = mbAliasComment <> mbIoComment
+             name       = mangledOrigName
+           , parameters = aliasParams
+           , resultType = resultType
+           , body       = SHs.EFree $ Hs.InternalName cWrapperName
+           , origin     = Origin.Function origCFun
+           , pragmas    = []
+           , comment    = mbAliasComment <> mbIoComment
           }
 
     mbAliasComment :: Maybe HsDoc.Comment
@@ -433,22 +435,24 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams params cFunc mbC
     in  case primResult of
       HeapType {} ->
         Hs.DeclFunction $ Hs.FunctionDecl
-          { functionDeclName       = hiName
-          , functionDeclParameters = params
-          , functionDeclResultType = HsIO resType
-          , functionDeclBody       = goA EmptyEnv primParams
-          , functionDeclOrigin     = Origin.Function cFunc
-          , functionDeclComment    = mbComment
+          { name       = hiName
+          , parameters = params
+          , resultType = HsIO resType
+          , body       = goA EmptyEnv primParams
+          , origin     = Origin.Function cFunc
+          , pragmas    = []
+          , comment    = mbComment
           }
 
       PrimitiveType {} ->
         Hs.DeclFunction $ Hs.FunctionDecl
-          { functionDeclName       = hiName
-          , functionDeclParameters = params
-          , functionDeclResultType = HsIO resType
-          , functionDeclBody       = goB EmptyEnv primParams
-          , functionDeclOrigin     = Origin.Function cFunc
-          , functionDeclComment    = mbComment
+          { name       = hiName
+          , parameters = params
+          , resultType = HsIO resType
+          , body       = goB EmptyEnv primParams
+          , origin     = Origin.Function cFunc
+          , pragmas    = []
+          , comment    = mbComment
           }
 
       CAType {} ->

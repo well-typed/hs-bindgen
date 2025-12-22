@@ -154,7 +154,6 @@ foreign import ccall unsafe "hs_bindgen_4a5cd66a4f26f8d5" hs_bindgen_4a5cd66a4f2
      IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.CSize) -> IO FC.CInt))
 
 {-# NOINLINE process_data #-}
-
 {-|
 
   Function with detailed parameter documentation
@@ -184,7 +183,6 @@ foreign import ccall unsafe "hs_bindgen_c8a059c65f18fea9" hs_bindgen_c8a059c65f1
      IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO FC.CBool))
 
 {-# NOINLINE process_file #-}
-
 {-|
 
   Function with inline commands and formatting
@@ -210,7 +208,6 @@ foreign import ccall unsafe "hs_bindgen_5ab7e06724867ab3" hs_bindgen_5ab7e067248
      IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE calculate_value #-}
-
 {-|
 
   Function with verbatim code blocks
@@ -243,7 +240,6 @@ foreign import ccall unsafe "hs_bindgen_3f74fb834b0cd46b" hs_bindgen_3f74fb834b0
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CBool))
 
 {-# NOINLINE html_example #-}
-
 {-|
 
   Function with HTML formatting
@@ -271,7 +267,6 @@ foreign import ccall unsafe "hs_bindgen_2175b3c627db39cf" hs_bindgen_2175b3c627d
      IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
 
 {-# NOINLINE list_example #-}
-
 {-|
 
   Function with lists and special formatting
@@ -327,7 +322,6 @@ foreign import ccall unsafe "hs_bindgen_b7a4debd18827a19" hs_bindgen_b7a4debd188
      IO (Ptr.FunPtr ((Ptr.Ptr Void) -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE dangerous_function #-}
-
 {-|
 
   Function with warnings and notes
@@ -357,7 +351,6 @@ foreign import ccall unsafe "hs_bindgen_9700b22f82eedafe" hs_bindgen_9700b22f82e
      IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO FC.CInt))
 
 {-# NOINLINE detailed_return_codes #-}
-
 {-|
 
   Function with return value details
@@ -387,7 +380,6 @@ foreign import ccall unsafe "hs_bindgen_49e0d34a627c6c19" hs_bindgen_49e0d34a627
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE old_function #-}
-
 {-|
 
   Function with deprecated annotation
@@ -413,7 +405,6 @@ foreign import ccall unsafe "hs_bindgen_180cd7537e40ce99" hs_bindgen_180cd7537e4
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE versioned_function #-}
-
 {-|
 
   Function with version information
@@ -439,7 +430,6 @@ foreign import ccall unsafe "hs_bindgen_f4ccc6d90e8d3ebd" hs_bindgen_f4ccc6d90e8
      IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CInt))
 
 {-# NOINLINE process_buffer #-}
-
 {-|
 
   Static array parameter
@@ -465,7 +455,6 @@ foreign import ccall unsafe "hs_bindgen_6a74d376c901b531" hs_bindgen_6a74d376c90
      IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.ConstPtr.ConstPtr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE my_memcpy #-}
-
 {-|
 
   Function with restrict pointers
@@ -493,7 +482,6 @@ foreign import ccall unsafe "hs_bindgen_156a92f3c5176105" hs_bindgen_156a92f3c51
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE double_value #-}
-
 {-|
 
   Inline function
@@ -517,7 +505,6 @@ foreign import ccall unsafe "hs_bindgen_dfa39b6be50cb2ca" hs_bindgen_dfa39b6be50
      IO (Ptr.FunPtr ((Ptr.Ptr Config_t) -> (HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8) -> HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t))
 
 {-# NOINLINE complex_function #-}
-
 {-|
 
   Function with complex documentation
@@ -598,7 +585,6 @@ foreign import ccall unsafe "hs_bindgen_8ad88b79fd71f9d4" hs_bindgen_8ad88b79fd7
      IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt))
 
 {-# NOINLINE hash #-}
-
 {-| __C declaration:__ @hash@
 
     __defined at:__ @documentation\/doxygen_docs.h:427:5@
@@ -614,7 +600,6 @@ foreign import ccall unsafe "hs_bindgen_7ede0f7ec1b30650" hs_bindgen_7ede0f7ec1b
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE square #-}
-
 {-| __C declaration:__ @square@
 
     __defined at:__ @documentation\/doxygen_docs.h:429:5@

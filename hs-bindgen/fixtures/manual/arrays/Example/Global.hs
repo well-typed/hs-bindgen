@@ -60,7 +60,6 @@ foreign import ccall unsafe "hs_bindgen_6843a8f5c61ff74e" hs_bindgen_6843a8f5c61
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt))
 
 {-# NOINLINE arr1 #-}
-
 {-| Global, complete, initialised
 
 __C declaration:__ @arr1@
@@ -78,7 +77,6 @@ foreign import ccall unsafe "hs_bindgen_60c5bfbe2e29672a" hs_bindgen_60c5bfbe2e2
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
 
 {-# NOINLINE arr2 #-}
-
 {-| Global, extern, complete, not initialised
 
 __C declaration:__ @arr2@
@@ -96,7 +94,6 @@ foreign import ccall unsafe "hs_bindgen_a0497dc4c0aba158" hs_bindgen_a0497dc4c0a
      IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
 
 {-# NOINLINE arr3 #-}
-
 {-| Global, extern, incomplete
 
 __C declaration:__ @arr3@
@@ -114,7 +111,6 @@ foreign import ccall unsafe "hs_bindgen_609c0f69bf6da356" hs_bindgen_609c0f69bf6
      IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 
 {-# NOINLINE sudoku #-}
-
 {-| Multi-dimensional array of known size.
 
 __C declaration:__ @sudoku@
@@ -132,7 +128,6 @@ foreign import ccall unsafe "hs_bindgen_52a30badbe2c9671" hs_bindgen_52a30badbe2
      IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 
 {-# NOINLINE triplets #-}
-
 {-| Multi-dimensional array of unknown size. Only the first dimension is allowed to be unknown.
 
 __C declaration:__ @triplets@
@@ -150,7 +145,6 @@ foreign import ccall unsafe "hs_bindgen_23817a1a9bc92057" hs_bindgen_23817a1a9bc
      IO (Ptr.Ptr Triplet_ptrs)
 
 {-# NOINLINE global_triplet_ptrs #-}
-
 {-| A global of triplet_ptrs
 
 __C declaration:__ @global_triplet_ptrs@

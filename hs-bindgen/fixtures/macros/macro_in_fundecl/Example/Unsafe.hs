@@ -341,6 +341,5 @@ foreign import ccall unsafe "hs_bindgen_77a9149f03b2767f" hs_bindgen_77a9149f03b
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
-no_args_no_void ::
-     IO I
+no_args_no_void :: IO I
 no_args_no_void = hs_bindgen_77a9149f03b2767f

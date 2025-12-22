@@ -169,7 +169,6 @@ foreign import ccall unsafe "hs_bindgen_d50b20f504174dd5" hs_bindgen_d50b20f5041
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE by' #-}
-
 {-| __C declaration:__ @by@
 
     __defined at:__ @edge-cases\/names.h:3:6@
@@ -185,7 +184,6 @@ foreign import ccall unsafe "hs_bindgen_f7e660ea9223a909" hs_bindgen_f7e660ea922
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE forall' #-}
-
 {-| __C declaration:__ @forall@
 
     __defined at:__ @edge-cases\/names.h:4:6@
@@ -201,7 +199,6 @@ foreign import ccall unsafe "hs_bindgen_15319d1b8d2ca927" hs_bindgen_15319d1b8d2
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE mdo' #-}
-
 {-| __C declaration:__ @mdo@
 
     __defined at:__ @edge-cases\/names.h:5:6@
@@ -217,7 +214,6 @@ foreign import ccall unsafe "hs_bindgen_e5a1961c11d641ed" hs_bindgen_e5a1961c11d
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE pattern' #-}
-
 {-| __C declaration:__ @pattern@
 
     __defined at:__ @edge-cases\/names.h:6:6@
@@ -233,7 +229,6 @@ foreign import ccall unsafe "hs_bindgen_d2dd74adbb4a606c" hs_bindgen_d2dd74adbb4
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE proc' #-}
-
 {-| __C declaration:__ @proc@
 
     __defined at:__ @edge-cases\/names.h:7:6@
@@ -249,7 +244,6 @@ foreign import ccall unsafe "hs_bindgen_bab6d9c9540c9d58" hs_bindgen_bab6d9c9540
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE rec' #-}
-
 {-| __C declaration:__ @rec@
 
     __defined at:__ @edge-cases\/names.h:8:6@
@@ -265,7 +259,6 @@ foreign import ccall unsafe "hs_bindgen_447fa7223c86f5c7" hs_bindgen_447fa7223c8
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE using' #-}
-
 {-| __C declaration:__ @using@
 
     __defined at:__ @edge-cases\/names.h:9:6@
@@ -281,7 +274,6 @@ foreign import ccall unsafe "hs_bindgen_f2292c17facdbcde" hs_bindgen_f2292c17fac
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE anyclass #-}
-
 {-| __C declaration:__ @anyclass@
 
     __defined at:__ @edge-cases\/names.h:12:6@
@@ -297,7 +289,6 @@ foreign import ccall unsafe "hs_bindgen_393b62c1a821de61" hs_bindgen_393b62c1a82
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE capi #-}
-
 {-| __C declaration:__ @capi@
 
     __defined at:__ @edge-cases\/names.h:13:6@
@@ -313,7 +304,6 @@ foreign import ccall unsafe "hs_bindgen_962b5bf9813ea6dd" hs_bindgen_962b5bf9813
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE cases #-}
-
 {-| __C declaration:__ @cases@
 
     __defined at:__ @edge-cases\/names.h:14:6@
@@ -329,7 +319,6 @@ foreign import ccall unsafe "hs_bindgen_599948844183b4ea" hs_bindgen_59994884418
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE ccall #-}
-
 {-| __C declaration:__ @ccall@
 
     __defined at:__ @edge-cases\/names.h:15:6@
@@ -345,7 +334,6 @@ foreign import ccall unsafe "hs_bindgen_aa442ea764d9d93c" hs_bindgen_aa442ea764d
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE dynamic #-}
-
 {-| __C declaration:__ @dynamic@
 
     __defined at:__ @edge-cases\/names.h:16:6@
@@ -361,7 +349,6 @@ foreign import ccall unsafe "hs_bindgen_98dfb21e9f7b6857" hs_bindgen_98dfb21e9f7
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE export #-}
-
 {-| __C declaration:__ @export@
 
     __defined at:__ @edge-cases\/names.h:17:6@
@@ -377,7 +364,6 @@ foreign import ccall unsafe "hs_bindgen_b96b9fd3fa689c75" hs_bindgen_b96b9fd3fa6
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE family #-}
-
 {-| __C declaration:__ @family@
 
     __defined at:__ @edge-cases\/names.h:18:6@
@@ -393,7 +379,6 @@ foreign import ccall unsafe "hs_bindgen_a4413aed06e03d16" hs_bindgen_a4413aed06e
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE group #-}
-
 {-| __C declaration:__ @group@
 
     __defined at:__ @edge-cases\/names.h:19:6@
@@ -409,7 +394,6 @@ foreign import ccall unsafe "hs_bindgen_52223789a2752bbe" hs_bindgen_52223789a27
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE interruptible #-}
-
 {-| __C declaration:__ @interruptible@
 
     __defined at:__ @edge-cases\/names.h:20:6@
@@ -425,7 +409,6 @@ foreign import ccall unsafe "hs_bindgen_3d349ab20e55d3d5" hs_bindgen_3d349ab20e5
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE javascript #-}
-
 {-| __C declaration:__ @javascript@
 
     __defined at:__ @edge-cases\/names.h:21:6@
@@ -441,7 +424,6 @@ foreign import ccall unsafe "hs_bindgen_7ab78b24e63738f5" hs_bindgen_7ab78b24e63
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE label #-}
-
 {-| __C declaration:__ @label@
 
     __defined at:__ @edge-cases\/names.h:22:6@
@@ -457,7 +439,6 @@ foreign import ccall unsafe "hs_bindgen_13caa66b81eebdfb" hs_bindgen_13caa66b81e
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE prim #-}
-
 {-| __C declaration:__ @prim@
 
     __defined at:__ @edge-cases\/names.h:23:6@
@@ -473,7 +454,6 @@ foreign import ccall unsafe "hs_bindgen_99189a38ba22fdad" hs_bindgen_99189a38ba2
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE role #-}
-
 {-| __C declaration:__ @role@
 
     __defined at:__ @edge-cases\/names.h:24:6@
@@ -489,7 +469,6 @@ foreign import ccall unsafe "hs_bindgen_fe3819b9444e41b6" hs_bindgen_fe3819b9444
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE safe #-}
-
 {-| __C declaration:__ @safe@
 
     __defined at:__ @edge-cases\/names.h:25:6@
@@ -505,7 +484,6 @@ foreign import ccall unsafe "hs_bindgen_7d4e52bd26694f13" hs_bindgen_7d4e52bd266
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE stdcall #-}
-
 {-| __C declaration:__ @stdcall@
 
     __defined at:__ @edge-cases\/names.h:26:6@
@@ -521,7 +499,6 @@ foreign import ccall unsafe "hs_bindgen_be2fd8368b1f85bc" hs_bindgen_be2fd8368b1
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE stock #-}
-
 {-| __C declaration:__ @stock@
 
     __defined at:__ @edge-cases\/names.h:27:6@
@@ -537,7 +514,6 @@ foreign import ccall unsafe "hs_bindgen_d0faf7702a235ae1" hs_bindgen_d0faf7702a2
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE unsafe #-}
-
 {-| __C declaration:__ @unsafe@
 
     __defined at:__ @edge-cases\/names.h:28:6@
@@ -553,7 +529,6 @@ foreign import ccall unsafe "hs_bindgen_56fc690ff4bc7c4e" hs_bindgen_56fc690ff4b
      IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE via #-}
-
 {-| __C declaration:__ @via@
 
     __defined at:__ @edge-cases\/names.h:29:6@

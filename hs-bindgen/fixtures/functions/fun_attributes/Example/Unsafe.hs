@@ -152,8 +152,7 @@ foreign import ccall unsafe "hs_bindgen_52759f125bf2b140" hs_bindgen_52759f125bf
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-__f1 ::
-     IO ()
+__f1 :: IO ()
 __f1 = hs_bindgen_52759f125bf2b140
 
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f1@
@@ -166,8 +165,7 @@ foreign import ccall unsafe "hs_bindgen_80bb9d1445e894ca" hs_bindgen_80bb9d1445e
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f1 ::
-     IO ()
+f1 :: IO ()
 f1 = hs_bindgen_80bb9d1445e894ca
 
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_memalign@
@@ -282,8 +280,7 @@ foreign import ccall unsafe "hs_bindgen_f51c36dd7e8f4133" hs_bindgen_f51c36dd7e8
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-old_fn_deprecated ::
-     IO FC.CInt
+old_fn_deprecated :: IO FC.CInt
 old_fn_deprecated = hs_bindgen_f51c36dd7e8f4133
 
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_dgettext@
@@ -334,8 +331,7 @@ foreign import ccall unsafe "hs_bindgen_a5f34f5beb1c74f1" hs_bindgen_a5f34f5beb1
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f2 ::
-     IO ()
+f2 :: IO ()
 f2 = hs_bindgen_a5f34f5beb1c74f1
 
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_my_memcpy@
@@ -371,8 +367,7 @@ foreign import ccall unsafe "hs_bindgen_667d3280d945cd0c" hs_bindgen_667d3280d94
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-fatal ::
-     IO ()
+fatal :: IO ()
 fatal = hs_bindgen_667d3280d945cd0c
 
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_hash@
@@ -422,8 +417,7 @@ foreign import ccall unsafe "hs_bindgen_1f19397195b32853" hs_bindgen_1f19397195b
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-foobar ::
-     IO ()
+foobar :: IO ()
 foobar = hs_bindgen_1f19397195b32853
 
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_core2_func@
@@ -436,8 +430,7 @@ foreign import ccall unsafe "hs_bindgen_f80f9b58791a9cf2" hs_bindgen_f80f9b58791
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-core2_func ::
-     IO FC.CInt
+core2_func :: IO FC.CInt
 core2_func = hs_bindgen_f80f9b58791a9cf2
 
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_sse3_func@
@@ -450,8 +443,7 @@ foreign import ccall unsafe "hs_bindgen_6a951361c18a91a0" hs_bindgen_6a951361c18
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-sse3_func ::
-     IO FC.CInt
+sse3_func :: IO FC.CInt
 sse3_func = hs_bindgen_6a951361c18a91a0
 
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_f3@
@@ -464,8 +456,7 @@ foreign import ccall unsafe "hs_bindgen_1d7f2cdf95b3bfa3" hs_bindgen_1d7f2cdf95b
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-f3 ::
-     IO ()
+f3 :: IO ()
 f3 = hs_bindgen_1d7f2cdf95b3bfa3
 
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_fn@
@@ -478,8 +469,7 @@ foreign import ccall unsafe "hs_bindgen_c1fff017165ba0e1" hs_bindgen_c1fff017165
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-fn ::
-     IO FC.CInt
+fn :: IO FC.CInt
 fn = hs_bindgen_c1fff017165ba0e1
 
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_y@
@@ -492,8 +482,7 @@ foreign import ccall unsafe "hs_bindgen_67dc9f91fbda20c7" hs_bindgen_67dc9f91fbd
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-y ::
-     IO FC.CInt
+y :: IO FC.CInt
 y = hs_bindgen_67dc9f91fbda20c7
 
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_x1@
@@ -506,8 +495,7 @@ foreign import ccall unsafe "hs_bindgen_8562db8b96c10d6b" hs_bindgen_8562db8b96c
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x1 ::
-     IO FC.CInt
+x1 :: IO FC.CInt
 x1 = hs_bindgen_8562db8b96c10d6b
 
 -- __unique:__ @test_functionsfun_attributes_Example_Unsafe_x2@
@@ -520,6 +508,5 @@ foreign import ccall unsafe "hs_bindgen_150a79fec58eaf56" hs_bindgen_150a79fec58
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
-x2 ::
-     IO FC.CInt
+x2 :: IO FC.CInt
 x2 = hs_bindgen_150a79fec58eaf56

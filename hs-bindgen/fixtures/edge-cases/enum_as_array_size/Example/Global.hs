@@ -29,7 +29,6 @@ foreign import ccall unsafe "hs_bindgen_30b94bcf7e387817" hs_bindgen_30b94bcf7e3
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar))
 
 {-# NOINLINE hs_bindgen_e30c033f156164cc #-}
-
 {-| __C declaration:__ @test_array@
 
     __defined at:__ @edge-cases\/enum_as_array_size.h:8:19@
@@ -43,7 +42,6 @@ hs_bindgen_e30c033f156164cc =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_30b94bcf7e387817
 
 {-# NOINLINE test_array #-}
-
 test_array :: (HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar
 test_array =
   GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_e30c033f156164cc))

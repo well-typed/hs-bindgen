@@ -34,8 +34,7 @@ foreign import ccall safe "hs_bindgen_2010521804ef9a6e" hs_bindgen_2010521804ef9
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-cϒ ::
-     IO ()
+cϒ :: IO ()
 cϒ = hs_bindgen_2010521804ef9a6e
 
 -- __unique:__ @test_edgecasesadios_Example_Safe_拜拜@
@@ -48,8 +47,7 @@ foreign import ccall safe "hs_bindgen_3bc3e53cc82c9580" hs_bindgen_3bc3e53cc82c9
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-拜拜 ::
-     IO ()
+拜拜 :: IO ()
 拜拜 = hs_bindgen_3bc3e53cc82c9580
 
 -- __unique:__ @test_edgecasesadios_Example_Safe_Say拜拜@
@@ -62,6 +60,5 @@ foreign import ccall safe "hs_bindgen_ad8eb47027b2d49d" hs_bindgen_ad8eb47027b2d
 
     __exported by:__ @edge-cases\/adios.h@
 -}
-say拜拜 ::
-     IO ()
+say拜拜 :: IO ()
 say拜拜 = hs_bindgen_ad8eb47027b2d49d

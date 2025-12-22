@@ -127,7 +127,6 @@ genBindingSpec'
       Hs.DeclUnionGetter{}    -> id
       Hs.DeclUnionSetter{}    -> id
       Hs.DeclVar{}            -> id
-      Hs.DeclPragma{}         -> id
 
     insertType ::
          ( (C.DeclInfo, BindingSpec.CTypeSpec)

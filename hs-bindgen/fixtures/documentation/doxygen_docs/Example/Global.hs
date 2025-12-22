@@ -33,7 +33,6 @@ foreign import ccall unsafe "hs_bindgen_f9dede86496f59c9" hs_bindgen_f9dede86496
      IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE global_counter #-}
-
 {-|
 
   > extern int global_counter
@@ -57,7 +56,6 @@ foreign import ccall unsafe "hs_bindgen_a294be08386c9257" hs_bindgen_a294be08386
      IO (Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar))
 
 {-# NOINLINE version_string #-}
-
 {-|
 
   > extern const char* version_string

@@ -52,7 +52,6 @@ foreign import ccall unsafe "hs_bindgen_9445b7269de35e9e" hs_bindgen_9445b7269de
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE square_cp #-}
-
 {-| Conflicting attributes on functions for llvm/clang versions 18 and up
 
   Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
@@ -72,7 +71,6 @@ foreign import ccall unsafe "hs_bindgen_b0c647124e93645d" hs_bindgen_b0c647124e9
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE square_pc #-}
-
 {-| __C declaration:__ @square_pc@
 
     __defined at:__ @functions\/fun_attributes_conflict.h:11:5@
@@ -88,7 +86,6 @@ foreign import ccall unsafe "hs_bindgen_87ee2f018e6d262a" hs_bindgen_87ee2f018e6
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE square_cc #-}
-
 {-| __C declaration:__ @square_cc@
 
     __defined at:__ @functions\/fun_attributes_conflict.h:13:5@
@@ -104,7 +101,6 @@ foreign import ccall unsafe "hs_bindgen_0f31a17bf5ee4e4f" hs_bindgen_0f31a17bf5e
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE square_pp #-}
-
 {-| __C declaration:__ @square_pp@
 
     __defined at:__ @functions\/fun_attributes_conflict.h:15:5@

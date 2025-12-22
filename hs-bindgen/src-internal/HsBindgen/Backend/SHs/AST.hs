@@ -2,30 +2,30 @@
 
 -- | Simplified HS abstract syntax tree
 module HsBindgen.Backend.SHs.AST (
--- TODO: drop S prefix?
-    Global (..),
-    ClosedExpr,
-    SExpr (..),
-    pattern EInt,
-    SAlt (..),
-    PatExpr (..),
-    SDecl (..),
-    Pragma (..),
-    ClosedType,
-    SType (..),
-    Var (..),
-    Function (..),
-    Instance (..),
-    Field (..),
-    Record (..),
-    EmptyData (..),
-    DerivingInstance (..),
-    Newtype (..),
-    ForeignImport (..),
-    Safety (..),
-    FunctionParameter (..),
-    PatternSynonym (..),
-) where
+    Global (..)
+  , ClosedExpr
+  , SExpr (..)
+  , pattern EInt
+  , SAlt (..)
+  , PatExpr (..)
+    -- TODO: drop S prefix?
+  , SDecl (..)
+  , Pragma (..)
+  , ClosedType
+  , SType (..)
+  , Binding (..)
+  , Instance (..)
+  , Field (..)
+  , Record (..)
+  , EmptyData (..)
+  , DerivingInstance (..)
+  , Newtype (..)
+  , ForeignImport (..)
+  , Safety (..)
+  , Parameter (..)
+  , Result (..)
+  , PatternSynonym (..)
+  ) where
 
 import Data.Type.Nat (Nat1)
 
@@ -335,16 +335,14 @@ deriving stock instance Show (SAlt ctx)
 
 -- | Simple declarations
 data SDecl =
-    DVar Var
-  | DInst Instance
+    DInst Instance
   | DRecord Record
   | DNewtype Newtype
   | DEmptyData EmptyData
   | DDerivingInstance DerivingInstance
   | DForeignImport ForeignImport
-  | DFunction Function
+  | DBinding Binding
   | DPatternSynonym PatternSynonym
-  | DPragma Pragma
   deriving stock (Show)
 
 type ClosedType = SType EmptyCtx
@@ -363,20 +361,12 @@ data SType ctx =
   | TApp (SType ctx) (SType ctx)
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')
 
-data Pragma = NOINLINE (Hs.Name Hs.NsVar)
+data Pragma = NOINLINE
   deriving stock Show
 
 infixl 9 `TApp`
 
 deriving stock instance Show (SType ctx)
-
-data Var = Var {
-      varName    :: Hs.Name Hs.NsVar
-    , varType    :: ClosedType
-    , varExpr    :: ClosedExpr
-    , varComment :: Maybe HsDoc.Comment
-    }
-  deriving stock (Show, Generic)
 
 data Instance = Instance {
       instanceClass   :: Global
@@ -430,14 +420,14 @@ data Newtype = Newtype {
     }
   deriving stock (Show)
 
--- | We might want to reconsider the decision of having 'functionParameterType'
--- as well as 'foreignImportResultType' be a 'ClosedType' if we ever want to
+-- | We might want to reconsider the decision of 'foreignImportParameters' as
+-- well as 'foreignImportResultType' being 'ClosedType's if we ever want to
 -- generate polymorphic type signatures.
 --
 data ForeignImport = ForeignImport
     { foreignImportName       :: Hs.Name Hs.NsVar
-    , foreignImportParameters :: [FunctionParameter]
-    , foreignImportResultType :: ClosedType
+    , foreignImportParameters :: [Parameter]
+    , foreignImportResult     :: Result
     , foreignImportOrigName   :: C.DeclName
     , foreignImportCallConv   :: CallConv
     , foreignImportOrigin     :: Origin.ForeignImport
@@ -453,20 +443,27 @@ data Safety = Safe | Unsafe
 instance Default Safety where
   def = Safe
 
-data Function = Function {
-      functionName       :: Hs.Name Hs.NsVar
-    , functionParameters :: [FunctionParameter]
-    , functionResultType :: ClosedType
-    , functionBody       :: ClosedExpr
-    , functionComment    :: Maybe HsDoc.Comment
+data Binding = Binding {
+      name       :: Hs.Name Hs.NsVar
+    , parameters :: [Parameter]
+    , result     :: Result
+    , body       :: ClosedExpr
+    , pragmas    :: [Pragma]
+    , comment    :: Maybe HsDoc.Comment
     }
   deriving stock (Show)
 
-data FunctionParameter = FunctionParameter
-  { functionParameterName    :: Maybe (Hs.Name Hs.NsVar)
-  , functionParameterType    :: ClosedType
-  , functionParameterComment :: Maybe HsDoc.Comment
-  }
+data Parameter = Parameter {
+      name    :: Maybe (Hs.Name Hs.NsVar)
+    , typ     :: ClosedType
+    , comment :: Maybe HsDoc.Comment
+    }
+  deriving stock (Show)
+
+data Result = Result {
+      typ     :: ClosedType
+    , comment :: Maybe HsDoc.Comment
+    }
   deriving stock (Show)
 
 data PatternSynonym = PatternSynonym

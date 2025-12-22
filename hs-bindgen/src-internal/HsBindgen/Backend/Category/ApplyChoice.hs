@@ -9,7 +9,6 @@ import Optics.Core (Lens', over, view)
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Name qualified as Hs
-import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Imports
 
@@ -37,12 +36,11 @@ applyTerms = \case
         Hs.DeclDefineInstance{}        -> p "DefineInstance"
         Hs.DeclDeriveInstance{}        -> p "DeriveInstance"
         fi@Hs.DeclForeignImport{}      -> fi
-        Hs.DeclFunction fn             -> Hs.DeclFunction $ overN #functionDeclName fn
+        Hs.DeclFunction fn             -> Hs.DeclFunction $ overN #name fn
         Hs.DeclMacroExpr{}             -> p "MacroExpr"
         Hs.DeclUnionGetter{}           -> p "UnionGetter"
         Hs.DeclUnionSetter{}           -> p "UnionSetter"
-        Hs.DeclVar x                   -> Hs.DeclVar $ overN #varName x
-        Hs.DeclPragma (SHs.NOINLINE x) -> Hs.DeclPragma (SHs.NOINLINE $ fN x)
+        Hs.DeclVar x                   -> Hs.DeclVar $ overN #name x
       where
         p :: String -> a
         p e = panicPure $ "applyTerms.renameHsDeclWith (" <> show d <> "): unexpected " <> e

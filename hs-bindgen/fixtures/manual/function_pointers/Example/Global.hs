@@ -44,7 +44,6 @@ foreign import ccall unsafe "hs_bindgen_8ca6ae5d7bf88149" hs_bindgen_8ca6ae5d7bf
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)))
 
 {-# NOINLINE hs_bindgen_505081298c324425 #-}
-
 {-| A global variable pointing to a function like apply1_nopointer().
 
 __C declaration:__ @apply1_nopointer_var@
@@ -60,7 +59,6 @@ hs_bindgen_505081298c324425 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8ca6ae5d7bf88149
 
 {-# NOINLINE apply1_nopointer_var #-}
-
 apply1_nopointer_var :: Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
 apply1_nopointer_var =
   GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_505081298c324425))
@@ -70,7 +68,6 @@ foreign import ccall unsafe "hs_bindgen_33a4962ebf2e9daf" hs_bindgen_33a4962ebf2
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr Apply1Struct)
 
 {-# NOINLINE hs_bindgen_96ffcf57d318ddc0 #-}
-
 {-| __C declaration:__ @apply1_struct@
 
     __defined at:__ @manual\/function_pointers.h:40:34@
@@ -84,7 +81,6 @@ hs_bindgen_96ffcf57d318ddc0 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_33a4962ebf2e9daf
 
 {-# NOINLINE apply1_struct #-}
-
 apply1_struct :: Apply1Struct
 apply1_struct =
   GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_96ffcf57d318ddc0))
@@ -94,7 +90,6 @@ foreign import ccall unsafe "hs_bindgen_d1ddd3b607c95874" hs_bindgen_d1ddd3b607c
      IO (HsBindgen.Runtime.ConstPtr.ConstPtr Apply1Union)
 
 {-# NOINLINE hs_bindgen_8368fc70f5e0aec5 #-}
-
 {-| __C declaration:__ @apply1_union@
 
     __defined at:__ @manual\/function_pointers.h:46:32@
@@ -108,7 +103,6 @@ hs_bindgen_8368fc70f5e0aec5 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d1ddd3b607c95874
 
 {-# NOINLINE apply1_union #-}
-
 apply1_union :: Apply1Union
 apply1_union =
   GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_8368fc70f5e0aec5))

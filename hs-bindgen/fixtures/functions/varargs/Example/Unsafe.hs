@@ -26,6 +26,5 @@ foreign import ccall unsafe "hs_bindgen_32ebae80cc3543e1" hs_bindgen_32ebae80cc3
 
     __exported by:__ @functions\/varargs.h@
 -}
-h ::
-     IO ()
+h :: IO ()
 h = hs_bindgen_32ebae80cc3543e1

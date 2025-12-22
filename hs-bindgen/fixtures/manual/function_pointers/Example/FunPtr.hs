@@ -89,7 +89,6 @@ foreign import ccall unsafe "hs_bindgen_f0adbe322df05825" hs_bindgen_f0adbe322df
      IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE square #-}
-
 {-| __C declaration:__ @square@
 
     __defined at:__ @manual\/function_pointers.h:5:12@
@@ -105,7 +104,6 @@ foreign import ccall unsafe "hs_bindgen_ab2a2131b5f9f197" hs_bindgen_ab2a2131b5f
      IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE plus #-}
-
 {-| __C declaration:__ @plus@
 
     __defined at:__ @manual\/function_pointers.h:7:12@
@@ -121,7 +119,6 @@ foreign import ccall unsafe "hs_bindgen_b3bb0146641acd39" hs_bindgen_b3bb0146641
      IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE apply1 #-}
-
 {-| __C declaration:__ @apply1@
 
     __defined at:__ @manual\/function_pointers.h:9:12@
@@ -137,7 +134,6 @@ foreign import ccall unsafe "hs_bindgen_78245c4946e6da00" hs_bindgen_78245c4946e
      IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)) -> FC.CInt -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE apply2 #-}
-
 {-| __C declaration:__ @apply2@
 
     __defined at:__ @manual\/function_pointers.h:11:12@
@@ -153,7 +149,6 @@ foreign import ccall unsafe "hs_bindgen_00276448b1e8af8a" hs_bindgen_00276448b1e
      IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE apply1_pointer_arg #-}
-
 {-| Basically the same as apply1(), but here for illustratory purposes.
 
 __C declaration:__ @apply1_pointer_arg@
@@ -171,7 +166,6 @@ foreign import ccall unsafe "hs_bindgen_00f9010b80cdee19" hs_bindgen_00f9010b80c
      IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE apply1_nopointer_arg #-}
-
 {-| A version of apply1_pointer_arg() that declares to take a argument of function type, rather than a pointer-to-function type.
 
 __C declaration:__ @apply1_nopointer_arg@
@@ -189,7 +183,6 @@ foreign import ccall unsafe "hs_bindgen_16929b4528263721" hs_bindgen_16929b45282
      IO (Ptr.FunPtr (IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))))
 
 {-# NOINLINE apply1_nopointer_res #-}
-
 {-| A function returning a pointer to a function like apply1_nopointer().
 
 __C declaration:__ @apply1_nopointer_res@

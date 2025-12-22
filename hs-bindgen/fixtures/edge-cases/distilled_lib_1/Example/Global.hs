@@ -26,7 +26,6 @@ foreign import ccall unsafe "hs_bindgen_226b16768d8906f3" hs_bindgen_226b16768d8
      IO (Ptr.Ptr Var_t)
 
 {-# NOINLINE v #-}
-
 {-| __C declaration:__ @v@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:91:14@

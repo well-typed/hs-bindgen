@@ -37,7 +37,6 @@ foreign import ccall unsafe "hs_bindgen_c99d8a3b0363a0fa" hs_bindgen_c99d8a3b036
      IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
 
 {-# NOINLINE transpose #-}
-
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h:36:6@
@@ -53,7 +52,6 @@ foreign import ccall unsafe "hs_bindgen_923b33cbbfeb5e7d" hs_bindgen_923b33cbbfe
      IO (Ptr.FunPtr (Triplet_ptrs -> IO ()))
 
 {-# NOINLINE pretty_print_triplets #-}
-
 {-| A function that prints the given triplet_ptrs
 
 __C declaration:__ @pretty_print_triplets@

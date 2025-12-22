@@ -95,7 +95,6 @@ foreign import ccall unsafe "hs_bindgen_ccdad25a057f8efd" hs_bindgen_ccdad25a057
      IO (Ptr.FunPtr (FC.CBool -> IO Toggle))
 
 {-# NOINLINE makeToggle #-}
-
 {-| __C declaration:__ @makeToggle@
 
     __defined at:__ @edge-cases\/iterator.h:4:8@
@@ -111,7 +110,6 @@ foreign import ccall unsafe "hs_bindgen_fd8e19ba2d78baa9" hs_bindgen_fd8e19ba2d7
      IO (Ptr.FunPtr (Toggle -> IO FC.CBool))
 
 {-# NOINLINE toggleNext #-}
-
 {-| __C declaration:__ @toggleNext@
 
     __defined at:__ @edge-cases\/iterator.h:5:6@
@@ -127,7 +125,6 @@ foreign import ccall unsafe "hs_bindgen_780e490698de9df1" hs_bindgen_780e490698d
      IO (Ptr.FunPtr (Toggle -> IO ()))
 
 {-# NOINLINE releaseToggle #-}
-
 {-| __C declaration:__ @releaseToggle@
 
     __defined at:__ @edge-cases\/iterator.h:6:6@
@@ -143,7 +140,6 @@ foreign import ccall unsafe "hs_bindgen_517dd14dbdb5e3ba" hs_bindgen_517dd14dbdb
      IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO Counter))
 
 {-# NOINLINE makeCounter #-}
-
 {-| __C declaration:__ @makeCounter@
 
     __defined at:__ @edge-cases\/iterator.h:11:9@
@@ -159,7 +155,6 @@ foreign import ccall unsafe "hs_bindgen_28d81dd8ce6aca30" hs_bindgen_28d81dd8ce6
      IO (Ptr.FunPtr (Counter -> IO FC.CInt))
 
 {-# NOINLINE counterNext #-}
-
 {-| __C declaration:__ @counterNext@
 
     __defined at:__ @edge-cases\/iterator.h:12:5@
@@ -175,7 +170,6 @@ foreign import ccall unsafe "hs_bindgen_849de94baad0430a" hs_bindgen_849de94baad
      IO (Ptr.FunPtr (Counter -> IO ()))
 
 {-# NOINLINE releaseCounter #-}
-
 {-| __C declaration:__ @releaseCounter@
 
     __defined at:__ @edge-cases\/iterator.h:13:6@
@@ -191,7 +185,6 @@ foreign import ccall unsafe "hs_bindgen_8eea20d99febeef3" hs_bindgen_8eea20d99fe
      IO (Ptr.FunPtr (FC.CInt -> IO VarCounter))
 
 {-# NOINLINE makeVarCounter #-}
-
 {-| __C declaration:__ @makeVarCounter@
 
     __defined at:__ @edge-cases\/iterator.h:18:12@
@@ -207,7 +200,6 @@ foreign import ccall unsafe "hs_bindgen_3ae982266c863a3d" hs_bindgen_3ae982266c8
      IO (Ptr.FunPtr (VarCounter -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE varCounterNext #-}
-
 {-| __C declaration:__ @varCounterNext@
 
     __defined at:__ @edge-cases\/iterator.h:19:5@
@@ -223,7 +215,6 @@ foreign import ccall unsafe "hs_bindgen_802a723805cb041f" hs_bindgen_802a723805c
      IO (Ptr.FunPtr (VarCounter -> IO ()))
 
 {-# NOINLINE releaseVarCounter #-}
-
 {-| __C declaration:__ @releaseVarCounter@
 
     __defined at:__ @edge-cases\/iterator.h:20:6@

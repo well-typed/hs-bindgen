@@ -28,7 +28,6 @@ foreign import ccall unsafe "hs_bindgen_147bbeebcb063844" hs_bindgen_147bbeebcb0
      IO (Ptr.FunPtr (FC.CDouble -> IO FC.CDouble))
 
 {-# NOINLINE _acos #-}
-
 {-| __C declaration:__ @_acos@
 
     __defined at:__ @ordinary_anon_child.h:4:1@

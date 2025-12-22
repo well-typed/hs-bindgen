@@ -690,8 +690,7 @@ __defined at:__ @arrays\/array.h:185:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_9 ::
-     IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+fun_9 :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
 fun_9 = hs_bindgen_ab431ebc0519545a
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_10@
@@ -706,8 +705,7 @@ __defined at:__ @arrays\/array.h:188:10@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_10 ::
-     IO (Ptr.Ptr Triplet)
+fun_10 :: IO (Ptr.Ptr Triplet)
 fun_10 = hs_bindgen_c9ff623e6f48d3bc
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_11@
@@ -722,8 +720,7 @@ __defined at:__ @arrays\/array.h:191:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_11 ::
-     IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
+fun_11 :: IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
 fun_11 = hs_bindgen_e714f0b7c764ba17
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_12@
@@ -738,8 +735,7 @@ __defined at:__ @arrays\/array.h:194:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_12 ::
-     IO (Ptr.Ptr List)
+fun_12 :: IO (Ptr.Ptr List)
 fun_12 = hs_bindgen_cc23741700ba18f7
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_13@
@@ -754,8 +750,7 @@ __defined at:__ @arrays\/array.h:197:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_13 ::
-     IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+fun_13 :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 fun_13 = hs_bindgen_eb3a1364003829ac
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_14@
@@ -770,8 +765,7 @@ __defined at:__ @arrays\/array.h:200:9@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_14 ::
-     IO (Ptr.Ptr Matrix)
+fun_14 :: IO (Ptr.Ptr Matrix)
 fun_14 = hs_bindgen_0f49ffbe2c13ab46
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_15@
@@ -786,8 +780,7 @@ __defined at:__ @arrays\/array.h:203:7@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_15 ::
-     IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+fun_15 :: IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 fun_15 = hs_bindgen_59de769fbba4ed72
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_16@
@@ -802,8 +795,7 @@ __defined at:__ @arrays\/array.h:206:14@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_16 ::
-     IO (Ptr.Ptr Tripletlist)
+fun_16 :: IO (Ptr.Ptr Tripletlist)
 fun_16 = hs_bindgen_1d6ecccfa4ee16ff
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_solve@
@@ -818,6 +810,5 @@ __defined at:__ @arrays\/array.h:209:10@
 
 __exported by:__ @arrays\/array.h@
 -}
-solve ::
-     IO (Ptr.Ptr Sudoku)
+solve :: IO (Ptr.Ptr Sudoku)
 solve = hs_bindgen_6165085eab7d2806
