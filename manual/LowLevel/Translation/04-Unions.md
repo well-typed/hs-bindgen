@@ -1,9 +1,5 @@
 # Unions
 
-> [!NOTE]
-> We are considering changing the approach for dealing with unions.
-> <https://github.com/well-typed/hs-bindgen/pull/567>
-
 Suppose we have
 
 ```c
@@ -76,9 +72,7 @@ struct person {
   char* name;
   int occupation_tag;
 
-  union occupation {
-    // .. as before ..
-  } occupation;
+  union occupation occupation; // defined above
 };
 ```
 
@@ -107,9 +101,5 @@ provide a `Show` instance for `Person`. We _could_ derive a dummy instance for
 do a much better job showing the `Occupation` (it can take advantage of the
 `person_occupation_tag` field), and so we opt not to derive a `Show` instance
 for `Person` either.
-
-> [!NOTE]
-> We currently _do_ try to derive `Show` for `Person`.
-> This is a bug: <https://github.com/well-typed/hs-bindgen/issues/558>
 
 [hackage:base:ByteArray]: https://hackage.haskell.org/package/base/docs/Data-Array-Byte.html#t:ByteArray
