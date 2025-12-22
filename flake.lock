@@ -31,6 +31,7 @@
       "original": {
         "owner": "well-typed",
         "repo": "libclang",
+        "rev": "b8305bd9c3e8e8f63d6f415553388be7f233ef45",
         "type": "github"
       }
     },
