@@ -46,7 +46,8 @@ bindingSpec = BindingSpec.BindingSpec{..}
     bindingSpecCTypes  :: CTypeMap
     bindingSpecHsTypes :: HsTypeMap
     (bindingSpecCTypes, bindingSpecHsTypes) = mkMaps $
-         integralTypes
+         boolTypes
+      ++ integralTypes
       ++ floatingTypes
       ++ mathTypes
       ++ stdTypes
@@ -55,6 +56,11 @@ bindingSpec = BindingSpec.BindingSpec{..}
       ++ timeTypes
       ++ fileTypes
       ++ signalTypes
+
+    boolTypes :: [(CTypeKV, HsTypeKV)]
+    boolTypes = [
+        mkTypeN "bool" "CBool" cD intI (Just $ BindingSpec.Builtin BFT.CBool) ["stdbool.h"]
+      ]
 
     integralTypes :: [(CTypeKV, HsTypeKV)]
     integralTypes =
