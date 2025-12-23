@@ -1,4 +1,5 @@
-index-state: 2025-09-16T04:55:58Z
+-- curent date: 3-month update
+index-state: 2025-12-19T00:00:00Z
 
 -- Note: this should point to a commit on libclang's main branch
 source-repository-package
