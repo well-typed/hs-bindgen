@@ -3,7 +3,7 @@
 -- Intended for unqualified import.
 module HsBindgen.Backend.UniqueSymbol (
     -- * Generating unique names
-    UniqueSymbol(..)
+    UniqueSymbol(unique, source)
   , uniqueCDeclName
   , globallyUnique
   , locallyUnique
