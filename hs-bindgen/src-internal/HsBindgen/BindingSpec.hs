@@ -47,8 +47,7 @@ module HsBindgen.BindingSpec (
   , BindingSpec.lookupMergedBindingSpecs
   ) where
 
-import Data.ByteString qualified as BSS
-import Data.ByteString.Lazy qualified as BSL
+import Data.ByteString (ByteString)
 
 import Clang.Args (ClangArgs)
 import Clang.Paths (SourcePath)
@@ -269,11 +268,11 @@ loadBindingSpecs tracer args target hsModuleName BindingSpecConfig{..} =
 -------------------------------------------------------------------------------}
 
 -- | Encode a binding specification (JSON format)
-encodeBindingSpecJson :: BindingSpec -> BSL.ByteString
+encodeBindingSpecJson :: BindingSpec -> ByteString
 encodeBindingSpecJson = BindingSpec.encodeJson . bindingSpecUnresolved
 
 -- | Encode a binding specification (YAML format)
-encodeBindingSpecYaml :: BindingSpec -> BSS.ByteString
+encodeBindingSpecYaml :: BindingSpec -> ByteString
 encodeBindingSpecYaml = BindingSpec.encodeYaml . bindingSpecUnresolved
 
 {-------------------------------------------------------------------------------

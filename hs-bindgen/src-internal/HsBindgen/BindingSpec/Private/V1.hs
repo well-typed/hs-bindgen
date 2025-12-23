@@ -64,6 +64,7 @@ import Data.Aeson ((.!=), (.:), (.:?), (.=))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.KeyMap qualified as KM
 import Data.Aeson.Types qualified as Aeson
+import Data.ByteString (ByteString)
 import Data.ByteString qualified as BSS
 import Data.ByteString.Lazy qualified as BSL
 import Data.Function (on)
@@ -483,11 +484,11 @@ parseValue tracer cmpt path aVersion@AVersion{..} value
         return Nothing
 
 -- | Encode a binding specification as JSON
-encodeJson :: UnresolvedBindingSpec -> BSL.ByteString
+encodeJson :: UnresolvedBindingSpec -> ByteString
 encodeJson = encodeJson' . toABindingSpec
 
 -- | Encode a binding specification as YAML
-encodeYaml :: UnresolvedBindingSpec -> BSS.ByteString
+encodeYaml :: UnresolvedBindingSpec -> ByteString
 encodeYaml = encodeYaml' . toABindingSpec
 
 -- | Write a binding specification to a file
@@ -500,16 +501,16 @@ writeFile path = case getFormat path of
 
 -- | Write a binding specification to a JSON file
 writeFileJson :: FilePath -> UnresolvedBindingSpec -> IO ()
-writeFileJson path = BSL.writeFile path . encodeJson
+writeFileJson path = BSS.writeFile path . encodeJson
 
 -- | Write a binding specification to a YAML file
 writeFileYaml :: FilePath -> UnresolvedBindingSpec -> IO ()
 writeFileYaml path = BSS.writeFile path . encodeYaml
 
-encodeJson' :: ABindingSpec -> BSL.ByteString
-encodeJson' = Aeson.encode
+encodeJson' :: ABindingSpec -> ByteString
+encodeJson' = BSL.toStrict . Aeson.encode
 
-encodeYaml' :: ABindingSpec -> BSS.ByteString
+encodeYaml' :: ABindingSpec -> ByteString
 encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
   where
     yamlConfig :: Data.Yaml.Pretty.Config
