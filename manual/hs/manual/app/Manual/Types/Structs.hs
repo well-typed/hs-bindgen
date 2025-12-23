@@ -15,9 +15,6 @@ import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 import HsBindgen.Runtime.IncompleteArray qualified as IA
 
 import Manual.Tools
-
-import Example
-import Example.Unsafe
 import Structs
 import Structs.Safe
 

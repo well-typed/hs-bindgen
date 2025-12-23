@@ -5,7 +5,7 @@
 ### Simple `enum`s
 
 We already saw the simplest form of `enum` in the
-[Introduction](Introduction.md): given
+[Introduction](../Introduction.md): given
 
 ```c
 typedef enum index {
@@ -22,10 +22,7 @@ newtype Index = Index {
     un_Index :: CUInt
   }
 
-pattern A :: Index
-pattern B :: Index
-pattern C :: Index
-
+pattern A, B, C :: Index
 pattern A = Index 0
 pattern B = Index 1
 pattern C = Index 2
@@ -36,7 +33,7 @@ values, they do not restrict the range.
 
 ### User-defined ranges
 
-Enums can be given custom ranges, either consecutive as in
+`Enum`s can be given custom ranges, either consecutive as in
 
 ```c
 enum signal {
@@ -95,27 +92,27 @@ enum vote {
 } __attribute__((packed));
 ```
 
-we use `CSChar` (corresponding to `signed char`):
+we use `CUChar` (corresponding to `unsigned char`):
 
 ```haskell
 newtype Vote = Vote {
-    un_Vote :: CSChar
+    un_Vote :: CUChar
   }
 ```
 
 ## The `CEnum` class
 
-At first glance it would seem obvious that the Haskell type defined for C enums
-should be given an `Enum` instance; if `Enum` corresponds to enumeration types,
-then surely C `enum`s qualify. However, as mentioned above, C enums merely
-identify some values; they do not restrict the range of the corresponding type.
-Take `HTTP_status` (see above), and consider  `Moved` (with value 301); should
-`succ Moved` be `Bad_request` (value 400), the next _declared_ value, or should
-it be value 302? `Bounded` is problematic for the same reason: should `minBound`
-be `ok` (value 200) or 0 (`minBound` for `CUInt`)?
+At first glance it would seem obvious that the Haskell type defined for C
+`enum`s should be given an `Enum` instance; if `Enum` corresponds to enumeration
+types, then surely C `enum`s qualify. However, as mentioned above, C `enum`s
+merely identify some values; they do not restrict the range of the corresponding
+type. Take `HTTP_status` (see above), and consider `Moved` (with value 301);
+should `succ Moved` be `Bad_request` (value 400), the next _declared_ value, or
+should it be value 302? `Bounded` is problematic for the same reason: should
+`minBound` be `ok` (value 200) or 0 (`minBound` for `CUInt`)?
 
 The `hs-bindgen-runtime` library therefore defines an alternative class called
-`CENum`, the most important members of which are:
+`CEnum`, the most important members of which are:
 
 ```haskell
 class Integral (CEnumZ a) => CEnum a where
@@ -124,8 +121,8 @@ class Integral (CEnumZ a) => CEnum a where
   toCEnum   :: CEnumZ a -> a
   fromCEnum :: a -> CEnumZ a
 
-  declaredValues  :: proxy a -> DeclaredValues a
-  showsUndeclared :: proxy a -> Int -> CEnumZ a -> ShowS
+  declaredValues     :: proxy a -> DeclaredValues a
+  showsUndeclared    :: proxy a -> Int -> CEnumZ a -> ShowS
   readPrecUndeclared :: ReadPrec a
 ```
 
@@ -143,7 +140,7 @@ instance CEnum Index where
     , (1, NonEmpty.singleton "B")
     , (2, NonEmpty.singleton "C")
     ]
-  showsUndeclared = showsWrappedUndeclared "Index"
+  showsUndeclared    = showsWrappedUndeclared "Index"
   readPrecundeclared = readPrecWrappedUndeclared "Index"
 ```
 
@@ -250,7 +247,7 @@ showCursorKind :: CXCursorKind -> String
 showCursorKind = \case
     CXCursor_UnexposedExpr -> "CXCursor_UnexposedExpr"
     CXCursor_UnexposedStmt -> "CXCursor_UnexposedStmt"
-    kind -> show kind
+    kind                   -> show kind
 ```
 
 We also provide a helper function `showCEnum` for C enums without a specialized
@@ -262,7 +259,7 @@ showCEnum :: forall a. CEnum a => a -> String
 
 > [!NOTE]
 > It is not yet possible to prevent `hs-bindgen` from generating instances.
-> https://github.com/well-typed/hs-bindgen/issues/307
+> <https://github.com/well-typed/hs-bindgen/issues/307>
 
 ## Read instance
 
@@ -322,7 +319,7 @@ readEitherCEnum :: forall a. CEnum a => String -> a
 
 > [!NOTE]
 > It is not yet possible to prevent `hs-bindgen` from generating instances.
-> https://github.com/well-typed/hs-bindgen/issues/307
+> <https://github.com/well-typed/hs-bindgen/issues/307>
 
 ## Deriving-via support
 
@@ -347,7 +344,7 @@ putStrLn $ "Possible votes: " ++ show ([minBound .. maxBound] :: [Vote])
 
 will result in
 
-```
+```text
 Possible votes: [Infavour,Against,Abstain]
 ```
 
@@ -361,7 +358,7 @@ The `CENum` class insists if `a` has both a `CEnum` instance and an `Ord`
 instance, the `Ord` instance on `a` must be compatible with the `Ord` instance
 on the underlying integral type:
 
-```
+```text
 (x <= y)   if and only if  (fromCEnum x <= fromCEnum y)
 ```
 
@@ -384,7 +381,7 @@ instance CEnum a => Enum (AsCEnum a) where
 Provided that `fromIntegral` doesn't do anything very strange, this means that
 we must also have
 
-```
+```text
 (x <= y)   if and only if  (fromEnum x <= fromEnum y)
 ```
 
@@ -401,7 +398,7 @@ instance SequentialCEnum a => Enum (AsSequentialCEnum a) where
 In other words, `succ` and `pred` are just inherited from the underlying
 integral type, so that we have for all `x`
 
-```
+```text
 pred x < x < succ x
 ```
 

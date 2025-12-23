@@ -11,6 +11,7 @@ for generating QR codes.
 ```
 
 This script will:
+
 1. Build the QR Code generator C library
 2. Generate Haskell bindings using `hs-bindgen`
 3. Create `cabal.project.local` with the necessary configuration

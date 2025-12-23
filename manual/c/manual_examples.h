@@ -81,6 +81,13 @@ typedef union occupation {
 
 void print_occupation(int tag, occupation* o);
 
+struct person {
+  char* name;
+  int occupation_tag;
+
+  union occupation occupation;
+};
+
 /**
  * Anonymous types
  */

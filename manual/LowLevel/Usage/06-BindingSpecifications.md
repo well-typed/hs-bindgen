@@ -69,7 +69,7 @@ bindings.
 
 When we generate bindings for `vector.h`, we can ask `hs-bindgen` to produce
 external bindings in addition to the Haskell module (command line flag
-`--gen-external-bindings`). This will result in a file that looks like this:
+`--gen-binding-spec`). This will result in a file that looks like this:
 
 ```yaml
 version:
@@ -89,12 +89,13 @@ _generating_ a definition for it).
 
 We can then use these external bindings when processing `vector_rotate.h`
 (command line flag `--external-binding-spec`). This will result in something
-like this:
+like
 
 ```haskell
 import qualified Vector
 
-foreign import capi safe "vector_rotate.h vector_rotate"
+$(addCSource "...")
+foreign import ccall safe "vector_rotate_interface_function"
   vector_rotate :: Ptr Vector.Vector -> CDouble -> IO (Ptr Vector.Vector)
 ```
 
@@ -117,7 +118,7 @@ module Vector.Types where
 
 newtype Length = UnsafeWrap { unwrap :: Double }
 
-instance Show Length where ..
+instance Show Length where ...
 
 pattern Length :: Double -> Length
 pattern Length x <- (unwrap -> x)
@@ -149,7 +150,8 @@ the external bindings for `Length`), we get
 import qualified Vector
 import qualified Vector.Types
 
-foreign import capi safe "vector_length.h vector_length"
+$(addCSource "...")
+foreign import ccall safe "vector_length_interface_function"
   vector_length :: Ptr Vector.Vector -> IO Vector.Types.Length
 ```
 
@@ -194,8 +196,8 @@ target: x86_64-pc-linux-gnu
 hsmodule: Game.State
 ctypes:
 - headers:
-  - game_world.h
   - game_player.h
+  - game_world.h
   cname: game_state
   hsname: Game_state
 ```

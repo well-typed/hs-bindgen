@@ -5,7 +5,7 @@ structures](https://en.wikipedia.org/wiki/Struct_(C_programming_language))
 (`struct`s). The examples are available in the [C header file
 `structs.h`](/manual/c/structs.h).
 
-In the [Introduction](/manual/LowLevel/Introduction.md), we have seen bindings
+In the [Introduction](../Introduction.md), we have seen bindings
 created for a named C `struct` (structure) storing a triple of integers:
 
 ```c
@@ -22,18 +22,16 @@ data Triple = Triple
   , triple_b :: CInt
   , triple_c :: CInt
   }
+  deriving stock (Eq, Show)
 
 instance F.Storable Triple where ...
-deriving stock instance Show Triple
-deriving stock instance Eq Triple
 ```
 
 ## Structures with and without `typedef`
 
 Adding a `typedef` matching the name of the structure, or using a `typedef` in
 place of a structure name, does not change the generated bindings. For more
-details, see the [section on name
-generation](/manual/LowLevel/GeneratedNames.md).
+details, see the [section on name generation](01-GeneratedNames.md).
 
 ```c
 typedef struct triple triple;
@@ -47,10 +45,8 @@ typedef struct triple triple_t;
 
 ```haskell
 newtype Triple_t = Triple_t { un_Triple_t :: Triple }
-
-deriving newtype instance F.Storable Triple_t
-deriving stock instance Eq Triple_t
-deriving stock instance Show Triple_t
+  deriving stock   (Eq, Show)
+  deriving newtype (Storable)
 ```
 
 ## Nested structures
@@ -82,7 +78,7 @@ creates the following bindings (instances omitted for brevity):
 ```haskell
 data Door = Door
   { door_height :: CFloat
-  , door_width :: CFloat
+  , door_width  :: CFloat
   }
 
 data Room = Room
@@ -135,7 +131,7 @@ struct aula2 {
 ```haskell
 data Aula2_door = Aula2_door
   { aula2_door_height :: CFloat
-  , aula2_door_width :: CFloat
+  , aula2_door_width  :: CFloat
   }
 
 data Aula2 = Aula2
@@ -166,11 +162,11 @@ structure in their `Storable` instance:
 
 ```haskell
 data Aula_setup = Aula_setup
-  { aula_setup_window_id :: CChar
-  , aula_setup_tilt :: CInt
+  { aula_setup_window_id    :: CChar
+  , aula_setup_tilt         :: CInt
   , aula_setup_close_blinds :: CInt
   , aula_setup_projector_id :: CChar
-  , aula_setup_power_mode :: CInt
+  , aula_setup_power_mode   :: CInt
   }
 
 instance F.Storable Aula_setup where
@@ -196,6 +192,7 @@ are used, provides some helper functions. For example,
 peekBitOffWidth :: Bitfield a => Ptr b -> Int -> Int -> IO a
 peekBitOffWidth pointer offset width = ...
 ```
+
 obtains the bitfield member of type `a` at the destination of the provided
 `pointer` with `offset`, and `width`.
 
@@ -268,6 +265,7 @@ data WithFlexibleArrayMember element struct = WithFlexibleArrayMember
 ```
 
 For example,
+
 ```haskell
 bracket (withCString "Rich" $ \cstr -> surname_init cstr) surname_free $
   \ptr -> do
@@ -302,5 +300,5 @@ foreign import ccall safe "Structs_create_square" create_square
   :: CDouble -> IO (Ptr Square)
 ```
 
-Note that opaque types do not get a Storable instance, and therefore can not be
+Note that opaque types do not get a `Storable` instance, and therefore can not be
 used by value.

@@ -19,7 +19,7 @@ Haskell name will be, and also is less likely to result in name clashes.
 
 By default, we use the name in the C header wherever one exists. An obvious
 example is function definitions, where the candidate name for a function `foo`
-is simply `foo`. Similarly, if a struct is given a tag or a typedef,
+is simply `foo`. Similarly, if a `struct` is given a tag or a `typedef`,
 
 ```c
 struct foo { .. };
@@ -59,7 +59,7 @@ data Triple = Triple {
 > [!NOTE]
 > Alternatively we could take advantage of `DuplicateRecordFields` or
 > `OverloadedRecordDot`/`OverloadedRecordUpdate`.
-> https://github.com/well-typed/hs-bindgen/issues/69
+> <https://github.com/well-typed/hs-bindgen/issues/69>
 
 ### Accessors
 
@@ -105,7 +105,7 @@ set_occupation_employee :: Employee -> Occupation
 
 > [!NOTE]
 > Here too we could in principle take advantage of overloaded record syntax.
-> https://github.com/well-typed/hs-bindgen/issues/557
+> <https://github.com/well-typed/hs-bindgen/issues/557>
 
 ### Anonymous types
 
@@ -154,7 +154,7 @@ data Rect = Rect {
 > [!NOTE]
 > With external bindings it might be possible to avoid this duplication, and use
 > a _single_ struct definition with two fields `x` and `y`.
-> https://github.com/well-typed/hs-bindgen/issues/536
+> <https://github.com/well-typed/hs-bindgen/issues/536>
 
 #### Pointer `typedef`s
 
@@ -211,14 +211,14 @@ which `isAlphaNum` returns `False`. After escaping, this name becomes
 > For this _particular_ example we could generate a better name if we
 > transformed it to [NFC][unicode:NFC] first. Indeed, `gcc` (but not `clang`)
 > will issue a warning that this name is not in NFC.
-> https://github.com/well-typed/hs-bindgen/issues/560
+> <https://github.com/well-typed/hs-bindgen/issues/560>
 
 > [!NOTE]
 > C _functions_ with names that contain characters that are invalid in Haskell
 > identifiers can currently not be imported, because `ghc` applies Haskell
 > naming rules to C identifiers. This is unlikely to be an issue, but if it is,
 > we'd need to either patch ghc or generate a C wrapper.
-> https://github.com/well-typed/hs-bindgen/issues/569
+> <https://github.com/well-typed/hs-bindgen/issues/569>
 
 ### Capitalization
 
@@ -306,7 +306,6 @@ newtype Data = Data {
     un_Data :: CInt
   }
 ```
-
 
 [hackage:base:isAlphaNum]: https://hackage.haskell.org/package/base/docs/Data-Char.html#v:isAlphaNum
 [unicode:NFC]: https://unicode.org/reports/tr15/

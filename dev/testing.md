@@ -26,7 +26,7 @@ cabal run -- test-hs-bindgen --accept
 
 A very useful thing to debug failing CI is to add:
 
-```
+```yaml
 - name: Setup tmate session
   uses: mxschmitt/action-tmate@v3
 ```

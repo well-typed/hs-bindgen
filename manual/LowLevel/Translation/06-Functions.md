@@ -6,38 +6,65 @@ This chapter discusses how `hs-bindgen` generates bindings for C functions.
 
 ## Safe vs unsafe foreign imports
 
-When importing a C function, GHC allows us to choose between two calling
-conventions: `safe` and `unsafe`. The distinction is important:
+When importing a C function, we can choose between two calling conventions:
+`safe` and `unsafe`. The [Haskell 2010 Language Report
+states](https://www.haskell.org/onlinereport/haskell2010/haskellch8.html):
 
-* **Safe** foreign imports may call back into Haskell code. They are more
-  expensive.
-* **Unsafe** foreign imports may not call back into Haskell. They are faster
-  because they avoid this overhead, but using `unsafe` incorrectly can lead to
-  undefined behavior.
+> [...] an import declaration can specify, after the calling convention, the
+> safety level that should be used when invoking an external entity. A safe call
+> is less efficient, but guarantees to leave the Haskell system in a state that
+> allows callbacks from the external code. In contrast, an unsafe call, while
+> carrying less overhead, must not trigger a callback into the Haskell system.
+> If it does, the system behaviour is undefined. [...] Note that a callback into
+> the Haskell system implies that a garbage collection might be triggered after
+> an external entity was called, but before this call returns. [...]
 
-To give users control over this choice, `hs-bindgen` generates two separate
-modules for function bindings:
+That is:
+* A **safe** foreign import induces the GHC runtime system (RTS) to perform some
+  bookkeeping. Garbage collection may occur during the function call.
+* **Unsafe** foreign imports are faster but must not call back into Haskell.
+  Since version 8.4, GHC guarantees that garbage collection does not occur
+  during a function call with an unsafe import.
 
-* `ModuleName.Safe` - contains all function imports using the `safe` calling
+
+The [Haskell Unfoldr Episode 36 "Discussing
+FFI"](https://www.youtube.com/watch?v=IMrBTx7aYjs&list=PLD8gywOEY4HaG5VSrKVnHxCptlJv2GAn7&index=37)
+also provides valid information with respect to the two foreign function calling
+conventions and its unexpected interactions with the moving garbage collector of
+Haskell. In particular, Edsko de Vries cautions that safe foreign imports may be
+problematic when pointers are involved. The pointer targets may be moved by the
+Haskell garbage collector during the execution of the safely imported foreign
+function, leading to undefined behavior.
+
+In summary, `hs-bindgen` does not favor one foreign function calling convention
+over the other because it simply cannot know what is appropriate, and what is
+dangerous. Instead, `hs-bindgen` allows users to choose the foreign import
+safety. By default, in preprocessor mode,`hs-bindgen` generates two modules, one
+for each import safety:
+
+* `ModuleName.Safe` contains function imports using the `safe` calling
   convention
-* `ModuleName.Unsafe` - contains all function imports using the `unsafe`
-  calling convention
+* `ModuleName.Unsafe` contains function imports using the `unsafe` calling
+  convention
 
 Both modules export identical APIs, differing only in their calling convention.
 Users can import from whichever module best suits their needs.
+
+When using Template Haskell or literate mode, `hs-bindgen` can only generate a
+single module. By default, `hs-bindgen` will use `safe` foreign imports, but
+users may choose to generate `unsafe` imports, or rename functions so they can
+generate bindings for both calling conventions (see binding categories).
 
 ## Function addresses
 
 ### Function pointers
 
-In theory every C function is a candidate for being passed to other functions as
-a function pointer. For example, consider the following two (contrived)
-functions in a header file, with appropriate definitions in a body file that we
-do not show here:
+In theory, every C function is may be passed to other functions as a function
+pointer. For example, consider the following two function signatures:
 
 ```c
 extern int square(int);
-extern int apply(int (*f)(int), int x); // applies f to x
+extern int apply(int (*f)(int), int x); // apply f to x
 ```
 
 We might use these functions as follows:
@@ -49,10 +76,10 @@ int main() {
 ```
 
 To be able to pass C function pointers to other C functions through the Haskell
-FFI, `hs-bindgen` generates for each C function a binding to the address of that
-C function.
+FFI, `hs-bindgen` generates a binding for each C function to the address of that
+C function (i.e., a function pointer).
 
-```hs
+```haskell
 foreign import {-# details elided #-} square
   :: FC.CInt -> IO FC.CInt
 
@@ -66,29 +93,28 @@ foreign import {-# details elided #-} apply
 apply :: F.FunPtr ((F.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
 ```
 
-A binding to the address of a C function is generated using a stub, just like we
-do for bindings to global variables. See the [Globals][globals] section of the
-manual for more information about stubs.
+Function pointers use stubs, just like bindings to global variables. See the
+[Globals][globals] section of the manual for more information about stubs.
 
-Note that we've also generated `apply`, even though we did not need it in
-this case. `hs-bindgen` generates address stubs for *all* function declarations.
+Note that we also generate `apply`, even though we did not need it in this case.
+`hs-bindgen` generates address stubs for *all* function declarations.
 
 We might use these bindings as follows:
 
-```hs
+```haskell
 main = do
   y <- apply square 4
   print y -- prints 16
 ```
 
-[globals]:./Globals.md#Guidelines-for-binding-generation
+[globals]:./07-Globals.md#Guidelines-for-binding-generation
 
 ### Implicit function to pointer conversion
 
 In C, functions are not "first-class citizens", but *pointers to functions* can
 be passed around freely. Typically, C code is explicit about the fact that it
 deals with function pointers, but there are some cases where implicit conversion
-happens, and we should take that into account for binding generation.
+happens, and we must take that into account when generating bindings.
 
 One such case is when function parameters have function types. Quoted from the
 ["Function declarations" section][creference:fun-decl] of the C reference
@@ -116,24 +142,25 @@ website:
 > ```
 
 Technically, only the latter case is called an "implicit conversion" by the C
-reference website. Still, the former case is very similar in that a function
-type is "converted" to the corresponding pointer type. Still, we now know that
-it safe to use function pointer values in place of function values (the latter
-is converted to the former), and it is safe to use function pointer types in
-place of function types (the latter is convert/adjusted to the former).
+reference website. Still, the former case is similar in that a function type is
+"converted" to the corresponding pointer type. That is, it is safe to use
+function pointer values in place of function values (the latter is converted to
+the former), and it is safe to use function pointer types in place of function
+types (the latter is convert/adjusted to the former).
 
-Now for some examples. In the example below, the `f` argument of
-`apply1_pointer` is a pointer argument, so no adjustments are needed. The `f`
-argument of `apply1_nopointer` is a function type argument (we look through
-typedefs), so we adjust its type to a pointer-to-function type. In the end, both
-C functions get Haskell bindings with the exact same type.
+In the example below, the `f` argument of `apply1_pointer` is a pointer
+argument, and no adjustments are needed. The `f` argument of `apply1_nopointer`
+is a function type argument (we look through typedefs), so we adjust its type to
+a pointer-to-function type. In the end, both C functions get Haskell bindings
+with the exact same type.
 
 ```c
 typedef int int2int(int);
 extern int apply1_pointer_arg (int2int *, int);
 extern int apply1_nopointer_arg (int2int, int);
 ```
-```hs
+
+```haskell
 newtype Int2int = Int2int { un_Int2int :: CInt -> IO CInt }
 foreign import {-# details elided #-} apply1_pointer_arg
   :: FunPtr Int2int -> CInt -> IO CInt
@@ -170,7 +197,7 @@ union Apply1Union {
 extern const union Apply1Union apply1_union;
 ```
 
-```hs
+```haskell
 foreign import {-# details elided #-} apply1_nopointer_res
   :: IO (FunPtr (FunPtr Int2int -> CInt -> IO CInt))
 
@@ -211,7 +238,6 @@ apply1_union :: Apply1Union
 ```
 
 [creference:fun-decl]: https://en.cppreference.com/w/c/language/function_declaration.html#Explanation
-[creference:fun-ptr-conv]: https://en.cppreference.com/w/c/language/conversion.html#Function_to_pointer_conversion
 
 ## Conversion between Haskell functions and C functions
 
@@ -230,7 +256,7 @@ typedef void (*ProgressUpdate)(int percentComplete);
 
 We generate:
 
-```hs
+```haskell
 newtype ProgressUpdate_Deref = ProgressUpdate_Deref
   { un_ProgressUpdate_Deref :: CInt -> IO ()
   }
@@ -250,7 +276,7 @@ For function pointer types that are actually used by the C API, `hs-bindgen`
 generates both `"wrapper"` and `"dynamic"` foreign import stubs. These provide
 bidirectional conversion between Haskell functions and C function pointers:
 
-```hs
+```haskell
 -- Create a C-callable function pointer from a Haskell function
 foreign import ccall "wrapper" toProgressUpdate_Deref ::
      ProgressUpdate_Deref
@@ -265,7 +291,7 @@ foreign import ccall "dynamic" fromProgressUpdate_Deref ::
 These stubs are abstracted over two type classes in order to offer a better
 API to the end user. The following instances are also generated:
 
-```hs
+```haskell
 instance ToFunPtr ProgressUpdate_Deref where
   toFunPtr = toProgressUpdate_Deref
 
@@ -303,7 +329,7 @@ different C libraries.
 To pass a Haskell function as a callback to C, use `toFunPtr` or the
 `withToFunPtr` bracket combinator:
 
-```hs
+```haskell
 import HsBindgen.Runtime.FunPtr (withToFunPtr)
 
 myCallback :: ProgressUpdate_Deref
@@ -325,7 +351,7 @@ bracket
 
 To call a function pointer returned from C, use `fromFunPtr`:
 
-```hs
+```haskell
 do
   validatorFunPtr <- getValidator
   -- validatorFunPtr :: DataValidator
@@ -352,7 +378,7 @@ void registerHandler(struct MeasurementHandler *handler);
 In Haskell we can make use of the `ToFunPtr` to construct the
 `MeasurementHandler` record.
 
-```hs
+```haskell
 alloca $ \handlerPtr -> do
   onReceivedPtr <- toFunPtr $ OnReceived_Deref $ \dataPtr -> do
     measurement <- peek dataPtr
@@ -400,7 +426,7 @@ void hs_bindgen_test_example_a1b2c3d4e5f6g7h8 ( struct point * arg1 ) {
 }
 ```
 
-```hs
+```haskell
 -- Generated Haskell import
 foreign import ccall "hs_bindgen_test_example_a1b2c3d4e5f6g7h8"
   print_point :: Ptr Point → IO ()
@@ -437,7 +463,7 @@ void hs_bindgen_example_9a8b7c6d5e4f3210 ( struct point * arg
 
 This wrapper is then imported in Haskell:
 
-```hs
+```haskell
 foreign import ccall safe "hs_bindgen_example_9a8b7c6d5e4f3210"
     byval_wrapper :: Ptr Point → Ptr Point → IO ()
 ```
@@ -445,7 +471,7 @@ foreign import ccall safe "hs_bindgen_example_9a8b7c6d5e4f3210"
 Finally, we generate a Haskell wrapper function that recovers the original
 by-value semantics using `with`, `alloca`, and `peek`:
 
-```hs
+```haskell
 byval :: Point → IO Point
 byval p =
   with p $ \ arg →
@@ -470,7 +496,7 @@ function, resulting in duplicate symbols.
 From the perspective of `hs-bindgen`, these look like ordinary functions,
 and we will generate
 
-```hs
+```haskell
 foreign import ccall safe "<userland CAPI wrapper>"
   mod_10 :: CInt -> IO CInt
 ```

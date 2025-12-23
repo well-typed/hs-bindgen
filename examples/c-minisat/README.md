@@ -19,6 +19,7 @@ nix-shell -p minisat
 ```
 
 This script will:
+
 1. Build the minisat-c-bindings C library
 2. Create symbolic links for the shared library (see quirks below)
 3. Generate Haskell bindings using `hs-bindgen`
