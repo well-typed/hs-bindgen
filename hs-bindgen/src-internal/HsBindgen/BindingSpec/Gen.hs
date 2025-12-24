@@ -6,9 +6,6 @@
 module HsBindgen.BindingSpec.Gen (
     -- * Public API
     genBindingSpec
-
-    -- * Internal API
-  , genBindingSpecYaml
   ) where
 
 import Data.ByteString (ByteString)
@@ -40,38 +37,23 @@ import HsBindgen.Language.Haskell qualified as Hs
 -------------------------------------------------------------------------------}
 
 -- | Generate binding specification
---
--- The format is determined by filename extension.  The following formats are
--- supported:
---
--- * YAML (@.yaml@ extension)
--- * JSON (@.json@ extension)
 genBindingSpec ::
-     ClangArgs.Target
-  -> Hs.ModuleName
-  -> GetMainHeaders
-  -> [(C.DeclId, SourcePath)]
-  -> [(C.DeclId, (SourcePath, Hs.Identifier))]
-  -> [Hs.Decl]
-  -> UnresolvedBindingSpec
-genBindingSpec target hsModuleName getMainHeaders omitTypes squashedTypes =
-  genBindingSpec' target hsModuleName getMainHeaders omitTypes squashedTypes
-
-{-------------------------------------------------------------------------------
-  Internal API (for tests)
--------------------------------------------------------------------------------}
-
--- | Generate binding specification
-genBindingSpecYaml ::
-     ClangArgs.Target
+     Format
+  -> ClangArgs.Target
   -> Hs.ModuleName
   -> GetMainHeaders
   -> [(C.DeclId, SourcePath)]
   -> [(C.DeclId, (SourcePath, Hs.Identifier))]
   -> [Hs.Decl]
   -> ByteString
-genBindingSpecYaml target hsModuleName getMainHeaders omitTypes squashedTypes =
-      BindingSpec.encode FormatYAML
+genBindingSpec
+  format
+  target
+  hsModuleName
+  getMainHeaders
+  omitTypes
+  squashedTypes =
+      BindingSpec.encode format
     . genBindingSpec' target hsModuleName getMainHeaders omitTypes squashedTypes
 
 {-------------------------------------------------------------------------------

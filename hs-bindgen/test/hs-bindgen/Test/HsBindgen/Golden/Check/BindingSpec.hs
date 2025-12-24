@@ -10,6 +10,7 @@ import Test.HsBindgen.Resources
 import Test.Tasty (TestTree)
 
 import HsBindgen
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 
 {-------------------------------------------------------------------------------
@@ -31,7 +32,8 @@ check testResources test =
 
       let output :: String
           output = UTF8.toString $
-              BindingSpec.genBindingSpecYaml
+              BindingSpec.genBindingSpec
+                BindingSpec.FormatYAML
                 target
                 "Example"
                 getMainHeaders
