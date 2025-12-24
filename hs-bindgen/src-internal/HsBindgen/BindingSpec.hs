@@ -34,8 +34,14 @@ module HsBindgen.BindingSpec (
   , moduleName
     -- ** Types
   , Common.Omittable(..)
+  , BindingSpec.BindingSpecTarget(..)
   , BindingSpec.CTypeSpec(..)
+  , BindingSpec.CTypeRep(..)
   , BindingSpec.HsTypeSpec(..)
+  , BindingSpec.HsTypeRep(..)
+  , BindingSpec.HsRecordRep(..)
+  , BindingSpec.HsNewtypeRep(..)
+  , BindingSpec.FFIType(..)
   , BindingSpec.InstanceSpec(..)
   , BindingSpec.StrategySpec(..)
   , BindingSpec.ConstraintSpec(..)
