@@ -48,7 +48,6 @@ instance IsPass Select where
   type MacroBody  Select = CheckedMacro Select
   type ExtBinding Select = ResolvedExtBinding
   type Ann ix     Select = AnnSelect ix
-  type Config     Select = SelectConfig
   type Msg        Select = SelectMsg
 
 {-------------------------------------------------------------------------------

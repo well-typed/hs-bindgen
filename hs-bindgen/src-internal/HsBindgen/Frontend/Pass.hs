@@ -2,7 +2,6 @@ module HsBindgen.Frontend.Pass (
     Pass
   , IsPass(..)
   , NoAnn(..)
-  , NoConfig(..)
   ) where
 
 import HsBindgen.Frontend.Naming qualified as C
@@ -119,10 +118,6 @@ class (
   -- are showable, for example).
   type Ann (ix :: Symbol) p :: Star
 
-  -- | Configuration required to run the pass
-  type Config p :: Star
-  type Config p = NoConfig
-
   -- | Trace messages possibly emitted by the pass
   type Msg p :: Star
 
@@ -137,7 +132,4 @@ class (
   idSourceName _ = C.declIdSourceName
 
 data NoAnn = NoAnn
-  deriving stock (Show, Eq, Ord)
-
-data NoConfig = NoConfig
   deriving stock (Show, Eq, Ord)

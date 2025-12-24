@@ -84,7 +84,7 @@ data TransitiveSelectability =
 selectDecls ::
      IsMainHeader
   -> IsInMainHeaderDir
-  -> Config Select
+  -> SelectConfig
   -> C.TranslationUnit ResolveBindingSpecs
   -> (C.TranslationUnit Select, [Msg Select])
 selectDecls
