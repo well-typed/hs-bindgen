@@ -23,8 +23,9 @@ import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -76,7 +77,10 @@ inContext ctx = go ctx
     go _ (C.TypeBlock ty) =
         HsBlock $ go Top ty
     go _ (C.TypeExtBinding ext) =
-        Hs.HsExtBinding (C.extHsRef ext) (C.extCSpec ext) (C.extHsSpec ext)
+        Hs.HsExtBinding
+          (ResolveBindingSpecs.extHsRef  ext)
+          (ResolveBindingSpecs.extCSpec  ext)
+          (ResolveBindingSpecs.extHsSpec ext)
     go c (C.TypeQualified C.TypeQualifierConst ty) =
         go c ty
     go _ (C.TypeComplex p) =

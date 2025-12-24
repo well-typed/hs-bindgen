@@ -141,6 +141,7 @@ library internal
     HsBindgen.Frontend.AST.Finalize
     HsBindgen.Frontend.AST.Internal
     HsBindgen.Frontend.AST.PrettyPrinter
+    HsBindgen.Frontend.AST.Type
     HsBindgen.Frontend.LanguageC
     HsBindgen.Frontend.LanguageC.Error
     HsBindgen.Frontend.LanguageC.Monad

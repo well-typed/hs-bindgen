@@ -24,6 +24,7 @@ module HsBindgen.Backend.Hs.Origin (
   ) where
 
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------

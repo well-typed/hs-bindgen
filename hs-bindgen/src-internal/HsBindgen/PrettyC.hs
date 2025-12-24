@@ -17,6 +17,7 @@ import Control.Monad.State.Strict (State, evalState, get, put)
 
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.AST.PrettyPrinter qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Imports
 
 import DeBruijn (Env (..), Idx, lookupEnv, sizeEnv, tabulateEnv)

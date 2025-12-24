@@ -44,6 +44,7 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Imports
@@ -96,7 +97,7 @@ generateDeclarations' opts haddockConfig moduleName declIndex decs =
           fFIStubsAndFunPtrInstances =
                    [ WithCategory CType d
                    | C.TypePointers _ (C.TypeFun args res) <- Set.toList scannedFunctionPointerTypes
-                   , not (any hasUnsupportedType (res:args))
+                   , not (any C.hasUnsupportedType (res:args))
                    , any (isDefinedInCurrentModule declIndex) (res:args)
                    , d <- ToFromFunPtr.forFunction (args, res)
                    ]
@@ -913,7 +914,7 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
             -- If we see all the way through the typedef this case will not be
             -- handled correctly.
             --
-            C.TypeFun args res | not (any hasUnsupportedType (res:args)) ->
+            C.TypeFun args res | not (any C.hasUnsupportedType (res:args)) ->
               ToFromFunPtr.forNewtype nt.newtypeName (args, res)
             _ -> []
 
@@ -1440,32 +1441,3 @@ macroVarDecs haddockConfig info macroExpr = [
   where
     hsVarName :: Hs.Name Hs.NsVar
     hsVarName = Hs.unsafeHsIdHsName info.declId.hsName
-
-{-------------------------------------------------------------------------------
-  Helpers
--------------------------------------------------------------------------------}
-
--- | Checks if a type is unsupported by Haskell's FFI
---
-hasUnsupportedType :: C.GetCanonicalType t => t -> Bool
-hasUnsupportedType = aux . C.getCanonicalType
-  where
-    aux :: C.CanonicalType -> Bool
-    aux (C.TypeRef declId)       = auxRef declId
-    aux C.TypeComplex {}         = True
-    aux C.TypeConstArray {}      = True
-    aux C.TypeIncompleteArray {} = True
-    aux C.TypePrim {}            = False
-    aux C.TypePointers {}        = False
-    aux C.TypeFun {}             = False
-    aux C.TypeVoid               = False
-    aux C.TypeBlock {}           = False
-    aux C.TypeExtBinding {}      = False
-
-    auxRef :: C.DeclIdPair -> Bool
-    auxRef declId =
-        case declId.cName.name.kind of
-          C.NameKindOrdinary               -> False
-          C.NameKindTagged C.TagKindStruct -> True
-          C.NameKindTagged C.TagKindUnion  -> True
-          C.NameKindTagged C.TagKindEnum   -> False
