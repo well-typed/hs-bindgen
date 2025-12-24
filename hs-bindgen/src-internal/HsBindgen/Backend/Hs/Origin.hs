@@ -25,6 +25,7 @@ module HsBindgen.Backend.Hs.Origin (
 
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -56,9 +57,9 @@ data EmptyData =
 
 data ForeignImport =
     Function C.Function
-  | Global C.Type
-  | ToFunPtr C.Type
-  | FromFunPtr C.Type
+  | Global (C.Type Final)
+  | ToFunPtr (C.Type Final)
+  | FromFunPtr (C.Type Final)
   deriving stock (Generic, Show)
 
 newtype PatSyn =

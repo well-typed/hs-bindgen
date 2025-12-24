@@ -24,6 +24,7 @@ import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -42,7 +43,7 @@ import HsBindgen.Language.Haskell qualified as Hs
 -- the respective ToFunPtr and FromFunPtr instances.
 --
 -- These instances are placed in the main module to avoid orphan instances.
-forFunction :: ([C.Type], C.Type) -> [Hs.Decl]
+forFunction :: ([C.Type Final], C.Type Final) -> [Hs.Decl]
 forFunction (args, res) =
     instancesFor
       nameTo
@@ -62,7 +63,10 @@ forFunction (args, res) =
     nameFrom = nameWith "FromFunPtr"
 
 -- | Generate instances for newtype around functions
-forNewtype :: Hs.Name Hs.NsTypeConstr -> ([C.Type], C.Type) -> [Hs.Decl]
+forNewtype ::
+     Hs.Name Hs.NsTypeConstr
+  -> ([C.Type Final], C.Type Final)
+  -> [Hs.Decl]
 forNewtype newtypeName (args, res) =
     instancesFor
       nameTo
@@ -87,7 +91,7 @@ forNewtype newtypeName (args, res) =
 instancesFor ::
      UniqueSymbol -- ^ Name of the @toFunPtr@ fun
   -> UniqueSymbol -- ^ Name of the @fromFunPtr@ fun
-  -> C.Type       -- ^ Type of the C function
+  -> C.Type Final -- ^ Type of the C function
   -> HsType       -- ^ Corresponding Haskell type
   -> [Hs.Decl]
 instancesFor nameTo nameFrom funC funHs = [

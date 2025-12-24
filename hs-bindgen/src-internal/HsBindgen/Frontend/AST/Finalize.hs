@@ -263,7 +263,7 @@ instance Finalize Int.CheckedMacroType where
         } = checkedMacroType
 
 instance Finalize Int.Type where
-  type Finalized Int.Type = Ext.Type
+  type Finalized Int.Type = Ext.Type Final
 
   finalize (Int.TypePrim prim)           = Ext.TypePrim prim
   finalize (Int.TypeRef declId)          = Ext.TypeRef declId

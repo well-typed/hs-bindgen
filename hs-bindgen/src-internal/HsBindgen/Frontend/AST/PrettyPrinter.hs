@@ -12,6 +12,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External
 import HsBindgen.Frontend.AST.Type
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -23,12 +24,12 @@ import HsBindgen.Language.C qualified as C
 -- | Formats functions with attributes on their own line, parameters on separate
 -- lines with additional indentation.
 --
-showsFunctionType ::
-     HasCallStack
-  => ShowS            -- ^ function name
-  -> FunctionPurity   -- ^ function purity
-  -> [(ShowS, Type)]  -- ^ arguments, names and types
-  -> Type             -- ^ return type
+showsFunctionType :: forall p.
+     (IsPass p, HasCallStack)
+  => ShowS              -- ^ function name
+  -> FunctionPurity     -- ^ function purity
+  -> [(ShowS, Type p)]  -- ^ arguments, names and types
+  -> Type p             -- ^ return type
   -> ShowS
 showsFunctionType n pur args res  =
       showsFunctionPurity pur
@@ -51,15 +52,15 @@ showsFunctionType n pur args res  =
       where
         sep a b = a . showString ",\n" . b
 
-        showT :: (ShowS, Type) -> ShowS
+        showT :: (ShowS, Type p) -> ShowS
         showT (i, p) =
               showString "  "  -- extra 2 spaces for parameters
             . showsVariableType i p
 
 showsVariableType ::
-     HasCallStack
+     (IsPass p, HasCallStack)
   => ShowS -- ^ variable name
-  -> Type
+  -> Type p
   -> ShowS
 showsVariableType n ty = showsType variableDeclarator ty
   where
@@ -139,14 +140,14 @@ showsVariableType n ty = showsType variableDeclarator ty
 -- :}
 -- "signed int (*bar (signed int arg1))[2][3]"
 --
-showsType ::
-     HasCallStack
+showsType :: forall p.
+     (IsPass p, HasCallStack)
   => (CTypePrecedence -> ShowS)  -- ^ variable name, or function name + arguments
-  -> Type
+  -> Type p
   -> ShowS
 showsType x (TypePrim p)              = C.showsPrimType p . showChar ' ' . x 0
-showsType x (TypeRef ref)             = showsDeclId ref.cName . showChar ' ' . x 0
-showsType x (TypeTypedef typedef)     = showsDeclId typedef.ref.cName . showChar ' ' . x 0
+showsType x (TypeRef ref)             = showsId (Proxy @p) ref . showChar ' ' . x 0
+showsType x (TypeTypedef typedef)     = showsId (Proxy @p) typedef.ref . showChar ' ' . x 0
 showsType x (TypePointers n t)        = showsType (\d -> showParen (d > arrayPrec)
                                       $ foldr (.) id (replicate n (showString "*"))
                                       . x (pointerPrec + 1)) t
@@ -158,7 +159,7 @@ showsType x (TypeFun args res)        =
     -- declarations.
     showsFunctionType (showParen True (x 0)) ImpureFunction (zipWith named [1..] args) res
   where
-    named :: Int -> Type -> (ShowS, Type)
+    named :: Int -> Type p -> (ShowS, Type p)
     named i t = (showString "arg" . shows i, t)
 showsType x TypeVoid                  = showString "void " . x 0
 showsType x (TypeIncompleteArray t)   = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
@@ -245,10 +246,17 @@ showAttributeNewline pur = case pur of
     HaskellPureFunction -> showChar '\n'
     CPureFunction -> showChar '\n'
 
+showsId :: IsPass p => Proxy p -> Id p -> ShowS
+showsId p declId =
+    case idSourceName p declId of
+      Just name -> showsDeclName name
+      Nothing   -> panicPure $ "Cannot refer to anon decl " ++ show declId
+
 showsDeclId :: DeclId -> ShowS
-showsDeclId declId
-  | declId.isAnon = panicPure $ "Cannot refer to anon decl " ++ show declId
-  | otherwise     = showsDeclName declId.name
+showsDeclId declId =
+    case C.declIdSourceName declId of
+      Just name -> showsDeclName name
+      Nothing   -> panicPure $ "Cannot refer to anon decl " ++ show declId
 
 showsDeclName :: C.DeclName -> ShowS
 showsDeclName (C.DeclName name kind) = showsNameKind kind . showsText name

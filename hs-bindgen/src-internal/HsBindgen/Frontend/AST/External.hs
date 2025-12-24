@@ -58,6 +58,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.AST.Type
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -116,7 +117,7 @@ data DeclKind =
   | DeclMacro CheckedMacro
   | DeclFunction Function
     -- | A global variable, whether it be declared @extern@, @static@ or neither.
-  | DeclGlobal Type
+  | DeclGlobal (Type Final)
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
@@ -158,7 +159,7 @@ data Struct = Struct {
 
 data StructField = StructField {
       structFieldInfo    :: FieldInfo
-    , structFieldType    :: Type
+    , structFieldType    :: Type Final
     , structFieldOffset  :: Int -- ^ Offset in bits
     , structFieldWidth   :: Maybe Int
     }
@@ -179,7 +180,7 @@ data Union = Union {
 
 data UnionField = UnionField {
       unionFieldInfo :: FieldInfo
-    , unionFieldType :: Type
+    , unionFieldType :: Type Final
     }
   deriving stock (Show, Eq, Generic)
 
@@ -189,7 +190,7 @@ data UnionField = UnionField {
 
 data Enum = Enum {
       enumNames     :: MangleNames.NewtypeNames
-    , enumType      :: Type
+    , enumType      :: Type Final
     , enumSizeof    :: Int
     , enumAlignment :: Int
     , enumConstants :: [EnumConstant]
@@ -208,7 +209,7 @@ data EnumConstant = EnumConstant {
 
 data Typedef = Typedef {
       typedefNames :: MangleNames.NewtypeNames
-    , typedefType  :: Type
+    , typedefType  :: Type Final
     }
   deriving stock (Show, Eq, Generic)
 
@@ -217,9 +218,9 @@ data Typedef = Typedef {
 -------------------------------------------------------------------------------}
 
 data Function = Function {
-      functionArgs    :: [(Maybe C.ScopedNamePair, Type)]
+      functionArgs    :: [(Maybe C.ScopedNamePair, Type Final)]
     , functionAttrs   :: Int.FunctionAttributes
-    , functionRes     :: Type
+    , functionRes     :: Type Final
     }
   deriving stock (Show, Eq, Generic)
 
@@ -245,6 +246,6 @@ data CheckedMacro =
 
 data CheckedMacroType = CheckedMacroType {
       macroTypeNames   :: MangleNames.NewtypeNames
-    , macroType        :: Type
+    , macroType        :: Type Final
     }
   deriving stock (Show, Eq, Generic)

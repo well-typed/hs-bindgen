@@ -25,6 +25,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -40,13 +41,13 @@ data TypeContext =
   | PtrArg  -- ^ Pointer argument
   deriving stock (Show)
 
-topLevel :: HasCallStack => C.Type -> Hs.HsType
+topLevel :: HasCallStack => C.Type Final -> Hs.HsType
 topLevel = inContext Top
 
-inContext :: HasCallStack => TypeContext -> C.Type -> Hs.HsType
+inContext :: HasCallStack => TypeContext -> C.Type Final -> Hs.HsType
 inContext ctx = go ctx
   where
-    go :: TypeContext -> C.Type -> Hs.HsType
+    go :: TypeContext -> C.Type Final -> Hs.HsType
     go _ (C.TypeTypedef (C.TypedefRef ref _)) =
         Hs.HsTypRef (Hs.unsafeHsIdHsName ref.hsName)
     go _ (C.TypeRef ref) =

@@ -18,6 +18,7 @@ import Control.Monad.State.Strict (State, evalState, get, put)
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.AST.PrettyPrinter qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Imports
 
 import DeBruijn (Env (..), Idx, lookupEnv, sizeEnv, tabulateEnv)
@@ -25,11 +26,11 @@ import DeBruijn (Env (..), Idx, lookupEnv, sizeEnv, tabulateEnv)
 type Name = String
 
 data Decl where
-    FunDefn :: Name -> C.Type -> C.FunctionPurity -> Args ctx -> [Stmt ctx] -> Decl
+    FunDefn :: Name -> C.Type Final -> C.FunctionPurity -> Args ctx -> [Stmt ctx] -> Decl
 
 deriving instance Show Decl
 
-type Args ctx = Env ctx C.Type
+type Args ctx = Env ctx (C.Type Final)
 
 -- Env, and thus Args, are SnocList.
 -- when converting from ordinary list, we need to reverse first.
@@ -80,7 +81,7 @@ data Expr ctx
 prettyDecl :: Decl -> ShowS
 prettyDecl (FunDefn n ty attrs args stmts) = prettyFunDefn n ty attrs args stmts
 
-prettyFunDefn :: forall ctx. Name -> C.Type -> C.FunctionPurity -> Args ctx -> [Stmt ctx] -> ShowS
+prettyFunDefn :: forall ctx. Name -> C.Type Final -> C.FunctionPurity -> Args ctx -> [Stmt ctx] -> ShowS
 prettyFunDefn fun res pur args stmts =
       C.showsFunctionType (showString fun) pur args' res
     . showString "\n{\n"
@@ -90,7 +91,7 @@ prettyFunDefn fun res pur args stmts =
                    ) stmts
     . showString "}"
   where
-    args0 :: State Int (Env ctx ((ShowS, C.Type), ShowS))
+    args0 :: State Int (Env ctx ((ShowS, C.Type Final), ShowS))
     args0 = forM args $ \ty -> do
         i <- get
         put $! i + 1

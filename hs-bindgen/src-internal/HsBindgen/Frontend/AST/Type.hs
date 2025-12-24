@@ -44,7 +44,7 @@ module HsBindgen.Frontend.AST.Type (
   , getArrayElementType
   ) where
 
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -54,46 +54,46 @@ import HsBindgen.Language.C qualified as C
 -------------------------------------------------------------------------------}
 
 -- | C types (use sites)
-data TypeF tag =
+data TypeF tag p =
     TypePrim C.PrimType
-  | TypeRef C.DeclIdPair
+  | TypeRef (Id p)
   | TypeTypedef
     -- | NOTE: has a strictness annotation, which allows GHC to infer that
     -- pattern matches are redundant when @TypedefRefF tag ~ Void@.
-    !(TypedefRefF tag)
+    !(TypedefRefF tag p)
     -- TODO: macros should get annotations with underlying types just like
     -- typedefs, so that we can erase the macro types and replace them with
     -- their underlying type. See issue #1200.
-  | TypeUnsafePointer (TypeF tag)
-  | TypeConstArray Natural (TypeF tag)
-  | TypeFun [TypeF tag] (TypeF tag)
+  | TypeUnsafePointer (TypeF tag p)
+  | TypeConstArray Natural (TypeF tag p)
+  | TypeFun [TypeF tag p] (TypeF tag p)
   | TypeVoid
-  | TypeIncompleteArray (TypeF tag)
-  | TypeBlock (TypeF tag)
+  | TypeIncompleteArray (TypeF tag p)
+  | TypeBlock (TypeF tag p)
   | TypeQualified
       -- | NOTE: has a strictness annotation, which allows GHC to infer that
       -- pattern matches are redundant when @TypeQualifierF tag ~ Void@.
-      !(TypeQualifierF tag)
-      (TypeF tag)
+      !(TypeQualifierF tag p)
+      (TypeF tag p)
   | TypeExtBinding ResolveBindingSpecs.ResolvedExtBinding
   | TypeComplex C.PrimType
   deriving stock Generic
 
-deriving stock instance ValidTypeTag tag => Show (TypeF tag)
-deriving stock instance ValidTypeTag tag => Eq   (TypeF tag)
-deriving stock instance ValidTypeTag tag => Ord  (TypeF tag)
+deriving stock instance ValidTypeTag tag p => Show (TypeF tag p)
+deriving stock instance ValidTypeTag tag p => Eq   (TypeF tag p)
+deriving stock instance ValidTypeTag tag p => Ord  (TypeF tag p)
 
 -- | Map 'TypeF's from one tag to another
-mapTypeF :: forall tag tag'.
+mapTypeF :: forall tag tag' p.
      -- | What to do when encountering a typedef reference.
-     (TypedefRefF tag -> TypeF tag')
+     (TypedefRefF tag p -> TypeF tag' p)
      -- | What to do when encountering a type qualifier.
-  -> (TypeQualifierF tag -> TypeF tag -> TypeF tag')
-  -> TypeF tag
-  -> TypeF tag'
+  -> (TypeQualifierF tag p -> TypeF tag p -> TypeF tag' p)
+  -> TypeF tag  p
+  -> TypeF tag' p
 mapTypeF fRef fQual = go
   where
-    go :: TypeF tag -> TypeF tag'
+    go :: TypeF tag p -> TypeF tag' p
     go ty = case ty of
       TypePrim pt           -> TypePrim pt
       TypeRef declId        -> TypeRef declId
@@ -112,16 +112,16 @@ mapTypeF fRef fQual = go
   Typedefs
 -------------------------------------------------------------------------------}
 
-data TypedefRef = TypedefRef {
+data TypedefRef p = TypedefRef {
       -- | Name of the referenced typedef declaration
-      ref :: C.DeclIdPair
+      ref :: Id p
 
       -- | The underlying type of the referenced typedef declaration
       --
       -- NOTE: the underlying type can arbitrarily reference other types,
       -- including typedefs that we have not parsed. Use the underlying type
       -- with care!
-    , underlying :: Type
+    , underlying :: Type p
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -146,34 +146,36 @@ data TypeTag =
   | Canonical  -- ^ All sugar (typedefs and qualifiers like @const@) removed
 
 -- | Normal forms of types
-class ( Show (TypedefRefF tag)
-      , Eq   (TypedefRefF tag)
-      , Ord  (TypedefRefF tag)
+class ( IsPass p
 
-      , Show (TypeQualifierF tag)
-      , Eq   (TypeQualifierF tag)
-      , Ord  (TypeQualifierF tag)
-      ) => ValidTypeTag (tag :: TypeTag) where
-  type family TypedefRefF    tag :: Star
-  type family TypeQualifierF tag :: Star
+      , Show (TypedefRefF tag p)
+      , Eq   (TypedefRefF tag p)
+      , Ord  (TypedefRefF tag p)
 
-  getUnderlying :: TypedefRefF tag -> TypeF tag
+      , Show (TypeQualifierF tag p)
+      , Eq   (TypeQualifierF tag p)
+      , Ord  (TypeQualifierF tag p)
+      ) => ValidTypeTag (tag :: TypeTag) (p :: Pass) where
+  type family TypedefRefF    tag p :: Star
+  type family TypeQualifierF tag p :: Star
 
-instance ValidTypeTag Full where
-  type instance TypedefRefF    Full = TypedefRef
-  type instance TypeQualifierF Full = TypeQualifier
+  getUnderlying :: TypedefRefF tag p -> TypeF tag p
+
+instance IsPass p => ValidTypeTag Full p where
+  type instance TypedefRefF    Full p = TypedefRef p
+  type instance TypeQualifierF Full p = TypeQualifier
 
   getUnderlying = (.underlying)
 
-instance ValidTypeTag Erased where
-  type instance TypedefRefF    Erased = Void
-  type instance TypeQualifierF Erased = TypeQualifier
+instance IsPass p => ValidTypeTag Erased p where
+  type instance TypedefRefF    Erased p = Void
+  type instance TypeQualifierF Erased p = TypeQualifier
 
   getUnderlying = absurd
 
-instance ValidTypeTag Canonical where
-  type instance TypedefRefF    Canonical = Void
-  type instance TypeQualifierF Canonical = Void
+instance IsPass p => ValidTypeTag Canonical p where
+  type instance TypedefRefF    Canonical p = Void
+  type instance TypeQualifierF Canonical p = Void
 
   getUnderlying = absurd
 
@@ -200,7 +202,7 @@ type CanonicalType = TypeF Canonical
 --   * @TypePointers 2 someType@ creates @TypeUnsafePointer (TypeUnsafePointer someType)@
 --
 -- The inner type can be anything (TypeFun, TypeRef, TypePrim, etc.).
-pattern TypePointers :: Int -> TypeF tag -> TypeF tag
+pattern TypePointers :: Int -> TypeF tag p -> TypeF tag p
 pattern TypePointers n inner <- (stripPointersF -> Just (n, inner))
   where
     TypePointers n inner = buildPointersF n inner
@@ -209,10 +211,10 @@ pattern TypePointers n inner <- (stripPointersF -> Just (n, inner))
 --
 -- Strips all pointer layers and returns the count and inner type.
 -- Returns Nothing if there are no pointer layers.
-stripPointersF :: TypeF tag -> Maybe (Int, TypeF tag)
+stripPointersF :: TypeF tag p -> Maybe (Int, TypeF tag p)
 stripPointersF = go 0
   where
-    go :: Int -> TypeF tag -> Maybe (Int, TypeF tag)
+    go :: Int -> TypeF tag p -> Maybe (Int, TypeF tag p)
     go !n (TypeUnsafePointer inner) = go (n + 1) inner
     go !n inner
       | n > 0     = Just (n, inner)
@@ -221,7 +223,7 @@ stripPointersF = go 0
 -- | Helper for TypePointers pattern synonym (construction direction)
 --
 -- Builds N layers of pointers around an inner type.
-buildPointersF :: Int -> TypeF tag -> TypeF tag
+buildPointersF :: Int -> TypeF tag p -> TypeF tag p
 buildPointersF n inner
   | n <= 0    = inner
   | otherwise = TypeUnsafePointer (buildPointersF (n - 1) inner)
@@ -250,7 +252,7 @@ buildPointersF n inner
 -------------------------------------------------------------------------------}
 
 class Normalize tag tag' where
-  normalize :: TypeF tag -> TypeF tag'
+  normalize :: TypeF tag p -> TypeF tag' p
 
 instance Normalize tag tag where
   normalize = id
@@ -267,25 +269,25 @@ instance Normalize tag tag where
 instance Normalize Full Erased where
   normalize = mapTypeF fRef fQual
     where
-      fRef :: TypedefRef -> TypeF Erased
+      fRef :: TypedefRef p -> TypeF Erased p
       fRef ref = normalize ref.underlying
 
-      fQual :: TypeQualifier -> TypeF Full -> TypeF Erased
+      fQual :: TypeQualifier -> TypeF Full p -> TypeF Erased p
       fQual qual typ = TypeQualified qual $ normalize typ
 
 instance Normalize Erased Canonical where
   normalize = mapTypeF absurd fQual
     where
-      fQual :: TypeQualifier -> TypeF Erased -> TypeF Canonical
+      fQual :: TypeQualifier -> TypeF Erased p -> TypeF Canonical p
       fQual _qual typ = normalize typ
 
 instance Normalize Full Canonical where
   normalize = getCanonicalType . getErasedType
 
-getCanonicalType :: Normalize tag Canonical => TypeF tag -> CanonicalType
+getCanonicalType :: Normalize tag Canonical => TypeF tag p -> CanonicalType p
 getCanonicalType = normalize
 
-getErasedType :: Normalize tag Erased => TypeF tag -> ErasedType
+getErasedType :: Normalize tag Erased => TypeF tag p -> ErasedType p
 getErasedType = normalize
 
 {-------------------------------------------------------------------------------
@@ -298,7 +300,7 @@ getErasedType = normalize
 -- whenever this type is used.
 --
 -- This does /not/ include any external declarations.
-typeDeclIds :: Type -> [C.DeclIdPair]
+typeDeclIds :: Type p -> [Id p]
 typeDeclIds = \case
     -- Primitive types
     TypePrim _    -> []
@@ -319,11 +321,13 @@ typeDeclIds = \case
     TypeFun args res      -> concatMap typeDeclIds (args ++ [res])
 
 -- | Checks if a type is unsupported by Haskell's FFI
-hasUnsupportedType :: Normalize tag Canonical => TypeF tag -> Bool
+hasUnsupportedType :: forall tag p.
+     (IsPass p, Normalize tag Canonical)
+  => TypeF tag p -> Bool
 hasUnsupportedType = aux . getCanonicalType
   where
-    aux :: CanonicalType -> Bool
-    aux (TypeRef declId)      = auxRef declId
+    aux :: CanonicalType p -> Bool
+    aux (TypeRef declId)      = auxRef (idNameKind (Proxy @p) declId)
     aux TypeComplex{}         = True
     aux TypeConstArray{}      = True
     aux TypeIncompleteArray{} = True
@@ -334,9 +338,8 @@ hasUnsupportedType = aux . getCanonicalType
     aux TypeBlock{}           = False
     aux TypeExtBinding{}      = False
 
-    auxRef :: C.DeclIdPair -> Bool
-    auxRef declId =
-        case declId.cName.name.kind of
+    auxRef :: C.NameKind -> Bool
+    auxRef = \case
           C.NameKindOrdinary               -> False
           C.NameKindTagged C.TagKindStruct -> True
           C.NameKindTagged C.TagKindUnion  -> True
@@ -347,40 +350,44 @@ hasUnsupportedType = aux . getCanonicalType
 -------------------------------------------------------------------------------}
 
 -- TODO: Should this be replaced by @isCanonicalTypeVoid@?
-isVoid :: Type -> Bool
+isVoid :: Type p -> Bool
 isVoid TypeVoid = True
 isVoid _        = False
 
 -- | Is the canonical type a complex type?
-isCanonicalTypeComplex :: Normalize tag Canonical => TypeF tag -> Bool
+isCanonicalTypeComplex :: Normalize tag Canonical => TypeF tag p -> Bool
 isCanonicalTypeComplex ty =
     case getCanonicalType ty of
       TypeComplex{} -> True
       _otherwise    -> False
 
 -- | Is the canonical type a function type?
-isCanonicalTypeFunction :: Normalize tag Canonical => TypeF tag -> Bool
+isCanonicalTypeFunction :: Normalize tag Canonical => TypeF tag p -> Bool
 isCanonicalTypeFunction ty =
     case getCanonicalType ty of
       TypeFun{} -> True
       _         -> False
 
 -- | Is the canonical type a struct type?
-isCanonicalTypeStruct :: Normalize tag Canonical => TypeF tag -> Bool
+isCanonicalTypeStruct :: forall tag p.
+     (Normalize tag Canonical, IsPass p)
+  => TypeF tag p -> Bool
 isCanonicalTypeStruct ty =
     case getCanonicalType ty of
-      TypeRef ref -> ref.cName.name.kind == C.NameKindTagged C.TagKindStruct
+      TypeRef ref -> idNameKind (Proxy @p) ref == C.NameKindTagged C.TagKindStruct
       _otherwise  -> False
 
 -- | Is the canonical type a union type?
-isCanonicalTypeUnion :: Normalize tag Canonical => TypeF tag -> Bool
+isCanonicalTypeUnion :: forall tag p.
+     (Normalize tag Canonical, IsPass p)
+  => TypeF tag p -> Bool
 isCanonicalTypeUnion ty =
     case getCanonicalType ty of
-      TypeRef ref -> ref.cName.name.kind == C.NameKindTagged C.TagKindUnion
+      TypeRef ref -> idNameKind (Proxy @p) ref == C.NameKindTagged C.TagKindUnion
       _otherwise  -> False
 
 -- | Is the erased type @const@-qualified?
-isErasedTypeConstQualified :: Normalize tag Erased => TypeF tag -> Bool
+isErasedTypeConstQualified :: Normalize tag Erased => TypeF tag p -> Bool
 isErasedTypeConstQualified ty =
     case getErasedType ty of
       -- Types can be directly @const@-qualified,
@@ -400,17 +407,17 @@ isErasedTypeConstQualified ty =
 -------------------------------------------------------------------------------}
 
 -- | An array of known size or unknown size
-data ArrayClassification tag =
+data ArrayClassification tag p =
     -- | Array of known size
     ConstantArrayClassification
-      Natural      -- ^ Array size
-      (TypeF tag)  -- ^ Array element type
+      Natural        -- ^ Array size
+      (TypeF tag p)  -- ^ Array element type
 
     -- | Array of unkown size
   | IncompleteArrayClassification
-      (TypeF tag)  -- ^ Array element type
+      (TypeF tag p)  -- ^ Array element type
 
-getArrayElementType :: ArrayClassification tag -> TypeF tag
+getArrayElementType :: ArrayClassification tag p -> TypeF tag p
 getArrayElementType (ConstantArrayClassification _ ty) = ty
 getArrayElementType (IncompleteArrayClassification ty) = ty
 
@@ -419,8 +426,8 @@ getArrayElementType (IncompleteArrayClassification ty) = ty
 -- If so, is it an array of known size or unknown size? And what is the /full
 -- type/ of the array elements?
 isCanonicalTypeArray ::
-     ValidTypeTag tag
-  => TypeF tag -> Maybe (ArrayClassification tag)
+     ValidTypeTag tag p
+  => TypeF tag p -> Maybe (ArrayClassification tag p)
 isCanonicalTypeArray ty =
     -- We do not use getCanonicalType here, because we might not want to
     -- canonicalize the array /element/ type.
