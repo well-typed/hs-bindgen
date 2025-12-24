@@ -1,7 +1,6 @@
 module HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (
     ConstructTranslationUnit
   , DeclMeta(..)
-  , ConstructTranslationUnitMsg
   ) where
 
 import HsBindgen.Frontend.Analysis.DeclIndex
@@ -35,7 +34,7 @@ instance IsPass ConstructTranslationUnit where
   type MacroBody  ConstructTranslationUnit = UnparsedMacro
   type ExtBinding ConstructTranslationUnit = Void
   type Ann ix     ConstructTranslationUnit = AnnConstructTranslationUnit ix
-  type Msg        ConstructTranslationUnit = ConstructTranslationUnitMsg
+  type Msg        ConstructTranslationUnit = NoMsg Level
 
 {-------------------------------------------------------------------------------
   Information about the declarations
@@ -47,21 +46,6 @@ data DeclMeta = DeclMeta {
     , declDeclUse     :: DeclUseGraph
     }
   deriving stock (Show, Generic)
-
-{-------------------------------------------------------------------------------
-  Trace messages
--------------------------------------------------------------------------------}
-
-data ConstructTranslationUnitMsg
-  deriving stock (Show, Generic)
-
-instance PrettyForTrace ConstructTranslationUnitMsg where
-  prettyForTrace = const "no message available"
-
-instance IsTrace Level ConstructTranslationUnitMsg where
-  getDefaultLogLevel = const Debug
-  getSource          = const HsBindgen
-  getTraceId         = const "construct-translation-unit"
 
 {-------------------------------------------------------------------------------
   CoercePass

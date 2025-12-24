@@ -9,7 +9,6 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , ImmediateParseMsg(..)
   ) where
 
-import Text.SimplePrettyPrint (($$))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Simple
@@ -17,7 +16,7 @@ import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
-import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Msg
@@ -43,10 +42,11 @@ instance IsPass Parse where
   type MacroBody  Parse = UnparsedMacro
   type ExtBinding Parse = Void
   type Ann ix     Parse = AnnParse ix
-  type Msg        Parse = ImmediateParseMsg
+  type Msg        Parse = WithLocationInfo ImmediateParseMsg
 
-  idNameKind   _ = C.prelimDeclIdNameKind
-  idSourceName _ = C.prelimDeclIdSourceName
+  idNameKind     _ = C.prelimDeclIdNameKind
+  idSourceName   _ = C.prelimDeclIdSourceName
+  idLocationInfo _ = prelimDeclIdLocationInfo
 
 {-------------------------------------------------------------------------------
   Macros
@@ -92,22 +92,20 @@ data ImmediateParseMsg =
     --
     -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
     -- provide a valid 'Clang.LowLevel.Core.CXAvailabilityKind'.
-    ParseUnknownCursorAvailability (C.DeclInfo Parse) (SimpleEnum CXAvailabilityKind)
+    ParseUnknownCursorAvailability (SimpleEnum CXAvailabilityKind)
     -- | We failed to parse a declaration that is required for scoping.
-  | ParseOfDeclarationRequiredForScopingFailed (C.DeclInfo Parse) ParseTypeException
+  | ParseOfDeclarationRequiredForScopingFailed ParseTypeException
   deriving stock (Show)
 
 instance PrettyForTrace ImmediateParseMsg where
   prettyForTrace = \case
-      ParseUnknownCursorAvailability info simpleKind -> PP.hsep [
-          prettyForTrace info
-        , "unknown declaration availability:"
+      ParseUnknownCursorAvailability simpleKind -> PP.hsep [
+          "unknown declaration availability:"
         , PP.showToCtxDoc simpleKind
         ]
-      ParseOfDeclarationRequiredForScopingFailed info err -> PP.hsep [
-          prettyForTrace info
-        , "parse of declaration required for scoping failed:"
-        ] $$ (PP.nest 2 $ prettyForTrace err)
+      ParseOfDeclarationRequiredForScopingFailed err ->
+        PP.hang "parse of declaration required for scoping failed:" 2 $
+          prettyForTrace err
 
 instance IsTrace Level ImmediateParseMsg where
   getDefaultLogLevel = \case

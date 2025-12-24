@@ -1,16 +1,17 @@
 -- | Predicates on trace messages
 --
 -- Intended for unqualified import.
-module Test.Common.HsBindgen.TracePredicate (
+module Test.Common.HsBindgen.Trace.Predicate (
     -- * Predicate
     TraceExpectation (..)
   , TracePredicate -- opaque
-  , WrongCountMsg(..)
-  , Labelled(..)
+  , RenderLabel(..)
+  , GotExpectedTrace(..)
+  , GotTraceLabelled(..)
   , defaultTracePredicate
+  , tolerateAll
   , singleTracePredicate
-  , customTracePredicate
-  , customTracePredicate'
+  , multiTracePredicate
   , TraceExpectationException
     -- * Tracer
   , quietTracerConfig
@@ -25,15 +26,18 @@ import Data.IORef (modifyIORef', newIORef, readIORef)
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
 import Data.Maybe (fromMaybe)
+import Data.String
 import Data.Text (Text)
+import Data.Text qualified as Text
 import Data.Typeable (Typeable)
 import Test.Common.HsBindgen.Trace
 import Text.SimplePrettyPrint (CtxDoc)
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports (Default (def))
+import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -41,7 +45,7 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data TraceExpectation b = Expected b | Tolerated | Unexpected
-  deriving stock (Show, Eq, Ord)
+  deriving stock (Show, Eq, Ord, Functor)
 
 newtype TracePredicate a = TracePredicate {
     _tracePredicate :: [a] -> Except (TraceExpectationException a) ()
@@ -49,30 +53,48 @@ newtype TracePredicate a = TracePredicate {
 
 -- | By default, we do not expect any warnings, nor errors ('Unexpected'). Info
 -- and debug messages are 'Tolerate'd.
-defaultTracePredicate :: (IsTrace Level a, Show a)
-  => TracePredicate a
-defaultTracePredicate = customTracePredicate [] (const Nothing)
+defaultTracePredicate :: IsTrace Level a => TracePredicate a
+defaultTracePredicate =
+    customTracePredicateAux @GotExpectedTrace [] (const Nothing)
+
+-- | Tolerate /all/ traces
+--
+-- Useful for tests where we don't care about the trace messages, and want to
+-- look at test output only.
+tolerateAll :: IsTrace Level a => TracePredicate a
+tolerateAll =
+    customTracePredicateAux @GotExpectedTrace [] (const $ Just Tolerated)
 
 -- | 'Expect' a trace with given name exactly one time.
-singleTracePredicate :: (IsTrace Level a, Show a)
+singleTracePredicate ::
+     IsTrace Level a
   => (a -> Maybe (TraceExpectation ()))
   -> TracePredicate a
-singleTracePredicate predicate = customTracePredicate' [()] predicate
+singleTracePredicate predicate =
+    customTracePredicateAux
+      [GotExpectedTrace]
+      (fmap (fmap (\() -> GotExpectedTrace)) . predicate)
 
-customTracePredicate :: (IsTrace Level a, Show a)
-  => [String]
+multiTracePredicate :: forall b a.
+     (IsTrace Level a, Show a, Ord b, RenderLabel b)
+  => [b]
   -- ^ Names/identifiers of expected traces. If a trace is expected N times, add
   -- the name/identifier N times to the list.
-  -> (a -> Maybe (TraceExpectation String))
+  -> (a -> Maybe (TraceExpectation b))
   -- ^ 'Nothing' defaults to 'defaultTracePredicate'.
   -> TracePredicate a
-customTracePredicate = customTracePredicate'
+multiTracePredicate expected predicate =
+    customTracePredicateAux
+       (map GotTraceLabelled expected)
+       (fmap (fmap GotTraceLabelled) . predicate)
 
-customTracePredicate' :: forall a b. (IsTrace Level a, Ord b, WrongCountMsg a b)
+-- | Internal generalization
+customTracePredicateAux :: forall b a.
+     (IsTrace Level a, Ord b, WrongCountMsg a b)
   => [b]
   -> (a -> Maybe (TraceExpectation b))
   -> TracePredicate a
-customTracePredicate' names mpredicate = TracePredicate $ \traces -> do
+customTracePredicateAux names mpredicate = TracePredicate $ \traces -> do
   let (unexpectedTraces, actualCounts) =
         Foldable.foldl' checkTrace ([], Map.empty) traces
       checkTrace (ts, counts) trace = case predicate trace of
@@ -191,6 +213,19 @@ instance (Typeable a, IsTrace l a, Show l, Show a)
   Wrong counts
 -------------------------------------------------------------------------------}
 
+-- | Emit message about unexpected traces
+--
+-- Given a particular type of trace message (say, @a = TraceMsg@), we typically
+-- distill some info from this message (say, @b = C.DeclName@), and then compare
+-- that info against a list of expected info. There are then two main cases
+-- (that is, main choses for @b@):
+--
+-- * 'GotExpectedTrace': we either expect the trace message, or we don't; we
+--   don't expect to get more than one.
+-- * 'GotTraceLabelled': we expect multiple traces for this case, and label each
+--   one. In this case, we show specific counts.
+--
+-- This is an internal class (not exported).
 class WrongCountMsg a b where
   wrongCount ::
        b    -- ^ Name
@@ -199,51 +234,78 @@ class WrongCountMsg a b where
     -> [a]  -- ^ List of traces
     -> CtxDoc
 
+-- | See 'WrongCountMsg' for discussion
+data GotExpectedTrace = GotExpectedTrace
+  deriving stock (Show, Eq, Ord)
+
+-- | See 'WrongCountMsg' for discussion
+newtype GotTraceLabelled b = GotTraceLabelled b
+  deriving stock (Show, Eq, Ord)
+  deriving newtype (IsString)
+
+-- | The most common case: traces with just one outcome
+instance IsTrace l a => WrongCountMsg a GotExpectedTrace where
+  wrongCount _ 1 n _ =
+      case compare n 1 of
+        LT -> "Expected a single trace but no trace was emitted"
+        EQ -> panicPure "error: received correct count"
+        GT -> "Expected a single trace but more traces were emitted"
+  wrongCount _ i _ _ =
+      panicPure $ "unexpected \"expected count\": " ++ show i
+
 -- | The general case, with user-defined labels as documents
-instance (IsTrace l a, Show a) => WrongCountMsg a CtxDoc where
-  wrongCount name expectedCount actualCount traces =
-    PP.hangs' intro 2 $ map reportTrace traces
+instance (IsTrace l a, Show a, RenderLabel b)
+      => WrongCountMsg a (GotTraceLabelled b) where
+  wrongCount (GotTraceLabelled label) expectedCount actualCount traces =
+      PP.hangs' intro 2 $ map reportTrace traces
     where
       intro = PP.hcat
-        [ "Name: ",             name
+        [ "Name: ",             renderLabel label
         , ", expected count: ", PP.showToCtxDoc expectedCount
         , ", actual count: "  , PP.showToCtxDoc actualCount
         ]
 
--- | Traces with multiple outcome, with user-defined labels
-instance (IsTrace l a, Show a) => WrongCountMsg a String where
-  wrongCount = wrongCount . PP.string
+{-------------------------------------------------------------------------------
+  Auxiliary to 'GotTraceLabelled': render labels
 
--- | Traces with multiple outcome, with user-defined labels
-instance (IsTrace l a, Show a) => WrongCountMsg a Text where
-  wrongCount = wrongCount . PP.textToCtxDoc
+  TODO: Could we just use 'PrettyForTrace' here?
+-------------------------------------------------------------------------------}
 
--- | It is often useful to check for warnings/errors for specific declarations
-instance (IsTrace l a, Show a) => WrongCountMsg a C.PrelimDeclId where
-  wrongCount = wrongCount . prettyForTrace
+class RenderLabel b where
+  renderLabel :: b -> CtxDoc
 
--- | The most common case: traces with just one outcome
-instance (IsTrace l a, Show a) => WrongCountMsg a () where
-  wrongCount _ 1 n _      = case compare n 1 of
-    LT -> "Expected a single trace but no trace was emitted"
-    EQ -> panicPure "error: received correct count"
-    GT -> "Expected a single trace but more traces were emitted"
-  wrongCount _ i j traces = wrongCount ("AnonymousTracePredicate" :: String) i j traces
+  default renderLabel :: PrettyForTrace b => b -> CtxDoc
+  renderLabel = prettyForTrace
 
--- | Distinguish cases based on test-specific label
-data Labelled a = Labelled String a
-  deriving stock (Show, Eq, Ord)
+instance RenderLabel CtxDoc where renderLabel = id
+instance RenderLabel String where renderLabel = PP.string
+instance RenderLabel Text   where renderLabel = PP.string . Text.unpack
 
-instance Show a => PrettyForTrace (Labelled a) where
-  prettyForTrace (Labelled label x) = PP.hcat [
-        PP.string label
-      , ": "
-      , PP.string $ show x
+instance RenderLabel C.DeclName
+instance RenderLabel Hs.Identifier
+
+instance RenderLabel a => RenderLabel (Maybe a) where
+  renderLabel Nothing  = ""
+  renderLabel (Just x) = renderLabel x
+
+instance RenderLabel () where
+  renderLabel () = "()"
+instance ( RenderLabel a
+         , RenderLabel b
+         ) => RenderLabel (a, b) where
+  renderLabel (x, y) = PP.parens $ PP.hlist "(" ")" [
+        renderLabel x
+      , renderLabel y
       ]
-
-instance (IsTrace l a, Show b, Show a)
-  => WrongCountMsg a (Labelled b) where
-  wrongCount = wrongCount . prettyForTrace
+instance ( RenderLabel a
+         , RenderLabel b
+         , RenderLabel c
+         ) => RenderLabel (a, b, c) where
+  renderLabel (x, y, z) = PP.parens $ PP.hlist "(" ")" [
+        renderLabel x
+      , renderLabel y
+      , renderLabel z
+      ]
 
 {-------------------------------------------------------------------------------
   Counter

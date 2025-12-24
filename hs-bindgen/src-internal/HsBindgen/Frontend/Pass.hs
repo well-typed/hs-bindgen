@@ -2,11 +2,16 @@ module HsBindgen.Frontend.Pass (
     Pass
   , IsPass(..)
   , NoAnn(..)
+  , NoMsg
   ) where
 
+import Clang.HighLevel.Types
+
+import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Definition
@@ -123,13 +128,40 @@ class (
 
   -- | Name kind of the C name
   idNameKind :: Proxy p -> Id p -> C.NameKind
-  default idNameKind :: Id p ~ C.DeclId => Proxy p -> Id p -> C.NameKind
+  default idNameKind ::
+       Id p ~ C.DeclId
+    => Proxy p -> Id p -> C.NameKind
   idNameKind _ = (.name.kind)
 
   -- | Name of the declaration as it appears in the C source, if any
   idSourceName :: Proxy p -> Id p -> Maybe C.DeclName
-  default idSourceName :: Id p ~ C.DeclId => Proxy p -> Id p -> Maybe C.DeclName
+  default idSourceName ::
+       Id p ~ C.DeclId
+    => Proxy p -> Id p -> Maybe C.DeclName
   idSourceName _ = C.declIdSourceName
+
+  -- | Location information
+  idLocationInfo :: Proxy p -> Id p -> [SingleLoc] -> LocationInfo
+  default idLocationInfo ::
+       Id p ~ C.DeclId
+    => Proxy p -> Id p -> [SingleLoc] -> LocationInfo
+  idLocationInfo _ = declIdLocationInfo
+
+{-------------------------------------------------------------------------------
+  Defaults
+-------------------------------------------------------------------------------}
 
 data NoAnn = NoAnn
   deriving stock (Show, Eq, Ord)
+
+data NoMsg lvl
+  deriving stock (Show, Eq, Ord)
+
+instance PrettyForTrace (NoMsg lvl) where
+  prettyForTrace msg = case msg of {}
+
+instance IsTrace lvl (NoMsg lvl) where
+  getDefaultLogLevel msg = case msg of {}
+  getSource          msg = case msg of {}
+  getTraceId         msg = case msg of {}
+

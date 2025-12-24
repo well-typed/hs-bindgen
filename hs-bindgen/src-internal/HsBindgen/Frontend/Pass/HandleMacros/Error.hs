@@ -6,7 +6,6 @@ module HsBindgen.Frontend.Pass.HandleMacros.Error (
   , HandleMacrosReparseMsg(..)
   ) where
 
-import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
 import C.Expr.Parse.Infra qualified as CExpr.DSL
@@ -15,6 +14,7 @@ import C.Expr.Typecheck.Expr qualified as CExpr.DSL
 import Clang.HighLevel.Types
 
 import HsBindgen.Frontend.LanguageC.Error qualified as LanC
+import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -26,7 +26,7 @@ import HsBindgen.Util.Tracer
 
 -- | Macro parse messages; see also 'HandleMacrosReparseMsg'
 data FailedMacro = FailedMacro {
-    name       :: C.DeclName
+    name       :: C.DeclId
   , loc        :: SingleLoc
   , macroError :: HandleMacrosError
   }
@@ -34,12 +34,10 @@ data FailedMacro = FailedMacro {
 
 instance PrettyForTrace FailedMacro where
   prettyForTrace failure =
-      PP.hang (prettyForTrace lDeclId >< ":") 2 $
-        prettyForTrace failure.macroError
-    where
-      lDeclId :: C.Located C.DeclId
-      lDeclId = C.Located failure.loc $
-          C.DeclId{name = failure.name, isAnon = False}
+      prettyForTrace WithLocationInfo{
+          loc = declIdLocationInfo failure.name [failure.loc]
+        , msg = failure.macroError
+        }
 
 instance IsTrace Level FailedMacro where
   getDefaultLogLevel = getDefaultLogLevel . (.macroError)

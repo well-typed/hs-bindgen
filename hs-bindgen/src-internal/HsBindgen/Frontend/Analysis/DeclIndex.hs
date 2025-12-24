@@ -378,7 +378,7 @@ registerMacroFailures xs index = Foldable.foldl' insert index xs
     insert :: DeclIndex -> FailedMacro -> DeclIndex
     insert (DeclIndex i) failedMacro = DeclIndex $
         Map.insert
-          (C.DeclId{name = failedMacro.name, isAnon = False})
+          failedMacro.name
           (UnusableE $ UnusableFailedMacro failedMacro)
           i
 

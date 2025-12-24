@@ -1,7 +1,4 @@
 -- | Results from the parser proper
---
--- NOTE: This does /NOT/ depend on the @Parse@ pass specifically: we transform
--- these results in the @AssignAnonIds@ pass.
 module HsBindgen.Frontend.Pass.Parse.Result (
     ParseResult(..)
   , ParseClassification(..)
@@ -18,13 +15,12 @@ module HsBindgen.Frontend.Pass.Parse.Result (
   , getParseResultEitherDecl
   ) where
 
-import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
 
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Imports
@@ -34,6 +30,10 @@ import HsBindgen.Util.Tracer
   Definition
 -------------------------------------------------------------------------------}
 
+-- | Parse result
+--
+-- NOTE: This does /NOT/ depend on the @Parse@ pass specifically: we transform
+-- these results in the @AssignAnonIds@ pass.
 data ParseResult p = ParseResult{
       declId         :: Id p
     , declLoc        :: SingleLoc
@@ -94,22 +94,20 @@ newtype ParseFailure = ParseFailure {
   Pretty-printing
 -------------------------------------------------------------------------------}
 
-instance ( PrettyForTrace (C.Located (Id p))
-         ) => PrettyForTrace (ParseResult p) where
+instance IsPass p => PrettyForTrace (ParseResult p) where
   prettyForTrace result =
-      PP.hang (prettyForTrace lDeclId >< ":") 2 $
-        prettyForTrace result.classification
-    where
-      lDeclId :: C.Located (Id p)
-      lDeclId = C.Located result.declLoc result.declId
+      prettyForTrace $ WithLocationInfo{
+          loc = idLocationInfo (Proxy @p) result.declId [result.declLoc]
+        , msg = result.classification
+        }
 
 instance PrettyForTrace (ParseSuccess p) where
   prettyForTrace success =
-    if null success.delayedParseMsgs then
-      "Parse success"
-    else
-      PP.hang "Parse success with messages:" 2 $
-        PP.vcat $
+      if null success.delayedParseMsgs then
+        "Parse success"
+      else
+        PP.hang "Parse success with messages:" 2 $
+          PP.vcat $
           map prettyForTrace success.delayedParseMsgs
 
 instance PrettyForTrace ParseNotAttempted where

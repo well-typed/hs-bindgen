@@ -47,9 +47,9 @@ data ImmediateAssignAnonIdsMsg =
 
 instance PrettyForTrace ImmediateAssignAnonIdsMsg where
   prettyForTrace = \case
-      AssignAnonIdsSkippedDecl info -> PP.hsep [
+      AssignAnonIdsSkippedDecl anonId -> PP.hsep [
           "Skipped unused or unusable anonynous declaration"
-        , prettyForTrace info
+        , prettyForTrace anonId
         ]
 
 instance IsTrace Level ImmediateAssignAnonIdsMsg where

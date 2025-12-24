@@ -3,9 +3,6 @@
 -- Intended for qualified import within frontend.
 --
 -- > import HsBindgen.Frontend.Naming qualified as C
---
--- Use outside of the frontend should be done via
--- "HsBindgen.Frontend.AST.External".
 module HsBindgen.Frontend.Naming (
     -- * AnonId
     AnonId(..)
@@ -28,13 +25,10 @@ module HsBindgen.Frontend.Naming (
 
     -- * ScopedNamePair
   , ScopedNamePair(..)
-
-    -- * Located
-  , Located(..)
   ) where
 
 import Data.Text qualified as Text
-import Text.SimplePrettyPrint (CtxDoc, (<+>))
+import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel (ShowFile (..))
@@ -105,15 +99,6 @@ instance PrettyForTrace PrelimDeclId where
               <+> PP.parens (prettyForTrace anonId)
             C.NameKindOrdinary ->
               panicPure "unexpected anonymous ordinary name"
-
-instance PrettyForTrace (Located PrelimDeclId) where
-  prettyForTrace (Located l i) =
-      case i of
-        PrelimDeclIdNamed n ->
-          prettyForTraceLoc n l
-        PrelimDeclIdAnon{}  ->
-          -- No need to repeat the source location in this case
-          prettyForTrace i
 
 getPrelimDeclId :: forall m.
      MonadIO m
@@ -213,10 +198,6 @@ parseDeclId t = do
 instance PrettyForTrace DeclId where
   prettyForTrace = PP.singleQuotes . PP.textToCtxDoc . renderDeclId
 
-instance PrettyForTrace (Located DeclId) where
-  prettyForTrace (Located loc declId) =
-      prettyForTraceLoc declId loc
-
 {-------------------------------------------------------------------------------
   DeclIdPair
 -------------------------------------------------------------------------------}
@@ -240,30 +221,3 @@ data ScopedNamePair = ScopedNamePair {
     , hsName :: Hs.Identifier
     }
   deriving stock (Show, Eq, Ord, Generic)
-
--- -- | Extract namespaced Haskell name
--- --
--- -- The invariant on 'NamePair' justifies this otherwise unsafe operation.
--- nameHs :: NamePair -> Hs.Name ns
--- nameHs = Hs.unsafeHsIdHsName . nameHsIdent
-
--- -- | Extract and amend namespaced Haskell name
--- unsafeNameHsWith :: (Hs.Identifier -> Hs.Identifier) -> NamePair -> Hs.Name ns
--- unsafeNameHsWith f = Hs.unsafeHsIdHsName .  f . nameHsIdent
-
-{-------------------------------------------------------------------------------
-  Located
--------------------------------------------------------------------------------}
-
--- | Indirection for 'PrettyForTrace' instance for @DeclInfo@
---
--- By introducing this auxiliary type, used in the 'PrettyForTrace' instance
--- for @DeclInfo@, we delegate to @Id p@ instances.
-data Located a = Located SingleLoc a
-
-prettyForTraceLoc :: PrettyForTrace a => a -> SingleLoc -> CtxDoc
-prettyForTraceLoc x l = PP.hsep [
-      prettyForTrace x
-    , "at"
-    , PP.showToCtxDoc l
-    ]

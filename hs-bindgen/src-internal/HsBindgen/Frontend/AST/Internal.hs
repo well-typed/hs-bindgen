@@ -48,12 +48,10 @@ import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.HighLevel.Types
 
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -487,13 +485,3 @@ deriving stock instance IsPass p => Eq (Type             p)
 deriving stock instance IsPass p => Eq (Typedef          p)
 deriving stock instance IsPass p => Eq (Union            p)
 deriving stock instance IsPass p => Eq (UnionField       p)
-
-{-------------------------------------------------------------------------------
-  Pretty-printing
--------------------------------------------------------------------------------}
-
-instance PrettyForTrace (C.Located (Id p)) => PrettyForTrace (DeclInfo p) where
-  prettyForTrace info = prettyForTrace $ C.Located info.declLoc info.declId
-
-instance PrettyForTrace (C.Located (Id p)) => PrettyForTrace (Decl p) where
-  prettyForTrace decl = prettyForTrace decl.declInfo
