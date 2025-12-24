@@ -44,9 +44,6 @@ module HsBindgen.BindingSpec.Private.V1 (
   , readFile
   , parseValue
   , encode
-  , writeFile
-  , writeFileJson
-  , writeFileYaml
     -- ** Header resolution
   , resolve
     -- ** Merging
@@ -55,14 +52,13 @@ module HsBindgen.BindingSpec.Private.V1 (
   , lookupMergedBindingSpecs
   ) where
 
-import Prelude hiding (readFile, writeFile)
+import Prelude hiding (readFile)
 
 import Data.Aeson ((.!=), (.:), (.:?), (.=))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.KeyMap qualified as KM
 import Data.Aeson.Types qualified as Aeson
 import Data.ByteString (ByteString)
-import Data.ByteString qualified as BSS
 import Data.ByteString.Lazy qualified as BSL
 import Data.Function (on)
 import Data.List qualified as List
@@ -461,22 +457,6 @@ encode :: Format -> UnresolvedBindingSpec -> ByteString
 encode = \case
     FormatJSON -> encodeJson' . toABindingSpec
     FormatYAML -> encodeYaml' . toABindingSpec
-
--- | Write a binding specification to a file
---
--- The format is determined by the filename extension.
-writeFile :: FilePath -> UnresolvedBindingSpec -> IO ()
-writeFile path = case getFormat path of
-    FormatYAML -> writeFileYaml path
-    FormatJSON -> writeFileJson path
-
--- | Write a binding specification to a JSON file
-writeFileJson :: FilePath -> UnresolvedBindingSpec -> IO ()
-writeFileJson path = BSS.writeFile path . encode FormatJSON
-
--- | Write a binding specification to a YAML file
-writeFileYaml :: FilePath -> UnresolvedBindingSpec -> IO ()
-writeFileYaml path = BSS.writeFile path . encode FormatYAML
 
 encodeJson' :: ABindingSpec -> ByteString
 encodeJson' = BSL.toStrict . Aeson.encode
