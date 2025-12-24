@@ -11,23 +11,23 @@ ctypes:
   cname: struct inline_struct
   hsname: Inline_struct
 - headers: globals/globals.h
-  cname: struct1_t
-  hsname: Struct1_t
-- headers: globals/globals.h
-  cname: struct struct1_t
-  hsname: Struct1_t
-- headers: globals/globals.h
-  cname: struct2_t
-  hsname: Struct2_t
-- headers: globals/globals.h
-  cname: struct struct2_t
-  hsname: Struct2_t
+  cname: struct version_t
+  hsname: Version_t
 - headers: globals/globals.h
   cname: version_t
   hsname: Version_t
 - headers: globals/globals.h
-  cname: struct version_t
-  hsname: Version_t
+  cname: struct struct1_t
+  hsname: Struct1_t
+- headers: globals/globals.h
+  cname: struct1_t
+  hsname: Struct1_t
+- headers: globals/globals.h
+  cname: struct struct2_t
+  hsname: Struct2_t
+- headers: globals/globals.h
+  cname: struct2_t
+  hsname: Struct2_t
 hstypes:
 - hsname: Config
   representation:

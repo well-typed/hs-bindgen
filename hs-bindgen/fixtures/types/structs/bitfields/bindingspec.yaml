@@ -5,12 +5,6 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/structs/bitfields.h
-  cname: struct alignA
-  hsname: AlignA
-- headers: types/structs/bitfields.h
-  cname: struct alignB
-  hsname: AlignB
-- headers: types/structs/bitfields.h
   cname: struct flags
   hsname: Flags
 - headers: types/structs/bitfields.h
@@ -25,6 +19,12 @@ ctypes:
 - headers: types/structs/bitfields.h
   cname: struct overflow64
   hsname: Overflow64
+- headers: types/structs/bitfields.h
+  cname: struct alignA
+  hsname: AlignA
+- headers: types/structs/bitfields.h
+  cname: struct alignB
+  hsname: AlignB
 hstypes:
 - hsname: AlignA
   representation:

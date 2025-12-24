@@ -5,10 +5,10 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/complex/hsb_complex_test.h
-  cname: complex_object_t
+  cname: struct complex_object_t
   hsname: Complex_object_t
 - headers: types/complex/hsb_complex_test.h
-  cname: struct complex_object_t
+  cname: complex_object_t
   hsname: Complex_object_t
 hstypes:
 - hsname: Complex_object_t

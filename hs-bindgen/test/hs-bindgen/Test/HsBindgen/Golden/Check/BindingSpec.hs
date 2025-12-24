@@ -21,13 +21,15 @@ check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "bindingspec" fixture $ \report -> do
       let artefacts =
-            (,,,,)
+            (,,,,,,)
               <$> Target
+              <*> IncludeGraph
+              <*> DeclIndex
               <*> GetMainHeaders
               <*> OmitTypes
               <*> SquashedTypes
               <*> HsDecls
-      (target, getMainHeaders, omitTypes, squashedTypes, hsDecls) <-
+      (target, (_, includeGraph), declIndex, getMainHeaders, omitTypes, squashedTypes, hsDecls) <-
         runTestHsBindgenSuccess report testResources test artefacts
 
       let output :: String
@@ -36,6 +38,8 @@ check testResources test =
                 BindingSpec.FormatYAML
                 target
                 "Example"
+                includeGraph
+                declIndex
                 getMainHeaders
                 omitTypes
                 squashedTypes

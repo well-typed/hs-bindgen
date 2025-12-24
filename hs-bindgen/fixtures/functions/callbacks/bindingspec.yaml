@@ -5,20 +5,17 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: functions/callbacks.h
-  cname: struct DataPipeline
-  hsname: DataPipeline
+  cname: FileOpenedNotification
+  hsname: FileOpenedNotification
+- headers: functions/callbacks.h
+  cname: ProgressUpdate
+  hsname: ProgressUpdate
 - headers: functions/callbacks.h
   cname: DataValidator
   hsname: DataValidator
 - headers: functions/callbacks.h
-  cname: FileOpenedNotification
-  hsname: FileOpenedNotification
-- headers: functions/callbacks.h
   cname: struct Measurement
   hsname: Measurement
-- headers: functions/callbacks.h
-  cname: struct MeasurementHandler
-  hsname: MeasurementHandler
 - headers: functions/callbacks.h
   cname: MeasurementReceived
   hsname: MeasurementReceived
@@ -26,20 +23,23 @@ ctypes:
   cname: MeasurementReceived2
   hsname: MeasurementReceived2
 - headers: functions/callbacks.h
-  cname: struct Processor
-  hsname: Processor
+  cname: SampleBufferFull
+  hsname: SampleBufferFull
+- headers: functions/callbacks.h
+  cname: struct MeasurementHandler
+  hsname: MeasurementHandler
+- headers: functions/callbacks.h
+  cname: struct DataPipeline
+  hsname: DataPipeline
 - headers: functions/callbacks.h
   cname: union ProcessorCallback
   hsname: ProcessorCallback
 - headers: functions/callbacks.h
+  cname: struct Processor
+  hsname: Processor
+- headers: functions/callbacks.h
   cname: enum @Processor_mode
   hsname: Processor_mode
-- headers: functions/callbacks.h
-  cname: ProgressUpdate
-  hsname: ProgressUpdate
-- headers: functions/callbacks.h
-  cname: SampleBufferFull
-  hsname: SampleBufferFull
 - headers: functions/callbacks.h
   cname: foo
   hsname: Foo

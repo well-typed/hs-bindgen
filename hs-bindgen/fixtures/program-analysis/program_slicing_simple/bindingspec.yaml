@@ -5,11 +5,11 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: program-analysis/program_slicing_simple.h
-  cname: struct foo
-  hsname: Foo
-- headers: program-analysis/program_slicing_simple.h
   cname: uint32_t
   hsname: Uint32_t
+- headers: program-analysis/program_slicing_simple.h
+  cname: struct foo
+  hsname: Foo
 hstypes:
 - hsname: Foo
   representation:

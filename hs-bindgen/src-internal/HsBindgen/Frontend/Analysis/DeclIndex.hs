@@ -76,7 +76,7 @@ data Usable =
       -- information required to match the select predicate also to external
       -- declarations.
     | UsableExternal
-    | UsableSquashed SourcePath Hs.Identifier
+    | UsableSquashed SingleLoc Hs.Identifier
     deriving stock (Show, Generic)
 
 -- | Unusable declaration
@@ -95,7 +95,7 @@ data Unusable =
       -- information required to match the select predicate also to omitted
       -- declarations.
       -- | Omitted by prescriptive binding specifications
-    | UnusableOmitted           SourcePath
+    | UnusableOmitted           SingleLoc
     deriving stock (Show, Generic)
 
 instance PrettyForTrace Unusable where
@@ -313,9 +313,9 @@ lookupLoc d (DeclIndex i) = case Map.lookup d i of
   Nothing                -> []
   Just (UnusableE e)     -> unusableToLoc e
   Just (UsableE e)       -> case e of
-    UsableSuccess x  -> [x.decl.declInfo.declLoc]
-    UsableExternal   -> []
-    UsableSquashed{} -> []
+    UsableSuccess x      -> [x.decl.declInfo.declLoc]
+    UsableExternal       -> []
+    UsableSquashed loc _ -> [loc]
 
 -- | Get the source locations of an unusable declaration.
 lookupUnusableLoc :: C.DeclId -> DeclIndex -> [SingleLoc]
@@ -330,7 +330,7 @@ unusableToLoc = \case
     UnusableParseFailure loc _            -> [loc]
     UnusableConflict x                    -> getLocs x
     UnusableFailedMacro failedMacro       -> [failedMacro.loc]
-    UnusableOmitted{}                     -> []
+    UnusableOmitted loc                   -> [loc]
 
 -- | Get the identifiers of all declarations in the index.
 keysSet :: DeclIndex -> Set C.DeclId
@@ -344,8 +344,8 @@ getOmitted = Map.mapMaybe toOmitted . unDeclIndex
     toOmitted = \case
       UsableE   _ -> Nothing
       UnusableE e -> case e of
-        UnusableOmitted x -> Just x
-        _otherEntry       -> Nothing
+        UnusableOmitted sloc -> Just sloc.singleLocPath
+        _otherEntry          -> Nothing
 
 -- | Get squashed entries.
 getSquashed :: DeclIndex -> Map C.DeclId (SourcePath, Hs.Identifier)
@@ -354,8 +354,8 @@ getSquashed = Map.mapMaybe toSquashed . unDeclIndex
     toSquashed :: Entry -> Maybe (SourcePath, Hs.Identifier)
     toSquashed = \case
       UsableE e -> case e of
-        UsableSquashed sourcePath hsId -> Just (sourcePath, hsId)
-        _otherwise                     -> Nothing
+        UsableSquashed sloc hsId -> Just (sloc.singleLocPath, hsId)
+        _otherwise               -> Nothing
       UnusableE{} -> Nothing
 
 -- | Restrict the declaration index to unusable declarations in a given set.
@@ -386,7 +386,7 @@ registerMacroFailures xs index = Foldable.foldl' insert index xs
   Support for binding specifications
 -------------------------------------------------------------------------------}
 
-registerOmittedDeclarations :: Map C.DeclId SourcePath -> DeclIndex -> DeclIndex
+registerOmittedDeclarations :: Map C.DeclId SingleLoc -> DeclIndex -> DeclIndex
 registerOmittedDeclarations xs =
       DeclIndex . Map.union (UnusableE . UnusableOmitted <$> xs) . unDeclIndex
 
@@ -398,7 +398,7 @@ registerExternalDeclarations xs index = Foldable.foldl' insert index xs
       DeclIndex $ Map.insert x (UsableE UsableExternal) i
 
 registerSquashedDeclarations ::
-     Map C.DeclId (SourcePath, Hs.Identifier)
+     Map C.DeclId (SingleLoc, Hs.Identifier)
   -> DeclIndex
   -> DeclIndex
 registerSquashedDeclarations xs =

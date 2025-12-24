@@ -44,6 +44,7 @@ module HsBindgen.BindingSpec.Private.V1 (
   , readFile
   , parseValue
   , encode
+  , defCompareCDeclId
     -- ** Header resolution
   , resolve
     -- ** Merging
@@ -63,6 +64,7 @@ import Data.ByteString.Lazy qualified as BSL
 import Data.Function (on)
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
+import Data.Ord qualified as Ord
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Yaml.Pretty qualified
@@ -453,10 +455,18 @@ parseValue tracer cmpt path aVersion@AVersion{..} value
         return Nothing
 
 -- | Encode a binding specification
-encode :: Format -> UnresolvedBindingSpec -> ByteString
-encode = \case
-    FormatJSON -> encodeJson' . toABindingSpec
-    FormatYAML -> encodeYaml' . toABindingSpec
+encode ::
+     (C.DeclId -> C.DeclId -> Ordering)
+  -> Format
+  -> UnresolvedBindingSpec
+  -> ByteString
+encode compareCDeclId = \case
+    FormatJSON -> encodeJson' . toABindingSpec compareCDeclId
+    FormatYAML -> encodeYaml' . toABindingSpec compareCDeclId
+
+-- | Default ordering of @ctypes@
+defCompareCDeclId :: C.DeclId -> C.DeclId -> Ordering
+defCompareCDeclId = Ord.comparing C.renderDeclId
 
 encodeJson' :: ABindingSpec -> ByteString
 encodeJson' = BSL.toStrict . Aeson.encode
@@ -1234,20 +1244,24 @@ mkInstanceMap xs = Map.fromList . flip map xs $ \case
 
 --------------------------------------------------------------------------------
 
-toABindingSpec :: UnresolvedBindingSpec -> ABindingSpec
-toABindingSpec BindingSpec{..} = ABindingSpec {
+toABindingSpec ::
+     (C.DeclId -> C.DeclId -> Ordering)
+  -> UnresolvedBindingSpec
+  -> ABindingSpec
+toABindingSpec compareCDeclId BindingSpec{..} = ABindingSpec {
       aBindingSpecVersion  = mkAVersion version
     , aBindingSpecTarget   = ABindingSpecTarget bindingSpecTarget
     , aBindingSpecHsModule = bindingSpecModule
-    , aBindingSpecCTypes   = toAOCTypes bindingSpecCTypes
+    , aBindingSpecCTypes   = toAOCTypes compareCDeclId bindingSpecCTypes
     , aBindingSpecHsTypes  = toAHsTypes bindingSpecHsTypes
     }
 
 toAOCTypes ::
-     Map C.DeclId [(Set HashIncludeArg, Omittable CTypeSpec)]
+     (C.DeclId -> C.DeclId -> Ordering)
+  -> Map C.DeclId [(Set HashIncludeArg, Omittable CTypeSpec)]
   -> [AOCTypeSpecMapping]
-toAOCTypes cTypeMap = [
-      case oCTypeSpec of
+toAOCTypes compareCDeclId cTypeMap = map snd $ List.sortBy aux [
+      (cDeclId,) $ case oCTypeSpec of
         Require CTypeSpec{..} -> ARequire ACTypeSpecMapping {
             aCTypeSpecMappingHeaders    =
               map getHashIncludeArg (Set.toAscList headers)
@@ -1263,6 +1277,21 @@ toAOCTypes cTypeMap = [
     | (cDeclId, xs) <- Map.toAscList cTypeMap
     , (headers, oCTypeSpec) <- xs
     ]
+  where
+    aux ::
+         (C.DeclId, AOCTypeSpecMapping)
+      -> (C.DeclId, AOCTypeSpecMapping)
+      -> Ordering
+    aux (cDeclIdL, xL) (cDeclIdR, xR) =
+      case compareCDeclId cDeclIdL cDeclIdR of
+        LT -> LT
+        GT -> GT
+        EQ -> Ord.comparing headersOf xL xR
+
+    headersOf :: AOCTypeSpecMapping -> [FilePath]
+    headersOf = \case
+      ARequire x -> aCTypeSpecMappingHeaders  x
+      AOmit    x -> akCTypeSpecMappingHeaders x
 
 toAHsTypes :: Map Hs.Identifier HsTypeSpec -> [AHsTypeSpecMapping]
 toAHsTypes hsTypeMap = [

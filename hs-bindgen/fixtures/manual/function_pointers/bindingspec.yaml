@@ -5,14 +5,14 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: manual/function_pointers.h
+  cname: int2int
+  hsname: Int2int
+- headers: manual/function_pointers.h
   cname: struct Apply1Struct
   hsname: Apply1Struct
 - headers: manual/function_pointers.h
   cname: union Apply1Union
   hsname: Apply1Union
-- headers: manual/function_pointers.h
-  cname: int2int
-  hsname: Int2int
 hstypes:
 - hsname: Apply1Struct
   representation:

@@ -5,16 +5,16 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: declarations/redeclaration.h
-  cname: struct X
-  hsname: X
-- headers: declarations/redeclaration.h
-  cname: union Y
-  hsname: 'Y'
-- headers: declarations/redeclaration.h
   cname: int_t
   hsname: Int_t
 - headers: declarations/redeclaration.h
+  cname: struct X
+  hsname: X
+- headers: declarations/redeclaration.h
   cname: union y
+  hsname: 'Y'
+- headers: declarations/redeclaration.h
+  cname: union Y
   hsname: 'Y'
 hstypes:
 - hsname: Int_t

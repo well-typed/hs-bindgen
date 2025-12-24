@@ -11,6 +11,8 @@ module HsBindgen.BindingSpec.Gen (
 import Data.ByteString (ByteString)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
+import Data.Maybe qualified as Maybe
+import Data.Ord qualified as Ord
 import Data.Set qualified as Set
 import Data.Vec.Lazy qualified as Vec
 
@@ -25,6 +27,10 @@ import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Naming as C
 import HsBindgen.Frontend.ProcessIncludes
@@ -41,6 +47,8 @@ genBindingSpec ::
      Format
   -> ClangArgs.Target
   -> Hs.ModuleName
+  -> IncludeGraph
+  -> DeclIndex
   -> GetMainHeaders
   -> [(C.DeclId, SourcePath)]
   -> [(C.DeclId, (SourcePath, Hs.Identifier))]
@@ -50,11 +58,30 @@ genBindingSpec
   format
   target
   hsModuleName
+  includeGraph
+  declIndex
   getMainHeaders
   omitTypes
   squashedTypes =
-      BindingSpec.encode format
+      BindingSpec.encode compareCDeclId format
     . genBindingSpec' target hsModuleName getMainHeaders omitTypes squashedTypes
+  where
+    compareCDeclId :: C.DeclId -> C.DeclId -> Ordering
+    compareCDeclId cDeclIdL cDeclIdR = Ord.comparing aux cDeclIdL cDeclIdR
+
+    aux :: C.DeclId -> (Int, Int, Int, Text)
+    aux cDeclId =
+      case Maybe.listToMaybe (DeclIndex.lookupLoc cDeclId declIndex) of
+        Just sloc ->
+          ( fromMaybe maxBound (Map.lookup sloc.singleLocPath orderMap)
+          , sloc.singleLocLine
+          , sloc.singleLocColumn
+          , C.renderDeclId cDeclId
+          )
+        Nothing -> (maxBound, maxBound, maxBound, C.renderDeclId cDeclId)
+
+    orderMap :: Map SourcePath Int
+    orderMap = IncludeGraph.toOrderMap includeGraph
 
 {-------------------------------------------------------------------------------
   Auxiliary functions

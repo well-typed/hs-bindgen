@@ -5,44 +5,44 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: manual/zero_copy.h
-  cname: struct circle
-  hsname: Circle
-- headers: manual/zero_copy.h
-  cname: struct colour
-  hsname: Colour
-- headers: manual/zero_copy.h
-  cname: drawing
-  hsname: Drawing
-- headers: manual/zero_copy.h
-  cname: struct drawing
-  hsname: Drawing
-- headers: manual/zero_copy.h
-  cname: matrix
-  hsname: Matrix
-- headers: manual/zero_copy.h
-  cname: myInt
-  hsname: MyInt
-- headers: manual/zero_copy.h
   cname: struct point
   hsname: Point
 - headers: manual/zero_copy.h
   cname: struct rectangle
   hsname: Rectangle
 - headers: manual/zero_copy.h
+  cname: struct circle
+  hsname: Circle
+- headers: manual/zero_copy.h
   cname: union shape
   hsname: Shape
 - headers: manual/zero_copy.h
-  cname: tic_tac_toe
-  hsname: Tic_tac_toe
+  cname: struct colour
+  hsname: Colour
+- headers: manual/zero_copy.h
+  cname: myInt
+  hsname: MyInt
+- headers: manual/zero_copy.h
+  cname: struct drawing
+  hsname: Drawing
+- headers: manual/zero_copy.h
+  cname: drawing
+  hsname: Drawing
 - headers: manual/zero_copy.h
   cname: struct tic_tac_toe
   hsname: Tic_tac_toe
 - headers: manual/zero_copy.h
-  cname: triplet
-  hsname: Triplet
+  cname: tic_tac_toe
+  hsname: Tic_tac_toe
 - headers: manual/zero_copy.h
   cname: struct vector
   hsname: Vector
+- headers: manual/zero_copy.h
+  cname: triplet
+  hsname: Triplet
+- headers: manual/zero_copy.h
+  cname: matrix
+  hsname: Matrix
 hstypes:
 - hsname: Circle
   representation:

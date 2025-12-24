@@ -147,7 +147,7 @@ data MState = MState {
       stateTraces    :: [Msg ResolveBindingSpecs] -- ^ reverse order
     , stateExtTypes  :: Map C.DeclId (C.Type ResolveBindingSpecs)
     , stateNoPTypes  :: Map C.DeclId [Set SourcePath]
-    , stateOmitTypes :: Map C.DeclId SourcePath
+    , stateOmitTypes :: Map C.DeclId SingleLoc
     }
   deriving (Show)
 
@@ -186,11 +186,11 @@ deleteNoPType cDeclId path st = st {
 
 insertOmittedType ::
      C.DeclId
-  -> SourcePath
+  -> SingleLoc
   -> MState
   -> MState
-insertOmittedType cDeclId path st = st {
-      stateOmitTypes = Map.insert cDeclId path (stateOmitTypes st)
+insertOmittedType cDeclId sloc st = st {
+      stateOmitTypes = Map.insert cDeclId sloc (stateOmitTypes st)
     }
 
 {-------------------------------------------------------------------------------
@@ -241,7 +241,7 @@ resolveTop decl = Reader.ask >>= \MEnv{..} -> do
           State.modify' $
               insertTrace (ResolveBindingSpecsPrescriptiveOmit cDeclId)
             . deleteNoPType cDeclId sourcePath
-            . insertOmittedType cDeclId sourcePath
+            . insertOmittedType cDeclId decl.declInfo.declLoc
           return Nothing
         Nothing -> return $ Just (decl, (Nothing, Nothing))
   where

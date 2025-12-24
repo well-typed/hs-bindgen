@@ -5,14 +5,14 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/primitives/bool.h
-  cname: BOOL
-  hsname: BOOL
-- headers: types/primitives/bool.h
   cname: struct bools1
   hsname: Bools1
 - headers: types/primitives/bool.h
   cname: struct bools2
   hsname: Bools2
+- headers: types/primitives/bool.h
+  cname: BOOL
+  hsname: BOOL
 - headers: types/primitives/bool.h
   cname: struct bools3
   hsname: Bools3

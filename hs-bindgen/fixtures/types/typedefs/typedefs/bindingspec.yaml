@@ -5,6 +5,15 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/typedefs/typedefs.h
+  cname: myint
+  hsname: Myint
+- headers: types/typedefs/typedefs.h
+  cname: intptr
+  hsname: Intptr
+- headers: types/typedefs/typedefs.h
+  cname: int2int
+  hsname: Int2int
+- headers: types/typedefs/typedefs.h
   cname: FunctionPointer_Function
   hsname: FunctionPointer_Function
 - headers: types/typedefs/typedefs.h
@@ -28,15 +37,6 @@ ctypes:
 - headers: types/typedefs/typedefs.h
   cname: h3
   hsname: H3
-- headers: types/typedefs/typedefs.h
-  cname: int2int
-  hsname: Int2int
-- headers: types/typedefs/typedefs.h
-  cname: intptr
-  hsname: Intptr
-- headers: types/typedefs/typedefs.h
-  cname: myint
-  hsname: Myint
 hstypes:
 - hsname: F1
   representation:

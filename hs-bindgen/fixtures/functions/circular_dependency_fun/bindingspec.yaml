@@ -5,11 +5,11 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: functions/circular_dependency_fun.h
-  cname: struct forward_declaration
-  hsname: Forward_declaration
-- headers: functions/circular_dependency_fun.h
   cname: fun_ptr
   hsname: Fun_ptr
+- headers: functions/circular_dependency_fun.h
+  cname: struct forward_declaration
+  hsname: Forward_declaration
 hstypes:
 - hsname: Forward_declaration
   representation:

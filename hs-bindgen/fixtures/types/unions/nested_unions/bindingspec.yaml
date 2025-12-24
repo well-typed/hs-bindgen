@@ -8,14 +8,14 @@ ctypes:
   cname: struct exA
   hsname: ExA
 - headers: types/unions/nested_unions.h
+  cname: union unionA
+  hsname: UnionA
+- headers: types/unions/nested_unions.h
   cname: struct exB
   hsname: ExB
 - headers: types/unions/nested_unions.h
   cname: union @exB_fieldB1
   hsname: ExB_fieldB1
-- headers: types/unions/nested_unions.h
-  cname: union unionA
-  hsname: UnionA
 hstypes:
 - hsname: ExA
   representation:

@@ -276,7 +276,9 @@ loadBindingSpecs tracer args target hsModuleName BindingSpecConfig{..} =
 
 -- | Encode a binding specification
 encode :: Common.Format -> BindingSpec -> ByteString
-encode format = BindingSpec.encode format . bindingSpecUnresolved
+encode format =
+      BindingSpec.encode BindingSpec.defCompareCDeclId format
+    . bindingSpecUnresolved
 
 {-------------------------------------------------------------------------------
   Internal API

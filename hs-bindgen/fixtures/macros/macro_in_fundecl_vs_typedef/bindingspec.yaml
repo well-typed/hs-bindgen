@@ -14,10 +14,10 @@ ctypes:
   cname: struct struct1
   hsname: Struct1
 - headers: macros/macro_in_fundecl_vs_typedef.h
-  cname: struct2
+  cname: struct struct2
   hsname: Struct2
 - headers: macros/macro_in_fundecl_vs_typedef.h
-  cname: struct struct2
+  cname: struct2
   hsname: Struct2
 - headers: macros/macro_in_fundecl_vs_typedef.h
   cname: struct struct3
@@ -26,10 +26,10 @@ ctypes:
   cname: struct3_t
   hsname: Struct3_t
 - headers: macros/macro_in_fundecl_vs_typedef.h
-  cname: struct4
+  cname: struct struct4
   hsname: Struct4
 - headers: macros/macro_in_fundecl_vs_typedef.h
-  cname: struct struct4
+  cname: struct4
   hsname: Struct4
 hstypes:
 - hsname: MC

@@ -5,14 +5,14 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: macros/macro_in_fundecl.h
+  cname: I
+  hsname: I
+- headers: macros/macro_in_fundecl.h
   cname: C
   hsname: C
 - headers: macros/macro_in_fundecl.h
   cname: F
   hsname: F
-- headers: macros/macro_in_fundecl.h
-  cname: I
-  hsname: I
 - headers: macros/macro_in_fundecl.h
   cname: L
   hsname: L

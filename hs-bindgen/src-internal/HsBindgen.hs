@@ -195,6 +195,8 @@ writeBindingSpec :: FileOverwritePolicy -> FilePath -> Artefact ()
 writeBindingSpec fileOverwritePolicy path = do
     target         <- Target
     moduleBaseName <- FinalModuleBaseName
+    includeGraph   <- snd <$> IncludeGraph
+    declIndex      <- DeclIndex
     getMainHeaders <- GetMainHeaders
     omitTypes      <- OmitTypes
     squashedTypes  <- SquashedTypes
@@ -205,6 +207,8 @@ writeBindingSpec fileOverwritePolicy path = do
             (BindingSpec.getFormat path)
             target
             (fromBaseModuleName moduleBaseName (Just CType))
+            includeGraph
+            declIndex
             getMainHeaders
             omitTypes
             squashedTypes

@@ -5,6 +5,9 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/nested/nested_types.h
+  cname: struct foo
+  hsname: Foo
+- headers: types/nested/nested_types.h
   cname: struct bar
   hsname: Bar
 - headers: types/nested/nested_types.h
@@ -14,14 +17,11 @@ ctypes:
   cname: struct @ex3_ex3_struct
   hsname: Ex3_ex3_struct
 - headers: types/nested/nested_types.h
-  cname: struct ex4_even
-  hsname: Ex4_even
-- headers: types/nested/nested_types.h
   cname: struct ex4_odd
   hsname: Ex4_odd
 - headers: types/nested/nested_types.h
-  cname: struct foo
-  hsname: Foo
+  cname: struct ex4_even
+  hsname: Ex4_even
 hstypes:
 - hsname: Bar
   representation:

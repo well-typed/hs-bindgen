@@ -5,38 +5,8 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: documentation/doxygen_docs.h
-  cname: bitfield_t
-  hsname: Bitfield_t
-- headers: documentation/doxygen_docs.h
-  cname: struct bitfield_t
-  hsname: Bitfield_t
-- headers: documentation/doxygen_docs.h
-  cname: enum color_enum
-  hsname: Color_enum
-- headers: documentation/doxygen_docs.h
-  cname: config_t
-  hsname: Config_t
-- headers: documentation/doxygen_docs.h
-  cname: struct config_t
-  hsname: Config_t
-- headers: documentation/doxygen_docs.h
-  cname: data_union_t
-  hsname: Data_union_t
-- headers: documentation/doxygen_docs.h
-  cname: union data_union_t
-  hsname: Data_union_t
-- headers: documentation/doxygen_docs.h
-  cname: struct @data_union_t_as_parts
-  hsname: Data_union_t_as_parts
-- headers: documentation/doxygen_docs.h
-  cname: event_callback_t
-  hsname: Event_callback_t
-- headers: documentation/doxygen_docs.h
-  cname: filename_t
-  hsname: Filename_t
-- headers: documentation/doxygen_docs.h
-  cname: struct flexible_array
-  hsname: Flexible_array
+  cname: size_type
+  hsname: Size_type
 - headers: documentation/doxygen_docs.h
   cname: struct forward_declared_struct
   hsname: Forward_declared_struct
@@ -44,17 +14,47 @@ ctypes:
   cname: union forward_declared_union
   hsname: Forward_declared_union
 - headers: documentation/doxygen_docs.h
-  cname: processor_fn_t
-  hsname: Processor_fn_t
+  cname: enum color_enum
+  hsname: Color_enum
 - headers: documentation/doxygen_docs.h
-  cname: size_type
-  hsname: Size_type
+  cname: event_callback_t
+  hsname: Event_callback_t
+- headers: documentation/doxygen_docs.h
+  cname: struct config_t
+  hsname: Config_t
+- headers: documentation/doxygen_docs.h
+  cname: config_t
+  hsname: Config_t
+- headers: documentation/doxygen_docs.h
+  cname: enum status_code_t
+  hsname: Status_code_t
 - headers: documentation/doxygen_docs.h
   cname: status_code_t
   hsname: Status_code_t
 - headers: documentation/doxygen_docs.h
-  cname: enum status_code_t
-  hsname: Status_code_t
+  cname: union data_union_t
+  hsname: Data_union_t
+- headers: documentation/doxygen_docs.h
+  cname: struct @data_union_t_as_parts
+  hsname: Data_union_t_as_parts
+- headers: documentation/doxygen_docs.h
+  cname: data_union_t
+  hsname: Data_union_t
+- headers: documentation/doxygen_docs.h
+  cname: struct bitfield_t
+  hsname: Bitfield_t
+- headers: documentation/doxygen_docs.h
+  cname: bitfield_t
+  hsname: Bitfield_t
+- headers: documentation/doxygen_docs.h
+  cname: processor_fn_t
+  hsname: Processor_fn_t
+- headers: documentation/doxygen_docs.h
+  cname: filename_t
+  hsname: Filename_t
+- headers: documentation/doxygen_docs.h
+  cname: struct flexible_array
+  hsname: Flexible_array
 hstypes:
 - hsname: Bitfield_t
   representation:
