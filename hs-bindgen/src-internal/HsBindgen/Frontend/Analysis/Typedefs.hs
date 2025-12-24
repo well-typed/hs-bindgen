@@ -14,7 +14,6 @@ module HsBindgen.Frontend.Analysis.Typedefs (
 import Data.Map.Strict qualified as Map
 
 import Clang.HighLevel.Types
-import Clang.Paths
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
@@ -97,7 +96,7 @@ data Conclusion =
     --
     -- then use sites would also need to be handled explicitly; see also
     -- <https://github.com/well-typed/hs-bindgen/issues/1356>.
-    Squash SourcePath C.DeclId
+    Squash SingleLoc C.DeclId
 
     -- | Rename the Haskell type corresponding to this C type
     --
@@ -166,8 +165,7 @@ typedefOfTagged ::
 typedefOfTagged typedefInfo payload useSites
   | shouldSquash
   = mconcat [
-        conclude typedefInfo.declId $
-          Squash (singleLocPath typedefInfo.declLoc) payload.declId
+        conclude typedefInfo.declId $ Squash typedefInfo.declLoc payload.declId
       , conclude payload.declId $ Rename (UseNameOf typedefInfo.declId)
       ]
 

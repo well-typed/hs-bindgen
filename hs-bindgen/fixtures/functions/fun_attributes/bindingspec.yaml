@@ -5,10 +5,10 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: functions/fun_attributes.h
-  cname: FILE
+  cname: struct FILE
   hsname: FILE
 - headers: functions/fun_attributes.h
-  cname: struct FILE
+  cname: FILE
   hsname: FILE
 - headers: functions/fun_attributes.h
   cname: size_t

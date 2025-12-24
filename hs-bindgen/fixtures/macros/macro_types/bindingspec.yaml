@@ -5,26 +5,26 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: macros/macro_types.h
-  cname: BOOLEAN_T
-  hsname: BOOLEAN_T
-- headers: macros/macro_types.h
-  cname: MTy
-  hsname: MTy
-- headers: macros/macro_types.h
   cname: PtrInt
   hsname: PtrInt
 - headers: macros/macro_types.h
   cname: PtrPtrChar
   hsname: PtrPtrChar
 - headers: macros/macro_types.h
-  cname: UINT8_T
-  hsname: UINT8_T
-- headers: macros/macro_types.h
-  cname: boolean_T
-  hsname: Boolean_T
+  cname: MTy
+  hsname: MTy
 - headers: macros/macro_types.h
   cname: tty
   hsname: Tty
+- headers: macros/macro_types.h
+  cname: UINT8_T
+  hsname: UINT8_T
+- headers: macros/macro_types.h
+  cname: BOOLEAN_T
+  hsname: BOOLEAN_T
+- headers: macros/macro_types.h
+  cname: boolean_T
+  hsname: Boolean_T
 hstypes:
 - hsname: BOOLEAN_T
   representation:

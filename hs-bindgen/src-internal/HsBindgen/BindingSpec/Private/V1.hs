@@ -42,14 +42,9 @@ module HsBindgen.BindingSpec.Private.V1 (
   , lookupHsTypeSpec
     -- ** YAML/JSON
   , readFile
-  , readFileJson
-  , readFileYaml
   , parseValue
-  , encodeJson
-  , encodeYaml
-  , writeFile
-  , writeFileJson
-  , writeFileYaml
+  , encode
+  , defCompareCDeclId
     -- ** Header resolution
   , resolve
     -- ** Merging
@@ -58,17 +53,18 @@ module HsBindgen.BindingSpec.Private.V1 (
   , lookupMergedBindingSpecs
   ) where
 
-import Prelude hiding (readFile, writeFile)
+import Prelude hiding (readFile)
 
 import Data.Aeson ((.!=), (.:), (.:?), (.=))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.KeyMap qualified as KM
 import Data.Aeson.Types qualified as Aeson
-import Data.ByteString qualified as BSS
+import Data.ByteString (ByteString)
 import Data.ByteString.Lazy qualified as BSL
 import Data.Function (on)
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
+import Data.Ord qualified as Ord
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Yaml.Pretty qualified
@@ -430,31 +426,7 @@ readFile ::
   -> BindingSpecCompatibility
   -> FilePath
   -> IO (Maybe UnresolvedBindingSpec)
-readFile = readFileAux readVersion
-
--- | Read a binding specification JSON file
-readFileJson ::
-     Tracer BindingSpecReadMsg
-  -> BindingSpecCompatibility
-  -> FilePath
-  -> IO (Maybe UnresolvedBindingSpec)
-readFileJson = readFileAux readVersionJson
-
--- | Read a binding specification YAML file
-readFileYaml ::
-     Tracer BindingSpecReadMsg
-  -> BindingSpecCompatibility
-  -> FilePath
-  -> IO (Maybe UnresolvedBindingSpec)
-readFileYaml = readFileAux readVersionYaml
-
-readFileAux ::
-     ReadVersionFunction
-  -> Tracer BindingSpecReadMsg
-  -> BindingSpecCompatibility
-  -> FilePath
-  -> IO (Maybe UnresolvedBindingSpec)
-readFileAux doRead tracer cmpt path = doRead tracer path >>= \case
+readFile tracer cmpt path = readVersion tracer path >>= \case
     Just (version', value) -> parseValue tracer cmpt path version' value
     Nothing                -> return Nothing
 
@@ -482,34 +454,24 @@ parseValue tracer cmpt path aVersion@AVersion{..} value
         traceWith tracer $ BindingSpecReadIncompatibleVersion path aVersion
         return Nothing
 
--- | Encode a binding specification as JSON
-encodeJson :: UnresolvedBindingSpec -> BSL.ByteString
-encodeJson = encodeJson' . toABindingSpec
+-- | Encode a binding specification
+encode ::
+     (C.DeclId -> C.DeclId -> Ordering)
+  -> Format
+  -> UnresolvedBindingSpec
+  -> ByteString
+encode compareCDeclId = \case
+    FormatJSON -> encodeJson' . toABindingSpec compareCDeclId
+    FormatYAML -> encodeYaml' . toABindingSpec compareCDeclId
 
--- | Encode a binding specification as YAML
-encodeYaml :: UnresolvedBindingSpec -> BSS.ByteString
-encodeYaml = encodeYaml' . toABindingSpec
+-- | Default ordering of @ctypes@
+defCompareCDeclId :: C.DeclId -> C.DeclId -> Ordering
+defCompareCDeclId = Ord.comparing C.renderDeclId
 
--- | Write a binding specification to a file
---
--- The format is determined by the filename extension.
-writeFile :: FilePath -> UnresolvedBindingSpec -> IO ()
-writeFile path = case getFormat path of
-    FormatYAML -> writeFileYaml path
-    FormatJSON -> writeFileJson path
+encodeJson' :: ABindingSpec -> ByteString
+encodeJson' = BSL.toStrict . Aeson.encode
 
--- | Write a binding specification to a JSON file
-writeFileJson :: FilePath -> UnresolvedBindingSpec -> IO ()
-writeFileJson path = BSL.writeFile path . encodeJson
-
--- | Write a binding specification to a YAML file
-writeFileYaml :: FilePath -> UnresolvedBindingSpec -> IO ()
-writeFileYaml path = BSS.writeFile path . encodeYaml
-
-encodeJson' :: ABindingSpec -> BSL.ByteString
-encodeJson' = Aeson.encode
-
-encodeYaml' :: ABindingSpec -> BSS.ByteString
+encodeYaml' :: ABindingSpec -> ByteString
 encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
   where
     yamlConfig :: Data.Yaml.Pretty.Config
@@ -1282,20 +1244,24 @@ mkInstanceMap xs = Map.fromList . flip map xs $ \case
 
 --------------------------------------------------------------------------------
 
-toABindingSpec :: UnresolvedBindingSpec -> ABindingSpec
-toABindingSpec BindingSpec{..} = ABindingSpec {
+toABindingSpec ::
+     (C.DeclId -> C.DeclId -> Ordering)
+  -> UnresolvedBindingSpec
+  -> ABindingSpec
+toABindingSpec compareCDeclId BindingSpec{..} = ABindingSpec {
       aBindingSpecVersion  = mkAVersion version
     , aBindingSpecTarget   = ABindingSpecTarget bindingSpecTarget
     , aBindingSpecHsModule = bindingSpecModule
-    , aBindingSpecCTypes   = toAOCTypes bindingSpecCTypes
+    , aBindingSpecCTypes   = toAOCTypes compareCDeclId bindingSpecCTypes
     , aBindingSpecHsTypes  = toAHsTypes bindingSpecHsTypes
     }
 
 toAOCTypes ::
-     Map C.DeclId [(Set HashIncludeArg, Omittable CTypeSpec)]
+     (C.DeclId -> C.DeclId -> Ordering)
+  -> Map C.DeclId [(Set HashIncludeArg, Omittable CTypeSpec)]
   -> [AOCTypeSpecMapping]
-toAOCTypes cTypeMap = [
-      case oCTypeSpec of
+toAOCTypes compareCDeclId cTypeMap = map snd $ List.sortBy aux [
+      (cDeclId,) $ case oCTypeSpec of
         Require CTypeSpec{..} -> ARequire ACTypeSpecMapping {
             aCTypeSpecMappingHeaders    =
               map getHashIncludeArg (Set.toAscList headers)
@@ -1311,6 +1277,21 @@ toAOCTypes cTypeMap = [
     | (cDeclId, xs) <- Map.toAscList cTypeMap
     , (headers, oCTypeSpec) <- xs
     ]
+  where
+    aux ::
+         (C.DeclId, AOCTypeSpecMapping)
+      -> (C.DeclId, AOCTypeSpecMapping)
+      -> Ordering
+    aux (cDeclIdL, xL) (cDeclIdR, xR) =
+      case compareCDeclId cDeclIdL cDeclIdR of
+        LT -> LT
+        GT -> GT
+        EQ -> Ord.comparing headersOf xL xR
+
+    headersOf :: AOCTypeSpecMapping -> [FilePath]
+    headersOf = \case
+      ARequire x -> aCTypeSpecMappingHeaders  x
+      AOmit    x -> akCTypeSpecMappingHeaders x
 
 toAHsTypes :: Map Hs.Identifier HsTypeSpec -> [AHsTypeSpecMapping]
 toAHsTypes hsTypeMap = [

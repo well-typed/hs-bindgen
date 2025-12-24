@@ -5,11 +5,11 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/enums/nested_enums.h
-  cname: enum enumA
-  hsname: EnumA
-- headers: types/enums/nested_enums.h
   cname: struct exA
   hsname: ExA
+- headers: types/enums/nested_enums.h
+  cname: enum enumA
+  hsname: EnumA
 - headers: types/enums/nested_enums.h
   cname: struct exB
   hsname: ExB

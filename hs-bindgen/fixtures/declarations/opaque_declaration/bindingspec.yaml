@@ -5,20 +5,20 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: declarations/opaque_declaration.h
+  cname: struct foo
+  hsname: Foo
+- headers: declarations/opaque_declaration.h
   cname: struct bar
   hsname: Bar
 - headers: declarations/opaque_declaration.h
   cname: struct baz
   hsname: Baz
 - headers: declarations/opaque_declaration.h
-  cname: struct foo
-  hsname: Foo
+  cname: enum quu
+  hsname: Quu
 - headers: declarations/opaque_declaration.h
   cname: union opaque_union
   hsname: Opaque_union
-- headers: declarations/opaque_declaration.h
-  cname: enum quu
-  hsname: Quu
 hstypes:
 - hsname: Bar
   representation:

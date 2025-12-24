@@ -5,35 +5,35 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/unions/unions.h
-  cname: union AnonA
-  hsname: AnonA
-- headers: types/unions/unions.h
-  cname: struct @AnonA_polar
-  hsname: AnonA_polar
-- headers: types/unions/unions.h
-  cname: struct @AnonA_xy
-  hsname: AnonA_xy
-- headers: types/unions/unions.h
-  cname: struct Dim
-  hsname: Dim
-- headers: types/unions/unions.h
   cname: struct Dim2
   hsname: Dim2
 - headers: types/unions/unions.h
   cname: struct Dim3
   hsname: Dim3
 - headers: types/unions/unions.h
-  cname: struct DimB
-  hsname: DimB
-- headers: types/unions/unions.h
   cname: union DimPayload
   hsname: DimPayload
+- headers: types/unions/unions.h
+  cname: struct Dim
+  hsname: Dim
+- headers: types/unions/unions.h
+  cname: union DimPayloadB
+  hsname: DimPayloadB
 - headers: types/unions/unions.h
   cname: DimPayloadB
   hsname: DimPayloadB
 - headers: types/unions/unions.h
-  cname: union DimPayloadB
-  hsname: DimPayloadB
+  cname: struct DimB
+  hsname: DimB
+- headers: types/unions/unions.h
+  cname: union AnonA
+  hsname: AnonA
+- headers: types/unions/unions.h
+  cname: struct @AnonA_xy
+  hsname: AnonA_xy
+- headers: types/unions/unions.h
+  cname: struct @AnonA_polar
+  hsname: AnonA_polar
 hstypes:
 - hsname: AnonA
   representation:

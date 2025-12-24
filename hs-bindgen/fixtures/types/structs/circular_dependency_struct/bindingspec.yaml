@@ -5,11 +5,11 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/structs/circular_dependency_struct.h
-  cname: struct a
-  hsname: A
-- headers: types/structs/circular_dependency_struct.h
   cname: struct b
   hsname: B
+- headers: types/structs/circular_dependency_struct.h
+  cname: struct a
+  hsname: A
 hstypes:
 - hsname: A
   representation:

@@ -8,23 +8,20 @@ ctypes:
   cname: struct S
   hsname: S
 - headers: attributes/type_attributes.h
-  cname: struct S2
-  hsname: S2
-- headers: attributes/type_attributes.h
-  cname: T1
-  hsname: T1
-- headers: attributes/type_attributes.h
   cname: more_aligned_int
   hsname: More_aligned_int
 - headers: attributes/type_attributes.h
-  cname: struct my_packed_struct
-  hsname: My_packed_struct
+  cname: struct S2
+  hsname: S2
 - headers: attributes/type_attributes.h
   cname: struct my_unpacked_struct
   hsname: My_unpacked_struct
 - headers: attributes/type_attributes.h
-  cname: short_a
-  hsname: Short_a
+  cname: struct my_packed_struct
+  hsname: My_packed_struct
+- headers: attributes/type_attributes.h
+  cname: union wait_status_ptr_t
+  hsname: Wait_status_ptr_t
 - headers: attributes/type_attributes.h
   cname: union wait
   hsname: Wait
@@ -32,8 +29,11 @@ ctypes:
   cname: wait_status_ptr_t
   hsname: Wait_status_ptr_t
 - headers: attributes/type_attributes.h
-  cname: union wait_status_ptr_t
-  hsname: Wait_status_ptr_t
+  cname: T1
+  hsname: T1
+- headers: attributes/type_attributes.h
+  cname: short_a
+  hsname: Short_a
 hstypes:
 - hsname: More_aligned_int
   representation:

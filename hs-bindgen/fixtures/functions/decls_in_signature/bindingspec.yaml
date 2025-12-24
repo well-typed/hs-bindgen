@@ -5,17 +5,17 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: functions/decls_in_signature.h
-  cname: struct named_struct
-  hsname: Named_struct
-- headers: functions/decls_in_signature.h
-  cname: union named_union
-  hsname: Named_union
-- headers: functions/decls_in_signature.h
   cname: struct opaque
   hsname: Opaque
 - headers: functions/decls_in_signature.h
   cname: struct outside
   hsname: Outside
+- headers: functions/decls_in_signature.h
+  cname: struct named_struct
+  hsname: Named_struct
+- headers: functions/decls_in_signature.h
+  cname: union named_union
+  hsname: Named_union
 hstypes:
 - hsname: Named_struct
   representation:

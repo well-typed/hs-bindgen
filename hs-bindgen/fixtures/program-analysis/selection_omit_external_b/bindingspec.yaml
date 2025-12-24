@@ -5,14 +5,14 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: program-analysis/selection_omit_external_b.h
+  cname: struct Omitted
+  hsname: Omitted
+- headers: program-analysis/selection_omit_external_b.h
   cname: struct DirectlyDependsOnOmitted
   hsname: DirectlyDependsOnOmitted
 - headers: program-analysis/selection_omit_external_b.h
   cname: struct IndirectlyDependsOnOmitted
   hsname: IndirectlyDependsOnOmitted
-- headers: program-analysis/selection_omit_external_b.h
-  cname: struct Omitted
-  hsname: Omitted
 hstypes:
 - hsname: DirectlyDependsOnOmitted
   representation:

@@ -5,9 +5,6 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/typedefs/multi_level_function_pointer.h
-  cname: MyInt
-  hsname: MyInt
-- headers: types/typedefs/multi_level_function_pointer.h
   cname: f1
   hsname: F1
 - headers: types/typedefs/multi_level_function_pointer.h
@@ -22,6 +19,9 @@ ctypes:
 - headers: types/typedefs/multi_level_function_pointer.h
   cname: f5
   hsname: F5
+- headers: types/typedefs/multi_level_function_pointer.h
+  cname: MyInt
+  hsname: MyInt
 - headers: types/typedefs/multi_level_function_pointer.h
   cname: f6
   hsname: F6

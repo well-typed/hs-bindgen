@@ -4,12 +4,12 @@ version:
 target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
-- omit:
-    headers: binding-specs/bs_pre_omit_type.h
-    cname: struct pt
 - headers: binding-specs/bs_pre_omit_type.h
   cname: sym
   hsname: Sym
+- omit:
+    headers: binding-specs/bs_pre_omit_type.h
+    cname: struct pt
 hstypes:
 - hsname: Sym
   representation:

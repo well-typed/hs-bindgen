@@ -5,11 +5,11 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: manual/arrays.h
-  cname: matrix
-  hsname: Matrix
-- headers: manual/arrays.h
   cname: triplet
   hsname: Triplet
+- headers: manual/arrays.h
+  cname: matrix
+  hsname: Matrix
 - headers: manual/arrays.h
   cname: triplet_ptrs
   hsname: Triplet_ptrs

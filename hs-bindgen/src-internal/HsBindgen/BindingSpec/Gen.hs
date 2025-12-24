@@ -6,14 +6,13 @@
 module HsBindgen.BindingSpec.Gen (
     -- * Public API
     genBindingSpec
-
-    -- * Internal API
-  , genBindingSpecYaml
   ) where
 
 import Data.ByteString (ByteString)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
+import Data.Maybe qualified as Maybe
+import Data.Ord qualified as Ord
 import Data.Set qualified as Set
 import Data.Vec.Lazy qualified as Vec
 
@@ -23,12 +22,15 @@ import Clang.Paths
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Naming as C
 import HsBindgen.Frontend.ProcessIncludes
@@ -41,39 +43,45 @@ import HsBindgen.Language.Haskell qualified as Hs
 -------------------------------------------------------------------------------}
 
 -- | Generate binding specification
---
--- The format is determined by filename extension.  The following formats are
--- supported:
---
--- * YAML (@.yaml@ extension)
--- * JSON (@.json@ extension)
 genBindingSpec ::
-     ClangArgs.Target
+     Format
+  -> ClangArgs.Target
   -> Hs.ModuleName
-  -> GetMainHeaders
-  -> [(C.DeclId, SourcePath)]
-  -> [(C.DeclId, (SourcePath, Hs.Identifier))]
-  -> [Hs.Decl]
-  -> UnresolvedBindingSpec
-genBindingSpec target hsModuleName getMainHeaders omitTypes squashedTypes =
-  genBindingSpec' target hsModuleName getMainHeaders omitTypes squashedTypes
-
-{-------------------------------------------------------------------------------
-  Internal API (for tests)
--------------------------------------------------------------------------------}
-
--- | Generate binding specification
-genBindingSpecYaml ::
-     ClangArgs.Target
-  -> Hs.ModuleName
+  -> IncludeGraph
+  -> DeclIndex
   -> GetMainHeaders
   -> [(C.DeclId, SourcePath)]
   -> [(C.DeclId, (SourcePath, Hs.Identifier))]
   -> [Hs.Decl]
   -> ByteString
-genBindingSpecYaml target hsModuleName getMainHeaders omitTypes squashedTypes =
-      BindingSpec.encodeYaml
+genBindingSpec
+  format
+  target
+  hsModuleName
+  includeGraph
+  declIndex
+  getMainHeaders
+  omitTypes
+  squashedTypes =
+      BindingSpec.encode compareCDeclId format
     . genBindingSpec' target hsModuleName getMainHeaders omitTypes squashedTypes
+  where
+    compareCDeclId :: C.DeclId -> C.DeclId -> Ordering
+    compareCDeclId cDeclIdL cDeclIdR = Ord.comparing aux cDeclIdL cDeclIdR
+
+    aux :: C.DeclId -> (Int, Int, Int, Text)
+    aux cDeclId =
+      case Maybe.listToMaybe (DeclIndex.lookupLoc cDeclId declIndex) of
+        Just sloc ->
+          ( fromMaybe maxBound (Map.lookup sloc.singleLocPath orderMap)
+          , sloc.singleLocLine
+          , sloc.singleLocColumn
+          , C.renderDeclId cDeclId
+          )
+        Nothing -> (maxBound, maxBound, maxBound, C.renderDeclId cDeclId)
+
+    orderMap :: Map SourcePath Int
+    orderMap = IncludeGraph.toOrderMap includeGraph
 
 {-------------------------------------------------------------------------------
   Auxiliary functions

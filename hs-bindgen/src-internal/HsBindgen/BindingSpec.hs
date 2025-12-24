@@ -19,8 +19,9 @@ module HsBindgen.BindingSpec (
   , loadPrescriptiveBindingSpec
   , loadBindingSpecs
     -- ** Encoding
-  , encodeBindingSpecJson
-  , encodeBindingSpecYaml
+  , Common.Format(..)
+  , Common.getFormat
+  , encode
     -- ** Trace messages
   , Common.BindingSpecReadMsg(..)
   , Common.BindingSpecResolveMsg(..)
@@ -33,8 +34,14 @@ module HsBindgen.BindingSpec (
   , moduleName
     -- ** Types
   , Common.Omittable(..)
+  , BindingSpec.BindingSpecTarget(..)
   , BindingSpec.CTypeSpec(..)
+  , BindingSpec.CTypeRep(..)
   , BindingSpec.HsTypeSpec(..)
+  , BindingSpec.HsTypeRep(..)
+  , BindingSpec.HsRecordRep(..)
+  , BindingSpec.HsNewtypeRep(..)
+  , BindingSpec.FFIType(..)
   , BindingSpec.InstanceSpec(..)
   , BindingSpec.StrategySpec(..)
   , BindingSpec.ConstraintSpec(..)
@@ -47,8 +54,7 @@ module HsBindgen.BindingSpec (
   , BindingSpec.lookupMergedBindingSpecs
   ) where
 
-import Data.ByteString qualified as BSS
-import Data.ByteString.Lazy qualified as BSL
+import Data.ByteString (ByteString)
 
 import Clang.Args (ClangArgs)
 import Clang.Paths (SourcePath)
@@ -268,13 +274,11 @@ loadBindingSpecs tracer args target hsModuleName BindingSpecConfig{..} =
   Public API: Encoding
 -------------------------------------------------------------------------------}
 
--- | Encode a binding specification (JSON format)
-encodeBindingSpecJson :: BindingSpec -> BSL.ByteString
-encodeBindingSpecJson = BindingSpec.encodeJson . bindingSpecUnresolved
-
--- | Encode a binding specification (YAML format)
-encodeBindingSpecYaml :: BindingSpec -> BSS.ByteString
-encodeBindingSpecYaml = BindingSpec.encodeYaml . bindingSpecUnresolved
+-- | Encode a binding specification
+encode :: Common.Format -> BindingSpec -> ByteString
+encode format =
+      BindingSpec.encode BindingSpec.defCompareCDeclId format
+    . bindingSpecUnresolved
 
 {-------------------------------------------------------------------------------
   Internal API

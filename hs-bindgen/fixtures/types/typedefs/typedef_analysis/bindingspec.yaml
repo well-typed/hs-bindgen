@@ -8,27 +8,6 @@ ctypes:
   cname: struct struct1
   hsname: Struct1_t
 - headers: types/typedefs/typedef_analysis.h
-  cname: struct struct10
-  hsname: Struct10_t
-- headers: types/typedefs/typedef_analysis.h
-  cname: struct10_t
-  hsname: Struct10_t
-- headers: types/typedefs/typedef_analysis.h
-  cname: struct10_t_t
-  hsname: Struct10_t_t
-- headers: types/typedefs/typedef_analysis.h
-  cname: struct struct11
-  hsname: Struct11_t
-- headers: types/typedefs/typedef_analysis.h
-  cname: struct11_t
-  hsname: Struct11_t
-- headers: types/typedefs/typedef_analysis.h
-  cname: struct struct12
-  hsname: Struct12_t
-- headers: types/typedefs/typedef_analysis.h
-  cname: struct12_t
-  hsname: Struct12_t
-- headers: types/typedefs/typedef_analysis.h
   cname: struct1_t
   hsname: Struct1_t
 - headers: types/typedefs/typedef_analysis.h
@@ -56,11 +35,11 @@ ctypes:
   cname: struct5_t
   hsname: Struct5_t
 - headers: types/typedefs/typedef_analysis.h
-  cname: struct6
-  hsname: Struct6
-- headers: types/typedefs/typedef_analysis.h
   cname: struct struct6
   hsname: Struct6_Deref
+- headers: types/typedefs/typedef_analysis.h
+  cname: struct6
+  hsname: Struct6
 - headers: types/typedefs/typedef_analysis.h
   cname: struct struct7
   hsname: Struct7
@@ -71,23 +50,44 @@ ctypes:
   cname: struct7b
   hsname: Struct7b
 - headers: types/typedefs/typedef_analysis.h
-  cname: struct8
+  cname: struct struct8
   hsname: Struct8
 - headers: types/typedefs/typedef_analysis.h
-  cname: struct struct8
+  cname: struct8
   hsname: Struct8
 - headers: types/typedefs/typedef_analysis.h
   cname: struct8b
   hsname: Struct8b
 - headers: types/typedefs/typedef_analysis.h
-  cname: struct9
+  cname: struct struct9
   hsname: Struct9
 - headers: types/typedefs/typedef_analysis.h
-  cname: struct struct9
+  cname: struct9
   hsname: Struct9
 - headers: types/typedefs/typedef_analysis.h
   cname: struct9_t
   hsname: Struct9_t
+- headers: types/typedefs/typedef_analysis.h
+  cname: struct struct10
+  hsname: Struct10_t
+- headers: types/typedefs/typedef_analysis.h
+  cname: struct10_t
+  hsname: Struct10_t
+- headers: types/typedefs/typedef_analysis.h
+  cname: struct10_t_t
+  hsname: Struct10_t_t
+- headers: types/typedefs/typedef_analysis.h
+  cname: struct struct11
+  hsname: Struct11_t
+- headers: types/typedefs/typedef_analysis.h
+  cname: struct11_t
+  hsname: Struct11_t
+- headers: types/typedefs/typedef_analysis.h
+  cname: struct12_t
+  hsname: Struct12_t
+- headers: types/typedefs/typedef_analysis.h
+  cname: struct struct12
+  hsname: Struct12_t
 - headers: types/typedefs/typedef_analysis.h
   cname: struct use_sites
   hsname: Use_sites

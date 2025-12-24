@@ -5,32 +5,14 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/enums/enums.h
-  cname: enumA
-  hsname: EnumA
-- headers: types/enums/enums.h
-  cname: enum enumA
-  hsname: EnumA
-- headers: types/enums/enums.h
-  cname: enumB
-  hsname: EnumB
-- headers: types/enums/enums.h
-  cname: enum enumB
-  hsname: EnumB
-- headers: types/enums/enums.h
-  cname: enumC
-  hsname: EnumC
-- headers: types/enums/enums.h
-  cname: enum enumC
-  hsname: EnumC
-- headers: types/enums/enums.h
-  cname: enum enumD
-  hsname: EnumD_t
-- headers: types/enums/enums.h
-  cname: enumD_t
-  hsname: EnumD_t
-- headers: types/enums/enums.h
   cname: enum first
   hsname: First
+- headers: types/enums/enums.h
+  cname: enum second
+  hsname: Second
+- headers: types/enums/enums.h
+  cname: enum same
+  hsname: Same
 - headers: types/enums/enums.h
   cname: enum nonseq
   hsname: Nonseq
@@ -38,11 +20,29 @@ ctypes:
   cname: enum packed
   hsname: Packed
 - headers: types/enums/enums.h
-  cname: enum same
-  hsname: Same
+  cname: enum enumA
+  hsname: EnumA
 - headers: types/enums/enums.h
-  cname: enum second
-  hsname: Second
+  cname: enumA
+  hsname: EnumA
+- headers: types/enums/enums.h
+  cname: enum enumB
+  hsname: EnumB
+- headers: types/enums/enums.h
+  cname: enumB
+  hsname: EnumB
+- headers: types/enums/enums.h
+  cname: enum enumC
+  hsname: EnumC
+- headers: types/enums/enums.h
+  cname: enumC
+  hsname: EnumC
+- headers: types/enums/enums.h
+  cname: enum enumD
+  hsname: EnumD_t
+- headers: types/enums/enums.h
+  cname: enumD_t
+  hsname: EnumD_t
 hstypes:
 - hsname: EnumA
   representation:

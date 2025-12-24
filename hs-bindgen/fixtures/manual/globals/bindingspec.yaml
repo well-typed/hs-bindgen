@@ -5,20 +5,20 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: manual/globals.h
-  cname: ConstInt
-  hsname: ConstInt
-- headers: manual/globals.h
   cname: struct globalConfig
   hsname: GlobalConfig
 - headers: manual/globals.h
-  cname: list
-  hsname: List
+  cname: ConstInt
+  hsname: ConstInt
+- headers: manual/globals.h
+  cname: struct tuple
+  hsname: Tuple
 - headers: manual/globals.h
   cname: triplet
   hsname: Triplet
 - headers: manual/globals.h
-  cname: struct tuple
-  hsname: Tuple
+  cname: list
+  hsname: List
 hstypes:
 - hsname: ConstInt
   representation:

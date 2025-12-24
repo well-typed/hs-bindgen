@@ -14,38 +14,38 @@ ctypes:
   cname: S2_t
   hsname: S2_t
 - headers: types/structs/simple_structs.h
-  cname: S3_t
+  cname: struct S3_t
   hsname: S3_t
 - headers: types/structs/simple_structs.h
-  cname: struct S3_t
+  cname: S3_t
   hsname: S3_t
 - headers: types/structs/simple_structs.h
   cname: struct S4
   hsname: S4
 - headers: types/structs/simple_structs.h
-  cname: S5
-  hsname: S5
-- headers: types/structs/simple_structs.h
   cname: struct S5
   hsname: S5
 - headers: types/structs/simple_structs.h
-  cname: S6
-  hsname: S6
+  cname: S5
+  hsname: S5
 - headers: types/structs/simple_structs.h
   cname: struct S6
   hsname: S6
 - headers: types/structs/simple_structs.h
-  cname: S7a
-  hsname: S7a
+  cname: S6
+  hsname: S6
 - headers: types/structs/simple_structs.h
   cname: struct @S7a_Deref
   hsname: S7a_Deref
 - headers: types/structs/simple_structs.h
-  cname: S7b
-  hsname: S7b
+  cname: S7a
+  hsname: S7a
 - headers: types/structs/simple_structs.h
   cname: struct @S7b_Deref
   hsname: S7b_Deref
+- headers: types/structs/simple_structs.h
+  cname: S7b
+  hsname: S7b
 hstypes:
 - hsname: S1
   representation:

@@ -71,4 +71,6 @@ exec GlobalOpts{..} Opts{..} = do
         putStrLn $ "An error happened (see above)"
         exitFailure
       Right spec ->
-        maybe BS.putStr BS.writeFile output $ encodeBindingSpecYaml spec
+        case output of
+          Just path -> BS.writeFile path $ encode (getFormat path) spec
+          Nothing   -> BS.putStr         $ encode FormatYAML       spec

@@ -35,6 +35,7 @@ import HsBindgen.Backend
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Backend.HsModule.Translation
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
 import HsBindgen.Config.Internal
@@ -132,7 +133,7 @@ writeIncludeGraph pol mPath = do
     (predicate, includeGraph) <- IncludeGraph
     let rendered = IncludeGraph.dumpMermaid predicate includeGraph
     case mPath of
-      Nothing   -> Lift $ delay $ WriteToStdOut $ TextContent rendered
+      Nothing   -> Lift $ delay $ WriteToStdOut $ StringContent rendered
       Just path -> write pol "include graph" (UserSpecified path) rendered
 
 -- | Write @use-decl@ graph to file.
@@ -141,7 +142,7 @@ writeUseDeclGraph pol mPath = do
     useDeclGraph <- UseDeclGraph
     let rendered = UseDeclGraph.dumpMermaid useDeclGraph
     case mPath of
-      Nothing   -> Lift $ delay $ WriteToStdOut $ TextContent rendered
+      Nothing   -> Lift $ delay $ WriteToStdOut $ StringContent rendered
       Just path -> write pol "use-decl graph" (UserSpecified path) rendered
 
 -- | Get bindings (single module).
@@ -194,15 +195,20 @@ writeBindingSpec :: FileOverwritePolicy -> FilePath -> Artefact ()
 writeBindingSpec fileOverwritePolicy path = do
     target         <- Target
     moduleBaseName <- FinalModuleBaseName
+    includeGraph   <- snd <$> IncludeGraph
+    declIndex      <- DeclIndex
     getMainHeaders <- GetMainHeaders
     omitTypes      <- OmitTypes
     squashedTypes  <- SquashedTypes
     hsDecls        <- HsDecls
     -- Binding specifications only specify types.
-    let bindingSpec =
+    let bs =
           genBindingSpec
+            (BindingSpec.getFormat path)
             target
             (fromBaseModuleName moduleBaseName (Just CType))
+            includeGraph
+            declIndex
             getMainHeaders
             omitTypes
             squashedTypes
@@ -212,7 +218,7 @@ writeBindingSpec fileOverwritePolicy path = do
               description = "Binding specifications"
             , location    = UserSpecified path
             , fileOverwritePolicy
-            , content     = BindingSpecContent  bindingSpec
+            , content     = ByteStringContent bs
             }
     Lift $ delay $ WriteToFile fileDescription
 
@@ -239,7 +245,7 @@ write pol what loc str
   | null str =
     EmitTrace $ SkipWriteToFileNoBindings loc
   | otherwise =
-    Lift $ delay $ WriteToFile $ FileDescription what loc pol (TextContent str)
+    Lift $ delay $ WriteToFile $ FileDescription what loc pol (StringContent str)
 
 writeByCategory ::
      FileOverwritePolicy

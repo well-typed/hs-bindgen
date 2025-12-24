@@ -5,10 +5,10 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: binding-specs/bs_pre_rename_squash_typedef.h
-  cname: bar
+  cname: struct foo
   hsname: Piyo
 - headers: binding-specs/bs_pre_rename_squash_typedef.h
-  cname: struct foo
+  cname: bar
   hsname: Piyo
 hstypes:
 - hsname: Piyo

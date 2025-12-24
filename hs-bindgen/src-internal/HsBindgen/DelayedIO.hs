@@ -25,6 +25,7 @@ module HsBindgen.DelayedIO (
   ) where
 import Control.Monad.Except (ExceptT, MonadError (..))
 import Control.Monad.State (StateT (..), modify)
+import Data.ByteString (ByteString)
 import Data.ByteString qualified as BSS
 import System.Directory (createDirectoryIfMissing, doesDirectoryExist,
                          doesFileExist)
@@ -32,8 +33,6 @@ import System.FilePath (takeDirectory, (</>))
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)
-import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Cache
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -111,8 +110,8 @@ fileLocationToPath = \case
 -- | Content to be written to a file
 --
 data FileContent
-    = TextContent String
-    | BindingSpecContent UnresolvedBindingSpec
+    = StringContent     String
+    | ByteStringContent ByteString
     deriving Show
 
 {-------------------------------------------------------------------------------
@@ -161,16 +160,16 @@ executeDelayedIOActions :: Tracer DelayedIOMsg -> [DelayedIO] -> IO ()
 executeDelayedIOActions tracer as =
   forM_ as $ \case
     WriteToStdOut x -> case x of
-      TextContent str        -> putStrLn str
-      BindingSpecContent ubs -> BSS.putStr $ BindingSpec.encodeYaml ubs
+      StringContent     s  -> putStrLn s
+      ByteStringContent bs -> BSS.putStr bs
     WriteToFile  fd -> do
       let path = fileLocationToPath fd.location
       traceWith tracer $ DelayedIOWriteToFile path fd.description
       -- Creating the directory is justified by checking the policy first.
       createDirectoryIfMissing True (takeDirectory path)
       case fd.content of
-        TextContent str        -> writeFile path str
-        BindingSpecContent ubs -> BindingSpec.writeFile path ubs
+        StringContent     s  -> writeFile path s
+        ByteStringContent bs -> BSS.writeFile path bs
 
 {-------------------------------------------------------------------------------
   Errors

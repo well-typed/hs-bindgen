@@ -5,29 +5,29 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: attributes/attributes.h
-  cname: FILE
-  hsname: FILE
-- headers: attributes/attributes.h
-  cname: struct __sFILE
-  hsname: FILE
+  cname: struct foo
+  hsname: Foo
 - headers: attributes/attributes.h
   cname: struct bar
   hsname: Bar
 - headers: attributes/attributes.h
-  cname: baz
-  hsname: Baz
-- headers: attributes/attributes.h
   cname: struct baz
   hsname: Baz
 - headers: attributes/attributes.h
-  cname: struct foo
-  hsname: Foo
+  cname: baz
+  hsname: Baz
+- headers: attributes/attributes.h
+  cname: struct qux
+  hsname: Qux
 - headers: attributes/attributes.h
   cname: qux
   hsname: Qux
 - headers: attributes/attributes.h
-  cname: struct qux
-  hsname: Qux
+  cname: struct __sFILE
+  hsname: FILE
+- headers: attributes/attributes.h
+  cname: FILE
+  hsname: FILE
 hstypes:
 - hsname: Bar
   representation:

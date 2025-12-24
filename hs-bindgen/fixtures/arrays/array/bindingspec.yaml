@@ -5,8 +5,8 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: arrays/array.h
-  cname: struct Example
-  hsname: Example
+  cname: triplet
+  hsname: Triplet
 - headers: arrays/array.h
   cname: list
   hsname: List
@@ -14,14 +14,14 @@ ctypes:
   cname: matrix
   hsname: Matrix
 - headers: arrays/array.h
-  cname: sudoku
-  hsname: Sudoku
-- headers: arrays/array.h
-  cname: triplet
-  hsname: Triplet
-- headers: arrays/array.h
   cname: tripletlist
   hsname: Tripletlist
+- headers: arrays/array.h
+  cname: struct Example
+  hsname: Example
+- headers: arrays/array.h
+  cname: sudoku
+  hsname: Sudoku
 hstypes:
 - hsname: Example
   representation:

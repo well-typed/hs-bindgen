@@ -10,7 +10,7 @@ import Data.Function
 import Data.Map qualified as Map
 import Data.Proxy
 
-import Clang.Paths
+import Clang.HighLevel.Types
 
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -79,10 +79,10 @@ updateDeclMeta td nm declMeta = declMeta{
         DeclIndex.registerSquashedDeclarations squashedMap declMeta.declIndex
     }
   where
-    squashedMap :: Map C.DeclId (SourcePath, Hs.Identifier)
+    squashedMap :: Map C.DeclId (SingleLoc, Hs.Identifier)
     squashedMap = Map.fromList $ catMaybes [
-        (cDeclId,) . (sourcePath,) <$> Map.lookup wrappedId nm
-      | (cDeclId, TypedefAnalysis.Squash sourcePath wrappedId) <-
+        (cDeclId,) . (sloc,) <$> Map.lookup wrappedId nm
+      | (cDeclId, TypedefAnalysis.Squash sloc wrappedId) <-
           Map.toList td.analysis
       ]
 

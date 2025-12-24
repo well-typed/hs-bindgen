@@ -5,8 +5,11 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/typedefs/typedef_vs_macro.h
-  cname: struct ExampleStruct
-  hsname: ExampleStruct
+  cname: T1
+  hsname: T1
+- headers: types/typedefs/typedef_vs_macro.h
+  cname: T2
+  hsname: T2
 - headers: types/typedefs/typedef_vs_macro.h
   cname: M1
   hsname: M1
@@ -17,17 +20,14 @@ ctypes:
   cname: M3
   hsname: M3
 - headers: types/typedefs/typedef_vs_macro.h
-  cname: T1
-  hsname: T1
-- headers: types/typedefs/typedef_vs_macro.h
-  cname: T2
-  hsname: T2
-- headers: types/typedefs/typedef_vs_macro.h
-  cname: struct foo
-  hsname: Foo
+  cname: struct ExampleStruct
+  hsname: ExampleStruct
 - headers: types/typedefs/typedef_vs_macro.h
   cname: uint64_t
   hsname: Uint64_t
+- headers: types/typedefs/typedef_vs_macro.h
+  cname: struct foo
+  hsname: Foo
 hstypes:
 - hsname: ExampleStruct
   representation:
