@@ -46,14 +46,13 @@ type family AnnSelect ix where
   AnnSelect _                 = NoAnn
 
 instance IsPass Select where
-  type Id           Select = C.DeclId
-  type FieldName    Select = C.ScopedName
-  type ArgumentName Select = Maybe C.ScopedName
-  type MacroBody    Select = CheckedMacro Select
-  type ExtBinding   Select = ResolvedExtBinding
-  type Ann ix       Select = AnnSelect ix
-  type Config       Select = SelectConfig
-  type Msg          Select = SelectMsg
+  type Id         Select = C.DeclId
+  type ScopedName Select = C.ScopedName
+  type MacroBody  Select = CheckedMacro Select
+  type ExtBinding Select = ResolvedExtBinding
+  type Ann ix     Select = AnnSelect ix
+  type Config     Select = SelectConfig
+  type Msg        Select = SelectMsg
 
 {-------------------------------------------------------------------------------
   Configuration

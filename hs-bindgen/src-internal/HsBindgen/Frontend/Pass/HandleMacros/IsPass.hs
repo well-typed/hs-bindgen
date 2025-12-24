@@ -25,13 +25,12 @@ type family AnnHandleMacros (ix :: Symbol) :: Star where
   AnnHandleMacros _                 = NoAnn
 
 instance IsPass HandleMacros where
-  type Id           HandleMacros = C.DeclId
-  type FieldName    HandleMacros = C.ScopedName
-  type ArgumentName HandleMacros = Maybe C.ScopedName
-  type MacroBody    HandleMacros = CheckedMacro HandleMacros
-  type ExtBinding   HandleMacros = Void
-  type Ann ix       HandleMacros = AnnHandleMacros ix
-  type Msg          HandleMacros = HandleMacrosReparseMsg
+  type Id         HandleMacros = C.DeclId
+  type ScopedName HandleMacros = C.ScopedName
+  type MacroBody  HandleMacros = CheckedMacro HandleMacros
+  type ExtBinding HandleMacros = Void
+  type Ann ix     HandleMacros = AnnHandleMacros ix
+  type Msg        HandleMacros = HandleMacrosReparseMsg
 
 {-------------------------------------------------------------------------------
   CoercePass

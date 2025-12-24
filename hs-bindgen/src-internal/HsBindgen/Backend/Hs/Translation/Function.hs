@@ -158,7 +158,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     foreignImportParams :: [Hs.FunctionParameter]
     foreignImportParams = [
            Hs.FunctionParameter
-           { functionParameterName    = fmap C.nameHs mbName
+           { functionParameterName    = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
            , functionParameterType    = Type.inContext Type.FunArg (toPrimitiveType (toIsPrimitiveType ty))
            , functionParameterComment = Nothing
            }
@@ -224,7 +224,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
       let params :: [Hs.FunctionParameter]
           params = [
                Hs.FunctionParameter
-               { functionParameterName    = fmap C.nameHs mbName
+               { functionParameterName    = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
                , functionParameterType    = Type.inContext Type.FunArg (toOrigType (toIsPrimitiveType ty))
                , functionParameterComment = Nothing
                }

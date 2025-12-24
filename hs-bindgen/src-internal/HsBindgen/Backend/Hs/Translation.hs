@@ -45,6 +45,7 @@ import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -226,7 +227,7 @@ structDecs opts haddockConfig info struct spec fields = do
 
     structFields :: Vec n Hs.Field
     structFields = flip Vec.map fields $ \f -> Hs.Field {
-        fieldName    = C.nameHs (C.fieldName (C.structFieldInfo f))
+        fieldName    = Hs.unsafeHsIdHsName (C.structFieldInfo f).fieldName.hsName
       , fieldType    = Type.topLevel (C.structFieldType f)
       , fieldOrigin  = Origin.StructField f
       , fieldComment = mkHaddocksFieldInfo haddockConfig info (C.structFieldInfo f)
@@ -251,7 +252,7 @@ structDecs opts haddockConfig info struct spec fields = do
         hsStruct :: Hs.Struct n
         hsStruct = Hs.Struct {
             structName      = structName
-          , structConstr    = C.recordConstr (C.structNames struct)
+          , structConstr    = MangleNames.recordConstr (C.structNames struct)
           , structFields    = structFields
           , structInstances = insts
           , structOrigin    = Just Origin.Decl{
@@ -361,7 +362,7 @@ structFieldDecls structName f = [
     parentType = Hs.HsTypRef structName
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = C.nameHs (C.fieldName (C.structFieldInfo f))
+    fieldName = Hs.unsafeHsIdHsName (C.structFieldInfo f).fieldName.hsName
 
     fieldType :: HsType
     fieldType = Type.topLevel (C.structFieldType f)
@@ -398,14 +399,14 @@ peekStructField ptr f = case C.structFieldWidth f of
     Nothing -> Hs.PeekCField (HsStrLit name) ptr
     Just _w -> Hs.PeekCBitfield (HsStrLit name) ptr
   where
-    name = T.unpack $ Hs.getName $ C.nameHs (C.fieldName (C.structFieldInfo f))
+    name = T.unpack (C.structFieldInfo f).fieldName.hsName.text
 
 pokeStructField :: Idx ctx -> C.StructField -> Idx ctx -> Hs.PokeCField ctx
 pokeStructField ptr f x = case C.structFieldWidth f of
     Nothing -> Hs.PokeCField (HsStrLit name) ptr x
     Just _w  -> Hs.PokeCBitfield (HsStrLit name) ptr x
   where
-    name = T.unpack $ Hs.getName $ C.nameHs (C.fieldName (C.structFieldInfo f))
+    name = T.unpack (C.structFieldInfo f).fieldName.hsName.text
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
@@ -458,11 +459,11 @@ unionDecs haddockConfig info union spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = C.newtypeConstr (C.unionNames union)
+        newtypeConstr = MangleNames.newtypeConstr (C.unionNames union)
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-              fieldName    = C.newtypeField (C.unionNames union)
+              fieldName    = MangleNames.newtypeField (C.unionNames union)
             , fieldType    = Hs.HsByteArray
             , fieldOrigin  = Origin.GeneratedField
             , fieldComment = Nothing
@@ -526,8 +527,8 @@ unionDecs haddockConfig info union spec = do
               fInsts = Hs.getInstances
                           (State.instanceMap transState) (Just nt.newtypeName)
                           (Set.singleton Hs.Storable) [hsType]
-              getterName = C.unsafeNameHsWith ("get_" <>) (C.fieldName unionFieldInfo)
-              setterName = C.unsafeNameHsWith ("set_" <>) (C.fieldName unionFieldInfo)
+              getterName = Hs.unsafeHsIdHsName $ "get_" <> unionFieldInfo.fieldName.hsName
+              setterName = Hs.unsafeHsIdHsName $ "set_" <> unionFieldInfo.fieldName.hsName
               commentRefName name = Just $ HsDoc.paragraph [
                   HsDoc.Bold [HsDoc.TextContent "See:"]
                 , HsDoc.Identifier name
@@ -602,7 +603,7 @@ unionFieldDecls unionName f = [
     parentType = Hs.HsTypRef unionName
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = C.nameHs (C.fieldName (C.unionFieldInfo f))
+    fieldName = Hs.unsafeHsIdHsName (C.unionFieldInfo f).fieldName.hsName
 
     fieldType :: HsType
     fieldType = Type.topLevel (C.unionFieldType f)
@@ -658,11 +659,11 @@ enumDecs opts haddockConfig info e spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = C.newtypeConstr (C.enumNames e)
+        newtypeConstr = MangleNames.newtypeConstr (C.enumNames e)
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-            fieldName    = C.newtypeField (C.enumNames e)
+            fieldName    = MangleNames.newtypeField (C.enumNames e)
           , fieldType    = Type.topLevel (C.enumType e)
           , fieldOrigin  = Origin.GeneratedField
           , fieldComment = Nothing
@@ -742,7 +743,7 @@ enumDecs opts haddockConfig info e spec = do
         valueDecls :: [Hs.Decl]
         valueDecls =
             [ Hs.DeclPatSyn Hs.PatSyn
-              { patSynName    = C.nameHs (C.fieldName enumConstantInfo)
+              { patSynName    = Hs.unsafeHsIdHsName enumConstantInfo.fieldName.hsName
               , patSynType    = nt.newtypeName
               , patSynConstr  = nt.newtypeConstr
               , patSynValue   = enumConstantValue
@@ -818,11 +819,11 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = C.newtypeConstr (C.typedefNames typedef)
+        newtypeConstr = MangleNames.newtypeConstr (C.typedefNames typedef)
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-            fieldName    = C.newtypeField (C.typedefNames typedef)
+            fieldName    = MangleNames.newtypeField (C.typedefNames typedef)
           , fieldType    = Type.topLevel (C.typedefType typedef)
           , fieldOrigin  = Origin.GeneratedField
           , fieldComment = Nothing
@@ -999,7 +1000,7 @@ typedefFunPtrDecs ::
   -> C.DeclInfo
   -> Int                 -- ^ Number of indirections
   -> ([C.Type], C.Type)  -- ^ Function arguments and result
-  -> C.NewtypeNames
+  -> MangleNames.NewtypeNames
   -> C.DeclSpec
   -> HsM [Hs.Decl]
 typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
@@ -1047,7 +1048,7 @@ typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
     auxTypedef :: C.Typedef
     auxTypedef = C.Typedef{
           typedefType  = C.TypeFun args res
-        , typedefNames = C.NewtypeNames{
+        , typedefNames = MangleNames.NewtypeNames{
               newtypeConstr = Hs.unsafeHsIdHsName $          auxHsName
             , newtypeField  = Hs.unsafeHsIdHsName $ "un_" <> auxHsName
             }
@@ -1105,11 +1106,11 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = C.newtypeConstr (C.macroTypeNames macroType)
+        newtypeConstr = MangleNames.newtypeConstr (C.macroTypeNames macroType)
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-              fieldName    = C.newtypeField (C.macroTypeNames macroType)
+              fieldName    = MangleNames.newtypeField (C.macroTypeNames macroType)
             , fieldType    = Type.topLevel (C.macroType macroType)
             , fieldOrigin  = Origin.GeneratedField
             , fieldComment = Nothing

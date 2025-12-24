@@ -37,13 +37,6 @@ module HsBindgen.Frontend.AST.Internal (
   , Type(TypePrim, TypeRef, TypeTypedef, TypeFun, TypeVoid,
          TypeConstArray, TypeExtBinding, TypeIncompleteArray, TypeBlock,
          TypeConst, TypeComplex, TypePointers)
-    -- ** Pattern synonyms for safe pointer handling
-    -- * Haskell names
-  , NamePair(..)
-  , nameHs
-  , unsafeNameHsWith
-  , RecordNames(..)
-  , NewtypeNames(..)
     -- * Show
   , ValidPass
   ) where
@@ -57,14 +50,12 @@ import C.Expr.Typecheck.Type qualified as CExpr.DSL
 import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.HighLevel.Types
 
-import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -155,7 +146,7 @@ data HeaderInfo = HeaderInfo{
 
 data FieldInfo p = FieldInfo {
       fieldLoc     :: SingleLoc
-    , fieldName    :: FieldName p
+    , fieldName    :: ScopedName p
     , fieldComment :: Maybe (Comment p)
     }
 
@@ -222,7 +213,7 @@ data EnumConstant p = EnumConstant {
     }
 
 data Function p = Function {
-      functionArgs    :: [(ArgumentName p, Type p)]
+      functionArgs    :: [(Maybe (ScopedName p), Type p)]
     , functionRes     :: Type p
     , functionAttrs   :: FunctionAttributes
     , functionAnn     :: Ann "Function" p
@@ -462,50 +453,6 @@ buildPointers n inner
              TypeConst, TypeComplex #-}
 
 {-------------------------------------------------------------------------------
-  Haskell names
--------------------------------------------------------------------------------}
-
--- | Pair of a (scoped) C name and the corresponding Haskell name
---
--- This is only used for scoped names: field names, macro arguments, etc. It is
--- /not/ used for declarations.
---
--- Invariant: the 'Hs.Identifier' must satisfy the rules for legal Haskell
--- names, for its intended use (constructor, variable, ..).
-data NamePair = NamePair {
-      nameC       :: C.ScopedName
-    , nameHsIdent :: Hs.Identifier
-    }
-  deriving stock (Show, Eq, Ord, Generic)
-
--- | Extract namespaced Haskell name
---
--- The invariant on 'NamePair' justifies this otherwise unsafe operation.
-nameHs :: NamePair -> Hs.Name ns
-nameHs = Hs.unsafeHsIdHsName . nameHsIdent
-
--- | Extract and amend namespaced Haskell name
-unsafeNameHsWith :: (Hs.Identifier -> Hs.Identifier) -> NamePair -> Hs.Name ns
-unsafeNameHsWith f = Hs.unsafeHsIdHsName .  f . nameHsIdent
-
--- | Names for a Haskell record type
---
--- This is used in addition to a 'NamePair'.
-data RecordNames = RecordNames {
-      recordConstr :: Hs.Name Hs.NsConstr
-    }
-  deriving stock (Show, Eq, Ord, Generic)
-
--- | Names for a Haskell newtype
---
--- This is used in addition to a 'NamePair'.
-data NewtypeNames = NewtypeNames {
-      newtypeConstr :: Hs.Name Hs.NsConstr
-    , newtypeField  :: Hs.Name Hs.NsVar
-    }
-  deriving stock (Show, Eq, Ord, Generic)
-
-{-------------------------------------------------------------------------------
   Instances
 -------------------------------------------------------------------------------}
 
@@ -520,11 +467,10 @@ class ( IsPass p
 
         -- 'Show' constraints for debugging
 
-      , Show (ArgumentName p)
-      , Show (ExtBinding   p)
-      , Show (FieldName    p)
-      , Show (Id           p)
-      , Show (MacroBody    p)
+      , Show (ExtBinding p)
+      , Show (Id         p)
+      , Show (MacroBody  p)
+      , Show (ScopedName p)
 
       , Show (Ann "CheckedMacroType" p)
       , Show (Ann "Decl"             p)
@@ -539,8 +485,8 @@ class ( IsPass p
 
         -- 'Ord' constraints for identifiers (which we often store in maps)
 
-      , Ord (Id        p)
-      , Ord (FieldName p)
+      , Ord (Id         p)
+      , Ord (ScopedName p)
 
         -- 'Eq'
         --
@@ -549,9 +495,9 @@ class ( IsPass p
         -- identical). All other 'Eq' constraints we provide are in order to
         -- support this equality.
 
-      , Eq (ArgumentName p)
-      , Eq (ExtBinding   p)
-      , Eq (MacroBody    p)
+      , Eq (ExtBinding p)
+      , Eq (MacroBody  p)
+      , Eq (ScopedName p)
 
       , Eq (Ann "CheckedMacroType" p)
       , Eq (Ann "Enum"             p)

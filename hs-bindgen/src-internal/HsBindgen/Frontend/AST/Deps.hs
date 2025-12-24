@@ -16,7 +16,7 @@ import HsBindgen.Imports
 
 data Usage p =
     UsedInTypedef ValOrRef
-  | UsedInField ValOrRef (FieldName p)
+  | UsedInField ValOrRef (ScopedName p)
   | UsedInFunction ValOrRef
   | UsedInVar ValOrRef -- ^ Global or constant
 
@@ -68,7 +68,7 @@ depsOfDecl (DeclGlobal ty) =
 
 -- | Dependencies of struct or union field
 depsOfField :: forall a p.
-     (a p -> FieldName p)
+     (a p -> ScopedName p)
   -> (a p -> Type p)
   -> a p -> [(Usage p, Id p)]
 depsOfField getName getType field =

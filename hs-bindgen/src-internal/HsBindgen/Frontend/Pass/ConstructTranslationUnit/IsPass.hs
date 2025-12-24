@@ -35,13 +35,12 @@ type family AnnConstructTranslationUnit (ix :: Symbol) :: Star where
   AnnConstructTranslationUnit _                 = NoAnn
 
 instance IsPass ConstructTranslationUnit where
-  type Id           ConstructTranslationUnit = C.DeclId
-  type FieldName    ConstructTranslationUnit = C.ScopedName
-  type ArgumentName ConstructTranslationUnit = Maybe C.ScopedName
-  type MacroBody    ConstructTranslationUnit = UnparsedMacro
-  type ExtBinding   ConstructTranslationUnit = Void
-  type Ann ix       ConstructTranslationUnit = AnnConstructTranslationUnit ix
-  type Msg          ConstructTranslationUnit = ConstructTranslationUnitMsg
+  type Id         ConstructTranslationUnit = C.DeclId
+  type ScopedName ConstructTranslationUnit = C.ScopedName
+  type MacroBody  ConstructTranslationUnit = UnparsedMacro
+  type ExtBinding ConstructTranslationUnit = Void
+  type Ann ix     ConstructTranslationUnit = AnnConstructTranslationUnit ix
+  type Msg        ConstructTranslationUnit = ConstructTranslationUnitMsg
 
 {-------------------------------------------------------------------------------
   Information about the declarations
