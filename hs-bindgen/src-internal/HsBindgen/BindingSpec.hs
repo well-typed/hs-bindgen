@@ -19,8 +19,9 @@ module HsBindgen.BindingSpec (
   , loadPrescriptiveBindingSpec
   , loadBindingSpecs
     -- ** Encoding
-  , encodeBindingSpecJson
-  , encodeBindingSpecYaml
+  , Common.Format(..)
+  , Common.getFormat
+  , encode
     -- ** Trace messages
   , Common.BindingSpecReadMsg(..)
   , Common.BindingSpecResolveMsg(..)
@@ -267,13 +268,9 @@ loadBindingSpecs tracer args target hsModuleName BindingSpecConfig{..} =
   Public API: Encoding
 -------------------------------------------------------------------------------}
 
--- | Encode a binding specification (JSON format)
-encodeBindingSpecJson :: BindingSpec -> ByteString
-encodeBindingSpecJson = BindingSpec.encodeJson . bindingSpecUnresolved
-
--- | Encode a binding specification (YAML format)
-encodeBindingSpecYaml :: BindingSpec -> ByteString
-encodeBindingSpecYaml = BindingSpec.encodeYaml . bindingSpecUnresolved
+-- | Encode a binding specification
+encode :: Common.Format -> BindingSpec -> ByteString
+encode format = BindingSpec.encode format . bindingSpecUnresolved
 
 {-------------------------------------------------------------------------------
   Internal API

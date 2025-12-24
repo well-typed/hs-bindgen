@@ -32,8 +32,9 @@ import System.FilePath (takeDirectory, (</>))
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)
-import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
+import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpecV1
 import HsBindgen.Cache
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -162,7 +163,8 @@ executeDelayedIOActions tracer as =
   forM_ as $ \case
     WriteToStdOut x -> case x of
       TextContent str        -> putStrLn str
-      BindingSpecContent ubs -> BSS.putStr $ BindingSpec.encodeYaml ubs
+      BindingSpecContent ubs ->
+        BSS.putStr $ BindingSpecV1.encode BindingSpec.FormatYAML ubs
     WriteToFile  fd -> do
       let path = fileLocationToPath fd.location
       traceWith tracer $ DelayedIOWriteToFile path fd.description
@@ -170,7 +172,8 @@ executeDelayedIOActions tracer as =
       createDirectoryIfMissing True (takeDirectory path)
       case fd.content of
         TextContent str        -> writeFile path str
-        BindingSpecContent ubs -> BindingSpec.writeFile path ubs
+        BindingSpecContent ubs -> BSS.writeFile path $
+          BindingSpecV1.encode (BindingSpec.getFormat path) ubs
 
 {-------------------------------------------------------------------------------
   Errors

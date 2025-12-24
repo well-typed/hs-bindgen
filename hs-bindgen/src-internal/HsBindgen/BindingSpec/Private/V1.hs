@@ -43,8 +43,7 @@ module HsBindgen.BindingSpec.Private.V1 (
     -- ** YAML/JSON
   , readFile
   , parseValue
-  , encodeJson
-  , encodeYaml
+  , encode
   , writeFile
   , writeFileJson
   , writeFileYaml
@@ -457,13 +456,11 @@ parseValue tracer cmpt path aVersion@AVersion{..} value
         traceWith tracer $ BindingSpecReadIncompatibleVersion path aVersion
         return Nothing
 
--- | Encode a binding specification as JSON
-encodeJson :: UnresolvedBindingSpec -> ByteString
-encodeJson = encodeJson' . toABindingSpec
-
--- | Encode a binding specification as YAML
-encodeYaml :: UnresolvedBindingSpec -> ByteString
-encodeYaml = encodeYaml' . toABindingSpec
+-- | Encode a binding specification
+encode :: Format -> UnresolvedBindingSpec -> ByteString
+encode = \case
+    FormatJSON -> encodeJson' . toABindingSpec
+    FormatYAML -> encodeYaml' . toABindingSpec
 
 -- | Write a binding specification to a file
 --
@@ -475,11 +472,11 @@ writeFile path = case getFormat path of
 
 -- | Write a binding specification to a JSON file
 writeFileJson :: FilePath -> UnresolvedBindingSpec -> IO ()
-writeFileJson path = BSS.writeFile path . encodeJson
+writeFileJson path = BSS.writeFile path . encode FormatJSON
 
 -- | Write a binding specification to a YAML file
 writeFileYaml :: FilePath -> UnresolvedBindingSpec -> IO ()
-writeFileYaml path = BSS.writeFile path . encodeYaml
+writeFileYaml path = BSS.writeFile path . encode FormatYAML
 
 encodeJson' :: ABindingSpec -> ByteString
 encodeJson' = BSL.toStrict . Aeson.encode

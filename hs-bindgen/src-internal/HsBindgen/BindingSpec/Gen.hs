@@ -23,7 +23,6 @@ import Clang.Paths
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
@@ -72,7 +71,7 @@ genBindingSpecYaml ::
   -> [Hs.Decl]
   -> ByteString
 genBindingSpecYaml target hsModuleName getMainHeaders omitTypes squashedTypes =
-      BindingSpec.encodeYaml
+      BindingSpec.encode FormatYAML
     . genBindingSpec' target hsModuleName getMainHeaders omitTypes squashedTypes
 
 {-------------------------------------------------------------------------------
