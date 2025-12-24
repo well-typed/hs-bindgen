@@ -392,8 +392,8 @@ convertInlineContent = \case
 
   CDoc.InlineRefCommand (CommentRef c mHsIdent) -> [
       case mHsIdent of
-        Just hs -> HsDoc.Identifier hs.text
-        Nothing -> HsDoc.Monospace [HsDoc.TextContent c]
+        Just namePair -> HsDoc.Identifier namePair.hsName.text
+        Nothing       -> HsDoc.Monospace [HsDoc.TextContent c]
     ]
 
   -- HTML is not currently supported

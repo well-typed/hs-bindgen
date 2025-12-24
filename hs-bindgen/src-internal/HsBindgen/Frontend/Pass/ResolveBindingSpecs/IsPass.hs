@@ -138,5 +138,4 @@ instance IsTrace Level ResolveBindingSpecsMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassHaskellId HandleMacros ResolveBindingSpecs
-instance CoercePassId        HandleMacros ResolveBindingSpecs
+instance CoercePassId HandleMacros ResolveBindingSpecs

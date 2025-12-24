@@ -227,8 +227,7 @@ instance IsTrace Level SelectMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassHaskellId ResolveBindingSpecs Select
-instance CoercePassId        ResolveBindingSpecs Select
+instance CoercePassId ResolveBindingSpecs Select
 
 instance CoercePassMacroBody ResolveBindingSpecs Select where
   coercePassMacroBody _ = coercePass

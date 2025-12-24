@@ -73,6 +73,5 @@ instance IsTrace Level ConstructTranslationUnitMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassHaskellId AssignAnonIds ConstructTranslationUnit
 instance CoercePassMacroBody AssignAnonIds ConstructTranslationUnit
 instance CoercePassId        AssignAnonIds ConstructTranslationUnit

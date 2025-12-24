@@ -231,12 +231,13 @@ mkIdentifier ns candidate = do
     return fieldHsName
 
 -- | Search the 'NameMap', when we don't know the name kind
-searchNameMap :: Text -> M (Maybe Hs.Identifier)
+searchNameMap :: Text -> M (Maybe C.DeclIdPair)
 searchNameMap name = WrapM $ do
      nm <- asks envNameMap
      return $ Foldable.asum [
-         Map.lookup (C.DeclId{name = C.DeclName name kind, isAnon = False}) nm
+         C.DeclIdPair declId <$> Map.lookup declId nm
        | kind <- [minBound .. maxBound]
+       , let declId = C.DeclId{name = C.DeclName name kind, isAnon = False}
        ]
 
 {-------------------------------------------------------------------------------
@@ -460,11 +461,13 @@ instance Mangle C.Comment where
   mangle (C.Comment comment) = C.Comment <$> traverse mangle comment
 
 instance Mangle C.CommentRef where
-   mangle (C.CommentRef name _) =
-       -- NB: If this fails it means that we tried all possible name kinds and
-       -- still didn't find any result. This might be because of a typo on the
-       -- docs, or a missing reference.
-       C.CommentRef name <$> searchNameMap name
+  mangle (C.CommentRef name Nothing) =
+      -- NB: If this fails it means that we tried all possible name kinds and
+      -- still didn't find any result. This might be because of a typo on the
+      -- docs, or a missing reference.
+      C.CommentRef name <$> searchNameMap name
+  mangle (C.CommentRef name (Just declId)) =
+      C.CommentRef name . Just <$> mangleDeclId declId
 
 instance MangleInDecl C.Typedef where
   mangleInDecl info C.Typedef{..} = do

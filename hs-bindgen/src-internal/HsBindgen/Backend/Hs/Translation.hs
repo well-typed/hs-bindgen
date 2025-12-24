@@ -1032,8 +1032,6 @@ typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
             }
         }
 
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1433>
-    -- We should use @typedefInfo.declId@ instead of @typedefName.text@.
     auxComment :: Clang.Comment C.CommentRef
     auxComment = Clang.Comment [
           Clang.Paragraph [
@@ -1041,7 +1039,7 @@ typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
             , Clang.InlineRefCommand $
                 C.CommentRef
                   origInfo.declId.cName.name.text
-                  (Just origInfo.declId.hsName)
+                  (Just origInfo.declId)
             ]
         ]
 

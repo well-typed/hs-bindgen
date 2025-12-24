@@ -41,7 +41,6 @@ instance IsPass MangleNames where
   type Id           MangleNames = C.DeclIdPair
   type FieldName    MangleNames = C.NamePair
   type ArgumentName MangleNames = Maybe C.NamePair
-  type HaskellId    MangleNames = Hs.Identifier
   type MacroBody    MangleNames = C.CheckedMacro MangleNames
   type ExtBinding   MangleNames = ResolvedExtBinding
   type Ann ix       MangleNames = AnnMangleNames ix

@@ -48,15 +48,6 @@ class IsPass (p :: Pass) where
   -- | Names of arguments (functions)
   type ArgumentName p :: Star
 
-  -- | Haskell identifier given to a declaration
-  --
-  -- This does not get instantiated until the 'MangleNames' pass.
-  --
-  -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1267>
-  -- This is part of a larger refactoring, and its usage will still change.
-  type HaskellId p :: Star
-  type HaskellId p = ()
-
   -- | Macro body
   --
   -- Parsing macros is non-trivial, and requires knowledge of other macros in
