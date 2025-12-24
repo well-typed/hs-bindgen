@@ -42,13 +42,12 @@ type family AnnResolveBindingSpecs ix where
   AnnResolveBindingSpecs _                 = NoAnn
 
 instance IsPass ResolveBindingSpecs where
-  type Id           ResolveBindingSpecs = C.DeclId
-  type FieldName    ResolveBindingSpecs = C.ScopedName
-  type ArgumentName ResolveBindingSpecs = Maybe C.ScopedName
-  type MacroBody    ResolveBindingSpecs = CheckedMacro ResolveBindingSpecs
-  type ExtBinding   ResolveBindingSpecs = ResolvedExtBinding
-  type Ann ix       ResolveBindingSpecs = AnnResolveBindingSpecs ix
-  type Msg          ResolveBindingSpecs = ResolveBindingSpecsMsg
+  type Id         ResolveBindingSpecs = C.DeclId
+  type ScopedName ResolveBindingSpecs = C.ScopedName
+  type MacroBody  ResolveBindingSpecs = CheckedMacro ResolveBindingSpecs
+  type ExtBinding ResolveBindingSpecs = ResolvedExtBinding
+  type Ann ix     ResolveBindingSpecs = AnnResolveBindingSpecs ix
+  type Msg        ResolveBindingSpecs = ResolveBindingSpecsMsg
 
 data ResolvedExtBinding = ResolvedExtBinding{
       -- | C declaration for which we are using this binding

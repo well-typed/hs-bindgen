@@ -18,6 +18,7 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -265,14 +266,14 @@ instance UpdateUseSites C.Function where
         <*> updateUseSites functionRes
     where
       reconstruct ::
-           [(ArgumentName AssignAnonIds, C.Type AssignAnonIds)]
+           [(Maybe (C.ScopedName), C.Type AssignAnonIds)]
         -> C.Type AssignAnonIds
         -> C.Function AssignAnonIds
       reconstruct functionArgs' functionRes' = C.Function {
-          functionArgs = functionArgs'
-        , functionRes  = functionRes'
-        , ..
-        }
+            functionArgs = functionArgs'
+          , functionRes  = functionRes'
+          , ..
+          }
 
 instance UpdateUseSites C.Type where
   updateUseSites = go

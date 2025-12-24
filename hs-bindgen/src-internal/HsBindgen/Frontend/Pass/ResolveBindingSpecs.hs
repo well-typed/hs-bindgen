@@ -33,6 +33,7 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Monad (mapMaybeM)
 
@@ -356,7 +357,7 @@ instance Resolve C.Function where
       <*> resolve ctx functionRes
     where
       reconstruct ::
-           [(ArgumentName ResolveBindingSpecs, C.Type ResolveBindingSpecs)]
+           [(Maybe C.ScopedName, C.Type ResolveBindingSpecs)]
         -> C.Type ResolveBindingSpecs
         -> C.Function ResolveBindingSpecs
       reconstruct functionArgs' functionRes' = C.Function {

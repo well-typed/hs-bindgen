@@ -1,5 +1,8 @@
 module HsBindgen.Frontend.Pass.MangleNames.IsPass (
     MangleNames
+    -- * Additional names
+  , RecordNames(..)
+  , NewtypeNames(..)
     -- * Trace messages
   , MangleNamesMsg(..)
   ) where
@@ -7,6 +10,7 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
 import Data.Text qualified as Text
 import Text.SimplePrettyPrint qualified as PP
 
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
@@ -30,21 +34,41 @@ type family AnnMangleNames ix where
   AnnMangleNames "TranslationUnit"  = DeclMeta
   AnnMangleNames "Decl"             =
     (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
-  AnnMangleNames "Struct"           = C.RecordNames
-  AnnMangleNames "Union"            = C.NewtypeNames
-  AnnMangleNames "Enum"             = C.NewtypeNames
-  AnnMangleNames "Typedef"          = C.NewtypeNames
-  AnnMangleNames "CheckedMacroType" = C.NewtypeNames
+  AnnMangleNames "Struct"           = RecordNames
+  AnnMangleNames "Union"            = NewtypeNames
+  AnnMangleNames "Enum"             = NewtypeNames
+  AnnMangleNames "Typedef"          = NewtypeNames
+  AnnMangleNames "CheckedMacroType" = NewtypeNames
   AnnMangleNames _                  = NoAnn
 
 instance IsPass MangleNames where
-  type Id           MangleNames = C.DeclIdPair
-  type FieldName    MangleNames = C.NamePair
-  type ArgumentName MangleNames = Maybe C.NamePair
-  type MacroBody    MangleNames = C.CheckedMacro MangleNames
-  type ExtBinding   MangleNames = ResolvedExtBinding
-  type Ann ix       MangleNames = AnnMangleNames ix
-  type Msg          MangleNames = MangleNamesMsg
+  type Id         MangleNames = C.DeclIdPair
+  type ScopedName MangleNames = C.ScopedNamePair
+  type MacroBody  MangleNames = C.CheckedMacro MangleNames
+  type ExtBinding MangleNames = ResolvedExtBinding
+  type Ann ix     MangleNames = AnnMangleNames ix
+  type Msg        MangleNames = MangleNamesMsg
+
+{-------------------------------------------------------------------------------
+  Additional names required for Haskell code gen
+-------------------------------------------------------------------------------}
+
+-- | Names for a Haskell record type
+--
+-- This is used in addition to a 'NamePair'.
+data RecordNames = RecordNames {
+      recordConstr :: Hs.Name Hs.NsConstr
+    }
+  deriving stock (Show, Eq, Ord, Generic)
+
+-- | Names for a Haskell newtype
+--
+-- This is used in addition to a 'NamePair'.
+data NewtypeNames = NewtypeNames {
+      newtypeConstr :: Hs.Name Hs.NsConstr
+    , newtypeField  :: Hs.Name Hs.NsVar
+    }
+  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   Trace messages

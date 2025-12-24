@@ -25,13 +25,12 @@ type family AnnAssignAnonIds ix where
   AnnAssignAnonIds _             = NoAnn
 
 instance IsPass AssignAnonIds where
-  type Id           AssignAnonIds = C.DeclId
-  type FieldName    AssignAnonIds = C.ScopedName
-  type ArgumentName AssignAnonIds = Maybe C.ScopedName
-  type MacroBody    AssignAnonIds = UnparsedMacro
-  type ExtBinding   AssignAnonIds = Void
-  type Ann ix       AssignAnonIds = AnnAssignAnonIds ix
-  type Msg          AssignAnonIds = ImmediateAssignAnonIdsMsg
+  type Id         AssignAnonIds = C.DeclId
+  type ScopedName AssignAnonIds = C.ScopedName
+  type MacroBody  AssignAnonIds = UnparsedMacro
+  type ExtBinding AssignAnonIds = Void
+  type Ann ix     AssignAnonIds = AnnAssignAnonIds ix
+  type Msg        AssignAnonIds = ImmediateAssignAnonIdsMsg
 
 {-------------------------------------------------------------------------------
   Trace messages

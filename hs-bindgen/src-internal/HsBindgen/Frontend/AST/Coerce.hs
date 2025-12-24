@@ -91,11 +91,12 @@ instance (
 
 instance (
       CoercePass Comment p p'
-    , FieldName p ~ FieldName p'
+    , ScopedName p ~ ScopedName p'
     ) => CoercePass FieldInfo p p' where
-  coercePass info = FieldInfo{ fieldComment = fmap coercePass fieldComment
-                             , ..
-                             }
+  coercePass info = FieldInfo{
+        fieldComment = fmap coercePass fieldComment
+      , ..
+      }
     where
       FieldInfo{fieldLoc, fieldName, fieldComment} = info
 
@@ -132,7 +133,7 @@ instance (
 instance (
       CoercePass Type p p'
     , CoercePass Comment p p'
-    , FieldName p ~ FieldName p'
+    , ScopedName p ~ ScopedName p'
     , Ann "StructField" p ~ Ann "StructField" p'
     ) => CoercePass StructField p p' where
   coercePass StructField{..} = StructField {
@@ -156,7 +157,7 @@ instance (
 
 instance (
       CoercePass Type p p'
-    , FieldName p ~ FieldName p'
+    , ScopedName p ~ ScopedName p'
     , CoercePass Comment p p'
     , Ann "UnionField" p ~ Ann "UnionField" p'
     ) => CoercePass UnionField p p' where
@@ -189,7 +190,7 @@ instance (
       }
 
 instance (
-      FieldName p ~ FieldName p'
+      ScopedName p ~ ScopedName p'
     , CoercePass CDoc.Comment (CommentRef p) (CommentRef p')
     ) => CoercePass EnumConstant p p' where
   coercePass EnumConstant{..} = EnumConstant {
@@ -199,7 +200,7 @@ instance (
 
 instance (
       CoercePass Type p p'
-    , ArgumentName p ~ ArgumentName p'
+    , ScopedName p ~ ScopedName p'
     , Ann "Function" p ~ Ann "Function" p'
     ) => CoercePass Function p p' where
   coercePass Function{..} = Function {
@@ -226,7 +227,7 @@ instance (
 
 instance (
       CoercePassId p p'
-    , ArgumentName p ~ ArgumentName p'
+    , ScopedName p ~ ScopedName p'
     , ExtBinding p ~ ExtBinding p'
     ) => CoercePass Type p p' where
   coercePass = \case

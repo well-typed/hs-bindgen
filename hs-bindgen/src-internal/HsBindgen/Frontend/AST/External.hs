@@ -73,11 +73,6 @@ module HsBindgen.Frontend.AST.External (
   , C.AnonId(..)
   , C.PrelimDeclId(..)
   , C.DeclId(..)
-  , Int.NamePair(..)
-  , Int.nameHs
-  , Int.unsafeNameHsWith
-  , Int.RecordNames(..)
-  , Int.NewtypeNames(..)
   ) where
 
 import Prelude hiding (Enum)
@@ -89,6 +84,7 @@ import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -128,7 +124,7 @@ data DeclInfo = DeclInfo {
 
 data FieldInfo = FieldInfo {
       fieldLoc     :: SingleLoc
-    , fieldName    :: Int.NamePair
+    , fieldName    :: C.ScopedNamePair
     , fieldComment :: Maybe (CDoc.Comment CommentRef)
     }
   deriving stock (Show, Eq, Generic)
@@ -177,7 +173,7 @@ data DeclSpec = DeclSpec {
 
 -- | Definition of a struct
 data Struct = Struct {
-      structNames     :: Int.RecordNames
+      structNames     :: MangleNames.RecordNames
     , structSizeof    :: Int
     , structAlignment :: Int
     , structFields    :: [StructField]
@@ -201,7 +197,7 @@ data StructField = StructField {
 
 -- | Definition of an union
 data Union = Union {
-      unionNames     :: Int.NewtypeNames
+      unionNames     :: MangleNames.NewtypeNames
     , unionSizeof    :: Int
     , unionAlignment :: Int
     , unionFields    :: [UnionField]
@@ -219,7 +215,7 @@ data UnionField = UnionField {
 -------------------------------------------------------------------------------}
 
 data Enum = Enum {
-      enumNames     :: Int.NewtypeNames
+      enumNames     :: MangleNames.NewtypeNames
     , enumType      :: Type
     , enumSizeof    :: Int
     , enumAlignment :: Int
@@ -238,7 +234,7 @@ data EnumConstant = EnumConstant {
 -------------------------------------------------------------------------------}
 
 data Typedef = Typedef {
-      typedefNames :: Int.NewtypeNames
+      typedefNames :: MangleNames.NewtypeNames
     , typedefType  :: Type
     }
   deriving stock (Show, Eq, Generic)
@@ -248,7 +244,7 @@ data Typedef = Typedef {
 -------------------------------------------------------------------------------}
 
 data Function = Function {
-      functionArgs    :: [(Maybe Int.NamePair, Type)]
+      functionArgs    :: [(Maybe C.ScopedNamePair, Type)]
     , functionAttrs   :: Int.FunctionAttributes
     , functionRes     :: Type
     }
@@ -275,7 +271,7 @@ data CheckedMacro =
   deriving stock (Show, Eq, Generic)
 
 data CheckedMacroType = CheckedMacroType {
-      macroTypeNames   :: Int.NewtypeNames
+      macroTypeNames   :: MangleNames.NewtypeNames
     , macroType        :: Type
     }
   deriving stock (Show, Eq, Generic)

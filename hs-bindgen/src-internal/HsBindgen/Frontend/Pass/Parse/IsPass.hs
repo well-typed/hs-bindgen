@@ -41,13 +41,12 @@ type family AnnParse (ix :: Symbol) :: Star where
   AnnParse _             = NoAnn
 
 instance IsPass Parse where
-  type Id           Parse = C.PrelimDeclId
-  type FieldName    Parse = C.ScopedName
-  type ArgumentName Parse = Maybe C.ScopedName
-  type MacroBody    Parse = UnparsedMacro
-  type ExtBinding   Parse = Void
-  type Ann ix       Parse = AnnParse ix
-  type Msg          Parse = ImmediateParseMsg
+  type Id         Parse = C.PrelimDeclId
+  type ScopedName Parse = C.ScopedName
+  type MacroBody  Parse = UnparsedMacro
+  type ExtBinding Parse = Void
+  type Ann ix     Parse = AnnParse ix
+  type Msg        Parse = ImmediateParseMsg
 
 {-------------------------------------------------------------------------------
   Macros

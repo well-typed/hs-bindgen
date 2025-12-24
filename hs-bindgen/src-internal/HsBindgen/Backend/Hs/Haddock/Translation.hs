@@ -53,8 +53,8 @@ mkHaddocksFieldInfo config declInfo FieldInfo{..} =
     fst $ mkHaddocksWithArgs config declInfo Args{
         isField     = True
       , loc         = fieldLoc
-      , nameC       = fieldName.nameC.text
-      , nameHsIdent = fieldName.nameHsIdent
+      , nameC       = fieldName.cName.text
+      , nameHsIdent = fieldName.hsName
       , comment     = fieldComment
       , params      = []
       }

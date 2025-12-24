@@ -24,6 +24,9 @@ module HsBindgen.Frontend.Naming (
     -- * DeclIdPair
   , DeclIdPair(..)
 
+    -- * ScopedNamePair
+  , ScopedNamePair(..)
+
     -- * Located
   , Located(..)
   ) where
@@ -154,8 +157,6 @@ checkIsBuiltin curr = do
 
 {-------------------------------------------------------------------------------
   DeclId
-
-  TODO: .Naming module should go.
 -------------------------------------------------------------------------------}
 
 -- | Identifier for a declaration that appears in the C source
@@ -213,6 +214,30 @@ data DeclIdPair = DeclIdPair{
     , hsName :: Hs.Identifier
     }
   deriving stock (Show, Eq, Ord)
+
+{-------------------------------------------------------------------------------
+  ScopedNamePair
+-------------------------------------------------------------------------------}
+
+-- | Pair of a (scoped) C name and the corresponding Haskell name
+--
+-- Invariant: the 'Hs.Identifier' must satisfy the rules for legal Haskell
+-- names, for its intended use (constructor, variable, ..).
+data ScopedNamePair = ScopedNamePair {
+      cName  :: C.ScopedName
+    , hsName :: Hs.Identifier
+    }
+  deriving stock (Show, Eq, Ord, Generic)
+
+-- -- | Extract namespaced Haskell name
+-- --
+-- -- The invariant on 'NamePair' justifies this otherwise unsafe operation.
+-- nameHs :: NamePair -> Hs.Name ns
+-- nameHs = Hs.unsafeHsIdHsName . nameHsIdent
+
+-- -- | Extract and amend namespaced Haskell name
+-- unsafeNameHsWith :: (Hs.Identifier -> Hs.Identifier) -> NamePair -> Hs.Name ns
+-- unsafeNameHsWith f = Hs.unsafeHsIdHsName .  f . nameHsIdent
 
 {-------------------------------------------------------------------------------
   Located

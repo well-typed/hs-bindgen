@@ -280,12 +280,15 @@ mangleDecl decl = do
          Just . mk <$> mangleInDecl info decl.declKind
 
 {-------------------------------------------------------------------------------
-  Additional name mangling functionality
+  Scoped names
 -------------------------------------------------------------------------------}
 
-mangleFieldName :: C.DeclInfo MangleNames -> C.ScopedName -> M C.NamePair
+mangleFieldName ::
+     C.DeclInfo MangleNames
+  -> C.ScopedName
+  -> M C.ScopedNamePair
 mangleFieldName info fieldCName =
-    C.NamePair fieldCName <$> mkIdentifier (Proxy @Hs.NsVar) candidate
+    C.ScopedNamePair fieldCName <$> mkIdentifier (Proxy @Hs.NsVar) candidate
   where
     candidate :: Text
     candidate = info.declId.hsName.text <> "_" <> fieldCName.text
@@ -294,21 +297,37 @@ mangleFieldName info fieldCName =
 --
 -- Since these live in the global namespace, we do not prepend the name of
 -- the enclosing enum.
-mangleEnumConstant :: C.DeclInfo MangleNames -> C.ScopedName -> M C.NamePair
+mangleEnumConstant ::
+     C.DeclInfo MangleNames
+  -> C.ScopedName
+  -> M C.ScopedNamePair
 mangleEnumConstant _info cName =
-    C.NamePair cName <$> mkIdentifier (Proxy @Hs.NsConstr) cName.text
+    C.ScopedNamePair cName <$> mkIdentifier (Proxy @Hs.NsConstr) cName.text
+
+-- | Mangle function argument name
+--
+-- Function argument names are not really used when generating Haskell code.
+-- They are more relevant for documentation purposes so we don't do any
+-- mangling.
+mangleArgumentName :: C.ScopedName -> M C.ScopedNamePair
+mangleArgumentName argName =
+    C.ScopedNamePair argName <$> mkIdentifier (Proxy @Hs.NsVar) argName.text
+
+{-------------------------------------------------------------------------------
+  Additional name mangling functionality
+-------------------------------------------------------------------------------}
 
 -- | Struct names
 --
 -- Right now we reuse the name of the type also for the constructor.
-mkStructNames :: C.DeclInfo MangleNames -> C.RecordNames
-mkStructNames info = C.RecordNames{
+mkStructNames :: C.DeclInfo MangleNames -> RecordNames
+mkStructNames info = RecordNames{
       recordConstr = Hs.unsafeHsIdHsName info.declId.hsName
     }
 
 -- | Generic construction of newtype names, given only the type name
-mkNewtypeNames :: C.DeclInfo MangleNames -> C.NewtypeNames
-mkNewtypeNames info = C.NewtypeNames{
+mkNewtypeNames :: C.DeclInfo MangleNames -> NewtypeNames
+mkNewtypeNames info = NewtypeNames{
       newtypeConstr = Hs.unsafeHsIdHsName $          info.declId.hsName
     , newtypeField  = Hs.unsafeHsIdHsName $ "un_" <> info.declId.hsName
     }
@@ -316,35 +335,26 @@ mkNewtypeNames info = C.NewtypeNames{
 -- | Union names
 --
 -- A union is represented by a newtype around the raw bytes.
-mkUnionNames :: C.DeclInfo MangleNames -> C.NewtypeNames
+mkUnionNames :: C.DeclInfo MangleNames -> NewtypeNames
 mkUnionNames = mkNewtypeNames
 
 -- | Enum names
 --
 -- An enum is represented by a newtype around an integral value.
-mkEnumNames :: C.DeclInfo MangleNames -> C.NewtypeNames
+mkEnumNames :: C.DeclInfo MangleNames -> NewtypeNames
 mkEnumNames = mkNewtypeNames
 
 -- | Typedef
 --
 -- Typedefs are represented by newtypes
-mkTypedefNames :: C.DeclInfo MangleNames -> C.NewtypeNames
+mkTypedefNames :: C.DeclInfo MangleNames -> NewtypeNames
 mkTypedefNames = mkNewtypeNames
 
 -- | Macro types
 --
 -- These behave like typedefs.
-mkMacroTypeNames :: C.DeclInfo MangleNames -> C.NewtypeNames
+mkMacroTypeNames :: C.DeclInfo MangleNames -> NewtypeNames
 mkMacroTypeNames = mkNewtypeNames
-
--- | Mangle function argument name
---
--- Function argument names are not really used when generating Haskell code.
--- They are more relevant for documentation purposes so we don't do any
--- mangling.
-mangleArgumentName :: C.ScopedName -> M C.NamePair
-mangleArgumentName argName =
-    C.NamePair argName <$> mkIdentifier (Proxy @Hs.NsVar) argName.text
 
 {-------------------------------------------------------------------------------
   Instances
@@ -374,7 +384,7 @@ instance MangleInDecl C.Struct where
 instance MangleInDecl C.StructField where
   mangleInDecl info C.StructField{..} = do
       let mk ::
-               FieldName MangleNames
+               C.ScopedNamePair
             -> C.Type MangleNames
             -> Maybe (C.Comment MangleNames)
             -> C.StructField MangleNames
@@ -406,7 +416,7 @@ instance MangleInDecl C.Union where
 instance MangleInDecl C.UnionField where
   mangleInDecl info C.UnionField{..} = do
       let mk ::
-               FieldName MangleNames
+               C.ScopedNamePair
             -> C.Type MangleNames
             -> Maybe (C.Comment MangleNames)
             -> C.UnionField MangleNames
@@ -442,7 +452,7 @@ instance MangleInDecl C.Enum where
 
 instance MangleInDecl C.EnumConstant where
   mangleInDecl info C.EnumConstant{..} = do
-      let mk :: C.NamePair
+      let mk :: C.ScopedNamePair
              -> Maybe (C.Comment MangleNames)
              -> C.EnumConstant MangleNames
           mk enumConstantName' enumConstantComment' = C.EnumConstant{
@@ -482,7 +492,7 @@ instance MangleInDecl C.Typedef where
 instance MangleInDecl C.Function where
   mangleInDecl _info C.Function{..} = do
       let mk ::
-               [(Maybe C.NamePair, C.Type MangleNames)]
+               [(Maybe C.ScopedNamePair, C.Type MangleNames)]
             -> C.Type MangleNames
             -> C.Function MangleNames
           mk functionArgs' functionRes' = C.Function{

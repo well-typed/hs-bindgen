@@ -34,19 +34,20 @@ class IsPass (p :: Pass) where
   --
   -- This takes various forms during processing:
   --
-  -- 1. After parsing, this is 'DeclId': anonymous structures are assigned an ID
-  --    based on their source location, for everything else we use the C name.
-  -- 2. After 'NameAnon', /everything/ has a C name: we have assigned names to
-  --    anonymous structures.
-  -- 3. After 'NameMangling', this becomes a pair of the C name and the
+  -- 1. After parsing, this is 'PrelimDeclId': anonymous structures are assigned
+  --    an ID based on source location, for everything else we use the C name.
+  -- 2. After 'AssignAnonIds', this is 'DeclId': /everything/ has a name,
+  --    because we have assigned names to anonymous structures.
+  -- 3. After 'MangleNames', this becomes a pair of the C name and the
   --    corresponding Haskell name.
   type Id p :: Star
 
-  -- | Names of fields (structs and unions)
-  type FieldName p :: Star
-
-  -- | Names of arguments (functions)
-  type ArgumentName p :: Star
+  -- | Scoped names
+  --
+  -- This is the name of struct fields, function arguments, etc.; names that
+  -- live in a local scope. This is initially 'C.ScopedName', and becomes
+  -- 'ScopedNamePair' after 'MangleNames'.
+  type ScopedName p :: Star
 
   -- | Macro body
   --
