@@ -21,10 +21,7 @@ module HsBindgen.BindingSpec.Private.Common (
     -- * File API
   , Format(..)
   , getFormat
-  , ReadVersionFunction
   , readVersion
-  , readVersionJson
-  , readVersionYaml
     -- * Aeson auxiliary functions
   , omitWhenNull
   , listToJSON

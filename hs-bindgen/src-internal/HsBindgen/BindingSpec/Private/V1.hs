@@ -42,8 +42,6 @@ module HsBindgen.BindingSpec.Private.V1 (
   , lookupHsTypeSpec
     -- ** YAML/JSON
   , readFile
-  , readFileJson
-  , readFileYaml
   , parseValue
   , encodeJson
   , encodeYaml
@@ -431,31 +429,7 @@ readFile ::
   -> BindingSpecCompatibility
   -> FilePath
   -> IO (Maybe UnresolvedBindingSpec)
-readFile = readFileAux readVersion
-
--- | Read a binding specification JSON file
-readFileJson ::
-     Tracer BindingSpecReadMsg
-  -> BindingSpecCompatibility
-  -> FilePath
-  -> IO (Maybe UnresolvedBindingSpec)
-readFileJson = readFileAux readVersionJson
-
--- | Read a binding specification YAML file
-readFileYaml ::
-     Tracer BindingSpecReadMsg
-  -> BindingSpecCompatibility
-  -> FilePath
-  -> IO (Maybe UnresolvedBindingSpec)
-readFileYaml = readFileAux readVersionYaml
-
-readFileAux ::
-     ReadVersionFunction
-  -> Tracer BindingSpecReadMsg
-  -> BindingSpecCompatibility
-  -> FilePath
-  -> IO (Maybe UnresolvedBindingSpec)
-readFileAux doRead tracer cmpt path = doRead tracer path >>= \case
+readFile tracer cmpt path = readVersion tracer path >>= \case
     Just (version', value) -> parseValue tracer cmpt path version' value
     Nothing                -> return Nothing
 
