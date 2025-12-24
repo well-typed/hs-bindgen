@@ -5,7 +5,6 @@ module HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (
 
 import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
@@ -60,10 +59,3 @@ instance IsTrace Level ImmediateAssignAnonIdsMsg where
 
   getSource  = const HsBindgen
   getTraceId = const "assign-anon-ids"
-
-{-------------------------------------------------------------------------------
-  CoercePass
--------------------------------------------------------------------------------}
-
-instance CoercePassHaskellId Parse AssignAnonIds where
-  coercePassHaskellId _ = id

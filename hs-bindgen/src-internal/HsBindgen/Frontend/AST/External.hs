@@ -92,7 +92,6 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -263,7 +262,7 @@ data Function = Function {
 --
 -- The Haskell identifier might not be known (if the reference is to a
 -- declaration not in the current translation unit).
-data CommentRef = CommentRef Text (Maybe Hs.Identifier)
+data CommentRef = CommentRef Text (Maybe C.DeclIdPair)
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------

@@ -37,5 +37,4 @@ instance IsPass HandleMacros where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId        ConstructTranslationUnit HandleMacros
-instance CoercePassHaskellId ConstructTranslationUnit HandleMacros
+instance CoercePassId ConstructTranslationUnit HandleMacros

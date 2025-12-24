@@ -1,7 +1,6 @@
 module HsBindgen.Frontend.AST.Coerce (
     CoercePass(..)
   , CoercePassId(..)
-  , CoercePassHaskellId(..)
   , CoercePassMacroBody(..)
   ) where
 
@@ -24,14 +23,6 @@ class CoercePassId (p :: Pass) (p' :: Pass) where
        (Id p ~ Id p')
     => Proxy '(p, p') -> Id p -> Id p'
   coercePassId _ = id
-
-class CoercePassHaskellId (p :: Pass) (p' :: Pass) where
-  coercePassHaskellId :: Proxy '(p, p') -> HaskellId p -> HaskellId p'
-
-  default coercePassHaskellId ::
-       (HaskellId p ~ HaskellId p')
-    => Proxy '(p, p') -> HaskellId p -> HaskellId p'
-  coercePassHaskellId _ = id
 
 class CoercePassMacroBody (p :: Pass) (p' :: Pass) where
   coercePassMacroBody :: Proxy '(p, p') -> MacroBody p -> MacroBody p'
@@ -59,13 +50,13 @@ instance (
       }
 
 instance (
-      CoercePassHaskellId p p'
+      CoercePassId p p'
     ) => CoercePass CommentRef p p' where
   coercePass (CommentRef c hs) =
-      CommentRef c (coercePassHaskellId (Proxy @'(p, p')) <$> hs)
+      CommentRef c (coercePassId (Proxy @'(p, p')) <$> hs)
 
 instance (
-      CoercePassHaskellId p p'
+      CoercePassId p p'
     ) => CoercePass CDoc.Comment (CommentRef p) (CommentRef p') where
   coercePass comment = fmap coercePass comment
 
