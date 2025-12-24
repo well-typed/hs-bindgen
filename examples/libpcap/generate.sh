@@ -19,7 +19,7 @@ module_flags=(
 libclang_flags=(
     # Enable GNU extensions. GNU extensions define types, such as `u_int`, which
     # `libpcap` requires.
-    --gnu
+    --clang-option '-std=gnu17'
 )
 
 # `hs-bindgen` parses the C header files using `libclang` and interprets/reifies

@@ -249,8 +249,6 @@ parseClangArgsConfig = do
     -- record construction (i.e., to avoid bool or string/path blindness)
     -- instead of positional one.
     target           <- optional parseTarget
-    cStandard        <- parseCStandard
-    gnu              <- parseGnu
     enableBlocks     <- parseEnableBlocks
     builtinIncDir    <- parseBuiltinIncDirConfig
     extraIncludeDirs <- many parseIncludeDir
@@ -268,43 +266,6 @@ parseTarget = option (maybeReader parseTargetTriple) $ mconcat [
           "Target (for cross-compilation); supported: "
         , List.intercalate ", " (map targetTriple [minBound ..])
         ]
-    ]
-
-parseCStandard :: Parser CStandard
-parseCStandard = option (eitherReader readCStandard) $ mconcat [
-      long "standard"
-    , metavar "STANDARD"
-    , value defaultCStandard
-    , help $ concat [
-          "C standard (default: "
-        , renderCStandard defaultCStandard
-        , "; supported: "
-        , List.intercalate ", " (map fst cStandards)
-        , ")"
-        ]
-    ]
-  where
-    defaultCStandard :: CStandard
-    defaultCStandard = C17
-
-    renderCStandard :: CStandard -> String
-    renderCStandard = map Char.toLower . show
-
-    cStandards :: [(String, CStandard)]
-    cStandards = [
-        (renderCStandard cStandard, cStandard)
-      | cStandard <- [minBound ..]
-      ]
-
-    readCStandard :: String -> Either String CStandard
-    readCStandard s = case List.lookup s cStandards of
-      Just cStandard -> Right cStandard
-      Nothing -> Left $ "unknown C standard: " ++ s
-
-parseGnu :: Parser Gnu
-parseGnu = flag DisableGnu EnableGnu $ mconcat [
-      long "gnu"
-    , help "Enable GNU extensions"
     ]
 
 -- TODO: Perhaps we should mimick Clang's @-f@ parameter?

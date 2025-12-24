@@ -25,8 +25,7 @@ the environment variable `BINDGEN_EXTRA_CLANG_ARGS`.
 Options are passed to Clang in the following order:
 
 1. `--clang-option-before` options
-2. Clang options managed by `hs-bindgen` (target, C standard, include
-  directories, etc.)
+2. Clang options managed by `hs-bindgen` (target, include directories, etc.)
 3. `--clang-option` options
 4. `BINDGEN_EXTRA_CLANG_ARGS` options (see below)
 5. `--clang-option-after` options
@@ -38,9 +37,8 @@ Example:
 
 ```console
 hs-bindgen-cli preprocess \
-  --standard c23 \
   -I include \
-  --clang-option="-idirafter/opt/acme-0.1.0/include" \
+  --clang-option="-std=gnu23" \
   --module Foo \
   --hs-output-dir src \
   foo.h

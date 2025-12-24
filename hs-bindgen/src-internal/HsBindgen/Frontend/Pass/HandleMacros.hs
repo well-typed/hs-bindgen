@@ -13,9 +13,9 @@ import C.Expr.Syntax qualified as CExpr.DSL
 import C.Expr.Typecheck.Expr qualified as CExpr.DSL
 import C.Expr.Typecheck.Type qualified as CExpr.DSL
 
-import Clang.Args (CStandard)
 import Clang.HighLevel.Types
 
+import HsBindgen.Clang.CStandard (CStandard)
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
