@@ -20,7 +20,7 @@ import qualified HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @linked_list_A_t@
+{-| __C declaration:__ @struct linked_list_A_s@
 
     __defined at:__ @types\/structs\/recursive_struct.h:1:16@
 
@@ -90,7 +90,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Linked_list_A_t) "li
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"linked_list_A_t_next")
 
-{-| __C declaration:__ @linked_list_B_t@
+{-| __C declaration:__ @struct linked_list_B_t@
 
     __defined at:__ @types\/structs\/recursive_struct.h:9:8@
 

@@ -664,7 +664,7 @@ mkType env = \case
         TH.conT . TH.mkName $ concat [
               Hs.moduleNameToString extRefModule
             , "."
-            , Text.unpack (Hs.getIdentifier extRefIdentifier)
+            , Text.unpack extRefIdentifier.text
             ]
 
 mkPrimType :: Quote q => HsPrimType -> q TH.Type

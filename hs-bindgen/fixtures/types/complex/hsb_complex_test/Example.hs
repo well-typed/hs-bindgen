@@ -24,7 +24,7 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @complex_object_t@
+{-| __C declaration:__ @struct complex_object_t@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h:24:9@
 

@@ -2499,7 +2499,7 @@ newtype A
                       Ix,
                       Num,
                       Real)
-{-| __C declaration:__ @some_struct@
+{-| __C declaration:__ @struct some_struct@
 
     __defined at:__ @macros\/reparse.h:7:8@
 
@@ -2507,7 +2507,7 @@ newtype A
 -}
 data Some_struct
     = Some_struct {}
-      {- ^ __C declaration:__ @some_struct@
+      {- ^ __C declaration:__ @struct some_struct@
 
            __defined at:__ @macros\/reparse.h:7:8@
 
@@ -2532,7 +2532,7 @@ instance Prim Some_struct
                                                           Some_struct #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       Some_struct -> s_17
-{-| __C declaration:__ @some_union@
+{-| __C declaration:__ @union some_union@
 
     __defined at:__ @macros\/reparse.h:8:7@
 
@@ -2540,7 +2540,7 @@ instance Prim Some_struct
 -}
 newtype Some_union
     = Some_union {un_Some_union :: ByteArray}
-      {- ^ __C declaration:__ @some_union@
+      {- ^ __C declaration:__ @union some_union@
 
            __defined at:__ @macros\/reparse.h:8:7@
 
@@ -2548,7 +2548,7 @@ newtype Some_union
       -}
 deriving via (SizedByteArray 0 1) instance Storable Some_union
 deriving via (SizedByteArray 0 1) instance Prim Some_union
-{-| __C declaration:__ @some_enum@
+{-| __C declaration:__ @enum some_enum@
 
     __defined at:__ @macros\/reparse.h:9:6@
 
@@ -2556,7 +2556,7 @@ deriving via (SizedByteArray 0 1) instance Prim Some_union
 -}
 newtype Some_enum
     = Some_enum {un_Some_enum :: CUInt}
-      {- ^ __C declaration:__ @some_enum@
+      {- ^ __C declaration:__ @enum some_enum@
 
            __defined at:__ @macros\/reparse.h:9:6@
 
@@ -2776,6 +2776,8 @@ instance HasCField Typedef3 "un_Typedef3"
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Funptr_typedef1'
 
+__C declaration:__ @funptr_typedef1@
+
 __defined at:__ @macros\/reparse.h:132:16@
 
 __exported by:__ @macros\/reparse.h@
@@ -2783,6 +2785,8 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef1_Deref
     = Funptr_typedef1_Deref {un_Funptr_typedef1_Deref :: (IO A)}
       {- ^ Auxiliary type used by 'Funptr_typedef1'
+
+      __C declaration:__ @funptr_typedef1@
 
       __defined at:__ @macros\/reparse.h:132:16@
 
@@ -2835,6 +2839,8 @@ instance HasCField Funptr_typedef1 "un_Funptr_typedef1"
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Funptr_typedef2'
 
+__C declaration:__ @funptr_typedef2@
+
 __defined at:__ @macros\/reparse.h:133:16@
 
 __exported by:__ @macros\/reparse.h@
@@ -2842,6 +2848,8 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef2_Deref
     = Funptr_typedef2_Deref {un_Funptr_typedef2_Deref :: (IO (Ptr A))}
       {- ^ Auxiliary type used by 'Funptr_typedef2'
+
+      __C declaration:__ @funptr_typedef2@
 
       __defined at:__ @macros\/reparse.h:133:16@
 
@@ -2894,6 +2902,8 @@ instance HasCField Funptr_typedef2 "un_Funptr_typedef2"
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Funptr_typedef3'
 
+__C declaration:__ @funptr_typedef3@
+
 __defined at:__ @macros\/reparse.h:134:16@
 
 __exported by:__ @macros\/reparse.h@
@@ -2901,6 +2911,8 @@ __exported by:__ @macros\/reparse.h@
 newtype Funptr_typedef3_Deref
     = Funptr_typedef3_Deref {un_Funptr_typedef3_Deref :: (IO (Ptr (Ptr A)))}
       {- ^ Auxiliary type used by 'Funptr_typedef3'
+
+      __C declaration:__ @funptr_typedef3@
 
       __defined at:__ @macros\/reparse.h:134:16@
 
@@ -2953,6 +2965,8 @@ instance HasCField Funptr_typedef3 "un_Funptr_typedef3"
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Funptr_typedef4'
 
+__C declaration:__ @funptr_typedef4@
+
 __defined at:__ @macros\/reparse.h:135:16@
 
 __exported by:__ @macros\/reparse.h@
@@ -2961,6 +2975,8 @@ newtype Funptr_typedef4_Deref
     = Funptr_typedef4_Deref {un_Funptr_typedef4_Deref :: (CInt ->
                                                           CDouble -> IO A)}
       {- ^ Auxiliary type used by 'Funptr_typedef4'
+
+      __C declaration:__ @funptr_typedef4@
 
       __defined at:__ @macros\/reparse.h:135:16@
 
@@ -3013,6 +3029,8 @@ instance HasCField Funptr_typedef4 "un_Funptr_typedef4"
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Funptr_typedef5'
 
+__C declaration:__ @funptr_typedef5@
+
 __defined at:__ @macros\/reparse.h:136:16@
 
 __exported by:__ @macros\/reparse.h@
@@ -3021,6 +3039,8 @@ newtype Funptr_typedef5_Deref
     = Funptr_typedef5_Deref {un_Funptr_typedef5_Deref :: (CInt ->
                                                           CDouble -> IO (Ptr A))}
       {- ^ Auxiliary type used by 'Funptr_typedef5'
+
+      __C declaration:__ @funptr_typedef5@
 
       __defined at:__ @macros\/reparse.h:136:16@
 
@@ -3105,7 +3125,7 @@ instance HasCField Comments2 "un_Comments2"
           offset# = \_ -> \_ -> 0
 {-| Struct fields
 
-__C declaration:__ @example_struct@
+__C declaration:__ @struct example_struct@
 
 __defined at:__ @macros\/reparse.h:151:8@
 
@@ -3135,7 +3155,7 @@ data Example_struct
                       -}}
       {- ^ Struct fields
 
-      __C declaration:__ @example_struct@
+      __C declaration:__ @struct example_struct@
 
       __defined at:__ @macros\/reparse.h:151:8@
 
@@ -3351,7 +3371,7 @@ instance HasCField Const_typedef7 "un_Const_typedef7"
     where type CFieldType Const_typedef7
                           "un_Const_typedef7" = ConstPtr A
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @example_struct_with_const@
+{-| __C declaration:__ @struct example_struct_with_const@
 
     __defined at:__ @macros\/reparse.h:228:8@
 
@@ -3407,7 +3427,7 @@ data Example_struct_with_const
 
                                       __exported by:__ @macros\/reparse.h@
                                  -}}
-      {- ^ __C declaration:__ @example_struct_with_const@
+      {- ^ __C declaration:__ @struct example_struct_with_const@
 
            __defined at:__ @macros\/reparse.h:228:8@
 
@@ -3512,6 +3532,8 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"example_struct_with_const_const_field7")
 {-| Auxiliary type used by 'Const_funptr1'
 
+__C declaration:__ @const_funptr1@
+
 __defined at:__ @macros\/reparse.h:238:27@
 
 __exported by:__ @macros\/reparse.h@
@@ -3520,6 +3542,8 @@ newtype Const_funptr1_Deref
     = Const_funptr1_Deref {un_Const_funptr1_Deref :: (CInt ->
                                                       CDouble -> IO A)}
       {- ^ Auxiliary type used by 'Const_funptr1'
+
+      __C declaration:__ @const_funptr1@
 
       __defined at:__ @macros\/reparse.h:238:27@
 
@@ -3571,6 +3595,8 @@ instance HasCField Const_funptr1 "un_Const_funptr1"
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Const_funptr2'
 
+__C declaration:__ @const_funptr2@
+
 __defined at:__ @macros\/reparse.h:239:27@
 
 __exported by:__ @macros\/reparse.h@
@@ -3579,6 +3605,8 @@ newtype Const_funptr2_Deref
     = Const_funptr2_Deref {un_Const_funptr2_Deref :: (CInt ->
                                                       CDouble -> IO A)}
       {- ^ Auxiliary type used by 'Const_funptr2'
+
+      __C declaration:__ @const_funptr2@
 
       __defined at:__ @macros\/reparse.h:239:27@
 
@@ -3630,6 +3658,8 @@ instance HasCField Const_funptr2 "un_Const_funptr2"
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Const_funptr3'
 
+__C declaration:__ @const_funptr3@
+
 __defined at:__ @macros\/reparse.h:240:27@
 
 __exported by:__ @macros\/reparse.h@
@@ -3638,6 +3668,8 @@ newtype Const_funptr3_Deref
     = Const_funptr3_Deref {un_Const_funptr3_Deref :: (CInt ->
                                                       CDouble -> IO (ConstPtr A))}
       {- ^ Auxiliary type used by 'Const_funptr3'
+
+      __C declaration:__ @const_funptr3@
 
       __defined at:__ @macros\/reparse.h:240:27@
 
@@ -3689,6 +3721,8 @@ instance HasCField Const_funptr3 "un_Const_funptr3"
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Const_funptr4'
 
+__C declaration:__ @const_funptr4@
+
 __defined at:__ @macros\/reparse.h:241:27@
 
 __exported by:__ @macros\/reparse.h@
@@ -3697,6 +3731,8 @@ newtype Const_funptr4_Deref
     = Const_funptr4_Deref {un_Const_funptr4_Deref :: (CInt ->
                                                       CDouble -> IO (ConstPtr A))}
       {- ^ Auxiliary type used by 'Const_funptr4'
+
+      __C declaration:__ @const_funptr4@
 
       __defined at:__ @macros\/reparse.h:241:27@
 
@@ -3748,6 +3784,8 @@ instance HasCField Const_funptr4 "un_Const_funptr4"
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Const_funptr5'
 
+__C declaration:__ @const_funptr5@
+
 __defined at:__ @macros\/reparse.h:242:27@
 
 __exported by:__ @macros\/reparse.h@
@@ -3756,6 +3794,8 @@ newtype Const_funptr5_Deref
     = Const_funptr5_Deref {un_Const_funptr5_Deref :: (CInt ->
                                                       CDouble -> IO (Ptr A))}
       {- ^ Auxiliary type used by 'Const_funptr5'
+
+      __C declaration:__ @const_funptr5@
 
       __defined at:__ @macros\/reparse.h:242:27@
 
@@ -3807,6 +3847,8 @@ instance HasCField Const_funptr5 "un_Const_funptr5"
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Const_funptr6'
 
+__C declaration:__ @const_funptr6@
+
 __defined at:__ @macros\/reparse.h:243:27@
 
 __exported by:__ @macros\/reparse.h@
@@ -3815,6 +3857,8 @@ newtype Const_funptr6_Deref
     = Const_funptr6_Deref {un_Const_funptr6_Deref :: (CInt ->
                                                       CDouble -> IO (ConstPtr A))}
       {- ^ Auxiliary type used by 'Const_funptr6'
+
+      __C declaration:__ @const_funptr6@
 
       __defined at:__ @macros\/reparse.h:243:27@
 
@@ -3866,6 +3910,8 @@ instance HasCField Const_funptr6 "un_Const_funptr6"
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Const_funptr7'
 
+__C declaration:__ @const_funptr7@
+
 __defined at:__ @macros\/reparse.h:244:27@
 
 __exported by:__ @macros\/reparse.h@
@@ -3874,6 +3920,8 @@ newtype Const_funptr7_Deref
     = Const_funptr7_Deref {un_Const_funptr7_Deref :: (CInt ->
                                                       CDouble -> IO (ConstPtr A))}
       {- ^ Auxiliary type used by 'Const_funptr7'
+
+      __C declaration:__ @const_funptr7@
 
       __defined at:__ @macros\/reparse.h:244:27@
 

@@ -234,14 +234,14 @@ instance (IsTrace l a, Show a) => WrongCountMsg a () where
 data Labelled a = Labelled String a
   deriving stock (Show, Eq, Ord)
 
-instance PrettyForTrace a => PrettyForTrace (Labelled a) where
+instance Show a => PrettyForTrace (Labelled a) where
   prettyForTrace (Labelled label x) = PP.hcat [
         PP.string label
       , ": "
-      , prettyForTrace x
+      , PP.string $ show x
       ]
 
-instance (IsTrace l a, PrettyForTrace b, Show a)
+instance (IsTrace l a, Show b, Show a)
   => WrongCountMsg a (Labelled b) where
   wrongCount = wrongCount . prettyForTrace
 

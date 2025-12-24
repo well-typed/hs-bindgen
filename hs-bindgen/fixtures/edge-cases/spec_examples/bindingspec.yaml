@@ -17,6 +17,9 @@ ctypes:
   cname: cint16_T
   hsname: Cint16_T
 - headers: edge-cases/spec_examples.h
+  cname: struct cint16_T
+  hsname: Cint16_T
+- headers: edge-cases/spec_examples.h
   cname: int16_T
   hsname: Int16_T
 - headers: edge-cases/spec_examples.h

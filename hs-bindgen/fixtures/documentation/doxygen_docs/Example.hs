@@ -89,7 +89,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Size_type "un_Size_type" where
 
   Forward declaration with documentation
 
-__C declaration:__ @forward_declared_struct@
+__C declaration:__ @struct forward_declared_struct@
 
 __defined at:__ @documentation\/doxygen_docs.h:72:8@
 
@@ -101,7 +101,7 @@ data Forward_declared_struct
 
   Forward declaration of union
 
-__C declaration:__ @forward_declared_union@
+__C declaration:__ @union forward_declared_union@
 
 __defined at:__ @documentation\/doxygen_docs.h:77:7@
 
@@ -115,7 +115,7 @@ data Forward_declared_union
 
   Color enumeration without typedef
 
-__C declaration:__ @color_enum@
+__C declaration:__ @enum color_enum@
 
 __defined at:__ @documentation\/doxygen_docs.h:83:6@
 
@@ -225,6 +225,8 @@ pattern COLOR_BLUE = Color_enum 2
 
 {-| Auxiliary type used by 'Event_callback_t'
 
+__C declaration:__ @event_callback_t@
+
 __defined at:__ @documentation\/doxygen_docs.h:225:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
@@ -306,7 +308,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Event_callback_t "un_Event_callba
 
   This structure demonstrates field documentation.
 
-__C declaration:__ @config_t@
+__C declaration:__ @struct config_t@
 
 __defined at:__ @documentation\/doxygen_docs.h:232:9@
 
@@ -475,7 +477,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Config_t) "config_t_
 
   This enum shows different status codes.
 
-__C declaration:__ @status_code_t@
+__C declaration:__ @enum status_code_t@
 
 __defined at:__ @documentation\/doxygen_docs.h:258:9@
 
@@ -613,6 +615,8 @@ pattern STATUS_ERROR = Status_code_t (-99)
 
   Allows access to high and low parts separately
 
+__C declaration:__ @struct \@data_union_t_as_parts@
+
 __defined at:__ @documentation\/doxygen_docs.h:290:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
@@ -697,7 +701,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t_as_part
 
   This union demonstrates different data representations.
 
-__C declaration:__ @data_union_t@
+__C declaration:__ @union data_union_t@
 
 __defined at:__ @documentation\/doxygen_docs.h:281:9@
 
@@ -885,7 +889,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t) "data_
 
   Demonstrates bit field documentation.
 
-__C declaration:__ @bitfield_t@
+__C declaration:__ @struct bitfield_t@
 
 __defined at:__ @documentation\/doxygen_docs.h:302:9@
 
@@ -1109,6 +1113,8 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Bitfield_t) "bitf
 
 {-| Auxiliary type used by 'Processor_fn_t'
 
+__C declaration:__ @processor_fn_t@
+
 __defined at:__ @documentation\/doxygen_docs.h:317:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
@@ -1225,7 +1231,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Filename_t "un_Filename_t" where
 
   __returns:__ Allocated structure
 
-__C declaration:__ @flexible_array@
+__C declaration:__ @struct flexible_array@
 
 __defined at:__ @documentation\/doxygen_docs.h:360:8@
 

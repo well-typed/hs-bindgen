@@ -22,7 +22,7 @@ import qualified HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure, return)
 
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @struct foo@
 
     __defined at:__ @declarations\/opaque_declaration.h:1:8@
 
@@ -30,7 +30,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure, return)
 -}
 data Foo
 
-{-| __C declaration:__ @bar@
+{-| __C declaration:__ @struct bar@
 
     __defined at:__ @declarations\/opaque_declaration.h:4:8@
 
@@ -98,7 +98,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_ptrB")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"bar_ptrB")
 
-{-| __C declaration:__ @baz@
+{-| __C declaration:__ @struct baz@
 
     __defined at:__ @declarations\/opaque_declaration.h:9:8@
 
@@ -152,7 +152,7 @@ instance Data.Primitive.Types.Prim Baz where
             case struct2 of
               Baz -> s3
 
-{-| __C declaration:__ @quu@
+{-| __C declaration:__ @enum quu@
 
     __defined at:__ @declarations\/opaque_declaration.h:11:6@
 
@@ -160,7 +160,7 @@ instance Data.Primitive.Types.Prim Baz where
 -}
 data Quu
 
-{-| __C declaration:__ @opaque_union@
+{-| __C declaration:__ @union opaque_union@
 
     __defined at:__ @declarations\/opaque_declaration.h:13:7@
 

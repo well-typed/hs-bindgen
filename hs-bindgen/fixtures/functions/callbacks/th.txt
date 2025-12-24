@@ -424,6 +424,8 @@
 -- }
 {-| Auxiliary type used by 'FileOpenedNotification'
 
+__C declaration:__ @FileOpenedNotification@
+
 __defined at:__ @functions\/callbacks.h:10:16@
 
 __exported by:__ @functions\/callbacks.h@
@@ -431,6 +433,8 @@ __exported by:__ @functions\/callbacks.h@
 newtype FileOpenedNotification_Deref
     = FileOpenedNotification_Deref {un_FileOpenedNotification_Deref :: (IO Unit)}
       {- ^ Auxiliary type used by 'FileOpenedNotification'
+
+      __C declaration:__ @FileOpenedNotification@
 
       __defined at:__ @functions\/callbacks.h:10:16@
 
@@ -488,6 +492,8 @@ instance HasCField FileOpenedNotification
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'ProgressUpdate'
 
+__C declaration:__ @ProgressUpdate@
+
 __defined at:__ @functions\/callbacks.h:11:16@
 
 __exported by:__ @functions\/callbacks.h@
@@ -496,6 +502,8 @@ newtype ProgressUpdate_Deref
     = ProgressUpdate_Deref {un_ProgressUpdate_Deref :: (CInt ->
                                                         IO Unit)}
       {- ^ Auxiliary type used by 'ProgressUpdate'
+
+      __C declaration:__ @ProgressUpdate@
 
       __defined at:__ @functions\/callbacks.h:11:16@
 
@@ -547,6 +555,8 @@ instance HasCField ProgressUpdate "un_ProgressUpdate"
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'DataValidator'
 
+__C declaration:__ @DataValidator@
+
 __defined at:__ @functions\/callbacks.h:12:15@
 
 __exported by:__ @functions\/callbacks.h@
@@ -554,6 +564,8 @@ __exported by:__ @functions\/callbacks.h@
 newtype DataValidator_Deref
     = DataValidator_Deref {un_DataValidator_Deref :: (CInt -> IO CInt)}
       {- ^ Auxiliary type used by 'DataValidator'
+
+      __C declaration:__ @DataValidator@
 
       __defined at:__ @functions\/callbacks.h:12:15@
 
@@ -603,7 +615,7 @@ instance HasCField DataValidator "un_DataValidator"
     where type CFieldType DataValidator
                           "un_DataValidator" = FunPtr DataValidator_Deref
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @Measurement@
+{-| __C declaration:__ @struct Measurement@
 
     __defined at:__ @functions\/callbacks.h:21:8@
 
@@ -624,7 +636,7 @@ data Measurement
 
                         __exported by:__ @functions\/callbacks.h@
                    -}}
-      {- ^ __C declaration:__ @Measurement@
+      {- ^ __C declaration:__ @struct Measurement@
 
            __defined at:__ @functions\/callbacks.h:21:8@
 
@@ -676,6 +688,8 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"measurement_timestamp")
 {-| Auxiliary type used by 'MeasurementReceived'
 
+__C declaration:__ @MeasurementReceived@
+
 __defined at:__ @functions\/callbacks.h:26:16@
 
 __exported by:__ @functions\/callbacks.h@
@@ -684,6 +698,8 @@ newtype MeasurementReceived_Deref
     = MeasurementReceived_Deref {un_MeasurementReceived_Deref :: (Ptr Measurement ->
                                                                   IO Unit)}
       {- ^ Auxiliary type used by 'MeasurementReceived'
+
+      __C declaration:__ @MeasurementReceived@
 
       __defined at:__ @functions\/callbacks.h:26:16@
 
@@ -740,6 +756,8 @@ instance HasCField MeasurementReceived "un_MeasurementReceived"
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'MeasurementReceived2'
 
+__C declaration:__ @MeasurementReceived2@
+
 __defined at:__ @functions\/callbacks.h:29:16@
 
 __exported by:__ @functions\/callbacks.h@
@@ -748,6 +766,8 @@ newtype MeasurementReceived2_Deref
     = MeasurementReceived2_Deref {un_MeasurementReceived2_Deref :: (Measurement ->
                                                                     IO Unit)}
       {- ^ Auxiliary type used by 'MeasurementReceived2'
+
+      __C declaration:__ @MeasurementReceived2@
 
       __defined at:__ @functions\/callbacks.h:29:16@
 
@@ -793,6 +813,8 @@ instance HasCField MeasurementReceived2 "un_MeasurementReceived2"
           offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'SampleBufferFull'
 
+__C declaration:__ @SampleBufferFull@
+
 __defined at:__ @functions\/callbacks.h:32:16@
 
 __exported by:__ @functions\/callbacks.h@
@@ -802,6 +824,8 @@ newtype SampleBufferFull_Deref
                                                                           CInt ->
                                                             IO Unit)}
       {- ^ Auxiliary type used by 'SampleBufferFull'
+
+      __C declaration:__ @SampleBufferFull@
 
       __defined at:__ @functions\/callbacks.h:32:16@
 
@@ -842,7 +866,7 @@ instance HasCField SampleBufferFull "un_SampleBufferFull"
     where type CFieldType SampleBufferFull
                           "un_SampleBufferFull" = FunPtr SampleBufferFull_Deref
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @MeasurementHandler@
+{-| __C declaration:__ @struct MeasurementHandler@
 
     __defined at:__ @functions\/callbacks.h:50:8@
 
@@ -872,7 +896,7 @@ data MeasurementHandler
 
                                __exported by:__ @functions\/callbacks.h@
                           -}}
-      {- ^ __C declaration:__ @MeasurementHandler@
+      {- ^ __C declaration:__ @struct MeasurementHandler@
 
            __defined at:__ @functions\/callbacks.h:50:8@
 
@@ -919,7 +943,7 @@ instance TyEq ty
                   (Ptr MeasurementHandler)
                   (Ptr ty)
     where getField = ptrToCField (Proxy @"measurementHandler_onError")
-{-| __C declaration:__ @DataPipeline@
+{-| __C declaration:__ @struct DataPipeline@
 
     __defined at:__ @functions\/callbacks.h:58:8@
 
@@ -949,7 +973,7 @@ data DataPipeline
 
                          __exported by:__ @functions\/callbacks.h@
                     -}}
-      {- ^ __C declaration:__ @DataPipeline@
+      {- ^ __C declaration:__ @struct DataPipeline@
 
            __defined at:__ @functions\/callbacks.h:58:8@
 
@@ -990,7 +1014,7 @@ instance TyEq ty
               (CFieldType DataPipeline "dataPipeline_postProcess") =>
          HasField "dataPipeline_postProcess" (Ptr DataPipeline) (Ptr ty)
     where getField = ptrToCField (Proxy @"dataPipeline_postProcess")
-{-| __C declaration:__ @ProcessorCallback@
+{-| __C declaration:__ @union ProcessorCallback@
 
     __defined at:__ @functions\/callbacks.h:69:7@
 
@@ -998,7 +1022,7 @@ instance TyEq ty
 -}
 newtype ProcessorCallback
     = ProcessorCallback {un_ProcessorCallback :: ByteArray}
-      {- ^ __C declaration:__ @ProcessorCallback@
+      {- ^ __C declaration:__ @union ProcessorCallback@
 
            __defined at:__ @functions\/callbacks.h:69:7@
 
@@ -1152,13 +1176,17 @@ instance TyEq ty
                   (Ptr ProcessorCallback)
                   (Ptr ty)
     where getField = ptrToCField (Proxy @"processorCallback_withProgress")
-{-| __defined at:__ @functions\/callbacks.h:76:3@
+{-| __C declaration:__ @enum \@Processor_mode@
+
+    __defined at:__ @functions\/callbacks.h:76:3@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype Processor_mode
     = Processor_mode {un_Processor_mode :: CUInt}
-      {- ^ __defined at:__ @functions\/callbacks.h:76:3@
+      {- ^ __C declaration:__ @enum \@Processor_mode@
+
+           __defined at:__ @functions\/callbacks.h:76:3@
 
            __exported by:__ @functions\/callbacks.h@
       -}
@@ -1234,7 +1262,7 @@ pattern MODE_PROGRESS :: Processor_mode
     __exported by:__ @functions\/callbacks.h@
 -}
 pattern MODE_PROGRESS = Processor_mode 2
-{-| __C declaration:__ @Processor@
+{-| __C declaration:__ @struct Processor@
 
     __defined at:__ @functions\/callbacks.h:75:8@
 
@@ -1255,7 +1283,7 @@ data Processor
 
                       __exported by:__ @functions\/callbacks.h@
                  -}}
-      {- ^ __C declaration:__ @Processor@
+      {- ^ __C declaration:__ @struct Processor@
 
            __defined at:__ @functions\/callbacks.h:75:8@
 

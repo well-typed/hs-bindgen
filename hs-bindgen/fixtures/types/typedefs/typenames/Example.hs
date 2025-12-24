@@ -30,7 +30,7 @@ import qualified Text.Read
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real, RealFloat, RealFrac, Show, pure, showsPrec)
 
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @enum foo@
 
     __defined at:__ @types\/typedefs\/typenames.h:14:6@
 

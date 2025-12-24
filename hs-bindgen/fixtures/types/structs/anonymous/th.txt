@@ -1,5 +1,7 @@
 -- addDependentFile examples/golden/types/structs/anonymous.h
-{-| __defined at:__ @types\/structs\/anonymous.h:3:3@
+{-| __C declaration:__ @struct \@S1_c@
+
+    __defined at:__ @types\/structs\/anonymous.h:3:3@
 
     __exported by:__ @types\/structs\/anonymous.h@
 -}
@@ -18,7 +20,9 @@ data S1_c
 
                  __exported by:__ @types\/structs\/anonymous.h@
             -}}
-      {- ^ __defined at:__ @types\/structs\/anonymous.h:3:3@
+      {- ^ __C declaration:__ @struct \@S1_c@
+
+           __defined at:__ @types\/structs\/anonymous.h:3:3@
 
            __exported by:__ @types\/structs\/anonymous.h@
       -}
@@ -65,7 +69,7 @@ instance HasCField S1_c "s1_c_b"
 instance TyEq ty (CFieldType S1_c "s1_c_b") =>
          HasField "s1_c_b" (Ptr S1_c) (Ptr ty)
     where getField = ptrToCField (Proxy @"s1_c_b")
-{-| __C declaration:__ @S1@
+{-| __C declaration:__ @struct S1@
 
     __defined at:__ @types\/structs\/anonymous.h:2:8@
 
@@ -86,7 +90,7 @@ data S1
 
                __exported by:__ @types\/structs\/anonymous.h@
           -}}
-      {- ^ __C declaration:__ @S1@
+      {- ^ __C declaration:__ @struct S1@
 
            __defined at:__ @types\/structs\/anonymous.h:2:8@
 
@@ -135,7 +139,9 @@ instance HasCField S1 "s1_d"
 instance TyEq ty (CFieldType S1 "s1_d") =>
          HasField "s1_d" (Ptr S1) (Ptr ty)
     where getField = ptrToCField (Proxy @"s1_d")
-{-| __defined at:__ @types\/structs\/anonymous.h:15:5@
+{-| __C declaration:__ @struct \@S2_inner_deep@
+
+    __defined at:__ @types\/structs\/anonymous.h:15:5@
 
     __exported by:__ @types\/structs\/anonymous.h@
 -}
@@ -147,7 +153,9 @@ data S2_inner_deep
 
                           __exported by:__ @types\/structs\/anonymous.h@
                      -}}
-      {- ^ __defined at:__ @types\/structs\/anonymous.h:15:5@
+      {- ^ __C declaration:__ @struct \@S2_inner_deep@
+
+           __defined at:__ @types\/structs\/anonymous.h:15:5@
 
            __exported by:__ @types\/structs\/anonymous.h@
       -}
@@ -178,7 +186,9 @@ instance HasCField S2_inner_deep "s2_inner_deep_b"
 instance TyEq ty (CFieldType S2_inner_deep "s2_inner_deep_b") =>
          HasField "s2_inner_deep_b" (Ptr S2_inner_deep) (Ptr ty)
     where getField = ptrToCField (Proxy @"s2_inner_deep_b")
-{-| __defined at:__ @types\/structs\/anonymous.h:13:3@
+{-| __C declaration:__ @struct \@S2_inner@
+
+    __defined at:__ @types\/structs\/anonymous.h:13:3@
 
     __exported by:__ @types\/structs\/anonymous.h@
 -}
@@ -197,7 +207,9 @@ data S2_inner
 
                      __exported by:__ @types\/structs\/anonymous.h@
                 -}}
-      {- ^ __defined at:__ @types\/structs\/anonymous.h:13:3@
+      {- ^ __C declaration:__ @struct \@S2_inner@
+
+           __defined at:__ @types\/structs\/anonymous.h:13:3@
 
            __exported by:__ @types\/structs\/anonymous.h@
       -}
@@ -244,7 +256,7 @@ instance HasCField S2_inner "s2_inner_deep"
 instance TyEq ty (CFieldType S2_inner "s2_inner_deep") =>
          HasField "s2_inner_deep" (Ptr S2_inner) (Ptr ty)
     where getField = ptrToCField (Proxy @"s2_inner_deep")
-{-| __C declaration:__ @S2@
+{-| __C declaration:__ @struct S2@
 
     __defined at:__ @types\/structs\/anonymous.h:12:8@
 
@@ -265,7 +277,7 @@ data S2
 
                __exported by:__ @types\/structs\/anonymous.h@
           -}}
-      {- ^ __C declaration:__ @S2@
+      {- ^ __C declaration:__ @struct S2@
 
            __defined at:__ @types\/structs\/anonymous.h:12:8@
 
@@ -314,7 +326,7 @@ instance HasCField S2 "s2_d"
 instance TyEq ty (CFieldType S2 "s2_d") =>
          HasField "s2_d" (Ptr S2) (Ptr ty)
     where getField = ptrToCField (Proxy @"s2_d")
-{-| __C declaration:__ @S3@
+{-| __C declaration:__ @struct S3@
 
     __defined at:__ @types\/structs\/anonymous.h:24:8@
 
@@ -335,7 +347,7 @@ data S3
 
                __exported by:__ @types\/structs\/anonymous.h@
           -}}
-      {- ^ __C declaration:__ @S3@
+      {- ^ __C declaration:__ @struct S3@
 
            __defined at:__ @types\/structs\/anonymous.h:24:8@
 
@@ -361,7 +373,9 @@ instance HasCField S3 "s3_d"
 instance TyEq ty (CFieldType S3 "s3_d") =>
          HasField "s3_d" (Ptr S3) (Ptr ty)
     where getField = ptrToCField (Proxy @"s3_d")
-{-| __defined at:__ @types\/structs\/anonymous.h:25:3@
+{-| __C declaration:__ @struct \@S3_c@
+
+    __defined at:__ @types\/structs\/anonymous.h:25:3@
 
     __exported by:__ @types\/structs\/anonymous.h@
 -}
@@ -380,7 +394,9 @@ data S3_c
 
                  __exported by:__ @types\/structs\/anonymous.h@
             -}}
-      {- ^ __defined at:__ @types\/structs\/anonymous.h:25:3@
+      {- ^ __C declaration:__ @struct \@S3_c@
+
+           __defined at:__ @types\/structs\/anonymous.h:25:3@
 
            __exported by:__ @types\/structs\/anonymous.h@
       -}

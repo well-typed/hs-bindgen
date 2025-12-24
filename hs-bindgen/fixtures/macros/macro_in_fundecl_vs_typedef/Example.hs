@@ -63,7 +63,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TC "un_TC" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @struct1@
+{-| __C declaration:__ @struct struct1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:18:16@
 
@@ -158,7 +158,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct1) "struct1_a"
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"struct1_a")
 
-{-| __C declaration:__ @struct2@
+{-| __C declaration:__ @struct struct2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:19:9@
 
@@ -253,7 +253,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct2) "struct2_a"
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"struct2_a")
 
-{-| __C declaration:__ @struct3@
+{-| __C declaration:__ @struct struct3@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:20:16@
 
@@ -372,7 +372,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct3_t "un_Struct3_t" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @struct4@
+{-| __C declaration:__ @struct struct4@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:21:16@
 

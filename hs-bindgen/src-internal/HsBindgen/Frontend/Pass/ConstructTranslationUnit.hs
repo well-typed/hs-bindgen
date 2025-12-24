@@ -9,15 +9,16 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Result
 
 {-------------------------------------------------------------------------------
   Construction
 -------------------------------------------------------------------------------}
 
 constructTranslationUnit ::
-     [ParseResult]
+     [ParseResult AssignAnonIds]
   -> IncludeGraph
   -> (C.TranslationUnit ConstructTranslationUnit, [Msg ConstructTranslationUnit])
 constructTranslationUnit parseResults includeGraph =
@@ -35,7 +36,7 @@ constructTranslationUnit parseResults includeGraph =
        )
 
 mkDeclMeta ::
-     [ParseResult]
+     [ParseResult AssignAnonIds]
   -> IncludeGraph
   -> (DeclMeta, [Msg ConstructTranslationUnit])
 mkDeclMeta parseResults includeGraph =

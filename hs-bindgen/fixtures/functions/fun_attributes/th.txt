@@ -433,7 +433,7 @@
 
   Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
 
-__C declaration:__ @FILE@
+__C declaration:__ @struct FILE@
 
 __defined at:__ @functions\/fun_attributes.h:7:9@
 
@@ -445,7 +445,7 @@ data FILE
 
          Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
 
-      __C declaration:__ @FILE@
+      __C declaration:__ @struct FILE@
 
       __defined at:__ @functions\/fun_attributes.h:7:9@
 

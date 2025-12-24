@@ -30,7 +30,7 @@ import qualified Text.Read
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
-{-| __C declaration:__ @enumA@
+{-| __C declaration:__ @enum enumA@
 
     __defined at:__ @types\/enums\/nested_enums.h:2:14@
 
@@ -122,7 +122,7 @@ pattern VALA_1 = EnumA 0
 pattern VALA_2 :: EnumA
 pattern VALA_2 = EnumA 1
 
-{-| __C declaration:__ @exA@
+{-| __C declaration:__ @struct exA@
 
     __defined at:__ @types\/enums\/nested_enums.h:1:8@
 
@@ -169,7 +169,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExA) "exA_fieldA1")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"exA_fieldA1")
 
-{-| __defined at:__ @types\/enums\/nested_enums.h:9:9@
+{-| __C declaration:__ @enum \@exB_fieldB1@
+
+    __defined at:__ @types\/enums\/nested_enums.h:9:9@
 
     __exported by:__ @types\/enums\/nested_enums.h@
 -}
@@ -259,7 +261,7 @@ pattern VALB_1 = ExB_fieldB1 0
 pattern VALB_2 :: ExB_fieldB1
 pattern VALB_2 = ExB_fieldB1 1
 
-{-| __C declaration:__ @exB@
+{-| __C declaration:__ @struct exB@
 
     __defined at:__ @types\/enums\/nested_enums.h:8:8@
 

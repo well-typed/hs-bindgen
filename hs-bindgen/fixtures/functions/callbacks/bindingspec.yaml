@@ -5,9 +5,6 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: functions/callbacks.h
-  cname: enum @Processor_mode
-  hsname: Processor_mode
-- headers: functions/callbacks.h
   cname: struct DataPipeline
   hsname: DataPipeline
 - headers: functions/callbacks.h
@@ -34,6 +31,9 @@ ctypes:
 - headers: functions/callbacks.h
   cname: union ProcessorCallback
   hsname: ProcessorCallback
+- headers: functions/callbacks.h
+  cname: enum @Processor_mode
+  hsname: Processor_mode
 - headers: functions/callbacks.h
   cname: ProgressUpdate
   hsname: ProgressUpdate

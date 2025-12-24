@@ -29,7 +29,7 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @opaque@
+{-| __C declaration:__ @struct opaque@
 
     __defined at:__ @functions\/decls_in_signature.h:2:8@
 
@@ -37,7 +37,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 -}
 data Opaque
 
-{-| __C declaration:__ @outside@
+{-| __C declaration:__ @struct outside@
 
     __defined at:__ @functions\/decls_in_signature.h:3:8@
 
@@ -165,7 +165,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Outside) "outside_y"
 
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
 
-__C declaration:__ @named_struct@
+__C declaration:__ @struct named_struct@
 
 __defined at:__ @functions\/decls_in_signature.h:17:16@
 
@@ -291,7 +291,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Named_struct) "named
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"named_struct_y")
 
-{-| __C declaration:__ @named_union@
+{-| __C declaration:__ @union named_union@
 
     __defined at:__ @functions\/decls_in_signature.h:20:15@
 

@@ -10,6 +10,9 @@ ctypes:
 - headers: macros/macro_typedef_struct.h
   cname: bar
   hsname: Bar
+- headers: macros/macro_typedef_struct.h
+  cname: struct bar
+  hsname: Bar
 hstypes:
 - hsname: Bar
   representation:

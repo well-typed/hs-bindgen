@@ -23,6 +23,7 @@ import Clang.Paths
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
@@ -33,7 +34,6 @@ import HsBindgen.Frontend.Naming as C
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -51,11 +51,12 @@ genBindingSpec ::
      ClangArgs.Target
   -> Hs.ModuleName
   -> GetMainHeaders
-  -> [(C.DeclName, SourcePath)]
+  -> [(C.DeclId, SourcePath)]
+  -> [(C.DeclId, (SourcePath, Hs.Identifier))]
   -> [Hs.Decl]
   -> UnresolvedBindingSpec
-genBindingSpec target hsModuleName getMainHeaders omitTypes =
-  genBindingSpec' target hsModuleName getMainHeaders omitTypes
+genBindingSpec target hsModuleName getMainHeaders omitTypes squashedTypes =
+  genBindingSpec' target hsModuleName getMainHeaders omitTypes squashedTypes
 
 {-------------------------------------------------------------------------------
   Internal API (for tests)
@@ -66,12 +67,13 @@ genBindingSpecYaml ::
      ClangArgs.Target
   -> Hs.ModuleName
   -> GetMainHeaders
-  -> [(C.DeclName, SourcePath)]
+  -> [(C.DeclId, SourcePath)]
+  -> [(C.DeclId, (SourcePath, Hs.Identifier))]
   -> [Hs.Decl]
   -> ByteString
-genBindingSpecYaml target hsModuleName getMainHeaders omitTypes =
+genBindingSpecYaml target hsModuleName getMainHeaders omitTypes squashedTypes =
       BindingSpec.encodeYaml
-    . genBindingSpec' target hsModuleName getMainHeaders omitTypes
+    . genBindingSpec' target hsModuleName getMainHeaders omitTypes squashedTypes
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
@@ -82,23 +84,30 @@ genBindingSpec' ::
      ClangArgs.Target
   -> Hs.ModuleName
   -> GetMainHeaders
-  -> [(C.DeclName, SourcePath)]
+  -> [(C.DeclId, SourcePath)]
+  -> [(C.DeclId, (SourcePath, Hs.Identifier))]
   -> [Hs.Decl]
   -> UnresolvedBindingSpec
 genBindingSpec'
     target
     hsModuleName
     getMainHeaders
-    omitTypes = foldr aux omitSpec
+    omitTypes
+    squashedTypes = foldr aux spec0
   where
-    omitSpec :: UnresolvedBindingSpec
-    omitSpec = BindingSpec.BindingSpec {
+    spec0 :: UnresolvedBindingSpec
+    spec0 = BindingSpec.BindingSpec {
         -- TODO AnyTarget if bindings are not target-specific
         BindingSpec.bindingSpecTarget = BindingSpec.SpecificTarget target
       , BindingSpec.bindingSpecModule = hsModuleName
-      , BindingSpec.bindingSpecCTypes = Map.fromListWith (++) [
-            (cDeclName, [(getMainHeaders' path, Omit)])
-          | (cDeclName, path) <- omitTypes
+      , BindingSpec.bindingSpecCTypes = Map.fromListWith (++) $
+          [ (cDeclId, [(getMainHeaders' path, Omit)])
+          | (cDeclId, path) <- omitTypes
+          ] ++
+          [ let headers   = getMainHeaders' sourcePath
+                cTypeSpec = def{ BindingSpec.cTypeSpecIdentifier = Just hsId }
+            in  (cDeclId, [(headers, Require cTypeSpec)])
+          | (cDeclId, (sourcePath, hsId)) <- squashedTypes
           ]
       , BindingSpec.bindingSpecHsTypes = Map.empty
       }
@@ -117,7 +126,10 @@ genBindingSpec'
     aux = \case
       Hs.DeclData struct      -> insertType $ auxStruct    struct
       Hs.DeclEmpty edata      -> insertType $ auxEmptyData edata
-      Hs.DeclNewtype ntype    -> insertType $ auxNewtype   ntype
+      Hs.DeclNewtype ntype    ->
+        case ntype.newtypeOrigin.declKind of
+          HsOrigin.Aux{} -> id
+          _otherwise     -> insertType $ auxNewtype ntype
       Hs.DeclPatSyn{}         -> id
       Hs.DeclDefineInstance{} -> id
       Hs.DeclDeriveInstance{} -> id
@@ -134,21 +146,18 @@ genBindingSpec'
          )
       -> UnresolvedBindingSpec
       -> UnresolvedBindingSpec
-    insertType ((declInfo, cTypeSpec), (hsId, hsTypeSpec)) spec =
-        case getCDeclName declInfo.declId of
-          Nothing        -> spec
-          Just cDeclName -> spec{
-              BindingSpec.bindingSpecCTypes =
-                Map.insertWith (++)
-                  cDeclName
-                  [(getHeaders declInfo, Require cTypeSpec)]
-                  (BindingSpec.bindingSpecCTypes spec)
-            , BindingSpec.bindingSpecHsTypes =
-                Map.insert
-                  hsId
-                  hsTypeSpec
-                  (BindingSpec.bindingSpecHsTypes spec)
-            }
+    insertType ((declInfo, cTypeSpec), (hsId, hsTypeSpec)) spec = spec{
+        BindingSpec.bindingSpecCTypes =
+          Map.insertWith (++)
+            declInfo.declId.cName
+            [(getHeaders declInfo, Require cTypeSpec)]
+            (BindingSpec.bindingSpecCTypes spec)
+      , BindingSpec.bindingSpecHsTypes =
+          Map.insert
+            hsId
+            hsTypeSpec
+            (BindingSpec.bindingSpecHsTypes spec)
+      }
 
     auxStruct ::
          Hs.Struct n
@@ -240,33 +249,6 @@ genBindingSpec'
 
     getHeaders :: C.DeclInfo -> Set HashIncludeArg
     getHeaders = getMainHeaders' . singleLocPath . C.declLoc
-
-getCDeclName :: C.FinalDeclId -> Maybe C.DeclName
-getCDeclName declId =
-    case declId.origDeclId of
-      C.OrigDeclId orig ->
-        Just $ auxOrig orig
-      C.AuxForDecl _parent ->
-        -- TODO <https://github.com/well-typed/hs-bindgen/issues/1379>
-        Nothing
-  where
-    auxOrig :: PrelimDeclId -> C.DeclName
-    auxOrig = \case
-        PrelimDeclIdNamed cName       -> cName
-        PrelimDeclIdAnon _anonId kind ->
-          -- Anonymous declarations can only arise in very specific situations:
-          --
-          -- * Anonymous declarations without any use sites are removed
-          -- * Anonymous declarations inside typedefs are given a name, but their
-          --   /original/ declaration is set to be the typedef instead.
-          --
-          -- However, anonymous structs inside other structs or unions will
-          -- remain anonymous. For these we instead use the name assigned by
-          -- the @NameAnon@ pass.
-          --
-          -- TODO <https://github.com/well-typed/hs-bindgen/issues/844>
-          -- This is WIP.
-          C.DeclName ("@" <> declId.name.text) kind
 
 -- TODO strategy
 -- TODO constraints

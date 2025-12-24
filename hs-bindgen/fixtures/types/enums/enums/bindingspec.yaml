@@ -8,11 +8,23 @@ ctypes:
   cname: enumA
   hsname: EnumA
 - headers: types/enums/enums.h
+  cname: enum enumA
+  hsname: EnumA
+- headers: types/enums/enums.h
   cname: enumB
+  hsname: EnumB
+- headers: types/enums/enums.h
+  cname: enum enumB
   hsname: EnumB
 - headers: types/enums/enums.h
   cname: enumC
   hsname: EnumC
+- headers: types/enums/enums.h
+  cname: enum enumC
+  hsname: EnumC
+- headers: types/enums/enums.h
+  cname: enum enumD
+  hsname: EnumD_t
 - headers: types/enums/enums.h
   cname: enumD_t
   hsname: EnumD_t

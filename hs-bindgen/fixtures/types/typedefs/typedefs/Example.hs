@@ -121,6 +121,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Int2int "un_Int2int" where
 
 {-| Auxiliary type used by 'FunctionPointer_Function'
 
+__C declaration:__ @FunctionPointer_Function@
+
 __defined at:__ @types\/typedefs\/typedefs.h:8:16@
 
 __exported by:__ @types\/typedefs\/typedefs.h@
@@ -229,6 +231,8 @@ instance HsBindgen.Runtime.HasCField.HasCField NonFunctionPointer_Function "un_N
   offset# = \_ -> \_ -> 0
 
 {-| Auxiliary type used by 'F1'
+
+__C declaration:__ @f1@
 
 __defined at:__ @types\/typedefs\/typedefs.h:11:16@
 

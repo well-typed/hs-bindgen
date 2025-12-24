@@ -57,7 +57,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Int_t "un_Int_t" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @X@
+{-| __C declaration:__ @struct X@
 
     __defined at:__ @declarations\/redeclaration.h:26:8@
 
@@ -152,7 +152,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType X) "x_n")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"x_n")
 
-{-| __C declaration:__ @y@
+{-| __C declaration:__ @union y@
 
     __defined at:__ @declarations\/redeclaration.h:29:7@
 
@@ -160,7 +160,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType X) "x_n")
 -}
 data Y
 
-{-| __C declaration:__ @Y@
+{-| __C declaration:__ @union Y@
 
     __defined at:__ @declarations\/redeclaration.h:30:7@
 

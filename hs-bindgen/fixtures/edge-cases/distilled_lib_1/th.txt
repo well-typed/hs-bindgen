@@ -36,7 +36,7 @@
 -- {
 --   return &v;
 -- }
-{-| __C declaration:__ @another_typedef_struct_t@
+{-| __C declaration:__ @struct another_typedef_struct_t@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:9:9@
 
@@ -57,7 +57,7 @@ data Another_typedef_struct_t
 
                                      __exported by:__ @edge-cases\/distilled_lib_1.h@
                                 -}}
-      {- ^ __C declaration:__ @another_typedef_struct_t@
+      {- ^ __C declaration:__ @struct another_typedef_struct_t@
 
            __defined at:__ @edge-cases\/distilled_lib_1.h:9:9@
 
@@ -118,7 +118,7 @@ instance TyEq ty
                   (Ptr Another_typedef_struct_t)
                   (Ptr ty)
     where getField = ptrToCField (Proxy @"another_typedef_struct_t_bar")
-{-| __C declaration:__ @another_typedef_enum_e@
+{-| __C declaration:__ @enum another_typedef_enum_e@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:10:9@
 
@@ -126,7 +126,7 @@ instance TyEq ty
 -}
 newtype Another_typedef_enum_e
     = Another_typedef_enum_e {un_Another_typedef_enum_e :: CUInt}
-      {- ^ __C declaration:__ @another_typedef_enum_e@
+      {- ^ __C declaration:__ @enum another_typedef_enum_e@
 
            __defined at:__ @edge-cases\/distilled_lib_1.h:10:9@
 
@@ -295,7 +295,7 @@ instance TyEq ty (CFieldType Var_t "un_Var_t") =>
 instance HasCField Var_t "un_Var_t"
     where type CFieldType Var_t "un_Var_t" = CInt
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @a_typedef_struct_t@
+{-| __C declaration:__ @struct a_typedef_struct@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:35:16@
 
@@ -383,7 +383,7 @@ data A_typedef_struct_t
 
                                __exported by:__ @edge-cases\/distilled_lib_1.h@
                           -}}
-      {- ^ __C declaration:__ @a_typedef_struct_t@
+      {- ^ __C declaration:__ @struct a_typedef_struct@
 
            __defined at:__ @edge-cases\/distilled_lib_1.h:35:16@
 
@@ -576,7 +576,7 @@ tWO_ARGS :: (,) CInt CInt
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 tWO_ARGS = (,) (13398 :: CInt) (30874 :: CInt)
-{-| __C declaration:__ @a_typedef_enum_e@
+{-| __C declaration:__ @enum a_typedef_enum_e@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:61:9@
 
@@ -584,7 +584,7 @@ tWO_ARGS = (,) (13398 :: CInt) (30874 :: CInt)
 -}
 newtype A_typedef_enum_e
     = A_typedef_enum_e {un_A_typedef_enum_e :: CUChar}
-      {- ^ __C declaration:__ @a_typedef_enum_e@
+      {- ^ __C declaration:__ @enum a_typedef_enum_e@
 
            __defined at:__ @edge-cases\/distilled_lib_1.h:61:9@
 
@@ -679,6 +679,8 @@ pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 {-| Auxiliary type used by 'Callback_t'
 
+__C declaration:__ @callback_t@
+
 __defined at:__ @edge-cases\/distilled_lib_1.h:77:19@
 
 __exported by:__ @edge-cases\/distilled_lib_1.h@
@@ -688,6 +690,8 @@ newtype Callback_t_Deref
                                                 HsBindgen.Runtime.Prelude.Word32 ->
                                                 IO HsBindgen.Runtime.Prelude.Word32)}
       {- ^ Auxiliary type used by 'Callback_t'
+
+      __C declaration:__ @callback_t@
 
       __defined at:__ @edge-cases\/distilled_lib_1.h:77:19@
 

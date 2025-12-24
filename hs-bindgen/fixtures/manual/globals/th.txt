@@ -132,7 +132,7 @@
 -- {
 --   return &d2;
 -- }
-{-| __C declaration:__ @globalConfig@
+{-| __C declaration:__ @struct globalConfig@
 
     __defined at:__ @manual\/globals.h:7:9@
 
@@ -153,7 +153,7 @@ data GlobalConfig
 
                          __exported by:__ @manual\/globals.h@
                     -}}
-      {- ^ __C declaration:__ @globalConfig@
+      {- ^ __C declaration:__ @struct globalConfig@
 
            __defined at:__ @manual\/globals.h:7:9@
 
@@ -236,7 +236,7 @@ instance TyEq ty (CFieldType ConstInt "un_ConstInt") =>
 instance HasCField ConstInt "un_ConstInt"
     where type CFieldType ConstInt "un_ConstInt" = CInt
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @tuple@
+{-| __C declaration:__ @struct tuple@
 
     __defined at:__ @manual\/globals.h:52:8@
 
@@ -257,7 +257,7 @@ data Tuple
 
                   __exported by:__ @manual\/globals.h@
              -}}
-      {- ^ __C declaration:__ @tuple@
+      {- ^ __C declaration:__ @struct tuple@
 
            __defined at:__ @manual\/globals.h:52:8@
 

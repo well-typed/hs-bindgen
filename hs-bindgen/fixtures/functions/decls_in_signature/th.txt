@@ -66,14 +66,14 @@
 -- {
 --   return &f2;
 -- }
-{-| __C declaration:__ @opaque@
+{-| __C declaration:__ @struct opaque@
 
     __defined at:__ @functions\/decls_in_signature.h:2:8@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 data Opaque
-{-| __C declaration:__ @outside@
+{-| __C declaration:__ @struct outside@
 
     __defined at:__ @functions\/decls_in_signature.h:3:8@
 
@@ -94,7 +94,7 @@ data Outside
 
                     __exported by:__ @functions\/decls_in_signature.h@
                -}}
-      {- ^ __C declaration:__ @outside@
+      {- ^ __C declaration:__ @struct outside@
 
            __defined at:__ @functions\/decls_in_signature.h:3:8@
 
@@ -147,7 +147,7 @@ instance TyEq ty (CFieldType Outside "outside_y") =>
 
   See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
 
-__C declaration:__ @named_struct@
+__C declaration:__ @struct named_struct@
 
 __defined at:__ @functions\/decls_in_signature.h:17:16@
 
@@ -172,7 +172,7 @@ data Named_struct
 
          See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
 
-      __C declaration:__ @named_struct@
+      __C declaration:__ @struct named_struct@
 
       __defined at:__ @functions\/decls_in_signature.h:17:16@
 
@@ -221,7 +221,7 @@ instance HasCField Named_struct "named_struct_y"
 instance TyEq ty (CFieldType Named_struct "named_struct_y") =>
          HasField "named_struct_y" (Ptr Named_struct) (Ptr ty)
     where getField = ptrToCField (Proxy @"named_struct_y")
-{-| __C declaration:__ @named_union@
+{-| __C declaration:__ @union named_union@
 
     __defined at:__ @functions\/decls_in_signature.h:20:15@
 
@@ -229,7 +229,7 @@ instance TyEq ty (CFieldType Named_struct "named_struct_y") =>
 -}
 newtype Named_union
     = Named_union {un_Named_union :: ByteArray}
-      {- ^ __C declaration:__ @named_union@
+      {- ^ __C declaration:__ @union named_union@
 
            __defined at:__ @functions\/decls_in_signature.h:20:15@
 

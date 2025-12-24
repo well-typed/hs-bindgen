@@ -2,7 +2,6 @@ module HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (
     ConflictingDeclarations -- opaque
   , conflictingDeclarations
   , addConflictingLoc
-  , getDeclId
   , getLocs
   , getMinimumLoc
   ) where
@@ -12,30 +11,22 @@ import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
 -- | Multiple declarations for the same identifier
 data ConflictingDeclarations = ConflictingDeclarations {
-        conflictId   :: C.PrelimDeclId
-      , conflictLocs :: Set SingleLoc
+        conflictLocs :: Set SingleLoc
       }
   deriving stock (Eq, Show)
 
 instance PrettyForTrace ConflictingDeclarations where
   prettyForTrace = \case
     ConflictingDeclarations{..} ->
-      let lead = PP.hcat [
-              "Conflicting declarations for "
-            , prettyForTrace conflictId
-            , " declared at:"
-            ]
-          details = [
-              PP.vcat [ PP.string $ "- " ++ show l | l <- Set.toList conflictLocs ]
-            , "No binding generated."
-            ]
-      in  PP.hangs' lead 2 details
+      PP.hangs' ("Conflicting declarations") 2 [
+          PP.vcat [ PP.string $ "- " ++ show l | l <- Set.toList conflictLocs ]
+        , "No binding generated."
+        ]
 
 instance IsTrace Level ConflictingDeclarations where
   getDefaultLogLevel = \case
@@ -44,14 +35,11 @@ instance IsTrace Level ConflictingDeclarations where
   getTraceId = const "decl-index"
 
 -- | Create conflicting declarations.
-conflictingDeclarations :: C.PrelimDeclId -> SingleLoc -> SingleLoc -> ConflictingDeclarations
-conflictingDeclarations d l1 l2 = ConflictingDeclarations d $ Set.fromList [l1, l2]
+conflictingDeclarations :: SingleLoc -> SingleLoc -> ConflictingDeclarations
+conflictingDeclarations l1 l2 = ConflictingDeclarations $ Set.fromList [l1, l2]
 
 addConflictingLoc :: ConflictingDeclarations -> SingleLoc -> ConflictingDeclarations
-addConflictingLoc (ConflictingDeclarations d xs) x = ConflictingDeclarations d $ Set.insert x xs
-
-getDeclId :: ConflictingDeclarations -> C.PrelimDeclId
-getDeclId = conflictId
+addConflictingLoc (ConflictingDeclarations xs) x = ConflictingDeclarations $ Set.insert x xs
 
 getLocs :: ConflictingDeclarations -> [SingleLoc]
 getLocs = Set.toList . conflictLocs

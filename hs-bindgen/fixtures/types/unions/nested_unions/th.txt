@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/types/unions/nested_unions.h
-{-| __C declaration:__ @unionA@
+{-| __C declaration:__ @union unionA@
 
     __defined at:__ @types\/unions\/nested_unions.h:2:15@
 
@@ -7,7 +7,7 @@
 -}
 newtype UnionA
     = UnionA {un_UnionA :: ByteArray}
-      {- ^ __C declaration:__ @unionA@
+      {- ^ __C declaration:__ @union unionA@
 
            __defined at:__ @types\/unions\/nested_unions.h:2:15@
 
@@ -95,7 +95,7 @@ instance HasCField UnionA "unionA_b"
 instance TyEq ty (CFieldType UnionA "unionA_b") =>
          HasField "unionA_b" (Ptr UnionA) (Ptr ty)
     where getField = ptrToCField (Proxy @"unionA_b")
-{-| __C declaration:__ @exA@
+{-| __C declaration:__ @struct exA@
 
     __defined at:__ @types\/unions\/nested_unions.h:1:8@
 
@@ -109,7 +109,7 @@ data ExA
 
                 __exported by:__ @types\/unions\/nested_unions.h@
            -}}
-      {- ^ __C declaration:__ @exA@
+      {- ^ __C declaration:__ @struct exA@
 
            __defined at:__ @types\/unions\/nested_unions.h:1:8@
 
@@ -127,13 +127,17 @@ instance HasCField ExA "exA_fieldA1"
 instance TyEq ty (CFieldType ExA "exA_fieldA1") =>
          HasField "exA_fieldA1" (Ptr ExA) (Ptr ty)
     where getField = ptrToCField (Proxy @"exA_fieldA1")
-{-| __defined at:__ @types\/unions\/nested_unions.h:9:9@
+{-| __C declaration:__ @union \@exB_fieldB1@
+
+    __defined at:__ @types\/unions\/nested_unions.h:9:9@
 
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
 newtype ExB_fieldB1
     = ExB_fieldB1 {un_ExB_fieldB1 :: ByteArray}
-      {- ^ __defined at:__ @types\/unions\/nested_unions.h:9:9@
+      {- ^ __C declaration:__ @union \@exB_fieldB1@
+
+           __defined at:__ @types\/unions\/nested_unions.h:9:9@
 
            __exported by:__ @types\/unions\/nested_unions.h@
       -}
@@ -219,7 +223,7 @@ instance HasCField ExB_fieldB1 "exB_fieldB1_b"
 instance TyEq ty (CFieldType ExB_fieldB1 "exB_fieldB1_b") =>
          HasField "exB_fieldB1_b" (Ptr ExB_fieldB1) (Ptr ty)
     where getField = ptrToCField (Proxy @"exB_fieldB1_b")
-{-| __C declaration:__ @exB@
+{-| __C declaration:__ @struct exB@
 
     __defined at:__ @types\/unions\/nested_unions.h:8:8@
 
@@ -233,7 +237,7 @@ data ExB
 
                 __exported by:__ @types\/unions\/nested_unions.h@
            -}}
-      {- ^ __C declaration:__ @exB@
+      {- ^ __C declaration:__ @struct exB@
 
            __defined at:__ @types\/unions\/nested_unions.h:8:8@
 

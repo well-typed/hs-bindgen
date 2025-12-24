@@ -96,7 +96,7 @@
 -- {
 --   return &thing_fun_3b;
 -- }
-{-| __C declaration:__ @thing@
+{-| __C declaration:__ @struct thing@
 
     __defined at:__ @types\/structs\/struct_arg.h:2:8@
 
@@ -110,7 +110,7 @@ data Thing
 
                   __exported by:__ @types\/structs\/struct_arg.h@
              -}}
-      {- ^ __C declaration:__ @thing@
+      {- ^ __C declaration:__ @struct thing@
 
            __defined at:__ @types\/structs\/struct_arg.h:2:8@
 

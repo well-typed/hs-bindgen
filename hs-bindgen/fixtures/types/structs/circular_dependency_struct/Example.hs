@@ -19,7 +19,7 @@ import qualified HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @b@
+{-| __C declaration:__ @struct b@
 
     __defined at:__ @types\/structs\/circular_dependency_struct.h:3:8@
 
@@ -66,7 +66,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType B) "b_toA")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"b_toA")
 
-{-| __C declaration:__ @a@
+{-| __C declaration:__ @struct a@
 
     __defined at:__ @types\/structs\/circular_dependency_struct.h:7:8@
 

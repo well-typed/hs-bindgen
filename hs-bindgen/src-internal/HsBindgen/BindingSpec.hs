@@ -58,8 +58,8 @@ import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.BindingSpec.Private.Version qualified as Version
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Monad
 import HsBindgen.Util.Tracer
@@ -296,18 +296,18 @@ moduleName = BindingSpec.bindingSpecModule . bindingSpecUnresolved
 -------------------------------------------------------------------------------}
 
 -- | Get the C types in a binding specification
-getCTypes :: BindingSpec -> Map C.DeclName [Set SourcePath]
+getCTypes :: BindingSpec -> Map C.DeclId [Set SourcePath]
 getCTypes = BindingSpec.getCTypes . bindingSpecResolved
 
 -- | Lookup the @'Common.Omittable' 'BindingSpec.CTypeSpec'@ associated with a C
 -- type
 lookupCTypeSpec ::
-     C.DeclName
+     C.DeclId
   -> Set SourcePath
   -> BindingSpec
   -> Maybe (Hs.ModuleName, Common.Omittable BindingSpec.CTypeSpec)
-lookupCTypeSpec cDeclName headers =
-    BindingSpec.lookupCTypeSpec cDeclName headers . bindingSpecResolved
+lookupCTypeSpec cDeclId headers =
+    BindingSpec.lookupCTypeSpec cDeclId headers . bindingSpecResolved
 
 -- | Lookup the 'BindingSpec.HsTypeSpec' associated with a Haskell type
 lookupHsTypeSpec ::

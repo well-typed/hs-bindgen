@@ -64,7 +64,7 @@
 --   struct_name2(arg1, arg2);
 -- }
 -- void hs_bindgen_0ff3632971f092bb (
---   struct4 *arg1,
+--   struct struct4 *arg1,
 --   MC arg2
 -- )
 -- {
@@ -134,7 +134,7 @@
 --   struct_name2(arg1, arg2);
 -- }
 -- void hs_bindgen_38cce6bb1ac71578 (
---   struct4 *arg1,
+--   struct struct4 *arg1,
 --   MC arg2
 -- )
 -- {
@@ -224,7 +224,7 @@
 -- /* test_macrosmacro_in_fundecl_vs_typ_Example_get_struct_name3 */
 -- __attribute__ ((const))
 -- void (*hs_bindgen_ba133ae0ff062248 (void)) (
---   struct4 *arg1,
+--   struct struct4 *arg1,
 --   MC arg2
 -- )
 -- {
@@ -288,7 +288,7 @@ instance TyEq ty (CFieldType TC "un_TC") =>
 instance HasCField TC "un_TC"
     where type CFieldType TC "un_TC" = CChar
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @struct1@
+{-| __C declaration:__ @struct struct1@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:18:16@
 
@@ -302,7 +302,7 @@ data Struct1
 
                     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
                -}}
-      {- ^ __C declaration:__ @struct1@
+      {- ^ __C declaration:__ @struct struct1@
 
            __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:18:16@
 
@@ -334,7 +334,7 @@ instance HasCField Struct1 "struct1_a"
 instance TyEq ty (CFieldType Struct1 "struct1_a") =>
          HasField "struct1_a" (Ptr Struct1) (Ptr ty)
     where getField = ptrToCField (Proxy @"struct1_a")
-{-| __C declaration:__ @struct2@
+{-| __C declaration:__ @struct struct2@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:19:9@
 
@@ -348,7 +348,7 @@ data Struct2
 
                     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
                -}}
-      {- ^ __C declaration:__ @struct2@
+      {- ^ __C declaration:__ @struct struct2@
 
            __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:19:9@
 
@@ -380,7 +380,7 @@ instance HasCField Struct2 "struct2_a"
 instance TyEq ty (CFieldType Struct2 "struct2_a") =>
          HasField "struct2_a" (Ptr Struct2) (Ptr ty)
     where getField = ptrToCField (Proxy @"struct2_a")
-{-| __C declaration:__ @struct3@
+{-| __C declaration:__ @struct struct3@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:20:16@
 
@@ -394,7 +394,7 @@ data Struct3
 
                     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
                -}}
-      {- ^ __C declaration:__ @struct3@
+      {- ^ __C declaration:__ @struct struct3@
 
            __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:20:16@
 
@@ -448,7 +448,7 @@ instance TyEq ty (CFieldType Struct3_t "un_Struct3_t") =>
 instance HasCField Struct3_t "un_Struct3_t"
     where type CFieldType Struct3_t "un_Struct3_t" = Struct3
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @struct4@
+{-| __C declaration:__ @struct struct4@
 
     __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:21:16@
 
@@ -462,7 +462,7 @@ data Struct4
 
                     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
                -}}
-      {- ^ __C declaration:__ @struct4@
+      {- ^ __C declaration:__ @struct struct4@
 
            __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:21:16@
 

@@ -18,10 +18,12 @@ module HsBindgen.Language.C (
   , tagKindPrefix
     -- ** Name kind
   , NameKind(..)
+  , checkIsTagged
   , nameKindPrefix
     -- ** Declaration names
   , DeclName(..)
-  , declNameText
+  , mapDeclNameText
+  , renderDeclName
   , parseDeclName
     -- ** Scoped names
   , ScopedName(..)
@@ -190,6 +192,11 @@ data NameKind =
   | NameKindTagged TagKind
   deriving stock (Show, Eq, Ord, Generic)
 
+checkIsTagged :: NameKind -> Maybe TagKind
+checkIsTagged = \case
+    NameKindOrdinary       -> Nothing
+    NameKindTagged tagKind -> Just tagKind
+
 instance Bounded NameKind where
   minBound = NameKindOrdinary
   maxBound = NameKindTagged TagKindEnum
@@ -231,13 +238,17 @@ data DeclName = DeclName {
   deriving stock (Eq, Generic, Ord, Show)
 
 instance PrettyForTrace DeclName where
-  prettyForTrace = PP.singleQuotes . PP.textToCtxDoc . declNameText
+  prettyForTrace = PP.singleQuotes . PP.textToCtxDoc . renderDeclName
 
--- | Render a 'DeclName' as 'Text'
-declNameText :: DeclName -> Text
-declNameText declName = case nameKindPrefix declName.kind of
-    Nothing     -> declName.text
-    Just prefix -> prefix <> " " <> declName.text
+mapDeclNameText :: (Text -> Text) -> DeclName -> DeclName
+mapDeclNameText f DeclName{text, kind} = DeclName{text = f text, kind}
+
+-- | User-facing syntax for 'DeclName'
+renderDeclName :: DeclName -> Text
+renderDeclName declName =
+    case nameKindPrefix declName.kind of
+      Nothing     -> declName.text
+      Just prefix -> prefix <> " " <> declName.text
 
 -- | Parse a 'DeclName' from 'Text'
 parseDeclName :: Text -> Maybe DeclName

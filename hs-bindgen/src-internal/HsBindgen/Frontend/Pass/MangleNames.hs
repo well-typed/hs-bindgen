@@ -5,20 +5,27 @@ module HsBindgen.Frontend.Pass.MangleNames (
 import Control.Monad.Reader
 import Control.Monad.State
 import Data.Bitraversable (bimapM)
+import Data.Foldable qualified as Foldable
+import Data.Function
 import Data.Map qualified as Map
-import Data.Maybe (listToMaybe)
 import Data.Proxy
+
+import Clang.Paths
 
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
+import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
+import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -34,22 +41,50 @@ import HsBindgen.Language.Haskell qualified as Hs
 -------------------------------------------------------------------------------}
 
 mangleNames ::
-     C.TranslationUnit HandleTypedefs
+     C.TranslationUnit Select
   -> (C.TranslationUnit MangleNames, [Msg MangleNames])
-mangleNames unit =
-    (unit', errors1 ++ errors2)
+mangleNames unit = (
+         C.TranslationUnit{
+           unitDecls        = catMaybes decls'
+         , unitIncludeGraph = unit.unitIncludeGraph
+         , unitAnn          = updateDeclMeta td nm unit.unitAnn
+        }
+    , msgs1 ++ msgs2
+    )
   where
-    -- TODO: This should be configurable
+    td :: TypedefAnalysis
+    td = TypedefAnalysis.fromDecls unit.unitAnn.declDeclUse unit.unitDecls
+
     fc :: FixCandidate Maybe
     fc = FixCandidate.fixCandidateDefault
 
-    nameMap :: NameMap
-    errors1 :: [Msg MangleNames]
-    (nameMap, errors1) = chooseNames fc (C.unitDecls unit)
+    nm      :: NameMap
+    msgs1 :: [Msg MangleNames]
+    (nm, msgs1) = chooseNames td fc (C.unitDecls unit)
 
-    unit'   :: C.TranslationUnit MangleNames
-    errors2 :: [Msg MangleNames]
-    (unit', errors2) = runM fc nameMap $ mangle unit
+    env :: Env
+    env = Env{
+          envTypedefAnalysis = td
+        , envFixCandidate    = fc
+        , envNameMap         = nm
+        }
+
+    decls' :: [Maybe (C.Decl MangleNames)]
+    msgs2  :: [MangleNamesMsg]
+    (decls', msgs2) = runM env $ mapM mangleDecl unit.unitDecls
+
+updateDeclMeta :: TypedefAnalysis -> NameMap -> DeclMeta -> DeclMeta
+updateDeclMeta td nm declMeta = declMeta{
+      declIndex =
+        DeclIndex.registerSquashedDeclarations squashedMap declMeta.declIndex
+    }
+  where
+    squashedMap :: Map C.DeclId (SourcePath, Hs.Identifier)
+    squashedMap = Map.fromList $ catMaybes [
+        (cDeclId,) . (sourcePath,) <$> Map.lookup wrappedId nm
+      | (cDeclId, TypedefAnalysis.Squash sourcePath wrappedId) <-
+          Map.toList td.analysis
+      ]
 
 {-------------------------------------------------------------------------------
   Pass 1: Choose names
@@ -58,47 +93,97 @@ mangleNames unit =
   even if there are errors.
 -------------------------------------------------------------------------------}
 
-type NameMap = Map C.DeclName Hs.Identifier
+type NameMap = Map C.DeclId Hs.Identifier
 
 chooseNames ::
-     FixCandidate Maybe
-  -> [C.Decl HandleTypedefs] -> (NameMap, [Msg MangleNames])
-chooseNames fc decls =
-    bimap Map.fromList catMaybes $
-      unzip $ map (nameForDecl fc) decls
+     TypedefAnalysis
+  -> FixCandidate Maybe
+  -> [C.Decl Select]
+  -> (NameMap, [Msg MangleNames])
+chooseNames td fc decls =
+    let specifiedNames = Map.fromList $ mapMaybe getSpecifiedName decls
+    in  bimap Map.fromList concat . unzip $
+          map (nameForDecl td fc specifiedNames) decls
+  where
+    getSpecifiedName :: C.Decl Select -> Maybe (C.DeclId, Hs.Identifier)
+    getSpecifiedName decl =
+      (decl.declInfo.declId,)
+        <$> (BindingSpec.cTypeSpecIdentifier =<< fst (decl.declAnn))
 
 nameForDecl ::
-     FixCandidate Maybe
-  -> C.Decl HandleTypedefs
-  -> ((C.DeclName, Hs.Identifier), Maybe (Msg MangleNames))
-nameForDecl fc decl =
-    case BindingSpec.cTypeSpecIdentifier =<< fst declAnn of
-      Just hsName -> (choose hsName, Nothing)
-      Nothing     -> withDeclNamespace declKind $ \ns ->
-                       first choose $ fromCName fc ns declId.name.text
+     TypedefAnalysis
+  -> FixCandidate Maybe
+  -> NameMap
+  -> C.Decl Select
+  -> ((C.DeclId, Hs.Identifier), [Msg MangleNames])
+nameForDecl td fc specifiedNames decl =
+    case Map.lookup declId specifiedNames of
+      Just hsName ->
+        -- Binding spec specified a name for this declaration.
+        -- In this case, this overrides any naming decisions we might make here.
+        --
+        -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1436>
+        -- If we have a binding specification for a type that is squashed, it is
+        -- currently silenty ignored, because that declaration has already been
+        -- removed from the list of declarations in @Select@.
+        ((declId, hsName), [])
+      Nothing -> withDeclNamespace decl.declKind $ \ns ->
+        case Map.lookup declId td.analysis of
+          Nothing ->
+            fromDeclId fc ns declId & \(hsName, msgs) -> (
+                (declId, hsName)
+              , msgs
+              )
+          Just (TypedefAnalysis.Rename (TypedefAnalysis.AddSuffix suffix)) ->
+            fromDeclId fc ns declId & \(hsName, msgs) ->
+              let newName = hsName <> suffix in (
+                (declId, newName)
+              , MangleNamesRenamed decl.declInfo newName : msgs
+              )
+          Just (TypedefAnalysis.Rename (TypedefAnalysis.UseNameOf declId')) ->
+            case Map.lookup declId' specifiedNames of
+              Just hsName -> ((declId, hsName), [])
+              Nothing ->
+                fromDeclId fc ns declId' & \(hsName, msgs) -> (
+                    (declId, hsName)
+                  , if declId.name.text /= declId'.name.text
+                      then MangleNamesRenamed decl.declInfo hsName : msgs
+                      else msgs
+                  )
+          Just (TypedefAnalysis.Squash _ declId') ->
+            case Map.lookup declId' specifiedNames of
+              Just hsName -> ((declId, hsName), [])
+              Nothing ->
+                fromDeclId fc ns declId & \(hsName, msgs) -> (
+                    (declId, hsName)
+                  , msgs
+                  )
   where
-    C.Decl{
-        declInfo = C.DeclInfo{declId}
-      , declKind
-      , declAnn
-      } = decl
+    declId :: C.DeclId
+    declId = decl.declInfo.declId
 
-    choose :: Hs.Identifier -> (C.DeclName, Hs.Identifier)
-    choose hsName = (C.declName decl, hsName)
+{-------------------------------------------------------------------------------
+  Internal: working with 'FixCandidate'
+-------------------------------------------------------------------------------}
 
-fromCName :: forall ns.
+fixCandidate :: forall ns.
      Hs.SingNamespace ns
   => FixCandidate Maybe
   -> Proxy ns
   -> Text
-  -> (Hs.Identifier, Maybe (Msg MangleNames))
-fromCName fc _ cName =
-    case mFixed of
-      Just hsName -> (Hs.Identifier $ Hs.getName hsName, Nothing)
-      Nothing -> (Hs.Identifier "", Just $ MangleNamesCouldNotMangle cName)
-  where
-    mFixed :: Maybe (Hs.Name ns)
-    mFixed = FixCandidate.fixCandidate fc cName
+  -> (Hs.Identifier, [MangleNamesMsg])
+fixCandidate fc _ cName =
+    case FixCandidate.fixCandidate fc cName :: Maybe (Hs.ExportedName ns) of
+      Just hsName -> (Hs.Identifier hsName.text, [])
+      Nothing -> (Hs.Identifier "", [MangleNamesCouldNotMangle cName])
+
+fromDeclId :: forall ns.
+     Hs.SingNamespace ns
+  => FixCandidate Maybe
+  -> Proxy ns
+  -> C.DeclId
+  -> (Hs.Identifier, [MangleNamesMsg])
+fromDeclId fc ns declId = fixCandidate fc ns declId.name.text
 
 {-------------------------------------------------------------------------------
   Internal: monad for pass 2, applying the namemap
@@ -111,93 +196,120 @@ newtype M a = WrapM {
       Functor
     , Applicative
     , Monad
-    , MonadState [MangleNamesMsg]
-    , MonadReader Env
     )
 
 data Env = Env{
-      envNameMap      :: NameMap
-    , envFixCandidate :: FixCandidate Maybe
+      envTypedefAnalysis :: TypedefAnalysis
+    , envNameMap         :: NameMap
+    , envFixCandidate    :: FixCandidate Maybe
     }
 
-runM :: FixCandidate Maybe -> NameMap -> M a -> (a, [Msg MangleNames])
-runM fc nm = flip runReader env . flip runStateT [] . unwrapM
-  where
-    env :: Env
-    env = Env{
-          envFixCandidate = fc
-        , envNameMap      = nm
-        }
+runM :: Env -> M a -> (a, [Msg MangleNames])
+runM env = second reverse . flip runReader env . flip runStateT [] . unwrapM
+
+checkTypedefAnalysis :: C.DeclId -> M (Maybe TypedefAnalysis.Conclusion)
+checkTypedefAnalysis declId = WrapM $ do
+    td <- asks envTypedefAnalysis
+    return $ Map.lookup declId td.analysis
+
+traceMsg :: MangleNamesMsg -> M ()
+traceMsg msg = WrapM $ modify (msg :)
+
+mangleDeclId :: C.DeclId -> M C.DeclIdPair
+mangleDeclId declId = WrapM $ do
+    nm <- asks envNameMap
+    case Map.lookup declId nm of
+      Just hsName -> return $ C.DeclIdPair declId hsName
+      Nothing     -> panicPure $ "Missing declaration: " <> show declId
+
+-- | Apply Haskell naming rules
+mkIdentifier :: Hs.SingNamespace ns => Proxy ns -> Text -> M Hs.Identifier
+mkIdentifier ns candidate = do
+    fc <- WrapM $ asks envFixCandidate
+    let (fieldHsName, mError) = fixCandidate fc ns candidate
+    forM_ mError traceMsg
+    return fieldHsName
+
+-- | Search the 'NameMap', when we don't know the name kind
+searchNameMap :: Text -> M (Maybe Hs.Identifier)
+searchNameMap name = WrapM $ do
+     nm <- asks envNameMap
+     return $ Foldable.asum [
+         Map.lookup (C.DeclId{name = C.DeclName name kind, isAnon = False}) nm
+       | kind <- [minBound .. maxBound]
+       ]
 
 {-------------------------------------------------------------------------------
   Pass 2: apply NameMap
 -------------------------------------------------------------------------------}
 
 class Mangle a where
-  mangle :: a HandleTypedefs -> M (a MangleNames)
+  mangle :: a Select -> M (a MangleNames)
 
-class MangleDecl a where
-  mangleDecl ::
-       C.DeclInfo MangleNames
-    -> a HandleTypedefs -> M (a MangleNames)
+class MangleInDecl a where
+  mangleInDecl :: C.DeclInfo MangleNames -> a Select -> M (a MangleNames)
 
-mangleDeclId :: C.DeclId HandleTypedefs -> M (C.DeclId MangleNames)
-mangleDeclId declId = do
-    mHsIdent <- mangleName declId.name.text [declId.name.kind]
-    case mHsIdent of
-      Nothing -> panicPure $ "Missing declaration: " <> show declId
-      Just hs -> return $ declId{C.haskellId = hs}
+mangleDecl :: C.Decl Select -> M (Maybe (C.Decl MangleNames))
+mangleDecl decl = do
+     mConclusion <- checkTypedefAnalysis decl.declInfo.declId
+     case mConclusion of
+       Just TypedefAnalysis.Squash{} -> do
+         traceMsg $ MangleNamesSquashed decl.declInfo
+         return Nothing
+       _otherwise -> do
+         declId'      <- mangleDeclId decl.declInfo.declId
+         declComment' <- traverse mangle decl.declInfo.declComment
 
--- | Mangle C name, using previously constructed name map
---
--- Returns 'Nothing' if no match is found. This should not happen for any
--- declarations we're processing, but can happen for names found in comment
--- references, which could be anything at all.
-mangleName :: Text -> [C.NameKind] -> M (Maybe Hs.Identifier)
-mangleName name kinds = do
-    nm <- asks envNameMap
-    let lookupKind :: C.NameKind -> Maybe Hs.Identifier
-        lookupKind kind = Map.lookup (C.DeclName name kind) nm
-    return $ listToMaybe (mapMaybe lookupKind kinds)
+         let info :: C.DeclInfo MangleNames
+             info = C.DeclInfo{
+                  declId           = declId'
+                , declComment      = declComment'
+                , declLoc          = decl.declInfo.declLoc
+                , declHeaderInfo   = decl.declInfo.declHeaderInfo
+                , declAvailability = decl.declInfo.declAvailability
+                }
+
+             mk :: C.DeclKind MangleNames -> C.Decl MangleNames
+             mk declKind' = C.Decl{
+                   declInfo = info
+                 , declKind = declKind'
+                 , declAnn  = decl.declAnn
+                 }
+
+         Just . mk <$> mangleInDecl info decl.declKind
 
 {-------------------------------------------------------------------------------
   Additional name mangling functionality
 -------------------------------------------------------------------------------}
 
 mangleFieldName :: C.DeclInfo MangleNames -> C.ScopedName -> M C.NamePair
-mangleFieldName info fieldCName = do
-    fc <- asks envFixCandidate
-    let candidate = declId.name.text <> "_" <> fieldCName.text
-    let (fieldHsName, mError) = fromCName fc (Proxy @Hs.NsVar) candidate
-    forM_ mError $ modify . (:)
-    return $ C.NamePair fieldCName fieldHsName
+mangleFieldName info fieldCName =
+    C.NamePair fieldCName <$> mkIdentifier (Proxy @Hs.NsVar) candidate
   where
-    C.DeclInfo{declId} = info
+    candidate :: Text
+    candidate = info.declId.hsName.text <> "_" <> fieldCName.text
 
 -- | Mangle enum constant name
 --
 -- Since these live in the global namespace, we do not prepend the name of
 -- the enclosing enum.
 mangleEnumConstant :: C.DeclInfo MangleNames -> C.ScopedName -> M C.NamePair
-mangleEnumConstant _info cName = do
-    fc <- asks envFixCandidate
-    let (hsName, mError) = fromCName fc (Proxy @Hs.NsConstr) cName.text
-    forM_ mError $ modify . (:)
-    return $ C.NamePair cName hsName
+mangleEnumConstant _info cName =
+    C.NamePair cName <$> mkIdentifier (Proxy @Hs.NsConstr) cName.text
 
 -- | Struct names
 --
 -- Right now we reuse the name of the type also for the constructor.
 mkStructNames :: C.DeclInfo MangleNames -> C.RecordNames
-mkStructNames C.DeclInfo{declId} = C.RecordNames{
-      recordConstr = Hs.unsafeDeclIdHsName declId
+mkStructNames info = C.RecordNames{
+      recordConstr = Hs.unsafeHsIdHsName info.declId.hsName
     }
 
 -- | Generic construction of newtype names, given only the type name
 mkNewtypeNames :: C.DeclInfo MangleNames -> C.NewtypeNames
-mkNewtypeNames C.DeclInfo{declId} = C.NewtypeNames{
-      newtypeConstr = Hs.unsafeDeclIdHsName declId
-    , newtypeField  = Hs.unsafeHsIdHsName $ "un_" <> declId.haskellId
+mkNewtypeNames info = C.NewtypeNames{
+      newtypeConstr = Hs.unsafeHsIdHsName $          info.declId.hsName
+    , newtypeField  = Hs.unsafeHsIdHsName $ "un_" <> info.declId.hsName
     }
 
 -- | Union names
@@ -230,85 +342,36 @@ mkMacroTypeNames = mkNewtypeNames
 -- They are more relevant for documentation purposes so we don't do any
 -- mangling.
 mangleArgumentName :: C.ScopedName -> M C.NamePair
-mangleArgumentName argName = do
-    fc <- asks envFixCandidate
-    let (hsName, mError) = fromCName fc (Proxy @Hs.NsVar) argName.text
-    forM_ mError $ modify . (:)
-    return $ C.NamePair argName hsName
+mangleArgumentName argName =
+    C.NamePair argName <$> mkIdentifier (Proxy @Hs.NsVar) argName.text
 
 {-------------------------------------------------------------------------------
   Instances
 -------------------------------------------------------------------------------}
 
-instance Mangle C.TranslationUnit where
-  mangle C.TranslationUnit{..} = do
-      let mk :: [C.Decl MangleNames] -> C.TranslationUnit MangleNames
-          mk decls = C.TranslationUnit{unitDecls = decls, ..}
-      mk <$> mapM mangle unitDecls
+instance MangleInDecl C.DeclKind where
+  mangleInDecl info = \case
+      C.DeclStruct   x -> C.DeclStruct   <$> mangleInDecl info x
+      C.DeclUnion    x -> C.DeclUnion    <$> mangleInDecl info x
+      C.DeclTypedef  x -> C.DeclTypedef  <$> mangleInDecl info x
+      C.DeclEnum     x -> C.DeclEnum     <$> mangleInDecl info x
+      C.DeclFunction x -> C.DeclFunction <$> mangleInDecl info x
+      C.DeclMacro    x -> C.DeclMacro    <$> mangleInDecl info x
+      C.DeclGlobal   x -> C.DeclGlobal   <$> mangle            x
+      C.DeclOpaque     -> return C.DeclOpaque
 
-instance Mangle C.Decl where
-  mangle decl = do
-      declId'      <- mangleDeclId declId
-      declComment' <- traverse mangle declComment
-
-      let info :: C.DeclInfo MangleNames
-          info = C.DeclInfo{ declId = declId'
-                           , declComment = declComment'
-                           , ..
-                           }
-
-          mk :: C.DeclKind MangleNames -> C.Decl MangleNames
-          mk declKind' = C.Decl{
-                declInfo = info
-              , declKind = declKind'
-              , declAnn  = declAnn
-              }
-
-      mk <$> mangleDecl info declKind
-    where
-      C.Decl{declInfo = C.DeclInfo{..}, declKind, declAnn} = decl
-
-instance MangleDecl C.DeclKind where
-  mangleDecl info (C.DeclStruct struct) =
-      C.DeclStruct <$> mangleDecl info struct
-  mangleDecl info (C.DeclUnion union) =
-      C.DeclUnion <$> mangleDecl info union
-  mangleDecl info (C.DeclTypedef typedef) =
-      C.DeclTypedef <$> mangleDecl info typedef
-  mangleDecl info (C.DeclEnum enum) =
-      C.DeclEnum <$> mangleDecl info enum
-  mangleDecl _ (C.DeclOpaque cNameKind) =
-      return $ C.DeclOpaque cNameKind
-  mangleDecl info (C.DeclFunction fun) =
-      C.DeclFunction <$> mangleDecl info fun
-  mangleDecl info (C.DeclMacro macro) =
-      C.DeclMacro <$> mangleDecl info macro
-  mangleDecl _ (C.DeclGlobal ty) =
-      C.DeclGlobal <$> mangle ty
-
-instance Mangle C.CommentRef where
-  mangle (C.CommentRef c _) = do
-    -- NB: If this fails it means that we tried all possible name kinds and
-    -- still didn't find any result. This might be because of a typo on the
-    -- docs, or a missing reference.
-    C.CommentRef c <$> mangleName c [minBound .. maxBound]
-
-instance Mangle C.Comment where
-  mangle (C.Comment comment) =
-    C.Comment <$> traverse mangle comment
-
-instance MangleDecl C.Struct where
-  mangleDecl info C.Struct{..} = do
+instance MangleInDecl C.Struct where
+  mangleInDecl info C.Struct{..} = do
       let mk :: [C.StructField MangleNames] -> C.Struct MangleNames
           mk structFields' = C.Struct{
                 structFields = structFields'
               , structAnn    = mkStructNames info
               , ..
               }
-      mk <$> mapM (mangleDecl info) structFields
+      mk <$> mapM (mangleInDecl info) structFields
 
-instance MangleDecl C.StructField where
-  mangleDecl info C.StructField{..} = do
+instance MangleInDecl C.StructField where
+  mangleInDecl info C.StructField{..} = do
       let mk ::
                FieldName MangleNames
             -> C.Type MangleNames
@@ -329,18 +392,18 @@ instance MangleDecl C.StructField where
          <*> mangle structFieldType
          <*> traverse mangle (C.fieldComment structFieldInfo)
 
-instance MangleDecl C.Union where
-  mangleDecl info C.Union{..} = do
+instance MangleInDecl C.Union where
+  mangleInDecl info C.Union{..} = do
       let mk :: [C.UnionField MangleNames] -> C.Union MangleNames
           mk unionFields' = C.Union{
                 unionFields = unionFields'
               , unionAnn    = mkUnionNames info
               , ..
               }
-      mk <$> mapM (mangleDecl info) unionFields
+      mk <$> mapM (mangleInDecl info) unionFields
 
-instance MangleDecl C.UnionField where
-  mangleDecl info C.UnionField{..} = do
+instance MangleInDecl C.UnionField where
+  mangleInDecl info C.UnionField{..} = do
       let mk ::
                FieldName MangleNames
             -> C.Type MangleNames
@@ -361,8 +424,8 @@ instance MangleDecl C.UnionField where
          <*> mangle unionFieldType
          <*> traverse mangle (C.fieldComment unionFieldInfo)
 
-instance MangleDecl C.Enum where
-  mangleDecl info C.Enum{..} = do
+instance MangleInDecl C.Enum where
+  mangleInDecl info C.Enum{..} = do
       let mk ::
                C.Type MangleNames
             -> [C.EnumConstant MangleNames]
@@ -374,10 +437,10 @@ instance MangleDecl C.Enum where
               , ..
               }
       mk <$> mangle enumType
-         <*> mapM (mangleDecl info) enumConstants
+         <*> mapM (mangleInDecl info) enumConstants
 
-instance MangleDecl C.EnumConstant where
-  mangleDecl info C.EnumConstant{..} = do
+instance MangleInDecl C.EnumConstant where
+  mangleInDecl info C.EnumConstant{..} = do
       let mk :: C.NamePair
              -> Maybe (C.Comment MangleNames)
              -> C.EnumConstant MangleNames
@@ -393,8 +456,18 @@ instance MangleDecl C.EnumConstant where
       mk <$> mangleEnumConstant info (C.fieldName enumConstantInfo)
          <*> traverse mangle (C.fieldComment enumConstantInfo)
 
-instance MangleDecl C.Typedef where
-  mangleDecl info C.Typedef{..} = do
+instance Mangle C.Comment where
+  mangle (C.Comment comment) = C.Comment <$> traverse mangle comment
+
+instance Mangle C.CommentRef where
+   mangle (C.CommentRef name _) =
+       -- NB: If this fails it means that we tried all possible name kinds and
+       -- still didn't find any result. This might be because of a typo on the
+       -- docs, or a missing reference.
+       C.CommentRef name <$> searchNameMap name
+
+instance MangleInDecl C.Typedef where
+  mangleInDecl info C.Typedef{..} = do
       let mk :: C.Type MangleNames -> C.Typedef MangleNames
           mk typedefType' = C.Typedef{
                 typedefType = typedefType'
@@ -403,8 +476,8 @@ instance MangleDecl C.Typedef where
               }
       mk <$> mangle typedefType
 
-instance MangleDecl C.Function where
-  mangleDecl _info C.Function{..} = do
+instance MangleInDecl C.Function where
+  mangleInDecl _info C.Function{..} = do
       let mk ::
                [(Maybe C.NamePair, C.Type MangleNames)]
             -> C.Type MangleNames
@@ -417,13 +490,13 @@ instance MangleDecl C.Function where
       mk <$> mapM (bimapM (traverse mangleArgumentName) mangle) functionArgs
          <*> mangle functionRes
 
-instance MangleDecl C.CheckedMacro where
-  mangleDecl info = \case
-      C.MacroType typ  -> C.MacroType <$> mangleDecl info typ
+instance MangleInDecl C.CheckedMacro where
+  mangleInDecl info = \case
+      C.MacroType typ  -> C.MacroType <$> mangleInDecl info typ
       C.MacroExpr expr -> return $ C.MacroExpr expr
 
-instance MangleDecl C.CheckedMacroType where
-  mangleDecl info C.CheckedMacroType{..} = do
+instance MangleInDecl C.CheckedMacroType where
+  mangleInDecl info C.CheckedMacroType{..} = do
     let mk :: C.Type MangleNames -> C.CheckedMacroType MangleNames
         mk macroType' = C.CheckedMacroType{
                macroType    = macroType'
@@ -459,7 +532,7 @@ instance Mangle C.Type where
 -------------------------------------------------------------------------------}
 
 withDeclNamespace ::
-     C.DeclKind HandleTypedefs
+     C.DeclKind Select
   -> (forall ns. Hs.SingNamespace ns => Proxy ns -> r)
   -> r
 withDeclNamespace kind k =

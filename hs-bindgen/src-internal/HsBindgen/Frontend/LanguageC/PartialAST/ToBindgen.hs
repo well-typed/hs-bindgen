@@ -11,30 +11,30 @@ module HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen (
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Declarations
 -------------------------------------------------------------------------------}
 
-fromDecl :: PartialDecl p -> FromLanC p (Maybe CName, Type p)
+fromDecl :: PartialDecl -> FromLanC (Maybe CName, Type HandleMacros)
 fromDecl PartialDecl{partialName, partialType} = do
     typ <- fromKnownType <$> fromPartialType partialType
     return (partialName, typ)
 
-fromNamedDecl :: PartialDecl p -> FromLanC p (CName, Type p)
+fromNamedDecl :: PartialDecl -> FromLanC (CName, Type HandleMacros)
 fromNamedDecl PartialDecl{partialName, partialType} = do
     name <- partialFromJust partialName
     typ  <- fromKnownType <$> fromPartialType partialType
     return (name, typ)
 
 fromFunDecl ::
-     ValidPass p
-  => PartialDecl p
-  -> FromLanC p (
+     PartialDecl
+  -> FromLanC (
          CName
-       , ( [(Maybe CName, Type p)]
-         , Type p
+       , ( [(Maybe CName, Type HandleMacros)]
+         , Type HandleMacros
          )
        )
 fromFunDecl PartialDecl{partialName, partialType} = do
@@ -46,22 +46,21 @@ fromFunDecl PartialDecl{partialName, partialType} = do
   Types
 -------------------------------------------------------------------------------}
 
-fromPartialType :: PartialType p -> FromLanC p (KnownType p)
+fromPartialType :: PartialType -> FromLanC KnownType
 fromPartialType = \case
      PartialUnknown{} -> unexpected "incomplete type"
      PartialKnown typ -> return typ
 
-fromKnownType :: KnownType p -> Type p
+fromKnownType :: KnownType -> Type HandleMacros
 fromKnownType = \case
     KnownType   typ        -> typ
     TopLevelFun params res -> TypeFun (map snd params) res
 
 fromTopLevelFun ::
-     ValidPass p
-  => KnownType p
-  -> FromLanC p (
-         [(Maybe CName, Type p)]
-       , Type p
+     KnownType
+  -> FromLanC (
+         [(Maybe CName, Type HandleMacros)]
+       , Type HandleMacros
        )
 fromTopLevelFun = \case
     TopLevelFun params res -> return (params, res)
@@ -71,6 +70,6 @@ fromTopLevelFun = \case
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
-partialFromJust :: HasCallStack => Maybe a -> FromLanC p a
+partialFromJust :: HasCallStack => Maybe a -> FromLanC a
 partialFromJust Nothing  = unexpected "Nothing"
 partialFromJust (Just x) = return x

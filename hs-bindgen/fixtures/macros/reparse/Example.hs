@@ -52,7 +52,7 @@ newtype A = A
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType, Data.Primitive.Types.Prim, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-{-| __C declaration:__ @some_struct@
+{-| __C declaration:__ @struct some_struct@
 
     __defined at:__ @macros\/reparse.h:7:8@
 
@@ -108,7 +108,7 @@ instance Data.Primitive.Types.Prim Some_struct where
             case struct2 of
               Some_struct -> s3
 
-{-| __C declaration:__ @some_union@
+{-| __C declaration:__ @union some_union@
 
     __defined at:__ @macros\/reparse.h:8:7@
 
@@ -122,7 +122,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance F.St
 
 deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance Data.Primitive.Types.Prim Some_union
 
-{-| __C declaration:__ @some_enum@
+{-| __C declaration:__ @enum some_enum@
 
     __defined at:__ @macros\/reparse.h:9:6@
 
@@ -378,6 +378,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Typedef3 "un_Typedef3" where
 
 {-| Auxiliary type used by 'Funptr_typedef1'
 
+__C declaration:__ @funptr_typedef1@
+
 __defined at:__ @macros\/reparse.h:132:16@
 
 __exported by:__ @macros\/reparse.h@
@@ -444,6 +446,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef1 "un_Funptr_typede
   offset# = \_ -> \_ -> 0
 
 {-| Auxiliary type used by 'Funptr_typedef2'
+
+__C declaration:__ @funptr_typedef2@
 
 __defined at:__ @macros\/reparse.h:133:16@
 
@@ -512,6 +516,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef2 "un_Funptr_typede
 
 {-| Auxiliary type used by 'Funptr_typedef3'
 
+__C declaration:__ @funptr_typedef3@
+
 __defined at:__ @macros\/reparse.h:134:16@
 
 __exported by:__ @macros\/reparse.h@
@@ -579,6 +585,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef3 "un_Funptr_typede
 
 {-| Auxiliary type used by 'Funptr_typedef4'
 
+__C declaration:__ @funptr_typedef4@
+
 __defined at:__ @macros\/reparse.h:135:16@
 
 __exported by:__ @macros\/reparse.h@
@@ -645,6 +653,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef4 "un_Funptr_typede
   offset# = \_ -> \_ -> 0
 
 {-| Auxiliary type used by 'Funptr_typedef5'
+
+__C declaration:__ @funptr_typedef5@
 
 __defined at:__ @macros\/reparse.h:136:16@
 
@@ -737,7 +747,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Comments2 "un_Comments2" where
 
 {-| Struct fields
 
-__C declaration:__ @example_struct@
+__C declaration:__ @struct example_struct@
 
 __defined at:__ @macros\/reparse.h:151:8@
 
@@ -1007,7 +1017,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef7 "un_Const_typedef7
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @example_struct_with_const@
+{-| __C declaration:__ @struct example_struct_with_const@
 
     __defined at:__ @macros\/reparse.h:228:8@
 
@@ -1196,6 +1206,8 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct_with_
 
 {-| Auxiliary type used by 'Const_funptr1'
 
+__C declaration:__ @const_funptr1@
+
 __defined at:__ @macros\/reparse.h:238:27@
 
 __exported by:__ @macros\/reparse.h@
@@ -1262,6 +1274,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr1 "un_Const_funptr1" 
   offset# = \_ -> \_ -> 0
 
 {-| Auxiliary type used by 'Const_funptr2'
+
+__C declaration:__ @const_funptr2@
 
 __defined at:__ @macros\/reparse.h:239:27@
 
@@ -1330,6 +1344,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr2 "un_Const_funptr2" 
 
 {-| Auxiliary type used by 'Const_funptr3'
 
+__C declaration:__ @const_funptr3@
+
 __defined at:__ @macros\/reparse.h:240:27@
 
 __exported by:__ @macros\/reparse.h@
@@ -1396,6 +1412,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr3 "un_Const_funptr3" 
   offset# = \_ -> \_ -> 0
 
 {-| Auxiliary type used by 'Const_funptr4'
+
+__C declaration:__ @const_funptr4@
 
 __defined at:__ @macros\/reparse.h:241:27@
 
@@ -1464,6 +1482,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr4 "un_Const_funptr4" 
 
 {-| Auxiliary type used by 'Const_funptr5'
 
+__C declaration:__ @const_funptr5@
+
 __defined at:__ @macros\/reparse.h:242:27@
 
 __exported by:__ @macros\/reparse.h@
@@ -1531,6 +1551,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr5 "un_Const_funptr5" 
 
 {-| Auxiliary type used by 'Const_funptr6'
 
+__C declaration:__ @const_funptr6@
+
 __defined at:__ @macros\/reparse.h:243:27@
 
 __exported by:__ @macros\/reparse.h@
@@ -1597,6 +1619,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr6 "un_Const_funptr6" 
   offset# = \_ -> \_ -> 0
 
 {-| Auxiliary type used by 'Const_funptr7'
+
+__C declaration:__ @const_funptr7@
 
 __defined at:__ @macros\/reparse.h:244:27@
 

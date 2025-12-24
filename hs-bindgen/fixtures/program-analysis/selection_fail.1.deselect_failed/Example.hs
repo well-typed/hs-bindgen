@@ -22,7 +22,7 @@ import qualified HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @OkBefore@
+{-| __C declaration:__ @struct OkBefore@
 
     __defined at:__ @program-analysis\/selection_fail.h:1:8@
 
@@ -117,7 +117,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType OkBefore) "okBefore_
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"okBefore_x")
 
-{-| __C declaration:__ @OkAfter@
+{-| __C declaration:__ @struct OkAfter@
 
     __defined at:__ @program-analysis\/selection_fail.h:26:8@
 

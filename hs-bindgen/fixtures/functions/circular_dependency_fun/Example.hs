@@ -25,6 +25,8 @@ import Prelude ((<*>), Eq, IO, Int, Ord, Show, pure)
 
 {-| Auxiliary type used by 'Fun_ptr'
 
+__C declaration:__ @fun_ptr@
+
 __defined at:__ @functions\/circular_dependency_fun.h:3:16@
 
 __exported by:__ @functions\/circular_dependency_fun.h@
@@ -90,7 +92,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr "un_Fun_ptr" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @forward_declaration@
+{-| __C declaration:__ @struct forward_declaration@
 
     __defined at:__ @functions\/circular_dependency_fun.h:5:8@
 

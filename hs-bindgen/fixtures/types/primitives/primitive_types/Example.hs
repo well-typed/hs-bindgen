@@ -23,7 +23,7 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @primitive@
+{-| __C declaration:__ @struct primitive@
 
     __defined at:__ @types\/primitives\/primitive_types.h:1:8@
 

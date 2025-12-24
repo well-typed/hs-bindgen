@@ -121,7 +121,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Tripletlist "un_Tripletlist" wher
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @Example@
+{-| __C declaration:__ @struct Example@
 
     __defined at:__ @arrays\/array.h:49:8@
 

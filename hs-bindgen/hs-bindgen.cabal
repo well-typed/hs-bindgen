@@ -129,6 +129,7 @@ library internal
     HsBindgen.Eff
     HsBindgen.Errors
     HsBindgen.Frontend
+    HsBindgen.Frontend.Analysis.AnonUsage
     HsBindgen.Frontend.Analysis.DeclIndex
     HsBindgen.Frontend.Analysis.DeclUseGraph
     HsBindgen.Frontend.Analysis.IncludeGraph
@@ -141,28 +142,30 @@ library internal
     HsBindgen.Frontend.AST.Internal
     HsBindgen.Frontend.AST.PrettyPrinter
     HsBindgen.Frontend.LanguageC
+    HsBindgen.Frontend.LanguageC.Error
     HsBindgen.Frontend.LanguageC.Monad
     HsBindgen.Frontend.LanguageC.PartialAST
     HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
     HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
     HsBindgen.Frontend.Naming
     HsBindgen.Frontend.Pass
+    HsBindgen.Frontend.Pass.AssignAnonIds
+    HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames
+    HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
     HsBindgen.Frontend.Pass.ConstructTranslationUnit
     HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
     HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
     HsBindgen.Frontend.Pass.HandleMacros
     HsBindgen.Frontend.Pass.HandleMacros.Error
     HsBindgen.Frontend.Pass.HandleMacros.IsPass
-    HsBindgen.Frontend.Pass.HandleTypedefs
-    HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
     HsBindgen.Frontend.Pass.MangleNames
     HsBindgen.Frontend.Pass.MangleNames.IsPass
-    HsBindgen.Frontend.Pass.NameAnon
-    HsBindgen.Frontend.Pass.NameAnon.IsPass
     HsBindgen.Frontend.Pass.Parse
     HsBindgen.Frontend.Pass.Parse.Decl
     HsBindgen.Frontend.Pass.Parse.Decl.Monad
     HsBindgen.Frontend.Pass.Parse.IsPass
+    HsBindgen.Frontend.Pass.Parse.Msg
+    HsBindgen.Frontend.Pass.Parse.Result
     HsBindgen.Frontend.Pass.Parse.Type
     HsBindgen.Frontend.Pass.Parse.Type.Monad
     HsBindgen.Frontend.Pass.ResolveBindingSpecs
@@ -217,6 +220,7 @@ library internal
     , data-default        >=0.7        && <0.9
     , debruijn            ^>=0.3.1
     , directory           >=1.3.6.2    && <1.4
+    , exceptions          >=0.10       && <0.11
     , filepath            >=1.4        && <1.6
     , fin                 >=0.3.2      && <0.4
     , language-c          >=0.10       && <0.11

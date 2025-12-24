@@ -81,11 +81,21 @@ ctypes:
 - headers: vector.h
   cname: vector
   hsname: Vector
+- headers: vector.h
+  cname: struct vector
+  hsname: Vector
+hstypes:
+- hsname: Vector
+  instances:
+  - Eq
+  - Show
+  - Storable
 ```
 
-This says that the C type called `vector`, defined in `vector.h`, should be
-mapped to the type called `Vector` defined in module `Vector` (rather than
-_generating_ a definition for it).
+When used as an external binding specification, this says that the C types
+called `vector` and `struct vector`, defined in `vector.h`, should both be
+mapped to the type called `Vector` defined in module `Vector`
+(rather than _generating_ one or more Haskell types).
 
 We can then use these external bindings when processing `vector_rotate.h`
 (command line flag `--external-binding-spec`). This will result in something

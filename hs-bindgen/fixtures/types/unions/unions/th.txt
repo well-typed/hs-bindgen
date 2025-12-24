@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/types/unions/unions.h
-{-| __C declaration:__ @Dim2@
+{-| __C declaration:__ @struct Dim2@
 
     __defined at:__ @types\/unions\/unions.h:1:8@
 
@@ -20,7 +20,7 @@ data Dim2
 
                  __exported by:__ @types\/unions\/unions.h@
             -}}
-      {- ^ __C declaration:__ @Dim2@
+      {- ^ __C declaration:__ @struct Dim2@
 
            __defined at:__ @types\/unions\/unions.h:1:8@
 
@@ -69,7 +69,7 @@ instance HasCField Dim2 "dim2_y"
 instance TyEq ty (CFieldType Dim2 "dim2_y") =>
          HasField "dim2_y" (Ptr Dim2) (Ptr ty)
     where getField = ptrToCField (Proxy @"dim2_y")
-{-| __C declaration:__ @Dim3@
+{-| __C declaration:__ @struct Dim3@
 
     __defined at:__ @types\/unions\/unions.h:6:8@
 
@@ -97,7 +97,7 @@ data Dim3
 
                  __exported by:__ @types\/unions\/unions.h@
             -}}
-      {- ^ __C declaration:__ @Dim3@
+      {- ^ __C declaration:__ @struct Dim3@
 
            __defined at:__ @types\/unions\/unions.h:6:8@
 
@@ -163,7 +163,7 @@ instance HasCField Dim3 "dim3_z"
 instance TyEq ty (CFieldType Dim3 "dim3_z") =>
          HasField "dim3_z" (Ptr Dim3) (Ptr ty)
     where getField = ptrToCField (Proxy @"dim3_z")
-{-| __C declaration:__ @DimPayload@
+{-| __C declaration:__ @union DimPayload@
 
     __defined at:__ @types\/unions\/unions.h:12:7@
 
@@ -171,7 +171,7 @@ instance TyEq ty (CFieldType Dim3 "dim3_z") =>
 -}
 newtype DimPayload
     = DimPayload {un_DimPayload :: ByteArray}
-      {- ^ __C declaration:__ @DimPayload@
+      {- ^ __C declaration:__ @union DimPayload@
 
            __defined at:__ @types\/unions\/unions.h:12:7@
 
@@ -259,7 +259,7 @@ instance HasCField DimPayload "dimPayload_dim3"
 instance TyEq ty (CFieldType DimPayload "dimPayload_dim3") =>
          HasField "dimPayload_dim3" (Ptr DimPayload) (Ptr ty)
     where getField = ptrToCField (Proxy @"dimPayload_dim3")
-{-| __C declaration:__ @Dim@
+{-| __C declaration:__ @struct Dim@
 
     __defined at:__ @types\/unions\/unions.h:17:8@
 
@@ -280,7 +280,7 @@ data Dim
 
                 __exported by:__ @types\/unions\/unions.h@
            -}}
-      {- ^ __C declaration:__ @Dim@
+      {- ^ __C declaration:__ @struct Dim@
 
            __defined at:__ @types\/unions\/unions.h:17:8@
 
@@ -305,7 +305,7 @@ instance HasCField Dim "dim_payload"
 instance TyEq ty (CFieldType Dim "dim_payload") =>
          HasField "dim_payload" (Ptr Dim) (Ptr ty)
     where getField = ptrToCField (Proxy @"dim_payload")
-{-| __C declaration:__ @DimPayloadB@
+{-| __C declaration:__ @union DimPayloadB@
 
     __defined at:__ @types\/unions\/unions.h:23:15@
 
@@ -313,7 +313,7 @@ instance TyEq ty (CFieldType Dim "dim_payload") =>
 -}
 newtype DimPayloadB
     = DimPayloadB {un_DimPayloadB :: ByteArray}
-      {- ^ __C declaration:__ @DimPayloadB@
+      {- ^ __C declaration:__ @union DimPayloadB@
 
            __defined at:__ @types\/unions\/unions.h:23:15@
 
@@ -401,7 +401,7 @@ instance HasCField DimPayloadB "dimPayloadB_dim3"
 instance TyEq ty (CFieldType DimPayloadB "dimPayloadB_dim3") =>
          HasField "dimPayloadB_dim3" (Ptr DimPayloadB) (Ptr ty)
     where getField = ptrToCField (Proxy @"dimPayloadB_dim3")
-{-| __C declaration:__ @DimB@
+{-| __C declaration:__ @struct DimB@
 
     __defined at:__ @types\/unions\/unions.h:28:8@
 
@@ -422,7 +422,7 @@ data DimB
 
                  __exported by:__ @types\/unions\/unions.h@
             -}}
-      {- ^ __C declaration:__ @DimB@
+      {- ^ __C declaration:__ @struct DimB@
 
            __defined at:__ @types\/unions\/unions.h:28:8@
 
@@ -447,7 +447,9 @@ instance HasCField DimB "dimB_payload"
 instance TyEq ty (CFieldType DimB "dimB_payload") =>
          HasField "dimB_payload" (Ptr DimB) (Ptr ty)
     where getField = ptrToCField (Proxy @"dimB_payload")
-{-| __defined at:__ @types\/unions\/unions.h:35:5@
+{-| __C declaration:__ @struct \@AnonA_xy@
+
+    __defined at:__ @types\/unions\/unions.h:35:5@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
@@ -466,7 +468,9 @@ data AnonA_xy
 
                      __exported by:__ @types\/unions\/unions.h@
                 -}}
-      {- ^ __defined at:__ @types\/unions\/unions.h:35:5@
+      {- ^ __C declaration:__ @struct \@AnonA_xy@
+
+           __defined at:__ @types\/unions\/unions.h:35:5@
 
            __exported by:__ @types\/unions\/unions.h@
       -}
@@ -513,7 +517,9 @@ instance HasCField AnonA_xy "anonA_xy_y"
 instance TyEq ty (CFieldType AnonA_xy "anonA_xy_y") =>
          HasField "anonA_xy_y" (Ptr AnonA_xy) (Ptr ty)
     where getField = ptrToCField (Proxy @"anonA_xy_y")
-{-| __defined at:__ @types\/unions\/unions.h:36:5@
+{-| __C declaration:__ @struct \@AnonA_polar@
+
+    __defined at:__ @types\/unions\/unions.h:36:5@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
@@ -532,7 +538,9 @@ data AnonA_polar
 
                         __exported by:__ @types\/unions\/unions.h@
                    -}}
-      {- ^ __defined at:__ @types\/unions\/unions.h:36:5@
+      {- ^ __C declaration:__ @struct \@AnonA_polar@
+
+           __defined at:__ @types\/unions\/unions.h:36:5@
 
            __exported by:__ @types\/unions\/unions.h@
       -}
@@ -579,7 +587,7 @@ instance HasCField AnonA_polar "anonA_polar_p"
 instance TyEq ty (CFieldType AnonA_polar "anonA_polar_p") =>
          HasField "anonA_polar_p" (Ptr AnonA_polar) (Ptr ty)
     where getField = ptrToCField (Proxy @"anonA_polar_p")
-{-| __C declaration:__ @AnonA@
+{-| __C declaration:__ @union AnonA@
 
     __defined at:__ @types\/unions\/unions.h:34:7@
 
@@ -587,7 +595,7 @@ instance TyEq ty (CFieldType AnonA_polar "anonA_polar_p") =>
 -}
 newtype AnonA
     = AnonA {un_AnonA :: ByteArray}
-      {- ^ __C declaration:__ @AnonA@
+      {- ^ __C declaration:__ @union AnonA@
 
            __defined at:__ @types\/unions\/unions.h:34:7@
 

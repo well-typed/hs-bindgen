@@ -30,7 +30,7 @@ import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -48,7 +48,8 @@ data Artefact (a :: Star) where
   DeclIndex           :: Artefact DeclIndex.DeclIndex
   UseDeclGraph        :: Artefact UseDeclGraph.UseDeclGraph
   DeclUseGraph        :: Artefact DeclUseGraph.DeclUseGraph
-  OmitTypes           :: Artefact [(C.DeclName, SourcePath)]
+  OmitTypes           :: Artefact [(C.DeclId, SourcePath)]
+  SquashedTypes       :: Artefact [(C.DeclId, (SourcePath, Hs.Identifier))]
   ReifiedC            :: Artefact [C.Decl]
   Dependencies        :: Artefact [SourcePath]
   -- * Backend
@@ -109,6 +110,7 @@ runArtefacts
         UseDeclGraph        -> runCached frontendUseDeclGraph
         DeclUseGraph        -> runCached frontendDeclUseGraph
         OmitTypes           -> runCached frontendOmitTypes
+        SquashedTypes       -> runCached frontendSquashedTypes
         ReifiedC            -> runCached frontendCDecls
         Dependencies        -> runCached frontendDependencies
         -- Backend.

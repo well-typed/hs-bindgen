@@ -132,7 +132,7 @@ instance TyEq ty (CFieldType Int64_T "un_Int64_T") =>
 instance HasCField Int64_T "un_Int64_T"
     where type CFieldType Int64_T "un_Int64_T" = CLLong
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @cint16_T@
+{-| __C declaration:__ @struct cint16_T@
 
     __defined at:__ @edge-cases\/spec_examples.h:14:9@
 
@@ -153,7 +153,7 @@ data Cint16_T
 
                      __exported by:__ @edge-cases\/spec_examples.h@
                 -}}
-      {- ^ __C declaration:__ @cint16_T@
+      {- ^ __C declaration:__ @struct cint16_T@
 
            __defined at:__ @edge-cases\/spec_examples.h:14:9@
 
@@ -202,7 +202,7 @@ instance HasCField Cint16_T "cint16_T_im"
 instance TyEq ty (CFieldType Cint16_T "cint16_T_im") =>
          HasField "cint16_T_im" (Ptr Cint16_T) (Ptr ty)
     where getField = ptrToCField (Proxy @"cint16_T_im")
-{-| __C declaration:__ @B@
+{-| __C declaration:__ @struct B@
 
     __defined at:__ @edge-cases\/spec_examples.h:19:8@
 
@@ -210,7 +210,7 @@ instance TyEq ty (CFieldType Cint16_T "cint16_T_im") =>
 -}
 data B
     = B {}
-      {- ^ __C declaration:__ @B@
+      {- ^ __C declaration:__ @struct B@
 
            __defined at:__ @edge-cases\/spec_examples.h:19:8@
 
@@ -234,7 +234,7 @@ instance Prim B
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, B #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
                                                                       B -> s_17
-{-| __C declaration:__ @A@
+{-| __C declaration:__ @struct A@
 
     __defined at:__ @edge-cases\/spec_examples.h:23:8@
 
@@ -276,7 +276,7 @@ data A
 
               __exported by:__ @edge-cases\/spec_examples.h@
          -}}
-      {- ^ __C declaration:__ @A@
+      {- ^ __C declaration:__ @struct A@
 
            __defined at:__ @edge-cases\/spec_examples.h:23:8@
 
@@ -323,7 +323,7 @@ instance HasCField A "a_c"
 instance TyEq ty (CFieldType A "a_c") =>
          HasField "a_c" (Ptr A) (Ptr ty)
     where getField = ptrToCField (Proxy @"a_c")
-{-| __C declaration:__ @C@
+{-| __C declaration:__ @struct C@
 
     __defined at:__ @edge-cases\/spec_examples.h:28:10@
 

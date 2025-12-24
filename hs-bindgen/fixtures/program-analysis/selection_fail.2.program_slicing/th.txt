@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/program-analysis/selection_fail.h
-{-| __C declaration:__ @OkBefore@
+{-| __C declaration:__ @struct OkBefore@
 
     __defined at:__ @program-analysis\/selection_fail.h:1:8@
 
@@ -13,7 +13,7 @@ data OkBefore
 
                      __exported by:__ @program-analysis\/selection_fail.h@
                 -}}
-      {- ^ __C declaration:__ @OkBefore@
+      {- ^ __C declaration:__ @struct OkBefore@
 
            __defined at:__ @program-analysis\/selection_fail.h:1:8@
 
@@ -45,7 +45,7 @@ instance HasCField OkBefore "okBefore_x"
 instance TyEq ty (CFieldType OkBefore "okBefore_x") =>
          HasField "okBefore_x" (Ptr OkBefore) (Ptr ty)
     where getField = ptrToCField (Proxy @"okBefore_x")
-{-| __C declaration:__ @OkAfter@
+{-| __C declaration:__ @struct OkAfter@
 
     __defined at:__ @program-analysis\/selection_fail.h:26:8@
 
@@ -59,7 +59,7 @@ data OkAfter
 
                     __exported by:__ @program-analysis\/selection_fail.h@
                -}}
-      {- ^ __C declaration:__ @OkAfter@
+      {- ^ __C declaration:__ @struct OkAfter@
 
            __defined at:__ @program-analysis\/selection_fail.h:26:8@
 

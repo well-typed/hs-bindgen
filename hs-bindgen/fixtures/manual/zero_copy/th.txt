@@ -49,7 +49,7 @@
 -- {
 --   return &transpose;
 -- }
-{-| __C declaration:__ @point@
+{-| __C declaration:__ @struct point@
 
     __defined at:__ @manual\/zero_copy.h:12:8@
 
@@ -70,7 +70,7 @@ data Point
 
                   __exported by:__ @manual\/zero_copy.h@
              -}}
-      {- ^ __C declaration:__ @point@
+      {- ^ __C declaration:__ @struct point@
 
            __defined at:__ @manual\/zero_copy.h:12:8@
 
@@ -119,7 +119,7 @@ instance HasCField Point "point_y"
 instance TyEq ty (CFieldType Point "point_y") =>
          HasField "point_y" (Ptr Point) (Ptr ty)
     where getField = ptrToCField (Proxy @"point_y")
-{-| __C declaration:__ @rectangle@
+{-| __C declaration:__ @struct rectangle@
 
     __defined at:__ @manual\/zero_copy.h:17:8@
 
@@ -140,7 +140,7 @@ data Rectangle
 
                       __exported by:__ @manual\/zero_copy.h@
                  -}}
-      {- ^ __C declaration:__ @rectangle@
+      {- ^ __C declaration:__ @struct rectangle@
 
            __defined at:__ @manual\/zero_copy.h:17:8@
 
@@ -189,7 +189,7 @@ instance HasCField Rectangle "rectangle_bottomright"
 instance TyEq ty (CFieldType Rectangle "rectangle_bottomright") =>
          HasField "rectangle_bottomright" (Ptr Rectangle) (Ptr ty)
     where getField = ptrToCField (Proxy @"rectangle_bottomright")
-{-| __C declaration:__ @circle@
+{-| __C declaration:__ @struct circle@
 
     __defined at:__ @manual\/zero_copy.h:22:8@
 
@@ -210,7 +210,7 @@ data Circle
 
                    __exported by:__ @manual\/zero_copy.h@
               -}}
-      {- ^ __C declaration:__ @circle@
+      {- ^ __C declaration:__ @struct circle@
 
            __defined at:__ @manual\/zero_copy.h:22:8@
 
@@ -259,7 +259,7 @@ instance HasCField Circle "circle_radius"
 instance TyEq ty (CFieldType Circle "circle_radius") =>
          HasField "circle_radius" (Ptr Circle) (Ptr ty)
     where getField = ptrToCField (Proxy @"circle_radius")
-{-| __C declaration:__ @shape@
+{-| __C declaration:__ @union shape@
 
     __defined at:__ @manual\/zero_copy.h:30:7@
 
@@ -267,7 +267,7 @@ instance TyEq ty (CFieldType Circle "circle_radius") =>
 -}
 newtype Shape
     = Shape {un_Shape :: ByteArray}
-      {- ^ __C declaration:__ @shape@
+      {- ^ __C declaration:__ @union shape@
 
            __defined at:__ @manual\/zero_copy.h:30:7@
 
@@ -355,7 +355,7 @@ instance HasCField Shape "shape_circle"
 instance TyEq ty (CFieldType Shape "shape_circle") =>
          HasField "shape_circle" (Ptr Shape) (Ptr ty)
     where getField = ptrToCField (Proxy @"shape_circle")
-{-| __C declaration:__ @colour@
+{-| __C declaration:__ @struct colour@
 
     __defined at:__ @manual\/zero_copy.h:39:8@
 
@@ -397,7 +397,7 @@ data Colour
 
                    __exported by:__ @manual\/zero_copy.h@
               -}}
-      {- ^ __C declaration:__ @colour@
+      {- ^ __C declaration:__ @struct colour@
 
            __defined at:__ @manual\/zero_copy.h:39:8@
 
@@ -540,7 +540,7 @@ instance TyEq ty (CFieldType MyInt "un_MyInt") =>
 instance HasCField MyInt "un_MyInt"
     where type CFieldType MyInt "un_MyInt" = CInt
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @drawing@
+{-| __C declaration:__ @struct drawing@
 
     __defined at:__ @manual\/zero_copy.h:55:16@
 
@@ -561,7 +561,7 @@ data Drawing
 
                     __exported by:__ @manual\/zero_copy.h@
                -}}
-      {- ^ __C declaration:__ @drawing@
+      {- ^ __C declaration:__ @struct drawing@
 
            __defined at:__ @manual\/zero_copy.h:55:16@
 
@@ -587,7 +587,7 @@ instance HasCField Drawing "drawing_colour"
 instance TyEq ty (CFieldType Drawing "drawing_colour") =>
          HasField "drawing_colour" (Ptr Drawing) (Ptr ty)
     where getField = ptrToCField (Proxy @"drawing_colour")
-{-| __C declaration:__ @tic_tac_toe@
+{-| __C declaration:__ @struct tic_tac_toe@
 
     __defined at:__ @manual\/zero_copy.h:63:16@
 
@@ -615,7 +615,7 @@ data Tic_tac_toe
 
                         __exported by:__ @manual\/zero_copy.h@
                    -}}
-      {- ^ __C declaration:__ @tic_tac_toe@
+      {- ^ __C declaration:__ @struct tic_tac_toe@
 
            __defined at:__ @manual\/zero_copy.h:63:16@
 
@@ -651,7 +651,7 @@ instance HasCField Tic_tac_toe "tic_tac_toe_row3"
 instance TyEq ty (CFieldType Tic_tac_toe "tic_tac_toe_row3") =>
          HasField "tic_tac_toe_row3" (Ptr Tic_tac_toe) (Ptr ty)
     where getField = ptrToCField (Proxy @"tic_tac_toe_row3")
-{-| __C declaration:__ @vector@
+{-| __C declaration:__ @struct vector@
 
     __defined at:__ @manual\/zero_copy.h:72:8@
 
@@ -665,7 +665,7 @@ data Vector
 
                    __exported by:__ @manual\/zero_copy.h@
               -}}
-      {- ^ __C declaration:__ @vector@
+      {- ^ __C declaration:__ @struct vector@
 
            __defined at:__ @manual\/zero_copy.h:72:8@
 

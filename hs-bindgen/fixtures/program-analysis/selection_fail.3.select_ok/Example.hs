@@ -22,7 +22,7 @@ import qualified HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @OkBefore@
+{-| __C declaration:__ @struct OkBefore@
 
     __defined at:__ @program-analysis\/selection_fail.h:1:8@
 

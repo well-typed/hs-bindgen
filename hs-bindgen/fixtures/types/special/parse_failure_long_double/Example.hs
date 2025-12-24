@@ -22,7 +22,7 @@ import qualified HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @struct2@
+{-| __C declaration:__ @struct struct2@
 
     __defined at:__ @types\/special\/parse_failure_long_double.h:13:8@
 

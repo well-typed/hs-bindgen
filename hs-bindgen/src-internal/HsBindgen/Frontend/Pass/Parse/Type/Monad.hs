@@ -1,4 +1,5 @@
 -- | Monad for parsing types
+--
 -- Intended for unqualified import (unless context is unambiguous).
 --
 -- > import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseType)
@@ -11,14 +12,13 @@ module HsBindgen.Frontend.Pass.Parse.Type.Monad (
   , insertCache
     -- * Errors
   , ParseTypeExceptionInContext(..)
-  , ParseTypeException(..)
     -- * Utility: dispatching
   , dispatch
   , dispatchWithArg
   , dispatchDecl
   ) where
 
-import Control.Exception
+import Control.Monad.Catch
 import Control.Monad.Error.Class
 import Control.Monad.IO.Class
 import Control.Monad.State.Strict
@@ -30,6 +30,7 @@ import Clang.LowLevel.Core
 
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -52,6 +53,9 @@ newtype ParseType a = Wrap {
     , Applicative
     , Monad
     , MonadIO
+    , MonadThrow
+    , MonadCatch
+    , MonadMask
     )
 
 instance MonadError ParseTypeException ParseType where

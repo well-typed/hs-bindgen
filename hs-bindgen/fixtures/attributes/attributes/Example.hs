@@ -24,7 +24,7 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @struct foo@
 
     __defined at:__ @attributes\/attributes.h:10:36@
 
@@ -148,7 +148,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_i")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_i")
 
-{-| __C declaration:__ @bar@
+{-| __C declaration:__ @struct bar@
 
     __defined at:__ @attributes\/attributes.h:16:15@
 
@@ -272,7 +272,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_i")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"bar_i")
 
-{-| __C declaration:__ @baz@
+{-| __C declaration:__ @struct baz@
 
     __defined at:__ @attributes\/attributes.h:22:9@
 
@@ -396,7 +396,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Baz) "baz_i")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"baz_i")
 
-{-| __C declaration:__ @qux@
+{-| __C declaration:__ @struct qux@
 
     __defined at:__ @attributes\/attributes.h:28:9@
 
@@ -520,7 +520,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Qux) "qux_i")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"qux_i")
 
-{-| __C declaration:__ @FILE@
+{-| __C declaration:__ @struct __sFILE@
 
     __defined at:__ @attributes\/attributes.h:34:16@
 

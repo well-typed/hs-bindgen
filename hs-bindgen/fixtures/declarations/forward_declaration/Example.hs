@@ -22,7 +22,7 @@ import qualified HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @S1_t@
+{-| __C declaration:__ @struct S1@
 
     __defined at:__ @declarations\/forward_declaration.h:3:8@
 
@@ -117,7 +117,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S1_t) "s1_t_a")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s1_t_a")
 
-{-| __C declaration:__ @S2@
+{-| __C declaration:__ @struct S2@
 
     __defined at:__ @declarations\/forward_declaration.h:9:8@
 

@@ -7,26 +7,27 @@ module HsBindgen.Frontend.AST.Deps (
   ) where
 
 import HsBindgen.Frontend.AST.Internal
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Definitions
 -------------------------------------------------------------------------------}
 
-data Usage =
+data Usage p =
     UsedInTypedef ValOrRef
-  | UsedInField ValOrRef (FieldName Parse)
+  | UsedInField ValOrRef (FieldName p)
   | UsedInFunction ValOrRef
   | UsedInVar ValOrRef -- ^ Global or constant
-  deriving stock (Show, Eq, Ord)
+
+deriving instance ValidPass p => Show (Usage p)
+deriving instance ValidPass p => Eq   (Usage p)
+deriving instance ValidPass p => Ord  (Usage p)
 
 data ValOrRef = ByValue | ByRef
   deriving stock (Show, Eq, Ord)
 
-usageMode :: Usage -> ValOrRef
+usageMode :: Usage p -> ValOrRef
 usageMode = \case
     (UsedInTypedef  x  ) -> x
     (UsedInField    x _) -> x
@@ -37,7 +38,7 @@ usageMode = \case
   Get all dependencies
 -------------------------------------------------------------------------------}
 
-depsOfDecl :: DeclKind Parse -> [(Usage, C.PrelimDeclId)]
+depsOfDecl :: DeclKind p -> [(Usage p, Id p)]
 depsOfDecl (DeclStruct Struct{..}) =
     concatMap (depsOfField (fieldName . structFieldInfo) structFieldType) structFields
 depsOfDecl (DeclUnion Union{..}) =
@@ -47,9 +48,9 @@ depsOfDecl (DeclEnum _) =
 depsOfDecl (DeclTypedef ty) =
     map (uncurry aux) $ depsOfTypedef ty
   where
-    aux :: ValOrRef -> C.PrelimDeclId -> (Usage, C.PrelimDeclId)
-    aux isPtr qualPrelimDeclId = (UsedInTypedef isPtr, qualPrelimDeclId)
-depsOfDecl (DeclOpaque _) =
+    aux :: ValOrRef -> Id p -> (Usage p, Id p)
+    aux isPtr declId = (UsedInTypedef isPtr, declId)
+depsOfDecl DeclOpaque =
     []
 depsOfDecl (DeclMacro _ts) =
     -- We cannot know the dependencies of a macro until we parse it, but we
@@ -60,23 +61,23 @@ depsOfDecl (DeclMacro _ts) =
 depsOfDecl (DeclFunction (Function {..})) =
     map (uncurry aux) $ concatMap depsOfType (functionRes : map snd functionArgs)
   where
-    aux :: ValOrRef -> C.PrelimDeclId -> (Usage, C.PrelimDeclId)
+    aux :: ValOrRef -> Id p -> (Usage p, Id p)
     aux isPtr qualPrelimDeclId = (UsedInFunction isPtr, qualPrelimDeclId)
 depsOfDecl (DeclGlobal ty) =
     map (first UsedInVar) $ depsOfType ty
 
 -- | Dependencies of struct or union field
-depsOfField :: forall a.
-     (a Parse -> FieldName Parse)
-  -> (a Parse -> Type Parse)
-  -> a Parse -> [(Usage, C.PrelimDeclId)]
+depsOfField :: forall a p.
+     (a p -> FieldName p)
+  -> (a p -> Type p)
+  -> a p -> [(Usage p, Id p)]
 depsOfField getName getType field =
     map (uncurry aux) $ depsOfType $ getType field
   where
-    aux :: ValOrRef -> C.PrelimDeclId -> (Usage, C.PrelimDeclId)
+    aux :: ValOrRef -> Id p -> (Usage p, Id p)
     aux isPtr qualPrelimDeclId = (UsedInField isPtr (getName field), qualPrelimDeclId)
 
-depsOfTypedef :: Typedef Parse -> [(ValOrRef, C.PrelimDeclId)]
+depsOfTypedef :: Typedef p -> [(ValOrRef, Id p)]
 depsOfTypedef = depsOfType . typedefType
 
 -- | The declarations this type depends on
@@ -85,7 +86,7 @@ depsOfTypedef = depsOfType . typedefType
 --
 -- NOTE: We are only interested in /direct/ dependencies here; transitive
 -- dependencies will materialize when we build the graph.
-depsOfType :: Type Parse -> [(ValOrRef, C.PrelimDeclId)]
+depsOfType :: Type p -> [(ValOrRef, Id p)]
 depsOfType = \case
     TypePrim{}             -> []
     TypeRef uid            -> [(ByValue, uid)]

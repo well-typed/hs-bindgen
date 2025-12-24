@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/declarations/forward_declaration.h
-{-| __C declaration:__ @S1_t@
+{-| __C declaration:__ @struct S1@
 
     __defined at:__ @declarations\/forward_declaration.h:3:8@
 
@@ -13,7 +13,7 @@ data S1_t
 
                  __exported by:__ @declarations\/forward_declaration.h@
             -}}
-      {- ^ __C declaration:__ @S1_t@
+      {- ^ __C declaration:__ @struct S1@
 
            __defined at:__ @declarations\/forward_declaration.h:3:8@
 
@@ -45,7 +45,7 @@ instance HasCField S1_t "s1_t_a"
 instance TyEq ty (CFieldType S1_t "s1_t_a") =>
          HasField "s1_t_a" (Ptr S1_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"s1_t_a")
-{-| __C declaration:__ @S2@
+{-| __C declaration:__ @struct S2@
 
     __defined at:__ @declarations\/forward_declaration.h:9:8@
 
@@ -59,7 +59,7 @@ data S2
 
                __exported by:__ @declarations\/forward_declaration.h@
           -}}
-      {- ^ __C declaration:__ @S2@
+      {- ^ __C declaration:__ @struct S2@
 
            __defined at:__ @declarations\/forward_declaration.h:9:8@
 

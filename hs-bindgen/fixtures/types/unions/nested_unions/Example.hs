@@ -27,7 +27,7 @@ import qualified HsBindgen.Runtime.SizedByteArray
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Int, pure)
 
-{-| __C declaration:__ @unionA@
+{-| __C declaration:__ @union unionA@
 
     __defined at:__ @types\/unions\/nested_unions.h:2:15@
 
@@ -119,7 +119,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType UnionA) "unionA_b")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"unionA_b")
 
-{-| __C declaration:__ @exA@
+{-| __C declaration:__ @struct exA@
 
     __defined at:__ @types\/unions\/nested_unions.h:1:8@
 
@@ -165,7 +165,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExA) "exA_fieldA1")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"exA_fieldA1")
 
-{-| __defined at:__ @types\/unions\/nested_unions.h:9:9@
+{-| __C declaration:__ @union \@exB_fieldB1@
+
+    __defined at:__ @types\/unions\/nested_unions.h:9:9@
 
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
@@ -256,7 +258,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExB_fieldB1) "exB_fi
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"exB_fieldB1_b")
 
-{-| __C declaration:__ @exB@
+{-| __C declaration:__ @struct exB@
 
     __defined at:__ @types\/unions\/nested_unions.h:8:8@
 

@@ -23,7 +23,9 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-{-| __defined at:__ @types\/structs\/anonymous.h:3:3@
+{-| __C declaration:__ @struct \@S1_c@
+
+    __defined at:__ @types\/structs\/anonymous.h:3:3@
 
     __exported by:__ @types\/structs\/anonymous.h@
 -}
@@ -145,7 +147,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S1_c) "s1_c_b")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s1_c_b")
 
-{-| __C declaration:__ @S1@
+{-| __C declaration:__ @struct S1@
 
     __defined at:__ @types\/structs\/anonymous.h:2:8@
 
@@ -269,7 +271,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S1) "s1_d")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s1_d")
 
-{-| __defined at:__ @types\/structs\/anonymous.h:15:5@
+{-| __C declaration:__ @struct \@S2_inner_deep@
+
+    __defined at:__ @types\/structs\/anonymous.h:15:5@
 
     __exported by:__ @types\/structs\/anonymous.h@
 -}
@@ -363,7 +367,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S2_inner_deep) "s2_i
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s2_inner_deep_b")
 
-{-| __defined at:__ @types\/structs\/anonymous.h:13:3@
+{-| __C declaration:__ @struct \@S2_inner@
+
+    __defined at:__ @types\/structs\/anonymous.h:13:3@
 
     __exported by:__ @types\/structs\/anonymous.h@
 -}
@@ -486,7 +492,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S2_inner) "s2_inner_
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s2_inner_deep")
 
-{-| __C declaration:__ @S2@
+{-| __C declaration:__ @struct S2@
 
     __defined at:__ @types\/structs\/anonymous.h:12:8@
 
@@ -610,7 +616,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S2) "s2_d")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s2_d")
 
-{-| __C declaration:__ @S3@
+{-| __C declaration:__ @struct S3@
 
     __defined at:__ @types\/structs\/anonymous.h:24:8@
 
@@ -678,7 +684,9 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S3) "s3_d")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s3_d")
 
-{-| __defined at:__ @types\/structs\/anonymous.h:25:3@
+{-| __C declaration:__ @struct \@S3_c@
+
+    __defined at:__ @types\/structs\/anonymous.h:25:3@
 
     __exported by:__ @types\/structs\/anonymous.h@
 -}

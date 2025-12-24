@@ -97,7 +97,7 @@ instance Finalize Int.DeclKind where
   finalize (Int.DeclUnion union)      = Ext.DeclUnion (finalize union)
   finalize (Int.DeclEnum enum)        = Ext.DeclEnum (finalize enum)
   finalize (Int.DeclTypedef typedef)  = Ext.DeclTypedef (finalize typedef)
-  finalize (Int.DeclOpaque cNameKind) = Ext.DeclOpaque cNameKind
+  finalize  Int.DeclOpaque            = Ext.DeclOpaque
   finalize (Int.DeclMacro macro)      = Ext.DeclMacro (finalize macro)
   finalize (Int.DeclFunction func)    = Ext.DeclFunction (finalize func)
   finalize (Int.DeclGlobal ty)        = Ext.DeclGlobal (finalize ty)

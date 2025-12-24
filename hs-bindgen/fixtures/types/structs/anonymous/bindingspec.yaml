@@ -5,8 +5,14 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: types/structs/anonymous.h
+  cname: struct S1
+  hsname: S1
+- headers: types/structs/anonymous.h
   cname: struct @S1_c
   hsname: S1_c
+- headers: types/structs/anonymous.h
+  cname: struct S2
+  hsname: S2
 - headers: types/structs/anonymous.h
   cname: struct @S2_inner
   hsname: S2_inner
@@ -14,17 +20,11 @@ ctypes:
   cname: struct @S2_inner_deep
   hsname: S2_inner_deep
 - headers: types/structs/anonymous.h
-  cname: struct @S3_c
-  hsname: S3_c
-- headers: types/structs/anonymous.h
-  cname: struct S1
-  hsname: S1
-- headers: types/structs/anonymous.h
-  cname: struct S2
-  hsname: S2
-- headers: types/structs/anonymous.h
   cname: struct S3
   hsname: S3
+- headers: types/structs/anonymous.h
+  cname: struct @S3_c
+  hsname: S3_c
 hstypes:
 - hsname: S1
   representation:

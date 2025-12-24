@@ -26,7 +26,7 @@
 -- {
 --   return &n;
 -- }
-{-| __C declaration:__ @X@
+{-| __C declaration:__ @struct X@
 
     __defined at:__ @declarations\/definitions.h:23:8@
 
@@ -40,7 +40,7 @@ data X
 
               __exported by:__ @declarations\/definitions.h@
          -}}
-      {- ^ __C declaration:__ @X@
+      {- ^ __C declaration:__ @struct X@
 
            __defined at:__ @declarations\/definitions.h:23:8@
 
@@ -72,7 +72,7 @@ instance HasCField X "x_n"
 instance TyEq ty (CFieldType X "x_n") =>
          HasField "x_n" (Ptr X) (Ptr ty)
     where getField = ptrToCField (Proxy @"x_n")
-{-| __C declaration:__ @Y@
+{-| __C declaration:__ @union Y@
 
     __defined at:__ @declarations\/definitions.h:26:7@
 
@@ -80,7 +80,7 @@ instance TyEq ty (CFieldType X "x_n") =>
 -}
 newtype Y
     = Y {un_Y :: ByteArray}
-      {- ^ __C declaration:__ @Y@
+      {- ^ __C declaration:__ @union Y@
 
            __defined at:__ @declarations\/definitions.h:26:7@
 

@@ -8,6 +8,9 @@ ctypes:
   cname: FILE
   hsname: FILE
 - headers: functions/fun_attributes.h
+  cname: struct FILE
+  hsname: FILE
+- headers: functions/fun_attributes.h
   cname: size_t
   hsname: Size_t
 hstypes:

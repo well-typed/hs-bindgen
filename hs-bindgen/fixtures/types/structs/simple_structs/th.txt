@@ -1,5 +1,5 @@
 -- addDependentFile examples/golden/types/structs/simple_structs.h
-{-| __C declaration:__ @S1@
+{-| __C declaration:__ @struct S1@
 
     __defined at:__ @types\/structs\/simple_structs.h:2:8@
 
@@ -20,7 +20,7 @@ data S1
 
                __exported by:__ @types\/structs\/simple_structs.h@
           -}}
-      {- ^ __C declaration:__ @S1@
+      {- ^ __C declaration:__ @struct S1@
 
            __defined at:__ @types\/structs\/simple_structs.h:2:8@
 
@@ -69,7 +69,7 @@ instance HasCField S1 "s1_b"
 instance TyEq ty (CFieldType S1 "s1_b") =>
          HasField "s1_b" (Ptr S1) (Ptr ty)
     where getField = ptrToCField (Proxy @"s1_b")
-{-| __C declaration:__ @S2_t@
+{-| __C declaration:__ @struct S2@
 
     __defined at:__ @types\/structs\/simple_structs.h:8:16@
 
@@ -97,7 +97,7 @@ data S2_t
 
                  __exported by:__ @types\/structs\/simple_structs.h@
             -}}
-      {- ^ __C declaration:__ @S2_t@
+      {- ^ __C declaration:__ @struct S2@
 
            __defined at:__ @types\/structs\/simple_structs.h:8:16@
 
@@ -163,7 +163,7 @@ instance HasCField S2_t "s2_t_c"
 instance TyEq ty (CFieldType S2_t "s2_t_c") =>
          HasField "s2_t_c" (Ptr S2_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"s2_t_c")
-{-| __C declaration:__ @S3_t@
+{-| __C declaration:__ @struct S3_t@
 
     __defined at:__ @types\/structs\/simple_structs.h:15:9@
 
@@ -177,7 +177,7 @@ data S3_t
 
                  __exported by:__ @types\/structs\/simple_structs.h@
             -}}
-      {- ^ __C declaration:__ @S3_t@
+      {- ^ __C declaration:__ @struct S3_t@
 
            __defined at:__ @types\/structs\/simple_structs.h:15:9@
 
@@ -209,7 +209,7 @@ instance HasCField S3_t "s3_t_a"
 instance TyEq ty (CFieldType S3_t "s3_t_a") =>
          HasField "s3_t_a" (Ptr S3_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"s3_t_a")
-{-| __C declaration:__ @S4@
+{-| __C declaration:__ @struct S4@
 
     __defined at:__ @types\/structs\/simple_structs.h:19:8@
 
@@ -237,7 +237,7 @@ data S4
 
                __exported by:__ @types\/structs\/simple_structs.h@
           -}}
-      {- ^ __C declaration:__ @S4@
+      {- ^ __C declaration:__ @struct S4@
 
            __defined at:__ @types\/structs\/simple_structs.h:19:8@
 
@@ -270,7 +270,7 @@ instance HasCField S4 "s4_c"
 instance TyEq ty (CFieldType S4 "s4_c") =>
          HasField "s4_c" (Ptr S4) (Ptr ty)
     where getField = ptrToCField (Proxy @"s4_c")
-{-| __C declaration:__ @S5@
+{-| __C declaration:__ @struct S5@
 
     __defined at:__ @types\/structs\/simple_structs.h:26:16@
 
@@ -291,7 +291,7 @@ data S5
 
                __exported by:__ @types\/structs\/simple_structs.h@
           -}}
-      {- ^ __C declaration:__ @S5@
+      {- ^ __C declaration:__ @struct S5@
 
            __defined at:__ @types\/structs\/simple_structs.h:26:16@
 
@@ -340,7 +340,7 @@ instance HasCField S5 "s5_b"
 instance TyEq ty (CFieldType S5 "s5_b") =>
          HasField "s5_b" (Ptr S5) (Ptr ty)
     where getField = ptrToCField (Proxy @"s5_b")
-{-| __C declaration:__ @S6@
+{-| __C declaration:__ @struct S6@
 
     __defined at:__ @types\/structs\/simple_structs.h:31:8@
 
@@ -361,7 +361,7 @@ data S6
 
                __exported by:__ @types\/structs\/simple_structs.h@
           -}}
-      {- ^ __C declaration:__ @S6@
+      {- ^ __C declaration:__ @struct S6@
 
            __defined at:__ @types\/structs\/simple_structs.h:31:8@
 
@@ -410,7 +410,9 @@ instance HasCField S6 "s6_b"
 instance TyEq ty (CFieldType S6 "s6_b") =>
          HasField "s6_b" (Ptr S6) (Ptr ty)
     where getField = ptrToCField (Proxy @"s6_b")
-{-| __defined at:__ @types\/structs\/simple_structs.h:34:9@
+{-| __C declaration:__ @struct \@S7a_Deref@
+
+    __defined at:__ @types\/structs\/simple_structs.h:34:9@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
@@ -429,7 +431,9 @@ data S7a_Deref
 
                       __exported by:__ @types\/structs\/simple_structs.h@
                  -}}
-      {- ^ __defined at:__ @types\/structs\/simple_structs.h:34:9@
+      {- ^ __C declaration:__ @struct \@S7a_Deref@
+
+           __defined at:__ @types\/structs\/simple_structs.h:34:9@
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
@@ -498,7 +502,9 @@ instance TyEq ty (CFieldType S7a "un_S7a") =>
 instance HasCField S7a "un_S7a"
     where type CFieldType S7a "un_S7a" = Ptr S7a_Deref
           offset# = \_ -> \_ -> 0
-{-| __defined at:__ @types\/structs\/simple_structs.h:35:9@
+{-| __C declaration:__ @struct \@S7b_Deref@
+
+    __defined at:__ @types\/structs\/simple_structs.h:35:9@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
@@ -517,7 +523,9 @@ data S7b_Deref
 
                       __exported by:__ @types\/structs\/simple_structs.h@
                  -}}
-      {- ^ __defined at:__ @types\/structs\/simple_structs.h:35:9@
+      {- ^ __C declaration:__ @struct \@S7b_Deref@
+
+           __defined at:__ @types\/structs\/simple_structs.h:35:9@
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}

@@ -20,7 +20,7 @@ import qualified HsBindgen.Runtime.Prelude
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @struct foo@
 
     __defined at:__ @types\/primitives\/fixedwidth.h:3:8@
 

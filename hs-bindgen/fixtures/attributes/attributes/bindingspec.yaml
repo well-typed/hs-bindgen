@@ -8,16 +8,25 @@ ctypes:
   cname: FILE
   hsname: FILE
 - headers: attributes/attributes.h
+  cname: struct __sFILE
+  hsname: FILE
+- headers: attributes/attributes.h
   cname: struct bar
   hsname: Bar
 - headers: attributes/attributes.h
   cname: baz
   hsname: Baz
 - headers: attributes/attributes.h
+  cname: struct baz
+  hsname: Baz
+- headers: attributes/attributes.h
   cname: struct foo
   hsname: Foo
 - headers: attributes/attributes.h
   cname: qux
+  hsname: Qux
+- headers: attributes/attributes.h
+  cname: struct qux
   hsname: Qux
 hstypes:
 - hsname: Bar

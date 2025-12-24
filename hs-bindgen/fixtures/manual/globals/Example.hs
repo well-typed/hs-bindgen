@@ -30,7 +30,7 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
-{-| __C declaration:__ @globalConfig@
+{-| __C declaration:__ @struct globalConfig@
 
     __defined at:__ @manual\/globals.h:7:9@
 
@@ -180,7 +180,7 @@ instance HsBindgen.Runtime.HasCField.HasCField ConstInt "un_ConstInt" where
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @tuple@
+{-| __C declaration:__ @struct tuple@
 
     __defined at:__ @manual\/globals.h:52:8@
 

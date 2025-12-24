@@ -22,7 +22,7 @@ import qualified HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @Omitted@
+{-| __C declaration:__ @struct Omitted@
 
     __defined at:__ @selection_omit_external_root.h:1:8@
 
@@ -117,7 +117,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Omitted) "omitted_n"
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"omitted_n")
 
-{-| __C declaration:__ @DirectlyDependsOnOmitted@
+{-| __C declaration:__ @struct DirectlyDependsOnOmitted@
 
     __defined at:__ @program-analysis\/selection_omit_external_b.h:4:8@
 
@@ -213,7 +213,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DirectlyDependsOnOmi
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"directlyDependsOnOmitted_o")
 
-{-| __C declaration:__ @IndirectlyDependsOnOmitted@
+{-| __C declaration:__ @struct IndirectlyDependsOnOmitted@
 
     __defined at:__ @program-analysis\/selection_omit_external_b.h:8:8@
 

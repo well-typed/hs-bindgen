@@ -27,7 +27,7 @@ import qualified HsBindgen.Runtime.SizedByteArray
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @X@
+{-| __C declaration:__ @struct X@
 
     __defined at:__ @declarations\/definitions.h:23:8@
 
@@ -122,7 +122,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType X) "x_n")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"x_n")
 
-{-| __C declaration:__ @Y@
+{-| __C declaration:__ @union Y@
 
     __defined at:__ @declarations\/definitions.h:26:7@
 

@@ -196,6 +196,7 @@ writeBindingSpec fileOverwritePolicy path = do
     moduleBaseName <- FinalModuleBaseName
     getMainHeaders <- GetMainHeaders
     omitTypes      <- OmitTypes
+    squashedTypes  <- SquashedTypes
     hsDecls        <- HsDecls
     -- Binding specifications only specify types.
     let bindingSpec =
@@ -204,6 +205,7 @@ writeBindingSpec fileOverwritePolicy path = do
             (fromBaseModuleName moduleBaseName (Just CType))
             getMainHeaders
             omitTypes
+            squashedTypes
             (view (lensForCategory CType) hsDecls)
         fileDescription =
           FileDescription {

@@ -7,6 +7,9 @@ ctypes:
 - headers: types/complex/vector_test.h
   cname: vector
   hsname: Vector
+- headers: types/complex/vector_test.h
+  cname: struct vector
+  hsname: Vector
 hstypes:
 - hsname: Vector
   representation:

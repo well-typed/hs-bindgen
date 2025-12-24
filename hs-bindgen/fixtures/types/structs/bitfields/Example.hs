@@ -23,7 +23,7 @@ import GHC.Prim ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @flags@
+{-| __C declaration:__ @struct flags@
 
     __defined at:__ @types\/structs\/bitfields.h:1:8@
 
@@ -291,7 +291,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Flags) "flags_bit
   getField =
     HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"flags_bits")
 
-{-| __C declaration:__ @overflow32@
+{-| __C declaration:__ @struct overflow32@
 
     __defined at:__ @types\/structs\/bitfields.h:12:8@
 
@@ -453,7 +453,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Overflow32) "over
   getField =
     HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"overflow32_z")
 
-{-| __C declaration:__ @overflow32b@
+{-| __C declaration:__ @struct overflow32b@
 
     __defined at:__ @types\/structs\/bitfields.h:18:8@
 
@@ -615,7 +615,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Overflow32b) "ove
   getField =
     HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"overflow32b_z")
 
-{-| __C declaration:__ @overflow32c@
+{-| __C declaration:__ @struct overflow32c@
 
     __defined at:__ @types\/structs\/bitfields.h:24:8@
 
@@ -777,7 +777,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Overflow32c) "ove
   getField =
     HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"overflow32c_z")
 
-{-| __C declaration:__ @overflow64@
+{-| __C declaration:__ @struct overflow64@
 
     __defined at:__ @types\/structs\/bitfields.h:30:8@
 
@@ -907,7 +907,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Overflow64) "over
   getField =
     HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"overflow64_y")
 
-{-| __C declaration:__ @alignA@
+{-| __C declaration:__ @struct alignA@
 
     __defined at:__ @types\/structs\/bitfields.h:36:8@
 
@@ -1035,7 +1035,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType AlignA) "alignA_y
   getField =
     HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"alignA_y")
 
-{-| __C declaration:__ @alignB@
+{-| __C declaration:__ @struct alignB@
 
     __defined at:__ @types\/structs\/bitfields.h:41:8@
 

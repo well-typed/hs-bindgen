@@ -35,7 +35,7 @@
 -- {
 --   return &read_file_chunk;
 -- }
-{-| __C declaration:__ @FileOperationStatus@
+{-| __C declaration:__ @enum FileOperationStatus@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h:7:6@
 
@@ -43,7 +43,7 @@
 -}
 newtype FileOperationStatus
     = FileOperationStatus {un_FileOperationStatus :: CInt}
-      {- ^ __C declaration:__ @FileOperationStatus@
+      {- ^ __C declaration:__ @enum FileOperationStatus@
 
            __defined at:__ @program-analysis\/program_slicing_selection.h:7:6@
 
@@ -161,7 +161,7 @@ pattern CUSTOM_ERROR_OTHER :: FileOperationStatus
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 pattern CUSTOM_ERROR_OTHER = FileOperationStatus (-1)
-{-| __C declaration:__ @FileOperationRecord@
+{-| __C declaration:__ @struct FileOperationRecord@
 
     __defined at:__ @program-analysis\/program_slicing_selection.h:16:8@
 
@@ -182,7 +182,7 @@ data FileOperationRecord
 
                                 __exported by:__ @program-analysis\/program_slicing_selection.h@
                            -}}
-      {- ^ __C declaration:__ @FileOperationRecord@
+      {- ^ __C declaration:__ @struct FileOperationRecord@
 
            __defined at:__ @program-analysis\/program_slicing_selection.h:16:8@
 

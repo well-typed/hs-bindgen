@@ -5,14 +5,14 @@ target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
 - headers: edge-cases/flam.h
-  cname: struct @foo_bar
-  hsname: Foo_bar
-- headers: edge-cases/flam.h
   cname: struct diff
   hsname: Diff
 - headers: edge-cases/flam.h
   cname: struct foo
   hsname: Foo
+- headers: edge-cases/flam.h
+  cname: struct @foo_bar
+  hsname: Foo_bar
 - headers: edge-cases/flam.h
   cname: struct pascal
   hsname: Pascal

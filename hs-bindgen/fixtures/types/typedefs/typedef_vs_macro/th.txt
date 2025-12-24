@@ -131,7 +131,7 @@ newtype M3
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype (Storable, HasBaseForeignType)
-{-| __C declaration:__ @ExampleStruct@
+{-| __C declaration:__ @struct ExampleStruct@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h:8:8@
 
@@ -166,7 +166,7 @@ data ExampleStruct
 
                           __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
                      -}}
-      {- ^ __C declaration:__ @ExampleStruct@
+      {- ^ __C declaration:__ @struct ExampleStruct@
 
            __defined at:__ @types\/typedefs\/typedef_vs_macro.h:8:8@
 
@@ -273,7 +273,7 @@ newtype Uint64_t
                       Ix,
                       Num,
                       Real)
-{-| __C declaration:__ @foo@
+{-| __C declaration:__ @struct foo@
 
     __defined at:__ @types\/typedefs\/typedef_vs_macro.h:17:8@
 
@@ -287,7 +287,7 @@ data Foo
 
                 __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
            -}}
-      {- ^ __C declaration:__ @foo@
+      {- ^ __C declaration:__ @struct foo@
 
            __defined at:__ @types\/typedefs\/typedef_vs_macro.h:17:8@
 

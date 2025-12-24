@@ -75,7 +75,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Int2int "un_Int2int" where
 
 {-| A struct field pointing to a function like apply1_nopointer().
 
-__C declaration:__ @Apply1Struct@
+__C declaration:__ @struct Apply1Struct@
 
 __defined at:__ @manual\/function_pointers.h:37:8@
 
@@ -125,7 +125,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Apply1Struct) "apply
 
 {-| A union field pointing to a function like apply1_nopointer().
 
-__C declaration:__ @Apply1Union@
+__C declaration:__ @union Apply1Union@
 
 __defined at:__ @manual\/function_pointers.h:43:7@
 

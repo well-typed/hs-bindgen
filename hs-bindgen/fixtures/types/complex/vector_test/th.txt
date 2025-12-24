@@ -23,7 +23,7 @@
 -- {
 --   return &new_vector;
 -- }
-{-| __C declaration:__ @vector@
+{-| __C declaration:__ @struct vector@
 
     __defined at:__ @types\/complex\/vector_test.h:1:9@
 
@@ -44,7 +44,7 @@ data Vector
 
                    __exported by:__ @types\/complex\/vector_test.h@
               -}}
-      {- ^ __C declaration:__ @vector@
+      {- ^ __C declaration:__ @struct vector@
 
            __defined at:__ @types\/complex\/vector_test.h:1:9@
 
