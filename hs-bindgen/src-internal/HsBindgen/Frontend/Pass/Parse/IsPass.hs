@@ -6,7 +6,6 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , getUnparsedMacro
     -- * Trace messages
   , RequiredForScoping(..)
-  , ParseTypeExceptionContext(..)
   , ImmediateParseMsg(..)
   ) where
 
@@ -23,7 +22,6 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -84,17 +82,6 @@ getUnparsedMacro unit curr = do
 -- | We always need to parse declarations required for scoping
 data RequiredForScoping = RequiredForScoping | NotRequiredForScoping
   deriving stock (Show, Eq)
-
-data ParseTypeExceptionContext = ParseTypeExceptionContext {
-      contextInfo               :: C.DeclInfo Parse
-    , contextNameKind           :: C.NameKind
-    , contextRequiredForScoping :: RequiredForScoping
-    }
-  deriving stock (Show)
-
--- instance PrettyForTrace ParseTypeExceptionContext where
---   prettyForTrace (ParseTypeExceptionContext info kind) =
---     prettyForTrace info <+> ", name kind: " <+> prettyForTrace kind
 
 -- | Parse messages that we emit immediately
 --

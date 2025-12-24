@@ -998,6 +998,18 @@ visibilityCanCauseErrors ::
 visibilityCanCauseErrors NonPublicVisibility ExternalLinkage False = True
 visibilityCanCauseErrors _ _ _ = False
 
-fromCXType' :: MonadIO m
+{-------------------------------------------------------------------------------
+  Parse types
+-------------------------------------------------------------------------------}
+
+data ParseTypeExceptionContext = ParseTypeExceptionContext {
+      contextInfo               :: C.DeclInfo Parse
+    , contextNameKind           :: C.NameKind
+    , contextRequiredForScoping :: RequiredForScoping
+    }
+  deriving stock (Show)
+
+fromCXType' ::
+     MonadIO m
   => ParseTypeExceptionContext -> CXType -> m (C.Type Parse)
 fromCXType' = fromCXType @ParseTypeExceptionContext
