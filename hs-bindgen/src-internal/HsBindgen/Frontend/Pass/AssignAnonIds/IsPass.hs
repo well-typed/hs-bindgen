@@ -5,16 +5,18 @@ module HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (
 
 import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
+{-------------------------------------------------------------------------------
+  Definition
+-------------------------------------------------------------------------------}
+
 type AssignAnonIds :: Pass
-data AssignAnonIds a deriving anyclass ValidPass
+data AssignAnonIds a
 
 -- We preserve the annotations from the @Parse@ pass
 type family AnnAssignAnonIds ix where
@@ -25,8 +27,6 @@ type family AnnAssignAnonIds ix where
   AnnAssignAnonIds _             = NoAnn
 
 instance IsPass AssignAnonIds where
-  type Id         AssignAnonIds = C.DeclId
-  type ScopedName AssignAnonIds = C.ScopedName
   type MacroBody  AssignAnonIds = UnparsedMacro
   type ExtBinding AssignAnonIds = Void
   type Ann ix     AssignAnonIds = AnnAssignAnonIds ix

@@ -19,6 +19,7 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
@@ -28,7 +29,7 @@ import HsBindgen.Util.Tracer
 
 -- | Mangle names pass
 type MangleNames :: Pass
-data MangleNames a deriving anyclass (C.ValidPass)
+data MangleNames a
 
 type family AnnMangleNames ix where
   AnnMangleNames "TranslationUnit"  = DeclMeta
@@ -48,6 +49,9 @@ instance IsPass MangleNames where
   type ExtBinding MangleNames = ResolvedExtBinding
   type Ann ix     MangleNames = AnnMangleNames ix
   type Msg        MangleNames = MangleNamesMsg
+
+  idNameKind   _ namePair = namePair.cName.name.kind
+  idSourceName _ namePair = C.declIdSourceName namePair.cName
 
 {-------------------------------------------------------------------------------
   Additional names required for Haskell code gen

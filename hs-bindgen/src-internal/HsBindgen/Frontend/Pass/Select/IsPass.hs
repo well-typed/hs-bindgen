@@ -18,7 +18,7 @@ import Clang.HighLevel.Types
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
 import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
+import HsBindgen.Frontend.AST.Internal (CheckedMacro)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
@@ -29,7 +29,6 @@ import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Predicate
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -37,7 +36,7 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 type Select :: Pass
-data Select a deriving anyclass ValidPass
+data Select a
 
 type family AnnSelect ix where
   AnnSelect "TranslationUnit" = DeclMeta
@@ -46,8 +45,6 @@ type family AnnSelect ix where
   AnnSelect _                 = NoAnn
 
 instance IsPass Select where
-  type Id         Select = C.DeclId
-  type ScopedName Select = C.ScopedName
   type MacroBody  Select = CheckedMacro Select
   type ExtBinding Select = ResolvedExtBinding
   type Ann ix     Select = AnnSelect ix

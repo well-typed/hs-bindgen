@@ -119,7 +119,7 @@ fromDecl ty = do
 
         CXCursor_TypedefDecl -> do
           declId <- C.getPrelimDeclId decl C.NameKindOrdinary
-          case C.prelimDeclIdName declId of
+          case C.prelimDeclIdSourceName declId of
             Nothing -> panicPure "typedef without name"
             Just declName -> do
               -- Check cache first

@@ -5,7 +5,9 @@ module HsBindgen.Frontend.Pass (
   , NoConfig(..)
   ) where
 
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Definition
@@ -29,7 +31,51 @@ data PassSimulatedOpenKind
 -------------------------------------------------------------------------------}
 
 -- | Pass definition
-class IsPass (p :: Pass) where
+class (
+
+        -- 'Show' constraints for debugging
+        Show (ExtBinding p)
+      , Show (Id         p)
+      , Show (MacroBody  p)
+      , Show (ScopedName p)
+
+      , Show (Ann "CheckedMacroType" p)
+      , Show (Ann "Decl"             p)
+      , Show (Ann "Enum"             p)
+      , Show (Ann "Function"         p)
+      , Show (Ann "Struct"           p)
+      , Show (Ann "StructField"      p)
+      , Show (Ann "TranslationUnit"  p)
+      , Show (Ann "Typedef"          p)
+      , Show (Ann "Union"            p)
+      , Show (Ann "UnionField"       p)
+
+        -- 'Ord' constraints for identifiers (which we often store in maps)
+
+      , Ord (Id         p)
+      , Ord (ScopedName p)
+
+        -- 'Eq'
+        --
+        -- We use equality on 'DeclKind' during construction of the 'DeclIndex'
+        -- (it's OK to repeat a declaration in a header, as long as they are
+        -- identical). All other 'Eq' constraints we provide are in order to
+        -- support this equality.
+
+      , Eq (ExtBinding p)
+      , Eq (MacroBody  p)
+      , Eq (ScopedName p)
+
+      , Eq (Ann "CheckedMacroType" p)
+      , Eq (Ann "Enum"             p)
+      , Eq (Ann "Function"         p)
+      , Eq (Ann "Struct"           p)
+      , Eq (Ann "StructField"      p)
+      , Eq (Ann "Typedef"          p)
+      , Eq (Ann "Union"            p)
+      , Eq (Ann "UnionField"       p)
+
+      ) => IsPass (p :: Pass) where
   -- | Declaration identifier
   --
   -- This takes various forms during processing:
@@ -41,6 +87,7 @@ class IsPass (p :: Pass) where
   -- 3. After 'MangleNames', this becomes a pair of the C name and the
   --    corresponding Haskell name.
   type Id p :: Star
+  type Id p = C.DeclId
 
   -- | Scoped names
   --
@@ -48,6 +95,7 @@ class IsPass (p :: Pass) where
   -- live in a local scope. This is initially 'C.ScopedName', and becomes
   -- 'ScopedNamePair' after 'MangleNames'.
   type ScopedName p :: Star
+  type ScopedName p = C.ScopedName
 
   -- | Macro body
   --
@@ -77,6 +125,16 @@ class IsPass (p :: Pass) where
 
   -- | Trace messages possibly emitted by the pass
   type Msg p :: Star
+
+  -- | Name kind of the C name
+  idNameKind :: Proxy p -> Id p -> C.NameKind
+  default idNameKind :: Id p ~ C.DeclId => Proxy p -> Id p -> C.NameKind
+  idNameKind _ = (.name.kind)
+
+  -- | Name of the declaration as it appears in the C source, if any
+  idSourceName :: Proxy p -> Id p -> Maybe C.DeclName
+  default idSourceName :: Id p ~ C.DeclId => Proxy p -> Id p -> Maybe C.DeclName
+  idSourceName _ = C.declIdSourceName
 
 data NoAnn = NoAnn
   deriving stock (Show, Eq, Ord)

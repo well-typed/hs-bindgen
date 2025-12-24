@@ -31,7 +31,7 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 type Parse :: Pass
-data Parse a deriving anyclass C.ValidPass
+data Parse a
 
 type family AnnParse (ix :: Symbol) :: Star where
   AnnParse "StructField" = ReparseInfo
@@ -42,11 +42,13 @@ type family AnnParse (ix :: Symbol) :: Star where
 
 instance IsPass Parse where
   type Id         Parse = C.PrelimDeclId
-  type ScopedName Parse = C.ScopedName
   type MacroBody  Parse = UnparsedMacro
   type ExtBinding Parse = Void
   type Ann ix     Parse = AnnParse ix
   type Msg        Parse = ImmediateParseMsg
+
+  idNameKind   _ = C.prelimDeclIdNameKind
+  idSourceName _ = C.prelimDeclIdSourceName
 
 {-------------------------------------------------------------------------------
   Macros

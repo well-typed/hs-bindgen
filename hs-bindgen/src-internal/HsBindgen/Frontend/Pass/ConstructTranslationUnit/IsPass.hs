@@ -8,13 +8,10 @@ import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Internal (ValidPass)
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass (ReparseInfo, UnparsedMacro)
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -24,7 +21,7 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 type ConstructTranslationUnit :: Pass
-data ConstructTranslationUnit a deriving anyclass ValidPass
+data ConstructTranslationUnit a
 
 type family AnnConstructTranslationUnit (ix :: Symbol) :: Star where
   AnnConstructTranslationUnit "TranslationUnit" = DeclMeta
@@ -35,8 +32,6 @@ type family AnnConstructTranslationUnit (ix :: Symbol) :: Star where
   AnnConstructTranslationUnit _                 = NoAnn
 
 instance IsPass ConstructTranslationUnit where
-  type Id         ConstructTranslationUnit = C.DeclId
-  type ScopedName ConstructTranslationUnit = C.ScopedName
   type MacroBody  ConstructTranslationUnit = UnparsedMacro
   type ExtBinding ConstructTranslationUnit = Void
   type Ann ix     ConstructTranslationUnit = AnnConstructTranslationUnit ix

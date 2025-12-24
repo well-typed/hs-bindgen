@@ -12,12 +12,14 @@ module HsBindgen.Frontend.Naming (
 
     -- * PrelimDeclId
   , PrelimDeclId(..)
-  , prelimDeclIdName
+  , prelimDeclIdSourceName
+  , prelimDeclIdNameKind
   , getPrelimDeclId
   , checkIsBuiltin
 
     -- * DeclId
   , DeclId(..)
+  , declIdSourceName
   , renderDeclId
   , parseDeclId
 
@@ -81,10 +83,15 @@ data PrelimDeclId =
   | PrelimDeclIdAnon AnonId
   deriving stock (Show, Eq, Ord)
 
-prelimDeclIdName :: PrelimDeclId -> Maybe C.DeclName
-prelimDeclIdName = \case
+prelimDeclIdSourceName :: PrelimDeclId -> Maybe C.DeclName
+prelimDeclIdSourceName = \case
     PrelimDeclIdNamed  name   -> Just name
     PrelimDeclIdAnon  _anonId -> Nothing
+
+prelimDeclIdNameKind :: PrelimDeclId -> C.NameKind
+prelimDeclIdNameKind = \case
+    PrelimDeclIdNamed name -> name.kind
+    PrelimDeclIdAnon  anon -> anon.kind
 
 instance PrettyForTrace PrelimDeclId where
   prettyForTrace = \case
@@ -183,6 +190,11 @@ data DeclId = DeclId{
     , isAnon :: Bool
     }
   deriving stock (Show, Eq, Ord)
+
+declIdSourceName :: DeclId -> Maybe C.DeclName
+declIdSourceName declId = do
+    guard $ not declId.isAnon
+    return declId.name
 
 -- | User-facing syntax for 'DeclId'
 renderDeclId :: DeclId -> Text
