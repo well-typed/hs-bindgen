@@ -1,5 +1,6 @@
 module HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (
     ResolveBindingSpecs
+  , PrescriptiveDeclSpec(..)
   , ResolvedExtBinding(..)
   , ResolveBindingSpecsMsg(..)
   , extDeclIdPair
@@ -9,7 +10,6 @@ import Text.SimplePrettyPrint ((<+>))
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Internal (CheckedMacro)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (DeclMeta)
@@ -37,8 +37,7 @@ data ResolveBindingSpecs a
 
 type family AnnResolveBindingSpecs ix where
   AnnResolveBindingSpecs "TranslationUnit" = DeclMeta
-  AnnResolveBindingSpecs "Decl"            =
-    (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
+  AnnResolveBindingSpecs "Decl"            = PrescriptiveDeclSpec
   AnnResolveBindingSpecs _                 = NoAnn
 
 instance IsPass ResolveBindingSpecs where
@@ -48,6 +47,23 @@ instance IsPass ResolveBindingSpecs where
   type Msg        ResolveBindingSpecs = ResolveBindingSpecsMsg
 
   extBindingId _ = (.extCDeclId)
+
+-- | Prescriptive binding specification for declaration
+--
+-- Although we have interpreted /part/ of this binding specification during
+-- name mangling, we leave the /full/ binding specification in the AST, because
+-- we need it when we  /generate/ the output binding specification.
+--
+-- TODO: This is not quite right: we should distinguish between binding
+-- specifications for different classes of things (declarations of types,
+-- functions, etc.). When we do, we should not associate them with the top-level
+-- 'Decl' but instead with specific 'DeclKind's. When we change this, this will
+-- have consequences for "HsBindgen.Language.Haskell.Origin" also.
+data PrescriptiveDeclSpec = PrescriptiveDeclSpec {
+      declSpecC  :: Maybe BindingSpec.CTypeSpec
+    , declSpecHs :: Maybe BindingSpec.HsTypeSpec
+    }
+  deriving stock (Show, Eq, Generic)
 
 data ResolvedExtBinding = ResolvedExtBinding{
       -- | C declaration for which we are using this binding

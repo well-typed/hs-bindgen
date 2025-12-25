@@ -20,7 +20,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Naming qualified as C
@@ -299,7 +299,7 @@ processMacro info (UnparsedMacro tokens) = do
         , macroError
         }
 
-    toDecl :: C.CheckedMacro HandleMacros -> C.Decl HandleMacros
+    toDecl :: CheckedMacro HandleMacros -> C.Decl HandleMacros
     toDecl checked = C.Decl{
           declInfo = info
         , declKind = C.DeclMacro checked
@@ -405,7 +405,7 @@ runM standard = fmap stateErrors . flip runState (initMacroState standard) . unw
 parseMacro ::
      C.DeclName
   -> [Token TokenSpelling]
-  -> M (Either HandleMacrosError (C.CheckedMacro HandleMacros))
+  -> M (Either HandleMacrosError (CheckedMacro HandleMacros))
 parseMacro name []      = panicPure $ "macro " <> show name <> ": unexpected empty list of tokens"
 parseMacro name [_]     = pure      $ Left $ HandleMacrosErrorEmpty name
 parseMacro name tokens  = state     $ \st ->
@@ -413,7 +413,7 @@ parseMacro name tokens  = state     $ \st ->
     -- as an expression, we choose to interpret it as a type.
     case LanC.parseMacroType (stateReparseEnv st) tokens of
       Right typ -> (
-          Right $ C.MacroType $ C.CheckedMacroType typ NoAnn
+          Right $ MacroType $ CheckedMacroType typ NoAnn
         , st{stateReparseEnv = updateReparseEnv (stateReparseEnv st)}
         )
       Left errType ->
@@ -422,10 +422,10 @@ parseMacro name tokens  = state     $ \st ->
             Vec.reifyList macroArgs $ \args -> do
               case CExpr.DSL.tcMacro (stateMacroEnv st) macroName args macroBody of
                 Right inf -> (
-                    Right $ C.MacroExpr $ C.CheckedMacroExpr{
-                        macroExprArgs = macroArgs
-                      , macroExprBody = macroBody
-                      , macroExprType = dropEval inf
+                    Right $ MacroExpr $ CheckedMacroExpr{
+                        args = macroArgs
+                      , body = macroBody
+                      , typ  = dropEval inf
                       }
                   , st{stateMacroEnv = Map.insert macroName inf (stateMacroEnv st)}
                   )

@@ -20,13 +20,15 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
-import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -109,8 +111,8 @@ chooseNames td fc decls =
   where
     getSpecifiedName :: C.Decl Select -> Maybe (C.DeclId, Hs.Identifier)
     getSpecifiedName decl =
-      (decl.declInfo.declId,)
-        <$> (BindingSpec.cTypeSpecIdentifier =<< fst (decl.declAnn))
+        (decl.declInfo.declId,)
+          <$> (BindingSpec.cTypeSpecIdentifier =<< decl.declAnn.declSpecC)
 
 nameForDecl ::
      TypedefAnalysis
@@ -538,21 +540,21 @@ instance MangleInDecl C.Function where
           , ..
           }
 
-instance MangleInDecl C.CheckedMacro where
+instance MangleInDecl CheckedMacro where
   mangleInDecl info = \case
-      C.MacroType typ  -> C.MacroType <$> mangleInDecl info typ
-      C.MacroExpr expr -> return $ C.MacroExpr expr
+      MacroType typ  -> MacroType <$> mangleInDecl info typ
+      MacroExpr expr -> return $ MacroExpr expr
 
-instance MangleInDecl C.CheckedMacroType where
-  mangleInDecl info C.CheckedMacroType{..} = do
-      reconstruct <$> mangle macroType
+instance MangleInDecl CheckedMacroType where
+  mangleInDecl info CheckedMacroType{..} = do
+      reconstruct <$> mangle typ
     where
-      reconstruct :: C.Type MangleNames -> C.CheckedMacroType MangleNames
-      reconstruct macroType' = C.CheckedMacroType{
-             macroType    = macroType'
-           , macroTypeAnn = mkMacroTypeNames info
-           , ..
-           }
+      reconstruct :: C.Type MangleNames -> CheckedMacroType MangleNames
+      reconstruct typ' = CheckedMacroType{
+            typ = typ'
+          , ann = mkMacroTypeNames info
+          , ..
+          }
 
 instance Mangle C.Type where
   mangle = \case
@@ -596,8 +598,8 @@ withDeclNamespace kind k =
 
       C.DeclMacro macro ->
         case macro of
-          C.MacroType{} -> k (Proxy @Hs.NsTypeConstr)
-          C.MacroExpr{} -> k (Proxy @Hs.NsVar)
+          MacroType{} -> k (Proxy @Hs.NsTypeConstr)
+          MacroExpr{} -> k (Proxy @Hs.NsVar)
 
 withDeclLoc :: forall p.
      IsPass p

@@ -15,15 +15,14 @@ import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
 
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
 import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Internal (CheckedMacro)
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.HandleMacros.Error (HandleMacrosError)
+import HsBindgen.Frontend.Pass.HandleMacros.Error
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
@@ -39,8 +38,7 @@ data Select a
 
 type family AnnSelect ix where
   AnnSelect "TranslationUnit" = DeclMeta
-  AnnSelect "Decl"            =
-    (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
+  AnnSelect "Decl"            = PrescriptiveDeclSpec
   AnnSelect _                 = NoAnn
 
 instance IsPass Select where

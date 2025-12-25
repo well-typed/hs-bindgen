@@ -23,15 +23,14 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
-import HsBindgen.Frontend.AST.External qualified as Ext
-import HsBindgen.Frontend.AST.Finalize
-import HsBindgen.Frontend.AST.Internal qualified as Int
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AssignAnonIds
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.HandleMacros
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames
@@ -60,7 +59,7 @@ import HsBindgen.Util.Tracer
 --
 -- "HsBindgen.Frontend.Pass.Parse" traverses the @libclang@ AST, getting all
 -- information that we need from @libclang@ and constructing a pure Haskell
--- representation (see "HsBindgen.Frontend.AST.Internal").  It is the only pass
+-- representation (see "HsBindgen.Frontend.AST.Decl").  It is the only pass
 -- that runs in 'IO', to interface with @libclang@.
 --
 -- Constraints:
@@ -225,7 +224,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     -- Unit.
     getCTranslationUnit <- cache "getCTranslationUnit" $ do
       afterMangleNames <- mangleNamesPass
-      pure $ finalize afterMangleNames
+      pure $ afterMangleNames
 
     -- Include graph predicate.
     getIncludeGraphP <- cache "getIncludeGraphP" $ do
@@ -243,11 +242,11 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       (_, _, _, _, getMainHeaders) <- parsePass
       pure getMainHeaders
     frontendIndex <- cache "frontendIndex" $
-      declIndex   . Int.unitAnn <$> constructTranslationUnitPass
+      declIndex   . C.unitAnn <$> constructTranslationUnitPass
     frontendUseDeclGraph <- cache "frontendUseDeclGraph" $
-      declUseDecl . Int.unitAnn <$> constructTranslationUnitPass
+      declUseDecl . C.unitAnn <$> constructTranslationUnitPass
     frontendDeclUseGraph <- cache "frontendDeclUseGraph" $
-      declDeclUse . Int.unitAnn <$> constructTranslationUnitPass
+      declDeclUse . C.unitAnn <$> constructTranslationUnitPass
 
     -- Omitted types
     frontendOmitTypes <- cache "frontendOmitTypes" $
@@ -261,11 +260,11 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     -- Declarations.
     frontendCDecls <- cache "frontendDecls" $
-      Ext.unitDecls <$> getCTranslationUnit
+      C.unitDecls <$> getCTranslationUnit
 
     -- Dependencies.
     frontendDependencies <- cache "frontendDependencies" $
-      Ext.unitDeps <$> getCTranslationUnit
+      unitDeps <$> getCTranslationUnit
 
     pure FrontendArtefact{..}
   where
@@ -325,7 +324,7 @@ data FrontendArtefact = FrontendArtefact {
   , frontendDeclUseGraph   :: Cached DeclUseGraph.DeclUseGraph
   , frontendOmitTypes      :: Cached [(C.DeclId, SourcePath)]
   , frontendSquashedTypes  :: Cached [(C.DeclId, (SourcePath, Hs.Identifier))]
-  , frontendCDecls         :: Cached [Ext.Decl]
+  , frontendCDecls         :: Cached [C.Decl Final]
   , frontendDependencies   :: Cached [SourcePath]
   }
 

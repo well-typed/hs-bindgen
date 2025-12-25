@@ -31,8 +31,10 @@ import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming as C
+import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
@@ -149,7 +151,7 @@ genBindingSpec'
       Hs.DeclVar{}            -> id
 
     insertType ::
-         ( (C.DeclInfo, BindingSpec.CTypeSpec)
+         ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
          , (Hs.Identifier, BindingSpec.HsTypeSpec)
          )
       -> UnresolvedBindingSpec
@@ -169,7 +171,7 @@ genBindingSpec'
 
     auxStruct ::
          Hs.Struct n
-      -> ( (C.DeclInfo, BindingSpec.CTypeSpec)
+      -> ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
          , (Hs.Identifier, BindingSpec.HsTypeSpec)
          )
     auxStruct hsStruct = case Hs.structOrigin hsStruct of
@@ -193,7 +195,7 @@ genBindingSpec'
               , hsTypeSpecInstances =
                   mkInstSpecs
                     ( maybe Map.empty BindingSpec.hsTypeSpecInstances
-                    . C.declSpecHs
+                    . ResolveBindingSpecs.declSpecHs
                     $ HsOrigin.declSpec originDecl
                     )
                     (Hs.structInstances hsStruct)
@@ -204,7 +206,7 @@ genBindingSpec'
 
     auxEmptyData ::
          Hs.EmptyData
-      -> ( (C.DeclInfo, BindingSpec.CTypeSpec)
+      -> ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
          , (Hs.Identifier, BindingSpec.HsTypeSpec)
          )
     auxEmptyData edata =
@@ -225,7 +227,7 @@ genBindingSpec'
 
     auxNewtype ::
          Hs.Newtype
-      -> ( (C.DeclInfo, BindingSpec.CTypeSpec)
+      -> ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
          , (Hs.Identifier, BindingSpec.HsTypeSpec)
          )
     auxNewtype hsNewtype =
@@ -246,7 +248,7 @@ genBindingSpec'
             , hsTypeSpecInstances =
                 mkInstSpecs
                   ( maybe Map.empty BindingSpec.hsTypeSpecInstances
-                  . C.declSpecHs
+                  . ResolveBindingSpecs.declSpecHs
                   $ HsOrigin.declSpec originDecl
                   )
                   (Hs.newtypeInstances hsNewtype)
@@ -255,7 +257,7 @@ genBindingSpec'
           , (hsIdentifier, hsTypeSpec)
           )
 
-    getHeaders :: C.DeclInfo -> Set HashIncludeArg
+    getHeaders :: C.DeclInfo Final -> Set HashIncludeArg
     getHeaders = getMainHeaders' . singleLocPath . C.declLoc
 
 -- TODO strategy

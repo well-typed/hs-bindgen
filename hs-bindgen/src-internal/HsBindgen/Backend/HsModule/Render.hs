@@ -37,7 +37,7 @@ import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Translation (translateType)
 import HsBindgen.Backend.UniqueSymbol
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C

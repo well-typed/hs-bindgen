@@ -10,7 +10,6 @@ import C.Char qualified as Runtime
 import C.Type (Sign (Signed, Unsigned))
 import C.Type qualified as Runtime
 
-import C.Expr.Syntax (Ps)
 import C.Expr.Syntax qualified as DSL
 import C.Expr.Typecheck.Type (Kind (Ct, Ty))
 import C.Expr.Typecheck.Type qualified as DSL
@@ -22,7 +21,7 @@ import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config.FixCandidate (FixCandidate)
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
@@ -37,16 +36,11 @@ translateMacroExpr :: Hs.MacroExpr -> SDecl
 translateMacroExpr Hs.MacroExpr{..} = DBinding Binding{
       name       = name
     , parameters = []
-    , result     = Result (translateType macroExprType) Nothing
-    , body       = translateBody macroExprArgs macroExprBody
+    , result     = Result (translateType expr.typ) Nothing
+    , body       = translateBody expr.args expr.body
     , pragmas    = []
     , comment    = comment
     }
-  where
-    macroExprArgs :: [DSL.Name]
-    macroExprBody :: DSL.MExpr Ps
-    macroExprType :: DSL.Quant (DSL.Type Ty)
-    C.CheckedMacroExpr{macroExprArgs, macroExprBody, macroExprType} = body
 
 {-------------------------------------------------------------------------------
   Translate type

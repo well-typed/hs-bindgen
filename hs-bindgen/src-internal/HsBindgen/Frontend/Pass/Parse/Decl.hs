@@ -13,7 +13,7 @@ import Clang.LowLevel.Core
 import Clang.Paths
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass

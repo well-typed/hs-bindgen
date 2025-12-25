@@ -35,8 +35,8 @@ import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Deps qualified as Deps
-import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.AST.Type (ValOrRef (..))
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass

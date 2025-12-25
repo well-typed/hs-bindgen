@@ -9,7 +9,8 @@ import Data.Vec.Lazy qualified as Vec
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Imports
 
 import DeBruijn (Idx (..), Weaken (..), pattern IS, pattern IZ)
@@ -21,7 +22,7 @@ mkPrimInstance :: forall n.
      SNatI n
   => Set Hs.TypeClass       -- ^ Available instances
   -> Hs.Struct n            -- ^ Haskell struct
-  -> C.Struct               -- ^ C struct
+  -> C.Struct Final         -- ^ C struct
   -> [Hs.Decl]
 mkPrimInstance insts hsStruct struct
   | Hs.Prim `Set.notMember` insts = []

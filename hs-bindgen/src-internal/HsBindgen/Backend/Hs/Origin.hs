@@ -23,32 +23,35 @@ module HsBindgen.Backend.Hs.Origin (
   , Field(..)
   ) where
 
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Declarations
 -------------------------------------------------------------------------------}
 
 data Decl a = Decl{
-      declInfo :: C.DeclInfo
+      declInfo :: C.DeclInfo Final
     , declKind :: a            -- ^ Kind-specific information
-    , declSpec :: C.DeclSpec
+    , declSpec :: PrescriptiveDeclSpec
     }
   deriving stock (Generic, Show)
 
 data Struct =
-    Struct C.Struct
+    Struct (C.Struct Final)
   deriving stock (Generic, Show)
 
 data Newtype =
-    Enum    C.Enum
-  | Typedef C.Typedef
-  | Union   C.Union
-  | Macro   C.CheckedMacroType
-  | Aux     C.Typedef
+    Enum    (C.Enum           Final)
+  | Typedef (C.Typedef        Final)
+  | Union   (C.Union          Final)
+  | Aux     (C.Typedef        Final)
+  | Macro   (CheckedMacroType Final)
   deriving stock (Generic, Show)
 
 data EmptyData =
@@ -56,14 +59,14 @@ data EmptyData =
   deriving stock (Generic, Show)
 
 data ForeignImport =
-    Function C.Function
-  | Global (C.Type Final)
-  | ToFunPtr (C.Type Final)
-  | FromFunPtr (C.Type Final)
+    Function   (C.Function Final)
+  | Global     (C.Type     Final)
+  | ToFunPtr   (C.Type     Final)
+  | FromFunPtr (C.Type     Final)
   deriving stock (Generic, Show)
 
 newtype PatSyn =
-    EnumConstant C.EnumConstant
+    EnumConstant (C.EnumConstant Final)
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
@@ -71,7 +74,7 @@ newtype PatSyn =
 -------------------------------------------------------------------------------}
 
 data Field =
-    GeneratedField             -- ^ Field without a direct counterpart in C
-  | StructField C.StructField
+    GeneratedField  -- ^ Field without a direct counterpart in C
+  | StructField (C.StructField Final)
   deriving stock (Generic, Show)
 

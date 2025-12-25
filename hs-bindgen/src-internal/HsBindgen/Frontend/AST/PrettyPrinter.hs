@@ -9,8 +9,8 @@ module HsBindgen.Frontend.AST.PrettyPrinter (
 import Data.Text qualified as Text
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.External
-import HsBindgen.Frontend.AST.Type
+import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -24,10 +24,10 @@ import HsBindgen.Language.C qualified as C
 --
 showsFunctionType :: forall p.
      (IsPass p, HasCallStack)
-  => ShowS              -- ^ function name
-  -> FunctionPurity     -- ^ function purity
-  -> [(ShowS, Type p)]  -- ^ arguments, names and types
-  -> Type p             -- ^ return type
+  => ShowS                -- ^ function name
+  -> C.FunctionPurity     -- ^ function purity
+  -> [(ShowS, C.Type p)]  -- ^ arguments, names and types
+  -> C.Type p             -- ^ return type
   -> ShowS
 showsFunctionType n pur args res  =
       showsFunctionPurity pur
@@ -50,7 +50,7 @@ showsFunctionType n pur args res  =
       where
         sep a b = a . showString ",\n" . b
 
-        showT :: (ShowS, Type p) -> ShowS
+        showT :: (ShowS, C.Type p) -> ShowS
         showT (i, p) =
               showString "  "  -- extra 2 spaces for parameters
             . showsVariableType i p
@@ -58,7 +58,7 @@ showsFunctionType n pur args res  =
 showsVariableType ::
      (IsPass p, HasCallStack)
   => ShowS -- ^ variable name
-  -> Type p
+  -> C.Type p
   -> ShowS
 showsVariableType n ty = showsType variableDeclarator ty
   where
@@ -75,9 +75,9 @@ showsVariableType n ty = showsType variableDeclarator ty
 --
 -- === Examples
 --
--- >>> import HsBindgen.Frontend.AST.External (Type (..))
+-- >>> import HsBindgen.Frontend.AST.Decl (Type (..))
 -- >>> import HsBindgen.Language.C qualified as C
--- >>> import HsBindgen.Frontend.AST.Internal (FunctionPurity (..))
+-- >>> import HsBindgen.Frontend.AST.Decl (FunctionPurity (..))
 --
 -- A variable @a@ of type boolean:
 --
@@ -141,28 +141,28 @@ showsVariableType n ty = showsType variableDeclarator ty
 showsType :: forall p.
      (IsPass p, HasCallStack)
   => (CTypePrecedence -> ShowS)  -- ^ variable name, or function name + arguments
-  -> Type p
+  -> C.Type p
   -> ShowS
-showsType x (TypePrim p)              = C.showsPrimType p . showChar ' ' . x 0
-showsType x (TypeRef ref)             = showsId (Proxy @p) ref . showChar ' ' . x 0
-showsType x (TypeTypedef typedef)     = showsId (Proxy @p) typedef.ref . showChar ' ' . x 0
-showsType x (TypePointers n t)        = showsType (\d -> showParen (d > arrayPrec)
-                                      $ foldr (.) id (replicate n (showString "*"))
-                                      . x (pointerPrec + 1)) t
-showsType x (TypeConstArray n t)      = showsType (\_d -> x (arrayPrec + 1) . showChar '[' . shows n . showChar ']') t
-showsType x (TypeFun args res)        =
+showsType x (C.TypePrim p)              = C.showsPrimType p . showChar ' ' . x 0
+showsType x (C.TypeRef ref)             = showsId (Proxy @p) ref . showChar ' ' . x 0
+showsType x (C.TypeTypedef typedef)     = showsId (Proxy @p) typedef.ref . showChar ' ' . x 0
+showsType x (C.TypePointers n t)        = showsType (\d -> showParen (d > arrayPrec)
+                                        $ foldr (.) id (replicate n (showString "*"))
+                                        . x (pointerPrec + 1)) t
+showsType x (C.TypeConstArray n t)      = showsType (\_d -> x (arrayPrec + 1) . showChar '[' . shows n . showChar ']') t
+showsType x (C.TypeFun args res)        =
     -- Note: we pass 'ImpureFunction' to 'showsFunctionType' so that no function
     -- attributes are included in the printed string. Function attributes should
     -- not appear inside types, rather only as part of top-level function
     -- declarations.
-    showsFunctionType (showParen True (x 0)) ImpureFunction (zipWith named [1..] args) res
+    showsFunctionType (showParen True (x 0)) C.ImpureFunction (zipWith named [1..] args) res
   where
-    named :: Int -> Type p -> (ShowS, Type p)
+    named :: Int -> C.Type p -> (ShowS, C.Type p)
     named i t = (showString "arg" . shows i, t)
-showsType x TypeVoid                  = showString "void " . x 0
-showsType x (TypeIncompleteArray t)   = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
-showsType x (TypeExtBinding ext)      = showsId (Proxy @p) (extBindingId (Proxy @p) ext) . showChar ' ' . x 0
-showsType x (TypeBlock t)             = showsType (\_d -> showString "^" . x 0) t
+showsType x C.TypeVoid                  = showString "void " . x 0
+showsType x (C.TypeIncompleteArray t)   = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
+showsType x (C.TypeExtBinding ext)      = showsId (Proxy @p) (extBindingId (Proxy @p) ext) . showChar ' ' . x 0
+showsType x (C.TypeBlock t)             = showsType (\_d -> showString "^" . x 0) t
 -- Type qualifiers like @const@ can appear before, and _after_ the type they
 -- refer to. For example,
 --
@@ -196,8 +196,8 @@ showsType x (TypeBlock t)             = showsType (\_d -> showString "^" . x 0) 
 -- constant int" as follows:
 --
 -- > int const * const f();
-showsType x (TypeQualified TypeQualifierConst t) = showsType (\_d -> showString "const " . x 0) t
-showsType x (TypeComplex p) = C.showsPrimType p . showChar ' ' . showString "_Complex " . x 0
+showsType x (C.TypeQualified C.TypeQualifierConst t) = showsType (\_d -> showString "const " . x 0) t
+showsType x (C.TypeComplex p) = C.showsPrimType p . showChar ' ' . showString "_Complex " . x 0
 
 -- | The precedence of various constructs in C declarations.
 type CTypePrecedence = Int
@@ -215,7 +215,7 @@ pointerPrec = 5
 -- Function purity translates to a @const@ or @pure@ function attribute.
 --
 --
--- >>> import HsBindgen.Frontend.AST.External (FunctionPurity(..))
+-- >>> import HsBindgen.Frontend.AST.Decl (FunctionPurity(..))
 --
 -- >>> showsFunctionPurity ImpureFunction ""
 -- ""
@@ -225,11 +225,11 @@ pointerPrec = 5
 --
 -- >>> showsFunctionPurity CPureFunction ""
 -- "__attribute__ ((pure))"
-showsFunctionPurity :: FunctionPurity -> ShowS
+showsFunctionPurity :: C.FunctionPurity -> ShowS
 showsFunctionPurity pur = case pur of
-    ImpureFunction -> id
-    HaskellPureFunction -> withShowsAttribute "const"
-    CPureFunction -> withShowsAttribute "pure"
+    C.ImpureFunction -> id
+    C.HaskellPureFunction -> withShowsAttribute "const"
+    C.CPureFunction -> withShowsAttribute "pure"
   where
     withShowsAttribute s =
         showString "__attribute__ (("
@@ -238,11 +238,11 @@ showsFunctionPurity pur = case pur of
 
 -- | Print a newline after a function attribute, but only if there is an attribute.
 --
-showAttributeNewline :: FunctionPurity -> ShowS
+showAttributeNewline :: C.FunctionPurity -> ShowS
 showAttributeNewline pur = case pur of
-    ImpureFunction -> id
-    HaskellPureFunction -> showChar '\n'
-    CPureFunction -> showChar '\n'
+    C.ImpureFunction -> id
+    C.HaskellPureFunction -> showChar '\n'
+    C.CPureFunction -> showChar '\n'
 
 showsId :: IsPass p => Proxy p -> Id p -> ShowS
 showsId p declId =
@@ -253,14 +253,14 @@ showsId p declId =
 showsDeclName :: C.DeclName -> ShowS
 showsDeclName (C.DeclName name kind) = showsNameKind kind . showsText name
 
-showsNameKind :: NameKind -> ShowS
+showsNameKind :: C.NameKind -> ShowS
 showsNameKind = \case
-    NameKindOrdinary    -> id
-    NameKindTagged kind ->
+    C.NameKindOrdinary    -> id
+    C.NameKindTagged kind ->
       case kind of
-       TagKindStruct -> showString "struct "
-       TagKindEnum   -> showString "enum "
-       TagKindUnion  -> showString "union "
+       C.TagKindStruct -> showString "struct "
+       C.TagKindEnum   -> showString "enum "
+       C.TagKindUnion  -> showString "union "
 
 showsText :: Text -> ShowS
 showsText = showString . Text.unpack
