@@ -26,8 +26,9 @@ module HsBindgen.Frontend.AST.Type (
     -- * Normal forms
   , Normalize(..)
 
-    -- * Simple queries
-  , typeDeclIds
+    -- * Queries
+  , ValOrRef(..)
+  , depsOfType
   , hasUnsupportedType
 
     -- * Classification
@@ -336,34 +337,42 @@ getErasedType :: Normalize tag Erased => TypeF tag p -> ErasedType p
 getErasedType = normalize
 
 {-------------------------------------------------------------------------------
-  Simple queries
+  Queries
 -------------------------------------------------------------------------------}
 
--- | (Non-external) declarations referred to in this type
+data ValOrRef = ByValue | ByRef
+  deriving stock (Show, Eq, Ord)
+
+-- | The declarations this type depends on (direct dependencies only)
 --
--- These are declarations that would appear in the generated Haskell type
--- whenever this type is used.
---
--- This does /not/ include any external declarations.
-typeDeclIds :: Type p -> [Id p]
-typeDeclIds = \case
+-- We also report whether this dependence is through a pointer or not.
+depsOfType :: Type p -> [(ValOrRef, Id p)]
+depsOfType = \case
     -- Primitive types
     TypePrim _    -> []
     TypeVoid      -> []
     TypeComplex _ -> []
 
     -- Interesting cases
-    TypeRef         declId  -> [declId]
-    TypeTypedef     typedef -> [typedef.ref]
-    TypeExtBinding  _ext    -> []
+    TypeRef ref            -> [(ByValue, ref)]
+    TypeTypedef typedef    -> [(ByValue, typedef.ref)]
+    TypeUnsafePointer t    -> first (const ByRef) <$> depsOfType t
+
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1467>
+    -- We could in /principle/ use extBindingId here to implement this case
+    -- properly. However, one of the use cases of 'depsOfType' is in a check
+    -- whether a type is defined in the current module; 'extBindingId' currently
+    -- omits the module, so this could result in potentially incorrect
+    -- conclusions (if there happens to be a /another/ type of the same name).
+    -- TypeExtBinding extBinding -> [(ByValue, extBindingId (Proxy @p) extBinding)]
+    TypeExtBinding _extBinding -> []
 
     -- Recurse
-    TypePointers _      t -> typeDeclIds t
-    TypeConstArray _    t -> typeDeclIds t
-    TypeIncompleteArray t -> typeDeclIds t
-    TypeBlock           t -> typeDeclIds t
-    TypeQualified _     t -> typeDeclIds t
-    TypeFun args res      -> concatMap typeDeclIds (args ++ [res])
+    TypeConstArray _    t -> depsOfType t
+    TypeIncompleteArray t -> depsOfType t
+    TypeBlock           t -> depsOfType t
+    TypeQualified _     t -> depsOfType t
+    TypeFun args res      -> concatMap depsOfType args <> depsOfType res
 
 -- | Checks if a type is unsupported by Haskell's FFI
 hasUnsupportedType :: forall tag p.

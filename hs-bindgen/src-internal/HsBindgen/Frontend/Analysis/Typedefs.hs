@@ -18,12 +18,10 @@ import Clang.HighLevel.Types
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.AST.Deps (Usage (..))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass (Select)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -148,20 +146,17 @@ analyseTypedef ::
 analyseTypedef declUseGraph typedefInfo typedef =
     case taggedPayload typedefType of
       Nothing      -> mempty
-      Just payload -> typedefOfTagged typedefInfo payload $
-                        getUseSites payload.declId
+      Just payload ->
+        typedefOfTagged typedefInfo payload $
+          DeclUseGraph.getUseSitesNoSelfReferences declUseGraph payload.declId
   where
     C.Typedef{typedefType, typedefAnn = NoAnn} = typedef
 
-    getUseSites :: C.DeclId -> [(C.DeclId, Usage AssignAnonIds)]
-    getUseSites qualPrelimDeclId =
-       DeclUseGraph.getUseSitesNoSelfReferences declUseGraph qualPrelimDeclId
-
 -- | Typedef around tagged payload
 typedefOfTagged ::
-     C.DeclInfo Select                 -- ^ Typedef info
-  -> TaggedPayload                     -- ^ Payload
-  -> [(C.DeclId, Usage AssignAnonIds)] -- ^ Use sites of the payload
+     C.DeclInfo Select    -- ^ Typedef info
+  -> TaggedPayload        -- ^ Payload
+  -> [(C.DeclId, usage)]  -- ^ Use sites of the payload
   -> TypedefAnalysis
 typedefOfTagged typedefInfo payload useSites
   | shouldSquash

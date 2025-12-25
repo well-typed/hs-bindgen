@@ -13,7 +13,6 @@ import Clang.LowLevel.Core
 import Clang.Paths
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
@@ -832,7 +831,7 @@ detectStructImplicitFields nestedDecls outerFields =
           _otherwise          -> []
 
     fieldDeps :: [C.PrelimDeclId]
-    fieldDeps = map snd $ concatMap (depsOfType . either C.structFieldType C.unionFieldType) allFields
+    fieldDeps = map snd $ concatMap (C.depsOfType . either C.structFieldType C.unionFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
     declIsUsed decl = decl.declInfo.declId `elem` fieldDeps
@@ -863,7 +862,7 @@ detectUnionImplicitFields nestedDecls outerFields =
           _otherwise          -> []
 
     fieldDeps :: [C.PrelimDeclId]
-    fieldDeps = map snd $ concatMap (depsOfType . either C.structFieldType C.unionFieldType) allFields
+    fieldDeps = map snd $ concatMap (C.depsOfType . either C.structFieldType C.unionFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
     declIsUsed decl = decl.declInfo.declId `elem` fieldDeps
