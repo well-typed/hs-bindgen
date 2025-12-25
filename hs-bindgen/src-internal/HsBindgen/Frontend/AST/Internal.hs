@@ -161,6 +161,7 @@ data Struct p = Struct {
       structSizeof    :: Int
     , structAlignment :: Int
     , structFields    :: [StructField p]
+    , structFlam      :: Maybe (StructField p) -- ^ FLAM element type, if any
     , structAnn       :: Ann "Struct" p
     }
 

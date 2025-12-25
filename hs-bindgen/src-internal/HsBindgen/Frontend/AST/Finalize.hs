@@ -6,7 +6,6 @@ import Clang.HighLevel.Documentation qualified as CDoc
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Internal qualified as Int
-import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Imports
@@ -120,18 +119,17 @@ instance Finalize Int.Struct where
         structNames = structAnn
       , structSizeof
       , structAlignment
-      , structFields = map finalize regularFields
-      , structFlam = finalize <$> mFlam
+      , structFields = map finalize structFields
+      , structFlam = finalize <$> structFlam
       }
     where
       Int.Struct {
           structSizeof
         , structAlignment
-        , structFields = allFields
+        , structFields
+        , structFlam
         , structAnn
         } = struct
-
-      (regularFields, mFlam) = partitionFields allFields
 
 instance Finalize Int.StructField where
   type Finalized Int.StructField = Ext.StructField
@@ -261,24 +259,3 @@ instance Finalize Int.CheckedMacroType where
           macroType
         , macroTypeAnn
         } = checkedMacroType
-
-{-------------------------------------------------------------------------------
-  Internal: FLAMs
--------------------------------------------------------------------------------}
-
-partitionFields ::
-     [Int.StructField Final]
-  -> ([Int.StructField Final], Maybe (Int.StructField Final))
-partitionFields = go []
-  where
-    go ::
-         [Int.StructField Final]
-      -> [Int.StructField Final]
-      -> ([Int.StructField Final], Maybe (Int.StructField Final))
-    go acc []     = (reverse acc, Nothing)
-    go acc (f:fs) = case Int.structFieldType f of
-                      C.TypeIncompleteArray ty ->
-                        let f' = f{Int.structFieldType = ty}
-                        in (reverse acc ++ fs, Just f')
-                      _otherwise->
-                        go (f:acc) fs
