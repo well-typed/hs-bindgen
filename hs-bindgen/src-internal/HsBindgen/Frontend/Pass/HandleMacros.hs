@@ -87,12 +87,21 @@ processStruct ::
   -> C.Struct ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
 processStruct info C.Struct{..} =
-    mkDecl <$> mapM processStructField structFields
+    mkDecl
+      <$> mapM processStructField structFields
+      <*> mapM processStructField structFlam
   where
-    mkDecl :: [C.StructField HandleMacros] -> C.Decl HandleMacros
-    mkDecl fields = C.Decl{
+    mkDecl ::
+         [C.StructField HandleMacros]
+      -> Maybe (C.StructField HandleMacros)
+      -> C.Decl HandleMacros
+    mkDecl fields flam = C.Decl{
           declInfo = info
-        , declKind = C.DeclStruct C.Struct{structFields = fields, ..}
+        , declKind = C.DeclStruct C.Struct{
+                         structFields = fields
+                       , structFlam   = flam
+                       , ..
+                       }
         , declAnn  = NoAnn
         }
 

@@ -123,7 +123,7 @@ updateDeclInfo ::
   -> C.DeclInfo Parse
   -> M (C.DeclInfo AssignAnonIds)
 updateDeclInfo declId' info =
-    reconstruct <$> traverse updateUseSites info.declComment
+    reconstruct <$> mapM updateUseSites info.declComment
   where
     reconstruct :: Maybe (C.Comment AssignAnonIds) -> C.DeclInfo AssignAnonIds
     reconstruct declComment' = C.DeclInfo{
@@ -182,11 +182,17 @@ instance UpdateUseSites C.DeclKind where
 
 instance UpdateUseSites C.Struct where
   updateUseSites C.Struct{..} =
-      reconstruct <$> mapM updateUseSites structFields
+      reconstruct
+        <$> mapM updateUseSites structFields
+        <*> mapM updateUseSites structFlam
     where
-      reconstruct :: [C.StructField AssignAnonIds] -> C.Struct AssignAnonIds
-      reconstruct structFields' = C.Struct {
+      reconstruct ::
+           [C.StructField AssignAnonIds]
+        -> (Maybe (C.StructField AssignAnonIds))
+        -> C.Struct AssignAnonIds
+      reconstruct structFields' structFlam' = C.Struct {
           structFields = structFields'
+        , structFlam   = structFlam'
         , ..
         }
 
@@ -318,7 +324,7 @@ updateDeclId prelimDeclId = WrapM $ do
 
 instance UpdateUseSites C.FieldInfo where
   updateUseSites C.FieldInfo{..} =
-      reconstruct <$> traverse updateUseSites fieldComment
+      reconstruct <$> mapM updateUseSites fieldComment
     where
       reconstruct ::
            Maybe (C.Comment AssignAnonIds)
@@ -340,11 +346,11 @@ instance UpdateUseSites C.EnumConstant where
 
 instance UpdateUseSites C.Comment where
   updateUseSites (C.Comment comment) =
-      C.Comment <$> traverse updateUseSites comment
+      C.Comment <$> mapM updateUseSites comment
 
 instance UpdateUseSites C.CommentRef where
   updateUseSites (C.CommentRef name mId) =
-      C.CommentRef name <$> traverse updateDeclId mId
+      C.CommentRef name <$> mapM updateDeclId mId
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

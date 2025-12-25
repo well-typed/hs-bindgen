@@ -123,8 +123,10 @@ analyseDecl decl =
       C.DeclGlobal   _ -> []
 
 analyseStruct :: C.DeclInfo Parse -> C.Struct Parse -> [(C.AnonId, Context)]
-analyseStruct declInfo struct =
-    concatMap aux struct.structFields
+analyseStruct declInfo struct = concat [
+      concatMap aux struct.structFields
+    , concatMap aux struct.structFlam
+    ]
   where
     aux :: C.StructField Parse -> [(C.AnonId, Context)]
     aux f = analyseType (Field declInfo f.structFieldInfo) f.structFieldType

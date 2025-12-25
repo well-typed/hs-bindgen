@@ -127,6 +127,7 @@ instance (
         structSizeof
       , structAlignment
       , structFields = map coercePass structFields
+      , structFlam = fmap coercePass structFlam
       , structAnn
       }
 

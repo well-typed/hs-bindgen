@@ -248,32 +248,32 @@ class MangleInDecl a where
 
 mangleDecl :: C.Decl Select -> M (Maybe (C.Decl MangleNames))
 mangleDecl decl = do
-     mConclusion <- checkTypedefAnalysis decl.declInfo.declId
-     case mConclusion of
-       Just TypedefAnalysis.Squash{} -> do
-         traceMsg $ withDeclLoc decl.declInfo $ MangleNamesSquashed
-         return Nothing
-       _otherwise -> do
-         declId'      <- mangleDeclId decl.declInfo.declId
-         declComment' <- traverse mangle decl.declInfo.declComment
+    mConclusion <- checkTypedefAnalysis decl.declInfo.declId
+    case mConclusion of
+      Just TypedefAnalysis.Squash{} -> do
+        traceMsg $ withDeclLoc decl.declInfo $ MangleNamesSquashed
+        return Nothing
+      _otherwise -> do
+        declId'      <- mangleDeclId decl.declInfo.declId
+        declComment' <- mapM mangle decl.declInfo.declComment
 
-         let info :: C.DeclInfo MangleNames
-             info = C.DeclInfo{
-                  declId           = declId'
-                , declComment      = declComment'
-                , declLoc          = decl.declInfo.declLoc
-                , declHeaderInfo   = decl.declInfo.declHeaderInfo
-                , declAvailability = decl.declInfo.declAvailability
+        let info :: C.DeclInfo MangleNames
+            info = C.DeclInfo{
+                 declId           = declId'
+               , declComment      = declComment'
+               , declLoc          = decl.declInfo.declLoc
+               , declHeaderInfo   = decl.declInfo.declHeaderInfo
+               , declAvailability = decl.declInfo.declAvailability
+               }
+
+            reconstruct :: C.DeclKind MangleNames -> C.Decl MangleNames
+            reconstruct declKind' = C.Decl{
+                  declInfo = info
+                , declKind = declKind'
+                , declAnn  = decl.declAnn
                 }
 
-             mk :: C.DeclKind MangleNames -> C.Decl MangleNames
-             mk declKind' = C.Decl{
-                   declInfo = info
-                 , declKind = declKind'
-                 , declAnn  = decl.declAnn
-                 }
-
-         Just . mk <$> mangleInDecl info decl.declKind
+        Just . reconstruct <$> mangleInDecl info decl.declKind
 
 {-------------------------------------------------------------------------------
   Scoped names
@@ -385,103 +385,120 @@ instance MangleInDecl C.DeclKind where
       C.DeclOpaque     -> return C.DeclOpaque
 
 instance MangleInDecl C.Struct where
-  mangleInDecl info C.Struct{..} = do
-      let mk :: [C.StructField MangleNames] -> C.Struct MangleNames
-          mk structFields' = C.Struct{
-                structFields = structFields'
-              , structAnn    = mkStructNames info
-              , ..
-              }
-      mk <$> mapM (mangleInDecl info) structFields
+  mangleInDecl info C.Struct{..} =
+      reconstruct
+        <$> mapM (mangleInDecl info) structFields
+        <*> mapM (mangleInDecl info) structFlam
+    where
+      reconstruct ::
+           [C.StructField MangleNames]
+        -> Maybe (C.StructField MangleNames)
+        -> C.Struct MangleNames
+      reconstruct structFields' structFlam' = C.Struct{
+            structFields = structFields'
+          , structFlam   = structFlam'
+          , structAnn    = mkStructNames info
+          , ..
+          }
 
 instance MangleInDecl C.StructField where
   mangleInDecl info C.StructField{..} = do
-      let mk ::
-               C.ScopedNamePair
-            -> C.Type MangleNames
-            -> Maybe (C.Comment MangleNames)
-            -> C.StructField MangleNames
-          mk   structFieldName' structFieldType' structFieldComment' =
-            C.StructField {
-                structFieldInfo =
-                  C.FieldInfo {
-                    fieldLoc     = C.fieldLoc structFieldInfo
-                  , fieldName    = structFieldName'
-                  , fieldComment = structFieldComment'
-                  }
-              , structFieldType = structFieldType'
-              , ..
-              }
-      mk <$> mangleFieldName info (C.fieldName structFieldInfo)
+      reconstruct
+         <$> mangleFieldName info (C.fieldName structFieldInfo)
          <*> mangle structFieldType
-         <*> traverse mangle (C.fieldComment structFieldInfo)
+         <*> mapM mangle (C.fieldComment structFieldInfo)
+    where
+      reconstruct ::
+           C.ScopedNamePair
+        -> C.Type MangleNames
+        -> Maybe (C.Comment MangleNames)
+        -> C.StructField MangleNames
+      reconstruct structFieldName' structFieldType' structFieldComment' =
+        C.StructField {
+            structFieldInfo =
+              C.FieldInfo {
+                fieldLoc     = C.fieldLoc structFieldInfo
+              , fieldName    = structFieldName'
+              , fieldComment = structFieldComment'
+              }
+          , structFieldType = structFieldType'
+          , ..
+          }
 
 instance MangleInDecl C.Union where
   mangleInDecl info C.Union{..} = do
-      let mk :: [C.UnionField MangleNames] -> C.Union MangleNames
-          mk unionFields' = C.Union{
-                unionFields = unionFields'
-              , unionAnn    = mkUnionNames info
-              , ..
-              }
-      mk <$> mapM (mangleInDecl info) unionFields
+      reconstruct <$> mapM (mangleInDecl info) unionFields
+    where
+      reconstruct :: [C.UnionField MangleNames] -> C.Union MangleNames
+      reconstruct unionFields' = C.Union{
+            unionFields = unionFields'
+          , unionAnn    = mkUnionNames info
+          , ..
+          }
 
 instance MangleInDecl C.UnionField where
   mangleInDecl info C.UnionField{..} = do
-      let mk ::
-               C.ScopedNamePair
-            -> C.Type MangleNames
-            -> Maybe (C.Comment MangleNames)
-            -> C.UnionField MangleNames
-          mk unionFieldName' unionFieldType' unionFieldComment' =
-            C.UnionField {
-                unionFieldInfo =
-                  C.FieldInfo {
-                    fieldLoc     = C.fieldLoc unionFieldInfo
-                  , fieldName    = unionFieldName'
-                  , fieldComment = unionFieldComment'
-                  }
-              , unionFieldType = unionFieldType'
-              , ..
+      reconstruct
+        <$> mangleFieldName info (C.fieldName unionFieldInfo)
+        <*> mangle unionFieldType
+        <*> mapM mangle (C.fieldComment unionFieldInfo)
+    where
+      reconstruct ::
+           C.ScopedNamePair
+        -> C.Type MangleNames
+        -> Maybe (C.Comment MangleNames)
+        -> C.UnionField MangleNames
+      reconstruct unionFieldName' unionFieldType' unionFieldComment' =
+        C.UnionField {
+            unionFieldInfo =
+              C.FieldInfo {
+                fieldLoc     = C.fieldLoc unionFieldInfo
+              , fieldName    = unionFieldName'
+              , fieldComment = unionFieldComment'
               }
-      mk <$> mangleFieldName info (C.fieldName unionFieldInfo)
-         <*> mangle unionFieldType
-         <*> traverse mangle (C.fieldComment unionFieldInfo)
+          , unionFieldType = unionFieldType'
+          , ..
+          }
 
 instance MangleInDecl C.Enum where
   mangleInDecl info C.Enum{..} = do
-      let mk ::
-               C.Type MangleNames
-            -> [C.EnumConstant MangleNames]
-            -> C.Enum MangleNames
-          mk enumType' enumConstants' = C.Enum{
-                enumType      = enumType'
-              , enumConstants = enumConstants'
-              , enumAnn       = mkEnumNames info
-              , ..
-              }
-      mk <$> mangle enumType
-         <*> mapM (mangleInDecl info) enumConstants
+      reconstruct
+        <$> mangle enumType
+        <*> mapM (mangleInDecl info) enumConstants
+    where
+      reconstruct ::
+           C.Type MangleNames
+        -> [C.EnumConstant MangleNames]
+        -> C.Enum MangleNames
+      reconstruct enumType' enumConstants' = C.Enum{
+            enumType      = enumType'
+          , enumConstants = enumConstants'
+          , enumAnn       = mkEnumNames info
+          , ..
+          }
 
 instance MangleInDecl C.EnumConstant where
   mangleInDecl info C.EnumConstant{..} = do
-      let mk :: C.ScopedNamePair
-             -> Maybe (C.Comment MangleNames)
-             -> C.EnumConstant MangleNames
-          mk enumConstantName' enumConstantComment' = C.EnumConstant{
-                enumConstantInfo =
-                  C.FieldInfo {
-                    fieldLoc     = C.fieldLoc enumConstantInfo
-                  , fieldName    = enumConstantName'
-                  , fieldComment = enumConstantComment'
-                  }
-              , ..
+      reconstruct
+        <$> mangleEnumConstant info (C.fieldName enumConstantInfo)
+        <*> mapM mangle (C.fieldComment enumConstantInfo)
+    where
+      reconstruct ::
+            C.ScopedNamePair
+         -> Maybe (C.Comment MangleNames)
+         -> C.EnumConstant MangleNames
+      reconstruct enumConstantName' enumConstantComment' = C.EnumConstant{
+            enumConstantInfo =
+              C.FieldInfo {
+                fieldLoc     = C.fieldLoc enumConstantInfo
+              , fieldName    = enumConstantName'
+              , fieldComment = enumConstantComment'
               }
-      mk <$> mangleEnumConstant info (C.fieldName enumConstantInfo)
-         <*> traverse mangle (C.fieldComment enumConstantInfo)
+          , ..
+          }
 
 instance Mangle C.Comment where
-  mangle (C.Comment comment) = C.Comment <$> traverse mangle comment
+  mangle (C.Comment comment) = C.Comment <$> mapM mangle comment
 
 instance Mangle C.CommentRef where
   mangle (C.CommentRef name Nothing) =
@@ -494,29 +511,32 @@ instance Mangle C.CommentRef where
 
 instance MangleInDecl C.Typedef where
   mangleInDecl info C.Typedef{..} = do
-      let mk :: C.Type MangleNames -> C.Typedef MangleNames
-          mk typedefType' = C.Typedef{
-                typedefType = typedefType'
-              , typedefAnn  = mkTypedefNames info
-              , ..
-              }
-      mk <$> mangle typedefType
+      reconstruct <$> mangle typedefType
+    where
+      reconstruct :: C.Type MangleNames -> C.Typedef MangleNames
+      reconstruct typedefType' = C.Typedef{
+            typedefType = typedefType'
+          , typedefAnn  = mkTypedefNames info
+          , ..
+          }
 
 instance MangleInDecl C.Function where
   mangleInDecl info C.Function{..} = do
-      let mk ::
-               [(Maybe C.ScopedNamePair, C.Type MangleNames)]
-            -> C.Type MangleNames
-            -> C.Function MangleNames
-          mk functionArgs' functionRes' = C.Function{
-                functionArgs = functionArgs'
-              , functionRes  = functionRes'
-              , ..
-              }
-      mk <$> mapM
-               (bimapM (traverse $ mangleArgumentName info) mangle)
-               functionArgs
-         <*> mangle functionRes
+      reconstruct
+        <$> mapM
+              (bimapM (mapM $ mangleArgumentName info) mangle)
+              functionArgs
+        <*> mangle functionRes
+    where
+      reconstruct ::
+           [(Maybe C.ScopedNamePair, C.Type MangleNames)]
+        -> C.Type MangleNames
+        -> C.Function MangleNames
+      reconstruct functionArgs' functionRes' = C.Function{
+            functionArgs = functionArgs'
+          , functionRes  = functionRes'
+          , ..
+          }
 
 instance MangleInDecl C.CheckedMacro where
   mangleInDecl info = \case
@@ -525,13 +545,14 @@ instance MangleInDecl C.CheckedMacro where
 
 instance MangleInDecl C.CheckedMacroType where
   mangleInDecl info C.CheckedMacroType{..} = do
-    let mk :: C.Type MangleNames -> C.CheckedMacroType MangleNames
-        mk macroType' = C.CheckedMacroType{
-               macroType    = macroType'
-             , macroTypeAnn = mkMacroTypeNames info
-             , ..
-             }
-    mk <$> mangle macroType
+      reconstruct <$> mangle macroType
+    where
+      reconstruct :: C.Type MangleNames -> C.CheckedMacroType MangleNames
+      reconstruct macroType' = C.CheckedMacroType{
+             macroType    = macroType'
+           , macroTypeAnn = mkMacroTypeNames info
+           , ..
+           }
 
 instance Mangle C.Type where
   mangle = \case

@@ -288,15 +288,20 @@ instance Resolve C.DeclKind where
       C.DeclGlobal ty        -> C.DeclGlobal   <$> resolve ctx ty
 
 instance Resolve C.Struct where
-  resolve ctx C.Struct{..} = reconstruct <$> mapM (resolve ctx) structFields
+  resolve ctx C.Struct{..} =
+      reconstruct
+        <$> mapM (resolve ctx) structFields
+        <*> mapM (resolve ctx) structFlam
     where
       reconstruct ::
            [C.StructField ResolveBindingSpecs]
+        -> Maybe (C.StructField ResolveBindingSpecs)
         -> C.Struct ResolveBindingSpecs
-      reconstruct structFields' = C.Struct {
-          structFields = structFields'
-        , ..
-        }
+      reconstruct structFields' structFlam' = C.Struct {
+            structFields = structFields'
+          , structFlam   = structFlam'
+          , ..
+          }
 
 instance Resolve C.StructField where
   resolve ctx C.StructField{..} = reconstruct <$> resolve ctx structFieldType

@@ -10,8 +10,10 @@ import HsBindgen.Frontend.Pass
 -------------------------------------------------------------------------------}
 
 depsOfDecl :: C.DeclKind p -> [(ValOrRef, Id p)]
-depsOfDecl (C.DeclStruct C.Struct{..}) =
-    concatMap (depsOfField C.structFieldType) structFields
+depsOfDecl (C.DeclStruct C.Struct{..}) = concat [
+      concatMap (depsOfField C.structFieldType) structFields
+    , concatMap (depsOfField C.structFieldType) structFlam
+    ]
 depsOfDecl (C.DeclUnion C.Union{..}) =
     concatMap (depsOfField C.unionFieldType) unionFields
 depsOfDecl (C.DeclEnum _) =

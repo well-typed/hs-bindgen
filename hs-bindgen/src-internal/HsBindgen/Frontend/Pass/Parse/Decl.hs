@@ -222,16 +222,19 @@ structDecl info = \curr -> do
         alignment <- clang_Type_getAlignOf ty
 
         let mkStruct :: [C.StructField Parse] -> C.Decl Parse
-            mkStruct fields = C.Decl {
-                declInfo = info
-              , declKind = C.DeclStruct C.Struct{
-                    structSizeof    = fromIntegral sizeof
-                  , structAlignment = fromIntegral alignment
-                  , structFields    = fields
-                  , structAnn       = NoAnn
-                  }
-              , declAnn  = NoAnn
-              }
+            mkStruct allFields = C.Decl {
+                  declInfo = info
+                , declKind = C.DeclStruct C.Struct{
+                      structSizeof    = fromIntegral sizeof
+                    , structAlignment = fromIntegral alignment
+                    , structFields    = regularFields
+                    , structFlam      = mFlam
+                    , structAnn       = NoAnn
+                    }
+                , declAnn  = NoAnn
+                }
+              where
+                (regularFields, mFlam) = partitionFields allFields
 
         -- Separate out nested declarations from regular struct fields
         --
@@ -272,6 +275,24 @@ structDecl info = \curr -> do
         in  foldContinueWith [parseSucceed decl]
       DefinitionElsewhere _ ->
         foldContinue
+  where
+    -- Split off FLAM, if any
+    partitionFields ::
+         [C.StructField Parse]
+      -> ([C.StructField Parse], Maybe (C.StructField Parse))
+    partitionFields = go []
+      where
+        go ::
+             [C.StructField Parse]
+          -> [C.StructField Parse]
+          -> ([C.StructField Parse], Maybe (C.StructField Parse))
+        go acc []     = (reverse acc, Nothing)
+        go acc (f:fs) = case C.structFieldType f of
+                          C.TypeIncompleteArray ty ->
+                            let f' = f{C.structFieldType = ty}
+                            in (reverse acc ++ fs, Just f')
+                          _otherwise->
+                            go (f:acc) fs
 
 unionDecl :: C.DeclInfo Parse -> Parser
 unionDecl info = \curr -> do
