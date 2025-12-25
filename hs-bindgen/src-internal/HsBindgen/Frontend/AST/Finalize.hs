@@ -6,6 +6,7 @@ import Clang.HighLevel.Documentation qualified as CDoc
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Internal qualified as Int
+import HsBindgen.Frontend.AST.Type qualified as Ext
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Imports
@@ -262,7 +263,7 @@ instance Finalize Int.CheckedMacroType where
         } = checkedMacroType
 
 instance Finalize Int.Type where
-  type Finalized Int.Type = Ext.Type
+  type Finalized Int.Type = Ext.Type Final
 
   finalize (Int.TypePrim prim)           = Ext.TypePrim prim
   finalize (Int.TypeRef declId)          = Ext.TypeRef declId

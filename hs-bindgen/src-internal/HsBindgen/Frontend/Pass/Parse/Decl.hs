@@ -48,8 +48,8 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
         -- TODO https://github.com/well-typed/hs-bindgen/issues/1249: Only emit
         -- the trace when we use the declaration that we fail to parse.
         when (contextRequiredForScoping == RequiredForScoping) $
-          recordImmediateTrace $
-            ParseOfDeclarationRequiredForScopingFailed info (parseException err)
+          recordImmediateTrace info $
+            ParseOfDeclarationRequiredForScopingFailed (parseException err)
         pure $ Just $
           [ parseFail info $
               ParseUnsupportedType (parseException err) ]
@@ -87,7 +87,7 @@ getDeclInfo = \curr nameKind -> do
           }
 
     when (isNothing mAvailability) $
-      recordImmediateTrace $ ParseUnknownCursorAvailability info sAvailability
+      recordImmediateTrace info $ ParseUnknownCursorAvailability sAvailability
 
     -- TODO: We might want a NameOriginBuiltin.
     pure info
@@ -998,6 +998,18 @@ visibilityCanCauseErrors ::
 visibilityCanCauseErrors NonPublicVisibility ExternalLinkage False = True
 visibilityCanCauseErrors _ _ _ = False
 
-fromCXType' :: MonadIO m
+{-------------------------------------------------------------------------------
+  Parse types
+-------------------------------------------------------------------------------}
+
+data ParseTypeExceptionContext = ParseTypeExceptionContext {
+      contextInfo               :: C.DeclInfo Parse
+    , contextNameKind           :: C.NameKind
+    , contextRequiredForScoping :: RequiredForScoping
+    }
+  deriving stock (Show)
+
+fromCXType' ::
+     MonadIO m
   => ParseTypeExceptionContext -> CXType -> m (C.Type Parse)
 fromCXType' = fromCXType @ParseTypeExceptionContext

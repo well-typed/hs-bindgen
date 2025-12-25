@@ -5,7 +5,7 @@ import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
 import System.Process (readProcessWithExitCode)
-import Test.Common.HsBindgen.TracePredicate
+import Test.Common.HsBindgen.Trace.Predicate
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
 import Test.Tasty
@@ -44,7 +44,7 @@ testUnresolvedInclude testResources = testCase "unresolved include throws except
     let test = (defaultFailingTest "test-unresolved") {
             testInputDir = tmpDir
             -- Tolerate all traces - we want to test exception propagation
-          , testTracePredicate = customTracePredicate [] $ \_ -> Just Tolerated
+          , testTracePredicate = tolerateAll
           }
         noReport = const $ pure ()
 

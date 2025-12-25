@@ -83,6 +83,9 @@ newtype Identifier = Identifier { text :: Text }
   -- 'Show' instance valid due to 'IsString' instance
   deriving newtype (Aeson.FromJSON, Aeson.ToJSON, IsString, Show, Semigroup)
 
+instance PrettyForTrace Identifier where
+  prettyForTrace ident = PP.string (Text.unpack ident.text)
+
 -- | External reference
 --
 -- An external reference specifies the 'ModuleName' and 'Identifier'

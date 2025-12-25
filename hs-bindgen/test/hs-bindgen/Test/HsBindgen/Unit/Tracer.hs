@@ -6,7 +6,7 @@ import Data.Data (Typeable)
 import Data.Either (isLeft)
 import Data.IORef (readIORef)
 import Data.Proxy (Proxy (Proxy))
-import Test.Common.HsBindgen.TracePredicate
+import Test.Common.HsBindgen.Trace.Predicate
 import Test.Common.Util.Tasty
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, testCase, (@?), (@?=))

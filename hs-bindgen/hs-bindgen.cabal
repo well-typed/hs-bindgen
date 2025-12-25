@@ -141,12 +141,14 @@ library internal
     HsBindgen.Frontend.AST.Finalize
     HsBindgen.Frontend.AST.Internal
     HsBindgen.Frontend.AST.PrettyPrinter
+    HsBindgen.Frontend.AST.Type
     HsBindgen.Frontend.LanguageC
     HsBindgen.Frontend.LanguageC.Error
     HsBindgen.Frontend.LanguageC.Monad
     HsBindgen.Frontend.LanguageC.PartialAST
     HsBindgen.Frontend.LanguageC.PartialAST.FromLanC
     HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
+    HsBindgen.Frontend.LocationInfo
     HsBindgen.Frontend.Naming
     HsBindgen.Frontend.Pass
     HsBindgen.Frontend.Pass.AssignAnonIds
@@ -155,6 +157,7 @@ library internal
     HsBindgen.Frontend.Pass.ConstructTranslationUnit
     HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
     HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+    HsBindgen.Frontend.Pass.Final
     HsBindgen.Frontend.Pass.HandleMacros
     HsBindgen.Frontend.Pass.HandleMacros.Error
     HsBindgen.Frontend.Pass.HandleMacros.IsPass
@@ -333,7 +336,8 @@ library test-common
   hs-source-dirs:  test/common
   exposed-modules:
     Test.Common.HsBindgen.Trace
-    Test.Common.HsBindgen.TracePredicate
+    Test.Common.HsBindgen.Trace.Patterns
+    Test.Common.HsBindgen.Trace.Predicate
     Test.Common.Util.Cabal
     Test.Common.Util.Tasty
     Test.Common.Util.Tasty.Golden
@@ -342,6 +346,7 @@ library test-common
   build-depends:
     , ansi-diff
     , hs-bindgen:internal
+    , libclang-bindings
 
   -- Inherited dependencies
   build-depends:

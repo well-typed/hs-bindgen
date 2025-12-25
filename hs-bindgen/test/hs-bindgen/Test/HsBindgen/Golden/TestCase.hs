@@ -12,19 +12,19 @@ module Test.HsBindgen.Golden.TestCase (
   , testVariant
   , testTrace
   , testTraceSimple
-  , testTraceCustom
+  , testTraceMulti
   , testDiagnostic
     -- ** Failing tests (that is, with hs-bindgen errors and no output)
   , failingTestTrace
   , failingTestSimple
-  , failingTestCustom
+  , failingTestMulti
     -- * Execution
   , runTestHsBindgenSuccess
   , runTestHsBindgenFailure
   ) where
 
 import System.FilePath
-import Test.Common.HsBindgen.TracePredicate
+import Test.Common.HsBindgen.Trace.Predicate
 import Test.HsBindgen.Resources
 import Test.Tasty (TestName)
 import Test.Tasty.HUnit (assertFailure)
@@ -153,14 +153,14 @@ testTraceSimple ::
 testTraceSimple filename trace =
     testTrace filename $ singleTracePredicate trace
 
-testTraceCustom ::
-     (Ord b, WrongCountMsg TraceMsg b)
+testTraceMulti ::
+     (Ord b, RenderLabel b)
   => String
   -> [b]
   -> (TraceMsg -> Maybe (TraceExpectation b))
   -> TestCase
-testTraceCustom filename expected trace =
-    testTrace filename $ customTracePredicate' expected trace
+testTraceMulti filename expected trace =
+    testTrace filename $ multiTracePredicate expected trace
 
 testDiagnostic ::
      String
@@ -193,14 +193,14 @@ failingTestSimple ::
 failingTestSimple filename trace =
     failingTestTrace filename $ singleTracePredicate trace
 
-failingTestCustom ::
-     (Ord a, WrongCountMsg TraceMsg a)
+failingTestMulti ::
+     (Ord a, RenderLabel a)
   => String
   -> [a]
   -> (TraceMsg -> Maybe (TraceExpectation a))
   -> TestCase
-failingTestCustom filename expected trace =
-    failingTestTrace filename $ customTracePredicate' expected trace
+failingTestMulti filename expected trace =
+    failingTestTrace filename $ multiTracePredicate expected trace
 
 {-------------------------------------------------------------------------------
   Execution

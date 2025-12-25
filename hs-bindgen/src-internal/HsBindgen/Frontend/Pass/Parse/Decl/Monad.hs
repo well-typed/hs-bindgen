@@ -41,6 +41,8 @@ import Clang.Paths
 import HsBindgen.Eff
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.LocationInfo
+import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes (GetMainHeadersAndInclude)
@@ -85,7 +87,7 @@ data Env = Env {
     , envIsInMainHeaderDir        :: IsInMainHeaderDir
     , envGetMainHeadersAndInclude :: GetMainHeadersAndInclude
     , envPredicate                :: Boolean ParsePredicate
-    , envTracer                   :: Tracer ImmediateParseMsg
+    , envTracer                   :: Tracer (Msg Parse)
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit
@@ -158,9 +160,12 @@ checkHasMacroExpansion extent = do
 
 -- | Directly emit a parse message that can not be attached to a declaration,
 -- usually because not enough information about the declaration is available.
-recordImmediateTrace :: ImmediateParseMsg -> ParseDecl ()
-recordImmediateTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
-  traceWith (envTracer parseEnv) trace
+recordImmediateTrace :: C.DeclInfo Parse -> ImmediateParseMsg -> ParseDecl ()
+recordImmediateTrace declInfo msg = wrapEff $ \ParseSupport{parseEnv} ->
+    traceWith (envTracer parseEnv) WithLocationInfo{
+        loc = prelimDeclIdLocationInfo declInfo.declId [declInfo.declLoc]
+      , msg
+      }
 
 {-------------------------------------------------------------------------------
   Errors

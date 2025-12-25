@@ -8,7 +8,7 @@ import Text.SimplePrettyPrint ((<+>))
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
+import HsBindgen.Frontend.AST.Internal (CheckedMacro)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (DeclMeta)
@@ -33,7 +33,7 @@ import HsBindgen.Util.Tracer
 -- * Prescriptive binding specification, which is used to configure how bindings
 --   are generated.  This information is added to the AST as annotations.
 type ResolveBindingSpecs :: Pass
-data ResolveBindingSpecs a deriving anyclass (ValidPass)
+data ResolveBindingSpecs a
 
 type family AnnResolveBindingSpecs ix where
   AnnResolveBindingSpecs "TranslationUnit" = DeclMeta
@@ -42,12 +42,12 @@ type family AnnResolveBindingSpecs ix where
   AnnResolveBindingSpecs _                 = NoAnn
 
 instance IsPass ResolveBindingSpecs where
-  type Id         ResolveBindingSpecs = C.DeclId
-  type ScopedName ResolveBindingSpecs = C.ScopedName
   type MacroBody  ResolveBindingSpecs = CheckedMacro ResolveBindingSpecs
   type ExtBinding ResolveBindingSpecs = ResolvedExtBinding
   type Ann ix     ResolveBindingSpecs = AnnResolveBindingSpecs ix
   type Msg        ResolveBindingSpecs = ResolveBindingSpecsMsg
+
+  idNameKind _ = (.name.kind)
 
 data ResolvedExtBinding = ResolvedExtBinding{
       -- | C declaration for which we are using this binding

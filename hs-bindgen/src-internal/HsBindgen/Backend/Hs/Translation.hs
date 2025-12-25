@@ -44,7 +44,9 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -96,7 +98,7 @@ generateDeclarations' opts haddockConfig moduleName declIndex decs =
           fFIStubsAndFunPtrInstances =
                    [ WithCategory CType d
                    | C.TypePointers _ (C.TypeFun args res) <- Set.toList scannedFunctionPointerTypes
-                   , not (any hasUnsupportedType (res:args))
+                   , not (any C.hasUnsupportedType (res:args))
                    , any (isDefinedInCurrentModule declIndex) (res:args)
                    , d <- ToFromFunPtr.forFunction (args, res)
                    ]
@@ -109,7 +111,7 @@ generateDeclarations' opts haddockConfig moduleName declIndex decs =
 -- unions and enums.
 --
 -- This recursively traverses all types to find deeply nested function pointers.
-scanAllFunctionPointerTypes :: [C.Decl] -> Set C.Type
+scanAllFunctionPointerTypes :: [C.Decl] -> Set (C.Type Final)
 scanAllFunctionPointerTypes =
   foldMap (\(C.Decl _ kind _) ->
             case kind of
@@ -123,7 +125,7 @@ scanAllFunctionPointerTypes =
          )
   where
     -- | Recursively scan a type for all function pointers, including nested ones
-    scanTypeForFunctionPointers :: C.Type -> Set C.Type
+    scanTypeForFunctionPointers :: C.Type Final -> Set (C.Type Final)
     scanTypeForFunctionPointers ty = case ty of
       -- Use TypePointers pattern to safely match N levels of indirection
       fp@(C.TypePointers _n (C.TypeFun args res)) ->
@@ -138,7 +140,7 @@ scanAllFunctionPointerTypes =
       _                                -> Set.empty
 
 -- | Check if a type is defined in the current module
-isDefinedInCurrentModule :: DeclIndex -> C.Type -> Bool
+isDefinedInCurrentModule :: DeclIndex -> C.Type Final -> Bool
 isDefinedInCurrentModule declIndex =
     any isInDeclIndex . C.typeDeclIds
   where
@@ -913,7 +915,7 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
             -- If we see all the way through the typedef this case will not be
             -- handled correctly.
             --
-            C.TypeFun args res | not (any hasUnsupportedType (res:args)) ->
+            C.TypeFun args res | not (any C.hasUnsupportedType (res:args)) ->
               ToFromFunPtr.forNewtype nt.newtypeName (args, res)
             _ -> []
 
@@ -998,8 +1000,8 @@ typedefFunPtrDecs ::
      TranslationConfig
   -> HaddockConfig
   -> C.DeclInfo
-  -> Int                 -- ^ Number of indirections
-  -> ([C.Type], C.Type)  -- ^ Function arguments and result
+  -> Int                             -- ^ Number of indirections
+  -> ([C.Type Final], C.Type Final)  -- ^ Function arguments and result
   -> MangleNames.NewtypeNames
   -> C.DeclSpec
   -> HsM [Hs.Decl]
@@ -1227,7 +1229,7 @@ global ::
   -> BaseModuleName
   -> TranslationState
   -> C.DeclInfo
-  -> C.Type
+  -> C.Type Final
   -> C.DeclSpec
   -> [Hs.Decl]
 global opts haddockConfig moduleName transState info ty _spec
@@ -1323,8 +1325,8 @@ addressStubDecs ::
      TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
-  -> C.DeclInfo -- ^ The given declaration
-  -> C.Type     -- ^ The type of the given declaration
+  -> C.DeclInfo       -- ^ The given declaration
+  -> C.Type Final     -- ^ The type of the given declaration
   -> RunnerNameSpec
   -> C.DeclSpec
   -> ( [Hs.Decl]
@@ -1348,7 +1350,7 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
     varName :: String
     varName = T.unpack $ info.declId.cName.name.text
 
-    stubType :: C.Type
+    stubType :: C.Type Final
     stubType = C.TypePointers 1 ty
 
     prettyStub :: String
@@ -1440,32 +1442,3 @@ macroVarDecs haddockConfig info macroExpr = [
   where
     hsVarName :: Hs.Name Hs.NsVar
     hsVarName = Hs.unsafeHsIdHsName info.declId.hsName
-
-{-------------------------------------------------------------------------------
-  Helpers
--------------------------------------------------------------------------------}
-
--- | Checks if a type is unsupported by Haskell's FFI
---
-hasUnsupportedType :: C.GetCanonicalType t => t -> Bool
-hasUnsupportedType = aux . C.getCanonicalType
-  where
-    aux :: C.CanonicalType -> Bool
-    aux (C.TypeRef declId)       = auxRef declId
-    aux C.TypeComplex {}         = True
-    aux C.TypeConstArray {}      = True
-    aux C.TypeIncompleteArray {} = True
-    aux C.TypePrim {}            = False
-    aux C.TypePointers {}        = False
-    aux C.TypeFun {}             = False
-    aux C.TypeVoid               = False
-    aux C.TypeBlock {}           = False
-    aux C.TypeExtBinding {}      = False
-
-    auxRef :: C.DeclIdPair -> Bool
-    auxRef declId =
-        case declId.cName.name.kind of
-          C.NameKindOrdinary               -> False
-          C.NameKindTagged C.TagKindStruct -> True
-          C.NameKindTagged C.TagKindUnion  -> True
-          C.NameKindTagged C.TagKindEnum   -> False

@@ -3,6 +3,7 @@ module HsBindgen.Frontend.Pass.Select (
   ) where
 
 import Data.List (sortBy)
+import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Ord (comparing)
@@ -24,9 +25,11 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.Parse.Result
@@ -84,7 +87,7 @@ data TransitiveSelectability =
 selectDecls ::
      IsMainHeader
   -> IsInMainHeaderDir
-  -> Config Select
+  -> SelectConfig
   -> C.TranslationUnit ResolveBindingSpecs
   -> (C.TranslationUnit Select, [Msg Select])
 selectDecls
@@ -195,7 +198,12 @@ selectDecls
              selectMsgs
           ++ getDelayedMsgs selectedIndex
           -- If there were no predicate matches we issue a warning to the user.
-          ++ [ SelectNoDeclarationsMatched | Set.null rootIds ]
+          ++ [ WithLocationInfo{
+                   loc = LocationUnavailable
+                 , msg = SelectNoDeclarationsMatched
+                 }
+             | Set.null rootIds
+             ]
 
     in  ( unitSelect
         , sortSelectMsgs unitIncludeGraph msgs
@@ -265,7 +273,11 @@ selectDeclWith
         (Nothing, getUnavailMsgs TransitiveDependency rs)
       -- Declaration is not selected.
       (False, False, _) ->
-        (Nothing, [SelectStatusInfo decl NotSelected])
+        let selectMsg = WithLocationInfo{
+                loc = declLocationInfo decl
+              , msg = SelectStatusInfo NotSelected
+              }
+        in (Nothing, [selectMsg])
       -- Declaration is a selection root and a transitive dependency. This
       -- should be impossible and we consider it a bug.
       (True, True, _) ->
@@ -284,19 +296,38 @@ selectDeclWith
     transitiveSelectability = getTransitiveSelectability declId
 
     getSelMsgs :: SelectReason -> [Msg Select]
-    getSelMsgs selectReason =
-      let selectDepr   = [ SelectDeprecated decl | isDeprecated decl.declInfo ]
-      in  SelectStatusInfo decl (Selected selectReason) : selectDepr
+    getSelMsgs selectReason = concat [
+          [ WithLocationInfo{
+                loc = declLocationInfo decl
+              , msg = SelectStatusInfo (Selected selectReason)
+              }
+          ]
+        , [ WithLocationInfo{
+                loc = declLocationInfo decl
+              , msg = SelectDeprecated
+              }
+          | isDeprecated decl.declInfo
+          ]
+        ]
 
     getUnavailMsgs :: SelectReason -> Map C.DeclId Unselectable -> [Msg Select]
     getUnavailMsgs selectReason unavailReason =
-      [ case r of
-          UnselectableBecauseUnusable u ->
-            TransitiveDependencyOfDeclarationUnusable
-              decl selectReason i u (DeclIndex.lookupLoc i declIndex)
-          TransitiveDependencyNotSelected ->
-            TransitiveDependencyOfDeclarationNotSelected
-              decl selectReason i   (DeclIndex.lookupLoc i declIndex)
+      [ WithLocationInfo{
+            loc = declLocationInfo decl
+          , msg =
+              case r of
+                UnselectableBecauseUnusable u ->
+                  TransitiveDependencyOfDeclarationUnusable
+                    selectReason
+                    i
+                    u
+                    (DeclIndex.lookupLoc i declIndex)
+                TransitiveDependencyNotSelected ->
+                  TransitiveDependencyOfDeclarationNotSelected
+                    selectReason
+                    i
+                    (DeclIndex.lookupLoc i declIndex)
+          }
       | (i, r) <- Map.toList unavailReason
       ]
 
@@ -309,26 +340,45 @@ selectDeclWith
   Parse trace messages
 -------------------------------------------------------------------------------}
 
+declLocationInfo :: Decl -> LocationInfo
+declLocationInfo decl =
+    declIdLocationInfo decl.declInfo.declId [decl.declInfo.declLoc]
+
 getDelayedMsgs :: DeclIndex -> [Msg Select]
 getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
   where
-    getSelectMsg :: C.DeclId -> Entry -> [SelectMsg]
+    getSelectMsg :: C.DeclId -> Entry -> [Msg Select]
     getSelectMsg declId = \case
       UsableE e -> case e of
         UsableSuccess success ->
-          map (SelectParseSuccess declId success.decl.declInfo.declLoc) $
-            success.delayedParseMsgs
+          [ WithLocationInfo{
+                loc = declIdLocationInfo declId [success.decl.declInfo.declLoc]
+              , msg = SelectParseSuccess x
+              }
+          | x <- success.delayedParseMsgs
+          ]
         UsableExternal   -> []
         UsableSquashed{} -> []
       UnusableE e -> case e of
         UnusableParseNotAttempted loc xs ->
-          map (SelectParseNotAttempted declId loc) $ NonEmpty.toList xs
-        UnusableParseFailure loc x ->
-          [SelectParseFailure declId loc x]
-        UnusableConflict x ->
-          [SelectConflict declId x]
-        UnusableFailedMacro x ->
-          [SelectMacroFailure x]
+          [ WithLocationInfo{
+                loc = declIdLocationInfo declId [loc]
+              , msg = SelectParseNotAttempted x
+              }
+          | x <- NonEmpty.toList xs
+          ]
+        UnusableParseFailure loc x -> List.singleton WithLocationInfo{
+            loc = declIdLocationInfo declId [loc]
+          , msg = SelectParseFailure x
+          }
+        UnusableConflict x -> List.singleton WithLocationInfo{
+            loc = declIdLocationInfo declId (Conflict.getLocs x)
+          , msg = SelectConflict
+          }
+        UnusableFailedMacro x -> List.singleton WithLocationInfo{
+            loc = declIdLocationInfo x.name [x.loc]
+          , msg = SelectMacroFailure x.macroError
+          }
         UnusableOmitted{} ->
           []
 
@@ -356,28 +406,13 @@ compareSingleLocs xs x y =
     getLineCol :: SingleLoc -> (Int, Int)
     getLineCol z = (singleLocLine z, singleLocColumn z)
 
-getSingleLoc :: Msg Select -> Maybe SingleLoc
-getSingleLoc = \case
-  SelectStatusInfo d _                                   -> fromD d
-  TransitiveDependencyOfDeclarationUnusable    d _ _ _ _ -> fromD d
-  TransitiveDependencyOfDeclarationNotSelected d _ _   _ -> fromD d
-  SelectDeprecated d                                     -> fromD d
-  SelectParseSuccess _declId loc _                       -> Just loc
-  SelectParseNotAttempted _declId loc _                  -> Just loc
-  SelectParseFailure _declId loc _                       -> Just loc
-  SelectConflict _declId c                               -> Just $ getMinimumLoc c
-  SelectMacroFailure failedMacro                         -> Just $ failedMacro.loc
-  SelectNoDeclarationsMatched                            -> Nothing
-  where
-    fromD = Just . C.declLoc . C.declInfo
-
 compareMsgs :: Map SourcePath Int -> Msg Select -> Msg Select -> Ordering
 compareMsgs orderMap x y =
-  case (getSingleLoc x, getSingleLoc y) of
-    (Just lx, Just ly) -> compareSingleLocs orderMap lx ly
+  case (locationInfoLocs x.loc, locationInfoLocs y.loc) of
+    (lx : __, ly : _) -> compareSingleLocs orderMap lx ly
     -- Sort messages not attached to a declaration to the back.
-    (Nothing, _      ) -> GT
-    (_      , Nothing) -> LT
+    ([] , _ ) -> GT
+    (_  , []) -> LT
 
 sortSelectMsgs :: IncludeGraph -> [Msg Select] -> [Msg Select]
 sortSelectMsgs includeGraph = sortBy (compareMsgs orderMap)

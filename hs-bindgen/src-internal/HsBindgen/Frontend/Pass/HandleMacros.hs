@@ -284,7 +284,7 @@ processMacro info (UnparsedMacro tokens) = do
   where
     addInfo :: HandleMacrosError -> FailedMacro
     addInfo macroError = FailedMacro{
-          name = info.declId.name
+          name = info.declId
         , loc  = info.declLoc
         , macroError
         }

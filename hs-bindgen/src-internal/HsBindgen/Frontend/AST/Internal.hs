@@ -4,7 +4,6 @@
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Frontend.AST.Internal (ValidPass)
 -- > import HsBindgen.Frontend.AST.Internal qualified as C
 module HsBindgen.Frontend.AST.Internal (
     TranslationUnit(..)
@@ -37,8 +36,6 @@ module HsBindgen.Frontend.AST.Internal (
   , Type(TypePrim, TypeRef, TypeTypedef, TypeFun, TypeVoid,
          TypeConstArray, TypeExtBinding, TypeIncompleteArray, TypeBlock,
          TypeConst, TypeComplex, TypePointers)
-    -- * Show
-  , ValidPass
   ) where
 
 import Prelude hiding (Enum)
@@ -51,12 +48,10 @@ import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.HighLevel.Types
 
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -456,100 +451,37 @@ buildPointers n inner
   Instances
 -------------------------------------------------------------------------------}
 
--- | Valid pass
---
--- A pass is valid if the various type family instances satisfy constraints that
--- we need, primarily for debugging and testing.
---
--- This is intentionally /not/ defined as a class alias, so that we get an error
--- the moment we declare a pass to be 'ValidPass', rather than at use sites.
-class ( IsPass p
+deriving stock instance IsPass p => Show (CheckedMacro     p)
+deriving stock instance IsPass p => Show (CheckedMacroType p)
+deriving stock instance IsPass p => Show (Decl             p)
+deriving stock instance IsPass p => Show (DeclInfo         p)
+deriving stock instance IsPass p => Show (FieldInfo        p)
+deriving stock instance IsPass p => Show (DeclKind         p)
+deriving stock instance IsPass p => Show (Enum             p)
+deriving stock instance IsPass p => Show (EnumConstant     p)
+deriving stock instance IsPass p => Show (Function         p)
+deriving stock instance IsPass p => Show (Struct           p)
+deriving stock instance IsPass p => Show (StructField      p)
+deriving stock instance IsPass p => Show (TranslationUnit  p)
+deriving stock instance IsPass p => Show (Type             p)
+deriving stock instance IsPass p => Show (Typedef          p)
+deriving stock instance IsPass p => Show (Union            p)
+deriving stock instance IsPass p => Show (UnionField       p)
+deriving stock instance IsPass p => Show (Comment          p)
+deriving stock instance IsPass p => Show (CommentRef       p)
 
-        -- 'Show' constraints for debugging
-
-      , Show (ExtBinding p)
-      , Show (Id         p)
-      , Show (MacroBody  p)
-      , Show (ScopedName p)
-
-      , Show (Ann "CheckedMacroType" p)
-      , Show (Ann "Decl"             p)
-      , Show (Ann "Enum"             p)
-      , Show (Ann "Function"         p)
-      , Show (Ann "Struct"           p)
-      , Show (Ann "StructField"      p)
-      , Show (Ann "TranslationUnit"  p)
-      , Show (Ann "Typedef"          p)
-      , Show (Ann "Union"            p)
-      , Show (Ann "UnionField"       p)
-
-        -- 'Ord' constraints for identifiers (which we often store in maps)
-
-      , Ord (Id         p)
-      , Ord (ScopedName p)
-
-        -- 'Eq'
-        --
-        -- We use equality on 'DeclKind' during construction of the 'DeclIndex'
-        -- (it's OK to repeat a declaration in a header, as long as they are
-        -- identical). All other 'Eq' constraints we provide are in order to
-        -- support this equality.
-
-      , Eq (ExtBinding p)
-      , Eq (MacroBody  p)
-      , Eq (ScopedName p)
-
-      , Eq (Ann "CheckedMacroType" p)
-      , Eq (Ann "Enum"             p)
-      , Eq (Ann "Function"         p)
-      , Eq (Ann "Struct"           p)
-      , Eq (Ann "StructField"      p)
-      , Eq (Ann "Typedef"          p)
-      , Eq (Ann "Union"            p)
-      , Eq (Ann "UnionField"       p)
-      ) => ValidPass p where
-
-deriving stock instance ValidPass p => Show (CheckedMacro     p)
-deriving stock instance ValidPass p => Show (CheckedMacroType p)
-deriving stock instance ValidPass p => Show (Decl             p)
-deriving stock instance ValidPass p => Show (DeclInfo         p)
-deriving stock instance ValidPass p => Show (FieldInfo        p)
-deriving stock instance ValidPass p => Show (DeclKind         p)
-deriving stock instance ValidPass p => Show (Enum             p)
-deriving stock instance ValidPass p => Show (EnumConstant     p)
-deriving stock instance ValidPass p => Show (Function         p)
-deriving stock instance ValidPass p => Show (Struct           p)
-deriving stock instance ValidPass p => Show (StructField      p)
-deriving stock instance ValidPass p => Show (TranslationUnit  p)
-deriving stock instance ValidPass p => Show (Type             p)
-deriving stock instance ValidPass p => Show (Typedef          p)
-deriving stock instance ValidPass p => Show (Union            p)
-deriving stock instance ValidPass p => Show (UnionField       p)
-deriving stock instance ValidPass p => Show (Comment          p)
-deriving stock instance ValidPass p => Show (CommentRef       p)
-
-deriving stock instance ValidPass p => Eq (CheckedMacro     p)
-deriving stock instance ValidPass p => Eq (CheckedMacroType p)
-deriving stock instance ValidPass p => Eq (Comment          p)
-deriving stock instance ValidPass p => Eq (DeclKind         p)
-deriving stock instance ValidPass p => Eq (Enum             p)
-deriving stock instance ValidPass p => Eq (EnumConstant     p)
-deriving stock instance ValidPass p => Eq (FieldInfo        p)
-deriving stock instance ValidPass p => Eq (Function         p)
-deriving stock instance ValidPass p => Eq (CommentRef       p)
-deriving stock instance ValidPass p => Eq (Struct           p)
-deriving stock instance ValidPass p => Eq (StructField      p)
-deriving stock instance ValidPass p => Eq (Type             p)
-deriving stock instance ValidPass p => Eq (Typedef          p)
-deriving stock instance ValidPass p => Eq (Union            p)
-deriving stock instance ValidPass p => Eq (UnionField       p)
-
-{-------------------------------------------------------------------------------
-  Pretty-printing
--------------------------------------------------------------------------------}
-
-instance PrettyForTrace (C.Located (Id p)) => PrettyForTrace (DeclInfo p) where
-  prettyForTrace info = prettyForTrace $ C.Located info.declLoc info.declId
-
-instance PrettyForTrace (C.Located (Id p)) => PrettyForTrace (Decl p) where
-  prettyForTrace decl = prettyForTrace decl.declInfo
+deriving stock instance IsPass p => Eq (CheckedMacro     p)
+deriving stock instance IsPass p => Eq (CheckedMacroType p)
+deriving stock instance IsPass p => Eq (Comment          p)
+deriving stock instance IsPass p => Eq (DeclKind         p)
+deriving stock instance IsPass p => Eq (Enum             p)
+deriving stock instance IsPass p => Eq (EnumConstant     p)
+deriving stock instance IsPass p => Eq (FieldInfo        p)
+deriving stock instance IsPass p => Eq (Function         p)
+deriving stock instance IsPass p => Eq (CommentRef       p)
+deriving stock instance IsPass p => Eq (Struct           p)
+deriving stock instance IsPass p => Eq (StructField      p)
+deriving stock instance IsPass p => Eq (Type             p)
+deriving stock instance IsPass p => Eq (Typedef          p)
+deriving stock instance IsPass p => Eq (Union            p)
+deriving stock instance IsPass p => Eq (UnionField       p)

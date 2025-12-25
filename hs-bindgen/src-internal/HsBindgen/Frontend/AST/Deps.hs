@@ -20,9 +20,9 @@ data Usage p =
   | UsedInFunction ValOrRef
   | UsedInVar ValOrRef -- ^ Global or constant
 
-deriving instance ValidPass p => Show (Usage p)
-deriving instance ValidPass p => Eq   (Usage p)
-deriving instance ValidPass p => Ord  (Usage p)
+deriving instance IsPass p => Show (Usage p)
+deriving instance IsPass p => Eq   (Usage p)
+deriving instance IsPass p => Ord  (Usage p)
 
 data ValOrRef = ByValue | ByRef
   deriving stock (Show, Eq, Ord)

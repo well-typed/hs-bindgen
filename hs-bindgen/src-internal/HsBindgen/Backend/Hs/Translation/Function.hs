@@ -22,7 +22,9 @@ import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Config.Prelims
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -304,21 +306,21 @@ getMainHashIncludeArg declInfo = case C.declHeaderInfo declInfo of
 data IsPrimitiveType =
       -- | Ordinary, "primitive" types which can be handled by Haskell FFI
       --   directly
-      PrimitiveType C.Type
+      PrimitiveType (C.Type Final)
       -- | Types passed on heap
-    | HeapType C.Type
+    | HeapType (C.Type Final)
       -- | An array of known size, with const-qualified array elements
       --
       -- Only if the array elements are const qualified do we know for sure that
       -- the array is read-only. In such cases, we generate a high-level
       -- wrapper.
-    | CAType C.Type Natural C.Type
+    | CAType (C.Type Final) Natural (C.Type Final)
       -- | An array of unknown size, with const-qualified array elements
       --
       -- Only if the array elements are const qualified do we know for sure that
       -- the array is read-only. In such cases, we generate a high-level
       -- wrapper.
-    | AType C.Type C.Type
+    | AType (C.Type Final) (C.Type Final)
   deriving Show
 
 -- | Heap types and constant arrays are non-primitive types. We have to treat
@@ -331,7 +333,7 @@ isPrimitive = \case
     AType{}        -> False
 
 -- | Types that we cannot directly pass via C FFI
-toIsPrimitiveType ::  C.Type -> IsPrimitiveType
+toIsPrimitiveType ::  C.Type Final -> IsPrimitiveType
 toIsPrimitiveType ty
   -- Heap types
   | C.isCanonicalTypeStruct ty ||
@@ -353,7 +355,7 @@ toIsPrimitiveType ty
   = PrimitiveType ty
 
 -- | Recover type used in foreign import or its aliases
-toPrimitiveType :: IsPrimitiveType -> C.Type
+toPrimitiveType :: IsPrimitiveType -> C.Type Final
 toPrimitiveType = \case
     PrimitiveType ty -> ty
     HeapType ty -> C.TypePointers 1 ty
@@ -362,7 +364,7 @@ toPrimitiveType = \case
   where
     -- NOTE: if an array type is const-qualified, then its array element type is
     -- also const-qualified, and vice versa.
-    firstElemPtr :: C.Type -> C.Type -> C.Type
+    firstElemPtr :: C.Type Final -> C.Type Final -> C.Type Final
     firstElemPtr aTy eTy
       -- The array element type has a const qualifier.
       | C.isErasedTypeConstQualified eTy
@@ -377,7 +379,7 @@ toPrimitiveType = \case
 
 
 -- | Recover type used in `restoreOrigSignature`
-toOrigType :: IsPrimitiveType -> C.Type
+toOrigType :: IsPrimitiveType -> C.Type Final
 toOrigType (PrimitiveType ty) = ty
 toOrigType (HeapType ty)     = ty
 toOrigType (CAType oty _ _)  = oty

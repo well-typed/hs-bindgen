@@ -13,12 +13,13 @@ import Text.SimplePrettyPrint qualified as PP
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
@@ -28,7 +29,7 @@ import HsBindgen.Util.Tracer
 
 -- | Mangle names pass
 type MangleNames :: Pass
-data MangleNames a deriving anyclass (C.ValidPass)
+data MangleNames a
 
 type family AnnMangleNames ix where
   AnnMangleNames "TranslationUnit"  = DeclMeta
@@ -47,7 +48,11 @@ instance IsPass MangleNames where
   type MacroBody  MangleNames = C.CheckedMacro MangleNames
   type ExtBinding MangleNames = ResolvedExtBinding
   type Ann ix     MangleNames = AnnMangleNames ix
-  type Msg        MangleNames = MangleNamesMsg
+  type Msg        MangleNames = WithLocationInfo MangleNamesMsg
+
+  idNameKind     _ namePair = namePair.cName.name.kind
+  idSourceName   _ namePair = C.declIdSourceName namePair.cName
+  idLocationInfo _ namePair = declIdLocationInfo namePair.cName
 
 {-------------------------------------------------------------------------------
   Additional names required for Haskell code gen
@@ -75,22 +80,18 @@ data NewtypeNames = NewtypeNames {
 -------------------------------------------------------------------------------}
 
 data MangleNamesMsg =
-    MangleNamesSquashed (C.DeclInfo Select)
-  | MangleNamesRenamed (C.DeclInfo Select) Hs.Identifier
+    MangleNamesSquashed
+  | MangleNamesRenamed Hs.Identifier
   | MangleNamesCouldNotMangle Text
   | MangleNamesMissingIdentifier Text
   deriving stock (Show)
 
 instance PrettyForTrace MangleNamesMsg where
   prettyForTrace = \case
-      MangleNamesSquashed info -> PP.hsep [
-          "Squashed typedef"
-        , prettyForTrace info
-        ]
-      MangleNamesRenamed info newName -> PP.hsep [
-          "Renamed"
-        , prettyForTrace info
-        , "to"
+      MangleNamesSquashed ->
+        "Squashed typedef"
+      MangleNamesRenamed newName -> PP.hsep [
+          "Renamed to"
         , PP.string (Text.unpack newName.text)
         ]
       MangleNamesCouldNotMangle name -> PP.hsep [

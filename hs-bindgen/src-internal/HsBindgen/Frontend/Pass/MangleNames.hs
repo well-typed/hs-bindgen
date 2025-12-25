@@ -21,6 +21,7 @@ import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
@@ -58,7 +59,7 @@ mangleNames unit = (
     fc :: FixCandidate Maybe
     fc = FixCandidate.fixCandidateDefault
 
-    nm      :: NameMap
+    nm    :: NameMap
     msgs1 :: [Msg MangleNames]
     (nm, msgs1) = chooseNames td fc (C.unitDecls unit)
 
@@ -70,7 +71,7 @@ mangleNames unit = (
         }
 
     decls' :: [Maybe (C.Decl MangleNames)]
-    msgs2  :: [MangleNamesMsg]
+    msgs2  :: [Msg MangleNames]
     (decls', msgs2) = runM env $ mapM mangleDecl unit.unitDecls
 
 updateDeclMeta :: TypedefAnalysis -> NameMap -> DeclMeta -> DeclMeta
@@ -127,37 +128,39 @@ nameForDecl td fc specifiedNames decl =
         -- currently silenty ignored, because that declaration has already been
         -- removed from the list of declarations in @Select@.
         ((declId, hsName), [])
-      Nothing -> withDeclNamespace decl.declKind $ \ns ->
-        case Map.lookup declId td.analysis of
-          Nothing ->
-            fromDeclId fc ns declId & \(hsName, msgs) -> (
-                (declId, hsName)
-              , msgs
-              )
-          Just (TypedefAnalysis.Rename (TypedefAnalysis.AddSuffix suffix)) ->
-            fromDeclId fc ns declId & \(hsName, msgs) ->
-              let newName = hsName <> suffix in (
-                (declId, newName)
-              , MangleNamesRenamed decl.declInfo newName : msgs
-              )
-          Just (TypedefAnalysis.Rename (TypedefAnalysis.UseNameOf declId')) ->
-            case Map.lookup declId' specifiedNames of
-              Just hsName -> ((declId, hsName), [])
-              Nothing ->
-                fromDeclId fc ns declId' & \(hsName, msgs) -> (
-                    (declId, hsName)
-                  , if declId.name.text /= declId'.name.text
-                      then MangleNamesRenamed decl.declInfo hsName : msgs
-                      else msgs
-                  )
-          Just (TypedefAnalysis.Squash _ declId') ->
-            case Map.lookup declId' specifiedNames of
-              Just hsName -> ((declId, hsName), [])
-              Nothing ->
-                fromDeclId fc ns declId & \(hsName, msgs) -> (
-                    (declId, hsName)
-                  , msgs
-                  )
+      Nothing ->
+        withDeclNamespace decl.declKind $ \ns ->
+        second (map $ withDeclLoc decl.declInfo) $
+          case Map.lookup declId td.analysis of
+            Nothing ->
+              fromDeclId fc ns declId & \(hsName, msgs) -> (
+                  (declId, hsName)
+                , msgs
+                )
+            Just (TypedefAnalysis.Rename (TypedefAnalysis.AddSuffix suffix)) ->
+              fromDeclId fc ns declId & \(hsName, msgs) ->
+                let newName = hsName <> suffix in (
+                  (declId, newName)
+                , MangleNamesRenamed newName : msgs
+                )
+            Just (TypedefAnalysis.Rename (TypedefAnalysis.UseNameOf declId')) ->
+              case Map.lookup declId' specifiedNames of
+                Just hsName -> ((declId, hsName), [])
+                Nothing ->
+                  fromDeclId fc ns declId' & \(hsName, msgs) -> (
+                      (declId, hsName)
+                    , if declId.name.text /= declId'.name.text
+                        then MangleNamesRenamed hsName : msgs
+                        else msgs
+                    )
+            Just (TypedefAnalysis.Squash _ declId') ->
+              case Map.lookup declId' specifiedNames of
+                Just hsName -> ((declId, hsName), [])
+                Nothing ->
+                  fromDeclId fc ns declId & \(hsName, msgs) -> (
+                      (declId, hsName)
+                    , msgs
+                    )
   where
     declId :: C.DeclId
     declId = decl.declInfo.declId
@@ -212,7 +215,7 @@ checkTypedefAnalysis declId = WrapM $ do
     td <- asks envTypedefAnalysis
     return $ Map.lookup declId td.analysis
 
-traceMsg :: MangleNamesMsg -> M ()
+traceMsg :: Msg MangleNames -> M ()
 traceMsg msg = WrapM $ modify (msg :)
 
 mangleDeclId :: C.DeclId -> M C.DeclIdPair
@@ -221,14 +224,6 @@ mangleDeclId declId = WrapM $ do
     case Map.lookup declId nm of
       Just hsName -> return $ C.DeclIdPair declId hsName
       Nothing     -> panicPure $ "Missing declaration: " <> show declId
-
--- | Apply Haskell naming rules
-mkIdentifier :: Hs.SingNamespace ns => Proxy ns -> Text -> M Hs.Identifier
-mkIdentifier ns candidate = do
-    fc <- WrapM $ asks envFixCandidate
-    let (fieldHsName, mError) = fixCandidate fc ns candidate
-    forM_ mError traceMsg
-    return fieldHsName
 
 -- | Search the 'NameMap', when we don't know the name kind
 searchNameMap :: Text -> M (Maybe C.DeclIdPair)
@@ -255,7 +250,7 @@ mangleDecl decl = do
      mConclusion <- checkTypedefAnalysis decl.declInfo.declId
      case mConclusion of
        Just TypedefAnalysis.Squash{} -> do
-         traceMsg $ MangleNamesSquashed decl.declInfo
+         traceMsg $ withDeclLoc decl.declInfo $ MangleNamesSquashed
          return Nothing
        _otherwise -> do
          declId'      <- mangleDeclId decl.declInfo.declId
@@ -283,12 +278,24 @@ mangleDecl decl = do
   Scoped names
 -------------------------------------------------------------------------------}
 
+-- | Apply Haskell naming rules
+mkIdentifier ::
+     Hs.SingNamespace ns
+  => C.DeclInfo MangleNames  -- ^ Relevant decl (used only for location info)
+  -> Proxy ns -> Text -> M Hs.Identifier
+mkIdentifier info ns candidate = do
+    fc <- WrapM $ asks envFixCandidate
+    let (fieldHsName, mError) = fixCandidate fc ns candidate
+    forM_ mError $ traceMsg . withDeclLoc info
+    return fieldHsName
+
 mangleFieldName ::
      C.DeclInfo MangleNames
   -> C.ScopedName
   -> M C.ScopedNamePair
 mangleFieldName info fieldCName =
-    C.ScopedNamePair fieldCName <$> mkIdentifier (Proxy @Hs.NsVar) candidate
+    C.ScopedNamePair fieldCName <$>
+      mkIdentifier info (Proxy @Hs.NsVar) candidate
   where
     candidate :: Text
     candidate = info.declId.hsName.text <> "_" <> fieldCName.text
@@ -301,17 +308,22 @@ mangleEnumConstant ::
      C.DeclInfo MangleNames
   -> C.ScopedName
   -> M C.ScopedNamePair
-mangleEnumConstant _info cName =
-    C.ScopedNamePair cName <$> mkIdentifier (Proxy @Hs.NsConstr) cName.text
+mangleEnumConstant info cName =
+    C.ScopedNamePair cName <$>
+      mkIdentifier info (Proxy @Hs.NsConstr) cName.text
 
 -- | Mangle function argument name
 --
 -- Function argument names are not really used when generating Haskell code.
 -- They are more relevant for documentation purposes so we don't do any
 -- mangling.
-mangleArgumentName :: C.ScopedName -> M C.ScopedNamePair
-mangleArgumentName argName =
-    C.ScopedNamePair argName <$> mkIdentifier (Proxy @Hs.NsVar) argName.text
+mangleArgumentName ::
+     C.DeclInfo MangleNames
+  -> C.ScopedName
+  -> M C.ScopedNamePair
+mangleArgumentName info argName =
+    C.ScopedNamePair argName <$>
+      mkIdentifier info (Proxy @Hs.NsVar) argName.text
 
 {-------------------------------------------------------------------------------
   Additional name mangling functionality
@@ -490,7 +502,7 @@ instance MangleInDecl C.Typedef where
       mk <$> mangle typedefType
 
 instance MangleInDecl C.Function where
-  mangleInDecl _info C.Function{..} = do
+  mangleInDecl info C.Function{..} = do
       let mk ::
                [(Maybe C.ScopedNamePair, C.Type MangleNames)]
             -> C.Type MangleNames
@@ -500,7 +512,9 @@ instance MangleInDecl C.Function where
               , functionRes  = functionRes'
               , ..
               }
-      mk <$> mapM (bimapM (traverse mangleArgumentName) mangle) functionArgs
+      mk <$> mapM
+               (bimapM (traverse $ mangleArgumentName info) mangle)
+               functionArgs
          <*> mangle functionRes
 
 instance MangleInDecl C.CheckedMacro where
@@ -562,3 +576,12 @@ withDeclNamespace kind k =
         case macro of
           C.MacroType{} -> k (Proxy @Hs.NsTypeConstr)
           C.MacroExpr{} -> k (Proxy @Hs.NsVar)
+
+withDeclLoc :: forall p.
+     IsPass p
+  => C.DeclInfo p -> MangleNamesMsg -> WithLocationInfo MangleNamesMsg
+withDeclLoc info msg = WithLocationInfo{
+      loc = idLocationInfo (Proxy @p) info.declId [info.declLoc]
+    , msg
+    }
+

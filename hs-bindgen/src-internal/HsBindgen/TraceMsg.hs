@@ -36,6 +36,7 @@ import HsBindgen.Boot
 import HsBindgen.Clang (ClangMsg (..))
 import HsBindgen.Clang.BuiltinIncDir (BuiltinIncDirMsg (..))
 import HsBindgen.Frontend (FrontendMsg (..))
+import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (ImmediateAssignAnonIdsMsg (..))
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacrosReparseMsg (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNamesMsg (..))
@@ -66,7 +67,6 @@ data TraceMsg =
   | TraceResolveHeader ResolveHeaderMsg
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
-
 
 {-------------------------------------------------------------------------------
   Log level customization
@@ -129,9 +129,9 @@ fromSetting = \case
         TraceFrontend (FrontendHandleMacros (HandleMacrosErrorReparse{}))
           -> const Warning
         -- Macros parsing requires declarations required for scoping.
-        TraceFrontend (FrontendParse (ParseOfDeclarationRequiredForScopingFailed{}))
+        TraceFrontend (FrontendParse WithLocationInfo{msg = ParseOfDeclarationRequiredForScopingFailed{}})
           -> const Warning
-        TraceFrontend (FrontendSelect (SelectMacroFailure{}))
+        TraceFrontend (FrontendSelect WithLocationInfo{msg = SelectMacroFailure{}})
           -> const Warning
         _otherTrace
           -> id

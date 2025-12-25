@@ -240,6 +240,12 @@ data DeclName = DeclName {
 instance PrettyForTrace DeclName where
   prettyForTrace = PP.singleQuotes . PP.textToCtxDoc . renderDeclName
 
+instance IsString DeclName where
+  fromString str =
+      case parseDeclName (Text.pack str) of
+        Just name -> name
+        Nothing   -> panicPure $ "invalid DeclName: " ++ show str
+
 mapDeclNameText :: (Text -> Text) -> DeclName -> DeclName
 mapDeclNameText f DeclName{text, kind} = DeclName{text = f text, kind}
 

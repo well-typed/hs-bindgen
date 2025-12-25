@@ -26,7 +26,7 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.AST.Finalize
 import HsBindgen.Frontend.AST.Internal hiding (Type)
-import HsBindgen.Frontend.Pass hiding (Config)
+import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AssignAnonIds
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit
