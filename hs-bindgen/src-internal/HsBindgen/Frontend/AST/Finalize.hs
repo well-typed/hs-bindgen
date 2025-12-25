@@ -6,7 +6,7 @@ import Clang.HighLevel.Documentation qualified as CDoc
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Internal qualified as Int
-import HsBindgen.Frontend.AST.Type qualified as Ext
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Imports
@@ -101,7 +101,7 @@ instance Finalize Int.DeclKind where
   finalize  Int.DeclOpaque            = Ext.DeclOpaque
   finalize (Int.DeclMacro macro)      = Ext.DeclMacro (finalize macro)
   finalize (Int.DeclFunction func)    = Ext.DeclFunction (finalize func)
-  finalize (Int.DeclGlobal ty)        = Ext.DeclGlobal (finalize ty)
+  finalize (Int.DeclGlobal ty)        = Ext.DeclGlobal ty
 
 instance Finalize Int.CommentRef where
   type Finalized Int.CommentRef = Ext.CommentRef
@@ -138,7 +138,7 @@ instance Finalize Int.StructField where
 
   finalize field = Ext.StructField{
         structFieldInfo = finalize structFieldInfo
-      , structFieldType = finalize structFieldType
+      , structFieldType
       , structFieldOffset
       , structFieldWidth
       }
@@ -173,7 +173,7 @@ instance Finalize Int.UnionField where
 
   finalize field = Ext.UnionField{
         unionFieldInfo = finalize unionFieldInfo
-      , unionFieldType = finalize unionFieldType
+      , unionFieldType
       }
     where
       Int.UnionField {
@@ -187,7 +187,7 @@ instance Finalize Int.Enum where
 
   finalize enum = Ext.Enum{
         enumNames = enumAnn
-      , enumType = finalize enumType
+      , enumType
       , enumSizeof
       , enumAlignment
       , enumConstants = map finalize enumConstants
@@ -219,7 +219,7 @@ instance Finalize Int.Typedef where
 
   finalize typedef = Ext.Typedef{
         typedefNames = typedefAnn
-      , typedefType  = finalize typedefType
+      , typedefType
       }
     where
       Int.Typedef{
@@ -231,9 +231,9 @@ instance Finalize Int.Function where
   type Finalized Int.Function = Ext.Function
 
   finalize function = Ext.Function{
-        functionArgs = map (bimap id finalize) functionArgs
+        functionArgs
       , functionAttrs
-      , functionRes  = finalize functionRes
+      , functionRes
       }
     where
       Int.Function {
@@ -254,29 +254,13 @@ instance Finalize Int.CheckedMacroType where
 
   finalize checkedMacroType = Ext.CheckedMacroType{
         macroTypeNames = macroTypeAnn
-      , macroType      = finalize macroType
+      , macroType
       }
     where
       Int.CheckedMacroType{
           macroType
         , macroTypeAnn
         } = checkedMacroType
-
-instance Finalize Int.Type where
-  type Finalized Int.Type = Ext.Type Final
-
-  finalize (Int.TypePrim prim)           = Ext.TypePrim prim
-  finalize (Int.TypeRef declId)          = Ext.TypeRef declId
-  finalize (Int.TypeTypedef declId uTy)  = Ext.TypeTypedef $ Ext.TypedefRef declId (finalize uTy)
-  finalize (Int.TypePointers n typ)      = Ext.TypePointers n (finalize typ)
-  finalize (Int.TypeFun args res)        = Ext.TypeFun (map finalize args) (finalize res)
-  finalize (Int.TypeVoid)                = Ext.TypeVoid
-  finalize (Int.TypeConstArray n typ)    = Ext.TypeConstArray n (finalize typ)
-  finalize (Int.TypeIncompleteArray typ) = Ext.TypeIncompleteArray (finalize typ)
-  finalize (Int.TypeExtBinding ext)      = Ext.TypeExtBinding ext
-  finalize (Int.TypeBlock typ)           = Ext.TypeBlock (finalize typ)
-  finalize (Int.TypeConst typ)           = Ext.TypeQualified Ext.TypeQualifierConst (finalize typ)
-  finalize (Int.TypeComplex prim)        = Ext.TypeComplex prim
 
 {-------------------------------------------------------------------------------
   Internal: FLAMs
@@ -293,7 +277,7 @@ partitionFields = go []
       -> ([Int.StructField Final], Maybe (Int.StructField Final))
     go acc []     = (reverse acc, Nothing)
     go acc (f:fs) = case Int.structFieldType f of
-                      Int.TypeIncompleteArray ty ->
+                      C.TypeIncompleteArray ty ->
                         let f' = f{Int.structFieldType = ty}
                         in (reverse acc ++ fs, Just f')
                       _otherwise->

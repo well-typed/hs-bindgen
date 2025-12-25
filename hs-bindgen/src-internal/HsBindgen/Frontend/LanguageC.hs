@@ -33,7 +33,7 @@ import Clang.LowLevel.Core qualified as Clang
 import Clang.Paths qualified as Clang
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Internal
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Error
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
@@ -56,35 +56,35 @@ type Parser a =
 -- Returns the function parameters, function result, and function name.
 reparseFunDecl ::
      Parser (
-         ( [(Maybe CName, Type HandleMacros)]
-         , Type HandleMacros
+         ( [(Maybe CName, C.Type HandleMacros)]
+         , C.Type HandleMacros
          )
        , CName
        )
 reparseFunDecl = parseWith flattenFunDecl (fmap swap . fromFunDecl)
 
 -- | Reparse typedef
-reparseTypedef :: Parser (Type HandleMacros)
+reparseTypedef :: Parser (C.Type HandleMacros)
 reparseTypedef = parseWith defaultFlatten (fmap snd . fromDecl)
 
 -- | Reparse struct/union field
-reparseField :: Parser (Type HandleMacros, CName)
+reparseField :: Parser (C.Type HandleMacros, CName)
 reparseField = parseWith defaultFlatten (fmap swap .  fromNamedDecl)
 
 -- | Parse macro-defined type
 --
 -- Unlike the other parsers, this is not /re/parsing: we are parsing this macro
 -- for the first time.
-parseMacroType :: Parser (Type HandleMacros)
+parseMacroType :: Parser (C.Type HandleMacros)
 parseMacroType = parseWith flattenMacroTypeDef (fromDecl >=> checkNotVoid)
   where
     -- @void@ does not make sense as a top-level type
     checkNotVoid ::
-         (Maybe CName, Type HandleMacros)
-      -> FromLanC (Type HandleMacros)
+         (Maybe CName, C.Type HandleMacros)
+      -> FromLanC (C.Type HandleMacros)
     checkNotVoid (_name, typ) =
         case typ of
-          TypeVoid   -> unsupported "type 'void'"
+          C.TypeVoid -> unsupported "type 'void'"
           _otherwise -> return typ
 
 {-------------------------------------------------------------------------------
@@ -215,7 +215,7 @@ initReparseEnv standard = Map.fromList (bespokeTypes standard)
 -- | \"Primitive\" we expect the reparser to recognize
 --
 -- The language-c parser does not support these explicitly.
-bespokeTypes :: CStandard -> [(CName, Type HandleMacros)]
+bespokeTypes :: CStandard -> [(CName, C.Type HandleMacros)]
 bespokeTypes = \case
    -- Make sure that we really only replace keywords lacking definitions.
    --
@@ -223,7 +223,7 @@ bespokeTypes = \case
    -- (i.e., are not part of the standard), we will pretend to know what these
    -- types are, but the actual type must come from a header, and we actually do
    -- not know what that defintion is.
-   C23 -> [("bool", TypePrim C.PrimBool)]
+   C23 -> [("bool", C.TypePrim C.PrimBool)]
    _otherwise -> []
 
 {-------------------------------------------------------------------------------

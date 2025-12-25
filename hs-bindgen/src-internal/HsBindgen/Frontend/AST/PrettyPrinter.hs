@@ -11,9 +11,7 @@ import Data.Text qualified as Text
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External
 import HsBindgen.Frontend.AST.Type
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -163,7 +161,7 @@ showsType x (TypeFun args res)        =
     named i t = (showString "arg" . shows i, t)
 showsType x TypeVoid                  = showString "void " . x 0
 showsType x (TypeIncompleteArray t)   = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
-showsType x (TypeExtBinding ext)      = showsDeclId (ResolveBindingSpecs.extCDeclId ext) . showChar ' ' . x 0
+showsType x (TypeExtBinding ext)      = showsId (Proxy @p) (extBindingId (Proxy @p) ext) . showChar ' ' . x 0
 showsType x (TypeBlock t)             = showsType (\_d -> showString "^" . x 0) t
 -- Type qualifiers like @const@ can appear before, and _after_ the type they
 -- refer to. For example,
@@ -249,12 +247,6 @@ showAttributeNewline pur = case pur of
 showsId :: IsPass p => Proxy p -> Id p -> ShowS
 showsId p declId =
     case idSourceName p declId of
-      Just name -> showsDeclName name
-      Nothing   -> panicPure $ "Cannot refer to anon decl " ++ show declId
-
-showsDeclId :: DeclId -> ShowS
-showsDeclId declId =
-    case C.declIdSourceName declId of
       Just name -> showsDeclName name
       Nothing   -> panicPure $ "Cannot refer to anon decl " ++ show declId
 

@@ -14,6 +14,7 @@ import Data.Map qualified as Map
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
@@ -166,7 +167,7 @@ analyseType = go
         -- (\"follow\" in the sense that @libclang@ does /not/ assign the name
         -- of the typedef to the struct in this case; we will add the suffix).
         C.TypePointers _n     ty -> indirect ty
-        C.TypeConst           ty -> indirect ty
+        C.TypeQualified _qual ty -> indirect ty
         C.TypeConstArray _sz  ty -> indirect ty
         C.TypeIncompleteArray ty -> indirect ty
         C.TypeBlock           ty -> indirect ty

@@ -8,7 +8,7 @@ module HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen (
   , fromKnownType
   ) where
 
-import HsBindgen.Frontend.AST.Internal
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
@@ -18,12 +18,12 @@ import HsBindgen.Imports
   Declarations
 -------------------------------------------------------------------------------}
 
-fromDecl :: PartialDecl -> FromLanC (Maybe CName, Type HandleMacros)
+fromDecl :: PartialDecl -> FromLanC (Maybe CName, C.Type HandleMacros)
 fromDecl PartialDecl{partialName, partialType} = do
     typ <- fromKnownType <$> fromPartialType partialType
     return (partialName, typ)
 
-fromNamedDecl :: PartialDecl -> FromLanC (CName, Type HandleMacros)
+fromNamedDecl :: PartialDecl -> FromLanC (CName, C.Type HandleMacros)
 fromNamedDecl PartialDecl{partialName, partialType} = do
     name <- partialFromJust partialName
     typ  <- fromKnownType <$> fromPartialType partialType
@@ -33,8 +33,8 @@ fromFunDecl ::
      PartialDecl
   -> FromLanC (
          CName
-       , ( [(Maybe CName, Type HandleMacros)]
-         , Type HandleMacros
+       , ( [(Maybe CName, C.Type HandleMacros)]
+         , C.Type HandleMacros
          )
        )
 fromFunDecl PartialDecl{partialName, partialType} = do
@@ -51,16 +51,16 @@ fromPartialType = \case
      PartialUnknown{} -> unexpected "incomplete type"
      PartialKnown typ -> return typ
 
-fromKnownType :: KnownType -> Type HandleMacros
+fromKnownType :: KnownType -> C.Type HandleMacros
 fromKnownType = \case
     KnownType   typ        -> typ
-    TopLevelFun params res -> TypeFun (map snd params) res
+    TopLevelFun params res -> C.TypeFun (map snd params) res
 
 fromTopLevelFun ::
      KnownType
   -> FromLanC (
-         [(Maybe CName, Type HandleMacros)]
-       , Type HandleMacros
+         [(Maybe CName, C.Type HandleMacros)]
+       , C.Type HandleMacros
        )
 fromTopLevelFun = \case
     TopLevelFun params res -> return (params, res)

@@ -11,7 +11,8 @@ import Clang.Enum.Simple
 import Clang.LowLevel.Core
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Internal qualified as C ()
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
@@ -75,8 +76,11 @@ cxtype ty = do
       CXType_Void            -> const (pure C.TypeVoid)
 
       kind -> failure $ UnexpectedTypeKind (Right kind)
+
     isConst <- clang_isConstQualifiedType ty
-    pure $ if isConst then C.TypeConst reifiedType else reifiedType
+    pure $ if isConst
+             then C.TypeQualified C.TypeQualifierConst reifiedType
+             else reifiedType
   where
     failure :: ParseTypeException -> CXType -> ParseType (C.Type Parse)
     failure err _ty = throwError err
@@ -130,7 +134,7 @@ fromDecl ty = do
                   -- Cache miss: parse and cache the result
                   uTy <- handle (addTypedefContextHandler declId) $
                            cxtype =<< getUnderlyingCXType decl
-                  let result = C.TypeTypedef declId uTy
+                  let result = C.TypeTypedef $ C.TypedefRef declId uTy
                   ParseType.insertCache declName result
                   pure result
 
@@ -207,11 +211,11 @@ adjustFunctionTypesToPointers = go False
     go ctx = \case
       C.TypePrim pt -> C.TypePrim pt
       C.TypeRef n -> C.TypeRef n
-      C.TypeTypedef n uTy
+      C.TypeTypedef (C.TypedefRef n uTy)
           | isCanonicalFunctionType uTy && not ctx
-          -> C.TypePointers 1 $ C.TypeTypedef n (go True uTy)
+          -> C.TypePointers 1 $ C.TypeTypedef (C.TypedefRef n (go True uTy))
           | otherwise
-          -> C.TypeTypedef n (go True uTy)
+          -> C.TypeTypedef (C.TypedefRef n (go True uTy))
       C.TypePointers n t -> C.TypePointers n $ go True t
       C.TypeFun args res -> do
         let args' = map (go False) args
@@ -227,12 +231,13 @@ adjustFunctionTypesToPointers = go False
       -- This is a slightly weird case. From what I understand, blocks are
       -- similar to pointers. So, I'm treating them like pointers.
       C.TypeBlock t -> C.TypeBlock $ go True t
-      C.TypeConst t -> C.TypeConst $ go ctx t
+      C.TypeQualified qual t -> C.TypeQualified qual $ go ctx t
       C.TypeComplex pt -> C.TypeComplex pt
 
     -- | Canonical types have all typedefs and type qualifiers removed.
     isCanonicalFunctionType :: C.Type Parse -> Bool
-    isCanonicalFunctionType (C.TypeTypedef _ uTy) = isCanonicalFunctionType uTy
-    isCanonicalFunctionType (C.TypeConst ty)      = isCanonicalFunctionType ty
-    isCanonicalFunctionType (C.TypeFun{})         = True
-    isCanonicalFunctionType _                     = False
+    isCanonicalFunctionType = \case
+      C.TypeTypedef ref -> isCanonicalFunctionType ref.underlying
+      C.TypeQualified _qual ty -> isCanonicalFunctionType ty
+      C.TypeFun{} -> True
+      _otherwise -> False

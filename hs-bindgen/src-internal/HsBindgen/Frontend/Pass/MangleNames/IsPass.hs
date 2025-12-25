@@ -50,9 +50,10 @@ instance IsPass MangleNames where
   type Ann ix     MangleNames = AnnMangleNames ix
   type Msg        MangleNames = WithLocationInfo MangleNamesMsg
 
-  idNameKind     _ namePair = namePair.cName.name.kind
-  idSourceName   _ namePair = C.declIdSourceName namePair.cName
-  idLocationInfo _ namePair = declIdLocationInfo namePair.cName
+  idNameKind     _ namePair   = namePair.cName.name.kind
+  idSourceName   _ namePair   = C.declIdSourceName namePair.cName
+  idLocationInfo _ namePair   = declIdLocationInfo namePair.cName
+  extBindingId   _ extBinding = extDeclIdPair extBinding
 
 {-------------------------------------------------------------------------------
   Additional names required for Haskell code gen

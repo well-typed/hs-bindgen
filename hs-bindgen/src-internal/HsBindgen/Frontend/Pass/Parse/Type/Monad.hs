@@ -28,7 +28,7 @@ import Data.Map.Strict qualified as Map
 import Clang.Enum.Simple
 import Clang.LowLevel.Core
 
-import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Imports

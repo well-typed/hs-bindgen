@@ -27,6 +27,7 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
@@ -389,11 +390,11 @@ instance Resolve C.Type where
         case mResolved of
           Just r  -> return r
           Nothing -> return $ C.TypeRef uid
-      C.TypeTypedef uid uTy -> do
+      C.TypeTypedef (C.TypedefRef uid uTy) -> do
         mResolved <- aux uid
         case mResolved of
           Just r  -> return r
-          Nothing -> C.TypeTypedef uid <$> resolve ctx uTy
+          Nothing -> C.TypeTypedef . C.TypedefRef uid <$> resolve ctx uTy
 
       -- Recursive cases
       C.TypePointers n t      -> C.TypePointers n <$> resolve ctx t
@@ -402,7 +403,7 @@ instance Resolve C.Type where
       C.TypeConstArray n t    -> C.TypeConstArray n <$> resolve ctx t
       C.TypeIncompleteArray t -> C.TypeIncompleteArray <$> resolve ctx t
       C.TypeBlock t           -> C.TypeBlock <$> resolve ctx t
-      C.TypeConst t           -> C.TypeConst <$> resolve ctx t
+      C.TypeQualified qual t  -> C.TypeQualified qual <$> resolve ctx t
 
       -- Simple cases
       C.TypePrim t         -> return (C.TypePrim t)

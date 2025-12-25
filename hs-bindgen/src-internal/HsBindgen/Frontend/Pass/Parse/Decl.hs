@@ -13,8 +13,8 @@ import Clang.LowLevel.Core
 import Clang.Paths
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad
@@ -405,19 +405,19 @@ typedefDecl info = \curr -> do
 
     declKind <-
       case typedefType of
-      C.TypeVoid ->
-        -- We regard
-        --
-        -- > typedef void foo
-        --
-        -- as the declaration of an opaque type.
-        return C.DeclOpaque
-      _otherwise -> do
-        typedefAnn <- getReparseInfo curr
-        return $ C.DeclTypedef C.Typedef{
-            typedefType
-          , typedefAnn
-          }
+        C.TypeVoid ->
+          -- We regard
+          --
+          -- > typedef void foo
+          --
+          -- as the declaration of an opaque type.
+          return C.DeclOpaque
+        _otherwise -> do
+          typedefAnn <- getReparseInfo curr
+          return $ C.DeclTypedef C.Typedef{
+              typedefType
+            , typedefAnn
+            }
 
     let decl :: C.Decl Parse
         decl = C.Decl{
@@ -831,7 +831,7 @@ detectStructImplicitFields nestedDecls outerFields =
           _otherwise          -> []
 
     fieldDeps :: [C.PrelimDeclId]
-    fieldDeps = map snd $ concatMap (depsOfType . either C.structFieldType C.unionFieldType) allFields
+    fieldDeps = map snd $ concatMap (C.depsOfType . either C.structFieldType C.unionFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
     declIsUsed decl = decl.declInfo.declId `elem` fieldDeps
@@ -862,7 +862,7 @@ detectUnionImplicitFields nestedDecls outerFields =
           _otherwise          -> []
 
     fieldDeps :: [C.PrelimDeclId]
-    fieldDeps = map snd $ concatMap (depsOfType . either C.structFieldType C.unionFieldType) allFields
+    fieldDeps = map snd $ concatMap (C.depsOfType . either C.structFieldType C.unionFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
     declIsUsed decl = decl.declInfo.declId `elem` fieldDeps

@@ -23,9 +23,10 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.External qualified as Ext
 import HsBindgen.Frontend.AST.Finalize
-import HsBindgen.Frontend.AST.Internal hiding (Type)
+import HsBindgen.Frontend.AST.Internal qualified as Int
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AssignAnonIds
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
@@ -242,11 +243,11 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       (_, _, _, _, getMainHeaders) <- parsePass
       pure getMainHeaders
     frontendIndex <- cache "frontendIndex" $
-      declIndex   . unitAnn <$> constructTranslationUnitPass
+      declIndex   . Int.unitAnn <$> constructTranslationUnitPass
     frontendUseDeclGraph <- cache "frontendUseDeclGraph" $
-      declUseDecl . unitAnn <$> constructTranslationUnitPass
+      declUseDecl . Int.unitAnn <$> constructTranslationUnitPass
     frontendDeclUseGraph <- cache "frontendDeclUseGraph" $
-      declDeclUse . unitAnn <$> constructTranslationUnitPass
+      declDeclUse . Int.unitAnn <$> constructTranslationUnitPass
 
     -- Omitted types
     frontendOmitTypes <- cache "frontendOmitTypes" $
@@ -260,11 +261,11 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     -- Declarations.
     frontendCDecls <- cache "frontendDecls" $
-      C.unitDecls <$> getCTranslationUnit
+      Ext.unitDecls <$> getCTranslationUnit
 
     -- Dependencies.
     frontendDependencies <- cache "frontendDependencies" $
-      C.unitDeps <$> getCTranslationUnit
+      Ext.unitDeps <$> getCTranslationUnit
 
     pure FrontendArtefact{..}
   where
@@ -324,7 +325,7 @@ data FrontendArtefact = FrontendArtefact {
   , frontendDeclUseGraph   :: Cached DeclUseGraph.DeclUseGraph
   , frontendOmitTypes      :: Cached [(C.DeclId, SourcePath)]
   , frontendSquashedTypes  :: Cached [(C.DeclId, (SourcePath, Hs.Identifier))]
-  , frontendCDecls         :: Cached [C.Decl]
+  , frontendCDecls         :: Cached [Ext.Decl]
   , frontendDependencies   :: Cached [SourcePath]
   }
 

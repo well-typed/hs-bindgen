@@ -2,6 +2,7 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (
     ResolveBindingSpecs
   , ResolvedExtBinding(..)
   , ResolveBindingSpecsMsg(..)
+  , extDeclIdPair
   ) where
 
 import Text.SimplePrettyPrint ((<+>))
@@ -14,7 +15,6 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (DeclMeta)
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
@@ -47,7 +47,7 @@ instance IsPass ResolveBindingSpecs where
   type Ann ix     ResolveBindingSpecs = AnnResolveBindingSpecs ix
   type Msg        ResolveBindingSpecs = ResolveBindingSpecsMsg
 
-  idNameKind _ = (.name.kind)
+  extBindingId _ = (.extCDeclId)
 
 data ResolvedExtBinding = ResolvedExtBinding{
       -- | C declaration for which we are using this binding
@@ -63,6 +63,12 @@ data ResolvedExtBinding = ResolvedExtBinding{
     , extHsSpec :: BindingSpec.HsTypeSpec
     }
   deriving stock (Show, Eq, Ord, Generic)
+
+extDeclIdPair :: ResolvedExtBinding -> C.DeclIdPair
+extDeclIdPair ext = C.DeclIdPair{
+      cName  = ext.extCDeclId
+    , hsName = ext.extHsRef.extRefIdentifier
+    }
 
 {-------------------------------------------------------------------------------
   Trace messages

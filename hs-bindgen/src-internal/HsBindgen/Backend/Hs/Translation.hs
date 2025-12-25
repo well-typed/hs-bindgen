@@ -142,7 +142,7 @@ scanAllFunctionPointerTypes =
 -- | Check if a type is defined in the current module
 isDefinedInCurrentModule :: DeclIndex -> C.Type Final -> Bool
 isDefinedInCurrentModule declIndex =
-    any isInDeclIndex . C.typeDeclIds
+    any (isInDeclIndex . snd) . C.depsOfType
   where
     isInDeclIndex :: C.DeclIdPair -> Bool
     isInDeclIndex declId = isJust $ DeclIndex.lookup declId.cName declIndex

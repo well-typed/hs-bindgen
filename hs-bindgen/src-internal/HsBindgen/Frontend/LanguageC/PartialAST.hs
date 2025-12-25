@@ -15,7 +15,7 @@ module HsBindgen.Frontend.LanguageC.PartialAST (
   , unknownDecl
   ) where
 
-import HsBindgen.Frontend.AST.Internal
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -43,13 +43,13 @@ data UnknownType = UnknownType{
   deriving stock (Show, Generic)
 
 data KnownType =
-    KnownType (Type HandleMacros)
+    KnownType (C.Type HandleMacros)
 
     -- | Special case for top-level functions, so we can record argument names
     --
     -- It's not necessary to do this recursively: we only want argument names
     -- for top-level function declarations (not for function pointers).
-  | TopLevelFun [(Maybe CName, Type HandleMacros)] (Type HandleMacros)
+  | TopLevelFun [(Maybe CName, C.Type HandleMacros)] (C.Type HandleMacros)
   deriving stock (Show)
 
 -- | Name
