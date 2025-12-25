@@ -21,6 +21,7 @@ import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
@@ -254,7 +255,7 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
     updateEnv :: Text -> LanC.ReparseEnv -> LanC.ReparseEnv
     updateEnv name =
         Map.insert name $
-          C.TypeTypedef info.declId (coercePass typedefType)
+          C.TypeTypedef $ C.TypedefRef info.declId (coercePass typedefType)
 
     withoutReparse :: M (C.Decl HandleMacros)
     withoutReparse = return C.Decl{

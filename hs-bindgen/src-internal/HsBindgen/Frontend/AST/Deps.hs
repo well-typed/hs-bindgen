@@ -6,7 +6,8 @@ module HsBindgen.Frontend.AST.Deps (
   , depsOfType
   ) where
 
-import HsBindgen.Frontend.AST.Internal
+import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 
@@ -38,38 +39,38 @@ usageMode = \case
   Get all dependencies
 -------------------------------------------------------------------------------}
 
-depsOfDecl :: DeclKind p -> [(Usage p, Id p)]
-depsOfDecl (DeclStruct Struct{..}) =
-    concatMap (depsOfField (fieldName . structFieldInfo) structFieldType) structFields
-depsOfDecl (DeclUnion Union{..}) =
-    concatMap (depsOfField (fieldName . unionFieldInfo) unionFieldType) unionFields
-depsOfDecl (DeclEnum _) =
+depsOfDecl :: C.DeclKind p -> [(Usage p, Id p)]
+depsOfDecl (C.DeclStruct C.Struct{..}) =
+    concatMap (depsOfField (C.fieldName . C.structFieldInfo) C.structFieldType) structFields
+depsOfDecl (C.DeclUnion C.Union{..}) =
+    concatMap (depsOfField (C.fieldName . C.unionFieldInfo) C.unionFieldType) unionFields
+depsOfDecl (C.DeclEnum _) =
     []
-depsOfDecl (DeclTypedef ty) =
+depsOfDecl (C.DeclTypedef ty) =
     map (uncurry aux) $ depsOfTypedef ty
   where
     aux :: ValOrRef -> Id p -> (Usage p, Id p)
     aux isPtr declId = (UsedInTypedef isPtr, declId)
-depsOfDecl DeclOpaque =
+depsOfDecl C.DeclOpaque =
     []
-depsOfDecl (DeclMacro _ts) =
+depsOfDecl (C.DeclMacro _ts) =
     -- We cannot know the dependencies of a macro until we parse it, but we
     -- can't parse it until we have sorted all declarations, which requires
     -- knowing the dependencies. Catch-22. We therefore regard macros as not
     -- having /any/ dependencies, and will rely instead on source ordering.
     []
-depsOfDecl (DeclFunction (Function {..})) =
+depsOfDecl (C.DeclFunction (C.Function {..})) =
     map (uncurry aux) $ concatMap depsOfType (functionRes : map snd functionArgs)
   where
     aux :: ValOrRef -> Id p -> (Usage p, Id p)
     aux isPtr qualPrelimDeclId = (UsedInFunction isPtr, qualPrelimDeclId)
-depsOfDecl (DeclGlobal ty) =
+depsOfDecl (C.DeclGlobal ty) =
     map (first UsedInVar) $ depsOfType ty
 
 -- | Dependencies of struct or union field
 depsOfField :: forall a p.
      (a p -> ScopedName p)
-  -> (a p -> Type p)
+  -> (a p -> C.Type p)
   -> a p -> [(Usage p, Id p)]
 depsOfField getName getType field =
     map (uncurry aux) $ depsOfType $ getType field
@@ -77,8 +78,8 @@ depsOfField getName getType field =
     aux :: ValOrRef -> Id p -> (Usage p, Id p)
     aux isPtr qualPrelimDeclId = (UsedInField isPtr (getName field), qualPrelimDeclId)
 
-depsOfTypedef :: Typedef p -> [(ValOrRef, Id p)]
-depsOfTypedef = depsOfType . typedefType
+depsOfTypedef :: C.Typedef p -> [(ValOrRef, Id p)]
+depsOfTypedef = depsOfType . C.typedefType
 
 -- | The declarations this type depends on
 --
@@ -86,17 +87,19 @@ depsOfTypedef = depsOfType . typedefType
 --
 -- NOTE: We are only interested in /direct/ dependencies here; transitive
 -- dependencies will materialize when we build the graph.
-depsOfType :: Type p -> [(ValOrRef, Id p)]
+--
+-- TODO: Duplication between 'depsOfType' and 'typeDeclIds'.
+depsOfType :: C.Type p -> [(ValOrRef, Id p)]
 depsOfType = \case
-    TypePrim{}             -> []
-    TypeRef uid            -> [(ByValue, uid)]
-    TypeTypedef uid _uTy   -> [(ByValue, uid)]
-    TypePointers _ ty      -> first (const ByRef) <$> depsOfType ty
-    TypeFun args res       -> concatMap depsOfType args <> depsOfType res
-    TypeVoid               -> []
-    TypeConstArray _ ty    -> depsOfType ty
-    TypeIncompleteArray ty -> depsOfType ty
-    TypeExtBinding{}       -> []
-    TypeBlock ty           -> depsOfType ty
-    TypeConst ty           -> depsOfType ty
-    TypeComplex{}          -> []
+    C.TypePrim{}             -> []
+    C.TypeRef ref            -> [(ByValue, ref)]
+    C.TypeTypedef typedef    -> [(ByValue, typedef.ref)]
+    C.TypePointers _ ty      -> first (const ByRef) <$> depsOfType ty
+    C.TypeFun args res       -> concatMap depsOfType args <> depsOfType res
+    C.TypeVoid               -> []
+    C.TypeConstArray _ ty    -> depsOfType ty
+    C.TypeIncompleteArray ty -> depsOfType ty
+    C.TypeExtBinding{}       -> []
+    C.TypeBlock ty           -> depsOfType ty
+    C.TypeQualified _qual ty -> depsOfType ty
+    C.TypeComplex{}          -> []

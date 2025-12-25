@@ -23,7 +23,7 @@ import Control.Monad.Reader qualified as Reader
 import Data.Foldable qualified as Foldable
 import GHC.Stack
 
-import HsBindgen.Frontend.AST.Internal
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Error
 import HsBindgen.Frontend.LanguageC.PartialAST (CName)
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
@@ -49,7 +49,7 @@ newtype FromLanC a = WrapFromLanC {
     )
 
 -- | Types in scope when reparsing a particular declaration
-type ReparseEnv = Map CName (Type HandleMacros)
+type ReparseEnv = Map CName (C.Type HandleMacros)
 
 runFromLanC :: ReparseEnv -> FromLanC a -> Either Error a
 runFromLanC typeEnv =

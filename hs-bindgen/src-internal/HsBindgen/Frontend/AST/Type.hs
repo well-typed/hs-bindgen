@@ -45,7 +45,6 @@ module HsBindgen.Frontend.AST.Type (
   ) where
 
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -55,28 +54,74 @@ import HsBindgen.Language.C qualified as C
 
 -- | C types (use sites)
 data TypeF tag p =
+    -- | Primitive types
     TypePrim C.PrimType
+
+    -- | Complex type (such as @float complex@)
+  | TypeComplex C.PrimType
+
+    -- | Reference to named type other than a typedef
   | TypeRef (Id p)
-  | TypeTypedef
-    -- | NOTE: has a strictness annotation, which allows GHC to infer that
+
+    -- | Reference to typedef
+    --
+    -- TODO: TypedefRefF for erased should be void, and reuse 'TypeRef'.
+    --
+    -- NOTE: has a strictness annotation, which allows GHC to infer that
     -- pattern matches are redundant when @TypedefRefF tag ~ Void@.
-    !(TypedefRefF tag p)
+    --
     -- TODO: macros should get annotations with underlying types just like
     -- typedefs, so that we can erase the macro types and replace them with
     -- their underlying type. See issue #1200.
+  | TypeTypedef !(TypedefRefF tag p)
+
+    -- | Pointer
+    --
+    -- This is /one/ layer of indirection; see also 'TypePointers'
   | TypeUnsafePointer (TypeF tag p)
+
+    -- | Array of constant size
   | TypeConstArray Natural (TypeF tag p)
-  | TypeFun [TypeF tag p] (TypeF tag p)
-  | TypeVoid
+
+    -- | Array of unknown size
+    --
+    -- Arrays normally have a known size, but not always:
+    --
+    -- * Arrays of unknown size are allowed as function arguments; such arrays
+    --   are interpreted as pointers.
+    -- * Arrays of unknown size may be declared for externs; this is considered
+    --   an incomplete type.
+    -- * Structs may contain an array of undefined size as their last field,
+    --   known as a "flexible array member" (FLAM).
+    --
+    -- We treat the FLAM case separately.
+    --
+    -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
   | TypeIncompleteArray (TypeF tag p)
+
+    -- | Functions
+  | TypeFun [TypeF tag p] (TypeF tag p)
+
+    -- | Void
+    --
+    -- NOTE: @void@ has different meanings in C, depending on context.
+  | TypeVoid
+
+    -- | Blocks
+    --
+    -- Blocks are a clang-specific C extension.
+    --
+    -- See <https://clang.llvm.org/docs/BlockLanguageSpec.html>
   | TypeBlock (TypeF tag p)
-  | TypeQualified
-      -- | NOTE: has a strictness annotation, which allows GHC to infer that
-      -- pattern matches are redundant when @TypeQualifierF tag ~ Void@.
-      !(TypeQualifierF tag p)
-      (TypeF tag p)
-  | TypeExtBinding ResolveBindingSpecs.ResolvedExtBinding
-  | TypeComplex C.PrimType
+
+    -- | Qualified type (such as @const@)
+    --
+    -- NOTE: has a strictness annotation, which allows GHC to infer that pattern
+    -- matches are redundant when @TypeQualifierF tag ~ Void@.
+  | TypeQualified !(TypeQualifierF tag p) (TypeF tag p)
+
+    -- | Type with an external binding
+  | TypeExtBinding (ExtBinding p)
   deriving stock Generic
 
 deriving stock instance ValidTypeTag tag p => Show (TypeF tag p)

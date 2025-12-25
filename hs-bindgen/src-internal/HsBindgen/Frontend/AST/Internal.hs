@@ -32,10 +32,6 @@ module HsBindgen.Frontend.AST.Internal (
   , CheckedMacro(..)
   , CheckedMacroType(..)
   , CheckedMacroExpr(..)
-    -- * Types (at use sites)
-  , Type(TypePrim, TypeRef, TypeTypedef, TypeFun, TypeVoid,
-         TypeConstArray, TypeExtBinding, TypeIncompleteArray, TypeBlock,
-         TypeConst, TypeComplex, TypePointers)
   ) where
 
 import Prelude hiding (Enum)
@@ -48,10 +44,10 @@ import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.HighLevel.Types
 
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -159,7 +155,7 @@ data DeclKind p =
   | DeclMacro (MacroBody p)
   | DeclFunction (Function p)
     -- | A global variable, whether it be declared @extern@, @static@ or neither.
-  | DeclGlobal (Type p)
+  | DeclGlobal (C.Type p)
 
 data Struct p = Struct {
       structSizeof    :: Int
@@ -170,7 +166,7 @@ data Struct p = Struct {
 
 data StructField p = StructField {
       structFieldInfo    :: FieldInfo p
-    , structFieldType    :: Type p
+    , structFieldType    :: C.Type p
     , structFieldOffset  :: Int     -- ^ Offset in bits
     , structFieldWidth   :: Maybe Int
     , structFieldAnn     :: Ann "StructField" p
@@ -185,17 +181,17 @@ data Union p = Union {
 
 data UnionField p = UnionField {
       unionFieldInfo    :: FieldInfo p
-    , unionFieldType    :: Type p
+    , unionFieldType    :: C.Type p
     , unionFieldAnn     :: Ann "UnionField" p
     }
 
 data Typedef p = Typedef {
-      typedefType    :: Type p
+      typedefType    :: C.Type p
     , typedefAnn     :: Ann "Typedef" p
     }
 
 data Enum p = Enum {
-      enumType      :: Type p
+      enumType      :: C.Type p
     , enumSizeof    :: Int
     , enumAlignment :: Int
     , enumConstants :: [EnumConstant p]
@@ -208,8 +204,8 @@ data EnumConstant p = EnumConstant {
     }
 
 data Function p = Function {
-      functionArgs    :: [(Maybe (ScopedName p), Type p)]
-    , functionRes     :: Type p
+      functionArgs    :: [(Maybe (ScopedName p), C.Type p)]
+    , functionRes     :: C.Type p
     , functionAttrs   :: FunctionAttributes
     , functionAnn     :: Ann "Function" p
     }
@@ -334,7 +330,7 @@ data CheckedMacro p =
   | MacroExpr CheckedMacroExpr
 
 data CheckedMacroType p = CheckedMacroType{
-      macroType        :: Type p
+      macroType        :: C.Type p
     , macroTypeAnn     :: Ann "CheckedMacroType" p
     }
 
@@ -348,104 +344,6 @@ data CheckedMacroExpr = CheckedMacroExpr{
     , macroExprType :: CExpr.DSL.Quant (CExpr.DSL.Type CExpr.DSL.Ty)
     }
   deriving stock (Show, Eq, Generic)
-
-{-------------------------------------------------------------------------------
-  Types (at use sites)
--------------------------------------------------------------------------------}
-
-data Type p =
-    TypePrim C.PrimType
-  | TypeRef (Id p)
-  | TypeTypedef (Id p) (Type p)
-  | TypeUnsafePointer (Type p)
-  | TypeFun [Type p] (Type p)
-  | TypeVoid
-  | TypeConstArray Natural (Type p)
-  | TypeExtBinding (ExtBinding p)
-
-    -- | Arrays of unknown size
-    --
-    -- Arrays normally have a known size, but not always:
-    --
-    -- * Arrays of unknown size are allowed as function arguments; such arrays
-    --   are interpreted as pointers.
-    -- * Arrays of unknown size may be declared for externs; this is considered
-    --   an incomplete type.
-    -- * Structs may contain an array of undefined size as their last field,
-    --   known as a "flexible array member" (FLAM).
-    --
-    -- We treat the FLAM case separately.
-    --
-    -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
-  | TypeIncompleteArray (Type p)
-
-    -- | Block type
-    --
-    -- Blocks are a clang-specific C extension.
-    --
-    -- See <https://clang.llvm.org/docs/BlockLanguageSpec.html>
-  | TypeBlock (Type p)
-
-    -- | Type qualifier @const@.
-  | TypeConst (Type p)
-
-    -- | A complex floating-point type, such as @float complex@ or
-    -- @double complex@. This also allows one to define, e.g. @char complex@
-  | TypeComplex C.PrimType
-
-{-------------------------------------------------------------------------------
-  Pattern synonyms for safe pointer handling
--------------------------------------------------------------------------------}
-
--- | Bidirectional pattern synonym for N layers of pointer indirection
---
--- This pattern can be used both for matching and construction.
---
--- Examples (matching):
---   * @TypePointers 1 inner@ matches @TypeUnsafePointer inner@
---   * @TypePointers 2 inner@ matches @TypeUnsafePointer (TypeUnsafePointer inner)@
---   * @TypePointers 3 inner@ matches @TypeUnsafePointer (TypeUnsafePointer (TypeUnsafePointer inner))@
---
--- Examples (construction):
---   * @TypePointers 1 someType@ creates @TypeUnsafePointer someType@
---   * @TypePointers 2 someType@ creates @TypeUnsafePointer (TypeUnsafePointer someType)@
---
--- The inner type can be anything (TypeFun, TypeRef, TypePrim, etc.).
---
-pattern TypePointers :: Int -> Type p -> Type p
-pattern TypePointers n inner <- (stripPointers -> Just (n, inner))
-  where
-    TypePointers n inner = buildPointers n inner
-
--- | Helper for TypePointers pattern synonym (matching direction)
---
--- Strips all pointer layers and returns the count and inner type.
--- Returns Nothing if there are no pointer layers.
-stripPointers :: Type p -> Maybe (Int, Type p)
-stripPointers = go 0
-  where
-    go :: Int -> Type p -> Maybe (Int, Type p)
-    go !n (TypeUnsafePointer inner) = go (n + 1) inner
-    go !n inner
-      | n > 0     = Just (n, inner)
-      | otherwise = Nothing
-
--- | Helper for TypePointers pattern synonym (construction direction)
---
--- Builds N layers of pointers around an inner type.
-buildPointers :: Int -> Type p -> Type p
-buildPointers n inner
-  | n <= 0    = inner
-  | otherwise = TypeUnsafePointer (buildPointers (n - 1) inner)
-
--- | COMPLETE pragma to ensure exhaustiveness checking works
---
--- This tells GHC that pattern matching on these patterns (instead of the raw
--- TypeUnsafePointer) is complete and exhaustive.
---
-{-# COMPLETE TypePrim, TypeRef, TypeTypedef, TypePointers, TypeFun, TypeVoid,
-             TypeConstArray, TypeExtBinding, TypeIncompleteArray, TypeBlock,
-             TypeConst, TypeComplex #-}
 
 {-------------------------------------------------------------------------------
   Instances
@@ -463,7 +361,6 @@ deriving stock instance IsPass p => Show (Function         p)
 deriving stock instance IsPass p => Show (Struct           p)
 deriving stock instance IsPass p => Show (StructField      p)
 deriving stock instance IsPass p => Show (TranslationUnit  p)
-deriving stock instance IsPass p => Show (Type             p)
 deriving stock instance IsPass p => Show (Typedef          p)
 deriving stock instance IsPass p => Show (Union            p)
 deriving stock instance IsPass p => Show (UnionField       p)
@@ -481,7 +378,6 @@ deriving stock instance IsPass p => Eq (Function         p)
 deriving stock instance IsPass p => Eq (CommentRef       p)
 deriving stock instance IsPass p => Eq (Struct           p)
 deriving stock instance IsPass p => Eq (StructField      p)
-deriving stock instance IsPass p => Eq (Type             p)
 deriving stock instance IsPass p => Eq (Typedef          p)
 deriving stock instance IsPass p => Eq (Union            p)
 deriving stock instance IsPass p => Eq (UnionField       p)

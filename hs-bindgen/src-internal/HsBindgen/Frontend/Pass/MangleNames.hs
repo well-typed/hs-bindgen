@@ -21,6 +21,7 @@ import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
@@ -535,10 +536,10 @@ instance MangleInDecl C.CheckedMacroType where
 instance Mangle C.Type where
   mangle = \case
       -- Interesting cases
-      C.TypeRef     declId     -> C.TypeRef <$> mangleDeclId declId
-      C.TypeTypedef declId uTy -> C.TypeTypedef
-                                    <$> mangleDeclId declId
-                                    <*> mangle uTy
+      C.TypeRef declId  -> fmap C.TypeRef $
+        mangleDeclId declId
+      C.TypeTypedef (C.TypedefRef declId uTy) -> fmap C.TypeTypedef $
+        C.TypedefRef <$> mangleDeclId declId <*> mangle uTy
 
       -- Recursive cases
       C.TypePointers n typ      -> C.TypePointers n <$> mangle typ
@@ -546,7 +547,7 @@ instance Mangle C.Type where
       C.TypeConstArray n typ    -> C.TypeConstArray n <$> mangle typ
       C.TypeIncompleteArray typ -> C.TypeIncompleteArray <$> mangle typ
       C.TypeBlock typ           -> C.TypeBlock <$> mangle typ
-      C.TypeConst typ           -> C.TypeConst <$> mangle typ
+      C.TypeQualified qual typ  -> C.TypeQualified qual <$> mangle typ
 
       -- The other entries do not need any name mangling
       C.TypePrim prim      -> return $ C.TypePrim prim

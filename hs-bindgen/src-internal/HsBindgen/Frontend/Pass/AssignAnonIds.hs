@@ -10,6 +10,7 @@ import Data.Tuple
 
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames
@@ -281,15 +282,15 @@ instance UpdateUseSites C.Type where
       go :: C.Type Parse -> M (C.Type AssignAnonIds)
       go = \case
           -- Actual modifications
-          C.TypeRef     n    -> C.TypeRef     <$> updateDeclId n
-          C.TypeTypedef n ty -> C.TypeTypedef <$> updateDeclId n <*> go ty
+          C.TypeRef     ref     -> C.TypeRef     <$> updateDeclId ref
+          C.TypeTypedef typedef -> C.TypeTypedef <$> updateUseSites typedef
 
           -- Recursive cases
           C.TypePointers n      ty -> C.TypePointers n <$> go ty
           C.TypeConstArray n    ty -> C.TypeConstArray n <$> go ty
           C.TypeIncompleteArray ty -> C.TypeIncompleteArray <$> go ty
           C.TypeBlock           ty -> C.TypeBlock <$> go ty
-          C.TypeConst           ty -> C.TypeConst <$> go ty
+          C.TypeQualified qual  ty -> C.TypeQualified qual <$> go ty
           C.TypeFun args res       -> C.TypeFun <$> mapM go args <*> go res
 
           -- SimpleCases
@@ -297,6 +298,12 @@ instance UpdateUseSites C.Type where
           C.TypePrim    pt     -> return $ C.TypePrim    pt
           C.TypeComplex pt     -> return $ C.TypeComplex pt
           C.TypeExtBinding ext -> absurd ext
+
+instance UpdateUseSites C.TypedefRef where
+  updateUseSites (C.TypedefRef n uTy) =
+      C.TypedefRef
+        <$> updateDeclId n
+        <*> updateUseSites uTy
 
 updateDeclId :: C.PrelimDeclId -> M C.DeclId
 updateDeclId prelimDeclId = WrapM $ do

@@ -59,6 +59,10 @@ class (
       , Ord (Id         p)
       , Ord (ScopedName p)
 
+        -- 'Ord' constraint' on 'ExtBinding' is necessary for de-dupping types.
+
+      , Ord (ExtBinding p)
+
         -- 'Eq'
         --
         -- We use equality on 'DeclKind' during construction of the 'DeclIndex'
@@ -110,7 +114,10 @@ class (
   type MacroBody p :: Star
 
   -- | Representation of external bindings
+  --
+  -- This is initialized in @ResolveBindingSpecs@.
   type ExtBinding p :: Star
+  type ExtBinding p = Void
 
   -- | Generic TTG-style annotation
   --
@@ -146,6 +153,12 @@ class (
        Id p ~ C.DeclId
     => Proxy p -> Id p -> [SingleLoc] -> LocationInfo
   idLocationInfo _ = declIdLocationInfo
+
+  extBindingId :: Proxy p -> ExtBinding p -> Id p
+  default extBindingId ::
+       ExtBinding p ~ Void
+    => Proxy p -> ExtBinding p -> Id p
+  extBindingId _ = absurd
 
 {-------------------------------------------------------------------------------
   Defaults

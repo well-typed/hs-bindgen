@@ -15,7 +15,7 @@ import Language.C.Data.Ident qualified as LanC
 import Optics.Core (Lens')
 import Optics.Core qualified as Optics
 
-import HsBindgen.Frontend.AST.Internal
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
@@ -40,7 +40,7 @@ mkPartialDecl = \case
     other ->
       unexpectedF other
 
-mkDecl :: LanC.CDeclaration a -> FromLanC (Maybe CName, Type HandleMacros)
+mkDecl :: LanC.CDeclaration a -> FromLanC (Maybe CName, C.Type HandleMacros)
 mkDecl = mkPartialDecl >=> fromDecl
 
 {-------------------------------------------------------------------------------
@@ -112,12 +112,12 @@ withSign f = \case
       let UnknownType{unknownSign, unknownConst} = unknown
       return $
           PartialKnown . KnownType
-        $ ( if unknownConst then TypeConst else id )
-        $ TypePrim $ f unknownSign
+        $ (if unknownConst then C.TypeQualified C.TypeQualifierConst else id)
+        $ C.TypePrim $ f unknownSign
     other ->
       unexpected $ show other
 
-notFun :: Update (Type HandleMacros) PartialType
+notFun :: Update (C.Type HandleMacros) PartialType
 notFun typ = \case
     PartialUnknown unknown -> do
       let UnknownType{unknownSign, unknownConst} = unknown
@@ -125,7 +125,7 @@ notFun typ = \case
         Nothing ->
           return $
               PartialKnown . KnownType
-            $ ( if unknownConst then TypeConst else id )
+            $ (if unknownConst then C.TypeQualified C.TypeQualifierConst else id)
             $ typ
         Just sign ->
           unexpected $ show (typ, sign)
@@ -143,21 +143,21 @@ setSign sign = \case
 instance Apply (LanC.CTypeSpecifier a) PartialType where
   apply = \case
       -- Void (for function result types only)
-      LanC.CVoidType _a -> notFun $ TypeVoid
+      LanC.CVoidType _a -> notFun $ C.TypeVoid
 
       -- Primitive types
       LanC.CCharType   _a -> withSign $ C.PrimChar . charSign
       LanC.CShortType  _a -> withSign $ C.PrimIntegral C.PrimShort . fromMaybe C.Signed
       LanC.CIntType    _a -> withSign $ C.PrimIntegral C.PrimInt   . fromMaybe C.Signed
       LanC.CLongType   _a -> withSign $ C.PrimIntegral C.PrimLong  . fromMaybe C.Signed
-      LanC.CFloatType  _a -> notFun $ TypePrim $ C.PrimFloating C.PrimFloat
-      LanC.CDoubleType _a -> notFun $ TypePrim $ C.PrimFloating C.PrimDouble
-      LanC.CBoolType   _a -> notFun $ TypePrim $ C.PrimBool
+      LanC.CFloatType  _a -> notFun $ C.TypePrim $ C.PrimFloating C.PrimFloat
+      LanC.CDoubleType _a -> notFun $ C.TypePrim $ C.PrimFloating C.PrimDouble
+      LanC.CBoolType   _a -> notFun $ C.TypePrim $ C.PrimBool
 
       -- Complex types
       LanC.CComplexType _a -> \case
-        PartialKnown (KnownType (TypePrim prim)) ->
-          return $ PartialKnown . KnownType $ TypeComplex prim
+        PartialKnown (KnownType (C.TypePrim prim)) ->
+          return $ PartialKnown . KnownType $ C.TypeComplex prim
         other ->
           unexpected $ show other
 
@@ -197,8 +197,8 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       charSign Nothing     = C.PrimSignImplicit Nothing
       charSign (Just sign) = C.PrimSignExplicit sign
 
-      typeRef :: C.DeclName -> Type HandleMacros
-      typeRef name = TypeRef $ C.DeclId{name, isAnon = False}
+      typeRef :: C.DeclName -> C.Type HandleMacros
+      typeRef name = C.TypeRef $ C.DeclId{name, isAnon = False}
 
       checkNotAnon :: Maybe LanC.Ident -> C.TagKind -> FromLanC C.DeclName
       checkNotAnon mName tagKind =
@@ -239,7 +239,7 @@ instance Apply (LanC.CTypeQualifier a) UnknownType where
   'KnownType'
 -------------------------------------------------------------------------------}
 
-defaultApplyKnownType :: Apply a (Type HandleMacros) => Update a KnownType
+defaultApplyKnownType :: Apply a (C.Type HandleMacros) => Update a KnownType
 defaultApplyKnownType x = fmap KnownType . apply x . fromKnownType
 
 instance Apply (LanC.CTypeQualifier a) KnownType where
@@ -259,20 +259,20 @@ instance Apply (LanC.CDerivedDeclarator a) KnownType where
   'Type' 'p'
 -------------------------------------------------------------------------------}
 
-instance Apply (LanC.CTypeQualifier a) (Type HandleMacros) where
+instance Apply (LanC.CTypeQualifier a) (C.Type HandleMacros) where
   apply = \case
-      LanC.CConstQual _ -> return . TypeConst
+      LanC.CConstQual _ -> return . C.TypeQualified C.TypeQualifierConst
       LanC.CRestrQual _ -> return -- ignore @__restrict@
       other             -> \_ -> unexpectedF other
 
-instance Apply (LanC.CDerivedDeclarator a) (Type HandleMacros) where
+instance Apply (LanC.CDerivedDeclarator a) (C.Type HandleMacros) where
   apply = \case
       LanC.CPtrDeclr quals _a ->
-        repeatedly apply quals . TypePointers 1
+        repeatedly apply quals . C.TypePointers 1
       LanC.CArrDeclr quals (LanC.CNoArrSize isCompleteType) _a ->
         if isCompleteType
           then \_ -> unexpected "complete array without size"
-          else repeatedly apply quals . TypeIncompleteArray
+          else repeatedly apply quals . C.TypeIncompleteArray
       LanC.CArrDeclr quals (LanC.CArrSize _isStatic expr) _a -> \typ -> do
         sz <- case expr of
                 LanC.CConst (LanC.CIntConst n _a') ->
@@ -280,7 +280,7 @@ instance Apply (LanC.CDerivedDeclarator a) (Type HandleMacros) where
                 other ->
                   unsupported $ show (nodeOmitted other)
         -- TODO: Should we do something with _isStatic?
-        repeatedly apply quals $ TypeConstArray sz typ
+        repeatedly apply quals $ C.TypeConstArray sz typ
       other -> \_ ->
         unexpectedF other
 

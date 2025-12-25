@@ -8,7 +8,8 @@ import Prelude hiding (Enum)
 
 import Clang.HighLevel.Documentation qualified as CDoc
 
-import HsBindgen.Frontend.AST.Internal
+import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
 
@@ -40,10 +41,10 @@ class CoercePass a p p' where
   coercePass :: a p -> a p'
 
 instance (
-      CoercePass Decl p p'
+      CoercePass C.Decl p p'
     , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
-    ) => CoercePass TranslationUnit p p' where
-  coercePass TranslationUnit{..} = TranslationUnit{
+    ) => CoercePass C.TranslationUnit p p' where
+  coercePass C.TranslationUnit{..} = C.TranslationUnit{
         unitDecls = map coercePass unitDecls
       , unitIncludeGraph
       , unitAnn
@@ -51,27 +52,26 @@ instance (
 
 instance (
       CoercePassId p p'
-    ) => CoercePass CommentRef p p' where
-  coercePass (CommentRef c hs) =
-      CommentRef c (coercePassId (Proxy @'(p, p')) <$> hs)
+    ) => CoercePass C.CommentRef p p' where
+  coercePass (C.CommentRef c hs) =
+      C.CommentRef c (coercePassId (Proxy @'(p, p')) <$> hs)
 
 instance (
       CoercePassId p p'
-    ) => CoercePass CDoc.Comment (CommentRef p) (CommentRef p') where
+    ) => CoercePass CDoc.Comment (C.CommentRef p) (C.CommentRef p') where
   coercePass comment = fmap coercePass comment
 
 instance (
-      CoercePass CDoc.Comment (CommentRef p) (CommentRef p')
-    ) => CoercePass Comment p p' where
-  coercePass (Comment c) =
-    Comment (coercePass c)
+      CoercePass CDoc.Comment (C.CommentRef p) (C.CommentRef p')
+    ) => CoercePass C.Comment p p' where
+  coercePass (C.Comment c) = C.Comment (coercePass c)
 
 instance (
-      CoercePass DeclInfo p p'
-    , CoercePass DeclKind p p'
+      CoercePass C.DeclInfo p p'
+    , CoercePass C.DeclKind p p'
     , Ann "Decl" p ~ Ann "Decl" p'
-    ) => CoercePass Decl p p' where
-  coercePass Decl{..} = Decl{
+    ) => CoercePass C.Decl p p' where
+  coercePass C.Decl{..} = C.Decl{
         declInfo = coercePass declInfo
       , declKind = coercePass declKind
       , declAnn
@@ -79,51 +79,51 @@ instance (
 
 instance (
       CoercePassId p p'
-    , CoercePass Comment p p'
-    ) => CoercePass DeclInfo p p' where
-  coercePass info = DeclInfo{
+    , CoercePass C.Comment p p'
+    ) => CoercePass C.DeclInfo p p' where
+  coercePass info = C.DeclInfo{
         declId      = coercePassId (Proxy @'(p, p')) declId
       , declComment = fmap coercePass declComment
       , ..
       }
     where
-      DeclInfo{..} = info
+      C.DeclInfo{..} = info
 
 instance (
-      CoercePass Comment p p'
+      CoercePass C.Comment p p'
     , ScopedName p ~ ScopedName p'
-    ) => CoercePass FieldInfo p p' where
-  coercePass info = FieldInfo{
+    ) => CoercePass C.FieldInfo p p' where
+  coercePass info = C.FieldInfo{
         fieldComment = fmap coercePass fieldComment
       , ..
       }
     where
-      FieldInfo{fieldLoc, fieldName, fieldComment} = info
+      C.FieldInfo{fieldLoc, fieldName, fieldComment} = info
 
 instance (
-      CoercePass Struct   p p'
-    , CoercePass Enum     p p'
-    , CoercePass Union    p p'
-    , CoercePass Typedef  p p'
-    , CoercePass Function p p'
-    , CoercePass Type     p p'
+      CoercePass C.Struct   p p'
+    , CoercePass C.Enum     p p'
+    , CoercePass C.Union    p p'
+    , CoercePass C.Typedef  p p'
+    , CoercePass C.Function p p'
+    , CoercePass C.Type     p p'
     , CoercePassMacroBody p p'
-    ) => CoercePass DeclKind p p' where
+    ) => CoercePass C.DeclKind p p' where
   coercePass = \case
-      DeclStruct   x -> DeclStruct   $ coercePass x
-      DeclUnion    x -> DeclUnion    $ coercePass x
-      DeclTypedef  x -> DeclTypedef  $ coercePass x
-      DeclEnum     x -> DeclEnum     $ coercePass x
-      DeclFunction x -> DeclFunction $ coercePass x
-      DeclGlobal   x -> DeclGlobal   $ coercePass x
-      DeclMacro    x -> DeclMacro    $ coercePassMacroBody (Proxy @'(p, p')) x
-      DeclOpaque     -> DeclOpaque
+      C.DeclStruct   x -> C.DeclStruct   $ coercePass x
+      C.DeclUnion    x -> C.DeclUnion    $ coercePass x
+      C.DeclTypedef  x -> C.DeclTypedef  $ coercePass x
+      C.DeclEnum     x -> C.DeclEnum     $ coercePass x
+      C.DeclFunction x -> C.DeclFunction $ coercePass x
+      C.DeclGlobal   x -> C.DeclGlobal   $ coercePass x
+      C.DeclMacro    x -> C.DeclMacro    $ coercePassMacroBody (Proxy @'(p, p')) x
+      C.DeclOpaque     -> C.DeclOpaque
 
 instance (
-      CoercePass StructField p p'
+      CoercePass C.StructField p p'
     , Ann "Struct" p ~ Ann "Struct" p'
-    ) => CoercePass Struct p p' where
-  coercePass Struct{..} = Struct {
+    ) => CoercePass C.Struct p p' where
+  coercePass C.Struct{..} = C.Struct{
         structSizeof
       , structAlignment
       , structFields = map coercePass structFields
@@ -131,12 +131,12 @@ instance (
       }
 
 instance (
-      CoercePass Type p p'
-    , CoercePass Comment p p'
+      CoercePass C.Type p p'
+    , CoercePass C.Comment p p'
     , ScopedName p ~ ScopedName p'
     , Ann "StructField" p ~ Ann "StructField" p'
-    ) => CoercePass StructField p p' where
-  coercePass StructField{..} = StructField {
+    ) => CoercePass C.StructField p p' where
+  coercePass C.StructField{..} = C.StructField{
         structFieldInfo = coercePass structFieldInfo
       , structFieldType = coercePass structFieldType
       , structFieldOffset
@@ -145,10 +145,10 @@ instance (
       }
 
 instance (
-      CoercePass UnionField p p'
+      CoercePass C.UnionField p p'
     , Ann "Union" p ~ Ann "Union" p'
-    ) => CoercePass Union p p' where
-  coercePass Union{..} = Union {
+    ) => CoercePass C.Union p p' where
+  coercePass C.Union{..} = C.Union{
         unionSizeof
       , unionAlignment
       , unionFields = map coercePass unionFields
@@ -156,32 +156,32 @@ instance (
       }
 
 instance (
-      CoercePass Type p p'
+      CoercePass C.Type p p'
     , ScopedName p ~ ScopedName p'
-    , CoercePass Comment p p'
+    , CoercePass C.Comment p p'
     , Ann "UnionField" p ~ Ann "UnionField" p'
-    ) => CoercePass UnionField p p' where
-  coercePass UnionField{..} = UnionField {
+    ) => CoercePass C.UnionField p p' where
+  coercePass C.UnionField{..} = C.UnionField{
         unionFieldInfo = coercePass unionFieldInfo
       , unionFieldType = coercePass unionFieldType
       , unionFieldAnn
       }
 
 instance (
-      CoercePass Type p p'
+      CoercePass C.Type p p'
     , Ann "Typedef" p ~ Ann "Typedef" p'
-    ) => CoercePass Typedef p p' where
-  coercePass Typedef{..} = Typedef {
+    ) => CoercePass C.Typedef p p' where
+  coercePass C.Typedef{..} = C.Typedef{
         typedefType = coercePass typedefType
       , typedefAnn
       }
 
 instance (
-      CoercePass Type p p'
-    , CoercePass EnumConstant p p'
+      CoercePass C.Type p p'
+    , CoercePass C.EnumConstant p p'
     , Ann "Enum" p ~ Ann "Enum" p'
-    ) => CoercePass Enum p p' where
-  coercePass Enum{..} = Enum {
+    ) => CoercePass C.Enum p p' where
+  coercePass C.Enum{..} = C.Enum{
         enumType = coercePass enumType
       , enumSizeof
       , enumAlignment
@@ -191,19 +191,19 @@ instance (
 
 instance (
       ScopedName p ~ ScopedName p'
-    , CoercePass CDoc.Comment (CommentRef p) (CommentRef p')
-    ) => CoercePass EnumConstant p p' where
-  coercePass EnumConstant{..} = EnumConstant {
+    , CoercePass CDoc.Comment (C.CommentRef p) (C.CommentRef p')
+    ) => CoercePass C.EnumConstant p p' where
+  coercePass C.EnumConstant{..} = C.EnumConstant{
         enumConstantInfo = coercePass enumConstantInfo
       , enumConstantValue
       }
 
 instance (
-      CoercePass Type p p'
+      CoercePass C.Type p p'
     , ScopedName p ~ ScopedName p'
     , Ann "Function" p ~ Ann "Function" p'
-    ) => CoercePass Function p p' where
-  coercePass Function{..} = Function {
+    ) => CoercePass C.Function p p' where
+  coercePass C.Function{..} = C.Function{
         functionArgs = map (bimap id coercePass) functionArgs
       , functionRes  = coercePass functionRes
       , functionAttrs
@@ -211,16 +211,16 @@ instance (
       }
 
 instance (
-      CoercePass CheckedMacroType p p'
-    ) => CoercePass CheckedMacro p p' where
-  coercePass (MacroType typ)  = MacroType (coercePass typ)
-  coercePass (MacroExpr expr) = MacroExpr expr
+      CoercePass C.CheckedMacroType p p'
+    ) => CoercePass C.CheckedMacro p p' where
+  coercePass (C.MacroType typ)  = C.MacroType (coercePass typ)
+  coercePass (C.MacroExpr expr) = C.MacroExpr expr
 
 instance (
-      CoercePass Type p p'
+      CoercePass C.Type p p'
     , Ann "CheckedMacroType" p ~ Ann "CheckedMacroType" p'
-    ) => CoercePass CheckedMacroType p p' where
-  coercePass CheckedMacroType{..} = CheckedMacroType {
+    ) => CoercePass C.CheckedMacroType p p' where
+  coercePass C.CheckedMacroType{..} = C.CheckedMacroType{
         macroType = coercePass macroType
       , macroTypeAnn
       }
@@ -229,20 +229,29 @@ instance (
       CoercePassId p p'
     , ScopedName p ~ ScopedName p'
     , ExtBinding p ~ ExtBinding p'
-    ) => CoercePass Type p p' where
+    ) => CoercePass C.Type p p' where
   coercePass = \case
-      TypePrim prim           -> TypePrim prim
-      TypeRef uid             -> TypeRef (goId uid)
-      TypeTypedef uid uTy     -> TypeTypedef (goId uid) (coercePass uTy)
-      TypePointers n typ      -> TypePointers n (coercePass typ)
-      TypeFun args res        -> TypeFun (map coercePass args) (coercePass res)
-      TypeVoid                -> TypeVoid
-      TypeConstArray n typ    -> TypeConstArray n (coercePass typ)
-      TypeIncompleteArray typ -> TypeIncompleteArray (coercePass typ)
-      TypeExtBinding ext      -> TypeExtBinding ext
-      TypeBlock typ           -> TypeBlock (coercePass typ)
-      TypeConst typ           -> TypeConst (coercePass typ)
-      TypeComplex prim        -> TypeComplex prim
+      C.TypePrim prim           -> C.TypePrim prim
+      C.TypeRef uid             -> C.TypeRef (goId uid)
+      C.TypeTypedef ref         -> C.TypeTypedef (coercePass ref)
+      C.TypePointers n typ      -> C.TypePointers n (coercePass typ)
+      C.TypeFun args res        -> C.TypeFun (map coercePass args) (coercePass res)
+      C.TypeVoid                -> C.TypeVoid
+      C.TypeConstArray n typ    -> C.TypeConstArray n (coercePass typ)
+      C.TypeIncompleteArray typ -> C.TypeIncompleteArray (coercePass typ)
+      C.TypeExtBinding ext      -> C.TypeExtBinding ext
+      C.TypeBlock typ           -> C.TypeBlock (coercePass typ)
+      C.TypeQualified qual typ  -> C.TypeQualified qual (coercePass typ)
+      C.TypeComplex prim        -> C.TypeComplex prim
     where
       goId :: Id p -> Id p'
       goId = coercePassId (Proxy @'(p, p'))
+
+instance (
+      CoercePassId p p'
+    , CoercePass C.Type p p'
+    ) => CoercePass C.TypedefRef p p' where
+  coercePass C.TypedefRef{ref, underlying} = C.TypedefRef{
+        ref        = coercePassId (Proxy @'(p, p')) ref
+      , underlying = coercePass underlying
+      }
