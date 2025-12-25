@@ -8,7 +8,7 @@ import Prelude hiding (Enum)
 
 import Clang.HighLevel.Documentation qualified as CDoc
 
-import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Imports
@@ -209,21 +209,6 @@ instance (
       , functionRes  = coercePass functionRes
       , functionAttrs
       , functionAnn
-      }
-
-instance (
-      CoercePass C.CheckedMacroType p p'
-    ) => CoercePass C.CheckedMacro p p' where
-  coercePass (C.MacroType typ)  = C.MacroType (coercePass typ)
-  coercePass (C.MacroExpr expr) = C.MacroExpr expr
-
-instance (
-      CoercePass C.Type p p'
-    , Ann "CheckedMacroType" p ~ Ann "CheckedMacroType" p'
-    ) => CoercePass C.CheckedMacroType p p' where
-  coercePass C.CheckedMacroType{..} = C.CheckedMacroType{
-        macroType = coercePass macroType
-      , macroTypeAnn
       }
 
 instance (

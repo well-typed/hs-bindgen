@@ -21,10 +21,11 @@ import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Config.Prelims
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -89,9 +90,9 @@ functionDecs ::
   -> TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
-  -> C.DeclInfo
-  -> C.Function
-  -> C.DeclSpec
+  -> C.DeclInfo Final
+  -> C.Function Final
+  -> PrescriptiveDeclSpec
   -> [Hs.Decl]
 functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     foreignImport :
@@ -294,7 +295,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
             ]
           ]
 
-getMainHashIncludeArg :: HasCallStack => C.DeclInfo -> HashIncludeArg
+getMainHashIncludeArg :: HasCallStack => C.DeclInfo Final -> HashIncludeArg
 getMainHashIncludeArg declInfo = case C.declHeaderInfo declInfo of
     Nothing -> panicPure "no main header for builtin"
     Just C.HeaderInfo{headerMainHeaders} -> NonEmpty.head headerMainHeaders
@@ -429,7 +430,7 @@ getRestoreOrigSignatureDecl ::
   -> IsPrimitiveType              -- ^ result type
   -> [IsPrimitiveType]            -- ^ types of function parameters
   -> [Hs.FunctionParameter] -- ^ function parameter with comments
-  -> C.Function             -- ^ original C function
+  -> C.Function Final       -- ^ original C function
   -> Maybe HsDoc.Comment    -- ^ function comment
   -> Hs.Decl
 getRestoreOrigSignatureDecl hiName loName primResult primParams params cFunc mbComment =

@@ -40,7 +40,7 @@ import Clang.Paths
 
 import HsBindgen.Eff
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass

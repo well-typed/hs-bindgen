@@ -14,7 +14,7 @@ import Test.Tasty.QuickCheck (Arbitrary (arbitrary), CoArbitrary (coarbitrary),
 import Clang.Paths
 
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Language.C qualified as C
 

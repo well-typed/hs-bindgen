@@ -92,7 +92,7 @@ import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol)
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.AST.External (CheckedMacroExpr)
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -292,7 +292,7 @@ data MacroExpr = MacroExpr {
     -- | Name of variable/function.
       name    :: Hs.Name Hs.NsVar
     -- | Type of variable/function.
-    , body    :: CheckedMacroExpr
+    , expr    :: CheckedMacroExpr
     -- | RHS of variable/function.
     , comment :: Maybe HsDoc.Comment
     }

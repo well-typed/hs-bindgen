@@ -4,8 +4,8 @@
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.Frontend.AST.Internal qualified as C
-module HsBindgen.Frontend.AST.Internal (
+-- > import HsBindgen.Frontend.AST.Decl qualified as C
+module HsBindgen.Frontend.AST.Decl (
     TranslationUnit(..)
     -- * Declarations
   , Decl(..)
@@ -28,17 +28,10 @@ module HsBindgen.Frontend.AST.Internal (
     -- ** Comments
   , Comment(..)
   , CommentRef(..)
-    -- ** Macros
-  , CheckedMacro(..)
-  , CheckedMacroType(..)
-  , CheckedMacroExpr(..)
   ) where
 
 import Prelude hiding (Enum)
 import Prelude qualified as P
-
-import C.Expr.Syntax qualified as CExpr.DSL
-import C.Expr.Typecheck.Type qualified as CExpr.DSL
 
 import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.HighLevel.Types
@@ -323,35 +316,9 @@ newtype Comment p =
 data CommentRef p = CommentRef Text (Maybe (Id p))
 
 {-------------------------------------------------------------------------------
-  Macros
--------------------------------------------------------------------------------}
-
-data CheckedMacro p =
-    MacroType (CheckedMacroType p)
-  | MacroExpr CheckedMacroExpr
-
-data CheckedMacroType p = CheckedMacroType{
-      macroType        :: C.Type p
-    , macroTypeAnn     :: Ann "CheckedMacroType" p
-    }
-
--- | Checked expression (function) macro
---
--- TODO: This is wrong, it does not allow name mangling to do its job. To fix
--- that we'd have to change 'CExpr.DSL.MExpr'.
-data CheckedMacroExpr = CheckedMacroExpr{
-      macroExprArgs :: [CExpr.DSL.Name]
-    , macroExprBody :: CExpr.DSL.MExpr CExpr.DSL.Ps
-    , macroExprType :: CExpr.DSL.Quant (CExpr.DSL.Type CExpr.DSL.Ty)
-    }
-  deriving stock (Show, Eq, Generic)
-
-{-------------------------------------------------------------------------------
   Instances
 -------------------------------------------------------------------------------}
 
-deriving stock instance IsPass p => Show (CheckedMacro     p)
-deriving stock instance IsPass p => Show (CheckedMacroType p)
 deriving stock instance IsPass p => Show (Decl             p)
 deriving stock instance IsPass p => Show (DeclInfo         p)
 deriving stock instance IsPass p => Show (FieldInfo        p)
@@ -368,8 +335,6 @@ deriving stock instance IsPass p => Show (UnionField       p)
 deriving stock instance IsPass p => Show (Comment          p)
 deriving stock instance IsPass p => Show (CommentRef       p)
 
-deriving stock instance IsPass p => Eq (CheckedMacro     p)
-deriving stock instance IsPass p => Eq (CheckedMacroType p)
 deriving stock instance IsPass p => Eq (Comment          p)
 deriving stock instance IsPass p => Eq (DeclKind         p)
 deriving stock instance IsPass p => Eq (Enum             p)

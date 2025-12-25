@@ -13,7 +13,7 @@ module HsBindgen.Frontend.Analysis.AnonUsage (
 import Data.Map qualified as Map
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass

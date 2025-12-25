@@ -11,12 +11,11 @@ import Data.Text qualified as Text
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.Name qualified as Hs
-import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -33,8 +32,7 @@ data MangleNames a
 
 type family AnnMangleNames ix where
   AnnMangleNames "TranslationUnit"  = DeclMeta
-  AnnMangleNames "Decl"             =
-    (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
+  AnnMangleNames "Decl"             = PrescriptiveDeclSpec
   AnnMangleNames "Struct"           = RecordNames
   AnnMangleNames "Union"            = NewtypeNames
   AnnMangleNames "Enum"             = NewtypeNames
@@ -45,7 +43,7 @@ type family AnnMangleNames ix where
 instance IsPass MangleNames where
   type Id         MangleNames = C.DeclIdPair
   type ScopedName MangleNames = C.ScopedNamePair
-  type MacroBody  MangleNames = C.CheckedMacro MangleNames
+  type MacroBody  MangleNames = CheckedMacro MangleNames
   type ExtBinding MangleNames = ResolvedExtBinding
   type Ann ix     MangleNames = AnnMangleNames ix
   type Msg        MangleNames = WithLocationInfo MangleNamesMsg

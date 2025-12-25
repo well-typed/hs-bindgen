@@ -26,7 +26,7 @@ import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
@@ -258,12 +258,12 @@ resolveDeep ::
      C.Decl HandleMacros
   -> (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
   -> M (C.Decl ResolveBindingSpecs)
-resolveDeep decl mTypeSpecs = do
+resolveDeep decl (declSpecC, declSpecHs) = do
     declKind' <- resolve decl.declInfo.declId decl.declKind
     return C.Decl {
         declInfo = coercePass decl.declInfo
       , declKind = declKind'
-      , declAnn  = mTypeSpecs
+      , declAnn  = PrescriptiveDeclSpec{declSpecC, declSpecHs}
       }
 
 {-------------------------------------------------------------------------------
@@ -372,19 +372,19 @@ instance Resolve C.Function where
         , ..
         }
 
-instance Resolve C.CheckedMacro where
+instance Resolve CheckedMacro where
   resolve ctx = \case
-    C.MacroType typ  -> C.MacroType <$> resolve ctx typ
-    C.MacroExpr expr -> return (C.MacroExpr expr)
+    MacroType typ  -> MacroType <$> resolve ctx typ
+    MacroExpr expr -> return (MacroExpr expr)
 
-instance Resolve C.CheckedMacroType where
-  resolve ctx C.CheckedMacroType{..} = reconstruct <$> resolve ctx macroType
+instance Resolve CheckedMacroType where
+  resolve ctx CheckedMacroType{..} = reconstruct <$> resolve ctx typ
     where
       reconstruct ::
            C.Type ResolveBindingSpecs
-        -> C.CheckedMacroType ResolveBindingSpecs
-      reconstruct macroType' = C.CheckedMacroType {
-          macroType = macroType'
+        -> CheckedMacroType ResolveBindingSpecs
+      reconstruct typ' = CheckedMacroType {
+          typ = typ'
         , ..
         }
 

@@ -26,7 +26,9 @@ import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
@@ -50,7 +52,7 @@ data Artefact (a :: Star) where
   DeclUseGraph        :: Artefact DeclUseGraph.DeclUseGraph
   OmitTypes           :: Artefact [(C.DeclId, SourcePath)]
   SquashedTypes       :: Artefact [(C.DeclId, (SourcePath, Hs.Identifier))]
-  ReifiedC            :: Artefact [C.Decl]
+  ReifiedC            :: Artefact [C.Decl Final]
   Dependencies        :: Artefact [SourcePath]
   -- * Backend
   HsDecls             :: Artefact (ByCategory_ [Hs.Decl])

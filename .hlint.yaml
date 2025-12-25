@@ -43,6 +43,7 @@
 - ignore: {name: "Avoid restricted alias"}
 - ignore: {name: "Use :"}
 - ignore: {name: "Functor law"}
+- ignore: {name: "Redundant pure"}
 
 # Specify additional command line arguments
 #

@@ -9,7 +9,7 @@ import Data.Map qualified as Map
 import Data.Tuple
 
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
-import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass

@@ -43,11 +43,13 @@ import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -64,7 +66,7 @@ generateDeclarations ::
   -> HaddockConfig
   -> BaseModuleName
   -> DeclIndex
-  -> [C.Decl]
+  -> [C.Decl Final]
   -> ByCategory_ [Hs.Decl]
 generateDeclarations opts config name declIndex =
     fmap reverse .
@@ -87,7 +89,7 @@ generateDeclarations' ::
   -> HaddockConfig
   -> BaseModuleName
   -> DeclIndex
-  -> [C.Decl]
+  -> [C.Decl Final]
   -> [WithCategory Hs.Decl]
 generateDeclarations' opts haddockConfig moduleName declIndex decs =
     State.runHsM $ do
@@ -111,7 +113,7 @@ generateDeclarations' opts haddockConfig moduleName declIndex decs =
 -- unions and enums.
 --
 -- This recursively traverses all types to find deeply nested function pointers.
-scanAllFunctionPointerTypes :: [C.Decl] -> Set (C.Type Final)
+scanAllFunctionPointerTypes :: [C.Decl Final] -> Set (C.Type Final)
 scanAllFunctionPointerTypes =
   foldMap (\(C.Decl _ kind _) ->
             case kind of
@@ -156,7 +158,7 @@ generateDecs ::
      TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
-  -> C.Decl
+  -> C.Decl Final
   -> HsM [WithCategory Hs.Decl]
 generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
     case kind of
@@ -170,7 +172,7 @@ generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
         -- Deal with typedefs around function pointers (#1380)
         case d.typedefType of
           C.TypePointers n (C.TypeFun args res) ->
-            typedefFunPtrDecs opts haddockConfig info n (args, res) d.typedefNames spec
+            typedefFunPtrDecs opts haddockConfig info n (args, res) (typedefNames d) spec
           _otherwise ->
             typedefDecs opts haddockConfig info Origin.Typedef d spec
       C.DeclOpaque -> withCategoryM CType $
@@ -204,8 +206,8 @@ generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
 -------------------------------------------------------------------------------}
 
 reifyStructFields ::
-     C.Struct
-  -> (forall n. SNatI n => Vec n C.StructField -> a)
+     C.Struct Final
+  -> (forall n. SNatI n => Vec n (C.StructField Final) -> a)
   -> a
 reifyStructFields struct k = Vec.reifyList (C.structFields struct) k
 
@@ -214,10 +216,10 @@ structDecs :: forall n.
      SNatI n
   => TranslationConfig
   -> HaddockConfig
-  -> C.DeclInfo
-  -> C.Struct
-  -> C.DeclSpec
-  -> Vec n C.StructField
+  -> C.DeclInfo Final
+  -> C.Struct Final
+  -> PrescriptiveDeclSpec
+  -> Vec n (C.StructField Final)
   -> HsM [Hs.Decl]
 structDecs opts haddockConfig info struct spec fields = do
     (insts, decls) <- aux <$> State.gets State.instanceMap
@@ -254,7 +256,7 @@ structDecs opts haddockConfig info struct spec fields = do
         hsStruct :: Hs.Struct n
         hsStruct = Hs.Struct {
             structName      = structName
-          , structConstr    = MangleNames.recordConstr (C.structNames struct)
+          , structConstr    = MangleNames.recordConstr (structNames struct)
           , structFields    = structFields
           , structInstances = insts
           , structOrigin    = Just Origin.Decl{
@@ -343,7 +345,7 @@ structDecs opts haddockConfig info struct spec fields = do
 --
 -- This works similarly for bit-fields, but those get a 'HasCBitfield' instance
 -- instead of a 'HasCField' instance.
-structFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.StructField -> [Hs.Decl]
+structFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.StructField Final -> [Hs.Decl]
 structFieldDecls structName f = [
       Hs.DeclDefineInstance $
         Hs.DefineInstance {
@@ -396,14 +398,14 @@ structFieldDecls structName f = [
         , hasCBitfieldInstanceBitWidth = w
         }
 
-peekStructField :: Idx ctx -> C.StructField -> Hs.PeekCField ctx
+peekStructField :: Idx ctx -> C.StructField Final -> Hs.PeekCField ctx
 peekStructField ptr f = case C.structFieldWidth f of
     Nothing -> Hs.PeekCField (HsStrLit name) ptr
     Just _w -> Hs.PeekCBitfield (HsStrLit name) ptr
   where
     name = T.unpack (C.structFieldInfo f).fieldName.hsName.text
 
-pokeStructField :: Idx ctx -> C.StructField -> Idx ctx -> Hs.PokeCField ctx
+pokeStructField :: Idx ctx -> C.StructField Final -> Idx ctx -> Hs.PokeCField ctx
 pokeStructField ptr f x = case C.structFieldWidth f of
     Nothing -> Hs.PokeCField (HsStrLit name) ptr x
     Just _w  -> Hs.PokeCBitfield (HsStrLit name) ptr x
@@ -416,8 +418,8 @@ pokeStructField ptr f x = case C.structFieldWidth f of
 
 opaqueDecs ::
      HaddockConfig
-  -> C.DeclInfo
-  -> C.DeclSpec
+  -> C.DeclInfo Final
+  -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
 opaqueDecs haddockConfig info spec = do
     State.modifyInstanceMap' $ Map.insert name Set.empty
@@ -444,9 +446,9 @@ opaqueDecs haddockConfig info spec = do
 
 unionDecs ::
      HaddockConfig
-  -> C.DeclInfo
-  -> C.Union
-  -> C.DeclSpec
+  -> C.DeclInfo Final
+  -> C.Union Final
+  -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
 unionDecs haddockConfig info union spec = do
     nt <- newtypeDec
@@ -461,11 +463,11 @@ unionDecs haddockConfig info union spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = MangleNames.newtypeConstr (C.unionNames union)
+        newtypeConstr = MangleNames.newtypeConstr (unionNames union)
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-              fieldName    = MangleNames.newtypeField (C.unionNames union)
+              fieldName    = MangleNames.newtypeField (unionNames union)
             , fieldType    = Hs.HsByteArray
             , fieldOrigin  = Origin.GeneratedField
             , fieldComment = Nothing
@@ -523,7 +525,7 @@ unionDecs haddockConfig info union spec = do
         accessorDecls = concatMap getAccessorDecls (C.unionFields union)
 
         -- TODO: Should the name mangler take care of the "get" and "set" prefixes?
-        getAccessorDecls :: C.UnionField -> [Hs.Decl]
+        getAccessorDecls :: C.UnionField Final -> [Hs.Decl]
         getAccessorDecls C.UnionField{..} =
           let hsType = Type.topLevel unionFieldType
               fInsts = Hs.getInstances
@@ -579,7 +581,7 @@ unionDecs haddockConfig info union spec = do
 --
 -- This works similarly for bit-fields, but those get a 'HasCBitfield' instance
 -- instead of a 'HasCField' instance.
-unionFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.UnionField -> [Hs.Decl]
+unionFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.UnionField Final -> [Hs.Decl]
 unionFieldDecls unionName f = [
       Hs.DeclDefineInstance $
         Hs.DefineInstance {
@@ -598,7 +600,7 @@ unionFieldDecls unionName f = [
   where
     -- | TODO: should be changed to @C.unionFieldWidth f@ when
     -- bit-fields in unions are supported. See issue #1253.
-    unionFieldWidth :: C.UnionField -> Maybe Int
+    unionFieldWidth :: C.UnionField Final -> Maybe Int
     unionFieldWidth _f = Nothing
 
     parentType :: HsType
@@ -644,9 +646,9 @@ unionFieldDecls unionName f = [
 enumDecs ::
      TranslationConfig
   -> HaddockConfig
-  -> C.DeclInfo
-  -> C.Enum
-  -> C.DeclSpec
+  -> C.DeclInfo Final
+  -> C.Enum Final
+  -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
 enumDecs opts haddockConfig info e spec = do
     nt <- newtypeDec
@@ -661,11 +663,11 @@ enumDecs opts haddockConfig info e spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = MangleNames.newtypeConstr (C.enumNames e)
+        newtypeConstr = MangleNames.newtypeConstr (enumNames e)
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-            fieldName    = MangleNames.newtypeField (C.enumNames e)
+            fieldName    = MangleNames.newtypeField (enumNames e)
           , fieldType    = Type.topLevel (C.enumType e)
           , fieldOrigin  = Origin.GeneratedField
           , fieldComment = Nothing
@@ -803,10 +805,10 @@ enumDecs opts haddockConfig info e spec = do
 typedefDecs ::
      TranslationConfig
   -> HaddockConfig
-  -> C.DeclInfo
-  -> (C.Typedef -> Origin.Newtype)
-  -> C.Typedef
-  -> C.DeclSpec
+  -> C.DeclInfo Final
+  -> (C.Typedef Final -> Origin.Newtype)
+  -> C.Typedef Final
+  -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
 typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
     nt <- newtypeDec
@@ -821,11 +823,11 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = MangleNames.newtypeConstr (C.typedefNames typedef)
+        newtypeConstr = MangleNames.newtypeConstr (typedefNames typedef)
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-            fieldName    = MangleNames.newtypeField (C.typedefNames typedef)
+            fieldName    = MangleNames.newtypeField (typedefNames typedef)
           , fieldType    = Type.topLevel (C.typedefType typedef)
           , fieldOrigin  = Origin.GeneratedField
           , fieldComment = Nothing
@@ -999,11 +1001,11 @@ typedefFieldDecls hsNewType = [
 typedefFunPtrDecs ::
      TranslationConfig
   -> HaddockConfig
-  -> C.DeclInfo
+  -> C.DeclInfo Final
   -> Int                             -- ^ Number of indirections
   -> ([C.Type Final], C.Type Final)  -- ^ Function arguments and result
   -> MangleNames.NewtypeNames
-  -> C.DeclSpec
+  -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
 typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
     fmap concat $ sequence [
@@ -1023,20 +1025,21 @@ typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
     auxHsName :: Hs.Identifier
     auxHsName = origInfo.declId.hsName <> "_Deref"
 
-    auxInfo :: C.DeclInfo
+    auxInfo :: C.DeclInfo Final
     auxInfo = C.DeclInfo {
-          declLoc        = origInfo.declLoc
-        , declHeaderInfo = origInfo.declHeaderInfo
-        , declComment    = Just auxComment
-        , declId         = C.DeclIdPair{
+          declLoc          = origInfo.declLoc
+        , declHeaderInfo   = origInfo.declHeaderInfo
+        , declComment      = Just auxComment
+        , declAvailability = C.Available
+        , declId           = C.DeclIdPair{
               -- Still refer to the /original/ C decl...?
               cName  = origInfo.declId.cName
             , hsName = auxHsName
             }
         }
 
-    auxComment :: Clang.Comment C.CommentRef
-    auxComment = Clang.Comment [
+    auxComment :: C.Comment Final
+    auxComment = C.Comment $ Clang.Comment [
           Clang.Paragraph [
               Clang.TextContent "Auxiliary type used by "
             , Clang.InlineRefCommand $
@@ -1047,25 +1050,25 @@ typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
         ]
 
     -- TODO: This duplicates logic from 'mkNewtypeNames' in the name mangler.
-    auxTypedef :: C.Typedef
+    auxTypedef :: C.Typedef Final
     auxTypedef = C.Typedef{
-          typedefType  = C.TypeFun args res
-        , typedefNames = MangleNames.NewtypeNames{
+          typedefType = C.TypeFun args res
+        , typedefAnn  = MangleNames.NewtypeNames{
               newtypeConstr = Hs.unsafeHsIdHsName $          auxHsName
             , newtypeField  = Hs.unsafeHsIdHsName $ "un_" <> auxHsName
             }
         }
 
     -- TODO: Is this right..?
-    auxSpec :: C.DeclSpec
-    auxSpec = C.DeclSpec{
+    auxSpec :: PrescriptiveDeclSpec
+    auxSpec = PrescriptiveDeclSpec{
           declSpecC  = Nothing
         , declSpecHs = Nothing
         }
 
-    mainTypedef :: C.Typedef
+    mainTypedef :: C.Typedef Final
     mainTypedef = C.Typedef{
-          typedefNames = origNames
+          typedefAnn   = origNames
         , typedefType  = C.TypePointers n $ C.TypeTypedef C.TypedefRef{
               ref        = auxInfo.declId
             , underlying = C.TypeFun args res
@@ -1079,21 +1082,21 @@ typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
 macroDecs ::
      TranslationConfig
   -> HaddockConfig
-  -> C.DeclInfo
-  -> C.CheckedMacro
-  -> C.DeclSpec
+  -> C.DeclInfo Final
+  -> CheckedMacro Final
+  -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
 macroDecs opts haddockConfig info checkedMacro spec =
     case checkedMacro of
-      C.MacroType ty   -> macroDecsTypedef opts haddockConfig info ty spec
-      C.MacroExpr expr -> pure $ macroVarDecs haddockConfig info expr
+      MacroType ty   -> macroDecsTypedef opts haddockConfig info ty spec
+      MacroExpr expr -> pure $ macroVarDecs haddockConfig info expr
 
 macroDecsTypedef ::
      TranslationConfig
   -> HaddockConfig
-  -> C.DeclInfo
-  -> C.CheckedMacroType
-  -> C.DeclSpec
+  -> C.DeclInfo Final
+  -> CheckedMacroType Final
+  -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
 macroDecsTypedef opts haddockConfig info macroType spec = do
     nt <- newtypeDec
@@ -1108,12 +1111,12 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = MangleNames.newtypeConstr (C.macroTypeNames macroType)
+        newtypeConstr = MangleNames.newtypeConstr (macroTypeNames macroType)
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-              fieldName    = MangleNames.newtypeField (C.macroTypeNames macroType)
-            , fieldType    = Type.topLevel (C.macroType macroType)
+              fieldName    = MangleNames.newtypeField (macroTypeNames macroType)
+            , fieldType    = Type.topLevel macroType.typ
             , fieldOrigin  = Origin.GeneratedField
             , fieldComment = Nothing
             }
@@ -1228,9 +1231,9 @@ global ::
   -> HaddockConfig
   -> BaseModuleName
   -> TranslationState
-  -> C.DeclInfo
+  -> C.DeclInfo Final
   -> C.Type Final
-  -> C.DeclSpec
+  -> PrescriptiveDeclSpec
   -> [Hs.Decl]
 global opts haddockConfig moduleName transState info ty _spec
     -- Generate getter if the type is @const@-qualified. We inspect the /erased/
@@ -1279,7 +1282,7 @@ global opts haddockConfig moduleName transState info ty _spec
 -- unknown size do not have a 'Storable' instance.
 constGetter ::
      HsType
-  -> C.DeclInfo
+  -> C.DeclInfo Final
   -> Hs.Name Hs.NsVar
   -> [Hs.Decl]
 constGetter ty info pureStubName = singleton getterDecl
@@ -1325,10 +1328,10 @@ addressStubDecs ::
      TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
-  -> C.DeclInfo       -- ^ The given declaration
+  -> C.DeclInfo Final -- ^ The given declaration
   -> C.Type Final     -- ^ The type of the given declaration
   -> RunnerNameSpec
-  -> C.DeclSpec
+  -> PrescriptiveDeclSpec
   -> ( [Hs.Decl]
      , Hs.Name 'Hs.NsVar
      )
@@ -1428,14 +1431,14 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
 
 macroVarDecs ::
      HaddockConfig
-  -> C.DeclInfo
-  -> C.CheckedMacroExpr
+  -> C.DeclInfo Final
+  -> CheckedMacroExpr
   -> [Hs.Decl]
 macroVarDecs haddockConfig info macroExpr = [
       Hs.DeclMacroExpr $
         Hs.MacroExpr
           { name    = hsVarName
-          , body    = macroExpr
+          , expr    = macroExpr
           , comment = mkHaddocks haddockConfig info hsVarName
           }
     ]

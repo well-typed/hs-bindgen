@@ -21,8 +21,9 @@ import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.AST.External
+import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -32,7 +33,7 @@ import HsBindgen.Language.Haskell qualified as Hs
 
 -- | Convert a Clang comment to a Haddock comment
 --
-mkHaddocks :: HaddockConfig -> DeclInfo -> Hs.Name ns -> Maybe HsDoc.Comment
+mkHaddocks :: HaddockConfig -> C.DeclInfo Final -> Hs.Name ns -> Maybe HsDoc.Comment
 mkHaddocks config declInfo name =
     fmap (mbAddUniqueSymbolSource name) .
       fst $ mkHaddocksWithArgs config declInfo Args{
@@ -44,12 +45,12 @@ mkHaddocks config declInfo name =
         , params      = []
         }
 
-mkHaddocksFieldInfo
-  :: HaddockConfig
-  -> DeclInfo
-  -> FieldInfo
+mkHaddocksFieldInfo ::
+     HaddockConfig
+  -> C.DeclInfo Final
+  -> C.FieldInfo Final
   -> Maybe HsDoc.Comment
-mkHaddocksFieldInfo config declInfo FieldInfo{..} =
+mkHaddocksFieldInfo config declInfo C.FieldInfo{..} =
     fst $ mkHaddocksWithArgs config declInfo Args{
         isField     = True
       , loc         = fieldLoc
@@ -61,9 +62,9 @@ mkHaddocksFieldInfo config declInfo FieldInfo{..} =
 
 -- | Extract Haddock documentation for a function; enrich function parameters
 --   with parameter-specific documentation
-mkHaddocksDecorateParams
-  :: HaddockConfig
-  -> DeclInfo
+mkHaddocksDecorateParams ::
+     HaddockConfig
+  -> C.DeclInfo Final
   -> Hs.Name ns
   -> [Hs.FunctionParameter]
   -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
@@ -88,7 +89,7 @@ data Args = Args{
     , loc         :: C.SingleLoc
     , nameC       :: Text
     , nameHsIdent :: Hs.Identifier
-    , comment     :: Maybe (CDoc.Comment CommentRef)
+    , comment     :: Maybe (C.Comment Final)
     , params      :: [Hs.FunctionParameter]
     }
 
@@ -100,7 +101,7 @@ data Args = Args{
 --
 -- Returns the processed comment and the updated parameters list
 --
-mkHaddocksWithArgs :: HaddockConfig -> DeclInfo -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
+mkHaddocksWithArgs :: HaddockConfig -> C.DeclInfo Final -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
 mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Nothing, ..} =
       -- If there's no C.Comment to associate with any function parameter we make
       -- sure to at least add a comment that will show the function parameter name
@@ -112,7 +113,7 @@ mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Nothing, ..} =
          , HsDoc.commentHeaderInfo = declInfo.declHeaderInfo
          }
       , map addFunctionParameterComment params)
-mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Just CDoc.Comment{..}, ..} =
+mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Just (C.Comment CDoc.Comment{..}), ..} =
   let commentCName = nameC
       commentLocation = updateSingleLoc pathStyle loc
       (commentTitle, commentChildren') =
@@ -166,8 +167,9 @@ mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Just CDoc.Comment{.
       , updatedParams
       )
   where
-    filterParamCommands :: [CDoc.CommentBlockContent CommentRef]
-                        -> [(HsDoc.Comment, Maybe CDoc.CXCommentParamPassDirection)]
+    filterParamCommands ::
+         [CDoc.CommentBlockContent (C.CommentRef Final)]
+      -> [(HsDoc.Comment, Maybe CDoc.CXCommentParamPassDirection)]
     filterParamCommands = \case
       [] -> []
       (blockContent@CDoc.ParamCommand{..}:cmds)
@@ -240,8 +242,9 @@ addFunctionParameterComment fp@Hs.FunctionParameter {..} =
 --
 -- For now only \dir, \link and \see  are naively supported.
 --
-convertBlockContent :: CDoc.CommentBlockContent CommentRef
-                    -> [HsDoc.CommentBlockContent]
+convertBlockContent ::
+     CDoc.CommentBlockContent (C.CommentRef Final)
+  -> [HsDoc.CommentBlockContent]
 convertBlockContent = \case
   CDoc.Paragraph{..} ->
     formatParagraphContent paragraphContent
@@ -372,8 +375,9 @@ convertBlockContent = \case
 
 -- | Convert inline content
 --
-convertInlineContent :: CDoc.CommentInlineContent CommentRef
-                     -> [HsDoc.CommentInlineContent]
+convertInlineContent ::
+     CDoc.CommentInlineContent (C.CommentRef Final)
+  -> [HsDoc.CommentInlineContent]
 convertInlineContent = \case
   CDoc.TextContent{..}
     | Text.null textContent -> []
@@ -390,7 +394,7 @@ convertInlineContent = \case
         CDoc.CXCommentInlineCommandRenderKind_Emphasized -> HsDoc.Emph args
         CDoc.CXCommentInlineCommandRenderKind_Anchor     -> HsDoc.Anchor (Text.unwords (map Text.strip inlineCommandArgs))
 
-  CDoc.InlineRefCommand (CommentRef c mHsIdent) -> [
+  CDoc.InlineRefCommand (C.CommentRef c mHsIdent) -> [
       case mHsIdent of
         Just namePair -> HsDoc.Identifier namePair.hsName.text
         Nothing       -> HsDoc.Monospace [HsDoc.TextContent c]
@@ -438,8 +442,9 @@ extractTextLines = filter (not . Text.null)
 -- since we have information about whitespaces and indentation. TODO: See issue
 -- #949.
 --
-formatParagraphContent :: [CDoc.CommentInlineContent CommentRef]
-                       -> [HsDoc.CommentBlockContent]
+formatParagraphContent ::
+     [CDoc.CommentInlineContent (C.CommentRef Final)]
+  -> [HsDoc.CommentBlockContent]
 formatParagraphContent = processGroups 1 []
                        . groupListParagraphs
                        -- Filter unnecessary spaces that will lead to excess
@@ -454,8 +459,9 @@ formatParagraphContent = processGroups 1 []
     -- If the paragraphs contains list items, each list item and its content
     -- will be in a separate group. Otherwise, returns a singleton list.
     --
-    groupListParagraphs :: [CDoc.CommentInlineContent CommentRef]
-                        -> [[CDoc.CommentInlineContent CommentRef]]
+    groupListParagraphs ::
+         [CDoc.CommentInlineContent (C.CommentRef Final)]
+      -> [[CDoc.CommentInlineContent (C.CommentRef Final)]]
     groupListParagraphs [] = []
     -- Check if first item is a list marker
     groupListParagraphs (h : rest)
@@ -469,10 +475,11 @@ formatParagraphContent = processGroups 1 []
             [] -> [nonItemContent]
             _  -> nonItemContent : groupListParagraphs remaining
 
-    processGroups :: Natural
-                  -> [HsDoc.CommentBlockContent]
-                  -> [[CDoc.CommentInlineContent CommentRef]]
-                  -> [HsDoc.CommentBlockContent]
+    processGroups ::
+         Natural
+      -> [HsDoc.CommentBlockContent]
+      -> [[CDoc.CommentInlineContent (C.CommentRef Final)]]
+      -> [HsDoc.CommentBlockContent]
     processGroups _ acc [] = reverse acc
     processGroups n acc (group:rest) =
       case group of
@@ -495,7 +502,7 @@ formatParagraphContent = processGroups 1 []
         _ -> processGroups n (HsDoc.Paragraph (concatMap convertInlineContent group) : acc) rest
 
     -- | Check if text starts with a list marker
-    isListMarker :: CDoc.CommentInlineContent CommentRef -> Bool
+    isListMarker :: CDoc.CommentInlineContent (C.CommentRef Final) -> Bool
     isListMarker (CDoc.TextContent t) = isJust $ detectListMarker 0 t
     isListMarker _                 = False
 
