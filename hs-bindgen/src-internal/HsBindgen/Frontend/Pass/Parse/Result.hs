@@ -145,10 +145,10 @@ parseDoNotAttempt info reason = ParseResult{
     , classification = ParseResultNotAttempted reason
     }
 
-parseFail :: C.DeclInfo p -> DelayedParseMsg -> ParseResult p
-parseFail info msg = ParseResult{
-      declId          = info.declId
-    , declLoc         = info.declLoc
+parseFail :: Id p -> SingleLoc -> DelayedParseMsg -> ParseResult p
+parseFail declId declLoc msg = ParseResult{
+      declId         = declId
+    , declLoc        = declLoc
     , classification = ParseResultFailure $ ParseFailure msg
     }
 
