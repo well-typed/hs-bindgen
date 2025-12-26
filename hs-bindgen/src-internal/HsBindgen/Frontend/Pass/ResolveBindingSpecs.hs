@@ -408,7 +408,7 @@ instance Resolve C.Type where
       C.TypeConstArray n t    -> C.TypeConstArray n <$> resolve ctx t
       C.TypeIncompleteArray t -> C.TypeIncompleteArray <$> resolve ctx t
       C.TypeBlock t           -> C.TypeBlock <$> resolve ctx t
-      C.TypeQualified qual t  -> C.TypeQualified qual <$> resolve ctx t
+      C.TypeQual qual t       -> C.TypeQual qual <$> resolve ctx t
 
       -- Simple cases
       C.TypePrim t         -> return (C.TypePrim t)

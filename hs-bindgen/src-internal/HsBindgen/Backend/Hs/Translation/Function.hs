@@ -373,7 +373,7 @@ toPrimitiveType = \case
       -- The array type has a const qualifier, but the array element type does
       -- not.
       | C.isErasedTypeConstQualified aTy
-      = C.TypePointers 1 $ C.TypeQualified C.TypeQualifierConst eTy
+      = C.TypePointers 1 $ C.TypeQual C.QualConst eTy
       -- No const qualifiers on either the array type or the array element type.
       | otherwise
       = C.TypePointers 1 eTy

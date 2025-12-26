@@ -173,7 +173,7 @@ analyseType = go
         -- (\"follow\" in the sense that @libclang@ does /not/ assign the name
         -- of the typedef to the struct in this case; we will add the suffix).
         C.TypePointers _n     ty -> indirect ty
-        C.TypeQualified _qual ty -> indirect ty
+        C.TypeQual _qual ty      -> indirect ty
         C.TypeConstArray _sz  ty -> indirect ty
         C.TypeIncompleteArray ty -> indirect ty
         C.TypeBlock           ty -> indirect ty

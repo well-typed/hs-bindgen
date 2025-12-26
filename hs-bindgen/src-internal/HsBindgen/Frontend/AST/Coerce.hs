@@ -227,7 +227,7 @@ instance (
       C.TypeIncompleteArray typ -> C.TypeIncompleteArray (coercePass typ)
       C.TypeExtBinding ext      -> C.TypeExtBinding ext
       C.TypeBlock typ           -> C.TypeBlock (coercePass typ)
-      C.TypeQualified qual typ  -> C.TypeQualified qual (coercePass typ)
+      C.TypeQual qual typ       -> C.TypeQual qual (coercePass typ)
       C.TypeComplex prim        -> C.TypeComplex prim
     where
       goId :: Id p -> Id p'

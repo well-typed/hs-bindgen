@@ -570,7 +570,7 @@ instance Mangle C.Type where
       C.TypeConstArray n typ    -> C.TypeConstArray n <$> mangle typ
       C.TypeIncompleteArray typ -> C.TypeIncompleteArray <$> mangle typ
       C.TypeBlock typ           -> C.TypeBlock <$> mangle typ
-      C.TypeQualified qual typ  -> C.TypeQualified qual <$> mangle typ
+      C.TypeQual qual typ       -> C.TypeQual qual <$> mangle typ
 
       -- The other entries do not need any name mangling
       C.TypePrim prim      -> return $ C.TypePrim prim

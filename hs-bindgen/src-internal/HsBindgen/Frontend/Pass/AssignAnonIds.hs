@@ -298,7 +298,7 @@ instance UpdateUseSites C.Type where
           C.TypeConstArray n    ty -> C.TypeConstArray n <$> go ty
           C.TypeIncompleteArray ty -> C.TypeIncompleteArray <$> go ty
           C.TypeBlock           ty -> C.TypeBlock <$> go ty
-          C.TypeQualified qual  ty -> C.TypeQualified qual <$> go ty
+          C.TypeQual qual       ty -> C.TypeQual qual <$> go ty
           C.TypeFun args res       -> C.TypeFun <$> mapM go args <*> go res
 
           -- SimpleCases

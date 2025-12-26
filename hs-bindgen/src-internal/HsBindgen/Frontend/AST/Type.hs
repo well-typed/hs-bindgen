@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | AST: C types (at use sites)
 --
 -- Intended for qualified import.
@@ -15,13 +19,13 @@ module HsBindgen.Frontend.AST.Type (
      , TypeConstArray
      , TypeIncompleteArray
      , TypeBlock
-     , TypeQualified
+     , TypeQual
      , TypeExtBinding
      , TypeComplex
      , TypePointers
      )
   , TypedefRef(..)
-  , TypeQualifier(..)
+  , TypeQual(..)
 
     -- * Normal forms
   , Normalize(..)
@@ -119,7 +123,7 @@ data TypeF tag p =
     --
     -- NOTE: has a strictness annotation, which allows GHC to infer that pattern
     -- matches are redundant when @TypeQualifierF tag ~ Void@.
-  | TypeQualified !(TypeQualifierF tag p) (TypeF tag p)
+  | TypeQual !(TypeQualifierF tag p) (TypeF tag p)
 
     -- | Type with an external binding
   | TypeExtBinding (ExtBinding p)
@@ -150,7 +154,7 @@ mapTypeF fRef fQual = go
       TypeVoid              -> TypeVoid
       TypeIncompleteArray t -> TypeIncompleteArray (go t)
       TypeBlock t           -> TypeBlock (go t)
-      TypeQualified q t     -> fQual q t
+      TypeQual q t          -> fQual q t
       TypeExtBinding reb    -> TypeExtBinding reb
       TypeComplex pt        -> TypeComplex pt
 
@@ -175,7 +179,8 @@ data TypedefRef p = TypedefRef {
   Qualifiers
 -------------------------------------------------------------------------------}
 
-data TypeQualifier = TypeQualifierConst
+data TypeQual =
+    QualConst
   deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
@@ -209,13 +214,13 @@ class ( IsPass p
 
 instance IsPass p => ValidTypeTag Full p where
   type instance TypedefRefF    Full p = TypedefRef p
-  type instance TypeQualifierF Full p = TypeQualifier
+  type instance TypeQualifierF Full p = TypeQual
 
   getUnderlying = (.underlying)
 
 instance IsPass p => ValidTypeTag Erased p where
   type instance TypedefRefF    Erased p = Void
-  type instance TypeQualifierF Erased p = TypeQualifier
+  type instance TypeQualifierF Erased p = TypeQual
 
   getUnderlying = absurd
 
@@ -288,7 +293,7 @@ buildPointersF n inner
      , TypeConstArray
      , TypeIncompleteArray
      , TypeBlock
-     , TypeQualified
+     , TypeQual
      , TypeExtBinding
      , TypeComplex
   #-}
@@ -318,13 +323,13 @@ instance Normalize Full Erased where
       fRef :: TypedefRef p -> TypeF Erased p
       fRef ref = normalize ref.underlying
 
-      fQual :: TypeQualifier -> TypeF Full p -> TypeF Erased p
-      fQual qual typ = TypeQualified qual $ normalize typ
+      fQual :: TypeQual -> TypeF Full p -> TypeF Erased p
+      fQual qual typ = TypeQual qual $ normalize typ
 
 instance Normalize Erased Canonical where
   normalize = mapTypeF absurd fQual
     where
-      fQual :: TypeQualifier -> TypeF Erased p -> TypeF Canonical p
+      fQual :: TypeQual -> TypeF Erased p -> TypeF Canonical p
       fQual _qual typ = normalize typ
 
 instance Normalize Full Canonical where
@@ -371,7 +376,7 @@ depsOfType = \case
     TypeConstArray _    t -> depsOfType t
     TypeIncompleteArray t -> depsOfType t
     TypeBlock           t -> depsOfType t
-    TypeQualified _     t -> depsOfType t
+    TypeQual _          t -> depsOfType t
     TypeFun args res      -> concatMap depsOfType args <> depsOfType res
 
 -- | Checks if a type is unsupported by Haskell's FFI
@@ -445,7 +450,7 @@ isErasedTypeConstQualified :: Normalize tag Erased => TypeF tag p -> Bool
 isErasedTypeConstQualified ty =
     case getErasedType ty of
       -- Types can be directly @const@-qualified,
-      TypeQualified TypeQualifierConst _ -> True
+      TypeQual QualConst _ -> True
 
       -- but arrays are also @const@-qualified if their element type is. Note
       -- that elements of arrays can themselves be arrays, hence we recurse into
@@ -495,7 +500,7 @@ isCanonicalTypeArray ty =
       TypeVoid              -> Nothing
       TypeIncompleteArray t -> Just (IncompleteArrayClassification t)
       TypeBlock _t          -> Nothing
-      TypeQualified _q t    -> isCanonicalTypeArray t
+      TypeQual _q t         -> isCanonicalTypeArray t
       TypeExtBinding _reb   -> Nothing
       TypeComplex _pt       -> Nothing
 

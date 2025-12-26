@@ -22,6 +22,7 @@ module HsBindgen.Frontend.Predicate (
   , matchSelect
   ) where
 
+import Data.Function
 import Data.List qualified as List
 import Data.Set qualified as Set
 import System.FilePath qualified as FilePath
@@ -33,7 +34,6 @@ import Clang.Paths
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
-import Data.Function
 
 {-------------------------------------------------------------------------------
   Definition
