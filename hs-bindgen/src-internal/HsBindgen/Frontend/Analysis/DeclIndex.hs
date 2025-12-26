@@ -268,7 +268,7 @@ fromParseResults results = flip execState empty $ mapM_ aux results
             a == b
 
     sameMacro :: UnparsedMacro -> UnparsedMacro -> Bool
-    sameMacro = (==) `on` (map tokenSpelling . unparsedTokens)
+    sameMacro = (==) `on` (map tokenSpelling . (.tokens))
 
 {-------------------------------------------------------------------------------
   Query parse successes
