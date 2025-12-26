@@ -28,7 +28,6 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
@@ -93,12 +92,12 @@ selectDecls ::
 selectDecls
   isMainHeader
   isInMainHeaderDir
-  SelectConfig{..}
+  config
   C.TranslationUnit{..} =
     let -- Directly match the select predicate on the 'DeclIndex', obtaining
         -- information about succeeded _and failed_ selection roots.
         selectedIndex :: DeclIndex
-        selectedIndex = selectDeclIndex unitAnn.declDeclUse match index
+        selectedIndex = selectDeclIndex unitAnn.declUseGraph match index
 
         -- Identifiers of selection roots. Some of them may be unavailable
         -- (i.e., not in the 'succeeded' map, and hence, not in the list of
@@ -122,7 +121,7 @@ selectDecls
         -- program slicing. This is the only point where we differentiate
         -- between selection with or without program slicing.
         additionalSelectedTransIds :: Set DeclId
-        (selectedIds, additionalSelectedTransIds) = case selectConfigProgramSlicing of
+        (selectedIds, additionalSelectedTransIds) = case config.programSlicing of
           DisableProgramSlicing -> (rootIds        , Set.empty)
           EnableProgramSlicing  -> (rootAndTransIds, strictTransIds)
 
@@ -213,7 +212,7 @@ selectDecls
     index = unitAnn.declIndex
 
     useDeclGraph :: UseDeclGraph
-    useDeclGraph = unitAnn.declUseDecl
+    useDeclGraph = unitAnn.useDeclGraph
 
     match :: Match
     match name loc availability = parsed && selected
@@ -228,7 +227,7 @@ selectDecls
             isMainHeader
             isInMainHeaderDir
             (singleLocPath loc)
-            selectConfigParsePredicate
+            config.parsePredicate
         selected =
           matchSelect
             isMainHeader
@@ -236,7 +235,7 @@ selectDecls
             (singleLocPath loc)
             name
             availability
-            selectConfigPredicate
+            config.selectPredicate
 
 {-------------------------------------------------------------------------------
   Fold declarations
@@ -372,7 +371,7 @@ getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
           , msg = SelectParseFailure x
           }
         UnusableConflict x -> List.singleton WithLocationInfo{
-            loc = declIdLocationInfo declId (Conflict.getLocs x)
+            loc = declIdLocationInfo declId (Conflict.toList x)
           , msg = SelectConflict
           }
         UnusableFailedMacro x -> List.singleton WithLocationInfo{
@@ -471,8 +470,8 @@ selectDeclIndex declUseGraph p declIndex =
             Just ([loc], C.Available)
           UnusableParseFailure loc _ ->
             Just ([loc], C.Available)
-          UnusableConflict x ->
-            Just (getLocs x, C.Available)
+          UnusableConflict conflict ->
+            Just (Conflict.toList conflict, C.Available)
           UnusableFailedMacro failedMacro ->
             Just ([failedMacro.loc], C.Available)
           UnusableOmitted{} ->

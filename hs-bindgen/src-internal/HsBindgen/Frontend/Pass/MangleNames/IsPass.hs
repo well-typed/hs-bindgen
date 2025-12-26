@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+{-# LANGUAGE OverloadedLabels  #-}
+
 module HsBindgen.Frontend.Pass.MangleNames.IsPass (
     MangleNames
     -- * Additional names
@@ -60,7 +64,7 @@ instance IsPass MangleNames where
 --
 -- This is used in addition to a 'NamePair'.
 data RecordNames = RecordNames {
-      recordConstr :: Hs.Name Hs.NsConstr
+      constr :: Hs.Name Hs.NsConstr
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -68,8 +72,8 @@ data RecordNames = RecordNames {
 --
 -- This is used in addition to a 'NamePair'.
 data NewtypeNames = NewtypeNames {
-      newtypeConstr :: Hs.Name Hs.NsConstr
-    , newtypeField  :: Hs.Name Hs.NsVar
+      constr :: Hs.Name Hs.NsConstr
+    , field  :: Hs.Name Hs.NsVar
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -110,4 +114,3 @@ instance IsTrace Level MangleNamesMsg where
 
   getSource  = const HsBindgen
   getTraceId = const "mangle-names"
-

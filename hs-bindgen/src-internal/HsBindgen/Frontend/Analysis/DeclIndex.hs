@@ -53,7 +53,8 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (Conflict)
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
 import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
@@ -91,7 +92,7 @@ data Usable =
 data Unusable =
       UnusableParseNotAttempted SingleLoc (NonEmpty ParseNotAttempted)
     | UnusableParseFailure      SingleLoc ParseFailure
-    | UnusableConflict          ConflictingDeclarations
+    | UnusableConflict          Conflict
     | UnusableFailedMacro       FailedMacro
       -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Attach
       -- information required to match the select predicate also to omitted
@@ -183,7 +184,7 @@ fromParseResults results = flip execState empty $ mapM_ aux results
     handleParseResult new = \case
       Nothing -> parseResultToEntry new
       -- We remove duplicates with /different/ values and store them as
-      -- 'ConflictingDeclarations'. We could detect and handle some but not all
+      -- 'Conflict'. We could detect and handle some but not all
       -- of these duplicates; for now, we remove them all.
       --
       -- Duplicates may arise, for example, if a declaration is redefined by a
@@ -240,24 +241,24 @@ fromParseResults results = flip execState empty $ mapM_ aux results
         newLoc :: SingleLoc
         newLoc = new.declLoc
 
-        addConflicts :: ConflictingDeclarations  -> Entry
+        addConflicts :: Conflict  -> Entry
         addConflicts c =
-          UnusableE $ UnusableConflict $
-            addConflictingLoc c newLoc
+            UnusableE $ UnusableConflict $
+              Conflict.insert c newLoc
 
         newConflict :: SingleLoc -> Entry
         newConflict oldLoc =
-          UnusableE $ UnusableConflict $
-            conflictingDeclarations oldLoc newLoc
+            UnusableE $ UnusableConflict $
+              Conflict.between oldLoc newLoc
 
         parseResultToEntry :: ParseResult AssignAnonIds -> Entry
         parseResultToEntry result = case result.classification of
-          ParseResultSuccess r ->
-            UsableE $ UsableSuccess r
-          ParseResultNotAttempted r ->
-            UnusableE $ UnusableParseNotAttempted result.declLoc $ r :| []
-          ParseResultFailure r ->
-            UnusableE $ UnusableParseFailure result.declLoc r
+            ParseResultSuccess r ->
+              UsableE $ UsableSuccess r
+            ParseResultNotAttempted r ->
+              UnusableE $ UnusableParseNotAttempted result.declLoc $ r :| []
+            ParseResultFailure r ->
+              UnusableE $ UnusableParseFailure result.declLoc r
 
     sameDefinition :: C.DeclKind AssignAnonIds -> C.DeclKind AssignAnonIds -> Bool
     sameDefinition a b =
@@ -328,7 +329,7 @@ unusableToLoc :: Unusable -> [SingleLoc]
 unusableToLoc = \case
     UnusableParseNotAttempted loc _       -> [loc]
     UnusableParseFailure loc _            -> [loc]
-    UnusableConflict x                    -> getLocs x
+    UnusableConflict conflict             -> Conflict.toList conflict
     UnusableFailedMacro failedMacro       -> [failedMacro.loc]
     UnusableOmitted loc                   -> [loc]
 

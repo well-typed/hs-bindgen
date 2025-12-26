@@ -70,7 +70,7 @@ resolveBindingSpecs
             unitAnn.declIndex
             (resolveDecls unitDecls)
         useDeclGraph =
-          UseDeclGraph.deleteDeps (Map.keys stateExtTypes) unitAnn.declUseDecl
+          UseDeclGraph.deleteDeps (Map.keys stateExtTypes) unitAnn.useDeclGraph
         notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys stateNoPTypes
     in  ( reconstruct decls useDeclGraph state
         , pSpecErrs ++ reverse stateTraces ++ notUsedErrs
@@ -87,17 +87,17 @@ resolveBindingSpecs
 
           index' :: DeclIndex
           index' =
-              DeclIndex.registerExternalDeclarations externalIds
-            . DeclIndex.registerOmittedDeclarations stateOmitTypes
-            $ unitAnn.declIndex
+                DeclIndex.registerExternalDeclarations externalIds
+              . DeclIndex.registerOmittedDeclarations stateOmitTypes
+              $ unitAnn.declIndex
 
           unitAnn' :: DeclMeta
-          unitAnn' =
-            unitAnn {
-              declIndex   = index'
-            , declUseDecl = useDeclGraph
-            , declDeclUse = DeclUseGraph.fromUseDecl useDeclGraph
-            }
+          unitAnn' = DeclMeta {
+                declIndex    = index'
+              , useDeclGraph = useDeclGraph
+              , declUseGraph = DeclUseGraph.fromUseDecl useDeclGraph
+              }
+
       in  C.TranslationUnit{
         unitDecls = decls'
       , unitIncludeGraph

@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+{-# LANGUAGE OverloadedLabels  #-}
+
 module HsBindgen.Frontend.Pass.Select.IsPass (
     Select
     -- * Configuration
@@ -66,9 +70,9 @@ instance Default ProgramSlicing where
   def = DisableProgramSlicing
 
 data SelectConfig = SelectConfig {
-      selectConfigProgramSlicing :: ProgramSlicing
-    , selectConfigParsePredicate :: Boolean ParsePredicate
-    , selectConfigPredicate      :: Boolean SelectPredicate
+      programSlicing  :: ProgramSlicing
+    , parsePredicate  :: Boolean ParsePredicate
+    , selectPredicate :: Boolean SelectPredicate
     }
   deriving stock (Show, Eq)
 
