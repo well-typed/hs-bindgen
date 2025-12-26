@@ -1,21 +1,14 @@
+{-# OPTIONS_GHC -Wno-orphans #-}
+
 -- | Working with the frontend AST after the final pass
 --
 -- Intended for unqualified import.
 module HsBindgen.Frontend.Pass.Final (
     Final
-    -- * Annotations
-  , unitDeps
-    -- ** Name mangler
-  , structNames
-  , unionNames
-  , enumNames
-  , typedefNames
-  , macroTypeNames
   ) where
 
-import Clang.Paths
+import GHC.Records
 
-import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
@@ -35,20 +28,17 @@ type Final = MangleNames
   Annotations
 -------------------------------------------------------------------------------}
 
-unitDeps :: C.TranslationUnit Final -> [SourcePath]
-unitDeps unit = IncludeGraph.toSortedList unit.unitIncludeGraph
+instance HasField "names" (C.Struct Final) MangleNames.RecordNames where
+  getField struct = struct.structAnn
 
-structNames :: C.Struct Final -> MangleNames.RecordNames
-structNames struct = struct.structAnn
+instance HasField "names" (C.Union Final) MangleNames.NewtypeNames where
+  getField union = union.unionAnn
 
-unionNames :: C.Union Final -> MangleNames.NewtypeNames
-unionNames union = union.unionAnn
+instance HasField "names" (C.Enum Final) MangleNames.NewtypeNames where
+  getField enum = enum.enumAnn
 
-enumNames :: C.Enum Final -> MangleNames.NewtypeNames
-enumNames enum = enum.enumAnn
+instance HasField "names" (C.Typedef Final) MangleNames.NewtypeNames where
+  getField typedef = typedef.typedefAnn
 
-typedefNames :: C.Typedef Final -> MangleNames.NewtypeNames
-typedefNames typedef = typedef.typedefAnn
-
-macroTypeNames :: CheckedMacroType Final -> MangleNames.NewtypeNames
-macroTypeNames macro = macro.ann
+instance HasField "names" (CheckedMacroType Final) MangleNames.NewtypeNames where
+  getField macro = macro.ann

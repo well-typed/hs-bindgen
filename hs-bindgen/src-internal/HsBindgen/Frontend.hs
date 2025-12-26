@@ -262,8 +262,9 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       C.unitDecls <$> getCTranslationUnit
 
     -- Dependencies.
-    frontendDependencies <- cache "frontendDependencies" $
-      unitDeps <$> getCTranslationUnit
+    frontendDependencies <- cache "frontendDependencies" $ do
+      unit <- getCTranslationUnit
+      return $ IncludeGraph.toSortedList unit.unitIncludeGraph
 
     pure FrontendArtefact{..}
   where

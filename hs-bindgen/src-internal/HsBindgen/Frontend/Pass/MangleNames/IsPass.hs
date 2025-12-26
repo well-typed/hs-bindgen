@@ -114,4 +114,3 @@ instance IsTrace Level MangleNamesMsg where
 
   getSource  = const HsBindgen
   getTraceId = const "mangle-names"
-

@@ -172,7 +172,7 @@ generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
         -- Deal with typedefs around function pointers (#1380)
         case d.typedefType of
           C.TypePointers n (C.TypeFun args res) ->
-            typedefFunPtrDecs opts haddockConfig info n (args, res) (typedefNames d) spec
+            typedefFunPtrDecs opts haddockConfig info n (args, res) d.names spec
           _otherwise ->
             typedefDecs opts haddockConfig info Origin.Typedef d spec
       C.DeclOpaque -> withCategoryM CType $
@@ -256,7 +256,7 @@ structDecs opts haddockConfig info struct spec fields = do
         hsStruct :: Hs.Struct n
         hsStruct = Hs.Struct {
             structName      = structName
-          , structConstr    = (structNames struct).constr
+          , structConstr    = struct.names.constr
           , structFields    = structFields
           , structInstances = insts
           , structOrigin    = Just Origin.Decl{
@@ -463,11 +463,11 @@ unionDecs haddockConfig info union spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = (unionNames union).constr
+        newtypeConstr = union.names.constr
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-              fieldName    = (unionNames union).field
+              fieldName    = union.names.field
             , fieldType    = Hs.HsByteArray
             , fieldOrigin  = Origin.GeneratedField
             , fieldComment = Nothing
@@ -663,11 +663,11 @@ enumDecs opts haddockConfig info e spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = (enumNames e).constr
+        newtypeConstr = e.names.constr
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-            fieldName    = (enumNames e).field
+            fieldName    = e.names.field
           , fieldType    = Type.topLevel (C.enumType e)
           , fieldOrigin  = Origin.GeneratedField
           , fieldComment = Nothing
@@ -823,11 +823,11 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = (typedefNames typedef).constr
+        newtypeConstr = typedef.names.constr
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-            fieldName    = (typedefNames typedef).field
+            fieldName    = typedef.names.field
           , fieldType    = Type.topLevel (C.typedefType typedef)
           , fieldOrigin  = Origin.GeneratedField
           , fieldComment = Nothing
@@ -1111,11 +1111,11 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = (macroTypeNames macroType).constr
+        newtypeConstr = macroType.names.constr
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-              fieldName    = (macroTypeNames macroType).field
+              fieldName    = macroType.names.field
             , fieldType    = Type.topLevel macroType.typ
             , fieldOrigin  = Origin.GeneratedField
             , fieldComment = Nothing
