@@ -89,15 +89,11 @@ selectDecls ::
   -> SelectConfig
   -> C.TranslationUnit ResolveBindingSpecs
   -> (C.TranslationUnit Select, [Msg Select])
-selectDecls
-  isMainHeader
-  isInMainHeaderDir
-  config
-  C.TranslationUnit{..} =
+selectDecls isMainHeader isInMainHeaderDir config unit =
     let -- Directly match the select predicate on the 'DeclIndex', obtaining
         -- information about succeeded _and failed_ selection roots.
         selectedIndex :: DeclIndex
-        selectedIndex = selectDeclIndex unitAnn.declUseGraph match index
+        selectedIndex = selectDeclIndex unit.ann.declUseGraph match index
 
         -- Identifiers of selection roots. Some of them may be unavailable
         -- (i.e., not in the 'succeeded' map, and hence, not in the list of
@@ -175,7 +171,7 @@ selectDecls
             additionalSelectedTransIds
 
         availableDecls :: [Decl]
-        availableDecls = map coercePass unitDecls
+        availableDecls = map coercePass unit.decls
 
         -- Fold available declarations and collect selected declarations and
         -- trace messages.
@@ -187,9 +183,9 @@ selectDecls
 
         unitSelect :: C.TranslationUnit Select
         unitSelect = C.TranslationUnit {
-                C.unitDecls = unitDecls'
-              , C.unitIncludeGraph = unitIncludeGraph
-              , C.unitAnn = unitAnn
+                decls        = unitDecls'
+              , includeGraph = unit.includeGraph
+              , ann          = unit.ann
               }
 
         msgs :: [Msg Select]
@@ -205,14 +201,14 @@ selectDecls
              ]
 
     in  ( unitSelect
-        , sortSelectMsgs unitIncludeGraph msgs
+        , sortSelectMsgs unit.includeGraph msgs
         )
   where
     index :: DeclIndex
-    index = unitAnn.declIndex
+    index = unit.ann.declIndex
 
     useDeclGraph :: UseDeclGraph
-    useDeclGraph = unitAnn.useDeclGraph
+    useDeclGraph = unit.ann.useDeclGraph
 
     match :: Match
     match name loc availability = parsed && selected
@@ -282,10 +278,10 @@ selectDeclWith
       (True, True, _) ->
         panicPure $
           "Declaration is selection root and transitive dependency: "
-          ++ show decl.declInfo
+          ++ show decl.info
   where
     declId :: DeclId
-    declId = decl.declInfo.declId
+    declId = decl.info.declId
 
     -- We check three conditions:
     isSelectedRoot = Set.member declId rootIds
@@ -305,7 +301,7 @@ selectDeclWith
                 loc = declLocationInfo decl
               , msg = SelectDeprecated
               }
-          | isDeprecated decl.declInfo
+          | isDeprecated decl.info
           ]
         ]
 
@@ -341,7 +337,7 @@ selectDeclWith
 
 declLocationInfo :: Decl -> LocationInfo
 declLocationInfo decl =
-    declIdLocationInfo decl.declInfo.declId [decl.declInfo.declLoc]
+    declIdLocationInfo decl.info.declId [decl.info.declLoc]
 
 getDelayedMsgs :: DeclIndex -> [Msg Select]
 getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
@@ -351,7 +347,7 @@ getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
       UsableE e -> case e of
         UsableSuccess success ->
           [ WithLocationInfo{
-                loc = declIdLocationInfo declId [success.decl.declInfo.declLoc]
+                loc = declIdLocationInfo declId [success.decl.info.declLoc]
               , msg = SelectParseSuccess x
               }
           | x <- success.delayedParseMsgs
@@ -459,7 +455,7 @@ selectDeclIndex declUseGraph p declIndex =
     entryInfo = \case
         UsableE e -> case e of
           UsableSuccess success ->
-            let info = success.decl.declInfo
+            let info = success.decl.info
             in Just ([info.declLoc], info.declAvailability)
           UsableExternal ->
             Nothing

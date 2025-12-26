@@ -24,13 +24,12 @@ constructTranslationUnit ::
   -> IncludeGraph
   -> C.TranslationUnit ConstructTranslationUnit
 constructTranslationUnit parseResults includeGraph = C.TranslationUnit{
-      unitDecls        = map coercePass $
+      decls        = map coercePass $
                            UseDeclGraph.toDecls
                              declMeta.declIndex
                              declMeta.useDeclGraph
-    , unitIncludeGraph = includeGraph
-    , unitAnn          = declMeta
-    , ..
+    , includeGraph = includeGraph
+    , ann          = declMeta
     }
   where
     declMeta :: DeclMeta

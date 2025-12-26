@@ -17,7 +17,6 @@ import Clang.Args (CStandard)
 import Clang.HighLevel.Types
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
@@ -41,31 +40,30 @@ handleMacros ::
       CStandard
   ->  C.TranslationUnit ConstructTranslationUnit
   -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
-handleMacros standard C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
+handleMacros standard unit =
     reconstruct $ runM standard .
-      fmap partitionEithers $ mapM processDecl unitDecls
+      fmap partitionEithers $ mapM processDecl unit.decls
   where
     reconstruct ::
          (([FailedMacro] , [C.Decl HandleMacros]) , [Msg HandleMacros])
       -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
     reconstruct ((failedMacros, decls'), msgs) =
-      let index' :: DeclIndex
-          index' = DeclIndex.registerMacroFailures failedMacros unitAnn.declIndex
-
-          unit = C.TranslationUnit{
-              unitDecls = decls'
-            , unitIncludeGraph
-            , unitAnn = unitAnn {
-                declIndex = index'
+        let unit' = C.TranslationUnit{
+                decls        = decls'
+              , includeGraph = unit.includeGraph
+              , ann          = unit.ann{
+                    declIndex = DeclIndex.registerMacroFailures
+                                  failedMacros
+                                  unit.ann.declIndex
+                  }
               }
-            }
-      in  (unit, msgs)
+        in (unit', msgs)
 
 processDecl ::
      C.Decl ConstructTranslationUnit
   -> M (Either FailedMacro (C.Decl HandleMacros))
-processDecl C.Decl{declInfo, declKind} =
-    case declKind of
+processDecl decl =
+    case decl.kind of
       C.DeclMacro macro      -> processMacro info' macro
       C.DeclTypedef typedef  -> Right <$> processTypedef info' typedef
       C.DeclStruct struct    -> Right <$> processStruct info' struct
@@ -76,7 +74,7 @@ processDecl C.Decl{declInfo, declKind} =
       C.DeclGlobal ty        -> Right <$> processGlobal info' C.DeclGlobal ty
   where
     info' :: C.DeclInfo HandleMacros
-    info' = coercePass declInfo
+    info' = coercePass decl.info
 
 {-------------------------------------------------------------------------------
   Function for each kind of declaration
@@ -96,13 +94,13 @@ processStruct info C.Struct{..} =
       -> Maybe (C.StructField HandleMacros)
       -> C.Decl HandleMacros
     mkDecl fields flam = C.Decl{
-          declInfo = info
-        , declKind = C.DeclStruct C.Struct{
+          info = info
+        , kind = C.DeclStruct C.Struct{
                          structFields = fields
                        , structFlam   = flam
                        , ..
                        }
-        , declAnn  = NoAnn
+        , ann  = NoAnn
         }
 
 processStructField ::
@@ -154,9 +152,9 @@ processUnion info C.Union{..} =
   where
     combineFields :: [C.UnionField HandleMacros] -> C.Decl HandleMacros
     combineFields fields = C.Decl{
-          declInfo = info
-        , declKind = C.DeclUnion C.Union{unionFields = fields, ..}
-        , declAnn  = NoAnn
+          info = info
+        , kind = C.DeclUnion C.Union{unionFields = fields, ..}
+        , ann  = NoAnn
         }
 
 processUnionField :: C.UnionField ConstructTranslationUnit -> M (C.UnionField HandleMacros)
@@ -201,9 +199,9 @@ processOpaque ::
   -> M (C.Decl HandleMacros)
 processOpaque kind info =
     return C.Decl{
-        declInfo = info
-      , declKind = kind
-      , declAnn  = NoAnn
+        info = info
+      , kind = kind
+      , ann  = NoAnn
       }
 
 processEnum ::
@@ -215,13 +213,13 @@ processEnum info C.Enum{..} =
   where
     mkDecl :: [C.EnumConstant HandleMacros] -> C.Decl HandleMacros
     mkDecl enumerators = C.Decl{
-          declInfo = info
-        , declKind = C.DeclEnum C.Enum{
-                          enumType      = coercePass enumType
-                        , enumConstants = enumerators
-                        , ..
-                        }
-        , declAnn  = NoAnn
+          info = info
+        , kind = C.DeclEnum C.Enum{
+                      enumType      = coercePass enumType
+                    , enumConstants = enumerators
+                    , ..
+                    }
+        , ann  = NoAnn
         }
 
 processEnumConstant ::
@@ -268,22 +266,22 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
 
     withoutReparse :: M (C.Decl HandleMacros)
     withoutReparse = return C.Decl{
-          declInfo = info
-        , declKind = C.DeclTypedef C.Typedef {
-              typedefType = coercePass typedefType
-            , typedefAnn  = NoAnn
-            }
-        , declAnn  = NoAnn
+          info = info
+        , ann  = NoAnn
+        , kind = C.DeclTypedef C.Typedef {
+                     typedefType = coercePass typedefType
+                   , typedefAnn  = NoAnn
+                   }
         }
 
     withReparse :: C.Type HandleMacros -> M (C.Decl HandleMacros)
     withReparse ty = return C.Decl{
-          declInfo = info
-        , declKind = C.DeclTypedef C.Typedef{
-              typedefType = ty
-            , typedefAnn  = NoAnn
-            }
-        , declAnn  = NoAnn
+          info = info
+        , ann  = NoAnn
+        , kind = C.DeclTypedef C.Typedef{
+                     typedefType = ty
+                   , typedefAnn  = NoAnn
+                   }
         }
 
 processMacro ::
@@ -301,9 +299,9 @@ processMacro info (UnparsedMacro tokens) = do
 
     toDecl :: CheckedMacro HandleMacros -> C.Decl HandleMacros
     toDecl checked = C.Decl{
-          declInfo = info
-        , declKind = C.DeclMacro checked
-        , declAnn  = NoAnn
+          info = info
+        , kind = C.DeclMacro checked
+        , ann  = NoAnn
         }
 
 processFunction ::
@@ -319,14 +317,14 @@ processFunction info C.Function{..} =
   where
     withoutReparse :: M (C.Decl HandleMacros)
     withoutReparse = return C.Decl{
-          declInfo = info
-        , declKind = C.DeclFunction C.Function{
-              functionArgs = map (bimap id coercePass) functionArgs
-            , functionRes = coercePass functionRes
-            , functionAnn = NoAnn
-            , ..
-            }
-        , declAnn = NoAnn
+          info = info
+        , ann  = NoAnn
+        , kind = C.DeclFunction C.Function{
+                     functionArgs = map (bimap id coercePass) functionArgs
+                   , functionRes = coercePass functionRes
+                   , functionAnn = NoAnn
+                   , ..
+                   }
         }
 
     withReparse ::
@@ -335,14 +333,14 @@ processFunction info C.Function{..} =
     withReparse ((tys, ty), _name) = do
        -- TODO: We should assert that the name is the name we were expecting
        return $ C.Decl{
-           declInfo = info
-         , declKind = C.DeclFunction C.Function{
-               functionArgs = map (first (fmap C.ScopedName)) tys
-             , functionRes  = ty
-             , functionAnn  = NoAnn
-             , ..
-             }
-         , declAnn = NoAnn
+           info = info
+         , ann  = NoAnn
+         , kind = C.DeclFunction C.Function{
+                      functionArgs = map (first (fmap C.ScopedName)) tys
+                    , functionRes  = ty
+                    , functionAnn  = NoAnn
+                    , ..
+                    }
          }
 
 -- | Globals (externs or constants)
@@ -356,9 +354,9 @@ processGlobal ::
   -> M (C.Decl HandleMacros)
 processGlobal info f ty =
     return $ C.Decl{
-        declInfo = info
-      , declKind = f (coercePass ty)
-      , declAnn  = NoAnn
+        info = info
+      , kind = f (coercePass ty)
+      , ann  = NoAnn
       }
 
 {-------------------------------------------------------------------------------

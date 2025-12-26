@@ -113,7 +113,7 @@ withSign f = \case
     PartialUnknown unknown -> do
       return $
           PartialKnown . KnownType
-        $ (if unknown.isConst then C.TypeQualified C.TypeQualifierConst else id)
+        $ (if unknown.isConst then C.TypeQual C.QualConst else id)
         $ C.TypePrim $ f unknown.sign
     other ->
       unexpected $ show other
@@ -125,7 +125,7 @@ notFun typ = \case
         Nothing ->
           return $
               PartialKnown . KnownType
-            $ (if unknown.isConst then C.TypeQualified C.TypeQualifierConst else id)
+            $ (if unknown.isConst then C.TypeQual C.QualConst else id)
             $ typ
         Just sign ->
           unexpected $ show (typ, sign)
@@ -261,7 +261,7 @@ instance Apply (LanC.CDerivedDeclarator a) KnownType where
 
 instance Apply (LanC.CTypeQualifier a) (C.Type HandleMacros) where
   apply = \case
-      LanC.CConstQual _ -> return . C.TypeQualified C.TypeQualifierConst
+      LanC.CConstQual _ -> return . C.TypeQual C.QualConst
       LanC.CRestrQual _ -> return -- ignore @__restrict@
       other             -> \_ -> unexpectedF other
 

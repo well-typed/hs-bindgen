@@ -44,10 +44,10 @@ instance (
       CoercePass C.Decl p p'
     , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
     ) => CoercePass C.TranslationUnit p p' where
-  coercePass C.TranslationUnit{..} = C.TranslationUnit{
-        unitDecls = map coercePass unitDecls
-      , unitIncludeGraph
-      , unitAnn
+  coercePass unit = C.TranslationUnit{
+        decls        = map coercePass unit.decls
+      , includeGraph = unit.includeGraph
+      , ann          = unit.ann
       }
 
 instance (
@@ -71,10 +71,10 @@ instance (
     , CoercePass C.DeclKind p p'
     , Ann "Decl" p ~ Ann "Decl" p'
     ) => CoercePass C.Decl p p' where
-  coercePass C.Decl{..} = C.Decl{
-        declInfo = coercePass declInfo
-      , declKind = coercePass declKind
-      , declAnn
+  coercePass decl = C.Decl{
+        info = coercePass decl.info
+      , kind = coercePass decl.kind
+      , ann  = decl.ann
       }
 
 instance (
@@ -227,7 +227,7 @@ instance (
       C.TypeIncompleteArray typ -> C.TypeIncompleteArray (coercePass typ)
       C.TypeExtBinding ext      -> C.TypeExtBinding ext
       C.TypeBlock typ           -> C.TypeBlock (coercePass typ)
-      C.TypeQualified qual typ  -> C.TypeQualified qual (coercePass typ)
+      C.TypeQual qual typ       -> C.TypeQual qual (coercePass typ)
       C.TypeComplex prim        -> C.TypeComplex prim
     where
       goId :: Id p -> Id p'

@@ -1,4 +1,6 @@
-{-# LANGUAGE PatternSynonyms #-}
+-- {-# LANGUAGE NoFieldSelectors  #-}
+-- {-# LANGUAGE NoNamedFieldPuns  #-}
+-- {-# LANGUAGE NoRecordWildCards #-}
 
 -- | Internal AST as it is constructed step by step in the frontend
 --
@@ -64,7 +66,7 @@ data TranslationUnit p = TranslationUnit{
       -- * The 'ResolveBindingSpecs' pass removes declarations for which we have
       --   existing external bindings, as well as declarations omitted by a
       --   prescriptive binding specification.
-      unitDecls :: [Decl p]
+      decls :: [Decl p]
 
       -- | Include graph
       --
@@ -76,17 +78,17 @@ data TranslationUnit p = TranslationUnit{
       -- we should generate separate Haskell modules) and a core of "common"
       -- definitions; it may be quite useful to look at the include graph to
       -- figure out what this set of "core" headers is.
-    , unitIncludeGraph :: IncludeGraph
+    , includeGraph :: IncludeGraph
 
       -- | Pass-specific annotation
-    , unitAnn :: Ann "TranslationUnit" p
+    , ann :: Ann "TranslationUnit" p
     }
     deriving (Generic)
 
 data Decl p = Decl {
-      declInfo :: DeclInfo p
-    , declKind :: DeclKind p
-    , declAnn  :: Ann "Decl" p
+      info :: DeclInfo p
+    , kind :: DeclKind p
+    , ann  :: Ann "Decl" p
     }
 
 -- | Availability of declarations.

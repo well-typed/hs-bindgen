@@ -137,7 +137,7 @@ scanAllFunctionPointerTypes =
       C.TypeIncompleteArray  t         -> scanTypeForFunctionPointers t
       C.TypeConstArray _ t             -> scanTypeForFunctionPointers t
       C.TypeBlock t                    -> scanTypeForFunctionPointers t
-      C.TypeQualified _ t              -> scanTypeForFunctionPointers t
+      C.TypeQual _ t                   -> scanTypeForFunctionPointers t
       C.TypeTypedef (C.TypedefRef _ t) -> scanTypeForFunctionPointers t
       _                                -> Set.empty
 

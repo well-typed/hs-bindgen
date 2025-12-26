@@ -53,7 +53,7 @@ updateParseResult chosenNames result =
     case result.classification of
       ParseResultSuccess success -> do
         auxSuccess success <$>
-          updateDefSite chosenNames success.decl.declInfo.declId
+          updateDefSite chosenNames success.decl.info.declId
       ParseResultNotAttempted notAttempted ->
         auxNotAttempted notAttempted <$>
           updateDefSite chosenNames result.declId
@@ -75,9 +75,9 @@ updateParseResult chosenNames result =
             , declLoc        = result.declLoc
             , classification = ParseResultSuccess ParseSuccess{
                   decl = C.Decl{
-                      declInfo = declInfo'
-                    , declKind = declKind'
-                    , declAnn  = NoAnn
+                      info = declInfo'
+                    , kind = declKind'
+                    , ann  = NoAnn
                     }
                 , delayedParseMsgs = delayedParseMsgs
                 }
@@ -86,8 +86,8 @@ updateParseResult chosenNames result =
       where
         updated :: M (C.DeclInfo AssignAnonIds, C.DeclKind AssignAnonIds)
         updated = (,)
-            <$> updateDeclInfo declId' decl.declInfo
-            <*> updateUseSites         decl.declKind
+            <$> updateDeclInfo declId' decl.info
+            <*> updateUseSites         decl.kind
 
     auxNotAttempted ::
          ParseNotAttempted
@@ -298,7 +298,7 @@ instance UpdateUseSites C.Type where
           C.TypeConstArray n    ty -> C.TypeConstArray n <$> go ty
           C.TypeIncompleteArray ty -> C.TypeIncompleteArray <$> go ty
           C.TypeBlock           ty -> C.TypeBlock <$> go ty
-          C.TypeQualified qual  ty -> C.TypeQualified qual <$> go ty
+          C.TypeQual qual       ty -> C.TypeQual qual <$> go ty
           C.TypeFun args res       -> C.TypeFun <$> mapM go args <*> go res
 
           -- SimpleCases

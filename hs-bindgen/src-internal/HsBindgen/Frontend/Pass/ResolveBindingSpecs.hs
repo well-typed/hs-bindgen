@@ -49,12 +49,7 @@ resolveBindingSpecs ::
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit HandleMacros
   -> (C.TranslationUnit ResolveBindingSpecs, [Msg ResolveBindingSpecs])
-resolveBindingSpecs
-  target
-  hsModuleName
-  extSpecs
-  pSpec
-  C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
+resolveBindingSpecs target hsModuleName extSpecs pSpec unit =
     let pSpecModule = BindingSpec.moduleName pSpec
         (pSpecErrs, pSpec')
           | pSpecModule == hsModuleName = ([], pSpec)
@@ -66,11 +61,11 @@ resolveBindingSpecs
           runM
             extSpecs
             pSpec'
-            unitIncludeGraph
-            unitAnn.declIndex
-            (resolveDecls unitDecls)
+            unit.includeGraph
+            unit.ann.declIndex
+            (resolveDecls unit.decls)
         useDeclGraph =
-          UseDeclGraph.deleteDeps (Map.keys stateExtTypes) unitAnn.useDeclGraph
+          UseDeclGraph.deleteDeps (Map.keys stateExtTypes) unit.ann.useDeclGraph
         notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys stateNoPTypes
     in  ( reconstruct decls useDeclGraph state
         , pSpecErrs ++ reverse stateTraces ++ notUsedErrs
@@ -89,7 +84,7 @@ resolveBindingSpecs
           index' =
                 DeclIndex.registerExternalDeclarations externalIds
               . DeclIndex.registerOmittedDeclarations stateOmitTypes
-              $ unitAnn.declIndex
+              $ unit.ann.declIndex
 
           unitAnn' :: DeclMeta
           unitAnn' = DeclMeta {
@@ -98,11 +93,11 @@ resolveBindingSpecs
               , declUseGraph = DeclUseGraph.fromUseDecl useDeclGraph
               }
 
-      in  C.TranslationUnit{
-        unitDecls = decls'
-      , unitIncludeGraph
-      , unitAnn = unitAnn'
-      }
+      in C.TranslationUnit{
+             decls        = decls'
+           , includeGraph = unit.includeGraph
+           , ann          = unitAnn'
+           }
 
 {-------------------------------------------------------------------------------
   Internal: monad
@@ -222,7 +217,7 @@ resolveTop ::
            )
        )
 resolveTop decl = Reader.ask >>= \MEnv{..} -> do
-    let sourcePath = singleLocPath $ C.declLoc (C.declInfo decl)
+    let sourcePath = singleLocPath $ C.declLoc (C.info decl)
         declPaths  = IncludeGraph.reaches envIncludeGraph sourcePath
         mMsg       = Just $ ResolveBindingSpecsOmittedType cDeclId
     isExt <- isJust <$> resolveExtBinding cDeclId declPaths mMsg
@@ -243,12 +238,12 @@ resolveTop decl = Reader.ask >>= \MEnv{..} -> do
           State.modify' $
               insertTrace (ResolveBindingSpecsPrescriptiveOmit cDeclId)
             . deleteNoPType cDeclId sourcePath
-            . insertOmittedType cDeclId decl.declInfo.declLoc
+            . insertOmittedType cDeclId decl.info.declLoc
           return Nothing
         Nothing -> return $ Just (decl, (Nothing, Nothing))
   where
     cDeclId :: DeclId
-    cDeclId = decl.declInfo.declId
+    cDeclId = decl.info.declId
 
 -- Pass two: deep
 --
@@ -259,11 +254,11 @@ resolveDeep ::
   -> (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
   -> M (C.Decl ResolveBindingSpecs)
 resolveDeep decl (cSpec, hsSpec) = do
-    declKind' <- resolve decl.declInfo.declId decl.declKind
+    declKind' <- resolve decl.info.declId decl.kind
     return C.Decl {
-        declInfo = coercePass decl.declInfo
-      , declKind = declKind'
-      , declAnn  = PrescriptiveDeclSpec{cSpec, hsSpec}
+        info = coercePass decl.info
+      , kind = declKind'
+      , ann  = PrescriptiveDeclSpec{cSpec, hsSpec}
       }
 
 {-------------------------------------------------------------------------------
@@ -408,7 +403,7 @@ instance Resolve C.Type where
       C.TypeConstArray n t    -> C.TypeConstArray n <$> resolve ctx t
       C.TypeIncompleteArray t -> C.TypeIncompleteArray <$> resolve ctx t
       C.TypeBlock t           -> C.TypeBlock <$> resolve ctx t
-      C.TypeQualified qual t  -> C.TypeQualified qual <$> resolve ctx t
+      C.TypeQual qual t       -> C.TypeQual qual <$> resolve ctx t
 
       -- Simple cases
       C.TypePrim t         -> return (C.TypePrim t)

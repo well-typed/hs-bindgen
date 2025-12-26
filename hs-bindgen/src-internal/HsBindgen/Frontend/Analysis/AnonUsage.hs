@@ -116,10 +116,10 @@ resolveConflicts anonId new old =
 -- (this will cause them to be removed from the list of declarations).
 analyseDecl :: C.Decl Parse -> [(AnonId, Context)]
 analyseDecl decl =
-    case decl.declKind of
-      C.DeclStruct   x -> analyseStruct  decl.declInfo x
-      C.DeclUnion    x -> analyseUnion   decl.declInfo x
-      C.DeclTypedef  x -> analyseTypedef decl.declInfo x
+    case decl.kind of
+      C.DeclStruct   x -> analyseStruct  decl.info x
+      C.DeclUnion    x -> analyseUnion   decl.info x
+      C.DeclTypedef  x -> analyseTypedef decl.info x
       C.DeclEnum     _ -> []
       C.DeclOpaque     -> []
       C.DeclMacro    _ -> []
@@ -173,7 +173,7 @@ analyseType = go
         -- (\"follow\" in the sense that @libclang@ does /not/ assign the name
         -- of the typedef to the struct in this case; we will add the suffix).
         C.TypePointers _n     ty -> indirect ty
-        C.TypeQualified _qual ty -> indirect ty
+        C.TypeQual _qual ty      -> indirect ty
         C.TypeConstArray _sz  ty -> indirect ty
         C.TypeIncompleteArray ty -> indirect ty
         C.TypeBlock           ty -> indirect ty

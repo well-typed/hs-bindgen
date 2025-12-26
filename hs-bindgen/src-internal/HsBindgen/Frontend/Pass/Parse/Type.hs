@@ -80,7 +80,7 @@ cxtype ty = do
 
     isConst <- clang_isConstQualifiedType ty
     pure $ if isConst
-             then C.TypeQualified C.TypeQualifierConst reifiedType
+             then C.TypeQual C.QualConst reifiedType
              else reifiedType
   where
     failure :: ParseTypeException -> CXType -> ParseType (C.Type Parse)
@@ -211,35 +211,42 @@ adjustFunctionTypesToPointers = go False
   where
     go :: Bool -> C.Type Parse -> C.Type Parse
     go ctx = \case
-      C.TypePrim pt -> C.TypePrim pt
-      C.TypeRef n -> C.TypeRef n
-      C.TypeTypedef (C.TypedefRef n uTy)
-          | isCanonicalFunctionType uTy && not ctx
-          -> C.TypePointers 1 $ C.TypeTypedef (C.TypedefRef n (go True uTy))
-          | otherwise
-          -> C.TypeTypedef (C.TypedefRef n (go True uTy))
-      C.TypePointers n t -> C.TypePointers n $ go True t
-      C.TypeFun args res -> do
-        let args' = map (go False) args
-            res' = go False res
-        if ctx then
-          C.TypeFun args' res'
-        else
-          C.TypePointers 1 (C.TypeFun args' res')
-      C.TypeVoid -> C.TypeVoid
-      C.TypeConstArray n t -> C.TypeConstArray n $ go ctx t
-      C.TypeExtBinding eb -> absurd eb
-      C.TypeIncompleteArray t -> C.TypeIncompleteArray $ go ctx t
-      -- This is a slightly weird case. From what I understand, blocks are
-      -- similar to pointers. So, I'm treating them like pointers.
-      C.TypeBlock t -> C.TypeBlock $ go True t
-      C.TypeQualified qual t -> C.TypeQualified qual $ go ctx t
-      C.TypeComplex pt -> C.TypeComplex pt
+        -- Trivial cases
+        C.TypePrim pt       -> C.TypePrim pt
+        C.TypeRef n         -> C.TypeRef n
+        C.TypeVoid          -> C.TypeVoid
+        C.TypeComplex pt    -> C.TypeComplex pt
+        C.TypeExtBinding eb -> absurd eb
+
+        -- Interesting cases
+        C.TypeTypedef (C.TypedefRef n uTy) ->
+          if isCanonicalFunctionType uTy && not ctx then
+            C.TypePointers 1 $ C.TypeTypedef (C.TypedefRef n (go True uTy))
+          else
+            C.TypeTypedef (C.TypedefRef n (go True uTy))
+        C.TypeFun args res ->
+          let args' = map (go False) args
+              res'  = go False res
+          in if ctx then
+               C.TypeFun args' res'
+             else
+               C.TypePointers 1 (C.TypeFun args' res')
+
+        -- Recurse underneath pointers
+        --
+        -- NOTE: Blocks are pointers to data, not function pointers.
+        C.TypePointers n t -> C.TypePointers n $ go True t
+        C.TypeBlock      t -> C.TypeBlock      $ go True t
+
+        -- Other recursion
+        C.TypeConstArray n    t -> C.TypeConstArray n    $ go ctx t
+        C.TypeIncompleteArray t -> C.TypeIncompleteArray $ go ctx t
+        C.TypeQual qual       t -> C.TypeQual qual       $ go ctx t
 
     -- | Canonical types have all typedefs and type qualifiers removed.
     isCanonicalFunctionType :: C.Type Parse -> Bool
     isCanonicalFunctionType = \case
-      C.TypeTypedef ref -> isCanonicalFunctionType ref.underlying
-      C.TypeQualified _qual ty -> isCanonicalFunctionType ty
-      C.TypeFun{} -> True
-      _otherwise -> False
+        C.TypeTypedef ref   -> isCanonicalFunctionType ref.underlying
+        C.TypeQual _qual ty -> isCanonicalFunctionType ty
+        C.TypeFun{}         -> True
+        _otherwise          -> False

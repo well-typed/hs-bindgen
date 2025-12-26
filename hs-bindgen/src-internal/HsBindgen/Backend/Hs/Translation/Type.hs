@@ -79,7 +79,7 @@ inContext ctx = go ctx
         HsBlock $ go Top ty
     go _ (C.TypeExtBinding ext) =
         Hs.HsExtBinding ext.hsName ext.cSpec ext.hsSpec
-    go c (C.TypeQualified C.TypeQualifierConst ty) =
+    go c (C.TypeQual C.QualConst ty) =
         go c ty
     go _ (C.TypeComplex p) =
         Hs.HsComplexType (primType p)

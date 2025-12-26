@@ -49,22 +49,22 @@ mangleNames ::
   -> (C.TranslationUnit MangleNames, [Msg MangleNames])
 mangleNames unit = (
          C.TranslationUnit{
-           unitDecls        = catMaybes decls'
-         , unitIncludeGraph = unit.unitIncludeGraph
-         , unitAnn          = updateDeclMeta td nm unit.unitAnn
+           decls        = catMaybes decls'
+         , includeGraph = unit.includeGraph
+         , ann          = updateDeclMeta td nm unit.ann
         }
     , msgs1 ++ msgs2
     )
   where
     td :: TypedefAnalysis
-    td = TypedefAnalysis.fromDecls unit.unitAnn.declUseGraph unit.unitDecls
+    td = TypedefAnalysis.fromDecls unit.ann.declUseGraph unit.decls
 
     fc :: FixCandidate Maybe
     fc = FixCandidate.fixCandidateDefault
 
     nm    :: NameMap
     msgs1 :: [Msg MangleNames]
-    (nm, msgs1) = chooseNames td fc (C.unitDecls unit)
+    (nm, msgs1) = chooseNames td fc unit.decls
 
     env :: Env
     env = Env{
@@ -75,7 +75,7 @@ mangleNames unit = (
 
     decls' :: [Maybe (C.Decl MangleNames)]
     msgs2  :: [Msg MangleNames]
-    (decls', msgs2) = runM env $ mapM mangleDecl unit.unitDecls
+    (decls', msgs2) = runM env $ mapM mangleDecl unit.decls
 
 updateDeclMeta :: TypedefAnalysis -> NameMap -> DeclMeta -> DeclMeta
 updateDeclMeta td nm declMeta = declMeta{
@@ -111,8 +111,8 @@ chooseNames td fc decls =
   where
     getSpecifiedName :: C.Decl Select -> Maybe (DeclId, Hs.Identifier)
     getSpecifiedName decl =
-        (decl.declInfo.declId,)
-          <$> (BindingSpec.cTypeSpecIdentifier =<< decl.declAnn.cSpec)
+        (decl.info.declId,)
+          <$> (BindingSpec.cTypeSpecIdentifier =<< decl.ann.cSpec)
 
 nameForDecl ::
      TypedefAnalysis
@@ -132,8 +132,8 @@ nameForDecl td fc specifiedNames decl =
         -- removed from the list of declarations in @Select@.
         ((declId, hsName), [])
       Nothing ->
-        withDeclNamespace decl.declKind $ \ns ->
-        second (map $ withDeclLoc decl.declInfo) $
+        withDeclNamespace decl.kind $ \ns ->
+        second (map $ withDeclLoc decl.info) $
           case Map.lookup declId td.map of
             Nothing ->
               fromDeclId fc ns declId & \(hsName, msgs) -> (
@@ -166,7 +166,7 @@ nameForDecl td fc specifiedNames decl =
                     )
   where
     declId :: DeclId
-    declId = decl.declInfo.declId
+    declId = decl.info.declId
 
 {-------------------------------------------------------------------------------
   Internal: working with 'FixCandidate'
@@ -250,32 +250,32 @@ class MangleInDecl a where
 
 mangleDecl :: C.Decl Select -> M (Maybe (C.Decl MangleNames))
 mangleDecl decl = do
-    mConclusion <- checkTypedefAnalysis decl.declInfo.declId
+    mConclusion <- checkTypedefAnalysis decl.info.declId
     case mConclusion of
       Just TypedefAnalysis.Squash{} -> do
-        traceMsg $ withDeclLoc decl.declInfo $ MangleNamesSquashed
+        traceMsg $ withDeclLoc decl.info $ MangleNamesSquashed
         return Nothing
       _otherwise -> do
-        declId'      <- mangleDeclId decl.declInfo.declId
-        declComment' <- mapM mangle decl.declInfo.declComment
+        declId'      <- mangleDeclId decl.info.declId
+        declComment' <- mapM mangle decl.info.declComment
 
         let info :: C.DeclInfo MangleNames
             info = C.DeclInfo{
                  declId           = declId'
                , declComment      = declComment'
-               , declLoc          = decl.declInfo.declLoc
-               , declHeaderInfo   = decl.declInfo.declHeaderInfo
-               , declAvailability = decl.declInfo.declAvailability
+               , declLoc          = decl.info.declLoc
+               , declHeaderInfo   = decl.info.declHeaderInfo
+               , declAvailability = decl.info.declAvailability
                }
 
             reconstruct :: C.DeclKind MangleNames -> C.Decl MangleNames
             reconstruct declKind' = C.Decl{
-                  declInfo = info
-                , declKind = declKind'
-                , declAnn  = decl.declAnn
+                  info = info
+                , kind = declKind'
+                , ann  = decl.ann
                 }
 
-        Just . reconstruct <$> mangleInDecl info decl.declKind
+        Just . reconstruct <$> mangleInDecl info decl.kind
 
 {-------------------------------------------------------------------------------
   Scoped names
@@ -570,7 +570,7 @@ instance Mangle C.Type where
       C.TypeConstArray n typ    -> C.TypeConstArray n <$> mangle typ
       C.TypeIncompleteArray typ -> C.TypeIncompleteArray <$> mangle typ
       C.TypeBlock typ           -> C.TypeBlock <$> mangle typ
-      C.TypeQualified qual typ  -> C.TypeQualified qual <$> mangle typ
+      C.TypeQual qual typ       -> C.TypeQual qual <$> mangle typ
 
       -- The other entries do not need any name mangling
       C.TypePrim prim      -> return $ C.TypePrim prim

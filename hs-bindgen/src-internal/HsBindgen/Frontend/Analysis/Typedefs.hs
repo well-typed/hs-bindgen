@@ -139,9 +139,9 @@ fromDecls declUseGraph = mconcat . map aux
   where
      aux :: C.Decl Select -> TypedefAnalysis
      aux decl =
-         case decl.declKind of
+         case decl.kind of
            C.DeclTypedef typedef ->
-             analyseTypedef declUseGraph decl.declInfo typedef
+             analyseTypedef declUseGraph decl.info typedef
            _otherwise ->
              mempty
 
