@@ -325,15 +325,16 @@ updateDeclId prelimDeclId = WrapM $ do
 -------------------------------------------------------------------------------}
 
 instance UpdateUseSites C.FieldInfo where
-  updateUseSites C.FieldInfo{..} =
-      reconstruct <$> mapM updateUseSites fieldComment
+  updateUseSites info =
+      reconstruct <$> mapM updateUseSites info.comment
     where
       reconstruct ::
            Maybe (C.Comment AssignAnonIds)
         -> C.FieldInfo AssignAnonIds
       reconstruct fieldComment' = C.FieldInfo{
-            fieldComment = fieldComment'
-          , ..
+            comment = fieldComment'
+          , name    = info.name
+          , loc     = info.loc
           }
 
 instance UpdateUseSites C.EnumConstant where

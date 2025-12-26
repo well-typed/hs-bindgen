@@ -406,9 +406,9 @@ instance MangleInDecl C.Struct where
 instance MangleInDecl C.StructField where
   mangleInDecl info C.StructField{..} = do
       reconstruct
-         <$> mangleFieldName info (C.fieldName structFieldInfo)
+         <$> mangleFieldName info structFieldInfo.name
          <*> mangle structFieldType
-         <*> mapM mangle (C.fieldComment structFieldInfo)
+         <*> mapM mangle structFieldInfo.comment
     where
       reconstruct ::
            ScopedNamePair
@@ -417,11 +417,10 @@ instance MangleInDecl C.StructField where
         -> C.StructField MangleNames
       reconstruct structFieldName' structFieldType' structFieldComment' =
         C.StructField {
-            structFieldInfo =
-              C.FieldInfo {
-                fieldLoc     = C.fieldLoc structFieldInfo
-              , fieldName    = structFieldName'
-              , fieldComment = structFieldComment'
+            structFieldInfo = C.FieldInfo {
+                loc     = structFieldInfo.loc
+              , name    = structFieldName'
+              , comment = structFieldComment'
               }
           , structFieldType = structFieldType'
           , ..
@@ -441,9 +440,9 @@ instance MangleInDecl C.Union where
 instance MangleInDecl C.UnionField where
   mangleInDecl info C.UnionField{..} = do
       reconstruct
-        <$> mangleFieldName info (C.fieldName unionFieldInfo)
+        <$> mangleFieldName info unionFieldInfo.name
         <*> mangle unionFieldType
-        <*> mapM mangle (C.fieldComment unionFieldInfo)
+        <*> mapM mangle unionFieldInfo.comment
     where
       reconstruct ::
            ScopedNamePair
@@ -452,11 +451,10 @@ instance MangleInDecl C.UnionField where
         -> C.UnionField MangleNames
       reconstruct unionFieldName' unionFieldType' unionFieldComment' =
         C.UnionField {
-            unionFieldInfo =
-              C.FieldInfo {
-                fieldLoc     = C.fieldLoc unionFieldInfo
-              , fieldName    = unionFieldName'
-              , fieldComment = unionFieldComment'
+            unionFieldInfo = C.FieldInfo {
+                loc     = unionFieldInfo.loc
+              , name    = unionFieldName'
+              , comment = unionFieldComment'
               }
           , unionFieldType = unionFieldType'
           , ..
@@ -482,19 +480,18 @@ instance MangleInDecl C.Enum where
 instance MangleInDecl C.EnumConstant where
   mangleInDecl info C.EnumConstant{..} = do
       reconstruct
-        <$> mangleEnumConstant info (C.fieldName enumConstantInfo)
-        <*> mapM mangle (C.fieldComment enumConstantInfo)
+        <$> mangleEnumConstant info enumConstantInfo.name
+        <*> mapM mangle enumConstantInfo.comment
     where
       reconstruct ::
             ScopedNamePair
          -> Maybe (C.Comment MangleNames)
          -> C.EnumConstant MangleNames
       reconstruct enumConstantName' enumConstantComment' = C.EnumConstant{
-            enumConstantInfo =
-              C.FieldInfo {
-                fieldLoc     = C.fieldLoc enumConstantInfo
-              , fieldName    = enumConstantName'
-              , fieldComment = enumConstantComment'
+            enumConstantInfo = C.FieldInfo {
+                loc     = enumConstantInfo.loc
+              , name    = enumConstantName'
+              , comment = enumConstantComment'
               }
           , ..
           }

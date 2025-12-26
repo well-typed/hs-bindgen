@@ -113,15 +113,15 @@ getHeaderInfo path = uncurry C.HeaderInfo <$> evalGetMainHeadersAndInclude path
 
 getFieldInfo :: CXCursor -> ParseDecl (C.FieldInfo Parse)
 getFieldInfo = \curr -> do
-  fieldLoc     <- HighLevel.clang_getCursorLocation' curr
-  fieldName    <- C.ScopedName <$> clang_getCursorDisplayName curr
-  fieldComment <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
+    fieldLoc     <- HighLevel.clang_getCursorLocation' curr
+    fieldName    <- C.ScopedName <$> clang_getCursorDisplayName curr
+    fieldComment <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
 
-  return C.FieldInfo {
-       fieldLoc
-     , fieldName
-     , fieldComment
-     }
+    return C.FieldInfo {
+        loc     = fieldLoc
+      , name    = fieldName
+      , comment = fieldComment
+      }
 
 getReparseInfo :: CXCursor -> ParseDecl ReparseInfo
 getReparseInfo = \curr -> do

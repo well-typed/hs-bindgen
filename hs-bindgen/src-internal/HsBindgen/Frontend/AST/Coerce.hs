@@ -94,11 +94,10 @@ instance (
     , ScopedName p ~ ScopedName p'
     ) => CoercePass C.FieldInfo p p' where
   coercePass info = C.FieldInfo{
-        fieldComment = fmap coercePass fieldComment
-      , ..
+        comment = fmap coercePass info.comment
+      , name    = info.name
+      , loc     = info.loc
       }
-    where
-      C.FieldInfo{fieldLoc, fieldName, fieldComment} = info
 
 instance (
       CoercePass C.Struct   p p'

@@ -114,14 +114,12 @@ processStructField C.StructField{..} =
         reparseWith LanC.reparseField tokens withoutReparse withReparse
         -- reparseWith LanC.reparseField tokens withoutReparse withReparse
   where
-    C.FieldInfo{..} = structFieldInfo
-
     withoutReparse :: M (C.StructField HandleMacros)
     withoutReparse = return C.StructField{
-          structFieldInfo =
-            C.FieldInfo {
-              fieldComment = fmap coercePass fieldComment
-            , ..
+          structFieldInfo = C.FieldInfo {
+              comment = fmap coercePass structFieldInfo.comment
+            , name    = structFieldInfo.name
+            , loc     = structFieldInfo.loc
             }
         , structFieldType = coercePass structFieldType
         , structFieldAnn  = NoAnn
@@ -132,11 +130,10 @@ processStructField C.StructField{..} =
          (C.Type HandleMacros, Text)
       -> M (C.StructField HandleMacros)
     withReparse (ty, name) = return C.StructField{
-          structFieldInfo =
-            C.FieldInfo {
-              fieldName    = C.ScopedName name
-            , fieldComment = fmap coercePass fieldComment
-            , ..
+          structFieldInfo = C.FieldInfo {
+              name    = C.ScopedName name
+            , comment = fmap coercePass structFieldInfo.comment
+            , loc     = structFieldInfo.loc
             }
         , structFieldType = ty
         , structFieldAnn  = NoAnn
@@ -165,13 +162,12 @@ processUnionField C.UnionField{..} =
       ReparseNeeded tokens ->
         reparseWith LanC.reparseField tokens withoutReparse withReparse
   where
-    C.FieldInfo{..} = unionFieldInfo
     withoutReparse :: M (C.UnionField HandleMacros)
     withoutReparse = return $ C.UnionField{
-          unionFieldInfo =
-            C.FieldInfo {
-              fieldComment = fmap coercePass fieldComment
-            , ..
+          unionFieldInfo = C.FieldInfo {
+              comment = fmap coercePass unionFieldInfo.comment
+            , name    = unionFieldInfo.name
+            , loc     = unionFieldInfo.loc
             }
         , unionFieldType = coercePass unionFieldType
         , unionFieldAnn  = NoAnn
@@ -182,11 +178,10 @@ processUnionField C.UnionField{..} =
          (C.Type HandleMacros, Text)
       -> M (C.UnionField HandleMacros)
     withReparse (ty, name) = return $ C.UnionField{
-          unionFieldInfo =
-            C.FieldInfo {
-              fieldName    = C.ScopedName name
-            , fieldComment = fmap coercePass fieldComment
-            , ..
+          unionFieldInfo = C.FieldInfo {
+              name    = C.ScopedName name
+            , comment = fmap coercePass unionFieldInfo.comment
+            , loc     = unionFieldInfo.loc
             }
         , unionFieldType = ty
         , unionFieldAnn  = NoAnn
@@ -227,15 +222,13 @@ processEnumConstant ::
   -> M (C.EnumConstant HandleMacros)
 processEnumConstant C.EnumConstant{..} = return
   C.EnumConstant {
-    enumConstantInfo =
-      C.FieldInfo {
-        fieldComment = fmap coercePass fieldComment
-      , ..
+    enumConstantInfo = C.FieldInfo {
+        comment = fmap coercePass enumConstantInfo.comment
+      , name    = enumConstantInfo.name
+      , loc     = enumConstantInfo.loc
       }
   , ..
   }
-  where
-    C.FieldInfo{..} = enumConstantInfo
 
 processTypedef ::
      C.DeclInfo HandleMacros

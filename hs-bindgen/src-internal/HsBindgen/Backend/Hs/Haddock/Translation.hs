@@ -50,13 +50,13 @@ mkHaddocksFieldInfo ::
   -> C.DeclInfo Final
   -> C.FieldInfo Final
   -> Maybe HsDoc.Comment
-mkHaddocksFieldInfo config declInfo C.FieldInfo{..} =
+mkHaddocksFieldInfo config declInfo fieldInfo =
     fst $ mkHaddocksWithArgs config declInfo Args{
         isField     = True
-      , loc         = fieldLoc
-      , nameC       = fieldName.cName.text
-      , nameHsIdent = fieldName.hsName
-      , comment     = fieldComment
+      , loc         = fieldInfo.loc
+      , nameC       = fieldInfo.name.cName.text
+      , nameHsIdent = fieldInfo.name.hsName
+      , comment     = fieldInfo.comment
       , params      = []
       }
 

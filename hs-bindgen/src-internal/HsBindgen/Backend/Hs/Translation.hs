@@ -231,7 +231,7 @@ structDecs opts haddockConfig info struct spec fields = do
 
     structFields :: Vec n Hs.Field
     structFields = flip Vec.map fields $ \f -> Hs.Field {
-        fieldName    = Hs.unsafeHsIdHsName (C.structFieldInfo f).fieldName.hsName
+        fieldName    = Hs.unsafeHsIdHsName f.structFieldInfo.name.hsName
       , fieldType    = Type.topLevel (C.structFieldType f)
       , fieldOrigin  = Origin.StructField f
       , fieldComment = mkHaddocksFieldInfo haddockConfig info (C.structFieldInfo f)
@@ -366,7 +366,7 @@ structFieldDecls structName f = [
     parentType = Hs.HsTypRef structName
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.unsafeHsIdHsName (C.structFieldInfo f).fieldName.hsName
+    fieldName = Hs.unsafeHsIdHsName f.structFieldInfo.name.hsName
 
     fieldType :: HsType
     fieldType = Type.topLevel (C.structFieldType f)
@@ -403,14 +403,14 @@ peekStructField ptr f = case C.structFieldWidth f of
     Nothing -> Hs.PeekCField (HsStrLit name) ptr
     Just _w -> Hs.PeekCBitfield (HsStrLit name) ptr
   where
-    name = T.unpack (C.structFieldInfo f).fieldName.hsName.text
+    name = T.unpack f.structFieldInfo.name.hsName.text
 
 pokeStructField :: Idx ctx -> C.StructField Final -> Idx ctx -> Hs.PokeCField ctx
 pokeStructField ptr f x = case C.structFieldWidth f of
     Nothing -> Hs.PokeCField (HsStrLit name) ptr x
     Just _w  -> Hs.PokeCBitfield (HsStrLit name) ptr x
   where
-    name = T.unpack (C.structFieldInfo f).fieldName.hsName.text
+    name = T.unpack f.structFieldInfo.name.hsName.text
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
@@ -531,8 +531,8 @@ unionDecs haddockConfig info union spec = do
               fInsts = Hs.getInstances
                           (State.instanceMap transState) (Just nt.newtypeName)
                           (Set.singleton Hs.Storable) [hsType]
-              getterName = Hs.unsafeHsIdHsName $ "get_" <> unionFieldInfo.fieldName.hsName
-              setterName = Hs.unsafeHsIdHsName $ "set_" <> unionFieldInfo.fieldName.hsName
+              getterName = Hs.unsafeHsIdHsName $ "get_" <> unionFieldInfo.name.hsName
+              setterName = Hs.unsafeHsIdHsName $ "set_" <> unionFieldInfo.name.hsName
               commentRefName name = Just $ HsDoc.paragraph [
                   HsDoc.Bold [HsDoc.TextContent "See:"]
                 , HsDoc.Identifier name
@@ -607,7 +607,7 @@ unionFieldDecls unionName f = [
     parentType = Hs.HsTypRef unionName
 
     fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.unsafeHsIdHsName (C.unionFieldInfo f).fieldName.hsName
+    fieldName = Hs.unsafeHsIdHsName f.unionFieldInfo.name.hsName
 
     fieldType :: HsType
     fieldType = Type.topLevel (C.unionFieldType f)
@@ -747,7 +747,7 @@ enumDecs opts haddockConfig info e spec = do
         valueDecls :: [Hs.Decl]
         valueDecls =
             [ Hs.DeclPatSyn Hs.PatSyn
-              { patSynName    = Hs.unsafeHsIdHsName enumConstantInfo.fieldName.hsName
+              { patSynName    = Hs.unsafeHsIdHsName enumConstantInfo.name.hsName
               , patSynType    = nt.newtypeName
               , patSynConstr  = nt.newtypeConstr
               , patSynValue   = enumConstantValue

@@ -62,7 +62,7 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     nameForField anonId field outerStruct = DeclId{
           isAnon = True
         , name   = C.DeclName{
-              text = outerStruct.name.text <> "_" <> field.fieldName.text
+              text = outerStruct.name.text <> "_" <> field.name.text
             , kind = anonId.kind
             }
         }

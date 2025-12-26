@@ -125,9 +125,9 @@ data HeaderInfo = HeaderInfo{
   deriving stock (Show, Eq, Generic)
 
 data FieldInfo p = FieldInfo {
-      fieldLoc     :: SingleLoc
-    , fieldName    :: ScopedName p
-    , fieldComment :: Maybe (Comment p)
+      loc     :: SingleLoc
+    , name    :: ScopedName p
+    , comment :: Maybe (Comment p)
     }
 
 data DeclKind p =
