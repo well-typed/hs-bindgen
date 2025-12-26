@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Analyse typedefs
 --
 -- Intended for qualified import.
@@ -34,15 +37,14 @@ import HsBindgen.Language.Haskell qualified as Hs
 -- | Typedef analysis
 --
 -- See 'Conclusion' for detailed discussion.
-newtype TypedefAnalysis = TypedefAnalysis{
-      analysis :: Map DeclId Conclusion
+data TypedefAnalysis = TypedefAnalysis{
+      map :: Map DeclId Conclusion
     }
   deriving stock (Show)
-  deriving newtype (Monoid)
 
 instance Semigroup TypedefAnalysis where
   a <> b = TypedefAnalysis{
-        analysis = Map.unionWithKey unexpectedOverlap a.analysis b.analysis
+        map = Map.unionWithKey unexpectedOverlap a.map b.map
       }
     where
       unexpectedOverlap :: DeclId -> Conclusion -> Conclusion -> Conclusion
@@ -53,6 +55,11 @@ instance Semigroup TypedefAnalysis where
             , ": "
             , show (conclusion1, conclusion2)
             ]
+
+instance Monoid TypedefAnalysis where
+  mempty = TypedefAnalysis{
+        map = Map.empty
+      }
 
 -- | What should we do with a particular declaration?
 --
@@ -175,13 +182,13 @@ typedefOfTagged typedefInfo payload useSites
   where
     shouldSquash, shouldRename :: Bool
     shouldSquash = and [
-          payload.direct
+          payload.isDirect
         , or [ typedefInfo.declId.name.text == payload.declId.name.text
              , length useSites == 1
              ]
         ]
     shouldRename = and [
-          not payload.direct
+          not payload.isDirect
         , typedefInfo.declId.name.text == payload.declId.name.text
         ]
 
@@ -194,8 +201,8 @@ typedefOfTagged typedefInfo payload useSites
 -------------------------------------------------------------------------------}
 
 data TaggedPayload = TaggedPayload{
-      direct  :: Bool
-    , declId  :: DeclId
+      isDirect :: Bool
+    , declId   :: DeclId
     }
 
 -- | Tagged declaration (struct, union, enum) wrapped by this typedef, if any
@@ -218,6 +225,6 @@ taggedPayload = go True
           Nothing
 
     typeRef :: Bool -> DeclId -> Maybe TaggedPayload
-    typeRef direct declId = do
+    typeRef isDirect declId = do
         void $ C.checkIsTagged declId.name.kind
-        return TaggedPayload{direct, declId}
+        return TaggedPayload{isDirect, declId}
