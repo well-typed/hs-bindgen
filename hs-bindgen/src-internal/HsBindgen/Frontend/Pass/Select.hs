@@ -92,7 +92,7 @@ selectDecls ::
 selectDecls
   isMainHeader
   isInMainHeaderDir
-  SelectConfig{..}
+  config
   C.TranslationUnit{..} =
     let -- Directly match the select predicate on the 'DeclIndex', obtaining
         -- information about succeeded _and failed_ selection roots.
@@ -121,7 +121,7 @@ selectDecls
         -- program slicing. This is the only point where we differentiate
         -- between selection with or without program slicing.
         additionalSelectedTransIds :: Set DeclId
-        (selectedIds, additionalSelectedTransIds) = case selectConfigProgramSlicing of
+        (selectedIds, additionalSelectedTransIds) = case config.programSlicing of
           DisableProgramSlicing -> (rootIds        , Set.empty)
           EnableProgramSlicing  -> (rootAndTransIds, strictTransIds)
 
@@ -227,7 +227,7 @@ selectDecls
             isMainHeader
             isInMainHeaderDir
             (singleLocPath loc)
-            selectConfigParsePredicate
+            config.parsePredicate
         selected =
           matchSelect
             isMainHeader
@@ -235,7 +235,7 @@ selectDecls
             (singleLocPath loc)
             name
             availability
-            selectConfigPredicate
+            config.selectPredicate
 
 {-------------------------------------------------------------------------------
   Fold declarations
