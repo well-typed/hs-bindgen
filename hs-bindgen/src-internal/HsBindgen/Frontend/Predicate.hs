@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Select definitions from the C header
 module HsBindgen.Frontend.Predicate (
     -- * Booleans
@@ -29,6 +33,7 @@ import Clang.Paths
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
+import Data.Function
 
 {-------------------------------------------------------------------------------
   Definition
@@ -181,15 +186,18 @@ matchSelect isMainHeader isInMainHeaderDir path declName availability = eval $ \
 
 -- | Merge lists of negative and positive Booleans
 --
--- Combine the negative Booleans using AND, and the positive Booleans using
--- OR.
-mergeBooleans :: Eq a => [Boolean a] -> [Boolean a] -> Boolean a
+-- Combine the negative Booleans using AND, and the positive Booleans using OR.
+mergeBooleans :: forall a. Eq a => [Boolean a] -> [Boolean a] -> Boolean a
 mergeBooleans negatives positives =
-    let mergeNeg p q = reduce $ BAnd (reduce $ BNot $ reduce p) q
-        neg = foldr mergeNeg BTrue negatives
-        mergePos p q = reduce $ BOr (reduce p) q
-        pos = foldr mergePos BFalse positives
-     in reduce $ BAnd neg pos
+    reduce $ BAnd neg pos
+  where
+    mergeNeg, mergePos :: Boolean a -> Boolean a -> Boolean a
+    mergeNeg p q = reduce $ BAnd (reduce $ BNot $ reduce p) q
+    mergePos p q = reduce $ BOr (reduce p) q
+
+    neg, pos :: Boolean a
+    neg = foldr mergeNeg BTrue  negatives
+    pos = foldr mergePos BFalse positives
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: execution
@@ -201,19 +209,19 @@ mergeBooleans negatives positives =
 -- * This needs to match the semantics of 'eval' precisely.
 reduce :: Eq a => Boolean a -> Boolean a
 reduce = \case
-  BNot (BNot p) -> p
-  BNot BTrue    -> BFalse
-  BNot BFalse   -> BTrue
-  --
-  BAnd BTrue q -> q
-  BAnd p BTrue -> p
-  BAnd p q | p == BFalse || q == BFalse -> BFalse
-  --
-  BOr BFalse q -> q
-  BOr p BFalse -> p
-  BOr p q | p == BTrue || q == BTrue -> BTrue
-  --
-  p -> p
+    BNot (BNot p) -> p
+    BNot BTrue    -> BFalse
+    BNot BFalse   -> BTrue
+    --
+    BAnd BTrue q -> q
+    BAnd p BTrue -> p
+    BAnd p q | p == BFalse || q == BFalse -> BFalse
+    --
+    BOr BFalse q -> q
+    BOr p BFalse -> p
+    BOr p q | p == BTrue || q == BTrue -> BTrue
+    --
+    p -> p
 
 -- | Evaluate a 'Boolean'
 --
@@ -262,23 +270,23 @@ matchDecl declName availability = \case
 -------------------------------------------------------------------------------}
 
 -- | Perl-compatible regular expression
-data Regex = Regex {
-      regexString   :: String
-    , regexCompiled :: PCRE.Regex
+data Regex = Regex{
+      string   :: String
+    , compiled :: PCRE.Regex
     }
 
 instance Eq Regex where
-  x == y = regexString x == regexString y
+  (==) = (==) `on` (.string)
 
 -- | Validity of the 'Show' instance depends on the 'IsString' instance
 instance Show Regex where
-  show = show . regexString
+  show regex = show regex.string
 
 instance IsString Regex where
-  fromString regexString = Regex{regexString, regexCompiled}
-    where
-      regexCompiled :: PCRE.Regex
-      regexCompiled = PCRE.makeRegex regexString
+  fromString string = Regex{
+        string   = string
+      , compiled = PCRE.makeRegex string
+      }
 
 matchTest :: Regex -> Text -> Bool
-matchTest = PCRE.matchTest . regexCompiled
+matchTest regex = PCRE.matchTest regex.compiled
