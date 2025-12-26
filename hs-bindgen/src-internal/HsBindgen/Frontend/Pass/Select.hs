@@ -28,7 +28,6 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
@@ -372,7 +371,7 @@ getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
           , msg = SelectParseFailure x
           }
         UnusableConflict x -> List.singleton WithLocationInfo{
-            loc = declIdLocationInfo declId (Conflict.getLocs x)
+            loc = declIdLocationInfo declId (Conflict.toList x)
           , msg = SelectConflict
           }
         UnusableFailedMacro x -> List.singleton WithLocationInfo{
@@ -471,8 +470,8 @@ selectDeclIndex declUseGraph p declIndex =
             Just ([loc], C.Available)
           UnusableParseFailure loc _ ->
             Just ([loc], C.Available)
-          UnusableConflict x ->
-            Just (getLocs x, C.Available)
+          UnusableConflict conflict ->
+            Just (Conflict.toList conflict, C.Available)
           UnusableFailedMacro failedMacro ->
             Just ([failedMacro.loc], C.Available)
           UnusableOmitted{} ->
