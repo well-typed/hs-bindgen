@@ -28,7 +28,7 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
@@ -82,7 +82,7 @@ resolveBindingSpecs
       -> MState
       -> C.TranslationUnit ResolveBindingSpecs
     reconstruct decls' useDeclGraph MState{..} =
-      let externalIds :: Set C.DeclId
+      let externalIds :: Set DeclId
           externalIds = Map.keysSet stateExtTypes
 
           index' :: DeclIndex
@@ -147,9 +147,9 @@ data MEnv = MEnv {
 
 data MState = MState {
       stateTraces    :: [Msg ResolveBindingSpecs] -- ^ reverse order
-    , stateExtTypes  :: Map C.DeclId (C.Type ResolveBindingSpecs)
-    , stateNoPTypes  :: Map C.DeclId [Set SourcePath]
-    , stateOmitTypes :: Map C.DeclId SingleLoc
+    , stateExtTypes  :: Map DeclId (C.Type ResolveBindingSpecs)
+    , stateNoPTypes  :: Map DeclId [Set SourcePath]
+    , stateOmitTypes :: Map DeclId SingleLoc
     }
   deriving (Show)
 
@@ -166,12 +166,12 @@ insertTrace msg st = st {
       stateTraces = msg : stateTraces st
     }
 
-insertExtType :: C.DeclId -> C.Type ResolveBindingSpecs -> MState -> MState
+insertExtType :: DeclId -> C.Type ResolveBindingSpecs -> MState -> MState
 insertExtType cDeclId typ st = st {
       stateExtTypes = Map.insert cDeclId typ (stateExtTypes st)
     }
 
-deleteNoPType :: C.DeclId -> SourcePath -> MState -> MState
+deleteNoPType :: DeclId -> SourcePath -> MState -> MState
 deleteNoPType cDeclId path st = st {
       stateNoPTypes = Map.update (aux []) cDeclId (stateNoPTypes st)
     }
@@ -187,7 +187,7 @@ deleteNoPType cDeclId path st = st {
       [] -> Just acc
 
 insertOmittedType ::
-     C.DeclId
+     DeclId
   -> SingleLoc
   -> MState
   -> MState
@@ -247,7 +247,7 @@ resolveTop decl = Reader.ask >>= \MEnv{..} -> do
           return Nothing
         Nothing -> return $ Just (decl, (Nothing, Nothing))
   where
-    cDeclId :: C.DeclId
+    cDeclId :: DeclId
     cDeclId = decl.declInfo.declId
 
 -- Pass two: deep
@@ -272,7 +272,7 @@ resolveDeep decl (declSpecC, declSpecHs) = do
 
 class Resolve a where
   resolve ::
-       C.DeclId -- context declaration
+       DeclId -- context declaration
     -> a HandleMacros
     -> M (a ResolveBindingSpecs)
 
@@ -416,7 +416,7 @@ instance Resolve C.Type where
       C.TypeExtBinding ext -> absurd ext
       C.TypeComplex t      -> return (C.TypeComplex t)
     where
-      aux :: C.DeclId -> M (Maybe (C.Type ResolveBindingSpecs))
+      aux :: DeclId -> M (Maybe (C.Type ResolveBindingSpecs))
       aux cDeclId = Reader.ask >>= \MEnv{..} -> State.get >>= \MState{..} ->
         -- Check for selected external binding
         case Map.lookup cDeclId stateExtTypes of
@@ -448,7 +448,7 @@ instance Resolve C.Type where
 
 -- | Lookup qualified name in the 'ExternalResolvedBindingSpec'
 resolveExtBinding ::
-     C.DeclId
+     DeclId
   -> Set SourcePath
      -- | Message to emit for omitted types.
   -> Maybe ResolveBindingSpecsMsg

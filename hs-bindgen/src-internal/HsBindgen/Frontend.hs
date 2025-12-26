@@ -24,7 +24,7 @@ import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AssignAnonIds
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
@@ -44,7 +44,8 @@ import HsBindgen.Frontend.Pass.Select
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
-import HsBindgen.Frontend.RootHeader
+import HsBindgen.Frontend.RootHeader (RootHeader)
+import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
@@ -231,7 +232,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       (_, _, isMainHeader, isInMainHeaderDir, _) <- parsePass
       pure $ \path ->
         matchParse isMainHeader isInMainHeaderDir path frontendParsePredicate
-        && path /= name
+        && path /= RootHeader.name
 
     -- Graphs.
     frontendIncludeGraph <- cache "frontendIncludeGraph" $ do
@@ -269,12 +270,12 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     pure FrontendArtefact{..}
   where
     getRootHeader :: Cached RootHeader
-    getRootHeader = fromMainFiles <$> bootHashIncludeArgs
+    getRootHeader = RootHeader.fromMainFiles <$> bootHashIncludeArgs
 
     getSetup :: Cached ClangSetup
     getSetup = do
       clangArgs <- bootClangArgs
-      hContent <- content <$> getRootHeader
+      hContent <- RootHeader.content <$> getRootHeader
       let setup = defaultClangSetup clangArgs $ ClangInputMemory hFilePath hContent
       pure $ setup {
           clangFlags = bitfieldEnum [
@@ -285,7 +286,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
         }
 
     hFilePath :: FilePath
-    hFilePath = getSourcePath name
+    hFilePath = getSourcePath RootHeader.name
 
     selectConfig :: SelectConfig
     selectConfig =
@@ -322,8 +323,8 @@ data FrontendArtefact = FrontendArtefact {
   , frontendIndex          :: Cached DeclIndex.DeclIndex
   , frontendUseDeclGraph   :: Cached UseDeclGraph.UseDeclGraph
   , frontendDeclUseGraph   :: Cached DeclUseGraph.DeclUseGraph
-  , frontendOmitTypes      :: Cached [(C.DeclId, SourcePath)]
-  , frontendSquashedTypes  :: Cached [(C.DeclId, (SourcePath, Hs.Identifier))]
+  , frontendOmitTypes      :: Cached [(DeclId, SourcePath)]
+  , frontendSquashedTypes  :: Cached [(DeclId, (SourcePath, Hs.Identifier))]
   , frontendCDecls         :: Cached [C.Decl Final]
   , frontendDependencies   :: Cached [SourcePath]
   }

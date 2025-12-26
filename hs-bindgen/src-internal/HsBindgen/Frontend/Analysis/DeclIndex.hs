@@ -49,7 +49,7 @@ import Clang.Paths
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
 import HsBindgen.Frontend.Pass.HandleMacros.Error
@@ -156,7 +156,7 @@ data Entry =
 -- The edge from D3 to D2 was removed, since D3 now depends on a Haskell type
 -- R3, which is not part of the use-decl graph.
 newtype DeclIndex = DeclIndex {
-      unDeclIndex :: Map C.DeclId Entry
+      unDeclIndex :: Map DeclId Entry
     }
   deriving stock (Show, Generic)
 
@@ -167,7 +167,7 @@ newtype DeclIndex = DeclIndex {
 empty :: DeclIndex
 empty = DeclIndex Map.empty
 
-filter :: (C.DeclId -> Entry -> Bool) -> DeclIndex -> DeclIndex
+filter :: (DeclId -> Entry -> Bool) -> DeclIndex -> DeclIndex
 filter p (DeclIndex entries) = DeclIndex (Map.filterWithKey p entries)
 
 fromParseResults :: [ParseResult AssignAnonIds] -> DeclIndex
@@ -275,14 +275,14 @@ fromParseResults results = flip execState empty $ mapM_ aux results
 -------------------------------------------------------------------------------}
 
 -- | Lookup parse success.
-lookup :: C.DeclId -> DeclIndex -> Maybe (C.Decl AssignAnonIds)
+lookup :: DeclId -> DeclIndex -> Maybe (C.Decl AssignAnonIds)
 lookup declId (DeclIndex i) = case Map.lookup declId i of
   Nothing                          -> Nothing
   Just (UsableE (UsableSuccess x)) -> Just $ x.decl
   _                                -> Nothing
 
 -- | Unsafe! Get parse success.
-(!) :: HasCallStack => DeclIndex -> C.DeclId -> C.Decl AssignAnonIds
+(!) :: HasCallStack => DeclIndex -> DeclId -> C.Decl AssignAnonIds
 (!) declIndex declId =
     fromMaybe (panicPure $ "Unknown key: " ++ show declId) $
        lookup declId declIndex
@@ -300,15 +300,15 @@ getDecls = mapMaybe toDecl . Map.elems . unDeclIndex
 -------------------------------------------------------------------------------}
 
 -- | Lookup an entry of a declaration index.
-lookupEntry :: C.DeclId -> DeclIndex -> Maybe Entry
+lookupEntry :: DeclId -> DeclIndex -> Maybe Entry
 lookupEntry x = Map.lookup x . unDeclIndex
 
 -- | Get all entries of a declaration index.
-toList :: DeclIndex -> [(C.DeclId, Entry)]
+toList :: DeclIndex -> [(DeclId, Entry)]
 toList = Map.toList . unDeclIndex
 
 -- | Get the source locations of a declaration.
-lookupLoc :: C.DeclId -> DeclIndex -> [SingleLoc]
+lookupLoc :: DeclId -> DeclIndex -> [SingleLoc]
 lookupLoc d (DeclIndex i) = case Map.lookup d i of
   Nothing                -> []
   Just (UnusableE e)     -> unusableToLoc e
@@ -318,7 +318,7 @@ lookupLoc d (DeclIndex i) = case Map.lookup d i of
     UsableSquashed loc _ -> [loc]
 
 -- | Get the source locations of an unusable declaration.
-lookupUnusableLoc :: C.DeclId -> DeclIndex -> [SingleLoc]
+lookupUnusableLoc :: DeclId -> DeclIndex -> [SingleLoc]
 lookupUnusableLoc d (DeclIndex i) = case Map.lookup d i of
   Nothing            -> []
   Just (UnusableE e) -> unusableToLoc e
@@ -333,11 +333,11 @@ unusableToLoc = \case
     UnusableOmitted loc                   -> [loc]
 
 -- | Get the identifiers of all declarations in the index.
-keysSet :: DeclIndex -> Set C.DeclId
+keysSet :: DeclIndex -> Set DeclId
 keysSet = Map.keysSet . unDeclIndex
 
 -- | Get omitted entries.
-getOmitted :: DeclIndex -> Map C.DeclId SourcePath
+getOmitted :: DeclIndex -> Map DeclId SourcePath
 getOmitted = Map.mapMaybe toOmitted . unDeclIndex
   where
     toOmitted :: Entry -> Maybe SourcePath
@@ -348,7 +348,7 @@ getOmitted = Map.mapMaybe toOmitted . unDeclIndex
         _otherEntry          -> Nothing
 
 -- | Get squashed entries.
-getSquashed :: DeclIndex -> Map C.DeclId (SourcePath, Hs.Identifier)
+getSquashed :: DeclIndex -> Map DeclId (SourcePath, Hs.Identifier)
 getSquashed = Map.mapMaybe toSquashed . unDeclIndex
   where
     toSquashed :: Entry -> Maybe (SourcePath, Hs.Identifier)
@@ -359,7 +359,7 @@ getSquashed = Map.mapMaybe toSquashed . unDeclIndex
       UnusableE{} -> Nothing
 
 -- | Restrict the declaration index to unusable declarations in a given set.
-getUnusables :: DeclIndex -> Set C.DeclId -> Map C.DeclId Unusable
+getUnusables :: DeclIndex -> Set DeclId -> Map DeclId Unusable
 getUnusables (DeclIndex i) xs =
     Map.mapMaybe retainUnusable $ Map.restrictKeys i xs
   where
@@ -386,19 +386,19 @@ registerMacroFailures xs index = Foldable.foldl' insert index xs
   Support for binding specifications
 -------------------------------------------------------------------------------}
 
-registerOmittedDeclarations :: Map C.DeclId SingleLoc -> DeclIndex -> DeclIndex
+registerOmittedDeclarations :: Map DeclId SingleLoc -> DeclIndex -> DeclIndex
 registerOmittedDeclarations xs =
       DeclIndex . Map.union (UnusableE . UnusableOmitted <$> xs) . unDeclIndex
 
-registerExternalDeclarations :: Set C.DeclId -> DeclIndex -> DeclIndex
+registerExternalDeclarations :: Set DeclId -> DeclIndex -> DeclIndex
 registerExternalDeclarations xs index = Foldable.foldl' insert index xs
   where
-    insert :: DeclIndex -> C.DeclId -> DeclIndex
+    insert :: DeclIndex -> DeclId -> DeclIndex
     insert (DeclIndex i) x =
       DeclIndex $ Map.insert x (UsableE UsableExternal) i
 
 registerSquashedDeclarations ::
-     Map C.DeclId (SingleLoc, Hs.Identifier)
+     Map DeclId (SingleLoc, Hs.Identifier)
   -> DeclIndex
   -> DeclIndex
 registerSquashedDeclarations xs =

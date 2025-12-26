@@ -15,7 +15,7 @@ import Clang.HighLevel.Types
 
 import HsBindgen.Frontend.LanguageC.Error qualified as LanC
 import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
@@ -26,7 +26,7 @@ import HsBindgen.Util.Tracer
 
 -- | Macro parse messages; see also 'HandleMacrosReparseMsg'
 data FailedMacro = FailedMacro {
-    name       :: C.DeclId
+    name       :: DeclId
   , loc        :: SingleLoc
   , macroError :: HandleMacrosError
   }

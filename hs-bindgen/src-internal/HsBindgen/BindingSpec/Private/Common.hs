@@ -42,7 +42,7 @@ import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.BindingSpec.Private.Version
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -63,7 +63,7 @@ data BindingSpecReadMsg =
   | BindingSpecReadIncompatibleTarget FilePath
   | BindingSpecReadAnyTargetNotEnforced FilePath
   | BindingSpecReadInvalidCName FilePath Text
-  | BindingSpecReadCTypeConflict FilePath C.DeclId HashIncludeArg
+  | BindingSpecReadCTypeConflict FilePath DeclId HashIncludeArg
   | BindingSpecReadHsIdentifierNoRef FilePath Hs.Identifier
   | BindingSpecReadHsTypeConflict FilePath Hs.Identifier
   | BindingSpecReadHashIncludeArg FilePath HashIncludeArgMsg
@@ -175,7 +175,7 @@ instance PrettyForTrace BindingSpecReadMsg where
 data BindingSpecResolveMsg =
     BindingSpecResolveExternalHeader     ResolveHeaderMsg
   | BindingSpecResolvePrescriptiveHeader ResolveHeaderMsg
-  | BindingSpecResolveTypeDropped        C.DeclId
+  | BindingSpecResolveTypeDropped        DeclId
   deriving stock (Show)
 
 instance IsTrace Level BindingSpecResolveMsg where
@@ -219,7 +219,7 @@ instance PrettyForTrace BindingSpecResolveMsg where
 
 -- | Merge binding specification trace messages
 newtype BindingSpecMergeMsg =
-    BindingSpecMergeConflict C.DeclId
+    BindingSpecMergeConflict DeclId
   deriving stock (Show)
 
 instance IsTrace Level BindingSpecMergeMsg where

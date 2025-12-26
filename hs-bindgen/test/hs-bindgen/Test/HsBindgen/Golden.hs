@@ -28,7 +28,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass

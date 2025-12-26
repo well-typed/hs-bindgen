@@ -45,7 +45,7 @@ import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
@@ -146,7 +146,7 @@ isDefinedInCurrentModule :: DeclIndex -> C.Type Final -> Bool
 isDefinedInCurrentModule declIndex =
     any (isInDeclIndex . snd) . C.depsOfType
   where
-    isInDeclIndex :: C.DeclIdPair -> Bool
+    isInDeclIndex :: DeclIdPair -> Bool
     isInDeclIndex declId = isJust $ DeclIndex.lookup declId.cName declIndex
 
 {-------------------------------------------------------------------------------
@@ -1031,7 +1031,7 @@ typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
         , declHeaderInfo   = origInfo.declHeaderInfo
         , declComment      = Just auxComment
         , declAvailability = C.Available
-        , declId           = C.DeclIdPair{
+        , declId           = DeclIdPair{
               -- Still refer to the /original/ C decl...?
               cName  = origInfo.declId.cName
             , hsName = auxHsName

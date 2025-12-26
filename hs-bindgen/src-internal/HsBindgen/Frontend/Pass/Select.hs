@@ -26,7 +26,7 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
@@ -77,7 +77,7 @@ data TransitiveSelectability =
     -- unavailability.
     --
     -- We should use a "non-empty" map here.
-  | TransitivelyUnselectable (Map C.DeclId Unselectable)
+  | TransitivelyUnselectable (Map DeclId Unselectable)
   deriving stock (Show)
 
 {-------------------------------------------------------------------------------
@@ -103,47 +103,47 @@ selectDecls
         -- Identifiers of selection roots. Some of them may be unavailable
         -- (i.e., not in the 'succeeded' map, and hence, not in the list of
         -- declarations attached to the translation unit).
-        rootIds :: Set C.DeclId
+        rootIds :: Set DeclId
         rootIds = DeclIndex.keysSet selectedIndex
 
         -- Identifiers of transitive dependencies including selection roots.
-        rootAndTransIds :: Set C.DeclId
+        rootAndTransIds :: Set DeclId
         rootAndTransIds =
           UseDeclGraph.getTransitiveDeps useDeclGraph $
             Set.toList rootIds
 
         -- Identifiers of transitive dependencies excluding selection roots.
-        strictTransIds :: Set C.DeclId
+        strictTransIds :: Set DeclId
         strictTransIds = rootAndTransIds \\ rootIds
 
         -- Identifiers of all selected declarations.
-        selectedIds :: Set C.DeclId
+        selectedIds :: Set DeclId
         -- Identifiers of (additional) transitive dependencies selected due to
         -- program slicing. This is the only point where we differentiate
         -- between selection with or without program slicing.
-        additionalSelectedTransIds :: Set C.DeclId
+        additionalSelectedTransIds :: Set DeclId
         (selectedIds, additionalSelectedTransIds) = case selectConfigProgramSlicing of
           DisableProgramSlicing -> (rootIds        , Set.empty)
           EnableProgramSlicing  -> (rootAndTransIds, strictTransIds)
 
-        getTransitiveSelectability :: C.DeclId -> TransitiveSelectability
+        getTransitiveSelectability :: DeclId -> TransitiveSelectability
         getTransitiveSelectability x
           | Map.null unusabilityReasons = TransitivelySelectable
           | otherwise                   = TransitivelyUnselectable unusabilityReasons
           where
-            transDeps :: Set C.DeclId
+            transDeps :: Set DeclId
             transDeps = UseDeclGraph.getStrictTransitiveDeps useDeclGraph [x]
 
-            unusables :: Map C.DeclId Unselectable
+            unusables :: Map DeclId Unselectable
             unusables =
               UnselectableBecauseUnusable <$> DeclIndex.getUnusables index transDeps
 
-            nonselected :: Map C.DeclId Unselectable
+            nonselected :: Map DeclId Unselectable
             nonselected  =
               Map.fromSet (const TransitiveDependencyNotSelected) $
                 transDeps \\ selectedIds
 
-            unusabilityReasons :: Map C.DeclId Unselectable
+            unusabilityReasons :: Map DeclId Unselectable
             unusabilityReasons =
               Map.unionWith
                 getMostNaturalUnselectable
@@ -243,13 +243,13 @@ selectDecls
 -------------------------------------------------------------------------------}
 
 selectDeclWith ::
-    (C.DeclId -> TransitiveSelectability)
+    (DeclId -> TransitiveSelectability)
   -> DeclIndex
   -- | Selection roots.
-  -> Set C.DeclId
+  -> Set DeclId
   -- | Additionally selected transitive dependencies (non-empty when program
   --   slicing is enabled).
-  -> Set C.DeclId
+  -> Set DeclId
   -> Decl
   -> (Maybe Decl, [Msg Select])
 selectDeclWith
@@ -285,7 +285,7 @@ selectDeclWith
           "Declaration is selection root and transitive dependency: "
           ++ show decl.declInfo
   where
-    declId :: C.DeclId
+    declId :: DeclId
     declId = decl.declInfo.declId
 
     -- We check three conditions:
@@ -310,7 +310,7 @@ selectDeclWith
           ]
         ]
 
-    getUnavailMsgs :: SelectReason -> Map C.DeclId Unselectable -> [Msg Select]
+    getUnavailMsgs :: SelectReason -> Map DeclId Unselectable -> [Msg Select]
     getUnavailMsgs selectReason unavailReason =
       [ WithLocationInfo{
             loc = declLocationInfo decl
@@ -347,7 +347,7 @@ declLocationInfo decl =
 getDelayedMsgs :: DeclIndex -> [Msg Select]
 getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
   where
-    getSelectMsg :: C.DeclId -> Entry -> [Msg Select]
+    getSelectMsg :: DeclId -> Entry -> [Msg Select]
     getSelectMsg declId = \case
       UsableE e -> case e of
         UsableSuccess success ->
@@ -434,7 +434,7 @@ selectDeclIndex :: DeclUseGraph -> Match -> DeclIndex -> DeclIndex
 selectDeclIndex declUseGraph p declIndex =
     DeclIndex.filter matchEntry declIndex
   where
-    matchEntry :: C.DeclId -> Entry -> Bool
+    matchEntry :: DeclId -> Entry -> Bool
     matchEntry declId entry =
         case entryInfo entry of
           Nothing ->
@@ -446,7 +446,7 @@ selectDeclIndex declUseGraph p declIndex =
               then matchAnon declId
               else or [p declId.name loc availability| loc <- locs]
 
-    matchDeclId :: C.DeclId -> Bool
+    matchDeclId :: DeclId -> Bool
     matchDeclId declId =
         case DeclIndex.lookupEntry declId declIndex of
           Just entry -> matchEntry declId entry
@@ -504,7 +504,7 @@ selectDeclIndex declUseGraph p declIndex =
     -- select the inner but not the outer, but it seems a pretty rare use case,
     -- and not a big deal if the outer struct will "come along" even if only the
     -- inner struct is needed.
-    matchAnon :: C.DeclId -> Bool
+    matchAnon :: DeclId -> Bool
     matchAnon anon =
        case DeclUseGraph.getUseSites declUseGraph anon of
          (declId, _) :_ ->
