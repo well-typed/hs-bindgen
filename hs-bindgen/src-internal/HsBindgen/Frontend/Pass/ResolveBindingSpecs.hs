@@ -217,7 +217,7 @@ resolveTop ::
            )
        )
 resolveTop decl = Reader.ask >>= \MEnv{..} -> do
-    let sourcePath = singleLocPath $ C.declLoc (C.declInfo decl)
+    let sourcePath = singleLocPath $ C.declLoc (C.info decl)
         declPaths  = IncludeGraph.reaches envIncludeGraph sourcePath
         mMsg       = Just $ ResolveBindingSpecsOmittedType cDeclId
     isExt <- isJust <$> resolveExtBinding cDeclId declPaths mMsg
@@ -238,12 +238,12 @@ resolveTop decl = Reader.ask >>= \MEnv{..} -> do
           State.modify' $
               insertTrace (ResolveBindingSpecsPrescriptiveOmit cDeclId)
             . deleteNoPType cDeclId sourcePath
-            . insertOmittedType cDeclId decl.declInfo.declLoc
+            . insertOmittedType cDeclId decl.info.declLoc
           return Nothing
         Nothing -> return $ Just (decl, (Nothing, Nothing))
   where
     cDeclId :: DeclId
-    cDeclId = decl.declInfo.declId
+    cDeclId = decl.info.declId
 
 -- Pass two: deep
 --
@@ -254,11 +254,11 @@ resolveDeep ::
   -> (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
   -> M (C.Decl ResolveBindingSpecs)
 resolveDeep decl (cSpec, hsSpec) = do
-    declKind' <- resolve decl.declInfo.declId decl.declKind
+    declKind' <- resolve decl.info.declId decl.kind
     return C.Decl {
-        declInfo = coercePass decl.declInfo
-      , declKind = declKind'
-      , declAnn  = PrescriptiveDeclSpec{cSpec, hsSpec}
+        info = coercePass decl.info
+      , kind = declKind'
+      , ann  = PrescriptiveDeclSpec{cSpec, hsSpec}
       }
 
 {-------------------------------------------------------------------------------

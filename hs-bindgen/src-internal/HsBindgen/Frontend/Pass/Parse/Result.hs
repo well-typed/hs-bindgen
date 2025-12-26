@@ -130,8 +130,8 @@ parseSucceed = parseSucceedWith []
 
 parseSucceedWith :: [DelayedParseMsg] -> C.Decl p -> ParseResult p
 parseSucceedWith delayedParseMsgs decl = ParseResult{
-     declId         = decl.declInfo.declId
-   , declLoc        = decl.declInfo.declLoc
+     declId         = decl.info.declId
+   , declLoc        = decl.info.declLoc
    , classification = ParseResultSuccess ParseSuccess{
          decl
        , delayedParseMsgs

@@ -278,10 +278,10 @@ selectDeclWith
       (True, True, _) ->
         panicPure $
           "Declaration is selection root and transitive dependency: "
-          ++ show decl.declInfo
+          ++ show decl.info
   where
     declId :: DeclId
-    declId = decl.declInfo.declId
+    declId = decl.info.declId
 
     -- We check three conditions:
     isSelectedRoot = Set.member declId rootIds
@@ -301,7 +301,7 @@ selectDeclWith
                 loc = declLocationInfo decl
               , msg = SelectDeprecated
               }
-          | isDeprecated decl.declInfo
+          | isDeprecated decl.info
           ]
         ]
 
@@ -337,7 +337,7 @@ selectDeclWith
 
 declLocationInfo :: Decl -> LocationInfo
 declLocationInfo decl =
-    declIdLocationInfo decl.declInfo.declId [decl.declInfo.declLoc]
+    declIdLocationInfo decl.info.declId [decl.info.declLoc]
 
 getDelayedMsgs :: DeclIndex -> [Msg Select]
 getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
@@ -347,7 +347,7 @@ getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
       UsableE e -> case e of
         UsableSuccess success ->
           [ WithLocationInfo{
-                loc = declIdLocationInfo declId [success.decl.declInfo.declLoc]
+                loc = declIdLocationInfo declId [success.decl.info.declLoc]
               , msg = SelectParseSuccess x
               }
           | x <- success.delayedParseMsgs
@@ -455,7 +455,7 @@ selectDeclIndex declUseGraph p declIndex =
     entryInfo = \case
         UsableE e -> case e of
           UsableSuccess success ->
-            let info = success.decl.declInfo
+            let info = success.decl.info
             in Just ([info.declLoc], info.declAvailability)
           UsableExternal ->
             Nothing

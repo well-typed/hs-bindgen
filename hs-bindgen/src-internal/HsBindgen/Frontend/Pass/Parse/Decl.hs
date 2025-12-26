@@ -205,9 +205,9 @@ macroDefinition info = \curr -> do
       Nothing -> do
         let mkDecl :: UnparsedMacro -> C.Decl Parse
             mkDecl body = C.Decl{
-                declInfo = info
-              , declKind = C.DeclMacro body
-              , declAnn  = NoAnn
+                info = info
+              , kind = C.DeclMacro body
+              , ann  = NoAnn
               }
         decl <- mkDecl <$> getUnparsedMacro curr
         foldContinueWith [parseSucceed decl]
@@ -230,15 +230,15 @@ structDecl info = \curr -> do
 
         let mkStruct :: [C.StructField Parse] -> C.Decl Parse
             mkStruct allFields = C.Decl {
-                  declInfo = info
-                , declKind = C.DeclStruct C.Struct{
-                      structSizeof    = fromIntegral sizeof
-                    , structAlignment = fromIntegral alignment
-                    , structFields    = regularFields
-                    , structFlam      = mFlam
-                    , structAnn       = NoAnn
-                    }
-                , declAnn  = NoAnn
+                  info = info
+                , ann  = NoAnn
+                , kind = C.DeclStruct C.Struct{
+                             structSizeof    = fromIntegral sizeof
+                           , structAlignment = fromIntegral alignment
+                           , structFields    = regularFields
+                           , structFlam      = mFlam
+                           , structAnn       = NoAnn
+                           }
                 }
               where
                 (regularFields, mFlam) = partitionFields allFields
@@ -275,9 +275,9 @@ structDecl info = \curr -> do
       DefinitionUnavailable ->
         let decl :: C.Decl Parse
             decl = C.Decl{
-                declInfo = info
-              , declKind = C.DeclOpaque
-              , declAnn  = NoAnn
+                info = info
+              , kind = C.DeclOpaque
+              , ann  = NoAnn
               }
         in  foldContinueWith [parseSucceed decl]
       DefinitionElsewhere _ ->
@@ -312,14 +312,14 @@ unionDecl info = \curr -> do
 
         let mkUnion :: [C.UnionField Parse] -> C.Decl Parse
             mkUnion fields = C.Decl{
-                  declInfo = info
-                , declKind = C.DeclUnion C.Union{
-                      unionSizeof    = fromIntegral sizeof
-                    , unionAlignment = fromIntegral alignment
-                    , unionFields    = fields
-                    , unionAnn       = NoAnn
-                    }
-                , declAnn  = NoAnn
+                  info = info
+                , ann  = NoAnn
+                , kind = C.DeclUnion C.Union{
+                             unionSizeof    = fromIntegral sizeof
+                           , unionAlignment = fromIntegral alignment
+                           , unionFields    = fields
+                           , unionAnn       = NoAnn
+                           }
                 }
 
         -- Separate out nested declarations from regular struct fields
@@ -354,9 +354,9 @@ unionDecl info = \curr -> do
       DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
-                declInfo = info
-              , declKind = C.DeclOpaque
-              , declAnn  = NoAnn
+                info = info
+              , kind = C.DeclOpaque
+              , ann  = NoAnn
               }
         foldContinueWith [parseSucceed decl]
       DefinitionElsewhere _ ->
@@ -449,9 +449,9 @@ typedefDecl info = \curr -> do
 
     let decl :: C.Decl Parse
         decl = C.Decl{
-            declInfo = info
-          , declKind = declKind
-          , declAnn  = NoAnn
+            info = info
+          , kind = declKind
+          , ann  = NoAnn
           }
     foldContinueWith [parseSucceed decl]
 
@@ -479,24 +479,24 @@ enumDecl info = \curr -> do
 
         let mkEnum :: [C.EnumConstant Parse] -> C.Decl Parse
             mkEnum constants = C.Decl{
-                declInfo = info
-              , declKind = C.DeclEnum C.Enum{
-                    enumType      = ety
-                  , enumSizeof    = fromIntegral sizeof
-                  , enumAlignment = fromIntegral alignment
-                  , enumConstants = constants
-                  , enumAnn       = NoAnn
-                  }
-              , declAnn  = NoAnn
+                info = info
+              , ann  = NoAnn
+              , kind = C.DeclEnum C.Enum{
+                           enumType      = ety
+                         , enumSizeof    = fromIntegral sizeof
+                         , enumAlignment = fromIntegral alignment
+                         , enumConstants = constants
+                         , enumAnn       = NoAnn
+                         }
               }
 
         foldRecursePure parseConstant ((:[]) . parseSucceed . mkEnum)
       DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
-                declInfo = info
-              , declKind = C.DeclOpaque
-              , declAnn  = NoAnn
+                info = info
+              , kind = C.DeclOpaque
+              , ann  = NoAnn
               }
         foldContinueWith [parseSucceed decl]
       DefinitionElsewhere _ ->
@@ -535,14 +535,14 @@ functionDecl info = \curr -> do
         functionAnn <- getReparseInfo curr
         let mkDecl :: C.FunctionPurity -> C.Decl Parse
             mkDecl purity = C.Decl{
-                declInfo = info
-              , declKind = C.DeclFunction C.Function {
-                    functionArgs
-                  , functionRes
-                  , functionAttrs = C.FunctionAttributes purity
-                  , functionAnn
-                  }
-              , declAnn  = NoAnn
+                info = info
+              , ann  = NoAnn
+              , kind = C.DeclFunction C.Function {
+                           functionArgs
+                         , functionRes
+                         , functionAttrs = C.FunctionAttributes purity
+                         , functionAnn
+                         }
               }
 
         case declCls of
@@ -665,9 +665,9 @@ varDecl info = \curr -> do
     cls        <- classifyVarDecl curr
     let mkDecl :: C.DeclKind Parse -> C.Decl Parse
         mkDecl kind = C.Decl{
-            declInfo = info
-          , declKind = kind
-          , declAnn  = NoAnn
+            info = info
+          , kind = kind
+          , ann  = NoAnn
           }
 
     -- TODO: https://github.com/well-typed/hs-bindgen/issues/831
@@ -796,7 +796,7 @@ parseCommentReferences comment = C.Comment (fmap auxRefs comment)
 -- declaration /contains/ anonymous declarations, that's perfectly fine.
 partitionAnonDecls :: [C.Decl Parse] -> ([C.Decl Parse], [C.Decl Parse])
 partitionAnonDecls =
-    List.partition $ \decl -> declIdIsAnon decl.declInfo.declId
+    List.partition $ \decl -> declIdIsAnon decl.info.declId
   where
     declIdIsAnon :: PrelimDeclId -> Bool
     declIdIsAnon PrelimDeclId.Anon{} = True
@@ -852,8 +852,8 @@ detectStructImplicitFields nestedDecls outerFields =
     allFields = map Left outerFields ++ concatMap nestedFields nestedDecls
 
     nestedFields :: C.Decl Parse -> [Either (C.StructField Parse) (C.UnionField Parse)]
-    nestedFields C.Decl{declKind} =
-        case declKind of
+    nestedFields decl =
+        case decl.kind of
           C.DeclStruct struct -> map Left  (C.structFields struct)
           C.DeclUnion union   -> map Right (C.unionFields union)
           _otherwise          -> []
@@ -862,7 +862,7 @@ detectStructImplicitFields nestedDecls outerFields =
     fieldDeps = map snd $ concatMap (C.depsOfType . either C.structFieldType C.unionFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = decl.declInfo.declId `elem` fieldDeps
+    declIsUsed decl = decl.info.declId `elem` fieldDeps
 
 -- | Detect implicit fields inside a union
 --
@@ -883,8 +883,8 @@ detectUnionImplicitFields nestedDecls outerFields =
     allFields = map Right outerFields ++ concatMap nestedFields nestedDecls
 
     nestedFields :: C.Decl Parse -> [Either (C.StructField Parse) (C.UnionField Parse)]
-    nestedFields C.Decl{declKind} =
-        case declKind of
+    nestedFields decl =
+        case decl.kind of
           C.DeclStruct struct -> map Left  (C.structFields struct)
           C.DeclUnion union   -> map Right (C.unionFields union)
           _otherwise          -> []
@@ -893,7 +893,7 @@ detectUnionImplicitFields nestedDecls outerFields =
     fieldDeps = map snd $ concatMap (C.depsOfType . either C.structFieldType C.unionFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = decl.declInfo.declId `elem` fieldDeps
+    declIsUsed decl = decl.info.declId `elem` fieldDeps
 
 data VarClassification =
     -- | The simplest case: a simple global variable

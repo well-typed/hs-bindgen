@@ -86,9 +86,9 @@ data TranslationUnit p = TranslationUnit{
     deriving (Generic)
 
 data Decl p = Decl {
-      declInfo :: DeclInfo p
-    , declKind :: DeclKind p
-    , declAnn  :: Ann "Decl" p
+      info :: DeclInfo p
+    , kind :: DeclKind p
+    , ann  :: Ann "Decl" p
     }
 
 -- | Availability of declarations.

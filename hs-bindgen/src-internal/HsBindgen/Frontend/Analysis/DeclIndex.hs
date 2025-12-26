@@ -212,11 +212,11 @@ fromParseResults results = flip execState empty $ mapM_ aux results
               -- Redeclaration but with the same definition. This can happen, for
               -- example for opaque structs. We stick with the first declaration.
               | sameDefinition
-                    oldParseSuccess.decl.declKind
-                    newParseSuccess.decl.declKind ->
+                    oldParseSuccess.decl.kind
+                    newParseSuccess.decl.kind ->
                   old
               | otherwise ->
-                  newConflict oldParseSuccess.decl.declInfo.declLoc
+                  newConflict oldParseSuccess.decl.info.declLoc
             ParseResultNotAttempted _ -> old
             ParseResultFailure _      -> parseResultToEntry new
           UsableExternal ->
@@ -314,7 +314,7 @@ lookupLoc d (DeclIndex i) = case Map.lookup d i of
   Nothing                -> []
   Just (UnusableE e)     -> unusableToLoc e
   Just (UsableE e)       -> case e of
-    UsableSuccess x      -> [x.decl.declInfo.declLoc]
+    UsableSuccess x      -> [x.decl.info.declLoc]
     UsableExternal       -> []
     UsableSquashed loc _ -> [loc]
 

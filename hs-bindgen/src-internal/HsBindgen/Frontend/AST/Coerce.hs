@@ -71,10 +71,10 @@ instance (
     , CoercePass C.DeclKind p p'
     , Ann "Decl" p ~ Ann "Decl" p'
     ) => CoercePass C.Decl p p' where
-  coercePass C.Decl{..} = C.Decl{
-        declInfo = coercePass declInfo
-      , declKind = coercePass declKind
-      , declAnn
+  coercePass decl = C.Decl{
+        info = coercePass decl.info
+      , kind = coercePass decl.kind
+      , ann  = decl.ann
       }
 
 instance (

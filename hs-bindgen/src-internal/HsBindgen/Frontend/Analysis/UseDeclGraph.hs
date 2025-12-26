@@ -94,15 +94,15 @@ fromSortedDecls decls = UseDeclGraph{
          Decl
       -> DynGraph ValOrRef DeclId
       -> DynGraph ValOrRef DeclId
-    addVertex d g = DynGraph.insertVertex d.declInfo.declId g
-    addEdges  d g = foldl' (flip (addEdge d)) g (Deps.depsOfDecl $ C.declKind d)
+    addVertex d g = DynGraph.insertVertex d.info.declId g
+    addEdges  d g = foldl' (flip (addEdge d)) g (Deps.depsOfDecl d.kind)
 
     addEdge ::
          Decl
       -> (ValOrRef, DeclId)
       -> DynGraph ValOrRef DeclId
       -> DynGraph ValOrRef DeclId
-    addEdge d (l, d') = DynGraph.insertEdge d.declInfo.declId l d'
+    addEdge d (l, d') = DynGraph.insertEdge d.info.declId l d'
 
 {-------------------------------------------------------------------------------
   Query
@@ -162,11 +162,11 @@ data SortKey = SortKey{
 annSortKey :: Map SourcePath Int -> C.Decl p -> SortKey
 annSortKey sourceMap decl = SortKey{
       sortPathIx = sortPathIx
-    , sortLineNo = singleLocLine   decl.declInfo.declLoc
-    , sortColNo  = singleLocColumn decl.declInfo.declLoc
+    , sortLineNo = singleLocLine   decl.info.declLoc
+    , sortColNo  = singleLocColumn decl.info.declLoc
     }
   where
-    key        = singleLocPath decl.declInfo.declLoc
+    key        = singleLocPath decl.info.declLoc
     sortPathIx = fromMaybe
       (panicPure $ "Source of declaration " <> show key <> " not in source map")
       (Map.lookup key sourceMap)
