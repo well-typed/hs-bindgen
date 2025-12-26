@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+{-# LANGUAGE OverloadedLabels  #-}
+
 module HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (
     ResolveBindingSpecs
   , PrescriptiveDeclSpec(..)
@@ -46,7 +50,7 @@ instance IsPass ResolveBindingSpecs where
   type Ann ix     ResolveBindingSpecs = AnnResolveBindingSpecs ix
   type Msg        ResolveBindingSpecs = ResolveBindingSpecsMsg
 
-  extBindingId _ = (.extCDeclId)
+  extBindingId _ = (.cName)
 
 -- | Prescriptive binding specification for declaration
 --
@@ -60,30 +64,30 @@ instance IsPass ResolveBindingSpecs where
 -- 'Decl' but instead with specific 'DeclKind's. When we change this, this will
 -- have consequences for "HsBindgen.Language.Haskell.Origin" also.
 data PrescriptiveDeclSpec = PrescriptiveDeclSpec {
-      declSpecC  :: Maybe BindingSpec.CTypeSpec
-    , declSpecHs :: Maybe BindingSpec.HsTypeSpec
+      cSpec  :: Maybe BindingSpec.CTypeSpec
+    , hsSpec :: Maybe BindingSpec.HsTypeSpec
     }
   deriving stock (Show, Eq, Generic)
 
 data ResolvedExtBinding = ResolvedExtBinding{
       -- | C declaration for which we are using this binding
-      extCDeclId :: DeclId
+      cName :: DeclId
 
       -- | The Haskell type which will be used
-    , extHsRef :: Hs.ExtRef
+    , hsName :: Hs.ExtRef
 
       -- | Additional information about the C type
-    , extCSpec :: BindingSpec.CTypeSpec
+    , cSpec :: BindingSpec.CTypeSpec
 
       -- | Additional information about the Haskell type
-    , extHsSpec :: BindingSpec.HsTypeSpec
+    , hsSpec :: BindingSpec.HsTypeSpec
     }
   deriving stock (Show, Eq, Ord, Generic)
 
 extDeclIdPair :: ResolvedExtBinding -> DeclIdPair
 extDeclIdPair ext = DeclIdPair{
-      cName  = ext.extCDeclId
-    , hsName = ext.extHsRef.extRefIdentifier
+      cName  = ext.cName
+    , hsName = ext.hsName.extRefIdentifier
     }
 
 {-------------------------------------------------------------------------------

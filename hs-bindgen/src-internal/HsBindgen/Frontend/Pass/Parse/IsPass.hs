@@ -1,9 +1,12 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+{-# LANGUAGE OverloadedLabels  #-}
+
 module HsBindgen.Frontend.Pass.Parse.IsPass (
     Parse
     -- * Macros
   , UnparsedMacro(..)
   , ReparseInfo(..)
-  , getUnparsedMacro
     -- * Trace messages
   , RequiredForScoping(..)
   , ImmediateParseMsg(..)
@@ -12,7 +15,6 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Simple
-import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
@@ -53,8 +55,8 @@ instance IsPass Parse where
   Macros
 -------------------------------------------------------------------------------}
 
-newtype UnparsedMacro = UnparsedMacro {
-      unparsedTokens :: [Token TokenSpelling]
+data UnparsedMacro = UnparsedMacro {
+      tokens :: [Token TokenSpelling]
     }
   deriving stock (Show, Eq, Ord)
 
@@ -67,14 +69,6 @@ data ReparseInfo =
     -- | This declaration does not use macros, so no need to reparse
   | ReparseNotNeeded
   deriving stock (Show, Eq, Ord)
-
-getUnparsedMacro ::
-     (MonadIO m, HasCallStack)
-  => CXTranslationUnit -> CXCursor -> m UnparsedMacro
-getUnparsedMacro unit curr = do
-    range  <- HighLevel.clang_getCursorExtent curr
-    tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> range)
-    return $ UnparsedMacro tokens
 
 {-------------------------------------------------------------------------------
   Trace messages

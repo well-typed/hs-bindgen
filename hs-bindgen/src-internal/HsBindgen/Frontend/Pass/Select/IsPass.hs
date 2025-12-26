@@ -47,7 +47,7 @@ instance IsPass Select where
   type Ann ix     Select = AnnSelect ix
   type Msg        Select = WithLocationInfo SelectMsg
 
-  extBindingId _ = (.extCDeclId)
+  extBindingId _ = (.cName)
 
 {-------------------------------------------------------------------------------
   Configuration

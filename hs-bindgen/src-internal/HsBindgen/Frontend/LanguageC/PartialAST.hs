@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Partial AST
 --
 -- The translation from the language-c AST to our AST is a bit awkward, because
@@ -25,8 +28,8 @@ import HsBindgen.Language.C qualified as C
 -------------------------------------------------------------------------------}
 
 data PartialDecl = PartialDecl{
-      partialName :: Maybe CName
-    , partialType :: PartialType
+      name :: Maybe CName
+    , typ  :: PartialType
     }
   deriving stock (Show, Generic)
 
@@ -37,8 +40,8 @@ data PartialType =
 
 -- | The type itself is not yet known, but may have some qualifiers
 data UnknownType = UnknownType{
-      unknownSign  :: Maybe C.PrimSign
-    , unknownConst :: Bool
+      sign    :: Maybe C.PrimSign
+    , isConst :: Bool
     }
   deriving stock (Show, Generic)
 
@@ -67,12 +70,12 @@ type CName = Text
 
 unknownDecl :: PartialDecl
 unknownDecl = PartialDecl{
-      partialName = Nothing
-    , partialType = unknownType
+      name = Nothing
+    , typ  = unknownType
     }
 
 unknownType :: PartialType
 unknownType = PartialUnknown UnknownType{
-      unknownSign  = Nothing
-    , unknownConst = False
+      sign    = Nothing
+    , isConst = False
     }

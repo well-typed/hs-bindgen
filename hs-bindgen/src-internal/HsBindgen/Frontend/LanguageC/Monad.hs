@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Monad we use when translating the language-c AST to our AST
 --
 -- Intended for unqualified import.
@@ -38,9 +41,9 @@ import HsBindgen.Imports
 -- The @p@ parameter indicates a @hs-bindgen@ pass; this will be instantiated
 -- to @HandleMacros@, but we leave it polymorphic here to avoid unnecessary
 -- mutual dependencies.
-newtype FromLanC a = WrapFromLanC {
-      unwrapFromLanC :: ExceptT Error (Reader ReparseEnv) a
-    }
+newtype FromLanC a = WrapFromLanC (
+      ExceptT Error (Reader ReparseEnv) a
+    )
   deriving newtype (
       Functor
     , Applicative
@@ -52,10 +55,9 @@ newtype FromLanC a = WrapFromLanC {
 type ReparseEnv = Map CName (C.Type HandleMacros)
 
 runFromLanC :: ReparseEnv -> FromLanC a -> Either Error a
-runFromLanC typeEnv =
-      flip Reader.runReader typeEnv
-    . Except.runExceptT
-    . unwrapFromLanC
+runFromLanC typeEnv (WrapFromLanC ma) =
+      flip Reader.runReader typeEnv $
+        Except.runExceptT ma
 
 getReparseEnv :: FromLanC ReparseEnv
 getReparseEnv = WrapFromLanC Reader.ask

@@ -1062,8 +1062,8 @@ typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
     -- TODO: Is this right..?
     auxSpec :: PrescriptiveDeclSpec
     auxSpec = PrescriptiveDeclSpec{
-          declSpecC  = Nothing
-        , declSpecHs = Nothing
+          cSpec  = Nothing
+        , hsSpec = Nothing
         }
 
     mainTypedef :: C.Typedef Final

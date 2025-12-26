@@ -87,7 +87,7 @@ updateDeclMeta td nm declMeta = declMeta{
     squashedMap = Map.fromList $ catMaybes [
         (cDeclId,) . (sloc,) <$> Map.lookup wrappedId nm
       | (cDeclId, TypedefAnalysis.Squash sloc wrappedId) <-
-          Map.toList td.analysis
+          Map.toList td.map
       ]
 
 {-------------------------------------------------------------------------------
@@ -112,7 +112,7 @@ chooseNames td fc decls =
     getSpecifiedName :: C.Decl Select -> Maybe (DeclId, Hs.Identifier)
     getSpecifiedName decl =
         (decl.declInfo.declId,)
-          <$> (BindingSpec.cTypeSpecIdentifier =<< decl.declAnn.declSpecC)
+          <$> (BindingSpec.cTypeSpecIdentifier =<< decl.declAnn.cSpec)
 
 nameForDecl ::
      TypedefAnalysis
@@ -134,7 +134,7 @@ nameForDecl td fc specifiedNames decl =
       Nothing ->
         withDeclNamespace decl.declKind $ \ns ->
         second (map $ withDeclLoc decl.declInfo) $
-          case Map.lookup declId td.analysis of
+          case Map.lookup declId td.map of
             Nothing ->
               fromDeclId fc ns declId & \(hsName, msgs) -> (
                   (declId, hsName)
@@ -216,7 +216,7 @@ runM env = second reverse . flip runReader env . flip runStateT [] . unwrapM
 checkTypedefAnalysis :: DeclId -> M (Maybe TypedefAnalysis.Conclusion)
 checkTypedefAnalysis declId = WrapM $ do
     td <- asks envTypedefAnalysis
-    return $ Map.lookup declId td.analysis
+    return $ Map.lookup declId td.map
 
 traceMsg :: Msg MangleNames -> M ()
 traceMsg msg = WrapM $ modify (msg :)

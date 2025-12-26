@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Analyse usage of anonymous declarations
 --
 -- Intended for qualified import.
@@ -26,7 +29,7 @@ import HsBindgen.Imports
 
 -- | How are anonymous data types used?
 data AnonUsageAnalysis = AnonUsageAnalysis{
-      anonUsage :: Map AnonId Context
+      map :: Map AnonId Context
     }
   deriving stock (Show)
 
@@ -71,10 +74,10 @@ data Context =
 -------------------------------------------------------------------------------}
 
 fromDecls :: [C.Decl Parse] -> AnonUsageAnalysis
-fromDecls =
-      AnonUsageAnalysis
-    . Map.fromListWithKey resolveConflicts
-    . concatMap analyseDecl
+fromDecls decls = AnonUsageAnalysis{
+      map = Map.fromListWithKey resolveConflicts $
+             concatMap analyseDecl decls
+    }
 
 -- | Resolve conflicts
 --

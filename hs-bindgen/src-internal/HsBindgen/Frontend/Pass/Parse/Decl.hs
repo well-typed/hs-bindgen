@@ -203,15 +203,21 @@ macroDefinition info = \curr -> do
         -- to special-case them. For now, we just skip all of them.
         foldContinue
       Nothing -> do
-        unit <- getTranslationUnit
         let mkDecl :: UnparsedMacro -> C.Decl Parse
             mkDecl body = C.Decl{
                 declInfo = info
               , declKind = C.DeclMacro body
               , declAnn  = NoAnn
               }
-        decl <- mkDecl <$> getUnparsedMacro unit curr
+        decl <- mkDecl <$> getUnparsedMacro curr
         foldContinueWith [parseSucceed decl]
+  where
+    getUnparsedMacro :: CXCursor -> ParseDecl UnparsedMacro
+    getUnparsedMacro curr = do
+        unit <- getTranslationUnit
+        range  <- HighLevel.clang_getCursorExtent curr
+        tokens <- HighLevel.clang_tokenize unit (multiLocExpansion <$> range)
+        return $ UnparsedMacro tokens
 
 structDecl :: C.DeclInfo Parse -> Parser
 structDecl info = \curr -> do
