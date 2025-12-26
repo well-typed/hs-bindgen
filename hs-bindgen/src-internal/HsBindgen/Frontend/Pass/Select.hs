@@ -98,7 +98,7 @@ selectDecls
     let -- Directly match the select predicate on the 'DeclIndex', obtaining
         -- information about succeeded _and failed_ selection roots.
         selectedIndex :: DeclIndex
-        selectedIndex = selectDeclIndex unitAnn.declDeclUse match index
+        selectedIndex = selectDeclIndex unitAnn.declUseGraph match index
 
         -- Identifiers of selection roots. Some of them may be unavailable
         -- (i.e., not in the 'succeeded' map, and hence, not in the list of
@@ -213,7 +213,7 @@ selectDecls
     index = unitAnn.declIndex
 
     useDeclGraph :: UseDeclGraph
-    useDeclGraph = unitAnn.declUseDecl
+    useDeclGraph = unitAnn.useDeclGraph
 
     match :: Match
     match name loc availability = parsed && selected

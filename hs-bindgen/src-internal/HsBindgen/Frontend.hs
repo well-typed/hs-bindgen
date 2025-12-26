@@ -176,10 +176,8 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     constructTranslationUnitPass <- cache "constructTranslationUnit" $ do
       (_, includeGraph, _, _, _) <- parsePass
       afterAssignAnonIds <- assignAnonIdsPass
-      let (afterConstructTranslationUnit, msgsConstructTranslationUnit) =
+      let afterConstructTranslationUnit =
             constructTranslationUnit afterAssignAnonIds includeGraph
-      forM_ msgsConstructTranslationUnit $
-        traceWith tracer . FrontendConstructTranslationUnit
       pure afterConstructTranslationUnit
 
     handleMacrosPass <- cache "handleMacros" $ do
@@ -242,12 +240,12 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     frontendGetMainHeaders <- cache "frontendGetMainHeaders" $ do
       (_, _, _, _, getMainHeaders) <- parsePass
       pure getMainHeaders
-    frontendIndex <- cache "frontendIndex" $
-      declIndex   . C.unitAnn <$> constructTranslationUnitPass
-    frontendUseDeclGraph <- cache "frontendUseDeclGraph" $
-      declUseDecl . C.unitAnn <$> constructTranslationUnitPass
-    frontendDeclUseGraph <- cache "frontendDeclUseGraph" $
-      declDeclUse . C.unitAnn <$> constructTranslationUnitPass
+    frontendIndex <- cache "frontendIndex" $ do
+      (.unitAnn.declIndex) <$> constructTranslationUnitPass
+    frontendUseDeclGraph <- cache "frontendUseDeclGraph" $ do
+      (.unitAnn.useDeclGraph) <$> constructTranslationUnitPass
+    frontendDeclUseGraph <- cache "frontendDeclUseGraph" $ do
+      (.unitAnn.declUseGraph) <$> constructTranslationUnitPass
 
     -- Omitted types
     frontendOmitTypes <- cache "frontendOmitTypes" $

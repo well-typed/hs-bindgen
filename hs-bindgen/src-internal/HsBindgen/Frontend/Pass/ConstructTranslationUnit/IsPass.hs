@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+{-# LANGUAGE OverloadedLabels  #-}
+
 module HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (
     ConstructTranslationUnit
   , DeclMeta(..)
@@ -41,9 +45,9 @@ instance IsPass ConstructTranslationUnit where
 -------------------------------------------------------------------------------}
 
 data DeclMeta = DeclMeta {
-      declIndex       :: DeclIndex
-    , declUseDecl     :: UseDeclGraph
-    , declDeclUse     :: DeclUseGraph
+      declIndex    :: DeclIndex
+    , useDeclGraph :: UseDeclGraph
+    , declUseGraph :: DeclUseGraph
     }
   deriving stock (Show, Generic)
 

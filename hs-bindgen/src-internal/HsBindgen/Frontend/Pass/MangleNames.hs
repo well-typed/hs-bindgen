@@ -57,7 +57,7 @@ mangleNames unit = (
     )
   where
     td :: TypedefAnalysis
-    td = TypedefAnalysis.fromDecls unit.unitAnn.declDeclUse unit.unitDecls
+    td = TypedefAnalysis.fromDecls unit.unitAnn.declUseGraph unit.unitDecls
 
     fc :: FixCandidate Maybe
     fc = FixCandidate.fixCandidateDefault
