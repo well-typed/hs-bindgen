@@ -1,21 +1,10 @@
 -- | Golden tests
 module Test.HsBindgen.Golden (tests) where
 
--- TODO: import ordering should be adjust: Test.Common and Test.HsBindgen should
--- get a group of their own.
-
 -- TODO: Once we start using DuplicateRecordFields more seriously, we could
 -- clean this up through the use of lenses.
 
 import System.Directory (createDirectoryIfMissing)
-import Test.Common.HsBindgen.Trace.Patterns
-import Test.Common.HsBindgen.Trace.Predicate
-import Test.HsBindgen.Golden.Check.BindingSpec qualified as BindingSpec
-import Test.HsBindgen.Golden.Check.FailingTrace qualified as FailingTrace
-import Test.HsBindgen.Golden.Check.PP qualified as PP
-import Test.HsBindgen.Golden.Check.TH qualified as TH
-import Test.HsBindgen.Golden.TestCase
-import Test.HsBindgen.Resources
 import Test.Tasty
 
 import Clang.Args
@@ -36,6 +25,15 @@ import HsBindgen.Frontend.Predicate
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.TraceMsg
+
+import Test.Common.HsBindgen.Trace.Patterns
+import Test.Common.HsBindgen.Trace.Predicate
+import Test.HsBindgen.Golden.Check.BindingSpec qualified as BindingSpec
+import Test.HsBindgen.Golden.Check.FailingTrace qualified as FailingTrace
+import Test.HsBindgen.Golden.Check.PP qualified as PP
+import Test.HsBindgen.Golden.Check.TH qualified as TH
+import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
   Tests

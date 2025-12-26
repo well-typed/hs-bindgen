@@ -7,8 +7,6 @@ import Data.List.NonEmpty (NonEmpty ((:|)))
 import Data.List.NonEmpty qualified as NonEmpty
 import Foreign.C qualified as FC
 import GHC.Show (appPrec1)
-import Test.HsBindgen.Runtime.CEnumArbitrary ()
-import Test.Internal.Tasty
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.ExpectedFailure (expectFail)
 import Test.Tasty.HUnit (testCase, (@=?))
@@ -20,6 +18,9 @@ import HsBindgen.Runtime.CEnum (AsCEnum (..), AsSequentialCEnum (..),
                                 CEnum (CEnumZ), CEnumException (..),
                                 SequentialCEnum)
 import HsBindgen.Runtime.CEnum qualified as CEnum
+
+import Test.HsBindgen.Runtime.CEnumArbitrary ()
+import Test.Internal.Tasty
 
 read_show_prop :: forall a. (Show a, Read a, Eq a) => a -> Property
 read_show_prop x = read (show x) === x

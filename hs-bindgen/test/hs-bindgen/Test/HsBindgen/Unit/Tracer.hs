@@ -6,8 +6,6 @@ import Data.Data (Typeable)
 import Data.Either (isLeft)
 import Data.IORef (readIORef)
 import Data.Proxy (Proxy (Proxy))
-import Test.Common.HsBindgen.Trace.Predicate
-import Test.Common.Util.Tasty
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (Assertion, testCase, (@?), (@?=))
 import Test.Tasty.QuickCheck (Arbitrary (..), CoArbitrary, Fun, Function, Gen,
@@ -16,6 +14,9 @@ import Test.Tasty.QuickCheck (Arbitrary (..), CoArbitrary, Fun, Function, Gen,
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Util.Tracer
+
+import Test.Common.HsBindgen.Trace.Predicate
+import Test.Common.Util.Tasty
 
 {-------------------------------------------------------------------------------
   Tests

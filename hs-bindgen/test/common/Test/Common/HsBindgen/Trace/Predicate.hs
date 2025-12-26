@@ -30,7 +30,6 @@ import Data.String
 import Data.Text (Text)
 import Data.Text qualified as Text
 import Data.Typeable (Typeable)
-import Test.Common.HsBindgen.Trace
 import Text.SimplePrettyPrint (CtxDoc)
 import Text.SimplePrettyPrint qualified as PP
 
@@ -39,6 +38,8 @@ import HsBindgen.Imports (Default (def))
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
+
+import Test.Common.HsBindgen.Trace
 
 {-------------------------------------------------------------------------------
   Trace predicates

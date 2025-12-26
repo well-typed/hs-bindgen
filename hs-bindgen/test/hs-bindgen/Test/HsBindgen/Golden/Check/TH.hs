@@ -15,10 +15,6 @@ import Language.Haskell.TH.Ppr qualified as TH
 import Language.Haskell.TH.PprLib qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 import System.FilePath (makeRelative, (<.>), (</>))
-import Test.Common.Util.Tasty
-import Test.Common.Util.Tasty.Golden (ActualValue (..))
-import Test.HsBindgen.Golden.TestCase
-import Test.HsBindgen.Resources
 import Test.Tasty hiding (after)
 import Text.SimplePrettyPrint (Pretty (..))
 import Text.SimplePrettyPrint qualified as PP
@@ -31,6 +27,11 @@ import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Guasi
 import HsBindgen.Imports
 import HsBindgen.TH.Internal
+
+import Test.Common.Util.Tasty
+import Test.Common.Util.Tasty.Golden (ActualValue (..))
+import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
   Tests

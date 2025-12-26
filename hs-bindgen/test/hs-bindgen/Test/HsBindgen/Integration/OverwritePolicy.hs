@@ -5,9 +5,10 @@ import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
 import System.Process (readProcessWithExitCode)
-import Test.HsBindgen.Resources
 import Test.Tasty
 import Test.Tasty.HUnit
+
+import Test.HsBindgen.Resources
 
 tests :: IO TestResources -> TestTree
 tests testResources = testGroup "Integration.OverwritePolicy" [

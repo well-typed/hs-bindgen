@@ -3,15 +3,16 @@ module Test.HsBindgen.Golden.Check.BindingSpec (check) where
 
 import Data.ByteString.UTF8 qualified as UTF8
 import System.FilePath ((<.>), (</>))
-import Test.Common.Util.Tasty
-import Test.Common.Util.Tasty.Golden
-import Test.HsBindgen.Golden.TestCase
-import Test.HsBindgen.Resources
 import Test.Tasty (TestTree)
 
 import HsBindgen
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
+
+import Test.Common.Util.Tasty
+import Test.Common.Util.Tasty.Golden
+import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
   Tests
