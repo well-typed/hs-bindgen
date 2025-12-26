@@ -194,9 +194,8 @@ genBindingSpec'
                 hsTypeSpecRep = Just $ BindingSpec.HsTypeRepRecord hsRecordRep
               , hsTypeSpecInstances =
                   mkInstSpecs
-                    ( maybe Map.empty BindingSpec.hsTypeSpecInstances
-                    . ResolveBindingSpecs.declSpecHs
-                    $ HsOrigin.declSpec originDecl
+                    ( maybe Map.empty BindingSpec.hsTypeSpecInstances $
+                       (HsOrigin.declSpec originDecl).hsSpec
                     )
                     (Hs.structInstances hsStruct)
               }
@@ -247,9 +246,8 @@ genBindingSpec'
               hsTypeSpecRep = Just $ BindingSpec.HsTypeRepNewtype hsNewtypeRep
             , hsTypeSpecInstances =
                 mkInstSpecs
-                  ( maybe Map.empty BindingSpec.hsTypeSpecInstances
-                  . ResolveBindingSpecs.declSpecHs
-                  $ HsOrigin.declSpec originDecl
+                  ( maybe Map.empty BindingSpec.hsTypeSpecInstances $
+                      (HsOrigin.declSpec originDecl).hsSpec
                   )
                   (Hs.newtypeInstances hsNewtype)
             }

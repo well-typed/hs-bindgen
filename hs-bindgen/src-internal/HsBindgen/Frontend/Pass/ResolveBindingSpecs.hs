@@ -258,12 +258,12 @@ resolveDeep ::
      C.Decl HandleMacros
   -> (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
   -> M (C.Decl ResolveBindingSpecs)
-resolveDeep decl (declSpecC, declSpecHs) = do
+resolveDeep decl (cSpec, hsSpec) = do
     declKind' <- resolve decl.declInfo.declId decl.declKind
     return C.Decl {
         declInfo = coercePass decl.declInfo
       , declKind = declKind'
-      , declAnn  = PrescriptiveDeclSpec{declSpecC, declSpecHs}
+      , declAnn  = PrescriptiveDeclSpec{cSpec, hsSpec}
       }
 
 {-------------------------------------------------------------------------------
@@ -460,10 +460,10 @@ resolveExtBinding cDeclId declPaths mMsg = do
         case (BindingSpec.cTypeSpecIdentifier cTypeSpec, mHsTypeSpec) of
           (Just hsIdentifier, Just hsTypeSpec) -> do
             let resolved = ResolvedExtBinding {
-                    extCDeclId = cDeclId
-                  , extHsRef   = Hs.ExtRef hsModuleName hsIdentifier
-                  , extCSpec   = cTypeSpec
-                  , extHsSpec  = hsTypeSpec
+                    cName  = cDeclId
+                  , hsName = Hs.ExtRef hsModuleName hsIdentifier
+                  , cSpec  = cTypeSpec
+                  , hsSpec = hsTypeSpec
                   }
             case BindingSpec.hsTypeSpecRep hsTypeSpec of
               Just _hsTypeSpecRep -> do
