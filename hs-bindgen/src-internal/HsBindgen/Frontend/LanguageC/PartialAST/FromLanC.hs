@@ -1,4 +1,6 @@
-{-# LANGUAGE OverloadedLabels #-}
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+{-# LANGUAGE OverloadedLabels  #-}
 
 -- | Construct the partial AST from the language-C AST
 module HsBindgen.Frontend.LanguageC.PartialAST.FromLanC (
@@ -58,8 +60,8 @@ type Update a b = HasCallStack => a -> b -> FromLanC b
 
 instance Apply (LanC.CDeclarationSpecifier a) PartialDecl where
   apply = \case
-      LanC.CTypeSpec x -> overM #partialType $ apply x
-      LanC.CTypeQual x -> overM #partialType $ apply x
+      LanC.CTypeSpec x -> overM #typ $ apply x
+      LanC.CTypeQual x -> overM #typ $ apply x
 
       LanC.CStorageSpec x ->
         case x of
@@ -97,10 +99,10 @@ instance Apply (LanC.CDeclarator a) PartialDecl where
   apply = \case
       LanC.CDeclr name derived _asmname _attrs _a ->
             optionally setName name
-        >=> repeatedly (overM #partialType . apply) (reverse derived)
+        >=> repeatedly (overM #typ . apply) (reverse derived)
     where
       setName :: LanC.Ident -> PartialDecl -> FromLanC PartialDecl
-      setName name = return . Optics.set #partialName (Just $ mkCName name)
+      setName name = return . Optics.set #name (Just $ mkCName name)
 
 {-------------------------------------------------------------------------------
   'PartialType'
@@ -109,23 +111,21 @@ instance Apply (LanC.CDeclarator a) PartialDecl where
 withSign :: Update (Maybe C.PrimSign -> C.PrimType) PartialType
 withSign f = \case
     PartialUnknown unknown -> do
-      let UnknownType{unknownSign, unknownConst} = unknown
       return $
           PartialKnown . KnownType
-        $ (if unknownConst then C.TypeQualified C.TypeQualifierConst else id)
-        $ C.TypePrim $ f unknownSign
+        $ (if unknown.isConst then C.TypeQualified C.TypeQualifierConst else id)
+        $ C.TypePrim $ f unknown.sign
     other ->
       unexpected $ show other
 
 notFun :: Update (C.Type HandleMacros) PartialType
 notFun typ = \case
     PartialUnknown unknown -> do
-      let UnknownType{unknownSign, unknownConst} = unknown
-      case unknownSign of
+      case unknown.sign of
         Nothing ->
           return $
               PartialKnown . KnownType
-            $ (if unknownConst then C.TypeQualified C.TypeQualifierConst else id)
+            $ (if unknown.isConst then C.TypeQualified C.TypeQualifierConst else id)
             $ typ
         Just sign ->
           unexpected $ show (typ, sign)
@@ -135,7 +135,7 @@ notFun typ = \case
 setSign :: Update C.PrimSign PartialType
 setSign sign = \case
     PartialUnknown unknown ->
-      return $ PartialUnknown $ Optics.set #unknownSign (Just sign) unknown
+      return $ PartialUnknown $ Optics.set #sign (Just sign) unknown
     other ->
       unexpected $ show other
 
@@ -198,7 +198,7 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       charSign (Just sign) = C.PrimSignExplicit sign
 
       typeRef :: C.DeclName -> C.Type HandleMacros
-      typeRef name = C.TypeRef $ DeclId{name, isAnon = False}
+      typeRef name = C.TypeRef $ DeclId{name = name, isAnon = False}
 
       checkNotAnon :: Maybe LanC.Ident -> C.TagKind -> FromLanC C.DeclName
       checkNotAnon mName tagKind =
@@ -231,7 +231,7 @@ instance Apply (LanC.CDerivedDeclarator a) PartialType where
 instance Apply (LanC.CTypeQualifier a) UnknownType where
   apply = \case
       LanC.CConstQual _a ->
-        return . Optics.set #unknownConst True
+        return . Optics.set #isConst True
       other -> \_ ->
         unexpectedF other
 

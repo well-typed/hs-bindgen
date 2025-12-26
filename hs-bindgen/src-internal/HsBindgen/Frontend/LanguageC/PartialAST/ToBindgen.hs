@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Translate the partial AST to our internal AST
 module HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen (
     -- * Declarations
@@ -19,14 +22,14 @@ import HsBindgen.Imports
 -------------------------------------------------------------------------------}
 
 fromDecl :: PartialDecl -> FromLanC (Maybe CName, C.Type HandleMacros)
-fromDecl PartialDecl{partialName, partialType} = do
-    typ <- fromKnownType <$> fromPartialType partialType
-    return (partialName, typ)
+fromDecl partialDecl = do
+    typ <- fromKnownType <$> fromPartialType partialDecl.typ
+    return (partialDecl.name, typ)
 
 fromNamedDecl :: PartialDecl -> FromLanC (CName, C.Type HandleMacros)
-fromNamedDecl PartialDecl{partialName, partialType} = do
-    name <- partialFromJust partialName
-    typ  <- fromKnownType <$> fromPartialType partialType
+fromNamedDecl partialDecl = do
+    name <- partialFromJust partialDecl.name
+    typ  <- fromKnownType <$> fromPartialType partialDecl.typ
     return (name, typ)
 
 fromFunDecl ::
@@ -37,9 +40,9 @@ fromFunDecl ::
          , C.Type HandleMacros
          )
        )
-fromFunDecl PartialDecl{partialName, partialType} = do
-    name          <- partialFromJust partialName
-    (params, res) <- fromTopLevelFun =<< fromPartialType partialType
+fromFunDecl partialDecl = do
+    name          <- partialFromJust partialDecl.name
+    (params, res) <- fromTopLevelFun =<< fromPartialType partialDecl.typ
     return (name, (params, res))
 
 {-------------------------------------------------------------------------------

@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+{-# LANGUAGE OverloadedLabels  #-}
+
 -- | Main entry point to the @language-c@ infrastructure
 --
 -- It should not be necessary to import any other module in @LanguageC.*@.
@@ -230,9 +234,7 @@ bespokeTypes = \case
   Auxiliary language-c: working with the unique name supply
 -------------------------------------------------------------------------------}
 
-newtype WithNameSupply a = WrapWithNameSupply {
-      unwrapWithNameSupply :: State [LanC.Name] a
-    }
+newtype WithNameSupply a = WrapWithNameSupply (State [LanC.Name] a)
   deriving newtype (
       Functor
     , Applicative
@@ -240,7 +242,7 @@ newtype WithNameSupply a = WrapWithNameSupply {
     )
 
 runWithNameSupply :: [LanC.Name] -> WithNameSupply a -> (a, [LanC.Name])
-runWithNameSupply supply = flip State.runState supply . unwrapWithNameSupply
+runWithNameSupply supply (WrapWithNameSupply ma) = State.runState ma supply
 
 runWithNewNameSupply :: WithNameSupply a -> (a, [LanC.Name])
 runWithNewNameSupply = runWithNameSupply LanC.newNameSupply
