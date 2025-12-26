@@ -116,11 +116,11 @@ data HeaderInfo = HeaderInfo{
       --
       -- Note that the declaration may not be in this header directly, but in
       -- one of its (transitive) includes.
-      headerMainHeaders :: NonEmpty HashIncludeArg
+      mainHeaders :: NonEmpty HashIncludeArg
 
       -- | @#include@ argument used to include the file where the declaration is
       -- actually declared
-    , headerInclude :: HashIncludeArg
+    , includeArg :: HashIncludeArg
     }
   deriving stock (Show, Eq, Generic)
 

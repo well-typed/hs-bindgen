@@ -222,20 +222,20 @@ instance Pretty CommentKind where
                      ]
 
 prettyHashIncludeArgLoc :: C.HeaderInfo -> SingleLoc -> CtxDoc
-prettyHashIncludeArgLoc hinfo loc = PP.string $
+prettyHashIncludeArgLoc info loc = PP.string $
     List.intercalate ":"
-      [ escapePaths $ getHashIncludeArg (C.headerInclude hinfo)
+      [ escapePaths $ getHashIncludeArg info.includeArg
       , show (singleLocLine loc)
       , show (singleLocColumn loc)
       ]
 
 prettyMainHeaders :: C.HeaderInfo -> CtxDoc
-prettyMainHeaders
-    = PP.string
+prettyMainHeaders info =
+      PP.string
     . List.intercalate "@, @"
     . map (escapePaths . getHashIncludeArg)
     . NonEmpty.toList
-    . C.headerMainHeaders
+    $ info.mainHeaders
 
 escapePaths :: String -> String
 escapePaths []       = []

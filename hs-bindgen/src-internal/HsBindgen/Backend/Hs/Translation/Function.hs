@@ -296,7 +296,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
           ]
 
 getMainHashIncludeArg :: C.DeclInfo Final -> HashIncludeArg
-getMainHashIncludeArg info = NonEmpty.head info.declHeaderInfo.headerMainHeaders
+getMainHashIncludeArg info = NonEmpty.head info.declHeaderInfo.mainHeaders
 
 {-------------------------------------------------------------------------------
   Helpers
