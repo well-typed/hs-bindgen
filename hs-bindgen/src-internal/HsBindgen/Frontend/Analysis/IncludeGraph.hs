@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Include graph
 --
 -- Intended for qualified import.
@@ -41,7 +45,9 @@ import HsBindgen.Imports
 --
 -- We create a DAG of C header paths with an edge for each @#include@.
 -- The edges are /reversed/ to represent an \"included by\" relation.
-newtype IncludeGraph = IncludeGraph (DynGraph Include SourcePath)
+data IncludeGraph = IncludeGraph{
+      graph :: DynGraph Include SourcePath
+    }
   deriving stock (Show, Eq)
 
 -- | Include directive as written in the source
@@ -73,8 +79,8 @@ register ::
   -> SourcePath -- ^ Path of the included header
   -> IncludeGraph
   -> IncludeGraph
-register header include incHeader (IncludeGraph graph) =
-    IncludeGraph $ DynGraph.insertEdge incHeader include header graph
+register header include incHeader includeGraph = IncludeGraph $
+    DynGraph.insertEdge incHeader include header includeGraph.graph
 
 fromList :: [(SourcePath, Include, SourcePath)] -> IncludeGraph
 fromList edges = List.foldl' add empty edges
@@ -87,11 +93,11 @@ fromList edges = List.foldl' add empty edges
 -------------------------------------------------------------------------------}
 
 reaches :: IncludeGraph -> SourcePath -> Set SourcePath
-reaches (IncludeGraph graph) = DynGraph.reaches graph . List.singleton
+reaches includeGraph = DynGraph.reaches includeGraph.graph . List.singleton
 
 toSortedList :: IncludeGraph -> [SourcePath]
-toSortedList (IncludeGraph graph) =
-    List.delete RootHeader.name $ DynGraph.topSort graph
+toSortedList includeGraph =
+    List.delete RootHeader.name $ DynGraph.topSort includeGraph.graph
 
 toOrderMap :: IncludeGraph -> Map SourcePath Int
 toOrderMap graph = Map.fromList (zip (toSortedList graph) [0..])
@@ -100,7 +106,7 @@ getIncludes ::
      IncludeGraph
   -> SourcePath
   -> DynGraph.FindEdgesResult Include
-getIncludes (IncludeGraph graph) = DynGraph.findEdges graph
+getIncludes includeGraph = DynGraph.findEdges includeGraph.graph
 
 {-------------------------------------------------------------------------------
   Debugging
@@ -113,8 +119,14 @@ getIncludes (IncludeGraph graph) = DynGraph.findEdges graph
 type Predicate = SourcePath -> Bool
 
 dumpMermaid :: Predicate -> IncludeGraph -> String
-dumpMermaid p (IncludeGraph graph) =
-    DynGraph.dumpMermaid True p (Just . renderInclude) getSourcePath graph
+dumpMermaid p includeGraph =
+    DynGraph.dumpMermaid
+      DynGraph.MermaidOptions{
+          reverseEdges = True
+        , renderVertex = \path -> guard (p path) >> return (getSourcePath path)
+        , renderEdge   = Just . renderInclude
+        }
+      includeGraph.graph
   where
     renderInclude :: Include -> String
     renderInclude = \case

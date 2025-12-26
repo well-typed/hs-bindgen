@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 module Data.DynGraph (
     -- * Type
     DynGraph
@@ -13,6 +17,7 @@ module Data.DynGraph (
   , dff
   , dfFindMember
     -- * Debugging
+  , MermaidOptions(..)
   , dumpMermaid
   ) where
 
@@ -89,8 +94,18 @@ dfFindMember = Labelled.dfFindMember
   Debugging
 -------------------------------------------------------------------------------}
 
+data MermaidOptions a = MermaidOptions{
+      reverseEdges :: Bool
+    , renderVertex :: a -> Maybe String
+    }
+
 -- | Render a Mermaid diagram
 --
 -- See https://mermaid.js.org/>
-dumpMermaid :: Bool -> (a -> Bool) -> (a -> String) -> DynGraph a -> String
-dumpMermaid isTranspose p = Labelled.dumpMermaid isTranspose p (const Nothing)
+dumpMermaid :: MermaidOptions a -> DynGraph a -> String
+dumpMermaid opts =
+    Labelled.dumpMermaid Labelled.MermaidOptions{
+        reverseEdges = opts.reverseEdges
+      , renderVertex = opts.renderVertex
+      , renderEdge   = \() -> Nothing
+      }
