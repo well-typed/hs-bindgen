@@ -261,8 +261,8 @@ instance (IsTrace l a, Show a, RenderLabel b)
     where
       intro = PP.hcat
         [ "Name: ",             renderLabel label
-        , ", expected count: ", PP.showToCtxDoc expectedCount
-        , ", actual count: "  , PP.showToCtxDoc actualCount
+        , ", expected count: ", PP.show expectedCount
+        , ", actual count: "  , PP.show actualCount
         ]
 
 {-------------------------------------------------------------------------------

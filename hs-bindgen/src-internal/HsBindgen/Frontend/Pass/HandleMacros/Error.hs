@@ -71,7 +71,7 @@ instance PrettyForTrace HandleMacrosError where
         ]
       HandleMacrosErrorTc x -> PP.hsep [
           "Failed to typecheck macro:"
-        , PP.textToCtxDoc $ CExpr.DSL.pprTcMacroError x
+        , PP.text $ CExpr.DSL.pprTcMacroError x
         ]
 
 prettyParseError :: CExpr.DSL.MacroParseError -> PP.CtxDoc

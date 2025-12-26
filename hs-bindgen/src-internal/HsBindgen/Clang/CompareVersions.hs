@@ -23,8 +23,8 @@ instance PrettyForTrace CompareVersionsMsg where
   prettyForTrace = \case
     CompileTimeAndRuntimeVersionMismatch compileTimeVersion runtimeVersion ->
       PP.hangs' "clang version mismatch:" 2 [
-          "clang compile time version:" <+> PP.textToCtxDoc compileTimeVersion
-        , "clang runtime version:     " <+> PP.textToCtxDoc runtimeVersion
+          "clang compile time version:" <+> PP.text compileTimeVersion
+        , "clang runtime version:     " <+> PP.text runtimeVersion
         ]
 
 instance IsTrace Level CompareVersionsMsg where

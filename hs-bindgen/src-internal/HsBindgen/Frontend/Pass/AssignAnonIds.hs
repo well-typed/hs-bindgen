@@ -17,6 +17,8 @@ import HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -155,7 +157,7 @@ newtype M a = WrapM {
 -- that if we then try to /update/ those use sites, that will fail.
 --
 -- This is an internal type; the external equivalent is 'ParseUnusableAnonDecl'.
-data UnusableAnonDecl = UnusableAnonDecl C.AnonId
+data UnusableAnonDecl = UnusableAnonDecl AnonId
   deriving stock (Show)
 
 runM :: ChosenNames -> M a -> Either UnusableAnonDecl a
@@ -311,7 +313,7 @@ instance UpdateUseSites C.TypedefRef where
         <$> updateDeclId n
         <*> updateUseSites uTy
 
-updateDeclId :: C.PrelimDeclId -> M C.DeclId
+updateDeclId :: PrelimDeclId -> M C.DeclId
 updateDeclId prelimDeclId = WrapM $ do
     chosenNames <- ask
     case fromPrelimDeclId chosenNames prelimDeclId of
@@ -360,9 +362,9 @@ instance UpdateUseSites C.CommentRef where
 --
 -- Returns 'Left' an 'C.AnonId' if the 'C.PrelimDeclId' is anonymous and we have
 -- assigned no name.
-fromPrelimDeclId :: ChosenNames -> C.PrelimDeclId -> Either C.AnonId C.DeclId
+fromPrelimDeclId :: ChosenNames -> PrelimDeclId -> Either AnonId C.DeclId
 fromPrelimDeclId chosenNames = \case
-    C.PrelimDeclIdNamed name ->
+    PrelimDeclId.Named name ->
       Right C.DeclId{name, isAnon = False}
-    C.PrelimDeclIdAnon anonId ->
+    PrelimDeclId.Anon anonId ->
       maybe (Left anonId) Right $ Map.lookup anonId chosenNames

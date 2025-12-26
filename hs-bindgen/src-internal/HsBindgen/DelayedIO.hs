@@ -23,12 +23,12 @@ module HsBindgen.DelayedIO (
     -- * Traces
   , DelayedIOMsg(..)
   ) where
+
 import Control.Monad.Except (ExceptT, MonadError (..))
 import Control.Monad.State (StateT (..), modify)
 import Data.ByteString (ByteString)
 import Data.ByteString qualified as BSS
-import System.Directory (createDirectoryIfMissing, doesDirectoryExist,
-                         doesFileExist)
+import System.Directory qualified as Dir
 import System.FilePath (takeDirectory, (</>))
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
@@ -63,16 +63,16 @@ checkPolicy = \case
   WriteToFile fd -> case fd.location of
     UserSpecified path -> do
       let baseDir = takeDirectory path
-      dirExists  <- liftIO $ doesDirectoryExist baseDir
-      fileExists <- liftIO $ doesFileExist path
+      dirExists  <- liftIO $ Dir.doesDirectoryExist baseDir
+      fileExists <- liftIO $ Dir.doesFileExist path
       unless dirExists $
         throwError $ DirectoryDoesNotExist baseDir
       when (fileExists && fd.fileOverwritePolicy == DoNotOverwriteFiles) $
         throwError $ FileAlreadyExists path
     RelativeFileLocation RelativeToOutputDir{..} -> do
       let path = outputDir </> localPath
-      dirExists  <- liftIO $ doesDirectoryExist outputDir
-      fileExists <- liftIO $ doesFileExist path
+      dirExists  <- liftIO $ Dir.doesDirectoryExist outputDir
+      fileExists <- liftIO $ Dir.doesFileExist path
       unless (dirExists || outputDirPolicy == CreateOutputDirs ) $
         throwError $ DirectoryDoesNotExist outputDir
       when (fileExists && fd.fileOverwritePolicy == DoNotOverwriteFiles) $
@@ -166,7 +166,7 @@ executeDelayedIOActions tracer as =
       let path = fileLocationToPath fd.location
       traceWith tracer $ DelayedIOWriteToFile path fd.description
       -- Creating the directory is justified by checking the policy first.
-      createDirectoryIfMissing True (takeDirectory path)
+      Dir.createDirectoryIfMissing True (takeDirectory path)
       case fd.content of
         StringContent     s  -> writeFile path s
         ByteStringContent bs -> BSS.writeFile path bs
@@ -202,7 +202,7 @@ data DelayedIOMsg =
 instance PrettyForTrace DelayedIOMsg where
   prettyForTrace = \case
     DelayedIOWriteToFile path what ->
-      "Writing" <+> PP.showToCtxDoc what <+> "to file" <+> PP.showToCtxDoc path
+      "Writing" <+> PP.show what <+> "to file" <+> PP.show path
 
 instance IsTrace SafeLevel DelayedIOMsg where
   getDefaultLogLevel = \case

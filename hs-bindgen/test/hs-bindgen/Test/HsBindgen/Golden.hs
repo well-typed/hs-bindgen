@@ -29,6 +29,7 @@ import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
@@ -846,7 +847,7 @@ test_functions_varargs =
       MatchDelayed name (
           ParseUnsupportedType (
             UnsupportedUnderlyingType
-              (C.PrelimDeclIdNamed (C.DeclName "va_list" C.NameKindOrdinary))
+              (PrelimDeclId.Named (C.DeclName "va_list" C.NameKindOrdinary))
               (UnsupportedBuiltin "__builtin_va_list")
           )
         ) ->

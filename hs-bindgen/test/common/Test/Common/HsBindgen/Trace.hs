@@ -12,7 +12,7 @@ import HsBindgen.Util.Tracer
 reportTrace :: forall a l. (IsTrace l a, Show a) => a -> CtxDoc
 reportTrace trace = PP.vcat $
               [ "[" >< ppTraceId >< "][pretty] " >< prettyForTrace trace
-              , "[" >< ppTraceId >< "][show  ] " >< PP.showToCtxDoc trace
+              , "[" >< ppTraceId >< "][show  ] " >< PP.show trace
               , ""
               ]
   where

@@ -66,7 +66,7 @@ moduleNamePath moduleName = withoutExt <.> "hs"
           map Text.unpack (Text.splitOn "." $ moduleNameToText moduleName)
 
 instance PrettyForTrace ModuleName where
-  prettyForTrace = PP.textToCtxDoc . moduleNameToText
+  prettyForTrace = PP.text . moduleNameToText
 
 {-------------------------------------------------------------------------------
   References
@@ -84,7 +84,7 @@ newtype Identifier = Identifier { text :: Text }
   deriving newtype (Aeson.FromJSON, Aeson.ToJSON, IsString, Show, Semigroup)
 
 instance PrettyForTrace Identifier where
-  prettyForTrace ident = PP.string (Text.unpack ident.text)
+  prettyForTrace ident = PP.text ident.text
 
 -- | External reference
 --

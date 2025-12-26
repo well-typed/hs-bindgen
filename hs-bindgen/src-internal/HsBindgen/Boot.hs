@@ -20,8 +20,7 @@ import HsBindgen.BindingSpec
 import HsBindgen.Cache
 import HsBindgen.Clang
 import HsBindgen.Clang.BuiltinIncDir
-import HsBindgen.Clang.CompareVersions (CompareVersionsMsg,
-                                        compareClangVersions)
+import HsBindgen.Clang.CompareVersions
 import HsBindgen.Clang.ExtraClangArgs
 import HsBindgen.Config.ClangArgs (ClangArgsConfig)
 import HsBindgen.Config.ClangArgs qualified as ClangArgs
@@ -212,7 +211,7 @@ data BootStatusMsg =
 
 bootStatus :: Show a => String -> a -> CtxDoc
 bootStatus nm x =
-  PP.hang ("Boot status (" >< PP.string nm >< "):") 2 $ PP.showToCtxDoc x
+  PP.hang ("Boot status (" >< PP.string nm >< "):") 2 $ PP.show x
 
 instance PrettyForTrace BootStatusMsg where
   prettyForTrace = \case
@@ -236,10 +235,10 @@ data BootTargetMsg =
 instance PrettyForTrace BootTargetMsg where
   prettyForTrace = \case
     BootTargetClang tt t ->
-      "Target determined by libclang: " >< PP.showToCtxDoc t
-        >< " (translated from " >< PP.showToCtxDoc tt >< ")"
+      "Target determined by libclang: " >< PP.show t
+        >< " (translated from " >< PP.show tt >< ")"
     BootTargetFail tt ->
-      "Unable to translate libclang target triple " >< PP.showToCtxDoc tt
+      "Unable to translate libclang target triple " >< PP.show tt
         >< " to supported target"
         PP.$$ "  Configure a supported target to resolve this error."
 

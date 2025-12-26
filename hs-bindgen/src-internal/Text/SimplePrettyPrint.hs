@@ -17,6 +17,16 @@
 -- The underlying @pretty@ library gives very little control over indentation.
 -- If we would like to have better indentation, we should either switch to a
 -- different underlying library or write our own.
+--
+-- Intended for qualified import
+--
+-- > import Text.SimplePrettyPrint (Pretty(..), CtxDoc)
+-- > import Text.SimplePrettyPrint qualified as PP
+--
+-- There are also operators that can be imported, though you may prefer to use
+-- 'hsep' or 'hcat' instead of '(><)', 'vsep' or 'vcat' instead of '($$)', etc.
+
+-- > import Text.SimplePrettyPrint ((><), (<+>), ($$), ($+$))
 module Text.SimplePrettyPrint (
     CtxDoc -- opaque
     -- * 'CtxDoc' features
@@ -38,8 +48,8 @@ module Text.SimplePrettyPrint (
   , empty
   , char
   , string
-  , showToCtxDoc
-  , textToCtxDoc
+  , show
+  , text
   , renderedLines
     -- ** Horizontal and vertical composition
   , (><)
@@ -68,6 +78,9 @@ module Text.SimplePrettyPrint (
   , hangs
   , hangs'
   ) where
+
+import Prelude hiding (show)
+import Prelude qualified
 
 import Data.List qualified as List
 import Data.String (IsString (fromString))
@@ -139,7 +152,7 @@ runCtxDoc ctx (CtxDoc f) = f ctx
 withFreshName :: String -> (CtxDoc -> CtxDoc) -> CtxDoc
 withFreshName nameHint k = CtxDoc $ \ctx ->
     let (i, ctx') = getUniqueNameIdx ctx
-    in  runCtxDoc ctx' . k $ CtxDoc (\_ -> PP.text (nameHint ++ show i))
+    in  runCtxDoc ctx' . k $ CtxDoc (\_ -> PP.text (nameHint ++ Prelude.show i))
 
 -- | Render a 'CtxDoc'
 renderCtxDoc :: Context -> CtxDoc -> String
@@ -191,12 +204,12 @@ string :: String -> CtxDoc
 string = CtxDoc . const . PP.text
 
 -- | Create a document with the result of 'show'
-showToCtxDoc :: Show a => a -> CtxDoc
-showToCtxDoc = string . show
+show :: Show a => a -> CtxDoc
+show = string . Prelude.show
 
 -- | Create a document with the specified 'Text'
-textToCtxDoc :: Text.Text -> CtxDoc
-textToCtxDoc = string . Text.unpack
+text :: Text.Text -> CtxDoc
+text = string . Text.unpack
 
 -- | Horizontally join two documents
 --

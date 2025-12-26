@@ -13,9 +13,10 @@ import Clang.LowLevel.Core
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C ()
 import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseType)
 import HsBindgen.Frontend.Pass.Parse.Type.Monad qualified as ParseType
 import HsBindgen.Imports
@@ -109,7 +110,7 @@ pointer = clang_getPointeeType >=> fmap (C.TypePointers 1) . cxtype
 fromDecl :: HasCallStack => CXType -> ParseType (C.Type Parse)
 fromDecl ty = do
     decl     <- clang_getTypeDeclaration ty
-    mBuiltin <- C.checkIsBuiltin decl
+    mBuiltin <- PrelimDeclId.checkIsBuiltin decl
     case mBuiltin of
       Just builtin ->
         -- Built-in types don't have a corresponding declaration; if we want
@@ -122,8 +123,8 @@ fromDecl ty = do
         CXCursor_UnionDecl  -> typeRef decl C.TagKindUnion
 
         CXCursor_TypedefDecl -> do
-          declId <- C.getPrelimDeclId decl C.NameKindOrdinary
-          case C.prelimDeclIdSourceName declId of
+          declId <- PrelimDeclId.atCursor decl C.NameKindOrdinary
+          case PrelimDeclId.sourceName declId of
             Nothing -> panicPure "typedef without name"
             Just declName -> do
               -- Check cache first
@@ -141,7 +142,8 @@ fromDecl ty = do
         kind -> throwError $ UnexpectedTypeDecl (Right kind)
   where
     typeRef :: MonadIO m => CXCursor -> C.TagKind -> m (C.Type Parse)
-    typeRef decl kind = C.TypeRef <$> C.getPrelimDeclId decl (C.NameKindTagged kind)
+    typeRef decl kind =
+        C.TypeRef <$> PrelimDeclId.atCursor decl (C.NameKindTagged kind)
 
     getUnderlyingCXType :: MonadIO m => CXCursor -> m CXType
     getUnderlyingCXType typedefCurr = do
@@ -152,7 +154,7 @@ fromDecl ty = do
         Right{}                 -> return uTy
         _otherwise              -> panicPure "Invalid underlying type"
 
-    addTypedefContextHandler :: C.PrelimDeclId -> SomeException -> ParseType a
+    addTypedefContextHandler :: PrelimDeclId -> SomeException -> ParseType a
     addTypedefContextHandler n e
       | Just e' <- (fromException @ParseTypeException e)
       = throwM (UnsupportedUnderlyingType n e')

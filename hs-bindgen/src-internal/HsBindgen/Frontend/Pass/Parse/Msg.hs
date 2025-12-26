@@ -13,7 +13,7 @@ import Clang.Enum.Simple
 import Clang.LowLevel.Core
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Naming qualified as C (AnonId, PrelimDeclId)
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -49,7 +49,7 @@ data ParseTypeException =
     -- @double complex@. @struct Point complex@ is not allowed.
   | UnexpectedComplexType CXType
 
-  | UnsupportedUnderlyingType C.PrelimDeclId ParseTypeException
+  | UnsupportedUnderlyingType PrelimDeclId ParseTypeException
   deriving stock (Show, Eq, Ord)
 
 instance Exception ParseTypeException where
@@ -191,7 +191,7 @@ data DelayedParseMsg =
     -- @AssignAnonIds@). We record the identifier of the anonymous declaration
     -- here (that is, it's source location); the identifier of the outer
     -- declaration is recorded in the encloding 'ParseResult'.
-  | ParseUnusableAnonDecl C.AnonId
+  | ParseUnusableAnonDecl AnonId
   deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
@@ -201,24 +201,24 @@ data DelayedParseMsg =
 instance PrettyForTrace ParseTypeException where
   prettyForTrace = \case
       UnexpectedTypeKind (Right kind) ->
-          unexpected $ "type kind " >< PP.showToCtxDoc kind
+          unexpected $ "type kind " >< PP.show kind
       UnexpectedTypeKind (Left i) ->
-          unexpected $ "type kind " >< PP.showToCtxDoc i
+          unexpected $ "type kind " >< PP.show i
       UnexpectedTypeDecl (Right kind) ->
-          unexpected $ "type declaration " >< PP.showToCtxDoc kind
+          unexpected $ "type declaration " >< PP.show kind
       UnexpectedTypeDecl (Left i) ->
-          unexpected $ "type declaration " >< PP.showToCtxDoc i
+          unexpected $ "type declaration " >< PP.show i
       UnsupportedVariadicFunction ->
           "Unsupported variadic (varargs) function"
       UnsupportedLongDouble ->
           "Unsupported long double"
       UnsupportedBuiltin name ->
-          "Unsupported built-in " >< PP.showToCtxDoc name
+          "Unsupported built-in " >< PP.show name
       UnexpectedComplexType ty ->
-          "Unexpected complex type " >< PP.showToCtxDoc ty
+          "Unexpected complex type " >< PP.show ty
       UnsupportedUnderlyingType name err -> PP.hcat [
             "Unsupported underlying type of typedef "
-          , PP.showToCtxDoc name
+          , PP.show name
           , ": "
           , prettyForTrace err
           ]
@@ -243,7 +243,7 @@ instance PrettyForTrace DelayedParseMsg where
         "unsupported thread-local variable"
       ParseUnknownStorageClass storage -> noBindingsGenerated $ PP.hsep [
           "unsupported storage class"
-        , PP.showToCtxDoc storage
+        , PP.show storage
         ]
       ParsePotentialDuplicateSymbol isPublic -> PP.hcat $ [
             "Bindings may result in duplicate symbols; "

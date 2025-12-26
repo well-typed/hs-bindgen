@@ -15,8 +15,9 @@ import Data.Map qualified as Map
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId)
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -25,7 +26,7 @@ import HsBindgen.Imports
 
 -- | How are anonymous data types used?
 data AnonUsageAnalysis = AnonUsageAnalysis{
-      anonUsage :: Map C.AnonId Context
+      anonUsage :: Map AnonId Context
     }
   deriving stock (Show)
 
@@ -81,7 +82,7 @@ fromDecls =
 --
 -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1430>
 -- There is (at least) one other example we should take care of.
-resolveConflicts :: C.AnonId -> Context -> Context -> Context
+resolveConflicts :: AnonId -> Context -> Context -> Context
 resolveConflicts anonId new old =
     case (old, new) of
       (Field decl1 _, Field decl2 _) | decl1.declId == decl2.declId ->
@@ -110,7 +111,7 @@ resolveConflicts anonId new old =
 -- NOTE: Anonymous declarations that appear in function signatures and
 -- global variables are unusable, and so we do not assign a name to them
 -- (this will cause them to be removed from the list of declarations).
-analyseDecl :: C.Decl Parse -> [(C.AnonId, Context)]
+analyseDecl :: C.Decl Parse -> [(AnonId, Context)]
 analyseDecl decl =
     case decl.declKind of
       C.DeclStruct   x -> analyseStruct  decl.declInfo x
@@ -122,23 +123,23 @@ analyseDecl decl =
       C.DeclFunction _ -> []
       C.DeclGlobal   _ -> []
 
-analyseStruct :: C.DeclInfo Parse -> C.Struct Parse -> [(C.AnonId, Context)]
+analyseStruct :: C.DeclInfo Parse -> C.Struct Parse -> [(AnonId, Context)]
 analyseStruct declInfo struct = concat [
       concatMap aux struct.structFields
     , concatMap aux struct.structFlam
     ]
   where
-    aux :: C.StructField Parse -> [(C.AnonId, Context)]
+    aux :: C.StructField Parse -> [(AnonId, Context)]
     aux f = analyseType (Field declInfo f.structFieldInfo) f.structFieldType
 
-analyseUnion :: C.DeclInfo Parse -> C.Union Parse -> [(C.AnonId, Context)]
+analyseUnion :: C.DeclInfo Parse -> C.Union Parse -> [(AnonId, Context)]
 analyseUnion declInfo union =
     concatMap aux union.unionFields
   where
-    aux :: C.UnionField Parse -> [(C.AnonId, Context)]
+    aux :: C.UnionField Parse -> [(AnonId, Context)]
     aux f = analyseType (Field declInfo f.unionFieldInfo) f.unionFieldType
 
-analyseTypedef :: C.DeclInfo Parse -> C.Typedef Parse -> [(C.AnonId, Context)]
+analyseTypedef :: C.DeclInfo Parse -> C.Typedef Parse -> [(AnonId, Context)]
 analyseTypedef declInfo typedef =
     analyseType (TypedefDirect declInfo) typedef.typedefType
 
@@ -148,16 +149,16 @@ analyseTypedef declInfo typedef =
   This is where the real work happens; the rest is just setting up context.
 -------------------------------------------------------------------------------}
 
-analyseType :: Context -> C.Type Parse -> [(C.AnonId, Context)]
+analyseType :: Context -> C.Type Parse -> [(AnonId, Context)]
 analyseType = go
   where
-    go :: Context -> C.Type Parse -> [(C.AnonId, Context)]
+    go :: Context -> C.Type Parse -> [(AnonId, Context)]
     go ctxt = \case
         -- Base case
         C.TypeRef ref ->
             case ref of
-              C.PrelimDeclIdNamed{}     -> []
-              C.PrelimDeclIdAnon anonId -> [(anonId, ctxt)]
+              PrelimDeclId.Named{}     -> []
+              PrelimDeclId.Anon anonId -> [(anonId, ctxt)]
 
         -- Recursion
         --
@@ -182,7 +183,7 @@ analyseType = go
         C.TypeTypedef{}    -> []
         C.TypeVoid{}       -> []
       where
-        indirect :: C.Type Parse -> [(C.AnonId, Context)]
+        indirect :: C.Type Parse -> [(AnonId, Context)]
         indirect =
            case ctxt of
              TypedefDirect declInfo -> go (TypedefIndirect declInfo)

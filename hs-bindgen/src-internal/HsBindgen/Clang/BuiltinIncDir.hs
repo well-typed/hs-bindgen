@@ -98,8 +98,8 @@ instance PrettyForTrace BuiltinIncDirMsg where
       "clang not found"
     BuiltinIncDirClangVersionMismatch libclangVersion clangVersion ->
       PP.hangs' "clang version mismatch:" 2 [
-          "libclang version:" <+> PP.textToCtxDoc libclangVersion
-        , "clang version:   " <+> PP.textToCtxDoc clangVersion
+          "libclang version:" <+> PP.text libclangVersion
+        , "clang version:   " <+> PP.text clangVersion
         ]
     BuiltinIncDirClangIncDirNotFound path ->
       "builtin include directory not found using clang:" <+> string path

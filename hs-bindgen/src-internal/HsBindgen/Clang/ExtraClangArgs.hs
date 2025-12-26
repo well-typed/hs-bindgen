@@ -32,7 +32,7 @@ instance PrettyForTrace ExtraClangArgsMsg where
     ExtraClangArgsEmpty  -> PP.string envName >< " environment variable empty"
     ExtraClangArgsParsed args ->
       PP.string envName >< " environment variable parsed 'libclang' arguments: "
-        >< PP.showToCtxDoc args
+        >< PP.show args
 
 instance IsTrace Level ExtraClangArgsMsg where
   getDefaultLogLevel = \case

@@ -38,7 +38,8 @@ import Data.List qualified as List
 import Data.Typeable (Typeable, typeRep)
 import Data.Yaml qualified as Yaml
 import Data.Yaml.Internal qualified
-import Text.SimplePrettyPrint (hang, hangs', string, textToCtxDoc, (><))
+import Text.SimplePrettyPrint ((><))
+import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.BindingSpec.Private.Version
 import HsBindgen.Frontend.Naming qualified as C
@@ -93,50 +94,80 @@ instance IsTrace Level BindingSpecReadMsg where
 
 instance PrettyForTrace BindingSpecReadMsg where
   prettyForTrace = \case
-    BindingSpecReadAesonError path msg ->
-      "error parsing JSON: " >< string path >< ": " >< string msg
+    BindingSpecReadAesonError path msg -> PP.hcat [
+        "error parsing JSON: "
+      , PP.string path
+      , ": "
+      , PP.string msg
+      ]
     BindingSpecReadYamlError path msg ->
       -- 'lines' is used because the error includes newlines
-      hangs' ("error parsing YAML: " >< string path) 2 $ map string $ lines msg
-    BindingSpecReadYamlWarning path msg ->
-      "error parsing YAML: " >< string path >< ": " >< string msg
+      -- TODO: Should this use PP.renderedLines instead?
+      PP.hangs' ("error parsing YAML: " >< PP.string path) 2 $
+        map PP.string $ lines msg
+    BindingSpecReadYamlWarning path msg -> PP.hcat [
+        "error parsing YAML: "
+      , PP.string path
+      , ": "
+      , PP.string msg
+      ]
     BindingSpecReadParseVersion path AVersion{..} ->
-      hangs' ("parsing binding specification: " >< string path) 2 [
-          "hs-bindgen version: "
-            >< prettyForTraceHsBindgenVersion aVersionHsBindgen
-        , "binding specification version: "
-            >< prettyForTrace aVersionBindingSpecification
+      PP.hangs' ("parsing binding specification: " >< PP.string path) 2 [
+          "hs-bindgen version: " ><
+            prettyForTraceHsBindgenVersion aVersionHsBindgen
+        , "binding specification version: " ><
+            prettyForTrace aVersionBindingSpecification
         ]
     BindingSpecReadIncompatibleVersion path AVersion{..} ->
-      hangs' ("incompatible binding specification version: " >< string path) 2 [
-          "hs-bindgen version: "
-            >< prettyForTraceHsBindgenVersion aVersionHsBindgen
-        , "binding specification version: "
-            >< prettyForTrace aVersionBindingSpecification
+      PP.hangs' ("incompatible binding specification version: " >< PP.string path) 2 [
+          "hs-bindgen version: " ><
+            prettyForTraceHsBindgenVersion aVersionHsBindgen
+        , "binding specification version: " ><
+            prettyForTrace aVersionBindingSpecification
         ]
     BindingSpecReadIncompatibleTarget path ->
-      "incompatible binding specification target: " >< string path
+      "incompatible binding specification target: " >< PP.string path
     BindingSpecReadAnyTargetNotEnforced path ->
-      "'any' target of prescriptive binding specification not yet enforced: "
-        >< string path
-    BindingSpecReadInvalidCName path t ->
-      "invalid C name in " >< string path >< ": " >< textToCtxDoc t
-    BindingSpecReadCTypeConflict path cDeclId header ->
-      "multiple entries in " >< string path >< " for C type: "
-        >< prettyForTrace cDeclId
-        >< " (" >< string (getHashIncludeArg header) >< ")"
-    BindingSpecReadHsIdentifierNoRef path hsIdentifier ->
-      "Haskell identifier in " >< string path >< " not referenced by C type: "
-        >< textToCtxDoc hsIdentifier.text
-    BindingSpecReadHsTypeConflict path hsIdentifier ->
-      "multiple entries in " >< string path >< " for Haskell type: "
-        >< textToCtxDoc hsIdentifier.text
+      "'any' target of prescriptive binding specification not yet enforced: " ><
+        PP.string path
+    BindingSpecReadInvalidCName path t -> PP.hcat [
+        "invalid C name in "
+      , PP.string path
+      , ": "
+      , PP.text t
+      ]
+    BindingSpecReadCTypeConflict path cDeclId header -> PP.hcat [
+        "multiple entries in "
+      , PP.string path
+      , " for C type: "
+      , prettyForTrace cDeclId
+      , " ("
+      , PP.string (getHashIncludeArg header)
+      , ")"
+      ]
+    BindingSpecReadHsIdentifierNoRef path hsIdentifier -> PP.hcat [
+        "Haskell identifier in "
+      , PP.string path
+      , " not referenced by C type: "
+      , PP.text hsIdentifier.text
+      ]
+    BindingSpecReadHsTypeConflict path hsIdentifier -> PP.hcat [
+        "multiple entries in "
+      , PP.string path
+      , " for Haskell type: "
+      , PP.text hsIdentifier.text
+      ]
     BindingSpecReadHashIncludeArg path msg ->
-      prettyForTrace msg >< " in " >< string path
-    BindingSpecReadConvertVersion path versionFrom versionTo ->
-      "converting binding specification: " >< string path
-        >< " (from version " >< prettyForTrace versionFrom
-        >< ", to version " >< prettyForTrace versionTo >< ")"
+      prettyForTrace msg >< " in " >< PP.string path
+    BindingSpecReadConvertVersion path versionFrom versionTo -> PP.cat [
+        "converting binding specification: "
+      , PP.string path
+      , " (from version "
+      , prettyForTrace versionFrom
+      , ", to version "
+      , prettyForTrace versionTo
+      , ")"
+      ]
 
 --------------------------------------------------------------------------------
 
@@ -172,12 +203,12 @@ instance IsTrace Level BindingSpecResolveMsg where
 instance PrettyForTrace BindingSpecResolveMsg where
   prettyForTrace = \case
     BindingSpecResolveExternalHeader x ->
-      hang
+      PP.hang
         "During resolution of external binding specification:"
         2
         (prettyForTrace x)
     BindingSpecResolvePrescriptiveHeader x ->
-      hang
+      PP.hang
         "During resolution of prescriptive binding specification:"
         2
         (prettyForTrace x)
