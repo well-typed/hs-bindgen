@@ -12,7 +12,6 @@ module Test.HsBindgen.Resources (
 
 import Data.Default (Default (..))
 import System.FilePath ((</>))
-import Test.Common.Util.Cabal
 import Test.Tasty
 
 import Clang.Args
@@ -21,6 +20,8 @@ import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
+
+import Test.Common.Util.Cabal
 
 {-------------------------------------------------------------------------------
   Definition

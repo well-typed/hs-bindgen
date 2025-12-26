@@ -1,10 +1,8 @@
-{-# LANGUAGE OverloadedLabels #-}
-
 module HsBindgen.Backend.Category.ApplyChoice (
     applyBindingCategoryChoice
   ) where
 
-import Optics.Core (Lens', over, view)
+import Optics.Core (Lens')
 
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.AST qualified as Hs

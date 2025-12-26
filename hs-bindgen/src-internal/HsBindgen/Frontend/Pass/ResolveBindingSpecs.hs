@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedLabels #-}
-
 module HsBindgen.Frontend.Pass.ResolveBindingSpecs (
     resolveBindingSpecs
   ) where
@@ -217,33 +215,30 @@ resolveTop ::
            )
        )
 resolveTop decl = Reader.ask >>= \MEnv{..} -> do
-    let sourcePath = singleLocPath $ C.declLoc (C.info decl)
+    let sourcePath = singleLocPath decl.info.loc
         declPaths  = IncludeGraph.reaches envIncludeGraph sourcePath
-        mMsg       = Just $ ResolveBindingSpecsOmittedType cDeclId
-    isExt <- isJust <$> resolveExtBinding cDeclId declPaths mMsg
+        mMsg       = Just $ ResolveBindingSpecsOmittedType decl.info.id
+    isExt <- isJust <$> resolveExtBinding decl.info.id declPaths mMsg
     if isExt
       then do
-        State.modify' $ insertTrace (ResolveBindingSpecsExtDecl cDeclId)
+        State.modify' $ insertTrace (ResolveBindingSpecsExtDecl decl.info.id)
         return Nothing
-      else case BindingSpec.lookupCTypeSpec cDeclId declPaths envPSpec of
+      else case BindingSpec.lookupCTypeSpec decl.info.id declPaths envPSpec of
         Just (_hsModuleName, BindingSpec.Require cTypeSpec) -> do
           State.modify' $
-              insertTrace (ResolveBindingSpecsPrescriptiveRequire cDeclId)
-            . deleteNoPType cDeclId sourcePath
+              insertTrace (ResolveBindingSpecsPrescriptiveRequire decl.info.id)
+            . deleteNoPType decl.info.id sourcePath
           let mHsTypeSpec = do
                 hsIdentifier <- BindingSpec.cTypeSpecIdentifier cTypeSpec
                 BindingSpec.lookupHsTypeSpec hsIdentifier envPSpec
           return $ Just (decl, (Just cTypeSpec, mHsTypeSpec))
         Just (_hsModuleName, BindingSpec.Omit) -> do
           State.modify' $
-              insertTrace (ResolveBindingSpecsPrescriptiveOmit cDeclId)
-            . deleteNoPType cDeclId sourcePath
-            . insertOmittedType cDeclId decl.info.declLoc
+              insertTrace (ResolveBindingSpecsPrescriptiveOmit decl.info.id)
+            . deleteNoPType decl.info.id sourcePath
+            . insertOmittedType decl.info.id decl.info.loc
           return Nothing
         Nothing -> return $ Just (decl, (Nothing, Nothing))
-  where
-    cDeclId :: DeclId
-    cDeclId = decl.info.declId
 
 -- Pass two: deep
 --
@@ -254,7 +249,7 @@ resolveDeep ::
   -> (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
   -> M (C.Decl ResolveBindingSpecs)
 resolveDeep decl (cSpec, hsSpec) = do
-    declKind' <- resolve decl.info.declId decl.kind
+    declKind' <- resolve decl.info.id decl.kind
     return C.Decl {
         info = coercePass decl.info
       , kind = declKind'
@@ -283,88 +278,102 @@ instance Resolve C.DeclKind where
       C.DeclGlobal ty        -> C.DeclGlobal   <$> resolve ctx ty
 
 instance Resolve C.Struct where
-  resolve ctx C.Struct{..} =
+  resolve ctx struct =
       reconstruct
-        <$> mapM (resolve ctx) structFields
-        <*> mapM (resolve ctx) structFlam
+        <$> mapM (resolve ctx) struct.fields
+        <*> mapM (resolve ctx) struct.flam
     where
       reconstruct ::
            [C.StructField ResolveBindingSpecs]
         -> Maybe (C.StructField ResolveBindingSpecs)
         -> C.Struct ResolveBindingSpecs
       reconstruct structFields' structFlam' = C.Struct {
-            structFields = structFields'
-          , structFlam   = structFlam'
-          , ..
+            fields    = structFields'
+          , flam      = structFlam'
+          , sizeof    = struct.sizeof
+          , alignment = struct.alignment
+          , ann       = struct.ann
           }
 
 instance Resolve C.StructField where
-  resolve ctx C.StructField{..} = reconstruct <$> resolve ctx structFieldType
+  resolve ctx field =
+      reconstruct <$> resolve ctx field.typ
     where
       reconstruct ::
            C.Type ResolveBindingSpecs
         -> C.StructField ResolveBindingSpecs
       reconstruct structFieldType' = C.StructField {
-          structFieldInfo = coercePass structFieldInfo
-        , structFieldType = structFieldType'
-        , ..
+          typ    = structFieldType'
+        , info   = coercePass field.info
+        , offset = field.offset
+        , width  = field.width
+        , ann    = field.ann
         }
 
 instance Resolve C.Union where
-  resolve ctx C.Union{..} = reconstruct <$> mapM (resolve ctx) unionFields
+  resolve ctx union =
+      reconstruct <$> mapM (resolve ctx) union.fields
     where
       reconstruct ::
            [C.UnionField ResolveBindingSpecs]
         -> C.Union ResolveBindingSpecs
       reconstruct unionFields' = C.Union {
-          unionFields = unionFields'
-        , ..
+          fields    = unionFields'
+        , sizeof    = union.sizeof
+        , alignment = union.alignment
+        , ann       = union.ann
         }
 
 instance Resolve C.UnionField where
-  resolve ctx C.UnionField{..} = reconstruct <$> resolve ctx unionFieldType
+  resolve ctx field =
+      reconstruct <$> resolve ctx field.typ
     where
       reconstruct :: C.Type ResolveBindingSpecs
                  -> C.UnionField ResolveBindingSpecs
       reconstruct unionFieldType' = C.UnionField {
-          unionFieldInfo = coercePass unionFieldInfo
-        , unionFieldType = unionFieldType'
-        , ..
+          typ  = unionFieldType'
+        , info = coercePass field.info
+        , ann  = field.ann
         }
 
 instance Resolve C.Enum where
-  resolve ctx C.Enum{..} = reconstruct <$> resolve ctx enumType
+  resolve ctx enum =
+      reconstruct <$> resolve ctx enum.typ
     where
       reconstruct :: C.Type ResolveBindingSpecs -> C.Enum ResolveBindingSpecs
       reconstruct enumType' = C.Enum {
-          enumType      = enumType'
-        , enumConstants = map coercePass enumConstants
-        , ..
+          typ       = enumType'
+        , constants = map coercePass enum.constants
+        , sizeof    = enum.sizeof
+        , alignment = enum.alignment
+        , ann       = enum.ann
         }
 
 instance Resolve C.Typedef where
-  resolve ctx C.Typedef{..} = reconstruct <$> resolve ctx typedefType
+  resolve ctx typedef =
+      reconstruct <$> resolve ctx typedef.typ
     where
       reconstruct :: C.Type ResolveBindingSpecs -> C.Typedef ResolveBindingSpecs
       reconstruct typedefType' = C.Typedef {
-            typedefType = typedefType'
-          , ..
+            typ = typedefType'
+          , ann = typedef.ann
           }
 
 instance Resolve C.Function where
-  resolve ctx C.Function{..} =
+  resolve ctx function =
     reconstruct
-      <$> mapM (\(mbName, ty) -> (mbName,) <$> resolve ctx ty) functionArgs
-      <*> resolve ctx functionRes
+      <$> mapM (\(mbName, ty) -> (mbName,) <$> resolve ctx ty) function.args
+      <*> resolve ctx function.res
     where
       reconstruct ::
            [(Maybe C.ScopedName, C.Type ResolveBindingSpecs)]
         -> C.Type ResolveBindingSpecs
         -> C.Function ResolveBindingSpecs
       reconstruct functionArgs' functionRes' = C.Function {
-          functionArgs = functionArgs'
-        , functionRes  = functionRes'
-        , ..
+          args  = functionArgs'
+        , res   = functionRes'
+        , attrs = function.attrs
+        , ann   = function.ann
         }
 
 instance Resolve CheckedMacro where

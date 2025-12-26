@@ -5,10 +5,6 @@ import Control.Monad (when)
 import Optics.Core (view)
 import System.Directory (createDirectoryIfMissing)
 import System.FilePath ((</>))
-import Test.Common.Util.Tasty
-import Test.Common.Util.Tasty.Golden
-import Test.HsBindgen.Golden.TestCase
-import Test.HsBindgen.Resources
 import Test.Tasty
 
 import HsBindgen (getBindingsMultiple)
@@ -17,6 +13,11 @@ import HsBindgen.Backend.Category
 import HsBindgen.Config.Prelims
 import HsBindgen.Errors (panicIO)
 import HsBindgen.Language.Haskell qualified as Hs
+
+import Test.Common.Util.Tasty
+import Test.Common.Util.Tasty.Golden
+import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
   Tests

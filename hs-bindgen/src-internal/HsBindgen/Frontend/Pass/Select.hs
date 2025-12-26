@@ -281,7 +281,7 @@ selectDeclWith
           ++ show decl.info
   where
     declId :: DeclId
-    declId = decl.info.declId
+    declId = decl.info.id
 
     -- We check three conditions:
     isSelectedRoot = Set.member declId rootIds
@@ -327,9 +327,7 @@ selectDeclWith
       ]
 
     isDeprecated :: C.DeclInfo Select -> Bool
-    isDeprecated info = case C.declAvailability info of
-      C.Deprecated -> True
-      _            -> False
+    isDeprecated info = info.availability == C.Deprecated
 
 {-------------------------------------------------------------------------------
   Parse trace messages
@@ -337,7 +335,7 @@ selectDeclWith
 
 declLocationInfo :: Decl -> LocationInfo
 declLocationInfo decl =
-    declIdLocationInfo decl.info.declId [decl.info.declLoc]
+    declIdLocationInfo decl.info.id [decl.info.loc]
 
 getDelayedMsgs :: DeclIndex -> [Msg Select]
 getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
@@ -347,7 +345,7 @@ getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
       UsableE e -> case e of
         UsableSuccess success ->
           [ WithLocationInfo{
-                loc = declIdLocationInfo declId [success.decl.info.declLoc]
+                loc = declIdLocationInfo declId [success.decl.info.loc]
               , msg = SelectParseSuccess x
               }
           | x <- success.delayedParseMsgs
@@ -456,7 +454,7 @@ selectDeclIndex declUseGraph p declIndex =
         UsableE e -> case e of
           UsableSuccess success ->
             let info = success.decl.info
-            in Just ([info.declLoc], info.declAvailability)
+            in Just ([info.loc], info.availability)
           UsableExternal ->
             Nothing
           UsableSquashed{} ->

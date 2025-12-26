@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedLabels #-}
-
 -- | This module is intended for unqualified import because some declarations
 -- | are reexported from the public Template Haskell interface.
 module HsBindgen.Backend.Category (
@@ -23,7 +21,7 @@ module HsBindgen.Backend.Category (
   ) where
 
 import Data.Functor.Const (Const (..))
-import Optics.Core (Lens', iso, (%))
+import Optics.Core (Lens', iso)
 import Optics.Iso (Iso')
 
 import HsBindgen.Imports hiding (toList)

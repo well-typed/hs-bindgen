@@ -34,14 +34,14 @@ import HsBindgen.Language.Haskell qualified as Hs
 -- | Convert a Clang comment to a Haddock comment
 --
 mkHaddocks :: HaddockConfig -> C.DeclInfo Final -> Hs.Name ns -> Maybe HsDoc.Comment
-mkHaddocks config declInfo name =
+mkHaddocks config info name =
     fmap (mbAddUniqueSymbolSource name) .
-      fst $ mkHaddocksWithArgs config declInfo Args{
+      fst $ mkHaddocksWithArgs config info Args{
           isField     = False
-        , loc         = declInfo.declLoc
-        , nameC       = renderDeclId declInfo.declId.cName
-        , nameHsIdent = declInfo.declId.hsName
-        , comment     = declInfo.declComment
+        , loc         = info.loc
+        , nameC       = renderDeclId info.id.cName
+        , nameHsIdent = info.id.hsName
+        , comment     = info.comment
         , params      = []
         }
 
@@ -50,13 +50,13 @@ mkHaddocksFieldInfo ::
   -> C.DeclInfo Final
   -> C.FieldInfo Final
   -> Maybe HsDoc.Comment
-mkHaddocksFieldInfo config declInfo C.FieldInfo{..} =
+mkHaddocksFieldInfo config declInfo fieldInfo =
     fst $ mkHaddocksWithArgs config declInfo Args{
         isField     = True
-      , loc         = fieldLoc
-      , nameC       = fieldName.cName.text
-      , nameHsIdent = fieldName.hsName
-      , comment     = fieldComment
+      , loc         = fieldInfo.loc
+      , nameC       = fieldInfo.name.cName.text
+      , nameHsIdent = fieldInfo.name.hsName
+      , comment     = fieldInfo.comment
       , params      = []
       }
 
@@ -68,13 +68,13 @@ mkHaddocksDecorateParams ::
   -> Hs.Name ns
   -> [Hs.FunctionParameter]
   -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
-mkHaddocksDecorateParams config declInfo name params =
-    let (mbc, xs) = mkHaddocksWithArgs config declInfo Args{
+mkHaddocksDecorateParams config info name params =
+    let (mbc, xs) = mkHaddocksWithArgs config info Args{
         isField     = False
-      , loc         = declInfo.declLoc
-      , nameC       = renderDeclId declInfo.declId.cName
-      , nameHsIdent = declInfo.declId.hsName
-      , comment     = declInfo.declComment
+      , loc         = info.loc
+      , nameC       = renderDeclId info.id.cName
+      , nameHsIdent = info.id.hsName
+      , comment     = info.comment
       , params
       }
     in  (mbAddUniqueSymbolSource name <$> mbc, xs)
@@ -102,7 +102,7 @@ data Args = Args{
 -- Returns the processed comment and the updated parameters list
 --
 mkHaddocksWithArgs :: HaddockConfig -> C.DeclInfo Final -> Args -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
-mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Nothing, ..} =
+mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Nothing, ..} =
       -- If there's no C.Comment to associate with any function parameter we make
       -- sure to at least add a comment that will show the function parameter name
       -- if it exists.
@@ -110,10 +110,10 @@ mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Nothing, ..} =
       ( Just mempty {
            HsDoc.commentOrigin     = Just nameC
          , HsDoc.commentLocation   = Just $ updateSingleLoc pathStyle loc
-         , HsDoc.commentHeaderInfo = Just declInfo.declHeaderInfo
+         , HsDoc.commentHeaderInfo = Just info.headerInfo
          }
       , map addFunctionParameterComment params)
-mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Just (C.Comment CDoc.Comment{..}), ..} =
+mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Comment{..}), ..} =
   let commentCName = nameC
       commentLocation = updateSingleLoc pathStyle loc
       (commentTitle, commentChildren') =
@@ -161,7 +161,7 @@ mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Just (C.Comment CDo
           HsDoc.commentTitle
         , HsDoc.commentOrigin     = Just commentCName
         , HsDoc.commentLocation   = Just commentLocation
-        , HsDoc.commentHeaderInfo = Just declInfo.declHeaderInfo
+        , HsDoc.commentHeaderInfo = Just info.headerInfo
         , HsDoc.commentChildren   = finalChildren
         }
       , updatedParams

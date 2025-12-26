@@ -45,11 +45,11 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
       -> Memoize (Maybe DeclId)
     nameForUsage anonId = \case
         AnonUsageAnalysis.Field declInfo fieldInfo ->
-          fmap (nameForField anonId fieldInfo) <$> declName declInfo.declId
+          fmap (nameForField anonId fieldInfo) <$> declName declInfo.id
         AnonUsageAnalysis.TypedefDirect declInfo ->
-          fmap (nameForTypedefDirect anonId) <$> declName declInfo.declId
+          fmap (nameForTypedefDirect anonId) <$> declName declInfo.id
         AnonUsageAnalysis.TypedefIndirect declInfo ->
-          fmap (nameForTypedefIndirect anonId) <$> declName declInfo.declId
+          fmap (nameForTypedefIndirect anonId) <$> declName declInfo.id
 
     declName :: PrelimDeclId -> Memoize (Maybe DeclId)
     declName = \case
@@ -62,7 +62,7 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     nameForField anonId field outerStruct = DeclId{
           isAnon = True
         , name   = C.DeclName{
-              text = outerStruct.name.text <> "_" <> field.fieldName.text
+              text = outerStruct.name.text <> "_" <> field.name.text
             , kind = anonId.kind
             }
         }

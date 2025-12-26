@@ -15,11 +15,11 @@ import Data.ByteString.UTF8 qualified as UTF8
 import Data.Either (isRight)
 import Data.Proxy
 import System.Directory (removeFile)
-import Test.Common.Util.Tasty.Golden
 import Test.Tasty
 import Test.Tasty.HUnit
 
 import AnsiDiff (ansidiff)
+import Test.Common.Util.Tasty.Golden
 
 {-------------------------------------------------------------------------------
   Assertions

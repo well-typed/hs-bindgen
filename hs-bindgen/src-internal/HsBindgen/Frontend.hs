@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedLabels #-}
-
 module HsBindgen.Frontend
   ( frontend
   , FrontendArtefact (..)
@@ -7,7 +5,6 @@ module HsBindgen.Frontend
   ) where
 
 import Data.Map.Strict qualified as Map
-import Optics.Core (view, (%))
 
 import Clang.Enum.Bitfield
 import Clang.LowLevel.Core

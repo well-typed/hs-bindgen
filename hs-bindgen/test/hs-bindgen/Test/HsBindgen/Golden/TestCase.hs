@@ -24,8 +24,6 @@ module Test.HsBindgen.Golden.TestCase (
   ) where
 
 import System.FilePath
-import Test.Common.HsBindgen.Trace.Predicate
-import Test.HsBindgen.Resources
 import Test.Tasty (TestName)
 import Test.Tasty.HUnit (assertFailure)
 
@@ -41,6 +39,9 @@ import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
+
+import Test.Common.HsBindgen.Trace.Predicate
+import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
   Definition

@@ -1,7 +1,5 @@
 module Test.HsBindgen.Unit.ClangArgs (tests) where
 
-import Test.Common.HsBindgen.Trace.Predicate
-import Test.HsBindgen.Resources
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -13,6 +11,9 @@ import HsBindgen.Config.ClangArgs
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
+
+import Test.Common.HsBindgen.Trace.Predicate
+import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
   List of tests

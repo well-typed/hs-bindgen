@@ -4,12 +4,13 @@
 module Test.HsBindgen.Golden.Check.FailingTrace (check) where
 
 import Control.Monad (void)
-import Test.HsBindgen.Golden.TestCase
-import Test.HsBindgen.Resources
 import Test.Tasty (TestTree)
 import Test.Tasty.HUnit
 
 import HsBindgen
+
+import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
   Tests

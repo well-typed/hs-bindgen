@@ -299,13 +299,14 @@ steps:
         # Note: Optics, Generics, and Crypto use \> (word boundary) instead of \.
         # because both standalone modules and submodules should be grouped together.
         # Using \. would exclude standalone imports like "import Optics".
-        - match: "^(Control\\.|Data\\.|System\\.|Text\\.|GHC\\.|Foreign|Foreign\\.|Unsafe\\.|Debug\\.|Network\\.|Test\\.|Numeric\\.|Options\\.|Language\\.|Optics\\>|Generics\\>|Crypto\\>|DeBruijn\\.|Prettyprinter\\.)"
+        - match: "^(Control\\.|Data\\.|System\\.|Text\\.|GHC\\.|Foreign|Foreign\\.|Unsafe\\.|Debug\\.|Network\\.|Test\\.Tasty|Test\\.QuickCheck|Numeric\\.|Options\\.|Language\\.|Optics\\>|Generics\\>|Crypto\\>|DeBruijn\\.|Prettyprinter\\.)"
         # - match: "^C\\."
         - match: "^(C\\.Char|C\\.Type|C\\.Expr\\.HostPlatform)"
         - match: "^C\\.Expr\\.[^.]+"
         - match: "^Clang\\>"
         - match: "^HsBindgen\\.Runtime\\>"
         - match: "^HsBindgen\\>"
+        - match: "^(Test\\.Common\\.|Test\\.HsBindgen\\.)>"
 
 # A common setting is the number of columns (parts of) code will be wrapped
 # to. Different steps take this into account.
@@ -360,6 +361,7 @@ language_extensions:
   - MultiWayIf
   - NegativeLiterals
   - NoImplicitPrelude
+  - OverloadedLabels
   - OverloadedStrings
   - PatternSynonyms
   - PolyKinds

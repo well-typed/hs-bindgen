@@ -159,7 +159,7 @@ genBindingSpec'
     insertType ((declInfo, cTypeSpec), (hsId, hsTypeSpec)) spec = spec{
         BindingSpec.bindingSpecCTypes =
           Map.insertWith (++)
-            declInfo.declId.cName
+            declInfo.id.cName
             [(getHeaders declInfo, Require cTypeSpec)]
             (BindingSpec.bindingSpecCTypes spec)
       , BindingSpec.bindingSpecHsTypes =
@@ -256,7 +256,7 @@ genBindingSpec'
           )
 
     getHeaders :: C.DeclInfo Final -> Set HashIncludeArg
-    getHeaders = getMainHeaders' . singleLocPath . C.declLoc
+    getHeaders info = getMainHeaders' $ singleLocPath info.loc
 
 -- TODO strategy
 -- TODO constraints

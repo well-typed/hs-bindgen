@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedLabels #-}
-
 -- | Configuration of @hs-bindgen@.
 module HsBindgen.Config (
     Config_(..)

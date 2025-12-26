@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Results from the parser proper
 module HsBindgen.Frontend.Pass.Parse.Result (
     ParseResult(..)
@@ -35,8 +38,8 @@ import HsBindgen.Util.Tracer
 -- NOTE: This does /NOT/ depend on the @Parse@ pass specifically: we transform
 -- these results in the @AssignAnonIds@ pass.
 data ParseResult p = ParseResult{
-      declId         :: Id p
-    , declLoc        :: SingleLoc
+      id             :: Id p
+    , loc            :: SingleLoc
     , classification :: ParseClassification p
     }
 
@@ -97,7 +100,7 @@ newtype ParseFailure = ParseFailure {
 instance IsPass p => PrettyForTrace (ParseResult p) where
   prettyForTrace result =
       prettyForTrace $ WithLocationInfo{
-          loc = idLocationInfo (Proxy @p) result.declId [result.declLoc]
+          loc = idLocationInfo (Proxy @p) result.id [result.loc]
         , msg = result.classification
         }
 
@@ -130,25 +133,25 @@ parseSucceed = parseSucceedWith []
 
 parseSucceedWith :: [DelayedParseMsg] -> C.Decl p -> ParseResult p
 parseSucceedWith delayedParseMsgs decl = ParseResult{
-     declId         = decl.info.declId
-   , declLoc        = decl.info.declLoc
+     id             = decl.info.id
+   , loc            = decl.info.loc
    , classification = ParseResultSuccess ParseSuccess{
-         decl
-       , delayedParseMsgs
-       }
+                          decl
+                        , delayedParseMsgs
+                        }
     }
 
 parseDoNotAttempt :: C.DeclInfo p -> ParseNotAttempted -> ParseResult p
 parseDoNotAttempt info reason = ParseResult{
-      declId          = info.declId
-    , declLoc         = info.declLoc
+      id              = info.id
+    , loc             = info.loc
     , classification = ParseResultNotAttempted reason
     }
 
 parseFail :: Id p -> SingleLoc -> DelayedParseMsg -> ParseResult p
 parseFail declId declLoc msg = ParseResult{
-      declId         = declId
-    , declLoc        = declLoc
+      id             = declId
+    , loc            = declLoc
     , classification = ParseResultFailure $ ParseFailure msg
     }
 

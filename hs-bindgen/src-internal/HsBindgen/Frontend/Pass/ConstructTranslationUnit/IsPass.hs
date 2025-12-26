@@ -1,6 +1,5 @@
 {-# LANGUAGE NoFieldSelectors  #-}
 {-# LANGUAGE NoRecordWildCards #-}
-{-# LANGUAGE OverloadedLabels  #-}
 
 module HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (
     ConstructTranslationUnit

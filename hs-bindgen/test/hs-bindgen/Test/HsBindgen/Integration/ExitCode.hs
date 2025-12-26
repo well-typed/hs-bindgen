@@ -5,13 +5,14 @@ import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
 import System.Process (readProcessWithExitCode)
-import Test.Common.HsBindgen.Trace.Predicate
-import Test.HsBindgen.Golden.TestCase
-import Test.HsBindgen.Resources
 import Test.Tasty
 import Test.Tasty.HUnit
 
 import HsBindgen.Artefact (Artefact (..))
+
+import Test.Common.HsBindgen.Trace.Predicate
+import Test.HsBindgen.Golden.TestCase
+import Test.HsBindgen.Resources
 
 {-------------------------------------------------------------------------------
   Tests
