@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Declaration usage-definition graph
 --
 -- Intended for qualified import.
@@ -56,13 +60,13 @@ type Decl = C.Decl AssignAnonIds
 --
 -- Whenever declaration A uses (depends on) declaration B, there will be
 -- an edge from A to B in this graph.
-newtype UseDeclGraph = Wrap {
-      unwrap :: DynGraph ValOrRef DeclId
+data UseDeclGraph = UseDeclGraph {
+      graph :: DynGraph ValOrRef DeclId
     }
   deriving stock (Show, Eq)
 
 toDynGraph :: UseDeclGraph -> DynGraph ValOrRef DeclId
-toDynGraph = unwrap
+toDynGraph useDeclGraph = useDeclGraph.graph
 
 {-------------------------------------------------------------------------------
   Construction
@@ -76,14 +80,16 @@ fromDecls includeGraph decls =
     orderMap = IncludeGraph.toOrderMap includeGraph
 
 fromSortedDecls :: [Decl] -> UseDeclGraph
-fromSortedDecls decls = Wrap $
+fromSortedDecls decls = UseDeclGraph{
+      graph = foldl' (flip addEdges) vertices decls
+    }
+  where
     -- We first insert all declarations, so that they are assigned vertices.
     -- Since we do this in source order, this ensures that we preserve source
     -- order as much as possible in 'toDecls' (modulo dependencies).
-    let vertices :: DynGraph ValOrRef DeclId
-        vertices = foldl' (flip addVertex) DynGraph.empty decls
-    in foldl' (flip addEdges) vertices decls
-  where
+    vertices :: DynGraph ValOrRef DeclId
+    vertices = foldl' (flip addVertex) DynGraph.empty decls
+
     addVertex, addEdges ::
          Decl
       -> DynGraph ValOrRef DeclId
@@ -110,20 +116,20 @@ fromSortedDecls decls = Wrap $
 -- For each declaration we provide one example of how that declaration is used
 -- (if one exists).
 toDecls :: DeclIndex -> UseDeclGraph -> [Decl]
-toDecls index (Wrap graph) =
+toDecls index useDeclGraph =
     -- TODO: Should this just be DynGraph.topSort?
     -- Not sure why that has an additional reverse.
     -- NOTE: There might be dependencies in 'useDeclGraph' on declarations
     -- without a corresponding entry in 'useDeclIndex': for example, this can
     -- happen when we areusing external binding specifications.
     mapMaybe (`DeclIndex.lookup` index) . DynGraph.postorderForest $
-      DynGraph.dff $ DynGraph.filterEdges usedByVal graph
+      DynGraph.dff $ DynGraph.filterEdges usedByVal useDeclGraph.graph
   where
     usedByVal :: ValOrRef -> Bool
     usedByVal = (== ByValue)
 
 getTransitiveDeps :: UseDeclGraph -> [DeclId] -> Set DeclId
-getTransitiveDeps = DynGraph.reaches . unwrap
+getTransitiveDeps useDeclGraph = DynGraph.reaches useDeclGraph.graph
 
 getStrictTransitiveDeps :: UseDeclGraph -> [DeclId] -> Set DeclId
 getStrictTransitiveDeps graph xs =
@@ -138,7 +144,9 @@ deleteDeps ::
      [DeclId]
   -> UseDeclGraph
   -> UseDeclGraph
-deleteDeps depIds = Wrap . DynGraph.deleteEdgesTo depIds . unwrap
+deleteDeps depIds useDeclGraph = UseDeclGraph{
+      graph = DynGraph.deleteEdgesTo depIds useDeclGraph.graph
+    }
 
 {-------------------------------------------------------------------------------
   Construction auxiliary: sort key
@@ -152,21 +160,27 @@ data SortKey = SortKey{
   deriving (Eq, Ord, Show)
 
 annSortKey :: Map SourcePath Int -> C.Decl p -> SortKey
-annSortKey sourceMap C.Decl{declInfo = C.DeclInfo{declLoc}} =
-  let key        = singleLocPath declLoc
-      sortPathIx = fromMaybe
-        (panicPure $ "Source of declaration " <> show key <> " not in source map")
-        (Map.lookup key sourceMap)
-  in SortKey{
-      sortPathIx
-    , sortLineNo = singleLocLine declLoc
-    , sortColNo  = singleLocColumn declLoc
+annSortKey sourceMap decl = SortKey{
+      sortPathIx = sortPathIx
+    , sortLineNo = singleLocLine   decl.declInfo.declLoc
+    , sortColNo  = singleLocColumn decl.declInfo.declLoc
     }
+  where
+    key        = singleLocPath decl.declInfo.declLoc
+    sortPathIx = fromMaybe
+      (panicPure $ "Source of declaration " <> show key <> " not in source map")
+      (Map.lookup key sourceMap)
 
 {-------------------------------------------------------------------------------
   Debugging
 -------------------------------------------------------------------------------}
 
 dumpMermaid :: UseDeclGraph -> String
-dumpMermaid (Wrap graph) =
-    DynGraph.dumpMermaid False (const True) (Just . show) show graph
+dumpMermaid useDeclGraph =
+    DynGraph.dumpMermaid
+      DynGraph.MermaidOptions{
+          reverseEdges = False
+        , renderVertex = Just . show
+        , renderEdge   = Just . show
+        }
+      useDeclGraph.graph

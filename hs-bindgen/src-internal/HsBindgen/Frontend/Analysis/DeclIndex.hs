@@ -1,4 +1,6 @@
-{-# LANGUAGE OverloadedLabels #-}
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+{-# LANGUAGE OverloadedLabels  #-}
 
 -- | Declaration index
 --
@@ -155,8 +157,8 @@ data Entry =
 --
 -- The edge from D3 to D2 was removed, since D3 now depends on a Haskell type
 -- R3, which is not part of the use-decl graph.
-newtype DeclIndex = DeclIndex {
-      unDeclIndex :: Map DeclId Entry
+data DeclIndex = DeclIndex {
+      map :: Map DeclId Entry
     }
   deriving stock (Show, Generic)
 
@@ -174,10 +176,8 @@ fromParseResults :: [ParseResult AssignAnonIds] -> DeclIndex
 fromParseResults results = flip execState empty $ mapM_ aux results
   where
     aux :: ParseResult AssignAnonIds -> State DeclIndex ()
-    aux new = modify' $
-          DeclIndex
-        . Map.alter (Just . handleParseResult new) new.declId
-        . unDeclIndex
+    aux new = modify' $ \index -> DeclIndex $
+        Map.alter (Just . handleParseResult new) new.declId index.map
 
     handleParseResult :: ParseResult AssignAnonIds -> Maybe Entry -> Entry
     handleParseResult new = \case
@@ -283,13 +283,13 @@ lookup declId (DeclIndex i) = case Map.lookup declId i of
 
 -- | Unsafe! Get parse success.
 (!) :: HasCallStack => DeclIndex -> DeclId -> C.Decl AssignAnonIds
-(!) declIndex declId =
+(!) index declId =
     fromMaybe (panicPure $ "Unknown key: " ++ show declId) $
-       lookup declId declIndex
+       lookup declId index
 
 -- | Get all parse successes.
 getDecls :: DeclIndex -> [C.Decl AssignAnonIds]
-getDecls = mapMaybe toDecl . Map.elems . unDeclIndex
+getDecls index = mapMaybe toDecl $ Map.elems index.map
   where
     toDecl = \case
       UsableE (UsableSuccess x) -> Just x.decl
@@ -301,11 +301,11 @@ getDecls = mapMaybe toDecl . Map.elems . unDeclIndex
 
 -- | Lookup an entry of a declaration index.
 lookupEntry :: DeclId -> DeclIndex -> Maybe Entry
-lookupEntry x = Map.lookup x . unDeclIndex
+lookupEntry x index = Map.lookup x index.map
 
 -- | Get all entries of a declaration index.
 toList :: DeclIndex -> [(DeclId, Entry)]
-toList = Map.toList . unDeclIndex
+toList index = Map.toList index.map
 
 -- | Get the source locations of a declaration.
 lookupLoc :: DeclId -> DeclIndex -> [SingleLoc]
@@ -334,11 +334,11 @@ unusableToLoc = \case
 
 -- | Get the identifiers of all declarations in the index.
 keysSet :: DeclIndex -> Set DeclId
-keysSet = Map.keysSet . unDeclIndex
+keysSet index = Map.keysSet index.map
 
 -- | Get omitted entries.
 getOmitted :: DeclIndex -> Map DeclId SourcePath
-getOmitted = Map.mapMaybe toOmitted . unDeclIndex
+getOmitted index = Map.mapMaybe toOmitted index.map
   where
     toOmitted :: Entry -> Maybe SourcePath
     toOmitted = \case
@@ -349,7 +349,7 @@ getOmitted = Map.mapMaybe toOmitted . unDeclIndex
 
 -- | Get squashed entries.
 getSquashed :: DeclIndex -> Map DeclId (SourcePath, Hs.Identifier)
-getSquashed = Map.mapMaybe toSquashed . unDeclIndex
+getSquashed index = Map.mapMaybe toSquashed index.map
   where
     toSquashed :: Entry -> Maybe (SourcePath, Hs.Identifier)
     toSquashed = \case
@@ -387,8 +387,8 @@ registerMacroFailures xs index = Foldable.foldl' insert index xs
 -------------------------------------------------------------------------------}
 
 registerOmittedDeclarations :: Map DeclId SingleLoc -> DeclIndex -> DeclIndex
-registerOmittedDeclarations xs =
-      DeclIndex . Map.union (UnusableE . UnusableOmitted <$> xs) . unDeclIndex
+registerOmittedDeclarations xs index = DeclIndex $
+      Map.union (UnusableE . UnusableOmitted <$> xs) index.map
 
 registerExternalDeclarations :: Set DeclId -> DeclIndex -> DeclIndex
 registerExternalDeclarations xs index = Foldable.foldl' insert index xs
@@ -401,7 +401,5 @@ registerSquashedDeclarations ::
      Map DeclId (SingleLoc, Hs.Identifier)
   -> DeclIndex
   -> DeclIndex
-registerSquashedDeclarations xs =
-      DeclIndex
-    . Map.union (UsableE . uncurry UsableSquashed <$> xs)
-    . unDeclIndex
+registerSquashedDeclarations xs index = DeclIndex $
+    Map.union (UsableE . uncurry UsableSquashed <$> xs) index.map

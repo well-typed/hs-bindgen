@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 module Data.DynGraph.Labelled (
     -- * Type
     DynGraph
@@ -21,6 +25,7 @@ module Data.DynGraph.Labelled (
   , deleteEdgesTo
   , filterEdges
     -- * Debugging
+  , MermaidOptions(..)
   , dumpMermaid
     -- * Auxiliary: tree traversals
   , postorderForest
@@ -85,10 +90,10 @@ empty = DynGraph
     }
 
 reverse :: forall l a. Ord l => DynGraph l a -> DynGraph l a
-reverse DynGraph{vtxMap, idxMap, edges} = DynGraph{
-      vtxMap
-    , idxMap
-    , edges = go IntMap.empty (IntMap.toList edges)
+reverse graph = DynGraph{
+      vtxMap = graph.vtxMap
+    , idxMap = graph.idxMap
+    , edges  = go IntMap.empty (IntMap.toList graph.edges)
     }
   where
     go :: IntMap (Set (Int, l)) -> [(Int, Set (Int, l))] -> IntMap (Set (Int, l))
@@ -114,13 +119,13 @@ insertVertex v = snd . insertVertex' v
 --
 -- The graph is not changed if the edge already exists.
 insertEdge :: (Ord a, Ord l) => a -> l -> a -> DynGraph l a -> DynGraph l a
-insertEdge vFrom l vTo dynGraph0 =
-    let (vFromIdx, dynGraph1) = insertVertex' vFrom dynGraph0
-        (vToIdx,   dynGraph2) = insertVertex' vTo   dynGraph1
-    in  dynGraph2 {
+insertEdge vFrom l vTo graph0 =
+    let (vFromIdx, graph1) = insertVertex' vFrom graph0
+        (vToIdx,   graph2) = insertVertex' vTo   graph1
+    in  graph2 {
             edges =
               IntMap.insertWith (<>) vFromIdx (Set.singleton (vToIdx, l)) $
-                edges dynGraph2
+                graph2.edges
           }
 
 {-------------------------------------------------------------------------------
@@ -129,7 +134,7 @@ insertEdge vFrom l vTo dynGraph0 =
 
 -- | Gets the vertices in the graph
 vertices :: DynGraph l a -> [a]
-vertices DynGraph{..} = Map.keys vtxMap
+vertices graph = Map.keys graph.vtxMap
 
 -- | Gets the set of vertices that are reachable from any of the specified
 -- vertices
@@ -137,24 +142,26 @@ vertices DynGraph{..} = Map.keys vtxMap
 -- The specified vertices are included in the set (assuming that they are in
 -- the graph).
 reaches :: Ord a => DynGraph l a -> [a] -> Set a
-reaches DynGraph{..} =
-    Set.map (idxMap IntMap.!) . reaches' edges . mapMaybe (vtxMap Map.!?)
+reaches graph =
+      Set.map (graph.idxMap IntMap.!)
+    . reaches' graph.edges
+    . mapMaybe (graph.vtxMap Map.!?)
 
 -- | Gets the set of vertices that are immediate neighbors of the specified
 -- vertex
 neighbors :: (Ord a, Ord l) => DynGraph l a -> a -> Set (a, l)
-neighbors DynGraph{..} =
-      maybe mempty (Set.map (first (idxMap IntMap.!)))
-    . ((`IntMap.lookup` edges) <=< (`Map.lookup` vtxMap))
+neighbors graph =
+      maybe mempty (Set.map (first (graph.idxMap IntMap.!)))
+    . ((`IntMap.lookup` graph.edges) <=< (`Map.lookup` graph.vtxMap))
 
 -- | Gets a topological sort of the graph
 topSort :: DynGraph l a -> [a]
-topSort dynGraph@DynGraph{..} = (idxMap IntMap.!) <$> topSort' dynGraph
+topSort graph = (graph.idxMap IntMap.!) <$> topSort' graph
 
 -- | Gets the spanning forest of the graph obtained from a depth-first search of
 -- the graph starting from each vertex in insertion order
 dff :: DynGraph l a -> [Tree a]
-dff dynGraph@DynGraph{..} = fmap (idxMap IntMap.!) <$> dff' dynGraph
+dff graph = fmap (graph.idxMap IntMap.!) <$> dff' graph
 
 -- | Find the first vertex in the specified set in a depth-first traversal of
 -- the graph starting from the specified vertex
@@ -162,13 +169,13 @@ dff dynGraph@DynGraph{..} = fmap (idxMap IntMap.!) <$> dff' dynGraph
 -- This function is specific to equality so that more can be done in the index
 -- domain, for performance.
 dfFindMember :: Ord a => Set a -> DynGraph l a -> a -> Maybe a
-dfFindMember targets dynGraph@DynGraph{..} v = do
-    ix <- Map.lookup v vtxMap
+dfFindMember targets graph v = do
+    ix <- Map.lookup v graph.vtxMap
     let targetIxs = IntSet.fromList $
-          mapMaybe (`Map.lookup` vtxMap) (Set.toList targets)
+          mapMaybe (`Map.lookup` graph.vtxMap) (Set.toList targets)
     targetIx <- List.find (`IntSet.member` targetIxs) $
-      List.reverse (postorderForest (dfs' dynGraph [ix]))
-    IntMap.lookup targetIx idxMap
+      List.reverse (postorderForest (dfs' graph [ix]))
+    IntMap.lookup targetIx graph.idxMap
 
 -- | Find trail through the graph
 findTrailFrom :: forall m l a r.
@@ -177,7 +184,7 @@ findTrailFrom :: forall m l a r.
   -> ([(a, l)] -> m (Either a r)) -- ^ Choose next step
   -> a                            -- ^ Starting point
   -> m r
-findTrailFrom DynGraph{..} f = go
+findTrailFrom graph f = go
   where
     go :: a -> m r
     go curr = do
@@ -188,9 +195,9 @@ findTrailFrom DynGraph{..} f = go
       where
         successors :: [(a, l)]
         successors = fromMaybe [] $ do
-            currIx <- Map.lookup curr vtxMap
-            next   <- Set.toList <$> IntMap.lookup currIx edges
-            return $ map (first (idxMap IntMap.!)) next
+            currIx <- Map.lookup curr graph.vtxMap
+            next   <- Set.toList <$> IntMap.lookup currIx graph.edges
+            return $ map (first (graph.idxMap IntMap.!)) next
 
 -- | Find edges from the specified starting vertex and edges to terminal
 -- vertices in paths from that starting vertex
@@ -199,8 +206,8 @@ findEdges :: forall l a.
   => DynGraph l a
   -> a
   -> FindEdgesResult l
-findEdges DynGraph{..} startV =
-    run (0, Map.size vtxMap - 1) $ \(check :: Int -> ST s Bool) ->
+findEdges graph startV =
+    run (0, Map.size graph.vtxMap - 1) $ \(check :: Int -> ST s Bool) ->
       let step ::
                NonEmpty l  -- edges from starting vertex
             -> IntSet      -- terminal vertices
@@ -211,16 +218,16 @@ findEdges DynGraph{..} startV =
             | IntSet.member ix termIxs = step startEdges termIxs (l : acc) rest
             | otherwise = check ix >>= \case
                 True -> step startEdges termIxs acc rest
-                False -> case Set.toList <$> IntMap.lookup ix edges of
+                False -> case Set.toList <$> IntMap.lookup ix graph.edges of
                   Just ps | not (null ps) ->
                     step startEdges termIxs acc (ps ++ rest)
                   _otherwise ->
                     step startEdges (IntSet.insert ix termIxs) (l : acc) rest
           step startEdges _termIxs acc [] = return $
             FindEdgesFound startEdges (NonEmpty.fromList (List.reverse acc))
-      in  case Map.lookup startV vtxMap of
+      in  case Map.lookup startV graph.vtxMap of
             Nothing -> return FindEdgesInvalid
-            Just ix -> case Set.toList <$> IntMap.lookup ix edges of
+            Just ix -> case Set.toList <$> IntMap.lookup ix graph.edges of
               Just ps -> case fmap snd <$> NonEmpty.nonEmpty ps of
                 Just startEdges -> step startEdges IntSet.empty [] ps
                 Nothing -> return FindEdgesNone
@@ -257,10 +264,10 @@ data FindEdgesResult l =
 -- This function never deletes vertices, even if removing edges results in a
 -- disconnected graph.
 deleteEdgesTo :: Ord a => [a] -> DynGraph l a -> DynGraph l a
-deleteEdgesTo vs dynGraph@DynGraph{..} =
-    let ixs = IntSet.fromList $ mapMaybe (vtxMap Map.!?) vs
+deleteEdgesTo vs graph =
+    let ixs = IntSet.fromList $ mapMaybe (graph.vtxMap Map.!?) vs
         f   = mne . Set.filter ((`IntSet.notMember` ixs) . fst)
-    in dynGraph { edges = IntMap.mapMaybe f edges }
+    in graph { edges = IntMap.mapMaybe f graph.edges }
   where
     mne :: Set a -> Maybe (Set a)
     mne s
@@ -269,7 +276,7 @@ deleteEdgesTo vs dynGraph@DynGraph{..} =
 
 filterEdges :: forall l a. (l -> Bool) -> DynGraph l a -> DynGraph l a
 filterEdges f graph = graph {
-      edges = IntMap.mapMaybe aux $ edges graph
+      edges = IntMap.mapMaybe aux graph.edges
     }
   where
     aux :: Set (Int, l) -> Maybe (Set (Int, l))
@@ -286,16 +293,16 @@ filterEdges f graph = graph {
 --
 -- The graph is not changed if the vertex already exists.
 insertVertex' :: forall l a. Ord a => a -> DynGraph l a -> (Int, DynGraph l a)
-insertVertex' v dynGraph@DynGraph{..} =
-    case Map.insertLookupWithKey (\_key _new old -> old) v i' vtxMap of
-      (Just i, _)        -> (i,  dynGraph)
-      (Nothing, vtxMap') -> (i', dynGraph{ vtxMap = vtxMap', idxMap = idxMap' })
+insertVertex' v graph =
+    case Map.insertLookupWithKey (\_key _new old -> old) v i' graph.vtxMap of
+      (Just i, _)        -> (i,  graph)
+      (Nothing, vtxMap') -> (i', graph{ vtxMap = vtxMap', idxMap = idxMap' })
   where
     i' :: Int
-    i' = Map.size vtxMap
+    i' = Map.size graph.vtxMap
 
     idxMap' :: IntMap a
-    idxMap' = IntMap.insert i' v idxMap
+    idxMap' = IntMap.insert i' v graph.idxMap
 
 -- | Get the set of vertices that are reachable from any of the specified
 -- vertices
@@ -323,13 +330,13 @@ topSort' = List.reverse . postorderForest . dff'
 -- | Gets the spanning forest of the graph obtained from a depth-first search of
 -- the graph starting from each vertex index in insertion order
 dff' :: DynGraph l a -> [Tree Int]
-dff' dynGraph@DynGraph{..} = dfs' dynGraph (IntMap.keys idxMap)
+dff' graph = dfs' graph (IntMap.keys graph.idxMap)
 
 -- | Gets a spanning forest of the part of the graph reachable from the listed
 -- vertex indexes, obtained from a depth-first search of the graph starting at
 -- each of the listed vertex indexes in order
 dfs' :: forall l a. DynGraph l a -> [Int] -> [Tree Int]
-dfs' DynGraph{..} idxs0 = case Map.size vtxMap of
+dfs' graph idxs0 = case Map.size graph.vtxMap of
     0 -> []
     n -> run (0, n - 1) $ \(contains  :: Int -> ST s Bool)
                            (include   :: Int -> ST s ()) ->
@@ -342,7 +349,8 @@ dfs' DynGraph{..} idxs0 = case Map.size vtxMap of
               else do
                 include idx
                 children <-
-                  aux . map fst $ maybe [] Set.toList (IntMap.lookup idx edges)
+                  aux . map fst $
+                    maybe [] Set.toList (IntMap.lookup idx graph.edges)
                 trees <- aux idxs
                 return $ Tree.Node idx children : trees
       in aux idxs0
@@ -359,48 +367,47 @@ dfs' DynGraph{..} idxs0 = case Map.size vtxMap of
   Debugging
 -------------------------------------------------------------------------------}
 
+data MermaidOptions l a = MermaidOptions{
+      reverseEdges :: Bool
+    , renderVertex :: a -> Maybe String
+    , renderEdge   :: l -> Maybe String
+    }
+
 -- | Render a Mermaid diagram
 --
 -- See https://mermaid.js.org/>
-dumpMermaid ::
-     Bool                -- ^ 'True' to transpose (reverse edges)
-  -> (a -> Bool)         -- ^ Predicate to determine which vertices to show
-  -> (l -> Maybe String) -- ^ Function to optionally render an edge
-  -> (a -> String)       -- ^ Function to render a vertex
-  -> DynGraph l a
-  -> String
-dumpMermaid isTranspose p renderEdge renderVertex DynGraph{..} =
+dumpMermaid :: MermaidOptions l a -> DynGraph l a -> String
+dumpMermaid opts graph =
     unlines $ header : nodes ++ links
   where
     header :: String
     header = "graph TD;"
 
-    pSet :: IntSet
-    pSet = IntSet.fromAscList [
-        idx
-      | (idx, v) <- IntMap.toAscList idxMap
-      , p v
-      ]
+    pSet :: IntMap String
+    pSet = IntMap.fromAscList $
+        mapMaybe
+          (\(idx, v) -> (idx,) <$> opts.renderVertex v)
+          (IntMap.toAscList graph.idxMap)
 
     nodes, links :: [String]
     nodes = [
-        "  v" ++ show idx ++ "[\"" ++ escapeString (renderVertex v) ++ "\"]"
-      | (v, idx) <- Map.toAscList vtxMap
-      , idx `IntSet.member` pSet
+        "  v" ++ show idx ++ "[\"" ++ escapeString rendered ++ "\"]"
+      | (_v, idx) <- Map.toAscList graph.vtxMap
+      , Just rendered <- [IntMap.lookup idx pSet]
       ]
     links = [
          concat [
              "  v"
-           , show (if isTranspose then to else fr)
+           , show (if opts.reverseEdges then to else fr)
            , "-->"
-           , maybe "" (\e -> "|\"" ++ escapeString e ++ "\"|") (renderEdge l)
+           , maybe "" (\e -> "|\"" ++ escapeString e ++ "\"|") (opts.renderEdge l)
            , "v"
-           , show (if isTranspose then fr else to)
+           , show (if opts.reverseEdges then fr else to)
            ]
-       | (fr, rSet) <- IntMap.toAscList edges
-       , fr `IntSet.member` pSet
+       | (fr, rSet) <- IntMap.toAscList graph.edges
+       , fr `IntMap.member` pSet
        , (to, l) <- Set.toAscList rSet
-       , to `IntSet.member` pSet
+       , to `IntMap.member` pSet
        ]
 
     escapeString :: String -> [Char]
@@ -415,9 +422,9 @@ dumpMermaid isTranspose p renderEdge renderVertex DynGraph{..} =
 -------------------------------------------------------------------------------}
 
 postorderTree :: Tree a -> [a]
-postorderTree Tree.Node{rootLabel, subForest} =
-       postorderForest subForest
-    ++ [rootLabel]
+postorderTree tree =
+       postorderForest tree.subForest
+    ++ [tree.rootLabel]
 
 postorderForest :: [Tree a] -> [a]
 postorderForest = concatMap postorderTree

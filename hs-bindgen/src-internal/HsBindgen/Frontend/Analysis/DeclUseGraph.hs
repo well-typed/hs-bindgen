@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Declaration definition-usage graph
 --
 -- Intended for qualified import.
@@ -33,8 +37,8 @@ import HsBindgen.Imports
 -- | Reverse of 'UseDeclGraph'
 --
 -- This graph has edges from def sites to use sites.
-newtype DeclUseGraph = Wrap {
-      unwrap :: DynGraph ValOrRef DeclId
+data DeclUseGraph = DeclUseGraph {
+      graph :: DynGraph ValOrRef DeclId
     }
   deriving stock (Show, Eq)
 
@@ -43,21 +47,23 @@ newtype DeclUseGraph = Wrap {
 -------------------------------------------------------------------------------}
 
 fromUseDecl :: UseDeclGraph -> DeclUseGraph
-fromUseDecl = Wrap . DynGraph.reverse . UseDeclGraph.toDynGraph
+fromUseDecl useDeclGraph = DeclUseGraph{
+      graph = DynGraph.reverse $ UseDeclGraph.toDynGraph useDeclGraph
+    }
 
 {-------------------------------------------------------------------------------
   Transitive usage
 -------------------------------------------------------------------------------}
 
 getUseSitesTransitively :: DeclUseGraph -> [DeclId] -> Set DeclId
-getUseSitesTransitively = DynGraph.reaches . unwrap
+getUseSitesTransitively declUseGraph = DynGraph.reaches declUseGraph.graph
 
 {-------------------------------------------------------------------------------
   Direct usage
 -------------------------------------------------------------------------------}
 
 getUseSites :: DeclUseGraph -> DeclId -> [(DeclId, ValOrRef)]
-getUseSites (Wrap graph) = Set.toList . DynGraph.neighbors graph
+getUseSites declUseGraph = Set.toList . DynGraph.neighbors declUseGraph.graph
 
 getUseSitesNoSelfReferences :: DeclUseGraph -> DeclId -> [(DeclId, ValOrRef)]
 getUseSitesNoSelfReferences graph qualPrelimDeclId =
