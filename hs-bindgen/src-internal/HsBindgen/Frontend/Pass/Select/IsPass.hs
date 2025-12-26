@@ -18,7 +18,7 @@ import Clang.HighLevel.Types
 import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
@@ -103,14 +103,14 @@ data SelectMsg =
     -- of its transitive dependencies is 'Unusable'.
   | TransitiveDependencyOfDeclarationUnusable
       SelectReason
-      C.DeclId
+      DeclId
       Unusable
       [SingleLoc]
     -- | The user has selected a declaration that is available but at least one
     -- of its transitive dependencies is not selected.
   | TransitiveDependencyOfDeclarationNotSelected
       SelectReason
-      C.DeclId
+      DeclId
       [SingleLoc]
     -- | The user has selected a deprecated declaration. Maybe they want to
     -- de-select deprecated declaration?

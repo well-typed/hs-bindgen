@@ -38,7 +38,7 @@ import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Deps qualified as Deps
 import HsBindgen.Frontend.AST.Type (ValOrRef (..))
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Imports
 
@@ -57,11 +57,11 @@ type Decl = C.Decl AssignAnonIds
 -- Whenever declaration A uses (depends on) declaration B, there will be
 -- an edge from A to B in this graph.
 newtype UseDeclGraph = Wrap {
-      unwrap :: DynGraph ValOrRef C.DeclId
+      unwrap :: DynGraph ValOrRef DeclId
     }
   deriving stock (Show, Eq)
 
-toDynGraph :: UseDeclGraph -> DynGraph ValOrRef C.DeclId
+toDynGraph :: UseDeclGraph -> DynGraph ValOrRef DeclId
 toDynGraph = unwrap
 
 {-------------------------------------------------------------------------------
@@ -80,22 +80,22 @@ fromSortedDecls decls = Wrap $
     -- We first insert all declarations, so that they are assigned vertices.
     -- Since we do this in source order, this ensures that we preserve source
     -- order as much as possible in 'toDecls' (modulo dependencies).
-    let vertices :: DynGraph ValOrRef C.DeclId
+    let vertices :: DynGraph ValOrRef DeclId
         vertices = foldl' (flip addVertex) DynGraph.empty decls
     in foldl' (flip addEdges) vertices decls
   where
     addVertex, addEdges ::
          Decl
-      -> DynGraph ValOrRef C.DeclId
-      -> DynGraph ValOrRef C.DeclId
+      -> DynGraph ValOrRef DeclId
+      -> DynGraph ValOrRef DeclId
     addVertex d g = DynGraph.insertVertex d.declInfo.declId g
     addEdges  d g = foldl' (flip (addEdge d)) g (Deps.depsOfDecl $ C.declKind d)
 
     addEdge ::
          Decl
-      -> (ValOrRef, C.DeclId)
-      -> DynGraph ValOrRef C.DeclId
-      -> DynGraph ValOrRef C.DeclId
+      -> (ValOrRef, DeclId)
+      -> DynGraph ValOrRef DeclId
+      -> DynGraph ValOrRef DeclId
     addEdge d (l, d') = DynGraph.insertEdge d.declInfo.declId l d'
 
 {-------------------------------------------------------------------------------
@@ -122,10 +122,10 @@ toDecls index (Wrap graph) =
     usedByVal :: ValOrRef -> Bool
     usedByVal = (== ByValue)
 
-getTransitiveDeps :: UseDeclGraph -> [C.DeclId] -> Set C.DeclId
+getTransitiveDeps :: UseDeclGraph -> [DeclId] -> Set DeclId
 getTransitiveDeps = DynGraph.reaches . unwrap
 
-getStrictTransitiveDeps :: UseDeclGraph -> [C.DeclId] -> Set C.DeclId
+getStrictTransitiveDeps :: UseDeclGraph -> [DeclId] -> Set DeclId
 getStrictTransitiveDeps graph xs =
     getTransitiveDeps graph xs Set.\\ (Set.fromList xs)
 
@@ -135,7 +135,7 @@ getStrictTransitiveDeps graph xs =
 
 -- | Delete dependencies
 deleteDeps ::
-     [C.DeclId]
+     [DeclId]
   -> UseDeclGraph
   -> UseDeclGraph
 deleteDeps depIds = Wrap . DynGraph.deleteEdgesTo depIds . unwrap

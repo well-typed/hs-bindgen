@@ -19,7 +19,7 @@ import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Monad
 import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -198,7 +198,7 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       charSign (Just sign) = C.PrimSignExplicit sign
 
       typeRef :: C.DeclName -> C.Type HandleMacros
-      typeRef name = C.TypeRef $ C.DeclId{name, isAnon = False}
+      typeRef name = C.TypeRef $ DeclId{name, isAnon = False}
 
       checkNotAnon :: Maybe LanC.Ident -> C.TagKind -> FromLanC C.DeclName
       checkNotAnon mName tagKind =

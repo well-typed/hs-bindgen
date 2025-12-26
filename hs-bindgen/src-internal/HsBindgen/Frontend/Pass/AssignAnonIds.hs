@@ -11,7 +11,7 @@ import Data.Tuple
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
@@ -61,7 +61,7 @@ updateParseResult chosenNames result =
         auxFailure failure <$>
           updateDefSite chosenNames result.declId
   where
-    auxSuccess :: ParseSuccess Parse -> C.DeclId -> ParseResult AssignAnonIds
+    auxSuccess :: ParseSuccess Parse -> DeclId -> ParseResult AssignAnonIds
     auxSuccess ParseSuccess{decl, delayedParseMsgs} declId' =
         case runM chosenNames updated of
           Left (UnusableAnonDecl anonId) -> ParseResult{
@@ -91,7 +91,7 @@ updateParseResult chosenNames result =
 
     auxNotAttempted ::
          ParseNotAttempted
-      -> C.DeclId
+      -> DeclId
       -> ParseResult AssignAnonIds
     auxNotAttempted notAttempted declId' = ParseResult{
           declId         = declId'
@@ -101,7 +101,7 @@ updateParseResult chosenNames result =
 
     auxFailure ::
          ParseFailure
-      -> C.DeclId
+      -> DeclId
       -> ParseResult AssignAnonIds
     auxFailure failure declId' = ParseResult{
           declId         = declId'
@@ -121,7 +121,7 @@ updateDefSite chosenNames =
     first AssignAnonIdsSkippedDecl . fromPrelimDeclId chosenNames
 
 updateDeclInfo ::
-     C.DeclId
+     DeclId
   -> C.DeclInfo Parse
   -> M (C.DeclInfo AssignAnonIds)
 updateDeclInfo declId' info =
@@ -313,7 +313,7 @@ instance UpdateUseSites C.TypedefRef where
         <$> updateDeclId n
         <*> updateUseSites uTy
 
-updateDeclId :: PrelimDeclId -> M C.DeclId
+updateDeclId :: PrelimDeclId -> M DeclId
 updateDeclId prelimDeclId = WrapM $ do
     chosenNames <- ask
     case fromPrelimDeclId chosenNames prelimDeclId of
@@ -358,13 +358,13 @@ instance UpdateUseSites C.CommentRef where
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
--- | Construct 'C.DeclId' from 'C.PrelimDeclId'
+-- | Construct 'DeclId' from 'C.PrelimDeclId'
 --
 -- Returns 'Left' an 'C.AnonId' if the 'C.PrelimDeclId' is anonymous and we have
 -- assigned no name.
-fromPrelimDeclId :: ChosenNames -> PrelimDeclId -> Either AnonId C.DeclId
+fromPrelimDeclId :: ChosenNames -> PrelimDeclId -> Either AnonId DeclId
 fromPrelimDeclId chosenNames = \case
     PrelimDeclId.Named name ->
-      Right C.DeclId{name, isAnon = False}
+      Right DeclId{name, isAnon = False}
     PrelimDeclId.Anon anonId ->
       maybe (Left anonId) Right $ Map.lookup anonId chosenNames

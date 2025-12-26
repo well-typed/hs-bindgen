@@ -21,7 +21,7 @@ import HsBindgen.Runtime.BaseForeignType qualified as BFT
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Errors
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -225,12 +225,12 @@ bindingSpec = BindingSpec.BindingSpec{..}
 
 -- | Concise alias for the C type 'Map'
 type CTypeMap =
-  Map C.DeclId [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)]
+  Map DeclId [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)]
 
 -- | Concise alias for the key and value tuple corresponding to an entry in a
 -- 'CTypeMap'
 type CTypeKV =
-  (C.DeclId, [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)])
+  (DeclId, [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)])
 
 -- | Concise alias for the Haskell type 'Map'
 type HsTypeMap = Map Hs.Identifier BindingSpec.HsTypeSpec
@@ -252,7 +252,7 @@ mkType ::
   -> [FilePath]
   -> (CTypeKV, HsTypeKV)
 mkType t hsIdentifier cTypeRep hsTypeRep insts headers' =
-    case C.parseDeclId t of
+    case parseDeclId t of
       Just cDeclId ->
         ( (cDeclId, [(headers, Require cTypeSpec)])
         , (hsIdentifier, hsTypeSpec)

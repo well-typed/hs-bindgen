@@ -16,7 +16,7 @@ import Text.SimplePrettyPrint qualified as PP
 import Clang.HighLevel.Types
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Imports
@@ -69,7 +69,7 @@ prelimDeclIdLocationInfo prelimDeclId knownLocs =
       PrelimDeclId.Named name -> LocationDeclNamed name knownLocs
       PrelimDeclId.Anon  anon -> LocationDeclAnon Nothing anon.loc
 
-declIdLocationInfo :: HasCallStack => C.DeclId -> [SingleLoc] -> LocationInfo
+declIdLocationInfo :: HasCallStack => DeclId -> [SingleLoc] -> LocationInfo
 declIdLocationInfo declId knownLocs =
     if not declId.isAnon then
       LocationDeclNamed declId.name knownLocs

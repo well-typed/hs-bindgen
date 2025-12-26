@@ -1,8 +1,12 @@
 -- | C naming and declaration identifiers
 --
--- Intended for qualified import within frontend.
+-- This is such a central module in @hs-bindgen@, it is intended for
+-- /unqualified/ import.
 --
--- > import HsBindgen.Frontend.Naming qualified as C
+-- (Historical note: we used to import this qualified as @C@, but that is
+-- incorrect: these are @hs-bindgen@ concepts, /not/ standard C concepts. In
+-- particular, the names we assign to anonymous declarations is very much
+-- @hs-bindgen@ specific.)
 module HsBindgen.Frontend.Naming (
     -- * DeclId
     DeclId(..)
@@ -10,10 +14,8 @@ module HsBindgen.Frontend.Naming (
   , renderDeclId
   , parseDeclId
 
-    -- * DeclIdPair
+    -- * Pairing C names and Haskell names
   , DeclIdPair(..)
-
-    -- * ScopedNamePair
   , ScopedNamePair(..)
   ) where
 
@@ -30,6 +32,8 @@ import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 -------------------------------------------------------------------------------}
 
 -- | Identifier for a declaration that appears in the C source
+--
+-- This is the main ID used throughout @hs-bindgen@ for declarations.
 data DeclId = DeclId{
       -- | Name of the declaration
       --
@@ -77,7 +81,10 @@ instance PrettyForTrace DeclId where
   prettyForTrace = PP.singleQuotes . PP.text . renderDeclId
 
 {-------------------------------------------------------------------------------
-  DeclIdPair
+  Pairing C names and Haskell names
+
+  The Haskell name must satisfy the rules for legal Haskell names for the
+  intended usage (constructor, variable, ..).
 -------------------------------------------------------------------------------}
 
 data DeclIdPair = DeclIdPair{
@@ -86,14 +93,6 @@ data DeclIdPair = DeclIdPair{
     }
   deriving stock (Show, Eq, Ord)
 
-{-------------------------------------------------------------------------------
-  ScopedNamePair
--------------------------------------------------------------------------------}
-
--- | Pair of a (scoped) C name and the corresponding Haskell name
---
--- Invariant: the 'Hs.Identifier' must satisfy the rules for legal Haskell
--- names, for its intended use (constructor, variable, ..).
 data ScopedNamePair = ScopedNamePair {
       cName  :: C.ScopedName
     , hsName :: Hs.Identifier

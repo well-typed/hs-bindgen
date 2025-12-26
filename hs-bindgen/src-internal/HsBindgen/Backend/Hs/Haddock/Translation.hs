@@ -22,7 +22,7 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -39,7 +39,7 @@ mkHaddocks config declInfo name =
       fst $ mkHaddocksWithArgs config declInfo Args{
           isField     = False
         , loc         = declInfo.declLoc
-        , nameC       = C.renderDeclId declInfo.declId.cName
+        , nameC       = renderDeclId declInfo.declId.cName
         , nameHsIdent = declInfo.declId.hsName
         , comment     = declInfo.declComment
         , params      = []
@@ -72,7 +72,7 @@ mkHaddocksDecorateParams config declInfo name params =
     let (mbc, xs) = mkHaddocksWithArgs config declInfo Args{
         isField     = False
       , loc         = declInfo.declLoc
-      , nameC       = C.renderDeclId declInfo.declId.cName
+      , nameC       = renderDeclId declInfo.declId.cName
       , nameHsIdent = declInfo.declId.hsName
       , comment     = declInfo.declComment
       , params

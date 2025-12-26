@@ -23,7 +23,7 @@ import Data.Set qualified as Set
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Type (ValOrRef)
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -34,7 +34,7 @@ import HsBindgen.Imports
 --
 -- This graph has edges from def sites to use sites.
 newtype DeclUseGraph = Wrap {
-      unwrap :: DynGraph ValOrRef C.DeclId
+      unwrap :: DynGraph ValOrRef DeclId
     }
   deriving stock (Show, Eq)
 
@@ -49,21 +49,21 @@ fromUseDecl = Wrap . DynGraph.reverse . UseDeclGraph.toDynGraph
   Transitive usage
 -------------------------------------------------------------------------------}
 
-getUseSitesTransitively :: DeclUseGraph -> [C.DeclId] -> Set C.DeclId
+getUseSitesTransitively :: DeclUseGraph -> [DeclId] -> Set DeclId
 getUseSitesTransitively = DynGraph.reaches . unwrap
 
 {-------------------------------------------------------------------------------
   Direct usage
 -------------------------------------------------------------------------------}
 
-getUseSites :: DeclUseGraph -> C.DeclId -> [(C.DeclId, ValOrRef)]
+getUseSites :: DeclUseGraph -> DeclId -> [(DeclId, ValOrRef)]
 getUseSites (Wrap graph) = Set.toList . DynGraph.neighbors graph
 
-getUseSitesNoSelfReferences :: DeclUseGraph -> C.DeclId -> [(C.DeclId, ValOrRef)]
+getUseSitesNoSelfReferences :: DeclUseGraph -> DeclId -> [(DeclId, ValOrRef)]
 getUseSitesNoSelfReferences graph qualPrelimDeclId =
   filter (not . isSelfReference) $ getUseSites graph qualPrelimDeclId
     where
-      isSelfReference :: (C.DeclId, ValOrRef) -> Bool
+      isSelfReference :: (DeclId, ValOrRef) -> Bool
       isSelfReference (qualPrelimDeclId', _usage) =
         qualPrelimDeclId == qualPrelimDeclId'
 

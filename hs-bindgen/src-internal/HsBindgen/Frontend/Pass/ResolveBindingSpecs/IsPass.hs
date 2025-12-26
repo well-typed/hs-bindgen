@@ -10,7 +10,7 @@ import Text.SimplePrettyPrint ((<+>))
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Coerce
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (DeclMeta)
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
@@ -67,7 +67,7 @@ data PrescriptiveDeclSpec = PrescriptiveDeclSpec {
 
 data ResolvedExtBinding = ResolvedExtBinding{
       -- | C declaration for which we are using this binding
-      extCDeclId :: C.DeclId
+      extCDeclId :: DeclId
 
       -- | The Haskell type which will be used
     , extHsRef :: Hs.ExtRef
@@ -80,8 +80,8 @@ data ResolvedExtBinding = ResolvedExtBinding{
     }
   deriving stock (Show, Eq, Ord, Generic)
 
-extDeclIdPair :: ResolvedExtBinding -> C.DeclIdPair
-extDeclIdPair ext = C.DeclIdPair{
+extDeclIdPair :: ResolvedExtBinding -> DeclIdPair
+extDeclIdPair ext = DeclIdPair{
       cName  = ext.extCDeclId
     , hsName = ext.extHsRef.extRefIdentifier
     }
@@ -92,15 +92,15 @@ extDeclIdPair ext = C.DeclIdPair{
 
 data ResolveBindingSpecsMsg =
     ResolveBindingSpecsModuleMismatch       Hs.ModuleName Hs.ModuleName
-  | ResolveBindingSpecsExtHsRefNoIdentifier C.DeclId
-  | ResolveBindingSpecsNoHsTypeSpec         C.DeclId
-  | ResolveBindingSpecsNoHsTypeRep          C.DeclId
-  | ResolveBindingSpecsOmittedType          C.DeclId
-  | ResolveBindingSpecsTypeNotUsed          C.DeclId
-  | ResolveBindingSpecsExtDecl              C.DeclId
-  | ResolveBindingSpecsExtType              C.DeclId C.DeclId
-  | ResolveBindingSpecsPrescriptiveRequire  C.DeclId
-  | ResolveBindingSpecsPrescriptiveOmit     C.DeclId
+  | ResolveBindingSpecsExtHsRefNoIdentifier DeclId
+  | ResolveBindingSpecsNoHsTypeSpec         DeclId
+  | ResolveBindingSpecsNoHsTypeRep          DeclId
+  | ResolveBindingSpecsOmittedType          DeclId
+  | ResolveBindingSpecsTypeNotUsed          DeclId
+  | ResolveBindingSpecsExtDecl              DeclId
+  | ResolveBindingSpecsExtType              DeclId DeclId
+  | ResolveBindingSpecsPrescriptiveRequire  DeclId
+  | ResolveBindingSpecsPrescriptiveOmit     DeclId
   deriving stock (Show)
 
 instance PrettyForTrace ResolveBindingSpecsMsg where

@@ -9,7 +9,7 @@ import Data.Map qualified as Map
 import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis (..))
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.AST.Decl qualified as C
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
@@ -20,7 +20,7 @@ import HsBindgen.Language.C qualified as C
   Top-level
 -------------------------------------------------------------------------------}
 
-type ChosenNames = Map AnonId C.DeclId
+type ChosenNames = Map AnonId DeclId
 
 -- | Choose names for anonymous declarations
 chooseNames :: AnonUsageAnalysis -> ChosenNames
@@ -33,7 +33,7 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     -- Name for the given 'C.AnonId'
     --
     -- Returns 'Nothing' if we fail to assign a name.
-    nameFor :: AnonId -> Memoize (Maybe C.DeclId)
+    nameFor :: AnonId -> Memoize (Maybe DeclId)
     nameFor = memoize $ \anonId ->
         case Map.lookup anonId usageAnalysis of
           Nothing    -> return Nothing      -- Unused (or unusable) anon decl
@@ -42,7 +42,7 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     nameForUsage ::
          AnonId
       -> AnonUsageAnalysis.Context
-      -> Memoize (Maybe C.DeclId)
+      -> Memoize (Maybe DeclId)
     nameForUsage anonId = \case
         AnonUsageAnalysis.Field declInfo fieldInfo ->
           fmap (nameForField anonId fieldInfo) <$> declName declInfo.declId
@@ -51,15 +51,15 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
         AnonUsageAnalysis.TypedefIndirect declInfo ->
           fmap (nameForTypedefIndirect anonId) <$> declName declInfo.declId
 
-    declName :: PrelimDeclId -> Memoize (Maybe C.DeclId)
+    declName :: PrelimDeclId -> Memoize (Maybe DeclId)
     declName = \case
         PrelimDeclId.Named name@C.DeclName{} ->
-          return $ Just C.DeclId{name, isAnon = False}
+          return $ Just DeclId{name, isAnon = False}
         PrelimDeclId.Anon anonId ->
           nameFor anonId
 
-    nameForField :: AnonId -> C.FieldInfo Parse -> C.DeclId -> C.DeclId
-    nameForField anonId field outerStruct = C.DeclId{
+    nameForField :: AnonId -> C.FieldInfo Parse -> DeclId -> DeclId
+    nameForField anonId field outerStruct = DeclId{
           isAnon = True
         , name   = C.DeclName{
               text = outerStruct.name.text <> "_" <> field.fieldName.text
@@ -77,8 +77,8 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     --
     -- Consequently we are unable to detect that @foo@ is anonymous in this
     -- case. To emulate this behaviour older clang, we set @isAnon@ to @False@.
-    nameForTypedefDirect :: AnonId -> C.DeclId -> C.DeclId
-    nameForTypedefDirect anonId typedef = C.DeclId{
+    nameForTypedefDirect :: AnonId -> DeclId -> DeclId
+    nameForTypedefDirect anonId typedef = DeclId{
           isAnon = False -- 'False' instead of 'True'!
         , name   = C.DeclName{
               text = typedef.name.text
@@ -96,8 +96,8 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     -- This should not really be called @_Deref@, but maybe something like
     -- @_Aux@: it's not just pointer dereferencing, but also other uses. (Here
     -- as well as in 'HandleTypedefs').
-    nameForTypedefIndirect :: AnonId -> C.DeclId -> C.DeclId
-    nameForTypedefIndirect anonId typedef = C.DeclId{
+    nameForTypedefIndirect :: AnonId -> DeclId -> DeclId
+    nameForTypedefIndirect anonId typedef = DeclId{
           isAnon = True
         , name   = C.DeclName{
               text = typedef.name.text <> "_" <> "Deref"
@@ -113,11 +113,11 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
 -------------------------------------------------------------------------------}
 
 data AssignedName =
-    AssignedName C.DeclId
+    AssignedName DeclId
   | FailedToAssignName
   deriving stock (Show)
 
-assignedName :: AssignedName -> Maybe C.DeclId
+assignedName :: AssignedName -> Maybe DeclId
 assignedName = \case
     AssignedName name  -> Just name
     FailedToAssignName -> Nothing
@@ -125,8 +125,8 @@ assignedName = \case
 type Memoize = State (Map AnonId AssignedName)
 
 memoize ::
-     (AnonId -> Memoize (Maybe C.DeclId))
-  -> (AnonId -> Memoize (Maybe C.DeclId))
+     (AnonId -> Memoize (Maybe DeclId))
+  -> (AnonId -> Memoize (Maybe DeclId))
 memoize f anonId = state $ \acc ->
     case Map.lookup anonId acc of
       Just memoized -> (assignedName memoized, acc)

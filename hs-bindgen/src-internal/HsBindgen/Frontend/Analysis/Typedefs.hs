@@ -20,7 +20,7 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Select.IsPass (Select)
 import HsBindgen.Imports
@@ -35,7 +35,7 @@ import HsBindgen.Language.Haskell qualified as Hs
 --
 -- See 'Conclusion' for detailed discussion.
 newtype TypedefAnalysis = TypedefAnalysis{
-      analysis :: Map C.DeclId Conclusion
+      analysis :: Map DeclId Conclusion
     }
   deriving stock (Show)
   deriving newtype (Monoid)
@@ -45,7 +45,7 @@ instance Semigroup TypedefAnalysis where
         analysis = Map.unionWithKey unexpectedOverlap a.analysis b.analysis
       }
     where
-      unexpectedOverlap :: C.DeclId -> Conclusion -> Conclusion -> Conclusion
+      unexpectedOverlap :: DeclId -> Conclusion -> Conclusion -> Conclusion
       unexpectedOverlap declId conclusion1 conclusion2 =
           panicPure $ concat [
               "Unexpected overlap for "
@@ -95,7 +95,7 @@ data Conclusion =
     --
     -- then use sites would also need to be handled explicitly; see also
     -- <https://github.com/well-typed/hs-bindgen/issues/1356>.
-    Squash SingleLoc C.DeclId
+    Squash SingleLoc DeclId
 
     -- | Rename the Haskell type corresponding to this C type
     --
@@ -117,10 +117,10 @@ data Conclusion =
 
 data Rename =
     AddSuffix Hs.Identifier
-  | UseNameOf C.DeclId
+  | UseNameOf DeclId
   deriving stock (Show)
 
-conclude :: C.DeclId -> Conclusion -> TypedefAnalysis
+conclude :: DeclId -> Conclusion -> TypedefAnalysis
 conclude declId conclusion = TypedefAnalysis $ Map.singleton declId conclusion
 
 {-------------------------------------------------------------------------------
@@ -156,7 +156,7 @@ analyseTypedef declUseGraph typedefInfo typedef =
 typedefOfTagged ::
      C.DeclInfo Select    -- ^ Typedef info
   -> TaggedPayload        -- ^ Payload
-  -> [(C.DeclId, usage)]  -- ^ Use sites of the payload
+  -> [(DeclId, usage)]  -- ^ Use sites of the payload
   -> TypedefAnalysis
 typedefOfTagged typedefInfo payload useSites
   | shouldSquash
@@ -195,7 +195,7 @@ typedefOfTagged typedefInfo payload useSites
 
 data TaggedPayload = TaggedPayload{
       direct  :: Bool
-    , declId  :: C.DeclId
+    , declId  :: DeclId
     }
 
 -- | Tagged declaration (struct, union, enum) wrapped by this typedef, if any
@@ -217,7 +217,7 @@ taggedPayload = go True
           -- > typedef struct {..} foo[10];
           Nothing
 
-    typeRef :: Bool -> C.DeclId -> Maybe TaggedPayload
+    typeRef :: Bool -> DeclId -> Maybe TaggedPayload
     typeRef direct declId = do
         void $ C.checkIsTagged declId.name.kind
         return TaggedPayload{direct, declId}

@@ -8,7 +8,7 @@ module HsBindgen.Frontend.Pass (
 import Clang.HighLevel.Types
 
 import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
@@ -95,7 +95,7 @@ class (
   -- 3. After 'MangleNames', this becomes a pair of the C name and the
   --    corresponding Haskell name.
   type Id p :: Star
-  type Id p = C.DeclId
+  type Id p = DeclId
 
   -- | Scoped names
   --
@@ -135,29 +135,23 @@ class (
 
   -- | Name kind of the C name
   idNameKind :: Proxy p -> Id p -> C.NameKind
-  default idNameKind ::
-       Id p ~ C.DeclId
-    => Proxy p -> Id p -> C.NameKind
+  default idNameKind :: Id p ~ DeclId => Proxy p -> Id p -> C.NameKind
   idNameKind _ = (.name.kind)
 
   -- | Name of the declaration as it appears in the C source, if any
   idSourceName :: Proxy p -> Id p -> Maybe C.DeclName
-  default idSourceName ::
-       Id p ~ C.DeclId
-    => Proxy p -> Id p -> Maybe C.DeclName
-  idSourceName _ = C.declIdSourceName
+  default idSourceName :: Id p ~ DeclId => Proxy p -> Id p -> Maybe C.DeclName
+  idSourceName _ = declIdSourceName
 
   -- | Location information
   idLocationInfo :: Proxy p -> Id p -> [SingleLoc] -> LocationInfo
   default idLocationInfo ::
-       Id p ~ C.DeclId
+       Id p ~ DeclId
     => Proxy p -> Id p -> [SingleLoc] -> LocationInfo
   idLocationInfo _ = declIdLocationInfo
 
   extBindingId :: Proxy p -> ExtBinding p -> Id p
-  default extBindingId ::
-       ExtBinding p ~ Void
-    => Proxy p -> ExtBinding p -> Id p
+  default extBindingId :: ExtBinding p ~ Void => Proxy p -> ExtBinding p -> Id p
   extBindingId _ = absurd
 
 {-------------------------------------------------------------------------------

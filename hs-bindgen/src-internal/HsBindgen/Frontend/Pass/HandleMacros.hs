@@ -23,7 +23,7 @@ import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC qualified as LanC
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
@@ -436,7 +436,7 @@ parseMacro name tokens  = state     $ \st ->
     updateReparseEnv :: LanC.ReparseEnv -> LanC.ReparseEnv
     updateReparseEnv =
         Map.insert name.text $
-          C.TypeRef $ C.DeclId{name, isAnon = False}
+          C.TypeRef $ DeclId{name, isAnon = False}
 
     dropEval ::
          CExpr.DSL.Quant (CExpr.DSL.FunValue, CExpr.DSL.Type 'CExpr.DSL.Ty)

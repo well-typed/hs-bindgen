@@ -11,7 +11,7 @@ import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
@@ -40,15 +40,15 @@ type family AnnMangleNames ix where
   AnnMangleNames _                  = NoAnn
 
 instance IsPass MangleNames where
-  type Id         MangleNames = C.DeclIdPair
-  type ScopedName MangleNames = C.ScopedNamePair
+  type Id         MangleNames = DeclIdPair
+  type ScopedName MangleNames = ScopedNamePair
   type MacroBody  MangleNames = CheckedMacro MangleNames
   type ExtBinding MangleNames = ResolvedExtBinding
   type Ann ix     MangleNames = AnnMangleNames ix
   type Msg        MangleNames = WithLocationInfo MangleNamesMsg
 
   idNameKind     _ namePair   = namePair.cName.name.kind
-  idSourceName   _ namePair   = C.declIdSourceName namePair.cName
+  idSourceName   _ namePair   = declIdSourceName namePair.cName
   idLocationInfo _ namePair   = declIdLocationInfo namePair.cName
   extBindingId   _ extBinding = extDeclIdPair extBinding
 

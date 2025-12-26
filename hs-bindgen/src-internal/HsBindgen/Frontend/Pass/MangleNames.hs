@@ -23,7 +23,7 @@ import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
@@ -83,7 +83,7 @@ updateDeclMeta td nm declMeta = declMeta{
         DeclIndex.registerSquashedDeclarations squashedMap declMeta.declIndex
     }
   where
-    squashedMap :: Map C.DeclId (SingleLoc, Hs.Identifier)
+    squashedMap :: Map DeclId (SingleLoc, Hs.Identifier)
     squashedMap = Map.fromList $ catMaybes [
         (cDeclId,) . (sloc,) <$> Map.lookup wrappedId nm
       | (cDeclId, TypedefAnalysis.Squash sloc wrappedId) <-
@@ -97,7 +97,7 @@ updateDeclMeta td nm declMeta = declMeta{
   even if there are errors.
 -------------------------------------------------------------------------------}
 
-type NameMap = Map C.DeclId Hs.Identifier
+type NameMap = Map DeclId Hs.Identifier
 
 chooseNames ::
      TypedefAnalysis
@@ -109,7 +109,7 @@ chooseNames td fc decls =
     in  bimap Map.fromList concat . unzip $
           map (nameForDecl td fc specifiedNames) decls
   where
-    getSpecifiedName :: C.Decl Select -> Maybe (C.DeclId, Hs.Identifier)
+    getSpecifiedName :: C.Decl Select -> Maybe (DeclId, Hs.Identifier)
     getSpecifiedName decl =
         (decl.declInfo.declId,)
           <$> (BindingSpec.cTypeSpecIdentifier =<< decl.declAnn.declSpecC)
@@ -119,7 +119,7 @@ nameForDecl ::
   -> FixCandidate Maybe
   -> NameMap
   -> C.Decl Select
-  -> ((C.DeclId, Hs.Identifier), [Msg MangleNames])
+  -> ((DeclId, Hs.Identifier), [Msg MangleNames])
 nameForDecl td fc specifiedNames decl =
     case Map.lookup declId specifiedNames of
       Just hsName ->
@@ -165,7 +165,7 @@ nameForDecl td fc specifiedNames decl =
                     , msgs
                     )
   where
-    declId :: C.DeclId
+    declId :: DeclId
     declId = decl.declInfo.declId
 
 {-------------------------------------------------------------------------------
@@ -187,7 +187,7 @@ fromDeclId :: forall ns.
      Hs.SingNamespace ns
   => FixCandidate Maybe
   -> Proxy ns
-  -> C.DeclId
+  -> DeclId
   -> (Hs.Identifier, [MangleNamesMsg])
 fromDeclId fc ns declId = fixCandidate fc ns declId.name.text
 
@@ -213,7 +213,7 @@ data Env = Env{
 runM :: Env -> M a -> (a, [Msg MangleNames])
 runM env = second reverse . flip runReader env . flip runStateT [] . unwrapM
 
-checkTypedefAnalysis :: C.DeclId -> M (Maybe TypedefAnalysis.Conclusion)
+checkTypedefAnalysis :: DeclId -> M (Maybe TypedefAnalysis.Conclusion)
 checkTypedefAnalysis declId = WrapM $ do
     td <- asks envTypedefAnalysis
     return $ Map.lookup declId td.analysis
@@ -221,21 +221,21 @@ checkTypedefAnalysis declId = WrapM $ do
 traceMsg :: Msg MangleNames -> M ()
 traceMsg msg = WrapM $ modify (msg :)
 
-mangleDeclId :: C.DeclId -> M C.DeclIdPair
+mangleDeclId :: DeclId -> M DeclIdPair
 mangleDeclId declId = WrapM $ do
     nm <- asks envNameMap
     case Map.lookup declId nm of
-      Just hsName -> return $ C.DeclIdPair declId hsName
+      Just hsName -> return $ DeclIdPair declId hsName
       Nothing     -> panicPure $ "Missing declaration: " <> show declId
 
 -- | Search the 'NameMap', when we don't know the name kind
-searchNameMap :: Text -> M (Maybe C.DeclIdPair)
+searchNameMap :: Text -> M (Maybe DeclIdPair)
 searchNameMap name = WrapM $ do
      nm <- asks envNameMap
      return $ Foldable.asum [
-         C.DeclIdPair declId <$> Map.lookup declId nm
+         DeclIdPair declId <$> Map.lookup declId nm
        | kind <- [minBound .. maxBound]
-       , let declId = C.DeclId{name = C.DeclName name kind, isAnon = False}
+       , let declId = DeclId{name = C.DeclName name kind, isAnon = False}
        ]
 
 {-------------------------------------------------------------------------------
@@ -295,9 +295,9 @@ mkIdentifier info ns candidate = do
 mangleFieldName ::
      C.DeclInfo MangleNames
   -> C.ScopedName
-  -> M C.ScopedNamePair
+  -> M ScopedNamePair
 mangleFieldName info fieldCName =
-    C.ScopedNamePair fieldCName <$>
+    ScopedNamePair fieldCName <$>
       mkIdentifier info (Proxy @Hs.NsVar) candidate
   where
     candidate :: Text
@@ -310,9 +310,9 @@ mangleFieldName info fieldCName =
 mangleEnumConstant ::
      C.DeclInfo MangleNames
   -> C.ScopedName
-  -> M C.ScopedNamePair
+  -> M ScopedNamePair
 mangleEnumConstant info cName =
-    C.ScopedNamePair cName <$>
+    ScopedNamePair cName <$>
       mkIdentifier info (Proxy @Hs.NsConstr) cName.text
 
 -- | Mangle function argument name
@@ -323,9 +323,9 @@ mangleEnumConstant info cName =
 mangleArgumentName ::
      C.DeclInfo MangleNames
   -> C.ScopedName
-  -> M C.ScopedNamePair
+  -> M ScopedNamePair
 mangleArgumentName info argName =
-    C.ScopedNamePair argName <$>
+    ScopedNamePair argName <$>
       mkIdentifier info (Proxy @Hs.NsVar) argName.text
 
 {-------------------------------------------------------------------------------
@@ -411,7 +411,7 @@ instance MangleInDecl C.StructField where
          <*> mapM mangle (C.fieldComment structFieldInfo)
     where
       reconstruct ::
-           C.ScopedNamePair
+           ScopedNamePair
         -> C.Type MangleNames
         -> Maybe (C.Comment MangleNames)
         -> C.StructField MangleNames
@@ -446,7 +446,7 @@ instance MangleInDecl C.UnionField where
         <*> mapM mangle (C.fieldComment unionFieldInfo)
     where
       reconstruct ::
-           C.ScopedNamePair
+           ScopedNamePair
         -> C.Type MangleNames
         -> Maybe (C.Comment MangleNames)
         -> C.UnionField MangleNames
@@ -486,7 +486,7 @@ instance MangleInDecl C.EnumConstant where
         <*> mapM mangle (C.fieldComment enumConstantInfo)
     where
       reconstruct ::
-            C.ScopedNamePair
+            ScopedNamePair
          -> Maybe (C.Comment MangleNames)
          -> C.EnumConstant MangleNames
       reconstruct enumConstantName' enumConstantComment' = C.EnumConstant{
@@ -531,7 +531,7 @@ instance MangleInDecl C.Function where
         <*> mangle functionRes
     where
       reconstruct ::
-           [(Maybe C.ScopedNamePair, C.Type MangleNames)]
+           [(Maybe ScopedNamePair, C.Type MangleNames)]
         -> C.Type MangleNames
         -> C.Function MangleNames
       reconstruct functionArgs' functionRes' = C.Function{
