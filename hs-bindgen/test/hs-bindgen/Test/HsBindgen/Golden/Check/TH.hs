@@ -20,7 +20,8 @@ import Test.Common.Util.Tasty.Golden (ActualValue (..))
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
 import Test.Tasty hiding (after)
-import Text.SimplePrettyPrint
+import Text.SimplePrettyPrint (Pretty (..))
+import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Version
 
@@ -223,7 +224,7 @@ formatDecDoc docMap thDec =
   case getDecDocLoc thDec >>= join . (`Map.lookup` docMap) of
     Nothing -> TH.empty
     Just c  -> pure
-             $ runCtxDoc defaultContext (pretty (TopLevelComment c))
+             $ PP.runCtxDoc PP.defaultContext (pretty (TopLevelComment c))
 
 {-------------------------------------------------------------------------------
   TH Compatibility Functions
@@ -439,7 +440,7 @@ getConNamesDoc docMap names =
   case foldMap (\n -> join $ Map.lookup (TH.DeclDoc n) docMap) names of
     Nothing -> TH.empty
     Just c  -> pure
-             $ runCtxDoc defaultContext (pretty (PartOfDeclarationComment c))
+             $ PP.runCtxDoc PP.defaultContext (pretty (PartOfDeclarationComment c))
 
 -- | Get constructor names (defined here as it's not in all TH versions)
 get_cons_names :: TH.Con -> [TH.Name]

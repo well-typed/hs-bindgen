@@ -166,6 +166,7 @@ library internal
     HsBindgen.Frontend.Pass.Parse.Decl.Monad
     HsBindgen.Frontend.Pass.Parse.IsPass
     HsBindgen.Frontend.Pass.Parse.Msg
+    HsBindgen.Frontend.Pass.Parse.PrelimDeclId
     HsBindgen.Frontend.Pass.Parse.Result
     HsBindgen.Frontend.Pass.Parse.Type
     HsBindgen.Frontend.Pass.Parse.Type.Monad

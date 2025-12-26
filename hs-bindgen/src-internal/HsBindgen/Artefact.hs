@@ -137,11 +137,11 @@ data ArtefactMsg =
 instance PrettyForTrace ArtefactMsg where
   prettyForTrace = \case
     NoBindingsSingleModule md ->
-      "Module" <+> PP.showToCtxDoc md <+> "does not contain any bindings"
+      "Module" <+> PP.show md <+> "does not contain any bindings"
     NoBindingsMultipleModules md ->
-      "All binding categories with base module name" <+> PP.showToCtxDoc md <+> "are empty"
+      "All binding categories with base module name" <+> PP.show md <+> "are empty"
     SkipWriteToFileNoBindings fp ->
-      "Skipping 'write file' operation (" >< PP.showToCtxDoc fp >< "): file is empty"
+      "Skipping 'write file' operation (" >< PP.show fp >< "): file is empty"
 
 instance IsTrace SafeLevel ArtefactMsg where
   getDefaultLogLevel = \case

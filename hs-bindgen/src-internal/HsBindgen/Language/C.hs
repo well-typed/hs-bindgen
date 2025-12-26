@@ -164,7 +164,7 @@ data TagKind =
   deriving stock (Eq, Generic, Ord, Show)
 
 instance PrettyForTrace TagKind where
-  prettyForTrace = PP.showToCtxDoc
+  prettyForTrace = PP.show
 
 tagKindPrefix :: TagKind -> Text
 tagKindPrefix = \case
@@ -216,7 +216,7 @@ instance Enum NameKind where
     NameKindTagged TagKindEnum   -> 3
 
 instance PrettyForTrace NameKind where
-  prettyForTrace = PP.showToCtxDoc
+  prettyForTrace = PP.show
 
 nameKindPrefix :: NameKind -> Maybe Text
 nameKindPrefix = \case
@@ -238,7 +238,7 @@ data DeclName = DeclName {
   deriving stock (Eq, Generic, Ord, Show)
 
 instance PrettyForTrace DeclName where
-  prettyForTrace = PP.singleQuotes . PP.textToCtxDoc . renderDeclName
+  prettyForTrace = PP.singleQuotes . PP.text . renderDeclName
 
 instance IsString DeclName where
   fromString str =
@@ -279,7 +279,7 @@ data ScopedName = ScopedName {
   deriving stock (Eq, Generic, Ord, Show)
 
 instance PrettyForTrace ScopedName where
-  prettyForTrace = PP.singleQuotes . PP.textToCtxDoc . (.text)
+  prettyForTrace = PP.singleQuotes . PP.text . (.text)
 
 -- | Parse a 'ScopedName' from 'Text'
 parseScopedName :: Text -> Maybe ScopedName

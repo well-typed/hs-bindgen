@@ -35,4 +35,4 @@ getCFunPrefix = List.map aux . FilePath.dropExtension
 -------------------------------------------------------------------------------}
 
 prettyHsName :: Hs.Name ns -> CtxDoc
-prettyHsName = PP.textToCtxDoc . Hs.getName
+prettyHsName = PP.text . Hs.getName

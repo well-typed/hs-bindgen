@@ -4,18 +4,8 @@
 --
 -- > import HsBindgen.Frontend.Naming qualified as C
 module HsBindgen.Frontend.Naming (
-    -- * AnonId
-    AnonId(..)
-
-    -- * PrelimDeclId
-  , PrelimDeclId(..)
-  , prelimDeclIdSourceName
-  , prelimDeclIdNameKind
-  , getPrelimDeclId
-  , checkIsBuiltin
-
     -- * DeclId
-  , DeclId(..)
+    DeclId(..)
   , declIdSourceName
   , renderDeclId
   , parseDeclId
@@ -28,124 +18,12 @@ module HsBindgen.Frontend.Naming (
   ) where
 
 import Data.Text qualified as Text
-import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
-import Clang.HighLevel (ShowFile (..))
-import Clang.HighLevel qualified as HighLevel
-import Clang.HighLevel.Types
-import Clang.LowLevel.Core
-
-import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
-
-{-------------------------------------------------------------------------------
-  AnonId
--------------------------------------------------------------------------------}
-
--- | Anonymous declaration identifier
-data AnonId = AnonId{
-      loc  :: SingleLoc
-    , kind :: C.NameKind
-    }
-  deriving stock (Show, Eq, Ord, Generic)
-
--- | We mimic the syntax used by Clang itself for anonymous declarations
-instance PrettyForTrace AnonId where
-  prettyForTrace anonId = PP.string $
-    "unnamed at " ++ HighLevel.prettySingleLoc ShowFile anonId.loc
-
-{-------------------------------------------------------------------------------
-  PrelimDeclId
--------------------------------------------------------------------------------}
-
--- | Preliminary declaration identifier
---
--- Not all declarations in a C header have names; to be able to nonetheless
--- refer to these declarations we use the source location.  We replace these by
--- proper names in the 'NameAnon' pass.
-data PrelimDeclId =
-    -- | Named declaration
-    PrelimDeclIdNamed C.DeclName
-
-    -- | Anonymous declaration
-    --
-    -- This can only happen for tagged types: structs, unions and enums
-  | PrelimDeclIdAnon AnonId
-  deriving stock (Show, Eq, Ord)
-
-prelimDeclIdSourceName :: PrelimDeclId -> Maybe C.DeclName
-prelimDeclIdSourceName = \case
-    PrelimDeclIdNamed  name   -> Just name
-    PrelimDeclIdAnon  _anonId -> Nothing
-
-prelimDeclIdNameKind :: PrelimDeclId -> C.NameKind
-prelimDeclIdNameKind = \case
-    PrelimDeclIdNamed name -> name.kind
-    PrelimDeclIdAnon  anon -> anon.kind
-
-instance PrettyForTrace PrelimDeclId where
-  prettyForTrace = \case
-      PrelimDeclIdNamed n ->
-        prettyForTrace n
-      PrelimDeclIdAnon anonId ->
-        PP.singleQuotes $
-          case anonId.kind of
-            C.NameKindTagged kind' ->
-                  PP.textToCtxDoc (C.tagKindPrefix kind')
-              <+> PP.parens (prettyForTrace anonId)
-            C.NameKindOrdinary ->
-              panicPure "unexpected anonymous ordinary name"
-
-getPrelimDeclId :: forall m.
-     MonadIO m
-  => CXCursor
-  -> C.NameKind
-  -> m PrelimDeclId
-getPrelimDeclId curr nameKind = do
-    spelling  <- clang_getCursorSpelling curr
-    if | Text.null spelling ->
-         -- clang-15 and older use an empty string for anon declarations
-         markAsAnon
-       | Text.elem ' ' spelling ->
-         -- clang-16 and newer assign names such as
-         --
-         -- > struct (unnamed at ....)
-         --
-         -- /except/ in one case: when we have an anonymous struct inside a
-         -- typedef, such as
-         --
-         -- > typedef struct { .. } foo;
-         --
-         -- newer versions of clang will assign the name @foo@ to the typedef.
-         -- This means that in this case we will misclassify the struct as
-         -- not-anonymous (and this will then also depend on the clang version:
-         -- for older versions we /will/ classify it as anonymous). However,
-         -- since we squash structs with a single use site inside a typedef
-         -- anyway, this misclassification does not matter.
-         markAsAnon
-       | otherwise ->
-         return $ PrelimDeclIdNamed (C.DeclName spelling nameKind)
-  where
-    markAsAnon :: m PrelimDeclId
-    markAsAnon = do
-        loc <- HighLevel.clang_getCursorLocation' curr
-        return $ PrelimDeclIdAnon (AnonId loc nameKind)
-
-checkIsBuiltin :: MonadIO m => CXCursor -> m (Maybe Text)
-checkIsBuiltin curr = do
-    mRange <- clang_Cursor_getSpellingNameRange curr 0 0
-    case mRange of
-      Nothing    -> return Nothing
-      Just range -> do
-        start <- clang_getRangeStart range
-        (file, _col, _line, _offset) <- clang_getExpansionLocation start
-        if isNullPtr file
-          then Just <$> clang_getCursorSpelling curr
-          else return Nothing
 
 {-------------------------------------------------------------------------------
   DeclId
@@ -196,7 +74,7 @@ parseDeclId t = do
       _otherwise    -> DeclId{name = declName, isAnon = False}
 
 instance PrettyForTrace DeclId where
-  prettyForTrace = PP.singleQuotes . PP.textToCtxDoc . renderDeclId
+  prettyForTrace = PP.singleQuotes . PP.text . renderDeclId
 
 {-------------------------------------------------------------------------------
   DeclIdPair

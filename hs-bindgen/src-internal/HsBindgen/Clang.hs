@@ -40,7 +40,7 @@ data ClangSetup = ClangSetup{
   deriving stock (Show, Eq)
 
 instance PrettyForTrace ClangSetup where
-  prettyForTrace = PP.showToCtxDoc
+  prettyForTrace = PP.show
 
 data ClangInput =
     ClangInputFile SourcePath
@@ -139,9 +139,9 @@ data ClangMsg =
 
 instance PrettyForTrace ClangMsg where
   prettyForTrace = \case
-      ClangErrorCode  x -> "clang error " >< PP.showToCtxDoc x
+      ClangErrorCode  x -> "clang error " >< PP.show x
       ClangDiagnostic Diagnostic{..}
-        | RootHeader.isInRootHeader diagnosticLocation -> PP.textToCtxDoc $
+        | RootHeader.isInRootHeader diagnosticLocation -> PP.text $
             case getFileNotFound diagnosticSpelling of
               Just header -> "unable to resolve #include <" <> header <> ">"
               Nothing     -> case getFileNotFoundQ diagnosticSpelling of
@@ -150,10 +150,10 @@ instance PrettyForTrace ClangMsg where
                     <> "> (must specify header relative to directory in C include search path)"
                 Nothing     ->
                   Text.stripStart $ Text.dropWhile (/= ' ') diagnosticFormatted
-        | otherwise -> PP.textToCtxDoc diagnosticFormatted
+        | otherwise -> PP.text diagnosticFormatted
       ClangSetupMsg   x -> prettyForTrace x
       ClangInvokedWithoutOptions ->
-        PP.cat $ map PP.textToCtxDoc infoHelpMessage
+        PP.cat $ map PP.text infoHelpMessage
     where
       getFileNotFound :: Text -> Maybe Text
       getFileNotFound =

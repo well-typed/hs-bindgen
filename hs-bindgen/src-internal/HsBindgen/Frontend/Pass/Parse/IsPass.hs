@@ -17,9 +17,10 @@ import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 
 import HsBindgen.Frontend.LocationInfo
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Msg
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -38,14 +39,14 @@ type family AnnParse (ix :: Symbol) :: Star where
   AnnParse _             = NoAnn
 
 instance IsPass Parse where
-  type Id         Parse = C.PrelimDeclId
+  type Id         Parse = PrelimDeclId
   type MacroBody  Parse = UnparsedMacro
   type ExtBinding Parse = Void
   type Ann ix     Parse = AnnParse ix
   type Msg        Parse = WithLocationInfo ImmediateParseMsg
 
-  idNameKind     _ = C.prelimDeclIdNameKind
-  idSourceName   _ = C.prelimDeclIdSourceName
+  idNameKind     _ = PrelimDeclId.nameKind
+  idSourceName   _ = PrelimDeclId.sourceName
   idLocationInfo _ = prelimDeclIdLocationInfo
 
 {-------------------------------------------------------------------------------
@@ -101,7 +102,7 @@ instance PrettyForTrace ImmediateParseMsg where
   prettyForTrace = \case
       ParseUnknownCursorAvailability simpleKind -> PP.hsep [
           "unknown declaration availability:"
-        , PP.showToCtxDoc simpleKind
+        , PP.show simpleKind
         ]
       ParseOfDeclarationRequiredForScopingFailed err ->
         PP.hang "parse of declaration required for scoping failed:" 2 $

@@ -15,11 +15,12 @@ import Clang.Paths
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeExceptionInContext (..))
@@ -62,7 +63,7 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
 
 getDeclInfo :: CXCursor -> C.NameKind -> ParseDecl (C.DeclInfo Parse)
 getDeclInfo = \curr nameKind -> do
-    declId         <- C.getPrelimDeclId curr nameKind
+    declId         <- PrelimDeclId.atCursor curr nameKind
     declLoc        <- HighLevel.clang_getCursorLocation' curr
     declHeaderInfo <- getHeaderInfo (singleLocPath declLoc)
     sAvailability  <- clang_getCursorAvailability curr
@@ -195,7 +196,7 @@ parseDeclWith parser requiredForScoping kind curr = do
 macroDefinition :: HasCallStack => C.DeclInfo Parse -> Parser
 macroDefinition info = \curr -> do
     -- For built-in macros we cannot get the list of tokens, so we skip them.
-    mBuiltin <- C.checkIsBuiltin curr
+    mBuiltin <- PrelimDeclId.checkIsBuiltin curr
     case mBuiltin of
       Just _builtin ->
         -- If there /specific/ built-in macros that we want to support, we need
@@ -791,9 +792,9 @@ partitionAnonDecls :: [C.Decl Parse] -> ([C.Decl Parse], [C.Decl Parse])
 partitionAnonDecls =
     List.partition $ \decl -> declIdIsAnon decl.declInfo.declId
   where
-    declIdIsAnon :: C.PrelimDeclId -> Bool
-    declIdIsAnon C.PrelimDeclIdAnon{} = True
-    declIdIsAnon _otherwise           = False
+    declIdIsAnon :: PrelimDeclId -> Bool
+    declIdIsAnon PrelimDeclId.Anon{} = True
+    declIdIsAnon _otherwise          = False
 
 -- | Detect implicit fields inside a struct
 --
@@ -851,7 +852,7 @@ detectStructImplicitFields nestedDecls outerFields =
           C.DeclUnion union   -> map Right (C.unionFields union)
           _otherwise          -> []
 
-    fieldDeps :: [C.PrelimDeclId]
+    fieldDeps :: [PrelimDeclId]
     fieldDeps = map snd $ concatMap (C.depsOfType . either C.structFieldType C.unionFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
@@ -882,7 +883,7 @@ detectUnionImplicitFields nestedDecls outerFields =
           C.DeclUnion union   -> map Right (C.unionFields union)
           _otherwise          -> []
 
-    fieldDeps :: [C.PrelimDeclId]
+    fieldDeps :: [PrelimDeclId]
     fieldDeps = map snd $ concatMap (C.depsOfType . either C.structFieldType C.unionFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool

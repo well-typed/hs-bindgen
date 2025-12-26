@@ -18,7 +18,8 @@ import Data.Word
 import GHC.Exts (Int (..), sizeofByteArray#)
 import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Float (castDoubleToWord64, castFloatToWord32)
-import Text.SimplePrettyPrint
+import Text.SimplePrettyPrint (CtxDoc, Pretty (..), ($$), ($+$), (<+>), (><))
+import Text.SimplePrettyPrint qualified as PP
 
 import C.Char qualified as CExpr.Runtime
 
@@ -53,17 +54,17 @@ import Numeric (showHex)
 
 -- | Render generated bindings
 render :: HsModule -> String
-render = (++ "\n") . renderPretty (mkContext 80)
+render = (++ "\n") . PP.renderPretty (PP.mkContext 80)
 
 {-------------------------------------------------------------------------------
   Module pretty-printing
 -------------------------------------------------------------------------------}
 
 instance Pretty HsModule where
-  pretty HsModule{..} = vsep $
-      vcat (map pretty hsModulePragmas)
-    : hsep ["module", string (Hs.moduleNameToString hsModuleName), "where"]
-    : vcat (map pretty hsModuleImports)
+  pretty HsModule{..} = PP.vsep $
+      PP.vcat (map pretty hsModulePragmas)
+    : PP.hsep ["module", PP.string (Hs.moduleNameToString hsModuleName), "where"]
+    : PP.vcat (map pretty hsModuleImports)
     : (renderWrappers hsModuleCWrappers)
     : map pretty hsModuleDecls
 
@@ -72,7 +73,7 @@ instance Pretty HsModule where
 -------------------------------------------------------------------------------}
 
 instance Pretty GhcPragma where
-  pretty (GhcPragma ghcPragma) = hsep ["{-#", string ghcPragma, "#-}"]
+  pretty (GhcPragma ghcPragma) = PP.hsep ["{-#", PP.string ghcPragma, "#-}"]
 
 {-------------------------------------------------------------------------------
   Import pretty-printing
@@ -83,25 +84,25 @@ resolve = ResolvedBackendName . resolveGlobal
 
 instance Pretty ImportListItem where
   pretty = \case
-    UnqualifiedImportListItem HsImportModule{..} Nothing -> hsep
+    UnqualifiedImportListItem HsImportModule{..} Nothing -> PP.hsep
       [ "import"
-      , string (Hs.moduleNameToString hsImportModuleName)
+      , PP.string (Hs.moduleNameToString hsImportModuleName)
       ]
-    UnqualifiedImportListItem HsImportModule{..} (Just ns) -> hsep
+    UnqualifiedImportListItem HsImportModule{..} (Just ns) -> PP.hsep
       [ "import"
-      , string (Hs.moduleNameToString hsImportModuleName)
-      , parens . hcat . List.intersperse ", " $ map pretty ns
+      , PP.string (Hs.moduleNameToString hsImportModuleName)
+      , PP.parens . PP.hcat . List.intersperse ", " $ map pretty ns
       ]
     QualifiedImportListItem HsImportModule{..} -> case hsImportModuleAlias of
-      Just q -> hsep
+      Just q -> PP.hsep
         [ "import qualified"
-        , string (Hs.moduleNameToString hsImportModuleName)
+        , PP.string (Hs.moduleNameToString hsImportModuleName)
         , "as"
-        , string q
+        , PP.string q
         ]
-      Nothing -> hsep
+      Nothing -> PP.hsep
         [ "import qualified"
-        , string (Hs.moduleNameToString hsImportModuleName)
+        , PP.string (Hs.moduleNameToString hsImportModuleName)
         ]
 
 
@@ -125,7 +126,7 @@ instance Pretty ImportListItem where
 -- declaration, in some cases we can also document individual parts of the declaration.
 --
 -- * Template Haskell Comments: These comments can be either top level or
--- parts of a declaration, but won't carry any specific documentation string
+-- parts of a declaration, but won't carry any specific documentation PP.string
 -- like \"--\".
 
 -- As mentioned above Libclang can only parse comments that immediately before
@@ -143,7 +144,7 @@ data CommentKind
     -- ^ Comments that will beging with \"{-^\" for fields and part of
     -- declarations
   | THComment HsDoc.Comment
-    -- ^ Comments that will not begin with any specific documentation string
+    -- ^ Comments that will not begin with any specific documentation PP.string
     -- since they will be taken care of by Template Haskell
 
 instance Pretty CommentKind where
@@ -158,7 +159,7 @@ instance Pretty CommentKind where
         -- Only user-facing metadata should trigger Haddock comment syntax.
         userFacingMetadata = catMaybes [
                         (\n -> "__C declaration:__ @"
-                            >< textToCtxDoc (escapeAtSigns n)
+                            >< PP.text (escapeAtSigns n)
                             >< "@") <$> commentOrigin
                       , (\p -> "__defined at:__ @"
                             >< uncurry prettyHashIncludeArgLoc p
@@ -170,15 +171,15 @@ instance Pretty CommentKind where
                       ]
         internalMetadata = catMaybes [
                         (\u -> "__unique:__ @"
-                           >< string u.source
+                           >< PP.string u.source
                            >< "@"
                         ) <$> commentUnique
                       ]
         allMetadata = userFacingMetadata ++ internalMetadata
         firstContent =
           case commentTitle of
-            Nothing -> empty
-            Just ct -> hsep (map pretty ct)
+            Nothing -> PP.empty
+            Just ct -> PP.hsep (map pretty ct)
         singleLineStart =
           case commentKind of
             TopLevelComment _          -> "-- |"
@@ -190,7 +191,7 @@ instance Pretty CommentKind where
           [] | Nothing <- commentTitle
              , [singleMetadata] <- userFacingMetadata ->
                 -- Single user-facing metadata: use Haddock single-line style
-                string singleLineStart <+> singleMetadata
+                PP.string singleLineStart <+> singleMetadata
              | Nothing <- commentTitle
              , null userFacingMetadata
              , [singleMetadata] <- internalMetadata ->
@@ -198,30 +199,30 @@ instance Pretty CommentKind where
                 "--" <+> singleMetadata
              | Nothing <- commentTitle
              , not (null allMetadata) ->
-                string commentStart
-            <+> vsep allMetadata
-             $$ string commentEnd
+                PP.string commentStart
+            <+> PP.vsep allMetadata
+             $$ PP.string commentEnd
              | Just _ <- commentTitle
              , null allMetadata ->
-                string commentStart
+                PP.string commentStart
             <+> firstContent
-             $$ string commentEnd
+             $$ PP.string commentEnd
              | Just _  <- commentTitle
              , not (null allMetadata) ->
-                string commentStart
+                PP.string commentStart
             <+> firstContent
-            $+$ vsep allMetadata
-             $$ string commentEnd
-             | otherwise -> empty
+            $+$ PP.vsep allMetadata
+             $$ PP.string commentEnd
+             | otherwise -> PP.empty
 
-          _ -> vsep (string commentStart <+> firstContent
-                     : map (nest indentation . pretty) commentChildren)
-            $+$ vcat [ vsep allMetadata
-                     , string commentEnd
+          _ -> PP.vsep (PP.string commentStart <+> firstContent
+                     : map (PP.nest indentation . pretty) commentChildren)
+            $+$ PP.vcat [ PP.vsep allMetadata
+                     , PP.string commentEnd
                      ]
 
 prettyHashIncludeArgLoc :: C.HeaderInfo -> SingleLoc -> CtxDoc
-prettyHashIncludeArgLoc hinfo loc = string $
+prettyHashIncludeArgLoc hinfo loc = PP.string $
     List.intercalate ":"
       [ escapePaths $ getHashIncludeArg (C.headerInclude hinfo)
       , show (singleLocLine loc)
@@ -230,7 +231,7 @@ prettyHashIncludeArgLoc hinfo loc = string $
 
 prettyMainHeaders :: C.HeaderInfo -> CtxDoc
 prettyMainHeaders
-    = string
+    = PP.string
     . List.intercalate "@, @"
     . map (escapePaths . getHashIncludeArg)
     . NonEmpty.toList
@@ -243,49 +244,49 @@ escapePaths (s:ss)   = s : escapePaths ss
 
 instance Pretty HsDoc.CommentBlockContent where
   pretty = \case
-    HsDoc.Paragraph{..}      -> hsep
+    HsDoc.Paragraph{..}      -> PP.hsep
                               . map pretty
                               $ paragraphContent
-    HsDoc.CodeBlock{..}      -> vcat
+    HsDoc.CodeBlock{..}      -> PP.vcat
                               $ ["@"]
-                             ++ map textToCtxDoc codeBlockLines
+                             ++ map PP.text codeBlockLines
                              ++ ["@"]
-    HsDoc.Verbatim{..}       -> ">" <+> textToCtxDoc verbatimContent
-    HsDoc.Example{..}        -> ">>>" <+> textToCtxDoc exampleContent
-    HsDoc.Property{..}       -> "prop>" <+> textToCtxDoc propertyContent
+    HsDoc.Verbatim{..}       -> ">" <+> PP.text verbatimContent
+    HsDoc.Example{..}        -> ">>>" <+> PP.text exampleContent
+    HsDoc.Property{..}       -> "prop>" <+> PP.text propertyContent
     HsDoc.ListItem{..}       ->
       let listMarker =
             case listItemType of
               HsDoc.BulletList -> "*"
-              HsDoc.NumberedList n -> showToCtxDoc n >< "."
-       in listMarker <+> vcat (map pretty listItemContent)
+              HsDoc.NumberedList n -> PP.show n >< "."
+       in listMarker <+> PP.vcat (map pretty listItemContent)
     HsDoc.DefinitionList{..} -> "["
                              >< pretty definitionListTerm
                              >< "]:"
-                            <+> vcat (map pretty definitionListContent)
-    HsDoc.Header{..}         -> string (replicate (fromEnum headerLevel) '=')
-                            <+> (hsep $ map pretty headerContent)
+                            <+> PP.vcat (map pretty definitionListContent)
+    HsDoc.Header{..}         -> PP.string (replicate (fromEnum headerLevel) '=')
+                            <+> (PP.hsep $ map pretty headerContent)
 
 
 instance Pretty HsDoc.CommentInlineContent where
   pretty = \case
-    HsDoc.TextContent{..}   -> textToCtxDoc textContent
-    HsDoc.Monospace{..}     -> "@" >< hsep (map pretty monospaceContent) >< "@"
-    HsDoc.Emph{..}          -> "/" >< hsep (map pretty emphContent) >< "/"
-    HsDoc.Bold{..}          -> "__" >< hsep (map pretty boldContent) >< "__"
-    HsDoc.Module{..}        -> "\"" >< textToCtxDoc moduleContent >< "\""
-    HsDoc.Identifier{..}    -> "'" >< textToCtxDoc identifierContent >< "'"
-    HsDoc.Type{..}          -> "t'" >< textToCtxDoc typeContent
-    HsDoc.Link{..}          -> "[" >< hsep (map pretty linkLabel) >< "]"
-                            >< "(" >< textToCtxDoc linkURL >< ")"
-    HsDoc.URL{..}           -> "<" >< textToCtxDoc urlContent >< ">"
-    HsDoc.Anchor{..}        -> "#" >< textToCtxDoc anchorContent >< "#"
-    HsDoc.Math{..}          -> "\\[" >< vcat (map textToCtxDoc mathContent) >< "\\]"
+    HsDoc.TextContent{..}   -> PP.text textContent
+    HsDoc.Monospace{..}     -> "@" >< PP.hsep (map pretty monospaceContent) >< "@"
+    HsDoc.Emph{..}          -> "/" >< PP.hsep (map pretty emphContent) >< "/"
+    HsDoc.Bold{..}          -> "__" >< PP.hsep (map pretty boldContent) >< "__"
+    HsDoc.Module{..}        -> "\"" >< PP.text moduleContent >< "\""
+    HsDoc.Identifier{..}    -> "'" >< PP.text identifierContent >< "'"
+    HsDoc.Type{..}          -> "t'" >< PP.text typeContent
+    HsDoc.Link{..}          -> "[" >< PP.hsep (map pretty linkLabel) >< "]"
+                            >< "(" >< PP.text linkURL >< ")"
+    HsDoc.URL{..}           -> "<" >< PP.text urlContent >< ">"
+    HsDoc.Anchor{..}        -> "#" >< PP.text anchorContent >< "#"
+    HsDoc.Math{..}          -> "\\[" >< PP.vcat (map PP.text mathContent) >< "\\]"
     HsDoc.Metadata{..}      -> pretty metadataContent
     HsDoc.TypeSignature{..} -> "@" >< prettyType EmptyEnv 0 (translateType typeSignature) >< "@"
 
 instance Pretty HsDoc.CommentMeta where
-  pretty HsDoc.Since{..} = "@since:" <+> textToCtxDoc sinceContent
+  pretty HsDoc.Since{..} = "@since:" <+> PP.text sinceContent
 
 {-------------------------------------------------------------------------------
   Declaration pretty-printing
@@ -293,7 +294,7 @@ instance Pretty HsDoc.CommentMeta where
 
 renderWrappers :: [CWrapper] -> CtxDoc
 renderWrappers wrappers
-  | null src  = empty
+  | null src  = PP.empty
   | otherwise = renderCapiWrapper src
   where
     src :: String
@@ -303,65 +304,65 @@ instance Pretty SDecl where
   pretty = \case
     DInst Instance{..} ->
       let constraints =
-            [ hsep (pretty (resolve c) : (map (prettyPrec 1) ts))
+            [ PP.hsep (pretty (resolve c) : (map (prettyPrec 1) ts))
             | (c, ts) <- instanceSuperClasses
             ]
-          -- @flist@ should either be @hlist@ or @vlist@
+          -- @flist@ should either be @PP.hlist@ or @PP.vlist@
           clsContext flist = flist "(" ")" constraints
-          clsHead = hsep (pretty (resolve instanceClass) : map (prettyPrec 1) instanceArgs)
+          clsHead = PP.hsep (pretty (resolve instanceClass) : map (prettyPrec 1) instanceArgs)
           cls flist =
                 "instance"
             <+> (if null instanceSuperClasses
-                  then empty
+                  then PP.empty
                   else clsContext flist <+> "=>")
             <+> clsHead
             <+> "where"
 
-          inst = ifFits (cls hlist) (cls hlist) (cls vlist)
-          typs = flip map instanceTypes $ \(g, typArgs, typSyn) -> nest 2 $ fsep
-            [ "type" <+> ppUnqualBackendName (resolve g) <+> hsep (map (prettyPrec 1) typArgs)
-                <+> char '='
-            , nest 2 (pretty typSyn)
+          inst = PP.ifFits (cls PP.hlist) (cls PP.hlist) (cls PP.vlist)
+          typs = flip map instanceTypes $ \(g, typArgs, typSyn) -> PP.nest 2 $ PP.fsep
+            [ "type" <+> ppUnqualBackendName (resolve g) <+> PP.hsep (map (prettyPrec 1) typArgs)
+                <+> PP.char '='
+            , PP.nest 2 (pretty typSyn)
             ]
-          decs = flip map instanceDecs $ \(name, expr) -> nest 2 $ fsep
-            [ ppUnqualBackendName (resolve name) <+> char '='
-            , nest 2 (pretty expr)
+          decs = flip map instanceDecs $ \(name, expr) -> PP.nest 2 $ PP.fsep
+            [ ppUnqualBackendName (resolve name) <+> PP.char '='
+            , PP.nest 2 (pretty expr)
             ]
-          prettyTopLevelComment = maybe empty (pretty . TopLevelComment) instanceComment
+          prettyTopLevelComment = maybe PP.empty (pretty . TopLevelComment) instanceComment
 
-      in  vsep $ prettyTopLevelComment : inst : typs ++ decs
+      in  PP.vsep $ prettyTopLevelComment : inst : typs ++ decs
 
     DRecord Record{..} ->
-      let d = hsep ["data", pretty dataType, char '=', pretty dataCon]
-          prettyTopLevelComment = maybe empty (pretty . TopLevelComment) dataComment
+      let d = PP.hsep ["data", pretty dataType, PP.char '=', pretty dataCon]
+          prettyTopLevelComment = maybe PP.empty (pretty . TopLevelComment) dataComment
       in  prettyTopLevelComment
-       $$ (hang d 2 $
-            vcat [ vlist "{" "}"
-                     [   hsep [ pretty (fieldName f)
+       $$ (PP.hang d 2 $
+            PP.vcat [ PP.vlist "{" "}"
+                     [   PP.hsep [ pretty (fieldName f)
                               , "::"
                               , pretty (fieldType f)
                               ]
                      $$ prettyFieldComment
                      | f <- dataFields
-                     , let prettyFieldComment = maybe empty (pretty . PartOfDeclarationComment) (fieldComment f)
+                     , let prettyFieldComment = maybe PP.empty (pretty . PartOfDeclarationComment) (fieldComment f)
                      ]
                  , nestedDeriving dataDeriv
                  ]
           )
 
     DEmptyData EmptyData{..} ->
-      let prettyComment = maybe empty (pretty . TopLevelComment) emptyDataComment
+      let prettyComment = maybe PP.empty (pretty . TopLevelComment) emptyDataComment
       in  prettyComment
-        $$ hsep ["data", pretty emptyDataName]
+        $$ PP.hsep ["data", pretty emptyDataName]
 
     DNewtype Newtype{..} ->
-      let d = hsep ["newtype", pretty newtypeName, char '=', pretty newtypeCon]
-          prettyComment = maybe empty (pretty . TopLevelComment) newtypeComment
-          prettyFieldComment = maybe empty (pretty . PartOfDeclarationComment) (fieldComment newtypeField)
+      let d = PP.hsep ["newtype", pretty newtypeName, PP.char '=', pretty newtypeCon]
+          prettyComment = maybe PP.empty (pretty . TopLevelComment) newtypeComment
+          prettyFieldComment = maybe PP.empty (pretty . PartOfDeclarationComment) (fieldComment newtypeField)
       in  prettyComment
-       $$ (hang d 2 $ vcat [
-             vlist "{" "}"
-               [ hsep
+       $$ (PP.hang d 2 $ PP.vcat [
+             PP.vlist "{" "}"
+               [ PP.hsep
                    [ pretty (fieldName newtypeField)
                    , "::"
                    , pretty (fieldType newtypeField)
@@ -380,68 +381,68 @@ instance Pretty SDecl where
           (callconv, impent) =
             case foreignImportCallConv of
               CallConvUserlandCAPI _ -> ("ccall",
-                  string $ Text.unpack foreignImportOrigName.text
+                  PP.string $ Text.unpack foreignImportOrigName.text
                 )
-              CallConvGhcCAPI header -> ("capi", hcat [
-                  string header
-                , string $ Text.unpack foreignImportOrigName.text
+              CallConvGhcCAPI header -> ("capi", PP.hcat [
+                  PP.string header
+                , PP.string $ Text.unpack foreignImportOrigName.text
                 ])
-              CallConvGhcCCall style -> ("ccall", hcat [
+              CallConvGhcCCall style -> ("ccall", PP.hcat [
                   case style of
                     ImportAsValue -> ""
                     ImportAsPtr   -> "&"
-                , string $ Text.unpack foreignImportOrigName.text
+                , PP.string $ Text.unpack foreignImportOrigName.text
                 ])
 
-          prettyComment = maybe empty (pretty . TopLevelComment) foreignImportComment
+          prettyComment = maybe PP.empty (pretty . TopLevelComment) foreignImportComment
 
       in  prettyComment
-       $$ hsep [ "foreign import"
+       $$ PP.hsep [ "foreign import"
                , callconv
                , safety foreignImportSafety
                , "\"" >< impent >< "\""
                , pretty foreignImportName
                , "::"
                ]
-       $$ nest 5 (prettyBindingType foreignImportParameters foreignImportResult)
+       $$ PP.nest 5 (prettyBindingType foreignImportParameters foreignImportResult)
 
     DBinding Binding{..} ->
-      let prettyComment = maybe empty (pretty . TopLevelComment) comment
+      let prettyComment = maybe PP.empty (pretty . TopLevelComment) comment
           prettyName    = pretty name
           prettyTyp     = prettyBindingType parameters result
           prettySignature =
             if null parameters; then
               prettyName <+> "::" <+> prettyTyp
             else
-              prettyName <+> "::" $$  nest 5 prettyTyp
-      in  vcat (map (prettyPragma name) pragmas)
+              prettyName <+> "::" $$  PP.nest 5 prettyTyp
+      in  PP.vcat (map (prettyPragma name) pragmas)
        $$ prettyComment
        $$ prettySignature
-       $$ fsep
-            [ prettyName <+> char '='
-            , nest 2 $ pretty body
+       $$ PP.fsep
+            [ prettyName <+> PP.char '='
+            , PP.nest 2 $ pretty body
             ]
 
     DDerivingInstance DerivingInstance {..} ->
-      maybe empty (pretty . TopLevelComment) derivingInstanceComment
+      maybe PP.empty (pretty . TopLevelComment) derivingInstanceComment
         $$ "deriving" <+> strategy derivingInstanceStrategy
                       <+> "instance"
                       <+> pretty derivingInstanceType
 
     DPatternSynonym PatternSynonym {..} ->
-      let prettyComment = maybe empty (pretty . TopLevelComment) patSynComment
-       in vcat [ prettyComment
+      let prettyComment = maybe PP.empty (pretty . TopLevelComment) patSynComment
+       in PP.vcat [ prettyComment
                , "pattern" <+> pretty patSynName <+> "::" <+> pretty patSynType
                , "pattern" <+> pretty patSynName <+> "=" <+> pretty patSynRHS
                ]
 
 -- | Nested deriving clauses (as part of a datatype declaration)
 nestedDeriving :: [(Hs.Strategy ClosedType, [Global])] -> CtxDoc
-nestedDeriving deriv = vcat [
-      hsep [
+nestedDeriving deriv = PP.vcat [
+      PP.hsep [
           "deriving"
         , strategy s
-        , hcat . concat $ [
+        , PP.hcat . concat $ [
               ["("]
             , List.intersperse (", ") $ map (pretty . resolve) clss
             , [")"]
@@ -482,7 +483,7 @@ prettyBindingType params result =
       case p.typ of
         TFun {} -> prettyType EmptyEnv 1 p.typ
         _       -> prettyType EmptyEnv 0 p.typ
-      $$ maybe empty (pretty . PartOfDeclarationComment) p.comment
+      $$ maybe PP.empty (pretty . PartOfDeclarationComment) p.comment
 
 
     prettyResultType t = prettyType EmptyEnv 0 t
@@ -490,27 +491,27 @@ prettyBindingType params result =
     prettyParams []     = prettyResultType result.typ
     prettyParams (p:ps) =
          prettyParam p
-      $$ nest (-3) ("->" <+> prettyParams ps)
+      $$ PP.nest (-3) ("->" <+> prettyParams ps)
 
 prettyType :: Env ctx CtxDoc -> Int -> SType ctx -> CtxDoc
 prettyType env prec = \case
     TGlobal g -> pretty $ resolve g
     TCon n -> pretty n
     TFree var -> pretty var
-    TLit n -> showToCtxDoc n
-    TStrLit s -> string (show s)
+    TLit n -> PP.show n
+    TStrLit s -> PP.string (show s)
     TExt i _cTypeSpec _hsTypeSpec -> pretty i
-    TApp c x -> parensWhen (prec > 0) $
+    TApp c x -> PP.parensWhen (prec > 0) $
       prettyType env 1 c <+> prettyType env 1 x
-    TFun a b -> parensWhen (prec > 0) $
+    TFun a b -> PP.parensWhen (prec > 0) $
       prettyType env 1 a <+> "->" <+> prettyType env 0 b
     TBound x -> lookupEnv x env
     TForall hints add ctxt body ->
       case add of
-        AZ -> hsep (map (\ ct -> prettyType env 0 ct <+> "=> ") ctxt) >< prettyType env 0 body
+        AZ -> PP.hsep (map (\ ct -> prettyType env 0 ct <+> "=> ") ctxt) >< prettyType env 0 body
         _  -> withFreshNames env add hints $ \env' params ->
-          "forall" <+> hsep params >< "." <+>
-          hsep (map (\ ct -> prettyType env' 0 ct <+> "=>") ctxt) <+> prettyType env' 0 body
+          "forall" <+> PP.hsep params >< "." <+>
+          PP.hsep (map (\ ct -> prettyType env' 0 ct <+> "=>") ctxt) <+> prettyType env' 0 body
 
 prettyPrimType :: HsPrimType -> CtxDoc
 prettyPrimType = prettyType EmptyEnv 0 . TGlobal . PrimType
@@ -524,8 +525,8 @@ instance Pretty PatExpr where
 
 prettyPatExpr :: Int -> PatExpr -> CtxDoc
 prettyPatExpr prec = \case
-    PELit i -> parensWhen (i < 0) $ showToCtxDoc i
-    PEApps n ps -> parensWhen (prec > 3) $ pretty n <+> hsep (map (prettyPatExpr 4) ps)
+    PELit i -> PP.parensWhen (i < 0) $ PP.show i
+    PEApps n ps -> PP.parensWhen (prec > 3) $ pretty n <+> PP.hsep (map (prettyPatExpr 4) ps)
 
 {-------------------------------------------------------------------------------
   Expression pretty-printing
@@ -542,35 +543,35 @@ prettyExpr env prec = \case
     EFree x  -> pretty x
     ECon n   -> pretty n
 
-    EIntegral i Nothing -> parensWhen (prec > 0 && i < 0) (showToCtxDoc i)
+    EIntegral i Nothing -> PP.parensWhen (prec > 0 && i < 0) (PP.show i)
     EUnboxedIntegral i ->
-      parens $ hcat [showToCtxDoc i, "#"]
+      PP.parens $ PP.hcat [PP.show i, "#"]
     EIntegral i (Just t) ->
-      parens $ hcat [showToCtxDoc i, " :: ", prettyPrimType t]
+      PP.parens $ PP.hcat [PP.show i, " :: ", prettyPrimType t]
     EChar (CExpr.Runtime.CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->
       prettyExpr env 0 (EGlobal CharValue_fromAddr)
-        <+> string str
-        <+> string (show len)
+        <+> PP.string str
+        <+> PP.string (show len)
         <+> case mbUnicode of
             { Nothing -> pretty (resolve Maybe_nothing)
-            ; Just c -> parens (pretty (resolve Maybe_just) <+> string (show c))
+            ; Just c -> PP.parens (pretty (resolve Maybe_just) <+> PP.string (show c))
             }
       where
         (str, len) = addrLiteral ba
-    EString s -> showToCtxDoc s
+    EString s -> PP.show s
     ECString bs ->
-      -- Use unboxed Addr# literals to turn a string literal into a
+      -- Use unboxed Addr# literals to turn a PP.string literal into a
       -- value of type CStringLen.
       let (str, len) = addrLiteral bs
-      in parens $ hcat
-        [ parens $ prettyExpr env 0 (EGlobal Ptr_constructor) <+> string str >< ", " >< string (show len)
+      in PP.parens $ PP.hcat
+        [ PP.parens $ prettyExpr env 0 (EGlobal Ptr_constructor) <+> PP.string str >< ", " >< PP.string (show len)
         , " :: "
         , prettyPrimType HsPrimCStringLen
         ]
 
-    EFloat f t -> parens $ hcat [
+    EFloat f t -> PP.parens $ PP.hcat [
         if CExpr.DSL.canBeRepresentedAsRational f then
-          showToCtxDoc f
+          PP.show f
         else
           prettyExpr env prec $
             EApp (EGlobal CFloat_constructor) $
@@ -579,9 +580,9 @@ prettyExpr env prec = \case
       , " :: "
       , prettyPrimType t
       ]
-    EDouble f t -> parens $ hcat [
+    EDouble f t -> PP.parens $ PP.hcat [
         if CExpr.DSL.canBeRepresentedAsRational f then
-          showToCtxDoc f
+          PP.show f
         else
           prettyExpr env  prec $
             EApp (EGlobal CDouble_constructor) $
@@ -591,77 +592,77 @@ prettyExpr env prec = \case
       , prettyPrimType t
       ]
 
-    EApp f x -> parensWhen (prec > 3) $ prettyExpr env 3 f <+> prettyExpr env 4 x
+    EApp f x -> PP.parensWhen (prec > 3) $ prettyExpr env 3 f <+> prettyExpr env 4 x
 
     e@(EInfix op x y) -> case (prec, getInfixSpecialCase env e) of
       -- Handle special cases only at precedence 0.
-      (0, Just ds) -> vcat ds
+      (0, Just ds) -> PP.vcat ds
       -- Sub-expressions are aggresively parenthesized so that we do not have to
       -- worry about operator fixity/precedence.
       _otherwise ->
-        parens $ hsep
+        PP.parens $ PP.hsep
           [ prettyExpr env 1 x
           , ppInfixBackendName (resolve op)
           , prettyExpr env 1 y
           ]
 
-    ELam (NameHint hint) body -> withFreshName hint $ \x -> parensWhen (prec > 1) $ fsep
-      [ char '\\' >< x <+> "->"
-      , nest 2 $ prettyExpr (env :> x) 0 body
+    ELam (NameHint hint) body -> PP.withFreshName hint $ \x -> PP.parensWhen (prec > 1) $ PP.fsep
+      [ PP.char '\\' >< x <+> "->"
+      , PP.nest 2 $ prettyExpr (env :> x) 0 body
       ]
 
-    EUnusedLam body -> parensWhen (prec > 1) $ fsep
-      [ char '\\' >< "_" <+> "->"
-      , nest 2 $ prettyExpr env 0 body
+    EUnusedLam body -> PP.parensWhen (prec > 1) $ PP.fsep
+      [ PP.char '\\' >< "_" <+> "->"
+      , PP.nest 2 $ prettyExpr env 0 body
       ]
 
-    ECase x alts -> vparensWhen (prec > 1) $
+    ECase x alts -> PP.vparensWhen (prec > 1) $
       if null alts
-        then hsep ["case", prettyExpr env 0 x, "of", "{}"]
-        else hang (hsep ["case", prettyExpr env 0 x, "of"]) 2 $ vcat
+        then PP.hsep ["case", prettyExpr env 0 x, "of", "{}"]
+        else PP.hang (PP.hsep ["case", prettyExpr env 0 x, "of"]) 2 $ PP.vcat
             ([ withFreshNames env add hints $ \env' params ->
 
-                let l = hsep $ pretty cnst : params ++ ["->"]
-                in  ifFits l (fsep [l, nest 2 (prettyExpr env' 0 body)]) $
+                let l = PP.hsep $ pretty cnst : params ++ ["->"]
+                in  PP.ifFits l (PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]) $
                     case unsnoc params of
-                      Nothing -> fsep [l, nest 2 (prettyExpr env' 0 body)]
-                      Just (lParams, rParam) -> vcat $
+                      Nothing -> PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]
+                      Just (lParams, rParam) -> PP.vcat $
                           pretty cnst
-                        : [ nest 2 param
+                        : [ PP.nest 2 param
                           | param <- lParams
                           ]
-                        ++ [nest 2 (rParam <+> "->")]
-                        ++ [nest 4 (prettyExpr env' 0 body)]
+                        ++ [PP.nest 2 (rParam <+> "->")]
+                        ++ [PP.nest 4 (prettyExpr env' 0 body)]
 
             | SAlt cnst add hints body <- alts
             ]
             ++
             [ withFreshNames env (AS AZ) hints $ \env' params ->
-                let l = hsep $ params ++ ["->"]
-                in  ifFits l (fsep [l, nest 2 (prettyExpr env' 0 body)]) $
+                let l = PP.hsep $ params ++ ["->"]
+                in  PP.ifFits l (PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]) $
                     case unsnoc params of
-                      Nothing -> fsep [l, nest 2 (prettyExpr env' 0 body)]
-                      Just (lParams, rParam) -> vcat $
-                          [ nest 2 param
+                      Nothing -> PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]
+                      Just (lParams, rParam) -> PP.vcat $
+                          [ PP.nest 2 param
                           | param <- lParams
                           ]
-                        ++ [nest 2 (rParam <+> "->")]
-                        ++ [nest 4 (prettyExpr env' 0 body)]
+                        ++ [PP.nest 2 (rParam <+> "->")]
+                        ++ [PP.nest 4 (prettyExpr env' 0 body)]
 
             | SAltNoConstr hints body <- alts
             ]
             ++
             [ withFreshNames env add hints $ \env' params ->
-                let l  = hlist "(# " " #)" params <+> "->"
-                in  ifFits l (fsep [l, nest 2 (prettyExpr env' 0 body)]) $
+                let l  = PP.hlist "(# " " #)" params <+> "->"
+                in  PP.ifFits l (PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]) $
                     case unsnoc params of
-                      Nothing -> fsep [l, nest 2 (prettyExpr env' 0 body)]
-                      Just (lParams, rParam) -> vcat $
-                          [ nest 2 param
+                      Nothing -> PP.fsep [l, PP.nest 2 (prettyExpr env' 0 body)]
+                      Just (lParams, rParam) -> PP.vcat $
+                          [ PP.nest 2 param
                           | param <- lParams
                           ]
-                        ++ [nest 2 (rParam <+> "->")]
-                        ++ [nest 4 (prettyExpr env' 0 body)]
+                        ++ [PP.nest 2 (rParam <+> "->")]
+                        ++ [PP.nest 4 (prettyExpr env' 0 body)]
 
             | SAltUnboxedTuple add hints body <- alts
             ]
@@ -669,19 +670,19 @@ prettyExpr env prec = \case
 
     ETup xs ->
       let ds = prettyExpr env 0 <$> xs
-          l  = hlist "(" ")" ds
-      in  ifFits l l $ vlist "(" ")" ds
+          l  = PP.hlist "(" ")" ds
+      in  PP.ifFits l l $ PP.vlist "(" ")" ds
     EUnboxedTup xs ->
       let ds = prettyExpr env 0 <$> xs
-          l  = hlist "(# " " #)" ds
-      in  ifFits l l $ vlist "(# " " #)" ds
+          l  = PP.hlist "(# " " #)" ds
+      in  PP.ifFits l l $ PP.vlist "(# " " #)" ds
     EList xs ->
       let ds = prettyExpr env 0 <$> xs
-          l  = hlist "[" "]" ds
-      in  ifFits l l $ vlist "[" "]" ds
+          l  = PP.hlist "[" "]" ds
+      in  PP.ifFits l l $ PP.vlist "[" "]" ds
 
     -- NOTE: the precedence is copied from the @EApp@ case above
-    ETypeApp f t -> parensWhen (prec > 3) $ prettyExpr env 3 f <+> "@" >< prettyPrec 4 t
+    ETypeApp f t -> PP.parensWhen (prec > 3) $ prettyExpr env 3 f <+> "@" >< prettyPrec 4 t
 
 -- | Returns the unboxed @Addr#@ literal for the given 'ByteArray', together
 -- with its length.
@@ -733,7 +734,7 @@ withFreshNames ::
   -> (Env ctx' CtxDoc -> [CtxDoc] -> CtxDoc)
   -> CtxDoc
 withFreshNames env AZ     _                         kont = kont env []
-withFreshNames env (AS a) (NameHint hint ::: hints) kont = withFreshName hint $ \name ->
+withFreshNames env (AS a) (NameHint hint ::: hints) kont = PP.withFreshName hint $ \name ->
     withFreshNames env a hints $ \env' names -> kont (env' :> name) (name : names)
 
 getInfixSpecialCase :: forall ctx. Env ctx CtxDoc -> SExpr ctx -> Maybe [CtxDoc]
@@ -776,14 +777,14 @@ getInfixSpecialCase env = \case
     sp :: CtxDoc -> CtxDoc
     sp =
       -- TODO compute column width, do not just count chars with length
-      string . flip List.replicate ' ' . length . renderCtxDoc defaultContext
+      PP.string . flip List.replicate ' ' . length . PP.renderCtxDoc PP.defaultContext
 
 {-------------------------------------------------------------------------------
   Hs.Name pretty-printing
 -------------------------------------------------------------------------------}
 
 instance Pretty (Hs.Name ns) where
-  pretty = textToCtxDoc . Hs.getName
+  pretty = PP.text . Hs.getName
 
 {-------------------------------------------------------------------------------
   ResolvedName pretty-printing
@@ -794,7 +795,7 @@ instance Pretty (Hs.Name ns) where
 -- Operators are parenthesized.
 instance Pretty ResolvedName where
   pretty n@ResolvedName{..} =
-    parensWhen (resolvedNameType == OperatorName) $ ppResolvedName n
+    PP.parensWhen (resolvedNameType == OperatorName) $ ppResolvedName n
 
 -- | Pretty-print a 'ResolvedName'
 --
@@ -806,8 +807,8 @@ ppResolvedName ResolvedName{..} = case resolvedNameImport of
       let q = fromMaybe
                 (Hs.moduleNameToString hsImportModuleName)
                 hsImportModuleAlias
-      in  string $ q ++ '.' : resolvedNameString
-    _otherwise -> string resolvedNameString
+      in  PP.string $ q ++ '.' : resolvedNameString
+    _otherwise -> PP.string resolvedNameString
 
 {-------------------------------------------------------------------------------
   BackendName pretty-printing
@@ -819,7 +820,7 @@ ppResolvedName ResolvedName{..} = case resolvedNameImport of
 instance Pretty BackendName where
   pretty = \case
     LocalBackendName nameType s ->
-      parensWhen (nameType == OperatorName) $ string s
+      PP.parensWhen (nameType == OperatorName) $ PP.string s
     ResolvedBackendName n -> pretty n
 
 -- | Pretty-print a 'BackendName' unqualified
@@ -828,9 +829,9 @@ instance Pretty BackendName where
 ppUnqualBackendName :: BackendName -> CtxDoc
 ppUnqualBackendName = \case
     LocalBackendName nameType s ->
-      parensWhen (nameType == OperatorName) $ string s
+      PP.parensWhen (nameType == OperatorName) $ PP.string s
     ResolvedBackendName ResolvedName{..} ->
-      parensWhen (resolvedNameType == OperatorName) $ string resolvedNameString
+      PP.parensWhen (resolvedNameType == OperatorName) $ PP.string resolvedNameString
 
 -- | Pretty-print a 'BackendName' in infix notation
 --
@@ -838,27 +839,27 @@ ppUnqualBackendName = \case
 ppInfixBackendName :: BackendName -> CtxDoc
 ppInfixBackendName = \case
     LocalBackendName nameType s ->
-      bticksWhen (nameType == IdentifierName) $ string s
+      bticksWhen (nameType == IdentifierName) $ PP.string s
     ResolvedBackendName n@ResolvedName{..} ->
       bticksWhen (resolvedNameType == IdentifierName) $ ppResolvedName n
   where
     bticksWhen :: Bool -> CtxDoc -> CtxDoc
     bticksWhen False d = d
-    bticksWhen True  d = hcat [char '`', d, char '`']
+    bticksWhen True  d = PP.hcat [PP.char '`', d, PP.char '`']
 
 {-------------------------------------------------------------------------------
   ExtIdentifier pretty-printing
 -------------------------------------------------------------------------------}
 
 instance Pretty Hs.ModuleName where
-  pretty = string . Hs.moduleNameToString
+  pretty = PP.string . Hs.moduleNameToString
 
 instance Pretty Hs.Identifier where
-  pretty = string . Text.unpack . (.text)
+  pretty = PP.string . Text.unpack . (.text)
 
 instance Pretty Hs.ExtRef where
   pretty Hs.ExtRef{..} =
-    hcat [pretty extRefModule, char '.', pretty extRefIdentifier]
+    PP.hcat [pretty extRefModule, PP.char '.', pretty extRefIdentifier]
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions

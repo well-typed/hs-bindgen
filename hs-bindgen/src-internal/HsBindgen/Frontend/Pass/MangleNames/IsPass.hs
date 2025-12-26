@@ -7,7 +7,6 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
   , MangleNamesMsg(..)
   ) where
 
-import Data.Text qualified as Text
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.Name qualified as Hs
@@ -91,15 +90,15 @@ instance PrettyForTrace MangleNamesMsg where
         "Squashed typedef"
       MangleNamesRenamed newName -> PP.hsep [
           "Renamed to"
-        , PP.string (Text.unpack newName.text)
+        , PP.text newName.text
         ]
       MangleNamesCouldNotMangle name -> PP.hsep [
           "Could not mangle C name: "
-        , PP.textToCtxDoc name
+        , PP.text name
         ]
       MangleNamesMissingIdentifier name -> PP.hsep [
           "Could not mangle C name identifier: "
-        , PP.textToCtxDoc name
+        , PP.text name
         ]
 
 instance IsTrace Level MangleNamesMsg where

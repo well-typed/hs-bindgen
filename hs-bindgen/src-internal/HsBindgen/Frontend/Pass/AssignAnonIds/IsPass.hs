@@ -5,9 +5,9 @@ module HsBindgen.Frontend.Pass.AssignAnonIds.IsPass (
 
 import Text.SimplePrettyPrint qualified as PP
 
-import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -42,7 +42,7 @@ data ImmediateAssignAnonIdsMsg =
     -- @clang@ will produce a warning for this ("declaration does not declare
     -- anything"); we issue a separate message here in case we skip over
     -- something that we shouldn't.
-    AssignAnonIdsSkippedDecl C.AnonId
+    AssignAnonIdsSkippedDecl AnonId
   deriving stock (Show, Generic)
 
 instance PrettyForTrace ImmediateAssignAnonIdsMsg where

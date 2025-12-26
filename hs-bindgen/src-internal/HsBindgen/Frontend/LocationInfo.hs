@@ -17,6 +17,8 @@ import Clang.HighLevel.Types
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
@@ -61,11 +63,11 @@ data LocationInfo =
   Construct 'LocationInfo'
 -------------------------------------------------------------------------------}
 
-prelimDeclIdLocationInfo :: C.PrelimDeclId -> [SingleLoc] -> LocationInfo
+prelimDeclIdLocationInfo :: PrelimDeclId -> [SingleLoc] -> LocationInfo
 prelimDeclIdLocationInfo prelimDeclId knownLocs =
     case prelimDeclId of
-      C.PrelimDeclIdNamed name -> LocationDeclNamed name knownLocs
-      C.PrelimDeclIdAnon  anon -> LocationDeclAnon Nothing anon.loc
+      PrelimDeclId.Named name -> LocationDeclNamed name knownLocs
+      PrelimDeclId.Anon  anon -> LocationDeclAnon Nothing anon.loc
 
 declIdLocationInfo :: HasCallStack => C.DeclId -> [SingleLoc] -> LocationInfo
 declIdLocationInfo declId knownLocs =
@@ -119,22 +121,22 @@ instance PrettyForTrace LocationInfo where
       LocationDeclNamed name [loc] -> PP.hsep [
           prettyForTrace name
         , " at "
-        , PP.showToCtxDoc loc
+        , PP.show loc
         ]
       LocationDeclNamed name locs -> PP.hsep [
           prettyForTrace name
         , " at "
-        , PP.hlist "(" ")" (map PP.showToCtxDoc locs)
+        , PP.hlist "(" ")" (map PP.show locs)
         ]
       LocationDeclAnon (Just name) loc -> PP.hsep [
           "anonymous declaration "
         , prettyForTrace name
         , " at "
-        , PP.showToCtxDoc loc
+        , PP.show loc
         ]
       LocationDeclAnon Nothing loc -> PP.hsep [
           "anonymous declaration at "
-        , PP.showToCtxDoc loc
+        , PP.show loc
         ]
       LocationUnavailable ->
         "location unavailable"
