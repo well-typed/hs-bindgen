@@ -111,7 +111,7 @@ chooseNames td fc decls =
   where
     getSpecifiedName :: C.Decl Select -> Maybe (DeclId, Hs.Identifier)
     getSpecifiedName decl =
-        (decl.info.declId,)
+        (decl.info.id,)
           <$> (BindingSpec.cTypeSpecIdentifier =<< decl.ann.cSpec)
 
 nameForDecl ::
@@ -166,7 +166,7 @@ nameForDecl td fc specifiedNames decl =
                     )
   where
     declId :: DeclId
-    declId = decl.info.declId
+    declId = decl.info.id
 
 {-------------------------------------------------------------------------------
   Internal: working with 'FixCandidate'
@@ -250,22 +250,22 @@ class MangleInDecl a where
 
 mangleDecl :: C.Decl Select -> M (Maybe (C.Decl MangleNames))
 mangleDecl decl = do
-    mConclusion <- checkTypedefAnalysis decl.info.declId
+    mConclusion <- checkTypedefAnalysis decl.info.id
     case mConclusion of
       Just TypedefAnalysis.Squash{} -> do
         traceMsg $ withDeclLoc decl.info $ MangleNamesSquashed
         return Nothing
       _otherwise -> do
-        declId'      <- mangleDeclId decl.info.declId
-        declComment' <- mapM mangle decl.info.declComment
+        declId'      <- mangleDeclId decl.info.id
+        declComment' <- mapM mangle decl.info.comment
 
         let info :: C.DeclInfo MangleNames
             info = C.DeclInfo{
-                 declId           = declId'
-               , declComment      = declComment'
-               , declLoc          = decl.info.declLoc
-               , declHeaderInfo   = decl.info.declHeaderInfo
-               , declAvailability = decl.info.declAvailability
+                 id           = declId'
+               , comment      = declComment'
+               , loc          = decl.info.loc
+               , headerInfo   = decl.info.headerInfo
+               , availability = decl.info.availability
                }
 
             reconstruct :: C.DeclKind MangleNames -> C.Decl MangleNames
@@ -301,7 +301,7 @@ mangleFieldName info fieldCName =
       mkIdentifier info (Proxy @Hs.NsVar) candidate
   where
     candidate :: Text
-    candidate = info.declId.hsName.text <> "_" <> fieldCName.text
+    candidate = info.id.hsName.text <> "_" <> fieldCName.text
 
 -- | Mangle enum constant name
 --
@@ -337,14 +337,14 @@ mangleArgumentName info argName =
 -- Right now we reuse the name of the type also for the constructor.
 mkStructNames :: C.DeclInfo MangleNames -> RecordNames
 mkStructNames info = RecordNames{
-      constr = Hs.unsafeHsIdHsName info.declId.hsName
+      constr = Hs.unsafeHsIdHsName info.id.hsName
     }
 
 -- | Generic construction of newtype names, given only the type name
 mkNewtypeNames :: C.DeclInfo MangleNames -> NewtypeNames
 mkNewtypeNames info = NewtypeNames{
-      constr = Hs.unsafeHsIdHsName $          info.declId.hsName
-    , field  = Hs.unsafeHsIdHsName $ "un_" <> info.declId.hsName
+      constr = Hs.unsafeHsIdHsName $          info.id.hsName
+    , field  = Hs.unsafeHsIdHsName $ "un_" <> info.id.hsName
     }
 
 -- | Union names
@@ -605,7 +605,7 @@ withDeclLoc :: forall p.
      IsPass p
   => C.DeclInfo p -> MangleNamesMsg -> WithLocationInfo MangleNamesMsg
 withDeclLoc info msg = WithLocationInfo{
-      loc = idLocationInfo (Proxy @p) info.declId [info.declLoc]
+      loc = idLocationInfo (Proxy @p) info.id [info.loc]
     , msg
     }
 

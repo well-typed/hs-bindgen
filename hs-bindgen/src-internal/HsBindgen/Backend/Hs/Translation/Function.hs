@@ -102,10 +102,10 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
         [ aliasCWrapper, restoreOrigSignature ]
   where
     origName :: Text
-    origName = info.declId.cName.name.text
+    origName = info.id.cName.name.text
 
     mangledOrigId :: Hs.Identifier
-    mangledOrigId = info.declId.hsName
+    mangledOrigId = info.id.hsName
 
     mangledOrigName :: Hs.Name Hs.NsVar
     mangledOrigName = Hs.unsafeHsIdHsName mangledOrigId
@@ -296,7 +296,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
           ]
 
 getMainHashIncludeArg :: C.DeclInfo Final -> HashIncludeArg
-getMainHashIncludeArg info = NonEmpty.head info.declHeaderInfo.mainHeaders
+getMainHashIncludeArg info = NonEmpty.head info.headerInfo.mainHeaders
 
 {-------------------------------------------------------------------------------
   Helpers

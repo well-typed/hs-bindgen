@@ -155,7 +155,7 @@ analyseTypedef declUseGraph typedefInfo typedef =
       Nothing      -> mempty
       Just payload ->
         typedefOfTagged typedefInfo payload $
-          DeclUseGraph.getUseSitesNoSelfReferences declUseGraph payload.declId
+          DeclUseGraph.getUseSitesNoSelfReferences declUseGraph payload.id
   where
     C.Typedef{typedefType, typedefAnn = NoAnn} = typedef
 
@@ -168,14 +168,14 @@ typedefOfTagged ::
 typedefOfTagged typedefInfo payload useSites
   | shouldSquash
   = mconcat [
-        conclude typedefInfo.declId $ Squash typedefInfo.declLoc payload.declId
-      , conclude payload.declId $ Rename (UseNameOf typedefInfo.declId)
+        conclude typedefInfo.id $ Squash typedefInfo.loc payload.id
+      , conclude payload.id $ Rename (UseNameOf typedefInfo.id)
       ]
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1427>
     -- Use "_Aux" instead.
   | shouldRename
-  = conclude payload.declId $ Rename (AddSuffix "_Deref")
+  = conclude payload.id $ Rename (AddSuffix "_Deref")
 
   | otherwise
   = mempty
@@ -183,13 +183,13 @@ typedefOfTagged typedefInfo payload useSites
     shouldSquash, shouldRename :: Bool
     shouldSquash = and [
           payload.isDirect
-        , or [ typedefInfo.declId.name.text == payload.declId.name.text
+        , or [ typedefInfo.id.name.text == payload.id.name.text
              , length useSites == 1
              ]
         ]
     shouldRename = and [
           not payload.isDirect
-        , typedefInfo.declId.name.text == payload.declId.name.text
+        , typedefInfo.id.name.text == payload.id.name.text
         ]
 
 {-------------------------------------------------------------------------------
@@ -202,7 +202,7 @@ typedefOfTagged typedefInfo payload useSites
 
 data TaggedPayload = TaggedPayload{
       isDirect :: Bool
-    , declId   :: DeclId
+    , id       :: DeclId
     }
 
 -- | Tagged declaration (struct, union, enum) wrapped by this typedef, if any
@@ -227,4 +227,4 @@ taggedPayload = go True
     typeRef :: Bool -> DeclId -> Maybe TaggedPayload
     typeRef isDirect declId = do
         void $ C.checkIsTagged declId.name.kind
-        return TaggedPayload{isDirect, declId}
+        return TaggedPayload{isDirect, id = declId}

@@ -82,12 +82,12 @@ instance (
     , CoercePass C.Comment p p'
     ) => CoercePass C.DeclInfo p p' where
   coercePass info = C.DeclInfo{
-        declId      = coercePassId (Proxy @'(p, p')) declId
-      , declComment = fmap coercePass declComment
-      , ..
+        id           = coercePassId (Proxy @'(p, p')) info.id
+      , comment      = fmap coercePass info.comment
+      , loc          = info.loc
+      , headerInfo   = info.headerInfo
+      , availability = info.availability
       }
-    where
-      C.DeclInfo{..} = info
 
 instance (
       CoercePass C.Comment p p'

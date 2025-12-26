@@ -106,7 +106,7 @@ evalPredicate info = wrapEff $ \ParseSupport{parseEnv} -> pure $
     matchParse
       (envIsMainHeader parseEnv)
       (envIsInMainHeaderDir parseEnv)
-      (singleLocPath (C.declLoc info))
+      (singleLocPath info.loc)
       (envPredicate parseEnv)
 
 {-------------------------------------------------------------------------------

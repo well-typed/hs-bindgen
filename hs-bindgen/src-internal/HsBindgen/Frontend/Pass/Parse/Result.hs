@@ -133,8 +133,8 @@ parseSucceed = parseSucceedWith []
 
 parseSucceedWith :: [DelayedParseMsg] -> C.Decl p -> ParseResult p
 parseSucceedWith delayedParseMsgs decl = ParseResult{
-     id             = decl.info.declId
-   , loc            = decl.info.declLoc
+     id             = decl.info.id
+   , loc            = decl.info.loc
    , classification = ParseResultSuccess ParseSuccess{
                           decl
                         , delayedParseMsgs
@@ -143,8 +143,8 @@ parseSucceedWith delayedParseMsgs decl = ParseResult{
 
 parseDoNotAttempt :: C.DeclInfo p -> ParseNotAttempted -> ParseResult p
 parseDoNotAttempt info reason = ParseResult{
-      id              = info.declId
-    , loc             = info.declLoc
+      id              = info.id
+    , loc             = info.loc
     , classification = ParseResultNotAttempted reason
     }
 

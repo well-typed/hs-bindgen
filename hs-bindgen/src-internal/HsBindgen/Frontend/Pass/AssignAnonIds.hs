@@ -53,7 +53,7 @@ updateParseResult chosenNames result =
     case result.classification of
       ParseResultSuccess success -> do
         auxSuccess success <$>
-          updateDefSite chosenNames success.decl.info.declId
+          updateDefSite chosenNames success.decl.info.id
       ParseResultNotAttempted notAttempted ->
         auxNotAttempted notAttempted <$>
           updateDefSite chosenNames result.id
@@ -71,7 +71,7 @@ updateParseResult chosenNames result =
                                  ParseUnusableAnonDecl anonId
             }
           Right (declInfo', declKind') -> ParseResult{
-              id             = declInfo'.declId
+              id             = declInfo'.id
             , loc            = result.loc
             , classification = ParseResultSuccess ParseSuccess{
                   decl = C.Decl{
@@ -125,15 +125,15 @@ updateDeclInfo ::
   -> C.DeclInfo Parse
   -> M (C.DeclInfo AssignAnonIds)
 updateDeclInfo declId' info =
-    reconstruct <$> mapM updateUseSites info.declComment
+    reconstruct <$> mapM updateUseSites info.comment
   where
     reconstruct :: Maybe (C.Comment AssignAnonIds) -> C.DeclInfo AssignAnonIds
     reconstruct declComment' = C.DeclInfo{
-          declId           = declId'
-        , declComment      = declComment'
-        , declLoc          = info.declLoc
-        , declHeaderInfo   = info.declHeaderInfo
-        , declAvailability = info.declAvailability
+          id           = declId'
+        , comment      = declComment'
+        , loc          = info.loc
+        , headerInfo   = info.headerInfo
+        , availability = info.availability
         }
 
 {-------------------------------------------------------------------------------

@@ -88,7 +88,7 @@ fromDecls decls = AnonUsageAnalysis{
 resolveConflicts :: AnonId -> Context -> Context -> Context
 resolveConflicts anonId new old =
     case (old, new) of
-      (Field decl1 _, Field decl2 _) | decl1.declId == decl2.declId ->
+      (Field decl1 _, Field decl2 _) | decl1.id == decl2.id ->
         -- Example:
         --
         -- > struct rect {

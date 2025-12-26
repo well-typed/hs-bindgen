@@ -217,33 +217,30 @@ resolveTop ::
            )
        )
 resolveTop decl = Reader.ask >>= \MEnv{..} -> do
-    let sourcePath = singleLocPath $ C.declLoc (C.info decl)
+    let sourcePath = singleLocPath decl.info.loc
         declPaths  = IncludeGraph.reaches envIncludeGraph sourcePath
-        mMsg       = Just $ ResolveBindingSpecsOmittedType cDeclId
-    isExt <- isJust <$> resolveExtBinding cDeclId declPaths mMsg
+        mMsg       = Just $ ResolveBindingSpecsOmittedType decl.info.id
+    isExt <- isJust <$> resolveExtBinding decl.info.id declPaths mMsg
     if isExt
       then do
-        State.modify' $ insertTrace (ResolveBindingSpecsExtDecl cDeclId)
+        State.modify' $ insertTrace (ResolveBindingSpecsExtDecl decl.info.id)
         return Nothing
-      else case BindingSpec.lookupCTypeSpec cDeclId declPaths envPSpec of
+      else case BindingSpec.lookupCTypeSpec decl.info.id declPaths envPSpec of
         Just (_hsModuleName, BindingSpec.Require cTypeSpec) -> do
           State.modify' $
-              insertTrace (ResolveBindingSpecsPrescriptiveRequire cDeclId)
-            . deleteNoPType cDeclId sourcePath
+              insertTrace (ResolveBindingSpecsPrescriptiveRequire decl.info.id)
+            . deleteNoPType decl.info.id sourcePath
           let mHsTypeSpec = do
                 hsIdentifier <- BindingSpec.cTypeSpecIdentifier cTypeSpec
                 BindingSpec.lookupHsTypeSpec hsIdentifier envPSpec
           return $ Just (decl, (Just cTypeSpec, mHsTypeSpec))
         Just (_hsModuleName, BindingSpec.Omit) -> do
           State.modify' $
-              insertTrace (ResolveBindingSpecsPrescriptiveOmit cDeclId)
-            . deleteNoPType cDeclId sourcePath
-            . insertOmittedType cDeclId decl.info.declLoc
+              insertTrace (ResolveBindingSpecsPrescriptiveOmit decl.info.id)
+            . deleteNoPType decl.info.id sourcePath
+            . insertOmittedType decl.info.id decl.info.loc
           return Nothing
         Nothing -> return $ Just (decl, (Nothing, Nothing))
-  where
-    cDeclId :: DeclId
-    cDeclId = decl.info.declId
 
 -- Pass two: deep
 --
@@ -254,7 +251,7 @@ resolveDeep ::
   -> (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
   -> M (C.Decl ResolveBindingSpecs)
 resolveDeep decl (cSpec, hsSpec) = do
-    declKind' <- resolve decl.info.declId decl.kind
+    declKind' <- resolve decl.info.id decl.kind
     return C.Decl {
         info = coercePass decl.info
       , kind = declKind'

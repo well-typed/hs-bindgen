@@ -84,12 +84,12 @@ getDeclInfo = \curr nameKind -> do
 
         info :: C.DeclInfo Parse
         info = C.DeclInfo{
-            declId
-          , declLoc
-          , declHeaderInfo
-          , declAvailability
-          , declComment
-          }
+              id           = declId
+            , loc          = declLoc
+            , headerInfo   = declHeaderInfo
+            , availability = declAvailability
+            , comment      = declComment
+            }
 
     when (isNothing mAvailability) $
       recordImmediateTrace declId declLoc $
@@ -184,20 +184,20 @@ parseDeclWith parser requiredForScoping kind curr = do
         foldContinue
       Nothing -> do
         info <- getDeclInfo curr kind
-        let isUnavailable = case C.declAvailability info of
-              C.Unavailable -> True
-              _otherwise    -> False
-
-        if | isUnavailable -> foldContinueWith
-               [parseDoNotAttempt info DeclarationUnavailable]
+        if | C.Unavailable <- info.availability ->
+               foldContinueWith [
+                   parseDoNotAttempt info DeclarationUnavailable
+                 ]
            | RequiredForScoping <- requiredForScoping ->
                parser info curr
            | otherwise -> do
                matched <- evalPredicate info
-               if matched
-               then parser info curr
-               else foldContinueWith
-                 [parseDoNotAttempt info ParsePredicateNotMatched]
+               if matched then
+                 parser info curr
+               else
+                 foldContinueWith [
+                   parseDoNotAttempt info ParsePredicateNotMatched
+                 ]
 
 -- | Macros
 --
@@ -274,7 +274,7 @@ structDecl info = \curr -> do
               map parseSucceed $ decls ++ [mkStruct fields]
             Nothing -> [
                 -- If the struct has implicit fields, don't generate anything.
-                parseFail info.declId info.declLoc $
+                parseFail info.id info.loc $
                   ParseUnsupportedImplicitFields
               ]
       DefinitionUnavailable ->
@@ -355,7 +355,7 @@ unionDecl info = \curr -> do
               map parseSucceed $ decls ++ [mkUnion fields]
             Nothing -> [
                 -- If the union has implicit fields, don't generate anything.
-                parseFail info.declId info.declLoc $
+                parseFail info.id info.loc $
                   ParseUnsupportedImplicitFields
               ]
       DefinitionUnavailable -> do
@@ -571,7 +571,7 @@ functionDecl info = \curr -> do
 
             pure $ (fails ++) $
               if not (null anonDecls) then [
-                  parseFail info.declId info.declLoc $
+                  parseFail info.id info.loc $
                     ParseUnexpectedAnonInSignature
                 ]
               else
@@ -613,7 +613,7 @@ functionDecl info = \curr -> do
             pure $ Right (args', res)
           C.TypeTypedef{} ->
             pure $ Left [
-                parseFail info.declId info.declLoc $
+                parseFail info.id info.loc $
                   ParseFunctionOfTypeTypedef
               ]
           otherType ->
@@ -706,7 +706,7 @@ varDecl info = \curr -> do
 
         pure $ (fails ++) $
           if not (null anonDecls) then [
-              parseFail info.declId info.declLoc $
+              parseFail info.id info.loc $
                 ParseUnexpectedAnonInExtern
             ]
           else (map parseSucceed otherDecls ++) $
@@ -726,11 +726,11 @@ varDecl info = \curr -> do
               VarConst ->
                 singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
               VarThreadLocal -> [
-                  parseFail info.declId info.declLoc $
+                  parseFail info.id info.loc $
                     ParseUnsupportedTLS
                 ]
               VarUnsupported storage -> [
-                  parseFail info.declId info.declLoc $
+                  parseFail info.id info.loc $
                     ParseUnknownStorageClass storage
                 ]
   where
@@ -814,7 +814,7 @@ parseCommentReferences comment = C.Comment (fmap auxRefs comment)
 -- declaration /contains/ anonymous declarations, that's perfectly fine.
 partitionAnonDecls :: [C.Decl Parse] -> ([C.Decl Parse], [C.Decl Parse])
 partitionAnonDecls =
-    List.partition $ \decl -> declIdIsAnon decl.info.declId
+    List.partition $ \decl -> declIdIsAnon decl.info.id
   where
     declIdIsAnon :: PrelimDeclId -> Bool
     declIdIsAnon PrelimDeclId.Anon{} = True
@@ -880,7 +880,7 @@ detectStructImplicitFields nestedDecls outerFields =
     fieldDeps = map snd $ concatMap (C.depsOfType . either C.structFieldType C.unionFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = decl.info.declId `elem` fieldDeps
+    declIsUsed decl = decl.info.id `elem` fieldDeps
 
 -- | Detect implicit fields inside a union
 --
@@ -911,7 +911,7 @@ detectUnionImplicitFields nestedDecls outerFields =
     fieldDeps = map snd $ concatMap (C.depsOfType . either C.structFieldType C.unionFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = decl.info.declId `elem` fieldDeps
+    declIsUsed decl = decl.info.id `elem` fieldDeps
 
 data VarClassification =
     -- | The simplest case: a simple global variable

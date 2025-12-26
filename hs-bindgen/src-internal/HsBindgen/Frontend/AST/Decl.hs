@@ -104,11 +104,11 @@ data Availability =
   deriving stock (Show, Eq, Ord, P.Enum, Bounded, Generic)
 
 data DeclInfo p = DeclInfo{
-      declLoc          :: SingleLoc
-    , declId           :: Id p
-    , declHeaderInfo   :: HeaderInfo
-    , declAvailability :: Availability
-    , declComment      :: Maybe (Comment p)
+      loc          :: SingleLoc
+    , id           :: Id p
+    , headerInfo   :: HeaderInfo
+    , availability :: Availability
+    , comment      :: Maybe (Comment p)
     }
 
 data HeaderInfo = HeaderInfo{

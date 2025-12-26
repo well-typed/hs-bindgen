@@ -227,7 +227,7 @@ structDecs opts haddockConfig info struct spec fields = do
     pure decls
   where
     structName :: Hs.Name Hs.NsTypeConstr
-    structName = Hs.unsafeHsIdHsName info.declId.hsName
+    structName = Hs.unsafeHsIdHsName info.id.hsName
 
     structFields :: Vec n Hs.Field
     structFields = flip Vec.map fields $ \f -> Hs.Field {
@@ -426,7 +426,7 @@ opaqueDecs haddockConfig info spec = do
     return [decl]
   where
     name :: Hs.Name Hs.NsTypeConstr
-    name = Hs.unsafeHsIdHsName info.declId.hsName
+    name = Hs.unsafeHsIdHsName info.id.hsName
 
     -- TODO: Do we still need the @Origin@ at all?
     decl :: Hs.Decl
@@ -434,7 +434,7 @@ opaqueDecs haddockConfig info spec = do
         emptyDataName   = name
       , emptyDataOrigin = Origin.Decl{
             declInfo = info
-          , declKind = Origin.Opaque info.declId.cName.name.kind
+          , declKind = Origin.Opaque info.id.cName.name.kind
           , declSpec = spec
           }
       , emptyDataComment = mkHaddocks haddockConfig info name
@@ -460,7 +460,7 @@ unionDecs haddockConfig info union spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
+        newtypeName = Hs.unsafeHsIdHsName info.id.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = union.names.constr
@@ -660,7 +660,7 @@ enumDecs opts haddockConfig info e spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
+        newtypeName = Hs.unsafeHsIdHsName info.id.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = e.names.constr
@@ -820,7 +820,7 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
+        newtypeName = Hs.unsafeHsIdHsName info.id.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = typedef.names.constr
@@ -1023,19 +1023,19 @@ typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1427>
     -- This should be called "_Aux" instead.
     auxHsName :: Hs.Identifier
-    auxHsName = origInfo.declId.hsName <> "_Deref"
+    auxHsName = origInfo.id.hsName <> "_Deref"
 
     auxInfo :: C.DeclInfo Final
     auxInfo = C.DeclInfo {
-          declLoc          = origInfo.declLoc
-        , declHeaderInfo   = origInfo.declHeaderInfo
-        , declComment      = Just auxComment
-        , declAvailability = C.Available
-        , declId           = DeclIdPair{
-              -- Still refer to the /original/ C decl...?
-              cName  = origInfo.declId.cName
-            , hsName = auxHsName
-            }
+          loc          = origInfo.loc
+        , headerInfo   = origInfo.headerInfo
+        , comment      = Just auxComment
+        , availability = C.Available
+        , id           = DeclIdPair{
+                             -- Still refer to the /original/ C decl...?
+                             cName  = origInfo.id.cName
+                           , hsName = auxHsName
+                           }
         }
 
     auxComment :: C.Comment Final
@@ -1044,8 +1044,8 @@ typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
               Clang.TextContent "Auxiliary type used by "
             , Clang.InlineRefCommand $
                 C.CommentRef
-                  origInfo.declId.cName.name.text
-                  (Just origInfo.declId)
+                  origInfo.id.cName.name.text
+                  (Just origInfo.id)
             ]
         ]
 
@@ -1070,7 +1070,7 @@ typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
     mainTypedef = C.Typedef{
           typedefAnn   = origNames
         , typedefType  = C.TypePointers n $ C.TypeTypedef C.TypedefRef{
-              ref        = auxInfo.declId
+              ref        = auxInfo.id
             , underlying = C.TypeFun args res
             }
         }
@@ -1108,7 +1108,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
           newtypeOrigin newtypeComment candidateInsts knownInsts
       where
         newtypeName :: Hs.Name Hs.NsTypeConstr
-        newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
+        newtypeName = Hs.unsafeHsIdHsName info.id.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
         newtypeConstr = macroType.names.constr
@@ -1299,7 +1299,7 @@ constGetter ty info pureStubName = singleton getterDecl
         , comment = Nothing
         }
 
-    getterName = Hs.unsafeHsIdHsName info.declId.hsName
+    getterName = Hs.unsafeHsIdHsName info.id.hsName
     getterType = SHs.translateType ty
     getterExpr = SHs.EGlobal SHs.IO_unsafePerformIO
                 `SHs.EApp` (SHs.EGlobal SHs.Storable_peek
@@ -1351,7 +1351,7 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
     stubName = Hs.InternalName stubSymbol
 
     varName :: String
-    varName = T.unpack $ info.declId.cName.name.text
+    varName = T.unpack $ info.id.cName.name.text
 
     stubType :: C.Type Final
     stubType = C.TypePointers 1 ty
@@ -1410,7 +1410,7 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
       Hs.InternalName x -> Just $ HsDoc.uniqueSymbol x
 
     name :: Text
-    name = info.declId.hsName.text
+    name = info.id.hsName.text
 
     uniquify :: Text -> UniqueSymbol
     uniquify =
@@ -1444,4 +1444,4 @@ macroVarDecs haddockConfig info macroExpr = [
     ]
   where
     hsVarName :: Hs.Name Hs.NsVar
-    hsVarName = Hs.unsafeHsIdHsName info.declId.hsName
+    hsVarName = Hs.unsafeHsIdHsName info.id.hsName

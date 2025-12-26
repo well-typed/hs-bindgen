@@ -243,7 +243,7 @@ processTypedef ::
   -> M (C.Decl HandleMacros)
 processTypedef info C.Typedef{typedefType, typedefAnn} = do
       modify $ \st -> st{
-          stateReparseEnv = updateEnv info.declId.name.text (stateReparseEnv st)
+          stateReparseEnv = updateEnv info.id.name.text (stateReparseEnv st)
         }
       case typedefAnn of
         ReparseNotNeeded -> withoutReparse
@@ -262,7 +262,7 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
     updateEnv :: Text -> LanC.ReparseEnv -> LanC.ReparseEnv
     updateEnv name =
         Map.insert name $
-          C.TypeTypedef $ C.TypedefRef info.declId (coercePass typedefType)
+          C.TypeTypedef $ C.TypedefRef info.id (coercePass typedefType)
 
     withoutReparse :: M (C.Decl HandleMacros)
     withoutReparse = return C.Decl{
@@ -288,12 +288,12 @@ processMacro ::
      C.DeclInfo HandleMacros
   -> UnparsedMacro -> M (Either FailedMacro (C.Decl HandleMacros))
 processMacro info (UnparsedMacro tokens) = do
-    bimap addInfo toDecl <$> parseMacro info.declId.name tokens
+    bimap addInfo toDecl <$> parseMacro info.id.name tokens
   where
     addInfo :: HandleMacrosError -> FailedMacro
     addInfo macroError = FailedMacro{
-          name = info.declId
-        , loc  = info.declLoc
+          name = info.id
+        , loc  = info.loc
         , macroError
         }
 

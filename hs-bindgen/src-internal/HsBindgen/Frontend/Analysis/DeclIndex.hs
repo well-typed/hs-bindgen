@@ -216,7 +216,7 @@ fromParseResults results = flip execState empty $ mapM_ aux results
                     newParseSuccess.decl.kind ->
                   old
               | otherwise ->
-                  newConflict oldParseSuccess.decl.info.declLoc
+                  newConflict oldParseSuccess.decl.info.loc
             ParseResultNotAttempted _ -> old
             ParseResultFailure _      -> parseResultToEntry new
           UsableExternal ->
@@ -311,7 +311,7 @@ lookupLoc d (DeclIndex i) = case Map.lookup d i of
   Nothing                -> []
   Just (UnusableE e)     -> unusableToLoc e
   Just (UsableE e)       -> case e of
-    UsableSuccess x      -> [x.decl.info.declLoc]
+    UsableSuccess x      -> [x.decl.info.loc]
     UsableExternal       -> []
     UsableSquashed loc _ -> [loc]
 
