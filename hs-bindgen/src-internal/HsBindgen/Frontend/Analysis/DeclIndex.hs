@@ -178,7 +178,7 @@ fromParseResults results = flip execState empty $ mapM_ aux results
   where
     aux :: ParseResult AssignAnonIds -> State DeclIndex ()
     aux new = modify' $ \index -> DeclIndex $
-        Map.alter (Just . handleParseResult new) new.declId index.map
+        Map.alter (Just . handleParseResult new) new.id index.map
 
     handleParseResult :: ParseResult AssignAnonIds -> Maybe Entry -> Entry
     handleParseResult new = \case
@@ -238,27 +238,24 @@ fromParseResults results = flip execState empty $ mapM_ aux results
           UnusableOmitted     x  ->
             panicPure $ "handelParseResult: unusable omitted" <> show x
       where
-        newLoc :: SingleLoc
-        newLoc = new.declLoc
-
         addConflicts :: Conflict  -> Entry
         addConflicts c =
             UnusableE $ UnusableConflict $
-              Conflict.insert c newLoc
+              Conflict.insert c new.loc
 
         newConflict :: SingleLoc -> Entry
         newConflict oldLoc =
             UnusableE $ UnusableConflict $
-              Conflict.between oldLoc newLoc
+              Conflict.between oldLoc new.loc
 
         parseResultToEntry :: ParseResult AssignAnonIds -> Entry
         parseResultToEntry result = case result.classification of
             ParseResultSuccess r ->
               UsableE $ UsableSuccess r
             ParseResultNotAttempted r ->
-              UnusableE $ UnusableParseNotAttempted result.declLoc $ r :| []
+              UnusableE $ UnusableParseNotAttempted result.loc $ r :| []
             ParseResultFailure r ->
-              UnusableE $ UnusableParseFailure result.declLoc r
+              UnusableE $ UnusableParseFailure result.loc r
 
     sameDefinition :: C.DeclKind AssignAnonIds -> C.DeclKind AssignAnonIds -> Bool
     sameDefinition a b =

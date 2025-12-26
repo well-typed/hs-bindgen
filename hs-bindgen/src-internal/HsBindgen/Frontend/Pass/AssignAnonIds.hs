@@ -56,23 +56,23 @@ updateParseResult chosenNames result =
           updateDefSite chosenNames success.decl.info.declId
       ParseResultNotAttempted notAttempted ->
         auxNotAttempted notAttempted <$>
-          updateDefSite chosenNames result.declId
+          updateDefSite chosenNames result.id
       ParseResultFailure failure ->
         auxFailure failure <$>
-          updateDefSite chosenNames result.declId
+          updateDefSite chosenNames result.id
   where
     auxSuccess :: ParseSuccess Parse -> DeclId -> ParseResult AssignAnonIds
     auxSuccess ParseSuccess{decl, delayedParseMsgs} declId' =
         case runM chosenNames updated of
           Left (UnusableAnonDecl anonId) -> ParseResult{
-              declId         = declId'
-            , declLoc        = result.declLoc
+              id             = declId'
+            , loc            = result.loc
             , classification = ParseResultFailure $ ParseFailure $
                                  ParseUnusableAnonDecl anonId
             }
           Right (declInfo', declKind') -> ParseResult{
-              declId         = declInfo'.declId
-            , declLoc        = result.declLoc
+              id             = declInfo'.declId
+            , loc            = result.loc
             , classification = ParseResultSuccess ParseSuccess{
                   decl = C.Decl{
                       info = declInfo'
@@ -94,8 +94,8 @@ updateParseResult chosenNames result =
       -> DeclId
       -> ParseResult AssignAnonIds
     auxNotAttempted notAttempted declId' = ParseResult{
-          declId         = declId'
-        , declLoc        = result.declLoc
+          id             = declId'
+        , loc            = result.loc
         , classification = ParseResultNotAttempted notAttempted
         }
 
@@ -104,8 +104,8 @@ updateParseResult chosenNames result =
       -> DeclId
       -> ParseResult AssignAnonIds
     auxFailure failure declId' = ParseResult{
-          declId         = declId'
-        , declLoc        = result.declLoc
+          id             = declId'
+        , loc            = result.loc
         , classification = ParseResultFailure failure
         }
 
