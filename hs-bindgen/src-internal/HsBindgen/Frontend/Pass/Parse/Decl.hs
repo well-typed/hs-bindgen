@@ -24,7 +24,6 @@ import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Parse.Type
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeExceptionInContext (..))
-import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -106,7 +105,6 @@ getDeclInfo = \curr nameKind -> do
 getHeaderInfo :: SourcePath -> ParseDecl (Maybe C.HeaderInfo)
 getHeaderInfo path
     | path == ""              = return Nothing
-    | path == RootHeader.name = return Nothing
     | otherwise               =
         Just . uncurry C.HeaderInfo <$> evalGetMainHeadersAndInclude path
 
