@@ -1,5 +1,4 @@
 {-# LANGUAGE ApplicativeDo #-}
-{-# LANGUAGE OverloadedLabels #-}
 
 -- | @hs-bindgen@ application common types and functions
 module HsBindgen.App (

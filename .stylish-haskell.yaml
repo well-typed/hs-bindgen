@@ -360,6 +360,7 @@ language_extensions:
   - MultiWayIf
   - NegativeLiterals
   - NoImplicitPrelude
+  - OverloadedLabels
   - OverloadedStrings
   - PatternSynonyms
   - PolyKinds

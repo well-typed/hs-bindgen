@@ -14,6 +14,7 @@ import Clang.Paths
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Frontend.AST.Deps
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad
@@ -236,11 +237,11 @@ structDecl info = \curr -> do
                   info = info
                 , ann  = NoAnn
                 , kind = C.DeclStruct C.Struct{
-                             structSizeof    = fromIntegral sizeof
-                           , structAlignment = fromIntegral alignment
-                           , structFields    = regularFields
-                           , structFlam      = mFlam
-                           , structAnn       = NoAnn
+                             sizeof    = fromIntegral sizeof
+                           , alignment = fromIntegral alignment
+                           , fields    = regularFields
+                           , flam      = mFlam
+                           , ann       = NoAnn
                            }
                 }
               where
@@ -299,9 +300,9 @@ structDecl info = \curr -> do
           -> [C.StructField Parse]
           -> ([C.StructField Parse], Maybe (C.StructField Parse))
         go acc []     = (reverse acc, Nothing)
-        go acc (f:fs) = case C.structFieldType f of
+        go acc (f:fs) = case f.typ of
                           C.TypeIncompleteArray ty ->
-                            let f' = f{C.structFieldType = ty}
+                            let f' = f & #typ .~ ty
                             in (reverse acc ++ fs, Just f')
                           _otherwise->
                             go (f:acc) fs
@@ -320,10 +321,10 @@ unionDecl info = \curr -> do
                   info = info
                 , ann  = NoAnn
                 , kind = C.DeclUnion C.Union{
-                             unionSizeof    = fromIntegral sizeof
-                           , unionAlignment = fromIntegral alignment
-                           , unionFields    = fields
-                           , unionAnn       = NoAnn
+                             sizeof    = fromIntegral sizeof
+                           , alignment = fromIntegral alignment
+                           , fields    = fields
+                           , ann       = NoAnn
                            }
                 }
 
@@ -398,11 +399,11 @@ structFieldDecl info = \curr -> do
     structFieldAnn    <- getReparseInfo curr
     structFieldWidth  <- structWidth curr
     pure C.StructField{
-        structFieldInfo
-      , structFieldType
-      , structFieldOffset
-      , structFieldWidth
-      , structFieldAnn
+        info   = structFieldInfo
+      , typ    = structFieldType
+      , offset = structFieldOffset
+      , width  = structFieldWidth
+      , ann    = structFieldAnn
       }
 
 structWidth :: CXCursor -> ParseDecl (Maybe Int)
@@ -424,9 +425,9 @@ unionFieldDecl info = \curr -> do
         =<< clang_getCursorType curr
     unionFieldAnn  <- getReparseInfo curr
     pure C.UnionField{
-        unionFieldInfo
-      , unionFieldType
-      , unionFieldAnn
+        info = unionFieldInfo
+      , typ  = unionFieldType
+      , ann  = unionFieldAnn
       }
 
 typedefDecl :: C.DeclInfo Parse -> Parser
@@ -450,8 +451,8 @@ typedefDecl info = \curr -> do
         _otherwise -> do
           typedefAnn <- getReparseInfo curr
           return $ C.DeclTypedef C.Typedef{
-              typedefType
-            , typedefAnn
+              typ = typedefType
+            , ann = typedefAnn
             }
 
     let decl :: C.Decl Parse
@@ -489,11 +490,11 @@ enumDecl info = \curr -> do
                 info = info
               , ann  = NoAnn
               , kind = C.DeclEnum C.Enum{
-                           enumType      = ety
-                         , enumSizeof    = fromIntegral sizeof
-                         , enumAlignment = fromIntegral alignment
-                         , enumConstants = constants
-                         , enumAnn       = NoAnn
+                           typ       = ety
+                         , sizeof    = fromIntegral sizeof
+                         , alignment = fromIntegral alignment
+                         , constants = constants
+                         , ann       = NoAnn
                          }
               }
 
@@ -521,8 +522,8 @@ enumConstantDecl = \curr -> do
     enumConstantInfo  <- getFieldInfo curr
     enumConstantValue <- toInteger <$> clang_getEnumConstantDeclValue curr
     foldContinueWith C.EnumConstant {
-        enumConstantInfo
-      , enumConstantValue
+        info  = enumConstantInfo
+      , value = enumConstantValue
       }
 
 functionDecl :: C.DeclInfo Parse -> Parser
@@ -545,10 +546,10 @@ functionDecl info = \curr -> do
                 info = info
               , ann  = NoAnn
               , kind = C.DeclFunction C.Function {
-                           functionArgs
-                         , functionRes
-                         , functionAttrs = C.FunctionAttributes purity
-                         , functionAnn
+                           args  = functionArgs
+                         , res   = functionRes
+                         , attrs = C.FunctionAttributes purity
+                         , ann   = functionAnn
                          }
               }
 
@@ -872,12 +873,12 @@ detectStructImplicitFields nestedDecls outerFields =
     nestedFields :: C.Decl Parse -> [Either (C.StructField Parse) (C.UnionField Parse)]
     nestedFields decl =
         case decl.kind of
-          C.DeclStruct struct -> map Left  (C.structFields struct)
-          C.DeclUnion union   -> map Right (C.unionFields union)
+          C.DeclStruct struct -> map Left  struct.fields
+          C.DeclUnion union   -> map Right union.fields
           _otherwise          -> []
 
     fieldDeps :: [PrelimDeclId]
-    fieldDeps = map snd $ concatMap (C.depsOfType . either C.structFieldType C.unionFieldType) allFields
+    fieldDeps = map snd $ concatMap (either depsOfField depsOfField) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
     declIsUsed decl = decl.info.id `elem` fieldDeps
@@ -903,12 +904,12 @@ detectUnionImplicitFields nestedDecls outerFields =
     nestedFields :: C.Decl Parse -> [Either (C.StructField Parse) (C.UnionField Parse)]
     nestedFields decl =
         case decl.kind of
-          C.DeclStruct struct -> map Left  (C.structFields struct)
-          C.DeclUnion union   -> map Right (C.unionFields union)
+          C.DeclStruct struct -> map Left  struct.fields
+          C.DeclUnion union   -> map Right union.fields
           _otherwise          -> []
 
     fieldDeps :: [PrelimDeclId]
-    fieldDeps = map snd $ concatMap (C.depsOfType . either C.structFieldType C.unionFieldType) allFields
+    fieldDeps = map snd $ concatMap (either depsOfField depsOfField) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
     declIsUsed decl = decl.info.id `elem` fieldDeps

@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedLabels #-}
-
 -- | Monad for parsing declarations
 --
 -- Intended for unqualified import (unless context is unambiguous).

@@ -34,8 +34,8 @@ mkPrimInstance insts hsStruct struct
                       Hs.InstancePrim
                           hsStruct
                           Hs.PrimInstance {
-                            Hs.primSizeOf    = C.structSizeof struct
-                          , Hs.primAlignment = C.structAlignment struct
+                            Hs.primSizeOf    = struct.sizeof
+                          , Hs.primAlignment = struct.alignment
                           -- indexByteArray# :: ByteArray# -> Int# -> a
                           , Hs.primIndexByteArray = Hs.Lambda "arr"
                                                   $ Hs.Lambda "i"

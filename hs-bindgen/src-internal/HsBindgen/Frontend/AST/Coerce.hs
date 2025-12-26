@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 module HsBindgen.Frontend.AST.Coerce (
     CoercePass(..)
   , CoercePassId(..)
@@ -122,12 +126,12 @@ instance (
       CoercePass C.StructField p p'
     , Ann "Struct" p ~ Ann "Struct" p'
     ) => CoercePass C.Struct p p' where
-  coercePass C.Struct{..} = C.Struct{
-        structSizeof
-      , structAlignment
-      , structFields = map coercePass structFields
-      , structFlam = fmap coercePass structFlam
-      , structAnn
+  coercePass struct = C.Struct{
+        fields    = coercePass <$> struct.fields
+      , flam      = coercePass <$> struct.flam
+      , sizeof    = struct.sizeof
+      , alignment = struct.alignment
+      , ann       = struct.ann
       }
 
 instance (
@@ -136,23 +140,23 @@ instance (
     , ScopedName p ~ ScopedName p'
     , Ann "StructField" p ~ Ann "StructField" p'
     ) => CoercePass C.StructField p p' where
-  coercePass C.StructField{..} = C.StructField{
-        structFieldInfo = coercePass structFieldInfo
-      , structFieldType = coercePass structFieldType
-      , structFieldOffset
-      , structFieldWidth
-      , structFieldAnn
+  coercePass field = C.StructField{
+        info   = coercePass field.info
+      , typ    = coercePass field.typ
+      , offset = field.offset
+      , width  = field.width
+      , ann    = field.ann
       }
 
 instance (
       CoercePass C.UnionField p p'
     , Ann "Union" p ~ Ann "Union" p'
     ) => CoercePass C.Union p p' where
-  coercePass C.Union{..} = C.Union{
-        unionSizeof
-      , unionAlignment
-      , unionFields = map coercePass unionFields
-      , unionAnn
+  coercePass union = C.Union{
+        fields    = coercePass <$> union.fields
+      , sizeof    = union.sizeof
+      , alignment = union.alignment
+      , ann       = union.ann
       }
 
 instance (
@@ -161,19 +165,19 @@ instance (
     , CoercePass C.Comment p p'
     , Ann "UnionField" p ~ Ann "UnionField" p'
     ) => CoercePass C.UnionField p p' where
-  coercePass C.UnionField{..} = C.UnionField{
-        unionFieldInfo = coercePass unionFieldInfo
-      , unionFieldType = coercePass unionFieldType
-      , unionFieldAnn
+  coercePass field = C.UnionField{
+        info = coercePass field.info
+      , typ  = coercePass field.typ
+      , ann  = field.ann
       }
 
 instance (
       CoercePass C.Type p p'
     , Ann "Typedef" p ~ Ann "Typedef" p'
     ) => CoercePass C.Typedef p p' where
-  coercePass C.Typedef{..} = C.Typedef{
-        typedefType = coercePass typedefType
-      , typedefAnn
+  coercePass typedef = C.Typedef{
+        typ = coercePass typedef.typ
+      , ann = typedef.ann
       }
 
 instance (
@@ -181,21 +185,21 @@ instance (
     , CoercePass C.EnumConstant p p'
     , Ann "Enum" p ~ Ann "Enum" p'
     ) => CoercePass C.Enum p p' where
-  coercePass C.Enum{..} = C.Enum{
-        enumType = coercePass enumType
-      , enumSizeof
-      , enumAlignment
-      , enumConstants = map coercePass enumConstants
-      , enumAnn
+  coercePass enum = C.Enum{
+        typ       = coercePass enum.typ
+      , constants = coercePass <$> enum.constants
+      , sizeof    = enum.sizeof
+      , alignment = enum.alignment
+      , ann       = enum.ann
       }
 
 instance (
       ScopedName p ~ ScopedName p'
     , CoercePass CDoc.Comment (C.CommentRef p) (C.CommentRef p')
     ) => CoercePass C.EnumConstant p p' where
-  coercePass C.EnumConstant{..} = C.EnumConstant{
-        enumConstantInfo = coercePass enumConstantInfo
-      , enumConstantValue
+  coercePass constant = C.EnumConstant{
+        info  = coercePass constant.info
+      , value = constant.value
       }
 
 instance (
@@ -203,11 +207,11 @@ instance (
     , ScopedName p ~ ScopedName p'
     , Ann "Function" p ~ Ann "Function" p'
     ) => CoercePass C.Function p p' where
-  coercePass C.Function{..} = C.Function{
-        functionArgs = map (bimap id coercePass) functionArgs
-      , functionRes  = coercePass functionRes
-      , functionAttrs
-      , functionAnn
+  coercePass function = C.Function{
+        args  = map (bimap id coercePass) function.args
+      , res   = coercePass function.res
+      , attrs = function.attrs
+      , ann   = function.ann
       }
 
 instance (
@@ -236,7 +240,7 @@ instance (
       CoercePassId p p'
     , CoercePass C.Type p p'
     ) => CoercePass C.TypedefRef p p' where
-  coercePass C.TypedefRef{ref, underlying} = C.TypedefRef{
-        ref        = coercePassId (Proxy @'(p, p')) ref
-      , underlying = coercePass underlying
+  coercePass typedef = C.TypedefRef{
+        ref        = coercePassId (Proxy @'(p, p')) typedef.ref
+      , underlying = coercePass typedef.underlying
       }

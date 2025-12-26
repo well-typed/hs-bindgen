@@ -128,10 +128,10 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     hasPrimitiveSignature = all isPrimitive (primResult : primParams)
 
     primResult :: IsPrimitiveType
-    primResult = toIsPrimitiveType $ C.functionRes origCFun
+    primResult = toIsPrimitiveType origCFun.res
 
     primParams :: [IsPrimitiveType]
-    primParams = map (toIsPrimitiveType . snd) origCFun.functionArgs
+    primParams = map (toIsPrimitiveType . snd) origCFun.args
 
     foreignImport :: Hs.Decl
     foreignImport =
@@ -165,7 +165,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
            , functionParameterType    = Type.inContext Type.FunArg (toPrimitiveType (toIsPrimitiveType ty))
            , functionParameterComment = Nothing
            }
-        | (mbName, ty) <- C.functionArgs origCFun
+        | (mbName, ty) <- origCFun.args
         ] ++ toList mbResultParam
 
     -- Alias to the C wrapper. This function _does not have_ the same signature
@@ -231,7 +231,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
                , functionParameterType    = Type.inContext Type.FunArg (toOrigType (toIsPrimitiveType ty))
                , functionParameterComment = Nothing
                }
-            | (mbName, ty) <- C.functionArgs origCFun
+            | (mbName, ty) <- origCFun.args
             ]
       in  mkHaddocksDecorateParams haddockConfig info mangledOrigName params
 
@@ -276,10 +276,11 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     -- does not make much sense, and so we just return the result in 'IO'.
     mbIO :: Hs.HsType -> Hs.HsType
     mbIoComment :: Maybe HsDoc.Comment
-    (mbIO, mbIoComment) = case C.functionPurity (C.functionAttrs origCFun) of
-        C.HaskellPureFunction -> (id  , Nothing)
-        C.CPureFunction       -> (HsIO, Just pureComment)
-        C.ImpureFunction      -> (HsIO, Nothing)
+    (mbIO, mbIoComment) =
+        case origCFun.attrs.purity of
+          C.HaskellPureFunction -> (id  , Nothing)
+          C.CPureFunction       -> (HsIO, Just pureComment)
+          C.ImpureFunction      -> (HsIO, Nothing)
       where
         -- "Marked @__attribute((pure))__@"
         --

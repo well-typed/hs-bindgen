@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 module HsBindgen.Frontend.Pass.AssignAnonIds (
     assignAnonIds
   ) where
@@ -62,7 +65,7 @@ updateParseResult chosenNames result =
           updateDefSite chosenNames result.id
   where
     auxSuccess :: ParseSuccess Parse -> DeclId -> ParseResult AssignAnonIds
-    auxSuccess ParseSuccess{decl, delayedParseMsgs} declId' =
+    auxSuccess success declId' =
         case runM chosenNames updated of
           Left (UnusableAnonDecl anonId) -> ParseResult{
               id             = declId'
@@ -79,15 +82,15 @@ updateParseResult chosenNames result =
                     , kind = declKind'
                     , ann  = NoAnn
                     }
-                , delayedParseMsgs = delayedParseMsgs
+                , delayedParseMsgs = success.delayedParseMsgs
                 }
             }
 
       where
         updated :: M (C.DeclInfo AssignAnonIds, C.DeclKind AssignAnonIds)
         updated = (,)
-            <$> updateDeclInfo declId' decl.info
-            <*> updateUseSites         decl.kind
+            <$> updateDeclInfo declId' success.decl.info
+            <*> updateUseSites         success.decl.kind
 
     auxNotAttempted ::
          ParseNotAttempted
@@ -140,9 +143,9 @@ updateDeclInfo declId' info =
   Internal auxiliary: monad for updating use sites
 -------------------------------------------------------------------------------}
 
-newtype M a = WrapM {
-      unwrapM :: ReaderT ChosenNames (Except UnusableAnonDecl) a
-    }
+newtype M a = WrapM (
+      ReaderT ChosenNames (Except UnusableAnonDecl) a
+    )
   deriving newtype (
       Functor
     , Applicative
@@ -161,12 +164,11 @@ data UnusableAnonDecl = UnusableAnonDecl AnonId
   deriving stock (Show)
 
 runM :: ChosenNames -> M a -> Either UnusableAnonDecl a
-runM chosenNames = runExcept . flip runReaderT chosenNames . unwrapM
+runM chosenNames (WrapM ma) = runExcept $ runReaderT ma chosenNames
 
 {-------------------------------------------------------------------------------
   Update use sites
 -------------------------------------------------------------------------------}
-
 
 class UpdateUseSites a where
   updateUseSites :: a Parse -> M (a AssignAnonIds)
@@ -183,105 +185,114 @@ instance UpdateUseSites C.DeclKind where
       C.DeclOpaque     -> return $ C.DeclOpaque
 
 instance UpdateUseSites C.Struct where
-  updateUseSites C.Struct{..} =
+  updateUseSites struct =
       reconstruct
-        <$> mapM updateUseSites structFields
-        <*> mapM updateUseSites structFlam
+        <$> mapM updateUseSites struct.fields
+        <*> mapM updateUseSites struct.flam
     where
       reconstruct ::
            [C.StructField AssignAnonIds]
         -> (Maybe (C.StructField AssignAnonIds))
         -> C.Struct AssignAnonIds
       reconstruct structFields' structFlam' = C.Struct {
-          structFields = structFields'
-        , structFlam   = structFlam'
-        , ..
-        }
+            fields    = structFields'
+          , flam      = structFlam'
+          , sizeof    = struct.sizeof
+          , alignment = struct.alignment
+          , ann       = struct.ann
+          }
 
 instance UpdateUseSites C.StructField where
-  updateUseSites C.StructField{..} =
+  updateUseSites field =
       reconstruct
-        <$> updateUseSites structFieldType
-        <*> updateUseSites structFieldInfo
+        <$> updateUseSites field.typ
+        <*> updateUseSites field.info
     where
       reconstruct ::
            C.Type AssignAnonIds
         -> C.FieldInfo AssignAnonIds
         -> C.StructField AssignAnonIds
       reconstruct structFieldType' structFieldInfo' = C.StructField {
-          structFieldType = structFieldType'
-        , structFieldInfo = structFieldInfo'
-        , ..
-        }
+            typ    = structFieldType'
+          , info   = structFieldInfo'
+          , offset = field.offset
+          , width  = field.width
+          , ann    = field.ann
+          }
 
 instance UpdateUseSites C.Union where
-  updateUseSites C.Union{..} =
-      reconstruct <$> mapM updateUseSites unionFields
+  updateUseSites union =
+      reconstruct <$> mapM updateUseSites union.fields
     where
       reconstruct :: [C.UnionField AssignAnonIds] -> C.Union AssignAnonIds
       reconstruct unionFields' = C.Union {
-          unionFields = unionFields'
-        , ..
-        }
+            fields    = unionFields'
+          , sizeof    = union.sizeof
+          , alignment = union.alignment
+          , ann       = union.ann
+          }
 
 instance UpdateUseSites C.UnionField where
-  updateUseSites C.UnionField{..} =
+  updateUseSites field =
       reconstruct
-        <$> updateUseSites unionFieldType
-        <*> updateUseSites unionFieldInfo
+        <$> updateUseSites field.typ
+        <*> updateUseSites field.info
     where
       reconstruct ::
            C.Type AssignAnonIds
         -> C.FieldInfo AssignAnonIds
         -> C.UnionField AssignAnonIds
       reconstruct unionFieldType' unionFieldInfo' = C.UnionField {
-          unionFieldType = unionFieldType'
-        , unionFieldInfo = unionFieldInfo'
-        , ..
+          typ  = unionFieldType'
+        , info = unionFieldInfo'
+        , ann  = field.ann
         }
 
 instance UpdateUseSites C.Typedef where
-  updateUseSites C.Typedef{..} =
-      reconstruct <$> updateUseSites typedefType
+  updateUseSites typedef =
+      reconstruct <$> updateUseSites typedef.typ
     where
       reconstruct :: C.Type AssignAnonIds -> C.Typedef AssignAnonIds
       reconstruct typedefType' = C.Typedef {
-          typedefType = typedefType'
-        , ..
+          typ = typedefType'
+        , ann = typedef.ann
         }
 
 instance UpdateUseSites C.Enum where
-  updateUseSites C.Enum{..} =
+  updateUseSites enum =
       reconstruct
-        <$> updateUseSites enumType
-        <*> mapM updateUseSites enumConstants
+        <$> updateUseSites enum.typ
+        <*> mapM updateUseSites enum.constants
     where
       reconstruct ::
            C.Type AssignAnonIds
         -> [C.EnumConstant AssignAnonIds]
         -> C.Enum AssignAnonIds
       reconstruct enumType' enumConstants' = C.Enum {
-            enumType      = enumType'
-          , enumConstants = enumConstants'
-          , ..
+            typ       = enumType'
+          , constants = enumConstants'
+          , sizeof    = enum.sizeof
+          , alignment = enum.alignment
+          , ann       = enum.ann
           }
 
 instance UpdateUseSites C.Function where
-  updateUseSites C.Function{..} =
+  updateUseSites function =
       reconstruct
         <$> mapM
               (\(mName, ty) -> (mName,) <$> updateUseSites ty)
-              functionArgs
-        <*> updateUseSites functionRes
+              function.args
+        <*> updateUseSites function.res
     where
       reconstruct ::
            [(Maybe (C.ScopedName), C.Type AssignAnonIds)]
         -> C.Type AssignAnonIds
         -> C.Function AssignAnonIds
       reconstruct functionArgs' functionRes' = C.Function {
-            functionArgs = functionArgs'
-          , functionRes  = functionRes'
-          , ..
+            args  = functionArgs'
+          , res   = functionRes'
+          , attrs = function.attrs
+          , ann   = function.ann
           }
 
 instance UpdateUseSites C.Type where
@@ -338,13 +349,13 @@ instance UpdateUseSites C.FieldInfo where
           }
 
 instance UpdateUseSites C.EnumConstant where
-  updateUseSites C.EnumConstant{..} =
-      reconstruct <$> updateUseSites enumConstantInfo
+  updateUseSites constant =
+      reconstruct <$> updateUseSites constant.info
     where
       reconstruct :: C.FieldInfo AssignAnonIds -> C.EnumConstant AssignAnonIds
       reconstruct enumConstantInfo' = C.EnumConstant{
-            enumConstantInfo = enumConstantInfo'
-           ,..
+            info  = enumConstantInfo'
+          , value = constant.value
           }
 
 instance UpdateUseSites C.Comment where
@@ -366,6 +377,6 @@ instance UpdateUseSites C.CommentRef where
 fromPrelimDeclId :: ChosenNames -> PrelimDeclId -> Either AnonId DeclId
 fromPrelimDeclId chosenNames = \case
     PrelimDeclId.Named name ->
-      Right DeclId{name, isAnon = False}
+      Right DeclId{name = name, isAnon = False}
     PrelimDeclId.Anon anonId ->
       maybe (Left anonId) Right $ Map.lookup anonId chosenNames

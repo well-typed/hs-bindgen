@@ -1,6 +1,5 @@
 {-# LANGUAGE NoFieldSelectors  #-}
 {-# LANGUAGE NoRecordWildCards #-}
-{-# LANGUAGE OverloadedLabels  #-}
 
 -- | Declaration index
 --

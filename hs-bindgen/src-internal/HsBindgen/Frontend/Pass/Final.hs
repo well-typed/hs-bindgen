@@ -26,19 +26,23 @@ type Final = MangleNames
 
 {-------------------------------------------------------------------------------
   Annotations
+
+  These virtual fields help protect the backend against changes in the frontend:
+  if we change add further annotations, these virtual fields can continue to
+  exist.
 -------------------------------------------------------------------------------}
 
 instance HasField "names" (C.Struct Final) MangleNames.RecordNames where
-  getField struct = struct.structAnn
+  getField struct = struct.ann
 
 instance HasField "names" (C.Union Final) MangleNames.NewtypeNames where
-  getField union = union.unionAnn
+  getField union = union.ann
 
 instance HasField "names" (C.Enum Final) MangleNames.NewtypeNames where
-  getField enum = enum.enumAnn
+  getField enum = enum.ann
 
 instance HasField "names" (C.Typedef Final) MangleNames.NewtypeNames where
-  getField typedef = typedef.typedefAnn
+  getField typedef = typedef.ann
 
 instance HasField "names" (CheckedMacroType Final) MangleNames.NewtypeNames where
   getField macro = macro.ann

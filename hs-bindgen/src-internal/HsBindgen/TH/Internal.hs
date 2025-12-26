@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedLabels #-}
-
 module HsBindgen.TH.Internal (
     -- * Template Haskell API
     Config
@@ -16,7 +14,6 @@ import Control.Monad.State (State, execState, modify)
 import Data.Foldable qualified as Foldable
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
-import Optics.Core ((&), (.~))
 import System.FilePath ((</>))
 
 import Clang.Paths

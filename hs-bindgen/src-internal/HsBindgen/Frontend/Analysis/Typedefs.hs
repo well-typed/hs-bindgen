@@ -24,7 +24,6 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Select.IsPass (Select)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -151,13 +150,11 @@ analyseTypedef ::
   -> C.Typedef Select
   -> TypedefAnalysis
 analyseTypedef declUseGraph typedefInfo typedef =
-    case taggedPayload typedefType of
+    case taggedPayload typedef.typ of
       Nothing      -> mempty
       Just payload ->
         typedefOfTagged typedefInfo payload $
           DeclUseGraph.getUseSitesNoSelfReferences declUseGraph payload.id
-  where
-    C.Typedef{typedefType, typedefAnn = NoAnn} = typedef
 
 -- | Typedef around tagged payload
 typedefOfTagged ::

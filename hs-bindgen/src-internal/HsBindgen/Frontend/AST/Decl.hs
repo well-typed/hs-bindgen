@@ -1,6 +1,6 @@
--- {-# LANGUAGE NoFieldSelectors  #-}
--- {-# LANGUAGE NoNamedFieldPuns  #-}
--- {-# LANGUAGE NoRecordWildCards #-}
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
 
 -- | Internal AST as it is constructed step by step in the frontend
 --
@@ -83,13 +83,14 @@ data TranslationUnit p = TranslationUnit{
       -- | Pass-specific annotation
     , ann :: Ann "TranslationUnit" p
     }
-    deriving (Generic)
+  deriving stock (Generic)
 
 data Decl p = Decl {
       info :: DeclInfo p
     , kind :: DeclKind p
     , ann  :: Ann "Decl" p
     }
+  deriving stock (Generic)
 
 -- | Availability of declarations.
 --
@@ -110,6 +111,7 @@ data DeclInfo p = DeclInfo{
     , availability :: Availability
     , comment      :: Maybe (Comment p)
     }
+  deriving stock (Generic)
 
 data HeaderInfo = HeaderInfo{
       -- | User-specified headers that provide the declaration
@@ -129,6 +131,7 @@ data FieldInfo p = FieldInfo {
     , name    :: ScopedName p
     , comment :: Maybe (Comment p)
     }
+  deriving stock (Generic)
 
 data DeclKind p =
     DeclStruct (Struct p)
@@ -147,58 +150,66 @@ data DeclKind p =
   | DeclGlobal (C.Type p)
 
 data Struct p = Struct {
-      structSizeof    :: Int
-    , structAlignment :: Int
-    , structFields    :: [StructField p]
-    , structFlam      :: Maybe (StructField p) -- ^ FLAM element type, if any
-    , structAnn       :: Ann "Struct" p
+      sizeof    :: Int
+    , alignment :: Int
+    , fields    :: [StructField p]
+    , flam      :: Maybe (StructField p) -- ^ FLAM element type, if any
+    , ann       :: Ann "Struct" p
     }
+  deriving stock (Generic)
 
 data StructField p = StructField {
-      structFieldInfo    :: FieldInfo p
-    , structFieldType    :: C.Type p
-    , structFieldOffset  :: Int     -- ^ Offset in bits
-    , structFieldWidth   :: Maybe Int
-    , structFieldAnn     :: Ann "StructField" p
+      info   :: FieldInfo p
+    , typ    :: C.Type p
+    , offset :: Int     -- ^ Offset in bits
+    , width  :: Maybe Int
+    , ann    :: Ann "StructField" p
     }
+  deriving stock (Generic)
 
 data Union p = Union {
-      unionSizeof    :: Int
-    , unionAlignment :: Int
-    , unionFields    :: [UnionField p]
-    , unionAnn       :: Ann "Union" p
+      sizeof    :: Int
+    , alignment :: Int
+    , fields    :: [UnionField p]
+    , ann       :: Ann "Union" p
     }
+  deriving stock (Generic)
 
 data UnionField p = UnionField {
-      unionFieldInfo    :: FieldInfo p
-    , unionFieldType    :: C.Type p
-    , unionFieldAnn     :: Ann "UnionField" p
+      info :: FieldInfo p
+    , typ  :: C.Type p
+    , ann  :: Ann "UnionField" p
     }
+  deriving stock (Generic)
 
 data Typedef p = Typedef {
-      typedefType    :: C.Type p
-    , typedefAnn     :: Ann "Typedef" p
+      typ :: C.Type p
+    , ann :: Ann "Typedef" p
     }
+  deriving stock (Generic)
 
 data Enum p = Enum {
-      enumType      :: C.Type p
-    , enumSizeof    :: Int
-    , enumAlignment :: Int
-    , enumConstants :: [EnumConstant p]
-    , enumAnn       :: Ann "Enum" p
+      typ       :: C.Type p
+    , sizeof    :: Int
+    , alignment :: Int
+    , constants :: [EnumConstant p]
+    , ann       :: Ann "Enum" p
     }
+  deriving stock (Generic)
 
 data EnumConstant p = EnumConstant {
-      enumConstantInfo  :: FieldInfo p
-    , enumConstantValue :: Integer
+      info  :: FieldInfo p
+    , value :: Integer
     }
+  deriving stock (Generic)
 
 data Function p = Function {
-      functionArgs    :: [(Maybe (ScopedName p), C.Type p)]
-    , functionRes     :: C.Type p
-    , functionAttrs   :: FunctionAttributes
-    , functionAnn     :: Ann "Function" p
+      args  :: [(Maybe (ScopedName p), C.Type p)]
+    , res   :: C.Type p
+    , attrs :: FunctionAttributes
+    , ann   :: Ann "Function" p
     }
+  deriving stock (Generic)
 
 -- | Function attributes specify properties for C functions.
 --
@@ -211,7 +222,7 @@ data Function p = Function {
 -- and\/or @const@ attributes, but we interpret these attributes together as a
 -- 'FunctionPurity', see 'decideFunctionPurity'.
 data FunctionAttributes = FunctionAttributes {
-      functionPurity :: FunctionPurity
+      purity :: FunctionPurity
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -299,9 +310,10 @@ decideFunctionPurity = foldr prefer ImpureFunction
   Comments
 -------------------------------------------------------------------------------}
 
-newtype Comment p =
-  Comment
-    { unComment :: CDoc.Comment (CommentRef p) }
+newtype Comment p = Comment{
+      doxygen :: CDoc.Comment (CommentRef p)
+    }
+  deriving stock (Generic)
 
 -- | Cross-reference in a Doxygen comment
 --

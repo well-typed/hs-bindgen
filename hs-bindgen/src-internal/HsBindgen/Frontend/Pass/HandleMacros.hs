@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 module HsBindgen.Frontend.Pass.HandleMacros (
     handleMacros
   ) where
@@ -84,10 +87,10 @@ processStruct ::
      C.DeclInfo HandleMacros
   -> C.Struct ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
-processStruct info C.Struct{..} =
+processStruct info struct =
     mkDecl
-      <$> mapM processStructField structFields
-      <*> mapM processStructField structFlam
+      <$> mapM processStructField struct.fields
+      <*> mapM processStructField struct.flam
   where
     mkDecl ::
          [C.StructField HandleMacros]
@@ -95,68 +98,78 @@ processStruct info C.Struct{..} =
       -> C.Decl HandleMacros
     mkDecl fields flam = C.Decl{
           info = info
-        , kind = C.DeclStruct C.Struct{
-                         structFields = fields
-                       , structFlam   = flam
-                       , ..
-                       }
         , ann  = NoAnn
+        , kind = C.DeclStruct C.Struct{
+              fields    = fields
+            , flam      = flam
+            , sizeof    = struct.sizeof
+            , alignment = struct.alignment
+            , ann       = struct.ann
+            }
         }
 
 processStructField ::
      C.StructField ConstructTranslationUnit
   -> M (C.StructField HandleMacros)
-processStructField C.StructField{..} =
-    case structFieldAnn of
+processStructField field =
+    case field.ann of
       ReparseNotNeeded ->
         withoutReparse
       ReparseNeeded tokens ->
         reparseWith LanC.reparseField tokens withoutReparse withReparse
-        -- reparseWith LanC.reparseField tokens withoutReparse withReparse
   where
     withoutReparse :: M (C.StructField HandleMacros)
     withoutReparse = return C.StructField{
-          structFieldInfo = C.FieldInfo {
-              comment = fmap coercePass structFieldInfo.comment
-            , name    = structFieldInfo.name
-            , loc     = structFieldInfo.loc
+          typ    = coercePass field.typ
+        , ann    = NoAnn
+        , offset = field.offset
+        , width  = field.width
+        , info   = C.FieldInfo {
+              comment = fmap coercePass field.info.comment
+            , name    = field.info.name
+            , loc     = field.info.loc
             }
-        , structFieldType = coercePass structFieldType
-        , structFieldAnn  = NoAnn
-        , ..
         }
 
     withReparse ::
          (C.Type HandleMacros, Text)
       -> M (C.StructField HandleMacros)
     withReparse (ty, name) = return C.StructField{
-          structFieldInfo = C.FieldInfo {
+          typ    = ty
+        , ann    = NoAnn
+        , offset = field.offset
+        , width  = field.width
+        , info   = C.FieldInfo {
               name    = C.ScopedName name
-            , comment = fmap coercePass structFieldInfo.comment
-            , loc     = structFieldInfo.loc
+            , comment = fmap coercePass field.info.comment
+            , loc     = field.info.loc
             }
-        , structFieldType = ty
-        , structFieldAnn  = NoAnn
-        , ..
         }
 
 processUnion ::
      C.DeclInfo HandleMacros
   -> C.Union ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
-processUnion info C.Union{..} =
-    combineFields <$> mapM processUnionField unionFields
+processUnion info union =
+    combineFields <$> mapM processUnionField union.fields
   where
     combineFields :: [C.UnionField HandleMacros] -> C.Decl HandleMacros
     combineFields fields = C.Decl{
           info = info
-        , kind = C.DeclUnion C.Union{unionFields = fields, ..}
         , ann  = NoAnn
+        , kind = C.DeclUnion C.Union{
+              fields    = fields
+            , sizeof    = union.sizeof
+            , alignment = union.alignment
+            , ann       = union.ann
+            }
         }
 
-processUnionField :: C.UnionField ConstructTranslationUnit -> M (C.UnionField HandleMacros)
-processUnionField C.UnionField{..} =
-    case unionFieldAnn of
+processUnionField ::
+     C.UnionField ConstructTranslationUnit
+  -> M (C.UnionField HandleMacros)
+processUnionField field =
+    case field.ann of
       ReparseNotNeeded ->
         withoutReparse
       ReparseNeeded tokens ->
@@ -164,28 +177,26 @@ processUnionField C.UnionField{..} =
   where
     withoutReparse :: M (C.UnionField HandleMacros)
     withoutReparse = return $ C.UnionField{
-          unionFieldInfo = C.FieldInfo {
-              comment = fmap coercePass unionFieldInfo.comment
-            , name    = unionFieldInfo.name
-            , loc     = unionFieldInfo.loc
+          typ  = coercePass field.typ
+        , ann  = NoAnn
+        , info = C.FieldInfo {
+              comment = fmap coercePass field.info.comment
+            , name    = field.info.name
+            , loc     = field.info.loc
             }
-        , unionFieldType = coercePass unionFieldType
-        , unionFieldAnn  = NoAnn
-        , ..
         }
 
     withReparse ::
          (C.Type HandleMacros, Text)
       -> M (C.UnionField HandleMacros)
     withReparse (ty, name) = return $ C.UnionField{
-          unionFieldInfo = C.FieldInfo {
+          typ  = ty
+        , ann  = NoAnn
+        , info = C.FieldInfo {
               name    = C.ScopedName name
-            , comment = fmap coercePass unionFieldInfo.comment
-            , loc     = unionFieldInfo.loc
+            , comment = fmap coercePass field.info.comment
+            , loc     = field.info.loc
             }
-        , unionFieldType = ty
-        , unionFieldAnn  = NoAnn
-        , ..
         }
 
 processOpaque ::
@@ -203,67 +214,66 @@ processEnum ::
      C.DeclInfo HandleMacros
   -> C.Enum ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
-processEnum info C.Enum{..} =
-    mkDecl <$> mapM processEnumConstant enumConstants
+processEnum info enum =
+    mkDecl <$> mapM processEnumConstant enum.constants
   where
     mkDecl :: [C.EnumConstant HandleMacros] -> C.Decl HandleMacros
     mkDecl enumerators = C.Decl{
           info = info
-        , kind = C.DeclEnum C.Enum{
-                      enumType      = coercePass enumType
-                    , enumConstants = enumerators
-                    , ..
-                    }
         , ann  = NoAnn
+        , kind = C.DeclEnum C.Enum{
+              typ       = coercePass enum.typ
+            , constants = enumerators
+            , sizeof    = enum.sizeof
+            , alignment = enum.alignment
+            , ann       = enum.ann
+            }
         }
 
 processEnumConstant ::
      C.EnumConstant ConstructTranslationUnit
   -> M (C.EnumConstant HandleMacros)
-processEnumConstant C.EnumConstant{..} = return
-  C.EnumConstant {
-    enumConstantInfo = C.FieldInfo {
-        comment = fmap coercePass enumConstantInfo.comment
-      , name    = enumConstantInfo.name
-      , loc     = enumConstantInfo.loc
-      }
-  , ..
-  }
+processEnumConstant constant = return C.EnumConstant {
+      value = constant.value
+    , info  = C.FieldInfo {
+          comment = fmap coercePass constant.info.comment
+        , name    = constant.info.name
+        , loc     = constant.info.loc
+        }
+    }
 
 processTypedef ::
      C.DeclInfo HandleMacros
   -> C.Typedef ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
-processTypedef info C.Typedef{typedefType, typedefAnn} = do
-      modify $ \st -> st{
-          stateReparseEnv = updateEnv info.id.name.text (stateReparseEnv st)
-        }
-      case typedefAnn of
-        ReparseNotNeeded -> withoutReparse
+processTypedef info typedef = do
+    modify $ over #reparseEnv $ updateEnv info.id.name.text
+    case typedef.ann of
+      ReparseNotNeeded -> withoutReparse
 
-        -- If the @typedef@ refers to another type, we do not reparse the
-        -- typedef, but instead defer reparsing to that other type.
-        -- See https://github.com/well-typed/hs-bindgen/issues/707.
-        --
-        -- TODO <https://github.com/well-typed/hs-bindgen/issues/1382>
-        -- We should allow for pointers.
-        ReparseNeeded tokens -> case typedefType of
-          C.TypeRef _ -> withoutReparse
-          _otherwise  ->
-            reparseWith LanC.reparseTypedef tokens withoutReparse withReparse
+      -- If the @typedef@ refers to another type, we do not reparse the
+      -- typedef, but instead defer reparsing to that other type.
+      -- See https://github.com/well-typed/hs-bindgen/issues/707.
+      --
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1382>
+      -- We should allow for pointers.
+      ReparseNeeded tokens -> case typedef.typ of
+        C.TypeRef _ -> withoutReparse
+        _otherwise  ->
+          reparseWith LanC.reparseTypedef tokens withoutReparse withReparse
   where
     updateEnv :: Text -> LanC.ReparseEnv -> LanC.ReparseEnv
     updateEnv name =
         Map.insert name $
-          C.TypeTypedef $ C.TypedefRef info.id (coercePass typedefType)
+          C.TypeTypedef $ C.TypedefRef info.id (coercePass typedef.typ)
 
     withoutReparse :: M (C.Decl HandleMacros)
     withoutReparse = return C.Decl{
           info = info
         , ann  = NoAnn
         , kind = C.DeclTypedef C.Typedef {
-                     typedefType = coercePass typedefType
-                   , typedefAnn  = NoAnn
+                     typ = coercePass typedef.typ
+                   , ann = NoAnn
                    }
         }
 
@@ -272,8 +282,8 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
           info = info
         , ann  = NoAnn
         , kind = C.DeclTypedef C.Typedef{
-                     typedefType = ty
-                   , typedefAnn  = NoAnn
+                     typ = ty
+                   , ann = NoAnn
                    }
         }
 
@@ -284,10 +294,10 @@ processMacro info (UnparsedMacro tokens) = do
     bimap addInfo toDecl <$> parseMacro info.id.name tokens
   where
     addInfo :: HandleMacrosError -> FailedMacro
-    addInfo macroError = FailedMacro{
-          name = info.id
-        , loc  = info.loc
-        , macroError
+    addInfo err = FailedMacro{
+          name       = info.id
+        , loc        = info.loc
+        , macroError = err
         }
 
     toDecl :: CheckedMacro HandleMacros -> C.Decl HandleMacros
@@ -301,8 +311,8 @@ processFunction ::
      C.DeclInfo HandleMacros
   -> C.Function ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
-processFunction info C.Function{..} =
-    case functionAnn of
+processFunction info function =
+    case function.ann of
       ReparseNotNeeded ->
         withoutReparse
       ReparseNeeded tokens ->
@@ -313,27 +323,25 @@ processFunction info C.Function{..} =
           info = info
         , ann  = NoAnn
         , kind = C.DeclFunction C.Function{
-                     functionArgs = map (bimap id coercePass) functionArgs
-                   , functionRes = coercePass functionRes
-                   , functionAnn = NoAnn
-                   , ..
-                   }
+              args  = map (bimap id coercePass) function.args
+            , res   = coercePass function.res
+            , attrs = function.attrs
+            , ann   = NoAnn
+            }
         }
 
     withReparse ::
          (([(Maybe Text, C.Type HandleMacros)], C.Type HandleMacros), Text)
       -> M (C.Decl HandleMacros)
-    withReparse ((tys, ty), _name) = do
-       -- TODO: We should assert that the name is the name we were expecting
-       return $ C.Decl{
+    withReparse ((tys, ty), _name) = return $ C.Decl{
            info = info
          , ann  = NoAnn
          , kind = C.DeclFunction C.Function{
-                      functionArgs = map (first (fmap C.ScopedName)) tys
-                    , functionRes  = ty
-                    , functionAnn  = NoAnn
-                    , ..
-                    }
+               args  = map (first (fmap C.ScopedName)) tys
+             , res   = ty
+             , attrs = function.attrs
+             , ann   = NoAnn
+             }
          }
 
 -- | Globals (externs or constants)
@@ -356,9 +364,9 @@ processGlobal info f ty =
   Internal: monad used for parsing macros
 -------------------------------------------------------------------------------}
 
-newtype M a = WrapM {
-      unwrapM :: State MacroState a
-    }
+newtype M a = WrapM (
+      State MacroState a
+    )
   deriving newtype (
       Functor
     , Applicative
@@ -367,24 +375,25 @@ newtype M a = WrapM {
     )
 
 data MacroState = MacroState {
-      stateErrors :: [HandleMacrosReparseMsg]  -- ^ Stored in reverse order
+      errors :: [HandleMacrosReparseMsg]  -- ^ Stored in reverse order
 
       -- | Types of macro expressions
-    , stateMacroEnv :: CExpr.DSL.TypeEnv
+    , macroEnv :: CExpr.DSL.TypeEnv
 
       -- | Newtypes and macro-defined types in scope
-    , stateReparseEnv :: LanC.ReparseEnv
+    , reparseEnv :: LanC.ReparseEnv
     }
+  deriving stock (Generic)
 
 initMacroState :: CStandard -> MacroState
 initMacroState standard = MacroState{
-      stateErrors     = []
-    , stateMacroEnv   = Map.empty
-    , stateReparseEnv = LanC.initReparseEnv standard
+      errors     = []
+    , macroEnv   = Map.empty
+    , reparseEnv = LanC.initReparseEnv standard
     }
 
 runM :: CStandard -> M a -> (a, [Msg HandleMacros])
-runM standard = fmap stateErrors . flip runState (initMacroState standard) . unwrapM
+runM standard (WrapM ma) = (.errors) <$> runState ma (initMacroState standard)
 
 {-------------------------------------------------------------------------------
   Auxiliary: parsing (macro /def/ sites) and reparsing (macro /use/ sites)
@@ -402,23 +411,23 @@ parseMacro name [_]     = pure      $ Left $ HandleMacrosErrorEmpty name
 parseMacro name tokens  = state     $ \st ->
     -- In the case that the same macro could be interpreted both as a type or
     -- as an expression, we choose to interpret it as a type.
-    case LanC.parseMacroType (stateReparseEnv st) tokens of
+    case LanC.parseMacroType st.reparseEnv tokens of
       Right typ -> (
           Right $ MacroType $ CheckedMacroType typ NoAnn
-        , st{stateReparseEnv = updateReparseEnv (stateReparseEnv st)}
+        , st & #reparseEnv %~ updateReparseEnv
         )
       Left errType ->
         case CExpr.DSL.runParser CExpr.DSL.parseExpr tokens of
           Right CExpr.DSL.Macro{macroName, macroArgs, macroBody} ->
             Vec.reifyList macroArgs $ \args -> do
-              case CExpr.DSL.tcMacro (stateMacroEnv st) macroName args macroBody of
+              case CExpr.DSL.tcMacro st.macroEnv macroName args macroBody of
                 Right inf -> (
                     Right $ MacroExpr $ CheckedMacroExpr{
                         args = macroArgs
                       , body = macroBody
                       , typ  = dropEval inf
                       }
-                  , st{stateMacroEnv = Map.insert macroName inf (stateMacroEnv st)}
+                  , st & #macroEnv %~ Map.insert macroName inf
                   )
                 Left errTc -> (Left $ HandleMacrosErrorTc errTc, st)
           Left errExpr ->
@@ -445,8 +454,10 @@ reparseWith ::
   -> (a -> M r)             -- ^ If parsing succeeds
   -> M r
 reparseWith p tokens onFailure onSuccess = state $ \st ->
-    case p (stateReparseEnv st) tokens of
+    case p st.reparseEnv tokens of
       Right a -> runState (unwrapM $ onSuccess a) st
-      Left  e -> runState (unwrapM $ onFailure  ) st{
-            stateErrors = HandleMacrosErrorReparse e : stateErrors st
-          }
+      Left  e -> let st' = st & #errors %~ (HandleMacrosErrorReparse e :)
+                 in runState (unwrapM $ onFailure  ) st'
+  where
+    unwrapM :: M a -> (State MacroState a)
+    unwrapM (WrapM ma) = ma

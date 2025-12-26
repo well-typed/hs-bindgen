@@ -17,6 +17,7 @@ import Data.Bifunctor as X (Bifunctor (bimap, first, second))
 import Data.Coerce as X (coerce)
 import Data.Default as X (Default (def))
 import Data.Foldable as X (Foldable (foldl', toList), traverse_)
+import Data.Function as X ((&))
 import Data.IntMap.Strict as X (IntMap)
 import Data.IntSet as X (IntSet)
 import Data.Kind qualified
@@ -36,6 +37,7 @@ import GHC.Generics as X (Generic)
 import GHC.Stack as X (HasCallStack)
 import GHC.TypeLits as X (Symbol)
 import Numeric.Natural as X (Natural)
+import Optics.Core as X (over, set, view, (%), (%~), (.~), (^.))
 
 -- | @Type@ is very clashy name: there's TH.Type, we may want to use Type for
 -- representation of C types, etc.

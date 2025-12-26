@@ -1,6 +1,5 @@
 {-# LANGUAGE NoFieldSelectors  #-}
 {-# LANGUAGE NoRecordWildCards #-}
-{-# LANGUAGE OverloadedLabels  #-}
 
 -- | Main entry point to the @language-c@ infrastructure
 --

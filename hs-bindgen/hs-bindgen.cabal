@@ -46,6 +46,7 @@ common lang
     FunctionalDependencies
     LambdaCase
     MultiWayIf
+    OverloadedLabels
     OverloadedRecordDot
     OverloadedStrings
     PatternSynonyms

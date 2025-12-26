@@ -127,24 +127,23 @@ analyseDecl decl =
       C.DeclGlobal   _ -> []
 
 analyseStruct :: C.DeclInfo Parse -> C.Struct Parse -> [(AnonId, Context)]
-analyseStruct declInfo struct = concat [
-      concatMap aux struct.structFields
-    , concatMap aux struct.structFlam
+analyseStruct info struct = concat [
+      concatMap aux struct.fields
+    , concatMap aux struct.flam
     ]
   where
     aux :: C.StructField Parse -> [(AnonId, Context)]
-    aux f = analyseType (Field declInfo f.structFieldInfo) f.structFieldType
+    aux f = analyseType (Field info f.info) f.typ
 
 analyseUnion :: C.DeclInfo Parse -> C.Union Parse -> [(AnonId, Context)]
-analyseUnion declInfo union =
-    concatMap aux union.unionFields
+analyseUnion info union =
+    concatMap aux union.fields
   where
     aux :: C.UnionField Parse -> [(AnonId, Context)]
-    aux f = analyseType (Field declInfo f.unionFieldInfo) f.unionFieldType
+    aux f = analyseType (Field info f.info) f.typ
 
 analyseTypedef :: C.DeclInfo Parse -> C.Typedef Parse -> [(AnonId, Context)]
-analyseTypedef declInfo typedef =
-    analyseType (TypedefDirect declInfo) typedef.typedefType
+analyseTypedef info typedef = analyseType (TypedefDirect info) typedef.typ
 
 {-------------------------------------------------------------------------------
   Types
