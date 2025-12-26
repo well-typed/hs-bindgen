@@ -44,15 +44,17 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
       -> ParseTypeExceptionInContext ParseTypeExceptionContext
       -> ParseDecl (Maybe [ParseResult Parse])
     handleTypeException curr err = do
-        info <- getDeclInfo curr contextNameKind
+        declId  <- PrelimDeclId.atCursor curr contextNameKind
+        declLoc <- HighLevel.clang_getCursorLocation' curr
         -- TODO https://github.com/well-typed/hs-bindgen/issues/1249: Only emit
         -- the trace when we use the declaration that we fail to parse.
         when (contextRequiredForScoping == RequiredForScoping) $
-          recordImmediateTrace info $
+          recordImmediateTrace declId declLoc $
             ParseOfDeclarationRequiredForScopingFailed (parseException err)
-        pure $ Just $
-          [ parseFail info $
-              ParseUnsupportedType (parseException err) ]
+        pure $ Just [
+            parseFail declId declLoc $
+              ParseUnsupportedType (parseException err)
+          ]
       where
         ParseTypeExceptionContext{..} = parseContext err
 
@@ -60,6 +62,9 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
   Info that we collect for all declarations
 -------------------------------------------------------------------------------}
 
+-- | Get declaration info
+--
+-- Must not be called on built-ins.
 getDeclInfo :: CXCursor -> C.NameKind -> ParseDecl (C.DeclInfo Parse)
 getDeclInfo = \curr nameKind -> do
     declId         <- PrelimDeclId.atCursor curr nameKind
@@ -87,7 +92,8 @@ getDeclInfo = \curr nameKind -> do
           }
 
     when (isNothing mAvailability) $
-      recordImmediateTrace info $ ParseUnknownCursorAvailability sAvailability
+      recordImmediateTrace declId declLoc $
+        ParseUnknownCursorAvailability sAvailability
 
     -- TODO: We might want a NameOriginBuiltin.
     pure info
@@ -102,11 +108,8 @@ getDeclInfo = \curr nameKind -> do
       CXAvailability_NotAvailable  -> C.Unavailable
       CXAvailability_NotAccessible -> C.Unavailable
 
-getHeaderInfo :: SourcePath -> ParseDecl (Maybe C.HeaderInfo)
-getHeaderInfo path
-    | path == ""              = return Nothing
-    | otherwise               =
-        Just . uncurry C.HeaderInfo <$> evalGetMainHeadersAndInclude path
+getHeaderInfo :: SourcePath -> ParseDecl C.HeaderInfo
+getHeaderInfo path = uncurry C.HeaderInfo <$> evalGetMainHeadersAndInclude path
 
 getFieldInfo :: CXCursor -> ParseDecl (C.FieldInfo Parse)
 getFieldInfo = \curr -> do
@@ -163,53 +166,55 @@ parseDecl curr = dispatchWithArg curr $ \case
       -- Report error for declarations we don't recognize
       kind -> unknownCursorKind kind
 
+-- | Parse declaration
+--
+-- NOTE: We currently skip all built-ins. The only built-ins that can even
+-- /have/ an associated declaration at all are macros. However, since we cannot
+-- get the list of tokens for built-in macros, we would anyway need to
+-- special-case them. For now we skip /all/ builtins.
 parseDeclWith ::
      (C.DeclInfo Parse -> Parser)
   -> RequiredForScoping
   -> C.NameKind
   -> Parser
 parseDeclWith parser requiredForScoping kind curr = do
-    info <- getDeclInfo curr kind
-    let isUnavailable = case C.declAvailability info of
-          C.Unavailable -> True
-          _otherwise    -> False
+    mBuiltin <- PrelimDeclId.checkIsBuiltin curr
+    case mBuiltin of
+      Just _name ->
+        foldContinue
+      Nothing -> do
+        info <- getDeclInfo curr kind
+        let isUnavailable = case C.declAvailability info of
+              C.Unavailable -> True
+              _otherwise    -> False
 
-    if | isUnavailable -> foldContinueWith
-           [parseDoNotAttempt info DeclarationUnavailable]
-       | RequiredForScoping <- requiredForScoping ->
-           parser info curr
-       | otherwise -> do
-           matched <- evalPredicate info
-           if matched
-           then parser info curr
-           else foldContinueWith
-             [parseDoNotAttempt info ParsePredicateNotMatched]
+        if | isUnavailable -> foldContinueWith
+               [parseDoNotAttempt info DeclarationUnavailable]
+           | RequiredForScoping <- requiredForScoping ->
+               parser info curr
+           | otherwise -> do
+               matched <- evalPredicate info
+               if matched
+               then parser info curr
+               else foldContinueWith
+                 [parseDoNotAttempt info ParsePredicateNotMatched]
 
 -- | Macros
 --
 -- In this phase, we return macro declarations simply as a list of tokens. We
 -- will parse them later (after sorting all declarations in the file).
---
--- NOTE: We rely on selection to filter out clang internal macro declarations.
 macroDefinition :: HasCallStack => C.DeclInfo Parse -> Parser
 macroDefinition info = \curr -> do
-    -- For built-in macros we cannot get the list of tokens, so we skip them.
-    mBuiltin <- PrelimDeclId.checkIsBuiltin curr
-    case mBuiltin of
-      Just _builtin ->
-        -- If there /specific/ built-in macros that we want to support, we need
-        -- to special-case them. For now, we just skip all of them.
-        foldContinue
-      Nothing -> do
-        let mkDecl :: UnparsedMacro -> C.Decl Parse
-            mkDecl body = C.Decl{
-                info = info
-              , kind = C.DeclMacro body
-              , ann  = NoAnn
-              }
-        decl <- mkDecl <$> getUnparsedMacro curr
-        foldContinueWith [parseSucceed decl]
+    decl <- mkDecl <$> getUnparsedMacro curr
+    foldContinueWith [parseSucceed decl]
   where
+    mkDecl :: UnparsedMacro -> C.Decl Parse
+    mkDecl body = C.Decl{
+          info = info
+        , kind = C.DeclMacro body
+        , ann  = NoAnn
+        }
+
     getUnparsedMacro :: CXCursor -> ParseDecl UnparsedMacro
     getUnparsedMacro curr = do
         unit <- getTranslationUnit
@@ -267,9 +272,11 @@ structDecl info = \curr -> do
           pure $ (fails ++) $ case mPartitioned of
             Just decls ->
               map parseSucceed $ decls ++ [mkStruct fields]
-            Nothing ->
-              -- If the struct has implicit fields, don't generate anything.
-              [parseFail info $ ParseUnsupportedImplicitFields ]
+            Nothing -> [
+                -- If the struct has implicit fields, don't generate anything.
+                parseFail info.declId info.declLoc $
+                  ParseUnsupportedImplicitFields
+              ]
       DefinitionUnavailable ->
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -346,9 +353,11 @@ unionDecl info = \curr -> do
           pure $ (fails ++) $ case mPartitioned of
             Just decls ->
               map parseSucceed $ decls ++ [mkUnion fields]
-            Nothing ->
-              -- If the struct has implicit fields, don't generate anything.
-              [parseFail info ParseUnsupportedImplicitFields]
+            Nothing -> [
+                -- If the union has implicit fields, don't generate anything.
+                parseFail info.declId info.declLoc $
+                  ParseUnsupportedImplicitFields
+              ]
       DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -561,8 +570,10 @@ functionDecl info = \curr -> do
             let isDefn = declCls == Definition
 
             pure $ (fails ++) $
-              if not (null anonDecls) then
-                [parseFail info ParseUnexpectedAnonInSignature]
+              if not (null anonDecls) then [
+                  parseFail info.declId info.declLoc $
+                    ParseUnexpectedAnonInSignature
+                ]
               else
                 let nonPublicVisibility = [
                         ParseNonPublicVisibility
@@ -601,7 +612,10 @@ functionDecl info = \curr -> do
               return (mbArgName, argCType)
             pure $ Right (args', res)
           C.TypeTypedef{} ->
-            pure $ Left [parseFail info ParseFunctionOfTypeTypedef]
+            pure $ Left [
+                parseFail info.declId info.declLoc $
+                  ParseFunctionOfTypeTypedef
+              ]
           otherType ->
             panicIO $ "expected function type, but got " <> show otherType
 
@@ -691,8 +705,10 @@ varDecl info = \curr -> do
                    || (isTentative && declCls == DefinitionUnavailable)
 
         pure $ (fails ++) $
-          if not (null anonDecls) then
-            [parseFail info ParseUnexpectedAnonInExtern]
+          if not (null anonDecls) then [
+              parseFail info.declId info.declLoc $
+                ParseUnexpectedAnonInExtern
+            ]
           else (map parseSucceed otherDecls ++) $
             let nonPublicVisibility = [
                     ParseNonPublicVisibility
@@ -709,10 +725,14 @@ varDecl info = \curr -> do
                 singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
               VarConst ->
                 singleton $ parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
-              VarThreadLocal ->
-                [parseFail info ParseUnsupportedTLS]
-              VarUnsupported storage ->
-                [parseFail info $ ParseUnknownStorageClass storage]
+              VarThreadLocal -> [
+                  parseFail info.declId info.declLoc $
+                    ParseUnsupportedTLS
+                ]
+              VarUnsupported storage -> [
+                  parseFail info.declId info.declLoc $
+                    ParseUnknownStorageClass storage
+                ]
   where
     -- Look for nested declarations inside the global variable type
     nestedDecl :: Fold ParseDecl [ParseResult Parse]

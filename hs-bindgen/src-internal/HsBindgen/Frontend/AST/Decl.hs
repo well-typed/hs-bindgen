@@ -104,17 +104,11 @@ data Availability =
   deriving stock (Show, Eq, Ord, P.Enum, Bounded, Generic)
 
 data DeclInfo p = DeclInfo{
-      declLoc     :: SingleLoc
-    , declId      :: Id p
-
-      -- | Source header information
-      --
-      -- This is 'Nothing' when the declaration is a builtin, as builtin
-      -- declarations have no source location.
-    , declHeaderInfo :: Maybe HeaderInfo
+      declLoc          :: SingleLoc
+    , declId           :: Id p
+    , declHeaderInfo   :: HeaderInfo
     , declAvailability :: Availability
-
-    , declComment :: Maybe (Comment p)
+    , declComment      :: Maybe (Comment p)
     }
 
 data HeaderInfo = HeaderInfo{

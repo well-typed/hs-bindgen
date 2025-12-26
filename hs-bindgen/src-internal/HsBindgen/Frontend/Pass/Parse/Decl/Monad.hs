@@ -44,6 +44,7 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes (GetMainHeadersAndInclude)
 import HsBindgen.Frontend.RootHeader (HashIncludeArg, RootHeader)
@@ -160,10 +161,14 @@ checkHasMacroExpansion extent = do
 
 -- | Directly emit a parse message that can not be attached to a declaration,
 -- usually because not enough information about the declaration is available.
-recordImmediateTrace :: C.DeclInfo Parse -> ImmediateParseMsg -> ParseDecl ()
-recordImmediateTrace declInfo msg = wrapEff $ \ParseSupport{parseEnv} ->
+recordImmediateTrace ::
+     PrelimDeclId
+  -> SingleLoc
+  -> ImmediateParseMsg
+  -> ParseDecl ()
+recordImmediateTrace declId declLoc msg = wrapEff $ \ParseSupport{parseEnv} ->
     traceWith (envTracer parseEnv) WithLocationInfo{
-        loc = prelimDeclIdLocationInfo declInfo.declId [declInfo.declLoc]
+        loc = prelimDeclIdLocationInfo declId [declLoc]
       , msg
       }
 

@@ -295,10 +295,8 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
             ]
           ]
 
-getMainHashIncludeArg :: HasCallStack => C.DeclInfo Final -> HashIncludeArg
-getMainHashIncludeArg declInfo = case C.declHeaderInfo declInfo of
-    Nothing -> panicPure "no main header for builtin"
-    Just C.HeaderInfo{headerMainHeaders} -> NonEmpty.head headerMainHeaders
+getMainHashIncludeArg :: C.DeclInfo Final -> HashIncludeArg
+getMainHashIncludeArg info = NonEmpty.head info.declHeaderInfo.headerMainHeaders
 
 {-------------------------------------------------------------------------------
   Helpers

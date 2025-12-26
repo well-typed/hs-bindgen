@@ -110,7 +110,7 @@ mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Nothing, ..} =
       ( Just mempty {
            HsDoc.commentOrigin     = Just nameC
          , HsDoc.commentLocation   = Just $ updateSingleLoc pathStyle loc
-         , HsDoc.commentHeaderInfo = declInfo.declHeaderInfo
+         , HsDoc.commentHeaderInfo = Just declInfo.declHeaderInfo
          }
       , map addFunctionParameterComment params)
 mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Just (C.Comment CDoc.Comment{..}), ..} =
@@ -161,7 +161,7 @@ mkHaddocksWithArgs HaddockConfig{..} declInfo Args{comment = Just (C.Comment CDo
           HsDoc.commentTitle
         , HsDoc.commentOrigin     = Just commentCName
         , HsDoc.commentLocation   = Just commentLocation
-        , HsDoc.commentHeaderInfo = declInfo.declHeaderInfo
+        , HsDoc.commentHeaderInfo = Just declInfo.declHeaderInfo
         , HsDoc.commentChildren   = finalChildren
         }
       , updatedParams
