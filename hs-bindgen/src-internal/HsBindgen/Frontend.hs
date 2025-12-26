@@ -241,30 +241,29 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       (_, _, _, _, getMainHeaders) <- parsePass
       pure getMainHeaders
     frontendIndex <- cache "frontendIndex" $ do
-      (.unitAnn.declIndex) <$> constructTranslationUnitPass
+      (.ann.declIndex) <$> constructTranslationUnitPass
     frontendUseDeclGraph <- cache "frontendUseDeclGraph" $ do
-      (.unitAnn.useDeclGraph) <$> constructTranslationUnitPass
+      (.ann.useDeclGraph) <$> constructTranslationUnitPass
     frontendDeclUseGraph <- cache "frontendDeclUseGraph" $ do
-      (.unitAnn.declUseGraph) <$> constructTranslationUnitPass
+      (.ann.declUseGraph) <$> constructTranslationUnitPass
 
     -- Omitted types
     frontendOmitTypes <- cache "frontendOmitTypes" $
-      Map.toList . DeclIndex.getOmitted . view ( #unitAnn % #declIndex) <$>
+      Map.toList . DeclIndex.getOmitted . view ( #ann % #declIndex ) <$>
         resolveBindingSpecsPass
 
     -- Squashed types
     frontendSquashedTypes <- cache "frontendSquashedTypes" $
-      Map.toList . DeclIndex.getSquashed . view ( #unitAnn % #declIndex) <$>
+      Map.toList . DeclIndex.getSquashed . view ( #ann % #declIndex ) <$>
         mangleNamesPass
 
     -- Declarations.
     frontendCDecls <- cache "frontendDecls" $
-      C.unitDecls <$> getCTranslationUnit
+      (.decls) <$> getCTranslationUnit
 
     -- Dependencies.
     frontendDependencies <- cache "frontendDependencies" $ do
-      unit <- getCTranslationUnit
-      return $ IncludeGraph.toSortedList unit.unitIncludeGraph
+      IncludeGraph.toSortedList . (.includeGraph) <$> getCTranslationUnit
 
     pure FrontendArtefact{..}
   where

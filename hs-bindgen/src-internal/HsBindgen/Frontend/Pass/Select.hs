@@ -89,15 +89,11 @@ selectDecls ::
   -> SelectConfig
   -> C.TranslationUnit ResolveBindingSpecs
   -> (C.TranslationUnit Select, [Msg Select])
-selectDecls
-  isMainHeader
-  isInMainHeaderDir
-  config
-  C.TranslationUnit{..} =
+selectDecls isMainHeader isInMainHeaderDir config unit =
     let -- Directly match the select predicate on the 'DeclIndex', obtaining
         -- information about succeeded _and failed_ selection roots.
         selectedIndex :: DeclIndex
-        selectedIndex = selectDeclIndex unitAnn.declUseGraph match index
+        selectedIndex = selectDeclIndex unit.ann.declUseGraph match index
 
         -- Identifiers of selection roots. Some of them may be unavailable
         -- (i.e., not in the 'succeeded' map, and hence, not in the list of
@@ -175,7 +171,7 @@ selectDecls
             additionalSelectedTransIds
 
         availableDecls :: [Decl]
-        availableDecls = map coercePass unitDecls
+        availableDecls = map coercePass unit.decls
 
         -- Fold available declarations and collect selected declarations and
         -- trace messages.
@@ -187,9 +183,9 @@ selectDecls
 
         unitSelect :: C.TranslationUnit Select
         unitSelect = C.TranslationUnit {
-                C.unitDecls = unitDecls'
-              , C.unitIncludeGraph = unitIncludeGraph
-              , C.unitAnn = unitAnn
+                decls        = unitDecls'
+              , includeGraph = unit.includeGraph
+              , ann          = unit.ann
               }
 
         msgs :: [Msg Select]
@@ -205,14 +201,14 @@ selectDecls
              ]
 
     in  ( unitSelect
-        , sortSelectMsgs unitIncludeGraph msgs
+        , sortSelectMsgs unit.includeGraph msgs
         )
   where
     index :: DeclIndex
-    index = unitAnn.declIndex
+    index = unit.ann.declIndex
 
     useDeclGraph :: UseDeclGraph
-    useDeclGraph = unitAnn.useDeclGraph
+    useDeclGraph = unit.ann.useDeclGraph
 
     match :: Match
     match name loc availability = parsed && selected

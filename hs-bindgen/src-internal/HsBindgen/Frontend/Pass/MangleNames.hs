@@ -49,22 +49,22 @@ mangleNames ::
   -> (C.TranslationUnit MangleNames, [Msg MangleNames])
 mangleNames unit = (
          C.TranslationUnit{
-           unitDecls        = catMaybes decls'
-         , unitIncludeGraph = unit.unitIncludeGraph
-         , unitAnn          = updateDeclMeta td nm unit.unitAnn
+           decls        = catMaybes decls'
+         , includeGraph = unit.includeGraph
+         , ann          = updateDeclMeta td nm unit.ann
         }
     , msgs1 ++ msgs2
     )
   where
     td :: TypedefAnalysis
-    td = TypedefAnalysis.fromDecls unit.unitAnn.declUseGraph unit.unitDecls
+    td = TypedefAnalysis.fromDecls unit.ann.declUseGraph unit.decls
 
     fc :: FixCandidate Maybe
     fc = FixCandidate.fixCandidateDefault
 
     nm    :: NameMap
     msgs1 :: [Msg MangleNames]
-    (nm, msgs1) = chooseNames td fc (C.unitDecls unit)
+    (nm, msgs1) = chooseNames td fc unit.decls
 
     env :: Env
     env = Env{
@@ -75,7 +75,7 @@ mangleNames unit = (
 
     decls' :: [Maybe (C.Decl MangleNames)]
     msgs2  :: [Msg MangleNames]
-    (decls', msgs2) = runM env $ mapM mangleDecl unit.unitDecls
+    (decls', msgs2) = runM env $ mapM mangleDecl unit.decls
 
 updateDeclMeta :: TypedefAnalysis -> NameMap -> DeclMeta -> DeclMeta
 updateDeclMeta td nm declMeta = declMeta{

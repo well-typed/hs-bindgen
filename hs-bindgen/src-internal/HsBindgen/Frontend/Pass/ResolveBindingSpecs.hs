@@ -49,12 +49,7 @@ resolveBindingSpecs ::
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit HandleMacros
   -> (C.TranslationUnit ResolveBindingSpecs, [Msg ResolveBindingSpecs])
-resolveBindingSpecs
-  target
-  hsModuleName
-  extSpecs
-  pSpec
-  C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
+resolveBindingSpecs target hsModuleName extSpecs pSpec unit =
     let pSpecModule = BindingSpec.moduleName pSpec
         (pSpecErrs, pSpec')
           | pSpecModule == hsModuleName = ([], pSpec)
@@ -66,11 +61,11 @@ resolveBindingSpecs
           runM
             extSpecs
             pSpec'
-            unitIncludeGraph
-            unitAnn.declIndex
-            (resolveDecls unitDecls)
+            unit.includeGraph
+            unit.ann.declIndex
+            (resolveDecls unit.decls)
         useDeclGraph =
-          UseDeclGraph.deleteDeps (Map.keys stateExtTypes) unitAnn.useDeclGraph
+          UseDeclGraph.deleteDeps (Map.keys stateExtTypes) unit.ann.useDeclGraph
         notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys stateNoPTypes
     in  ( reconstruct decls useDeclGraph state
         , pSpecErrs ++ reverse stateTraces ++ notUsedErrs
@@ -89,7 +84,7 @@ resolveBindingSpecs
           index' =
                 DeclIndex.registerExternalDeclarations externalIds
               . DeclIndex.registerOmittedDeclarations stateOmitTypes
-              $ unitAnn.declIndex
+              $ unit.ann.declIndex
 
           unitAnn' :: DeclMeta
           unitAnn' = DeclMeta {
@@ -98,11 +93,11 @@ resolveBindingSpecs
               , declUseGraph = DeclUseGraph.fromUseDecl useDeclGraph
               }
 
-      in  C.TranslationUnit{
-        unitDecls = decls'
-      , unitIncludeGraph
-      , unitAnn = unitAnn'
-      }
+      in C.TranslationUnit{
+             decls        = decls'
+           , includeGraph = unit.includeGraph
+           , ann          = unitAnn'
+           }
 
 {-------------------------------------------------------------------------------
   Internal: monad

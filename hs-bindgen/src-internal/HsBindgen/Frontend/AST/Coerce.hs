@@ -44,10 +44,10 @@ instance (
       CoercePass C.Decl p p'
     , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
     ) => CoercePass C.TranslationUnit p p' where
-  coercePass C.TranslationUnit{..} = C.TranslationUnit{
-        unitDecls = map coercePass unitDecls
-      , unitIncludeGraph
-      , unitAnn
+  coercePass unit = C.TranslationUnit{
+        decls        = map coercePass unit.decls
+      , includeGraph = unit.includeGraph
+      , ann          = unit.ann
       }
 
 instance (

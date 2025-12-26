@@ -17,7 +17,6 @@ import Clang.Args (CStandard)
 import Clang.HighLevel.Types
 
 import HsBindgen.Errors
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Decl qualified as C
@@ -41,25 +40,24 @@ handleMacros ::
       CStandard
   ->  C.TranslationUnit ConstructTranslationUnit
   -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
-handleMacros standard C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
+handleMacros standard unit =
     reconstruct $ runM standard .
-      fmap partitionEithers $ mapM processDecl unitDecls
+      fmap partitionEithers $ mapM processDecl unit.decls
   where
     reconstruct ::
          (([FailedMacro] , [C.Decl HandleMacros]) , [Msg HandleMacros])
       -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
     reconstruct ((failedMacros, decls'), msgs) =
-      let index' :: DeclIndex
-          index' = DeclIndex.registerMacroFailures failedMacros unitAnn.declIndex
-
-          unit = C.TranslationUnit{
-              unitDecls = decls'
-            , unitIncludeGraph
-            , unitAnn = unitAnn {
-                declIndex = index'
+        let unit' = C.TranslationUnit{
+                decls        = decls'
+              , includeGraph = unit.includeGraph
+              , ann          = unit.ann{
+                    declIndex = DeclIndex.registerMacroFailures
+                                  failedMacros
+                                  unit.ann.declIndex
+                  }
               }
-            }
-      in  (unit, msgs)
+        in (unit', msgs)
 
 processDecl ::
      C.Decl ConstructTranslationUnit
