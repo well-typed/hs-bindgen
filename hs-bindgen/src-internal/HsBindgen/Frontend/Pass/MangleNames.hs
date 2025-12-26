@@ -337,14 +337,14 @@ mangleArgumentName info argName =
 -- Right now we reuse the name of the type also for the constructor.
 mkStructNames :: C.DeclInfo MangleNames -> RecordNames
 mkStructNames info = RecordNames{
-      recordConstr = Hs.unsafeHsIdHsName info.declId.hsName
+      constr = Hs.unsafeHsIdHsName info.declId.hsName
     }
 
 -- | Generic construction of newtype names, given only the type name
 mkNewtypeNames :: C.DeclInfo MangleNames -> NewtypeNames
 mkNewtypeNames info = NewtypeNames{
-      newtypeConstr = Hs.unsafeHsIdHsName $          info.declId.hsName
-    , newtypeField  = Hs.unsafeHsIdHsName $ "un_" <> info.declId.hsName
+      constr = Hs.unsafeHsIdHsName $          info.declId.hsName
+    , field  = Hs.unsafeHsIdHsName $ "un_" <> info.declId.hsName
     }
 
 -- | Union names

@@ -256,7 +256,7 @@ structDecs opts haddockConfig info struct spec fields = do
         hsStruct :: Hs.Struct n
         hsStruct = Hs.Struct {
             structName      = structName
-          , structConstr    = MangleNames.recordConstr (structNames struct)
+          , structConstr    = (structNames struct).constr
           , structFields    = structFields
           , structInstances = insts
           , structOrigin    = Just Origin.Decl{
@@ -463,11 +463,11 @@ unionDecs haddockConfig info union spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = MangleNames.newtypeConstr (unionNames union)
+        newtypeConstr = (unionNames union).constr
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-              fieldName    = MangleNames.newtypeField (unionNames union)
+              fieldName    = (unionNames union).field
             , fieldType    = Hs.HsByteArray
             , fieldOrigin  = Origin.GeneratedField
             , fieldComment = Nothing
@@ -663,11 +663,11 @@ enumDecs opts haddockConfig info e spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = MangleNames.newtypeConstr (enumNames e)
+        newtypeConstr = (enumNames e).constr
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-            fieldName    = MangleNames.newtypeField (enumNames e)
+            fieldName    = (enumNames e).field
           , fieldType    = Type.topLevel (C.enumType e)
           , fieldOrigin  = Origin.GeneratedField
           , fieldComment = Nothing
@@ -823,11 +823,11 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = MangleNames.newtypeConstr (typedefNames typedef)
+        newtypeConstr = (typedefNames typedef).constr
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-            fieldName    = MangleNames.newtypeField (typedefNames typedef)
+            fieldName    = (typedefNames typedef).field
           , fieldType    = Type.topLevel (C.typedefType typedef)
           , fieldOrigin  = Origin.GeneratedField
           , fieldComment = Nothing
@@ -1054,8 +1054,8 @@ typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
     auxTypedef = C.Typedef{
           typedefType = C.TypeFun args res
         , typedefAnn  = MangleNames.NewtypeNames{
-              newtypeConstr = Hs.unsafeHsIdHsName $          auxHsName
-            , newtypeField  = Hs.unsafeHsIdHsName $ "un_" <> auxHsName
+              constr = Hs.unsafeHsIdHsName $          auxHsName
+            , field  = Hs.unsafeHsIdHsName $ "un_" <> auxHsName
             }
         }
 
@@ -1111,11 +1111,11 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
         newtypeName = Hs.unsafeHsIdHsName info.declId.hsName
 
         newtypeConstr :: Hs.Name Hs.NsConstr
-        newtypeConstr = MangleNames.newtypeConstr (macroTypeNames macroType)
+        newtypeConstr = (macroTypeNames macroType).constr
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-              fieldName    = MangleNames.newtypeField (macroTypeNames macroType)
+              fieldName    = (macroTypeNames macroType).field
             , fieldType    = Type.topLevel macroType.typ
             , fieldOrigin  = Origin.GeneratedField
             , fieldComment = Nothing
