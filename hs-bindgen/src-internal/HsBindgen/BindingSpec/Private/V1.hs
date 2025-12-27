@@ -1075,20 +1075,21 @@ newtype AConstraintSpec = AConstraintSpec ConstraintSpec
 
 instance Aeson.FromJSON AConstraintSpec where
   parseJSON = Aeson.withObject "AConstraintSpec" $ \o -> do
-    constraintSpecClass <- o .: "class"
-    extRefModule        <- o .: "hsmodule"
-    extRefIdentifier    <- o .: "hsname"
-    let constraintSpecRef = Hs.ExtRef{..}
-    return $ AConstraintSpec ConstraintSpec{..}
+      constraintSpecClass <- o .: "class"
+      extRefModule        <- o .: "hsmodule"
+      extRefIdentifier    <- o .: "hsname"
+      let constraintSpecRef = Hs.ExtRef{
+              moduleName = extRefModule
+            , ident      = extRefIdentifier
+            }
+      return $ AConstraintSpec ConstraintSpec{..}
 
 instance Aeson.ToJSON AConstraintSpec where
-  toJSON (AConstraintSpec ConstraintSpec{..}) =
-    let Hs.ExtRef{..} = constraintSpecRef
-    in  Aeson.object [
-            "class"    .= constraintSpecClass
-          , "hsmodule" .= extRefModule
-          , "hsname"   .= extRefIdentifier
-          ]
+  toJSON (AConstraintSpec ConstraintSpec{..}) = Aeson.object [
+        "class"    .= constraintSpecClass
+      , "hsmodule" .= constraintSpecRef.moduleName
+      , "hsname"   .= constraintSpecRef.ident
+      ]
 
 --------------------------------------------------------------------------------
 

@@ -858,8 +858,11 @@ instance Pretty Hs.Identifier where
   pretty = PP.string . Text.unpack . (.text)
 
 instance Pretty Hs.ExtRef where
-  pretty Hs.ExtRef{..} =
-    PP.hcat [pretty extRefModule, PP.char '.', pretty extRefIdentifier]
+  pretty extRef = PP.hcat [
+        pretty extRef.moduleName
+      , PP.char '.'
+      , pretty extRef.ident
+      ]
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions

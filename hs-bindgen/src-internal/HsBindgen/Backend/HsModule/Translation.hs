@@ -1,5 +1,3 @@
-{-# LANGUAGE RecordWildCards #-}
-
 module HsBindgen.Backend.HsModule.Translation (
     -- * GhcPragma
     GhcPragma (..)
@@ -309,9 +307,9 @@ resolveStrategyImports = \case
     Hs.DeriveVia ty -> resolveTypeImports ty
 
 resolveExtHsRefImports :: Hs.ExtRef -> ImportAcc
-resolveExtHsRefImports Hs.ExtRef{..} =
+resolveExtHsRefImports extRef =
     let hsImportModule = HsImportModule {
-            hsImportModuleName  = extRefModule
+            hsImportModuleName  = extRef.moduleName
           , hsImportModuleAlias = Nothing
           }
     in  ImportAcc False (Set.singleton hsImportModule) mempty

@@ -1,6 +1,5 @@
-{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MagicHash             #-}
 {-# LANGUAGE TemplateHaskellQuotes #-}
-{-# LANGUAGE UndecidableInstances #-}
 
 module HsBindgen.Backend.TH.Translation (
     mkDecl,
@@ -660,11 +659,11 @@ mkType env = \case
             (map bndr xs)
             (traverse (mkType env') ctxt)
             (mkType env' body)
-    TExt Hs.ExtRef{..} _cTypeSpec _hsTypeSpec ->
+    TExt extRef _cTypeSpec _hsTypeSpec ->
         TH.conT . TH.mkName $ concat [
-              Hs.moduleNameToString extRefModule
+              Hs.moduleNameToString extRef.moduleName
             , "."
-            , Text.unpack extRefIdentifier.text
+            , Text.unpack extRef.ident.text
             ]
 
 mkPrimType :: Quote q => HsPrimType -> q TH.Type
