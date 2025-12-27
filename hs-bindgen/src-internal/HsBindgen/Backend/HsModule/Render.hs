@@ -302,109 +302,111 @@ renderWrappers wrappers
 
 instance Pretty SDecl where
   pretty = \case
-    DInst Instance{..} ->
+    DInst inst ->
       let constraints =
             [ PP.hsep (pretty (resolve c) : (map (prettyPrec 1) ts))
-            | (c, ts) <- instanceSuperClasses
+            | (c, ts) <- inst.super
             ]
           -- @flist@ should either be @PP.hlist@ or @PP.vlist@
           clsContext flist = flist "(" ")" constraints
-          clsHead = PP.hsep (pretty (resolve instanceClass) : map (prettyPrec 1) instanceArgs)
+          clsHead = PP.hsep (pretty (resolve inst.clss) : map (prettyPrec 1) inst.args)
           cls flist =
                 "instance"
-            <+> (if null instanceSuperClasses
+            <+> (if null inst.super
                   then PP.empty
                   else clsContext flist <+> "=>")
             <+> clsHead
             <+> "where"
 
-          inst = PP.ifFits (cls PP.hlist) (cls PP.hlist) (cls PP.vlist)
-          typs = flip map instanceTypes $ \(g, typArgs, typSyn) -> PP.nest 2 $ PP.fsep
+          instanceHead = PP.ifFits (cls PP.hlist) (cls PP.hlist) (cls PP.vlist)
+          typs = flip map inst.types $ \(g, typArgs, typSyn) -> PP.nest 2 $ PP.fsep
             [ "type" <+> ppUnqualBackendName (resolve g) <+> PP.hsep (map (prettyPrec 1) typArgs)
                 <+> PP.char '='
             , PP.nest 2 (pretty typSyn)
             ]
-          decs = flip map instanceDecs $ \(name, expr) -> PP.nest 2 $ PP.fsep
+          decs = flip map inst.decs $ \(name, expr) -> PP.nest 2 $ PP.fsep
             [ ppUnqualBackendName (resolve name) <+> PP.char '='
             , PP.nest 2 (pretty expr)
             ]
-          prettyTopLevelComment = maybe PP.empty (pretty . TopLevelComment) instanceComment
+          prettyTopLevelComment = maybe PP.empty (pretty . TopLevelComment) inst.comment
 
-      in  PP.vsep $ prettyTopLevelComment : inst : typs ++ decs
+      in  PP.vsep $ prettyTopLevelComment : instanceHead : typs ++ decs
 
-    DRecord Record{..} ->
-      let d = PP.hsep ["data", pretty dataType, PP.char '=', pretty dataCon]
-          prettyTopLevelComment = maybe PP.empty (pretty . TopLevelComment) dataComment
+    DRecord record ->
+      let d = PP.hsep ["data", pretty record.typ, PP.char '=', pretty record.con]
+          prettyTopLevelComment = maybe PP.empty (pretty . TopLevelComment) record.comment
       in  prettyTopLevelComment
-       $$ (PP.hang d 2 $
-            PP.vcat [ PP.vlist "{" "}"
-                     [   PP.hsep [ pretty (fieldName f)
-                              , "::"
-                              , pretty (fieldType f)
-                              ]
-                     $$ prettyFieldComment
-                     | f <- dataFields
-                     , let prettyFieldComment = maybe PP.empty (pretty . PartOfDeclarationComment) (fieldComment f)
-                     ]
-                 , nestedDeriving dataDeriv
-                 ]
+       $$ ( PP.hang d 2 $ PP.vcat [
+                PP.vlist "{" "}" [
+                       PP.hsep [
+                           pretty field.name
+                         , "::"
+                         , pretty field.typ
+                         ]
+                    $$ prettyFieldComment
+                  | field <- record.fields
+                  , let prettyFieldComment = maybe PP.empty (pretty . PartOfDeclarationComment) field.comment
+                  ]
+              , nestedDeriving record.deriv
+              ]
           )
 
-    DEmptyData EmptyData{..} ->
-      let prettyComment = maybe PP.empty (pretty . TopLevelComment) emptyDataComment
+    DEmptyData empty ->
+      let prettyComment = maybe PP.empty (pretty . TopLevelComment) empty.comment
       in  prettyComment
-        $$ PP.hsep ["data", pretty emptyDataName]
+        $$ PP.hsep ["data", pretty empty.name]
 
-    DNewtype Newtype{..} ->
-      let d = PP.hsep ["newtype", pretty newtypeName, PP.char '=', pretty newtypeCon]
-          prettyComment = maybe PP.empty (pretty . TopLevelComment) newtypeComment
-          prettyFieldComment = maybe PP.empty (pretty . PartOfDeclarationComment) (fieldComment newtypeField)
+    DNewtype newtyp ->
+      let d = PP.hsep ["newtype", pretty newtyp.name, PP.char '=', pretty newtyp.con]
+          prettyComment = maybe PP.empty (pretty . TopLevelComment) newtyp.comment
+          prettyFieldComment = maybe PP.empty (pretty . PartOfDeclarationComment) newtyp.field.comment
       in  prettyComment
-       $$ (PP.hang d 2 $ PP.vcat [
-             PP.vlist "{" "}"
-               [ PP.hsep
-                   [ pretty (fieldName newtypeField)
-                   , "::"
-                   , pretty (fieldType newtypeField)
-                   ]
-               $$ prettyFieldComment
-               ]
-           , nestedDeriving newtypeDeriv
-           ])
+       $$ ( PP.hang d 2 $ PP.vcat [
+                PP.vlist "{" "}" [
+                      PP.hsep [
+                          pretty newtyp.field.name
+                        , "::"
+                        , pretty newtyp.field.typ
+                        ]
+                    $$ prettyFieldComment
+                  ]
+              , nestedDeriving newtyp.deriv
+              ]
+          )
 
-    DForeignImport ForeignImport{..} ->
+    DForeignImport foreignImport ->
       -- Variable names here refer to the syntax of foreign declarations at
       -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1540008.4>
       let -- TODO: We should escape special characters inside these import
           -- strings (at the very least quotes in filenames?)
           callconv, impent :: CtxDoc
           (callconv, impent) =
-            case foreignImportCallConv of
+            case foreignImport.callConv of
               CallConvUserlandCAPI _ -> ("ccall",
-                  PP.string $ Text.unpack foreignImportOrigName.text
+                  PP.string $ Text.unpack foreignImport.origName.text
                 )
               CallConvGhcCAPI header -> ("capi", PP.hcat [
                   PP.string header
-                , PP.string $ Text.unpack foreignImportOrigName.text
+                , PP.string $ Text.unpack foreignImport.origName.text
                 ])
               CallConvGhcCCall style -> ("ccall", PP.hcat [
                   case style of
                     ImportAsValue -> ""
                     ImportAsPtr   -> "&"
-                , PP.string $ Text.unpack foreignImportOrigName.text
+                , PP.string $ Text.unpack foreignImport.origName.text
                 ])
 
-          prettyComment = maybe PP.empty (pretty . TopLevelComment) foreignImportComment
+          prettyComment = maybe PP.empty (pretty . TopLevelComment) foreignImport.comment
 
       in  prettyComment
        $$ PP.hsep [ "foreign import"
                , callconv
-               , safety foreignImportSafety
+               , safety foreignImport.safety
                , "\"" >< impent >< "\""
-               , pretty foreignImportName
+               , pretty foreignImport.name
                , "::"
                ]
-       $$ PP.nest 5 (prettyBindingType foreignImportParameters foreignImportResult)
+       $$ PP.nest 5 (prettyBindingType foreignImport.parameters foreignImport.result)
 
     DBinding Binding{..} ->
       let prettyComment = maybe PP.empty (pretty . TopLevelComment) comment
@@ -423,17 +425,17 @@ instance Pretty SDecl where
             , PP.nest 2 $ pretty body
             ]
 
-    DDerivingInstance DerivingInstance {..} ->
-      maybe PP.empty (pretty . TopLevelComment) derivingInstanceComment
-        $$ "deriving" <+> strategy derivingInstanceStrategy
+    DDerivingInstance deriv ->
+      maybe PP.empty (pretty . TopLevelComment) deriv.comment
+        $$ "deriving" <+> strategy deriv.strategy
                       <+> "instance"
-                      <+> pretty derivingInstanceType
+                      <+> pretty deriv.typ
 
-    DPatternSynonym PatternSynonym {..} ->
-      let prettyComment = maybe PP.empty (pretty . TopLevelComment) patSynComment
+    DPatternSynonym patSyn ->
+      let prettyComment = maybe PP.empty (pretty . TopLevelComment) patSyn.comment
        in PP.vcat [ prettyComment
-               , "pattern" <+> pretty patSynName <+> "::" <+> pretty patSynType
-               , "pattern" <+> pretty patSynName <+> "=" <+> pretty patSynRHS
+               , "pattern" <+> pretty patSyn.name <+> "::" <+> pretty patSyn.typ
+               , "pattern" <+> pretty patSyn.name <+> "=" <+> pretty patSyn.rhs
                ]
 
 -- | Nested deriving clauses (as part of a datatype declaration)

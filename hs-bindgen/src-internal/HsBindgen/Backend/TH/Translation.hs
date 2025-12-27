@@ -671,7 +671,7 @@ mkPrimType = TH.conT . mkGlobalP
 
 mkDecl :: forall q. Guasi q => SDecl -> q [TH.Dec]
 mkDecl = \case
-      DInst i  -> do
+      DInst inst -> do
         instanceDec <-
           TH.instanceD
             (return [])
@@ -679,13 +679,13 @@ mkDecl = \case
               []
               (sequence [
                   appsT (TH.conT $ mkGlobal g) (map (mkType EmptyEnv) ts)
-                | (g, ts) <- instanceSuperClasses i
+                | (g, ts) <- inst.super
                 ])
-              (appsT (TH.conT $ mkGlobal $ instanceClass i)
-                (map (mkType EmptyEnv) $ instanceArgs i)))
+              (appsT (TH.conT $ mkGlobal inst.clss)
+                (map (mkType EmptyEnv) inst.args)))
             (concat [
-                map instTySyn (instanceTypes i)
-              , map (\(x, f) -> simpleDecl (mkGlobal x) f) (instanceDecs i)
+                map instTySyn inst.types
+              , map (\(x, f) -> simpleDecl (mkGlobal x) f) inst.decs
               ])
 
         -- TODO: add haddock comment to the class head, see issue #976. We also
@@ -695,50 +695,49 @@ mkDecl = \case
         -- withDecDoc (instanceComment i) instanceDec
         pure [instanceDec]
 
-      DRecord d -> do
+      DRecord record -> do
         let _fieldsAndDocs :: ([q TH.VarBangType], [(TH.DocLoc, Maybe HsDoc.Comment)])
             _fieldsAndDocs@(fields, docs) = unzip
               [ ( TH.varBangType thFieldName $
                     TH.bangType
                       (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
-                      (mkType EmptyEnv (fieldType f))
+                      (mkType EmptyEnv field.typ)
                 , ((TH.DeclDoc thFieldName), fComment)
                 )
-              | f <- dataFields d
-              , let thFieldName = hsNameToTH (fieldName f)
-                    fComment = fieldComment f
+              | field <- record.fields
+              , let thFieldName = hsNameToTH field.name
+                    fComment    = field.comment
               ]
 
         traverse_ (uncurry putFieldDoc) docs
 
         fmap singleton $
-          withDecDoc (dataComment d) $
+          withDecDoc record.comment $
             TH.dataD
               (TH.cxt [])
-              (hsNameToTH $ dataType d)
+              (hsNameToTH record.typ)
               []
               Nothing
-              [TH.recC (hsNameToTH (dataCon d)) fields]
-              (nestedDeriving $ dataDeriv d)
+              [TH.recC (hsNameToTH record.con) fields]
+              (nestedDeriving record.deriv)
 
-      DEmptyData d -> do
-
-        let thEmptyDataName = hsNameToTH (emptyDataName d)
-
+      DEmptyData empty -> do
+        let thEmptyDataName = hsNameToTH empty.name
         fmap singleton $
-          withDecDoc (emptyDataComment d) $
+          withDecDoc empty.comment $
             TH.dataD (TH.cxt []) thEmptyDataName [] Nothing [] []
 
-      DNewtype n -> do
-        let thFieldName = hsNameToTH (fieldName (newtypeField n))
-            thNewtypeName = hsNameToTH $ newtypeName n
-            fComment = fieldComment (newtypeField n)
-            newTyComment = newtypeComment n
+      DNewtype newtyp -> do
+        let thFieldName   = hsNameToTH newtyp.field.name
+            thNewtypeName = hsNameToTH newtyp.name
+            fComment      = newtyp.field.comment
+            newTyComment  = newtyp.comment
+
             field :: q TH.VarBangType
             field = TH.varBangType thFieldName $
               TH.bangType
                 (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
-                (mkType EmptyEnv (fieldType (newtypeField n)))
+                (mkType EmptyEnv newtyp.field.typ)
 
         putFieldDoc (TH.DeclDoc thFieldName) fComment
 
@@ -749,21 +748,21 @@ mkDecl = \case
               thNewtypeName
               []
               Nothing
-              (TH.recC (hsNameToTH (newtypeCon n))
+              (TH.recC (hsNameToTH newtyp.con)
               [field])
-              (nestedDeriving $ newtypeDeriv n)
+              (nestedDeriving newtyp.deriv)
 
-      DDerivingInstance DerivingInstance {..} -> do
-        s' <- strategy derivingInstanceStrategy
+      DDerivingInstance deriv -> do
+        s' <- strategy deriv.strategy
 
         fmap singleton $
-          withDecDoc derivingInstanceComment $
+          withDecDoc deriv.comment $
             TH.standaloneDerivWithStrategyD
               (Just s')
               (TH.cxt [])
-              (mkType EmptyEnv derivingInstanceType)
+              (mkType EmptyEnv deriv.typ)
 
-      DForeignImport ForeignImport{..} -> do
+      DForeignImport foreignImport -> do
         -- Variable names here refer to the syntax of foreign declarations at
         -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1540008.4>
         --
@@ -775,31 +774,31 @@ mkDecl = \case
             callconv :: TH.Callconv
             impent   :: String
             (callconv, impent) =
-              case foreignImportCallConv of
+              case foreignImport.callConv of
                 CallConvUserlandCAPI _ -> (TH.CCall,
-                    Text.unpack foreignImportOrigName.text
+                    Text.unpack foreignImport.origName.text
                   )
                 CallConvGhcCAPI header -> (TH.CApi, concat [
                     header
-                  , Text.unpack foreignImportOrigName.text
+                  , Text.unpack foreignImport.origName.text
                   ])
                 CallConvGhcCCall style -> (TH.CCall, concat [
                     case style of
                       ImportAsValue -> ""
                       ImportAsPtr   -> "&"
-                  , Text.unpack foreignImportOrigName.text
+                  , Text.unpack foreignImport.origName.text
                   ])
 
-            importType = foldr (TFun . (.typ)) foreignImportResult.typ foreignImportParameters
+            importType = foldr (TFun . (.typ)) foreignImport.result.typ foreignImport.parameters
 
         fmap singleton $
-          withDecDoc foreignImportComment $
+          withDecDoc foreignImport.comment $
             fmap TH.ForeignD $
               TH.ImportF
                 <$> pure callconv
                 <*> pure safety
                 <*> pure impent
-                <*> pure (hsNameToTH foreignImportName)
+                <*> pure (hsNameToTH foreignImport.name)
                 <*> mkType EmptyEnv importType
 
       DBinding Binding{..} -> do
@@ -815,19 +814,19 @@ mkDecl = \case
             , simpleDecl bindingName body
             ]
 
-      DPatternSynonym ps -> do
-        let thPatSynName = hsNameToTH (patSynName ps)
+      DPatternSynonym patSyn -> do
+        let thPatSynName = hsNameToTH patSyn.name
 
         sequence
-          [ withDecDoc (patSynComment ps) $
+          [ withDecDoc patSyn.comment $
               TH.patSynSigD
               thPatSynName
-              (mkType EmptyEnv (patSynType ps))
+              (mkType EmptyEnv patSyn.typ)
           , TH.patSynD
             thPatSynName
             (TH.prefixPatSyn [])
             TH.implBidir
-            (mkPat (patSynRHS ps))
+            (mkPat patSyn.rhs)
           ]
     where
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec

@@ -14,52 +14,54 @@ import HsBindgen.Imports
 -- | Which GHC language extensions this declarations needs.
 requiredExtensions :: SDecl -> Set TH.Extension
 requiredExtensions = \case
-    DInst x -> mconcat . concat $ [
-        [ext TH.MultiParamTypeClasses | length (instanceArgs x) >= 2]
-      , [ext TH.TypeFamilies          | not (null (instanceTypes x))]
-      , [globalExtensions $ instanceClass x]
-      , concat [ globalExtensions c : map typeExtensions ts
-          | (c, ts) <- instanceSuperClasses x
+    DInst inst -> mconcat . concat $ [
+        [ext TH.MultiParamTypeClasses | length inst.args >= 2]
+      , [ext TH.TypeFamilies          | not (null inst.types)]
+      , [globalExtensions inst.clss]
+      , concat [
+            globalExtensions c : map typeExtensions ts
+          | (c, ts) <- inst.super
           ]
-      , typeExtensions <$> instanceArgs x
+      , typeExtensions <$> inst.args
       , concat [
             globalExtensions t : typeExtensions r : map typeExtensions as
-          | (t, as, r) <- instanceTypes x
+          | (t, as, r) <- inst.types
           ]
       , concat [
             [globalExtensions f, exprExtensions e]
-          | (f, e) <- instanceDecs x
+          | (f, e) <- inst.decs
           ]
       ]
-    DRecord r -> mconcat [
-        recordExtensions r
-      , nestedDeriving (dataDeriv r)
+    DRecord record -> mconcat [
+        recordExtensions record
+      , nestedDeriving record.deriv
       ]
-    DNewtype n -> mconcat [
-        nestedDeriving (newtypeDeriv n)
-      , typeExtensions $ fieldType $ newtypeField n
+    DNewtype newtyp -> mconcat [
+        nestedDeriving newtyp.deriv
+      , typeExtensions newtyp.field.typ
       ]
     DEmptyData{} -> mconcat [
         ext TH.EmptyDataDecls
       ]
-    DDerivingInstance DerivingInstance{..} -> mconcat [
+    DDerivingInstance deriv -> mconcat [
         Set.fromList [
             TH.DerivingStrategies
           , TH.StandaloneDeriving
           ]
-      , strategyExtensions derivingInstanceStrategy
-      , typeExtensions derivingInstanceType
+      , strategyExtensions deriv.strategy
+      , typeExtensions deriv.typ
       ]
-    DForeignImport ForeignImport{..} -> mconcat [
+    DForeignImport foreignImport -> mconcat [
         -- Note: GHC doesn't require CApiFFI in TH: https://gitlab.haskell.org/ghc/ghc/-/issues/25774
         ext TH.CApiFFI
-      ,    foldMap (typeExtensions . (.typ)) foreignImportParameters
-        <> typeExtensions foreignImportResult.typ
+      , foldMap (typeExtensions . (.typ)) foreignImport.parameters
+      , typeExtensions foreignImport.result.typ
       ]
-    DBinding Binding{..} ->
-         foldMap (typeExtensions . (.typ)) parameters
-      <> typeExtensions (result.typ)
-      <> exprExtensions body
+    DBinding Binding{..} -> mconcat [
+        foldMap (typeExtensions . (.typ)) parameters
+      , typeExtensions (result.typ)
+      , exprExtensions body
+      ]
     DPatternSynonym{} -> mconcat [
         ext TH.PatternSynonyms
       ]
@@ -77,10 +79,10 @@ nestedDeriving deriv =
         ]
 
 recordExtensions :: Record -> Set TH.Extension
-recordExtensions r = foldMap fieldExtensions (dataFields r)
+recordExtensions record = foldMap fieldExtensions record.fields
 
 fieldExtensions :: Field -> Set TH.Extension
-fieldExtensions f = typeExtensions (fieldType f)
+fieldExtensions field = typeExtensions field.typ
 
 globalExtensions :: Global -> Set TH.Extension
 globalExtensions = \case

@@ -29,30 +29,30 @@ translatePrimInstance ::
   -> Hs.PrimInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translatePrimInstance struct inst mbComment =
-    let indexBA   = lambda (lambda (translateDirectApply translateIndexByteArrayField)) inst.indexByteArray
-        readBA    = lambda (lambda (lambda (translateReadByteArrayFields struct))) inst.readByteArray
-        writeBA   = lambda (lambda (lambda (lambda (translateElimStruct translateWriteByteArrayFields)))) inst.writeByteArray
-        indexAddr = lambda (lambda (translateDirectApply translateIndexOffAddrField)) inst.indexOffAddr
-        readAddr  = lambda (lambda (lambda (translateReadOffAddrFields struct))) inst.readOffAddr
-        writeAddr = lambda (lambda (lambda (lambda (translateElimStruct translateWriteOffAddrFields)))) inst.writeOffAddr
-    in Instance
-      { instanceClass = Prim_class
-      , instanceArgs  = [TCon struct.name]
-      , instanceSuperClasses = []
-      , instanceTypes = []
-      , instanceDecs  = [
-            (Prim_sizeOf#         , EUnusedLam $ EUnboxedIntegral (toInteger inst.sizeOf))
-          , (Prim_alignment#      , EUnusedLam $ EUnboxedIntegral (toInteger inst.alignment))
-          , (Prim_indexByteArray# , indexBA)
-          , (Prim_readByteArray#  , readBA)
-          , (Prim_writeByteArray# , writeBA)
-          , (Prim_indexOffAddr#   , indexAddr)
-          , (Prim_readOffAddr#    , readAddr)
-          , (Prim_writeOffAddr#   , writeAddr)
-          ]
-      , instanceComment = mbComment
-      }
+translatePrimInstance struct inst mbComment = Instance{
+      clss    = Prim_class
+    , args    = [TCon struct.name]
+    , super   = []
+    , types   = []
+    , comment = mbComment
+    , decs    = [
+          (Prim_sizeOf#         , EUnusedLam $ EUnboxedIntegral (toInteger inst.sizeOf))
+        , (Prim_alignment#      , EUnusedLam $ EUnboxedIntegral (toInteger inst.alignment))
+        , (Prim_indexByteArray# , indexBA)
+        , (Prim_readByteArray#  , readBA)
+        , (Prim_writeByteArray# , writeBA)
+        , (Prim_indexOffAddr#   , indexAddr)
+        , (Prim_readOffAddr#    , readAddr)
+        , (Prim_writeOffAddr#   , writeAddr)
+        ]
+    }
+  where
+    indexBA   = lambda (lambda (translateDirectApply translateIndexByteArrayField)) inst.indexByteArray
+    readBA    = lambda (lambda (lambda (translateReadByteArrayFields struct))) inst.readByteArray
+    writeBA   = lambda (lambda (lambda (lambda (translateElimStruct translateWriteByteArrayFields)))) inst.writeByteArray
+    indexAddr = lambda (lambda (translateDirectApply translateIndexOffAddrField)) inst.indexOffAddr
+    readAddr  = lambda (lambda (lambda (translateReadOffAddrFields struct))) inst.readOffAddr
+    writeAddr = lambda (lambda (lambda (lambda (translateElimStruct translateWriteOffAddrFields)))) inst.writeOffAddr
 
 {-------------------------------------------------------------------------------
   Index operations (pure reads)
