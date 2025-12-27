@@ -52,8 +52,8 @@ hasBaseForeignTypeDecs nt =
   where
     mk :: Hs.Decl
     mk = Hs.DeclDeriveInstance Hs.DeriveInstance{
-          deriveInstanceStrategy = Hs.DeriveNewtype
-        , deriveInstanceClass    = HasBaseForeignType
-        , deriveInstanceName     = nt.name
-        , deriveInstanceComment  = Nothing
+          strategy = Hs.DeriveNewtype
+        , clss     = HasBaseForeignType
+        , name     = nt.name
+        , comment  = Nothing
         }

@@ -155,12 +155,11 @@ translateNewtype n = DNewtype Newtype{
     }
 
 translateDeriveInstance :: Hs.DeriveInstance -> SDecl
-translateDeriveInstance Hs.DeriveInstance{..} = DDerivingInstance
-  DerivingInstance {
-        derivingInstanceStrategy = fmap translateType deriveInstanceStrategy
-      , derivingInstanceType     = TApp (translateTypeClass deriveInstanceClass) (TCon deriveInstanceName)
-      , derivingInstanceComment  = deriveInstanceComment
-      }
+translateDeriveInstance deriv = DDerivingInstance DerivingInstance {
+      derivingInstanceStrategy = fmap translateType deriv.strategy
+    , derivingInstanceType     = TApp (translateTypeClass deriv.clss) (TCon deriv.name)
+    , derivingInstanceComment  = deriv.comment
+    }
 
 translateTypeClass :: Hs.TypeClass -> ClosedType
 translateTypeClass Hs.Bits               = TGlobal Bits_class

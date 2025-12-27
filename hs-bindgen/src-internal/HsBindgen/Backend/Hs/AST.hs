@@ -190,12 +190,12 @@ data UnionSetter = UnionSetter{
     }
   deriving stock (Generic, Show)
 
-data DeriveInstance = DeriveInstance
-  { deriveInstanceStrategy :: Strategy HsType
-  , deriveInstanceClass    :: Hs.TypeClass
-  , deriveInstanceName     :: Hs.Name Hs.NsTypeConstr
-  , deriveInstanceComment  :: Maybe HsDoc.Comment
-  }
+data DeriveInstance = DeriveInstance{
+      strategy :: Strategy HsType
+    , clss     :: Hs.TypeClass
+    , name     :: Hs.Name Hs.NsTypeConstr
+    , comment  :: Maybe HsDoc.Comment
+    }
   deriving stock (Generic, Show)
 
 data Var = Var {

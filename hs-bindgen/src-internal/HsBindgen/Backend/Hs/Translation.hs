@@ -295,12 +295,11 @@ structDecs opts haddockConfig info struct spec fields = do
 
         optDecls :: [Hs.Decl]
         optDecls = [
-            Hs.DeclDeriveInstance
-              Hs.DeriveInstance {
-                deriveInstanceStrategy = strat
-              , deriveInstanceClass    = clss
-              , deriveInstanceName     = structName
-              , deriveInstanceComment  = Nothing
+            Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = strat
+              , clss     = clss
+              , name     = structName
+              , comment  = Nothing
               }
           | (strat, clss) <- translationDeriveStruct opts
           , clss `Set.member` insts
@@ -493,30 +492,26 @@ unionDecs haddockConfig info union spec = do
         concatMap (unionFieldDecls nt.name) union.fields
       where
         storableDecl :: Hs.Decl
-        storableDecl =
-          Hs.DeclDeriveInstance
-            Hs.DeriveInstance {
-              deriveInstanceStrategy = Hs.DeriveVia sba
-            , deriveInstanceClass    = Hs.Storable
-            , deriveInstanceName     = nt.name
-            , deriveInstanceComment  = Nothing
+        storableDecl = Hs.DeclDeriveInstance Hs.DeriveInstance{
+              strategy = Hs.DeriveVia sba
+            , clss     = Hs.Storable
+            , name     = nt.name
+            , comment  = Nothing
             }
 
         primDecl :: Hs.Decl
-        primDecl =
-          Hs.DeclDeriveInstance
-            Hs.DeriveInstance {
-              deriveInstanceStrategy = Hs.DeriveVia sba
-            , deriveInstanceClass    = Hs.Prim
-            , deriveInstanceName     = nt.name
-            , deriveInstanceComment  = Nothing
+        primDecl = Hs.DeclDeriveInstance Hs.DeriveInstance{
+              strategy = Hs.DeriveVia sba
+            , clss     = Hs.Prim
+            , name     = nt.name
+            , comment  = Nothing
             }
 
         sba :: Hs.HsType
         sba =
-          HsSizedByteArray
-            (fromIntegral union.sizeof)
-            (fromIntegral union.alignment)
+            HsSizedByteArray
+              (fromIntegral union.sizeof)
+              (fromIntegral union.alignment)
 
         accessorDecls :: [Hs.Decl]
         accessorDecls = concatMap getAccessorDecls union.fields
@@ -719,20 +714,20 @@ enumDecs opts haddockConfig info enum spec = do
           }
 
         primDecl :: Hs.Decl
-        primDecl = Hs.DeclDeriveInstance Hs.DeriveInstance {
-              deriveInstanceStrategy = Hs.DeriveVia nt.field.typ
-            , deriveInstanceClass    = Hs.Prim
-            , deriveInstanceName     = nt.name
-            , deriveInstanceComment  = Nothing
+        primDecl = Hs.DeclDeriveInstance Hs.DeriveInstance{
+              strategy = Hs.DeriveVia nt.field.typ
+            , clss     = Hs.Prim
+            , name     = nt.name
+            , comment  = Nothing
             }
 
         optDecls :: [Hs.Decl]
         optDecls = [
-            Hs.DeclDeriveInstance Hs.DeriveInstance {
-                deriveInstanceName     = nt.name
-              , deriveInstanceClass    = clss
-              , deriveInstanceStrategy = strat
-              , deriveInstanceComment  = Nothing
+            Hs.DeclDeriveInstance Hs.DeriveInstance{
+                name     = nt.name
+              , clss     = clss
+              , strategy = strat
+              , comment  = Nothing
               }
           | (strat, clss) <- translationDeriveEnum opts
           ]
@@ -856,35 +851,30 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
         storableDecl :: [Hs.Decl]
         storableDecl
           | Hs.Storable `Set.notMember` nt.instances = []
-          | otherwise = singleton $
-              Hs.DeclDeriveInstance
-                Hs.DeriveInstance {
-                  deriveInstanceStrategy = Hs.DeriveNewtype
-                , deriveInstanceClass    = Hs.Storable
-                , deriveInstanceName     = nt.name
-                , deriveInstanceComment  = Nothing
-                }
+          | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = Hs.DeriveNewtype
+              , clss     = Hs.Storable
+              , name     = nt.name
+              , comment  = Nothing
+              }
 
         primDecl :: [Hs.Decl]
         primDecl
           | Hs.Prim `Set.notMember` nt.instances = []
-          | otherwise = singleton $
-              Hs.DeclDeriveInstance
-                Hs.DeriveInstance {
-                  deriveInstanceStrategy = Hs.DeriveNewtype
-                , deriveInstanceClass    = Hs.Prim
-                , deriveInstanceName     = nt.name
-                , deriveInstanceComment  = Nothing
-                }
+          | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = Hs.DeriveNewtype
+              , clss     = Hs.Prim
+              , name     = nt.name
+              , comment  = Nothing
+              }
 
         optDecls :: [Hs.Decl]
         optDecls = [
-            Hs.DeclDeriveInstance
-              Hs.DeriveInstance {
-                deriveInstanceStrategy = strat
-              , deriveInstanceClass    = clss
-              , deriveInstanceName     = nt.name
-              , deriveInstanceComment  = Nothing
+            Hs.DeclDeriveInstance Hs.DeriveInstance {
+                strategy = strat
+              , clss     = clss
+              , name     = nt.name
+              , comment  = Nothing
               }
           | (strat, clss) <- translationDeriveTypedef opts
           , clss `Set.member` nt.instances
@@ -1131,23 +1121,20 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
         storableDecl :: [Hs.Decl]
         storableDecl
           | Hs.Storable `Set.notMember` nt.instances = []
-          | otherwise = singleton $
-              Hs.DeclDeriveInstance
-                Hs.DeriveInstance {
-                  deriveInstanceStrategy = Hs.DeriveNewtype
-                , deriveInstanceClass    = Hs.Storable
-                , deriveInstanceName     = nt.name
-                , deriveInstanceComment  = Nothing
-                }
+          | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = Hs.DeriveNewtype
+              , clss     = Hs.Storable
+              , name     = nt.name
+              , comment  = Nothing
+              }
 
         optDecls :: [Hs.Decl]
         optDecls = [
-            Hs.DeclDeriveInstance
-              Hs.DeriveInstance {
-                deriveInstanceStrategy = strat
-              , deriveInstanceClass    = clss
-              , deriveInstanceName     = nt.name
-              , deriveInstanceComment  = Nothing
+            Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = strat
+              , clss     = clss
+              , name     = nt.name
+              , comment  = Nothing
               }
           | (strat, clss) <- translationDeriveTypedef opts
           , clss `Set.member` nt.instances
