@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | A fork of @tasty-golden" with additional features
 --
 -- New features:
@@ -71,7 +74,13 @@ goldenTestSteps ::
      -- ^ Remove the golden file
   -> TestTree
 goldenTestSteps t getGolden getActual comparison updateGolden removeGolden =
-    singleTest t $ GoldenTest GoldenSteps{..}
+    singleTest t $ GoldenTest GoldenSteps{
+        getGolden
+      , getActual
+      , comparison
+      , updateGolden
+      , removeGolden
+      }
 
 {-------------------------------------------------------------------------------
   Test options
@@ -125,7 +134,7 @@ instance IsTest GoldenTest where
         ]
 
 runGoldenSteps :: GoldenSteps a -> (Progress -> IO ()) -> OptionSet -> IO Result
-runGoldenSteps GoldenSteps{..} progress opts = do
+runGoldenSteps steps progress opts = do
     msgsRef <- newIORef []
     let stepFn :: String -> IO ()
         stepFn msg = do
@@ -135,7 +144,7 @@ runGoldenSteps GoldenSteps{..} progress opts = do
 
     -- get actual value
     mbNew :: Either SomeException (ActualValue a) <-
-      try $ getActual stepFn
+      try $ steps.getActual stepFn
     msgs :: [String] <-
       readIORef msgsRef <&> reverse
 
@@ -159,7 +168,7 @@ runGoldenSteps GoldenSteps{..} progress opts = do
         testFailedWith err
 
       Right ActualNoOutput -> do
-        mbRef <- try getGolden
+        mbRef <- try steps.getGolden
         case mbRef of
          Left e
            | Just e' <- fromException e, isDoesNotExistError e' ->
@@ -168,18 +177,18 @@ runGoldenSteps GoldenSteps{..} progress opts = do
              throwIO e
          Right _ -> do
            if accept then do
-             removeGolden
+             steps.removeGolden
              testPassedWith "Golden file existed but test has no output; removed"
            else do
              testFailedWith "Test had no output, but golden file exists"
 
       Right (ActualValue new) -> do
-        mbRef <- try getGolden
+        mbRef <- try steps.getGolden
         case mbRef of
           Left e
             | Just e' <- fromException e, isDoesNotExistError e' ->
                 if accept then do
-                  updateGolden new
+                  steps.updateGolden new
                   testPassedWith "Golden file did not exist; created"
                 else do
                   testFailedWith "Golden file does not exist"
@@ -191,20 +200,20 @@ runGoldenSteps GoldenSteps{..} progress opts = do
                 -- Other types of exceptions may be due to failing to decode the
                 -- golden file. In that case, it makes sense to replace a broken
                 -- golden file with the current version.
-                updateGolden new
+                steps.updateGolden new
                 testPassedWith $ concat [
                     "Accepted the new version. Was failing with exception: "
                   , displayException e
                   ]
 
           Right ref -> do
-              result <- comparison ref new
+              result <- steps.comparison ref new
               case result of
                 Nothing ->
                   pure $ testPassed $ unlines msgs
                 Just _reason | accept -> do
                   -- test failed; accept the new version
-                  updateGolden new
+                  steps.updateGolden new
                   testPassedWith "Accepted the new version"
                 Just reason -> do
                   -- Make sure that the result is fully evaluated and doesn't

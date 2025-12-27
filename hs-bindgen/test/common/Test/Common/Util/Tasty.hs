@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Utilities for writing @tasty@ tests
 --
 -- Intended for unqualified import.
@@ -29,8 +33,8 @@ assertException :: forall e a.
      Exception e
   => String -> Proxy e -> IO a -> Assertion
 assertException msg _ action = do
-  result <- tryJust (\x -> fromException x :: Maybe e) action
-  when (isRight result) $ assertFailure msg
+   result <- tryJust (\x -> fromException x :: Maybe e) action
+   when (isRight result) $ assertFailure msg
 
 {-------------------------------------------------------------------------------
   Golden tests
