@@ -181,20 +181,20 @@ instance Monoid ImportAcc where
 -- | Resolve imports in a declaration
 resolveDeclImports :: SDecl -> ImportAcc
 resolveDeclImports = \case
-    DInst Instance{..} -> mconcat $
-         [resolveGlobalImports instanceClass]
-      ++ map resolveTypeImports instanceArgs
+    DInst inst -> mconcat $
+         [resolveGlobalImports inst.clss]
+      ++ map resolveTypeImports inst.args
       ++ concat [
              resolveGlobalImports c : map resolveTypeImports ts
-           | (c, ts) <- instanceSuperClasses
+           | (c, ts) <- inst.super
            ]
       ++ concat [
              resolveGlobalImports t : resolveTypeImports r : map resolveTypeImports as
-           | (t, as, r) <- instanceTypes
+           | (t, as, r) <- inst.types
            ]
       ++ concat [
             [resolveGlobalImports f, resolveExprImports e]
-          | (f, e) <- instanceDecs
+          | (f, e) <- inst.decs
           ]
     DRecord Record{..} -> mconcat [
         mconcat $ map (resolveTypeImports . fieldType) dataFields

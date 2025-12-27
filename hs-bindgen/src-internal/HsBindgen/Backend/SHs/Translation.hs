@@ -80,12 +80,14 @@ translateDefineInstanceDecl defInst =
         DInst $ translateHasFieldInstance i defInst.comment
       Hs.InstanceHasFLAM struct fty i ->
         DInst Instance{
-            instanceClass   = HasFlexibleArrayMember_class
-          , instanceArgs    = [ translateType fty, TCon struct.name ]
-          , instanceSuperClasses = []
-          , instanceTypes   = []
-          , instanceDecs    = [(HasFlexibleArrayMember_offset, ELam "_ty" $ EIntegral (toInteger i) Nothing)]
-          , instanceComment = defInst.comment
+            clss    = HasFlexibleArrayMember_class
+          , args    = [ translateType fty, TCon struct.name ]
+          , super   = []
+          , types   = []
+          , comment = defInst.comment
+          , decs    = [ ( HasFlexibleArrayMember_offset
+                        , ELam "_ty" $ EIntegral (toInteger i) Nothing)
+                      ]
           }
       Hs.InstanceCEnum struct fTyp vMap isSequential ->
         DInst $ translateCEnumInstance struct fTyp vMap isSequential defInst.comment
@@ -97,27 +99,27 @@ translateDefineInstanceDecl defInst =
         DInst $ translateCEnumInstanceRead struct defInst.comment
       Hs.InstanceToFunPtr inst ->
         DInst Instance{
-            instanceClass        = ToFunPtr_class
-          , instanceArgs         = [translateType inst.typ]
-          , instanceSuperClasses = []
-          , instanceTypes        = []
-          , instanceDecs         = [ ( ToFunPtr_toFunPtr
-                                     , EFree $ Hs.InternalName inst.body
-                                     )
-                                   ]
-          , instanceComment      = defInst.comment
+            clss    = ToFunPtr_class
+          , args    = [translateType inst.typ]
+          , super   = []
+          , types   = []
+          , comment = defInst.comment
+          , decs    = [ ( ToFunPtr_toFunPtr
+                        , EFree $ Hs.InternalName inst.body
+                        )
+                      ]
           }
       Hs.InstanceFromFunPtr inst ->
         DInst Instance{
-            instanceClass        = FromFunPtr_class
-          , instanceArgs         = [translateType inst.typ]
-          , instanceSuperClasses = []
-          , instanceTypes        = []
-          , instanceDecs         = [ ( FromFunPtr_fromFunPtr
-                                     , EFree $ Hs.InternalName inst.body
-                                     )
-                                   ]
-          , instanceComment      = defInst.comment
+            clss    = FromFunPtr_class
+          , args    = [translateType inst.typ]
+          , super   = []
+          , types   = []
+          , comment = defInst.comment
+          , decs    = [ ( FromFunPtr_fromFunPtr
+                        , EFree $ Hs.InternalName inst.body
+                        )
+                      ]
           }
 
 translateDeclData :: Hs.Struct n -> SDecl
@@ -273,12 +275,12 @@ translateStorableInstance ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateStorableInstance struct inst mbComment = Instance{
-      instanceClass        = Storable_class
-    , instanceArgs         = [TCon struct.name]
-    , instanceSuperClasses = []
-    , instanceTypes        = []
-    , instanceComment      = mbComment
-    , instanceDecs         = [
+      clss    = Storable_class
+    , args    = [TCon struct.name]
+    , super   = []
+    , types   = []
+    , comment = mbComment
+    , decs    = [
           (Storable_sizeOf    , EUnusedLam $ EInt inst.sizeOf)
         , (Storable_alignment , EUnusedLam $ EInt inst.alignment)
         , (Storable_peek      , peek)
@@ -308,17 +310,17 @@ translateHasCFieldInstance ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateHasCFieldInstance inst mbComment = Instance {
-      instanceClass        = HasCField_class
-    , instanceArgs         = [parent, fieldLit]
-    , instanceSuperClasses = []
-    , instanceComment      = mbComment
-
-    , instanceTypes = [
-          (HasCField_CFieldType, [parent, fieldLit], fieldType)
-        ]
-    , instanceDecs = [
-          (HasCField_offset#, EUnusedLam $ EUnusedLam $ EIntegral o Nothing)
-        ]
+      clss    = HasCField_class
+    , args    = [parent, fieldLit]
+    , super   = []
+    , comment = mbComment
+    , types   = [ ( HasCField_CFieldType
+                  , [parent, fieldLit], fieldType)
+                ]
+    , decs    = [ ( HasCField_offset#
+                  , EUnusedLam $ EUnusedLam $ EIntegral o Nothing
+                  )
+                ]
     }
   where
     parent    = translateType inst.parentType
@@ -335,18 +337,21 @@ translateHasCBitfieldInstance ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateHasCBitfieldInstance inst mbComment = Instance{
-      instanceClass        = HasCBitfield_class
-    , instanceArgs         = [parent, fieldLit]
-    , instanceSuperClasses = []
-    , instanceComment      = mbComment
-
-    , instanceTypes = [
-          (HasCBitfield_CBitfieldType, [parent, fieldLit], fieldType)
-        ]
-    , instanceDecs = [
-          (HasCBitfield_bitOffset# , EUnusedLam $ EUnusedLam $ EIntegral o Nothing)
-        , (HasCBitfield_bitWidth#  , EUnusedLam $ EUnusedLam $ EIntegral w Nothing)
-        ]
+      clss    = HasCBitfield_class
+    , args    = [parent, fieldLit]
+    , super   = []
+    , comment = mbComment
+    , types   = [ ( HasCBitfield_CBitfieldType
+                  , [parent, fieldLit], fieldType
+                  )
+                ]
+    , decs    = [ ( HasCBitfield_bitOffset#
+                  , EUnusedLam $ EUnusedLam $ EIntegral o Nothing
+                  )
+                , ( HasCBitfield_bitWidth#
+                  , EUnusedLam $ EUnusedLam $ EIntegral w Nothing
+                  )
+                ]
     }
   where
     parent    = translateType inst.parentType
@@ -360,24 +365,21 @@ translateHasFieldInstance ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateHasFieldInstance inst mbComment = Instance{
-      instanceClass   = HasField_class
-    , instanceArgs    = [fieldLit, parentPtr, tyPtr]
-    , instanceTypes   = []
-    , instanceComment = mbComment
-
-    , instanceSuperClasses = [
-          ( NomEq_class
-          , [ tyTypeVar
-            , TGlobal fieldTypeGlobal `TApp` parent `TApp` fieldLit
-            ]
-          )
-        ]
-    , instanceDecs = [
-          ( HasField_getField
-          , EGlobal ptrToFieldGlobal `EApp`
-              (EGlobal Proxy_constructor `ETypeApp` fieldLit)
-          )
-        ]
+      clss   = HasField_class
+    , args    = [fieldLit, parentPtr, tyPtr]
+    , types   = []
+    , comment = mbComment
+    , super   = [ ( NomEq_class
+                  , [ tyTypeVar
+                    , TGlobal fieldTypeGlobal `TApp` parent `TApp` fieldLit
+                    ]
+                  )
+                ]
+    , decs    = [ ( HasField_getField
+                  , EGlobal ptrToFieldGlobal `EApp`
+                      (EGlobal Proxy_constructor `ETypeApp` fieldLit)
+                  )
+                ]
     }
   where
     (fieldTypeGlobal, ptrToFieldGlobal, tyPtr) =
@@ -461,18 +463,18 @@ translateCEnumInstance ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
-      instanceClass = CEnum_class
-    , instanceArgs  = [tcon]
-    , instanceSuperClasses = []
-    , instanceTypes = [(CEnumZ_tycon, [tcon], translateType fTyp)]
-    , instanceDecs  = [
-          (CEnum_toCEnum, ECon struct.constr)
-        , (CEnum_fromCEnum, EFree fname)
-        , (CEnum_declaredValues, EUnusedLam declaredValuesE)
-        , (CEnum_showsUndeclared, EApp (EGlobal CEnum_showsWrappedUndeclared) dconStrE)
-        , (CEnum_readPrecUndeclared, EApp (EGlobal CEnum_readPrecWrappedUndeclared) dconStrE)
+      clss    = CEnum_class
+    , args    = [tcon]
+    , super   = []
+    , types   = [(CEnumZ_tycon, [tcon], translateType fTyp)]
+    , comment = mbComment
+    , decs    = [
+          (CEnum_toCEnum            , ECon struct.constr)
+        , (CEnum_fromCEnum          , EFree fname)
+        , (CEnum_declaredValues     , EUnusedLam declaredValuesE)
+        , (CEnum_showsUndeclared    , EApp (EGlobal CEnum_showsWrappedUndeclared) dconStrE)
+        , (CEnum_readPrecUndeclared , EApp (EGlobal CEnum_readPrecWrappedUndeclared) dconStrE)
         ] ++ seqDecs
-    , instanceComment = mbComment
     }
   where
     tcon :: ClosedType
@@ -514,15 +516,15 @@ translateSequentialCEnum ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateSequentialCEnum struct nameMin nameMax mbComment = Instance {
-      instanceClass = SequentialCEnum_class
-    , instanceArgs  = [tcon]
-    , instanceSuperClasses = []
-    , instanceTypes = []
-    , instanceDecs  = [
+      clss    = SequentialCEnum_class
+    , args    = [tcon]
+    , super   = []
+    , types   = []
+    , comment = mbComment
+    , decs    = [
           (SequentialCEnum_minDeclaredValue, ECon nameMin)
         , (SequentialCEnum_maxDeclaredValue, ECon nameMax)
         ]
-    , instanceComment = mbComment
     }
   where
     tcon :: ClosedType
@@ -533,14 +535,12 @@ translateCEnumInstanceShow ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateCEnumInstanceShow struct mbComment = Instance {
-      instanceClass = Show_class
-    , instanceArgs  = [tcon]
-    , instanceSuperClasses = []
-    , instanceTypes = []
-    , instanceDecs  = [
-          (Show_showsPrec, EGlobal CEnum_showsCEnum)
-        ]
-    , instanceComment = mbComment
+      clss    = Show_class
+    , args    = [tcon]
+    , super   = []
+    , types   = []
+    , comment = mbComment
+    , decs    = [(Show_showsPrec, EGlobal CEnum_showsCEnum)]
     }
   where
     tcon :: ClosedType
@@ -551,16 +551,16 @@ translateCEnumInstanceRead ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateCEnumInstanceRead struct mbComment = Instance {
-      instanceClass = Read_class
-    , instanceArgs  = [tcon]
-    , instanceSuperClasses = []
-    , instanceTypes = []
-    , instanceDecs  = [
-          (Read_readPrec, EGlobal CEnum_readPrecCEnum)
-        , (Read_readList, EGlobal Read_readListDefault)
-        , (Read_readListPrec, EGlobal Read_readListPrecDefault)
+      clss    = Read_class
+    , args    = [tcon]
+    , super   = []
+    , types   = []
+    , comment = mbComment
+    , decs    = [
+          (Read_readPrec     , EGlobal CEnum_readPrecCEnum)
+        , (Read_readList     , EGlobal Read_readListDefault)
+        , (Read_readListPrec , EGlobal Read_readListPrecDefault)
         ]
-    , instanceComment = mbComment
     }
   where
     tcon :: ClosedType

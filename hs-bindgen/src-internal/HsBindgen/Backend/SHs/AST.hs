@@ -369,12 +369,12 @@ infixl 9 `TApp`
 deriving stock instance Show (SType ctx)
 
 data Instance = Instance {
-      instanceClass   :: Global
-    , instanceArgs    :: [ClosedType]
-    , instanceSuperClasses :: [(Global, [ClosedType])]
-    , instanceTypes   :: [(Global, [ClosedType], ClosedType)]
-    , instanceDecs    :: [(Global, ClosedExpr)]
-    , instanceComment :: Maybe HsDoc.Comment
+      clss    :: Global
+    , args    :: [ClosedType]
+    , super   :: [(Global, [ClosedType])]
+    , types   :: [(Global, [ClosedType], ClosedType)]
+    , decs    :: [(Global, ClosedExpr)]
+    , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Show)
 

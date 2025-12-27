@@ -302,35 +302,35 @@ renderWrappers wrappers
 
 instance Pretty SDecl where
   pretty = \case
-    DInst Instance{..} ->
+    DInst inst ->
       let constraints =
             [ PP.hsep (pretty (resolve c) : (map (prettyPrec 1) ts))
-            | (c, ts) <- instanceSuperClasses
+            | (c, ts) <- inst.super
             ]
           -- @flist@ should either be @PP.hlist@ or @PP.vlist@
           clsContext flist = flist "(" ")" constraints
-          clsHead = PP.hsep (pretty (resolve instanceClass) : map (prettyPrec 1) instanceArgs)
+          clsHead = PP.hsep (pretty (resolve inst.clss) : map (prettyPrec 1) inst.args)
           cls flist =
                 "instance"
-            <+> (if null instanceSuperClasses
+            <+> (if null inst.super
                   then PP.empty
                   else clsContext flist <+> "=>")
             <+> clsHead
             <+> "where"
 
-          inst = PP.ifFits (cls PP.hlist) (cls PP.hlist) (cls PP.vlist)
-          typs = flip map instanceTypes $ \(g, typArgs, typSyn) -> PP.nest 2 $ PP.fsep
+          instanceHead = PP.ifFits (cls PP.hlist) (cls PP.hlist) (cls PP.vlist)
+          typs = flip map inst.types $ \(g, typArgs, typSyn) -> PP.nest 2 $ PP.fsep
             [ "type" <+> ppUnqualBackendName (resolve g) <+> PP.hsep (map (prettyPrec 1) typArgs)
                 <+> PP.char '='
             , PP.nest 2 (pretty typSyn)
             ]
-          decs = flip map instanceDecs $ \(name, expr) -> PP.nest 2 $ PP.fsep
+          decs = flip map inst.decs $ \(name, expr) -> PP.nest 2 $ PP.fsep
             [ ppUnqualBackendName (resolve name) <+> PP.char '='
             , PP.nest 2 (pretty expr)
             ]
-          prettyTopLevelComment = maybe PP.empty (pretty . TopLevelComment) instanceComment
+          prettyTopLevelComment = maybe PP.empty (pretty . TopLevelComment) inst.comment
 
-      in  PP.vsep $ prettyTopLevelComment : inst : typs ++ decs
+      in  PP.vsep $ prettyTopLevelComment : instanceHead : typs ++ decs
 
     DRecord Record{..} ->
       let d = PP.hsep ["data", pretty dataType, PP.char '=', pretty dataCon]

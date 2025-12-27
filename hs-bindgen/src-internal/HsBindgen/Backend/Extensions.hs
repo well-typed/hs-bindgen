@@ -14,21 +14,22 @@ import HsBindgen.Imports
 -- | Which GHC language extensions this declarations needs.
 requiredExtensions :: SDecl -> Set TH.Extension
 requiredExtensions = \case
-    DInst x -> mconcat . concat $ [
-        [ext TH.MultiParamTypeClasses | length (instanceArgs x) >= 2]
-      , [ext TH.TypeFamilies          | not (null (instanceTypes x))]
-      , [globalExtensions $ instanceClass x]
-      , concat [ globalExtensions c : map typeExtensions ts
-          | (c, ts) <- instanceSuperClasses x
+    DInst inst -> mconcat . concat $ [
+        [ext TH.MultiParamTypeClasses | length inst.args >= 2]
+      , [ext TH.TypeFamilies          | not (null inst.types)]
+      , [globalExtensions inst.clss]
+      , concat [
+            globalExtensions c : map typeExtensions ts
+          | (c, ts) <- inst.super
           ]
-      , typeExtensions <$> instanceArgs x
+      , typeExtensions <$> inst.args
       , concat [
             globalExtensions t : typeExtensions r : map typeExtensions as
-          | (t, as, r) <- instanceTypes x
+          | (t, as, r) <- inst.types
           ]
       , concat [
             [globalExtensions f, exprExtensions e]
-          | (f, e) <- instanceDecs x
+          | (f, e) <- inst.decs
           ]
       ]
     DRecord r -> mconcat [

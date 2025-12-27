@@ -671,7 +671,7 @@ mkPrimType = TH.conT . mkGlobalP
 
 mkDecl :: forall q. Guasi q => SDecl -> q [TH.Dec]
 mkDecl = \case
-      DInst i  -> do
+      DInst inst -> do
         instanceDec <-
           TH.instanceD
             (return [])
@@ -679,13 +679,13 @@ mkDecl = \case
               []
               (sequence [
                   appsT (TH.conT $ mkGlobal g) (map (mkType EmptyEnv) ts)
-                | (g, ts) <- instanceSuperClasses i
+                | (g, ts) <- inst.super
                 ])
-              (appsT (TH.conT $ mkGlobal $ instanceClass i)
-                (map (mkType EmptyEnv) $ instanceArgs i)))
+              (appsT (TH.conT $ mkGlobal inst.clss)
+                (map (mkType EmptyEnv) inst.args)))
             (concat [
-                map instTySyn (instanceTypes i)
-              , map (\(x, f) -> simpleDecl (mkGlobal x) f) (instanceDecs i)
+                map instTySyn inst.types
+              , map (\(x, f) -> simpleDecl (mkGlobal x) f) inst.decs
               ])
 
         -- TODO: add haddock comment to the class head, see issue #976. We also
