@@ -13,7 +13,6 @@ import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 
 import HsBindgen.Backend.Category
-import HsBindgen.Backend.Hs.AST (FunctionParameter (functionParameterType))
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
@@ -191,49 +190,40 @@ translateForeignImportDecl :: Hs.ForeignImportDecl -> [SDecl]
 translateForeignImportDecl importDecl = [
         DForeignImport ForeignImport{
             foreignImportParameters =
-              map (\Hs.FunctionParameter{..} ->
-                    Parameter {
-                        name    = functionParameterName
-                      , typ     = translateType functionParameterType
-                      , comment = functionParameterComment
-                      }
-                    ) importDecl.parameters
+              map translateParam importDecl.parameters
           , foreignImportResult =
               Result (translateType importDecl.result) Nothing
 
             -- The rest of the fields are copied over as-is
-          , foreignImportName       = importDecl.name
-          , foreignImportOrigName   = importDecl.origName
-          , foreignImportCallConv   = importDecl.callConv
-          , foreignImportOrigin     = importDecl.origin
-          , foreignImportComment    = importDecl.comment
-          , foreignImportSafety     = importDecl.safety
+          , foreignImportName     = importDecl.name
+          , foreignImportOrigName = importDecl.origName
+          , foreignImportCallConv = importDecl.callConv
+          , foreignImportOrigin   = importDecl.origin
+          , foreignImportComment  = importDecl.comment
+          , foreignImportSafety   = importDecl.safety
           }
       ]
 
+translateParam :: Hs.FunctionParameter -> Parameter
+translateParam param = Parameter {
+      name    = param.name
+    , typ     = translateType param.typ
+    , comment = param.comment
+    }
+
 translateFunctionDecl :: Hs.FunctionDecl -> SDecl
-translateFunctionDecl Hs.FunctionDecl{..} = DBinding
-  Binding {
+translateFunctionDecl Hs.FunctionDecl{..} = DBinding Binding{
       name
-    , parameters = map translateFunctionParameter parameters
-    , result = Result (translateType resultType) Nothing
+    , parameters = map translateParam parameters
+    , result     = Result (translateType resultType) Nothing
     , body
     , pragmas
     , comment
     }
-  where
-    translateFunctionParameter :: Hs.FunctionParameter -> Parameter
-    translateFunctionParameter Hs.FunctionParameter{..} =
-      Parameter {
-          name    = functionParameterName
-        , typ     = translateType functionParameterType
-        , comment = functionParameterComment
-        }
 
 translatePatSyn :: Hs.PatSyn -> SDecl
-translatePatSyn Hs.PatSyn {..} = DPatternSynonym
-  PatternSynonym
-    { patSynName
+translatePatSyn Hs.PatSyn {..} = DPatternSynonym PatternSynonym{
+      patSynName
     , patSynOrigin
     , patSynComment
     , patSynType = TCon patSynType

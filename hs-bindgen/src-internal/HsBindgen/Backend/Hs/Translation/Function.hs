@@ -160,11 +160,11 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
 
     foreignImportParams :: [Hs.FunctionParameter]
     foreignImportParams = [
-           Hs.FunctionParameter
-           { functionParameterName    = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
-           , functionParameterType    = Type.inContext Type.FunArg (toPrimitiveType (toIsPrimitiveType ty))
-           , functionParameterComment = Nothing
-           }
+           Hs.FunctionParameter{
+               name    = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
+             , typ     = Type.inContext Type.FunArg (toPrimitiveType (toIsPrimitiveType ty))
+             , comment = Nothing
+             }
         | (mbName, ty) <- origCFun.args
         ] ++ toList mbResultParam
 
@@ -226,10 +226,10 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     (mbRestoreOrigSignatureComment, restoreOrigSignatureParams) =
       let params :: [Hs.FunctionParameter]
           params = [
-               Hs.FunctionParameter
-               { functionParameterName    = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
-               , functionParameterType    = Type.inContext Type.FunArg (toOrigType (toIsPrimitiveType ty))
-               , functionParameterComment = Nothing
+               Hs.FunctionParameter{
+                 name    = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
+               , typ     = Type.inContext Type.FunArg (toOrigType (toIsPrimitiveType ty))
+               , comment = Nothing
                }
             | (mbName, ty) <- origCFun.args
             ]
@@ -247,17 +247,18 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     (mbResultParam, resultType) = case primResult of
         -- A heap type that is not supported by the Haskell FFI as a function
         -- result. We pass it as a function parameter instead.
-        HeapType {} -> (Just Hs.FunctionParameter {
-            functionParameterName = Nothing
-          , functionParameterType = Type.inContext Type.FunArg $ toPrimitiveType primResult
-          , functionParameterComment = Nothing
-          }
+        HeapType {} -> (
+            Just Hs.FunctionParameter {
+                name    = Nothing
+              , typ     = Type.inContext Type.FunArg $ toPrimitiveType primResult
+              , comment = Nothing
+              }
           , mbIO $ HsPrimType HsPrimUnit
           )
 
         -- A "normal" result type that is supported by the Haskell FFI.
-        PrimitiveType {} ->
-          ( Nothing
+        PrimitiveType {} -> (
+            Nothing
           , mbIO $ Type.inContext Type.FunRes $ toPrimitiveType primResult
           )
 

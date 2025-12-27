@@ -137,9 +137,9 @@ instancesFor nameTo nameFrom funC funHs = [
 
 wrapperParam :: HsType -> Hs.FunctionParameter
 wrapperParam hsType = Hs.FunctionParameter{
-      functionParameterName    = Nothing
-    , functionParameterType    = hsType
-    , functionParameterComment = Nothing
+      name    = Nothing
+    , typ     = hsType
+    , comment = Nothing
     }
 
 -- TODO: Ideally this would live elsewhere

@@ -156,11 +156,11 @@ data ForeignImportDecl = ForeignImportDecl{
     }
   deriving stock (Generic, Show)
 
-data FunctionParameter = FunctionParameter
-  { functionParameterName    :: Maybe (Hs.Name Hs.NsVar)
-  , functionParameterType    :: HsType
-  , functionParameterComment :: Maybe HsDoc.Comment
-  }
+data FunctionParameter = FunctionParameter{
+      name    :: Maybe (Hs.Name Hs.NsVar)
+    , typ     :: HsType
+    , comment :: Maybe HsDoc.Comment
+    }
   deriving stock (Generic, Show)
 
 data FunctionDecl = FunctionDecl

@@ -5,10 +5,7 @@ module HsBindgen.Backend.Hs.Haddock.Translation (
   ) where
 
 import Data.Char (isDigit)
-import Data.Maybe (isJust)
-import Data.Text (Text)
 import Data.Text qualified as Text
-import GHC.Natural (Natural)
 import System.FilePath (takeFileName)
 import Text.Read (readMaybe)
 
@@ -24,6 +21,7 @@ import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
+import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -173,11 +171,7 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Co
     filterParamCommands = \case
       [] -> []
       (blockContent@CDoc.ParamCommand{..}:cmds)
-        | any ( (== Just paramCommandName)
-              . fmap Hs.getName
-              . Hs.functionParameterName
-              )
-        $ params ->
+        | any (\p -> fmap Hs.getName p.name == Just paramCommandName) params ->
           let comment =
                 mempty {
                   HsDoc.commentOrigin   = if Text.null paramCommandName
@@ -201,33 +195,29 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Co
            -> [Hs.FunctionParameter]
         go [] currentParams = currentParams
         go ((hsComment, _mbDirection):rest) currentParams =
-          let updatedParams =
-                map (\fp@Hs.FunctionParameter {..} ->
-                       if fmap Hs.getName functionParameterName == HsDoc.commentOrigin hsComment
-                          then fp { Hs.functionParameterComment = Just hsComment }
-                          else fp
-                    ) currentParams
-           in go rest updatedParams
-
+            go rest $ map updateParam currentParams
+          where
+            updateParam :: Hs.FunctionParameter -> Hs.FunctionParameter
+            updateParam fp =
+                if fmap Hs.getName fp.name == HsDoc.commentOrigin hsComment
+                  then fp & #comment .~ Just hsComment
+                  else fp
 
 -- | If the function parameter doesn't have any comments then add a simple
 -- comment with just its name (if exists).
 --
 addFunctionParameterComment :: Hs.FunctionParameter -> Hs.FunctionParameter
-addFunctionParameterComment fp@Hs.FunctionParameter {..} =
-  case functionParameterName of
+addFunctionParameterComment fp =
+  case fp.name of
     Nothing -> fp
     Just hsName
       | Text.null (Hs.getName hsName) -> panicPure "function parameter name is null"
       | otherwise ->
-        case functionParameterComment of
-          Nothing ->
-            fp { Hs.functionParameterComment =
-                   Just mempty {
-                          HsDoc.commentOrigin = Hs.getName <$> functionParameterName
-                        }
-               }
-          _ -> fp
+        case fp.comment of
+          Just{}  -> fp
+          Nothing -> fp & #comment .~ Just mempty {
+              HsDoc.commentOrigin = Hs.getName <$> fp.name
+            }
 
 -- | Convert Clang block content to Haddock block content
 --
