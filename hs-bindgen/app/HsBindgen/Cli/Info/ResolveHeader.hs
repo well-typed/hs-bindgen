@@ -86,8 +86,7 @@ exec GlobalOpts{..} Opts{..} = do
   where
     tracerConfig' :: TracerConfig Level TraceMsg
     tracerConfig' = tracerConfigUnsafe{
-        tCustomLogLevel =
-          customLogLevel <> tCustomLogLevel tracerConfigUnsafe
+        customLogLevel = customLogLevel <> tracerConfigUnsafe.customLogLevel
       }
 
     customLogLevel :: CustomLogLevel Level TraceMsg

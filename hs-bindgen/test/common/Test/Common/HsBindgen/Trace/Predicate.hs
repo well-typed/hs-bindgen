@@ -144,7 +144,10 @@ customTracePredicateAux names mpredicate = TracePredicate $ \traces -> do
 
 quietTracerConfig :: TracerConfig l a
 quietTracerConfig = def {
-      tOutputConfig = OutputCustom noOutput DisableAnsiColor
+      outputConfig = OutputConfigCustom OutputCustom{
+          report    = noOutput
+        , ansiColor = DisableAnsiColor
+        }
     }
   where
     noOutput _lvl _trace _traceStr = pure ()
@@ -177,8 +180,11 @@ withTraceConfigPredicate report (TracePredicate predicate) action = do
       writer _ trace _ = modifyIORef' tracesRef ((:) trace)
       tracerConfig :: TracerConfig l a
       tracerConfig = def {
-          tVerbosity    = Verbosity Info
-        , tOutputConfig = OutputCustom writer DisableAnsiColor
+          verbosity    = Verbosity Info
+        , outputConfig = OutputConfigCustom OutputCustom{
+              report    = writer
+            , ansiColor = DisableAnsiColor
+            }
         }
   (action tracerConfig) `finally` do
       traces <- readIORef tracesRef

@@ -107,7 +107,7 @@ clangAstDump opts = do
   where
     tracerConf :: TracerConfig Level DumpTrace
     tracerConf = def {
-        tVerbosity = Verbosity Debug
+        verbosity = Verbosity Debug
       }
 
     cArgsConfig :: ClangArgsConfig FilePath
