@@ -174,20 +174,20 @@ genBindingSpec'
       -> ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
          , (Hs.Identifier, BindingSpec.HsTypeSpec)
          )
-    auxStruct hsStruct = case Hs.structOrigin hsStruct of
+    auxStruct hsStruct = case hsStruct.origin of
       Nothing -> panicPure "auxStruct: structOrigin is Nothing"
       Just originDecl ->
         let declInfo = HsOrigin.declInfo originDecl
-            hsIdentifier = Hs.Identifier $ Hs.getName (Hs.structName hsStruct)
+            hsIdentifier = Hs.Identifier $ Hs.getName hsStruct.name
             cTypeSpec = BindingSpec.CTypeSpec {
                 cTypeSpecIdentifier = Just hsIdentifier
               , cTypeSpecRep        = Nothing  -- TODO implement
               }
             hsRecordRep = BindingSpec.HsRecordRep {
-                hsRecordRepConstructor = Just $ Hs.Identifier $ Hs.getName $ Hs.structConstr hsStruct
+                hsRecordRepConstructor = Just $ Hs.Identifier $ Hs.getName hsStruct.constr
               , hsRecordRepFields = Just [
                     Hs.Identifier $ Hs.getName field.name
-                  | field <- Vec.toList $ Hs.structFields hsStruct
+                  | field <- Vec.toList hsStruct.fields
                   ]
               }
             hsTypeSpec = BindingSpec.HsTypeSpec {
@@ -197,7 +197,7 @@ genBindingSpec'
                     ( maybe Map.empty BindingSpec.hsTypeSpecInstances $
                        (HsOrigin.declSpec originDecl).hsSpec
                     )
-                    (Hs.structInstances hsStruct)
+                    hsStruct.instances
               }
         in  ( (declInfo, cTypeSpec)
             , (hsIdentifier, hsTypeSpec)

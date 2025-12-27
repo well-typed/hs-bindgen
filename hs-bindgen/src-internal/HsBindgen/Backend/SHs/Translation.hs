@@ -77,7 +77,7 @@ translateDefineInstanceDecl Hs.DefineInstance{..} =
     Hs.InstanceHasFLAM struct fty i -> DInst
       Instance
         { instanceClass   = HasFlexibleArrayMember_class
-        , instanceArgs    = [ translateType fty, TCon $ Hs.structName struct ]
+        , instanceArgs    = [ translateType fty, TCon struct.name ]
         , instanceSuperClasses = []
         , instanceTypes   = []
         , instanceDecs    = [(HasFlexibleArrayMember_offset, ELam "_ty" $ EIntegral (toInteger i) Nothing)]
@@ -113,10 +113,9 @@ translateDefineInstanceDecl Hs.DefineInstance{..} =
         }
 
 translateDeclData :: Hs.Struct n -> SDecl
-translateDeclData struct = DRecord
-  Record
-    { dataType = Hs.structName struct
-    , dataCon  = Hs.structConstr struct
+translateDeclData struct = DRecord Record{
+      dataType = struct.name
+    , dataCon  = struct.constr
     , dataFields =
         [ Field {
               fieldName    = f.name
@@ -124,14 +123,14 @@ translateDeclData struct = DRecord
             , fieldOrigin  = f.origin
             , fieldComment = f.comment
             }
-        | f <- toList $ Hs.structFields struct
+        | f <- toList struct.fields
         ]
     , dataOrigin =
-        case Hs.structOrigin struct of
+        case struct.origin of
           Just origin -> origin
           Nothing     -> panicPure "Missing structOrigin"
     , dataDeriv   = []
-    , dataComment = Hs.structComment struct
+    , dataComment = struct.comment
     }
 
 translateDeclEmpty :: Hs.EmptyData -> SDecl
@@ -276,7 +275,7 @@ translateStorableInstance struct Hs.StorableInstance{..} mbComment = do
     let poke = lambda (lambda (translateElimStruct (doAll translatePokeCField))) storablePoke
     Instance
       { instanceClass = Storable_class
-      , instanceArgs  = [TCon $ Hs.structName struct]
+      , instanceArgs  = [TCon struct.name]
       , instanceSuperClasses = []
       , instanceTypes = []
       , instanceDecs  = [
@@ -465,7 +464,7 @@ translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
     , instanceSuperClasses = []
     , instanceTypes = [(CEnumZ_tycon, [tcon], translateType fTyp)]
     , instanceDecs  = [
-          (CEnum_toCEnum, ECon (Hs.structConstr struct))
+          (CEnum_toCEnum, ECon struct.constr)
         , (CEnum_fromCEnum, EFree fname)
         , (CEnum_declaredValues, EUnusedLam declaredValuesE)
         , (CEnum_showsUndeclared, EApp (EGlobal CEnum_showsWrappedUndeclared) dconStrE)
@@ -475,13 +474,13 @@ translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
     }
   where
     tcon :: ClosedType
-    tcon = TCon $ Hs.structName struct
+    tcon = TCon struct.name
 
     dconStrE :: SExpr ctx
-    dconStrE = EString . T.unpack $ Hs.getName (Hs.structConstr struct)
+    dconStrE = EString . T.unpack $ Hs.getName struct.constr
 
     fname :: Hs.Name Hs.NsVar
-    fname = (NonEmpty.head $ Vec.toNonEmpty (Hs.structFields struct)).name
+    fname = (NonEmpty.head $ Vec.toNonEmpty struct.fields).name
 
     declaredValuesE :: SExpr ctx
     declaredValuesE = EApp (EGlobal CEnum_declaredValuesFromList) $ EList [
@@ -525,7 +524,7 @@ translateSequentialCEnum struct nameMin nameMax mbComment = Instance {
     }
   where
     tcon :: ClosedType
-    tcon = TCon $ Hs.structName struct
+    tcon = TCon struct.name
 
 translateCEnumInstanceShow ::
      Hs.Struct (S Z)
@@ -543,7 +542,7 @@ translateCEnumInstanceShow struct mbComment = Instance {
     }
   where
     tcon :: ClosedType
-    tcon = TCon $ Hs.structName struct
+    tcon = TCon struct.name
 
 translateCEnumInstanceRead ::
      Hs.Struct (S Z)
@@ -563,4 +562,4 @@ translateCEnumInstanceRead struct mbComment = Instance {
     }
   where
     tcon :: ClosedType
-    tcon = TCon $ Hs.structName struct
+    tcon = TCon struct.name

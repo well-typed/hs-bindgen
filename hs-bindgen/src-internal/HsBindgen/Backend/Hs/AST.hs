@@ -112,16 +112,17 @@ data Field = Field {
     }
   deriving stock (Generic, Show)
 
+-- | Struct
+--
+-- TODO: for enums we generate /both/ a newtype /and/ a struct, and then define
+-- instances only for the struct. We should get rid of this nasty hack.
 data Struct (n :: Nat) = Struct {
-      structName      :: Hs.Name Hs.NsTypeConstr
-    , structConstr    :: Hs.Name Hs.NsConstr
-    , structFields    :: Vec n Field
-      -- TODO: This is a temporary work-around: for enums we generate /both/
-      -- a newtype /and/ a struct, and then define instances only for the
-      -- struct. This is a nasty hack that we should get rid of.
-    , structOrigin    :: Maybe (Origin.Decl Origin.Struct)
-    , structInstances :: Set Hs.TypeClass
-    , structComment   :: Maybe HsDoc.Comment
+      name      :: Hs.Name Hs.NsTypeConstr
+    , constr    :: Hs.Name Hs.NsConstr
+    , fields    :: Vec n Field
+    , origin    :: Maybe (Origin.Decl Origin.Struct)
+    , instances :: Set Hs.TypeClass
+    , comment   :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 

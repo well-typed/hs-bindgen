@@ -38,7 +38,7 @@ translatePrimInstance struct Hs.PrimInstance{..} mbComment =
         writeAddr = lambda (lambda (lambda (lambda (translateElimStruct translateWriteOffAddrFields)))) primWriteOffAddr
     in Instance
       { instanceClass = Prim_class
-      , instanceArgs  = [TCon $ Hs.structName struct]
+      , instanceArgs  = [TCon struct.name]
       , instanceSuperClasses = []
       , instanceTypes = []
       , instanceDecs  = [
@@ -62,7 +62,7 @@ translatePrimInstance struct Hs.PrimInstance{..} mbComment =
 -- Generates: Constructor (field1) (field2) ...
 translateDirectApply :: (f ctx -> SExpr ctx) -> Hs.Apply Hs.StructCon f ctx -> SExpr ctx
 translateDirectApply translateField (Hs.Apply (Hs.StructCon struct) fields) =
-    appManyExpr (ECon $ Hs.structConstr struct) (map translateField fields)
+    appManyExpr (ECon struct.constr) (map translateField fields)
 
 -- | Translate IndexByteArrayField to SExpr
 --
@@ -147,7 +147,7 @@ buildNestedReads struct _ _ _ stateIdx [] _ _ =
   -- No memory reads needed since there's no data to read
   EUnboxedTup
     [ EBound stateIdx
-    , ECon (Hs.structConstr struct)  -- Empty constructor
+    , ECon struct.constr  -- Empty constructor
     ]
 buildNestedReads struct readOp arrIdx elemIdx stateIdx [(_, fieldPos)] valueVariables numFields =
   -- Last field: read it and construct the final unboxed tuple (# state, Struct ... #)
@@ -177,7 +177,7 @@ buildNestedReads struct readOp arrIdx elemIdx stateIdx [(_, fieldPos)] valueVari
 
     -- Construct struct value by applying constructor to field expressions
     mkStructValue :: [SExpr (S (S ctx))] -> SExpr (S (S ctx))
-    mkStructValue fieldExprs = ECon (Hs.structConstr struct) `appManyExpr` fieldExprs
+    mkStructValue fieldExprs = ECon struct.constr `appManyExpr` fieldExprs
 
     -- Construct pattern match alternative for unboxed tuple (# state, value #)
     mkUnboxedTupleAlt :: SExpr (S (S ctx)) -> SAlt ctx

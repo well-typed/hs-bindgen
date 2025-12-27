@@ -254,17 +254,17 @@ structDecs opts haddockConfig info struct spec fields = do
 
         hsStruct :: Hs.Struct n
         hsStruct = Hs.Struct {
-            structName      = structName
-          , structConstr    = struct.names.constr
-          , structFields    = structFields
-          , structInstances = insts
-          , structOrigin    = Just Origin.Decl{
-                declInfo = info
-              , declKind = Origin.Struct struct
-              , declSpec = spec
-              }
-          , structComment = mkHaddocks haddockConfig info structName
-          }
+              name      = structName
+            , constr    = struct.names.constr
+            , fields    = structFields
+            , instances = insts
+            , comment   = mkHaddocks haddockConfig info structName
+            , origin    = Just Origin.Decl{
+                  declInfo = info
+                , declKind = Origin.Struct struct
+                , declSpec = spec
+                }
+            }
 
         structDecl :: Hs.Decl
         structDecl = Hs.DeclData hsStruct
@@ -697,13 +697,13 @@ enumDecs opts haddockConfig info enum spec = do
       where
         hsStruct :: Hs.Struct (S Z)
         hsStruct = Hs.Struct {
-            structName      = nt.newtypeName
-          , structConstr    = nt.newtypeConstr
-          , structFields    = Vec.singleton nt.newtypeField
-          , structInstances = nt.newtypeInstances
-          , structOrigin    = Nothing
-          , structComment   = Nothing
-          }
+              name      = nt.newtypeName
+            , constr    = nt.newtypeConstr
+            , fields    = Vec.singleton nt.newtypeField
+            , instances = nt.newtypeInstances
+            , origin    = Nothing
+            , comment   = Nothing
+            }
 
         storableDecl :: Hs.Decl
         storableDecl = Hs.DeclDefineInstance

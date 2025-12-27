@@ -94,14 +94,11 @@ mkPrimInstance insts hsStruct struct
                           }
                   }
   where
-    structFields :: Vec n Hs.Field
-    structFields = Hs.structFields hsStruct
-
     numFields :: Int
-    numFields = Vec.length structFields
+    numFields = Vec.length hsStruct.fields
 
     fieldTypesWithPos :: [(HsType, Int)]
-    fieldTypesWithPos = [(f.typ, pos) | (f, pos) <- zip (toList structFields) [0..]]
+    fieldTypesWithPos = [(f.typ, pos) | (f, pos) <- zip (toList hsStruct.fields) [0..]]
 
     -- readFieldData :: Hs.ReadPrimFieldsData ctx
     readFieldData = Hs.ReadPrimFieldsData {
