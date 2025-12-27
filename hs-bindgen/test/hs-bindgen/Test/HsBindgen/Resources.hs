@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Test resources (for integration with tasty)
 --
 -- Intended for unqualified import.
@@ -10,7 +13,6 @@ module Test.HsBindgen.Resources (
   , getTestDefaultBackendConfig
   ) where
 
-import Data.Default (Default (..))
 import System.FilePath ((</>))
 import Test.Tasty
 
@@ -20,6 +22,7 @@ import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
+import HsBindgen.Imports
 
 import Test.Common.Util.Cabal
 
@@ -29,12 +32,12 @@ import Test.Common.Util.Cabal
 
 data TestResources = TestResources {
       -- | Package root
-      testPackageRoot :: FilePath
+      packageRoot :: FilePath
 
       -- | Clang arguments configuration we use when running the tests
       --
       -- NOTE: Individual tests will need to add their required include dirs.
-    , testClangArgsConfig :: ClangArgsConfig FilePath
+    , clangArgs :: ClangArgsConfig FilePath
     }
 
 {-------------------------------------------------------------------------------
@@ -47,8 +50,10 @@ withTestResources = withResource initTestResources freeTestResources
 initTestResources :: IO TestResources
 initTestResources = do
     testPackageRoot <- findPackageDirectory "hs-bindgen"
-    let testClangArgsConfig = mkTestClangArgsConfig testPackageRoot
-    return TestResources{..}
+    return TestResources{
+        packageRoot = testPackageRoot
+      , clangArgs   = mkTestClangArgsConfig testPackageRoot
+      }
 
 freeTestResources :: TestResources -> IO ()
 freeTestResources _ = return ()
@@ -58,7 +63,7 @@ freeTestResources _ = return ()
 -------------------------------------------------------------------------------}
 
 getTestPackageRoot :: IO TestResources -> IO FilePath
-getTestPackageRoot = fmap testPackageRoot
+getTestPackageRoot = fmap (.packageRoot)
 
 {-------------------------------------------------------------------------------
   Clang arguments
@@ -80,16 +85,14 @@ getTestDefaultClangArgsConfig ::
 getTestDefaultClangArgsConfig testResources extraIncludeDirs' =
     aux <$> testResources
   where
+    -- NOTE: The include search path is traversed from left to right. That is,
+    -- earlier flags overrule later flags, and so, the test-specific include
+    -- directories must come before the default include directories.
     aux :: TestResources -> ClangArgsConfig FilePath
-    aux TestResources{..} = testClangArgsConfig{
-          extraIncludeDirs =
-               -- NOTE: The include search path is traversed from left to right.
-               -- That is, earlier flags overrule later flags, and so, the
-               -- test-specific include directories must come before the default
-               -- include directories.
-               map ((</>) testPackageRoot) extraIncludeDirs'
-            <> testClangArgsConfig.extraIncludeDirs
-        }
+    aux resources = resources.clangArgs
+        & #extraIncludeDirs .~
+               map ((</>) resources.packageRoot) extraIncludeDirs'
+            <> resources.clangArgs.extraIncludeDirs
 
 {-------------------------------------------------------------------------------
   Test configuration

@@ -392,7 +392,6 @@ test-suite test-hs-bindgen
   -- Inherited dependencies
   build-depends:
     , containers
-    , data-default
     , directory
     , filepath
     , mtl
