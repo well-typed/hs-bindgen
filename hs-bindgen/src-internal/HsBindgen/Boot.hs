@@ -121,15 +121,14 @@ getClangArgsAndTarget tracer config0 = do
     compareClangVersions (contramap BootCompareClangVersions tracer)
     -- Apply extra Clang arguments and builtin include directory to the config
     extraClangArgs <- getExtraClangArgs tracerExtraClangArgs
-    mBuiltinIncDir <- getBuiltinIncDir tracerBuiltinIncDir $
-      ClangArgs.builtinIncDir config0
+    mBuiltinIncDir <- getBuiltinIncDir tracerBuiltinIncDir config0.builtinIncDir
     let config =
             applyExtraClangArgs extraClangArgs
           . applyBuiltinIncDir  mBuiltinIncDir
           $ config0
     -- Determine Clang arguments for the config
     clangArgs <- either throwIO return $ ClangArgs.getClangArgs config
-    case ClangArgs.target config of
+    case config.target of
       -- If a target is specified, return Clang arguments and target
       Just target -> return (clangArgs, target)
       -- If a target is not specified:

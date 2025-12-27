@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 module HsBindgen.Clang.ExtraClangArgs (
     -- * Trace messages
     ExtraClangArgsMsg(..)
@@ -15,6 +19,7 @@ import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Util.Tracer
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Trace messages
@@ -60,9 +65,7 @@ getExtraClangArgs tracer = fmap splitArguments <$> lookupEnv envName >>= \case
 --
 -- When configured, extra clang arguments are appended to 'clangArgsInner'.
 applyExtraClangArgs :: [String] -> ClangArgsConfig path -> ClangArgsConfig path
-applyExtraClangArgs args config = config {
-      argsInner = argsInner config ++ args
-    }
+applyExtraClangArgs args = #argsInner %~ (++ args)
 
 {-------------------------------------------------------------------------------
   Auxiliary

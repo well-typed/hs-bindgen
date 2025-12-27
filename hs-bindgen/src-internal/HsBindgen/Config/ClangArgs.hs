@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 module HsBindgen.Config.ClangArgs (
     -- * Types
     ClangArgsConfig(..)
@@ -336,31 +340,31 @@ getClangArgs :: ClangArgsConfig FilePath -> Either InvalidClangArgs ClangArgs
 getClangArgs config = do
     argsInternal <- getClangArgsInternal config
     return . ClangArgs $ concat [
-        argsBefore   config
+        config.argsBefore
       , argsInternal
-      , argsInner    config
-      , argsAfter    config
+      , config.argsInner
+      , config.argsAfter
       ]
 
 getClangArgsInternal :: ClangArgsConfig FilePath -> Either InvalidClangArgs [String]
-getClangArgsInternal ClangArgsConfig{..} = concat <$> sequence [
-      ifGiven (targetTriple <$> target) $ \t ->
+getClangArgsInternal config = concat <$> sequence [
+      ifGiven (targetTriple <$> config.target) $ \t ->
         return ["-target", t]
 
-    , List.singleton <$> getStdClangArg cStandard gnu
+    , List.singleton <$> getStdClangArg config.cStandard config.gnu
 
     , return $ concat $ [
-          [ "-fblocks" | enableBlocks ]
+          [ "-fblocks" | config.enableBlocks ]
         ]
 
     , return $ concat [
           ["-I", path]
-        | path <- extraIncludeDirs
+        | path <- config.extraIncludeDirs
         ]
 
     , return $ concat [
           ["-D" ++ defn]
-        | defn <- defineMacros
+        | defn <- config.defineMacros
         ]
     ]
   where

@@ -88,7 +88,7 @@ getTestDefaultClangArgsConfig testResources extraIncludeDirs' =
                -- test-specific include directories must come before the default
                -- include directories.
                map ((</>) testPackageRoot) extraIncludeDirs'
-            <> extraIncludeDirs testClangArgsConfig
+            <> testClangArgsConfig.extraIncludeDirs
         }
 
 {-------------------------------------------------------------------------------

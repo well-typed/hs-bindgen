@@ -1,4 +1,7 @@
-{-# LANGUAGE CPP #-}
+{-# LANGUAGE CPP               #-}
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
 
 module HsBindgen.Clang.BuiltinIncDir (
     -- * Types
@@ -225,12 +228,11 @@ getBuiltinIncDir tracer config =
 -- the last argument.  This ensures that it is prioritized as close to the
 -- default include directories as possible.
 applyBuiltinIncDir ::
-  Maybe BuiltinIncDir -> ClangArgsConfig path -> ClangArgsConfig path
-applyBuiltinIncDir mBuiltinIncDir config = case mBuiltinIncDir of
-    Nothing            -> config
-    Just builtinIncDir -> config{
-        argsAfter = argsAfter config ++ ["-isystem", builtinIncDir]
-      }
+     Maybe BuiltinIncDir
+  -> ClangArgsConfig path -> ClangArgsConfig path
+applyBuiltinIncDir = \case
+    Nothing            -> id
+    Just builtinIncDir -> #argsAfter %~ (++ ["-isystem", builtinIncDir])
 
 {-------------------------------------------------------------------------------
   Auxiliary functions
