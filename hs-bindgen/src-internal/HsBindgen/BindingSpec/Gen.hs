@@ -108,18 +108,18 @@ genBindingSpec'
     spec0 :: UnresolvedBindingSpec
     spec0 = BindingSpec.BindingSpec {
         -- TODO AnyTarget if bindings are not target-specific
-        BindingSpec.bindingSpecTarget = BindingSpec.SpecificTarget target
-      , BindingSpec.bindingSpecModule = hsModuleName
-      , BindingSpec.bindingSpecCTypes = Map.fromListWith (++) $
+        target     = BindingSpec.SpecificTarget target
+      , moduleName = hsModuleName
+      , cTypes     = Map.fromListWith (++) $
           [ (cDeclId, [(getMainHeaders' path, Omit)])
           | (cDeclId, path) <- omitTypes
           ] ++
           [ let headers   = getMainHeaders' sourcePath
-                cTypeSpec = def{ BindingSpec.cTypeSpecIdentifier = Just hsId }
+                cTypeSpec = def & #hsIdent .~ Just hsId
             in  (cDeclId, [(headers, Require cTypeSpec)])
           | (cDeclId, (sourcePath, hsId)) <- squashedTypes
           ]
-      , BindingSpec.bindingSpecHsTypes = Map.empty
+      , hsTypes = Map.empty
       }
 
     getMainHeaders' :: SourcePath -> Set HashIncludeArg
@@ -156,18 +156,14 @@ genBindingSpec'
          )
       -> UnresolvedBindingSpec
       -> UnresolvedBindingSpec
-    insertType ((declInfo, cTypeSpec), (hsId, hsTypeSpec)) spec = spec{
-        BindingSpec.bindingSpecCTypes =
-          Map.insertWith (++)
-            declInfo.id.cName
-            [(getHeaders declInfo, Require cTypeSpec)]
-            (BindingSpec.bindingSpecCTypes spec)
-      , BindingSpec.bindingSpecHsTypes =
-          Map.insert
-            hsId
-            hsTypeSpec
-            (BindingSpec.bindingSpecHsTypes spec)
-      }
+    insertType ((declInfo, cTypeSpec), (hsId, hsTypeSpec)) spec =
+      spec
+        & #cTypes %~
+            Map.insertWith (++)
+              declInfo.id.cName
+              [(getHeaders declInfo, Require cTypeSpec)]
+        & #hsTypes %~
+            Map.insert hsId hsTypeSpec
 
     auxStruct ::
          Hs.Struct n
@@ -180,21 +176,21 @@ genBindingSpec'
         let declInfo = HsOrigin.declInfo originDecl
             hsIdentifier = Hs.Identifier $ Hs.getName hsStruct.name
             cTypeSpec = BindingSpec.CTypeSpec {
-                cTypeSpecIdentifier = Just hsIdentifier
-              , cTypeSpecRep        = Nothing  -- TODO implement
+                hsIdent = Just hsIdentifier
+              , cRep    = Nothing  -- TODO implement
               }
             hsRecordRep = BindingSpec.HsRecordRep {
-                hsRecordRepConstructor = Just $ Hs.Identifier $ Hs.getName hsStruct.constr
-              , hsRecordRepFields = Just [
+                constructor = Just $ Hs.Identifier $ Hs.getName hsStruct.constr
+              , fields      = Just [
                     Hs.Identifier $ Hs.getName field.name
                   | field <- Vec.toList hsStruct.fields
                   ]
               }
             hsTypeSpec = BindingSpec.HsTypeSpec {
-                hsTypeSpecRep = Just $ BindingSpec.HsTypeRepRecord hsRecordRep
-              , hsTypeSpecInstances =
+                hsRep     = Just $ BindingSpec.HsTypeRepRecord hsRecordRep
+              , instances =
                   mkInstSpecs
-                    ( maybe Map.empty BindingSpec.hsTypeSpecInstances $
+                    ( maybe Map.empty (.instances) $
                        (HsOrigin.declSpec originDecl).hsSpec
                     )
                     hsStruct.instances
@@ -213,12 +209,12 @@ genBindingSpec'
           declInfo     = HsOrigin.declInfo originDecl
           hsIdentifier = Hs.Identifier $ Hs.getName edata.name
           cTypeSpec = BindingSpec.CTypeSpec {
-              cTypeSpecIdentifier = Just hsIdentifier
-            , cTypeSpecRep        = Nothing  -- TODO implement
+              hsIdent = Just hsIdentifier
+            , cRep    = Nothing  -- TODO implement
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
-              hsTypeSpecRep       = Just BindingSpec.HsTypeRepOpaque
-            , hsTypeSpecInstances = Map.empty
+              hsRep     = Just BindingSpec.HsTypeRepOpaque
+            , instances = Map.empty
             }
       in  ( (declInfo, cTypeSpec)
           , (hsIdentifier, hsTypeSpec)
@@ -234,19 +230,19 @@ genBindingSpec'
           declInfo     = HsOrigin.declInfo originDecl
           hsIdentifier = Hs.Identifier $ Hs.getName hsNewtype.name
           cTypeSpec    = BindingSpec.CTypeSpec {
-              cTypeSpecIdentifier = Just hsIdentifier
-            , cTypeSpecRep        = Nothing  -- TODO implement
+              hsIdent = Just hsIdentifier
+            , cRep    = Nothing  -- TODO implement
             }
           hsNewtypeRep = BindingSpec.HsNewtypeRep {
-              hsNewtypeRepConstructor = Just $ Hs.Identifier $ Hs.getName hsNewtype.constr
-            , hsNewtypeRepField       = Just $ Hs.Identifier $ Hs.getName hsNewtype.field.name
-            , hsNewtypeRepFFIType     = hsNewtype.ffiType
+              constructor = Just $ Hs.Identifier $ Hs.getName hsNewtype.constr
+            , field       = Just $ Hs.Identifier $ Hs.getName hsNewtype.field.name
+            , ffiType     = hsNewtype.ffiType
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
-              hsTypeSpecRep = Just $ BindingSpec.HsTypeRepNewtype hsNewtypeRep
-            , hsTypeSpecInstances =
+              hsRep     = Just $ BindingSpec.HsTypeRepNewtype hsNewtypeRep
+            , instances =
                 mkInstSpecs
-                  ( maybe Map.empty BindingSpec.hsTypeSpecInstances $
+                  ( maybe Map.empty (.instances) $
                       (HsOrigin.declSpec originDecl).hsSpec
                   )
                   hsNewtype.instances

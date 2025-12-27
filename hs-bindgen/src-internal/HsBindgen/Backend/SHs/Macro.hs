@@ -33,13 +33,13 @@ import DeBruijn (EmptyCtx, Idx (..), Size (..), rzeroAdd)
 -------------------------------------------------------------------------------}
 
 translateMacroExpr :: Hs.MacroExpr -> SDecl
-translateMacroExpr Hs.MacroExpr{..} = DBinding Binding{
-      name       = name
+translateMacroExpr macro = DBinding Binding{
+      name       = macro.name
     , parameters = []
-    , result     = Result (translateType expr.typ) Nothing
-    , body       = translateBody expr.args expr.body
+    , result     = Result (translateType macro.expr.typ) Nothing
+    , body       = translateBody macro.expr.args macro.expr.body
     , pragmas    = []
-    , comment    = comment
+    , comment    = macro.comment
     }
 
 {-------------------------------------------------------------------------------

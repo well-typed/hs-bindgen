@@ -210,6 +210,5 @@ getInstances instanceMap name = aux
     hsTypeSpecInsts :: HsTypeSpec -> Set TypeClass
     hsTypeSpecInsts hsTypeSpec = Set.fromAscList [
         cls
-      | (cls, Require{}) <-
-           Map.toAscList (hsTypeSpecInstances hsTypeSpec)
+      | (cls, Require{}) <- Map.toAscList hsTypeSpec.instances
       ]

@@ -35,14 +35,13 @@ import HsBindgen.Language.Haskell qualified as Hs
 -- These bindings include types defined in @base@ as well as
 -- @hs-bindgen-runtime@
 bindingSpec :: BindingSpec.UnresolvedBindingSpec
-bindingSpec = BindingSpec.BindingSpec{..}
+bindingSpec = BindingSpec.BindingSpec{
+      target     = BindingSpec.AnyTarget
+    , moduleName = "HsBindgen.Runtime.Prelude"
+    , cTypes     = bindingSpecCTypes
+    , hsTypes    = bindingSpecHsTypes
+    }
   where
-    bindingSpecTarget :: BindingSpec.BindingSpecTarget
-    bindingSpecTarget = BindingSpec.AnyTarget
-
-    bindingSpecModule :: Hs.ModuleName
-    bindingSpecModule = "HsBindgen.Runtime.Prelude"
-
     bindingSpecCTypes  :: CTypeMap
     bindingSpecHsTypes :: HsTypeMap
     (bindingSpecCTypes, bindingSpecHsTypes) = mkMaps $
@@ -264,14 +263,14 @@ mkType t hsIdentifier cTypeRep hsTypeRep insts headers' =
 
     cTypeSpec :: BindingSpec.CTypeSpec
     cTypeSpec = BindingSpec.CTypeSpec {
-        cTypeSpecIdentifier = Just hsIdentifier
-      , cTypeSpecRep        = Just cTypeRep
+        hsIdent = Just hsIdentifier
+      , cRep    = Just cTypeRep
       }
 
     hsTypeSpec :: BindingSpec.HsTypeSpec
     hsTypeSpec = BindingSpec.HsTypeSpec {
-        hsTypeSpecRep       = Just hsTypeRep
-      , hsTypeSpecInstances = Map.fromList [
+        hsRep     = Just hsTypeRep
+      , instances = Map.fromList [
             (inst, Require def)
           | inst <- insts
           ]
@@ -292,8 +291,8 @@ hsO = BindingSpec.HsTypeRepOpaque
 mkHsR :: Hs.Identifier -> [Hs.Identifier] -> BindingSpec.HsTypeRep
 mkHsR constructorName fieldNames = BindingSpec.HsTypeRepRecord $
     BindingSpec.HsRecordRep {
-        hsRecordRepConstructor = Just constructorName
-      , hsRecordRepFields      = Just fieldNames
+        constructor = Just constructorName
+      , fields      = Just fieldNames
       }
 
 -- | Construct a 'BindingSpec.HsTypeRepNewtype' with the specified constructor
@@ -303,9 +302,9 @@ mkHsR constructorName fieldNames = BindingSpec.HsTypeRepRecord $
 mkHsN :: Hs.Identifier -> Maybe BindingSpec.FFIType -> BindingSpec.HsTypeRep
 mkHsN constructorName ffitype = BindingSpec.HsTypeRepNewtype $
     BindingSpec.HsNewtypeRep {
-        hsNewtypeRepConstructor = Just constructorName
-      , hsNewtypeRepField       = Nothing
-      , hsNewtypeRepFFIType     = ffitype
+        constructor = Just constructorName
+      , field       = Nothing
+      , ffiType     = ffitype
       }
 
 -- | Variant of 'mkType' that creates a 'BindingSpec.HsTypeRepNewtype' where the

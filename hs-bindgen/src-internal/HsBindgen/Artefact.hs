@@ -93,32 +93,28 @@ runArtefacts :: forall a.
   -> BackendArtefact
   -> Artefact a
   -> IO (a, [DelayedIO])
-runArtefacts
-  tracer
-  BootArtefact{..}
-  FrontendArtefact{..}
-  BackendArtefact{..}
-  artefact = second reverse <$> (runDelayedIOM $ runArtefact artefact)
+runArtefacts tracer boot frontend backend artefact =
+    second reverse <$> (runDelayedIOM $ runArtefact artefact)
   where
     runArtefact :: forall x. Artefact x -> DelayedIOM x
     runArtefact = \case
         --Boot.
-        Target              -> runCached bootTarget
-        HashIncludeArgs     -> runCached bootHashIncludeArgs
+        Target              -> runCached boot.target
+        HashIncludeArgs     -> runCached boot.hashIncludeArgs
         -- Frontend.
-        IncludeGraph        -> runCached frontendIncludeGraph
-        GetMainHeaders      -> runCached frontendGetMainHeaders
-        DeclIndex           -> runCached frontendIndex
-        UseDeclGraph        -> runCached frontendUseDeclGraph
-        DeclUseGraph        -> runCached frontendDeclUseGraph
-        OmitTypes           -> runCached frontendOmitTypes
-        SquashedTypes       -> runCached frontendSquashedTypes
-        ReifiedC            -> runCached frontendCDecls
-        Dependencies        -> runCached frontendDependencies
+        IncludeGraph        -> runCached frontend.includeGraph
+        GetMainHeaders      -> runCached frontend.getMainHeaders
+        DeclIndex           -> runCached frontend.index
+        UseDeclGraph        -> runCached frontend.useDeclGraph
+        DeclUseGraph        -> runCached frontend.declUseGraph
+        OmitTypes           -> runCached frontend.omitTypes
+        SquashedTypes       -> runCached frontend.squashedTypes
+        ReifiedC            -> runCached frontend.cDecls
+        Dependencies        -> runCached frontend.dependencies
         -- Backend.
-        HsDecls             -> runCached backendHsDecls
-        FinalDecls          -> runCached backendFinalDecls
-        FinalModuleBaseName -> pure backendFinalModuleBaseName
+        HsDecls             -> runCached backend.hsDecls
+        FinalDecls          -> runCached backend.finalDecls
+        FinalModuleBaseName -> pure backend.finalModuleBaseName
         -- Control flow
         (EmitTrace x)       -> emitTrace tracer x
         (Lift   f)          -> f

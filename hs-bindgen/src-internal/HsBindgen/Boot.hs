@@ -1,5 +1,5 @@
-module HsBindgen.Boot
-  ( boot
+module HsBindgen.Boot (
+    runBoot
   , getClangArgsAndTarget
   , BootArtefact (..)
   , BootTargetMsg (..)
@@ -36,12 +36,12 @@ import HsBindgen.Util.Tracer
 -- - Check arguments to @#include@.
 -- - Determine Clang arguments.
 -- - Load external and prescriptive binding specifications.
-boot ::
+runBoot ::
      Tracer BootMsg
   -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> IO BootArtefact
-boot tracer config uncheckedHashIncludeArgs = do
+runBoot tracer config uncheckedHashIncludeArgs = do
     traceStatus $ BootStatusStart config
 
     checkBackendConfig (contramap BootBackendConfig tracer) config.backend
@@ -79,13 +79,13 @@ boot tracer config uncheckedHashIncludeArgs = do
         fmap snd $ getBindingSpecs
 
     pure BootArtefact {
-          bootBaseModule              = config.boot.baseModule
-        , bootCStandard               = config.boot.clangArgs.cStandard
-        , bootClangArgs               = getClangArgs
-        , bootTarget                  = getTarget
-        , bootHashIncludeArgs         = getHashIncludeArgs
-        , bootExternalBindingSpecs    = getExternalBindingSpecs
-        , bootPrescriptiveBindingSpec = getPrescriptiveBindingSpec
+          baseModule              = config.boot.baseModule
+        , cStandard               = config.boot.clangArgs.cStandard
+        , clangArgs               = getClangArgs
+        , target                  = getTarget
+        , hashIncludeArgs         = getHashIncludeArgs
+        , externalBindingSpecs    = getExternalBindingSpecs
+        , prescriptiveBindingSpec = getPrescriptiveBindingSpec
         }
   where
     tracerBootStatus :: Tracer BootStatusMsg
@@ -177,14 +177,14 @@ getClangTarget tracer clangArgs = do
 -------------------------------------------------------------------------------}
 
 data BootArtefact = BootArtefact {
-    bootBaseModule              :: BaseModuleName
-  , bootCStandard               :: CStandard
-  , bootClangArgs               :: Cached ClangArgs
-  , bootTarget                  :: Cached ClangArgs.Target
-  , bootHashIncludeArgs         :: Cached [HashIncludeArg]
-  , bootExternalBindingSpecs    :: Cached MergedBindingSpecs
-  , bootPrescriptiveBindingSpec :: Cached PrescriptiveBindingSpec
-  }
+      baseModule              :: BaseModuleName
+    , cStandard               :: CStandard
+    , clangArgs               :: Cached ClangArgs
+    , target                  :: Cached ClangArgs.Target
+    , hashIncludeArgs         :: Cached [HashIncludeArg]
+    , externalBindingSpecs    :: Cached MergedBindingSpecs
+    , prescriptiveBindingSpec :: Cached PrescriptiveBindingSpec
+    }
 
 {-------------------------------------------------------------------------------
   Trace

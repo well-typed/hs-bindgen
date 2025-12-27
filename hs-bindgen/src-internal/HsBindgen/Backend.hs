@@ -1,5 +1,5 @@
 module HsBindgen.Backend
-  ( backend
+  ( runBackend
   , BackendArtefact(..)
   , BackendMsg(..)
   ) where
@@ -23,18 +23,18 @@ import HsBindgen.Util.Tracer
 -- declarations.
 --
 -- The backend is pure and should not emit warnings or errors.
-backend ::
+runBackend ::
      Tracer BackendMsg
   -> BackendConfig
   -> BootArtefact
   -> FrontendArtefact
   -> IO BackendArtefact
-backend tracer config BootArtefact{..} FrontendArtefact{..} = do
+runBackend tracer config boot frontend = do
     -- 1. Reified C declarations to @Hs@ declarations.
     backendHsDeclsAll <- cache $
-      Hs.generateDeclarations config.translation config.haddock moduleBaseName
-        <$> frontendIndex
-        <*> frontendCDecls
+      Hs.generateDeclarations config.translation config.haddock boot.baseModule
+        <$> frontend.index
+        <*> frontend.cDecls
 
     -- 2. Apply binding category choice.
     backendHsDecls <- cache $ do
@@ -48,12 +48,11 @@ backend tracer config BootArtefact{..} FrontendArtefact{..} = do
     backendFinalDecls <- cache $ SHs.simplifySHs <$> sHsDecls
 
     pure $ BackendArtefact {
-      backendFinalModuleBaseName = moduleBaseName
-    , ..
-    }
+        hsDecls             = backendHsDecls
+      , finalDecls          = backendFinalDecls
+      , finalModuleBaseName = boot.baseModule
+      }
   where
-    moduleBaseName = bootBaseModule
-
     cache :: Cached a -> IO (Cached a)
     cache = cacheWith (contramap BackendCache tracer) Nothing
 
@@ -62,10 +61,10 @@ backend tracer config BootArtefact{..} FrontendArtefact{..} = do
 -------------------------------------------------------------------------------}
 
 data BackendArtefact = BackendArtefact {
-    backendHsDecls             :: Cached (ByCategory_ [Hs.Decl])
-  , backendFinalDecls          :: Cached (ByCategory_ ([CWrapper], [SHs.SDecl]))
-  , backendFinalModuleBaseName :: BaseModuleName
-  }
+      hsDecls             :: Cached (ByCategory_ [Hs.Decl])
+    , finalDecls          :: Cached (ByCategory_ ([CWrapper], [SHs.SDecl]))
+    , finalModuleBaseName :: BaseModuleName
+    }
 
 {-------------------------------------------------------------------------------
   Trace

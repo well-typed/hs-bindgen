@@ -220,7 +220,7 @@ resolveTop decl = Reader.ask >>= \env -> do
               insertTrace (ResolveBindingSpecsPrescriptiveRequire decl.info.id)
             . deleteNoPType decl.info.id sourcePath
           let mHsTypeSpec = do
-                hsIdentifier <- BindingSpec.cTypeSpecIdentifier cTypeSpec
+                hsIdentifier <- cTypeSpec.hsIdent
                 BindingSpec.lookupHsTypeSpec hsIdentifier env.pSpec
           return $ Just (decl, (Just cTypeSpec, mHsTypeSpec))
         Just (_hsModuleName, BindingSpec.Omit) -> do
@@ -452,7 +452,7 @@ resolveExtBinding cDeclId declPaths mMsg = do
     env <- Reader.ask
     case BindingSpec.lookupMergedBindingSpecs cDeclId declPaths env.extSpecs of
       Just (hsModuleName, BindingSpec.Require cTypeSpec, mHsTypeSpec) ->
-        case (BindingSpec.cTypeSpecIdentifier cTypeSpec, mHsTypeSpec) of
+        case (cTypeSpec.hsIdent, mHsTypeSpec) of
           (Just hsIdentifier, Just hsTypeSpec) -> do
             let resolved = ResolvedExtBinding {
                     cName  = cDeclId
@@ -460,7 +460,7 @@ resolveExtBinding cDeclId declPaths mMsg = do
                   , cSpec  = cTypeSpec
                   , hsSpec = hsTypeSpec
                   }
-            case BindingSpec.hsTypeSpecRep hsTypeSpec of
+            case hsTypeSpec.hsRep of
               Just _hsTypeSpecRep -> do
                 State.modify' $
                   insertExtType

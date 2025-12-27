@@ -51,7 +51,6 @@ common lang
     OverloadedStrings
     PatternSynonyms
     QuantifiedConstraints
-    RecordWildCards
     TypeApplications
     TypeFamilies
     UndecidableInstances

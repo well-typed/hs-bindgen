@@ -437,13 +437,13 @@ translateUnionSetter setter = DBinding Binding{
 -------------------------------------------------------------------------------}
 
 translateDeclVar :: Hs.Var -> SDecl
-translateDeclVar Hs.Var{..} = DBinding Binding {
-      name      = name
+translateDeclVar var = DBinding Binding {
+      name      = var.name
     , parameters= []
-    , result    = Result typ Nothing
-    , body      = expr
-    , pragmas   = pragmas
-    , comment   = comment
+    , result    = Result var.typ Nothing
+    , body      = var.expr
+    , pragmas   = var.pragmas
+    , comment   = var.comment
     }
 
 {-------------------------------------------------------------------------------

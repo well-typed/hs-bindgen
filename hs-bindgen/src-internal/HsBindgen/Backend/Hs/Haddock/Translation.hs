@@ -1,3 +1,8 @@
+-- This module still uses RecordWildCards, as an exception within hs-bindgen.
+-- If we wanted to fix this, we'd need to refactor Clang.HighLevel.Documentation
+-- a bit: it mixes sum types with records, leading to partial field accessors.
+{-# LANGUAGE RecordWildCards #-}
+
 module HsBindgen.Backend.Hs.Haddock.Translation (
     mkHaddocks
   , mkHaddocksFieldInfo

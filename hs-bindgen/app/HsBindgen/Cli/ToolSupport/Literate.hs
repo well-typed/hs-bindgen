@@ -16,7 +16,6 @@ module HsBindgen.Cli.ToolSupport.Literate (
   ) where
 
 import Control.Exception (throwIO)
-import Control.Monad (void)
 import GHC.Exception (Exception (..))
 import Options.Applicative hiding (info)
 import Options.Applicative qualified as O
@@ -26,6 +25,7 @@ import HsBindgen
 import HsBindgen.App
 import HsBindgen.Backend.Category (useSafeCategory)
 import HsBindgen.Config
+import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.DelayedIO
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
@@ -45,8 +45,8 @@ info = progDesc $ mconcat [
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      input  :: FilePath
-    , output :: FilePath
+      input               :: FilePath
+    , output              :: FilePath
     , fileOverwritePolicy :: FileOverwritePolicy
     }
   deriving (Show, Eq)
@@ -66,7 +66,11 @@ parseOpts = do
     output <- strArgument $ metavar "OUT"
 
     fileOverwritePolicy <- parseFileOverwritePolicy
-    return Opts{..}
+    return Opts{
+        input
+      , output
+      , fileOverwritePolicy
+      }
 
 {-------------------------------------------------------------------------------
   Options (provided at the top of literate Haskell files)
@@ -93,21 +97,35 @@ parseLit = Lit
 -------------------------------------------------------------------------------}
 
 exec :: Opts -> IO ()
-exec Opts{..} = do
+exec opts = do
     args <- maybe (throwIO' "cannot parse literate file") return . readMaybe
-      =<< readFile input
-    Lit{..} <- maybe (throwIO' "cannot parse arguments in literate file") return $
+      =<< readFile opts.input
+    lit <- maybe (throwIO' "cannot parse arguments in literate file") return $
       pureParseLit args
-    let GlobalOpts{..} = globalOpts
-        -- TODO https://github.com/well-typed/hs-bindgen/issues/1328: Which command
-        -- line options to adjust the binding category predicate do we want to
-        -- provide?
-        bindgenConfig = toBindgenConfig config uniqueId baseModuleName useSafeCategory
-    void $ hsBindgen tracerConfigUnsafe tracerConfigSafe bindgenConfig inputs $
-      writeBindings fileOverwritePolicy output
+
+    -- TODO https://github.com/well-typed/hs-bindgen/issues/1328: Which command
+    -- line options to adjust the binding category predicate do we want to
+    -- provide?
+    let bindgenConfig :: BindgenConfig
+        bindgenConfig =
+          toBindgenConfig
+            lit.config
+            lit.uniqueId
+            lit.baseModuleName
+            useSafeCategory
+
+    let artefact :: Artefact ()
+        artefact = writeBindings opts.fileOverwritePolicy opts.output
+
+    hsBindgen
+      lit.globalOpts.unsafe
+      lit.globalOpts.safe
+      bindgenConfig
+      lit.inputs
+      artefact
   where
     throwIO' :: String -> IO a
-    throwIO' = throwIO . LiterateFileException input
+    throwIO' = throwIO . LiterateFileException opts.input
 
     pureParseLit :: [String] -> Maybe Lit
     pureParseLit =

@@ -59,10 +59,10 @@ parseOpts =
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec GlobalOpts{..} Opts{..} = do
-    mSpec <- withTracer tracerConfigUnsafe $ \tracer -> do
+exec global opts = do
+    mSpec <- withTracer global.unsafe $ \tracer -> do
         (clangArgs, _target) <-
-          getClangArgsAndTarget (contramap TraceBoot tracer) clangArgsConfig
+          getClangArgsAndTarget (contramap TraceBoot tracer) opts.clangArgsConfig
         getStdlibBindingSpec
           (contramap (TraceBoot . BootBindingSpec) tracer)
           clangArgs
@@ -71,6 +71,6 @@ exec GlobalOpts{..} Opts{..} = do
         putStrLn $ "An error happened (see above)"
         exitFailure
       Right spec ->
-        case output of
+        case opts.output of
           Just path -> BS.writeFile path $ encode (getFormat path) spec
           Nothing   -> BS.putStr         $ encode FormatYAML       spec

@@ -13,13 +13,13 @@ module HsBindgen.Cli.GenTests (
   , exec
   ) where
 
-import Control.Monad (void)
 import Data.Default (Default (..))
 import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
 import HsBindgen.Config
+import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.Frontend.RootHeader
 
 {-------------------------------------------------------------------------------
@@ -55,13 +55,21 @@ parseOpts =
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec GlobalOpts{..} Opts{..} = do
-    let artefact = writeTests output
-        bindgenConfig = toBindgenConfig config uniqueId baseModuleName def
-    void $
-      hsBindgen
-        tracerConfigUnsafe
-        tracerConfigSafe
-        bindgenConfig
-        inputs
-        artefact
+exec global opts =
+    hsBindgen
+      global.unsafe
+      global.safe
+      bindgenConfig
+      opts.inputs
+      artefact
+  where
+    artefact :: Artefact ()
+    artefact = writeTests opts.output
+
+    bindgenConfig :: BindgenConfig
+    bindgenConfig =
+        toBindgenConfig
+          opts.config
+          opts.uniqueId
+          opts.baseModuleName
+          def

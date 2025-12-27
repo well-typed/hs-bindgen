@@ -55,11 +55,11 @@ data ImportListItem =
 
 -- | Haskell module
 data HsModule = HsModule {
-      hsModulePragmas   :: [GhcPragma]
-    , hsModuleName      ::  Hs.ModuleName
-    , hsModuleImports   :: [ImportListItem]
-    , hsModuleCWrappers :: [CWrapper]
-    , hsModuleDecls     :: [SDecl]
+      pragmas   :: [GhcPragma]
+    , name      ::  Hs.ModuleName
+    , imports   :: [ImportListItem]
+    , cWrappers :: [CWrapper]
+    , decls     :: [SDecl]
     }
 
 {-------------------------------------------------------------------------------
@@ -89,13 +89,13 @@ translateModule' ::
   -> BaseModuleName
   -> ([CWrapper], [SDecl])
   -> HsModule
-translateModule' mcat moduleBaseName (hsModuleCWrappers, hsModuleDecls) =
-    let hsModulePragmas =
-          resolvePragmas hsModuleCWrappers hsModuleDecls
-        hsModuleImports =
-          resolveImports moduleBaseName mcat hsModuleCWrappers hsModuleDecls
-        hsModuleName = fromBaseModuleName moduleBaseName mcat
-    in  HsModule{..}
+translateModule' mcat moduleBaseName (cWrappers, decs) = HsModule{
+      pragmas   = resolvePragmas cWrappers decs
+    , imports   = resolveImports moduleBaseName mcat cWrappers decs
+    , name      = fromBaseModuleName moduleBaseName mcat
+    , cWrappers = cWrappers
+    , decls     = decs
+    }
 
 {-------------------------------------------------------------------------------
   Auxiliary: Pragma resolution
@@ -137,11 +137,11 @@ resolveImports ::
   -> [SDecl]
   -> [ImportListItem]
 resolveImports baseModule cat wrappers ds =
-    let ImportAcc requiresTypeModule qs us = mconcat $ map resolveDeclImports ds
+    let acc = mconcat $ map resolveDeclImports ds
     in  Set.toAscList . mconcat $
-            bindingCatImport requiresTypeModule
-          : Set.map QualifiedImportListItem (userlandCapiImport <> qs)
-          : map (Set.singleton . uncurry mkUImportListItem) (Map.toList us)
+            bindingCatImport acc.requireTypes
+          : Set.map QualifiedImportListItem (userlandCapiImport <> acc.qualified)
+          : map (Set.singleton . uncurry mkUImportListItem) (Map.toList acc.unqualified)
   where
     mkUImportListItem :: HsImportModule -> Set ResolvedName -> ImportListItem
     mkUImportListItem imp xs = UnqualifiedImportListItem imp (Just $ Set.toAscList xs)
@@ -153,8 +153,8 @@ resolveImports baseModule cat wrappers ds =
       Just CType -> mempty
       _otherCat  ->
         let base = HsImportModule{
-                hsImportModuleName  = fromBaseModuleName baseModule (Just CType)
-              , hsImportModuleAlias = Nothing
+                name  = fromBaseModuleName baseModule (Just CType)
+              , alias = Nothing
               }
         in  Set.singleton $ UnqualifiedImportListItem base Nothing
     userlandCapiImport :: Set HsImportModule
@@ -166,17 +166,27 @@ resolveImports baseModule cat wrappers ds =
 --
 -- Both qualified imports and unqualified imports are accumulated.
 data ImportAcc = ImportAcc {
-      _importAccRequireTypeModule :: Bool
-    , _importAccQualified         :: Set HsImportModule
-    , _importAccUnqualified       :: Map HsImportModule (Set ResolvedName)
+      requireTypes :: Bool
+    , qualified    :: Set HsImportModule
+    , unqualified  :: Map HsImportModule (Set ResolvedName)
     }
 
 instance Semigroup ImportAcc where
-  ImportAcc tL qL uL <> ImportAcc tR qR uR =
-    ImportAcc (tL || tR) (qL <> qR) (Map.unionWith (<>) uL uR)
+  a <> b = ImportAcc{
+        requireTypes = combineWith (||)                 (.requireTypes)
+      , qualified    = combineWith (<>)                 (.qualified)
+      , unqualified  = combineWith (Map.unionWith (<>)) (.unqualified)
+      }
+    where
+      combineWith :: (a -> a -> a) -> (ImportAcc -> a) -> a
+      combineWith op f = f a `op` f b
 
 instance Monoid ImportAcc where
-  mempty = ImportAcc False mempty mempty
+  mempty = ImportAcc{
+        requireTypes = False
+      , qualified    = mempty
+      , unqualified  = mempty
+      }
 
 -- | Resolve imports in a declaration
 resolveDeclImports :: SDecl -> ImportAcc
@@ -215,10 +225,10 @@ resolveDeclImports = \case
         foldMap (resolveTypeImports . (.typ)) foreignImport.parameters
       , resolveTypeImports foreignImport.result.typ
       ]
-    DBinding Binding{..} -> mconcat [
-        foldMap (resolveTypeImports . (.typ)) parameters
-      , resolveTypeImports result.typ
-      , resolveExprImports body
+    DBinding binding -> mconcat [
+        foldMap (resolveTypeImports . (.typ)) binding.parameters
+      , resolveTypeImports binding.result.typ
+      , resolveExprImports binding.body
       ]
     DPatternSynonym patSyn -> mconcat [
         resolveTypeImports patSyn.typ
@@ -236,13 +246,26 @@ resolveNestedDeriv = mconcat . map aux
 
 -- | Resolve global imports
 resolveGlobalImports :: Global -> ImportAcc
-resolveGlobalImports g = case resolveGlobal g of
-    n@ResolvedName{..} -> case resolvedNameImport of
-      Nothing -> ImportAcc False mempty mempty
-      Just (QualifiedHsImport hsImportModule) ->
-        ImportAcc False (Set.singleton hsImportModule) mempty
-      Just (UnqualifiedHsImport hsImportModule) ->
-        ImportAcc False mempty (Map.singleton hsImportModule (Set.singleton n))
+resolveGlobalImports global =
+    case resolved.hsImport of
+      Nothing -> ImportAcc{
+           requireTypes = False
+         , qualified    = mempty
+         , unqualified  = mempty
+         }
+      Just (QualifiedHsImport hsImportModule) -> ImportAcc{
+          requireTypes = False
+        , qualified    = Set.singleton hsImportModule
+        , unqualified  = mempty
+        }
+      Just (UnqualifiedHsImport hsImportModule) -> ImportAcc{
+          requireTypes = False
+        , qualified    = mempty
+        , unqualified  = Map.singleton hsImportModule (Set.singleton resolved)
+        }
+  where
+    resolved :: ResolvedName
+    resolved = resolveGlobal global
 
 -- | Resolve imports in an expression
 resolveExprImports :: SExpr ctx -> ImportAcc
@@ -314,9 +337,13 @@ resolveStrategyImports = \case
     Hs.DeriveVia ty -> resolveTypeImports ty
 
 resolveExtHsRefImports :: Hs.ExtRef -> ImportAcc
-resolveExtHsRefImports extRef =
-    let hsImportModule = HsImportModule {
-            hsImportModuleName  = extRef.moduleName
-          , hsImportModuleAlias = Nothing
-          }
-    in  ImportAcc False (Set.singleton hsImportModule) mempty
+resolveExtHsRefImports extRef = ImportAcc{
+      requireTypes = False
+    , qualified    = Set.singleton hsImportModule
+    , unqualified  = mempty
+    }
+  where
+    hsImportModule = HsImportModule {
+        name  = extRef.moduleName
+      , alias = Nothing
+      }

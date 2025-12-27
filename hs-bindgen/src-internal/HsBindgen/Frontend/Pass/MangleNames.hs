@@ -113,9 +113,7 @@ chooseNames td fc decls =
           map (nameForDecl td fc specifiedNames) decls
   where
     getSpecifiedName :: C.Decl Select -> Maybe (DeclId, Hs.Identifier)
-    getSpecifiedName decl =
-        (decl.info.id,)
-          <$> (BindingSpec.cTypeSpecIdentifier =<< decl.ann.cSpec)
+    getSpecifiedName decl = (decl.info.id,) <$> ((.hsIdent) =<< decl.ann.cSpec)
 
 nameForDecl ::
      TypedefAnalysis

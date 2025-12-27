@@ -55,11 +55,11 @@ parseOpts =
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec GlobalOpts{..} Opts{..} = do
+exec global opts = do
     eErr <- withTracer tracerConfig' $ \tracer -> do
-      hashIncludeArgs <- checkInputs tracer inputs
+      hashIncludeArgs <- checkInputs tracer opts.inputs
       (clangArgs, _target) <-
-        getClangArgsAndTarget (contramap TraceBoot tracer) clangArgsConfig
+        getClangArgsAndTarget (contramap TraceBoot tracer) opts.clangArgsConfig
       includes <-
         resolveHeaders
           (contramap TraceResolveHeader tracer)
@@ -85,8 +85,8 @@ exec GlobalOpts{..} Opts{..} = do
         putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace e
   where
     tracerConfig' :: TracerConfig Level TraceMsg
-    tracerConfig' = tracerConfigUnsafe{
-        customLogLevel = customLogLevel <> tracerConfigUnsafe.customLogLevel
+    tracerConfig' = global.unsafe{
+        customLogLevel = customLogLevel <> global.unsafe.customLogLevel
       }
 
     customLogLevel :: CustomLogLevel Level TraceMsg

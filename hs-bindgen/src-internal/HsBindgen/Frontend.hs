@@ -1,5 +1,5 @@
 module HsBindgen.Frontend (
-    frontend
+    runFrontend
   , FrontendArtefact (..)
   , FrontendMsg(..)
   ) where
@@ -137,12 +137,12 @@ import HsBindgen.Util.Tracer
 -- "HsBindgen.Frontend.Pass.MangleNames" assigns Haskell names for types,
 -- constructors, fields, etc. It also deals with name clashes that can arise
 -- from typedefs, squashing "unneeded" typedefs.
-frontend ::
+runFrontend ::
      Tracer FrontendMsg
   -> FrontendConfig
   -> BootArtefact
   -> IO FrontendArtefact
-frontend tracer config BootArtefact{..} = do
+runFrontend tracer config boot = do
     parsePass <- cache "parse" $ fmap (fromMaybe emptyParseResult) $ do
       setup <- getSetup
       rootHeader <- getRootHeader
@@ -184,19 +184,19 @@ frontend tracer config BootArtefact{..} = do
     handleMacrosPass <- cache "handleMacros" $ do
       afterConstructTranslationUnit <- constructTranslationUnitPass
       let (afterHandleMacros, msgsHandleMacros) =
-            handleMacros bootCStandard afterConstructTranslationUnit
+            handleMacros boot.cStandard afterConstructTranslationUnit
       forM_ msgsHandleMacros $ traceWith tracer . FrontendHandleMacros
       pure afterHandleMacros
 
     resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
       afterHandleMacros <- handleMacrosPass
-      target   <- bootTarget
-      extSpecs <- bootExternalBindingSpecs
-      pSpec    <- bootPrescriptiveBindingSpec
+      target   <- boot.target
+      extSpecs <- boot.externalBindingSpecs
+      pSpec    <- boot.prescriptiveBindingSpec
       let (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
             resolveBindingSpecs
               target
-              (fromBaseModuleName bootBaseModule (Just CType))
+              (fromBaseModuleName boot.baseModule (Just CType))
               extSpecs
               pSpec
               afterHandleMacros
@@ -266,14 +266,24 @@ frontend tracer config BootArtefact{..} = do
     frontendDependencies <- cache "frontendDependencies" $ do
       IncludeGraph.toSortedList . (.includeGraph) <$> getCTranslationUnit
 
-    pure FrontendArtefact{..}
+    pure FrontendArtefact{
+        includeGraph   = frontendIncludeGraph
+      , getMainHeaders = frontendGetMainHeaders
+      , index          = frontendIndex
+      , useDeclGraph   = frontendUseDeclGraph
+      , declUseGraph   = frontendDeclUseGraph
+      , omitTypes      = frontendOmitTypes
+      , squashedTypes  = frontendSquashedTypes
+      , cDecls         = frontendCDecls
+      , dependencies   = frontendDependencies
+      }
   where
     getRootHeader :: Cached RootHeader
-    getRootHeader = RootHeader.fromMainFiles <$> bootHashIncludeArgs
+    getRootHeader = RootHeader.fromMainFiles <$> boot.hashIncludeArgs
 
     getSetup :: Cached ClangSetup
     getSetup = do
-      clangArgs <- bootClangArgs
+      clangArgs <- boot.clangArgs
       hContent <- RootHeader.content <$> getRootHeader
       let setup = defaultClangSetup clangArgs $ ClangInputMemory hFilePath hContent
       pure $ setup {
@@ -317,16 +327,16 @@ frontend tracer config BootArtefact{..} = do
 -------------------------------------------------------------------------------}
 
 data FrontendArtefact = FrontendArtefact {
-    frontendIncludeGraph   :: Cached (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
-  , frontendGetMainHeaders :: Cached GetMainHeaders
-  , frontendIndex          :: Cached DeclIndex.DeclIndex
-  , frontendUseDeclGraph   :: Cached UseDeclGraph.UseDeclGraph
-  , frontendDeclUseGraph   :: Cached DeclUseGraph.DeclUseGraph
-  , frontendOmitTypes      :: Cached [(DeclId, SourcePath)]
-  , frontendSquashedTypes  :: Cached [(DeclId, (SourcePath, Hs.Identifier))]
-  , frontendCDecls         :: Cached [C.Decl Final]
-  , frontendDependencies   :: Cached [SourcePath]
-  }
+      includeGraph   :: Cached (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
+    , getMainHeaders :: Cached GetMainHeaders
+    , index          :: Cached DeclIndex.DeclIndex
+    , useDeclGraph   :: Cached UseDeclGraph.UseDeclGraph
+    , declUseGraph   :: Cached DeclUseGraph.DeclUseGraph
+    , omitTypes      :: Cached [(DeclId, SourcePath)]
+    , squashedTypes  :: Cached [(DeclId, (SourcePath, Hs.Identifier))]
+    , cDecls         :: Cached [C.Decl Final]
+    , dependencies   :: Cached [SourcePath]
+    }
 
 {-------------------------------------------------------------------------------
   Trace

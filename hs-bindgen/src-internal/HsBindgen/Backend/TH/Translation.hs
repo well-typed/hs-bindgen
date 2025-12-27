@@ -801,17 +801,17 @@ mkDecl = \case
                 <*> pure (hsNameToTH foreignImport.name)
                 <*> mkType EmptyEnv importType
 
-      DBinding Binding{..} -> do
-        let bindingName = hsNameToTH name
-            bindingType = foldr (TFun . (.typ)) result.typ parameters
+      DBinding binding -> do
+        let bindingName = hsNameToTH binding.name
+            bindingType = foldr (TFun . (.typ)) binding.result.typ binding.parameters
 
         sequence $
-          map (pragma name) pragmas
+          map (pragma binding.name) binding.pragmas
           ++ [
-              withDecDoc comment $
+              withDecDoc binding.comment $
                 TH.SigD <$> pure bindingName
                   <*> mkType EmptyEnv bindingType
-            , simpleDecl bindingName body
+            , simpleDecl bindingName binding.body
             ]
 
       DPatternSynonym patSyn -> do

@@ -64,11 +64,11 @@ parseOpts = Opts <$> parseClangArgsConfig
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec GlobalOpts{..} Opts{..} =
-    void . withTracer tracerConfigUnsafe $ \tracer -> do
+exec global opts =
+    void . withTracer global.unsafe $ \tracer -> do
       let tracerBoot  = contramap TraceBoot tracer
           tracerClang = contramap (TraceFrontend . FrontendClang) tracer
-      (clangArgs, _target) <- getClangArgsAndTarget tracerBoot clangArgsConfig
+      (clangArgs, _target) <- getClangArgsAndTarget tracerBoot opts.clangArgsConfig
       -- 1. Get the names of the builtin macros
       names <- getBuiltinMacroNames tracerClang clangArgs
       -- 2. Try to get stringified values for all macros
