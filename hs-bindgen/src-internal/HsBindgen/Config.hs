@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Configuration of @hs-bindgen@.
 module HsBindgen.Config (
     Config_(..)
@@ -41,7 +45,7 @@ data Config_ path = Config {
   , programSlicing  :: ProgramSlicing
 
     -- * Backend
-  , haddockPathStyle         :: PathStyle
+  , haddockPathStyle :: PathStyle
   }
   deriving stock (Eq, Show, Generic)
   deriving stock (Functor, Foldable, Traversable)
@@ -53,18 +57,18 @@ toBindgenConfig ::
   -> BaseModuleName
   -> ByCategory Choice
   -> BindgenConfig
-toBindgenConfig Config{..} uniqueId baseModuleName choice =
+toBindgenConfig config uniqueId baseModuleName choice =
     BindgenConfig bootConfig frontendConfig backendConfig
   where
     bootConfig = BootConfig {
-        bootClangArgsConfig   = clang
+        bootClangArgsConfig   = config.clang
       , bootBaseModuleName    = baseModuleName
-      , bootBindingSpecConfig = bindingSpec
+      , bootBindingSpecConfig = config.bindingSpec
       }
     frontendConfig = FrontendConfig {
-          frontendParsePredicate  = parsePredicate
-        , frontendSelectPredicate = selectPredicate
-        , frontendProgramSlicing  = programSlicing
+          frontendParsePredicate  = config.parsePredicate
+        , frontendSelectPredicate = config.selectPredicate
+        , frontendProgramSlicing  = config.programSlicing
       }
     backendConfig :: BackendConfig
     backendConfig = BackendConfig {
@@ -72,7 +76,7 @@ toBindgenConfig Config{..} uniqueId baseModuleName choice =
             translationUniqueId = uniqueId
           }
       , backendHaddockConfig = HaddockConfig {
-            pathStyle = haddockPathStyle
+            pathStyle = config.haddockPathStyle
           }
       , backendBindingCategoryChoice = choice
       }
@@ -93,7 +97,7 @@ data ConfigTH = ConfigTH {
     -- avoid name clashes.
     --
     -- Default: 'Category.useSafe'.
-    bindingCategoryChoice    :: ByCategory Choice
+    bindingCategoryChoice :: ByCategory Choice
 
     -- | Show trace messages of the provided 'Level' or higher.
     --
@@ -112,8 +116,8 @@ data ConfigTH = ConfigTH {
   deriving stock (Generic)
 
 instance Default ConfigTH where
-  def = ConfigTH {
-            bindingCategoryChoice    = useSafeCategory
-          , verbosity                = def
-          , customLogLevelSettings   = def
-          }
+  def = ConfigTH{
+        bindingCategoryChoice    = useSafeCategory
+      , verbosity                = def
+      , customLogLevelSettings   = def
+      }
