@@ -1,4 +1,8 @@
-{-# LANGUAGE CPP #-}
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+{-# LANGUAGE CPP               #-}
+
 -- | Simple pretty-printing library
 --
 -- This library wraps the @pretty@ library.  Instead of using 'PP.Doc' directly,
@@ -98,19 +102,19 @@ import GHC.TypeError (ErrorMessage (..), Unsatisfiable)
 -- | Pretty-printing context
 data Context = Context {
       -- | Current indentation (number of spaces)
-      ctxIndentation :: !Int
+      indentation :: !Int
       -- | Maximum number of columns per line, when possible
-    , ctxMaxLineCols :: !Int
+    , maxLineCols :: !Int
       -- | Unique name index
-    , ctxUniqueNameIdx :: !Int
+    , uniqueNameIdx :: !Int
     }
 
 -- | Construct an initial 'Context' with the specified line length
 mkContext :: Int -> Context
 mkContext maxLineCols = Context {
-      ctxIndentation   = 0
-    , ctxMaxLineCols   = maxLineCols
-    , ctxUniqueNameIdx = 0
+      indentation   = 0
+    , maxLineCols   = maxLineCols
+    , uniqueNameIdx = 0
     }
 
 -- | Default pretty-printing context
@@ -119,15 +123,13 @@ defaultContext = mkContext 80
 
 -- | Add to the indentation in a 'Context'
 indentContext :: Int -> Context -> Context
-indentContext n ctx = ctx {
-      ctxIndentation = ctxIndentation ctx + n
-    }
+indentContext n ctx = ctx{indentation = ctx.indentation + n}
 
 -- | Get the next unique name index (and the updated context)
 getUniqueNameIdx :: Context -> (Int, Context)
 getUniqueNameIdx ctx =
-    let i = ctxUniqueNameIdx ctx
-    in  (i, ctx { ctxUniqueNameIdx = i + 1 })
+    let i = ctx.uniqueNameIdx
+    in  (i, ctx{uniqueNameIdx = i + 1})
 
 {-------------------------------------------------------------------------------
   CtxDoc
@@ -156,12 +158,10 @@ withFreshName nameHint k = CtxDoc $ \ctx ->
 
 -- | Render a 'CtxDoc'
 renderCtxDoc :: Context -> CtxDoc -> String
-renderCtxDoc ctx@Context{..} = PP.renderStyle style . runCtxDoc ctx
+renderCtxDoc ctx = PP.renderStyle style . runCtxDoc ctx
   where
     style :: PP.Style
-    style = PP.style {
-      PP.lineLength = ctxMaxLineCols
-    }
+    style = PP.style {PP.lineLength = ctx.maxLineCols}
 
 {-------------------------------------------------------------------------------
   Pretty
@@ -358,9 +358,9 @@ hangs' dA n dBs = dA $$ vcat (nest n <$> dBs)
 -- | Select a 'CtxDoc' depending on if a rendered 'CtxDoc' fits within the
 -- maximum line length
 ifFits :: CtxDoc -> CtxDoc -> CtxDoc -> CtxDoc
-ifFits condD thenD elseD = CtxDoc $ \ctx@Context{..} ->
+ifFits condD thenD elseD = CtxDoc $ \ctx ->
     -- TODO compute column width, do not just count chars with length
-    if length (renderCtxDoc ctx condD) <= ctxMaxLineCols
+    if length (renderCtxDoc ctx condD) <= ctx.maxLineCols
       then runCtxDoc ctx thenD
       else runCtxDoc ctx elseD
 
@@ -373,12 +373,12 @@ ifFits condD thenD elseD = CtxDoc $ \ctx@Context{..} ->
 --
 -- The lines are /automatically/ indented according to the current indentation.
 renderedLines :: (Int -> [String]) -> CtxDoc
-renderedLines f = CtxDoc $ \Context{..} ->
-    case f (max 0 (ctxMaxLineCols - ctxIndentation)) of
+renderedLines f = CtxDoc $ \ctx ->
+    case f (max 0 (ctx.maxLineCols - ctx.indentation)) of
       [] -> PP.empty
       ss -> foldl1 (PP.$+$) $ map PP.text ss
 
 -- | Create a document with context information, for debugging
 debugContext :: CtxDoc
-debugContext = CtxDoc $ \Context{..} -> PP.parens $
-    PP.hsep ["Context", PP.int ctxIndentation, PP.int ctxMaxLineCols]
+debugContext = CtxDoc $ \ctx -> PP.parens $
+    PP.hsep ["Context", PP.int ctx.indentation, PP.int ctx.maxLineCols]
