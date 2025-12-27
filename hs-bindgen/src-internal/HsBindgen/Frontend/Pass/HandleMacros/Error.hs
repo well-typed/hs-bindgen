@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 module HsBindgen.Frontend.Pass.HandleMacros.Error (
     -- * Parse
     FailedMacro(..)
@@ -26,10 +29,10 @@ import HsBindgen.Util.Tracer
 
 -- | Macro parse messages; see also 'HandleMacrosReparseMsg'
 data FailedMacro = FailedMacro {
-    name       :: DeclId
-  , loc        :: SingleLoc
-  , macroError :: HandleMacrosError
-  }
+      name       :: DeclId
+    , loc        :: SingleLoc
+    , macroError :: HandleMacrosError
+    }
   deriving stock (Show, Generic)
 
 instance PrettyForTrace FailedMacro where
@@ -75,10 +78,7 @@ instance PrettyForTrace HandleMacrosError where
         ]
 
 prettyParseError :: CExpr.DSL.MacroParseError -> PP.CtxDoc
-prettyParseError err =
-    PP.renderedLines (\_maxWidth -> lines reparseError)
-  where
-    CExpr.DSL.MacroParseError{reparseError} = err
+prettyParseError err = PP.renderedLines $ \_maxWidth -> lines err.reparseError
 
 instance IsTrace Level HandleMacrosError where
   getDefaultLogLevel = \case

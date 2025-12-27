@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 module HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames (
     ChosenNames
   , chooseNames
