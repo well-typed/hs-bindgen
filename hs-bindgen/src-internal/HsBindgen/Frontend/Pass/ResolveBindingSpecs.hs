@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 module HsBindgen.Frontend.Pass.ResolveBindingSpecs (
     resolveBindingSpecs
   ) where
@@ -55,7 +58,7 @@ resolveBindingSpecs target hsModuleName extSpecs pSpec unit =
               ( [ResolveBindingSpecsModuleMismatch hsModuleName pSpecModule]
               , BindingSpec.empty target hsModuleName
               )
-        (decls, state@MState{..}) =
+        (decls, state) =
           runM
             extSpecs
             pSpec'
@@ -63,10 +66,10 @@ resolveBindingSpecs target hsModuleName extSpecs pSpec unit =
             unit.ann.declIndex
             (resolveDecls unit.decls)
         useDeclGraph =
-          UseDeclGraph.deleteDeps (Map.keys stateExtTypes) unit.ann.useDeclGraph
-        notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys stateNoPTypes
+          UseDeclGraph.deleteDeps (Map.keys state.extTypes) unit.ann.useDeclGraph
+        notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys state.noPTypes
     in  ( reconstruct decls useDeclGraph state
-        , pSpecErrs ++ reverse stateTraces ++ notUsedErrs
+        , pSpecErrs ++ reverse state.traces ++ notUsedErrs
         )
   where
     reconstruct ::
@@ -74,14 +77,14 @@ resolveBindingSpecs target hsModuleName extSpecs pSpec unit =
       -> UseDeclGraph
       -> MState
       -> C.TranslationUnit ResolveBindingSpecs
-    reconstruct decls' useDeclGraph MState{..} =
+    reconstruct decls' useDeclGraph state =
       let externalIds :: Set DeclId
-          externalIds = Map.keysSet stateExtTypes
+          externalIds = Map.keysSet state.extTypes
 
           index' :: DeclIndex
           index' =
                 DeclIndex.registerExternalDeclarations externalIds
-              . DeclIndex.registerOmittedDeclarations stateOmitTypes
+              . DeclIndex.registerOmittedDeclarations state.omitTypes
               $ unit.ann.declIndex
 
           unitAnn' :: DeclMeta
@@ -127,10 +130,10 @@ runM extSpecs pSpec includeGraph declIndex (WrapM m) =
 -------------------------------------------------------------------------------}
 
 data MEnv = MEnv {
-      envExtSpecs     :: MergedBindingSpecs
-    , envPSpec        :: PrescriptiveBindingSpec
-    , envIncludeGraph :: IncludeGraph
-    , envDeclIndex    :: DeclIndex
+      extSpecs     :: MergedBindingSpecs
+    , pSpec        :: PrescriptiveBindingSpec
+    , includeGraph :: IncludeGraph
+    , declIndex    :: DeclIndex
     }
   deriving (Show)
 
@@ -139,35 +142,29 @@ data MEnv = MEnv {
 -------------------------------------------------------------------------------}
 
 data MState = MState {
-      stateTraces    :: [Msg ResolveBindingSpecs] -- ^ reverse order
-    , stateExtTypes  :: Map DeclId (C.Type ResolveBindingSpecs)
-    , stateNoPTypes  :: Map DeclId [Set SourcePath]
-    , stateOmitTypes :: Map DeclId SingleLoc
+      traces    :: [Msg ResolveBindingSpecs] -- ^ reverse order
+    , extTypes  :: Map DeclId (C.Type ResolveBindingSpecs)
+    , noPTypes  :: Map DeclId [Set SourcePath]
+    , omitTypes :: Map DeclId SingleLoc
     }
-  deriving (Show)
+  deriving (Show, Generic)
 
 initMState :: PrescriptiveBindingSpec -> MState
 initMState pSpec = MState {
-      stateTraces    = []
-    , stateExtTypes  = Map.empty
-    , stateNoPTypes  = BindingSpec.getCTypes pSpec
-    , stateOmitTypes = Map.empty
+      traces    = []
+    , extTypes  = Map.empty
+    , noPTypes  = BindingSpec.getCTypes pSpec
+    , omitTypes = Map.empty
     }
 
 insertTrace :: Msg ResolveBindingSpecs -> MState -> MState
-insertTrace msg st = st {
-      stateTraces = msg : stateTraces st
-    }
+insertTrace msg = #traces %~ (msg :)
 
 insertExtType :: DeclId -> C.Type ResolveBindingSpecs -> MState -> MState
-insertExtType cDeclId typ st = st {
-      stateExtTypes = Map.insert cDeclId typ (stateExtTypes st)
-    }
+insertExtType cDeclId typ = #extTypes %~ Map.insert cDeclId typ
 
 deleteNoPType :: DeclId -> SourcePath -> MState -> MState
-deleteNoPType cDeclId path st = st {
-      stateNoPTypes = Map.update (aux []) cDeclId (stateNoPTypes st)
-    }
+deleteNoPType cDeclId path = #noPTypes %~ Map.update (aux []) cDeclId
   where
     aux :: [Set SourcePath] -> [Set SourcePath] -> Maybe [Set SourcePath]
     aux acc = \case
@@ -179,14 +176,8 @@ deleteNoPType cDeclId path st = st {
         | otherwise -> aux (s : acc) ss
       [] -> Just acc
 
-insertOmittedType ::
-     DeclId
-  -> SingleLoc
-  -> MState
-  -> MState
-insertOmittedType cDeclId sloc st = st {
-      stateOmitTypes = Map.insert cDeclId sloc (stateOmitTypes st)
-    }
+insertOmittedType :: DeclId -> SingleLoc -> MState -> MState
+insertOmittedType cDeclId sloc = #omitTypes %~ Map.insert cDeclId sloc
 
 {-------------------------------------------------------------------------------
   Internal: implementation
@@ -214,23 +205,23 @@ resolveTop ::
            , (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
            )
        )
-resolveTop decl = Reader.ask >>= \MEnv{..} -> do
+resolveTop decl = Reader.ask >>= \env -> do
     let sourcePath = singleLocPath decl.info.loc
-        declPaths  = IncludeGraph.reaches envIncludeGraph sourcePath
+        declPaths  = IncludeGraph.reaches env.includeGraph sourcePath
         mMsg       = Just $ ResolveBindingSpecsOmittedType decl.info.id
     isExt <- isJust <$> resolveExtBinding decl.info.id declPaths mMsg
     if isExt
       then do
         State.modify' $ insertTrace (ResolveBindingSpecsExtDecl decl.info.id)
         return Nothing
-      else case BindingSpec.lookupCTypeSpec decl.info.id declPaths envPSpec of
+      else case BindingSpec.lookupCTypeSpec decl.info.id declPaths env.pSpec of
         Just (_hsModuleName, BindingSpec.Require cTypeSpec) -> do
           State.modify' $
               insertTrace (ResolveBindingSpecsPrescriptiveRequire decl.info.id)
             . deleteNoPType decl.info.id sourcePath
           let mHsTypeSpec = do
                 hsIdentifier <- BindingSpec.cTypeSpecIdentifier cTypeSpec
-                BindingSpec.lookupHsTypeSpec hsIdentifier envPSpec
+                BindingSpec.lookupHsTypeSpec hsIdentifier env.pSpec
           return $ Just (decl, (Just cTypeSpec, mHsTypeSpec))
         Just (_hsModuleName, BindingSpec.Omit) -> do
           State.modify' $
@@ -382,14 +373,14 @@ instance Resolve CheckedMacro where
     MacroExpr expr -> return (MacroExpr expr)
 
 instance Resolve CheckedMacroType where
-  resolve ctx CheckedMacroType{..} = reconstruct <$> resolve ctx typ
+  resolve ctx macroType = reconstruct <$> resolve ctx macroType.typ
     where
       reconstruct ::
            C.Type ResolveBindingSpecs
         -> CheckedMacroType ResolveBindingSpecs
       reconstruct typ' = CheckedMacroType {
           typ = typ'
-        , ..
+        , ann = macroType.ann
         }
 
 instance Resolve C.Type where
@@ -421,20 +412,20 @@ instance Resolve C.Type where
       C.TypeComplex t      -> return (C.TypeComplex t)
     where
       aux :: DeclId -> M (Maybe (C.Type ResolveBindingSpecs))
-      aux cDeclId = Reader.ask >>= \MEnv{..} -> State.get >>= \MState{..} ->
+      aux cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
         -- Check for selected external binding
-        case Map.lookup cDeclId stateExtTypes of
+        case Map.lookup cDeclId state.extTypes of
           Just ty -> do
             State.modify' $ insertTrace (ResolveBindingSpecsExtType ctx cDeclId)
             return $ Just ty
           Nothing -> do
             -- Check for external binding of type that is unusable.
-            case DeclIndex.lookupUnusableLoc cDeclId envDeclIndex of
+            case DeclIndex.lookupUnusableLoc cDeclId env.declIndex of
               []   -> return Nothing
               locs -> do
                 let declPaths =
                       foldMap
-                        (IncludeGraph.reaches envIncludeGraph . singleLocPath)
+                        (IncludeGraph.reaches env.includeGraph . singleLocPath)
                         locs
                 mTy <- fmap C.TypeExtBinding <$>
                   resolveExtBinding cDeclId declPaths Nothing
@@ -458,8 +449,8 @@ resolveExtBinding ::
   -> Maybe ResolveBindingSpecsMsg
   -> M (Maybe ResolvedExtBinding)
 resolveExtBinding cDeclId declPaths mMsg = do
-    MEnv{envExtSpecs} <- Reader.ask
-    case BindingSpec.lookupMergedBindingSpecs cDeclId declPaths envExtSpecs of
+    env <- Reader.ask
+    case BindingSpec.lookupMergedBindingSpecs cDeclId declPaths env.extSpecs of
       Just (hsModuleName, BindingSpec.Require cTypeSpec, mHsTypeSpec) ->
         case (BindingSpec.cTypeSpecIdentifier cTypeSpec, mHsTypeSpec) of
           (Just hsIdentifier, Just hsTypeSpec) -> do

@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Pretty-print valid C code
 module HsBindgen.Frontend.AST.PrettyPrinter (
     showsFunctionType,
