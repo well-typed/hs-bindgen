@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Haskell AST
 --
 -- Abstract Haskell syntax for the specific purposes of hs-bindgen: we only
@@ -565,18 +569,19 @@ data WriteOffAddrFields ctx = WriteOffAddrFields {
   'HasCField'
 -------------------------------------------------------------------------------}
 
--- | A 'HasCField' instance
-type HasCFieldInstance :: Star
+-- | 'HasCField' instance
 data HasCFieldInstance = HasCFieldInstance {
       -- | The haskell type of the parent C object
-      hasCFieldInstanceParentType :: HsType
+      parentType :: HsType
+
       -- | The name of the field
-    , hasCFieldInstanceFieldName  :: Hs.Name Hs.NsVar
+    , fieldName :: Hs.Name Hs.NsVar
+
       -- | The haskell type of the field
-    , hasCFieldInstanceCFieldType :: HsType
-      -- | The offset (in number of bytes) of the field with respect to the
-      -- parent object
-    , hasCFieldInstanceFieldOffset :: Int
+    , cFieldType :: HsType
+
+      -- | The offset (in number of bytes) of the field wrt the parent object
+    , fieldOffset :: Int
     }
   deriving stock (Generic, Show)
 
@@ -584,20 +589,22 @@ data HasCFieldInstance = HasCFieldInstance {
   'HasCBitfield'
 -------------------------------------------------------------------------------}
 
--- | A 'HasCBitfield' instance
-type HasCBitfieldInstance :: Star
+-- | 'HasCBitfield' instance
 data HasCBitfieldInstance = HasCBitfieldInstance {
       -- | The haskell type of the parent C object
-      hasCBitfieldInstanceParentType :: HsType
+      parentType :: HsType
+
       -- | The name of the bit-field
-    , hasCBitfieldInstanceFieldName :: Hs.Name Hs.NsVar
+    , fieldName :: Hs.Name Hs.NsVar
+
       -- | The haskell type of the bit-field
-    , hasCBitfieldInstanceCBitfieldType :: HsType
-      -- | The offset (in number of bit) of the bit-field with respect to the
-      -- parent object
-    , hasCBitfieldInstanceBitOffset :: Int
+    , cBitfieldType :: HsType
+
+      -- | The offset (in number of bit) of the bit-field wrt the parent object
+    , bitOffset :: Int
+
       -- | The width (in number of bits) of the bit-field.
-    , hasCBitfieldInstanceBitWidth :: Int
+    , bitWidth :: Int
     }
   deriving stock (Generic, Show)
 
@@ -605,17 +612,19 @@ data HasCBitfieldInstance = HasCBitfieldInstance {
   'HasField'
 -------------------------------------------------------------------------------}
 
--- | A 'HasField' instance (via a 'HasCField' or 'HasCBitfield' instance).
-type HasFieldInstance :: Star
+-- | 'HasField' instance (via a 'HasCField' or 'HasCBitfield' instance).
 data HasFieldInstance = HasFieldInstance {
       -- | The haskell type of the parent C object
-      hasFieldInstanceParentType :: HsType
+      parentType :: HsType
+
       -- | The name of the (bit-)field
-    , hasFieldInstanceFieldName :: Hs.Name Hs.NsVar
+    , fieldName :: Hs.Name Hs.NsVar
+
       -- | The haskell type of the (bit-)field
-    , hasFieldInstanceFieldType :: HsType
+    , fieldType :: HsType
+
       -- | Implement the instance via a 'HasCField' or 'HasCBitfield' instance.
-    , hasFieldInstanceVia :: HasFieldInstanceVia
+    , deriveVia :: HasFieldInstanceVia
     }
   deriving stock (Generic, Show)
 

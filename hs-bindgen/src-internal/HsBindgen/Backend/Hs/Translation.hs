@@ -367,29 +367,30 @@ structFieldDecls structName field = [
 
     hasFieldDecl :: Hs.HasFieldInstance
     hasFieldDecl = Hs.HasFieldInstance {
-          hasFieldInstanceParentType = parentType
-        , hasFieldInstanceFieldName  = fieldName
-        , hasFieldInstanceFieldType  = fieldType
-        , hasFieldInstanceVia        = case field.width of
-            Nothing -> Hs.ViaHasCField
-            Just _  -> Hs.ViaHasCBitfield
+          parentType = parentType
+        , fieldName  = fieldName
+        , fieldType  = fieldType
+        , deriveVia  =
+            case field.width of
+              Nothing -> Hs.ViaHasCField
+              Just _  -> Hs.ViaHasCBitfield
         }
 
     hasCFieldDecl :: Hs.HasCFieldInstance
     hasCFieldDecl = Hs.HasCFieldInstance {
-          hasCFieldInstanceParentType  = parentType
-        , hasCFieldInstanceFieldName   = fieldName
-        , hasCFieldInstanceCFieldType  = fieldType
-        , hasCFieldInstanceFieldOffset = field.offset `div` 8
+          parentType  = parentType
+        , fieldName   = fieldName
+        , cFieldType  = fieldType
+        , fieldOffset = field.offset `div` 8
         }
 
     hasCBitfieldDecl :: Int -> Hs.HasCBitfieldInstance
     hasCBitfieldDecl w = Hs.HasCBitfieldInstance {
-          hasCBitfieldInstanceParentType    = parentType
-        , hasCBitfieldInstanceFieldName     = fieldName
-        , hasCBitfieldInstanceCBitfieldType = fieldType
-        , hasCBitfieldInstanceBitOffset     = field.offset
-        , hasCBitfieldInstanceBitWidth      = w
+          parentType    = parentType
+        , fieldName     = fieldName
+        , cBitfieldType = fieldType
+        , bitOffset     = field.offset
+        , bitWidth      = w
         }
 
 peekStructField :: Idx ctx -> C.StructField Final -> Hs.PeekCField ctx
@@ -602,29 +603,30 @@ unionFieldDecls unionName field = [
 
     hasFieldDecl :: Hs.HasFieldInstance
     hasFieldDecl = Hs.HasFieldInstance {
-          hasFieldInstanceParentType = parentType
-        , hasFieldInstanceFieldName  = fieldName
-        , hasFieldInstanceFieldType  = fieldType
-        , hasFieldInstanceVia        = case unionFieldWidth field of
-            Nothing -> Hs.ViaHasCField
-            Just _  -> Hs.ViaHasCBitfield
+          parentType = parentType
+        , fieldName  = fieldName
+        , fieldType  = fieldType
+        , deriveVia  =
+            case unionFieldWidth field of
+              Nothing -> Hs.ViaHasCField
+              Just _  -> Hs.ViaHasCBitfield
         }
 
     hasCFieldDecl :: Hs.HasCFieldInstance
     hasCFieldDecl = Hs.HasCFieldInstance {
-          hasCFieldInstanceParentType = parentType
-        , hasCFieldInstanceFieldName  = fieldName
-        , hasCFieldInstanceCFieldType = fieldType
-        , hasCFieldInstanceFieldOffset = 0
+          parentType  = parentType
+        , fieldName   = fieldName
+        , cFieldType  = fieldType
+        , fieldOffset = 0
         }
 
     hasCBitfieldDecl :: Int -> Hs.HasCBitfieldInstance
     hasCBitfieldDecl w = Hs.HasCBitfieldInstance {
-          hasCBitfieldInstanceParentType = parentType
-        , hasCBitfieldInstanceFieldName  = fieldName
-        , hasCBitfieldInstanceCBitfieldType = fieldType
-        , hasCBitfieldInstanceBitOffset = 0
-        , hasCBitfieldInstanceBitWidth = w
+          parentType    = parentType
+        , fieldName     = fieldName
+        , cBitfieldType = fieldType
+        , bitOffset     = 0
+        , bitWidth      = w
         }
 
 {-------------------------------------------------------------------------------
@@ -940,18 +942,18 @@ typedefFieldDecls hsNewType = [
 
     elimHasFieldDecl :: Hs.HasFieldInstance
     elimHasFieldDecl = Hs.HasFieldInstance{
-          hasFieldInstanceParentType = parentType
-        , hasFieldInstanceFieldName  = hsNewType.field.name
-        , hasFieldInstanceFieldType  = hsNewType.field.typ
-        , hasFieldInstanceVia        = Hs.ViaHasCField
+          parentType = parentType
+        , fieldName  = hsNewType.field.name
+        , fieldType  = hsNewType.field.typ
+        , deriveVia  = Hs.ViaHasCField
         }
 
     elimHasCFieldDecl :: Hs.HasCFieldInstance
     elimHasCFieldDecl = Hs.HasCFieldInstance{
-          hasCFieldInstanceParentType  = parentType
-        , hasCFieldInstanceFieldName   = hsNewType.field.name
-        , hasCFieldInstanceCFieldType  = hsNewType.field.typ
-        , hasCFieldInstanceFieldOffset = 0
+          parentType  = parentType
+        , fieldName   = hsNewType.field.name
+        , cFieldType  = hsNewType.field.typ
+        , fieldOffset = 0
         }
 
 -- | Typedef around function pointer

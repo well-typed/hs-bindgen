@@ -307,24 +307,24 @@ translateHasCFieldInstance ::
      Hs.HasCFieldInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateHasCFieldInstance Hs.HasCFieldInstance{..} mbComment = do
-    Instance {
-        instanceClass   = HasCField_class
-      , instanceArgs    = [parentType, fieldNameLitType]
-      , instanceSuperClasses = []
-      , instanceTypes   = [
-            (HasCField_CFieldType, [parentType, fieldNameLitType], fieldType)
-          ]
-      , instanceDecs    = [
-            (HasCField_offset#, EUnusedLam $ EUnusedLam $ EIntegral o Nothing)
-          ]
-      , instanceComment = mbComment
-      }
+translateHasCFieldInstance inst mbComment = Instance {
+      instanceClass        = HasCField_class
+    , instanceArgs         = [parent, fieldLit]
+    , instanceSuperClasses = []
+    , instanceComment      = mbComment
+
+    , instanceTypes = [
+          (HasCField_CFieldType, [parent, fieldLit], fieldType)
+        ]
+    , instanceDecs = [
+          (HasCField_offset#, EUnusedLam $ EUnusedLam $ EIntegral o Nothing)
+        ]
+    }
   where
-    parentType = translateType hasCFieldInstanceParentType
-    fieldNameLitType = translateType $ HsStrLit $ T.unpack $ Hs.getName hasCFieldInstanceFieldName
-    fieldType = translateType hasCFieldInstanceCFieldType
-    o = fromIntegral hasCFieldInstanceFieldOffset
+    parent    = translateType inst.parentType
+    fieldLit  = translateType $ HsStrLit $ T.unpack $ Hs.getName inst.fieldName
+    fieldType = translateType inst.cFieldType
+    o         = fromIntegral inst.fieldOffset
 
 {-------------------------------------------------------------------------------
   'HasCBitfield'
@@ -334,66 +334,68 @@ translateHasCBitfieldInstance ::
      Hs.HasCBitfieldInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateHasCBitfieldInstance Hs.HasCBitfieldInstance{..} mbComment = do
-    Instance
-      { instanceClass   = HasCBitfield_class
-      , instanceArgs    = [parentType, fieldNameLitType]
-      , instanceSuperClasses = []
-      , instanceTypes   = [
-            (HasCBitfield_CBitfieldType, [parentType, fieldNameLitType], fieldType)
-          ]
-      , instanceDecs    = [
-            (HasCBitfield_bitOffset#, EUnusedLam $ EUnusedLam $ EIntegral o Nothing )
-          , (HasCBitfield_bitWidth#, EUnusedLam $ EUnusedLam $ EIntegral w Nothing)
-          ]
-      , instanceComment = mbComment
-      }
+translateHasCBitfieldInstance inst mbComment = Instance{
+      instanceClass        = HasCBitfield_class
+    , instanceArgs         = [parent, fieldLit]
+    , instanceSuperClasses = []
+    , instanceComment      = mbComment
+
+    , instanceTypes = [
+          (HasCBitfield_CBitfieldType, [parent, fieldLit], fieldType)
+        ]
+    , instanceDecs = [
+          (HasCBitfield_bitOffset# , EUnusedLam $ EUnusedLam $ EIntegral o Nothing)
+        , (HasCBitfield_bitWidth#  , EUnusedLam $ EUnusedLam $ EIntegral w Nothing)
+        ]
+    }
   where
-    parentType = translateType hasCBitfieldInstanceParentType
-    fieldNameLitType = translateType $ HsStrLit $ T.unpack $ Hs.getName hasCBitfieldInstanceFieldName
-    fieldType = translateType hasCBitfieldInstanceCBitfieldType
-    o = fromIntegral hasCBitfieldInstanceBitOffset
-    w = fromIntegral hasCBitfieldInstanceBitWidth
+    parent    = translateType inst.parentType
+    fieldLit  = translateType $ HsStrLit $ T.unpack $ Hs.getName inst.fieldName
+    fieldType = translateType inst.cBitfieldType
+    o         = fromIntegral inst.bitOffset
+    w         = fromIntegral inst.bitWidth
 
 translateHasFieldInstance ::
      Hs.HasFieldInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateHasFieldInstance Hs.HasFieldInstance{..} mbComment = do
-    Instance {
-        instanceClass   = HasField_class
-      , instanceArgs    = [fieldNameLitType, parentPtr, tyPtr]
-      , instanceSuperClasses = [
-            (NomEq_class, [
-                tyTypeVar
-              , TGlobal fieldTypeGlobal `TApp` parentType `TApp` fieldNameLitType]
-              )
-          ]
-      , instanceTypes   = []
-      , instanceDecs    = [
-            (HasField_getField,
-              EGlobal ptrToFieldGlobal `EApp`
-              (EGlobal Proxy_constructor `ETypeApp` fieldNameLitType)
-            )
-          ]
-      , instanceComment = mbComment
-      }
-  where
-    (fieldTypeGlobal, ptrToFieldGlobal, tyPtr) = case hasFieldInstanceVia of
-      Hs.ViaHasCField    ->
-        ( HasCField_CFieldType
-        , HasCField_ptrToCField
-        , TGlobal Foreign_Ptr `TApp` tyTypeVar
-        )
-      Hs.ViaHasCBitfield ->
-        ( HasCBitfield_CBitfieldType
-        , HasCBitfield_ptrToCBitfield
-        , TGlobal HasCBitfield_BitfieldPtr `TApp` parentType `TApp` fieldNameLitType
-        )
+translateHasFieldInstance inst mbComment = Instance{
+      instanceClass   = HasField_class
+    , instanceArgs    = [fieldLit, parentPtr, tyPtr]
+    , instanceTypes   = []
+    , instanceComment = mbComment
 
-    parentType = translateType hasFieldInstanceParentType
-    parentPtr = TGlobal Foreign_Ptr `TApp` parentType
-    fieldNameLitType = translateType $ HsStrLit $ T.unpack $ Hs.getName hasFieldInstanceFieldName
+    , instanceSuperClasses = [
+          ( NomEq_class
+          , [ tyTypeVar
+            , TGlobal fieldTypeGlobal `TApp` parent `TApp` fieldLit
+            ]
+          )
+        ]
+    , instanceDecs = [
+          ( HasField_getField
+          , EGlobal ptrToFieldGlobal `EApp`
+              (EGlobal Proxy_constructor `ETypeApp` fieldLit)
+          )
+        ]
+    }
+  where
+    (fieldTypeGlobal, ptrToFieldGlobal, tyPtr) =
+      case inst.deriveVia of
+        Hs.ViaHasCField -> (
+            HasCField_CFieldType
+          , HasCField_ptrToCField
+          , TGlobal Foreign_Ptr `TApp` tyTypeVar
+          )
+        Hs.ViaHasCBitfield -> (
+            HasCBitfield_CBitfieldType
+          , HasCBitfield_ptrToCBitfield
+          , TGlobal HasCBitfield_BitfieldPtr `TApp` parent `TApp` fieldLit
+          )
+
+    parent    = translateType inst.parentType
+    parentPtr = TGlobal Foreign_Ptr `TApp` parent
+    fieldLit  = translateType $ HsStrLit $ T.unpack $ Hs.getName inst.fieldName
     -- TODO: this is not actually a free type variable. See issue #1287.
     tyTypeVar = TFree $ Hs.ExportedName "ty"
 
