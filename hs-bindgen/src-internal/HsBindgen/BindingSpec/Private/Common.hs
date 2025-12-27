@@ -142,7 +142,7 @@ instance PrettyForTrace BindingSpecReadMsg where
       , " for C type: "
       , prettyForTrace cDeclId
       , " ("
-      , PP.string (getHashIncludeArg header)
+      , PP.string header.path
       , ")"
       ]
     BindingSpecReadHsIdentifierNoRef path hsIdentifier -> PP.hcat [

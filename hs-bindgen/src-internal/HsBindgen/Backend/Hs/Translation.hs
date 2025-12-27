@@ -1369,8 +1369,8 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
 
     cWrapper :: CWrapper
     cWrapper = CWrapper {
-          cWrapperDefinition = prettyStub
-        , cWrapperImport = getMainHashIncludeArg info
+          definition     = prettyStub
+        , hashIncludeArg = getMainHashIncludeArg info
         }
 
     mbComment = mkHaddocks haddockConfig info runnerName

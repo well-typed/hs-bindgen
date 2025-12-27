@@ -1263,15 +1263,13 @@ toAOCTypes ::
 toAOCTypes compareCDeclId cTypeMap = map snd $ List.sortBy aux [
       (cDeclId,) $ case oCTypeSpec of
         Require CTypeSpec{..} -> ARequire ACTypeSpecMapping {
-            aCTypeSpecMappingHeaders    =
-              map getHashIncludeArg (Set.toAscList headers)
+            aCTypeSpecMappingHeaders    = map (.path) (Set.toAscList headers)
           , aCTypeSpecMappingCName      = renderDeclId cDeclId
           , aCTypeSpecMappingIdentifier = cTypeSpecIdentifier
           , aCTypeSpecMappingRep        = ACTypeRep <$> cTypeSpecRep
           }
         Omit -> AOmit AKCTypeSpecMapping {
-            akCTypeSpecMappingHeaders =
-              map getHashIncludeArg (Set.toAscList headers)
+            akCTypeSpecMappingHeaders = map (.path) (Set.toAscList headers)
           , akCTypeSpecMappingCName   = renderDeclId cDeclId
           }
     | (cDeclId, xs) <- Map.toAscList cTypeMap

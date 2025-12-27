@@ -66,11 +66,11 @@ parseGlobalOpts = aux <$> parseTracerConfig
     aux tracerConfigUnsafe =
       let tracerConfigSafe :: TracerConfig SafeLevel SafeTraceMsg
           tracerConfigSafe = TracerConfig {
-              tVerbosity = tVerbosity tracerConfigUnsafe
-            , tOutputConfig = def
-            , tCustomLogLevel = mempty
-            , tShowTimeStamp = tShowTimeStamp tracerConfigUnsafe
-            , tShowCallStack = tShowCallStack tracerConfigUnsafe
+              verbosity      = tracerConfigUnsafe.verbosity
+            , outputConfig   = def
+            , customLogLevel = mempty
+            , showTimeStamp  = tracerConfigUnsafe.showTimeStamp
+            , showCallStack  = tracerConfigUnsafe.showCallStack
             }
       in  GlobalOpts tracerConfigUnsafe tracerConfigSafe
 

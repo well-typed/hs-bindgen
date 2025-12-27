@@ -67,12 +67,17 @@ exec GlobalOpts{..} Opts{..} = do
           (Set.fromList hashIncludeArgs)
       fmap or . forM hashIncludeArgs $ \header' ->
         case Map.lookup header' includes of
-          Just path -> (False <$) . putStrLn $
-            "#include <" ++ getHashIncludeArg header'
-              ++ "> resolved to " ++ show path
-          Nothing   -> (True  <$) . putStrLn $
-            "#include <" ++ getHashIncludeArg header'
-              ++ "> could not be resolved (header not found)"
+          Just path -> (False <$) . putStrLn $ concat [
+              "#include <"
+            , header'.path
+            , "> resolved to "
+            , show path
+            ]
+          Nothing   -> (True  <$) . putStrLn $ concat [
+              "#include <"
+            , header'.path
+            , "> could not be resolved (header not found)"
+            ]
     case eErr of
       Right False -> return ()
       Right True  -> throwIO (ExitFailure 1)
@@ -81,8 +86,7 @@ exec GlobalOpts{..} Opts{..} = do
   where
     tracerConfig' :: TracerConfig Level TraceMsg
     tracerConfig' = tracerConfigUnsafe{
-        tCustomLogLevel =
-          customLogLevel <> tCustomLogLevel tracerConfigUnsafe
+        customLogLevel = customLogLevel <> tracerConfigUnsafe.customLogLevel
       }
 
     customLogLevel :: CustomLogLevel Level TraceMsg

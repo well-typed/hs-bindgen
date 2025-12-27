@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 module HsBindgen.Resolve (
     -- * Trace messages
     ResolveHeaderMsg(..)
@@ -50,18 +54,18 @@ instance PrettyForTrace ResolveHeaderMsg where
       "During header resolution:" 2 (prettyForTrace msg)
     ResolveHeaderFound header path -> hsep [
         "Header"
-      , string $ getHashIncludeArg header
+      , string header.path
       , "resolved to"
       , string $ getSourcePath path
       ]
     ResolveHeaderNotFound header -> hsep [
         "Header"
-      , string $ getHashIncludeArg header
+      , string header.path
       , "could not be resolved (header not found)"
       ]
     ResolveHeaderNotAttempted header -> hsep [
         "Header"
-      , string $ getHashIncludeArg header
+      , string header.path
       , "not attempted to be resolved"
       ]
 
@@ -115,7 +119,7 @@ resolveHeaders tracer args headers =
 
     rootHeaderContent :: String
     rootHeaderContent = unlines [
-        "#include <" ++ getHashIncludeArg header ++ ">"
+        "#include <" ++ header.path ++ ">"
       | header <- headerList
       ]
 

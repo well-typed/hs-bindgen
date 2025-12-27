@@ -33,7 +33,7 @@ import Data.Map.Strict qualified as Map
 
 import Clang.Paths
 
-import HsBindgen.Frontend.RootHeader (HashIncludeArg (getHashIncludeArg))
+import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
 
@@ -130,7 +130,7 @@ dumpMermaid p includeGraph =
   where
     renderInclude :: Include -> String
     renderInclude = \case
-      BracketInclude     i -> "#include <"       ++ getHashIncludeArg i ++ ">"
-      QuoteInclude       i -> "#include \""      ++ getHashIncludeArg i ++ "\""
-      BracketIncludeNext i -> "#include_next <"  ++ getHashIncludeArg i ++ ">"
-      QuoteIncludeNext   i -> "#include_next \"" ++ getHashIncludeArg i ++ "\""
+      BracketInclude     i -> "#include <"       ++ i.path ++ ">"
+      QuoteInclude       i -> "#include \""      ++ i.path ++ "\""
+      BracketIncludeNext i -> "#include_next <"  ++ i.path ++ ">"
+      QuoteIncludeNext   i -> "#include_next \"" ++ i.path ++ "\""

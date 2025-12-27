@@ -78,13 +78,13 @@ withHsBindgen config configTH hashIncludes = do
     let tracerConfigUnsafe :: TracerConfig Level TraceMsg
         tracerConfigUnsafe =
           tracerConfigDefTH
-            & #tVerbosity      .~ configTH.verbosity
-            & #tCustomLogLevel .~ getCustomLogLevel configTH.customLogLevels
+            & #verbosity      .~ configTH.verbosity
+            & #customLogLevel .~ getCustomLogLevel configTH.customLogLevels
 
     let tracerConfigSafe :: TracerConfig SafeLevel SafeTraceMsg
         tracerConfigSafe =
           tracerConfigDefTH
-            & #tVerbosity .~ configTH.verbosity
+            & #verbosity .~ configTH.verbosity
 
         -- Traverse #include directives.
         bindgenState :: BindgenState
@@ -167,9 +167,7 @@ getThDecls deps wrappers decls = do
 
 -- | The default tracer configuration in Q uses 'outputConfigTH'
 tracerConfigDefTH :: TracerConfig l a
-tracerConfigDefTH = def {
-        tOutputConfig = outputConfigTH
-      }
+tracerConfigDefTH = def{outputConfig = outputConfigTH}
 
 -- | State monad used by `withBindgen`
 --

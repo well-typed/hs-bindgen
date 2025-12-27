@@ -50,8 +50,8 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
         ]
     , testGroup "LeftOnError" [
           testCase "left" $ do
-              let tracerConf   = quietTracerConfig {
-                      tVerbosity    = Verbosity Debug
+              let tracerConf = quietTracerConfig {
+                      verbosity = Verbosity Debug
                     }
               res <- withTracer tracerConf $ \tracer -> do traceWith tracer er
               isLeft res @? "isLeft"
@@ -168,8 +168,8 @@ testTracerIO :: CustomLogLevel Level TestTrace -> [TestTrace] -> IO Level
 testTracerIO customLogLevel traces = do
   let tracerConfig :: TracerConfig Level TestTrace
       tracerConfig = quietTracerConfig {
-          tVerbosity      = Verbosity Debug
-        , tCustomLogLevel = customLogLevel
+          verbosity      = Verbosity Debug
+        , customLogLevel = customLogLevel
         }
   -- NB: Use and test the tracer functionality provided by @hs-bindgen:lib@,
   -- and not by the tests (e.g., 'withTracePredicate').

@@ -76,7 +76,7 @@ data DumpTrace =
 
 clangAstDump :: Options -> IO ()
 clangAstDump opts = do
-    putStrLn $ "## `" ++ getHashIncludeArg opts.file ++ "`"
+    putStrLn $ "## `" ++ opts.file.path ++ "`"
     putStrLn ""
 
     eitherRes <- withTracer tracerConf $ \tracer -> do
@@ -107,7 +107,7 @@ clangAstDump opts = do
   where
     tracerConf :: TracerConfig Level DumpTrace
     tracerConf = def {
-        tVerbosity = Verbosity Debug
+        verbosity = Verbosity Debug
       }
 
     cArgsConfig :: ClangArgsConfig FilePath

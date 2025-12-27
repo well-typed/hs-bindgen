@@ -1,4 +1,5 @@
-{-# LANGUAGE Arrows #-}
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
 
 -- | Logging
 --
@@ -25,8 +26,11 @@ module HsBindgen.Util.Tracer (
   , AnsiColor (..)
   , Report
   , OutputConfig (..)
+  , OutputHandle (..)
+  , OutputCustom (..)
   , outputConfigTH
   , CustomLogLevel (..)
+  , applyCustomLogLevel
   , TracerConfig (..)
     -- * Tracers
   , withTracer
@@ -69,16 +73,17 @@ import HsBindgen.Imports
   The definition of 'Tracer' is opaque.
 -------------------------------------------------------------------------------}
 
-newtype Tracer e = Wrap {
-      unwrap :: ContraTracer.Tracer IO (MsgWithCallStack e)
-    }
+newtype Tracer e = Wrap (ContraTracer.Tracer IO (MsgWithCallStack e))
+
+unwrap :: Tracer e -> ContraTracer.Tracer IO (MsgWithCallStack e)
+unwrap (Wrap tracer) = tracer
 
 -- | We pair every trace message with a callstack for easier debugging
 --
 -- This is an internal type.
 data MsgWithCallStack e = MsgWithCallStack {
-      msgCallStack        :: CallStack
-    , msgWithoutCallStack :: e
+      callStack :: CallStack
+    , traceMsg  :: e
     }
   deriving stock (Show, Functor)
 
@@ -93,7 +98,7 @@ traceWith tracer =
 
 -- | Simple tracer that 'ContraTracer.emit's every message
 simpleTracer :: (e -> IO ()) -> Tracer e
-simpleTracer f = simpleWithCallStack (f . msgWithoutCallStack)
+simpleTracer f = simpleWithCallStack (f . (.traceMsg))
 
 -- | Generalization of 'simpleWithCallStack'
 --
@@ -108,7 +113,7 @@ simpleWithCallStack =
 squelchUnless :: (e -> Bool) -> Tracer e -> Tracer e
 squelchUnless p =
       Wrap
-    . ContraTracer.squelchUnless (p . msgWithoutCallStack)
+    . ContraTracer.squelchUnless (p . (.traceMsg))
     . unwrap
 
 nullTracer :: Tracer e
@@ -217,7 +222,7 @@ alignSource = \case
   Libclang  -> "Libclang "
   HsBindgen -> "HsBindgen"
 
-newtype TraceId = TraceId { unTraceId :: String }
+newtype TraceId = TraceId { id :: String }
   deriving stock (Show, Eq, Ord)
   deriving (IsString, Semigroup, Monoid) via String
 
@@ -273,7 +278,7 @@ gGetSource' = gGetSource . GHC.from
 gGetTraceId' :: (GHC.Generic e, GIsTrace l (GHC.Rep e)) => e -> TraceId
 gGetTraceId' = gGetTraceId . GHC.from
 
-newtype Verbosity = Verbosity { unwrapVerbosity :: Level }
+newtype Verbosity = Verbosity { level :: Level }
   deriving stock (Show, Eq)
   deriving Default via Level
 
@@ -317,23 +322,32 @@ data ShowCallStack = EnableCallStack | DisableCallStack
 type Report e = Level -> e -> String -> IO ()
 
 data OutputConfig e =
-    OutputHandle {
-      _outputHandle           :: Handle
-      -- | 'Nothing': Automatically determine ANSI color support by examining
-      -- the 'Handle'; see 'getAnsiColor'.
-    , _outputAnsiColorSetting :: Maybe AnsiColor
+    OutputConfigHandle OutputHandle
+  | OutputConfigCustom (OutputCustom e)
+
+data OutputHandle = OutputHandle{
+      handle :: Handle
+
+      -- | ANSI color support
+      --
+      -- 'Nothing': Automatically determine ANSI color support by examining the
+      -- 'Handle'; see 'getAnsiColor'.
+    , ansiColor :: Maybe AnsiColor
     }
-  | OutputCustom {
-      _outputReport    :: Report e
-    , _outputAnsiColor :: AnsiColor
+
+data OutputCustom e = OutputCustom{
+      report    :: Report e
+    , ansiColor :: AnsiColor
     }
 
 instance Contravariant OutputConfig where
   contramap f = \case
-    OutputHandle{..} -> OutputHandle{..}
-    OutputCustom{..} -> OutputCustom{
-        _outputReport = \level -> _outputReport level . f
-      , ..
+      OutputConfigHandle handle -> OutputConfigHandle handle
+      OutputConfigCustom custom -> OutputConfigCustom (contramap f custom)
+
+instance Contravariant OutputCustom where
+  contramap f outputCustom = outputCustom{
+        report = \level -> outputCustom.report level . f
       }
 
 -- | The default tracer configuration
@@ -341,7 +355,13 @@ instance Contravariant OutputConfig where
 -- - writes to 'stderr', and
 -- - uses ANSI colors, if available.
 instance Default (OutputConfig e) where
-  def = OutputHandle stderr Nothing
+  def = OutputConfigHandle def
+
+instance Default OutputHandle where
+  def = OutputHandle{
+        handle    = stderr
+      , ansiColor = Nothing
+      }
 
 -- | Output configuration suitable for compile-time code generation with
 -- Template Haskell.
@@ -350,7 +370,10 @@ instance Default (OutputConfig e) where
 --
 -- Report traces with other log levels to `stdout`.
 outputConfigTH :: OutputConfig e
-outputConfigTH = OutputCustom report DisableAnsiColor
+outputConfigTH = OutputConfigCustom OutputCustom{
+      report
+    , ansiColor = DisableAnsiColor
+    }
   where
     report :: Report e
     report level _ = case level of
@@ -365,7 +388,10 @@ outputConfigTH = OutputCustom report DisableAnsiColor
 --
 -- The custom log level function takes a trace and returns a function
 -- customizing the log level.
-newtype CustomLogLevel l e = CustomLogLevel { unCustomLogLevel :: e -> l -> l }
+newtype CustomLogLevel l e = CustomLogLevel (e -> l -> l)
+
+applyCustomLogLevel :: CustomLogLevel l e -> e -> l -> l
+applyCustomLogLevel (CustomLogLevel f) = f
 
 -- | First apply the left custom log level, then the right one.
 instance Semigroup (CustomLogLevel l e) where
@@ -379,30 +405,29 @@ instance Contravariant (CustomLogLevel l) where
   contramap f (CustomLogLevel g) = CustomLogLevel $ g . f
 
 -- | Configuration of tracer.
-data TracerConfig l e = TracerConfig {
-    tVerbosity      :: !Verbosity
-  , tOutputConfig   :: !(OutputConfig e)
-  , tCustomLogLevel :: !(CustomLogLevel l e)
-  , tShowTimeStamp  :: !ShowTimeStamp
-  , tShowCallStack  :: !ShowCallStack
-  }
+data TracerConfig l e = TracerConfig{
+      verbosity      :: Verbosity
+    , outputConfig   :: OutputConfig e
+    , customLogLevel :: CustomLogLevel l e
+    , showTimeStamp  :: ShowTimeStamp
+    , showCallStack  :: ShowCallStack
+    }
   deriving (Generic)
 
 instance Contravariant (TracerConfig l) where
-  contramap f tracerConfig =
-    tracerConfig {
-      tOutputConfig   = contramap f $ tOutputConfig   tracerConfig
-    , tCustomLogLevel = contramap f $ tCustomLogLevel tracerConfig
-    }
+  contramap f config = config {
+        outputConfig   = contramap f config.outputConfig
+      , customLogLevel = contramap f config.customLogLevel
+      }
 
 instance Default (TracerConfig l e) where
-  def = TracerConfig
-    { tVerbosity      = def
-    , tOutputConfig   = def
-    , tCustomLogLevel = mempty
-    , tShowTimeStamp  = DisableTimeStamp
-    , tShowCallStack  = DisableCallStack
-    }
+  def = TracerConfig{
+        verbosity      = def
+      , outputConfig   = def
+      , customLogLevel = mempty
+      , showTimeStamp  = DisableTimeStamp
+      , showCallStack  = DisableCallStack
+      }
 
 {-------------------------------------------------------------------------------
   Tracers
@@ -448,28 +473,29 @@ withTracerUnsafe :: forall m e a. (MonadIO m, IsTrace Level e)
   => TracerConfig Level e
   -> (Tracer e -> IORef TracerState -> m a)
   -> m a
-withTracerUnsafe TracerConfig{..} action = do
+withTracerUnsafe config action = do
   (report, ansiColor) <- getOutputConfig
   fmap fst $ withIORef defTracerState $ \ref ->
     action (mkTracer
-              tCustomLogLevel
+              config.customLogLevel
               ref
-              tVerbosity
+              config.verbosity
               ansiColor
-              tShowCallStack
-              tShowTimeStamp
+              config.showCallStack
+              config.showTimeStamp
               report)
            ref
   where
     getOutputConfig :: m (Report e, AnsiColor)
-    getOutputConfig = case tOutputConfig of
-      OutputHandle handle ansiColorSetting -> do
-        ansiColor <- case ansiColorSetting of
-          Nothing -> getAnsiColor handle
-          Just x  -> pure x
-        let report _lvl _trace = liftIO . hPutStr handle
-        pure (report, ansiColor)
-      OutputCustom report ansiColor -> pure (report, ansiColor)
+    getOutputConfig = case config.outputConfig of
+        OutputConfigHandle outputHandle -> do
+          ansiColor <- case outputHandle.ansiColor of
+            Nothing -> getAnsiColor outputHandle.handle
+            Just x  -> pure x
+          let report _lvl _trace = liftIO . hPutStr outputHandle.handle
+          pure (report, ansiColor)
+        OutputConfigCustom outputCustom ->
+          pure (outputCustom.report, outputCustom.ansiColor)
 
 {-------------------------------------------------------------------------------
   Trace error
@@ -498,7 +524,7 @@ withTracerSafe :: forall m e a. (MonadIO m, IsTrace SafeLevel e)
   => TracerConfig SafeLevel e
   -> (Tracer e -> m a)
   -> m a
-withTracerSafe tracerConf action =
+withTracerSafe config action =
     withTracerUnsafe tracerConf' (\t _ -> action' t)
   where
     action' :: Tracer (SafeTrace e) -> m a
@@ -515,25 +541,24 @@ withTracerSafe tracerConf action =
     customLogLevel :: CustomLogLevel Level (SafeTrace e)
     customLogLevel =
       toCustomLogLevelUnsafe $
-        contramap getSafeTrace $
-        tCustomLogLevel tracerConf
+        contramap (.trace) config.customLogLevel
 
     tracerConf' :: TracerConfig Level (SafeTrace e)
-    tracerConf' = tracerConf {
-        tOutputConfig   = contramap getSafeTrace $ tOutputConfig tracerConf
-      , tCustomLogLevel = customLogLevel
+    tracerConf' = config {
+        outputConfig   = contramap (.trace) config.outputConfig
+      , customLogLevel = customLogLevel
       }
 
-newtype SafeTrace e = SafeTrace { getSafeTrace :: e }
+newtype SafeTrace e = SafeTrace { trace :: e }
   deriving (Show, Eq, Generic)
 
 instance PrettyForTrace e => PrettyForTrace (SafeTrace e) where
-  prettyForTrace = prettyForTrace . getSafeTrace
+  prettyForTrace = prettyForTrace . (.trace)
 
 instance IsTrace SafeLevel e => IsTrace Level (SafeTrace e) where
-  getDefaultLogLevel = fromSafeLevel . getDefaultLogLevel . getSafeTrace
-  getSource          = getSource                          . getSafeTrace
-  getTraceId         = getTraceId                         . getSafeTrace
+  getDefaultLogLevel = fromSafeLevel . getDefaultLogLevel . (.trace)
+  getSource          = getSource                          . (.trace)
+  getTraceId         = getTraceId                         . (.trace)
 
 {-------------------------------------------------------------------------------
   Internal helpers
@@ -565,25 +590,25 @@ mkTracer
     squelchUnless isLogLevelHighEnough $ simpleWithCallStack $ traceAction
   where
     isLogLevelHighEnough :: e -> Bool
-    isLogLevelHighEnough trace = getLogLevel trace >= unwrapVerbosity verbosity
+    isLogLevelHighEnough trace = getLogLevel trace >= verbosity.level
 
     traceAction :: MsgWithCallStack e -> IO ()
-    traceAction MsgWithCallStack {..} = do
+    traceAction msg = do
       liftIO $ modifyIORef' tracerStateRef $ updateTracerState level
-      msgTrace <- formatTrace ansiColor showTimeStamp level msgWithoutCallStack
-      let msgStack = prettyCallStack msgCallStack
+      msgTrace <- formatTrace ansiColor showTimeStamp level msg.traceMsg
+      let msgStack = prettyCallStack msg.callStack
           components = msgTrace : [ msgStack | showCallStack == EnableCallStack ]
-      report level msgWithoutCallStack $ unlines components
+      report level msg.traceMsg $ unlines components
       where
         level :: Level
-        level = getLogLevel msgWithoutCallStack
+        level = getLogLevel msg.traceMsg
 
     updateTracerState :: Level -> TracerState -> TracerState
     updateTracerState level (TracerState maxLevel) =
       TracerState $ max level maxLevel
 
     getLogLevel :: e -> Level
-    getLogLevel x = unCustomLogLevel customLogLevel x (getDefaultLogLevel x)
+    getLogLevel x = applyCustomLogLevel customLogLevel x (getDefaultLogLevel x)
 
 -- | Render a string in bold and a specified color.
 --
@@ -665,7 +690,7 @@ formatTrace ansiColor showTimeStamp level trace = do
 
     prependTraceId :: String -> String
     prependTraceId x =
-      withColor ansiColor level ("[" <> unTraceId traceId <> "]") <> " " <> x
+      withColor ansiColor level ("[" <> traceId.id <> "]") <> " " <> x
 
     prependLabels :: Maybe UTCTime -> String -> String
     prependLabels mTime =
