@@ -116,8 +116,8 @@ instancesFor nameTo nameFrom funC funHs = [
 
       -- @ToFunPtr@ instance proper
     , Hs.DeclDefineInstance Hs.DefineInstance{
-          defineInstanceComment      = Nothing
-        , defineInstanceDeclarations = Hs.InstanceToFunPtr
+          comment      = Nothing
+        , instanceDecl = Hs.InstanceToFunPtr
             Hs.ToFunPtrInstance{
                 toFunPtrInstanceType = funHs
               , toFunPtrInstanceBody = nameTo
@@ -126,8 +126,8 @@ instancesFor nameTo nameFrom funC funHs = [
 
       -- @FromFunPtr@ instance proper
     , Hs.DeclDefineInstance Hs.DefineInstance{
-          defineInstanceComment      = Nothing
-        , defineInstanceDeclarations = Hs.InstanceFromFunPtr
+          comment      = Nothing
+        , instanceDecl = Hs.InstanceFromFunPtr
             Hs.FromFunPtrInstance{
                 fromFunPtrInstanceType = funHs
               , fromFunPtrInstanceBody = nameFrom

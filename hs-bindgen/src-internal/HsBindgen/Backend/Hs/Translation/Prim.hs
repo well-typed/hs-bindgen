@@ -27,10 +27,9 @@ mkPrimInstance :: forall n.
 mkPrimInstance insts hsStruct struct
   | Hs.Prim `Set.notMember` insts = []
   | otherwise = singleton
-              $ Hs.DeclDefineInstance
-                  Hs.DefineInstance {
-                    defineInstanceComment      = Nothing
-                  , defineInstanceDeclarations =
+              $ Hs.DeclDefineInstance Hs.DefineInstance{
+                    comment     = Nothing
+                  , instanceDecl =
                       Hs.InstancePrim
                           hsStruct
                           Hs.PrimInstance {

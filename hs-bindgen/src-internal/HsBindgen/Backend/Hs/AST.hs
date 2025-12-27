@@ -198,7 +198,7 @@ data DeriveInstance = DeriveInstance{
     }
   deriving stock (Generic, Show)
 
-data Var = Var {
+data Var = Var{
       name    :: Hs.Name Hs.NsVar
     , typ     :: SHs.ClosedType
     , expr    :: SHs.ClosedExpr
@@ -252,10 +252,9 @@ data Decl where
     DeclVar             :: Var                 -> Decl
 deriving instance Show Decl
 
-data DefineInstance =
-  DefineInstance
-    { defineInstanceDeclarations :: InstanceDecl
-    , defineInstanceComment      :: Maybe HsDoc.Comment
+data DefineInstance = DefineInstance{
+      instanceDecl :: InstanceDecl
+    , comment      :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 

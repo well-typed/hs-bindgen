@@ -274,8 +274,8 @@ structDecs opts haddockConfig info struct spec fields = do
           | Hs.Storable `Set.notMember` insts = []
           | otherwise = singleton $ Hs.DeclDefineInstance
               Hs.DefineInstance {
-                defineInstanceComment      = Nothing
-              , defineInstanceDeclarations =
+                comment      = Nothing
+              , instanceDecl =
                   Hs.InstanceStorable
                       hsStruct
                       Hs.StorableInstance {
@@ -310,8 +310,8 @@ structDecs opts haddockConfig info struct spec fields = do
           Nothing   -> []
           Just flam -> singleton $ Hs.DeclDefineInstance
             Hs.DefineInstance {
-                defineInstanceComment      = Nothing
-              , defineInstanceDeclarations =
+                comment      = Nothing
+              , instanceDecl =
                   Hs.InstanceHasFLAM
                     hsStruct
                     (Type.topLevel flam.typ)
@@ -346,16 +346,16 @@ structFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.StructField Final -> [Hs.Decl]
 structFieldDecls structName field = [
       Hs.DeclDefineInstance $
         Hs.DefineInstance {
-            defineInstanceComment      = Nothing
-          , defineInstanceDeclarations =
+            comment      = Nothing
+          , instanceDecl =
               case field.width of
                 Nothing -> Hs.InstanceHasCField $ hasCFieldDecl
                 Just w  -> Hs.InstanceHasCBitfield $ hasCBitfieldDecl w
           }
     , Hs.DeclDefineInstance $
         Hs.DefineInstance {
-            defineInstanceComment      = Nothing
-          , defineInstanceDeclarations = Hs.InstanceHasField hasFieldDecl
+            comment      = Nothing
+          , instanceDecl = Hs.InstanceHasField hasFieldDecl
           }
     ]
   where
@@ -575,16 +575,16 @@ unionFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.UnionField Final -> [Hs.Decl]
 unionFieldDecls unionName field = [
       Hs.DeclDefineInstance $
         Hs.DefineInstance {
-            defineInstanceComment      = Nothing
-          , defineInstanceDeclarations =
+            comment      = Nothing
+          , instanceDecl =
               case unionFieldWidth field of
                 Nothing -> Hs.InstanceHasCField $ hasCFieldDecl
                 Just w  -> Hs.InstanceHasCBitfield $ hasCBitfieldDecl w
           }
     , Hs.DeclDefineInstance $
         Hs.DefineInstance {
-            defineInstanceComment      = Nothing
-          , defineInstanceDeclarations = Hs.InstanceHasField hasFieldDecl
+            comment      = Nothing
+          , instanceDecl = Hs.InstanceHasField hasFieldDecl
           }
     ]
   where
@@ -700,8 +700,8 @@ enumDecs opts haddockConfig info enum spec = do
         storableDecl :: Hs.Decl
         storableDecl = Hs.DeclDefineInstance
           Hs.DefineInstance {
-            defineInstanceComment      = Nothing
-          , defineInstanceDeclarations =
+            comment      = Nothing
+          , instanceDecl =
               Hs.InstanceStorable hsStruct Hs.StorableInstance {
                   Hs.storableSizeOf    = enum.sizeof
                 , Hs.storableAlignment = enum.alignment
@@ -762,25 +762,25 @@ enumDecs opts haddockConfig info enum spec = do
               vStrs = fmap (T.unpack . Hs.getName) <$> vNames
               cEnumDecl = Hs.DeclDefineInstance
                 Hs.DefineInstance {
-                  defineInstanceComment      = Nothing
-                , defineInstanceDeclarations = Hs.InstanceCEnum hsStruct fTyp vStrs (isJust mSeqBounds)
+                  comment      = Nothing
+                , instanceDecl = Hs.InstanceCEnum hsStruct fTyp vStrs (isJust mSeqBounds)
                 }
               cEnumShowDecl = Hs.DeclDefineInstance
                 Hs.DefineInstance {
-                  defineInstanceComment      = Nothing
-                , defineInstanceDeclarations = Hs.InstanceCEnumShow hsStruct
+                  comment      = Nothing
+                , instanceDecl = Hs.InstanceCEnumShow hsStruct
                 }
               cEnumReadDecl = Hs.DeclDefineInstance
                 Hs.DefineInstance {
-                  defineInstanceComment      = Nothing
-                , defineInstanceDeclarations = Hs.InstanceCEnumRead hsStruct
+                  comment      = Nothing
+                , instanceDecl = Hs.InstanceCEnumRead hsStruct
                 }
               sequentialCEnumDecl = case mSeqBounds of
                 Just (nameMin, nameMax) -> List.singleton
                                         . Hs.DeclDefineInstance
                                         $ Hs.DefineInstance {
-                                            defineInstanceComment      = Nothing
-                                          , defineInstanceDeclarations =
+                                            comment      = Nothing
+                                          , instanceDecl =
                                               Hs.InstanceSequentialCEnum hsStruct nameMin nameMax
                                           }
                 Nothing -> []
@@ -929,13 +929,13 @@ typedefFieldDecls hsNewType = [
 
       Hs.DeclDefineInstance $
         Hs.DefineInstance {
-            defineInstanceComment      = Nothing
-          , defineInstanceDeclarations = Hs.InstanceHasField elimHasFieldDecl
+            comment      = Nothing
+          , instanceDecl = Hs.InstanceHasField elimHasFieldDecl
           }
     , Hs.DeclDefineInstance $
         Hs.DefineInstance {
-            defineInstanceComment      = Nothing
-          , defineInstanceDeclarations = Hs.InstanceHasCField $ elimHasCFieldDecl
+            comment      = Nothing
+          , instanceDecl = Hs.InstanceHasCField $ elimHasCFieldDecl
           }
     ]
   where

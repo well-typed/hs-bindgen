@@ -66,50 +66,55 @@ translateDecl (Hs.DeclUnionSetter u)    = singleton $ translateUnionSetter u
 translateDecl (Hs.DeclVar d)            = singleton $ translateDeclVar d
 
 translateDefineInstanceDecl :: Hs.DefineInstance -> SDecl
-translateDefineInstanceDecl Hs.DefineInstance{..} =
-  case defineInstanceDeclarations of
-    Hs.InstanceStorable struct i -> DInst $ translateStorableInstance struct i defineInstanceComment
-    Hs.InstancePrim struct i -> DInst $ SHsPrim.translatePrimInstance struct i defineInstanceComment
-    Hs.InstanceHasCField i -> DInst $ translateHasCFieldInstance i defineInstanceComment
-    Hs.InstanceHasCBitfield i -> DInst $ translateHasCBitfieldInstance i defineInstanceComment
-    Hs.InstanceHasField i -> DInst $ translateHasFieldInstance i defineInstanceComment
-    Hs.InstanceHasFLAM struct fty i -> DInst
-      Instance
-        { instanceClass   = HasFlexibleArrayMember_class
-        , instanceArgs    = [ translateType fty, TCon struct.name ]
-        , instanceSuperClasses = []
-        , instanceTypes   = []
-        , instanceDecs    = [(HasFlexibleArrayMember_offset, ELam "_ty" $ EIntegral (toInteger i) Nothing)]
-        , instanceComment = defineInstanceComment
-        }
-    Hs.InstanceCEnum struct fTyp vMap isSequential ->
-      DInst $ translateCEnumInstance struct fTyp vMap isSequential defineInstanceComment
-    Hs.InstanceSequentialCEnum struct nameMin nameMax ->
-      DInst $ translateSequentialCEnum struct nameMin nameMax defineInstanceComment
-    Hs.InstanceCEnumShow struct ->
-      DInst $ translateCEnumInstanceShow struct defineInstanceComment
-    Hs.InstanceCEnumRead struct ->
-      DInst $ translateCEnumInstanceRead struct defineInstanceComment
-    Hs.InstanceToFunPtr Hs.ToFunPtrInstance{..}     -> DInst
-      Instance
-        { instanceClass   = ToFunPtr_class
-        , instanceArgs    = [ translateType toFunPtrInstanceType ]
-        , instanceSuperClasses = []
-        , instanceTypes   = []
-        , instanceDecs    = [( ToFunPtr_toFunPtr
-                             , EFree $ Hs.InternalName toFunPtrInstanceBody )]
-        , instanceComment = defineInstanceComment
-        }
-    Hs.InstanceFromFunPtr Hs.FromFunPtrInstance{..} -> DInst
-      Instance
-        { instanceClass   = FromFunPtr_class
-        , instanceArgs    = [ translateType fromFunPtrInstanceType ]
-        , instanceSuperClasses = []
-        , instanceTypes   = []
-        , instanceDecs    = [( FromFunPtr_fromFunPtr
-                             , EFree $ Hs.InternalName fromFunPtrInstanceBody )]
-        , instanceComment = defineInstanceComment
-        }
+translateDefineInstanceDecl defInst =
+    case defInst.instanceDecl of
+      Hs.InstanceStorable struct i ->
+        DInst $ translateStorableInstance struct i defInst.comment
+      Hs.InstancePrim struct i ->
+        DInst $ SHsPrim.translatePrimInstance struct i defInst.comment
+      Hs.InstanceHasCField i ->
+        DInst $ translateHasCFieldInstance i defInst.comment
+      Hs.InstanceHasCBitfield i ->
+        DInst $ translateHasCBitfieldInstance i defInst.comment
+      Hs.InstanceHasField i ->
+        DInst $ translateHasFieldInstance i defInst.comment
+      Hs.InstanceHasFLAM struct fty i ->
+        DInst Instance{
+            instanceClass   = HasFlexibleArrayMember_class
+          , instanceArgs    = [ translateType fty, TCon struct.name ]
+          , instanceSuperClasses = []
+          , instanceTypes   = []
+          , instanceDecs    = [(HasFlexibleArrayMember_offset, ELam "_ty" $ EIntegral (toInteger i) Nothing)]
+          , instanceComment = defInst.comment
+          }
+      Hs.InstanceCEnum struct fTyp vMap isSequential ->
+        DInst $ translateCEnumInstance struct fTyp vMap isSequential defInst.comment
+      Hs.InstanceSequentialCEnum struct nameMin nameMax ->
+        DInst $ translateSequentialCEnum struct nameMin nameMax defInst.comment
+      Hs.InstanceCEnumShow struct ->
+        DInst $ translateCEnumInstanceShow struct defInst.comment
+      Hs.InstanceCEnumRead struct ->
+        DInst $ translateCEnumInstanceRead struct defInst.comment
+      Hs.InstanceToFunPtr Hs.ToFunPtrInstance{..} ->
+        DInst Instance{
+            instanceClass   = ToFunPtr_class
+          , instanceArgs    = [ translateType toFunPtrInstanceType ]
+          , instanceSuperClasses = []
+          , instanceTypes   = []
+          , instanceDecs    = [( ToFunPtr_toFunPtr
+                               , EFree $ Hs.InternalName toFunPtrInstanceBody )]
+          , instanceComment = defInst.comment
+          }
+      Hs.InstanceFromFunPtr Hs.FromFunPtrInstance{..} ->
+        DInst Instance{
+            instanceClass   = FromFunPtr_class
+          , instanceArgs    = [ translateType fromFunPtrInstanceType ]
+          , instanceSuperClasses = []
+          , instanceTypes   = []
+          , instanceDecs    = [( FromFunPtr_fromFunPtr
+                               , EFree $ Hs.InternalName fromFunPtrInstanceBody )]
+          , instanceComment = defInst.comment
+          }
 
 translateDeclData :: Hs.Struct n -> SDecl
 translateDeclData struct = DRecord Record{
