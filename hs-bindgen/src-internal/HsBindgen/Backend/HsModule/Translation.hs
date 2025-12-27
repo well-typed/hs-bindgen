@@ -207,22 +207,22 @@ resolveDeclImports = \case
         resolveTypeImports newtyp.field.typ
       , resolveNestedDeriv newtyp.deriv
       ]
-    DDerivingInstance DerivingInstance{..} -> mconcat [
-        resolveStrategyImports derivingInstanceStrategy
-      , resolveTypeImports derivingInstanceType
+    DDerivingInstance deriv -> mconcat [
+        resolveStrategyImports deriv.strategy
+      , resolveTypeImports deriv.typ
       ]
-    DForeignImport ForeignImport{..} -> mconcat [
-        foldMap (resolveTypeImports . (.typ)) foreignImportParameters
-      , resolveTypeImports foreignImportResult.typ
+    DForeignImport foreignImport -> mconcat [
+        foldMap (resolveTypeImports . (.typ)) foreignImport.parameters
+      , resolveTypeImports foreignImport.result.typ
       ]
     DBinding Binding{..} -> mconcat [
         foldMap (resolveTypeImports . (.typ)) parameters
       , resolveTypeImports result.typ
       , resolveExprImports body
       ]
-    DPatternSynonym PatternSynonym {..} -> mconcat [
-        resolveTypeImports patSynType
-      , resolvePatExprImports patSynRHS
+    DPatternSynonym patSyn -> mconcat [
+        resolveTypeImports patSyn.typ
+      , resolvePatExprImports patSyn.rhs
       ]
 
 -- | Resolve nested deriving clauses (part of a datatype declaration)

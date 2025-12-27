@@ -30,12 +30,11 @@ import HsBindgen.Language.Haskell qualified as Hs
   Declarations
 -------------------------------------------------------------------------------}
 
-translateDecls ::
-  ByCategory_ [Hs.Decl] -> ByCategory_ ([CWrapper], [SDecl])
+translateDecls :: ByCategory_ [Hs.Decl] -> ByCategory_ ([CWrapper], [SDecl])
 translateDecls = fmap go
   where
     go :: [Hs.Decl] -> ([CWrapper], [SDecl])
-    go decls = (wrappers, concatMap translateDecl decls)
+    go decls = (wrappers, map translateDecl decls)
       where
         wrappers = getCWrappers decls
 
@@ -51,19 +50,20 @@ getCWrappers decls = mapMaybe getCWrapper decls
           _otherCallConv         -> Nothing
       _otherDecl -> Nothing
 
-translateDecl :: Hs.Decl -> [SDecl]
-translateDecl (Hs.DeclData d)           = singleton $ translateDeclData d
-translateDecl (Hs.DeclEmpty d)          = singleton $ translateDeclEmpty d
-translateDecl (Hs.DeclNewtype n)        = singleton $ translateNewtype n
-translateDecl (Hs.DeclDefineInstance i) = singleton $ translateDefineInstanceDecl i
-translateDecl (Hs.DeclDeriveInstance i) = singleton $ translateDeriveInstance i
-translateDecl (Hs.DeclMacroExpr e)      = singleton $ translateMacroExpr e
-translateDecl (Hs.DeclForeignImport i)  = translateForeignImportDecl i
-translateDecl (Hs.DeclFunction f)       = singleton $ translateFunctionDecl f
-translateDecl (Hs.DeclPatSyn ps)        = singleton $ translatePatSyn ps
-translateDecl (Hs.DeclUnionGetter u)    = singleton $ translateUnionGetter u
-translateDecl (Hs.DeclUnionSetter u)    = singleton $ translateUnionSetter u
-translateDecl (Hs.DeclVar d)            = singleton $ translateDeclVar d
+translateDecl :: Hs.Decl -> SDecl
+translateDecl = \case
+    Hs.DeclData           x -> translateDeclData           x
+    Hs.DeclEmpty          x -> translateDeclEmpty          x
+    Hs.DeclNewtype        x -> translateNewtype            x
+    Hs.DeclDefineInstance x -> translateDefineInstanceDecl x
+    Hs.DeclDeriveInstance x -> translateDeriveInstance     x
+    Hs.DeclMacroExpr      x -> translateMacroExpr          x
+    Hs.DeclForeignImport  x -> translateForeignImportDecl  x
+    Hs.DeclFunction       x -> translateFunctionDecl       x
+    Hs.DeclPatSyn         x -> translatePatSyn             x
+    Hs.DeclUnionGetter    x -> translateUnionGetter        x
+    Hs.DeclUnionSetter    x -> translateUnionSetter        x
+    Hs.DeclVar            x -> translateDeclVar            x
 
 translateDefineInstanceDecl :: Hs.DefineInstance -> SDecl
 translateDefineInstanceDecl defInst =
@@ -166,52 +166,48 @@ translateNewtype n = DNewtype Newtype{
 
 translateDeriveInstance :: Hs.DeriveInstance -> SDecl
 translateDeriveInstance deriv = DDerivingInstance DerivingInstance {
-      derivingInstanceStrategy = fmap translateType deriv.strategy
-    , derivingInstanceType     = TApp (translateTypeClass deriv.clss) (TCon deriv.name)
-    , derivingInstanceComment  = deriv.comment
+      strategy = fmap translateType deriv.strategy
+    , typ      = TApp (translateTypeClass deriv.clss) (TCon deriv.name)
+    , comment  = deriv.comment
     }
 
 translateTypeClass :: Hs.TypeClass -> ClosedType
-translateTypeClass Hs.Bits               = TGlobal Bits_class
-translateTypeClass Hs.Bounded            = TGlobal Bounded_class
-translateTypeClass Hs.Enum               = TGlobal Enum_class
-translateTypeClass Hs.Eq                 = TGlobal Eq_class
-translateTypeClass Hs.FiniteBits         = TGlobal FiniteBits_class
-translateTypeClass Hs.Floating           = TGlobal Floating_class
-translateTypeClass Hs.Fractional         = TGlobal Fractional_class
-translateTypeClass Hs.Integral           = TGlobal Integral_class
-translateTypeClass Hs.Ix                 = TGlobal Ix_class
-translateTypeClass Hs.Num                = TGlobal Num_class
-translateTypeClass Hs.Ord                = TGlobal Ord_class
-translateTypeClass Hs.Prim               = TGlobal Prim_class
-translateTypeClass Hs.Read               = TGlobal Read_class
-translateTypeClass Hs.ReadRaw            = TGlobal ReadRaw_class
-translateTypeClass Hs.Real               = TGlobal Real_class
-translateTypeClass Hs.RealFloat          = TGlobal RealFloat_class
-translateTypeClass Hs.RealFrac           = TGlobal RealFrac_class
-translateTypeClass Hs.Show               = TGlobal Show_class
-translateTypeClass Hs.StaticSize         = TGlobal StaticSize_class
-translateTypeClass Hs.Storable           = TGlobal Storable_class
-translateTypeClass Hs.WriteRaw           = TGlobal WriteRaw_class
-translateTypeClass Hs.HasBaseForeignType = TGlobal HasBaseForeignType_class
+translateTypeClass = \case
+    Hs.Bits               -> TGlobal Bits_class
+    Hs.Bounded            -> TGlobal Bounded_class
+    Hs.Enum               -> TGlobal Enum_class
+    Hs.Eq                 -> TGlobal Eq_class
+    Hs.FiniteBits         -> TGlobal FiniteBits_class
+    Hs.Floating           -> TGlobal Floating_class
+    Hs.Fractional         -> TGlobal Fractional_class
+    Hs.Integral           -> TGlobal Integral_class
+    Hs.Ix                 -> TGlobal Ix_class
+    Hs.Num                -> TGlobal Num_class
+    Hs.Ord                -> TGlobal Ord_class
+    Hs.Prim               -> TGlobal Prim_class
+    Hs.Read               -> TGlobal Read_class
+    Hs.ReadRaw            -> TGlobal ReadRaw_class
+    Hs.Real               -> TGlobal Real_class
+    Hs.RealFloat          -> TGlobal RealFloat_class
+    Hs.RealFrac           -> TGlobal RealFrac_class
+    Hs.Show               -> TGlobal Show_class
+    Hs.StaticSize         -> TGlobal StaticSize_class
+    Hs.Storable           -> TGlobal Storable_class
+    Hs.WriteRaw           -> TGlobal WriteRaw_class
+    Hs.HasBaseForeignType -> TGlobal HasBaseForeignType_class
 
-translateForeignImportDecl :: Hs.ForeignImportDecl -> [SDecl]
-translateForeignImportDecl importDecl = [
-        DForeignImport ForeignImport{
-            foreignImportParameters =
-              map translateParam importDecl.parameters
-          , foreignImportResult =
-              Result (translateType importDecl.result) Nothing
-
-            -- The rest of the fields are copied over as-is
-          , foreignImportName     = importDecl.name
-          , foreignImportOrigName = importDecl.origName
-          , foreignImportCallConv = importDecl.callConv
-          , foreignImportOrigin   = importDecl.origin
-          , foreignImportComment  = importDecl.comment
-          , foreignImportSafety   = importDecl.safety
-          }
-      ]
+translateForeignImportDecl :: Hs.ForeignImportDecl -> SDecl
+translateForeignImportDecl importDecl = DForeignImport ForeignImport{
+      parameters = map translateParam importDecl.parameters
+    , result     = Result (translateType importDecl.result) Nothing
+      -- The rest of the fields are copied over as-is
+    , name       = importDecl.name
+    , origName   = importDecl.origName
+    , callConv   = importDecl.callConv
+    , origin     = importDecl.origin
+    , comment    = importDecl.comment
+    , safety     = importDecl.safety
+    }
 
 translateParam :: Hs.FunctionParameter -> Parameter
 translateParam param = Parameter {
@@ -233,12 +229,12 @@ translateFunctionDecl functionDecl = DBinding Binding{
 
 translatePatSyn :: Hs.PatSyn -> SDecl
 translatePatSyn patSyn = DPatternSynonym PatternSynonym{
-      patSynType    = TCon patSyn.typ
-    , patSynRHS     = PEApps patSyn.constr [PELit patSyn.value]
+      typ     = TCon patSyn.typ
+    , rhs     = PEApps patSyn.constr [PELit patSyn.value]
       -- The other fields are copied as-is
-    , patSynName    = patSyn.name
-    , patSynOrigin  = patSyn.origin
-    , patSynComment = patSyn.comment
+    , name    = patSyn.name
+    , origin  = patSyn.origin
+    , comment = patSyn.comment
     }
 
 {-------------------------------------------------------------------------------

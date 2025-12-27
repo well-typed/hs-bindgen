@@ -374,39 +374,39 @@ instance Pretty SDecl where
               ]
           )
 
-    DForeignImport ForeignImport{..} ->
+    DForeignImport foreignImport ->
       -- Variable names here refer to the syntax of foreign declarations at
       -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1540008.4>
       let -- TODO: We should escape special characters inside these import
           -- strings (at the very least quotes in filenames?)
           callconv, impent :: CtxDoc
           (callconv, impent) =
-            case foreignImportCallConv of
+            case foreignImport.callConv of
               CallConvUserlandCAPI _ -> ("ccall",
-                  PP.string $ Text.unpack foreignImportOrigName.text
+                  PP.string $ Text.unpack foreignImport.origName.text
                 )
               CallConvGhcCAPI header -> ("capi", PP.hcat [
                   PP.string header
-                , PP.string $ Text.unpack foreignImportOrigName.text
+                , PP.string $ Text.unpack foreignImport.origName.text
                 ])
               CallConvGhcCCall style -> ("ccall", PP.hcat [
                   case style of
                     ImportAsValue -> ""
                     ImportAsPtr   -> "&"
-                , PP.string $ Text.unpack foreignImportOrigName.text
+                , PP.string $ Text.unpack foreignImport.origName.text
                 ])
 
-          prettyComment = maybe PP.empty (pretty . TopLevelComment) foreignImportComment
+          prettyComment = maybe PP.empty (pretty . TopLevelComment) foreignImport.comment
 
       in  prettyComment
        $$ PP.hsep [ "foreign import"
                , callconv
-               , safety foreignImportSafety
+               , safety foreignImport.safety
                , "\"" >< impent >< "\""
-               , pretty foreignImportName
+               , pretty foreignImport.name
                , "::"
                ]
-       $$ PP.nest 5 (prettyBindingType foreignImportParameters foreignImportResult)
+       $$ PP.nest 5 (prettyBindingType foreignImport.parameters foreignImport.result)
 
     DBinding Binding{..} ->
       let prettyComment = maybe PP.empty (pretty . TopLevelComment) comment
@@ -425,17 +425,17 @@ instance Pretty SDecl where
             , PP.nest 2 $ pretty body
             ]
 
-    DDerivingInstance DerivingInstance {..} ->
-      maybe PP.empty (pretty . TopLevelComment) derivingInstanceComment
-        $$ "deriving" <+> strategy derivingInstanceStrategy
+    DDerivingInstance deriv ->
+      maybe PP.empty (pretty . TopLevelComment) deriv.comment
+        $$ "deriving" <+> strategy deriv.strategy
                       <+> "instance"
-                      <+> pretty derivingInstanceType
+                      <+> pretty deriv.typ
 
-    DPatternSynonym PatternSynonym {..} ->
-      let prettyComment = maybe PP.empty (pretty . TopLevelComment) patSynComment
+    DPatternSynonym patSyn ->
+      let prettyComment = maybe PP.empty (pretty . TopLevelComment) patSyn.comment
        in PP.vcat [ prettyComment
-               , "pattern" <+> pretty patSynName <+> "::" <+> pretty patSynType
-               , "pattern" <+> pretty patSynName <+> "=" <+> pretty patSynRHS
+               , "pattern" <+> pretty patSyn.name <+> "::" <+> pretty patSyn.typ
+               , "pattern" <+> pretty patSyn.name <+> "=" <+> pretty patSyn.rhs
                ]
 
 -- | Nested deriving clauses (as part of a datatype declaration)

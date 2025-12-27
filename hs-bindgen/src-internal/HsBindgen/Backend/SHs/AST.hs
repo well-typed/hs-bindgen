@@ -1,4 +1,7 @@
-{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MagicHash         #-}
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
 
 -- | Simplified HS abstract syntax tree
 module HsBindgen.Backend.SHs.AST (
@@ -368,7 +371,7 @@ infixl 9 `TApp`
 
 deriving stock instance Show (SType ctx)
 
-data Instance = Instance {
+data Instance = Instance{
       clss    :: Global
     , args    :: [ClosedType]
     , super   :: [(Global, [ClosedType])]
@@ -378,7 +381,7 @@ data Instance = Instance {
     }
   deriving stock (Show, Generic)
 
-data Field = Field {
+data Field = Field{
       name   :: Hs.Name Hs.NsVar
     , typ    :: ClosedType
     , origin :: Origin.Field
@@ -386,7 +389,7 @@ data Field = Field {
     }
   deriving stock (Show, Generic)
 
-data Record = Record {
+data Record = Record{
       typ     :: Hs.Name Hs.NsTypeConstr
     , con     :: Hs.Name Hs.NsConstr
     , fields  :: [Field]
@@ -396,21 +399,21 @@ data Record = Record {
     }
   deriving stock (Show, Generic)
 
-data EmptyData = EmptyData {
+data EmptyData = EmptyData{
       name    :: Hs.Name Hs.NsTypeConstr
     , origin  :: Origin.Decl Origin.EmptyData
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)
 
-data DerivingInstance = DerivingInstance {
-      derivingInstanceStrategy :: Hs.Strategy ClosedType
-    , derivingInstanceType     :: ClosedType
-    , derivingInstanceComment  :: Maybe HsDoc.Comment
+data DerivingInstance = DerivingInstance{
+      strategy :: Hs.Strategy ClosedType
+    , typ      :: ClosedType
+    , comment  :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)
 
-data Newtype = Newtype {
+data Newtype = Newtype{
       name    :: Hs.Name Hs.NsTypeConstr
     , con     :: Hs.Name Hs.NsConstr
     , field   :: Field
@@ -424,15 +427,15 @@ data Newtype = Newtype {
 -- well as 'foreignImportResultType' being 'ClosedType's if we ever want to
 -- generate polymorphic type signatures.
 --
-data ForeignImport = ForeignImport
-    { foreignImportName       :: Hs.Name Hs.NsVar
-    , foreignImportParameters :: [Parameter]
-    , foreignImportResult     :: Result
-    , foreignImportOrigName   :: C.DeclName
-    , foreignImportCallConv   :: CallConv
-    , foreignImportOrigin     :: Origin.ForeignImport
-    , foreignImportComment    :: Maybe HsDoc.Comment
-    , foreignImportSafety     :: Safety
+data ForeignImport = ForeignImport{
+      name       :: Hs.Name Hs.NsVar
+    , parameters :: [Parameter]
+    , result     :: Result
+    , origName   :: C.DeclName
+    , callConv   :: CallConv
+    , origin     :: Origin.ForeignImport
+    , comment    :: Maybe HsDoc.Comment
+    , safety     :: Safety
     }
   deriving stock (Show, Generic)
 
@@ -443,7 +446,7 @@ data Safety = Safe | Unsafe
 instance Default Safety where
   def = Safe
 
-data Binding = Binding {
+data Binding = Binding{
       name       :: Hs.Name Hs.NsVar
     , parameters :: [Parameter]
     , result     :: Result
@@ -453,24 +456,24 @@ data Binding = Binding {
     }
   deriving stock (Show, Generic)
 
-data Parameter = Parameter {
+data Parameter = Parameter{
       name    :: Maybe (Hs.Name Hs.NsVar)
     , typ     :: ClosedType
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)
 
-data Result = Result {
+data Result = Result{
       typ     :: ClosedType
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)
 
-data PatternSynonym = PatternSynonym
-    { patSynName    :: Hs.Name Hs.NsConstr
-    , patSynType    :: ClosedType
-    , patSynRHS     :: PatExpr
-    , patSynOrigin  :: Origin.PatSyn
-    , patSynComment :: Maybe HsDoc.Comment
+data PatternSynonym = PatternSynonym{
+      name    :: Hs.Name Hs.NsConstr
+    , typ     :: ClosedType
+    , rhs     :: PatExpr
+    , origin  :: Origin.PatSyn
+    , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)

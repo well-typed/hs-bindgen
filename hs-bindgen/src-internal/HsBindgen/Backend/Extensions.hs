@@ -43,24 +43,25 @@ requiredExtensions = \case
     DEmptyData{} -> mconcat [
         ext TH.EmptyDataDecls
       ]
-    DDerivingInstance DerivingInstance{..} -> mconcat [
+    DDerivingInstance deriv -> mconcat [
         Set.fromList [
             TH.DerivingStrategies
           , TH.StandaloneDeriving
           ]
-      , strategyExtensions derivingInstanceStrategy
-      , typeExtensions derivingInstanceType
+      , strategyExtensions deriv.strategy
+      , typeExtensions deriv.typ
       ]
-    DForeignImport ForeignImport{..} -> mconcat [
+    DForeignImport foreignImport -> mconcat [
         -- Note: GHC doesn't require CApiFFI in TH: https://gitlab.haskell.org/ghc/ghc/-/issues/25774
         ext TH.CApiFFI
-      ,    foldMap (typeExtensions . (.typ)) foreignImportParameters
-        <> typeExtensions foreignImportResult.typ
+      , foldMap (typeExtensions . (.typ)) foreignImport.parameters
+      , typeExtensions foreignImport.result.typ
       ]
-    DBinding Binding{..} ->
-         foldMap (typeExtensions . (.typ)) parameters
-      <> typeExtensions (result.typ)
-      <> exprExtensions body
+    DBinding Binding{..} -> mconcat [
+        foldMap (typeExtensions . (.typ)) parameters
+      , typeExtensions (result.typ)
+      , exprExtensions body
+      ]
     DPatternSynonym{} -> mconcat [
         ext TH.PatternSynonyms
       ]

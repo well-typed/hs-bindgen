@@ -752,17 +752,17 @@ mkDecl = \case
               [field])
               (nestedDeriving newtyp.deriv)
 
-      DDerivingInstance DerivingInstance {..} -> do
-        s' <- strategy derivingInstanceStrategy
+      DDerivingInstance deriv -> do
+        s' <- strategy deriv.strategy
 
         fmap singleton $
-          withDecDoc derivingInstanceComment $
+          withDecDoc deriv.comment $
             TH.standaloneDerivWithStrategyD
               (Just s')
               (TH.cxt [])
-              (mkType EmptyEnv derivingInstanceType)
+              (mkType EmptyEnv deriv.typ)
 
-      DForeignImport ForeignImport{..} -> do
+      DForeignImport foreignImport -> do
         -- Variable names here refer to the syntax of foreign declarations at
         -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1540008.4>
         --
@@ -774,31 +774,31 @@ mkDecl = \case
             callconv :: TH.Callconv
             impent   :: String
             (callconv, impent) =
-              case foreignImportCallConv of
+              case foreignImport.callConv of
                 CallConvUserlandCAPI _ -> (TH.CCall,
-                    Text.unpack foreignImportOrigName.text
+                    Text.unpack foreignImport.origName.text
                   )
                 CallConvGhcCAPI header -> (TH.CApi, concat [
                     header
-                  , Text.unpack foreignImportOrigName.text
+                  , Text.unpack foreignImport.origName.text
                   ])
                 CallConvGhcCCall style -> (TH.CCall, concat [
                     case style of
                       ImportAsValue -> ""
                       ImportAsPtr   -> "&"
-                  , Text.unpack foreignImportOrigName.text
+                  , Text.unpack foreignImport.origName.text
                   ])
 
-            importType = foldr (TFun . (.typ)) foreignImportResult.typ foreignImportParameters
+            importType = foldr (TFun . (.typ)) foreignImport.result.typ foreignImport.parameters
 
         fmap singleton $
-          withDecDoc foreignImportComment $
+          withDecDoc foreignImport.comment $
             fmap TH.ForeignD $
               TH.ImportF
                 <$> pure callconv
                 <*> pure safety
                 <*> pure impent
-                <*> pure (hsNameToTH foreignImportName)
+                <*> pure (hsNameToTH foreignImport.name)
                 <*> mkType EmptyEnv importType
 
       DBinding Binding{..} -> do
@@ -814,19 +814,19 @@ mkDecl = \case
             , simpleDecl bindingName body
             ]
 
-      DPatternSynonym ps -> do
-        let thPatSynName = hsNameToTH (patSynName ps)
+      DPatternSynonym patSyn -> do
+        let thPatSynName = hsNameToTH patSyn.name
 
         sequence
-          [ withDecDoc (patSynComment ps) $
+          [ withDecDoc patSyn.comment $
               TH.patSynSigD
               thPatSynName
-              (mkType EmptyEnv (patSynType ps))
+              (mkType EmptyEnv patSyn.typ)
           , TH.patSynD
             thPatSynName
             (TH.prefixPatSyn [])
             TH.implBidir
-            (mkPat (patSynRHS ps))
+            (mkPat patSyn.rhs)
           ]
     where
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
