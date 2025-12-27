@@ -46,8 +46,8 @@ getCWrappers decls = mapMaybe getCWrapper decls
   where
     getCWrapper :: Hs.Decl -> Maybe CWrapper
     getCWrapper = \case
-      Hs.DeclForeignImport (Hs.ForeignImportDecl{foreignImportCallConv}) ->
-        case foreignImportCallConv of
+      Hs.DeclForeignImport importDecl ->
+        case importDecl.callConv of
           CallConvUserlandCAPI w -> Just w
           _otherCallConv         -> Nothing
       _otherDecl -> Nothing
@@ -188,22 +188,26 @@ translateTypeClass Hs.WriteRaw           = TGlobal WriteRaw_class
 translateTypeClass Hs.HasBaseForeignType = TGlobal HasBaseForeignType_class
 
 translateForeignImportDecl :: Hs.ForeignImportDecl -> [SDecl]
-translateForeignImportDecl Hs.ForeignImportDecl {
-      foreignImportParameters = args
-    , foreignImportResultType = resType
-    , ..
-    } = [
-        DForeignImport ForeignImport
-          { foreignImportParameters =
+translateForeignImportDecl importDecl = [
+        DForeignImport ForeignImport{
+            foreignImportParameters =
               map (\Hs.FunctionParameter{..} ->
                     Parameter {
                         name    = functionParameterName
                       , typ     = translateType functionParameterType
                       , comment = functionParameterComment
                       }
-                    ) args
-          , foreignImportResult = Result (translateType resType) Nothing
-          , ..
+                    ) importDecl.parameters
+          , foreignImportResult =
+              Result (translateType importDecl.result) Nothing
+
+            -- The rest of the fields are copied over as-is
+          , foreignImportName       = importDecl.name
+          , foreignImportOrigName   = importDecl.origName
+          , foreignImportCallConv   = importDecl.callConv
+          , foreignImportOrigin     = importDecl.origin
+          , foreignImportComment    = importDecl.comment
+          , foreignImportSafety     = importDecl.safety
           }
       ]
 

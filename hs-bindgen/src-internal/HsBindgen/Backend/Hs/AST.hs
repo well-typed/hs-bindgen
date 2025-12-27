@@ -104,7 +104,7 @@ import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
   Information about generated code
 -------------------------------------------------------------------------------}
 
-data Field = Field {
+data Field = Field{
       name    :: Hs.Name Hs.NsVar
     , typ     :: HsType
     , origin  :: Origin.Field
@@ -116,7 +116,7 @@ data Field = Field {
 --
 -- TODO: for enums we generate /both/ a newtype /and/ a struct, and then define
 -- instances only for the struct. We should get rid of this nasty hack.
-data Struct (n :: Nat) = Struct {
+data Struct (n :: Nat) = Struct{
       name      :: Hs.Name Hs.NsTypeConstr
     , constr    :: Hs.Name Hs.NsConstr
     , fields    :: Vec n Field
@@ -126,14 +126,14 @@ data Struct (n :: Nat) = Struct {
     }
   deriving stock (Generic, Show)
 
-data EmptyData = EmptyData {
+data EmptyData = EmptyData{
       name    :: Hs.Name Hs.NsTypeConstr
     , origin  :: Origin.Decl Origin.EmptyData
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 
-data Newtype = Newtype {
+data Newtype = Newtype{
       name      :: Hs.Name Hs.NsTypeConstr
     , constr    :: Hs.Name Hs.NsConstr
     , field     :: Field
@@ -144,15 +144,15 @@ data Newtype = Newtype {
     }
   deriving stock (Generic, Show)
 
-data ForeignImportDecl = ForeignImportDecl
-    { foreignImportName       :: Hs.Name Hs.NsVar
-    , foreignImportParameters :: [FunctionParameter]
-    , foreignImportResultType :: HsType
-    , foreignImportOrigName   :: C.DeclName
-    , foreignImportCallConv   :: CallConv
-    , foreignImportOrigin     :: Origin.ForeignImport
-    , foreignImportComment    :: Maybe HsDoc.Comment
-    , foreignImportSafety     :: SHs.Safety
+data ForeignImportDecl = ForeignImportDecl{
+      name       :: Hs.Name Hs.NsVar
+    , parameters :: [FunctionParameter]
+    , result     :: HsType
+    , origName   :: C.DeclName
+    , callConv   :: CallConv
+    , origin     :: Origin.ForeignImport
+    , comment    :: Maybe HsDoc.Comment
+    , safety     :: SHs.Safety
     }
   deriving stock (Generic, Show)
 
