@@ -71,24 +71,22 @@ goldenTestSteps ::
      -- ^ Remove the golden file
   -> TestTree
 goldenTestSteps t getGolden getActual comparison updateGolden removeGolden =
-    singleTest t GoldenSteps{..}
+    singleTest t $ GoldenTest GoldenSteps{..}
 
 {-------------------------------------------------------------------------------
-  Internals
+  Test options
 -------------------------------------------------------------------------------}
-
-data GoldenSteps = forall a. GoldenSteps {
-      getGolden    :: IO a
-    , getActual    :: (String -> IO ()) -> IO (ActualValue a)
-    , comparison   :: a -> a -> IO (Maybe String)
-    , updateGolden :: a -> IO ()
-    , removeGolden :: IO ()
-    }
 
 -- | This option, when set to 'True', specifies that we should run in the
 -- «accept tests» mode
 newtype AcceptTests = AcceptTests Bool
   deriving (Eq, Ord)
+
+-- | Print trace messages.
+-- «accept tests» mode
+newtype Debug = Debug Bool
+  deriving (Eq, Ord)
+
 instance IsOption AcceptTests where
     defaultValue = AcceptTests False
     parseValue = fmap AcceptTests . safeReadBool
@@ -96,10 +94,6 @@ instance IsOption AcceptTests where
     optionHelp = return "Accept current results of golden tests"
     optionCLParser = flagCLParser (Just 'a') (AcceptTests True)
 
--- | Print trace messages.
--- «accept tests» mode
-newtype Debug = Debug Bool
-  deriving (Eq, Ord)
 instance IsOption Debug where
     defaultValue = Debug False
     parseValue = fmap Debug . safeReadBool
@@ -107,14 +101,30 @@ instance IsOption Debug where
     optionHelp = return "Print all trace messages"
     optionCLParser = flagCLParser (Just 'v') (Debug True)
 
-instance IsTest GoldenSteps where
-    run opts golden progress = runGoldenSteps golden progress opts
-    testOptions = return
-        [ Option (Proxy :: Proxy AcceptTests)
+{-------------------------------------------------------------------------------
+  Internals
+-------------------------------------------------------------------------------}
+
+data GoldenTest = forall a. GoldenTest (GoldenSteps a)
+
+data GoldenSteps a = GoldenSteps {
+      getGolden    :: IO a
+    , getActual    :: (String -> IO ()) -> IO (ActualValue a)
+    , comparison   :: a -> a -> IO (Maybe String)
+    , updateGolden :: a -> IO ()
+    , removeGolden :: IO ()
+    }
+
+instance IsTest GoldenTest where
+    run opts (GoldenTest steps) progress =
+        runGoldenSteps steps progress opts
+
+    testOptions = return [
+          Option (Proxy :: Proxy AcceptTests)
         , Option (Proxy :: Proxy Debug)
         ]
 
-runGoldenSteps :: GoldenSteps -> (Progress -> IO ()) -> OptionSet -> IO Result
+runGoldenSteps :: GoldenSteps a -> (Progress -> IO ()) -> OptionSet -> IO Result
 runGoldenSteps GoldenSteps{..} progress opts = do
     msgsRef <- newIORef []
     let stepFn :: String -> IO ()
@@ -124,15 +134,17 @@ runGoldenSteps GoldenSteps{..} progress opts = do
              atomicModifyIORef msgsRef (\msgs -> (msg:msgs, ()))
 
     -- get actual value
-    mbNew <- try $ getActual stepFn
-    msgs  <- readIORef msgsRef <&> reverse
+    mbNew :: Either SomeException (ActualValue a) <-
+      try $ getActual stepFn
+    msgs :: [String] <-
+      readIORef msgsRef <&> reverse
 
     let testPassedWith, testFailedWith :: String -> IO Result
         testPassedWith descr = return $ testPassed $ unlines (descr : msgs)
         testFailedWith descr = return $ testFailed $ unlines (descr : msgs)
 
     case mbNew of
-      Left (e :: SomeException) ->
+      Left e ->
         case fromException @AsyncException e of
           Just e' -> throwIO e'
           Nothing -> return $ testFailed $ concat [
