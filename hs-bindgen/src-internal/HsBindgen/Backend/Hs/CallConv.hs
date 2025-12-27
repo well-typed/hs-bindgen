@@ -30,8 +30,7 @@ getCWrappersSource :: [CWrapper] -> String
 getCWrappersSource wrappers = unlines $ headers ++ bodies
     where
       getImport :: CWrapper -> String
-      getImport =
-        (\h -> "#include <" ++ getHashIncludeArg h ++ ">") . cWrapperImport
+      getImport = (\h -> "#include <" ++ h.path ++ ">") . cWrapperImport
 
       headers, bodies :: [String]
       -- It is important that we don't include the same header more than once,

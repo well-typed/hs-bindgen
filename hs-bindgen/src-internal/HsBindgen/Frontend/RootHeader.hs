@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Root header (header that includes all headers to be processed)
 --
 -- Intended for qualified import.
@@ -64,7 +68,7 @@ content (RootHeader headers) =
     unlines $ map toLine headers
   where
     toLine :: HashIncludeArg -> String
-    toLine arg = "#include <"  ++ getHashIncludeArg arg ++ ">"
+    toLine arg = "#include <"  ++ arg.path ++ ">"
 
 {-------------------------------------------------------------------------------
   Query
@@ -91,7 +95,7 @@ isInRootHeader = (== name) . singleLocPath . multiLocExpansion
 -- separate directories, even on Windows.  Backslashes are interpreted as
 -- characters in a directory or filename, not directory separators.  We issue a
 -- 'Notice' if a backslash is used, because it is almost always a mistake.
-newtype HashIncludeArg = HashIncludeArg { getHashIncludeArg :: FilePath }
+newtype HashIncludeArg = HashIncludeArg { path :: FilePath }
   deriving stock (Show)
   deriving newtype (Eq, IsString, Ord)
 

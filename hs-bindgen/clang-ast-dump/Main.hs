@@ -76,7 +76,7 @@ data DumpTrace =
 
 clangAstDump :: Options -> IO ()
 clangAstDump opts = do
-    putStrLn $ "## `" ++ getHashIncludeArg opts.file ++ "`"
+    putStrLn $ "## `" ++ opts.file.path ++ "`"
     putStrLn ""
 
     eitherRes <- withTracer tracerConf $ \tracer -> do
