@@ -1,5 +1,7 @@
-{-# LANGUAGE ApplicativeDo #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE ApplicativeDo     #-}
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
 
 module Main (main) where
 
@@ -38,15 +40,15 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data Options = Options {
-      optBuiltin         :: !Bool
-    , optComments        :: !Bool
-    , optExtents         :: !Bool
-    , optFile            :: !HashIncludeArg
-    , optKind            :: !Bool
-    , optIncludePath     :: [FilePath]
-    , optClangArgsInner  :: [String]
-    , optSameFile        :: !Bool
-    , optType            :: !Bool
+      builtin         :: Bool
+    , comments        :: Bool
+    , extents         :: Bool
+    , file            :: HashIncludeArg
+    , kind            :: Bool
+    , includePath     :: [FilePath]
+    , clangArgsInner  :: [String]
+    , sameFile        :: Bool
+    , typ             :: Bool
     }
 
 {-------------------------------------------------------------------------------
@@ -73,16 +75,16 @@ data DumpTrace =
   deriving anyclass (PrettyForTrace, IsTrace Level)
 
 clangAstDump :: Options -> IO ()
-clangAstDump opts@Options{..} = do
-    putStrLn $ "## `" ++ getHashIncludeArg optFile ++ "`"
+clangAstDump opts = do
+    putStrLn $ "## `" ++ getHashIncludeArg opts.file ++ "`"
     putStrLn ""
 
     eitherRes <- withTracer tracerConf $ \tracer -> do
       cArgs <- either throwIO return $ getClangArgs cArgsConfig
       let tracerResolve = contramap DumpTraceResolveHeader tracer
           tracerClang   = contramap DumpTraceClang         tracer
-      src <- maybe (throwIO HeaderNotFound) return . Map.lookup optFile
-          =<< resolveHeaders tracerResolve cArgs (Set.singleton optFile)
+      src <- maybe (throwIO HeaderNotFound) return . Map.lookup opts.file
+          =<< resolveHeaders tracerResolve cArgs (Set.singleton opts.file)
       let setup :: ClangSetup
           setup = (defaultClangSetup cArgs $ ClangInputFile src) {
                 clangFlags = cOpts
@@ -94,9 +96,9 @@ clangAstDump opts@Options{..} = do
           loc <- clang_getPresumedLocation =<< clang_getCursorLocation cursor
           case loc of
             (file, _, _)
-              | optSameFile && SourcePath file /= src -> foldContinue
-              | not optBuiltin && isBuiltIn file      -> foldContinue
-              | otherwise                             -> foldDecls opts cursor
+              | opts.sameFile && SourcePath file /= src -> foldContinue
+              | not opts.builtin && isBuiltIn file      -> foldContinue
+              | otherwise                               -> foldDecls opts cursor
     case eitherRes of
       Left  e  -> do
         putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace e
@@ -110,8 +112,8 @@ clangAstDump opts@Options{..} = do
 
     cArgsConfig :: ClangArgsConfig FilePath
     cArgsConfig = def {
-        extraIncludeDirs = optIncludePath
-      , argsInner        = optClangArgsInner
+        extraIncludeDirs = opts.includePath
+      , argsInner        = opts.clangArgsInner
       }
 
     cOpts :: BitfieldEnum CXTranslationUnit_Flags
@@ -126,16 +128,16 @@ clangAstDump opts@Options{..} = do
 
 
 foldDecls :: Options -> CXCursor -> IO (Next IO ())
-foldDecls opts@Options{..} = \cursor -> do
+foldDecls opts = \cursor -> do
     traceU_ 0 =<< clang_getCursorDisplayName cursor
 
     dumpParents cursor
-    when optExtents $ dumpExtent cursor
+    when opts.extents $ dumpExtent cursor
 
     cursorKind <- clang_getCursorKind cursor
     traceU 1 "cursor kind" cursorKind
     isDecl <- clang_isDeclaration cursorKind
-    when optKind $
+    when opts.kind $
       traceWhen 2 "declaration" id isDecl
 
     cursorType <- clang_getCursorType cursor
@@ -193,7 +195,7 @@ foldDecls opts@Options{..} = \cursor -> do
       Right{} -> False <$ traceL 1 "CURSOR_KIND_NOT_IMPLEMENTED"
       Left n  -> False <$ traceU 1 "CURSOR_KIND_ENUM_OUT_OF_RANGE" n
 
-    when (isDecl && optComments) $ do
+    when (isDecl && opts.comments) $ do
       commentText <- clang_Cursor_getRawCommentText cursor
       unless (T.null commentText) $ do
         traceU 1 "comment" commentText
@@ -231,7 +233,7 @@ foldDecls opts@Options{..} = \cursor -> do
     dumpType :: CXCursor -> CXType -> Bool -> IO ()
     dumpType cursor cursorType isDecl = do
       traceU 1 "cursor type" =<< clang_getTypeSpelling cursorType
-      when optType $ do
+      when opts.typ $ do
         let typeKind = cxtKind cursorType
         traceU 2 "kind" $ fromSimpleEnum typeKind
         traceU 3 "spelling" =<< clang_getTypeKindSpelling typeKind
@@ -475,7 +477,18 @@ main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
       optIncludePath     <- includeDirOptions
       optClangArgsInner  <- clangArgsInnerOption
       optFile            <- fileArgument
-      pure (optAll, Options{..})
+
+      pure (optAll, Options{
+          builtin        = optBuiltin
+        , comments       = optComments
+        , extents        = optExtents
+        , file           = optFile
+        , kind           = optKind
+        , includePath    = optIncludePath
+        , clangArgsInner = optClangArgsInner
+        , sameFile       = optSameFile
+        , typ            = optType
+        })
 
     includeDirOptions :: OA.Parser [FilePath]
     includeDirOptions = OA.many . OA.strOption $ mconcat
@@ -503,8 +516,8 @@ main = clangAstDump . uncurry applyAll =<< OA.execParser pinfo
     applyAll :: Bool -> Options -> Options
     applyAll False opts = opts
     applyAll True  opts = opts {
-        optComments = True
-      , optExtents  = True
-      , optKind     = True
-      , optType     = True
+        comments = True
+      , extents  = True
+      , kind     = True
+      , typ      = True
       }

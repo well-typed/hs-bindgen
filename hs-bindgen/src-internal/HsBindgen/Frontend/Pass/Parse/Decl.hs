@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Fold declarations
 module HsBindgen.Frontend.Pass.Parse.Decl (topLevelDecl, parseDecl) where
 
@@ -45,19 +49,17 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
       -> ParseTypeExceptionInContext ParseTypeExceptionContext
       -> ParseDecl (Maybe [ParseResult Parse])
     handleTypeException curr err = do
-        declId  <- PrelimDeclId.atCursor curr contextNameKind
+        declId  <- PrelimDeclId.atCursor curr err.context.nameKind
         declLoc <- HighLevel.clang_getCursorLocation' curr
         -- TODO https://github.com/well-typed/hs-bindgen/issues/1249: Only emit
         -- the trace when we use the declaration that we fail to parse.
-        when (contextRequiredForScoping == RequiredForScoping) $
+        when (err.context.requiredForScoping == RequiredForScoping) $
           recordImmediateTrace declId declLoc $
-            ParseOfDeclarationRequiredForScopingFailed (parseException err)
+            ParseOfDeclarationRequiredForScopingFailed err.exception
         pure $ Just [
             parseFail declId declLoc $
-              ParseUnsupportedType (parseException err)
+              ParseUnsupportedType err.exception
           ]
-      where
-        ParseTypeExceptionContext{..} = parseContext err
 
 {-------------------------------------------------------------------------------
   Info that we collect for all declarations
@@ -1050,9 +1052,9 @@ visibilityCanCauseErrors _ _ _ = False
 -------------------------------------------------------------------------------}
 
 data ParseTypeExceptionContext = ParseTypeExceptionContext {
-      contextInfo               :: C.DeclInfo Parse
-    , contextNameKind           :: C.NameKind
-    , contextRequiredForScoping :: RequiredForScoping
+      info               :: C.DeclInfo Parse
+    , nameKind           :: C.NameKind
+    , requiredForScoping :: RequiredForScoping
     }
   deriving stock (Show)
 

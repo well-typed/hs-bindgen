@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Preliminary declaration IDs
 --
 -- The parser assigns \"preliminary\" IDs to declarations, which are then

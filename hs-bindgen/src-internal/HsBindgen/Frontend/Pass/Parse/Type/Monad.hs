@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Monad for parsing types
 --
 -- Intended for unqualified import (unless context is unambiguous).
@@ -45,9 +49,9 @@ import HsBindgen.Language.C qualified as C
   names to their resolved types.
 -------------------------------------------------------------------------------}
 
-newtype ParseType a = Wrap {
-      unwrap :: StateT (Map C.DeclName (C.Type Parse)) IO a
-    }
+newtype ParseType a = Wrap (
+      StateT (Map C.DeclName (C.Type Parse)) IO a
+    )
   deriving newtype (
       Functor
     , Applicative
@@ -57,6 +61,9 @@ newtype ParseType a = Wrap {
     , MonadCatch
     , MonadMask
     )
+
+unwrap :: ParseType a -> StateT (Map C.DeclName (C.Type Parse)) IO a
+unwrap (Wrap ma) = ma
 
 instance MonadError ParseTypeException ParseType where
   throwError err   = Wrap $ lift $ throwIO err
@@ -99,15 +106,13 @@ insertCache name ty = Wrap $ modify' (Map.insert name ty)
   message, and we can skip the declaration we're currently processing.
 -------------------------------------------------------------------------------}
 
-data ParseTypeExceptionInContext ctx =
-  ParseTypeExceptionInContext {
-    parseContext   :: ctx
-  , parseException :: ParseTypeException
-  }
+data ParseTypeExceptionInContext ctx = ParseTypeExceptionInContext {
+      context   :: ctx
+    , exception :: ParseTypeException
+    }
   deriving stock (Show, Eq, Ord, Generic)
 
 instance (Show ctx, Typeable ctx) => Exception (ParseTypeExceptionInContext ctx)
-
 
 {-------------------------------------------------------------------------------
   Utility: dispatching based on the cursor kind

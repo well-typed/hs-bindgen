@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 module HsBindgen.TH.Internal (
     -- * Template Haskell API
     Config
@@ -65,22 +69,22 @@ toFilePath _    (Dir x) = x
 -- >   hashInclude "foo.h"
 -- >   hashInclude "bar.h"
 withHsBindgen :: Config -> ConfigTH -> BindgenM -> TH.Q [TH.Dec]
-withHsBindgen config ConfigTH{..} hashIncludes = do
+withHsBindgen config configTH hashIncludes = do
     checkHsBindgenRuntimePreludeIsInScope
     packageRoot <- getPackageRoot
 
-    bindgenConfig <- toBindgenConfigTH config packageRoot bindingCategoryChoice
+    bindgenConfig <- toBindgenConfigTH config packageRoot configTH.categoryChoice
 
     let tracerConfigUnsafe :: TracerConfig Level TraceMsg
         tracerConfigUnsafe =
           tracerConfigDefTH
-            & #tVerbosity .~ verbosity
-            & #tCustomLogLevel .~ getCustomLogLevel customLogLevelSettings
+            & #tVerbosity      .~ configTH.verbosity
+            & #tCustomLogLevel .~ getCustomLogLevel configTH.customLogLevels
 
     let tracerConfigSafe :: TracerConfig SafeLevel SafeTraceMsg
         tracerConfigSafe =
           tracerConfigDefTH
-            & #tVerbosity .~ verbosity
+            & #tVerbosity .~ configTH.verbosity
 
         -- Traverse #include directives.
         bindgenState :: BindgenState
@@ -88,8 +92,7 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
 
         -- Restore original order of include directives.
         uncheckedHashIncludeArgs :: [UncheckedHashIncludeArg]
-        uncheckedHashIncludeArgs =
-          reverse $ bindgenStateUncheckedHashIncludeArgs bindgenState
+        uncheckedHashIncludeArgs = reverse bindgenState.hashIncludeArgs
 
         artefact :: Artefact ([SourcePath], ([CWrapper], [SHs.SDecl]))
         artefact = (,) <$> Dependencies <*> (Foldable.fold <$> FinalDecls)
@@ -119,11 +122,8 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
 -- See 'withHsBindgen'.
 hashInclude :: FilePath -> BindgenM
 hashInclude arg = do
-  let -- Prepend the C header to the list. That is, the order of include
-      -- directives will be reversed.
-      prependArg :: BindgenState -> BindgenState
-      prependArg = BindgenState . (arg :) . bindgenStateUncheckedHashIncludeArgs
-  modify prependArg
+    -- Prepend the C header to the list (the order will be reversed)
+    modify $ #hashIncludeArgs %~ (arg:)
 
 {-------------------------------------------------------------------------------
   Internal artefacts
@@ -180,8 +180,9 @@ type BindgenM = State BindgenState ()
 --
 -- Internal!
 data BindgenState = BindgenState {
-    bindgenStateUncheckedHashIncludeArgs :: [UncheckedHashIncludeArg]
-  }
+      hashIncludeArgs :: [UncheckedHashIncludeArg]
+    }
+  deriving stock (Generic)
 
 -- See discussion of the PR https://github.com/well-typed/hs-bindgen/pull/957,
 -- in particular https://gitlab.haskell.org/ghc/ghc/-/issues/25774, and

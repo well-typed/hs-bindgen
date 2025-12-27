@@ -23,14 +23,14 @@ import HsBindgen.TH
 
 let cfg :: Config
     cfg = def
-            & #clang % #extraIncludeDirs .~ [
-                  Pkg "examples"
-                ]
+      & #clang % #extraIncludeDirs .~ [Pkg "examples"]
+
     cfgTH :: ConfigTH
     cfgTH = def
-              & #verbosity .~ Verbosity Warning
-              & #customLogLevelSettings .~ [EnableMacroWarnings]
-              & #bindingCategoryChoice .~ useUnsafeCategory
+      & #verbosity       .~ Verbosity Warning
+      & #customLogLevels .~ [EnableMacroWarnings]
+      & #categoryChoice  .~ useUnsafeCategory
+
  in withHsBindgen cfg cfgTH $
       hashInclude "simple.h"
 

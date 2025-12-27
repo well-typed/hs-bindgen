@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Parse messages
 module HsBindgen.Frontend.Pass.Parse.Msg (
     ParseTypeException(..)

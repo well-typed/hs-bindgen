@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Fold types
 module HsBindgen.Frontend.Pass.Parse.Type (fromCXType) where
 
