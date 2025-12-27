@@ -209,9 +209,9 @@ genBindingSpec'
          , (Hs.Identifier, BindingSpec.HsTypeSpec)
          )
     auxEmptyData edata =
-      let originDecl = Hs.emptyDataOrigin edata
-          declInfo = HsOrigin.declInfo originDecl
-          hsIdentifier = Hs.Identifier $ Hs.getName (Hs.emptyDataName edata)
+      let originDecl   = edata.origin
+          declInfo     = HsOrigin.declInfo originDecl
+          hsIdentifier = Hs.Identifier $ Hs.getName edata.name
           cTypeSpec = BindingSpec.CTypeSpec {
               cTypeSpecIdentifier = Just hsIdentifier
             , cTypeSpecRep        = Nothing  -- TODO implement

@@ -127,9 +127,9 @@ data Struct (n :: Nat) = Struct {
   deriving stock (Generic, Show)
 
 data EmptyData = EmptyData {
-      emptyDataName    :: Hs.Name Hs.NsTypeConstr
-    , emptyDataOrigin  :: Origin.Decl Origin.EmptyData
-    , emptyDataComment :: Maybe HsDoc.Comment
+      name    :: Hs.Name Hs.NsTypeConstr
+    , origin  :: Origin.Decl Origin.EmptyData
+    , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 

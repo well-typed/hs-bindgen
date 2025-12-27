@@ -426,17 +426,16 @@ opaqueDecs haddockConfig info spec = do
     name :: Hs.Name Hs.NsTypeConstr
     name = Hs.unsafeHsIdHsName info.id.hsName
 
-    -- TODO: Do we still need the @Origin@ at all?
     decl :: Hs.Decl
     decl = Hs.DeclEmpty Hs.EmptyData {
-        emptyDataName   = name
-      , emptyDataOrigin = Origin.Decl{
-            declInfo = info
-          , declKind = Origin.Opaque info.id.cName.name.kind
-          , declSpec = spec
-          }
-      , emptyDataComment = mkHaddocks haddockConfig info name
-      }
+          name   = name
+        , comment = mkHaddocks haddockConfig info name
+        , origin = Origin.Decl{
+              declInfo = info
+            , declKind = Origin.Opaque info.id.cName.name.kind
+            , declSpec = spec
+            }
+        }
 
 {-------------------------------------------------------------------------------
   Unions

@@ -134,11 +134,10 @@ translateDeclData struct = DRecord Record{
     }
 
 translateDeclEmpty :: Hs.EmptyData -> SDecl
-translateDeclEmpty d = DEmptyData
-  EmptyData
-    { emptyDataName    = Hs.emptyDataName d
-    , emptyDataOrigin  = Hs.emptyDataOrigin d
-    , emptyDataComment = Hs.emptyDataComment d
+translateDeclEmpty d = DEmptyData EmptyData{
+      emptyDataName    = d.name
+    , emptyDataOrigin  = d.origin
+    , emptyDataComment = d.comment
     }
 
 translateNewtype :: Hs.Newtype -> SDecl
