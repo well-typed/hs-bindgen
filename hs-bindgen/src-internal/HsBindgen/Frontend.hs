@@ -33,6 +33,7 @@ import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.Parse
+import HsBindgen.Frontend.Pass.Parse.Decl.Monad qualified as ParseDecl
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs
@@ -148,14 +149,17 @@ frontend tracer config BootArtefact{..} = do
       liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> Just <$> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude) <-
           processIncludes unit
-        parseResults <- parseDecls
-          (contramap FrontendParse tracer)
-          rootHeader
-          config.parsePredicate
-          isMainHeader
-          isInMainHeaderDir
-          getMainHeadersAndInclude
-          unit
+        let parseEnv :: ParseDecl.Env
+            parseEnv = ParseDecl.Env{
+                unit                     = unit
+              , rootHeader               = rootHeader
+              , isMainHeader             = isMainHeader
+              , isInMainHeaderDir        = isInMainHeaderDir
+              , getMainHeadersAndInclude = getMainHeadersAndInclude
+              , predicate                = config.parsePredicate
+              , tracer                   = contramap FrontendParse tracer
+              }
+        parseResults <- parseDecls parseEnv unit
         pure
           ( parseResults
           , includeGraph

@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Monad for parsing declarations
 --
 -- Intended for unqualified import (unless context is unambiguous).
@@ -64,8 +67,8 @@ data ParseDeclMonad a
 
 -- | Support for 'ParseDecl' (internal type, not exported)
 data ParseSupport = ParseSupport {
-      parseEnv   :: Env              -- ^ Reader
-    , parseState :: IORef ParseState -- ^ State
+      env   :: Env              -- ^ Reader
+    , state :: IORef ParseState -- ^ State
     }
 
 type instance Support ParseDeclMonad = ParseSupport
@@ -80,32 +83,31 @@ run env f = do
 -------------------------------------------------------------------------------}
 
 data Env = Env {
-      envUnit                     :: CXTranslationUnit
-    , envRootHeader               :: RootHeader
-    , envIsMainHeader             :: IsMainHeader
-    , envIsInMainHeaderDir        :: IsInMainHeaderDir
-    , envGetMainHeadersAndInclude :: GetMainHeadersAndInclude
-    , envPredicate                :: Boolean ParsePredicate
-    , envTracer                   :: Tracer (Msg Parse)
+      unit                     :: CXTranslationUnit
+    , rootHeader               :: RootHeader
+    , isMainHeader             :: IsMainHeader
+    , isInMainHeaderDir        :: IsInMainHeaderDir
+    , getMainHeadersAndInclude :: GetMainHeadersAndInclude
+    , predicate                :: Boolean ParsePredicate
+    , tracer                   :: Tracer (Msg Parse)
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit
-getTranslationUnit = wrapEff $ \ParseSupport{parseEnv} ->
-    return (envUnit parseEnv)
+getTranslationUnit = wrapEff $ \support -> return support.env.unit
 
 evalGetMainHeadersAndInclude ::
      SourcePath
   -> ParseDecl (NonEmpty HashIncludeArg, HashIncludeArg)
-evalGetMainHeadersAndInclude path = wrapEff $ \ParseSupport{parseEnv} ->
-    either panicIO return $ (envGetMainHeadersAndInclude parseEnv) path
+evalGetMainHeadersAndInclude path = wrapEff $ \support ->
+    either panicIO return $ support.env.getMainHeadersAndInclude path
 
 evalPredicate :: C.DeclInfo Parse -> ParseDecl Bool
-evalPredicate info = wrapEff $ \ParseSupport{parseEnv} -> pure $
+evalPredicate info = wrapEff $ \support -> pure $
     matchParse
-      (envIsMainHeader parseEnv)
-      (envIsInMainHeaderDir parseEnv)
+      support.env.isMainHeader
+      support.env.isInMainHeaderDir
       (singleLocPath info.loc)
-      (envPredicate parseEnv)
+      support.env.predicate
 
 {-------------------------------------------------------------------------------
   "State"
@@ -115,26 +117,23 @@ data ParseState = ParseState {
       -- | Where did clang expand macros?
       --
       -- Declarations with expanded macros need to be reparsed.
-      stateMacroExpansions        :: Set SingleLoc
+      macroExpansions :: Set SingleLoc
     }
   deriving (Generic)
 
 initParseState :: ParseState
 initParseState = ParseState{
-      stateMacroExpansions        = Set.empty
+      macroExpansions = Set.empty
     }
 
 recordMacroExpansionAt :: SingleLoc -> ParseDecl ()
-recordMacroExpansionAt loc = do
-    wrapEff $ \ParseSupport{parseState} ->
-      modifyIORef parseState $ \st -> st{
-          stateMacroExpansions = Set.insert loc (stateMacroExpansions st)
-        }
+recordMacroExpansionAt loc = wrapEff $ \support ->
+    modifyIORef support.state $ #macroExpansions %~ Set.insert loc
 
 checkHasMacroExpansion :: Range SingleLoc -> ParseDecl Bool
 checkHasMacroExpansion extent = do
-    wrapEff $ \ParseSupport{parseState} ->
-      aux extent . stateMacroExpansions <$> readIORef parseState
+    wrapEff $ \support ->
+      aux extent . (.macroExpansions) <$> readIORef support.state
   where
     aux :: Range SingleLoc -> Set SingleLoc -> Bool
     aux range expansions = or [
@@ -164,10 +163,10 @@ recordImmediateTrace ::
   -> SingleLoc
   -> ImmediateParseMsg
   -> ParseDecl ()
-recordImmediateTrace declId declLoc msg = wrapEff $ \ParseSupport{parseEnv} ->
-    traceWith (envTracer parseEnv) WithLocationInfo{
+recordImmediateTrace declId declLoc msg = wrapEff $ \support ->
+    traceWith support.env.tracer WithLocationInfo{
         loc = prelimDeclIdLocationInfo declId [declLoc]
-      , msg
+      , msg = msg
       }
 
 {-------------------------------------------------------------------------------

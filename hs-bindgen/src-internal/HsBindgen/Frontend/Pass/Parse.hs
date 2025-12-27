@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Parse the clang AST
 module HsBindgen.Frontend.Pass.Parse (
     parseDecls
@@ -6,47 +10,17 @@ module HsBindgen.Frontend.Pass.Parse (
 import Clang.HighLevel qualified as HighLevel
 import Clang.LowLevel.Core
 
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.Decl
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad qualified as ParseDecl
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
-import HsBindgen.Frontend.Predicate
-import HsBindgen.Frontend.ProcessIncludes
-import HsBindgen.Frontend.RootHeader (RootHeader)
-import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Construction
 -------------------------------------------------------------------------------}
 
-parseDecls ::
-     Tracer (Msg Parse)
-  -> RootHeader
-  -> Boolean ParsePredicate
-  -> IsMainHeader
-  -> IsInMainHeaderDir
-  -> GetMainHeadersAndInclude
-  -> CXTranslationUnit
-  -> IO [ParseResult Parse]
-parseDecls
-  tracer
-  rootHeader
-  predicate
-  isMainHeader
-  isInMainHeaderDir
-  getMainHeadersAndInclude
-  unit = do
-    let parseEnv :: ParseDecl.Env
-        parseEnv  = ParseDecl.Env{
-            envUnit                     = unit
-          , envRootHeader               = rootHeader
-          , envIsMainHeader             = isMainHeader
-          , envIsInMainHeaderDir        = isInMainHeaderDir
-          , envGetMainHeadersAndInclude = getMainHeadersAndInclude
-          , envPredicate                = predicate
-          , envTracer                   = tracer
-          }
-    root  <- clang_getTranslationUnitCursor unit
+parseDecls :: ParseDecl.Env -> CXTranslationUnit -> IO [ParseResult Parse]
+parseDecls parseEnv unit = do
+    root <- clang_getTranslationUnitCursor unit
     fmap concat . ParseDecl.run parseEnv $
       HighLevel.clang_visitChildren root topLevelDecl
