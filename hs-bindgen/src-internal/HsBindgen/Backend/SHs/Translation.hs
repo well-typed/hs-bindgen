@@ -212,13 +212,14 @@ translateParam param = Parameter {
     }
 
 translateFunctionDecl :: Hs.FunctionDecl -> SDecl
-translateFunctionDecl Hs.FunctionDecl{..} = DBinding Binding{
-      name
-    , parameters = map translateParam parameters
-    , result     = Result (translateType resultType) Nothing
-    , body
-    , pragmas
-    , comment
+translateFunctionDecl functionDecl = DBinding Binding{
+      parameters = map translateParam functionDecl.parameters
+    , result     = Result (translateType functionDecl.result) Nothing
+      -- The other fields are copied as-is
+    , name       = functionDecl.name
+    , body       = functionDecl.body
+    , pragmas    = functionDecl.pragmas
+    , comment    = functionDecl.comment
     }
 
 translatePatSyn :: Hs.PatSyn -> SDecl

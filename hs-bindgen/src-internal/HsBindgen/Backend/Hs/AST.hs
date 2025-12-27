@@ -163,15 +163,15 @@ data FunctionParameter = FunctionParameter{
     }
   deriving stock (Generic, Show)
 
-data FunctionDecl = FunctionDecl
-  { name       :: Hs.Name Hs.NsVar
-  , parameters :: [FunctionParameter]
-  , resultType :: HsType
-  , body       :: SHs.ClosedExpr
-  , origin     :: Origin.ForeignImport
-  , pragmas    :: [SHs.Pragma]
-  , comment    :: Maybe HsDoc.Comment
-  }
+data FunctionDecl = FunctionDecl{
+      name       :: Hs.Name Hs.NsVar
+    , parameters :: [FunctionParameter]
+    , result     :: HsType
+    , body       :: SHs.ClosedExpr
+    , origin     :: Origin.ForeignImport
+    , pragmas    :: [SHs.Pragma]
+    , comment    :: Maybe HsDoc.Comment
+    }
   deriving stock (Generic, Show)
 
 data UnionGetter = UnionGetter
