@@ -67,8 +67,8 @@ import HsBindgen.Language.Haskell qualified as Hs
 
 -- | An import module with an optional alias
 data HsImportModule = HsImportModule {
-      hsImportModuleName  :: Hs.ModuleName
-    , hsImportModuleAlias :: Maybe String
+      name  :: Hs.ModuleName
+    , alias :: Maybe String
     }
   deriving (Eq, Ord, Show)
 
@@ -88,9 +88,9 @@ data HsImport =
 
 -- | Resolved name
 data ResolvedName = ResolvedName {
-      resolvedNameString :: String
-    , resolvedNameType   :: NameType
-    , resolvedNameImport :: Maybe HsImport
+      string   :: String
+    , typ      :: NameType
+    , hsImport :: Maybe HsImport
     }
   deriving (Eq, Ord, Show)
 
@@ -113,19 +113,19 @@ tupleResolvedName wantType i = ResolvedName tup IdentifierName Nothing
 -------------------------------------------------------------------------------}
 
 importQ :: TH.Name -> ResolvedName
-importQ name = ResolvedName
-    { resolvedNameString = s
-    , resolvedNameType   = nameType s
-    , resolvedNameImport = fmap (QualifiedHsImport . moduleOf s) (TH.nameModule name)
+importQ name = ResolvedName{
+      string   = s
+    , typ      = nameType s
+    , hsImport = fmap (QualifiedHsImport . moduleOf s) (TH.nameModule name)
     }
   where
     s = TH.nameBase name
 
 importU :: TH.Name -> ResolvedName
-importU name = ResolvedName
-    { resolvedNameString = s
-    , resolvedNameType   = nameType s
-    , resolvedNameImport = fmap (UnqualifiedHsImport . moduleOf s) (TH.nameModule name)
+importU name = ResolvedName{
+      string   = s
+    , typ      = nameType s
+    , hsImport = fmap (UnqualifiedHsImport . moduleOf s) (TH.nameModule name)
     }
   where
     s = TH.nameBase name
@@ -256,31 +256,31 @@ resolveGlobal = \case
     --
     ToFunPtr_class                -> let s = "ToFunPtr"
                                          m = Just "HsBindgen.Runtime.FunPtr"
-                                      in ResolvedName
-                                          { resolvedNameString = s
-                                          , resolvedNameType   = nameType s
-                                          , resolvedNameImport = fmap (QualifiedHsImport . moduleOf s) m
+                                      in ResolvedName{
+                                            string   = s
+                                          , typ      = nameType s
+                                          , hsImport = fmap (QualifiedHsImport . moduleOf s) m
                                           }
     ToFunPtr_toFunPtr             -> let s = "toFunPtr"
                                          m = Just "HsBindgen.Runtime.FunPtr"
-                                      in ResolvedName
-                                          { resolvedNameString = s
-                                          , resolvedNameType   = nameType s
-                                          , resolvedNameImport = fmap (QualifiedHsImport . moduleOf s) m
+                                      in ResolvedName{
+                                            string   = s
+                                          , typ      = nameType s
+                                          , hsImport = fmap (QualifiedHsImport . moduleOf s) m
                                           }
     FromFunPtr_class              -> let s = "FromFunPtr"
                                          m = Just "HsBindgen.Runtime.FunPtr"
-                                      in ResolvedName
-                                          { resolvedNameString = s
-                                          , resolvedNameType   = nameType s
-                                          , resolvedNameImport = fmap (QualifiedHsImport . moduleOf s) m
+                                      in ResolvedName{
+                                            string   = s
+                                          , typ      = nameType s
+                                          , hsImport = fmap (QualifiedHsImport . moduleOf s) m
                                           }
     FromFunPtr_fromFunPtr         -> let s = "fromFunPtr"
                                          m = Just "HsBindgen.Runtime.FunPtr"
-                                      in ResolvedName
-                                          { resolvedNameString = s
-                                          , resolvedNameType   = nameType s
-                                          , resolvedNameImport = fmap (QualifiedHsImport . moduleOf s) m
+                                      in ResolvedName{
+                                            string   = s
+                                          , typ      = nameType s
+                                          , hsImport = fmap (QualifiedHsImport . moduleOf s) m
                                           }
 
     Storable_class                -> importQ ''Foreign.Storable

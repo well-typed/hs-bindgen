@@ -64,19 +64,30 @@ parseOpts =
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec GlobalOpts{..} Opts{..} =
-    void $ run $ artefacts
+exec global opts =
+    hsBindgen
+      global.unsafe
+      global.safe
+      bindgenConfig
+      opts.inputs
+      artefact
   where
+    artefact :: Artefact ()
+    artefact = do
+        writeBindingsMultiple
+          opts.fileOverwritePolicy
+          opts.outputDirPolicy
+          opts.hsOutputDir
+        forM_ opts.outputBindingSpec $ \path ->
+          writeBindingSpec opts.fileOverwritePolicy path
+
     -- TODO https://github.com/well-typed/hs-bindgen/issues/1328: Which command
     -- line options to adjust the binding category predicate do we want to
     -- provide?
     bindgenConfig :: BindgenConfig
-    bindgenConfig = toBindgenConfig config uniqueId baseModuleName def
-
-    run :: Artefact a -> IO a
-    run = hsBindgen tracerConfigUnsafe tracerConfigSafe bindgenConfig inputs
-
-    artefacts :: Artefact ()
-    artefacts = do
-        writeBindingsMultiple fileOverwritePolicy outputDirPolicy hsOutputDir
-        forM_ outputBindingSpec (writeBindingSpec fileOverwritePolicy)
+    bindgenConfig =
+        toBindgenConfig
+          opts.config
+          opts.uniqueId
+          opts.baseModuleName
+          def

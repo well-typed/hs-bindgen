@@ -88,18 +88,18 @@ hsBindgenE
       let tracerBoot :: Tracer BootMsg
           tracerBoot = contramap TraceBoot tracerUnsafe
       bootArtefact <-
-        boot tracerBoot config uncheckedHashIncludeArgs
+        runBoot tracerBoot config uncheckedHashIncludeArgs
       -- 2. Frontend.
       let tracerFrontend :: Tracer FrontendMsg
           tracerFrontend = contramap TraceFrontend tracerUnsafe
       frontendArtefact <-
-        frontend tracerFrontend config.frontend bootArtefact
+        runFrontend tracerFrontend config.frontend bootArtefact
       -- 3. Backend.
       let tracerConfigBackend :: TracerConfig SafeLevel BackendMsg
           tracerConfigBackend = contramap SafeBackendMsg tracerConfigSafe
       backendArtefact <-
         withTracerSafe tracerConfigBackend  $ \tracerSafe ->
-          backend tracerSafe config.backend bootArtefact frontendArtefact
+          runBackend tracerSafe config.backend bootArtefact frontendArtefact
       -- 4. Artefacts.
       let tracerConfigArtefact :: TracerConfig SafeLevel ArtefactMsg
           tracerConfigArtefact = contramap SafeArtefactMsg tracerConfigSafe

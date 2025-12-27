@@ -25,8 +25,8 @@ import Paths_hs_bindgen qualified as Package
 -------------------------------------------------------------------------------}
 
 data Cli = Cli {
-      cliGlobalOpts :: GlobalOpts
-    , cliCmd        :: Cli.Cmd
+      globalOpts :: GlobalOpts
+    , cmd        :: Cli.Cmd
     }
 
 parseCli :: Parser Cli
@@ -40,7 +40,7 @@ execCliParser = do
     clangVersion <- Text.unpack <$> clang_getClangVersion
     let vers = List.intercalate "\n" [
             "hs-bindgen " ++ showVersion Package.version
-          , "binding specification " ++ show BindingSpec.version
+          , "binding specification " ++ show BindingSpec.currentBindingSpecVersion
           , clangVersion
           ]
     customExecParser prefs' (opts vers)
@@ -66,8 +66,8 @@ execCliParser = do
 
 main :: IO ()
 main = handle exceptionHandler $ do
-    Cli{..} <- execCliParser
-    Cli.exec cliGlobalOpts cliCmd
+    cli <- execCliParser
+    Cli.exec cli.globalOpts cli.cmd
 
 {-------------------------------------------------------------------------------
   Auxiliary functions: exception handling

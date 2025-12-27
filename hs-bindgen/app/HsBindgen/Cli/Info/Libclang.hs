@@ -55,17 +55,17 @@ parseOpts = Opts <$> parseClangArgsConfig
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec GlobalOpts{..} Opts{..} = do
+exec global opts = do
     eRes <- withTracer tracerConfigWithoutASTReadError $ \tracer -> do
       (clangArgs, _target) <-
-        getClangArgsAndTarget (contramap TraceBoot tracer) clangArgsConfig
-      let hasNoUserOptions = hasNoUserClangOptions clangArgsConfig
+        getClangArgsAndTarget (contramap TraceBoot tracer) opts.clangArgsConfig
+      let hasNoUserOptions = hasNoUserClangOptions opts.clangArgsConfig
           setup = defaultClangSetup clangArgs $
             ClangInputMemory "hs-bindgen-nop.h" ""
 
       -- Emit informational message if no user options provided
       when (   hasNoUserOptions
-            && tracerConfigUnsafe.verbosity.level >= Info) $ do
+            && global.unsafe.verbosity.level >= Info) $ do
         traceWith (contramap (TraceFrontend . FrontendClang) tracer)
                   ClangInvokedWithoutOptions
 
@@ -82,8 +82,11 @@ exec GlobalOpts{..} Opts{..} = do
     -- Check if user provided any Clang options via command line
     --
     hasNoUserClangOptions :: ClangArgsConfig FilePath -> Bool
-    hasNoUserClangOptions ClangArgsConfig{..} =
-      null argsBefore && null argsInner && null argsAfter
+    hasNoUserClangOptions clangArgs = and [
+          null clangArgs.argsBefore
+        , null clangArgs.argsInner
+        , null clangArgs.argsAfter
+        ]
 
     -- Check if a trace is CXError_ASTReadError.
     -- This error is benign in the context of 'info libclang' when users
@@ -94,7 +97,7 @@ exec GlobalOpts{..} Opts{..} = do
     -- logging
     --
     tracerConfigWithoutASTReadError =
-      tracerConfigUnsafe {
+      global.unsafe {
           customLogLevel = CustomLogLevel $ \trace actualLevel ->
             case trace of
               TraceFrontend (FrontendClang (ClangErrorCode (SimpleEnum x)))
@@ -102,7 +105,7 @@ exec GlobalOpts{..} Opts{..} = do
                   Debug
               _ ->
                 applyCustomLogLevel
-                  tracerConfigUnsafe.customLogLevel
+                  global.unsafe.customLogLevel
                   trace
                   actualLevel
         }

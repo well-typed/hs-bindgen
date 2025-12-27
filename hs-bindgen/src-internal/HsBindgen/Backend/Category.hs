@@ -53,13 +53,12 @@ mapWithCategory ::
   -> (TermCategory -> f LvlTerm -> g LvlTerm)
   -> ByCategory f
   -> ByCategory g
-mapWithCategory f g ByCategory{..} =
-  ByCategory {
-      cType   = f         cType
-    , cSafe   = g CSafe   cSafe
-    , cUnsafe = g CUnsafe cUnsafe
-    , cFunPtr = g CFunPtr cFunPtr
-    , cGlobal = g CGlobal cGlobal
+mapWithCategory f g x = ByCategory {
+      cType   = f         x.cType
+    , cSafe   = g CSafe   x.cSafe
+    , cUnsafe = g CUnsafe x.cUnsafe
+    , cFunPtr = g CFunPtr x.cFunPtr
+    , cGlobal = g CGlobal x.cGlobal
     }
 
 -- | A strict, total map from 'Category' to 'a'.

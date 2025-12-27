@@ -144,8 +144,8 @@ isCompatBindingSpecVersions
 
 -- | JSON/YAML version information
 data AVersion = AVersion {
-      aVersionHsBindgen            :: HsBindgenVersion
-    , aVersionBindingSpecification :: BindingSpecVersion
+      bindgen     :: HsBindgenVersion
+    , bindingSpec :: BindingSpecVersion
     }
   deriving stock Show
 
@@ -153,19 +153,23 @@ instance Aeson.FromJSON AVersion where
   parseJSON = Aeson.withObject "AVersion" $ \o -> do
     aVersionHsBindgen            <- o .: "hs_bindgen"
     aVersionBindingSpecification <- o .: "binding_specification"
-    return AVersion{..}
+    return AVersion{
+        bindgen     = aVersionHsBindgen
+      , bindingSpec = aVersionBindingSpecification
+      }
 
 instance Aeson.ToJSON AVersion where
-  toJSON AVersion{..} = Aeson.object [
-      "hs_bindgen"            .= aVersionHsBindgen
-    , "binding_specification" .= aVersionBindingSpecification
+  toJSON version = Aeson.object [
+      "hs_bindgen"            .= version.bindgen
+    , "binding_specification" .= version.bindingSpec
     ]
 
 -- | Construct an 'AVersion' with the current versions
 mkAVersion :: BindingSpecVersion -> AVersion
-mkAVersion aVersionBindingSpecification =
-    let aVersionHsBindgen = Package.version
-    in  AVersion{..}
+mkAVersion aVersionBindingSpecification = AVersion{
+      bindgen = Package.version
+    , bindingSpec = aVersionBindingSpecification
+    }
 
 -- | Internal type used to parse just the version information
 newtype ABindingSpecVersion = ABindingSpecVersion {
@@ -176,15 +180,15 @@ newtype ABindingSpecVersion = ABindingSpecVersion {
 instance Aeson.FromJSON ABindingSpecVersion where
   parseJSON = Aeson.withObject "file" $ \o -> do
     aVersion <- o .: "version"
-    return ABindingSpecVersion{..}
+    return ABindingSpecVersion{aVersion}
 
 instance Aeson.ToJSON ABindingSpecVersion where
-  toJSON ABindingSpecVersion{..} = Aeson.object [
+  toJSON ABindingSpecVersion{aVersion} = Aeson.object [
       "version" .= aVersion
     ]
 
 -- | Parse just the version information
 getAVersion :: Aeson.Value -> Either String AVersion
 getAVersion value = case Aeson.fromJSON value of
-    Aeson.Success ABindingSpecVersion{..} -> Right aVersion
-    Aeson.Error   err                     -> Left  err
+    Aeson.Success ABindingSpecVersion{aVersion} -> Right aVersion
+    Aeson.Error   err                           -> Left  err

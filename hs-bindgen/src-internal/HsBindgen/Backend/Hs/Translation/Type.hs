@@ -149,9 +149,9 @@ toFFIType ntMap = \case
     HsIO{} -> no
     HsFun{} -> no
     HsExtBinding _ _ hsTypeSpec -> do
-        case BindingSpec.hsTypeSpecRep hsTypeSpec of
+        case hsTypeSpec.hsRep of
           Just rep -> case rep of
-            BindingSpec.HsTypeRepNewtype newtypeRep -> BindingSpec.hsNewtypeRepFFIType newtypeRep
+            BindingSpec.HsTypeRepNewtype newtypeRep -> newtypeRep.ffiType
             -- only newtypes can have an FFI type
             _ -> Nothing
           -- this should be impossible because the @ResolveBindingSpecs@ pass

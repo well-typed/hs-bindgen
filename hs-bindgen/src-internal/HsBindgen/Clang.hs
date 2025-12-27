@@ -140,17 +140,17 @@ data ClangMsg =
 instance PrettyForTrace ClangMsg where
   prettyForTrace = \case
       ClangErrorCode  x -> "clang error " >< PP.show x
-      ClangDiagnostic Diagnostic{..}
-        | RootHeader.isInRootHeader diagnosticLocation -> PP.text $
-            case getFileNotFound diagnosticSpelling of
+      ClangDiagnostic diag
+        | RootHeader.isInRootHeader diag.diagnosticLocation -> PP.text $
+            case getFileNotFound diag.diagnosticSpelling of
               Just header -> "unable to resolve #include <" <> header <> ">"
-              Nothing     -> case getFileNotFoundQ diagnosticSpelling of
+              Nothing     -> case getFileNotFoundQ diag.diagnosticSpelling of
                 Just header ->
                   "unable to resolve #include <" <> header
                     <> "> (must specify header relative to directory in C include search path)"
                 Nothing     ->
-                  Text.stripStart $ Text.dropWhile (/= ' ') diagnosticFormatted
-        | otherwise -> PP.text diagnosticFormatted
+                  Text.stripStart $ Text.dropWhile (/= ' ') diag.diagnosticFormatted
+        | otherwise -> PP.text diag.diagnosticFormatted
       ClangSetupMsg   x -> prettyForTrace x
       ClangInvokedWithoutOptions ->
         PP.cat $ map PP.text infoHelpMessage

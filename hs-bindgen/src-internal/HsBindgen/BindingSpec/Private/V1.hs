@@ -16,7 +16,7 @@
 -- > import HsBindgen.BindingSpec.Private.V1 qualified as V1
 module HsBindgen.BindingSpec.Private.V1 (
     -- * Version
-    version
+    currentBindingSpecVersion
     -- * Types
   , BindingSpec(..)
   , UnresolvedBindingSpec
@@ -92,8 +92,8 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 -- | Binding specification version
-version :: BindingSpecVersion
-version = $$(constBindingSpecVersion 1 0)
+currentBindingSpecVersion :: BindingSpecVersion
+currentBindingSpecVersion = $$(constBindingSpecVersion 1 0)
 
 {-------------------------------------------------------------------------------
   Types
@@ -115,12 +115,12 @@ version = $$(constBindingSpecVersion 1 0)
 -- See 'UnresolvedBindingSpec' and 'ResolvedBindingSpec'.
 data BindingSpec header = BindingSpec {
       -- | Binding specification target
-      bindingSpecTarget :: BindingSpecTarget
+      target :: BindingSpecTarget
 
       -- | Binding specification module
       --
       -- Each binding specification is specific to a Haskell module.
-    , bindingSpecModule :: Hs.ModuleName
+    , moduleName :: Hs.ModuleName
 
       -- | C type specifications
       --
@@ -129,10 +129,10 @@ data BindingSpec header = BindingSpec {
       -- disjoint.  The type of this map is therefore equivalent to
       -- @'Map' 'DeclId' ('Map' header ('Omittable' 'CTypeSpec'))@, but this
       -- type is used as an optimization.
-    , bindingSpecCTypes :: Map DeclId [(Set header, Omittable CTypeSpec)]
+    , cTypes :: Map DeclId [(Set header, Omittable CTypeSpec)]
 
       -- | Haskell type specifications
-    , bindingSpecHsTypes :: Map Hs.Identifier HsTypeSpec
+    , hsTypes :: Map Hs.Identifier HsTypeSpec
     }
   deriving stock (Eq, Generic, Show)
 
@@ -170,16 +170,17 @@ isCompatBindingSpecTarget = \case
 -- | Binding specification for a C type
 data CTypeSpec = CTypeSpec {
       -- | Haskell identifier
-      cTypeSpecIdentifier :: Maybe Hs.Identifier
-    , -- | C type representation
-      cTypeSpecRep        :: Maybe CTypeRep
+      hsIdent :: Maybe Hs.Identifier
+
+       -- | C type representation
+    , cRep :: Maybe CTypeRep
     }
   deriving stock (Show, Eq, Ord, Generic)
 
 instance Default CTypeSpec where
   def = CTypeSpec {
-      cTypeSpecIdentifier = Nothing
-    , cTypeSpecRep        = Nothing
+      hsIdent = Nothing
+    , cRep    = Nothing
     }
 
 --------------------------------------------------------------------------------
@@ -208,16 +209,17 @@ data CTypeRep =
 -- | Binding specification for a Haskell type
 data HsTypeSpec = HsTypeSpec {
       -- | Haskell type representation
-      hsTypeSpecRep       :: Maybe HsTypeRep
-    , -- | Instance specification
-      hsTypeSpecInstances :: Map Hs.TypeClass (Omittable InstanceSpec)
+      hsRep :: Maybe HsTypeRep
+
+       -- | Instance specification
+    , instances :: Map Hs.TypeClass (Omittable InstanceSpec)
     }
   deriving stock (Show, Eq, Ord, Generic)
 
 instance Default HsTypeSpec where
   def = HsTypeSpec {
-      hsTypeSpecRep       = Nothing
-    , hsTypeSpecInstances = Map.empty
+      hsRep     = Nothing
+    , instances = Map.empty
     }
 
 --------------------------------------------------------------------------------
@@ -247,25 +249,25 @@ data HsTypeRep =
 
 -- | Haskell record representation
 data HsRecordRep = HsRecordRep {
-      -- | Constructor name
-      hsRecordRepConstructor :: Maybe Hs.Identifier
-    , -- | Field names
-      hsRecordRepFields      :: Maybe [Hs.Identifier]
+      constructor :: Maybe Hs.Identifier   -- ^ Constructor name
+    , fields      :: Maybe [Hs.Identifier] -- ^ Field names
     }
   deriving stock (Show, Eq, Ord, Generic)
 
 instance Default HsRecordRep where
   def = HsRecordRep {
-      hsRecordRepConstructor = Nothing
-    , hsRecordRepFields      = Nothing
-    }
+        constructor = Nothing
+      , fields      = Nothing
+      }
 
 -- | Haskell newtype representation
 data HsNewtypeRep = HsNewtypeRep {
       -- | Constructor name
-      hsNewtypeRepConstructor :: Maybe Hs.Identifier
-    , -- | Field name
-      hsNewtypeRepField       :: Maybe Hs.Identifier
+      constructor :: Maybe Hs.Identifier
+
+      -- | Field name
+    , field :: Maybe Hs.Identifier
+
       -- | The underlying FFI type.
       --
       -- If @hs-bindgen@ generates a foreign import declaration for a newtype,
@@ -290,16 +292,16 @@ data HsNewtypeRep = HsNewtypeRep {
       --
       -- Here @B@ does not have an underlying FFI type, and neither does @A@
       -- because it is not even a newtype.
-    , hsNewtypeRepFFIType       :: Maybe FFIType
+    , ffiType :: Maybe FFIType
     }
   deriving stock (Show, Eq, Ord, Generic)
 
 instance Default HsNewtypeRep where
   def = HsNewtypeRep {
-      hsNewtypeRepConstructor = Nothing
-    , hsNewtypeRepField       = Nothing
-    , hsNewtypeRepFFIType     = Nothing
-    }
+        constructor = Nothing
+      , field       = Nothing
+      , ffiType     = Nothing
+      }
 
 {-------------------------------------------------------------------------------
   FFI type
@@ -332,19 +334,19 @@ data InstanceSpec = InstanceSpec {
       -- | Strategy used to generate/derive the instance
       --
       -- A 'Nothing' value indicates that @hs-bindgen@ defaults should be used.
-      instanceSpecStrategy :: Maybe StrategySpec
+      strategy :: Maybe StrategySpec
 
-    , -- | Instance constraints
+      -- | Instance constraints
       --
       -- If specified, /all/ constraints must be listed.
-      instanceSpecConstraints :: [ConstraintSpec]
+    , constraints :: [ConstraintSpec]
     }
   deriving stock (Show, Eq, Ord, Generic)
 
 instance Default InstanceSpec where
   def = InstanceSpec {
-      instanceSpecStrategy    = Nothing
-    , instanceSpecConstraints = []
+      strategy    = Nothing
+    , constraints = []
     }
 
 --------------------------------------------------------------------------------
@@ -363,8 +365,8 @@ data StrategySpec =
 
 -- | Constraint of an instance
 data ConstraintSpec = ConstraintSpec {
-      constraintSpecClass :: Hs.TypeClass
-    , constraintSpecRef   :: Hs.ExtRef
+      clss :: Hs.TypeClass
+    , ref  :: Hs.ExtRef
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -375,26 +377,24 @@ data ConstraintSpec = ConstraintSpec {
 -- | Construct an empty binding specification for the given target and module
 empty :: ClangArgs.Target -> Hs.ModuleName -> BindingSpec header
 empty target hsModuleName = BindingSpec {
-      bindingSpecTarget  = SpecificTarget target
-    , bindingSpecModule  = hsModuleName
-    , bindingSpecCTypes  = Map.empty
-    , bindingSpecHsTypes = Map.empty
+      target     = SpecificTarget target
+    , moduleName = hsModuleName
+    , cTypes     = Map.empty
+    , hsTypes    = Map.empty
     }
 
 -- | Predicate that checks if a binding specification target is 'AnyTarget'
 isAnyTarget :: BindingSpec header -> Bool
-isAnyTarget = (== AnyTarget) . bindingSpecTarget
+isAnyTarget spec = spec.target == AnyTarget
 
 -- | Predicate that checks if a binding specification is compatible with a
 -- specific target
 isCompatTarget :: BindingSpec header -> ClangArgs.Target -> Bool
-isCompatTarget = isCompatBindingSpecTarget . bindingSpecTarget
+isCompatTarget spec = isCompatBindingSpecTarget spec.target
 
 -- | Get the C types in a binding specification
 getCTypes :: ResolvedBindingSpec -> Map DeclId [Set SourcePath]
-getCTypes =
-      fmap (map (Set.map snd . fst))
-    . bindingSpecCTypes
+getCTypes spec = map (Set.map snd . fst) <$> spec.cTypes
 
 -- | Lookup a C type in a 'ResolvedBindingSpec'
 lookupCTypeSpec ::
@@ -403,16 +403,13 @@ lookupCTypeSpec ::
   -> ResolvedBindingSpec
   -> Maybe (Hs.ModuleName, Omittable CTypeSpec)
 lookupCTypeSpec cDeclId headers spec = do
-    ps <- Map.lookup cDeclId (bindingSpecCTypes spec)
+    ps <- Map.lookup cDeclId spec.cTypes
     oCTypeSpec <- lookupBy (not . Set.disjoint headers . Set.map snd) ps
-    return (bindingSpecModule spec, oCTypeSpec)
+    return (spec.moduleName, oCTypeSpec)
 
 -- | Lookup a Haskell type in a 'ResolvedBindingSpec'
-lookupHsTypeSpec ::
-     Hs.Identifier
-  -> ResolvedBindingSpec
-  -> Maybe HsTypeSpec
-lookupHsTypeSpec hsIdentifier = Map.lookup hsIdentifier . bindingSpecHsTypes
+lookupHsTypeSpec :: Hs.Identifier -> ResolvedBindingSpec -> Maybe HsTypeSpec
+lookupHsTypeSpec hsIdentifier spec = Map.lookup hsIdentifier spec.hsTypes
 
 {-------------------------------------------------------------------------------
   API: YAML/JSON
@@ -438,8 +435,8 @@ parseValue ::
   -> AVersion
   -> Aeson.Value
   -> m (Maybe UnresolvedBindingSpec)
-parseValue tracer cmpt path aVersion@AVersion{..} value
-    | isCompatBindingSpecVersions cmpt aVersionBindingSpecification version = do
+parseValue tracer cmpt path aVersion value
+    | isCompatBindingSpecVersions cmpt aVersion.bindingSpec currentBindingSpecVersion = do
         traceWith tracer $ BindingSpecReadParseVersion path aVersion
         case Aeson.fromJSON value of
           Aeson.Success aspec -> do
@@ -449,7 +446,6 @@ parseValue tracer cmpt path aVersion@AVersion{..} value
           Aeson.Error err -> do
             traceWith tracer $ BindingSpecReadAesonError path err
             return Nothing
-    -- | aVersionBindingSpecification < version -> -- no lower versions
     | otherwise = do
         traceWith tracer $ BindingSpecReadIncompatibleVersion path aVersion
         return Nothing
@@ -576,16 +572,16 @@ resolve tracer injResolveHeader args uSpec = do
               | otherwise -> return $ Just (cDeclId, rKVs)
 
     cTypes <- Map.fromList <$>
-      mapMaybeM (uncurry resolveTypes) (Map.toList (bindingSpecCTypes uSpec))
+      mapMaybeM (uncurry resolveTypes) (Map.toList uSpec.cTypes)
     return BindingSpec{
-        bindingSpecTarget  = bindingSpecTarget uSpec
-      , bindingSpecModule  = bindingSpecModule uSpec
-      , bindingSpecCTypes  = cTypes
-      , bindingSpecHsTypes = bindingSpecHsTypes uSpec
+        target     = uSpec.target
+      , moduleName = uSpec.moduleName
+      , cTypes     = cTypes
+      , hsTypes    = uSpec.hsTypes
       }
   where
     allHeaders :: Set HashIncludeArg
-    allHeaders = mconcat $ fst <$> concat (Map.elems (bindingSpecCTypes uSpec))
+    allHeaders = mconcat $ fst <$> concat (Map.elems uSpec.cTypes)
 
 {-------------------------------------------------------------------------------
   API: Merging
@@ -631,7 +627,7 @@ merge =
     mergeSpec ctx spec =
         foldl' (mergeType spec) ctx
       . map (fmap (map fst))
-      $ Map.toList (bindingSpecCTypes spec)
+      $ Map.toList spec.cTypes
 
     mergeType ::
          ResolvedBindingSpec
@@ -668,7 +664,7 @@ lookupMergedBindingSpecs cDeclId headers specs = do
     (hsModuleName, oCTypeSpec) <- lookupCTypeSpec cDeclId headers spec
     let mHsTypeSpec = case oCTypeSpec of
           Require cTypeSpec -> do
-            hsIdentifier <- cTypeSpecIdentifier cTypeSpec
+            hsIdentifier <- cTypeSpec.hsIdent
             lookupHsTypeSpec hsIdentifier spec
           Omit -> Nothing
     return (hsModuleName, oCTypeSpec, mHsTypeSpec)
@@ -678,11 +674,11 @@ lookupMergedBindingSpecs cDeclId headers specs = do
 -------------------------------------------------------------------------------}
 
 data ABindingSpec = ABindingSpec {
-      aBindingSpecVersion  :: AVersion
-    , aBindingSpecTarget   :: ABindingSpecTarget
-    , aBindingSpecHsModule :: Hs.ModuleName
-    , aBindingSpecCTypes   :: [AOCTypeSpecMapping]
-    , aBindingSpecHsTypes  :: [AHsTypeSpecMapping]
+      version  :: AVersion
+    , target   :: ABindingSpecTarget
+    , hsModule :: Hs.ModuleName
+    , cTypes   :: [AOCTypeSpecMapping]
+    , hsTypes  :: [AHsTypeSpecMapping]
     }
   deriving stock Show
 
@@ -693,15 +689,21 @@ instance Aeson.FromJSON ABindingSpec where
     aBindingSpecHsModule <- o .:  "hsmodule"
     aBindingSpecCTypes   <- o .:? "ctypes"  .!= []
     aBindingSpecHsTypes  <- o .:? "hstypes" .!= []
-    return ABindingSpec{..}
+    return ABindingSpec{
+        version  = aBindingSpecVersion
+      , target   = aBindingSpecTarget
+      , hsModule = aBindingSpecHsModule
+      , cTypes   = aBindingSpecCTypes
+      , hsTypes  = aBindingSpecHsTypes
+      }
 
 instance Aeson.ToJSON ABindingSpec where
-  toJSON ABindingSpec{..} = Aeson.Object . KM.fromList $ catMaybes [
-      Just ("version"  .= aBindingSpecVersion)
-    , Just ("target"   .= aBindingSpecTarget)
-    , Just ("hsmodule" .= aBindingSpecHsModule)
-    , ("ctypes"  .=) <$> omitWhenNull aBindingSpecCTypes
-    , ("hstypes" .=) <$> omitWhenNull aBindingSpecHsTypes
+  toJSON spec = Aeson.Object . KM.fromList $ catMaybes [
+      Just ("version"  .= spec.version)
+    , Just ("target"   .= spec.target)
+    , Just ("hsmodule" .= spec.hsModule)
+    , ("ctypes"  .=) <$> omitWhenNull spec.cTypes
+    , ("hstypes" .=) <$> omitWhenNull spec.hsTypes
     ]
 
 --------------------------------------------------------------------------------
@@ -734,8 +736,8 @@ instance Aeson.ToJSON ABindingSpecTarget where
 type AOCTypeSpecMapping = AOmittable AKCTypeSpecMapping ACTypeSpecMapping
 
 data AKCTypeSpecMapping = AKCTypeSpecMapping {
-      akCTypeSpecMappingHeaders :: [FilePath]
-    , akCTypeSpecMappingCName   :: Text
+      headers :: [FilePath]
+    , cName   :: Text
     }
   deriving stock Show
 
@@ -743,19 +745,22 @@ instance Aeson.FromJSON AKCTypeSpecMapping where
   parseJSON = Aeson.withObject "AKCTypeSpecMapping" $ \o -> do
     akCTypeSpecMappingHeaders <- o .: "headers" >>= listFromJSON
     akCTypeSpecMappingCName   <- o .: "cname"
-    return AKCTypeSpecMapping{..}
+    return AKCTypeSpecMapping{
+        headers = akCTypeSpecMappingHeaders
+      , cName   = akCTypeSpecMappingCName
+      }
 
 instance Aeson.ToJSON AKCTypeSpecMapping where
-  toJSON AKCTypeSpecMapping{..} = Aeson.Object $ KM.fromList [
-      "headers" .= listToJSON akCTypeSpecMappingHeaders
-    , "cname"   .= akCTypeSpecMappingCName
+  toJSON mapping = Aeson.Object $ KM.fromList [
+      "headers" .= listToJSON mapping.headers
+    , "cname"   .= mapping.cName
     ]
 
 data ACTypeSpecMapping = ACTypeSpecMapping {
-      aCTypeSpecMappingHeaders    :: [FilePath]
-    , aCTypeSpecMappingCName      :: Text
-    , aCTypeSpecMappingIdentifier :: Maybe Hs.Identifier
-    , aCTypeSpecMappingRep        :: Maybe ACTypeRep
+      headers    :: [FilePath]
+    , cName      :: Text
+    , identifier :: Maybe Hs.Identifier
+    , rep        :: Maybe ACTypeRep
     }
   deriving stock Show
 
@@ -765,14 +770,19 @@ instance Aeson.FromJSON ACTypeSpecMapping where
     aCTypeSpecMappingCName      <- o .:  "cname"
     aCTypeSpecMappingIdentifier <- o .:? "hsname"
     aCTypeSpecMappingRep        <- o .:? "representation"
-    return ACTypeSpecMapping{..}
+    return ACTypeSpecMapping{
+        headers    = aCTypeSpecMappingHeaders
+      , cName      = aCTypeSpecMappingCName
+      , identifier = aCTypeSpecMappingIdentifier
+      , rep        = aCTypeSpecMappingRep
+      }
 
 instance Aeson.ToJSON ACTypeSpecMapping where
-  toJSON ACTypeSpecMapping{..} = Aeson.Object . KM.fromList $ catMaybes [
-      Just ("headers" .= listToJSON aCTypeSpecMappingHeaders)
-    , Just ("cname"   .= aCTypeSpecMappingCName)
-    , ("hsname"         .=) <$> aCTypeSpecMappingIdentifier
-    , ("representation" .=) <$> aCTypeSpecMappingRep
+  toJSON mapping = Aeson.Object . KM.fromList $ catMaybes [
+      Just ("headers" .= listToJSON mapping.headers)
+    , Just ("cname"   .= mapping.cName)
+    , ("hsname"         .=) <$> mapping.identifier
+    , ("representation" .=) <$> mapping.rep
     ]
 
 --------------------------------------------------------------------------------
@@ -810,9 +820,9 @@ cTypeRepFromText = Map.fromList [
 --------------------------------------------------------------------------------
 
 data AHsTypeSpecMapping = AHsTypeSpecMapping {
-      aHsTypeSpecMappingIdentifier :: Hs.Identifier
-    , aHsTypeSpecMappingRep        :: Maybe AHsTypeRep
-    , aHsTypeSpecMappingInstances  :: [AOInstanceSpecMapping]
+      identifier :: Hs.Identifier
+    , rep        :: Maybe AHsTypeRep
+    , instances  :: [AOInstanceSpecMapping]
     }
   deriving stock Show
 
@@ -821,13 +831,17 @@ instance Aeson.FromJSON AHsTypeSpecMapping where
     aHsTypeSpecMappingIdentifier <- o .:  "hsname"
     aHsTypeSpecMappingRep        <- o .:? "representation"
     aHsTypeSpecMappingInstances  <- o .:? "instances" .!= []
-    return AHsTypeSpecMapping{..}
+    return AHsTypeSpecMapping{
+        identifier = aHsTypeSpecMappingIdentifier
+      , rep        = aHsTypeSpecMappingRep
+      , instances  = aHsTypeSpecMappingInstances
+      }
 
 instance Aeson.ToJSON AHsTypeSpecMapping where
-  toJSON AHsTypeSpecMapping{..} = Aeson.Object . KM.fromList $ catMaybes [
-      Just ("hsname" .= aHsTypeSpecMappingIdentifier)
-    , ("representation" .=) <$> aHsTypeSpecMappingRep
-    , ("instances" .=) <$> omitWhenNull aHsTypeSpecMappingInstances
+  toJSON mapping = Aeson.Object . KM.fromList $ catMaybes [
+      Just ("hsname" .= mapping.identifier)
+    , ("representation" .=) <$> mapping.rep
+    , ("instances" .=) <$> omitWhenNull mapping.instances
     ]
 
 --------------------------------------------------------------------------------
@@ -863,7 +877,10 @@ instance Aeson.FromJSON AHsTypeRep where
       parseHsRecordRep = Aeson.withObject "HsRecordRep" $ \o -> do
         hsRecordRepConstructor <- o .:? "constructor"
         hsRecordRepFields      <- o .:? "fields"
-        return HsRecordRep{..}
+        return HsRecordRep{
+            constructor = hsRecordRepConstructor
+          , fields      = hsRecordRepFields
+          }
 
       parseHsNewtypeRep :: Aeson.Value -> Aeson.Parser HsNewtypeRep
       parseHsNewtypeRep = Aeson.withObject "HsNewtypeRep" $ \o -> do
@@ -877,31 +894,35 @@ instance Aeson.FromJSON AHsTypeRep where
           Just{}           ->
             Aeson.parseFail "newtype representation with more than one field"
         hsNewtypeRepFFIType <- fmap unAFFIType <$> (o .:? "ffitype")
-        return HsNewtypeRep{..}
+        return HsNewtypeRep{
+            constructor = hsNewtypeRepConstructor
+          , field       = hsNewtypeRepField
+          , ffiType     = hsNewtypeRepFFIType
+          }
 
 instance Aeson.ToJSON AHsTypeRep where
   toJSON = aux . unAHsTypeRep
     where
       aux :: HsTypeRep -> Aeson.Value
       aux = \case
-        HsTypeRepRecord x@HsRecordRep{..}
+        HsTypeRepRecord x
           | x == def  -> Aeson.String "record"
           | otherwise ->
                 Aeson.Object . KM.singleton "record"
               . Aeson.Object . KM.fromList
               $ catMaybes [
-                    ("constructor" .=) <$> hsRecordRepConstructor
-                  , ("fields"      .=) <$> hsRecordRepFields
+                    ("constructor" .=) <$> x.constructor
+                  , ("fields"      .=) <$> x.fields
                   ]
-        HsTypeRepNewtype x@HsNewtypeRep{..}
+        HsTypeRepNewtype x
           | x == def  -> Aeson.String "newtype"
           | otherwise ->
                 Aeson.Object . KM.singleton "newtype"
               . Aeson.Object . KM.fromList
               $ catMaybes [
-                    ("constructor" .=) <$> hsNewtypeRepConstructor
-                  , ("fields"      .=) <$> fmap (: []) hsNewtypeRepField
-                  , ("ffitype"     .=) <$> (AFFIType <$> hsNewtypeRepFFIType)
+                    ("constructor" .=) <$> x.constructor
+                  , ("fields"      .=) <$> fmap (: []) x.field
+                  , ("ffitype"     .=) <$> (AFFIType <$> x.ffiType)
                   ]
         HsTypeRepOpaque -> Aeson.String "opaque"
         HsTypeRepAlias  -> Aeson.String "alias"
@@ -1004,9 +1025,9 @@ builtinForeignTypeFromText = Map.fromList [
 type AOInstanceSpecMapping = AOmittable Hs.TypeClass AInstanceSpecMapping
 
 data AInstanceSpecMapping = AInstanceSpecMapping {
-      aInstanceSpecMappingClass       :: Hs.TypeClass
-    , aInstanceSpecMappingStrategy    :: Maybe AStrategySpec
-    , aInstanceSpecMappingConstraints :: [AConstraintSpec]
+      clss        :: Hs.TypeClass
+    , strategy    :: Maybe AStrategySpec
+    , constraints :: [AConstraintSpec]
     }
   deriving stock Show
 
@@ -1016,25 +1037,33 @@ instance Aeson.FromJSON AInstanceSpecMapping where
       aInstanceSpecMappingClass <- Aeson.parseJSON s
       let aInstanceSpecMappingStrategy    = Nothing
           aInstanceSpecMappingConstraints = []
-      return AInstanceSpecMapping{..}
+      return AInstanceSpecMapping{
+          clss        = aInstanceSpecMappingClass
+        , strategy    = aInstanceSpecMappingStrategy
+        , constraints = aInstanceSpecMappingConstraints
+        }
     Aeson.Object o -> do
       aInstanceSpecMappingClass       <- o .:  "class"
       aInstanceSpecMappingStrategy    <- o .:? "strategy"
       aInstanceSpecMappingConstraints <- o .:? "constraints" .!= []
-      return AInstanceSpecMapping{..}
+      return AInstanceSpecMapping{
+          clss        = aInstanceSpecMappingClass
+        , strategy    = aInstanceSpecMappingStrategy
+        , constraints = aInstanceSpecMappingConstraints
+        }
     v -> Aeson.parseFail $
       "expected AInstanceSpecMapping String or Object, but encountered "
         ++ typeOf v
 
 instance Aeson.ToJSON AInstanceSpecMapping where
-  toJSON AInstanceSpecMapping{..}
-    | isNothing aInstanceSpecMappingStrategy
-        && null aInstanceSpecMappingConstraints =
-          Aeson.toJSON aInstanceSpecMappingClass
+  toJSON mapping
+    | isNothing mapping.strategy
+        && null mapping.constraints =
+          Aeson.toJSON mapping.clss
     | otherwise = Aeson.Object . KM.fromList $ catMaybes [
-          Just ("class" .= aInstanceSpecMappingClass)
-        , ("strategy"    .=) <$> aInstanceSpecMappingStrategy
-        , ("constraints" .=) <$> omitWhenNull aInstanceSpecMappingConstraints
+          Just ("class" .= mapping.clss)
+        , ("strategy"    .=) <$> mapping.strategy
+        , ("constraints" .=) <$> omitWhenNull mapping.constraints
         ]
 
 --------------------------------------------------------------------------------
@@ -1082,13 +1111,16 @@ instance Aeson.FromJSON AConstraintSpec where
               moduleName = extRefModule
             , ident      = extRefIdentifier
             }
-      return $ AConstraintSpec ConstraintSpec{..}
+      return $ AConstraintSpec ConstraintSpec{
+          clss = constraintSpecClass
+        , ref  = constraintSpecRef
+        }
 
 instance Aeson.ToJSON AConstraintSpec where
-  toJSON (AConstraintSpec ConstraintSpec{..}) = Aeson.object [
-        "class"    .= constraintSpecClass
-      , "hsmodule" .= constraintSpecRef.moduleName
-      , "hsname"   .= constraintSpecRef.ident
+  toJSON (AConstraintSpec spec) = Aeson.object [
+        "class"    .= spec.clss
+      , "hsmodule" .= spec.ref.moduleName
+      , "hsname"   .= spec.ref.ident
       ]
 
 --------------------------------------------------------------------------------
@@ -1097,14 +1129,19 @@ fromABindingSpec ::
      FilePath
   -> ABindingSpec
   -> ([BindingSpecReadMsg], UnresolvedBindingSpec)
-fromABindingSpec path ABindingSpec{..} =
-    let bindingSpecTarget = unABindingSpecTarget aBindingSpecTarget
-        bindingSpecModule = aBindingSpecHsModule
+fromABindingSpec path spec =
+    let bindingSpecTarget = unABindingSpecTarget spec.target
+        bindingSpecModule = spec.hsModule
         (cTypeErrs, hsIds, bindingSpecCTypes) =
-          mkCTypeMap path aBindingSpecCTypes
+          mkCTypeMap path spec.cTypes
         (hsTypeErrs, bindingSpecHsTypes) =
-          mkHsTypeMap path hsIds aBindingSpecHsTypes
-    in  (cTypeErrs ++ hsTypeErrs, BindingSpec{..})
+          mkHsTypeMap path hsIds spec.hsTypes
+    in  (cTypeErrs ++ hsTypeErrs, BindingSpec{
+        target     = bindingSpecTarget
+      , moduleName = bindingSpecModule
+      , cTypes     = bindingSpecCTypes
+      , hsTypes    = bindingSpecHsTypes
+      })
 
 mkCTypeMap ::
      FilePath
@@ -1153,19 +1190,19 @@ mkCTypeMap path =
          )
     auxInsert aoCTypeMapping (invalids, msgs, conflicts, hsIds, acc) =
       let (cname, headers, mHsId, oCTypeSpec) = case aoCTypeMapping of
-            ARequire ACTypeSpecMapping{..} ->
+            ARequire mapping ->
               let cTypeSpec = CTypeSpec {
-                      cTypeSpecIdentifier = aCTypeSpecMappingIdentifier
-                    , cTypeSpecRep        = unACTypeRep <$> aCTypeSpecMappingRep
+                      hsIdent = mapping.identifier
+                    , cRep   = unACTypeRep <$> mapping.rep
                     }
-              in  ( aCTypeSpecMappingCName
-                  , aCTypeSpecMappingHeaders
-                  , aCTypeSpecMappingIdentifier
+              in  ( mapping.cName
+                  , mapping.headers
+                  , mapping.identifier
                   , Require cTypeSpec
                   )
-            AOmit AKCTypeSpecMapping{..} ->
-              ( akCTypeSpecMappingCName
-              , akCTypeSpecMappingHeaders
+            AOmit mapping ->
+              ( mapping.cName
+              , mapping.headers
               , Nothing
               , Omit
               )
@@ -1216,11 +1253,11 @@ mkHsTypeMap path hsIds = fin . foldr auxInsert (Set.empty, Map.empty)
          AHsTypeSpecMapping
       -> (Set Hs.Identifier, Map Hs.Identifier HsTypeSpec)
       -> (Set Hs.Identifier, Map Hs.Identifier HsTypeSpec)
-    auxInsert AHsTypeSpecMapping{..} (conflicts, acc) =
-      let hsId       = aHsTypeSpecMappingIdentifier
+    auxInsert mapping (conflicts, acc) =
+      let hsId       = mapping.identifier
           hsTypeSpec = HsTypeSpec {
-              hsTypeSpecRep       = unAHsTypeRep <$> aHsTypeSpecMappingRep
-            , hsTypeSpecInstances = mkInstanceMap aHsTypeSpecMappingInstances
+              hsRep     = unAHsTypeRep <$> mapping.rep
+            , instances = mkInstanceMap mapping.instances
             }
       in  case Map.insertLookupWithKey (\_ n _ -> n) hsId hsTypeSpec acc of
             (Nothing, acc') -> (conflicts,                 acc')
@@ -1231,16 +1268,15 @@ mkInstanceMap ::
      [AOInstanceSpecMapping]
   -> Map Hs.TypeClass (Omittable InstanceSpec)
 mkInstanceMap xs = Map.fromList . flip map xs $ \case
-    ARequire AInstanceSpecMapping{..} ->
+    ARequire mapping ->
       let inst = InstanceSpec {
-              instanceSpecStrategy =
-                unAStrategySpec <$> aInstanceSpecMappingStrategy
-            , instanceSpecConstraints = [
+              strategy    = unAStrategySpec <$> mapping.strategy
+            , constraints = [
                   constr
-                | AConstraintSpec constr <- aInstanceSpecMappingConstraints
+                | AConstraintSpec constr <- mapping.constraints
                 ]
             }
-      in  (aInstanceSpecMappingClass, Require inst)
+      in  (mapping.clss, Require inst)
     AOmit hsTypeClass -> (hsTypeClass, Omit)
 
 --------------------------------------------------------------------------------
@@ -1249,12 +1285,12 @@ toABindingSpec ::
      (DeclId -> DeclId -> Ordering)
   -> UnresolvedBindingSpec
   -> ABindingSpec
-toABindingSpec compareCDeclId BindingSpec{..} = ABindingSpec {
-      aBindingSpecVersion  = mkAVersion version
-    , aBindingSpecTarget   = ABindingSpecTarget bindingSpecTarget
-    , aBindingSpecHsModule = bindingSpecModule
-    , aBindingSpecCTypes   = toAOCTypes compareCDeclId bindingSpecCTypes
-    , aBindingSpecHsTypes  = toAHsTypes bindingSpecHsTypes
+toABindingSpec compareCDeclId spec = ABindingSpec {
+      version  = mkAVersion currentBindingSpecVersion
+    , target   = ABindingSpecTarget spec.target
+    , hsModule = spec.moduleName
+    , cTypes   = toAOCTypes compareCDeclId spec.cTypes
+    , hsTypes  = toAHsTypes spec.hsTypes
     }
 
 toAOCTypes ::
@@ -1263,15 +1299,15 @@ toAOCTypes ::
   -> [AOCTypeSpecMapping]
 toAOCTypes compareCDeclId cTypeMap = map snd $ List.sortBy aux [
       (cDeclId,) $ case oCTypeSpec of
-        Require CTypeSpec{..} -> ARequire ACTypeSpecMapping {
-            aCTypeSpecMappingHeaders    = map (.path) (Set.toAscList headers)
-          , aCTypeSpecMappingCName      = renderDeclId cDeclId
-          , aCTypeSpecMappingIdentifier = cTypeSpecIdentifier
-          , aCTypeSpecMappingRep        = ACTypeRep <$> cTypeSpecRep
+        Require spec -> ARequire ACTypeSpecMapping {
+            headers    = map (.path) (Set.toAscList headers)
+          , cName      = renderDeclId cDeclId
+          , identifier = spec.hsIdent
+          , rep        = ACTypeRep <$> spec.cRep
           }
         Omit -> AOmit AKCTypeSpecMapping {
-            akCTypeSpecMappingHeaders = map (.path) (Set.toAscList headers)
-          , akCTypeSpecMappingCName   = renderDeclId cDeclId
+            headers = map (.path) (Set.toAscList headers)
+          , cName   = renderDeclId cDeclId
           }
     | (cDeclId, xs) <- Map.toAscList cTypeMap
     , (headers, oCTypeSpec) <- xs
@@ -1289,17 +1325,17 @@ toAOCTypes compareCDeclId cTypeMap = map snd $ List.sortBy aux [
 
     headersOf :: AOCTypeSpecMapping -> [FilePath]
     headersOf = \case
-      ARequire x -> aCTypeSpecMappingHeaders  x
-      AOmit    x -> akCTypeSpecMappingHeaders x
+      ARequire x -> x.headers
+      AOmit    x -> x.headers
 
 toAHsTypes :: Map Hs.Identifier HsTypeSpec -> [AHsTypeSpecMapping]
 toAHsTypes hsTypeMap = [
       AHsTypeSpecMapping {
-          aHsTypeSpecMappingIdentifier = hsIdentifier
-        , aHsTypeSpecMappingRep        = AHsTypeRep <$> hsTypeSpecRep
-        , aHsTypeSpecMappingInstances  = toAOInstances hsTypeSpecInstances
+          identifier = hsIdentifier
+        , rep        = AHsTypeRep <$> spec.hsRep
+        , instances  = toAOInstances spec.instances
         }
-    | (hsIdentifier, HsTypeSpec{..}) <- Map.toAscList hsTypeMap
+    | (hsIdentifier, spec) <- Map.toAscList hsTypeMap
     ]
 
 toAOInstances ::
@@ -1307,12 +1343,10 @@ toAOInstances ::
   -> [AOInstanceSpecMapping]
 toAOInstances instMap = [
       case oInstSpec of
-        Require InstanceSpec{..} -> ARequire AInstanceSpecMapping {
-            aInstanceSpecMappingClass = hsTypeClass
-          , aInstanceSpecMappingStrategy =
-              AStrategySpec <$> instanceSpecStrategy
-          , aInstanceSpecMappingConstraints =
-              map AConstraintSpec instanceSpecConstraints
+        Require spec -> ARequire AInstanceSpecMapping {
+            clss        = hsTypeClass
+          , strategy    = AStrategySpec <$> spec.strategy
+          , constraints = map AConstraintSpec spec.constraints
           }
         Omit -> AOmit hsTypeClass
     | (hsTypeClass, oInstSpec) <- Map.toAscList instMap

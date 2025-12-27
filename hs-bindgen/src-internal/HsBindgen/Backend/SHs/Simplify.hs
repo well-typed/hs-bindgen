@@ -64,10 +64,10 @@ data SimpleInstances = SimpleInstances{
   deriving stock (Show)
 
 fromSimpleInstances :: SimpleInstances -> [(Strategy ClosedType, [Global])]
-fromSimpleInstances SimpleInstances{..} =
+fromSimpleInstances instances =
     filter (not . null . snd) $ [
-        (DeriveStock   , Set.toList strategyStock)
-      , (DeriveNewtype , Set.toList strategyNewtype)
+        (DeriveStock   , Set.toList instances.strategyStock)
+      , (DeriveNewtype , Set.toList instances.strategyNewtype)
       ]
 
 instance Semigroup SimpleInstances where

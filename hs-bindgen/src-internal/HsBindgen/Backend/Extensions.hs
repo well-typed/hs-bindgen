@@ -57,10 +57,10 @@ requiredExtensions = \case
       , foldMap (typeExtensions . (.typ)) foreignImport.parameters
       , typeExtensions foreignImport.result.typ
       ]
-    DBinding Binding{..} -> mconcat [
-        foldMap (typeExtensions . (.typ)) parameters
-      , typeExtensions (result.typ)
-      , exprExtensions body
+    DBinding binding -> mconcat [
+        foldMap (typeExtensions . (.typ)) binding.parameters
+      , typeExtensions (binding.result.typ)
+      , exprExtensions binding.body
       ]
     DPatternSynonym{} -> mconcat [
         ext TH.PatternSynonyms

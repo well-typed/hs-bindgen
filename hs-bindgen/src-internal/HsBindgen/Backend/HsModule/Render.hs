@@ -1,5 +1,9 @@
 {-# LANGUAGE MagicHash #-}
 
+-- This still uses RecordWildCards for similar reasons as
+-- HsBindgen.Backend.Hs.Haddock.Translation; see discussion there.
+{-# LANGUAGE RecordWildCards #-}
+
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
 module HsBindgen.Backend.HsModule.Render (
@@ -61,12 +65,12 @@ render = (++ "\n") . PP.renderPretty (PP.mkContext 80)
 -------------------------------------------------------------------------------}
 
 instance Pretty HsModule where
-  pretty HsModule{..} = PP.vsep $
-      PP.vcat (map pretty hsModulePragmas)
-    : PP.hsep ["module", PP.string (Hs.moduleNameToString hsModuleName), "where"]
-    : PP.vcat (map pretty hsModuleImports)
-    : (renderWrappers hsModuleCWrappers)
-    : map pretty hsModuleDecls
+  pretty hsModule = PP.vsep $
+      PP.vcat (map pretty hsModule.pragmas)
+    : PP.hsep ["module", PP.string (Hs.moduleNameToString hsModule.name), "where"]
+    : PP.vcat (map pretty hsModule.imports)
+    : (renderWrappers hsModule.cWrappers)
+    : map pretty hsModule.decls
 
 {-------------------------------------------------------------------------------
   GhcPragma pretty-printing
@@ -84,25 +88,25 @@ resolve = ResolvedBackendName . resolveGlobal
 
 instance Pretty ImportListItem where
   pretty = \case
-    UnqualifiedImportListItem HsImportModule{..} Nothing -> PP.hsep
+    UnqualifiedImportListItem hsImport Nothing -> PP.hsep
       [ "import"
-      , PP.string (Hs.moduleNameToString hsImportModuleName)
+      , PP.string (Hs.moduleNameToString hsImport.name)
       ]
-    UnqualifiedImportListItem HsImportModule{..} (Just ns) -> PP.hsep
+    UnqualifiedImportListItem hsImport (Just ns) -> PP.hsep
       [ "import"
-      , PP.string (Hs.moduleNameToString hsImportModuleName)
+      , PP.string (Hs.moduleNameToString hsImport.name)
       , PP.parens . PP.hcat . List.intersperse ", " $ map pretty ns
       ]
-    QualifiedImportListItem HsImportModule{..} -> case hsImportModuleAlias of
+    QualifiedImportListItem hsImport -> case hsImport.alias of
       Just q -> PP.hsep
         [ "import qualified"
-        , PP.string (Hs.moduleNameToString hsImportModuleName)
+        , PP.string (Hs.moduleNameToString hsImport.name)
         , "as"
         , PP.string q
         ]
       Nothing -> PP.hsep
         [ "import qualified"
-        , PP.string (Hs.moduleNameToString hsImportModuleName)
+        , PP.string (Hs.moduleNameToString hsImport.name)
         ]
 
 
@@ -796,21 +800,23 @@ instance Pretty (Hs.Name ns) where
 --
 -- Operators are parenthesized.
 instance Pretty ResolvedName where
-  pretty n@ResolvedName{..} =
-    PP.parensWhen (resolvedNameType == OperatorName) $ ppResolvedName n
+  pretty resolved =
+      PP.parensWhen (resolved.typ == OperatorName) $ ppResolvedName resolved
 
 -- | Pretty-print a 'ResolvedName'
 --
 -- This auxialary function pretty-prints without parenthesizing operators or
 -- surrounding identifiers with backticks.
 ppResolvedName :: ResolvedName -> CtxDoc
-ppResolvedName ResolvedName{..} = case resolvedNameImport of
-    Just (QualifiedHsImport HsImportModule{..}) ->
-      let q = fromMaybe
-                (Hs.moduleNameToString hsImportModuleName)
-                hsImportModuleAlias
-      in  PP.string $ q ++ '.' : resolvedNameString
-    _otherwise -> PP.string resolvedNameString
+ppResolvedName resolved =
+    case resolved.hsImport of
+      Just (QualifiedHsImport hsImport) ->
+        let q = fromMaybe
+                  (Hs.moduleNameToString hsImport.name)
+                  hsImport.alias
+        in  PP.string $ q ++ '.' : resolved.string
+      _otherwise ->
+        PP.string resolved.string
 
 {-------------------------------------------------------------------------------
   BackendName pretty-printing
@@ -832,8 +838,8 @@ ppUnqualBackendName :: BackendName -> CtxDoc
 ppUnqualBackendName = \case
     LocalBackendName nameType s ->
       PP.parensWhen (nameType == OperatorName) $ PP.string s
-    ResolvedBackendName ResolvedName{..} ->
-      PP.parensWhen (resolvedNameType == OperatorName) $ PP.string resolvedNameString
+    ResolvedBackendName resolved ->
+      PP.parensWhen (resolved.typ == OperatorName) $ PP.string resolved.string
 
 -- | Pretty-print a 'BackendName' in infix notation
 --
@@ -842,8 +848,8 @@ ppInfixBackendName :: BackendName -> CtxDoc
 ppInfixBackendName = \case
     LocalBackendName nameType s ->
       bticksWhen (nameType == IdentifierName) $ PP.string s
-    ResolvedBackendName n@ResolvedName{..} ->
-      bticksWhen (resolvedNameType == IdentifierName) $ ppResolvedName n
+    ResolvedBackendName resolved ->
+      bticksWhen (resolved.typ == IdentifierName) $ ppResolvedName resolved
   where
     bticksWhen :: Bool -> CtxDoc -> CtxDoc
     bticksWhen False d = d

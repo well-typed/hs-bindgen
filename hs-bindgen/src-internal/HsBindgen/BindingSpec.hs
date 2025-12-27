@@ -29,7 +29,7 @@ module HsBindgen.BindingSpec (
   , Common.BindingSpecMsg(..)
 
     -- * Internal API
-  , BindingSpec.version
+  , BindingSpec.currentBindingSpecVersion
   , empty
   , moduleName
     -- ** Types
@@ -86,8 +86,8 @@ import HsBindgen.Util.Tracer
 -- Note that a /generated binding specification/ may be used for either/both of
 -- these two purposes.
 data BindingSpec = BindingSpec {
-      bindingSpecUnresolved :: BindingSpec.UnresolvedBindingSpec
-    , bindingSpecResolved   :: BindingSpec.ResolvedBindingSpec
+      unresolved :: BindingSpec.UnresolvedBindingSpec
+    , resolved   :: BindingSpec.ResolvedBindingSpec
     }
   deriving stock (Show, Eq)
 
@@ -253,22 +253,22 @@ loadBindingSpecs ::
   -> Hs.ModuleName
   -> BindingSpecConfig
   -> IO (BindingSpec.MergedBindingSpecs, PrescriptiveBindingSpec)
-loadBindingSpecs tracer args target hsModuleName BindingSpecConfig{..} =
+loadBindingSpecs tracer args target hsModuleName config =
     (,)
       <$> loadExtBindingSpecs
             tracer
             args
             target
-            stdlibSpec
-            compatibility
-            extBindingSpecs
+            config.stdlibSpec
+            config.compatibility
+            config.extBindingSpecs
       <*> loadPrescriptiveBindingSpec
             tracer
             args
             target
             hsModuleName
-            compatibility
-            prescriptiveBindingSpec
+            config.compatibility
+            config.prescriptiveBindingSpec
 
 {-------------------------------------------------------------------------------
   Public API: Encoding
@@ -276,9 +276,11 @@ loadBindingSpecs tracer args target hsModuleName BindingSpecConfig{..} =
 
 -- | Encode a binding specification
 encode :: Common.Format -> BindingSpec -> ByteString
-encode format =
-      BindingSpec.encode BindingSpec.defCompareCDeclId format
-    . bindingSpecUnresolved
+encode format spec =
+    BindingSpec.encode
+      BindingSpec.defCompareCDeclId
+      format
+      spec.unresolved
 
 {-------------------------------------------------------------------------------
   Internal API
@@ -287,13 +289,13 @@ encode format =
 -- | Construct an empty binding specification for the given target and module
 empty :: ClangArgs.Target -> Hs.ModuleName -> BindingSpec
 empty target hsModuleName = BindingSpec {
-      bindingSpecUnresolved = BindingSpec.empty target hsModuleName
-    , bindingSpecResolved   = BindingSpec.empty target hsModuleName
+      unresolved = BindingSpec.empty target hsModuleName
+    , resolved   = BindingSpec.empty target hsModuleName
     }
 
 -- | Get the module name for a binding specification
 moduleName :: BindingSpec -> Hs.ModuleName
-moduleName = BindingSpec.bindingSpecModule . bindingSpecUnresolved
+moduleName spec = spec.unresolved.moduleName
 
 {-------------------------------------------------------------------------------
   Internal API: Query
@@ -301,7 +303,7 @@ moduleName = BindingSpec.bindingSpecModule . bindingSpecUnresolved
 
 -- | Get the C types in a binding specification
 getCTypes :: BindingSpec -> Map DeclId [Set SourcePath]
-getCTypes = BindingSpec.getCTypes . bindingSpecResolved
+getCTypes spec = BindingSpec.getCTypes spec.resolved
 
 -- | Lookup the @'Common.Omittable' 'BindingSpec.CTypeSpec'@ associated with a C
 -- type
@@ -310,13 +312,13 @@ lookupCTypeSpec ::
   -> Set SourcePath
   -> BindingSpec
   -> Maybe (Hs.ModuleName, Common.Omittable BindingSpec.CTypeSpec)
-lookupCTypeSpec cDeclId headers =
-    BindingSpec.lookupCTypeSpec cDeclId headers . bindingSpecResolved
+lookupCTypeSpec cDeclId headers spec =
+    BindingSpec.lookupCTypeSpec cDeclId headers spec.resolved
 
 -- | Lookup the 'BindingSpec.HsTypeSpec' associated with a Haskell type
 lookupHsTypeSpec ::
      Hs.Identifier
   -> BindingSpec
   -> Maybe BindingSpec.HsTypeSpec
-lookupHsTypeSpec hsIdentifier =
-    BindingSpec.lookupHsTypeSpec hsIdentifier . bindingSpecResolved
+lookupHsTypeSpec hsIdentifier spec =
+    BindingSpec.lookupHsTypeSpec hsIdentifier spec.resolved

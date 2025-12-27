@@ -111,19 +111,19 @@ instance PrettyForTrace BindingSpecReadMsg where
       , ": "
       , PP.string msg
       ]
-    BindingSpecReadParseVersion path AVersion{..} ->
+    BindingSpecReadParseVersion path version ->
       PP.hangs' ("parsing binding specification: " >< PP.string path) 2 [
           "hs-bindgen version: " ><
-            prettyForTraceHsBindgenVersion aVersionHsBindgen
+            prettyForTraceHsBindgenVersion version.bindgen
         , "binding specification version: " ><
-            prettyForTrace aVersionBindingSpecification
+            prettyForTrace version.bindingSpec
         ]
-    BindingSpecReadIncompatibleVersion path AVersion{..} ->
+    BindingSpecReadIncompatibleVersion path version ->
       PP.hangs' ("incompatible binding specification version: " >< PP.string path) 2 [
           "hs-bindgen version: " ><
-            prettyForTraceHsBindgenVersion aVersionHsBindgen
+            prettyForTraceHsBindgenVersion version.bindgen
         , "binding specification version: " ><
-            prettyForTrace aVersionBindingSpecification
+            prettyForTrace version.bindingSpec
         ]
     BindingSpecReadIncompatibleTarget path ->
       "incompatible binding specification target: " >< PP.string path

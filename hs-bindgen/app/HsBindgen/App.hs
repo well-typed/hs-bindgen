@@ -1,4 +1,5 @@
-{-# LANGUAGE ApplicativeDo #-}
+{-# LANGUAGE ApplicativeDo   #-}
+{-# LANGUAGE RecordWildCards #-}
 
 -- | @hs-bindgen@ application common types and functions
 module HsBindgen.App (
@@ -55,8 +56,8 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      tracerConfigUnsafe :: TracerConfig Level     TraceMsg
-    , tracerConfigSafe   :: TracerConfig SafeLevel SafeTraceMsg
+      unsafe :: TracerConfig Level     TraceMsg
+    , safe   :: TracerConfig SafeLevel SafeTraceMsg
     }
 
 parseGlobalOpts :: Parser GlobalOpts

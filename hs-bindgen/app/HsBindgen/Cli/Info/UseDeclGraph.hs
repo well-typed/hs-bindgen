@@ -18,6 +18,7 @@ import Options.Applicative hiding (info)
 import HsBindgen
 import HsBindgen.App
 import HsBindgen.Config
+import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.DelayedIO
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
@@ -65,13 +66,21 @@ parseOutput' = strOption $ mconcat [
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec GlobalOpts{..} Opts{..} = do
-    let artefact = writeUseDeclGraph fileOverwritePolicy output
-        bindgenConfig = toBindgenConfig config uniqueId baseModuleName def
-    void $
-      hsBindgen
-        tracerConfigUnsafe
-        tracerConfigSafe
-        bindgenConfig
-        inputs
-        artefact
+exec global opts =
+    hsBindgen
+      global.unsafe
+      global.safe
+      bindgenConfig
+      opts.inputs
+      artefact
+  where
+    artefact :: Artefact ()
+    artefact = writeUseDeclGraph opts.fileOverwritePolicy opts.output
+
+    bindgenConfig :: BindgenConfig
+    bindgenConfig =
+        toBindgenConfig
+          opts.config
+          opts.uniqueId
+          opts.baseModuleName
+          def
