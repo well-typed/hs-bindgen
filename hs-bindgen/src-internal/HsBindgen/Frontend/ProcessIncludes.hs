@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 module HsBindgen.Frontend.ProcessIncludes (
     GetMainHeadersAndInclude
   , processIncludes
@@ -125,13 +129,13 @@ processIncludes unit = do
 
     let includeGraph :: IncludeGraph
         includeGraph = IncludeGraph.fromList $
-          map (\IncDir{..} -> (incDirFrom, incDirInclude, incDirTo)) includes
+          map (\incDir -> (incDir.from, incDir.include, incDir.to)) includes
 
         mainPathPairs :: [(SourcePath, HashIncludeArg)]
         mainPathPairs = [
-            (incDirTo, IncludeGraph.includeArg incDirInclude)
-          | IncDir{..} <- includes
-          , incDirInRoot
+            (incDir.to, IncludeGraph.includeArg incDir.include)
+          | incDir <- includes
+          , incDir.inRoot
           ]
 
         mainPathMap :: Map SourcePath HashIncludeArg
@@ -184,19 +188,19 @@ toGetMainHeaders f = fmap fst . f
 --
 -- Then
 --
--- * 'incDirFrom'    will be @/full/path/to/a.h@
--- * 'incDirInclude' will be @#include "b.h"@ (exact path as in source)
--- * 'incDirTo'      will be @/full/path/to/b.h@
--- * 'incDirInRoot'  will be 'True' if the include is in the root header
+-- * 'from'    will be @/full/path/to/a.h@
+-- * 'include' will be @#include "b.h"@ (exact path as in source)
+-- * 'to'      will be @/full/path/to/b.h@
+-- * 'inRoot'  will be 'True' if the include is in the root header
 --
 -- The full 'SourcePath's are constructed by @libclang@, and depend on factors
 -- such as @-I@ command line arguments, environment variables such as
 -- @C_INCLUDE_PATH@, etc.
 data IncDir = IncDir {
-      incDirFrom    :: SourcePath
-    , incDirInclude :: Include
-    , incDirTo      :: SourcePath
-    , incDirInRoot  :: Bool
+      from    :: SourcePath
+    , include :: Include
+    , to      :: SourcePath
+    , inRoot  :: Bool
     }
 
 processInclude :: CXTranslationUnit -> CXCursor -> IO IncDir
@@ -206,7 +210,12 @@ processInclude unit curr = do
     incDirTo      <- getIncludeTo curr
     incDirInRoot  <-
       clang_Location_isFromMainFile =<< clang_getCursorLocation curr
-    return IncDir{..}
+    return IncDir{
+        from    = incDirFrom
+      , include = incDirInclude
+      , to      = incDirTo
+      , inRoot  = incDirInRoot
+      }
 
 {-------------------------------------------------------------------------------
   Internal auxiliary
