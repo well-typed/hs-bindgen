@@ -8,11 +8,11 @@ import Test.Tasty
 import Test.Tasty.HUnit
 
 import HsBindgen.Artefact (Artefact (..))
+import HsBindgen.Imports
 
 import Test.Common.HsBindgen.Trace.Predicate
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
-import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Tests

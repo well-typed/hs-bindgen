@@ -18,8 +18,8 @@ import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Config.ClangArgs
-import HsBindgen.Util.Tracer
 import HsBindgen.Imports
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Trace messages

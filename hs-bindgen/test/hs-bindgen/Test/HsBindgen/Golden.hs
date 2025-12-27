@@ -1,8 +1,8 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Golden tests
 module Test.HsBindgen.Golden (tests) where
-
--- TODO: Once we start using DuplicateRecordFields more seriously, we could
--- clean this up through the use of lenses.
 
 import System.Directory (createDirectoryIfMissing)
 import Test.Tasty
@@ -22,6 +22,7 @@ import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
+import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.TraceMsg
@@ -34,7 +35,6 @@ import Test.HsBindgen.Golden.Check.PP qualified as PP
 import Test.HsBindgen.Golden.Check.TH qualified as TH
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
-import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Tests
@@ -345,11 +345,7 @@ testCases_bespoke_attributes = [
 test_attributes_asm :: TestCase
 test_attributes_asm =
     defaultTest "attributes/asm"
-      & #onBoot .~ (\cfg -> cfg {
-            bootClangArgsConfig = (bootClangArgsConfig cfg) {
-                gnu = EnableGnu
-              }
-          })
+      & #onBoot .~ ( #clangArgs % #gnu .~ EnableGnu )
 
 test_attributes_attributes :: TestCase
 test_attributes_attributes =
@@ -367,12 +363,11 @@ test_attributes_type_attributes =
 test_attributes_visibility_attributes :: TestCase
 test_attributes_visibility_attributes =
     defaultTest "attributes/visibility_attributes"
-      & #onFrontend .~ (\cfg -> cfg{
-            frontendSelectPredicate =
-              BAnd
-                (BIf (SelectHeader FromMainHeaders))
-                (BNot (BIf (SelectDecl DeclDeprecated)))
-          })
+      & #onFrontend .~ ( #selectPredicate .~
+            BAnd
+              (BIf (SelectHeader FromMainHeaders))
+              (BNot (BIf (SelectDecl DeclDeprecated)))
+          )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchDelayed name ParsePotentialDuplicateSymbol{} ->
               Just $ Expected name
@@ -573,10 +568,10 @@ test_declarations_redeclaration_different =
 test_declarations_select_scoping :: TestCase
 test_declarations_select_scoping =
     defaultTest "declarations/select_scoping"
-      & #onFrontend .~ (\cfg -> cfg {
-            frontendParsePredicate = BIf (ParseHeader FromMainHeaders)
-          , frontendSelectPredicate = BTrue
-          })
+      & #onFrontend .~ (\cfg -> cfg
+          & #parsePredicate  .~ BIf (ParseHeader FromMainHeaders)
+          & #selectPredicate .~ BTrue
+          )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name (MatchTransMissing Nothing) ->
               Just $ Expected name
@@ -659,12 +654,12 @@ test_edgeCases_clang_generated_collision =
 test_edgeCases_duplicate :: TestCase
 test_edgeCases_duplicate =
     defaultTest "edge-cases/duplicate"
-      & #onFrontend .~ (\cfg -> cfg{
-            frontendParsePredicate  = BTrue
-          , frontendSelectPredicate = BOr
-              (BIf (SelectDecl (DeclNameMatches "function")))
-              (BIf (SelectDecl (DeclNameMatches "duplicate")))
-          })
+      & #onFrontend .~ (\cfg -> cfg
+          & #parsePredicate  .~ BTrue
+          & #selectPredicate .~ BOr
+              (BIf $ SelectDecl (DeclNameMatches "function"))
+              (BIf $ SelectDecl (DeclNameMatches "duplicate"))
+          )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name SelectConflict{} ->
               Just $ Expected (name, "conflict")
@@ -692,26 +687,19 @@ test_edgeCases_iterator :: TestCase
 test_edgeCases_iterator =
     defaultTest "edge-cases/iterator"
       & #clangVersion .~ Just (>= (15, 0, 0))
-      & #onBoot       .~ (\cfg -> cfg{
-            bootClangArgsConfig = (bootClangArgsConfig cfg) {
-                enableBlocks = True
-              }
-          })
+      & #onBoot       .~ ( #clangArgs % #enableBlocks .~ True )
 
 test_edgeCases_ordinary_anon :: TestCase
 test_edgeCases_ordinary_anon =
     defaultTest "edge-cases/ordinary_anon_parent"
-      & #onFrontend .~ (\cfg -> cfg{
-            frontendSelectPredicate = BTrue
-          })
+      & #onFrontend .~ ( #selectPredicate .~ BTrue )
 
 test_edgeCases_select_no_match :: TestCase
 test_edgeCases_select_no_match =
     defaultTest "edge-cases/select_no_match"
-      & #onFrontend .~ (\cfg -> cfg {
-            frontendSelectPredicate = BIf $
-              SelectDecl (DeclNameMatches "this_pattern_will_never_match")
-          })
+      & #onFrontend .~ ( #selectPredicate .~
+            BIf (SelectDecl (DeclNameMatches "this_pattern_will_never_match"))
+          )
       & #tracePredicate .~ singleTracePredicate (\case
             MatchNoDeclarations ->
               Just $ Expected ()
@@ -809,14 +797,12 @@ test_functions_fun_attributes_conflict =
 test_functions_simple_func_rename :: TestCase
 test_functions_simple_func_rename =
     testVariant "functions/simple_func" "1.rename"
-      & #onBackend .~ (\cfg -> cfg{
-            backendBindingCategoryChoice = ByCategory {
-                cType = IncludeTypeCategory
-              , cSafe = ExcludeCategory
-              , cUnsafe = ExcludeCategory
-              , cFunPtr = IncludeTermCategory $ RenameTerm $ \t -> t <> "_random_user_specified_suffix"
-              , cGlobal = ExcludeCategory
-              }
+      & #onBackend .~ ( #categoryChoice .~ ByCategory {
+            cType = IncludeTypeCategory
+          , cSafe = ExcludeCategory
+          , cUnsafe = ExcludeCategory
+          , cFunPtr = IncludeTermCategory $ RenameTerm $ \t -> t <> "_random_user_specified_suffix"
+          , cGlobal = ExcludeCategory
           })
 
 test_functions_varargs :: TestCase
@@ -959,15 +945,14 @@ testCases_bespoke_programAnalysis = [
 test_programAnalysis_delay_traces :: TestCase
 test_programAnalysis_delay_traces =
     defaultTest "program-analysis/delay_traces"
-      & #onFrontend .~ (\cfg -> cfg{
-            frontendSelectPredicate =
-              BOr
-                (BIf (SelectDecl (DeclNameMatches "_function")))
-                -- NOTE: Matching for name kind is not good practice, but we
-                -- want to check if nested, but deselected declarations are
-                -- correctly assigned name kinds.
-                (BIf (SelectDecl (DeclNameMatches "struct")))
-          })
+      & #onFrontend .~ ( #selectPredicate .~
+            -- NOTE: Matching for name kind is not good practice, but we want to
+            -- check if nested, but deselected declarations are correctly
+            -- assigned name kinds.
+            BOr
+              (BIf $ SelectDecl (DeclNameMatches "_function"))
+              (BIf $ SelectDecl (DeclNameMatches "struct"))
+          )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchDelayed name (ParseUnsupportedType UnsupportedLongDouble) ->
               Just $ Expected name
@@ -988,13 +973,13 @@ test_programAnalysis_delay_traces =
 test_programAnalysis_program_slicing_selection :: TestCase
 test_programAnalysis_program_slicing_selection =
     defaultTest "program-analysis/program_slicing_selection"
-      & #onFrontend .~ (\cfg -> cfg{
-            frontendParsePredicate  = BTrue
-          , frontendSelectPredicate = BOr
+      & #onFrontend .~ (\cfg -> cfg
+          & #parsePredicate .~ BTrue
+          & #selectPredicate .~ BOr
               (BIf . SelectDecl $ DeclNameMatches "FileOperationRecord")
               (BIf . SelectDecl $ DeclNameMatches "read_file_chunk")
-          , frontendProgramSlicing  = EnableProgramSlicing
-          })
+          & #programSlicing .~ EnableProgramSlicing
+          )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
               Just $ Expected (name, "root")
@@ -1016,11 +1001,11 @@ test_programAnalysis_program_slicing_selection =
 test_programAnalysis_program_slicing_simple :: TestCase
 test_programAnalysis_program_slicing_simple =
     defaultTest "program-analysis/program_slicing_simple"
-      & #onFrontend .~ (\cfg -> cfg{
-            frontendParsePredicate  = BTrue
-          , frontendSelectPredicate = BIf (SelectHeader FromMainHeaders)
-          , frontendProgramSlicing  = EnableProgramSlicing
-          })
+      & #onFrontend .~ (\cfg -> cfg
+          & #parsePredicate  .~ BTrue
+          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
+          & #programSlicing  .~ EnableProgramSlicing
+          )
       & #specStdlib .~ BindingSpec.DisableStdlibBindingSpec
       & #specExternal .~ [ "examples/golden/program-analysis/program_slicing_simple.yaml" ]
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
@@ -1075,11 +1060,10 @@ test_programAnalysis_selection_fail =
 test_programAnalysis_selection_fail_variant_1 :: TestCase
 test_programAnalysis_selection_fail_variant_1 =
     testVariant "program-analysis/selection_fail" "1.deselect_failed"
-      & #onFrontend .~ (\cfg -> cfg{
-            frontendSelectPredicate = BAnd
-              (       BIf $ SelectHeader   FromMainHeaders)
-              (BNot $ BIf $ SelectDecl   $ DeclNameMatches "struct Fail")
-          })
+      & #onFrontend .~ ( #selectPredicate .~  BAnd
+            (       BIf $ SelectHeader   FromMainHeaders)
+            (BNot $ BIf $ SelectDecl   $ DeclNameMatches "struct Fail")
+          )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name (MatchTransMissing Nothing) ->
               Just $ Expected name
@@ -1100,12 +1084,12 @@ test_programAnalysis_selection_fail_variant_1 =
 test_programAnalysis_selection_fail_variant_2 :: TestCase
 test_programAnalysis_selection_fail_variant_2 =
     testVariant "program-analysis/selection_fail" "2.program_slicing"
-      & #onFrontend .~ (\cfg -> cfg{
-            frontendSelectPredicate = BAnd
+      & #onFrontend .~ (\cfg -> cfg
+          & #selectPredicate .~ BAnd
               (       BIf $ SelectHeader   FromMainHeaders)
               (BNot $ BIf $ SelectDecl   $ DeclNameMatches "struct Fail")
-          , frontendProgramSlicing = EnableProgramSlicing
-          })
+          & #programSlicing .~ EnableProgramSlicing
+          )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
            MatchSelect name (MatchTransMissing (Just _unusable)) ->
              Just $ Expected name
@@ -1126,12 +1110,12 @@ test_programAnalysis_selection_fail_variant_2 =
 test_programAnalysis_selection_fail_variant_3 :: TestCase
 test_programAnalysis_selection_fail_variant_3 =
     testVariant "program-analysis/selection_fail" "3.select_ok"
-      & #onFrontend .~ (\cfg -> cfg{
-            frontendSelectPredicate = BAnd
+      & #onFrontend .~ (\cfg -> cfg
+          & #selectPredicate .~ BAnd
               (       BIf $ SelectDecl $ DeclNameMatches "struct OkBefore")
               (BNot $ BIf $ SelectDecl $ DeclNameMatches "struct Fail")
-          , frontendProgramSlicing = EnableProgramSlicing
-          })
+          & #programSlicing .~ EnableProgramSlicing
+          )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
               Just $ Expected name
@@ -1157,9 +1141,7 @@ test_programAnalysis_selection_omit_external_a :: TestCase
 test_programAnalysis_selection_omit_external_a =
     defaultTest "program-analysis/selection_omit_external_a"
       & #specExternal .~ ["examples/golden/program-analysis/selection_omit_external.yaml"]
-      & #onFrontend .~ (\cfg -> cfg{
-            frontendProgramSlicing  = EnableProgramSlicing
-          })
+      & #onFrontend .~ ( #programSlicing .~ EnableProgramSlicing )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchResolveBindingSpecs (ResolveBindingSpecsOmittedType declId) ->
               Just $ Expected declId.name
@@ -1177,9 +1159,7 @@ test_programAnalysis_selection_omit_external_b :: TestCase
 test_programAnalysis_selection_omit_external_b =
     defaultTest "program-analysis/selection_omit_external_b"
       & #specExternal .~ ["examples/golden/program-analysis/selection_omit_external.yaml"]
-      & #onFrontend .~ (\cfg -> cfg{
-            frontendProgramSlicing  = EnableProgramSlicing
-          })
+      & #onFrontend   .~ ( #programSlicing .~  EnableProgramSlicing )
 
 test_programAnalysis_selection_omit_prescriptive :: TestCase
 test_programAnalysis_selection_omit_prescriptive =

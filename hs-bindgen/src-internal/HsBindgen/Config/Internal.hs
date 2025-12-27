@@ -1,5 +1,9 @@
-module HsBindgen.Config.Internal
-  ( -- * Bindgen
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
+module HsBindgen.Config.Internal (
+    -- * Bindgen
     BindgenConfig (..)
     -- * Boot
   , BootConfig (..)
@@ -36,9 +40,9 @@ import HsBindgen.Util.Tracer
 -- @hs-bindgen@-provided data. @hs-bindgen@ provides data in the form of
 -- artefacts.
 data BindgenConfig = BindgenConfig {
-      bindgenBootConfig     :: BootConfig
-    , bindgenFrontendConfig :: FrontendConfig
-    , bindgenBackendConfig  :: BackendConfig
+      boot     :: BootConfig
+    , frontend :: FrontendConfig
+    , backend  :: BackendConfig
     }
   deriving stock (Show, Generic)
   deriving anyclass (Default)
@@ -48,17 +52,17 @@ data BindgenConfig = BindgenConfig {
 -------------------------------------------------------------------------------}
 
 data BootConfig = BootConfig {
-      bootClangArgsConfig     :: ClangArgsConfig FilePath
-    , bootBaseModuleName      :: BaseModuleName
-    , bootBindingSpecConfig   :: BindingSpecConfig
+      clangArgs   :: ClangArgsConfig FilePath
+    , baseModule  :: BaseModuleName
+    , bindingSpec :: BindingSpecConfig
     }
   deriving stock (Show, Eq, Generic)
 
 instance Default BootConfig where
   def = BootConfig {
-        bootClangArgsConfig   = def
-      , bootBaseModuleName    = def
-      , bootBindingSpecConfig = def
+        clangArgs   = def
+      , baseModule  = def
+      , bindingSpec = def
       }
 
 {-------------------------------------------------------------------------------
@@ -69,9 +73,9 @@ instance Default BootConfig where
 --
 -- The frontend parses the C code and reifies the C declarations.
 data FrontendConfig = FrontendConfig {
-      frontendParsePredicate  :: Boolean ParsePredicate
-    , frontendSelectPredicate :: Boolean SelectPredicate
-    , frontendProgramSlicing  :: ProgramSlicing
+      parsePredicate  :: Boolean ParsePredicate
+    , selectPredicate :: Boolean SelectPredicate
+    , programSlicing  :: ProgramSlicing
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass Default
@@ -86,9 +90,9 @@ data FrontendConfig = FrontendConfig {
 --
 -- See also the notes at 'FrontendConfig'.
 data BackendConfig = BackendConfig {
-      backendTranslationConfig     :: TranslationConfig
-    , backendHaddockConfig         :: HaddockConfig
-    , backendBindingCategoryChoice :: ByCategory Choice
+      translation    :: TranslationConfig
+    , haddock        :: HaddockConfig
+    , categoryChoice :: ByCategory Choice
     }
   deriving stock (Show, Generic)
   deriving anyclass Default
@@ -98,7 +102,7 @@ checkBackendConfig tracer backendConfig =
     checkUniqueId (contramap BackendConfigUniqueId tracer) uniqueId
   where
     uniqueId :: UniqueId
-    uniqueId = translationUniqueId $ backendTranslationConfig backendConfig
+    uniqueId = translationUniqueId backendConfig.translation
 
 data BackendConfigMsg = BackendConfigUniqueId UniqueIdMsg
   deriving stock (Show, Generic)

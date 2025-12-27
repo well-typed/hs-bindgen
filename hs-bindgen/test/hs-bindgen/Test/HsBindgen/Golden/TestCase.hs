@@ -215,11 +215,11 @@ getTestBootConfig resources test = do
     root <- getTestPackageRoot resources
     clangArgsConfig <- getTestDefaultClangArgsConfig resources [test.inputDir]
     return $ test.onBoot BootConfig {
-        bootClangArgsConfig = clangArgsConfig {
+        clangArgs = clangArgsConfig {
             builtinIncDir = BuiltinIncDirDisable
           }
-      , bootBaseModuleName = "Example"
-      , bootBindingSpecConfig = BindingSpecConfig {
+      , baseModule = "Example"
+      , bindingSpec = BindingSpecConfig {
             stdlibSpec              = test.specStdlib
           , compatibility           = BindingSpecStrict
           , extBindingSpecs         = map (root </>) test.specExternal

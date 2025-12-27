@@ -57,29 +57,27 @@ toBindgenConfig ::
   -> BaseModuleName
   -> ByCategory Choice
   -> BindgenConfig
-toBindgenConfig config uniqueId baseModuleName choice =
-    BindgenConfig bootConfig frontendConfig backendConfig
-  where
-    bootConfig = BootConfig {
-        bootClangArgsConfig   = config.clang
-      , bootBaseModuleName    = baseModuleName
-      , bootBindingSpecConfig = config.bindingSpec
-      }
-    frontendConfig = FrontendConfig {
-          frontendParsePredicate  = config.parsePredicate
-        , frontendSelectPredicate = config.selectPredicate
-        , frontendProgramSlicing  = config.programSlicing
-      }
-    backendConfig :: BackendConfig
-    backendConfig = BackendConfig {
-        backendTranslationConfig = def {
-            translationUniqueId = uniqueId
-          }
-      , backendHaddockConfig = HaddockConfig {
-            pathStyle = config.haddockPathStyle
-          }
-      , backendBindingCategoryChoice = choice
-      }
+toBindgenConfig config uniqueId baseModuleName choice = BindgenConfig{
+      boot = BootConfig {
+         clangArgs   = config.clang
+       , baseModule  = baseModuleName
+       , bindingSpec = config.bindingSpec
+       }
+    , frontend = FrontendConfig {
+         parsePredicate  = config.parsePredicate
+       , selectPredicate = config.selectPredicate
+       , programSlicing  = config.programSlicing
+       }
+    , backend = BackendConfig {
+         translation = def {
+             translationUniqueId = uniqueId
+           }
+       , haddock = HaddockConfig {
+             pathStyle = config.haddockPathStyle
+           }
+       , categoryChoice = choice
+       }
+    }
 
 {-------------------------------------------------------------------------------
   Template Haskell
