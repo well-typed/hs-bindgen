@@ -45,6 +45,7 @@
 - ignore: {name: "Functor law"}
 - ignore: {name: "Redundant pure"}
 - ignore: {name: "Redundant id"}
+- ignore: {name: "Use ?~"}
 
 # Specify additional command line arguments
 #
