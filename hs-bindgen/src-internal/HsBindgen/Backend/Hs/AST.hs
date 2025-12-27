@@ -335,13 +335,13 @@ deriving stock instance Show VarDeclRHSAppHead
 -- pattern P = C e
 -- @
 --
-data PatSyn = PatSyn
-    { patSynName    :: Hs.Name Hs.NsConstr
-    , patSynType    :: Hs.Name Hs.NsTypeConstr
-    , patSynConstr  :: Hs.Name Hs.NsConstr
-    , patSynValue   :: Integer
-    , patSynOrigin  :: Origin.PatSyn
-    , patSynComment :: Maybe HsDoc.Comment
+data PatSyn = PatSyn{
+      name    :: Hs.Name Hs.NsConstr
+    , typ     :: Hs.Name Hs.NsTypeConstr
+    , constr  :: Hs.Name Hs.NsConstr
+    , value   :: Integer
+    , origin  :: Origin.PatSyn
+    , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 

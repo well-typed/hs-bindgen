@@ -227,12 +227,13 @@ translateFunctionDecl functionDecl = DBinding Binding{
     }
 
 translatePatSyn :: Hs.PatSyn -> SDecl
-translatePatSyn Hs.PatSyn {..} = DPatternSynonym PatternSynonym{
-      patSynName
-    , patSynOrigin
-    , patSynComment
-    , patSynType = TCon patSynType
-    , patSynRHS  = PEApps patSynConstr [PELit patSynValue]
+translatePatSyn patSyn = DPatternSynonym PatternSynonym{
+      patSynType    = TCon patSyn.typ
+    , patSynRHS     = PEApps patSyn.constr [PELit patSyn.value]
+      -- The other fields are copied as-is
+    , patSynName    = patSyn.name
+    , patSynOrigin  = patSyn.origin
+    , patSynComment = patSyn.comment
     }
 
 {-------------------------------------------------------------------------------

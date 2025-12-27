@@ -735,12 +735,12 @@ enumDecs opts haddockConfig info enum spec = do
         valueDecls :: [Hs.Decl]
         valueDecls =
             [ Hs.DeclPatSyn Hs.PatSyn{
-                  patSynName    = Hs.unsafeHsIdHsName constant.info.name.hsName
-                , patSynType    = nt.name
-                , patSynConstr  = nt.constr
-                , patSynValue   = constant.value
-                , patSynOrigin  = Origin.EnumConstant constant
-                , patSynComment = mkHaddocksFieldInfo haddockConfig info constant.info
+                  name    = Hs.unsafeHsIdHsName constant.info.name.hsName
+                , typ     = nt.name
+                , constr  = nt.constr
+                , value   = constant.value
+                , origin  = Origin.EnumConstant constant
+                , comment = mkHaddocksFieldInfo haddockConfig info constant.info
                 }
             | constant <- enum.constants
             ]
@@ -748,8 +748,8 @@ enumDecs opts haddockConfig info enum spec = do
         cEnumInstanceDecls :: [Hs.Decl]
         cEnumInstanceDecls =
           let vNames = Map.fromListWith (flip (<>)) [ -- preserve source order
-                  ( Hs.patSynValue pat
-                  , NonEmpty.singleton (Hs.patSynName pat)
+                  ( pat.value
+                  , NonEmpty.singleton pat.name
                   )
                 | Hs.DeclPatSyn pat <- valueDecls
                 ]
