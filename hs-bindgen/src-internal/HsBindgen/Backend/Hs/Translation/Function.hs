@@ -154,8 +154,8 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
 
         cWrapper :: CWrapper
         cWrapper = CWrapper {
-              cWrapperDefinition = PC.prettyDecl cWrapperDecl ""
-            , cWrapperImport = getMainHashIncludeArg info
+              definition     = PC.prettyDecl cWrapperDecl ""
+            , hashIncludeArg = getMainHashIncludeArg info
             }
 
     foreignImportParams :: [Hs.FunctionParameter]
