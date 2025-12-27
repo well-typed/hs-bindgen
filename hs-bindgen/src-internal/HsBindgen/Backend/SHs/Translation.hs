@@ -272,22 +272,22 @@ translateStorableInstance ::
   -> Hs.StorableInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateStorableInstance struct Hs.StorableInstance{..} mbComment = do
-    let peek = lambda (idiom structCon translatePeekCField) storablePeek
-    let poke = lambda (lambda (translateElimStruct (doAll translatePokeCField))) storablePoke
-    Instance
-      { instanceClass = Storable_class
-      , instanceArgs  = [TCon struct.name]
-      , instanceSuperClasses = []
-      , instanceTypes = []
-      , instanceDecs  = [
-            (Storable_sizeOf    , EUnusedLam $ EInt storableSizeOf)
-          , (Storable_alignment , EUnusedLam $ EInt storableAlignment)
-          , (Storable_peek      , peek)
-          , (Storable_poke      , poke)
-          ]
-      , instanceComment = mbComment
-      }
+translateStorableInstance struct inst mbComment = Instance{
+      instanceClass        = Storable_class
+    , instanceArgs         = [TCon struct.name]
+    , instanceSuperClasses = []
+    , instanceTypes        = []
+    , instanceComment      = mbComment
+    , instanceDecs         = [
+          (Storable_sizeOf    , EUnusedLam $ EInt inst.sizeOf)
+        , (Storable_alignment , EUnusedLam $ EInt inst.alignment)
+        , (Storable_peek      , peek)
+        , (Storable_poke      , poke)
+        ]
+    }
+  where
+    peek = lambda (idiom structCon translatePeekCField) inst.peek
+    poke = lambda (lambda (translateElimStruct (doAll translatePokeCField))) inst.poke
 
 translatePeekCField :: Hs.PeekCField ctx -> SExpr ctx
 translatePeekCField (Hs.PeekCField field ptr) = appMany HasCField_peekCField [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr]

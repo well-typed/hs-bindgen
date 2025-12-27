@@ -275,19 +275,16 @@ structDecs opts haddockConfig info struct spec fields = do
           | otherwise = singleton $ Hs.DeclDefineInstance
               Hs.DefineInstance {
                 comment      = Nothing
-              , instanceDecl =
-                  Hs.InstanceStorable
-                      hsStruct
-                      Hs.StorableInstance {
-                          Hs.storableSizeOf    = struct.sizeof
-                        , Hs.storableAlignment = struct.alignment
-                        , Hs.storablePeek = Hs.Lambda "ptr" $
-                            Hs.Ap (Hs.StructCon hsStruct) $
-                              map (peekStructField IZ) struct.fields
-                        , Hs.storablePoke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
-                            Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ toList $
-                              Vec.zipWith (pokeStructField (weaken wk I1)) fields xs
-                        }
+              , instanceDecl = Hs.InstanceStorable hsStruct Hs.StorableInstance{
+                    sizeOf    = struct.sizeof
+                  , alignment = struct.alignment
+                  , peek      = Hs.Lambda "ptr" $
+                      Hs.Ap (Hs.StructCon hsStruct) $
+                        map (peekStructField IZ) struct.fields
+                  , poke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+                      Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ toList $
+                        Vec.zipWith (pokeStructField (weaken wk I1)) fields xs
+                  }
               }
 
         primDecl :: [Hs.Decl]
@@ -701,16 +698,15 @@ enumDecs opts haddockConfig info enum spec = do
         storableDecl = Hs.DeclDefineInstance
           Hs.DefineInstance {
             comment      = Nothing
-          , instanceDecl =
-              Hs.InstanceStorable hsStruct Hs.StorableInstance {
-                  Hs.storableSizeOf    = enum.sizeof
-                , Hs.storableAlignment = enum.alignment
-                , Hs.storablePeek      = Hs.Lambda "ptr" $
-                    Hs.Ap (Hs.StructCon hsStruct) [ Hs.PeekByteOff IZ 0 ]
-                , Hs.storablePoke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
-                    Hs.ElimStruct IZ hsStruct (AS AZ) $
-                      Hs.Seq [ Hs.PokeByteOff I2 0 IZ ]
-                }
+          , instanceDecl = Hs.InstanceStorable hsStruct Hs.StorableInstance{
+                sizeOf    = enum.sizeof
+              , alignment = enum.alignment
+              , peek      = Hs.Lambda "ptr" $
+                  Hs.Ap (Hs.StructCon hsStruct) [ Hs.PeekByteOff IZ 0 ]
+              , poke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
+                  Hs.ElimStruct IZ hsStruct (AS AZ) $
+                    Hs.Seq [ Hs.PokeByteOff I2 0 IZ ]
+              }
           }
 
         primDecl :: Hs.Decl

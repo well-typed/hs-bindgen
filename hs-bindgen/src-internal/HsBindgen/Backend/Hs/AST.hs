@@ -372,12 +372,11 @@ data FromFunPtrInstance = FromFunPtrInstance{
 -- Currently this models storable instances for structs /only/.
 --
 -- <https://hackage.haskell.org/package/base/docs/Foreign-Storable.html#t:Storable>
-type StorableInstance :: Star
-data StorableInstance = StorableInstance
-    { storableSizeOf    :: Int
-    , storableAlignment :: Int
-    , storablePeek      :: Lambda (Ap StructCon PeekCField) EmptyCtx
-    , storablePoke      :: Lambda (Lambda (ElimStruct (Seq PokeCField))) EmptyCtx
+data StorableInstance = StorableInstance{
+      sizeOf    :: Int
+    , alignment :: Int
+    , peek      :: Lambda (Ap StructCon PeekCField) EmptyCtx
+    , poke      :: Lambda (Lambda (ElimStruct (Seq PokeCField))) EmptyCtx
     }
   deriving stock (Generic, Show)
 
