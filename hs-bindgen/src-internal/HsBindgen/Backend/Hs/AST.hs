@@ -174,20 +174,20 @@ data FunctionDecl = FunctionDecl{
     }
   deriving stock (Generic, Show)
 
-data UnionGetter = UnionGetter
-  { unionGetterName    :: Hs.Name Hs.NsVar
-  , unionGetterType    :: HsType
-  , unionGetterConstr  :: Hs.Name Hs.NsTypeConstr
-  , unionGetterComment :: Maybe HsDoc.Comment
-  }
+data UnionGetter = UnionGetter{
+      name    :: Hs.Name Hs.NsVar
+    , typ     :: HsType
+    , constr  :: Hs.Name Hs.NsTypeConstr
+    , comment :: Maybe HsDoc.Comment
+    }
   deriving stock (Generic, Show)
 
-data UnionSetter = UnionSetter
-  { unionSetterName    :: Hs.Name Hs.NsVar
-  , unionSetterType    :: HsType
-  , unionSetterConstr  :: Hs.Name Hs.NsTypeConstr
-  , unionSetterComment :: Maybe HsDoc.Comment
-  }
+data UnionSetter = UnionSetter{
+      name    :: Hs.Name Hs.NsVar
+    , typ     :: HsType
+    , constr  :: Hs.Name Hs.NsTypeConstr
+    , comment :: Maybe HsDoc.Comment
+    }
   deriving stock (Generic, Show)
 
 data DeriveInstance = DeriveInstance

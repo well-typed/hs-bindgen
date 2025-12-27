@@ -393,37 +393,35 @@ translateHasFieldInstance Hs.HasFieldInstance{..} mbComment = do
 -------------------------------------------------------------------------------}
 
 translateUnionGetter :: Hs.UnionGetter -> SDecl
-translateUnionGetter Hs.UnionGetter{..} = DBinding
-  Binding {
-      name       = unionGetterName
-    , parameters = [
-        Parameter {
-            name    = Nothing
-          , typ     = TCon unionGetterConstr
-          , comment = Nothing
-          }
-        ]
-    , result     = Result (translateType unionGetterType) Nothing
+translateUnionGetter getter = DBinding Binding{
+      name       = getter.name
+    , result     = Result (translateType getter.typ) Nothing
     , body       = EGlobal ByteArray_getUnionPayload
     , pragmas    = []
-    , comment    = unionGetterComment
+    , comment    = getter.comment
+    , parameters = [
+          Parameter {
+              name    = Nothing
+            , typ     = TCon getter.constr
+            , comment = Nothing
+            }
+        ]
     }
 
 translateUnionSetter :: Hs.UnionSetter -> SDecl
-translateUnionSetter Hs.UnionSetter{..} = DBinding
-  Binding {
-      name       = unionSetterName
-    , parameters = [
-        Parameter {
-           name    = Nothing
-         , typ     = translateType unionSetterType
-         , comment = Nothing
-         }
-      ]
-    , result     = Result (TCon unionSetterConstr) Nothing
+translateUnionSetter setter = DBinding Binding{
+      name       = setter.name
+    , result     = Result (TCon setter.constr) Nothing
     , body       = EGlobal ByteArray_setUnionPayload
     , pragmas    = []
-    , comment    = unionSetterComment
+    , comment    = setter.comment
+    , parameters = [
+          Parameter {
+             name    = Nothing
+           , typ     = translateType setter.typ
+           , comment = Nothing
+           }
+        ]
     }
 
 {-------------------------------------------------------------------------------

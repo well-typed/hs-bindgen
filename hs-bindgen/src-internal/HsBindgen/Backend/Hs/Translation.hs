@@ -536,21 +536,19 @@ unionDecs haddockConfig info union spec = do
                 ]
           in  if Hs.Storable `Set.notMember` fInsts
                 then []
-                else
-                  [ Hs.DeclUnionGetter
-                      Hs.UnionGetter {
-                        unionGetterName    = getterName
-                      , unionGetterType    = hsType
-                      , unionGetterConstr  = nt.name
-                      , unionGetterComment = mkHaddocksFieldInfo haddockConfig info field.info
-                                          <> commentRefName (Hs.getName setterName)
+                else [
+                    Hs.DeclUnionGetter Hs.UnionGetter{
+                        name    = getterName
+                      , typ     = hsType
+                      , constr  = nt.name
+                      , comment = mkHaddocksFieldInfo haddockConfig info field.info
+                               <> commentRefName (Hs.getName setterName)
                       }
-                  , Hs.DeclUnionSetter
-                      Hs.UnionSetter {
-                        unionSetterName    = setterName
-                      , unionSetterType    = hsType
-                      , unionSetterConstr  = nt.name
-                      , unionSetterComment = commentRefName (Hs.getName getterName)
+                  , Hs.DeclUnionSetter Hs.UnionSetter{
+                        name    = setterName
+                      , typ     = hsType
+                      , constr  = nt.name
+                      , comment = commentRefName (Hs.getName getterName)
                       }
                   ]
 
