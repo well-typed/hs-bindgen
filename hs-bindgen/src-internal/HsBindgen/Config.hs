@@ -95,7 +95,7 @@ data ConfigTH = ConfigTH {
     -- avoid name clashes.
     --
     -- Default: 'Category.useSafe'.
-    bindingCategoryChoice :: ByCategory Choice
+    categoryChoice :: ByCategory Choice
 
     -- | Show trace messages of the provided 'Level' or higher.
     --
@@ -109,13 +109,13 @@ data ConfigTH = ConfigTH {
     --
     -- For example, use 'EnableMacroWarnings' to warn on macro parse/reparse
     -- errors.
-  , customLogLevelSettings :: [CustomLogLevelSetting]
+  , customLogLevels :: [CustomLogLevelSetting]
   }
   deriving stock (Generic)
 
 instance Default ConfigTH where
   def = ConfigTH{
-        bindingCategoryChoice    = useSafeCategory
-      , verbosity                = def
-      , customLogLevelSettings   = def
+        categoryChoice  = useSafeCategory
+      , verbosity       = def
+      , customLogLevels = []
       }
