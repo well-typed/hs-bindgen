@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Configuring individual test cases (examples)
 --
 -- Intended for unqualified import.
@@ -49,64 +53,65 @@ import Test.HsBindgen.Resources
 
 data TestCase = TestCase {
       -- | Name of the test (in the tasty test tree) and the input header
-      testName :: TestName
+      name :: TestName
 
       -- | Name of the header file, e.g., "foo.h"
-    , testInputHeaderFileName :: String
+    , inputHeader :: String
 
       -- | Directory that the input header is in, relative to the package root
-    , testInputDir :: FilePath
+    , inputDir :: FilePath
 
       -- | Directory where output files should be stored, relative to the
       -- package root
-    , testOutputDir :: FilePath
+    , outputDir :: FilePath
 
       -- | Predicate for evaluating the trace messages
-    , testTracePredicate :: TracePredicate TraceMsg
+    , tracePredicate :: TracePredicate TraceMsg
 
       -- | Does this test have any output?
       --
       -- Set this to 'False' for failing tests where we just want to check the
       -- trace messages and nothing else
-    , testHasOutput :: Bool
+    , hasOutput :: Bool
 
       -- | Tests that require a specific @libclang@ version
       --
       -- If the predicate does not match, the test is skipped entirely.
-    , testClangVersion :: Maybe ((Int, Int, Int) -> Bool)
+    , clangVersion :: Maybe ((Int, Int, Int) -> Bool)
 
       -- | Modify the default boot test configuration
-    , testOnBootConfig :: BootConfig -> BootConfig
+    , onBoot :: BootConfig -> BootConfig
 
       -- | Modify the default frontend test configuration
-    , testOnFrontendConfig :: FrontendConfig -> FrontendConfig
+    , onFrontend :: FrontendConfig -> FrontendConfig
 
       -- | Modify the default backend test configuration
-    , testOnBackendConfig :: BackendConfig -> BackendConfig
+    , onBackend :: BackendConfig -> BackendConfig
 
       -- | Configure if the @stdlib@ binding specification should be used
-    , testStdlibSpec :: EnableStdlibBindingSpec
+    , specStdlib :: EnableStdlibBindingSpec
 
       -- | Modify the default external binding specification configuration
-    , testExtBindingSpecs :: [FilePath]
+    , specExternal :: [FilePath]
 
       -- | Modify the default prescriptive binding specification configuration
-    , testPrescriptiveBindingSpec :: Maybe FilePath
+    , specPrescriptive :: Maybe FilePath
 
       -- | Whether or not the tests show full paths when rendering Haddock
       -- comments.
       --
       -- For tests this value should be 'Short' by default in order to avoid
       -- #966.
-    , testPathStyle :: PathStyle
+    , pathStyle :: PathStyle
     }
+  deriving stock (Generic)
 
 {-------------------------------------------------------------------------------
   Derived
 -------------------------------------------------------------------------------}
 
 testInputInclude :: TestCase -> UncheckedHashIncludeArg
-testInputInclude TestCase{testInputHeaderFileName} = testInputHeaderFileName
+testInputInclude test = test.inputHeader
 
 {-------------------------------------------------------------------------------
   Construction
@@ -116,36 +121,33 @@ defaultTest ::
      String --  ^ Filepath to the header file without the @.h@ extension
   -> TestCase
 defaultTest fp = TestCase{
-      testName                    = fp
-    , testInputHeaderFileName     = fp <.> "h"
-    , testInputDir                = "examples" </> "golden"
-    , testOutputDir               = "fixtures" </> fp
-    , testTracePredicate          = defaultTracePredicate
-    , testHasOutput               = True
-    , testClangVersion            = Nothing
-    , testOnBootConfig            = id
-    , testOnFrontendConfig        = id
-    , testOnBackendConfig         = id
-    , testStdlibSpec              = EnableStdlibBindingSpec
-    , testExtBindingSpecs         = []
-    , testPrescriptiveBindingSpec = Nothing
-    , testPathStyle               = Short
+      name             = fp
+    , inputHeader      = fp <.> "h"
+    , inputDir         = "examples" </> "golden"
+    , outputDir        = "fixtures" </> fp
+    , tracePredicate   = defaultTracePredicate
+    , hasOutput        = True
+    , clangVersion     = Nothing
+    , onBoot           = id
+    , onFrontend       = id
+    , onBackend        = id
+    , specStdlib       = EnableStdlibBindingSpec
+    , specExternal     = []
+    , specPrescriptive = Nothing
+    , pathStyle        = Short
     }
 
 testVariant ::
      String --  ^ Filename without the @.h@ extension
   -> String --  ^ Variant suffix, appended to the output directory
   -> TestCase
-testVariant filename suffix = defTest{
-        testName      = testName defTest      ++ "." ++ suffix
-      , testOutputDir = testOutputDir defTest ++ "." ++ suffix
-      }
-  where
-    defTest = defaultTest filename
+testVariant filename suffix =
+    defaultTest filename
+      & #name      %~ (++ ("." ++ suffix))
+      & #outputDir %~ (++ ("." ++ suffix))
 
 testTrace :: String -> TracePredicate TraceMsg -> TestCase
-testTrace filename trace =
-    (defaultTest filename){testTracePredicate = trace}
+testTrace filename trace = defaultTest filename & #tracePredicate .~ trace
 
 testTraceSimple ::
      String
@@ -178,14 +180,15 @@ testDiagnostic filename p =
 -------------------------------------------------------------------------------}
 
 defaultFailingTest :: String -> TestCase
-defaultFailingTest filename = (defaultTest filename){
-      testHasOutput = False
-    , testInputDir  = "examples/golden"
-    }
+defaultFailingTest filename =
+    defaultTest filename
+      & #hasOutput .~ False
+      & #inputDir  .~ "examples/golden"
 
 failingTestTrace :: String -> TracePredicate TraceMsg -> TestCase
 failingTestTrace filename trace =
-    (defaultFailingTest filename){testTracePredicate = trace}
+    defaultFailingTest filename
+      & #tracePredicate .~ trace
 
 failingTestSimple ::
      String
@@ -208,36 +211,36 @@ failingTestMulti filename expected trace =
 -------------------------------------------------------------------------------}
 
 getTestBootConfig :: IO TestResources -> TestCase -> IO BootConfig
-getTestBootConfig testResources TestCase{..} = do
-    root <- getTestPackageRoot testResources
-    clangArgsConfig <- getTestDefaultClangArgsConfig testResources [testInputDir]
-    return $ testOnBootConfig BootConfig {
-        bootClangArgsConfig = clangArgsConfig {
+getTestBootConfig resources test = do
+    root <- getTestPackageRoot resources
+    clangArgsConfig <- getTestDefaultClangArgsConfig resources [test.inputDir]
+    return $ test.onBoot BootConfig {
+        clangArgs = clangArgsConfig {
             builtinIncDir = BuiltinIncDirDisable
           }
-      , bootBaseModuleName = "Example"
-      , bootBindingSpecConfig = BindingSpecConfig {
-            stdlibSpec              = testStdlibSpec
+      , baseModule = "Example"
+      , bindingSpec = BindingSpecConfig {
+            stdlibSpec              = test.specStdlib
           , compatibility           = BindingSpecStrict
-          , extBindingSpecs         = map (root </>) testExtBindingSpecs
-          , prescriptiveBindingSpec = (root </>) <$> testPrescriptiveBindingSpec
+          , extBindingSpecs         = map (root </>) test.specExternal
+          , prescriptiveBindingSpec = (root </>) <$> test.specPrescriptive
           }
       }
 
 getTestFrontendConfig :: TestCase -> FrontendConfig
-getTestFrontendConfig TestCase{..} = testOnFrontendConfig def
+getTestFrontendConfig test = test.onFrontend def
 
 getTestBackendConfig :: TestCase -> BackendConfig
-getTestBackendConfig TestCase{..} =
-  testOnBackendConfig $ getTestDefaultBackendConfig testName testPathStyle
+getTestBackendConfig test =
+    test.onBackend $ getTestDefaultBackendConfig test.name test.pathStyle
 
 withTestTraceConfig ::
      (String -> IO ())
   -> TestCase
   -> (TracerConfig Level TraceMsg -> IO a)
   -> IO a
-withTestTraceConfig report TestCase{testTracePredicate} =
-    withTraceConfigPredicate report testTracePredicate
+withTestTraceConfig report test =
+    withTraceConfigPredicate report test.tracePredicate
 
 -- | Run 'hsBindgen'.
 runTestHsBindgen ::
@@ -246,8 +249,8 @@ runTestHsBindgen ::
   -> TestCase
   -> Artefact a
   -> IO (Either BindgenError a)
-runTestHsBindgen report testResources test artefacts = do
-    bootConfig <- getTestBootConfig testResources test
+runTestHsBindgen report resources test artefacts = do
+    bootConfig <- getTestBootConfig resources test
     let frontendConfig = getTestFrontendConfig test
         backendConfig  = getTestBackendConfig test
         bindgenConfig  = BindgenConfig bootConfig frontendConfig backendConfig

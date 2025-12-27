@@ -1,6 +1,8 @@
 {-# LANGUAGE CPP                   #-}
+{-# LANGUAGE NoFieldSelectors      #-}
+{-# LANGUAGE NoNamedFieldPuns      #-}
+{-# LANGUAGE NoRecordWildCards     #-}
 {-# LANGUAGE TemplateHaskellQuotes #-}
-{-# LANGUAGE OverloadedStrings     #-}
 
 -- | Golden test: TH output
 module Test.HsBindgen.Golden.Check.TH (check) where
@@ -51,7 +53,7 @@ check testResources test =
         let thDecls :: Qu [TH.Dec]
             thDecls = uncurry (getThDecls deps) $ Foldable.fold decls
 
-            (QuState{..}, thdecs) = runQu thDecls
+            (st, thdecs) = runQu thDecls
 
             -- Here we might have headers outside of our package, but in our
             -- test setup that SHOULD cause an error, as we use bundled stdlib.
@@ -61,12 +63,12 @@ check testResources test =
             output = unlines $ concat [
                 [    "-- addDependentFile "
                   ++ convertWindows (makeRelative pkgroot fp)
-                | fp <- dependencyFiles
+                | fp <- st.dependencyFiles
                 ]
               , [ "-- " ++ normalizeQuotes l
-                | src <- cSources, l <- lines src
+                | src <- st.cSources, l <- lines src
                 ]
-              , [ show $ prettyWithDocumentationMap True documentationMap d
+              , [ show $ prettyWithDocumentationMap True st.documentationMap d
                 | d <- unqualNames thdecs
                 ]
               ]
@@ -76,7 +78,7 @@ check testResources test =
         return $ ActualSkipped "ghc < 9.4"
   where
     fixture :: FilePath
-    fixture = testOutputDir test </> "th" <.> "txt"
+    fixture = test.outputDir </> "th" <.> "txt"
 
     -- Clang version 19 uses <> for some reason.
     --
@@ -123,13 +125,12 @@ convertWindows = map f where
 newtype Qu a = Qu (State QuState a)
   deriving newtype (Functor, Applicative, Monad)
 
-data QuState =
-  QuState {
-    dependencyFiles  :: [FilePath]
-  , uniquenessNumber :: !Integer
-  , cSources         :: [String]
-  , documentationMap :: Map TH.DocLoc (Maybe HsDoc.Comment)
-  }
+data QuState = QuState{
+      dependencyFiles  :: [FilePath]
+    , uniquenessNumber :: !Integer
+    , cSources         :: [String]
+    , documentationMap :: Map TH.DocLoc (Maybe HsDoc.Comment)
+    }
 
 emptyQuState :: QuState
 emptyQuState = QuState [] 0 [] Map.empty

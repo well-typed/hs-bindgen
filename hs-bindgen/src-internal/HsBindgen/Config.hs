@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Configuration of @hs-bindgen@.
 module HsBindgen.Config (
     Config_(..)
@@ -41,7 +45,7 @@ data Config_ path = Config {
   , programSlicing  :: ProgramSlicing
 
     -- * Backend
-  , haddockPathStyle         :: PathStyle
+  , haddockPathStyle :: PathStyle
   }
   deriving stock (Eq, Show, Generic)
   deriving stock (Functor, Foldable, Traversable)
@@ -53,29 +57,27 @@ toBindgenConfig ::
   -> BaseModuleName
   -> ByCategory Choice
   -> BindgenConfig
-toBindgenConfig Config{..} uniqueId baseModuleName choice =
-    BindgenConfig bootConfig frontendConfig backendConfig
-  where
-    bootConfig = BootConfig {
-        bootClangArgsConfig   = clang
-      , bootBaseModuleName    = baseModuleName
-      , bootBindingSpecConfig = bindingSpec
-      }
-    frontendConfig = FrontendConfig {
-          frontendParsePredicate  = parsePredicate
-        , frontendSelectPredicate = selectPredicate
-        , frontendProgramSlicing  = programSlicing
-      }
-    backendConfig :: BackendConfig
-    backendConfig = BackendConfig {
-        backendTranslationConfig = def {
-            translationUniqueId = uniqueId
-          }
-      , backendHaddockConfig = HaddockConfig {
-            pathStyle = haddockPathStyle
-          }
-      , backendBindingCategoryChoice = choice
-      }
+toBindgenConfig config uniqueId baseModuleName choice = BindgenConfig{
+      boot = BootConfig {
+         clangArgs   = config.clang
+       , baseModule  = baseModuleName
+       , bindingSpec = config.bindingSpec
+       }
+    , frontend = FrontendConfig {
+         parsePredicate  = config.parsePredicate
+       , selectPredicate = config.selectPredicate
+       , programSlicing  = config.programSlicing
+       }
+    , backend = BackendConfig {
+         translation = def {
+             translationUniqueId = uniqueId
+           }
+       , haddock = HaddockConfig {
+             pathStyle = config.haddockPathStyle
+           }
+       , categoryChoice = choice
+       }
+    }
 
 {-------------------------------------------------------------------------------
   Template Haskell
@@ -93,7 +95,7 @@ data ConfigTH = ConfigTH {
     -- avoid name clashes.
     --
     -- Default: 'Category.useSafe'.
-    bindingCategoryChoice    :: ByCategory Choice
+    bindingCategoryChoice :: ByCategory Choice
 
     -- | Show trace messages of the provided 'Level' or higher.
     --
@@ -112,8 +114,8 @@ data ConfigTH = ConfigTH {
   deriving stock (Generic)
 
 instance Default ConfigTH where
-  def = ConfigTH {
-            bindingCategoryChoice    = useSafeCategory
-          , verbosity                = def
-          , customLogLevelSettings   = def
-          }
+  def = ConfigTH{
+        bindingCategoryChoice    = useSafeCategory
+      , verbosity                = def
+      , customLogLevelSettings   = def
+      }

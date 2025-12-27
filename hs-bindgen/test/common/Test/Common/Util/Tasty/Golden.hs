@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | A fork of @tasty-golden" with additional features
 --
 -- New features:
@@ -71,24 +74,28 @@ goldenTestSteps ::
      -- ^ Remove the golden file
   -> TestTree
 goldenTestSteps t getGolden getActual comparison updateGolden removeGolden =
-    singleTest t GoldenSteps{..}
+    singleTest t $ GoldenTest GoldenSteps{
+        getGolden
+      , getActual
+      , comparison
+      , updateGolden
+      , removeGolden
+      }
 
 {-------------------------------------------------------------------------------
-  Internals
+  Test options
 -------------------------------------------------------------------------------}
-
-data GoldenSteps = forall a. GoldenSteps {
-      getGolden    :: IO a
-    , getActual    :: (String -> IO ()) -> IO (ActualValue a)
-    , comparison   :: a -> a -> IO (Maybe String)
-    , updateGolden :: a -> IO ()
-    , removeGolden :: IO ()
-    }
 
 -- | This option, when set to 'True', specifies that we should run in the
 -- «accept tests» mode
 newtype AcceptTests = AcceptTests Bool
   deriving (Eq, Ord)
+
+-- | Print trace messages.
+-- «accept tests» mode
+newtype Debug = Debug Bool
+  deriving (Eq, Ord)
+
 instance IsOption AcceptTests where
     defaultValue = AcceptTests False
     parseValue = fmap AcceptTests . safeReadBool
@@ -96,10 +103,6 @@ instance IsOption AcceptTests where
     optionHelp = return "Accept current results of golden tests"
     optionCLParser = flagCLParser (Just 'a') (AcceptTests True)
 
--- | Print trace messages.
--- «accept tests» mode
-newtype Debug = Debug Bool
-  deriving (Eq, Ord)
 instance IsOption Debug where
     defaultValue = Debug False
     parseValue = fmap Debug . safeReadBool
@@ -107,15 +110,31 @@ instance IsOption Debug where
     optionHelp = return "Print all trace messages"
     optionCLParser = flagCLParser (Just 'v') (Debug True)
 
-instance IsTest GoldenSteps where
-    run opts golden progress = runGoldenSteps golden progress opts
-    testOptions = return
-        [ Option (Proxy :: Proxy AcceptTests)
+{-------------------------------------------------------------------------------
+  Internals
+-------------------------------------------------------------------------------}
+
+data GoldenTest = forall a. GoldenTest (GoldenSteps a)
+
+data GoldenSteps a = GoldenSteps {
+      getGolden    :: IO a
+    , getActual    :: (String -> IO ()) -> IO (ActualValue a)
+    , comparison   :: a -> a -> IO (Maybe String)
+    , updateGolden :: a -> IO ()
+    , removeGolden :: IO ()
+    }
+
+instance IsTest GoldenTest where
+    run opts (GoldenTest steps) progress =
+        runGoldenSteps steps progress opts
+
+    testOptions = return [
+          Option (Proxy :: Proxy AcceptTests)
         , Option (Proxy :: Proxy Debug)
         ]
 
-runGoldenSteps :: GoldenSteps -> (Progress -> IO ()) -> OptionSet -> IO Result
-runGoldenSteps GoldenSteps{..} progress opts = do
+runGoldenSteps :: GoldenSteps a -> (Progress -> IO ()) -> OptionSet -> IO Result
+runGoldenSteps steps progress opts = do
     msgsRef <- newIORef []
     let stepFn :: String -> IO ()
         stepFn msg = do
@@ -124,15 +143,17 @@ runGoldenSteps GoldenSteps{..} progress opts = do
              atomicModifyIORef msgsRef (\msgs -> (msg:msgs, ()))
 
     -- get actual value
-    mbNew <- try $ getActual stepFn
-    msgs  <- readIORef msgsRef <&> reverse
+    mbNew :: Either SomeException (ActualValue a) <-
+      try $ steps.getActual stepFn
+    msgs :: [String] <-
+      readIORef msgsRef <&> reverse
 
     let testPassedWith, testFailedWith :: String -> IO Result
         testPassedWith descr = return $ testPassed $ unlines (descr : msgs)
         testFailedWith descr = return $ testFailed $ unlines (descr : msgs)
 
     case mbNew of
-      Left (e :: SomeException) ->
+      Left e ->
         case fromException @AsyncException e of
           Just e' -> throwIO e'
           Nothing -> return $ testFailed $ concat [
@@ -147,7 +168,7 @@ runGoldenSteps GoldenSteps{..} progress opts = do
         testFailedWith err
 
       Right ActualNoOutput -> do
-        mbRef <- try getGolden
+        mbRef <- try steps.getGolden
         case mbRef of
          Left e
            | Just e' <- fromException e, isDoesNotExistError e' ->
@@ -156,18 +177,18 @@ runGoldenSteps GoldenSteps{..} progress opts = do
              throwIO e
          Right _ -> do
            if accept then do
-             removeGolden
+             steps.removeGolden
              testPassedWith "Golden file existed but test has no output; removed"
            else do
              testFailedWith "Test had no output, but golden file exists"
 
       Right (ActualValue new) -> do
-        mbRef <- try getGolden
+        mbRef <- try steps.getGolden
         case mbRef of
           Left e
             | Just e' <- fromException e, isDoesNotExistError e' ->
                 if accept then do
-                  updateGolden new
+                  steps.updateGolden new
                   testPassedWith "Golden file did not exist; created"
                 else do
                   testFailedWith "Golden file does not exist"
@@ -179,20 +200,20 @@ runGoldenSteps GoldenSteps{..} progress opts = do
                 -- Other types of exceptions may be due to failing to decode the
                 -- golden file. In that case, it makes sense to replace a broken
                 -- golden file with the current version.
-                updateGolden new
+                steps.updateGolden new
                 testPassedWith $ concat [
                     "Accepted the new version. Was failing with exception: "
                   , displayException e
                   ]
 
           Right ref -> do
-              result <- comparison ref new
+              result <- steps.comparison ref new
               case result of
                 Nothing ->
                   pure $ testPassed $ unlines msgs
                 Just _reason | accept -> do
                   -- test failed; accept the new version
-                  updateGolden new
+                  steps.updateGolden new
                   testPassedWith "Accepted the new version"
                 Just reason -> do
                   -- Make sure that the result is fully evaluated and doesn't

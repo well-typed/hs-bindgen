@@ -1,8 +1,8 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Golden tests
 module Test.HsBindgen.Golden (tests) where
-
--- TODO: Once we start using DuplicateRecordFields more seriously, we could
--- clean this up through the use of lenses.
 
 import System.Directory (createDirectoryIfMissing)
 import Test.Tasty
@@ -22,6 +22,7 @@ import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
+import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.TraceMsg
@@ -77,19 +78,18 @@ testTreeFor testResources = goTree
         testGroup label $ map goCase cases
 
     goCase :: TestCase -> TestTree
-    goCase test@TestCase{testHasOutput, testClangVersion}
-      | Just versionPred <- testClangVersion
+    goCase test
+      | Just versionPred <- test.clangVersion
       , case clangVersion of
           ClangVersion version  -> not (versionPred version)
           ClangVersionUnknown _ -> True
-      = testGroup (testName test) []
+      = testGroup test.name []
 
-      | not testHasOutput
+      | not test.hasOutput
       = FailingTrace.check testResources test
 
       | otherwise
-      = withTestOutputDir (testOutputDir test) $
-        testGroup (testName test) [
+      = withTestOutputDir test.outputDir $ testGroup test.name [
             TH.check          testResources test
           , PP.check          testResources test
           , BindingSpec.check testResources test
@@ -170,15 +170,14 @@ testCases_manual = [
     ]
 
 test_manual_globals :: TestCase
-test_manual_globals = (defaultTest "manual/globals") {
-      testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-        MatchDelayed name ParsePotentialDuplicateSymbol{} ->
-          Just $ Expected name
-        MatchDelayed name ParseUnexpectedAnonInExtern{} ->
-          Just $ Expected name
-        _otherwise ->
-          Nothing
-    }
+test_manual_globals =
+    testTraceMulti "manual/globals" declsWithMsgs $ \case
+      MatchDelayed name ParsePotentialDuplicateSymbol{} ->
+        Just $ Expected name
+      MatchDelayed name ParseUnexpectedAnonInExtern{} ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -207,20 +206,20 @@ testCases_bespoke_arrays = [
 
 test_arrays_array :: TestCase
 test_arrays_array =
-    (defaultTest "arrays/array") {
-        testClangVersion = Just (>= (19, 0, 0))
-      , testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchDelayed name ParsePotentialDuplicateSymbol{} ->
-            Just $ Expected name
-          MatchDiagnosticOption "-Wno-extern-initializer" ->
-            Just Tolerated
-          MatchDiagnosticOption "-Wno-tentative-definition-array" ->
-            Just Tolerated
-          MatchDelayed name (MatchUnknownStorageClass CX_SC_Static) ->
-            Just $ Expected name
-          _otherwise ->
-            Nothing
-      }
+    defaultTest "arrays/array"
+      & #clangVersion   .~ Just (>= (19, 0, 0))
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchDelayed name ParsePotentialDuplicateSymbol{} ->
+              Just $ Expected name
+            MatchDiagnosticOption "-Wno-extern-initializer" ->
+              Just Tolerated
+            MatchDiagnosticOption "-Wno-tentative-definition-array" ->
+              Just Tolerated
+            MatchDelayed name (MatchUnknownStorageClass CX_SC_Static) ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -345,13 +344,8 @@ testCases_bespoke_attributes = [
 
 test_attributes_asm :: TestCase
 test_attributes_asm =
-    (defaultTest "attributes/asm") {
-        testOnBootConfig = \cfg -> cfg {
-            bootClangArgsConfig = (bootClangArgsConfig cfg) {
-                gnu = EnableGnu
-              }
-          }
-      }
+    defaultTest "attributes/asm"
+      & #onBoot .~ ( #clangArgs % #gnu .~ EnableGnu )
 
 test_attributes_attributes :: TestCase
 test_attributes_attributes =
@@ -360,35 +354,32 @@ test_attributes_attributes =
 
 test_attributes_type_attributes :: TestCase
 test_attributes_type_attributes =
-    (defaultTest "attributes/type_attributes") {
-        testTracePredicate = singleTracePredicate $ \case
-          MatchSelect _name SelectDeprecated{} ->
-            Just $ Expected ()
-          _otherwise ->
-            Nothing
-      }
+    testTraceSimple "attributes/type_attributes" $ \case
+      MatchSelect _name SelectDeprecated{} ->
+        Just $ Expected ()
+      _otherwise ->
+        Nothing
 
 test_attributes_visibility_attributes :: TestCase
 test_attributes_visibility_attributes =
-    (defaultTest "attributes/visibility_attributes") {
-        testOnFrontendConfig = \cfg -> cfg{
-            frontendSelectPredicate =
-              BAnd
-                (BIf (SelectHeader FromMainHeaders))
-                (BNot (BIf (SelectDecl DeclDeprecated)))
-          }
-      , testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchDelayed name ParsePotentialDuplicateSymbol{} ->
-            Just $ Expected name
-          MatchDelayed name ParseNonPublicVisibility{} ->
-            Just $ Expected name
-          MatchDelayed name (MatchUnknownStorageClass CX_SC_Static) ->
-            Just $ Expected name
-          MatchDiagnosticOption "-Wno-extern-initializer" ->
-            Just Tolerated
-          _otherwise ->
-            Nothing
-      }
+    defaultTest "attributes/visibility_attributes"
+      & #onFrontend .~ ( #selectPredicate .~
+            BAnd
+              (BIf (SelectHeader FromMainHeaders))
+              (BNot (BIf (SelectDecl DeclDeprecated)))
+          )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchDelayed name ParsePotentialDuplicateSymbol{} ->
+              Just $ Expected name
+            MatchDelayed name ParseNonPublicVisibility{} ->
+              Just $ Expected name
+            MatchDelayed name (MatchUnknownStorageClass CX_SC_Static) ->
+              Just $ Expected name
+            MatchDiagnosticOption "-Wno-extern-initializer" ->
+              Just Tolerated
+            _otherwise ->
+              Nothing
+          )
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -431,85 +422,76 @@ testCases_bespoke_bindingSpecs = [
 
 test_bindingSpecs_bs_ext_target_any :: TestCase
 test_bindingSpecs_bs_ext_target_any =
-    (defaultTest "binding-specs/bs_ext_target_any") {
-        testExtBindingSpecs = [
+    defaultTest "binding-specs/bs_ext_target_any"
+      & #specExternal .~ [
             "examples/golden/binding-specs/bs_ext_target_any_e.yaml"
           ]
-      }
 
 test_bindingSpecs_bs_ext_target_mismatch :: TestCase
 test_bindingSpecs_bs_ext_target_mismatch =
-    (failingTestSimple "binding-specs/bs_ext_target_mismatch" aux) {
-        testExtBindingSpecs = [
+    defaultFailingTest "binding-specs/bs_ext_target_mismatch"
+      & #specExternal .~ [
             "examples/golden/binding-specs/bs_ext_target_mismatch_e.yaml"
           ]
-      }
-  where
-    aux = \case
-      TraceBoot
-        ( BootBindingSpec
-            ( BindingSpecReadMsg
-                (BindingSpec.BindingSpecReadIncompatibleTarget _)
-            )
-        ) -> Just $ Expected ()
-      _otherwise -> Nothing
+      & #tracePredicate .~ singleTracePredicate (\case
+            MatchBindingSpec (
+                  BindingSpecReadMsg BindingSpec.BindingSpecReadIncompatibleTarget{}
+                ) ->
+              Just $ Expected ()
+            _otherwise ->
+              Nothing
+          )
 
 test_bindingSpecs_bs_pre_omit_type :: TestCase
 test_bindingSpecs_bs_pre_omit_type =
-    (defaultTest "binding-specs/bs_pre_omit_type") {
-        testPrescriptiveBindingSpec =
+    defaultTest "binding-specs/bs_pre_omit_type"
+      & #specPrescriptive .~
           Just "examples/golden/binding-specs/bs_pre_omit_type_p.yaml"
-      }
 
 test_bindingSpecs_bs_pre_rename_squash_both :: TestCase
 test_bindingSpecs_bs_pre_rename_squash_both =
-    (defaultTest "binding-specs/bs_pre_rename_squash_both") {
-        testPrescriptiveBindingSpec =
+    defaultTest "binding-specs/bs_pre_rename_squash_both"
+      & #specPrescriptive .~
           Just "examples/golden/binding-specs/bs_pre_rename_squash_both_p.yaml"
-      }
 
 test_bindingSpecs_bs_pre_rename_squash_struct :: TestCase
 test_bindingSpecs_bs_pre_rename_squash_struct =
-    (defaultTest "binding-specs/bs_pre_rename_squash_struct") {
-        testPrescriptiveBindingSpec =
+    defaultTest "binding-specs/bs_pre_rename_squash_struct"
+      & #specPrescriptive .~
           Just "examples/golden/binding-specs/bs_pre_rename_squash_struct_p.yaml"
-      }
 
 test_bindingSpecs_bs_pre_rename_squash_typedef :: TestCase
 test_bindingSpecs_bs_pre_rename_squash_typedef =
-    (defaultTest "binding-specs/bs_pre_rename_squash_typedef") {
-        testPrescriptiveBindingSpec =
+    defaultTest "binding-specs/bs_pre_rename_squash_typedef"
+      & #specPrescriptive .~
           Just "examples/golden/binding-specs/bs_pre_rename_squash_typedef_p.yaml"
-      }
 
 test_bindingSpecs_bs_pre_rename_type :: TestCase
 test_bindingSpecs_bs_pre_rename_type =
-    (defaultTest "binding-specs/bs_pre_rename_type") {
-        testPrescriptiveBindingSpec =
+    defaultTest "binding-specs/bs_pre_rename_type"
+      & #specPrescriptive .~
           Just "examples/golden/binding-specs/bs_pre_rename_type_p.yaml"
-      }
 
--- TODO target any with non-target-specific bindings is OK
--- test_bindingSpecs_bs_pre_target_any_ok :: TestCase
+-- -- TODO target any with non-target-specific bindings is OK
+-- -- test_bindingSpecs_bs_pre_target_any_ok :: TestCase
 
--- TODO target any with target-specific bindings traces error
--- test_bindingSpecs_bs_pre_target_any_bad :: TestCase
+-- -- TODO target any with target-specific bindings traces error
+-- -- test_bindingSpecs_bs_pre_target_any_bad :: TestCase
 
 test_bindingSpecs_bs_pre_target_mismatch :: TestCase
 test_bindingSpecs_bs_pre_target_mismatch =
-    (failingTestSimple "binding-specs/bs_pre_target_mismatch" aux) {
-        testPrescriptiveBindingSpec =
+    defaultFailingTest "binding-specs/bs_pre_target_mismatch"
+      & #specPrescriptive .~
           Just "examples/golden/binding-specs/bs_pre_target_mismatch_p.yaml"
-      }
-  where
-    aux = \case
-      TraceBoot
-        ( BootBindingSpec
-            ( BindingSpecReadMsg
-                (BindingSpec.BindingSpecReadIncompatibleTarget _)
-            )
-        ) -> Just $ Expected ()
-      _otherwise -> Nothing
+      & #tracePredicate .~ singleTracePredicate (\case
+            MatchBindingSpec (
+                  BindingSpecReadMsg
+                    BindingSpec.BindingSpecReadIncompatibleTarget{}
+                ) ->
+              Just $ Expected ()
+            _otherwise ->
+              Nothing
+          )
 
 {-------------------------------------------------------------------------------
   Bespoke tests: declarations
@@ -585,19 +567,19 @@ test_declarations_redeclaration_different =
 
 test_declarations_select_scoping :: TestCase
 test_declarations_select_scoping =
-    (defaultTest "declarations/select_scoping") {
-        testOnFrontendConfig = \cfg -> cfg {
-            frontendParsePredicate = BIf (ParseHeader FromMainHeaders)
-          , frontendSelectPredicate = BTrue
-          }
-      , testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchSelect name (MatchTransMissing Nothing) ->
-            Just $ Expected name
-          MatchSelect name (MatchTransMissing (Just UnusableParseNotAttempted{})) ->
-            Just $ Expected name
-          _otherwise ->
-            Nothing
-      }
+    defaultTest "declarations/select_scoping"
+      & #onFrontend .~ (\cfg -> cfg
+          & #parsePredicate  .~ BIf (ParseHeader FromMainHeaders)
+          & #selectPredicate .~ BTrue
+          )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name (MatchTransMissing Nothing) ->
+              Just $ Expected name
+            MatchSelect name (MatchTransMissing (Just UnusableParseNotAttempted{})) ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -631,9 +613,8 @@ testCases_bespoke_documentation = [
 
 test_documentation_doxygen_docs :: TestCase
 test_documentation_doxygen_docs =
-    (defaultTest "documentation/doxygen_docs") {
-        testClangVersion = Just (>= (19, 0, 0))
-      }
+    defaultTest "documentation/doxygen_docs"
+      & #clangVersion .~ Just (>= (19, 0, 0))
 
 {-------------------------------------------------------------------------------
   Bespoke tests: edge cases
@@ -656,37 +637,37 @@ testCases_bespoke_edgeCases = [
 -- declarations, but no collision between those and the typedef.
 test_edgeCases_clang_generated_collision :: TestCase
 test_edgeCases_clang_generated_collision =
-    (defaultTest "edge-cases/clang_generated_collision") {
-        testClangVersion = Just (>= (16, 0, 0))
-      , testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchSelect name SelectConflict{} ->
-            Just $ Expected name
-          MatchSelect _ (MatchTransMissing (Just UnusableConflict{})) ->
-            Just Tolerated
-          _otherwise ->
-            Nothing
-      }
+    defaultTest "edge-cases/clang_generated_collision"
+      & #clangVersion   .~ Just (>= (16, 0, 0))
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name SelectConflict{} ->
+              Just $ Expected name
+            MatchSelect _ (MatchTransMissing (Just UnusableConflict{})) ->
+              Just Tolerated
+            _otherwise ->
+              Nothing
+          )
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct foo"]
 
 test_edgeCases_duplicate :: TestCase
 test_edgeCases_duplicate =
-    (defaultTest "edge-cases/duplicate") {
-        testOnFrontendConfig = \cfg -> cfg{
-            frontendParsePredicate  = BTrue
-          , frontendSelectPredicate = BOr
-              (BIf (SelectDecl (DeclNameMatches "function")))
-              (BIf (SelectDecl (DeclNameMatches "duplicate")))
-          }
-      , testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchSelect name SelectConflict{} ->
-            Just $ Expected (name, "conflict")
-          MatchSelect name (MatchTransMissing (Just UnusableConflict{})) ->
-            Just $ Expected (name, "transitive conflict")
-          _otherwise ->
-             Nothing
-      }
+    defaultTest "edge-cases/duplicate"
+      & #onFrontend .~ (\cfg -> cfg
+          & #parsePredicate  .~ BTrue
+          & #selectPredicate .~ BOr
+              (BIf $ SelectDecl (DeclNameMatches "function"))
+              (BIf $ SelectDecl (DeclNameMatches "duplicate"))
+          )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name SelectConflict{} ->
+              Just $ Expected (name, "conflict")
+            MatchSelect name (MatchTransMissing (Just UnusableConflict{})) ->
+              Just $ Expected (name, "transitive conflict")
+            _otherwise ->
+               Nothing
+          )
   where
     declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
@@ -696,57 +677,46 @@ test_edgeCases_duplicate =
 
 test_edgeCases_headers :: TestCase
 test_edgeCases_headers =
-    (defaultTest "edge-cases/headers") {
-        testTracePredicate = singleTracePredicate $ \case
-          MatchNoDeclarations ->
-            Just $ Expected ()
-          _otherwise ->
-            Nothing
-      }
+    testTraceSimple "edge-cases/headers" $ \case
+      MatchNoDeclarations ->
+        Just $ Expected ()
+      _otherwise ->
+        Nothing
 
 test_edgeCases_iterator :: TestCase
 test_edgeCases_iterator =
-    (defaultTest "edge-cases/iterator") {
-        testClangVersion     = Just (>= (15, 0, 0))
-      , testOnBootConfig = \cfg -> cfg{
-            bootClangArgsConfig = (bootClangArgsConfig cfg) {
-                enableBlocks = True
-              }
-          }
-      }
+    defaultTest "edge-cases/iterator"
+      & #clangVersion .~ Just (>= (15, 0, 0))
+      & #onBoot       .~ ( #clangArgs % #enableBlocks .~ True )
 
 test_edgeCases_ordinary_anon :: TestCase
 test_edgeCases_ordinary_anon =
-    (defaultTest "edge-cases/ordinary_anon_parent"){
-        testOnFrontendConfig = \cfg -> cfg{
-            frontendSelectPredicate = BTrue
-          }
-      }
+    defaultTest "edge-cases/ordinary_anon_parent"
+      & #onFrontend .~ ( #selectPredicate .~ BTrue )
 
 test_edgeCases_select_no_match :: TestCase
 test_edgeCases_select_no_match =
-    (defaultTest "edge-cases/select_no_match") {
-        testOnFrontendConfig = \cfg -> cfg {
-            frontendSelectPredicate = BIf $
-              SelectDecl (DeclNameMatches "this_pattern_will_never_match")
-          }
-      , testTracePredicate = singleTracePredicate $ \case
-          MatchNoDeclarations ->
-            Just $ Expected ()
-          _otherwise ->
-            Nothing
-      }
+    defaultTest "edge-cases/select_no_match"
+      & #onFrontend .~ ( #selectPredicate .~
+            BIf (SelectDecl (DeclNameMatches "this_pattern_will_never_match"))
+          )
+      & #tracePredicate .~ singleTracePredicate (\case
+            MatchNoDeclarations ->
+              Just $ Expected ()
+            _otherwise ->
+              Nothing
+          )
 
 test_edgeCases_thread_local :: TestCase
 test_edgeCases_thread_local =
-    (defaultTest "edge-cases/thread_local"){
-        testClangVersion   = Just (>= (16, 0, 0))
-      , testTracePredicate = singleTracePredicate $ \case
-          MatchDelayed _name ParseUnsupportedTLS ->
-            Just $ Expected ()
-          _otherwise ->
-            Nothing
-      }
+    defaultTest "edge-cases/thread_local"
+      & #clangVersion   .~ Just (>= (16, 0, 0))
+      & #tracePredicate .~ singleTracePredicate (\case
+            MatchDelayed _name ParseUnsupportedTLS ->
+              Just $ Expected ()
+            _otherwise ->
+              Nothing
+          )
 
 test_edgeCases_unsupported_builtin :: TestCase
 test_edgeCases_unsupported_builtin =
@@ -787,22 +757,22 @@ test_functions_decls_in_signature =
 
 test_functions_fun_attributes :: TestCase
 test_functions_fun_attributes =
-    (defaultTest "functions/fun_attributes") {
-        testClangVersion = Just (>= (15, 0, 0))
-      , testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchDelayed name (ParseUnsupportedType UnsupportedVariadicFunction) ->
-            Just $ Expected name
-          MatchDelayed name ParseNonPublicVisibility ->
-            Just $ Expected name
-          MatchDelayed name ParsePotentialDuplicateSymbol{} ->
-            Just $ Expected name
-          MatchSelect name SelectDeprecated{} ->
-            Just $ Expected name
-          MatchSelect name (SelectParseNotAttempted DeclarationUnavailable) ->
-            Just $ Expected name
-          _otherwise ->
-            Nothing
-      }
+    defaultTest "functions/fun_attributes"
+      & #clangVersion   .~ Just (>= (15, 0, 0))
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchDelayed name (ParseUnsupportedType UnsupportedVariadicFunction) ->
+              Just $ Expected name
+            MatchDelayed name ParseNonPublicVisibility ->
+              Just $ Expected name
+            MatchDelayed name ParsePotentialDuplicateSymbol{} ->
+              Just $ Expected name
+            MatchSelect name SelectDeprecated{} ->
+              Just $ Expected name
+            MatchSelect name (SelectParseNotAttempted DeclarationUnavailable) ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -815,27 +785,25 @@ test_functions_fun_attributes =
 
 test_functions_fun_attributes_conflict :: TestCase
 test_functions_fun_attributes_conflict =
-    (defaultTest "functions/fun_attributes_conflict") {
-        testTracePredicate = multiTracePredicate @() [] $ \case
-          MatchDiagnosticOption "-Wno-ignored-attributes" ->
-            Just Tolerated
-          _otherwise ->
-            Nothing
-      }
+    testTraceMulti "functions/fun_attributes_conflict" declsWithMsgs $ \case
+      MatchDiagnosticOption "-Wno-ignored-attributes" ->
+        Just Tolerated
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = []
 
 test_functions_simple_func_rename :: TestCase
 test_functions_simple_func_rename =
-    (testVariant "functions/simple_func" "1.rename"){
-        testOnBackendConfig = \cfg -> cfg{
-            backendBindingCategoryChoice = ByCategory {
-                cType = IncludeTypeCategory
-              , cSafe = ExcludeCategory
-              , cUnsafe = ExcludeCategory
-              , cFunPtr = IncludeTermCategory $ RenameTerm $ \t -> t <> "_random_user_specified_suffix"
-              , cGlobal = ExcludeCategory
-              }
-          }
-      }
+    testVariant "functions/simple_func" "1.rename"
+      & #onBackend .~ ( #categoryChoice .~ ByCategory {
+            cType = IncludeTypeCategory
+          , cSafe = ExcludeCategory
+          , cUnsafe = ExcludeCategory
+          , cFunPtr = IncludeTermCategory $ RenameTerm $ \t -> t <> "_random_user_specified_suffix"
+          , cGlobal = ExcludeCategory
+          })
 
 test_functions_varargs :: TestCase
 test_functions_varargs =
@@ -867,15 +835,13 @@ testCases_bespoke_globals = [
 
 test_globals_globals :: TestCase
 test_globals_globals =
-    (defaultTest "globals/globals") {
-        testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchDelayed name ParsePotentialDuplicateSymbol{} ->
-            Just $ Expected name
-          MatchDelayed name ParseUnexpectedAnonInExtern{} ->
-            Just $ Expected name
-          _otherwise ->
-            Nothing
-      }
+    testTraceMulti "globals/globals" declsWithMsgs $ \case
+      MatchDelayed name ParsePotentialDuplicateSymbol{} ->
+        Just $ Expected name
+      MatchDelayed name ParseUnexpectedAnonInExtern{} ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -952,10 +918,9 @@ test_macros_macro_redefines_global =
 
 test_macros_reparse :: TestCase
 test_macros_reparse =
-    (defaultTest "macros/reparse") {
-        testClangVersion   = Just (>= (15, 0, 0)) -- parse 'bool'
-      , testTracePredicate = tolerateAll
-      }
+    defaultTest "macros/reparse"
+      & #clangVersion   .~ Just (>= (15, 0, 0)) -- parse 'bool'
+      & #tracePredicate .~ tolerateAll
 
 {-------------------------------------------------------------------------------
   Bespoke tests: program analysis
@@ -979,24 +944,23 @@ testCases_bespoke_programAnalysis = [
 
 test_programAnalysis_delay_traces :: TestCase
 test_programAnalysis_delay_traces =
-    (defaultTest "program-analysis/delay_traces") {
-        testOnFrontendConfig = \cfg -> cfg{
-            frontendSelectPredicate =
-              BOr
-                (BIf (SelectDecl (DeclNameMatches "_function")))
-                -- NOTE: Matching for name kind is not good practice, but we
-                -- want to check if nested, but deselected declarations are
-                -- correctly assigned name kinds.
-                (BIf (SelectDecl (DeclNameMatches "struct")))
-          }
-      , testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchDelayed name (ParseUnsupportedType UnsupportedLongDouble) ->
-            Just $ Expected name
-          MatchDelayed name (ParseUnsupportedType UnsupportedVariadicFunction) ->
-            Just $ Expected name
-          _otherwise ->
-             Nothing
-      }
+    defaultTest "program-analysis/delay_traces"
+      & #onFrontend .~ ( #selectPredicate .~
+            -- NOTE: Matching for name kind is not good practice, but we want to
+            -- check if nested, but deselected declarations are correctly
+            -- assigned name kinds.
+            BOr
+              (BIf $ SelectDecl (DeclNameMatches "_function"))
+              (BIf $ SelectDecl (DeclNameMatches "struct"))
+          )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchDelayed name (ParseUnsupportedType UnsupportedLongDouble) ->
+              Just $ Expected name
+            MatchDelayed name (ParseUnsupportedType UnsupportedVariadicFunction) ->
+              Just $ Expected name
+            _otherwise ->
+               Nothing
+          )
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -1008,22 +972,22 @@ test_programAnalysis_delay_traces =
 
 test_programAnalysis_program_slicing_selection :: TestCase
 test_programAnalysis_program_slicing_selection =
-    (defaultTest "program-analysis/program_slicing_selection"){
-      testOnFrontendConfig = \cfg -> cfg{
-          frontendParsePredicate  = BTrue
-        , frontendSelectPredicate = BOr
-            (BIf . SelectDecl $ DeclNameMatches "FileOperationRecord")
-            (BIf . SelectDecl $ DeclNameMatches "read_file_chunk")
-        , frontendProgramSlicing  = EnableProgramSlicing
-        }
-    , testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-        MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
-          Just $ Expected (name, "root")
-        MatchSelect name (SelectStatusInfo (Selected TransitiveDependency)) ->
-          Just $ Expected (name, "dependency")
-        _otherwise ->
-          Nothing
-    }
+    defaultTest "program-analysis/program_slicing_selection"
+      & #onFrontend .~ (\cfg -> cfg
+          & #parsePredicate .~ BTrue
+          & #selectPredicate .~ BOr
+              (BIf . SelectDecl $ DeclNameMatches "FileOperationRecord")
+              (BIf . SelectDecl $ DeclNameMatches "read_file_chunk")
+          & #programSlicing .~ EnableProgramSlicing
+          )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
+              Just $ Expected (name, "root")
+            MatchSelect name (SelectStatusInfo (Selected TransitiveDependency)) ->
+              Just $ Expected (name, "dependency")
+            _otherwise ->
+              Nothing
+          )
   where
     declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
@@ -1032,27 +996,26 @@ test_programAnalysis_program_slicing_selection =
         , ("enum FileOperationStatus"   , "dependency")
         ]
 
+-- Check that program slicing generates bindings for uint32_t and uint64_t if we
+-- only provide external binding specifications for uint64_t.
 test_programAnalysis_program_slicing_simple :: TestCase
 test_programAnalysis_program_slicing_simple =
-    (defaultTest "program-analysis/program_slicing_simple") {
-        -- Check that program slicing generates bindings for uint32_t and
-        -- uint64_t if we only provide external binding specifications for
-        -- uint64_t.
-        testOnFrontendConfig = \cfg -> cfg{
-            frontendParsePredicate  = BTrue
-          , frontendSelectPredicate = BIf (SelectHeader FromMainHeaders)
-          , frontendProgramSlicing  = EnableProgramSlicing
-          }
-      , testStdlibSpec = BindingSpec.DisableStdlibBindingSpec
-      , testExtBindingSpecs = [ "examples/golden/program-analysis/program_slicing_simple.yaml" ]
-      , testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
-            Just $ Expected (name, "root")
-          MatchSelect name (SelectStatusInfo (Selected TransitiveDependency)) ->
-            Just $ Expected (name, "dependency")
-          _otherwise ->
-            Nothing
-      }
+    defaultTest "program-analysis/program_slicing_simple"
+      & #onFrontend .~ (\cfg -> cfg
+          & #parsePredicate  .~ BTrue
+          & #selectPredicate .~ BIf (SelectHeader FromMainHeaders)
+          & #programSlicing  .~ EnableProgramSlicing
+          )
+      & #specStdlib .~ BindingSpec.DisableStdlibBindingSpec
+      & #specExternal .~ [ "examples/golden/program-analysis/program_slicing_simple.yaml" ]
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
+              Just $ Expected (name, "root")
+            MatchSelect name (SelectStatusInfo (Selected TransitiveDependency)) ->
+              Just $ Expected (name, "dependency")
+            _otherwise ->
+              Nothing
+          )
   where
     declsWithMsgs :: [(C.DeclName, String)]
     declsWithMsgs = [
@@ -1063,13 +1026,11 @@ test_programAnalysis_program_slicing_simple =
 
 test_programAnalysis_selection_bad :: TestCase
 test_programAnalysis_selection_bad =
-    (defaultTest "program-analysis/selection_bad"){
-        testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchSelect name MatchTransMissing{} ->
-            Just $ Expected name
-          _otherwise ->
-            Nothing
-      }
+    testTraceMulti "program-analysis/selection_bad" declsWithMsgs $ \case
+      MatchSelect name MatchTransMissing{} ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
   where
     -- @f@ depends on user-defined @size_t@, which is not selected
     declsWithMsgs :: [C.DeclName]
@@ -1098,20 +1059,19 @@ test_programAnalysis_selection_fail =
 
 test_programAnalysis_selection_fail_variant_1 :: TestCase
 test_programAnalysis_selection_fail_variant_1 =
-    (testVariant "program-analysis/selection_fail" "1.deselect_failed") {
-        testOnFrontendConfig = \cfg -> cfg{
-            frontendSelectPredicate = BAnd
-              (       BIf $ SelectHeader   FromMainHeaders)
-              (BNot $ BIf $ SelectDecl   $ DeclNameMatches "struct Fail")
-          }
-      , testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchSelect name (MatchTransMissing Nothing) ->
-            Just $ Expected name
-          MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
-            Just $ Expected name
-          _otherwise ->
-            Nothing
-      }
+    testVariant "program-analysis/selection_fail" "1.deselect_failed"
+      & #onFrontend .~ ( #selectPredicate .~  BAnd
+            (       BIf $ SelectHeader   FromMainHeaders)
+            (BNot $ BIf $ SelectDecl   $ DeclNameMatches "struct Fail")
+          )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name (MatchTransMissing Nothing) ->
+              Just $ Expected name
+            MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -1123,21 +1083,21 @@ test_programAnalysis_selection_fail_variant_1 =
 
 test_programAnalysis_selection_fail_variant_2 :: TestCase
 test_programAnalysis_selection_fail_variant_2 =
-    (testVariant "program-analysis/selection_fail" "2.program_slicing"){
-        testOnFrontendConfig = \cfg -> cfg{
-            frontendSelectPredicate = BAnd
+    testVariant "program-analysis/selection_fail" "2.program_slicing"
+      & #onFrontend .~ (\cfg -> cfg
+          & #selectPredicate .~ BAnd
               (       BIf $ SelectHeader   FromMainHeaders)
               (BNot $ BIf $ SelectDecl   $ DeclNameMatches "struct Fail")
-          , frontendProgramSlicing = EnableProgramSlicing
-          }
-      , testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchSelect name (MatchTransMissing (Just _unusable)) ->
-            Just $ Expected name
-          MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
-            Just $ Expected name
-          _otherwise ->
-            Nothing
-      }
+          & #programSlicing .~ EnableProgramSlicing
+          )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+           MatchSelect name (MatchTransMissing (Just _unusable)) ->
+             Just $ Expected name
+           MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
+             Just $ Expected name
+           _otherwise ->
+             Nothing
+         )
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -1149,49 +1109,45 @@ test_programAnalysis_selection_fail_variant_2 =
 
 test_programAnalysis_selection_fail_variant_3 :: TestCase
 test_programAnalysis_selection_fail_variant_3 =
-    (testVariant "program-analysis/selection_fail" "3.select_ok"){
-        testOnFrontendConfig = \cfg -> cfg{
-            frontendSelectPredicate = BAnd
+    testVariant "program-analysis/selection_fail" "3.select_ok"
+      & #onFrontend .~ (\cfg -> cfg
+          & #selectPredicate .~ BAnd
               (       BIf $ SelectDecl $ DeclNameMatches "struct OkBefore")
               (BNot $ BIf $ SelectDecl $ DeclNameMatches "struct Fail")
-          , frontendProgramSlicing = EnableProgramSlicing
-          }
-      , testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
-            Just $ Expected name
-          _otherwise ->
-            Nothing
-      }
+          & #programSlicing .~ EnableProgramSlicing
+          )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct OkBefore"]
 
 test_programAnalysis_selection_foo :: TestCase
 test_programAnalysis_selection_foo =
-    (defaultTest "program-analysis/selection_foo"){
-        testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchSelect name SelectParseFailure{} ->
-            Just $ Expected name
-          _otherwise ->
-            Nothing
-      }
+    testTraceMulti "program-analysis/selection_foo" declsWithMsgs $ \case
+      MatchSelect name SelectParseFailure{} ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["f"]
 
 test_programAnalysis_selection_omit_external_a :: TestCase
 test_programAnalysis_selection_omit_external_a =
-    (defaultTest "program-analysis/selection_omit_external_a"){
-        testExtBindingSpecs = ["examples/golden/program-analysis/selection_omit_external.yaml"]
-      , testOnFrontendConfig = \cfg -> cfg{
-            frontendProgramSlicing  = EnableProgramSlicing
-          }
-      , testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchResolveBindingSpecs (ResolveBindingSpecsOmittedType declId) ->
-            Just $ Expected declId.name
-          _otherwise ->
-            Nothing
-      }
+    defaultTest "program-analysis/selection_omit_external_a"
+      & #specExternal .~ ["examples/golden/program-analysis/selection_omit_external.yaml"]
+      & #onFrontend .~ ( #programSlicing .~ EnableProgramSlicing )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchResolveBindingSpecs (ResolveBindingSpecsOmittedType declId) ->
+              Just $ Expected declId.name
+            _otherwise ->
+              Nothing
+          )
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["struct Omitted"]
@@ -1201,25 +1157,22 @@ test_programAnalysis_selection_omit_external_a =
 -- /external/ binding specification.
 test_programAnalysis_selection_omit_external_b :: TestCase
 test_programAnalysis_selection_omit_external_b =
-    (defaultTest "program-analysis/selection_omit_external_b"){
-        testExtBindingSpecs = ["examples/golden/program-analysis/selection_omit_external.yaml"]
-      , testOnFrontendConfig = \cfg -> cfg{
-            frontendProgramSlicing  = EnableProgramSlicing
-          }
-      }
+    defaultTest "program-analysis/selection_omit_external_b"
+      & #specExternal .~ ["examples/golden/program-analysis/selection_omit_external.yaml"]
+      & #onFrontend   .~ ( #programSlicing .~  EnableProgramSlicing )
 
 test_programAnalysis_selection_omit_prescriptive :: TestCase
 test_programAnalysis_selection_omit_prescriptive =
-    (defaultTest "program-analysis/selection_omit_prescriptive"){
-        testPrescriptiveBindingSpec = Just "examples/golden/program-analysis/selection_omit_prescriptive.yaml"
-      , testTracePredicate = multiTracePredicate declsWithMsgs $ \case
-          MatchSelect name (MatchTransMissing (Just _unusable)) ->
-            Just $ Expected name
-          MatchBindingSpec (BindingSpecReadMsg BindingSpecReadAnyTargetNotEnforced{}) ->
-            Just $ Tolerated
-          _otherwise ->
-            Nothing
-      }
+    defaultTest "program-analysis/selection_omit_prescriptive"
+      & #specPrescriptive .~ Just "examples/golden/program-analysis/selection_omit_prescriptive.yaml"
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name (MatchTransMissing (Just _unusable)) ->
+              Just $ Expected name
+            MatchBindingSpec (BindingSpecReadMsg BindingSpecReadAnyTargetNotEnforced{}) ->
+              Just $ Tolerated
+            _otherwise ->
+              Nothing
+          )
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
@@ -1270,9 +1223,8 @@ test_types_long_double =
 
 test_types_primitives_bool_c23 :: TestCase
 test_types_primitives_bool_c23 =
-    (defaultTest "types/primitives/bool_c23") {
-        testClangVersion = Just (>= (15, 0, 0))
-      }
+    defaultTest "types/primitives/bool_c23"
+      & #clangVersion .~ Just (>= (15, 0, 0))
 
 test_types_special_parse_failure_long_double :: TestCase
 test_types_special_parse_failure_long_double =
@@ -1287,9 +1239,8 @@ test_types_special_parse_failure_long_double =
 
 test_types_structs_named_vs_anon :: TestCase
 test_types_structs_named_vs_anon =
-    (defaultTest "types/structs/named_vs_anon"){
-        testClangVersion = Just (>= (19, 1, 0))
-      }
+    defaultTest "types/structs/named_vs_anon"
+      & #clangVersion .~ Just (>= (19, 1, 0))
 
 test_types_structs_unnamed_struct :: TestCase
 test_types_structs_unnamed_struct =

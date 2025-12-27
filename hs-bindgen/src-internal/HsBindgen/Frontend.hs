@@ -1,5 +1,5 @@
-module HsBindgen.Frontend
-  ( frontend
+module HsBindgen.Frontend (
+    frontend
   , FrontendArtefact (..)
   , FrontendMsg(..)
   ) where
@@ -141,7 +141,7 @@ frontend ::
   -> FrontendConfig
   -> BootArtefact
   -> IO FrontendArtefact
-frontend tracer FrontendConfig{..} BootArtefact{..} = do
+frontend tracer config BootArtefact{..} = do
     parsePass <- cache "parse" $ fmap (fromMaybe emptyParseResult) $ do
       setup <- getSetup
       rootHeader <- getRootHeader
@@ -151,7 +151,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
         parseResults <- parseDecls
           (contramap FrontendParse tracer)
           rootHeader
-          frontendParsePredicate
+          config.parsePredicate
           isMainHeader
           isInMainHeaderDir
           getMainHeadersAndInclude
@@ -226,7 +226,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     getIncludeGraphP <- cache "getIncludeGraphP" $ do
       (_, _, isMainHeader, isInMainHeaderDir, _) <- parsePass
       pure $ \path ->
-        matchParse isMainHeader isInMainHeaderDir path frontendParsePredicate
+        matchParse isMainHeader isInMainHeaderDir path config.parsePredicate
         && path /= RootHeader.name
 
     -- Graphs.
@@ -284,11 +284,11 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     hFilePath = getSourcePath RootHeader.name
 
     selectConfig :: SelectConfig
-    selectConfig =
-      SelectConfig
-        frontendProgramSlicing
-        frontendParsePredicate
-        frontendSelectPredicate
+    selectConfig = SelectConfig{
+          programSlicing  = config.programSlicing
+        , parsePredicate  = config.parsePredicate
+        , selectPredicate = config.selectPredicate
+        }
 
     emptyParseResult :: (
         [ParseResult Parse]

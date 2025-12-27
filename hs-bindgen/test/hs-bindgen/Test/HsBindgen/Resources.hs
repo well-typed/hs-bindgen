@@ -88,7 +88,7 @@ getTestDefaultClangArgsConfig testResources extraIncludeDirs' =
                -- test-specific include directories must come before the default
                -- include directories.
                map ((</>) testPackageRoot) extraIncludeDirs'
-            <> extraIncludeDirs testClangArgsConfig
+            <> testClangArgsConfig.extraIncludeDirs
         }
 
 {-------------------------------------------------------------------------------
@@ -97,10 +97,10 @@ getTestDefaultClangArgsConfig testResources extraIncludeDirs' =
 
 getTestDefaultBackendConfig :: TestName -> PathStyle -> BackendConfig
 getTestDefaultBackendConfig testName pathStyle = def{
-      backendTranslationConfig = def {
-        -- Honor 'maxUniqueIdLength'.
-        translationUniqueId = UniqueId $ take 35 $ "test." <> testName
-      }
-    , backendHaddockConfig = HaddockConfig pathStyle
+      translation = def {
+          -- Honor 'maxUniqueIdLength'.
+          translationUniqueId = UniqueId $ take 35 $ "test." <> testName
+        }
+    , haddock = HaddockConfig pathStyle
     }
 

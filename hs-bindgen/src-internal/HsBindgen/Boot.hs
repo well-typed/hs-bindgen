@@ -41,13 +41,10 @@ boot ::
   -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> IO BootArtefact
-boot
-  tracer
-  bindgenConfig@BindgenConfig{..}
-  uncheckedHashIncludeArgs = do
-    traceStatus $ BootStatusStart bindgenConfig
+boot tracer config uncheckedHashIncludeArgs = do
+    traceStatus $ BootStatusStart config
 
-    checkBackendConfig (contramap BootBackendConfig tracer) bindgenBackendConfig
+    checkBackendConfig (contramap BootBackendConfig tracer) config.backend
 
     getHashIncludeArgs <- cache "hashIncludeArgs" $ Cached $ do
       let tracer' = contramap BootHashIncludeArg tracer
@@ -55,7 +52,7 @@ boot
         mapM (hashIncludeArgWithTrace tracer') uncheckedHashIncludeArgs
 
     getClangArgsAndTarget' <- cache "clangArgsAndTarget" $ Cached $
-      getClangArgsAndTarget tracer clangArgsConfig
+      getClangArgsAndTarget tracer config.boot.clangArgs
 
     getClangArgs <- cache "clangArgs" $ withTrace BootStatusClangArgs $
       fst <$> getClangArgsAndTarget'
@@ -70,8 +67,8 @@ boot
         (contramap BootBindingSpec tracer)
         clangArgs
         target
-        (fromBaseModuleName baseModuleName (Just CType))
-        (bootBindingSpecConfig bindgenBootConfig)
+        (fromBaseModuleName config.boot.baseModule (Just CType))
+        config.boot.bindingSpec
 
     getExternalBindingSpecs <- cache "getExternalBindingSpecs" $
       withTrace BootStatusExternalBindingSpecs $
@@ -82,8 +79,8 @@ boot
         fmap snd $ getBindingSpecs
 
     pure BootArtefact {
-          bootBaseModule              = baseModuleName
-        , bootCStandard               = clangArgsConfig.cStandard
+          bootBaseModule              = config.boot.baseModule
+        , bootCStandard               = config.boot.clangArgs.cStandard
         , bootClangArgs               = getClangArgs
         , bootTarget                  = getTarget
         , bootHashIncludeArgs         = getHashIncludeArgs
@@ -91,12 +88,6 @@ boot
         , bootPrescriptiveBindingSpec = getPrescriptiveBindingSpec
         }
   where
-    clangArgsConfig :: ClangArgsConfig FilePath
-    clangArgsConfig = bindgenBootConfig.bootClangArgsConfig
-
-    baseModuleName :: BaseModuleName
-    baseModuleName = bindgenBootConfig.bootBaseModuleName
-
     tracerBootStatus :: Tracer BootStatusMsg
     tracerBootStatus = contramap BootStatus tracer
 
@@ -121,15 +112,14 @@ getClangArgsAndTarget tracer config0 = do
     compareClangVersions (contramap BootCompareClangVersions tracer)
     -- Apply extra Clang arguments and builtin include directory to the config
     extraClangArgs <- getExtraClangArgs tracerExtraClangArgs
-    mBuiltinIncDir <- getBuiltinIncDir tracerBuiltinIncDir $
-      ClangArgs.builtinIncDir config0
+    mBuiltinIncDir <- getBuiltinIncDir tracerBuiltinIncDir config0.builtinIncDir
     let config =
             applyExtraClangArgs extraClangArgs
           . applyBuiltinIncDir  mBuiltinIncDir
           $ config0
     -- Determine Clang arguments for the config
     clangArgs <- either throwIO return $ ClangArgs.getClangArgs config
-    case ClangArgs.target config of
+    case config.target of
       -- If a target is specified, return Clang arguments and target
       Just target -> return (clangArgs, target)
       -- If a target is not specified:

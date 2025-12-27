@@ -79,7 +79,7 @@ hsBindgenE ::
 hsBindgenE
   tracerConfigUnsafe
   tracerConfigSafe
-  bindgenConfig@BindgenConfig{..}
+  config
   uncheckedHashIncludeArgs
   artefacts = do
     eRes <- withTracer tracerConfigUnsafe $ \tracerUnsafe -> do
@@ -87,18 +87,18 @@ hsBindgenE
       let tracerBoot :: Tracer BootMsg
           tracerBoot = contramap TraceBoot tracerUnsafe
       bootArtefact <-
-        boot tracerBoot bindgenConfig uncheckedHashIncludeArgs
+        boot tracerBoot config uncheckedHashIncludeArgs
       -- 2. Frontend.
       let tracerFrontend :: Tracer FrontendMsg
           tracerFrontend = contramap TraceFrontend tracerUnsafe
       frontendArtefact <-
-        frontend tracerFrontend bindgenFrontendConfig bootArtefact
+        frontend tracerFrontend config.frontend bootArtefact
       -- 3. Backend.
       let tracerConfigBackend :: TracerConfig SafeLevel BackendMsg
           tracerConfigBackend = contramap SafeBackendMsg tracerConfigSafe
       backendArtefact <-
         withTracerSafe tracerConfigBackend  $ \tracerSafe ->
-          backend tracerSafe bindgenBackendConfig bootArtefact frontendArtefact
+          backend tracerSafe config.backend bootArtefact frontendArtefact
       -- 4. Artefacts.
       let tracerConfigArtefact :: TracerConfig SafeLevel ArtefactMsg
           tracerConfigArtefact = contramap SafeArtefactMsg tracerConfigSafe

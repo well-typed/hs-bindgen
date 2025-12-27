@@ -29,19 +29,17 @@ backend ::
   -> BootArtefact
   -> FrontendArtefact
   -> IO BackendArtefact
-backend tracer BackendConfig{..} BootArtefact{..} FrontendArtefact{..} = do
+backend tracer config BootArtefact{..} FrontendArtefact{..} = do
     -- 1. Reified C declarations to @Hs@ declarations.
     backendHsDeclsAll <- cache $
-      Hs.generateDeclarations
-        backendTranslationConfig
-        backendHaddockConfig
-        moduleBaseName <$> frontendIndex
-                       <*> frontendCDecls
+      Hs.generateDeclarations config.translation config.haddock moduleBaseName
+        <$> frontendIndex
+        <*> frontendCDecls
 
     -- 2. Apply binding category choice.
     backendHsDecls <- cache $ do
       decls <- backendHsDeclsAll
-      pure $ applyBindingCategoryChoice backendBindingCategoryChoice decls
+      pure $ applyBindingCategoryChoice config.categoryChoice decls
 
     -- 3. @Hs@ declarations to simple @Hs@ declarations.
     sHsDecls <- cache $ SHs.translateDecls <$> backendHsDecls

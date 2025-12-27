@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | Predicates on trace messages
 --
 -- Intended for unqualified import.
@@ -115,7 +118,10 @@ customTracePredicateAux names mpredicate = TracePredicate $ \traces -> do
                         , length actual /= expected
                         ]
           expectedTracesWithWrongCounts = wrongCounts ++ additionalWrongCounts
-       in throwError $ TraceExpectationException {..}
+       in throwError $ TraceExpectationException {
+              unexpectedTraces
+            , expectedTracesWithWrongCounts
+            }
   where
     defaultTracePredicateSimple :: a -> TraceExpectation b
     defaultTracePredicateSimple = \case
@@ -191,18 +197,18 @@ data TraceExpectationException a = TraceExpectationException {
     }
 
 instance (IsTrace l a, Show a) => Show (TraceExpectationException a) where
-  show (TraceExpectationException {..}) = PP.renderCtxDoc PP.defaultContext $
+  show e = PP.renderCtxDoc PP.defaultContext $
       PP.vcat $
-           ( if null unexpectedTraces
+           ( if null e.unexpectedTraces
                then []
                else "Unexpected traces:"
-                  : map reportTrace unexpectedTraces
+                  : map reportTrace e.unexpectedTraces
                   ++ ["\n"]
            )
-        ++ ( if null expectedTracesWithWrongCounts
+        ++ ( if null e.expectedTracesWithWrongCounts
                then []
                else "Expected traces with wrong counts:"
-                  : expectedTracesWithWrongCounts
+                  : e.expectedTracesWithWrongCounts
                   ++ ["\n"]
            )
 

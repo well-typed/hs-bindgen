@@ -51,4 +51,4 @@ check testResources test =
       return $ ActualValue output
   where
     fixture :: FilePath
-    fixture = testOutputDir test </> "bindingspec" <.> "yaml"
+    fixture = test.outputDir </> "bindingspec" <.> "yaml"
