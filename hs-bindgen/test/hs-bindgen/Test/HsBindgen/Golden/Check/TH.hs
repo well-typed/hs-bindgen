@@ -78,7 +78,7 @@ check testResources test =
         return $ ActualSkipped "ghc < 9.4"
   where
     fixture :: FilePath
-    fixture = testOutputDir test </> "th" <.> "txt"
+    fixture = test.outputDir </> "th" <.> "txt"
 
     -- Clang version 19 uses <> for some reason.
     --

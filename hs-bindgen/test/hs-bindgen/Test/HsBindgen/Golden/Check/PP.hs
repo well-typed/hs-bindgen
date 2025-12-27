@@ -72,13 +72,13 @@ check testResources test =
     withExampleDir :: TestTree -> TestTree
     withExampleDir k =
         withResource
-          (createDirectoryIfMissing False (testOutputDir test </> "Example"))
+          (createDirectoryIfMissing False (test.outputDir </> "Example"))
           (\_ -> pure ())
           (\_ -> k)
 
     -- | The names of sub-modules are based solely on the binding category
     fixture :: Category -> FilePath
-    fixture bc = testOutputDir test </> Hs.moduleNamePath moduleName
+    fixture bc = test.outputDir </> Hs.moduleNamePath moduleName
       where
         moduleName :: Hs.ModuleName
         moduleName = fromBaseModuleName "Example" (Just bc)

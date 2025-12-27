@@ -21,7 +21,7 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 check :: IO TestResources -> TestCase -> TestTree
-check testResources test = testCase (testName test) $
+check testResources test = testCase test.name $
     -- We ignore any declarations that might have been successful
     void $ runTestHsBindgenFailure noReport testResources test FinalDecls
   where

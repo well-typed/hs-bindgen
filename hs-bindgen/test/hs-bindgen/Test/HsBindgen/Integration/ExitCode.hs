@@ -1,6 +1,5 @@
 module Test.HsBindgen.Integration.ExitCode (tests) where
 
-import Control.Monad (void)
 import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
@@ -13,6 +12,7 @@ import HsBindgen.Artefact (Artefact (..))
 import Test.Common.HsBindgen.Trace.Predicate
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Tests
@@ -42,11 +42,11 @@ testUnresolvedInclude testResources = testCase "unresolved include throws except
     let tempHeader = tmpDir </> "test-unresolved.h"
     writeFile tempHeader "#include <nonexistent/totally-bogus-header-12345.h>\n"
 
-    let test = (defaultFailingTest "test-unresolved") {
-            testInputDir = tmpDir
-            -- Tolerate all traces - we want to test exception propagation
-          , testTracePredicate = tolerateAll
-          }
+    let test =
+          -- Tolerate all traces - we want to test exception propagation
+          defaultFailingTest "test-unresolved"
+            & #inputDir       .~ tmpDir
+            & #tracePredicate .~ tolerateAll
         noReport = const $ pure ()
 
     void $ runTestHsBindgenFailure noReport testResources test FinalDecls
