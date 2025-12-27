@@ -95,25 +95,29 @@ translateDefineInstanceDecl defInst =
         DInst $ translateCEnumInstanceShow struct defInst.comment
       Hs.InstanceCEnumRead struct ->
         DInst $ translateCEnumInstanceRead struct defInst.comment
-      Hs.InstanceToFunPtr Hs.ToFunPtrInstance{..} ->
+      Hs.InstanceToFunPtr inst ->
         DInst Instance{
-            instanceClass   = ToFunPtr_class
-          , instanceArgs    = [ translateType toFunPtrInstanceType ]
+            instanceClass        = ToFunPtr_class
+          , instanceArgs         = [translateType inst.typ]
           , instanceSuperClasses = []
-          , instanceTypes   = []
-          , instanceDecs    = [( ToFunPtr_toFunPtr
-                               , EFree $ Hs.InternalName toFunPtrInstanceBody )]
-          , instanceComment = defInst.comment
+          , instanceTypes        = []
+          , instanceDecs         = [ ( ToFunPtr_toFunPtr
+                                     , EFree $ Hs.InternalName inst.body
+                                     )
+                                   ]
+          , instanceComment      = defInst.comment
           }
-      Hs.InstanceFromFunPtr Hs.FromFunPtrInstance{..} ->
+      Hs.InstanceFromFunPtr inst ->
         DInst Instance{
-            instanceClass   = FromFunPtr_class
-          , instanceArgs    = [ translateType fromFunPtrInstanceType ]
+            instanceClass        = FromFunPtr_class
+          , instanceArgs         = [translateType inst.typ]
           , instanceSuperClasses = []
-          , instanceTypes   = []
-          , instanceDecs    = [( FromFunPtr_fromFunPtr
-                               , EFree $ Hs.InternalName fromFunPtrInstanceBody )]
-          , instanceComment = defInst.comment
+          , instanceTypes        = []
+          , instanceDecs         = [ ( FromFunPtr_fromFunPtr
+                                     , EFree $ Hs.InternalName inst.body
+                                     )
+                                   ]
+          , instanceComment      = defInst.comment
           }
 
 translateDeclData :: Hs.Struct n -> SDecl

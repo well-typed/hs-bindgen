@@ -346,28 +346,20 @@ data PatSyn = PatSyn{
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
-  'ToFunPtr'
+  'ToFunPtr' and 'FromFunPtr'
 -------------------------------------------------------------------------------}
 
 -- | 'ToFunPtr' instance
---
-type ToFunPtrInstance :: Star
-data ToFunPtrInstance = ToFunPtrInstance
-    { toFunPtrInstanceType :: HsType
-    , toFunPtrInstanceBody :: UniqueSymbol
+data ToFunPtrInstance = ToFunPtrInstance{
+      typ  :: HsType
+    , body :: UniqueSymbol
     }
   deriving stock (Generic, Show)
 
-{-------------------------------------------------------------------------------
-  'FromFunPtr'
--------------------------------------------------------------------------------}
-
 -- | 'FromFunPtr' instance
---
-type FromFunPtrInstance :: Star
-data FromFunPtrInstance = FromFunPtrInstance
-    { fromFunPtrInstanceType :: HsType
-    , fromFunPtrInstanceBody :: UniqueSymbol
+data FromFunPtrInstance = FromFunPtrInstance{
+      typ  :: HsType
+    , body :: UniqueSymbol
     }
   deriving stock (Generic, Show)
 

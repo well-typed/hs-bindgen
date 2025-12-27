@@ -117,21 +117,19 @@ instancesFor nameTo nameFrom funC funHs = [
       -- @ToFunPtr@ instance proper
     , Hs.DeclDefineInstance Hs.DefineInstance{
           comment      = Nothing
-        , instanceDecl = Hs.InstanceToFunPtr
-            Hs.ToFunPtrInstance{
-                toFunPtrInstanceType = funHs
-              , toFunPtrInstanceBody = nameTo
-              }
+        , instanceDecl = Hs.InstanceToFunPtr Hs.ToFunPtrInstance{
+              typ  = funHs
+            , body = nameTo
+            }
         }
 
       -- @FromFunPtr@ instance proper
     , Hs.DeclDefineInstance Hs.DefineInstance{
           comment      = Nothing
-        , instanceDecl = Hs.InstanceFromFunPtr
-            Hs.FromFunPtrInstance{
-                fromFunPtrInstanceType = funHs
-              , fromFunPtrInstanceBody = nameFrom
-              }
+        , instanceDecl = Hs.InstanceFromFunPtr Hs.FromFunPtrInstance{
+              typ  = funHs
+            , body = nameFrom
+            }
         }
     ]
 
