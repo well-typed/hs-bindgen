@@ -1,7 +1,8 @@
-{-# LANGUAGE UndecidableSuperClasses #-}
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoRecordWildCards #-}
 
-module HsBindgen
-  ( hsBindgen
+module HsBindgen (
+    hsBindgen
 
     -- * Artefacts
   , Artefact(..)
@@ -212,12 +213,11 @@ writeBindingSpec fileOverwritePolicy path = do
             omitTypes
             squashedTypes
             (view (lensForCategory CType) hsDecls)
-        fileDescription =
-          FileDescription {
-              description = "Binding specifications"
-            , location    = UserSpecified path
-            , fileOverwritePolicy
-            , content     = ByteStringContent bs
+        fileDescription = FileDescription {
+              description     = "Binding specifications"
+            , location        = UserSpecified path
+            , overwritePolicy = fileOverwritePolicy
+            , content         = ByteStringContent bs
             }
     Lift $ delay $ WriteToFile fileDescription
 

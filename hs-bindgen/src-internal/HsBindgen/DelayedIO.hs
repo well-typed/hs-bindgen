@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 module HsBindgen.DelayedIO (
     -- * Policies
     FileOverwritePolicy(..)
@@ -67,15 +71,15 @@ checkPolicy = \case
       fileExists <- liftIO $ Dir.doesFileExist path
       unless dirExists $
         throwError $ DirectoryDoesNotExist baseDir
-      when (fileExists && fd.fileOverwritePolicy == DoNotOverwriteFiles) $
+      when (fileExists && fd.overwritePolicy == DoNotOverwriteFiles) $
         throwError $ FileAlreadyExists path
-    RelativeFileLocation RelativeToOutputDir{..} -> do
-      let path = outputDir </> localPath
-      dirExists  <- liftIO $ Dir.doesDirectoryExist outputDir
+    RelativeFileLocation relative -> do
+      let path = relative.outputDir </> relative.localPath
+      dirExists  <- liftIO $ Dir.doesDirectoryExist relative.outputDir
       fileExists <- liftIO $ Dir.doesFileExist path
-      unless (dirExists || outputDirPolicy == CreateOutputDirs ) $
-        throwError $ DirectoryDoesNotExist outputDir
-      when (fileExists && fd.fileOverwritePolicy == DoNotOverwriteFiles) $
+      unless (dirExists || relative.outputDirPolicy == CreateOutputDirs ) $
+        throwError $ DirectoryDoesNotExist relative.outputDir
+      when (fileExists && fd.overwritePolicy == DoNotOverwriteFiles) $
         throwError $ FileAlreadyExists path
 
 {-------------------------------------------------------------------------------
@@ -83,10 +87,10 @@ checkPolicy = \case
 -------------------------------------------------------------------------------}
 
 data FileDescription = FileDescription {
-      description         :: String
-    , location            :: FileLocation
-    , fileOverwritePolicy :: FileOverwritePolicy
-    , content             :: FileContent
+      description     :: String
+    , location        :: FileLocation
+    , overwritePolicy :: FileOverwritePolicy
+    , content         :: FileContent
     }
 
 data FileLocation =
@@ -104,23 +108,21 @@ data RelativeToOutputDir = RelativeToOutputDir {
 
 fileLocationToPath :: FileLocation -> FilePath
 fileLocationToPath = \case
-  UserSpecified p -> p
-  RelativeFileLocation (RelativeToOutputDir d p _) -> d </> p
+    UserSpecified p -> p
+    RelativeFileLocation (RelativeToOutputDir d p _) -> d </> p
 
 -- | Content to be written to a file
 --
-data FileContent
-    = StringContent     String
-    | ByteStringContent ByteString
-    deriving Show
+data FileContent =
+    StringContent     String
+  | ByteStringContent ByteString
+  deriving Show
 
 {-------------------------------------------------------------------------------
   DelayedIOM monad
 -------------------------------------------------------------------------------}
 
-newtype DelayedIOM a = WrapDelayedIOM {
-    unwrapDelayedIOM :: StateT [DelayedIO] IO a
-  }
+newtype DelayedIOM a = WrapDelayedIOM (StateT [DelayedIO] IO a)
   deriving newtype (
       Functor
     , Applicative
@@ -128,7 +130,7 @@ newtype DelayedIOM a = WrapDelayedIOM {
     )
 
 runDelayedIOM :: DelayedIOM a -> IO (a, [DelayedIO])
-runDelayedIOM = flip runStateT [] . unwrapDelayedIOM
+runDelayedIOM (WrapDelayedIOM ma) = runStateT ma []
 
 -- | Private (i.e., /not public/) API :-).
 unsafeIO :: IO a -> DelayedIOM a
