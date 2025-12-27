@@ -412,42 +412,56 @@ data PokeCField ctx =
 -- * Prim: @indexByteArray# arr# (numFields# *# i# +# fieldPos#)@
 --
 -- <https://hackage.haskell.org/package/primitive/docs/Data-Primitive-Types.html#t:Prim>
---
-type PrimInstance :: Star
-data PrimInstance = PrimInstance
-    { primSizeOf           :: Int  -- ^ Total size in bytes
-    , primAlignment        :: Int  -- ^ Alignment requirement
-    -- | indexByteArray# :: ByteArray# -> Int# -> a
-    -- Takes array and element index, returns struct by indexing each field
-    -- Body: StructCon with direct field calls (no applicative)
-    , primIndexByteArray   :: Lambda (Lambda (Apply StructCon IndexByteArrayField)) EmptyCtx
-    -- | readByteArray# :: MutableByteArray# s -> Int# -> State# s -> (# State# s, a #)
-    -- Takes array, element index, and state; returns new state and struct
-    , primReadByteArray    :: Lambda (Lambda (Lambda ReadByteArrayFields)) EmptyCtx
-    -- | writeByteArray# :: MutableByteArray# s -> Int# -> a -> State# s -> State# s
-    -- Takes array, element index, struct value, and state; returns new state
-    , primWriteByteArray   :: Lambda (Lambda (Lambda (Lambda (ElimStruct WriteByteArrayFields)))) EmptyCtx
-    -- | indexOffAddr# :: Addr# -> Int# -> a
-    -- Takes address and element index, returns struct by indexing each field
-    -- Body: StructCon with direct field calls (no applicative)
-    , primIndexOffAddr     :: Lambda (Lambda (Apply StructCon IndexOffAddrField)) EmptyCtx
-    -- | readOffAddr# :: Addr# -> Int# -> State# s -> (# State# s, a #)
-    -- Takes address, element index, and state; returns new state and struct
-    , primReadOffAddr      :: Lambda (Lambda (Lambda ReadOffAddrFields)) EmptyCtx
-    -- | writeOffAddr# :: Addr# -> Int# -> a -> State# s -> State# s
-    -- Takes address, element index, struct value, and state; returns new state
-    , primWriteOffAddr     :: Lambda (Lambda (Lambda (Lambda (ElimStruct WriteOffAddrFields)))) EmptyCtx
+data PrimInstance = PrimInstance{
+      -- | Total size in bytes
+      sizeOf :: Int
+
+      -- | Alignment requirement
+    , alignment :: Int
+
+      -- | @indexByteArray# :: ByteArray# -> Int# -> a@
+      --
+      -- Takes array and element index, returns struct by indexing each field
+      -- Body: StructCon with direct field calls (no applicative)
+    , indexByteArray :: Lambda (Lambda (Apply StructCon IndexByteArrayField)) EmptyCtx
+
+      -- | @readByteArray# :: MutableByteArray# s -> Int# -> State# s -> (# State# s, a #)@
+      --
+      -- Takes array, element index, and state; returns new state and struct
+    , readByteArray :: Lambda (Lambda (Lambda ReadByteArrayFields)) EmptyCtx
+
+      -- | @writeByteArray# :: MutableByteArray# s -> Int# -> a -> State# s -> State# s@
+      --
+      -- Takes array, element index, struct value, and state; returns new state
+    , writeByteArray :: Lambda (Lambda (Lambda (Lambda (ElimStruct WriteByteArrayFields)))) EmptyCtx
+
+      -- | @indexOffAddr# :: Addr# -> Int# -> a@
+      --
+      -- Takes address and element index, returns struct by indexing each field
+      -- Body: StructCon with direct field calls (no applicative)
+    , indexOffAddr :: Lambda (Lambda (Apply StructCon IndexOffAddrField)) EmptyCtx
+
+      -- | readOffAddr# :: Addr# -> Int# -> State# s -> (# State# s, a #)
+      --
+      -- Takes address, element index, and state; returns new state and struct
+
+    , readOffAddr :: Lambda (Lambda (Lambda ReadOffAddrFields)) EmptyCtx
+
+      -- | writeOffAddr# :: Addr# -> Int# -> a -> State# s -> State# s
+      --
+      -- Takes address, element index, struct value, and state; returns new state
+    , writeOffAddr :: Lambda (Lambda (Lambda (Lambda (ElimStruct WriteOffAddrFields)))) EmptyCtx
     }
   deriving stock (Generic, Show)
 
 -- | Common field metadata for indexing operations
---
-data IndexPrimFieldData ctx = IndexPrimFieldData
-    { indexFieldType :: HsType  -- ^ Field type
-    , indexFieldArg1 :: Idx ctx -- ^ First argument variable
-    , indexFieldArg2 :: Idx ctx -- ^ Second argument variable
-    , indexFieldPos  :: Int     -- ^ Field position (0-based)
-    , indexNumFields :: Int     -- ^ Total number of fields
+type IndexPrimFieldData :: Ctx -> Star
+data IndexPrimFieldData ctx = IndexPrimFieldData{
+      typ       :: HsType  -- ^ Field type
+    , arg1      :: Idx ctx -- ^ First argument variable
+    , arg2      :: Idx ctx -- ^ Second argument variable
+    , pos       :: Int     -- ^ Field position (0-based)
+    , numFields :: Int     -- ^ Total number of fields
     }
   deriving stock (Generic, Show)
 
@@ -457,8 +471,9 @@ data IndexPrimFieldData ctx = IndexPrimFieldData
 -- Example: @indexByteArray# arr# (3# *# i# +# 1#)@ for field 1 of a 3-field struct
 --
 type IndexByteArrayField :: Ctx -> Star
-newtype IndexByteArrayField ctx =
-  IndexByteArrayField { getIndexByteArrayFieldData :: IndexPrimFieldData ctx }
+data IndexByteArrayField ctx = IndexByteArrayField{
+      metadata :: IndexPrimFieldData ctx
+    }
   deriving stock (Generic, Show)
 
 -- | Index a field from Addr# using indexOffAddr#
@@ -466,18 +481,19 @@ newtype IndexByteArrayField ctx =
 -- For a struct with n fields at element index i, field f is at position: n*i + f
 -- Example: @indexOffAddr# addr# (3# *# i# +# 1#)@ for field 1 of a 3-field struct
 type IndexOffAddrField :: Ctx -> Star
-newtype IndexOffAddrField ctx =
-  IndexOffAddrField { getIndexOffAddrFieldData :: IndexPrimFieldData ctx }
+data IndexOffAddrField ctx = IndexOffAddrField{
+      metadata :: IndexPrimFieldData ctx
+    }
   deriving stock (Generic, Show)
 
 -- | Common field metadata for read operations
---
-data ReadPrimFieldsData ctx = ReadPrimFieldsData
-    { readFields     :: [(HsType, Int)] -- ^ Fields: (type, position)
-    , readFieldsArg1 :: Idx ctx         -- ^ First argument variable
-    , readFieldsArg2 :: Idx ctx         -- ^ Second argument variable
-    , readFieldsArg3 :: Idx ctx         -- ^ Third argument variable
-    , readNumFields  :: Int             -- ^ Total number of fields
+type ReadPrimFieldsData :: Ctx -> Star
+data ReadPrimFieldsData ctx = ReadPrimFieldsData{
+      fields    :: [(HsType, Int)] -- ^ Fields: (type, position)
+    , arg1      :: Idx ctx         -- ^ First argument variable
+    , arg2      :: Idx ctx         -- ^ Second argument variable
+    , arg3      :: Idx ctx         -- ^ Third argument variable
+    , numFields :: Int             -- ^ Total number of fields
     }
   deriving stock (Generic, Show)
 
@@ -490,8 +506,9 @@ data ReadPrimFieldsData ctx = ReadPrimFieldsData
 -- >     (# s2, y #) -> (# s2, Struct x y #)
 --
 type ReadByteArrayFields :: Ctx -> Star
-data ReadByteArrayFields ctx =
-  ReadByteArrayFields { getReadByteArrayFieldData :: ReadPrimFieldsData ctx }
+data ReadByteArrayFields ctx = ReadByteArrayFields{
+      metadata :: ReadPrimFieldsData ctx
+    }
   deriving stock (Generic, Show)
 
 -- | Read fields from Addr# with state threading
@@ -503,17 +520,18 @@ data ReadByteArrayFields ctx =
 -- >     (# s2, y #) -> (# s2, Struct x y #)
 --
 type ReadOffAddrFields :: Ctx -> Star
-data ReadOffAddrFields ctx =
-  ReadOffAddrFields { getReadOffAddrFieldData :: ReadPrimFieldsData ctx }
+data ReadOffAddrFields ctx = ReadOffAddrFields{
+      metadata :: ReadPrimFieldsData ctx
+    }
   deriving stock (Generic, Show)
 
 -- | Common field metadata for write operations
-data WritePrimFieldsData ctx = WritePrimFieldsData
-    { writeFields     :: [(HsType, Int, Idx ctx)] -- ^ Fields: (type, position, value variable)
-    , writeFieldsArg1 :: Idx ctx                  -- ^ First argument variable
-    , writeFieldsArg2 :: Idx ctx                  -- ^ Second argument variable
-    , writeFieldsArg3 :: Idx ctx                  -- ^ Third argument variable
-    , writeNumFields  :: Int                      -- ^ Total number of fields
+data WritePrimFieldsData ctx = WritePrimFieldsData{
+      fields    :: [(HsType, Int, Idx ctx)] -- ^ Fields: (type, position, value variable)
+    , arg1      :: Idx ctx                  -- ^ First argument variable
+    , arg2      :: Idx ctx                  -- ^ Second argument variable
+    , arg3      :: Idx ctx                  -- ^ Third argument variable
+    , numFields :: Int                      -- ^ Total number of fields
     }
   deriving stock (Generic, Show)
 
@@ -525,8 +543,9 @@ data WritePrimFieldsData ctx = WritePrimFieldsData
 -- >   s1 -> writeByteArray# arr# (n# *# i# +# 1#) y s1
 --
 type WriteByteArrayFields :: Ctx -> Star
-data WriteByteArrayFields ctx =
-  WriteByteArrayFields { getWriteByteArrayFieldData :: WritePrimFieldsData ctx }
+data WriteByteArrayFields ctx = WriteByteArrayFields {
+      metadata :: WritePrimFieldsData ctx
+    }
   deriving stock (Generic, Show)
 
 -- | Write fields to Addr# with state threading
@@ -537,8 +556,9 @@ data WriteByteArrayFields ctx =
 -- >   s1 -> writeOffAddr# addr# (n# *# i# +# 1#) y s1
 --
 type WriteOffAddrFields :: Ctx -> Star
-data WriteOffAddrFields ctx =
-  WriteOffAddrFields { writeAddrFieldData :: WritePrimFieldsData ctx }
+data WriteOffAddrFields ctx = WriteOffAddrFields {
+      metadata :: WritePrimFieldsData ctx
+    }
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
