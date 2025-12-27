@@ -1,4 +1,3 @@
-
 -- | Haskell AST
 --
 -- Abstract Haskell syntax for the specific purposes of hs-bindgen: we only
@@ -106,10 +105,10 @@ import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
 -------------------------------------------------------------------------------}
 
 data Field = Field {
-      fieldName    :: Hs.Name Hs.NsVar
-    , fieldType    :: HsType
-    , fieldOrigin  :: Origin.Field
-    , fieldComment :: Maybe HsDoc.Comment
+      name    :: Hs.Name Hs.NsVar
+    , typ     :: HsType
+    , origin  :: Origin.Field
+    , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 

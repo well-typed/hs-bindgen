@@ -230,11 +230,11 @@ structDecs opts haddockConfig info struct spec fields = do
 
     structFields :: Vec n Hs.Field
     structFields = flip Vec.map fields $ \field -> Hs.Field {
-        fieldName    = Hs.unsafeHsIdHsName field.info.name.hsName
-      , fieldType    = Type.topLevel field.typ
-      , fieldOrigin  = Origin.StructField field
-      , fieldComment = mkHaddocksFieldInfo haddockConfig info field.info
-      }
+          name    = Hs.unsafeHsIdHsName field.info.name.hsName
+        , typ     = Type.topLevel field.typ
+        , origin  = Origin.StructField field
+        , comment = mkHaddocksFieldInfo haddockConfig info field.info
+        }
 
     candidateInsts :: Set Hs.TypeClass
     candidateInsts = Set.union (Set.fromList [Hs.Storable, Hs.Prim]) $
@@ -250,7 +250,7 @@ structDecs opts haddockConfig info struct spec fields = do
       where
         insts :: Set Hs.TypeClass
         insts = Hs.getInstances instanceMap (Just structName) candidateInsts $
-          Hs.fieldType <$> Vec.toList structFields
+            (.typ) <$> Vec.toList structFields
 
         hsStruct :: Hs.Struct n
         hsStruct = Hs.Struct {
@@ -465,10 +465,10 @@ unionDecs haddockConfig info union spec = do
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-              fieldName    = union.names.field
-            , fieldType    = Hs.HsByteArray
-            , fieldOrigin  = Origin.GeneratedField
-            , fieldComment = Nothing
+              name    = union.names.field
+            , typ     = Hs.HsByteArray
+            , origin  = Origin.GeneratedField
+            , comment = Nothing
             }
 
         newtypeOrigin :: Origin.Decl Origin.Newtype
@@ -666,11 +666,11 @@ enumDecs opts haddockConfig info enum spec = do
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-            fieldName    = enum.names.field
-          , fieldType    = Type.topLevel enum.typ
-          , fieldOrigin  = Origin.GeneratedField
-          , fieldComment = Nothing
-          }
+              name    = enum.names.field
+            , typ     = Type.topLevel enum.typ
+            , origin  = Origin.GeneratedField
+            , comment = Nothing
+            }
 
         newtypeOrigin :: Origin.Decl Origin.Newtype
         newtypeOrigin = Origin.Decl{
@@ -725,7 +725,7 @@ enumDecs opts haddockConfig info enum spec = do
         primDecl =
           Hs.DeclDeriveInstance
             Hs.DeriveInstance {
-              deriveInstanceStrategy = Hs.DeriveVia nt.newtypeField.fieldType
+              deriveInstanceStrategy = Hs.DeriveVia nt.newtypeField.typ
             , deriveInstanceClass    = Hs.Prim
             , deriveInstanceName     = nt.newtypeName
             , deriveInstanceComment  = Nothing
@@ -769,7 +769,7 @@ enumDecs opts haddockConfig info enum spec = do
                 (maxV, maxNames) <- Map.lookupMax vNames
                 guard $ maxV - minV + 1 == fromIntegral (Map.size vNames)
                 return (NonEmpty.head minNames, NonEmpty.head maxNames)
-              fTyp = Hs.fieldType nt.newtypeField
+              fTyp = nt.newtypeField.typ
               vStrs = fmap (T.unpack . Hs.getName) <$> vNames
               cEnumDecl = Hs.DeclDefineInstance
                 Hs.DefineInstance {
@@ -826,18 +826,18 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-            fieldName    = typedef.names.field
-          , fieldType    = Type.topLevel typedef.typ
-          , fieldOrigin  = Origin.GeneratedField
-          , fieldComment = Nothing
-          }
+              name    = typedef.names.field
+            , typ     = Type.topLevel typedef.typ
+            , origin  = Origin.GeneratedField
+            , comment = Nothing
+            }
 
         newtypeOrigin :: Origin.Decl Origin.Newtype
         newtypeOrigin =  Origin.Decl{
-            declInfo = info
-          , declKind = mkNewtypeOrigin typedef
-          , declSpec = spec
-          }
+              declInfo = info
+            , declKind = mkNewtypeOrigin typedef
+            , declSpec = spec
+            }
 
         newtypeComment :: Maybe HsDoc.Comment
         newtypeComment =  mkHaddocks haddockConfig info newtypeName
@@ -957,31 +957,22 @@ typedefFieldDecls hsNewType = [
           }
     ]
   where
-    field :: Hs.Field
-    field = Hs.newtypeField hsNewType
-
     parentType :: HsType
-    parentType = Hs.HsTypRef (Hs.newtypeName hsNewType)
-
-    fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.fieldName field
-
-    fieldType :: HsType
-    fieldType = Hs.fieldType field
+    parentType = Hs.HsTypRef hsNewType.newtypeName
 
     elimHasFieldDecl :: Hs.HasFieldInstance
     elimHasFieldDecl = Hs.HasFieldInstance {
           hasFieldInstanceParentType = parentType
-        , hasFieldInstanceFieldName = fieldName
-        , hasFieldInstanceFieldType = fieldType
+        , hasFieldInstanceFieldName = hsNewType.newtypeField.name
+        , hasFieldInstanceFieldType = hsNewType.newtypeField.typ
         , hasFieldInstanceVia = Hs.ViaHasCField
         }
 
     elimHasCFieldDecl :: Hs.HasCFieldInstance
     elimHasCFieldDecl = Hs.HasCFieldInstance {
           hasCFieldInstanceParentType = parentType
-        , hasCFieldInstanceFieldName  = fieldName
-        , hasCFieldInstanceCFieldType = fieldType
+        , hasCFieldInstanceFieldName  = hsNewType.newtypeField.name
+        , hasCFieldInstanceCFieldType = hsNewType.newtypeField.typ
         , hasCFieldInstanceFieldOffset = 0
         }
 
@@ -1114,10 +1105,10 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
 
         newtypeField :: Hs.Field
         newtypeField = Hs.Field {
-              fieldName    = macroType.names.field
-            , fieldType    = Type.topLevel macroType.typ
-            , fieldOrigin  = Origin.GeneratedField
-            , fieldComment = Nothing
+              name    = macroType.names.field
+            , typ     = Type.topLevel macroType.typ
+            , origin  = Origin.GeneratedField
+            , comment = Nothing
             }
 
         newtypeOrigin :: Origin.Decl Origin.Newtype

@@ -27,7 +27,7 @@ translateElimStruct f (Hs.ElimStruct x struct add k) = ECase
     (EBound x)
     [SAlt (Hs.structConstr struct) add hints (f k)]
   where
-    hints = fmap (toNameHint . Hs.fieldName) $ Hs.structFields struct
+    hints = fmap (toNameHint . (.name)) $ Hs.structFields struct
 
 toNameHint :: Hs.Name 'Hs.NsVar -> NameHint
 toNameHint = NameHint . T.unpack . Hs.getName

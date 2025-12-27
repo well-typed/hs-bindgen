@@ -119,10 +119,10 @@ translateDeclData struct = DRecord
     , dataCon  = Hs.structConstr struct
     , dataFields =
         [ Field {
-              fieldName    = Hs.fieldName f
-            , fieldType    = translateType $ Hs.fieldType f
-            , fieldOrigin  = Hs.fieldOrigin f
-            , fieldComment = Hs.fieldComment f
+              fieldName    = f.name
+            , fieldType    = translateType f.typ
+            , fieldOrigin  = f.origin
+            , fieldComment = f.comment
             }
         | f <- toList $ Hs.structFields struct
         ]
@@ -148,10 +148,10 @@ translateNewtype n = DNewtype
     { newtypeName   = Hs.newtypeName n
     , newtypeCon    = Hs.newtypeConstr n
     , newtypeField  = Field {
-          fieldName    = Hs.fieldName $ Hs.newtypeField n
-        , fieldType    = translateType . Hs.fieldType $ Hs.newtypeField n
-        , fieldOrigin  = Hs.fieldOrigin $ Hs.newtypeField n
-        , fieldComment = Hs.fieldComment $ Hs.newtypeField n
+          fieldName    = n.newtypeField.name
+        , fieldType    = translateType n.newtypeField.typ
+        , fieldOrigin  = n.newtypeField.origin
+        , fieldComment = n.newtypeField.comment
         }
     , newtypeOrigin  = Hs.newtypeOrigin n
     , newtypeDeriv   = []
@@ -481,8 +481,7 @@ translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
     dconStrE = EString . T.unpack $ Hs.getName (Hs.structConstr struct)
 
     fname :: Hs.Name Hs.NsVar
-    fname = Hs.fieldName $
-      NonEmpty.head (Vec.toNonEmpty (Hs.structFields struct))
+    fname = (NonEmpty.head $ Vec.toNonEmpty (Hs.structFields struct)).name
 
     declaredValuesE :: SExpr ctx
     declaredValuesE = EApp (EGlobal CEnum_declaredValuesFromList) $ EList [

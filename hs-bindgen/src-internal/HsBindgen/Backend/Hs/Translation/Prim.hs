@@ -101,7 +101,7 @@ mkPrimInstance insts hsStruct struct
     numFields = Vec.length structFields
 
     fieldTypesWithPos :: [(HsType, Int)]
-    fieldTypesWithPos = [(Hs.fieldType f, pos) | (f, pos) <- zip (toList structFields) [0..]]
+    fieldTypesWithPos = [(f.typ, pos) | (f, pos) <- zip (toList structFields) [0..]]
 
     -- readFieldData :: Hs.ReadPrimFieldsData ctx
     readFieldData = Hs.ReadPrimFieldsData {

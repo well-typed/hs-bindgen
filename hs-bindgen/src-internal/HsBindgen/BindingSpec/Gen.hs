@@ -186,7 +186,7 @@ genBindingSpec'
             hsRecordRep = BindingSpec.HsRecordRep {
                 hsRecordRepConstructor = Just $ Hs.Identifier $ Hs.getName $ Hs.structConstr hsStruct
               , hsRecordRepFields = Just [
-                    Hs.Identifier $ Hs.getName $ Hs.fieldName field
+                    Hs.Identifier $ Hs.getName field.name
                   | field <- Vec.toList $ Hs.structFields hsStruct
                   ]
               }
@@ -239,8 +239,8 @@ genBindingSpec'
             }
           hsNewtypeRep = BindingSpec.HsNewtypeRep {
               hsNewtypeRepConstructor = Just $ Hs.Identifier $ Hs.getName $ Hs.newtypeConstr hsNewtype
-            , hsNewtypeRepField = Just $ Hs.Identifier $ Hs.getName $ Hs.fieldName $ Hs.newtypeField hsNewtype
-            , hsNewtypeRepFFIType = Hs.newtypeFFIType hsNewtype
+            , hsNewtypeRepField       = Just $ Hs.Identifier $ Hs.getName $ hsNewtype.newtypeField.name
+            , hsNewtypeRepFFIType     = Hs.newtypeFFIType hsNewtype
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
               hsTypeSpecRep = Just $ BindingSpec.HsTypeRepNewtype hsNewtypeRep
