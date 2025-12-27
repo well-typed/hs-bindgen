@@ -13,7 +13,6 @@ import Data.Text qualified as T
 import Data.Vec.Lazy qualified as Vec
 
 import HsBindgen.Backend.Category
-import HsBindgen.Backend.Hs.AST (FunctionParameter (functionParameterType))
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
@@ -46,8 +45,8 @@ getCWrappers decls = mapMaybe getCWrapper decls
   where
     getCWrapper :: Hs.Decl -> Maybe CWrapper
     getCWrapper = \case
-      Hs.DeclForeignImport (Hs.ForeignImportDecl{foreignImportCallConv}) ->
-        case foreignImportCallConv of
+      Hs.DeclForeignImport importDecl ->
+        case importDecl.callConv of
           CallConvUserlandCAPI w -> Just w
           _otherCallConv         -> Nothing
       _otherDecl -> Nothing
@@ -67,104 +66,109 @@ translateDecl (Hs.DeclUnionSetter u)    = singleton $ translateUnionSetter u
 translateDecl (Hs.DeclVar d)            = singleton $ translateDeclVar d
 
 translateDefineInstanceDecl :: Hs.DefineInstance -> SDecl
-translateDefineInstanceDecl Hs.DefineInstance{..} =
-  case defineInstanceDeclarations of
-    Hs.InstanceStorable struct i -> DInst $ translateStorableInstance struct i defineInstanceComment
-    Hs.InstancePrim struct i -> DInst $ SHsPrim.translatePrimInstance struct i defineInstanceComment
-    Hs.InstanceHasCField i -> DInst $ translateHasCFieldInstance i defineInstanceComment
-    Hs.InstanceHasCBitfield i -> DInst $ translateHasCBitfieldInstance i defineInstanceComment
-    Hs.InstanceHasField i -> DInst $ translateHasFieldInstance i defineInstanceComment
-    Hs.InstanceHasFLAM struct fty i -> DInst
-      Instance
-        { instanceClass   = HasFlexibleArrayMember_class
-        , instanceArgs    = [ translateType fty, TCon $ Hs.structName struct ]
-        , instanceSuperClasses = []
-        , instanceTypes   = []
-        , instanceDecs    = [(HasFlexibleArrayMember_offset, ELam "_ty" $ EIntegral (toInteger i) Nothing)]
-        , instanceComment = defineInstanceComment
-        }
-    Hs.InstanceCEnum struct fTyp vMap isSequential ->
-      DInst $ translateCEnumInstance struct fTyp vMap isSequential defineInstanceComment
-    Hs.InstanceSequentialCEnum struct nameMin nameMax ->
-      DInst $ translateSequentialCEnum struct nameMin nameMax defineInstanceComment
-    Hs.InstanceCEnumShow struct ->
-      DInst $ translateCEnumInstanceShow struct defineInstanceComment
-    Hs.InstanceCEnumRead struct ->
-      DInst $ translateCEnumInstanceRead struct defineInstanceComment
-    Hs.InstanceToFunPtr Hs.ToFunPtrInstance{..}     -> DInst
-      Instance
-        { instanceClass   = ToFunPtr_class
-        , instanceArgs    = [ translateType toFunPtrInstanceType ]
-        , instanceSuperClasses = []
-        , instanceTypes   = []
-        , instanceDecs    = [( ToFunPtr_toFunPtr
-                             , EFree $ Hs.InternalName toFunPtrInstanceBody )]
-        , instanceComment = defineInstanceComment
-        }
-    Hs.InstanceFromFunPtr Hs.FromFunPtrInstance{..} -> DInst
-      Instance
-        { instanceClass   = FromFunPtr_class
-        , instanceArgs    = [ translateType fromFunPtrInstanceType ]
-        , instanceSuperClasses = []
-        , instanceTypes   = []
-        , instanceDecs    = [( FromFunPtr_fromFunPtr
-                             , EFree $ Hs.InternalName fromFunPtrInstanceBody )]
-        , instanceComment = defineInstanceComment
-        }
+translateDefineInstanceDecl defInst =
+    case defInst.instanceDecl of
+      Hs.InstanceStorable struct i ->
+        DInst $ translateStorableInstance struct i defInst.comment
+      Hs.InstancePrim struct i ->
+        DInst $ SHsPrim.translatePrimInstance struct i defInst.comment
+      Hs.InstanceHasCField i ->
+        DInst $ translateHasCFieldInstance i defInst.comment
+      Hs.InstanceHasCBitfield i ->
+        DInst $ translateHasCBitfieldInstance i defInst.comment
+      Hs.InstanceHasField i ->
+        DInst $ translateHasFieldInstance i defInst.comment
+      Hs.InstanceHasFLAM struct fty i ->
+        DInst Instance{
+            instanceClass   = HasFlexibleArrayMember_class
+          , instanceArgs    = [ translateType fty, TCon struct.name ]
+          , instanceSuperClasses = []
+          , instanceTypes   = []
+          , instanceDecs    = [(HasFlexibleArrayMember_offset, ELam "_ty" $ EIntegral (toInteger i) Nothing)]
+          , instanceComment = defInst.comment
+          }
+      Hs.InstanceCEnum struct fTyp vMap isSequential ->
+        DInst $ translateCEnumInstance struct fTyp vMap isSequential defInst.comment
+      Hs.InstanceSequentialCEnum struct nameMin nameMax ->
+        DInst $ translateSequentialCEnum struct nameMin nameMax defInst.comment
+      Hs.InstanceCEnumShow struct ->
+        DInst $ translateCEnumInstanceShow struct defInst.comment
+      Hs.InstanceCEnumRead struct ->
+        DInst $ translateCEnumInstanceRead struct defInst.comment
+      Hs.InstanceToFunPtr inst ->
+        DInst Instance{
+            instanceClass        = ToFunPtr_class
+          , instanceArgs         = [translateType inst.typ]
+          , instanceSuperClasses = []
+          , instanceTypes        = []
+          , instanceDecs         = [ ( ToFunPtr_toFunPtr
+                                     , EFree $ Hs.InternalName inst.body
+                                     )
+                                   ]
+          , instanceComment      = defInst.comment
+          }
+      Hs.InstanceFromFunPtr inst ->
+        DInst Instance{
+            instanceClass        = FromFunPtr_class
+          , instanceArgs         = [translateType inst.typ]
+          , instanceSuperClasses = []
+          , instanceTypes        = []
+          , instanceDecs         = [ ( FromFunPtr_fromFunPtr
+                                     , EFree $ Hs.InternalName inst.body
+                                     )
+                                   ]
+          , instanceComment      = defInst.comment
+          }
 
 translateDeclData :: Hs.Struct n -> SDecl
-translateDeclData struct = DRecord
-  Record
-    { dataType = Hs.structName struct
-    , dataCon  = Hs.structConstr struct
+translateDeclData struct = DRecord Record{
+      dataType = struct.name
+    , dataCon  = struct.constr
     , dataFields =
         [ Field {
-              fieldName    = Hs.fieldName f
-            , fieldType    = translateType $ Hs.fieldType f
-            , fieldOrigin  = Hs.fieldOrigin f
-            , fieldComment = Hs.fieldComment f
+              fieldName    = f.name
+            , fieldType    = translateType f.typ
+            , fieldOrigin  = f.origin
+            , fieldComment = f.comment
             }
-        | f <- toList $ Hs.structFields struct
+        | f <- toList struct.fields
         ]
     , dataOrigin =
-        case Hs.structOrigin struct of
+        case struct.origin of
           Just origin -> origin
           Nothing     -> panicPure "Missing structOrigin"
     , dataDeriv   = []
-    , dataComment = Hs.structComment struct
+    , dataComment = struct.comment
     }
 
 translateDeclEmpty :: Hs.EmptyData -> SDecl
-translateDeclEmpty d = DEmptyData
-  EmptyData
-    { emptyDataName    = Hs.emptyDataName d
-    , emptyDataOrigin  = Hs.emptyDataOrigin d
-    , emptyDataComment = Hs.emptyDataComment d
+translateDeclEmpty d = DEmptyData EmptyData{
+      emptyDataName    = d.name
+    , emptyDataOrigin  = d.origin
+    , emptyDataComment = d.comment
     }
 
 translateNewtype :: Hs.Newtype -> SDecl
-translateNewtype n = DNewtype
-  Newtype
-    { newtypeName   = Hs.newtypeName n
-    , newtypeCon    = Hs.newtypeConstr n
-    , newtypeField  = Field {
-          fieldName    = Hs.fieldName $ Hs.newtypeField n
-        , fieldType    = translateType . Hs.fieldType $ Hs.newtypeField n
-        , fieldOrigin  = Hs.fieldOrigin $ Hs.newtypeField n
-        , fieldComment = Hs.fieldComment $ Hs.newtypeField n
-        }
-    , newtypeOrigin  = Hs.newtypeOrigin n
+translateNewtype n = DNewtype Newtype{
+      newtypeName    = n.name
+    , newtypeCon     = n.constr
+    , newtypeOrigin  = n.origin
     , newtypeDeriv   = []
-    , newtypeComment = Hs.newtypeComment n
+    , newtypeComment = n.comment
+    , newtypeField   = Field {
+          fieldName    = n.field.name
+        , fieldType    = translateType n.field.typ
+        , fieldOrigin  = n.field.origin
+        , fieldComment = n.field.comment
+        }
     }
 
 translateDeriveInstance :: Hs.DeriveInstance -> SDecl
-translateDeriveInstance Hs.DeriveInstance{..} = DDerivingInstance
-  DerivingInstance {
-        derivingInstanceStrategy = fmap translateType deriveInstanceStrategy
-      , derivingInstanceType     = TApp (translateTypeClass deriveInstanceClass) (TCon deriveInstanceName)
-      , derivingInstanceComment  = deriveInstanceComment
-      }
+translateDeriveInstance deriv = DDerivingInstance DerivingInstance {
+      derivingInstanceStrategy = fmap translateType deriv.strategy
+    , derivingInstanceType     = TApp (translateTypeClass deriv.clss) (TCon deriv.name)
+    , derivingInstanceComment  = deriv.comment
+    }
 
 translateTypeClass :: Hs.TypeClass -> ClosedType
 translateTypeClass Hs.Bits               = TGlobal Bits_class
@@ -191,52 +195,49 @@ translateTypeClass Hs.WriteRaw           = TGlobal WriteRaw_class
 translateTypeClass Hs.HasBaseForeignType = TGlobal HasBaseForeignType_class
 
 translateForeignImportDecl :: Hs.ForeignImportDecl -> [SDecl]
-translateForeignImportDecl Hs.ForeignImportDecl {
-      foreignImportParameters = args
-    , foreignImportResultType = resType
-    , ..
-    } = [
-        DForeignImport ForeignImport
-          { foreignImportParameters =
-              map (\Hs.FunctionParameter{..} ->
-                    Parameter {
-                        name    = functionParameterName
-                      , typ     = translateType functionParameterType
-                      , comment = functionParameterComment
-                      }
-                    ) args
-          , foreignImportResult = Result (translateType resType) Nothing
-          , ..
+translateForeignImportDecl importDecl = [
+        DForeignImport ForeignImport{
+            foreignImportParameters =
+              map translateParam importDecl.parameters
+          , foreignImportResult =
+              Result (translateType importDecl.result) Nothing
+
+            -- The rest of the fields are copied over as-is
+          , foreignImportName     = importDecl.name
+          , foreignImportOrigName = importDecl.origName
+          , foreignImportCallConv = importDecl.callConv
+          , foreignImportOrigin   = importDecl.origin
+          , foreignImportComment  = importDecl.comment
+          , foreignImportSafety   = importDecl.safety
           }
       ]
 
-translateFunctionDecl :: Hs.FunctionDecl -> SDecl
-translateFunctionDecl Hs.FunctionDecl{..} = DBinding
-  Binding {
-      name
-    , parameters = map translateFunctionParameter parameters
-    , result = Result (translateType resultType) Nothing
-    , body
-    , pragmas
-    , comment
+translateParam :: Hs.FunctionParameter -> Parameter
+translateParam param = Parameter {
+      name    = param.name
+    , typ     = translateType param.typ
+    , comment = param.comment
     }
-  where
-    translateFunctionParameter :: Hs.FunctionParameter -> Parameter
-    translateFunctionParameter Hs.FunctionParameter{..} =
-      Parameter {
-          name    = functionParameterName
-        , typ     = translateType functionParameterType
-        , comment = functionParameterComment
-        }
+
+translateFunctionDecl :: Hs.FunctionDecl -> SDecl
+translateFunctionDecl functionDecl = DBinding Binding{
+      parameters = map translateParam functionDecl.parameters
+    , result     = Result (translateType functionDecl.result) Nothing
+      -- The other fields are copied as-is
+    , name       = functionDecl.name
+    , body       = functionDecl.body
+    , pragmas    = functionDecl.pragmas
+    , comment    = functionDecl.comment
+    }
 
 translatePatSyn :: Hs.PatSyn -> SDecl
-translatePatSyn Hs.PatSyn {..} = DPatternSynonym
-  PatternSynonym
-    { patSynName
-    , patSynOrigin
-    , patSynComment
-    , patSynType = TCon patSynType
-    , patSynRHS  = PEApps patSynConstr [PELit patSynValue]
+translatePatSyn patSyn = DPatternSynonym PatternSynonym{
+      patSynType    = TCon patSyn.typ
+    , patSynRHS     = PEApps patSyn.constr [PELit patSyn.value]
+      -- The other fields are copied as-is
+    , patSynName    = patSyn.name
+    , patSynOrigin  = patSyn.origin
+    , patSynComment = patSyn.comment
     }
 
 {-------------------------------------------------------------------------------
@@ -271,22 +272,22 @@ translateStorableInstance ::
   -> Hs.StorableInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateStorableInstance struct Hs.StorableInstance{..} mbComment = do
-    let peek = lambda (idiom structCon translatePeekCField) storablePeek
-    let poke = lambda (lambda (translateElimStruct (doAll translatePokeCField))) storablePoke
-    Instance
-      { instanceClass = Storable_class
-      , instanceArgs  = [TCon $ Hs.structName struct]
-      , instanceSuperClasses = []
-      , instanceTypes = []
-      , instanceDecs  = [
-            (Storable_sizeOf    , EUnusedLam $ EInt storableSizeOf)
-          , (Storable_alignment , EUnusedLam $ EInt storableAlignment)
-          , (Storable_peek      , peek)
-          , (Storable_poke      , poke)
-          ]
-      , instanceComment = mbComment
-      }
+translateStorableInstance struct inst mbComment = Instance{
+      instanceClass        = Storable_class
+    , instanceArgs         = [TCon struct.name]
+    , instanceSuperClasses = []
+    , instanceTypes        = []
+    , instanceComment      = mbComment
+    , instanceDecs         = [
+          (Storable_sizeOf    , EUnusedLam $ EInt inst.sizeOf)
+        , (Storable_alignment , EUnusedLam $ EInt inst.alignment)
+        , (Storable_peek      , peek)
+        , (Storable_poke      , poke)
+        ]
+    }
+  where
+    peek = lambda (idiom structCon translatePeekCField) inst.peek
+    poke = lambda (lambda (translateElimStruct (doAll translatePokeCField))) inst.poke
 
 translatePeekCField :: Hs.PeekCField ctx -> SExpr ctx
 translatePeekCField (Hs.PeekCField field ptr) = appMany HasCField_peekCField [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr]
@@ -306,24 +307,24 @@ translateHasCFieldInstance ::
      Hs.HasCFieldInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateHasCFieldInstance Hs.HasCFieldInstance{..} mbComment = do
-    Instance {
-        instanceClass   = HasCField_class
-      , instanceArgs    = [parentType, fieldNameLitType]
-      , instanceSuperClasses = []
-      , instanceTypes   = [
-            (HasCField_CFieldType, [parentType, fieldNameLitType], fieldType)
-          ]
-      , instanceDecs    = [
-            (HasCField_offset#, EUnusedLam $ EUnusedLam $ EIntegral o Nothing)
-          ]
-      , instanceComment = mbComment
-      }
+translateHasCFieldInstance inst mbComment = Instance {
+      instanceClass        = HasCField_class
+    , instanceArgs         = [parent, fieldLit]
+    , instanceSuperClasses = []
+    , instanceComment      = mbComment
+
+    , instanceTypes = [
+          (HasCField_CFieldType, [parent, fieldLit], fieldType)
+        ]
+    , instanceDecs = [
+          (HasCField_offset#, EUnusedLam $ EUnusedLam $ EIntegral o Nothing)
+        ]
+    }
   where
-    parentType = translateType hasCFieldInstanceParentType
-    fieldNameLitType = translateType $ HsStrLit $ T.unpack $ Hs.getName hasCFieldInstanceFieldName
-    fieldType = translateType hasCFieldInstanceCFieldType
-    o = fromIntegral hasCFieldInstanceFieldOffset
+    parent    = translateType inst.parentType
+    fieldLit  = translateType $ HsStrLit $ T.unpack $ Hs.getName inst.fieldName
+    fieldType = translateType inst.cFieldType
+    o         = fromIntegral inst.fieldOffset
 
 {-------------------------------------------------------------------------------
   'HasCBitfield'
@@ -333,66 +334,68 @@ translateHasCBitfieldInstance ::
      Hs.HasCBitfieldInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateHasCBitfieldInstance Hs.HasCBitfieldInstance{..} mbComment = do
-    Instance
-      { instanceClass   = HasCBitfield_class
-      , instanceArgs    = [parentType, fieldNameLitType]
-      , instanceSuperClasses = []
-      , instanceTypes   = [
-            (HasCBitfield_CBitfieldType, [parentType, fieldNameLitType], fieldType)
-          ]
-      , instanceDecs    = [
-            (HasCBitfield_bitOffset#, EUnusedLam $ EUnusedLam $ EIntegral o Nothing )
-          , (HasCBitfield_bitWidth#, EUnusedLam $ EUnusedLam $ EIntegral w Nothing)
-          ]
-      , instanceComment = mbComment
-      }
+translateHasCBitfieldInstance inst mbComment = Instance{
+      instanceClass        = HasCBitfield_class
+    , instanceArgs         = [parent, fieldLit]
+    , instanceSuperClasses = []
+    , instanceComment      = mbComment
+
+    , instanceTypes = [
+          (HasCBitfield_CBitfieldType, [parent, fieldLit], fieldType)
+        ]
+    , instanceDecs = [
+          (HasCBitfield_bitOffset# , EUnusedLam $ EUnusedLam $ EIntegral o Nothing)
+        , (HasCBitfield_bitWidth#  , EUnusedLam $ EUnusedLam $ EIntegral w Nothing)
+        ]
+    }
   where
-    parentType = translateType hasCBitfieldInstanceParentType
-    fieldNameLitType = translateType $ HsStrLit $ T.unpack $ Hs.getName hasCBitfieldInstanceFieldName
-    fieldType = translateType hasCBitfieldInstanceCBitfieldType
-    o = fromIntegral hasCBitfieldInstanceBitOffset
-    w = fromIntegral hasCBitfieldInstanceBitWidth
+    parent    = translateType inst.parentType
+    fieldLit  = translateType $ HsStrLit $ T.unpack $ Hs.getName inst.fieldName
+    fieldType = translateType inst.cBitfieldType
+    o         = fromIntegral inst.bitOffset
+    w         = fromIntegral inst.bitWidth
 
 translateHasFieldInstance ::
      Hs.HasFieldInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translateHasFieldInstance Hs.HasFieldInstance{..} mbComment = do
-    Instance {
-        instanceClass   = HasField_class
-      , instanceArgs    = [fieldNameLitType, parentPtr, tyPtr]
-      , instanceSuperClasses = [
-            (NomEq_class, [
-                tyTypeVar
-              , TGlobal fieldTypeGlobal `TApp` parentType `TApp` fieldNameLitType]
-              )
-          ]
-      , instanceTypes   = []
-      , instanceDecs    = [
-            (HasField_getField,
-              EGlobal ptrToFieldGlobal `EApp`
-              (EGlobal Proxy_constructor `ETypeApp` fieldNameLitType)
-            )
-          ]
-      , instanceComment = mbComment
-      }
-  where
-    (fieldTypeGlobal, ptrToFieldGlobal, tyPtr) = case hasFieldInstanceVia of
-      Hs.ViaHasCField    ->
-        ( HasCField_CFieldType
-        , HasCField_ptrToCField
-        , TGlobal Foreign_Ptr `TApp` tyTypeVar
-        )
-      Hs.ViaHasCBitfield ->
-        ( HasCBitfield_CBitfieldType
-        , HasCBitfield_ptrToCBitfield
-        , TGlobal HasCBitfield_BitfieldPtr `TApp` parentType `TApp` fieldNameLitType
-        )
+translateHasFieldInstance inst mbComment = Instance{
+      instanceClass   = HasField_class
+    , instanceArgs    = [fieldLit, parentPtr, tyPtr]
+    , instanceTypes   = []
+    , instanceComment = mbComment
 
-    parentType = translateType hasFieldInstanceParentType
-    parentPtr = TGlobal Foreign_Ptr `TApp` parentType
-    fieldNameLitType = translateType $ HsStrLit $ T.unpack $ Hs.getName hasFieldInstanceFieldName
+    , instanceSuperClasses = [
+          ( NomEq_class
+          , [ tyTypeVar
+            , TGlobal fieldTypeGlobal `TApp` parent `TApp` fieldLit
+            ]
+          )
+        ]
+    , instanceDecs = [
+          ( HasField_getField
+          , EGlobal ptrToFieldGlobal `EApp`
+              (EGlobal Proxy_constructor `ETypeApp` fieldLit)
+          )
+        ]
+    }
+  where
+    (fieldTypeGlobal, ptrToFieldGlobal, tyPtr) =
+      case inst.deriveVia of
+        Hs.ViaHasCField -> (
+            HasCField_CFieldType
+          , HasCField_ptrToCField
+          , TGlobal Foreign_Ptr `TApp` tyTypeVar
+          )
+        Hs.ViaHasCBitfield -> (
+            HasCBitfield_CBitfieldType
+          , HasCBitfield_ptrToCBitfield
+          , TGlobal HasCBitfield_BitfieldPtr `TApp` parent `TApp` fieldLit
+          )
+
+    parent    = translateType inst.parentType
+    parentPtr = TGlobal Foreign_Ptr `TApp` parent
+    fieldLit  = translateType $ HsStrLit $ T.unpack $ Hs.getName inst.fieldName
     -- TODO: this is not actually a free type variable. See issue #1287.
     tyTypeVar = TFree $ Hs.ExportedName "ty"
 
@@ -401,37 +404,35 @@ translateHasFieldInstance Hs.HasFieldInstance{..} mbComment = do
 -------------------------------------------------------------------------------}
 
 translateUnionGetter :: Hs.UnionGetter -> SDecl
-translateUnionGetter Hs.UnionGetter{..} = DBinding
-  Binding {
-      name       = unionGetterName
-    , parameters = [
-        Parameter {
-            name    = Nothing
-          , typ     = TCon unionGetterConstr
-          , comment = Nothing
-          }
-        ]
-    , result     = Result (translateType unionGetterType) Nothing
+translateUnionGetter getter = DBinding Binding{
+      name       = getter.name
+    , result     = Result (translateType getter.typ) Nothing
     , body       = EGlobal ByteArray_getUnionPayload
     , pragmas    = []
-    , comment    = unionGetterComment
+    , comment    = getter.comment
+    , parameters = [
+          Parameter {
+              name    = Nothing
+            , typ     = TCon getter.constr
+            , comment = Nothing
+            }
+        ]
     }
 
 translateUnionSetter :: Hs.UnionSetter -> SDecl
-translateUnionSetter Hs.UnionSetter{..} = DBinding
-  Binding {
-      name       = unionSetterName
-    , parameters = [
-        Parameter {
-           name    = Nothing
-         , typ     = translateType unionSetterType
-         , comment = Nothing
-         }
-      ]
-    , result     = Result (TCon unionSetterConstr) Nothing
+translateUnionSetter setter = DBinding Binding{
+      name       = setter.name
+    , result     = Result (TCon setter.constr) Nothing
     , body       = EGlobal ByteArray_setUnionPayload
     , pragmas    = []
-    , comment    = unionSetterComment
+    , comment    = setter.comment
+    , parameters = [
+          Parameter {
+             name    = Nothing
+           , typ     = translateType setter.typ
+           , comment = Nothing
+           }
+        ]
     }
 
 {-------------------------------------------------------------------------------
@@ -465,7 +466,7 @@ translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
     , instanceSuperClasses = []
     , instanceTypes = [(CEnumZ_tycon, [tcon], translateType fTyp)]
     , instanceDecs  = [
-          (CEnum_toCEnum, ECon (Hs.structConstr struct))
+          (CEnum_toCEnum, ECon struct.constr)
         , (CEnum_fromCEnum, EFree fname)
         , (CEnum_declaredValues, EUnusedLam declaredValuesE)
         , (CEnum_showsUndeclared, EApp (EGlobal CEnum_showsWrappedUndeclared) dconStrE)
@@ -475,14 +476,13 @@ translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
     }
   where
     tcon :: ClosedType
-    tcon = TCon $ Hs.structName struct
+    tcon = TCon struct.name
 
     dconStrE :: SExpr ctx
-    dconStrE = EString . T.unpack $ Hs.getName (Hs.structConstr struct)
+    dconStrE = EString . T.unpack $ Hs.getName struct.constr
 
     fname :: Hs.Name Hs.NsVar
-    fname = Hs.fieldName $
-      NonEmpty.head (Vec.toNonEmpty (Hs.structFields struct))
+    fname = (NonEmpty.head $ Vec.toNonEmpty struct.fields).name
 
     declaredValuesE :: SExpr ctx
     declaredValuesE = EApp (EGlobal CEnum_declaredValuesFromList) $ EList [
@@ -526,7 +526,7 @@ translateSequentialCEnum struct nameMin nameMax mbComment = Instance {
     }
   where
     tcon :: ClosedType
-    tcon = TCon $ Hs.structName struct
+    tcon = TCon struct.name
 
 translateCEnumInstanceShow ::
      Hs.Struct (S Z)
@@ -544,7 +544,7 @@ translateCEnumInstanceShow struct mbComment = Instance {
     }
   where
     tcon :: ClosedType
-    tcon = TCon $ Hs.structName struct
+    tcon = TCon struct.name
 
 translateCEnumInstanceRead ::
      Hs.Struct (S Z)
@@ -564,4 +564,4 @@ translateCEnumInstanceRead struct mbComment = Instance {
     }
   where
     tcon :: ClosedType
-    tcon = TCon $ Hs.structName struct
+    tcon = TCon struct.name

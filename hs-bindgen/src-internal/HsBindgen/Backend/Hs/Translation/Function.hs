@@ -160,27 +160,26 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
 
     foreignImportParams :: [Hs.FunctionParameter]
     foreignImportParams = [
-           Hs.FunctionParameter
-           { functionParameterName    = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
-           , functionParameterType    = Type.inContext Type.FunArg (toPrimitiveType (toIsPrimitiveType ty))
-           , functionParameterComment = Nothing
-           }
+           Hs.FunctionParameter{
+               name    = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
+             , typ     = Type.inContext Type.FunArg (toPrimitiveType (toIsPrimitiveType ty))
+             , comment = Nothing
+             }
         | (mbName, ty) <- origCFun.args
         ] ++ toList mbResultParam
 
     -- Alias to the C wrapper. This function _does not have_ the same signature
     -- as the original C function.
     aliasCWrapper :: Hs.Decl
-    aliasCWrapper =
-        Hs.DeclFunction $ Hs.FunctionDecl {
-            name       = mangledOrigNameWrapper
-          , parameters = aliasParams
-          , resultType = resultType
-          , body       = SHs.EFree $ Hs.InternalName cWrapperName
-          , origin     = Origin.Function origCFun
-          , pragmas    = []
-          , comment    = (Just pointerComment <> mbIoComment)
-          }
+    aliasCWrapper = Hs.DeclFunction $ Hs.FunctionDecl {
+          name       = mangledOrigNameWrapper
+        , parameters = aliasParams
+        , result     = resultType
+        , body       = SHs.EFree $ Hs.InternalName cWrapperName
+        , origin     = Origin.Function origCFun
+        , pragmas    = []
+        , comment    = (Just pointerComment <> mbIoComment)
+        }
       where
         pointerComment :: HsDoc.Comment
         pointerComment = HsDoc.title [
@@ -191,16 +190,15 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     -- Alias to the original C function. This function _does have_ the same
     -- signature as the original C function.
     aliasOrig :: Hs.Decl
-    aliasOrig =
-        Hs.DeclFunction $ Hs.FunctionDecl {
-             name       = mangledOrigName
-           , parameters = aliasParams
-           , resultType = resultType
-           , body       = SHs.EFree $ Hs.InternalName cWrapperName
-           , origin     = Origin.Function origCFun
-           , pragmas    = []
-           , comment    = mbAliasComment <> mbIoComment
-          }
+    aliasOrig = Hs.DeclFunction $ Hs.FunctionDecl {
+          name       = mangledOrigName
+        , parameters = aliasParams
+        , result     = resultType
+        , body       = SHs.EFree $ Hs.InternalName cWrapperName
+        , origin     = Origin.Function origCFun
+        , pragmas    = []
+        , comment    = mbAliasComment <> mbIoComment
+        }
 
     mbAliasComment :: Maybe HsDoc.Comment
     -- These are the same parameters as 'foreignImportParams', enriched with
@@ -226,10 +224,10 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     (mbRestoreOrigSignatureComment, restoreOrigSignatureParams) =
       let params :: [Hs.FunctionParameter]
           params = [
-               Hs.FunctionParameter
-               { functionParameterName    = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
-               , functionParameterType    = Type.inContext Type.FunArg (toOrigType (toIsPrimitiveType ty))
-               , functionParameterComment = Nothing
+               Hs.FunctionParameter{
+                 name    = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
+               , typ     = Type.inContext Type.FunArg (toOrigType (toIsPrimitiveType ty))
+               , comment = Nothing
                }
             | (mbName, ty) <- origCFun.args
             ]
@@ -247,17 +245,18 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     (mbResultParam, resultType) = case primResult of
         -- A heap type that is not supported by the Haskell FFI as a function
         -- result. We pass it as a function parameter instead.
-        HeapType {} -> (Just Hs.FunctionParameter {
-            functionParameterName = Nothing
-          , functionParameterType = Type.inContext Type.FunArg $ toPrimitiveType primResult
-          , functionParameterComment = Nothing
-          }
+        HeapType {} -> (
+            Just Hs.FunctionParameter {
+                name    = Nothing
+              , typ     = Type.inContext Type.FunArg $ toPrimitiveType primResult
+              , comment = Nothing
+              }
           , mbIO $ HsPrimType HsPrimUnit
           )
 
         -- A "normal" result type that is supported by the Haskell FFI.
-        PrimitiveType {} ->
-          ( Nothing
+        PrimitiveType {} -> (
+            Nothing
           , mbIO $ Type.inContext Type.FunRes $ toPrimitiveType primResult
           )
 
@@ -433,30 +432,26 @@ getRestoreOrigSignatureDecl ::
   -> Maybe HsDoc.Comment    -- ^ function comment
   -> Hs.Decl
 getRestoreOrigSignatureDecl hiName loName primResult primParams params cFunc mbComment =
-    let resType :: HsType
-        resType = Type.inContext Type.FunRes $ toOrigType primResult
-    in  case primResult of
-      HeapType {} ->
-        Hs.DeclFunction $ Hs.FunctionDecl
-          { name       = hiName
-          , parameters = params
-          , resultType = HsIO resType
-          , body       = goA EmptyEnv primParams
-          , origin     = Origin.Function cFunc
-          , pragmas    = []
-          , comment    = mbComment
-          }
+    case primResult of
+      HeapType {} -> Hs.DeclFunction $ Hs.FunctionDecl{
+          name       = hiName
+        , parameters = params
+        , result     = HsIO resType
+        , body       = goA EmptyEnv primParams
+        , origin     = Origin.Function cFunc
+        , pragmas    = []
+        , comment    = mbComment
+        }
 
-      PrimitiveType {} ->
-        Hs.DeclFunction $ Hs.FunctionDecl
-          { name       = hiName
-          , parameters = params
-          , resultType = HsIO resType
-          , body       = goB EmptyEnv primParams
-          , origin     = Origin.Function cFunc
-          , pragmas    = []
-          , comment    = mbComment
-          }
+      PrimitiveType {} -> Hs.DeclFunction $ Hs.FunctionDecl{
+          name       = hiName
+        , parameters = params
+        , result     = HsIO resType
+        , body       = goB EmptyEnv primParams
+        , origin     = Origin.Function cFunc
+        , pragmas    = []
+        , comment    = mbComment
+        }
 
       CAType {} ->
         panicPure "ConstantArray cannot occur as a result type"
@@ -464,6 +459,9 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams params cFunc mbC
       AType {} ->
         panicPure "Array cannot occur as a result type"
   where
+    resType :: HsType
+    resType = Type.inContext Type.FunRes $ toOrigType primResult
+
     -- Wrapper for non-primitive result
     goA :: Env ctx IsPrimitiveType -> [IsPrimitiveType] -> SHs.SExpr ctx
     goA env []     = goA' env (tabulateEnv (sizeEnv env) id) []

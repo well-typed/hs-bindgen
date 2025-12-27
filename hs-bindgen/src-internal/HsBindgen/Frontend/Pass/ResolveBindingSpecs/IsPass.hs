@@ -86,7 +86,7 @@ data ResolvedExtBinding = ResolvedExtBinding{
 extDeclIdPair :: ResolvedExtBinding -> DeclIdPair
 extDeclIdPair ext = DeclIdPair{
       cName  = ext.cName
-    , hsName = ext.hsName.extRefIdentifier
+    , hsName = ext.hsName.ident
     }
 
 {-------------------------------------------------------------------------------

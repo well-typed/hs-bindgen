@@ -116,30 +116,28 @@ instancesFor nameTo nameFrom funC funHs = [
 
       -- @ToFunPtr@ instance proper
     , Hs.DeclDefineInstance Hs.DefineInstance{
-          defineInstanceComment      = Nothing
-        , defineInstanceDeclarations = Hs.InstanceToFunPtr
-            Hs.ToFunPtrInstance{
-                toFunPtrInstanceType = funHs
-              , toFunPtrInstanceBody = nameTo
-              }
+          comment      = Nothing
+        , instanceDecl = Hs.InstanceToFunPtr Hs.ToFunPtrInstance{
+              typ  = funHs
+            , body = nameTo
+            }
         }
 
       -- @FromFunPtr@ instance proper
     , Hs.DeclDefineInstance Hs.DefineInstance{
-          defineInstanceComment      = Nothing
-        , defineInstanceDeclarations = Hs.InstanceFromFunPtr
-            Hs.FromFunPtrInstance{
-                fromFunPtrInstanceType = funHs
-              , fromFunPtrInstanceBody = nameFrom
-              }
+          comment      = Nothing
+        , instanceDecl = Hs.InstanceFromFunPtr Hs.FromFunPtrInstance{
+              typ  = funHs
+            , body = nameFrom
+            }
         }
     ]
 
 wrapperParam :: HsType -> Hs.FunctionParameter
 wrapperParam hsType = Hs.FunctionParameter{
-      functionParameterName    = Nothing
-    , functionParameterType    = hsType
-    , functionParameterComment = Nothing
+      name    = Nothing
+    , typ     = hsType
+    , comment = Nothing
     }
 
 -- TODO: Ideally this would live elsewhere

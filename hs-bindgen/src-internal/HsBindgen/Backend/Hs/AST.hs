@@ -1,3 +1,6 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
 
 -- | Haskell AST
 --
@@ -105,100 +108,101 @@ import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
   Information about generated code
 -------------------------------------------------------------------------------}
 
-data Field = Field {
-      fieldName    :: Hs.Name Hs.NsVar
-    , fieldType    :: HsType
-    , fieldOrigin  :: Origin.Field
-    , fieldComment :: Maybe HsDoc.Comment
+data Field = Field{
+      name    :: Hs.Name Hs.NsVar
+    , typ     :: HsType
+    , origin  :: Origin.Field
+    , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 
-data Struct (n :: Nat) = Struct {
-      structName      :: Hs.Name Hs.NsTypeConstr
-    , structConstr    :: Hs.Name Hs.NsConstr
-    , structFields    :: Vec n Field
-      -- TODO: This is a temporary work-around: for enums we generate /both/
-      -- a newtype /and/ a struct, and then define instances only for the
-      -- struct. This is a nasty hack that we should get rid of.
-    , structOrigin    :: Maybe (Origin.Decl Origin.Struct)
-    , structInstances :: Set Hs.TypeClass
-    , structComment   :: Maybe HsDoc.Comment
+-- | Struct
+--
+-- TODO: for enums we generate /both/ a newtype /and/ a struct, and then define
+-- instances only for the struct. We should get rid of this nasty hack.
+data Struct (n :: Nat) = Struct{
+      name      :: Hs.Name Hs.NsTypeConstr
+    , constr    :: Hs.Name Hs.NsConstr
+    , fields    :: Vec n Field
+    , origin    :: Maybe (Origin.Decl Origin.Struct)
+    , instances :: Set Hs.TypeClass
+    , comment   :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 
-data EmptyData = EmptyData {
-      emptyDataName    :: Hs.Name Hs.NsTypeConstr
-    , emptyDataOrigin  :: Origin.Decl Origin.EmptyData
-    , emptyDataComment :: Maybe HsDoc.Comment
+data EmptyData = EmptyData{
+      name    :: Hs.Name Hs.NsTypeConstr
+    , origin  :: Origin.Decl Origin.EmptyData
+    , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 
-data Newtype = Newtype {
-      newtypeName      :: Hs.Name Hs.NsTypeConstr
-    , newtypeConstr    :: Hs.Name Hs.NsConstr
-    , newtypeField     :: Field
-    , newtypeOrigin    :: Origin.Decl Origin.Newtype
-    , newtypeInstances :: Set Hs.TypeClass
-    , newtypeFFIType   :: Maybe BindingSpec.FFIType
-    , newtypeComment   :: Maybe HsDoc.Comment
+data Newtype = Newtype{
+      name      :: Hs.Name Hs.NsTypeConstr
+    , constr    :: Hs.Name Hs.NsConstr
+    , field     :: Field
+    , origin    :: Origin.Decl Origin.Newtype
+    , instances :: Set Hs.TypeClass
+    , ffiType   :: Maybe BindingSpec.FFIType
+    , comment   :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 
-data ForeignImportDecl = ForeignImportDecl
-    { foreignImportName       :: Hs.Name Hs.NsVar
-    , foreignImportParameters :: [FunctionParameter]
-    , foreignImportResultType :: HsType
-    , foreignImportOrigName   :: C.DeclName
-    , foreignImportCallConv   :: CallConv
-    , foreignImportOrigin     :: Origin.ForeignImport
-    , foreignImportComment    :: Maybe HsDoc.Comment
-    , foreignImportSafety     :: SHs.Safety
+data ForeignImportDecl = ForeignImportDecl{
+      name       :: Hs.Name Hs.NsVar
+    , parameters :: [FunctionParameter]
+    , result     :: HsType
+    , origName   :: C.DeclName
+    , callConv   :: CallConv
+    , origin     :: Origin.ForeignImport
+    , comment    :: Maybe HsDoc.Comment
+    , safety     :: SHs.Safety
     }
   deriving stock (Generic, Show)
 
-data FunctionParameter = FunctionParameter
-  { functionParameterName    :: Maybe (Hs.Name Hs.NsVar)
-  , functionParameterType    :: HsType
-  , functionParameterComment :: Maybe HsDoc.Comment
-  }
+data FunctionParameter = FunctionParameter{
+      name    :: Maybe (Hs.Name Hs.NsVar)
+    , typ     :: HsType
+    , comment :: Maybe HsDoc.Comment
+    }
   deriving stock (Generic, Show)
 
-data FunctionDecl = FunctionDecl
-  { name       :: Hs.Name Hs.NsVar
-  , parameters :: [FunctionParameter]
-  , resultType :: HsType
-  , body       :: SHs.ClosedExpr
-  , origin     :: Origin.ForeignImport
-  , pragmas    :: [SHs.Pragma]
-  , comment    :: Maybe HsDoc.Comment
-  }
+data FunctionDecl = FunctionDecl{
+      name       :: Hs.Name Hs.NsVar
+    , parameters :: [FunctionParameter]
+    , result     :: HsType
+    , body       :: SHs.ClosedExpr
+    , origin     :: Origin.ForeignImport
+    , pragmas    :: [SHs.Pragma]
+    , comment    :: Maybe HsDoc.Comment
+    }
   deriving stock (Generic, Show)
 
-data UnionGetter = UnionGetter
-  { unionGetterName    :: Hs.Name Hs.NsVar
-  , unionGetterType    :: HsType
-  , unionGetterConstr  :: Hs.Name Hs.NsTypeConstr
-  , unionGetterComment :: Maybe HsDoc.Comment
-  }
+data UnionGetter = UnionGetter{
+      name    :: Hs.Name Hs.NsVar
+    , typ     :: HsType
+    , constr  :: Hs.Name Hs.NsTypeConstr
+    , comment :: Maybe HsDoc.Comment
+    }
   deriving stock (Generic, Show)
 
-data UnionSetter = UnionSetter
-  { unionSetterName    :: Hs.Name Hs.NsVar
-  , unionSetterType    :: HsType
-  , unionSetterConstr  :: Hs.Name Hs.NsTypeConstr
-  , unionSetterComment :: Maybe HsDoc.Comment
-  }
+data UnionSetter = UnionSetter{
+      name    :: Hs.Name Hs.NsVar
+    , typ     :: HsType
+    , constr  :: Hs.Name Hs.NsTypeConstr
+    , comment :: Maybe HsDoc.Comment
+    }
   deriving stock (Generic, Show)
 
-data DeriveInstance = DeriveInstance
-  { deriveInstanceStrategy :: Strategy HsType
-  , deriveInstanceClass    :: Hs.TypeClass
-  , deriveInstanceName     :: Hs.Name Hs.NsTypeConstr
-  , deriveInstanceComment  :: Maybe HsDoc.Comment
-  }
+data DeriveInstance = DeriveInstance{
+      strategy :: Strategy HsType
+    , clss     :: Hs.TypeClass
+    , name     :: Hs.Name Hs.NsTypeConstr
+    , comment  :: Maybe HsDoc.Comment
+    }
   deriving stock (Generic, Show)
 
-data Var = Var {
+data Var = Var{
       name    :: Hs.Name Hs.NsVar
     , typ     :: SHs.ClosedType
     , expr    :: SHs.ClosedExpr
@@ -252,10 +256,9 @@ data Decl where
     DeclVar             :: Var                 -> Decl
 deriving instance Show Decl
 
-data DefineInstance =
-  DefineInstance
-    { defineInstanceDeclarations :: InstanceDecl
-    , defineInstanceComment      :: Maybe HsDoc.Comment
+data DefineInstance = DefineInstance{
+      instanceDecl :: InstanceDecl
+    , comment      :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 
@@ -336,39 +339,31 @@ deriving stock instance Show VarDeclRHSAppHead
 -- pattern P = C e
 -- @
 --
-data PatSyn = PatSyn
-    { patSynName    :: Hs.Name Hs.NsConstr
-    , patSynType    :: Hs.Name Hs.NsTypeConstr
-    , patSynConstr  :: Hs.Name Hs.NsConstr
-    , patSynValue   :: Integer
-    , patSynOrigin  :: Origin.PatSyn
-    , patSynComment :: Maybe HsDoc.Comment
+data PatSyn = PatSyn{
+      name    :: Hs.Name Hs.NsConstr
+    , typ     :: Hs.Name Hs.NsTypeConstr
+    , constr  :: Hs.Name Hs.NsConstr
+    , value   :: Integer
+    , origin  :: Origin.PatSyn
+    , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
-  'ToFunPtr'
+  'ToFunPtr' and 'FromFunPtr'
 -------------------------------------------------------------------------------}
 
 -- | 'ToFunPtr' instance
---
-type ToFunPtrInstance :: Star
-data ToFunPtrInstance = ToFunPtrInstance
-    { toFunPtrInstanceType :: HsType
-    , toFunPtrInstanceBody :: UniqueSymbol
+data ToFunPtrInstance = ToFunPtrInstance{
+      typ  :: HsType
+    , body :: UniqueSymbol
     }
   deriving stock (Generic, Show)
 
-{-------------------------------------------------------------------------------
-  'FromFunPtr'
--------------------------------------------------------------------------------}
-
 -- | 'FromFunPtr' instance
---
-type FromFunPtrInstance :: Star
-data FromFunPtrInstance = FromFunPtrInstance
-    { fromFunPtrInstanceType :: HsType
-    , fromFunPtrInstanceBody :: UniqueSymbol
+data FromFunPtrInstance = FromFunPtrInstance{
+      typ  :: HsType
+    , body :: UniqueSymbol
     }
   deriving stock (Generic, Show)
 
@@ -381,12 +376,11 @@ data FromFunPtrInstance = FromFunPtrInstance
 -- Currently this models storable instances for structs /only/.
 --
 -- <https://hackage.haskell.org/package/base/docs/Foreign-Storable.html#t:Storable>
-type StorableInstance :: Star
-data StorableInstance = StorableInstance
-    { storableSizeOf    :: Int
-    , storableAlignment :: Int
-    , storablePeek      :: Lambda (Ap StructCon PeekCField) EmptyCtx
-    , storablePoke      :: Lambda (Lambda (ElimStruct (Seq PokeCField))) EmptyCtx
+data StorableInstance = StorableInstance{
+      sizeOf    :: Int
+    , alignment :: Int
+    , peek      :: Lambda (Ap StructCon PeekCField) EmptyCtx
+    , poke      :: Lambda (Lambda (ElimStruct (Seq PokeCField))) EmptyCtx
     }
   deriving stock (Generic, Show)
 
@@ -422,42 +416,56 @@ data PokeCField ctx =
 -- * Prim: @indexByteArray# arr# (numFields# *# i# +# fieldPos#)@
 --
 -- <https://hackage.haskell.org/package/primitive/docs/Data-Primitive-Types.html#t:Prim>
---
-type PrimInstance :: Star
-data PrimInstance = PrimInstance
-    { primSizeOf           :: Int  -- ^ Total size in bytes
-    , primAlignment        :: Int  -- ^ Alignment requirement
-    -- | indexByteArray# :: ByteArray# -> Int# -> a
-    -- Takes array and element index, returns struct by indexing each field
-    -- Body: StructCon with direct field calls (no applicative)
-    , primIndexByteArray   :: Lambda (Lambda (Apply StructCon IndexByteArrayField)) EmptyCtx
-    -- | readByteArray# :: MutableByteArray# s -> Int# -> State# s -> (# State# s, a #)
-    -- Takes array, element index, and state; returns new state and struct
-    , primReadByteArray    :: Lambda (Lambda (Lambda ReadByteArrayFields)) EmptyCtx
-    -- | writeByteArray# :: MutableByteArray# s -> Int# -> a -> State# s -> State# s
-    -- Takes array, element index, struct value, and state; returns new state
-    , primWriteByteArray   :: Lambda (Lambda (Lambda (Lambda (ElimStruct WriteByteArrayFields)))) EmptyCtx
-    -- | indexOffAddr# :: Addr# -> Int# -> a
-    -- Takes address and element index, returns struct by indexing each field
-    -- Body: StructCon with direct field calls (no applicative)
-    , primIndexOffAddr     :: Lambda (Lambda (Apply StructCon IndexOffAddrField)) EmptyCtx
-    -- | readOffAddr# :: Addr# -> Int# -> State# s -> (# State# s, a #)
-    -- Takes address, element index, and state; returns new state and struct
-    , primReadOffAddr      :: Lambda (Lambda (Lambda ReadOffAddrFields)) EmptyCtx
-    -- | writeOffAddr# :: Addr# -> Int# -> a -> State# s -> State# s
-    -- Takes address, element index, struct value, and state; returns new state
-    , primWriteOffAddr     :: Lambda (Lambda (Lambda (Lambda (ElimStruct WriteOffAddrFields)))) EmptyCtx
+data PrimInstance = PrimInstance{
+      -- | Total size in bytes
+      sizeOf :: Int
+
+      -- | Alignment requirement
+    , alignment :: Int
+
+      -- | @indexByteArray# :: ByteArray# -> Int# -> a@
+      --
+      -- Takes array and element index, returns struct by indexing each field
+      -- Body: StructCon with direct field calls (no applicative)
+    , indexByteArray :: Lambda (Lambda (Apply StructCon IndexByteArrayField)) EmptyCtx
+
+      -- | @readByteArray# :: MutableByteArray# s -> Int# -> State# s -> (# State# s, a #)@
+      --
+      -- Takes array, element index, and state; returns new state and struct
+    , readByteArray :: Lambda (Lambda (Lambda ReadByteArrayFields)) EmptyCtx
+
+      -- | @writeByteArray# :: MutableByteArray# s -> Int# -> a -> State# s -> State# s@
+      --
+      -- Takes array, element index, struct value, and state; returns new state
+    , writeByteArray :: Lambda (Lambda (Lambda (Lambda (ElimStruct WriteByteArrayFields)))) EmptyCtx
+
+      -- | @indexOffAddr# :: Addr# -> Int# -> a@
+      --
+      -- Takes address and element index, returns struct by indexing each field
+      -- Body: StructCon with direct field calls (no applicative)
+    , indexOffAddr :: Lambda (Lambda (Apply StructCon IndexOffAddrField)) EmptyCtx
+
+      -- | readOffAddr# :: Addr# -> Int# -> State# s -> (# State# s, a #)
+      --
+      -- Takes address, element index, and state; returns new state and struct
+
+    , readOffAddr :: Lambda (Lambda (Lambda ReadOffAddrFields)) EmptyCtx
+
+      -- | writeOffAddr# :: Addr# -> Int# -> a -> State# s -> State# s
+      --
+      -- Takes address, element index, struct value, and state; returns new state
+    , writeOffAddr :: Lambda (Lambda (Lambda (Lambda (ElimStruct WriteOffAddrFields)))) EmptyCtx
     }
   deriving stock (Generic, Show)
 
 -- | Common field metadata for indexing operations
---
-data IndexPrimFieldData ctx = IndexPrimFieldData
-    { indexFieldType :: HsType  -- ^ Field type
-    , indexFieldArg1 :: Idx ctx -- ^ First argument variable
-    , indexFieldArg2 :: Idx ctx -- ^ Second argument variable
-    , indexFieldPos  :: Int     -- ^ Field position (0-based)
-    , indexNumFields :: Int     -- ^ Total number of fields
+type IndexPrimFieldData :: Ctx -> Star
+data IndexPrimFieldData ctx = IndexPrimFieldData{
+      typ       :: HsType  -- ^ Field type
+    , arg1      :: Idx ctx -- ^ First argument variable
+    , arg2      :: Idx ctx -- ^ Second argument variable
+    , pos       :: Int     -- ^ Field position (0-based)
+    , numFields :: Int     -- ^ Total number of fields
     }
   deriving stock (Generic, Show)
 
@@ -467,8 +475,9 @@ data IndexPrimFieldData ctx = IndexPrimFieldData
 -- Example: @indexByteArray# arr# (3# *# i# +# 1#)@ for field 1 of a 3-field struct
 --
 type IndexByteArrayField :: Ctx -> Star
-newtype IndexByteArrayField ctx =
-  IndexByteArrayField { getIndexByteArrayFieldData :: IndexPrimFieldData ctx }
+data IndexByteArrayField ctx = IndexByteArrayField{
+      metadata :: IndexPrimFieldData ctx
+    }
   deriving stock (Generic, Show)
 
 -- | Index a field from Addr# using indexOffAddr#
@@ -476,18 +485,19 @@ newtype IndexByteArrayField ctx =
 -- For a struct with n fields at element index i, field f is at position: n*i + f
 -- Example: @indexOffAddr# addr# (3# *# i# +# 1#)@ for field 1 of a 3-field struct
 type IndexOffAddrField :: Ctx -> Star
-newtype IndexOffAddrField ctx =
-  IndexOffAddrField { getIndexOffAddrFieldData :: IndexPrimFieldData ctx }
+data IndexOffAddrField ctx = IndexOffAddrField{
+      metadata :: IndexPrimFieldData ctx
+    }
   deriving stock (Generic, Show)
 
 -- | Common field metadata for read operations
---
-data ReadPrimFieldsData ctx = ReadPrimFieldsData
-    { readFields     :: [(HsType, Int)] -- ^ Fields: (type, position)
-    , readFieldsArg1 :: Idx ctx         -- ^ First argument variable
-    , readFieldsArg2 :: Idx ctx         -- ^ Second argument variable
-    , readFieldsArg3 :: Idx ctx         -- ^ Third argument variable
-    , readNumFields  :: Int             -- ^ Total number of fields
+type ReadPrimFieldsData :: Ctx -> Star
+data ReadPrimFieldsData ctx = ReadPrimFieldsData{
+      fields    :: [(HsType, Int)] -- ^ Fields: (type, position)
+    , arg1      :: Idx ctx         -- ^ First argument variable
+    , arg2      :: Idx ctx         -- ^ Second argument variable
+    , arg3      :: Idx ctx         -- ^ Third argument variable
+    , numFields :: Int             -- ^ Total number of fields
     }
   deriving stock (Generic, Show)
 
@@ -500,8 +510,9 @@ data ReadPrimFieldsData ctx = ReadPrimFieldsData
 -- >     (# s2, y #) -> (# s2, Struct x y #)
 --
 type ReadByteArrayFields :: Ctx -> Star
-data ReadByteArrayFields ctx =
-  ReadByteArrayFields { getReadByteArrayFieldData :: ReadPrimFieldsData ctx }
+data ReadByteArrayFields ctx = ReadByteArrayFields{
+      metadata :: ReadPrimFieldsData ctx
+    }
   deriving stock (Generic, Show)
 
 -- | Read fields from Addr# with state threading
@@ -513,17 +524,18 @@ data ReadByteArrayFields ctx =
 -- >     (# s2, y #) -> (# s2, Struct x y #)
 --
 type ReadOffAddrFields :: Ctx -> Star
-data ReadOffAddrFields ctx =
-  ReadOffAddrFields { getReadOffAddrFieldData :: ReadPrimFieldsData ctx }
+data ReadOffAddrFields ctx = ReadOffAddrFields{
+      metadata :: ReadPrimFieldsData ctx
+    }
   deriving stock (Generic, Show)
 
 -- | Common field metadata for write operations
-data WritePrimFieldsData ctx = WritePrimFieldsData
-    { writeFields     :: [(HsType, Int, Idx ctx)] -- ^ Fields: (type, position, value variable)
-    , writeFieldsArg1 :: Idx ctx                  -- ^ First argument variable
-    , writeFieldsArg2 :: Idx ctx                  -- ^ Second argument variable
-    , writeFieldsArg3 :: Idx ctx                  -- ^ Third argument variable
-    , writeNumFields  :: Int                      -- ^ Total number of fields
+data WritePrimFieldsData ctx = WritePrimFieldsData{
+      fields    :: [(HsType, Int, Idx ctx)] -- ^ Fields: (type, position, value variable)
+    , arg1      :: Idx ctx                  -- ^ First argument variable
+    , arg2      :: Idx ctx                  -- ^ Second argument variable
+    , arg3      :: Idx ctx                  -- ^ Third argument variable
+    , numFields :: Int                      -- ^ Total number of fields
     }
   deriving stock (Generic, Show)
 
@@ -535,8 +547,9 @@ data WritePrimFieldsData ctx = WritePrimFieldsData
 -- >   s1 -> writeByteArray# arr# (n# *# i# +# 1#) y s1
 --
 type WriteByteArrayFields :: Ctx -> Star
-data WriteByteArrayFields ctx =
-  WriteByteArrayFields { getWriteByteArrayFieldData :: WritePrimFieldsData ctx }
+data WriteByteArrayFields ctx = WriteByteArrayFields {
+      metadata :: WritePrimFieldsData ctx
+    }
   deriving stock (Generic, Show)
 
 -- | Write fields to Addr# with state threading
@@ -547,26 +560,28 @@ data WriteByteArrayFields ctx =
 -- >   s1 -> writeOffAddr# addr# (n# *# i# +# 1#) y s1
 --
 type WriteOffAddrFields :: Ctx -> Star
-data WriteOffAddrFields ctx =
-  WriteOffAddrFields { writeAddrFieldData :: WritePrimFieldsData ctx }
+data WriteOffAddrFields ctx = WriteOffAddrFields {
+      metadata :: WritePrimFieldsData ctx
+    }
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
   'HasCField'
 -------------------------------------------------------------------------------}
 
--- | A 'HasCField' instance
-type HasCFieldInstance :: Star
+-- | 'HasCField' instance
 data HasCFieldInstance = HasCFieldInstance {
       -- | The haskell type of the parent C object
-      hasCFieldInstanceParentType :: HsType
+      parentType :: HsType
+
       -- | The name of the field
-    , hasCFieldInstanceFieldName  :: Hs.Name Hs.NsVar
+    , fieldName :: Hs.Name Hs.NsVar
+
       -- | The haskell type of the field
-    , hasCFieldInstanceCFieldType :: HsType
-      -- | The offset (in number of bytes) of the field with respect to the
-      -- parent object
-    , hasCFieldInstanceFieldOffset :: Int
+    , cFieldType :: HsType
+
+      -- | The offset (in number of bytes) of the field wrt the parent object
+    , fieldOffset :: Int
     }
   deriving stock (Generic, Show)
 
@@ -574,20 +589,22 @@ data HasCFieldInstance = HasCFieldInstance {
   'HasCBitfield'
 -------------------------------------------------------------------------------}
 
--- | A 'HasCBitfield' instance
-type HasCBitfieldInstance :: Star
+-- | 'HasCBitfield' instance
 data HasCBitfieldInstance = HasCBitfieldInstance {
       -- | The haskell type of the parent C object
-      hasCBitfieldInstanceParentType :: HsType
+      parentType :: HsType
+
       -- | The name of the bit-field
-    , hasCBitfieldInstanceFieldName :: Hs.Name Hs.NsVar
+    , fieldName :: Hs.Name Hs.NsVar
+
       -- | The haskell type of the bit-field
-    , hasCBitfieldInstanceCBitfieldType :: HsType
-      -- | The offset (in number of bit) of the bit-field with respect to the
-      -- parent object
-    , hasCBitfieldInstanceBitOffset :: Int
+    , cBitfieldType :: HsType
+
+      -- | The offset (in number of bit) of the bit-field wrt the parent object
+    , bitOffset :: Int
+
       -- | The width (in number of bits) of the bit-field.
-    , hasCBitfieldInstanceBitWidth :: Int
+    , bitWidth :: Int
     }
   deriving stock (Generic, Show)
 
@@ -595,17 +612,19 @@ data HasCBitfieldInstance = HasCBitfieldInstance {
   'HasField'
 -------------------------------------------------------------------------------}
 
--- | A 'HasField' instance (via a 'HasCField' or 'HasCBitfield' instance).
-type HasFieldInstance :: Star
+-- | 'HasField' instance (via a 'HasCField' or 'HasCBitfield' instance).
 data HasFieldInstance = HasFieldInstance {
       -- | The haskell type of the parent C object
-      hasFieldInstanceParentType :: HsType
+      parentType :: HsType
+
       -- | The name of the (bit-)field
-    , hasFieldInstanceFieldName :: Hs.Name Hs.NsVar
+    , fieldName :: Hs.Name Hs.NsVar
+
       -- | The haskell type of the (bit-)field
-    , hasFieldInstanceFieldType :: HsType
+    , fieldType :: HsType
+
       -- | Implement the instance via a 'HasCField' or 'HasCBitfield' instance.
-    , hasFieldInstanceVia :: HasFieldInstanceVia
+    , deriveVia :: HasFieldInstanceVia
     }
   deriving stock (Generic, Show)
 

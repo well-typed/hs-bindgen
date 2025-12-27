@@ -1,3 +1,7 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 -- | General Haskell language types
 --
 -- Intended for qualified import.
@@ -7,7 +11,6 @@ module HsBindgen.Language.Haskell (
     -- * Module names
     ModuleName -- opaque
   , moduleNameFromText
-  , moduleNameToText
   , moduleNameFromString
   , moduleNameToString
   , moduleNamePath
@@ -43,7 +46,7 @@ import HsBindgen.Util.Tracer
 -- | Haskell module name
 --
 -- Example: @HsBindgen.Runtime.LibC@
-newtype ModuleName = ModuleName { moduleNameToText :: Text }
+newtype ModuleName = ModuleName { text :: Text }
   deriving stock (Generic)
   -- 'Show' instance valid due to 'IsString' instance
   deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
@@ -55,7 +58,7 @@ moduleNameFromString :: String -> ModuleName
 moduleNameFromString = moduleNameFromText . Text.pack
 
 moduleNameToString :: ModuleName -> String
-moduleNameToString = Text.unpack . moduleNameToText
+moduleNameToString moduleName = Text.unpack moduleName.text
 
 moduleNamePath :: ModuleName -> FilePath
 moduleNamePath moduleName = withoutExt <.> "hs"
@@ -63,10 +66,10 @@ moduleNamePath moduleName = withoutExt <.> "hs"
     withoutExt :: FilePath
     withoutExt =
         Foldable.foldl' (</>) "" $
-          map Text.unpack (Text.splitOn "." $ moduleNameToText moduleName)
+          map Text.unpack (Text.splitOn "." moduleName.text)
 
 instance PrettyForTrace ModuleName where
-  prettyForTrace = PP.text . moduleNameToText
+  prettyForTrace moduleName = PP.text moduleName.text
 
 {-------------------------------------------------------------------------------
   References
@@ -90,8 +93,8 @@ instance PrettyForTrace Identifier where
 --
 -- An external reference specifies the 'ModuleName' and 'Identifier'
 data ExtRef = ExtRef {
-      extRefModule     :: ModuleName
-    , extRefIdentifier :: Identifier
+      moduleName :: ModuleName
+    , ident      :: Identifier
     }
   deriving stock (Eq, Generic, Ord, Show)
 

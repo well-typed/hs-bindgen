@@ -29,21 +29,21 @@ translatePrimInstance ::
   -> Hs.PrimInstance
   -> Maybe HsDoc.Comment
   -> Instance
-translatePrimInstance struct Hs.PrimInstance{..} mbComment =
-    let indexBA   = lambda (lambda (translateDirectApply translateIndexByteArrayField)) primIndexByteArray
-        readBA    = lambda (lambda (lambda (translateReadByteArrayFields struct))) primReadByteArray
-        writeBA   = lambda (lambda (lambda (lambda (translateElimStruct translateWriteByteArrayFields)))) primWriteByteArray
-        indexAddr = lambda (lambda (translateDirectApply translateIndexOffAddrField)) primIndexOffAddr
-        readAddr  = lambda (lambda (lambda (translateReadOffAddrFields struct))) primReadOffAddr
-        writeAddr = lambda (lambda (lambda (lambda (translateElimStruct translateWriteOffAddrFields)))) primWriteOffAddr
+translatePrimInstance struct inst mbComment =
+    let indexBA   = lambda (lambda (translateDirectApply translateIndexByteArrayField)) inst.indexByteArray
+        readBA    = lambda (lambda (lambda (translateReadByteArrayFields struct))) inst.readByteArray
+        writeBA   = lambda (lambda (lambda (lambda (translateElimStruct translateWriteByteArrayFields)))) inst.writeByteArray
+        indexAddr = lambda (lambda (translateDirectApply translateIndexOffAddrField)) inst.indexOffAddr
+        readAddr  = lambda (lambda (lambda (translateReadOffAddrFields struct))) inst.readOffAddr
+        writeAddr = lambda (lambda (lambda (lambda (translateElimStruct translateWriteOffAddrFields)))) inst.writeOffAddr
     in Instance
       { instanceClass = Prim_class
-      , instanceArgs  = [TCon $ Hs.structName struct]
+      , instanceArgs  = [TCon struct.name]
       , instanceSuperClasses = []
       , instanceTypes = []
       , instanceDecs  = [
-            (Prim_sizeOf#         , EUnusedLam $ EUnboxedIntegral (toInteger primSizeOf))
-          , (Prim_alignment#      , EUnusedLam $ EUnboxedIntegral (toInteger primAlignment))
+            (Prim_sizeOf#         , EUnusedLam $ EUnboxedIntegral (toInteger inst.sizeOf))
+          , (Prim_alignment#      , EUnusedLam $ EUnboxedIntegral (toInteger inst.alignment))
           , (Prim_indexByteArray# , indexBA)
           , (Prim_readByteArray#  , readBA)
           , (Prim_writeByteArray# , writeBA)
@@ -62,30 +62,26 @@ translatePrimInstance struct Hs.PrimInstance{..} mbComment =
 -- Generates: Constructor (field1) (field2) ...
 translateDirectApply :: (f ctx -> SExpr ctx) -> Hs.Apply Hs.StructCon f ctx -> SExpr ctx
 translateDirectApply translateField (Hs.Apply (Hs.StructCon struct) fields) =
-    appManyExpr (ECon $ Hs.structConstr struct) (map translateField fields)
+    appManyExpr (ECon struct.constr) (map translateField fields)
 
 -- | Translate IndexByteArrayField to SExpr
 --
 -- Generates: @indexByteArray# arr (numFields *# i +# fieldPos)@
 translateIndexByteArrayField :: Hs.IndexByteArrayField ctx -> SExpr ctx
-translateIndexByteArrayField (Hs.IndexByteArrayField Hs.IndexPrimFieldData {..}) =
-    appMany Prim_indexByteArray#
-      [ EBound indexFieldArg1
-      , computeIndex indexFieldArg2
-                     indexFieldPos
-                     indexNumFields
+translateIndexByteArrayField (Hs.IndexByteArrayField ix) =
+    appMany Prim_indexByteArray# [
+        EBound ix.arg1
+      , computeIndex ix.arg2 ix.pos ix.numFields
       ]
 
 -- | Translate IndexOffAddrField to SExpr
 --
 -- Generates: @indexOffAddr# addr (numFields *# i +# fieldPos)@
 translateIndexOffAddrField :: Hs.IndexOffAddrField ctx -> SExpr ctx
-translateIndexOffAddrField (Hs.IndexOffAddrField Hs.IndexPrimFieldData {..}) =
-    appMany Prim_indexOffAddr#
-      [ EBound indexFieldArg1
-      , computeIndex indexFieldArg2
-                     indexFieldPos
-                     indexNumFields
+translateIndexOffAddrField (Hs.IndexOffAddrField ix) =
+    appMany Prim_indexOffAddr# [
+        EBound ix.arg1
+      , computeIndex ix.arg2 ix.pos ix.numFields
       ]
 
 {-------------------------------------------------------------------------------
@@ -99,16 +95,16 @@ translateIndexOffAddrField (Hs.IndexOffAddrField Hs.IndexPrimFieldData {..}) =
 -- >   (# s1, x #) -> case readByteArray# arr (n *# i +# 1) s1 of
 -- >     (# s2, y #) -> (# s2, Struct x y #)
 translateReadByteArrayFields :: Hs.Struct n -> Hs.ReadByteArrayFields ctx -> SExpr ctx
-translateReadByteArrayFields struct (Hs.ReadByteArrayFields Hs.ReadPrimFieldsData {..}) =
-  buildNestedReads
-    struct
-    Prim_readByteArray#
-    readFieldsArg1
-    readFieldsArg2
-    readFieldsArg3
-    readFields
-    []
-    readNumFields
+translateReadByteArrayFields struct (Hs.ReadByteArrayFields rd) =
+    buildNestedReads
+      struct
+      Prim_readByteArray#
+      rd.arg1
+      rd.arg2
+      rd.arg3
+      rd.fields
+      []
+      rd.numFields
 
 -- | Translate ReadOffAddrFields with state threading
 --
@@ -117,16 +113,16 @@ translateReadByteArrayFields struct (Hs.ReadByteArrayFields Hs.ReadPrimFieldsDat
 -- >   (# s1, x #) -> case readOffAddr# addr (n *# i +# 1) s1 of
 -- >     (# s2, y #) -> (# s2, Struct x y #)
 translateReadOffAddrFields :: Hs.Struct n -> Hs.ReadOffAddrFields ctx -> SExpr ctx
-translateReadOffAddrFields struct (Hs.ReadOffAddrFields Hs.ReadPrimFieldsData {..}) =
-  buildNestedReads
-    struct
-    Prim_readOffAddr#
-    readFieldsArg1
-    readFieldsArg2
-    readFieldsArg3
-    readFields
-    []
-    readNumFields
+translateReadOffAddrFields struct (Hs.ReadOffAddrFields rd) =
+    buildNestedReads
+      struct
+      Prim_readOffAddr#
+      rd.arg1
+      rd.arg2
+      rd.arg3
+      rd.fields
+      []
+      rd.numFields
 
 -- | Build nested case expressions for reading multiple fields with state threading
 --
@@ -147,7 +143,7 @@ buildNestedReads struct _ _ _ stateIdx [] _ _ =
   -- No memory reads needed since there's no data to read
   EUnboxedTup
     [ EBound stateIdx
-    , ECon (Hs.structConstr struct)  -- Empty constructor
+    , ECon struct.constr  -- Empty constructor
     ]
 buildNestedReads struct readOp arrIdx elemIdx stateIdx [(_, fieldPos)] valueVariables numFields =
   -- Last field: read it and construct the final unboxed tuple (# state, Struct ... #)
@@ -177,7 +173,7 @@ buildNestedReads struct readOp arrIdx elemIdx stateIdx [(_, fieldPos)] valueVari
 
     -- Construct struct value by applying constructor to field expressions
     mkStructValue :: [SExpr (S (S ctx))] -> SExpr (S (S ctx))
-    mkStructValue fieldExprs = ECon (Hs.structConstr struct) `appManyExpr` fieldExprs
+    mkStructValue fieldExprs = ECon struct.constr `appManyExpr` fieldExprs
 
     -- Construct pattern match alternative for unboxed tuple (# state, value #)
     mkUnboxedTupleAlt :: SExpr (S (S ctx)) -> SAlt ctx
@@ -249,14 +245,14 @@ buildNestedReads struct readOp arrIdx elemIdx stateIdx ((_, fieldPos):remainingF
 --
 -- writeByteArray# returns State# s, which we pattern match to thread through
 translateWriteByteArrayFields :: Hs.WriteByteArrayFields ctx -> SExpr ctx
-translateWriteByteArrayFields (Hs.WriteByteArrayFields Hs.WritePrimFieldsData {..}) =
-  buildSequentialWrites
-    Prim_writeByteArray#
-    writeFieldsArg1
-    writeFieldsArg2
-    writeFieldsArg3
-    writeFields
-    writeNumFields
+translateWriteByteArrayFields (Hs.WriteByteArrayFields wr) =
+    buildSequentialWrites
+      Prim_writeByteArray#
+      wr.arg1
+      wr.arg2
+      wr.arg3
+      wr.fields
+      wr.numFields
 
 -- | Translate WriteOffAddrFields with state threading
 --
@@ -267,14 +263,14 @@ translateWriteByteArrayFields (Hs.WriteByteArrayFields Hs.WritePrimFieldsData {.
 --
 -- writeOffAddr# returns State# s, which we pattern match to thread through
 translateWriteOffAddrFields :: Hs.WriteOffAddrFields ctx -> SExpr ctx
-translateWriteOffAddrFields (Hs.WriteOffAddrFields Hs.WritePrimFieldsData {..}) =
-  buildSequentialWrites
-    Prim_writeOffAddr#
-    writeFieldsArg1
-    writeFieldsArg2
-    writeFieldsArg3
-    writeFields
-    writeNumFields
+translateWriteOffAddrFields (Hs.WriteOffAddrFields wr) =
+    buildSequentialWrites
+      Prim_writeOffAddr#
+      wr.arg1
+      wr.arg2
+      wr.arg3
+      wr.fields
+      wr.numFields
 
 -- | Build sequential writes with state threading
 --

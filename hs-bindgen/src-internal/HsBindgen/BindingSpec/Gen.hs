@@ -137,7 +137,7 @@ genBindingSpec'
       Hs.DeclData struct      -> insertType $ auxStruct    struct
       Hs.DeclEmpty edata      -> insertType $ auxEmptyData edata
       Hs.DeclNewtype ntype    ->
-        case ntype.newtypeOrigin.declKind of
+        case ntype.origin.declKind of
           HsOrigin.Aux{} -> id
           _otherwise     -> insertType $ auxNewtype ntype
       Hs.DeclPatSyn{}         -> id
@@ -174,20 +174,20 @@ genBindingSpec'
       -> ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
          , (Hs.Identifier, BindingSpec.HsTypeSpec)
          )
-    auxStruct hsStruct = case Hs.structOrigin hsStruct of
+    auxStruct hsStruct = case hsStruct.origin of
       Nothing -> panicPure "auxStruct: structOrigin is Nothing"
       Just originDecl ->
         let declInfo = HsOrigin.declInfo originDecl
-            hsIdentifier = Hs.Identifier $ Hs.getName (Hs.structName hsStruct)
+            hsIdentifier = Hs.Identifier $ Hs.getName hsStruct.name
             cTypeSpec = BindingSpec.CTypeSpec {
                 cTypeSpecIdentifier = Just hsIdentifier
               , cTypeSpecRep        = Nothing  -- TODO implement
               }
             hsRecordRep = BindingSpec.HsRecordRep {
-                hsRecordRepConstructor = Just $ Hs.Identifier $ Hs.getName $ Hs.structConstr hsStruct
+                hsRecordRepConstructor = Just $ Hs.Identifier $ Hs.getName hsStruct.constr
               , hsRecordRepFields = Just [
-                    Hs.Identifier $ Hs.getName $ Hs.fieldName field
-                  | field <- Vec.toList $ Hs.structFields hsStruct
+                    Hs.Identifier $ Hs.getName field.name
+                  | field <- Vec.toList hsStruct.fields
                   ]
               }
             hsTypeSpec = BindingSpec.HsTypeSpec {
@@ -197,7 +197,7 @@ genBindingSpec'
                     ( maybe Map.empty BindingSpec.hsTypeSpecInstances $
                        (HsOrigin.declSpec originDecl).hsSpec
                     )
-                    (Hs.structInstances hsStruct)
+                    hsStruct.instances
               }
         in  ( (declInfo, cTypeSpec)
             , (hsIdentifier, hsTypeSpec)
@@ -209,9 +209,9 @@ genBindingSpec'
          , (Hs.Identifier, BindingSpec.HsTypeSpec)
          )
     auxEmptyData edata =
-      let originDecl = Hs.emptyDataOrigin edata
-          declInfo = HsOrigin.declInfo originDecl
-          hsIdentifier = Hs.Identifier $ Hs.getName (Hs.emptyDataName edata)
+      let originDecl   = edata.origin
+          declInfo     = HsOrigin.declInfo originDecl
+          hsIdentifier = Hs.Identifier $ Hs.getName edata.name
           cTypeSpec = BindingSpec.CTypeSpec {
               cTypeSpecIdentifier = Just hsIdentifier
             , cTypeSpecRep        = Nothing  -- TODO implement
@@ -230,17 +230,17 @@ genBindingSpec'
          , (Hs.Identifier, BindingSpec.HsTypeSpec)
          )
     auxNewtype hsNewtype =
-      let originDecl = Hs.newtypeOrigin hsNewtype
-          declInfo = HsOrigin.declInfo originDecl
-          hsIdentifier = Hs.Identifier $ Hs.getName (Hs.newtypeName hsNewtype)
-          cTypeSpec = BindingSpec.CTypeSpec {
+      let originDecl   = hsNewtype.origin
+          declInfo     = HsOrigin.declInfo originDecl
+          hsIdentifier = Hs.Identifier $ Hs.getName hsNewtype.name
+          cTypeSpec    = BindingSpec.CTypeSpec {
               cTypeSpecIdentifier = Just hsIdentifier
             , cTypeSpecRep        = Nothing  -- TODO implement
             }
           hsNewtypeRep = BindingSpec.HsNewtypeRep {
-              hsNewtypeRepConstructor = Just $ Hs.Identifier $ Hs.getName $ Hs.newtypeConstr hsNewtype
-            , hsNewtypeRepField = Just $ Hs.Identifier $ Hs.getName $ Hs.fieldName $ Hs.newtypeField hsNewtype
-            , hsNewtypeRepFFIType = Hs.newtypeFFIType hsNewtype
+              hsNewtypeRepConstructor = Just $ Hs.Identifier $ Hs.getName hsNewtype.constr
+            , hsNewtypeRepField       = Just $ Hs.Identifier $ Hs.getName hsNewtype.field.name
+            , hsNewtypeRepFFIType     = hsNewtype.ffiType
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
               hsTypeSpecRep = Just $ BindingSpec.HsTypeRepNewtype hsNewtypeRep
@@ -249,7 +249,7 @@ genBindingSpec'
                   ( maybe Map.empty BindingSpec.hsTypeSpecInstances $
                       (HsOrigin.declSpec originDecl).hsSpec
                   )
-                  (Hs.newtypeInstances hsNewtype)
+                  hsNewtype.instances
             }
       in  ( (declInfo, cTypeSpec)
           , (hsIdentifier, hsTypeSpec)

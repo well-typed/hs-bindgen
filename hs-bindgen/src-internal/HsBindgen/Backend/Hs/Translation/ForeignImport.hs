@@ -24,20 +24,19 @@ foreignImportDec ::
   -> Origin.ForeignImport
   -> Safety
   -> Hs.Decl
-foreignImportDec name resultType parameters origName callConv origin safety =
+foreignImportDec name result parameters origName callConv origin safety =
     Hs.DeclForeignImport foreignImportDecl
-    -- TODO: prevent the "newtype constructor not in scope" bug. See issue #1282.
   where
     foreignImportDecl :: Hs.ForeignImportDecl
-    foreignImportDecl =  Hs.ForeignImportDecl
-        { foreignImportName         = name
-        , foreignImportResultType   = resultType
-        , foreignImportParameters   = parameters
-        , foreignImportOrigName     = origName
-        , foreignImportCallConv     = callConv
-        , foreignImportOrigin       = origin
-        , foreignImportComment      = mbUniqueSymbol
-        , foreignImportSafety       = safety
+    foreignImportDecl =  Hs.ForeignImportDecl{
+          name       = name
+        , result     = result
+        , parameters = parameters
+        , origName   = origName
+        , callConv   = callConv
+        , origin     = origin
+        , comment    = mbUniqueSymbol
+        , safety     = safety
         }
 
     mbUniqueSymbol :: Maybe HsDoc.Comment
@@ -49,13 +48,12 @@ hasBaseForeignTypeDecs ::
      Hs.Newtype
   -> [Hs.Decl]
 hasBaseForeignTypeDecs nt =
-     [mk | HasBaseForeignType `elem` nt.newtypeInstances]
+    [mk | HasBaseForeignType `elem` nt.instances]
   where
     mk :: Hs.Decl
-    mk = Hs.DeclDeriveInstance
-              Hs.DeriveInstance {
-                deriveInstanceStrategy = Hs.DeriveNewtype
-              , deriveInstanceClass    = HasBaseForeignType
-              , deriveInstanceName     = Hs.newtypeName nt
-              , deriveInstanceComment  = Nothing
-              }
+    mk = Hs.DeclDeriveInstance Hs.DeriveInstance{
+          strategy = Hs.DeriveNewtype
+        , clss     = HasBaseForeignType
+        , name     = nt.name
+        , comment  = Nothing
+        }

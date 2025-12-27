@@ -29,30 +29,23 @@ newtypeDec ::
   -> m Hs.Newtype
 newtypeDec name constr field orig comment candidateInsts knownInsts = do
     hsNewtype <- aux <$> State.get
-    State.modifyInstanceMap' $
-      Map.insert hsNewtype.newtypeName
-                 hsNewtype.newtypeInstances
-    State.modifyNewtypeMap' $
-      Map.insert hsNewtype.newtypeName
-                 hsNewtype.newtypeField.fieldType
+    State.modifyInstanceMap' $ Map.insert hsNewtype.name hsNewtype.instances
+    State.modifyNewtypeMap'  $ Map.insert hsNewtype.name hsNewtype.field.typ
     pure hsNewtype
   where
     aux :: TranslationState -> Hs.Newtype
     aux transState = Hs.Newtype {
-            newtypeName = name
-          , newtypeConstr = constr
-          , newtypeField = field
-          , newtypeOrigin = orig
-          , newtypeInstances = insts
-          , newtypeFFIType = Hs.toFFIType (transState.newtypeMap) fieldType
-          , newtypeComment = comment
+            name      = name
+          , constr    = constr
+          , field     = field
+          , origin    = orig
+          , instances = insts
+          , ffiType   = Hs.toFFIType (transState.newtypeMap) field.typ
+          , comment   = comment
           }
       where
-        fieldType :: Hs.HsType
-        fieldType = Hs.fieldType field
-
         resolvedInsts :: Set Hs.TypeClass
-        resolvedInsts = Hs.getInstances (State.instanceMap transState) (Just name) candidateInsts [fieldType]
+        resolvedInsts = Hs.getInstances (State.instanceMap transState) (Just name) candidateInsts [field.typ]
 
         insts :: Set Hs.TypeClass
         insts = knownInsts <> resolvedInsts
