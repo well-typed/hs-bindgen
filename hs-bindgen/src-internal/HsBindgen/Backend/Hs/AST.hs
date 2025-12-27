@@ -134,13 +134,13 @@ data EmptyData = EmptyData {
   deriving stock (Generic, Show)
 
 data Newtype = Newtype {
-      newtypeName      :: Hs.Name Hs.NsTypeConstr
-    , newtypeConstr    :: Hs.Name Hs.NsConstr
-    , newtypeField     :: Field
-    , newtypeOrigin    :: Origin.Decl Origin.Newtype
-    , newtypeInstances :: Set Hs.TypeClass
-    , newtypeFFIType   :: Maybe BindingSpec.FFIType
-    , newtypeComment   :: Maybe HsDoc.Comment
+      name      :: Hs.Name Hs.NsTypeConstr
+    , constr    :: Hs.Name Hs.NsConstr
+    , field     :: Field
+    , origin    :: Origin.Decl Origin.Newtype
+    , instances :: Set Hs.TypeClass
+    , ffiType   :: Maybe BindingSpec.FFIType
+    , comment   :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 

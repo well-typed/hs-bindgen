@@ -137,7 +137,7 @@ genBindingSpec'
       Hs.DeclData struct      -> insertType $ auxStruct    struct
       Hs.DeclEmpty edata      -> insertType $ auxEmptyData edata
       Hs.DeclNewtype ntype    ->
-        case ntype.newtypeOrigin.declKind of
+        case ntype.origin.declKind of
           HsOrigin.Aux{} -> id
           _otherwise     -> insertType $ auxNewtype ntype
       Hs.DeclPatSyn{}         -> id
@@ -230,17 +230,17 @@ genBindingSpec'
          , (Hs.Identifier, BindingSpec.HsTypeSpec)
          )
     auxNewtype hsNewtype =
-      let originDecl = Hs.newtypeOrigin hsNewtype
-          declInfo = HsOrigin.declInfo originDecl
-          hsIdentifier = Hs.Identifier $ Hs.getName (Hs.newtypeName hsNewtype)
-          cTypeSpec = BindingSpec.CTypeSpec {
+      let originDecl   = hsNewtype.origin
+          declInfo     = HsOrigin.declInfo originDecl
+          hsIdentifier = Hs.Identifier $ Hs.getName hsNewtype.name
+          cTypeSpec    = BindingSpec.CTypeSpec {
               cTypeSpecIdentifier = Just hsIdentifier
             , cTypeSpecRep        = Nothing  -- TODO implement
             }
           hsNewtypeRep = BindingSpec.HsNewtypeRep {
-              hsNewtypeRepConstructor = Just $ Hs.Identifier $ Hs.getName $ Hs.newtypeConstr hsNewtype
-            , hsNewtypeRepField       = Just $ Hs.Identifier $ Hs.getName $ hsNewtype.newtypeField.name
-            , hsNewtypeRepFFIType     = Hs.newtypeFFIType hsNewtype
+              hsNewtypeRepConstructor = Just $ Hs.Identifier $ Hs.getName hsNewtype.constr
+            , hsNewtypeRepField       = Just $ Hs.Identifier $ Hs.getName hsNewtype.field.name
+            , hsNewtypeRepFFIType     = hsNewtype.ffiType
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
               hsTypeSpecRep = Just $ BindingSpec.HsTypeRepNewtype hsNewtypeRep
@@ -249,7 +249,7 @@ genBindingSpec'
                   ( maybe Map.empty BindingSpec.hsTypeSpecInstances $
                       (HsOrigin.declSpec originDecl).hsSpec
                   )
-                  (Hs.newtypeInstances hsNewtype)
+                  hsNewtype.instances
             }
       in  ( (declInfo, cTypeSpec)
           , (hsIdentifier, hsTypeSpec)

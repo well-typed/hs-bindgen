@@ -141,19 +141,18 @@ translateDeclEmpty d = DEmptyData EmptyData{
     }
 
 translateNewtype :: Hs.Newtype -> SDecl
-translateNewtype n = DNewtype
-  Newtype
-    { newtypeName   = Hs.newtypeName n
-    , newtypeCon    = Hs.newtypeConstr n
-    , newtypeField  = Field {
-          fieldName    = n.newtypeField.name
-        , fieldType    = translateType n.newtypeField.typ
-        , fieldOrigin  = n.newtypeField.origin
-        , fieldComment = n.newtypeField.comment
-        }
-    , newtypeOrigin  = Hs.newtypeOrigin n
+translateNewtype n = DNewtype Newtype{
+      newtypeName    = n.name
+    , newtypeCon     = n.constr
+    , newtypeOrigin  = n.origin
     , newtypeDeriv   = []
-    , newtypeComment = Hs.newtypeComment n
+    , newtypeComment = n.comment
+    , newtypeField   = Field {
+          fieldName    = n.field.name
+        , fieldType    = translateType n.field.typ
+        , fieldOrigin  = n.field.origin
+        , fieldComment = n.field.comment
+        }
     }
 
 translateDeriveInstance :: Hs.DeriveInstance -> SDecl

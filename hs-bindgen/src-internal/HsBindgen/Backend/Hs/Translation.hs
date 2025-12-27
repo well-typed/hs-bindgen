@@ -490,7 +490,7 @@ unionDecs haddockConfig info union spec = do
     aux :: TranslationState -> Hs.Newtype -> [Hs.Decl]
     aux transState nt =
         Hs.DeclNewtype nt : storableDecl : primDecl : accessorDecls ++
-        concatMap (unionFieldDecls nt.newtypeName) union.fields
+        concatMap (unionFieldDecls nt.name) union.fields
       where
         storableDecl :: Hs.Decl
         storableDecl =
@@ -498,7 +498,7 @@ unionDecs haddockConfig info union spec = do
             Hs.DeriveInstance {
               deriveInstanceStrategy = Hs.DeriveVia sba
             , deriveInstanceClass    = Hs.Storable
-            , deriveInstanceName     = nt.newtypeName
+            , deriveInstanceName     = nt.name
             , deriveInstanceComment  = Nothing
             }
 
@@ -508,7 +508,7 @@ unionDecs haddockConfig info union spec = do
             Hs.DeriveInstance {
               deriveInstanceStrategy = Hs.DeriveVia sba
             , deriveInstanceClass    = Hs.Prim
-            , deriveInstanceName     = nt.newtypeName
+            , deriveInstanceName     = nt.name
             , deriveInstanceComment  = Nothing
             }
 
@@ -526,7 +526,7 @@ unionDecs haddockConfig info union spec = do
         getAccessorDecls field =
           let hsType = Type.topLevel field.typ
               fInsts = Hs.getInstances
-                          (State.instanceMap transState) (Just nt.newtypeName)
+                          (State.instanceMap transState) (Just nt.name)
                           (Set.singleton Hs.Storable) [hsType]
               getterName = Hs.unsafeHsIdHsName $ "get_" <> field.info.name.hsName
               setterName = Hs.unsafeHsIdHsName $ "set_" <> field.info.name.hsName
@@ -541,7 +541,7 @@ unionDecs haddockConfig info union spec = do
                       Hs.UnionGetter {
                         unionGetterName    = getterName
                       , unionGetterType    = hsType
-                      , unionGetterConstr  = nt.newtypeName
+                      , unionGetterConstr  = nt.name
                       , unionGetterComment = mkHaddocksFieldInfo haddockConfig info field.info
                                           <> commentRefName (Hs.getName setterName)
                       }
@@ -549,7 +549,7 @@ unionDecs haddockConfig info union spec = do
                       Hs.UnionSetter {
                         unionSetterName    = setterName
                       , unionSetterType    = hsType
-                      , unionSetterConstr  = nt.newtypeName
+                      , unionSetterConstr  = nt.name
                       , unionSetterComment = commentRefName (Hs.getName getterName)
                       }
                   ]
@@ -696,10 +696,10 @@ enumDecs opts haddockConfig info enum spec = do
       where
         hsStruct :: Hs.Struct (S Z)
         hsStruct = Hs.Struct {
-              name      = nt.newtypeName
-            , constr    = nt.newtypeConstr
-            , fields    = Vec.singleton nt.newtypeField
-            , instances = nt.newtypeInstances
+              name      = nt.name
+            , constr    = nt.constr
+            , fields    = Vec.singleton nt.field
+            , instances = nt.instances
             , origin    = Nothing
             , comment   = Nothing
             }
@@ -721,20 +721,17 @@ enumDecs opts haddockConfig info enum spec = do
           }
 
         primDecl :: Hs.Decl
-        primDecl =
-          Hs.DeclDeriveInstance
-            Hs.DeriveInstance {
-              deriveInstanceStrategy = Hs.DeriveVia nt.newtypeField.typ
+        primDecl = Hs.DeclDeriveInstance Hs.DeriveInstance {
+              deriveInstanceStrategy = Hs.DeriveVia nt.field.typ
             , deriveInstanceClass    = Hs.Prim
-            , deriveInstanceName     = nt.newtypeName
+            , deriveInstanceName     = nt.name
             , deriveInstanceComment  = Nothing
             }
 
         optDecls :: [Hs.Decl]
         optDecls = [
-            Hs.DeclDeriveInstance
-              Hs.DeriveInstance {
-                deriveInstanceName     = nt.newtypeName
+            Hs.DeclDeriveInstance Hs.DeriveInstance {
+                deriveInstanceName     = nt.name
               , deriveInstanceClass    = clss
               , deriveInstanceStrategy = strat
               , deriveInstanceComment  = Nothing
@@ -744,14 +741,14 @@ enumDecs opts haddockConfig info enum spec = do
 
         valueDecls :: [Hs.Decl]
         valueDecls =
-            [ Hs.DeclPatSyn Hs.PatSyn
-              { patSynName    = Hs.unsafeHsIdHsName constant.info.name.hsName
-              , patSynType    = nt.newtypeName
-              , patSynConstr  = nt.newtypeConstr
-              , patSynValue   = constant.value
-              , patSynOrigin  = Origin.EnumConstant constant
-              , patSynComment = mkHaddocksFieldInfo haddockConfig info constant.info
-              }
+            [ Hs.DeclPatSyn Hs.PatSyn{
+                  patSynName    = Hs.unsafeHsIdHsName constant.info.name.hsName
+                , patSynType    = nt.name
+                , patSynConstr  = nt.constr
+                , patSynValue   = constant.value
+                , patSynOrigin  = Origin.EnumConstant constant
+                , patSynComment = mkHaddocksFieldInfo haddockConfig info constant.info
+                }
             | constant <- enum.constants
             ]
 
@@ -768,7 +765,7 @@ enumDecs opts haddockConfig info enum spec = do
                 (maxV, maxNames) <- Map.lookupMax vNames
                 guard $ maxV - minV + 1 == fromIntegral (Map.size vNames)
                 return (NonEmpty.head minNames, NonEmpty.head maxNames)
-              fTyp = nt.newtypeField.typ
+              fTyp = nt.field.typ
               vStrs = fmap (T.unpack . Hs.getName) <$> vNames
               cEnumDecl = Hs.DeclDefineInstance
                 Hs.DefineInstance {
@@ -858,29 +855,27 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
         typedefFieldDecls nt ++
         HsFI.hasBaseForeignTypeDecs nt
       where
-        insts = nt.newtypeInstances
-
         storableDecl :: [Hs.Decl]
         storableDecl
-          | Hs.Storable `Set.notMember` insts = []
+          | Hs.Storable `Set.notMember` nt.instances = []
           | otherwise = singleton $
               Hs.DeclDeriveInstance
                 Hs.DeriveInstance {
                   deriveInstanceStrategy = Hs.DeriveNewtype
                 , deriveInstanceClass    = Hs.Storable
-                , deriveInstanceName     = nt.newtypeName
+                , deriveInstanceName     = nt.name
                 , deriveInstanceComment  = Nothing
                 }
 
         primDecl :: [Hs.Decl]
         primDecl
-          | Hs.Prim `Set.notMember` insts = []
+          | Hs.Prim `Set.notMember` nt.instances = []
           | otherwise = singleton $
               Hs.DeclDeriveInstance
                 Hs.DeriveInstance {
                   deriveInstanceStrategy = Hs.DeriveNewtype
                 , deriveInstanceClass    = Hs.Prim
-                , deriveInstanceName     = nt.newtypeName
+                , deriveInstanceName     = nt.name
                 , deriveInstanceComment  = Nothing
                 }
 
@@ -890,11 +885,11 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
               Hs.DeriveInstance {
                 deriveInstanceStrategy = strat
               , deriveInstanceClass    = clss
-              , deriveInstanceName     = nt.newtypeName
+              , deriveInstanceName     = nt.name
               , deriveInstanceComment  = Nothing
               }
           | (strat, clss) <- translationDeriveTypedef opts
-          , clss `Set.member` insts
+          , clss `Set.member` nt.instances
           ]
 
         newtypeWrapper :: [Hs.Decl]
@@ -916,7 +911,7 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
             -- handled correctly.
             --
             C.TypeFun args res | not (any C.hasUnsupportedType (res:args)) ->
-              ToFromFunPtr.forNewtype nt.newtypeName (args, res)
+              ToFromFunPtr.forNewtype nt.name (args, res)
             _ -> []
 
 -- | 'HasCField', 'HasCBitfield', and 'HasField' instances for a typedef
@@ -957,21 +952,21 @@ typedefFieldDecls hsNewType = [
     ]
   where
     parentType :: HsType
-    parentType = Hs.HsTypRef hsNewType.newtypeName
+    parentType = Hs.HsTypRef hsNewType.name
 
     elimHasFieldDecl :: Hs.HasFieldInstance
-    elimHasFieldDecl = Hs.HasFieldInstance {
+    elimHasFieldDecl = Hs.HasFieldInstance{
           hasFieldInstanceParentType = parentType
-        , hasFieldInstanceFieldName = hsNewType.newtypeField.name
-        , hasFieldInstanceFieldType = hsNewType.newtypeField.typ
-        , hasFieldInstanceVia = Hs.ViaHasCField
+        , hasFieldInstanceFieldName  = hsNewType.field.name
+        , hasFieldInstanceFieldType  = hsNewType.field.typ
+        , hasFieldInstanceVia        = Hs.ViaHasCField
         }
 
     elimHasCFieldDecl :: Hs.HasCFieldInstance
-    elimHasCFieldDecl = Hs.HasCFieldInstance {
-          hasCFieldInstanceParentType = parentType
-        , hasCFieldInstanceFieldName  = hsNewType.newtypeField.name
-        , hasCFieldInstanceCFieldType = hsNewType.newtypeField.typ
+    elimHasCFieldDecl = Hs.HasCFieldInstance{
+          hasCFieldInstanceParentType  = parentType
+        , hasCFieldInstanceFieldName   = hsNewType.field.name
+        , hasCFieldInstanceCFieldType  = hsNewType.field.typ
         , hasCFieldInstanceFieldOffset = 0
         }
 
@@ -1135,18 +1130,15 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
     aux nt =
         Hs.DeclNewtype nt : storableDecl ++ HsFI.hasBaseForeignTypeDecs nt ++ optDecls
       where
-        insts :: Set Hs.TypeClass
-        insts = nt.newtypeInstances
-
         storableDecl :: [Hs.Decl]
         storableDecl
-          | Hs.Storable `Set.notMember` insts = []
+          | Hs.Storable `Set.notMember` nt.instances = []
           | otherwise = singleton $
               Hs.DeclDeriveInstance
                 Hs.DeriveInstance {
                   deriveInstanceStrategy = Hs.DeriveNewtype
                 , deriveInstanceClass    = Hs.Storable
-                , deriveInstanceName     = nt.newtypeName
+                , deriveInstanceName     = nt.name
                 , deriveInstanceComment  = Nothing
                 }
 
@@ -1156,11 +1148,11 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
               Hs.DeriveInstance {
                 deriveInstanceStrategy = strat
               , deriveInstanceClass    = clss
-              , deriveInstanceName     = nt.newtypeName
+              , deriveInstanceName     = nt.name
               , deriveInstanceComment  = Nothing
               }
           | (strat, clss) <- translationDeriveTypedef opts
-          , clss `Set.member` insts
+          , clss `Set.member` nt.instances
           ]
 
 {-------------------------------------------------------------------------------

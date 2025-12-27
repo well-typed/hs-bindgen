@@ -49,13 +49,12 @@ hasBaseForeignTypeDecs ::
      Hs.Newtype
   -> [Hs.Decl]
 hasBaseForeignTypeDecs nt =
-     [mk | HasBaseForeignType `elem` nt.newtypeInstances]
+    [mk | HasBaseForeignType `elem` nt.instances]
   where
     mk :: Hs.Decl
-    mk = Hs.DeclDeriveInstance
-              Hs.DeriveInstance {
-                deriveInstanceStrategy = Hs.DeriveNewtype
-              , deriveInstanceClass    = HasBaseForeignType
-              , deriveInstanceName     = Hs.newtypeName nt
-              , deriveInstanceComment  = Nothing
-              }
+    mk = Hs.DeclDeriveInstance Hs.DeriveInstance{
+          deriveInstanceStrategy = Hs.DeriveNewtype
+        , deriveInstanceClass    = HasBaseForeignType
+        , deriveInstanceName     = nt.name
+        , deriveInstanceComment  = Nothing
+        }
