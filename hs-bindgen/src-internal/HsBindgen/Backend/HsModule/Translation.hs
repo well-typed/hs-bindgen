@@ -181,42 +181,49 @@ instance Monoid ImportAcc where
 -- | Resolve imports in a declaration
 resolveDeclImports :: SDecl -> ImportAcc
 resolveDeclImports = \case
-    DInst inst -> mconcat $
-         [resolveGlobalImports inst.clss]
-      ++ map resolveTypeImports inst.args
-      ++ concat [
-             resolveGlobalImports c : map resolveTypeImports ts
-           | (c, ts) <- inst.super
-           ]
-      ++ concat [
-             resolveGlobalImports t : resolveTypeImports r : map resolveTypeImports as
-           | (t, as, r) <- inst.types
-           ]
-      ++ concat [
+    DInst inst -> mconcat $ concat [
+        [resolveGlobalImports inst.clss]
+      , map resolveTypeImports inst.args
+      , concat [
+           resolveGlobalImports c : map resolveTypeImports ts
+         | (c, ts) <- inst.super
+         ]
+      , concat [
+           resolveGlobalImports t : resolveTypeImports r : map resolveTypeImports as
+         | (t, as, r) <- inst.types
+         ]
+      , concat [
             [resolveGlobalImports f, resolveExprImports e]
           | (f, e) <- inst.decs
           ]
-    DRecord Record{..} -> mconcat [
-        mconcat $ map (resolveTypeImports . fieldType) dataFields
-      , resolveNestedDeriv dataDeriv
       ]
-    DEmptyData _name -> mempty
-    DNewtype Newtype{..} -> mconcat [
-        resolveTypeImports $ fieldType newtypeField
-      , resolveNestedDeriv newtypeDeriv
+    DRecord record -> mconcat [
+        mconcat $ map (resolveTypeImports . (.typ)) record.fields
+      , resolveNestedDeriv record.deriv
       ]
-    DDerivingInstance DerivingInstance{..} -> resolveStrategyImports derivingInstanceStrategy
-                                            <> resolveTypeImports derivingInstanceType
-    DForeignImport ForeignImport{..} ->
-         foldMap (resolveTypeImports . (.typ)) foreignImportParameters
-      <> resolveTypeImports foreignImportResult.typ
-    DBinding Binding{..} ->
-         foldMap (resolveTypeImports . (.typ)) parameters
-      <> resolveTypeImports result.typ
-      <> resolveExprImports body
-    DPatternSynonym PatternSynonym {..} ->
-        resolveTypeImports patSynType <>
-        resolvePatExprImports patSynRHS
+    DEmptyData _name ->
+      mempty
+    DNewtype newtyp -> mconcat [
+        resolveTypeImports newtyp.field.typ
+      , resolveNestedDeriv newtyp.deriv
+      ]
+    DDerivingInstance DerivingInstance{..} -> mconcat [
+        resolveStrategyImports derivingInstanceStrategy
+      , resolveTypeImports derivingInstanceType
+      ]
+    DForeignImport ForeignImport{..} -> mconcat [
+        foldMap (resolveTypeImports . (.typ)) foreignImportParameters
+      , resolveTypeImports foreignImportResult.typ
+      ]
+    DBinding Binding{..} -> mconcat [
+        foldMap (resolveTypeImports . (.typ)) parameters
+      , resolveTypeImports result.typ
+      , resolveExprImports body
+      ]
+    DPatternSynonym PatternSynonym {..} -> mconcat [
+        resolveTypeImports patSynType
+      , resolvePatExprImports patSynRHS
+      ]
 
 -- | Resolve nested deriving clauses (part of a datatype declaration)
 resolveNestedDeriv :: [(Hs.Strategy ClosedType, [Global])] -> ImportAcc

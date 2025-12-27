@@ -32,13 +32,13 @@ requiredExtensions = \case
           | (f, e) <- inst.decs
           ]
       ]
-    DRecord r -> mconcat [
-        recordExtensions r
-      , nestedDeriving (dataDeriv r)
+    DRecord record -> mconcat [
+        recordExtensions record
+      , nestedDeriving record.deriv
       ]
-    DNewtype n -> mconcat [
-        nestedDeriving (newtypeDeriv n)
-      , typeExtensions $ fieldType $ newtypeField n
+    DNewtype newtyp -> mconcat [
+        nestedDeriving newtyp.deriv
+      , typeExtensions newtyp.field.typ
       ]
     DEmptyData{} -> mconcat [
         ext TH.EmptyDataDecls
@@ -78,10 +78,10 @@ nestedDeriving deriv =
         ]
 
 recordExtensions :: Record -> Set TH.Extension
-recordExtensions r = foldMap fieldExtensions (dataFields r)
+recordExtensions record = foldMap fieldExtensions record.fields
 
 fieldExtensions :: Field -> Set TH.Extension
-fieldExtensions f = typeExtensions (fieldType f)
+fieldExtensions field = typeExtensions field.typ
 
 globalExtensions :: Global -> Set TH.Extension
 globalExtensions = \case

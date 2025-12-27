@@ -695,50 +695,49 @@ mkDecl = \case
         -- withDecDoc (instanceComment i) instanceDec
         pure [instanceDec]
 
-      DRecord d -> do
+      DRecord record -> do
         let _fieldsAndDocs :: ([q TH.VarBangType], [(TH.DocLoc, Maybe HsDoc.Comment)])
             _fieldsAndDocs@(fields, docs) = unzip
               [ ( TH.varBangType thFieldName $
                     TH.bangType
                       (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
-                      (mkType EmptyEnv (fieldType f))
+                      (mkType EmptyEnv field.typ)
                 , ((TH.DeclDoc thFieldName), fComment)
                 )
-              | f <- dataFields d
-              , let thFieldName = hsNameToTH (fieldName f)
-                    fComment = fieldComment f
+              | field <- record.fields
+              , let thFieldName = hsNameToTH field.name
+                    fComment    = field.comment
               ]
 
         traverse_ (uncurry putFieldDoc) docs
 
         fmap singleton $
-          withDecDoc (dataComment d) $
+          withDecDoc record.comment $
             TH.dataD
               (TH.cxt [])
-              (hsNameToTH $ dataType d)
+              (hsNameToTH record.typ)
               []
               Nothing
-              [TH.recC (hsNameToTH (dataCon d)) fields]
-              (nestedDeriving $ dataDeriv d)
+              [TH.recC (hsNameToTH record.con) fields]
+              (nestedDeriving record.deriv)
 
-      DEmptyData d -> do
-
-        let thEmptyDataName = hsNameToTH (emptyDataName d)
-
+      DEmptyData empty -> do
+        let thEmptyDataName = hsNameToTH empty.name
         fmap singleton $
-          withDecDoc (emptyDataComment d) $
+          withDecDoc empty.comment $
             TH.dataD (TH.cxt []) thEmptyDataName [] Nothing [] []
 
-      DNewtype n -> do
-        let thFieldName = hsNameToTH (fieldName (newtypeField n))
-            thNewtypeName = hsNameToTH $ newtypeName n
-            fComment = fieldComment (newtypeField n)
-            newTyComment = newtypeComment n
+      DNewtype newtyp -> do
+        let thFieldName   = hsNameToTH newtyp.field.name
+            thNewtypeName = hsNameToTH newtyp.name
+            fComment      = newtyp.field.comment
+            newTyComment  = newtyp.comment
+
             field :: q TH.VarBangType
             field = TH.varBangType thFieldName $
               TH.bangType
                 (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
-                (mkType EmptyEnv (fieldType (newtypeField n)))
+                (mkType EmptyEnv newtyp.field.typ)
 
         putFieldDoc (TH.DeclDoc thFieldName) fComment
 
@@ -749,9 +748,9 @@ mkDecl = \case
               thNewtypeName
               []
               Nothing
-              (TH.recC (hsNameToTH (newtypeCon n))
+              (TH.recC (hsNameToTH newtyp.con)
               [field])
-              (nestedDeriving $ newtypeDeriv n)
+              (nestedDeriving newtyp.deriv)
 
       DDerivingInstance DerivingInstance {..} -> do
         s' <- strategy derivingInstanceStrategy

@@ -376,49 +376,49 @@ data Instance = Instance {
     , decs    :: [(Global, ClosedExpr)]
     , comment :: Maybe HsDoc.Comment
     }
-  deriving stock (Show)
+  deriving stock (Show, Generic)
 
 data Field = Field {
-      fieldName   :: Hs.Name Hs.NsVar
-    , fieldType   :: ClosedType
-    , fieldOrigin :: Origin.Field
-    , fieldComment :: Maybe HsDoc.Comment
+      name   :: Hs.Name Hs.NsVar
+    , typ    :: ClosedType
+    , origin :: Origin.Field
+    , comment :: Maybe HsDoc.Comment
     }
-  deriving stock (Show)
+  deriving stock (Show, Generic)
 
 data Record = Record {
-      dataType    :: Hs.Name Hs.NsTypeConstr
-    , dataCon     :: Hs.Name Hs.NsConstr
-    , dataFields  :: [Field]
-    , dataOrigin  :: Origin.Decl Origin.Struct
-    , dataDeriv   :: [(Hs.Strategy ClosedType, [Global])]
-    , dataComment :: Maybe HsDoc.Comment
+      typ     :: Hs.Name Hs.NsTypeConstr
+    , con     :: Hs.Name Hs.NsConstr
+    , fields  :: [Field]
+    , origin  :: Origin.Decl Origin.Struct
+    , deriv   :: [(Hs.Strategy ClosedType, [Global])]
+    , comment :: Maybe HsDoc.Comment
     }
-  deriving stock (Show)
+  deriving stock (Show, Generic)
 
 data EmptyData = EmptyData {
-      emptyDataName    :: Hs.Name Hs.NsTypeConstr
-    , emptyDataOrigin  :: Origin.Decl Origin.EmptyData
-    , emptyDataComment :: Maybe HsDoc.Comment
+      name    :: Hs.Name Hs.NsTypeConstr
+    , origin  :: Origin.Decl Origin.EmptyData
+    , comment :: Maybe HsDoc.Comment
     }
-  deriving stock (Show)
+  deriving stock (Show, Generic)
 
 data DerivingInstance = DerivingInstance {
       derivingInstanceStrategy :: Hs.Strategy ClosedType
     , derivingInstanceType     :: ClosedType
     , derivingInstanceComment  :: Maybe HsDoc.Comment
     }
-  deriving stock (Show)
+  deriving stock (Show, Generic)
 
 data Newtype = Newtype {
-      newtypeName    :: Hs.Name Hs.NsTypeConstr
-    , newtypeCon     :: Hs.Name Hs.NsConstr
-    , newtypeField   :: Field
-    , newtypeOrigin  :: Origin.Decl Origin.Newtype
-    , newtypeDeriv   :: [(Hs.Strategy ClosedType, [Global])]
-    , newtypeComment :: Maybe HsDoc.Comment
+      name    :: Hs.Name Hs.NsTypeConstr
+    , con     :: Hs.Name Hs.NsConstr
+    , field   :: Field
+    , origin  :: Origin.Decl Origin.Newtype
+    , deriv   :: [(Hs.Strategy ClosedType, [Global])]
+    , comment :: Maybe HsDoc.Comment
     }
-  deriving stock (Show)
+  deriving stock (Show, Generic)
 
 -- | We might want to reconsider the decision of 'foreignImportParameters' as
 -- well as 'foreignImportResultType' being 'ClosedType's if we ever want to
@@ -434,7 +434,7 @@ data ForeignImport = ForeignImport
     , foreignImportComment    :: Maybe HsDoc.Comment
     , foreignImportSafety     :: Safety
     }
-  deriving stock (Show)
+  deriving stock (Show, Generic)
 
 -- | Safety of foreign import declarations
 data Safety = Safe | Unsafe
@@ -451,20 +451,20 @@ data Binding = Binding {
     , pragmas    :: [Pragma]
     , comment    :: Maybe HsDoc.Comment
     }
-  deriving stock (Show)
+  deriving stock (Show, Generic)
 
 data Parameter = Parameter {
       name    :: Maybe (Hs.Name Hs.NsVar)
     , typ     :: ClosedType
     , comment :: Maybe HsDoc.Comment
     }
-  deriving stock (Show)
+  deriving stock (Show, Generic)
 
 data Result = Result {
       typ     :: ClosedType
     , comment :: Maybe HsDoc.Comment
     }
-  deriving stock (Show)
+  deriving stock (Show, Generic)
 
 data PatternSynonym = PatternSynonym
     { patSynName    :: Hs.Name Hs.NsConstr
@@ -473,4 +473,4 @@ data PatternSynonym = PatternSynonym
     , patSynOrigin  :: Origin.PatSyn
     , patSynComment :: Maybe HsDoc.Comment
     }
-  deriving stock (Show)
+  deriving stock (Show, Generic)

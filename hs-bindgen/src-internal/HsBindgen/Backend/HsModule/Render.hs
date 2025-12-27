@@ -332,45 +332,47 @@ instance Pretty SDecl where
 
       in  PP.vsep $ prettyTopLevelComment : instanceHead : typs ++ decs
 
-    DRecord Record{..} ->
-      let d = PP.hsep ["data", pretty dataType, PP.char '=', pretty dataCon]
-          prettyTopLevelComment = maybe PP.empty (pretty . TopLevelComment) dataComment
+    DRecord record ->
+      let d = PP.hsep ["data", pretty record.typ, PP.char '=', pretty record.con]
+          prettyTopLevelComment = maybe PP.empty (pretty . TopLevelComment) record.comment
       in  prettyTopLevelComment
-       $$ (PP.hang d 2 $
-            PP.vcat [ PP.vlist "{" "}"
-                     [   PP.hsep [ pretty (fieldName f)
-                              , "::"
-                              , pretty (fieldType f)
-                              ]
-                     $$ prettyFieldComment
-                     | f <- dataFields
-                     , let prettyFieldComment = maybe PP.empty (pretty . PartOfDeclarationComment) (fieldComment f)
-                     ]
-                 , nestedDeriving dataDeriv
-                 ]
+       $$ ( PP.hang d 2 $ PP.vcat [
+                PP.vlist "{" "}" [
+                       PP.hsep [
+                           pretty field.name
+                         , "::"
+                         , pretty field.typ
+                         ]
+                    $$ prettyFieldComment
+                  | field <- record.fields
+                  , let prettyFieldComment = maybe PP.empty (pretty . PartOfDeclarationComment) field.comment
+                  ]
+              , nestedDeriving record.deriv
+              ]
           )
 
-    DEmptyData EmptyData{..} ->
-      let prettyComment = maybe PP.empty (pretty . TopLevelComment) emptyDataComment
+    DEmptyData empty ->
+      let prettyComment = maybe PP.empty (pretty . TopLevelComment) empty.comment
       in  prettyComment
-        $$ PP.hsep ["data", pretty emptyDataName]
+        $$ PP.hsep ["data", pretty empty.name]
 
-    DNewtype Newtype{..} ->
-      let d = PP.hsep ["newtype", pretty newtypeName, PP.char '=', pretty newtypeCon]
-          prettyComment = maybe PP.empty (pretty . TopLevelComment) newtypeComment
-          prettyFieldComment = maybe PP.empty (pretty . PartOfDeclarationComment) (fieldComment newtypeField)
+    DNewtype newtyp ->
+      let d = PP.hsep ["newtype", pretty newtyp.name, PP.char '=', pretty newtyp.con]
+          prettyComment = maybe PP.empty (pretty . TopLevelComment) newtyp.comment
+          prettyFieldComment = maybe PP.empty (pretty . PartOfDeclarationComment) newtyp.field.comment
       in  prettyComment
-       $$ (PP.hang d 2 $ PP.vcat [
-             PP.vlist "{" "}"
-               [ PP.hsep
-                   [ pretty (fieldName newtypeField)
-                   , "::"
-                   , pretty (fieldType newtypeField)
-                   ]
-               $$ prettyFieldComment
-               ]
-           , nestedDeriving newtypeDeriv
-           ])
+       $$ ( PP.hang d 2 $ PP.vcat [
+                PP.vlist "{" "}" [
+                      PP.hsep [
+                          pretty newtyp.field.name
+                        , "::"
+                        , pretty newtyp.field.typ
+                        ]
+                    $$ prettyFieldComment
+                  ]
+              , nestedDeriving newtyp.deriv
+              ]
+          )
 
     DForeignImport ForeignImport{..} ->
       -- Variable names here refer to the syntax of foreign declarations at

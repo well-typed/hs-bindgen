@@ -124,44 +124,43 @@ translateDefineInstanceDecl defInst =
 
 translateDeclData :: Hs.Struct n -> SDecl
 translateDeclData struct = DRecord Record{
-      dataType = struct.name
-    , dataCon  = struct.constr
-    , dataFields =
-        [ Field {
-              fieldName    = f.name
-            , fieldType    = translateType f.typ
-            , fieldOrigin  = f.origin
-            , fieldComment = f.comment
+      typ     = struct.name
+    , con     = struct.constr
+    , deriv   = []
+    , comment = struct.comment
+    , origin  = case struct.origin of
+                  Just origin -> origin
+                  Nothing     -> panicPure "Missing structOrigin"
+    , fields  = [
+          Field{
+              name    = f.name
+            , typ     = translateType f.typ
+            , origin  = f.origin
+            , comment = f.comment
             }
         | f <- toList struct.fields
         ]
-    , dataOrigin =
-        case struct.origin of
-          Just origin -> origin
-          Nothing     -> panicPure "Missing structOrigin"
-    , dataDeriv   = []
-    , dataComment = struct.comment
     }
 
 translateDeclEmpty :: Hs.EmptyData -> SDecl
 translateDeclEmpty d = DEmptyData EmptyData{
-      emptyDataName    = d.name
-    , emptyDataOrigin  = d.origin
-    , emptyDataComment = d.comment
+      name    = d.name
+    , origin  = d.origin
+    , comment = d.comment
     }
 
 translateNewtype :: Hs.Newtype -> SDecl
 translateNewtype n = DNewtype Newtype{
-      newtypeName    = n.name
-    , newtypeCon     = n.constr
-    , newtypeOrigin  = n.origin
-    , newtypeDeriv   = []
-    , newtypeComment = n.comment
-    , newtypeField   = Field {
-          fieldName    = n.field.name
-        , fieldType    = translateType n.field.typ
-        , fieldOrigin  = n.field.origin
-        , fieldComment = n.field.comment
+      name    = n.name
+    , con     = n.constr
+    , origin  = n.origin
+    , deriv   = []
+    , comment = n.comment
+    , field   = Field {
+          name    = n.field.name
+        , typ     = translateType n.field.typ
+        , origin  = n.field.origin
+        , comment = n.field.comment
         }
     }
 

@@ -36,10 +36,10 @@ reconstruct simpleInstances = map aux
   where
     aux :: SDecl -> SDecl
     aux = \case
-        DRecord x@Record{dataType, dataDeriv} ->
-          DRecord x{dataDeriv = dataDeriv ++ instancesFor dataType}
-        DNewtype x@Newtype{newtypeName, newtypeDeriv} ->
-          DNewtype x{newtypeDeriv = newtypeDeriv ++ instancesFor newtypeName}
+        DRecord record -> DRecord $
+          record & #deriv %~ (++ instancesFor record.typ)
+        DNewtype newtyp -> DNewtype $
+          newtyp & #deriv %~ (++ instancesFor newtyp.name)
         otherDecl ->
           otherDecl
 
