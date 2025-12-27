@@ -1,14 +1,17 @@
+{-# LANGUAGE NoFieldSelectors  #-}
+{-# LANGUAGE NoNamedFieldPuns  #-}
+{-# LANGUAGE NoRecordWildCards #-}
+
 module HsBindgen.Eff (
-  -- * Eff
-  Eff,
-  Support,
-  wrapEff,
-  unwrapEff,
-  runFoldIdentity,
-  runFoldReader,
-  runFoldState,
-  assertEff,
-) where
+    Eff     -- opaque
+  , Support -- opaque
+  , wrapEff
+  , unwrapEff
+  , runFoldIdentity
+  , runFoldReader
+  , runFoldState
+  , assertEff
+  ) where
 
 import Control.Monad.Reader (MonadReader, Reader, ReaderT (..))
 import Control.Monad.State (MonadState (state), State)
@@ -30,9 +33,7 @@ import HsBindgen.Imports
   care. See detailed discussion of 'foldWithHandler' in the @clang@ bindings.
 -------------------------------------------------------------------------------}
 
-newtype Eff m a = Eff {
-      getEff :: ReaderT (Support m) IO a
-    }
+newtype Eff m a = Eff (ReaderT (Support m) IO a)
   deriving newtype (
       Functor
     , Applicative
@@ -40,6 +41,9 @@ newtype Eff m a = Eff {
     , MonadIO
     , MonadUnliftIO
     )
+
+getEff :: Eff m a -> ReaderT (Support m) IO a
+getEff (Eff ma) = ma
 
 wrapEff :: (Support m -> IO a) -> Eff m a
 wrapEff = Eff . ReaderT
