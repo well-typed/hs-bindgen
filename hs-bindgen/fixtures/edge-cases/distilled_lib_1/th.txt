@@ -685,10 +685,10 @@ __defined at:__ @edge-cases\/distilled_lib_1.h:77:19@
 
 __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
-newtype Callback_t_Deref
-    = Callback_t_Deref {un_Callback_t_Deref :: (Ptr Void ->
-                                                HsBindgen.Runtime.Prelude.Word32 ->
-                                                IO HsBindgen.Runtime.Prelude.Word32)}
+newtype Callback_t_Aux
+    = Callback_t_Aux {un_Callback_t_Aux :: (Ptr Void ->
+                                            HsBindgen.Runtime.Prelude.Word32 ->
+                                            IO HsBindgen.Runtime.Prelude.Word32)}
       {- ^ Auxiliary type used by 'Callback_t'
 
       __C declaration:__ @callback_t@
@@ -698,25 +698,24 @@ newtype Callback_t_Deref
       __exported by:__ @edge-cases\/distilled_lib_1.h@
       -}
     deriving newtype HasBaseForeignType
--- __unique:__ @toCallback_t_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_24eac512dce926e9 :: Callback_t_Deref ->
-                                                                   IO (FunPtr Callback_t_Deref)
--- __unique:__ @fromCallback_t_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_893b8fa3b3f09882 :: FunPtr Callback_t_Deref ->
-                                                                   Callback_t_Deref
-instance ToFunPtr Callback_t_Deref
-    where toFunPtr = hs_bindgen_24eac512dce926e9
-instance FromFunPtr Callback_t_Deref
-    where fromFunPtr = hs_bindgen_893b8fa3b3f09882
-instance TyEq ty
-              (CFieldType Callback_t_Deref "un_Callback_t_Deref") =>
-         HasField "un_Callback_t_Deref" (Ptr Callback_t_Deref) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Callback_t_Deref")
-instance HasCField Callback_t_Deref "un_Callback_t_Deref"
-    where type CFieldType Callback_t_Deref
-                          "un_Callback_t_Deref" = Ptr Void ->
-                                                  HsBindgen.Runtime.Prelude.Word32 ->
-                                                  IO HsBindgen.Runtime.Prelude.Word32
+-- __unique:__ @toCallback_t_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658 :: Callback_t_Aux ->
+                                                                   IO (FunPtr Callback_t_Aux)
+-- __unique:__ @fromCallback_t_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869 :: FunPtr Callback_t_Aux ->
+                                                                   Callback_t_Aux
+instance ToFunPtr Callback_t_Aux
+    where toFunPtr = hs_bindgen_b6b6922e35047658
+instance FromFunPtr Callback_t_Aux
+    where fromFunPtr = hs_bindgen_d6debb4b8d5bb869
+instance TyEq ty (CFieldType Callback_t_Aux "un_Callback_t_Aux") =>
+         HasField "un_Callback_t_Aux" (Ptr Callback_t_Aux) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Callback_t_Aux")
+instance HasCField Callback_t_Aux "un_Callback_t_Aux"
+    where type CFieldType Callback_t_Aux
+                          "un_Callback_t_Aux" = Ptr Void ->
+                                                HsBindgen.Runtime.Prelude.Word32 ->
+                                                IO HsBindgen.Runtime.Prelude.Word32
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @callback_t@
 
@@ -725,7 +724,7 @@ instance HasCField Callback_t_Deref "un_Callback_t_Deref"
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype Callback_t
-    = Callback_t {un_Callback_t :: (FunPtr Callback_t_Deref)}
+    = Callback_t {un_Callback_t :: (FunPtr Callback_t_Aux)}
       {- ^ __C declaration:__ @callback_t@
 
            __defined at:__ @edge-cases\/distilled_lib_1.h:77:19@
@@ -739,7 +738,7 @@ instance TyEq ty (CFieldType Callback_t "un_Callback_t") =>
     where getField = ptrToCField (Proxy @"un_Callback_t")
 instance HasCField Callback_t "un_Callback_t"
     where type CFieldType Callback_t
-                          "un_Callback_t" = FunPtr Callback_t_Deref
+                          "un_Callback_t" = FunPtr Callback_t_Aux
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
 foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" hs_bindgen_57cb99ed92c001ad :: Ptr A_type_t ->

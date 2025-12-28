@@ -7,9 +7,9 @@ __defined at:__ @functions\/circular_dependency_fun.h:3:16@
 
 __exported by:__ @functions\/circular_dependency_fun.h@
 -}
-newtype Fun_ptr_Deref
-    = Fun_ptr_Deref {un_Fun_ptr_Deref :: (Ptr Forward_declaration ->
-                                          IO Unit)}
+newtype Fun_ptr_Aux
+    = Fun_ptr_Aux {un_Fun_ptr_Aux :: (Ptr Forward_declaration ->
+                                      IO Unit)}
       {- ^ Auxiliary type used by 'Fun_ptr'
 
       __C declaration:__ @fun_ptr@
@@ -19,22 +19,22 @@ newtype Fun_ptr_Deref
       __exported by:__ @functions\/circular_dependency_fun.h@
       -}
     deriving newtype HasBaseForeignType
--- __unique:__ @toFun_ptr_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_83e60b3bb02cd08d :: Fun_ptr_Deref ->
-                                                                   IO (FunPtr Fun_ptr_Deref)
--- __unique:__ @fromFun_ptr_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_66799ec68b619f2a :: FunPtr Fun_ptr_Deref ->
-                                                                   Fun_ptr_Deref
-instance ToFunPtr Fun_ptr_Deref
-    where toFunPtr = hs_bindgen_83e60b3bb02cd08d
-instance FromFunPtr Fun_ptr_Deref
-    where fromFunPtr = hs_bindgen_66799ec68b619f2a
-instance TyEq ty (CFieldType Fun_ptr_Deref "un_Fun_ptr_Deref") =>
-         HasField "un_Fun_ptr_Deref" (Ptr Fun_ptr_Deref) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_Fun_ptr_Deref")
-instance HasCField Fun_ptr_Deref "un_Fun_ptr_Deref"
-    where type CFieldType Fun_ptr_Deref
-                          "un_Fun_ptr_Deref" = Ptr Forward_declaration -> IO Unit
+-- __unique:__ @toFun_ptr_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a :: Fun_ptr_Aux ->
+                                                                   IO (FunPtr Fun_ptr_Aux)
+-- __unique:__ @fromFun_ptr_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_f8391e85af67fcb6 :: FunPtr Fun_ptr_Aux ->
+                                                                   Fun_ptr_Aux
+instance ToFunPtr Fun_ptr_Aux
+    where toFunPtr = hs_bindgen_5964bbadb359ee4a
+instance FromFunPtr Fun_ptr_Aux
+    where fromFunPtr = hs_bindgen_f8391e85af67fcb6
+instance TyEq ty (CFieldType Fun_ptr_Aux "un_Fun_ptr_Aux") =>
+         HasField "un_Fun_ptr_Aux" (Ptr Fun_ptr_Aux) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Fun_ptr_Aux")
+instance HasCField Fun_ptr_Aux "un_Fun_ptr_Aux"
+    where type CFieldType Fun_ptr_Aux
+                          "un_Fun_ptr_Aux" = Ptr Forward_declaration -> IO Unit
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @fun_ptr@
 
@@ -43,7 +43,7 @@ instance HasCField Fun_ptr_Deref "un_Fun_ptr_Deref"
     __exported by:__ @functions\/circular_dependency_fun.h@
 -}
 newtype Fun_ptr
-    = Fun_ptr {un_Fun_ptr :: (FunPtr Fun_ptr_Deref)}
+    = Fun_ptr {un_Fun_ptr :: (FunPtr Fun_ptr_Aux)}
       {- ^ __C declaration:__ @fun_ptr@
 
            __defined at:__ @functions\/circular_dependency_fun.h:3:16@
@@ -56,7 +56,7 @@ instance TyEq ty (CFieldType Fun_ptr "un_Fun_ptr") =>
          HasField "un_Fun_ptr" (Ptr Fun_ptr) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Fun_ptr")
 instance HasCField Fun_ptr "un_Fun_ptr"
-    where type CFieldType Fun_ptr "un_Fun_ptr" = FunPtr Fun_ptr_Deref
+    where type CFieldType Fun_ptr "un_Fun_ptr" = FunPtr Fun_ptr_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct forward_declaration@
 

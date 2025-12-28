@@ -92,8 +92,8 @@ __defined at:__ @types\/typedefs\/typedefs.h:8:16@
 
 __exported by:__ @types\/typedefs\/typedefs.h@
 -}
-newtype FunctionPointer_Function_Deref
-    = FunctionPointer_Function_Deref {un_FunctionPointer_Function_Deref :: (IO Unit)}
+newtype FunctionPointer_Function_Aux
+    = FunctionPointer_Function_Aux {un_FunctionPointer_Function_Aux :: (IO Unit)}
       {- ^ Auxiliary type used by 'FunctionPointer_Function'
 
       __C declaration:__ @FunctionPointer_Function@
@@ -103,27 +103,27 @@ newtype FunctionPointer_Function_Deref
       __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving newtype HasBaseForeignType
--- __unique:__ @toFunctionPointer_Function_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_ee75ebb8a19735c1 :: FunctionPointer_Function_Deref ->
-                                                                   IO (FunPtr FunctionPointer_Function_Deref)
--- __unique:__ @fromFunctionPointer_Function_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_82a2a7d3ed6faa26 :: FunPtr FunctionPointer_Function_Deref ->
-                                                                   FunctionPointer_Function_Deref
-instance ToFunPtr FunctionPointer_Function_Deref
-    where toFunPtr = hs_bindgen_ee75ebb8a19735c1
-instance FromFunPtr FunctionPointer_Function_Deref
-    where fromFunPtr = hs_bindgen_82a2a7d3ed6faa26
+-- __unique:__ @toFunctionPointer_Function_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_b171c028cdc0781d :: FunctionPointer_Function_Aux ->
+                                                                   IO (FunPtr FunctionPointer_Function_Aux)
+-- __unique:__ @fromFunctionPointer_Function_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_4c3da8240a31e036 :: FunPtr FunctionPointer_Function_Aux ->
+                                                                   FunctionPointer_Function_Aux
+instance ToFunPtr FunctionPointer_Function_Aux
+    where toFunPtr = hs_bindgen_b171c028cdc0781d
+instance FromFunPtr FunctionPointer_Function_Aux
+    where fromFunPtr = hs_bindgen_4c3da8240a31e036
 instance TyEq ty
-              (CFieldType FunctionPointer_Function_Deref
-                          "un_FunctionPointer_Function_Deref") =>
-         HasField "un_FunctionPointer_Function_Deref"
-                  (Ptr FunctionPointer_Function_Deref)
+              (CFieldType FunctionPointer_Function_Aux
+                          "un_FunctionPointer_Function_Aux") =>
+         HasField "un_FunctionPointer_Function_Aux"
+                  (Ptr FunctionPointer_Function_Aux)
                   (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_FunctionPointer_Function_Deref")
-instance HasCField FunctionPointer_Function_Deref
-                   "un_FunctionPointer_Function_Deref"
-    where type CFieldType FunctionPointer_Function_Deref
-                          "un_FunctionPointer_Function_Deref" = IO Unit
+    where getField = ptrToCField (Proxy @"un_FunctionPointer_Function_Aux")
+instance HasCField FunctionPointer_Function_Aux
+                   "un_FunctionPointer_Function_Aux"
+    where type CFieldType FunctionPointer_Function_Aux
+                          "un_FunctionPointer_Function_Aux" = IO Unit
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @FunctionPointer_Function@
 
@@ -132,7 +132,7 @@ instance HasCField FunctionPointer_Function_Deref
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype FunctionPointer_Function
-    = FunctionPointer_Function {un_FunctionPointer_Function :: (FunPtr FunctionPointer_Function_Deref)}
+    = FunctionPointer_Function {un_FunctionPointer_Function :: (FunPtr FunctionPointer_Function_Aux)}
       {- ^ __C declaration:__ @FunctionPointer_Function@
 
            __defined at:__ @types\/typedefs\/typedefs.h:8:16@
@@ -151,7 +151,7 @@ instance TyEq ty
 instance HasCField FunctionPointer_Function
                    "un_FunctionPointer_Function"
     where type CFieldType FunctionPointer_Function
-                          "un_FunctionPointer_Function" = FunPtr FunctionPointer_Function_Deref
+                          "un_FunctionPointer_Function" = FunPtr FunctionPointer_Function_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @NonFunctionPointer_Function@
 
@@ -199,8 +199,8 @@ __defined at:__ @types\/typedefs\/typedefs.h:11:16@
 
 __exported by:__ @types\/typedefs\/typedefs.h@
 -}
-newtype F1_Deref
-    = F1_Deref {un_F1_Deref :: (IO Unit)}
+newtype F1_Aux
+    = F1_Aux {un_F1_Aux :: (IO Unit)}
       {- ^ Auxiliary type used by 'F1'
 
       __C declaration:__ @f1@
@@ -210,21 +210,21 @@ newtype F1_Deref
       __exported by:__ @types\/typedefs\/typedefs.h@
       -}
     deriving newtype HasBaseForeignType
--- __unique:__ @toF1_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_fa93becf814ab275 :: F1_Deref ->
-                                                                   IO (FunPtr F1_Deref)
--- __unique:__ @fromF1_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_5a971083f7b8024b :: FunPtr F1_Deref ->
-                                                                   F1_Deref
-instance ToFunPtr F1_Deref
-    where toFunPtr = hs_bindgen_fa93becf814ab275
-instance FromFunPtr F1_Deref
-    where fromFunPtr = hs_bindgen_5a971083f7b8024b
-instance TyEq ty (CFieldType F1_Deref "un_F1_Deref") =>
-         HasField "un_F1_Deref" (Ptr F1_Deref) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_F1_Deref")
-instance HasCField F1_Deref "un_F1_Deref"
-    where type CFieldType F1_Deref "un_F1_Deref" = IO Unit
+-- __unique:__ @toF1_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_00d16e666202ed6c :: F1_Aux ->
+                                                                   IO (FunPtr F1_Aux)
+-- __unique:__ @fromF1_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_ddeb5206e8192425 :: FunPtr F1_Aux ->
+                                                                   F1_Aux
+instance ToFunPtr F1_Aux
+    where toFunPtr = hs_bindgen_00d16e666202ed6c
+instance FromFunPtr F1_Aux
+    where fromFunPtr = hs_bindgen_ddeb5206e8192425
+instance TyEq ty (CFieldType F1_Aux "un_F1_Aux") =>
+         HasField "un_F1_Aux" (Ptr F1_Aux) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_F1_Aux")
+instance HasCField F1_Aux "un_F1_Aux"
+    where type CFieldType F1_Aux "un_F1_Aux" = IO Unit
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @f1@
 
@@ -233,7 +233,7 @@ instance HasCField F1_Deref "un_F1_Deref"
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
 newtype F1
-    = F1 {un_F1 :: (FunPtr F1_Deref)}
+    = F1 {un_F1 :: (FunPtr F1_Aux)}
       {- ^ __C declaration:__ @f1@
 
            __defined at:__ @types\/typedefs\/typedefs.h:11:16@
@@ -246,7 +246,7 @@ instance TyEq ty (CFieldType F1 "un_F1") =>
          HasField "un_F1" (Ptr F1) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_F1")
 instance HasCField F1 "un_F1"
-    where type CFieldType F1 "un_F1" = FunPtr F1_Deref
+    where type CFieldType F1 "un_F1" = FunPtr F1_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @g1@
 

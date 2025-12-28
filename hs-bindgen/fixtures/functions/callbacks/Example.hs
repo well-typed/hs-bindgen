@@ -48,38 +48,38 @@ __defined at:__ @functions\/callbacks.h:10:16@
 
 __exported by:__ @functions\/callbacks.h@
 -}
-newtype FileOpenedNotification_Deref = FileOpenedNotification_Deref
-  { un_FileOpenedNotification_Deref :: IO ()
+newtype FileOpenedNotification_Aux = FileOpenedNotification_Aux
+  { un_FileOpenedNotification_Aux :: IO ()
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toFileOpenedNotification_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_71c9954059c4eb57 ::
-     FileOpenedNotification_Deref
-  -> IO (Ptr.FunPtr FileOpenedNotification_Deref)
+-- __unique:__ @toFileOpenedNotification_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_b3b8b1fad168671a ::
+     FileOpenedNotification_Aux
+  -> IO (Ptr.FunPtr FileOpenedNotification_Aux)
 
--- __unique:__ @fromFileOpenedNotification_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_5197d76026e68499 ::
-     Ptr.FunPtr FileOpenedNotification_Deref
-  -> FileOpenedNotification_Deref
+-- __unique:__ @fromFileOpenedNotification_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_f3ba5920f34c7f6a ::
+     Ptr.FunPtr FileOpenedNotification_Aux
+  -> FileOpenedNotification_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr FileOpenedNotification_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr FileOpenedNotification_Aux where
 
-  toFunPtr = hs_bindgen_71c9954059c4eb57
+  toFunPtr = hs_bindgen_b3b8b1fad168671a
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr FileOpenedNotification_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr FileOpenedNotification_Aux where
 
-  fromFunPtr = hs_bindgen_5197d76026e68499
+  fromFunPtr = hs_bindgen_f3ba5920f34c7f6a
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOpenedNotification_Deref) "un_FileOpenedNotification_Deref")
-         ) => GHC.Records.HasField "un_FileOpenedNotification_Deref" (Ptr.Ptr FileOpenedNotification_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOpenedNotification_Aux) "un_FileOpenedNotification_Aux")
+         ) => GHC.Records.HasField "un_FileOpenedNotification_Aux" (Ptr.Ptr FileOpenedNotification_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_FileOpenedNotification_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_FileOpenedNotification_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField FileOpenedNotification_Deref "un_FileOpenedNotification_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField FileOpenedNotification_Aux "un_FileOpenedNotification_Aux" where
 
-  type CFieldType FileOpenedNotification_Deref "un_FileOpenedNotification_Deref" =
+  type CFieldType FileOpenedNotification_Aux "un_FileOpenedNotification_Aux" =
     IO ()
 
   offset# = \_ -> \_ -> 0
@@ -91,7 +91,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FileOpenedNotification_Deref "un_
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype FileOpenedNotification = FileOpenedNotification
-  { un_FileOpenedNotification :: Ptr.FunPtr FileOpenedNotification_Deref
+  { un_FileOpenedNotification :: Ptr.FunPtr FileOpenedNotification_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -105,7 +105,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOpenedNotificati
 instance HsBindgen.Runtime.HasCField.HasCField FileOpenedNotification "un_FileOpenedNotification" where
 
   type CFieldType FileOpenedNotification "un_FileOpenedNotification" =
-    Ptr.FunPtr FileOpenedNotification_Deref
+    Ptr.FunPtr FileOpenedNotification_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -117,38 +117,38 @@ __defined at:__ @functions\/callbacks.h:11:16@
 
 __exported by:__ @functions\/callbacks.h@
 -}
-newtype ProgressUpdate_Deref = ProgressUpdate_Deref
-  { un_ProgressUpdate_Deref :: FC.CInt -> IO ()
+newtype ProgressUpdate_Aux = ProgressUpdate_Aux
+  { un_ProgressUpdate_Aux :: FC.CInt -> IO ()
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toProgressUpdate_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_dd7cdf530e3d4c8d ::
-     ProgressUpdate_Deref
-  -> IO (Ptr.FunPtr ProgressUpdate_Deref)
+-- __unique:__ @toProgressUpdate_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_d551f31556ffa727 ::
+     ProgressUpdate_Aux
+  -> IO (Ptr.FunPtr ProgressUpdate_Aux)
 
--- __unique:__ @fromProgressUpdate_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_3d2189b9fad82fae ::
-     Ptr.FunPtr ProgressUpdate_Deref
-  -> ProgressUpdate_Deref
+-- __unique:__ @fromProgressUpdate_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_ccf7f4b62a839a04 ::
+     Ptr.FunPtr ProgressUpdate_Aux
+  -> ProgressUpdate_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr ProgressUpdate_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr ProgressUpdate_Aux where
 
-  toFunPtr = hs_bindgen_dd7cdf530e3d4c8d
+  toFunPtr = hs_bindgen_d551f31556ffa727
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr ProgressUpdate_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr ProgressUpdate_Aux where
 
-  fromFunPtr = hs_bindgen_3d2189b9fad82fae
+  fromFunPtr = hs_bindgen_ccf7f4b62a839a04
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProgressUpdate_Deref) "un_ProgressUpdate_Deref")
-         ) => GHC.Records.HasField "un_ProgressUpdate_Deref" (Ptr.Ptr ProgressUpdate_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProgressUpdate_Aux) "un_ProgressUpdate_Aux")
+         ) => GHC.Records.HasField "un_ProgressUpdate_Aux" (Ptr.Ptr ProgressUpdate_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_ProgressUpdate_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_ProgressUpdate_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField ProgressUpdate_Deref "un_ProgressUpdate_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField ProgressUpdate_Aux "un_ProgressUpdate_Aux" where
 
-  type CFieldType ProgressUpdate_Deref "un_ProgressUpdate_Deref" =
+  type CFieldType ProgressUpdate_Aux "un_ProgressUpdate_Aux" =
     FC.CInt -> IO ()
 
   offset# = \_ -> \_ -> 0
@@ -160,7 +160,7 @@ instance HsBindgen.Runtime.HasCField.HasCField ProgressUpdate_Deref "un_Progress
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype ProgressUpdate = ProgressUpdate
-  { un_ProgressUpdate :: Ptr.FunPtr ProgressUpdate_Deref
+  { un_ProgressUpdate :: Ptr.FunPtr ProgressUpdate_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -174,7 +174,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProgressUpdate) "un_
 instance HsBindgen.Runtime.HasCField.HasCField ProgressUpdate "un_ProgressUpdate" where
 
   type CFieldType ProgressUpdate "un_ProgressUpdate" =
-    Ptr.FunPtr ProgressUpdate_Deref
+    Ptr.FunPtr ProgressUpdate_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -186,38 +186,38 @@ __defined at:__ @functions\/callbacks.h:12:15@
 
 __exported by:__ @functions\/callbacks.h@
 -}
-newtype DataValidator_Deref = DataValidator_Deref
-  { un_DataValidator_Deref :: FC.CInt -> IO FC.CInt
+newtype DataValidator_Aux = DataValidator_Aux
+  { un_DataValidator_Aux :: FC.CInt -> IO FC.CInt
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toDataValidator_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_2dd1c35b0255a24e ::
-     DataValidator_Deref
-  -> IO (Ptr.FunPtr DataValidator_Deref)
+-- __unique:__ @toDataValidator_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_c656ca21e63343d6 ::
+     DataValidator_Aux
+  -> IO (Ptr.FunPtr DataValidator_Aux)
 
--- __unique:__ @fromDataValidator_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_d128eab55aa429fc ::
-     Ptr.FunPtr DataValidator_Deref
-  -> DataValidator_Deref
+-- __unique:__ @fromDataValidator_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_c1e79a4c11ca4033 ::
+     Ptr.FunPtr DataValidator_Aux
+  -> DataValidator_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr DataValidator_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr DataValidator_Aux where
 
-  toFunPtr = hs_bindgen_2dd1c35b0255a24e
+  toFunPtr = hs_bindgen_c656ca21e63343d6
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr DataValidator_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr DataValidator_Aux where
 
-  fromFunPtr = hs_bindgen_d128eab55aa429fc
+  fromFunPtr = hs_bindgen_c1e79a4c11ca4033
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataValidator_Deref) "un_DataValidator_Deref")
-         ) => GHC.Records.HasField "un_DataValidator_Deref" (Ptr.Ptr DataValidator_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataValidator_Aux) "un_DataValidator_Aux")
+         ) => GHC.Records.HasField "un_DataValidator_Aux" (Ptr.Ptr DataValidator_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_DataValidator_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_DataValidator_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField DataValidator_Deref "un_DataValidator_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField DataValidator_Aux "un_DataValidator_Aux" where
 
-  type CFieldType DataValidator_Deref "un_DataValidator_Deref" =
+  type CFieldType DataValidator_Aux "un_DataValidator_Aux" =
     FC.CInt -> IO FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -229,7 +229,7 @@ instance HsBindgen.Runtime.HasCField.HasCField DataValidator_Deref "un_DataValid
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype DataValidator = DataValidator
-  { un_DataValidator :: Ptr.FunPtr DataValidator_Deref
+  { un_DataValidator :: Ptr.FunPtr DataValidator_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -243,7 +243,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataValidator) "un_D
 instance HsBindgen.Runtime.HasCField.HasCField DataValidator "un_DataValidator" where
 
   type CFieldType DataValidator "un_DataValidator" =
-    Ptr.FunPtr DataValidator_Deref
+    Ptr.FunPtr DataValidator_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -381,38 +381,38 @@ __defined at:__ @functions\/callbacks.h:26:16@
 
 __exported by:__ @functions\/callbacks.h@
 -}
-newtype MeasurementReceived_Deref = MeasurementReceived_Deref
-  { un_MeasurementReceived_Deref :: (Ptr.Ptr Measurement) -> IO ()
+newtype MeasurementReceived_Aux = MeasurementReceived_Aux
+  { un_MeasurementReceived_Aux :: (Ptr.Ptr Measurement) -> IO ()
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toMeasurementReceived_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_d9413d8e35ffe643 ::
-     MeasurementReceived_Deref
-  -> IO (Ptr.FunPtr MeasurementReceived_Deref)
+-- __unique:__ @toMeasurementReceived_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_9259654df9d40f5b ::
+     MeasurementReceived_Aux
+  -> IO (Ptr.FunPtr MeasurementReceived_Aux)
 
--- __unique:__ @fromMeasurementReceived_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_8af7f320063ba46e ::
-     Ptr.FunPtr MeasurementReceived_Deref
-  -> MeasurementReceived_Deref
+-- __unique:__ @fromMeasurementReceived_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_383c36bb22947621 ::
+     Ptr.FunPtr MeasurementReceived_Aux
+  -> MeasurementReceived_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr MeasurementReceived_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr MeasurementReceived_Aux where
 
-  toFunPtr = hs_bindgen_d9413d8e35ffe643
+  toFunPtr = hs_bindgen_9259654df9d40f5b
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr MeasurementReceived_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr MeasurementReceived_Aux where
 
-  fromFunPtr = hs_bindgen_8af7f320063ba46e
+  fromFunPtr = hs_bindgen_383c36bb22947621
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived_Deref) "un_MeasurementReceived_Deref")
-         ) => GHC.Records.HasField "un_MeasurementReceived_Deref" (Ptr.Ptr MeasurementReceived_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived_Aux) "un_MeasurementReceived_Aux")
+         ) => GHC.Records.HasField "un_MeasurementReceived_Aux" (Ptr.Ptr MeasurementReceived_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MeasurementReceived_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MeasurementReceived_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived_Deref "un_MeasurementReceived_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived_Aux "un_MeasurementReceived_Aux" where
 
-  type CFieldType MeasurementReceived_Deref "un_MeasurementReceived_Deref" =
+  type CFieldType MeasurementReceived_Aux "un_MeasurementReceived_Aux" =
     (Ptr.Ptr Measurement) -> IO ()
 
   offset# = \_ -> \_ -> 0
@@ -424,7 +424,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived_Deref "un_Mea
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype MeasurementReceived = MeasurementReceived
-  { un_MeasurementReceived :: Ptr.FunPtr MeasurementReceived_Deref
+  { un_MeasurementReceived :: Ptr.FunPtr MeasurementReceived_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -438,7 +438,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived)
 instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived "un_MeasurementReceived" where
 
   type CFieldType MeasurementReceived "un_MeasurementReceived" =
-    Ptr.FunPtr MeasurementReceived_Deref
+    Ptr.FunPtr MeasurementReceived_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -450,19 +450,19 @@ __defined at:__ @functions\/callbacks.h:29:16@
 
 __exported by:__ @functions\/callbacks.h@
 -}
-newtype MeasurementReceived2_Deref = MeasurementReceived2_Deref
-  { un_MeasurementReceived2_Deref :: Measurement -> IO ()
+newtype MeasurementReceived2_Aux = MeasurementReceived2_Aux
+  { un_MeasurementReceived2_Aux :: Measurement -> IO ()
   }
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived2_Deref) "un_MeasurementReceived2_Deref")
-         ) => GHC.Records.HasField "un_MeasurementReceived2_Deref" (Ptr.Ptr MeasurementReceived2_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived2_Aux) "un_MeasurementReceived2_Aux")
+         ) => GHC.Records.HasField "un_MeasurementReceived2_Aux" (Ptr.Ptr MeasurementReceived2_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MeasurementReceived2_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MeasurementReceived2_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived2_Deref "un_MeasurementReceived2_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived2_Aux "un_MeasurementReceived2_Aux" where
 
-  type CFieldType MeasurementReceived2_Deref "un_MeasurementReceived2_Deref" =
+  type CFieldType MeasurementReceived2_Aux "un_MeasurementReceived2_Aux" =
     Measurement -> IO ()
 
   offset# = \_ -> \_ -> 0
@@ -474,7 +474,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived2_Deref "un_Me
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype MeasurementReceived2 = MeasurementReceived2
-  { un_MeasurementReceived2 :: Ptr.FunPtr MeasurementReceived2_Deref
+  { un_MeasurementReceived2 :: Ptr.FunPtr MeasurementReceived2_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -488,7 +488,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived2
 instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived2 "un_MeasurementReceived2" where
 
   type CFieldType MeasurementReceived2 "un_MeasurementReceived2" =
-    Ptr.FunPtr MeasurementReceived2_Deref
+    Ptr.FunPtr MeasurementReceived2_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -500,19 +500,19 @@ __defined at:__ @functions\/callbacks.h:32:16@
 
 __exported by:__ @functions\/callbacks.h@
 -}
-newtype SampleBufferFull_Deref = SampleBufferFull_Deref
-  { un_SampleBufferFull_Deref :: ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt) -> IO ()
+newtype SampleBufferFull_Aux = SampleBufferFull_Aux
+  { un_SampleBufferFull_Aux :: ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt) -> IO ()
   }
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType SampleBufferFull_Deref) "un_SampleBufferFull_Deref")
-         ) => GHC.Records.HasField "un_SampleBufferFull_Deref" (Ptr.Ptr SampleBufferFull_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType SampleBufferFull_Aux) "un_SampleBufferFull_Aux")
+         ) => GHC.Records.HasField "un_SampleBufferFull_Aux" (Ptr.Ptr SampleBufferFull_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_SampleBufferFull_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_SampleBufferFull_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField SampleBufferFull_Deref "un_SampleBufferFull_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField SampleBufferFull_Aux "un_SampleBufferFull_Aux" where
 
-  type CFieldType SampleBufferFull_Deref "un_SampleBufferFull_Deref" =
+  type CFieldType SampleBufferFull_Aux "un_SampleBufferFull_Aux" =
     ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt) -> IO ()
 
   offset# = \_ -> \_ -> 0
@@ -524,7 +524,7 @@ instance HsBindgen.Runtime.HasCField.HasCField SampleBufferFull_Deref "un_Sample
     __exported by:__ @functions\/callbacks.h@
 -}
 newtype SampleBufferFull = SampleBufferFull
-  { un_SampleBufferFull :: Ptr.FunPtr SampleBufferFull_Deref
+  { un_SampleBufferFull :: Ptr.FunPtr SampleBufferFull_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -538,7 +538,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType SampleBufferFull) "u
 instance HsBindgen.Runtime.HasCField.HasCField SampleBufferFull "un_SampleBufferFull" where
 
   type CFieldType SampleBufferFull "un_SampleBufferFull" =
-    Ptr.FunPtr SampleBufferFull_Deref
+    Ptr.FunPtr SampleBufferFull_Aux
 
   offset# = \_ -> \_ -> 0
 

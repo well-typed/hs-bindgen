@@ -31,38 +31,38 @@ __defined at:__ @functions\/circular_dependency_fun.h:3:16@
 
 __exported by:__ @functions\/circular_dependency_fun.h@
 -}
-newtype Fun_ptr_Deref = Fun_ptr_Deref
-  { un_Fun_ptr_Deref :: (Ptr.Ptr Forward_declaration) -> IO ()
+newtype Fun_ptr_Aux = Fun_ptr_Aux
+  { un_Fun_ptr_Aux :: (Ptr.Ptr Forward_declaration) -> IO ()
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toFun_ptr_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_83e60b3bb02cd08d ::
-     Fun_ptr_Deref
-  -> IO (Ptr.FunPtr Fun_ptr_Deref)
+-- __unique:__ @toFun_ptr_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_5964bbadb359ee4a ::
+     Fun_ptr_Aux
+  -> IO (Ptr.FunPtr Fun_ptr_Aux)
 
--- __unique:__ @fromFun_ptr_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_66799ec68b619f2a ::
-     Ptr.FunPtr Fun_ptr_Deref
-  -> Fun_ptr_Deref
+-- __unique:__ @fromFun_ptr_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_f8391e85af67fcb6 ::
+     Ptr.FunPtr Fun_ptr_Aux
+  -> Fun_ptr_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Fun_ptr_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Fun_ptr_Aux where
 
-  toFunPtr = hs_bindgen_83e60b3bb02cd08d
+  toFunPtr = hs_bindgen_5964bbadb359ee4a
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Fun_ptr_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Fun_ptr_Aux where
 
-  fromFunPtr = hs_bindgen_66799ec68b619f2a
+  fromFunPtr = hs_bindgen_f8391e85af67fcb6
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr_Deref) "un_Fun_ptr_Deref")
-         ) => GHC.Records.HasField "un_Fun_ptr_Deref" (Ptr.Ptr Fun_ptr_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr_Aux) "un_Fun_ptr_Aux")
+         ) => GHC.Records.HasField "un_Fun_ptr_Aux" (Ptr.Ptr Fun_ptr_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Fun_ptr_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Fun_ptr_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr_Deref "un_Fun_ptr_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr_Aux "un_Fun_ptr_Aux" where
 
-  type CFieldType Fun_ptr_Deref "un_Fun_ptr_Deref" =
+  type CFieldType Fun_ptr_Aux "un_Fun_ptr_Aux" =
     (Ptr.Ptr Forward_declaration) -> IO ()
 
   offset# = \_ -> \_ -> 0
@@ -74,7 +74,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr_Deref "un_Fun_ptr_Deref" 
     __exported by:__ @functions\/circular_dependency_fun.h@
 -}
 newtype Fun_ptr = Fun_ptr
-  { un_Fun_ptr :: Ptr.FunPtr Fun_ptr_Deref
+  { un_Fun_ptr :: Ptr.FunPtr Fun_ptr_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -88,7 +88,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr) "un_Fun_ptr
 instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr "un_Fun_ptr" where
 
   type CFieldType Fun_ptr "un_Fun_ptr" =
-    Ptr.FunPtr Fun_ptr_Deref
+    Ptr.FunPtr Fun_ptr_Aux
 
   offset# = \_ -> \_ -> 0
 

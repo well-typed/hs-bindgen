@@ -734,21 +734,21 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S6) "s6_b")
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s6_b")
 
-{-| __C declaration:__ @struct \@S7a_Deref@
+{-| __C declaration:__ @struct \@S7a_Aux@
 
     __defined at:__ @types\/structs\/simple_structs.h:34:9@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
-data S7a_Deref = S7a_Deref
-  { s7a_Deref_a :: FC.CChar
+data S7a_Aux = S7a_Aux
+  { s7a_Aux_a :: FC.CChar
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h:34:23@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s7a_Deref_b :: FC.CInt
+  , s7a_Aux_b :: FC.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h:34:30@
@@ -758,7 +758,7 @@ data S7a_Deref = S7a_Deref
   }
   deriving stock (Eq, Show)
 
-instance F.Storable S7a_Deref where
+instance F.Storable S7a_Aux where
 
   sizeOf = \_ -> (8 :: Int)
 
@@ -766,19 +766,19 @@ instance F.Storable S7a_Deref where
 
   peek =
     \ptr0 ->
-          pure S7a_Deref
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"s7a_Deref_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"s7a_Deref_b") ptr0
+          pure S7a_Aux
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"s7a_Aux_a") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"s7a_Aux_b") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          S7a_Deref s7a_Deref_a2 s7a_Deref_b3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"s7a_Deref_a") ptr0 s7a_Deref_a2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"s7a_Deref_b") ptr0 s7a_Deref_b3
+          S7a_Aux s7a_Aux_a2 s7a_Aux_b3 ->
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"s7a_Aux_a") ptr0 s7a_Aux_a2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"s7a_Aux_b") ptr0 s7a_Aux_b3
 
-instance Data.Primitive.Types.Prim S7a_Deref where
+instance Data.Primitive.Types.Prim S7a_Aux where
 
   sizeOf# = \_ -> (8#)
 
@@ -787,7 +787,7 @@ instance Data.Primitive.Types.Prim S7a_Deref where
   indexByteArray# =
     \arr0 ->
       \i1 ->
-        S7a_Deref (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
+        S7a_Aux (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readByteArray# =
     \arr0 ->
@@ -796,7 +796,7 @@ instance Data.Primitive.Types.Prim S7a_Deref where
           case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
               case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, S7a_Deref v4 v6 #)
+                (# s5, v6 #) -> (# s5, S7a_Aux v4 v6 #)
 
   writeByteArray# =
     \arr0 ->
@@ -804,15 +804,15 @@ instance Data.Primitive.Types.Prim S7a_Deref where
         \struct2 ->
           \s3 ->
             case struct2 of
-              S7a_Deref s7a_Deref_a4 s7a_Deref_b5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s7a_Deref_a4 s3 of
+              S7a_Aux s7a_Aux_a4 s7a_Aux_b5 ->
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s7a_Aux_a4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s7a_Deref_b5 s6
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s7a_Aux_b5 s6
 
   indexOffAddr# =
     \addr0 ->
       \i1 ->
-        S7a_Deref (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
+        S7a_Aux (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readOffAddr# =
     \addr0 ->
@@ -821,7 +821,7 @@ instance Data.Primitive.Types.Prim S7a_Deref where
           case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
               case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, S7a_Deref v4 v6 #)
+                (# s5, v6 #) -> (# s5, S7a_Aux v4 v6 #)
 
   writeOffAddr# =
     \addr0 ->
@@ -829,34 +829,34 @@ instance Data.Primitive.Types.Prim S7a_Deref where
         \struct2 ->
           \s3 ->
             case struct2 of
-              S7a_Deref s7a_Deref_a4 s7a_Deref_b5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s7a_Deref_a4 s3 of
+              S7a_Aux s7a_Aux_a4 s7a_Aux_b5 ->
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s7a_Aux_a4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s7a_Deref_b5 s6
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s7a_Aux_b5 s6
 
-instance HsBindgen.Runtime.HasCField.HasCField S7a_Deref "s7a_Deref_a" where
+instance HsBindgen.Runtime.HasCField.HasCField S7a_Aux "s7a_Aux_a" where
 
-  type CFieldType S7a_Deref "s7a_Deref_a" = FC.CChar
+  type CFieldType S7a_Aux "s7a_Aux_a" = FC.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7a_Deref) "s7a_Deref_a")
-         ) => GHC.Records.HasField "s7a_Deref_a" (Ptr.Ptr S7a_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7a_Aux) "s7a_Aux_a")
+         ) => GHC.Records.HasField "s7a_Aux_a" (Ptr.Ptr S7a_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s7a_Deref_a")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s7a_Aux_a")
 
-instance HsBindgen.Runtime.HasCField.HasCField S7a_Deref "s7a_Deref_b" where
+instance HsBindgen.Runtime.HasCField.HasCField S7a_Aux "s7a_Aux_b" where
 
-  type CFieldType S7a_Deref "s7a_Deref_b" = FC.CInt
+  type CFieldType S7a_Aux "s7a_Aux_b" = FC.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7a_Deref) "s7a_Deref_b")
-         ) => GHC.Records.HasField "s7a_Deref_b" (Ptr.Ptr S7a_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7a_Aux) "s7a_Aux_b")
+         ) => GHC.Records.HasField "s7a_Aux_b" (Ptr.Ptr S7a_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s7a_Deref_b")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s7a_Aux_b")
 
 {-| __C declaration:__ @S7a@
 
@@ -865,7 +865,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7a_Deref) "s7a_Dere
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 newtype S7a = S7a
-  { un_S7a :: Ptr.Ptr S7a_Deref
+  { un_S7a :: Ptr.Ptr S7a_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -878,25 +878,25 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7a) "un_S7a")
 
 instance HsBindgen.Runtime.HasCField.HasCField S7a "un_S7a" where
 
-  type CFieldType S7a "un_S7a" = Ptr.Ptr S7a_Deref
+  type CFieldType S7a "un_S7a" = Ptr.Ptr S7a_Aux
 
   offset# = \_ -> \_ -> 0
 
-{-| __C declaration:__ @struct \@S7b_Deref@
+{-| __C declaration:__ @struct \@S7b_Aux@
 
     __defined at:__ @types\/structs\/simple_structs.h:35:9@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
-data S7b_Deref = S7b_Deref
-  { s7b_Deref_a :: FC.CChar
+data S7b_Aux = S7b_Aux
+  { s7b_Aux_a :: FC.CChar
     {- ^ __C declaration:__ @a@
 
          __defined at:__ @types\/structs\/simple_structs.h:35:23@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
-  , s7b_Deref_b :: FC.CInt
+  , s7b_Aux_b :: FC.CInt
     {- ^ __C declaration:__ @b@
 
          __defined at:__ @types\/structs\/simple_structs.h:35:30@
@@ -906,7 +906,7 @@ data S7b_Deref = S7b_Deref
   }
   deriving stock (Eq, Show)
 
-instance F.Storable S7b_Deref where
+instance F.Storable S7b_Aux where
 
   sizeOf = \_ -> (8 :: Int)
 
@@ -914,19 +914,19 @@ instance F.Storable S7b_Deref where
 
   peek =
     \ptr0 ->
-          pure S7b_Deref
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"s7b_Deref_a") ptr0
-      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"s7b_Deref_b") ptr0
+          pure S7b_Aux
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"s7b_Aux_a") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"s7b_Aux_b") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          S7b_Deref s7b_Deref_a2 s7b_Deref_b3 ->
-               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"s7b_Deref_a") ptr0 s7b_Deref_a2
-            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"s7b_Deref_b") ptr0 s7b_Deref_b3
+          S7b_Aux s7b_Aux_a2 s7b_Aux_b3 ->
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"s7b_Aux_a") ptr0 s7b_Aux_a2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"s7b_Aux_b") ptr0 s7b_Aux_b3
 
-instance Data.Primitive.Types.Prim S7b_Deref where
+instance Data.Primitive.Types.Prim S7b_Aux where
 
   sizeOf# = \_ -> (8#)
 
@@ -935,7 +935,7 @@ instance Data.Primitive.Types.Prim S7b_Deref where
   indexByteArray# =
     \arr0 ->
       \i1 ->
-        S7b_Deref (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
+        S7b_Aux (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readByteArray# =
     \arr0 ->
@@ -944,7 +944,7 @@ instance Data.Primitive.Types.Prim S7b_Deref where
           case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
               case Data.Primitive.Types.readByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, S7b_Deref v4 v6 #)
+                (# s5, v6 #) -> (# s5, S7b_Aux v4 v6 #)
 
   writeByteArray# =
     \arr0 ->
@@ -952,15 +952,15 @@ instance Data.Primitive.Types.Prim S7b_Deref where
         \struct2 ->
           \s3 ->
             case struct2 of
-              S7b_Deref s7b_Deref_a4 s7b_Deref_b5 ->
-                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s7b_Deref_a4 s3 of
+              S7b_Aux s7b_Aux_a4 s7b_Aux_b5 ->
+                case Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (0#)) s7b_Aux_a4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s7b_Deref_b5 s6
+                    Data.Primitive.Types.writeByteArray# arr0 ((+#) ((*#) (2#) i1) (1#)) s7b_Aux_b5 s6
 
   indexOffAddr# =
     \addr0 ->
       \i1 ->
-        S7b_Deref (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
+        S7b_Aux (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#))) (Data.Primitive.Types.indexOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)))
 
   readOffAddr# =
     \addr0 ->
@@ -969,7 +969,7 @@ instance Data.Primitive.Types.Prim S7b_Deref where
           case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s2 of
             (# s3, v4 #) ->
               case Data.Primitive.Types.readOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s3 of
-                (# s5, v6 #) -> (# s5, S7b_Deref v4 v6 #)
+                (# s5, v6 #) -> (# s5, S7b_Aux v4 v6 #)
 
   writeOffAddr# =
     \addr0 ->
@@ -977,34 +977,34 @@ instance Data.Primitive.Types.Prim S7b_Deref where
         \struct2 ->
           \s3 ->
             case struct2 of
-              S7b_Deref s7b_Deref_a4 s7b_Deref_b5 ->
-                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s7b_Deref_a4 s3 of
+              S7b_Aux s7b_Aux_a4 s7b_Aux_b5 ->
+                case Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (0#)) s7b_Aux_a4 s3 of
                   s6 ->
-                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s7b_Deref_b5 s6
+                    Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) s7b_Aux_b5 s6
 
-instance HsBindgen.Runtime.HasCField.HasCField S7b_Deref "s7b_Deref_a" where
+instance HsBindgen.Runtime.HasCField.HasCField S7b_Aux "s7b_Aux_a" where
 
-  type CFieldType S7b_Deref "s7b_Deref_a" = FC.CChar
+  type CFieldType S7b_Aux "s7b_Aux_a" = FC.CChar
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7b_Deref) "s7b_Deref_a")
-         ) => GHC.Records.HasField "s7b_Deref_a" (Ptr.Ptr S7b_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7b_Aux) "s7b_Aux_a")
+         ) => GHC.Records.HasField "s7b_Aux_a" (Ptr.Ptr S7b_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s7b_Deref_a")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s7b_Aux_a")
 
-instance HsBindgen.Runtime.HasCField.HasCField S7b_Deref "s7b_Deref_b" where
+instance HsBindgen.Runtime.HasCField.HasCField S7b_Aux "s7b_Aux_b" where
 
-  type CFieldType S7b_Deref "s7b_Deref_b" = FC.CInt
+  type CFieldType S7b_Aux "s7b_Aux_b" = FC.CInt
 
   offset# = \_ -> \_ -> 4
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7b_Deref) "s7b_Deref_b")
-         ) => GHC.Records.HasField "s7b_Deref_b" (Ptr.Ptr S7b_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7b_Aux) "s7b_Aux_b")
+         ) => GHC.Records.HasField "s7b_Aux_b" (Ptr.Ptr S7b_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s7b_Deref_b")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s7b_Aux_b")
 
 {-| __C declaration:__ @S7b@
 
@@ -1013,7 +1013,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7b_Deref) "s7b_Dere
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 newtype S7b = S7b
-  { un_S7b :: Ptr.Ptr (Ptr.Ptr (Ptr.Ptr S7b_Deref))
+  { un_S7b :: Ptr.Ptr (Ptr.Ptr (Ptr.Ptr S7b_Aux))
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -1027,6 +1027,6 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7b) "un_S7b")
 instance HsBindgen.Runtime.HasCField.HasCField S7b "un_S7b" where
 
   type CFieldType S7b "un_S7b" =
-    Ptr.Ptr (Ptr.Ptr (Ptr.Ptr S7b_Deref))
+    Ptr.Ptr (Ptr.Ptr (Ptr.Ptr S7b_Aux))
 
   offset# = \_ -> \_ -> 0

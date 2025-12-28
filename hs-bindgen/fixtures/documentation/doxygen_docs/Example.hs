@@ -231,38 +231,38 @@ __defined at:__ @documentation\/doxygen_docs.h:225:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-newtype Event_callback_t_Deref = Event_callback_t_Deref
-  { un_Event_callback_t_Deref :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
+newtype Event_callback_t_Aux = Event_callback_t_Aux
+  { un_Event_callback_t_Aux :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toEvent_callback_t_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_0f8e2c78e0583f5e ::
-     Event_callback_t_Deref
-  -> IO (Ptr.FunPtr Event_callback_t_Deref)
+-- __unique:__ @toEvent_callback_t_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_111918b0aee2a7fb ::
+     Event_callback_t_Aux
+  -> IO (Ptr.FunPtr Event_callback_t_Aux)
 
--- __unique:__ @fromEvent_callback_t_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_9dbdfc6c37a7780f ::
-     Ptr.FunPtr Event_callback_t_Deref
-  -> Event_callback_t_Deref
+-- __unique:__ @fromEvent_callback_t_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_9e9d478c2d75628c ::
+     Ptr.FunPtr Event_callback_t_Aux
+  -> Event_callback_t_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Event_callback_t_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Event_callback_t_Aux where
 
-  toFunPtr = hs_bindgen_0f8e2c78e0583f5e
+  toFunPtr = hs_bindgen_111918b0aee2a7fb
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Event_callback_t_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Event_callback_t_Aux where
 
-  fromFunPtr = hs_bindgen_9dbdfc6c37a7780f
+  fromFunPtr = hs_bindgen_9e9d478c2d75628c
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t_Deref) "un_Event_callback_t_Deref")
-         ) => GHC.Records.HasField "un_Event_callback_t_Deref" (Ptr.Ptr Event_callback_t_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t_Aux) "un_Event_callback_t_Aux")
+         ) => GHC.Records.HasField "un_Event_callback_t_Aux" (Ptr.Ptr Event_callback_t_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Event_callback_t_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Event_callback_t_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Event_callback_t_Deref "un_Event_callback_t_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Event_callback_t_Aux "un_Event_callback_t_Aux" where
 
-  type CFieldType Event_callback_t_Deref "un_Event_callback_t_Deref" =
+  type CFieldType Event_callback_t_Aux "un_Event_callback_t_Aux" =
     FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -284,7 +284,7 @@ __defined at:__ @documentation\/doxygen_docs.h:225:15@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Event_callback_t = Event_callback_t
-  { un_Event_callback_t :: Ptr.FunPtr Event_callback_t_Deref
+  { un_Event_callback_t :: Ptr.FunPtr Event_callback_t_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -298,7 +298,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t) "u
 instance HsBindgen.Runtime.HasCField.HasCField Event_callback_t "un_Event_callback_t" where
 
   type CFieldType Event_callback_t "un_Event_callback_t" =
-    Ptr.FunPtr Event_callback_t_Deref
+    Ptr.FunPtr Event_callback_t_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -1119,38 +1119,38 @@ __defined at:__ @documentation\/doxygen_docs.h:317:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-newtype Processor_fn_t_Deref = Processor_fn_t_Deref
-  { un_Processor_fn_t_Deref :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
+newtype Processor_fn_t_Aux = Processor_fn_t_Aux
+  { un_Processor_fn_t_Aux :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toProcessor_fn_t_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_5f7a57f9f2b19661 ::
-     Processor_fn_t_Deref
-  -> IO (Ptr.FunPtr Processor_fn_t_Deref)
+-- __unique:__ @toProcessor_fn_t_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_d4e16471c82d5df0 ::
+     Processor_fn_t_Aux
+  -> IO (Ptr.FunPtr Processor_fn_t_Aux)
 
--- __unique:__ @fromProcessor_fn_t_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_a894574bbd080808 ::
-     Ptr.FunPtr Processor_fn_t_Deref
-  -> Processor_fn_t_Deref
+-- __unique:__ @fromProcessor_fn_t_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_0d4b3d0461629423 ::
+     Ptr.FunPtr Processor_fn_t_Aux
+  -> Processor_fn_t_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Processor_fn_t_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Processor_fn_t_Aux where
 
-  toFunPtr = hs_bindgen_5f7a57f9f2b19661
+  toFunPtr = hs_bindgen_d4e16471c82d5df0
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Processor_fn_t_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Processor_fn_t_Aux where
 
-  fromFunPtr = hs_bindgen_a894574bbd080808
+  fromFunPtr = hs_bindgen_0d4b3d0461629423
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t_Deref) "un_Processor_fn_t_Deref")
-         ) => GHC.Records.HasField "un_Processor_fn_t_Deref" (Ptr.Ptr Processor_fn_t_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t_Aux) "un_Processor_fn_t_Aux")
+         ) => GHC.Records.HasField "un_Processor_fn_t_Aux" (Ptr.Ptr Processor_fn_t_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Processor_fn_t_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Processor_fn_t_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Processor_fn_t_Deref "un_Processor_fn_t_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Processor_fn_t_Aux "un_Processor_fn_t_Aux" where
 
-  type CFieldType Processor_fn_t_Deref "un_Processor_fn_t_Deref" =
+  type CFieldType Processor_fn_t_Aux "un_Processor_fn_t_Aux" =
     FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
 
   offset# = \_ -> \_ -> 0
@@ -1174,7 +1174,7 @@ __defined at:__ @documentation\/doxygen_docs.h:317:15@
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
 newtype Processor_fn_t = Processor_fn_t
-  { un_Processor_fn_t :: Ptr.FunPtr Processor_fn_t_Deref
+  { un_Processor_fn_t :: Ptr.FunPtr Processor_fn_t_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -1188,7 +1188,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t) "un_
 instance HsBindgen.Runtime.HasCField.HasCField Processor_fn_t "un_Processor_fn_t" where
 
   type CFieldType Processor_fn_t "un_Processor_fn_t" =
-    Ptr.FunPtr Processor_fn_t_Deref
+    Ptr.FunPtr Processor_fn_t_Aux
 
   offset# = \_ -> \_ -> 0
 

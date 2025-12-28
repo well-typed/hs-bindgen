@@ -410,76 +410,76 @@ instance HasCField S6 "s6_b"
 instance TyEq ty (CFieldType S6 "s6_b") =>
          HasField "s6_b" (Ptr S6) (Ptr ty)
     where getField = ptrToCField (Proxy @"s6_b")
-{-| __C declaration:__ @struct \@S7a_Deref@
+{-| __C declaration:__ @struct \@S7a_Aux@
 
     __defined at:__ @types\/structs\/simple_structs.h:34:9@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
-data S7a_Deref
-    = S7a_Deref {s7a_Deref_a :: CChar
-                 {- ^ __C declaration:__ @a@
+data S7a_Aux
+    = S7a_Aux {s7a_Aux_a :: CChar
+               {- ^ __C declaration:__ @a@
 
-                      __defined at:__ @types\/structs\/simple_structs.h:34:23@
+                    __defined at:__ @types\/structs\/simple_structs.h:34:23@
 
-                      __exported by:__ @types\/structs\/simple_structs.h@
-                 -},
-                 s7a_Deref_b :: CInt
-                 {- ^ __C declaration:__ @b@
+                    __exported by:__ @types\/structs\/simple_structs.h@
+               -},
+               s7a_Aux_b :: CInt
+               {- ^ __C declaration:__ @b@
 
-                      __defined at:__ @types\/structs\/simple_structs.h:34:30@
+                    __defined at:__ @types\/structs\/simple_structs.h:34:30@
 
-                      __exported by:__ @types\/structs\/simple_structs.h@
-                 -}}
-      {- ^ __C declaration:__ @struct \@S7a_Deref@
+                    __exported by:__ @types\/structs\/simple_structs.h@
+               -}}
+      {- ^ __C declaration:__ @struct \@S7a_Aux@
 
            __defined at:__ @types\/structs\/simple_structs.h:34:9@
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S7a_Deref
+instance Storable S7a_Aux
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure S7a_Deref <*> peekCField (Proxy @"s7a_Deref_a") ptr_0) <*> peekCField (Proxy @"s7a_Deref_b") ptr_0
+          peek = \ptr_0 -> (pure S7a_Aux <*> peekCField (Proxy @"s7a_Aux_a") ptr_0) <*> peekCField (Proxy @"s7a_Aux_b") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S7a_Deref s7a_Deref_a_3
-                                             s7a_Deref_b_4 -> pokeCField (Proxy @"s7a_Deref_a") ptr_1 s7a_Deref_a_3 >> pokeCField (Proxy @"s7a_Deref_b") ptr_1 s7a_Deref_b_4
-instance Prim S7a_Deref
+                                   S7a_Aux s7a_Aux_a_3
+                                           s7a_Aux_b_4 -> pokeCField (Proxy @"s7a_Aux_a") ptr_1 s7a_Aux_a_3 >> pokeCField (Proxy @"s7a_Aux_b") ptr_1 s7a_Aux_b_4
+instance Prim S7a_Aux
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> S7a_Deref (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          indexByteArray# = \arr_0 -> \i_1 -> S7a_Aux (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
           readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
                                                      (# s_5,
                                                         v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
                                                                   (# s_7, v_8 #) -> (# s_7,
-                                                                                       S7a_Deref v_6 v_8 #)
+                                                                                       S7a_Aux v_6 v_8 #)
           writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      S7a_Deref s7a_Deref_a_13
-                                                                                s7a_Deref_b_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) s7a_Deref_a_13 s_12 of
-                                                                                                  s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) s7a_Deref_b_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> S7a_Deref (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+                                                                      S7a_Aux s7a_Aux_a_13
+                                                                              s7a_Aux_b_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) s7a_Aux_a_13 s_12 of
+                                                                                              s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) s7a_Aux_b_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> S7a_Aux (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
           readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
                                                        (# s_21,
                                                           v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
                                                                      (# s_23, v_24 #) -> (# s_23,
-                                                                                            S7a_Deref v_22 v_24 #)
+                                                                                            S7a_Aux v_22 v_24 #)
           writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      S7a_Deref s7a_Deref_a_29
-                                                                                s7a_Deref_b_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) s7a_Deref_a_29 s_28 of
-                                                                                                  s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) s7a_Deref_b_30 s_31
-instance HasCField S7a_Deref "s7a_Deref_a"
-    where type CFieldType S7a_Deref "s7a_Deref_a" = CChar
+                                                                      S7a_Aux s7a_Aux_a_29
+                                                                              s7a_Aux_b_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) s7a_Aux_a_29 s_28 of
+                                                                                              s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) s7a_Aux_b_30 s_31
+instance HasCField S7a_Aux "s7a_Aux_a"
+    where type CFieldType S7a_Aux "s7a_Aux_a" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S7a_Deref "s7a_Deref_a") =>
-         HasField "s7a_Deref_a" (Ptr S7a_Deref) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s7a_Deref_a")
-instance HasCField S7a_Deref "s7a_Deref_b"
-    where type CFieldType S7a_Deref "s7a_Deref_b" = CInt
+instance TyEq ty (CFieldType S7a_Aux "s7a_Aux_a") =>
+         HasField "s7a_Aux_a" (Ptr S7a_Aux) (Ptr ty)
+    where getField = ptrToCField (Proxy @"s7a_Aux_a")
+instance HasCField S7a_Aux "s7a_Aux_b"
+    where type CFieldType S7a_Aux "s7a_Aux_b" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S7a_Deref "s7a_Deref_b") =>
-         HasField "s7a_Deref_b" (Ptr S7a_Deref) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s7a_Deref_b")
+instance TyEq ty (CFieldType S7a_Aux "s7a_Aux_b") =>
+         HasField "s7a_Aux_b" (Ptr S7a_Aux) (Ptr ty)
+    where getField = ptrToCField (Proxy @"s7a_Aux_b")
 {-| __C declaration:__ @S7a@
 
     __defined at:__ @types\/structs\/simple_structs.h:34:36@
@@ -487,7 +487,7 @@ instance TyEq ty (CFieldType S7a_Deref "s7a_Deref_b") =>
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 newtype S7a
-    = S7a {un_S7a :: (Ptr S7a_Deref)}
+    = S7a {un_S7a :: (Ptr S7a_Aux)}
       {- ^ __C declaration:__ @S7a@
 
            __defined at:__ @types\/structs\/simple_structs.h:34:36@
@@ -500,78 +500,78 @@ instance TyEq ty (CFieldType S7a "un_S7a") =>
          HasField "un_S7a" (Ptr S7a) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_S7a")
 instance HasCField S7a "un_S7a"
-    where type CFieldType S7a "un_S7a" = Ptr S7a_Deref
+    where type CFieldType S7a "un_S7a" = Ptr S7a_Aux
           offset# = \_ -> \_ -> 0
-{-| __C declaration:__ @struct \@S7b_Deref@
+{-| __C declaration:__ @struct \@S7b_Aux@
 
     __defined at:__ @types\/structs\/simple_structs.h:35:9@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
-data S7b_Deref
-    = S7b_Deref {s7b_Deref_a :: CChar
-                 {- ^ __C declaration:__ @a@
+data S7b_Aux
+    = S7b_Aux {s7b_Aux_a :: CChar
+               {- ^ __C declaration:__ @a@
 
-                      __defined at:__ @types\/structs\/simple_structs.h:35:23@
+                    __defined at:__ @types\/structs\/simple_structs.h:35:23@
 
-                      __exported by:__ @types\/structs\/simple_structs.h@
-                 -},
-                 s7b_Deref_b :: CInt
-                 {- ^ __C declaration:__ @b@
+                    __exported by:__ @types\/structs\/simple_structs.h@
+               -},
+               s7b_Aux_b :: CInt
+               {- ^ __C declaration:__ @b@
 
-                      __defined at:__ @types\/structs\/simple_structs.h:35:30@
+                    __defined at:__ @types\/structs\/simple_structs.h:35:30@
 
-                      __exported by:__ @types\/structs\/simple_structs.h@
-                 -}}
-      {- ^ __C declaration:__ @struct \@S7b_Deref@
+                    __exported by:__ @types\/structs\/simple_structs.h@
+               -}}
+      {- ^ __C declaration:__ @struct \@S7b_Aux@
 
            __defined at:__ @types\/structs\/simple_structs.h:35:9@
 
            __exported by:__ @types\/structs\/simple_structs.h@
       -}
     deriving stock (Eq, Show)
-instance Storable S7b_Deref
+instance Storable S7b_Aux
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure S7b_Deref <*> peekCField (Proxy @"s7b_Deref_a") ptr_0) <*> peekCField (Proxy @"s7b_Deref_b") ptr_0
+          peek = \ptr_0 -> (pure S7b_Aux <*> peekCField (Proxy @"s7b_Aux_a") ptr_0) <*> peekCField (Proxy @"s7b_Aux_b") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S7b_Deref s7b_Deref_a_3
-                                             s7b_Deref_b_4 -> pokeCField (Proxy @"s7b_Deref_a") ptr_1 s7b_Deref_a_3 >> pokeCField (Proxy @"s7b_Deref_b") ptr_1 s7b_Deref_b_4
-instance Prim S7b_Deref
+                                   S7b_Aux s7b_Aux_a_3
+                                           s7b_Aux_b_4 -> pokeCField (Proxy @"s7b_Aux_a") ptr_1 s7b_Aux_a_3 >> pokeCField (Proxy @"s7b_Aux_b") ptr_1 s7b_Aux_b_4
+instance Prim S7b_Aux
     where sizeOf# = \_ -> 8# :: Int#
           alignment# = \_ -> 4# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> S7b_Deref (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          indexByteArray# = \arr_0 -> \i_1 -> S7b_Aux (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
           readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
                                                      (# s_5,
                                                         v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
                                                                   (# s_7, v_8 #) -> (# s_7,
-                                                                                       S7b_Deref v_6 v_8 #)
+                                                                                       S7b_Aux v_6 v_8 #)
           writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
-                                                                      S7b_Deref s7b_Deref_a_13
-                                                                                s7b_Deref_b_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) s7b_Deref_a_13 s_12 of
-                                                                                                  s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) s7b_Deref_b_14 s_15
-          indexOffAddr# = \addr_16 -> \i_17 -> S7b_Deref (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+                                                                      S7b_Aux s7b_Aux_a_13
+                                                                              s7b_Aux_b_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) s7b_Aux_a_13 s_12 of
+                                                                                              s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) s7b_Aux_b_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> S7b_Aux (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
           readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
                                                        (# s_21,
                                                           v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
                                                                      (# s_23, v_24 #) -> (# s_23,
-                                                                                            S7b_Deref v_22 v_24 #)
+                                                                                            S7b_Aux v_22 v_24 #)
           writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
-                                                                      S7b_Deref s7b_Deref_a_29
-                                                                                s7b_Deref_b_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) s7b_Deref_a_29 s_28 of
-                                                                                                  s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) s7b_Deref_b_30 s_31
-instance HasCField S7b_Deref "s7b_Deref_a"
-    where type CFieldType S7b_Deref "s7b_Deref_a" = CChar
+                                                                      S7b_Aux s7b_Aux_a_29
+                                                                              s7b_Aux_b_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) s7b_Aux_a_29 s_28 of
+                                                                                              s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) s7b_Aux_b_30 s_31
+instance HasCField S7b_Aux "s7b_Aux_a"
+    where type CFieldType S7b_Aux "s7b_Aux_a" = CChar
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType S7b_Deref "s7b_Deref_a") =>
-         HasField "s7b_Deref_a" (Ptr S7b_Deref) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s7b_Deref_a")
-instance HasCField S7b_Deref "s7b_Deref_b"
-    where type CFieldType S7b_Deref "s7b_Deref_b" = CInt
+instance TyEq ty (CFieldType S7b_Aux "s7b_Aux_a") =>
+         HasField "s7b_Aux_a" (Ptr S7b_Aux) (Ptr ty)
+    where getField = ptrToCField (Proxy @"s7b_Aux_a")
+instance HasCField S7b_Aux "s7b_Aux_b"
+    where type CFieldType S7b_Aux "s7b_Aux_b" = CInt
           offset# = \_ -> \_ -> 4
-instance TyEq ty (CFieldType S7b_Deref "s7b_Deref_b") =>
-         HasField "s7b_Deref_b" (Ptr S7b_Deref) (Ptr ty)
-    where getField = ptrToCField (Proxy @"s7b_Deref_b")
+instance TyEq ty (CFieldType S7b_Aux "s7b_Aux_b") =>
+         HasField "s7b_Aux_b" (Ptr S7b_Aux) (Ptr ty)
+    where getField = ptrToCField (Proxy @"s7b_Aux_b")
 {-| __C declaration:__ @S7b@
 
     __defined at:__ @types\/structs\/simple_structs.h:35:38@
@@ -579,7 +579,7 @@ instance TyEq ty (CFieldType S7b_Deref "s7b_Deref_b") =>
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
 newtype S7b
-    = S7b {un_S7b :: (Ptr (Ptr (Ptr S7b_Deref)))}
+    = S7b {un_S7b :: (Ptr (Ptr (Ptr S7b_Aux)))}
       {- ^ __C declaration:__ @S7b@
 
            __defined at:__ @types\/structs\/simple_structs.h:35:38@
@@ -592,5 +592,5 @@ instance TyEq ty (CFieldType S7b "un_S7b") =>
          HasField "un_S7b" (Ptr S7b) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_S7b")
 instance HasCField S7b "un_S7b"
-    where type CFieldType S7b "un_S7b" = Ptr (Ptr (Ptr S7b_Deref))
+    where type CFieldType S7b "un_S7b" = Ptr (Ptr (Ptr S7b_Aux))
           offset# = \_ -> \_ -> 0
