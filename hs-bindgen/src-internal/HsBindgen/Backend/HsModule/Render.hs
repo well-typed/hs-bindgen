@@ -1,7 +1,4 @@
-{-# LANGUAGE MagicHash #-}
-
--- This still uses RecordWildCards for similar reasons as
--- HsBindgen.Backend.Hs.Haddock.Translation; see discussion there.
+{-# LANGUAGE MagicHash       #-}
 {-# LANGUAGE RecordWildCards #-}
 
 {-# OPTIONS_GHC -fno-warn-orphans #-}

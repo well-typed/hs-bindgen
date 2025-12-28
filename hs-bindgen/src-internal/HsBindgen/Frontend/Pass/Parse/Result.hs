@@ -129,13 +129,13 @@ parseSucceed :: C.Decl p -> ParseResult p
 parseSucceed = parseSucceedWith []
 
 parseSucceedWith :: [DelayedParseMsg] -> C.Decl p -> ParseResult p
-parseSucceedWith delayedParseMsgs decl = ParseResult{
+parseSucceedWith msgs decl = ParseResult{
      id             = decl.info.id
    , loc            = decl.info.loc
    , classification = ParseResultSuccess ParseSuccess{
-                          decl
-                        , delayedParseMsgs
-                        }
+         decl             = decl
+       , delayedParseMsgs = msgs
+       }
     }
 
 parseDoNotAttempt :: C.DeclInfo p -> ParseNotAttempted -> ParseResult p

@@ -105,12 +105,12 @@ atCursor curr kind = do
            -- (see "HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames").
            markAsAnon
        | otherwise ->
-           return $ Named C.DeclName{text, kind}
+           return $ Named C.DeclName{text = text, kind = kind}
   where
     markAsAnon :: m PrelimDeclId
     markAsAnon = do
         loc <- HighLevel.clang_getCursorLocation' curr
-        return $ Anon AnonId{loc, kind}
+        return $ Anon AnonId{loc = loc, kind = kind}
 
 -- | Check for built-in definitions
 checkIsBuiltin :: MonadIO m => CXCursor -> m (Maybe Text)

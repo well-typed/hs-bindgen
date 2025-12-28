@@ -73,7 +73,7 @@ globallyUnique (UniqueId uniqueId) baseModuleName str =
 locallyUnique :: String -> UniqueSymbol
 locallyUnique source = UniqueSymbol{
       unique = "hs_bindgen_" ++ hashString source
-    , source
+    , source = source
     }
 
 {-------------------------------------------------------------------------------

@@ -605,6 +605,6 @@ withDeclLoc :: forall p.
   => C.DeclInfo p -> MangleNamesMsg -> WithLocationInfo MangleNamesMsg
 withDeclLoc info msg = WithLocationInfo{
       loc = idLocationInfo (Proxy @p) info.id [info.loc]
-    , msg
+    , msg = msg
     }
 

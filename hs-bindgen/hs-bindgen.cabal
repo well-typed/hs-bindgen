@@ -47,6 +47,7 @@ common lang
     LambdaCase
     MultiWayIf
     NoFieldSelectors
+    NoNamedFieldPuns
     OverloadedLabels
     OverloadedRecordDot
     OverloadedStrings

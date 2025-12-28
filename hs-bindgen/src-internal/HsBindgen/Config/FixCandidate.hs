@@ -54,7 +54,7 @@ data FixCandidate m = FixCandidate {
       -- | Make the name conform to the name rule set
       --
       --See 'modifyFirstLetter'
-    , applyRuleSet :: forall ns. Hs.SingNamespace ns => Text -> m (Hs.ExportedName ns)
+    , apply :: ApplyRuleset m
 
       -- | Reserved names
     , reservedNames :: Set Text
@@ -67,6 +67,17 @@ data FixCandidate m = FixCandidate {
     , onReservedName :: Text -> Text
     }
 
+newtype ApplyRuleset m = ApplyRuleset(
+      forall ns. Hs.SingNamespace ns => Text -> m (Hs.ExportedName ns)
+    )
+
+applyRuleset ::
+     Hs.SingNamespace ns
+  => ApplyRuleset m -> Text -> m (Hs.ExportedName ns)
+applyRuleset (ApplyRuleset f) = f
+
+deriving stock instance Generic (FixCandidate m)
+
 {-------------------------------------------------------------------------------
   Instances
 -------------------------------------------------------------------------------}
@@ -74,7 +85,8 @@ data FixCandidate m = FixCandidate {
 fixCandidateDefault :: FixCandidate Maybe
 fixCandidateDefault = FixCandidate {
       onInvalidChar  = return . escapeInvalidChar
-    , applyRuleSet   = modifyFirstLetter (Just . prefixInvalidFirst "C" "c")
+    , apply          = ApplyRuleset $
+                         modifyFirstLetter (Just . prefixInvalidFirst "C" "c")
     , reservedNames  = allReservedNames
     , onReservedName = appendSingleQuote
     }
@@ -82,7 +94,7 @@ fixCandidateDefault = FixCandidate {
 fixCandidateHaskell :: FixCandidate Maybe
 fixCandidateHaskell = fixCandidateDefault {
       onInvalidChar = return . dropInvalidChar
-    , applyRuleSet  = modifyFirstLetter dropInvalidFirst
+    , apply         = ApplyRuleset $ modifyFirstLetter dropInvalidFirst
     }
 
 {-------------------------------------------------------------------------------
@@ -92,14 +104,9 @@ fixCandidateHaskell = fixCandidateDefault {
 fixCandidate :: forall ns m.
      (Monad m, Hs.SingNamespace ns)
   => FixCandidate m -> Text -> m (Hs.ExportedName ns)
-fixCandidate FixCandidate{
-                onInvalidChar
-              , applyRuleSet
-              , reservedNames
-              , onReservedName
-              } =
+fixCandidate fc =
         pure . handleReservedNames
-    <=< applyRuleSet
+    <=< applyRuleset fc.apply
     <=< processInvalidChars
   where
     processInvalidChars :: Text -> m Text
@@ -108,7 +115,7 @@ fixCandidate FixCandidate{
         go :: [String] -> String -> m String
         go acc (c:cs)
           | isValidChar c = go ([c] : acc) cs
-          | otherwise     = onInvalidChar c >>= \c' -> go (c':acc) cs
+          | otherwise     = fc.onInvalidChar c >>= \c' -> go (c':acc) cs
         go acc []         = return $ concat (reverse acc)
 
         -- NOTE: @isAlphaNum@ is @True@ for non-ASCII characters too (e.g. '你')
@@ -120,8 +127,8 @@ fixCandidate FixCandidate{
 
     handleReservedNames :: Hs.ExportedName ns -> Hs.ExportedName ns
     handleReservedNames name
-      | name.text `Set.member` reservedNames
-      = Hs.UnsafeExportedName $ onReservedName name.text
+      | name.text `Set.member` fc.reservedNames
+      = Hs.UnsafeExportedName $ fc.onReservedName name.text
       | otherwise
       = name
 
@@ -177,7 +184,7 @@ singNameRuleSet _ =
 
 data CannotApplyRuleset ns = CannotApplyRuleset{
       -- | The ruleset we failed to apply
-      cannotApplyRuleset :: SNameRuleSet (NamespaceRuleSet ns)
+      ruleset :: SNameRuleSet (NamespaceRuleSet ns)
 
       -- | The prefix we cannot handle
       --
@@ -237,11 +244,11 @@ modifyFirstLetter onInvalidFirst =
                Just . Hs.UnsafeExportedName $
                  Text.cons (adjustForRule firstChar) rest
            | otherwise -> do
-               let unhandledPrefix, afterUnhandled :: Text
-                   (unhandledPrefix, afterUnhandled) = Text.span unusable t
+               let unhandled, afterUnhandled :: Text
+                   (unhandled, afterUnhandled) = Text.span unusable t
 
-                   usableSuffix :: Maybe (Char, Char, Text)
-                   usableSuffix =
+                   usable :: Maybe (Char, Char, Text)
+                   usable =
                        (\(c, cs) -> if matchesRule c
                                       then (c, c, cs)
                                       else (c, adjustForRule c, cs)
@@ -250,9 +257,9 @@ modifyFirstLetter onInvalidFirst =
 
                    cannotApply :: CannotApplyRuleset ns
                    cannotApply = CannotApplyRuleset{
-                         cannotApplyRuleset = ruleset
-                       , unhandledPrefix
-                       , usableSuffix
+                         ruleset         = ruleset
+                       , unhandledPrefix = unhandled
+                       , usableSuffix    = usable
                        }
                onInvalidFirst cannotApply
       where
@@ -274,24 +281,22 @@ prefixInvalidFirst ::
   -> CannotApplyRuleset ns -> Hs.ExportedName ns
 prefixInvalidFirst prefixOther prefixVar cannotApply =
      let prefix :: Text
-         prefix = case cannotApplyRuleset of
+         prefix = case cannotApply.ruleset of
                SNameRuleSetOther -> prefixOther
                SNameRuleSetVar   -> prefixVar
-     in Hs.UnsafeExportedName $
-          prefix <> unhandledPrefix <> aux usableSuffix
+     in Hs.UnsafeExportedName $ mconcat [
+            prefix
+          , cannotApply.unhandledPrefix
+          , aux cannotApply.usableSuffix
+          ]
   where
-    CannotApplyRuleset{
-        cannotApplyRuleset
-      , unhandledPrefix
-      , usableSuffix} = cannotApply
-
     aux :: Maybe (Char, Char, Text) -> Text
     aux Nothing           = ""
     aux (Just (_, c, cs)) = Text.cons c cs
 
 dropInvalidFirst :: CannotApplyRuleset ns -> Maybe (Hs.ExportedName ns)
-dropInvalidFirst CannotApplyRuleset{usableSuffix} =
-    aux <$> usableSuffix
+dropInvalidFirst cannotApply =
+    aux <$> cannotApply.usableSuffix
   where
     aux :: (Char, Char, Text) -> Hs.ExportedName ns
     aux (_, c, cs) = Hs.UnsafeExportedName $ Text.cons c cs

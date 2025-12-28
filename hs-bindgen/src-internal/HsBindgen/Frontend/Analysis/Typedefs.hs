@@ -221,4 +221,4 @@ taggedPayload = go True
     typeRef :: Bool -> DeclId -> Maybe TaggedPayload
     typeRef isDirect declId = do
         void $ C.checkIsTagged declId.name.kind
-        return TaggedPayload{isDirect, id = declId}
+        return TaggedPayload{isDirect = isDirect, id = declId}

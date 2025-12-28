@@ -1,5 +1,4 @@
-{-# LANGUAGE ApplicativeDo   #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE ApplicativeDo #-}
 
 -- | @hs-bindgen@ application common types and functions
 module HsBindgen.App (
@@ -258,7 +257,18 @@ parseClangArgsConfig = do
     argsBefore       <- many parseClangOptionBefore
     argsInner        <- many parseClangOptionInner
     argsAfter        <- many parseClangOptionAfter
-    pure $ ClangArgsConfig {..}
+    pure $ ClangArgsConfig{
+        target           = target
+      , cStandard        = cStandard
+      , gnu              = gnu
+      , enableBlocks     = enableBlocks
+      , builtinIncDir    = builtinIncDir
+      , extraIncludeDirs = extraIncludeDirs
+      , defineMacros     = defineMacros
+      , argsBefore       = argsBefore
+      , argsInner        = argsInner
+      , argsAfter        = argsAfter
+      }
 
 parseTarget :: Parser Target
 parseTarget = option (maybeReader parseTargetTriple) $ mconcat [

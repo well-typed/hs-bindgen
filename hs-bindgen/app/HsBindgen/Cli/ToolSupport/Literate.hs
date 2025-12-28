@@ -64,12 +64,12 @@ parseOpts = do
 
     input  <- strArgument $ metavar "IN"
     output <- strArgument $ metavar "OUT"
+    policy <- parseFileOverwritePolicy
 
-    fileOverwritePolicy <- parseFileOverwritePolicy
     return Opts{
-        input
-      , output
-      , fileOverwritePolicy
+        input               = input
+      , output              = output
+      , fileOverwritePolicy = policy
       }
 
 {-------------------------------------------------------------------------------

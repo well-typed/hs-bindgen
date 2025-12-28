@@ -72,11 +72,11 @@ goldenTestSteps ::
   -> TestTree
 goldenTestSteps t getGolden getActual comparison updateGolden removeGolden =
     singleTest t $ GoldenTest GoldenSteps{
-        getGolden
-      , getActual
-      , comparison
-      , updateGolden
-      , removeGolden
+        getGolden    = getGolden
+      , getActual    = getActual
+      , comparison   = comparison
+      , updateGolden = updateGolden
+      , removeGolden = removeGolden
       }
 
 {-------------------------------------------------------------------------------

@@ -368,7 +368,7 @@ instance Default OutputHandle where
 -- Report traces with other log levels to `stdout`.
 outputConfigTH :: OutputConfig e
 outputConfigTH = OutputConfigCustom OutputCustom{
-      report
+      report    = report
     , ansiColor = DisableAnsiColor
     }
   where

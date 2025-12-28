@@ -54,7 +54,7 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     declName :: PrelimDeclId -> Memoize (Maybe DeclId)
     declName = \case
         PrelimDeclId.Named name@C.DeclName{} ->
-          return $ Just DeclId{name, isAnon = False}
+          return $ Just DeclId{name = name, isAnon = False}
         PrelimDeclId.Anon anonId ->
           nameFor anonId
 

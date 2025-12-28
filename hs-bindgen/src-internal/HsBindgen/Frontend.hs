@@ -287,11 +287,11 @@ runFrontend tracer config boot = do
       hContent <- RootHeader.content <$> getRootHeader
       let setup = defaultClangSetup clangArgs $ ClangInputMemory hFilePath hContent
       pure $ setup {
-          clangFlags = bitfieldEnum [
-            CXTranslationUnit_DetailedPreprocessingRecord
-          , CXTranslationUnit_IncludeAttributedTypes
-          , CXTranslationUnit_VisitImplicitAttributes
-          ]
+          flags = bitfieldEnum [
+              CXTranslationUnit_DetailedPreprocessingRecord
+            , CXTranslationUnit_IncludeAttributedTypes
+            , CXTranslationUnit_VisitImplicitAttributes
+            ]
         }
 
     hFilePath :: FilePath

@@ -241,7 +241,7 @@ resolveDeep decl (cSpec, hsSpec) = do
     return C.Decl {
         info = coercePass decl.info
       , kind = declKind'
-      , ann  = PrescriptiveDeclSpec{cSpec, hsSpec}
+      , ann  = PrescriptiveDeclSpec{cSpec = cSpec, hsSpec = hsSpec}
       }
 
 {-------------------------------------------------------------------------------

@@ -1,6 +1,3 @@
--- This module still uses RecordWildCards, as an exception within hs-bindgen.
--- If we wanted to fix this, we'd need to refactor Clang.HighLevel.Documentation
--- a bit: it mixes sum types with records, leading to partial field accessors.
 {-# LANGUAGE RecordWildCards #-}
 
 module HsBindgen.Backend.Hs.Haddock.Translation (
@@ -78,7 +75,7 @@ mkHaddocksDecorateParams config info name params =
       , nameC       = renderDeclId info.id.cName
       , nameHsIdent = info.id.hsName
       , comment     = info.comment
-      , params
+      , params      = params
       }
     in  (mbAddUniqueSymbolSource name <$> mbc, xs)
 
