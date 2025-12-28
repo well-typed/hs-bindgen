@@ -61,6 +61,7 @@ import Data.Aeson.KeyMap qualified as KM
 import Data.Aeson.Types qualified as Aeson
 import Data.ByteString (ByteString)
 import Data.ByteString.Lazy qualified as BSL
+import Data.Coerce
 import Data.Function (on)
 import Data.List qualified as List
 import Data.Map.Strict qualified as Map
@@ -440,7 +441,7 @@ parseValue tracer cmpt path aVersion value
         traceWith tracer $ BindingSpecReadParseVersion path aVersion
         case Aeson.fromJSON value of
           Aeson.Success aspec -> do
-            let (errs, spec) = fromABindingSpec path aspec
+            let (errs, spec) = fromV1_UnresolvedBindingSpec path aspec
             mapM_ (traceWith tracer) errs
             return (Just spec)
           Aeson.Error err -> do
@@ -457,17 +458,17 @@ encode ::
   -> UnresolvedBindingSpec
   -> ByteString
 encode compareCDeclId = \case
-    FormatJSON -> encodeJson' . toABindingSpec compareCDeclId
-    FormatYAML -> encodeYaml' . toABindingSpec compareCDeclId
+    FormatJSON -> encodeJson' . toV1_UnresolvedBindingSpec compareCDeclId
+    FormatYAML -> encodeYaml' . toV1_UnresolvedBindingSpec compareCDeclId
 
 -- | Default ordering of @ctypes@
 defCompareCDeclId :: DeclId -> DeclId -> Ordering
 defCompareCDeclId = Ord.comparing renderDeclId
 
-encodeJson' :: ABindingSpec -> ByteString
+encodeJson' :: V1 UnresolvedBindingSpec -> ByteString
 encodeJson' = BSL.toStrict . Aeson.encode
 
-encodeYaml' :: ABindingSpec -> ByteString
+encodeYaml' :: V1 UnresolvedBindingSpec -> ByteString
 encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
   where
     yamlConfig :: Data.Yaml.Pretty.Config
@@ -670,19 +671,75 @@ lookupMergedBindingSpecs cDeclId headers specs = do
     return (hsModuleName, oCTypeSpec, mHsTypeSpec)
 
 {-------------------------------------------------------------------------------
+  Mapping between public types and their V1 Aeson type
+-------------------------------------------------------------------------------}
+
+-- | Mapping between public types and their V1 Aeson type
+--
+-- This data family clarifies the relationship between types and their V1 types.
+-- This is helpful to the reader, and makes code more uniform. For example:
+--
+-- > let inst = InstanceSpec {
+-- >         strategy    = fromV1 <$> mapping.strategy
+-- >       , constraints = fromV1 <$> mapping.constraints
+-- >       }
+-- > in ..
+--
+-- If we have more than one version, this can also help clarify where V2 depends
+-- on V1, in a similar way, clearly signalling @fromV1@ vs @fromV2@.
+--
+-- The type-level isomorphism between @a@ and @V1 a@ also solves a technical
+-- problem. In many (but not all) cases the @V1@ type is merely a newtype around
+-- the public type:
+--
+-- > newtype instance V1 A = V1_A { unwrap :: A }
+-- > newtype instance V1 B = V1_A { unwrap :: B }
+--
+-- Suppose that @A@ has a field @x@ of type @B@. Then a typical @FromJSON@
+-- instance for @V1 A@ might look like
+--
+-- > instance FromJSON (V1 A) where
+-- >   parseJSON = Aeson.withObject "A" $ \o -> do
+-- >     v1_x <- o .: "x"
+-- >     return $ V1_A A{x = v1_x.unwrap}
+--
+-- Unfortunately this code is ambiguous: since many types can have an @unwrap@
+-- field, it is unclear what type that @o .: "x"@ expression is meant to return.
+-- We could solve this by giving each @V1@ newtype a unique accessor function
+-- (possibly by moving specification types into a module of their own and then
+-- locally enabling traditional @FieldSelectors@), but we opt to emphasize the
+-- uniformity instead.
+data family V1 a :: Star
+
+-- | Pure translation between a public type and its V1 type
+--
+-- Most, but not all, V1 types are a member of this class. Counter-examples are
+-- cases where we need additional information to perform the mapping, or the
+-- mapping is partial.
+class PureV1Spec a where
+  fromV1 :: V1 a -> a
+  toV1   :: a -> V1 a
+
+  default fromV1 :: Coercible a (V1 a) => V1 a -> a
+  default toV1   :: Coercible a (V1 a) => a -> V1 a
+
+  fromV1 = coerce
+  toV1   = coerce
+
+{-------------------------------------------------------------------------------
   Auxiliary: Specification files
 -------------------------------------------------------------------------------}
 
-data ABindingSpec = ABindingSpec {
+data instance V1 UnresolvedBindingSpec = ABindingSpec {
       version  :: AVersion
-    , target   :: ABindingSpecTarget
+    , target   :: V1 BindingSpecTarget
     , hsModule :: Hs.ModuleName
     , cTypes   :: [AOCTypeSpecMapping]
     , hsTypes  :: [AHsTypeSpecMapping]
     }
   deriving stock Show
 
-instance Aeson.FromJSON ABindingSpec where
+instance Aeson.FromJSON (V1 UnresolvedBindingSpec) where
   parseJSON = Aeson.withObject "ABindingSpec" $ \o -> do
     aBindingSpecVersion  <- o .:  "version"
     aBindingSpecTarget   <- o .:  "target"
@@ -697,7 +754,7 @@ instance Aeson.FromJSON ABindingSpec where
       , hsTypes  = aBindingSpecHsTypes
       }
 
-instance Aeson.ToJSON ABindingSpec where
+instance Aeson.ToJSON (V1 UnresolvedBindingSpec) where
   toJSON spec = Aeson.Object . KM.fromList $ catMaybes [
       Just ("version"  .= spec.version)
     , Just ("target"   .= spec.target)
@@ -708,13 +765,13 @@ instance Aeson.ToJSON ABindingSpec where
 
 --------------------------------------------------------------------------------
 
-newtype ABindingSpecTarget = ABindingSpecTarget {
-      unABindingSpecTarget :: BindingSpecTarget
-    }
-  deriving stock Show
+newtype instance V1 BindingSpecTarget = V1_BindingSpecTarget BindingSpecTarget
+  deriving stock (Show)
 
-instance Aeson.FromJSON ABindingSpecTarget where
-  parseJSON = fmap ABindingSpecTarget . aux
+instance PureV1Spec BindingSpecTarget
+
+instance Aeson.FromJSON (V1 BindingSpecTarget) where
+  parseJSON = fmap toV1 . aux
     where
       aux :: Aeson.Value -> Aeson.Parser BindingSpecTarget
       aux = Aeson.withText "ABindingSpecTarget" $ \case
@@ -723,8 +780,8 @@ instance Aeson.FromJSON ABindingSpecTarget where
           Just target -> return $ SpecificTarget target
           Nothing     -> Aeson.parseFail $ "invalid target: " ++ show t
 
-instance Aeson.ToJSON ABindingSpecTarget where
-  toJSON = Aeson.String . Text.pack . aux . unABindingSpecTarget
+instance Aeson.ToJSON (V1 BindingSpecTarget) where
+  toJSON = Aeson.String . Text.pack . aux . fromV1
     where
       aux :: BindingSpecTarget -> String
       aux = \case
@@ -760,7 +817,7 @@ data ACTypeSpecMapping = ACTypeSpecMapping {
       headers    :: [FilePath]
     , cName      :: Text
     , identifier :: Maybe Hs.Identifier
-    , rep        :: Maybe ACTypeRep
+    , rep        :: Maybe (V1 CTypeRep)
     }
   deriving stock Show
 
@@ -787,13 +844,13 @@ instance Aeson.ToJSON ACTypeSpecMapping where
 
 --------------------------------------------------------------------------------
 
-newtype ACTypeRep = ACTypeRep {
-      unACTypeRep :: CTypeRep
-    }
+newtype instance V1 CTypeRep = V1_TypeRep CTypeRep
   deriving stock Show
 
-instance Aeson.FromJSON ACTypeRep where
-  parseJSON = fmap ACTypeRep . aux
+instance PureV1Spec CTypeRep
+
+instance Aeson.FromJSON (V1 CTypeRep) where
+  parseJSON = fmap toV1 . aux
     where
       aux :: Aeson.Value -> Aeson.Parser CTypeRep
       aux = Aeson.withText "ACTypeRep" $ \t ->
@@ -802,8 +859,8 @@ instance Aeson.FromJSON ACTypeRep where
           Nothing ->
             Aeson.parseFail $ "unknown C representation: " ++ Text.unpack t
 
-instance Aeson.ToJSON ACTypeRep where
-  toJSON = Aeson.String . cTypeRepText . unACTypeRep
+instance Aeson.ToJSON (V1 CTypeRep) where
+  toJSON = Aeson.String . cTypeRepText . fromV1
 
 cTypeRepText :: CTypeRep -> Text
 cTypeRepText = \case
@@ -821,7 +878,7 @@ cTypeRepFromText = Map.fromList [
 
 data AHsTypeSpecMapping = AHsTypeSpecMapping {
       identifier :: Hs.Identifier
-    , rep        :: Maybe AHsTypeRep
+    , rep        :: Maybe (V1 HsTypeRep)
     , instances  :: [AOInstanceSpecMapping]
     }
   deriving stock Show
@@ -846,13 +903,13 @@ instance Aeson.ToJSON AHsTypeSpecMapping where
 
 --------------------------------------------------------------------------------
 
-newtype AHsTypeRep = AHsTypeRep {
-      unAHsTypeRep :: HsTypeRep
-    }
+newtype instance V1 HsTypeRep = V1_HsTypeRep HsTypeRep
   deriving stock Show
 
-instance Aeson.FromJSON AHsTypeRep where
-  parseJSON = fmap AHsTypeRep . parseHsTypeRep
+instance PureV1Spec HsTypeRep
+
+instance Aeson.FromJSON (V1 HsTypeRep) where
+  parseJSON = fmap toV1 . parseHsTypeRep
     where
       parseHsTypeRep :: Aeson.Value -> Aeson.Parser HsTypeRep
       parseHsTypeRep = \case
@@ -893,15 +950,15 @@ instance Aeson.FromJSON AHsTypeRep where
             Aeson.parseFail "newtype representation with no fields"
           Just{}           ->
             Aeson.parseFail "newtype representation with more than one field"
-        hsNewtypeRepFFIType <- fmap unAFFIType <$> (o .:? "ffitype")
+        hsNewtypeRepFFIType <- fmap fromV1 <$> (o .:? "ffitype")
         return HsNewtypeRep{
             constructor = hsNewtypeRepConstructor
           , field       = hsNewtypeRepField
           , ffiType     = hsNewtypeRepFFIType
           }
 
-instance Aeson.ToJSON AHsTypeRep where
-  toJSON = aux . unAHsTypeRep
+instance Aeson.ToJSON (V1 HsTypeRep) where
+  toJSON = aux . fromV1
     where
       aux :: HsTypeRep -> Aeson.Value
       aux = \case
@@ -922,20 +979,20 @@ instance Aeson.ToJSON AHsTypeRep where
               $ catMaybes [
                     ("constructor" .=) <$> x.constructor
                   , ("fields"      .=) <$> fmap (: []) x.field
-                  , ("ffitype"     .=) <$> (AFFIType <$> x.ffiType)
+                  , ("ffitype"     .=) <$> (toV1 <$> x.ffiType)
                   ]
         HsTypeRepOpaque -> Aeson.String "opaque"
         HsTypeRepAlias  -> Aeson.String "alias"
 
 --------------------------------------------------------------------------------
 
-newtype AFFIType = AFFIType {
-      unAFFIType :: FFIType
-    }
+newtype instance V1 FFIType = V1_FFIType FFIType
   deriving stock Show
 
-instance Aeson.FromJSON AFFIType where
-  parseJSON = fmap AFFIType . aux
+instance PureV1Spec FFIType
+
+instance Aeson.FromJSON (V1 FFIType) where
+  parseJSON = fmap toV1 . aux
     where
       aux :: Aeson.Value -> Aeson.Parser FFIType
       aux = Aeson.withText "AFFIType" $ \t ->
@@ -943,8 +1000,8 @@ instance Aeson.FromJSON AFFIType where
           Just ffitype -> return ffitype
           Nothing -> Aeson.parseFail $ "unknown ffitype: " ++ Text.unpack t
 
-instance Aeson.ToJSON AFFIType where
-  toJSON = Aeson.String . ffiTypeText . unAFFIType
+instance Aeson.ToJSON (V1 FFIType) where
+  toJSON = Aeson.String . ffiTypeText . fromV1
 
 ffiTypeText :: FFIType -> Text
 ffiTypeText = \case
@@ -1026,8 +1083,8 @@ type AOInstanceSpecMapping = AOmittable Hs.TypeClass AInstanceSpecMapping
 
 data AInstanceSpecMapping = AInstanceSpecMapping {
       clss        :: Hs.TypeClass
-    , strategy    :: Maybe AStrategySpec
-    , constraints :: [AConstraintSpec]
+    , strategy    :: Maybe (V1 StrategySpec)
+    , constraints :: [V1 ConstraintSpec]
     }
   deriving stock Show
 
@@ -1068,13 +1125,13 @@ instance Aeson.ToJSON AInstanceSpecMapping where
 
 --------------------------------------------------------------------------------
 
-newtype AStrategySpec = AStrategySpec {
-      unAStrategySpec :: StrategySpec
-    }
+newtype instance V1 StrategySpec = V1_StrategySpec StrategySpec
   deriving stock Show
 
-instance Aeson.FromJSON AStrategySpec where
-  parseJSON = fmap AStrategySpec . aux
+instance PureV1Spec StrategySpec
+
+instance Aeson.FromJSON (V1 StrategySpec) where
+  parseJSON = fmap toV1 . aux
     where
       aux :: Aeson.Value -> Aeson.Parser StrategySpec
       aux = Aeson.withText "AStrategySpec" $ \t ->
@@ -1082,8 +1139,8 @@ instance Aeson.FromJSON AStrategySpec where
           Just strategy -> return strategy
           Nothing -> Aeson.parseFail $ "unknown strategy: " ++ Text.unpack t
 
-instance Aeson.ToJSON AStrategySpec where
-  toJSON = Aeson.String . strategySpecText . unAStrategySpec
+instance Aeson.ToJSON (V1 StrategySpec) where
+  toJSON = Aeson.String . strategySpecText . fromV1
 
 strategySpecText :: StrategySpec -> Text
 strategySpecText = \case
@@ -1099,10 +1156,12 @@ strategySpecFromText = Map.fromList [
 
 --------------------------------------------------------------------------------
 
-newtype AConstraintSpec = AConstraintSpec ConstraintSpec
-  deriving stock Show
+newtype instance V1 ConstraintSpec = V1_ConstraintSpec ConstraintSpec
+  deriving stock (Show)
 
-instance Aeson.FromJSON AConstraintSpec where
+instance PureV1Spec ConstraintSpec
+
+instance Aeson.FromJSON (V1 ConstraintSpec) where
   parseJSON = Aeson.withObject "AConstraintSpec" $ \o -> do
       constraintSpecClass <- o .: "class"
       extRefModule        <- o .: "hsmodule"
@@ -1111,13 +1170,13 @@ instance Aeson.FromJSON AConstraintSpec where
               moduleName = extRefModule
             , ident      = extRefIdentifier
             }
-      return $ AConstraintSpec ConstraintSpec{
+      return $ toV1 ConstraintSpec{
           clss = constraintSpecClass
         , ref  = constraintSpecRef
         }
 
-instance Aeson.ToJSON AConstraintSpec where
-  toJSON (AConstraintSpec spec) = Aeson.object [
+instance Aeson.ToJSON (V1 ConstraintSpec) where
+  toJSON (V1_ConstraintSpec spec) = Aeson.object [
         "class"    .= spec.clss
       , "hsmodule" .= spec.ref.moduleName
       , "hsname"   .= spec.ref.ident
@@ -1125,12 +1184,12 @@ instance Aeson.ToJSON AConstraintSpec where
 
 --------------------------------------------------------------------------------
 
-fromABindingSpec ::
+fromV1_UnresolvedBindingSpec ::
      FilePath
-  -> ABindingSpec
+  -> V1 UnresolvedBindingSpec
   -> ([BindingSpecReadMsg], UnresolvedBindingSpec)
-fromABindingSpec path spec =
-    let bindingSpecTarget = unABindingSpecTarget spec.target
+fromV1_UnresolvedBindingSpec path spec =
+    let bindingSpecTarget = fromV1 spec.target
         bindingSpecModule = spec.hsModule
         (cTypeErrs, hsIds, bindingSpecCTypes) =
           mkCTypeMap path spec.cTypes
@@ -1193,7 +1252,7 @@ mkCTypeMap path =
             ARequire mapping ->
               let cTypeSpec = CTypeSpec {
                       hsIdent = mapping.identifier
-                    , cRep   = unACTypeRep <$> mapping.rep
+                    , cRep    = fromV1 <$> mapping.rep
                     }
               in  ( mapping.cName
                   , mapping.headers
@@ -1256,7 +1315,7 @@ mkHsTypeMap path hsIds = fin . foldr auxInsert (Set.empty, Map.empty)
     auxInsert mapping (conflicts, acc) =
       let hsId       = mapping.identifier
           hsTypeSpec = HsTypeSpec {
-              hsRep     = unAHsTypeRep <$> mapping.rep
+              hsRep     = fromV1 <$> mapping.rep
             , instances = mkInstanceMap mapping.instances
             }
       in  case Map.insertLookupWithKey (\_ n _ -> n) hsId hsTypeSpec acc of
@@ -1270,24 +1329,21 @@ mkInstanceMap ::
 mkInstanceMap xs = Map.fromList . flip map xs $ \case
     ARequire mapping ->
       let inst = InstanceSpec {
-              strategy    = unAStrategySpec <$> mapping.strategy
-            , constraints = [
-                  constr
-                | AConstraintSpec constr <- mapping.constraints
-                ]
+              strategy    = fromV1 <$> mapping.strategy
+            , constraints = fromV1 <$> mapping.constraints
             }
       in  (mapping.clss, Require inst)
     AOmit hsTypeClass -> (hsTypeClass, Omit)
 
 --------------------------------------------------------------------------------
 
-toABindingSpec ::
+toV1_UnresolvedBindingSpec ::
      (DeclId -> DeclId -> Ordering)
   -> UnresolvedBindingSpec
-  -> ABindingSpec
-toABindingSpec compareCDeclId spec = ABindingSpec {
+  -> V1 UnresolvedBindingSpec
+toV1_UnresolvedBindingSpec compareCDeclId spec = ABindingSpec {
       version  = mkAVersion currentBindingSpecVersion
-    , target   = ABindingSpecTarget spec.target
+    , target   = toV1 spec.target
     , hsModule = spec.moduleName
     , cTypes   = toAOCTypes compareCDeclId spec.cTypes
     , hsTypes  = toAHsTypes spec.hsTypes
@@ -1303,7 +1359,7 @@ toAOCTypes compareCDeclId cTypeMap = map snd $ List.sortBy aux [
             headers    = map (.path) (Set.toAscList headers)
           , cName      = renderDeclId cDeclId
           , identifier = spec.hsIdent
-          , rep        = ACTypeRep <$> spec.cRep
+          , rep        = toV1 <$> spec.cRep
           }
         Omit -> AOmit AKCTypeSpecMapping {
             headers = map (.path) (Set.toAscList headers)
@@ -1332,7 +1388,7 @@ toAHsTypes :: Map Hs.Identifier HsTypeSpec -> [AHsTypeSpecMapping]
 toAHsTypes hsTypeMap = [
       AHsTypeSpecMapping {
           identifier = hsIdentifier
-        , rep        = AHsTypeRep <$> spec.hsRep
+        , rep        = toV1 <$> spec.hsRep
         , instances  = toAOInstances spec.instances
         }
     | (hsIdentifier, spec) <- Map.toAscList hsTypeMap
@@ -1345,8 +1401,8 @@ toAOInstances instMap = [
       case oInstSpec of
         Require spec -> ARequire AInstanceSpecMapping {
             clss        = hsTypeClass
-          , strategy    = AStrategySpec <$> spec.strategy
-          , constraints = map AConstraintSpec spec.constraints
+          , strategy    = toV1 <$> spec.strategy
+          , constraints = map toV1 spec.constraints
           }
         Omit -> AOmit hsTypeClass
     | (hsTypeClass, oInstSpec) <- Map.toAscList instMap
