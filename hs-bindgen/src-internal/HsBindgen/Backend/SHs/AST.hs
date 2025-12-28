@@ -1,7 +1,4 @@
-{-# LANGUAGE MagicHash         #-}
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoNamedFieldPuns  #-}
-{-# LANGUAGE NoRecordWildCards #-}
+{-# LANGUAGE MagicHash #-}
 
 -- | Simplified HS abstract syntax tree
 module HsBindgen.Backend.SHs.AST (

@@ -1,6 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Monad we use when translating the language-c AST to our AST
 --
 -- Intended for unqualified import.

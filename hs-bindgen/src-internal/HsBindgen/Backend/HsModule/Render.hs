@@ -153,7 +153,7 @@ data CommentKind
 
 instance Pretty CommentKind where
   pretty commentKind =
-    let (commentStart, commentEnd, HsDoc.Comment {..}) =
+    let (commentStart, commentEnd, comment) =
           case commentKind of
             TopLevelComment c          -> ("{-|", "-}", c)
             PartOfDeclarationComment c -> ("{- ^", "-}", c)
@@ -162,26 +162,26 @@ instance Pretty CommentKind where
         -- Separate user-facing metadata (for documentation) from internal metadata.
         -- Only user-facing metadata should trigger Haddock comment syntax.
         userFacingMetadata = catMaybes [
-                        (\n -> "__C declaration:__ @"
-                            >< PP.text (escapeAtSigns n)
-                            >< "@") <$> commentOrigin
-                      , (\p -> "__defined at:__ @"
-                            >< uncurry prettyHashIncludeArgLoc p
-                            >< "@"
-                        ) <$> (liftA2 (,) commentHeaderInfo commentLocation)
-                      , (\hinfo -> "__exported by:__ @"
-                                >< prettyMainHeaders hinfo
-                                >< "@") <$> commentHeaderInfo
-                      ]
+            (\n -> "__C declaration:__ @"
+                >< PP.text (escapeAtSigns n)
+                >< "@") <$> comment.origin
+          , (\p -> "__defined at:__ @"
+                >< uncurry prettyHashIncludeArgLoc p
+                >< "@"
+            ) <$> (liftA2 (,) comment.headerInfo comment.location)
+          , (\hinfo -> "__exported by:__ @"
+                    >< prettyMainHeaders hinfo
+                    >< "@") <$> comment.headerInfo
+          ]
         internalMetadata = catMaybes [
-                        (\u -> "__unique:__ @"
-                           >< PP.string u.source
-                           >< "@"
-                        ) <$> commentUnique
-                      ]
+            (\u -> "__unique:__ @"
+               >< PP.string u.source
+               >< "@"
+            ) <$> comment.unique
+          ]
         allMetadata = userFacingMetadata ++ internalMetadata
         firstContent =
-          case commentTitle of
+          case comment.title of
             Nothing -> PP.empty
             Just ct -> PP.hsep (map pretty ct)
         singleLineStart =
@@ -191,27 +191,27 @@ instance Pretty CommentKind where
             THComment _                -> ""
         -- If the comment only has the the origin C Name then use that has the
         -- title.
-     in case commentChildren of
-          [] | Nothing <- commentTitle
+     in case comment.children of
+          [] | Nothing <- comment.title
              , [singleMetadata] <- userFacingMetadata ->
                 -- Single user-facing metadata: use Haddock single-line style
                 PP.string singleLineStart <+> singleMetadata
-             | Nothing <- commentTitle
+             | Nothing <- comment.title
              , null userFacingMetadata
              , [singleMetadata] <- internalMetadata ->
                 -- Only internal metadata: use regular comment
                 "--" <+> singleMetadata
-             | Nothing <- commentTitle
+             | Nothing <- comment.title
              , not (null allMetadata) ->
                 PP.string commentStart
             <+> PP.vsep allMetadata
              $$ PP.string commentEnd
-             | Just _ <- commentTitle
+             | Just _ <- comment.title
              , null allMetadata ->
                 PP.string commentStart
             <+> firstContent
              $$ PP.string commentEnd
-             | Just _  <- commentTitle
+             | Just _  <- comment.title
              , not (null allMetadata) ->
                 PP.string commentStart
             <+> firstContent
@@ -220,7 +220,7 @@ instance Pretty CommentKind where
              | otherwise -> PP.empty
 
           _ -> PP.vsep (PP.string commentStart <+> firstContent
-                     : map (PP.nest indentation . pretty) commentChildren)
+                     : map (PP.nest indentation . pretty) comment.children)
             $+$ PP.vcat [ PP.vsep allMetadata
                      , PP.string commentEnd
                      ]

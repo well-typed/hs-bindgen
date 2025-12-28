@@ -11,6 +11,10 @@
 -- Intended for qualified import.
 --
 -- > import HsBindgen.Backend.Hs.Origin qualified as Origin
+--
+-- TODO: <https://github.com/well-typed/hs-bindgen/issues/1448>
+-- This entire module can go once we generate binding specs based on C decls,
+-- rather than the generated Hs decls.
 module HsBindgen.Backend.Hs.Origin (
     -- * Declarations
     Decl(..)
@@ -36,9 +40,9 @@ import HsBindgen.Language.C qualified as C
 -------------------------------------------------------------------------------}
 
 data Decl a = Decl{
-      declInfo :: C.DeclInfo Final
-    , declKind :: a            -- ^ Kind-specific information
-    , declSpec :: PrescriptiveDeclSpec
+      info :: C.DeclInfo Final
+    , kind :: a            -- ^ Kind-specific information
+    , spec :: PrescriptiveDeclSpec
     }
   deriving stock (Generic, Show)
 

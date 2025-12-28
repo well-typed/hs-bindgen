@@ -1,6 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Translate the partial AST to our internal AST
 module HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen (
     -- * Declarations

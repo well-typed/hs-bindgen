@@ -76,8 +76,11 @@ deriving instance (Eq (f LvlType),   Eq (f LvlTerm))         => Eq (ByCategory f
 deriving instance (Show (f LvlType), Show (f LvlTerm))       => Show (ByCategory f)
 deriving instance (Default (f LvlType), Default (f LvlTerm)) => Default (ByCategory f)
 
-newtype ByCategory_ a = ByCategory_ { getByCategory_ :: ByCategory (Const a) }
+newtype ByCategory_ a = ByCategory_ (ByCategory (Const a))
   deriving stock (Show, Eq, Generic)
+
+getByCategory_ :: ByCategory_ a -> ByCategory (Const a)
+getByCategory_ (ByCategory_ x) = x
 
 instance Functor ByCategory_ where
   fmap f (ByCategory_ x) = ByCategory_ $

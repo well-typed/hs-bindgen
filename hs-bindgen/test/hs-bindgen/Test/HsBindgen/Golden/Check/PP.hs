@@ -1,7 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoNamedFieldPuns  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Golden test: pretty-printed Haskell code
 module Test.HsBindgen.Golden.Check.PP (check) where
 

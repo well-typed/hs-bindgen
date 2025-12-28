@@ -594,8 +594,7 @@ resolve tracer injResolveHeader args uSpec = do
 -- binding specifications across multiple Haskell modules.  It is a performance
 -- optimization for resolving external binding specifications.
 newtype MergedBindingSpecs = MergedBindingSpecs {
-      mergedBindingSpecs ::
-        Map DeclId [(Set SourcePath, ResolvedBindingSpec)]
+      map :: Map DeclId [(Set SourcePath, ResolvedBindingSpec)]
     }
   deriving stock (Show)
 
@@ -661,7 +660,7 @@ lookupMergedBindingSpecs ::
   -> Maybe (Hs.ModuleName, Omittable CTypeSpec, Maybe HsTypeSpec)
 lookupMergedBindingSpecs cDeclId headers specs = do
     spec <- lookupBy (not . Set.disjoint headers)
-      =<< Map.lookup cDeclId (mergedBindingSpecs specs)
+      =<< Map.lookup cDeclId specs.map
     (hsModuleName, oCTypeSpec) <- lookupCTypeSpec cDeclId headers spec
     let mHsTypeSpec = case oCTypeSpec of
           Require cTypeSpec -> do

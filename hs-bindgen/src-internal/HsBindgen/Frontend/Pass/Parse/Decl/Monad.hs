@@ -1,6 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Monad for parsing declarations
 --
 -- Intended for unqualified import (unless context is unambiguous).

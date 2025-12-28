@@ -1,7 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoNamedFieldPuns  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Configuration of @hs-bindgen@.
 module HsBindgen.Config (
     Config_(..)
@@ -69,12 +65,8 @@ toBindgenConfig config uniqueId baseModuleName choice = BindgenConfig{
        , programSlicing  = config.programSlicing
        }
     , backend = BackendConfig {
-         translation = def {
-             translationUniqueId = uniqueId
-           }
-       , haddock = HaddockConfig {
-             pathStyle = config.haddockPathStyle
-           }
+         translation    = def & #uniqueId .~ uniqueId
+       , haddock        = def & #pathStyle .~ config.haddockPathStyle
        , categoryChoice = choice
        }
     }

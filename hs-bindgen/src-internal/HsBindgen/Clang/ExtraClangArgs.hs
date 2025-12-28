@@ -1,7 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoNamedFieldPuns  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 module HsBindgen.Clang.ExtraClangArgs (
     -- * Trace messages
     ExtraClangArgsMsg(..)

@@ -1,6 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Main entry point to the @language-c@ infrastructure
 --
 -- It should not be necessary to import any other module in @LanguageC.*@.

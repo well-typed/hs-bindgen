@@ -1,7 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoNamedFieldPuns  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Fold declarations
 module HsBindgen.Frontend.Pass.Parse.Decl (topLevelDecl, parseDecl) where
 

@@ -109,13 +109,13 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Nothing, ..} =
       -- If there's no C.Comment to associate with any function parameter we make
       -- sure to at least add a comment that will show the function parameter name
       -- if it exists.
-      --
-      ( Just mempty {
-           HsDoc.commentOrigin     = Just nameC
-         , HsDoc.commentLocation   = Just $ updateSingleLoc pathStyle loc
-         , HsDoc.commentHeaderInfo = Just info.headerInfo
-         }
-      , map addFunctionParameterComment params)
+      ( Just $
+          mempty
+            & #origin     .~ Just nameC
+            & #location   .~ Just (updateSingleLoc pathStyle loc)
+            & #headerInfo .~ Just info.headerInfo
+      , map addFunctionParameterComment params
+      )
 mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Comment{..}), ..} =
   let commentCName = nameC
       commentLocation = updateSingleLoc pathStyle loc
@@ -160,13 +160,13 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Co
                                 )
                     $ commentChildren'
 
-   in ( Just mempty {
-          HsDoc.commentTitle
-        , HsDoc.commentOrigin     = Just commentCName
-        , HsDoc.commentLocation   = Just commentLocation
-        , HsDoc.commentHeaderInfo = Just info.headerInfo
-        , HsDoc.commentChildren   = finalChildren
-        }
+   in ( Just $
+          mempty
+            & #title      .~ commentTitle
+            & #origin     .~ Just commentCName
+            & #location   .~ Just commentLocation
+            & #headerInfo .~ Just info.headerInfo
+            & #children   .~ finalChildren
       , updatedParams
       )
   where
@@ -178,12 +178,12 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Co
       (blockContent@CDoc.ParamCommand{..}:cmds)
         | any (\p -> fmap Hs.getName p.name == Just paramCommandName) params ->
           let comment =
-                mempty {
-                  HsDoc.commentOrigin   = if Text.null paramCommandName
-                                            then Nothing
-                                            else Just (Text.strip paramCommandName)
-                , HsDoc.commentChildren = convertBlockContent blockContent
-                }
+                mempty
+                  & #origin   .~ ( if Text.null paramCommandName
+                                     then Nothing
+                                     else Just (Text.strip paramCommandName)
+                                 )
+                  & #children .~ convertBlockContent blockContent
            in (comment, paramCommandDirection):filterParamCommands cmds
         | otherwise -> filterParamCommands cmds
       (_:cmds) -> filterParamCommands cmds
@@ -204,7 +204,7 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Co
           where
             updateParam :: Hs.FunctionParameter -> Hs.FunctionParameter
             updateParam fp =
-                if fmap Hs.getName fp.name == HsDoc.commentOrigin hsComment
+                if fmap Hs.getName fp.name == hsComment.origin
                   then fp & #comment .~ Just hsComment
                   else fp
 
@@ -220,9 +220,9 @@ addFunctionParameterComment fp =
       | otherwise ->
         case fp.comment of
           Just{}  -> fp
-          Nothing -> fp & #comment .~ Just mempty {
-              HsDoc.commentOrigin = Hs.getName <$> fp.name
-            }
+          Nothing -> fp & #comment .~ Just (
+              mempty & #origin .~ (Hs.getName <$> fp.name)
+            )
 
 -- | Convert Clang block content to Haddock block content
 --

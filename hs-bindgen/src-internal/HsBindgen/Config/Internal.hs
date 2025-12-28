@@ -1,7 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoNamedFieldPuns  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 module HsBindgen.Config.Internal (
     -- * Bindgen
     BindgenConfig (..)
@@ -99,10 +95,9 @@ data BackendConfig = BackendConfig {
 
 checkBackendConfig :: Tracer BackendConfigMsg -> BackendConfig -> IO ()
 checkBackendConfig tracer backendConfig =
-    checkUniqueId (contramap BackendConfigUniqueId tracer) uniqueId
-  where
-    uniqueId :: UniqueId
-    uniqueId = translationUniqueId backendConfig.translation
+    checkUniqueId
+      (contramap BackendConfigUniqueId tracer)
+      backendConfig.translation.uniqueId
 
 data BackendConfigMsg = BackendConfigUniqueId UniqueIdMsg
   deriving stock (Show, Generic)

@@ -72,8 +72,8 @@ fromSimpleInstances instances =
 
 instance Semigroup SimpleInstances where
   a <> b = SimpleInstances{
-        strategyNewtype = combine strategyNewtype
-      , strategyStock   = combine strategyStock
+        strategyNewtype = combine (.strategyNewtype)
+      , strategyStock   = combine (.strategyStock)
       }
     where
       combine :: Semigroup a => (SimpleInstances -> a) -> a

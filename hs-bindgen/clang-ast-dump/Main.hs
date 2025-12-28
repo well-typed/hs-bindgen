@@ -1,7 +1,4 @@
-{-# LANGUAGE ApplicativeDo     #-}
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoNamedFieldPuns  #-}
-{-# LANGUAGE NoRecordWildCards #-}
+{-# LANGUAGE ApplicativeDo #-}
 
 module Main (main) where
 
