@@ -245,7 +245,7 @@ Beyond generating type definitions for function pointers and handling implicit
 conversions, `hs-bindgen` generates the additional FFI imports needed to
 convert between Haskell functions and C function pointers in both directions.
 
-### Auxiliary `_Deref` types
+### Auxiliary `_Aux` types
 
 For each typedef function pointer type in the C API, `hs-bindgen` generates
 two related types. Given:
@@ -257,16 +257,16 @@ typedef void (*ProgressUpdate)(int percentComplete);
 We generate:
 
 ```haskell
-newtype ProgressUpdate_Deref = ProgressUpdate_Deref
-  { un_ProgressUpdate_Deref :: CInt -> IO ()
+newtype ProgressUpdate_Aux = ProgressUpdate_Aux
+  { un_ProgressUpdate_Aux :: CInt -> IO ()
   }
 
 newtype ProgressUpdate = ProgressUpdate
-  { un_ProgressUpdate :: FunPtr ProgressUpdate_Deref
+  { un_ProgressUpdate :: FunPtr ProgressUpdate_Aux
   }
 ```
 
-The `_Deref` auxiliary type represents the Haskell function signature, while
+The `_Aux` auxiliary type represents the Haskell function signature, while
 the main type wraps the `FunPtr` to that signature. This separation mirrors
 how C distinguishes between a function pointer and the function it points to.
 
@@ -278,25 +278,25 @@ bidirectional conversion between Haskell functions and C function pointers:
 
 ```haskell
 -- Create a C-callable function pointer from a Haskell function
-foreign import ccall "wrapper" toProgressUpdate_Deref ::
-     ProgressUpdate_Deref
-  -> IO (FunPtr ProgressUpdate_Deref)
+foreign import ccall "wrapper" <somehash1> ::
+     ProgressUpdate_Aux
+  -> IO (FunPtr ProgressUpdate_Aux)
 
 -- Convert a C function pointer back to a Haskell function
-foreign import ccall "dynamic" fromProgressUpdate_Deref ::
-     FunPtr ProgressUpdate_Deref
-  -> ProgressUpdate_Deref
+foreign import ccall "dynamic" <somehash2> ::
+     FunPtr ProgressUpdate_Aux
+  -> ProgressUpdate_Aux
 ```
 
 These stubs are abstracted over two type classes in order to offer a better
 API to the end user. The following instances are also generated:
 
 ```haskell
-instance ToFunPtr ProgressUpdate_Deref where
-  toFunPtr = toProgressUpdate_Deref
+instance ToFunPtr ProgressUpdate_Aux where
+  toFunPtr = <somehash1>
 
-instance FromFunPtr ProgressUpdate_Deref where
-  fromFunPtr = fromProgressUpdate_Deref
+instance FromFunPtr ProgressUpdate_Aux where
+  fromFunPtr = <somehash2>
 ```
 
 A function pointer will have a `ToFunPtr` and `FromFunPtr` instance if at
@@ -315,8 +315,8 @@ Conversely, **non-domain-specific types** are standard FFI types from GHC's
 base libraries, such as `CInt`, `CDouble`, `Ptr a`, `IO ()`, etc.
 
 For example:
-- `ProgressUpdate_Deref` with type `CInt -> IO ()` **will** get instances
-  because `ProgressUpdate_Deref` itself is domain-specific.
+- `ProgressUpdate_Aux` with type `CInt -> IO ()` **will** get instances
+  because `ProgressUpdate_Aux` itself is domain-specific.
 - A hypothetical function pointer type `CInt -> IO CInt` **will not** get
   instances because both `CInt` and `IO CInt` are non-domain-specific.
 
@@ -332,8 +332,8 @@ To pass a Haskell function as a callback to C, use `toFunPtr` or the
 ```haskell
 import HsBindgen.Runtime.FunPtr (withToFunPtr)
 
-myCallback :: ProgressUpdate_Deref
-myCallback = ProgressUpdate_Deref $ \progress ->
+myCallback :: ProgressUpdate_Aux
+myCallback = ProgressUpdate_Aux $ \progress ->
   putStrLn $ "Progress: " ++ show progress ++ "%"
 
 -- Preferred: automatic cleanup with withToFunPtr
@@ -358,7 +358,7 @@ do
 
   -- Extract the FunPtr and convert to Haskell function
   let validator = fromFunPtr (un_DataValidator validatorFunPtr)
-  result <- un_DataValidator_Deref validator 42
+  result <- un_DataValidator_Aux validator 42
 ```
 
 ### Example: struct with function pointer fields
@@ -380,15 +380,15 @@ In Haskell we can make use of the `ToFunPtr` to construct the
 
 ```haskell
 alloca $ \handlerPtr -> do
-  onReceivedPtr <- toFunPtr $ OnReceived_Deref $ \dataPtr -> do
+  onReceivedPtr <- toFunPtr $ OnReceived_Aux $ \dataPtr -> do
     measurement <- peek dataPtr
     print measurement
 
-  validatePtr <- toFunPtr $ Validate_Deref $ \dataPtr -> do
+  validatePtr <- toFunPtr $ Validate_Aux $ \dataPtr -> do
     -- validation logic
     return 1
 
-  onErrorPtr <- toFunPtr $ OnError_Deref $ \errorCode ->
+  onErrorPtr <- toFunPtr $ OnError_Aux $ \errorCode ->
     putStrLn $ "Error: " ++ show errorCode
 
   poke handlerPtr $ MeasurementHandler

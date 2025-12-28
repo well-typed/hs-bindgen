@@ -35,14 +35,14 @@ ctypes:
   cname: S6
   hsname: S6
 - headers: types/structs/simple_structs.h
-  cname: struct @S7a_Deref
-  hsname: S7a_Deref
+  cname: struct @S7a_Aux
+  hsname: S7a_Aux
 - headers: types/structs/simple_structs.h
   cname: S7a
   hsname: S7a
 - headers: types/structs/simple_structs.h
-  cname: struct @S7b_Deref
-  hsname: S7b_Deref
+  cname: struct @S7b_Aux
+  hsname: S7b_Aux
 - headers: types/structs/simple_structs.h
   cname: S7b
   hsname: S7b
@@ -132,13 +132,13 @@ hstypes:
   - Ord
   - Show
   - Storable
-- hsname: S7a_Deref
+- hsname: S7a_Aux
   representation:
     record:
-      constructor: S7a_Deref
+      constructor: S7a_Aux
       fields:
-      - s7a_Deref_a
-      - s7a_Deref_b
+      - s7a_Aux_a
+      - s7a_Aux_b
   instances:
   - Eq
   - Prim
@@ -157,13 +157,13 @@ hstypes:
   - Ord
   - Show
   - Storable
-- hsname: S7b_Deref
+- hsname: S7b_Aux
   representation:
     record:
-      constructor: S7b_Deref
+      constructor: S7b_Aux
       fields:
-      - s7b_Deref_a
-      - s7b_Deref_b
+      - s7b_Aux_a
+      - s7b_Aux_b
   instances:
   - Eq
   - Prim

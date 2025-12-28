@@ -967,7 +967,7 @@ typedefFieldDecls hsNewType = [
 -- We want to generate /two/ types:
 --
 -- > newtype F_Aux = F_Aux (FC.CInt -> FC.CInt -> IO ())
--- > newtype F     = F (Ptr.FunPtr F_Deref)
+-- > newtype F     = F (Ptr.FunPtr F_Aux)
 --
 -- so that @F_Aux@ can be given @ToFunPtr@/@FromFunPtr@ instances.
 typedefFunPtrDecs ::
@@ -991,11 +991,8 @@ typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1379>
     -- The name of this auxiliary type should be configurable.
-    --
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1427>
-    -- This should be called "_Aux" instead.
     auxHsName :: Hs.Identifier
-    auxHsName = origInfo.id.hsName <> "_Deref"
+    auxHsName = origInfo.id.hsName <> "_Aux"
 
     auxInfo :: C.DeclInfo Final
     auxInfo = C.DeclInfo {

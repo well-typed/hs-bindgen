@@ -61,7 +61,7 @@ data Context =
     -- We distinguish this from 'TypedefDirect' because in the case of
     -- 'TypedefDirect' we use the name of typedef as the name of the struct
     -- (indeed, @clang >= 16@ already does this out of the box), but in the case
-    -- of 'TypedefIndirect' we add a @_Deref@ suffix, because now the two types
+    -- of 'TypedefIndirect' we add a @_Aux@ suffix, because now the two types
     -- are meaningfully different (and @clang@ assigns no name at all).
   | TypedefIndirect (C.DeclInfo Parse)
   deriving stock (Show)

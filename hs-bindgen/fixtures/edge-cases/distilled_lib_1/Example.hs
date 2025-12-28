@@ -776,38 +776,38 @@ __defined at:__ @edge-cases\/distilled_lib_1.h:77:19@
 
 __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
-newtype Callback_t_Deref = Callback_t_Deref
-  { un_Callback_t_Deref :: (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32
+newtype Callback_t_Aux = Callback_t_Aux
+  { un_Callback_t_Aux :: (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toCallback_t_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_24eac512dce926e9 ::
-     Callback_t_Deref
-  -> IO (Ptr.FunPtr Callback_t_Deref)
+-- __unique:__ @toCallback_t_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658 ::
+     Callback_t_Aux
+  -> IO (Ptr.FunPtr Callback_t_Aux)
 
--- __unique:__ @fromCallback_t_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_893b8fa3b3f09882 ::
-     Ptr.FunPtr Callback_t_Deref
-  -> Callback_t_Deref
+-- __unique:__ @fromCallback_t_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869 ::
+     Ptr.FunPtr Callback_t_Aux
+  -> Callback_t_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Callback_t_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Callback_t_Aux where
 
-  toFunPtr = hs_bindgen_24eac512dce926e9
+  toFunPtr = hs_bindgen_b6b6922e35047658
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Callback_t_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Callback_t_Aux where
 
-  fromFunPtr = hs_bindgen_893b8fa3b3f09882
+  fromFunPtr = hs_bindgen_d6debb4b8d5bb869
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Callback_t_Deref) "un_Callback_t_Deref")
-         ) => GHC.Records.HasField "un_Callback_t_Deref" (Ptr.Ptr Callback_t_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Callback_t_Aux) "un_Callback_t_Aux")
+         ) => GHC.Records.HasField "un_Callback_t_Aux" (Ptr.Ptr Callback_t_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Callback_t_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Callback_t_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Callback_t_Deref "un_Callback_t_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Callback_t_Aux "un_Callback_t_Aux" where
 
-  type CFieldType Callback_t_Deref "un_Callback_t_Deref" =
+  type CFieldType Callback_t_Aux "un_Callback_t_Aux" =
     (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32
 
   offset# = \_ -> \_ -> 0
@@ -819,7 +819,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Callback_t_Deref "un_Callback_t_D
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
 newtype Callback_t = Callback_t
-  { un_Callback_t :: Ptr.FunPtr Callback_t_Deref
+  { un_Callback_t :: Ptr.FunPtr Callback_t_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -833,6 +833,6 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Callback_t) "un_Call
 instance HsBindgen.Runtime.HasCField.HasCField Callback_t "un_Callback_t" where
 
   type CFieldType Callback_t "un_Callback_t" =
-    Ptr.FunPtr Callback_t_Deref
+    Ptr.FunPtr Callback_t_Aux
 
   offset# = \_ -> \_ -> 0

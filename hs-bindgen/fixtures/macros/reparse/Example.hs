@@ -384,38 +384,38 @@ __defined at:__ @macros\/reparse.h:132:16@
 
 __exported by:__ @macros\/reparse.h@
 -}
-newtype Funptr_typedef1_Deref = Funptr_typedef1_Deref
-  { un_Funptr_typedef1_Deref :: IO A
+newtype Funptr_typedef1_Aux = Funptr_typedef1_Aux
+  { un_Funptr_typedef1_Aux :: IO A
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toFunptr_typedef1_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_22b246c3d4e2e9b4 ::
-     Funptr_typedef1_Deref
-  -> IO (Ptr.FunPtr Funptr_typedef1_Deref)
+-- __unique:__ @toFunptr_typedef1_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_c584d0f839fd43de ::
+     Funptr_typedef1_Aux
+  -> IO (Ptr.FunPtr Funptr_typedef1_Aux)
 
--- __unique:__ @fromFunptr_typedef1_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_be8d1e35ae3ce7ea ::
-     Ptr.FunPtr Funptr_typedef1_Deref
-  -> Funptr_typedef1_Deref
+-- __unique:__ @fromFunptr_typedef1_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_806a46dc418a062c ::
+     Ptr.FunPtr Funptr_typedef1_Aux
+  -> Funptr_typedef1_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef1_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef1_Aux where
 
-  toFunPtr = hs_bindgen_22b246c3d4e2e9b4
+  toFunPtr = hs_bindgen_c584d0f839fd43de
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef1_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef1_Aux where
 
-  fromFunPtr = hs_bindgen_be8d1e35ae3ce7ea
+  fromFunPtr = hs_bindgen_806a46dc418a062c
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef1_Deref) "un_Funptr_typedef1_Deref")
-         ) => GHC.Records.HasField "un_Funptr_typedef1_Deref" (Ptr.Ptr Funptr_typedef1_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef1_Aux) "un_Funptr_typedef1_Aux")
+         ) => GHC.Records.HasField "un_Funptr_typedef1_Aux" (Ptr.Ptr Funptr_typedef1_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Funptr_typedef1_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Funptr_typedef1_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef1_Deref "un_Funptr_typedef1_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef1_Aux "un_Funptr_typedef1_Aux" where
 
-  type CFieldType Funptr_typedef1_Deref "un_Funptr_typedef1_Deref" =
+  type CFieldType Funptr_typedef1_Aux "un_Funptr_typedef1_Aux" =
     IO A
 
   offset# = \_ -> \_ -> 0
@@ -427,7 +427,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef1_Deref "un_Funptr_
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Funptr_typedef1 = Funptr_typedef1
-  { un_Funptr_typedef1 :: Ptr.FunPtr Funptr_typedef1_Deref
+  { un_Funptr_typedef1 :: Ptr.FunPtr Funptr_typedef1_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -441,7 +441,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef1) "un
 instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef1 "un_Funptr_typedef1" where
 
   type CFieldType Funptr_typedef1 "un_Funptr_typedef1" =
-    Ptr.FunPtr Funptr_typedef1_Deref
+    Ptr.FunPtr Funptr_typedef1_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -453,38 +453,38 @@ __defined at:__ @macros\/reparse.h:133:16@
 
 __exported by:__ @macros\/reparse.h@
 -}
-newtype Funptr_typedef2_Deref = Funptr_typedef2_Deref
-  { un_Funptr_typedef2_Deref :: IO (Ptr.Ptr A)
+newtype Funptr_typedef2_Aux = Funptr_typedef2_Aux
+  { un_Funptr_typedef2_Aux :: IO (Ptr.Ptr A)
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toFunptr_typedef2_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_64096afe55f670f8 ::
-     Funptr_typedef2_Deref
-  -> IO (Ptr.FunPtr Funptr_typedef2_Deref)
+-- __unique:__ @toFunptr_typedef2_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_f174457a161ac5a0 ::
+     Funptr_typedef2_Aux
+  -> IO (Ptr.FunPtr Funptr_typedef2_Aux)
 
--- __unique:__ @fromFunptr_typedef2_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_f3ef05bacf30e067 ::
-     Ptr.FunPtr Funptr_typedef2_Deref
-  -> Funptr_typedef2_Deref
+-- __unique:__ @fromFunptr_typedef2_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_323d07dff85b802c ::
+     Ptr.FunPtr Funptr_typedef2_Aux
+  -> Funptr_typedef2_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef2_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef2_Aux where
 
-  toFunPtr = hs_bindgen_64096afe55f670f8
+  toFunPtr = hs_bindgen_f174457a161ac5a0
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef2_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef2_Aux where
 
-  fromFunPtr = hs_bindgen_f3ef05bacf30e067
+  fromFunPtr = hs_bindgen_323d07dff85b802c
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef2_Deref) "un_Funptr_typedef2_Deref")
-         ) => GHC.Records.HasField "un_Funptr_typedef2_Deref" (Ptr.Ptr Funptr_typedef2_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef2_Aux) "un_Funptr_typedef2_Aux")
+         ) => GHC.Records.HasField "un_Funptr_typedef2_Aux" (Ptr.Ptr Funptr_typedef2_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Funptr_typedef2_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Funptr_typedef2_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef2_Deref "un_Funptr_typedef2_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef2_Aux "un_Funptr_typedef2_Aux" where
 
-  type CFieldType Funptr_typedef2_Deref "un_Funptr_typedef2_Deref" =
+  type CFieldType Funptr_typedef2_Aux "un_Funptr_typedef2_Aux" =
     IO (Ptr.Ptr A)
 
   offset# = \_ -> \_ -> 0
@@ -496,7 +496,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef2_Deref "un_Funptr_
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Funptr_typedef2 = Funptr_typedef2
-  { un_Funptr_typedef2 :: Ptr.FunPtr Funptr_typedef2_Deref
+  { un_Funptr_typedef2 :: Ptr.FunPtr Funptr_typedef2_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -510,7 +510,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef2) "un
 instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef2 "un_Funptr_typedef2" where
 
   type CFieldType Funptr_typedef2 "un_Funptr_typedef2" =
-    Ptr.FunPtr Funptr_typedef2_Deref
+    Ptr.FunPtr Funptr_typedef2_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -522,38 +522,38 @@ __defined at:__ @macros\/reparse.h:134:16@
 
 __exported by:__ @macros\/reparse.h@
 -}
-newtype Funptr_typedef3_Deref = Funptr_typedef3_Deref
-  { un_Funptr_typedef3_Deref :: IO (Ptr.Ptr (Ptr.Ptr A))
+newtype Funptr_typedef3_Aux = Funptr_typedef3_Aux
+  { un_Funptr_typedef3_Aux :: IO (Ptr.Ptr (Ptr.Ptr A))
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toFunptr_typedef3_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_eccb0ab7322077fa ::
-     Funptr_typedef3_Deref
-  -> IO (Ptr.FunPtr Funptr_typedef3_Deref)
+-- __unique:__ @toFunptr_typedef3_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_031d1a7decd790d8 ::
+     Funptr_typedef3_Aux
+  -> IO (Ptr.FunPtr Funptr_typedef3_Aux)
 
--- __unique:__ @fromFunptr_typedef3_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_6babaeadc50dea72 ::
-     Ptr.FunPtr Funptr_typedef3_Deref
-  -> Funptr_typedef3_Deref
+-- __unique:__ @fromFunptr_typedef3_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_82dc7b932974117e ::
+     Ptr.FunPtr Funptr_typedef3_Aux
+  -> Funptr_typedef3_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef3_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef3_Aux where
 
-  toFunPtr = hs_bindgen_eccb0ab7322077fa
+  toFunPtr = hs_bindgen_031d1a7decd790d8
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef3_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef3_Aux where
 
-  fromFunPtr = hs_bindgen_6babaeadc50dea72
+  fromFunPtr = hs_bindgen_82dc7b932974117e
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef3_Deref) "un_Funptr_typedef3_Deref")
-         ) => GHC.Records.HasField "un_Funptr_typedef3_Deref" (Ptr.Ptr Funptr_typedef3_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef3_Aux) "un_Funptr_typedef3_Aux")
+         ) => GHC.Records.HasField "un_Funptr_typedef3_Aux" (Ptr.Ptr Funptr_typedef3_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Funptr_typedef3_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Funptr_typedef3_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef3_Deref "un_Funptr_typedef3_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef3_Aux "un_Funptr_typedef3_Aux" where
 
-  type CFieldType Funptr_typedef3_Deref "un_Funptr_typedef3_Deref" =
+  type CFieldType Funptr_typedef3_Aux "un_Funptr_typedef3_Aux" =
     IO (Ptr.Ptr (Ptr.Ptr A))
 
   offset# = \_ -> \_ -> 0
@@ -565,7 +565,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef3_Deref "un_Funptr_
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Funptr_typedef3 = Funptr_typedef3
-  { un_Funptr_typedef3 :: Ptr.FunPtr Funptr_typedef3_Deref
+  { un_Funptr_typedef3 :: Ptr.FunPtr Funptr_typedef3_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -579,7 +579,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef3) "un
 instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef3 "un_Funptr_typedef3" where
 
   type CFieldType Funptr_typedef3 "un_Funptr_typedef3" =
-    Ptr.FunPtr Funptr_typedef3_Deref
+    Ptr.FunPtr Funptr_typedef3_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -591,38 +591,38 @@ __defined at:__ @macros\/reparse.h:135:16@
 
 __exported by:__ @macros\/reparse.h@
 -}
-newtype Funptr_typedef4_Deref = Funptr_typedef4_Deref
-  { un_Funptr_typedef4_Deref :: FC.CInt -> FC.CDouble -> IO A
+newtype Funptr_typedef4_Aux = Funptr_typedef4_Aux
+  { un_Funptr_typedef4_Aux :: FC.CInt -> FC.CDouble -> IO A
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toFunptr_typedef4_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_725ad1ac194d67b4 ::
-     Funptr_typedef4_Deref
-  -> IO (Ptr.FunPtr Funptr_typedef4_Deref)
+-- __unique:__ @toFunptr_typedef4_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_da2336d254667386 ::
+     Funptr_typedef4_Aux
+  -> IO (Ptr.FunPtr Funptr_typedef4_Aux)
 
--- __unique:__ @fromFunptr_typedef4_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_1153f16e6073820c ::
-     Ptr.FunPtr Funptr_typedef4_Deref
-  -> Funptr_typedef4_Deref
+-- __unique:__ @fromFunptr_typedef4_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_d4a97954476da161 ::
+     Ptr.FunPtr Funptr_typedef4_Aux
+  -> Funptr_typedef4_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef4_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef4_Aux where
 
-  toFunPtr = hs_bindgen_725ad1ac194d67b4
+  toFunPtr = hs_bindgen_da2336d254667386
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef4_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef4_Aux where
 
-  fromFunPtr = hs_bindgen_1153f16e6073820c
+  fromFunPtr = hs_bindgen_d4a97954476da161
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef4_Deref) "un_Funptr_typedef4_Deref")
-         ) => GHC.Records.HasField "un_Funptr_typedef4_Deref" (Ptr.Ptr Funptr_typedef4_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef4_Aux) "un_Funptr_typedef4_Aux")
+         ) => GHC.Records.HasField "un_Funptr_typedef4_Aux" (Ptr.Ptr Funptr_typedef4_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Funptr_typedef4_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Funptr_typedef4_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef4_Deref "un_Funptr_typedef4_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef4_Aux "un_Funptr_typedef4_Aux" where
 
-  type CFieldType Funptr_typedef4_Deref "un_Funptr_typedef4_Deref" =
+  type CFieldType Funptr_typedef4_Aux "un_Funptr_typedef4_Aux" =
     FC.CInt -> FC.CDouble -> IO A
 
   offset# = \_ -> \_ -> 0
@@ -634,7 +634,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef4_Deref "un_Funptr_
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Funptr_typedef4 = Funptr_typedef4
-  { un_Funptr_typedef4 :: Ptr.FunPtr Funptr_typedef4_Deref
+  { un_Funptr_typedef4 :: Ptr.FunPtr Funptr_typedef4_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -648,7 +648,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef4) "un
 instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef4 "un_Funptr_typedef4" where
 
   type CFieldType Funptr_typedef4 "un_Funptr_typedef4" =
-    Ptr.FunPtr Funptr_typedef4_Deref
+    Ptr.FunPtr Funptr_typedef4_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -660,38 +660,38 @@ __defined at:__ @macros\/reparse.h:136:16@
 
 __exported by:__ @macros\/reparse.h@
 -}
-newtype Funptr_typedef5_Deref = Funptr_typedef5_Deref
-  { un_Funptr_typedef5_Deref :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
+newtype Funptr_typedef5_Aux = Funptr_typedef5_Aux
+  { un_Funptr_typedef5_Aux :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toFunptr_typedef5_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_c44517d5483831b6 ::
-     Funptr_typedef5_Deref
-  -> IO (Ptr.FunPtr Funptr_typedef5_Deref)
+-- __unique:__ @toFunptr_typedef5_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_1f45632f07742a46 ::
+     Funptr_typedef5_Aux
+  -> IO (Ptr.FunPtr Funptr_typedef5_Aux)
 
--- __unique:__ @fromFunptr_typedef5_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_4d292c43d3e48a9a ::
-     Ptr.FunPtr Funptr_typedef5_Deref
-  -> Funptr_typedef5_Deref
+-- __unique:__ @fromFunptr_typedef5_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_0bd1877eaaba0d3e ::
+     Ptr.FunPtr Funptr_typedef5_Aux
+  -> Funptr_typedef5_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef5_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef5_Aux where
 
-  toFunPtr = hs_bindgen_c44517d5483831b6
+  toFunPtr = hs_bindgen_1f45632f07742a46
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef5_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef5_Aux where
 
-  fromFunPtr = hs_bindgen_4d292c43d3e48a9a
+  fromFunPtr = hs_bindgen_0bd1877eaaba0d3e
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef5_Deref) "un_Funptr_typedef5_Deref")
-         ) => GHC.Records.HasField "un_Funptr_typedef5_Deref" (Ptr.Ptr Funptr_typedef5_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef5_Aux) "un_Funptr_typedef5_Aux")
+         ) => GHC.Records.HasField "un_Funptr_typedef5_Aux" (Ptr.Ptr Funptr_typedef5_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Funptr_typedef5_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Funptr_typedef5_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef5_Deref "un_Funptr_typedef5_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef5_Aux "un_Funptr_typedef5_Aux" where
 
-  type CFieldType Funptr_typedef5_Deref "un_Funptr_typedef5_Deref" =
+  type CFieldType Funptr_typedef5_Aux "un_Funptr_typedef5_Aux" =
     FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
 
   offset# = \_ -> \_ -> 0
@@ -703,7 +703,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef5_Deref "un_Funptr_
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Funptr_typedef5 = Funptr_typedef5
-  { un_Funptr_typedef5 :: Ptr.FunPtr Funptr_typedef5_Deref
+  { un_Funptr_typedef5 :: Ptr.FunPtr Funptr_typedef5_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -717,7 +717,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Funptr_typedef5) "un
 instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef5 "un_Funptr_typedef5" where
 
   type CFieldType Funptr_typedef5 "un_Funptr_typedef5" =
-    Ptr.FunPtr Funptr_typedef5_Deref
+    Ptr.FunPtr Funptr_typedef5_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -1212,38 +1212,38 @@ __defined at:__ @macros\/reparse.h:238:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
-newtype Const_funptr1_Deref = Const_funptr1_Deref
-  { un_Const_funptr1_Deref :: FC.CInt -> FC.CDouble -> IO A
+newtype Const_funptr1_Aux = Const_funptr1_Aux
+  { un_Const_funptr1_Aux :: FC.CInt -> FC.CDouble -> IO A
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toConst_funptr1_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_38db40c67c079dce ::
-     Const_funptr1_Deref
-  -> IO (Ptr.FunPtr Const_funptr1_Deref)
+-- __unique:__ @toConst_funptr1_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_7f125e20a9d4075b ::
+     Const_funptr1_Aux
+  -> IO (Ptr.FunPtr Const_funptr1_Aux)
 
--- __unique:__ @fromConst_funptr1_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_4148fab066315a44 ::
-     Ptr.FunPtr Const_funptr1_Deref
-  -> Const_funptr1_Deref
+-- __unique:__ @fromConst_funptr1_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_ac4bd8d789bba94b ::
+     Ptr.FunPtr Const_funptr1_Aux
+  -> Const_funptr1_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr1_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr1_Aux where
 
-  toFunPtr = hs_bindgen_38db40c67c079dce
+  toFunPtr = hs_bindgen_7f125e20a9d4075b
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr1_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr1_Aux where
 
-  fromFunPtr = hs_bindgen_4148fab066315a44
+  fromFunPtr = hs_bindgen_ac4bd8d789bba94b
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr1_Deref) "un_Const_funptr1_Deref")
-         ) => GHC.Records.HasField "un_Const_funptr1_Deref" (Ptr.Ptr Const_funptr1_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr1_Aux) "un_Const_funptr1_Aux")
+         ) => GHC.Records.HasField "un_Const_funptr1_Aux" (Ptr.Ptr Const_funptr1_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Const_funptr1_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Const_funptr1_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Const_funptr1_Deref "un_Const_funptr1_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Const_funptr1_Aux "un_Const_funptr1_Aux" where
 
-  type CFieldType Const_funptr1_Deref "un_Const_funptr1_Deref" =
+  type CFieldType Const_funptr1_Aux "un_Const_funptr1_Aux" =
     FC.CInt -> FC.CDouble -> IO A
 
   offset# = \_ -> \_ -> 0
@@ -1255,7 +1255,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr1_Deref "un_Const_fun
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr1 = Const_funptr1
-  { un_Const_funptr1 :: Ptr.FunPtr Const_funptr1_Deref
+  { un_Const_funptr1 :: Ptr.FunPtr Const_funptr1_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -1269,7 +1269,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr1) "un_C
 instance HsBindgen.Runtime.HasCField.HasCField Const_funptr1 "un_Const_funptr1" where
 
   type CFieldType Const_funptr1 "un_Const_funptr1" =
-    Ptr.FunPtr Const_funptr1_Deref
+    Ptr.FunPtr Const_funptr1_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -1281,38 +1281,38 @@ __defined at:__ @macros\/reparse.h:239:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
-newtype Const_funptr2_Deref = Const_funptr2_Deref
-  { un_Const_funptr2_Deref :: FC.CInt -> FC.CDouble -> IO A
+newtype Const_funptr2_Aux = Const_funptr2_Aux
+  { un_Const_funptr2_Aux :: FC.CInt -> FC.CDouble -> IO A
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toConst_funptr2_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_01ba6a06fa3eac1f ::
-     Const_funptr2_Deref
-  -> IO (Ptr.FunPtr Const_funptr2_Deref)
+-- __unique:__ @toConst_funptr2_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_c7b1e36d845634fb ::
+     Const_funptr2_Aux
+  -> IO (Ptr.FunPtr Const_funptr2_Aux)
 
--- __unique:__ @fromConst_funptr2_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_d567b5c5455b37a2 ::
-     Ptr.FunPtr Const_funptr2_Deref
-  -> Const_funptr2_Deref
+-- __unique:__ @fromConst_funptr2_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_352cebf463125ca9 ::
+     Ptr.FunPtr Const_funptr2_Aux
+  -> Const_funptr2_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr2_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr2_Aux where
 
-  toFunPtr = hs_bindgen_01ba6a06fa3eac1f
+  toFunPtr = hs_bindgen_c7b1e36d845634fb
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr2_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr2_Aux where
 
-  fromFunPtr = hs_bindgen_d567b5c5455b37a2
+  fromFunPtr = hs_bindgen_352cebf463125ca9
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr2_Deref) "un_Const_funptr2_Deref")
-         ) => GHC.Records.HasField "un_Const_funptr2_Deref" (Ptr.Ptr Const_funptr2_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr2_Aux) "un_Const_funptr2_Aux")
+         ) => GHC.Records.HasField "un_Const_funptr2_Aux" (Ptr.Ptr Const_funptr2_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Const_funptr2_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Const_funptr2_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Const_funptr2_Deref "un_Const_funptr2_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Const_funptr2_Aux "un_Const_funptr2_Aux" where
 
-  type CFieldType Const_funptr2_Deref "un_Const_funptr2_Deref" =
+  type CFieldType Const_funptr2_Aux "un_Const_funptr2_Aux" =
     FC.CInt -> FC.CDouble -> IO A
 
   offset# = \_ -> \_ -> 0
@@ -1324,7 +1324,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr2_Deref "un_Const_fun
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr2 = Const_funptr2
-  { un_Const_funptr2 :: Ptr.FunPtr Const_funptr2_Deref
+  { un_Const_funptr2 :: Ptr.FunPtr Const_funptr2_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -1338,7 +1338,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr2) "un_C
 instance HsBindgen.Runtime.HasCField.HasCField Const_funptr2 "un_Const_funptr2" where
 
   type CFieldType Const_funptr2 "un_Const_funptr2" =
-    Ptr.FunPtr Const_funptr2_Deref
+    Ptr.FunPtr Const_funptr2_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -1350,38 +1350,38 @@ __defined at:__ @macros\/reparse.h:240:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
-newtype Const_funptr3_Deref = Const_funptr3_Deref
-  { un_Const_funptr3_Deref :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
+newtype Const_funptr3_Aux = Const_funptr3_Aux
+  { un_Const_funptr3_Aux :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toConst_funptr3_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_3d1e077286c03261 ::
-     Const_funptr3_Deref
-  -> IO (Ptr.FunPtr Const_funptr3_Deref)
+-- __unique:__ @toConst_funptr3_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_2dcbfe1c2502178c ::
+     Const_funptr3_Aux
+  -> IO (Ptr.FunPtr Const_funptr3_Aux)
 
--- __unique:__ @fromConst_funptr3_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_e08dd4a4255b48ad ::
-     Ptr.FunPtr Const_funptr3_Deref
-  -> Const_funptr3_Deref
+-- __unique:__ @fromConst_funptr3_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_86738dcfd7c9d33c ::
+     Ptr.FunPtr Const_funptr3_Aux
+  -> Const_funptr3_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr3_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr3_Aux where
 
-  toFunPtr = hs_bindgen_3d1e077286c03261
+  toFunPtr = hs_bindgen_2dcbfe1c2502178c
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr3_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr3_Aux where
 
-  fromFunPtr = hs_bindgen_e08dd4a4255b48ad
+  fromFunPtr = hs_bindgen_86738dcfd7c9d33c
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr3_Deref) "un_Const_funptr3_Deref")
-         ) => GHC.Records.HasField "un_Const_funptr3_Deref" (Ptr.Ptr Const_funptr3_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr3_Aux) "un_Const_funptr3_Aux")
+         ) => GHC.Records.HasField "un_Const_funptr3_Aux" (Ptr.Ptr Const_funptr3_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Const_funptr3_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Const_funptr3_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Const_funptr3_Deref "un_Const_funptr3_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Const_funptr3_Aux "un_Const_funptr3_Aux" where
 
-  type CFieldType Const_funptr3_Deref "un_Const_funptr3_Deref" =
+  type CFieldType Const_funptr3_Aux "un_Const_funptr3_Aux" =
     FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
 
   offset# = \_ -> \_ -> 0
@@ -1393,7 +1393,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr3_Deref "un_Const_fun
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr3 = Const_funptr3
-  { un_Const_funptr3 :: Ptr.FunPtr Const_funptr3_Deref
+  { un_Const_funptr3 :: Ptr.FunPtr Const_funptr3_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -1407,7 +1407,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr3) "un_C
 instance HsBindgen.Runtime.HasCField.HasCField Const_funptr3 "un_Const_funptr3" where
 
   type CFieldType Const_funptr3 "un_Const_funptr3" =
-    Ptr.FunPtr Const_funptr3_Deref
+    Ptr.FunPtr Const_funptr3_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -1419,38 +1419,38 @@ __defined at:__ @macros\/reparse.h:241:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
-newtype Const_funptr4_Deref = Const_funptr4_Deref
-  { un_Const_funptr4_Deref :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
+newtype Const_funptr4_Aux = Const_funptr4_Aux
+  { un_Const_funptr4_Aux :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toConst_funptr4_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_6805b127d1868888 ::
-     Const_funptr4_Deref
-  -> IO (Ptr.FunPtr Const_funptr4_Deref)
+-- __unique:__ @toConst_funptr4_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_5461deeda491de0b ::
+     Const_funptr4_Aux
+  -> IO (Ptr.FunPtr Const_funptr4_Aux)
 
--- __unique:__ @fromConst_funptr4_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_3f51966963120db7 ::
-     Ptr.FunPtr Const_funptr4_Deref
-  -> Const_funptr4_Deref
+-- __unique:__ @fromConst_funptr4_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_de7846fca3bfd1b6 ::
+     Ptr.FunPtr Const_funptr4_Aux
+  -> Const_funptr4_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr4_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr4_Aux where
 
-  toFunPtr = hs_bindgen_6805b127d1868888
+  toFunPtr = hs_bindgen_5461deeda491de0b
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr4_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr4_Aux where
 
-  fromFunPtr = hs_bindgen_3f51966963120db7
+  fromFunPtr = hs_bindgen_de7846fca3bfd1b6
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr4_Deref) "un_Const_funptr4_Deref")
-         ) => GHC.Records.HasField "un_Const_funptr4_Deref" (Ptr.Ptr Const_funptr4_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr4_Aux) "un_Const_funptr4_Aux")
+         ) => GHC.Records.HasField "un_Const_funptr4_Aux" (Ptr.Ptr Const_funptr4_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Const_funptr4_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Const_funptr4_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Const_funptr4_Deref "un_Const_funptr4_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Const_funptr4_Aux "un_Const_funptr4_Aux" where
 
-  type CFieldType Const_funptr4_Deref "un_Const_funptr4_Deref" =
+  type CFieldType Const_funptr4_Aux "un_Const_funptr4_Aux" =
     FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
 
   offset# = \_ -> \_ -> 0
@@ -1462,7 +1462,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr4_Deref "un_Const_fun
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr4 = Const_funptr4
-  { un_Const_funptr4 :: Ptr.FunPtr Const_funptr4_Deref
+  { un_Const_funptr4 :: Ptr.FunPtr Const_funptr4_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -1476,7 +1476,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr4) "un_C
 instance HsBindgen.Runtime.HasCField.HasCField Const_funptr4 "un_Const_funptr4" where
 
   type CFieldType Const_funptr4 "un_Const_funptr4" =
-    Ptr.FunPtr Const_funptr4_Deref
+    Ptr.FunPtr Const_funptr4_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -1488,38 +1488,38 @@ __defined at:__ @macros\/reparse.h:242:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
-newtype Const_funptr5_Deref = Const_funptr5_Deref
-  { un_Const_funptr5_Deref :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
+newtype Const_funptr5_Aux = Const_funptr5_Aux
+  { un_Const_funptr5_Aux :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toConst_funptr5_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_c73c2e895703862e ::
-     Const_funptr5_Deref
-  -> IO (Ptr.FunPtr Const_funptr5_Deref)
+-- __unique:__ @toConst_funptr5_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_7b0174fc978a1ce1 ::
+     Const_funptr5_Aux
+  -> IO (Ptr.FunPtr Const_funptr5_Aux)
 
--- __unique:__ @fromConst_funptr5_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_b83160aff8536dd5 ::
-     Ptr.FunPtr Const_funptr5_Deref
-  -> Const_funptr5_Deref
+-- __unique:__ @fromConst_funptr5_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_38a21d84bb7115b5 ::
+     Ptr.FunPtr Const_funptr5_Aux
+  -> Const_funptr5_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr5_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr5_Aux where
 
-  toFunPtr = hs_bindgen_c73c2e895703862e
+  toFunPtr = hs_bindgen_7b0174fc978a1ce1
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr5_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr5_Aux where
 
-  fromFunPtr = hs_bindgen_b83160aff8536dd5
+  fromFunPtr = hs_bindgen_38a21d84bb7115b5
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr5_Deref) "un_Const_funptr5_Deref")
-         ) => GHC.Records.HasField "un_Const_funptr5_Deref" (Ptr.Ptr Const_funptr5_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr5_Aux) "un_Const_funptr5_Aux")
+         ) => GHC.Records.HasField "un_Const_funptr5_Aux" (Ptr.Ptr Const_funptr5_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Const_funptr5_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Const_funptr5_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Const_funptr5_Deref "un_Const_funptr5_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Const_funptr5_Aux "un_Const_funptr5_Aux" where
 
-  type CFieldType Const_funptr5_Deref "un_Const_funptr5_Deref" =
+  type CFieldType Const_funptr5_Aux "un_Const_funptr5_Aux" =
     FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
 
   offset# = \_ -> \_ -> 0
@@ -1531,7 +1531,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr5_Deref "un_Const_fun
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr5 = Const_funptr5
-  { un_Const_funptr5 :: Ptr.FunPtr Const_funptr5_Deref
+  { un_Const_funptr5 :: Ptr.FunPtr Const_funptr5_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -1545,7 +1545,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr5) "un_C
 instance HsBindgen.Runtime.HasCField.HasCField Const_funptr5 "un_Const_funptr5" where
 
   type CFieldType Const_funptr5 "un_Const_funptr5" =
-    Ptr.FunPtr Const_funptr5_Deref
+    Ptr.FunPtr Const_funptr5_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -1557,38 +1557,38 @@ __defined at:__ @macros\/reparse.h:243:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
-newtype Const_funptr6_Deref = Const_funptr6_Deref
-  { un_Const_funptr6_Deref :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
+newtype Const_funptr6_Aux = Const_funptr6_Aux
+  { un_Const_funptr6_Aux :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toConst_funptr6_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_575363929f0351c3 ::
-     Const_funptr6_Deref
-  -> IO (Ptr.FunPtr Const_funptr6_Deref)
+-- __unique:__ @toConst_funptr6_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_4e32721222f4df9f ::
+     Const_funptr6_Aux
+  -> IO (Ptr.FunPtr Const_funptr6_Aux)
 
--- __unique:__ @fromConst_funptr6_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_ac228f1c81628334 ::
-     Ptr.FunPtr Const_funptr6_Deref
-  -> Const_funptr6_Deref
+-- __unique:__ @fromConst_funptr6_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_45251216b04aa8b5 ::
+     Ptr.FunPtr Const_funptr6_Aux
+  -> Const_funptr6_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr6_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr6_Aux where
 
-  toFunPtr = hs_bindgen_575363929f0351c3
+  toFunPtr = hs_bindgen_4e32721222f4df9f
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr6_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr6_Aux where
 
-  fromFunPtr = hs_bindgen_ac228f1c81628334
+  fromFunPtr = hs_bindgen_45251216b04aa8b5
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr6_Deref) "un_Const_funptr6_Deref")
-         ) => GHC.Records.HasField "un_Const_funptr6_Deref" (Ptr.Ptr Const_funptr6_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr6_Aux) "un_Const_funptr6_Aux")
+         ) => GHC.Records.HasField "un_Const_funptr6_Aux" (Ptr.Ptr Const_funptr6_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Const_funptr6_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Const_funptr6_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Const_funptr6_Deref "un_Const_funptr6_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Const_funptr6_Aux "un_Const_funptr6_Aux" where
 
-  type CFieldType Const_funptr6_Deref "un_Const_funptr6_Deref" =
+  type CFieldType Const_funptr6_Aux "un_Const_funptr6_Aux" =
     FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
 
   offset# = \_ -> \_ -> 0
@@ -1600,7 +1600,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr6_Deref "un_Const_fun
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr6 = Const_funptr6
-  { un_Const_funptr6 :: Ptr.FunPtr Const_funptr6_Deref
+  { un_Const_funptr6 :: Ptr.FunPtr Const_funptr6_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -1614,7 +1614,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr6) "un_C
 instance HsBindgen.Runtime.HasCField.HasCField Const_funptr6 "un_Const_funptr6" where
 
   type CFieldType Const_funptr6 "un_Const_funptr6" =
-    Ptr.FunPtr Const_funptr6_Deref
+    Ptr.FunPtr Const_funptr6_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -1626,38 +1626,38 @@ __defined at:__ @macros\/reparse.h:244:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
-newtype Const_funptr7_Deref = Const_funptr7_Deref
-  { un_Const_funptr7_Deref :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
+newtype Const_funptr7_Aux = Const_funptr7_Aux
+  { un_Const_funptr7_Aux :: FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
--- __unique:__ @toConst_funptr7_Deref@
-foreign import ccall safe "wrapper" hs_bindgen_3a96aa40b7ee206f ::
-     Const_funptr7_Deref
-  -> IO (Ptr.FunPtr Const_funptr7_Deref)
+-- __unique:__ @toConst_funptr7_Aux@
+foreign import ccall safe "wrapper" hs_bindgen_0d04fc96ffb9de06 ::
+     Const_funptr7_Aux
+  -> IO (Ptr.FunPtr Const_funptr7_Aux)
 
--- __unique:__ @fromConst_funptr7_Deref@
-foreign import ccall safe "dynamic" hs_bindgen_340e3ab91473372f ::
-     Ptr.FunPtr Const_funptr7_Deref
-  -> Const_funptr7_Deref
+-- __unique:__ @fromConst_funptr7_Aux@
+foreign import ccall safe "dynamic" hs_bindgen_42fbcebf75a973ba ::
+     Ptr.FunPtr Const_funptr7_Aux
+  -> Const_funptr7_Aux
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr7_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr7_Aux where
 
-  toFunPtr = hs_bindgen_3a96aa40b7ee206f
+  toFunPtr = hs_bindgen_0d04fc96ffb9de06
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr7_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr7_Aux where
 
-  fromFunPtr = hs_bindgen_340e3ab91473372f
+  fromFunPtr = hs_bindgen_42fbcebf75a973ba
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr7_Deref) "un_Const_funptr7_Deref")
-         ) => GHC.Records.HasField "un_Const_funptr7_Deref" (Ptr.Ptr Const_funptr7_Deref) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr7_Aux) "un_Const_funptr7_Aux")
+         ) => GHC.Records.HasField "un_Const_funptr7_Aux" (Ptr.Ptr Const_funptr7_Aux) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Const_funptr7_Deref")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Const_funptr7_Aux")
 
-instance HsBindgen.Runtime.HasCField.HasCField Const_funptr7_Deref "un_Const_funptr7_Deref" where
+instance HsBindgen.Runtime.HasCField.HasCField Const_funptr7_Aux "un_Const_funptr7_Aux" where
 
-  type CFieldType Const_funptr7_Deref "un_Const_funptr7_Deref" =
+  type CFieldType Const_funptr7_Aux "un_Const_funptr7_Aux" =
     FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr A)
 
   offset# = \_ -> \_ -> 0
@@ -1669,7 +1669,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr7_Deref "un_Const_fun
     __exported by:__ @macros\/reparse.h@
 -}
 newtype Const_funptr7 = Const_funptr7
-  { un_Const_funptr7 :: Ptr.FunPtr Const_funptr7_Deref
+  { un_Const_funptr7 :: Ptr.FunPtr Const_funptr7_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -1683,7 +1683,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Const_funptr7) "un_C
 instance HsBindgen.Runtime.HasCField.HasCField Const_funptr7 "un_Const_funptr7" where
 
   type CFieldType Const_funptr7 "un_Const_funptr7" =
-    Ptr.FunPtr Const_funptr7_Deref
+    Ptr.FunPtr Const_funptr7_Aux
 
   offset# = \_ -> \_ -> 0
 

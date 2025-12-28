@@ -1270,7 +1270,7 @@ test_types_typedefs_typedef_analysis =
         , ("struct3_t"       , Nothing)
         , ("struct struct4"  , Just "Struct4_t")
         , ("struct4_t"       , Nothing)
-        , ("struct struct6"  , Just "Struct6_Deref")
+        , ("struct struct6"  , Just "Struct6_Aux")
         , ("struct8"         , Nothing)
         , ("struct9"         , Nothing)
         , ("struct struct10" , Just "Struct10_t")

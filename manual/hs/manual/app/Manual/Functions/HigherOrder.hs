@@ -42,17 +42,17 @@ examples :: IO ()
 examples = do
     section "Callbacks (Passing Haskell functions to C callbacks)"
 
-    withToFunPtr (FileOpenedNotification_Deref $ putStrLn "")
+    withToFunPtr (FileOpenedNotification_Aux $ putStrLn "")
                  (onFileOpened . FileOpenedNotification)
 
     putStrLn ""
     withToFunPtr
-        (ProgressUpdate_Deref $ \progress -> putStrLn $ "Progress: " ++ show progress ++ "%")
+        (ProgressUpdate_Aux $ \progress -> putStrLn $ "Progress: " ++ show progress ++ "%")
         (onProgressChanged . ProgressUpdate)
 
     putStrLn ""
     withToFunPtr
-      (DataValidator_Deref $ \value -> do
+      (DataValidator_Aux $ \value -> do
         putStrLn $ "Validating: " ++ show value
         return $ if value > 0 then 1 else 0)
       $ (\validator -> do
@@ -63,7 +63,7 @@ examples = do
 
     putStrLn ""
     withToFunPtr
-      (MeasurementReceived_Deref $ peek >=> print)
+      (MeasurementReceived_Aux $ peek >=> print)
       (onNewMeasurement . MeasurementReceived)
 
     putStrLn ""
@@ -104,7 +104,7 @@ examples = do
                 ++ ", priority=" ++ show priority
         if un_FileOpenedNotification notify /= F.nullFunPtr
           then do
-            let (FileOpenedNotification_Deref notifyFn) = fromFunPtr (un_FileOpenedNotification notify)
+            let (FileOpenedNotification_Aux notifyFn) = fromFunPtr (un_FileOpenedNotification notify)
             notifyFn
           else putStrLn "  (Notification callback was NULL)"
 

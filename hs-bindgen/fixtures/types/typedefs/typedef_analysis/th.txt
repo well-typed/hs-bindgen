@@ -141,8 +141,8 @@ instance HasCField Struct5_t "un_Struct5_t"
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
-data Struct6_Deref
-    = Struct6_Deref {}
+data Struct6_Aux
+    = Struct6_Aux {}
       {- ^ __C declaration:__ @struct struct6@
 
            __defined at:__ @types\/typedefs\/typedef_analysis.h:25:16@
@@ -150,24 +150,24 @@ data Struct6_Deref
            __exported by:__ @types\/typedefs\/typedef_analysis.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Struct6_Deref
+instance Storable Struct6_Aux
     where sizeOf = \_ -> 0 :: Int
           alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> pure Struct6_Deref
+          peek = \ptr_0 -> pure Struct6_Aux
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct6_Deref -> return ()
-instance Prim Struct6_Deref
+                                   Struct6_Aux -> return ()
+instance Prim Struct6_Aux
     where sizeOf# = \_ -> 0# :: Int#
           alignment# = \_ -> 1# :: Int#
-          indexByteArray# = \arr_0 -> \i_1 -> Struct6_Deref
-          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct6_Deref #)
+          indexByteArray# = \arr_0 -> \i_1 -> Struct6_Aux
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, Struct6_Aux #)
           writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
-                                                                   Struct6_Deref -> s_8
-          indexOffAddr# = \addr_9 -> \i_10 -> Struct6_Deref
+                                                                   Struct6_Aux -> s_8
+          indexOffAddr# = \addr_9 -> \i_10 -> Struct6_Aux
           readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13,
-                                                          Struct6_Deref #)
+                                                          Struct6_Aux #)
           writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
-                                                                      Struct6_Deref -> s_17
+                                                                      Struct6_Aux -> s_17
 {-| __C declaration:__ @struct6@
 
     __defined at:__ @types\/typedefs\/typedef_analysis.h:25:28@
@@ -175,7 +175,7 @@ instance Prim Struct6_Deref
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
 newtype Struct6
-    = Struct6 {un_Struct6 :: (Ptr Struct6_Deref)}
+    = Struct6 {un_Struct6 :: (Ptr Struct6_Aux)}
       {- ^ __C declaration:__ @struct6@
 
            __defined at:__ @types\/typedefs\/typedef_analysis.h:25:28@
@@ -188,7 +188,7 @@ instance TyEq ty (CFieldType Struct6 "un_Struct6") =>
          HasField "un_Struct6" (Ptr Struct6) (Ptr ty)
     where getField = ptrToCField (Proxy @"un_Struct6")
 instance HasCField Struct6 "un_Struct6"
-    where type CFieldType Struct6 "un_Struct6" = Ptr Struct6_Deref
+    where type CFieldType Struct6 "un_Struct6" = Ptr Struct6_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct7@
 
@@ -571,7 +571,7 @@ data Use_sites
 
                       __exported by:__ @types\/typedefs\/typedef_analysis.h@
                  -},
-                 use_sites_useStruct_struct6 :: Struct6_Deref
+                 use_sites_useStruct_struct6 :: Struct6_Aux
                  {- ^ __C declaration:__ @useStruct_struct6@
 
                       __defined at:__ @types\/typedefs\/typedef_analysis.h:82:18@
@@ -735,7 +735,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct5_t")
 instance HasCField Use_sites "use_sites_useStruct_struct6"
     where type CFieldType Use_sites
-                          "use_sites_useStruct_struct6" = Struct6_Deref
+                          "use_sites_useStruct_struct6" = Struct6_Aux
           offset# = \_ -> \_ -> 24
 instance TyEq ty
               (CFieldType Use_sites "use_sites_useStruct_struct6") =>

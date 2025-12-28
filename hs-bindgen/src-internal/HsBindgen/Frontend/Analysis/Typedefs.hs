@@ -166,10 +166,8 @@ typedefOfTagged typedefInfo payload useSites
       , conclude payload.id $ Rename (UseNameOf typedefInfo.id)
       ]
 
-    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1427>
-    -- Use "_Aux" instead.
   | shouldRename
-  = conclude payload.id $ Rename (AddSuffix "_Deref")
+  = conclude payload.id $ Rename (AddSuffix "_Aux")
 
   | otherwise
   = mempty

@@ -36,7 +36,7 @@ ctypes:
   hsname: Struct5_t
 - headers: types/typedefs/typedef_analysis.h
   cname: struct struct6
-  hsname: Struct6_Deref
+  hsname: Struct6_Aux
 - headers: types/typedefs/typedef_analysis.h
   cname: struct6
   hsname: Struct6
@@ -195,10 +195,10 @@ hstypes:
   - Ord
   - Show
   - Storable
-- hsname: Struct6_Deref
+- hsname: Struct6_Aux
   representation:
     record:
-      constructor: Struct6_Deref
+      constructor: Struct6_Aux
       fields: []
   instances:
   - Eq

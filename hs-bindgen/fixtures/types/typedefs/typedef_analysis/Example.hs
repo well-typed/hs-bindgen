@@ -242,34 +242,34 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct5_t "un_Struct5_t" where
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
-data Struct6_Deref = Struct6_Deref
+data Struct6_Aux = Struct6_Aux
   {}
   deriving stock (Eq, Show)
 
-instance F.Storable Struct6_Deref where
+instance F.Storable Struct6_Aux where
 
   sizeOf = \_ -> (0 :: Int)
 
   alignment = \_ -> (1 :: Int)
 
-  peek = \ptr0 -> pure Struct6_Deref
+  peek = \ptr0 -> pure Struct6_Aux
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Struct6_Deref -> return ()
+          Struct6_Aux -> return ()
 
-instance Data.Primitive.Types.Prim Struct6_Deref where
+instance Data.Primitive.Types.Prim Struct6_Aux where
 
   sizeOf# = \_ -> (0#)
 
   alignment# = \_ -> (1#)
 
-  indexByteArray# = \arr0 -> \i1 -> Struct6_Deref
+  indexByteArray# = \arr0 -> \i1 -> Struct6_Aux
 
   readByteArray# =
-    \arr0 -> \i1 -> \s2 -> (# s2, Struct6_Deref #)
+    \arr0 -> \i1 -> \s2 -> (# s2, Struct6_Aux #)
 
   writeByteArray# =
     \arr0 ->
@@ -277,12 +277,12 @@ instance Data.Primitive.Types.Prim Struct6_Deref where
         \struct2 ->
           \s3 ->
             case struct2 of
-              Struct6_Deref -> s3
+              Struct6_Aux -> s3
 
-  indexOffAddr# = \addr0 -> \i1 -> Struct6_Deref
+  indexOffAddr# = \addr0 -> \i1 -> Struct6_Aux
 
   readOffAddr# =
-    \addr0 -> \i1 -> \s2 -> (# s2, Struct6_Deref #)
+    \addr0 -> \i1 -> \s2 -> (# s2, Struct6_Aux #)
 
   writeOffAddr# =
     \addr0 ->
@@ -290,7 +290,7 @@ instance Data.Primitive.Types.Prim Struct6_Deref where
         \struct2 ->
           \s3 ->
             case struct2 of
-              Struct6_Deref -> s3
+              Struct6_Aux -> s3
 
 {-| __C declaration:__ @struct6@
 
@@ -299,7 +299,7 @@ instance Data.Primitive.Types.Prim Struct6_Deref where
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
 newtype Struct6 = Struct6
-  { un_Struct6 :: Ptr.Ptr Struct6_Deref
+  { un_Struct6 :: Ptr.Ptr Struct6_Aux
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable, HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
@@ -313,7 +313,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct6) "un_Struct6
 instance HsBindgen.Runtime.HasCField.HasCField Struct6 "un_Struct6" where
 
   type CFieldType Struct6 "un_Struct6" =
-    Ptr.Ptr Struct6_Deref
+    Ptr.Ptr Struct6_Aux
 
   offset# = \_ -> \_ -> 0
 
@@ -849,7 +849,7 @@ data Use_sites = Use_sites
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
-  , use_sites_useStruct_struct6 :: Struct6_Deref
+  , use_sites_useStruct_struct6 :: Struct6_Aux
     {- ^ __C declaration:__ @useStruct_struct6@
 
          __defined at:__ @types\/typedefs\/typedef_analysis.h:82:18@
@@ -1087,7 +1087,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Use_sites) "use_site
 instance HsBindgen.Runtime.HasCField.HasCField Use_sites "use_sites_useStruct_struct6" where
 
   type CFieldType Use_sites "use_sites_useStruct_struct6" =
-    Struct6_Deref
+    Struct6_Aux
 
   offset# = \_ -> \_ -> 24
 

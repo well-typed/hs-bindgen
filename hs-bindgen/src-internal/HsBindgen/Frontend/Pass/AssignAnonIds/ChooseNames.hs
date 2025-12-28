@@ -91,16 +91,11 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
     -- Fortunately, clang does not assign a name to the struct in this situation
     -- (or rather, it assigns a name such as "(unnamed struct at ..)", so we can
     -- detect this case.
-    --
-    -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1427>
-    -- This should not really be called @_Deref@, but maybe something like
-    -- @_Aux@: it's not just pointer dereferencing, but also other uses. (Here
-    -- as well as in 'HandleTypedefs').
     nameForTypedefIndirect :: AnonId -> DeclId -> DeclId
     nameForTypedefIndirect anonId typedef = DeclId{
           isAnon = True
         , name   = C.DeclName{
-              text = typedef.name.text <> "_" <> "Deref"
+              text = typedef.name.text <> "_Aux"
             , kind = anonId.kind
             }
         }
