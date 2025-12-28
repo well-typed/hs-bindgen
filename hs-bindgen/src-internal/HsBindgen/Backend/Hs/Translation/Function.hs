@@ -116,7 +116,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
 
     cWrapperName :: UniqueSymbol
     cWrapperName =
-        globallyUnique opts.translationUniqueId moduleName $
+        globallyUnique opts.uniqueId moduleName $
           concat [
               show safety
             , "_"

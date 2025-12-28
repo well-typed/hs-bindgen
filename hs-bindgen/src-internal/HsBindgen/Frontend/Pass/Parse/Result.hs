@@ -1,6 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Results from the parser proper
 module HsBindgen.Frontend.Pass.Parse.Result (
     ParseResult(..)

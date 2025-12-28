@@ -1,6 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Declaration index
 --
 -- Intended for qualified import.

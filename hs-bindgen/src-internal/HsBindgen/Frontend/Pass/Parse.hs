@@ -1,7 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoNamedFieldPuns  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Parse the clang AST
 module HsBindgen.Frontend.Pass.Parse (
     parseDecls

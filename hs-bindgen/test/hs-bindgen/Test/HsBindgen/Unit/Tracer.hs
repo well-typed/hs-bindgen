@@ -187,10 +187,12 @@ instance Arbitrary Level where
 instance CoArbitrary Level
 instance Function Level
 
-newtype ConstCustomLogLevel = ConstCustomLogLevel {
-    unConstCustomLogLevel :: (CustomLogLevel Level TestTrace)
-  }
-  -- deriving (Semigroup, Monoid) via (CustomLogLevel Level TestTrace)
+newtype ConstCustomLogLevel = ConstCustomLogLevel (
+    CustomLogLevel Level TestTrace
+  )
+
+unConstCustomLogLevel :: ConstCustomLogLevel -> CustomLogLevel Level TestTrace
+unConstCustomLogLevel (ConstCustomLogLevel x) = x
 
 instance Show ConstCustomLogLevel where
   show (ConstCustomLogLevel (CustomLogLevel f)) =

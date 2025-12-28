@@ -1,6 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Low-level translation of the C header to a Haskell module
 module HsBindgen.Backend.Hs.Translation (
     generateDeclarations
@@ -221,8 +218,8 @@ structDecs :: forall n.
   -> Vec n (C.StructField Final)
   -> HsM [Hs.Decl]
 structDecs opts haddockConfig info struct spec fields = do
-    (insts, decls) <- aux <$> State.gets State.instanceMap
-    State.modifyInstanceMap' $ Map.insert structName insts
+    (insts, decls) <- aux <$> State.gets (.instanceMap)
+    State.modify' $ #instanceMap %~ Map.insert structName insts
     pure decls
   where
     structName :: Hs.Name Hs.NsTypeConstr
@@ -238,7 +235,7 @@ structDecs opts haddockConfig info struct spec fields = do
 
     candidateInsts :: Set Hs.TypeClass
     candidateInsts = Set.union (Set.fromList [Hs.Storable, Hs.Prim]) $
-      Set.fromList (snd <$> translationDeriveStruct opts)
+        Set.fromList (snd <$> opts.deriveStruct)
 
     -- everything in aux is state-dependent
     aux :: Hs.InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
@@ -260,9 +257,9 @@ structDecs opts haddockConfig info struct spec fields = do
             , instances = insts
             , comment   = mkHaddocks haddockConfig info structName
             , origin    = Just Origin.Decl{
-                  declInfo = info
-                , declKind = Origin.Struct struct
-                , declSpec = spec
+                  info = info
+                , kind = Origin.Struct struct
+                , spec = spec
                 }
             }
 
@@ -298,7 +295,7 @@ structDecs opts haddockConfig info struct spec fields = do
               , name     = structName
               , comment  = Nothing
               }
-          | (strat, clss) <- translationDeriveStruct opts
+          | (strat, clss) <- opts.deriveStruct
           , clss `Set.member` insts
           ]
 
@@ -417,7 +414,7 @@ opaqueDecs ::
   -> PrescriptiveDeclSpec
   -> HsM [Hs.Decl]
 opaqueDecs haddockConfig info spec = do
-    State.modifyInstanceMap' $ Map.insert name Set.empty
+    State.modify' $ #instanceMap %~ Map.insert name Set.empty
     return [decl]
   where
     name :: Hs.Name Hs.NsTypeConstr
@@ -428,9 +425,9 @@ opaqueDecs haddockConfig info spec = do
           name   = name
         , comment = mkHaddocks haddockConfig info name
         , origin = Origin.Decl{
-              declInfo = info
-            , declKind = Origin.Opaque info.id.cName.name.kind
-            , declSpec = spec
+              info = info
+            , kind = Origin.Opaque info.id.cName.name.kind
+            , spec = spec
             }
         }
 
@@ -469,9 +466,9 @@ unionDecs haddockConfig info union spec = do
 
         newtypeOrigin :: Origin.Decl Origin.Newtype
         newtypeOrigin =  Origin.Decl {
-              declInfo = info
-            , declKind = Origin.Union union
-            , declSpec = spec
+              info = info
+            , kind = Origin.Union union
+            , spec = spec
             }
 
         newtypeComment :: Maybe HsDoc.Comment
@@ -517,33 +514,38 @@ unionDecs haddockConfig info union spec = do
         -- TODO: Should the name mangler take care of the "get" and "set" prefixes?
         getAccessorDecls :: C.UnionField Final -> [Hs.Decl]
         getAccessorDecls field =
-          let hsType = Type.topLevel field.typ
-              fInsts = Hs.getInstances
-                          (State.instanceMap transState) (Just nt.name)
-                          (Set.singleton Hs.Storable) [hsType]
-              getterName = Hs.unsafeHsIdHsName $ "get_" <> field.info.name.hsName
-              setterName = Hs.unsafeHsIdHsName $ "set_" <> field.info.name.hsName
-              commentRefName name = Just $ HsDoc.paragraph [
-                  HsDoc.Bold [HsDoc.TextContent "See:"]
-                , HsDoc.Identifier name
+            if Hs.Storable `Set.notMember` fInsts
+              then []
+              else [
+                  Hs.DeclUnionGetter Hs.UnionGetter{
+                      name    = getterName
+                    , typ     = hsType
+                    , constr  = nt.name
+                    , comment = mkHaddocksFieldInfo haddockConfig info field.info
+                             <> commentRefName (Hs.getName setterName)
+                    }
+                , Hs.DeclUnionSetter Hs.UnionSetter{
+                      name    = setterName
+                    , typ     = hsType
+                    , constr  = nt.name
+                    , comment = commentRefName (Hs.getName getterName)
+                    }
                 ]
-          in  if Hs.Storable `Set.notMember` fInsts
-                then []
-                else [
-                    Hs.DeclUnionGetter Hs.UnionGetter{
-                        name    = getterName
-                      , typ     = hsType
-                      , constr  = nt.name
-                      , comment = mkHaddocksFieldInfo haddockConfig info field.info
-                               <> commentRefName (Hs.getName setterName)
-                      }
-                  , Hs.DeclUnionSetter Hs.UnionSetter{
-                        name    = setterName
-                      , typ     = hsType
-                      , constr  = nt.name
-                      , comment = commentRefName (Hs.getName getterName)
-                      }
-                  ]
+          where
+            hsType     = Type.topLevel field.typ
+            fInsts     = Hs.getInstances
+                            transState.instanceMap
+                            (Just nt.name)
+                            (Set.singleton Hs.Storable)
+                            [hsType]
+            getterName = Hs.unsafeHsIdHsName $ "get_" <> field.info.name.hsName
+            setterName = Hs.unsafeHsIdHsName $ "set_" <> field.info.name.hsName
+
+            commentRefName :: Text -> Maybe HsDoc.Comment
+            commentRefName name = Just $ HsDoc.paragraph [
+                HsDoc.Bold [HsDoc.TextContent "See:"]
+              , HsDoc.Identifier name
+              ]
 
 -- | 'HasCField' and 'HasField' instances for a field of a
 -- union declaration
@@ -665,9 +667,9 @@ enumDecs opts haddockConfig info enum spec = do
 
         newtypeOrigin :: Origin.Decl Origin.Newtype
         newtypeOrigin = Origin.Decl{
-              declInfo = info
-            , declKind = Origin.Enum enum
-            , declSpec = spec
+              info = info
+            , kind = Origin.Enum enum
+            , spec = spec
             }
 
         newtypeComment :: Maybe HsDoc.Comment
@@ -678,7 +680,7 @@ enumDecs opts haddockConfig info enum spec = do
 
         knownInsts :: Set Hs.TypeClass
         knownInsts = Set.union (Set.fromList [Hs.Show, Hs.Read, Hs.Storable, Hs.HasBaseForeignType]) $
-          Set.fromList (snd <$> translationDeriveEnum opts)
+            Set.fromList (snd <$> opts.deriveEnum)
 
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
@@ -727,7 +729,7 @@ enumDecs opts haddockConfig info enum spec = do
               , strategy = strat
               , comment  = Nothing
               }
-          | (strat, clss) <- translationDeriveEnum opts
+          | (strat, clss) <- opts.deriveEnum
           ]
 
         valueDecls :: [Hs.Decl]
@@ -821,9 +823,9 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
 
         newtypeOrigin :: Origin.Decl Origin.Newtype
         newtypeOrigin =  Origin.Decl{
-              declInfo = info
-            , declKind = mkNewtypeOrigin typedef
-            , declSpec = spec
+              info = info
+            , kind = mkNewtypeOrigin typedef
+            , spec = spec
             }
 
         newtypeComment :: Maybe HsDoc.Comment
@@ -833,7 +835,7 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
         candidateInsts = Set.unions
                       [ Set.singleton Hs.Storable
                       , Set.singleton Hs.HasBaseForeignType
-                      , Set.fromList (snd <$> translationDeriveTypedef opts)
+                      , Set.fromList (snd <$> opts.deriveTypedef)
                       ]
 
         knownInsts :: Set Hs.TypeClass
@@ -874,7 +876,7 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
               , name     = nt.name
               , comment  = Nothing
               }
-          | (strat, clss) <- translationDeriveTypedef opts
+          | (strat, clss) <- opts.deriveTypedef
           , clss `Set.member` nt.instances
           ]
 
@@ -1093,9 +1095,9 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
 
         newtypeOrigin :: Origin.Decl Origin.Newtype
         newtypeOrigin = Origin.Decl {
-              declInfo = info
-            , declKind = Origin.Macro macroType
-            , declSpec = spec
+              info = info
+            , kind = Origin.Macro macroType
+            , spec = spec
             }
 
         newtypeComment :: Maybe HsDoc.Comment
@@ -1105,7 +1107,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
         candidateInsts = Set.unions [
             Set.singleton Hs.Storable
           , Set.singleton Hs.HasBaseForeignType
-          , Set.fromList (snd <$> translationDeriveTypedef opts)
+          , Set.fromList (snd <$> opts.deriveTypedef)
           ]
 
         knownInsts :: Set Hs.TypeClass
@@ -1134,7 +1136,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
               , name     = nt.name
               , comment  = Nothing
               }
-          | (strat, clss) <- translationDeriveTypedef opts
+          | (strat, clss) <- opts.deriveTypedef
           , clss `Set.member` nt.instances
           ]
 
@@ -1308,7 +1310,7 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
 
     stubSymbol :: UniqueSymbol
     stubSymbol =
-        globallyUnique opts.translationUniqueId moduleName $
+        globallyUnique opts.uniqueId moduleName $
           "get_" ++ varName
 
     stubName :: Hs.Name Hs.NsVar
@@ -1377,9 +1379,7 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
     name = info.id.hsName.text
 
     uniquify :: Text -> UniqueSymbol
-    uniquify =
-      globallyUnique opts.translationUniqueId moduleName
-      . Text.unpack
+    uniquify = globallyUnique opts.uniqueId moduleName . Text.unpack
 
     runnerName = case runnerNameSpec of
         HaskellId      -> Hs.ExportedName (Hs.UnsafeExportedName name)

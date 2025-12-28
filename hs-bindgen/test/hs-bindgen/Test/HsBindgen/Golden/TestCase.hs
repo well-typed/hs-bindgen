@@ -1,7 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoNamedFieldPuns  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Configuring individual test cases (examples)
 --
 -- Intended for unqualified import.

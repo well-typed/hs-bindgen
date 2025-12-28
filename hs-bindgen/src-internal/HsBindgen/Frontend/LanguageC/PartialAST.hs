@@ -1,6 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Partial AST
 --
 -- The translation from the language-c AST to our AST is a bit awkward, because

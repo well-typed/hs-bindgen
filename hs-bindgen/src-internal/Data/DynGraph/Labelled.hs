@@ -1,7 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoNamedFieldPuns  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 module Data.DynGraph.Labelled (
     -- * Type
     DynGraph

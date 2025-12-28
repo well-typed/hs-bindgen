@@ -1,6 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | A fork of @tasty-golden" with additional features
 --
 -- New features:

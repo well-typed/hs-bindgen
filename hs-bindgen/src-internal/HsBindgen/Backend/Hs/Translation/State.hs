@@ -3,10 +3,6 @@ module HsBindgen.Backend.Hs.Translation.State (
   , runHsM
   , TranslationState(..)
   , emptyTranslationState
-  , modifyInstanceMap
-  , modifyInstanceMap'
-  , modifyNewtypeMap
-  , modifyNewtypeMap'
   ) where
 
 import Control.Monad.State.Lazy
@@ -14,6 +10,7 @@ import Data.Map.Strict qualified as Map
 
 import HsBindgen.Backend.Hs.Translation.Instances
 import HsBindgen.Backend.Hs.Translation.Type
+import HsBindgen.Imports
 
 newtype HsM a = HsM (State TranslationState a)
   deriving newtype (Functor, Applicative, Monad)
@@ -23,37 +20,10 @@ runHsM :: HsM a -> a
 runHsM (HsM m) = evalState m emptyTranslationState
 
 data TranslationState = TranslationState {
-    instanceMap :: InstanceMap
-  , newtypeMap :: NewtypeMap
-  }
+      instanceMap :: InstanceMap
+    , newtypeMap  :: NewtypeMap
+    }
+  deriving stock (Generic)
 
 emptyTranslationState :: TranslationState
 emptyTranslationState = TranslationState Map.empty Map.empty
-
-modifyInstanceMap ::
-     MonadState TranslationState m
-  => (InstanceMap -> InstanceMap)
-  -> m ()
-modifyInstanceMap f = modify $ \s ->
-    s { instanceMap = f (instanceMap s) }
-
-modifyInstanceMap' ::
-     MonadState TranslationState m
-  => (InstanceMap -> InstanceMap)
-  -> m ()
-modifyInstanceMap' f = modify' $ \s ->
-    s { instanceMap = f (instanceMap s) }
-
-modifyNewtypeMap ::
-     MonadState TranslationState m
-  => (NewtypeMap -> NewtypeMap)
-  -> m ()
-modifyNewtypeMap f = modify $ \s ->
-    s { newtypeMap = f (newtypeMap s) }
-
-modifyNewtypeMap' ::
-     MonadState TranslationState m
-  => (NewtypeMap -> NewtypeMap)
-  -> m ()
-modifyNewtypeMap' f = modify' $ \s ->
-    s { newtypeMap = f (newtypeMap s) }

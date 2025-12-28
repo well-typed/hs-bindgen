@@ -1,7 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoNamedFieldPuns  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Calling conventions
 --
 -- Intended for unqualified import.

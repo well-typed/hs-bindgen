@@ -1,7 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoNamedFieldPuns  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Utilities for writing @tasty@ tests
 --
 -- Intended for unqualified import.

@@ -1,7 +1,4 @@
-{-# LANGUAGE CPP               #-}
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoNamedFieldPuns  #-}
-{-# LANGUAGE NoRecordWildCards #-}
+{-# LANGUAGE CPP #-}
 
 module HsBindgen.Clang.BuiltinIncDir (
     -- * Types

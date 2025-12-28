@@ -1,9 +1,9 @@
 module HsBindgen.Cache (
     Cached(..)
+  , getCached
   , cacheWith
   , CacheMsg(..)
-  )
-where
+  ) where
 
 import Control.Concurrent (MVar, modifyMVar, newMVar)
 import Control.Monad.IO.Class
@@ -13,8 +13,11 @@ import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Util.Tracer
 
-newtype Cached a = Cached {  getCached :: IO a }
+newtype Cached a = Cached (IO a)
   deriving newtype (Functor, Applicative, Monad, MonadIO)
+
+getCached :: Cached a -> IO a
+getCached (Cached ma) = ma
 
 -- | Cache a computation with a name.
 --

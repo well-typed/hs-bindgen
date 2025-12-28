@@ -1,6 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 module HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (
     ResolveBindingSpecs
   , PrescriptiveDeclSpec(..)

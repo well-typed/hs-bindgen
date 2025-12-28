@@ -19,16 +19,14 @@ module HsBindgen.Backend.Hs.Haddock.Documentation (
   , monospace
   ) where
 
-import Data.Semigroup (First (..))
-import Data.Text (Text)
-import GHC.Generics (Generic)
-import GHC.Natural (Natural)
+import Data.Semigroup qualified as Semigroup
 
 import Clang.HighLevel.Types
 
 import HsBindgen.Backend.Hs.AST.Type (HsType)
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.AST.Decl qualified as C
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Definition
@@ -38,49 +36,51 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 --
 data Comment = Comment {
     -- | Comment title
-    commentTitle :: Maybe [CommentInlineContent]
+    title :: Maybe [CommentInlineContent]
 
     -- | Original C name reference
-  , commentOrigin :: Maybe Text
+  , origin :: Maybe Text
 
     -- | The source location of the original C name reference
-  , commentLocation :: Maybe SingleLoc
+  , location :: Maybe SingleLoc
 
     -- | Header information
-  , commentHeaderInfo :: Maybe C.HeaderInfo
+  , headerInfo :: Maybe C.HeaderInfo
 
     -- | Unique symbol used to generate this binding
-  , commentUnique :: Maybe UniqueSymbol
+  , unique :: Maybe UniqueSymbol
 
     -- | | Comment content
-  , commentChildren :: [CommentBlockContent]
+  , children :: [CommentBlockContent]
   }
   deriving (Show, Eq, Generic)
 
 instance Semigroup Comment where
   a <> b = Comment {
-        commentTitle      = combine commentTitle      (<>)
-      , commentOrigin     = combine commentOrigin     first
-      , commentLocation   = combine commentLocation   first
-      , commentHeaderInfo = combine commentHeaderInfo first
-      , commentUnique     = combine commentUnique     first
-      , commentChildren   = combine commentChildren   (<>)
+        title      = combine (.title)      (<>)
+      , origin     = combine (.origin)     getFirst
+      , location   = combine (.location)   getFirst
+      , headerInfo = combine (.headerInfo) getFirst
+      , unique     = combine (.unique)     getFirst
+      , children   = combine (.children)   (<>)
       }
     where
       combine :: (Comment -> a) -> (a -> a -> a) -> a
       combine f op = f a `op` f b
 
-      first :: Maybe a -> Maybe a -> Maybe a
-      first x y = fmap getFirst (fmap First x <> fmap First y)
+      getFirst :: Maybe a -> Maybe a -> Maybe a
+      getFirst x y =
+          Semigroup.getFirst <$>
+            (Semigroup.First <$> x) <> (Semigroup.First <$> y)
 
 instance Monoid Comment where
   mempty = Comment {
-        commentTitle      = Nothing
-      , commentOrigin     = Nothing
-      , commentLocation   = Nothing
-      , commentHeaderInfo = Nothing
-      , commentUnique     = Nothing
-      , commentChildren   = []
+        title      = Nothing
+      , origin     = Nothing
+      , location   = Nothing
+      , headerInfo = Nothing
+      , unique     = Nothing
+      , children   = []
       }
 
 -- | Block-level Haddock content
@@ -193,15 +193,15 @@ data CommentMeta
 
 -- | Title only
 title :: [CommentInlineContent] -> Comment
-title content = mempty{commentTitle = Just content }
+title content = mempty & #title .~ Just content
 
 -- | Content only
 simple :: [CommentBlockContent] -> Comment
-simple content = mempty{commentChildren = content}
+simple content = mempty & #children .~ content
 
 -- | Just record a unique symbol
 uniqueSymbol :: UniqueSymbol -> Comment
-uniqueSymbol unique = mempty{commentUnique = Just unique}
+uniqueSymbol unique = mempty & #unique .~ Just unique
 
 -- | Single paragraph comment
 paragraph :: [CommentInlineContent] -> Comment

@@ -1,6 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 -- | Test resources (for integration with tasty)
 --
 -- Intended for unqualified import.
@@ -100,10 +97,8 @@ getTestDefaultClangArgsConfig testResources extraIncludeDirs' =
 
 getTestDefaultBackendConfig :: TestName -> PathStyle -> BackendConfig
 getTestDefaultBackendConfig testName pathStyle = def{
-      translation = def {
-          -- Honor 'maxUniqueIdLength'.
-          translationUniqueId = UniqueId $ take 35 $ "test." <> testName
-        }
+      -- Honor 'maxUniqueIdLength'.
+      translation = def & #uniqueId .~ UniqueId (take 35 $ "test." <> testName)
     , haddock = HaddockConfig pathStyle
     }
 

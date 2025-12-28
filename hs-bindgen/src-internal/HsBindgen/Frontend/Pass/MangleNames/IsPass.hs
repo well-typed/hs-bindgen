@@ -1,6 +1,3 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-
 module HsBindgen.Frontend.Pass.MangleNames.IsPass (
     MangleNames
     -- * Additional names

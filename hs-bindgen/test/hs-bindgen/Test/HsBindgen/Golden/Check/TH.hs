@@ -1,7 +1,4 @@
 {-# LANGUAGE CPP                   #-}
-{-# LANGUAGE NoFieldSelectors      #-}
-{-# LANGUAGE NoNamedFieldPuns      #-}
-{-# LANGUAGE NoRecordWildCards     #-}
 {-# LANGUAGE TemplateHaskellQuotes #-}
 
 -- | Golden test: TH output

@@ -1,7 +1,4 @@
-{-# LANGUAGE NoFieldSelectors  #-}
-{-# LANGUAGE NoNamedFieldPuns  #-}
-{-# LANGUAGE NoRecordWildCards #-}
-{-# LANGUAGE CPP               #-}
+{-# LANGUAGE CPP #-}
 
 -- | Simple pretty-printing library
 --

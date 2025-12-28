@@ -46,6 +46,7 @@ common lang
     FunctionalDependencies
     LambdaCase
     MultiWayIf
+    NoFieldSelectors
     OverloadedLabels
     OverloadedRecordDot
     OverloadedStrings
