@@ -84,7 +84,7 @@ clangAstDump opts = do
           =<< resolveHeaders tracerResolve cArgs (Set.singleton opts.file)
       let setup :: ClangSetup
           setup = (defaultClangSetup cArgs $ ClangInputFile src) {
-                clangFlags = cOpts
+                flags = cOpts
               }
 
       maybe (throwIO ClangError) return <=< withClang tracerClang setup $ \unit -> Just <$> do

@@ -180,15 +180,15 @@ newtype ABindingSpecVersion = ABindingSpecVersion {
 instance Aeson.FromJSON ABindingSpecVersion where
   parseJSON = Aeson.withObject "file" $ \o -> do
     aVersion <- o .: "version"
-    return ABindingSpecVersion{aVersion}
+    return $ ABindingSpecVersion aVersion
 
 instance Aeson.ToJSON ABindingSpecVersion where
-  toJSON ABindingSpecVersion{aVersion} = Aeson.object [
+  toJSON (ABindingSpecVersion aVersion) = Aeson.object [
       "version" .= aVersion
     ]
 
 -- | Parse just the version information
 getAVersion :: Aeson.Value -> Either String AVersion
 getAVersion value = case Aeson.fromJSON value of
-    Aeson.Success ABindingSpecVersion{aVersion} -> Right aVersion
-    Aeson.Error   err                           -> Left  err
+    Aeson.Success (ABindingSpecVersion aVersion) -> Right aVersion
+    Aeson.Error   err                            -> Left  err

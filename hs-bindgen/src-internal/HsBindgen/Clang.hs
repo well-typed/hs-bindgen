@@ -32,10 +32,10 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data ClangSetup = ClangSetup{
-      clangArgs        :: ClangArgs
-    , clangDiagnostics :: DisplayDiagnostics
-    , clangInput       :: ClangInput
-    , clangFlags       :: BitfieldEnum CXTranslationUnit_Flags
+      args        :: ClangArgs
+    , diagnostics :: DisplayDiagnostics
+    , input       :: ClangInput
+    , flags       :: BitfieldEnum CXTranslationUnit_Flags
     }
   deriving stock (Show, Eq)
 
@@ -48,11 +48,11 @@ data ClangInput =
   deriving stock (Show, Eq)
 
 defaultClangSetup :: ClangArgs -> ClangInput -> ClangSetup
-defaultClangSetup clangArgs clangInput = ClangSetup{
-      clangArgs
-    , clangDiagnostics = DontDisplayDiagnostics
-    , clangInput
-    , clangFlags = bitfieldEnum [CXTranslationUnit_DetailedPreprocessingRecord]
+defaultClangSetup args input = ClangSetup{
+      args        = args
+    , diagnostics = DontDisplayDiagnostics
+    , input       = input
+    , flags       = bitfieldEnum [CXTranslationUnit_DetailedPreprocessingRecord]
     }
 
 -- | Call clang to parse with the specified 'ClangSetup'
@@ -95,31 +95,24 @@ withClang' :: forall a.
   -> IO (Maybe a)
 withClang' tracer setup k = do
     traceWith tracer $ ClangSetupMsg setup
-    HighLevel.withIndex clangDiagnostics $ \index -> do
+    HighLevel.withIndex setup.diagnostics $ \index -> do
       let withUnit :: SourcePath -> [CXUnsavedFile] -> IO (Maybe a)
           withUnit path unsaved =
              HighLevel.withTranslationUnit2
                index
                (Just path)
-               clangArgs
+               setup.args
                unsaved
-               clangFlags
+               setup.flags
                onErrorCode
                k
-      case clangInput of
+      case setup.input of
         ClangInputFile path ->
           withUnit path []
         ClangInputMemory path contents -> do
           HighLevel.withUnsavedFile path contents $ \file  ->
             withUnit (SourcePath $ Text.pack path) [file]
   where
-    ClangSetup{
-        clangArgs
-      , clangDiagnostics
-      , clangInput
-      , clangFlags
-      } = setup
-
     onErrorCode :: SimpleEnum CXErrorCode -> IO (Maybe a)
     onErrorCode err = do
         traceWith tracer $ ClangErrorCode err

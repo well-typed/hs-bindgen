@@ -247,7 +247,7 @@ instance IsString DeclName where
         Nothing   -> panicPure $ "invalid DeclName: " ++ show str
 
 mapDeclNameText :: (Text -> Text) -> DeclName -> DeclName
-mapDeclNameText f DeclName{text, kind} = DeclName{text = f text, kind}
+mapDeclNameText f name = DeclName{text = f name.text, kind = name.kind}
 
 -- | User-facing syntax for 'DeclName'
 renderDeclName :: DeclName -> Text

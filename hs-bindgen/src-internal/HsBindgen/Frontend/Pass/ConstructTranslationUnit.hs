@@ -40,9 +40,9 @@ mkDeclMeta ::
   -> IncludeGraph
   -> DeclMeta
 mkDeclMeta parseResults includeGraph = DeclMeta{
-      declIndex
-    , declUseGraph
-    , useDeclGraph
+      declIndex    = declIndex
+    , declUseGraph = declUseGraph
+    , useDeclGraph = useDeclGraph
     }
   where
     declIndex :: DeclIndex

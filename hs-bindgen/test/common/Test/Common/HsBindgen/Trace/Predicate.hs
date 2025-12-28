@@ -96,13 +96,13 @@ customTracePredicateAux :: forall b a.
   -> (a -> Maybe (TraceExpectation b))
   -> TracePredicate a
 customTracePredicateAux names mpredicate = TracePredicate $ \traces -> do
-  let (unexpectedTraces, actualCounts) =
+  let (unexpected, actualCounts) =
         Foldable.foldl' checkTrace ([], Map.empty) traces
       checkTrace (ts, counts) trace = case predicate trace of
         Expected name -> (ts        , Map.insertWith (<>) name [trace] counts)
         Tolerated     -> (ts        , counts            )
         Unexpected    -> (trace : ts, counts            )
-  if null unexpectedTraces && expectedCounts == Map.map length actualCounts
+  if null unexpected && expectedCounts == Map.map length actualCounts
     then pure ()
     else
       let additionalCounts = actualCounts `Map.difference` expectedCounts
@@ -114,10 +114,9 @@ customTracePredicateAux names mpredicate = TracePredicate $ \traces -> do
                         , let actual = fromMaybe [] (name `Map.lookup` actualCounts)
                         , length actual /= expected
                         ]
-          expectedTracesWithWrongCounts = wrongCounts ++ additionalWrongCounts
        in throwError $ TraceExpectationException {
-              unexpectedTraces
-            , expectedTracesWithWrongCounts
+              unexpectedTraces = unexpected
+            , wrongCounts      = wrongCounts ++ additionalWrongCounts
             }
   where
     defaultTracePredicateSimple :: a -> TraceExpectation b
@@ -195,8 +194,8 @@ withTraceConfigPredicate report (TracePredicate predicate) action = do
 -------------------------------------------------------------------------------}
 
 data TraceExpectationException a = TraceExpectationException {
-      unexpectedTraces              :: [a]
-    , expectedTracesWithWrongCounts :: [CtxDoc]
+      unexpectedTraces :: [a]
+    , wrongCounts      :: [CtxDoc]
     }
 
 instance (IsTrace l a, Show a) => Show (TraceExpectationException a) where
@@ -208,10 +207,10 @@ instance (IsTrace l a, Show a) => Show (TraceExpectationException a) where
                   : map reportTrace e.unexpectedTraces
                   ++ ["\n"]
            )
-        ++ ( if null e.expectedTracesWithWrongCounts
+        ++ ( if null e.wrongCounts
                then []
                else "Expected traces with wrong counts:"
-                  : e.expectedTracesWithWrongCounts
+                  : e.wrongCounts
                   ++ ["\n"]
            )
 

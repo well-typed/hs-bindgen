@@ -53,11 +53,11 @@ matchDiagnosticSpelling :: Text -> TraceMsg -> Maybe Text
 matchDiagnosticSpelling text = \case
     TraceFrontend (
         FrontendClang (
-            ClangDiagnostic Diagnostic{diagnosticSpelling}
+            ClangDiagnostic diag
           )
       ) ->
-      if text `Text.isInfixOf` diagnosticSpelling
-        then Just diagnosticSpelling
+      if text `Text.isInfixOf` diag.diagnosticSpelling
+        then Just diag.diagnosticSpelling
         else Nothing
     _otherwise ->
       Nothing

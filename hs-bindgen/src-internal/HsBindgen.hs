@@ -251,25 +251,27 @@ writeByCategory ::
   -> BaseModuleName
   -> ByCategory_ (Maybe String)
   -> Artefact ()
-writeByCategory
-  fileOverwritePolicy outputDirPolicy what outputDir moduleBaseName =
+writeByCategory filePolicy dirPolicy what dir moduleBaseName =
     sequence_ . mapWithCategory_ writeCategory
   where
     writeCategory :: Category -> Maybe String -> Artefact ()
     writeCategory _    Nothing   = pure ()
     writeCategory cat (Just str) =
-        write fileOverwritePolicy whatWithCategory location str
+        write filePolicy whatWithCategory location str
       where
         localPath :: FilePath
-        localPath = Hs.moduleNamePath $ fromBaseModuleName moduleBaseName (Just cat)
+        localPath = Hs.moduleNamePath $
+            fromBaseModuleName moduleBaseName (Just cat)
 
         whatWithCategory :: String
         whatWithCategory = what ++ " (" ++ show cat ++ ")"
 
         location :: FileLocation
-        location =
-          RelativeFileLocation $
-            RelativeToOutputDir {outputDir, localPath, outputDirPolicy}
+        location = RelativeFileLocation RelativeToOutputDir{
+              outputDir       = dir
+            , localPath       = localPath
+            , outputDirPolicy = dirPolicy
+            }
 
 nullDecls :: ([a], [b]) -> Bool
 nullDecls (xs, ys) = null xs && null ys

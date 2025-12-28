@@ -415,16 +415,20 @@ parseMacro name tokens  = state     $ \st ->
         )
       Left errType ->
         case CExpr.DSL.runParser CExpr.DSL.parseExpr tokens of
-          Right CExpr.DSL.Macro{macroName, macroArgs, macroBody} ->
-            Vec.reifyList macroArgs $ \args -> do
-              case CExpr.DSL.tcMacro st.macroEnv macroName args macroBody of
+          Right CExpr.DSL.Macro{
+                    macroName = name'
+                  , macroArgs = args
+                  , macroBody = body
+                  } ->
+            Vec.reifyList args $ \args' -> do
+              case CExpr.DSL.tcMacro st.macroEnv name' args' body of
                 Right inf -> (
                     Right $ MacroExpr $ CheckedMacroExpr{
-                        args = macroArgs
-                      , body = macroBody
+                        args = args
+                      , body = body
                       , typ  = dropEval inf
                       }
-                  , st & #macroEnv %~ Map.insert macroName inf
+                  , st & #macroEnv %~ Map.insert name' inf
                   )
                 Left errTc -> (Left $ HandleMacrosErrorTc errTc, st)
           Left errExpr ->
@@ -433,7 +437,7 @@ parseMacro name tokens  = state     $ \st ->
     updateReparseEnv :: LanC.ReparseEnv -> LanC.ReparseEnv
     updateReparseEnv =
         Map.insert name.text $
-          C.TypeRef $ DeclId{name, isAnon = False}
+          C.TypeRef $ DeclId{name = name, isAnon = False}
 
     dropEval ::
          CExpr.DSL.Quant (CExpr.DSL.FunValue, CExpr.DSL.Type 'CExpr.DSL.Ty)
