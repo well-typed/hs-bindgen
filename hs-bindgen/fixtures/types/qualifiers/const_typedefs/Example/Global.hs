@@ -7,7 +7,6 @@ module Example.Global where
 
 import qualified Foreign as F
 import qualified GHC.IO.Unsafe
-import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.Prelude
 import Example
@@ -179,120 +178,176 @@ e =
 
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ti@
 foreign import ccall unsafe "hs_bindgen_da8e11a66011da3a" hs_bindgen_da8e11a66011da3a ::
-     IO (Ptr.Ptr TI)
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr TI)
 
-{-# NOINLINE ti #-}
+{-# NOINLINE hs_bindgen_d7dd4362406f73a6 #-}
 {-| __C declaration:__ @ti@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h:25:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_ti@
 -}
-ti :: Ptr.Ptr TI
-ti =
+hs_bindgen_d7dd4362406f73a6 :: HsBindgen.Runtime.ConstPtr.ConstPtr TI
+hs_bindgen_d7dd4362406f73a6 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_da8e11a66011da3a
+
+{-# NOINLINE ti #-}
+ti :: TI
+ti =
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_d7dd4362406f73a6))
 
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ts@
 foreign import ccall unsafe "hs_bindgen_10a3457a0f6b2036" hs_bindgen_10a3457a0f6b2036 ::
-     IO (Ptr.Ptr TS)
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr TS)
 
-{-# NOINLINE ts #-}
+{-# NOINLINE hs_bindgen_cd3e2d14ae82b6fc #-}
 {-| __C declaration:__ @ts@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h:26:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_ts@
 -}
-ts :: Ptr.Ptr TS
-ts =
+hs_bindgen_cd3e2d14ae82b6fc :: HsBindgen.Runtime.ConstPtr.ConstPtr TS
+hs_bindgen_cd3e2d14ae82b6fc =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_10a3457a0f6b2036
+
+{-# NOINLINE ts #-}
+ts :: TS
+ts =
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_cd3e2d14ae82b6fc))
 
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tu@
 foreign import ccall unsafe "hs_bindgen_ded2bbcd5f7b0513" hs_bindgen_ded2bbcd5f7b0513 ::
-     IO (Ptr.Ptr TU)
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr TU)
 
-{-# NOINLINE tu #-}
+{-# NOINLINE hs_bindgen_2d9684fc851b0766 #-}
 {-| __C declaration:__ @tu@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h:27:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_tu@
 -}
-tu :: Ptr.Ptr TU
-tu =
+hs_bindgen_2d9684fc851b0766 :: HsBindgen.Runtime.ConstPtr.ConstPtr TU
+hs_bindgen_2d9684fc851b0766 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ded2bbcd5f7b0513
+
+{-# NOINLINE tu #-}
+tu :: TU
+tu =
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_2d9684fc851b0766))
 
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_te@
 foreign import ccall unsafe "hs_bindgen_1b4b0fa82bacf9cc" hs_bindgen_1b4b0fa82bacf9cc ::
-     IO (Ptr.Ptr TE)
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr TE)
 
-{-# NOINLINE te #-}
+{-# NOINLINE hs_bindgen_200eaed7c3fb420d #-}
 {-| __C declaration:__ @te@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h:28:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_te@
 -}
-te :: Ptr.Ptr TE
-te =
+hs_bindgen_200eaed7c3fb420d :: HsBindgen.Runtime.ConstPtr.ConstPtr TE
+hs_bindgen_200eaed7c3fb420d =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1b4b0fa82bacf9cc
+
+{-# NOINLINE te #-}
+te :: TE
+te =
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_200eaed7c3fb420d))
 
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tti@
 foreign import ccall unsafe "hs_bindgen_b8067bbfe8dc188e" hs_bindgen_b8067bbfe8dc188e ::
-     IO (Ptr.Ptr TTI)
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr TTI)
 
-{-# NOINLINE tti #-}
+{-# NOINLINE hs_bindgen_1fbea465b2793d07 #-}
 {-| __C declaration:__ @tti@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h:35:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_tti@
 -}
-tti :: Ptr.Ptr TTI
-tti =
+hs_bindgen_1fbea465b2793d07 :: HsBindgen.Runtime.ConstPtr.ConstPtr TTI
+hs_bindgen_1fbea465b2793d07 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b8067bbfe8dc188e
+
+{-# NOINLINE tti #-}
+tti :: TTI
+tti =
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_1fbea465b2793d07))
 
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tts@
 foreign import ccall unsafe "hs_bindgen_6ce6ca09ed64a420" hs_bindgen_6ce6ca09ed64a420 ::
-     IO (Ptr.Ptr TTS)
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr TTS)
 
-{-# NOINLINE tts #-}
+{-# NOINLINE hs_bindgen_f23f17df17b3fe36 #-}
 {-| __C declaration:__ @tts@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h:36:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_tts@
 -}
-tts :: Ptr.Ptr TTS
-tts =
+hs_bindgen_f23f17df17b3fe36 :: HsBindgen.Runtime.ConstPtr.ConstPtr TTS
+hs_bindgen_f23f17df17b3fe36 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6ce6ca09ed64a420
+
+{-# NOINLINE tts #-}
+tts :: TTS
+tts =
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_f23f17df17b3fe36))
 
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ttu@
 foreign import ccall unsafe "hs_bindgen_5d4569e6c5a642c0" hs_bindgen_5d4569e6c5a642c0 ::
-     IO (Ptr.Ptr TTU)
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr TTU)
 
-{-# NOINLINE ttu #-}
+{-# NOINLINE hs_bindgen_45ab2258853f641d #-}
 {-| __C declaration:__ @ttu@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h:37:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_ttu@
 -}
-ttu :: Ptr.Ptr TTU
-ttu =
+hs_bindgen_45ab2258853f641d :: HsBindgen.Runtime.ConstPtr.ConstPtr TTU
+hs_bindgen_45ab2258853f641d =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_5d4569e6c5a642c0
+
+{-# NOINLINE ttu #-}
+ttu :: TTU
+ttu =
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_45ab2258853f641d))
 
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tte@
 foreign import ccall unsafe "hs_bindgen_cb44d6db796abc21" hs_bindgen_cb44d6db796abc21 ::
-     IO (Ptr.Ptr TTE)
+     IO (HsBindgen.Runtime.ConstPtr.ConstPtr TTE)
 
-{-# NOINLINE tte #-}
+{-# NOINLINE hs_bindgen_0956779e634e3dd5 #-}
 {-| __C declaration:__ @tte@
 
     __defined at:__ @types\/qualifiers\/const_typedefs.h:38:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_tte@
 -}
-tte :: Ptr.Ptr TTE
-tte =
+hs_bindgen_0956779e634e3dd5 :: HsBindgen.Runtime.ConstPtr.ConstPtr TTE
+hs_bindgen_0956779e634e3dd5 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_cb44d6db796abc21
+
+{-# NOINLINE tte #-}
+tte :: TTE
+tte =
+  GHC.IO.Unsafe.unsafePerformIO (F.peek (HsBindgen.Runtime.ConstPtr.unConstPtr hs_bindgen_0956779e634e3dd5))
