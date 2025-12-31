@@ -141,6 +141,7 @@ testCases_default = [
     , defaultTest "types/primitives/fixedwidth"
     , defaultTest "types/primitives/primitive_types"
     , defaultTest "types/qualifiers/type_qualifiers"
+    , defaultTest "types/qualifiers/const_typedefs"
     , defaultTest "types/structs/anonymous"
     , defaultTest "types/structs/bitfields"
     , defaultTest "types/structs/circular_dependency_struct"

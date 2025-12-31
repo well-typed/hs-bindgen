@@ -1,0 +1,210 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: Example
+ctypes:
+- headers: types/qualifiers/const_typedefs.h
+  cname: I
+  hsname: I
+- headers: types/qualifiers/const_typedefs.h
+  cname: struct S
+  hsname: S
+- headers: types/qualifiers/const_typedefs.h
+  cname: union U
+  hsname: U
+- headers: types/qualifiers/const_typedefs.h
+  cname: enum E
+  hsname: E
+- headers: types/qualifiers/const_typedefs.h
+  cname: TI
+  hsname: TI
+- headers: types/qualifiers/const_typedefs.h
+  cname: TS
+  hsname: TS
+- headers: types/qualifiers/const_typedefs.h
+  cname: TU
+  hsname: TU
+- headers: types/qualifiers/const_typedefs.h
+  cname: TE
+  hsname: TE
+- headers: types/qualifiers/const_typedefs.h
+  cname: TTI
+  hsname: TTI
+- headers: types/qualifiers/const_typedefs.h
+  cname: TTS
+  hsname: TTS
+- headers: types/qualifiers/const_typedefs.h
+  cname: TTU
+  hsname: TTU
+- headers: types/qualifiers/const_typedefs.h
+  cname: TTE
+  hsname: TTE
+hstypes:
+- hsname: E
+  representation:
+    newtype:
+      constructor: E
+      fields:
+      - un_E
+      ffitype: CUInt
+  instances:
+  - Eq
+  - HasBaseForeignType
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: I
+  representation:
+    newtype:
+      constructor: I
+      fields:
+      - un_I
+      ffitype: CInt
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasBaseForeignType
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: S
+  representation:
+    record:
+      constructor: S
+      fields: []
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable
+- hsname: TE
+  representation:
+    newtype:
+      constructor: TE
+      fields:
+      - un_TE
+      ffitype: CUInt
+  instances:
+  - Eq
+  - HasBaseForeignType
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: TI
+  representation:
+    newtype:
+      constructor: TI
+      fields:
+      - un_TI
+      ffitype: CInt
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasBaseForeignType
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: TS
+  representation:
+    newtype:
+      constructor: TS
+      fields:
+      - un_TS
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable
+- hsname: TTE
+  representation:
+    newtype:
+      constructor: TTE
+      fields:
+      - un_TTE
+      ffitype: CUInt
+  instances:
+  - Eq
+  - HasBaseForeignType
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: TTI
+  representation:
+    newtype:
+      constructor: TTI
+      fields:
+      - un_TTI
+      ffitype: CInt
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasBaseForeignType
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: TTS
+  representation:
+    newtype:
+      constructor: TTS
+      fields:
+      - un_TTS
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable
+- hsname: TTU
+  representation:
+    newtype:
+      constructor: TTU
+      fields:
+      - un_TTU
+  instances:
+  - Storable
+- hsname: TU
+  representation:
+    newtype:
+      constructor: TU
+      fields:
+      - un_TU
+  instances:
+  - Storable
+- hsname: U
+  representation:
+    newtype:
+      constructor: U
+      fields:
+      - un_U
+  instances:
+  - Storable
