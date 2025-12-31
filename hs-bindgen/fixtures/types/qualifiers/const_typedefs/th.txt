@@ -1,0 +1,692 @@
+-- addDependentFile examples/golden/types/qualifiers/const_typedefs.h
+-- #include <types/qualifiers/const_typedefs.h>
+-- /* test_typesqualifiersconst_typedef_Example_get_i */
+-- __attribute__ ((const))
+-- I const *hs_bindgen_bb40525ba9109d7a (void)
+-- {
+--   return &i;
+-- }
+-- /* test_typesqualifiersconst_typedef_Example_get_s */
+-- __attribute__ ((const))
+-- struct S const *hs_bindgen_e02c667254de325e (void)
+-- {
+--   return &s;
+-- }
+-- /* test_typesqualifiersconst_typedef_Example_get_u */
+-- __attribute__ ((const))
+-- union U const *hs_bindgen_db442d4a677f346c (void)
+-- {
+--   return &u;
+-- }
+-- /* test_typesqualifiersconst_typedef_Example_get_e */
+-- __attribute__ ((const))
+-- enum E const *hs_bindgen_f8e0ac7d2c94db95 (void)
+-- {
+--   return &e;
+-- }
+-- /* test_typesqualifiersconst_typedef_Example_get_ti */
+-- __attribute__ ((const))
+-- TI *hs_bindgen_da8e11a66011da3a (void)
+-- {
+--   return &ti;
+-- }
+-- /* test_typesqualifiersconst_typedef_Example_get_ts */
+-- __attribute__ ((const))
+-- TS *hs_bindgen_10a3457a0f6b2036 (void)
+-- {
+--   return &ts;
+-- }
+-- /* test_typesqualifiersconst_typedef_Example_get_tu */
+-- __attribute__ ((const))
+-- TU *hs_bindgen_ded2bbcd5f7b0513 (void)
+-- {
+--   return &tu;
+-- }
+-- /* test_typesqualifiersconst_typedef_Example_get_te */
+-- __attribute__ ((const))
+-- TE *hs_bindgen_1b4b0fa82bacf9cc (void)
+-- {
+--   return &te;
+-- }
+-- /* test_typesqualifiersconst_typedef_Example_get_tti */
+-- __attribute__ ((const))
+-- TTI *hs_bindgen_b8067bbfe8dc188e (void)
+-- {
+--   return &tti;
+-- }
+-- /* test_typesqualifiersconst_typedef_Example_get_tts */
+-- __attribute__ ((const))
+-- TTS *hs_bindgen_6ce6ca09ed64a420 (void)
+-- {
+--   return &tts;
+-- }
+-- /* test_typesqualifiersconst_typedef_Example_get_ttu */
+-- __attribute__ ((const))
+-- TTU *hs_bindgen_5d4569e6c5a642c0 (void)
+-- {
+--   return &ttu;
+-- }
+-- /* test_typesqualifiersconst_typedef_Example_get_tte */
+-- __attribute__ ((const))
+-- TTE *hs_bindgen_cb44d6db796abc21 (void)
+-- {
+--   return &tte;
+-- }
+{-| __C declaration:__ @I@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:10:13@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+-}
+newtype I
+    = I {un_I :: CInt}
+      {- ^ __C declaration:__ @I@
+
+           __defined at:__ @types\/qualifiers\/const_typedefs.h:10:13@
+
+           __exported by:__ @types\/qualifiers\/const_typedefs.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      HasBaseForeignType,
+                      Prim,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty (CFieldType I "un_I") =>
+         HasField "un_I" (Ptr I) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_I")
+instance HasCField I "un_I"
+    where type CFieldType I "un_I" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:11:8@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+-}
+data S
+    = S {}
+      {- ^ __C declaration:__ @struct S@
+
+           __defined at:__ @types\/qualifiers\/const_typedefs.h:11:8@
+
+           __exported by:__ @types\/qualifiers\/const_typedefs.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable S
+    where sizeOf = \_ -> 0 :: Int
+          alignment = \_ -> 1 :: Int
+          peek = \ptr_0 -> pure S
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   S -> return ()
+instance Prim S
+    where sizeOf# = \_ -> 0# :: Int#
+          alignment# = \_ -> 1# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> S
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> (# s_4, S #)
+          writeByteArray# = \arr_5 -> \i_6 -> \struct_7 -> \s_8 -> case struct_7 of
+                                                                   S -> s_8
+          indexOffAddr# = \addr_9 -> \i_10 -> S
+          readOffAddr# = \addr_11 -> \i_12 -> \s_13 -> (# s_13, S #)
+          writeOffAddr# = \addr_14 -> \i_15 -> \struct_16 -> \s_17 -> case struct_16 of
+                                                                      S -> s_17
+{-| __C declaration:__ @union U@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:12:7@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+-}
+newtype U
+    = U {un_U :: ByteArray}
+      {- ^ __C declaration:__ @union U@
+
+           __defined at:__ @types\/qualifiers\/const_typedefs.h:12:7@
+
+           __exported by:__ @types\/qualifiers\/const_typedefs.h@
+      -}
+deriving via (SizedByteArray 0 1) instance Storable U
+deriving via (SizedByteArray 0 1) instance Prim U
+{-| __C declaration:__ @enum E@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:13:6@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+-}
+newtype E
+    = E {un_E :: CUInt}
+      {- ^ __C declaration:__ @enum E@
+
+           __defined at:__ @types\/qualifiers\/const_typedefs.h:13:6@
+
+           __exported by:__ @types\/qualifiers\/const_typedefs.h@
+      -}
+    deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
+instance Storable E
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure E <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   E un_E_3 -> pokeByteOff ptr_1 (0 :: Int) un_E_3
+deriving via CUInt instance Prim E
+instance CEnum E
+    where type CEnumZ E = CUInt
+          toCEnum = E
+          fromCEnum = un_E
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "Foo")]
+          showsUndeclared = showsWrappedUndeclared "E"
+          readPrecUndeclared = readPrecWrappedUndeclared "E"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum E
+    where minDeclaredValue = Foo
+          maxDeclaredValue = Foo
+instance Show E
+    where showsPrec = showsCEnum
+instance Read E
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:13:9@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+-}
+pattern Foo :: E
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:13:9@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+-}
+pattern Foo = E 0
+{-| __C declaration:__ @TI@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:20:17@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+-}
+newtype TI
+    = TI {un_TI :: I}
+      {- ^ __C declaration:__ @TI@
+
+           __defined at:__ @types\/qualifiers\/const_typedefs.h:20:17@
+
+           __exported by:__ @types\/qualifiers\/const_typedefs.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      HasBaseForeignType,
+                      Prim,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty (CFieldType TI "un_TI") =>
+         HasField "un_TI" (Ptr TI) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_TI")
+instance HasCField TI "un_TI"
+    where type CFieldType TI "un_TI" = I
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @TS@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:21:24@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+-}
+newtype TS
+    = TS {un_TS :: S}
+      {- ^ __C declaration:__ @TS@
+
+           __defined at:__ @types\/qualifiers\/const_typedefs.h:21:24@
+
+           __exported by:__ @types\/qualifiers\/const_typedefs.h@
+      -}
+    deriving stock (Eq, Show)
+    deriving newtype (Storable, Prim)
+instance TyEq ty (CFieldType TS "un_TS") =>
+         HasField "un_TS" (Ptr TS) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_TS")
+instance HasCField TS "un_TS"
+    where type CFieldType TS "un_TS" = S
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @TU@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:22:23@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+-}
+newtype TU
+    = TU {un_TU :: U}
+      {- ^ __C declaration:__ @TU@
+
+           __defined at:__ @types\/qualifiers\/const_typedefs.h:22:23@
+
+           __exported by:__ @types\/qualifiers\/const_typedefs.h@
+      -}
+    deriving newtype Storable
+instance TyEq ty (CFieldType TU "un_TU") =>
+         HasField "un_TU" (Ptr TU) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_TU")
+instance HasCField TU "un_TU"
+    where type CFieldType TU "un_TU" = U
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @TE@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:23:22@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+-}
+newtype TE
+    = TE {un_TE :: E}
+      {- ^ __C declaration:__ @TE@
+
+           __defined at:__ @types\/qualifiers\/const_typedefs.h:23:22@
+
+           __exported by:__ @types\/qualifiers\/const_typedefs.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable, HasBaseForeignType)
+instance TyEq ty (CFieldType TE "un_TE") =>
+         HasField "un_TE" (Ptr TE) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_TE")
+instance HasCField TE "un_TE"
+    where type CFieldType TE "un_TE" = E
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @TTI@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:30:12@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+-}
+newtype TTI
+    = TTI {un_TTI :: TI}
+      {- ^ __C declaration:__ @TTI@
+
+           __defined at:__ @types\/qualifiers\/const_typedefs.h:30:12@
+
+           __exported by:__ @types\/qualifiers\/const_typedefs.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      HasBaseForeignType,
+                      Prim,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty (CFieldType TTI "un_TTI") =>
+         HasField "un_TTI" (Ptr TTI) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_TTI")
+instance HasCField TTI "un_TTI"
+    where type CFieldType TTI "un_TTI" = TI
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @TTS@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:31:12@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+-}
+newtype TTS
+    = TTS {un_TTS :: TS}
+      {- ^ __C declaration:__ @TTS@
+
+           __defined at:__ @types\/qualifiers\/const_typedefs.h:31:12@
+
+           __exported by:__ @types\/qualifiers\/const_typedefs.h@
+      -}
+    deriving stock (Eq, Show)
+    deriving newtype (Storable, Prim)
+instance TyEq ty (CFieldType TTS "un_TTS") =>
+         HasField "un_TTS" (Ptr TTS) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_TTS")
+instance HasCField TTS "un_TTS"
+    where type CFieldType TTS "un_TTS" = TS
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @TTU@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:32:12@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+-}
+newtype TTU
+    = TTU {un_TTU :: TU}
+      {- ^ __C declaration:__ @TTU@
+
+           __defined at:__ @types\/qualifiers\/const_typedefs.h:32:12@
+
+           __exported by:__ @types\/qualifiers\/const_typedefs.h@
+      -}
+    deriving newtype Storable
+instance TyEq ty (CFieldType TTU "un_TTU") =>
+         HasField "un_TTU" (Ptr TTU) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_TTU")
+instance HasCField TTU "un_TTU"
+    where type CFieldType TTU "un_TTU" = TU
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @TTE@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:33:12@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+-}
+newtype TTE
+    = TTE {un_TTE :: TE}
+      {- ^ __C declaration:__ @TTE@
+
+           __defined at:__ @types\/qualifiers\/const_typedefs.h:33:12@
+
+           __exported by:__ @types\/qualifiers\/const_typedefs.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable, HasBaseForeignType)
+instance TyEq ty (CFieldType TTE "un_TTE") =>
+         HasField "un_TTE" (Ptr TTE) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_TTE")
+instance HasCField TTE "un_TTE"
+    where type CFieldType TTE "un_TTE" = TE
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_typesqualifiersconst_typedef_Example_get_i@
+foreign import ccall safe "hs_bindgen_bb40525ba9109d7a" hs_bindgen_bb40525ba9109d7a :: IO (ConstPtr I)
+{-# NOINLINE hs_bindgen_8bf2d89ca41997fb #-}
+{-| __C declaration:__ @i@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:15:16@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_i@
+-}
+hs_bindgen_8bf2d89ca41997fb :: ConstPtr I
+{-| __C declaration:__ @i@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:15:16@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_i@
+-}
+hs_bindgen_8bf2d89ca41997fb = unsafePerformIO hs_bindgen_bb40525ba9109d7a
+{-# NOINLINE i #-}
+i :: I
+i = unsafePerformIO (peek (unConstPtr hs_bindgen_8bf2d89ca41997fb))
+-- __unique:__ @test_typesqualifiersconst_typedef_Example_get_s@
+foreign import ccall safe "hs_bindgen_e02c667254de325e" hs_bindgen_e02c667254de325e :: IO (ConstPtr S)
+{-# NOINLINE hs_bindgen_0e876abf0fe9e3b2 #-}
+{-| __C declaration:__ @s@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:16:23@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_s@
+-}
+hs_bindgen_0e876abf0fe9e3b2 :: ConstPtr S
+{-| __C declaration:__ @s@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:16:23@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_s@
+-}
+hs_bindgen_0e876abf0fe9e3b2 = unsafePerformIO hs_bindgen_e02c667254de325e
+{-# NOINLINE s #-}
+s :: S
+s = unsafePerformIO (peek (unConstPtr hs_bindgen_0e876abf0fe9e3b2))
+-- __unique:__ @test_typesqualifiersconst_typedef_Example_get_u@
+foreign import ccall safe "hs_bindgen_db442d4a677f346c" hs_bindgen_db442d4a677f346c :: IO (ConstPtr U)
+{-# NOINLINE hs_bindgen_b7bdf87ddb6b9a5b #-}
+{-| __C declaration:__ @u@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:17:22@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_u@
+-}
+hs_bindgen_b7bdf87ddb6b9a5b :: ConstPtr U
+{-| __C declaration:__ @u@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:17:22@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_u@
+-}
+hs_bindgen_b7bdf87ddb6b9a5b = unsafePerformIO hs_bindgen_db442d4a677f346c
+{-# NOINLINE u #-}
+u :: U
+u = unsafePerformIO (peek (unConstPtr hs_bindgen_b7bdf87ddb6b9a5b))
+-- __unique:__ @test_typesqualifiersconst_typedef_Example_get_e@
+foreign import ccall safe "hs_bindgen_f8e0ac7d2c94db95" hs_bindgen_f8e0ac7d2c94db95 :: IO (ConstPtr E)
+{-# NOINLINE hs_bindgen_fa2424d094d91a33 #-}
+{-| __C declaration:__ @e@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:18:21@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_e@
+-}
+hs_bindgen_fa2424d094d91a33 :: ConstPtr E
+{-| __C declaration:__ @e@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:18:21@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_e@
+-}
+hs_bindgen_fa2424d094d91a33 = unsafePerformIO hs_bindgen_f8e0ac7d2c94db95
+{-# NOINLINE e #-}
+e :: E
+e = unsafePerformIO (peek (unConstPtr hs_bindgen_fa2424d094d91a33))
+-- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ti@
+foreign import ccall safe "hs_bindgen_da8e11a66011da3a" hs_bindgen_da8e11a66011da3a :: IO (ConstPtr TI)
+{-# NOINLINE hs_bindgen_d7dd4362406f73a6 #-}
+{-| __C declaration:__ @ti@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:25:11@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_ti@
+-}
+hs_bindgen_d7dd4362406f73a6 :: ConstPtr TI
+{-| __C declaration:__ @ti@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:25:11@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_ti@
+-}
+hs_bindgen_d7dd4362406f73a6 = unsafePerformIO hs_bindgen_da8e11a66011da3a
+{-# NOINLINE ti #-}
+ti :: TI
+ti = unsafePerformIO (peek (unConstPtr hs_bindgen_d7dd4362406f73a6))
+-- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ts@
+foreign import ccall safe "hs_bindgen_10a3457a0f6b2036" hs_bindgen_10a3457a0f6b2036 :: IO (ConstPtr TS)
+{-# NOINLINE hs_bindgen_cd3e2d14ae82b6fc #-}
+{-| __C declaration:__ @ts@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:26:11@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_ts@
+-}
+hs_bindgen_cd3e2d14ae82b6fc :: ConstPtr TS
+{-| __C declaration:__ @ts@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:26:11@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_ts@
+-}
+hs_bindgen_cd3e2d14ae82b6fc = unsafePerformIO hs_bindgen_10a3457a0f6b2036
+{-# NOINLINE ts #-}
+ts :: TS
+ts = unsafePerformIO (peek (unConstPtr hs_bindgen_cd3e2d14ae82b6fc))
+-- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tu@
+foreign import ccall safe "hs_bindgen_ded2bbcd5f7b0513" hs_bindgen_ded2bbcd5f7b0513 :: IO (ConstPtr TU)
+{-# NOINLINE hs_bindgen_2d9684fc851b0766 #-}
+{-| __C declaration:__ @tu@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:27:11@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_tu@
+-}
+hs_bindgen_2d9684fc851b0766 :: ConstPtr TU
+{-| __C declaration:__ @tu@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:27:11@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_tu@
+-}
+hs_bindgen_2d9684fc851b0766 = unsafePerformIO hs_bindgen_ded2bbcd5f7b0513
+{-# NOINLINE tu #-}
+tu :: TU
+tu = unsafePerformIO (peek (unConstPtr hs_bindgen_2d9684fc851b0766))
+-- __unique:__ @test_typesqualifiersconst_typedef_Example_get_te@
+foreign import ccall safe "hs_bindgen_1b4b0fa82bacf9cc" hs_bindgen_1b4b0fa82bacf9cc :: IO (ConstPtr TE)
+{-# NOINLINE hs_bindgen_200eaed7c3fb420d #-}
+{-| __C declaration:__ @te@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:28:11@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_te@
+-}
+hs_bindgen_200eaed7c3fb420d :: ConstPtr TE
+{-| __C declaration:__ @te@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:28:11@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_te@
+-}
+hs_bindgen_200eaed7c3fb420d = unsafePerformIO hs_bindgen_1b4b0fa82bacf9cc
+{-# NOINLINE te #-}
+te :: TE
+te = unsafePerformIO (peek (unConstPtr hs_bindgen_200eaed7c3fb420d))
+-- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tti@
+foreign import ccall safe "hs_bindgen_b8067bbfe8dc188e" hs_bindgen_b8067bbfe8dc188e :: IO (ConstPtr TTI)
+{-# NOINLINE hs_bindgen_1fbea465b2793d07 #-}
+{-| __C declaration:__ @tti@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:35:12@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_tti@
+-}
+hs_bindgen_1fbea465b2793d07 :: ConstPtr TTI
+{-| __C declaration:__ @tti@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:35:12@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_tti@
+-}
+hs_bindgen_1fbea465b2793d07 = unsafePerformIO hs_bindgen_b8067bbfe8dc188e
+{-# NOINLINE tti #-}
+tti :: TTI
+tti = unsafePerformIO (peek (unConstPtr hs_bindgen_1fbea465b2793d07))
+-- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tts@
+foreign import ccall safe "hs_bindgen_6ce6ca09ed64a420" hs_bindgen_6ce6ca09ed64a420 :: IO (ConstPtr TTS)
+{-# NOINLINE hs_bindgen_f23f17df17b3fe36 #-}
+{-| __C declaration:__ @tts@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:36:12@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_tts@
+-}
+hs_bindgen_f23f17df17b3fe36 :: ConstPtr TTS
+{-| __C declaration:__ @tts@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:36:12@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_tts@
+-}
+hs_bindgen_f23f17df17b3fe36 = unsafePerformIO hs_bindgen_6ce6ca09ed64a420
+{-# NOINLINE tts #-}
+tts :: TTS
+tts = unsafePerformIO (peek (unConstPtr hs_bindgen_f23f17df17b3fe36))
+-- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ttu@
+foreign import ccall safe "hs_bindgen_5d4569e6c5a642c0" hs_bindgen_5d4569e6c5a642c0 :: IO (ConstPtr TTU)
+{-# NOINLINE hs_bindgen_45ab2258853f641d #-}
+{-| __C declaration:__ @ttu@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:37:12@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_ttu@
+-}
+hs_bindgen_45ab2258853f641d :: ConstPtr TTU
+{-| __C declaration:__ @ttu@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:37:12@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_ttu@
+-}
+hs_bindgen_45ab2258853f641d = unsafePerformIO hs_bindgen_5d4569e6c5a642c0
+{-# NOINLINE ttu #-}
+ttu :: TTU
+ttu = unsafePerformIO (peek (unConstPtr hs_bindgen_45ab2258853f641d))
+-- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tte@
+foreign import ccall safe "hs_bindgen_cb44d6db796abc21" hs_bindgen_cb44d6db796abc21 :: IO (ConstPtr TTE)
+{-# NOINLINE hs_bindgen_0956779e634e3dd5 #-}
+{-| __C declaration:__ @tte@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:38:12@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_tte@
+-}
+hs_bindgen_0956779e634e3dd5 :: ConstPtr TTE
+{-| __C declaration:__ @tte@
+
+    __defined at:__ @types\/qualifiers\/const_typedefs.h:38:12@
+
+    __exported by:__ @types\/qualifiers\/const_typedefs.h@
+
+    __unique:__ @test_typesqualifiersconst_typedef_Example_tte@
+-}
+hs_bindgen_0956779e634e3dd5 = unsafePerformIO hs_bindgen_cb44d6db796abc21
+{-# NOINLINE tte #-}
+tte :: TTE
+tte = unsafePerformIO (peek (unConstPtr hs_bindgen_0956779e634e3dd5))

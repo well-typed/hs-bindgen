@@ -78,13 +78,18 @@ cxtype ty = do
 
       kind -> failure $ UnexpectedTypeKind (Right kind)
 
-    isConst <- clang_isConstQualifiedType ty
-    pure $ if isConst
-             then C.TypeQual C.QualConst reifiedType
-             else reifiedType
+    addQualifiers <- qualifiers ty
+    pure $ addQualifiers reifiedType
   where
     failure :: ParseTypeException -> CXType -> ParseType (C.Type Parse)
     failure err _ty = throwError err
+
+qualifiers :: CXType -> ParseType (C.Type Parse -> C.Type Parse)
+qualifiers ty = do
+    isConst <- clang_isConstQualifiedType ty
+    pure $ if isConst
+             then C.TypeQual C.QualConst
+             else id
 
 {-------------------------------------------------------------------------------
   Functions for each kind of type
@@ -134,7 +139,7 @@ fromDecl ty = do
                 Nothing -> do
                   -- Cache miss: parse and cache the result
                   uTy <- handle (addTypedefContextHandler declId) $
-                           cxtype =<< getUnderlyingCXType decl
+                            getUnderlyingCXType decl
                   let result = C.TypeTypedef $ C.TypedefRef declId uTy
                   ParseType.insertCache declName result
                   pure result
@@ -145,13 +150,20 @@ fromDecl ty = do
     typeRef decl kind =
         C.TypeRef <$> PrelimDeclId.atCursor decl (C.NameKindTagged kind)
 
-    getUnderlyingCXType :: MonadIO m => CXCursor -> m CXType
+    getUnderlyingCXType :: CXCursor -> ParseType (C.Type Parse)
     getUnderlyingCXType typedefCurr = do
       uTy  <- clang_getTypedefDeclUnderlyingType typedefCurr
       -- Later versions of Clang use elaborated types, earlier versions do not
       case fromSimpleEnum (cxtKind uTy) of
-        Right CXType_Elaborated -> clang_Type_getNamedType uTy
-        Right{}                 -> return uTy
+        Right CXType_Elaborated -> do
+          -- The named type @refTy@ that is referenced by the underlying type
+          -- might not have the same qualifiers as the underlying type. We add
+          -- them back in using 'qualifiers'. We did not do this in the past,
+          -- leading to bugs, see PR #1488.
+          refTy <- clang_Type_getNamedType uTy
+          addQualifiers <- qualifiers uTy
+          addQualifiers <$> cxtype refTy
+        Right{}                 -> cxtype uTy
         _otherwise              -> panicPure "Invalid underlying type"
 
     addTypedefContextHandler :: PrelimDeclId -> SomeException -> ParseType a
