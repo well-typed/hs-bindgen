@@ -27,10 +27,10 @@ data CWrapper = CWrapper {
   deriving (Show, Generic)
 
 getCWrappersSource :: [CWrapper] -> String
-getCWrappersSource wrappers = unlines $ headers ++ bodies
+getCWrappersSource wrappers = concat headers ++ concat bodies
     where
       getImport :: CWrapper -> String
-      getImport wrapper = "#include <" ++ wrapper.hashIncludeArg.path ++ ">"
+      getImport wrapper = "#include <" ++ wrapper.hashIncludeArg.path ++ ">" ++ "\n"
 
       headers, bodies :: [String]
       -- It is important that we don't include the same header more than once,

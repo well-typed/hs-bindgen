@@ -144,7 +144,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
           (Origin.Function origCFun)
           safety
       where
-        cWrapperDecl :: PC.Decl
+        cWrapperDecl :: PC.FunDefn
         cWrapperDecl =
             getCWrapperDecl
               (T.unpack origName)
@@ -154,7 +154,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
 
         cWrapper :: CWrapper
         cWrapper = CWrapper {
-              definition     = PC.prettyDecl cWrapperDecl ""
+              definition     = PC.prettyFunDefn cWrapperDecl ""
             , hashIncludeArg = getMainHashIncludeArg info
             }
 
@@ -390,22 +390,31 @@ getCWrapperDecl
     -> String       -- ^ C wrapper name
     -> IsPrimitiveType    -- ^ result type
     -> [IsPrimitiveType]  -- ^ parameters
-    -> PC.Decl
+    -> PC.FunDefn
 getCWrapperDecl origName wrapperName res args
     | isVoidType res
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (toPrimitiveType <$> args')
-          [PC.Expr $ PC.Call origName (callArgs args' (PC.argsToIdx args'))]
+        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (toPrimitiveType <$> args') $
+        PC.CSList $
+          PC.CSStatement
+            (PC.ExpressionStatement $ PC.Call origName (callArgs args' (PC.argsToIdx args')))
+            PC.CSNil
 
     | isHeapType res
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (toPrimitiveType <$> (args' :> res))
-          [PC.Assign (PC.LDeRef (PC.LVar IZ)) $ PC.Call origName (callArgs args' (IS <$> PC.argsToIdx args'))]
+        PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (toPrimitiveType <$> (args' :> res)) $
+        PC.CSList $
+          PC.CSStatement
+            (PC.ExpressionStatement $ PC.Assign (PC.LDeRef (PC.LVar IZ)) $ PC.Call origName (callArgs args' (IS <$> PC.argsToIdx args')))
+            PC.CSNil
 
     | otherwise
     = PC.withArgs args $ \args' ->
-        PC.FunDefn wrapperName (toPrimitiveType res) C.ImpureFunction (toPrimitiveType <$> args')
-          [PC.Return $ PC.Call origName (callArgs args' (PC.argsToIdx args'))]
+        PC.FunDefn wrapperName (toPrimitiveType res) C.ImpureFunction (toPrimitiveType <$> args') $
+        PC.CSList $
+          PC.CSStatement
+            (PC.ExpressionStatement $ PC.Return $ PC.Call origName (callArgs args' (PC.argsToIdx args')))
+            PC.CSNil
   where
     callArgs :: Env ctx' IsPrimitiveType -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
     callArgs tys ids = toList (zipWithEnv f tys ids)

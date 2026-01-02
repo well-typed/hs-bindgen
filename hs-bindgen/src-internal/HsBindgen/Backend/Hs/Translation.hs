@@ -1322,14 +1322,17 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
     prettyStub :: String
     prettyStub = concat [
           "/* ", stubSymbol.source, " */\n"
-        , PC.prettyDecl stubDecl ""
+        , PC.prettyFunDefn stubDecl ""
         ]
 
-    stubDecl :: PC.Decl
+    stubDecl :: PC.FunDefn
     stubDecl =
         PC.withArgs [] $ \args' ->
-          PC.FunDefn stubSymbol.unique stubType C.HaskellPureFunction args'
-            [PC.Return $ PC.Address $ PC.NamedVar varName]
+          PC.FunDefn stubSymbol.unique stubType C.HaskellPureFunction args' $
+            PC.CSList $
+            PC.CSStatement
+              (PC.ExpressionStatement $ PC.Return $ PC.Address $ PC.NamedVar varName)
+              PC.CSNil
 
     cWrapper :: CWrapper
     cWrapper = CWrapper {
