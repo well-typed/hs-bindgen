@@ -1,0 +1,146 @@
+-- addDependentFile examples/golden/functions/heap_types/union_const_member.h
+-- #include <functions/heap_types/union_const_member.h>
+-- void hs_bindgen_8a303cd5b4f7787b (
+--   T *arg1,
+--   T *arg2
+-- )
+-- {
+--   *arg2 = fun(*arg1);
+-- }
+-- void hs_bindgen_4e22c71ca196dc5e (
+--   T *arg1,
+--   T *arg2
+-- )
+-- {
+--   *arg2 = fun(*arg1);
+-- }
+-- /* test_functionsheap_typesunion_con_Example_get_fun */
+-- __attribute__ ((const))
+-- T (*hs_bindgen_7e6af500caa71b85 (void)) (
+--   T arg1
+-- )
+-- {
+--   return &fun;
+-- }
+{-| __C declaration:__ @union U@
+
+    __defined at:__ @functions\/heap_types\/union_const_member.h:3:7@
+
+    __exported by:__ @functions\/heap_types\/union_const_member.h@
+-}
+newtype T
+    = T {un_T :: ByteArray}
+      {- ^ __C declaration:__ @union U@
+
+           __defined at:__ @functions\/heap_types\/union_const_member.h:3:7@
+
+           __exported by:__ @functions\/heap_types\/union_const_member.h@
+      -}
+deriving via (SizedByteArray 4 4) instance Storable T
+deriving via (SizedByteArray 4 4) instance Prim T
+{-|
+
+  __See:__ 'set_t_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @functions\/heap_types\/union_const_member.h:4:13@
+
+__exported by:__ @functions\/heap_types\/union_const_member.h@
+-}
+get_t_x :: T -> CInt
+{-|
+
+  __See:__ 'set_t_x'
+
+__C declaration:__ @x@
+
+__defined at:__ @functions\/heap_types\/union_const_member.h:4:13@
+
+__exported by:__ @functions\/heap_types\/union_const_member.h@
+-}
+get_t_x = getUnionPayload
+{-|
+
+  __See:__ 'get_t_x'
+
+-}
+set_t_x :: CInt -> T
+{-|
+
+  __See:__ 'get_t_x'
+
+-}
+set_t_x = setUnionPayload
+instance HasCField T "t_x"
+    where type CFieldType T "t_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType T "t_x") =>
+         HasField "t_x" (Ptr T) (Ptr ty)
+    where getField = ptrToCField (Proxy @"t_x")
+-- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
+foreign import ccall safe "hs_bindgen_8a303cd5b4f7787b" hs_bindgen_8a303cd5b4f7787b :: Ptr T ->
+                                                                                       Ptr T ->
+                                                                                       IO Unit
+{-| Pointer-based API for 'fun'
+-}
+fun_wrapper :: Ptr T -> Ptr T -> IO Unit
+{-| Pointer-based API for 'fun'
+-}
+fun_wrapper = hs_bindgen_8a303cd5b4f7787b
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union_const_member.h:9:3@
+
+    __exported by:__ @functions\/heap_types\/union_const_member.h@
+-}
+fun :: T -> IO T
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union_const_member.h:9:3@
+
+    __exported by:__ @functions\/heap_types\/union_const_member.h@
+-}
+fun = \x_0 -> with x_0 (\y_1 -> allocaAndPeek (\z_2 -> hs_bindgen_8a303cd5b4f7787b y_1 z_2))
+-- __unique:__ @test_functionsheap_typesunion_con_Example_Unsafe_fun@
+foreign import ccall safe "hs_bindgen_4e22c71ca196dc5e" hs_bindgen_4e22c71ca196dc5e :: Ptr T ->
+                                                                                       Ptr T ->
+                                                                                       IO Unit
+{-| Pointer-based API for 'fun'
+-}
+fun_wrapper :: Ptr T -> Ptr T -> IO Unit
+{-| Pointer-based API for 'fun'
+-}
+fun_wrapper = hs_bindgen_4e22c71ca196dc5e
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union_const_member.h:9:3@
+
+    __exported by:__ @functions\/heap_types\/union_const_member.h@
+-}
+fun :: T -> IO T
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union_const_member.h:9:3@
+
+    __exported by:__ @functions\/heap_types\/union_const_member.h@
+-}
+fun = \x_0 -> with x_0 (\y_1 -> allocaAndPeek (\z_2 -> hs_bindgen_4e22c71ca196dc5e y_1 z_2))
+-- __unique:__ @test_functionsheap_typesunion_con_Example_get_fun@
+foreign import ccall safe "hs_bindgen_7e6af500caa71b85" hs_bindgen_7e6af500caa71b85 :: IO (FunPtr (T ->
+                                                                                                   IO T))
+{-# NOINLINE fun #-}
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union_const_member.h:9:3@
+
+    __exported by:__ @functions\/heap_types\/union_const_member.h@
+-}
+fun :: FunPtr (T -> IO T)
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/union_const_member.h:9:3@
+
+    __exported by:__ @functions\/heap_types\/union_const_member.h@
+-}
+fun = unsafePerformIO hs_bindgen_7e6af500caa71b85

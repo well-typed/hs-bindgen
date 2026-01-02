@@ -21,10 +21,16 @@ EOF
 
 # Known failures - these will be skipped unless -f is used
 KNOWN_FAILURES=(
-    edge-cases/iterator          # Makes use of Apple block extension which would require clang (see #913)
-    functions/decls_in_signature # Unusable struct (see #1128)
-    declarations/redeclaration   # Multiple declarations (intentional test case)
-    types/typedefs/typenames     # Multiple declarations (hs-bindgen namespace possible bug/feature)
+    declarations/redeclaration     # Multiple declarations (intentional test case)
+    edge-cases/iterator            # Makes use of Apple block extension which would require clang (see #913)
+    functions/decls_in_signature   # Unusable struct (see #1128)
+    functions/heap_types/struct_const_member  # Issue #1490
+    functions/heap_types/struct_const_typedef # Issue #1490
+    functions/heap_types/struct_const         # Issue #1490
+    functions/heap_types/union_const_member   # Issue #1490
+    functions/heap_types/union_const_typedef  # Issue #1490
+    functions/heap_types/union_const          # Issue #1490
+    types/typedefs/typenames       # Multiple declarations (hs-bindgen namespace possible bug/feature)
 )
 
 # Known fixtures without code - these will be skipped
@@ -51,7 +57,7 @@ KNOWN_EMPTY=(
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=109
+KNOWN_FIXTURES_COUNT=117
 
 # Default options
 JOBS=4
