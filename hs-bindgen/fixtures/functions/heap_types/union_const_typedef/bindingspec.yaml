@@ -1,0 +1,29 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: Example
+ctypes:
+- headers: functions/heap_types/union_const_typedef.h
+  cname: union U
+  hsname: U
+- headers: functions/heap_types/union_const_typedef.h
+  cname: T
+  hsname: T
+hstypes:
+- hsname: T
+  representation:
+    newtype:
+      constructor: T
+      fields:
+      - un_T
+  instances:
+  - Storable
+- hsname: U
+  representation:
+    newtype:
+      constructor: U
+      fields:
+      - un_U
+  instances:
+  - Storable

@@ -1,0 +1,24 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: Example
+ctypes:
+- headers: functions/heap_types/struct.h
+  cname: struct S
+  hsname: T
+- headers: functions/heap_types/struct.h
+  cname: T
+  hsname: T
+hstypes:
+- hsname: T
+  representation:
+    record:
+      constructor: T
+      fields:
+      - t_x
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable

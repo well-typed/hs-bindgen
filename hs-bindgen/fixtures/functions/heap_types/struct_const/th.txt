@@ -1,0 +1,136 @@
+-- addDependentFile examples/golden/functions/heap_types/struct_const.h
+-- #include <functions/heap_types/struct_const.h>
+-- void hs_bindgen_67465eb5641985dc (
+--   T const *arg1,
+--   T const *arg2
+-- )
+-- {
+--   *arg2 = fun(*arg1);
+-- }
+-- void hs_bindgen_4351e21e32969011 (
+--   T const *arg1,
+--   T const *arg2
+-- )
+-- {
+--   *arg2 = fun(*arg1);
+-- }
+-- /* test_functionsheap_typesstruct_co_Example_get_fun */
+-- __attribute__ ((const))
+-- T const (*hs_bindgen_564814e9ac709cad (void)) (
+--   T const arg1
+-- )
+-- {
+--   return &fun;
+-- }
+{-| __C declaration:__ @struct S@
+
+    __defined at:__ @functions\/heap_types\/struct_const.h:3:8@
+
+    __exported by:__ @functions\/heap_types\/struct_const.h@
+-}
+data T
+    = T {t_x :: CInt
+         {- ^ __C declaration:__ @x@
+
+              __defined at:__ @functions\/heap_types\/struct_const.h:4:7@
+
+              __exported by:__ @functions\/heap_types\/struct_const.h@
+         -}}
+      {- ^ __C declaration:__ @struct S@
+
+           __defined at:__ @functions\/heap_types\/struct_const.h:3:8@
+
+           __exported by:__ @functions\/heap_types\/struct_const.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable T
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure T <*> peekCField (Proxy @"t_x") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   T t_x_3 -> pokeCField (Proxy @"t_x") ptr_1 t_x_3
+instance Prim T
+    where sizeOf# = \_ -> 4# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> T (indexByteArray# arr_0 i_1)
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
+                                                     (# s_5, v_6 #) -> (# s_5, T v_6 #)
+          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
+                                                                    T t_x_11 -> writeByteArray# arr_7 i_8 t_x_11 s_10
+          indexOffAddr# = \addr_12 -> \i_13 -> T (indexOffAddr# addr_12 i_13)
+          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
+                                                       (# s_17, v_18 #) -> (# s_17, T v_18 #)
+          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
+                                                                      T t_x_23 -> writeOffAddr# addr_19 i_20 t_x_23 s_22
+instance HasCField T "t_x"
+    where type CFieldType T "t_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType T "t_x") =>
+         HasField "t_x" (Ptr T) (Ptr ty)
+    where getField = ptrToCField (Proxy @"t_x")
+-- __unique:__ @test_functionsheap_typesstruct_co_Example_Safe_fun@
+foreign import ccall safe "hs_bindgen_67465eb5641985dc" hs_bindgen_67465eb5641985dc :: ConstPtr T ->
+                                                                                       ConstPtr T ->
+                                                                                       IO Unit
+{-| Pointer-based API for 'fun'
+-}
+fun_wrapper :: ConstPtr T -> ConstPtr T -> IO Unit
+{-| Pointer-based API for 'fun'
+-}
+fun_wrapper = hs_bindgen_67465eb5641985dc
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/struct_const.h:9:9@
+
+    __exported by:__ @functions\/heap_types\/struct_const.h@
+-}
+fun :: T -> IO T
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/struct_const.h:9:9@
+
+    __exported by:__ @functions\/heap_types\/struct_const.h@
+-}
+fun = \x_0 -> with x_0 (\y_1 -> allocaAndPeek (\z_2 -> hs_bindgen_67465eb5641985dc (ConstPtr y_1) z_2))
+-- __unique:__ @test_functionsheap_typesstruct_co_Example_Unsafe_fun@
+foreign import ccall safe "hs_bindgen_4351e21e32969011" hs_bindgen_4351e21e32969011 :: ConstPtr T ->
+                                                                                       ConstPtr T ->
+                                                                                       IO Unit
+{-| Pointer-based API for 'fun'
+-}
+fun_wrapper :: ConstPtr T -> ConstPtr T -> IO Unit
+{-| Pointer-based API for 'fun'
+-}
+fun_wrapper = hs_bindgen_4351e21e32969011
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/struct_const.h:9:9@
+
+    __exported by:__ @functions\/heap_types\/struct_const.h@
+-}
+fun :: T -> IO T
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/struct_const.h:9:9@
+
+    __exported by:__ @functions\/heap_types\/struct_const.h@
+-}
+fun = \x_0 -> with x_0 (\y_1 -> allocaAndPeek (\z_2 -> hs_bindgen_4351e21e32969011 (ConstPtr y_1) z_2))
+-- __unique:__ @test_functionsheap_typesstruct_co_Example_get_fun@
+foreign import ccall safe "hs_bindgen_564814e9ac709cad" hs_bindgen_564814e9ac709cad :: IO (FunPtr (T ->
+                                                                                                   IO T))
+{-# NOINLINE fun #-}
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/struct_const.h:9:9@
+
+    __exported by:__ @functions\/heap_types\/struct_const.h@
+-}
+fun :: FunPtr (T -> IO T)
+{-| __C declaration:__ @fun@
+
+    __defined at:__ @functions\/heap_types\/struct_const.h:9:9@
+
+    __exported by:__ @functions\/heap_types\/struct_const.h@
+-}
+fun = unsafePerformIO hs_bindgen_564814e9ac709cad
