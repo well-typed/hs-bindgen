@@ -1,5 +1,6 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE TypeApplications #-}
+{-# OPTIONS_GHC -Wno-orphans #-}
 
 module Test.HsBindgen.Runtime.SizedByteArray (tests) where
 
@@ -13,7 +14,8 @@ import Foreign.Marshal.Alloc (allocaBytes)
 import Foreign.Ptr (castPtr)
 import Foreign.Storable (Storable (..))
 import GHC.TypeNats (KnownNat)
-import Test.QuickCheck (Arbitrary (..), Positive (..), Property, Small (..), ioProperty, vectorOf, (===))
+import Test.QuickCheck (Arbitrary (..), Positive (..), Property, Small (..),
+                        ioProperty, vectorOf, (===))
 import Test.QuickCheck.Classes (Laws (..), primLaws)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (testCase, (@?=))
