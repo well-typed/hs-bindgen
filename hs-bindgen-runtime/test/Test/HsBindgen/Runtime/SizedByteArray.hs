@@ -7,17 +7,52 @@ import Data.Array.Byte (ByteArray (..))
 import Data.Primitive.ByteArray qualified as BA
 import Data.Primitive.PrimArray qualified as PA
 import Data.Primitive.Ptr qualified as PP
+import Data.Proxy (Proxy (..))
 import Data.Word (Word32, Word64, Word8)
 import Foreign.Marshal.Alloc (allocaBytes)
 import Foreign.Ptr (castPtr)
 import Foreign.Storable (Storable (..))
 import GHC.TypeNats (KnownNat)
-import Test.QuickCheck (Positive (..), Property, Small (..), ioProperty, (===))
+import Test.QuickCheck (Arbitrary (..), Positive (..), Property, Small (..), ioProperty, vectorOf, (===))
+import Test.QuickCheck.Classes (Laws (..), primLaws)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (testCase, (@?=))
-import Test.Tasty.QuickCheck (testProperty)
+import Test.Tasty.QuickCheck (testProperties, testProperty)
 
 import HsBindgen.Runtime.SizedByteArray (SizedByteArray (..))
+
+{-------------------------------------------------------------------------------
+  Arbitrary instances
+-------------------------------------------------------------------------------}
+
+instance (KnownNat n, KnownNat m) => Arbitrary (SizedByteArray n m) where
+    arbitrary = do
+        let size = sizeOf (undefined :: SizedByteArray n m)
+        bytes <- vectorOf size arbitrary
+        return $ mkSizedByteArray bytes
+
+    shrink sba =
+        let bytes = toBytes sba
+        in [mkSizedByteArray bytes' | bytes' <- shrink bytes]
+
+{-------------------------------------------------------------------------------
+  Helper: Create SizedByteArray from bytes
+-------------------------------------------------------------------------------}
+
+-- Create a SizedByteArray from a list of bytes
+mkSizedByteArray :: forall n m. (KnownNat n, KnownNat m) => [Word8] -> SizedByteArray n m
+mkSizedByteArray bytes =
+    SizedByteArray $ BA.runByteArray $ do
+        let n = sizeOf (undefined :: SizedByteArray n m)
+        arr <- BA.newByteArray n
+        mapM_ (uncurry (BA.writeByteArray arr)) (zip [0..] bytes)
+        return arr
+
+-- Extract bytes from SizedByteArray
+toBytes :: forall n m. (KnownNat n, KnownNat m) => SizedByteArray n m -> [Word8]
+toBytes (SizedByteArray (ByteArray ba)) =
+    let n = sizeOf (undefined :: SizedByteArray n m)
+    in map (\i -> BA.indexByteArray (ByteArray ba) i) [0..n-1]
 
 {-------------------------------------------------------------------------------
   Tests
@@ -45,27 +80,18 @@ tests = testGroup "HsBindgen.Runtime.SizedByteArray" [
               testCase "sizeOf# matches type parameter" test_sizeOf
             , testCase "alignment# matches type parameter" test_alignment
             ]
+        , testGroup "quickcheck-classes primLaws" [
+              testProperties "SizedByteArray 4 4"
+                (lawsProperties (primLaws (Proxy @(SizedByteArray 4 4))))
+            , testProperties "SizedByteArray 8 8"
+                (lawsProperties (primLaws (Proxy @(SizedByteArray 8 8))))
+            , testProperties "SizedByteArray 16 8"
+                (lawsProperties (primLaws (Proxy @(SizedByteArray 16 8))))
+            , testProperties "SizedByteArray 32 16"
+                (lawsProperties (primLaws (Proxy @(SizedByteArray 32 16))))
+            ]
         ]
     ]
-
-{-------------------------------------------------------------------------------
-  Helper: Create SizedByteArray from bytes
--------------------------------------------------------------------------------}
-
--- Create a SizedByteArray from a list of bytes
-mkSizedByteArray :: forall n m. (KnownNat n, KnownNat m) => [Word8] -> SizedByteArray n m
-mkSizedByteArray bytes =
-    SizedByteArray $ BA.runByteArray $ do
-        let n = sizeOf (undefined :: SizedByteArray n m)
-        arr <- BA.newByteArray n
-        mapM_ (uncurry (BA.writeByteArray arr)) (zip [0..] bytes)
-        return arr
-
--- Extract bytes from SizedByteArray
-toBytes :: forall n m. (KnownNat n, KnownNat m) => SizedByteArray n m -> [Word8]
-toBytes (SizedByteArray (ByteArray ba)) =
-    let n = sizeOf (undefined :: SizedByteArray n m)
-    in map (\i -> BA.indexByteArray (ByteArray ba) i) [0..n-1]
 
 {-------------------------------------------------------------------------------
   ByteArray operations tests
