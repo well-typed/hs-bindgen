@@ -167,7 +167,7 @@ approaches, but is less suitable for cross-compilation scenarios where target
 platform information may not be available at compile time.
 
 A minimal demonstration of the literate preprocessor mechanism (independent of
-hs-bindgen) is available [here](../../../examples/preprocessor-example).
+hs-bindgen) is available [here](../../../examples/literate-example).
 
 ### Configuration
 
@@ -227,7 +227,7 @@ When `cabal build` is invoked:
 
 ### Example
 
-See `examples/preprocessor-example/` for a complete example using the Cabal
+See `examples/literate-example/` for a complete example using the Cabal
 preprocessor integration.
 
 ## Template Haskell mode

@@ -1,4 +1,4 @@
-# Preprocessor Example
+# Literate Example
 
 This example demonstrates how to integrate `hs-bindgen` with Cabal's build system using the literate Haskell preprocessor mechanism.
 
@@ -22,7 +22,7 @@ The Template Haskell mode avoids the need for any of these approaches, but is le
 ## Structure
 
 ```
-preprocessor-example/
+literate-example/
 ├── c-lib/
 │   ├── simple.h        -- C header with declarations
 │   ├── simple.c        -- C implementation
@@ -30,14 +30,14 @@ preprocessor-example/
 ├── app/
 │   ├── Main.hs             -- Example executable
 │   └── SimpleBindings.lhs  -- Configuration file (Haskell list of arguments)
-└── preprocessor-example.cabal
+└── literate-example.cabal
 ```
 
 ## How it works
 
 1. The `.cabal` file specifies `hs-bindgen-cli` as the literate Haskell preprocessor:
    ```cabal
-   executable preprocessor-example
+   executable literate-example
      ghc-options:
          -pgmL hs-bindgen-cli
          -optL tool-support
@@ -54,7 +54,7 @@ preprocessor-example/
    ```haskell
    [ "-I", "./c-lib"
    , "--module=SimpleBindings"
-   , "--unique-id", "org.hs-bindgen.preprocessor-example"
+   , "--unique-id", "org.hs-bindgen.literate-example"
    , "--enable-program-slicing"
    , "simple.h"
    ]
@@ -95,7 +95,7 @@ Note: You may need to set `LD_LIBRARY_PATH` (Linux), `DYLD_LIBRARY_PATH` (macOS)
 ## Running
 
 ```bash
-LD_LIBRARY_PATH=c-lib cabal run preprocessor-example
+LD_LIBRARY_PATH=c-lib cabal run literate-example
 ```
 
 ## Notes
