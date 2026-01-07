@@ -140,7 +140,7 @@ data MEnv = MEnv {
 
 data MState = MState {
       traces    :: [Msg ResolveBindingSpecs] -- ^ reverse order
-    , extTypes  :: Map DeclId (C.Type ResolveBindingSpecs)
+    , extTypes  :: Map DeclId (ExtBinding ResolveBindingSpecs)
     , noPTypes  :: Map DeclId [Set SourcePath]
     , omitTypes :: Map DeclId SingleLoc
     }
@@ -157,7 +157,7 @@ initMState pSpec = MState {
 insertTrace :: Msg ResolveBindingSpecs -> MState -> MState
 insertTrace msg = #traces %~ (msg :)
 
-insertExtType :: DeclId -> C.Type ResolveBindingSpecs -> MState -> MState
+insertExtType :: DeclId -> ExtBinding ResolveBindingSpecs -> MState -> MState
 insertExtType cDeclId typ = #extTypes %~ Map.insert cDeclId typ
 
 deleteNoPType :: DeclId -> SourcePath -> MState -> MState
@@ -385,13 +385,17 @@ instance Resolve C.Type where
       C.TypeRef uid -> do
         mResolved <- aux uid
         case mResolved of
-          Just r  -> return r
+          Just r  -> return $ r (C.TypeRef uid)
           Nothing -> return $ C.TypeRef uid
-      C.TypeTypedef (C.TypedefRef uid uTy) -> do
+      C.TypeTypedef (C.Ref uid uTy) -> do
         mResolved <- aux uid
         case mResolved of
-          Just r  -> return r
-          Nothing -> C.TypeTypedef . C.TypedefRef uid <$> resolve ctx uTy
+          Just r  -> do
+            uTy' <- resolve ctx uTy
+            return $ r (C.TypeTypedef (C.Ref uid uTy'))
+          Nothing -> do
+            uTy' <- resolve ctx uTy
+            return $ C.TypeTypedef (C.Ref uid uTy')
 
       -- Recursive cases
       C.TypePointers n t      -> C.TypePointers n <$> resolve ctx t
@@ -405,16 +409,15 @@ instance Resolve C.Type where
       -- Simple cases
       C.TypePrim t         -> return (C.TypePrim t)
       C.TypeVoid           -> return (C.TypeVoid)
-      C.TypeExtBinding ext -> absurd ext
       C.TypeComplex t      -> return (C.TypeComplex t)
     where
-      aux :: DeclId -> M (Maybe (C.Type ResolveBindingSpecs))
+      aux :: DeclId -> M (Maybe (C.Type ResolveBindingSpecs -> C.Type ResolveBindingSpecs))
       aux cDeclId = Reader.ask >>= \env -> State.get >>= \state ->
         -- Check for selected external binding
         case Map.lookup cDeclId state.extTypes of
           Just ty -> do
             State.modify' $ insertTrace (ResolveBindingSpecsExtType ctx cDeclId)
-            return $ Just ty
+            pure $ Just $ \uTy -> C.TypeExtBinding $ C.Ref ty uTy
           Nothing -> do
             -- Check for external binding of type that is unusable.
             case DeclIndex.lookupUnusableLoc cDeclId env.declIndex of
@@ -424,14 +427,13 @@ instance Resolve C.Type where
                       foldMap
                         (IncludeGraph.reaches env.includeGraph . singleLocPath)
                         locs
-                mTy <- fmap C.TypeExtBinding <$>
-                  resolveExtBinding cDeclId declPaths Nothing
+                mTy <- resolveExtBinding cDeclId declPaths Nothing
                 case mTy of
                   Just ty -> do
                     State.modify' $
                         insertTrace (ResolveBindingSpecsExtType ctx cDeclId)
                       . insertExtType cDeclId ty
-                    return (Just ty)
+                    pure $ Just $ \uTy -> C.TypeExtBinding $ C.Ref ty uTy
                   Nothing -> return Nothing
 
 {-------------------------------------------------------------------------------
@@ -462,7 +464,7 @@ resolveExtBinding cDeclId declPaths mMsg = do
                 State.modify' $
                   insertExtType
                     cDeclId
-                    (C.TypeExtBinding resolved)
+                    resolved
                 return (Just resolved)
               Nothing -> do
                 State.modify' $

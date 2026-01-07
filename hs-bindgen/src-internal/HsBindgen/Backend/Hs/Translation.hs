@@ -129,13 +129,14 @@ scanAllFunctionPointerTypes = foldMap $ \decl ->
       fp@(C.TypePointers _n (C.TypeFun args res)) ->
            Set.singleton fp
         <> foldMap scanTypeForFunctionPointers (res : args)
-      C.TypePointers _ t               -> scanTypeForFunctionPointers t
-      C.TypeIncompleteArray  t         -> scanTypeForFunctionPointers t
-      C.TypeConstArray _ t             -> scanTypeForFunctionPointers t
-      C.TypeBlock t                    -> scanTypeForFunctionPointers t
-      C.TypeQual _ t                   -> scanTypeForFunctionPointers t
-      C.TypeTypedef (C.TypedefRef _ t) -> scanTypeForFunctionPointers t
-      _                                -> Set.empty
+      C.TypePointers _ t        -> scanTypeForFunctionPointers t
+      C.TypeIncompleteArray  t  -> scanTypeForFunctionPointers t
+      C.TypeConstArray _ t      -> scanTypeForFunctionPointers t
+      C.TypeBlock t             -> scanTypeForFunctionPointers t
+      C.TypeQual _ t            -> scanTypeForFunctionPointers t
+      -- TODO: remove ref case
+      C.TypeTypedef (C.Ref _ t) -> scanTypeForFunctionPointers t
+      _                         -> Set.empty
 
 -- | Check if a type is defined in the current module
 isDefinedInCurrentModule :: DeclIndex -> C.Type Final -> Bool
@@ -1038,7 +1039,7 @@ typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
     mainTypedef :: C.Typedef Final
     mainTypedef = C.Typedef{
           ann = origNames
-        , typ = C.TypePointers n $ C.TypeTypedef C.TypedefRef{
+        , typ = C.TypePointers n $ C.TypeTypedef $ C.Ref {
               ref        = auxInfo.id
             , underlying = C.TypeFun args res
             }

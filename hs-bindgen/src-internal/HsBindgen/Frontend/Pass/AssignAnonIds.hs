@@ -299,7 +299,10 @@ instance UpdateUseSites C.Type where
       go = \case
           -- Actual modifications
           C.TypeRef     ref     -> C.TypeRef     <$> updateDeclId ref
-          C.TypeTypedef typedef -> C.TypeTypedef <$> updateUseSites typedef
+          C.TypeTypedef (C.Ref n uTy) ->
+            fmap C.TypeTypedef $ C.Ref
+                <$> updateDeclId n
+                <*> updateUseSites uTy
 
           -- Recursive cases
           C.TypePointers n      ty -> C.TypePointers n <$> go ty
@@ -313,13 +316,6 @@ instance UpdateUseSites C.Type where
           C.TypeVoid           -> return $ C.TypeVoid
           C.TypePrim    pt     -> return $ C.TypePrim    pt
           C.TypeComplex pt     -> return $ C.TypeComplex pt
-          C.TypeExtBinding ext -> absurd ext
-
-instance UpdateUseSites C.TypedefRef where
-  updateUseSites (C.TypedefRef n uTy) =
-      C.TypedefRef
-        <$> updateDeclId n
-        <*> updateUseSites uTy
 
 updateDeclId :: PrelimDeclId -> M DeclId
 updateDeclId prelimDeclId = WrapM $ do

@@ -22,16 +22,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "  foo(*arg1);"
   , "}"
   , "void hs_bindgen_a1f0c2d5b21c4309 ("
-  , "  A arg1"
+  , "  A *arg1"
   , ")"
   , "{"
-  , "  bar(arg1);"
+  , "  bar(*arg1);"
   , "}"
   , "void hs_bindgen_ef9455549f6b066c ("
-  , "  B arg1"
+  , "  B *arg1"
   , ")"
   , "{"
-  , "  baz(arg1);"
+  , "  baz(*arg1);"
   , "}"
   ]))
 
@@ -64,8 +64,16 @@ foo =
 
 -- __unique:__ @test_bindingspecsfun_argunion_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_a1f0c2d5b21c4309" hs_bindgen_a1f0c2d5b21c4309 ::
-     M1.A
+     Ptr.Ptr M1.A
   -> IO ()
+
+{-| Pointer-based API for 'bar'
+-}
+bar_wrapper ::
+     Ptr.Ptr M1.A
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+bar_wrapper = hs_bindgen_a1f0c2d5b21c4309
 
 {-| __C declaration:__ @bar@
 
@@ -77,12 +85,22 @@ bar ::
      M1.A
      -- ^ __C declaration:__ @x@
   -> IO ()
-bar = hs_bindgen_a1f0c2d5b21c4309
+bar =
+  \x0 ->
+    F.with x0 (\y1 -> hs_bindgen_a1f0c2d5b21c4309 y1)
 
 -- __unique:__ @test_bindingspecsfun_argunion_Example_Unsafe_baz@
 foreign import ccall unsafe "hs_bindgen_ef9455549f6b066c" hs_bindgen_ef9455549f6b066c ::
-     M2.B
+     Ptr.Ptr M2.B
   -> IO ()
+
+{-| Pointer-based API for 'baz'
+-}
+baz_wrapper ::
+     Ptr.Ptr M2.B
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+baz_wrapper = hs_bindgen_ef9455549f6b066c
 
 {-| __C declaration:__ @baz@
 
@@ -94,4 +112,6 @@ baz ::
      M2.B
      -- ^ __C declaration:__ @x@
   -> IO ()
-baz = hs_bindgen_ef9455549f6b066c
+baz =
+  \x0 ->
+    F.with x0 (\y1 -> hs_bindgen_ef9455549f6b066c y1)

@@ -16,7 +16,6 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
-import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
@@ -224,7 +223,7 @@ mangleDeclId declId = WrapM $ do
     nm <- asks (.nameMap)
     case Map.lookup declId nm of
       Just hsName -> return $ DeclIdPair declId hsName
-      Nothing     -> panicPure $ "Missing declaration: " <> show declId
+      Nothing     -> return $ DeclIdPair declId "do not use"
 
 -- | Search the 'NameMap', when we don't know the name kind
 searchNameMap :: Text -> M (Maybe DeclIdPair)
@@ -560,22 +559,23 @@ instance Mangle C.Type where
       -- Interesting cases
       C.TypeRef declId  -> fmap C.TypeRef $
         mangleDeclId declId
-      C.TypeTypedef (C.TypedefRef declId uTy) -> fmap C.TypeTypedef $
-        C.TypedefRef <$> mangleDeclId declId <*> mangle uTy
+      C.TypeTypedef (C.Ref declId uTy) -> fmap C.TypeTypedef $
+        C.Ref <$> mangleDeclId declId <*> mangle uTy
 
       -- Recursive cases
-      C.TypePointers n typ      -> C.TypePointers n <$> mangle typ
-      C.TypeFun args res        -> C.TypeFun <$> mapM mangle args <*> mangle res
-      C.TypeConstArray n typ    -> C.TypeConstArray n <$> mangle typ
-      C.TypeIncompleteArray typ -> C.TypeIncompleteArray <$> mangle typ
-      C.TypeBlock typ           -> C.TypeBlock <$> mangle typ
-      C.TypeQual qual typ       -> C.TypeQual qual <$> mangle typ
+      C.TypePointers n typ             -> C.TypePointers n <$> mangle typ
+      C.TypeFun args res               -> C.TypeFun <$> mapM mangle args <*> mangle res
+      C.TypeConstArray n typ           -> C.TypeConstArray n <$> mangle typ
+      C.TypeIncompleteArray typ        -> C.TypeIncompleteArray <$> mangle typ
+      C.TypeBlock typ                  -> C.TypeBlock <$> mangle typ
+      C.TypeQual qual typ              -> C.TypeQual qual <$> mangle typ
+      C.TypeExtBinding (C.Ref ext uTy) -> fmap C.TypeExtBinding $
+        C.Ref ext <$> mangle uTy
 
       -- The other entries do not need any name mangling
-      C.TypePrim prim      -> return $ C.TypePrim prim
-      C.TypeVoid           -> return $ C.TypeVoid
-      C.TypeExtBinding ext -> return $ C.TypeExtBinding ext
-      C.TypeComplex prim   -> return $ C.TypeComplex prim
+      C.TypePrim prim                  -> return $ C.TypePrim prim
+      C.TypeVoid                       -> return $ C.TypeVoid
+      C.TypeComplex prim               -> return $ C.TypeComplex prim
 
 {-------------------------------------------------------------------------------
   Internal auxiliary

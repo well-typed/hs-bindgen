@@ -48,7 +48,7 @@ inContext :: HasCallStack => TypeContext -> C.Type Final -> Hs.HsType
 inContext ctx = go ctx
   where
     go :: TypeContext -> C.Type Final -> Hs.HsType
-    go _ (C.TypeTypedef (C.TypedefRef ref _)) =
+    go _ (C.TypeTypedef (C.Ref ref _)) =
         Hs.HsTypRef (Hs.unsafeHsIdHsName ref.hsName)
     go _ (C.TypeRef ref) =
         Hs.HsTypRef (Hs.unsafeHsIdHsName ref.hsName)
@@ -77,7 +77,7 @@ inContext ctx = go ctx
         foldr (\x res -> Hs.HsFun (go FunArg x) res) (Hs.HsIO (go FunRes y)) xs
     go _ (C.TypeBlock ty) =
         HsBlock $ go Top ty
-    go _ (C.TypeExtBinding ext) =
+    go _ (C.TypeExtBinding (C.Ref ext _)) =
         Hs.HsExtBinding ext.hsName ext.cSpec ext.hsSpec
     go c (C.TypeQual C.QualConst ty) =
         go c ty

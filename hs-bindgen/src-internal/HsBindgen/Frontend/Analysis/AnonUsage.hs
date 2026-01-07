@@ -177,7 +177,6 @@ analyseType = go
 
         -- Trivial cases
         C.TypeComplex{}    -> []
-        C.TypeExtBinding{} -> []
         C.TypePrim{}       -> []
         C.TypeTypedef{}    -> []
         C.TypeVoid{}       -> []

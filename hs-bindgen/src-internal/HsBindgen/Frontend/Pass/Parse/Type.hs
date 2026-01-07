@@ -140,7 +140,7 @@ fromDecl ty = do
                   -- Cache miss: parse and cache the result
                   uTy <- handle (addTypedefContextHandler declId) $
                             getUnderlyingCXType decl
-                  let result = C.TypeTypedef $ C.TypedefRef declId uTy
+                  let result = C.TypeTypedef $ C.Ref declId uTy
                   ParseType.insertCache declName result
                   pure result
 
@@ -228,14 +228,13 @@ adjustFunctionTypesToPointers = go False
         C.TypeRef n         -> C.TypeRef n
         C.TypeVoid          -> C.TypeVoid
         C.TypeComplex pt    -> C.TypeComplex pt
-        C.TypeExtBinding eb -> absurd eb
 
         -- Interesting cases
-        C.TypeTypedef (C.TypedefRef n uTy) ->
+        C.TypeTypedef (C.Ref n uTy) ->
           if isCanonicalFunctionType uTy && not ctx then
-            C.TypePointers 1 $ C.TypeTypedef (C.TypedefRef n (go True uTy))
+            C.TypePointers 1 $ C.TypeTypedef (C.Ref n (go True uTy))
           else
-            C.TypeTypedef (C.TypedefRef n (go True uTy))
+            C.TypeTypedef (C.Ref n (go True uTy))
         C.TypeFun args res ->
           let args' = map (go False) args
               res'  = go False res

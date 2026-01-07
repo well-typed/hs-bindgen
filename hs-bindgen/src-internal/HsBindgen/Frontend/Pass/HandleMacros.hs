@@ -262,7 +262,7 @@ processTypedef info typedef = do
     updateEnv :: Text -> LanC.ReparseEnv -> LanC.ReparseEnv
     updateEnv name =
         Map.insert name $
-          C.TypeTypedef $ C.TypedefRef info.id (coercePass typedef.typ)
+          C.TypeTypedef $ C.Ref info.id (coercePass typedef.typ)
 
     withoutReparse :: M (C.Decl HandleMacros)
     withoutReparse = return C.Decl{

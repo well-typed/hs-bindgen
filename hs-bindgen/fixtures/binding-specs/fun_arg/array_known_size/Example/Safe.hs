@@ -8,8 +8,6 @@ module Example.Safe where
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Prelude
-import qualified M1
-import qualified M2
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -21,13 +19,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "  foo(arg1);"
   , "}"
   , "void hs_bindgen_deddac2fc3684c04 ("
-  , "  A arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  bar(arg1);"
   , "}"
   , "void hs_bindgen_045f19f2132ae701 ("
-  , "  B arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  baz(arg1);"
@@ -53,7 +51,7 @@ foo = hs_bindgen_a17ea38966af88ee
 
 -- __unique:__ @test_bindingspecsfun_argarray_kn_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_deddac2fc3684c04" hs_bindgen_deddac2fc3684c04 ::
-     M1.A
+     Ptr.Ptr FC.CInt
   -> IO ()
 
 {-| __C declaration:__ @bar@
@@ -63,14 +61,14 @@ foreign import ccall safe "hs_bindgen_deddac2fc3684c04" hs_bindgen_deddac2fc3684
     __exported by:__ @binding-specs\/fun_arg\/array_known_size.h@
 -}
 bar ::
-     M1.A
+     Ptr.Ptr FC.CInt
      -- ^ __C declaration:__ @x@
   -> IO ()
 bar = hs_bindgen_deddac2fc3684c04
 
 -- __unique:__ @test_bindingspecsfun_argarray_kn_Example_Safe_baz@
 foreign import ccall safe "hs_bindgen_045f19f2132ae701" hs_bindgen_045f19f2132ae701 ::
-     M2.B
+     Ptr.Ptr FC.CInt
   -> IO ()
 
 {-| __C declaration:__ @baz@
@@ -80,7 +78,7 @@ foreign import ccall safe "hs_bindgen_045f19f2132ae701" hs_bindgen_045f19f2132ae
     __exported by:__ @binding-specs\/fun_arg\/array_known_size.h@
 -}
 baz ::
-     M2.B
+     Ptr.Ptr FC.CInt
      -- ^ __C declaration:__ @x@
   -> IO ()
 baz = hs_bindgen_045f19f2132ae701

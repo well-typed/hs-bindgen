@@ -55,7 +55,7 @@ foo = hs_bindgen_2470a43481a1ae0c
 
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_033bdfbf0dd68eb8" hs_bindgen_033bdfbf0dd68eb8 ::
-     Ptr.Ptr M1.A
+     Ptr.FunPtr M1.A
   -> IO ()
 
 {-| __C declaration:__ @bar@
@@ -65,14 +65,14 @@ foreign import ccall safe "hs_bindgen_033bdfbf0dd68eb8" hs_bindgen_033bdfbf0dd68
     __exported by:__ @binding-specs\/fun_arg\/function_pointer.h@
 -}
 bar ::
-     Ptr.Ptr M1.A
+     Ptr.FunPtr M1.A
      -- ^ __C declaration:__ @x@
   -> IO ()
 bar = hs_bindgen_033bdfbf0dd68eb8
 
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_Safe_baz@
 foreign import ccall safe "hs_bindgen_0dacce0627b3582f" hs_bindgen_0dacce0627b3582f ::
-     Ptr.Ptr M2.B
+     Ptr.FunPtr M2.B
   -> IO ()
 
 {-| __C declaration:__ @baz@
@@ -82,7 +82,7 @@ foreign import ccall safe "hs_bindgen_0dacce0627b3582f" hs_bindgen_0dacce0627b35
     __exported by:__ @binding-specs\/fun_arg\/function_pointer.h@
 -}
 baz ::
-     Ptr.Ptr M2.B
+     Ptr.FunPtr M2.B
      -- ^ __C declaration:__ @x@
   -> IO ()
 baz = hs_bindgen_0dacce0627b3582f

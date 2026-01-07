@@ -60,7 +60,7 @@ foo =
 
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_get_bar@
 foreign import ccall unsafe "hs_bindgen_bb54c0055348a008" hs_bindgen_bb54c0055348a008 ::
-     IO (Ptr.FunPtr ((Ptr.Ptr M1.A) -> IO ()))
+     IO (Ptr.FunPtr ((Ptr.FunPtr M1.A) -> IO ()))
 
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
@@ -69,13 +69,13 @@ foreign import ccall unsafe "hs_bindgen_bb54c0055348a008" hs_bindgen_bb54c005534
 
     __exported by:__ @binding-specs\/fun_arg\/function_pointer.h@
 -}
-bar :: Ptr.FunPtr ((Ptr.Ptr M1.A) -> IO ())
+bar :: Ptr.FunPtr ((Ptr.FunPtr M1.A) -> IO ())
 bar =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_bb54c0055348a008
 
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_get_baz@
 foreign import ccall unsafe "hs_bindgen_c69c3ad6f41d95ac" hs_bindgen_c69c3ad6f41d95ac ::
-     IO (Ptr.FunPtr ((Ptr.Ptr M2.B) -> IO ()))
+     IO (Ptr.FunPtr ((Ptr.FunPtr M2.B) -> IO ()))
 
 {-# NOINLINE baz #-}
 {-| __C declaration:__ @baz@
@@ -84,6 +84,6 @@ foreign import ccall unsafe "hs_bindgen_c69c3ad6f41d95ac" hs_bindgen_c69c3ad6f41
 
     __exported by:__ @binding-specs\/fun_arg\/function_pointer.h@
 -}
-baz :: Ptr.FunPtr ((Ptr.Ptr M2.B) -> IO ())
+baz :: Ptr.FunPtr ((Ptr.FunPtr M2.B) -> IO ())
 baz =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c69c3ad6f41d95ac
