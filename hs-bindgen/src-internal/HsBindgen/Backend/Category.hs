@@ -18,6 +18,7 @@ module HsBindgen.Backend.Category (
   , Choice(..)
   , useSafeCategory
   , useUnsafeCategory
+  , useFunPtrCategory
   ) where
 
 import Data.Functor.Const (Const (..))
@@ -179,6 +180,16 @@ useUnsafeCategory = ByCategory {
     , cSafe   = ExcludeCategory
     , cUnsafe = IncludeTermCategory def
     , cFunPtr = ExcludeCategory
+    , cGlobal = IncludeTermCategory def
+    }
+
+-- | Use 'CType', 'CFunPtr', and 'CGlobal'; do not rename declarations.
+useFunPtrCategory :: ByCategory Choice
+useFunPtrCategory = ByCategory {
+      cType   = IncludeTypeCategory
+    , cSafe   = ExcludeCategory
+    , cUnsafe = ExcludeCategory
+    , cFunPtr = IncludeTermCategory def
     , cGlobal = IncludeTermCategory def
     }
 

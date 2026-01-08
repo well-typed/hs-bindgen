@@ -45,6 +45,7 @@ module HsBindgen.TH (
   , Category.RenameTerm(..)
   , Category.useSafeCategory
   , Category.useUnsafeCategory
+  , Category.useFunPtrCategory
 
     -- ** Haddocks
   , Haddock.PathStyle(..)

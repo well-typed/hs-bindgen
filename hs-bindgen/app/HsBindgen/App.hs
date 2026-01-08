@@ -6,6 +6,12 @@ module HsBindgen.App (
     GlobalOpts(..)
   , parseGlobalOpts
 
+    -- * Category selection
+  , CategorySelection(..)
+  , CategoryOptions(..)
+  , parseCategoryOptions
+  , buildCategoryChoice
+
     -- * Argument/option parsers
     -- ** Bindgen configuration
   , Config
@@ -39,6 +45,8 @@ import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
 import HsBindgen
+import HsBindgen.Backend.Category (ByCategory, Choice, useFunPtrCategory,
+                                   useSafeCategory, useUnsafeCategory)
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config
@@ -49,6 +57,41 @@ import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
+
+{-------------------------------------------------------------------------------
+  Category selection
+-------------------------------------------------------------------------------}
+
+-- | Individual category that can be selected
+data CategorySelection = Safe | Unsafe | Pointer
+  deriving (Show, Eq)
+
+-- | Category selection options
+--
+-- Designed to support future combination with renaming
+data CategoryOptions = CategoryOptions {
+    selections :: [CategorySelection]
+  }
+  deriving (Show, Eq)
+
+instance Default CategoryOptions where
+  def = CategoryOptions { selections = [Safe] }
+
+-- | Build 'ByCategory' 'Choice' from category options
+--
+-- For now, only supports single category selection.
+-- Future: support multiple categories with renaming.
+buildCategoryChoice :: CategoryOptions -> Either String (ByCategory Choice)
+buildCategoryChoice opts = case opts.selections of
+  []        -> Right useSafeCategory  -- Default
+  [Safe]    -> Right useSafeCategory
+  [Unsafe]  -> Right useUnsafeCategory
+  [Pointer] -> Right useFunPtrCategory
+  _multiple -> Left $ concat [
+        "Multiple categories not yet supported. "
+      , "Specify exactly one of: safe, unsafe, or pointer. "
+      , "Combination categories with renaming will be added in a future version."
+      ]
 
 {-------------------------------------------------------------------------------
   Global options
@@ -173,6 +216,35 @@ parseConfig = Config
     <*> parseSelectPredicate
     <*> parseProgramSlicing
     <*> parsePathStyle
+
+{-------------------------------------------------------------------------------
+  Category options
+-------------------------------------------------------------------------------}
+
+parseCategoryOptions :: Parser CategoryOptions
+parseCategoryOptions = CategoryOptions <$> many parseCategory
+  where
+    parseCategory :: Parser CategorySelection
+    parseCategory = option readCategory $ mconcat [
+          long "category"
+        , metavar "CHOICE"
+        , help $ concat [
+              "Binding category to generate (safe|unsafe|pointer). "
+            , "Generates a single module file combining the selected category with types and globals. "
+            , "Can be specified multiple times for combinations (future). "
+            , "Default: safe"
+            ]
+        ]
+
+    readCategory :: ReadM CategorySelection
+    readCategory = eitherReader $ \s -> case s of
+      "safe"    -> Right Safe
+      "unsafe"  -> Right Unsafe
+      "pointer" -> Right Pointer
+      _         -> Left $ concat [
+            "Invalid category: " ++ s ++ ". "
+          , "Expected 'safe', 'unsafe', or 'pointer'"
+          ]
 
 {-------------------------------------------------------------------------------
   Binding specifications
