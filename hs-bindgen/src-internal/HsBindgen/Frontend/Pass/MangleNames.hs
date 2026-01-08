@@ -221,19 +221,27 @@ traceMsg msg = WrapM $ modify (msg :)
 mangleDeclId :: DeclId -> M DeclIdPair
 mangleDeclId declId = WrapM $ do
     nm <- asks (.nameMap)
-    case Map.lookup declId nm of
-      Just hsName -> return $ DeclIdPair declId hsName
-      Nothing     -> return $ DeclIdPair declId "do not use"
+    let optId = maybe (optNoIdentifier UnderlyingTypeNotMangled)
+                      optIdentifier
+                      (Map.lookup declId nm)
+    pure $ DeclIdPair declId optId
 
 -- | Search the 'NameMap', when we don't know the name kind
 searchNameMap :: Text -> M (Maybe DeclIdPair)
 searchNameMap name = WrapM $ do
      nm <- asks (.nameMap)
      return $ Foldable.asum [
-         DeclIdPair declId <$> Map.lookup declId nm
+         case may of
+            Nothing -> Nothing
+            Just _ -> Just $ DeclIdPair declId (mkOptId may)
        | kind <- [minBound .. maxBound]
        , let declId = DeclId{name = C.DeclName name kind, isAnon = False}
+       , let may = Map.lookup declId nm
        ]
+  where
+    mkOptId may = maybe (optNoIdentifier UnderlyingTypeNotMangled)
+                        optIdentifier
+                        may
 
 {-------------------------------------------------------------------------------
   Pass 2: apply NameMap
@@ -298,7 +306,7 @@ mangleFieldName info fieldCName =
       mkIdentifier info (Proxy @Hs.NsVar) candidate
   where
     candidate :: Text
-    candidate = info.id.hsName.text <> "_" <> fieldCName.text
+    candidate = info.id.unsafeHsName.text <> "_" <> fieldCName.text
 
 -- | Mangle enum constant name
 --
@@ -334,14 +342,14 @@ mangleArgumentName info argName =
 -- Right now we reuse the name of the type also for the constructor.
 mkStructNames :: C.DeclInfo MangleNames -> RecordNames
 mkStructNames info = RecordNames{
-      constr = Hs.unsafeHsIdHsName info.id.hsName
+      constr = Hs.unsafeHsIdHsName info.id.unsafeHsName
     }
 
 -- | Generic construction of newtype names, given only the type name
 mkNewtypeNames :: C.DeclInfo MangleNames -> NewtypeNames
 mkNewtypeNames info = NewtypeNames{
-      constr = Hs.unsafeHsIdHsName $          info.id.hsName
-    , field  = Hs.unsafeHsIdHsName $ "un_" <> info.id.hsName
+      constr = Hs.unsafeHsIdHsName $          info.id.unsafeHsName
+    , field  = Hs.unsafeHsIdHsName $ "un_" <> info.id.unsafeHsName
     }
 
 -- | Union names

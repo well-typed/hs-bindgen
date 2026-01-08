@@ -105,7 +105,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     origName = info.id.cName.name.text
 
     mangledOrigId :: Hs.Identifier
-    mangledOrigId = info.id.hsName
+    mangledOrigId = info.id.unsafeHsName
 
     mangledOrigName :: Hs.Name Hs.NsVar
     mangledOrigName = Hs.unsafeHsIdHsName mangledOrigId
