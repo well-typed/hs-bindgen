@@ -517,7 +517,7 @@ testCases_bespoke_declarations = [
 test_declarations_declaration_unselected_b :: TestCase
 test_declarations_declaration_unselected_b =
     testTraceMulti "declarations/declaration_unselected_b" declsWithMsgs $ \case
-      MatchSelect name (MatchTransMissing Nothing) ->
+      MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -579,9 +579,9 @@ test_declarations_select_scoping =
           & #selectPredicate .~ BTrue
           )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchSelect name (MatchTransMissing Nothing) ->
+            MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->
               Just $ Expected name
-            MatchSelect name (MatchTransMissing (Just UnusableParseNotAttempted{})) ->
+            MatchSelect name (MatchTransMissing [MatchTransUnusable UnusableParseNotAttempted{}]) ->
               Just $ Expected name
             _otherwise ->
               Nothing
@@ -648,7 +648,7 @@ test_edgeCases_clang_generated_collision =
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name SelectConflict{} ->
               Just $ Expected name
-            MatchSelect _ (MatchTransMissing (Just UnusableConflict{})) ->
+            MatchSelect _ (MatchTransMissing [MatchTransUnusable UnusableConflict{}]) ->
               Just Tolerated
             _otherwise ->
               Nothing
@@ -669,7 +669,7 @@ test_edgeCases_duplicate =
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name SelectConflict{} ->
               Just $ Expected (name, "conflict")
-            MatchSelect name (MatchTransMissing (Just UnusableConflict{})) ->
+            MatchSelect name (MatchTransMissing [MatchTransUnusable UnusableConflict{}]) ->
               Just $ Expected (name, "transitive conflict")
             _otherwise ->
                Nothing
@@ -943,6 +943,7 @@ testCases_bespoke_programAnalysis = [
     , test_programAnalysis_selection_fail_variant_2
     , test_programAnalysis_selection_fail_variant_3
     , test_programAnalysis_selection_foo
+    , test_programAnalysis_selection_merge_traces
     , test_programAnalysis_selection_omit_external_a
     , test_programAnalysis_selection_omit_external_b
     , test_programAnalysis_selection_omit_prescriptive
@@ -1047,7 +1048,7 @@ test_programAnalysis_selection_fail =
     testTraceMulti "program-analysis/selection_fail" declsWithMsgs $ \case
       MatchSelect name SelectParseFailure{} ->
         Just $ Expected name
-      MatchSelect name (MatchTransMissing (Just _unusable)) ->
+      MatchSelect name (MatchTransMissing [MatchTransUnusable _unusable]) ->
         Just $ Expected name
       MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
         Just $ Expected name
@@ -1071,7 +1072,7 @@ test_programAnalysis_selection_fail_variant_1 =
             (BNot $ BIf $ SelectDecl   $ DeclNameMatches "struct Fail")
           )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchSelect name (MatchTransMissing Nothing) ->
+            MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->
               Just $ Expected name
             MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
               Just $ Expected name
@@ -1097,7 +1098,7 @@ test_programAnalysis_selection_fail_variant_2 =
           & #programSlicing .~ EnableProgramSlicing
           )
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-           MatchSelect name (MatchTransMissing (Just _unusable)) ->
+           MatchSelect name (MatchTransMissing [MatchTransUnusable _unusable]) ->
              Just $ Expected name
            MatchSelect name (SelectStatusInfo (Selected SelectionRoot)) ->
              Just $ Expected name
@@ -1143,6 +1144,27 @@ test_programAnalysis_selection_foo =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["f"]
 
+test_programAnalysis_selection_merge_traces :: TestCase
+test_programAnalysis_selection_merge_traces =
+    defaultTest "program-analysis/selection_merge_traces"
+      & #onFrontend .~ ( #selectPredicate .~ predicate )
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name (MatchTransMissing [_, _]) -> Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
+  where
+    predicate :: Boolean SelectPredicate
+    predicate =
+            BAnd
+              (BIf (SelectHeader FromMainHeaders)) $
+            BAnd
+              (BNot (BIf (SelectDecl $ DeclNameMatches "struct X")))
+              (BNot (BIf (SelectDecl $ DeclNameMatches "struct Y")))
+
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["dependsOnXAndY"]
+
 test_programAnalysis_selection_omit_external_a :: TestCase
 test_programAnalysis_selection_omit_external_a =
     defaultTest "program-analysis/selection_omit_external_a"
@@ -1172,7 +1194,7 @@ test_programAnalysis_selection_omit_prescriptive =
     defaultTest "program-analysis/selection_omit_prescriptive"
       & #specPrescriptive .~ Just "examples/golden/program-analysis/selection_omit_prescriptive.yaml"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchSelect name (MatchTransMissing (Just _unusable)) ->
+            MatchSelect name (MatchTransMissing [MatchTransUnusable _unusable]) ->
               Just $ Expected name
             MatchBindingSpec (BindingSpecReadMsg BindingSpecReadAnyTargetNotEnforced{}) ->
               Just $ Tolerated
