@@ -1,3 +1,5 @@
+{-# LANGUAGE NamedFieldPuns #-}
+
 -- | C naming and declaration identifiers
 --
 -- This is such a central module in @hs-bindgen@, it is intended for
@@ -15,13 +17,22 @@ module HsBindgen.Frontend.Naming (
   , parseDeclId
 
     -- * Pairing C names and Haskell names
-  , DeclIdPair(..)
   , ScopedNamePair(..)
+  , DeclIdPair(..)
+  , renameHsName
+  , unsafeHsName
+  , OptIdentifier (..)
+  , optIdentifier
+  , optNoIdentifier
+  , Reason (..)
   ) where
 
 import Data.Text qualified as Text
+import GHC.Records (HasField (..))
+import GHC.Stack (CallStack, callStack, prettyCallStack)
 import Text.SimplePrettyPrint qualified as PP
 
+import HsBindgen.Errors (panicPure)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -87,14 +98,82 @@ instance PrettyForTrace DeclId where
   intended usage (constructor, variable, ..).
 -------------------------------------------------------------------------------}
 
-data DeclIdPair = DeclIdPair{
-      cName  :: DeclId
-    , hsName :: Hs.Identifier
-    }
-  deriving stock (Show, Eq, Ord)
-
 data ScopedNamePair = ScopedNamePair {
       cName  :: C.ScopedName
     , hsName :: Hs.Identifier
     }
   deriving stock (Show, Eq, Ord, Generic)
+
+data DeclIdPair = DeclIdPair {
+      cName :: DeclId
+    , hsName :: OptIdentifier
+    }
+  deriving stock (Show, Eq, Ord)
+
+renameHsName :: (Hs.Identifier -> Hs.Identifier) -> DeclIdPair -> DeclIdPair
+renameHsName f DeclIdPair {cName, hsName} = DeclIdPair {
+      cName
+    , hsName = renameOptIdentifier f hsName
+    }
+
+instance HasField "unsafeHsName" DeclIdPair Hs.Identifier where
+  getField = unsafeHsName
+
+unsafeHsName :: DeclIdPair -> Hs.Identifier
+unsafeHsName DeclIdPair {hsName} =
+      case hsName of
+        NoIdentifier cstack reason ->
+          panicPure $ concat
+            [ prettyReason reason, "\n"
+            , "Call stack:\n"
+            , prettyCallStack cstack
+            ]
+        Identifier x -> x
+
+data OptIdentifier = Identifier Hs.Identifier | NoIdentifier CallStack Reason
+  deriving stock Show
+
+-- | Ignores the 'CallStack' field
+instance Eq OptIdentifier where
+  Identifier x == Identifier y = x == y
+  NoIdentifier _ x == NoIdentifier _ y = x == y
+  _ == _ = False
+
+-- | Ignores the 'CallStack' field
+instance Ord OptIdentifier where
+  Identifier x `compare` Identifier y = x `compare` y
+  Identifier{} `compare` NoIdentifier{} = GT
+  NoIdentifier{} `compare` Identifier{} = LT
+  NoIdentifier _ x `compare` NoIdentifier _ y = x `compare` y
+
+optIdentifier :: Hs.Identifier -> OptIdentifier
+optIdentifier = Identifier
+
+optNoIdentifier :: HasCallStack => Reason -> OptIdentifier
+optNoIdentifier = NoIdentifier callStack
+
+renameOptIdentifier :: (Hs.Identifier -> Hs.Identifier) -> OptIdentifier -> OptIdentifier
+renameOptIdentifier f = \case
+    NoIdentifier cstack reason -> NoIdentifier cstack reason
+    Identifier x -> Identifier (f x)
+
+-- |A Haskell identifier is not available.
+data Reason =
+      -- | The C name of the declaration was not mangled because it only appears
+      -- in an underlying type.
+      --
+      -- Mangling produces Haskell identifiers for the names of C declarations.
+      -- Only the names of declarations that are selected are mangled, but
+      -- references to unselected declarations can still appear in /underlying
+      -- types/. See 'HsBindgen.Frontend.AST.Type.Ref' for info about underlying
+      -- types. Haskell identifiers are not expected to be used in underlying
+      -- types.
+    UnderlyingTypeNotMangled
+  deriving stock (Show, Eq, Ord)
+
+-- | See 'Reason' for more information about the reasons.
+prettyReason :: Reason -> String
+prettyReason reason = "A haskell identifier is not avilable: " <> case reason of
+    UnderlyingTypeNotMangled ->
+      "The C name of the declaration was not mangled because it only appears \
+      \in an underlying type."

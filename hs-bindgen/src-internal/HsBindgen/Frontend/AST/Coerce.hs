@@ -216,27 +216,18 @@ instance (
     , ExtBinding p ~ ExtBinding p'
     ) => CoercePass C.Type p p' where
   coercePass = \case
-      C.TypePrim prim           -> C.TypePrim prim
-      C.TypeRef uid             -> C.TypeRef (goId uid)
-      C.TypeTypedef ref         -> C.TypeTypedef (coercePass ref)
-      C.TypePointers n typ      -> C.TypePointers n (coercePass typ)
-      C.TypeFun args res        -> C.TypeFun (map coercePass args) (coercePass res)
-      C.TypeVoid                -> C.TypeVoid
-      C.TypeConstArray n typ    -> C.TypeConstArray n (coercePass typ)
-      C.TypeIncompleteArray typ -> C.TypeIncompleteArray (coercePass typ)
-      C.TypeExtBinding ext      -> C.TypeExtBinding ext
-      C.TypeBlock typ           -> C.TypeBlock (coercePass typ)
-      C.TypeQual qual typ       -> C.TypeQual qual (coercePass typ)
-      C.TypeComplex prim        -> C.TypeComplex prim
+      C.TypePrim prim                  -> C.TypePrim prim
+      C.TypeRef uid                    -> C.TypeRef (goId uid)
+      C.TypeTypedef (C.Ref tydef uTy)  -> C.TypeTypedef (C.Ref (coercePassId (Proxy @'(p, p')) tydef) (coercePass uTy))
+      C.TypePointers n typ             -> C.TypePointers n (coercePass typ)
+      C.TypeFun args res               -> C.TypeFun (map coercePass args) (coercePass res)
+      C.TypeVoid                       -> C.TypeVoid
+      C.TypeConstArray n typ           -> C.TypeConstArray n (coercePass typ)
+      C.TypeIncompleteArray typ        -> C.TypeIncompleteArray (coercePass typ)
+      C.TypeExtBinding (C.Ref ext uTy) -> C.TypeExtBinding (C.Ref ext (coercePass uTy))
+      C.TypeBlock typ                  -> C.TypeBlock (coercePass typ)
+      C.TypeQual qual typ              -> C.TypeQual qual (coercePass typ)
+      C.TypeComplex prim               -> C.TypeComplex prim
     where
       goId :: Id p -> Id p'
       goId = coercePassId (Proxy @'(p, p'))
-
-instance (
-      CoercePassId p p'
-    , CoercePass C.Type p p'
-    ) => CoercePass C.TypedefRef p p' where
-  coercePass typedef = C.TypedefRef{
-        ref        = coercePassId (Proxy @'(p, p')) typedef.ref
-      , underlying = coercePass typedef.underlying
-      }

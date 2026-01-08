@@ -40,7 +40,7 @@ mkHaddocks config info name =
           isField     = False
         , loc         = info.loc
         , nameC       = renderDeclId info.id.cName
-        , nameHsIdent = info.id.hsName
+        , nameHsIdent = info.id.unsafeHsName
         , comment     = info.comment
         , params      = []
         }
@@ -73,7 +73,7 @@ mkHaddocksDecorateParams config info name params =
         isField     = False
       , loc         = info.loc
       , nameC       = renderDeclId info.id.cName
-      , nameHsIdent = info.id.hsName
+      , nameHsIdent = info.id.unsafeHsName
       , comment     = info.comment
       , params      = params
       }
@@ -388,7 +388,7 @@ convertInlineContent = \case
 
   CDoc.InlineRefCommand (C.CommentRef c mHsIdent) -> [
       case mHsIdent of
-        Just namePair -> HsDoc.Identifier namePair.hsName.text
+        Just namePair -> HsDoc.Identifier namePair.unsafeHsName.text
         Nothing       -> HsDoc.Monospace [HsDoc.TextContent c]
     ]
 
