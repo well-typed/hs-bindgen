@@ -15,7 +15,6 @@ library
   import:           warnings
   exposed-modules:
     Generated.Minisat
-    Generated.Minisat.FunPtr
     Generated.Minisat.Global
     Generated.Minisat.Safe
     Generated.Minisat.Unsafe

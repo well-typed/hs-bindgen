@@ -32,7 +32,6 @@ library
   exposed-modules: Botan
   other-modules:
     Generated.Botan
-    Generated.Botan.FunPtr
     Generated.Botan.Safe
     Generated.Botan.Unsafe
 
