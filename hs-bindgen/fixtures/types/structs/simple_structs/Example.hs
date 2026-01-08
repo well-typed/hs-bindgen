@@ -27,7 +27,7 @@ import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure)
 
 {-| __C declaration:__ @struct S1@
 
-    __defined at:__ @types\/structs\/simple_structs.h:2:8@
+    __defined at:__ @types\/structs\/simple_structs.h 2:8@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
@@ -35,14 +35,14 @@ data S1 = S1
   { s1_a :: FC.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/simple_structs.h:3:9@
+         __defined at:__ @types\/structs\/simple_structs.h 3:9@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   , s1_b :: FC.CChar
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/simple_structs.h:4:10@
+         __defined at:__ @types\/structs\/simple_structs.h 4:10@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
@@ -151,7 +151,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S1) "s1_b")
 
 {-| __C declaration:__ @struct S2@
 
-    __defined at:__ @types\/structs\/simple_structs.h:8:16@
+    __defined at:__ @types\/structs\/simple_structs.h 8:16@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
@@ -159,21 +159,21 @@ data S2_t = S2_t
   { s2_t_a :: FC.CChar
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/simple_structs.h:9:10@
+         __defined at:__ @types\/structs\/simple_structs.h 9:10@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   , s2_t_b :: FC.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/simple_structs.h:10:9@
+         __defined at:__ @types\/structs\/simple_structs.h 10:9@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   , s2_t_c :: FC.CFloat
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @types\/structs\/simple_structs.h:11:11@
+         __defined at:__ @types\/structs\/simple_structs.h 11:11@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
@@ -304,7 +304,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S2_t) "s2_t_c")
 
 {-| __C declaration:__ @struct S3_t@
 
-    __defined at:__ @types\/structs\/simple_structs.h:15:9@
+    __defined at:__ @types\/structs\/simple_structs.h 15:9@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
@@ -312,7 +312,7 @@ data S3_t = S3_t
   { s3_t_a :: FC.CChar
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/simple_structs.h:16:10@
+         __defined at:__ @types\/structs\/simple_structs.h 16:10@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
@@ -399,7 +399,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S3_t) "s3_t_a")
 
 {-| __C declaration:__ @struct S4@
 
-    __defined at:__ @types\/structs\/simple_structs.h:19:8@
+    __defined at:__ @types\/structs\/simple_structs.h 19:8@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
@@ -407,21 +407,21 @@ data S4 = S4
   { s4_b :: FC.CChar
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/simple_structs.h:20:10@
+         __defined at:__ @types\/structs\/simple_structs.h 20:10@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   , s4_a :: FC.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/simple_structs.h:21:9@
+         __defined at:__ @types\/structs\/simple_structs.h 21:9@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   , s4_c :: Ptr.Ptr FC.CInt
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @types\/structs\/simple_structs.h:22:10@
+         __defined at:__ @types\/structs\/simple_structs.h 22:10@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
@@ -488,7 +488,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S4) "s4_c")
 
 {-| __C declaration:__ @struct S5@
 
-    __defined at:__ @types\/structs\/simple_structs.h:26:16@
+    __defined at:__ @types\/structs\/simple_structs.h 26:16@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
@@ -496,14 +496,14 @@ data S5 = S5
   { s5_a :: FC.CChar
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/simple_structs.h:27:10@
+         __defined at:__ @types\/structs\/simple_structs.h 27:10@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   , s5_b :: FC.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/simple_structs.h:28:9@
+         __defined at:__ @types\/structs\/simple_structs.h 28:9@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
@@ -612,7 +612,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S5) "s5_b")
 
 {-| __C declaration:__ @struct S6@
 
-    __defined at:__ @types\/structs\/simple_structs.h:31:8@
+    __defined at:__ @types\/structs\/simple_structs.h 31:8@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
@@ -620,14 +620,14 @@ data S6 = S6
   { s6_a :: FC.CChar
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/simple_structs.h:31:18@
+         __defined at:__ @types\/structs\/simple_structs.h 31:18@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   , s6_b :: FC.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/simple_structs.h:31:25@
+         __defined at:__ @types\/structs\/simple_structs.h 31:25@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
@@ -736,7 +736,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S6) "s6_b")
 
 {-| __C declaration:__ @struct \@S7a_Aux@
 
-    __defined at:__ @types\/structs\/simple_structs.h:34:9@
+    __defined at:__ @types\/structs\/simple_structs.h 34:9@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
@@ -744,14 +744,14 @@ data S7a_Aux = S7a_Aux
   { s7a_Aux_a :: FC.CChar
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/simple_structs.h:34:23@
+         __defined at:__ @types\/structs\/simple_structs.h 34:23@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   , s7a_Aux_b :: FC.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/simple_structs.h:34:30@
+         __defined at:__ @types\/structs\/simple_structs.h 34:30@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
@@ -860,7 +860,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7a_Aux) "s7a_Aux_b"
 
 {-| __C declaration:__ @S7a@
 
-    __defined at:__ @types\/structs\/simple_structs.h:34:36@
+    __defined at:__ @types\/structs\/simple_structs.h 34:36@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
@@ -884,7 +884,7 @@ instance HsBindgen.Runtime.HasCField.HasCField S7a "un_S7a" where
 
 {-| __C declaration:__ @struct \@S7b_Aux@
 
-    __defined at:__ @types\/structs\/simple_structs.h:35:9@
+    __defined at:__ @types\/structs\/simple_structs.h 35:9@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}
@@ -892,14 +892,14 @@ data S7b_Aux = S7b_Aux
   { s7b_Aux_a :: FC.CChar
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/simple_structs.h:35:23@
+         __defined at:__ @types\/structs\/simple_structs.h 35:23@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
   , s7b_Aux_b :: FC.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/simple_structs.h:35:30@
+         __defined at:__ @types\/structs\/simple_structs.h 35:30@
 
          __exported by:__ @types\/structs\/simple_structs.h@
     -}
@@ -1008,7 +1008,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S7b_Aux) "s7b_Aux_b"
 
 {-| __C declaration:__ @S7b@
 
-    __defined at:__ @types\/structs\/simple_structs.h:35:38@
+    __defined at:__ @types\/structs\/simple_structs.h 35:38@
 
     __exported by:__ @types\/structs\/simple_structs.h@
 -}

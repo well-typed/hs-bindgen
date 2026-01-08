@@ -1,7 +1,7 @@
 -- addDependentFile examples/golden/edge-cases/uses_utf8.h
 {-| __C declaration:__ @enum MyEnum@
 
-    __defined at:__ @edge-cases\/uses_utf8.h:4:6@
+    __defined at:__ @edge-cases\/uses_utf8.h 4:6@
 
     __exported by:__ @edge-cases\/uses_utf8.h@
 -}
@@ -9,7 +9,7 @@ newtype MyEnum
     = MyEnum {un_MyEnum :: CUInt}
       {- ^ __C declaration:__ @enum MyEnum@
 
-           __defined at:__ @edge-cases\/uses_utf8.h:4:6@
+           __defined at:__ @edge-cases\/uses_utf8.h 4:6@
 
            __exported by:__ @edge-cases\/uses_utf8.h@
       -}
@@ -44,28 +44,28 @@ instance Read MyEnum
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @Say你好@
 
-    __defined at:__ @edge-cases\/uses_utf8.h:5:9@
+    __defined at:__ @edge-cases\/uses_utf8.h 5:9@
 
     __exported by:__ @edge-cases\/uses_utf8.h@
 -}
 pattern Say你好 :: MyEnum
 {-| __C declaration:__ @Say你好@
 
-    __defined at:__ @edge-cases\/uses_utf8.h:5:9@
+    __defined at:__ @edge-cases\/uses_utf8.h 5:9@
 
     __exported by:__ @edge-cases\/uses_utf8.h@
 -}
 pattern Say你好 = MyEnum 0
 {-| __C declaration:__ @Say拜拜@
 
-    __defined at:__ @edge-cases\/uses_utf8.h:6:9@
+    __defined at:__ @edge-cases\/uses_utf8.h 6:9@
 
     __exported by:__ @edge-cases\/uses_utf8.h@
 -}
 pattern Say拜拜 :: MyEnum
 {-| __C declaration:__ @Say拜拜@
 
-    __defined at:__ @edge-cases\/uses_utf8.h:6:9@
+    __defined at:__ @edge-cases\/uses_utf8.h 6:9@
 
     __exported by:__ @edge-cases\/uses_utf8.h@
 -}

@@ -138,7 +138,7 @@ foreign import ccall safe "hs_bindgen_e64a83c5f7f51679" hs_bindgen_e64a83c5f7f51
 
 {-| __C declaration:__ @f0@
 
-    __defined at:__ @attributes\/visibility_attributes.h:17:56@
+    __defined at:__ @attributes\/visibility_attributes.h 17:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -151,7 +151,7 @@ foreign import ccall safe "hs_bindgen_8881b0f4ce94e440" hs_bindgen_8881b0f4ce94e
 
 {-| __C declaration:__ @f1@
 
-    __defined at:__ @attributes\/visibility_attributes.h:18:56@
+    __defined at:__ @attributes\/visibility_attributes.h 18:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -164,7 +164,7 @@ foreign import ccall safe "hs_bindgen_4ede7f4c96b4d1b5" hs_bindgen_4ede7f4c96b4d
 
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @attributes\/visibility_attributes.h:19:56@
+    __defined at:__ @attributes\/visibility_attributes.h 19:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -177,7 +177,7 @@ foreign import ccall safe "hs_bindgen_018f1e15132ff973" hs_bindgen_018f1e15132ff
 
 {-| __C declaration:__ @f3@
 
-    __defined at:__ @attributes\/visibility_attributes.h:20:56@
+    __defined at:__ @attributes\/visibility_attributes.h 20:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -190,7 +190,7 @@ foreign import ccall safe "hs_bindgen_9d93cf33b1a833d1" hs_bindgen_9d93cf33b1a83
 
 {-| __C declaration:__ @f4@
 
-    __defined at:__ @attributes\/visibility_attributes.h:21:56@
+    __defined at:__ @attributes\/visibility_attributes.h 21:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -203,7 +203,7 @@ foreign import ccall safe "hs_bindgen_959298c4e5cb061a" hs_bindgen_959298c4e5cb0
 
 {-| __C declaration:__ @f5@
 
-    __defined at:__ @attributes\/visibility_attributes.h:24:56@
+    __defined at:__ @attributes\/visibility_attributes.h 24:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -216,7 +216,7 @@ foreign import ccall safe "hs_bindgen_218297218a4953d6" hs_bindgen_218297218a495
 
 {-| __C declaration:__ @f6@
 
-    __defined at:__ @attributes\/visibility_attributes.h:25:56@
+    __defined at:__ @attributes\/visibility_attributes.h 25:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -229,7 +229,7 @@ foreign import ccall safe "hs_bindgen_df320fe3d4683ff9" hs_bindgen_df320fe3d4683
 
 {-| __C declaration:__ @f7@
 
-    __defined at:__ @attributes\/visibility_attributes.h:26:56@
+    __defined at:__ @attributes\/visibility_attributes.h 26:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -242,7 +242,7 @@ foreign import ccall safe "hs_bindgen_cd613f46d2e06e18" hs_bindgen_cd613f46d2e06
 
 {-| __C declaration:__ @f8@
 
-    __defined at:__ @attributes\/visibility_attributes.h:27:56@
+    __defined at:__ @attributes\/visibility_attributes.h 27:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -255,7 +255,7 @@ foreign import ccall safe "hs_bindgen_67774b3f22bd7286" hs_bindgen_67774b3f22bd7
 
 {-| __C declaration:__ @f9@
 
-    __defined at:__ @attributes\/visibility_attributes.h:28:56@
+    __defined at:__ @attributes\/visibility_attributes.h 28:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -268,7 +268,7 @@ foreign import ccall safe "hs_bindgen_dbbd2e0417380ce9" hs_bindgen_dbbd2e0417380
 
 {-| __C declaration:__ @f10@
 
-    __defined at:__ @attributes\/visibility_attributes.h:31:56@
+    __defined at:__ @attributes\/visibility_attributes.h 31:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -281,7 +281,7 @@ foreign import ccall safe "hs_bindgen_9d8fadad3f85e1fc" hs_bindgen_9d8fadad3f85e
 
 {-| __C declaration:__ @f11@
 
-    __defined at:__ @attributes\/visibility_attributes.h:32:56@
+    __defined at:__ @attributes\/visibility_attributes.h 32:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -294,7 +294,7 @@ foreign import ccall safe "hs_bindgen_558a7ef50878f4b2" hs_bindgen_558a7ef50878f
 
 {-| __C declaration:__ @f12@
 
-    __defined at:__ @attributes\/visibility_attributes.h:33:56@
+    __defined at:__ @attributes\/visibility_attributes.h 33:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -307,7 +307,7 @@ foreign import ccall safe "hs_bindgen_30add751959aac79" hs_bindgen_30add751959aa
 
 {-| __C declaration:__ @f13@
 
-    __defined at:__ @attributes\/visibility_attributes.h:34:56@
+    __defined at:__ @attributes\/visibility_attributes.h 34:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -320,7 +320,7 @@ foreign import ccall safe "hs_bindgen_06b989df2d3622ad" hs_bindgen_06b989df2d362
 
 {-| __C declaration:__ @f14@
 
-    __defined at:__ @attributes\/visibility_attributes.h:35:56@
+    __defined at:__ @attributes\/visibility_attributes.h 35:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -333,7 +333,7 @@ foreign import ccall safe "hs_bindgen_11627343b78e6e76" hs_bindgen_11627343b78e6
 
 {-| __C declaration:__ @f15@
 
-    __defined at:__ @attributes\/visibility_attributes.h:38:56@
+    __defined at:__ @attributes\/visibility_attributes.h 38:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -346,7 +346,7 @@ foreign import ccall safe "hs_bindgen_5d3aa9a924674163" hs_bindgen_5d3aa9a924674
 
 {-| __C declaration:__ @f16@
 
-    __defined at:__ @attributes\/visibility_attributes.h:39:56@
+    __defined at:__ @attributes\/visibility_attributes.h 39:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -359,7 +359,7 @@ foreign import ccall safe "hs_bindgen_65abad67aeb6b955" hs_bindgen_65abad67aeb6b
 
 {-| __C declaration:__ @f17@
 
-    __defined at:__ @attributes\/visibility_attributes.h:40:56@
+    __defined at:__ @attributes\/visibility_attributes.h 40:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -372,7 +372,7 @@ foreign import ccall safe "hs_bindgen_0350778b298751b2" hs_bindgen_0350778b29875
 
 {-| __C declaration:__ @f18@
 
-    __defined at:__ @attributes\/visibility_attributes.h:41:56@
+    __defined at:__ @attributes\/visibility_attributes.h 41:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -385,7 +385,7 @@ foreign import ccall safe "hs_bindgen_aacba18c2fb3dae1" hs_bindgen_aacba18c2fb3d
 
 {-| __C declaration:__ @f19@
 
-    __defined at:__ @attributes\/visibility_attributes.h:42:56@
+    __defined at:__ @attributes\/visibility_attributes.h 42:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -398,7 +398,7 @@ foreign import ccall safe "hs_bindgen_023f4d5d2a56d2e9" hs_bindgen_023f4d5d2a56d
 
 {-| __C declaration:__ @f20@
 
-    __defined at:__ @attributes\/visibility_attributes.h:45:56@
+    __defined at:__ @attributes\/visibility_attributes.h 45:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -411,7 +411,7 @@ foreign import ccall safe "hs_bindgen_3a70db9f9e280b85" hs_bindgen_3a70db9f9e280
 
 {-| __C declaration:__ @f21@
 
-    __defined at:__ @attributes\/visibility_attributes.h:46:56@
+    __defined at:__ @attributes\/visibility_attributes.h 46:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -424,7 +424,7 @@ foreign import ccall safe "hs_bindgen_a4fc9586b7510ea6" hs_bindgen_a4fc9586b7510
 
 {-| __C declaration:__ @f22@
 
-    __defined at:__ @attributes\/visibility_attributes.h:47:56@
+    __defined at:__ @attributes\/visibility_attributes.h 47:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -437,7 +437,7 @@ foreign import ccall safe "hs_bindgen_c25df69a5f23a9b9" hs_bindgen_c25df69a5f23a
 
 {-| __C declaration:__ @f23@
 
-    __defined at:__ @attributes\/visibility_attributes.h:48:56@
+    __defined at:__ @attributes\/visibility_attributes.h 48:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -450,7 +450,7 @@ foreign import ccall safe "hs_bindgen_909c5201154b4617" hs_bindgen_909c5201154b4
 
 {-| __C declaration:__ @f24@
 
-    __defined at:__ @attributes\/visibility_attributes.h:49:56@
+    __defined at:__ @attributes\/visibility_attributes.h 49:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -463,7 +463,7 @@ foreign import ccall safe "hs_bindgen_dfbd362260cd0fba" hs_bindgen_dfbd362260cd0
 
 {-| __C declaration:__ @f25@
 
-    __defined at:__ @attributes\/visibility_attributes.h:52:56@
+    __defined at:__ @attributes\/visibility_attributes.h 52:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -476,7 +476,7 @@ foreign import ccall safe "hs_bindgen_d9c4d8bc1b7d8a59" hs_bindgen_d9c4d8bc1b7d8
 
 {-| __C declaration:__ @f26@
 
-    __defined at:__ @attributes\/visibility_attributes.h:53:56@
+    __defined at:__ @attributes\/visibility_attributes.h 53:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -489,7 +489,7 @@ foreign import ccall safe "hs_bindgen_71a726a6d6e62f14" hs_bindgen_71a726a6d6e62
 
 {-| __C declaration:__ @f27@
 
-    __defined at:__ @attributes\/visibility_attributes.h:54:56@
+    __defined at:__ @attributes\/visibility_attributes.h 54:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -502,7 +502,7 @@ foreign import ccall safe "hs_bindgen_70f35808778a1423" hs_bindgen_70f35808778a1
 
 {-| __C declaration:__ @f28@
 
-    __defined at:__ @attributes\/visibility_attributes.h:55:56@
+    __defined at:__ @attributes\/visibility_attributes.h 55:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -515,7 +515,7 @@ foreign import ccall safe "hs_bindgen_7ba7293cedb52447" hs_bindgen_7ba7293cedb52
 
 {-| __C declaration:__ @f29@
 
-    __defined at:__ @attributes\/visibility_attributes.h:56:56@
+    __defined at:__ @attributes\/visibility_attributes.h 56:56@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}

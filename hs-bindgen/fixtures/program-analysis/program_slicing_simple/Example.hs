@@ -30,7 +30,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
 
 {-| __C declaration:__ @uint32_t@
 
-    __defined at:__ @bits\/alltypes.h:131:25@
+    __defined at:__ @bits\/alltypes.h 131:25@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
@@ -54,7 +54,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Uint32_t "un_Uint32_t" where
 
 {-| __C declaration:__ @struct foo@
 
-    __defined at:__ @program-analysis\/program_slicing_simple.h:3:8@
+    __defined at:__ @program-analysis\/program_slicing_simple.h 3:8@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
@@ -62,14 +62,14 @@ data Foo = Foo
   { foo_sixty_four :: Foreign.Int64
     {- ^ __C declaration:__ @sixty_four@
 
-         __defined at:__ @program-analysis\/program_slicing_simple.h:4:12@
+         __defined at:__ @program-analysis\/program_slicing_simple.h 4:12@
 
          __exported by:__ @program-analysis\/program_slicing_simple.h@
     -}
   , foo_thirty_two :: Uint32_t
     {- ^ __C declaration:__ @thirty_two@
 
-         __defined at:__ @program-analysis\/program_slicing_simple.h:5:12@
+         __defined at:__ @program-analysis\/program_slicing_simple.h 5:12@
 
          __exported by:__ @program-analysis\/program_slicing_simple.h@
     -}

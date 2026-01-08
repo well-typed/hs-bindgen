@@ -39,7 +39,7 @@ foreign import ccall safe "hs_bindgen_350cceac1101d344" hs_bindgen_350cceac1101d
 
 {-| __C declaration:__ @reverse@
 
-    __defined at:__ @manual\/zero_copy.h:77:5@
+    __defined at:__ @manual\/zero_copy.h 77:5@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -69,7 +69,7 @@ transpose_wrapper = hs_bindgen_2ff371c815d92b04
 
 {-| __C declaration:__ @transpose@
 
-    __defined at:__ @manual\/zero_copy.h:85:6@
+    __defined at:__ @manual\/zero_copy.h 85:6@
 
     __exported by:__ @manual\/zero_copy.h@
 -}

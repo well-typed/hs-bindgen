@@ -25,7 +25,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct vector@
 
-    __defined at:__ @types\/complex\/vector_test.h:1:9@
+    __defined at:__ @types\/complex\/vector_test.h 1:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
@@ -33,14 +33,14 @@ data Vector = Vector
   { vector_x :: FC.CDouble
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/complex\/vector_test.h:2:12@
+         __defined at:__ @types\/complex\/vector_test.h 2:12@
 
          __exported by:__ @types\/complex\/vector_test.h@
     -}
   , vector_y :: FC.CDouble
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/complex\/vector_test.h:3:12@
+         __defined at:__ @types\/complex\/vector_test.h 3:12@
 
          __exported by:__ @types\/complex\/vector_test.h@
     -}

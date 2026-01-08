@@ -41,7 +41,7 @@ foreign import ccall unsafe "hs_bindgen_29b4fea741132943" hs_bindgen_29b4fea7411
 {-# NOINLINE multiply_complex_f #-}
 {-| __C declaration:__ @multiply_complex_f@
 
-    __defined at:__ @types\/complex\/hsb_complex_test.h:21:16@
+    __defined at:__ @types\/complex\/hsb_complex_test.h 21:16@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
@@ -56,7 +56,7 @@ foreign import ccall unsafe "hs_bindgen_b53577d6ad8dd36c" hs_bindgen_b53577d6ad8
 {-# NOINLINE add_complex #-}
 {-| __C declaration:__ @add_complex@
 
-    __defined at:__ @types\/complex\/hsb_complex_test.h:22:16@
+    __defined at:__ @types\/complex\/hsb_complex_test.h 22:16@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}

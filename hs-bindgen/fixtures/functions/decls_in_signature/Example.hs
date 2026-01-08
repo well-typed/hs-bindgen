@@ -31,7 +31,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct opaque@
 
-    __defined at:__ @functions\/decls_in_signature.h:2:8@
+    __defined at:__ @functions\/decls_in_signature.h 2:8@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -39,7 +39,7 @@ data Opaque
 
 {-| __C declaration:__ @struct outside@
 
-    __defined at:__ @functions\/decls_in_signature.h:3:8@
+    __defined at:__ @functions\/decls_in_signature.h 3:8@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -47,14 +47,14 @@ data Outside = Outside
   { outside_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @functions\/decls_in_signature.h:4:7@
+         __defined at:__ @functions\/decls_in_signature.h 4:7@
 
          __exported by:__ @functions\/decls_in_signature.h@
     -}
   , outside_y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @functions\/decls_in_signature.h:5:7@
+         __defined at:__ @functions\/decls_in_signature.h 5:7@
 
          __exported by:__ @functions\/decls_in_signature.h@
     -}
@@ -167,7 +167,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Outside) "outside_y"
 
 __C declaration:__ @struct named_struct@
 
-__defined at:__ @functions\/decls_in_signature.h:17:16@
+__defined at:__ @functions\/decls_in_signature.h 17:16@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -175,14 +175,14 @@ data Named_struct = Named_struct
   { named_struct_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @functions\/decls_in_signature.h:17:35@
+         __defined at:__ @functions\/decls_in_signature.h 17:35@
 
          __exported by:__ @functions\/decls_in_signature.h@
     -}
   , named_struct_y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @functions\/decls_in_signature.h:17:42@
+         __defined at:__ @functions\/decls_in_signature.h 17:42@
 
          __exported by:__ @functions\/decls_in_signature.h@
     -}
@@ -293,7 +293,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Named_struct) "named
 
 {-| __C declaration:__ @union named_union@
 
-    __defined at:__ @functions\/decls_in_signature.h:20:15@
+    __defined at:__ @functions\/decls_in_signature.h 20:15@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -311,7 +311,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data
 
 __C declaration:__ @x@
 
-__defined at:__ @functions\/decls_in_signature.h:20:33@
+__defined at:__ @functions\/decls_in_signature.h 20:33@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -338,7 +338,7 @@ set_named_union_x =
 
 __C declaration:__ @y@
 
-__defined at:__ @functions\/decls_in_signature.h:20:41@
+__defined at:__ @functions\/decls_in_signature.h 20:41@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}

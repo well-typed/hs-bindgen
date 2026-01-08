@@ -48,7 +48,7 @@ foreign import ccall unsafe "hs_bindgen_f3036965ea57b87f" hs_bindgen_f3036965ea5
 {-# NOINLINE normal #-}
 {-| __C declaration:__ @normal@
 
-    __defined at:__ @functions\/decls_in_signature.h:7:6@
+    __defined at:__ @functions\/decls_in_signature.h 7:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -67,7 +67,7 @@ foreign import ccall unsafe "hs_bindgen_86a0bd6e9f7eb005" hs_bindgen_86a0bd6e9f7
 
 __C declaration:__ @f1@
 
-__defined at:__ @functions\/decls_in_signature.h:17:6@
+__defined at:__ @functions\/decls_in_signature.h 17:6@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -82,7 +82,7 @@ foreign import ccall unsafe "hs_bindgen_4bb469a35be04698" hs_bindgen_4bb469a35be
 {-# NOINLINE f2 #-}
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/decls_in_signature.h:20:6@
+    __defined at:__ @functions\/decls_in_signature.h 20:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}

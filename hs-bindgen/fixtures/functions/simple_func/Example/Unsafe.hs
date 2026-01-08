@@ -49,7 +49,7 @@ foreign import ccall unsafe "hs_bindgen_da5d889180d72efd" hs_bindgen_da5d889180d
 
 {-| __C declaration:__ @erf@
 
-    __defined at:__ @functions\/simple_func.h:1:8@
+    __defined at:__ @functions\/simple_func.h 1:8@
 
     __exported by:__ @functions\/simple_func.h@
 -}
@@ -68,7 +68,7 @@ foreign import ccall unsafe "hs_bindgen_d02f37accebc0cb3" hs_bindgen_d02f37acceb
 
 {-| __C declaration:__ @bad_fma@
 
-    __defined at:__ @functions\/simple_func.h:3:22@
+    __defined at:__ @functions\/simple_func.h 3:22@
 
     __exported by:__ @functions\/simple_func.h@
 -}
@@ -88,7 +88,7 @@ foreign import ccall unsafe "hs_bindgen_9ea56ae4fab9a418" hs_bindgen_9ea56ae4fab
 
 {-| __C declaration:__ @no_args@
 
-    __defined at:__ @functions\/simple_func.h:7:6@
+    __defined at:__ @functions\/simple_func.h 7:6@
 
     __exported by:__ @functions\/simple_func.h@
 -}
@@ -101,7 +101,7 @@ foreign import ccall unsafe "hs_bindgen_a3d1783059ec7820" hs_bindgen_a3d1783059e
 
 {-| __C declaration:__ @no_args_no_void@
 
-    __defined at:__ @functions\/simple_func.h:9:6@
+    __defined at:__ @functions\/simple_func.h 9:6@
 
     __exported by:__ @functions\/simple_func.h@
 -}
@@ -116,7 +116,7 @@ foreign import ccall unsafe "hs_bindgen_91392ef466aa34e7" hs_bindgen_91392ef466a
 
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/simple_func.h:11:5@
+    __defined at:__ @functions\/simple_func.h 11:5@
 
     __exported by:__ @functions\/simple_func.h@
 -}

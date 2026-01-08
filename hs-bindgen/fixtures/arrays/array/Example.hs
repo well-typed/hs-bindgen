@@ -25,7 +25,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @triplet@
 
-    __defined at:__ @arrays\/array.h:41:13@
+    __defined at:__ @arrays\/array.h 41:13@
 
     __exported by:__ @arrays\/array.h@
 -}
@@ -50,7 +50,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
 
 {-| __C declaration:__ @list@
 
-    __defined at:__ @arrays\/array.h:43:13@
+    __defined at:__ @arrays\/array.h 43:13@
 
     __exported by:__ @arrays\/array.h@
 -}
@@ -74,7 +74,7 @@ instance HsBindgen.Runtime.HasCField.HasCField List "un_List" where
 
 {-| __C declaration:__ @matrix@
 
-    __defined at:__ @arrays\/array.h:45:13@
+    __defined at:__ @arrays\/array.h 45:13@
 
     __exported by:__ @arrays\/array.h@
 -}
@@ -99,7 +99,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Matrix "un_Matrix" where
 
 {-| __C declaration:__ @tripletlist@
 
-    __defined at:__ @arrays\/array.h:47:13@
+    __defined at:__ @arrays\/array.h 47:13@
 
     __exported by:__ @arrays\/array.h@
 -}
@@ -123,7 +123,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Tripletlist "un_Tripletlist" wher
 
 {-| __C declaration:__ @struct Example@
 
-    __defined at:__ @arrays\/array.h:49:8@
+    __defined at:__ @arrays\/array.h 49:8@
 
     __exported by:__ @arrays\/array.h@
 -}
@@ -131,14 +131,14 @@ data Example = Example
   { example_triple :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
     {- ^ __C declaration:__ @triple@
 
-         __defined at:__ @arrays\/array.h:50:9@
+         __defined at:__ @arrays\/array.h 50:9@
 
          __exported by:__ @arrays\/array.h@
     -}
   , example_sudoku :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
     {- ^ __C declaration:__ @sudoku@
 
-         __defined at:__ @arrays\/array.h:51:9@
+         __defined at:__ @arrays\/array.h 51:9@
 
          __exported by:__ @arrays\/array.h@
     -}
@@ -195,7 +195,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example) "example_su
 
 __C declaration:__ @sudoku@
 
-__defined at:__ @arrays\/array.h:55:17@
+__defined at:__ @arrays\/array.h 55:17@
 
 __exported by:__ @arrays\/array.h@
 -}

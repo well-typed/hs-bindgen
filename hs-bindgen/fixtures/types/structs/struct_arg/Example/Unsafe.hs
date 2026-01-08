@@ -62,7 +62,7 @@ thing_fun_1_wrapper = hs_bindgen_0bdddf60550fc97b
 
 {-| __C declaration:__ @thing_fun_1@
 
-    __defined at:__ @types\/structs\/struct_arg.h:6:5@
+    __defined at:__ @types\/structs\/struct_arg.h 6:5@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -91,7 +91,7 @@ thing_fun_2_wrapper = hs_bindgen_c293d866e22be6fc
 
 {-| __C declaration:__ @thing_fun_2@
 
-    __defined at:__ @types\/structs\/struct_arg.h:7:14@
+    __defined at:__ @types\/structs\/struct_arg.h 7:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -127,7 +127,7 @@ thing_fun_3a_wrapper = hs_bindgen_cfd51a9e490a997c
 
 {-| __C declaration:__ @thing_fun_3a@
 
-    __defined at:__ @types\/structs\/struct_arg.h:9:14@
+    __defined at:__ @types\/structs\/struct_arg.h 9:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -168,7 +168,7 @@ thing_fun_3b_wrapper = hs_bindgen_23fac8ee5044da6e
 
 {-| __C declaration:__ @thing_fun_3b@
 
-    __defined at:__ @types\/structs\/struct_arg.h:10:6@
+    __defined at:__ @types\/structs\/struct_arg.h 10:6@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}

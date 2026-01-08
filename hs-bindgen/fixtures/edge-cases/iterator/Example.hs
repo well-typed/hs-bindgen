@@ -24,7 +24,7 @@ import Prelude (IO)
 
 {-| __C declaration:__ @Toggle@
 
-    __defined at:__ @edge-cases\/iterator.h:3:16@
+    __defined at:__ @edge-cases\/iterator.h 3:16@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -48,7 +48,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Toggle "un_Toggle" where
 
 {-| __C declaration:__ @Counter@
 
-    __defined at:__ @edge-cases\/iterator.h:10:14@
+    __defined at:__ @edge-cases\/iterator.h 10:14@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -72,7 +72,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Counter "un_Counter" where
 
 {-| __C declaration:__ @VarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:17:14@
+    __defined at:__ @edge-cases\/iterator.h 17:14@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}

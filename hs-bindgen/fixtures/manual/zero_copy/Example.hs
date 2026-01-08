@@ -37,7 +37,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
 
 {-| __C declaration:__ @struct point@
 
-    __defined at:__ @manual\/zero_copy.h:12:8@
+    __defined at:__ @manual\/zero_copy.h 12:8@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -45,14 +45,14 @@ data Point = Point
   { point_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @manual\/zero_copy.h:13:7@
+         __defined at:__ @manual\/zero_copy.h 13:7@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
   , point_y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @manual\/zero_copy.h:14:7@
+         __defined at:__ @manual\/zero_copy.h 14:7@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
@@ -161,7 +161,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Point) "point_y")
 
 {-| __C declaration:__ @struct rectangle@
 
-    __defined at:__ @manual\/zero_copy.h:17:8@
+    __defined at:__ @manual\/zero_copy.h 17:8@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -169,14 +169,14 @@ data Rectangle = Rectangle
   { rectangle_topleft :: Point
     {- ^ __C declaration:__ @topleft@
 
-         __defined at:__ @manual\/zero_copy.h:18:16@
+         __defined at:__ @manual\/zero_copy.h 18:16@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
   , rectangle_bottomright :: Point
     {- ^ __C declaration:__ @bottomright@
 
-         __defined at:__ @manual\/zero_copy.h:19:16@
+         __defined at:__ @manual\/zero_copy.h 19:16@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
@@ -286,7 +286,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Rectangle) "rectangl
 
 {-| __C declaration:__ @struct circle@
 
-    __defined at:__ @manual\/zero_copy.h:22:8@
+    __defined at:__ @manual\/zero_copy.h 22:8@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -294,14 +294,14 @@ data Circle = Circle
   { circle_midpoint :: Point
     {- ^ __C declaration:__ @midpoint@
 
-         __defined at:__ @manual\/zero_copy.h:23:16@
+         __defined at:__ @manual\/zero_copy.h 23:16@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
   , circle_radius :: FC.CInt
     {- ^ __C declaration:__ @radius@
 
-         __defined at:__ @manual\/zero_copy.h:24:7@
+         __defined at:__ @manual\/zero_copy.h 24:7@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
@@ -410,7 +410,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Circle) "circle_radi
 
 {-| __C declaration:__ @union shape@
 
-    __defined at:__ @manual\/zero_copy.h:30:7@
+    __defined at:__ @manual\/zero_copy.h 30:7@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -428,7 +428,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 4 instance Dat
 
 __C declaration:__ @rectangle@
 
-__defined at:__ @manual\/zero_copy.h:31:20@
+__defined at:__ @manual\/zero_copy.h 31:20@
 
 __exported by:__ @manual\/zero_copy.h@
 -}
@@ -455,7 +455,7 @@ set_shape_rectangle =
 
 __C declaration:__ @circle@
 
-__defined at:__ @manual\/zero_copy.h:32:17@
+__defined at:__ @manual\/zero_copy.h 32:17@
 
 __exported by:__ @manual\/zero_copy.h@
 -}
@@ -502,7 +502,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Shape) "shape_circle
 
 {-| __C declaration:__ @struct colour@
 
-    __defined at:__ @manual\/zero_copy.h:39:8@
+    __defined at:__ @manual\/zero_copy.h 39:8@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -510,35 +510,35 @@ data Colour = Colour
   { colour_opacity :: FC.CUInt
     {- ^ __C declaration:__ @opacity@
 
-         __defined at:__ @manual\/zero_copy.h:40:16@
+         __defined at:__ @manual\/zero_copy.h 40:16@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
   , colour_brightness :: FC.CUInt
     {- ^ __C declaration:__ @brightness@
 
-         __defined at:__ @manual\/zero_copy.h:41:16@
+         __defined at:__ @manual\/zero_copy.h 41:16@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
   , colour_red :: FC.CUInt
     {- ^ __C declaration:__ @red@
 
-         __defined at:__ @manual\/zero_copy.h:42:16@
+         __defined at:__ @manual\/zero_copy.h 42:16@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
   , colour_green :: FC.CUInt
     {- ^ __C declaration:__ @green@
 
-         __defined at:__ @manual\/zero_copy.h:43:16@
+         __defined at:__ @manual\/zero_copy.h 43:16@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
   , colour_blue :: FC.CUInt
     {- ^ __C declaration:__ @blue@
 
-         __defined at:__ @manual\/zero_copy.h:44:16@
+         __defined at:__ @manual\/zero_copy.h 44:16@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
@@ -739,7 +739,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Colour) "colour_b
 
 {-| __C declaration:__ @myInt@
 
-    __defined at:__ @manual\/zero_copy.h:50:13@
+    __defined at:__ @manual\/zero_copy.h 50:13@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -763,7 +763,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MyInt "un_MyInt" where
 
 {-| __C declaration:__ @struct drawing@
 
-    __defined at:__ @manual\/zero_copy.h:55:16@
+    __defined at:__ @manual\/zero_copy.h 55:16@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -771,14 +771,14 @@ data Drawing = Drawing
   { drawing_shape :: Ptr.Ptr Shape
     {- ^ __C declaration:__ @shape@
 
-         __defined at:__ @manual\/zero_copy.h:56:16@
+         __defined at:__ @manual\/zero_copy.h 56:16@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
   , drawing_colour :: Ptr.Ptr Colour
     {- ^ __C declaration:__ @colour@
 
-         __defined at:__ @manual\/zero_copy.h:57:18@
+         __defined at:__ @manual\/zero_copy.h 57:18@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
@@ -833,7 +833,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Drawing) "drawing_co
 
 {-| __C declaration:__ @struct tic_tac_toe@
 
-    __defined at:__ @manual\/zero_copy.h:63:16@
+    __defined at:__ @manual\/zero_copy.h 63:16@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -841,21 +841,21 @@ data Tic_tac_toe = Tic_tac_toe
   { tic_tac_toe_row1 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
     {- ^ __C declaration:__ @row1@
 
-         __defined at:__ @manual\/zero_copy.h:64:7@
+         __defined at:__ @manual\/zero_copy.h 64:7@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
   , tic_tac_toe_row2 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
     {- ^ __C declaration:__ @row2@
 
-         __defined at:__ @manual\/zero_copy.h:65:7@
+         __defined at:__ @manual\/zero_copy.h 65:7@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
   , tic_tac_toe_row3 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
     {- ^ __C declaration:__ @row3@
 
-         __defined at:__ @manual\/zero_copy.h:66:7@
+         __defined at:__ @manual\/zero_copy.h 66:7@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
@@ -925,7 +925,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tic_tac_toe) "tic_ta
 
 {-| __C declaration:__ @struct vector@
 
-    __defined at:__ @manual\/zero_copy.h:72:8@
+    __defined at:__ @manual\/zero_copy.h 72:8@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -933,7 +933,7 @@ data Vector = Vector
   { vector_len :: FC.CInt
     {- ^ __C declaration:__ @len@
 
-         __defined at:__ @manual\/zero_copy.h:73:7@
+         __defined at:__ @manual\/zero_copy.h 73:7@
 
          __exported by:__ @manual\/zero_copy.h@
     -}
@@ -1024,7 +1024,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector) "vector_len"
 
 {-| __C declaration:__ @triplet@
 
-    __defined at:__ @manual\/zero_copy.h:82:13@
+    __defined at:__ @manual\/zero_copy.h 82:13@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -1049,7 +1049,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
 
 {-| __C declaration:__ @matrix@
 
-    __defined at:__ @manual\/zero_copy.h:83:17@
+    __defined at:__ @manual\/zero_copy.h 83:17@
 
     __exported by:__ @manual\/zero_copy.h@
 -}

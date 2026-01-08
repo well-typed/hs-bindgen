@@ -25,7 +25,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @functions\/heap_types\/struct_const_typedef.h:3:8@
+    __defined at:__ @functions\/heap_types\/struct_const_typedef.h 3:8@
 
     __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
 -}
@@ -33,7 +33,7 @@ data S = S
   { s_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @functions\/heap_types\/struct_const_typedef.h:4:7@
+         __defined at:__ @functions\/heap_types\/struct_const_typedef.h 4:7@
 
          __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
     -}
@@ -120,7 +120,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S) "s_x")
 
 {-| __C declaration:__ @T@
 
-    __defined at:__ @functions\/heap_types\/struct_const_typedef.h:7:24@
+    __defined at:__ @functions\/heap_types\/struct_const_typedef.h 7:24@
 
     __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
 -}

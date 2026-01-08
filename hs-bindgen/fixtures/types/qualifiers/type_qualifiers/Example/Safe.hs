@@ -30,7 +30,7 @@ foreign import ccall safe "hs_bindgen_32187cc02676ee72" hs_bindgen_32187cc02676e
 
 {-| __C declaration:__ @list_example@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:14:6@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 14:6@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}

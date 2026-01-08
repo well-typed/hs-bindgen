@@ -20,7 +20,7 @@ import Prelude (Bounded, Enum, Eq, Floating, Fractional, IO, Integral, Num, Ord,
 
 {-| __C declaration:__ @I@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:5:9@
+    __defined at:__ @macros\/macro_in_fundecl.h 5:9@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -32,7 +32,7 @@ newtype I = I
 
 {-| __C declaration:__ @C@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:6:9@
+    __defined at:__ @macros\/macro_in_fundecl.h 6:9@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -44,7 +44,7 @@ newtype C = C
 
 {-| __C declaration:__ @F@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:7:9@
+    __defined at:__ @macros\/macro_in_fundecl.h 7:9@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -56,7 +56,7 @@ newtype F = F
 
 {-| __C declaration:__ @L@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:8:9@
+    __defined at:__ @macros\/macro_in_fundecl.h 8:9@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -68,7 +68,7 @@ newtype L = L
 
 {-| __C declaration:__ @S@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:9:9@
+    __defined at:__ @macros\/macro_in_fundecl.h 9:9@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}

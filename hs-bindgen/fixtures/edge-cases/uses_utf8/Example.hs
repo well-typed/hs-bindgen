@@ -21,7 +21,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum MyEnum@
 
-    __defined at:__ @edge-cases\/uses_utf8.h:4:6@
+    __defined at:__ @edge-cases\/uses_utf8.h 4:6@
 
     __exported by:__ @edge-cases\/uses_utf8.h@
 -}
@@ -95,7 +95,7 @@ instance Read MyEnum where
 
 {-| __C declaration:__ @Say你好@
 
-    __defined at:__ @edge-cases\/uses_utf8.h:5:9@
+    __defined at:__ @edge-cases\/uses_utf8.h 5:9@
 
     __exported by:__ @edge-cases\/uses_utf8.h@
 -}
@@ -104,7 +104,7 @@ pattern Say你好 = MyEnum 0
 
 {-| __C declaration:__ @Say拜拜@
 
-    __defined at:__ @edge-cases\/uses_utf8.h:6:9@
+    __defined at:__ @edge-cases\/uses_utf8.h 6:9@
 
     __exported by:__ @edge-cases\/uses_utf8.h@
 -}

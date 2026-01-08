@@ -28,7 +28,7 @@
 -- }
 {-| __C declaration:__ @uint32_t@
 
-    __defined at:__ @bits\/alltypes.h:131:25@
+    __defined at:__ @bits\/alltypes.h 131:25@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
@@ -36,7 +36,7 @@ newtype Uint32_t
     = Uint32_t {un_Uint32_t :: CUInt}
       {- ^ __C declaration:__ @uint32_t@
 
-           __defined at:__ @bits\/alltypes.h:131:25@
+           __defined at:__ @bits\/alltypes.h 131:25@
 
            __exported by:__ @program-analysis\/program_slicing_simple.h@
       -}
@@ -60,7 +60,7 @@ instance HasCField Uint32_t "un_Uint32_t"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct foo@
 
-    __defined at:__ @program-analysis\/program_slicing_simple.h:3:8@
+    __defined at:__ @program-analysis\/program_slicing_simple.h 3:8@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
@@ -68,20 +68,20 @@ data Foo
     = Foo {foo_sixty_four :: Foreign.Int64
            {- ^ __C declaration:__ @sixty_four@
 
-                __defined at:__ @program-analysis\/program_slicing_simple.h:4:12@
+                __defined at:__ @program-analysis\/program_slicing_simple.h 4:12@
 
                 __exported by:__ @program-analysis\/program_slicing_simple.h@
            -},
            foo_thirty_two :: Uint32_t
            {- ^ __C declaration:__ @thirty_two@
 
-                __defined at:__ @program-analysis\/program_slicing_simple.h:5:12@
+                __defined at:__ @program-analysis\/program_slicing_simple.h 5:12@
 
                 __exported by:__ @program-analysis\/program_slicing_simple.h@
            -}}
       {- ^ __C declaration:__ @struct foo@
 
-           __defined at:__ @program-analysis\/program_slicing_simple.h:3:8@
+           __defined at:__ @program-analysis\/program_slicing_simple.h 3:8@
 
            __exported by:__ @program-analysis\/program_slicing_simple.h@
       -}
@@ -111,14 +111,14 @@ foreign import ccall safe "hs_bindgen_48dbbf4b09b5b3c1" hs_bindgen_48dbbf4b09b5b
                                                                                        IO CInt
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @program-analysis\/program_slicing_simple.h:8:5@
+    __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
 bar :: Foreign.Int64 -> Uint32_t -> IO CInt
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @program-analysis\/program_slicing_simple.h:8:5@
+    __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
@@ -129,14 +129,14 @@ foreign import ccall safe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba
                                                                                        IO CInt
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @program-analysis\/program_slicing_simple.h:8:5@
+    __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
 bar :: Foreign.Int64 -> Uint32_t -> IO CInt
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @program-analysis\/program_slicing_simple.h:8:5@
+    __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
@@ -148,14 +148,14 @@ foreign import ccall safe "hs_bindgen_993162e0dadfa2c9" hs_bindgen_993162e0dadfa
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @program-analysis\/program_slicing_simple.h:8:5@
+    __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
 bar :: FunPtr (Foreign.Int64 -> Uint32_t -> IO CInt)
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @program-analysis\/program_slicing_simple.h:8:5@
+    __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}

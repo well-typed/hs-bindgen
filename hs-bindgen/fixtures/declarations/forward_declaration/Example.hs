@@ -24,7 +24,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct S1@
 
-    __defined at:__ @declarations\/forward_declaration.h:3:8@
+    __defined at:__ @declarations\/forward_declaration.h 3:8@
 
     __exported by:__ @declarations\/forward_declaration.h@
 -}
@@ -32,7 +32,7 @@ data S1_t = S1_t
   { s1_t_a :: FC.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @declarations\/forward_declaration.h:4:7@
+         __defined at:__ @declarations\/forward_declaration.h 4:7@
 
          __exported by:__ @declarations\/forward_declaration.h@
     -}
@@ -119,7 +119,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S1_t) "s1_t_a")
 
 {-| __C declaration:__ @struct S2@
 
-    __defined at:__ @declarations\/forward_declaration.h:9:8@
+    __defined at:__ @declarations\/forward_declaration.h 9:8@
 
     __exported by:__ @declarations\/forward_declaration.h@
 -}
@@ -127,7 +127,7 @@ data S2 = S2
   { s2_a :: FC.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @declarations\/forward_declaration.h:10:7@
+         __defined at:__ @declarations\/forward_declaration.h 10:7@
 
          __exported by:__ @declarations\/forward_declaration.h@
     -}

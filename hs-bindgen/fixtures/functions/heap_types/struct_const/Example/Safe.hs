@@ -40,7 +40,7 @@ fun_wrapper = hs_bindgen_67465eb5641985dc
 
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/struct_const.h:9:9@
+    __defined at:__ @functions\/heap_types\/struct_const.h 9:9@
 
     __exported by:__ @functions\/heap_types\/struct_const.h@
 -}

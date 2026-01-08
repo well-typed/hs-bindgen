@@ -30,7 +30,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
 
 {-| __C declaration:__ @T1@
 
-    __defined at:__ @types\/typedefs\/typedef_vs_macro.h:1:13@
+    __defined at:__ @types\/typedefs\/typedef_vs_macro.h 1:13@
 
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
@@ -54,7 +54,7 @@ instance HsBindgen.Runtime.HasCField.HasCField T1 "un_T1" where
 
 {-| __C declaration:__ @T2@
 
-    __defined at:__ @types\/typedefs\/typedef_vs_macro.h:2:14@
+    __defined at:__ @types\/typedefs\/typedef_vs_macro.h 2:14@
 
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
@@ -78,7 +78,7 @@ instance HsBindgen.Runtime.HasCField.HasCField T2 "un_T2" where
 
 {-| __C declaration:__ @M1@
 
-    __defined at:__ @types\/typedefs\/typedef_vs_macro.h:4:9@
+    __defined at:__ @types\/typedefs\/typedef_vs_macro.h 4:9@
 
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
@@ -90,7 +90,7 @@ newtype M1 = M1
 
 {-| __C declaration:__ @M2@
 
-    __defined at:__ @types\/typedefs\/typedef_vs_macro.h:5:9@
+    __defined at:__ @types\/typedefs\/typedef_vs_macro.h 5:9@
 
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
@@ -102,7 +102,7 @@ newtype M2 = M2
 
 {-| __C declaration:__ @M3@
 
-    __defined at:__ @types\/typedefs\/typedef_vs_macro.h:6:9@
+    __defined at:__ @types\/typedefs\/typedef_vs_macro.h 6:9@
 
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
@@ -114,7 +114,7 @@ newtype M3 = M3
 
 {-| __C declaration:__ @struct ExampleStruct@
 
-    __defined at:__ @types\/typedefs\/typedef_vs_macro.h:8:8@
+    __defined at:__ @types\/typedefs\/typedef_vs_macro.h 8:8@
 
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
@@ -122,28 +122,28 @@ data ExampleStruct = ExampleStruct
   { exampleStruct_t1 :: T1
     {- ^ __C declaration:__ @t1@
 
-         __defined at:__ @types\/typedefs\/typedef_vs_macro.h:9:6@
+         __defined at:__ @types\/typedefs\/typedef_vs_macro.h 9:6@
 
          __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
     -}
   , exampleStruct_t2 :: T2
     {- ^ __C declaration:__ @t2@
 
-         __defined at:__ @types\/typedefs\/typedef_vs_macro.h:10:6@
+         __defined at:__ @types\/typedefs\/typedef_vs_macro.h 10:6@
 
          __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
     -}
   , exampleStruct_m1 :: M1
     {- ^ __C declaration:__ @m1@
 
-         __defined at:__ @types\/typedefs\/typedef_vs_macro.h:11:6@
+         __defined at:__ @types\/typedefs\/typedef_vs_macro.h 11:6@
 
          __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
     -}
   , exampleStruct_m2 :: M2
     {- ^ __C declaration:__ @m2@
 
-         __defined at:__ @types\/typedefs\/typedef_vs_macro.h:12:6@
+         __defined at:__ @types\/typedefs\/typedef_vs_macro.h 12:6@
 
          __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
     -}
@@ -308,7 +308,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExampleStruct) "exam
 
 {-| __C declaration:__ @uint64_t@
 
-    __defined at:__ @types\/typedefs\/typedef_vs_macro.h:15:9@
+    __defined at:__ @types\/typedefs\/typedef_vs_macro.h 15:9@
 
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
@@ -320,7 +320,7 @@ newtype Uint64_t = Uint64_t
 
 {-| __C declaration:__ @struct foo@
 
-    __defined at:__ @types\/typedefs\/typedef_vs_macro.h:17:8@
+    __defined at:__ @types\/typedefs\/typedef_vs_macro.h 17:8@
 
     __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
 -}
@@ -328,7 +328,7 @@ data Foo = Foo
   { foo_a :: Ptr.Ptr Uint64_t
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/typedefs\/typedef_vs_macro.h:18:13@
+         __defined at:__ @types\/typedefs\/typedef_vs_macro.h 18:13@
 
          __exported by:__ @types\/typedefs\/typedef_vs_macro.h@
     -}

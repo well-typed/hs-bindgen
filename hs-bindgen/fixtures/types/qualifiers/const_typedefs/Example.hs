@@ -37,7 +37,7 @@ import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, S
 
 {-| __C declaration:__ @I@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:10:13@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 10:13@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -61,7 +61,7 @@ instance HsBindgen.Runtime.HasCField.HasCField I "un_I" where
 
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:11:8@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 11:8@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -115,7 +115,7 @@ instance Data.Primitive.Types.Prim S where
 
 {-| __C declaration:__ @union U@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:12:7@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 12:7@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -129,7 +129,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance Data
 
 {-| __C declaration:__ @enum E@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:13:6@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 13:6@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -200,7 +200,7 @@ instance Read E where
 
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:13:9@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 13:9@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -209,7 +209,7 @@ pattern Foo = E 0
 
 {-| __C declaration:__ @TI@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:20:17@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 20:17@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -233,7 +233,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TI "un_TI" where
 
 {-| __C declaration:__ @TS@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:21:24@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 21:24@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -257,7 +257,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TS "un_TS" where
 
 {-| __C declaration:__ @TU@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:22:23@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 22:23@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -280,7 +280,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TU "un_TU" where
 
 {-| __C declaration:__ @TE@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:23:22@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 23:22@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -304,7 +304,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TE "un_TE" where
 
 {-| __C declaration:__ @TTI@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:30:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 30:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -328,7 +328,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TTI "un_TTI" where
 
 {-| __C declaration:__ @TTS@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:31:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 31:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -352,7 +352,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TTS "un_TTS" where
 
 {-| __C declaration:__ @TTU@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:32:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 32:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -375,7 +375,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TTU "un_TTU" where
 
 {-| __C declaration:__ @TTE@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:33:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 33:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}

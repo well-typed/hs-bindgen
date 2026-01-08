@@ -3,7 +3,7 @@
 
 __C declaration:__ @fun_ptr@
 
-__defined at:__ @functions\/circular_dependency_fun.h:3:16@
+__defined at:__ @functions\/circular_dependency_fun.h 3:16@
 
 __exported by:__ @functions\/circular_dependency_fun.h@
 -}
@@ -14,7 +14,7 @@ newtype Fun_ptr_Aux
 
       __C declaration:__ @fun_ptr@
 
-      __defined at:__ @functions\/circular_dependency_fun.h:3:16@
+      __defined at:__ @functions\/circular_dependency_fun.h 3:16@
 
       __exported by:__ @functions\/circular_dependency_fun.h@
       -}
@@ -38,7 +38,7 @@ instance HasCField Fun_ptr_Aux "un_Fun_ptr_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @fun_ptr@
 
-    __defined at:__ @functions\/circular_dependency_fun.h:3:16@
+    __defined at:__ @functions\/circular_dependency_fun.h 3:16@
 
     __exported by:__ @functions\/circular_dependency_fun.h@
 -}
@@ -46,7 +46,7 @@ newtype Fun_ptr
     = Fun_ptr {un_Fun_ptr :: (FunPtr Fun_ptr_Aux)}
       {- ^ __C declaration:__ @fun_ptr@
 
-           __defined at:__ @functions\/circular_dependency_fun.h:3:16@
+           __defined at:__ @functions\/circular_dependency_fun.h 3:16@
 
            __exported by:__ @functions\/circular_dependency_fun.h@
       -}
@@ -60,7 +60,7 @@ instance HasCField Fun_ptr "un_Fun_ptr"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct forward_declaration@
 
-    __defined at:__ @functions\/circular_dependency_fun.h:5:8@
+    __defined at:__ @functions\/circular_dependency_fun.h 5:8@
 
     __exported by:__ @functions\/circular_dependency_fun.h@
 -}
@@ -68,13 +68,13 @@ data Forward_declaration
     = Forward_declaration {forward_declaration_f :: Fun_ptr
                            {- ^ __C declaration:__ @f@
 
-                                __defined at:__ @functions\/circular_dependency_fun.h:6:11@
+                                __defined at:__ @functions\/circular_dependency_fun.h 6:11@
 
                                 __exported by:__ @functions\/circular_dependency_fun.h@
                            -}}
       {- ^ __C declaration:__ @struct forward_declaration@
 
-           __defined at:__ @functions\/circular_dependency_fun.h:5:8@
+           __defined at:__ @functions\/circular_dependency_fun.h 5:8@
 
            __exported by:__ @functions\/circular_dependency_fun.h@
       -}

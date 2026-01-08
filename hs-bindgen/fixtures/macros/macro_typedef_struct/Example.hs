@@ -30,7 +30,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
 
 {-| __C declaration:__ @MY_TYPE@
 
-    __defined at:__ @macros\/macro_typedef_struct.h:1:9@
+    __defined at:__ @macros\/macro_typedef_struct.h 1:9@
 
     __exported by:__ @macros\/macro_typedef_struct.h@
 -}
@@ -42,7 +42,7 @@ newtype MY_TYPE = MY_TYPE
 
 {-| __C declaration:__ @struct bar@
 
-    __defined at:__ @macros\/macro_typedef_struct.h:3:9@
+    __defined at:__ @macros\/macro_typedef_struct.h 3:9@
 
     __exported by:__ @macros\/macro_typedef_struct.h@
 -}
@@ -50,14 +50,14 @@ data Bar = Bar
   { bar_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @macros\/macro_typedef_struct.h:4:7@
+         __defined at:__ @macros\/macro_typedef_struct.h 4:7@
 
          __exported by:__ @macros\/macro_typedef_struct.h@
     -}
   , bar_y :: MY_TYPE
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @macros\/macro_typedef_struct.h:5:11@
+         __defined at:__ @macros\/macro_typedef_struct.h 5:11@
 
          __exported by:__ @macros\/macro_typedef_struct.h@
     -}

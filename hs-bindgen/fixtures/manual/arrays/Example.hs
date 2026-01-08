@@ -25,7 +25,7 @@ import Prelude (Eq, Show)
 
 {-| __C declaration:__ @triplet@
 
-    __defined at:__ @manual\/arrays.h:32:13@
+    __defined at:__ @manual\/arrays.h 32:13@
 
     __exported by:__ @manual\/arrays.h@
 -}
@@ -50,7 +50,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
 
 {-| __C declaration:__ @matrix@
 
-    __defined at:__ @manual\/arrays.h:34:17@
+    __defined at:__ @manual\/arrays.h 34:17@
 
     __exported by:__ @manual\/arrays.h@
 -}
@@ -77,7 +77,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Matrix "un_Matrix" where
 
 __C declaration:__ @triplet_ptrs@
 
-__defined at:__ @manual\/arrays.h:44:15@
+__defined at:__ @manual\/arrays.h 44:15@
 
 __exported by:__ @manual\/arrays.h@
 -}

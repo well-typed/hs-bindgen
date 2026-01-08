@@ -40,7 +40,7 @@ foreign import ccall unsafe "hs_bindgen_3a9fc2bb34e15eb6" hs_bindgen_3a9fc2bb34e
 {-# NOINLINE i1 #-}
 {-| __C declaration:__ @i1@
 
-    __defined at:__ @declarations\/tentative_definitions.h:17:5@
+    __defined at:__ @declarations\/tentative_definitions.h 17:5@
 
     __exported by:__ @declarations\/tentative_definitions.h@
 -}
@@ -55,7 +55,7 @@ foreign import ccall unsafe "hs_bindgen_831c291120790ea6" hs_bindgen_831c2911207
 {-# NOINLINE i2 #-}
 {-| __C declaration:__ @i2@
 
-    __defined at:__ @declarations\/tentative_definitions.h:21:12@
+    __defined at:__ @declarations\/tentative_definitions.h 21:12@
 
     __exported by:__ @declarations\/tentative_definitions.h@
 -}
@@ -70,7 +70,7 @@ foreign import ccall unsafe "hs_bindgen_6c7d3ba4369a4d65" hs_bindgen_6c7d3ba4369
 {-# NOINLINE i3 #-}
 {-| __C declaration:__ @i3@
 
-    __defined at:__ @declarations\/tentative_definitions.h:30:5@
+    __defined at:__ @declarations\/tentative_definitions.h 30:5@
 
     __exported by:__ @declarations\/tentative_definitions.h@
 -}

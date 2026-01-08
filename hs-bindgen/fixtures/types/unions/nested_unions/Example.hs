@@ -29,7 +29,7 @@ import Prelude ((<*>), Int, pure)
 
 {-| __C declaration:__ @union unionA@
 
-    __defined at:__ @types\/unions\/nested_unions.h:2:15@
+    __defined at:__ @types\/unions\/nested_unions.h 2:15@
 
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
@@ -47,7 +47,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data
 
 __C declaration:__ @a@
 
-__defined at:__ @types\/unions\/nested_unions.h:3:21@
+__defined at:__ @types\/unions\/nested_unions.h 3:21@
 
 __exported by:__ @types\/unions\/nested_unions.h@
 -}
@@ -74,7 +74,7 @@ set_unionA_a =
 
 __C declaration:__ @b@
 
-__defined at:__ @types\/unions\/nested_unions.h:4:22@
+__defined at:__ @types\/unions\/nested_unions.h 4:22@
 
 __exported by:__ @types\/unions\/nested_unions.h@
 -}
@@ -121,7 +121,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType UnionA) "unionA_b")
 
 {-| __C declaration:__ @struct exA@
 
-    __defined at:__ @types\/unions\/nested_unions.h:1:8@
+    __defined at:__ @types\/unions\/nested_unions.h 1:8@
 
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
@@ -129,7 +129,7 @@ data ExA = ExA
   { exA_fieldA1 :: UnionA
     {- ^ __C declaration:__ @fieldA1@
 
-         __defined at:__ @types\/unions\/nested_unions.h:5:11@
+         __defined at:__ @types\/unions\/nested_unions.h 5:11@
 
          __exported by:__ @types\/unions\/nested_unions.h@
     -}
@@ -167,7 +167,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExA) "exA_fieldA1")
 
 {-| __C declaration:__ @union \@exB_fieldB1@
 
-    __defined at:__ @types\/unions\/nested_unions.h:9:9@
+    __defined at:__ @types\/unions\/nested_unions.h 9:9@
 
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
@@ -185,7 +185,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data
 
 __C declaration:__ @a@
 
-__defined at:__ @types\/unions\/nested_unions.h:10:21@
+__defined at:__ @types\/unions\/nested_unions.h 10:21@
 
 __exported by:__ @types\/unions\/nested_unions.h@
 -}
@@ -212,7 +212,7 @@ set_exB_fieldB1_a =
 
 __C declaration:__ @b@
 
-__defined at:__ @types\/unions\/nested_unions.h:11:22@
+__defined at:__ @types\/unions\/nested_unions.h 11:22@
 
 __exported by:__ @types\/unions\/nested_unions.h@
 -}
@@ -260,7 +260,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExB_fieldB1) "exB_fi
 
 {-| __C declaration:__ @struct exB@
 
-    __defined at:__ @types\/unions\/nested_unions.h:8:8@
+    __defined at:__ @types\/unions\/nested_unions.h 8:8@
 
     __exported by:__ @types\/unions\/nested_unions.h@
 -}
@@ -268,7 +268,7 @@ data ExB = ExB
   { exB_fieldB1 :: ExB_fieldB1
     {- ^ __C declaration:__ @fieldB1@
 
-         __defined at:__ @types\/unions\/nested_unions.h:12:11@
+         __defined at:__ @types\/unions\/nested_unions.h 12:11@
 
          __exported by:__ @types\/unions\/nested_unions.h@
     -}

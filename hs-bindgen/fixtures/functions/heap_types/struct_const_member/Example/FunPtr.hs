@@ -30,7 +30,7 @@ foreign import ccall unsafe "hs_bindgen_564814e9ac709cad" hs_bindgen_564814e9ac7
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/struct_const_member.h:9:3@
+    __defined at:__ @functions\/heap_types\/struct_const_member.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct_const_member.h@
 -}

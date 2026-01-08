@@ -26,7 +26,7 @@ foreign import ccall safe "hs_bindgen_0d1c75136a36e326" hs_bindgen_0d1c75136a36e
 
 {-| __C declaration:__ @f@
 
-    __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
+    __defined at:__ @declarations\/declarations_required_for_scoping.h 7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}

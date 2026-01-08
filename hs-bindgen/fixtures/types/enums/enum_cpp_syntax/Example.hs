@@ -21,7 +21,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum foo_enum@
 
-    __defined at:__ @types\/enums\/enum_cpp_syntax.h:4:9@
+    __defined at:__ @types\/enums\/enum_cpp_syntax.h 4:9@
 
     __exported by:__ @types\/enums\/enum_cpp_syntax.h@
 -}
@@ -97,7 +97,7 @@ instance Read Foo_enum where
 
 {-| __C declaration:__ @A@
 
-    __defined at:__ @types\/enums\/enum_cpp_syntax.h:4:27@
+    __defined at:__ @types\/enums\/enum_cpp_syntax.h 4:27@
 
     __exported by:__ @types\/enums\/enum_cpp_syntax.h@
 -}
@@ -106,7 +106,7 @@ pattern A = Foo_enum 0
 
 {-| __C declaration:__ @B@
 
-    __defined at:__ @types\/enums\/enum_cpp_syntax.h:4:30@
+    __defined at:__ @types\/enums\/enum_cpp_syntax.h 4:30@
 
     __exported by:__ @types\/enums\/enum_cpp_syntax.h@
 -}
@@ -115,7 +115,7 @@ pattern B = Foo_enum 1
 
 {-| __C declaration:__ @C@
 
-    __defined at:__ @types\/enums\/enum_cpp_syntax.h:4:33@
+    __defined at:__ @types\/enums\/enum_cpp_syntax.h 4:33@
 
     __exported by:__ @types\/enums\/enum_cpp_syntax.h@
 -}

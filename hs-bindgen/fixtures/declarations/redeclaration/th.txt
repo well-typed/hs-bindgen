@@ -8,7 +8,7 @@
 -- }
 {-| __C declaration:__ @int_t@
 
-    __defined at:__ @declarations\/redeclaration.h:20:13@
+    __defined at:__ @declarations\/redeclaration.h 20:13@
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
@@ -16,7 +16,7 @@ newtype Int_t
     = Int_t {un_Int_t :: CInt}
       {- ^ __C declaration:__ @int_t@
 
-           __defined at:__ @declarations\/redeclaration.h:20:13@
+           __defined at:__ @declarations\/redeclaration.h 20:13@
 
            __exported by:__ @declarations\/redeclaration.h@
       -}
@@ -40,7 +40,7 @@ instance HasCField Int_t "un_Int_t"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct X@
 
-    __defined at:__ @declarations\/redeclaration.h:26:8@
+    __defined at:__ @declarations\/redeclaration.h 26:8@
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
@@ -48,13 +48,13 @@ data X
     = X {x_n :: CInt
          {- ^ __C declaration:__ @n@
 
-              __defined at:__ @declarations\/redeclaration.h:26:16@
+              __defined at:__ @declarations\/redeclaration.h 26:16@
 
               __exported by:__ @declarations\/redeclaration.h@
          -}}
       {- ^ __C declaration:__ @struct X@
 
-           __defined at:__ @declarations\/redeclaration.h:26:8@
+           __defined at:__ @declarations\/redeclaration.h 26:8@
 
            __exported by:__ @declarations\/redeclaration.h@
       -}
@@ -86,14 +86,14 @@ instance TyEq ty (CFieldType X "x_n") =>
     where getField = ptrToCField (Proxy @"x_n")
 {-| __C declaration:__ @union Y@
 
-    __defined at:__ @declarations\/redeclaration.h:30:7@
+    __defined at:__ @declarations\/redeclaration.h 30:7@
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
 data Y
 {-| __C declaration:__ @union Y@
 
-    __defined at:__ @declarations\/redeclaration.h:30:7@
+    __defined at:__ @declarations\/redeclaration.h 30:7@
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
@@ -101,7 +101,7 @@ newtype Y
     = Y {un_Y :: ByteArray}
       {- ^ __C declaration:__ @union Y@
 
-           __defined at:__ @declarations\/redeclaration.h:30:7@
+           __defined at:__ @declarations\/redeclaration.h 30:7@
 
            __exported by:__ @declarations\/redeclaration.h@
       -}
@@ -113,7 +113,7 @@ deriving via (SizedByteArray 4 4) instance Prim Y
 
 __C declaration:__ @m@
 
-__defined at:__ @declarations\/redeclaration.h:30:15@
+__defined at:__ @declarations\/redeclaration.h 30:15@
 
 __exported by:__ @declarations\/redeclaration.h@
 -}
@@ -124,7 +124,7 @@ get_y_m :: Y -> CInt
 
 __C declaration:__ @m@
 
-__defined at:__ @declarations\/redeclaration.h:30:15@
+__defined at:__ @declarations\/redeclaration.h 30:15@
 
 __exported by:__ @declarations\/redeclaration.h@
 -}
@@ -147,7 +147,7 @@ set_y_m = setUnionPayload
 
 __C declaration:__ @o@
 
-__defined at:__ @declarations\/redeclaration.h:30:22@
+__defined at:__ @declarations\/redeclaration.h 30:22@
 
 __exported by:__ @declarations\/redeclaration.h@
 -}
@@ -158,7 +158,7 @@ get_y_o :: Y -> CInt
 
 __C declaration:__ @o@
 
-__defined at:__ @declarations\/redeclaration.h:30:22@
+__defined at:__ @declarations\/redeclaration.h 30:22@
 
 __exported by:__ @declarations\/redeclaration.h@
 -}
@@ -192,14 +192,14 @@ foreign import ccall safe "hs_bindgen_6f47e5cbb92690b9" hs_bindgen_6f47e5cbb9269
 {-# NOINLINE x #-}
 {-| __C declaration:__ @x@
 
-    __defined at:__ @declarations\/redeclaration.h:11:5@
+    __defined at:__ @declarations\/redeclaration.h 11:5@
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
 x :: Ptr CInt
 {-| __C declaration:__ @x@
 
-    __defined at:__ @declarations\/redeclaration.h:11:5@
+    __defined at:__ @declarations\/redeclaration.h 11:5@
 
     __exported by:__ @declarations\/redeclaration.h@
 -}

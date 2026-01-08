@@ -188,7 +188,7 @@
 -- }
 {-| __C declaration:__ @Toggle@
 
-    __defined at:__ @edge-cases\/iterator.h:3:16@
+    __defined at:__ @edge-cases\/iterator.h 3:16@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -196,7 +196,7 @@ newtype Toggle
     = Toggle {un_Toggle :: (Block (IO CBool))}
       {- ^ __C declaration:__ @Toggle@
 
-           __defined at:__ @edge-cases\/iterator.h:3:16@
+           __defined at:__ @edge-cases\/iterator.h 3:16@
 
            __exported by:__ @edge-cases\/iterator.h@
       -}
@@ -209,7 +209,7 @@ instance HasCField Toggle "un_Toggle"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @Counter@
 
-    __defined at:__ @edge-cases\/iterator.h:10:14@
+    __defined at:__ @edge-cases\/iterator.h 10:14@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -217,7 +217,7 @@ newtype Counter
     = Counter {un_Counter :: (Block (IO CInt))}
       {- ^ __C declaration:__ @Counter@
 
-           __defined at:__ @edge-cases\/iterator.h:10:14@
+           __defined at:__ @edge-cases\/iterator.h 10:14@
 
            __exported by:__ @edge-cases\/iterator.h@
       -}
@@ -230,7 +230,7 @@ instance HasCField Counter "un_Counter"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @VarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:17:14@
+    __defined at:__ @edge-cases\/iterator.h 17:14@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -238,7 +238,7 @@ newtype VarCounter
     = VarCounter {un_VarCounter :: (Block (CInt -> IO CInt))}
       {- ^ __C declaration:__ @VarCounter@
 
-           __defined at:__ @edge-cases\/iterator.h:17:14@
+           __defined at:__ @edge-cases\/iterator.h 17:14@
 
            __exported by:__ @edge-cases\/iterator.h@
       -}
@@ -255,14 +255,14 @@ foreign import ccall safe "hs_bindgen_9d01035006b66206" hs_bindgen_9d01035006b66
                                                                                        IO Toggle
 {-| __C declaration:__ @makeToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:4:8@
+    __defined at:__ @edge-cases\/iterator.h 4:8@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 makeToggle :: CBool -> IO Toggle
 {-| __C declaration:__ @makeToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:4:8@
+    __defined at:__ @edge-cases\/iterator.h 4:8@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -272,14 +272,14 @@ foreign import ccall safe "hs_bindgen_ccd3ba727d0c0cf4" hs_bindgen_ccd3ba727d0c0
                                                                                        IO CBool
 {-| __C declaration:__ @toggleNext@
 
-    __defined at:__ @edge-cases\/iterator.h:5:6@
+    __defined at:__ @edge-cases\/iterator.h 5:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 toggleNext :: Toggle -> IO CBool
 {-| __C declaration:__ @toggleNext@
 
-    __defined at:__ @edge-cases\/iterator.h:5:6@
+    __defined at:__ @edge-cases\/iterator.h 5:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -289,14 +289,14 @@ foreign import ccall safe "hs_bindgen_602b40e971b06c72" hs_bindgen_602b40e971b06
                                                                                        IO Unit
 {-| __C declaration:__ @releaseToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:6:6@
+    __defined at:__ @edge-cases\/iterator.h 6:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 releaseToggle :: Toggle -> IO Unit
 {-| __C declaration:__ @releaseToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:6:6@
+    __defined at:__ @edge-cases\/iterator.h 6:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -307,14 +307,14 @@ foreign import ccall safe "hs_bindgen_234fa6f1fb089e1d" hs_bindgen_234fa6f1fb089
                                                                                        IO Counter
 {-| __C declaration:__ @makeCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:11:9@
+    __defined at:__ @edge-cases\/iterator.h 11:9@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 makeCounter :: CInt -> CInt -> IO Counter
 {-| __C declaration:__ @makeCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:11:9@
+    __defined at:__ @edge-cases\/iterator.h 11:9@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -324,14 +324,14 @@ foreign import ccall safe "hs_bindgen_f0fca62d78f225c3" hs_bindgen_f0fca62d78f22
                                                                                        IO CInt
 {-| __C declaration:__ @counterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:12:5@
+    __defined at:__ @edge-cases\/iterator.h 12:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 counterNext :: Counter -> IO CInt
 {-| __C declaration:__ @counterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:12:5@
+    __defined at:__ @edge-cases\/iterator.h 12:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -341,14 +341,14 @@ foreign import ccall safe "hs_bindgen_e42dcbee8a114957" hs_bindgen_e42dcbee8a114
                                                                                        IO Unit
 {-| __C declaration:__ @releaseCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:13:6@
+    __defined at:__ @edge-cases\/iterator.h 13:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 releaseCounter :: Counter -> IO Unit
 {-| __C declaration:__ @releaseCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:13:6@
+    __defined at:__ @edge-cases\/iterator.h 13:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -358,14 +358,14 @@ foreign import ccall safe "hs_bindgen_2bee4eb5b4d895c1" hs_bindgen_2bee4eb5b4d89
                                                                                        IO VarCounter
 {-| __C declaration:__ @makeVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:18:12@
+    __defined at:__ @edge-cases\/iterator.h 18:12@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 makeVarCounter :: CInt -> IO VarCounter
 {-| __C declaration:__ @makeVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:18:12@
+    __defined at:__ @edge-cases\/iterator.h 18:12@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -376,14 +376,14 @@ foreign import ccall safe "hs_bindgen_276b9cb5320fec37" hs_bindgen_276b9cb5320fe
                                                                                        IO CInt
 {-| __C declaration:__ @varCounterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:19:5@
+    __defined at:__ @edge-cases\/iterator.h 19:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 varCounterNext :: VarCounter -> CInt -> IO CInt
 {-| __C declaration:__ @varCounterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:19:5@
+    __defined at:__ @edge-cases\/iterator.h 19:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -393,14 +393,14 @@ foreign import ccall safe "hs_bindgen_8423b076f7c9df21" hs_bindgen_8423b076f7c9d
                                                                                        IO Unit
 {-| __C declaration:__ @releaseVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:20:6@
+    __defined at:__ @edge-cases\/iterator.h 20:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 releaseVarCounter :: VarCounter -> IO Unit
 {-| __C declaration:__ @releaseVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:20:6@
+    __defined at:__ @edge-cases\/iterator.h 20:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -410,14 +410,14 @@ foreign import ccall safe "hs_bindgen_1b7a6a61a9c0da07" hs_bindgen_1b7a6a61a9c0d
                                                                                        IO Toggle
 {-| __C declaration:__ @makeToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:4:8@
+    __defined at:__ @edge-cases\/iterator.h 4:8@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 makeToggle :: CBool -> IO Toggle
 {-| __C declaration:__ @makeToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:4:8@
+    __defined at:__ @edge-cases\/iterator.h 4:8@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -427,14 +427,14 @@ foreign import ccall safe "hs_bindgen_4d2d650f2c8798d6" hs_bindgen_4d2d650f2c879
                                                                                        IO CBool
 {-| __C declaration:__ @toggleNext@
 
-    __defined at:__ @edge-cases\/iterator.h:5:6@
+    __defined at:__ @edge-cases\/iterator.h 5:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 toggleNext :: Toggle -> IO CBool
 {-| __C declaration:__ @toggleNext@
 
-    __defined at:__ @edge-cases\/iterator.h:5:6@
+    __defined at:__ @edge-cases\/iterator.h 5:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -444,14 +444,14 @@ foreign import ccall safe "hs_bindgen_ddbe11e76502cbdc" hs_bindgen_ddbe11e76502c
                                                                                        IO Unit
 {-| __C declaration:__ @releaseToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:6:6@
+    __defined at:__ @edge-cases\/iterator.h 6:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 releaseToggle :: Toggle -> IO Unit
 {-| __C declaration:__ @releaseToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:6:6@
+    __defined at:__ @edge-cases\/iterator.h 6:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -462,14 +462,14 @@ foreign import ccall safe "hs_bindgen_2b04d558934551d2" hs_bindgen_2b04d55893455
                                                                                        IO Counter
 {-| __C declaration:__ @makeCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:11:9@
+    __defined at:__ @edge-cases\/iterator.h 11:9@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 makeCounter :: CInt -> CInt -> IO Counter
 {-| __C declaration:__ @makeCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:11:9@
+    __defined at:__ @edge-cases\/iterator.h 11:9@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -479,14 +479,14 @@ foreign import ccall safe "hs_bindgen_5bba69c8bfbeedf0" hs_bindgen_5bba69c8bfbee
                                                                                        IO CInt
 {-| __C declaration:__ @counterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:12:5@
+    __defined at:__ @edge-cases\/iterator.h 12:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 counterNext :: Counter -> IO CInt
 {-| __C declaration:__ @counterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:12:5@
+    __defined at:__ @edge-cases\/iterator.h 12:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -496,14 +496,14 @@ foreign import ccall safe "hs_bindgen_429845bb55a5a7b5" hs_bindgen_429845bb55a5a
                                                                                        IO Unit
 {-| __C declaration:__ @releaseCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:13:6@
+    __defined at:__ @edge-cases\/iterator.h 13:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 releaseCounter :: Counter -> IO Unit
 {-| __C declaration:__ @releaseCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:13:6@
+    __defined at:__ @edge-cases\/iterator.h 13:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -513,14 +513,14 @@ foreign import ccall safe "hs_bindgen_4421633e88fc96c4" hs_bindgen_4421633e88fc9
                                                                                        IO VarCounter
 {-| __C declaration:__ @makeVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:18:12@
+    __defined at:__ @edge-cases\/iterator.h 18:12@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 makeVarCounter :: CInt -> IO VarCounter
 {-| __C declaration:__ @makeVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:18:12@
+    __defined at:__ @edge-cases\/iterator.h 18:12@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -531,14 +531,14 @@ foreign import ccall safe "hs_bindgen_31edd817cb78027d" hs_bindgen_31edd817cb780
                                                                                        IO CInt
 {-| __C declaration:__ @varCounterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:19:5@
+    __defined at:__ @edge-cases\/iterator.h 19:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 varCounterNext :: VarCounter -> CInt -> IO CInt
 {-| __C declaration:__ @varCounterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:19:5@
+    __defined at:__ @edge-cases\/iterator.h 19:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -548,14 +548,14 @@ foreign import ccall safe "hs_bindgen_32e5b257124f69a2" hs_bindgen_32e5b257124f6
                                                                                        IO Unit
 {-| __C declaration:__ @releaseVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:20:6@
+    __defined at:__ @edge-cases\/iterator.h 20:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 releaseVarCounter :: VarCounter -> IO Unit
 {-| __C declaration:__ @releaseVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:20:6@
+    __defined at:__ @edge-cases\/iterator.h 20:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -566,14 +566,14 @@ foreign import ccall safe "hs_bindgen_ccdad25a057f8efd" hs_bindgen_ccdad25a057f8
 {-# NOINLINE makeToggle #-}
 {-| __C declaration:__ @makeToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:4:8@
+    __defined at:__ @edge-cases\/iterator.h 4:8@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 makeToggle :: FunPtr (CBool -> IO Toggle)
 {-| __C declaration:__ @makeToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:4:8@
+    __defined at:__ @edge-cases\/iterator.h 4:8@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -584,14 +584,14 @@ foreign import ccall safe "hs_bindgen_fd8e19ba2d78baa9" hs_bindgen_fd8e19ba2d78b
 {-# NOINLINE toggleNext #-}
 {-| __C declaration:__ @toggleNext@
 
-    __defined at:__ @edge-cases\/iterator.h:5:6@
+    __defined at:__ @edge-cases\/iterator.h 5:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 toggleNext :: FunPtr (Toggle -> IO CBool)
 {-| __C declaration:__ @toggleNext@
 
-    __defined at:__ @edge-cases\/iterator.h:5:6@
+    __defined at:__ @edge-cases\/iterator.h 5:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -602,14 +602,14 @@ foreign import ccall safe "hs_bindgen_780e490698de9df1" hs_bindgen_780e490698de9
 {-# NOINLINE releaseToggle #-}
 {-| __C declaration:__ @releaseToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:6:6@
+    __defined at:__ @edge-cases\/iterator.h 6:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 releaseToggle :: FunPtr (Toggle -> IO Unit)
 {-| __C declaration:__ @releaseToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:6:6@
+    __defined at:__ @edge-cases\/iterator.h 6:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -621,14 +621,14 @@ foreign import ccall safe "hs_bindgen_517dd14dbdb5e3ba" hs_bindgen_517dd14dbdb5e
 {-# NOINLINE makeCounter #-}
 {-| __C declaration:__ @makeCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:11:9@
+    __defined at:__ @edge-cases\/iterator.h 11:9@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 makeCounter :: FunPtr (CInt -> CInt -> IO Counter)
 {-| __C declaration:__ @makeCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:11:9@
+    __defined at:__ @edge-cases\/iterator.h 11:9@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -639,14 +639,14 @@ foreign import ccall safe "hs_bindgen_28d81dd8ce6aca30" hs_bindgen_28d81dd8ce6ac
 {-# NOINLINE counterNext #-}
 {-| __C declaration:__ @counterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:12:5@
+    __defined at:__ @edge-cases\/iterator.h 12:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 counterNext :: FunPtr (Counter -> IO CInt)
 {-| __C declaration:__ @counterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:12:5@
+    __defined at:__ @edge-cases\/iterator.h 12:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -657,14 +657,14 @@ foreign import ccall safe "hs_bindgen_849de94baad0430a" hs_bindgen_849de94baad04
 {-# NOINLINE releaseCounter #-}
 {-| __C declaration:__ @releaseCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:13:6@
+    __defined at:__ @edge-cases\/iterator.h 13:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 releaseCounter :: FunPtr (Counter -> IO Unit)
 {-| __C declaration:__ @releaseCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:13:6@
+    __defined at:__ @edge-cases\/iterator.h 13:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -675,14 +675,14 @@ foreign import ccall safe "hs_bindgen_8eea20d99febeef3" hs_bindgen_8eea20d99febe
 {-# NOINLINE makeVarCounter #-}
 {-| __C declaration:__ @makeVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:18:12@
+    __defined at:__ @edge-cases\/iterator.h 18:12@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 makeVarCounter :: FunPtr (CInt -> IO VarCounter)
 {-| __C declaration:__ @makeVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:18:12@
+    __defined at:__ @edge-cases\/iterator.h 18:12@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -694,14 +694,14 @@ foreign import ccall safe "hs_bindgen_3ae982266c863a3d" hs_bindgen_3ae982266c863
 {-# NOINLINE varCounterNext #-}
 {-| __C declaration:__ @varCounterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:19:5@
+    __defined at:__ @edge-cases\/iterator.h 19:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 varCounterNext :: FunPtr (VarCounter -> CInt -> IO CInt)
 {-| __C declaration:__ @varCounterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:19:5@
+    __defined at:__ @edge-cases\/iterator.h 19:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -712,14 +712,14 @@ foreign import ccall safe "hs_bindgen_802a723805cb041f" hs_bindgen_802a723805cb0
 {-# NOINLINE releaseVarCounter #-}
 {-| __C declaration:__ @releaseVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:20:6@
+    __defined at:__ @edge-cases\/iterator.h 20:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
 releaseVarCounter :: FunPtr (VarCounter -> IO Unit)
 {-| __C declaration:__ @releaseVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:20:6@
+    __defined at:__ @edge-cases\/iterator.h 20:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}

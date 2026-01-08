@@ -74,7 +74,7 @@
 -- }
 {-| __C declaration:__ @I@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:10:13@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 10:13@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -82,7 +82,7 @@ newtype I
     = I {un_I :: CInt}
       {- ^ __C declaration:__ @I@
 
-           __defined at:__ @types\/qualifiers\/const_typedefs.h:10:13@
+           __defined at:__ @types\/qualifiers\/const_typedefs.h 10:13@
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
@@ -106,7 +106,7 @@ instance HasCField I "un_I"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:11:8@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 11:8@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -114,7 +114,7 @@ data S
     = S {}
       {- ^ __C declaration:__ @struct S@
 
-           __defined at:__ @types\/qualifiers\/const_typedefs.h:11:8@
+           __defined at:__ @types\/qualifiers\/const_typedefs.h 11:8@
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
@@ -138,7 +138,7 @@ instance Prim S
                                                                       S -> s_17
 {-| __C declaration:__ @union U@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:12:7@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 12:7@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -146,7 +146,7 @@ newtype U
     = U {un_U :: ByteArray}
       {- ^ __C declaration:__ @union U@
 
-           __defined at:__ @types\/qualifiers\/const_typedefs.h:12:7@
+           __defined at:__ @types\/qualifiers\/const_typedefs.h 12:7@
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
@@ -154,7 +154,7 @@ deriving via (SizedByteArray 0 1) instance Storable U
 deriving via (SizedByteArray 0 1) instance Prim U
 {-| __C declaration:__ @enum E@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:13:6@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 13:6@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -162,7 +162,7 @@ newtype E
     = E {un_E :: CUInt}
       {- ^ __C declaration:__ @enum E@
 
-           __defined at:__ @types\/qualifiers\/const_typedefs.h:13:6@
+           __defined at:__ @types\/qualifiers\/const_typedefs.h 13:6@
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
@@ -196,21 +196,21 @@ instance Read E
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:13:9@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 13:9@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 pattern Foo :: E
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:13:9@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 13:9@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
 pattern Foo = E 0
 {-| __C declaration:__ @TI@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:20:17@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 20:17@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -218,7 +218,7 @@ newtype TI
     = TI {un_TI :: I}
       {- ^ __C declaration:__ @TI@
 
-           __defined at:__ @types\/qualifiers\/const_typedefs.h:20:17@
+           __defined at:__ @types\/qualifiers\/const_typedefs.h 20:17@
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
@@ -242,7 +242,7 @@ instance HasCField TI "un_TI"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @TS@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:21:24@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 21:24@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -250,7 +250,7 @@ newtype TS
     = TS {un_TS :: S}
       {- ^ __C declaration:__ @TS@
 
-           __defined at:__ @types\/qualifiers\/const_typedefs.h:21:24@
+           __defined at:__ @types\/qualifiers\/const_typedefs.h 21:24@
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
@@ -264,7 +264,7 @@ instance HasCField TS "un_TS"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @TU@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:22:23@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 22:23@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -272,7 +272,7 @@ newtype TU
     = TU {un_TU :: U}
       {- ^ __C declaration:__ @TU@
 
-           __defined at:__ @types\/qualifiers\/const_typedefs.h:22:23@
+           __defined at:__ @types\/qualifiers\/const_typedefs.h 22:23@
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
@@ -285,7 +285,7 @@ instance HasCField TU "un_TU"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @TE@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:23:22@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 23:22@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -293,7 +293,7 @@ newtype TE
     = TE {un_TE :: E}
       {- ^ __C declaration:__ @TE@
 
-           __defined at:__ @types\/qualifiers\/const_typedefs.h:23:22@
+           __defined at:__ @types\/qualifiers\/const_typedefs.h 23:22@
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
@@ -307,7 +307,7 @@ instance HasCField TE "un_TE"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @TTI@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:30:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 30:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -315,7 +315,7 @@ newtype TTI
     = TTI {un_TTI :: TI}
       {- ^ __C declaration:__ @TTI@
 
-           __defined at:__ @types\/qualifiers\/const_typedefs.h:30:12@
+           __defined at:__ @types\/qualifiers\/const_typedefs.h 30:12@
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
@@ -339,7 +339,7 @@ instance HasCField TTI "un_TTI"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @TTS@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:31:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 31:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -347,7 +347,7 @@ newtype TTS
     = TTS {un_TTS :: TS}
       {- ^ __C declaration:__ @TTS@
 
-           __defined at:__ @types\/qualifiers\/const_typedefs.h:31:12@
+           __defined at:__ @types\/qualifiers\/const_typedefs.h 31:12@
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
@@ -361,7 +361,7 @@ instance HasCField TTS "un_TTS"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @TTU@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:32:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 32:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -369,7 +369,7 @@ newtype TTU
     = TTU {un_TTU :: TU}
       {- ^ __C declaration:__ @TTU@
 
-           __defined at:__ @types\/qualifiers\/const_typedefs.h:32:12@
+           __defined at:__ @types\/qualifiers\/const_typedefs.h 32:12@
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
@@ -382,7 +382,7 @@ instance HasCField TTU "un_TTU"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @TTE@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:33:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 33:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 -}
@@ -390,7 +390,7 @@ newtype TTE
     = TTE {un_TTE :: TE}
       {- ^ __C declaration:__ @TTE@
 
-           __defined at:__ @types\/qualifiers\/const_typedefs.h:33:12@
+           __defined at:__ @types\/qualifiers\/const_typedefs.h 33:12@
 
            __exported by:__ @types\/qualifiers\/const_typedefs.h@
       -}
@@ -407,7 +407,7 @@ foreign import ccall safe "hs_bindgen_bb40525ba9109d7a" hs_bindgen_bb40525ba9109
 {-# NOINLINE hs_bindgen_8bf2d89ca41997fb #-}
 {-| __C declaration:__ @i@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:15:16@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 15:16@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -416,7 +416,7 @@ foreign import ccall safe "hs_bindgen_bb40525ba9109d7a" hs_bindgen_bb40525ba9109
 hs_bindgen_8bf2d89ca41997fb :: ConstPtr I
 {-| __C declaration:__ @i@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:15:16@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 15:16@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -431,7 +431,7 @@ foreign import ccall safe "hs_bindgen_e02c667254de325e" hs_bindgen_e02c667254de3
 {-# NOINLINE hs_bindgen_0e876abf0fe9e3b2 #-}
 {-| __C declaration:__ @s@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:16:23@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 16:23@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -440,7 +440,7 @@ foreign import ccall safe "hs_bindgen_e02c667254de325e" hs_bindgen_e02c667254de3
 hs_bindgen_0e876abf0fe9e3b2 :: ConstPtr S
 {-| __C declaration:__ @s@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:16:23@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 16:23@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -455,7 +455,7 @@ foreign import ccall safe "hs_bindgen_db442d4a677f346c" hs_bindgen_db442d4a677f3
 {-# NOINLINE hs_bindgen_b7bdf87ddb6b9a5b #-}
 {-| __C declaration:__ @u@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:17:22@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 17:22@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -464,7 +464,7 @@ foreign import ccall safe "hs_bindgen_db442d4a677f346c" hs_bindgen_db442d4a677f3
 hs_bindgen_b7bdf87ddb6b9a5b :: ConstPtr U
 {-| __C declaration:__ @u@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:17:22@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 17:22@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -479,7 +479,7 @@ foreign import ccall safe "hs_bindgen_f8e0ac7d2c94db95" hs_bindgen_f8e0ac7d2c94d
 {-# NOINLINE hs_bindgen_fa2424d094d91a33 #-}
 {-| __C declaration:__ @e@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:18:21@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 18:21@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -488,7 +488,7 @@ foreign import ccall safe "hs_bindgen_f8e0ac7d2c94db95" hs_bindgen_f8e0ac7d2c94d
 hs_bindgen_fa2424d094d91a33 :: ConstPtr E
 {-| __C declaration:__ @e@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:18:21@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 18:21@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -503,7 +503,7 @@ foreign import ccall safe "hs_bindgen_da8e11a66011da3a" hs_bindgen_da8e11a66011d
 {-# NOINLINE hs_bindgen_d7dd4362406f73a6 #-}
 {-| __C declaration:__ @ti@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:25:11@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 25:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -512,7 +512,7 @@ foreign import ccall safe "hs_bindgen_da8e11a66011da3a" hs_bindgen_da8e11a66011d
 hs_bindgen_d7dd4362406f73a6 :: ConstPtr TI
 {-| __C declaration:__ @ti@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:25:11@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 25:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -527,7 +527,7 @@ foreign import ccall safe "hs_bindgen_10a3457a0f6b2036" hs_bindgen_10a3457a0f6b2
 {-# NOINLINE hs_bindgen_cd3e2d14ae82b6fc #-}
 {-| __C declaration:__ @ts@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:26:11@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 26:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -536,7 +536,7 @@ foreign import ccall safe "hs_bindgen_10a3457a0f6b2036" hs_bindgen_10a3457a0f6b2
 hs_bindgen_cd3e2d14ae82b6fc :: ConstPtr TS
 {-| __C declaration:__ @ts@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:26:11@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 26:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -551,7 +551,7 @@ foreign import ccall safe "hs_bindgen_ded2bbcd5f7b0513" hs_bindgen_ded2bbcd5f7b0
 {-# NOINLINE hs_bindgen_2d9684fc851b0766 #-}
 {-| __C declaration:__ @tu@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:27:11@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 27:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -560,7 +560,7 @@ foreign import ccall safe "hs_bindgen_ded2bbcd5f7b0513" hs_bindgen_ded2bbcd5f7b0
 hs_bindgen_2d9684fc851b0766 :: ConstPtr TU
 {-| __C declaration:__ @tu@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:27:11@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 27:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -575,7 +575,7 @@ foreign import ccall safe "hs_bindgen_1b4b0fa82bacf9cc" hs_bindgen_1b4b0fa82bacf
 {-# NOINLINE hs_bindgen_200eaed7c3fb420d #-}
 {-| __C declaration:__ @te@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:28:11@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 28:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -584,7 +584,7 @@ foreign import ccall safe "hs_bindgen_1b4b0fa82bacf9cc" hs_bindgen_1b4b0fa82bacf
 hs_bindgen_200eaed7c3fb420d :: ConstPtr TE
 {-| __C declaration:__ @te@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:28:11@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 28:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -599,7 +599,7 @@ foreign import ccall safe "hs_bindgen_b8067bbfe8dc188e" hs_bindgen_b8067bbfe8dc1
 {-# NOINLINE hs_bindgen_1fbea465b2793d07 #-}
 {-| __C declaration:__ @tti@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:35:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 35:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -608,7 +608,7 @@ foreign import ccall safe "hs_bindgen_b8067bbfe8dc188e" hs_bindgen_b8067bbfe8dc1
 hs_bindgen_1fbea465b2793d07 :: ConstPtr TTI
 {-| __C declaration:__ @tti@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:35:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 35:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -623,7 +623,7 @@ foreign import ccall safe "hs_bindgen_6ce6ca09ed64a420" hs_bindgen_6ce6ca09ed64a
 {-# NOINLINE hs_bindgen_f23f17df17b3fe36 #-}
 {-| __C declaration:__ @tts@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:36:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 36:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -632,7 +632,7 @@ foreign import ccall safe "hs_bindgen_6ce6ca09ed64a420" hs_bindgen_6ce6ca09ed64a
 hs_bindgen_f23f17df17b3fe36 :: ConstPtr TTS
 {-| __C declaration:__ @tts@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:36:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 36:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -647,7 +647,7 @@ foreign import ccall safe "hs_bindgen_5d4569e6c5a642c0" hs_bindgen_5d4569e6c5a64
 {-# NOINLINE hs_bindgen_45ab2258853f641d #-}
 {-| __C declaration:__ @ttu@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:37:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 37:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -656,7 +656,7 @@ foreign import ccall safe "hs_bindgen_5d4569e6c5a642c0" hs_bindgen_5d4569e6c5a64
 hs_bindgen_45ab2258853f641d :: ConstPtr TTU
 {-| __C declaration:__ @ttu@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:37:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 37:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -671,7 +671,7 @@ foreign import ccall safe "hs_bindgen_cb44d6db796abc21" hs_bindgen_cb44d6db796ab
 {-# NOINLINE hs_bindgen_0956779e634e3dd5 #-}
 {-| __C declaration:__ @tte@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:38:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 38:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -680,7 +680,7 @@ foreign import ccall safe "hs_bindgen_cb44d6db796abc21" hs_bindgen_cb44d6db796ab
 hs_bindgen_0956779e634e3dd5 :: ConstPtr TTE
 {-| __C declaration:__ @tte@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:38:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 38:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 

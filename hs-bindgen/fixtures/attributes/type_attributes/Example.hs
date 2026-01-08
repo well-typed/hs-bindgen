@@ -37,7 +37,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
 
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @attributes\/type_attributes.h:8:8@
+    __defined at:__ @attributes\/type_attributes.h 8:8@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -45,7 +45,7 @@ data S = S
   { s_f :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CShort
     {- ^ __C declaration:__ @f@
 
-         __defined at:__ @attributes\/type_attributes.h:8:18@
+         __defined at:__ @attributes\/type_attributes.h 8:18@
 
          __exported by:__ @attributes\/type_attributes.h@
     -}
@@ -85,7 +85,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S) "s_f")
 
 {-| __C declaration:__ @more_aligned_int@
 
-    __defined at:__ @attributes\/type_attributes.h:9:13@
+    __defined at:__ @attributes\/type_attributes.h 9:13@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -110,7 +110,7 @@ instance HsBindgen.Runtime.HasCField.HasCField More_aligned_int "un_More_aligned
 
 {-| __C declaration:__ @struct S2@
 
-    __defined at:__ @attributes\/type_attributes.h:11:8@
+    __defined at:__ @attributes\/type_attributes.h 11:8@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -118,7 +118,7 @@ data S2 = S2
   { s2_f :: (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CShort
     {- ^ __C declaration:__ @f@
 
-         __defined at:__ @attributes\/type_attributes.h:11:19@
+         __defined at:__ @attributes\/type_attributes.h 11:19@
 
          __exported by:__ @attributes\/type_attributes.h@
     -}
@@ -158,7 +158,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S2) "s2_f")
 
 {-| __C declaration:__ @struct my_unpacked_struct@
 
-    __defined at:__ @attributes\/type_attributes.h:13:8@
+    __defined at:__ @attributes\/type_attributes.h 13:8@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -166,14 +166,14 @@ data My_unpacked_struct = My_unpacked_struct
   { my_unpacked_struct_c :: FC.CChar
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @attributes\/type_attributes.h:15:8@
+         __defined at:__ @attributes\/type_attributes.h 15:8@
 
          __exported by:__ @attributes\/type_attributes.h@
     -}
   , my_unpacked_struct_i :: FC.CInt
     {- ^ __C declaration:__ @i@
 
-         __defined at:__ @attributes\/type_attributes.h:16:7@
+         __defined at:__ @attributes\/type_attributes.h 16:7@
 
          __exported by:__ @attributes\/type_attributes.h@
     -}
@@ -284,7 +284,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_unpacked_struct) 
 
 {-| __C declaration:__ @struct my_packed_struct@
 
-    __defined at:__ @attributes\/type_attributes.h:19:37@
+    __defined at:__ @attributes\/type_attributes.h 19:37@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -292,21 +292,21 @@ data My_packed_struct = My_packed_struct
   { my_packed_struct_c :: FC.CChar
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @attributes\/type_attributes.h:21:9@
+         __defined at:__ @attributes\/type_attributes.h 21:9@
 
          __exported by:__ @attributes\/type_attributes.h@
     -}
   , my_packed_struct_i :: FC.CInt
     {- ^ __C declaration:__ @i@
 
-         __defined at:__ @attributes\/type_attributes.h:22:9@
+         __defined at:__ @attributes\/type_attributes.h 22:9@
 
          __exported by:__ @attributes\/type_attributes.h@
     -}
   , my_packed_struct_s :: My_unpacked_struct
     {- ^ __C declaration:__ @s@
 
-         __defined at:__ @attributes\/type_attributes.h:23:30@
+         __defined at:__ @attributes\/type_attributes.h 23:30@
 
          __exported by:__ @attributes\/type_attributes.h@
     -}
@@ -440,7 +440,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_packed_struct) "m
 
 {-| __C declaration:__ @union wait_status_ptr_t@
 
-    __defined at:__ @attributes\/type_attributes.h:26:9@
+    __defined at:__ @attributes\/type_attributes.h 26:9@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -458,7 +458,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance Data
 
 __C declaration:__ @__ip@
 
-__defined at:__ @attributes\/type_attributes.h:28:8@
+__defined at:__ @attributes\/type_attributes.h 28:8@
 
 __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -485,7 +485,7 @@ set_wait_status_ptr_t___ip =
 
 __C declaration:__ @__up@
 
-__defined at:__ @attributes\/type_attributes.h:29:15@
+__defined at:__ @attributes\/type_attributes.h 29:15@
 
 __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -534,7 +534,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Wait_status_ptr_t) "
 
 {-| __C declaration:__ @union wait@
 
-    __defined at:__ @attributes\/type_attributes.h:29:9@
+    __defined at:__ @attributes\/type_attributes.h 29:9@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -542,7 +542,7 @@ data Wait
 
 {-| __C declaration:__ @T1@
 
-    __defined at:__ @attributes\/type_attributes.h:32:13@
+    __defined at:__ @attributes\/type_attributes.h 32:13@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -566,7 +566,7 @@ instance HsBindgen.Runtime.HasCField.HasCField T1 "un_T1" where
 
 {-| __C declaration:__ @short_a@
 
-    __defined at:__ @attributes\/type_attributes.h:34:46@
+    __defined at:__ @attributes\/type_attributes.h 34:46@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}

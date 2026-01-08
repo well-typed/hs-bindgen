@@ -29,7 +29,7 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @T1@
 
-    __defined at:__ @macros\/macro_typedef_scope.h:4:9@
+    __defined at:__ @macros\/macro_typedef_scope.h 4:9@
 
     __exported by:__ @macros\/macro_typedef_scope.h@
 -}
@@ -41,7 +41,7 @@ newtype T1 = T1
 
 {-| __C declaration:__ @T2@
 
-    __defined at:__ @macros\/macro_typedef_scope.h:5:12@
+    __defined at:__ @macros\/macro_typedef_scope.h 5:12@
 
     __exported by:__ @macros\/macro_typedef_scope.h@
 -}
@@ -65,7 +65,7 @@ instance HsBindgen.Runtime.HasCField.HasCField T2 "un_T2" where
 
 {-| __C declaration:__ @T3@
 
-    __defined at:__ @macros\/macro_typedef_scope.h:6:9@
+    __defined at:__ @macros\/macro_typedef_scope.h 6:9@
 
     __exported by:__ @macros\/macro_typedef_scope.h@
 -}
@@ -77,7 +77,7 @@ newtype T3 = T3
 
 {-| __C declaration:__ @T4@
 
-    __defined at:__ @macros\/macro_typedef_scope.h:7:12@
+    __defined at:__ @macros\/macro_typedef_scope.h 7:12@
 
     __exported by:__ @macros\/macro_typedef_scope.h@
 -}

@@ -24,7 +24,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct struct2@
 
-    __defined at:__ @types\/special\/parse_failure_long_double.h:13:8@
+    __defined at:__ @types\/special\/parse_failure_long_double.h 13:8@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
@@ -32,7 +32,7 @@ data Struct2 = Struct2
   { struct2_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/special\/parse_failure_long_double.h:14:7@
+         __defined at:__ @types\/special\/parse_failure_long_double.h 14:7@
 
          __exported by:__ @types\/special\/parse_failure_long_double.h@
     -}

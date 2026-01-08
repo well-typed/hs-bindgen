@@ -22,7 +22,7 @@
 -- }
 {-| __C declaration:__ @struct struct2@
 
-    __defined at:__ @types\/special\/parse_failure_long_double.h:13:8@
+    __defined at:__ @types\/special\/parse_failure_long_double.h 13:8@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
@@ -30,13 +30,13 @@ data Struct2
     = Struct2 {struct2_x :: CInt
                {- ^ __C declaration:__ @x@
 
-                    __defined at:__ @types\/special\/parse_failure_long_double.h:14:7@
+                    __defined at:__ @types\/special\/parse_failure_long_double.h 14:7@
 
                     __exported by:__ @types\/special\/parse_failure_long_double.h@
                -}}
       {- ^ __C declaration:__ @struct struct2@
 
-           __defined at:__ @types\/special\/parse_failure_long_double.h:13:8@
+           __defined at:__ @types\/special\/parse_failure_long_double.h 13:8@
 
            __exported by:__ @types\/special\/parse_failure_long_double.h@
       -}
@@ -71,14 +71,14 @@ foreign import ccall safe "hs_bindgen_a1252a3becef09a6" hs_bindgen_a1252a3becef0
                                                                                        IO Unit
 {-| __C declaration:__ @fun2@
 
-    __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
+    __defined at:__ @types\/special\/parse_failure_long_double.h 7:6@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
 fun2 :: CInt -> IO Unit
 {-| __C declaration:__ @fun2@
 
-    __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
+    __defined at:__ @types\/special\/parse_failure_long_double.h 7:6@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
@@ -88,14 +88,14 @@ foreign import ccall safe "hs_bindgen_61793546aa44e36b" hs_bindgen_61793546aa44e
                                                                                        IO Unit
 {-| __C declaration:__ @fun2@
 
-    __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
+    __defined at:__ @types\/special\/parse_failure_long_double.h 7:6@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
 fun2 :: CInt -> IO Unit
 {-| __C declaration:__ @fun2@
 
-    __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
+    __defined at:__ @types\/special\/parse_failure_long_double.h 7:6@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
@@ -106,14 +106,14 @@ foreign import ccall safe "hs_bindgen_d61a16f2d29260ed" hs_bindgen_d61a16f2d2926
 {-# NOINLINE fun2 #-}
 {-| __C declaration:__ @fun2@
 
-    __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
+    __defined at:__ @types\/special\/parse_failure_long_double.h 7:6@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}
 fun2 :: FunPtr (CInt -> IO Unit)
 {-| __C declaration:__ @fun2@
 
-    __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
+    __defined at:__ @types\/special\/parse_failure_long_double.h 7:6@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}

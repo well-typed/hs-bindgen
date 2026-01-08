@@ -24,7 +24,7 @@
 -- }
 {-| __C declaration:__ @A@
 
-    __defined at:__ @declarations\/declarations_required_for_scoping.h:5:9@
+    __defined at:__ @declarations\/declarations_required_for_scoping.h 5:9@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
@@ -32,7 +32,7 @@ newtype A
     = A {un_A :: HsBindgen.Runtime.Prelude.CSize}
       {- ^ __C declaration:__ @A@
 
-           __defined at:__ @declarations\/declarations_required_for_scoping.h:5:9@
+           __defined at:__ @declarations\/declarations_required_for_scoping.h 5:9@
 
            __exported by:__ @declarations\/declarations_required_for_scoping.h@
       -}
@@ -52,14 +52,14 @@ foreign import ccall safe "hs_bindgen_0d1c75136a36e326" hs_bindgen_0d1c75136a36e
                                                                                        IO Unit
 {-| __C declaration:__ @f@
 
-    __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
+    __defined at:__ @declarations\/declarations_required_for_scoping.h 7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
 f :: A -> IO Unit
 {-| __C declaration:__ @f@
 
-    __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
+    __defined at:__ @declarations\/declarations_required_for_scoping.h 7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
@@ -69,14 +69,14 @@ foreign import ccall safe "hs_bindgen_93ed1628a0edf6b0" hs_bindgen_93ed1628a0edf
                                                                                        IO Unit
 {-| __C declaration:__ @f@
 
-    __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
+    __defined at:__ @declarations\/declarations_required_for_scoping.h 7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
 f :: A -> IO Unit
 {-| __C declaration:__ @f@
 
-    __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
+    __defined at:__ @declarations\/declarations_required_for_scoping.h 7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
@@ -87,14 +87,14 @@ foreign import ccall safe "hs_bindgen_0d4da37880af2263" hs_bindgen_0d4da37880af2
 {-# NOINLINE f #-}
 {-| __C declaration:__ @f@
 
-    __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
+    __defined at:__ @declarations\/declarations_required_for_scoping.h 7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}
 f :: FunPtr (A -> IO Unit)
 {-| __C declaration:__ @f@
 
-    __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
+    __defined at:__ @declarations\/declarations_required_for_scoping.h 7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}

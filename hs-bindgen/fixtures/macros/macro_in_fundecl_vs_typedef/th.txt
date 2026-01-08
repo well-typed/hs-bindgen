@@ -232,7 +232,7 @@
 -- }
 {-| __C declaration:__ @MC@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:4:9@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 4:9@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -240,7 +240,7 @@ newtype MC
     = MC {un_MC :: CChar}
       {- ^ __C declaration:__ @MC@
 
-           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:4:9@
+           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 4:9@
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
@@ -258,7 +258,7 @@ newtype MC
                       Real)
 {-| __C declaration:__ @TC@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:5:14@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 5:14@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -266,7 +266,7 @@ newtype TC
     = TC {un_TC :: CChar}
       {- ^ __C declaration:__ @TC@
 
-           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:5:14@
+           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 5:14@
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
@@ -290,7 +290,7 @@ instance HasCField TC "un_TC"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:18:16@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 18:16@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -298,13 +298,13 @@ data Struct1
     = Struct1 {struct1_a :: CInt
                {- ^ __C declaration:__ @a@
 
-                    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:18:30@
+                    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 18:30@
 
                     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
                -}}
       {- ^ __C declaration:__ @struct struct1@
 
-           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:18:16@
+           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 18:16@
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
@@ -336,7 +336,7 @@ instance TyEq ty (CFieldType Struct1 "struct1_a") =>
     where getField = ptrToCField (Proxy @"struct1_a")
 {-| __C declaration:__ @struct struct2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:19:9@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 19:9@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -344,13 +344,13 @@ data Struct2
     = Struct2 {struct2_a :: CInt
                {- ^ __C declaration:__ @a@
 
-                    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:19:30@
+                    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 19:30@
 
                     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
                -}}
       {- ^ __C declaration:__ @struct struct2@
 
-           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:19:9@
+           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 19:9@
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
@@ -382,7 +382,7 @@ instance TyEq ty (CFieldType Struct2 "struct2_a") =>
     where getField = ptrToCField (Proxy @"struct2_a")
 {-| __C declaration:__ @struct struct3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:20:16@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:16@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -390,13 +390,13 @@ data Struct3
     = Struct3 {struct3_a :: CInt
                {- ^ __C declaration:__ @a@
 
-                    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:20:30@
+                    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:30@
 
                     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
                -}}
       {- ^ __C declaration:__ @struct struct3@
 
-           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:20:16@
+           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:16@
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
@@ -428,7 +428,7 @@ instance TyEq ty (CFieldType Struct3 "struct3_a") =>
     where getField = ptrToCField (Proxy @"struct3_a")
 {-| __C declaration:__ @struct3_t@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:20:35@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:35@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -436,7 +436,7 @@ newtype Struct3_t
     = Struct3_t {un_Struct3_t :: Struct3}
       {- ^ __C declaration:__ @struct3_t@
 
-           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:20:35@
+           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:35@
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
@@ -450,7 +450,7 @@ instance HasCField Struct3_t "un_Struct3_t"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct struct4@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:21:16@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 21:16@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -458,13 +458,13 @@ data Struct4
     = Struct4 {struct4_a :: CInt
                {- ^ __C declaration:__ @a@
 
-                    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:21:30@
+                    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 21:30@
 
                     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
                -}}
       {- ^ __C declaration:__ @struct struct4@
 
-           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:21:16@
+           __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 21:16@
 
            __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
       -}
@@ -500,14 +500,14 @@ foreign import ccall safe "hs_bindgen_02e0e3b28d470fd4" hs_bindgen_02e0e3b28d470
                                                                                        IO CChar
 {-| __C declaration:__ @quux1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:8:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 8:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 quux1 :: MC -> TC -> IO CChar
 {-| __C declaration:__ @quux1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:8:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 8:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -518,14 +518,14 @@ foreign import ccall safe "hs_bindgen_bb79188c8775e2e4" hs_bindgen_bb79188c8775e
                                                                                        IO TC
 {-| __C declaration:__ @quux2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:9:4@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 9:4@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 quux2 :: MC -> CChar -> IO TC
 {-| __C declaration:__ @quux2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:9:4@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 9:4@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -536,14 +536,14 @@ foreign import ccall safe "hs_bindgen_a398fb73645271c5" hs_bindgen_a398fb7364527
                                                                                        IO (Ptr MC)
 {-| __C declaration:__ @wam1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:10:5@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 10:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 wam1 :: CFloat -> Ptr TC -> IO (Ptr MC)
 {-| __C declaration:__ @wam1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:10:5@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 10:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -554,14 +554,14 @@ foreign import ccall safe "hs_bindgen_ad904da072e0711e" hs_bindgen_ad904da072e07
                                                                                        IO (Ptr TC)
 {-| __C declaration:__ @wam2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:11:5@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 11:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 wam2 :: CFloat -> Ptr MC -> IO (Ptr TC)
 {-| __C declaration:__ @wam2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:11:5@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 11:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -571,14 +571,14 @@ foreign import ccall safe "hs_bindgen_88e976dc10571000" hs_bindgen_88e976dc10571
                                                                                        MC -> IO Unit
 {-| __C declaration:__ @struct_typedef1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:23:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 23:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef1 :: Ptr Struct2 -> MC -> IO Unit
 {-| __C declaration:__ @struct_typedef1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:23:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 23:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -588,14 +588,14 @@ foreign import ccall safe "hs_bindgen_edb3806d45d7605b" hs_bindgen_edb3806d45d76
                                                                                        MC -> IO Unit
 {-| __C declaration:__ @struct_typedef2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:24:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 24:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef2 :: Ptr Struct3_t -> MC -> IO Unit
 {-| __C declaration:__ @struct_typedef2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:24:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 24:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -605,14 +605,14 @@ foreign import ccall safe "hs_bindgen_7c7f3ab0dd790fe8" hs_bindgen_7c7f3ab0dd790
                                                                                        MC -> IO Unit
 {-| __C declaration:__ @struct_typedef3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:25:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 25:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef3 :: Ptr Struct4 -> MC -> IO Unit
 {-| __C declaration:__ @struct_typedef3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:25:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 25:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -622,14 +622,14 @@ foreign import ccall safe "hs_bindgen_2cfbb4f5834d4bcb" hs_bindgen_2cfbb4f5834d4
                                                                                        MC -> IO Unit
 {-| __C declaration:__ @struct_name1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:27:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 27:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name1 :: Ptr Struct1 -> MC -> IO Unit
 {-| __C declaration:__ @struct_name1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:27:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 27:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -639,14 +639,14 @@ foreign import ccall safe "hs_bindgen_c8b765fa70f95167" hs_bindgen_c8b765fa70f95
                                                                                        MC -> IO Unit
 {-| __C declaration:__ @struct_name2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:28:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 28:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name2 :: Ptr Struct3 -> MC -> IO Unit
 {-| __C declaration:__ @struct_name2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:28:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 28:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -656,14 +656,14 @@ foreign import ccall safe "hs_bindgen_0ff3632971f092bb" hs_bindgen_0ff3632971f09
                                                                                        MC -> IO Unit
 {-| __C declaration:__ @struct_name3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:29:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 29:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name3 :: Ptr Struct4 -> MC -> IO Unit
 {-| __C declaration:__ @struct_name3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:29:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 29:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -674,14 +674,14 @@ foreign import ccall safe "hs_bindgen_df7e2b8e86de411a" hs_bindgen_df7e2b8e86de4
                                                                                        IO CChar
 {-| __C declaration:__ @quux1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:8:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 8:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 quux1 :: MC -> TC -> IO CChar
 {-| __C declaration:__ @quux1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:8:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 8:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -692,14 +692,14 @@ foreign import ccall safe "hs_bindgen_6f0b13ed02b696df" hs_bindgen_6f0b13ed02b69
                                                                                        IO TC
 {-| __C declaration:__ @quux2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:9:4@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 9:4@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 quux2 :: MC -> CChar -> IO TC
 {-| __C declaration:__ @quux2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:9:4@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 9:4@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -710,14 +710,14 @@ foreign import ccall safe "hs_bindgen_f92059cc98dde342" hs_bindgen_f92059cc98dde
                                                                                        IO (Ptr MC)
 {-| __C declaration:__ @wam1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:10:5@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 10:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 wam1 :: CFloat -> Ptr TC -> IO (Ptr MC)
 {-| __C declaration:__ @wam1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:10:5@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 10:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -728,14 +728,14 @@ foreign import ccall safe "hs_bindgen_3e6ecd1b2cc616bc" hs_bindgen_3e6ecd1b2cc61
                                                                                        IO (Ptr TC)
 {-| __C declaration:__ @wam2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:11:5@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 11:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 wam2 :: CFloat -> Ptr MC -> IO (Ptr TC)
 {-| __C declaration:__ @wam2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:11:5@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 11:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -745,14 +745,14 @@ foreign import ccall safe "hs_bindgen_ffa9d5a3e8f0f221" hs_bindgen_ffa9d5a3e8f0f
                                                                                        MC -> IO Unit
 {-| __C declaration:__ @struct_typedef1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:23:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 23:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef1 :: Ptr Struct2 -> MC -> IO Unit
 {-| __C declaration:__ @struct_typedef1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:23:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 23:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -762,14 +762,14 @@ foreign import ccall safe "hs_bindgen_4801667560542114" hs_bindgen_4801667560542
                                                                                        MC -> IO Unit
 {-| __C declaration:__ @struct_typedef2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:24:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 24:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef2 :: Ptr Struct3_t -> MC -> IO Unit
 {-| __C declaration:__ @struct_typedef2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:24:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 24:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -779,14 +779,14 @@ foreign import ccall safe "hs_bindgen_04fa5bbd479146eb" hs_bindgen_04fa5bbd47914
                                                                                        MC -> IO Unit
 {-| __C declaration:__ @struct_typedef3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:25:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 25:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef3 :: Ptr Struct4 -> MC -> IO Unit
 {-| __C declaration:__ @struct_typedef3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:25:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 25:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -796,14 +796,14 @@ foreign import ccall safe "hs_bindgen_08025fd0bd589ac2" hs_bindgen_08025fd0bd589
                                                                                        MC -> IO Unit
 {-| __C declaration:__ @struct_name1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:27:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 27:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name1 :: Ptr Struct1 -> MC -> IO Unit
 {-| __C declaration:__ @struct_name1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:27:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 27:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -813,14 +813,14 @@ foreign import ccall safe "hs_bindgen_9de286608f952fc7" hs_bindgen_9de286608f952
                                                                                        MC -> IO Unit
 {-| __C declaration:__ @struct_name2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:28:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 28:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name2 :: Ptr Struct3 -> MC -> IO Unit
 {-| __C declaration:__ @struct_name2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:28:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 28:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -830,14 +830,14 @@ foreign import ccall safe "hs_bindgen_38cce6bb1ac71578" hs_bindgen_38cce6bb1ac71
                                                                                        MC -> IO Unit
 {-| __C declaration:__ @struct_name3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:29:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 29:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name3 :: Ptr Struct4 -> MC -> IO Unit
 {-| __C declaration:__ @struct_name3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:29:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 29:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -849,14 +849,14 @@ foreign import ccall safe "hs_bindgen_8c77c87c8985f5b4" hs_bindgen_8c77c87c8985f
 {-# NOINLINE quux1 #-}
 {-| __C declaration:__ @quux1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:8:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 8:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 quux1 :: FunPtr (MC -> TC -> IO CChar)
 {-| __C declaration:__ @quux1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:8:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 8:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -868,14 +868,14 @@ foreign import ccall safe "hs_bindgen_ad1c057fd2e38491" hs_bindgen_ad1c057fd2e38
 {-# NOINLINE quux2 #-}
 {-| __C declaration:__ @quux2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:9:4@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 9:4@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 quux2 :: FunPtr (MC -> CChar -> IO TC)
 {-| __C declaration:__ @quux2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:9:4@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 9:4@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -887,14 +887,14 @@ foreign import ccall safe "hs_bindgen_05b0ef45be2bc377" hs_bindgen_05b0ef45be2bc
 {-# NOINLINE wam1 #-}
 {-| __C declaration:__ @wam1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:10:5@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 10:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 wam1 :: FunPtr (CFloat -> Ptr TC -> IO (Ptr MC))
 {-| __C declaration:__ @wam1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:10:5@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 10:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -906,14 +906,14 @@ foreign import ccall safe "hs_bindgen_cd643a7a3c18ccf6" hs_bindgen_cd643a7a3c18c
 {-# NOINLINE wam2 #-}
 {-| __C declaration:__ @wam2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:11:5@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 11:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 wam2 :: FunPtr (CFloat -> Ptr MC -> IO (Ptr TC))
 {-| __C declaration:__ @wam2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:11:5@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 11:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -925,14 +925,14 @@ foreign import ccall safe "hs_bindgen_0322539d81aee229" hs_bindgen_0322539d81aee
 {-# NOINLINE struct_typedef1 #-}
 {-| __C declaration:__ @struct_typedef1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:23:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 23:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef1 :: FunPtr (Ptr Struct2 -> MC -> IO Unit)
 {-| __C declaration:__ @struct_typedef1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:23:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 23:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -944,14 +944,14 @@ foreign import ccall safe "hs_bindgen_8522498cba39ada6" hs_bindgen_8522498cba39a
 {-# NOINLINE struct_typedef2 #-}
 {-| __C declaration:__ @struct_typedef2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:24:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 24:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef2 :: FunPtr (Ptr Struct3_t -> MC -> IO Unit)
 {-| __C declaration:__ @struct_typedef2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:24:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 24:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -963,14 +963,14 @@ foreign import ccall safe "hs_bindgen_e19fc7f7dee46424" hs_bindgen_e19fc7f7dee46
 {-# NOINLINE struct_typedef3 #-}
 {-| __C declaration:__ @struct_typedef3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:25:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 25:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_typedef3 :: FunPtr (Ptr Struct4 -> MC -> IO Unit)
 {-| __C declaration:__ @struct_typedef3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:25:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 25:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -982,14 +982,14 @@ foreign import ccall safe "hs_bindgen_00f81edda453ec64" hs_bindgen_00f81edda453e
 {-# NOINLINE struct_name1 #-}
 {-| __C declaration:__ @struct_name1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:27:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 27:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name1 :: FunPtr (Ptr Struct1 -> MC -> IO Unit)
 {-| __C declaration:__ @struct_name1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:27:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 27:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -1001,14 +1001,14 @@ foreign import ccall safe "hs_bindgen_8f4de3d502f3466d" hs_bindgen_8f4de3d502f34
 {-# NOINLINE struct_name2 #-}
 {-| __C declaration:__ @struct_name2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:28:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 28:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name2 :: FunPtr (Ptr Struct3 -> MC -> IO Unit)
 {-| __C declaration:__ @struct_name2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:28:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 28:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -1020,14 +1020,14 @@ foreign import ccall safe "hs_bindgen_ba133ae0ff062248" hs_bindgen_ba133ae0ff062
 {-# NOINLINE struct_name3 #-}
 {-| __C declaration:__ @struct_name3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:29:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 29:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
 struct_name3 :: FunPtr (Ptr Struct4 -> MC -> IO Unit)
 {-| __C declaration:__ @struct_name3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:29:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 29:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
