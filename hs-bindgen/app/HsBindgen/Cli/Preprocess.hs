@@ -38,6 +38,7 @@ data Opts = Opts {
       config              :: Config
     , uniqueId            :: UniqueId
     , baseModuleName      :: BaseModuleName
+    , categoryOptions     :: CategoryOptions
     , hsOutputDir         :: FilePath
     , outputBindingSpec   :: Maybe FilePath
     -- NOTE: Inputs (arguments) must be last, options must go before it.
@@ -53,6 +54,7 @@ parseOpts =
       <$> parseConfig
       <*> parseUniqueId
       <*> parseBaseModuleName
+      <*> parseCategoryOptions
       <*> parseHsOutputDir
       <*> optional parseGenBindingSpec
       <*> parseInputs
@@ -64,7 +66,20 @@ parseOpts =
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec global opts =
+exec global opts = do
+    -- Build category choice from options
+    categoryChoice <- case buildCategoryChoice opts.categoryOptions of
+      Left err     -> throwIO (userError err)
+      Right choice -> return choice
+
+    let bindgenConfig :: BindgenConfig
+        bindgenConfig =
+            toBindgenConfig
+              opts.config
+              opts.uniqueId
+              opts.baseModuleName
+              categoryChoice
+
     hsBindgen
       global.unsafe
       global.safe
@@ -72,22 +87,28 @@ exec global opts =
       opts.inputs
       artefact
   where
+    -- When a specific category is selected, use single-module mode to combine
+    -- all included categories (types, terms, globals) into one file with one
+    -- addCSource directive.  This avoids duplicate symbol errors with
+    -- header-only libraries.
+    --
+    -- When no category is specified (default), use multi-module mode for
+    -- backwards compatibility.
     artefact :: Artefact ()
     artefact = do
-        writeBindingsMultiple
-          opts.fileOverwritePolicy
-          opts.outputDirPolicy
-          opts.hsOutputDir
+        if usesSingleModule opts.categoryOptions
+          then writeBindingsSingleToDir
+                 opts.fileOverwritePolicy
+                 opts.outputDirPolicy
+                 opts.hsOutputDir
+          else writeBindingsMultiple
+                 opts.fileOverwritePolicy
+                 opts.outputDirPolicy
+                 opts.hsOutputDir
         forM_ opts.outputBindingSpec $ \path ->
           writeBindingSpec opts.fileOverwritePolicy path
 
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1328: Which command
-    -- line options to adjust the binding category predicate do we want to
-    -- provide?
-    bindgenConfig :: BindgenConfig
-    bindgenConfig =
-        toBindgenConfig
-          opts.config
-          opts.uniqueId
-          opts.baseModuleName
-          def
+    -- Check if a specific category was selected (use single-module mode)
+    -- vs using default (all categories, use multi-module mode)
+    usesSingleModule :: CategoryOptions -> Bool
+    usesSingleModule catOpts = not (null catOpts.selections)

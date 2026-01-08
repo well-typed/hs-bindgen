@@ -23,7 +23,6 @@ import Text.Read (readMaybe)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.Backend.Category (useSafeCategory)
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.DelayedIO
@@ -77,11 +76,12 @@ parseOpts = do
 -------------------------------------------------------------------------------}
 
 data Lit = Lit {
-      globalOpts     :: GlobalOpts
-    , config         :: Config
-    , uniqueId       :: UniqueId
-    , baseModuleName :: BaseModuleName
-    , inputs         :: [UncheckedHashIncludeArg]
+      globalOpts      :: GlobalOpts
+    , config          :: Config
+    , uniqueId        :: UniqueId
+    , baseModuleName  :: BaseModuleName
+    , categoryOptions :: CategoryOptions
+    , inputs          :: [UncheckedHashIncludeArg]
     }
 
 parseLit :: Parser Lit
@@ -90,6 +90,7 @@ parseLit = Lit
   <*> parseConfig
   <*> parseUniqueId
   <*> parseBaseModuleName
+  <*> parseCategoryOptions
   <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -103,16 +104,18 @@ exec opts = do
     lit <- maybe (throwIO' "cannot parse arguments in literate file") return $
       pureParseLit args
 
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1328: Which command
-    -- line options to adjust the binding category predicate do we want to
-    -- provide?
+    -- Build category choice from options
+    categoryChoice <- case buildCategoryChoice lit.categoryOptions of
+      Left err    -> throwIO' err
+      Right choice -> return choice
+
     let bindgenConfig :: BindgenConfig
         bindgenConfig =
           toBindgenConfig
             lit.config
             lit.uniqueId
             lit.baseModuleName
-            useSafeCategory
+            categoryChoice
 
     let artefact :: Artefact ()
         artefact = writeBindings opts.fileOverwritePolicy opts.output

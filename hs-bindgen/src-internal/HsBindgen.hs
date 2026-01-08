@@ -8,6 +8,7 @@ module HsBindgen (
   , getBindings
   , getBindingsMultiple
   , writeBindings
+  , writeBindingsSingleToDir
   , writeBindingsMultiple
   , writeBindingSpec
   , writeTests
@@ -156,6 +157,32 @@ writeBindings :: FileOverwritePolicy -> FilePath -> Artefact ()
 writeBindings fileOverwritePolicy path = do
     bindings <- getBindings
     write fileOverwritePolicy "bindings" (UserSpecified path) bindings
+
+-- | Write bindings to a directory (single module combining all categories).
+--
+-- Unlike 'writeBindings', this writes to a directory and automatically
+-- constructs the file path from the module name, similar to
+-- 'writeBindingsMultiple' but generating only one file.
+writeBindingsSingleToDir ::
+     FileOverwritePolicy
+  -> OutputDirPolicy
+  -> FilePath
+  -> Artefact ()
+writeBindingsSingleToDir fileOverwritePolicy outputDirPolicy hsOutputDir = do
+    moduleBaseName <- FinalModuleBaseName
+    bindings       <- getBindings
+    let localPath :: FilePath
+        localPath = Hs.moduleNamePath $
+            fromBaseModuleName moduleBaseName Nothing
+
+        location :: FileLocation
+        location = RelativeFileLocation RelativeToOutputDir{
+              outputDir       = hsOutputDir
+            , localPath       = localPath
+            , outputDirPolicy = outputDirPolicy
+            }
+
+    write fileOverwritePolicy "bindings" location bindings
 
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: Artefact (ByCategory_ (Maybe String))
