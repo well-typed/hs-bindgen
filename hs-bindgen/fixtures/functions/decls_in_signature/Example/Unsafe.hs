@@ -56,7 +56,7 @@ normal_wrapper = hs_bindgen_247ee31a29b7e5a8
 
 {-| __C declaration:__ @normal@
 
-    __defined at:__ @functions\/decls_in_signature.h:7:6@
+    __defined at:__ @functions\/decls_in_signature.h 7:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -94,7 +94,7 @@ f1_wrapper = hs_bindgen_dad6e1aa83dec458
 
 __C declaration:__ @f1@
 
-__defined at:__ @functions\/decls_in_signature.h:17:6@
+__defined at:__ @functions\/decls_in_signature.h 17:6@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -121,7 +121,7 @@ f2_wrapper = hs_bindgen_e6bb0f3956383df9
 
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/decls_in_signature.h:20:6@
+    __defined at:__ @functions\/decls_in_signature.h 20:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}

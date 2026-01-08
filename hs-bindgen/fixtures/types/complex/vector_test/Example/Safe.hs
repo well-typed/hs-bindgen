@@ -30,7 +30,7 @@ foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" hs_bindgen_cd5f566bc96dc
 
 {-| __C declaration:__ @new_vector@
 
-    __defined at:__ @types\/complex\/vector_test.h:6:9@
+    __defined at:__ @types\/complex\/vector_test.h 6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}

@@ -28,7 +28,7 @@ foreign import ccall unsafe "hs_bindgen_3ad6c287a2386382" hs_bindgen_3ad6c287a23
 
 {-| __C declaration:__ @asm_labeled_function@
 
-    __defined at:__ @attributes\/asm.h:4:5@
+    __defined at:__ @attributes\/asm.h 4:5@
 
     __exported by:__ @attributes\/asm.h@
 -}

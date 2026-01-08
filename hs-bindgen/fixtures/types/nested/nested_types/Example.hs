@@ -25,7 +25,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct foo@
 
-    __defined at:__ @types\/nested\/nested_types.h:1:8@
+    __defined at:__ @types\/nested\/nested_types.h 1:8@
 
     __exported by:__ @types\/nested\/nested_types.h@
 -}
@@ -33,14 +33,14 @@ data Foo = Foo
   { foo_i :: FC.CInt
     {- ^ __C declaration:__ @i@
 
-         __defined at:__ @types\/nested\/nested_types.h:2:9@
+         __defined at:__ @types\/nested\/nested_types.h 2:9@
 
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   , foo_c :: FC.CChar
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @types\/nested\/nested_types.h:3:10@
+         __defined at:__ @types\/nested\/nested_types.h 3:10@
 
          __exported by:__ @types\/nested\/nested_types.h@
     -}
@@ -149,7 +149,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_c")
 
 {-| __C declaration:__ @struct bar@
 
-    __defined at:__ @types\/nested\/nested_types.h:6:8@
+    __defined at:__ @types\/nested\/nested_types.h 6:8@
 
     __exported by:__ @types\/nested\/nested_types.h@
 -}
@@ -157,14 +157,14 @@ data Bar = Bar
   { bar_foo1 :: Foo
     {- ^ __C declaration:__ @foo1@
 
-         __defined at:__ @types\/nested\/nested_types.h:7:16@
+         __defined at:__ @types\/nested\/nested_types.h 7:16@
 
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   , bar_foo2 :: Foo
     {- ^ __C declaration:__ @foo2@
 
-         __defined at:__ @types\/nested\/nested_types.h:8:16@
+         __defined at:__ @types\/nested\/nested_types.h 8:16@
 
          __exported by:__ @types\/nested\/nested_types.h@
     -}
@@ -273,7 +273,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_foo2")
 
 {-| __C declaration:__ @struct \@ex3_ex3_struct@
 
-    __defined at:__ @types\/nested\/nested_types.h:12:5@
+    __defined at:__ @types\/nested\/nested_types.h 12:5@
 
     __exported by:__ @types\/nested\/nested_types.h@
 -}
@@ -281,14 +281,14 @@ data Ex3_ex3_struct = Ex3_ex3_struct
   { ex3_ex3_struct_ex3_a :: FC.CInt
     {- ^ __C declaration:__ @ex3_a@
 
-         __defined at:__ @types\/nested\/nested_types.h:13:13@
+         __defined at:__ @types\/nested\/nested_types.h 13:13@
 
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   , ex3_ex3_struct_ex3_b :: FC.CChar
     {- ^ __C declaration:__ @ex3_b@
 
-         __defined at:__ @types\/nested\/nested_types.h:14:14@
+         __defined at:__ @types\/nested\/nested_types.h 14:14@
 
          __exported by:__ @types\/nested\/nested_types.h@
     -}
@@ -399,7 +399,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Ex3_ex3_struct) "ex3
 
 {-| __C declaration:__ @struct ex3@
 
-    __defined at:__ @types\/nested\/nested_types.h:11:8@
+    __defined at:__ @types\/nested\/nested_types.h 11:8@
 
     __exported by:__ @types\/nested\/nested_types.h@
 -}
@@ -407,14 +407,14 @@ data Ex3 = Ex3
   { ex3_ex3_struct :: Ex3_ex3_struct
     {- ^ __C declaration:__ @ex3_struct@
 
-         __defined at:__ @types\/nested\/nested_types.h:15:7@
+         __defined at:__ @types\/nested\/nested_types.h 15:7@
 
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   , ex3_ex3_c :: FC.CFloat
     {- ^ __C declaration:__ @ex3_c@
 
-         __defined at:__ @types\/nested\/nested_types.h:16:11@
+         __defined at:__ @types\/nested\/nested_types.h 16:11@
 
          __exported by:__ @types\/nested\/nested_types.h@
     -}
@@ -523,7 +523,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Ex3) "ex3_ex3_c")
 
 {-| __C declaration:__ @struct ex4_odd@
 
-    __defined at:__ @types\/nested\/nested_types.h:22:8@
+    __defined at:__ @types\/nested\/nested_types.h 22:8@
 
     __exported by:__ @types\/nested\/nested_types.h@
 -}
@@ -531,14 +531,14 @@ data Ex4_odd = Ex4_odd
   { ex4_odd_value :: FC.CInt
     {- ^ __C declaration:__ @value@
 
-         __defined at:__ @types\/nested\/nested_types.h:23:9@
+         __defined at:__ @types\/nested\/nested_types.h 23:9@
 
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   , ex4_odd_next :: Ptr.Ptr Ex4_even
     {- ^ __C declaration:__ @next@
 
-         __defined at:__ @types\/nested\/nested_types.h:27:8@
+         __defined at:__ @types\/nested\/nested_types.h 27:8@
 
          __exported by:__ @types\/nested\/nested_types.h@
     -}
@@ -592,7 +592,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Ex4_odd) "ex4_odd_ne
 
 {-| __C declaration:__ @struct ex4_even@
 
-    __defined at:__ @types\/nested\/nested_types.h:24:12@
+    __defined at:__ @types\/nested\/nested_types.h 24:12@
 
     __exported by:__ @types\/nested\/nested_types.h@
 -}
@@ -600,14 +600,14 @@ data Ex4_even = Ex4_even
   { ex4_even_value :: FC.CDouble
     {- ^ __C declaration:__ @value@
 
-         __defined at:__ @types\/nested\/nested_types.h:25:16@
+         __defined at:__ @types\/nested\/nested_types.h 25:16@
 
          __exported by:__ @types\/nested\/nested_types.h@
     -}
   , ex4_even_next :: Ptr.Ptr Ex4_odd
     {- ^ __C declaration:__ @next@
 
-         __defined at:__ @types\/nested\/nested_types.h:26:25@
+         __defined at:__ @types\/nested\/nested_types.h 26:25@
 
          __exported by:__ @types\/nested\/nested_types.h@
     -}

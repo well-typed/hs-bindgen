@@ -1,7 +1,7 @@
 -- addDependentFile examples/golden/macros/macro_redefines_global.h
 {-| __C declaration:__ @FILE@
 
-    __defined at:__ @macros\/macro_redefines_global.h:7:13@
+    __defined at:__ @macros\/macro_redefines_global.h 7:13@
 
     __exported by:__ @macros\/macro_redefines_global.h@
 -}
@@ -9,7 +9,7 @@ newtype FILE
     = FILE {un_FILE :: CInt}
       {- ^ __C declaration:__ @FILE@
 
-           __defined at:__ @macros\/macro_redefines_global.h:7:13@
+           __defined at:__ @macros\/macro_redefines_global.h 7:13@
 
            __exported by:__ @macros\/macro_redefines_global.h@
       -}

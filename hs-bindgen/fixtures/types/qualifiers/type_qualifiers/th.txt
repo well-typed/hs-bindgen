@@ -92,7 +92,7 @@ foreign import ccall safe "hs_bindgen_32187cc02676ee72" hs_bindgen_32187cc02676e
                                                                                        IO CBool
 {-| __C declaration:__ @list_example@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:14:6@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 14:6@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
@@ -100,7 +100,7 @@ list_example :: Ptr (ConstPtr CChar) ->
                 HsBindgen.Runtime.Prelude.CSize -> IO CBool
 {-| __C declaration:__ @list_example@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:14:6@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 14:6@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
@@ -111,7 +111,7 @@ foreign import ccall safe "hs_bindgen_360934a08f19eaab" hs_bindgen_360934a08f19e
                                                                                        IO CBool
 {-| __C declaration:__ @list_example@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:14:6@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 14:6@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
@@ -119,7 +119,7 @@ list_example :: Ptr (ConstPtr CChar) ->
                 HsBindgen.Runtime.Prelude.CSize -> IO CBool
 {-| __C declaration:__ @list_example@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:14:6@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 14:6@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
@@ -131,7 +131,7 @@ foreign import ccall safe "hs_bindgen_a19bc138e7f2759b" hs_bindgen_a19bc138e7f27
 {-# NOINLINE list_example #-}
 {-| __C declaration:__ @list_example@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:14:6@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 14:6@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
@@ -139,7 +139,7 @@ list_example :: FunPtr (Ptr (ConstPtr CChar) ->
                         HsBindgen.Runtime.Prelude.CSize -> IO CBool)
 {-| __C declaration:__ @list_example@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:14:6@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 14:6@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
@@ -149,7 +149,7 @@ foreign import ccall safe "hs_bindgen_b9f6c3995e03a64f" hs_bindgen_b9f6c3995e03a
 {-# NOINLINE hs_bindgen_568187d7e5f899e0 #-}
 {-| __C declaration:__ @a@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:5:18@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 5:18@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 
@@ -158,7 +158,7 @@ foreign import ccall safe "hs_bindgen_b9f6c3995e03a64f" hs_bindgen_b9f6c3995e03a
 hs_bindgen_568187d7e5f899e0 :: ConstPtr CInt
 {-| __C declaration:__ @a@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:5:18@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 5:18@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 
@@ -173,14 +173,14 @@ foreign import ccall safe "hs_bindgen_2a09e45ccb76e4da" hs_bindgen_2a09e45ccb76e
 {-# NOINLINE b #-}
 {-| __C declaration:__ @b@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:7:19@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 7:19@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
 b :: Ptr (ConstPtr CInt)
 {-| __C declaration:__ @b@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:7:19@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 7:19@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
@@ -190,7 +190,7 @@ foreign import ccall safe "hs_bindgen_9cef5885d51a5077" hs_bindgen_9cef5885d51a5
 {-# NOINLINE hs_bindgen_86ab1f1ce8db256e #-}
 {-| __C declaration:__ @c@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:9:19@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 9:19@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 
@@ -199,7 +199,7 @@ foreign import ccall safe "hs_bindgen_9cef5885d51a5077" hs_bindgen_9cef5885d51a5
 hs_bindgen_86ab1f1ce8db256e :: ConstPtr (Ptr CInt)
 {-| __C declaration:__ @c@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:9:19@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 9:19@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 
@@ -214,7 +214,7 @@ foreign import ccall safe "hs_bindgen_039fc3584df4cf95" hs_bindgen_039fc3584df4c
 {-# NOINLINE hs_bindgen_f5892dac29d00ba8 #-}
 {-| __C declaration:__ @d@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:11:25@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 11:25@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 
@@ -223,7 +223,7 @@ foreign import ccall safe "hs_bindgen_039fc3584df4cf95" hs_bindgen_039fc3584df4c
 hs_bindgen_f5892dac29d00ba8 :: ConstPtr (ConstPtr CInt)
 {-| __C declaration:__ @d@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:11:25@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 11:25@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 
@@ -238,14 +238,14 @@ foreign import ccall safe "hs_bindgen_cdf2cbe09fc53047" hs_bindgen_cdf2cbe09fc53
 {-# NOINLINE e #-}
 {-| __C declaration:__ @e@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:18:26@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 18:26@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
 e :: Ptr (ConstPtr (ConstPtr CInt))
 {-| __C declaration:__ @e@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:18:26@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 18:26@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
@@ -255,14 +255,14 @@ foreign import ccall safe "hs_bindgen_93ddb0dbf8706068" hs_bindgen_93ddb0dbf8706
 {-# NOINLINE f #-}
 {-| __C declaration:__ @f@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:20:27@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 20:27@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
 f :: Ptr (Ptr (ConstPtr (ConstPtr CInt)))
 {-| __C declaration:__ @f@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:20:27@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 20:27@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
@@ -272,14 +272,14 @@ foreign import ccall safe "hs_bindgen_e6c23ab326a206a8" hs_bindgen_e6c23ab326a20
 {-# NOINLINE g #-}
 {-| __C declaration:__ @g@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:22:27@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 22:27@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
 g :: Ptr (ConstPtr (Ptr (ConstPtr CInt)))
 {-| __C declaration:__ @g@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:22:27@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 22:27@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
@@ -289,7 +289,7 @@ foreign import ccall safe "hs_bindgen_f23087f72d34068b" hs_bindgen_f23087f72d340
 {-# NOINLINE hs_bindgen_2461912a034924cf #-}
 {-| __C declaration:__ @h@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:24:39@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 24:39@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 
@@ -298,7 +298,7 @@ foreign import ccall safe "hs_bindgen_f23087f72d34068b" hs_bindgen_f23087f72d340
 hs_bindgen_2461912a034924cf :: ConstPtr (ConstPtr (ConstPtr (ConstPtr CInt)))
 {-| __C declaration:__ @h@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:24:39@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 24:39@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 
@@ -313,14 +313,14 @@ foreign import ccall safe "hs_bindgen_ed73ead5c58fe94a" hs_bindgen_ed73ead5c58fe
 {-# NOINLINE i #-}
 {-| __C declaration:__ @i@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:26:28@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 26:28@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
 i :: Ptr (ConstPtr (Ptr (ConstPtr (Ptr CInt))))
 {-| __C declaration:__ @i@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:26:28@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 26:28@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
@@ -330,14 +330,14 @@ foreign import ccall safe "hs_bindgen_92d2adc70d4b87ee" hs_bindgen_92d2adc70d4b8
 {-# NOINLINE j #-}
 {-| __C declaration:__ @j@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:28:34@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 28:34@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}
 j :: Ptr (Ptr (ConstPtr (ConstPtr (ConstPtr CInt))))
 {-| __C declaration:__ @j@
 
-    __defined at:__ @types\/qualifiers\/type_qualifiers.h:28:34@
+    __defined at:__ @types\/qualifiers\/type_qualifiers.h 28:34@
 
     __exported by:__ @types\/qualifiers\/type_qualifiers.h@
 -}

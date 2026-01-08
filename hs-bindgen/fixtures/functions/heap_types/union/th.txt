@@ -24,7 +24,7 @@
 -- }
 {-| __C declaration:__ @union U@
 
-    __defined at:__ @functions\/heap_types\/union.h:3:7@
+    __defined at:__ @functions\/heap_types\/union.h 3:7@
 
     __exported by:__ @functions\/heap_types\/union.h@
 -}
@@ -32,7 +32,7 @@ newtype T
     = T {un_T :: ByteArray}
       {- ^ __C declaration:__ @union U@
 
-           __defined at:__ @functions\/heap_types\/union.h:3:7@
+           __defined at:__ @functions\/heap_types\/union.h 3:7@
 
            __exported by:__ @functions\/heap_types\/union.h@
       -}
@@ -44,7 +44,7 @@ deriving via (SizedByteArray 4 4) instance Prim T
 
 __C declaration:__ @x@
 
-__defined at:__ @functions\/heap_types\/union.h:4:7@
+__defined at:__ @functions\/heap_types\/union.h 4:7@
 
 __exported by:__ @functions\/heap_types\/union.h@
 -}
@@ -55,7 +55,7 @@ get_t_x :: T -> CInt
 
 __C declaration:__ @x@
 
-__defined at:__ @functions\/heap_types\/union.h:4:7@
+__defined at:__ @functions\/heap_types\/union.h 4:7@
 
 __exported by:__ @functions\/heap_types\/union.h@
 -}
@@ -90,14 +90,14 @@ fun_wrapper :: Ptr T -> Ptr T -> IO Unit
 fun_wrapper = hs_bindgen_9fc5746860ab93cb
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/union.h:9:3@
+    __defined at:__ @functions\/heap_types\/union.h 9:3@
 
     __exported by:__ @functions\/heap_types\/union.h@
 -}
 fun :: T -> IO T
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/union.h:9:3@
+    __defined at:__ @functions\/heap_types\/union.h 9:3@
 
     __exported by:__ @functions\/heap_types\/union.h@
 -}
@@ -114,14 +114,14 @@ fun_wrapper :: Ptr T -> Ptr T -> IO Unit
 fun_wrapper = hs_bindgen_54b038887c811176
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/union.h:9:3@
+    __defined at:__ @functions\/heap_types\/union.h 9:3@
 
     __exported by:__ @functions\/heap_types\/union.h@
 -}
 fun :: T -> IO T
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/union.h:9:3@
+    __defined at:__ @functions\/heap_types\/union.h 9:3@
 
     __exported by:__ @functions\/heap_types\/union.h@
 -}
@@ -132,14 +132,14 @@ foreign import ccall safe "hs_bindgen_d5d6e9f882bc09ed" hs_bindgen_d5d6e9f882bc0
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/union.h:9:3@
+    __defined at:__ @functions\/heap_types\/union.h 9:3@
 
     __exported by:__ @functions\/heap_types\/union.h@
 -}
 fun :: FunPtr (T -> IO T)
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/union.h:9:3@
+    __defined at:__ @functions\/heap_types\/union.h 9:3@
 
     __exported by:__ @functions\/heap_types\/union.h@
 -}

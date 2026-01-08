@@ -89,7 +89,7 @@ foreign import ccall safe "hs_bindgen_5d7162df3a16d8d5" hs_bindgen_5d7162df3a16d
 
 __C declaration:__ @square_cp@
 
-__defined at:__ @functions\/fun_attributes_conflict.h:9:5@
+__defined at:__ @functions\/fun_attributes_conflict.h 9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -100,7 +100,7 @@ square_cp :: CInt -> CInt
 
 __C declaration:__ @square_cp@
 
-__defined at:__ @functions\/fun_attributes_conflict.h:9:5@
+__defined at:__ @functions\/fun_attributes_conflict.h 9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -110,14 +110,14 @@ foreign import ccall safe "hs_bindgen_7f240b4e0c2eea24" hs_bindgen_7f240b4e0c2ee
                                                                                        CInt
 {-| __C declaration:__ @square_pc@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:11:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 11:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_pc :: CInt -> CInt
 {-| __C declaration:__ @square_pc@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:11:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 11:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -127,14 +127,14 @@ foreign import ccall safe "hs_bindgen_d32b50f04af10764" hs_bindgen_d32b50f04af10
                                                                                        CInt
 {-| __C declaration:__ @square_cc@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:13:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 13:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_cc :: CInt -> CInt
 {-| __C declaration:__ @square_cc@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:13:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 13:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -144,14 +144,14 @@ foreign import ccall safe "hs_bindgen_fab6c9860ff1400b" hs_bindgen_fab6c9860ff14
                                                                                        IO CInt
 {-| __C declaration:__ @square_pp@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:15:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 15:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_pp :: CInt -> IO CInt
 {-| __C declaration:__ @square_pp@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:15:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 15:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -165,7 +165,7 @@ foreign import ccall safe "hs_bindgen_648d4f0fd0df4c79" hs_bindgen_648d4f0fd0df4
 
 __C declaration:__ @square_cp@
 
-__defined at:__ @functions\/fun_attributes_conflict.h:9:5@
+__defined at:__ @functions\/fun_attributes_conflict.h 9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -176,7 +176,7 @@ square_cp :: CInt -> CInt
 
 __C declaration:__ @square_cp@
 
-__defined at:__ @functions\/fun_attributes_conflict.h:9:5@
+__defined at:__ @functions\/fun_attributes_conflict.h 9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -186,14 +186,14 @@ foreign import ccall safe "hs_bindgen_632a1e6eb5ceeda7" hs_bindgen_632a1e6eb5cee
                                                                                        CInt
 {-| __C declaration:__ @square_pc@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:11:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 11:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_pc :: CInt -> CInt
 {-| __C declaration:__ @square_pc@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:11:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 11:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -203,14 +203,14 @@ foreign import ccall safe "hs_bindgen_56d75b1ff2482f13" hs_bindgen_56d75b1ff2482
                                                                                        CInt
 {-| __C declaration:__ @square_cc@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:13:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 13:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_cc :: CInt -> CInt
 {-| __C declaration:__ @square_cc@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:13:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 13:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -220,14 +220,14 @@ foreign import ccall safe "hs_bindgen_eac2f9645ef29119" hs_bindgen_eac2f9645ef29
                                                                                        IO CInt
 {-| __C declaration:__ @square_pp@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:15:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 15:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_pp :: CInt -> IO CInt
 {-| __C declaration:__ @square_pp@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:15:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 15:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -242,7 +242,7 @@ foreign import ccall safe "hs_bindgen_9445b7269de35e9e" hs_bindgen_9445b7269de35
 
 __C declaration:__ @square_cp@
 
-__defined at:__ @functions\/fun_attributes_conflict.h:9:5@
+__defined at:__ @functions\/fun_attributes_conflict.h 9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -253,7 +253,7 @@ square_cp :: FunPtr (CInt -> IO CInt)
 
 __C declaration:__ @square_cp@
 
-__defined at:__ @functions\/fun_attributes_conflict.h:9:5@
+__defined at:__ @functions\/fun_attributes_conflict.h 9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -264,14 +264,14 @@ foreign import ccall safe "hs_bindgen_b0c647124e93645d" hs_bindgen_b0c647124e936
 {-# NOINLINE square_pc #-}
 {-| __C declaration:__ @square_pc@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:11:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 11:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_pc :: FunPtr (CInt -> IO CInt)
 {-| __C declaration:__ @square_pc@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:11:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 11:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -282,14 +282,14 @@ foreign import ccall safe "hs_bindgen_87ee2f018e6d262a" hs_bindgen_87ee2f018e6d2
 {-# NOINLINE square_cc #-}
 {-| __C declaration:__ @square_cc@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:13:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 13:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_cc :: FunPtr (CInt -> IO CInt)
 {-| __C declaration:__ @square_cc@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:13:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 13:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -300,14 +300,14 @@ foreign import ccall safe "hs_bindgen_0f31a17bf5ee4e4f" hs_bindgen_0f31a17bf5ee4
 {-# NOINLINE square_pp #-}
 {-| __C declaration:__ @square_pp@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:15:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 15:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_pp :: FunPtr (CInt -> IO CInt)
 {-| __C declaration:__ @square_pp@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:15:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 15:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}

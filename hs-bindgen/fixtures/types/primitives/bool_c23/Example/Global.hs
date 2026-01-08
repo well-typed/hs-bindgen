@@ -28,7 +28,7 @@ foreign import ccall unsafe "hs_bindgen_31e1e443379b061b" hs_bindgen_31e1e443379
 {-# NOINLINE b #-}
 {-| __C declaration:__ @b@
 
-    __defined at:__ @types\/primitives\/bool_c23.h:3:13@
+    __defined at:__ @types\/primitives\/bool_c23.h 3:13@
 
     __exported by:__ @types\/primitives\/bool_c23.h@
 -}

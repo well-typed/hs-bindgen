@@ -2,7 +2,7 @@
 -- addDependentFile examples/golden/program-analysis/selection_bad.h
 {-| __C declaration:__ @A@
 
-    __defined at:__ @program-analysis\/selection_bad.h:3:9@
+    __defined at:__ @program-analysis\/selection_bad.h 3:9@
 
     __exported by:__ @program-analysis\/selection_bad.h@
 -}
@@ -10,7 +10,7 @@ newtype A
     = A {un_A :: CInt}
       {- ^ __C declaration:__ @A@
 
-           __defined at:__ @program-analysis\/selection_bad.h:3:9@
+           __defined at:__ @program-analysis\/selection_bad.h 3:9@
 
            __exported by:__ @program-analysis\/selection_bad.h@
       -}

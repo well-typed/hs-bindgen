@@ -134,7 +134,7 @@
 -- }
 {-| __C declaration:__ @struct globalConfig@
 
-    __defined at:__ @manual\/globals.h:7:9@
+    __defined at:__ @manual\/globals.h 7:9@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -142,20 +142,20 @@ data GlobalConfig
     = GlobalConfig {globalConfig_numThreads :: CInt
                     {- ^ __C declaration:__ @numThreads@
 
-                         __defined at:__ @manual\/globals.h:8:7@
+                         __defined at:__ @manual\/globals.h 8:7@
 
                          __exported by:__ @manual\/globals.h@
                     -},
                     globalConfig_numWorkers :: CInt
                     {- ^ __C declaration:__ @numWorkers@
 
-                         __defined at:__ @manual\/globals.h:9:7@
+                         __defined at:__ @manual\/globals.h 9:7@
 
                          __exported by:__ @manual\/globals.h@
                     -}}
       {- ^ __C declaration:__ @struct globalConfig@
 
-           __defined at:__ @manual\/globals.h:7:9@
+           __defined at:__ @manual\/globals.h 7:9@
 
            __exported by:__ @manual\/globals.h@
       -}
@@ -206,7 +206,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"globalConfig_numWorkers")
 {-| __C declaration:__ @ConstInt@
 
-    __defined at:__ @manual\/globals.h:40:19@
+    __defined at:__ @manual\/globals.h 40:19@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -214,7 +214,7 @@ newtype ConstInt
     = ConstInt {un_ConstInt :: CInt}
       {- ^ __C declaration:__ @ConstInt@
 
-           __defined at:__ @manual\/globals.h:40:19@
+           __defined at:__ @manual\/globals.h 40:19@
 
            __exported by:__ @manual\/globals.h@
       -}
@@ -238,7 +238,7 @@ instance HasCField ConstInt "un_ConstInt"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct tuple@
 
-    __defined at:__ @manual\/globals.h:52:8@
+    __defined at:__ @manual\/globals.h 52:8@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -246,20 +246,20 @@ data Tuple
     = Tuple {tuple_x :: CInt
              {- ^ __C declaration:__ @x@
 
-                  __defined at:__ @manual\/globals.h:52:20@
+                  __defined at:__ @manual\/globals.h 52:20@
 
                   __exported by:__ @manual\/globals.h@
              -},
              tuple_y :: CInt
              {- ^ __C declaration:__ @y@
 
-                  __defined at:__ @manual\/globals.h:52:33@
+                  __defined at:__ @manual\/globals.h 52:33@
 
                   __exported by:__ @manual\/globals.h@
              -}}
       {- ^ __C declaration:__ @struct tuple@
 
-           __defined at:__ @manual\/globals.h:52:8@
+           __defined at:__ @manual\/globals.h 52:8@
 
            __exported by:__ @manual\/globals.h@
       -}
@@ -308,7 +308,7 @@ instance TyEq ty (CFieldType Tuple "tuple_y") =>
     where getField = ptrToCField (Proxy @"tuple_y")
 {-| __C declaration:__ @triplet@
 
-    __defined at:__ @manual\/globals.h:81:13@
+    __defined at:__ @manual\/globals.h 81:13@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -316,7 +316,7 @@ newtype Triplet
     = Triplet {un_Triplet :: (ConstantArray 3 CInt)}
       {- ^ __C declaration:__ @triplet@
 
-           __defined at:__ @manual\/globals.h:81:13@
+           __defined at:__ @manual\/globals.h 81:13@
 
            __exported by:__ @manual\/globals.h@
       -}
@@ -330,7 +330,7 @@ instance HasCField Triplet "un_Triplet"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @list@
 
-    __defined at:__ @manual\/globals.h:85:13@
+    __defined at:__ @manual\/globals.h 85:13@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -338,7 +338,7 @@ newtype List
     = List {un_List :: (IncompleteArray CInt)}
       {- ^ __C declaration:__ @list@
 
-           __defined at:__ @manual\/globals.h:85:13@
+           __defined at:__ @manual\/globals.h 85:13@
 
            __exported by:__ @manual\/globals.h@
       -}
@@ -354,14 +354,14 @@ foreign import ccall safe "hs_bindgen_1b18b112a828e595" hs_bindgen_1b18b112a828e
 {-# NOINLINE globalConfig #-}
 {-| __C declaration:__ @globalConfig@
 
-    __defined at:__ @manual\/globals.h:12:28@
+    __defined at:__ @manual\/globals.h 12:28@
 
     __exported by:__ @manual\/globals.h@
 -}
 globalConfig :: Ptr GlobalConfig
 {-| __C declaration:__ @globalConfig@
 
-    __defined at:__ @manual\/globals.h:12:28@
+    __defined at:__ @manual\/globals.h 12:28@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -371,14 +371,14 @@ foreign import ccall safe "hs_bindgen_3cc5675744591425" hs_bindgen_3cc5675744591
 {-# NOINLINE nonExternGlobalInt #-}
 {-| __C declaration:__ @nonExternGlobalInt@
 
-    __defined at:__ @manual\/globals.h:18:5@
+    __defined at:__ @manual\/globals.h 18:5@
 
     __exported by:__ @manual\/globals.h@
 -}
 nonExternGlobalInt :: Ptr CInt
 {-| __C declaration:__ @nonExternGlobalInt@
 
-    __defined at:__ @manual\/globals.h:18:5@
+    __defined at:__ @manual\/globals.h 18:5@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -388,7 +388,7 @@ foreign import ccall safe "hs_bindgen_d1d21f66d76e4647" hs_bindgen_d1d21f66d76e4
 {-# NOINLINE hs_bindgen_ec20fad59e967cf0 #-}
 {-| __C declaration:__ @globalConstant@
 
-    __defined at:__ @manual\/globals.h:39:18@
+    __defined at:__ @manual\/globals.h 39:18@
 
     __exported by:__ @manual\/globals.h@
 
@@ -397,7 +397,7 @@ foreign import ccall safe "hs_bindgen_d1d21f66d76e4647" hs_bindgen_d1d21f66d76e4
 hs_bindgen_ec20fad59e967cf0 :: ConstPtr CInt
 {-| __C declaration:__ @globalConstant@
 
-    __defined at:__ @manual\/globals.h:39:18@
+    __defined at:__ @manual\/globals.h 39:18@
 
     __exported by:__ @manual\/globals.h@
 
@@ -412,7 +412,7 @@ foreign import ccall safe "hs_bindgen_7b35192d93d6ddac" hs_bindgen_7b35192d93d6d
 {-# NOINLINE hs_bindgen_c8344b69b41647d0 #-}
 {-| __C declaration:__ @anotherGlobalConstant@
 
-    __defined at:__ @manual\/globals.h:41:17@
+    __defined at:__ @manual\/globals.h 41:17@
 
     __exported by:__ @manual\/globals.h@
 
@@ -421,7 +421,7 @@ foreign import ccall safe "hs_bindgen_7b35192d93d6ddac" hs_bindgen_7b35192d93d6d
 hs_bindgen_c8344b69b41647d0 :: ConstPtr ConstInt
 {-| __C declaration:__ @anotherGlobalConstant@
 
-    __defined at:__ @manual\/globals.h:41:17@
+    __defined at:__ @manual\/globals.h 41:17@
 
     __exported by:__ @manual\/globals.h@
 
@@ -439,7 +439,7 @@ foreign import ccall safe "hs_bindgen_8850207312ee9ee9" hs_bindgen_8850207312ee9
 
 __C declaration:__ @constArray1@
 
-__defined at:__ @manual\/globals.h:48:18@
+__defined at:__ @manual\/globals.h 48:18@
 
 __exported by:__ @manual\/globals.h@
 
@@ -450,7 +450,7 @@ hs_bindgen_ab47d9c9aff882f7 :: ConstPtr (ConstantArray 4 CInt)
 
 __C declaration:__ @constArray1@
 
-__defined at:__ @manual\/globals.h:48:18@
+__defined at:__ @manual\/globals.h 48:18@
 
 __exported by:__ @manual\/globals.h@
 
@@ -467,7 +467,7 @@ foreign import ccall safe "hs_bindgen_c6ce2097d2a21fc1" hs_bindgen_c6ce2097d2a21
 
 __C declaration:__ @constArray2@
 
-__defined at:__ @manual\/globals.h:50:18@
+__defined at:__ @manual\/globals.h 50:18@
 
 __exported by:__ @manual\/globals.h@
 -}
@@ -476,7 +476,7 @@ constArray2 :: ConstPtr (IncompleteArray CInt)
 
 __C declaration:__ @constArray2@
 
-__defined at:__ @manual\/globals.h:50:18@
+__defined at:__ @manual\/globals.h 50:18@
 
 __exported by:__ @manual\/globals.h@
 -}
@@ -488,7 +488,7 @@ foreign import ccall safe "hs_bindgen_ab75c76aaa5e35e5" hs_bindgen_ab75c76aaa5e3
 
 __C declaration:__ @constTuple@
 
-__defined at:__ @manual\/globals.h:54:27@
+__defined at:__ @manual\/globals.h 54:27@
 
 __exported by:__ @manual\/globals.h@
 
@@ -499,7 +499,7 @@ hs_bindgen_957dfe4346c1834f :: ConstPtr Tuple
 
 __C declaration:__ @constTuple@
 
-__defined at:__ @manual\/globals.h:54:27@
+__defined at:__ @manual\/globals.h 54:27@
 
 __exported by:__ @manual\/globals.h@
 
@@ -516,7 +516,7 @@ foreign import ccall safe "hs_bindgen_a2454ae941c93b30" hs_bindgen_a2454ae941c93
 
 __C declaration:__ @nonConstTuple@
 
-__defined at:__ @manual\/globals.h:56:21@
+__defined at:__ @manual\/globals.h 56:21@
 
 __exported by:__ @manual\/globals.h@
 -}
@@ -525,7 +525,7 @@ nonConstTuple :: Ptr Tuple
 
 __C declaration:__ @nonConstTuple@
 
-__defined at:__ @manual\/globals.h:56:21@
+__defined at:__ @manual\/globals.h 56:21@
 
 __exported by:__ @manual\/globals.h@
 -}
@@ -537,7 +537,7 @@ foreign import ccall safe "hs_bindgen_87910ad4d5b6d50b" hs_bindgen_87910ad4d5b6d
 
 __C declaration:__ @Int@
 
-__defined at:__ @manual\/globals.h:59:12@
+__defined at:__ @manual\/globals.h 59:12@
 
 __exported by:__ @manual\/globals.h@
 -}
@@ -546,7 +546,7 @@ int :: Ptr CInt
 
 __C declaration:__ @Int@
 
-__defined at:__ @manual\/globals.h:59:12@
+__defined at:__ @manual\/globals.h 59:12@
 
 __exported by:__ @manual\/globals.h@
 -}
@@ -558,7 +558,7 @@ foreign import ccall safe "hs_bindgen_8f863fd75ee6a8b5" hs_bindgen_8f863fd75ee6a
 
 __C declaration:__ @constInt@
 
-__defined at:__ @manual\/globals.h:61:18@
+__defined at:__ @manual\/globals.h 61:18@
 
 __exported by:__ @manual\/globals.h@
 
@@ -569,7 +569,7 @@ hs_bindgen_e999b97ca3936542 :: ConstPtr CInt
 
 __C declaration:__ @constInt@
 
-__defined at:__ @manual\/globals.h:61:18@
+__defined at:__ @manual\/globals.h 61:18@
 
 __exported by:__ @manual\/globals.h@
 
@@ -586,7 +586,7 @@ foreign import ccall safe "hs_bindgen_1a7a96e5c811e2d1" hs_bindgen_1a7a96e5c811e
 
 __C declaration:__ @ptrToInt@
 
-__defined at:__ @manual\/globals.h:63:14@
+__defined at:__ @manual\/globals.h 63:14@
 
 __exported by:__ @manual\/globals.h@
 -}
@@ -595,7 +595,7 @@ ptrToInt :: Ptr (Ptr CInt)
 
 __C declaration:__ @ptrToInt@
 
-__defined at:__ @manual\/globals.h:63:14@
+__defined at:__ @manual\/globals.h 63:14@
 
 __exported by:__ @manual\/globals.h@
 -}
@@ -607,7 +607,7 @@ foreign import ccall safe "hs_bindgen_65c37466b4a14692" hs_bindgen_65c37466b4a14
 
 __C declaration:__ @ptrToConstInt@
 
-__defined at:__ @manual\/globals.h:65:20@
+__defined at:__ @manual\/globals.h 65:20@
 
 __exported by:__ @manual\/globals.h@
 -}
@@ -616,7 +616,7 @@ ptrToConstInt :: Ptr (ConstPtr CInt)
 
 __C declaration:__ @ptrToConstInt@
 
-__defined at:__ @manual\/globals.h:65:20@
+__defined at:__ @manual\/globals.h 65:20@
 
 __exported by:__ @manual\/globals.h@
 -}
@@ -628,7 +628,7 @@ foreign import ccall safe "hs_bindgen_78280019ff2647f8" hs_bindgen_78280019ff264
 
 __C declaration:__ @constPtrToInt@
 
-__defined at:__ @manual\/globals.h:67:20@
+__defined at:__ @manual\/globals.h 67:20@
 
 __exported by:__ @manual\/globals.h@
 
@@ -639,7 +639,7 @@ hs_bindgen_7a3b424845cc1ed9 :: ConstPtr (Ptr CInt)
 
 __C declaration:__ @constPtrToInt@
 
-__defined at:__ @manual\/globals.h:67:20@
+__defined at:__ @manual\/globals.h 67:20@
 
 __exported by:__ @manual\/globals.h@
 
@@ -656,7 +656,7 @@ foreign import ccall safe "hs_bindgen_b7f5f49d98fc03a2" hs_bindgen_b7f5f49d98fc0
 
 __C declaration:__ @constPtrToConstInt@
 
-__defined at:__ @manual\/globals.h:69:26@
+__defined at:__ @manual\/globals.h 69:26@
 
 __exported by:__ @manual\/globals.h@
 
@@ -667,7 +667,7 @@ hs_bindgen_5e25eac293910abb :: ConstPtr (ConstPtr CInt)
 
 __C declaration:__ @constPtrToConstInt@
 
-__defined at:__ @manual\/globals.h:69:26@
+__defined at:__ @manual\/globals.h 69:26@
 
 __exported by:__ @manual\/globals.h@
 
@@ -682,14 +682,14 @@ foreign import ccall safe "hs_bindgen_6a66996f25c871b0" hs_bindgen_6a66996f25c87
 {-# NOINLINE a #-}
 {-| __C declaration:__ @a@
 
-    __defined at:__ @manual\/globals.h:75:12@
+    __defined at:__ @manual\/globals.h 75:12@
 
     __exported by:__ @manual\/globals.h@
 -}
 a :: Ptr CInt
 {-| __C declaration:__ @a@
 
-    __defined at:__ @manual\/globals.h:75:12@
+    __defined at:__ @manual\/globals.h 75:12@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -699,7 +699,7 @@ foreign import ccall safe "hs_bindgen_69eaf4375e9019f6" hs_bindgen_69eaf4375e901
 {-# NOINLINE hs_bindgen_604b6be28898361f #-}
 {-| __C declaration:__ @a2@
 
-    __defined at:__ @manual\/globals.h:76:18@
+    __defined at:__ @manual\/globals.h 76:18@
 
     __exported by:__ @manual\/globals.h@
 
@@ -708,7 +708,7 @@ foreign import ccall safe "hs_bindgen_69eaf4375e9019f6" hs_bindgen_69eaf4375e901
 hs_bindgen_604b6be28898361f :: ConstPtr CInt
 {-| __C declaration:__ @a2@
 
-    __defined at:__ @manual\/globals.h:76:18@
+    __defined at:__ @manual\/globals.h 76:18@
 
     __exported by:__ @manual\/globals.h@
 
@@ -723,14 +723,14 @@ foreign import ccall safe "hs_bindgen_86029851b6c19d0e" hs_bindgen_86029851b6c19
 {-# NOINLINE b #-}
 {-| __C declaration:__ @b@
 
-    __defined at:__ @manual\/globals.h:78:14@
+    __defined at:__ @manual\/globals.h 78:14@
 
     __exported by:__ @manual\/globals.h@
 -}
 b :: Ptr (Ptr CInt)
 {-| __C declaration:__ @b@
 
-    __defined at:__ @manual\/globals.h:78:14@
+    __defined at:__ @manual\/globals.h 78:14@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -740,14 +740,14 @@ foreign import ccall safe "hs_bindgen_54ab82d9854a31c0" hs_bindgen_54ab82d9854a3
 {-# NOINLINE b2 #-}
 {-| __C declaration:__ @b2@
 
-    __defined at:__ @manual\/globals.h:79:20@
+    __defined at:__ @manual\/globals.h 79:20@
 
     __exported by:__ @manual\/globals.h@
 -}
 b2 :: Ptr (ConstPtr CInt)
 {-| __C declaration:__ @b2@
 
-    __defined at:__ @manual\/globals.h:79:20@
+    __defined at:__ @manual\/globals.h 79:20@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -757,14 +757,14 @@ foreign import ccall safe "hs_bindgen_11d5e5406d066dc2" hs_bindgen_11d5e5406d066
 {-# NOINLINE c #-}
 {-| __C declaration:__ @c@
 
-    __defined at:__ @manual\/globals.h:82:16@
+    __defined at:__ @manual\/globals.h 82:16@
 
     __exported by:__ @manual\/globals.h@
 -}
 c :: Ptr Triplet
 {-| __C declaration:__ @c@
 
-    __defined at:__ @manual\/globals.h:82:16@
+    __defined at:__ @manual\/globals.h 82:16@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -774,7 +774,7 @@ foreign import ccall safe "hs_bindgen_05a85a68bb53daff" hs_bindgen_05a85a68bb53d
 {-# NOINLINE hs_bindgen_14cc4924924d5040 #-}
 {-| __C declaration:__ @c2@
 
-    __defined at:__ @manual\/globals.h:83:22@
+    __defined at:__ @manual\/globals.h 83:22@
 
     __exported by:__ @manual\/globals.h@
 
@@ -783,7 +783,7 @@ foreign import ccall safe "hs_bindgen_05a85a68bb53daff" hs_bindgen_05a85a68bb53d
 hs_bindgen_14cc4924924d5040 :: ConstPtr Triplet
 {-| __C declaration:__ @c2@
 
-    __defined at:__ @manual\/globals.h:83:22@
+    __defined at:__ @manual\/globals.h 83:22@
 
     __exported by:__ @manual\/globals.h@
 
@@ -798,14 +798,14 @@ foreign import ccall safe "hs_bindgen_8fe22549222d7024" hs_bindgen_8fe22549222d7
 {-# NOINLINE d #-}
 {-| __C declaration:__ @d@
 
-    __defined at:__ @manual\/globals.h:86:13@
+    __defined at:__ @manual\/globals.h 86:13@
 
     __exported by:__ @manual\/globals.h@
 -}
 d :: Ptr List
 {-| __C declaration:__ @d@
 
-    __defined at:__ @manual\/globals.h:86:13@
+    __defined at:__ @manual\/globals.h 86:13@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -815,14 +815,14 @@ foreign import ccall safe "hs_bindgen_3b641c8e9aefc9e3" hs_bindgen_3b641c8e9aefc
 {-# NOINLINE d2 #-}
 {-| __C declaration:__ @d2@
 
-    __defined at:__ @manual\/globals.h:87:19@
+    __defined at:__ @manual\/globals.h 87:19@
 
     __exported by:__ @manual\/globals.h@
 -}
 d2 :: ConstPtr List
 {-| __C declaration:__ @d2@
 
-    __defined at:__ @manual\/globals.h:87:19@
+    __defined at:__ @manual\/globals.h 87:19@
 
     __exported by:__ @manual\/globals.h@
 -}

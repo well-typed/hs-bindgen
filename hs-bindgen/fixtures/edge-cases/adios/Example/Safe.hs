@@ -30,7 +30,7 @@ foreign import ccall safe "hs_bindgen_2010521804ef9a6e" hs_bindgen_2010521804ef9
 
 {-| __C declaration:__ @ϒ@
 
-    __defined at:__ @edge-cases\/adios.h:18:6@
+    __defined at:__ @edge-cases\/adios.h 18:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -43,7 +43,7 @@ foreign import ccall safe "hs_bindgen_3bc3e53cc82c9580" hs_bindgen_3bc3e53cc82c9
 
 {-| __C declaration:__ @拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:27:6@
+    __defined at:__ @edge-cases\/adios.h 27:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -56,7 +56,7 @@ foreign import ccall safe "hs_bindgen_ad8eb47027b2d49d" hs_bindgen_ad8eb47027b2d
 
 {-| __C declaration:__ @Say拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:31:6@
+    __defined at:__ @edge-cases\/adios.h 31:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}

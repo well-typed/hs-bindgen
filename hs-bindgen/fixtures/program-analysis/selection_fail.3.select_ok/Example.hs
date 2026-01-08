@@ -24,7 +24,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct OkBefore@
 
-    __defined at:__ @program-analysis\/selection_fail.h:1:8@
+    __defined at:__ @program-analysis\/selection_fail.h 1:8@
 
     __exported by:__ @program-analysis\/selection_fail.h@
 -}
@@ -32,7 +32,7 @@ data OkBefore = OkBefore
   { okBefore_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @program-analysis\/selection_fail.h:2:7@
+         __defined at:__ @program-analysis\/selection_fail.h 2:7@
 
          __exported by:__ @program-analysis\/selection_fail.h@
     -}

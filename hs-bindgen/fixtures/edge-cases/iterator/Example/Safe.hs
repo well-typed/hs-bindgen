@@ -77,7 +77,7 @@ foreign import ccall safe "hs_bindgen_9d01035006b66206" hs_bindgen_9d01035006b66
 
 {-| __C declaration:__ @makeToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:4:8@
+    __defined at:__ @edge-cases\/iterator.h 4:8@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -94,7 +94,7 @@ foreign import ccall safe "hs_bindgen_ccd3ba727d0c0cf4" hs_bindgen_ccd3ba727d0c0
 
 {-| __C declaration:__ @toggleNext@
 
-    __defined at:__ @edge-cases\/iterator.h:5:6@
+    __defined at:__ @edge-cases\/iterator.h 5:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -111,7 +111,7 @@ foreign import ccall safe "hs_bindgen_602b40e971b06c72" hs_bindgen_602b40e971b06
 
 {-| __C declaration:__ @releaseToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:6:6@
+    __defined at:__ @edge-cases\/iterator.h 6:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -129,7 +129,7 @@ foreign import ccall safe "hs_bindgen_234fa6f1fb089e1d" hs_bindgen_234fa6f1fb089
 
 {-| __C declaration:__ @makeCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:11:9@
+    __defined at:__ @edge-cases\/iterator.h 11:9@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -148,7 +148,7 @@ foreign import ccall safe "hs_bindgen_f0fca62d78f225c3" hs_bindgen_f0fca62d78f22
 
 {-| __C declaration:__ @counterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:12:5@
+    __defined at:__ @edge-cases\/iterator.h 12:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -165,7 +165,7 @@ foreign import ccall safe "hs_bindgen_e42dcbee8a114957" hs_bindgen_e42dcbee8a114
 
 {-| __C declaration:__ @releaseCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:13:6@
+    __defined at:__ @edge-cases\/iterator.h 13:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -182,7 +182,7 @@ foreign import ccall safe "hs_bindgen_2bee4eb5b4d895c1" hs_bindgen_2bee4eb5b4d89
 
 {-| __C declaration:__ @makeVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:18:12@
+    __defined at:__ @edge-cases\/iterator.h 18:12@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -200,7 +200,7 @@ foreign import ccall safe "hs_bindgen_276b9cb5320fec37" hs_bindgen_276b9cb5320fe
 
 {-| __C declaration:__ @varCounterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:19:5@
+    __defined at:__ @edge-cases\/iterator.h 19:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -219,7 +219,7 @@ foreign import ccall safe "hs_bindgen_8423b076f7c9df21" hs_bindgen_8423b076f7c9d
 
 {-| __C declaration:__ @releaseVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:20:6@
+    __defined at:__ @edge-cases\/iterator.h 20:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}

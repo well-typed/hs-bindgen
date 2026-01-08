@@ -25,7 +25,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct \@S1_c@
 
-    __defined at:__ @types\/structs\/anonymous.h:3:3@
+    __defined at:__ @types\/structs\/anonymous.h 3:3@
 
     __exported by:__ @types\/structs\/anonymous.h@
 -}
@@ -33,14 +33,14 @@ data S1_c = S1_c
   { s1_c_a :: FC.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/anonymous.h:4:9@
+         __defined at:__ @types\/structs\/anonymous.h 4:9@
 
          __exported by:__ @types\/structs\/anonymous.h@
     -}
   , s1_c_b :: FC.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/anonymous.h:5:9@
+         __defined at:__ @types\/structs\/anonymous.h 5:9@
 
          __exported by:__ @types\/structs\/anonymous.h@
     -}
@@ -149,7 +149,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S1_c) "s1_c_b")
 
 {-| __C declaration:__ @struct S1@
 
-    __defined at:__ @types\/structs\/anonymous.h:2:8@
+    __defined at:__ @types\/structs\/anonymous.h 2:8@
 
     __exported by:__ @types\/structs\/anonymous.h@
 -}
@@ -157,14 +157,14 @@ data S1 = S1
   { s1_c :: S1_c
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @types\/structs\/anonymous.h:6:5@
+         __defined at:__ @types\/structs\/anonymous.h 6:5@
 
          __exported by:__ @types\/structs\/anonymous.h@
     -}
   , s1_d :: FC.CInt
     {- ^ __C declaration:__ @d@
 
-         __defined at:__ @types\/structs\/anonymous.h:8:7@
+         __defined at:__ @types\/structs\/anonymous.h 8:7@
 
          __exported by:__ @types\/structs\/anonymous.h@
     -}
@@ -273,7 +273,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S1) "s1_d")
 
 {-| __C declaration:__ @struct \@S2_inner_deep@
 
-    __defined at:__ @types\/structs\/anonymous.h:15:5@
+    __defined at:__ @types\/structs\/anonymous.h 15:5@
 
     __exported by:__ @types\/structs\/anonymous.h@
 -}
@@ -281,7 +281,7 @@ data S2_inner_deep = S2_inner_deep
   { s2_inner_deep_b :: FC.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/anonymous.h:16:11@
+         __defined at:__ @types\/structs\/anonymous.h 16:11@
 
          __exported by:__ @types\/structs\/anonymous.h@
     -}
@@ -369,7 +369,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S2_inner_deep) "s2_i
 
 {-| __C declaration:__ @struct \@S2_inner@
 
-    __defined at:__ @types\/structs\/anonymous.h:13:3@
+    __defined at:__ @types\/structs\/anonymous.h 13:3@
 
     __exported by:__ @types\/structs\/anonymous.h@
 -}
@@ -377,14 +377,14 @@ data S2_inner = S2_inner
   { s2_inner_a :: FC.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/anonymous.h:14:9@
+         __defined at:__ @types\/structs\/anonymous.h 14:9@
 
          __exported by:__ @types\/structs\/anonymous.h@
     -}
   , s2_inner_deep :: S2_inner_deep
     {- ^ __C declaration:__ @deep@
 
-         __defined at:__ @types\/structs\/anonymous.h:17:7@
+         __defined at:__ @types\/structs\/anonymous.h 17:7@
 
          __exported by:__ @types\/structs\/anonymous.h@
     -}
@@ -494,7 +494,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S2_inner) "s2_inner_
 
 {-| __C declaration:__ @struct S2@
 
-    __defined at:__ @types\/structs\/anonymous.h:12:8@
+    __defined at:__ @types\/structs\/anonymous.h 12:8@
 
     __exported by:__ @types\/structs\/anonymous.h@
 -}
@@ -502,14 +502,14 @@ data S2 = S2
   { s2_inner :: S2_inner
     {- ^ __C declaration:__ @inner@
 
-         __defined at:__ @types\/structs\/anonymous.h:18:5@
+         __defined at:__ @types\/structs\/anonymous.h 18:5@
 
          __exported by:__ @types\/structs\/anonymous.h@
     -}
   , s2_d :: FC.CInt
     {- ^ __C declaration:__ @d@
 
-         __defined at:__ @types\/structs\/anonymous.h:20:7@
+         __defined at:__ @types\/structs\/anonymous.h 20:7@
 
          __exported by:__ @types\/structs\/anonymous.h@
     -}
@@ -618,7 +618,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S2) "s2_d")
 
 {-| __C declaration:__ @struct S3@
 
-    __defined at:__ @types\/structs\/anonymous.h:24:8@
+    __defined at:__ @types\/structs\/anonymous.h 24:8@
 
     __exported by:__ @types\/structs\/anonymous.h@
 -}
@@ -626,14 +626,14 @@ data S3 = S3
   { s3_c :: Ptr.Ptr (Ptr.Ptr S3_c)
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @types\/structs\/anonymous.h:28:7@
+         __defined at:__ @types\/structs\/anonymous.h 28:7@
 
          __exported by:__ @types\/structs\/anonymous.h@
     -}
   , s3_d :: FC.CInt
     {- ^ __C declaration:__ @d@
 
-         __defined at:__ @types\/structs\/anonymous.h:30:7@
+         __defined at:__ @types\/structs\/anonymous.h 30:7@
 
          __exported by:__ @types\/structs\/anonymous.h@
     -}
@@ -686,7 +686,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S3) "s3_d")
 
 {-| __C declaration:__ @struct \@S3_c@
 
-    __defined at:__ @types\/structs\/anonymous.h:25:3@
+    __defined at:__ @types\/structs\/anonymous.h 25:3@
 
     __exported by:__ @types\/structs\/anonymous.h@
 -}
@@ -694,14 +694,14 @@ data S3_c = S3_c
   { s3_c_a :: FC.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @types\/structs\/anonymous.h:26:9@
+         __defined at:__ @types\/structs\/anonymous.h 26:9@
 
          __exported by:__ @types\/structs\/anonymous.h@
     -}
   , s3_c_b :: FC.CInt
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @types\/structs\/anonymous.h:27:9@
+         __defined at:__ @types\/structs\/anonymous.h 27:9@
 
          __exported by:__ @types\/structs\/anonymous.h@
     -}

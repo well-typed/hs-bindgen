@@ -24,7 +24,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct UnrelatedDeclaration@
 
-    __defined at:__ @program-analysis\/selection_omit_external_a.h:4:8@
+    __defined at:__ @program-analysis\/selection_omit_external_a.h 4:8@
 
     __exported by:__ @program-analysis\/selection_omit_external_a.h@
 -}
@@ -32,7 +32,7 @@ data UnrelatedDeclaration = UnrelatedDeclaration
   { unrelatedDeclaration_m :: FC.CInt
     {- ^ __C declaration:__ @m@
 
-         __defined at:__ @program-analysis\/selection_omit_external_a.h:5:7@
+         __defined at:__ @program-analysis\/selection_omit_external_a.h 5:7@
 
          __exported by:__ @program-analysis\/selection_omit_external_a.h@
     -}

@@ -26,7 +26,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct complex_object_t@
 
-    __defined at:__ @types\/complex\/hsb_complex_test.h:24:9@
+    __defined at:__ @types\/complex\/hsb_complex_test.h 24:9@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
@@ -34,21 +34,21 @@ data Complex_object_t = Complex_object_t
   { complex_object_t_velocity :: Data.Complex.Complex FC.CFloat
     {- ^ __C declaration:__ @velocity@
 
-         __defined at:__ @types\/complex\/hsb_complex_test.h:25:20@
+         __defined at:__ @types\/complex\/hsb_complex_test.h 25:20@
 
          __exported by:__ @types\/complex\/hsb_complex_test.h@
     -}
   , complex_object_t_position :: Data.Complex.Complex FC.CDouble
     {- ^ __C declaration:__ @position@
 
-         __defined at:__ @types\/complex\/hsb_complex_test.h:26:20@
+         __defined at:__ @types\/complex\/hsb_complex_test.h 26:20@
 
          __exported by:__ @types\/complex\/hsb_complex_test.h@
     -}
   , complex_object_t_id :: FC.CInt
     {- ^ __C declaration:__ @id@
 
-         __defined at:__ @types\/complex\/hsb_complex_test.h:27:9@
+         __defined at:__ @types\/complex\/hsb_complex_test.h 27:9@
 
          __exported by:__ @types\/complex\/hsb_complex_test.h@
     -}

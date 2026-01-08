@@ -37,7 +37,7 @@
 -- }
 {-| __C declaration:__ @enum FileOperationStatus@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:7:6@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 7:6@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
@@ -45,7 +45,7 @@ newtype FileOperationStatus
     = FileOperationStatus {un_FileOperationStatus :: CInt}
       {- ^ __C declaration:__ @enum FileOperationStatus@
 
-           __defined at:__ @program-analysis\/program_slicing_selection.h:7:6@
+           __defined at:__ @program-analysis\/program_slicing_selection.h 7:6@
 
            __exported by:__ @program-analysis\/program_slicing_selection.h@
       -}
@@ -79,91 +79,91 @@ instance Read FileOperationStatus
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @SUCCESS@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:8:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 8:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 pattern SUCCESS :: FileOperationStatus
 {-| __C declaration:__ @SUCCESS@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:8:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 8:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 pattern SUCCESS = FileOperationStatus 0
 {-| __C declaration:__ @NOT_FOUND@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:9:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 9:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 pattern NOT_FOUND :: FileOperationStatus
 {-| __C declaration:__ @NOT_FOUND@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:9:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 9:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 pattern NOT_FOUND = FileOperationStatus 2
 {-| __C declaration:__ @PERMISSION_DENIED@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:10:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 10:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 pattern PERMISSION_DENIED :: FileOperationStatus
 {-| __C declaration:__ @PERMISSION_DENIED@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:10:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 10:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 pattern PERMISSION_DENIED = FileOperationStatus 13
 {-| __C declaration:__ @INVALID_ARGUMENT@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:11:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 11:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 pattern INVALID_ARGUMENT :: FileOperationStatus
 {-| __C declaration:__ @INVALID_ARGUMENT@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:11:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 11:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 pattern INVALID_ARGUMENT = FileOperationStatus 22
 {-| __C declaration:__ @OUT_OF_MEMORY@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:12:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 12:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 pattern OUT_OF_MEMORY :: FileOperationStatus
 {-| __C declaration:__ @OUT_OF_MEMORY@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:12:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 12:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 pattern OUT_OF_MEMORY = FileOperationStatus 12
 {-| __C declaration:__ @CUSTOM_ERROR_OTHER@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:13:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 13:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 pattern CUSTOM_ERROR_OTHER :: FileOperationStatus
 {-| __C declaration:__ @CUSTOM_ERROR_OTHER@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:13:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 13:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
 pattern CUSTOM_ERROR_OTHER = FileOperationStatus (-1)
 {-| __C declaration:__ @struct FileOperationRecord@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:16:8@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 16:8@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
@@ -171,20 +171,20 @@ data FileOperationRecord
     = FileOperationRecord {fileOperationRecord_status :: FileOperationStatus
                            {- ^ __C declaration:__ @status@
 
-                                __defined at:__ @program-analysis\/program_slicing_selection.h:17:28@
+                                __defined at:__ @program-analysis\/program_slicing_selection.h 17:28@
 
                                 __exported by:__ @program-analysis\/program_slicing_selection.h@
                            -},
                            fileOperationRecord_bytes_processed :: HsBindgen.Runtime.Prelude.CSize
                            {- ^ __C declaration:__ @bytes_processed@
 
-                                __defined at:__ @program-analysis\/program_slicing_selection.h:18:10@
+                                __defined at:__ @program-analysis\/program_slicing_selection.h 18:10@
 
                                 __exported by:__ @program-analysis\/program_slicing_selection.h@
                            -}}
       {- ^ __C declaration:__ @struct FileOperationRecord@
 
-           __defined at:__ @program-analysis\/program_slicing_selection.h:16:8@
+           __defined at:__ @program-analysis\/program_slicing_selection.h 16:8@
 
            __exported by:__ @program-analysis\/program_slicing_selection.h@
       -}
@@ -225,7 +225,7 @@ foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" hs_bindgen_b2a91b3b7edf2
                                                                                        IO FileOperationStatus
 {-| __C declaration:__ @read_file_chunk@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
@@ -234,7 +234,7 @@ read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
                    HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus
 {-| __C declaration:__ @read_file_chunk@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
@@ -246,7 +246,7 @@ foreign import ccall safe "hs_bindgen_654858ed6a5db417" hs_bindgen_654858ed6a5db
                                                                                        IO FileOperationStatus
 {-| __C declaration:__ @read_file_chunk@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
@@ -255,7 +255,7 @@ read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
                    HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus
 {-| __C declaration:__ @read_file_chunk@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
@@ -268,7 +268,7 @@ foreign import ccall safe "hs_bindgen_6e12e70d71890a10" hs_bindgen_6e12e70d71890
 {-# NOINLINE read_file_chunk #-}
 {-| __C declaration:__ @read_file_chunk@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
@@ -277,7 +277,7 @@ read_file_chunk :: FunPtr (Ptr HsBindgen.Runtime.Prelude.CFile ->
                            HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus)
 {-| __C declaration:__ @read_file_chunk@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}

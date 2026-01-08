@@ -48,7 +48,7 @@ foreign import ccall unsafe "hs_bindgen_8ca6ae5d7bf88149" hs_bindgen_8ca6ae5d7bf
 
 __C declaration:__ @apply1_nopointer_var@
 
-__defined at:__ @manual\/function_pointers.h:34:21@
+__defined at:__ @manual\/function_pointers.h 34:21@
 
 __exported by:__ @manual\/function_pointers.h@
 
@@ -70,7 +70,7 @@ foreign import ccall unsafe "hs_bindgen_33a4962ebf2e9daf" hs_bindgen_33a4962ebf2
 {-# NOINLINE hs_bindgen_96ffcf57d318ddc0 #-}
 {-| __C declaration:__ @apply1_struct@
 
-    __defined at:__ @manual\/function_pointers.h:40:34@
+    __defined at:__ @manual\/function_pointers.h 40:34@
 
     __exported by:__ @manual\/function_pointers.h@
 
@@ -92,7 +92,7 @@ foreign import ccall unsafe "hs_bindgen_d1ddd3b607c95874" hs_bindgen_d1ddd3b607c
 {-# NOINLINE hs_bindgen_8368fc70f5e0aec5 #-}
 {-| __C declaration:__ @apply1_union@
 
-    __defined at:__ @manual\/function_pointers.h:46:32@
+    __defined at:__ @manual\/function_pointers.h 46:32@
 
     __exported by:__ @manual\/function_pointers.h@
 

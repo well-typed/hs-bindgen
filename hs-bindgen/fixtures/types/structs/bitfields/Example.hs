@@ -25,7 +25,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct flags@
 
-    __defined at:__ @types\/structs\/bitfields.h:1:8@
+    __defined at:__ @types\/structs\/bitfields.h 1:8@
 
     __exported by:__ @types\/structs\/bitfields.h@
 -}
@@ -33,42 +33,42 @@ data Flags = Flags
   { flags_fieldX :: FC.CChar
     {- ^ __C declaration:__ @fieldX@
 
-         __defined at:__ @types\/structs\/bitfields.h:2:10@
+         __defined at:__ @types\/structs\/bitfields.h 2:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , flags_flagA :: FC.CInt
     {- ^ __C declaration:__ @flagA@
 
-         __defined at:__ @types\/structs\/bitfields.h:3:9@
+         __defined at:__ @types\/structs\/bitfields.h 3:9@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , flags_flagB :: FC.CInt
     {- ^ __C declaration:__ @flagB@
 
-         __defined at:__ @types\/structs\/bitfields.h:4:9@
+         __defined at:__ @types\/structs\/bitfields.h 4:9@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , flags_flagC :: FC.CInt
     {- ^ __C declaration:__ @flagC@
 
-         __defined at:__ @types\/structs\/bitfields.h:5:9@
+         __defined at:__ @types\/structs\/bitfields.h 5:9@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , flags_fieldY :: FC.CChar
     {- ^ __C declaration:__ @fieldY@
 
-         __defined at:__ @types\/structs\/bitfields.h:6:10@
+         __defined at:__ @types\/structs\/bitfields.h 6:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , flags_bits :: FC.CInt
     {- ^ __C declaration:__ @bits@
 
-         __defined at:__ @types\/structs\/bitfields.h:7:9@
+         __defined at:__ @types\/structs\/bitfields.h 7:9@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -293,7 +293,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Flags) "flags_bit
 
 {-| __C declaration:__ @struct overflow32@
 
-    __defined at:__ @types\/structs\/bitfields.h:12:8@
+    __defined at:__ @types\/structs\/bitfields.h 12:8@
 
     __exported by:__ @types\/structs\/bitfields.h@
 -}
@@ -301,21 +301,21 @@ data Overflow32 = Overflow32
   { overflow32_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/structs\/bitfields.h:13:9@
+         __defined at:__ @types\/structs\/bitfields.h 13:9@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , overflow32_y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/structs\/bitfields.h:14:9@
+         __defined at:__ @types\/structs\/bitfields.h 14:9@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , overflow32_z :: FC.CInt
     {- ^ __C declaration:__ @z@
 
-         __defined at:__ @types\/structs\/bitfields.h:15:9@
+         __defined at:__ @types\/structs\/bitfields.h 15:9@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -455,7 +455,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Overflow32) "over
 
 {-| __C declaration:__ @struct overflow32b@
 
-    __defined at:__ @types\/structs\/bitfields.h:18:8@
+    __defined at:__ @types\/structs\/bitfields.h 18:8@
 
     __exported by:__ @types\/structs\/bitfields.h@
 -}
@@ -463,21 +463,21 @@ data Overflow32b = Overflow32b
   { overflow32b_x :: FC.CLong
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/structs\/bitfields.h:19:10@
+         __defined at:__ @types\/structs\/bitfields.h 19:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , overflow32b_y :: FC.CLong
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/structs\/bitfields.h:20:10@
+         __defined at:__ @types\/structs\/bitfields.h 20:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , overflow32b_z :: FC.CLong
     {- ^ __C declaration:__ @z@
 
-         __defined at:__ @types\/structs\/bitfields.h:21:10@
+         __defined at:__ @types\/structs\/bitfields.h 21:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -617,7 +617,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Overflow32b) "ove
 
 {-| __C declaration:__ @struct overflow32c@
 
-    __defined at:__ @types\/structs\/bitfields.h:24:8@
+    __defined at:__ @types\/structs\/bitfields.h 24:8@
 
     __exported by:__ @types\/structs\/bitfields.h@
 -}
@@ -625,21 +625,21 @@ data Overflow32c = Overflow32c
   { overflow32c_x :: FC.CLong
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/structs\/bitfields.h:25:10@
+         __defined at:__ @types\/structs\/bitfields.h 25:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , overflow32c_y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/structs\/bitfields.h:26:10@
+         __defined at:__ @types\/structs\/bitfields.h 26:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , overflow32c_z :: FC.CLong
     {- ^ __C declaration:__ @z@
 
-         __defined at:__ @types\/structs\/bitfields.h:27:10@
+         __defined at:__ @types\/structs\/bitfields.h 27:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -779,7 +779,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Overflow32c) "ove
 
 {-| __C declaration:__ @struct overflow64@
 
-    __defined at:__ @types\/structs\/bitfields.h:30:8@
+    __defined at:__ @types\/structs\/bitfields.h 30:8@
 
     __exported by:__ @types\/structs\/bitfields.h@
 -}
@@ -787,14 +787,14 @@ data Overflow64 = Overflow64
   { overflow64_x :: FC.CLong
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/structs\/bitfields.h:31:10@
+         __defined at:__ @types\/structs\/bitfields.h 31:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , overflow64_y :: FC.CLong
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/structs\/bitfields.h:32:10@
+         __defined at:__ @types\/structs\/bitfields.h 32:10@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -909,7 +909,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Overflow64) "over
 
 {-| __C declaration:__ @struct alignA@
 
-    __defined at:__ @types\/structs\/bitfields.h:36:8@
+    __defined at:__ @types\/structs\/bitfields.h 36:8@
 
     __exported by:__ @types\/structs\/bitfields.h@
 -}
@@ -917,14 +917,14 @@ data AlignA = AlignA
   { alignA_x :: FC.CUChar
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/structs\/bitfields.h:37:16@
+         __defined at:__ @types\/structs\/bitfields.h 37:16@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , alignA_y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/structs\/bitfields.h:38:6@
+         __defined at:__ @types\/structs\/bitfields.h 38:6@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
@@ -1037,7 +1037,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType AlignA) "alignA_y
 
 {-| __C declaration:__ @struct alignB@
 
-    __defined at:__ @types\/structs\/bitfields.h:41:8@
+    __defined at:__ @types\/structs\/bitfields.h 41:8@
 
     __exported by:__ @types\/structs\/bitfields.h@
 -}
@@ -1045,14 +1045,14 @@ data AlignB = AlignB
   { alignB_x :: FC.CUChar
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/structs\/bitfields.h:42:16@
+         __defined at:__ @types\/structs\/bitfields.h 42:16@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}
   , alignB_y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/structs\/bitfields.h:43:6@
+         __defined at:__ @types\/structs\/bitfields.h 43:6@
 
          __exported by:__ @types\/structs\/bitfields.h@
     -}

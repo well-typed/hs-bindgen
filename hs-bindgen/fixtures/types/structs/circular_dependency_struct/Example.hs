@@ -21,7 +21,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct b@
 
-    __defined at:__ @types\/structs\/circular_dependency_struct.h:3:8@
+    __defined at:__ @types\/structs\/circular_dependency_struct.h 3:8@
 
     __exported by:__ @types\/structs\/circular_dependency_struct.h@
 -}
@@ -29,7 +29,7 @@ data B = B
   { b_toA :: Ptr.Ptr A
     {- ^ __C declaration:__ @toA@
 
-         __defined at:__ @types\/structs\/circular_dependency_struct.h:4:13@
+         __defined at:__ @types\/structs\/circular_dependency_struct.h 4:13@
 
          __exported by:__ @types\/structs\/circular_dependency_struct.h@
     -}
@@ -68,7 +68,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType B) "b_toA")
 
 {-| __C declaration:__ @struct a@
 
-    __defined at:__ @types\/structs\/circular_dependency_struct.h:7:8@
+    __defined at:__ @types\/structs\/circular_dependency_struct.h 7:8@
 
     __exported by:__ @types\/structs\/circular_dependency_struct.h@
 -}
@@ -76,7 +76,7 @@ data A = A
   { a_toB :: B
     {- ^ __C declaration:__ @toB@
 
-         __defined at:__ @types\/structs\/circular_dependency_struct.h:8:12@
+         __defined at:__ @types\/structs\/circular_dependency_struct.h 8:12@
 
          __exported by:__ @types\/structs\/circular_dependency_struct.h@
     -}

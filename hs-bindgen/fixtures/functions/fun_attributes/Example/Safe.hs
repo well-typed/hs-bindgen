@@ -148,7 +148,7 @@ foreign import ccall safe "hs_bindgen_0560fe42a40f777f" hs_bindgen_0560fe42a40f7
 
 {-| __C declaration:__ @__f1@
 
-    __defined at:__ @functions\/fun_attributes.h:16:13@
+    __defined at:__ @functions\/fun_attributes.h 16:13@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -161,7 +161,7 @@ foreign import ccall safe "hs_bindgen_1a4676387075dc40" hs_bindgen_1a4676387075d
 
 {-| __C declaration:__ @f1@
 
-    __defined at:__ @functions\/fun_attributes.h:19:6@
+    __defined at:__ @functions\/fun_attributes.h 19:6@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -176,7 +176,7 @@ foreign import ccall safe "hs_bindgen_63adcb061045c5ac" hs_bindgen_63adcb061045c
 
 {-| __C declaration:__ @my_memalign@
 
-    __defined at:__ @functions\/fun_attributes.h:23:7@
+    __defined at:__ @functions\/fun_attributes.h 23:7@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -194,7 +194,7 @@ foreign import ccall safe "hs_bindgen_733b29547ce864f6" hs_bindgen_733b29547ce86
 
 {-| __C declaration:__ @my_calloc@
 
-    __defined at:__ @functions\/fun_attributes.h:28:7@
+    __defined at:__ @functions\/fun_attributes.h 28:7@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -212,7 +212,7 @@ foreign import ccall safe "hs_bindgen_4c69efa2a8a2b7c0" hs_bindgen_4c69efa2a8a2b
 
 {-| __C declaration:__ @my_realloc@
 
-    __defined at:__ @functions\/fun_attributes.h:29:7@
+    __defined at:__ @functions\/fun_attributes.h 29:7@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -229,7 +229,7 @@ foreign import ccall safe "hs_bindgen_1eae846583dd415c" hs_bindgen_1eae846583dd4
 
 {-| __C declaration:__ @my_alloc1@
 
-    __defined at:__ @functions\/fun_attributes.h:34:7@
+    __defined at:__ @functions\/fun_attributes.h 34:7@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -245,7 +245,7 @@ foreign import ccall safe "hs_bindgen_790482b4016de326" hs_bindgen_790482b4016de
 
 {-| __C declaration:__ @my_alloc2@
 
-    __defined at:__ @functions\/fun_attributes.h:35:7@
+    __defined at:__ @functions\/fun_attributes.h 35:7@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -261,7 +261,7 @@ foreign import ccall safe "hs_bindgen_3f72dedf649beccd" hs_bindgen_3f72dedf649be
 
 {-| __C declaration:__ @square@
 
-    __defined at:__ @functions\/fun_attributes.h:39:5@
+    __defined at:__ @functions\/fun_attributes.h 39:5@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -276,7 +276,7 @@ foreign import ccall safe "hs_bindgen_a8f71f2272dae572" hs_bindgen_a8f71f2272dae
 
 {-| __C declaration:__ @old_fn_deprecated@
 
-    __defined at:__ @functions\/fun_attributes.h:48:5@
+    __defined at:__ @functions\/fun_attributes.h 48:5@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -291,7 +291,7 @@ foreign import ccall safe "hs_bindgen_11a623401451cca5" hs_bindgen_11a623401451c
 
 {-| __C declaration:__ @my_dgettext@
 
-    __defined at:__ @functions\/fun_attributes.h:64:1@
+    __defined at:__ @functions\/fun_attributes.h 64:1@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -311,7 +311,7 @@ foreign import ccall safe "hs_bindgen_30143e337a327ef0" hs_bindgen_30143e337a327
 
 {-| __C declaration:__ @fdopen@
 
-    __defined at:__ @functions\/fun_attributes.h:75:9@
+    __defined at:__ @functions\/fun_attributes.h 75:9@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -327,7 +327,7 @@ foreign import ccall safe "hs_bindgen_7b2c420d0febf062" hs_bindgen_7b2c420d0febf
 
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/fun_attributes.h:79:65@
+    __defined at:__ @functions\/fun_attributes.h 79:65@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -343,7 +343,7 @@ foreign import ccall safe "hs_bindgen_af1f131d9e98a2ff" hs_bindgen_af1f131d9e98a
 
 {-| __C declaration:__ @my_memcpy@
 
-    __defined at:__ @functions\/fun_attributes.h:85:1@
+    __defined at:__ @functions\/fun_attributes.h 85:1@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -363,7 +363,7 @@ foreign import ccall safe "hs_bindgen_0afa6ff8226517c8" hs_bindgen_0afa6ff822651
 
 {-| __C declaration:__ @fatal@
 
-    __defined at:__ @functions\/fun_attributes.h:102:6@
+    __defined at:__ @functions\/fun_attributes.h 102:6@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -381,7 +381,7 @@ foreign import ccall safe "hs_bindgen_948fc14ee9d5d56f" hs_bindgen_948fc14ee9d5d
 
 __C declaration:__ @hash@
 
-__defined at:__ @functions\/fun_attributes.h:110:5@
+__defined at:__ @functions\/fun_attributes.h 110:5@
 
 __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -397,7 +397,7 @@ foreign import ccall safe "hs_bindgen_60517fb6ae2517ff" hs_bindgen_60517fb6ae251
 
 {-| __C declaration:__ @mymalloc@
 
-    __defined at:__ @functions\/fun_attributes.h:115:1@
+    __defined at:__ @functions\/fun_attributes.h 115:1@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -413,7 +413,7 @@ foreign import ccall safe "hs_bindgen_f1451b46f1bd3813" hs_bindgen_f1451b46f1bd3
 
 {-| __C declaration:__ @foobar@
 
-    __defined at:__ @functions\/fun_attributes.h:119:13@
+    __defined at:__ @functions\/fun_attributes.h 119:13@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -426,7 +426,7 @@ foreign import ccall safe "hs_bindgen_07f5843dd5c65611" hs_bindgen_07f5843dd5c65
 
 {-| __C declaration:__ @core2_func@
 
-    __defined at:__ @functions\/fun_attributes.h:126:5@
+    __defined at:__ @functions\/fun_attributes.h 126:5@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -439,7 +439,7 @@ foreign import ccall safe "hs_bindgen_2c7c9e9a45042696" hs_bindgen_2c7c9e9a45042
 
 {-| __C declaration:__ @sse3_func@
 
-    __defined at:__ @functions\/fun_attributes.h:127:5@
+    __defined at:__ @functions\/fun_attributes.h 127:5@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -452,7 +452,7 @@ foreign import ccall safe "hs_bindgen_4ff2d7abd6099082" hs_bindgen_4ff2d7abd6099
 
 {-| __C declaration:__ @f3@
 
-    __defined at:__ @functions\/fun_attributes.h:131:49@
+    __defined at:__ @functions\/fun_attributes.h 131:49@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -465,7 +465,7 @@ foreign import ccall safe "hs_bindgen_c3ae037518ec9b4e" hs_bindgen_c3ae037518ec9
 
 {-| __C declaration:__ @fn@
 
-    __defined at:__ @functions\/fun_attributes.h:136:5@
+    __defined at:__ @functions\/fun_attributes.h 136:5@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -478,7 +478,7 @@ foreign import ccall safe "hs_bindgen_da9708096863a242" hs_bindgen_da9708096863a
 
 {-| __C declaration:__ @y@
 
-    __defined at:__ @functions\/fun_attributes.h:142:12@
+    __defined at:__ @functions\/fun_attributes.h 142:12@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -491,7 +491,7 @@ foreign import ccall safe "hs_bindgen_037c35609f7728b3" hs_bindgen_037c35609f772
 
 {-| __C declaration:__ @x1@
 
-    __defined at:__ @functions\/fun_attributes.h:145:12@
+    __defined at:__ @functions\/fun_attributes.h 145:12@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -504,7 +504,7 @@ foreign import ccall safe "hs_bindgen_2c3e8d78049741c3" hs_bindgen_2c3e8d7804974
 
 {-| __C declaration:__ @x2@
 
-    __defined at:__ @functions\/fun_attributes.h:148:12@
+    __defined at:__ @functions\/fun_attributes.h 148:12@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}

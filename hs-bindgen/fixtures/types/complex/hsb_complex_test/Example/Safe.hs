@@ -54,7 +54,7 @@ multiply_complex_f_wrapper =
 
 {-| __C declaration:__ @multiply_complex_f@
 
-    __defined at:__ @types\/complex\/hsb_complex_test.h:21:16@
+    __defined at:__ @types\/complex\/hsb_complex_test.h 21:16@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}
@@ -92,7 +92,7 @@ add_complex_wrapper = hs_bindgen_3ff14ee8c5914fc6
 
 {-| __C declaration:__ @add_complex@
 
-    __defined at:__ @types\/complex\/hsb_complex_test.h:22:16@
+    __defined at:__ @types\/complex\/hsb_complex_test.h 22:16@
 
     __exported by:__ @types\/complex\/hsb_complex_test.h@
 -}

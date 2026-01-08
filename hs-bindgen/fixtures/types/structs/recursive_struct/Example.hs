@@ -22,7 +22,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct linked_list_A_s@
 
-    __defined at:__ @types\/structs\/recursive_struct.h:1:16@
+    __defined at:__ @types\/structs\/recursive_struct.h 1:16@
 
     __exported by:__ @types\/structs\/recursive_struct.h@
 -}
@@ -30,14 +30,14 @@ data Linked_list_A_t = Linked_list_A_t
   { linked_list_A_t_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/structs\/recursive_struct.h:2:7@
+         __defined at:__ @types\/structs\/recursive_struct.h 2:7@
 
          __exported by:__ @types\/structs\/recursive_struct.h@
     -}
   , linked_list_A_t_next :: Ptr.Ptr Linked_list_A_t
     {- ^ __C declaration:__ @next@
 
-         __defined at:__ @types\/structs\/recursive_struct.h:3:27@
+         __defined at:__ @types\/structs\/recursive_struct.h 3:27@
 
          __exported by:__ @types\/structs\/recursive_struct.h@
     -}
@@ -92,7 +92,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Linked_list_A_t) "li
 
 {-| __C declaration:__ @struct linked_list_B_t@
 
-    __defined at:__ @types\/structs\/recursive_struct.h:9:8@
+    __defined at:__ @types\/structs\/recursive_struct.h 9:8@
 
     __exported by:__ @types\/structs\/recursive_struct.h@
 -}
@@ -100,14 +100,14 @@ data Linked_list_B_t = Linked_list_B_t
   { linked_list_B_t_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/structs\/recursive_struct.h:10:7@
+         __defined at:__ @types\/structs\/recursive_struct.h 10:7@
 
          __exported by:__ @types\/structs\/recursive_struct.h@
     -}
   , linked_list_B_t_next :: Ptr.Ptr Linked_list_B_t
     {- ^ __C declaration:__ @next@
 
-         __defined at:__ @types\/structs\/recursive_struct.h:11:20@
+         __defined at:__ @types\/structs\/recursive_struct.h 11:20@
 
          __exported by:__ @types\/structs\/recursive_struct.h@
     -}

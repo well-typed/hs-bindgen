@@ -36,7 +36,7 @@ foreign import ccall unsafe "hs_bindgen_aa137b95cfa81f42" hs_bindgen_aa137b95cfa
 {-# NOINLINE cϒϒ #-}
 {-| __C declaration:__ @ϒϒ@
 
-    __defined at:__ @edge-cases\/adios.h:21:12@
+    __defined at:__ @edge-cases\/adios.h 21:12@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -51,7 +51,7 @@ foreign import ccall unsafe "hs_bindgen_7e61df7271c4ff58" hs_bindgen_7e61df7271c
 {-# NOINLINE hs_bindgen_7af49c80665b9a25 #-}
 {-| __C declaration:__ @ϒϒϒ@
 
-    __defined at:__ @edge-cases\/adios.h:24:18@
+    __defined at:__ @edge-cases\/adios.h 24:18@
 
     __exported by:__ @edge-cases\/adios.h@
 

@@ -32,7 +32,7 @@ foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" hs_bindgen_b2a91b3b7edf2
 
 {-| __C declaration:__ @read_file_chunk@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:21:26@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 21:26@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}

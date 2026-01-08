@@ -30,7 +30,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct Dim2@
 
-    __defined at:__ @types\/unions\/unions.h:1:8@
+    __defined at:__ @types\/unions\/unions.h 1:8@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
@@ -38,14 +38,14 @@ data Dim2 = Dim2
   { dim2_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/unions\/unions.h:2:9@
+         __defined at:__ @types\/unions\/unions.h 2:9@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
   , dim2_y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/unions\/unions.h:3:9@
+         __defined at:__ @types\/unions\/unions.h 3:9@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
@@ -154,7 +154,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim2) "dim2_y")
 
 {-| __C declaration:__ @struct Dim3@
 
-    __defined at:__ @types\/unions\/unions.h:6:8@
+    __defined at:__ @types\/unions\/unions.h 6:8@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
@@ -162,21 +162,21 @@ data Dim3 = Dim3
   { dim3_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/unions\/unions.h:7:9@
+         __defined at:__ @types\/unions\/unions.h 7:9@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
   , dim3_y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/unions\/unions.h:8:9@
+         __defined at:__ @types\/unions\/unions.h 8:9@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
   , dim3_z :: FC.CInt
     {- ^ __C declaration:__ @z@
 
-         __defined at:__ @types\/unions\/unions.h:9:9@
+         __defined at:__ @types\/unions\/unions.h 9:9@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
@@ -307,7 +307,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim3) "dim3_z")
 
 {-| __C declaration:__ @union DimPayload@
 
-    __defined at:__ @types\/unions\/unions.h:12:7@
+    __defined at:__ @types\/unions\/unions.h 12:7@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
@@ -325,7 +325,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance Data
 
 __C declaration:__ @dim2@
 
-__defined at:__ @types\/unions\/unions.h:13:17@
+__defined at:__ @types\/unions\/unions.h 13:17@
 
 __exported by:__ @types\/unions\/unions.h@
 -}
@@ -352,7 +352,7 @@ set_dimPayload_dim2 =
 
 __C declaration:__ @dim3@
 
-__defined at:__ @types\/unions\/unions.h:14:17@
+__defined at:__ @types\/unions\/unions.h 14:17@
 
 __exported by:__ @types\/unions\/unions.h@
 -}
@@ -399,7 +399,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DimPayload) "dimPayl
 
 {-| __C declaration:__ @struct Dim@
 
-    __defined at:__ @types\/unions\/unions.h:17:8@
+    __defined at:__ @types\/unions\/unions.h 17:8@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
@@ -407,14 +407,14 @@ data Dim = Dim
   { dim_tag :: FC.CInt
     {- ^ __C declaration:__ @tag@
 
-         __defined at:__ @types\/unions\/unions.h:18:9@
+         __defined at:__ @types\/unions\/unions.h 18:9@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
   , dim_payload :: DimPayload
     {- ^ __C declaration:__ @payload@
 
-         __defined at:__ @types\/unions\/unions.h:19:22@
+         __defined at:__ @types\/unions\/unions.h 19:22@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
@@ -466,7 +466,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim) "dim_payload")
 
 {-| __C declaration:__ @union DimPayloadB@
 
-    __defined at:__ @types\/unions\/unions.h:23:15@
+    __defined at:__ @types\/unions\/unions.h 23:15@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
@@ -484,7 +484,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 4 instance Data
 
 __C declaration:__ @dim2@
 
-__defined at:__ @types\/unions\/unions.h:24:17@
+__defined at:__ @types\/unions\/unions.h 24:17@
 
 __exported by:__ @types\/unions\/unions.h@
 -}
@@ -511,7 +511,7 @@ set_dimPayloadB_dim2 =
 
 __C declaration:__ @dim3@
 
-__defined at:__ @types\/unions\/unions.h:25:17@
+__defined at:__ @types\/unions\/unions.h 25:17@
 
 __exported by:__ @types\/unions\/unions.h@
 -}
@@ -558,7 +558,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DimPayloadB) "dimPay
 
 {-| __C declaration:__ @struct DimB@
 
-    __defined at:__ @types\/unions\/unions.h:28:8@
+    __defined at:__ @types\/unions\/unions.h 28:8@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
@@ -566,14 +566,14 @@ data DimB = DimB
   { dimB_tag :: FC.CInt
     {- ^ __C declaration:__ @tag@
 
-         __defined at:__ @types\/unions\/unions.h:29:9@
+         __defined at:__ @types\/unions\/unions.h 29:9@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
   , dimB_payload :: DimPayloadB
     {- ^ __C declaration:__ @payload@
 
-         __defined at:__ @types\/unions\/unions.h:30:17@
+         __defined at:__ @types\/unions\/unions.h 30:17@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
@@ -625,7 +625,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DimB) "dimB_payload"
 
 {-| __C declaration:__ @struct \@AnonA_xy@
 
-    __defined at:__ @types\/unions\/unions.h:35:5@
+    __defined at:__ @types\/unions\/unions.h 35:5@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
@@ -633,14 +633,14 @@ data AnonA_xy = AnonA_xy
   { anonA_xy_x :: FC.CDouble
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/unions\/unions.h:35:21@
+         __defined at:__ @types\/unions\/unions.h 35:21@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
   , anonA_xy_y :: FC.CDouble
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/unions\/unions.h:35:31@
+         __defined at:__ @types\/unions\/unions.h 35:31@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
@@ -749,7 +749,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonA_xy) "anonA_xy_
 
 {-| __C declaration:__ @struct \@AnonA_polar@
 
-    __defined at:__ @types\/unions\/unions.h:36:5@
+    __defined at:__ @types\/unions\/unions.h 36:5@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
@@ -757,14 +757,14 @@ data AnonA_polar = AnonA_polar
   { anonA_polar_r :: FC.CDouble
     {- ^ __C declaration:__ @r@
 
-         __defined at:__ @types\/unions\/unions.h:36:21@
+         __defined at:__ @types\/unions\/unions.h 36:21@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
   , anonA_polar_p :: FC.CDouble
     {- ^ __C declaration:__ @p@
 
-         __defined at:__ @types\/unions\/unions.h:36:31@
+         __defined at:__ @types\/unions\/unions.h 36:31@
 
          __exported by:__ @types\/unions\/unions.h@
     -}
@@ -875,7 +875,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonA_polar) "anonA_
 
 {-| __C declaration:__ @union AnonA@
 
-    __defined at:__ @types\/unions\/unions.h:34:7@
+    __defined at:__ @types\/unions\/unions.h 34:7@
 
     __exported by:__ @types\/unions\/unions.h@
 -}
@@ -893,7 +893,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 16) 8 instance Dat
 
 __C declaration:__ @xy@
 
-__defined at:__ @types\/unions\/unions.h:35:36@
+__defined at:__ @types\/unions\/unions.h 35:36@
 
 __exported by:__ @types\/unions\/unions.h@
 -}
@@ -920,7 +920,7 @@ set_anonA_xy =
 
 __C declaration:__ @polar@
 
-__defined at:__ @types\/unions\/unions.h:36:36@
+__defined at:__ @types\/unions\/unions.h 36:36@
 
 __exported by:__ @types\/unions\/unions.h@
 -}

@@ -30,7 +30,7 @@ foreign import ccall unsafe "hs_bindgen_1af353788955c7a2" hs_bindgen_1af35378895
 
 {-| __C declaration:__ @new_vector@
 
-    __defined at:__ @types\/complex\/vector_test.h:6:9@
+    __defined at:__ @types\/complex\/vector_test.h 6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}

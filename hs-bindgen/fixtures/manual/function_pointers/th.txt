@@ -199,7 +199,7 @@
 -- }
 {-| __C declaration:__ @int2int@
 
-    __defined at:__ @manual\/function_pointers.h:19:13@
+    __defined at:__ @manual\/function_pointers.h 19:13@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -207,7 +207,7 @@ newtype Int2int
     = Int2int {un_Int2int :: (CInt -> IO CInt)}
       {- ^ __C declaration:__ @int2int@
 
-           __defined at:__ @manual\/function_pointers.h:19:13@
+           __defined at:__ @manual\/function_pointers.h 19:13@
 
            __exported by:__ @manual\/function_pointers.h@
       -}
@@ -232,7 +232,7 @@ instance HasCField Int2int "un_Int2int"
 
 __C declaration:__ @struct Apply1Struct@
 
-__defined at:__ @manual\/function_pointers.h:37:8@
+__defined at:__ @manual\/function_pointers.h 37:8@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -241,7 +241,7 @@ data Apply1Struct
                                                                            CInt -> IO CInt))
                     {- ^ __C declaration:__ @apply1_nopointer_struct_field@
 
-                         __defined at:__ @manual\/function_pointers.h:38:16@
+                         __defined at:__ @manual\/function_pointers.h 38:16@
 
                          __exported by:__ @manual\/function_pointers.h@
                     -}}
@@ -249,7 +249,7 @@ data Apply1Struct
 
       __C declaration:__ @struct Apply1Struct@
 
-      __defined at:__ @manual\/function_pointers.h:37:8@
+      __defined at:__ @manual\/function_pointers.h 37:8@
 
       __exported by:__ @manual\/function_pointers.h@
       -}
@@ -277,7 +277,7 @@ instance TyEq ty
 
 __C declaration:__ @union Apply1Union@
 
-__defined at:__ @manual\/function_pointers.h:43:7@
+__defined at:__ @manual\/function_pointers.h 43:7@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -287,7 +287,7 @@ newtype Apply1Union
 
       __C declaration:__ @union Apply1Union@
 
-      __defined at:__ @manual\/function_pointers.h:43:7@
+      __defined at:__ @manual\/function_pointers.h 43:7@
 
       __exported by:__ @manual\/function_pointers.h@
       -}
@@ -299,7 +299,7 @@ deriving via (SizedByteArray 8 8) instance Prim Apply1Union
 
 __C declaration:__ @apply1_nopointer_union_field@
 
-__defined at:__ @manual\/function_pointers.h:44:16@
+__defined at:__ @manual\/function_pointers.h 44:16@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -311,7 +311,7 @@ get_apply1Union_apply1_nopointer_union_field :: Apply1Union ->
 
 __C declaration:__ @apply1_nopointer_union_field@
 
-__defined at:__ @manual\/function_pointers.h:44:16@
+__defined at:__ @manual\/function_pointers.h 44:16@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -361,14 +361,14 @@ foreign import ccall safe "hs_bindgen_8c6beff641297a13" hs_bindgen_8c6beff641297
                                                                                        IO CInt
 {-| __C declaration:__ @square@
 
-    __defined at:__ @manual\/function_pointers.h:5:12@
+    __defined at:__ @manual\/function_pointers.h 5:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
 square :: CInt -> IO CInt
 {-| __C declaration:__ @square@
 
-    __defined at:__ @manual\/function_pointers.h:5:12@
+    __defined at:__ @manual\/function_pointers.h 5:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -379,14 +379,14 @@ foreign import ccall safe "hs_bindgen_3dfb239ac098f471" hs_bindgen_3dfb239ac098f
                                                                                        IO CInt
 {-| __C declaration:__ @plus@
 
-    __defined at:__ @manual\/function_pointers.h:7:12@
+    __defined at:__ @manual\/function_pointers.h 7:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
 plus :: CInt -> CInt -> IO CInt
 {-| __C declaration:__ @plus@
 
-    __defined at:__ @manual\/function_pointers.h:7:12@
+    __defined at:__ @manual\/function_pointers.h 7:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -398,14 +398,14 @@ foreign import ccall safe "hs_bindgen_983beb37938c4d96" hs_bindgen_983beb37938c4
                                                                                        IO CInt
 {-| __C declaration:__ @apply1@
 
-    __defined at:__ @manual\/function_pointers.h:9:12@
+    __defined at:__ @manual\/function_pointers.h 9:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
 apply1 :: FunPtr (CInt -> IO CInt) -> CInt -> IO CInt
 {-| __C declaration:__ @apply1@
 
-    __defined at:__ @manual\/function_pointers.h:9:12@
+    __defined at:__ @manual\/function_pointers.h 9:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -419,7 +419,7 @@ foreign import ccall safe "hs_bindgen_8a62074f5475563b" hs_bindgen_8a62074f54755
                                                                                        IO CInt
 {-| __C declaration:__ @apply2@
 
-    __defined at:__ @manual\/function_pointers.h:11:12@
+    __defined at:__ @manual\/function_pointers.h 11:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -427,7 +427,7 @@ apply2 :: FunPtr (CInt -> CInt -> IO CInt) ->
           CInt -> CInt -> IO CInt
 {-| __C declaration:__ @apply2@
 
-    __defined at:__ @manual\/function_pointers.h:11:12@
+    __defined at:__ @manual\/function_pointers.h 11:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -440,7 +440,7 @@ foreign import ccall safe "hs_bindgen_229d4041a92cd6b6" hs_bindgen_229d4041a92cd
 
 __C declaration:__ @apply1_pointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:22:12@
+__defined at:__ @manual\/function_pointers.h 22:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -449,7 +449,7 @@ apply1_pointer_arg :: FunPtr Int2int -> CInt -> IO CInt
 
 __C declaration:__ @apply1_pointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:22:12@
+__defined at:__ @manual\/function_pointers.h 22:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -462,7 +462,7 @@ foreign import ccall safe "hs_bindgen_de9f1109e03648e4" hs_bindgen_de9f1109e0364
 
 __C declaration:__ @apply1_nopointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:26:12@
+__defined at:__ @manual\/function_pointers.h 26:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -471,7 +471,7 @@ apply1_nopointer_arg :: FunPtr Int2int -> CInt -> IO CInt
 
 __C declaration:__ @apply1_nopointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:26:12@
+__defined at:__ @manual\/function_pointers.h 26:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -484,7 +484,7 @@ foreign import ccall safe "hs_bindgen_8bea6b2106c55d5b" hs_bindgen_8bea6b2106c55
 
 __C declaration:__ @apply1_nopointer_res@
 
-__defined at:__ @manual\/function_pointers.h:31:21@
+__defined at:__ @manual\/function_pointers.h 31:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -494,7 +494,7 @@ apply1_nopointer_res :: IO (FunPtr (FunPtr Int2int ->
 
 __C declaration:__ @apply1_nopointer_res@
 
-__defined at:__ @manual\/function_pointers.h:31:21@
+__defined at:__ @manual\/function_pointers.h 31:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -504,14 +504,14 @@ foreign import ccall safe "hs_bindgen_db669c022bc12e81" hs_bindgen_db669c022bc12
                                                                                        IO CInt
 {-| __C declaration:__ @square@
 
-    __defined at:__ @manual\/function_pointers.h:5:12@
+    __defined at:__ @manual\/function_pointers.h 5:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
 square :: CInt -> IO CInt
 {-| __C declaration:__ @square@
 
-    __defined at:__ @manual\/function_pointers.h:5:12@
+    __defined at:__ @manual\/function_pointers.h 5:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -522,14 +522,14 @@ foreign import ccall safe "hs_bindgen_0bb46b9dde136391" hs_bindgen_0bb46b9dde136
                                                                                        IO CInt
 {-| __C declaration:__ @plus@
 
-    __defined at:__ @manual\/function_pointers.h:7:12@
+    __defined at:__ @manual\/function_pointers.h 7:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
 plus :: CInt -> CInt -> IO CInt
 {-| __C declaration:__ @plus@
 
-    __defined at:__ @manual\/function_pointers.h:7:12@
+    __defined at:__ @manual\/function_pointers.h 7:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -541,14 +541,14 @@ foreign import ccall safe "hs_bindgen_3ff551d60859d359" hs_bindgen_3ff551d60859d
                                                                                        IO CInt
 {-| __C declaration:__ @apply1@
 
-    __defined at:__ @manual\/function_pointers.h:9:12@
+    __defined at:__ @manual\/function_pointers.h 9:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
 apply1 :: FunPtr (CInt -> IO CInt) -> CInt -> IO CInt
 {-| __C declaration:__ @apply1@
 
-    __defined at:__ @manual\/function_pointers.h:9:12@
+    __defined at:__ @manual\/function_pointers.h 9:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -562,7 +562,7 @@ foreign import ccall safe "hs_bindgen_4c92d113161d27cf" hs_bindgen_4c92d113161d2
                                                                                        IO CInt
 {-| __C declaration:__ @apply2@
 
-    __defined at:__ @manual\/function_pointers.h:11:12@
+    __defined at:__ @manual\/function_pointers.h 11:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -570,7 +570,7 @@ apply2 :: FunPtr (CInt -> CInt -> IO CInt) ->
           CInt -> CInt -> IO CInt
 {-| __C declaration:__ @apply2@
 
-    __defined at:__ @manual\/function_pointers.h:11:12@
+    __defined at:__ @manual\/function_pointers.h 11:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -583,7 +583,7 @@ foreign import ccall safe "hs_bindgen_2f904bf3ce7a5f06" hs_bindgen_2f904bf3ce7a5
 
 __C declaration:__ @apply1_pointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:22:12@
+__defined at:__ @manual\/function_pointers.h 22:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -592,7 +592,7 @@ apply1_pointer_arg :: FunPtr Int2int -> CInt -> IO CInt
 
 __C declaration:__ @apply1_pointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:22:12@
+__defined at:__ @manual\/function_pointers.h 22:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -605,7 +605,7 @@ foreign import ccall safe "hs_bindgen_966092b638965558" hs_bindgen_966092b638965
 
 __C declaration:__ @apply1_nopointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:26:12@
+__defined at:__ @manual\/function_pointers.h 26:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -614,7 +614,7 @@ apply1_nopointer_arg :: FunPtr Int2int -> CInt -> IO CInt
 
 __C declaration:__ @apply1_nopointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:26:12@
+__defined at:__ @manual\/function_pointers.h 26:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -627,7 +627,7 @@ foreign import ccall safe "hs_bindgen_99a8340e6e6029c5" hs_bindgen_99a8340e6e602
 
 __C declaration:__ @apply1_nopointer_res@
 
-__defined at:__ @manual\/function_pointers.h:31:21@
+__defined at:__ @manual\/function_pointers.h 31:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -637,7 +637,7 @@ apply1_nopointer_res :: IO (FunPtr (FunPtr Int2int ->
 
 __C declaration:__ @apply1_nopointer_res@
 
-__defined at:__ @manual\/function_pointers.h:31:21@
+__defined at:__ @manual\/function_pointers.h 31:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -648,14 +648,14 @@ foreign import ccall safe "hs_bindgen_f0adbe322df05825" hs_bindgen_f0adbe322df05
 {-# NOINLINE square #-}
 {-| __C declaration:__ @square@
 
-    __defined at:__ @manual\/function_pointers.h:5:12@
+    __defined at:__ @manual\/function_pointers.h 5:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
 square :: FunPtr (CInt -> IO CInt)
 {-| __C declaration:__ @square@
 
-    __defined at:__ @manual\/function_pointers.h:5:12@
+    __defined at:__ @manual\/function_pointers.h 5:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -667,14 +667,14 @@ foreign import ccall safe "hs_bindgen_ab2a2131b5f9f197" hs_bindgen_ab2a2131b5f9f
 {-# NOINLINE plus #-}
 {-| __C declaration:__ @plus@
 
-    __defined at:__ @manual\/function_pointers.h:7:12@
+    __defined at:__ @manual\/function_pointers.h 7:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
 plus :: FunPtr (CInt -> CInt -> IO CInt)
 {-| __C declaration:__ @plus@
 
-    __defined at:__ @manual\/function_pointers.h:7:12@
+    __defined at:__ @manual\/function_pointers.h 7:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -687,14 +687,14 @@ foreign import ccall safe "hs_bindgen_b3bb0146641acd39" hs_bindgen_b3bb0146641ac
 {-# NOINLINE apply1 #-}
 {-| __C declaration:__ @apply1@
 
-    __defined at:__ @manual\/function_pointers.h:9:12@
+    __defined at:__ @manual\/function_pointers.h 9:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
 apply1 :: FunPtr (FunPtr (CInt -> IO CInt) -> CInt -> IO CInt)
 {-| __C declaration:__ @apply1@
 
-    __defined at:__ @manual\/function_pointers.h:9:12@
+    __defined at:__ @manual\/function_pointers.h 9:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -709,7 +709,7 @@ foreign import ccall safe "hs_bindgen_78245c4946e6da00" hs_bindgen_78245c4946e6d
 {-# NOINLINE apply2 #-}
 {-| __C declaration:__ @apply2@
 
-    __defined at:__ @manual\/function_pointers.h:11:12@
+    __defined at:__ @manual\/function_pointers.h 11:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -717,7 +717,7 @@ apply2 :: FunPtr (FunPtr (CInt -> CInt -> IO CInt) ->
                   CInt -> CInt -> IO CInt)
 {-| __C declaration:__ @apply2@
 
-    __defined at:__ @manual\/function_pointers.h:11:12@
+    __defined at:__ @manual\/function_pointers.h 11:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -731,7 +731,7 @@ foreign import ccall safe "hs_bindgen_00276448b1e8af8a" hs_bindgen_00276448b1e8a
 
 __C declaration:__ @apply1_pointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:22:12@
+__defined at:__ @manual\/function_pointers.h 22:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -740,7 +740,7 @@ apply1_pointer_arg :: FunPtr (FunPtr Int2int -> CInt -> IO CInt)
 
 __C declaration:__ @apply1_pointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:22:12@
+__defined at:__ @manual\/function_pointers.h 22:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -754,7 +754,7 @@ foreign import ccall safe "hs_bindgen_00f9010b80cdee19" hs_bindgen_00f9010b80cde
 
 __C declaration:__ @apply1_nopointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:26:12@
+__defined at:__ @manual\/function_pointers.h 26:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -763,7 +763,7 @@ apply1_nopointer_arg :: FunPtr (FunPtr Int2int -> CInt -> IO CInt)
 
 __C declaration:__ @apply1_nopointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:26:12@
+__defined at:__ @manual\/function_pointers.h 26:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -777,7 +777,7 @@ foreign import ccall safe "hs_bindgen_16929b4528263721" hs_bindgen_16929b4528263
 
 __C declaration:__ @apply1_nopointer_res@
 
-__defined at:__ @manual\/function_pointers.h:31:21@
+__defined at:__ @manual\/function_pointers.h 31:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -787,7 +787,7 @@ apply1_nopointer_res :: FunPtr (IO (FunPtr (FunPtr Int2int ->
 
 __C declaration:__ @apply1_nopointer_res@
 
-__defined at:__ @manual\/function_pointers.h:31:21@
+__defined at:__ @manual\/function_pointers.h 31:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -801,7 +801,7 @@ foreign import ccall safe "hs_bindgen_8ca6ae5d7bf88149" hs_bindgen_8ca6ae5d7bf88
 
 __C declaration:__ @apply1_nopointer_var@
 
-__defined at:__ @manual\/function_pointers.h:34:21@
+__defined at:__ @manual\/function_pointers.h 34:21@
 
 __exported by:__ @manual\/function_pointers.h@
 
@@ -813,7 +813,7 @@ hs_bindgen_505081298c324425 :: ConstPtr (FunPtr (FunPtr Int2int ->
 
 __C declaration:__ @apply1_nopointer_var@
 
-__defined at:__ @manual\/function_pointers.h:34:21@
+__defined at:__ @manual\/function_pointers.h 34:21@
 
 __exported by:__ @manual\/function_pointers.h@
 
@@ -828,7 +828,7 @@ foreign import ccall safe "hs_bindgen_33a4962ebf2e9daf" hs_bindgen_33a4962ebf2e9
 {-# NOINLINE hs_bindgen_96ffcf57d318ddc0 #-}
 {-| __C declaration:__ @apply1_struct@
 
-    __defined at:__ @manual\/function_pointers.h:40:34@
+    __defined at:__ @manual\/function_pointers.h 40:34@
 
     __exported by:__ @manual\/function_pointers.h@
 
@@ -837,7 +837,7 @@ foreign import ccall safe "hs_bindgen_33a4962ebf2e9daf" hs_bindgen_33a4962ebf2e9
 hs_bindgen_96ffcf57d318ddc0 :: ConstPtr Apply1Struct
 {-| __C declaration:__ @apply1_struct@
 
-    __defined at:__ @manual\/function_pointers.h:40:34@
+    __defined at:__ @manual\/function_pointers.h 40:34@
 
     __exported by:__ @manual\/function_pointers.h@
 
@@ -852,7 +852,7 @@ foreign import ccall safe "hs_bindgen_d1ddd3b607c95874" hs_bindgen_d1ddd3b607c95
 {-# NOINLINE hs_bindgen_8368fc70f5e0aec5 #-}
 {-| __C declaration:__ @apply1_union@
 
-    __defined at:__ @manual\/function_pointers.h:46:32@
+    __defined at:__ @manual\/function_pointers.h 46:32@
 
     __exported by:__ @manual\/function_pointers.h@
 
@@ -861,7 +861,7 @@ foreign import ccall safe "hs_bindgen_d1ddd3b607c95874" hs_bindgen_d1ddd3b607c95
 hs_bindgen_8368fc70f5e0aec5 :: ConstPtr Apply1Union
 {-| __C declaration:__ @apply1_union@
 
-    __defined at:__ @manual\/function_pointers.h:46:32@
+    __defined at:__ @manual\/function_pointers.h 46:32@
 
     __exported by:__ @manual\/function_pointers.h@
 

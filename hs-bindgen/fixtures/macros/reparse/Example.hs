@@ -42,7 +42,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Rea
 
 {-| __C declaration:__ @A@
 
-    __defined at:__ @macros\/reparse.h:3:9@
+    __defined at:__ @macros\/reparse.h 3:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -54,7 +54,7 @@ newtype A = A
 
 {-| __C declaration:__ @struct some_struct@
 
-    __defined at:__ @macros\/reparse.h:7:8@
+    __defined at:__ @macros\/reparse.h 7:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -110,7 +110,7 @@ instance Data.Primitive.Types.Prim Some_struct where
 
 {-| __C declaration:__ @union some_union@
 
-    __defined at:__ @macros\/reparse.h:8:7@
+    __defined at:__ @macros\/reparse.h 8:7@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -124,7 +124,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 0) 1 instance Data
 
 {-| __C declaration:__ @enum some_enum@
 
-    __defined at:__ @macros\/reparse.h:9:6@
+    __defined at:__ @macros\/reparse.h 9:6@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -196,7 +196,7 @@ instance Read Some_enum where
 
 {-| __C declaration:__ @ENUM_A@
 
-    __defined at:__ @macros\/reparse.h:9:18@
+    __defined at:__ @macros\/reparse.h 9:18@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -205,7 +205,7 @@ pattern ENUM_A = Some_enum 0
 
 {-| __C declaration:__ @arr_typedef1@
 
-    __defined at:__ @macros\/reparse.h:109:13@
+    __defined at:__ @macros\/reparse.h 109:13@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -229,7 +229,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Arr_typedef1 "un_Arr_typedef1" wh
 
 {-| __C declaration:__ @arr_typedef2@
 
-    __defined at:__ @macros\/reparse.h:110:13@
+    __defined at:__ @macros\/reparse.h 110:13@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -253,7 +253,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Arr_typedef2 "un_Arr_typedef2" wh
 
 {-| __C declaration:__ @arr_typedef3@
 
-    __defined at:__ @macros\/reparse.h:111:13@
+    __defined at:__ @macros\/reparse.h 111:13@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -278,7 +278,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Arr_typedef3 "un_Arr_typedef3" wh
 
 {-| __C declaration:__ @arr_typedef4@
 
-    __defined at:__ @macros\/reparse.h:112:13@
+    __defined at:__ @macros\/reparse.h 112:13@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -305,7 +305,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Arr_typedef4 "un_Arr_typedef4" wh
 
 __C declaration:__ @typedef1@
 
-__defined at:__ @macros\/reparse.h:118:14@
+__defined at:__ @macros\/reparse.h 118:14@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -329,7 +329,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Typedef1 "un_Typedef1" where
 
 {-| __C declaration:__ @typedef2@
 
-    __defined at:__ @macros\/reparse.h:119:14@
+    __defined at:__ @macros\/reparse.h 119:14@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -353,7 +353,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Typedef2 "un_Typedef2" where
 
 {-| __C declaration:__ @typedef3@
 
-    __defined at:__ @macros\/reparse.h:120:14@
+    __defined at:__ @macros\/reparse.h 120:14@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -380,7 +380,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Typedef3 "un_Typedef3" where
 
 __C declaration:__ @funptr_typedef1@
 
-__defined at:__ @macros\/reparse.h:132:16@
+__defined at:__ @macros\/reparse.h 132:16@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -422,7 +422,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef1_Aux "un_Funptr_ty
 
 {-| __C declaration:__ @funptr_typedef1@
 
-    __defined at:__ @macros\/reparse.h:132:16@
+    __defined at:__ @macros\/reparse.h 132:16@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -449,7 +449,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef1 "un_Funptr_typede
 
 __C declaration:__ @funptr_typedef2@
 
-__defined at:__ @macros\/reparse.h:133:16@
+__defined at:__ @macros\/reparse.h 133:16@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -491,7 +491,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef2_Aux "un_Funptr_ty
 
 {-| __C declaration:__ @funptr_typedef2@
 
-    __defined at:__ @macros\/reparse.h:133:16@
+    __defined at:__ @macros\/reparse.h 133:16@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -518,7 +518,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef2 "un_Funptr_typede
 
 __C declaration:__ @funptr_typedef3@
 
-__defined at:__ @macros\/reparse.h:134:16@
+__defined at:__ @macros\/reparse.h 134:16@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -560,7 +560,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef3_Aux "un_Funptr_ty
 
 {-| __C declaration:__ @funptr_typedef3@
 
-    __defined at:__ @macros\/reparse.h:134:16@
+    __defined at:__ @macros\/reparse.h 134:16@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -587,7 +587,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef3 "un_Funptr_typede
 
 __C declaration:__ @funptr_typedef4@
 
-__defined at:__ @macros\/reparse.h:135:16@
+__defined at:__ @macros\/reparse.h 135:16@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -629,7 +629,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef4_Aux "un_Funptr_ty
 
 {-| __C declaration:__ @funptr_typedef4@
 
-    __defined at:__ @macros\/reparse.h:135:16@
+    __defined at:__ @macros\/reparse.h 135:16@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -656,7 +656,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef4 "un_Funptr_typede
 
 __C declaration:__ @funptr_typedef5@
 
-__defined at:__ @macros\/reparse.h:136:16@
+__defined at:__ @macros\/reparse.h 136:16@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -698,7 +698,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef5_Aux "un_Funptr_ty
 
 {-| __C declaration:__ @funptr_typedef5@
 
-    __defined at:__ @macros\/reparse.h:136:16@
+    __defined at:__ @macros\/reparse.h 136:16@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -723,7 +723,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Funptr_typedef5 "un_Funptr_typede
 
 {-| __C declaration:__ @comments2@
 
-    __defined at:__ @macros\/reparse.h:145:30@
+    __defined at:__ @macros\/reparse.h 145:30@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -749,7 +749,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Comments2 "un_Comments2" where
 
 __C declaration:__ @struct example_struct@
 
-__defined at:__ @macros\/reparse.h:151:8@
+__defined at:__ @macros\/reparse.h 151:8@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -757,21 +757,21 @@ data Example_struct = Example_struct
   { example_struct_field1 :: A
     {- ^ __C declaration:__ @field1@
 
-         __defined at:__ @macros\/reparse.h:152:8@
+         __defined at:__ @macros\/reparse.h 152:8@
 
          __exported by:__ @macros\/reparse.h@
     -}
   , example_struct_field2 :: Ptr.Ptr A
     {- ^ __C declaration:__ @field2@
 
-         __defined at:__ @macros\/reparse.h:153:8@
+         __defined at:__ @macros\/reparse.h 153:8@
 
          __exported by:__ @macros\/reparse.h@
     -}
   , example_struct_field3 :: Ptr.Ptr (Ptr.Ptr A)
     {- ^ __C declaration:__ @field3@
 
-         __defined at:__ @macros\/reparse.h:154:8@
+         __defined at:__ @macros\/reparse.h 154:8@
 
          __exported by:__ @macros\/reparse.h@
     -}
@@ -844,7 +844,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct) "exa
 
 {-| __C declaration:__ @const_typedef1@
 
-    __defined at:__ @macros\/reparse.h:220:25@
+    __defined at:__ @macros\/reparse.h 220:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -869,7 +869,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef1 "un_Const_typedef1
 
 {-| __C declaration:__ @const_typedef2@
 
-    __defined at:__ @macros\/reparse.h:221:25@
+    __defined at:__ @macros\/reparse.h 221:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -894,7 +894,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef2 "un_Const_typedef2
 
 {-| __C declaration:__ @const_typedef3@
 
-    __defined at:__ @macros\/reparse.h:222:25@
+    __defined at:__ @macros\/reparse.h 222:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -919,7 +919,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef3 "un_Const_typedef3
 
 {-| __C declaration:__ @const_typedef4@
 
-    __defined at:__ @macros\/reparse.h:223:25@
+    __defined at:__ @macros\/reparse.h 223:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -944,7 +944,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef4 "un_Const_typedef4
 
 {-| __C declaration:__ @const_typedef5@
 
-    __defined at:__ @macros\/reparse.h:224:25@
+    __defined at:__ @macros\/reparse.h 224:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -969,7 +969,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef5 "un_Const_typedef5
 
 {-| __C declaration:__ @const_typedef6@
 
-    __defined at:__ @macros\/reparse.h:225:25@
+    __defined at:__ @macros\/reparse.h 225:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -994,7 +994,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef6 "un_Const_typedef6
 
 {-| __C declaration:__ @const_typedef7@
 
-    __defined at:__ @macros\/reparse.h:226:25@
+    __defined at:__ @macros\/reparse.h 226:25@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1019,7 +1019,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_typedef7 "un_Const_typedef7
 
 {-| __C declaration:__ @struct example_struct_with_const@
 
-    __defined at:__ @macros\/reparse.h:228:8@
+    __defined at:__ @macros\/reparse.h 228:8@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1027,49 +1027,49 @@ data Example_struct_with_const = Example_struct_with_const
   { example_struct_with_const_const_field1 :: A
     {- ^ __C declaration:__ @const_field1@
 
-         __defined at:__ @macros\/reparse.h:229:19@
+         __defined at:__ @macros\/reparse.h 229:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
   , example_struct_with_const_const_field2 :: A
     {- ^ __C declaration:__ @const_field2@
 
-         __defined at:__ @macros\/reparse.h:230:19@
+         __defined at:__ @macros\/reparse.h 230:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
   , example_struct_with_const_const_field3 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
     {- ^ __C declaration:__ @const_field3@
 
-         __defined at:__ @macros\/reparse.h:231:19@
+         __defined at:__ @macros\/reparse.h 231:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
   , example_struct_with_const_const_field4 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
     {- ^ __C declaration:__ @const_field4@
 
-         __defined at:__ @macros\/reparse.h:232:19@
+         __defined at:__ @macros\/reparse.h 232:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
   , example_struct_with_const_const_field5 :: Ptr.Ptr A
     {- ^ __C declaration:__ @const_field5@
 
-         __defined at:__ @macros\/reparse.h:233:19@
+         __defined at:__ @macros\/reparse.h 233:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
   , example_struct_with_const_const_field6 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
     {- ^ __C declaration:__ @const_field6@
 
-         __defined at:__ @macros\/reparse.h:234:19@
+         __defined at:__ @macros\/reparse.h 234:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
   , example_struct_with_const_const_field7 :: HsBindgen.Runtime.ConstPtr.ConstPtr A
     {- ^ __C declaration:__ @const_field7@
 
-         __defined at:__ @macros\/reparse.h:235:19@
+         __defined at:__ @macros\/reparse.h 235:19@
 
          __exported by:__ @macros\/reparse.h@
     -}
@@ -1208,7 +1208,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Example_struct_with_
 
 __C declaration:__ @const_funptr1@
 
-__defined at:__ @macros\/reparse.h:238:27@
+__defined at:__ @macros\/reparse.h 238:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -1250,7 +1250,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr1_Aux "un_Const_funpt
 
 {-| __C declaration:__ @const_funptr1@
 
-    __defined at:__ @macros\/reparse.h:238:27@
+    __defined at:__ @macros\/reparse.h 238:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1277,7 +1277,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr1 "un_Const_funptr1" 
 
 __C declaration:__ @const_funptr2@
 
-__defined at:__ @macros\/reparse.h:239:27@
+__defined at:__ @macros\/reparse.h 239:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -1319,7 +1319,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr2_Aux "un_Const_funpt
 
 {-| __C declaration:__ @const_funptr2@
 
-    __defined at:__ @macros\/reparse.h:239:27@
+    __defined at:__ @macros\/reparse.h 239:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1346,7 +1346,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr2 "un_Const_funptr2" 
 
 __C declaration:__ @const_funptr3@
 
-__defined at:__ @macros\/reparse.h:240:27@
+__defined at:__ @macros\/reparse.h 240:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -1388,7 +1388,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr3_Aux "un_Const_funpt
 
 {-| __C declaration:__ @const_funptr3@
 
-    __defined at:__ @macros\/reparse.h:240:27@
+    __defined at:__ @macros\/reparse.h 240:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1415,7 +1415,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr3 "un_Const_funptr3" 
 
 __C declaration:__ @const_funptr4@
 
-__defined at:__ @macros\/reparse.h:241:27@
+__defined at:__ @macros\/reparse.h 241:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -1457,7 +1457,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr4_Aux "un_Const_funpt
 
 {-| __C declaration:__ @const_funptr4@
 
-    __defined at:__ @macros\/reparse.h:241:27@
+    __defined at:__ @macros\/reparse.h 241:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1484,7 +1484,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr4 "un_Const_funptr4" 
 
 __C declaration:__ @const_funptr5@
 
-__defined at:__ @macros\/reparse.h:242:27@
+__defined at:__ @macros\/reparse.h 242:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -1526,7 +1526,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr5_Aux "un_Const_funpt
 
 {-| __C declaration:__ @const_funptr5@
 
-    __defined at:__ @macros\/reparse.h:242:27@
+    __defined at:__ @macros\/reparse.h 242:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1553,7 +1553,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr5 "un_Const_funptr5" 
 
 __C declaration:__ @const_funptr6@
 
-__defined at:__ @macros\/reparse.h:243:27@
+__defined at:__ @macros\/reparse.h 243:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -1595,7 +1595,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr6_Aux "un_Const_funpt
 
 {-| __C declaration:__ @const_funptr6@
 
-    __defined at:__ @macros\/reparse.h:243:27@
+    __defined at:__ @macros\/reparse.h 243:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1622,7 +1622,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr6 "un_Const_funptr6" 
 
 __C declaration:__ @const_funptr7@
 
-__defined at:__ @macros\/reparse.h:244:27@
+__defined at:__ @macros\/reparse.h 244:27@
 
 __exported by:__ @macros\/reparse.h@
 -}
@@ -1664,7 +1664,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr7_Aux "un_Const_funpt
 
 {-| __C declaration:__ @const_funptr7@
 
-    __defined at:__ @macros\/reparse.h:244:27@
+    __defined at:__ @macros\/reparse.h 244:27@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1689,7 +1689,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Const_funptr7 "un_Const_funptr7" 
 
 {-| __C declaration:__ @BOOL@
 
-    __defined at:__ @macros\/reparse.h:280:9@
+    __defined at:__ @macros\/reparse.h 280:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1701,7 +1701,7 @@ newtype BOOL = BOOL
 
 {-| __C declaration:__ @INT@
 
-    __defined at:__ @macros\/reparse.h:281:9@
+    __defined at:__ @macros\/reparse.h 281:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1713,7 +1713,7 @@ newtype INT = INT
 
 {-| __C declaration:__ @INTP@
 
-    __defined at:__ @macros\/reparse.h:282:9@
+    __defined at:__ @macros\/reparse.h 282:9@
 
     __exported by:__ @macros\/reparse.h@
 -}
@@ -1725,7 +1725,7 @@ newtype INTP = INTP
 
 {-| __C declaration:__ @INTCP@
 
-    __defined at:__ @macros\/reparse.h:283:9@
+    __defined at:__ @macros\/reparse.h 283:9@
 
     __exported by:__ @macros\/reparse.h@
 -}

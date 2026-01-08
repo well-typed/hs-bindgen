@@ -25,7 +25,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct \@some_struct_field1@
 
-    __defined at:__ @edge-cases\/anon_multiple_fields.h:5:3@
+    __defined at:__ @edge-cases\/anon_multiple_fields.h 5:3@
 
     __exported by:__ @edge-cases\/anon_multiple_fields.h@
 -}
@@ -33,14 +33,14 @@ data Some_struct_field1 = Some_struct_field1
   { some_struct_field1_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @edge-cases\/anon_multiple_fields.h:5:16@
+         __defined at:__ @edge-cases\/anon_multiple_fields.h 5:16@
 
          __exported by:__ @edge-cases\/anon_multiple_fields.h@
     -}
   , some_struct_field1_y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @edge-cases\/anon_multiple_fields.h:5:23@
+         __defined at:__ @edge-cases\/anon_multiple_fields.h 5:23@
 
          __exported by:__ @edge-cases\/anon_multiple_fields.h@
     -}
@@ -151,7 +151,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Some_struct_field1) 
 
 {-| __C declaration:__ @struct some_struct@
 
-    __defined at:__ @edge-cases\/anon_multiple_fields.h:4:8@
+    __defined at:__ @edge-cases\/anon_multiple_fields.h 4:8@
 
     __exported by:__ @edge-cases\/anon_multiple_fields.h@
 -}
@@ -159,21 +159,21 @@ data Some_struct = Some_struct
   { some_struct_field1 :: Some_struct_field1
     {- ^ __C declaration:__ @field1@
 
-         __defined at:__ @edge-cases\/anon_multiple_fields.h:5:28@
+         __defined at:__ @edge-cases\/anon_multiple_fields.h 5:28@
 
          __exported by:__ @edge-cases\/anon_multiple_fields.h@
     -}
   , some_struct_field2 :: Some_struct_field1
     {- ^ __C declaration:__ @field2@
 
-         __defined at:__ @edge-cases\/anon_multiple_fields.h:5:36@
+         __defined at:__ @edge-cases\/anon_multiple_fields.h 5:36@
 
          __exported by:__ @edge-cases\/anon_multiple_fields.h@
     -}
   , some_struct_field3 :: Some_struct_field1
     {- ^ __C declaration:__ @field3@
 
-         __defined at:__ @edge-cases\/anon_multiple_fields.h:5:44@
+         __defined at:__ @edge-cases\/anon_multiple_fields.h 5:44@
 
          __exported by:__ @edge-cases\/anon_multiple_fields.h@
     -}

@@ -11,7 +11,7 @@ import Prelude (Eq, Int, Show, pure, return)
 
 {-| __C declaration:__ @struct a@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:15:8@
+    __defined at:__ @types\/structs\/named_vs_anon.h 15:8@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -65,7 +65,7 @@ instance Data.Primitive.Types.Prim A where
 
 {-| __C declaration:__ @struct struct1@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:16:8@
+    __defined at:__ @types\/structs\/named_vs_anon.h 16:8@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -121,7 +121,7 @@ instance Data.Primitive.Types.Prim Struct1 where
 
 {-| __C declaration:__ @struct b_s@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:19:8@
+    __defined at:__ @types\/structs\/named_vs_anon.h 19:8@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -175,7 +175,7 @@ instance Data.Primitive.Types.Prim B_s where
 
 {-| __C declaration:__ @struct struct2_s@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:20:8@
+    __defined at:__ @types\/structs\/named_vs_anon.h 20:8@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -231,7 +231,7 @@ instance Data.Primitive.Types.Prim Struct2_s where
 
 {-| __C declaration:__ @struct c@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:23:36@
+    __defined at:__ @types\/structs\/named_vs_anon.h 23:36@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -285,7 +285,7 @@ instance Data.Primitive.Types.Prim C where
 
 {-| __C declaration:__ @struct struct3@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:24:36@
+    __defined at:__ @types\/structs\/named_vs_anon.h 24:36@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -341,7 +341,7 @@ instance Data.Primitive.Types.Prim Struct3 where
 
 {-| __C declaration:__ @struct d@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:27:15@
+    __defined at:__ @types\/structs\/named_vs_anon.h 27:15@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -395,7 +395,7 @@ instance Data.Primitive.Types.Prim D where
 
 {-| __C declaration:__ @struct struct4@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:28:15@
+    __defined at:__ @types\/structs\/named_vs_anon.h 28:15@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -451,7 +451,7 @@ instance Data.Primitive.Types.Prim Struct4 where
 
 {-| __C declaration:__ @struct e_s@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:31:15@
+    __defined at:__ @types\/structs\/named_vs_anon.h 31:15@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -505,7 +505,7 @@ instance Data.Primitive.Types.Prim E_s where
 
 {-| __C declaration:__ @struct struct5_s@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:32:15@
+    __defined at:__ @types\/structs\/named_vs_anon.h 32:15@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -561,7 +561,7 @@ instance Data.Primitive.Types.Prim Struct5_s where
 
 {-| __C declaration:__ @struct f@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:35:9@
+    __defined at:__ @types\/structs\/named_vs_anon.h 35:9@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -615,7 +615,7 @@ instance Data.Primitive.Types.Prim F where
 
 {-| __C declaration:__ @struct typedef1@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:36:9@
+    __defined at:__ @types\/structs\/named_vs_anon.h 36:9@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -671,7 +671,7 @@ instance Data.Primitive.Types.Prim Typedef1 where
 
 {-| __C declaration:__ @struct g@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:39:9@
+    __defined at:__ @types\/structs\/named_vs_anon.h 39:9@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -725,7 +725,7 @@ instance Data.Primitive.Types.Prim G where
 
 {-| __C declaration:__ @struct typedef2@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:40:9@
+    __defined at:__ @types\/structs\/named_vs_anon.h 40:9@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -781,7 +781,7 @@ instance Data.Primitive.Types.Prim Typedef2 where
 
 {-| __C declaration:__ @struct h@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:43:9@
+    __defined at:__ @types\/structs\/named_vs_anon.h 43:9@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -835,7 +835,7 @@ instance Data.Primitive.Types.Prim H where
 
 {-| __C declaration:__ @struct typedef3@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:44:9@
+    __defined at:__ @types\/structs\/named_vs_anon.h 44:9@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}

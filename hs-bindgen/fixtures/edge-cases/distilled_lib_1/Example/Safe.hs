@@ -31,7 +31,7 @@ foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" hs_bindgen_57cb99ed92c00
 
 {-| __C declaration:__ @some_fun@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 72:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}

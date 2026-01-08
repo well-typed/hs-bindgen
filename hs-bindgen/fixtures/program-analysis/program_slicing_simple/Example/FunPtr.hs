@@ -33,7 +33,7 @@ foreign import ccall unsafe "hs_bindgen_993162e0dadfa2c9" hs_bindgen_993162e0dad
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @program-analysis\/program_slicing_simple.h:8:5@
+    __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}

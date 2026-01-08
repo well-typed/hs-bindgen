@@ -160,7 +160,7 @@ foreign import ccall unsafe "hs_bindgen_1b18b112a828e595" hs_bindgen_1b18b112a82
 {-# NOINLINE globalConfig #-}
 {-| __C declaration:__ @globalConfig@
 
-    __defined at:__ @manual\/globals.h:12:28@
+    __defined at:__ @manual\/globals.h 12:28@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -175,7 +175,7 @@ foreign import ccall unsafe "hs_bindgen_3cc5675744591425" hs_bindgen_3cc56757445
 {-# NOINLINE nonExternGlobalInt #-}
 {-| __C declaration:__ @nonExternGlobalInt@
 
-    __defined at:__ @manual\/globals.h:18:5@
+    __defined at:__ @manual\/globals.h 18:5@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -190,7 +190,7 @@ foreign import ccall unsafe "hs_bindgen_d1d21f66d76e4647" hs_bindgen_d1d21f66d76
 {-# NOINLINE hs_bindgen_ec20fad59e967cf0 #-}
 {-| __C declaration:__ @globalConstant@
 
-    __defined at:__ @manual\/globals.h:39:18@
+    __defined at:__ @manual\/globals.h 39:18@
 
     __exported by:__ @manual\/globals.h@
 
@@ -212,7 +212,7 @@ foreign import ccall unsafe "hs_bindgen_7b35192d93d6ddac" hs_bindgen_7b35192d93d
 {-# NOINLINE hs_bindgen_c8344b69b41647d0 #-}
 {-| __C declaration:__ @anotherGlobalConstant@
 
-    __defined at:__ @manual\/globals.h:41:17@
+    __defined at:__ @manual\/globals.h 41:17@
 
     __exported by:__ @manual\/globals.h@
 
@@ -236,7 +236,7 @@ foreign import ccall unsafe "hs_bindgen_8850207312ee9ee9" hs_bindgen_8850207312e
 
 __C declaration:__ @constArray1@
 
-__defined at:__ @manual\/globals.h:48:18@
+__defined at:__ @manual\/globals.h 48:18@
 
 __exported by:__ @manual\/globals.h@
 
@@ -260,7 +260,7 @@ foreign import ccall unsafe "hs_bindgen_c6ce2097d2a21fc1" hs_bindgen_c6ce2097d2a
 
 __C declaration:__ @constArray2@
 
-__defined at:__ @manual\/globals.h:50:18@
+__defined at:__ @manual\/globals.h 50:18@
 
 __exported by:__ @manual\/globals.h@
 -}
@@ -277,7 +277,7 @@ foreign import ccall unsafe "hs_bindgen_ab75c76aaa5e35e5" hs_bindgen_ab75c76aaa5
 
 __C declaration:__ @constTuple@
 
-__defined at:__ @manual\/globals.h:54:27@
+__defined at:__ @manual\/globals.h 54:27@
 
 __exported by:__ @manual\/globals.h@
 
@@ -301,7 +301,7 @@ foreign import ccall unsafe "hs_bindgen_a2454ae941c93b30" hs_bindgen_a2454ae941c
 
 __C declaration:__ @nonConstTuple@
 
-__defined at:__ @manual\/globals.h:56:21@
+__defined at:__ @manual\/globals.h 56:21@
 
 __exported by:__ @manual\/globals.h@
 -}
@@ -318,7 +318,7 @@ foreign import ccall unsafe "hs_bindgen_87910ad4d5b6d50b" hs_bindgen_87910ad4d5b
 
 __C declaration:__ @Int@
 
-__defined at:__ @manual\/globals.h:59:12@
+__defined at:__ @manual\/globals.h 59:12@
 
 __exported by:__ @manual\/globals.h@
 -}
@@ -335,7 +335,7 @@ foreign import ccall unsafe "hs_bindgen_8f863fd75ee6a8b5" hs_bindgen_8f863fd75ee
 
 __C declaration:__ @constInt@
 
-__defined at:__ @manual\/globals.h:61:18@
+__defined at:__ @manual\/globals.h 61:18@
 
 __exported by:__ @manual\/globals.h@
 
@@ -359,7 +359,7 @@ foreign import ccall unsafe "hs_bindgen_1a7a96e5c811e2d1" hs_bindgen_1a7a96e5c81
 
 __C declaration:__ @ptrToInt@
 
-__defined at:__ @manual\/globals.h:63:14@
+__defined at:__ @manual\/globals.h 63:14@
 
 __exported by:__ @manual\/globals.h@
 -}
@@ -376,7 +376,7 @@ foreign import ccall unsafe "hs_bindgen_65c37466b4a14692" hs_bindgen_65c37466b4a
 
 __C declaration:__ @ptrToConstInt@
 
-__defined at:__ @manual\/globals.h:65:20@
+__defined at:__ @manual\/globals.h 65:20@
 
 __exported by:__ @manual\/globals.h@
 -}
@@ -393,7 +393,7 @@ foreign import ccall unsafe "hs_bindgen_78280019ff2647f8" hs_bindgen_78280019ff2
 
 __C declaration:__ @constPtrToInt@
 
-__defined at:__ @manual\/globals.h:67:20@
+__defined at:__ @manual\/globals.h 67:20@
 
 __exported by:__ @manual\/globals.h@
 
@@ -417,7 +417,7 @@ foreign import ccall unsafe "hs_bindgen_b7f5f49d98fc03a2" hs_bindgen_b7f5f49d98f
 
 __C declaration:__ @constPtrToConstInt@
 
-__defined at:__ @manual\/globals.h:69:26@
+__defined at:__ @manual\/globals.h 69:26@
 
 __exported by:__ @manual\/globals.h@
 
@@ -439,7 +439,7 @@ foreign import ccall unsafe "hs_bindgen_6a66996f25c871b0" hs_bindgen_6a66996f25c
 {-# NOINLINE a #-}
 {-| __C declaration:__ @a@
 
-    __defined at:__ @manual\/globals.h:75:12@
+    __defined at:__ @manual\/globals.h 75:12@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -454,7 +454,7 @@ foreign import ccall unsafe "hs_bindgen_69eaf4375e9019f6" hs_bindgen_69eaf4375e9
 {-# NOINLINE hs_bindgen_604b6be28898361f #-}
 {-| __C declaration:__ @a2@
 
-    __defined at:__ @manual\/globals.h:76:18@
+    __defined at:__ @manual\/globals.h 76:18@
 
     __exported by:__ @manual\/globals.h@
 
@@ -476,7 +476,7 @@ foreign import ccall unsafe "hs_bindgen_86029851b6c19d0e" hs_bindgen_86029851b6c
 {-# NOINLINE b #-}
 {-| __C declaration:__ @b@
 
-    __defined at:__ @manual\/globals.h:78:14@
+    __defined at:__ @manual\/globals.h 78:14@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -491,7 +491,7 @@ foreign import ccall unsafe "hs_bindgen_54ab82d9854a31c0" hs_bindgen_54ab82d9854
 {-# NOINLINE b2 #-}
 {-| __C declaration:__ @b2@
 
-    __defined at:__ @manual\/globals.h:79:20@
+    __defined at:__ @manual\/globals.h 79:20@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -506,7 +506,7 @@ foreign import ccall unsafe "hs_bindgen_11d5e5406d066dc2" hs_bindgen_11d5e5406d0
 {-# NOINLINE c #-}
 {-| __C declaration:__ @c@
 
-    __defined at:__ @manual\/globals.h:82:16@
+    __defined at:__ @manual\/globals.h 82:16@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -521,7 +521,7 @@ foreign import ccall unsafe "hs_bindgen_05a85a68bb53daff" hs_bindgen_05a85a68bb5
 {-# NOINLINE hs_bindgen_14cc4924924d5040 #-}
 {-| __C declaration:__ @c2@
 
-    __defined at:__ @manual\/globals.h:83:22@
+    __defined at:__ @manual\/globals.h 83:22@
 
     __exported by:__ @manual\/globals.h@
 
@@ -543,7 +543,7 @@ foreign import ccall unsafe "hs_bindgen_8fe22549222d7024" hs_bindgen_8fe22549222
 {-# NOINLINE d #-}
 {-| __C declaration:__ @d@
 
-    __defined at:__ @manual\/globals.h:86:13@
+    __defined at:__ @manual\/globals.h 86:13@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -558,7 +558,7 @@ foreign import ccall unsafe "hs_bindgen_3b641c8e9aefc9e3" hs_bindgen_3b641c8e9ae
 {-# NOINLINE d2 #-}
 {-| __C declaration:__ @d2@
 
-    __defined at:__ @manual\/globals.h:87:19@
+    __defined at:__ @manual\/globals.h 87:19@
 
     __exported by:__ @manual\/globals.h@
 -}

@@ -39,7 +39,7 @@ foreign import ccall unsafe "hs_bindgen_c99d8a3b0363a0fa" hs_bindgen_c99d8a3b036
 {-# NOINLINE transpose #-}
 {-| __C declaration:__ @transpose@
 
-    __defined at:__ @manual\/arrays.h:36:6@
+    __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
@@ -56,7 +56,7 @@ foreign import ccall unsafe "hs_bindgen_923b33cbbfeb5e7d" hs_bindgen_923b33cbbfe
 
 __C declaration:__ @pretty_print_triplets@
 
-__defined at:__ @manual\/arrays.h:50:13@
+__defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}

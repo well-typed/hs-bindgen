@@ -26,7 +26,7 @@ foreign import ccall safe "hs_bindgen_06a412f170b5ff91" hs_bindgen_06a412f170b5f
 
 {-| __C declaration:__ @_acos@
 
-    __defined at:__ @ordinary_anon_child.h:4:1@
+    __defined at:__ @ordinary_anon_child.h 4:1@
 
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}

@@ -58,7 +58,7 @@ foreign import ccall unsafe "hs_bindgen_9445b7269de35e9e" hs_bindgen_9445b7269de
 
 __C declaration:__ @square_cp@
 
-__defined at:__ @functions\/fun_attributes_conflict.h:9:5@
+__defined at:__ @functions\/fun_attributes_conflict.h 9:5@
 
 __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -73,7 +73,7 @@ foreign import ccall unsafe "hs_bindgen_b0c647124e93645d" hs_bindgen_b0c647124e9
 {-# NOINLINE square_pc #-}
 {-| __C declaration:__ @square_pc@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:11:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 11:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -88,7 +88,7 @@ foreign import ccall unsafe "hs_bindgen_87ee2f018e6d262a" hs_bindgen_87ee2f018e6
 {-# NOINLINE square_cc #-}
 {-| __C declaration:__ @square_cc@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:13:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 13:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}
@@ -103,7 +103,7 @@ foreign import ccall unsafe "hs_bindgen_0f31a17bf5ee4e4f" hs_bindgen_0f31a17bf5e
 {-# NOINLINE square_pp #-}
 {-| __C declaration:__ @square_pp@
 
-    __defined at:__ @functions\/fun_attributes_conflict.h:15:5@
+    __defined at:__ @functions\/fun_attributes_conflict.h 15:5@
 
     __exported by:__ @functions\/fun_attributes_conflict.h@
 -}

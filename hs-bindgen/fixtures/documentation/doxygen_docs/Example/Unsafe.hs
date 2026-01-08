@@ -139,7 +139,7 @@ foreign import ccall unsafe "hs_bindgen_e6085a910ba41ecb" hs_bindgen_e6085a910ba
 
 __C declaration:__ @process_data@
 
-__defined at:__ @documentation\/doxygen_docs.h:105:5@
+__defined at:__ @documentation\/doxygen_docs.h 105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -185,7 +185,7 @@ foreign import ccall unsafe "hs_bindgen_c27e893aea0b0a77" hs_bindgen_c27e893aea0
 
 __C declaration:__ @process_file@
 
-__defined at:__ @documentation\/doxygen_docs.h:116:6@
+__defined at:__ @documentation\/doxygen_docs.h 116:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -225,7 +225,7 @@ foreign import ccall unsafe "hs_bindgen_bc1b0e25a72f4ec0" hs_bindgen_bc1b0e25a72
 
 __C declaration:__ @calculate_value@
 
-__defined at:__ @documentation\/doxygen_docs.h:131:5@
+__defined at:__ @documentation\/doxygen_docs.h 131:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -266,7 +266,7 @@ foreign import ccall unsafe "hs_bindgen_09abc3cb74562964" hs_bindgen_09abc3cb745
 
 __C declaration:__ @html_example@
 
-__defined at:__ @documentation\/doxygen_docs.h:148:6@
+__defined at:__ @documentation\/doxygen_docs.h 148:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -329,7 +329,7 @@ foreign import ccall unsafe "hs_bindgen_47cba1a95d265f84" hs_bindgen_47cba1a95d2
 
 __C declaration:__ @list_example@
 
-__defined at:__ @documentation\/doxygen_docs.h:174:6@
+__defined at:__ @documentation\/doxygen_docs.h 174:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -372,7 +372,7 @@ foreign import ccall unsafe "hs_bindgen_e065fc013e4eccd6" hs_bindgen_e065fc013e4
 
 __C declaration:__ @dangerous_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:186:7@
+__defined at:__ @documentation\/doxygen_docs.h 186:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -408,7 +408,7 @@ foreign import ccall unsafe "hs_bindgen_bc4f7e24b2ad4ace" hs_bindgen_bc4f7e24b2a
 
 __C declaration:__ @detailed_return_codes@
 
-__defined at:__ @documentation\/doxygen_docs.h:197:5@
+__defined at:__ @documentation\/doxygen_docs.h 197:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -440,7 +440,7 @@ foreign import ccall unsafe "hs_bindgen_8deec146389ae8b3" hs_bindgen_8deec146389
 
 __C declaration:__ @old_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:206:5@
+__defined at:__ @documentation\/doxygen_docs.h 206:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -472,7 +472,7 @@ foreign import ccall unsafe "hs_bindgen_da2dcc1473935665" hs_bindgen_da2dcc14739
 
 __C declaration:__ @versioned_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:216:5@
+__defined at:__ @documentation\/doxygen_docs.h 216:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -500,7 +500,7 @@ foreign import ccall unsafe "hs_bindgen_97c1191917e6eece" hs_bindgen_97c1191917e
 
 __C declaration:__ @process_buffer@
 
-__defined at:__ @documentation\/doxygen_docs.h:332:5@
+__defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -543,7 +543,7 @@ foreign import ccall unsafe "hs_bindgen_58253bb560dc3eb3" hs_bindgen_58253bb560d
 
 __C declaration:__ @my_memcpy@
 
-__defined at:__ @documentation\/doxygen_docs.h:342:7@
+__defined at:__ @documentation\/doxygen_docs.h 342:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -587,7 +587,7 @@ foreign import ccall unsafe "hs_bindgen_44dd19b16ee38e5b" hs_bindgen_44dd19b16ee
 
 __C declaration:__ @double_value@
 
-__defined at:__ @documentation\/doxygen_docs.h:350:19@
+__defined at:__ @documentation\/doxygen_docs.h 350:19@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -676,7 +676,7 @@ foreign import ccall unsafe "hs_bindgen_fd6fce7c8d8b2f79" hs_bindgen_fd6fce7c8d8
 
 __C declaration:__ @complex_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:423:15@
+__defined at:__ @documentation\/doxygen_docs.h 423:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -711,7 +711,7 @@ foreign import ccall unsafe "hs_bindgen_dd36c8b317ccfcc4" hs_bindgen_dd36c8b317c
 
 __C declaration:__ @hash@
 
-__defined at:__ @documentation\/doxygen_docs.h:427:5@
+__defined at:__ @documentation\/doxygen_docs.h 427:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -728,7 +728,7 @@ foreign import ccall unsafe "hs_bindgen_6875e30a7fe8d30a" hs_bindgen_6875e30a7fe
 
 {-| __C declaration:__ @square@
 
-    __defined at:__ @documentation\/doxygen_docs.h:429:5@
+    __defined at:__ @documentation\/doxygen_docs.h 429:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}

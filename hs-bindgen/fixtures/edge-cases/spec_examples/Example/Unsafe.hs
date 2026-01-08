@@ -35,7 +35,7 @@ foreign import ccall unsafe "hs_bindgen_2311fa9c0d0d6d06" hs_bindgen_2311fa9c0d0
 
 {-| __C declaration:__ @resample@
 
-    __defined at:__ @edge-cases\/spec_examples.h:31:6@
+    __defined at:__ @edge-cases\/spec_examples.h 31:6@
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}

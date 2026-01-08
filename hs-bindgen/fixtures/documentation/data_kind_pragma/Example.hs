@@ -24,7 +24,7 @@ import Prelude (Eq, Show)
 
 {-| __C declaration:__ @triplet@
 
-    __defined at:__ @documentation\/data_kind_pragma.h:3:13@
+    __defined at:__ @documentation\/data_kind_pragma.h 3:13@
 
     __exported by:__ @documentation\/data_kind_pragma.h@
 -}

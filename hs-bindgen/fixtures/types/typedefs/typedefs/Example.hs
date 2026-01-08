@@ -31,7 +31,7 @@ import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @myint@
 
-    __defined at:__ @types\/typedefs\/typedefs.h:1:13@
+    __defined at:__ @types\/typedefs\/typedefs.h 1:13@
 
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
@@ -55,7 +55,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Myint "un_Myint" where
 
 {-| __C declaration:__ @intptr@
 
-    __defined at:__ @types\/typedefs\/typedefs.h:2:15@
+    __defined at:__ @types\/typedefs\/typedefs.h 2:15@
 
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
@@ -79,7 +79,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Intptr "un_Intptr" where
 
 {-| __C declaration:__ @int2int@
 
-    __defined at:__ @types\/typedefs\/typedefs.h:5:13@
+    __defined at:__ @types\/typedefs\/typedefs.h 5:13@
 
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
@@ -123,7 +123,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Int2int "un_Int2int" where
 
 __C declaration:__ @FunctionPointer_Function@
 
-__defined at:__ @types\/typedefs\/typedefs.h:8:16@
+__defined at:__ @types\/typedefs\/typedefs.h 8:16@
 
 __exported by:__ @types\/typedefs\/typedefs.h@
 -}
@@ -165,7 +165,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FunctionPointer_Function_Aux "un_
 
 {-| __C declaration:__ @FunctionPointer_Function@
 
-    __defined at:__ @types\/typedefs\/typedefs.h:8:16@
+    __defined at:__ @types\/typedefs\/typedefs.h 8:16@
 
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
@@ -190,7 +190,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FunctionPointer_Function "un_Func
 
 {-| __C declaration:__ @NonFunctionPointer_Function@
 
-    __defined at:__ @types\/typedefs\/typedefs.h:9:14@
+    __defined at:__ @types\/typedefs\/typedefs.h 9:14@
 
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
@@ -234,7 +234,7 @@ instance HsBindgen.Runtime.HasCField.HasCField NonFunctionPointer_Function "un_N
 
 __C declaration:__ @f1@
 
-__defined at:__ @types\/typedefs\/typedefs.h:11:16@
+__defined at:__ @types\/typedefs\/typedefs.h 11:16@
 
 __exported by:__ @types\/typedefs\/typedefs.h@
 -}
@@ -275,7 +275,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F1_Aux "un_F1_Aux" where
 
 {-| __C declaration:__ @f1@
 
-    __defined at:__ @types\/typedefs\/typedefs.h:11:16@
+    __defined at:__ @types\/typedefs\/typedefs.h 11:16@
 
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
@@ -299,7 +299,7 @@ instance HsBindgen.Runtime.HasCField.HasCField F1 "un_F1" where
 
 {-| __C declaration:__ @g1@
 
-    __defined at:__ @types\/typedefs\/typedefs.h:13:14@
+    __defined at:__ @types\/typedefs\/typedefs.h 13:14@
 
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
@@ -340,7 +340,7 @@ instance HsBindgen.Runtime.HasCField.HasCField G1 "un_G1" where
 
 {-| __C declaration:__ @g2@
 
-    __defined at:__ @types\/typedefs\/typedefs.h:14:14@
+    __defined at:__ @types\/typedefs\/typedefs.h 14:14@
 
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
@@ -364,7 +364,7 @@ instance HsBindgen.Runtime.HasCField.HasCField G2 "un_G2" where
 
 {-| __C declaration:__ @h1@
 
-    __defined at:__ @types\/typedefs\/typedefs.h:16:14@
+    __defined at:__ @types\/typedefs\/typedefs.h 16:14@
 
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
@@ -405,7 +405,7 @@ instance HsBindgen.Runtime.HasCField.HasCField H1 "un_H1" where
 
 {-| __C declaration:__ @h2@
 
-    __defined at:__ @types\/typedefs\/typedefs.h:17:12@
+    __defined at:__ @types\/typedefs\/typedefs.h 17:12@
 
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}
@@ -428,7 +428,7 @@ instance HsBindgen.Runtime.HasCField.HasCField H2 "un_H2" where
 
 {-| __C declaration:__ @h3@
 
-    __defined at:__ @types\/typedefs\/typedefs.h:18:14@
+    __defined at:__ @types\/typedefs\/typedefs.h 18:14@
 
     __exported by:__ @types\/typedefs\/typedefs.h@
 -}

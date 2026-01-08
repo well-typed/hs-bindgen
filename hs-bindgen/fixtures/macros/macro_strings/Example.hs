@@ -12,7 +12,7 @@ import Prelude (Int)
 
 {-| __C declaration:__ @C1@
 
-    __defined at:__ @macros\/macro_strings.h:4:9@
+    __defined at:__ @macros\/macro_strings.h 4:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -22,7 +22,7 @@ c1 =
 
 {-| __C declaration:__ @C2@
 
-    __defined at:__ @macros\/macro_strings.h:5:9@
+    __defined at:__ @macros\/macro_strings.h 5:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -32,7 +32,7 @@ c2 =
 
 {-| __C declaration:__ @C3@
 
-    __defined at:__ @macros\/macro_strings.h:6:9@
+    __defined at:__ @macros\/macro_strings.h 6:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -42,7 +42,7 @@ c3 =
 
 {-| __C declaration:__ @C4@
 
-    __defined at:__ @macros\/macro_strings.h:7:9@
+    __defined at:__ @macros\/macro_strings.h 7:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -52,7 +52,7 @@ c4 =
 
 {-| __C declaration:__ @C5@
 
-    __defined at:__ @macros\/macro_strings.h:8:9@
+    __defined at:__ @macros\/macro_strings.h 8:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -62,7 +62,7 @@ c5 =
 
 {-| __C declaration:__ @C6@
 
-    __defined at:__ @macros\/macro_strings.h:9:9@
+    __defined at:__ @macros\/macro_strings.h 9:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -72,7 +72,7 @@ c6 =
 
 {-| __C declaration:__ @C7@
 
-    __defined at:__ @macros\/macro_strings.h:10:9@
+    __defined at:__ @macros\/macro_strings.h 10:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -82,7 +82,7 @@ c7 =
 
 {-| __C declaration:__ @C8@
 
-    __defined at:__ @macros\/macro_strings.h:11:9@
+    __defined at:__ @macros\/macro_strings.h 11:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -92,7 +92,7 @@ c8 =
 
 {-| __C declaration:__ @D@
 
-    __defined at:__ @macros\/macro_strings.h:13:9@
+    __defined at:__ @macros\/macro_strings.h 13:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -102,7 +102,7 @@ d =
 
 {-| __C declaration:__ @J1@
 
-    __defined at:__ @macros\/macro_strings.h:15:9@
+    __defined at:__ @macros\/macro_strings.h 15:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -112,7 +112,7 @@ j1 =
 
 {-| __C declaration:__ @J2@
 
-    __defined at:__ @macros\/macro_strings.h:16:9@
+    __defined at:__ @macros\/macro_strings.h 16:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -122,7 +122,7 @@ j2 =
 
 {-| __C declaration:__ @J3@
 
-    __defined at:__ @macros\/macro_strings.h:17:9@
+    __defined at:__ @macros\/macro_strings.h 17:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -132,7 +132,7 @@ j3 =
 
 {-| __C declaration:__ @S1@
 
-    __defined at:__ @macros\/macro_strings.h:20:9@
+    __defined at:__ @macros\/macro_strings.h 20:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -141,7 +141,7 @@ s1 = ((Ptr.Ptr "a"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @S2@
 
-    __defined at:__ @macros\/macro_strings.h:21:9@
+    __defined at:__ @macros\/macro_strings.h 21:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -150,7 +150,7 @@ s2 = ((Ptr.Ptr "\'"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @S3@
 
-    __defined at:__ @macros\/macro_strings.h:22:9@
+    __defined at:__ @macros\/macro_strings.h 22:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -159,7 +159,7 @@ s3 = ((Ptr.Ptr "\t"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @S4@
 
-    __defined at:__ @macros\/macro_strings.h:23:9@
+    __defined at:__ @macros\/macro_strings.h 23:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -168,7 +168,7 @@ s4 = ((Ptr.Ptr "\0"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @S5@
 
-    __defined at:__ @macros\/macro_strings.h:24:9@
+    __defined at:__ @macros\/macro_strings.h 24:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -177,7 +177,7 @@ s5 = ((Ptr.Ptr "\'"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @S6@
 
-    __defined at:__ @macros\/macro_strings.h:25:9@
+    __defined at:__ @macros\/macro_strings.h 25:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -186,7 +186,7 @@ s6 = ((Ptr.Ptr "?"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @S7@
 
-    __defined at:__ @macros\/macro_strings.h:26:9@
+    __defined at:__ @macros\/macro_strings.h 26:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -195,7 +195,7 @@ s7 = ((Ptr.Ptr "S"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @S8@
 
-    __defined at:__ @macros\/macro_strings.h:27:9@
+    __defined at:__ @macros\/macro_strings.h 27:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -204,7 +204,7 @@ s8 = ((Ptr.Ptr "S"#, 1) :: FC.CStringLen)
 
 {-| __C declaration:__ @T1@
 
-    __defined at:__ @macros\/macro_strings.h:29:9@
+    __defined at:__ @macros\/macro_strings.h 29:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -213,7 +213,7 @@ t1 = ((Ptr.Ptr "\xE3\x81\x82"#, 3) :: FC.CStringLen)
 
 {-| __C declaration:__ @T2@
 
-    __defined at:__ @macros\/macro_strings.h:30:9@
+    __defined at:__ @macros\/macro_strings.h 30:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -222,7 +222,7 @@ t2 = ((Ptr.Ptr "\xE3\x81\x82"#, 3) :: FC.CStringLen)
 
 {-| __C declaration:__ @T3@
 
-    __defined at:__ @macros\/macro_strings.h:31:9@
+    __defined at:__ @macros\/macro_strings.h 31:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -231,7 +231,7 @@ t3 = ((Ptr.Ptr "\xE3\x81\x82"#, 3) :: FC.CStringLen)
 
 {-| __C declaration:__ @U@
 
-    __defined at:__ @macros\/macro_strings.h:33:9@
+    __defined at:__ @macros\/macro_strings.h 33:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -241,7 +241,7 @@ u =
 
 {-| __C declaration:__ @V@
 
-    __defined at:__ @macros\/macro_strings.h:34:9@
+    __defined at:__ @macros\/macro_strings.h 34:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -251,7 +251,7 @@ v =
 
 {-| __C declaration:__ @W1@
 
-    __defined at:__ @macros\/macro_strings.h:36:9@
+    __defined at:__ @macros\/macro_strings.h 36:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}
@@ -260,7 +260,7 @@ w1 = ((Ptr.Ptr "hij\0"#, 4) :: FC.CStringLen)
 
 {-| __C declaration:__ @W2@
 
-    __defined at:__ @macros\/macro_strings.h:37:9@
+    __defined at:__ @macros\/macro_strings.h 37:9@
 
     __exported by:__ @macros\/macro_strings.h@
 -}

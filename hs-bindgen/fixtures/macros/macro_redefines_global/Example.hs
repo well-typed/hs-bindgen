@@ -29,7 +29,7 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @FILE@
 
-    __defined at:__ @macros\/macro_redefines_global.h:7:13@
+    __defined at:__ @macros\/macro_redefines_global.h 7:13@
 
     __exported by:__ @macros\/macro_redefines_global.h@
 -}

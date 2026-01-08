@@ -9,7 +9,7 @@ import qualified Foreign.C as FC
 
 {-| __C declaration:__ @INCR@
 
-    __defined at:__ @macros\/macro_functions.h:1:9@
+    __defined at:__ @macros\/macro_functions.h 1:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -18,7 +18,7 @@ iNCR = \x0 -> (C.+) x0 (1 :: FC.CInt)
 
 {-| __C declaration:__ @ADD@
 
-    __defined at:__ @macros\/macro_functions.h:2:9@
+    __defined at:__ @macros\/macro_functions.h 2:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -27,7 +27,7 @@ aDD = \x0 -> \y1 -> (C.+) x0 y1
 
 {-| __C declaration:__ @ID@
 
-    __defined at:__ @macros\/macro_functions.h:4:9@
+    __defined at:__ @macros\/macro_functions.h 4:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -36,7 +36,7 @@ iD = \x0 -> x0
 
 {-| __C declaration:__ @CONST@
 
-    __defined at:__ @macros\/macro_functions.h:5:9@
+    __defined at:__ @macros\/macro_functions.h 5:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -45,7 +45,7 @@ cONST = \x0 -> \y1 -> x0
 
 {-| __C declaration:__ @CMP@
 
-    __defined at:__ @macros\/macro_functions.h:7:9@
+    __defined at:__ @macros\/macro_functions.h 7:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -54,7 +54,7 @@ cMP = \x0 -> \y1 -> (C.<) x0 y1
 
 {-| __C declaration:__ @FUN1@
 
-    __defined at:__ @macros\/macro_functions.h:8:9@
+    __defined at:__ @macros\/macro_functions.h 8:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -64,7 +64,7 @@ fUN1 =
 
 {-| __C declaration:__ @FUN2@
 
-    __defined at:__ @macros\/macro_functions.h:9:9@
+    __defined at:__ @macros\/macro_functions.h 9:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -74,7 +74,7 @@ fUN2 =
 
 {-| __C declaration:__ @G@
 
-    __defined at:__ @macros\/macro_functions.h:11:9@
+    __defined at:__ @macros\/macro_functions.h 11:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -83,7 +83,7 @@ g = \x0 -> \y1 -> cONST (iNCR y1) (iD x0)
 
 {-| __C declaration:__ @DIV1@
 
-    __defined at:__ @macros\/macro_functions.h:13:9@
+    __defined at:__ @macros\/macro_functions.h 13:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -93,7 +93,7 @@ dIV1 =
 
 {-| __C declaration:__ @DIV2@
 
-    __defined at:__ @macros\/macro_functions.h:14:9@
+    __defined at:__ @macros\/macro_functions.h 14:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -103,7 +103,7 @@ dIV2 =
 
 {-| __C declaration:__ @SWAP32@
 
-    __defined at:__ @macros\/macro_functions.h:18:9@
+    __defined at:__ @macros\/macro_functions.h 18:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}
@@ -114,7 +114,7 @@ sWAP32 =
 
 {-| __C declaration:__ @AV_VERSION_INT@
 
-    __defined at:__ @macros\/macro_functions.h:19:9@
+    __defined at:__ @macros\/macro_functions.h 19:9@
 
     __exported by:__ @macros\/macro_functions.h@
 -}

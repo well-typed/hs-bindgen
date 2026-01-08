@@ -24,7 +24,7 @@
 -- }
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @functions\/heap_types\/struct_const_typedef.h:3:8@
+    __defined at:__ @functions\/heap_types\/struct_const_typedef.h 3:8@
 
     __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
 -}
@@ -32,13 +32,13 @@ data S
     = S {s_x :: CInt
          {- ^ __C declaration:__ @x@
 
-              __defined at:__ @functions\/heap_types\/struct_const_typedef.h:4:7@
+              __defined at:__ @functions\/heap_types\/struct_const_typedef.h 4:7@
 
               __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
          -}}
       {- ^ __C declaration:__ @struct S@
 
-           __defined at:__ @functions\/heap_types\/struct_const_typedef.h:3:8@
+           __defined at:__ @functions\/heap_types\/struct_const_typedef.h 3:8@
 
            __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
       -}
@@ -70,7 +70,7 @@ instance TyEq ty (CFieldType S "s_x") =>
     where getField = ptrToCField (Proxy @"s_x")
 {-| __C declaration:__ @T@
 
-    __defined at:__ @functions\/heap_types\/struct_const_typedef.h:7:24@
+    __defined at:__ @functions\/heap_types\/struct_const_typedef.h 7:24@
 
     __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
 -}
@@ -78,7 +78,7 @@ newtype T
     = T {un_T :: S}
       {- ^ __C declaration:__ @T@
 
-           __defined at:__ @functions\/heap_types\/struct_const_typedef.h:7:24@
+           __defined at:__ @functions\/heap_types\/struct_const_typedef.h 7:24@
 
            __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
       -}
@@ -102,14 +102,14 @@ fun_wrapper :: ConstPtr T -> ConstPtr T -> IO Unit
 fun_wrapper = hs_bindgen_67465eb5641985dc
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/struct_const_typedef.h:9:3@
+    __defined at:__ @functions\/heap_types\/struct_const_typedef.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
 -}
 fun :: T -> IO T
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/struct_const_typedef.h:9:3@
+    __defined at:__ @functions\/heap_types\/struct_const_typedef.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
 -}
@@ -126,14 +126,14 @@ fun_wrapper :: ConstPtr T -> ConstPtr T -> IO Unit
 fun_wrapper = hs_bindgen_4351e21e32969011
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/struct_const_typedef.h:9:3@
+    __defined at:__ @functions\/heap_types\/struct_const_typedef.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
 -}
 fun :: T -> IO T
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/struct_const_typedef.h:9:3@
+    __defined at:__ @functions\/heap_types\/struct_const_typedef.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
 -}
@@ -144,14 +144,14 @@ foreign import ccall safe "hs_bindgen_564814e9ac709cad" hs_bindgen_564814e9ac709
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/struct_const_typedef.h:9:3@
+    __defined at:__ @functions\/heap_types\/struct_const_typedef.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
 -}
 fun :: FunPtr (T -> IO T)
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/struct_const_typedef.h:9:3@
+    __defined at:__ @functions\/heap_types\/struct_const_typedef.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct_const_typedef.h@
 -}

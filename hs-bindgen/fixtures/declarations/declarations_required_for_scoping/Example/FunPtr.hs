@@ -30,7 +30,7 @@ foreign import ccall unsafe "hs_bindgen_0d4da37880af2263" hs_bindgen_0d4da37880a
 {-# NOINLINE f #-}
 {-| __C declaration:__ @f@
 
-    __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
+    __defined at:__ @declarations\/declarations_required_for_scoping.h 7:6@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}

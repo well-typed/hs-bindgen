@@ -113,7 +113,7 @@ foreign import ccall unsafe "hs_bindgen_8c77c87c8985f5b4" hs_bindgen_8c77c87c898
 {-# NOINLINE quux1 #-}
 {-| __C declaration:__ @quux1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:8:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 8:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -128,7 +128,7 @@ foreign import ccall unsafe "hs_bindgen_ad1c057fd2e38491" hs_bindgen_ad1c057fd2e
 {-# NOINLINE quux2 #-}
 {-| __C declaration:__ @quux2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:9:4@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 9:4@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -143,7 +143,7 @@ foreign import ccall unsafe "hs_bindgen_05b0ef45be2bc377" hs_bindgen_05b0ef45be2
 {-# NOINLINE wam1 #-}
 {-| __C declaration:__ @wam1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:10:5@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 10:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -158,7 +158,7 @@ foreign import ccall unsafe "hs_bindgen_cd643a7a3c18ccf6" hs_bindgen_cd643a7a3c1
 {-# NOINLINE wam2 #-}
 {-| __C declaration:__ @wam2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:11:5@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 11:5@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -173,7 +173,7 @@ foreign import ccall unsafe "hs_bindgen_0322539d81aee229" hs_bindgen_0322539d81a
 {-# NOINLINE struct_typedef1 #-}
 {-| __C declaration:__ @struct_typedef1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:23:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 23:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -188,7 +188,7 @@ foreign import ccall unsafe "hs_bindgen_8522498cba39ada6" hs_bindgen_8522498cba3
 {-# NOINLINE struct_typedef2 #-}
 {-| __C declaration:__ @struct_typedef2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:24:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 24:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -203,7 +203,7 @@ foreign import ccall unsafe "hs_bindgen_e19fc7f7dee46424" hs_bindgen_e19fc7f7dee
 {-# NOINLINE struct_typedef3 #-}
 {-| __C declaration:__ @struct_typedef3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:25:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 25:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -218,7 +218,7 @@ foreign import ccall unsafe "hs_bindgen_00f81edda453ec64" hs_bindgen_00f81edda45
 {-# NOINLINE struct_name1 #-}
 {-| __C declaration:__ @struct_name1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:27:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 27:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -233,7 +233,7 @@ foreign import ccall unsafe "hs_bindgen_8f4de3d502f3466d" hs_bindgen_8f4de3d502f
 {-# NOINLINE struct_name2 #-}
 {-| __C declaration:__ @struct_name2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:28:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 28:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -248,7 +248,7 @@ foreign import ccall unsafe "hs_bindgen_ba133ae0ff062248" hs_bindgen_ba133ae0ff0
 {-# NOINLINE struct_name3 #-}
 {-| __C declaration:__ @struct_name3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:29:6@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 29:6@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}

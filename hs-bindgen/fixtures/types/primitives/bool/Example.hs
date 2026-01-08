@@ -30,7 +30,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
 
 {-| __C declaration:__ @struct bools1@
 
-    __defined at:__ @types\/primitives\/bool.h:1:8@
+    __defined at:__ @types\/primitives\/bool.h 1:8@
 
     __exported by:__ @types\/primitives\/bool.h@
 -}
@@ -38,14 +38,14 @@ data Bools1 = Bools1
   { bools1_x :: FC.CBool
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/primitives\/bool.h:2:11@
+         __defined at:__ @types\/primitives\/bool.h 2:11@
 
          __exported by:__ @types\/primitives\/bool.h@
     -}
   , bools1_y :: FC.CBool
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/primitives\/bool.h:3:11@
+         __defined at:__ @types\/primitives\/bool.h 3:11@
 
          __exported by:__ @types\/primitives\/bool.h@
     -}
@@ -154,7 +154,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bools1) "bools1_y")
 
 {-| __C declaration:__ @struct bools2@
 
-    __defined at:__ @types\/primitives\/bool.h:8:8@
+    __defined at:__ @types\/primitives\/bool.h 8:8@
 
     __exported by:__ @types\/primitives\/bool.h@
 -}
@@ -162,14 +162,14 @@ data Bools2 = Bools2
   { bools2_x :: FC.CBool
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/primitives\/bool.h:9:10@
+         __defined at:__ @types\/primitives\/bool.h 9:10@
 
          __exported by:__ @types\/primitives\/bool.h@
     -}
   , bools2_y :: FC.CBool
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/primitives\/bool.h:10:10@
+         __defined at:__ @types\/primitives\/bool.h 10:10@
 
          __exported by:__ @types\/primitives\/bool.h@
     -}
@@ -278,7 +278,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bools2) "bools2_y")
 
 {-| __C declaration:__ @BOOL@
 
-    __defined at:__ @types\/primitives\/bool.h:13:9@
+    __defined at:__ @types\/primitives\/bool.h 13:9@
 
     __exported by:__ @types\/primitives\/bool.h@
 -}
@@ -290,7 +290,7 @@ newtype BOOL = BOOL
 
 {-| __C declaration:__ @struct bools3@
 
-    __defined at:__ @types\/primitives\/bool.h:15:8@
+    __defined at:__ @types\/primitives\/bool.h 15:8@
 
     __exported by:__ @types\/primitives\/bool.h@
 -}
@@ -298,14 +298,14 @@ data Bools3 = Bools3
   { bools3_x :: BOOL
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/primitives\/bool.h:16:10@
+         __defined at:__ @types\/primitives\/bool.h 16:10@
 
          __exported by:__ @types\/primitives\/bool.h@
     -}
   , bools3_y :: BOOL
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @types\/primitives\/bool.h:17:10@
+         __defined at:__ @types\/primitives\/bool.h 17:10@
 
          __exported by:__ @types\/primitives\/bool.h@
     -}

@@ -51,7 +51,7 @@
 -- }
 {-| __C declaration:__ @struct point@
 
-    __defined at:__ @manual\/zero_copy.h:12:8@
+    __defined at:__ @manual\/zero_copy.h 12:8@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -59,20 +59,20 @@ data Point
     = Point {point_x :: CInt
              {- ^ __C declaration:__ @x@
 
-                  __defined at:__ @manual\/zero_copy.h:13:7@
+                  __defined at:__ @manual\/zero_copy.h 13:7@
 
                   __exported by:__ @manual\/zero_copy.h@
              -},
              point_y :: CInt
              {- ^ __C declaration:__ @y@
 
-                  __defined at:__ @manual\/zero_copy.h:14:7@
+                  __defined at:__ @manual\/zero_copy.h 14:7@
 
                   __exported by:__ @manual\/zero_copy.h@
              -}}
       {- ^ __C declaration:__ @struct point@
 
-           __defined at:__ @manual\/zero_copy.h:12:8@
+           __defined at:__ @manual\/zero_copy.h 12:8@
 
            __exported by:__ @manual\/zero_copy.h@
       -}
@@ -121,7 +121,7 @@ instance TyEq ty (CFieldType Point "point_y") =>
     where getField = ptrToCField (Proxy @"point_y")
 {-| __C declaration:__ @struct rectangle@
 
-    __defined at:__ @manual\/zero_copy.h:17:8@
+    __defined at:__ @manual\/zero_copy.h 17:8@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -129,20 +129,20 @@ data Rectangle
     = Rectangle {rectangle_topleft :: Point
                  {- ^ __C declaration:__ @topleft@
 
-                      __defined at:__ @manual\/zero_copy.h:18:16@
+                      __defined at:__ @manual\/zero_copy.h 18:16@
 
                       __exported by:__ @manual\/zero_copy.h@
                  -},
                  rectangle_bottomright :: Point
                  {- ^ __C declaration:__ @bottomright@
 
-                      __defined at:__ @manual\/zero_copy.h:19:16@
+                      __defined at:__ @manual\/zero_copy.h 19:16@
 
                       __exported by:__ @manual\/zero_copy.h@
                  -}}
       {- ^ __C declaration:__ @struct rectangle@
 
-           __defined at:__ @manual\/zero_copy.h:17:8@
+           __defined at:__ @manual\/zero_copy.h 17:8@
 
            __exported by:__ @manual\/zero_copy.h@
       -}
@@ -191,7 +191,7 @@ instance TyEq ty (CFieldType Rectangle "rectangle_bottomright") =>
     where getField = ptrToCField (Proxy @"rectangle_bottomright")
 {-| __C declaration:__ @struct circle@
 
-    __defined at:__ @manual\/zero_copy.h:22:8@
+    __defined at:__ @manual\/zero_copy.h 22:8@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -199,20 +199,20 @@ data Circle
     = Circle {circle_midpoint :: Point
               {- ^ __C declaration:__ @midpoint@
 
-                   __defined at:__ @manual\/zero_copy.h:23:16@
+                   __defined at:__ @manual\/zero_copy.h 23:16@
 
                    __exported by:__ @manual\/zero_copy.h@
               -},
               circle_radius :: CInt
               {- ^ __C declaration:__ @radius@
 
-                   __defined at:__ @manual\/zero_copy.h:24:7@
+                   __defined at:__ @manual\/zero_copy.h 24:7@
 
                    __exported by:__ @manual\/zero_copy.h@
               -}}
       {- ^ __C declaration:__ @struct circle@
 
-           __defined at:__ @manual\/zero_copy.h:22:8@
+           __defined at:__ @manual\/zero_copy.h 22:8@
 
            __exported by:__ @manual\/zero_copy.h@
       -}
@@ -261,7 +261,7 @@ instance TyEq ty (CFieldType Circle "circle_radius") =>
     where getField = ptrToCField (Proxy @"circle_radius")
 {-| __C declaration:__ @union shape@
 
-    __defined at:__ @manual\/zero_copy.h:30:7@
+    __defined at:__ @manual\/zero_copy.h 30:7@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -269,7 +269,7 @@ newtype Shape
     = Shape {un_Shape :: ByteArray}
       {- ^ __C declaration:__ @union shape@
 
-           __defined at:__ @manual\/zero_copy.h:30:7@
+           __defined at:__ @manual\/zero_copy.h 30:7@
 
            __exported by:__ @manual\/zero_copy.h@
       -}
@@ -281,7 +281,7 @@ deriving via (SizedByteArray 16 4) instance Prim Shape
 
 __C declaration:__ @rectangle@
 
-__defined at:__ @manual\/zero_copy.h:31:20@
+__defined at:__ @manual\/zero_copy.h 31:20@
 
 __exported by:__ @manual\/zero_copy.h@
 -}
@@ -292,7 +292,7 @@ get_shape_rectangle :: Shape -> Rectangle
 
 __C declaration:__ @rectangle@
 
-__defined at:__ @manual\/zero_copy.h:31:20@
+__defined at:__ @manual\/zero_copy.h 31:20@
 
 __exported by:__ @manual\/zero_copy.h@
 -}
@@ -315,7 +315,7 @@ set_shape_rectangle = setUnionPayload
 
 __C declaration:__ @circle@
 
-__defined at:__ @manual\/zero_copy.h:32:17@
+__defined at:__ @manual\/zero_copy.h 32:17@
 
 __exported by:__ @manual\/zero_copy.h@
 -}
@@ -326,7 +326,7 @@ get_shape_circle :: Shape -> Circle
 
 __C declaration:__ @circle@
 
-__defined at:__ @manual\/zero_copy.h:32:17@
+__defined at:__ @manual\/zero_copy.h 32:17@
 
 __exported by:__ @manual\/zero_copy.h@
 -}
@@ -357,7 +357,7 @@ instance TyEq ty (CFieldType Shape "shape_circle") =>
     where getField = ptrToCField (Proxy @"shape_circle")
 {-| __C declaration:__ @struct colour@
 
-    __defined at:__ @manual\/zero_copy.h:39:8@
+    __defined at:__ @manual\/zero_copy.h 39:8@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -365,41 +365,41 @@ data Colour
     = Colour {colour_opacity :: CUInt
               {- ^ __C declaration:__ @opacity@
 
-                   __defined at:__ @manual\/zero_copy.h:40:16@
+                   __defined at:__ @manual\/zero_copy.h 40:16@
 
                    __exported by:__ @manual\/zero_copy.h@
               -},
               colour_brightness :: CUInt
               {- ^ __C declaration:__ @brightness@
 
-                   __defined at:__ @manual\/zero_copy.h:41:16@
+                   __defined at:__ @manual\/zero_copy.h 41:16@
 
                    __exported by:__ @manual\/zero_copy.h@
               -},
               colour_red :: CUInt
               {- ^ __C declaration:__ @red@
 
-                   __defined at:__ @manual\/zero_copy.h:42:16@
+                   __defined at:__ @manual\/zero_copy.h 42:16@
 
                    __exported by:__ @manual\/zero_copy.h@
               -},
               colour_green :: CUInt
               {- ^ __C declaration:__ @green@
 
-                   __defined at:__ @manual\/zero_copy.h:43:16@
+                   __defined at:__ @manual\/zero_copy.h 43:16@
 
                    __exported by:__ @manual\/zero_copy.h@
               -},
               colour_blue :: CUInt
               {- ^ __C declaration:__ @blue@
 
-                   __defined at:__ @manual\/zero_copy.h:44:16@
+                   __defined at:__ @manual\/zero_copy.h 44:16@
 
                    __exported by:__ @manual\/zero_copy.h@
               -}}
       {- ^ __C declaration:__ @struct colour@
 
-           __defined at:__ @manual\/zero_copy.h:39:8@
+           __defined at:__ @manual\/zero_copy.h 39:8@
 
            __exported by:__ @manual\/zero_copy.h@
       -}
@@ -510,7 +510,7 @@ instance TyEq ty (CBitfieldType Colour "colour_blue") =>
     where getField = ptrToCBitfield (Proxy @"colour_blue")
 {-| __C declaration:__ @myInt@
 
-    __defined at:__ @manual\/zero_copy.h:50:13@
+    __defined at:__ @manual\/zero_copy.h 50:13@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -518,7 +518,7 @@ newtype MyInt
     = MyInt {un_MyInt :: CInt}
       {- ^ __C declaration:__ @myInt@
 
-           __defined at:__ @manual\/zero_copy.h:50:13@
+           __defined at:__ @manual\/zero_copy.h 50:13@
 
            __exported by:__ @manual\/zero_copy.h@
       -}
@@ -542,7 +542,7 @@ instance HasCField MyInt "un_MyInt"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct drawing@
 
-    __defined at:__ @manual\/zero_copy.h:55:16@
+    __defined at:__ @manual\/zero_copy.h 55:16@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -550,20 +550,20 @@ data Drawing
     = Drawing {drawing_shape :: (Ptr Shape)
                {- ^ __C declaration:__ @shape@
 
-                    __defined at:__ @manual\/zero_copy.h:56:16@
+                    __defined at:__ @manual\/zero_copy.h 56:16@
 
                     __exported by:__ @manual\/zero_copy.h@
                -},
                drawing_colour :: (Ptr Colour)
                {- ^ __C declaration:__ @colour@
 
-                    __defined at:__ @manual\/zero_copy.h:57:18@
+                    __defined at:__ @manual\/zero_copy.h 57:18@
 
                     __exported by:__ @manual\/zero_copy.h@
                -}}
       {- ^ __C declaration:__ @struct drawing@
 
-           __defined at:__ @manual\/zero_copy.h:55:16@
+           __defined at:__ @manual\/zero_copy.h 55:16@
 
            __exported by:__ @manual\/zero_copy.h@
       -}
@@ -589,7 +589,7 @@ instance TyEq ty (CFieldType Drawing "drawing_colour") =>
     where getField = ptrToCField (Proxy @"drawing_colour")
 {-| __C declaration:__ @struct tic_tac_toe@
 
-    __defined at:__ @manual\/zero_copy.h:63:16@
+    __defined at:__ @manual\/zero_copy.h 63:16@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -597,27 +597,27 @@ data Tic_tac_toe
     = Tic_tac_toe {tic_tac_toe_row1 :: (ConstantArray 3 CInt)
                    {- ^ __C declaration:__ @row1@
 
-                        __defined at:__ @manual\/zero_copy.h:64:7@
+                        __defined at:__ @manual\/zero_copy.h 64:7@
 
                         __exported by:__ @manual\/zero_copy.h@
                    -},
                    tic_tac_toe_row2 :: (ConstantArray 3 CInt)
                    {- ^ __C declaration:__ @row2@
 
-                        __defined at:__ @manual\/zero_copy.h:65:7@
+                        __defined at:__ @manual\/zero_copy.h 65:7@
 
                         __exported by:__ @manual\/zero_copy.h@
                    -},
                    tic_tac_toe_row3 :: (ConstantArray 3 CInt)
                    {- ^ __C declaration:__ @row3@
 
-                        __defined at:__ @manual\/zero_copy.h:66:7@
+                        __defined at:__ @manual\/zero_copy.h 66:7@
 
                         __exported by:__ @manual\/zero_copy.h@
                    -}}
       {- ^ __C declaration:__ @struct tic_tac_toe@
 
-           __defined at:__ @manual\/zero_copy.h:63:16@
+           __defined at:__ @manual\/zero_copy.h 63:16@
 
            __exported by:__ @manual\/zero_copy.h@
       -}
@@ -653,7 +653,7 @@ instance TyEq ty (CFieldType Tic_tac_toe "tic_tac_toe_row3") =>
     where getField = ptrToCField (Proxy @"tic_tac_toe_row3")
 {-| __C declaration:__ @struct vector@
 
-    __defined at:__ @manual\/zero_copy.h:72:8@
+    __defined at:__ @manual\/zero_copy.h 72:8@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -661,13 +661,13 @@ data Vector
     = Vector {vector_len :: CInt
               {- ^ __C declaration:__ @len@
 
-                   __defined at:__ @manual\/zero_copy.h:73:7@
+                   __defined at:__ @manual\/zero_copy.h 73:7@
 
                    __exported by:__ @manual\/zero_copy.h@
               -}}
       {- ^ __C declaration:__ @struct vector@
 
-           __defined at:__ @manual\/zero_copy.h:72:8@
+           __defined at:__ @manual\/zero_copy.h 72:8@
 
            __exported by:__ @manual\/zero_copy.h@
       -}
@@ -701,7 +701,7 @@ instance TyEq ty (CFieldType Vector "vector_len") =>
     where getField = ptrToCField (Proxy @"vector_len")
 {-| __C declaration:__ @triplet@
 
-    __defined at:__ @manual\/zero_copy.h:82:13@
+    __defined at:__ @manual\/zero_copy.h 82:13@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -709,7 +709,7 @@ newtype Triplet
     = Triplet {un_Triplet :: (ConstantArray 3 CInt)}
       {- ^ __C declaration:__ @triplet@
 
-           __defined at:__ @manual\/zero_copy.h:82:13@
+           __defined at:__ @manual\/zero_copy.h 82:13@
 
            __exported by:__ @manual\/zero_copy.h@
       -}
@@ -723,7 +723,7 @@ instance HasCField Triplet "un_Triplet"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @matrix@
 
-    __defined at:__ @manual\/zero_copy.h:83:17@
+    __defined at:__ @manual\/zero_copy.h 83:17@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -731,7 +731,7 @@ newtype Matrix
     = Matrix {un_Matrix :: (ConstantArray 3 Triplet)}
       {- ^ __C declaration:__ @matrix@
 
-           __defined at:__ @manual\/zero_copy.h:83:17@
+           __defined at:__ @manual\/zero_copy.h 83:17@
 
            __exported by:__ @manual\/zero_copy.h@
       -}
@@ -749,14 +749,14 @@ foreign import ccall safe "hs_bindgen_350cceac1101d344" hs_bindgen_350cceac1101d
                                                                                        IO CInt
 {-| __C declaration:__ @reverse@
 
-    __defined at:__ @manual\/zero_copy.h:77:5@
+    __defined at:__ @manual\/zero_copy.h 77:5@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
 reverse :: ConstPtr Vector -> Ptr Vector -> IO CInt
 {-| __C declaration:__ @reverse@
 
-    __defined at:__ @manual\/zero_copy.h:77:5@
+    __defined at:__ @manual\/zero_copy.h 77:5@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -773,14 +773,14 @@ transpose_wrapper :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
 transpose_wrapper = hs_bindgen_2ff371c815d92b04
 {-| __C declaration:__ @transpose@
 
-    __defined at:__ @manual\/zero_copy.h:85:6@
+    __defined at:__ @manual\/zero_copy.h 85:6@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
 transpose :: Matrix -> Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
-    __defined at:__ @manual\/zero_copy.h:85:6@
+    __defined at:__ @manual\/zero_copy.h 85:6@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -791,14 +791,14 @@ foreign import ccall safe "hs_bindgen_f9655173d51bbaac" hs_bindgen_f9655173d51bb
                                                                                        IO CInt
 {-| __C declaration:__ @reverse@
 
-    __defined at:__ @manual\/zero_copy.h:77:5@
+    __defined at:__ @manual\/zero_copy.h 77:5@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
 reverse :: ConstPtr Vector -> Ptr Vector -> IO CInt
 {-| __C declaration:__ @reverse@
 
-    __defined at:__ @manual\/zero_copy.h:77:5@
+    __defined at:__ @manual\/zero_copy.h 77:5@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -815,14 +815,14 @@ transpose_wrapper :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
 transpose_wrapper = hs_bindgen_ea25667627dd5ed2
 {-| __C declaration:__ @transpose@
 
-    __defined at:__ @manual\/zero_copy.h:85:6@
+    __defined at:__ @manual\/zero_copy.h 85:6@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
 transpose :: Matrix -> Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
-    __defined at:__ @manual\/zero_copy.h:85:6@
+    __defined at:__ @manual\/zero_copy.h 85:6@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -834,14 +834,14 @@ foreign import ccall safe "hs_bindgen_44cb8687c63f0086" hs_bindgen_44cb8687c63f0
 {-# NOINLINE reverse #-}
 {-| __C declaration:__ @reverse@
 
-    __defined at:__ @manual\/zero_copy.h:77:5@
+    __defined at:__ @manual\/zero_copy.h 77:5@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
 reverse :: FunPtr (ConstPtr Vector -> Ptr Vector -> IO CInt)
 {-| __C declaration:__ @reverse@
 
-    __defined at:__ @manual\/zero_copy.h:77:5@
+    __defined at:__ @manual\/zero_copy.h 77:5@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
@@ -853,14 +853,14 @@ foreign import ccall safe "hs_bindgen_1bf30b28aefee5bf" hs_bindgen_1bf30b28aefee
 {-# NOINLINE transpose #-}
 {-| __C declaration:__ @transpose@
 
-    __defined at:__ @manual\/zero_copy.h:85:6@
+    __defined at:__ @manual\/zero_copy.h 85:6@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
 transpose :: FunPtr (Matrix -> Matrix -> IO Unit)
 {-| __C declaration:__ @transpose@
 
-    __defined at:__ @manual\/zero_copy.h:85:6@
+    __defined at:__ @manual\/zero_copy.h 85:6@
 
     __exported by:__ @manual\/zero_copy.h@
 -}

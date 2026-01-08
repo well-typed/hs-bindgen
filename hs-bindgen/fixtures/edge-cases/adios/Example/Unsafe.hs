@@ -30,7 +30,7 @@ foreign import ccall unsafe "hs_bindgen_1814d14d59d9daf7" hs_bindgen_1814d14d59d
 
 {-| __C declaration:__ @ϒ@
 
-    __defined at:__ @edge-cases\/adios.h:18:6@
+    __defined at:__ @edge-cases\/adios.h 18:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -43,7 +43,7 @@ foreign import ccall unsafe "hs_bindgen_c1ab9527e537714b" hs_bindgen_c1ab9527e53
 
 {-| __C declaration:__ @拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:27:6@
+    __defined at:__ @edge-cases\/adios.h 27:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -56,7 +56,7 @@ foreign import ccall unsafe "hs_bindgen_d532055af9051fad" hs_bindgen_d532055af90
 
 {-| __C declaration:__ @Say拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:31:6@
+    __defined at:__ @edge-cases\/adios.h 31:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}

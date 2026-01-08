@@ -142,7 +142,7 @@ foreign import ccall unsafe "hs_bindgen_70b2711233a0b0ce" hs_bindgen_70b2711233a
 {-# NOINLINE i0 #-}
 {-| __C declaration:__ @i0@
 
-    __defined at:__ @attributes\/visibility_attributes.h:61:48@
+    __defined at:__ @attributes\/visibility_attributes.h 61:48@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -157,7 +157,7 @@ foreign import ccall unsafe "hs_bindgen_8e3cae6c0337359f" hs_bindgen_8e3cae6c033
 {-# NOINLINE i1 #-}
 {-| __C declaration:__ @i1@
 
-    __defined at:__ @attributes\/visibility_attributes.h:62:48@
+    __defined at:__ @attributes\/visibility_attributes.h 62:48@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -172,7 +172,7 @@ foreign import ccall unsafe "hs_bindgen_e9d06c8375760e65" hs_bindgen_e9d06c83757
 {-# NOINLINE i2 #-}
 {-| __C declaration:__ @i2@
 
-    __defined at:__ @attributes\/visibility_attributes.h:63:48@
+    __defined at:__ @attributes\/visibility_attributes.h 63:48@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -187,7 +187,7 @@ foreign import ccall unsafe "hs_bindgen_de2fe93c2259b4c5" hs_bindgen_de2fe93c225
 {-# NOINLINE i3 #-}
 {-| __C declaration:__ @i3@
 
-    __defined at:__ @attributes\/visibility_attributes.h:64:48@
+    __defined at:__ @attributes\/visibility_attributes.h 64:48@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -202,7 +202,7 @@ foreign import ccall unsafe "hs_bindgen_dd416cc3f6d465a3" hs_bindgen_dd416cc3f6d
 {-# NOINLINE i4 #-}
 {-| __C declaration:__ @i4@
 
-    __defined at:__ @attributes\/visibility_attributes.h:65:48@
+    __defined at:__ @attributes\/visibility_attributes.h 65:48@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -217,7 +217,7 @@ foreign import ccall unsafe "hs_bindgen_71a58d536a57d502" hs_bindgen_71a58d536a5
 {-# NOINLINE i5 #-}
 {-| __C declaration:__ @i5@
 
-    __defined at:__ @attributes\/visibility_attributes.h:68:48@
+    __defined at:__ @attributes\/visibility_attributes.h 68:48@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -232,7 +232,7 @@ foreign import ccall unsafe "hs_bindgen_64a79cbcb421682d" hs_bindgen_64a79cbcb42
 {-# NOINLINE i6 #-}
 {-| __C declaration:__ @i6@
 
-    __defined at:__ @attributes\/visibility_attributes.h:69:48@
+    __defined at:__ @attributes\/visibility_attributes.h 69:48@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -247,7 +247,7 @@ foreign import ccall unsafe "hs_bindgen_1dab5bd455fe1cd2" hs_bindgen_1dab5bd455f
 {-# NOINLINE i7 #-}
 {-| __C declaration:__ @i7@
 
-    __defined at:__ @attributes\/visibility_attributes.h:70:48@
+    __defined at:__ @attributes\/visibility_attributes.h 70:48@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -262,7 +262,7 @@ foreign import ccall unsafe "hs_bindgen_95f3d7edf9ffbfec" hs_bindgen_95f3d7edf9f
 {-# NOINLINE i8 #-}
 {-| __C declaration:__ @i8@
 
-    __defined at:__ @attributes\/visibility_attributes.h:71:48@
+    __defined at:__ @attributes\/visibility_attributes.h 71:48@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -277,7 +277,7 @@ foreign import ccall unsafe "hs_bindgen_726a1f70db74e014" hs_bindgen_726a1f70db7
 {-# NOINLINE i9 #-}
 {-| __C declaration:__ @i9@
 
-    __defined at:__ @attributes\/visibility_attributes.h:72:48@
+    __defined at:__ @attributes\/visibility_attributes.h 72:48@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -292,7 +292,7 @@ foreign import ccall unsafe "hs_bindgen_8bf7d37b407412c2" hs_bindgen_8bf7d37b407
 {-# NOINLINE i10 #-}
 {-| __C declaration:__ @i10@
 
-    __defined at:__ @attributes\/visibility_attributes.h:75:55@
+    __defined at:__ @attributes\/visibility_attributes.h 75:55@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -307,7 +307,7 @@ foreign import ccall unsafe "hs_bindgen_9d4d113b052a7d1c" hs_bindgen_9d4d113b052
 {-# NOINLINE i11 #-}
 {-| __C declaration:__ @i11@
 
-    __defined at:__ @attributes\/visibility_attributes.h:76:55@
+    __defined at:__ @attributes\/visibility_attributes.h 76:55@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -322,7 +322,7 @@ foreign import ccall unsafe "hs_bindgen_ce56442ac026dd87" hs_bindgen_ce56442ac02
 {-# NOINLINE i12 #-}
 {-| __C declaration:__ @i12@
 
-    __defined at:__ @attributes\/visibility_attributes.h:77:55@
+    __defined at:__ @attributes\/visibility_attributes.h 77:55@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -337,7 +337,7 @@ foreign import ccall unsafe "hs_bindgen_5822d4dd4d1c00b5" hs_bindgen_5822d4dd4d1
 {-# NOINLINE i13 #-}
 {-| __C declaration:__ @i13@
 
-    __defined at:__ @attributes\/visibility_attributes.h:78:55@
+    __defined at:__ @attributes\/visibility_attributes.h 78:55@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -352,7 +352,7 @@ foreign import ccall unsafe "hs_bindgen_1f5ecb9a293e4e85" hs_bindgen_1f5ecb9a293
 {-# NOINLINE i14 #-}
 {-| __C declaration:__ @i14@
 
-    __defined at:__ @attributes\/visibility_attributes.h:79:55@
+    __defined at:__ @attributes\/visibility_attributes.h 79:55@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -367,7 +367,7 @@ foreign import ccall unsafe "hs_bindgen_f8cafe2a4b2f0171" hs_bindgen_f8cafe2a4b2
 {-# NOINLINE i15 #-}
 {-| __C declaration:__ @i15@
 
-    __defined at:__ @attributes\/visibility_attributes.h:82:55@
+    __defined at:__ @attributes\/visibility_attributes.h 82:55@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -382,7 +382,7 @@ foreign import ccall unsafe "hs_bindgen_9f351d568129877e" hs_bindgen_9f351d56812
 {-# NOINLINE i16 #-}
 {-| __C declaration:__ @i16@
 
-    __defined at:__ @attributes\/visibility_attributes.h:83:55@
+    __defined at:__ @attributes\/visibility_attributes.h 83:55@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -397,7 +397,7 @@ foreign import ccall unsafe "hs_bindgen_4219dc8cc178afd0" hs_bindgen_4219dc8cc17
 {-# NOINLINE i17 #-}
 {-| __C declaration:__ @i17@
 
-    __defined at:__ @attributes\/visibility_attributes.h:84:55@
+    __defined at:__ @attributes\/visibility_attributes.h 84:55@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -412,7 +412,7 @@ foreign import ccall unsafe "hs_bindgen_60dd1e2f74f319bb" hs_bindgen_60dd1e2f74f
 {-# NOINLINE i18 #-}
 {-| __C declaration:__ @i18@
 
-    __defined at:__ @attributes\/visibility_attributes.h:85:55@
+    __defined at:__ @attributes\/visibility_attributes.h 85:55@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}
@@ -427,7 +427,7 @@ foreign import ccall unsafe "hs_bindgen_795a8bc9f1790423" hs_bindgen_795a8bc9f17
 {-# NOINLINE i19 #-}
 {-| __C declaration:__ @i19@
 
-    __defined at:__ @attributes\/visibility_attributes.h:86:55@
+    __defined at:__ @attributes\/visibility_attributes.h 86:55@
 
     __exported by:__ @attributes\/visibility_attributes.h@
 -}

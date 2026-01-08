@@ -95,7 +95,7 @@ foreign import ccall unsafe "hs_bindgen_bb40525ba9109d7a" hs_bindgen_bb40525ba91
 {-# NOINLINE hs_bindgen_8bf2d89ca41997fb #-}
 {-| __C declaration:__ @i@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:15:16@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 15:16@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -117,7 +117,7 @@ foreign import ccall unsafe "hs_bindgen_e02c667254de325e" hs_bindgen_e02c667254d
 {-# NOINLINE hs_bindgen_0e876abf0fe9e3b2 #-}
 {-| __C declaration:__ @s@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:16:23@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 16:23@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -139,7 +139,7 @@ foreign import ccall unsafe "hs_bindgen_db442d4a677f346c" hs_bindgen_db442d4a677
 {-# NOINLINE hs_bindgen_b7bdf87ddb6b9a5b #-}
 {-| __C declaration:__ @u@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:17:22@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 17:22@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -161,7 +161,7 @@ foreign import ccall unsafe "hs_bindgen_f8e0ac7d2c94db95" hs_bindgen_f8e0ac7d2c9
 {-# NOINLINE hs_bindgen_fa2424d094d91a33 #-}
 {-| __C declaration:__ @e@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:18:21@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 18:21@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -183,7 +183,7 @@ foreign import ccall unsafe "hs_bindgen_da8e11a66011da3a" hs_bindgen_da8e11a6601
 {-# NOINLINE hs_bindgen_d7dd4362406f73a6 #-}
 {-| __C declaration:__ @ti@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:25:11@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 25:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -205,7 +205,7 @@ foreign import ccall unsafe "hs_bindgen_10a3457a0f6b2036" hs_bindgen_10a3457a0f6
 {-# NOINLINE hs_bindgen_cd3e2d14ae82b6fc #-}
 {-| __C declaration:__ @ts@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:26:11@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 26:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -227,7 +227,7 @@ foreign import ccall unsafe "hs_bindgen_ded2bbcd5f7b0513" hs_bindgen_ded2bbcd5f7
 {-# NOINLINE hs_bindgen_2d9684fc851b0766 #-}
 {-| __C declaration:__ @tu@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:27:11@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 27:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -249,7 +249,7 @@ foreign import ccall unsafe "hs_bindgen_1b4b0fa82bacf9cc" hs_bindgen_1b4b0fa82ba
 {-# NOINLINE hs_bindgen_200eaed7c3fb420d #-}
 {-| __C declaration:__ @te@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:28:11@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 28:11@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -271,7 +271,7 @@ foreign import ccall unsafe "hs_bindgen_b8067bbfe8dc188e" hs_bindgen_b8067bbfe8d
 {-# NOINLINE hs_bindgen_1fbea465b2793d07 #-}
 {-| __C declaration:__ @tti@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:35:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 35:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -293,7 +293,7 @@ foreign import ccall unsafe "hs_bindgen_6ce6ca09ed64a420" hs_bindgen_6ce6ca09ed6
 {-# NOINLINE hs_bindgen_f23f17df17b3fe36 #-}
 {-| __C declaration:__ @tts@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:36:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 36:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -315,7 +315,7 @@ foreign import ccall unsafe "hs_bindgen_5d4569e6c5a642c0" hs_bindgen_5d4569e6c5a
 {-# NOINLINE hs_bindgen_45ab2258853f641d #-}
 {-| __C declaration:__ @ttu@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:37:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 37:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 
@@ -337,7 +337,7 @@ foreign import ccall unsafe "hs_bindgen_cb44d6db796abc21" hs_bindgen_cb44d6db796
 {-# NOINLINE hs_bindgen_0956779e634e3dd5 #-}
 {-| __C declaration:__ @tte@
 
-    __defined at:__ @types\/qualifiers\/const_typedefs.h:38:12@
+    __defined at:__ @types\/qualifiers\/const_typedefs.h 38:12@
 
     __exported by:__ @types\/qualifiers\/const_typedefs.h@
 

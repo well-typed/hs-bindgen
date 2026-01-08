@@ -27,7 +27,7 @@ import Prelude ((<*>), Eq, IO, Int, Ord, Show, pure)
 
 __C declaration:__ @fun_ptr@
 
-__defined at:__ @functions\/circular_dependency_fun.h:3:16@
+__defined at:__ @functions\/circular_dependency_fun.h 3:16@
 
 __exported by:__ @functions\/circular_dependency_fun.h@
 -}
@@ -69,7 +69,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr_Aux "un_Fun_ptr_Aux" wher
 
 {-| __C declaration:__ @fun_ptr@
 
-    __defined at:__ @functions\/circular_dependency_fun.h:3:16@
+    __defined at:__ @functions\/circular_dependency_fun.h 3:16@
 
     __exported by:__ @functions\/circular_dependency_fun.h@
 -}
@@ -94,7 +94,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr "un_Fun_ptr" where
 
 {-| __C declaration:__ @struct forward_declaration@
 
-    __defined at:__ @functions\/circular_dependency_fun.h:5:8@
+    __defined at:__ @functions\/circular_dependency_fun.h 5:8@
 
     __exported by:__ @functions\/circular_dependency_fun.h@
 -}
@@ -102,7 +102,7 @@ data Forward_declaration = Forward_declaration
   { forward_declaration_f :: Fun_ptr
     {- ^ __C declaration:__ @f@
 
-         __defined at:__ @functions\/circular_dependency_fun.h:6:11@
+         __defined at:__ @functions\/circular_dependency_fun.h 6:11@
 
          __exported by:__ @functions\/circular_dependency_fun.h@
     -}

@@ -32,7 +32,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum enumA@
 
-    __defined at:__ @types\/enums\/nested_enums.h:2:14@
+    __defined at:__ @types\/enums\/nested_enums.h 2:14@
 
     __exported by:__ @types\/enums\/nested_enums.h@
 -}
@@ -106,7 +106,7 @@ instance Read EnumA where
 
 {-| __C declaration:__ @VALA_1@
 
-    __defined at:__ @types\/enums\/nested_enums.h:3:17@
+    __defined at:__ @types\/enums\/nested_enums.h 3:17@
 
     __exported by:__ @types\/enums\/nested_enums.h@
 -}
@@ -115,7 +115,7 @@ pattern VALA_1 = EnumA 0
 
 {-| __C declaration:__ @VALA_2@
 
-    __defined at:__ @types\/enums\/nested_enums.h:4:17@
+    __defined at:__ @types\/enums\/nested_enums.h 4:17@
 
     __exported by:__ @types\/enums\/nested_enums.h@
 -}
@@ -124,7 +124,7 @@ pattern VALA_2 = EnumA 1
 
 {-| __C declaration:__ @struct exA@
 
-    __defined at:__ @types\/enums\/nested_enums.h:1:8@
+    __defined at:__ @types\/enums\/nested_enums.h 1:8@
 
     __exported by:__ @types\/enums\/nested_enums.h@
 -}
@@ -132,7 +132,7 @@ data ExA = ExA
   { exA_fieldA1 :: EnumA
     {- ^ __C declaration:__ @fieldA1@
 
-         __defined at:__ @types\/enums\/nested_enums.h:5:11@
+         __defined at:__ @types\/enums\/nested_enums.h 5:11@
 
          __exported by:__ @types\/enums\/nested_enums.h@
     -}
@@ -171,7 +171,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExA) "exA_fieldA1")
 
 {-| __C declaration:__ @enum \@exB_fieldB1@
 
-    __defined at:__ @types\/enums\/nested_enums.h:9:9@
+    __defined at:__ @types\/enums\/nested_enums.h 9:9@
 
     __exported by:__ @types\/enums\/nested_enums.h@
 -}
@@ -245,7 +245,7 @@ instance Read ExB_fieldB1 where
 
 {-| __C declaration:__ @VALB_1@
 
-    __defined at:__ @types\/enums\/nested_enums.h:10:17@
+    __defined at:__ @types\/enums\/nested_enums.h 10:17@
 
     __exported by:__ @types\/enums\/nested_enums.h@
 -}
@@ -254,7 +254,7 @@ pattern VALB_1 = ExB_fieldB1 0
 
 {-| __C declaration:__ @VALB_2@
 
-    __defined at:__ @types\/enums\/nested_enums.h:11:17@
+    __defined at:__ @types\/enums\/nested_enums.h 11:17@
 
     __exported by:__ @types\/enums\/nested_enums.h@
 -}
@@ -263,7 +263,7 @@ pattern VALB_2 = ExB_fieldB1 1
 
 {-| __C declaration:__ @struct exB@
 
-    __defined at:__ @types\/enums\/nested_enums.h:8:8@
+    __defined at:__ @types\/enums\/nested_enums.h 8:8@
 
     __exported by:__ @types\/enums\/nested_enums.h@
 -}
@@ -271,7 +271,7 @@ data ExB = ExB
   { exB_fieldB1 :: ExB_fieldB1
     {- ^ __C declaration:__ @fieldB1@
 
-         __defined at:__ @types\/enums\/nested_enums.h:12:11@
+         __defined at:__ @types\/enums\/nested_enums.h 12:11@
 
          __exported by:__ @types\/enums\/nested_enums.h@
     -}

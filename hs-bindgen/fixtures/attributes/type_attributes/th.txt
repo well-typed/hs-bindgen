@@ -1,7 +1,7 @@
 -- addDependentFile examples/golden/attributes/type_attributes.h
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @attributes\/type_attributes.h:8:8@
+    __defined at:__ @attributes\/type_attributes.h 8:8@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -9,13 +9,13 @@ data S
     = S {s_f :: (ConstantArray 3 CShort)
          {- ^ __C declaration:__ @f@
 
-              __defined at:__ @attributes\/type_attributes.h:8:18@
+              __defined at:__ @attributes\/type_attributes.h 8:18@
 
               __exported by:__ @attributes\/type_attributes.h@
          -}}
       {- ^ __C declaration:__ @struct S@
 
-           __defined at:__ @attributes\/type_attributes.h:8:8@
+           __defined at:__ @attributes\/type_attributes.h 8:8@
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
@@ -34,7 +34,7 @@ instance TyEq ty (CFieldType S "s_f") =>
     where getField = ptrToCField (Proxy @"s_f")
 {-| __C declaration:__ @more_aligned_int@
 
-    __defined at:__ @attributes\/type_attributes.h:9:13@
+    __defined at:__ @attributes\/type_attributes.h 9:13@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -42,7 +42,7 @@ newtype More_aligned_int
     = More_aligned_int {un_More_aligned_int :: CInt}
       {- ^ __C declaration:__ @more_aligned_int@
 
-           __defined at:__ @attributes\/type_attributes.h:9:13@
+           __defined at:__ @attributes\/type_attributes.h 9:13@
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
@@ -67,7 +67,7 @@ instance HasCField More_aligned_int "un_More_aligned_int"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct S2@
 
-    __defined at:__ @attributes\/type_attributes.h:11:8@
+    __defined at:__ @attributes\/type_attributes.h 11:8@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -75,13 +75,13 @@ data S2
     = S2 {s2_f :: (ConstantArray 3 CShort)
           {- ^ __C declaration:__ @f@
 
-               __defined at:__ @attributes\/type_attributes.h:11:19@
+               __defined at:__ @attributes\/type_attributes.h 11:19@
 
                __exported by:__ @attributes\/type_attributes.h@
           -}}
       {- ^ __C declaration:__ @struct S2@
 
-           __defined at:__ @attributes\/type_attributes.h:11:8@
+           __defined at:__ @attributes\/type_attributes.h 11:8@
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
@@ -100,7 +100,7 @@ instance TyEq ty (CFieldType S2 "s2_f") =>
     where getField = ptrToCField (Proxy @"s2_f")
 {-| __C declaration:__ @struct my_unpacked_struct@
 
-    __defined at:__ @attributes\/type_attributes.h:13:8@
+    __defined at:__ @attributes\/type_attributes.h 13:8@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -108,20 +108,20 @@ data My_unpacked_struct
     = My_unpacked_struct {my_unpacked_struct_c :: CChar
                           {- ^ __C declaration:__ @c@
 
-                               __defined at:__ @attributes\/type_attributes.h:15:8@
+                               __defined at:__ @attributes\/type_attributes.h 15:8@
 
                                __exported by:__ @attributes\/type_attributes.h@
                           -},
                           my_unpacked_struct_i :: CInt
                           {- ^ __C declaration:__ @i@
 
-                               __defined at:__ @attributes\/type_attributes.h:16:7@
+                               __defined at:__ @attributes\/type_attributes.h 16:7@
 
                                __exported by:__ @attributes\/type_attributes.h@
                           -}}
       {- ^ __C declaration:__ @struct my_unpacked_struct@
 
-           __defined at:__ @attributes\/type_attributes.h:13:8@
+           __defined at:__ @attributes\/type_attributes.h 13:8@
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
@@ -174,7 +174,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"my_unpacked_struct_i")
 {-| __C declaration:__ @struct my_packed_struct@
 
-    __defined at:__ @attributes\/type_attributes.h:19:37@
+    __defined at:__ @attributes\/type_attributes.h 19:37@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -182,27 +182,27 @@ data My_packed_struct
     = My_packed_struct {my_packed_struct_c :: CChar
                         {- ^ __C declaration:__ @c@
 
-                             __defined at:__ @attributes\/type_attributes.h:21:9@
+                             __defined at:__ @attributes\/type_attributes.h 21:9@
 
                              __exported by:__ @attributes\/type_attributes.h@
                         -},
                         my_packed_struct_i :: CInt
                         {- ^ __C declaration:__ @i@
 
-                             __defined at:__ @attributes\/type_attributes.h:22:9@
+                             __defined at:__ @attributes\/type_attributes.h 22:9@
 
                              __exported by:__ @attributes\/type_attributes.h@
                         -},
                         my_packed_struct_s :: My_unpacked_struct
                         {- ^ __C declaration:__ @s@
 
-                             __defined at:__ @attributes\/type_attributes.h:23:30@
+                             __defined at:__ @attributes\/type_attributes.h 23:30@
 
                              __exported by:__ @attributes\/type_attributes.h@
                         -}}
       {- ^ __C declaration:__ @struct my_packed_struct@
 
-           __defined at:__ @attributes\/type_attributes.h:19:37@
+           __defined at:__ @attributes\/type_attributes.h 19:37@
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
@@ -272,7 +272,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"my_packed_struct_s")
 {-| __C declaration:__ @union wait_status_ptr_t@
 
-    __defined at:__ @attributes\/type_attributes.h:26:9@
+    __defined at:__ @attributes\/type_attributes.h 26:9@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -280,7 +280,7 @@ newtype Wait_status_ptr_t
     = Wait_status_ptr_t {un_Wait_status_ptr_t :: ByteArray}
       {- ^ __C declaration:__ @union wait_status_ptr_t@
 
-           __defined at:__ @attributes\/type_attributes.h:26:9@
+           __defined at:__ @attributes\/type_attributes.h 26:9@
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
@@ -293,7 +293,7 @@ deriving via (SizedByteArray 8 8) instance Prim Wait_status_ptr_t
 
 __C declaration:__ @__ip@
 
-__defined at:__ @attributes\/type_attributes.h:28:8@
+__defined at:__ @attributes\/type_attributes.h 28:8@
 
 __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -304,7 +304,7 @@ get_wait_status_ptr_t___ip :: Wait_status_ptr_t -> Ptr CInt
 
 __C declaration:__ @__ip@
 
-__defined at:__ @attributes\/type_attributes.h:28:8@
+__defined at:__ @attributes\/type_attributes.h 28:8@
 
 __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -327,7 +327,7 @@ set_wait_status_ptr_t___ip = setUnionPayload
 
 __C declaration:__ @__up@
 
-__defined at:__ @attributes\/type_attributes.h:29:15@
+__defined at:__ @attributes\/type_attributes.h 29:15@
 
 __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -338,7 +338,7 @@ get_wait_status_ptr_t___up :: Wait_status_ptr_t -> Ptr Wait
 
 __C declaration:__ @__up@
 
-__defined at:__ @attributes\/type_attributes.h:29:15@
+__defined at:__ @attributes\/type_attributes.h 29:15@
 
 __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -373,14 +373,14 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"wait_status_ptr_t___up")
 {-| __C declaration:__ @union wait@
 
-    __defined at:__ @attributes\/type_attributes.h:29:9@
+    __defined at:__ @attributes\/type_attributes.h 29:9@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
 data Wait
 {-| __C declaration:__ @T1@
 
-    __defined at:__ @attributes\/type_attributes.h:32:13@
+    __defined at:__ @attributes\/type_attributes.h 32:13@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -388,7 +388,7 @@ newtype T1
     = T1 {un_T1 :: CInt}
       {- ^ __C declaration:__ @T1@
 
-           __defined at:__ @attributes\/type_attributes.h:32:13@
+           __defined at:__ @attributes\/type_attributes.h 32:13@
 
            __exported by:__ @attributes\/type_attributes.h@
       -}
@@ -412,7 +412,7 @@ instance HasCField T1 "un_T1"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @short_a@
 
-    __defined at:__ @attributes\/type_attributes.h:34:46@
+    __defined at:__ @attributes\/type_attributes.h 34:46@
 
     __exported by:__ @attributes\/type_attributes.h@
 -}
@@ -420,7 +420,7 @@ newtype Short_a
     = Short_a {un_Short_a :: CShort}
       {- ^ __C declaration:__ @short_a@
 
-           __defined at:__ @attributes\/type_attributes.h:34:46@
+           __defined at:__ @attributes\/type_attributes.h 34:46@
 
            __exported by:__ @attributes\/type_attributes.h@
       -}

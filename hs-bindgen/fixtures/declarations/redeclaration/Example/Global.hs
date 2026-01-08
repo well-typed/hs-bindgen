@@ -28,7 +28,7 @@ foreign import ccall unsafe "hs_bindgen_6f47e5cbb92690b9" hs_bindgen_6f47e5cbb92
 {-# NOINLINE x #-}
 {-| __C declaration:__ @x@
 
-    __defined at:__ @declarations\/redeclaration.h:11:5@
+    __defined at:__ @declarations\/redeclaration.h 11:5@
 
     __exported by:__ @declarations\/redeclaration.h@
 -}

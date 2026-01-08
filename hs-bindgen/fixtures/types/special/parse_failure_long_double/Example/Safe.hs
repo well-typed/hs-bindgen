@@ -26,7 +26,7 @@ foreign import ccall safe "hs_bindgen_a1252a3becef09a6" hs_bindgen_a1252a3becef0
 
 {-| __C declaration:__ @fun2@
 
-    __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
+    __defined at:__ @types\/special\/parse_failure_long_double.h 7:6@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}

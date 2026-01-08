@@ -29,7 +29,7 @@ import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, S
 
 {-| __C declaration:__ @MC@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:4:9@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 4:9@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -41,7 +41,7 @@ newtype MC = MC
 
 {-| __C declaration:__ @TC@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:5:14@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 5:14@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -65,7 +65,7 @@ instance HsBindgen.Runtime.HasCField.HasCField TC "un_TC" where
 
 {-| __C declaration:__ @struct struct1@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:18:16@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 18:16@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -73,7 +73,7 @@ data Struct1 = Struct1
   { struct1_a :: FC.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:18:30@
+         __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 18:30@
 
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}
@@ -160,7 +160,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct1) "struct1_a"
 
 {-| __C declaration:__ @struct struct2@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:19:9@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 19:9@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -168,7 +168,7 @@ data Struct2 = Struct2
   { struct2_a :: FC.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:19:30@
+         __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 19:30@
 
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}
@@ -255,7 +255,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct2) "struct2_a"
 
 {-| __C declaration:__ @struct struct3@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:20:16@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:16@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -263,7 +263,7 @@ data Struct3 = Struct3
   { struct3_a :: FC.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:20:30@
+         __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:30@
 
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}
@@ -350,7 +350,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct3) "struct3_a"
 
 {-| __C declaration:__ @struct3_t@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:20:35@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 20:35@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -374,7 +374,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct3_t "un_Struct3_t" where
 
 {-| __C declaration:__ @struct struct4@
 
-    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:21:16@
+    __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 21:16@
 
     __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
 -}
@@ -382,7 +382,7 @@ data Struct4 = Struct4
   { struct4_a :: FC.CInt
     {- ^ __C declaration:__ @a@
 
-         __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h:21:30@
+         __defined at:__ @macros\/macro_in_fundecl_vs_typedef.h 21:30@
 
          __exported by:__ @macros\/macro_in_fundecl_vs_typedef.h@
     -}

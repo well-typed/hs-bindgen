@@ -35,7 +35,7 @@ import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, S
 
 {-| __C declaration:__ @int_t@
 
-    __defined at:__ @declarations\/redeclaration.h:20:13@
+    __defined at:__ @declarations\/redeclaration.h 20:13@
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
@@ -59,7 +59,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Int_t "un_Int_t" where
 
 {-| __C declaration:__ @struct X@
 
-    __defined at:__ @declarations\/redeclaration.h:26:8@
+    __defined at:__ @declarations\/redeclaration.h 26:8@
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
@@ -67,7 +67,7 @@ data X = X
   { x_n :: FC.CInt
     {- ^ __C declaration:__ @n@
 
-         __defined at:__ @declarations\/redeclaration.h:26:16@
+         __defined at:__ @declarations\/redeclaration.h 26:16@
 
          __exported by:__ @declarations\/redeclaration.h@
     -}
@@ -154,7 +154,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType X) "x_n")
 
 {-| __C declaration:__ @union y@
 
-    __defined at:__ @declarations\/redeclaration.h:29:7@
+    __defined at:__ @declarations\/redeclaration.h 29:7@
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
@@ -162,7 +162,7 @@ data Y
 
 {-| __C declaration:__ @union Y@
 
-    __defined at:__ @declarations\/redeclaration.h:30:7@
+    __defined at:__ @declarations\/redeclaration.h 30:7@
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
@@ -180,7 +180,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data
 
 __C declaration:__ @m@
 
-__defined at:__ @declarations\/redeclaration.h:30:15@
+__defined at:__ @declarations\/redeclaration.h 30:15@
 
 __exported by:__ @declarations\/redeclaration.h@
 -}
@@ -205,7 +205,7 @@ set_y_m = HsBindgen.Runtime.ByteArray.setUnionPayload
 
 __C declaration:__ @o@
 
-__defined at:__ @declarations\/redeclaration.h:30:22@
+__defined at:__ @declarations\/redeclaration.h 30:22@
 
 __exported by:__ @declarations\/redeclaration.h@
 -}

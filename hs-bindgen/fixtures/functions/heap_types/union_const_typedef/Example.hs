@@ -29,7 +29,7 @@ import HsBindgen.Runtime.TypeEquality (TyEq)
 
 {-| __C declaration:__ @union U@
 
-    __defined at:__ @functions\/heap_types\/union_const_typedef.h:3:7@
+    __defined at:__ @functions\/heap_types\/union_const_typedef.h 3:7@
 
     __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 -}
@@ -47,7 +47,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data
 
 __C declaration:__ @x@
 
-__defined at:__ @functions\/heap_types\/union_const_typedef.h:4:7@
+__defined at:__ @functions\/heap_types\/union_const_typedef.h 4:7@
 
 __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 -}
@@ -80,7 +80,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType U) "u_x")
 
 {-| __C declaration:__ @T@
 
-    __defined at:__ @functions\/heap_types\/union_const_typedef.h:7:23@
+    __defined at:__ @functions\/heap_types\/union_const_typedef.h 7:23@
 
     __exported by:__ @functions\/heap_types\/union_const_typedef.h@
 -}

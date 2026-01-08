@@ -118,7 +118,7 @@ foreign import ccall safe "hs_bindgen_601290db9e101424" hs_bindgen_601290db9e101
 
 {-| __C declaration:__ @by@
 
-    __defined at:__ @edge-cases\/names.h:3:6@
+    __defined at:__ @edge-cases\/names.h 3:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -131,7 +131,7 @@ foreign import ccall safe "hs_bindgen_f03dbed5eebb711a" hs_bindgen_f03dbed5eebb7
 
 {-| __C declaration:__ @forall@
 
-    __defined at:__ @edge-cases\/names.h:4:6@
+    __defined at:__ @edge-cases\/names.h 4:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -144,7 +144,7 @@ foreign import ccall safe "hs_bindgen_d1e3196c869f9fa1" hs_bindgen_d1e3196c869f9
 
 {-| __C declaration:__ @mdo@
 
-    __defined at:__ @edge-cases\/names.h:5:6@
+    __defined at:__ @edge-cases\/names.h 5:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -157,7 +157,7 @@ foreign import ccall safe "hs_bindgen_d3dcd898c88fb2e0" hs_bindgen_d3dcd898c88fb
 
 {-| __C declaration:__ @pattern@
 
-    __defined at:__ @edge-cases\/names.h:6:6@
+    __defined at:__ @edge-cases\/names.h 6:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -170,7 +170,7 @@ foreign import ccall safe "hs_bindgen_7f08456473f564e3" hs_bindgen_7f08456473f56
 
 {-| __C declaration:__ @proc@
 
-    __defined at:__ @edge-cases\/names.h:7:6@
+    __defined at:__ @edge-cases\/names.h 7:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -183,7 +183,7 @@ foreign import ccall safe "hs_bindgen_5df814c22f546599" hs_bindgen_5df814c22f546
 
 {-| __C declaration:__ @rec@
 
-    __defined at:__ @edge-cases\/names.h:8:6@
+    __defined at:__ @edge-cases\/names.h 8:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -196,7 +196,7 @@ foreign import ccall safe "hs_bindgen_3877b6deb653b5a4" hs_bindgen_3877b6deb653b
 
 {-| __C declaration:__ @using@
 
-    __defined at:__ @edge-cases\/names.h:9:6@
+    __defined at:__ @edge-cases\/names.h 9:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -209,7 +209,7 @@ foreign import ccall safe "hs_bindgen_7b8790d04357731b" hs_bindgen_7b8790d043577
 
 {-| __C declaration:__ @anyclass@
 
-    __defined at:__ @edge-cases\/names.h:12:6@
+    __defined at:__ @edge-cases\/names.h 12:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -222,7 +222,7 @@ foreign import ccall safe "hs_bindgen_0bf4ab515f3279b9" hs_bindgen_0bf4ab515f327
 
 {-| __C declaration:__ @capi@
 
-    __defined at:__ @edge-cases\/names.h:13:6@
+    __defined at:__ @edge-cases\/names.h 13:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -235,7 +235,7 @@ foreign import ccall safe "hs_bindgen_fa8166b2793e4236" hs_bindgen_fa8166b2793e4
 
 {-| __C declaration:__ @cases@
 
-    __defined at:__ @edge-cases\/names.h:14:6@
+    __defined at:__ @edge-cases\/names.h 14:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -248,7 +248,7 @@ foreign import ccall safe "hs_bindgen_decc2d43a62d063d" hs_bindgen_decc2d43a62d0
 
 {-| __C declaration:__ @ccall@
 
-    __defined at:__ @edge-cases\/names.h:15:6@
+    __defined at:__ @edge-cases\/names.h 15:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -261,7 +261,7 @@ foreign import ccall safe "hs_bindgen_b5a75e2b6434134b" hs_bindgen_b5a75e2b64341
 
 {-| __C declaration:__ @dynamic@
 
-    __defined at:__ @edge-cases\/names.h:16:6@
+    __defined at:__ @edge-cases\/names.h 16:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -274,7 +274,7 @@ foreign import ccall safe "hs_bindgen_406f7b014573b3d3" hs_bindgen_406f7b014573b
 
 {-| __C declaration:__ @export@
 
-    __defined at:__ @edge-cases\/names.h:17:6@
+    __defined at:__ @edge-cases\/names.h 17:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -287,7 +287,7 @@ foreign import ccall safe "hs_bindgen_14aab2af04efc222" hs_bindgen_14aab2af04efc
 
 {-| __C declaration:__ @family@
 
-    __defined at:__ @edge-cases\/names.h:18:6@
+    __defined at:__ @edge-cases\/names.h 18:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -300,7 +300,7 @@ foreign import ccall safe "hs_bindgen_ee9285b26b11b393" hs_bindgen_ee9285b26b11b
 
 {-| __C declaration:__ @group@
 
-    __defined at:__ @edge-cases\/names.h:19:6@
+    __defined at:__ @edge-cases\/names.h 19:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -313,7 +313,7 @@ foreign import ccall safe "hs_bindgen_b2463d5c1d51883e" hs_bindgen_b2463d5c1d518
 
 {-| __C declaration:__ @interruptible@
 
-    __defined at:__ @edge-cases\/names.h:20:6@
+    __defined at:__ @edge-cases\/names.h 20:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -326,7 +326,7 @@ foreign import ccall safe "hs_bindgen_55a55462d9cd296c" hs_bindgen_55a55462d9cd2
 
 {-| __C declaration:__ @javascript@
 
-    __defined at:__ @edge-cases\/names.h:21:6@
+    __defined at:__ @edge-cases\/names.h 21:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -339,7 +339,7 @@ foreign import ccall safe "hs_bindgen_227f34efb176d1fb" hs_bindgen_227f34efb176d
 
 {-| __C declaration:__ @label@
 
-    __defined at:__ @edge-cases\/names.h:22:6@
+    __defined at:__ @edge-cases\/names.h 22:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -352,7 +352,7 @@ foreign import ccall safe "hs_bindgen_51c6e0d18dce403a" hs_bindgen_51c6e0d18dce4
 
 {-| __C declaration:__ @prim@
 
-    __defined at:__ @edge-cases\/names.h:23:6@
+    __defined at:__ @edge-cases\/names.h 23:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -365,7 +365,7 @@ foreign import ccall safe "hs_bindgen_f85f2418d208e6a0" hs_bindgen_f85f2418d208e
 
 {-| __C declaration:__ @role@
 
-    __defined at:__ @edge-cases\/names.h:24:6@
+    __defined at:__ @edge-cases\/names.h 24:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -378,7 +378,7 @@ foreign import ccall safe "hs_bindgen_0855ecbc4b53ebbb" hs_bindgen_0855ecbc4b53e
 
 {-| __C declaration:__ @safe@
 
-    __defined at:__ @edge-cases\/names.h:25:6@
+    __defined at:__ @edge-cases\/names.h 25:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -391,7 +391,7 @@ foreign import ccall safe "hs_bindgen_e5238d13788a6df9" hs_bindgen_e5238d13788a6
 
 {-| __C declaration:__ @stdcall@
 
-    __defined at:__ @edge-cases\/names.h:26:6@
+    __defined at:__ @edge-cases\/names.h 26:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -404,7 +404,7 @@ foreign import ccall safe "hs_bindgen_cf38d8bd096a7a42" hs_bindgen_cf38d8bd096a7
 
 {-| __C declaration:__ @stock@
 
-    __defined at:__ @edge-cases\/names.h:27:6@
+    __defined at:__ @edge-cases\/names.h 27:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -417,7 +417,7 @@ foreign import ccall safe "hs_bindgen_fda9b083b24404f0" hs_bindgen_fda9b083b2440
 
 {-| __C declaration:__ @unsafe@
 
-    __defined at:__ @edge-cases\/names.h:28:6@
+    __defined at:__ @edge-cases\/names.h 28:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}
@@ -430,7 +430,7 @@ foreign import ccall safe "hs_bindgen_1d2a76a3a595be25" hs_bindgen_1d2a76a3a595b
 
 {-| __C declaration:__ @via@
 
-    __defined at:__ @edge-cases\/names.h:29:6@
+    __defined at:__ @edge-cases\/names.h 29:6@
 
     __exported by:__ @edge-cases\/names.h@
 -}

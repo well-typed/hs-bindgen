@@ -43,7 +43,7 @@ foreign import ccall unsafe "hs_bindgen_f9dede86496f59c9" hs_bindgen_f9dede86496
 
 __C declaration:__ @global_counter@
 
-__defined at:__ @documentation\/doxygen_docs.h:61:12@
+__defined at:__ @documentation\/doxygen_docs.h 61:12@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -64,7 +64,7 @@ foreign import ccall unsafe "hs_bindgen_a294be08386c9257" hs_bindgen_a294be08386
 
 __C declaration:__ @version_string@
 
-__defined at:__ @documentation\/doxygen_docs.h:67:20@
+__defined at:__ @documentation\/doxygen_docs.h 67:20@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}

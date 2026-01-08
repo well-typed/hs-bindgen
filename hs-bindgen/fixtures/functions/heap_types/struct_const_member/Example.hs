@@ -24,7 +24,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @functions\/heap_types\/struct_const_member.h:3:8@
+    __defined at:__ @functions\/heap_types\/struct_const_member.h 3:8@
 
     __exported by:__ @functions\/heap_types\/struct_const_member.h@
 -}
@@ -32,7 +32,7 @@ data T = T
   { t_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @functions\/heap_types\/struct_const_member.h:4:13@
+         __defined at:__ @functions\/heap_types\/struct_const_member.h 4:13@
 
          __exported by:__ @functions\/heap_types\/struct_const_member.h@
     -}

@@ -31,7 +31,7 @@ foreign import ccall unsafe "hs_bindgen_2a91c367a9380a63" hs_bindgen_2a91c367a93
 
 {-| __C declaration:__ @some_fun@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 72:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}

@@ -22,7 +22,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct foo@
 
-    __defined at:__ @types\/primitives\/fixedwidth.h:3:8@
+    __defined at:__ @types\/primitives\/fixedwidth.h 3:8@
 
     __exported by:__ @types\/primitives\/fixedwidth.h@
 -}
@@ -30,14 +30,14 @@ data Foo = Foo
   { foo_sixty_four :: HsBindgen.Runtime.Prelude.Word64
     {- ^ __C declaration:__ @sixty_four@
 
-         __defined at:__ @types\/primitives\/fixedwidth.h:4:11@
+         __defined at:__ @types\/primitives\/fixedwidth.h 4:11@
 
          __exported by:__ @types\/primitives\/fixedwidth.h@
     -}
   , foo_thirty_two :: HsBindgen.Runtime.Prelude.Word32
     {- ^ __C declaration:__ @thirty_two@
 
-         __defined at:__ @types\/primitives\/fixedwidth.h:5:11@
+         __defined at:__ @types\/primitives\/fixedwidth.h 5:11@
 
          __exported by:__ @types\/primitives\/fixedwidth.h@
     -}

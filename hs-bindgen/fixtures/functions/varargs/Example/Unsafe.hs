@@ -22,7 +22,7 @@ foreign import ccall unsafe "hs_bindgen_32ebae80cc3543e1" hs_bindgen_32ebae80cc3
 
 {-| __C declaration:__ @h@
 
-    __defined at:__ @functions\/varargs.h:8:6@
+    __defined at:__ @functions\/varargs.h 8:6@
 
     __exported by:__ @functions\/varargs.h@
 -}

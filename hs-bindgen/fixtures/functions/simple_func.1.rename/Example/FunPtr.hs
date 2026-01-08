@@ -61,7 +61,7 @@ foreign import ccall unsafe "hs_bindgen_7d72952bb141f2c8" hs_bindgen_7d72952bb14
 {-# NOINLINE erf_random_user_specified_suffix #-}
 {-| __C declaration:__ @erf@
 
-    __defined at:__ @functions\/simple_func.h:1:8@
+    __defined at:__ @functions\/simple_func.h 1:8@
 
     __exported by:__ @functions\/simple_func.h@
 -}
@@ -76,7 +76,7 @@ foreign import ccall unsafe "hs_bindgen_d8b56ce4d948e996" hs_bindgen_d8b56ce4d94
 {-# NOINLINE bad_fma_random_user_specified_suffix #-}
 {-| __C declaration:__ @bad_fma@
 
-    __defined at:__ @functions\/simple_func.h:3:22@
+    __defined at:__ @functions\/simple_func.h 3:22@
 
     __exported by:__ @functions\/simple_func.h@
 -}
@@ -91,7 +91,7 @@ foreign import ccall unsafe "hs_bindgen_b07b517c1cb304fc" hs_bindgen_b07b517c1cb
 {-# NOINLINE no_args_random_user_specified_suffix #-}
 {-| __C declaration:__ @no_args@
 
-    __defined at:__ @functions\/simple_func.h:7:6@
+    __defined at:__ @functions\/simple_func.h 7:6@
 
     __exported by:__ @functions\/simple_func.h@
 -}
@@ -106,7 +106,7 @@ foreign import ccall unsafe "hs_bindgen_cc43ff8560009309" hs_bindgen_cc43ff85600
 {-# NOINLINE no_args_no_void_random_user_specified_suffix #-}
 {-| __C declaration:__ @no_args_no_void@
 
-    __defined at:__ @functions\/simple_func.h:9:6@
+    __defined at:__ @functions\/simple_func.h 9:6@
 
     __exported by:__ @functions\/simple_func.h@
 -}
@@ -121,7 +121,7 @@ foreign import ccall unsafe "hs_bindgen_14a306e8e8f0ba6c" hs_bindgen_14a306e8e8f
 {-# NOINLINE fun_random_user_specified_suffix #-}
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/simple_func.h:11:5@
+    __defined at:__ @functions\/simple_func.h 11:5@
 
     __exported by:__ @functions\/simple_func.h@
 -}

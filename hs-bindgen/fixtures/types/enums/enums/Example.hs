@@ -21,7 +21,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum first@
 
-    __defined at:__ @types\/enums\/enums.h:4:6@
+    __defined at:__ @types\/enums\/enums.h 4:6@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -95,7 +95,7 @@ instance Read First where
 
 {-| __C declaration:__ @FIRST1@
 
-    __defined at:__ @types\/enums\/enums.h:5:5@
+    __defined at:__ @types\/enums\/enums.h 5:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -104,7 +104,7 @@ pattern FIRST1 = First 0
 
 {-| __C declaration:__ @FIRST2@
 
-    __defined at:__ @types\/enums\/enums.h:6:5@
+    __defined at:__ @types\/enums\/enums.h 6:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -113,7 +113,7 @@ pattern FIRST2 = First 1
 
 {-| __C declaration:__ @enum second@
 
-    __defined at:__ @types\/enums\/enums.h:9:6@
+    __defined at:__ @types\/enums\/enums.h 9:6@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -188,7 +188,7 @@ instance Read Second where
 
 {-| __C declaration:__ @SECOND_A@
 
-    __defined at:__ @types\/enums\/enums.h:10:5@
+    __defined at:__ @types\/enums\/enums.h 10:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -197,7 +197,7 @@ pattern SECOND_A = Second (-1)
 
 {-| __C declaration:__ @SECOND_B@
 
-    __defined at:__ @types\/enums\/enums.h:11:5@
+    __defined at:__ @types\/enums\/enums.h 11:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -206,7 +206,7 @@ pattern SECOND_B = Second 0
 
 {-| __C declaration:__ @SECOND_C@
 
-    __defined at:__ @types\/enums\/enums.h:12:5@
+    __defined at:__ @types\/enums\/enums.h 12:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -215,7 +215,7 @@ pattern SECOND_C = Second 1
 
 {-| __C declaration:__ @enum same@
 
-    __defined at:__ @types\/enums\/enums.h:15:6@
+    __defined at:__ @types\/enums\/enums.h 15:6@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -287,7 +287,7 @@ instance Read Same where
 
 {-| __C declaration:__ @SAME_A@
 
-    __defined at:__ @types\/enums\/enums.h:16:5@
+    __defined at:__ @types\/enums\/enums.h 16:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -296,7 +296,7 @@ pattern SAME_A = Same 1
 
 {-| __C declaration:__ @SAME_B@
 
-    __defined at:__ @types\/enums\/enums.h:17:5@
+    __defined at:__ @types\/enums\/enums.h 17:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -305,7 +305,7 @@ pattern SAME_B = Same 1
 
 {-| __C declaration:__ @enum nonseq@
 
-    __defined at:__ @types\/enums\/enums.h:20:6@
+    __defined at:__ @types\/enums\/enums.h 20:6@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -370,7 +370,7 @@ instance Read Nonseq where
 
 {-| __C declaration:__ @NONSEQ_A@
 
-    __defined at:__ @types\/enums\/enums.h:21:5@
+    __defined at:__ @types\/enums\/enums.h 21:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -379,7 +379,7 @@ pattern NONSEQ_A = Nonseq 200
 
 {-| __C declaration:__ @NONSEQ_B@
 
-    __defined at:__ @types\/enums\/enums.h:22:5@
+    __defined at:__ @types\/enums\/enums.h 22:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -388,7 +388,7 @@ pattern NONSEQ_B = Nonseq 301
 
 {-| __C declaration:__ @NONSEQ_C@
 
-    __defined at:__ @types\/enums\/enums.h:23:5@
+    __defined at:__ @types\/enums\/enums.h 23:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -397,7 +397,7 @@ pattern NONSEQ_C = Nonseq 404
 
 {-| __C declaration:__ @enum packed@
 
-    __defined at:__ @types\/enums\/enums.h:26:6@
+    __defined at:__ @types\/enums\/enums.h 26:6@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -472,7 +472,7 @@ instance Read Packed where
 
 {-| __C declaration:__ @PACKED_A@
 
-    __defined at:__ @types\/enums\/enums.h:27:5@
+    __defined at:__ @types\/enums\/enums.h 27:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -481,7 +481,7 @@ pattern PACKED_A = Packed 0
 
 {-| __C declaration:__ @PACKED_B@
 
-    __defined at:__ @types\/enums\/enums.h:27:15@
+    __defined at:__ @types\/enums\/enums.h 27:15@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -490,7 +490,7 @@ pattern PACKED_B = Packed 1
 
 {-| __C declaration:__ @PACKED_C@
 
-    __defined at:__ @types\/enums\/enums.h:27:25@
+    __defined at:__ @types\/enums\/enums.h 27:25@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -499,7 +499,7 @@ pattern PACKED_C = Packed 2
 
 {-| __C declaration:__ @enum enumA@
 
-    __defined at:__ @types\/enums\/enums.h:30:9@
+    __defined at:__ @types\/enums\/enums.h 30:9@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -573,7 +573,7 @@ instance Read EnumA where
 
 {-| __C declaration:__ @A_FOO@
 
-    __defined at:__ @types\/enums\/enums.h:30:16@
+    __defined at:__ @types\/enums\/enums.h 30:16@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -582,7 +582,7 @@ pattern A_FOO = EnumA 0
 
 {-| __C declaration:__ @A_BAR@
 
-    __defined at:__ @types\/enums\/enums.h:30:23@
+    __defined at:__ @types\/enums\/enums.h 30:23@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -591,7 +591,7 @@ pattern A_BAR = EnumA 1
 
 {-| __C declaration:__ @enum enumB@
 
-    __defined at:__ @types\/enums\/enums.h:32:14@
+    __defined at:__ @types\/enums\/enums.h 32:14@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -665,7 +665,7 @@ instance Read EnumB where
 
 {-| __C declaration:__ @B_FOO@
 
-    __defined at:__ @types\/enums\/enums.h:32:22@
+    __defined at:__ @types\/enums\/enums.h 32:22@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -674,7 +674,7 @@ pattern B_FOO = EnumB 0
 
 {-| __C declaration:__ @B_BAR@
 
-    __defined at:__ @types\/enums\/enums.h:32:29@
+    __defined at:__ @types\/enums\/enums.h 32:29@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -683,7 +683,7 @@ pattern B_BAR = EnumB 1
 
 {-| __C declaration:__ @enum enumC@
 
-    __defined at:__ @types\/enums\/enums.h:34:6@
+    __defined at:__ @types\/enums\/enums.h 34:6@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -757,7 +757,7 @@ instance Read EnumC where
 
 {-| __C declaration:__ @C_FOO@
 
-    __defined at:__ @types\/enums\/enums.h:34:14@
+    __defined at:__ @types\/enums\/enums.h 34:14@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -766,7 +766,7 @@ pattern C_FOO = EnumC 0
 
 {-| __C declaration:__ @C_BAR@
 
-    __defined at:__ @types\/enums\/enums.h:34:21@
+    __defined at:__ @types\/enums\/enums.h 34:21@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -775,7 +775,7 @@ pattern C_BAR = EnumC 1
 
 {-| __C declaration:__ @enum enumD@
 
-    __defined at:__ @types\/enums\/enums.h:37:6@
+    __defined at:__ @types\/enums\/enums.h 37:6@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -849,7 +849,7 @@ instance Read EnumD_t where
 
 {-| __C declaration:__ @D_FOO@
 
-    __defined at:__ @types\/enums\/enums.h:37:14@
+    __defined at:__ @types\/enums\/enums.h 37:14@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -858,7 +858,7 @@ pattern D_FOO = EnumD_t 0
 
 {-| __C declaration:__ @D_BAR@
 
-    __defined at:__ @types\/enums\/enums.h:37:21@
+    __defined at:__ @types\/enums\/enums.h 37:21@
 
     __exported by:__ @types\/enums\/enums.h@
 -}

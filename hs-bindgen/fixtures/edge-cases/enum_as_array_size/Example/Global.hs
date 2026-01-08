@@ -31,7 +31,7 @@ foreign import ccall unsafe "hs_bindgen_30b94bcf7e387817" hs_bindgen_30b94bcf7e3
 {-# NOINLINE hs_bindgen_e30c033f156164cc #-}
 {-| __C declaration:__ @test_array@
 
-    __defined at:__ @edge-cases\/enum_as_array_size.h:8:19@
+    __defined at:__ @edge-cases\/enum_as_array_size.h 8:19@
 
     __exported by:__ @edge-cases\/enum_as_array_size.h@
 

@@ -24,7 +24,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct Omitted@
 
-    __defined at:__ @selection_omit_external_root.h:1:8@
+    __defined at:__ @selection_omit_external_root.h 1:8@
 
     __exported by:__ @program-analysis\/selection_omit_external_b.h@
 -}
@@ -32,7 +32,7 @@ data Omitted = Omitted
   { omitted_n :: FC.CInt
     {- ^ __C declaration:__ @n@
 
-         __defined at:__ @selection_omit_external_root.h:2:7@
+         __defined at:__ @selection_omit_external_root.h 2:7@
 
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}
@@ -119,7 +119,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Omitted) "omitted_n"
 
 {-| __C declaration:__ @struct DirectlyDependsOnOmitted@
 
-    __defined at:__ @program-analysis\/selection_omit_external_b.h:4:8@
+    __defined at:__ @program-analysis\/selection_omit_external_b.h 4:8@
 
     __exported by:__ @program-analysis\/selection_omit_external_b.h@
 -}
@@ -127,7 +127,7 @@ data DirectlyDependsOnOmitted = DirectlyDependsOnOmitted
   { directlyDependsOnOmitted_o :: Omitted
     {- ^ __C declaration:__ @o@
 
-         __defined at:__ @program-analysis\/selection_omit_external_b.h:5:18@
+         __defined at:__ @program-analysis\/selection_omit_external_b.h 5:18@
 
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}
@@ -215,7 +215,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DirectlyDependsOnOmi
 
 {-| __C declaration:__ @struct IndirectlyDependsOnOmitted@
 
-    __defined at:__ @program-analysis\/selection_omit_external_b.h:8:8@
+    __defined at:__ @program-analysis\/selection_omit_external_b.h 8:8@
 
     __exported by:__ @program-analysis\/selection_omit_external_b.h@
 -}
@@ -223,7 +223,7 @@ data IndirectlyDependsOnOmitted = IndirectlyDependsOnOmitted
   { indirectlyDependsOnOmitted_d :: DirectlyDependsOnOmitted
     {- ^ __C declaration:__ @d@
 
-         __defined at:__ @program-analysis\/selection_omit_external_b.h:9:35@
+         __defined at:__ @program-analysis\/selection_omit_external_b.h 9:35@
 
          __exported by:__ @program-analysis\/selection_omit_external_b.h@
     -}

@@ -53,7 +53,7 @@ foreign import ccall unsafe "hs_bindgen_f3018b1e87470bdd" hs_bindgen_f3018b1e874
 {-# NOINLINE global_complex_unsigned_short #-}
 {-| __C declaration:__ @global_complex_unsigned_short@
 
-    __defined at:__ @types\/complex\/complex_non_float_test.h:3:32@
+    __defined at:__ @types\/complex\/complex_non_float_test.h 3:32@
 
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
@@ -68,7 +68,7 @@ foreign import ccall unsafe "hs_bindgen_a553be84170a3efa" hs_bindgen_a553be84170
 {-# NOINLINE global_complex_short #-}
 {-| __C declaration:__ @global_complex_short@
 
-    __defined at:__ @types\/complex\/complex_non_float_test.h:4:32@
+    __defined at:__ @types\/complex\/complex_non_float_test.h 4:32@
 
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
@@ -83,7 +83,7 @@ foreign import ccall unsafe "hs_bindgen_072fc08ef6d9395a" hs_bindgen_072fc08ef6d
 {-# NOINLINE global_complex_unsigned_int #-}
 {-| __C declaration:__ @global_complex_unsigned_int@
 
-    __defined at:__ @types\/complex\/complex_non_float_test.h:5:32@
+    __defined at:__ @types\/complex\/complex_non_float_test.h 5:32@
 
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
@@ -98,7 +98,7 @@ foreign import ccall unsafe "hs_bindgen_1199a9d54fe334cb" hs_bindgen_1199a9d54fe
 {-# NOINLINE global_complex_int #-}
 {-| __C declaration:__ @global_complex_int@
 
-    __defined at:__ @types\/complex\/complex_non_float_test.h:6:32@
+    __defined at:__ @types\/complex\/complex_non_float_test.h 6:32@
 
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}
@@ -113,7 +113,7 @@ foreign import ccall unsafe "hs_bindgen_7c8cb41a7febc6fc" hs_bindgen_7c8cb41a7fe
 {-# NOINLINE global_complex_char #-}
 {-| __C declaration:__ @global_complex_char@
 
-    __defined at:__ @types\/complex\/complex_non_float_test.h:7:32@
+    __defined at:__ @types\/complex\/complex_non_float_test.h 7:32@
 
     __exported by:__ @types\/complex\/complex_non_float_test.h@
 -}

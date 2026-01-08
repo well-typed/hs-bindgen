@@ -32,7 +32,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
 
 {-| __C declaration:__ @struct globalConfig@
 
-    __defined at:__ @manual\/globals.h:7:9@
+    __defined at:__ @manual\/globals.h 7:9@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -40,14 +40,14 @@ data GlobalConfig = GlobalConfig
   { globalConfig_numThreads :: FC.CInt
     {- ^ __C declaration:__ @numThreads@
 
-         __defined at:__ @manual\/globals.h:8:7@
+         __defined at:__ @manual\/globals.h 8:7@
 
          __exported by:__ @manual\/globals.h@
     -}
   , globalConfig_numWorkers :: FC.CInt
     {- ^ __C declaration:__ @numWorkers@
 
-         __defined at:__ @manual\/globals.h:9:7@
+         __defined at:__ @manual\/globals.h 9:7@
 
          __exported by:__ @manual\/globals.h@
     -}
@@ -158,7 +158,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType GlobalConfig) "globa
 
 {-| __C declaration:__ @ConstInt@
 
-    __defined at:__ @manual\/globals.h:40:19@
+    __defined at:__ @manual\/globals.h 40:19@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -182,7 +182,7 @@ instance HsBindgen.Runtime.HasCField.HasCField ConstInt "un_ConstInt" where
 
 {-| __C declaration:__ @struct tuple@
 
-    __defined at:__ @manual\/globals.h:52:8@
+    __defined at:__ @manual\/globals.h 52:8@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -190,14 +190,14 @@ data Tuple = Tuple
   { tuple_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @manual\/globals.h:52:20@
+         __defined at:__ @manual\/globals.h 52:20@
 
          __exported by:__ @manual\/globals.h@
     -}
   , tuple_y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @manual\/globals.h:52:33@
+         __defined at:__ @manual\/globals.h 52:33@
 
          __exported by:__ @manual\/globals.h@
     -}
@@ -306,7 +306,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tuple) "tuple_y")
 
 {-| __C declaration:__ @triplet@
 
-    __defined at:__ @manual\/globals.h:81:13@
+    __defined at:__ @manual\/globals.h 81:13@
 
     __exported by:__ @manual\/globals.h@
 -}
@@ -331,7 +331,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Triplet "un_Triplet" where
 
 {-| __C declaration:__ @list@
 
-    __defined at:__ @manual\/globals.h:85:13@
+    __defined at:__ @manual\/globals.h 85:13@
 
     __exported by:__ @manual\/globals.h@
 -}

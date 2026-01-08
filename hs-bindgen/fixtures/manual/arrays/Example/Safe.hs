@@ -49,7 +49,7 @@ transpose_wrapper = hs_bindgen_cba7011c6d25362b
 
 {-| __C declaration:__ @transpose@
 
-    __defined at:__ @manual\/arrays.h:36:6@
+    __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
@@ -74,7 +74,7 @@ foreign import ccall safe "hs_bindgen_45d15697a99c626a" hs_bindgen_45d15697a99c6
 
 __C declaration:__ @pretty_print_triplets@
 
-__defined at:__ @manual\/arrays.h:50:13@
+__defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}

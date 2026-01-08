@@ -34,7 +34,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
 
 __C declaration:__ @int16_T@
 
-__defined at:__ @edge-cases\/spec_examples.h:10:15@
+__defined at:__ @edge-cases\/spec_examples.h 10:15@
 
 __exported by:__ @edge-cases\/spec_examples.h@
 -}
@@ -58,7 +58,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Int16_T "un_Int16_T" where
 
 {-| __C declaration:__ @int32_T@
 
-    __defined at:__ @edge-cases\/spec_examples.h:11:13@
+    __defined at:__ @edge-cases\/spec_examples.h 11:13@
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
@@ -82,7 +82,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Int32_T "un_Int32_T" where
 
 {-| __C declaration:__ @int64_T@
 
-    __defined at:__ @edge-cases\/spec_examples.h:12:19@
+    __defined at:__ @edge-cases\/spec_examples.h 12:19@
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
@@ -106,7 +106,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Int64_T "un_Int64_T" where
 
 {-| __C declaration:__ @struct cint16_T@
 
-    __defined at:__ @edge-cases\/spec_examples.h:14:9@
+    __defined at:__ @edge-cases\/spec_examples.h 14:9@
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
@@ -114,14 +114,14 @@ data Cint16_T = Cint16_T
   { cint16_T_re :: Int16_T
     {- ^ __C declaration:__ @re@
 
-         __defined at:__ @edge-cases\/spec_examples.h:15:11@
+         __defined at:__ @edge-cases\/spec_examples.h 15:11@
 
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
   , cint16_T_im :: Int16_T
     {- ^ __C declaration:__ @im@
 
-         __defined at:__ @edge-cases\/spec_examples.h:16:11@
+         __defined at:__ @edge-cases\/spec_examples.h 16:11@
 
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
@@ -230,7 +230,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Cint16_T) "cint16_T_
 
 {-| __C declaration:__ @struct B@
 
-    __defined at:__ @edge-cases\/spec_examples.h:19:8@
+    __defined at:__ @edge-cases\/spec_examples.h 19:8@
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
@@ -284,7 +284,7 @@ instance Data.Primitive.Types.Prim B where
 
 {-| __C declaration:__ @struct A@
 
-    __defined at:__ @edge-cases\/spec_examples.h:23:8@
+    __defined at:__ @edge-cases\/spec_examples.h 23:8@
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
@@ -292,35 +292,35 @@ data A = A
   { a_x :: FC.CDouble
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @edge-cases\/spec_examples.h:24:10@
+         __defined at:__ @edge-cases\/spec_examples.h 24:10@
 
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
   , a_label :: Ptr.Ptr FC.CChar
     {- ^ __C declaration:__ @label@
 
-         __defined at:__ @edge-cases\/spec_examples.h:25:9@
+         __defined at:__ @edge-cases\/spec_examples.h 25:9@
 
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
   , a_samples :: (HsBindgen.Runtime.ConstantArray.ConstantArray 128) FC.CChar
     {- ^ __C declaration:__ @samples@
 
-         __defined at:__ @edge-cases\/spec_examples.h:26:8@
+         __defined at:__ @edge-cases\/spec_examples.h 26:8@
 
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
   , a_b :: B
     {- ^ __C declaration:__ @b@
 
-         __defined at:__ @edge-cases\/spec_examples.h:27:12@
+         __defined at:__ @edge-cases\/spec_examples.h 27:12@
 
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
   , a_c :: Ptr.Ptr C
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @edge-cases\/spec_examples.h:28:13@
+         __defined at:__ @edge-cases\/spec_examples.h 28:13@
 
          __exported by:__ @edge-cases\/spec_examples.h@
     -}
@@ -416,7 +416,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A) "a_c")
 
 {-| __C declaration:__ @struct C@
 
-    __defined at:__ @edge-cases\/spec_examples.h:28:10@
+    __defined at:__ @edge-cases\/spec_examples.h 28:10@
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}
