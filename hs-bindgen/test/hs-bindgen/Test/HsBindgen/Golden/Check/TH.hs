@@ -213,6 +213,17 @@ prettyWithDocumentationMap isTop docMap dec =
             formatDecDoc docMap dec
       TH.$$ thCompatInstanceD docMap overlap cxt typ decs
 
+    TH.ForeignD (TH.ImportF callconv safety impent name typ) ->
+            formatDecDoc docMap dec
+      TH.$$ TH.hsep [ TH.text "foreign import"
+                    , pprCallconv callconv
+                    , pprSafety safety
+                    , TH.text (show impent)
+                    , TH.ppr name
+                    , TH.text "::"
+                    ]
+      TH.$$ TH.nest nestDepth (thCompatPprType typ)
+
     _ ->    formatDecDoc docMap dec
       TH.$$ TH.ppr_dec isTop dec
 
@@ -338,6 +349,42 @@ thCompatPprExp docMap expr =
     _               -> TH.ppr expr
   where
     semiSep f = TH.sep . TH.punctuate TH.semi . map f
+
+-- | Pretty-print Callconv for foreign imports
+pprCallconv :: TH.Callconv -> TH.Doc
+pprCallconv TH.CCall = TH.text "ccall"
+pprCallconv TH.StdCall = TH.text "stdcall"
+pprCallconv TH.CApi = TH.text "capi"
+pprCallconv TH.Prim = TH.text "prim"
+pprCallconv TH.JavaScript = TH.text "javascript"
+
+-- | Pretty-print Safety annotations for foreign imports
+pprSafety :: TH.Safety -> TH.Doc
+pprSafety TH.Safe = TH.text "safe"
+pprSafety TH.Unsafe = TH.text "unsafe"
+pprSafety TH.Interruptible = TH.text "interruptible"
+
+-- | Compatible version of type pretty-printing for foreign imports
+--
+-- Formats function types vertically with proper arrow alignment, matching the
+-- style used by the preprocessing renderer in HsModule/Render.hs
+thCompatPprType :: TH.Type -> TH.Doc
+thCompatPprType = go
+  where
+    go :: TH.Type -> TH.Doc
+    go ty =
+      case ty of
+        TH.ForallT tvs cxt body ->
+          TH.text "forall" TH.<+> TH.hsep (map TH.ppr tvs) TH.<> TH.text "."
+            TH.<+> (if null cxt then TH.empty else TH.pprCxt cxt TH.<+> TH.text "=>")
+            TH.<+> go body
+
+        TH.AppT (TH.AppT TH.ArrowT arg) res ->
+          -- Function type: format vertically with arrow alignment
+          TH.ppr arg
+            TH.$$ TH.nest (-3) (TH.text "->" TH.<+> go res)
+
+        _ -> TH.ppr ty
 
 -- | Compatible match pretty-printing
 thCompatPprMatch :: Map TH.DocLoc (Maybe HsDoc.Comment) -> TH.Match -> TH.Doc
