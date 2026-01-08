@@ -32,7 +32,8 @@
 --   return &global_complex_char;
 -- }
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_short@
-foreign import ccall safe "hs_bindgen_f3018b1e87470bdd" hs_bindgen_f3018b1e87470bdd :: IO (Ptr (Complex CUShort))
+foreign import ccall safe "hs_bindgen_f3018b1e87470bdd" hs_bindgen_f3018b1e87470bdd ::
+    IO (Ptr (Complex CUShort))
 {-# NOINLINE global_complex_unsigned_short #-}
 {-| __C declaration:__ @global_complex_unsigned_short@
 
@@ -49,7 +50,8 @@ global_complex_unsigned_short :: Ptr (Complex CUShort)
 -}
 global_complex_unsigned_short = unsafePerformIO hs_bindgen_f3018b1e87470bdd
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_short@
-foreign import ccall safe "hs_bindgen_a553be84170a3efa" hs_bindgen_a553be84170a3efa :: IO (Ptr (Complex CShort))
+foreign import ccall safe "hs_bindgen_a553be84170a3efa" hs_bindgen_a553be84170a3efa ::
+    IO (Ptr (Complex CShort))
 {-# NOINLINE global_complex_short #-}
 {-| __C declaration:__ @global_complex_short@
 
@@ -66,7 +68,8 @@ global_complex_short :: Ptr (Complex CShort)
 -}
 global_complex_short = unsafePerformIO hs_bindgen_a553be84170a3efa
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_unsigned_int@
-foreign import ccall safe "hs_bindgen_072fc08ef6d9395a" hs_bindgen_072fc08ef6d9395a :: IO (Ptr (Complex CUInt))
+foreign import ccall safe "hs_bindgen_072fc08ef6d9395a" hs_bindgen_072fc08ef6d9395a ::
+    IO (Ptr (Complex CUInt))
 {-# NOINLINE global_complex_unsigned_int #-}
 {-| __C declaration:__ @global_complex_unsigned_int@
 
@@ -83,7 +86,8 @@ global_complex_unsigned_int :: Ptr (Complex CUInt)
 -}
 global_complex_unsigned_int = unsafePerformIO hs_bindgen_072fc08ef6d9395a
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_int@
-foreign import ccall safe "hs_bindgen_1199a9d54fe334cb" hs_bindgen_1199a9d54fe334cb :: IO (Ptr (Complex CInt))
+foreign import ccall safe "hs_bindgen_1199a9d54fe334cb" hs_bindgen_1199a9d54fe334cb ::
+    IO (Ptr (Complex CInt))
 {-# NOINLINE global_complex_int #-}
 {-| __C declaration:__ @global_complex_int@
 
@@ -100,7 +104,8 @@ global_complex_int :: Ptr (Complex CInt)
 -}
 global_complex_int = unsafePerformIO hs_bindgen_1199a9d54fe334cb
 -- __unique:__ @test_typescomplexcomplex_non_floa_Example_get_global_complex_char@
-foreign import ccall safe "hs_bindgen_7c8cb41a7febc6fc" hs_bindgen_7c8cb41a7febc6fc :: IO (Ptr (Complex CChar))
+foreign import ccall safe "hs_bindgen_7c8cb41a7febc6fc" hs_bindgen_7c8cb41a7febc6fc ::
+    IO (Ptr (Complex CChar))
 {-# NOINLINE global_complex_char #-}
 {-| __C declaration:__ @global_complex_char@
 

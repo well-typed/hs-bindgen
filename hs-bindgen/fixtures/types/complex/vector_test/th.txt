@@ -94,9 +94,10 @@ instance TyEq ty (CFieldType Vector "vector_y") =>
          HasField "vector_y" (Ptr Vector) (Ptr ty)
     where getField = ptrToCField (Proxy @"vector_y")
 -- __unique:__ @test_typescomplexvector_test_Example_Safe_new_vector@
-foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" hs_bindgen_cd5f566bc96dcba0 :: CDouble ->
-                                                                                       CDouble ->
-                                                                                       IO (Ptr Vector)
+foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" hs_bindgen_cd5f566bc96dcba0 ::
+    CDouble
+ -> CDouble
+ -> IO (Ptr Vector)
 {-| __C declaration:__ @new_vector@
 
     __defined at:__ @types\/complex\/vector_test.h:6:9@
@@ -112,9 +113,10 @@ new_vector :: CDouble -> CDouble -> IO (Ptr Vector)
 -}
 new_vector = hs_bindgen_cd5f566bc96dcba0
 -- __unique:__ @test_typescomplexvector_test_Example_Unsafe_new_vector@
-foreign import ccall safe "hs_bindgen_1af353788955c7a2" hs_bindgen_1af353788955c7a2 :: CDouble ->
-                                                                                       CDouble ->
-                                                                                       IO (Ptr Vector)
+foreign import ccall safe "hs_bindgen_1af353788955c7a2" hs_bindgen_1af353788955c7a2 ::
+    CDouble
+ -> CDouble
+ -> IO (Ptr Vector)
 {-| __C declaration:__ @new_vector@
 
     __defined at:__ @types\/complex\/vector_test.h:6:9@
@@ -130,9 +132,8 @@ new_vector :: CDouble -> CDouble -> IO (Ptr Vector)
 -}
 new_vector = hs_bindgen_1af353788955c7a2
 -- __unique:__ @test_typescomplexvector_test_Example_get_new_vector@
-foreign import ccall safe "hs_bindgen_cb36cf0957839e33" hs_bindgen_cb36cf0957839e33 :: IO (FunPtr (CDouble ->
-                                                                                                   CDouble ->
-                                                                                                   IO (Ptr Vector)))
+foreign import ccall safe "hs_bindgen_cb36cf0957839e33" hs_bindgen_cb36cf0957839e33 ::
+    IO (FunPtr (CDouble -> CDouble -> IO (Ptr Vector)))
 {-# NOINLINE new_vector #-}
 {-| __C declaration:__ @new_vector@
 

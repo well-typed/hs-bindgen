@@ -119,7 +119,8 @@ instance HasCField C数字 "un_C\25968\23383"
     where type CFieldType C数字 "un_C\25968\23383" = CInt
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_edgecasesadios_Example_Safe_ϒ@
-foreign import ccall safe "hs_bindgen_2010521804ef9a6e" hs_bindgen_2010521804ef9a6e :: IO Unit
+foreign import ccall safe "hs_bindgen_2010521804ef9a6e" hs_bindgen_2010521804ef9a6e ::
+    IO Unit
 {-| __C declaration:__ @ϒ@
 
     __defined at:__ @edge-cases\/adios.h:18:6@
@@ -135,7 +136,8 @@ cϒ :: IO Unit
 -}
 cϒ = hs_bindgen_2010521804ef9a6e
 -- __unique:__ @test_edgecasesadios_Example_Safe_拜拜@
-foreign import ccall safe "hs_bindgen_3bc3e53cc82c9580" hs_bindgen_3bc3e53cc82c9580 :: IO Unit
+foreign import ccall safe "hs_bindgen_3bc3e53cc82c9580" hs_bindgen_3bc3e53cc82c9580 ::
+    IO Unit
 {-| __C declaration:__ @拜拜@
 
     __defined at:__ @edge-cases\/adios.h:27:6@
@@ -151,7 +153,8 @@ foreign import ccall safe "hs_bindgen_3bc3e53cc82c9580" hs_bindgen_3bc3e53cc82c9
 -}
 拜拜 = hs_bindgen_3bc3e53cc82c9580
 -- __unique:__ @test_edgecasesadios_Example_Safe_Say拜拜@
-foreign import ccall safe "hs_bindgen_ad8eb47027b2d49d" hs_bindgen_ad8eb47027b2d49d :: IO Unit
+foreign import ccall safe "hs_bindgen_ad8eb47027b2d49d" hs_bindgen_ad8eb47027b2d49d ::
+    IO Unit
 {-| __C declaration:__ @Say拜拜@
 
     __defined at:__ @edge-cases\/adios.h:31:6@
@@ -167,7 +170,8 @@ say拜拜 :: IO Unit
 -}
 say拜拜 = hs_bindgen_ad8eb47027b2d49d
 -- __unique:__ @test_edgecasesadios_Example_Unsafe_ϒ@
-foreign import ccall safe "hs_bindgen_1814d14d59d9daf7" hs_bindgen_1814d14d59d9daf7 :: IO Unit
+foreign import ccall safe "hs_bindgen_1814d14d59d9daf7" hs_bindgen_1814d14d59d9daf7 ::
+    IO Unit
 {-| __C declaration:__ @ϒ@
 
     __defined at:__ @edge-cases\/adios.h:18:6@
@@ -183,7 +187,8 @@ cϒ :: IO Unit
 -}
 cϒ = hs_bindgen_1814d14d59d9daf7
 -- __unique:__ @test_edgecasesadios_Example_Unsafe_拜拜@
-foreign import ccall safe "hs_bindgen_c1ab9527e537714b" hs_bindgen_c1ab9527e537714b :: IO Unit
+foreign import ccall safe "hs_bindgen_c1ab9527e537714b" hs_bindgen_c1ab9527e537714b ::
+    IO Unit
 {-| __C declaration:__ @拜拜@
 
     __defined at:__ @edge-cases\/adios.h:27:6@
@@ -199,7 +204,8 @@ foreign import ccall safe "hs_bindgen_c1ab9527e537714b" hs_bindgen_c1ab9527e5377
 -}
 拜拜 = hs_bindgen_c1ab9527e537714b
 -- __unique:__ @test_edgecasesadios_Example_Unsafe_Say拜拜@
-foreign import ccall safe "hs_bindgen_d532055af9051fad" hs_bindgen_d532055af9051fad :: IO Unit
+foreign import ccall safe "hs_bindgen_d532055af9051fad" hs_bindgen_d532055af9051fad ::
+    IO Unit
 {-| __C declaration:__ @Say拜拜@
 
     __defined at:__ @edge-cases\/adios.h:31:6@
@@ -215,7 +221,8 @@ say拜拜 :: IO Unit
 -}
 say拜拜 = hs_bindgen_d532055af9051fad
 -- __unique:__ @test_edgecasesadios_Example_get_ϒ@
-foreign import ccall safe "hs_bindgen_0b1168f405aafe83" hs_bindgen_0b1168f405aafe83 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_0b1168f405aafe83" hs_bindgen_0b1168f405aafe83 ::
+    IO (FunPtr (IO Unit))
 {-# NOINLINE cϒ #-}
 {-| __C declaration:__ @ϒ@
 
@@ -232,7 +239,8 @@ cϒ :: FunPtr (IO Unit)
 -}
 cϒ = unsafePerformIO hs_bindgen_0b1168f405aafe83
 -- __unique:__ @test_edgecasesadios_Example_get_拜拜@
-foreign import ccall safe "hs_bindgen_0a95358747546f1b" hs_bindgen_0a95358747546f1b :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_0a95358747546f1b" hs_bindgen_0a95358747546f1b ::
+    IO (FunPtr (IO Unit))
 {-# NOINLINE 拜拜 #-}
 {-| __C declaration:__ @拜拜@
 
@@ -249,7 +257,8 @@ foreign import ccall safe "hs_bindgen_0a95358747546f1b" hs_bindgen_0a95358747546
 -}
 拜拜 = unsafePerformIO hs_bindgen_0a95358747546f1b
 -- __unique:__ @test_edgecasesadios_Example_get_Say拜拜@
-foreign import ccall safe "hs_bindgen_a01e420336bfa879" hs_bindgen_a01e420336bfa879 :: IO (FunPtr (IO Unit))
+foreign import ccall safe "hs_bindgen_a01e420336bfa879" hs_bindgen_a01e420336bfa879 ::
+    IO (FunPtr (IO Unit))
 {-# NOINLINE say拜拜 #-}
 {-| __C declaration:__ @Say拜拜@
 
@@ -266,7 +275,8 @@ say拜拜 :: FunPtr (IO Unit)
 -}
 say拜拜 = unsafePerformIO hs_bindgen_a01e420336bfa879
 -- __unique:__ @test_edgecasesadios_Example_get_ϒϒ@
-foreign import ccall safe "hs_bindgen_aa137b95cfa81f42" hs_bindgen_aa137b95cfa81f42 :: IO (Ptr CInt)
+foreign import ccall safe "hs_bindgen_aa137b95cfa81f42" hs_bindgen_aa137b95cfa81f42 ::
+    IO (Ptr CInt)
 {-# NOINLINE cϒϒ #-}
 {-| __C declaration:__ @ϒϒ@
 
@@ -283,7 +293,8 @@ cϒϒ :: Ptr CInt
 -}
 cϒϒ = unsafePerformIO hs_bindgen_aa137b95cfa81f42
 -- __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ@
-foreign import ccall safe "hs_bindgen_7e61df7271c4ff58" hs_bindgen_7e61df7271c4ff58 :: IO (ConstPtr CInt)
+foreign import ccall safe "hs_bindgen_7e61df7271c4ff58" hs_bindgen_7e61df7271c4ff58 ::
+    IO (ConstPtr CInt)
 {-# NOINLINE hs_bindgen_7af49c80665b9a25 #-}
 {-| __C declaration:__ @ϒϒϒ@
 

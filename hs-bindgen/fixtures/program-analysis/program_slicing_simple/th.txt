@@ -106,9 +106,10 @@ instance TyEq ty (CFieldType Foo "foo_thirty_two") =>
          HasField "foo_thirty_two" (Ptr Foo) (Ptr ty)
     where getField = ptrToCField (Proxy @"foo_thirty_two")
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
-foreign import ccall safe "hs_bindgen_48dbbf4b09b5b3c1" hs_bindgen_48dbbf4b09b5b3c1 :: Foreign.Int64 ->
-                                                                                       Uint32_t ->
-                                                                                       IO CInt
+foreign import ccall safe "hs_bindgen_48dbbf4b09b5b3c1" hs_bindgen_48dbbf4b09b5b3c1 ::
+    Foreign.Int64
+ -> Uint32_t
+ -> IO CInt
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h:8:5@
@@ -124,9 +125,10 @@ bar :: Foreign.Int64 -> Uint32_t -> IO CInt
 -}
 bar = hs_bindgen_48dbbf4b09b5b3c1
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
-foreign import ccall safe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba8ab :: Foreign.Int64 ->
-                                                                                       Uint32_t ->
-                                                                                       IO CInt
+foreign import ccall safe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba8ab ::
+    Foreign.Int64
+ -> Uint32_t
+ -> IO CInt
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h:8:5@
@@ -142,9 +144,8 @@ bar :: Foreign.Int64 -> Uint32_t -> IO CInt
 -}
 bar = hs_bindgen_fe855d53295ba8ab
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_bar@
-foreign import ccall safe "hs_bindgen_993162e0dadfa2c9" hs_bindgen_993162e0dadfa2c9 :: IO (FunPtr (Foreign.Int64 ->
-                                                                                                   Uint32_t ->
-                                                                                                   IO CInt))
+foreign import ccall safe "hs_bindgen_993162e0dadfa2c9" hs_bindgen_993162e0dadfa2c9 ::
+    IO (FunPtr (Foreign.Int64 -> Uint32_t -> IO CInt))
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
 

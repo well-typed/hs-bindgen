@@ -699,11 +699,13 @@ newtype Callback_t_Aux
       -}
     deriving newtype HasBaseForeignType
 -- __unique:__ @toCallback_t_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658 :: Callback_t_Aux ->
-                                                                   IO (FunPtr Callback_t_Aux)
+foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658 ::
+    Callback_t_Aux
+ -> IO (FunPtr Callback_t_Aux)
 -- __unique:__ @fromCallback_t_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869 :: FunPtr Callback_t_Aux ->
-                                                                   Callback_t_Aux
+foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869 ::
+    FunPtr Callback_t_Aux
+ -> Callback_t_Aux
 instance ToFunPtr Callback_t_Aux
     where toFunPtr = hs_bindgen_b6b6922e35047658
 instance FromFunPtr Callback_t_Aux
@@ -741,10 +743,11 @@ instance HasCField Callback_t "un_Callback_t"
                           "un_Callback_t" = FunPtr Callback_t_Aux
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Safe_some_fun@
-foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" hs_bindgen_57cb99ed92c001ad :: Ptr A_type_t ->
-                                                                                       HsBindgen.Runtime.Prelude.Word32 ->
-                                                                                       Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                                       IO HsBindgen.Runtime.Prelude.Int32
+foreign import ccall safe "hs_bindgen_57cb99ed92c001ad" hs_bindgen_57cb99ed92c001ad ::
+    Ptr A_type_t
+ -> HsBindgen.Runtime.Prelude.Word32
+ -> Ptr HsBindgen.Runtime.Prelude.Word8
+ -> IO HsBindgen.Runtime.Prelude.Int32
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
@@ -763,10 +766,11 @@ some_fun :: Ptr A_type_t ->
 -}
 some_fun = hs_bindgen_57cb99ed92c001ad
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
-foreign import ccall safe "hs_bindgen_2a91c367a9380a63" hs_bindgen_2a91c367a9380a63 :: Ptr A_type_t ->
-                                                                                       HsBindgen.Runtime.Prelude.Word32 ->
-                                                                                       Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                                       IO HsBindgen.Runtime.Prelude.Int32
+foreign import ccall safe "hs_bindgen_2a91c367a9380a63" hs_bindgen_2a91c367a9380a63 ::
+    Ptr A_type_t
+ -> HsBindgen.Runtime.Prelude.Word32
+ -> Ptr HsBindgen.Runtime.Prelude.Word8
+ -> IO HsBindgen.Runtime.Prelude.Int32
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
@@ -785,10 +789,11 @@ some_fun :: Ptr A_type_t ->
 -}
 some_fun = hs_bindgen_2a91c367a9380a63
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun@
-foreign import ccall safe "hs_bindgen_1ade3cfc18679577" hs_bindgen_1ade3cfc18679577 :: IO (FunPtr (Ptr A_type_t ->
-                                                                                                   HsBindgen.Runtime.Prelude.Word32 ->
-                                                                                                   IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
-                                                                                                   IO HsBindgen.Runtime.Prelude.Int32))
+foreign import ccall safe "hs_bindgen_1ade3cfc18679577" hs_bindgen_1ade3cfc18679577 ::
+    IO (FunPtr (Ptr A_type_t ->
+                HsBindgen.Runtime.Prelude.Word32 ->
+                IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
+                IO HsBindgen.Runtime.Prelude.Int32))
 {-# NOINLINE some_fun #-}
 {-| __C declaration:__ @some_fun@
 
@@ -808,7 +813,8 @@ some_fun :: FunPtr (Ptr A_type_t ->
 -}
 some_fun = unsafePerformIO hs_bindgen_1ade3cfc18679577
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_v@
-foreign import ccall safe "hs_bindgen_226b16768d8906f3" hs_bindgen_226b16768d8906f3 :: IO (Ptr Var_t)
+foreign import ccall safe "hs_bindgen_226b16768d8906f3" hs_bindgen_226b16768d8906f3 ::
+    IO (Ptr Var_t)
 {-# NOINLINE v #-}
 {-| __C declaration:__ @v@
 
