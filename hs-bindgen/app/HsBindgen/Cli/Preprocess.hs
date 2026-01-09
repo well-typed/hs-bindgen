@@ -17,6 +17,7 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
+import HsBindgen.Backend.Category (ByCategory, Choice)
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.DelayedIO
@@ -38,6 +39,7 @@ data Opts = Opts {
       config              :: Config
     , uniqueId            :: UniqueId
     , baseModuleName      :: BaseModuleName
+    , categoryOptions     :: CategoryOptions
     , hsOutputDir         :: FilePath
     , outputBindingSpec   :: Maybe FilePath
     -- NOTE: Inputs (arguments) must be last, options must go before it.
@@ -53,6 +55,7 @@ parseOpts =
       <$> parseConfig
       <*> parseUniqueId
       <*> parseBaseModuleName
+      <*> parseCategoryOptions
       <*> parseHsOutputDir
       <*> optional parseGenBindingSpec
       <*> parseInputs
@@ -64,7 +67,18 @@ parseOpts =
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec global opts =
+exec global opts = do
+    let categoryChoice :: ByCategory Choice
+        categoryChoice = buildCategoryChoice opts.categoryOptions
+
+        bindgenConfig :: BindgenConfig
+        bindgenConfig =
+            toBindgenConfig
+              opts.config
+              opts.uniqueId
+              opts.baseModuleName
+              categoryChoice
+
     hsBindgen
       global.unsafe
       global.safe
@@ -74,20 +88,10 @@ exec global opts =
   where
     artefact :: Artefact ()
     artefact = do
-        writeBindingsMultiple
+        writeBindingsToDir
           opts.fileOverwritePolicy
           opts.outputDirPolicy
           opts.hsOutputDir
+          (not (null opts.categoryOptions.selections))
         forM_ opts.outputBindingSpec $ \path ->
           writeBindingSpec opts.fileOverwritePolicy path
-
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1328: Which command
-    -- line options to adjust the binding category predicate do we want to
-    -- provide?
-    bindgenConfig :: BindgenConfig
-    bindgenConfig =
-        toBindgenConfig
-          opts.config
-          opts.uniqueId
-          opts.baseModuleName
-          def
