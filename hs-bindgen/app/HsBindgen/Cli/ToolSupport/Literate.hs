@@ -23,6 +23,7 @@ import Text.Read (readMaybe)
 
 import HsBindgen
 import HsBindgen.App
+import HsBindgen.Backend.Category (ByCategory, Choice)
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.DelayedIO
@@ -104,12 +105,16 @@ exec opts = do
     lit <- maybe (throwIO' "cannot parse arguments in literate file") return $
       pureParseLit args
 
-    -- Build category choice from options
-    categoryChoice <- case buildCategoryChoice lit.categoryOptions of
-      Left err    -> throwIO' err
-      Right choice -> return choice
+    -- Literate mode: empty selections means safe only (backwards compatible)
+    let adjustedOptions =
+          if null lit.categoryOptions.selections
+             then CategoryOptions { selections = [Safe] }
+             else lit.categoryOptions
 
-    let bindgenConfig :: BindgenConfig
+        categoryChoice :: ByCategory Choice
+        categoryChoice = buildCategoryChoice adjustedOptions
+
+        bindgenConfig :: BindgenConfig
         bindgenConfig =
           toBindgenConfig
             lit.config

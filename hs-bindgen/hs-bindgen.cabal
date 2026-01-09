@@ -452,6 +452,9 @@ test-suite test-pp
   other-modules:
     Test.PP.Test01
     Test.PP.Test02
+    Test.PP.TestPointer
+    Test.PP.TestSafe
+    Test.PP.TestUnsafe
 
   -- Here we use literate haskell "hook" to avoid setting up true preprocessors
   -- (which would require either build-type: Custom or Hooks - both not a great options, at least yet).

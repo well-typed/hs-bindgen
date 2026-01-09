@@ -1,6 +1,6 @@
 [ "-I", "examples"
-, "--module=Test.PP.Test03"
+, "--module=Test.PP.TestPointer"
 , "--unique-id", "com.well-typed.hs-bindgen"
-, "--category=safe"
+, "--category=pointer"
 , "test_01.h"
 ]

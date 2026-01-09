@@ -17,6 +17,7 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
+import HsBindgen.Backend.Category (ByCategory, Choice)
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.DelayedIO
@@ -67,12 +68,10 @@ parseOpts =
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec global opts = do
-    -- Build category choice from options
-    categoryChoice <- case buildCategoryChoice opts.categoryOptions of
-      Left err     -> throwIO (userError err)
-      Right choice -> return choice
+    let categoryChoice :: ByCategory Choice
+        categoryChoice = buildCategoryChoice opts.categoryOptions
 
-    let bindgenConfig :: BindgenConfig
+        bindgenConfig :: BindgenConfig
         bindgenConfig =
             toBindgenConfig
               opts.config
@@ -87,28 +86,12 @@ exec global opts = do
       opts.inputs
       artefact
   where
-    -- When a specific category is selected, use single-module mode to combine
-    -- all included categories (types, terms, globals) into one file with one
-    -- addCSource directive.  This avoids duplicate symbol errors with
-    -- header-only libraries.
-    --
-    -- When no category is specified (default), use multi-module mode for
-    -- backwards compatibility.
     artefact :: Artefact ()
     artefact = do
-        if usesSingleModule opts.categoryOptions
-          then writeBindingsSingleToDir
-                 opts.fileOverwritePolicy
-                 opts.outputDirPolicy
-                 opts.hsOutputDir
-          else writeBindingsMultiple
-                 opts.fileOverwritePolicy
-                 opts.outputDirPolicy
-                 opts.hsOutputDir
+        writeBindingsToDir
+          opts.fileOverwritePolicy
+          opts.outputDirPolicy
+          opts.hsOutputDir
+          (not (null opts.categoryOptions.selections))
         forM_ opts.outputBindingSpec $ \path ->
           writeBindingSpec opts.fileOverwritePolicy path
-
-    -- Check if a specific category was selected (use single-module mode)
-    -- vs using default (all categories, use multi-module mode)
-    usesSingleModule :: CategoryOptions -> Bool
-    usesSingleModule catOpts = not (null catOpts.selections)
