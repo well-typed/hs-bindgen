@@ -213,6 +213,9 @@ prettyWithDocumentationMap isTop docMap dec =
             formatDecDoc docMap dec
       TH.$$ thCompatInstanceD docMap overlap cxt typ decs
 
+    -- The only reason foreign import pretty printer is overwritten here is 
+    -- for our benefit of making the type signatures easier to read. It is
+    -- not what the default TH pretty printer would print.
     TH.ForeignD (TH.ImportF callconv safety impent name typ) ->
             formatDecDoc docMap dec
       TH.$$ TH.hsep [ TH.text "foreign import"
