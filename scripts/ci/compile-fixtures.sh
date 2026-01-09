@@ -4,9 +4,11 @@ set -euo pipefail
 
 usage() {
     cat <<EOF
-Usage: $(basename "$0") [OPTIONS]
+Usage: $(basename "$0") [OPTIONS] [FIXTURE]
 
 Compile generated .hs fixture files to verify they produce valid Haskell code.
+
+If a single FIXTURE is provided as an argument, only compile this FIXTURE.
 
 Options:
   -j N    Number of parallel jobs (default: 4)
@@ -21,16 +23,16 @@ EOF
 
 # Known failures - these will be skipped unless -f is used
 KNOWN_FAILURES=(
-    declarations/redeclaration     # Multiple declarations (intentional test case)
-    edge-cases/iterator            # Makes use of Apple block extension which would require clang (see #913)
-    functions/decls_in_signature   # Unusable struct (see #1128)
+    declarations/redeclaration                # Multiple declarations (intentional test case)
+    edge-cases/iterator                       # Makes use of Apple block extension which would require clang (see #913)
+    functions/decls_in_signature              # Unusable struct (see #1128)
     functions/heap_types/struct_const_member  # Issue #1490
     functions/heap_types/struct_const_typedef # Issue #1490
     functions/heap_types/struct_const         # Issue #1490
     functions/heap_types/union_const_member   # Issue #1490
     functions/heap_types/union_const_typedef  # Issue #1490
     functions/heap_types/union_const          # Issue #1490
-    types/typedefs/typenames       # Multiple declarations (hs-bindgen namespace possible bug/feature)
+    types/typedefs/typenames                  # Multiple declarations (hs-bindgen namespace possible bug/feature)
 )
 
 # Known fixtures without code - these will be skipped
@@ -203,6 +205,13 @@ compile_fixture() {
         return 1
     fi
 }
+
+if [ $# -eq 1 ]; then
+    echo "========================================="
+    echo "Compiling single fixture..."
+    compile_fixture "$1"
+    exit
+fi
 
 # Make these functions and variables available to child processes (subshells)
 export -f compile_fixture
