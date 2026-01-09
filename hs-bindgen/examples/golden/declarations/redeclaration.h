@@ -26,7 +26,7 @@ struct X;
 struct X { int n; };
 struct X;
 
-union y;
+union Y;
 union Y { int m; int o; };
 union Y;
 

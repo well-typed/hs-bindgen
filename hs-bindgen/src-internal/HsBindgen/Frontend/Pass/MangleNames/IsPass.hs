@@ -106,7 +106,9 @@ instance IsTrace Level MangleNamesMsg where
   getDefaultLogLevel = \case
       MangleNamesSquashed{}          -> Info
       MangleNamesRenamed{}           -> Info
+      -- TODO D: This will be a Warning.
       MangleNamesCouldNotMangle{}    -> Error
+      MangleNamesConflict{}          -> Error
       MangleNamesMissingIdentifier{} -> Warning
 
   getSource  = const HsBindgen
