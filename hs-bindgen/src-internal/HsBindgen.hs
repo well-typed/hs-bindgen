@@ -10,6 +10,7 @@ module HsBindgen (
   , writeBindings
   , writeBindingsSingleToDir
   , writeBindingsMultiple
+  , writeBindingsToDir
   , writeBindingSpec
   , writeTests
 
@@ -183,6 +184,22 @@ writeBindingsSingleToDir fileOverwritePolicy outputDirPolicy hsOutputDir = do
             }
 
     write fileOverwritePolicy "bindings" location bindings
+
+-- | Write bindings to a directory, choosing between single and multi-module modes.
+--
+-- - If categories were explicitly selected: single-module mode (one file with
+-- all selected categories)
+-- - If no categories were selected: multi-module mode (one file per category)
+writeBindingsToDir ::
+     FileOverwritePolicy
+  -> OutputDirPolicy
+  -> FilePath
+  -> Bool  -- ^ True if categories were explicitly selected
+  -> Artefact ()
+writeBindingsToDir filePolicy dirPolicy hsOutputDir categoriesSelected =
+    if categoriesSelected
+      then writeBindingsSingleToDir filePolicy dirPolicy hsOutputDir
+      else writeBindingsMultiple filePolicy dirPolicy hsOutputDir
 
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: Artefact (ByCategory_ (Maybe String))

@@ -41,12 +41,15 @@ import Data.Default (Default (..))
 import Data.Either (partitionEithers)
 import Data.List qualified as List
 import Data.Maybe (catMaybes)
+import Data.Text (Text)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
 import HsBindgen
-import HsBindgen.Backend.Category (ByCategory, Choice, useFunPtrCategory,
-                                   useSafeCategory, useUnsafeCategory)
+import HsBindgen.Backend.Category (ByCategory (..), CategoryLvl (..),
+                                   Choice (..), RenameTerm (..),
+                                   useFunPtrCategory, useSafeCategory,
+                                   useUnsafeCategory)
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config
@@ -75,23 +78,45 @@ data CategoryOptions = CategoryOptions {
   deriving (Show, Eq)
 
 instance Default CategoryOptions where
-  def = CategoryOptions { selections = [Safe] }
+  def = CategoryOptions { selections = [] }
 
 -- | Build 'ByCategory' 'Choice' from category options
 --
--- For now, only supports single category selection.
--- Future: support multiple categories with renaming.
-buildCategoryChoice :: CategoryOptions -> Either String (ByCategory Choice)
+-- Supports multiple category selection with automatic renaming.
+-- Each category's functions are suffixed with the category name.
+--
+buildCategoryChoice :: CategoryOptions -> ByCategory Choice
 buildCategoryChoice opts = case opts.selections of
-  []        -> Right useSafeCategory  -- Default
-  [Safe]    -> Right useSafeCategory
-  [Unsafe]  -> Right useUnsafeCategory
-  [Pointer] -> Right useFunPtrCategory
-  _multiple -> Left $ concat [
-        "Multiple categories not yet supported. "
-      , "Specify exactly one of: safe, unsafe, or pointer. "
-      , "Combination categories with renaming will be added in a future version."
-      ]
+  []        -> useAllCategories  -- Default: all categories (multi-module mode)
+  [Safe]    -> useSafeCategory
+  [Unsafe]  -> useUnsafeCategory
+  [Pointer] -> useFunPtrCategory
+  _multiple -> buildCombinedChoice opts.selections
+  where
+    -- Include all categories without renaming (original default behavior)
+    useAllCategories :: ByCategory Choice
+    useAllCategories = ByCategory {
+          cType   = IncludeTypeCategory
+        , cSafe   = IncludeTermCategory def
+        , cUnsafe = IncludeTermCategory def
+        , cFunPtr = IncludeTermCategory def
+        , cGlobal = IncludeTermCategory def
+        }
+
+    -- Build a choice that includes multiple categories with renaming
+    buildCombinedChoice :: [CategorySelection] -> ByCategory Choice
+    buildCombinedChoice selections = ByCategory {
+          cType   = IncludeTypeCategory
+        , cSafe   = includeWithSuffix Safe   "_safe"
+        , cUnsafe = includeWithSuffix Unsafe "_unsafe"
+        , cFunPtr = includeWithSuffix Pointer "_pointer"
+        , cGlobal = IncludeTermCategory def
+        }
+      where
+        includeWithSuffix :: CategorySelection -> Text -> Choice LvlTerm
+        includeWithSuffix cat suffix
+          | cat `elem` selections = IncludeTermCategory (RenameTerm (<> suffix))
+          | otherwise = ExcludeCategory
 
 {-------------------------------------------------------------------------------
   Global options
@@ -230,9 +255,9 @@ parseCategoryOptions = CategoryOptions <$> many parseCategory
         , metavar "CHOICE"
         , help $ concat [
               "Binding category to generate (safe|unsafe|pointer). "
-            , "Generates a single module file combining the selected category with types and globals. "
-            , "Can be specified multiple times for combinations (future). "
-            , "Default: safe"
+            , "Generates a single module file combining the selected categories with types and globals. "
+            , "Can be specified multiple times to combine categories (functions suffixed with category name). "
+            , "Default: safe (literate mode) or all categories in separate modules (preprocessor mode)"
             ]
         ]
 
