@@ -69,9 +69,10 @@ instance TyEq ty (CFieldType T "t_x") =>
          HasField "t_x" (Ptr T) (Ptr ty)
     where getField = ptrToCField (Proxy @"t_x")
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_fun@
-foreign import ccall safe "hs_bindgen_a5d53f538e59b1fc" hs_bindgen_a5d53f538e59b1fc :: Ptr T ->
-                                                                                       Ptr T ->
-                                                                                       IO Unit
+foreign import ccall safe "hs_bindgen_a5d53f538e59b1fc" hs_bindgen_a5d53f538e59b1fc ::
+    Ptr T
+ -> Ptr T
+ -> IO Unit
 {-| Pointer-based API for 'fun'
 -}
 fun_wrapper :: Ptr T -> Ptr T -> IO Unit
@@ -93,9 +94,10 @@ fun :: T -> IO T
 -}
 fun = \x_0 -> with x_0 (\y_1 -> allocaAndPeek (\z_2 -> hs_bindgen_a5d53f538e59b1fc y_1 z_2))
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_fun@
-foreign import ccall safe "hs_bindgen_c4af6bb824712c6a" hs_bindgen_c4af6bb824712c6a :: Ptr T ->
-                                                                                       Ptr T ->
-                                                                                       IO Unit
+foreign import ccall safe "hs_bindgen_c4af6bb824712c6a" hs_bindgen_c4af6bb824712c6a ::
+    Ptr T
+ -> Ptr T
+ -> IO Unit
 {-| Pointer-based API for 'fun'
 -}
 fun_wrapper :: Ptr T -> Ptr T -> IO Unit
@@ -117,8 +119,8 @@ fun :: T -> IO T
 -}
 fun = \x_0 -> with x_0 (\y_1 -> allocaAndPeek (\z_2 -> hs_bindgen_c4af6bb824712c6a y_1 z_2))
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_fun@
-foreign import ccall safe "hs_bindgen_071e2eda58051e4a" hs_bindgen_071e2eda58051e4a :: IO (FunPtr (T ->
-                                                                                                   IO T))
+foreign import ccall safe "hs_bindgen_071e2eda58051e4a" hs_bindgen_071e2eda58051e4a ::
+    IO (FunPtr (T -> IO T))
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@
 

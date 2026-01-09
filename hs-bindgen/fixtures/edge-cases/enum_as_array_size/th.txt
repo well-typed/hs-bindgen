@@ -78,8 +78,8 @@ pattern Test_count :: Test
 -}
 pattern Test_count = Test 1
 -- __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array@
-foreign import ccall safe "hs_bindgen_30b94bcf7e387817" hs_bindgen_30b94bcf7e387817 :: IO (ConstPtr (ConstantArray 1
-                                                                                                                   CChar))
+foreign import ccall safe "hs_bindgen_30b94bcf7e387817" hs_bindgen_30b94bcf7e387817 ::
+    IO (ConstPtr (ConstantArray 1 CChar))
 {-# NOINLINE hs_bindgen_e30c033f156164cc #-}
 {-| __C declaration:__ @test_array@
 

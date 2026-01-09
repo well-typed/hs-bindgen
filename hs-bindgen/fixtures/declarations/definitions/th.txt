@@ -169,8 +169,9 @@ instance TyEq ty (CFieldType Y "y_o") =>
          HasField "y_o" (Ptr Y) (Ptr ty)
     where getField = ptrToCField (Proxy @"y_o")
 -- __unique:__ @test_declarationsdefinitions_Example_Safe_foo@
-foreign import ccall safe "hs_bindgen_9cdc88a6d09442d6" hs_bindgen_9cdc88a6d09442d6 :: CDouble ->
-                                                                                       IO CInt
+foreign import ccall safe "hs_bindgen_9cdc88a6d09442d6" hs_bindgen_9cdc88a6d09442d6 ::
+    CDouble
+ -> IO CInt
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h:13:5@
@@ -186,8 +187,9 @@ foo :: CDouble -> IO CInt
 -}
 foo = hs_bindgen_9cdc88a6d09442d6
 -- __unique:__ @test_declarationsdefinitions_Example_Unsafe_foo@
-foreign import ccall safe "hs_bindgen_07fd5b433f381094" hs_bindgen_07fd5b433f381094 :: CDouble ->
-                                                                                       IO CInt
+foreign import ccall safe "hs_bindgen_07fd5b433f381094" hs_bindgen_07fd5b433f381094 ::
+    CDouble
+ -> IO CInt
 {-| __C declaration:__ @foo@
 
     __defined at:__ @declarations\/definitions.h:13:5@
@@ -203,8 +205,8 @@ foo :: CDouble -> IO CInt
 -}
 foo = hs_bindgen_07fd5b433f381094
 -- __unique:__ @test_declarationsdefinitions_Example_get_foo@
-foreign import ccall safe "hs_bindgen_8bb82cd68ce8efe4" hs_bindgen_8bb82cd68ce8efe4 :: IO (FunPtr (CDouble ->
-                                                                                                   IO CInt))
+foreign import ccall safe "hs_bindgen_8bb82cd68ce8efe4" hs_bindgen_8bb82cd68ce8efe4 ::
+    IO (FunPtr (CDouble -> IO CInt))
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
 
@@ -221,7 +223,8 @@ foo :: FunPtr (CDouble -> IO CInt)
 -}
 foo = unsafePerformIO hs_bindgen_8bb82cd68ce8efe4
 -- __unique:__ @test_declarationsdefinitions_Example_get_n@
-foreign import ccall safe "hs_bindgen_417f0d4479c97357" hs_bindgen_417f0d4479c97357 :: IO (Ptr CInt)
+foreign import ccall safe "hs_bindgen_417f0d4479c97357" hs_bindgen_417f0d4479c97357 ::
+    IO (Ptr CInt)
 {-# NOINLINE n #-}
 {-| __C declaration:__ @n@
 
