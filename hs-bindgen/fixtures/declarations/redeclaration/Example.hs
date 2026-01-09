@@ -1,7 +1,6 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE EmptyDataDecls #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE MagicHash #-}
@@ -151,14 +150,6 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType X) "x_n")
 
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"x_n")
-
-{-| __C declaration:__ @union y@
-
-    __defined at:__ @declarations\/redeclaration.h 29:7@
-
-    __exported by:__ @declarations\/redeclaration.h@
--}
-data Y
 
 {-| __C declaration:__ @union Y@
 

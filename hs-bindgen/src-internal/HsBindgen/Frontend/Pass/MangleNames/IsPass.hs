@@ -82,8 +82,9 @@ data NewtypeNames = NewtypeNames {
 data MangleNamesMsg =
     MangleNamesSquashed
   | MangleNamesRenamed Hs.Identifier
-  | MangleNamesCouldNotMangle Text
   | MangleNamesMissingIdentifier Text
+  | MangleNamesCouldNotMangle Text
+  | MangleNamesCollision Hs.Identifier [WithLocationInfo DeclId]
   deriving stock (Show)
 
 instance PrettyForTrace MangleNamesMsg where
@@ -94,21 +95,31 @@ instance PrettyForTrace MangleNamesMsg where
           "Renamed to"
         , PP.text newName.text
         ]
-      MangleNamesCouldNotMangle name -> PP.hsep [
-          "Could not mangle C name: "
-        , PP.text name
-        ]
       MangleNamesMissingIdentifier name -> PP.hsep [
-          "Could not mangle C name identifier: "
+          "Could not mangle C name identifier:"
         , PP.text name
         ]
+      MangleNamesCouldNotMangle name -> PP.hsep [
+          "Could not mangle C name:"
+        , PP.text name
+        ]
+      MangleNamesCollision x xs ->
+        let intro = PP.hcat [
+                "Colliding definitions for Haskell identifier "
+              , PP.text x.text
+              , ":"
+              ]
+        in  PP.hang intro 2 $ PP.vcat $ map prettyForTrace xs
 
 instance IsTrace Level MangleNamesMsg where
   getDefaultLogLevel = \case
       MangleNamesSquashed{}          -> Info
       MangleNamesRenamed{}           -> Info
-      MangleNamesCouldNotMangle{}    -> Error
       MangleNamesMissingIdentifier{} -> Warning
+      -- TODO https://github.com/well-typed/hs-bindgen/issues/1533: Failures
+      -- will be a warnings.
+      MangleNamesCouldNotMangle{}    -> Error
+      MangleNamesCollision{}         -> Warning
 
   getSource  = const HsBindgen
   getTraceId = const "mangle-names"

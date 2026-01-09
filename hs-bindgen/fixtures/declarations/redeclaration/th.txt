@@ -90,13 +90,6 @@ instance TyEq ty (CFieldType X "x_n") =>
 
     __exported by:__ @declarations\/redeclaration.h@
 -}
-data Y
-{-| __C declaration:__ @union Y@
-
-    __defined at:__ @declarations\/redeclaration.h 30:7@
-
-    __exported by:__ @declarations\/redeclaration.h@
--}
 newtype Y
     = Y {un_Y :: ByteArray}
       {- ^ __C declaration:__ @union Y@

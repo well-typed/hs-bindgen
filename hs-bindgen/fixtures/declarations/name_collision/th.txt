@@ -1,0 +1,104 @@
+-- addDependentFile examples/golden/declarations/name_collision.h
+{-| __C declaration:__ @union Y@
+
+    __defined at:__ @declarations\/name_collision.h 4:7@
+
+    __exported by:__ @declarations\/name_collision.h@
+-}
+data Y
+{-| __C declaration:__ @union Y@
+
+    __defined at:__ @declarations\/name_collision.h 4:7@
+
+    __exported by:__ @declarations\/name_collision.h@
+-}
+newtype Y
+    = Y {un_Y :: ByteArray}
+      {- ^ __C declaration:__ @union Y@
+
+           __defined at:__ @declarations\/name_collision.h 4:7@
+
+           __exported by:__ @declarations\/name_collision.h@
+      -}
+deriving via (SizedByteArray 4 4) instance Storable Y
+deriving via (SizedByteArray 4 4) instance Prim Y
+{-|
+
+  __See:__ 'set_y_m'
+
+__C declaration:__ @m@
+
+__defined at:__ @declarations\/name_collision.h 5:7@
+
+__exported by:__ @declarations\/name_collision.h@
+-}
+get_y_m :: Y -> CInt
+{-|
+
+  __See:__ 'set_y_m'
+
+__C declaration:__ @m@
+
+__defined at:__ @declarations\/name_collision.h 5:7@
+
+__exported by:__ @declarations\/name_collision.h@
+-}
+get_y_m = getUnionPayload
+{-|
+
+  __See:__ 'get_y_m'
+
+-}
+set_y_m :: CInt -> Y
+{-|
+
+  __See:__ 'get_y_m'
+
+-}
+set_y_m = setUnionPayload
+{-|
+
+  __See:__ 'set_y_o'
+
+__C declaration:__ @o@
+
+__defined at:__ @declarations\/name_collision.h 6:7@
+
+__exported by:__ @declarations\/name_collision.h@
+-}
+get_y_o :: Y -> CInt
+{-|
+
+  __See:__ 'set_y_o'
+
+__C declaration:__ @o@
+
+__defined at:__ @declarations\/name_collision.h 6:7@
+
+__exported by:__ @declarations\/name_collision.h@
+-}
+get_y_o = getUnionPayload
+{-|
+
+  __See:__ 'get_y_o'
+
+-}
+set_y_o :: CInt -> Y
+{-|
+
+  __See:__ 'get_y_o'
+
+-}
+set_y_o = setUnionPayload
+instance HasCField Y "y_m"
+    where type CFieldType Y "y_m" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Y "y_m") =>
+         HasField "y_m" (Ptr Y) (Ptr ty)
+    where getField = ptrToCField (Proxy @"y_m")
+instance HasCField Y "y_o"
+    where type CFieldType Y "y_o" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Y "y_o") =>
+         HasField "y_o" (Ptr Y) (Ptr ty)
+    where getField = ptrToCField (Proxy @"y_o")

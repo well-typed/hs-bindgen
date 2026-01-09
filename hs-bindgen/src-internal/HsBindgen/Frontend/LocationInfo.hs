@@ -116,26 +116,26 @@ instance PrettyForTrace LocationInfo where
   prettyForTrace = \case
       LocationDeclNamed name [] -> PP.hsep [
           prettyForTrace name
-        , " (location unavailable)"
+        , "(location unavailable)"
         ]
       LocationDeclNamed name [loc] -> PP.hsep [
           prettyForTrace name
-        , " at "
+        , "at"
         , PP.show loc
         ]
       LocationDeclNamed name locs -> PP.hsep [
           prettyForTrace name
-        , " at "
+        , "at"
         , PP.hlist "(" ")" (map PP.show locs)
         ]
       LocationDeclAnon (Just name) loc -> PP.hsep [
-          "anonymous declaration "
+          "anonymous declaration"
         , prettyForTrace name
-        , " at "
+        , "at"
         , PP.show loc
         ]
       LocationDeclAnon Nothing loc -> PP.hsep [
-          "anonymous declaration at "
+          "anonymous declaration at"
         , PP.show loc
         ]
       LocationUnavailable ->

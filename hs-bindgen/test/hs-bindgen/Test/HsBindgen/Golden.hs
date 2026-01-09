@@ -159,7 +159,6 @@ testCases_default = [
     , defaultTest "types/structs/struct_arg"
     , defaultTest "types/typedefs/multi_level_function_pointer"
     , defaultTest "types/typedefs/typedef_vs_macro"
-    , defaultTest "types/typedefs/typenames"
     , defaultTest "types/unions/nested_unions"
     , defaultTest "types/unions/unions"
     ]
@@ -728,6 +727,7 @@ testCases_bespoke_declarations = [
       test_declarations_declaration_unselected_b
     , test_declarations_definitions
     , test_declarations_failing_tentative_definitions_linkage
+    , test_declarations_name_collision
     , test_declarations_redeclaration
     , test_declarations_redeclaration_different
     , test_declarations_select_scoping
@@ -765,6 +765,21 @@ test_declarations_failing_tentative_definitions_linkage =
         Just $ Tolerated
       _otherwise ->
         Nothing
+
+-- TODO: https://github.com/well-typed/hs-bindgen/issues/1533
+-- The test should have no output.
+--
+-- This tests https://github.com/well-typed/hs-bindgen/issues/1373.
+test_declarations_name_collision :: TestCase
+test_declarations_name_collision =
+    testTraceMulti "declarations/name_collision" declsWithMsgs $ \case
+      MatchMangle name MangleNamesCollision{} ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["union y", "union Y"]
 
 test_declarations_redeclaration :: TestCase
 test_declarations_redeclaration =
@@ -1443,6 +1458,7 @@ testCases_bespoke_types = [
     , test_types_structs_unnamed_struct
     , test_types_typedefs_typedef_analysis
     , test_types_typedefs_typedefs
+    , test_types_typedefs_typenames
     ]
 
 test_types_implicit_fields_struct :: TestCase
@@ -1542,3 +1558,18 @@ test_types_typedefs_typedefs =
   where
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["foo"]
+
+-- TODO: https://github.com/well-typed/hs-bindgen/issues/1533
+-- The test should have no output.
+--
+-- This tests https://github.com/well-typed/hs-bindgen/issues/1389.
+test_types_typedefs_typenames :: TestCase
+test_types_typedefs_typenames =
+    testTraceMulti "types/typedefs/typenames" declsWithMsgs $ \case
+      MatchMangle name MangleNamesCollision{} ->
+        Just $ Expected name
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["enum foo", "foo"]
