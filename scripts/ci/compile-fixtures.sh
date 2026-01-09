@@ -4,9 +4,11 @@ set -euo pipefail
 
 usage() {
     cat <<EOF
-Usage: $(basename "$0") [OPTIONS]
+Usage: $(basename "$0") [OPTIONS] [FIXTURE]
 
 Compile generated .hs fixture files to verify they produce valid Haskell code.
+
+If a single FIXTURE is provided as an argument, only compile this FIXTURE.
 
 Options:
   -j N    Number of parallel jobs (default: 4)
@@ -219,6 +221,13 @@ compile_fixture() {
         return 1
     fi
 }
+
+if [ $# -eq 1 ]; then
+    echo "========================================="
+    echo "Compiling single fixture..."
+    compile_fixture "$1"
+    exit
+fi
 
 # Make these functions and variables available to child processes (subshells)
 export -f compile_fixture
