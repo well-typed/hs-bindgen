@@ -6,11 +6,12 @@ module HsBindgen.Frontend.Pass.Select.IsPass (
     -- * Trace messages
   , SelectReason(..)
   , SelectStatus(..)
+  , TransitiveDependencyMissing(..)
   , SelectMsg(..)
   ) where
 
 import Data.Default (Default (def))
-import Text.SimplePrettyPrint (CtxDoc, (><))
+import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
@@ -94,27 +95,39 @@ data SelectStatus =
   | Selected SelectReason
   deriving stock (Show)
 
+data TransitiveDependencyMissing =
+    -- | Transitive dependency is 'Unusable'.
+    TransitiveDependencyUnusable DeclId Unusable [SingleLoc]
+    -- | Transitive dependency is not selected.
+  | TransitiveDependencyNotSelected DeclId [SingleLoc]
+  deriving stock (Show)
+
+instance PrettyForTrace TransitiveDependencyMissing where
+  prettyForTrace = \case
+      TransitiveDependencyUnusable i r ls ->
+        let intro = "Transitive dependency unusable:"
+        in  PP.hang intro 2 $ prettyForTrace $ WithLocationInfo{
+                loc = declIdLocationInfo i ls
+              , msg = r
+              }
+      TransitiveDependencyNotSelected i ls ->
+        let intro = "Transitive dependency not selected:"
+        in  PP.hang intro 2 $ PP.vcat [
+                prettyForTrace $ declIdLocationInfo i ls
+              , "Consider adjusting the select predicate"
+              ]
+
 -- | Select trace messages
 data SelectMsg =
     -- | Information about selection status; issued for all available
     --declarations.
     SelectStatusInfo SelectStatus
-    -- | The user has selected a declaration that is available but at least one
-    -- of its transitive dependencies is 'Unusable'.
-  | TransitiveDependencyOfDeclarationUnusable
-      SelectReason
-      DeclId
-      Unusable
-      [SingleLoc]
-    -- | The user has selected a declaration that is available but at least one
-    -- of its transitive dependencies is not selected.
-  | TransitiveDependencyOfDeclarationNotSelected
-      SelectReason
-      DeclId
-      [SingleLoc]
+    -- | The user has selected a declaration that is available but has missing
+    -- transitive dependencies.
+  | TransitiveDependenciesMissing SelectReason [TransitiveDependencyMissing]
     -- | The user has selected a deprecated declaration. Maybe they want to
-    -- de-select deprecated declaration?
-  | SelectDeprecated
+    -- de-select the deprecated declaration?
+  | SelectDeprecated SelectReason
     -- | Delayed parse message for actually selected declarations.
   | SelectParseSuccess DelayedParseMsg
     -- | Delayed parse message for declarations the user wants to select
@@ -136,30 +149,14 @@ data SelectMsg =
 instance PrettyForTrace SelectMsg where
   prettyForTrace = \case
       SelectStatusInfo NotSelected ->
-        "not selected"
+        "Not selected"
       SelectStatusInfo (Selected r) ->
-        "selected (" >< prettyForTrace r >< ")"
-      TransitiveDependencyOfDeclarationUnusable s i r ls ->
-        let intro = PP.hcat [
-                " (" >< prettyForTrace s >< ")"
-              , " because a transitive dependency is unusable:"
-              ]
-        in  couldNotSelect $ PP.hang intro 2 $ prettyForTrace $ WithLocationInfo{
-                loc = declIdLocationInfo i ls
-              , msg = r
-              }
-      TransitiveDependencyOfDeclarationNotSelected s i ls ->
-        let intro = PP.hcat [
-                " (" >< prettyForTrace s >< ")"
-              , " because a transitive dependency is not selected:"
-              ]
-            outro = PP.vcat [
-                prettyForTrace $ declIdLocationInfo i ls
-              , "Consider adjusting the select predicate"
-              ]
-        in  couldNotSelect $ PP.hang intro 2 outro
-      SelectDeprecated ->
-        "Selected a deprecated declaration"
+        "Selected (" >< prettyForTrace r >< ")"
+      TransitiveDependenciesMissing s xs ->
+        couldNotSelectWithReason s $
+          PP.vcat $ map prettyForTrace xs
+      SelectDeprecated r ->
+        appendSelectReason r "Selected a deprecated declaration"
       SelectParseSuccess x ->
         PP.hang "During parse:" 2 (prettyForTrace x)
       SelectParseNotAttempted x ->
@@ -179,30 +176,36 @@ instance PrettyForTrace SelectMsg where
       couldNotSelect :: CtxDoc -> CtxDoc
       couldNotSelect x = PP.hang "Could not select declaration:" 2 x
 
+      appendSelectReason :: SelectReason -> CtxDoc -> CtxDoc
+      appendSelectReason r x = x <+> "(" >< prettyForTrace r >< ")"
+
+      couldNotSelectWithReason :: SelectReason -> CtxDoc -> CtxDoc
+      couldNotSelectWithReason r x =
+        let intro = appendSelectReason r "Could not select declaration" >< ":"
+        in  PP.hang intro 2 x
+
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
-    SelectStatusInfo{}                             -> Info
-    TransitiveDependencyOfDeclarationUnusable{}    -> Warning
-    TransitiveDependencyOfDeclarationNotSelected{} -> Warning
-    SelectDeprecated{}                             -> Notice
-    SelectParseSuccess x                           -> getDefaultLogLevel x
-    SelectParseNotAttempted{}                      -> Warning
-    SelectParseFailure x                           -> getDefaultLogLevel x
-    SelectConflict{}                               -> Warning
-    SelectMacroFailure x                           -> getDefaultLogLevel x
-    SelectNoDeclarationsMatched                    -> Warning
+    SelectStatusInfo{}              -> Info
+    TransitiveDependenciesMissing{} -> Warning
+    SelectDeprecated{}              -> Notice
+    SelectParseSuccess x            -> getDefaultLogLevel x
+    SelectParseNotAttempted{}       -> Warning
+    SelectParseFailure x            -> getDefaultLogLevel x
+    SelectConflict{}                -> Warning
+    SelectMacroFailure x            -> getDefaultLogLevel x
+    SelectNoDeclarationsMatched     -> Warning
   getSource  = const HsBindgen
   getTraceId = \case
-    SelectStatusInfo{}                             -> "select"
-    TransitiveDependencyOfDeclarationUnusable{}    -> "select"
-    TransitiveDependencyOfDeclarationNotSelected{} -> "select"
-    SelectDeprecated{}                             -> "select"
-    SelectParseSuccess x                           -> "select-" <> getTraceId x
-    SelectParseNotAttempted{}                      -> "select-parse"
-    SelectParseFailure x                           -> "select-" <> getTraceId x
-    SelectConflict{}                               -> "select"
-    SelectMacroFailure x                           -> "select-" <> getTraceId x
-    SelectNoDeclarationsMatched                    -> "select"
+    SelectStatusInfo{}              -> "select"
+    TransitiveDependenciesMissing{} -> "select"
+    SelectDeprecated{}              -> "select"
+    SelectParseSuccess x            -> "select-" <> getTraceId x
+    SelectParseNotAttempted{}       -> "select-parse"
+    SelectParseFailure x            -> "select-" <> getTraceId x
+    SelectConflict{}                -> "select"
+    SelectMacroFailure x            -> "select-" <> getTraceId x
+    SelectNoDeclarationsMatched     -> "select"
 
 {-------------------------------------------------------------------------------
   CoercePass

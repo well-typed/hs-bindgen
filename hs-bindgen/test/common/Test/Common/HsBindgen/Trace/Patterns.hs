@@ -15,6 +15,8 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchNoDeclarations
   , pattern MatchSelect
   , pattern MatchTransMissing
+  , pattern MatchTransNotSelected
+  , pattern MatchTransUnusable
     -- * MangleNames
   , pattern MatchMangle
   ) where
@@ -27,6 +29,7 @@ import Clang.LowLevel.Core
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Pass.Parse.Result
+import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.TraceMsg
@@ -115,11 +118,17 @@ pattern MatchSelect name x <- TraceFrontend (
         }
     )
 
--- | Transitive dependency of a declaration is missing
---
--- The transitive dependency is unusable or simply not selected ('Nothing').
-pattern MatchTransMissing :: Maybe Unusable -> SelectMsg
-pattern MatchTransMissing x <- (matchTransMissing -> Just x)
+-- | Transitive dependencies of a declaration are missing
+pattern MatchTransMissing :: [TransitiveDependencyMissing] -> SelectMsg
+pattern MatchTransMissing xs <- TransitiveDependenciesMissing _ xs
+
+-- | A single transitive dependency of a declaration was not selected
+pattern MatchTransNotSelected :: TransitiveDependencyMissing
+pattern MatchTransNotSelected <- TransitiveDependencyNotSelected _ _
+
+-- | A single transitive dependency of a declaration is unusable
+pattern MatchTransUnusable :: Unusable -> TransitiveDependencyMissing
+pattern MatchTransUnusable x <- TransitiveDependencyUnusable _ x _
 
 {-------------------------------------------------------------------------------
   MangleNames
@@ -142,12 +151,3 @@ matchDelayed = \case
     SelectParseSuccess x -> Just x
     SelectParseFailure (ParseFailure x) -> Just x
     _otherwise -> Nothing
-
-matchTransMissing :: SelectMsg -> Maybe (Maybe Unusable)
-matchTransMissing = \case
-    TransitiveDependencyOfDeclarationUnusable _ _ unusable _ ->
-      Just $ Just unusable
-    TransitiveDependencyOfDeclarationNotSelected{} ->
-      Just $ Nothing
-    _otherwise ->
-      Nothing
