@@ -82,6 +82,7 @@ data MangleNamesMsg =
   | MangleNamesRenamed Hs.Identifier
   | MangleNamesCouldNotMangle Text
   | MangleNamesMissingIdentifier Text
+  | MangleNamesCollision Hs.Identifier [WithLocationInfo DeclId]
   deriving stock (Show)
 
 instance PrettyForTrace MangleNamesMsg where

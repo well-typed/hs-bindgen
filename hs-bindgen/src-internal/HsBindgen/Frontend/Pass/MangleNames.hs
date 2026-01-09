@@ -194,13 +194,22 @@ fromDeclId fc ns declId = fixCandidate fc ns declId.name.text
 -------------------------------------------------------------------------------}
 
 newtype M a = WrapM (
-      StateT [Msg MangleNames] (Reader Env) a
+      StateT St (Reader Env) a
     )
   deriving newtype (
       Functor
     , Applicative
     , Monad
     )
+
+data St = St{
+      msgs    :: [Msg MangleNames]
+    , usedIds :: Map Hs.Identifier [C.DeclInfo Select]
+    }
+  deriving stock (Show, Generic)
+
+emptySt :: St
+emptySt = St [] Map.empty
 
 data Env = Env{
       typedefAnalysis :: TypedefAnalysis
@@ -209,7 +218,36 @@ data Env = Env{
     }
 
 runM :: Env -> M a -> (a, [Msg MangleNames])
-runM env (WrapM ma) = second reverse . flip runReader env $ runStateT ma []
+runM env (WrapM ma) =
+  -- Forget the used IDs right away.
+  second (reverse . getCollisions')
+  . flip runReader env $ runStateT ma emptySt
+
+getCollisions' :: St -> [Msg MangleNames]
+getCollisions' s =  s.msgs
+
+getCollisionMsgs :: Map Hs.Identifier [C.DeclInfo Select] -> [Msg MangleNames]
+getCollisionMsgs =
+    concatMap fromPair
+    . Map.toList
+    . Map.filter isCollision
+  where
+    isCollision :: [a] -> Bool
+    isCollision []  = False
+    isCollision [_] = False
+    isCollision _   = True
+
+    -- TODO D: We need to attach each message to a declaration (location info).
+    -- The collision trace affects more than one declaration though, so this is
+    -- a bit awkward.
+    fromPair :: (Hs.Identifier, [C.DeclInfo Select]) -> [Msg MangleNames]
+    fromPair (x, xs) = [
+          withDeclLoc i (MangleNamesCollision x _)
+        | i <- xs
+        ]
+      where
+        idsWithLocs :: [WithLocationInfo DeclId]
+        idsWithLocs = map withDeclLoc xs
 
 checkTypedefAnalysis :: DeclId -> M (Maybe TypedefAnalysis.Conclusion)
 checkTypedefAnalysis declId = WrapM $ do
@@ -217,14 +255,21 @@ checkTypedefAnalysis declId = WrapM $ do
     return $ Map.lookup declId td.map
 
 traceMsg :: Msg MangleNames -> M ()
-traceMsg msg = WrapM $ modify (msg :)
+traceMsg msg = WrapM $ modify ( #msgs %~ (msg :) )
 
 mangleDeclId :: DeclId -> M DeclIdPair
 mangleDeclId declId = WrapM $ do
     nm <- asks (.nameMap)
     case Map.lookup declId nm of
-      Just hsName -> return $ DeclIdPair declId hsName
-      Nothing     -> panicPure $ "Missing declaration: " <> show declId
+      Just hsName -> do
+        modify'( #usedIds %~ Map.alter (addId declId) hsName )
+        pure $ DeclIdPair declId hsName
+      Nothing ->
+        panicPure $ "Missing declaration: " <> show declId
+  where
+    addId :: a -> Maybe [a] -> Maybe [a]
+    addId x Nothing   = Just [x]
+    addId x (Just xs) = Just (x : xs)
 
 -- | Search the 'NameMap', when we don't know the name kind
 searchNameMap :: Text -> M (Maybe DeclIdPair)
@@ -600,9 +645,9 @@ withDeclNamespace kind k =
           MacroType{} -> k (Proxy @Hs.NsTypeConstr)
           MacroExpr{} -> k (Proxy @Hs.NsVar)
 
-withDeclLoc :: forall p.
+withDeclLoc :: forall p a.
      IsPass p
-  => C.DeclInfo p -> MangleNamesMsg -> WithLocationInfo MangleNamesMsg
+  => C.DeclInfo p -> a -> WithLocationInfo a
 withDeclLoc info msg = WithLocationInfo{
       loc = idLocationInfo (Proxy @p) info.id [info.loc]
     , msg = msg
