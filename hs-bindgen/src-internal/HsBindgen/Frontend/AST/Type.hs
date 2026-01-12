@@ -20,8 +20,8 @@ module HsBindgen.Frontend.AST.Type (
      , TypeComplex
      , TypePointers
      )
-  , TypedefRef(..)
   , TypeQual(..)
+  , Ref (..)
 
     -- * Normal forms
   , Normalize(..)
@@ -62,18 +62,20 @@ data TypeF tag p =
   | TypeComplex C.PrimType
 
     -- | Reference to named type other than a typedef
-  | TypeRef (Id p)
-
-    -- | Reference to typedef
     --
-    -- TODO: TypedefRefF for erased should be void, and reuse 'TypeRef'.
-    --
-    -- NOTE: has a strictness annotation, which allows GHC to infer that
-    -- pattern matches are redundant when @TypedefRefF tag ~ Void@.
+    -- TODO: enum should get annotations with underlying types just like
+    -- typedefs, so that we can erase the enum types and replace them with
+    -- their underlying type.
     --
     -- TODO: macros should get annotations with underlying types just like
     -- typedefs, so that we can erase the macro types and replace them with
     -- their underlying type. See issue #1200.
+  | TypeRef (Id p)
+
+    -- | Reference to typedef
+    --
+    -- NOTE: has a strictness annotation, which allows GHC to infer that
+    -- pattern matches are redundant when @TypedefRefF tag ~ Void@.
   | TypeTypedef !(TypedefRefF tag p)
 
     -- | Pointer
@@ -118,11 +120,14 @@ data TypeF tag p =
     -- | Qualified type (such as @const@)
     --
     -- NOTE: has a strictness annotation, which allows GHC to infer that pattern
-    -- matches are redundant when @TypeQualifierF tag ~ Void@.
+    -- matches are redundant when @TypeQualifierF tag p ~ Void@.
   | TypeQual !(TypeQualifierF tag p) (TypeF tag p)
 
     -- | Type with an external binding
-  | TypeExtBinding (ExtBinding p)
+    --
+    -- NOTE: has a strictness annotation, which allows GHC to infer that pattern
+    -- matches are redundant when @TypeExtBindingRefF tag p ~ Void@.
+  | TypeExtBinding !(TypeExtBindingRefF tag p)
   deriving stock Generic
 
 deriving stock instance ValidTypeTag tag p => Show (TypeF tag p)
@@ -135,9 +140,11 @@ mapTypeF :: forall tag tag' p.
      (TypedefRefF tag p -> TypeF tag' p)
      -- | What to do when encountering a type qualifier.
   -> (TypeQualifierF tag p -> TypeF tag p -> TypeF tag' p)
+     -- | What to do when encountering an external binding reference.
+  -> (TypeExtBindingRefF tag p -> TypeF tag' p)
   -> TypeF tag  p
   -> TypeF tag' p
-mapTypeF fRef fQual = go
+mapTypeF fRef fQual fExtBindingRef = go
   where
     go :: TypeF tag p -> TypeF tag' p
     go ty = case ty of
@@ -151,25 +158,8 @@ mapTypeF fRef fQual = go
       TypeIncompleteArray t -> TypeIncompleteArray (go t)
       TypeBlock t           -> TypeBlock (go t)
       TypeQual q t          -> fQual q t
-      TypeExtBinding reb    -> TypeExtBinding reb
+      TypeExtBinding ref    -> fExtBindingRef ref
       TypeComplex pt        -> TypeComplex pt
-
-{-------------------------------------------------------------------------------
-  Typedefs
--------------------------------------------------------------------------------}
-
-data TypedefRef p = TypedefRef {
-      -- | Name of the referenced typedef declaration
-      ref :: Id p
-
-      -- | The underlying type of the referenced typedef declaration
-      --
-      -- NOTE: the underlying type can arbitrarily reference other types,
-      -- including typedefs that we have not parsed. Use the underlying type
-      -- with care!
-    , underlying :: Type p
-    }
-  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   Qualifiers
@@ -177,6 +167,64 @@ data TypedefRef p = TypedefRef {
 
 data TypeQual =
     QualConst
+  deriving stock (Show, Eq, Ord, Generic)
+
+{-------------------------------------------------------------------------------
+  References
+-------------------------------------------------------------------------------}
+
+-- |
+--
+-- For example, if we have this C code:
+--
+-- > typedef int T;
+-- > extern T x;
+--
+-- The type of the global variable @x@ is roughly:
+--
+-- > Ref { ref = "T", underlying = TypePrim int }
+--
+type TypedefRef p = Ref (Id p) p
+
+-- |
+--
+-- For example, if we have this C code:
+--
+-- > struct S {};
+-- > extern S x;
+--
+-- The type of the global variable @x@ is roughly:
+--
+-- > Ref { ref = ResolvedBinding "S", underlying = TypeRef ("S", StructKind) }
+--
+type ExtBindingRef p = Ref (ExtBinding p) p
+
+-- | A reference (by name) to another type, annotated with an underlying type.
+--
+-- Reference types include:
+--
+-- * struct reference
+-- * union reference
+-- * enum reference
+-- * typedef reference
+-- * macro typedef reference
+-- * external binding reference
+--
+-- See 'TypedefRef' and 'ExtBindingRef' for examples.
+--
+data Ref a p = Ref {
+    -- | The reference type.
+    --
+    -- NOTE: has a strictness annotation, which allows GHC to infer that pattern
+    -- matches are redundant when @a ~ Void@.
+    ref :: !a
+    -- | The underlying type.
+    --
+    -- NOTE: the underlying type can arbitrarily reference other types,
+    -- including references that we have not parsed, mangled, modified, resolved
+    -- (binding specs), etc. Use the underlying type with care!
+  , underlying :: Type p
+  }
   deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
@@ -202,29 +250,41 @@ class ( IsPass p
       , Show (TypeQualifierF tag p)
       , Eq   (TypeQualifierF tag p)
       , Ord  (TypeQualifierF tag p)
+
+      , Show (TypeExtBindingRefF tag p)
+      , Eq   (TypeExtBindingRefF tag p)
+      , Ord  (TypeExtBindingRefF tag p)
       ) => ValidTypeTag (tag :: TypeTag) (p :: Pass) where
-  type family TypedefRefF    tag p :: Star
-  type family TypeQualifierF tag p :: Star
+  type family TypedefRefF     tag p :: Star
+  type family TypeQualifierF  tag p :: Star
+  type family TypeExtBindingRefF tag p :: Star
 
   getUnderlying :: TypedefRefF tag p -> TypeF tag p
+  getExtUnderlying :: TypeExtBindingRefF tag p -> TypeF tag p
 
 instance IsPass p => ValidTypeTag Full p where
-  type instance TypedefRefF    Full p = TypedefRef p
-  type instance TypeQualifierF Full p = TypeQual
+  type instance TypedefRefF        Full p = TypedefRef p
+  type instance TypeQualifierF     Full p = TypeQual
+  type instance TypeExtBindingRefF Full p = ExtBindingRef p
 
   getUnderlying = (.underlying)
+  getExtUnderlying = (.underlying)
 
 instance IsPass p => ValidTypeTag Erased p where
-  type instance TypedefRefF    Erased p = Void
-  type instance TypeQualifierF Erased p = TypeQual
+  type instance TypedefRefF        Erased p = Void
+  type instance TypeQualifierF     Erased p = TypeQual
+  type instance TypeExtBindingRefF Erased p = Void
 
   getUnderlying = absurd
+  getExtUnderlying = absurd
 
 instance IsPass p => ValidTypeTag Canonical p where
-  type instance TypedefRefF    Canonical p = Void
-  type instance TypeQualifierF Canonical p = Void
+  type instance TypedefRefF        Canonical p = Void
+  type instance TypeQualifierF     Canonical p = Void
+  type instance TypeExtBindingRefF Canonical p = Void
 
   getUnderlying = absurd
+  getExtUnderlying = absurd
 
 type Type          = FullType
 type FullType      = TypeF Full
@@ -314,7 +374,7 @@ instance Normalize tag tag where
 -- probably not that long, so we do not expect this algorithm to have
 -- problematic performance.
 instance Normalize Full Erased where
-  normalize = mapTypeF fRef fQual
+  normalize = mapTypeF fRef fQual fExtBindingRef
     where
       fRef :: TypedefRef p -> TypeF Erased p
       fRef ref = normalize ref.underlying
@@ -322,8 +382,11 @@ instance Normalize Full Erased where
       fQual :: TypeQual -> TypeF Full p -> TypeF Erased p
       fQual qual typ = TypeQual qual $ normalize typ
 
+      fExtBindingRef :: ExtBindingRef p -> TypeF Erased p
+      fExtBindingRef ref = normalize ref.underlying
+
 instance Normalize Erased Canonical where
-  normalize = mapTypeF absurd fQual
+  normalize = mapTypeF absurd fQual absurd
     where
       fQual :: TypeQual -> TypeF Erased p -> TypeF Canonical p
       fQual _qual typ = normalize typ
@@ -391,7 +454,6 @@ hasUnsupportedType = aux . getCanonicalType
     aux TypeFun{}             = False
     aux TypeVoid              = False
     aux TypeBlock{}           = False
-    aux TypeExtBinding{}      = False
 
     auxRef :: C.NameKind -> Bool
     auxRef = \case
@@ -497,6 +559,5 @@ isCanonicalTypeArray ty =
       TypeIncompleteArray t -> Just (IncompleteArrayClassification t)
       TypeBlock _t          -> Nothing
       TypeQual _q t         -> isCanonicalTypeArray t
-      TypeExtBinding _reb   -> Nothing
+      TypeExtBinding ref    -> isCanonicalTypeArray (getExtUnderlying ref)
       TypeComplex _pt       -> Nothing
-

@@ -15,13 +15,22 @@ module HsBindgen.Frontend.Naming (
   , parseDeclId
 
     -- * Pairing C names and Haskell names
-  , DeclIdPair(..)
   , ScopedNamePair(..)
+  , DeclIdPair(..)
+  , renameHsName
+  , unsafeHsName
+  , AssignedIdentifier (..)
+  , assignedIdentifier
+  , noAssignedIdentifier
+  , Reason (..)
   ) where
 
 import Data.Text qualified as Text
+import GHC.Records (HasField (..))
+import GHC.Stack (CallStack, callStack, prettyCallStack)
 import Text.SimplePrettyPrint qualified as PP
 
+import HsBindgen.Errors (panicPure)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -87,14 +96,88 @@ instance PrettyForTrace DeclId where
   intended usage (constructor, variable, ..).
 -------------------------------------------------------------------------------}
 
-data DeclIdPair = DeclIdPair{
-      cName  :: DeclId
-    , hsName :: Hs.Identifier
-    }
-  deriving stock (Show, Eq, Ord)
-
 data ScopedNamePair = ScopedNamePair {
       cName  :: C.ScopedName
     , hsName :: Hs.Identifier
     }
   deriving stock (Show, Eq, Ord, Generic)
+
+data DeclIdPair = DeclIdPair {
+      cName :: DeclId
+    , hsName :: AssignedIdentifier
+    }
+  deriving stock (Show, Eq, Ord)
+
+renameHsName :: (Hs.Identifier -> Hs.Identifier) -> DeclIdPair -> DeclIdPair
+renameHsName f dip = DeclIdPair {
+      cName = dip.cName
+    , hsName = renameAssignedIdentifier f dip.hsName
+    }
+
+instance HasField "unsafeHsName" DeclIdPair Hs.Identifier where
+  getField = unsafeHsName
+
+unsafeHsName :: HasCallStack => DeclIdPair -> Hs.Identifier
+unsafeHsName dip =
+      case dip.hsName of
+        NoAssignedIdentifier cstack reason ->
+          panicPure $ concat
+            [ prettyReason reason, "\n"
+            , "No identifier assigned at:\n"
+            , prettyCallStack cstack
+            ]
+        AssignedIdentifier x -> x
+
+data AssignedIdentifier =
+    AssignedIdentifier Hs.Identifier
+    -- | Haskell identifiers are not always assigned. See 'Reason'.
+  | NoAssignedIdentifier CallStack Reason
+  deriving stock Show
+
+-- | Ignores the 'CallStack' field
+instance Eq AssignedIdentifier where
+  AssignedIdentifier x     == AssignedIdentifier y     = x == y
+  NoAssignedIdentifier _ x == NoAssignedIdentifier _ y = x == y
+  _                        == _                        = False
+
+-- | Ignores the 'CallStack' field
+instance Ord AssignedIdentifier where
+  AssignedIdentifier x     `compare` AssignedIdentifier y     = x `compare` y
+  AssignedIdentifier{}     `compare` NoAssignedIdentifier{}   = GT
+  NoAssignedIdentifier{}   `compare` AssignedIdentifier{}     = LT
+  NoAssignedIdentifier _ x `compare` NoAssignedIdentifier _ y = x `compare` y
+
+assignedIdentifier :: Hs.Identifier -> AssignedIdentifier
+assignedIdentifier = AssignedIdentifier
+
+noAssignedIdentifier :: HasCallStack => Reason -> AssignedIdentifier
+noAssignedIdentifier = NoAssignedIdentifier callStack
+
+renameAssignedIdentifier ::
+     (Hs.Identifier -> Hs.Identifier)
+  -> AssignedIdentifier
+  -> AssignedIdentifier
+renameAssignedIdentifier f = \case
+    NoAssignedIdentifier cstack reason -> NoAssignedIdentifier cstack reason
+    AssignedIdentifier x -> AssignedIdentifier (f x)
+
+-- | A Haskell identifier is not available.
+data Reason =
+      -- | The C name of the declaration was not mangled because it only appears
+      -- in an underlying type.
+      --
+      -- Mangling produces Haskell identifiers for the names of C declarations.
+      -- Only the names of declarations that are selected are mangled, but
+      -- references to unselected declarations can still appear in /underlying
+      -- types/. See 'HsBindgen.Frontend.AST.Type.Ref' for info about underlying
+      -- types. Haskell identifiers are not expected to be used in underlying
+      -- types.
+    UnderlyingTypeNotMangled
+  deriving stock (Show, Eq, Ord)
+
+-- | See 'Reason' for more information about the reasons.
+prettyReason :: Reason -> String
+prettyReason reason = "A haskell identifier is not available: " <> case reason of
+    UnderlyingTypeNotMangled ->
+      "The C name of the declaration was not mangled because it only appears \
+      \in an underlying type."

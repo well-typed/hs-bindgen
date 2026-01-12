@@ -1,0 +1,68 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: Example
+ctypes:
+- headers: binding-specs/fun_arg/enum.h
+  cname: enum MyEnum
+  hsname: MyEnum
+- headers: binding-specs/fun_arg/enum.h
+  cname: A
+  hsname: A
+- headers: binding-specs/fun_arg/enum.h
+  cname: B
+  hsname: B
+- headers: binding-specs/fun_arg/enum.h
+  cname: E
+  hsname: E
+hstypes:
+- hsname: A
+  representation:
+    newtype:
+      constructor: A
+      fields:
+      - un_A
+      ffitype: CUInt
+  instances:
+  - Eq
+  - HasBaseForeignType
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: B
+  representation:
+    newtype:
+      constructor: B
+      fields:
+      - un_B
+      ffitype: CUInt
+  instances:
+  - Eq
+  - HasBaseForeignType
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: E
+  representation:
+    newtype:
+      constructor: E
+      fields:
+      - un_E
+      ffitype: CInt
+- hsname: MyEnum
+  representation:
+    newtype:
+      constructor: MyEnum
+      fields:
+      - un_MyEnum
+      ffitype: CUInt
+  instances:
+  - Eq
+  - HasBaseForeignType
+  - Ord
+  - Read
+  - Show
+  - Storable
