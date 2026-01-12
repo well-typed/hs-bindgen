@@ -14,6 +14,10 @@ module HsBindgen.BindingSpec.Private.Common (
   , BindingSpecResolveMsg(..)
   , BindingSpecMergeMsg(..)
   , BindingSpecMsg(..)
+    -- * Aeson representation
+    -- $ARep
+  , ARepIso(..)
+  , ARepKV(..)
     -- * Omittable
   , Omittable(..)
   , AOmittable(..)
@@ -34,6 +38,7 @@ import Data.Aeson ((.:), (.=))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.KeyMap qualified as KM
 import Data.Aeson.Types qualified as Aeson
+import Data.Coerce
 import Data.List qualified as List
 import Data.Typeable (Typeable, typeRep)
 import Data.Yaml qualified as Yaml
@@ -242,6 +247,53 @@ data BindingSpecMsg =
   | BindingSpecMergeMsg   BindingSpecMergeMsg
   deriving stock    (Show, Generic)
   deriving anyclass (IsTrace Level, PrettyForTrace)
+
+{-------------------------------------------------------------------------------
+  Aeson representation
+-------------------------------------------------------------------------------}
+
+-- $ARep
+--
+-- Each binding specification version uses a data family named @ARep@ to define
+-- Aeson representations for that version, making the relationship between the
+-- types explicit.
+--
+-- This abstraction makes code uniform.  Example:
+--
+-- > let inst = InstanceSpec {
+-- >         strategy    = fromARep @ARep <$> arep.strategy
+-- >       , constraints = fromARep @ARep <$> arep.constraints
+-- >       }
+-- > in ..
+--
+-- When a version depends on a previous version, instances for the previous
+-- version can be accessed using qualified imports: @fromARep \@V1.ARep@.
+
+-- | Aeson representation that is isomorphic to the type
+--
+-- @f@ is the data family for a specific binding specification version.  Type
+-- @f a@ is the Aeson representation for type @a@.
+class ARepIso (f :: Star -> Star) a where
+  fromARep :: f a -> a
+  toARep   :: a -> f a
+
+  default fromARep :: Coercible (f a) a => f a -> a
+  fromARep = coerce
+
+  default toARep   :: Coercible a (f a) => a -> f a
+  toARep = coerce
+
+-- | Aeson representation that encodes a key in addition to the type
+--
+-- @f@ is the data family for a specific binding specification version.  Type
+-- @f a@ is the Aeson representation for type @a@.  Type @ARepK f a@ is the key
+-- that is encoded within the Aeson representation.
+class ARepKV (f :: Star -> Star) a where
+  data ARepK f a
+
+  fromARepKV :: f a -> (ARepK f a, a)
+
+  toARepKV :: ARepK f a -> a -> f a
 
 {-------------------------------------------------------------------------------
   Omittable
