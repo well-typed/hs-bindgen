@@ -8,8 +8,6 @@ module Example.Safe where
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Prelude
-import qualified M
-import Example
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -33,19 +31,19 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "  fooB(arg1);"
   , "}"
   , "void hs_bindgen_62c2ecd0d496faab ("
-  , "  C arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  fooC(arg1);"
   , "}"
   , "void hs_bindgen_93c6d3de2d542247 ("
-  , "  D arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  fooD(arg1);"
   , "}"
   , "void hs_bindgen_9f32a06312cb74c2 ("
-  , "  E arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  fooE(arg1);"
@@ -105,7 +103,7 @@ fooB = hs_bindgen_857a8fdee3b3fe8d
 
 -- __unique:__ @test_bindingspecsfun_argarray_Example_Safe_fooC@
 foreign import ccall safe "hs_bindgen_62c2ecd0d496faab" hs_bindgen_62c2ecd0d496faab ::
-     M.C
+     Ptr.Ptr FC.CInt
   -> IO ()
 
 {-| __C declaration:__ @fooC@
@@ -115,14 +113,14 @@ foreign import ccall safe "hs_bindgen_62c2ecd0d496faab" hs_bindgen_62c2ecd0d496f
     __exported by:__ @binding-specs\/fun_arg\/array.h@
 -}
 fooC ::
-     M.C
+     Ptr.Ptr FC.CInt
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooC = hs_bindgen_62c2ecd0d496faab
 
 -- __unique:__ @test_bindingspecsfun_argarray_Example_Safe_fooD@
 foreign import ccall safe "hs_bindgen_93c6d3de2d542247" hs_bindgen_93c6d3de2d542247 ::
-     M.D
+     Ptr.Ptr FC.CInt
   -> IO ()
 
 {-| __C declaration:__ @fooD@
@@ -132,14 +130,14 @@ foreign import ccall safe "hs_bindgen_93c6d3de2d542247" hs_bindgen_93c6d3de2d542
     __exported by:__ @binding-specs\/fun_arg\/array.h@
 -}
 fooD ::
-     M.D
+     Ptr.Ptr FC.CInt
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooD = hs_bindgen_93c6d3de2d542247
 
 -- __unique:__ @test_bindingspecsfun_argarray_Example_Safe_fooE@
 foreign import ccall safe "hs_bindgen_9f32a06312cb74c2" hs_bindgen_9f32a06312cb74c2 ::
-     E
+     Ptr.Ptr FC.CInt
   -> IO ()
 
 {-| __C declaration:__ @fooE@
@@ -149,7 +147,7 @@ foreign import ccall safe "hs_bindgen_9f32a06312cb74c2" hs_bindgen_9f32a06312cb7
     __exported by:__ @binding-specs\/fun_arg\/array.h@
 -}
 fooE ::
-     E
+     Ptr.Ptr FC.CInt
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooE = hs_bindgen_9f32a06312cb74c2

@@ -33,22 +33,22 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "  fooB(*arg1);"
   , "}"
   , "void hs_bindgen_409d970719708dd0 ("
-  , "  C arg1"
+  , "  C *arg1"
   , ")"
   , "{"
-  , "  fooC(arg1);"
+  , "  fooC(*arg1);"
   , "}"
   , "void hs_bindgen_5a49923661ef790d ("
-  , "  D arg1"
+  , "  D *arg1"
   , ")"
   , "{"
-  , "  fooD(arg1);"
+  , "  fooD(*arg1);"
   , "}"
   , "void hs_bindgen_dc794a694a72bc04 ("
-  , "  E arg1"
+  , "  E *arg1"
   , ")"
   , "{"
-  , "  fooE(arg1);"
+  , "  fooE(*arg1);"
   , "}"
   ]))
 
@@ -135,8 +135,16 @@ fooB =
 
 -- __unique:__ @test_bindingspecsfun_argstruct_Example_Safe_fooC@
 foreign import ccall safe "hs_bindgen_409d970719708dd0" hs_bindgen_409d970719708dd0 ::
-     M.C
+     Ptr.Ptr M.C
   -> IO ()
+
+{-| Pointer-based API for 'fooC'
+-}
+fooC_wrapper ::
+     Ptr.Ptr M.C
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+fooC_wrapper = hs_bindgen_409d970719708dd0
 
 {-| __C declaration:__ @fooC@
 
@@ -148,12 +156,22 @@ fooC ::
      M.C
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooC = hs_bindgen_409d970719708dd0
+fooC =
+  \x0 ->
+    F.with x0 (\y1 -> hs_bindgen_409d970719708dd0 y1)
 
 -- __unique:__ @test_bindingspecsfun_argstruct_Example_Safe_fooD@
 foreign import ccall safe "hs_bindgen_5a49923661ef790d" hs_bindgen_5a49923661ef790d ::
-     M.D
+     Ptr.Ptr M.D
   -> IO ()
+
+{-| Pointer-based API for 'fooD'
+-}
+fooD_wrapper ::
+     Ptr.Ptr M.D
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+fooD_wrapper = hs_bindgen_5a49923661ef790d
 
 {-| __C declaration:__ @fooD@
 
@@ -165,12 +183,22 @@ fooD ::
      M.D
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooD = hs_bindgen_5a49923661ef790d
+fooD =
+  \x0 ->
+    F.with x0 (\y1 -> hs_bindgen_5a49923661ef790d y1)
 
 -- __unique:__ @test_bindingspecsfun_argstruct_Example_Safe_fooE@
 foreign import ccall safe "hs_bindgen_dc794a694a72bc04" hs_bindgen_dc794a694a72bc04 ::
-     E
+     Ptr.Ptr E
   -> IO ()
+
+{-| Pointer-based API for 'fooE'
+-}
+fooE_wrapper ::
+     Ptr.Ptr E
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+fooE_wrapper = hs_bindgen_dc794a694a72bc04
 
 {-| __C declaration:__ @fooE@
 
@@ -182,4 +210,6 @@ fooE ::
      E
      -- ^ __C declaration:__ @x@
   -> IO ()
-fooE = hs_bindgen_dc794a694a72bc04
+fooE =
+  \x0 ->
+    F.with x0 (\y1 -> hs_bindgen_dc794a694a72bc04 y1)

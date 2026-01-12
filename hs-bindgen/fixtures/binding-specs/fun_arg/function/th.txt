@@ -382,7 +382,7 @@ fooB :: FunPtr B -> IO Unit
 fooB = hs_bindgen_43dd2c0c605412fc
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_Safe_fooC@
 foreign import ccall safe "hs_bindgen_8891f659c6cc2bb1" hs_bindgen_8891f659c6cc2bb1 ::
-    Ptr M.C
+    FunPtr M.C
  -> IO Unit
 {-| __C declaration:__ @fooC@
 
@@ -390,7 +390,7 @@ foreign import ccall safe "hs_bindgen_8891f659c6cc2bb1" hs_bindgen_8891f659c6cc2
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-fooC :: Ptr M.C -> IO Unit
+fooC :: FunPtr M.C -> IO Unit
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 22:6@
@@ -400,7 +400,7 @@ fooC :: Ptr M.C -> IO Unit
 fooC = hs_bindgen_8891f659c6cc2bb1
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_Safe_fooD@
 foreign import ccall safe "hs_bindgen_fee955032d875e99" hs_bindgen_fee955032d875e99 ::
-    Ptr M.D
+    FunPtr M.D
  -> IO Unit
 {-| __C declaration:__ @fooD@
 
@@ -408,7 +408,7 @@ foreign import ccall safe "hs_bindgen_fee955032d875e99" hs_bindgen_fee955032d875
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-fooD :: Ptr M.D -> IO Unit
+fooD :: FunPtr M.D -> IO Unit
 {-| __C declaration:__ @fooD@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 23:6@
@@ -418,7 +418,7 @@ fooD :: Ptr M.D -> IO Unit
 fooD = hs_bindgen_fee955032d875e99
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_Safe_fooE@
 foreign import ccall safe "hs_bindgen_16d6d6df95c1f054" hs_bindgen_16d6d6df95c1f054 ::
-    Ptr E
+    FunPtr E
  -> IO Unit
 {-| __C declaration:__ @fooE@
 
@@ -426,7 +426,7 @@ foreign import ccall safe "hs_bindgen_16d6d6df95c1f054" hs_bindgen_16d6d6df95c1f
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-fooE :: Ptr E -> IO Unit
+fooE :: FunPtr E -> IO Unit
 {-| __C declaration:__ @fooE@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 24:6@
@@ -490,7 +490,7 @@ barB :: FunPtr B -> IO Unit
 barB = hs_bindgen_97e945f9c7a17788
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_Safe_barC@
 foreign import ccall safe "hs_bindgen_60958a9bc8154f3b" hs_bindgen_60958a9bc8154f3b ::
-    Ptr M.C
+    FunPtr M.C
  -> IO Unit
 {-| __C declaration:__ @barC@
 
@@ -498,7 +498,7 @@ foreign import ccall safe "hs_bindgen_60958a9bc8154f3b" hs_bindgen_60958a9bc8154
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-barC :: Ptr M.C -> IO Unit
+barC :: FunPtr M.C -> IO Unit
 {-| __C declaration:__ @barC@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 34:6@
@@ -508,7 +508,7 @@ barC :: Ptr M.C -> IO Unit
 barC = hs_bindgen_60958a9bc8154f3b
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_Safe_barD@
 foreign import ccall safe "hs_bindgen_3726b64ffdeed5b5" hs_bindgen_3726b64ffdeed5b5 ::
-    Ptr M.D
+    FunPtr M.D
  -> IO Unit
 {-| __C declaration:__ @barD@
 
@@ -516,7 +516,7 @@ foreign import ccall safe "hs_bindgen_3726b64ffdeed5b5" hs_bindgen_3726b64ffdeed
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-barD :: Ptr M.D -> IO Unit
+barD :: FunPtr M.D -> IO Unit
 {-| __C declaration:__ @barD@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 35:6@
@@ -526,7 +526,7 @@ barD :: Ptr M.D -> IO Unit
 barD = hs_bindgen_3726b64ffdeed5b5
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_Safe_barE@
 foreign import ccall safe "hs_bindgen_8e4c333c820a545f" hs_bindgen_8e4c333c820a545f ::
-    Ptr E
+    FunPtr E
  -> IO Unit
 {-| __C declaration:__ @barE@
 
@@ -534,7 +534,7 @@ foreign import ccall safe "hs_bindgen_8e4c333c820a545f" hs_bindgen_8e4c333c820a5
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-barE :: Ptr E -> IO Unit
+barE :: FunPtr E -> IO Unit
 {-| __C declaration:__ @barE@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 36:6@
@@ -598,7 +598,7 @@ fooB :: FunPtr B -> IO Unit
 fooB = hs_bindgen_1666c20b0adf43e8
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_Unsafe_fooC@
 foreign import ccall safe "hs_bindgen_eb059a00d66d3f2c" hs_bindgen_eb059a00d66d3f2c ::
-    Ptr M.C
+    FunPtr M.C
  -> IO Unit
 {-| __C declaration:__ @fooC@
 
@@ -606,7 +606,7 @@ foreign import ccall safe "hs_bindgen_eb059a00d66d3f2c" hs_bindgen_eb059a00d66d3
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-fooC :: Ptr M.C -> IO Unit
+fooC :: FunPtr M.C -> IO Unit
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 22:6@
@@ -616,7 +616,7 @@ fooC :: Ptr M.C -> IO Unit
 fooC = hs_bindgen_eb059a00d66d3f2c
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_Unsafe_fooD@
 foreign import ccall safe "hs_bindgen_e4db7213fe4a0384" hs_bindgen_e4db7213fe4a0384 ::
-    Ptr M.D
+    FunPtr M.D
  -> IO Unit
 {-| __C declaration:__ @fooD@
 
@@ -624,7 +624,7 @@ foreign import ccall safe "hs_bindgen_e4db7213fe4a0384" hs_bindgen_e4db7213fe4a0
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-fooD :: Ptr M.D -> IO Unit
+fooD :: FunPtr M.D -> IO Unit
 {-| __C declaration:__ @fooD@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 23:6@
@@ -634,7 +634,7 @@ fooD :: Ptr M.D -> IO Unit
 fooD = hs_bindgen_e4db7213fe4a0384
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_Unsafe_fooE@
 foreign import ccall safe "hs_bindgen_08d10843d2358c70" hs_bindgen_08d10843d2358c70 ::
-    Ptr E
+    FunPtr E
  -> IO Unit
 {-| __C declaration:__ @fooE@
 
@@ -642,7 +642,7 @@ foreign import ccall safe "hs_bindgen_08d10843d2358c70" hs_bindgen_08d10843d2358
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-fooE :: Ptr E -> IO Unit
+fooE :: FunPtr E -> IO Unit
 {-| __C declaration:__ @fooE@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 24:6@
@@ -706,7 +706,7 @@ barB :: FunPtr B -> IO Unit
 barB = hs_bindgen_620e4006acfa001e
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_Unsafe_barC@
 foreign import ccall safe "hs_bindgen_1f329c0669b9536a" hs_bindgen_1f329c0669b9536a ::
-    Ptr M.C
+    FunPtr M.C
  -> IO Unit
 {-| __C declaration:__ @barC@
 
@@ -714,7 +714,7 @@ foreign import ccall safe "hs_bindgen_1f329c0669b9536a" hs_bindgen_1f329c0669b95
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-barC :: Ptr M.C -> IO Unit
+barC :: FunPtr M.C -> IO Unit
 {-| __C declaration:__ @barC@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 34:6@
@@ -724,7 +724,7 @@ barC :: Ptr M.C -> IO Unit
 barC = hs_bindgen_1f329c0669b9536a
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_Unsafe_barD@
 foreign import ccall safe "hs_bindgen_1054ad1560b34a7d" hs_bindgen_1054ad1560b34a7d ::
-    Ptr M.D
+    FunPtr M.D
  -> IO Unit
 {-| __C declaration:__ @barD@
 
@@ -732,7 +732,7 @@ foreign import ccall safe "hs_bindgen_1054ad1560b34a7d" hs_bindgen_1054ad1560b34
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-barD :: Ptr M.D -> IO Unit
+barD :: FunPtr M.D -> IO Unit
 {-| __C declaration:__ @barD@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 35:6@
@@ -742,7 +742,7 @@ barD :: Ptr M.D -> IO Unit
 barD = hs_bindgen_1054ad1560b34a7d
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_Unsafe_barE@
 foreign import ccall safe "hs_bindgen_4a9c2d1ad62dd8eb" hs_bindgen_4a9c2d1ad62dd8eb ::
-    Ptr E
+    FunPtr E
  -> IO Unit
 {-| __C declaration:__ @barE@
 
@@ -750,7 +750,7 @@ foreign import ccall safe "hs_bindgen_4a9c2d1ad62dd8eb" hs_bindgen_4a9c2d1ad62dd
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-barE :: Ptr E -> IO Unit
+barE :: FunPtr E -> IO Unit
 {-| __C declaration:__ @barE@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 36:6@
@@ -814,7 +814,7 @@ fooB :: FunPtr (FunPtr B -> IO Unit)
 fooB = unsafePerformIO hs_bindgen_568bf4fa5a80b6d4
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_get_fooC@
 foreign import ccall safe "hs_bindgen_79ba57311c1537e9" hs_bindgen_79ba57311c1537e9 ::
-    IO (FunPtr (Ptr M.C -> IO Unit))
+    IO (FunPtr (FunPtr M.C -> IO Unit))
 {-# NOINLINE fooC #-}
 {-| __C declaration:__ @fooC@
 
@@ -822,7 +822,7 @@ foreign import ccall safe "hs_bindgen_79ba57311c1537e9" hs_bindgen_79ba57311c153
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-fooC :: FunPtr (Ptr M.C -> IO Unit)
+fooC :: FunPtr (FunPtr M.C -> IO Unit)
 {-| __C declaration:__ @fooC@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 22:6@
@@ -832,7 +832,7 @@ fooC :: FunPtr (Ptr M.C -> IO Unit)
 fooC = unsafePerformIO hs_bindgen_79ba57311c1537e9
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_get_fooD@
 foreign import ccall safe "hs_bindgen_e9befcc69cbf152b" hs_bindgen_e9befcc69cbf152b ::
-    IO (FunPtr (Ptr M.D -> IO Unit))
+    IO (FunPtr (FunPtr M.D -> IO Unit))
 {-# NOINLINE fooD #-}
 {-| __C declaration:__ @fooD@
 
@@ -840,7 +840,7 @@ foreign import ccall safe "hs_bindgen_e9befcc69cbf152b" hs_bindgen_e9befcc69cbf1
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-fooD :: FunPtr (Ptr M.D -> IO Unit)
+fooD :: FunPtr (FunPtr M.D -> IO Unit)
 {-| __C declaration:__ @fooD@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 23:6@
@@ -850,7 +850,7 @@ fooD :: FunPtr (Ptr M.D -> IO Unit)
 fooD = unsafePerformIO hs_bindgen_e9befcc69cbf152b
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_get_fooE@
 foreign import ccall safe "hs_bindgen_e1c0f75003a4e64d" hs_bindgen_e1c0f75003a4e64d ::
-    IO (FunPtr (Ptr E -> IO Unit))
+    IO (FunPtr (FunPtr E -> IO Unit))
 {-# NOINLINE fooE #-}
 {-| __C declaration:__ @fooE@
 
@@ -858,7 +858,7 @@ foreign import ccall safe "hs_bindgen_e1c0f75003a4e64d" hs_bindgen_e1c0f75003a4e
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-fooE :: FunPtr (Ptr E -> IO Unit)
+fooE :: FunPtr (FunPtr E -> IO Unit)
 {-| __C declaration:__ @fooE@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 24:6@
@@ -922,7 +922,7 @@ barB :: FunPtr (FunPtr B -> IO Unit)
 barB = unsafePerformIO hs_bindgen_911053d3f3a619b7
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_get_barC@
 foreign import ccall safe "hs_bindgen_cdc4cc959ee149f8" hs_bindgen_cdc4cc959ee149f8 ::
-    IO (FunPtr (Ptr M.C -> IO Unit))
+    IO (FunPtr (FunPtr M.C -> IO Unit))
 {-# NOINLINE barC #-}
 {-| __C declaration:__ @barC@
 
@@ -930,7 +930,7 @@ foreign import ccall safe "hs_bindgen_cdc4cc959ee149f8" hs_bindgen_cdc4cc959ee14
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-barC :: FunPtr (Ptr M.C -> IO Unit)
+barC :: FunPtr (FunPtr M.C -> IO Unit)
 {-| __C declaration:__ @barC@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 34:6@
@@ -940,7 +940,7 @@ barC :: FunPtr (Ptr M.C -> IO Unit)
 barC = unsafePerformIO hs_bindgen_cdc4cc959ee149f8
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_get_barD@
 foreign import ccall safe "hs_bindgen_e17be35f67e6c7ca" hs_bindgen_e17be35f67e6c7ca ::
-    IO (FunPtr (Ptr M.D -> IO Unit))
+    IO (FunPtr (FunPtr M.D -> IO Unit))
 {-# NOINLINE barD #-}
 {-| __C declaration:__ @barD@
 
@@ -948,7 +948,7 @@ foreign import ccall safe "hs_bindgen_e17be35f67e6c7ca" hs_bindgen_e17be35f67e6c
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-barD :: FunPtr (Ptr M.D -> IO Unit)
+barD :: FunPtr (FunPtr M.D -> IO Unit)
 {-| __C declaration:__ @barD@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 35:6@
@@ -958,7 +958,7 @@ barD :: FunPtr (Ptr M.D -> IO Unit)
 barD = unsafePerformIO hs_bindgen_e17be35f67e6c7ca
 -- __unique:__ @test_bindingspecsfun_argfunction_Example_get_barE@
 foreign import ccall safe "hs_bindgen_956eed2c9d6ddacf" hs_bindgen_956eed2c9d6ddacf ::
-    IO (FunPtr (Ptr E -> IO Unit))
+    IO (FunPtr (FunPtr E -> IO Unit))
 {-# NOINLINE barE #-}
 {-| __C declaration:__ @barE@
 
@@ -966,7 +966,7 @@ foreign import ccall safe "hs_bindgen_956eed2c9d6ddacf" hs_bindgen_956eed2c9d6dd
 
     __exported by:__ @binding-specs\/fun_arg\/function.h@
 -}
-barE :: FunPtr (Ptr E -> IO Unit)
+barE :: FunPtr (FunPtr E -> IO Unit)
 {-| __C declaration:__ @barE@
 
     __defined at:__ @binding-specs\/fun_arg\/function.h 36:6@

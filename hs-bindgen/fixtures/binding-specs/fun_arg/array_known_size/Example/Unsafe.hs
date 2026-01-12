@@ -8,8 +8,6 @@ module Example.Unsafe where
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Prelude
-import qualified M
-import Example
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -33,19 +31,19 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "  fooB(arg1);"
   , "}"
   , "void hs_bindgen_e1295831d35f6812 ("
-  , "  C arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  fooC(arg1);"
   , "}"
   , "void hs_bindgen_a14efdef6a3a481f ("
-  , "  D arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  fooD(arg1);"
   , "}"
   , "void hs_bindgen_3fb481fda03d5ce0 ("
-  , "  E arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  fooE(arg1);"
@@ -105,7 +103,7 @@ fooB = hs_bindgen_0d3bfff3d9aceab7
 
 -- __unique:__ @test_bindingspecsfun_argarray_kn_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_e1295831d35f6812" hs_bindgen_e1295831d35f6812 ::
-     M.C
+     Ptr.Ptr FC.CInt
   -> IO ()
 
 {-| __C declaration:__ @fooC@
@@ -115,14 +113,14 @@ foreign import ccall unsafe "hs_bindgen_e1295831d35f6812" hs_bindgen_e1295831d35
     __exported by:__ @binding-specs\/fun_arg\/array_known_size.h@
 -}
 fooC ::
-     M.C
+     Ptr.Ptr FC.CInt
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooC = hs_bindgen_e1295831d35f6812
 
 -- __unique:__ @test_bindingspecsfun_argarray_kn_Example_Unsafe_fooD@
 foreign import ccall unsafe "hs_bindgen_a14efdef6a3a481f" hs_bindgen_a14efdef6a3a481f ::
-     M.D
+     Ptr.Ptr FC.CInt
   -> IO ()
 
 {-| __C declaration:__ @fooD@
@@ -132,14 +130,14 @@ foreign import ccall unsafe "hs_bindgen_a14efdef6a3a481f" hs_bindgen_a14efdef6a3
     __exported by:__ @binding-specs\/fun_arg\/array_known_size.h@
 -}
 fooD ::
-     M.D
+     Ptr.Ptr FC.CInt
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooD = hs_bindgen_a14efdef6a3a481f
 
 -- __unique:__ @test_bindingspecsfun_argarray_kn_Example_Unsafe_fooE@
 foreign import ccall unsafe "hs_bindgen_3fb481fda03d5ce0" hs_bindgen_3fb481fda03d5ce0 ::
-     E
+     Ptr.Ptr FC.CInt
   -> IO ()
 
 {-| __C declaration:__ @fooE@
@@ -149,7 +147,7 @@ foreign import ccall unsafe "hs_bindgen_3fb481fda03d5ce0" hs_bindgen_3fb481fda03
     __exported by:__ @binding-specs\/fun_arg\/array_known_size.h@
 -}
 fooE ::
-     E
+     Ptr.Ptr FC.CInt
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooE = hs_bindgen_3fb481fda03d5ce0
