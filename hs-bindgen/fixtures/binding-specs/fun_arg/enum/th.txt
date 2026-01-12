@@ -1,0 +1,565 @@
+-- addDependentFile examples/golden/binding-specs/fun_arg/enum.h
+-- #include <binding-specs/fun_arg/enum.h>
+-- void hs_bindgen_dc70ea2c3e0f59f7 (
+--   enum MyEnum arg1
+-- )
+-- {
+--   foo(arg1);
+-- }
+-- void hs_bindgen_b2cb354892eb7f37 (
+--   A arg1
+-- )
+-- {
+--   fooA(arg1);
+-- }
+-- void hs_bindgen_247fcd1e9502076f (
+--   B arg1
+-- )
+-- {
+--   fooB(arg1);
+-- }
+-- void hs_bindgen_700400324966c13f (
+--   C arg1
+-- )
+-- {
+--   fooC(arg1);
+-- }
+-- void hs_bindgen_d350cebf8bce06e0 (
+--   D arg1
+-- )
+-- {
+--   fooD(arg1);
+-- }
+-- void hs_bindgen_5a900ea11300707d (
+--   E arg1
+-- )
+-- {
+--   fooE(arg1);
+-- }
+-- void hs_bindgen_7a447ec2e0ff6918 (
+--   enum MyEnum arg1
+-- )
+-- {
+--   foo(arg1);
+-- }
+-- void hs_bindgen_edec6f63d3bb95f2 (
+--   A arg1
+-- )
+-- {
+--   fooA(arg1);
+-- }
+-- void hs_bindgen_44d9554b39200196 (
+--   B arg1
+-- )
+-- {
+--   fooB(arg1);
+-- }
+-- void hs_bindgen_425db0e548343d0e (
+--   C arg1
+-- )
+-- {
+--   fooC(arg1);
+-- }
+-- void hs_bindgen_a9d2a72404176a97 (
+--   D arg1
+-- )
+-- {
+--   fooD(arg1);
+-- }
+-- void hs_bindgen_293ee0f23fd07e98 (
+--   E arg1
+-- )
+-- {
+--   fooE(arg1);
+-- }
+-- /* test_bindingspecsfun_argenum_Example_get_foo */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_ba3da81519e4d7fd (void)) (
+--   enum MyEnum arg1
+-- )
+-- {
+--   return &foo;
+-- }
+-- /* test_bindingspecsfun_argenum_Example_get_fooA */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_083abf6b0966267d (void)) (
+--   A arg1
+-- )
+-- {
+--   return &fooA;
+-- }
+-- /* test_bindingspecsfun_argenum_Example_get_fooB */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_2e34202e0d19b6a0 (void)) (
+--   B arg1
+-- )
+-- {
+--   return &fooB;
+-- }
+-- /* test_bindingspecsfun_argenum_Example_get_fooC */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_fc13499d2a422fe0 (void)) (
+--   C arg1
+-- )
+-- {
+--   return &fooC;
+-- }
+-- /* test_bindingspecsfun_argenum_Example_get_fooD */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_22ba7e22852829ac (void)) (
+--   D arg1
+-- )
+-- {
+--   return &fooD;
+-- }
+-- /* test_bindingspecsfun_argenum_Example_get_fooE */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_c8e5bd1a07bfbb09 (void)) (
+--   E arg1
+-- )
+-- {
+--   return &fooE;
+-- }
+{-| __C declaration:__ @enum MyEnum@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 4:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+newtype MyEnum
+    = MyEnum {un_MyEnum :: CUInt}
+      {- ^ __C declaration:__ @enum MyEnum@
+
+           __defined at:__ @binding-specs\/fun_arg\/enum.h 4:6@
+
+           __exported by:__ @binding-specs\/fun_arg\/enum.h@
+      -}
+    deriving stock (Eq, Ord)
+    deriving newtype HasBaseForeignType
+instance Storable MyEnum
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure MyEnum <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   MyEnum un_MyEnum_3 -> pokeByteOff ptr_1 (0 :: Int) un_MyEnum_3
+deriving via CUInt instance Prim MyEnum
+instance CEnum MyEnum
+    where type CEnumZ MyEnum = CUInt
+          toCEnum = MyEnum
+          fromCEnum = un_MyEnum
+          declaredValues = \_ -> declaredValuesFromList [(0, singleton "X")]
+          showsUndeclared = showsWrappedUndeclared "MyEnum"
+          readPrecUndeclared = readPrecWrappedUndeclared "MyEnum"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum MyEnum
+    where minDeclaredValue = X
+          maxDeclaredValue = X
+instance Show MyEnum
+    where showsPrec = showsCEnum
+instance Read MyEnum
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @x@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 4:14@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+pattern X :: MyEnum
+{-| __C declaration:__ @x@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 4:14@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+pattern X = MyEnum 0
+{-| __C declaration:__ @A@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 7:21@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+newtype A
+    = A {un_A :: MyEnum}
+      {- ^ __C declaration:__ @A@
+
+           __defined at:__ @binding-specs\/fun_arg\/enum.h 7:21@
+
+           __exported by:__ @binding-specs\/fun_arg\/enum.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable, HasBaseForeignType)
+instance TyEq ty (CFieldType A "un_A") =>
+         HasField "un_A" (Ptr A) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_A")
+instance HasCField A "un_A"
+    where type CFieldType A "un_A" = MyEnum
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @B@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 8:11@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+newtype B
+    = B {un_B :: A}
+      {- ^ __C declaration:__ @B@
+
+           __defined at:__ @binding-specs\/fun_arg\/enum.h 8:11@
+
+           __exported by:__ @binding-specs\/fun_arg\/enum.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable, HasBaseForeignType)
+instance TyEq ty (CFieldType B "un_B") =>
+         HasField "un_B" (Ptr B) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_B")
+instance HasCField B "un_B"
+    where type CFieldType B "un_B" = A
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @E@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 21:11@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+newtype E
+    = E {un_E :: M.C}
+      {- ^ __C declaration:__ @E@
+
+           __defined at:__ @binding-specs\/fun_arg\/enum.h 21:11@
+
+           __exported by:__ @binding-specs\/fun_arg\/enum.h@
+      -}
+instance TyEq ty (CFieldType E "un_E") =>
+         HasField "un_E" (Ptr E) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_E")
+instance HasCField E "un_E"
+    where type CFieldType E "un_E" = M.C
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_bindingspecsfun_argenum_Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_dc70ea2c3e0f59f7" hs_bindgen_dc70ea2c3e0f59f7 ::
+    MyEnum
+ -> IO Unit
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 5:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+foo :: MyEnum -> IO Unit
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 5:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+foo = hs_bindgen_dc70ea2c3e0f59f7
+-- __unique:__ @test_bindingspecsfun_argenum_Example_Safe_fooA@
+foreign import ccall safe "hs_bindgen_b2cb354892eb7f37" hs_bindgen_b2cb354892eb7f37 ::
+    A
+ -> IO Unit
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 10:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooA :: A -> IO Unit
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 10:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooA = hs_bindgen_b2cb354892eb7f37
+-- __unique:__ @test_bindingspecsfun_argenum_Example_Safe_fooB@
+foreign import ccall safe "hs_bindgen_247fcd1e9502076f" hs_bindgen_247fcd1e9502076f ::
+    B
+ -> IO Unit
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 11:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooB :: B -> IO Unit
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 11:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooB = hs_bindgen_247fcd1e9502076f
+-- __unique:__ @test_bindingspecsfun_argenum_Example_Safe_fooC@
+foreign import ccall safe "hs_bindgen_700400324966c13f" hs_bindgen_700400324966c13f ::
+    M.C
+ -> IO Unit
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 23:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooC :: M.C -> IO Unit
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 23:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooC = hs_bindgen_700400324966c13f
+-- __unique:__ @test_bindingspecsfun_argenum_Example_Safe_fooD@
+foreign import ccall safe "hs_bindgen_d350cebf8bce06e0" hs_bindgen_d350cebf8bce06e0 ::
+    M.D
+ -> IO Unit
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 24:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooD :: M.D -> IO Unit
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 24:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooD = hs_bindgen_d350cebf8bce06e0
+-- __unique:__ @test_bindingspecsfun_argenum_Example_Safe_fooE@
+foreign import ccall safe "hs_bindgen_5a900ea11300707d" hs_bindgen_5a900ea11300707d ::
+    E
+ -> IO Unit
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 25:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooE :: E -> IO Unit
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 25:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooE = hs_bindgen_5a900ea11300707d
+-- __unique:__ @test_bindingspecsfun_argenum_Example_Unsafe_foo@
+foreign import ccall safe "hs_bindgen_7a447ec2e0ff6918" hs_bindgen_7a447ec2e0ff6918 ::
+    MyEnum
+ -> IO Unit
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 5:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+foo :: MyEnum -> IO Unit
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 5:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+foo = hs_bindgen_7a447ec2e0ff6918
+-- __unique:__ @test_bindingspecsfun_argenum_Example_Unsafe_fooA@
+foreign import ccall safe "hs_bindgen_edec6f63d3bb95f2" hs_bindgen_edec6f63d3bb95f2 ::
+    A
+ -> IO Unit
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 10:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooA :: A -> IO Unit
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 10:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooA = hs_bindgen_edec6f63d3bb95f2
+-- __unique:__ @test_bindingspecsfun_argenum_Example_Unsafe_fooB@
+foreign import ccall safe "hs_bindgen_44d9554b39200196" hs_bindgen_44d9554b39200196 ::
+    B
+ -> IO Unit
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 11:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooB :: B -> IO Unit
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 11:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooB = hs_bindgen_44d9554b39200196
+-- __unique:__ @test_bindingspecsfun_argenum_Example_Unsafe_fooC@
+foreign import ccall safe "hs_bindgen_425db0e548343d0e" hs_bindgen_425db0e548343d0e ::
+    M.C
+ -> IO Unit
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 23:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooC :: M.C -> IO Unit
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 23:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooC = hs_bindgen_425db0e548343d0e
+-- __unique:__ @test_bindingspecsfun_argenum_Example_Unsafe_fooD@
+foreign import ccall safe "hs_bindgen_a9d2a72404176a97" hs_bindgen_a9d2a72404176a97 ::
+    M.D
+ -> IO Unit
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 24:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooD :: M.D -> IO Unit
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 24:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooD = hs_bindgen_a9d2a72404176a97
+-- __unique:__ @test_bindingspecsfun_argenum_Example_Unsafe_fooE@
+foreign import ccall safe "hs_bindgen_293ee0f23fd07e98" hs_bindgen_293ee0f23fd07e98 ::
+    E
+ -> IO Unit
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 25:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooE :: E -> IO Unit
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 25:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooE = hs_bindgen_293ee0f23fd07e98
+-- __unique:__ @test_bindingspecsfun_argenum_Example_get_foo@
+foreign import ccall safe "hs_bindgen_ba3da81519e4d7fd" hs_bindgen_ba3da81519e4d7fd ::
+    IO (FunPtr (MyEnum -> IO Unit))
+{-# NOINLINE foo #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 5:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+foo :: FunPtr (MyEnum -> IO Unit)
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 5:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+foo = unsafePerformIO hs_bindgen_ba3da81519e4d7fd
+-- __unique:__ @test_bindingspecsfun_argenum_Example_get_fooA@
+foreign import ccall safe "hs_bindgen_083abf6b0966267d" hs_bindgen_083abf6b0966267d ::
+    IO (FunPtr (A -> IO Unit))
+{-# NOINLINE fooA #-}
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 10:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooA :: FunPtr (A -> IO Unit)
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 10:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooA = unsafePerformIO hs_bindgen_083abf6b0966267d
+-- __unique:__ @test_bindingspecsfun_argenum_Example_get_fooB@
+foreign import ccall safe "hs_bindgen_2e34202e0d19b6a0" hs_bindgen_2e34202e0d19b6a0 ::
+    IO (FunPtr (B -> IO Unit))
+{-# NOINLINE fooB #-}
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 11:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooB :: FunPtr (B -> IO Unit)
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 11:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooB = unsafePerformIO hs_bindgen_2e34202e0d19b6a0
+-- __unique:__ @test_bindingspecsfun_argenum_Example_get_fooC@
+foreign import ccall safe "hs_bindgen_fc13499d2a422fe0" hs_bindgen_fc13499d2a422fe0 ::
+    IO (FunPtr (M.C -> IO Unit))
+{-# NOINLINE fooC #-}
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 23:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooC :: FunPtr (M.C -> IO Unit)
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 23:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooC = unsafePerformIO hs_bindgen_fc13499d2a422fe0
+-- __unique:__ @test_bindingspecsfun_argenum_Example_get_fooD@
+foreign import ccall safe "hs_bindgen_22ba7e22852829ac" hs_bindgen_22ba7e22852829ac ::
+    IO (FunPtr (M.D -> IO Unit))
+{-# NOINLINE fooD #-}
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 24:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooD :: FunPtr (M.D -> IO Unit)
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 24:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooD = unsafePerformIO hs_bindgen_22ba7e22852829ac
+-- __unique:__ @test_bindingspecsfun_argenum_Example_get_fooE@
+foreign import ccall safe "hs_bindgen_c8e5bd1a07bfbb09" hs_bindgen_c8e5bd1a07bfbb09 ::
+    IO (FunPtr (E -> IO Unit))
+{-# NOINLINE fooE #-}
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 25:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooE :: FunPtr (E -> IO Unit)
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/enum.h 25:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/enum.h@
+-}
+fooE = unsafePerformIO hs_bindgen_c8e5bd1a07bfbb09

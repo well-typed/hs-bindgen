@@ -424,6 +424,14 @@ testCases_bespoke_bindingSpecs = [
     , test_bindingSpecs_bs_pre_rename_squash_typedef
     , test_bindingSpecs_bs_pre_rename_type
     , test_bindingSpecs_bs_pre_target_mismatch
+      -- * Function arguments
+    , test_bindingSpecs_fun_arg_array
+    , test_bindingSpecs_fun_arg_array_known_size
+    , test_bindingSpecs_fun_arg_enum
+    , test_bindingSpecs_fun_arg_function
+    , test_bindingSpecs_fun_arg_function_pointer
+    , test_bindingSpecs_fun_arg_struct
+    , test_bindingSpecs_fun_arg_union
     ]
 
 test_bindingSpecs_bs_ext_target_any :: TestCase
@@ -497,6 +505,119 @@ test_bindingSpecs_bs_pre_target_mismatch =
               Just $ Expected ()
             _otherwise ->
               Nothing
+          )
+
+-- | Test that @hs-bindgen@ can detect whether an external binding reference
+-- references an array type (of unknown size).
+--
+-- Arrays are passed by 'Ptr' to the first element of the array.
+test_bindingSpecs_fun_arg_array :: TestCase
+test_bindingSpecs_fun_arg_array =
+    defaultTest "binding-specs/fun_arg/array"
+      & #specExternal .~
+          [ "examples/golden/binding-specs/fun_arg/array.yaml"
+          ]
+      & #onFrontend .~ ( #selectPredicate .~
+            BOr
+              (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
+              (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
+          )
+
+-- | Test that @hs-bindgen@ can detect whether an external binding reference
+-- references an array type of known size.
+--
+-- Arrays of known size are passed by 'Ptr' to the first element of the array.
+test_bindingSpecs_fun_arg_array_known_size :: TestCase
+test_bindingSpecs_fun_arg_array_known_size =
+    defaultTest "binding-specs/fun_arg/array_known_size"
+      & #specExternal .~
+          [ "examples/golden/binding-specs/fun_arg/array_known_size.yaml"
+          ]
+      & #onFrontend .~ ( #selectPredicate .~
+            BOr
+              (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
+              (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
+          )
+
+-- | Test that @hs-bindgen@ can detect whether an external binding reference
+-- references an enum type.
+--
+-- Enums can be passed by value rather than by 'Ptr'.
+test_bindingSpecs_fun_arg_enum :: TestCase
+test_bindingSpecs_fun_arg_enum =
+    defaultTest "binding-specs/fun_arg/enum"
+      & #specExternal .~
+          [ "examples/golden/binding-specs/fun_arg/enum.yaml"
+          ]
+      & #onFrontend .~ ( #selectPredicate .~
+            BOr
+              (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
+              (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
+          )
+
+-- | Test that @hs-bindgen@ can detect whether an external binding reference
+-- references a function type.
+--
+-- Functions should be passed by 'FunPtr' rather than by 'Ptr'. Previously we
+-- had a bug where we doing the latter, see issue #1363.
+test_bindingSpecs_fun_arg_function :: TestCase
+test_bindingSpecs_fun_arg_function =
+    defaultTest "binding-specs/fun_arg/function"
+      & #specExternal .~
+          [ "examples/golden/binding-specs/fun_arg/function.yaml"
+          ]
+      & #onFrontend .~ ( #selectPredicate .~
+            BOr
+              (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
+              (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
+          )
+
+-- | Test that @hs-bindgen@ can detect whether an external binding reference
+-- references a function pointer type.
+--
+-- Functions should be passed by 'FunPtr' rather than by 'Ptr'.
+test_bindingSpecs_fun_arg_function_pointer :: TestCase
+test_bindingSpecs_fun_arg_function_pointer =
+    defaultTest "binding-specs/fun_arg/function_pointer"
+      & #specExternal .~
+          [ "examples/golden/binding-specs/fun_arg/function_pointer.yaml"
+          ]
+      & #onFrontend .~ ( #selectPredicate .~
+            BOr
+              (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
+              (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
+          )
+
+-- | Test that @hs-bindgen@ can detect whether an external binding reference
+-- references a struct type.
+--
+-- Structs should be passed by 'Ptr' rather than by value.
+test_bindingSpecs_fun_arg_struct :: TestCase
+test_bindingSpecs_fun_arg_struct =
+    defaultTest "binding-specs/fun_arg/struct"
+      & #specExternal .~
+          [ "examples/golden/binding-specs/fun_arg/struct.yaml"
+          ]
+      & #onFrontend .~ ( #selectPredicate .~
+            BOr
+              (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
+              (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
+          )
+
+-- | Test that @hs-bindgen@ can detect whether an external binding reference
+-- references a union type.
+--
+-- Union should be passed by 'Ptr' rather than by value.
+test_bindingSpecs_fun_arg_union :: TestCase
+test_bindingSpecs_fun_arg_union =
+    defaultTest "binding-specs/fun_arg/union"
+      & #specExternal .~
+          [ "examples/golden/binding-specs/fun_arg/union.yaml"
+          ]
+      & #onFrontend .~ ( #selectPredicate .~
+            BOr
+              (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
+              (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
           )
 
 {-------------------------------------------------------------------------------
