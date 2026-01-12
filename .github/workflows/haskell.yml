@@ -129,6 +129,11 @@ jobs:
         git config --global core.autocrlf false
         git config --global core.eol lf
 
+    - name: 🛠️ Fix git on macOS (prioritize system git over Homebrew)
+      if: runner.os == 'macOS'
+      run: |
+        echo "/usr/bin" >> "$GITHUB_PATH"
+
     - name: 📥 Checkout
       uses: actions/checkout@v4
 
