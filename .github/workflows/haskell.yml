@@ -32,7 +32,9 @@ jobs:
       if: ${{ github.event_name == 'pull_request' }}
       run: |
         { echo 'MATRIX_COMBINATIONS<<EOF'
-          echo '{"runner": "ubuntu-latest", "ghc": "9.4", "llvm": "15"},'
+          # TODO D: Run ubuntu again in PR view.
+          # echo '{"runner": "ubuntu-latest", "ghc": "9.4", "llvm": "15"},'
+          echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
           echo EOF
         } >> "$GITHUB_ENV"
 
@@ -169,6 +171,10 @@ jobs:
 
     - name: 🛠️ cabal.project
       run: cp cabal.project.ci cabal.project
+
+    - name: Setup tmate session
+      if: runner.os == 'macOS'
+      uses: mxschmitt/action-tmate@v3
 
     - name: 💾 Generate Cabal plan
       run: cabal build all --dry-run
