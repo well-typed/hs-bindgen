@@ -143,8 +143,9 @@ instance TyEq ty (CFieldType Thing "thing_x") =>
          HasField "thing_x" (Ptr Thing) (Ptr ty)
     where getField = ptrToCField (Proxy @"thing_x")
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_1@
-foreign import ccall safe "hs_bindgen_4ad25504590fdd2b" hs_bindgen_4ad25504590fdd2b :: Ptr Thing ->
-                                                                                       IO CInt
+foreign import ccall safe "hs_bindgen_4ad25504590fdd2b" hs_bindgen_4ad25504590fdd2b ::
+    Ptr Thing
+ -> IO CInt
 {-| Pointer-based API for 'thing_fun_1'
 -}
 thing_fun_1_wrapper :: Ptr Thing -> IO CInt
@@ -166,9 +167,10 @@ thing_fun_1 :: Thing -> IO CInt
 -}
 thing_fun_1 = \x_0 -> with x_0 (\y_1 -> hs_bindgen_4ad25504590fdd2b y_1)
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_2@
-foreign import ccall safe "hs_bindgen_04a435522bf64978" hs_bindgen_04a435522bf64978 :: CInt ->
-                                                                                       Ptr Thing ->
-                                                                                       IO Unit
+foreign import ccall safe "hs_bindgen_04a435522bf64978" hs_bindgen_04a435522bf64978 ::
+    CInt
+ -> Ptr Thing
+ -> IO Unit
 {-| Pointer-based API for 'thing_fun_2'
 -}
 thing_fun_2_wrapper :: CInt -> Ptr Thing -> IO Unit
@@ -190,11 +192,12 @@ thing_fun_2 :: CInt -> IO Thing
 -}
 thing_fun_2 = \x_0 -> allocaAndPeek (\z_1 -> hs_bindgen_04a435522bf64978 x_0 z_1)
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3a@
-foreign import ccall safe "hs_bindgen_5e3271324df7ced2" hs_bindgen_5e3271324df7ced2 :: CInt ->
-                                                                                       Ptr Thing ->
-                                                                                       CDouble ->
-                                                                                       Ptr Thing ->
-                                                                                       IO Unit
+foreign import ccall safe "hs_bindgen_5e3271324df7ced2" hs_bindgen_5e3271324df7ced2 ::
+    CInt
+ -> Ptr Thing
+ -> CDouble
+ -> Ptr Thing
+ -> IO Unit
 {-| Pointer-based API for 'thing_fun_3a'
 -}
 thing_fun_3a_wrapper :: CInt ->
@@ -217,10 +220,11 @@ thing_fun_3a :: CInt -> Thing -> CDouble -> IO Thing
 -}
 thing_fun_3a = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> allocaAndPeek (\z_4 -> hs_bindgen_5e3271324df7ced2 x_0 y_3 x_2 z_4))
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3b@
-foreign import ccall safe "hs_bindgen_3525c7d1c72f2fae" hs_bindgen_3525c7d1c72f2fae :: CInt ->
-                                                                                       Ptr Thing ->
-                                                                                       CDouble ->
-                                                                                       IO CChar
+foreign import ccall safe "hs_bindgen_3525c7d1c72f2fae" hs_bindgen_3525c7d1c72f2fae ::
+    CInt
+ -> Ptr Thing
+ -> CDouble
+ -> IO CChar
 {-| Pointer-based API for 'thing_fun_3b'
 -}
 thing_fun_3b_wrapper :: CInt -> Ptr Thing -> CDouble -> IO CChar
@@ -242,8 +246,9 @@ thing_fun_3b :: CInt -> Thing -> CDouble -> IO CChar
 -}
 thing_fun_3b = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> hs_bindgen_3525c7d1c72f2fae x_0 y_3 x_2)
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_1@
-foreign import ccall safe "hs_bindgen_0bdddf60550fc97b" hs_bindgen_0bdddf60550fc97b :: Ptr Thing ->
-                                                                                       IO CInt
+foreign import ccall safe "hs_bindgen_0bdddf60550fc97b" hs_bindgen_0bdddf60550fc97b ::
+    Ptr Thing
+ -> IO CInt
 {-| Pointer-based API for 'thing_fun_1'
 -}
 thing_fun_1_wrapper :: Ptr Thing -> IO CInt
@@ -265,9 +270,10 @@ thing_fun_1 :: Thing -> IO CInt
 -}
 thing_fun_1 = \x_0 -> with x_0 (\y_1 -> hs_bindgen_0bdddf60550fc97b y_1)
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_2@
-foreign import ccall safe "hs_bindgen_c293d866e22be6fc" hs_bindgen_c293d866e22be6fc :: CInt ->
-                                                                                       Ptr Thing ->
-                                                                                       IO Unit
+foreign import ccall safe "hs_bindgen_c293d866e22be6fc" hs_bindgen_c293d866e22be6fc ::
+    CInt
+ -> Ptr Thing
+ -> IO Unit
 {-| Pointer-based API for 'thing_fun_2'
 -}
 thing_fun_2_wrapper :: CInt -> Ptr Thing -> IO Unit
@@ -289,11 +295,12 @@ thing_fun_2 :: CInt -> IO Thing
 -}
 thing_fun_2 = \x_0 -> allocaAndPeek (\z_1 -> hs_bindgen_c293d866e22be6fc x_0 z_1)
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3a@
-foreign import ccall safe "hs_bindgen_cfd51a9e490a997c" hs_bindgen_cfd51a9e490a997c :: CInt ->
-                                                                                       Ptr Thing ->
-                                                                                       CDouble ->
-                                                                                       Ptr Thing ->
-                                                                                       IO Unit
+foreign import ccall safe "hs_bindgen_cfd51a9e490a997c" hs_bindgen_cfd51a9e490a997c ::
+    CInt
+ -> Ptr Thing
+ -> CDouble
+ -> Ptr Thing
+ -> IO Unit
 {-| Pointer-based API for 'thing_fun_3a'
 -}
 thing_fun_3a_wrapper :: CInt ->
@@ -316,10 +323,11 @@ thing_fun_3a :: CInt -> Thing -> CDouble -> IO Thing
 -}
 thing_fun_3a = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> allocaAndPeek (\z_4 -> hs_bindgen_cfd51a9e490a997c x_0 y_3 x_2 z_4))
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3b@
-foreign import ccall safe "hs_bindgen_23fac8ee5044da6e" hs_bindgen_23fac8ee5044da6e :: CInt ->
-                                                                                       Ptr Thing ->
-                                                                                       CDouble ->
-                                                                                       IO CChar
+foreign import ccall safe "hs_bindgen_23fac8ee5044da6e" hs_bindgen_23fac8ee5044da6e ::
+    CInt
+ -> Ptr Thing
+ -> CDouble
+ -> IO CChar
 {-| Pointer-based API for 'thing_fun_3b'
 -}
 thing_fun_3b_wrapper :: CInt -> Ptr Thing -> CDouble -> IO CChar
@@ -341,8 +349,8 @@ thing_fun_3b :: CInt -> Thing -> CDouble -> IO CChar
 -}
 thing_fun_3b = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> hs_bindgen_23fac8ee5044da6e x_0 y_3 x_2)
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_1@
-foreign import ccall safe "hs_bindgen_17a14e7ffaa1e2e5" hs_bindgen_17a14e7ffaa1e2e5 :: IO (FunPtr (Thing ->
-                                                                                                   IO CInt))
+foreign import ccall safe "hs_bindgen_17a14e7ffaa1e2e5" hs_bindgen_17a14e7ffaa1e2e5 ::
+    IO (FunPtr (Thing -> IO CInt))
 {-# NOINLINE thing_fun_1 #-}
 {-| __C declaration:__ @thing_fun_1@
 
@@ -359,8 +367,8 @@ thing_fun_1 :: FunPtr (Thing -> IO CInt)
 -}
 thing_fun_1 = unsafePerformIO hs_bindgen_17a14e7ffaa1e2e5
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_2@
-foreign import ccall safe "hs_bindgen_91748ffd57eae163" hs_bindgen_91748ffd57eae163 :: IO (FunPtr (CInt ->
-                                                                                                   IO Thing))
+foreign import ccall safe "hs_bindgen_91748ffd57eae163" hs_bindgen_91748ffd57eae163 ::
+    IO (FunPtr (CInt -> IO Thing))
 {-# NOINLINE thing_fun_2 #-}
 {-| __C declaration:__ @thing_fun_2@
 
@@ -377,10 +385,8 @@ thing_fun_2 :: FunPtr (CInt -> IO Thing)
 -}
 thing_fun_2 = unsafePerformIO hs_bindgen_91748ffd57eae163
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3a@
-foreign import ccall safe "hs_bindgen_84d98a03314ff518" hs_bindgen_84d98a03314ff518 :: IO (FunPtr (CInt ->
-                                                                                                   Thing ->
-                                                                                                   CDouble ->
-                                                                                                   IO Thing))
+foreign import ccall safe "hs_bindgen_84d98a03314ff518" hs_bindgen_84d98a03314ff518 ::
+    IO (FunPtr (CInt -> Thing -> CDouble -> IO Thing))
 {-# NOINLINE thing_fun_3a #-}
 {-| __C declaration:__ @thing_fun_3a@
 
@@ -397,10 +403,8 @@ thing_fun_3a :: FunPtr (CInt -> Thing -> CDouble -> IO Thing)
 -}
 thing_fun_3a = unsafePerformIO hs_bindgen_84d98a03314ff518
 -- __unique:__ @test_typesstructsstruct_arg_Example_get_thing_fun_3b@
-foreign import ccall safe "hs_bindgen_855ae9088b15005e" hs_bindgen_855ae9088b15005e :: IO (FunPtr (CInt ->
-                                                                                                   Thing ->
-                                                                                                   CDouble ->
-                                                                                                   IO CChar))
+foreign import ccall safe "hs_bindgen_855ae9088b15005e" hs_bindgen_855ae9088b15005e ::
+    IO (FunPtr (CInt -> Thing -> CDouble -> IO CChar))
 {-# NOINLINE thing_fun_3b #-}
 {-| __C declaration:__ @thing_fun_3b@
 

@@ -19,11 +19,13 @@ newtype F1_Aux
       -}
     deriving newtype HasBaseForeignType
 -- __unique:__ @toF1_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_00d16e666202ed6c :: F1_Aux ->
-                                                                   IO (FunPtr F1_Aux)
+foreign import ccall safe "wrapper" hs_bindgen_00d16e666202ed6c ::
+    F1_Aux
+ -> IO (FunPtr F1_Aux)
 -- __unique:__ @fromF1_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_ddeb5206e8192425 :: FunPtr F1_Aux ->
-                                                                   F1_Aux
+foreign import ccall safe "dynamic" hs_bindgen_ddeb5206e8192425 ::
+    FunPtr F1_Aux
+ -> F1_Aux
 instance ToFunPtr F1_Aux
     where toFunPtr = hs_bindgen_00d16e666202ed6c
 instance FromFunPtr F1_Aux
@@ -76,11 +78,13 @@ newtype F2_Aux
       -}
     deriving newtype HasBaseForeignType
 -- __unique:__ @toF2_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_c39d7524b75b54e8 :: F2_Aux ->
-                                                                   IO (FunPtr F2_Aux)
+foreign import ccall safe "wrapper" hs_bindgen_c39d7524b75b54e8 ::
+    F2_Aux
+ -> IO (FunPtr F2_Aux)
 -- __unique:__ @fromF2_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_e15bcd26f1ed1df7 :: FunPtr F2_Aux ->
-                                                                   F2_Aux
+foreign import ccall safe "dynamic" hs_bindgen_e15bcd26f1ed1df7 ::
+    FunPtr F2_Aux
+ -> F2_Aux
 instance ToFunPtr F2_Aux
     where toFunPtr = hs_bindgen_c39d7524b75b54e8
 instance FromFunPtr F2_Aux
@@ -133,11 +137,13 @@ newtype F3_Aux
       -}
     deriving newtype HasBaseForeignType
 -- __unique:__ @toF3_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_4a960721e7d1dcef :: F3_Aux ->
-                                                                   IO (FunPtr F3_Aux)
+foreign import ccall safe "wrapper" hs_bindgen_4a960721e7d1dcef ::
+    F3_Aux
+ -> IO (FunPtr F3_Aux)
 -- __unique:__ @fromF3_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_66460422a7197535 :: FunPtr F3_Aux ->
-                                                                   F3_Aux
+foreign import ccall safe "dynamic" hs_bindgen_66460422a7197535 ::
+    FunPtr F3_Aux
+ -> F3_Aux
 instance ToFunPtr F3_Aux
     where toFunPtr = hs_bindgen_4a960721e7d1dcef
 instance FromFunPtr F3_Aux
@@ -190,11 +196,13 @@ newtype F4_Aux
       -}
     deriving newtype HasBaseForeignType
 -- __unique:__ @toF4_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_83bcff023b3bc648 :: F4_Aux ->
-                                                                   IO (FunPtr F4_Aux)
+foreign import ccall safe "wrapper" hs_bindgen_83bcff023b3bc648 ::
+    F4_Aux
+ -> IO (FunPtr F4_Aux)
 -- __unique:__ @fromF4_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_40f9a8d432b9eb97 :: FunPtr F4_Aux ->
-                                                                   F4_Aux
+foreign import ccall safe "dynamic" hs_bindgen_40f9a8d432b9eb97 ::
+    FunPtr F4_Aux
+ -> F4_Aux
 instance ToFunPtr F4_Aux
     where toFunPtr = hs_bindgen_83bcff023b3bc648
 instance FromFunPtr F4_Aux
@@ -247,11 +255,13 @@ newtype F5_Aux
       -}
     deriving newtype HasBaseForeignType
 -- __unique:__ @toF5_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_6891cbd81d6f42b9 :: F5_Aux ->
-                                                                   IO (FunPtr F5_Aux)
+foreign import ccall safe "wrapper" hs_bindgen_6891cbd81d6f42b9 ::
+    F5_Aux
+ -> IO (FunPtr F5_Aux)
 -- __unique:__ @fromF5_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_586f6635c057975f :: FunPtr F5_Aux ->
-                                                                   F5_Aux
+foreign import ccall safe "dynamic" hs_bindgen_586f6635c057975f ::
+    FunPtr F5_Aux
+ -> F5_Aux
 instance ToFunPtr F5_Aux
     where toFunPtr = hs_bindgen_6891cbd81d6f42b9
 instance FromFunPtr F5_Aux
@@ -336,11 +346,13 @@ newtype F6_Aux
       -}
     deriving newtype HasBaseForeignType
 -- __unique:__ @toF6_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_c1baf73f98614f45 :: F6_Aux ->
-                                                                   IO (FunPtr F6_Aux)
+foreign import ccall safe "wrapper" hs_bindgen_c1baf73f98614f45 ::
+    F6_Aux
+ -> IO (FunPtr F6_Aux)
 -- __unique:__ @fromF6_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_a887947b26e58f0c :: FunPtr F6_Aux ->
-                                                                   F6_Aux
+foreign import ccall safe "dynamic" hs_bindgen_a887947b26e58f0c ::
+    FunPtr F6_Aux
+ -> F6_Aux
 instance ToFunPtr F6_Aux
     where toFunPtr = hs_bindgen_c1baf73f98614f45
 instance FromFunPtr F6_Aux

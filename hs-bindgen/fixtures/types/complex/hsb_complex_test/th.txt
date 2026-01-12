@@ -239,10 +239,11 @@ instance TyEq ty
          HasField "complex_object_t_id" (Ptr Complex_object_t) (Ptr ty)
     where getField = ptrToCField (Proxy @"complex_object_t_id")
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_multiply_complex_f@
-foreign import ccall safe "hs_bindgen_687af703c95fba0e" hs_bindgen_687af703c95fba0e :: Ptr (Complex CFloat) ->
-                                                                                       Ptr (Complex CFloat) ->
-                                                                                       Ptr (Complex CFloat) ->
-                                                                                       IO Unit
+foreign import ccall safe "hs_bindgen_687af703c95fba0e" hs_bindgen_687af703c95fba0e ::
+    Ptr (Complex CFloat)
+ -> Ptr (Complex CFloat)
+ -> Ptr (Complex CFloat)
+ -> IO Unit
 {-| Pointer-based API for 'multiply_complex_f'
 -}
 multiply_complex_f_wrapper :: Ptr (Complex CFloat) ->
@@ -266,10 +267,11 @@ multiply_complex_f :: Complex CFloat ->
 -}
 multiply_complex_f = \x_0 -> \x_1 -> with x_1 (\y_2 -> with x_0 (\y_3 -> allocaAndPeek (\z_4 -> hs_bindgen_687af703c95fba0e y_3 y_2 z_4)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_add_complex@
-foreign import ccall safe "hs_bindgen_3ff14ee8c5914fc6" hs_bindgen_3ff14ee8c5914fc6 :: Ptr (Complex CDouble) ->
-                                                                                       Ptr (Complex CDouble) ->
-                                                                                       Ptr (Complex CDouble) ->
-                                                                                       IO Unit
+foreign import ccall safe "hs_bindgen_3ff14ee8c5914fc6" hs_bindgen_3ff14ee8c5914fc6 ::
+    Ptr (Complex CDouble)
+ -> Ptr (Complex CDouble)
+ -> Ptr (Complex CDouble)
+ -> IO Unit
 {-| Pointer-based API for 'add_complex'
 -}
 add_complex_wrapper :: Ptr (Complex CDouble) ->
@@ -293,10 +295,11 @@ add_complex :: Complex CDouble ->
 -}
 add_complex = \x_0 -> \x_1 -> with x_1 (\y_2 -> with x_0 (\y_3 -> allocaAndPeek (\z_4 -> hs_bindgen_3ff14ee8c5914fc6 y_3 y_2 z_4)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_multiply_complex_f@
-foreign import ccall safe "hs_bindgen_e5e3172c2163672b" hs_bindgen_e5e3172c2163672b :: Ptr (Complex CFloat) ->
-                                                                                       Ptr (Complex CFloat) ->
-                                                                                       Ptr (Complex CFloat) ->
-                                                                                       IO Unit
+foreign import ccall safe "hs_bindgen_e5e3172c2163672b" hs_bindgen_e5e3172c2163672b ::
+    Ptr (Complex CFloat)
+ -> Ptr (Complex CFloat)
+ -> Ptr (Complex CFloat)
+ -> IO Unit
 {-| Pointer-based API for 'multiply_complex_f'
 -}
 multiply_complex_f_wrapper :: Ptr (Complex CFloat) ->
@@ -320,10 +323,11 @@ multiply_complex_f :: Complex CFloat ->
 -}
 multiply_complex_f = \x_0 -> \x_1 -> with x_1 (\y_2 -> with x_0 (\y_3 -> allocaAndPeek (\z_4 -> hs_bindgen_e5e3172c2163672b y_3 y_2 z_4)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_add_complex@
-foreign import ccall safe "hs_bindgen_28f2705e917973ab" hs_bindgen_28f2705e917973ab :: Ptr (Complex CDouble) ->
-                                                                                       Ptr (Complex CDouble) ->
-                                                                                       Ptr (Complex CDouble) ->
-                                                                                       IO Unit
+foreign import ccall safe "hs_bindgen_28f2705e917973ab" hs_bindgen_28f2705e917973ab ::
+    Ptr (Complex CDouble)
+ -> Ptr (Complex CDouble)
+ -> Ptr (Complex CDouble)
+ -> IO Unit
 {-| Pointer-based API for 'add_complex'
 -}
 add_complex_wrapper :: Ptr (Complex CDouble) ->
@@ -347,9 +351,9 @@ add_complex :: Complex CDouble ->
 -}
 add_complex = \x_0 -> \x_1 -> with x_1 (\y_2 -> with x_0 (\y_3 -> allocaAndPeek (\z_4 -> hs_bindgen_28f2705e917973ab y_3 y_2 z_4)))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_multiply_complex_f@
-foreign import ccall safe "hs_bindgen_29b4fea741132943" hs_bindgen_29b4fea741132943 :: IO (FunPtr (Complex CFloat ->
-                                                                                                   Complex CFloat ->
-                                                                                                   IO (Complex CFloat)))
+foreign import ccall safe "hs_bindgen_29b4fea741132943" hs_bindgen_29b4fea741132943 ::
+    IO (FunPtr (Complex CFloat ->
+                Complex CFloat -> IO (Complex CFloat)))
 {-# NOINLINE multiply_complex_f #-}
 {-| __C declaration:__ @multiply_complex_f@
 
@@ -367,9 +371,9 @@ multiply_complex_f :: FunPtr (Complex CFloat ->
 -}
 multiply_complex_f = unsafePerformIO hs_bindgen_29b4fea741132943
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_add_complex@
-foreign import ccall safe "hs_bindgen_b53577d6ad8dd36c" hs_bindgen_b53577d6ad8dd36c :: IO (FunPtr (Complex CDouble ->
-                                                                                                   Complex CDouble ->
-                                                                                                   IO (Complex CDouble)))
+foreign import ccall safe "hs_bindgen_b53577d6ad8dd36c" hs_bindgen_b53577d6ad8dd36c ::
+    IO (FunPtr (Complex CDouble ->
+                Complex CDouble -> IO (Complex CDouble)))
 {-# NOINLINE add_complex #-}
 {-| __C declaration:__ @add_complex@
 
@@ -387,7 +391,8 @@ add_complex :: FunPtr (Complex CDouble ->
 -}
 add_complex = unsafePerformIO hs_bindgen_b53577d6ad8dd36c
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_float@
-foreign import ccall safe "hs_bindgen_209e61216da37381" hs_bindgen_209e61216da37381 :: IO (Ptr (Complex CFloat))
+foreign import ccall safe "hs_bindgen_209e61216da37381" hs_bindgen_209e61216da37381 ::
+    IO (Ptr (Complex CFloat))
 {-# NOINLINE global_complex_float #-}
 {-| __C declaration:__ @global_complex_float@
 
@@ -404,7 +409,8 @@ global_complex_float :: Ptr (Complex CFloat)
 -}
 global_complex_float = unsafePerformIO hs_bindgen_209e61216da37381
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_double@
-foreign import ccall safe "hs_bindgen_4d0950cebe4897a7" hs_bindgen_4d0950cebe4897a7 :: IO (Ptr (Complex CDouble))
+foreign import ccall safe "hs_bindgen_4d0950cebe4897a7" hs_bindgen_4d0950cebe4897a7 ::
+    IO (Ptr (Complex CDouble))
 {-# NOINLINE global_complex_double #-}
 {-| __C declaration:__ @global_complex_double@
 
@@ -421,7 +427,8 @@ global_complex_double :: Ptr (Complex CDouble)
 -}
 global_complex_double = unsafePerformIO hs_bindgen_4d0950cebe4897a7
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_float_flipped@
-foreign import ccall safe "hs_bindgen_7e9edc1d187b0799" hs_bindgen_7e9edc1d187b0799 :: IO (Ptr (Complex CFloat))
+foreign import ccall safe "hs_bindgen_7e9edc1d187b0799" hs_bindgen_7e9edc1d187b0799 ::
+    IO (Ptr (Complex CFloat))
 {-# NOINLINE global_complex_float_flipped #-}
 {-| __C declaration:__ @global_complex_float_flipped@
 
@@ -438,7 +445,8 @@ global_complex_float_flipped :: Ptr (Complex CFloat)
 -}
 global_complex_float_flipped = unsafePerformIO hs_bindgen_7e9edc1d187b0799
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_complex_double_flipped@
-foreign import ccall safe "hs_bindgen_fe8783b71a4e1d3c" hs_bindgen_fe8783b71a4e1d3c :: IO (Ptr (Complex CDouble))
+foreign import ccall safe "hs_bindgen_fe8783b71a4e1d3c" hs_bindgen_fe8783b71a4e1d3c ::
+    IO (Ptr (Complex CDouble))
 {-# NOINLINE global_complex_double_flipped #-}
 {-| __C declaration:__ @global_complex_double_flipped@
 
@@ -455,7 +463,8 @@ global_complex_double_flipped :: Ptr (Complex CDouble)
 -}
 global_complex_double_flipped = unsafePerformIO hs_bindgen_fe8783b71a4e1d3c
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_float@
-foreign import ccall safe "hs_bindgen_0aa0098565c13195" hs_bindgen_0aa0098565c13195 :: IO (Ptr (Complex CFloat))
+foreign import ccall safe "hs_bindgen_0aa0098565c13195" hs_bindgen_0aa0098565c13195 ::
+    IO (Ptr (Complex CFloat))
 {-# NOINLINE global_Complex_float #-}
 {-| __C declaration:__ @global_Complex_float@
 
@@ -472,7 +481,8 @@ global_Complex_float :: Ptr (Complex CFloat)
 -}
 global_Complex_float = unsafePerformIO hs_bindgen_0aa0098565c13195
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_double@
-foreign import ccall safe "hs_bindgen_5f43cb32dc9ef6af" hs_bindgen_5f43cb32dc9ef6af :: IO (Ptr (Complex CDouble))
+foreign import ccall safe "hs_bindgen_5f43cb32dc9ef6af" hs_bindgen_5f43cb32dc9ef6af ::
+    IO (Ptr (Complex CDouble))
 {-# NOINLINE global_Complex_double #-}
 {-| __C declaration:__ @global_Complex_double@
 
@@ -489,7 +499,8 @@ global_Complex_double :: Ptr (Complex CDouble)
 -}
 global_Complex_double = unsafePerformIO hs_bindgen_5f43cb32dc9ef6af
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_float_flipped@
-foreign import ccall safe "hs_bindgen_40d5347e1c2ae46a" hs_bindgen_40d5347e1c2ae46a :: IO (Ptr (Complex CFloat))
+foreign import ccall safe "hs_bindgen_40d5347e1c2ae46a" hs_bindgen_40d5347e1c2ae46a ::
+    IO (Ptr (Complex CFloat))
 {-# NOINLINE global_Complex_float_flipped #-}
 {-| __C declaration:__ @global_Complex_float_flipped@
 
@@ -506,7 +517,8 @@ global_Complex_float_flipped :: Ptr (Complex CFloat)
 -}
 global_Complex_float_flipped = unsafePerformIO hs_bindgen_40d5347e1c2ae46a
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_global_Complex_double_flipped@
-foreign import ccall safe "hs_bindgen_0e377cedb96a3ba4" hs_bindgen_0e377cedb96a3ba4 :: IO (Ptr (Complex CDouble))
+foreign import ccall safe "hs_bindgen_0e377cedb96a3ba4" hs_bindgen_0e377cedb96a3ba4 ::
+    IO (Ptr (Complex CDouble))
 {-# NOINLINE global_Complex_double_flipped #-}
 {-| __C declaration:__ @global_Complex_double_flipped@
 
@@ -523,7 +535,8 @@ global_Complex_double_flipped :: Ptr (Complex CDouble)
 -}
 global_Complex_double_flipped = unsafePerformIO hs_bindgen_0e377cedb96a3ba4
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_float@
-foreign import ccall safe "hs_bindgen_d94307879b0a380f" hs_bindgen_d94307879b0a380f :: IO (ConstPtr (Complex CFloat))
+foreign import ccall safe "hs_bindgen_d94307879b0a380f" hs_bindgen_d94307879b0a380f ::
+    IO (ConstPtr (Complex CFloat))
 {-# NOINLINE hs_bindgen_554ede1a618d726f #-}
 {-| __C declaration:__ @const_complex_float@
 
@@ -547,7 +560,8 @@ hs_bindgen_554ede1a618d726f = unsafePerformIO hs_bindgen_d94307879b0a380f
 const_complex_float :: Complex CFloat
 const_complex_float = unsafePerformIO (peek (unConstPtr hs_bindgen_554ede1a618d726f))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_double@
-foreign import ccall safe "hs_bindgen_de1422a11860ada5" hs_bindgen_de1422a11860ada5 :: IO (ConstPtr (Complex CDouble))
+foreign import ccall safe "hs_bindgen_de1422a11860ada5" hs_bindgen_de1422a11860ada5 ::
+    IO (ConstPtr (Complex CDouble))
 {-# NOINLINE hs_bindgen_cf751023874b527f #-}
 {-| __C declaration:__ @const_complex_double@
 
@@ -571,7 +585,8 @@ hs_bindgen_cf751023874b527f = unsafePerformIO hs_bindgen_de1422a11860ada5
 const_complex_double :: Complex CDouble
 const_complex_double = unsafePerformIO (peek (unConstPtr hs_bindgen_cf751023874b527f))
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_volatile_complex_float@
-foreign import ccall safe "hs_bindgen_569a907813a0dadd" hs_bindgen_569a907813a0dadd :: IO (Ptr (Complex CFloat))
+foreign import ccall safe "hs_bindgen_569a907813a0dadd" hs_bindgen_569a907813a0dadd ::
+    IO (Ptr (Complex CFloat))
 {-# NOINLINE volatile_complex_float #-}
 {-| __C declaration:__ @volatile_complex_float@
 
@@ -588,7 +603,8 @@ volatile_complex_float :: Ptr (Complex CFloat)
 -}
 volatile_complex_float = unsafePerformIO hs_bindgen_569a907813a0dadd
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_volatile_complex_double@
-foreign import ccall safe "hs_bindgen_e86c9014eb507c96" hs_bindgen_e86c9014eb507c96 :: IO (Ptr (Complex CDouble))
+foreign import ccall safe "hs_bindgen_e86c9014eb507c96" hs_bindgen_e86c9014eb507c96 ::
+    IO (Ptr (Complex CDouble))
 {-# NOINLINE volatile_complex_double #-}
 {-| __C declaration:__ @volatile_complex_double@
 
@@ -605,8 +621,8 @@ volatile_complex_double :: Ptr (Complex CDouble)
 -}
 volatile_complex_double = unsafePerformIO hs_bindgen_e86c9014eb507c96
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_float_array@
-foreign import ccall safe "hs_bindgen_b548dda6b5993793" hs_bindgen_b548dda6b5993793 :: IO (Ptr (ConstantArray 10
-                                                                                                              (Complex CFloat)))
+foreign import ccall safe "hs_bindgen_b548dda6b5993793" hs_bindgen_b548dda6b5993793 ::
+    IO (Ptr (ConstantArray 10 (Complex CFloat)))
 {-# NOINLINE complex_float_array #-}
 {-| __C declaration:__ @complex_float_array@
 
@@ -623,8 +639,8 @@ complex_float_array :: Ptr (ConstantArray 10 (Complex CFloat))
 -}
 complex_float_array = unsafePerformIO hs_bindgen_b548dda6b5993793
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_complex_double_array@
-foreign import ccall safe "hs_bindgen_c56913da40952669" hs_bindgen_c56913da40952669 :: IO (Ptr (ConstantArray 10
-                                                                                                              (Complex CDouble)))
+foreign import ccall safe "hs_bindgen_c56913da40952669" hs_bindgen_c56913da40952669 ::
+    IO (Ptr (ConstantArray 10 (Complex CDouble)))
 {-# NOINLINE complex_double_array #-}
 {-| __C declaration:__ @complex_double_array@
 
