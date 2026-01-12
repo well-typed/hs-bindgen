@@ -6,6 +6,7 @@ import Data.List (sortBy)
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
+import Data.Maybe (maybeToList)
 import Data.Ord (comparing)
 import Data.Set ((\\))
 import Data.Set qualified as Set
@@ -52,10 +53,10 @@ type Decl = C.Decl Select
 data Unselectable =
     -- | We (i.e., `hs-bindgen`) can not select a declaration selected because
     --   it or one of its dependencies is unusable.
-    UnselectableBecauseUnusable Unusable
+    Unselectable Unusable
     -- | We (i.e., `hs-bindgen`) can not select a declaration because one of its
     --   dependencies has not been selected by the user.
-  | TransitiveDependencyNotSelected
+  | UnselectableNotSelected
   deriving stock (Show)
 
 -- | We have to treat with two notions of usability here:
@@ -131,11 +132,11 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
 
             unusables :: Map DeclId Unselectable
             unusables =
-              UnselectableBecauseUnusable <$> DeclIndex.getUnusables index transDeps
+              Unselectable <$> DeclIndex.getUnusables index transDeps
 
             nonselected :: Map DeclId Unselectable
             nonselected  =
-              Map.fromSet (const TransitiveDependencyNotSelected) $
+              Map.fromSet (const UnselectableNotSelected) $
                 transDeps \\ selectedIds
 
             unusabilityReasons :: Map DeclId Unselectable
@@ -150,12 +151,12 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             getMostNaturalUnselectable ::
               Unselectable -> Unselectable -> Unselectable
             getMostNaturalUnselectable l r = case (l,r) of
-              (TransitiveDependencyNotSelected, UnselectableBecauseUnusable u  ) ->
+              (UnselectableNotSelected, Unselectable u         ) ->
                 case u of
                   UnusableParseNotAttempted{} -> r
                   UnusableOmitted{}           -> r
                   _otherReason                -> l
-              (UnselectableBecauseUnusable u  , TransitiveDependencyNotSelected) ->
+              (Unselectable u         , UnselectableNotSelected) ->
                 case u of
                   UnusableParseNotAttempted{} -> l
                   UnusableOmitted{}           -> l
@@ -260,12 +261,12 @@ selectDeclWith
       (True, False, TransitivelySelectable) ->
         (Just decl, getSelMsgs SelectionRoot)
       (True, False, TransitivelyUnselectable rs) ->
-        (Nothing, getUnavailMsgs SelectionRoot rs)
+        (Nothing, maybeToList $ getUnavailMsg SelectionRoot rs)
       -- Declaration is an additionally selected transitive dependency.
       (False, True, TransitivelySelectable) ->
         (Just decl, getSelMsgs TransitiveDependency)
       (False, True, TransitivelyUnselectable rs) ->
-        (Nothing, getUnavailMsgs TransitiveDependency rs)
+        (Nothing, maybeToList $ getUnavailMsg TransitiveDependency rs)
       -- Declaration is not selected.
       (False, False, _) ->
         let selectMsg = WithLocationInfo{
@@ -299,32 +300,34 @@ selectDeclWith
           ]
         , [ WithLocationInfo{
                 loc = declLocationInfo decl
-              , msg = SelectDeprecated
+              , msg = SelectDeprecated selectReason
               }
           | isDeprecated decl.info
           ]
         ]
 
-    getUnavailMsgs :: SelectReason -> Map DeclId Unselectable -> [Msg Select]
-    getUnavailMsgs selectReason unavailReason =
-      [ WithLocationInfo{
-            loc = declLocationInfo decl
-          , msg =
+    getUnavailMsg :: SelectReason -> Map DeclId Unselectable -> Maybe (Msg Select)
+    getUnavailMsg selectReason unavailReason =
+      let msgs = [
               case r of
-                UnselectableBecauseUnusable u ->
-                  TransitiveDependencyOfDeclarationUnusable
-                    selectReason
+                Unselectable u ->
+                  TransitiveDependencyUnusable
                     i
                     u
                     (DeclIndex.lookupLoc i declIndex)
-                TransitiveDependencyNotSelected ->
-                  TransitiveDependencyOfDeclarationNotSelected
-                    selectReason
+                UnselectableNotSelected ->
+                  TransitiveDependencyNotSelected
                     i
                     (DeclIndex.lookupLoc i declIndex)
-          }
-      | (i, r) <- Map.toList unavailReason
-      ]
+            | (i, r) <- Map.toList unavailReason
+            ]
+      in  if null msgs then
+            Nothing
+          else
+            Just $ WithLocationInfo{
+                loc = declLocationInfo decl
+              , msg = TransitiveDependenciesMissing selectReason msgs
+              }
 
     isDeprecated :: C.DeclInfo Select -> Bool
     isDeprecated info = info.availability == C.Deprecated
