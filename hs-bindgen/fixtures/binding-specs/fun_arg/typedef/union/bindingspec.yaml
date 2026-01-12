@@ -1,0 +1,49 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: Example
+ctypes:
+- headers: binding-specs/fun_arg/typedef/union.h
+  cname: union MyUnion
+  hsname: MyUnion
+- headers: binding-specs/fun_arg/typedef/union.h
+  cname: A
+  hsname: A
+- headers: binding-specs/fun_arg/typedef/union.h
+  cname: B
+  hsname: B
+- headers: binding-specs/fun_arg/typedef/union.h
+  cname: E
+  hsname: E
+hstypes:
+- hsname: A
+  representation:
+    newtype:
+      constructor: A
+      fields:
+      - un_A
+  instances:
+  - Storable
+- hsname: B
+  representation:
+    newtype:
+      constructor: B
+      fields:
+      - un_B
+  instances:
+  - Storable
+- hsname: E
+  representation:
+    newtype:
+      constructor: E
+      fields:
+      - un_E
+- hsname: MyUnion
+  representation:
+    newtype:
+      constructor: MyUnion
+      fields:
+      - un_MyUnion
+  instances:
+  - Storable

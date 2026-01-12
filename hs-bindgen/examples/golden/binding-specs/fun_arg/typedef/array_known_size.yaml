@@ -1,0 +1,25 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: M
+ctypes:
+- headers: binding-specs/fun_arg/typedef/array_known_size.h
+  cname: C
+  hsname: C
+- headers: binding-specs/fun_arg/typedef/array_known_size.h
+  cname: D
+  hsname: D
+hstypes:
+- hsname: C
+  representation:
+    newtype:
+      constructor: C
+      fields:
+      - un_C
+- hsname: D
+  representation:
+    newtype:
+      constructor: D
+      fields:
+      - un_D

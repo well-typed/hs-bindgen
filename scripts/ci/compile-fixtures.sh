@@ -21,23 +21,23 @@ EOF
 
 # Known failures - these will be skipped unless -f is used
 KNOWN_FAILURES=(
-    binding-specs/fun_arg/array               # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/array_known_size    # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/enum                # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/function            # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/function_pointer    # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/struct              # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/union               # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    declarations/redeclaration                # Multiple declarations (intentional test case)
-    edge-cases/iterator                       # Makes use of Apple block extension which would require clang (see #913)
-    functions/decls_in_signature              # Unusable struct (see #1128)
-    functions/heap_types/struct_const_member  # Issue #1490
-    functions/heap_types/struct_const_typedef # Issue #1490
-    functions/heap_types/struct_const         # Issue #1490
-    functions/heap_types/union_const_member   # Issue #1490
-    functions/heap_types/union_const_typedef  # Issue #1490
-    functions/heap_types/union_const          # Issue #1490
-    types/typedefs/typenames                  # Multiple declarations (hs-bindgen namespace possible bug/feature)
+    binding-specs/fun_arg/typedef/array               # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/array_known_size    # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/enum                # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/function            # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/function_pointer    # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/struct              # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/union               # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    declarations/redeclaration                        # Multiple declarations (intentional test case)
+    edge-cases/iterator                               # Makes use of Apple block extension which would require clang (see #913)
+    functions/decls_in_signature                      # Unusable struct (see #1128)
+    functions/heap_types/struct_const_member          # Issue #1490
+    functions/heap_types/struct_const_typedef         # Issue #1490
+    functions/heap_types/struct_const                 # Issue #1490
+    functions/heap_types/union_const_member           # Issue #1490
+    functions/heap_types/union_const_typedef          # Issue #1490
+    functions/heap_types/union_const                  # Issue #1490
+    types/typedefs/typenames                          # Multiple declarations (hs-bindgen namespace possible bug/feature)
 )
 
 # Known fixtures without code - these will be skipped
