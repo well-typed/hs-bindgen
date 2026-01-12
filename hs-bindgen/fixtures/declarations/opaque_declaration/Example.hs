@@ -24,7 +24,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure, return)
 
 {-| __C declaration:__ @struct foo@
 
-    __defined at:__ @declarations\/opaque_declaration.h:1:8@
+    __defined at:__ @declarations\/opaque_declaration.h 1:8@
 
     __exported by:__ @declarations\/opaque_declaration.h@
 -}
@@ -32,7 +32,7 @@ data Foo
 
 {-| __C declaration:__ @struct bar@
 
-    __defined at:__ @declarations\/opaque_declaration.h:4:8@
+    __defined at:__ @declarations\/opaque_declaration.h 4:8@
 
     __exported by:__ @declarations\/opaque_declaration.h@
 -}
@@ -40,14 +40,14 @@ data Bar = Bar
   { bar_ptrA :: Ptr.Ptr Foo
     {- ^ __C declaration:__ @ptrA@
 
-         __defined at:__ @declarations\/opaque_declaration.h:5:17@
+         __defined at:__ @declarations\/opaque_declaration.h 5:17@
 
          __exported by:__ @declarations\/opaque_declaration.h@
     -}
   , bar_ptrB :: Ptr.Ptr Bar
     {- ^ __C declaration:__ @ptrB@
 
-         __defined at:__ @declarations\/opaque_declaration.h:6:17@
+         __defined at:__ @declarations\/opaque_declaration.h 6:17@
 
          __exported by:__ @declarations\/opaque_declaration.h@
     -}
@@ -100,7 +100,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_ptrB")
 
 {-| __C declaration:__ @struct baz@
 
-    __defined at:__ @declarations\/opaque_declaration.h:9:8@
+    __defined at:__ @declarations\/opaque_declaration.h 9:8@
 
     __exported by:__ @declarations\/opaque_declaration.h@
 -}
@@ -154,7 +154,7 @@ instance Data.Primitive.Types.Prim Baz where
 
 {-| __C declaration:__ @enum quu@
 
-    __defined at:__ @declarations\/opaque_declaration.h:11:6@
+    __defined at:__ @declarations\/opaque_declaration.h 11:6@
 
     __exported by:__ @declarations\/opaque_declaration.h@
 -}
@@ -162,7 +162,7 @@ data Quu
 
 {-| __C declaration:__ @union opaque_union@
 
-    __defined at:__ @declarations\/opaque_declaration.h:13:7@
+    __defined at:__ @declarations\/opaque_declaration.h 13:7@
 
     __exported by:__ @declarations\/opaque_declaration.h@
 -}

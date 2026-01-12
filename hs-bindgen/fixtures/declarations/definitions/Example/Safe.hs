@@ -26,7 +26,7 @@ foreign import ccall safe "hs_bindgen_9cdc88a6d09442d6" hs_bindgen_9cdc88a6d0944
 
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @declarations\/definitions.h:13:5@
+    __defined at:__ @declarations\/definitions.h 13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}

@@ -76,7 +76,7 @@ foreign import ccall unsafe "hs_bindgen_db669c022bc12e81" hs_bindgen_db669c022bc
 
 {-| __C declaration:__ @square@
 
-    __defined at:__ @manual\/function_pointers.h:5:12@
+    __defined at:__ @manual\/function_pointers.h 5:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -93,7 +93,7 @@ foreign import ccall unsafe "hs_bindgen_0bb46b9dde136391" hs_bindgen_0bb46b9dde1
 
 {-| __C declaration:__ @plus@
 
-    __defined at:__ @manual\/function_pointers.h:7:12@
+    __defined at:__ @manual\/function_pointers.h 7:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -111,7 +111,7 @@ foreign import ccall unsafe "hs_bindgen_3ff551d60859d359" hs_bindgen_3ff551d6085
 
 {-| __C declaration:__ @apply1@
 
-    __defined at:__ @manual\/function_pointers.h:9:12@
+    __defined at:__ @manual\/function_pointers.h 9:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -132,7 +132,7 @@ foreign import ccall unsafe "hs_bindgen_4c92d113161d27cf" hs_bindgen_4c92d113161
 
 {-| __C declaration:__ @apply2@
 
-    __defined at:__ @manual\/function_pointers.h:11:12@
+    __defined at:__ @manual\/function_pointers.h 11:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -156,7 +156,7 @@ foreign import ccall unsafe "hs_bindgen_2f904bf3ce7a5f06" hs_bindgen_2f904bf3ce7
 
 __C declaration:__ @apply1_pointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:22:12@
+__defined at:__ @manual\/function_pointers.h 22:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -176,7 +176,7 @@ foreign import ccall unsafe "hs_bindgen_966092b638965558" hs_bindgen_966092b6389
 
 __C declaration:__ @apply1_nopointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:26:12@
+__defined at:__ @manual\/function_pointers.h 26:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -194,7 +194,7 @@ foreign import ccall unsafe "hs_bindgen_99a8340e6e6029c5" hs_bindgen_99a8340e6e6
 
 __C declaration:__ @apply1_nopointer_res@
 
-__defined at:__ @manual\/function_pointers.h:31:21@
+__defined at:__ @manual\/function_pointers.h 31:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}

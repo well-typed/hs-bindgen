@@ -44,7 +44,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Rea
 
 __C declaration:__ @FileOpenedNotification@
 
-__defined at:__ @functions\/callbacks.h:10:16@
+__defined at:__ @functions\/callbacks.h 10:16@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -86,7 +86,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FileOpenedNotification_Aux "un_Fi
 
 {-| __C declaration:__ @FileOpenedNotification@
 
-    __defined at:__ @functions\/callbacks.h:10:16@
+    __defined at:__ @functions\/callbacks.h 10:16@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -113,7 +113,7 @@ instance HsBindgen.Runtime.HasCField.HasCField FileOpenedNotification "un_FileOp
 
 __C declaration:__ @ProgressUpdate@
 
-__defined at:__ @functions\/callbacks.h:11:16@
+__defined at:__ @functions\/callbacks.h 11:16@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -155,7 +155,7 @@ instance HsBindgen.Runtime.HasCField.HasCField ProgressUpdate_Aux "un_ProgressUp
 
 {-| __C declaration:__ @ProgressUpdate@
 
-    __defined at:__ @functions\/callbacks.h:11:16@
+    __defined at:__ @functions\/callbacks.h 11:16@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -182,7 +182,7 @@ instance HsBindgen.Runtime.HasCField.HasCField ProgressUpdate "un_ProgressUpdate
 
 __C declaration:__ @DataValidator@
 
-__defined at:__ @functions\/callbacks.h:12:15@
+__defined at:__ @functions\/callbacks.h 12:15@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -224,7 +224,7 @@ instance HsBindgen.Runtime.HasCField.HasCField DataValidator_Aux "un_DataValidat
 
 {-| __C declaration:__ @DataValidator@
 
-    __defined at:__ @functions\/callbacks.h:12:15@
+    __defined at:__ @functions\/callbacks.h 12:15@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -249,7 +249,7 @@ instance HsBindgen.Runtime.HasCField.HasCField DataValidator "un_DataValidator" 
 
 {-| __C declaration:__ @struct Measurement@
 
-    __defined at:__ @functions\/callbacks.h:21:8@
+    __defined at:__ @functions\/callbacks.h 21:8@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -257,14 +257,14 @@ data Measurement = Measurement
   { measurement_value :: FC.CDouble
     {- ^ __C declaration:__ @value@
 
-         __defined at:__ @functions\/callbacks.h:22:10@
+         __defined at:__ @functions\/callbacks.h 22:10@
 
          __exported by:__ @functions\/callbacks.h@
     -}
   , measurement_timestamp :: FC.CDouble
     {- ^ __C declaration:__ @timestamp@
 
-         __defined at:__ @functions\/callbacks.h:23:10@
+         __defined at:__ @functions\/callbacks.h 23:10@
 
          __exported by:__ @functions\/callbacks.h@
     -}
@@ -377,7 +377,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Measurement) "measur
 
 __C declaration:__ @MeasurementReceived@
 
-__defined at:__ @functions\/callbacks.h:26:16@
+__defined at:__ @functions\/callbacks.h 26:16@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -419,7 +419,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived_Aux "un_Measu
 
 {-| __C declaration:__ @MeasurementReceived@
 
-    __defined at:__ @functions\/callbacks.h:26:16@
+    __defined at:__ @functions\/callbacks.h 26:16@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -446,7 +446,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived "un_Measureme
 
 __C declaration:__ @MeasurementReceived2@
 
-__defined at:__ @functions\/callbacks.h:29:16@
+__defined at:__ @functions\/callbacks.h 29:16@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -469,7 +469,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived2_Aux "un_Meas
 
 {-| __C declaration:__ @MeasurementReceived2@
 
-    __defined at:__ @functions\/callbacks.h:29:16@
+    __defined at:__ @functions\/callbacks.h 29:16@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -496,7 +496,7 @@ instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived2 "un_Measurem
 
 __C declaration:__ @SampleBufferFull@
 
-__defined at:__ @functions\/callbacks.h:32:16@
+__defined at:__ @functions\/callbacks.h 32:16@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -519,7 +519,7 @@ instance HsBindgen.Runtime.HasCField.HasCField SampleBufferFull_Aux "un_SampleBu
 
 {-| __C declaration:__ @SampleBufferFull@
 
-    __defined at:__ @functions\/callbacks.h:32:16@
+    __defined at:__ @functions\/callbacks.h 32:16@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -544,7 +544,7 @@ instance HsBindgen.Runtime.HasCField.HasCField SampleBufferFull "un_SampleBuffer
 
 {-| __C declaration:__ @struct MeasurementHandler@
 
-    __defined at:__ @functions\/callbacks.h:50:8@
+    __defined at:__ @functions\/callbacks.h 50:8@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -552,21 +552,21 @@ data MeasurementHandler = MeasurementHandler
   { measurementHandler_onReceived :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ())
     {- ^ __C declaration:__ @onReceived@
 
-         __defined at:__ @functions\/callbacks.h:51:10@
+         __defined at:__ @functions\/callbacks.h 51:10@
 
          __exported by:__ @functions\/callbacks.h@
     -}
   , measurementHandler_validate :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt)
     {- ^ __C declaration:__ @validate@
 
-         __defined at:__ @functions\/callbacks.h:52:9@
+         __defined at:__ @functions\/callbacks.h 52:9@
 
          __exported by:__ @functions\/callbacks.h@
     -}
   , measurementHandler_onError :: Ptr.FunPtr (FC.CInt -> IO ())
     {- ^ __C declaration:__ @onError@
 
-         __defined at:__ @functions\/callbacks.h:53:10@
+         __defined at:__ @functions\/callbacks.h 53:10@
 
          __exported by:__ @functions\/callbacks.h@
     -}
@@ -639,7 +639,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementHandler) 
 
 {-| __C declaration:__ @struct DataPipeline@
 
-    __defined at:__ @functions\/callbacks.h:58:8@
+    __defined at:__ @functions\/callbacks.h 58:8@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -647,21 +647,21 @@ data DataPipeline = DataPipeline
   { dataPipeline_preProcess :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ())
     {- ^ __C declaration:__ @preProcess@
 
-         __defined at:__ @functions\/callbacks.h:59:10@
+         __defined at:__ @functions\/callbacks.h 59:10@
 
          __exported by:__ @functions\/callbacks.h@
     -}
   , dataPipeline_process :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ())
     {- ^ __C declaration:__ @process@
 
-         __defined at:__ @functions\/callbacks.h:60:10@
+         __defined at:__ @functions\/callbacks.h 60:10@
 
          __exported by:__ @functions\/callbacks.h@
     -}
   , dataPipeline_postProcess :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ())
     {- ^ __C declaration:__ @postProcess@
 
-         __defined at:__ @functions\/callbacks.h:61:10@
+         __defined at:__ @functions\/callbacks.h 61:10@
 
          __exported by:__ @functions\/callbacks.h@
     -}
@@ -734,7 +734,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataPipeline) "dataP
 
 {-| __C declaration:__ @union ProcessorCallback@
 
-    __defined at:__ @functions\/callbacks.h:69:7@
+    __defined at:__ @functions\/callbacks.h 69:7@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -752,7 +752,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance Data
 
 __C declaration:__ @simple@
 
-__defined at:__ @functions\/callbacks.h:70:10@
+__defined at:__ @functions\/callbacks.h 70:10@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -779,7 +779,7 @@ set_processorCallback_simple =
 
 __C declaration:__ @withValidator@
 
-__defined at:__ @functions\/callbacks.h:71:10@
+__defined at:__ @functions\/callbacks.h 71:10@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -806,7 +806,7 @@ set_processorCallback_withValidator =
 
 __C declaration:__ @withProgress@
 
-__defined at:__ @functions\/callbacks.h:72:10@
+__defined at:__ @functions\/callbacks.h 72:10@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -868,7 +868,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProcessorCallback) "
 
 {-| __C declaration:__ @enum \@Processor_mode@
 
-    __defined at:__ @functions\/callbacks.h:76:3@
+    __defined at:__ @functions\/callbacks.h 76:3@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -943,7 +943,7 @@ instance Read Processor_mode where
 
 {-| __C declaration:__ @MODE_SIMPLE@
 
-    __defined at:__ @functions\/callbacks.h:76:10@
+    __defined at:__ @functions\/callbacks.h 76:10@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -952,7 +952,7 @@ pattern MODE_SIMPLE = Processor_mode 0
 
 {-| __C declaration:__ @MODE_VALIDATED@
 
-    __defined at:__ @functions\/callbacks.h:76:23@
+    __defined at:__ @functions\/callbacks.h 76:23@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -961,7 +961,7 @@ pattern MODE_VALIDATED = Processor_mode 1
 
 {-| __C declaration:__ @MODE_PROGRESS@
 
-    __defined at:__ @functions\/callbacks.h:76:39@
+    __defined at:__ @functions\/callbacks.h 76:39@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -970,7 +970,7 @@ pattern MODE_PROGRESS = Processor_mode 2
 
 {-| __C declaration:__ @struct Processor@
 
-    __defined at:__ @functions\/callbacks.h:75:8@
+    __defined at:__ @functions\/callbacks.h 75:8@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -978,14 +978,14 @@ data Processor = Processor
   { processor_mode :: Processor_mode
     {- ^ __C declaration:__ @mode@
 
-         __defined at:__ @functions\/callbacks.h:76:55@
+         __defined at:__ @functions\/callbacks.h 76:55@
 
          __exported by:__ @functions\/callbacks.h@
     -}
   , processor_callback :: ProcessorCallback
     {- ^ __C declaration:__ @callback@
 
-         __defined at:__ @functions\/callbacks.h:77:27@
+         __defined at:__ @functions\/callbacks.h 77:27@
 
          __exported by:__ @functions\/callbacks.h@
     -}
@@ -1039,7 +1039,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor) "processo
 
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @functions\/callbacks.h:94:13@
+    __defined at:__ @functions\/callbacks.h 94:13@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1063,7 +1063,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo "un_Foo" where
 
 {-| __C declaration:__ @foo2@
 
-    __defined at:__ @functions\/callbacks.h:95:13@
+    __defined at:__ @functions\/callbacks.h 95:13@
 
     __exported by:__ @functions\/callbacks.h@
 -}

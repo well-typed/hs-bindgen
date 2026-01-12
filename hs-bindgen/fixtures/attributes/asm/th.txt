@@ -36,14 +36,14 @@ foreign import ccall safe "hs_bindgen_369133049bfc1e73" hs_bindgen_369133049bfc1
  -> IO CInt
 {-| __C declaration:__ @asm_labeled_function@
 
-    __defined at:__ @attributes\/asm.h:4:5@
+    __defined at:__ @attributes\/asm.h 4:5@
 
     __exported by:__ @attributes\/asm.h@
 -}
 asm_labeled_function :: CInt -> CInt -> IO CInt
 {-| __C declaration:__ @asm_labeled_function@
 
-    __defined at:__ @attributes\/asm.h:4:5@
+    __defined at:__ @attributes\/asm.h 4:5@
 
     __exported by:__ @attributes\/asm.h@
 -}
@@ -55,14 +55,14 @@ foreign import ccall safe "hs_bindgen_3ad6c287a2386382" hs_bindgen_3ad6c287a2386
  -> IO CInt
 {-| __C declaration:__ @asm_labeled_function@
 
-    __defined at:__ @attributes\/asm.h:4:5@
+    __defined at:__ @attributes\/asm.h 4:5@
 
     __exported by:__ @attributes\/asm.h@
 -}
 asm_labeled_function :: CInt -> CInt -> IO CInt
 {-| __C declaration:__ @asm_labeled_function@
 
-    __defined at:__ @attributes\/asm.h:4:5@
+    __defined at:__ @attributes\/asm.h 4:5@
 
     __exported by:__ @attributes\/asm.h@
 -}
@@ -73,14 +73,14 @@ foreign import ccall safe "hs_bindgen_4f7c4fceed28f171" hs_bindgen_4f7c4fceed28f
 {-# NOINLINE asm_labeled_function #-}
 {-| __C declaration:__ @asm_labeled_function@
 
-    __defined at:__ @attributes\/asm.h:4:5@
+    __defined at:__ @attributes\/asm.h 4:5@
 
     __exported by:__ @attributes\/asm.h@
 -}
 asm_labeled_function :: FunPtr (CInt -> CInt -> IO CInt)
 {-| __C declaration:__ @asm_labeled_function@
 
-    __defined at:__ @attributes\/asm.h:4:5@
+    __defined at:__ @attributes\/asm.h 4:5@
 
     __exported by:__ @attributes\/asm.h@
 -}
@@ -91,14 +91,14 @@ foreign import ccall safe "hs_bindgen_e637e98af1313f88" hs_bindgen_e637e98af1313
 {-# NOINLINE asm_labeled_variable #-}
 {-| __C declaration:__ @asm_labeled_variable@
 
-    __defined at:__ @attributes\/asm.h:2:12@
+    __defined at:__ @attributes\/asm.h 2:12@
 
     __exported by:__ @attributes\/asm.h@
 -}
 asm_labeled_variable :: Ptr CInt
 {-| __C declaration:__ @asm_labeled_variable@
 
-    __defined at:__ @attributes\/asm.h:2:12@
+    __defined at:__ @attributes\/asm.h 2:12@
 
     __exported by:__ @attributes\/asm.h@
 -}

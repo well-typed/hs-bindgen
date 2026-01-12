@@ -28,7 +28,7 @@
 -- }
 {-| __C declaration:__ @struct X@
 
-    __defined at:__ @declarations\/definitions.h:23:8@
+    __defined at:__ @declarations\/definitions.h 23:8@
 
     __exported by:__ @declarations\/definitions.h@
 -}
@@ -36,13 +36,13 @@ data X
     = X {x_n :: CInt
          {- ^ __C declaration:__ @n@
 
-              __defined at:__ @declarations\/definitions.h:23:16@
+              __defined at:__ @declarations\/definitions.h 23:16@
 
               __exported by:__ @declarations\/definitions.h@
          -}}
       {- ^ __C declaration:__ @struct X@
 
-           __defined at:__ @declarations\/definitions.h:23:8@
+           __defined at:__ @declarations\/definitions.h 23:8@
 
            __exported by:__ @declarations\/definitions.h@
       -}
@@ -74,7 +74,7 @@ instance TyEq ty (CFieldType X "x_n") =>
     where getField = ptrToCField (Proxy @"x_n")
 {-| __C declaration:__ @union Y@
 
-    __defined at:__ @declarations\/definitions.h:26:7@
+    __defined at:__ @declarations\/definitions.h 26:7@
 
     __exported by:__ @declarations\/definitions.h@
 -}
@@ -82,7 +82,7 @@ newtype Y
     = Y {un_Y :: ByteArray}
       {- ^ __C declaration:__ @union Y@
 
-           __defined at:__ @declarations\/definitions.h:26:7@
+           __defined at:__ @declarations\/definitions.h 26:7@
 
            __exported by:__ @declarations\/definitions.h@
       -}
@@ -94,7 +94,7 @@ deriving via (SizedByteArray 4 4) instance Prim Y
 
 __C declaration:__ @m@
 
-__defined at:__ @declarations\/definitions.h:26:15@
+__defined at:__ @declarations\/definitions.h 26:15@
 
 __exported by:__ @declarations\/definitions.h@
 -}
@@ -105,7 +105,7 @@ get_y_m :: Y -> CInt
 
 __C declaration:__ @m@
 
-__defined at:__ @declarations\/definitions.h:26:15@
+__defined at:__ @declarations\/definitions.h 26:15@
 
 __exported by:__ @declarations\/definitions.h@
 -}
@@ -128,7 +128,7 @@ set_y_m = setUnionPayload
 
 __C declaration:__ @o@
 
-__defined at:__ @declarations\/definitions.h:26:22@
+__defined at:__ @declarations\/definitions.h 26:22@
 
 __exported by:__ @declarations\/definitions.h@
 -}
@@ -139,7 +139,7 @@ get_y_o :: Y -> CInt
 
 __C declaration:__ @o@
 
-__defined at:__ @declarations\/definitions.h:26:22@
+__defined at:__ @declarations\/definitions.h 26:22@
 
 __exported by:__ @declarations\/definitions.h@
 -}
@@ -174,14 +174,14 @@ foreign import ccall safe "hs_bindgen_9cdc88a6d09442d6" hs_bindgen_9cdc88a6d0944
  -> IO CInt
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @declarations\/definitions.h:13:5@
+    __defined at:__ @declarations\/definitions.h 13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
 foo :: CDouble -> IO CInt
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @declarations\/definitions.h:13:5@
+    __defined at:__ @declarations\/definitions.h 13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
@@ -192,14 +192,14 @@ foreign import ccall safe "hs_bindgen_07fd5b433f381094" hs_bindgen_07fd5b433f381
  -> IO CInt
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @declarations\/definitions.h:13:5@
+    __defined at:__ @declarations\/definitions.h 13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
 foo :: CDouble -> IO CInt
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @declarations\/definitions.h:13:5@
+    __defined at:__ @declarations\/definitions.h 13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
@@ -210,14 +210,14 @@ foreign import ccall safe "hs_bindgen_8bb82cd68ce8efe4" hs_bindgen_8bb82cd68ce8e
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @declarations\/definitions.h:13:5@
+    __defined at:__ @declarations\/definitions.h 13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
 foo :: FunPtr (CDouble -> IO CInt)
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @declarations\/definitions.h:13:5@
+    __defined at:__ @declarations\/definitions.h 13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
@@ -228,14 +228,14 @@ foreign import ccall safe "hs_bindgen_417f0d4479c97357" hs_bindgen_417f0d4479c97
 {-# NOINLINE n #-}
 {-| __C declaration:__ @n@
 
-    __defined at:__ @declarations\/definitions.h:18:5@
+    __defined at:__ @declarations\/definitions.h 18:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}
 n :: Ptr CInt
 {-| __C declaration:__ @n@
 
-    __defined at:__ @declarations\/definitions.h:18:5@
+    __defined at:__ @declarations\/definitions.h 18:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}

@@ -33,7 +33,7 @@ import Prelude ((<*>), (>>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum FileOperationStatus@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:7:6@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 7:6@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
@@ -101,7 +101,7 @@ instance Read FileOperationStatus where
 
 {-| __C declaration:__ @SUCCESS@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:8:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 8:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
@@ -110,7 +110,7 @@ pattern SUCCESS = FileOperationStatus 0
 
 {-| __C declaration:__ @NOT_FOUND@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:9:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 9:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
@@ -119,7 +119,7 @@ pattern NOT_FOUND = FileOperationStatus 2
 
 {-| __C declaration:__ @PERMISSION_DENIED@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:10:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 10:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
@@ -128,7 +128,7 @@ pattern PERMISSION_DENIED = FileOperationStatus 13
 
 {-| __C declaration:__ @INVALID_ARGUMENT@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:11:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 11:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
@@ -137,7 +137,7 @@ pattern INVALID_ARGUMENT = FileOperationStatus 22
 
 {-| __C declaration:__ @OUT_OF_MEMORY@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:12:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 12:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
@@ -146,7 +146,7 @@ pattern OUT_OF_MEMORY = FileOperationStatus 12
 
 {-| __C declaration:__ @CUSTOM_ERROR_OTHER@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:13:3@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 13:3@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
@@ -155,7 +155,7 @@ pattern CUSTOM_ERROR_OTHER = FileOperationStatus (-1)
 
 {-| __C declaration:__ @struct FileOperationRecord@
 
-    __defined at:__ @program-analysis\/program_slicing_selection.h:16:8@
+    __defined at:__ @program-analysis\/program_slicing_selection.h 16:8@
 
     __exported by:__ @program-analysis\/program_slicing_selection.h@
 -}
@@ -163,14 +163,14 @@ data FileOperationRecord = FileOperationRecord
   { fileOperationRecord_status :: FileOperationStatus
     {- ^ __C declaration:__ @status@
 
-         __defined at:__ @program-analysis\/program_slicing_selection.h:17:28@
+         __defined at:__ @program-analysis\/program_slicing_selection.h 17:28@
 
          __exported by:__ @program-analysis\/program_slicing_selection.h@
     -}
   , fileOperationRecord_bytes_processed :: HsBindgen.Runtime.Prelude.CSize
     {- ^ __C declaration:__ @bytes_processed@
 
-         __defined at:__ @program-analysis\/program_slicing_selection.h:18:10@
+         __defined at:__ @program-analysis\/program_slicing_selection.h 18:10@
 
          __exported by:__ @program-analysis\/program_slicing_selection.h@
     -}

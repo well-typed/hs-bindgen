@@ -33,7 +33,7 @@ import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
 {-| __C declaration:__ @int2int@
 
-    __defined at:__ @manual\/function_pointers.h:19:13@
+    __defined at:__ @manual\/function_pointers.h 19:13@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -77,7 +77,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Int2int "un_Int2int" where
 
 __C declaration:__ @struct Apply1Struct@
 
-__defined at:__ @manual\/function_pointers.h:37:8@
+__defined at:__ @manual\/function_pointers.h 37:8@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -85,7 +85,7 @@ data Apply1Struct = Apply1Struct
   { apply1Struct_apply1_nopointer_struct_field :: Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
     {- ^ __C declaration:__ @apply1_nopointer_struct_field@
 
-         __defined at:__ @manual\/function_pointers.h:38:16@
+         __defined at:__ @manual\/function_pointers.h 38:16@
 
          __exported by:__ @manual\/function_pointers.h@
     -}
@@ -127,7 +127,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Apply1Struct) "apply
 
 __C declaration:__ @union Apply1Union@
 
-__defined at:__ @manual\/function_pointers.h:43:7@
+__defined at:__ @manual\/function_pointers.h 43:7@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -145,7 +145,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance Data
 
 __C declaration:__ @apply1_nopointer_union_field@
 
-__defined at:__ @manual\/function_pointers.h:44:16@
+__defined at:__ @manual\/function_pointers.h 44:16@
 
 __exported by:__ @manual\/function_pointers.h@
 -}

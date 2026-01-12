@@ -3,7 +3,7 @@
 
 __C declaration:__ @f1@
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:7:16@
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h 7:16@
 
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -13,7 +13,7 @@ newtype F1_Aux
 
       __C declaration:__ @f1@
 
-      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:7:16@
+      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 7:16@
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
@@ -38,7 +38,7 @@ instance HasCField F1_Aux "un_F1_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @f1@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:7:16@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 7:16@
 
     __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -46,7 +46,7 @@ newtype F1
     = F1 {un_F1 :: (FunPtr F1_Aux)}
       {- ^ __C declaration:__ @f1@
 
-           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:7:16@
+           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 7:16@
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
@@ -62,7 +62,7 @@ instance HasCField F1 "un_F1"
 
 __C declaration:__ @f2@
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:10:17@
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h 10:17@
 
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -72,7 +72,7 @@ newtype F2_Aux
 
       __C declaration:__ @f2@
 
-      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:10:17@
+      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 10:17@
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
@@ -97,7 +97,7 @@ instance HasCField F2_Aux "un_F2_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:10:17@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 10:17@
 
     __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -105,7 +105,7 @@ newtype F2
     = F2 {un_F2 :: (Ptr (FunPtr F2_Aux))}
       {- ^ __C declaration:__ @f2@
 
-           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:10:17@
+           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 10:17@
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
@@ -121,7 +121,7 @@ instance HasCField F2 "un_F2"
 
 __C declaration:__ @f3@
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:13:18@
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h 13:18@
 
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -131,7 +131,7 @@ newtype F3_Aux
 
       __C declaration:__ @f3@
 
-      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:13:18@
+      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 13:18@
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
@@ -156,7 +156,7 @@ instance HasCField F3_Aux "un_F3_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @f3@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:13:18@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 13:18@
 
     __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -164,7 +164,7 @@ newtype F3
     = F3 {un_F3 :: (Ptr (Ptr (FunPtr F3_Aux)))}
       {- ^ __C declaration:__ @f3@
 
-           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:13:18@
+           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 13:18@
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
@@ -180,7 +180,7 @@ instance HasCField F3 "un_F3"
 
 __C declaration:__ @f4@
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:16:16@
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h 16:16@
 
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -190,7 +190,7 @@ newtype F4_Aux
 
       __C declaration:__ @f4@
 
-      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:16:16@
+      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 16:16@
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
@@ -215,7 +215,7 @@ instance HasCField F4_Aux "un_F4_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @f4@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:16:16@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 16:16@
 
     __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -223,7 +223,7 @@ newtype F4
     = F4 {un_F4 :: (Ptr (FunPtr F4_Aux))}
       {- ^ __C declaration:__ @f4@
 
-           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:16:16@
+           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 16:16@
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
@@ -239,7 +239,7 @@ instance HasCField F4 "un_F4"
 
 __C declaration:__ @f5@
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:19:17@
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h 19:17@
 
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -249,7 +249,7 @@ newtype F5_Aux
 
       __C declaration:__ @f5@
 
-      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:19:17@
+      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 19:17@
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
@@ -274,7 +274,7 @@ instance HasCField F5_Aux "un_F5_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @f5@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:19:17@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 19:17@
 
     __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -282,7 +282,7 @@ newtype F5
     = F5 {un_F5 :: (Ptr (FunPtr F5_Aux))}
       {- ^ __C declaration:__ @f5@
 
-           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:19:17@
+           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 19:17@
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
@@ -296,7 +296,7 @@ instance HasCField F5 "un_F5"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @MyInt@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:22:13@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 22:13@
 
     __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -304,7 +304,7 @@ newtype MyInt
     = MyInt {un_MyInt :: CInt}
       {- ^ __C declaration:__ @MyInt@
 
-           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:22:13@
+           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 22:13@
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
@@ -330,7 +330,7 @@ instance HasCField MyInt "un_MyInt"
 
 __C declaration:__ @f6@
 
-__defined at:__ @types\/typedefs\/multi_level_function_pointer.h:23:17@
+__defined at:__ @types\/typedefs\/multi_level_function_pointer.h 23:17@
 
 __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -340,7 +340,7 @@ newtype F6_Aux
 
       __C declaration:__ @f6@
 
-      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:23:17@
+      __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 23:17@
 
       __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}
@@ -365,7 +365,7 @@ instance HasCField F6_Aux "un_F6_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @f6@
 
-    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:23:17@
+    __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 23:17@
 
     __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
 -}
@@ -373,7 +373,7 @@ newtype F6
     = F6 {un_F6 :: (Ptr (FunPtr F6_Aux))}
       {- ^ __C declaration:__ @f6@
 
-           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h:23:17@
+           __defined at:__ @types\/typedefs\/multi_level_function_pointer.h 23:17@
 
            __exported by:__ @types\/typedefs\/multi_level_function_pointer.h@
       -}

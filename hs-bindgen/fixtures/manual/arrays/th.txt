@@ -81,7 +81,7 @@
 -- }
 {-| __C declaration:__ @triplet@
 
-    __defined at:__ @manual\/arrays.h:32:13@
+    __defined at:__ @manual\/arrays.h 32:13@
 
     __exported by:__ @manual\/arrays.h@
 -}
@@ -89,7 +89,7 @@ newtype Triplet
     = Triplet {un_Triplet :: (ConstantArray 3 CInt)}
       {- ^ __C declaration:__ @triplet@
 
-           __defined at:__ @manual\/arrays.h:32:13@
+           __defined at:__ @manual\/arrays.h 32:13@
 
            __exported by:__ @manual\/arrays.h@
       -}
@@ -103,7 +103,7 @@ instance HasCField Triplet "un_Triplet"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @matrix@
 
-    __defined at:__ @manual\/arrays.h:34:17@
+    __defined at:__ @manual\/arrays.h 34:17@
 
     __exported by:__ @manual\/arrays.h@
 -}
@@ -111,7 +111,7 @@ newtype Matrix
     = Matrix {un_Matrix :: (ConstantArray 3 Triplet)}
       {- ^ __C declaration:__ @matrix@
 
-           __defined at:__ @manual\/arrays.h:34:17@
+           __defined at:__ @manual\/arrays.h 34:17@
 
            __exported by:__ @manual\/arrays.h@
       -}
@@ -127,7 +127,7 @@ instance HasCField Matrix "un_Matrix"
 
 __C declaration:__ @triplet_ptrs@
 
-__defined at:__ @manual\/arrays.h:44:15@
+__defined at:__ @manual\/arrays.h 44:15@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -138,7 +138,7 @@ newtype Triplet_ptrs
 
       __C declaration:__ @triplet_ptrs@
 
-      __defined at:__ @manual\/arrays.h:44:15@
+      __defined at:__ @manual\/arrays.h 44:15@
 
       __exported by:__ @manual\/arrays.h@
       -}
@@ -163,14 +163,14 @@ transpose_wrapper :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
 transpose_wrapper = hs_bindgen_cba7011c6d25362b
 {-| __C declaration:__ @transpose@
 
-    __defined at:__ @manual\/arrays.h:36:6@
+    __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
 transpose :: Matrix -> Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
-    __defined at:__ @manual\/arrays.h:36:6@
+    __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
@@ -183,7 +183,7 @@ foreign import ccall safe "hs_bindgen_45d15697a99c626a" hs_bindgen_45d15697a99c6
 
 __C declaration:__ @pretty_print_triplets@
 
-__defined at:__ @manual\/arrays.h:50:13@
+__defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -193,7 +193,7 @@ pretty_print_triplets :: Ptr (Ptr (ConstantArray 3 CInt)) ->
 
 __C declaration:__ @pretty_print_triplets@
 
-__defined at:__ @manual\/arrays.h:50:13@
+__defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -211,14 +211,14 @@ transpose_wrapper :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
 transpose_wrapper = hs_bindgen_f9f2776d121db261
 {-| __C declaration:__ @transpose@
 
-    __defined at:__ @manual\/arrays.h:36:6@
+    __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
 transpose :: Matrix -> Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
-    __defined at:__ @manual\/arrays.h:36:6@
+    __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
@@ -231,7 +231,7 @@ foreign import ccall safe "hs_bindgen_e43b4d44aa0abd14" hs_bindgen_e43b4d44aa0ab
 
 __C declaration:__ @pretty_print_triplets@
 
-__defined at:__ @manual\/arrays.h:50:13@
+__defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -241,7 +241,7 @@ pretty_print_triplets :: Ptr (Ptr (ConstantArray 3 CInt)) ->
 
 __C declaration:__ @pretty_print_triplets@
 
-__defined at:__ @manual\/arrays.h:50:13@
+__defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -252,14 +252,14 @@ foreign import ccall safe "hs_bindgen_c99d8a3b0363a0fa" hs_bindgen_c99d8a3b0363a
 {-# NOINLINE transpose #-}
 {-| __C declaration:__ @transpose@
 
-    __defined at:__ @manual\/arrays.h:36:6@
+    __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
 transpose :: FunPtr (Matrix -> Matrix -> IO Unit)
 {-| __C declaration:__ @transpose@
 
-    __defined at:__ @manual\/arrays.h:36:6@
+    __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
@@ -272,7 +272,7 @@ foreign import ccall safe "hs_bindgen_923b33cbbfeb5e7d" hs_bindgen_923b33cbbfeb5
 
 __C declaration:__ @pretty_print_triplets@
 
-__defined at:__ @manual\/arrays.h:50:13@
+__defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -281,7 +281,7 @@ pretty_print_triplets :: FunPtr (Triplet_ptrs -> IO Unit)
 
 __C declaration:__ @pretty_print_triplets@
 
-__defined at:__ @manual\/arrays.h:50:13@
+__defined at:__ @manual\/arrays.h 50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -294,7 +294,7 @@ foreign import ccall safe "hs_bindgen_6843a8f5c61ff74e" hs_bindgen_6843a8f5c61ff
 
 __C declaration:__ @arr1@
 
-__defined at:__ @manual\/arrays.h:13:12@
+__defined at:__ @manual\/arrays.h 13:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -303,7 +303,7 @@ arr1 :: Ptr (ConstantArray 1 CInt)
 
 __C declaration:__ @arr1@
 
-__defined at:__ @manual\/arrays.h:13:12@
+__defined at:__ @manual\/arrays.h 13:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -316,7 +316,7 @@ foreign import ccall safe "hs_bindgen_60c5bfbe2e29672a" hs_bindgen_60c5bfbe2e296
 
 __C declaration:__ @arr2@
 
-__defined at:__ @manual\/arrays.h:16:12@
+__defined at:__ @manual\/arrays.h 16:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -325,7 +325,7 @@ arr2 :: Ptr (ConstantArray 3 CInt)
 
 __C declaration:__ @arr2@
 
-__defined at:__ @manual\/arrays.h:16:12@
+__defined at:__ @manual\/arrays.h 16:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -338,7 +338,7 @@ foreign import ccall safe "hs_bindgen_a0497dc4c0aba158" hs_bindgen_a0497dc4c0aba
 
 __C declaration:__ @arr3@
 
-__defined at:__ @manual\/arrays.h:19:12@
+__defined at:__ @manual\/arrays.h 19:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -347,7 +347,7 @@ arr3 :: Ptr (IncompleteArray CInt)
 
 __C declaration:__ @arr3@
 
-__defined at:__ @manual\/arrays.h:19:12@
+__defined at:__ @manual\/arrays.h 19:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -360,7 +360,7 @@ foreign import ccall safe "hs_bindgen_609c0f69bf6da356" hs_bindgen_609c0f69bf6da
 
 __C declaration:__ @sudoku@
 
-__defined at:__ @manual\/arrays.h:22:12@
+__defined at:__ @manual\/arrays.h 22:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -369,7 +369,7 @@ sudoku :: Ptr (ConstantArray 3 (ConstantArray 3 CInt))
 
 __C declaration:__ @sudoku@
 
-__defined at:__ @manual\/arrays.h:22:12@
+__defined at:__ @manual\/arrays.h 22:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -382,7 +382,7 @@ foreign import ccall safe "hs_bindgen_52a30badbe2c9671" hs_bindgen_52a30badbe2c9
 
 __C declaration:__ @triplets@
 
-__defined at:__ @manual\/arrays.h:26:12@
+__defined at:__ @manual\/arrays.h 26:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -391,7 +391,7 @@ triplets :: Ptr (IncompleteArray (ConstantArray 3 CInt))
 
 __C declaration:__ @triplets@
 
-__defined at:__ @manual\/arrays.h:26:12@
+__defined at:__ @manual\/arrays.h 26:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -404,7 +404,7 @@ foreign import ccall safe "hs_bindgen_23817a1a9bc92057" hs_bindgen_23817a1a9bc92
 
 __C declaration:__ @global_triplet_ptrs@
 
-__defined at:__ @manual\/arrays.h:47:21@
+__defined at:__ @manual\/arrays.h 47:21@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -413,7 +413,7 @@ global_triplet_ptrs :: Ptr Triplet_ptrs
 
 __C declaration:__ @global_triplet_ptrs@
 
-__defined at:__ @manual\/arrays.h:47:21@
+__defined at:__ @manual\/arrays.h 47:21@
 
 __exported by:__ @manual\/arrays.h@
 -}

@@ -64,7 +64,7 @@ foreign import ccall unsafe "hs_bindgen_6843a8f5c61ff74e" hs_bindgen_6843a8f5c61
 
 __C declaration:__ @arr1@
 
-__defined at:__ @manual\/arrays.h:13:12@
+__defined at:__ @manual\/arrays.h 13:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -81,7 +81,7 @@ foreign import ccall unsafe "hs_bindgen_60c5bfbe2e29672a" hs_bindgen_60c5bfbe2e2
 
 __C declaration:__ @arr2@
 
-__defined at:__ @manual\/arrays.h:16:12@
+__defined at:__ @manual\/arrays.h 16:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -98,7 +98,7 @@ foreign import ccall unsafe "hs_bindgen_a0497dc4c0aba158" hs_bindgen_a0497dc4c0a
 
 __C declaration:__ @arr3@
 
-__defined at:__ @manual\/arrays.h:19:12@
+__defined at:__ @manual\/arrays.h 19:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -115,7 +115,7 @@ foreign import ccall unsafe "hs_bindgen_609c0f69bf6da356" hs_bindgen_609c0f69bf6
 
 __C declaration:__ @sudoku@
 
-__defined at:__ @manual\/arrays.h:22:12@
+__defined at:__ @manual\/arrays.h 22:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -132,7 +132,7 @@ foreign import ccall unsafe "hs_bindgen_52a30badbe2c9671" hs_bindgen_52a30badbe2
 
 __C declaration:__ @triplets@
 
-__defined at:__ @manual\/arrays.h:26:12@
+__defined at:__ @manual\/arrays.h 26:12@
 
 __exported by:__ @manual\/arrays.h@
 -}
@@ -149,7 +149,7 @@ foreign import ccall unsafe "hs_bindgen_23817a1a9bc92057" hs_bindgen_23817a1a9bc
 
 __C declaration:__ @global_triplet_ptrs@
 
-__defined at:__ @manual\/arrays.h:47:21@
+__defined at:__ @manual\/arrays.h 47:21@
 
 __exported by:__ @manual\/arrays.h@
 -}

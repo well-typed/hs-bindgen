@@ -33,7 +33,7 @@ import Prelude (Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pu
 
 __C declaration:__ @struct FILE@
 
-__defined at:__ @functions\/fun_attributes.h:7:9@
+__defined at:__ @functions\/fun_attributes.h 7:9@
 
 __exported by:__ @functions\/fun_attributes.h@
 -}
@@ -88,7 +88,7 @@ instance Data.Primitive.Types.Prim FILE where
 
 {-| __C declaration:__ @size_t@
 
-    __defined at:__ @functions\/fun_attributes.h:8:13@
+    __defined at:__ @functions\/fun_attributes.h 8:13@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}

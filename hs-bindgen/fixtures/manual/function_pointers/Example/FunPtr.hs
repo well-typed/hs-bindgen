@@ -91,7 +91,7 @@ foreign import ccall unsafe "hs_bindgen_f0adbe322df05825" hs_bindgen_f0adbe322df
 {-# NOINLINE square #-}
 {-| __C declaration:__ @square@
 
-    __defined at:__ @manual\/function_pointers.h:5:12@
+    __defined at:__ @manual\/function_pointers.h 5:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -106,7 +106,7 @@ foreign import ccall unsafe "hs_bindgen_ab2a2131b5f9f197" hs_bindgen_ab2a2131b5f
 {-# NOINLINE plus #-}
 {-| __C declaration:__ @plus@
 
-    __defined at:__ @manual\/function_pointers.h:7:12@
+    __defined at:__ @manual\/function_pointers.h 7:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -121,7 +121,7 @@ foreign import ccall unsafe "hs_bindgen_b3bb0146641acd39" hs_bindgen_b3bb0146641
 {-# NOINLINE apply1 #-}
 {-| __C declaration:__ @apply1@
 
-    __defined at:__ @manual\/function_pointers.h:9:12@
+    __defined at:__ @manual\/function_pointers.h 9:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -136,7 +136,7 @@ foreign import ccall unsafe "hs_bindgen_78245c4946e6da00" hs_bindgen_78245c4946e
 {-# NOINLINE apply2 #-}
 {-| __C declaration:__ @apply2@
 
-    __defined at:__ @manual\/function_pointers.h:11:12@
+    __defined at:__ @manual\/function_pointers.h 11:12@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -153,7 +153,7 @@ foreign import ccall unsafe "hs_bindgen_00276448b1e8af8a" hs_bindgen_00276448b1e
 
 __C declaration:__ @apply1_pointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:22:12@
+__defined at:__ @manual\/function_pointers.h 22:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -170,7 +170,7 @@ foreign import ccall unsafe "hs_bindgen_00f9010b80cdee19" hs_bindgen_00f9010b80c
 
 __C declaration:__ @apply1_nopointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:26:12@
+__defined at:__ @manual\/function_pointers.h 26:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -187,7 +187,7 @@ foreign import ccall unsafe "hs_bindgen_16929b4528263721" hs_bindgen_16929b45282
 
 __C declaration:__ @apply1_nopointer_res@
 
-__defined at:__ @manual\/function_pointers.h:31:21@
+__defined at:__ @manual\/function_pointers.h 31:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}

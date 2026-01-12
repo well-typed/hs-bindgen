@@ -29,7 +29,7 @@ import Prelude (Bounded, Enum, Eq, Floating, Fractional, Integral, Num, Ord, Rea
 
 {-| __C declaration:__ @PtrInt@
 
-    __defined at:__ @macros\/macro_types.h:2:9@
+    __defined at:__ @macros\/macro_types.h 2:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -41,7 +41,7 @@ newtype PtrInt = PtrInt
 
 {-| __C declaration:__ @PtrPtrChar@
 
-    __defined at:__ @macros\/macro_types.h:5:9@
+    __defined at:__ @macros\/macro_types.h 5:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -53,7 +53,7 @@ newtype PtrPtrChar = PtrPtrChar
 
 {-| __C declaration:__ @MTy@
 
-    __defined at:__ @macros\/macro_types.h:8:9@
+    __defined at:__ @macros\/macro_types.h 8:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -65,7 +65,7 @@ newtype MTy = MTy
 
 {-| __C declaration:__ @tty@
 
-    __defined at:__ @macros\/macro_types.h:9:13@
+    __defined at:__ @macros\/macro_types.h 9:13@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -89,7 +89,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Tty "un_Tty" where
 
 {-| __C declaration:__ @UINT8_T@
 
-    __defined at:__ @macros\/macro_types.h:11:9@
+    __defined at:__ @macros\/macro_types.h 11:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -101,7 +101,7 @@ newtype UINT8_T = UINT8_T
 
 {-| __C declaration:__ @BOOLEAN_T@
 
-    __defined at:__ @macros\/macro_types.h:12:9@
+    __defined at:__ @macros\/macro_types.h 12:9@
 
     __exported by:__ @macros\/macro_types.h@
 -}
@@ -113,7 +113,7 @@ newtype BOOLEAN_T = BOOLEAN_T
 
 {-| __C declaration:__ @boolean_T@
 
-    __defined at:__ @macros\/macro_types.h:13:19@
+    __defined at:__ @macros\/macro_types.h 13:19@
 
     __exported by:__ @macros\/macro_types.h@
 -}

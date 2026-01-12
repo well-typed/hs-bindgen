@@ -26,7 +26,7 @@ import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
 {-| __C declaration:__ @struct foo@
 
-    __defined at:__ @attributes\/attributes.h:10:36@
+    __defined at:__ @attributes\/attributes.h 10:36@
 
     __exported by:__ @attributes\/attributes.h@
 -}
@@ -34,14 +34,14 @@ data Foo = Foo
   { foo_c :: FC.CChar
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @attributes\/attributes.h:11:10@
+         __defined at:__ @attributes\/attributes.h 11:10@
 
          __exported by:__ @attributes\/attributes.h@
     -}
   , foo_i :: FC.CInt
     {- ^ __C declaration:__ @i@
 
-         __defined at:__ @attributes\/attributes.h:12:10@
+         __defined at:__ @attributes\/attributes.h 12:10@
 
          __exported by:__ @attributes\/attributes.h@
     -}
@@ -150,7 +150,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_i")
 
 {-| __C declaration:__ @struct bar@
 
-    __defined at:__ @attributes\/attributes.h:16:15@
+    __defined at:__ @attributes\/attributes.h 16:15@
 
     __exported by:__ @attributes\/attributes.h@
 -}
@@ -158,14 +158,14 @@ data Bar = Bar
   { bar_c :: FC.CChar
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @attributes\/attributes.h:17:10@
+         __defined at:__ @attributes\/attributes.h 17:10@
 
          __exported by:__ @attributes\/attributes.h@
     -}
   , bar_i :: FC.CInt
     {- ^ __C declaration:__ @i@
 
-         __defined at:__ @attributes\/attributes.h:18:10@
+         __defined at:__ @attributes\/attributes.h 18:10@
 
          __exported by:__ @attributes\/attributes.h@
     -}
@@ -274,7 +274,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_i")
 
 {-| __C declaration:__ @struct baz@
 
-    __defined at:__ @attributes\/attributes.h:22:9@
+    __defined at:__ @attributes\/attributes.h 22:9@
 
     __exported by:__ @attributes\/attributes.h@
 -}
@@ -282,14 +282,14 @@ data Baz = Baz
   { baz_c :: FC.CChar
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @attributes\/attributes.h:23:10@
+         __defined at:__ @attributes\/attributes.h 23:10@
 
          __exported by:__ @attributes\/attributes.h@
     -}
   , baz_i :: FC.CInt
     {- ^ __C declaration:__ @i@
 
-         __defined at:__ @attributes\/attributes.h:24:10@
+         __defined at:__ @attributes\/attributes.h 24:10@
 
          __exported by:__ @attributes\/attributes.h@
     -}
@@ -398,7 +398,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Baz) "baz_i")
 
 {-| __C declaration:__ @struct qux@
 
-    __defined at:__ @attributes\/attributes.h:28:9@
+    __defined at:__ @attributes\/attributes.h 28:9@
 
     __exported by:__ @attributes\/attributes.h@
 -}
@@ -406,14 +406,14 @@ data Qux = Qux
   { qux_c :: FC.CChar
     {- ^ __C declaration:__ @c@
 
-         __defined at:__ @attributes\/attributes.h:29:10@
+         __defined at:__ @attributes\/attributes.h 29:10@
 
          __exported by:__ @attributes\/attributes.h@
     -}
   , qux_i :: FC.CInt
     {- ^ __C declaration:__ @i@
 
-         __defined at:__ @attributes\/attributes.h:30:10@
+         __defined at:__ @attributes\/attributes.h 30:10@
 
          __exported by:__ @attributes\/attributes.h@
     -}
@@ -522,7 +522,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Qux) "qux_i")
 
 {-| __C declaration:__ @struct __sFILE@
 
-    __defined at:__ @attributes\/attributes.h:34:16@
+    __defined at:__ @attributes\/attributes.h 34:16@
 
     __exported by:__ @attributes\/attributes.h@
 -}
@@ -530,21 +530,21 @@ data FILE = FILE
   { fILE__r :: FC.CInt
     {- ^ __C declaration:__ @_r@
 
-         __defined at:__ @attributes\/attributes.h:35:9@
+         __defined at:__ @attributes\/attributes.h 35:9@
 
          __exported by:__ @attributes\/attributes.h@
     -}
   , fILE__w :: FC.CInt
     {- ^ __C declaration:__ @_w@
 
-         __defined at:__ @attributes\/attributes.h:36:9@
+         __defined at:__ @attributes\/attributes.h 36:9@
 
          __exported by:__ @attributes\/attributes.h@
     -}
   , fILE__close :: Ptr.FunPtr ((Ptr.Ptr Void) -> IO FC.CInt)
     {- ^ __C declaration:__ @_close@
 
-         __defined at:__ @attributes\/attributes.h:37:22@
+         __defined at:__ @attributes\/attributes.h 37:22@
 
          __exported by:__ @attributes\/attributes.h@
     -}

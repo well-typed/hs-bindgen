@@ -141,7 +141,7 @@ foreign import ccall unsafe "hs_bindgen_4f8e7b3d91414aa8" hs_bindgen_4f8e7b3d914
 
 __C declaration:__ @simpleGlobal@
 
-__defined at:__ @globals\/globals.h:9:12@
+__defined at:__ @globals\/globals.h 9:12@
 
 __exported by:__ @globals\/globals.h@
 -}
@@ -156,7 +156,7 @@ foreign import ccall unsafe "hs_bindgen_7f4cd619c55119dd" hs_bindgen_7f4cd619c55
 {-# NOINLINE compoundGlobal1 #-}
 {-| __C declaration:__ @compoundGlobal1@
 
-    __defined at:__ @globals\/globals.h:16:22@
+    __defined at:__ @globals\/globals.h 16:22@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -171,7 +171,7 @@ foreign import ccall unsafe "hs_bindgen_ed5c7196c3291592" hs_bindgen_ed5c7196c32
 {-# NOINLINE compoundGlobal2 #-}
 {-| __C declaration:__ @compoundGlobal2@
 
-    __defined at:__ @globals\/globals.h:19:47@
+    __defined at:__ @globals\/globals.h 19:47@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -194,7 +194,7 @@ foreign import ccall unsafe "hs_bindgen_0be07820afb78239" hs_bindgen_0be07820afb
 
 __C declaration:__ @nesInteger@
 
-__defined at:__ @globals\/globals.h:35:9@
+__defined at:__ @globals\/globals.h 35:9@
 
 __exported by:__ @globals\/globals.h@
 -}
@@ -209,7 +209,7 @@ foreign import ccall unsafe "hs_bindgen_e3497c0a80a77750" hs_bindgen_e3497c0a80a
 {-# NOINLINE nesFloating #-}
 {-| __C declaration:__ @nesFloating@
 
-    __defined at:__ @globals\/globals.h:36:9@
+    __defined at:__ @globals\/globals.h 36:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -224,7 +224,7 @@ foreign import ccall unsafe "hs_bindgen_78918168bc760476" hs_bindgen_78918168bc7
 {-# NOINLINE nesString1 #-}
 {-| __C declaration:__ @nesString1@
 
-    __defined at:__ @globals\/globals.h:38:9@
+    __defined at:__ @globals\/globals.h 38:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -239,7 +239,7 @@ foreign import ccall unsafe "hs_bindgen_c6c52463f890e752" hs_bindgen_c6c52463f89
 {-# NOINLINE nesString2 #-}
 {-| __C declaration:__ @nesString2@
 
-    __defined at:__ @globals\/globals.h:39:9@
+    __defined at:__ @globals\/globals.h 39:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -254,7 +254,7 @@ foreign import ccall unsafe "hs_bindgen_9b33d990c25069a0" hs_bindgen_9b33d990c25
 {-# NOINLINE nesCharacter #-}
 {-| __C declaration:__ @nesCharacter@
 
-    __defined at:__ @globals\/globals.h:40:9@
+    __defined at:__ @globals\/globals.h 40:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -269,7 +269,7 @@ foreign import ccall unsafe "hs_bindgen_561a1d5a05307329" hs_bindgen_561a1d5a053
 {-# NOINLINE nesParen #-}
 {-| __C declaration:__ @nesParen@
 
-    __defined at:__ @globals\/globals.h:41:9@
+    __defined at:__ @globals\/globals.h 41:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -284,7 +284,7 @@ foreign import ccall unsafe "hs_bindgen_4d3d64def4cf943f" hs_bindgen_4d3d64def4c
 {-# NOINLINE nesUnary #-}
 {-| __C declaration:__ @nesUnary@
 
-    __defined at:__ @globals\/globals.h:42:9@
+    __defined at:__ @globals\/globals.h 42:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -299,7 +299,7 @@ foreign import ccall unsafe "hs_bindgen_dcb8301e1cb444b7" hs_bindgen_dcb8301e1cb
 {-# NOINLINE nesBinary #-}
 {-| __C declaration:__ @nesBinary@
 
-    __defined at:__ @globals\/globals.h:43:9@
+    __defined at:__ @globals\/globals.h 43:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -314,7 +314,7 @@ foreign import ccall unsafe "hs_bindgen_798d6b9c7136a5d0" hs_bindgen_798d6b9c713
 {-# NOINLINE nesConditional #-}
 {-| __C declaration:__ @nesConditional@
 
-    __defined at:__ @globals\/globals.h:44:9@
+    __defined at:__ @globals\/globals.h 44:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -329,7 +329,7 @@ foreign import ccall unsafe "hs_bindgen_9c15dc9805f8abb8" hs_bindgen_9c15dc9805f
 {-# NOINLINE nesCast #-}
 {-| __C declaration:__ @nesCast@
 
-    __defined at:__ @globals\/globals.h:45:9@
+    __defined at:__ @globals\/globals.h 45:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -344,7 +344,7 @@ foreign import ccall unsafe "hs_bindgen_089dfddcc6667ac2" hs_bindgen_089dfddcc66
 {-# NOINLINE nesCompound #-}
 {-| __C declaration:__ @nesCompound@
 
-    __defined at:__ @globals\/globals.h:46:9@
+    __defined at:__ @globals\/globals.h 46:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -359,7 +359,7 @@ foreign import ccall unsafe "hs_bindgen_798af9a98bfc3030" hs_bindgen_798af9a98bf
 {-# NOINLINE nesInitList #-}
 {-| __C declaration:__ @nesInitList@
 
-    __defined at:__ @globals\/globals.h:47:9@
+    __defined at:__ @globals\/globals.h 47:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -374,7 +374,7 @@ foreign import ccall unsafe "hs_bindgen_846b0fde4d102012" hs_bindgen_846b0fde4d1
 {-# NOINLINE nesBool #-}
 {-| __C declaration:__ @nesBool@
 
-    __defined at:__ @globals\/globals.h:48:9@
+    __defined at:__ @globals\/globals.h 48:9@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -395,7 +395,7 @@ foreign import ccall unsafe "hs_bindgen_b243f9b292f8b883" hs_bindgen_b243f9b292f
 
 __C declaration:__ @streamBinary@
 
-__defined at:__ @globals\/globals.h:60:9@
+__defined at:__ @globals\/globals.h 60:9@
 
 __exported by:__ @globals\/globals.h@
 -}
@@ -410,7 +410,7 @@ foreign import ccall unsafe "hs_bindgen_60adad2a6178e6cc" hs_bindgen_60adad2a617
 {-# NOINLINE streamBinary_len #-}
 {-| __C declaration:__ @streamBinary_len@
 
-    __defined at:__ @globals\/globals.h:404:10@
+    __defined at:__ @globals\/globals.h 404:10@
 
     __exported by:__ @globals\/globals.h@
 -}
@@ -425,7 +425,7 @@ foreign import ccall unsafe "hs_bindgen_fe50ca9a4fea641c" hs_bindgen_fe50ca9a4fe
 {-# NOINLINE some_global_struct #-}
 {-| __C declaration:__ @some_global_struct@
 
-    __defined at:__ @globals\/globals.h:425:11@
+    __defined at:__ @globals\/globals.h 425:11@
 
     __exported by:__ @globals\/globals.h@
 -}

@@ -56,7 +56,7 @@
 -- }
 {-| __C declaration:__ @adiós@
 
-    __defined at:__ @edge-cases\/adios.h:7:13@
+    __defined at:__ @edge-cases\/adios.h 7:13@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -64,7 +64,7 @@ newtype Adio'0301s
     = Adio'0301s {un_Adio'0301s :: CInt}
       {- ^ __C declaration:__ @adiós@
 
-           __defined at:__ @edge-cases\/adios.h:7:13@
+           __defined at:__ @edge-cases\/adios.h 7:13@
 
            __exported by:__ @edge-cases\/adios.h@
       -}
@@ -88,7 +88,7 @@ instance HasCField Adio'0301s "un_Adio'0301s"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @数字@
 
-    __defined at:__ @edge-cases\/adios.h:12:13@
+    __defined at:__ @edge-cases\/adios.h 12:13@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -96,7 +96,7 @@ newtype C数字
     = C数字 {un_C数字 :: CInt}
       {- ^ __C declaration:__ @数字@
 
-           __defined at:__ @edge-cases\/adios.h:12:13@
+           __defined at:__ @edge-cases\/adios.h 12:13@
 
            __exported by:__ @edge-cases\/adios.h@
       -}
@@ -123,14 +123,14 @@ foreign import ccall safe "hs_bindgen_2010521804ef9a6e" hs_bindgen_2010521804ef9
     IO Unit
 {-| __C declaration:__ @ϒ@
 
-    __defined at:__ @edge-cases\/adios.h:18:6@
+    __defined at:__ @edge-cases\/adios.h 18:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
 cϒ :: IO Unit
 {-| __C declaration:__ @ϒ@
 
-    __defined at:__ @edge-cases\/adios.h:18:6@
+    __defined at:__ @edge-cases\/adios.h 18:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -140,14 +140,14 @@ foreign import ccall safe "hs_bindgen_3bc3e53cc82c9580" hs_bindgen_3bc3e53cc82c9
     IO Unit
 {-| __C declaration:__ @拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:27:6@
+    __defined at:__ @edge-cases\/adios.h 27:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
 拜拜 :: IO Unit
 {-| __C declaration:__ @拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:27:6@
+    __defined at:__ @edge-cases\/adios.h 27:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -157,14 +157,14 @@ foreign import ccall safe "hs_bindgen_ad8eb47027b2d49d" hs_bindgen_ad8eb47027b2d
     IO Unit
 {-| __C declaration:__ @Say拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:31:6@
+    __defined at:__ @edge-cases\/adios.h 31:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
 say拜拜 :: IO Unit
 {-| __C declaration:__ @Say拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:31:6@
+    __defined at:__ @edge-cases\/adios.h 31:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -174,14 +174,14 @@ foreign import ccall safe "hs_bindgen_1814d14d59d9daf7" hs_bindgen_1814d14d59d9d
     IO Unit
 {-| __C declaration:__ @ϒ@
 
-    __defined at:__ @edge-cases\/adios.h:18:6@
+    __defined at:__ @edge-cases\/adios.h 18:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
 cϒ :: IO Unit
 {-| __C declaration:__ @ϒ@
 
-    __defined at:__ @edge-cases\/adios.h:18:6@
+    __defined at:__ @edge-cases\/adios.h 18:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -191,14 +191,14 @@ foreign import ccall safe "hs_bindgen_c1ab9527e537714b" hs_bindgen_c1ab9527e5377
     IO Unit
 {-| __C declaration:__ @拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:27:6@
+    __defined at:__ @edge-cases\/adios.h 27:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
 拜拜 :: IO Unit
 {-| __C declaration:__ @拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:27:6@
+    __defined at:__ @edge-cases\/adios.h 27:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -208,14 +208,14 @@ foreign import ccall safe "hs_bindgen_d532055af9051fad" hs_bindgen_d532055af9051
     IO Unit
 {-| __C declaration:__ @Say拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:31:6@
+    __defined at:__ @edge-cases\/adios.h 31:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
 say拜拜 :: IO Unit
 {-| __C declaration:__ @Say拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:31:6@
+    __defined at:__ @edge-cases\/adios.h 31:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -226,14 +226,14 @@ foreign import ccall safe "hs_bindgen_0b1168f405aafe83" hs_bindgen_0b1168f405aaf
 {-# NOINLINE cϒ #-}
 {-| __C declaration:__ @ϒ@
 
-    __defined at:__ @edge-cases\/adios.h:18:6@
+    __defined at:__ @edge-cases\/adios.h 18:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
 cϒ :: FunPtr (IO Unit)
 {-| __C declaration:__ @ϒ@
 
-    __defined at:__ @edge-cases\/adios.h:18:6@
+    __defined at:__ @edge-cases\/adios.h 18:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -244,14 +244,14 @@ foreign import ccall safe "hs_bindgen_0a95358747546f1b" hs_bindgen_0a95358747546
 {-# NOINLINE 拜拜 #-}
 {-| __C declaration:__ @拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:27:6@
+    __defined at:__ @edge-cases\/adios.h 27:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
 拜拜 :: FunPtr (IO Unit)
 {-| __C declaration:__ @拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:27:6@
+    __defined at:__ @edge-cases\/adios.h 27:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -262,14 +262,14 @@ foreign import ccall safe "hs_bindgen_a01e420336bfa879" hs_bindgen_a01e420336bfa
 {-# NOINLINE say拜拜 #-}
 {-| __C declaration:__ @Say拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:31:6@
+    __defined at:__ @edge-cases\/adios.h 31:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
 say拜拜 :: FunPtr (IO Unit)
 {-| __C declaration:__ @Say拜拜@
 
-    __defined at:__ @edge-cases\/adios.h:31:6@
+    __defined at:__ @edge-cases\/adios.h 31:6@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -280,14 +280,14 @@ foreign import ccall safe "hs_bindgen_aa137b95cfa81f42" hs_bindgen_aa137b95cfa81
 {-# NOINLINE cϒϒ #-}
 {-| __C declaration:__ @ϒϒ@
 
-    __defined at:__ @edge-cases\/adios.h:21:12@
+    __defined at:__ @edge-cases\/adios.h 21:12@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
 cϒϒ :: Ptr CInt
 {-| __C declaration:__ @ϒϒ@
 
-    __defined at:__ @edge-cases\/adios.h:21:12@
+    __defined at:__ @edge-cases\/adios.h 21:12@
 
     __exported by:__ @edge-cases\/adios.h@
 -}
@@ -298,7 +298,7 @@ foreign import ccall safe "hs_bindgen_7e61df7271c4ff58" hs_bindgen_7e61df7271c4f
 {-# NOINLINE hs_bindgen_7af49c80665b9a25 #-}
 {-| __C declaration:__ @ϒϒϒ@
 
-    __defined at:__ @edge-cases\/adios.h:24:18@
+    __defined at:__ @edge-cases\/adios.h 24:18@
 
     __exported by:__ @edge-cases\/adios.h@
 
@@ -307,7 +307,7 @@ foreign import ccall safe "hs_bindgen_7e61df7271c4ff58" hs_bindgen_7e61df7271c4f
 hs_bindgen_7af49c80665b9a25 :: ConstPtr CInt
 {-| __C declaration:__ @ϒϒϒ@
 
-    __defined at:__ @edge-cases\/adios.h:24:18@
+    __defined at:__ @edge-cases\/adios.h 24:18@
 
     __exported by:__ @edge-cases\/adios.h@
 

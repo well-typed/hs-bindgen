@@ -21,14 +21,14 @@ foreign import ccall safe "hs_bindgen_77a4bac5bbe80f62" hs_bindgen_77a4bac5bbe80
     IO Unit
 {-| __C declaration:__ @h@
 
-    __defined at:__ @functions\/varargs.h:8:6@
+    __defined at:__ @functions\/varargs.h 8:6@
 
     __exported by:__ @functions\/varargs.h@
 -}
 h :: IO Unit
 {-| __C declaration:__ @h@
 
-    __defined at:__ @functions\/varargs.h:8:6@
+    __defined at:__ @functions\/varargs.h 8:6@
 
     __exported by:__ @functions\/varargs.h@
 -}
@@ -38,14 +38,14 @@ foreign import ccall safe "hs_bindgen_32ebae80cc3543e1" hs_bindgen_32ebae80cc354
     IO Unit
 {-| __C declaration:__ @h@
 
-    __defined at:__ @functions\/varargs.h:8:6@
+    __defined at:__ @functions\/varargs.h 8:6@
 
     __exported by:__ @functions\/varargs.h@
 -}
 h :: IO Unit
 {-| __C declaration:__ @h@
 
-    __defined at:__ @functions\/varargs.h:8:6@
+    __defined at:__ @functions\/varargs.h 8:6@
 
     __exported by:__ @functions\/varargs.h@
 -}
@@ -56,14 +56,14 @@ foreign import ccall safe "hs_bindgen_d7b5ad93f4d7fa04" hs_bindgen_d7b5ad93f4d7f
 {-# NOINLINE h #-}
 {-| __C declaration:__ @h@
 
-    __defined at:__ @functions\/varargs.h:8:6@
+    __defined at:__ @functions\/varargs.h 8:6@
 
     __exported by:__ @functions\/varargs.h@
 -}
 h :: FunPtr (IO Unit)
 {-| __C declaration:__ @h@
 
-    __defined at:__ @functions\/varargs.h:8:6@
+    __defined at:__ @functions\/varargs.h 8:6@
 
     __exported by:__ @functions\/varargs.h@
 -}

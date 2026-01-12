@@ -30,7 +30,7 @@ foreign import ccall unsafe "hs_bindgen_147bbeebcb063844" hs_bindgen_147bbeebcb0
 {-# NOINLINE _acos #-}
 {-| __C declaration:__ @_acos@
 
-    __defined at:__ @ordinary_anon_child.h:4:1@
+    __defined at:__ @ordinary_anon_child.h 4:1@
 
     __exported by:__ @edge-cases\/ordinary_anon_parent.h@
 -}

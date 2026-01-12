@@ -346,14 +346,14 @@
 -- }
 {-| __C declaration:__ @MAX_NAME_LENGTH@
 
-    __defined at:__ @documentation\/doxygen_docs.h:39:9@
+    __defined at:__ @documentation\/doxygen_docs.h 39:9@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 mAX_NAME_LENGTH :: CInt
 {-| __C declaration:__ @MAX_NAME_LENGTH@
 
-    __defined at:__ @documentation\/doxygen_docs.h:39:9@
+    __defined at:__ @documentation\/doxygen_docs.h 39:9@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -366,7 +366,7 @@ mAX_NAME_LENGTH = 64 :: CInt
 
 __C declaration:__ @size_type@
 
-__defined at:__ @documentation\/doxygen_docs.h:54:16@
+__defined at:__ @documentation\/doxygen_docs.h 54:16@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -380,7 +380,7 @@ newtype Size_type
 
       __C declaration:__ @size_type@
 
-      __defined at:__ @documentation\/doxygen_docs.h:54:16@
+      __defined at:__ @documentation\/doxygen_docs.h 54:16@
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
@@ -408,7 +408,7 @@ instance HasCField Size_type "un_Size_type"
 
 __C declaration:__ @struct forward_declared_struct@
 
-__defined at:__ @documentation\/doxygen_docs.h:72:8@
+__defined at:__ @documentation\/doxygen_docs.h 72:8@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -419,7 +419,7 @@ data Forward_declared_struct
 
 __C declaration:__ @union forward_declared_union@
 
-__defined at:__ @documentation\/doxygen_docs.h:77:7@
+__defined at:__ @documentation\/doxygen_docs.h 77:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -432,7 +432,7 @@ data Forward_declared_union
 
 __C declaration:__ @enum color_enum@
 
-__defined at:__ @documentation\/doxygen_docs.h:83:6@
+__defined at:__ @documentation\/doxygen_docs.h 83:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -446,7 +446,7 @@ newtype Color_enum
 
       __C declaration:__ @enum color_enum@
 
-      __defined at:__ @documentation\/doxygen_docs.h:83:6@
+      __defined at:__ @documentation\/doxygen_docs.h 83:6@
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
@@ -484,7 +484,7 @@ instance Read Color_enum
 
 __C declaration:__ @COLOR_RED@
 
-__defined at:__ @documentation\/doxygen_docs.h:84:5@
+__defined at:__ @documentation\/doxygen_docs.h 84:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -493,7 +493,7 @@ pattern COLOR_RED :: Color_enum
 
 __C declaration:__ @COLOR_RED@
 
-__defined at:__ @documentation\/doxygen_docs.h:84:5@
+__defined at:__ @documentation\/doxygen_docs.h 84:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -502,7 +502,7 @@ pattern COLOR_RED = Color_enum 0
 
 __C declaration:__ @COLOR_GREEN@
 
-__defined at:__ @documentation\/doxygen_docs.h:85:5@
+__defined at:__ @documentation\/doxygen_docs.h 85:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -511,7 +511,7 @@ pattern COLOR_GREEN :: Color_enum
 
 __C declaration:__ @COLOR_GREEN@
 
-__defined at:__ @documentation\/doxygen_docs.h:85:5@
+__defined at:__ @documentation\/doxygen_docs.h 85:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -520,7 +520,7 @@ pattern COLOR_GREEN = Color_enum 1
 
 __C declaration:__ @COLOR_BLUE@
 
-__defined at:__ @documentation\/doxygen_docs.h:86:5@
+__defined at:__ @documentation\/doxygen_docs.h 86:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -529,7 +529,7 @@ pattern COLOR_BLUE :: Color_enum
 
 __C declaration:__ @COLOR_BLUE@
 
-__defined at:__ @documentation\/doxygen_docs.h:86:5@
+__defined at:__ @documentation\/doxygen_docs.h 86:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -538,7 +538,7 @@ pattern COLOR_BLUE = Color_enum 2
 
 __C declaration:__ @event_callback_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:225:15@
+__defined at:__ @documentation\/doxygen_docs.h 225:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -549,7 +549,7 @@ newtype Event_callback_t_Aux
 
       __C declaration:__ @event_callback_t@
 
-      __defined at:__ @documentation\/doxygen_docs.h:225:15@
+      __defined at:__ @documentation\/doxygen_docs.h 225:15@
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
@@ -588,7 +588,7 @@ instance HasCField Event_callback_t_Aux "un_Event_callback_t_Aux"
 
 __C declaration:__ @event_callback_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:225:15@
+__defined at:__ @documentation\/doxygen_docs.h 225:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -606,7 +606,7 @@ newtype Event_callback_t
 
       __C declaration:__ @event_callback_t@
 
-      __defined at:__ @documentation\/doxygen_docs.h:225:15@
+      __defined at:__ @documentation\/doxygen_docs.h 225:15@
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
@@ -628,7 +628,7 @@ instance HasCField Event_callback_t "un_Event_callback_t"
 
 __C declaration:__ @struct config_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:232:9@
+__defined at:__ @documentation\/doxygen_docs.h 232:9@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -640,7 +640,7 @@ data Config_t
 
                 __C declaration:__ @id@
 
-                __defined at:__ @documentation\/doxygen_docs.h:234:14@
+                __defined at:__ @documentation\/doxygen_docs.h 234:14@
 
                 __exported by:__ @documentation\/doxygen_docs.h@
                 -},
@@ -651,7 +651,7 @@ data Config_t
 
                 __C declaration:__ @name@
 
-                __defined at:__ @documentation\/doxygen_docs.h:237:10@
+                __defined at:__ @documentation\/doxygen_docs.h 237:10@
 
                 __exported by:__ @documentation\/doxygen_docs.h@
                 -},
@@ -662,7 +662,7 @@ data Config_t
 
                 __C declaration:__ @flags@
 
-                __defined at:__ @documentation\/doxygen_docs.h:240:14@
+                __defined at:__ @documentation\/doxygen_docs.h 240:14@
 
                 __exported by:__ @documentation\/doxygen_docs.h@
                 -},
@@ -675,7 +675,7 @@ data Config_t
 
                 __C declaration:__ @callback@
 
-                __defined at:__ @documentation\/doxygen_docs.h:247:22@
+                __defined at:__ @documentation\/doxygen_docs.h 247:22@
 
                 __exported by:__ @documentation\/doxygen_docs.h@
                 -},
@@ -686,7 +686,7 @@ data Config_t
 
                 __C declaration:__ @user_data@
 
-                __defined at:__ @documentation\/doxygen_docs.h:250:11@
+                __defined at:__ @documentation\/doxygen_docs.h 250:11@
 
                 __exported by:__ @documentation\/doxygen_docs.h@
                 -}}
@@ -698,7 +698,7 @@ data Config_t
 
       __C declaration:__ @struct config_t@
 
-      __defined at:__ @documentation\/doxygen_docs.h:232:9@
+      __defined at:__ @documentation\/doxygen_docs.h 232:9@
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
@@ -755,7 +755,7 @@ instance TyEq ty (CFieldType Config_t "config_t_user_data") =>
 
 __C declaration:__ @enum status_code_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:258:9@
+__defined at:__ @documentation\/doxygen_docs.h 258:9@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -769,7 +769,7 @@ newtype Status_code_t
 
       __C declaration:__ @enum status_code_t@
 
-      __defined at:__ @documentation\/doxygen_docs.h:258:9@
+      __defined at:__ @documentation\/doxygen_docs.h 258:9@
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
@@ -806,7 +806,7 @@ instance Read Status_code_t
 
 __C declaration:__ @STATUS_OK@
 
-__defined at:__ @documentation\/doxygen_docs.h:260:5@
+__defined at:__ @documentation\/doxygen_docs.h 260:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -817,7 +817,7 @@ pattern STATUS_OK :: Status_code_t
 
 __C declaration:__ @STATUS_OK@
 
-__defined at:__ @documentation\/doxygen_docs.h:260:5@
+__defined at:__ @documentation\/doxygen_docs.h 260:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -828,7 +828,7 @@ pattern STATUS_OK = Status_code_t 0
 
 __C declaration:__ @STATUS_INVALID_PARAM@
 
-__defined at:__ @documentation\/doxygen_docs.h:263:5@
+__defined at:__ @documentation\/doxygen_docs.h 263:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -839,7 +839,7 @@ pattern STATUS_INVALID_PARAM :: Status_code_t
 
 __C declaration:__ @STATUS_INVALID_PARAM@
 
-__defined at:__ @documentation\/doxygen_docs.h:263:5@
+__defined at:__ @documentation\/doxygen_docs.h 263:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -850,7 +850,7 @@ pattern STATUS_INVALID_PARAM = Status_code_t (-1)
 
 __C declaration:__ @STATUS_NO_MEMORY@
 
-__defined at:__ @documentation\/doxygen_docs.h:266:5@
+__defined at:__ @documentation\/doxygen_docs.h 266:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -861,7 +861,7 @@ pattern STATUS_NO_MEMORY :: Status_code_t
 
 __C declaration:__ @STATUS_NO_MEMORY@
 
-__defined at:__ @documentation\/doxygen_docs.h:266:5@
+__defined at:__ @documentation\/doxygen_docs.h 266:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -872,7 +872,7 @@ pattern STATUS_NO_MEMORY = Status_code_t (-2)
 
 __C declaration:__ @STATUS_TIMEOUT@
 
-__defined at:__ @documentation\/doxygen_docs.h:269:5@
+__defined at:__ @documentation\/doxygen_docs.h 269:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -883,7 +883,7 @@ pattern STATUS_TIMEOUT :: Status_code_t
 
 __C declaration:__ @STATUS_TIMEOUT@
 
-__defined at:__ @documentation\/doxygen_docs.h:269:5@
+__defined at:__ @documentation\/doxygen_docs.h 269:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -894,7 +894,7 @@ pattern STATUS_TIMEOUT = Status_code_t (-3)
 
 __C declaration:__ @STATUS_ERROR@
 
-__defined at:__ @documentation\/doxygen_docs.h:272:5@
+__defined at:__ @documentation\/doxygen_docs.h 272:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -905,7 +905,7 @@ pattern STATUS_ERROR :: Status_code_t
 
 __C declaration:__ @STATUS_ERROR@
 
-__defined at:__ @documentation\/doxygen_docs.h:272:5@
+__defined at:__ @documentation\/doxygen_docs.h 272:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -918,7 +918,7 @@ pattern STATUS_ERROR = Status_code_t (-99)
 
 __C declaration:__ @struct \@data_union_t_as_parts@
 
-__defined at:__ @documentation\/doxygen_docs.h:290:5@
+__defined at:__ @documentation\/doxygen_docs.h 290:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -930,7 +930,7 @@ data Data_union_t_as_parts
 
                              __C declaration:__ @low@
 
-                             __defined at:__ @documentation\/doxygen_docs.h:291:18@
+                             __defined at:__ @documentation\/doxygen_docs.h 291:18@
 
                              __exported by:__ @documentation\/doxygen_docs.h@
                              -},
@@ -941,7 +941,7 @@ data Data_union_t_as_parts
 
                              __C declaration:__ @high@
 
-                             __defined at:__ @documentation\/doxygen_docs.h:292:18@
+                             __defined at:__ @documentation\/doxygen_docs.h 292:18@
 
                              __exported by:__ @documentation\/doxygen_docs.h@
                              -}}
@@ -953,7 +953,7 @@ data Data_union_t_as_parts
 
       __C declaration:__ @struct \@data_union_t_as_parts@
 
-      __defined at:__ @documentation\/doxygen_docs.h:290:5@
+      __defined at:__ @documentation\/doxygen_docs.h 290:5@
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
@@ -997,7 +997,7 @@ instance TyEq ty
 
 __C declaration:__ @union data_union_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:281:9@
+__defined at:__ @documentation\/doxygen_docs.h 281:9@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1013,7 +1013,7 @@ newtype Data_union_t
 
       __C declaration:__ @union data_union_t@
 
-      __defined at:__ @documentation\/doxygen_docs.h:281:9@
+      __defined at:__ @documentation\/doxygen_docs.h 281:9@
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
@@ -1027,7 +1027,7 @@ deriving via (SizedByteArray 4 4) instance Prim Data_union_t
 
 __C declaration:__ @as_int@
 
-__defined at:__ @documentation\/doxygen_docs.h:282:13@
+__defined at:__ @documentation\/doxygen_docs.h 282:13@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1041,7 +1041,7 @@ get_data_union_t_as_int :: Data_union_t ->
 
 __C declaration:__ @as_int@
 
-__defined at:__ @documentation\/doxygen_docs.h:282:13@
+__defined at:__ @documentation\/doxygen_docs.h 282:13@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1067,7 +1067,7 @@ set_data_union_t_as_int = setUnionPayload
 
 __C declaration:__ @as_float@
 
-__defined at:__ @documentation\/doxygen_docs.h:283:11@
+__defined at:__ @documentation\/doxygen_docs.h 283:11@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1080,7 +1080,7 @@ get_data_union_t_as_float :: Data_union_t -> CFloat
 
 __C declaration:__ @as_float@
 
-__defined at:__ @documentation\/doxygen_docs.h:283:11@
+__defined at:__ @documentation\/doxygen_docs.h 283:11@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1105,7 +1105,7 @@ set_data_union_t_as_float = setUnionPayload
 
 __C declaration:__ @as_bytes@
 
-__defined at:__ @documentation\/doxygen_docs.h:284:13@
+__defined at:__ @documentation\/doxygen_docs.h 284:13@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1119,7 +1119,7 @@ get_data_union_t_as_bytes :: Data_union_t ->
 
 __C declaration:__ @as_bytes@
 
-__defined at:__ @documentation\/doxygen_docs.h:284:13@
+__defined at:__ @documentation\/doxygen_docs.h 284:13@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1144,7 +1144,7 @@ set_data_union_t_as_bytes = setUnionPayload
 
 __C declaration:__ @as_parts@
 
-__defined at:__ @documentation\/doxygen_docs.h:293:30@
+__defined at:__ @documentation\/doxygen_docs.h 293:30@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1155,7 +1155,7 @@ get_data_union_t_as_parts :: Data_union_t -> Data_union_t_as_parts
 
 __C declaration:__ @as_parts@
 
-__defined at:__ @documentation\/doxygen_docs.h:293:30@
+__defined at:__ @documentation\/doxygen_docs.h 293:30@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1213,7 +1213,7 @@ instance TyEq ty
 
 __C declaration:__ @struct bitfield_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:302:9@
+__defined at:__ @documentation\/doxygen_docs.h 302:9@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1225,7 +1225,7 @@ data Bitfield_t
 
                   __C declaration:__ @flag1@
 
-                  __defined at:__ @documentation\/doxygen_docs.h:303:14@
+                  __defined at:__ @documentation\/doxygen_docs.h 303:14@
 
                   __exported by:__ @documentation\/doxygen_docs.h@
                   -},
@@ -1236,7 +1236,7 @@ data Bitfield_t
 
                   __C declaration:__ @flag2@
 
-                  __defined at:__ @documentation\/doxygen_docs.h:304:14@
+                  __defined at:__ @documentation\/doxygen_docs.h 304:14@
 
                   __exported by:__ @documentation\/doxygen_docs.h@
                   -},
@@ -1247,7 +1247,7 @@ data Bitfield_t
 
                   __C declaration:__ @counter@
 
-                  __defined at:__ @documentation\/doxygen_docs.h:305:14@
+                  __defined at:__ @documentation\/doxygen_docs.h 305:14@
 
                   __exported by:__ @documentation\/doxygen_docs.h@
                   -},
@@ -1258,7 +1258,7 @@ data Bitfield_t
 
                   __C declaration:__ @reserved@
 
-                  __defined at:__ @documentation\/doxygen_docs.h:306:14@
+                  __defined at:__ @documentation\/doxygen_docs.h 306:14@
 
                   __exported by:__ @documentation\/doxygen_docs.h@
                   -}}
@@ -1272,7 +1272,7 @@ data Bitfield_t
 
       __C declaration:__ @struct bitfield_t@
 
-      __defined at:__ @documentation\/doxygen_docs.h:302:9@
+      __defined at:__ @documentation\/doxygen_docs.h 302:9@
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
@@ -1368,7 +1368,7 @@ instance TyEq ty
 
 __C declaration:__ @processor_fn_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:317:15@
+__defined at:__ @documentation\/doxygen_docs.h 317:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1379,7 +1379,7 @@ newtype Processor_fn_t_Aux
 
       __C declaration:__ @processor_fn_t@
 
-      __defined at:__ @documentation\/doxygen_docs.h:317:15@
+      __defined at:__ @documentation\/doxygen_docs.h 317:15@
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
@@ -1418,7 +1418,7 @@ instance HasCField Processor_fn_t_Aux "un_Processor_fn_t_Aux"
 
 __C declaration:__ @processor_fn_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:317:15@
+__defined at:__ @documentation\/doxygen_docs.h 317:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1438,7 +1438,7 @@ newtype Processor_fn_t
 
       __C declaration:__ @processor_fn_t@
 
-      __defined at:__ @documentation\/doxygen_docs.h:317:15@
+      __defined at:__ @documentation\/doxygen_docs.h 317:15@
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
@@ -1459,7 +1459,7 @@ instance HasCField Processor_fn_t "un_Processor_fn_t"
 
 __C declaration:__ @filename_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:323:14@
+__defined at:__ @documentation\/doxygen_docs.h 323:14@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1473,7 +1473,7 @@ newtype Filename_t
 
       __C declaration:__ @filename_t@
 
-      __defined at:__ @documentation\/doxygen_docs.h:323:14@
+      __defined at:__ @documentation\/doxygen_docs.h 323:14@
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
@@ -1496,7 +1496,7 @@ instance HasCField Filename_t "un_Filename_t"
 
 __C declaration:__ @struct flexible_array@
 
-__defined at:__ @documentation\/doxygen_docs.h:360:8@
+__defined at:__ @documentation\/doxygen_docs.h 360:8@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1508,7 +1508,7 @@ data Flexible_array
 
                       __C declaration:__ @count@
 
-                      __defined at:__ @documentation\/doxygen_docs.h:361:12@
+                      __defined at:__ @documentation\/doxygen_docs.h 361:12@
 
                       __exported by:__ @documentation\/doxygen_docs.h@
                       -}}
@@ -1522,7 +1522,7 @@ data Flexible_array
 
       __C declaration:__ @struct flexible_array@
 
-      __defined at:__ @documentation\/doxygen_docs.h:360:8@
+      __defined at:__ @documentation\/doxygen_docs.h 360:8@
 
       __exported by:__ @documentation\/doxygen_docs.h@
       -}
@@ -1565,7 +1565,7 @@ foreign import ccall safe "hs_bindgen_7eada9f65d982412" hs_bindgen_7eada9f65d982
 
 __C declaration:__ @process_data@
 
-__defined at:__ @documentation\/doxygen_docs.h:105:5@
+__defined at:__ @documentation\/doxygen_docs.h 105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1588,7 +1588,7 @@ process_data :: ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
 
 __C declaration:__ @process_data@
 
-__defined at:__ @documentation\/doxygen_docs.h:105:5@
+__defined at:__ @documentation\/doxygen_docs.h 105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1609,7 +1609,7 @@ foreign import ccall safe "hs_bindgen_fb85499c501da1a7" hs_bindgen_fb85499c501da
 
 __C declaration:__ @process_file@
 
-__defined at:__ @documentation\/doxygen_docs.h:116:6@
+__defined at:__ @documentation\/doxygen_docs.h 116:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1626,7 +1626,7 @@ process_file :: ConstPtr CChar -> IO CBool
 
 __C declaration:__ @process_file@
 
-__defined at:__ @documentation\/doxygen_docs.h:116:6@
+__defined at:__ @documentation\/doxygen_docs.h 116:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1655,7 +1655,7 @@ foreign import ccall safe "hs_bindgen_a73fc7b108035c5c" hs_bindgen_a73fc7b108035
 
 __C declaration:__ @calculate_value@
 
-__defined at:__ @documentation\/doxygen_docs.h:131:5@
+__defined at:__ @documentation\/doxygen_docs.h 131:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1679,7 +1679,7 @@ calculate_value :: CInt -> CInt -> IO CInt
 
 __C declaration:__ @calculate_value@
 
-__defined at:__ @documentation\/doxygen_docs.h:131:5@
+__defined at:__ @documentation\/doxygen_docs.h 131:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1702,7 +1702,7 @@ foreign import ccall safe "hs_bindgen_9b7f6745401b4652" hs_bindgen_9b7f6745401b4
 
 __C declaration:__ @html_example@
 
-__defined at:__ @documentation\/doxygen_docs.h:148:6@
+__defined at:__ @documentation\/doxygen_docs.h 148:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1721,7 +1721,7 @@ html_example :: CInt -> IO CBool
 
 __C declaration:__ @html_example@
 
-__defined at:__ @documentation\/doxygen_docs.h:148:6@
+__defined at:__ @documentation\/doxygen_docs.h 148:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1773,7 +1773,7 @@ foreign import ccall safe "hs_bindgen_825411dc114e599b" hs_bindgen_825411dc114e5
 
 __C declaration:__ @list_example@
 
-__defined at:__ @documentation\/doxygen_docs.h:174:6@
+__defined at:__ @documentation\/doxygen_docs.h 174:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1821,7 +1821,7 @@ list_example :: Ptr (ConstPtr CChar) ->
 
 __C declaration:__ @list_example@
 
-__defined at:__ @documentation\/doxygen_docs.h:174:6@
+__defined at:__ @documentation\/doxygen_docs.h 174:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1846,7 +1846,7 @@ foreign import ccall safe "hs_bindgen_17264dcff7e9b698" hs_bindgen_17264dcff7e9b
 
 __C declaration:__ @dangerous_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:186:7@
+__defined at:__ @documentation\/doxygen_docs.h 186:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1867,7 +1867,7 @@ dangerous_function :: Ptr Void -> IO (Ptr Void)
 
 __C declaration:__ @dangerous_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:186:7@
+__defined at:__ @documentation\/doxygen_docs.h 186:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1892,7 +1892,7 @@ foreign import ccall safe "hs_bindgen_c8ca619ec2e70d8d" hs_bindgen_c8ca619ec2e70
 
 __C declaration:__ @detailed_return_codes@
 
-__defined at:__ @documentation\/doxygen_docs.h:197:5@
+__defined at:__ @documentation\/doxygen_docs.h 197:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1913,7 +1913,7 @@ detailed_return_codes :: ConstPtr CChar -> IO CInt
 
 __C declaration:__ @detailed_return_codes@
 
-__defined at:__ @documentation\/doxygen_docs.h:197:5@
+__defined at:__ @documentation\/doxygen_docs.h 197:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1934,7 +1934,7 @@ foreign import ccall safe "hs_bindgen_25e1070e2ce10048" hs_bindgen_25e1070e2ce10
 
 __C declaration:__ @old_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:206:5@
+__defined at:__ @documentation\/doxygen_docs.h 206:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1951,7 +1951,7 @@ old_function :: CInt -> IO CInt
 
 __C declaration:__ @old_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:206:5@
+__defined at:__ @documentation\/doxygen_docs.h 206:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1972,7 +1972,7 @@ foreign import ccall safe "hs_bindgen_a9eeeb09808e71cc" hs_bindgen_a9eeeb09808e7
 
 __C declaration:__ @versioned_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:216:5@
+__defined at:__ @documentation\/doxygen_docs.h 216:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1989,7 +1989,7 @@ versioned_function :: CInt -> IO CInt
 
 __C declaration:__ @versioned_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:216:5@
+__defined at:__ @documentation\/doxygen_docs.h 216:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2011,7 +2011,7 @@ foreign import ccall safe "hs_bindgen_0c0057f1700372a7" hs_bindgen_0c0057f170037
 
 __C declaration:__ @process_buffer@
 
-__defined at:__ @documentation\/doxygen_docs.h:332:5@
+__defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2029,7 +2029,7 @@ process_buffer :: Ptr CChar ->
 
 __C declaration:__ @process_buffer@
 
-__defined at:__ @documentation\/doxygen_docs.h:332:5@
+__defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2054,7 +2054,7 @@ foreign import ccall safe "hs_bindgen_294db77671f95524" hs_bindgen_294db77671f95
 
 __C declaration:__ @my_memcpy@
 
-__defined at:__ @documentation\/doxygen_docs.h:342:7@
+__defined at:__ @documentation\/doxygen_docs.h 342:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2074,7 +2074,7 @@ my_memcpy :: Ptr Void ->
 
 __C declaration:__ @my_memcpy@
 
-__defined at:__ @documentation\/doxygen_docs.h:342:7@
+__defined at:__ @documentation\/doxygen_docs.h 342:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2093,7 +2093,7 @@ foreign import ccall safe "hs_bindgen_f5bc63a9952c2618" hs_bindgen_f5bc63a9952c2
 
 __C declaration:__ @double_value@
 
-__defined at:__ @documentation\/doxygen_docs.h:350:19@
+__defined at:__ @documentation\/doxygen_docs.h 350:19@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2108,7 +2108,7 @@ double_value :: CInt -> IO CInt
 
 __C declaration:__ @double_value@
 
-__defined at:__ @documentation\/doxygen_docs.h:350:19@
+__defined at:__ @documentation\/doxygen_docs.h 350:19@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2186,7 +2186,7 @@ foreign import ccall safe "hs_bindgen_c4e7e99dba20204d" hs_bindgen_c4e7e99dba202
 
 __C declaration:__ @complex_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:423:15@
+__defined at:__ @documentation\/doxygen_docs.h 423:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2260,7 +2260,7 @@ complex_function :: Ptr Config_t ->
 
 __C declaration:__ @complex_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:423:15@
+__defined at:__ @documentation\/doxygen_docs.h 423:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2271,14 +2271,14 @@ foreign import ccall safe "hs_bindgen_935f2aead358d9ef" hs_bindgen_935f2aead358d
  -> IO CInt
 {-| __C declaration:__ @hash@
 
-    __defined at:__ @documentation\/doxygen_docs.h:427:5@
+    __defined at:__ @documentation\/doxygen_docs.h 427:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 hash :: Ptr CChar -> IO CInt
 {-| __C declaration:__ @hash@
 
-    __defined at:__ @documentation\/doxygen_docs.h:427:5@
+    __defined at:__ @documentation\/doxygen_docs.h 427:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2289,14 +2289,14 @@ foreign import ccall safe "hs_bindgen_39fef54c23d4e1ee" hs_bindgen_39fef54c23d4e
  -> CInt
 {-| __C declaration:__ @square@
 
-    __defined at:__ @documentation\/doxygen_docs.h:429:5@
+    __defined at:__ @documentation\/doxygen_docs.h 429:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 square :: CInt -> CInt
 {-| __C declaration:__ @square@
 
-    __defined at:__ @documentation\/doxygen_docs.h:429:5@
+    __defined at:__ @documentation\/doxygen_docs.h 429:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2323,7 +2323,7 @@ foreign import ccall safe "hs_bindgen_e6085a910ba41ecb" hs_bindgen_e6085a910ba41
 
 __C declaration:__ @process_data@
 
-__defined at:__ @documentation\/doxygen_docs.h:105:5@
+__defined at:__ @documentation\/doxygen_docs.h 105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2346,7 +2346,7 @@ process_data :: ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
 
 __C declaration:__ @process_data@
 
-__defined at:__ @documentation\/doxygen_docs.h:105:5@
+__defined at:__ @documentation\/doxygen_docs.h 105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2367,7 +2367,7 @@ foreign import ccall safe "hs_bindgen_c27e893aea0b0a77" hs_bindgen_c27e893aea0b0
 
 __C declaration:__ @process_file@
 
-__defined at:__ @documentation\/doxygen_docs.h:116:6@
+__defined at:__ @documentation\/doxygen_docs.h 116:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2384,7 +2384,7 @@ process_file :: ConstPtr CChar -> IO CBool
 
 __C declaration:__ @process_file@
 
-__defined at:__ @documentation\/doxygen_docs.h:116:6@
+__defined at:__ @documentation\/doxygen_docs.h 116:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2413,7 +2413,7 @@ foreign import ccall safe "hs_bindgen_bc1b0e25a72f4ec0" hs_bindgen_bc1b0e25a72f4
 
 __C declaration:__ @calculate_value@
 
-__defined at:__ @documentation\/doxygen_docs.h:131:5@
+__defined at:__ @documentation\/doxygen_docs.h 131:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2437,7 +2437,7 @@ calculate_value :: CInt -> CInt -> IO CInt
 
 __C declaration:__ @calculate_value@
 
-__defined at:__ @documentation\/doxygen_docs.h:131:5@
+__defined at:__ @documentation\/doxygen_docs.h 131:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2460,7 +2460,7 @@ foreign import ccall safe "hs_bindgen_09abc3cb74562964" hs_bindgen_09abc3cb74562
 
 __C declaration:__ @html_example@
 
-__defined at:__ @documentation\/doxygen_docs.h:148:6@
+__defined at:__ @documentation\/doxygen_docs.h 148:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2479,7 +2479,7 @@ html_example :: CInt -> IO CBool
 
 __C declaration:__ @html_example@
 
-__defined at:__ @documentation\/doxygen_docs.h:148:6@
+__defined at:__ @documentation\/doxygen_docs.h 148:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2531,7 +2531,7 @@ foreign import ccall safe "hs_bindgen_47cba1a95d265f84" hs_bindgen_47cba1a95d265
 
 __C declaration:__ @list_example@
 
-__defined at:__ @documentation\/doxygen_docs.h:174:6@
+__defined at:__ @documentation\/doxygen_docs.h 174:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2579,7 +2579,7 @@ list_example :: Ptr (ConstPtr CChar) ->
 
 __C declaration:__ @list_example@
 
-__defined at:__ @documentation\/doxygen_docs.h:174:6@
+__defined at:__ @documentation\/doxygen_docs.h 174:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2604,7 +2604,7 @@ foreign import ccall safe "hs_bindgen_e065fc013e4eccd6" hs_bindgen_e065fc013e4ec
 
 __C declaration:__ @dangerous_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:186:7@
+__defined at:__ @documentation\/doxygen_docs.h 186:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2625,7 +2625,7 @@ dangerous_function :: Ptr Void -> IO (Ptr Void)
 
 __C declaration:__ @dangerous_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:186:7@
+__defined at:__ @documentation\/doxygen_docs.h 186:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2650,7 +2650,7 @@ foreign import ccall safe "hs_bindgen_bc4f7e24b2ad4ace" hs_bindgen_bc4f7e24b2ad4
 
 __C declaration:__ @detailed_return_codes@
 
-__defined at:__ @documentation\/doxygen_docs.h:197:5@
+__defined at:__ @documentation\/doxygen_docs.h 197:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2671,7 +2671,7 @@ detailed_return_codes :: ConstPtr CChar -> IO CInt
 
 __C declaration:__ @detailed_return_codes@
 
-__defined at:__ @documentation\/doxygen_docs.h:197:5@
+__defined at:__ @documentation\/doxygen_docs.h 197:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2692,7 +2692,7 @@ foreign import ccall safe "hs_bindgen_8deec146389ae8b3" hs_bindgen_8deec146389ae
 
 __C declaration:__ @old_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:206:5@
+__defined at:__ @documentation\/doxygen_docs.h 206:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2709,7 +2709,7 @@ old_function :: CInt -> IO CInt
 
 __C declaration:__ @old_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:206:5@
+__defined at:__ @documentation\/doxygen_docs.h 206:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2730,7 +2730,7 @@ foreign import ccall safe "hs_bindgen_da2dcc1473935665" hs_bindgen_da2dcc1473935
 
 __C declaration:__ @versioned_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:216:5@
+__defined at:__ @documentation\/doxygen_docs.h 216:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2747,7 +2747,7 @@ versioned_function :: CInt -> IO CInt
 
 __C declaration:__ @versioned_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:216:5@
+__defined at:__ @documentation\/doxygen_docs.h 216:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2769,7 +2769,7 @@ foreign import ccall safe "hs_bindgen_97c1191917e6eece" hs_bindgen_97c1191917e6e
 
 __C declaration:__ @process_buffer@
 
-__defined at:__ @documentation\/doxygen_docs.h:332:5@
+__defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2787,7 +2787,7 @@ process_buffer :: Ptr CChar ->
 
 __C declaration:__ @process_buffer@
 
-__defined at:__ @documentation\/doxygen_docs.h:332:5@
+__defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2812,7 +2812,7 @@ foreign import ccall safe "hs_bindgen_58253bb560dc3eb3" hs_bindgen_58253bb560dc3
 
 __C declaration:__ @my_memcpy@
 
-__defined at:__ @documentation\/doxygen_docs.h:342:7@
+__defined at:__ @documentation\/doxygen_docs.h 342:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2832,7 +2832,7 @@ my_memcpy :: Ptr Void ->
 
 __C declaration:__ @my_memcpy@
 
-__defined at:__ @documentation\/doxygen_docs.h:342:7@
+__defined at:__ @documentation\/doxygen_docs.h 342:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2851,7 +2851,7 @@ foreign import ccall safe "hs_bindgen_44dd19b16ee38e5b" hs_bindgen_44dd19b16ee38
 
 __C declaration:__ @double_value@
 
-__defined at:__ @documentation\/doxygen_docs.h:350:19@
+__defined at:__ @documentation\/doxygen_docs.h 350:19@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2866,7 +2866,7 @@ double_value :: CInt -> IO CInt
 
 __C declaration:__ @double_value@
 
-__defined at:__ @documentation\/doxygen_docs.h:350:19@
+__defined at:__ @documentation\/doxygen_docs.h 350:19@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -2944,7 +2944,7 @@ foreign import ccall safe "hs_bindgen_fd6fce7c8d8b2f79" hs_bindgen_fd6fce7c8d8b2
 
 __C declaration:__ @complex_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:423:15@
+__defined at:__ @documentation\/doxygen_docs.h 423:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3018,7 +3018,7 @@ complex_function :: Ptr Config_t ->
 
 __C declaration:__ @complex_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:423:15@
+__defined at:__ @documentation\/doxygen_docs.h 423:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3029,14 +3029,14 @@ foreign import ccall safe "hs_bindgen_dd36c8b317ccfcc4" hs_bindgen_dd36c8b317ccf
  -> IO CInt
 {-| __C declaration:__ @hash@
 
-    __defined at:__ @documentation\/doxygen_docs.h:427:5@
+    __defined at:__ @documentation\/doxygen_docs.h 427:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 hash :: Ptr CChar -> IO CInt
 {-| __C declaration:__ @hash@
 
-    __defined at:__ @documentation\/doxygen_docs.h:427:5@
+    __defined at:__ @documentation\/doxygen_docs.h 427:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3047,14 +3047,14 @@ foreign import ccall safe "hs_bindgen_6875e30a7fe8d30a" hs_bindgen_6875e30a7fe8d
  -> CInt
 {-| __C declaration:__ @square@
 
-    __defined at:__ @documentation\/doxygen_docs.h:429:5@
+    __defined at:__ @documentation\/doxygen_docs.h 429:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 square :: CInt -> CInt
 {-| __C declaration:__ @square@
 
-    __defined at:__ @documentation\/doxygen_docs.h:429:5@
+    __defined at:__ @documentation\/doxygen_docs.h 429:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3081,7 +3081,7 @@ foreign import ccall safe "hs_bindgen_4a5cd66a4f26f8d5" hs_bindgen_4a5cd66a4f26f
 
 __C declaration:__ @process_data@
 
-__defined at:__ @documentation\/doxygen_docs.h:105:5@
+__defined at:__ @documentation\/doxygen_docs.h 105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3104,7 +3104,7 @@ process_data :: FunPtr (ConstPtr HsBindgen.Runtime.Prelude.Word8 ->
 
 __C declaration:__ @process_data@
 
-__defined at:__ @documentation\/doxygen_docs.h:105:5@
+__defined at:__ @documentation\/doxygen_docs.h 105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3125,7 +3125,7 @@ foreign import ccall safe "hs_bindgen_c8a059c65f18fea9" hs_bindgen_c8a059c65f18f
 
 __C declaration:__ @process_file@
 
-__defined at:__ @documentation\/doxygen_docs.h:116:6@
+__defined at:__ @documentation\/doxygen_docs.h 116:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3142,7 +3142,7 @@ process_file :: FunPtr (ConstPtr CChar -> IO CBool)
 
 __C declaration:__ @process_file@
 
-__defined at:__ @documentation\/doxygen_docs.h:116:6@
+__defined at:__ @documentation\/doxygen_docs.h 116:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3170,7 +3170,7 @@ foreign import ccall safe "hs_bindgen_5ab7e06724867ab3" hs_bindgen_5ab7e06724867
 
 __C declaration:__ @calculate_value@
 
-__defined at:__ @documentation\/doxygen_docs.h:131:5@
+__defined at:__ @documentation\/doxygen_docs.h 131:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3194,7 +3194,7 @@ calculate_value :: FunPtr (CInt -> CInt -> IO CInt)
 
 __C declaration:__ @calculate_value@
 
-__defined at:__ @documentation\/doxygen_docs.h:131:5@
+__defined at:__ @documentation\/doxygen_docs.h 131:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3217,7 +3217,7 @@ foreign import ccall safe "hs_bindgen_3f74fb834b0cd46b" hs_bindgen_3f74fb834b0cd
 
 __C declaration:__ @html_example@
 
-__defined at:__ @documentation\/doxygen_docs.h:148:6@
+__defined at:__ @documentation\/doxygen_docs.h 148:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3236,7 +3236,7 @@ html_example :: FunPtr (CInt -> IO CBool)
 
 __C declaration:__ @html_example@
 
-__defined at:__ @documentation\/doxygen_docs.h:148:6@
+__defined at:__ @documentation\/doxygen_docs.h 148:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3288,7 +3288,7 @@ foreign import ccall safe "hs_bindgen_2175b3c627db39cf" hs_bindgen_2175b3c627db3
 
 __C declaration:__ @list_example@
 
-__defined at:__ @documentation\/doxygen_docs.h:174:6@
+__defined at:__ @documentation\/doxygen_docs.h 174:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3336,7 +3336,7 @@ list_example :: FunPtr (Ptr (ConstPtr CChar) ->
 
 __C declaration:__ @list_example@
 
-__defined at:__ @documentation\/doxygen_docs.h:174:6@
+__defined at:__ @documentation\/doxygen_docs.h 174:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3361,7 +3361,7 @@ foreign import ccall safe "hs_bindgen_b7a4debd18827a19" hs_bindgen_b7a4debd18827
 
 __C declaration:__ @dangerous_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:186:7@
+__defined at:__ @documentation\/doxygen_docs.h 186:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3382,7 +3382,7 @@ dangerous_function :: FunPtr (Ptr Void -> IO (Ptr Void))
 
 __C declaration:__ @dangerous_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:186:7@
+__defined at:__ @documentation\/doxygen_docs.h 186:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3407,7 +3407,7 @@ foreign import ccall safe "hs_bindgen_9700b22f82eedafe" hs_bindgen_9700b22f82eed
 
 __C declaration:__ @detailed_return_codes@
 
-__defined at:__ @documentation\/doxygen_docs.h:197:5@
+__defined at:__ @documentation\/doxygen_docs.h 197:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3428,7 +3428,7 @@ detailed_return_codes :: FunPtr (ConstPtr CChar -> IO CInt)
 
 __C declaration:__ @detailed_return_codes@
 
-__defined at:__ @documentation\/doxygen_docs.h:197:5@
+__defined at:__ @documentation\/doxygen_docs.h 197:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3449,7 +3449,7 @@ foreign import ccall safe "hs_bindgen_49e0d34a627c6c19" hs_bindgen_49e0d34a627c6
 
 __C declaration:__ @old_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:206:5@
+__defined at:__ @documentation\/doxygen_docs.h 206:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3466,7 +3466,7 @@ old_function :: FunPtr (CInt -> IO CInt)
 
 __C declaration:__ @old_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:206:5@
+__defined at:__ @documentation\/doxygen_docs.h 206:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3487,7 +3487,7 @@ foreign import ccall safe "hs_bindgen_180cd7537e40ce99" hs_bindgen_180cd7537e40c
 
 __C declaration:__ @versioned_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:216:5@
+__defined at:__ @documentation\/doxygen_docs.h 216:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3504,7 +3504,7 @@ versioned_function :: FunPtr (CInt -> IO CInt)
 
 __C declaration:__ @versioned_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:216:5@
+__defined at:__ @documentation\/doxygen_docs.h 216:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3526,7 +3526,7 @@ foreign import ccall safe "hs_bindgen_f4ccc6d90e8d3ebd" hs_bindgen_f4ccc6d90e8d3
 
 __C declaration:__ @process_buffer@
 
-__defined at:__ @documentation\/doxygen_docs.h:332:5@
+__defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3544,7 +3544,7 @@ process_buffer :: FunPtr (ConstantArray 64 CChar ->
 
 __C declaration:__ @process_buffer@
 
-__defined at:__ @documentation\/doxygen_docs.h:332:5@
+__defined at:__ @documentation\/doxygen_docs.h 332:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3568,7 +3568,7 @@ foreign import ccall safe "hs_bindgen_6a74d376c901b531" hs_bindgen_6a74d376c901b
 
 __C declaration:__ @my_memcpy@
 
-__defined at:__ @documentation\/doxygen_docs.h:342:7@
+__defined at:__ @documentation\/doxygen_docs.h 342:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3588,7 +3588,7 @@ my_memcpy :: FunPtr (Ptr Void ->
 
 __C declaration:__ @my_memcpy@
 
-__defined at:__ @documentation\/doxygen_docs.h:342:7@
+__defined at:__ @documentation\/doxygen_docs.h 342:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3607,7 +3607,7 @@ foreign import ccall safe "hs_bindgen_156a92f3c5176105" hs_bindgen_156a92f3c5176
 
 __C declaration:__ @double_value@
 
-__defined at:__ @documentation\/doxygen_docs.h:350:19@
+__defined at:__ @documentation\/doxygen_docs.h 350:19@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3622,7 +3622,7 @@ double_value :: FunPtr (CInt -> IO CInt)
 
 __C declaration:__ @double_value@
 
-__defined at:__ @documentation\/doxygen_docs.h:350:19@
+__defined at:__ @documentation\/doxygen_docs.h 350:19@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3700,7 +3700,7 @@ foreign import ccall safe "hs_bindgen_dfa39b6be50cb2ca" hs_bindgen_dfa39b6be50cb
 
 __C declaration:__ @complex_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:423:15@
+__defined at:__ @documentation\/doxygen_docs.h 423:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3774,7 +3774,7 @@ complex_function :: FunPtr (Ptr Config_t ->
 
 __C declaration:__ @complex_function@
 
-__defined at:__ @documentation\/doxygen_docs.h:423:15@
+__defined at:__ @documentation\/doxygen_docs.h 423:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3785,14 +3785,14 @@ foreign import ccall safe "hs_bindgen_8ad88b79fd71f9d4" hs_bindgen_8ad88b79fd71f
 {-# NOINLINE hash #-}
 {-| __C declaration:__ @hash@
 
-    __defined at:__ @documentation\/doxygen_docs.h:427:5@
+    __defined at:__ @documentation\/doxygen_docs.h 427:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 hash :: FunPtr (Ptr CChar -> IO CInt)
 {-| __C declaration:__ @hash@
 
-    __defined at:__ @documentation\/doxygen_docs.h:427:5@
+    __defined at:__ @documentation\/doxygen_docs.h 427:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3803,14 +3803,14 @@ foreign import ccall safe "hs_bindgen_7ede0f7ec1b30650" hs_bindgen_7ede0f7ec1b30
 {-# NOINLINE square #-}
 {-| __C declaration:__ @square@
 
-    __defined at:__ @documentation\/doxygen_docs.h:429:5@
+    __defined at:__ @documentation\/doxygen_docs.h 429:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
 square :: FunPtr (CInt -> IO CInt)
 {-| __C declaration:__ @square@
 
-    __defined at:__ @documentation\/doxygen_docs.h:429:5@
+    __defined at:__ @documentation\/doxygen_docs.h 429:5@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3829,7 +3829,7 @@ foreign import ccall safe "hs_bindgen_f9dede86496f59c9" hs_bindgen_f9dede86496f5
 
 __C declaration:__ @global_counter@
 
-__defined at:__ @documentation\/doxygen_docs.h:61:12@
+__defined at:__ @documentation\/doxygen_docs.h 61:12@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3844,7 +3844,7 @@ global_counter :: Ptr CInt
 
 __C declaration:__ @global_counter@
 
-__defined at:__ @documentation\/doxygen_docs.h:61:12@
+__defined at:__ @documentation\/doxygen_docs.h 61:12@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3861,7 +3861,7 @@ foreign import ccall safe "hs_bindgen_a294be08386c9257" hs_bindgen_a294be08386c9
 
 __C declaration:__ @version_string@
 
-__defined at:__ @documentation\/doxygen_docs.h:67:20@
+__defined at:__ @documentation\/doxygen_docs.h 67:20@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -3874,7 +3874,7 @@ version_string :: Ptr (ConstPtr CChar)
 
 __C declaration:__ @version_string@
 
-__defined at:__ @documentation\/doxygen_docs.h:67:20@
+__defined at:__ @documentation\/doxygen_docs.h 67:20@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}

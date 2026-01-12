@@ -25,7 +25,7 @@
 -- }
 {-| __C declaration:__ @struct vector@
 
-    __defined at:__ @types\/complex\/vector_test.h:1:9@
+    __defined at:__ @types\/complex\/vector_test.h 1:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
@@ -33,20 +33,20 @@ data Vector
     = Vector {vector_x :: CDouble
               {- ^ __C declaration:__ @x@
 
-                   __defined at:__ @types\/complex\/vector_test.h:2:12@
+                   __defined at:__ @types\/complex\/vector_test.h 2:12@
 
                    __exported by:__ @types\/complex\/vector_test.h@
               -},
               vector_y :: CDouble
               {- ^ __C declaration:__ @y@
 
-                   __defined at:__ @types\/complex\/vector_test.h:3:12@
+                   __defined at:__ @types\/complex\/vector_test.h 3:12@
 
                    __exported by:__ @types\/complex\/vector_test.h@
               -}}
       {- ^ __C declaration:__ @struct vector@
 
-           __defined at:__ @types\/complex\/vector_test.h:1:9@
+           __defined at:__ @types\/complex\/vector_test.h 1:9@
 
            __exported by:__ @types\/complex\/vector_test.h@
       -}
@@ -100,14 +100,14 @@ foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" hs_bindgen_cd5f566bc96dc
  -> IO (Ptr Vector)
 {-| __C declaration:__ @new_vector@
 
-    __defined at:__ @types\/complex\/vector_test.h:6:9@
+    __defined at:__ @types\/complex\/vector_test.h 6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
 new_vector :: CDouble -> CDouble -> IO (Ptr Vector)
 {-| __C declaration:__ @new_vector@
 
-    __defined at:__ @types\/complex\/vector_test.h:6:9@
+    __defined at:__ @types\/complex\/vector_test.h 6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
@@ -119,14 +119,14 @@ foreign import ccall safe "hs_bindgen_1af353788955c7a2" hs_bindgen_1af353788955c
  -> IO (Ptr Vector)
 {-| __C declaration:__ @new_vector@
 
-    __defined at:__ @types\/complex\/vector_test.h:6:9@
+    __defined at:__ @types\/complex\/vector_test.h 6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
 new_vector :: CDouble -> CDouble -> IO (Ptr Vector)
 {-| __C declaration:__ @new_vector@
 
-    __defined at:__ @types\/complex\/vector_test.h:6:9@
+    __defined at:__ @types\/complex\/vector_test.h 6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
@@ -137,14 +137,14 @@ foreign import ccall safe "hs_bindgen_cb36cf0957839e33" hs_bindgen_cb36cf0957839
 {-# NOINLINE new_vector #-}
 {-| __C declaration:__ @new_vector@
 
-    __defined at:__ @types\/complex\/vector_test.h:6:9@
+    __defined at:__ @types\/complex\/vector_test.h 6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}
 new_vector :: FunPtr (CDouble -> CDouble -> IO (Ptr Vector))
 {-| __C declaration:__ @new_vector@
 
-    __defined at:__ @types\/complex\/vector_test.h:6:9@
+    __defined at:__ @types\/complex\/vector_test.h 6:9@
 
     __exported by:__ @types\/complex\/vector_test.h@
 -}

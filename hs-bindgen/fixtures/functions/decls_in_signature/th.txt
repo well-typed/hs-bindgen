@@ -68,14 +68,14 @@
 -- }
 {-| __C declaration:__ @struct opaque@
 
-    __defined at:__ @functions\/decls_in_signature.h:2:8@
+    __defined at:__ @functions\/decls_in_signature.h 2:8@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 data Opaque
 {-| __C declaration:__ @struct outside@
 
-    __defined at:__ @functions\/decls_in_signature.h:3:8@
+    __defined at:__ @functions\/decls_in_signature.h 3:8@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -83,20 +83,20 @@ data Outside
     = Outside {outside_x :: CInt
                {- ^ __C declaration:__ @x@
 
-                    __defined at:__ @functions\/decls_in_signature.h:4:7@
+                    __defined at:__ @functions\/decls_in_signature.h 4:7@
 
                     __exported by:__ @functions\/decls_in_signature.h@
                -},
                outside_y :: CInt
                {- ^ __C declaration:__ @y@
 
-                    __defined at:__ @functions\/decls_in_signature.h:5:7@
+                    __defined at:__ @functions\/decls_in_signature.h 5:7@
 
                     __exported by:__ @functions\/decls_in_signature.h@
                -}}
       {- ^ __C declaration:__ @struct outside@
 
-           __defined at:__ @functions\/decls_in_signature.h:3:8@
+           __defined at:__ @functions\/decls_in_signature.h 3:8@
 
            __exported by:__ @functions\/decls_in_signature.h@
       -}
@@ -149,7 +149,7 @@ instance TyEq ty (CFieldType Outside "outside_y") =>
 
 __C declaration:__ @struct named_struct@
 
-__defined at:__ @functions\/decls_in_signature.h:17:16@
+__defined at:__ @functions\/decls_in_signature.h 17:16@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -157,14 +157,14 @@ data Named_struct
     = Named_struct {named_struct_x :: CInt
                     {- ^ __C declaration:__ @x@
 
-                         __defined at:__ @functions\/decls_in_signature.h:17:35@
+                         __defined at:__ @functions\/decls_in_signature.h 17:35@
 
                          __exported by:__ @functions\/decls_in_signature.h@
                     -},
                     named_struct_y :: CInt
                     {- ^ __C declaration:__ @y@
 
-                         __defined at:__ @functions\/decls_in_signature.h:17:42@
+                         __defined at:__ @functions\/decls_in_signature.h 17:42@
 
                          __exported by:__ @functions\/decls_in_signature.h@
                     -}}
@@ -174,7 +174,7 @@ data Named_struct
 
       __C declaration:__ @struct named_struct@
 
-      __defined at:__ @functions\/decls_in_signature.h:17:16@
+      __defined at:__ @functions\/decls_in_signature.h 17:16@
 
       __exported by:__ @functions\/decls_in_signature.h@
       -}
@@ -223,7 +223,7 @@ instance TyEq ty (CFieldType Named_struct "named_struct_y") =>
     where getField = ptrToCField (Proxy @"named_struct_y")
 {-| __C declaration:__ @union named_union@
 
-    __defined at:__ @functions\/decls_in_signature.h:20:15@
+    __defined at:__ @functions\/decls_in_signature.h 20:15@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -231,7 +231,7 @@ newtype Named_union
     = Named_union {un_Named_union :: ByteArray}
       {- ^ __C declaration:__ @union named_union@
 
-           __defined at:__ @functions\/decls_in_signature.h:20:15@
+           __defined at:__ @functions\/decls_in_signature.h 20:15@
 
            __exported by:__ @functions\/decls_in_signature.h@
       -}
@@ -243,7 +243,7 @@ deriving via (SizedByteArray 4 4) instance Prim Named_union
 
 __C declaration:__ @x@
 
-__defined at:__ @functions\/decls_in_signature.h:20:33@
+__defined at:__ @functions\/decls_in_signature.h 20:33@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -254,7 +254,7 @@ get_named_union_x :: Named_union -> CInt
 
 __C declaration:__ @x@
 
-__defined at:__ @functions\/decls_in_signature.h:20:33@
+__defined at:__ @functions\/decls_in_signature.h 20:33@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -277,7 +277,7 @@ set_named_union_x = setUnionPayload
 
 __C declaration:__ @y@
 
-__defined at:__ @functions\/decls_in_signature.h:20:41@
+__defined at:__ @functions\/decls_in_signature.h 20:41@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -288,7 +288,7 @@ get_named_union_y :: Named_union -> CChar
 
 __C declaration:__ @y@
 
-__defined at:__ @functions\/decls_in_signature.h:20:41@
+__defined at:__ @functions\/decls_in_signature.h 20:41@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -332,14 +332,14 @@ normal_wrapper :: Ptr Opaque ->
 normal_wrapper = hs_bindgen_920e5c20f770432b
 {-| __C declaration:__ @normal@
 
-    __defined at:__ @functions\/decls_in_signature.h:7:6@
+    __defined at:__ @functions\/decls_in_signature.h 7:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 normal :: Ptr Opaque -> Ptr Outside -> Outside -> IO Unit
 {-| __C declaration:__ @normal@
 
-    __defined at:__ @functions\/decls_in_signature.h:7:6@
+    __defined at:__ @functions\/decls_in_signature.h 7:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -360,7 +360,7 @@ f1_wrapper = hs_bindgen_baea2c7a0c8b9965
 
 __C declaration:__ @f1@
 
-__defined at:__ @functions\/decls_in_signature.h:17:6@
+__defined at:__ @functions\/decls_in_signature.h 17:6@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -371,7 +371,7 @@ f1 :: Named_struct -> IO Unit
 
 __C declaration:__ @f1@
 
-__defined at:__ @functions\/decls_in_signature.h:17:6@
+__defined at:__ @functions\/decls_in_signature.h 17:6@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -388,14 +388,14 @@ f2_wrapper :: Ptr Named_union -> IO Unit
 f2_wrapper = hs_bindgen_990d7be722ad5414
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/decls_in_signature.h:20:6@
+    __defined at:__ @functions\/decls_in_signature.h 20:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 f2 :: Named_union -> IO Unit
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/decls_in_signature.h:20:6@
+    __defined at:__ @functions\/decls_in_signature.h 20:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -415,14 +415,14 @@ normal_wrapper :: Ptr Opaque ->
 normal_wrapper = hs_bindgen_247ee31a29b7e5a8
 {-| __C declaration:__ @normal@
 
-    __defined at:__ @functions\/decls_in_signature.h:7:6@
+    __defined at:__ @functions\/decls_in_signature.h 7:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 normal :: Ptr Opaque -> Ptr Outside -> Outside -> IO Unit
 {-| __C declaration:__ @normal@
 
-    __defined at:__ @functions\/decls_in_signature.h:7:6@
+    __defined at:__ @functions\/decls_in_signature.h 7:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -443,7 +443,7 @@ f1_wrapper = hs_bindgen_dad6e1aa83dec458
 
 __C declaration:__ @f1@
 
-__defined at:__ @functions\/decls_in_signature.h:17:6@
+__defined at:__ @functions\/decls_in_signature.h 17:6@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -454,7 +454,7 @@ f1 :: Named_struct -> IO Unit
 
 __C declaration:__ @f1@
 
-__defined at:__ @functions\/decls_in_signature.h:17:6@
+__defined at:__ @functions\/decls_in_signature.h 17:6@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -471,14 +471,14 @@ f2_wrapper :: Ptr Named_union -> IO Unit
 f2_wrapper = hs_bindgen_e6bb0f3956383df9
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/decls_in_signature.h:20:6@
+    __defined at:__ @functions\/decls_in_signature.h 20:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 f2 :: Named_union -> IO Unit
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/decls_in_signature.h:20:6@
+    __defined at:__ @functions\/decls_in_signature.h 20:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -489,14 +489,14 @@ foreign import ccall safe "hs_bindgen_f3036965ea57b87f" hs_bindgen_f3036965ea57b
 {-# NOINLINE normal #-}
 {-| __C declaration:__ @normal@
 
-    __defined at:__ @functions\/decls_in_signature.h:7:6@
+    __defined at:__ @functions\/decls_in_signature.h 7:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 normal :: FunPtr (Ptr Opaque -> Ptr Outside -> Outside -> IO Unit)
 {-| __C declaration:__ @normal@
 
-    __defined at:__ @functions\/decls_in_signature.h:7:6@
+    __defined at:__ @functions\/decls_in_signature.h 7:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -511,7 +511,7 @@ foreign import ccall safe "hs_bindgen_86a0bd6e9f7eb005" hs_bindgen_86a0bd6e9f7eb
 
 __C declaration:__ @f1@
 
-__defined at:__ @functions\/decls_in_signature.h:17:6@
+__defined at:__ @functions\/decls_in_signature.h 17:6@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -522,7 +522,7 @@ f1 :: FunPtr (Named_struct -> IO Unit)
 
 __C declaration:__ @f1@
 
-__defined at:__ @functions\/decls_in_signature.h:17:6@
+__defined at:__ @functions\/decls_in_signature.h 17:6@
 
 __exported by:__ @functions\/decls_in_signature.h@
 -}
@@ -533,14 +533,14 @@ foreign import ccall safe "hs_bindgen_4bb469a35be04698" hs_bindgen_4bb469a35be04
 {-# NOINLINE f2 #-}
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/decls_in_signature.h:20:6@
+    __defined at:__ @functions\/decls_in_signature.h 20:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}
 f2 :: FunPtr (Named_union -> IO Unit)
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/decls_in_signature.h:20:6@
+    __defined at:__ @functions\/decls_in_signature.h 20:6@
 
     __exported by:__ @functions\/decls_in_signature.h@
 -}

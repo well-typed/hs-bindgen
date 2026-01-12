@@ -162,7 +162,7 @@ foreign import ccall unsafe "hs_bindgen_21338ece6a009179" hs_bindgen_21338ece6a0
 
 __C declaration:__ @arr0@
 
-__defined at:__ @arrays\/array.h:11:5@
+__defined at:__ @arrays\/array.h 11:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -179,7 +179,7 @@ foreign import ccall unsafe "hs_bindgen_a058c9f90a6e675c" hs_bindgen_a058c9f90a6
 
 __C declaration:__ @arr1@
 
-__defined at:__ @arrays\/array.h:14:5@
+__defined at:__ @arrays\/array.h 14:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -196,7 +196,7 @@ foreign import ccall unsafe "hs_bindgen_c57aab7f71d2cb0b" hs_bindgen_c57aab7f71d
 
 __C declaration:__ @arr2@
 
-__defined at:__ @arrays\/array.h:17:12@
+__defined at:__ @arrays\/array.h 17:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -213,7 +213,7 @@ foreign import ccall unsafe "hs_bindgen_e2b7478ee9c12746" hs_bindgen_e2b7478ee9c
 
 __C declaration:__ @arr3@
 
-__defined at:__ @arrays\/array.h:20:12@
+__defined at:__ @arrays\/array.h 20:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -230,7 +230,7 @@ foreign import ccall unsafe "hs_bindgen_5f4d28170d6fa0d1" hs_bindgen_5f4d28170d6
 
 __C declaration:__ @arr6@
 
-__defined at:__ @arrays\/array.h:29:5@
+__defined at:__ @arrays\/array.h 29:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -247,7 +247,7 @@ foreign import ccall unsafe "hs_bindgen_3b952c95c3eb17f2" hs_bindgen_3b952c95c3e
 
 __C declaration:__ @arr7@
 
-__defined at:__ @arrays\/array.h:32:12@
+__defined at:__ @arrays\/array.h 32:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -264,7 +264,7 @@ foreign import ccall unsafe "hs_bindgen_2d21b7cb9ac33ea8" hs_bindgen_2d21b7cb9ac
 
 __C declaration:__ @arr_1@
 
-__defined at:__ @arrays\/array.h:62:12@
+__defined at:__ @arrays\/array.h 62:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -281,7 +281,7 @@ foreign import ccall unsafe "hs_bindgen_df706ce2499e5073" hs_bindgen_df706ce2499
 
 __C declaration:__ @arr_2@
 
-__defined at:__ @arrays\/array.h:65:16@
+__defined at:__ @arrays\/array.h 65:16@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -298,7 +298,7 @@ foreign import ccall unsafe "hs_bindgen_26bcbe886b94adfb" hs_bindgen_26bcbe886b9
 
 __C declaration:__ @arr_3@
 
-__defined at:__ @arrays\/array.h:68:12@
+__defined at:__ @arrays\/array.h 68:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -315,7 +315,7 @@ foreign import ccall unsafe "hs_bindgen_e4cef264a5cc1887" hs_bindgen_e4cef264a5c
 
 __C declaration:__ @arr_4@
 
-__defined at:__ @arrays\/array.h:71:13@
+__defined at:__ @arrays\/array.h 71:13@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -332,7 +332,7 @@ foreign import ccall unsafe "hs_bindgen_a733c5b896a8ae4e" hs_bindgen_a733c5b896a
 
 __C declaration:__ @arr_5@
 
-__defined at:__ @arrays\/array.h:74:12@
+__defined at:__ @arrays\/array.h 74:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -349,7 +349,7 @@ foreign import ccall unsafe "hs_bindgen_525a326f0badae7c" hs_bindgen_525a326f0ba
 
 __C declaration:__ @arr_6@
 
-__defined at:__ @arrays\/array.h:77:15@
+__defined at:__ @arrays\/array.h 77:15@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -366,7 +366,7 @@ foreign import ccall unsafe "hs_bindgen_b5e93d2d90ffc861" hs_bindgen_b5e93d2d90f
 
 __C declaration:__ @arr_7@
 
-__defined at:__ @arrays\/array.h:80:12@
+__defined at:__ @arrays\/array.h 80:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -383,7 +383,7 @@ foreign import ccall unsafe "hs_bindgen_eb98aff4ee1d31d0" hs_bindgen_eb98aff4ee1
 
 __C declaration:__ @arr_8@
 
-__defined at:__ @arrays\/array.h:83:20@
+__defined at:__ @arrays\/array.h 83:20@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -400,7 +400,7 @@ foreign import ccall unsafe "hs_bindgen_25089a5dd72254bc" hs_bindgen_25089a5dd72
 
 __C declaration:__ @arr_1_const@
 
-__defined at:__ @arrays\/array.h:90:18@
+__defined at:__ @arrays\/array.h 90:18@
 
 __exported by:__ @arrays\/array.h@
 
@@ -424,7 +424,7 @@ foreign import ccall unsafe "hs_bindgen_a55a5562a096ae11" hs_bindgen_a55a5562a09
 
 __C declaration:__ @arr_2_const@
 
-__defined at:__ @arrays\/array.h:93:22@
+__defined at:__ @arrays\/array.h 93:22@
 
 __exported by:__ @arrays\/array.h@
 
@@ -448,7 +448,7 @@ foreign import ccall unsafe "hs_bindgen_fad31baeec544a6d" hs_bindgen_fad31baeec5
 
 __C declaration:__ @arr_3_const@
 
-__defined at:__ @arrays\/array.h:96:18@
+__defined at:__ @arrays\/array.h 96:18@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -465,7 +465,7 @@ foreign import ccall unsafe "hs_bindgen_890c46fc872e1d7d" hs_bindgen_890c46fc872
 
 __C declaration:__ @arr_4_const@
 
-__defined at:__ @arrays\/array.h:99:19@
+__defined at:__ @arrays\/array.h 99:19@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -482,7 +482,7 @@ foreign import ccall unsafe "hs_bindgen_088c9ea4e73d1cfe" hs_bindgen_088c9ea4e73
 
 __C declaration:__ @arr_5_const@
 
-__defined at:__ @arrays\/array.h:102:18@
+__defined at:__ @arrays\/array.h 102:18@
 
 __exported by:__ @arrays\/array.h@
 
@@ -506,7 +506,7 @@ foreign import ccall unsafe "hs_bindgen_bf69f287b3bf9fa4" hs_bindgen_bf69f287b3b
 
 __C declaration:__ @arr_6_const@
 
-__defined at:__ @arrays\/array.h:105:21@
+__defined at:__ @arrays\/array.h 105:21@
 
 __exported by:__ @arrays\/array.h@
 
@@ -530,7 +530,7 @@ foreign import ccall unsafe "hs_bindgen_2ca44942791eacc4" hs_bindgen_2ca44942791
 
 __C declaration:__ @arr_7_const@
 
-__defined at:__ @arrays\/array.h:108:18@
+__defined at:__ @arrays\/array.h 108:18@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -547,7 +547,7 @@ foreign import ccall unsafe "hs_bindgen_3e95fdf3b641c349" hs_bindgen_3e95fdf3b64
 
 __C declaration:__ @arr_8_const@
 
-__defined at:__ @arrays\/array.h:111:26@
+__defined at:__ @arrays\/array.h 111:26@
 
 __exported by:__ @arrays\/array.h@
 -}

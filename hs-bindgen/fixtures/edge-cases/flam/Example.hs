@@ -27,7 +27,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct pascal@
 
-    __defined at:__ @edge-cases\/flam.h:2:8@
+    __defined at:__ @edge-cases\/flam.h 2:8@
 
     __exported by:__ @edge-cases\/flam.h@
 -}
@@ -35,7 +35,7 @@ data Pascal = Pascal
   { pascal_len :: FC.CInt
     {- ^ __C declaration:__ @len@
 
-         __defined at:__ @edge-cases\/flam.h:3:9@
+         __defined at:__ @edge-cases\/flam.h 3:9@
 
          __exported by:__ @edge-cases\/flam.h@
     -}
@@ -126,7 +126,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Pascal) "pascal_len"
 
 {-| __C declaration:__ @struct \@foo_bar@
 
-    __defined at:__ @edge-cases\/flam.h:10:2@
+    __defined at:__ @edge-cases\/flam.h 10:2@
 
     __exported by:__ @edge-cases\/flam.h@
 -}
@@ -134,14 +134,14 @@ data Foo_bar = Foo_bar
   { foo_bar_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @edge-cases\/flam.h:11:7@
+         __defined at:__ @edge-cases\/flam.h 11:7@
 
          __exported by:__ @edge-cases\/flam.h@
     -}
   , foo_bar_y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @edge-cases\/flam.h:12:7@
+         __defined at:__ @edge-cases\/flam.h 12:7@
 
          __exported by:__ @edge-cases\/flam.h@
     -}
@@ -250,7 +250,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo_bar) "foo_bar_y"
 
 {-| __C declaration:__ @struct foo@
 
-    __defined at:__ @edge-cases\/flam.h:8:8@
+    __defined at:__ @edge-cases\/flam.h 8:8@
 
     __exported by:__ @edge-cases\/flam.h@
 -}
@@ -258,7 +258,7 @@ data Foo = Foo
   { foo_len :: FC.CInt
     {- ^ __C declaration:__ @len@
 
-         __defined at:__ @edge-cases\/flam.h:9:6@
+         __defined at:__ @edge-cases\/flam.h 9:6@
 
          __exported by:__ @edge-cases\/flam.h@
     -}
@@ -349,7 +349,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_len")
 
 {-| __C declaration:__ @struct diff@
 
-    __defined at:__ @edge-cases\/flam.h:17:8@
+    __defined at:__ @edge-cases\/flam.h 17:8@
 
     __exported by:__ @edge-cases\/flam.h@
 -}
@@ -357,14 +357,14 @@ data Diff = Diff
   { diff_first :: FC.CLong
     {- ^ __C declaration:__ @first@
 
-         __defined at:__ @edge-cases\/flam.h:18:7@
+         __defined at:__ @edge-cases\/flam.h 18:7@
 
          __exported by:__ @edge-cases\/flam.h@
     -}
   , diff_second :: FC.CChar
     {- ^ __C declaration:__ @second@
 
-         __defined at:__ @edge-cases\/flam.h:19:7@
+         __defined at:__ @edge-cases\/flam.h 19:7@
 
          __exported by:__ @edge-cases\/flam.h@
     -}
@@ -479,7 +479,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Diff) "diff_second")
 
 __C declaration:__ @struct triplets@
 
-__defined at:__ @edge-cases\/flam.h:26:8@
+__defined at:__ @edge-cases\/flam.h 26:8@
 
 __exported by:__ @edge-cases\/flam.h@
 -}
@@ -487,7 +487,7 @@ data Triplets = Triplets
   { triplets_len :: FC.CInt
     {- ^ __C declaration:__ @len@
 
-         __defined at:__ @edge-cases\/flam.h:27:7@
+         __defined at:__ @edge-cases\/flam.h 27:7@
 
          __exported by:__ @edge-cases\/flam.h@
     -}

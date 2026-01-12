@@ -25,7 +25,7 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct foo@
 
-    __defined at:__ @binding-specs\/bs_pre_rename_squash_typedef.h:1:16@
+    __defined at:__ @binding-specs\/bs_pre_rename_squash_typedef.h 1:16@
 
     __exported by:__ @binding-specs\/bs_pre_rename_squash_typedef.h@
 -}
@@ -33,14 +33,14 @@ data Piyo = Piyo
   { piyo_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @binding-specs\/bs_pre_rename_squash_typedef.h:1:26@
+         __defined at:__ @binding-specs\/bs_pre_rename_squash_typedef.h 1:26@
 
          __exported by:__ @binding-specs\/bs_pre_rename_squash_typedef.h@
     -}
   , piyo_y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @binding-specs\/bs_pre_rename_squash_typedef.h:1:29@
+         __defined at:__ @binding-specs\/bs_pre_rename_squash_typedef.h 1:29@
 
          __exported by:__ @binding-specs\/bs_pre_rename_squash_typedef.h@
     -}

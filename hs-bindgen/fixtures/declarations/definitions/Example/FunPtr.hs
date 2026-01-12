@@ -30,7 +30,7 @@ foreign import ccall unsafe "hs_bindgen_8bb82cd68ce8efe4" hs_bindgen_8bb82cd68ce
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @declarations\/definitions.h:13:5@
+    __defined at:__ @declarations\/definitions.h 13:5@
 
     __exported by:__ @declarations\/definitions.h@
 -}

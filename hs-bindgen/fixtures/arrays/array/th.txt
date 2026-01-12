@@ -653,7 +653,7 @@
 -- }
 {-| __C declaration:__ @triplet@
 
-    __defined at:__ @arrays\/array.h:41:13@
+    __defined at:__ @arrays\/array.h 41:13@
 
     __exported by:__ @arrays\/array.h@
 -}
@@ -661,7 +661,7 @@ newtype Triplet
     = Triplet {un_Triplet :: (ConstantArray 3 CInt)}
       {- ^ __C declaration:__ @triplet@
 
-           __defined at:__ @arrays\/array.h:41:13@
+           __defined at:__ @arrays\/array.h 41:13@
 
            __exported by:__ @arrays\/array.h@
       -}
@@ -675,7 +675,7 @@ instance HasCField Triplet "un_Triplet"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @list@
 
-    __defined at:__ @arrays\/array.h:43:13@
+    __defined at:__ @arrays\/array.h 43:13@
 
     __exported by:__ @arrays\/array.h@
 -}
@@ -683,7 +683,7 @@ newtype List
     = List {un_List :: (IncompleteArray CInt)}
       {- ^ __C declaration:__ @list@
 
-           __defined at:__ @arrays\/array.h:43:13@
+           __defined at:__ @arrays\/array.h 43:13@
 
            __exported by:__ @arrays\/array.h@
       -}
@@ -696,7 +696,7 @@ instance HasCField List "un_List"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @matrix@
 
-    __defined at:__ @arrays\/array.h:45:13@
+    __defined at:__ @arrays\/array.h 45:13@
 
     __exported by:__ @arrays\/array.h@
 -}
@@ -704,7 +704,7 @@ newtype Matrix
     = Matrix {un_Matrix :: (ConstantArray 4 (ConstantArray 3 CInt))}
       {- ^ __C declaration:__ @matrix@
 
-           __defined at:__ @arrays\/array.h:45:13@
+           __defined at:__ @arrays\/array.h 45:13@
 
            __exported by:__ @arrays\/array.h@
       -}
@@ -719,7 +719,7 @@ instance HasCField Matrix "un_Matrix"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @tripletlist@
 
-    __defined at:__ @arrays\/array.h:47:13@
+    __defined at:__ @arrays\/array.h 47:13@
 
     __exported by:__ @arrays\/array.h@
 -}
@@ -728,7 +728,7 @@ newtype Tripletlist
                                                                      CInt))}
       {- ^ __C declaration:__ @tripletlist@
 
-           __defined at:__ @arrays\/array.h:47:13@
+           __defined at:__ @arrays\/array.h 47:13@
 
            __exported by:__ @arrays\/array.h@
       -}
@@ -742,7 +742,7 @@ instance HasCField Tripletlist "un_Tripletlist"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct Example@
 
-    __defined at:__ @arrays\/array.h:49:8@
+    __defined at:__ @arrays\/array.h 49:8@
 
     __exported by:__ @arrays\/array.h@
 -}
@@ -750,20 +750,20 @@ data Example
     = Example {example_triple :: (ConstantArray 3 CInt)
                {- ^ __C declaration:__ @triple@
 
-                    __defined at:__ @arrays\/array.h:50:9@
+                    __defined at:__ @arrays\/array.h 50:9@
 
                     __exported by:__ @arrays\/array.h@
                -},
                example_sudoku :: (ConstantArray 3 (ConstantArray 3 CInt))
                {- ^ __C declaration:__ @sudoku@
 
-                    __defined at:__ @arrays\/array.h:51:9@
+                    __defined at:__ @arrays\/array.h 51:9@
 
                     __exported by:__ @arrays\/array.h@
                -}}
       {- ^ __C declaration:__ @struct Example@
 
-           __defined at:__ @arrays\/array.h:49:8@
+           __defined at:__ @arrays\/array.h 49:8@
 
            __exported by:__ @arrays\/array.h@
       -}
@@ -793,7 +793,7 @@ instance TyEq ty (CFieldType Example "example_sudoku") =>
 
 __C declaration:__ @sudoku@
 
-__defined at:__ @arrays\/array.h:55:17@
+__defined at:__ @arrays\/array.h 55:17@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -803,7 +803,7 @@ newtype Sudoku
 
       __C declaration:__ @sudoku@
 
-      __defined at:__ @arrays\/array.h:55:17@
+      __defined at:__ @arrays\/array.h 55:17@
 
       __exported by:__ @arrays\/array.h@
       -}
@@ -824,7 +824,7 @@ foreign import ccall safe "hs_bindgen_a836491d63ff3a2c" hs_bindgen_a836491d63ff3
 
 __C declaration:__ @fun_1@
 
-__defined at:__ @arrays\/array.h:118:5@
+__defined at:__ @arrays\/array.h 118:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -833,7 +833,7 @@ fun_1 :: CInt -> Ptr CInt -> IO CInt
 
 __C declaration:__ @fun_1@
 
-__defined at:__ @arrays\/array.h:118:5@
+__defined at:__ @arrays\/array.h 118:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -846,7 +846,7 @@ foreign import ccall safe "hs_bindgen_c69f41e5ccc441ab" hs_bindgen_c69f41e5ccc44
 
 __C declaration:__ @fun_2@
 
-__defined at:__ @arrays\/array.h:121:5@
+__defined at:__ @arrays\/array.h 121:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -855,7 +855,7 @@ fun_2 :: Ptr CInt -> IO CInt
 
 __C declaration:__ @fun_2@
 
-__defined at:__ @arrays\/array.h:121:5@
+__defined at:__ @arrays\/array.h 121:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -868,7 +868,7 @@ foreign import ccall safe "hs_bindgen_30065ddbffdd7502" hs_bindgen_30065ddbffdd7
 
 __C declaration:__ @fun_3@
 
-__defined at:__ @arrays\/array.h:124:5@
+__defined at:__ @arrays\/array.h 124:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -877,7 +877,7 @@ fun_3 :: Ptr CInt -> IO CInt
 
 __C declaration:__ @fun_3@
 
-__defined at:__ @arrays\/array.h:124:5@
+__defined at:__ @arrays\/array.h 124:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -890,7 +890,7 @@ foreign import ccall safe "hs_bindgen_6e8db8abcb5fe22a" hs_bindgen_6e8db8abcb5fe
 
 __C declaration:__ @fun_4@
 
-__defined at:__ @arrays\/array.h:127:5@
+__defined at:__ @arrays\/array.h 127:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -899,7 +899,7 @@ fun_4 :: Ptr CInt -> IO CInt
 
 __C declaration:__ @fun_4@
 
-__defined at:__ @arrays\/array.h:127:5@
+__defined at:__ @arrays\/array.h 127:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -912,7 +912,7 @@ foreign import ccall safe "hs_bindgen_b2f48c31265a3f47" hs_bindgen_b2f48c31265a3
 
 __C declaration:__ @fun_5@
 
-__defined at:__ @arrays\/array.h:130:5@
+__defined at:__ @arrays\/array.h 130:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -921,7 +921,7 @@ fun_5 :: Ptr (ConstantArray 3 CInt) -> IO CInt
 
 __C declaration:__ @fun_5@
 
-__defined at:__ @arrays\/array.h:130:5@
+__defined at:__ @arrays\/array.h 130:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -934,7 +934,7 @@ foreign import ccall safe "hs_bindgen_343fe8ca0dbb7eb1" hs_bindgen_343fe8ca0dbb7
 
 __C declaration:__ @fun_6@
 
-__defined at:__ @arrays\/array.h:133:5@
+__defined at:__ @arrays\/array.h 133:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -943,7 +943,7 @@ fun_6 :: Ptr (ConstantArray 3 CInt) -> IO CInt
 
 __C declaration:__ @fun_6@
 
-__defined at:__ @arrays\/array.h:133:5@
+__defined at:__ @arrays\/array.h 133:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -956,7 +956,7 @@ foreign import ccall safe "hs_bindgen_d98a58d39b578fd6" hs_bindgen_d98a58d39b578
 
 __C declaration:__ @fun_7@
 
-__defined at:__ @arrays\/array.h:136:5@
+__defined at:__ @arrays\/array.h 136:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -965,7 +965,7 @@ fun_7 :: Ptr (ConstantArray 3 CInt) -> IO CInt
 
 __C declaration:__ @fun_7@
 
-__defined at:__ @arrays\/array.h:136:5@
+__defined at:__ @arrays\/array.h 136:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -978,7 +978,7 @@ foreign import ccall safe "hs_bindgen_4db12be6f46d98f5" hs_bindgen_4db12be6f46d9
 
 __C declaration:__ @fun_8@
 
-__defined at:__ @arrays\/array.h:139:5@
+__defined at:__ @arrays\/array.h 139:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -987,7 +987,7 @@ fun_8 :: Ptr (ConstantArray 3 CInt) -> IO CInt
 
 __C declaration:__ @fun_8@
 
-__defined at:__ @arrays\/array.h:139:5@
+__defined at:__ @arrays\/array.h 139:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1000,7 +1000,7 @@ foreign import ccall safe "hs_bindgen_825f9aeca071df21" hs_bindgen_825f9aeca071d
 
 __C declaration:__ @isSolved@
 
-__defined at:__ @arrays\/array.h:142:5@
+__defined at:__ @arrays\/array.h 142:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1009,7 +1009,7 @@ isSolved :: Ptr Triplet -> IO CInt
 
 __C declaration:__ @isSolved@
 
-__defined at:__ @arrays\/array.h:142:5@
+__defined at:__ @arrays\/array.h 142:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1030,7 +1030,7 @@ fun_1_const_wrapper = hs_bindgen_a2bf6bc667c9e769
 
 __C declaration:__ @fun_1_const@
 
-__defined at:__ @arrays\/array.h:149:5@
+__defined at:__ @arrays\/array.h 149:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1039,7 +1039,7 @@ fun_1_const :: CInt -> Ptr CInt -> ConstantArray 3 CInt -> IO CInt
 
 __C declaration:__ @fun_1_const@
 
-__defined at:__ @arrays\/array.h:149:5@
+__defined at:__ @arrays\/array.h 149:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1059,7 +1059,7 @@ fun_2_const_wrapper = hs_bindgen_ec5a6dd15a457a1d
 
 __C declaration:__ @fun_2_const@
 
-__defined at:__ @arrays\/array.h:152:5@
+__defined at:__ @arrays\/array.h 152:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1068,7 +1068,7 @@ fun_2_const :: Ptr CInt -> Triplet -> IO CInt
 
 __C declaration:__ @fun_2_const@
 
-__defined at:__ @arrays\/array.h:152:5@
+__defined at:__ @arrays\/array.h 152:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1088,7 +1088,7 @@ fun_3_const_wrapper = hs_bindgen_84df1030280611db
 
 __C declaration:__ @fun_3_const@
 
-__defined at:__ @arrays\/array.h:155:5@
+__defined at:__ @arrays\/array.h 155:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1097,7 +1097,7 @@ fun_3_const :: Ptr CInt -> IncompleteArray CInt -> IO CInt
 
 __C declaration:__ @fun_3_const@
 
-__defined at:__ @arrays\/array.h:155:5@
+__defined at:__ @arrays\/array.h 155:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1117,7 +1117,7 @@ fun_4_const_wrapper = hs_bindgen_e9dc927aa39d14d3
 
 __C declaration:__ @fun_4_const@
 
-__defined at:__ @arrays\/array.h:158:5@
+__defined at:__ @arrays\/array.h 158:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1126,7 +1126,7 @@ fun_4_const :: Ptr CInt -> List -> IO CInt
 
 __C declaration:__ @fun_4_const@
 
-__defined at:__ @arrays\/array.h:158:5@
+__defined at:__ @arrays\/array.h 158:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1147,7 +1147,7 @@ fun_5_const_wrapper = hs_bindgen_cd0bfb26f385dfaa
 
 __C declaration:__ @fun_5_const@
 
-__defined at:__ @arrays\/array.h:161:5@
+__defined at:__ @arrays\/array.h 161:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1157,7 +1157,7 @@ fun_5_const :: Ptr (ConstantArray 3 CInt) ->
 
 __C declaration:__ @fun_5_const@
 
-__defined at:__ @arrays\/array.h:161:5@
+__defined at:__ @arrays\/array.h 161:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1178,7 +1178,7 @@ fun_6_const_wrapper = hs_bindgen_1054ce6b48ed0f13
 
 __C declaration:__ @fun_6_const@
 
-__defined at:__ @arrays\/array.h:164:5@
+__defined at:__ @arrays\/array.h 164:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1187,7 +1187,7 @@ fun_6_const :: Ptr (ConstantArray 3 CInt) -> Matrix -> IO CInt
 
 __C declaration:__ @fun_6_const@
 
-__defined at:__ @arrays\/array.h:164:5@
+__defined at:__ @arrays\/array.h 164:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1208,7 +1208,7 @@ fun_7_const_wrapper = hs_bindgen_496902d7c6466098
 
 __C declaration:__ @fun_7_const@
 
-__defined at:__ @arrays\/array.h:167:5@
+__defined at:__ @arrays\/array.h 167:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1218,7 +1218,7 @@ fun_7_const :: Ptr (ConstantArray 3 CInt) ->
 
 __C declaration:__ @fun_7_const@
 
-__defined at:__ @arrays\/array.h:167:5@
+__defined at:__ @arrays\/array.h 167:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1239,7 +1239,7 @@ fun_8_const_wrapper = hs_bindgen_eb65cb5074167c48
 
 __C declaration:__ @fun_8_const@
 
-__defined at:__ @arrays\/array.h:170:5@
+__defined at:__ @arrays\/array.h 170:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1248,7 +1248,7 @@ fun_8_const :: Ptr (ConstantArray 3 CInt) -> Tripletlist -> IO CInt
 
 __C declaration:__ @fun_8_const@
 
-__defined at:__ @arrays\/array.h:170:5@
+__defined at:__ @arrays\/array.h 170:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1269,7 +1269,7 @@ isSolved_const_wrapper = hs_bindgen_9bb064e9eddf07f7
 
 __C declaration:__ @isSolved_const@
 
-__defined at:__ @arrays\/array.h:173:5@
+__defined at:__ @arrays\/array.h 173:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1278,7 +1278,7 @@ isSolved_const :: Ptr Triplet -> Sudoku -> IO CInt
 
 __C declaration:__ @isSolved_const@
 
-__defined at:__ @arrays\/array.h:173:5@
+__defined at:__ @arrays\/array.h 173:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1290,7 +1290,7 @@ foreign import ccall safe "hs_bindgen_0fa0a3e47fa9d95a" hs_bindgen_0fa0a3e47fa9d
 
 __C declaration:__ @fun_9@
 
-__defined at:__ @arrays\/array.h:185:7@
+__defined at:__ @arrays\/array.h 185:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1299,7 +1299,7 @@ fun_9 :: IO (Ptr (ConstantArray 3 CInt))
 
 __C declaration:__ @fun_9@
 
-__defined at:__ @arrays\/array.h:185:7@
+__defined at:__ @arrays\/array.h 185:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1311,7 +1311,7 @@ foreign import ccall safe "hs_bindgen_e9d3d35727502125" hs_bindgen_e9d3d35727502
 
 __C declaration:__ @fun_10@
 
-__defined at:__ @arrays\/array.h:188:10@
+__defined at:__ @arrays\/array.h 188:10@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1320,7 +1320,7 @@ fun_10 :: IO (Ptr Triplet)
 
 __C declaration:__ @fun_10@
 
-__defined at:__ @arrays\/array.h:188:10@
+__defined at:__ @arrays\/array.h 188:10@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1332,7 +1332,7 @@ foreign import ccall safe "hs_bindgen_7f7cea54b33bf176" hs_bindgen_7f7cea54b33bf
 
 __C declaration:__ @fun_11@
 
-__defined at:__ @arrays\/array.h:191:7@
+__defined at:__ @arrays\/array.h 191:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1341,7 +1341,7 @@ fun_11 :: IO (Ptr (IncompleteArray CInt))
 
 __C declaration:__ @fun_11@
 
-__defined at:__ @arrays\/array.h:191:7@
+__defined at:__ @arrays\/array.h 191:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1353,7 +1353,7 @@ foreign import ccall safe "hs_bindgen_3124a96b00bbc082" hs_bindgen_3124a96b00bbc
 
 __C declaration:__ @fun_12@
 
-__defined at:__ @arrays\/array.h:194:7@
+__defined at:__ @arrays\/array.h 194:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1362,7 +1362,7 @@ fun_12 :: IO (Ptr List)
 
 __C declaration:__ @fun_12@
 
-__defined at:__ @arrays\/array.h:194:7@
+__defined at:__ @arrays\/array.h 194:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1374,7 +1374,7 @@ foreign import ccall safe "hs_bindgen_2fdd1bf9ee687f9b" hs_bindgen_2fdd1bf9ee687
 
 __C declaration:__ @fun_13@
 
-__defined at:__ @arrays\/array.h:197:7@
+__defined at:__ @arrays\/array.h 197:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1383,7 +1383,7 @@ fun_13 :: IO (Ptr (ConstantArray 4 (ConstantArray 3 CInt)))
 
 __C declaration:__ @fun_13@
 
-__defined at:__ @arrays\/array.h:197:7@
+__defined at:__ @arrays\/array.h 197:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1395,7 +1395,7 @@ foreign import ccall safe "hs_bindgen_12a242894a3d45cb" hs_bindgen_12a242894a3d4
 
 __C declaration:__ @fun_14@
 
-__defined at:__ @arrays\/array.h:200:9@
+__defined at:__ @arrays\/array.h 200:9@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1404,7 +1404,7 @@ fun_14 :: IO (Ptr Matrix)
 
 __C declaration:__ @fun_14@
 
-__defined at:__ @arrays\/array.h:200:9@
+__defined at:__ @arrays\/array.h 200:9@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1416,7 +1416,7 @@ foreign import ccall safe "hs_bindgen_d8e176eb5efefa2c" hs_bindgen_d8e176eb5efef
 
 __C declaration:__ @fun_15@
 
-__defined at:__ @arrays\/array.h:203:7@
+__defined at:__ @arrays\/array.h 203:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1425,7 +1425,7 @@ fun_15 :: IO (Ptr (IncompleteArray (ConstantArray 3 CInt)))
 
 __C declaration:__ @fun_15@
 
-__defined at:__ @arrays\/array.h:203:7@
+__defined at:__ @arrays\/array.h 203:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1437,7 +1437,7 @@ foreign import ccall safe "hs_bindgen_dcf234ca786626c7" hs_bindgen_dcf234ca78662
 
 __C declaration:__ @fun_16@
 
-__defined at:__ @arrays\/array.h:206:14@
+__defined at:__ @arrays\/array.h 206:14@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1446,7 +1446,7 @@ fun_16 :: IO (Ptr Tripletlist)
 
 __C declaration:__ @fun_16@
 
-__defined at:__ @arrays\/array.h:206:14@
+__defined at:__ @arrays\/array.h 206:14@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1458,7 +1458,7 @@ foreign import ccall safe "hs_bindgen_f80a5b6a2770c658" hs_bindgen_f80a5b6a2770c
 
 __C declaration:__ @solve@
 
-__defined at:__ @arrays\/array.h:209:10@
+__defined at:__ @arrays\/array.h 209:10@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1467,7 +1467,7 @@ solve :: IO (Ptr Sudoku)
 
 __C declaration:__ @solve@
 
-__defined at:__ @arrays\/array.h:209:10@
+__defined at:__ @arrays\/array.h 209:10@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1481,7 +1481,7 @@ foreign import ccall safe "hs_bindgen_6d07a0b03f884547" hs_bindgen_6d07a0b03f884
 
 __C declaration:__ @fun_1@
 
-__defined at:__ @arrays\/array.h:118:5@
+__defined at:__ @arrays\/array.h 118:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1490,7 +1490,7 @@ fun_1 :: CInt -> Ptr CInt -> IO CInt
 
 __C declaration:__ @fun_1@
 
-__defined at:__ @arrays\/array.h:118:5@
+__defined at:__ @arrays\/array.h 118:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1503,7 +1503,7 @@ foreign import ccall safe "hs_bindgen_04318f98a3ab8d08" hs_bindgen_04318f98a3ab8
 
 __C declaration:__ @fun_2@
 
-__defined at:__ @arrays\/array.h:121:5@
+__defined at:__ @arrays\/array.h 121:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1512,7 +1512,7 @@ fun_2 :: Ptr CInt -> IO CInt
 
 __C declaration:__ @fun_2@
 
-__defined at:__ @arrays\/array.h:121:5@
+__defined at:__ @arrays\/array.h 121:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1525,7 +1525,7 @@ foreign import ccall safe "hs_bindgen_2a7c5fa1040fa8db" hs_bindgen_2a7c5fa1040fa
 
 __C declaration:__ @fun_3@
 
-__defined at:__ @arrays\/array.h:124:5@
+__defined at:__ @arrays\/array.h 124:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1534,7 +1534,7 @@ fun_3 :: Ptr CInt -> IO CInt
 
 __C declaration:__ @fun_3@
 
-__defined at:__ @arrays\/array.h:124:5@
+__defined at:__ @arrays\/array.h 124:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1547,7 +1547,7 @@ foreign import ccall safe "hs_bindgen_810acc5cf8729d0e" hs_bindgen_810acc5cf8729
 
 __C declaration:__ @fun_4@
 
-__defined at:__ @arrays\/array.h:127:5@
+__defined at:__ @arrays\/array.h 127:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1556,7 +1556,7 @@ fun_4 :: Ptr CInt -> IO CInt
 
 __C declaration:__ @fun_4@
 
-__defined at:__ @arrays\/array.h:127:5@
+__defined at:__ @arrays\/array.h 127:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1569,7 +1569,7 @@ foreign import ccall safe "hs_bindgen_83b71f7defb3b27a" hs_bindgen_83b71f7defb3b
 
 __C declaration:__ @fun_5@
 
-__defined at:__ @arrays\/array.h:130:5@
+__defined at:__ @arrays\/array.h 130:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1578,7 +1578,7 @@ fun_5 :: Ptr (ConstantArray 3 CInt) -> IO CInt
 
 __C declaration:__ @fun_5@
 
-__defined at:__ @arrays\/array.h:130:5@
+__defined at:__ @arrays\/array.h 130:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1591,7 +1591,7 @@ foreign import ccall safe "hs_bindgen_62b76af3dc65da3f" hs_bindgen_62b76af3dc65d
 
 __C declaration:__ @fun_6@
 
-__defined at:__ @arrays\/array.h:133:5@
+__defined at:__ @arrays\/array.h 133:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1600,7 +1600,7 @@ fun_6 :: Ptr (ConstantArray 3 CInt) -> IO CInt
 
 __C declaration:__ @fun_6@
 
-__defined at:__ @arrays\/array.h:133:5@
+__defined at:__ @arrays\/array.h 133:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1613,7 +1613,7 @@ foreign import ccall safe "hs_bindgen_100aa7fb87a5ea74" hs_bindgen_100aa7fb87a5e
 
 __C declaration:__ @fun_7@
 
-__defined at:__ @arrays\/array.h:136:5@
+__defined at:__ @arrays\/array.h 136:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1622,7 +1622,7 @@ fun_7 :: Ptr (ConstantArray 3 CInt) -> IO CInt
 
 __C declaration:__ @fun_7@
 
-__defined at:__ @arrays\/array.h:136:5@
+__defined at:__ @arrays\/array.h 136:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1635,7 +1635,7 @@ foreign import ccall safe "hs_bindgen_cd6646babeacd609" hs_bindgen_cd6646babeacd
 
 __C declaration:__ @fun_8@
 
-__defined at:__ @arrays\/array.h:139:5@
+__defined at:__ @arrays\/array.h 139:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1644,7 +1644,7 @@ fun_8 :: Ptr (ConstantArray 3 CInt) -> IO CInt
 
 __C declaration:__ @fun_8@
 
-__defined at:__ @arrays\/array.h:139:5@
+__defined at:__ @arrays\/array.h 139:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1657,7 +1657,7 @@ foreign import ccall safe "hs_bindgen_560f1de9a83c3a6a" hs_bindgen_560f1de9a83c3
 
 __C declaration:__ @isSolved@
 
-__defined at:__ @arrays\/array.h:142:5@
+__defined at:__ @arrays\/array.h 142:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1666,7 +1666,7 @@ isSolved :: Ptr Triplet -> IO CInt
 
 __C declaration:__ @isSolved@
 
-__defined at:__ @arrays\/array.h:142:5@
+__defined at:__ @arrays\/array.h 142:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1687,7 +1687,7 @@ fun_1_const_wrapper = hs_bindgen_ef3b85ae74bc06cf
 
 __C declaration:__ @fun_1_const@
 
-__defined at:__ @arrays\/array.h:149:5@
+__defined at:__ @arrays\/array.h 149:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1696,7 +1696,7 @@ fun_1_const :: CInt -> Ptr CInt -> ConstantArray 3 CInt -> IO CInt
 
 __C declaration:__ @fun_1_const@
 
-__defined at:__ @arrays\/array.h:149:5@
+__defined at:__ @arrays\/array.h 149:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1716,7 +1716,7 @@ fun_2_const_wrapper = hs_bindgen_1c913685e5e76952
 
 __C declaration:__ @fun_2_const@
 
-__defined at:__ @arrays\/array.h:152:5@
+__defined at:__ @arrays\/array.h 152:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1725,7 +1725,7 @@ fun_2_const :: Ptr CInt -> Triplet -> IO CInt
 
 __C declaration:__ @fun_2_const@
 
-__defined at:__ @arrays\/array.h:152:5@
+__defined at:__ @arrays\/array.h 152:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1745,7 +1745,7 @@ fun_3_const_wrapper = hs_bindgen_eb8daf22bd5c6f00
 
 __C declaration:__ @fun_3_const@
 
-__defined at:__ @arrays\/array.h:155:5@
+__defined at:__ @arrays\/array.h 155:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1754,7 +1754,7 @@ fun_3_const :: Ptr CInt -> IncompleteArray CInt -> IO CInt
 
 __C declaration:__ @fun_3_const@
 
-__defined at:__ @arrays\/array.h:155:5@
+__defined at:__ @arrays\/array.h 155:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1774,7 +1774,7 @@ fun_4_const_wrapper = hs_bindgen_0b73e4c7695a3b2f
 
 __C declaration:__ @fun_4_const@
 
-__defined at:__ @arrays\/array.h:158:5@
+__defined at:__ @arrays\/array.h 158:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1783,7 +1783,7 @@ fun_4_const :: Ptr CInt -> List -> IO CInt
 
 __C declaration:__ @fun_4_const@
 
-__defined at:__ @arrays\/array.h:158:5@
+__defined at:__ @arrays\/array.h 158:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1804,7 +1804,7 @@ fun_5_const_wrapper = hs_bindgen_374feb8086895fe3
 
 __C declaration:__ @fun_5_const@
 
-__defined at:__ @arrays\/array.h:161:5@
+__defined at:__ @arrays\/array.h 161:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1814,7 +1814,7 @@ fun_5_const :: Ptr (ConstantArray 3 CInt) ->
 
 __C declaration:__ @fun_5_const@
 
-__defined at:__ @arrays\/array.h:161:5@
+__defined at:__ @arrays\/array.h 161:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1835,7 +1835,7 @@ fun_6_const_wrapper = hs_bindgen_2d1320b468c36708
 
 __C declaration:__ @fun_6_const@
 
-__defined at:__ @arrays\/array.h:164:5@
+__defined at:__ @arrays\/array.h 164:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1844,7 +1844,7 @@ fun_6_const :: Ptr (ConstantArray 3 CInt) -> Matrix -> IO CInt
 
 __C declaration:__ @fun_6_const@
 
-__defined at:__ @arrays\/array.h:164:5@
+__defined at:__ @arrays\/array.h 164:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1865,7 +1865,7 @@ fun_7_const_wrapper = hs_bindgen_f67f5fe5bfb57aa1
 
 __C declaration:__ @fun_7_const@
 
-__defined at:__ @arrays\/array.h:167:5@
+__defined at:__ @arrays\/array.h 167:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1875,7 +1875,7 @@ fun_7_const :: Ptr (ConstantArray 3 CInt) ->
 
 __C declaration:__ @fun_7_const@
 
-__defined at:__ @arrays\/array.h:167:5@
+__defined at:__ @arrays\/array.h 167:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1896,7 +1896,7 @@ fun_8_const_wrapper = hs_bindgen_2c9356851d76320e
 
 __C declaration:__ @fun_8_const@
 
-__defined at:__ @arrays\/array.h:170:5@
+__defined at:__ @arrays\/array.h 170:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1905,7 +1905,7 @@ fun_8_const :: Ptr (ConstantArray 3 CInt) -> Tripletlist -> IO CInt
 
 __C declaration:__ @fun_8_const@
 
-__defined at:__ @arrays\/array.h:170:5@
+__defined at:__ @arrays\/array.h 170:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1926,7 +1926,7 @@ isSolved_const_wrapper = hs_bindgen_39b08b64fed0c5b8
 
 __C declaration:__ @isSolved_const@
 
-__defined at:__ @arrays\/array.h:173:5@
+__defined at:__ @arrays\/array.h 173:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1935,7 +1935,7 @@ isSolved_const :: Ptr Triplet -> Sudoku -> IO CInt
 
 __C declaration:__ @isSolved_const@
 
-__defined at:__ @arrays\/array.h:173:5@
+__defined at:__ @arrays\/array.h 173:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1947,7 +1947,7 @@ foreign import ccall safe "hs_bindgen_ab431ebc0519545a" hs_bindgen_ab431ebc05195
 
 __C declaration:__ @fun_9@
 
-__defined at:__ @arrays\/array.h:185:7@
+__defined at:__ @arrays\/array.h 185:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1956,7 +1956,7 @@ fun_9 :: IO (Ptr (ConstantArray 3 CInt))
 
 __C declaration:__ @fun_9@
 
-__defined at:__ @arrays\/array.h:185:7@
+__defined at:__ @arrays\/array.h 185:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1968,7 +1968,7 @@ foreign import ccall safe "hs_bindgen_c9ff623e6f48d3bc" hs_bindgen_c9ff623e6f48d
 
 __C declaration:__ @fun_10@
 
-__defined at:__ @arrays\/array.h:188:10@
+__defined at:__ @arrays\/array.h 188:10@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1977,7 +1977,7 @@ fun_10 :: IO (Ptr Triplet)
 
 __C declaration:__ @fun_10@
 
-__defined at:__ @arrays\/array.h:188:10@
+__defined at:__ @arrays\/array.h 188:10@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1989,7 +1989,7 @@ foreign import ccall safe "hs_bindgen_e714f0b7c764ba17" hs_bindgen_e714f0b7c764b
 
 __C declaration:__ @fun_11@
 
-__defined at:__ @arrays\/array.h:191:7@
+__defined at:__ @arrays\/array.h 191:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -1998,7 +1998,7 @@ fun_11 :: IO (Ptr (IncompleteArray CInt))
 
 __C declaration:__ @fun_11@
 
-__defined at:__ @arrays\/array.h:191:7@
+__defined at:__ @arrays\/array.h 191:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2010,7 +2010,7 @@ foreign import ccall safe "hs_bindgen_cc23741700ba18f7" hs_bindgen_cc23741700ba1
 
 __C declaration:__ @fun_12@
 
-__defined at:__ @arrays\/array.h:194:7@
+__defined at:__ @arrays\/array.h 194:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2019,7 +2019,7 @@ fun_12 :: IO (Ptr List)
 
 __C declaration:__ @fun_12@
 
-__defined at:__ @arrays\/array.h:194:7@
+__defined at:__ @arrays\/array.h 194:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2031,7 +2031,7 @@ foreign import ccall safe "hs_bindgen_eb3a1364003829ac" hs_bindgen_eb3a136400382
 
 __C declaration:__ @fun_13@
 
-__defined at:__ @arrays\/array.h:197:7@
+__defined at:__ @arrays\/array.h 197:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2040,7 +2040,7 @@ fun_13 :: IO (Ptr (ConstantArray 4 (ConstantArray 3 CInt)))
 
 __C declaration:__ @fun_13@
 
-__defined at:__ @arrays\/array.h:197:7@
+__defined at:__ @arrays\/array.h 197:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2052,7 +2052,7 @@ foreign import ccall safe "hs_bindgen_0f49ffbe2c13ab46" hs_bindgen_0f49ffbe2c13a
 
 __C declaration:__ @fun_14@
 
-__defined at:__ @arrays\/array.h:200:9@
+__defined at:__ @arrays\/array.h 200:9@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2061,7 +2061,7 @@ fun_14 :: IO (Ptr Matrix)
 
 __C declaration:__ @fun_14@
 
-__defined at:__ @arrays\/array.h:200:9@
+__defined at:__ @arrays\/array.h 200:9@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2073,7 +2073,7 @@ foreign import ccall safe "hs_bindgen_59de769fbba4ed72" hs_bindgen_59de769fbba4e
 
 __C declaration:__ @fun_15@
 
-__defined at:__ @arrays\/array.h:203:7@
+__defined at:__ @arrays\/array.h 203:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2082,7 +2082,7 @@ fun_15 :: IO (Ptr (IncompleteArray (ConstantArray 3 CInt)))
 
 __C declaration:__ @fun_15@
 
-__defined at:__ @arrays\/array.h:203:7@
+__defined at:__ @arrays\/array.h 203:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2094,7 +2094,7 @@ foreign import ccall safe "hs_bindgen_1d6ecccfa4ee16ff" hs_bindgen_1d6ecccfa4ee1
 
 __C declaration:__ @fun_16@
 
-__defined at:__ @arrays\/array.h:206:14@
+__defined at:__ @arrays\/array.h 206:14@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2103,7 +2103,7 @@ fun_16 :: IO (Ptr Tripletlist)
 
 __C declaration:__ @fun_16@
 
-__defined at:__ @arrays\/array.h:206:14@
+__defined at:__ @arrays\/array.h 206:14@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2115,7 +2115,7 @@ foreign import ccall safe "hs_bindgen_6165085eab7d2806" hs_bindgen_6165085eab7d2
 
 __C declaration:__ @solve@
 
-__defined at:__ @arrays\/array.h:209:10@
+__defined at:__ @arrays\/array.h 209:10@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2124,7 +2124,7 @@ solve :: IO (Ptr Sudoku)
 
 __C declaration:__ @solve@
 
-__defined at:__ @arrays\/array.h:209:10@
+__defined at:__ @arrays\/array.h 209:10@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2137,7 +2137,7 @@ foreign import ccall safe "hs_bindgen_5c9712c1e2ca2187" hs_bindgen_5c9712c1e2ca2
 
 __C declaration:__ @fun_1@
 
-__defined at:__ @arrays\/array.h:118:5@
+__defined at:__ @arrays\/array.h 118:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2146,7 +2146,7 @@ fun_1 :: FunPtr (CInt -> ConstantArray 3 CInt -> IO CInt)
 
 __C declaration:__ @fun_1@
 
-__defined at:__ @arrays\/array.h:118:5@
+__defined at:__ @arrays\/array.h 118:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2159,7 +2159,7 @@ foreign import ccall safe "hs_bindgen_215c9a69aea5166e" hs_bindgen_215c9a69aea51
 
 __C declaration:__ @fun_2@
 
-__defined at:__ @arrays\/array.h:121:5@
+__defined at:__ @arrays\/array.h 121:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2168,7 +2168,7 @@ fun_2 :: FunPtr (Triplet -> IO CInt)
 
 __C declaration:__ @fun_2@
 
-__defined at:__ @arrays\/array.h:121:5@
+__defined at:__ @arrays\/array.h 121:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2181,7 +2181,7 @@ foreign import ccall safe "hs_bindgen_d45ffb769078021d" hs_bindgen_d45ffb7690780
 
 __C declaration:__ @fun_3@
 
-__defined at:__ @arrays\/array.h:124:5@
+__defined at:__ @arrays\/array.h 124:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2190,7 +2190,7 @@ fun_3 :: FunPtr (IncompleteArray CInt -> IO CInt)
 
 __C declaration:__ @fun_3@
 
-__defined at:__ @arrays\/array.h:124:5@
+__defined at:__ @arrays\/array.h 124:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2203,7 +2203,7 @@ foreign import ccall safe "hs_bindgen_16f300d083285e38" hs_bindgen_16f300d083285
 
 __C declaration:__ @fun_4@
 
-__defined at:__ @arrays\/array.h:127:5@
+__defined at:__ @arrays\/array.h 127:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2212,7 +2212,7 @@ fun_4 :: FunPtr (List -> IO CInt)
 
 __C declaration:__ @fun_4@
 
-__defined at:__ @arrays\/array.h:127:5@
+__defined at:__ @arrays\/array.h 127:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2225,7 +2225,7 @@ foreign import ccall safe "hs_bindgen_05ddc0274405d6f5" hs_bindgen_05ddc0274405d
 
 __C declaration:__ @fun_5@
 
-__defined at:__ @arrays\/array.h:130:5@
+__defined at:__ @arrays\/array.h 130:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2234,7 +2234,7 @@ fun_5 :: FunPtr (ConstantArray 4 (ConstantArray 3 CInt) -> IO CInt)
 
 __C declaration:__ @fun_5@
 
-__defined at:__ @arrays\/array.h:130:5@
+__defined at:__ @arrays\/array.h 130:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2247,7 +2247,7 @@ foreign import ccall safe "hs_bindgen_bc6a8e5360af8799" hs_bindgen_bc6a8e5360af8
 
 __C declaration:__ @fun_6@
 
-__defined at:__ @arrays\/array.h:133:5@
+__defined at:__ @arrays\/array.h 133:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2256,7 +2256,7 @@ fun_6 :: FunPtr (Matrix -> IO CInt)
 
 __C declaration:__ @fun_6@
 
-__defined at:__ @arrays\/array.h:133:5@
+__defined at:__ @arrays\/array.h 133:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2269,7 +2269,7 @@ foreign import ccall safe "hs_bindgen_b633a17af8e60afd" hs_bindgen_b633a17af8e60
 
 __C declaration:__ @fun_7@
 
-__defined at:__ @arrays\/array.h:136:5@
+__defined at:__ @arrays\/array.h 136:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2278,7 +2278,7 @@ fun_7 :: FunPtr (IncompleteArray (ConstantArray 3 CInt) -> IO CInt)
 
 __C declaration:__ @fun_7@
 
-__defined at:__ @arrays\/array.h:136:5@
+__defined at:__ @arrays\/array.h 136:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2291,7 +2291,7 @@ foreign import ccall safe "hs_bindgen_0801bc85e75e7232" hs_bindgen_0801bc85e75e7
 
 __C declaration:__ @fun_8@
 
-__defined at:__ @arrays\/array.h:139:5@
+__defined at:__ @arrays\/array.h 139:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2300,7 +2300,7 @@ fun_8 :: FunPtr (Tripletlist -> IO CInt)
 
 __C declaration:__ @fun_8@
 
-__defined at:__ @arrays\/array.h:139:5@
+__defined at:__ @arrays\/array.h 139:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2313,7 +2313,7 @@ foreign import ccall safe "hs_bindgen_f525d0058f613e21" hs_bindgen_f525d0058f613
 
 __C declaration:__ @isSolved@
 
-__defined at:__ @arrays\/array.h:142:5@
+__defined at:__ @arrays\/array.h 142:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2322,7 +2322,7 @@ isSolved :: FunPtr (Sudoku -> IO CInt)
 
 __C declaration:__ @isSolved@
 
-__defined at:__ @arrays\/array.h:142:5@
+__defined at:__ @arrays\/array.h 142:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2336,7 +2336,7 @@ foreign import ccall safe "hs_bindgen_0fdde9c360622daf" hs_bindgen_0fdde9c360622
 
 __C declaration:__ @fun_1_const@
 
-__defined at:__ @arrays\/array.h:149:5@
+__defined at:__ @arrays\/array.h 149:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2346,7 +2346,7 @@ fun_1_const :: FunPtr (CInt ->
 
 __C declaration:__ @fun_1_const@
 
-__defined at:__ @arrays\/array.h:149:5@
+__defined at:__ @arrays\/array.h 149:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2359,7 +2359,7 @@ foreign import ccall safe "hs_bindgen_8182488430e66fdc" hs_bindgen_8182488430e66
 
 __C declaration:__ @fun_2_const@
 
-__defined at:__ @arrays\/array.h:152:5@
+__defined at:__ @arrays\/array.h 152:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2368,7 +2368,7 @@ fun_2_const :: FunPtr (Triplet -> Triplet -> IO CInt)
 
 __C declaration:__ @fun_2_const@
 
-__defined at:__ @arrays\/array.h:152:5@
+__defined at:__ @arrays\/array.h 152:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2382,7 +2382,7 @@ foreign import ccall safe "hs_bindgen_2303f5a2f855a6e5" hs_bindgen_2303f5a2f855a
 
 __C declaration:__ @fun_3_const@
 
-__defined at:__ @arrays\/array.h:155:5@
+__defined at:__ @arrays\/array.h 155:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2392,7 +2392,7 @@ fun_3_const :: FunPtr (IncompleteArray CInt ->
 
 __C declaration:__ @fun_3_const@
 
-__defined at:__ @arrays\/array.h:155:5@
+__defined at:__ @arrays\/array.h 155:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2405,7 +2405,7 @@ foreign import ccall safe "hs_bindgen_4570b26d96819cd9" hs_bindgen_4570b26d96819
 
 __C declaration:__ @fun_4_const@
 
-__defined at:__ @arrays\/array.h:158:5@
+__defined at:__ @arrays\/array.h 158:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2414,7 +2414,7 @@ fun_4_const :: FunPtr (List -> List -> IO CInt)
 
 __C declaration:__ @fun_4_const@
 
-__defined at:__ @arrays\/array.h:158:5@
+__defined at:__ @arrays\/array.h 158:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2428,7 +2428,7 @@ foreign import ccall safe "hs_bindgen_65a5e31cfb885928" hs_bindgen_65a5e31cfb885
 
 __C declaration:__ @fun_5_const@
 
-__defined at:__ @arrays\/array.h:161:5@
+__defined at:__ @arrays\/array.h 161:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2438,7 +2438,7 @@ fun_5_const :: FunPtr (ConstantArray 4 (ConstantArray 3 CInt) ->
 
 __C declaration:__ @fun_5_const@
 
-__defined at:__ @arrays\/array.h:161:5@
+__defined at:__ @arrays\/array.h 161:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2451,7 +2451,7 @@ foreign import ccall safe "hs_bindgen_107e8456ef4df268" hs_bindgen_107e8456ef4df
 
 __C declaration:__ @fun_6_const@
 
-__defined at:__ @arrays\/array.h:164:5@
+__defined at:__ @arrays\/array.h 164:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2460,7 +2460,7 @@ fun_6_const :: FunPtr (Matrix -> Matrix -> IO CInt)
 
 __C declaration:__ @fun_6_const@
 
-__defined at:__ @arrays\/array.h:164:5@
+__defined at:__ @arrays\/array.h 164:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2474,7 +2474,7 @@ foreign import ccall safe "hs_bindgen_249a199499d81ca8" hs_bindgen_249a199499d81
 
 __C declaration:__ @fun_7_const@
 
-__defined at:__ @arrays\/array.h:167:5@
+__defined at:__ @arrays\/array.h 167:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2484,7 +2484,7 @@ fun_7_const :: FunPtr (IncompleteArray (ConstantArray 3 CInt) ->
 
 __C declaration:__ @fun_7_const@
 
-__defined at:__ @arrays\/array.h:167:5@
+__defined at:__ @arrays\/array.h 167:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2497,7 +2497,7 @@ foreign import ccall safe "hs_bindgen_92bc0bfe006ce53c" hs_bindgen_92bc0bfe006ce
 
 __C declaration:__ @fun_8_const@
 
-__defined at:__ @arrays\/array.h:170:5@
+__defined at:__ @arrays\/array.h 170:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2506,7 +2506,7 @@ fun_8_const :: FunPtr (Tripletlist -> Tripletlist -> IO CInt)
 
 __C declaration:__ @fun_8_const@
 
-__defined at:__ @arrays\/array.h:170:5@
+__defined at:__ @arrays\/array.h 170:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2519,7 +2519,7 @@ foreign import ccall safe "hs_bindgen_935428cb3e78f9a5" hs_bindgen_935428cb3e78f
 
 __C declaration:__ @isSolved_const@
 
-__defined at:__ @arrays\/array.h:173:5@
+__defined at:__ @arrays\/array.h 173:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2528,7 +2528,7 @@ isSolved_const :: FunPtr (Sudoku -> Sudoku -> IO CInt)
 
 __C declaration:__ @isSolved_const@
 
-__defined at:__ @arrays\/array.h:173:5@
+__defined at:__ @arrays\/array.h 173:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2541,7 +2541,7 @@ foreign import ccall safe "hs_bindgen_c9bec6ab325b063c" hs_bindgen_c9bec6ab325b0
 
 __C declaration:__ @fun_9@
 
-__defined at:__ @arrays\/array.h:185:7@
+__defined at:__ @arrays\/array.h 185:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2550,7 +2550,7 @@ fun_9 :: FunPtr (IO (Ptr (ConstantArray 3 CInt)))
 
 __C declaration:__ @fun_9@
 
-__defined at:__ @arrays\/array.h:185:7@
+__defined at:__ @arrays\/array.h 185:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2563,7 +2563,7 @@ foreign import ccall safe "hs_bindgen_49f85263b6310047" hs_bindgen_49f85263b6310
 
 __C declaration:__ @fun_10@
 
-__defined at:__ @arrays\/array.h:188:10@
+__defined at:__ @arrays\/array.h 188:10@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2572,7 +2572,7 @@ fun_10 :: FunPtr (IO (Ptr Triplet))
 
 __C declaration:__ @fun_10@
 
-__defined at:__ @arrays\/array.h:188:10@
+__defined at:__ @arrays\/array.h 188:10@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2585,7 +2585,7 @@ foreign import ccall safe "hs_bindgen_68bdd4a6e02a046b" hs_bindgen_68bdd4a6e02a0
 
 __C declaration:__ @fun_11@
 
-__defined at:__ @arrays\/array.h:191:7@
+__defined at:__ @arrays\/array.h 191:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2594,7 +2594,7 @@ fun_11 :: FunPtr (IO (Ptr (IncompleteArray CInt)))
 
 __C declaration:__ @fun_11@
 
-__defined at:__ @arrays\/array.h:191:7@
+__defined at:__ @arrays\/array.h 191:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2607,7 +2607,7 @@ foreign import ccall safe "hs_bindgen_0521f5208260a928" hs_bindgen_0521f5208260a
 
 __C declaration:__ @fun_12@
 
-__defined at:__ @arrays\/array.h:194:7@
+__defined at:__ @arrays\/array.h 194:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2616,7 +2616,7 @@ fun_12 :: FunPtr (IO (Ptr List))
 
 __C declaration:__ @fun_12@
 
-__defined at:__ @arrays\/array.h:194:7@
+__defined at:__ @arrays\/array.h 194:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2629,7 +2629,7 @@ foreign import ccall safe "hs_bindgen_9d0f2421c940811c" hs_bindgen_9d0f2421c9408
 
 __C declaration:__ @fun_13@
 
-__defined at:__ @arrays\/array.h:197:7@
+__defined at:__ @arrays\/array.h 197:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2639,7 +2639,7 @@ fun_13 :: FunPtr (IO (Ptr (ConstantArray 4
 
 __C declaration:__ @fun_13@
 
-__defined at:__ @arrays\/array.h:197:7@
+__defined at:__ @arrays\/array.h 197:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2652,7 +2652,7 @@ foreign import ccall safe "hs_bindgen_50eeeb460ce92a1d" hs_bindgen_50eeeb460ce92
 
 __C declaration:__ @fun_14@
 
-__defined at:__ @arrays\/array.h:200:9@
+__defined at:__ @arrays\/array.h 200:9@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2661,7 +2661,7 @@ fun_14 :: FunPtr (IO (Ptr Matrix))
 
 __C declaration:__ @fun_14@
 
-__defined at:__ @arrays\/array.h:200:9@
+__defined at:__ @arrays\/array.h 200:9@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2674,7 +2674,7 @@ foreign import ccall safe "hs_bindgen_afb15d11d3db71eb" hs_bindgen_afb15d11d3db7
 
 __C declaration:__ @fun_15@
 
-__defined at:__ @arrays\/array.h:203:7@
+__defined at:__ @arrays\/array.h 203:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2684,7 +2684,7 @@ fun_15 :: FunPtr (IO (Ptr (IncompleteArray (ConstantArray 3
 
 __C declaration:__ @fun_15@
 
-__defined at:__ @arrays\/array.h:203:7@
+__defined at:__ @arrays\/array.h 203:7@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2697,7 +2697,7 @@ foreign import ccall safe "hs_bindgen_f41fbdca0717f85b" hs_bindgen_f41fbdca0717f
 
 __C declaration:__ @fun_16@
 
-__defined at:__ @arrays\/array.h:206:14@
+__defined at:__ @arrays\/array.h 206:14@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2706,7 +2706,7 @@ fun_16 :: FunPtr (IO (Ptr Tripletlist))
 
 __C declaration:__ @fun_16@
 
-__defined at:__ @arrays\/array.h:206:14@
+__defined at:__ @arrays\/array.h 206:14@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2719,7 +2719,7 @@ foreign import ccall safe "hs_bindgen_b219669884cf1eb6" hs_bindgen_b219669884cf1
 
 __C declaration:__ @solve@
 
-__defined at:__ @arrays\/array.h:209:10@
+__defined at:__ @arrays\/array.h 209:10@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2728,7 +2728,7 @@ solve :: FunPtr (IO (Ptr Sudoku))
 
 __C declaration:__ @solve@
 
-__defined at:__ @arrays\/array.h:209:10@
+__defined at:__ @arrays\/array.h 209:10@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2741,7 +2741,7 @@ foreign import ccall safe "hs_bindgen_21338ece6a009179" hs_bindgen_21338ece6a009
 
 __C declaration:__ @arr0@
 
-__defined at:__ @arrays\/array.h:11:5@
+__defined at:__ @arrays\/array.h 11:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2750,7 +2750,7 @@ arr0 :: Ptr (ConstantArray 3 CInt)
 
 __C declaration:__ @arr0@
 
-__defined at:__ @arrays\/array.h:11:5@
+__defined at:__ @arrays\/array.h 11:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2763,7 +2763,7 @@ foreign import ccall safe "hs_bindgen_a058c9f90a6e675c" hs_bindgen_a058c9f90a6e6
 
 __C declaration:__ @arr1@
 
-__defined at:__ @arrays\/array.h:14:5@
+__defined at:__ @arrays\/array.h 14:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2772,7 +2772,7 @@ arr1 :: Ptr (ConstantArray 3 CInt)
 
 __C declaration:__ @arr1@
 
-__defined at:__ @arrays\/array.h:14:5@
+__defined at:__ @arrays\/array.h 14:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2785,7 +2785,7 @@ foreign import ccall safe "hs_bindgen_c57aab7f71d2cb0b" hs_bindgen_c57aab7f71d2c
 
 __C declaration:__ @arr2@
 
-__defined at:__ @arrays\/array.h:17:12@
+__defined at:__ @arrays\/array.h 17:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2794,7 +2794,7 @@ arr2 :: Ptr (ConstantArray 3 CInt)
 
 __C declaration:__ @arr2@
 
-__defined at:__ @arrays\/array.h:17:12@
+__defined at:__ @arrays\/array.h 17:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2807,7 +2807,7 @@ foreign import ccall safe "hs_bindgen_e2b7478ee9c12746" hs_bindgen_e2b7478ee9c12
 
 __C declaration:__ @arr3@
 
-__defined at:__ @arrays\/array.h:20:12@
+__defined at:__ @arrays\/array.h 20:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2816,7 +2816,7 @@ arr3 :: Ptr (ConstantArray 3 CInt)
 
 __C declaration:__ @arr3@
 
-__defined at:__ @arrays\/array.h:20:12@
+__defined at:__ @arrays\/array.h 20:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2829,7 +2829,7 @@ foreign import ccall safe "hs_bindgen_5f4d28170d6fa0d1" hs_bindgen_5f4d28170d6fa
 
 __C declaration:__ @arr6@
 
-__defined at:__ @arrays\/array.h:29:5@
+__defined at:__ @arrays\/array.h 29:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2838,7 +2838,7 @@ arr6 :: Ptr (ConstantArray 1 CInt)
 
 __C declaration:__ @arr6@
 
-__defined at:__ @arrays\/array.h:29:5@
+__defined at:__ @arrays\/array.h 29:5@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2851,7 +2851,7 @@ foreign import ccall safe "hs_bindgen_3b952c95c3eb17f2" hs_bindgen_3b952c95c3eb1
 
 __C declaration:__ @arr7@
 
-__defined at:__ @arrays\/array.h:32:12@
+__defined at:__ @arrays\/array.h 32:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2860,7 +2860,7 @@ arr7 :: Ptr (IncompleteArray CInt)
 
 __C declaration:__ @arr7@
 
-__defined at:__ @arrays\/array.h:32:12@
+__defined at:__ @arrays\/array.h 32:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2873,7 +2873,7 @@ foreign import ccall safe "hs_bindgen_2d21b7cb9ac33ea8" hs_bindgen_2d21b7cb9ac33
 
 __C declaration:__ @arr_1@
 
-__defined at:__ @arrays\/array.h:62:12@
+__defined at:__ @arrays\/array.h 62:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2882,7 +2882,7 @@ arr_1 :: Ptr (ConstantArray 3 CInt)
 
 __C declaration:__ @arr_1@
 
-__defined at:__ @arrays\/array.h:62:12@
+__defined at:__ @arrays\/array.h 62:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2895,7 +2895,7 @@ foreign import ccall safe "hs_bindgen_df706ce2499e5073" hs_bindgen_df706ce2499e5
 
 __C declaration:__ @arr_2@
 
-__defined at:__ @arrays\/array.h:65:16@
+__defined at:__ @arrays\/array.h 65:16@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2904,7 +2904,7 @@ arr_2 :: Ptr Triplet
 
 __C declaration:__ @arr_2@
 
-__defined at:__ @arrays\/array.h:65:16@
+__defined at:__ @arrays\/array.h 65:16@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2917,7 +2917,7 @@ foreign import ccall safe "hs_bindgen_26bcbe886b94adfb" hs_bindgen_26bcbe886b94a
 
 __C declaration:__ @arr_3@
 
-__defined at:__ @arrays\/array.h:68:12@
+__defined at:__ @arrays\/array.h 68:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2926,7 +2926,7 @@ arr_3 :: Ptr (IncompleteArray CInt)
 
 __C declaration:__ @arr_3@
 
-__defined at:__ @arrays\/array.h:68:12@
+__defined at:__ @arrays\/array.h 68:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2939,7 +2939,7 @@ foreign import ccall safe "hs_bindgen_e4cef264a5cc1887" hs_bindgen_e4cef264a5cc1
 
 __C declaration:__ @arr_4@
 
-__defined at:__ @arrays\/array.h:71:13@
+__defined at:__ @arrays\/array.h 71:13@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2948,7 +2948,7 @@ arr_4 :: Ptr List
 
 __C declaration:__ @arr_4@
 
-__defined at:__ @arrays\/array.h:71:13@
+__defined at:__ @arrays\/array.h 71:13@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2961,7 +2961,7 @@ foreign import ccall safe "hs_bindgen_a733c5b896a8ae4e" hs_bindgen_a733c5b896a8a
 
 __C declaration:__ @arr_5@
 
-__defined at:__ @arrays\/array.h:74:12@
+__defined at:__ @arrays\/array.h 74:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2970,7 +2970,7 @@ arr_5 :: Ptr (ConstantArray 4 (ConstantArray 3 CInt))
 
 __C declaration:__ @arr_5@
 
-__defined at:__ @arrays\/array.h:74:12@
+__defined at:__ @arrays\/array.h 74:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2983,7 +2983,7 @@ foreign import ccall safe "hs_bindgen_525a326f0badae7c" hs_bindgen_525a326f0bada
 
 __C declaration:__ @arr_6@
 
-__defined at:__ @arrays\/array.h:77:15@
+__defined at:__ @arrays\/array.h 77:15@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -2992,7 +2992,7 @@ arr_6 :: Ptr Matrix
 
 __C declaration:__ @arr_6@
 
-__defined at:__ @arrays\/array.h:77:15@
+__defined at:__ @arrays\/array.h 77:15@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -3005,7 +3005,7 @@ foreign import ccall safe "hs_bindgen_b5e93d2d90ffc861" hs_bindgen_b5e93d2d90ffc
 
 __C declaration:__ @arr_7@
 
-__defined at:__ @arrays\/array.h:80:12@
+__defined at:__ @arrays\/array.h 80:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -3014,7 +3014,7 @@ arr_7 :: Ptr (IncompleteArray (ConstantArray 3 CInt))
 
 __C declaration:__ @arr_7@
 
-__defined at:__ @arrays\/array.h:80:12@
+__defined at:__ @arrays\/array.h 80:12@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -3027,7 +3027,7 @@ foreign import ccall safe "hs_bindgen_eb98aff4ee1d31d0" hs_bindgen_eb98aff4ee1d3
 
 __C declaration:__ @arr_8@
 
-__defined at:__ @arrays\/array.h:83:20@
+__defined at:__ @arrays\/array.h 83:20@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -3036,7 +3036,7 @@ arr_8 :: Ptr Tripletlist
 
 __C declaration:__ @arr_8@
 
-__defined at:__ @arrays\/array.h:83:20@
+__defined at:__ @arrays\/array.h 83:20@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -3049,7 +3049,7 @@ foreign import ccall safe "hs_bindgen_25089a5dd72254bc" hs_bindgen_25089a5dd7225
 
 __C declaration:__ @arr_1_const@
 
-__defined at:__ @arrays\/array.h:90:18@
+__defined at:__ @arrays\/array.h 90:18@
 
 __exported by:__ @arrays\/array.h@
 
@@ -3060,7 +3060,7 @@ hs_bindgen_a182a929fe06593d :: ConstPtr (ConstantArray 3 CInt)
 
 __C declaration:__ @arr_1_const@
 
-__defined at:__ @arrays\/array.h:90:18@
+__defined at:__ @arrays\/array.h 90:18@
 
 __exported by:__ @arrays\/array.h@
 
@@ -3078,7 +3078,7 @@ foreign import ccall safe "hs_bindgen_a55a5562a096ae11" hs_bindgen_a55a5562a096a
 
 __C declaration:__ @arr_2_const@
 
-__defined at:__ @arrays\/array.h:93:22@
+__defined at:__ @arrays\/array.h 93:22@
 
 __exported by:__ @arrays\/array.h@
 
@@ -3089,7 +3089,7 @@ hs_bindgen_40c72338f5e41246 :: ConstPtr Triplet
 
 __C declaration:__ @arr_2_const@
 
-__defined at:__ @arrays\/array.h:93:22@
+__defined at:__ @arrays\/array.h 93:22@
 
 __exported by:__ @arrays\/array.h@
 
@@ -3107,7 +3107,7 @@ foreign import ccall safe "hs_bindgen_fad31baeec544a6d" hs_bindgen_fad31baeec544
 
 __C declaration:__ @arr_3_const@
 
-__defined at:__ @arrays\/array.h:96:18@
+__defined at:__ @arrays\/array.h 96:18@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -3116,7 +3116,7 @@ arr_3_const :: ConstPtr (IncompleteArray CInt)
 
 __C declaration:__ @arr_3_const@
 
-__defined at:__ @arrays\/array.h:96:18@
+__defined at:__ @arrays\/array.h 96:18@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -3129,7 +3129,7 @@ foreign import ccall safe "hs_bindgen_890c46fc872e1d7d" hs_bindgen_890c46fc872e1
 
 __C declaration:__ @arr_4_const@
 
-__defined at:__ @arrays\/array.h:99:19@
+__defined at:__ @arrays\/array.h 99:19@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -3138,7 +3138,7 @@ arr_4_const :: ConstPtr List
 
 __C declaration:__ @arr_4_const@
 
-__defined at:__ @arrays\/array.h:99:19@
+__defined at:__ @arrays\/array.h 99:19@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -3151,7 +3151,7 @@ foreign import ccall safe "hs_bindgen_088c9ea4e73d1cfe" hs_bindgen_088c9ea4e73d1
 
 __C declaration:__ @arr_5_const@
 
-__defined at:__ @arrays\/array.h:102:18@
+__defined at:__ @arrays\/array.h 102:18@
 
 __exported by:__ @arrays\/array.h@
 
@@ -3163,7 +3163,7 @@ hs_bindgen_be82907b3025ae62 :: ConstPtr (ConstantArray 4
 
 __C declaration:__ @arr_5_const@
 
-__defined at:__ @arrays\/array.h:102:18@
+__defined at:__ @arrays\/array.h 102:18@
 
 __exported by:__ @arrays\/array.h@
 
@@ -3181,7 +3181,7 @@ foreign import ccall safe "hs_bindgen_bf69f287b3bf9fa4" hs_bindgen_bf69f287b3bf9
 
 __C declaration:__ @arr_6_const@
 
-__defined at:__ @arrays\/array.h:105:21@
+__defined at:__ @arrays\/array.h 105:21@
 
 __exported by:__ @arrays\/array.h@
 
@@ -3192,7 +3192,7 @@ hs_bindgen_50556ee70fdb04aa :: ConstPtr Matrix
 
 __C declaration:__ @arr_6_const@
 
-__defined at:__ @arrays\/array.h:105:21@
+__defined at:__ @arrays\/array.h 105:21@
 
 __exported by:__ @arrays\/array.h@
 
@@ -3210,7 +3210,7 @@ foreign import ccall safe "hs_bindgen_2ca44942791eacc4" hs_bindgen_2ca44942791ea
 
 __C declaration:__ @arr_7_const@
 
-__defined at:__ @arrays\/array.h:108:18@
+__defined at:__ @arrays\/array.h 108:18@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -3219,7 +3219,7 @@ arr_7_const :: ConstPtr (IncompleteArray (ConstantArray 3 CInt))
 
 __C declaration:__ @arr_7_const@
 
-__defined at:__ @arrays\/array.h:108:18@
+__defined at:__ @arrays\/array.h 108:18@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -3232,7 +3232,7 @@ foreign import ccall safe "hs_bindgen_3e95fdf3b641c349" hs_bindgen_3e95fdf3b641c
 
 __C declaration:__ @arr_8_const@
 
-__defined at:__ @arrays\/array.h:111:26@
+__defined at:__ @arrays\/array.h 111:26@
 
 __exported by:__ @arrays\/array.h@
 -}
@@ -3241,7 +3241,7 @@ arr_8_const :: ConstPtr Tripletlist
 
 __C declaration:__ @arr_8_const@
 
-__defined at:__ @arrays\/array.h:111:26@
+__defined at:__ @arrays\/array.h 111:26@
 
 __exported by:__ @arrays\/array.h@
 -}

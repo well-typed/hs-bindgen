@@ -32,7 +32,7 @@ import Prelude ((<*>), Enum, Eq, Floating, Fractional, Int, Num, Ord, Read, Real
 
 {-| __C declaration:__ @enum foo@
 
-    __defined at:__ @types\/typedefs\/typenames.h:14:6@
+    __defined at:__ @types\/typedefs\/typenames.h 14:6@
 
     __exported by:__ @types\/typedefs\/typenames.h@
 -}
@@ -105,7 +105,7 @@ instance Read Foo where
 
 {-| __C declaration:__ @FOO1@
 
-    __defined at:__ @types\/typedefs\/typenames.h:15:2@
+    __defined at:__ @types\/typedefs\/typenames.h 15:2@
 
     __exported by:__ @types\/typedefs\/typenames.h@
 -}
@@ -114,7 +114,7 @@ pattern FOO1 = Foo 0
 
 {-| __C declaration:__ @FOO2@
 
-    __defined at:__ @types\/typedefs\/typenames.h:16:2@
+    __defined at:__ @types\/typedefs\/typenames.h 16:2@
 
     __exported by:__ @types\/typedefs\/typenames.h@
 -}
@@ -123,7 +123,7 @@ pattern FOO2 = Foo 1
 
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @types\/typedefs\/typenames.h:19:16@
+    __defined at:__ @types\/typedefs\/typenames.h 19:16@
 
     __exported by:__ @types\/typedefs\/typenames.h@
 -}

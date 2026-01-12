@@ -9,7 +9,7 @@ import qualified Foreign.C as FC
 
 {-| __C declaration:__ @A@
 
-    __defined at:__ @macros\/issue_890.h:1:9@
+    __defined at:__ @macros\/issue_890.h 1:9@
 
     __exported by:__ @macros\/issue_890.h@
 -}
@@ -18,7 +18,7 @@ a = (0 :: FC.CInt)
 
 {-| __C declaration:__ @B@
 
-    __defined at:__ @macros\/issue_890.h:2:9@
+    __defined at:__ @macros\/issue_890.h 2:9@
 
     __exported by:__ @macros\/issue_890.h@
 -}
@@ -27,7 +27,7 @@ b = \x0 -> (C.+) x0 (1 :: FC.CInt)
 
 {-| __C declaration:__ @C@
 
-    __defined at:__ @macros\/issue_890.h:3:9@
+    __defined at:__ @macros\/issue_890.h 3:9@
 
     __exported by:__ @macros\/issue_890.h@
 -}
@@ -36,7 +36,7 @@ c = b (0 :: FC.CInt)
 
 {-| __C declaration:__ @D@
 
-    __defined at:__ @macros\/issue_890.h:4:9@
+    __defined at:__ @macros\/issue_890.h 4:9@
 
     __exported by:__ @macros\/issue_890.h@
 -}
@@ -45,7 +45,7 @@ d = b a
 
 {-| __C declaration:__ @E@
 
-    __defined at:__ @macros\/issue_890.h:5:9@
+    __defined at:__ @macros\/issue_890.h 5:9@
 
     __exported by:__ @macros\/issue_890.h@
 -}

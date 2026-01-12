@@ -28,7 +28,7 @@ foreign import ccall unsafe "hs_bindgen_226b16768d8906f3" hs_bindgen_226b16768d8
 {-# NOINLINE v #-}
 {-| __C declaration:__ @v@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:91:14@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 91:14@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}

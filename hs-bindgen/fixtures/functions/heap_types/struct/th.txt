@@ -24,7 +24,7 @@
 -- }
 {-| __C declaration:__ @struct S@
 
-    __defined at:__ @functions\/heap_types\/struct.h:3:8@
+    __defined at:__ @functions\/heap_types\/struct.h 3:8@
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
@@ -32,13 +32,13 @@ data T
     = T {t_x :: CInt
          {- ^ __C declaration:__ @x@
 
-              __defined at:__ @functions\/heap_types\/struct.h:4:7@
+              __defined at:__ @functions\/heap_types\/struct.h 4:7@
 
               __exported by:__ @functions\/heap_types\/struct.h@
          -}}
       {- ^ __C declaration:__ @struct S@
 
-           __defined at:__ @functions\/heap_types\/struct.h:3:8@
+           __defined at:__ @functions\/heap_types\/struct.h 3:8@
 
            __exported by:__ @functions\/heap_types\/struct.h@
       -}
@@ -81,14 +81,14 @@ fun_wrapper :: Ptr T -> Ptr T -> IO Unit
 fun_wrapper = hs_bindgen_a5d53f538e59b1fc
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/struct.h:9:3@
+    __defined at:__ @functions\/heap_types\/struct.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
 fun :: T -> IO T
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/struct.h:9:3@
+    __defined at:__ @functions\/heap_types\/struct.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
@@ -106,14 +106,14 @@ fun_wrapper :: Ptr T -> Ptr T -> IO Unit
 fun_wrapper = hs_bindgen_c4af6bb824712c6a
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/struct.h:9:3@
+    __defined at:__ @functions\/heap_types\/struct.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
 fun :: T -> IO T
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/struct.h:9:3@
+    __defined at:__ @functions\/heap_types\/struct.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
@@ -124,14 +124,14 @@ foreign import ccall safe "hs_bindgen_071e2eda58051e4a" hs_bindgen_071e2eda58051
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/struct.h:9:3@
+    __defined at:__ @functions\/heap_types\/struct.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}
 fun :: FunPtr (T -> IO T)
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/struct.h:9:3@
+    __defined at:__ @functions\/heap_types\/struct.h 9:3@
 
     __exported by:__ @functions\/heap_types\/struct.h@
 -}

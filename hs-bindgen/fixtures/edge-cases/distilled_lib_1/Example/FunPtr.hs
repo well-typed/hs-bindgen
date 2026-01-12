@@ -33,7 +33,7 @@ foreign import ccall unsafe "hs_bindgen_1ade3cfc18679577" hs_bindgen_1ade3cfc186
 {-# NOINLINE some_fun #-}
 {-| __C declaration:__ @some_fun@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:72:9@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 72:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}

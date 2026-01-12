@@ -426,7 +426,7 @@
 
 __C declaration:__ @FileOpenedNotification@
 
-__defined at:__ @functions\/callbacks.h:10:16@
+__defined at:__ @functions\/callbacks.h 10:16@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -436,7 +436,7 @@ newtype FileOpenedNotification_Aux
 
       __C declaration:__ @FileOpenedNotification@
 
-      __defined at:__ @functions\/callbacks.h:10:16@
+      __defined at:__ @functions\/callbacks.h 10:16@
 
       __exported by:__ @functions\/callbacks.h@
       -}
@@ -467,7 +467,7 @@ instance HasCField FileOpenedNotification_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @FileOpenedNotification@
 
-    __defined at:__ @functions\/callbacks.h:10:16@
+    __defined at:__ @functions\/callbacks.h 10:16@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -475,7 +475,7 @@ newtype FileOpenedNotification
     = FileOpenedNotification {un_FileOpenedNotification :: (FunPtr FileOpenedNotification_Aux)}
       {- ^ __C declaration:__ @FileOpenedNotification@
 
-           __defined at:__ @functions\/callbacks.h:10:16@
+           __defined at:__ @functions\/callbacks.h 10:16@
 
            __exported by:__ @functions\/callbacks.h@
       -}
@@ -496,7 +496,7 @@ instance HasCField FileOpenedNotification
 
 __C declaration:__ @ProgressUpdate@
 
-__defined at:__ @functions\/callbacks.h:11:16@
+__defined at:__ @functions\/callbacks.h 11:16@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -506,7 +506,7 @@ newtype ProgressUpdate_Aux
 
       __C declaration:__ @ProgressUpdate@
 
-      __defined at:__ @functions\/callbacks.h:11:16@
+      __defined at:__ @functions\/callbacks.h 11:16@
 
       __exported by:__ @functions\/callbacks.h@
       -}
@@ -533,7 +533,7 @@ instance HasCField ProgressUpdate_Aux "un_ProgressUpdate_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @ProgressUpdate@
 
-    __defined at:__ @functions\/callbacks.h:11:16@
+    __defined at:__ @functions\/callbacks.h 11:16@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -541,7 +541,7 @@ newtype ProgressUpdate
     = ProgressUpdate {un_ProgressUpdate :: (FunPtr ProgressUpdate_Aux)}
       {- ^ __C declaration:__ @ProgressUpdate@
 
-           __defined at:__ @functions\/callbacks.h:11:16@
+           __defined at:__ @functions\/callbacks.h 11:16@
 
            __exported by:__ @functions\/callbacks.h@
       -}
@@ -558,7 +558,7 @@ instance HasCField ProgressUpdate "un_ProgressUpdate"
 
 __C declaration:__ @DataValidator@
 
-__defined at:__ @functions\/callbacks.h:12:15@
+__defined at:__ @functions\/callbacks.h 12:15@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -568,7 +568,7 @@ newtype DataValidator_Aux
 
       __C declaration:__ @DataValidator@
 
-      __defined at:__ @functions\/callbacks.h:12:15@
+      __defined at:__ @functions\/callbacks.h 12:15@
 
       __exported by:__ @functions\/callbacks.h@
       -}
@@ -595,7 +595,7 @@ instance HasCField DataValidator_Aux "un_DataValidator_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @DataValidator@
 
-    __defined at:__ @functions\/callbacks.h:12:15@
+    __defined at:__ @functions\/callbacks.h 12:15@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -603,7 +603,7 @@ newtype DataValidator
     = DataValidator {un_DataValidator :: (FunPtr DataValidator_Aux)}
       {- ^ __C declaration:__ @DataValidator@
 
-           __defined at:__ @functions\/callbacks.h:12:15@
+           __defined at:__ @functions\/callbacks.h 12:15@
 
            __exported by:__ @functions\/callbacks.h@
       -}
@@ -618,7 +618,7 @@ instance HasCField DataValidator "un_DataValidator"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct Measurement@
 
-    __defined at:__ @functions\/callbacks.h:21:8@
+    __defined at:__ @functions\/callbacks.h 21:8@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -626,20 +626,20 @@ data Measurement
     = Measurement {measurement_value :: CDouble
                    {- ^ __C declaration:__ @value@
 
-                        __defined at:__ @functions\/callbacks.h:22:10@
+                        __defined at:__ @functions\/callbacks.h 22:10@
 
                         __exported by:__ @functions\/callbacks.h@
                    -},
                    measurement_timestamp :: CDouble
                    {- ^ __C declaration:__ @timestamp@
 
-                        __defined at:__ @functions\/callbacks.h:23:10@
+                        __defined at:__ @functions\/callbacks.h 23:10@
 
                         __exported by:__ @functions\/callbacks.h@
                    -}}
       {- ^ __C declaration:__ @struct Measurement@
 
-           __defined at:__ @functions\/callbacks.h:21:8@
+           __defined at:__ @functions\/callbacks.h 21:8@
 
            __exported by:__ @functions\/callbacks.h@
       -}
@@ -691,7 +691,7 @@ instance TyEq ty
 
 __C declaration:__ @MeasurementReceived@
 
-__defined at:__ @functions\/callbacks.h:26:16@
+__defined at:__ @functions\/callbacks.h 26:16@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -702,7 +702,7 @@ newtype MeasurementReceived_Aux
 
       __C declaration:__ @MeasurementReceived@
 
-      __defined at:__ @functions\/callbacks.h:26:16@
+      __defined at:__ @functions\/callbacks.h 26:16@
 
       __exported by:__ @functions\/callbacks.h@
       -}
@@ -733,7 +733,7 @@ instance HasCField MeasurementReceived_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @MeasurementReceived@
 
-    __defined at:__ @functions\/callbacks.h:26:16@
+    __defined at:__ @functions\/callbacks.h 26:16@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -741,7 +741,7 @@ newtype MeasurementReceived
     = MeasurementReceived {un_MeasurementReceived :: (FunPtr MeasurementReceived_Aux)}
       {- ^ __C declaration:__ @MeasurementReceived@
 
-           __defined at:__ @functions\/callbacks.h:26:16@
+           __defined at:__ @functions\/callbacks.h 26:16@
 
            __exported by:__ @functions\/callbacks.h@
       -}
@@ -761,7 +761,7 @@ instance HasCField MeasurementReceived "un_MeasurementReceived"
 
 __C declaration:__ @MeasurementReceived2@
 
-__defined at:__ @functions\/callbacks.h:29:16@
+__defined at:__ @functions\/callbacks.h 29:16@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -772,7 +772,7 @@ newtype MeasurementReceived2_Aux
 
       __C declaration:__ @MeasurementReceived2@
 
-      __defined at:__ @functions\/callbacks.h:29:16@
+      __defined at:__ @functions\/callbacks.h 29:16@
 
       __exported by:__ @functions\/callbacks.h@
       -}
@@ -790,7 +790,7 @@ instance HasCField MeasurementReceived2_Aux
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @MeasurementReceived2@
 
-    __defined at:__ @functions\/callbacks.h:29:16@
+    __defined at:__ @functions\/callbacks.h 29:16@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -798,7 +798,7 @@ newtype MeasurementReceived2
     = MeasurementReceived2 {un_MeasurementReceived2 :: (FunPtr MeasurementReceived2_Aux)}
       {- ^ __C declaration:__ @MeasurementReceived2@
 
-           __defined at:__ @functions\/callbacks.h:29:16@
+           __defined at:__ @functions\/callbacks.h 29:16@
 
            __exported by:__ @functions\/callbacks.h@
       -}
@@ -818,7 +818,7 @@ instance HasCField MeasurementReceived2 "un_MeasurementReceived2"
 
 __C declaration:__ @SampleBufferFull@
 
-__defined at:__ @functions\/callbacks.h:32:16@
+__defined at:__ @functions\/callbacks.h 32:16@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -830,7 +830,7 @@ newtype SampleBufferFull_Aux
 
       __C declaration:__ @SampleBufferFull@
 
-      __defined at:__ @functions\/callbacks.h:32:16@
+      __defined at:__ @functions\/callbacks.h 32:16@
 
       __exported by:__ @functions\/callbacks.h@
       -}
@@ -846,7 +846,7 @@ instance HasCField SampleBufferFull_Aux "un_SampleBufferFull_Aux"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @SampleBufferFull@
 
-    __defined at:__ @functions\/callbacks.h:32:16@
+    __defined at:__ @functions\/callbacks.h 32:16@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -854,7 +854,7 @@ newtype SampleBufferFull
     = SampleBufferFull {un_SampleBufferFull :: (FunPtr SampleBufferFull_Aux)}
       {- ^ __C declaration:__ @SampleBufferFull@
 
-           __defined at:__ @functions\/callbacks.h:32:16@
+           __defined at:__ @functions\/callbacks.h 32:16@
 
            __exported by:__ @functions\/callbacks.h@
       -}
@@ -870,7 +870,7 @@ instance HasCField SampleBufferFull "un_SampleBufferFull"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct MeasurementHandler@
 
-    __defined at:__ @functions\/callbacks.h:50:8@
+    __defined at:__ @functions\/callbacks.h 50:8@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -879,7 +879,7 @@ data MeasurementHandler
                                                                     IO Unit))
                           {- ^ __C declaration:__ @onReceived@
 
-                               __defined at:__ @functions\/callbacks.h:51:10@
+                               __defined at:__ @functions\/callbacks.h 51:10@
 
                                __exported by:__ @functions\/callbacks.h@
                           -},
@@ -887,20 +887,20 @@ data MeasurementHandler
                                                                   IO CInt))
                           {- ^ __C declaration:__ @validate@
 
-                               __defined at:__ @functions\/callbacks.h:52:9@
+                               __defined at:__ @functions\/callbacks.h 52:9@
 
                                __exported by:__ @functions\/callbacks.h@
                           -},
                           measurementHandler_onError :: (FunPtr (CInt -> IO Unit))
                           {- ^ __C declaration:__ @onError@
 
-                               __defined at:__ @functions\/callbacks.h:53:10@
+                               __defined at:__ @functions\/callbacks.h 53:10@
 
                                __exported by:__ @functions\/callbacks.h@
                           -}}
       {- ^ __C declaration:__ @struct MeasurementHandler@
 
-           __defined at:__ @functions\/callbacks.h:50:8@
+           __defined at:__ @functions\/callbacks.h 50:8@
 
            __exported by:__ @functions\/callbacks.h@
       -}
@@ -947,7 +947,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"measurementHandler_onError")
 {-| __C declaration:__ @struct DataPipeline@
 
-    __defined at:__ @functions\/callbacks.h:58:8@
+    __defined at:__ @functions\/callbacks.h 58:8@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -956,14 +956,14 @@ data DataPipeline
                                                         DataValidator -> IO Unit))
                     {- ^ __C declaration:__ @preProcess@
 
-                         __defined at:__ @functions\/callbacks.h:59:10@
+                         __defined at:__ @functions\/callbacks.h 59:10@
 
                          __exported by:__ @functions\/callbacks.h@
                     -},
                     dataPipeline_process :: (FunPtr (Ptr Measurement -> IO Unit))
                     {- ^ __C declaration:__ @process@
 
-                         __defined at:__ @functions\/callbacks.h:60:10@
+                         __defined at:__ @functions\/callbacks.h 60:10@
 
                          __exported by:__ @functions\/callbacks.h@
                     -},
@@ -971,13 +971,13 @@ data DataPipeline
                                                          ProgressUpdate -> IO Unit))
                     {- ^ __C declaration:__ @postProcess@
 
-                         __defined at:__ @functions\/callbacks.h:61:10@
+                         __defined at:__ @functions\/callbacks.h 61:10@
 
                          __exported by:__ @functions\/callbacks.h@
                     -}}
       {- ^ __C declaration:__ @struct DataPipeline@
 
-           __defined at:__ @functions\/callbacks.h:58:8@
+           __defined at:__ @functions\/callbacks.h 58:8@
 
            __exported by:__ @functions\/callbacks.h@
       -}
@@ -1018,7 +1018,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"dataPipeline_postProcess")
 {-| __C declaration:__ @union ProcessorCallback@
 
-    __defined at:__ @functions\/callbacks.h:69:7@
+    __defined at:__ @functions\/callbacks.h 69:7@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1026,7 +1026,7 @@ newtype ProcessorCallback
     = ProcessorCallback {un_ProcessorCallback :: ByteArray}
       {- ^ __C declaration:__ @union ProcessorCallback@
 
-           __defined at:__ @functions\/callbacks.h:69:7@
+           __defined at:__ @functions\/callbacks.h 69:7@
 
            __exported by:__ @functions\/callbacks.h@
       -}
@@ -1039,7 +1039,7 @@ deriving via (SizedByteArray 8 8) instance Prim ProcessorCallback
 
 __C declaration:__ @simple@
 
-__defined at:__ @functions\/callbacks.h:70:10@
+__defined at:__ @functions\/callbacks.h 70:10@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -1051,7 +1051,7 @@ get_processorCallback_simple :: ProcessorCallback ->
 
 __C declaration:__ @simple@
 
-__defined at:__ @functions\/callbacks.h:70:10@
+__defined at:__ @functions\/callbacks.h 70:10@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -1076,7 +1076,7 @@ set_processorCallback_simple = setUnionPayload
 
 __C declaration:__ @withValidator@
 
-__defined at:__ @functions\/callbacks.h:71:10@
+__defined at:__ @functions\/callbacks.h 71:10@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -1088,7 +1088,7 @@ get_processorCallback_withValidator :: ProcessorCallback ->
 
 __C declaration:__ @withValidator@
 
-__defined at:__ @functions\/callbacks.h:71:10@
+__defined at:__ @functions\/callbacks.h 71:10@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -1113,7 +1113,7 @@ set_processorCallback_withValidator = setUnionPayload
 
 __C declaration:__ @withProgress@
 
-__defined at:__ @functions\/callbacks.h:72:10@
+__defined at:__ @functions\/callbacks.h 72:10@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -1125,7 +1125,7 @@ get_processorCallback_withProgress :: ProcessorCallback ->
 
 __C declaration:__ @withProgress@
 
-__defined at:__ @functions\/callbacks.h:72:10@
+__defined at:__ @functions\/callbacks.h 72:10@
 
 __exported by:__ @functions\/callbacks.h@
 -}
@@ -1180,7 +1180,7 @@ instance TyEq ty
     where getField = ptrToCField (Proxy @"processorCallback_withProgress")
 {-| __C declaration:__ @enum \@Processor_mode@
 
-    __defined at:__ @functions\/callbacks.h:76:3@
+    __defined at:__ @functions\/callbacks.h 76:3@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1188,7 +1188,7 @@ newtype Processor_mode
     = Processor_mode {un_Processor_mode :: CUInt}
       {- ^ __C declaration:__ @enum \@Processor_mode@
 
-           __defined at:__ @functions\/callbacks.h:76:3@
+           __defined at:__ @functions\/callbacks.h 76:3@
 
            __exported by:__ @functions\/callbacks.h@
       -}
@@ -1224,49 +1224,49 @@ instance Read Processor_mode
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @MODE_SIMPLE@
 
-    __defined at:__ @functions\/callbacks.h:76:10@
+    __defined at:__ @functions\/callbacks.h 76:10@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 pattern MODE_SIMPLE :: Processor_mode
 {-| __C declaration:__ @MODE_SIMPLE@
 
-    __defined at:__ @functions\/callbacks.h:76:10@
+    __defined at:__ @functions\/callbacks.h 76:10@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 pattern MODE_SIMPLE = Processor_mode 0
 {-| __C declaration:__ @MODE_VALIDATED@
 
-    __defined at:__ @functions\/callbacks.h:76:23@
+    __defined at:__ @functions\/callbacks.h 76:23@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 pattern MODE_VALIDATED :: Processor_mode
 {-| __C declaration:__ @MODE_VALIDATED@
 
-    __defined at:__ @functions\/callbacks.h:76:23@
+    __defined at:__ @functions\/callbacks.h 76:23@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 pattern MODE_VALIDATED = Processor_mode 1
 {-| __C declaration:__ @MODE_PROGRESS@
 
-    __defined at:__ @functions\/callbacks.h:76:39@
+    __defined at:__ @functions\/callbacks.h 76:39@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 pattern MODE_PROGRESS :: Processor_mode
 {-| __C declaration:__ @MODE_PROGRESS@
 
-    __defined at:__ @functions\/callbacks.h:76:39@
+    __defined at:__ @functions\/callbacks.h 76:39@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 pattern MODE_PROGRESS = Processor_mode 2
 {-| __C declaration:__ @struct Processor@
 
-    __defined at:__ @functions\/callbacks.h:75:8@
+    __defined at:__ @functions\/callbacks.h 75:8@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1274,20 +1274,20 @@ data Processor
     = Processor {processor_mode :: Processor_mode
                  {- ^ __C declaration:__ @mode@
 
-                      __defined at:__ @functions\/callbacks.h:76:55@
+                      __defined at:__ @functions\/callbacks.h 76:55@
 
                       __exported by:__ @functions\/callbacks.h@
                  -},
                  processor_callback :: ProcessorCallback
                  {- ^ __C declaration:__ @callback@
 
-                      __defined at:__ @functions\/callbacks.h:77:27@
+                      __defined at:__ @functions\/callbacks.h 77:27@
 
                       __exported by:__ @functions\/callbacks.h@
                  -}}
       {- ^ __C declaration:__ @struct Processor@
 
-           __defined at:__ @functions\/callbacks.h:75:8@
+           __defined at:__ @functions\/callbacks.h 75:8@
 
            __exported by:__ @functions\/callbacks.h@
       -}
@@ -1313,7 +1313,7 @@ instance TyEq ty (CFieldType Processor "processor_callback") =>
     where getField = ptrToCField (Proxy @"processor_callback")
 {-| __C declaration:__ @foo@
 
-    __defined at:__ @functions\/callbacks.h:94:13@
+    __defined at:__ @functions\/callbacks.h 94:13@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1321,7 +1321,7 @@ newtype Foo
     = Foo {un_Foo :: CInt}
       {- ^ __C declaration:__ @foo@
 
-           __defined at:__ @functions\/callbacks.h:94:13@
+           __defined at:__ @functions\/callbacks.h 94:13@
 
            __exported by:__ @functions\/callbacks.h@
       -}
@@ -1345,7 +1345,7 @@ instance HasCField Foo "un_Foo"
           offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @foo2@
 
-    __defined at:__ @functions\/callbacks.h:95:13@
+    __defined at:__ @functions\/callbacks.h 95:13@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1353,7 +1353,7 @@ newtype Foo2
     = Foo2 {un_Foo2 :: CInt}
       {- ^ __C declaration:__ @foo2@
 
-           __defined at:__ @functions\/callbacks.h:95:13@
+           __defined at:__ @functions\/callbacks.h 95:13@
 
            __exported by:__ @functions\/callbacks.h@
       -}
@@ -1544,7 +1544,7 @@ foreign import ccall safe "hs_bindgen_99bda9cd8097b0ea" hs_bindgen_99bda9cd8097b
  -> IO CInt
 {-| __C declaration:__ @readFileWithProcessor@
 
-    __defined at:__ @functions\/callbacks.h:4:5@
+    __defined at:__ @functions\/callbacks.h 4:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1552,7 +1552,7 @@ readFileWithProcessor :: FunPtr (CInt -> IO Unit) ->
                          CInt -> IO CInt
 {-| __C declaration:__ @readFileWithProcessor@
 
-    __defined at:__ @functions\/callbacks.h:4:5@
+    __defined at:__ @functions\/callbacks.h 4:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1564,14 +1564,14 @@ foreign import ccall safe "hs_bindgen_84b75366c836fc85" hs_bindgen_84b75366c836f
  -> IO Unit
 {-| __C declaration:__ @watchTemperature@
 
-    __defined at:__ @functions\/callbacks.h:5:6@
+    __defined at:__ @functions\/callbacks.h 5:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 watchTemperature :: FunPtr (CInt -> IO Unit) -> CInt -> IO Unit
 {-| __C declaration:__ @watchTemperature@
 
-    __defined at:__ @functions\/callbacks.h:5:6@
+    __defined at:__ @functions\/callbacks.h 5:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1582,14 +1582,14 @@ foreign import ccall safe "hs_bindgen_f2580f574faa3697" hs_bindgen_f2580f574faa3
  -> IO Unit
 {-| __C declaration:__ @onFileOpened@
 
-    __defined at:__ @functions\/callbacks.h:14:6@
+    __defined at:__ @functions\/callbacks.h 14:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 onFileOpened :: FileOpenedNotification -> IO Unit
 {-| __C declaration:__ @onFileOpened@
 
-    __defined at:__ @functions\/callbacks.h:14:6@
+    __defined at:__ @functions\/callbacks.h 14:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1600,14 +1600,14 @@ foreign import ccall safe "hs_bindgen_654057b291ee37ea" hs_bindgen_654057b291ee3
  -> IO Unit
 {-| __C declaration:__ @onProgressChanged@
 
-    __defined at:__ @functions\/callbacks.h:15:6@
+    __defined at:__ @functions\/callbacks.h 15:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 onProgressChanged :: ProgressUpdate -> IO Unit
 {-| __C declaration:__ @onProgressChanged@
 
-    __defined at:__ @functions\/callbacks.h:15:6@
+    __defined at:__ @functions\/callbacks.h 15:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1619,14 +1619,14 @@ foreign import ccall safe "hs_bindgen_5df7aac6996be10f" hs_bindgen_5df7aac6996be
  -> IO CInt
 {-| __C declaration:__ @validateInput@
 
-    __defined at:__ @functions\/callbacks.h:16:5@
+    __defined at:__ @functions\/callbacks.h 16:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 validateInput :: DataValidator -> CInt -> IO CInt
 {-| __C declaration:__ @validateInput@
 
-    __defined at:__ @functions\/callbacks.h:16:5@
+    __defined at:__ @functions\/callbacks.h 16:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1637,14 +1637,14 @@ foreign import ccall safe "hs_bindgen_8f1bb1c4d2b5355f" hs_bindgen_8f1bb1c4d2b53
  -> IO Unit
 {-| __C declaration:__ @onNewMeasurement@
 
-    __defined at:__ @functions\/callbacks.h:27:6@
+    __defined at:__ @functions\/callbacks.h 27:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 onNewMeasurement :: MeasurementReceived -> IO Unit
 {-| __C declaration:__ @onNewMeasurement@
 
-    __defined at:__ @functions\/callbacks.h:27:6@
+    __defined at:__ @functions\/callbacks.h 27:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1655,14 +1655,14 @@ foreign import ccall safe "hs_bindgen_d805e39c6cbdd620" hs_bindgen_d805e39c6cbdd
  -> IO Unit
 {-| __C declaration:__ @onNewMeasurement2@
 
-    __defined at:__ @functions\/callbacks.h:30:6@
+    __defined at:__ @functions\/callbacks.h 30:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 onNewMeasurement2 :: MeasurementReceived2 -> IO Unit
 {-| __C declaration:__ @onNewMeasurement2@
 
-    __defined at:__ @functions\/callbacks.h:30:6@
+    __defined at:__ @functions\/callbacks.h 30:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1673,14 +1673,14 @@ foreign import ccall safe "hs_bindgen_8d803591bcf10ba5" hs_bindgen_8d803591bcf10
  -> IO Unit
 {-| __C declaration:__ @onBufferReady@
 
-    __defined at:__ @functions\/callbacks.h:33:6@
+    __defined at:__ @functions\/callbacks.h 33:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 onBufferReady :: SampleBufferFull -> IO Unit
 {-| __C declaration:__ @onBufferReady@
 
-    __defined at:__ @functions\/callbacks.h:33:6@
+    __defined at:__ @functions\/callbacks.h 33:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1693,7 +1693,7 @@ foreign import ccall safe "hs_bindgen_16c298a15b737eb2" hs_bindgen_16c298a15b737
  -> IO Unit
 {-| __C declaration:__ @transformMeasurement@
 
-    __defined at:__ @functions\/callbacks.h:38:6@
+    __defined at:__ @functions\/callbacks.h 38:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1703,7 +1703,7 @@ transformMeasurement :: Ptr Measurement ->
                         IO Unit
 {-| __C declaration:__ @transformMeasurement@
 
-    __defined at:__ @functions\/callbacks.h:38:6@
+    __defined at:__ @functions\/callbacks.h 38:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1715,7 +1715,7 @@ foreign import ccall safe "hs_bindgen_e6a073138e56764f" hs_bindgen_e6a073138e567
  -> IO Unit
 {-| __C declaration:__ @processWithCallbacks@
 
-    __defined at:__ @functions\/callbacks.h:43:6@
+    __defined at:__ @functions\/callbacks.h 43:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1724,7 +1724,7 @@ processWithCallbacks :: FunPtr (Ptr Measurement ->
                         IO Unit
 {-| __C declaration:__ @processWithCallbacks@
 
-    __defined at:__ @functions\/callbacks.h:43:6@
+    __defined at:__ @functions\/callbacks.h 43:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1735,14 +1735,14 @@ foreign import ccall safe "hs_bindgen_ece0d4f94c2319f0" hs_bindgen_ece0d4f94c231
  -> IO Unit
 {-| __C declaration:__ @registerHandler@
 
-    __defined at:__ @functions\/callbacks.h:56:6@
+    __defined at:__ @functions\/callbacks.h 56:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 registerHandler :: Ptr MeasurementHandler -> IO Unit
 {-| __C declaration:__ @registerHandler@
 
-    __defined at:__ @functions\/callbacks.h:56:6@
+    __defined at:__ @functions\/callbacks.h 56:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1754,14 +1754,14 @@ foreign import ccall safe "hs_bindgen_d66d7470a7a213b0" hs_bindgen_d66d7470a7a21
  -> IO Unit
 {-| __C declaration:__ @executePipeline@
 
-    __defined at:__ @functions\/callbacks.h:64:6@
+    __defined at:__ @functions\/callbacks.h 64:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 executePipeline :: Ptr Measurement -> Ptr DataPipeline -> IO Unit
 {-| __C declaration:__ @executePipeline@
 
-    __defined at:__ @functions\/callbacks.h:64:6@
+    __defined at:__ @functions\/callbacks.h 64:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1773,14 +1773,14 @@ foreign import ccall safe "hs_bindgen_e925d3ce6e5fb395" hs_bindgen_e925d3ce6e5fb
  -> IO Unit
 {-| __C declaration:__ @runProcessor@
 
-    __defined at:__ @functions\/callbacks.h:80:6@
+    __defined at:__ @functions\/callbacks.h 80:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 runProcessor :: Ptr Measurement -> Ptr Processor -> IO Unit
 {-| __C declaration:__ @runProcessor@
 
-    __defined at:__ @functions\/callbacks.h:80:6@
+    __defined at:__ @functions\/callbacks.h 80:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1794,7 +1794,7 @@ foreign import ccall safe "hs_bindgen_1e432e1595a1ef55" hs_bindgen_1e432e1595a1e
  -> IO Unit
 {-| __C declaration:__ @processMeasurementWithValidation@
 
-    __defined at:__ @functions\/callbacks.h:85:6@
+    __defined at:__ @functions\/callbacks.h 85:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1806,7 +1806,7 @@ processMeasurementWithValidation :: Ptr Measurement ->
                                     IO Unit
 {-| __C declaration:__ @processMeasurementWithValidation@
 
-    __defined at:__ @functions\/callbacks.h:85:6@
+    __defined at:__ @functions\/callbacks.h 85:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1817,14 +1817,14 @@ foreign import ccall safe "hs_bindgen_d5cd030edf2e0364" hs_bindgen_d5cd030edf2e0
  -> IO Unit
 {-| __C declaration:__ @f@
 
-    __defined at:__ @functions\/callbacks.h:96:6@
+    __defined at:__ @functions\/callbacks.h 96:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 f :: FunPtr (Foo -> IO Unit) -> IO Unit
 {-| __C declaration:__ @f@
 
-    __defined at:__ @functions\/callbacks.h:96:6@
+    __defined at:__ @functions\/callbacks.h 96:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1835,14 +1835,14 @@ foreign import ccall safe "hs_bindgen_a10eec74074627ba" hs_bindgen_a10eec7407462
  -> IO Unit
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/callbacks.h:97:6@
+    __defined at:__ @functions\/callbacks.h 97:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 f2 :: FunPtr (Foo2 -> IO Unit) -> IO Unit
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/callbacks.h:97:6@
+    __defined at:__ @functions\/callbacks.h 97:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1854,7 +1854,7 @@ foreign import ccall safe "hs_bindgen_d07f3a3e526e7017" hs_bindgen_d07f3a3e526e7
  -> IO CInt
 {-| __C declaration:__ @readFileWithProcessor@
 
-    __defined at:__ @functions\/callbacks.h:4:5@
+    __defined at:__ @functions\/callbacks.h 4:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1862,7 +1862,7 @@ readFileWithProcessor :: FunPtr (CInt -> IO Unit) ->
                          CInt -> IO CInt
 {-| __C declaration:__ @readFileWithProcessor@
 
-    __defined at:__ @functions\/callbacks.h:4:5@
+    __defined at:__ @functions\/callbacks.h 4:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1874,14 +1874,14 @@ foreign import ccall safe "hs_bindgen_cb0219aedd5afed5" hs_bindgen_cb0219aedd5af
  -> IO Unit
 {-| __C declaration:__ @watchTemperature@
 
-    __defined at:__ @functions\/callbacks.h:5:6@
+    __defined at:__ @functions\/callbacks.h 5:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 watchTemperature :: FunPtr (CInt -> IO Unit) -> CInt -> IO Unit
 {-| __C declaration:__ @watchTemperature@
 
-    __defined at:__ @functions\/callbacks.h:5:6@
+    __defined at:__ @functions\/callbacks.h 5:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1892,14 +1892,14 @@ foreign import ccall safe "hs_bindgen_d96938841a039f9b" hs_bindgen_d96938841a039
  -> IO Unit
 {-| __C declaration:__ @onFileOpened@
 
-    __defined at:__ @functions\/callbacks.h:14:6@
+    __defined at:__ @functions\/callbacks.h 14:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 onFileOpened :: FileOpenedNotification -> IO Unit
 {-| __C declaration:__ @onFileOpened@
 
-    __defined at:__ @functions\/callbacks.h:14:6@
+    __defined at:__ @functions\/callbacks.h 14:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1910,14 +1910,14 @@ foreign import ccall safe "hs_bindgen_3cb24888fc3e1751" hs_bindgen_3cb24888fc3e1
  -> IO Unit
 {-| __C declaration:__ @onProgressChanged@
 
-    __defined at:__ @functions\/callbacks.h:15:6@
+    __defined at:__ @functions\/callbacks.h 15:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 onProgressChanged :: ProgressUpdate -> IO Unit
 {-| __C declaration:__ @onProgressChanged@
 
-    __defined at:__ @functions\/callbacks.h:15:6@
+    __defined at:__ @functions\/callbacks.h 15:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1929,14 +1929,14 @@ foreign import ccall safe "hs_bindgen_567ea6dc040b50a1" hs_bindgen_567ea6dc040b5
  -> IO CInt
 {-| __C declaration:__ @validateInput@
 
-    __defined at:__ @functions\/callbacks.h:16:5@
+    __defined at:__ @functions\/callbacks.h 16:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 validateInput :: DataValidator -> CInt -> IO CInt
 {-| __C declaration:__ @validateInput@
 
-    __defined at:__ @functions\/callbacks.h:16:5@
+    __defined at:__ @functions\/callbacks.h 16:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1947,14 +1947,14 @@ foreign import ccall safe "hs_bindgen_aab80c08edfa6b4b" hs_bindgen_aab80c08edfa6
  -> IO Unit
 {-| __C declaration:__ @onNewMeasurement@
 
-    __defined at:__ @functions\/callbacks.h:27:6@
+    __defined at:__ @functions\/callbacks.h 27:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 onNewMeasurement :: MeasurementReceived -> IO Unit
 {-| __C declaration:__ @onNewMeasurement@
 
-    __defined at:__ @functions\/callbacks.h:27:6@
+    __defined at:__ @functions\/callbacks.h 27:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1965,14 +1965,14 @@ foreign import ccall safe "hs_bindgen_6c8fae51df7c46a1" hs_bindgen_6c8fae51df7c4
  -> IO Unit
 {-| __C declaration:__ @onNewMeasurement2@
 
-    __defined at:__ @functions\/callbacks.h:30:6@
+    __defined at:__ @functions\/callbacks.h 30:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 onNewMeasurement2 :: MeasurementReceived2 -> IO Unit
 {-| __C declaration:__ @onNewMeasurement2@
 
-    __defined at:__ @functions\/callbacks.h:30:6@
+    __defined at:__ @functions\/callbacks.h 30:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -1983,14 +1983,14 @@ foreign import ccall safe "hs_bindgen_d44afeb36d2ae523" hs_bindgen_d44afeb36d2ae
  -> IO Unit
 {-| __C declaration:__ @onBufferReady@
 
-    __defined at:__ @functions\/callbacks.h:33:6@
+    __defined at:__ @functions\/callbacks.h 33:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 onBufferReady :: SampleBufferFull -> IO Unit
 {-| __C declaration:__ @onBufferReady@
 
-    __defined at:__ @functions\/callbacks.h:33:6@
+    __defined at:__ @functions\/callbacks.h 33:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2003,7 +2003,7 @@ foreign import ccall safe "hs_bindgen_523fee13fb646cad" hs_bindgen_523fee13fb646
  -> IO Unit
 {-| __C declaration:__ @transformMeasurement@
 
-    __defined at:__ @functions\/callbacks.h:38:6@
+    __defined at:__ @functions\/callbacks.h 38:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2013,7 +2013,7 @@ transformMeasurement :: Ptr Measurement ->
                         IO Unit
 {-| __C declaration:__ @transformMeasurement@
 
-    __defined at:__ @functions\/callbacks.h:38:6@
+    __defined at:__ @functions\/callbacks.h 38:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2025,7 +2025,7 @@ foreign import ccall safe "hs_bindgen_98d0c5bd1271eeb7" hs_bindgen_98d0c5bd1271e
  -> IO Unit
 {-| __C declaration:__ @processWithCallbacks@
 
-    __defined at:__ @functions\/callbacks.h:43:6@
+    __defined at:__ @functions\/callbacks.h 43:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2034,7 +2034,7 @@ processWithCallbacks :: FunPtr (Ptr Measurement ->
                         IO Unit
 {-| __C declaration:__ @processWithCallbacks@
 
-    __defined at:__ @functions\/callbacks.h:43:6@
+    __defined at:__ @functions\/callbacks.h 43:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2045,14 +2045,14 @@ foreign import ccall safe "hs_bindgen_b96f4d4d7893e301" hs_bindgen_b96f4d4d7893e
  -> IO Unit
 {-| __C declaration:__ @registerHandler@
 
-    __defined at:__ @functions\/callbacks.h:56:6@
+    __defined at:__ @functions\/callbacks.h 56:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 registerHandler :: Ptr MeasurementHandler -> IO Unit
 {-| __C declaration:__ @registerHandler@
 
-    __defined at:__ @functions\/callbacks.h:56:6@
+    __defined at:__ @functions\/callbacks.h 56:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2064,14 +2064,14 @@ foreign import ccall safe "hs_bindgen_c062ded603732aae" hs_bindgen_c062ded603732
  -> IO Unit
 {-| __C declaration:__ @executePipeline@
 
-    __defined at:__ @functions\/callbacks.h:64:6@
+    __defined at:__ @functions\/callbacks.h 64:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 executePipeline :: Ptr Measurement -> Ptr DataPipeline -> IO Unit
 {-| __C declaration:__ @executePipeline@
 
-    __defined at:__ @functions\/callbacks.h:64:6@
+    __defined at:__ @functions\/callbacks.h 64:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2083,14 +2083,14 @@ foreign import ccall safe "hs_bindgen_02d41a1f48eebff7" hs_bindgen_02d41a1f48eeb
  -> IO Unit
 {-| __C declaration:__ @runProcessor@
 
-    __defined at:__ @functions\/callbacks.h:80:6@
+    __defined at:__ @functions\/callbacks.h 80:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 runProcessor :: Ptr Measurement -> Ptr Processor -> IO Unit
 {-| __C declaration:__ @runProcessor@
 
-    __defined at:__ @functions\/callbacks.h:80:6@
+    __defined at:__ @functions\/callbacks.h 80:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2104,7 +2104,7 @@ foreign import ccall safe "hs_bindgen_39704c8b14c2ce3c" hs_bindgen_39704c8b14c2c
  -> IO Unit
 {-| __C declaration:__ @processMeasurementWithValidation@
 
-    __defined at:__ @functions\/callbacks.h:85:6@
+    __defined at:__ @functions\/callbacks.h 85:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2116,7 +2116,7 @@ processMeasurementWithValidation :: Ptr Measurement ->
                                     IO Unit
 {-| __C declaration:__ @processMeasurementWithValidation@
 
-    __defined at:__ @functions\/callbacks.h:85:6@
+    __defined at:__ @functions\/callbacks.h 85:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2127,14 +2127,14 @@ foreign import ccall safe "hs_bindgen_10c383cdf6eddb0d" hs_bindgen_10c383cdf6edd
  -> IO Unit
 {-| __C declaration:__ @f@
 
-    __defined at:__ @functions\/callbacks.h:96:6@
+    __defined at:__ @functions\/callbacks.h 96:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 f :: FunPtr (Foo -> IO Unit) -> IO Unit
 {-| __C declaration:__ @f@
 
-    __defined at:__ @functions\/callbacks.h:96:6@
+    __defined at:__ @functions\/callbacks.h 96:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2145,14 +2145,14 @@ foreign import ccall safe "hs_bindgen_831d03bed0065a4e" hs_bindgen_831d03bed0065
  -> IO Unit
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/callbacks.h:97:6@
+    __defined at:__ @functions\/callbacks.h 97:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 f2 :: FunPtr (Foo2 -> IO Unit) -> IO Unit
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/callbacks.h:97:6@
+    __defined at:__ @functions\/callbacks.h 97:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2163,7 +2163,7 @@ foreign import ccall safe "hs_bindgen_793b9ca86a272b6a" hs_bindgen_793b9ca86a272
 {-# NOINLINE readFileWithProcessor #-}
 {-| __C declaration:__ @readFileWithProcessor@
 
-    __defined at:__ @functions\/callbacks.h:4:5@
+    __defined at:__ @functions\/callbacks.h 4:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2171,7 +2171,7 @@ readFileWithProcessor :: FunPtr (FunPtr (CInt -> IO Unit) ->
                                  CInt -> IO CInt)
 {-| __C declaration:__ @readFileWithProcessor@
 
-    __defined at:__ @functions\/callbacks.h:4:5@
+    __defined at:__ @functions\/callbacks.h 4:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2182,7 +2182,7 @@ foreign import ccall safe "hs_bindgen_a2b606291df27114" hs_bindgen_a2b606291df27
 {-# NOINLINE watchTemperature #-}
 {-| __C declaration:__ @watchTemperature@
 
-    __defined at:__ @functions\/callbacks.h:5:6@
+    __defined at:__ @functions\/callbacks.h 5:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2190,7 +2190,7 @@ watchTemperature :: FunPtr (FunPtr (CInt -> IO Unit) ->
                             CInt -> IO Unit)
 {-| __C declaration:__ @watchTemperature@
 
-    __defined at:__ @functions\/callbacks.h:5:6@
+    __defined at:__ @functions\/callbacks.h 5:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2201,14 +2201,14 @@ foreign import ccall safe "hs_bindgen_2c00a09a05e4c87b" hs_bindgen_2c00a09a05e4c
 {-# NOINLINE onFileOpened #-}
 {-| __C declaration:__ @onFileOpened@
 
-    __defined at:__ @functions\/callbacks.h:14:6@
+    __defined at:__ @functions\/callbacks.h 14:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 onFileOpened :: FunPtr (FileOpenedNotification -> IO Unit)
 {-| __C declaration:__ @onFileOpened@
 
-    __defined at:__ @functions\/callbacks.h:14:6@
+    __defined at:__ @functions\/callbacks.h 14:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2219,14 +2219,14 @@ foreign import ccall safe "hs_bindgen_84066778519d3ea8" hs_bindgen_84066778519d3
 {-# NOINLINE onProgressChanged #-}
 {-| __C declaration:__ @onProgressChanged@
 
-    __defined at:__ @functions\/callbacks.h:15:6@
+    __defined at:__ @functions\/callbacks.h 15:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 onProgressChanged :: FunPtr (ProgressUpdate -> IO Unit)
 {-| __C declaration:__ @onProgressChanged@
 
-    __defined at:__ @functions\/callbacks.h:15:6@
+    __defined at:__ @functions\/callbacks.h 15:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2237,14 +2237,14 @@ foreign import ccall safe "hs_bindgen_4d522e3ec1eb0b9f" hs_bindgen_4d522e3ec1eb0
 {-# NOINLINE validateInput #-}
 {-| __C declaration:__ @validateInput@
 
-    __defined at:__ @functions\/callbacks.h:16:5@
+    __defined at:__ @functions\/callbacks.h 16:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 validateInput :: FunPtr (DataValidator -> CInt -> IO CInt)
 {-| __C declaration:__ @validateInput@
 
-    __defined at:__ @functions\/callbacks.h:16:5@
+    __defined at:__ @functions\/callbacks.h 16:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2255,14 +2255,14 @@ foreign import ccall safe "hs_bindgen_a26d6914af82ade0" hs_bindgen_a26d6914af82a
 {-# NOINLINE onNewMeasurement #-}
 {-| __C declaration:__ @onNewMeasurement@
 
-    __defined at:__ @functions\/callbacks.h:27:6@
+    __defined at:__ @functions\/callbacks.h 27:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 onNewMeasurement :: FunPtr (MeasurementReceived -> IO Unit)
 {-| __C declaration:__ @onNewMeasurement@
 
-    __defined at:__ @functions\/callbacks.h:27:6@
+    __defined at:__ @functions\/callbacks.h 27:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2273,14 +2273,14 @@ foreign import ccall safe "hs_bindgen_2c377b597bd80e50" hs_bindgen_2c377b597bd80
 {-# NOINLINE onNewMeasurement2 #-}
 {-| __C declaration:__ @onNewMeasurement2@
 
-    __defined at:__ @functions\/callbacks.h:30:6@
+    __defined at:__ @functions\/callbacks.h 30:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 onNewMeasurement2 :: FunPtr (MeasurementReceived2 -> IO Unit)
 {-| __C declaration:__ @onNewMeasurement2@
 
-    __defined at:__ @functions\/callbacks.h:30:6@
+    __defined at:__ @functions\/callbacks.h 30:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2291,14 +2291,14 @@ foreign import ccall safe "hs_bindgen_d1ce142d0c667e22" hs_bindgen_d1ce142d0c667
 {-# NOINLINE onBufferReady #-}
 {-| __C declaration:__ @onBufferReady@
 
-    __defined at:__ @functions\/callbacks.h:33:6@
+    __defined at:__ @functions\/callbacks.h 33:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 onBufferReady :: FunPtr (SampleBufferFull -> IO Unit)
 {-| __C declaration:__ @onBufferReady@
 
-    __defined at:__ @functions\/callbacks.h:33:6@
+    __defined at:__ @functions\/callbacks.h 33:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2312,7 +2312,7 @@ foreign import ccall safe "hs_bindgen_2e8d6b201521b14a" hs_bindgen_2e8d6b201521b
 {-# NOINLINE transformMeasurement #-}
 {-| __C declaration:__ @transformMeasurement@
 
-    __defined at:__ @functions\/callbacks.h:38:6@
+    __defined at:__ @functions\/callbacks.h 38:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2323,7 +2323,7 @@ transformMeasurement :: FunPtr (Ptr Measurement ->
                                 IO Unit)
 {-| __C declaration:__ @transformMeasurement@
 
-    __defined at:__ @functions\/callbacks.h:38:6@
+    __defined at:__ @functions\/callbacks.h 38:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2336,7 +2336,7 @@ foreign import ccall safe "hs_bindgen_7f4acb7260277d86" hs_bindgen_7f4acb7260277
 {-# NOINLINE processWithCallbacks #-}
 {-| __C declaration:__ @processWithCallbacks@
 
-    __defined at:__ @functions\/callbacks.h:43:6@
+    __defined at:__ @functions\/callbacks.h 43:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2345,7 +2345,7 @@ processWithCallbacks :: FunPtr (FunPtr (Ptr Measurement ->
                                 IO Unit)
 {-| __C declaration:__ @processWithCallbacks@
 
-    __defined at:__ @functions\/callbacks.h:43:6@
+    __defined at:__ @functions\/callbacks.h 43:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2356,14 +2356,14 @@ foreign import ccall safe "hs_bindgen_80684ecfa6d982b7" hs_bindgen_80684ecfa6d98
 {-# NOINLINE registerHandler #-}
 {-| __C declaration:__ @registerHandler@
 
-    __defined at:__ @functions\/callbacks.h:56:6@
+    __defined at:__ @functions\/callbacks.h 56:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 registerHandler :: FunPtr (Ptr MeasurementHandler -> IO Unit)
 {-| __C declaration:__ @registerHandler@
 
-    __defined at:__ @functions\/callbacks.h:56:6@
+    __defined at:__ @functions\/callbacks.h 56:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2374,7 +2374,7 @@ foreign import ccall safe "hs_bindgen_1714a267564c9f6f" hs_bindgen_1714a267564c9
 {-# NOINLINE executePipeline #-}
 {-| __C declaration:__ @executePipeline@
 
-    __defined at:__ @functions\/callbacks.h:64:6@
+    __defined at:__ @functions\/callbacks.h 64:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2382,7 +2382,7 @@ executePipeline :: FunPtr (Ptr Measurement ->
                            Ptr DataPipeline -> IO Unit)
 {-| __C declaration:__ @executePipeline@
 
-    __defined at:__ @functions\/callbacks.h:64:6@
+    __defined at:__ @functions\/callbacks.h 64:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2393,7 +2393,7 @@ foreign import ccall safe "hs_bindgen_fedf80fe8e91dc7a" hs_bindgen_fedf80fe8e91d
 {-# NOINLINE runProcessor #-}
 {-| __C declaration:__ @runProcessor@
 
-    __defined at:__ @functions\/callbacks.h:80:6@
+    __defined at:__ @functions\/callbacks.h 80:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2401,7 +2401,7 @@ runProcessor :: FunPtr (Ptr Measurement ->
                         Ptr Processor -> IO Unit)
 {-| __C declaration:__ @runProcessor@
 
-    __defined at:__ @functions\/callbacks.h:80:6@
+    __defined at:__ @functions\/callbacks.h 80:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2416,7 +2416,7 @@ foreign import ccall safe "hs_bindgen_443cb57c681c2cab" hs_bindgen_443cb57c681c2
 {-# NOINLINE processMeasurementWithValidation #-}
 {-| __C declaration:__ @processMeasurementWithValidation@
 
-    __defined at:__ @functions\/callbacks.h:85:6@
+    __defined at:__ @functions\/callbacks.h 85:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2428,7 +2428,7 @@ processMeasurementWithValidation :: FunPtr (Ptr Measurement ->
                                             IO Unit)
 {-| __C declaration:__ @processMeasurementWithValidation@
 
-    __defined at:__ @functions\/callbacks.h:85:6@
+    __defined at:__ @functions\/callbacks.h 85:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2439,14 +2439,14 @@ foreign import ccall safe "hs_bindgen_7cf6cffd19682c36" hs_bindgen_7cf6cffd19682
 {-# NOINLINE f #-}
 {-| __C declaration:__ @f@
 
-    __defined at:__ @functions\/callbacks.h:96:6@
+    __defined at:__ @functions\/callbacks.h 96:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 f :: FunPtr (FunPtr (Foo -> IO Unit) -> IO Unit)
 {-| __C declaration:__ @f@
 
-    __defined at:__ @functions\/callbacks.h:96:6@
+    __defined at:__ @functions\/callbacks.h 96:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -2457,14 +2457,14 @@ foreign import ccall safe "hs_bindgen_81fde2984e04c791" hs_bindgen_81fde2984e04c
 {-# NOINLINE f2 #-}
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/callbacks.h:97:6@
+    __defined at:__ @functions\/callbacks.h 97:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
 f2 :: FunPtr (FunPtr (Foo2 -> IO Unit) -> IO Unit)
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/callbacks.h:97:6@
+    __defined at:__ @functions\/callbacks.h 97:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}

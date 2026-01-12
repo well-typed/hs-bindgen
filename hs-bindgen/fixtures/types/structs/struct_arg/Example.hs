@@ -24,7 +24,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct thing@
 
-    __defined at:__ @types\/structs\/struct_arg.h:2:8@
+    __defined at:__ @types\/structs\/struct_arg.h 2:8@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -32,7 +32,7 @@ data Thing = Thing
   { thing_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/structs\/struct_arg.h:3:9@
+         __defined at:__ @types\/structs\/struct_arg.h 3:9@
 
          __exported by:__ @types\/structs\/struct_arg.h@
     -}

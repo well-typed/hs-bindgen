@@ -42,7 +42,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Rea
 
 {-| __C declaration:__ @struct another_typedef_struct_t@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:9:9@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 9:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -50,14 +50,14 @@ data Another_typedef_struct_t = Another_typedef_struct_t
   { another_typedef_struct_t_foo :: FC.CInt
     {- ^ __C declaration:__ @foo@
 
-         __defined at:__ @edge-cases\/distilled_lib_1.h:9:22@
+         __defined at:__ @edge-cases\/distilled_lib_1.h 9:22@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
   , another_typedef_struct_t_bar :: FC.CChar
     {- ^ __C declaration:__ @bar@
 
-         __defined at:__ @edge-cases\/distilled_lib_1.h:9:32@
+         __defined at:__ @edge-cases\/distilled_lib_1.h 9:32@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
@@ -176,7 +176,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Another_typedef_stru
 
 {-| __C declaration:__ @enum another_typedef_enum_e@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:10:9@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 10:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -250,7 +250,7 @@ instance Read Another_typedef_enum_e where
 
 {-| __C declaration:__ @FOO@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:10:16@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 10:16@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -259,7 +259,7 @@ pattern FOO = Another_typedef_enum_e 0
 
 {-| __C declaration:__ @BAR@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:10:21@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 10:21@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -268,7 +268,7 @@ pattern BAR = Another_typedef_enum_e 1
 
 {-| __C declaration:__ @A@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:11:9@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 11:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -277,7 +277,7 @@ a = (5 :: FC.CInt)
 
 {-| __C declaration:__ @B@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:12:9@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 12:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -286,7 +286,7 @@ b = (3 :: FC.CInt)
 
 {-| __C declaration:__ @SOME_DEFINED_CONSTANT@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:13:9@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 13:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -295,7 +295,7 @@ sOME_DEFINED_CONSTANT = (4 :: FC.CInt)
 
 {-| __C declaration:__ @a_type_t@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:14:13@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 14:13@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -319,7 +319,7 @@ instance HsBindgen.Runtime.HasCField.HasCField A_type_t "un_A_type_t" where
 
 {-| __C declaration:__ @var_t@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:15:13@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 15:13@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -343,7 +343,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Var_t "un_Var_t" where
 
 {-| __C declaration:__ @struct a_typedef_struct@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:35:16@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 35:16@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -351,77 +351,77 @@ data A_typedef_struct_t = A_typedef_struct_t
   { a_typedef_struct_t_field_0 :: FC.CBool
     {- ^ __C declaration:__ @field_0@
 
-         __defined at:__ @edge-cases\/distilled_lib_1.h:37:31@
+         __defined at:__ @edge-cases\/distilled_lib_1.h 37:31@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
   , a_typedef_struct_t_field_1 :: HsBindgen.Runtime.Prelude.Word8
     {- ^ __C declaration:__ @field_1@
 
-         __defined at:__ @edge-cases\/distilled_lib_1.h:38:31@
+         __defined at:__ @edge-cases\/distilled_lib_1.h 38:31@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
   , a_typedef_struct_t_field_2 :: HsBindgen.Runtime.Prelude.Word16
     {- ^ __C declaration:__ @field_2@
 
-         __defined at:__ @edge-cases\/distilled_lib_1.h:39:31@
+         __defined at:__ @edge-cases\/distilled_lib_1.h 39:31@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
   , a_typedef_struct_t_field_3 :: HsBindgen.Runtime.Prelude.Word32
     {- ^ __C declaration:__ @field_3@
 
-         __defined at:__ @edge-cases\/distilled_lib_1.h:40:31@
+         __defined at:__ @edge-cases\/distilled_lib_1.h 40:31@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
   , a_typedef_struct_t_field_4 :: Another_typedef_struct_t
     {- ^ __C declaration:__ @field_4@
 
-         __defined at:__ @edge-cases\/distilled_lib_1.h:41:31@
+         __defined at:__ @edge-cases\/distilled_lib_1.h 41:31@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
   , a_typedef_struct_t_field_5 :: Ptr.Ptr Another_typedef_struct_t
     {- ^ __C declaration:__ @field_5@
 
-         __defined at:__ @edge-cases\/distilled_lib_1.h:42:31@
+         __defined at:__ @edge-cases\/distilled_lib_1.h 42:31@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
   , a_typedef_struct_t_field_6 :: Ptr.Ptr Void
     {- ^ __C declaration:__ @field_6@
 
-         __defined at:__ @edge-cases\/distilled_lib_1.h:43:31@
+         __defined at:__ @edge-cases\/distilled_lib_1.h 43:31@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
   , a_typedef_struct_t_field_7 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 7) HsBindgen.Runtime.Prelude.Word32
     {- ^ __C declaration:__ @field_7@
 
-         __defined at:__ @edge-cases\/distilled_lib_1.h:44:31@
+         __defined at:__ @edge-cases\/distilled_lib_1.h 44:31@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
   , a_typedef_struct_t_field_8 :: Another_typedef_enum_e
     {- ^ __C declaration:__ @field_8@
 
-         __defined at:__ @edge-cases\/distilled_lib_1.h:45:31@
+         __defined at:__ @edge-cases\/distilled_lib_1.h 45:31@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
   , a_typedef_struct_t_field_9 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) Another_typedef_enum_e
     {- ^ __C declaration:__ @field_9@
 
-         __defined at:__ @edge-cases\/distilled_lib_1.h:46:31@
+         __defined at:__ @edge-cases\/distilled_lib_1.h 46:31@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
   , a_typedef_struct_t_field_10 :: (HsBindgen.Runtime.ConstantArray.ConstantArray 5) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) Another_typedef_enum_e)
     {- ^ __C declaration:__ @field_10@
 
-         __defined at:__ @edge-cases\/distilled_lib_1.h:47:31@
+         __defined at:__ @edge-cases\/distilled_lib_1.h 47:31@
 
          __exported by:__ @edge-cases\/distilled_lib_1.h@
     -}
@@ -622,7 +622,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType A_typedef_struct_t) 
 
 {-| __C declaration:__ @A_DEFINE_0@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:53:9@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 53:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -631,7 +631,7 @@ a_DEFINE_0 = (0 :: FC.CInt)
 
 {-| __C declaration:__ @A_DEFINE_1@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:54:9@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 54:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -640,7 +640,7 @@ a_DEFINE_1 = (20560 :: FC.CUInt)
 
 {-| __C declaration:__ @A_DEFINE_2@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:55:9@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 55:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -649,7 +649,7 @@ a_DEFINE_2 = (2 :: FC.CInt)
 
 {-| __C declaration:__ @TWO_ARGS@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:56:9@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 56:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -658,7 +658,7 @@ tWO_ARGS = (,) (13398 :: FC.CInt) (30874 :: FC.CInt)
 
 {-| __C declaration:__ @enum a_typedef_enum_e@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:61:9@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 61:9@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -734,7 +734,7 @@ instance Read A_typedef_enum_e where
 
 {-| __C declaration:__ @ENUM_CASE_0@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:63:3@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 63:3@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -743,7 +743,7 @@ pattern ENUM_CASE_0 = A_typedef_enum_e 0
 
 {-| __C declaration:__ @ENUM_CASE_1@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:64:3@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 64:3@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -752,7 +752,7 @@ pattern ENUM_CASE_1 = A_typedef_enum_e 1
 
 {-| __C declaration:__ @ENUM_CASE_2@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:65:3@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 65:3@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -761,7 +761,7 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
 
 {-| __C declaration:__ @ENUM_CASE_3@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:66:3@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 66:3@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -772,7 +772,7 @@ pattern ENUM_CASE_3 = A_typedef_enum_e 3
 
 __C declaration:__ @callback_t@
 
-__defined at:__ @edge-cases\/distilled_lib_1.h:77:19@
+__defined at:__ @edge-cases\/distilled_lib_1.h 77:19@
 
 __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}
@@ -814,7 +814,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Callback_t_Aux "un_Callback_t_Aux
 
 {-| __C declaration:__ @callback_t@
 
-    __defined at:__ @edge-cases\/distilled_lib_1.h:77:19@
+    __defined at:__ @edge-cases\/distilled_lib_1.h 77:19@
 
     __exported by:__ @edge-cases\/distilled_lib_1.h@
 -}

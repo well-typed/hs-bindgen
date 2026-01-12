@@ -98,7 +98,7 @@
 -- }
 {-| __C declaration:__ @struct thing@
 
-    __defined at:__ @types\/structs\/struct_arg.h:2:8@
+    __defined at:__ @types\/structs\/struct_arg.h 2:8@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -106,13 +106,13 @@ data Thing
     = Thing {thing_x :: CInt
              {- ^ __C declaration:__ @x@
 
-                  __defined at:__ @types\/structs\/struct_arg.h:3:9@
+                  __defined at:__ @types\/structs\/struct_arg.h 3:9@
 
                   __exported by:__ @types\/structs\/struct_arg.h@
              -}}
       {- ^ __C declaration:__ @struct thing@
 
-           __defined at:__ @types\/structs\/struct_arg.h:2:8@
+           __defined at:__ @types\/structs\/struct_arg.h 2:8@
 
            __exported by:__ @types\/structs\/struct_arg.h@
       -}
@@ -154,14 +154,14 @@ thing_fun_1_wrapper :: Ptr Thing -> IO CInt
 thing_fun_1_wrapper = hs_bindgen_4ad25504590fdd2b
 {-| __C declaration:__ @thing_fun_1@
 
-    __defined at:__ @types\/structs\/struct_arg.h:6:5@
+    __defined at:__ @types\/structs\/struct_arg.h 6:5@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_1 :: Thing -> IO CInt
 {-| __C declaration:__ @thing_fun_1@
 
-    __defined at:__ @types\/structs\/struct_arg.h:6:5@
+    __defined at:__ @types\/structs\/struct_arg.h 6:5@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -179,14 +179,14 @@ thing_fun_2_wrapper :: CInt -> Ptr Thing -> IO Unit
 thing_fun_2_wrapper = hs_bindgen_04a435522bf64978
 {-| __C declaration:__ @thing_fun_2@
 
-    __defined at:__ @types\/structs\/struct_arg.h:7:14@
+    __defined at:__ @types\/structs\/struct_arg.h 7:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_2 :: CInt -> IO Thing
 {-| __C declaration:__ @thing_fun_2@
 
-    __defined at:__ @types\/structs\/struct_arg.h:7:14@
+    __defined at:__ @types\/structs\/struct_arg.h 7:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -207,14 +207,14 @@ thing_fun_3a_wrapper :: CInt ->
 thing_fun_3a_wrapper = hs_bindgen_5e3271324df7ced2
 {-| __C declaration:__ @thing_fun_3a@
 
-    __defined at:__ @types\/structs\/struct_arg.h:9:14@
+    __defined at:__ @types\/structs\/struct_arg.h 9:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_3a :: CInt -> Thing -> CDouble -> IO Thing
 {-| __C declaration:__ @thing_fun_3a@
 
-    __defined at:__ @types\/structs\/struct_arg.h:9:14@
+    __defined at:__ @types\/structs\/struct_arg.h 9:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -233,14 +233,14 @@ thing_fun_3b_wrapper :: CInt -> Ptr Thing -> CDouble -> IO CChar
 thing_fun_3b_wrapper = hs_bindgen_3525c7d1c72f2fae
 {-| __C declaration:__ @thing_fun_3b@
 
-    __defined at:__ @types\/structs\/struct_arg.h:10:6@
+    __defined at:__ @types\/structs\/struct_arg.h 10:6@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_3b :: CInt -> Thing -> CDouble -> IO CChar
 {-| __C declaration:__ @thing_fun_3b@
 
-    __defined at:__ @types\/structs\/struct_arg.h:10:6@
+    __defined at:__ @types\/structs\/struct_arg.h 10:6@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -257,14 +257,14 @@ thing_fun_1_wrapper :: Ptr Thing -> IO CInt
 thing_fun_1_wrapper = hs_bindgen_0bdddf60550fc97b
 {-| __C declaration:__ @thing_fun_1@
 
-    __defined at:__ @types\/structs\/struct_arg.h:6:5@
+    __defined at:__ @types\/structs\/struct_arg.h 6:5@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_1 :: Thing -> IO CInt
 {-| __C declaration:__ @thing_fun_1@
 
-    __defined at:__ @types\/structs\/struct_arg.h:6:5@
+    __defined at:__ @types\/structs\/struct_arg.h 6:5@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -282,14 +282,14 @@ thing_fun_2_wrapper :: CInt -> Ptr Thing -> IO Unit
 thing_fun_2_wrapper = hs_bindgen_c293d866e22be6fc
 {-| __C declaration:__ @thing_fun_2@
 
-    __defined at:__ @types\/structs\/struct_arg.h:7:14@
+    __defined at:__ @types\/structs\/struct_arg.h 7:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_2 :: CInt -> IO Thing
 {-| __C declaration:__ @thing_fun_2@
 
-    __defined at:__ @types\/structs\/struct_arg.h:7:14@
+    __defined at:__ @types\/structs\/struct_arg.h 7:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -310,14 +310,14 @@ thing_fun_3a_wrapper :: CInt ->
 thing_fun_3a_wrapper = hs_bindgen_cfd51a9e490a997c
 {-| __C declaration:__ @thing_fun_3a@
 
-    __defined at:__ @types\/structs\/struct_arg.h:9:14@
+    __defined at:__ @types\/structs\/struct_arg.h 9:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_3a :: CInt -> Thing -> CDouble -> IO Thing
 {-| __C declaration:__ @thing_fun_3a@
 
-    __defined at:__ @types\/structs\/struct_arg.h:9:14@
+    __defined at:__ @types\/structs\/struct_arg.h 9:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -336,14 +336,14 @@ thing_fun_3b_wrapper :: CInt -> Ptr Thing -> CDouble -> IO CChar
 thing_fun_3b_wrapper = hs_bindgen_23fac8ee5044da6e
 {-| __C declaration:__ @thing_fun_3b@
 
-    __defined at:__ @types\/structs\/struct_arg.h:10:6@
+    __defined at:__ @types\/structs\/struct_arg.h 10:6@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_3b :: CInt -> Thing -> CDouble -> IO CChar
 {-| __C declaration:__ @thing_fun_3b@
 
-    __defined at:__ @types\/structs\/struct_arg.h:10:6@
+    __defined at:__ @types\/structs\/struct_arg.h 10:6@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -354,14 +354,14 @@ foreign import ccall safe "hs_bindgen_17a14e7ffaa1e2e5" hs_bindgen_17a14e7ffaa1e
 {-# NOINLINE thing_fun_1 #-}
 {-| __C declaration:__ @thing_fun_1@
 
-    __defined at:__ @types\/structs\/struct_arg.h:6:5@
+    __defined at:__ @types\/structs\/struct_arg.h 6:5@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_1 :: FunPtr (Thing -> IO CInt)
 {-| __C declaration:__ @thing_fun_1@
 
-    __defined at:__ @types\/structs\/struct_arg.h:6:5@
+    __defined at:__ @types\/structs\/struct_arg.h 6:5@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -372,14 +372,14 @@ foreign import ccall safe "hs_bindgen_91748ffd57eae163" hs_bindgen_91748ffd57eae
 {-# NOINLINE thing_fun_2 #-}
 {-| __C declaration:__ @thing_fun_2@
 
-    __defined at:__ @types\/structs\/struct_arg.h:7:14@
+    __defined at:__ @types\/structs\/struct_arg.h 7:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_2 :: FunPtr (CInt -> IO Thing)
 {-| __C declaration:__ @thing_fun_2@
 
-    __defined at:__ @types\/structs\/struct_arg.h:7:14@
+    __defined at:__ @types\/structs\/struct_arg.h 7:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -390,14 +390,14 @@ foreign import ccall safe "hs_bindgen_84d98a03314ff518" hs_bindgen_84d98a03314ff
 {-# NOINLINE thing_fun_3a #-}
 {-| __C declaration:__ @thing_fun_3a@
 
-    __defined at:__ @types\/structs\/struct_arg.h:9:14@
+    __defined at:__ @types\/structs\/struct_arg.h 9:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_3a :: FunPtr (CInt -> Thing -> CDouble -> IO Thing)
 {-| __C declaration:__ @thing_fun_3a@
 
-    __defined at:__ @types\/structs\/struct_arg.h:9:14@
+    __defined at:__ @types\/structs\/struct_arg.h 9:14@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
@@ -408,14 +408,14 @@ foreign import ccall safe "hs_bindgen_855ae9088b15005e" hs_bindgen_855ae9088b150
 {-# NOINLINE thing_fun_3b #-}
 {-| __C declaration:__ @thing_fun_3b@
 
-    __defined at:__ @types\/structs\/struct_arg.h:10:6@
+    __defined at:__ @types\/structs\/struct_arg.h 10:6@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}
 thing_fun_3b :: FunPtr (CInt -> Thing -> CDouble -> IO CChar)
 {-| __C declaration:__ @thing_fun_3b@
 
-    __defined at:__ @types\/structs\/struct_arg.h:10:6@
+    __defined at:__ @types\/structs\/struct_arg.h 10:6@
 
     __exported by:__ @types\/structs\/struct_arg.h@
 -}

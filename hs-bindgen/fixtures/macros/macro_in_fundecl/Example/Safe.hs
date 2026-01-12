@@ -120,7 +120,7 @@ foreign import ccall safe "hs_bindgen_d345c332b6547629" hs_bindgen_d345c332b6547
 
 {-| __C declaration:__ @quux@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:12:6@
+    __defined at:__ @macros\/macro_in_fundecl.h 12:6@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -140,7 +140,7 @@ foreign import ccall safe "hs_bindgen_195036c94aad554b" hs_bindgen_195036c94aad5
 
 {-| __C declaration:__ @wam@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:13:4@
+    __defined at:__ @macros\/macro_in_fundecl.h 13:4@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -160,7 +160,7 @@ foreign import ccall safe "hs_bindgen_a40b504a8f7c1d11" hs_bindgen_a40b504a8f7c1
 
 {-| __C declaration:__ @foo1@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:16:7@
+    __defined at:__ @macros\/macro_in_fundecl.h 16:7@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -180,7 +180,7 @@ foreign import ccall safe "hs_bindgen_83392129a2035c99" hs_bindgen_83392129a2035
 
 {-| __C declaration:__ @foo2@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:17:7@
+    __defined at:__ @macros\/macro_in_fundecl.h 17:7@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -200,7 +200,7 @@ foreign import ccall safe "hs_bindgen_0c7f4bce7905d355" hs_bindgen_0c7f4bce7905d
 
 {-| __C declaration:__ @foo3@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:18:4@
+    __defined at:__ @macros\/macro_in_fundecl.h 18:4@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -219,7 +219,7 @@ foreign import ccall safe "hs_bindgen_3471ca0525deb2c0" hs_bindgen_3471ca0525deb
 
 {-| __C declaration:__ @bar1@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:21:7@
+    __defined at:__ @macros\/macro_in_fundecl.h 21:7@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -236,7 +236,7 @@ foreign import ccall safe "hs_bindgen_d5a4af88f772ff72" hs_bindgen_d5a4af88f772f
 
 {-| __C declaration:__ @bar2@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:22:7@
+    __defined at:__ @macros\/macro_in_fundecl.h 22:7@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -253,7 +253,7 @@ foreign import ccall safe "hs_bindgen_b289d62136acab77" hs_bindgen_b289d62136aca
 
 {-| __C declaration:__ @bar3@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:23:7@
+    __defined at:__ @macros\/macro_in_fundecl.h 23:7@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -270,7 +270,7 @@ foreign import ccall safe "hs_bindgen_2b5b36cf49f0e40e" hs_bindgen_2b5b36cf49f0e
 
 {-| __C declaration:__ @bar4@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:24:5@
+    __defined at:__ @macros\/macro_in_fundecl.h 24:5@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -287,7 +287,7 @@ foreign import ccall safe "hs_bindgen_b56f5f3515f3cc33" hs_bindgen_b56f5f3515f3c
 
 {-| __C declaration:__ @baz1@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:27:7@
+    __defined at:__ @macros\/macro_in_fundecl.h 27:7@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -304,7 +304,7 @@ foreign import ccall safe "hs_bindgen_0b9b2e4d1699b6f3" hs_bindgen_0b9b2e4d1699b
 
 {-| __C declaration:__ @baz2@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:35:7@
+    __defined at:__ @macros\/macro_in_fundecl.h 35:7@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -321,7 +321,7 @@ foreign import ccall safe "hs_bindgen_459eabcbd019687c" hs_bindgen_459eabcbd0196
 
 {-| __C declaration:__ @baz3@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:43:5@
+    __defined at:__ @macros\/macro_in_fundecl.h 43:5@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}
@@ -337,7 +337,7 @@ foreign import ccall safe "hs_bindgen_7ae4ab0ad4fb8cad" hs_bindgen_7ae4ab0ad4fb8
 
 {-| __C declaration:__ @no_args_no_void@
 
-    __defined at:__ @macros\/macro_in_fundecl.h:53:3@
+    __defined at:__ @macros\/macro_in_fundecl.h 53:3@
 
     __exported by:__ @macros\/macro_in_fundecl.h@
 -}

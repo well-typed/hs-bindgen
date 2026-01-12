@@ -1,7 +1,7 @@
 -- addDependentFile examples/golden/types/enums/enums.h
 {-| __C declaration:__ @enum first@
 
-    __defined at:__ @types\/enums\/enums.h:4:6@
+    __defined at:__ @types\/enums\/enums.h 4:6@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -9,7 +9,7 @@ newtype First
     = First {un_First :: CUInt}
       {- ^ __C declaration:__ @enum first@
 
-           __defined at:__ @types\/enums\/enums.h:4:6@
+           __defined at:__ @types\/enums\/enums.h 4:6@
 
            __exported by:__ @types\/enums\/enums.h@
       -}
@@ -44,35 +44,35 @@ instance Read First
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @FIRST1@
 
-    __defined at:__ @types\/enums\/enums.h:5:5@
+    __defined at:__ @types\/enums\/enums.h 5:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern FIRST1 :: First
 {-| __C declaration:__ @FIRST1@
 
-    __defined at:__ @types\/enums\/enums.h:5:5@
+    __defined at:__ @types\/enums\/enums.h 5:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern FIRST1 = First 0
 {-| __C declaration:__ @FIRST2@
 
-    __defined at:__ @types\/enums\/enums.h:6:5@
+    __defined at:__ @types\/enums\/enums.h 6:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern FIRST2 :: First
 {-| __C declaration:__ @FIRST2@
 
-    __defined at:__ @types\/enums\/enums.h:6:5@
+    __defined at:__ @types\/enums\/enums.h 6:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern FIRST2 = First 1
 {-| __C declaration:__ @enum second@
 
-    __defined at:__ @types\/enums\/enums.h:9:6@
+    __defined at:__ @types\/enums\/enums.h 9:6@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -80,7 +80,7 @@ newtype Second
     = Second {un_Second :: CInt}
       {- ^ __C declaration:__ @enum second@
 
-           __defined at:__ @types\/enums\/enums.h:9:6@
+           __defined at:__ @types\/enums\/enums.h 9:6@
 
            __exported by:__ @types\/enums\/enums.h@
       -}
@@ -116,49 +116,49 @@ instance Read Second
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @SECOND_A@
 
-    __defined at:__ @types\/enums\/enums.h:10:5@
+    __defined at:__ @types\/enums\/enums.h 10:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern SECOND_A :: Second
 {-| __C declaration:__ @SECOND_A@
 
-    __defined at:__ @types\/enums\/enums.h:10:5@
+    __defined at:__ @types\/enums\/enums.h 10:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern SECOND_A = Second (-1)
 {-| __C declaration:__ @SECOND_B@
 
-    __defined at:__ @types\/enums\/enums.h:11:5@
+    __defined at:__ @types\/enums\/enums.h 11:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern SECOND_B :: Second
 {-| __C declaration:__ @SECOND_B@
 
-    __defined at:__ @types\/enums\/enums.h:11:5@
+    __defined at:__ @types\/enums\/enums.h 11:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern SECOND_B = Second 0
 {-| __C declaration:__ @SECOND_C@
 
-    __defined at:__ @types\/enums\/enums.h:12:5@
+    __defined at:__ @types\/enums\/enums.h 12:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern SECOND_C :: Second
 {-| __C declaration:__ @SECOND_C@
 
-    __defined at:__ @types\/enums\/enums.h:12:5@
+    __defined at:__ @types\/enums\/enums.h 12:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern SECOND_C = Second 1
 {-| __C declaration:__ @enum same@
 
-    __defined at:__ @types\/enums\/enums.h:15:6@
+    __defined at:__ @types\/enums\/enums.h 15:6@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -166,7 +166,7 @@ newtype Same
     = Same {un_Same :: CUInt}
       {- ^ __C declaration:__ @enum same@
 
-           __defined at:__ @types\/enums\/enums.h:15:6@
+           __defined at:__ @types\/enums\/enums.h 15:6@
 
            __exported by:__ @types\/enums\/enums.h@
       -}
@@ -200,35 +200,35 @@ instance Read Same
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @SAME_A@
 
-    __defined at:__ @types\/enums\/enums.h:16:5@
+    __defined at:__ @types\/enums\/enums.h 16:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern SAME_A :: Same
 {-| __C declaration:__ @SAME_A@
 
-    __defined at:__ @types\/enums\/enums.h:16:5@
+    __defined at:__ @types\/enums\/enums.h 16:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern SAME_A = Same 1
 {-| __C declaration:__ @SAME_B@
 
-    __defined at:__ @types\/enums\/enums.h:17:5@
+    __defined at:__ @types\/enums\/enums.h 17:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern SAME_B :: Same
 {-| __C declaration:__ @SAME_B@
 
-    __defined at:__ @types\/enums\/enums.h:17:5@
+    __defined at:__ @types\/enums\/enums.h 17:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern SAME_B = Same 1
 {-| __C declaration:__ @enum nonseq@
 
-    __defined at:__ @types\/enums\/enums.h:20:6@
+    __defined at:__ @types\/enums\/enums.h 20:6@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -236,7 +236,7 @@ newtype Nonseq
     = Nonseq {un_Nonseq :: CUInt}
       {- ^ __C declaration:__ @enum nonseq@
 
-           __defined at:__ @types\/enums\/enums.h:20:6@
+           __defined at:__ @types\/enums\/enums.h 20:6@
 
            __exported by:__ @types\/enums\/enums.h@
       -}
@@ -267,49 +267,49 @@ instance Read Nonseq
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @NONSEQ_A@
 
-    __defined at:__ @types\/enums\/enums.h:21:5@
+    __defined at:__ @types\/enums\/enums.h 21:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern NONSEQ_A :: Nonseq
 {-| __C declaration:__ @NONSEQ_A@
 
-    __defined at:__ @types\/enums\/enums.h:21:5@
+    __defined at:__ @types\/enums\/enums.h 21:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern NONSEQ_A = Nonseq 200
 {-| __C declaration:__ @NONSEQ_B@
 
-    __defined at:__ @types\/enums\/enums.h:22:5@
+    __defined at:__ @types\/enums\/enums.h 22:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern NONSEQ_B :: Nonseq
 {-| __C declaration:__ @NONSEQ_B@
 
-    __defined at:__ @types\/enums\/enums.h:22:5@
+    __defined at:__ @types\/enums\/enums.h 22:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern NONSEQ_B = Nonseq 301
 {-| __C declaration:__ @NONSEQ_C@
 
-    __defined at:__ @types\/enums\/enums.h:23:5@
+    __defined at:__ @types\/enums\/enums.h 23:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern NONSEQ_C :: Nonseq
 {-| __C declaration:__ @NONSEQ_C@
 
-    __defined at:__ @types\/enums\/enums.h:23:5@
+    __defined at:__ @types\/enums\/enums.h 23:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern NONSEQ_C = Nonseq 404
 {-| __C declaration:__ @enum packed@
 
-    __defined at:__ @types\/enums\/enums.h:26:6@
+    __defined at:__ @types\/enums\/enums.h 26:6@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -317,7 +317,7 @@ newtype Packed
     = Packed {un_Packed :: CUChar}
       {- ^ __C declaration:__ @enum packed@
 
-           __defined at:__ @types\/enums\/enums.h:26:6@
+           __defined at:__ @types\/enums\/enums.h 26:6@
 
            __exported by:__ @types\/enums\/enums.h@
       -}
@@ -353,49 +353,49 @@ instance Read Packed
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @PACKED_A@
 
-    __defined at:__ @types\/enums\/enums.h:27:5@
+    __defined at:__ @types\/enums\/enums.h 27:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern PACKED_A :: Packed
 {-| __C declaration:__ @PACKED_A@
 
-    __defined at:__ @types\/enums\/enums.h:27:5@
+    __defined at:__ @types\/enums\/enums.h 27:5@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern PACKED_A = Packed 0
 {-| __C declaration:__ @PACKED_B@
 
-    __defined at:__ @types\/enums\/enums.h:27:15@
+    __defined at:__ @types\/enums\/enums.h 27:15@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern PACKED_B :: Packed
 {-| __C declaration:__ @PACKED_B@
 
-    __defined at:__ @types\/enums\/enums.h:27:15@
+    __defined at:__ @types\/enums\/enums.h 27:15@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern PACKED_B = Packed 1
 {-| __C declaration:__ @PACKED_C@
 
-    __defined at:__ @types\/enums\/enums.h:27:25@
+    __defined at:__ @types\/enums\/enums.h 27:25@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern PACKED_C :: Packed
 {-| __C declaration:__ @PACKED_C@
 
-    __defined at:__ @types\/enums\/enums.h:27:25@
+    __defined at:__ @types\/enums\/enums.h 27:25@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern PACKED_C = Packed 2
 {-| __C declaration:__ @enum enumA@
 
-    __defined at:__ @types\/enums\/enums.h:30:9@
+    __defined at:__ @types\/enums\/enums.h 30:9@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -403,7 +403,7 @@ newtype EnumA
     = EnumA {un_EnumA :: CUInt}
       {- ^ __C declaration:__ @enum enumA@
 
-           __defined at:__ @types\/enums\/enums.h:30:9@
+           __defined at:__ @types\/enums\/enums.h 30:9@
 
            __exported by:__ @types\/enums\/enums.h@
       -}
@@ -438,35 +438,35 @@ instance Read EnumA
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @A_FOO@
 
-    __defined at:__ @types\/enums\/enums.h:30:16@
+    __defined at:__ @types\/enums\/enums.h 30:16@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern A_FOO :: EnumA
 {-| __C declaration:__ @A_FOO@
 
-    __defined at:__ @types\/enums\/enums.h:30:16@
+    __defined at:__ @types\/enums\/enums.h 30:16@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern A_FOO = EnumA 0
 {-| __C declaration:__ @A_BAR@
 
-    __defined at:__ @types\/enums\/enums.h:30:23@
+    __defined at:__ @types\/enums\/enums.h 30:23@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern A_BAR :: EnumA
 {-| __C declaration:__ @A_BAR@
 
-    __defined at:__ @types\/enums\/enums.h:30:23@
+    __defined at:__ @types\/enums\/enums.h 30:23@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern A_BAR = EnumA 1
 {-| __C declaration:__ @enum enumB@
 
-    __defined at:__ @types\/enums\/enums.h:32:14@
+    __defined at:__ @types\/enums\/enums.h 32:14@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -474,7 +474,7 @@ newtype EnumB
     = EnumB {un_EnumB :: CUInt}
       {- ^ __C declaration:__ @enum enumB@
 
-           __defined at:__ @types\/enums\/enums.h:32:14@
+           __defined at:__ @types\/enums\/enums.h 32:14@
 
            __exported by:__ @types\/enums\/enums.h@
       -}
@@ -509,35 +509,35 @@ instance Read EnumB
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @B_FOO@
 
-    __defined at:__ @types\/enums\/enums.h:32:22@
+    __defined at:__ @types\/enums\/enums.h 32:22@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern B_FOO :: EnumB
 {-| __C declaration:__ @B_FOO@
 
-    __defined at:__ @types\/enums\/enums.h:32:22@
+    __defined at:__ @types\/enums\/enums.h 32:22@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern B_FOO = EnumB 0
 {-| __C declaration:__ @B_BAR@
 
-    __defined at:__ @types\/enums\/enums.h:32:29@
+    __defined at:__ @types\/enums\/enums.h 32:29@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern B_BAR :: EnumB
 {-| __C declaration:__ @B_BAR@
 
-    __defined at:__ @types\/enums\/enums.h:32:29@
+    __defined at:__ @types\/enums\/enums.h 32:29@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern B_BAR = EnumB 1
 {-| __C declaration:__ @enum enumC@
 
-    __defined at:__ @types\/enums\/enums.h:34:6@
+    __defined at:__ @types\/enums\/enums.h 34:6@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -545,7 +545,7 @@ newtype EnumC
     = EnumC {un_EnumC :: CUInt}
       {- ^ __C declaration:__ @enum enumC@
 
-           __defined at:__ @types\/enums\/enums.h:34:6@
+           __defined at:__ @types\/enums\/enums.h 34:6@
 
            __exported by:__ @types\/enums\/enums.h@
       -}
@@ -580,35 +580,35 @@ instance Read EnumC
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @C_FOO@
 
-    __defined at:__ @types\/enums\/enums.h:34:14@
+    __defined at:__ @types\/enums\/enums.h 34:14@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern C_FOO :: EnumC
 {-| __C declaration:__ @C_FOO@
 
-    __defined at:__ @types\/enums\/enums.h:34:14@
+    __defined at:__ @types\/enums\/enums.h 34:14@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern C_FOO = EnumC 0
 {-| __C declaration:__ @C_BAR@
 
-    __defined at:__ @types\/enums\/enums.h:34:21@
+    __defined at:__ @types\/enums\/enums.h 34:21@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern C_BAR :: EnumC
 {-| __C declaration:__ @C_BAR@
 
-    __defined at:__ @types\/enums\/enums.h:34:21@
+    __defined at:__ @types\/enums\/enums.h 34:21@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern C_BAR = EnumC 1
 {-| __C declaration:__ @enum enumD@
 
-    __defined at:__ @types\/enums\/enums.h:37:6@
+    __defined at:__ @types\/enums\/enums.h 37:6@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
@@ -616,7 +616,7 @@ newtype EnumD_t
     = EnumD_t {un_EnumD_t :: CUInt}
       {- ^ __C declaration:__ @enum enumD@
 
-           __defined at:__ @types\/enums\/enums.h:37:6@
+           __defined at:__ @types\/enums\/enums.h 37:6@
 
            __exported by:__ @types\/enums\/enums.h@
       -}
@@ -651,28 +651,28 @@ instance Read EnumD_t
           readListPrec = readListPrecDefault
 {-| __C declaration:__ @D_FOO@
 
-    __defined at:__ @types\/enums\/enums.h:37:14@
+    __defined at:__ @types\/enums\/enums.h 37:14@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern D_FOO :: EnumD_t
 {-| __C declaration:__ @D_FOO@
 
-    __defined at:__ @types\/enums\/enums.h:37:14@
+    __defined at:__ @types\/enums\/enums.h 37:14@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern D_FOO = EnumD_t 0
 {-| __C declaration:__ @D_BAR@
 
-    __defined at:__ @types\/enums\/enums.h:37:21@
+    __defined at:__ @types\/enums\/enums.h 37:21@
 
     __exported by:__ @types\/enums\/enums.h@
 -}
 pattern D_BAR :: EnumD_t
 {-| __C declaration:__ @D_BAR@
 
-    __defined at:__ @types\/enums\/enums.h:37:21@
+    __defined at:__ @types\/enums\/enums.h 37:21@
 
     __exported by:__ @types\/enums\/enums.h@
 -}

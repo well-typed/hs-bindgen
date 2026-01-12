@@ -1,7 +1,7 @@
 -- addDependentFile examples/golden/types/structs/named_vs_anon.h
 {-| __C declaration:__ @struct a@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:15:8@
+    __defined at:__ @types\/structs\/named_vs_anon.h 15:8@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -9,7 +9,7 @@ data A
     = A {}
       {- ^ __C declaration:__ @struct a@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:15:8@
+           __defined at:__ @types\/structs\/named_vs_anon.h 15:8@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
@@ -33,7 +33,7 @@ instance Prim A
                                                                       A -> s_17
 {-| __C declaration:__ @struct struct1@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:16:8@
+    __defined at:__ @types\/structs\/named_vs_anon.h 16:8@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -41,7 +41,7 @@ data Struct1
     = Struct1 {}
       {- ^ __C declaration:__ @struct struct1@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:16:8@
+           __defined at:__ @types\/structs\/named_vs_anon.h 16:8@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
@@ -65,7 +65,7 @@ instance Prim Struct1
                                                                       Struct1 -> s_17
 {-| __C declaration:__ @struct b_s@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:19:8@
+    __defined at:__ @types\/structs\/named_vs_anon.h 19:8@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -73,7 +73,7 @@ data B_s
     = B_s {}
       {- ^ __C declaration:__ @struct b_s@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:19:8@
+           __defined at:__ @types\/structs\/named_vs_anon.h 19:8@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
@@ -97,7 +97,7 @@ instance Prim B_s
                                                                       B_s -> s_17
 {-| __C declaration:__ @struct struct2_s@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:20:8@
+    __defined at:__ @types\/structs\/named_vs_anon.h 20:8@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -105,7 +105,7 @@ data Struct2_s
     = Struct2_s {}
       {- ^ __C declaration:__ @struct struct2_s@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:20:8@
+           __defined at:__ @types\/structs\/named_vs_anon.h 20:8@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
@@ -129,7 +129,7 @@ instance Prim Struct2_s
                                                                       Struct2_s -> s_17
 {-| __C declaration:__ @struct c@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:23:36@
+    __defined at:__ @types\/structs\/named_vs_anon.h 23:36@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -137,7 +137,7 @@ data C
     = C {}
       {- ^ __C declaration:__ @struct c@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:23:36@
+           __defined at:__ @types\/structs\/named_vs_anon.h 23:36@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
@@ -161,7 +161,7 @@ instance Prim C
                                                                       C -> s_17
 {-| __C declaration:__ @struct struct3@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:24:36@
+    __defined at:__ @types\/structs\/named_vs_anon.h 24:36@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -169,7 +169,7 @@ data Struct3
     = Struct3 {}
       {- ^ __C declaration:__ @struct struct3@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:24:36@
+           __defined at:__ @types\/structs\/named_vs_anon.h 24:36@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
@@ -193,7 +193,7 @@ instance Prim Struct3
                                                                       Struct3 -> s_17
 {-| __C declaration:__ @struct d@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:27:15@
+    __defined at:__ @types\/structs\/named_vs_anon.h 27:15@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -201,7 +201,7 @@ data D
     = D {}
       {- ^ __C declaration:__ @struct d@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:27:15@
+           __defined at:__ @types\/structs\/named_vs_anon.h 27:15@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
@@ -225,7 +225,7 @@ instance Prim D
                                                                       D -> s_17
 {-| __C declaration:__ @struct struct4@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:28:15@
+    __defined at:__ @types\/structs\/named_vs_anon.h 28:15@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -233,7 +233,7 @@ data Struct4
     = Struct4 {}
       {- ^ __C declaration:__ @struct struct4@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:28:15@
+           __defined at:__ @types\/structs\/named_vs_anon.h 28:15@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
@@ -257,7 +257,7 @@ instance Prim Struct4
                                                                       Struct4 -> s_17
 {-| __C declaration:__ @struct e_s@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:31:15@
+    __defined at:__ @types\/structs\/named_vs_anon.h 31:15@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -265,7 +265,7 @@ data E_s
     = E_s {}
       {- ^ __C declaration:__ @struct e_s@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:31:15@
+           __defined at:__ @types\/structs\/named_vs_anon.h 31:15@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
@@ -289,7 +289,7 @@ instance Prim E_s
                                                                       E_s -> s_17
 {-| __C declaration:__ @struct struct5_s@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:32:15@
+    __defined at:__ @types\/structs\/named_vs_anon.h 32:15@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -297,7 +297,7 @@ data Struct5_s
     = Struct5_s {}
       {- ^ __C declaration:__ @struct struct5_s@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:32:15@
+           __defined at:__ @types\/structs\/named_vs_anon.h 32:15@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
@@ -321,7 +321,7 @@ instance Prim Struct5_s
                                                                       Struct5_s -> s_17
 {-| __C declaration:__ @struct f@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:35:9@
+    __defined at:__ @types\/structs\/named_vs_anon.h 35:9@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -329,7 +329,7 @@ data F
     = F {}
       {- ^ __C declaration:__ @struct f@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:35:9@
+           __defined at:__ @types\/structs\/named_vs_anon.h 35:9@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
@@ -353,7 +353,7 @@ instance Prim F
                                                                       F -> s_17
 {-| __C declaration:__ @struct typedef1@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:36:9@
+    __defined at:__ @types\/structs\/named_vs_anon.h 36:9@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -361,7 +361,7 @@ data Typedef1
     = Typedef1 {}
       {- ^ __C declaration:__ @struct typedef1@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:36:9@
+           __defined at:__ @types\/structs\/named_vs_anon.h 36:9@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
@@ -385,7 +385,7 @@ instance Prim Typedef1
                                                                       Typedef1 -> s_17
 {-| __C declaration:__ @struct g@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:39:9@
+    __defined at:__ @types\/structs\/named_vs_anon.h 39:9@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -393,7 +393,7 @@ data G
     = G {}
       {- ^ __C declaration:__ @struct g@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:39:9@
+           __defined at:__ @types\/structs\/named_vs_anon.h 39:9@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
@@ -417,7 +417,7 @@ instance Prim G
                                                                       G -> s_17
 {-| __C declaration:__ @struct typedef2@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:40:9@
+    __defined at:__ @types\/structs\/named_vs_anon.h 40:9@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -425,7 +425,7 @@ data Typedef2
     = Typedef2 {}
       {- ^ __C declaration:__ @struct typedef2@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:40:9@
+           __defined at:__ @types\/structs\/named_vs_anon.h 40:9@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
@@ -449,7 +449,7 @@ instance Prim Typedef2
                                                                       Typedef2 -> s_17
 {-| __C declaration:__ @struct h@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:43:9@
+    __defined at:__ @types\/structs\/named_vs_anon.h 43:9@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -457,7 +457,7 @@ data H
     = H {}
       {- ^ __C declaration:__ @struct h@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:43:9@
+           __defined at:__ @types\/structs\/named_vs_anon.h 43:9@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}
@@ -481,7 +481,7 @@ instance Prim H
                                                                       H -> s_17
 {-| __C declaration:__ @struct typedef3@
 
-    __defined at:__ @types\/structs\/named_vs_anon.h:44:9@
+    __defined at:__ @types\/structs\/named_vs_anon.h 44:9@
 
     __exported by:__ @types\/structs\/named_vs_anon.h@
 -}
@@ -489,7 +489,7 @@ data Typedef3
     = Typedef3 {}
       {- ^ __C declaration:__ @struct typedef3@
 
-           __defined at:__ @types\/structs\/named_vs_anon.h:44:9@
+           __defined at:__ @types\/structs\/named_vs_anon.h 44:9@
 
            __exported by:__ @types\/structs\/named_vs_anon.h@
       -}

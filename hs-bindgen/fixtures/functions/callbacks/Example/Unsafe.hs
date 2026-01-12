@@ -153,7 +153,7 @@ foreign import ccall unsafe "hs_bindgen_d07f3a3e526e7017" hs_bindgen_d07f3a3e526
 
 {-| __C declaration:__ @readFileWithProcessor@
 
-    __defined at:__ @functions\/callbacks.h:4:5@
+    __defined at:__ @functions\/callbacks.h 4:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -173,7 +173,7 @@ foreign import ccall unsafe "hs_bindgen_cb0219aedd5afed5" hs_bindgen_cb0219aedd5
 
 {-| __C declaration:__ @watchTemperature@
 
-    __defined at:__ @functions\/callbacks.h:5:6@
+    __defined at:__ @functions\/callbacks.h 5:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -192,7 +192,7 @@ foreign import ccall unsafe "hs_bindgen_d96938841a039f9b" hs_bindgen_d96938841a0
 
 {-| __C declaration:__ @onFileOpened@
 
-    __defined at:__ @functions\/callbacks.h:14:6@
+    __defined at:__ @functions\/callbacks.h 14:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -209,7 +209,7 @@ foreign import ccall unsafe "hs_bindgen_3cb24888fc3e1751" hs_bindgen_3cb24888fc3
 
 {-| __C declaration:__ @onProgressChanged@
 
-    __defined at:__ @functions\/callbacks.h:15:6@
+    __defined at:__ @functions\/callbacks.h 15:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -227,7 +227,7 @@ foreign import ccall unsafe "hs_bindgen_567ea6dc040b50a1" hs_bindgen_567ea6dc040
 
 {-| __C declaration:__ @validateInput@
 
-    __defined at:__ @functions\/callbacks.h:16:5@
+    __defined at:__ @functions\/callbacks.h 16:5@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -246,7 +246,7 @@ foreign import ccall unsafe "hs_bindgen_aab80c08edfa6b4b" hs_bindgen_aab80c08edf
 
 {-| __C declaration:__ @onNewMeasurement@
 
-    __defined at:__ @functions\/callbacks.h:27:6@
+    __defined at:__ @functions\/callbacks.h 27:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -263,7 +263,7 @@ foreign import ccall unsafe "hs_bindgen_6c8fae51df7c46a1" hs_bindgen_6c8fae51df7
 
 {-| __C declaration:__ @onNewMeasurement2@
 
-    __defined at:__ @functions\/callbacks.h:30:6@
+    __defined at:__ @functions\/callbacks.h 30:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -280,7 +280,7 @@ foreign import ccall unsafe "hs_bindgen_d44afeb36d2ae523" hs_bindgen_d44afeb36d2
 
 {-| __C declaration:__ @onBufferReady@
 
-    __defined at:__ @functions\/callbacks.h:33:6@
+    __defined at:__ @functions\/callbacks.h 33:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -298,7 +298,7 @@ foreign import ccall unsafe "hs_bindgen_523fee13fb646cad" hs_bindgen_523fee13fb6
 
 {-| __C declaration:__ @transformMeasurement@
 
-    __defined at:__ @functions\/callbacks.h:38:6@
+    __defined at:__ @functions\/callbacks.h 38:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -317,7 +317,7 @@ foreign import ccall unsafe "hs_bindgen_98d0c5bd1271eeb7" hs_bindgen_98d0c5bd127
 
 {-| __C declaration:__ @processWithCallbacks@
 
-    __defined at:__ @functions\/callbacks.h:43:6@
+    __defined at:__ @functions\/callbacks.h 43:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -334,7 +334,7 @@ foreign import ccall unsafe "hs_bindgen_b96f4d4d7893e301" hs_bindgen_b96f4d4d789
 
 {-| __C declaration:__ @registerHandler@
 
-    __defined at:__ @functions\/callbacks.h:56:6@
+    __defined at:__ @functions\/callbacks.h 56:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -352,7 +352,7 @@ foreign import ccall unsafe "hs_bindgen_c062ded603732aae" hs_bindgen_c062ded6037
 
 {-| __C declaration:__ @executePipeline@
 
-    __defined at:__ @functions\/callbacks.h:64:6@
+    __defined at:__ @functions\/callbacks.h 64:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -372,7 +372,7 @@ foreign import ccall unsafe "hs_bindgen_02d41a1f48eebff7" hs_bindgen_02d41a1f48e
 
 {-| __C declaration:__ @runProcessor@
 
-    __defined at:__ @functions\/callbacks.h:80:6@
+    __defined at:__ @functions\/callbacks.h 80:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -392,7 +392,7 @@ foreign import ccall unsafe "hs_bindgen_39704c8b14c2ce3c" hs_bindgen_39704c8b14c
 
 {-| __C declaration:__ @processMeasurementWithValidation@
 
-    __defined at:__ @functions\/callbacks.h:85:6@
+    __defined at:__ @functions\/callbacks.h 85:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -412,7 +412,7 @@ foreign import ccall unsafe "hs_bindgen_10c383cdf6eddb0d" hs_bindgen_10c383cdf6e
 
 {-| __C declaration:__ @f@
 
-    __defined at:__ @functions\/callbacks.h:96:6@
+    __defined at:__ @functions\/callbacks.h 96:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}
@@ -429,7 +429,7 @@ foreign import ccall unsafe "hs_bindgen_831d03bed0065a4e" hs_bindgen_831d03bed00
 
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @functions\/callbacks.h:97:6@
+    __defined at:__ @functions\/callbacks.h 97:6@
 
     __exported by:__ @functions\/callbacks.h@
 -}

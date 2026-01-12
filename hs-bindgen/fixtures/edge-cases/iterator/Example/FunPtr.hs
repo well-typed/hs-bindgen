@@ -97,7 +97,7 @@ foreign import ccall unsafe "hs_bindgen_ccdad25a057f8efd" hs_bindgen_ccdad25a057
 {-# NOINLINE makeToggle #-}
 {-| __C declaration:__ @makeToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:4:8@
+    __defined at:__ @edge-cases\/iterator.h 4:8@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -112,7 +112,7 @@ foreign import ccall unsafe "hs_bindgen_fd8e19ba2d78baa9" hs_bindgen_fd8e19ba2d7
 {-# NOINLINE toggleNext #-}
 {-| __C declaration:__ @toggleNext@
 
-    __defined at:__ @edge-cases\/iterator.h:5:6@
+    __defined at:__ @edge-cases\/iterator.h 5:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -127,7 +127,7 @@ foreign import ccall unsafe "hs_bindgen_780e490698de9df1" hs_bindgen_780e490698d
 {-# NOINLINE releaseToggle #-}
 {-| __C declaration:__ @releaseToggle@
 
-    __defined at:__ @edge-cases\/iterator.h:6:6@
+    __defined at:__ @edge-cases\/iterator.h 6:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -142,7 +142,7 @@ foreign import ccall unsafe "hs_bindgen_517dd14dbdb5e3ba" hs_bindgen_517dd14dbdb
 {-# NOINLINE makeCounter #-}
 {-| __C declaration:__ @makeCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:11:9@
+    __defined at:__ @edge-cases\/iterator.h 11:9@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -157,7 +157,7 @@ foreign import ccall unsafe "hs_bindgen_28d81dd8ce6aca30" hs_bindgen_28d81dd8ce6
 {-# NOINLINE counterNext #-}
 {-| __C declaration:__ @counterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:12:5@
+    __defined at:__ @edge-cases\/iterator.h 12:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -172,7 +172,7 @@ foreign import ccall unsafe "hs_bindgen_849de94baad0430a" hs_bindgen_849de94baad
 {-# NOINLINE releaseCounter #-}
 {-| __C declaration:__ @releaseCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:13:6@
+    __defined at:__ @edge-cases\/iterator.h 13:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -187,7 +187,7 @@ foreign import ccall unsafe "hs_bindgen_8eea20d99febeef3" hs_bindgen_8eea20d99fe
 {-# NOINLINE makeVarCounter #-}
 {-| __C declaration:__ @makeVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:18:12@
+    __defined at:__ @edge-cases\/iterator.h 18:12@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -202,7 +202,7 @@ foreign import ccall unsafe "hs_bindgen_3ae982266c863a3d" hs_bindgen_3ae982266c8
 {-# NOINLINE varCounterNext #-}
 {-| __C declaration:__ @varCounterNext@
 
-    __defined at:__ @edge-cases\/iterator.h:19:5@
+    __defined at:__ @edge-cases\/iterator.h 19:5@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}
@@ -217,7 +217,7 @@ foreign import ccall unsafe "hs_bindgen_802a723805cb041f" hs_bindgen_802a723805c
 {-# NOINLINE releaseVarCounter #-}
 {-| __C declaration:__ @releaseVarCounter@
 
-    __defined at:__ @edge-cases\/iterator.h:20:6@
+    __defined at:__ @edge-cases\/iterator.h 20:6@
 
     __exported by:__ @edge-cases\/iterator.h@
 -}

@@ -15,7 +15,7 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @A@
 
-    __defined at:__ @declarations\/declarations_required_for_scoping.h:5:9@
+    __defined at:__ @declarations\/declarations_required_for_scoping.h 5:9@
 
     __exported by:__ @declarations\/declarations_required_for_scoping.h@
 -}

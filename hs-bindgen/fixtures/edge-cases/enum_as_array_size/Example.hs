@@ -21,7 +21,7 @@ import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enum test@
 
-    __defined at:__ @edge-cases\/enum_as_array_size.h:3:6@
+    __defined at:__ @edge-cases\/enum_as_array_size.h 3:6@
 
     __exported by:__ @edge-cases\/enum_as_array_size.h@
 -}
@@ -95,7 +95,7 @@ instance Read Test where
 
 {-| __C declaration:__ @test_a@
 
-    __defined at:__ @edge-cases\/enum_as_array_size.h:4:3@
+    __defined at:__ @edge-cases\/enum_as_array_size.h 4:3@
 
     __exported by:__ @edge-cases\/enum_as_array_size.h@
 -}
@@ -104,7 +104,7 @@ pattern Test_a = Test 0
 
 {-| __C declaration:__ @test_count@
 
-    __defined at:__ @edge-cases\/enum_as_array_size.h:5:3@
+    __defined at:__ @edge-cases\/enum_as_array_size.h 5:3@
 
     __exported by:__ @edge-cases\/enum_as_array_size.h@
 -}

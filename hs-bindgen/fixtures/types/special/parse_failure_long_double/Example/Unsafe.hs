@@ -26,7 +26,7 @@ foreign import ccall unsafe "hs_bindgen_61793546aa44e36b" hs_bindgen_61793546aa4
 
 {-| __C declaration:__ @fun2@
 
-    __defined at:__ @types\/special\/parse_failure_long_double.h:7:6@
+    __defined at:__ @types\/special\/parse_failure_long_double.h 7:6@
 
     __exported by:__ @types\/special\/parse_failure_long_double.h@
 -}

@@ -29,7 +29,7 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @sym@
 
-    __defined at:__ @binding-specs\/bs_ext_target_any.h:1:14@
+    __defined at:__ @binding-specs\/bs_ext_target_any.h 1:14@
 
     __exported by:__ @binding-specs\/bs_ext_target_any.h@
 -}

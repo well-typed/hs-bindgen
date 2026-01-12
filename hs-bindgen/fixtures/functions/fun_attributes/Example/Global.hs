@@ -28,7 +28,7 @@ foreign import ccall unsafe "hs_bindgen_cd32cb4982dd2d1a" hs_bindgen_cd32cb4982d
 {-# NOINLINE i #-}
 {-| __C declaration:__ @i@
 
-    __defined at:__ @functions\/fun_attributes.h:132:5@
+    __defined at:__ @functions\/fun_attributes.h 132:5@
 
     __exported by:__ @functions\/fun_attributes.h@
 -}

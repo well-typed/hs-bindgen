@@ -29,7 +29,7 @@ import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure, return)
 
 __C declaration:__ @struct struct1@
 
-__defined at:__ @types\/typedefs\/typedef_analysis.h:7:8@
+__defined at:__ @types\/typedefs\/typedef_analysis.h 7:8@
 
 __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -85,7 +85,7 @@ instance Data.Primitive.Types.Prim Struct1_t where
 
 {-| __C declaration:__ @struct struct2@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:11:16@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 11:16@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -141,7 +141,7 @@ instance Data.Primitive.Types.Prim Struct2_t where
 
 {-| __C declaration:__ @struct struct3@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:14:8@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 14:8@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -149,7 +149,7 @@ data Struct3_t
 
 {-| __C declaration:__ @struct struct4@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:18:16@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 18:16@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -157,7 +157,7 @@ data Struct4_t
 
 {-| __C declaration:__ @struct struct5@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:21:8@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 21:8@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -213,7 +213,7 @@ instance Data.Primitive.Types.Prim Struct5 where
 
 {-| __C declaration:__ @struct5_t@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:22:25@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 22:25@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -238,7 +238,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct5_t "un_Struct5_t" where
 
 {-| __C declaration:__ @struct struct6@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:25:16@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 25:16@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -294,7 +294,7 @@ instance Data.Primitive.Types.Prim Struct6_Aux where
 
 {-| __C declaration:__ @struct6@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:25:28@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 25:28@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -319,7 +319,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct6 "un_Struct6" where
 
 {-| __C declaration:__ @struct struct7@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:28:8@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 28:8@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -375,7 +375,7 @@ instance Data.Primitive.Types.Prim Struct7 where
 
 {-| __C declaration:__ @struct7a@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:29:24@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 29:24@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -399,7 +399,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct7a "un_Struct7a" where
 
 {-| __C declaration:__ @struct7b@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:30:24@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 30:24@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -423,7 +423,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct7b "un_Struct7b" where
 
 {-| __C declaration:__ @struct struct8@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:33:8@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 33:8@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -479,7 +479,7 @@ instance Data.Primitive.Types.Prim Struct8 where
 
 {-| __C declaration:__ @struct8b@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:35:24@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 35:24@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -503,7 +503,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct8b "un_Struct8b" where
 
 {-| __C declaration:__ @struct struct9@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:38:8@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 38:8@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -559,7 +559,7 @@ instance Data.Primitive.Types.Prim Struct9 where
 
 {-| __C declaration:__ @struct9_t@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:40:17@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 40:17@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -583,7 +583,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct9_t "un_Struct9_t" where
 
 {-| __C declaration:__ @struct struct10@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:46:8@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 46:8@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -639,7 +639,7 @@ instance Data.Primitive.Types.Prim Struct10_t where
 
 {-| __C declaration:__ @struct10_t_t@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:48:20@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 48:20@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -664,7 +664,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Struct10_t_t "un_Struct10_t_t" wh
 
 {-| __C declaration:__ @struct struct11@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:51:8@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 51:8@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -672,14 +672,14 @@ data Struct11_t = Struct11_t
   { struct11_t_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:52:7@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 52:7@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , struct11_t_self :: Ptr.Ptr Struct11_t
     {- ^ __C declaration:__ @self@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:53:20@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 53:20@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
@@ -733,7 +733,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct11_t) "struct1
 
 {-| __C declaration:__ @struct struct12@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:60:8@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 60:8@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -741,14 +741,14 @@ data Struct12_t = Struct12_t
   { struct12_t_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:61:7@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 61:7@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , struct12_t_self :: Ptr.Ptr Struct12_t
     {- ^ __C declaration:__ @self@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:62:15@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 62:15@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
@@ -802,7 +802,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Struct12_t) "struct1
 
 {-| __C declaration:__ @struct use_sites@
 
-    __defined at:__ @types\/typedefs\/typedef_analysis.h:66:8@
+    __defined at:__ @types\/typedefs\/typedef_analysis.h 66:8@
 
     __exported by:__ @types\/typedefs\/typedef_analysis.h@
 -}
@@ -810,126 +810,126 @@ data Use_sites = Use_sites
   { use_sites_useTypedef_struct1_t :: Struct1_t
     {- ^ __C declaration:__ @useTypedef_struct1_t@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:68:13@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 68:13@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct2_t :: Struct2_t
     {- ^ __C declaration:__ @useTypedef_struct2_t@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:71:13@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 71:13@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct3_t :: Ptr.Ptr Struct3_t
     {- ^ __C declaration:__ @useTypedef_struct3_t@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:74:14@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 74:14@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct4_t :: Ptr.Ptr Struct4_t
     {- ^ __C declaration:__ @useTypedef_struct4_t@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:75:14@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 75:14@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useStruct_struct5 :: Struct5
     {- ^ __C declaration:__ @useStruct_struct5@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:78:18@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 78:18@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct5_t :: Struct5_t
     {- ^ __C declaration:__ @useTypedef_struct5_t@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:79:13@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 79:13@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useStruct_struct6 :: Struct6_Aux
     {- ^ __C declaration:__ @useStruct_struct6@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:82:18@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 82:18@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct6 :: Struct6
     {- ^ __C declaration:__ @useTypedef_struct6@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:83:11@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 83:11@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct7a :: Struct7a
     {- ^ __C declaration:__ @useTypedef_struct7a@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:86:12@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 86:12@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct7b :: Struct7b
     {- ^ __C declaration:__ @useTypedef_struct7b@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:87:12@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 87:12@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct8 :: Struct8
     {- ^ __C declaration:__ @useTypedef_struct8@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:91:11@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 91:11@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct8b :: Struct8b
     {- ^ __C declaration:__ @useTypedef_struct8b@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:92:12@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 92:12@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct9 :: Struct9
     {- ^ __C declaration:__ @useTypedef_struct9@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:96:11@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 96:11@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct9_t :: Struct9_t
     {- ^ __C declaration:__ @useTypedef_struct9_t@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:97:13@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 97:13@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct10_t :: Struct10_t
     {- ^ __C declaration:__ @useTypedef_struct10_t@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:98:14@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 98:14@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct10_t_t :: Struct10_t_t
     {- ^ __C declaration:__ @useTypedef_struct10_t_t@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:99:16@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 99:16@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct11_t :: Struct11_t
     {- ^ __C declaration:__ @useTypedef_struct11_t@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:102:14@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 102:14@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}
   , use_sites_useTypedef_struct12_t :: Struct12_t
     {- ^ __C declaration:__ @useTypedef_struct12_t@
 
-         __defined at:__ @types\/typedefs\/typedef_analysis.h:103:14@
+         __defined at:__ @types\/typedefs\/typedef_analysis.h 103:14@
 
          __exported by:__ @types\/typedefs\/typedef_analysis.h@
     -}

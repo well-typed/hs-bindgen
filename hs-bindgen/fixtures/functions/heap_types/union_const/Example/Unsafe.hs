@@ -40,7 +40,7 @@ fun_wrapper = hs_bindgen_4e22c71ca196dc5e
 
 {-| __C declaration:__ @fun@
 
-    __defined at:__ @functions\/heap_types\/union_const.h:9:9@
+    __defined at:__ @functions\/heap_types\/union_const.h 9:9@
 
     __exported by:__ @functions\/heap_types\/union_const.h@
 -}

@@ -47,7 +47,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Rea
 
 {-| __C declaration:__ @MAX_NAME_LENGTH@
 
-    __defined at:__ @documentation\/doxygen_docs.h:39:9@
+    __defined at:__ @documentation\/doxygen_docs.h 39:9@
 
     __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -62,7 +62,7 @@ mAX_NAME_LENGTH = (64 :: FC.CInt)
 
 __C declaration:__ @size_type@
 
-__defined at:__ @documentation\/doxygen_docs.h:54:16@
+__defined at:__ @documentation\/doxygen_docs.h 54:16@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -91,7 +91,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Size_type "un_Size_type" where
 
 __C declaration:__ @struct forward_declared_struct@
 
-__defined at:__ @documentation\/doxygen_docs.h:72:8@
+__defined at:__ @documentation\/doxygen_docs.h 72:8@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -103,7 +103,7 @@ data Forward_declared_struct
 
 __C declaration:__ @union forward_declared_union@
 
-__defined at:__ @documentation\/doxygen_docs.h:77:7@
+__defined at:__ @documentation\/doxygen_docs.h 77:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -117,7 +117,7 @@ data Forward_declared_union
 
 __C declaration:__ @enum color_enum@
 
-__defined at:__ @documentation\/doxygen_docs.h:83:6@
+__defined at:__ @documentation\/doxygen_docs.h 83:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -194,7 +194,7 @@ instance Read Color_enum where
 
 __C declaration:__ @COLOR_RED@
 
-__defined at:__ @documentation\/doxygen_docs.h:84:5@
+__defined at:__ @documentation\/doxygen_docs.h 84:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -205,7 +205,7 @@ pattern COLOR_RED = Color_enum 0
 
 __C declaration:__ @COLOR_GREEN@
 
-__defined at:__ @documentation\/doxygen_docs.h:85:5@
+__defined at:__ @documentation\/doxygen_docs.h 85:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -216,7 +216,7 @@ pattern COLOR_GREEN = Color_enum 1
 
 __C declaration:__ @COLOR_BLUE@
 
-__defined at:__ @documentation\/doxygen_docs.h:86:5@
+__defined at:__ @documentation\/doxygen_docs.h 86:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -227,7 +227,7 @@ pattern COLOR_BLUE = Color_enum 2
 
 __C declaration:__ @event_callback_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:225:15@
+__defined at:__ @documentation\/doxygen_docs.h 225:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -279,7 +279,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Event_callback_t_Aux "un_Event_ca
 
 __C declaration:__ @event_callback_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:225:15@
+__defined at:__ @documentation\/doxygen_docs.h 225:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -310,7 +310,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Event_callback_t "un_Event_callba
 
 __C declaration:__ @struct config_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:232:9@
+__defined at:__ @documentation\/doxygen_docs.h 232:9@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -322,7 +322,7 @@ data Config_t = Config_t
 
     __C declaration:__ @id@
 
-    __defined at:__ @documentation\/doxygen_docs.h:234:14@
+    __defined at:__ @documentation\/doxygen_docs.h 234:14@
 
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -333,7 +333,7 @@ data Config_t = Config_t
 
     __C declaration:__ @name@
 
-    __defined at:__ @documentation\/doxygen_docs.h:237:10@
+    __defined at:__ @documentation\/doxygen_docs.h 237:10@
 
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -344,7 +344,7 @@ data Config_t = Config_t
 
     __C declaration:__ @flags@
 
-    __defined at:__ @documentation\/doxygen_docs.h:240:14@
+    __defined at:__ @documentation\/doxygen_docs.h 240:14@
 
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -357,7 +357,7 @@ data Config_t = Config_t
 
     __C declaration:__ @callback@
 
-    __defined at:__ @documentation\/doxygen_docs.h:247:22@
+    __defined at:__ @documentation\/doxygen_docs.h 247:22@
 
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -368,7 +368,7 @@ data Config_t = Config_t
 
     __C declaration:__ @user_data@
 
-    __defined at:__ @documentation\/doxygen_docs.h:250:11@
+    __defined at:__ @documentation\/doxygen_docs.h 250:11@
 
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -479,7 +479,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Config_t) "config_t_
 
 __C declaration:__ @enum status_code_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:258:9@
+__defined at:__ @documentation\/doxygen_docs.h 258:9@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -550,7 +550,7 @@ instance Read Status_code_t where
 
 __C declaration:__ @STATUS_OK@
 
-__defined at:__ @documentation\/doxygen_docs.h:260:5@
+__defined at:__ @documentation\/doxygen_docs.h 260:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -563,7 +563,7 @@ pattern STATUS_OK = Status_code_t 0
 
 __C declaration:__ @STATUS_INVALID_PARAM@
 
-__defined at:__ @documentation\/doxygen_docs.h:263:5@
+__defined at:__ @documentation\/doxygen_docs.h 263:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -576,7 +576,7 @@ pattern STATUS_INVALID_PARAM = Status_code_t (-1)
 
 __C declaration:__ @STATUS_NO_MEMORY@
 
-__defined at:__ @documentation\/doxygen_docs.h:266:5@
+__defined at:__ @documentation\/doxygen_docs.h 266:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -589,7 +589,7 @@ pattern STATUS_NO_MEMORY = Status_code_t (-2)
 
 __C declaration:__ @STATUS_TIMEOUT@
 
-__defined at:__ @documentation\/doxygen_docs.h:269:5@
+__defined at:__ @documentation\/doxygen_docs.h 269:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -602,7 +602,7 @@ pattern STATUS_TIMEOUT = Status_code_t (-3)
 
 __C declaration:__ @STATUS_ERROR@
 
-__defined at:__ @documentation\/doxygen_docs.h:272:5@
+__defined at:__ @documentation\/doxygen_docs.h 272:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -617,7 +617,7 @@ pattern STATUS_ERROR = Status_code_t (-99)
 
 __C declaration:__ @struct \@data_union_t_as_parts@
 
-__defined at:__ @documentation\/doxygen_docs.h:290:5@
+__defined at:__ @documentation\/doxygen_docs.h 290:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -629,7 +629,7 @@ data Data_union_t_as_parts = Data_union_t_as_parts
 
     __C declaration:__ @low@
 
-    __defined at:__ @documentation\/doxygen_docs.h:291:18@
+    __defined at:__ @documentation\/doxygen_docs.h 291:18@
 
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -640,7 +640,7 @@ data Data_union_t_as_parts = Data_union_t_as_parts
 
     __C declaration:__ @high@
 
-    __defined at:__ @documentation\/doxygen_docs.h:292:18@
+    __defined at:__ @documentation\/doxygen_docs.h 292:18@
 
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -703,7 +703,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t_as_part
 
 __C declaration:__ @union data_union_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:281:9@
+__defined at:__ @documentation\/doxygen_docs.h 281:9@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -723,7 +723,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data
 
 __C declaration:__ @as_int@
 
-__defined at:__ @documentation\/doxygen_docs.h:282:13@
+__defined at:__ @documentation\/doxygen_docs.h 282:13@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -752,7 +752,7 @@ set_data_union_t_as_int =
 
 __C declaration:__ @as_float@
 
-__defined at:__ @documentation\/doxygen_docs.h:283:11@
+__defined at:__ @documentation\/doxygen_docs.h 283:11@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -781,7 +781,7 @@ set_data_union_t_as_float =
 
 __C declaration:__ @as_bytes@
 
-__defined at:__ @documentation\/doxygen_docs.h:284:13@
+__defined at:__ @documentation\/doxygen_docs.h 284:13@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -808,7 +808,7 @@ set_data_union_t_as_bytes =
 
 __C declaration:__ @as_parts@
 
-__defined at:__ @documentation\/doxygen_docs.h:293:30@
+__defined at:__ @documentation\/doxygen_docs.h 293:30@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -891,7 +891,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t) "data_
 
 __C declaration:__ @struct bitfield_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:302:9@
+__defined at:__ @documentation\/doxygen_docs.h 302:9@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -903,7 +903,7 @@ data Bitfield_t = Bitfield_t
 
     __C declaration:__ @flag1@
 
-    __defined at:__ @documentation\/doxygen_docs.h:303:14@
+    __defined at:__ @documentation\/doxygen_docs.h 303:14@
 
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -914,7 +914,7 @@ data Bitfield_t = Bitfield_t
 
     __C declaration:__ @flag2@
 
-    __defined at:__ @documentation\/doxygen_docs.h:304:14@
+    __defined at:__ @documentation\/doxygen_docs.h 304:14@
 
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -925,7 +925,7 @@ data Bitfield_t = Bitfield_t
 
     __C declaration:__ @counter@
 
-    __defined at:__ @documentation\/doxygen_docs.h:305:14@
+    __defined at:__ @documentation\/doxygen_docs.h 305:14@
 
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -936,7 +936,7 @@ data Bitfield_t = Bitfield_t
 
     __C declaration:__ @reserved@
 
-    __defined at:__ @documentation\/doxygen_docs.h:306:14@
+    __defined at:__ @documentation\/doxygen_docs.h 306:14@
 
     __exported by:__ @documentation\/doxygen_docs.h@
     -}
@@ -1115,7 +1115,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Bitfield_t) "bitf
 
 __C declaration:__ @processor_fn_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:317:15@
+__defined at:__ @documentation\/doxygen_docs.h 317:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1169,7 +1169,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Processor_fn_t_Aux "un_Processor_
 
 __C declaration:__ @processor_fn_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:317:15@
+__defined at:__ @documentation\/doxygen_docs.h 317:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1200,7 +1200,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Processor_fn_t "un_Processor_fn_t
 
 __C declaration:__ @filename_t@
 
-__defined at:__ @documentation\/doxygen_docs.h:323:14@
+__defined at:__ @documentation\/doxygen_docs.h 323:14@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1233,7 +1233,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Filename_t "un_Filename_t" where
 
 __C declaration:__ @struct flexible_array@
 
-__defined at:__ @documentation\/doxygen_docs.h:360:8@
+__defined at:__ @documentation\/doxygen_docs.h 360:8@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
@@ -1245,7 +1245,7 @@ data Flexible_array = Flexible_array
 
     __C declaration:__ @count@
 
-    __defined at:__ @documentation\/doxygen_docs.h:361:12@
+    __defined at:__ @documentation\/doxygen_docs.h 361:12@
 
     __exported by:__ @documentation\/doxygen_docs.h@
     -}

@@ -35,7 +35,7 @@ foreign import ccall safe "hs_bindgen_8a72aafc705daf44" hs_bindgen_8a72aafc705da
 
 {-| __C declaration:__ @resample@
 
-    __defined at:__ @edge-cases\/spec_examples.h:31:6@
+    __defined at:__ @edge-cases\/spec_examples.h 31:6@
 
     __exported by:__ @edge-cases\/spec_examples.h@
 -}

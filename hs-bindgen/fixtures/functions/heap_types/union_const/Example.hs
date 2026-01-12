@@ -28,7 +28,7 @@ import HsBindgen.Runtime.TypeEquality (TyEq)
 
 {-| __C declaration:__ @union U@
 
-    __defined at:__ @functions\/heap_types\/union_const.h:3:7@
+    __defined at:__ @functions\/heap_types\/union_const.h 3:7@
 
     __exported by:__ @functions\/heap_types\/union_const.h@
 -}
@@ -46,7 +46,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data
 
 __C declaration:__ @x@
 
-__defined at:__ @functions\/heap_types\/union_const.h:4:7@
+__defined at:__ @functions\/heap_types\/union_const.h 4:7@
 
 __exported by:__ @functions\/heap_types\/union_const.h@
 -}

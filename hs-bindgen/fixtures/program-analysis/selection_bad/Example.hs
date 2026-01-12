@@ -17,7 +17,7 @@ import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @A@
 
-    __defined at:__ @program-analysis\/selection_bad.h:3:9@
+    __defined at:__ @program-analysis\/selection_bad.h 3:9@
 
     __exported by:__ @program-analysis\/selection_bad.h@
 -}

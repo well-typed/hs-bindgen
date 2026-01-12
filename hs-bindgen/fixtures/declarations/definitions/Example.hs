@@ -29,7 +29,7 @@ import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct X@
 
-    __defined at:__ @declarations\/definitions.h:23:8@
+    __defined at:__ @declarations\/definitions.h 23:8@
 
     __exported by:__ @declarations\/definitions.h@
 -}
@@ -37,7 +37,7 @@ data X = X
   { x_n :: FC.CInt
     {- ^ __C declaration:__ @n@
 
-         __defined at:__ @declarations\/definitions.h:23:16@
+         __defined at:__ @declarations\/definitions.h 23:16@
 
          __exported by:__ @declarations\/definitions.h@
     -}
@@ -124,7 +124,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType X) "x_n")
 
 {-| __C declaration:__ @union Y@
 
-    __defined at:__ @declarations\/definitions.h:26:7@
+    __defined at:__ @declarations\/definitions.h 26:7@
 
     __exported by:__ @declarations\/definitions.h@
 -}
@@ -142,7 +142,7 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 4) 4 instance Data
 
 __C declaration:__ @m@
 
-__defined at:__ @declarations\/definitions.h:26:15@
+__defined at:__ @declarations\/definitions.h 26:15@
 
 __exported by:__ @declarations\/definitions.h@
 -}
@@ -167,7 +167,7 @@ set_y_m = HsBindgen.Runtime.ByteArray.setUnionPayload
 
 __C declaration:__ @o@
 
-__defined at:__ @declarations\/definitions.h:26:22@
+__defined at:__ @declarations\/definitions.h 26:22@
 
 __exported by:__ @declarations\/definitions.h@
 -}
