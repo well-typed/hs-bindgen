@@ -66,7 +66,7 @@ literate-example/
 
 3. When `cabal build` is invoked:
    - Cabal detects the `.lhs` file
-   - Invokes `hs-bindgen-cli tool-support literate app/SimpleBindings.lhs <output>`
+   - Invokes `hs-bindgen-cli tool-support literate app/SimpleBindings.lhs app/SimpleBindings.hs -I c-lib --module=SimpleBindings --unique-id org.hs-bindgen.literate-example --enable-program-slicing simple.h`
    - The preprocessor reads the configuration from the file
    - The preprocessor generates bindings (equivalent to `hs-bindgen-cli preprocess`)
    - The preprocessor writes generated code to the output path
