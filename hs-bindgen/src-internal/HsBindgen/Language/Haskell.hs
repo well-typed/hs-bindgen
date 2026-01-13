@@ -5,8 +5,7 @@
 -- > import HsBindgen.Language.Haskell qualified as Hs
 module HsBindgen.Language.Haskell (
     -- * Module names
-    ModuleName -- opaque
-  , moduleNameFromText
+    ModuleName(..)
   , moduleNameFromString
   , moduleNameToString
   , moduleNamePath
@@ -45,13 +44,10 @@ import HsBindgen.Util.Tracer
 newtype ModuleName = ModuleName { text :: Text }
   deriving stock (Generic)
   -- 'Show' instance valid due to 'IsString' instance
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
-
-moduleNameFromText :: Text -> ModuleName
-moduleNameFromText = ModuleName
+  deriving newtype (Eq, IsString, Ord, Show)
 
 moduleNameFromString :: String -> ModuleName
-moduleNameFromString = moduleNameFromText . Text.pack
+moduleNameFromString = ModuleName . Text.pack
 
 moduleNameToString :: ModuleName -> String
 moduleNameToString moduleName = Text.unpack moduleName.text

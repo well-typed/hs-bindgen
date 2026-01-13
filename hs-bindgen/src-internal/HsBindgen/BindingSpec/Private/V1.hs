@@ -696,7 +696,7 @@ instance Aeson.FromJSON (ARep UnresolvedBindingSpec) where
     return ABindingSpec{
         version  = aBindingSpecVersion
       , target   = fromARep @ARep aBindingSpecTarget
-      , hsModule = aBindingSpecHsModule
+      , hsModule = fromARep @ARep aBindingSpecHsModule
       , cTypes   = aBindingSpecCTypes
       , hsTypes  = aBindingSpecHsTypes
       }
@@ -705,7 +705,7 @@ instance Aeson.ToJSON (ARep UnresolvedBindingSpec) where
   toJSON spec = Aeson.Object . KM.fromList $ catMaybes [
       Just ("version"  .= spec.version)
     , Just ("target"   .= toARep @ARep spec.target)
-    , Just ("hsmodule" .= spec.hsModule)
+    , Just ("hsmodule" .= toARep @ARep spec.hsModule)
     , ("ctypes"  .=) <$> omitWhenNull spec.cTypes
     , ("hstypes" .=) <$> omitWhenNull spec.hsTypes
     ]
@@ -760,6 +760,19 @@ instance Aeson.ToJSON (ARep BindingSpecTarget) where
     case bsTarget of
       AnyTarget             -> "any"
       SpecificTarget target -> ClangArgs.targetTriple target
+
+--------------------------------------------------------------------------------
+
+newtype instance ARep Hs.ModuleName = AModuleName Hs.ModuleName
+  deriving stock (Show)
+
+instance ARepIso ARep Hs.ModuleName
+
+instance Aeson.FromJSON (ARep Hs.ModuleName) where
+  parseJSON = Aeson.withText "ModuleName" $ return . AModuleName . Hs.ModuleName
+
+instance Aeson.ToJSON (ARep Hs.ModuleName) where
+  toJSON (AModuleName moduleName) = Aeson.String moduleName.text
 
 --------------------------------------------------------------------------------
 
@@ -1349,7 +1362,7 @@ instance Aeson.FromJSON (ARep ConstraintSpec) where
       extRefModule        <- o .: "hsmodule"
       extRefIdentifier    <- o .: "hsname"
       let constraintSpecRef = Hs.ExtRef{
-              moduleName = extRefModule
+              moduleName = fromARep @ARep extRefModule
             , ident      = extRefIdentifier
             }
       return $ AConstraintSpec ConstraintSpec{
@@ -1360,7 +1373,7 @@ instance Aeson.FromJSON (ARep ConstraintSpec) where
 instance Aeson.ToJSON (ARep ConstraintSpec) where
   toJSON (AConstraintSpec spec) = Aeson.object [
         "class"    .= spec.clss
-      , "hsmodule" .= spec.ref.moduleName
+      , "hsmodule" .= toARep @ARep spec.ref.moduleName
       , "hsname"   .= spec.ref.ident
       ]
 

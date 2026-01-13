@@ -38,11 +38,11 @@ baseModuleNameToString baseModule = Text.unpack baseModule.text
 
 fromBaseModuleName :: BaseModuleName -> Maybe Category -> Hs.ModuleName
 fromBaseModuleName (BaseModuleName base) Nothing =
-    Hs.moduleNameFromText base
+    Hs.ModuleName base
 fromBaseModuleName (BaseModuleName base) (Just CType) =
-    Hs.moduleNameFromText base
+    Hs.ModuleName base
 fromBaseModuleName (BaseModuleName base) (Just (CTerm cat)) =
-    Hs.moduleNameFromText (base <> "." <> submodule cat)
+    Hs.ModuleName (base <> "." <> submodule cat)
   where
     -- NOTE: It is important that types are stored in a module without any
     -- suffix; we depend on this assumption for binding specifications (which
