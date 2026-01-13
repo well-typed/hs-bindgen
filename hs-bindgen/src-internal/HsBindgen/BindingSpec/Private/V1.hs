@@ -679,7 +679,7 @@ data family ARep a :: Star
 
 data instance ARep UnresolvedBindingSpec = ABindingSpec {
       version  :: AVersion
-    , target   :: ARep BindingSpecTarget
+    , target   :: BindingSpecTarget
     , hsModule :: Hs.ModuleName
     , cTypes   :: [AOCTypeSpec]
     , hsTypes  :: [ARep HsTypeSpec]
@@ -695,7 +695,7 @@ instance Aeson.FromJSON (ARep UnresolvedBindingSpec) where
     aBindingSpecHsTypes  <- o .:? "hstypes" .!= []
     return ABindingSpec{
         version  = aBindingSpecVersion
-      , target   = aBindingSpecTarget
+      , target   = fromARep @ARep aBindingSpecTarget
       , hsModule = aBindingSpecHsModule
       , cTypes   = aBindingSpecCTypes
       , hsTypes  = aBindingSpecHsTypes
@@ -704,7 +704,7 @@ instance Aeson.FromJSON (ARep UnresolvedBindingSpec) where
 instance Aeson.ToJSON (ARep UnresolvedBindingSpec) where
   toJSON spec = Aeson.Object . KM.fromList $ catMaybes [
       Just ("version"  .= spec.version)
-    , Just ("target"   .= spec.target)
+    , Just ("target"   .= toARep @ARep spec.target)
     , Just ("hsmodule" .= spec.hsModule)
     , ("ctypes"  .=) <$> omitWhenNull spec.cTypes
     , ("hstypes" .=) <$> omitWhenNull spec.hsTypes
@@ -721,7 +721,7 @@ fromABindingSpec path arep =
           fromAHsTypeSpecs path hsIds arep.hsTypes
     in  ( cTypeErrs ++ hsTypeErrs
         , BindingSpec{
-              target     = fromARep arep.target
+              target     = arep.target
             , moduleName = arep.hsModule
             , cTypes     = bindingSpecCTypes
             , hsTypes    = bindingSpecHsTypes
@@ -734,7 +734,7 @@ toABindingSpec ::
   -> ARep UnresolvedBindingSpec
 toABindingSpec compareCDeclId spec = ABindingSpec{
       version  = mkAVersion currentBindingSpecVersion
-    , target   = toARep spec.target
+    , target   = spec.target
     , hsModule = spec.moduleName
     , cTypes   = toAOCTypeSpecs compareCDeclId spec.cTypes
     , hsTypes  = toAHsTypeSpecs spec.hsTypes
@@ -767,7 +767,7 @@ data instance ARep CTypeSpec = ACTypeSpec {
       headers :: [FilePath]
     , cName   :: Text
     , hsIdent :: Maybe Hs.Identifier
-    , cRep    :: Maybe (ARep CTypeRep)
+    , cRep    :: Maybe CTypeRep
     }
   deriving stock (Show)
 
@@ -781,7 +781,7 @@ instance Aeson.FromJSON (ARep CTypeSpec) where
         headers = aCTypeSpecHeaders
       , cName   = aCTypeSpecCName
       , hsIdent = aCTypeSpecHsIdent
-      , cRep    = aCTypeSpecCRep
+      , cRep    = fromARep @ARep <$> aCTypeSpecCRep
       }
 
 instance Aeson.ToJSON (ARep CTypeSpec) where
@@ -789,7 +789,7 @@ instance Aeson.ToJSON (ARep CTypeSpec) where
       Just ("headers" .= listToJSON arep.headers)
     , Just ("cname"   .= arep.cName)
     , ("hsname"         .=) <$> arep.hsIdent
-    , ("representation" .=) <$> arep.cRep
+    , ("representation" .=) . toARep @ARep <$> arep.cRep
     ]
 
 instance ARepKV ARep CTypeSpec where
@@ -805,7 +805,7 @@ instance ARepKV ARep CTypeSpec where
         }
     , CTypeSpec{
           hsIdent = arep.hsIdent
-        , cRep    = fromARep <$> arep.cRep
+        , cRep    = arep.cRep
         }
     )
 
@@ -813,7 +813,7 @@ instance ARepKV ARep CTypeSpec where
       headers = k.headers
     , cName   = k.cName
     , hsIdent = v.hsIdent
-    , cRep    = toARep <$> v.cRep
+    , cRep    = v.cRep
     }
 
 deriving stock instance Show (ARepK ARep CTypeSpec)
@@ -922,7 +922,7 @@ toAOCTypeSpecs compareCDeclId cTypeMap = map snd $ List.sortBy aux [
             headers = map (.path) (Set.toAscList headers)
           , cName   = renderDeclId cDeclId
           , hsIdent = spec.hsIdent
-          , cRep    = toARep <$> spec.cRep
+          , cRep    = spec.cRep
           }
         Omit -> AOmit AKCTypeSpec{
             headers = map (.path) (Set.toAscList headers)
@@ -976,7 +976,7 @@ cTypeRepFromText = Map.fromList [
 
 data instance ARep HsTypeSpec = AHsTypeSpec {
       hsIdent   :: Hs.Identifier
-    , hsRep     :: Maybe (ARep HsTypeRep)
+    , hsRep     :: Maybe HsTypeRep
     , instances :: [AOInstanceSpec]
     }
   deriving stock (Show)
@@ -988,14 +988,14 @@ instance Aeson.FromJSON (ARep HsTypeSpec) where
     aHsTypeSpecInstances <- o .:? "instances" .!= []
     return AHsTypeSpec{
         hsIdent   = aHsTypeSpecHsIdent
-      , hsRep     = aHsTypeSpecHsRep
+      , hsRep     = fromARep @ARep <$> aHsTypeSpecHsRep
       , instances = aHsTypeSpecInstances
       }
 
 instance Aeson.ToJSON (ARep HsTypeSpec) where
   toJSON arep = Aeson.Object . KM.fromList $ catMaybes [
       Just ("hsname" .= arep.hsIdent)
-    , ("representation" .=) <$> arep.hsRep
+    , ("representation" .=) . toARep @ARep <$> arep.hsRep
     , ("instances" .=) <$> omitWhenNull arep.instances
     ]
 
@@ -1005,14 +1005,14 @@ instance ARepKV ARep HsTypeSpec where
   fromARepKV arep =
     ( AKHsTypeSpec arep.hsIdent
     , HsTypeSpec{
-          hsRep     = fromARep <$> arep.hsRep
+          hsRep     = arep.hsRep
         , instances = fromAOInstanceSpecs arep.instances
         }
     )
 
   toARepKV k v = AHsTypeSpec{
       hsIdent   = k.unwrap
-    , hsRep     = toARep <$> v.hsRep
+    , hsRep     = v.hsRep
     , instances = toAOInstanceSpecs v.instances
     }
 
@@ -1130,7 +1130,7 @@ instance Aeson.ToJSON (ARep HsTypeRep) where
           $ catMaybes [
                 ("constructor" .=) <$> x.constructor
               , ("fields"      .=) <$> fmap (: []) x.field
-              , ("ffitype"     .=) <$> (toARep @ARep <$> x.ffiType)
+              , ("ffitype"     .=) <$> fmap (toARep @ARep) x.ffiType
               ]
     HsTypeRepOpaque -> Aeson.String "opaque"
     HsTypeRepAlias  -> Aeson.String "alias"
@@ -1229,8 +1229,8 @@ builtinForeignTypeFromText = Map.fromList [
 
 data instance ARep InstanceSpec = AInstanceSpec {
       clss        :: Hs.TypeClass
-    , strategy    :: Maybe (ARep StrategySpec)
-    , constraints :: [ARep ConstraintSpec]
+    , strategy    :: Maybe StrategySpec
+    , constraints :: [ConstraintSpec]
     }
   deriving stock (Show)
 
@@ -1251,8 +1251,8 @@ instance Aeson.FromJSON (ARep InstanceSpec) where
       aInstanceSpecConstraints <- o .:? "constraints" .!= []
       return AInstanceSpec{
           clss        = aInstanceSpecClass
-        , strategy    = aInstanceSpecStrategy
-        , constraints = aInstanceSpecConstraints
+        , strategy    = fromARep @ARep <$> aInstanceSpecStrategy
+        , constraints = fromARep @ARep <$> aInstanceSpecConstraints
         }
     v -> Aeson.parseFail $
       "expected InstanceSpec String or Object, but encountered " ++ typeOf v
@@ -1262,8 +1262,9 @@ instance Aeson.ToJSON (ARep InstanceSpec) where
     | isNothing arep.strategy && null arep.constraints = Aeson.toJSON arep.clss
     | otherwise = Aeson.Object . KM.fromList $ catMaybes [
           Just ("class" .= arep.clss)
-        , ("strategy"    .=) <$> arep.strategy
-        , ("constraints" .=) <$> omitWhenNull arep.constraints
+        , ("strategy"    .=) . toARep @ARep <$> arep.strategy
+        , ("constraints" .=) . fmap (toARep @ARep)
+            <$> omitWhenNull arep.constraints
         ]
 
 instance ARepKV ARep InstanceSpec where
@@ -1272,15 +1273,15 @@ instance ARepKV ARep InstanceSpec where
   fromARepKV arep =
     ( AKInstanceSpec arep.clss
     , InstanceSpec{
-          strategy    = fromARep <$> arep.strategy
-        , constraints = fromARep <$> arep.constraints
+          strategy    = arep.strategy
+        , constraints = arep.constraints
         }
     )
 
   toARepKV k v = AInstanceSpec{
       clss        = k.unwrap
-    , strategy    = toARep <$> v.strategy
-    , constraints = toARep <$> v.constraints
+    , strategy    = v.strategy
+    , constraints = v.constraints
     }
 
 deriving stock   instance Show           (ARepK ARep InstanceSpec)
