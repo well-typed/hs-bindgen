@@ -1,30 +1,30 @@
--- addDependentFile examples/golden/binding-specs/bs_pre_rename_squash_struct.h
+-- addDependentFile examples/golden/binding-specs/bs_pre_name_squash_struct.h
 {-| __C declaration:__ @struct foo@
 
-    __defined at:__ @binding-specs\/bs_pre_rename_squash_struct.h 1:16@
+    __defined at:__ @binding-specs\/bs_pre_name_squash_struct.h 1:16@
 
-    __exported by:__ @binding-specs\/bs_pre_rename_squash_struct.h@
+    __exported by:__ @binding-specs\/bs_pre_name_squash_struct.h@
 -}
 data Hoge
     = Hoge {hoge_x :: CInt
             {- ^ __C declaration:__ @x@
 
-                 __defined at:__ @binding-specs\/bs_pre_rename_squash_struct.h 1:26@
+                 __defined at:__ @binding-specs\/bs_pre_name_squash_struct.h 1:26@
 
-                 __exported by:__ @binding-specs\/bs_pre_rename_squash_struct.h@
+                 __exported by:__ @binding-specs\/bs_pre_name_squash_struct.h@
             -},
             hoge_y :: CInt
             {- ^ __C declaration:__ @y@
 
-                 __defined at:__ @binding-specs\/bs_pre_rename_squash_struct.h 1:29@
+                 __defined at:__ @binding-specs\/bs_pre_name_squash_struct.h 1:29@
 
-                 __exported by:__ @binding-specs\/bs_pre_rename_squash_struct.h@
+                 __exported by:__ @binding-specs\/bs_pre_name_squash_struct.h@
             -}}
       {- ^ __C declaration:__ @struct foo@
 
-           __defined at:__ @binding-specs\/bs_pre_rename_squash_struct.h 1:16@
+           __defined at:__ @binding-specs\/bs_pre_name_squash_struct.h 1:16@
 
-           __exported by:__ @binding-specs\/bs_pre_rename_squash_struct.h@
+           __exported by:__ @binding-specs\/bs_pre_name_squash_struct.h@
       -}
     deriving stock (Eq, Show)
 instance Storable Hoge

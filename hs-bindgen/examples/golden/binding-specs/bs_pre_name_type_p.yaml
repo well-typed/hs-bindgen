@@ -4,6 +4,6 @@ version:
 target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
-- headers: binding-specs/bs_pre_rename_squash_struct.h
-  cname: struct foo
-  hsname: Hoge
+- headers: binding-specs/bs_pre_name_type.h
+  cname: sym
+  hsname: MySym

@@ -1,17 +1,17 @@
--- addDependentFile examples/golden/binding-specs/bs_pre_rename_type.h
+-- addDependentFile examples/golden/binding-specs/bs_pre_name_type.h
 {-| __C declaration:__ @sym@
 
-    __defined at:__ @binding-specs\/bs_pre_rename_type.h 1:14@
+    __defined at:__ @binding-specs\/bs_pre_name_type.h 1:14@
 
-    __exported by:__ @binding-specs\/bs_pre_rename_type.h@
+    __exported by:__ @binding-specs\/bs_pre_name_type.h@
 -}
 newtype MySym
     = MySym {un_MySym :: CChar}
       {- ^ __C declaration:__ @sym@
 
-           __defined at:__ @binding-specs\/bs_pre_rename_type.h 1:14@
+           __defined at:__ @binding-specs\/bs_pre_name_type.h 1:14@
 
-           __exported by:__ @binding-specs\/bs_pre_rename_type.h@
+           __exported by:__ @binding-specs\/bs_pre_name_type.h@
       -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
