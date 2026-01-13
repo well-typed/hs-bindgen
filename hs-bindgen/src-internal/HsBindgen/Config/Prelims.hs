@@ -10,7 +10,6 @@ module HsBindgen.Config.Prelims (
   , checkUniqueId
   ) where
 
-import Data.Aeson (FromJSON, ToJSON)
 import Data.Text qualified as Text
 import Text.SimplePrettyPrint qualified as PP
 
@@ -29,7 +28,7 @@ import HsBindgen.Util.Tracer
 -- derive @Generated@, @Generated.Safe@, etc.
 newtype BaseModuleName = BaseModuleName { text :: Text }
   deriving stock (Eq, Generic)
-  deriving newtype (IsString, FromJSON, ToJSON, Show)
+  deriving newtype (IsString, Show)
 
 instance Default BaseModuleName where
   def = "Generated"
