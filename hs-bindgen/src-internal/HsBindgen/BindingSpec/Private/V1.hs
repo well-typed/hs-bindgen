@@ -29,7 +29,6 @@ module HsBindgen.BindingSpec.Private.V1 (
   , HsNewtypeRep(..)
     -- ** Instances
   , InstanceSpec(..)
-  , StrategySpec(..)
   , ConstraintSpec(..)
     -- * API
   , empty
@@ -240,7 +239,7 @@ data InstanceSpec = InstanceSpec {
       -- | Strategy used to generate/derive the instance
       --
       -- A 'Nothing' value indicates that @hs-bindgen@ defaults should be used.
-      strategy :: Maybe StrategySpec
+      strategy :: Maybe Inst.Strategy
 
       -- | Instance constraints
       --
@@ -254,18 +253,6 @@ instance Default InstanceSpec where
       strategy    = Nothing
     , constraints = []
     }
-
---------------------------------------------------------------------------------
-
--- | Strategy used to generate/derive an instance
-data StrategySpec =
-    -- | Generate an instance
-    StrategySpecHsBindgen
-  | -- | Derive an instance using the @newtype@ strategy
-    StrategySpecNewtype
-  | -- | Derive an instance using the @stock@ strategy
-    StrategySpecStock
-  deriving stock (Bounded, Enum, Eq, Generic, Ord, Show)
 
 --------------------------------------------------------------------------------
 
@@ -1006,7 +993,7 @@ instance Aeson.ToJSON (ARep V1 HsTypeRep) where
 
 data instance ARep V1 InstanceSpec = AInstanceSpec {
       clss        :: Inst.TypeClass
-    , strategy    :: Maybe StrategySpec
+    , strategy    :: Maybe Inst.Strategy
     , constraints :: [ConstraintSpec]
     }
   deriving stock (Show)
@@ -1108,29 +1095,29 @@ instance Aeson.ToJSON (ARep V1 Inst.TypeClass) where
 
 --------------------------------------------------------------------------------
 
-newtype instance ARep V1 StrategySpec = AStrategySpec StrategySpec
+newtype instance ARep V1 Inst.Strategy = AStrategy Inst.Strategy
   deriving stock (Show)
 
-instance ARepIso V1 StrategySpec
+instance ARepIso V1 Inst.Strategy
 
-instance Aeson.FromJSON (ARep V1 StrategySpec) where
-  parseJSON = Aeson.withText "StrategySpec" $ \t ->
-    case Map.lookup t strategySpecFromText of
-      Just strategy -> return (AStrategySpec strategy)
-      Nothing -> Aeson.parseFail $ "unknown strategy: " ++ Text.unpack t
+instance Aeson.FromJSON (ARep V1 Inst.Strategy) where
+  parseJSON = Aeson.withText "Strategy" $ \t ->
+    case Map.lookup t strategyFromText of
+      Just strat -> return (AStrategy strat)
+      Nothing    -> Aeson.parseFail $ "unknown strategy: " ++ Text.unpack t
 
-instance Aeson.ToJSON (ARep V1 StrategySpec) where
-  toJSON (AStrategySpec spec) = Aeson.String (strategySpecText spec)
+instance Aeson.ToJSON (ARep V1 Inst.Strategy) where
+  toJSON (AStrategy strat) = Aeson.String (strategyToText strat)
 
-strategySpecText :: StrategySpec -> Text
-strategySpecText = \case
-    StrategySpecHsBindgen -> "hs-bindgen"
-    StrategySpecNewtype   -> "newtype"
-    StrategySpecStock     -> "stock"
+strategyToText :: Inst.Strategy -> Text
+strategyToText = \case
+    Inst.HsBindgen -> "hs-bindgen"
+    Inst.Newtype   -> "newtype"
+    Inst.Stock     -> "stock"
 
-strategySpecFromText :: Map Text StrategySpec
-strategySpecFromText = Map.fromList [
-      (strategySpecText strat, strat)
+strategyFromText :: Map Text Inst.Strategy
+strategyFromText = Map.fromList [
+      (strategyToText strat, strat)
     | strat <- [minBound..]
     ]
 

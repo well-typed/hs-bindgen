@@ -13,11 +13,9 @@ module HsBindgen.Instances (
   , SupportedStrategies(..)
   ) where
 
-import Data.Aeson.Types qualified as Aeson
 import Data.Map.Strict qualified as Map
 import Data.Ord qualified as Ord
 import Data.Set qualified as Set
-import Data.Text qualified as Text
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Imports
@@ -88,19 +86,6 @@ data Strategy =
   | -- | Derive an instance using the @stock@ strategy
     Stock
   deriving stock (Bounded, Enum, Eq, Generic, Ord, Show)
-
-instance Aeson.FromJSON Strategy where
-  parseJSON = Aeson.withText "Strategy" $ \case
-    "hs-bindgen" -> return HsBindgen
-    "newtype"    -> return Newtype
-    "stock"      -> return Stock
-    t            -> Aeson.parseFail $ "unknown strategy: " ++ Text.unpack t
-
-instance Aeson.ToJSON Strategy where
-  toJSON = Aeson.String . \case
-    HsBindgen -> "hs-bindgen"
-    Newtype   -> "newtype"
-    Stock     -> "stock"
 
 instance PrettyForTrace Strategy where
   prettyForTrace = PP.show
