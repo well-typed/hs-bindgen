@@ -49,6 +49,7 @@ KNOWN_FAILURES=(
 
 # Known fixtures without code - these will be skipped
 KNOWN_EMPTY=(
+    binding-specs/macro_trans_dep_missing # TODO: issue #1513.
     declarations/declaration_unselected_b
     declarations/redeclaration_different
     edge-cases/clang_generated_collision
@@ -72,7 +73,7 @@ KNOWN_EMPTY=(
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=132
+KNOWN_FIXTURES_COUNT=133
 
 # Default options
 JOBS=4

@@ -111,7 +111,7 @@ foreign import ccall safe "hs_bindgen_a708e95f35bff290" hs_bindgen_a708e95f35bff
 
 {-| __C declaration:__ @bar@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 32:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 34:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
@@ -128,7 +128,7 @@ foreign import ccall safe "hs_bindgen_2991dd76f4337b78" hs_bindgen_2991dd76f4337
 
 {-| __C declaration:__ @barA@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 34:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 36:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
@@ -145,7 +145,7 @@ foreign import ccall safe "hs_bindgen_104de3f97206bd1d" hs_bindgen_104de3f97206b
 
 {-| __C declaration:__ @barB@
 
-    __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 35:6@
+    __defined at:__ @binding-specs\/fun_arg\/macro\/function.h 37:6@
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}

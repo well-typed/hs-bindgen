@@ -10,7 +10,9 @@ void foo  (MyFunctionPointer x);
 void fooA (A x);
 void fooB (B x);
 
-/* TODO: temporarily disabled
+/* TODO: can be enabled once the 'TransitiveDependenciesMissing' warning is
+fixed. See issue #1513.
+
 // _X, _Y and _Z are intentionally distinct macros from A and B. We want C, D,
 // and E to refer to unselected macros.
 

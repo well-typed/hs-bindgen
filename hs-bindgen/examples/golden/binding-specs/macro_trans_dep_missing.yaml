@@ -1,0 +1,16 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: M
+ctypes:
+- headers: binding-specs/macro_trans_dep_missing.h
+  cname: B
+  hsname: B
+hstypes:
+- hsname: B
+  representation:
+    newtype:
+      constructor: B
+      fields:
+      - un_B

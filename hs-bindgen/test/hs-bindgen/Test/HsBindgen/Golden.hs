@@ -425,6 +425,7 @@ testCases_bespoke_bindingSpecs = [
     , test_bindingSpecs_bs_pre_rename_squash_typedef
     , test_bindingSpecs_bs_pre_rename_type
     , test_bindingSpecs_bs_pre_target_mismatch
+    , test_bindingSpecs_macro_trans_dep_missing
       -- * Function arguments with typedefs
     , test_bindingSpecs_fun_arg_typedef_array
     , test_bindingSpecs_fun_arg_typedef_array_known_size
@@ -512,6 +513,31 @@ test_bindingSpecs_bs_pre_target_mismatch =
                     BindingSpec.BindingSpecReadIncompatibleTarget{}
                 ) ->
               Just $ Expected ()
+            _otherwise ->
+              Nothing
+          )
+
+-- | External binding specifications for macro types cause incorrect
+-- TransitiveDependenciesMissing warnings
+--
+-- TODO: fix the 'TransitiveDependenciesMissing' warning. See issue #1513.
+test_bindingSpecs_macro_trans_dep_missing :: TestCase
+test_bindingSpecs_macro_trans_dep_missing =
+    defaultTest "binding-specs/macro_trans_dep_missing"
+      & #specExternal .~
+          [ "examples/golden/binding-specs/macro_trans_dep_missing.yaml"
+          ]
+      & #onFrontend .~
+          #selectPredicate .~ BIf (SelectDecl (DeclNameMatches "B|foo"))
+      & #tracePredicate .~ multiTracePredicate ["foo" :: C.DeclName] (\case
+            -- no macros should fail to parse
+            MatchHandleMacros _ ->
+              Just Unexpected
+            -- TODO: Remove this case to see the 'TransitiveDependenciesMissing'
+            -- warning. See issue #1513. Once the warning is fixed, this case
+            -- can be removed indefinitely.
+            MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->
+              Just (Expected name)
             _otherwise ->
               Nothing
           )
@@ -683,15 +709,15 @@ test_bindingSpecs_fun_arg_macro_selectPredicate =
 test_bindingSpecs_fun_arg_macro_tracePredicate :: TracePredicate TraceMsg
 test_bindingSpecs_fun_arg_macro_tracePredicate =
     noHandleMacrosTraces
-  where
-    noHandleMacrosTraces :: TracePredicate TraceMsg
-    noHandleMacrosTraces = multiTracePredicate ([] :: [String]) (\case
-        -- no macros should fail to parse
-        MatchHandleMacros _ ->
-          Just Unexpected
-        _otherwise ->
-          Nothing
-      )
+
+noHandleMacrosTraces :: TracePredicate TraceMsg
+noHandleMacrosTraces = multiTracePredicate ([] :: [String]) (\case
+    -- no macros should fail to parse
+    MatchHandleMacros _ ->
+      Just Unexpected
+    _otherwise ->
+      Nothing
+  )
 
 {-------------------------------------------------------------------------------
   Bespoke tests: declarations
