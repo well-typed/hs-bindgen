@@ -76,7 +76,7 @@ instance PrettyForTrace ModuleName where
 newtype Identifier = Identifier { text :: Text }
   deriving stock (Eq, Ord, Generic)
   -- 'Show' instance valid due to 'IsString' instance
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, IsString, Show, Semigroup)
+  deriving newtype (IsString, Show, Semigroup)
 
 instance PrettyForTrace Identifier where
   prettyForTrace ident = PP.text ident.text

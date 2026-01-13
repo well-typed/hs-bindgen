@@ -793,7 +793,7 @@ instance Aeson.FromJSON (ARep CTypeSpec) where
     return ACTypeSpec{
         headers = aCTypeSpecHeaders
       , cName   = aCTypeSpecCName
-      , hsIdent = aCTypeSpecHsIdent
+      , hsIdent = fromARep @ARep <$> aCTypeSpecHsIdent
       , cRep    = fromARep @ARep <$> aCTypeSpecCRep
       }
 
@@ -801,7 +801,7 @@ instance Aeson.ToJSON (ARep CTypeSpec) where
   toJSON arep = Aeson.Object . KM.fromList $ catMaybes [
       Just ("headers" .= listToJSON arep.headers)
     , Just ("cname"   .= arep.cName)
-    , ("hsname"         .=) <$> arep.hsIdent
+    , ("hsname"         .=) . toARep @ARep <$> arep.hsIdent
     , ("representation" .=) . toARep @ARep <$> arep.cRep
     ]
 
@@ -959,6 +959,20 @@ toAOCTypeSpecs compareCDeclId cTypeMap = map snd $ List.sortBy aux [
 
 --------------------------------------------------------------------------------
 
+newtype instance ARep Hs.Identifier = AHsIdentifier Hs.Identifier
+  deriving stock (Show)
+
+instance ARepIso ARep Hs.Identifier
+
+instance Aeson.FromJSON (ARep Hs.Identifier) where
+  parseJSON = Aeson.withText "HsIdentifier" $
+    return . AHsIdentifier . Hs.Identifier
+
+instance Aeson.ToJSON (ARep Hs.Identifier) where
+  toJSON (AHsIdentifier hsIdent) = Aeson.String (hsIdent.text)
+
+--------------------------------------------------------------------------------
+
 newtype instance ARep CTypeRep = ACTypeRep CTypeRep
   deriving stock (Show)
 
@@ -1000,14 +1014,14 @@ instance Aeson.FromJSON (ARep HsTypeSpec) where
     aHsTypeSpecHsRep     <- o .:? "representation"
     aHsTypeSpecInstances <- o .:? "instances" .!= []
     return AHsTypeSpec{
-        hsIdent   = aHsTypeSpecHsIdent
+        hsIdent   = fromARep @ARep aHsTypeSpecHsIdent
       , hsRep     = fromARep @ARep <$> aHsTypeSpecHsRep
       , instances = aHsTypeSpecInstances
       }
 
 instance Aeson.ToJSON (ARep HsTypeSpec) where
   toJSON arep = Aeson.Object . KM.fromList $ catMaybes [
-      Just ("hsname" .= arep.hsIdent)
+      Just ("hsname" .= toARep @ARep arep.hsIdent)
     , ("representation" .=) . toARep @ARep <$> arep.hsRep
     , ("instances" .=) <$> omitWhenNull arep.instances
     ]
@@ -1029,9 +1043,13 @@ instance ARepKV ARep HsTypeSpec where
     , instances = toAOInstanceSpecs v.instances
     }
 
-deriving stock   instance Show           (ARepK ARep HsTypeSpec)
-deriving newtype instance Aeson.FromJSON (ARepK ARep HsTypeSpec)
-deriving newtype instance Aeson.ToJSON   (ARepK ARep HsTypeSpec)
+deriving stock instance Show (ARepK ARep HsTypeSpec)
+
+instance Aeson.FromJSON (ARepK ARep HsTypeSpec) where
+  parseJSON = fmap (AKHsTypeSpec . fromARep @ARep) . Aeson.parseJSON
+
+instance Aeson.ToJSON (ARepK ARep HsTypeSpec) where
+  toJSON = Aeson.toJSON . toARep @ARep . (.unwrap)
 
 fromAHsTypeSpecs ::
      FilePath
@@ -1102,8 +1120,8 @@ instance Aeson.FromJSON (ARep HsTypeRep) where
         hsRecordRepConstructor <- o .:? "constructor"
         hsRecordRepFields      <- o .:? "fields"
         return HsRecordRep{
-            constructor = hsRecordRepConstructor
-          , fields      = hsRecordRepFields
+            constructor = fromARep @ARep <$> hsRecordRepConstructor
+          , fields      = map (fromARep @ARep) <$> hsRecordRepFields
           }
 
       parseHsNewtypeRep :: Aeson.Value -> Aeson.Parser HsNewtypeRep
@@ -1119,8 +1137,8 @@ instance Aeson.FromJSON (ARep HsTypeRep) where
             Aeson.parseFail "newtype representation with more than one field"
         hsNewtypeRepFFIType <- fmap (fromARep @ARep) <$> (o .:? "ffitype")
         return HsNewtypeRep{
-            constructor = hsNewtypeRepConstructor
-          , field       = hsNewtypeRepField
+            constructor = fromARep @ARep <$> hsNewtypeRepConstructor
+          , field       = fromARep @ARep <$> hsNewtypeRepField
           , ffiType     = hsNewtypeRepFFIType
           }
 
@@ -1132,8 +1150,8 @@ instance Aeson.ToJSON (ARep HsTypeRep) where
             Aeson.Object . KM.singleton "record"
           . Aeson.Object . KM.fromList
           $ catMaybes [
-                ("constructor" .=) <$> x.constructor
-              , ("fields"      .=) <$> x.fields
+                ("constructor" .=) . toARep @ARep <$> x.constructor
+              , ("fields"      .=) . map (toARep @ARep) <$> x.fields
               ]
     HsTypeRepNewtype x
       | x == def  -> Aeson.String "newtype"
@@ -1141,9 +1159,9 @@ instance Aeson.ToJSON (ARep HsTypeRep) where
             Aeson.Object . KM.singleton "newtype"
           . Aeson.Object . KM.fromList
           $ catMaybes [
-                ("constructor" .=) <$> x.constructor
-              , ("fields"      .=) <$> fmap (: []) x.field
-              , ("ffitype"     .=) <$> fmap (toARep @ARep) x.ffiType
+                ("constructor" .=) . toARep @ARep <$> x.constructor
+              , ("fields"      .=) . (: []) . toARep @ARep <$> x.field
+              , ("ffitype"     .=) . toARep @ARep <$> x.ffiType
               ]
     HsTypeRepOpaque -> Aeson.String "opaque"
     HsTypeRepAlias  -> Aeson.String "alias"
@@ -1363,7 +1381,7 @@ instance Aeson.FromJSON (ARep ConstraintSpec) where
       extRefIdentifier    <- o .: "hsname"
       let constraintSpecRef = Hs.ExtRef{
               moduleName = fromARep @ARep extRefModule
-            , ident      = extRefIdentifier
+            , ident      = fromARep @ARep extRefIdentifier
             }
       return $ AConstraintSpec ConstraintSpec{
           clss = constraintSpecClass
@@ -1374,7 +1392,7 @@ instance Aeson.ToJSON (ARep ConstraintSpec) where
   toJSON (AConstraintSpec spec) = Aeson.object [
         "class"    .= spec.clss
       , "hsmodule" .= toARep @ARep spec.ref.moduleName
-      , "hsname"   .= spec.ref.ident
+      , "hsname"   .= toARep @ARep spec.ref.ident
       ]
 
 {-------------------------------------------------------------------------------
