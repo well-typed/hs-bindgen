@@ -42,6 +42,7 @@ class (
       , Show (Id         p)
       , Show (MacroBody  p)
       , Show (ScopedName p)
+      , Show (MacroId    p)
 
       , Show (Ann "CheckedMacroType" p)
       , Show (Ann "Decl"             p)
@@ -58,6 +59,7 @@ class (
 
       , Ord (Id         p)
       , Ord (ScopedName p)
+      , Ord (MacroId    p)
 
         -- 'Ord' constraint' on 'ExtBinding' is necessary for de-dupping types.
 
@@ -73,6 +75,7 @@ class (
       , Eq (ExtBinding p)
       , Eq (MacroBody  p)
       , Eq (ScopedName p)
+      , Eq (MacroId    p)
 
       , Eq (Ann "CheckedMacroType" p)
       , Eq (Ann "Enum"             p)
@@ -119,6 +122,13 @@ class (
   type ExtBinding p :: Star
   type ExtBinding p = Void
 
+  -- | Declaration identifier for macro types
+  --
+  -- This is initialized in @HandleMacros@ to @Id p@. Before the @HandleMacros@
+  -- pass, macro types do not exist yet.
+  type MacroId p :: Star
+  type MacroId p = Void
+
   -- | Generic TTG-style annotation
   --
   -- For single-constructor datatypes, the index can simply be the name of the
@@ -153,6 +163,10 @@ class (
   extBindingId :: Proxy p -> ExtBinding p -> Id p
   default extBindingId :: ExtBinding p ~ Void => Proxy p -> ExtBinding p -> Id p
   extBindingId _ = absurd
+
+  macroIdId :: Proxy p -> MacroId p -> Id p
+  default macroIdId :: MacroId p ~ Void => Proxy p -> MacroId p -> Id p
+  macroIdId _ = absurd
 
 {-------------------------------------------------------------------------------
   Defaults

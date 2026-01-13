@@ -47,8 +47,10 @@ instance IsPass Select where
   type ExtBinding Select = ResolvedExtBinding
   type Ann ix     Select = AnnSelect ix
   type Msg        Select = WithLocationInfo SelectMsg
+  type MacroId    Select = Id Select
 
   extBindingId _ = (.cName)
+  macroIdId _ = id
 
 {-------------------------------------------------------------------------------
   Configuration
@@ -212,6 +214,7 @@ instance IsTrace Level SelectMsg where
 -------------------------------------------------------------------------------}
 
 instance CoercePassId ResolveBindingSpecs Select
+instance CoercePassMacroId ResolveBindingSpecs Select
 
 instance CoercePassMacroBody ResolveBindingSpecs Select where
   coercePassMacroBody _ = coercePass

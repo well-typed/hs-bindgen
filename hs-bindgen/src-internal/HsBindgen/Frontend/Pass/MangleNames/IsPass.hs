@@ -46,11 +46,13 @@ instance IsPass MangleNames where
   type ExtBinding MangleNames = ResolvedExtBinding
   type Ann ix     MangleNames = AnnMangleNames ix
   type Msg        MangleNames = WithLocationInfo MangleNamesMsg
+  type MacroId    MangleNames = Id MangleNames
 
   idNameKind     _ namePair   = namePair.cName.name.kind
   idSourceName   _ namePair   = declIdSourceName namePair.cName
   idLocationInfo _ namePair   = declIdLocationInfo namePair.cName
   extBindingId   _ extBinding = extDeclIdPair extBinding
+  macroIdId _ = id
 
 {-------------------------------------------------------------------------------
   Additional names required for Haskell code gen

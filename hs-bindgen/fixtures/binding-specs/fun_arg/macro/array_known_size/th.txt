@@ -7,13 +7,13 @@
 --   foo(arg1);
 -- }
 -- void hs_bindgen_4449a68917cbc499 (
---   A arg1
+--   signed int *arg1
 -- )
 -- {
 --   fooA(arg1);
 -- }
 -- void hs_bindgen_05766199d1b077bb (
---   B arg1
+--   signed int *arg1
 -- )
 -- {
 --   fooB(arg1);
@@ -25,13 +25,13 @@
 --   foo(arg1);
 -- }
 -- void hs_bindgen_fb89f30695d9a112 (
---   A arg1
+--   signed int *arg1
 -- )
 -- {
 --   fooA(arg1);
 -- }
 -- void hs_bindgen_6882cd6e82766148 (
---   B arg1
+--   signed int *arg1
 -- )
 -- {
 --   fooB(arg1);
@@ -134,7 +134,7 @@ foo :: Ptr CInt -> IO Unit
 foo = hs_bindgen_2a6ef3a515232132
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_4449a68917cbc499" hs_bindgen_4449a68917cbc499 ::
-    A
+    Ptr CInt
  -> IO Unit
 {-| __C declaration:__ @fooA@
 
@@ -142,7 +142,7 @@ foreign import ccall safe "hs_bindgen_4449a68917cbc499" hs_bindgen_4449a68917cbc
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
-fooA :: A -> IO Unit
+fooA :: Ptr CInt -> IO Unit
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 10:6@
@@ -152,7 +152,7 @@ fooA :: A -> IO Unit
 fooA = hs_bindgen_4449a68917cbc499
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_05766199d1b077bb" hs_bindgen_05766199d1b077bb ::
-    B
+    Ptr CInt
  -> IO Unit
 {-| __C declaration:__ @fooB@
 
@@ -160,7 +160,7 @@ foreign import ccall safe "hs_bindgen_05766199d1b077bb" hs_bindgen_05766199d1b07
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
-fooB :: B -> IO Unit
+fooB :: Ptr CInt -> IO Unit
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 11:6@
@@ -188,7 +188,7 @@ foo :: Ptr CInt -> IO Unit
 foo = hs_bindgen_969f916bf9590709
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooA@
 foreign import ccall safe "hs_bindgen_fb89f30695d9a112" hs_bindgen_fb89f30695d9a112 ::
-    A
+    Ptr CInt
  -> IO Unit
 {-| __C declaration:__ @fooA@
 
@@ -196,7 +196,7 @@ foreign import ccall safe "hs_bindgen_fb89f30695d9a112" hs_bindgen_fb89f30695d9a
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
-fooA :: A -> IO Unit
+fooA :: Ptr CInt -> IO Unit
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 10:6@
@@ -206,7 +206,7 @@ fooA :: A -> IO Unit
 fooA = hs_bindgen_fb89f30695d9a112
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Unsafe_fooB@
 foreign import ccall safe "hs_bindgen_6882cd6e82766148" hs_bindgen_6882cd6e82766148 ::
-    B
+    Ptr CInt
  -> IO Unit
 {-| __C declaration:__ @fooB@
 
@@ -214,7 +214,7 @@ foreign import ccall safe "hs_bindgen_6882cd6e82766148" hs_bindgen_6882cd6e82766
 
     __exported by:__ @binding-specs\/fun_arg\/macro\/array_known_size.h@
 -}
-fooB :: B -> IO Unit
+fooB :: Ptr CInt -> IO Unit
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/array_known_size.h 11:6@

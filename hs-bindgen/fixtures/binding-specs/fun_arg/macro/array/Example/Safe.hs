@@ -8,7 +8,6 @@ module Example.Safe where
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Prelude
-import Example
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -20,13 +19,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   , "  foo(arg1);"
   , "}"
   , "void hs_bindgen_4449a68917cbc499 ("
-  , "  A arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  fooA(arg1);"
   , "}"
   , "void hs_bindgen_05766199d1b077bb ("
-  , "  B arg1"
+  , "  signed int *arg1"
   , ")"
   , "{"
   , "  fooB(arg1);"
@@ -52,7 +51,7 @@ foo = hs_bindgen_2a6ef3a515232132
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_4449a68917cbc499" hs_bindgen_4449a68917cbc499 ::
-     A
+     Ptr.Ptr FC.CInt
   -> IO ()
 
 {-| __C declaration:__ @fooA@
@@ -62,14 +61,14 @@ foreign import ccall safe "hs_bindgen_4449a68917cbc499" hs_bindgen_4449a68917cbc
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
 fooA ::
-     A
+     Ptr.Ptr FC.CInt
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooA = hs_bindgen_4449a68917cbc499
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_05766199d1b077bb" hs_bindgen_05766199d1b077bb ::
-     B
+     Ptr.Ptr FC.CInt
   -> IO ()
 
 {-| __C declaration:__ @fooB@
@@ -79,7 +78,7 @@ foreign import ccall safe "hs_bindgen_05766199d1b077bb" hs_bindgen_05766199d1b07
     __exported by:__ @binding-specs\/fun_arg\/macro\/array.h@
 -}
 fooB ::
-     B
+     Ptr.Ptr FC.CInt
      -- ^ __C declaration:__ @x@
   -> IO ()
 fooB = hs_bindgen_05766199d1b077bb

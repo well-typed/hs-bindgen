@@ -123,7 +123,7 @@ bar = hs_bindgen_0fdddb4fac9b77d1
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_barA@
 foreign import ccall unsafe "hs_bindgen_bd59a5d308c55504" hs_bindgen_bd59a5d308c55504 ::
-     Ptr.Ptr A
+     Ptr.FunPtr A
   -> IO ()
 
 {-| __C declaration:__ @barA@
@@ -133,14 +133,14 @@ foreign import ccall unsafe "hs_bindgen_bd59a5d308c55504" hs_bindgen_bd59a5d308c
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
 barA ::
-     Ptr.Ptr A
+     Ptr.FunPtr A
      -- ^ __C declaration:__ @x@
   -> IO ()
 barA = hs_bindgen_bd59a5d308c55504
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_barB@
 foreign import ccall unsafe "hs_bindgen_b016bfc7a4cc0734" hs_bindgen_b016bfc7a4cc0734 ::
-     Ptr.Ptr B
+     Ptr.FunPtr B
   -> IO ()
 
 {-| __C declaration:__ @barB@
@@ -150,7 +150,7 @@ foreign import ccall unsafe "hs_bindgen_b016bfc7a4cc0734" hs_bindgen_b016bfc7a4c
     __exported by:__ @binding-specs\/fun_arg\/macro\/function.h@
 -}
 barB ::
-     Ptr.Ptr B
+     Ptr.FunPtr B
      -- ^ __C declaration:__ @x@
   -> IO ()
 barB = hs_bindgen_b016bfc7a4cc0734

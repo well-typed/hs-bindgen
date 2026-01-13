@@ -14,7 +14,7 @@ import HsBindgen.Frontend.Pass
   Get all dependencies
 -------------------------------------------------------------------------------}
 
-depsOfDecl :: C.DeclKind p -> [(ValOrRef, Id p)]
+depsOfDecl :: IsPass p => C.DeclKind p -> [(ValOrRef, Id p)]
 depsOfDecl (C.DeclStruct struct) = concat [
       concatMap depsOfField struct.fields
     , concatMap depsOfField struct.flam
@@ -40,10 +40,10 @@ depsOfDecl (C.DeclGlobal ty) =
 
 -- | Dependencies of struct or union field
 depsOfField :: forall a p.
-     HasField "typ" (a p) (C.Type p)
+     (HasField "typ" (a p) (C.Type p), IsPass p)
   => a p -> [(ValOrRef, Id p)]
 depsOfField field = depsOfType field.typ
 
-depsOfTypedef :: C.Typedef p -> [(ValOrRef, Id p)]
+depsOfTypedef :: IsPass p => C.Typedef p -> [(ValOrRef, Id p)]
 depsOfTypedef typedef = depsOfType typedef.typ
 
