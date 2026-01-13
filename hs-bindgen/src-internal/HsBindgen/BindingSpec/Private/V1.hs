@@ -75,6 +75,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Orphans ()
 import HsBindgen.Resolve
@@ -166,7 +167,7 @@ data HsTypeSpec = HsTypeSpec {
       hsRep :: Maybe HsTypeRep
 
        -- | Instance specification
-    , instances :: Map Hs.TypeClass (Omittable InstanceSpec)
+    , instances :: Map Inst.TypeClass (Omittable InstanceSpec)
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -270,7 +271,7 @@ data StrategySpec =
 
 -- | Constraint of an instance
 data ConstraintSpec = ConstraintSpec {
-      clss :: Hs.TypeClass
+      clss :: Inst.TypeClass
     , ref  :: Hs.ExtRef
     }
   deriving stock (Show, Eq, Ord, Generic)
@@ -1004,7 +1005,7 @@ instance Aeson.ToJSON (ARep V1 HsTypeRep) where
 --------------------------------------------------------------------------------
 
 data instance ARep V1 InstanceSpec = AInstanceSpec {
-      clss        :: Hs.TypeClass
+      clss        :: Inst.TypeClass
     , strategy    :: Maybe StrategySpec
     , constraints :: [ConstraintSpec]
     }
@@ -1044,7 +1045,7 @@ instance Aeson.ToJSON (ARep V1 InstanceSpec) where
         ]
 
 instance ARepKV V1 InstanceSpec where
-  newtype ARepK V1 InstanceSpec = AKInstanceSpec { unwrap :: Hs.TypeClass }
+  newtype ARepK V1 InstanceSpec = AKInstanceSpec { unwrap :: Inst.TypeClass }
 
   fromARepKV arep =
     ( AKInstanceSpec arep.clss
@@ -1073,13 +1074,13 @@ type AOInstanceSpec = AOmittable (ARepK V1 InstanceSpec) (ARep V1 InstanceSpec)
 -- duplicates ignored, last value retained
 fromAOInstanceSpecs ::
      [AOInstanceSpec]
-  -> Map Hs.TypeClass (Omittable InstanceSpec)
+  -> Map Inst.TypeClass (Omittable InstanceSpec)
 fromAOInstanceSpecs xs = Map.fromList . flip map xs $ \case
     ARequire arep -> bimap (.unwrap) Require (fromARepKV arep)
     AOmit    k    -> (k.unwrap, Omit)
 
 toAOInstanceSpecs ::
-     Map Hs.TypeClass (Omittable InstanceSpec)
+     Map Inst.TypeClass (Omittable InstanceSpec)
   -> [AOInstanceSpec]
 toAOInstanceSpecs instMap = [
       case oInstSpec of
@@ -1090,19 +1091,19 @@ toAOInstanceSpecs instMap = [
 
 --------------------------------------------------------------------------------
 
-newtype instance ARep V1 Hs.TypeClass = ATypeClass Hs.TypeClass
+newtype instance ARep V1 Inst.TypeClass = ATypeClass Inst.TypeClass
   deriving stock (Show)
 
-instance ARepIso V1 Hs.TypeClass
+instance ARepIso V1 Inst.TypeClass
 
-instance Aeson.FromJSON (ARep V1 Hs.TypeClass) where
+instance Aeson.FromJSON (ARep V1 Inst.TypeClass) where
   parseJSON = Aeson.withText "TypeClass" $ \t ->
     let s = Text.unpack t
     in  case readMaybe s of
           Just clss -> return (ATypeClass clss)
           Nothing   -> Aeson.parseFail $ "unknown type class: " ++ s
 
-instance Aeson.ToJSON (ARep V1 Hs.TypeClass) where
+instance Aeson.ToJSON (ARep V1 Inst.TypeClass) where
   toJSON (ATypeClass clss) = Aeson.String $ Text.pack (show clss)
 
 --------------------------------------------------------------------------------

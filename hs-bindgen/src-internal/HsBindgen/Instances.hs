@@ -18,7 +18,6 @@ import Data.Map.Strict qualified as Map
 import Data.Ord qualified as Ord
 import Data.Set qualified as Set
 import Data.Text qualified as Text
-import Text.Read (readMaybe)
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Imports
@@ -60,16 +59,6 @@ data TypeClass =
   | Storable
   | WriteRaw
   deriving stock (Eq, Generic, Read, Show)
-
-instance Aeson.FromJSON TypeClass where
-  parseJSON = Aeson.withText "TypeClass" $ \t ->
-    let s = Text.unpack t
-    in  case readMaybe s of
-          Just clss -> return clss
-          Nothing   -> Aeson.parseFail $ "unknown type class: " ++ s
-
-instance Aeson.ToJSON TypeClass where
-  toJSON = Aeson.String . Text.pack . show
 
 -- Order lexicographically, even if somebody adds a constructor out of place
 instance Ord TypeClass where

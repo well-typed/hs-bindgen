@@ -4,6 +4,7 @@ module HsBindgen.Backend.Hs.Translation.Config (
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 
 {-------------------------------------------------------------------------------
   Configuration
@@ -19,43 +20,43 @@ import HsBindgen.Imports
 -- configuration.
 data TranslationConfig = TranslationConfig {
       -- | Default set of classes to derive for structs
-      deriveStruct :: [(Hs.Strategy Hs.HsType, Hs.TypeClass)]
+      deriveStruct :: [(Hs.Strategy Hs.HsType, Inst.TypeClass)]
 
       -- | Default set of classes to derive for enums
-    , deriveEnum :: [(Hs.Strategy Hs.HsType, Hs.TypeClass)]
+    , deriveEnum :: [(Hs.Strategy Hs.HsType, Inst.TypeClass)]
 
       -- | Default set of classes to derive for typedefs
-    , deriveTypedef :: [(Hs.Strategy Hs.HsType, Hs.TypeClass)]
+    , deriveTypedef :: [(Hs.Strategy Hs.HsType, Inst.TypeClass)]
     }
   deriving stock (Show, Eq, Generic)
 
 instance Default TranslationConfig where
   def = TranslationConfig {
       deriveStruct = [
-          (Hs.DeriveStock, Hs.Show)
-        , (Hs.DeriveStock, Hs.Eq)
+          (Hs.DeriveStock, Inst.Show)
+        , (Hs.DeriveStock, Inst.Eq)
         ]
     , deriveEnum = [
-          (Hs.DeriveStock, Hs.Eq)
-        , (Hs.DeriveStock, Hs.Ord)
+          (Hs.DeriveStock, Inst.Eq)
+        , (Hs.DeriveStock, Inst.Ord)
         ]
     , deriveTypedef = [
-          (Hs.DeriveStock, Hs.Eq)
-        , (Hs.DeriveStock, Hs.Ord)
-        , (Hs.DeriveStock, Hs.Read)
-        , (Hs.DeriveStock, Hs.Show)
-        , (Hs.DeriveNewtype, Hs.Enum)
-        , (Hs.DeriveNewtype, Hs.Ix)
-        , (Hs.DeriveNewtype, Hs.Bounded)
-        , (Hs.DeriveNewtype, Hs.Bits)
-        , (Hs.DeriveNewtype, Hs.FiniteBits)
-        , (Hs.DeriveNewtype, Hs.Floating)
-        , (Hs.DeriveNewtype, Hs.Fractional)
-        , (Hs.DeriveNewtype, Hs.Integral)
-        , (Hs.DeriveNewtype, Hs.Num)
-        , (Hs.DeriveNewtype, Hs.Prim)
-        , (Hs.DeriveNewtype, Hs.Real)
-        , (Hs.DeriveNewtype, Hs.RealFloat)
-        , (Hs.DeriveNewtype, Hs.RealFrac)
+          (Hs.DeriveStock, Inst.Eq)
+        , (Hs.DeriveStock, Inst.Ord)
+        , (Hs.DeriveStock, Inst.Read)
+        , (Hs.DeriveStock, Inst.Show)
+        , (Hs.DeriveNewtype, Inst.Enum)
+        , (Hs.DeriveNewtype, Inst.Ix)
+        , (Hs.DeriveNewtype, Inst.Bounded)
+        , (Hs.DeriveNewtype, Inst.Bits)
+        , (Hs.DeriveNewtype, Inst.FiniteBits)
+        , (Hs.DeriveNewtype, Inst.Floating)
+        , (Hs.DeriveNewtype, Inst.Fractional)
+        , (Hs.DeriveNewtype, Inst.Integral)
+        , (Hs.DeriveNewtype, Inst.Num)
+        , (Hs.DeriveNewtype, Inst.Prim)
+        , (Hs.DeriveNewtype, Inst.Real)
+        , (Hs.DeriveNewtype, Inst.RealFloat)
+        , (Hs.DeriveNewtype, Inst.RealFrac)
         ]
     }

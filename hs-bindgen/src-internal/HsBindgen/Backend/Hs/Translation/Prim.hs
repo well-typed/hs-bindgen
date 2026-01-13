@@ -13,18 +13,19 @@ import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 
 -- | Generate Prim instance declarations for a struct
 --
 -- Returns empty list if Prim is not in the instance set.
 mkPrimInstance :: forall n.
      SNatI n
-  => Set Hs.TypeClass       -- ^ Available instances
-  -> Hs.Struct n            -- ^ Haskell struct
-  -> C.Struct Final         -- ^ C struct
+  => Set Inst.TypeClass  -- ^ Available instances
+  -> Hs.Struct n         -- ^ Haskell struct
+  -> C.Struct Final      -- ^ C struct
   -> [Hs.Decl]
 mkPrimInstance insts hsStruct struct
-  | Hs.Prim `Set.notMember` insts = []
+  | Inst.Prim `Set.notMember` insts = []
   | otherwise = singleton $ Hs.DeclDefineInstance Hs.DefineInstance{
         comment     = Nothing
       , instanceDecl = Hs.InstancePrim hsStruct Hs.PrimInstance {

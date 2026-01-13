@@ -6,7 +6,6 @@ module HsBindgen.Backend.Hs.Translation.Newtype (
 import Control.Monad.State qualified as State
 import Data.Map.Strict qualified as Map
 
-import HsBindgen.Backend.Hs.AST (TypeClass (..))
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Name qualified as Hs
@@ -15,6 +14,7 @@ import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.State (TranslationState)
 import HsBindgen.Backend.Hs.Translation.State qualified as State
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
 
 -- | Smart constructor for creating a 'Hs.Newtype'
@@ -25,8 +25,8 @@ newtypeDec ::
   -> Hs.Field
   -> Origin.Decl Origin.Newtype
   -> Maybe HsDoc.Comment
-  -> Set Hs.TypeClass -- ^ Candidate instances
-  -> Set Hs.TypeClass -- ^ Known instances
+  -> Set Inst.TypeClass -- ^ Candidate instances
+  -> Set Inst.TypeClass -- ^ Known instances
   -> m Hs.Newtype
 newtypeDec name constr field orig comment candidateInsts knownInsts = do
     hsNewtype <- aux <$> State.get
@@ -43,22 +43,22 @@ newtypeDec name constr field orig comment candidateInsts knownInsts = do
           , comment   = comment
           }
       where
-        resolvedInsts :: Set Hs.TypeClass
+        resolvedInsts :: Set Inst.TypeClass
         resolvedInsts = Hs.getInstances transState.instanceMap (Just name) candidateInsts [field.typ]
 
-        insts :: Set Hs.TypeClass
+        insts :: Set Inst.TypeClass
         insts = knownInsts <> resolvedInsts
 
 hasFFITypeDecs ::
      Hs.Newtype
   -> [Hs.Decl]
 hasFFITypeDecs nt =
-    [mk | HasFFIType `elem` nt.instances]
+    [mk | Inst.HasFFIType `elem` nt.instances]
   where
     mk :: Hs.Decl
     mk = Hs.DeclDeriveInstance Hs.DeriveInstance{
           strategy = Hs.DeriveNewtype
-        , clss     = HasFFIType
+        , clss     = Inst.HasFFIType
         , name     = nt.name
         , comment  = Nothing
         }

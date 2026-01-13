@@ -34,7 +34,6 @@ module HsBindgen.Backend.Hs.AST (
   , VarDeclRHSAppHead(..)
     -- ** Deriving instances
   , Strategy(..)
-  , Hs.TypeClass(..)
     -- ** Foreign imports
   , ForeignImportDecl(..)
   , FunctionParameter(..)
@@ -98,6 +97,7 @@ import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol)
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
@@ -124,7 +124,7 @@ data Struct (n :: Nat) = Struct{
     , constr    :: Hs.Name Hs.NsConstr
     , fields    :: Vec n Field
     , origin    :: Maybe (Origin.Decl Origin.Struct)
-    , instances :: Set Hs.TypeClass
+    , instances :: Set Inst.TypeClass
     , comment   :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
@@ -141,7 +141,7 @@ data Newtype = Newtype{
     , constr    :: Hs.Name Hs.NsConstr
     , field     :: Field
     , origin    :: Origin.Decl Origin.Newtype
-    , instances :: Set Hs.TypeClass
+    , instances :: Set Inst.TypeClass
     , comment   :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
@@ -193,7 +193,7 @@ data UnionSetter = UnionSetter{
 
 data DeriveInstance = DeriveInstance{
       strategy :: Strategy HsType
-    , clss     :: Hs.TypeClass
+    , clss     :: Inst.TypeClass
     , name     :: Hs.Name Hs.NsTypeConstr
     , comment  :: Maybe HsDoc.Comment
     }

@@ -37,6 +37,7 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBi
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -257,9 +258,9 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
 -- TODO strategy
 -- TODO constraints
 mkInstSpecs ::
-     Map Hs.TypeClass (Omittable BindingSpec.InstanceSpec)
-  -> Set Hs.TypeClass
-  -> Map Hs.TypeClass (Omittable BindingSpec.InstanceSpec)
+     Map Inst.TypeClass (Omittable BindingSpec.InstanceSpec)
+  -> Set Inst.TypeClass
+  -> Map Inst.TypeClass (Omittable BindingSpec.InstanceSpec)
 mkInstSpecs specMap insts = Map.fromList $
     [ (cls, Require def)
     | cls <- Set.toList insts

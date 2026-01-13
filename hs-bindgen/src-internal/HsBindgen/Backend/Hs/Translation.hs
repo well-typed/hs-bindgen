@@ -47,6 +47,7 @@ import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.PrettyC qualified as PC
@@ -274,11 +275,11 @@ unionDecs haddockConfig info union spec = do
         newtypeComment :: Maybe HsDoc.Comment
         newtypeComment = mkHaddocks haddockConfig info newtypeName
 
-        candidateInsts :: Set Hs.TypeClass
+        candidateInsts :: Set Inst.TypeClass
         candidateInsts = Set.empty
 
-        knownInsts :: Set Hs.TypeClass
-        knownInsts = Set.singleton Hs.Storable
+        knownInsts :: Set Inst.TypeClass
+        knownInsts = Set.singleton Inst.Storable
 
     -- everything in aux is state-dependent
     aux :: TranslationState -> Hs.Newtype -> [Hs.Decl]
@@ -289,7 +290,7 @@ unionDecs haddockConfig info union spec = do
         storableDecl :: Hs.Decl
         storableDecl = Hs.DeclDeriveInstance Hs.DeriveInstance{
               strategy = Hs.DeriveVia sba
-            , clss     = Hs.Storable
+            , clss     = Inst.Storable
             , name     = nt.name
             , comment  = Nothing
             }
@@ -297,7 +298,7 @@ unionDecs haddockConfig info union spec = do
         primDecl :: Hs.Decl
         primDecl = Hs.DeclDeriveInstance Hs.DeriveInstance{
               strategy = Hs.DeriveVia sba
-            , clss     = Hs.Prim
+            , clss     = Inst.Prim
             , name     = nt.name
             , comment  = Nothing
             }
@@ -313,7 +314,7 @@ unionDecs haddockConfig info union spec = do
 
         getAccessorDecls :: C.UnionField Final -> [Hs.Decl]
         getAccessorDecls field =
-            if Hs.Storable `Set.notMember` fInsts
+            if Inst.Storable `Set.notMember` fInsts
               then []
               else [
                   Hs.DeclUnionGetter Hs.UnionGetter{
@@ -335,7 +336,7 @@ unionDecs haddockConfig info union spec = do
             fInsts     = Hs.getInstances
                             transState.instanceMap
                             (Just nt.name)
-                            (Set.singleton Hs.Storable)
+                            (Set.singleton Inst.Storable)
                             [hsType]
             -- TODO: Should the name mangler take care of the "get" and "set" prefixes?
             getterName = Hs.unsafeHsIdHsName $ "get_" <> field.info.name.hsName
@@ -475,12 +476,16 @@ enumDecs opts haddockConfig info enum spec = do
         newtypeComment :: Maybe HsDoc.Comment
         newtypeComment = mkHaddocks haddockConfig info newtypeName
 
-        candidateInsts :: Set Hs.TypeClass
+        candidateInsts :: Set Inst.TypeClass
         candidateInsts = Set.empty
 
-        knownInsts :: Set Hs.TypeClass
-        knownInsts = Set.union (Set.fromList [Hs.Show, Hs.Read, Hs.Storable, Hs.HasFFIType]) $
-            Set.fromList (snd <$> opts.deriveEnum)
+        knownInsts :: Set Inst.TypeClass
+        knownInsts = Set.fromList $ map snd opts.deriveEnum ++ [
+            Inst.HasFFIType
+          , Inst.Read
+          , Inst.Show
+          , Inst.Storable
+          ]
 
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
@@ -516,7 +521,7 @@ enumDecs opts haddockConfig info enum spec = do
         primDecl :: Hs.Decl
         primDecl = Hs.DeclDeriveInstance Hs.DeriveInstance{
               strategy = Hs.DeriveVia nt.field.typ
-            , clss     = Hs.Prim
+            , clss     = Inst.Prim
             , name     = nt.name
             , comment  = Nothing
             }
@@ -632,15 +637,14 @@ typedefDecs opts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = do
         newtypeComment :: Maybe HsDoc.Comment
         newtypeComment =  mkHaddocks haddockConfig info newtypeName
 
-        candidateInsts :: Set Hs.TypeClass
-        candidateInsts = Set.unions
-                      [ Set.singleton Hs.Storable
-                      , Set.singleton Hs.Bitfield
-                      , Set.singleton Hs.HasFFIType
-                      , Set.fromList (snd <$> opts.deriveTypedef)
-                      ]
+        candidateInsts :: Set Inst.TypeClass
+        candidateInsts = Set.fromList $ map snd opts.deriveTypedef ++ [
+            Inst.Bitfield
+          , Inst.HasFFIType
+          , Inst.Storable
+          ]
 
-        knownInsts :: Set Hs.TypeClass
+        knownInsts :: Set Inst.TypeClass
         knownInsts = Set.empty
 
     -- everything in aux is state-dependent
@@ -657,30 +661,30 @@ typedefDecs opts haddockConfig sizeofs info mkNewtypeOrigin typedef spec = do
       where
         storableDecl :: [Hs.Decl]
         storableDecl
-          | Hs.Storable `Set.notMember` nt.instances = []
+          | Inst.Storable `Set.notMember` nt.instances = []
           | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
                 strategy = Hs.DeriveNewtype
-              , clss     = Hs.Storable
+              , clss     = Inst.Storable
               , name     = nt.name
               , comment  = Nothing
               }
 
         bitfieldDecl :: [Hs.Decl]
         bitfieldDecl
-          | Hs.Bitfield `Set.notMember` nt.instances = []
+          | Inst.Bitfield `Set.notMember` nt.instances = []
           | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
                 strategy = Hs.DeriveNewtype
-              , clss     = Hs.Bitfield
+              , clss     = Inst.Bitfield
               , name     = nt.name
               , comment  = Nothing
               }
 
         primDecl :: [Hs.Decl]
         primDecl
-          | Hs.Prim `Set.notMember` nt.instances = []
+          | Inst.Prim `Set.notMember` nt.instances = []
           | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
                 strategy = Hs.DeriveNewtype
-              , clss     = Hs.Prim
+              , clss     = Inst.Prim
               , name     = nt.name
               , comment  = Nothing
               }
@@ -916,14 +920,13 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
         newtypeComment :: Maybe HsDoc.Comment
         newtypeComment = mkHaddocks haddockConfig info newtypeName
 
-        candidateInsts :: Set Hs.TypeClass
-        candidateInsts = Set.unions [
-            Set.singleton Hs.Storable
-          , Set.singleton Hs.HasFFIType
-          , Set.fromList (snd <$> opts.deriveTypedef)
+        candidateInsts :: Set Inst.TypeClass
+        candidateInsts = Set.fromList $ map snd opts.deriveTypedef ++ [
+            Inst.HasFFIType
+          , Inst.Storable
           ]
 
-        knownInsts :: Set Hs.TypeClass
+        knownInsts :: Set Inst.TypeClass
         knownInsts = Set.empty
 
     -- everything in aux is state-dependent
@@ -933,10 +936,10 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
       where
         storableDecl :: [Hs.Decl]
         storableDecl
-          | Hs.Storable `Set.notMember` nt.instances = []
+          | Inst.Storable `Set.notMember` nt.instances = []
           | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
                 strategy = Hs.DeriveNewtype
-              , clss     = Hs.Storable
+              , clss     = Inst.Storable
               , name     = nt.name
               , comment  = Nothing
               }
@@ -1030,7 +1033,7 @@ global uniqueId haddockConfig moduleName transState sizeofs info ty _spec
     --
     -- TODO: we don't yet check whether the Storable instance has no
     -- superclass constraints. See issue #993.
-    | C.isErasedTypeConstQualified ty && Hs.Storable `elem` insts =
+    | C.isErasedTypeConstQualified ty && Inst.Storable `elem` insts =
       let stubDecs     :: [Hs.Decl]
           pureStubName :: Hs.Name Hs.NsVar
           (stubDecs, pureStubName) = getStubDecsWith GlobalUniqueId
@@ -1043,12 +1046,12 @@ global uniqueId haddockConfig moduleName transState sizeofs info ty _spec
     getStubDecsWith :: RunnerNameSpec -> ([Hs.Decl], Hs.Name Hs.NsVar)
     getStubDecsWith x = addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty x _spec
 
-    insts :: Set Hs.TypeClass
+    insts :: Set Inst.TypeClass
     insts =
       Hs.getInstances
         transState.instanceMap
         Nothing
-        (Set.singleton Hs.Storable)
+        (Set.singleton Inst.Storable)
         [Type.topLevel ty]
 
 -- | Getter for a constant (i.e., @const@) global variable

@@ -18,12 +18,9 @@ module HsBindgen.Language.Haskell (
   , SNamespace(..)
   , namespaceOf
   , SingNamespace(..)
-    -- * Instances
-  , TypeClass(..)
   ) where
 
 import Data.Foldable qualified as Foldable
-import Data.Ord qualified as Ord
 import Data.Text qualified as Text
 import System.FilePath
 import Text.SimplePrettyPrint qualified as PP
@@ -130,44 +127,3 @@ class SingNamespace ns where
 instance SingNamespace 'NsTypeConstr where singNamespace = SNsTypeConstr
 instance SingNamespace 'NsConstr     where singNamespace = SNsConstr
 instance SingNamespace 'NsVar        where singNamespace = SNsVar
-
-{-------------------------------------------------------------------------------
-  Instances
--------------------------------------------------------------------------------}
-
--- | Type class
-data TypeClass =
-    -- Haskell98 derivable classes
-    -- <https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/deriving.html>
-    Eq
-  | Ord
-  | Enum
-  | Ix
-  | Bounded
-  | Read
-  | Show
-
-    -- Classes we can only derive through newtype deriving
-  | Bitfield
-  | Bits
-  | FiniteBits
-  | Floating
-  | Fractional
-  | Integral
-  | Num
-  | Prim
-  | Real
-  | RealFloat
-  | RealFrac
-  | HasFFIType
-
-    -- Classes we can generate when all components have instances
-  | StaticSize
-  | ReadRaw
-  | WriteRaw
-  | Storable
-  deriving stock (Eq, Generic, Read, Show)
-
--- Order lexicographically, not by order of definition
-instance Ord TypeClass where
-  compare = Ord.comparing show

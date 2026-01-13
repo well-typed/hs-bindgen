@@ -30,6 +30,7 @@ import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
+import HsBindgen.Instances qualified as Inst
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
@@ -128,15 +129,15 @@ getInstances ::
   -> Hs.Name Hs.NsTypeConstr
   -> [C.StructField Final]
   -> Hs.InstanceMap
-  -> Set Hs.TypeClass
+  -> Set Inst.TypeClass
 getInstances opts structName fields instanceMap =
     Hs.getInstances instanceMap (Just structName) candidateInsts fieldTypes
   where
     fieldTypes :: [Hs.HsType]
     fieldTypes = Type.topLevel . (.typ) <$> fields
 
-    candidateInsts :: Set Hs.TypeClass
-    candidateInsts = Set.union (Set.fromList [Hs.Storable, Hs.Prim]) $
+    candidateInsts :: Set Inst.TypeClass
+    candidateInsts = Set.union (Set.fromList [Inst.Storable, Inst.Prim]) $
         Set.fromList (snd <$> opts.deriveStruct)
 
 getDecls :: forall n.
@@ -151,7 +152,7 @@ getDecls :: forall n.
      -- vector contains information about the number of fields on the type
      -- level. Tracking this information here may not be necessary.
   -> Vec n (C.StructField Final)
-  -> Set Hs.TypeClass
+  -> Set Inst.TypeClass
   -> (Hs.Struct n, [Hs.Decl])
 getDecls cfg hCfg spec structName info struct fieldsVec insts =
     ( hsStruct
@@ -183,7 +184,7 @@ getDecls cfg hCfg spec structName info struct fieldsVec insts =
 
     storableDecl :: [Hs.Decl]
     storableDecl
-      | Hs.Storable `Set.notMember` insts = []
+      | Inst.Storable `Set.notMember` insts = []
       | otherwise = singleton $ Hs.DeclDefineInstance
           Hs.DefineInstance {
             comment      = Nothing
