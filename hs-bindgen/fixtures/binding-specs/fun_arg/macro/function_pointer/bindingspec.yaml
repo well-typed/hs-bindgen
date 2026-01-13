@@ -1,0 +1,55 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: Example
+ctypes:
+- headers: binding-specs/fun_arg/macro/function_pointer.h
+  cname: MyFunctionPointer
+  hsname: MyFunctionPointer
+- headers: binding-specs/fun_arg/macro/function_pointer.h
+  cname: A
+  hsname: A
+- headers: binding-specs/fun_arg/macro/function_pointer.h
+  cname: B
+  hsname: B
+hstypes:
+- hsname: A
+  representation:
+    newtype:
+      constructor: A
+      fields:
+      - un_A
+      ffitype: FunPtr
+  instances:
+  - Eq
+  - HasBaseForeignType
+  - Ord
+  - Show
+  - Storable
+- hsname: B
+  representation:
+    newtype:
+      constructor: B
+      fields:
+      - un_B
+      ffitype: FunPtr
+  instances:
+  - Eq
+  - HasBaseForeignType
+  - Ord
+  - Show
+  - Storable
+- hsname: MyFunctionPointer
+  representation:
+    newtype:
+      constructor: MyFunctionPointer
+      fields:
+      - un_MyFunctionPointer
+      ffitype: FunPtr
+  instances:
+  - Eq
+  - HasBaseForeignType
+  - Ord
+  - Show
+  - Storable

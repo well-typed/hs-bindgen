@@ -28,6 +28,13 @@ KNOWN_FAILURES=(
     binding-specs/fun_arg/typedef/function_pointer    # Fixtures with external binding specs can not be compiled yet (see issue #1495)
     binding-specs/fun_arg/typedef/struct              # Fixtures with external binding specs can not be compiled yet (see issue #1495)
     binding-specs/fun_arg/typedef/union               # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/array                 # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/array_known_size      # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/enum                  # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/function              # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/function_pointer      # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/struct                # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/union                 # Fixtures with external binding specs can not be compiled yet (see issue #1495)
     declarations/redeclaration                        # Multiple declarations (intentional test case)
     edge-cases/iterator                               # Makes use of Apple block extension which would require clang (see #913)
     functions/decls_in_signature                      # Unusable struct (see #1128)
@@ -65,7 +72,7 @@ KNOWN_EMPTY=(
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=125
+KNOWN_FIXTURES_COUNT=132
 
 # Default options
 JOBS=4

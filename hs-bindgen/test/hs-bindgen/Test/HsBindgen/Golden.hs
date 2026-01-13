@@ -2,6 +2,7 @@
 module Test.HsBindgen.Golden (tests) where
 
 import System.Directory (createDirectoryIfMissing)
+import System.FilePath ((<.>), (</>))
 import Test.Tasty
 
 import Clang.Args
@@ -432,6 +433,14 @@ testCases_bespoke_bindingSpecs = [
     , test_bindingSpecs_fun_arg_typedef_function_pointer
     , test_bindingSpecs_fun_arg_typedef_struct
     , test_bindingSpecs_fun_arg_typedef_union
+      -- * Function arguments with macros
+    , test_bindingSpecs_fun_arg_macro_array
+    , test_bindingSpecs_fun_arg_macro_array_known_size
+    , test_bindingSpecs_fun_arg_macro_enum
+    , test_bindingSpecs_fun_arg_macro_function
+    , test_bindingSpecs_fun_arg_macro_function_pointer
+    , test_bindingSpecs_fun_arg_macro_struct
+    , test_bindingSpecs_fun_arg_macro_union
     ]
 
 test_bindingSpecs_bs_ext_target_any :: TestCase
@@ -587,6 +596,102 @@ test_bindingSpecs_fun_arg_typedef_selectPredicate :: Boolean SelectPredicate
 test_bindingSpecs_fun_arg_typedef_selectPredicate =
     BOr (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
         (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
+
+{-------------------------------------------------------------------------------
+  Bespoke tests: binding specs, function arguments with macros
+-------------------------------------------------------------------------------}
+
+-- | Test that @hs-bindgen@ can detect whether an external binding reference in
+-- a function argument references a macro type with an underlying array type (of
+-- unknown size).
+--
+-- Arrays are passed by 'Ptr' to the first element of the array.
+test_bindingSpecs_fun_arg_macro_array :: TestCase
+test_bindingSpecs_fun_arg_macro_array =
+    test_bindingSpecs_fun_arg_macro "binding-specs/fun_arg/macro/array"
+
+-- | Test that @hs-bindgen@ can detect whether an external binding reference in
+-- a function argument references a macro type with an underlying array type of
+-- known size.
+--
+-- Arrays of known size are passed by 'Ptr' to the first element of the array.
+test_bindingSpecs_fun_arg_macro_array_known_size :: TestCase
+test_bindingSpecs_fun_arg_macro_array_known_size =
+    test_bindingSpecs_fun_arg_macro "binding-specs/fun_arg/macro/array_known_size"
+
+-- | Test that @hs-bindgen@ can detect whether an external binding reference in
+-- a function argument references a macro type with an underlying enum type.
+--
+-- Enums can be passed by value rather than by 'Ptr'.
+test_bindingSpecs_fun_arg_macro_enum :: TestCase
+test_bindingSpecs_fun_arg_macro_enum =
+    test_bindingSpecs_fun_arg_macro "binding-specs/fun_arg/macro/enum"
+
+-- | Test that @hs-bindgen@ can detect whether an external binding reference in
+-- a function argument references a macro type with an underlying function type.
+--
+-- Functions should be passed by 'FunPtr' rather than by 'Ptr'. Previously we
+-- had a bug where we doing the latter, see issue #1363.
+test_bindingSpecs_fun_arg_macro_function :: TestCase
+test_bindingSpecs_fun_arg_macro_function =
+    test_bindingSpecs_fun_arg_macro "binding-specs/fun_arg/macro/function"
+
+-- | Test that @hs-bindgen@ can detect whether an external binding reference in
+-- a function argument references a macro type with an underlying function
+-- pointer type.
+--
+-- Functions should be passed by 'FunPtr' rather than by 'Ptr'.
+test_bindingSpecs_fun_arg_macro_function_pointer :: TestCase
+test_bindingSpecs_fun_arg_macro_function_pointer =
+    test_bindingSpecs_fun_arg_macro "binding-specs/fun_arg/macro/function_pointer"
+
+-- | Test that @hs-bindgen@ can detect whether an external binding reference in
+-- a function argument references a macro type with an underlying struct type.
+--
+-- Structs should be passed by 'Ptr' rather than by value.
+test_bindingSpecs_fun_arg_macro_struct :: TestCase
+test_bindingSpecs_fun_arg_macro_struct =
+    test_bindingSpecs_fun_arg_macro "binding-specs/fun_arg/macro/struct"
+
+-- | Test that @hs-bindgen@ can detect whether an external binding reference in
+-- a function argument references a macro type with an underlying union type.
+--
+-- Union should be passed by 'Ptr' rather than by value.
+test_bindingSpecs_fun_arg_macro_union :: TestCase
+test_bindingSpecs_fun_arg_macro_union =
+    test_bindingSpecs_fun_arg_macro "binding-specs/fun_arg/macro/union"
+
+-- | Test that @hs-bindgen@ can detect whether an external binding reference in
+-- a function argument references a macro type.
+test_bindingSpecs_fun_arg_macro :: FilePath -> TestCase
+test_bindingSpecs_fun_arg_macro path =
+  defaultTest path
+      & #specExternal .~
+          [ "examples" </> "golden" </> path <.> "yaml"
+          ]
+      & #onFrontend .~
+          #selectPredicate .~ test_bindingSpecs_fun_arg_macro_selectPredicate
+      & #tracePredicate .~ test_bindingSpecs_fun_arg_macro_tracePredicate
+
+-- | Select predicate for 'test_bindingSpecs_fun_arg_macro' tests
+test_bindingSpecs_fun_arg_macro_selectPredicate :: Boolean SelectPredicate
+test_bindingSpecs_fun_arg_macro_selectPredicate =
+    BOr (BIf $ SelectDecl (DeclNameMatches "A|B|C|D|E|(My.*)"))
+        (BIf $ SelectDecl (DeclNameMatches "(foo.*)|(bar.*)"))
+
+-- | Trace predicate for 'test_bindingSpecs_fun_arg_macro' tests
+test_bindingSpecs_fun_arg_macro_tracePredicate :: TracePredicate TraceMsg
+test_bindingSpecs_fun_arg_macro_tracePredicate =
+    noHandleMacrosTraces
+  where
+    noHandleMacrosTraces :: TracePredicate TraceMsg
+    noHandleMacrosTraces = multiTracePredicate ([] :: [String]) (\case
+        -- no macros should fail to parse
+        MatchHandleMacros _ ->
+          Just Unexpected
+        _otherwise ->
+          Nothing
+      )
 
 {-------------------------------------------------------------------------------
   Bespoke tests: declarations

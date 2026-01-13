@@ -8,6 +8,8 @@ module Test.Common.HsBindgen.Trace.Patterns (
   , pattern MatchParse
   , pattern MatchDelayed
   , pattern MatchUnknownStorageClass
+    -- * HandleMacros
+  , pattern MatchHandleMacros
     -- * ResolveBindingSpecs
   , pattern MatchBindingSpec
   , pattern MatchResolveBindingSpecs
@@ -83,6 +85,15 @@ pattern MatchDelayed name x <- MatchSelect name (matchDelayed -> Just x)
 pattern MatchUnknownStorageClass :: CX_StorageClass -> DelayedParseMsg
 pattern MatchUnknownStorageClass x <- ParseUnknownStorageClass (
       fromSimpleEnum -> Right x
+    )
+
+{-------------------------------------------------------------------------------
+  HandleMacros
+-------------------------------------------------------------------------------}
+
+pattern MatchHandleMacros :: HandleMacrosReparseMsg -> TraceMsg
+pattern MatchHandleMacros x <- TraceFrontend (
+      FrontendHandleMacros x
     )
 
 {-------------------------------------------------------------------------------
