@@ -62,7 +62,7 @@ data HsType =
   | HsPtr HsType
   | HsFunPtr HsType
   | HsStablePtr HsType
-  | HsConstPtr HsType
+  | HsPtrConst HsType
   | HsIO HsType
   | HsFun HsType HsType
   | HsExtBinding Hs.ExtRef BindingSpec.CTypeSpec BindingSpec.HsTypeSpec

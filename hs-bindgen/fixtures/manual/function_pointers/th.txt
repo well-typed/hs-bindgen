@@ -908,7 +908,7 @@ apply1_nopointer_res = unsafePerformIO hs_bindgen_16929b4528263721
 foreign import ccall unsafe "hs_bindgen_8ca6ae5d7bf88149" hs_bindgen_8ca6ae5d7bf88149_base ::
     IO (Ptr Void)
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_var@
-hs_bindgen_8ca6ae5d7bf88149 :: IO (ConstPtr (FunPtr (FunPtr Int2int ->
+hs_bindgen_8ca6ae5d7bf88149 :: IO (PtrConst (FunPtr (FunPtr Int2int ->
                                                      CInt -> IO CInt)))
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_var@
 hs_bindgen_8ca6ae5d7bf88149 = fromFFIType hs_bindgen_8ca6ae5d7bf88149_base
@@ -923,7 +923,7 @@ __exported by:__ @manual\/function_pointers.h@
 
 __unique:__ @test_manualfunction_pointers_Example_apply1_nopointer_var@
 -}
-hs_bindgen_505081298c324425 :: ConstPtr (FunPtr (FunPtr Int2int ->
+hs_bindgen_505081298c324425 :: PtrConst (FunPtr (FunPtr Int2int ->
                                                  CInt -> IO CInt))
 {-| A global variable pointing to a function like apply1_nopointer().
 
@@ -938,12 +938,12 @@ __unique:__ @test_manualfunction_pointers_Example_apply1_nopointer_var@
 hs_bindgen_505081298c324425 = unsafePerformIO hs_bindgen_8ca6ae5d7bf88149
 {-# NOINLINE apply1_nopointer_var #-}
 apply1_nopointer_var :: FunPtr (FunPtr Int2int -> CInt -> IO CInt)
-apply1_nopointer_var = unsafePerformIO (peek (unConstPtr hs_bindgen_505081298c324425))
+apply1_nopointer_var = unsafePerformIO (peek hs_bindgen_505081298c324425)
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_struct@
 foreign import ccall unsafe "hs_bindgen_33a4962ebf2e9daf" hs_bindgen_33a4962ebf2e9daf_base ::
     IO (Ptr Void)
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_struct@
-hs_bindgen_33a4962ebf2e9daf :: IO (ConstPtr Apply1Struct)
+hs_bindgen_33a4962ebf2e9daf :: IO (PtrConst Apply1Struct)
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_struct@
 hs_bindgen_33a4962ebf2e9daf = fromFFIType hs_bindgen_33a4962ebf2e9daf_base
 {-# NOINLINE hs_bindgen_96ffcf57d318ddc0 #-}
@@ -955,7 +955,7 @@ hs_bindgen_33a4962ebf2e9daf = fromFFIType hs_bindgen_33a4962ebf2e9daf_base
 
     __unique:__ @test_manualfunction_pointers_Example_apply1_struct@
 -}
-hs_bindgen_96ffcf57d318ddc0 :: ConstPtr Apply1Struct
+hs_bindgen_96ffcf57d318ddc0 :: PtrConst Apply1Struct
 {-| __C declaration:__ @apply1_struct@
 
     __defined at:__ @manual\/function_pointers.h 40:34@
@@ -967,12 +967,12 @@ hs_bindgen_96ffcf57d318ddc0 :: ConstPtr Apply1Struct
 hs_bindgen_96ffcf57d318ddc0 = unsafePerformIO hs_bindgen_33a4962ebf2e9daf
 {-# NOINLINE apply1_struct #-}
 apply1_struct :: Apply1Struct
-apply1_struct = unsafePerformIO (peek (unConstPtr hs_bindgen_96ffcf57d318ddc0))
+apply1_struct = unsafePerformIO (peek hs_bindgen_96ffcf57d318ddc0)
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_union@
 foreign import ccall unsafe "hs_bindgen_d1ddd3b607c95874" hs_bindgen_d1ddd3b607c95874_base ::
     IO (Ptr Void)
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_union@
-hs_bindgen_d1ddd3b607c95874 :: IO (ConstPtr Apply1Union)
+hs_bindgen_d1ddd3b607c95874 :: IO (PtrConst Apply1Union)
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_union@
 hs_bindgen_d1ddd3b607c95874 = fromFFIType hs_bindgen_d1ddd3b607c95874_base
 {-# NOINLINE hs_bindgen_8368fc70f5e0aec5 #-}
@@ -984,7 +984,7 @@ hs_bindgen_d1ddd3b607c95874 = fromFFIType hs_bindgen_d1ddd3b607c95874_base
 
     __unique:__ @test_manualfunction_pointers_Example_apply1_union@
 -}
-hs_bindgen_8368fc70f5e0aec5 :: ConstPtr Apply1Union
+hs_bindgen_8368fc70f5e0aec5 :: PtrConst Apply1Union
 {-| __C declaration:__ @apply1_union@
 
     __defined at:__ @manual\/function_pointers.h 46:32@
@@ -996,4 +996,4 @@ hs_bindgen_8368fc70f5e0aec5 :: ConstPtr Apply1Union
 hs_bindgen_8368fc70f5e0aec5 = unsafePerformIO hs_bindgen_d1ddd3b607c95874
 {-# NOINLINE apply1_union #-}
 apply1_union :: Apply1Union
-apply1_union = unsafePerformIO (peek (unConstPtr hs_bindgen_8368fc70f5e0aec5))
+apply1_union = unsafePerformIO (peek hs_bindgen_8368fc70f5e0aec5)

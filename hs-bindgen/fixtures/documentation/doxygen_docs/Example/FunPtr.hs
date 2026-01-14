@@ -9,10 +9,10 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasFFIType
 import qualified HsBindgen.Runtime.Prelude
+import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -155,7 +155,7 @@ foreign import ccall unsafe "hs_bindgen_4a5cd66a4f26f8d5" hs_bindgen_4a5cd66a4f2
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_data@
-hs_bindgen_4a5cd66a4f26f8d5 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.CSize) -> IO FC.CInt))
+hs_bindgen_4a5cd66a4f26f8d5 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.CSize) -> IO FC.CInt))
 hs_bindgen_4a5cd66a4f26f8d5 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4a5cd66a4f26f8d5_base
 
@@ -180,7 +180,7 @@ __defined at:__ @documentation\/doxygen_docs.h 105:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_data :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.CSize) -> IO FC.CInt)
+process_data :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.Word8) -> (Ptr.Ptr HsBindgen.Runtime.Prelude.CSize) -> IO FC.CInt)
 process_data =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4a5cd66a4f26f8d5
 
@@ -189,7 +189,7 @@ foreign import ccall unsafe "hs_bindgen_c8a059c65f18fea9" hs_bindgen_c8a059c65f1
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_process_file@
-hs_bindgen_c8a059c65f18fea9 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO FC.CBool))
+hs_bindgen_c8a059c65f18fea9 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO FC.CBool))
 hs_bindgen_c8a059c65f18fea9 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_c8a059c65f18fea9_base
 
@@ -210,7 +210,7 @@ __defined at:__ @documentation\/doxygen_docs.h 116:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-process_file :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO FC.CBool)
+process_file :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO FC.CBool)
 process_file =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c8a059c65f18fea9
 
@@ -288,7 +288,7 @@ foreign import ccall unsafe "hs_bindgen_2175b3c627db39cf" hs_bindgen_2175b3c627d
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_list_example@
-hs_bindgen_2175b3c627db39cf :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
+hs_bindgen_2175b3c627db39cf :: IO (Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
 hs_bindgen_2175b3c627db39cf =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_2175b3c627db39cf_base
 
@@ -339,7 +339,7 @@ __defined at:__ @documentation\/doxygen_docs.h 174:6@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-list_example :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool)
+list_example :: Ptr.FunPtr ((Ptr.Ptr (HsBindgen.Runtime.PtrConst.PtrConst FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool)
 list_example =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2175b3c627db39cf
 
@@ -382,7 +382,7 @@ foreign import ccall unsafe "hs_bindgen_9700b22f82eedafe" hs_bindgen_9700b22f82e
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_detailed_return_codes@
-hs_bindgen_9700b22f82eedafe :: IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO FC.CInt))
+hs_bindgen_9700b22f82eedafe :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO FC.CInt))
 hs_bindgen_9700b22f82eedafe =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_9700b22f82eedafe_base
 
@@ -407,7 +407,7 @@ __defined at:__ @documentation\/doxygen_docs.h 197:5@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-detailed_return_codes :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr FC.CChar) -> IO FC.CInt)
+detailed_return_codes :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst FC.CChar) -> IO FC.CInt)
 detailed_return_codes =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9700b22f82eedafe
 
@@ -506,7 +506,7 @@ foreign import ccall unsafe "hs_bindgen_6a74d376c901b531" hs_bindgen_6a74d376c90
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_my_memcpy@
-hs_bindgen_6a74d376c901b531 :: IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.ConstPtr.ConstPtr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr.Ptr Void)))
+hs_bindgen_6a74d376c901b531 :: IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.PtrConst.PtrConst Void) -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr.Ptr Void)))
 hs_bindgen_6a74d376c901b531 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_6a74d376c901b531_base
 
@@ -529,7 +529,7 @@ __defined at:__ @documentation\/doxygen_docs.h 342:7@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-my_memcpy :: Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.ConstPtr.ConstPtr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr.Ptr Void))
+my_memcpy :: Ptr.FunPtr ((Ptr.Ptr Void) -> (HsBindgen.Runtime.PtrConst.PtrConst Void) -> HsBindgen.Runtime.Prelude.CSize -> IO (Ptr.Ptr Void))
 my_memcpy =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6a74d376c901b531
 
@@ -566,7 +566,7 @@ foreign import ccall unsafe "hs_bindgen_dfa39b6be50cb2ca" hs_bindgen_dfa39b6be50
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_documentationdoxygen_docs_Example_get_complex_function@
-hs_bindgen_dfa39b6be50cb2ca :: IO (Ptr.FunPtr ((Ptr.Ptr Config_t) -> (HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8) -> HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t))
+hs_bindgen_dfa39b6be50cb2ca :: IO (Ptr.FunPtr ((Ptr.Ptr Config_t) -> (HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.Prelude.Word8) -> HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t))
 hs_bindgen_dfa39b6be50cb2ca =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_dfa39b6be50cb2ca_base
 
@@ -642,7 +642,7 @@ __defined at:__ @documentation\/doxygen_docs.h 423:15@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-complex_function :: Ptr.FunPtr ((Ptr.Ptr Config_t) -> (HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8) -> HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t)
+complex_function :: Ptr.FunPtr ((Ptr.Ptr Config_t) -> (HsBindgen.Runtime.PtrConst.PtrConst HsBindgen.Runtime.Prelude.Word8) -> HsBindgen.Runtime.Prelude.CSize -> IO Status_code_t)
 complex_function =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dfa39b6be50cb2ca
 

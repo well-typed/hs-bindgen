@@ -38,8 +38,9 @@ import Foreign.Ptr as Types (FunPtr, IntPtr (..), Ptr, WordPtr (..))
 import Foreign.StablePtr (castPtrToStablePtr, castStablePtrToPtr)
 import Foreign.StablePtr as Types (StablePtr)
 
-import HsBindgen.Runtime.ConstPtr as Types (ConstPtr (..))
 import HsBindgen.Runtime.FFIType qualified as FFI
+import HsBindgen.Runtime.PtrConst as Types (PtrConst, unsafeFromPtr,
+                                            unsafeToPtr)
 
 {-------------------------------------------------------------------------------
   Class
@@ -320,7 +321,12 @@ castStablePtr = castPtrToStablePtr . castStablePtrToPtr
 
 -- == Newtypes around basic foreign types ==
 
-deriving newtype instance HasFFIType (ConstPtr a)
+instance HasFFIType (PtrConst a) where
+  type ToFFIType (PtrConst a) = FFI.Basic FFI.Ptr
+  {-# INLINE toFFIType #-}
+  toFFIType = castPtr . unsafeToPtr
+  {-# INLINE fromFFIType #-}
+  fromFFIType = unsafeFromPtr . castPtr
 
 -- === Foreign.C.Error ===
 

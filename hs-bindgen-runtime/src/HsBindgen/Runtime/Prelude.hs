@@ -105,8 +105,8 @@ module HsBindgen.Runtime.Prelude (
     -- * Blocks
   , module HsBindgen.Runtime.Block
 
-    -- * ConstPtr
-  , module HsBindgen.Runtime.ConstPtr
+    -- * PtrConst
+  , module HsBindgen.Runtime.PtrConst
 
     -- * Auxiliary functions
   , Data.List.unlines
@@ -119,8 +119,8 @@ import Foreign.C qualified
 
 import HsBindgen.Runtime.Block
 import HsBindgen.Runtime.CAPI
-import HsBindgen.Runtime.ConstPtr
 import HsBindgen.Runtime.LibC qualified as LibC
+import HsBindgen.Runtime.PtrConst
 import HsBindgen.Runtime.SizedByteArray qualified as SizedByteArray
 
 {-------------------------------------------------------------------------------

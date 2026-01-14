@@ -57,7 +57,7 @@ inContext ctx = go ctx
       = foldr ($) (Hs.HsFunPtr (go PtrArg t))
                   (replicate (n - 1) Hs.HsPtr)
       | C.isErasedTypeConstQualified t
-      = foldr ($) (Hs.HsConstPtr (go PtrArg t))
+      = foldr ($) (Hs.HsPtrConst (go PtrArg t))
                   (replicate (n - 1) Hs.HsPtr)
       | otherwise
       = foldr ($) (go PtrArg t)

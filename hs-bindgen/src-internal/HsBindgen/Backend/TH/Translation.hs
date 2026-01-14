@@ -49,13 +49,13 @@ import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
-import HsBindgen.Runtime.ConstPtr qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.FunPtr qualified
 import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.HasFFIType qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
+import HsBindgen.Runtime.PtrConst qualified
 import HsBindgen.Runtime.SizedByteArray qualified
 import HsBindgen.Runtime.TypeEquality qualified
 
@@ -113,8 +113,6 @@ mkGlobal = \case
       CharValue_fromAddr      -> 'CExpr.Runtime.charValueFromAddr
       CAPI_with               -> 'Foreign.with
       CAPI_allocaAndPeek      -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
-      ConstantArray_withPtr   -> 'HsBindgen.Runtime.ConstantArray.withPtr
-      IncompleteArray_withPtr -> 'HsBindgen.Runtime.IncompleteArray.withPtr
 
       -- Flexible array members
       FlexibleArrayMember_Offset_class  -> ''HsBindgen.Runtime.FlexibleArrayMember.Offset
@@ -160,10 +158,11 @@ mkGlobal = \case
       -- Unsafe
       IO_unsafePerformIO -> 'System.IO.Unsafe.unsafePerformIO
 
-      -- ConstPtr
-      ConstPtr_type        -> ''HsBindgen.Runtime.ConstPtr.ConstPtr
-      ConstPtr_constructor -> 'HsBindgen.Runtime.ConstPtr.ConstPtr
-      ConstPtr_unConstPtr  -> 'HsBindgen.Runtime.ConstPtr.unConstPtr
+      -- PtrConst
+      PtrConst_type          -> ''HsBindgen.Runtime.PtrConst.PtrConst
+      PtrConst_unsafeFromPtr -> 'HsBindgen.Runtime.PtrConst.unsafeFromPtr
+      PtrConst_unsafeToPtr   -> 'HsBindgen.Runtime.PtrConst.unsafeToPtr
+      PtrConst_peek          -> 'HsBindgen.Runtime.PtrConst.peek
 
       -- Prim
       Prim_class           -> ''Primitive.Prim
@@ -386,8 +385,6 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     ByteArray_getUnionPayload -> TH.varE name
     CAPI_with             -> TH.varE name
     CAPI_allocaAndPeek    -> TH.varE name
-    ConstantArray_withPtr -> TH.varE name
-    IncompleteArray_withPtr -> TH.varE name
 
     -- HasCField
     HasCField_class -> panicPure "class in expression"
@@ -428,10 +425,11 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     -- Unsafe
     IO_unsafePerformIO -> TH.varE name
 
-    -- ConstPtr
-    ConstPtr_type        -> panicPure "type in expression"
-    ConstPtr_constructor -> TH.conE name
-    ConstPtr_unConstPtr  -> TH.varE name
+    -- PtrConst
+    PtrConst_type          -> panicPure "type in expression"
+    PtrConst_unsafeFromPtr -> TH.conE name
+    PtrConst_unsafeToPtr   -> TH.varE name
+    PtrConst_peek          -> TH.varE name
 
     -- Prim
     Prim_class           -> panicPure "class in expression"
