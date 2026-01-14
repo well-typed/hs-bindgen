@@ -211,15 +211,15 @@ data HsTypeRep =
     -- A type and constructor is generated using @newtype@.
     HsTypeRepNewtype HsNewtypeRep
 
-  | -- | Opaque representation
+  | -- | Empty data representation
     --
     -- A type but no constructor is generated using @data@.
-    HsTypeRepOpaque
+    HsTypeRepEmptyData
 
-  | -- | Alias representation
+  | -- | Type alias representation
     --
     -- A type is generated using @type@.
-    HsTypeRepAlias
+    HsTypeRepTypeAlias
   deriving stock (Show, Eq, Ord, Generic)
 
 -- | Haskell record representation
@@ -1056,11 +1056,11 @@ instance Aeson.FromJSON (ARep HsTypeRep) where
 
       parseHsTypeRepText :: Text -> Aeson.Parser HsTypeRep
       parseHsTypeRepText t = case t of
-        "record"  -> return (HsTypeRepRecord def)
-        "newtype" -> return (HsTypeRepNewtype def)
-        "opaque"  -> return HsTypeRepOpaque
-        "alias"   -> return HsTypeRepAlias
-        _         ->
+        "record"    -> return (HsTypeRepRecord def)
+        "newtype"   -> return (HsTypeRepNewtype def)
+        "emptydata" -> return HsTypeRepEmptyData
+        "typealias" -> return HsTypeRepTypeAlias
+        _           ->
           Aeson.parseFail $ "unknown Haskell representation: " ++ Text.unpack t
 
       parseHsRecordRep :: Aeson.Value -> Aeson.Parser HsRecordRep
@@ -1111,8 +1111,8 @@ instance Aeson.ToJSON (ARep HsTypeRep) where
               , ("fields"      .=) . (: []) . toARep' <$> x.field
               , ("ffitype"     .=) . toARep' <$> x.ffiType
               ]
-    HsTypeRepOpaque -> Aeson.String "opaque"
-    HsTypeRepAlias  -> Aeson.String "alias"
+    HsTypeRepEmptyData -> Aeson.String "emptydata"
+    HsTypeRepTypeAlias -> Aeson.String "typealias"
 
 --------------------------------------------------------------------------------
 

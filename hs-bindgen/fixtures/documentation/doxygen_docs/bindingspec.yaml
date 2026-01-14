@@ -151,9 +151,9 @@ hstypes:
   - Show
   - Storable
 - hsname: Forward_declared_struct
-  representation: opaque
+  representation: emptydata
 - hsname: Forward_declared_union
-  representation: opaque
+  representation: emptydata
 - hsname: Processor_fn_t
   representation:
     newtype:

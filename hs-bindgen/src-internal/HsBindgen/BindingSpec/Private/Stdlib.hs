@@ -98,7 +98,7 @@ bindingSpec = BindingSpec.BindingSpec{
 
     floatingTypes :: [(CTypeKV, HsTypeKV)]
     floatingTypes =
-      let aux (t, hsIdentifier) = mkType t hsIdentifier hsO [] ["fenv.h"]
+      let aux (t, hsIdentifier) = mkType t hsIdentifier hsED [] ["fenv.h"]
       in  map aux [
               ("fenv_t",    "CFenvT")
             , ("fexcept_t", "CFexceptT")
@@ -133,7 +133,7 @@ bindingSpec = BindingSpec.BindingSpec{
 
     nonLocalJumpTypes :: [(CTypeKV, HsTypeKV)]
     nonLocalJumpTypes = [
-        mkType "jmp_buf" "CJmpBuf" hsO [] ["setjmp.h"]
+        mkType "jmp_buf" "CJmpBuf" hsED [] ["setjmp.h"]
       ]
 
     wcharTypes :: [(CTypeKV, HsTypeKV)]
@@ -144,12 +144,12 @@ bindingSpec = BindingSpec.BindingSpec{
           , "stdlib.h"
           , "wchar.h"
           ]
-      , mkTypeN "wint_t"    "CWintT"        intI (Just (BindingSpec.Builtin BFT.CUInt))  ["wchar.h", "wctype.h"]
-      , mkType  "mbstate_t" "CMbstateT" hsO []                               ["uchar.h", "wchar.h"]
-      , mkTypeN "wctrans_t" "CWctransT"     eqI  (Just (BindingSpec.Basic BFT.Ptr))      ["wctype.h"]
-      , mkTypeN "wctype_t"  "CWctypeT"      eqI  (Just (BindingSpec.Builtin BFT.CULong)) ["wchar.h", "wctype.h"]
-      , mkTypeN "char16_t"  "CChar16T"      intI (Just (BindingSpec.Basic BFT.Word16))   ["uchar.h"]
-      , mkTypeN "char32_t"  "CChar32T"      intI (Just (BindingSpec.Basic BFT.Word32))   ["uchar.h"]
+      , mkTypeN "wint_t"    "CWintT"         intI (Just (BindingSpec.Builtin BFT.CUInt))  ["wchar.h", "wctype.h"]
+      , mkType  "mbstate_t" "CMbstateT" hsED []                               ["uchar.h", "wchar.h"]
+      , mkTypeN "wctrans_t" "CWctransT"      eqI  (Just (BindingSpec.Basic BFT.Ptr))      ["wctype.h"]
+      , mkTypeN "wctype_t"  "CWctypeT"       eqI  (Just (BindingSpec.Builtin BFT.CULong)) ["wchar.h", "wctype.h"]
+      , mkTypeN "char16_t"  "CChar16T"       intI (Just (BindingSpec.Basic BFT.Word16))   ["uchar.h"]
+      , mkTypeN "char32_t"  "CChar32T"       intI (Just (BindingSpec.Basic BFT.Word32))   ["uchar.h"]
       ]
 
     timeTypes :: [(CTypeKV, HsTypeKV)]
@@ -172,8 +172,8 @@ bindingSpec = BindingSpec.BindingSpec{
 
     fileTypes :: [(CTypeKV, HsTypeKV)]
     fileTypes = [
-        mkType "FILE"   "CFile" hsO [] ["stdio.h", "wchar.h"]
-      , mkType "fpos_t" "CFpos" hsO [] ["stdio.h"]
+        mkType "FILE"   "CFile" hsED [] ["stdio.h", "wchar.h"]
+      , mkType "fpos_t" "CFpos" hsED [] ["stdio.h"]
       ]
 
     signalTypes :: [(CTypeKV, HsTypeKV)]
@@ -274,9 +274,9 @@ mkType t hsIdentifier hsTypeRep insts headers' =
           ]
       }
 
--- | Concise alias for 'BindingSpec.HsTypeRepOpaque'
-hsO :: BindingSpec.HsTypeRep
-hsO = BindingSpec.HsTypeRepOpaque
+-- | Concise alias for 'BindingSpec.HsTypeRepEmptyData'
+hsED :: BindingSpec.HsTypeRep
+hsED = BindingSpec.HsTypeRepEmptyData
 
 -- | Construct a 'BindingSpec.HsTypeRepRecord' with the specified constructor
 -- and field names

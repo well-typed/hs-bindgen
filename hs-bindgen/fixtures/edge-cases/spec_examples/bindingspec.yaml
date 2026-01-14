@@ -54,7 +54,7 @@ hstypes:
   - Show
   - Storable
 - hsname: C
-  representation: opaque
+  representation: emptydata
 - hsname: Cint16_T
   representation:
     record:

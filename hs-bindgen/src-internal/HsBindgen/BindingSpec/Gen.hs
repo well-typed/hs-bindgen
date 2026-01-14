@@ -207,7 +207,7 @@ genBindingSpec'
               hsIdent = Just hsIdentifier
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
-              hsRep     = Just BindingSpec.HsTypeRepOpaque
+              hsRep     = Just BindingSpec.HsTypeRepEmptyData
             , instances = Map.empty
             }
       in  ( (originDecl.info, cTypeSpec)
