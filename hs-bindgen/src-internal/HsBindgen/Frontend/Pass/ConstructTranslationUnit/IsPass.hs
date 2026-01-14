@@ -53,3 +53,4 @@ data DeclMeta = DeclMeta {
 
 instance CoercePassMacroBody AssignAnonIds ConstructTranslationUnit
 instance CoercePassId        AssignAnonIds ConstructTranslationUnit
+instance CoercePassMacroId   AssignAnonIds ConstructTranslationUnit

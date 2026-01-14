@@ -411,7 +411,7 @@ parseMacro name tokens  = state     $ \st ->
     case LanC.parseMacroType st.reparseEnv tokens of
       Right typ -> (
           Right $ MacroType $ CheckedMacroType typ NoAnn
-        , st & #reparseEnv %~ updateReparseEnv
+        , st & #reparseEnv %~ updateReparseEnv typ
         )
       Left errType ->
         case CExpr.DSL.runParser CExpr.DSL.parseExpr tokens of
@@ -434,10 +434,13 @@ parseMacro name tokens  = state     $ \st ->
           Left errExpr ->
               (Left $ HandleMacrosErrorParse errType errExpr, st)
   where
-    updateReparseEnv :: LanC.ReparseEnv -> LanC.ReparseEnv
-    updateReparseEnv =
+    updateReparseEnv :: C.Type HandleMacros -> LanC.ReparseEnv -> LanC.ReparseEnv
+    updateReparseEnv typ =
         Map.insert name.text $
-          C.TypeRef $ DeclId{name = name, isAnon = False}
+          C.TypeMacro $ C.Ref {
+              name = DeclId{name = name, isAnon = False}
+            , underlying = typ
+            }
 
     dropEval ::
          CExpr.DSL.Quant (CExpr.DSL.FunValue, CExpr.DSL.Type 'CExpr.DSL.Ty)

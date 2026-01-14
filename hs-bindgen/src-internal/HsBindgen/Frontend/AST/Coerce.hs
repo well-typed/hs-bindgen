@@ -1,6 +1,7 @@
 module HsBindgen.Frontend.AST.Coerce (
     CoercePass(..)
   , CoercePassId(..)
+  , CoercePassMacroId(..)
   , CoercePassMacroBody(..)
   ) where
 
@@ -32,6 +33,14 @@ class CoercePassMacroBody (p :: Pass) (p' :: Pass) where
        (MacroBody p ~ MacroBody p')
     => Proxy '(p, p') -> MacroBody p -> MacroBody p'
   coercePassMacroBody _ = id
+
+class CoercePassMacroId (p :: Pass) (p' :: Pass) where
+  coercePassMacroId :: Proxy '(p, p') -> MacroId p -> MacroId p'
+
+  default coercePassMacroId ::
+       (MacroId p ~ MacroId p')
+    => Proxy '(p, p') -> MacroId p -> MacroId p'
+  coercePassMacroId _ = id
 
 {-------------------------------------------------------------------------------
   Coercing between passes
@@ -212,22 +221,24 @@ instance (
 
 instance (
       CoercePassId p p'
+    , CoercePassMacroId p p'
     , ScopedName p ~ ScopedName p'
     , ExtBinding p ~ ExtBinding p'
     ) => CoercePass C.Type p p' where
   coercePass = \case
-      C.TypePrim prim                  -> C.TypePrim prim
-      C.TypeRef uid                    -> C.TypeRef (goId uid)
-      C.TypeTypedef (C.Ref tydef uTy)  -> C.TypeTypedef (C.Ref (coercePassId (Proxy @'(p, p')) tydef) (coercePass uTy))
-      C.TypePointers n typ             -> C.TypePointers n (coercePass typ)
-      C.TypeFun args res               -> C.TypeFun (map coercePass args) (coercePass res)
-      C.TypeVoid                       -> C.TypeVoid
-      C.TypeConstArray n typ           -> C.TypeConstArray n (coercePass typ)
-      C.TypeIncompleteArray typ        -> C.TypeIncompleteArray (coercePass typ)
-      C.TypeExtBinding (C.Ref ext uTy) -> C.TypeExtBinding (C.Ref ext (coercePass uTy))
-      C.TypeBlock typ                  -> C.TypeBlock (coercePass typ)
-      C.TypeQual qual typ              -> C.TypeQual qual (coercePass typ)
-      C.TypeComplex prim               -> C.TypeComplex prim
+      C.TypePrim prim           -> C.TypePrim prim
+      C.TypeRef uid             -> C.TypeRef (goId uid)
+      C.TypeMacro ref           -> C.TypeMacro (C.Ref (coercePassMacroId (Proxy @'(p, p')) ref.name) (coercePass ref.underlying))
+      C.TypeTypedef ref         -> C.TypeTypedef (C.Ref (coercePassId (Proxy @'(p, p')) ref.name) (coercePass ref.underlying))
+      C.TypePointers n typ      -> C.TypePointers n (coercePass typ)
+      C.TypeFun args res        -> C.TypeFun (map coercePass args) (coercePass res)
+      C.TypeVoid                -> C.TypeVoid
+      C.TypeConstArray n typ    -> C.TypeConstArray n (coercePass typ)
+      C.TypeIncompleteArray typ -> C.TypeIncompleteArray (coercePass typ)
+      C.TypeExtBinding ref      -> C.TypeExtBinding (C.Ref ref.name (coercePass ref.underlying))
+      C.TypeBlock typ           -> C.TypeBlock (coercePass typ)
+      C.TypeQual qual typ       -> C.TypeQual qual (coercePass typ)
+      C.TypeComplex prim        -> C.TypeComplex prim
     where
       goId :: Id p -> Id p'
       goId = coercePassId (Proxy @'(p, p'))

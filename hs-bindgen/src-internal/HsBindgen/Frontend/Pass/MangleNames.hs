@@ -565,10 +565,15 @@ instance MangleInDecl CheckedMacroType where
 instance Mangle C.Type where
   mangle = \case
       -- Interesting cases
-      C.TypeRef declId  -> fmap C.TypeRef $
+      C.TypeRef declId  ->
+        fmap C.TypeRef $
         mangleDeclId declId
-      C.TypeTypedef (C.Ref declId uTy) -> fmap C.TypeTypedef $
-        C.Ref <$> mangleDeclId declId <*> mangle uTy
+      C.TypeMacro ref ->
+        fmap C.TypeMacro $
+        C.Ref <$>  mangleDeclId ref.name <*> mangle ref.underlying
+      C.TypeTypedef ref ->
+        fmap C.TypeTypedef $
+        C.Ref <$>  mangleDeclId ref.name <*> mangle ref.underlying
 
       -- Recursive cases
       C.TypePointers n typ             -> C.TypePointers n <$> mangle typ

@@ -45,8 +45,10 @@ instance IsPass ResolveBindingSpecs where
   type ExtBinding ResolveBindingSpecs = ResolvedExtBinding
   type Ann ix     ResolveBindingSpecs = AnnResolveBindingSpecs ix
   type Msg        ResolveBindingSpecs = ResolveBindingSpecsMsg
+  type MacroId    ResolveBindingSpecs = Id ResolveBindingSpecs
 
   extBindingId _ = (.cName)
+  macroIdId _ = id
 
 -- | Prescriptive binding specification for declaration
 --

@@ -1,0 +1,153 @@
+{-# LANGUAGE CApiFFI #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
+
+module Example.Safe where
+
+import qualified Foreign.C as FC
+import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.Prelude
+import Prelude (IO)
+
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+  [ "#include <binding-specs/fun_arg/typedef/array.h>"
+  , "void hs_bindgen_99bb90e6d7637d2c ("
+  , "  signed int *arg1"
+  , ")"
+  , "{"
+  , "  foo(arg1);"
+  , "}"
+  , "void hs_bindgen_392e3092a2681c13 ("
+  , "  signed int *arg1"
+  , ")"
+  , "{"
+  , "  fooA(arg1);"
+  , "}"
+  , "void hs_bindgen_6011faf8531be4fa ("
+  , "  signed int *arg1"
+  , ")"
+  , "{"
+  , "  fooB(arg1);"
+  , "}"
+  , "void hs_bindgen_40a50b8e6ac3b09d ("
+  , "  signed int *arg1"
+  , ")"
+  , "{"
+  , "  fooC(arg1);"
+  , "}"
+  , "void hs_bindgen_32b4f35bf27a4bf8 ("
+  , "  signed int *arg1"
+  , ")"
+  , "{"
+  , "  fooD(arg1);"
+  , "}"
+  , "void hs_bindgen_6e59183c0a861d01 ("
+  , "  signed int *arg1"
+  , ")"
+  , "{"
+  , "  fooE(arg1);"
+  , "}"
+  ]))
+
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_99bb90e6d7637d2c" hs_bindgen_99bb90e6d7637d2c ::
+     Ptr.Ptr FC.CInt
+  -> IO ()
+
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/array.h 4:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
+-}
+foo ::
+     Ptr.Ptr FC.CInt
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+foo = hs_bindgen_99bb90e6d7637d2c
+
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
+foreign import ccall safe "hs_bindgen_392e3092a2681c13" hs_bindgen_392e3092a2681c13 ::
+     Ptr.Ptr FC.CInt
+  -> IO ()
+
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/array.h 9:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
+-}
+fooA ::
+     Ptr.Ptr FC.CInt
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+fooA = hs_bindgen_392e3092a2681c13
+
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
+foreign import ccall safe "hs_bindgen_6011faf8531be4fa" hs_bindgen_6011faf8531be4fa ::
+     Ptr.Ptr FC.CInt
+  -> IO ()
+
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/array.h 10:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
+-}
+fooB ::
+     Ptr.Ptr FC.CInt
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+fooB = hs_bindgen_6011faf8531be4fa
+
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
+foreign import ccall safe "hs_bindgen_40a50b8e6ac3b09d" hs_bindgen_40a50b8e6ac3b09d ::
+     Ptr.Ptr FC.CInt
+  -> IO ()
+
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/array.h 21:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
+-}
+fooC ::
+     Ptr.Ptr FC.CInt
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+fooC = hs_bindgen_40a50b8e6ac3b09d
+
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
+foreign import ccall safe "hs_bindgen_32b4f35bf27a4bf8" hs_bindgen_32b4f35bf27a4bf8 ::
+     Ptr.Ptr FC.CInt
+  -> IO ()
+
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/array.h 22:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
+-}
+fooD ::
+     Ptr.Ptr FC.CInt
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+fooD = hs_bindgen_32b4f35bf27a4bf8
+
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
+foreign import ccall safe "hs_bindgen_6e59183c0a861d01" hs_bindgen_6e59183c0a861d01 ::
+     Ptr.Ptr FC.CInt
+  -> IO ()
+
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/array.h 23:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/array.h@
+-}
+fooE ::
+     Ptr.Ptr FC.CInt
+     -- ^ __C declaration:__ @x@
+  -> IO ()
+fooE = hs_bindgen_6e59183c0a861d01

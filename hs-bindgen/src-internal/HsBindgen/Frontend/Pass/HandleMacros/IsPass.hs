@@ -34,6 +34,8 @@ instance IsPass HandleMacros where
   type ExtBinding HandleMacros = Void
   type Ann ix     HandleMacros = AnnHandleMacros ix
   type Msg        HandleMacros = HandleMacrosReparseMsg
+  type MacroId    HandleMacros = Id HandleMacros
+  macroIdId _ = id
 
 {-------------------------------------------------------------------------------
   Checked macros
@@ -84,3 +86,5 @@ instance (
 -------------------------------------------------------------------------------}
 
 instance CoercePassId ConstructTranslationUnit HandleMacros
+instance CoercePassMacroId ConstructTranslationUnit HandleMacros where
+  coercePassMacroId _ = absurd

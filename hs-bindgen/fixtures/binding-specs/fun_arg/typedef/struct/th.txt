@@ -1,0 +1,628 @@
+-- addDependentFile examples/golden/binding-specs/fun_arg/typedef/struct.h
+-- #include <binding-specs/fun_arg/typedef/struct.h>
+-- void hs_bindgen_99bb90e6d7637d2c (
+--   struct MyStruct *arg1
+-- )
+-- {
+--   foo(*arg1);
+-- }
+-- void hs_bindgen_392e3092a2681c13 (
+--   A *arg1
+-- )
+-- {
+--   fooA(*arg1);
+-- }
+-- void hs_bindgen_6011faf8531be4fa (
+--   B *arg1
+-- )
+-- {
+--   fooB(*arg1);
+-- }
+-- void hs_bindgen_40a50b8e6ac3b09d (
+--   C *arg1
+-- )
+-- {
+--   fooC(*arg1);
+-- }
+-- void hs_bindgen_32b4f35bf27a4bf8 (
+--   D *arg1
+-- )
+-- {
+--   fooD(*arg1);
+-- }
+-- void hs_bindgen_6e59183c0a861d01 (
+--   E *arg1
+-- )
+-- {
+--   fooE(*arg1);
+-- }
+-- void hs_bindgen_51195acecf6b880e (
+--   struct MyStruct *arg1
+-- )
+-- {
+--   foo(*arg1);
+-- }
+-- void hs_bindgen_eb4a794c10ca94f9 (
+--   A *arg1
+-- )
+-- {
+--   fooA(*arg1);
+-- }
+-- void hs_bindgen_a11eb4471a953b64 (
+--   B *arg1
+-- )
+-- {
+--   fooB(*arg1);
+-- }
+-- void hs_bindgen_1dea92b3f3346311 (
+--   C *arg1
+-- )
+-- {
+--   fooC(*arg1);
+-- }
+-- void hs_bindgen_dba6d56e1a316e2d (
+--   D *arg1
+-- )
+-- {
+--   fooD(*arg1);
+-- }
+-- void hs_bindgen_23b6f403a534aeae (
+--   E *arg1
+-- )
+-- {
+--   fooE(*arg1);
+-- }
+-- /* test_bindingspecsfun_argtypedef_Example_get_foo */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_2020929269c10652 (void)) (
+--   struct MyStruct arg1
+-- )
+-- {
+--   return &foo;
+-- }
+-- /* test_bindingspecsfun_argtypedef_Example_get_fooA */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_3fbd7681308a7575 (void)) (
+--   A arg1
+-- )
+-- {
+--   return &fooA;
+-- }
+-- /* test_bindingspecsfun_argtypedef_Example_get_fooB */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_118f9a485493ca2d (void)) (
+--   B arg1
+-- )
+-- {
+--   return &fooB;
+-- }
+-- /* test_bindingspecsfun_argtypedef_Example_get_fooC */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_dbe89d4787aae78a (void)) (
+--   C arg1
+-- )
+-- {
+--   return &fooC;
+-- }
+-- /* test_bindingspecsfun_argtypedef_Example_get_fooD */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_cf5702eef5ab2ac4 (void)) (
+--   D arg1
+-- )
+-- {
+--   return &fooD;
+-- }
+-- /* test_bindingspecsfun_argtypedef_Example_get_fooE */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_dc10cdc4b07670d1 (void)) (
+--   E arg1
+-- )
+-- {
+--   return &fooE;
+-- }
+{-| __C declaration:__ @struct MyStruct@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 4:8@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+data MyStruct
+    = MyStruct {myStruct_x :: CInt
+                {- ^ __C declaration:__ @x@
+
+                     __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 4:23@
+
+                     __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+                -}}
+      {- ^ __C declaration:__ @struct MyStruct@
+
+           __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 4:8@
+
+           __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable MyStruct
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure MyStruct <*> peekCField (Proxy @"myStruct_x") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   MyStruct myStruct_x_3 -> pokeCField (Proxy @"myStruct_x") ptr_1 myStruct_x_3
+instance Prim MyStruct
+    where sizeOf# = \_ -> 4# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> MyStruct (indexByteArray# arr_0 i_1)
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
+                                                     (# s_5, v_6 #) -> (# s_5, MyStruct v_6 #)
+          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
+                                                                    MyStruct myStruct_x_11 -> writeByteArray# arr_7 i_8 myStruct_x_11 s_10
+          indexOffAddr# = \addr_12 -> \i_13 -> MyStruct (indexOffAddr# addr_12 i_13)
+          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
+                                                       (# s_17, v_18 #) -> (# s_17, MyStruct v_18 #)
+          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
+                                                                      MyStruct myStruct_x_23 -> writeOffAddr# addr_19 i_20 myStruct_x_23 s_22
+instance HasCField MyStruct "myStruct_x"
+    where type CFieldType MyStruct "myStruct_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType MyStruct "myStruct_x") =>
+         HasField "myStruct_x" (Ptr MyStruct) (Ptr ty)
+    where getField = ptrToCField (Proxy @"myStruct_x")
+{-| __C declaration:__ @A@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 7:25@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+newtype A
+    = A {un_A :: MyStruct}
+      {- ^ __C declaration:__ @A@
+
+           __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 7:25@
+
+           __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+      -}
+    deriving stock (Eq, Show)
+    deriving newtype (Storable, Prim)
+instance TyEq ty (CFieldType A "un_A") =>
+         HasField "un_A" (Ptr A) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_A")
+instance HasCField A "un_A"
+    where type CFieldType A "un_A" = MyStruct
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @B@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 8:11@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+newtype B
+    = B {un_B :: A}
+      {- ^ __C declaration:__ @B@
+
+           __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 8:11@
+
+           __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+      -}
+    deriving stock (Eq, Show)
+    deriving newtype (Storable, Prim)
+instance TyEq ty (CFieldType B "un_B") =>
+         HasField "un_B" (Ptr B) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_B")
+instance HasCField B "un_B"
+    where type CFieldType B "un_B" = A
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @E@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 21:11@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+newtype E
+    = E {un_E :: M.C}
+      {- ^ __C declaration:__ @E@
+
+           __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 21:11@
+
+           __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+      -}
+instance TyEq ty (CFieldType E "un_E") =>
+         HasField "un_E" (Ptr E) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_E")
+instance HasCField E "un_E"
+    where type CFieldType E "un_E" = M.C
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
+foreign import ccall safe "hs_bindgen_99bb90e6d7637d2c" hs_bindgen_99bb90e6d7637d2c ::
+    Ptr MyStruct
+ -> IO Unit
+{-| Pointer-based API for 'foo'
+-}
+foo_wrapper :: Ptr MyStruct -> IO Unit
+{-| Pointer-based API for 'foo'
+-}
+foo_wrapper = hs_bindgen_99bb90e6d7637d2c
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 5:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+foo :: MyStruct -> IO Unit
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 5:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+foo = \x_0 -> with x_0 (\y_1 -> hs_bindgen_99bb90e6d7637d2c y_1)
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
+foreign import ccall safe "hs_bindgen_392e3092a2681c13" hs_bindgen_392e3092a2681c13 ::
+    Ptr A
+ -> IO Unit
+{-| Pointer-based API for 'fooA'
+-}
+fooA_wrapper :: Ptr A -> IO Unit
+{-| Pointer-based API for 'fooA'
+-}
+fooA_wrapper = hs_bindgen_392e3092a2681c13
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 10:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooA :: A -> IO Unit
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 10:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooA = \x_0 -> with x_0 (\y_1 -> hs_bindgen_392e3092a2681c13 y_1)
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
+foreign import ccall safe "hs_bindgen_6011faf8531be4fa" hs_bindgen_6011faf8531be4fa ::
+    Ptr B
+ -> IO Unit
+{-| Pointer-based API for 'fooB'
+-}
+fooB_wrapper :: Ptr B -> IO Unit
+{-| Pointer-based API for 'fooB'
+-}
+fooB_wrapper = hs_bindgen_6011faf8531be4fa
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 11:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooB :: B -> IO Unit
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 11:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooB = \x_0 -> with x_0 (\y_1 -> hs_bindgen_6011faf8531be4fa y_1)
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
+foreign import ccall safe "hs_bindgen_40a50b8e6ac3b09d" hs_bindgen_40a50b8e6ac3b09d ::
+    Ptr M.C
+ -> IO Unit
+{-| Pointer-based API for 'fooC'
+-}
+fooC_wrapper :: Ptr M.C -> IO Unit
+{-| Pointer-based API for 'fooC'
+-}
+fooC_wrapper = hs_bindgen_40a50b8e6ac3b09d
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 23:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooC :: M.C -> IO Unit
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 23:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooC = \x_0 -> with x_0 (\y_1 -> hs_bindgen_40a50b8e6ac3b09d y_1)
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
+foreign import ccall safe "hs_bindgen_32b4f35bf27a4bf8" hs_bindgen_32b4f35bf27a4bf8 ::
+    Ptr M.D
+ -> IO Unit
+{-| Pointer-based API for 'fooD'
+-}
+fooD_wrapper :: Ptr M.D -> IO Unit
+{-| Pointer-based API for 'fooD'
+-}
+fooD_wrapper = hs_bindgen_32b4f35bf27a4bf8
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 24:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooD :: M.D -> IO Unit
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 24:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooD = \x_0 -> with x_0 (\y_1 -> hs_bindgen_32b4f35bf27a4bf8 y_1)
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
+foreign import ccall safe "hs_bindgen_6e59183c0a861d01" hs_bindgen_6e59183c0a861d01 ::
+    Ptr E
+ -> IO Unit
+{-| Pointer-based API for 'fooE'
+-}
+fooE_wrapper :: Ptr E -> IO Unit
+{-| Pointer-based API for 'fooE'
+-}
+fooE_wrapper = hs_bindgen_6e59183c0a861d01
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 25:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooE :: E -> IO Unit
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 25:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooE = \x_0 -> with x_0 (\y_1 -> hs_bindgen_6e59183c0a861d01 y_1)
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_foo@
+foreign import ccall safe "hs_bindgen_51195acecf6b880e" hs_bindgen_51195acecf6b880e ::
+    Ptr MyStruct
+ -> IO Unit
+{-| Pointer-based API for 'foo'
+-}
+foo_wrapper :: Ptr MyStruct -> IO Unit
+{-| Pointer-based API for 'foo'
+-}
+foo_wrapper = hs_bindgen_51195acecf6b880e
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 5:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+foo :: MyStruct -> IO Unit
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 5:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+foo = \x_0 -> with x_0 (\y_1 -> hs_bindgen_51195acecf6b880e y_1)
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooA@
+foreign import ccall safe "hs_bindgen_eb4a794c10ca94f9" hs_bindgen_eb4a794c10ca94f9 ::
+    Ptr A
+ -> IO Unit
+{-| Pointer-based API for 'fooA'
+-}
+fooA_wrapper :: Ptr A -> IO Unit
+{-| Pointer-based API for 'fooA'
+-}
+fooA_wrapper = hs_bindgen_eb4a794c10ca94f9
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 10:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooA :: A -> IO Unit
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 10:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooA = \x_0 -> with x_0 (\y_1 -> hs_bindgen_eb4a794c10ca94f9 y_1)
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooB@
+foreign import ccall safe "hs_bindgen_a11eb4471a953b64" hs_bindgen_a11eb4471a953b64 ::
+    Ptr B
+ -> IO Unit
+{-| Pointer-based API for 'fooB'
+-}
+fooB_wrapper :: Ptr B -> IO Unit
+{-| Pointer-based API for 'fooB'
+-}
+fooB_wrapper = hs_bindgen_a11eb4471a953b64
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 11:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooB :: B -> IO Unit
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 11:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooB = \x_0 -> with x_0 (\y_1 -> hs_bindgen_a11eb4471a953b64 y_1)
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
+foreign import ccall safe "hs_bindgen_1dea92b3f3346311" hs_bindgen_1dea92b3f3346311 ::
+    Ptr M.C
+ -> IO Unit
+{-| Pointer-based API for 'fooC'
+-}
+fooC_wrapper :: Ptr M.C -> IO Unit
+{-| Pointer-based API for 'fooC'
+-}
+fooC_wrapper = hs_bindgen_1dea92b3f3346311
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 23:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooC :: M.C -> IO Unit
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 23:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooC = \x_0 -> with x_0 (\y_1 -> hs_bindgen_1dea92b3f3346311 y_1)
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
+foreign import ccall safe "hs_bindgen_dba6d56e1a316e2d" hs_bindgen_dba6d56e1a316e2d ::
+    Ptr M.D
+ -> IO Unit
+{-| Pointer-based API for 'fooD'
+-}
+fooD_wrapper :: Ptr M.D -> IO Unit
+{-| Pointer-based API for 'fooD'
+-}
+fooD_wrapper = hs_bindgen_dba6d56e1a316e2d
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 24:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooD :: M.D -> IO Unit
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 24:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooD = \x_0 -> with x_0 (\y_1 -> hs_bindgen_dba6d56e1a316e2d y_1)
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
+foreign import ccall safe "hs_bindgen_23b6f403a534aeae" hs_bindgen_23b6f403a534aeae ::
+    Ptr E
+ -> IO Unit
+{-| Pointer-based API for 'fooE'
+-}
+fooE_wrapper :: Ptr E -> IO Unit
+{-| Pointer-based API for 'fooE'
+-}
+fooE_wrapper = hs_bindgen_23b6f403a534aeae
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 25:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooE :: E -> IO Unit
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 25:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooE = \x_0 -> with x_0 (\y_1 -> hs_bindgen_23b6f403a534aeae y_1)
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_foo@
+foreign import ccall safe "hs_bindgen_2020929269c10652" hs_bindgen_2020929269c10652 ::
+    IO (FunPtr (MyStruct -> IO Unit))
+{-# NOINLINE foo #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 5:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+foo :: FunPtr (MyStruct -> IO Unit)
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 5:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+foo = unsafePerformIO hs_bindgen_2020929269c10652
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooA@
+foreign import ccall safe "hs_bindgen_3fbd7681308a7575" hs_bindgen_3fbd7681308a7575 ::
+    IO (FunPtr (A -> IO Unit))
+{-# NOINLINE fooA #-}
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 10:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooA :: FunPtr (A -> IO Unit)
+{-| __C declaration:__ @fooA@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 10:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooA = unsafePerformIO hs_bindgen_3fbd7681308a7575
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooB@
+foreign import ccall safe "hs_bindgen_118f9a485493ca2d" hs_bindgen_118f9a485493ca2d ::
+    IO (FunPtr (B -> IO Unit))
+{-# NOINLINE fooB #-}
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 11:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooB :: FunPtr (B -> IO Unit)
+{-| __C declaration:__ @fooB@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 11:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooB = unsafePerformIO hs_bindgen_118f9a485493ca2d
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooC@
+foreign import ccall safe "hs_bindgen_dbe89d4787aae78a" hs_bindgen_dbe89d4787aae78a ::
+    IO (FunPtr (M.C -> IO Unit))
+{-# NOINLINE fooC #-}
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 23:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooC :: FunPtr (M.C -> IO Unit)
+{-| __C declaration:__ @fooC@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 23:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooC = unsafePerformIO hs_bindgen_dbe89d4787aae78a
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooD@
+foreign import ccall safe "hs_bindgen_cf5702eef5ab2ac4" hs_bindgen_cf5702eef5ab2ac4 ::
+    IO (FunPtr (M.D -> IO Unit))
+{-# NOINLINE fooD #-}
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 24:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooD :: FunPtr (M.D -> IO Unit)
+{-| __C declaration:__ @fooD@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 24:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooD = unsafePerformIO hs_bindgen_cf5702eef5ab2ac4
+-- __unique:__ @test_bindingspecsfun_argtypedef_Example_get_fooE@
+foreign import ccall safe "hs_bindgen_dc10cdc4b07670d1" hs_bindgen_dc10cdc4b07670d1 ::
+    IO (FunPtr (E -> IO Unit))
+{-# NOINLINE fooE #-}
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 25:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooE :: FunPtr (E -> IO Unit)
+{-| __C declaration:__ @fooE@
+
+    __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 25:6@
+
+    __exported by:__ @binding-specs\/fun_arg\/typedef\/struct.h@
+-}
+fooE = unsafePerformIO hs_bindgen_dc10cdc4b07670d1

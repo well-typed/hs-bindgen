@@ -1,0 +1,46 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+target: x86_64-pc-linux-musl
+hsmodule: Example
+ctypes:
+- headers: binding-specs/fun_arg/macro/array_known_size.h
+  cname: MyArray
+  hsname: MyArray
+- headers: binding-specs/fun_arg/macro/array_known_size.h
+  cname: A
+  hsname: A
+- headers: binding-specs/fun_arg/macro/array_known_size.h
+  cname: B
+  hsname: B
+hstypes:
+- hsname: A
+  representation:
+    newtype:
+      constructor: A
+      fields:
+      - un_A
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: B
+  representation:
+    newtype:
+      constructor: B
+      fields:
+      - un_B
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: MyArray
+  representation:
+    newtype:
+      constructor: MyArray
+      fields:
+      - un_MyArray
+  instances:
+  - Eq
+  - Show
+  - Storable

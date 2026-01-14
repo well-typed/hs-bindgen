@@ -384,18 +384,24 @@ instance Resolve C.Type where
   resolve ctx = \case
       C.TypeRef uid -> do
         mResolved <- aux uid
+        let ref' = C.TypeRef uid
         case mResolved of
-          Just r  -> return $ r (C.TypeRef uid)
-          Nothing -> return $ C.TypeRef uid
-      C.TypeTypedef (C.Ref uid uTy) -> do
-        mResolved <- aux uid
+          Just r  -> return $ r ref'
+          Nothing -> return ref'
+      C.TypeMacro ref -> do
+        mResolved <- aux ref.name
+        underlying' <- resolve ctx ref.underlying
+        let macro' = C.TypeMacro (C.Ref ref.name underlying')
         case mResolved of
-          Just r  -> do
-            uTy' <- resolve ctx uTy
-            return $ r (C.TypeTypedef (C.Ref uid uTy'))
-          Nothing -> do
-            uTy' <- resolve ctx uTy
-            return $ C.TypeTypedef (C.Ref uid uTy')
+          Just r  -> return $ r macro'
+          Nothing -> return macro'
+      C.TypeTypedef ref -> do
+        mResolved <- aux ref.name
+        underlying' <- resolve ctx ref.underlying
+        let typedef' = C.TypeTypedef (C.Ref ref.name underlying')
+        case mResolved of
+          Just r  -> return $ r typedef'
+          Nothing -> return typedef'
 
       -- Recursive cases
       C.TypePointers n t      -> C.TypePointers n <$> resolve ctx t

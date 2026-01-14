@@ -1,0 +1,29 @@
+/* Macros of arrays of known size */
+// NOTE: all declarations are selected, unless otherwise specified.
+
+typedef int MyArray[3]; // no binding spec
+void foo  (MyArray x);
+
+#define A MyArray // no binding spec
+#define B A // no binding spec
+
+void fooA (A x);
+void fooB (B x);
+
+/* TODO: can be enabled once the 'TransitiveDependenciesMissing' warning is
+fixed. See issue #1513.
+
+// _X, _Y and _Z are intentionally distinct macros from A and B. We want C, D,
+// and E to refer to unselected macros.
+
+typedef int _X[3]; // unselected
+#define _Y _X // unselected
+#define _Z _Y // unselected
+#define C _Z // binding spec
+#define D C // binding spec
+#define E C // no binding spec
+
+void fooC (C x);
+void fooD (D x);
+void fooE (E x);
+*/
