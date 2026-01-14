@@ -11,9 +11,6 @@ ctypes:
   cname: struct X
   hsname: X
 - headers: declarations/redeclaration.h
-  cname: union y
-  hsname: 'Y'
-- headers: declarations/redeclaration.h
   cname: union Y
   hsname: 'Y'
 hstypes:
@@ -52,4 +49,10 @@ hstypes:
   - Show
   - Storable
 - hsname: 'Y'
-  representation: opaque
+  representation:
+    newtype:
+      constructor: 'Y'
+      fields:
+      - un_Y
+  instances:
+  - Storable

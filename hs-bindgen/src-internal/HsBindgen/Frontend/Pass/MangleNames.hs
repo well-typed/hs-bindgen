@@ -104,66 +104,117 @@ chooseNames ::
   -> [C.Decl Select]
   -> (NameMap, [Msg MangleNames])
 chooseNames td fc decls =
-    let specifiedNames = Map.fromList $ mapMaybe getSpecifiedName decls
-    in  bimap Map.fromList concat . unzip $
-          map (nameForDecl td fc specifiedNames) decls
+    let specifiedNames :: NameMap
+        specifiedNames = Map.fromList $ mapMaybe getSpecifiedName decls
+
+        nameInfos :: [NameInfo]
+        msgs :: [Msg MangleNames]
+        (nameInfos, msgs) =
+          second concat . unzip $
+            map (nameForDecl td fc specifiedNames) decls
+
+        -- When detecting collisions, we only use original (i.e., non-squashed)
+        -- declarations.
+        nameInfosOriginal :: [NameInfo]
+        nameInfosOriginal = filter (not . (.squashed)) nameInfos
+
+        collisions :: Map Hs.Identifier [(DeclId, SingleLoc)]
+        collisions = getDuplicates $ Map.fromList $
+          map (\n -> ((n.cId, n.loc), n.hsId)) nameInfosOriginal
+
+        collisionMsgs :: [Msg MangleNames]
+        collisionMsgs = concatMap getCollisionMsg $ Map.toList collisions
+
+        nameMap :: NameMap
+        nameMap = Map.fromList $ map (\n -> (n.cId, n.hsId)) nameInfos
+
+    -- TODO https://github.com/well-typed/hs-bindgen/issues/1533: For now
+    -- collisions only lead to warnings; in the future, we want to handle them
+    -- in the decl-index, and remove them in the 'Select' pass.
+    in  (nameMap, collisionMsgs ++ msgs)
   where
     getSpecifiedName :: C.Decl Select -> Maybe (DeclId, Hs.Identifier)
     getSpecifiedName decl = (decl.info.id,) <$> ((.hsIdent) =<< decl.ann.cSpec)
+
+getCollisionMsg :: (Hs.Identifier, [(DeclId, SingleLoc)]) -> [WithLocationInfo MangleNamesMsg]
+getCollisionMsg (i, xs) =
+    [ WithLocationInfo (declIdLocationInfo d [l]) m
+    | let m = MangleNamesCollision i idsWithLocs
+    , (d, l) <- xs
+    ]
+  where
+    idsWithLocs :: [WithLocationInfo DeclId]
+    idsWithLocs = map (\(d, l) -> WithLocationInfo (declIdLocationInfo d [l]) d) xs
+
+-- | Internal.
+data NameInfo = NameInfo {
+    cId      :: DeclId
+    -- | We need the location to obtain 'WithLocationInfo'
+  , loc      :: SingleLoc
+  , hsId     :: Hs.Identifier
+    -- | We expect name collisions for squashed declarations
+  , squashed :: Bool
+  }
+  deriving stock (Eq, Show)
 
 nameForDecl ::
      TypedefAnalysis
   -> FixCandidate Maybe
   -> NameMap
   -> C.Decl Select
-  -> ((DeclId, Hs.Identifier), [Msg MangleNames])
+  -> (NameInfo, [Msg MangleNames])
 nameForDecl td fc specifiedNames decl =
     case Map.lookup declId specifiedNames of
       Just hsName ->
         -- Binding spec specified a name for this declaration.
         -- In this case, this overrides any naming decisions we might make here.
         --
-        -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1436>
-        -- If we have a binding specification for a type that is squashed, it is
-        -- currently silenty ignored, because that declaration has already been
-        -- removed from the list of declarations in @Select@.
-        ((declId, hsName), [])
+        -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1436> When
+        -- squashing becomes configurable, we need to update the logic for
+        -- `isSquashed` here.
+        let isSquashed = case Map.lookup declId td.map of
+              Just TypedefAnalysis.Squash{} -> True
+              _otherwise                    -> False
+        in  (NameInfo declId loc hsName isSquashed, [])
       Nothing ->
         withDeclNamespace decl.kind $ \ns ->
         second (map $ withDeclLoc decl.info) $
           case Map.lookup declId td.map of
             Nothing ->
               fromDeclId fc ns declId & \(hsName, msgs) -> (
-                  (declId, hsName)
+                  NameInfo declId loc hsName False
                 , msgs
                 )
             Just (TypedefAnalysis.Rename (TypedefAnalysis.AddSuffix suffix)) ->
               fromDeclId fc ns declId & \(hsName, msgs) ->
                 let newName = hsName <> suffix in (
-                  (declId, newName)
+                  NameInfo declId loc newName False
                 , MangleNamesRenamed newName : msgs
                 )
             Just (TypedefAnalysis.Rename (TypedefAnalysis.UseNameOf declId')) ->
               case Map.lookup declId' specifiedNames of
-                Just hsName -> ((declId, hsName), [])
+                Just hsName -> (NameInfo declId loc hsName False, [])
                 Nothing ->
                   fromDeclId fc ns declId' & \(hsName, msgs) -> (
-                      (declId, hsName)
+                      NameInfo declId loc hsName False
                     , if declId.name.text /= declId'.name.text
                         then MangleNamesRenamed hsName : msgs
                         else msgs
                     )
             Just (TypedefAnalysis.Squash _ declId') ->
               case Map.lookup declId' specifiedNames of
-                Just hsName -> ((declId, hsName), [])
+                Just hsName -> (NameInfo declId loc hsName True, [])
                 Nothing ->
                   fromDeclId fc ns declId & \(hsName, msgs) -> (
-                      (declId, hsName)
+                      NameInfo declId loc hsName True
                     , msgs
                     )
   where
     declId :: DeclId
     declId = decl.info.id
+
+    loc :: SingleLoc
+    loc = decl.info.loc
 
 {-------------------------------------------------------------------------------
   Internal: working with 'FixCandidate'
@@ -613,11 +664,28 @@ withDeclNamespace kind k =
           MacroType{} -> k (Proxy @Hs.NsTypeConstr)
           MacroExpr{} -> k (Proxy @Hs.NsVar)
 
-withDeclLoc :: forall p.
+withDeclLoc :: forall p a.
      IsPass p
-  => C.DeclInfo p -> MangleNamesMsg -> WithLocationInfo MangleNamesMsg
+  => C.DeclInfo p -> a -> WithLocationInfo a
 withDeclLoc info msg = WithLocationInfo{
       loc = idLocationInfo (Proxy @p) info.id [info.loc]
     , msg = msg
     }
 
+invert :: Ord v => Map k v -> Map v [k]
+invert = Map.foldlWithKey' aux Map.empty
+  where
+    aux :: Ord a => Map a [b] -> b -> a -> Map a [b]
+    aux acc k v = Map.alter (insertOrPrepend k) v acc
+
+    insertOrPrepend :: k -> Maybe [k] -> Maybe [k]
+    insertOrPrepend k Nothing   = Just [k]
+    insertOrPrepend k (Just ks) = Just $ k : ks
+
+getDuplicates :: forall k v. (Ord v) => Map k v -> Map v [k]
+getDuplicates = Map.filter isDup . invert
+  where
+
+    isDup :: [a] -> Bool
+    isDup (_:_:_) = True
+    isDup _       = False

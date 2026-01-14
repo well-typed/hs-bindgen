@@ -513,7 +513,6 @@ unionDecs haddockConfig info union spec = do
         accessorDecls :: [Hs.Decl]
         accessorDecls = concatMap getAccessorDecls union.fields
 
-        -- TODO: Should the name mangler take care of the "get" and "set" prefixes?
         getAccessorDecls :: C.UnionField Final -> [Hs.Decl]
         getAccessorDecls field =
             if Hs.Storable `Set.notMember` fInsts
@@ -540,6 +539,7 @@ unionDecs haddockConfig info union spec = do
                             (Just nt.name)
                             (Set.singleton Hs.Storable)
                             [hsType]
+            -- TODO: Should the name mangler take care of the "get" and "set" prefixes?
             getterName = Hs.unsafeHsIdHsName $ "get_" <> field.info.name.hsName
             setterName = Hs.unsafeHsIdHsName $ "set_" <> field.info.name.hsName
 

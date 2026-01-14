@@ -89,6 +89,10 @@ data Unusable =
       UnusableParseNotAttempted SingleLoc (NonEmpty ParseNotAttempted)
     | UnusableParseFailure      SingleLoc ParseFailure
     | UnusableConflict          Conflict
+    -- TODO https://github.com/well-typed/hs-bindgen/issues/1533: Handle name
+    -- mangle failures.
+    --
+    -- | UnusableNameMangleFailure NameMangleFailure
     | UnusableFailedMacro       FailedMacro
       -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Attach
       -- information required to match the select predicate also to omitted

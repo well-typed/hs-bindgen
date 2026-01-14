@@ -4,9 +4,11 @@ set -euo pipefail
 
 usage() {
     cat <<EOF
-Usage: $(basename "$0") [OPTIONS]
+Usage: $(basename "$0") [OPTIONS] [FIXTURE]
 
 Compile generated .hs fixture files to verify they produce valid Haskell code.
+
+If a single FIXTURE is provided as an argument, only compile this FIXTURE.
 
 Options:
   -j N    Number of parallel jobs (default: 4)
@@ -21,30 +23,30 @@ EOF
 
 # Known failures - these will be skipped unless -f is used
 KNOWN_FAILURES=(
-    binding-specs/fun_arg/typedef/array               # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/typedef/array_known_size    # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/typedef/enum                # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/typedef/function            # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/typedef/function_pointer    # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/typedef/struct              # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/typedef/union               # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/macro/array                 # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/macro/array_known_size      # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/macro/enum                  # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/macro/function              # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/macro/function_pointer      # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/macro/struct                # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    binding-specs/fun_arg/macro/union                 # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    declarations/redeclaration                        # Multiple declarations (intentional test case)
-    edge-cases/iterator                               # Makes use of Apple block extension which would require clang (see #913)
-    functions/decls_in_signature                      # Unusable struct (see #1128)
-    functions/heap_types/struct_const_member          # Issue #1490
-    functions/heap_types/struct_const_typedef         # Issue #1490
-    functions/heap_types/struct_const                 # Issue #1490
-    functions/heap_types/union_const_member           # Issue #1490
-    functions/heap_types/union_const_typedef          # Issue #1490
-    functions/heap_types/union_const                  # Issue #1490
-    types/typedefs/typenames                          # Multiple declarations (hs-bindgen namespace possible bug/feature)
+    binding-specs/fun_arg/typedef/array            # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/array_known_size # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/enum             # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/function         # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/function_pointer # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/struct           # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/typedef/union            # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/array              # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/array_known_size   # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/enum               # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/function           # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/function_pointer   # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/struct             # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    binding-specs/fun_arg/macro/union              # Fixtures with external binding specs can not be compiled yet (see issue #1495)
+    declarations/name_collision                    # TODO: https://github.com/well-typed/hs-bindgen/issues/1533: Fixture should be empty.
+    edge-cases/iterator                            # Makes use of Apple block extension which would require clang (see #913)
+    functions/decls_in_signature                   # Unusable struct (see #1128)
+    functions/heap_types/struct_const_member       # Issue #1490
+    functions/heap_types/struct_const_typedef      # Issue #1490
+    functions/heap_types/struct_const              # Issue #1490
+    functions/heap_types/union_const_member        # Issue #1490
+    functions/heap_types/union_const_typedef       # Issue #1490
+    functions/heap_types/union_const               # Issue #1490
+    types/typedefs/typenames                       # Multiple declarations (hs-bindgen namespace possible bug/feature)
 )
 
 # Known fixtures without code - these will be skipped
@@ -73,7 +75,7 @@ KNOWN_EMPTY=(
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=133
+KNOWN_FIXTURES_COUNT=134
 
 # Default options
 JOBS=4
@@ -219,6 +221,13 @@ compile_fixture() {
         return 1
     fi
 }
+
+if [ $# -eq 1 ]; then
+    echo "========================================="
+    echo "Compiling single fixture..."
+    compile_fixture "$1"
+    exit
+fi
 
 # Make these functions and variables available to child processes (subshells)
 export -f compile_fixture
