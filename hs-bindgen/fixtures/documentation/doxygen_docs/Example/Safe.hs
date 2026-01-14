@@ -726,11 +726,15 @@ foreign import ccall safe "hs_bindgen_39fef54c23d4e1ee" hs_bindgen_39fef54c23d4e
      FC.CInt
   -> FC.CInt
 
-{-| __C declaration:__ @square@
+{-|
 
-    __defined at:__ @documentation\/doxygen_docs.h 429:5@
+  Marked @__attribute((const))__@
 
-    __exported by:__ @documentation\/doxygen_docs.h@
+__C declaration:__ @square@
+
+__defined at:__ @documentation\/doxygen_docs.h 429:5@
+
+__exported by:__ @documentation\/doxygen_docs.h@
 -}
 square ::
      FC.CInt

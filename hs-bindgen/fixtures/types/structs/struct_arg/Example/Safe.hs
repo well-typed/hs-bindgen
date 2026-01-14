@@ -52,14 +52,6 @@ foreign import ccall safe "hs_bindgen_4ad25504590fdd2b" hs_bindgen_4ad25504590fd
      Ptr.Ptr Thing
   -> IO FC.CInt
 
-{-| Pointer-based API for 'thing_fun_1'
--}
-thing_fun_1_wrapper ::
-     Ptr.Ptr Thing
-     -- ^ __C declaration:__ @x@
-  -> IO FC.CInt
-thing_fun_1_wrapper = hs_bindgen_4ad25504590fdd2b
-
 {-| __C declaration:__ @thing_fun_1@
 
     __defined at:__ @types\/structs\/struct_arg.h 6:5@
@@ -72,22 +64,13 @@ thing_fun_1 ::
   -> IO FC.CInt
 thing_fun_1 =
   \x0 ->
-    F.with x0 (\y1 -> hs_bindgen_4ad25504590fdd2b y1)
+    F.with x0 (\x1 -> hs_bindgen_4ad25504590fdd2b x1)
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_2@
 foreign import ccall safe "hs_bindgen_04a435522bf64978" hs_bindgen_04a435522bf64978 ::
      FC.CInt
   -> Ptr.Ptr Thing
   -> IO ()
-
-{-| Pointer-based API for 'thing_fun_2'
--}
-thing_fun_2_wrapper ::
-     FC.CInt
-     -- ^ __C declaration:__ @x@
-  -> Ptr.Ptr Thing
-  -> IO ()
-thing_fun_2_wrapper = hs_bindgen_04a435522bf64978
 
 {-| __C declaration:__ @thing_fun_2@
 
@@ -101,8 +84,8 @@ thing_fun_2 ::
   -> IO Thing
 thing_fun_2 =
   \x0 ->
-    HsBindgen.Runtime.CAPI.allocaAndPeek (\z1 ->
-                                            hs_bindgen_04a435522bf64978 x0 z1)
+    HsBindgen.Runtime.CAPI.allocaAndPeek (\res1 ->
+                                            hs_bindgen_04a435522bf64978 x0 res1)
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3a@
 foreign import ccall safe "hs_bindgen_5e3271324df7ced2" hs_bindgen_5e3271324df7ced2 ::
@@ -111,19 +94,6 @@ foreign import ccall safe "hs_bindgen_5e3271324df7ced2" hs_bindgen_5e3271324df7c
   -> FC.CDouble
   -> Ptr.Ptr Thing
   -> IO ()
-
-{-| Pointer-based API for 'thing_fun_3a'
--}
-thing_fun_3a_wrapper ::
-     FC.CInt
-     -- ^ __C declaration:__ @x@
-  -> Ptr.Ptr Thing
-     -- ^ __C declaration:__ @y@
-  -> FC.CDouble
-     -- ^ __C declaration:__ @z@
-  -> Ptr.Ptr Thing
-  -> IO ()
-thing_fun_3a_wrapper = hs_bindgen_5e3271324df7ced2
 
 {-| __C declaration:__ @thing_fun_3a@
 
@@ -141,11 +111,11 @@ thing_fun_3a ::
   -> IO Thing
 thing_fun_3a =
   \x0 ->
-    \x1 ->
-      \x2 ->
-        F.with x1 (\y3 ->
-                     HsBindgen.Runtime.CAPI.allocaAndPeek (\z4 ->
-                                                             hs_bindgen_5e3271324df7ced2 x0 y3 x2 z4))
+    \y1 ->
+      \z2 ->
+        F.with y1 (\y3 ->
+                     HsBindgen.Runtime.CAPI.allocaAndPeek (\res4 ->
+                                                             hs_bindgen_5e3271324df7ced2 x0 y3 z2 res4))
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Safe_thing_fun_3b@
 foreign import ccall safe "hs_bindgen_3525c7d1c72f2fae" hs_bindgen_3525c7d1c72f2fae ::
@@ -153,18 +123,6 @@ foreign import ccall safe "hs_bindgen_3525c7d1c72f2fae" hs_bindgen_3525c7d1c72f2
   -> Ptr.Ptr Thing
   -> FC.CDouble
   -> IO FC.CChar
-
-{-| Pointer-based API for 'thing_fun_3b'
--}
-thing_fun_3b_wrapper ::
-     FC.CInt
-     -- ^ __C declaration:__ @x@
-  -> Ptr.Ptr Thing
-     -- ^ __C declaration:__ @y@
-  -> FC.CDouble
-     -- ^ __C declaration:__ @z@
-  -> IO FC.CChar
-thing_fun_3b_wrapper = hs_bindgen_3525c7d1c72f2fae
 
 {-| __C declaration:__ @thing_fun_3b@
 
@@ -182,7 +140,7 @@ thing_fun_3b ::
   -> IO FC.CChar
 thing_fun_3b =
   \x0 ->
-    \x1 ->
-      \x2 ->
-        F.with x1 (\y3 ->
-                     hs_bindgen_3525c7d1c72f2fae x0 y3 x2)
+    \y1 ->
+      \z2 ->
+        F.with y1 (\y3 ->
+                     hs_bindgen_3525c7d1c72f2fae x0 y3 z2)

@@ -83,12 +83,6 @@ foreign import ccall safe "hs_bindgen_8a303cd5b4f7787b" hs_bindgen_8a303cd5b4f77
     ConstPtr T
  -> ConstPtr T
  -> IO Unit
-{-| Pointer-based API for 'fun'
--}
-fun_wrapper :: ConstPtr T -> ConstPtr T -> IO Unit
-{-| Pointer-based API for 'fun'
--}
-fun_wrapper = hs_bindgen_8a303cd5b4f7787b
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/union_const.h 9:9@
@@ -102,18 +96,12 @@ fun :: T -> IO T
 
     __exported by:__ @functions\/heap_types\/union_const.h@
 -}
-fun = \x_0 -> with x_0 (\y_1 -> allocaAndPeek (\z_2 -> hs_bindgen_8a303cd5b4f7787b (ConstPtr y_1) z_2))
+fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_8a303cd5b4f7787b (ConstPtr x_1) res_2))
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Unsafe_fun@
 foreign import ccall safe "hs_bindgen_4e22c71ca196dc5e" hs_bindgen_4e22c71ca196dc5e ::
     ConstPtr T
  -> ConstPtr T
  -> IO Unit
-{-| Pointer-based API for 'fun'
--}
-fun_wrapper :: ConstPtr T -> ConstPtr T -> IO Unit
-{-| Pointer-based API for 'fun'
--}
-fun_wrapper = hs_bindgen_4e22c71ca196dc5e
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/union_const.h 9:9@
@@ -127,7 +115,7 @@ fun :: T -> IO T
 
     __exported by:__ @functions\/heap_types\/union_const.h@
 -}
-fun = \x_0 -> with x_0 (\y_1 -> allocaAndPeek (\z_2 -> hs_bindgen_4e22c71ca196dc5e (ConstPtr y_1) z_2))
+fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_4e22c71ca196dc5e (ConstPtr x_1) res_2))
 -- __unique:__ @test_functionsheap_typesunion_con_Example_get_fun@
 foreign import ccall safe "hs_bindgen_7e6af500caa71b85" hs_bindgen_7e6af500caa71b85 ::
     IO (FunPtr (T -> IO T))

@@ -12,6 +12,7 @@ import Data.Text qualified as T
 import Data.Text qualified as Text
 import Data.Type.Nat (SNatI)
 import Data.Vec.Lazy qualified as Vec
+import DeBruijn (Add (..), Idx (..), Weaken (..), pattern I1, pattern I2)
 
 import Clang.HighLevel.Documentation qualified as Clang
 
@@ -51,8 +52,6 @@ import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.PrettyC qualified as PC
-
-import DeBruijn (Add (..), Idx (..), Weaken (..), pattern I1, pattern I2)
 
 {-------------------------------------------------------------------------------
   Top-level

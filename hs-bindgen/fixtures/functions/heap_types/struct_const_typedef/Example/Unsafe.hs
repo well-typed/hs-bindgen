@@ -29,15 +29,6 @@ foreign import ccall unsafe "hs_bindgen_4351e21e32969011" hs_bindgen_4351e21e329
   -> HsBindgen.Runtime.ConstPtr.ConstPtr T
   -> IO ()
 
-{-| Pointer-based API for 'fun'
--}
-fun_wrapper ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr T
-     -- ^ __C declaration:__ @x@
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr T
-  -> IO ()
-fun_wrapper = hs_bindgen_4351e21e32969011
-
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct_const_typedef.h 9:3@
@@ -50,6 +41,6 @@ fun ::
   -> IO T
 fun =
   \x0 ->
-    F.with x0 (\y1 ->
-                 HsBindgen.Runtime.CAPI.allocaAndPeek (\z2 ->
-                                                         hs_bindgen_4351e21e32969011 (HsBindgen.Runtime.ConstPtr.ConstPtr y1) z2))
+    F.with x0 (\x1 ->
+                 HsBindgen.Runtime.CAPI.allocaAndPeek (\res2 ->
+                                                         hs_bindgen_4351e21e32969011 (HsBindgen.Runtime.ConstPtr.ConstPtr x1) res2))

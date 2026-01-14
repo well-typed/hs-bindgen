@@ -168,33 +168,26 @@ test01 = testGroup "test_01"
 
     , testCase "fixed-size-array" $ do
         let v = CA.repeat 4 :: CA.ConstantArray 3 CInt
-        res <- CA.withPtr v (\ptr -> Test01.sum3_wrapper 5 (ConstPtr ptr))
+        res <- CA.withPtr v (\ptr -> Test01.sum3 5 (ConstPtr ptr))
         21 @?= res
         [4,4,4] @?= CA.toList v -- modification in sum3 aren't visible in original array.
 
-        res' <- Test01.sum3 7 v
+        res' <- CA.withPtr v (\ptr -> Test01.sum3 7 (ConstPtr ptr))
         23 @?= res'
 
         let t = Test01.Triple v
-        res'' <- Test01.sum3b 9 t
+        res'' <- CA.withPtr t (\ptr -> Test01.sum3b 9 (ConstPtr ptr))
         29 @?= res''
     ]
 
 thing_fun_1 :: Test01.Thing -> IO CInt
-thing_fun_1 x =
-    with x $ \x' ->
-    Test01.thing_fun_1_wrapper x'
+thing_fun_1 x = Test01.thing_fun_1 x
 
 thing_fun_2 :: CInt -> IO Test01.Thing
-thing_fun_2 x =
-    allocaAndPeek $ \res ->
-    Test01.thing_fun_2_wrapper x res
+thing_fun_2 x = Test01.thing_fun_2 x
 
 thing_fun_3 :: Test01.Thing -> IO Test01.Thing
-thing_fun_3 x =
-    with x $ \x' ->
-    allocaAndPeek $ \res ->
-    Test01.thing_fun_3_wrapper x' res
+thing_fun_3 x = Test01.thing_fun_3 x
 
 {-------------------------------------------------------------------------------
   Test02

@@ -1020,12 +1020,6 @@ foreign import ccall safe "hs_bindgen_a2bf6bc667c9e769" hs_bindgen_a2bf6bc667c9e
  -> Ptr CInt
  -> ConstPtr CInt
  -> IO CInt
-{-| Pointer-based API for 'fun_1_const'
--}
-fun_1_const_wrapper :: CInt -> Ptr CInt -> ConstPtr CInt -> IO CInt
-{-| Pointer-based API for 'fun_1_const'
--}
-fun_1_const_wrapper = hs_bindgen_a2bf6bc667c9e769
 {-| Array of known size
 
 __C declaration:__ @fun_1_const@
@@ -1034,7 +1028,7 @@ __defined at:__ @arrays\/array.h 149:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_1_const :: CInt -> Ptr CInt -> ConstantArray 3 CInt -> IO CInt
+fun_1_const :: CInt -> Ptr CInt -> ConstPtr CInt -> IO CInt
 {-| Array of known size
 
 __C declaration:__ @fun_1_const@
@@ -1043,18 +1037,12 @@ __defined at:__ @arrays\/array.h 149:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_1_const = \x_0 -> \x_1 -> \x_2 -> withPtr x_2 (\ptr_3 -> hs_bindgen_a2bf6bc667c9e769 x_0 x_1 (ConstPtr ptr_3))
+fun_1_const = hs_bindgen_a2bf6bc667c9e769
 -- __unique:__ @test_arraysarray_Example_Safe_fun_2_const@
 foreign import ccall safe "hs_bindgen_ec5a6dd15a457a1d" hs_bindgen_ec5a6dd15a457a1d ::
     Ptr CInt
  -> ConstPtr CInt
  -> IO CInt
-{-| Pointer-based API for 'fun_2_const'
--}
-fun_2_const_wrapper :: Ptr CInt -> ConstPtr CInt -> IO CInt
-{-| Pointer-based API for 'fun_2_const'
--}
-fun_2_const_wrapper = hs_bindgen_ec5a6dd15a457a1d
 {-| Array of known size, typedef
 
 __C declaration:__ @fun_2_const@
@@ -1063,7 +1051,7 @@ __defined at:__ @arrays\/array.h 152:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_2_const :: Ptr CInt -> Triplet -> IO CInt
+fun_2_const :: Ptr CInt -> ConstPtr CInt -> IO CInt
 {-| Array of known size, typedef
 
 __C declaration:__ @fun_2_const@
@@ -1072,18 +1060,12 @@ __defined at:__ @arrays\/array.h 152:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_2_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_ec5a6dd15a457a1d x_0 (ConstPtr ptr_2))
+fun_2_const = hs_bindgen_ec5a6dd15a457a1d
 -- __unique:__ @test_arraysarray_Example_Safe_fun_3_const@
 foreign import ccall safe "hs_bindgen_84df1030280611db" hs_bindgen_84df1030280611db ::
     Ptr CInt
  -> ConstPtr CInt
  -> IO CInt
-{-| Pointer-based API for 'fun_3_const'
--}
-fun_3_const_wrapper :: Ptr CInt -> ConstPtr CInt -> IO CInt
-{-| Pointer-based API for 'fun_3_const'
--}
-fun_3_const_wrapper = hs_bindgen_84df1030280611db
 {-| Array of unknown size
 
 __C declaration:__ @fun_3_const@
@@ -1092,7 +1074,7 @@ __defined at:__ @arrays\/array.h 155:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_3_const :: Ptr CInt -> IncompleteArray CInt -> IO CInt
+fun_3_const :: Ptr CInt -> ConstPtr CInt -> IO CInt
 {-| Array of unknown size
 
 __C declaration:__ @fun_3_const@
@@ -1101,18 +1083,12 @@ __defined at:__ @arrays\/array.h 155:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_3_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_84df1030280611db x_0 (ConstPtr ptr_2))
+fun_3_const = hs_bindgen_84df1030280611db
 -- __unique:__ @test_arraysarray_Example_Safe_fun_4_const@
 foreign import ccall safe "hs_bindgen_e9dc927aa39d14d3" hs_bindgen_e9dc927aa39d14d3 ::
     Ptr CInt
  -> ConstPtr CInt
  -> IO CInt
-{-| Pointer-based API for 'fun_4_const'
--}
-fun_4_const_wrapper :: Ptr CInt -> ConstPtr CInt -> IO CInt
-{-| Pointer-based API for 'fun_4_const'
--}
-fun_4_const_wrapper = hs_bindgen_e9dc927aa39d14d3
 {-| Array of unknown size, typedef
 
 __C declaration:__ @fun_4_const@
@@ -1121,7 +1097,7 @@ __defined at:__ @arrays\/array.h 158:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_4_const :: Ptr CInt -> List -> IO CInt
+fun_4_const :: Ptr CInt -> ConstPtr CInt -> IO CInt
 {-| Array of unknown size, typedef
 
 __C declaration:__ @fun_4_const@
@@ -1130,19 +1106,12 @@ __defined at:__ @arrays\/array.h 158:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_4_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_e9dc927aa39d14d3 x_0 (ConstPtr ptr_2))
+fun_4_const = hs_bindgen_e9dc927aa39d14d3
 -- __unique:__ @test_arraysarray_Example_Safe_fun_5_const@
 foreign import ccall safe "hs_bindgen_cd0bfb26f385dfaa" hs_bindgen_cd0bfb26f385dfaa ::
     Ptr (ConstantArray 3 CInt)
  -> ConstPtr (ConstantArray 3 CInt)
  -> IO CInt
-{-| Pointer-based API for 'fun_5_const'
--}
-fun_5_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
-                       ConstPtr (ConstantArray 3 CInt) -> IO CInt
-{-| Pointer-based API for 'fun_5_const'
--}
-fun_5_const_wrapper = hs_bindgen_cd0bfb26f385dfaa
 {-| Multi-dimensional array of known size
 
 __C declaration:__ @fun_5_const@
@@ -1152,7 +1121,7 @@ __defined at:__ @arrays\/array.h 161:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_5_const :: Ptr (ConstantArray 3 CInt) ->
-               ConstantArray 4 (ConstantArray 3 CInt) -> IO CInt
+               ConstPtr (ConstantArray 3 CInt) -> IO CInt
 {-| Multi-dimensional array of known size
 
 __C declaration:__ @fun_5_const@
@@ -1161,19 +1130,12 @@ __defined at:__ @arrays\/array.h 161:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_5_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_cd0bfb26f385dfaa x_0 (ConstPtr ptr_2))
+fun_5_const = hs_bindgen_cd0bfb26f385dfaa
 -- __unique:__ @test_arraysarray_Example_Safe_fun_6_const@
 foreign import ccall safe "hs_bindgen_1054ce6b48ed0f13" hs_bindgen_1054ce6b48ed0f13 ::
     Ptr (ConstantArray 3 CInt)
  -> ConstPtr (ConstantArray 3 CInt)
  -> IO CInt
-{-| Pointer-based API for 'fun_6_const'
--}
-fun_6_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
-                       ConstPtr (ConstantArray 3 CInt) -> IO CInt
-{-| Pointer-based API for 'fun_6_const'
--}
-fun_6_const_wrapper = hs_bindgen_1054ce6b48ed0f13
 {-| Multi-dimensional array of known size, typedef
 
 __C declaration:__ @fun_6_const@
@@ -1182,7 +1144,8 @@ __defined at:__ @arrays\/array.h 164:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_6_const :: Ptr (ConstantArray 3 CInt) -> Matrix -> IO CInt
+fun_6_const :: Ptr (ConstantArray 3 CInt) ->
+               ConstPtr (ConstantArray 3 CInt) -> IO CInt
 {-| Multi-dimensional array of known size, typedef
 
 __C declaration:__ @fun_6_const@
@@ -1191,19 +1154,12 @@ __defined at:__ @arrays\/array.h 164:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_6_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_1054ce6b48ed0f13 x_0 (ConstPtr ptr_2))
+fun_6_const = hs_bindgen_1054ce6b48ed0f13
 -- __unique:__ @test_arraysarray_Example_Safe_fun_7_const@
 foreign import ccall safe "hs_bindgen_496902d7c6466098" hs_bindgen_496902d7c6466098 ::
     Ptr (ConstantArray 3 CInt)
  -> ConstPtr (ConstantArray 3 CInt)
  -> IO CInt
-{-| Pointer-based API for 'fun_7_const'
--}
-fun_7_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
-                       ConstPtr (ConstantArray 3 CInt) -> IO CInt
-{-| Pointer-based API for 'fun_7_const'
--}
-fun_7_const_wrapper = hs_bindgen_496902d7c6466098
 {-| Multi-dimensional array of unknown size
 
 __C declaration:__ @fun_7_const@
@@ -1213,7 +1169,7 @@ __defined at:__ @arrays\/array.h 167:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_7_const :: Ptr (ConstantArray 3 CInt) ->
-               IncompleteArray (ConstantArray 3 CInt) -> IO CInt
+               ConstPtr (ConstantArray 3 CInt) -> IO CInt
 {-| Multi-dimensional array of unknown size
 
 __C declaration:__ @fun_7_const@
@@ -1222,19 +1178,12 @@ __defined at:__ @arrays\/array.h 167:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_7_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_496902d7c6466098 x_0 (ConstPtr ptr_2))
+fun_7_const = hs_bindgen_496902d7c6466098
 -- __unique:__ @test_arraysarray_Example_Safe_fun_8_const@
 foreign import ccall safe "hs_bindgen_eb65cb5074167c48" hs_bindgen_eb65cb5074167c48 ::
     Ptr (ConstantArray 3 CInt)
  -> ConstPtr (ConstantArray 3 CInt)
  -> IO CInt
-{-| Pointer-based API for 'fun_8_const'
--}
-fun_8_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
-                       ConstPtr (ConstantArray 3 CInt) -> IO CInt
-{-| Pointer-based API for 'fun_8_const'
--}
-fun_8_const_wrapper = hs_bindgen_eb65cb5074167c48
 {-| Multi-dimensional array of unknown size, typedef
 
 __C declaration:__ @fun_8_const@
@@ -1243,7 +1192,8 @@ __defined at:__ @arrays\/array.h 170:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_8_const :: Ptr (ConstantArray 3 CInt) -> Tripletlist -> IO CInt
+fun_8_const :: Ptr (ConstantArray 3 CInt) ->
+               ConstPtr (ConstantArray 3 CInt) -> IO CInt
 {-| Multi-dimensional array of unknown size, typedef
 
 __C declaration:__ @fun_8_const@
@@ -1252,19 +1202,12 @@ __defined at:__ @arrays\/array.h 170:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_8_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_eb65cb5074167c48 x_0 (ConstPtr ptr_2))
+fun_8_const = hs_bindgen_eb65cb5074167c48
 -- __unique:__ @test_arraysarray_Example_Safe_isSolved_const@
 foreign import ccall safe "hs_bindgen_9bb064e9eddf07f7" hs_bindgen_9bb064e9eddf07f7 ::
     Ptr Triplet
  -> ConstPtr Triplet
  -> IO CInt
-{-| Pointer-based API for 'isSolved_const'
--}
-isSolved_const_wrapper :: Ptr Triplet ->
-                          ConstPtr Triplet -> IO CInt
-{-| Pointer-based API for 'isSolved_const'
--}
-isSolved_const_wrapper = hs_bindgen_9bb064e9eddf07f7
 {-| Typedef-in-typedef
 
 __C declaration:__ @isSolved_const@
@@ -1273,7 +1216,7 @@ __defined at:__ @arrays\/array.h 173:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-isSolved_const :: Ptr Triplet -> Sudoku -> IO CInt
+isSolved_const :: Ptr Triplet -> ConstPtr Triplet -> IO CInt
 {-| Typedef-in-typedef
 
 __C declaration:__ @isSolved_const@
@@ -1282,7 +1225,7 @@ __defined at:__ @arrays\/array.h 173:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-isSolved_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_9bb064e9eddf07f7 x_0 (ConstPtr ptr_2))
+isSolved_const = hs_bindgen_9bb064e9eddf07f7
 -- __unique:__ @test_arraysarray_Example_Safe_fun_9@
 foreign import ccall safe "hs_bindgen_0fa0a3e47fa9d95a" hs_bindgen_0fa0a3e47fa9d95a ::
     IO (Ptr (ConstantArray 3 CInt))
@@ -1677,12 +1620,6 @@ foreign import ccall safe "hs_bindgen_ef3b85ae74bc06cf" hs_bindgen_ef3b85ae74bc0
  -> Ptr CInt
  -> ConstPtr CInt
  -> IO CInt
-{-| Pointer-based API for 'fun_1_const'
--}
-fun_1_const_wrapper :: CInt -> Ptr CInt -> ConstPtr CInt -> IO CInt
-{-| Pointer-based API for 'fun_1_const'
--}
-fun_1_const_wrapper = hs_bindgen_ef3b85ae74bc06cf
 {-| Array of known size
 
 __C declaration:__ @fun_1_const@
@@ -1691,7 +1628,7 @@ __defined at:__ @arrays\/array.h 149:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_1_const :: CInt -> Ptr CInt -> ConstantArray 3 CInt -> IO CInt
+fun_1_const :: CInt -> Ptr CInt -> ConstPtr CInt -> IO CInt
 {-| Array of known size
 
 __C declaration:__ @fun_1_const@
@@ -1700,18 +1637,12 @@ __defined at:__ @arrays\/array.h 149:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_1_const = \x_0 -> \x_1 -> \x_2 -> withPtr x_2 (\ptr_3 -> hs_bindgen_ef3b85ae74bc06cf x_0 x_1 (ConstPtr ptr_3))
+fun_1_const = hs_bindgen_ef3b85ae74bc06cf
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_2_const@
 foreign import ccall safe "hs_bindgen_1c913685e5e76952" hs_bindgen_1c913685e5e76952 ::
     Ptr CInt
  -> ConstPtr CInt
  -> IO CInt
-{-| Pointer-based API for 'fun_2_const'
--}
-fun_2_const_wrapper :: Ptr CInt -> ConstPtr CInt -> IO CInt
-{-| Pointer-based API for 'fun_2_const'
--}
-fun_2_const_wrapper = hs_bindgen_1c913685e5e76952
 {-| Array of known size, typedef
 
 __C declaration:__ @fun_2_const@
@@ -1720,7 +1651,7 @@ __defined at:__ @arrays\/array.h 152:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_2_const :: Ptr CInt -> Triplet -> IO CInt
+fun_2_const :: Ptr CInt -> ConstPtr CInt -> IO CInt
 {-| Array of known size, typedef
 
 __C declaration:__ @fun_2_const@
@@ -1729,18 +1660,12 @@ __defined at:__ @arrays\/array.h 152:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_2_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_1c913685e5e76952 x_0 (ConstPtr ptr_2))
+fun_2_const = hs_bindgen_1c913685e5e76952
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_3_const@
 foreign import ccall safe "hs_bindgen_eb8daf22bd5c6f00" hs_bindgen_eb8daf22bd5c6f00 ::
     Ptr CInt
  -> ConstPtr CInt
  -> IO CInt
-{-| Pointer-based API for 'fun_3_const'
--}
-fun_3_const_wrapper :: Ptr CInt -> ConstPtr CInt -> IO CInt
-{-| Pointer-based API for 'fun_3_const'
--}
-fun_3_const_wrapper = hs_bindgen_eb8daf22bd5c6f00
 {-| Array of unknown size
 
 __C declaration:__ @fun_3_const@
@@ -1749,7 +1674,7 @@ __defined at:__ @arrays\/array.h 155:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_3_const :: Ptr CInt -> IncompleteArray CInt -> IO CInt
+fun_3_const :: Ptr CInt -> ConstPtr CInt -> IO CInt
 {-| Array of unknown size
 
 __C declaration:__ @fun_3_const@
@@ -1758,18 +1683,12 @@ __defined at:__ @arrays\/array.h 155:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_3_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_eb8daf22bd5c6f00 x_0 (ConstPtr ptr_2))
+fun_3_const = hs_bindgen_eb8daf22bd5c6f00
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_4_const@
 foreign import ccall safe "hs_bindgen_0b73e4c7695a3b2f" hs_bindgen_0b73e4c7695a3b2f ::
     Ptr CInt
  -> ConstPtr CInt
  -> IO CInt
-{-| Pointer-based API for 'fun_4_const'
--}
-fun_4_const_wrapper :: Ptr CInt -> ConstPtr CInt -> IO CInt
-{-| Pointer-based API for 'fun_4_const'
--}
-fun_4_const_wrapper = hs_bindgen_0b73e4c7695a3b2f
 {-| Array of unknown size, typedef
 
 __C declaration:__ @fun_4_const@
@@ -1778,7 +1697,7 @@ __defined at:__ @arrays\/array.h 158:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_4_const :: Ptr CInt -> List -> IO CInt
+fun_4_const :: Ptr CInt -> ConstPtr CInt -> IO CInt
 {-| Array of unknown size, typedef
 
 __C declaration:__ @fun_4_const@
@@ -1787,19 +1706,12 @@ __defined at:__ @arrays\/array.h 158:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_4_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_0b73e4c7695a3b2f x_0 (ConstPtr ptr_2))
+fun_4_const = hs_bindgen_0b73e4c7695a3b2f
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_5_const@
 foreign import ccall safe "hs_bindgen_374feb8086895fe3" hs_bindgen_374feb8086895fe3 ::
     Ptr (ConstantArray 3 CInt)
  -> ConstPtr (ConstantArray 3 CInt)
  -> IO CInt
-{-| Pointer-based API for 'fun_5_const'
--}
-fun_5_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
-                       ConstPtr (ConstantArray 3 CInt) -> IO CInt
-{-| Pointer-based API for 'fun_5_const'
--}
-fun_5_const_wrapper = hs_bindgen_374feb8086895fe3
 {-| Multi-dimensional array of known size
 
 __C declaration:__ @fun_5_const@
@@ -1809,7 +1721,7 @@ __defined at:__ @arrays\/array.h 161:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_5_const :: Ptr (ConstantArray 3 CInt) ->
-               ConstantArray 4 (ConstantArray 3 CInt) -> IO CInt
+               ConstPtr (ConstantArray 3 CInt) -> IO CInt
 {-| Multi-dimensional array of known size
 
 __C declaration:__ @fun_5_const@
@@ -1818,19 +1730,12 @@ __defined at:__ @arrays\/array.h 161:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_5_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_374feb8086895fe3 x_0 (ConstPtr ptr_2))
+fun_5_const = hs_bindgen_374feb8086895fe3
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_6_const@
 foreign import ccall safe "hs_bindgen_2d1320b468c36708" hs_bindgen_2d1320b468c36708 ::
     Ptr (ConstantArray 3 CInt)
  -> ConstPtr (ConstantArray 3 CInt)
  -> IO CInt
-{-| Pointer-based API for 'fun_6_const'
--}
-fun_6_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
-                       ConstPtr (ConstantArray 3 CInt) -> IO CInt
-{-| Pointer-based API for 'fun_6_const'
--}
-fun_6_const_wrapper = hs_bindgen_2d1320b468c36708
 {-| Multi-dimensional array of known size, typedef
 
 __C declaration:__ @fun_6_const@
@@ -1839,7 +1744,8 @@ __defined at:__ @arrays\/array.h 164:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_6_const :: Ptr (ConstantArray 3 CInt) -> Matrix -> IO CInt
+fun_6_const :: Ptr (ConstantArray 3 CInt) ->
+               ConstPtr (ConstantArray 3 CInt) -> IO CInt
 {-| Multi-dimensional array of known size, typedef
 
 __C declaration:__ @fun_6_const@
@@ -1848,19 +1754,12 @@ __defined at:__ @arrays\/array.h 164:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_6_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_2d1320b468c36708 x_0 (ConstPtr ptr_2))
+fun_6_const = hs_bindgen_2d1320b468c36708
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_7_const@
 foreign import ccall safe "hs_bindgen_f67f5fe5bfb57aa1" hs_bindgen_f67f5fe5bfb57aa1 ::
     Ptr (ConstantArray 3 CInt)
  -> ConstPtr (ConstantArray 3 CInt)
  -> IO CInt
-{-| Pointer-based API for 'fun_7_const'
--}
-fun_7_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
-                       ConstPtr (ConstantArray 3 CInt) -> IO CInt
-{-| Pointer-based API for 'fun_7_const'
--}
-fun_7_const_wrapper = hs_bindgen_f67f5fe5bfb57aa1
 {-| Multi-dimensional array of unknown size
 
 __C declaration:__ @fun_7_const@
@@ -1870,7 +1769,7 @@ __defined at:__ @arrays\/array.h 167:5@
 __exported by:__ @arrays\/array.h@
 -}
 fun_7_const :: Ptr (ConstantArray 3 CInt) ->
-               IncompleteArray (ConstantArray 3 CInt) -> IO CInt
+               ConstPtr (ConstantArray 3 CInt) -> IO CInt
 {-| Multi-dimensional array of unknown size
 
 __C declaration:__ @fun_7_const@
@@ -1879,19 +1778,12 @@ __defined at:__ @arrays\/array.h 167:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_7_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_f67f5fe5bfb57aa1 x_0 (ConstPtr ptr_2))
+fun_7_const = hs_bindgen_f67f5fe5bfb57aa1
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_8_const@
 foreign import ccall safe "hs_bindgen_2c9356851d76320e" hs_bindgen_2c9356851d76320e ::
     Ptr (ConstantArray 3 CInt)
  -> ConstPtr (ConstantArray 3 CInt)
  -> IO CInt
-{-| Pointer-based API for 'fun_8_const'
--}
-fun_8_const_wrapper :: Ptr (ConstantArray 3 CInt) ->
-                       ConstPtr (ConstantArray 3 CInt) -> IO CInt
-{-| Pointer-based API for 'fun_8_const'
--}
-fun_8_const_wrapper = hs_bindgen_2c9356851d76320e
 {-| Multi-dimensional array of unknown size, typedef
 
 __C declaration:__ @fun_8_const@
@@ -1900,7 +1792,8 @@ __defined at:__ @arrays\/array.h 170:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_8_const :: Ptr (ConstantArray 3 CInt) -> Tripletlist -> IO CInt
+fun_8_const :: Ptr (ConstantArray 3 CInt) ->
+               ConstPtr (ConstantArray 3 CInt) -> IO CInt
 {-| Multi-dimensional array of unknown size, typedef
 
 __C declaration:__ @fun_8_const@
@@ -1909,19 +1802,12 @@ __defined at:__ @arrays\/array.h 170:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-fun_8_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_2c9356851d76320e x_0 (ConstPtr ptr_2))
+fun_8_const = hs_bindgen_2c9356851d76320e
 -- __unique:__ @test_arraysarray_Example_Unsafe_isSolved_const@
 foreign import ccall safe "hs_bindgen_39b08b64fed0c5b8" hs_bindgen_39b08b64fed0c5b8 ::
     Ptr Triplet
  -> ConstPtr Triplet
  -> IO CInt
-{-| Pointer-based API for 'isSolved_const'
--}
-isSolved_const_wrapper :: Ptr Triplet ->
-                          ConstPtr Triplet -> IO CInt
-{-| Pointer-based API for 'isSolved_const'
--}
-isSolved_const_wrapper = hs_bindgen_39b08b64fed0c5b8
 {-| Typedef-in-typedef
 
 __C declaration:__ @isSolved_const@
@@ -1930,7 +1816,7 @@ __defined at:__ @arrays\/array.h 173:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-isSolved_const :: Ptr Triplet -> Sudoku -> IO CInt
+isSolved_const :: Ptr Triplet -> ConstPtr Triplet -> IO CInt
 {-| Typedef-in-typedef
 
 __C declaration:__ @isSolved_const@
@@ -1939,7 +1825,7 @@ __defined at:__ @arrays\/array.h 173:5@
 
 __exported by:__ @arrays\/array.h@
 -}
-isSolved_const = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> hs_bindgen_39b08b64fed0c5b8 x_0 (ConstPtr ptr_2))
+isSolved_const = hs_bindgen_39b08b64fed0c5b8
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_9@
 foreign import ccall safe "hs_bindgen_ab431ebc0519545a" hs_bindgen_ab431ebc0519545a ::
     IO (Ptr (ConstantArray 3 CInt))

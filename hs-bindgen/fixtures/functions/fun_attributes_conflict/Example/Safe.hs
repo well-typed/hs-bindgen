@@ -46,6 +46,8 @@ foreign import ccall safe "hs_bindgen_5d7162df3a16d8d5" hs_bindgen_5d7162df3a16d
 
   Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
 
+  Marked @__attribute((const))__@
+
 __C declaration:__ @square_cp@
 
 __defined at:__ @functions\/fun_attributes_conflict.h 9:5@
@@ -63,11 +65,15 @@ foreign import ccall safe "hs_bindgen_7f240b4e0c2eea24" hs_bindgen_7f240b4e0c2ee
      FC.CInt
   -> FC.CInt
 
-{-| __C declaration:__ @square_pc@
+{-|
 
-    __defined at:__ @functions\/fun_attributes_conflict.h 11:5@
+  Marked @__attribute((const))__@
 
-    __exported by:__ @functions\/fun_attributes_conflict.h@
+__C declaration:__ @square_pc@
+
+__defined at:__ @functions\/fun_attributes_conflict.h 11:5@
+
+__exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_pc ::
      FC.CInt
@@ -80,11 +86,15 @@ foreign import ccall safe "hs_bindgen_d32b50f04af10764" hs_bindgen_d32b50f04af10
      FC.CInt
   -> FC.CInt
 
-{-| __C declaration:__ @square_cc@
+{-|
 
-    __defined at:__ @functions\/fun_attributes_conflict.h 13:5@
+  Marked @__attribute((const))__@
 
-    __exported by:__ @functions\/fun_attributes_conflict.h@
+__C declaration:__ @square_cc@
+
+__defined at:__ @functions\/fun_attributes_conflict.h 13:5@
+
+__exported by:__ @functions\/fun_attributes_conflict.h@
 -}
 square_cc ::
      FC.CInt

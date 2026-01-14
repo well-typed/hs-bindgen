@@ -8,7 +8,6 @@ module Example.Unsafe where
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstPtr
-import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -57,16 +56,6 @@ foreign import ccall unsafe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627d
   -> Ptr.Ptr Triplet
   -> IO ()
 
-{-| Pointer-based API for 'transpose'
--}
-transpose_wrapper ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
-     -- ^ __C declaration:__ @input@
-  -> Ptr.Ptr Triplet
-     -- ^ __C declaration:__ @output@
-  -> IO ()
-transpose_wrapper = hs_bindgen_ea25667627dd5ed2
-
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
@@ -74,13 +63,9 @@ transpose_wrapper = hs_bindgen_ea25667627dd5ed2
     __exported by:__ @manual\/zero_copy.h@
 -}
 transpose ::
-     Matrix
+     HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
      -- ^ __C declaration:__ @input@
   -> Ptr.Ptr Triplet
      -- ^ __C declaration:__ @output@
   -> IO ()
-transpose =
-  \x0 ->
-    \x1 ->
-      HsBindgen.Runtime.ConstantArray.withPtr x0 (\ptr2 ->
-                                                    hs_bindgen_ea25667627dd5ed2 (HsBindgen.Runtime.ConstPtr.ConstPtr ptr2) x1)
+transpose = hs_bindgen_ea25667627dd5ed2

@@ -47,11 +47,15 @@ foreign import ccall safe "hs_bindgen_1c811bfb80de8f77" hs_bindgen_1c811bfb80de8
      FC.CDouble
   -> FC.CDouble
 
-{-| __C declaration:__ @erf@
+{-|
 
-    __defined at:__ @functions\/simple_func.h 1:8@
+  Marked @__attribute((const))__@
 
-    __exported by:__ @functions\/simple_func.h@
+__C declaration:__ @erf@
+
+__defined at:__ @functions\/simple_func.h 1:8@
+
+__exported by:__ @functions\/simple_func.h@
 -}
 erf ::
      FC.CDouble

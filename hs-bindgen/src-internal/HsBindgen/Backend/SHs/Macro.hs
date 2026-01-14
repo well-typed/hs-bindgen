@@ -5,6 +5,7 @@ module HsBindgen.Backend.SHs.Macro (
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
 import Data.Type.Nat qualified as Fin
+import DeBruijn (EmptyCtx, Idx (..), Size (..), rzeroAdd)
 
 import C.Char qualified as Runtime
 import C.Type (Sign (Signed, Unsigned))
@@ -25,8 +26,6 @@ import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
-
-import DeBruijn (EmptyCtx, Idx (..), Size (..), rzeroAdd)
 
 {-------------------------------------------------------------------------------
   External API

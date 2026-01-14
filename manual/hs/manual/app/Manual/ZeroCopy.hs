@@ -148,7 +148,7 @@ withDrawing shape colour k =
 
 transpose :: Ptr Gen.Matrix -> Ptr Gen.Matrix -> IO ()
 transpose inputPtr outputPtr =
-    Gen.transpose_wrapper
+    Gen.transpose
       (ConstPtr inputPtr.un_Matrix.toFirstElemPtr)
       outputPtr.un_Matrix.toFirstElemPtr
 

@@ -72,7 +72,7 @@ transposeMatrix :: Arrays.Matrix -> IO Arrays.Matrix
 transposeMatrix inputMatrix =
     CA.withPtr inputMatrix $ \inputPtr -> do
       F.alloca $ \(outputPtr :: Ptr Arrays.Matrix) -> do
-        Arrays.transpose_wrapper (ConstPtr inputPtr) (snd $ CA.toFirstElemPtr outputPtr)
+        Arrays.transpose (ConstPtr inputPtr) (snd $ CA.toFirstElemPtr outputPtr)
         peek outputPtr
 
 {-------------------------------------------------------------------------------

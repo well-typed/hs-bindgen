@@ -31,6 +31,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     -I "botan/build/include/public" \
     --hs-output-dir "hs-project/src" \
     --create-output-dirs \
+    --overwrite-files \
     --module Generated.Botan \
     "botan/ffi.h"
 

@@ -16,6 +16,7 @@ import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Text qualified as Text
 import Data.Word
+import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
 import GHC.Exts (Int (..), sizeofByteArray#)
 import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Float (castDoubleToWord64, castFloatToWord32)
@@ -46,7 +47,6 @@ import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 
-import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
 import Numeric (showHex)
 
 {-------------------------------------------------------------------------------

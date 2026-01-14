@@ -57,14 +57,6 @@ foreign import ccall safe "hs_bindgen_99bb90e6d7637d2c" hs_bindgen_99bb90e6d7637
      Ptr.Ptr MyStruct
   -> IO ()
 
-{-| Pointer-based API for 'foo'
--}
-foo_wrapper ::
-     Ptr.Ptr MyStruct
-     -- ^ __C declaration:__ @x@
-  -> IO ()
-foo_wrapper = hs_bindgen_99bb90e6d7637d2c
-
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/typedef\/struct.h 5:6@
@@ -77,20 +69,12 @@ foo ::
   -> IO ()
 foo =
   \x0 ->
-    F.with x0 (\y1 -> hs_bindgen_99bb90e6d7637d2c y1)
+    F.with x0 (\x1 -> hs_bindgen_99bb90e6d7637d2c x1)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_392e3092a2681c13" hs_bindgen_392e3092a2681c13 ::
      Ptr.Ptr A
   -> IO ()
-
-{-| Pointer-based API for 'fooA'
--}
-fooA_wrapper ::
-     Ptr.Ptr A
-     -- ^ __C declaration:__ @x@
-  -> IO ()
-fooA_wrapper = hs_bindgen_392e3092a2681c13
 
 {-| __C declaration:__ @fooA@
 
@@ -104,20 +88,12 @@ fooA ::
   -> IO ()
 fooA =
   \x0 ->
-    F.with x0 (\y1 -> hs_bindgen_392e3092a2681c13 y1)
+    F.with x0 (\x1 -> hs_bindgen_392e3092a2681c13 x1)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_6011faf8531be4fa" hs_bindgen_6011faf8531be4fa ::
      Ptr.Ptr B
   -> IO ()
-
-{-| Pointer-based API for 'fooB'
--}
-fooB_wrapper ::
-     Ptr.Ptr B
-     -- ^ __C declaration:__ @x@
-  -> IO ()
-fooB_wrapper = hs_bindgen_6011faf8531be4fa
 
 {-| __C declaration:__ @fooB@
 
@@ -131,20 +107,12 @@ fooB ::
   -> IO ()
 fooB =
   \x0 ->
-    F.with x0 (\y1 -> hs_bindgen_6011faf8531be4fa y1)
+    F.with x0 (\x1 -> hs_bindgen_6011faf8531be4fa x1)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
 foreign import ccall safe "hs_bindgen_40a50b8e6ac3b09d" hs_bindgen_40a50b8e6ac3b09d ::
      Ptr.Ptr M.C
   -> IO ()
-
-{-| Pointer-based API for 'fooC'
--}
-fooC_wrapper ::
-     Ptr.Ptr M.C
-     -- ^ __C declaration:__ @x@
-  -> IO ()
-fooC_wrapper = hs_bindgen_40a50b8e6ac3b09d
 
 {-| __C declaration:__ @fooC@
 
@@ -158,20 +126,12 @@ fooC ::
   -> IO ()
 fooC =
   \x0 ->
-    F.with x0 (\y1 -> hs_bindgen_40a50b8e6ac3b09d y1)
+    F.with x0 (\x1 -> hs_bindgen_40a50b8e6ac3b09d x1)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
 foreign import ccall safe "hs_bindgen_32b4f35bf27a4bf8" hs_bindgen_32b4f35bf27a4bf8 ::
      Ptr.Ptr M.D
   -> IO ()
-
-{-| Pointer-based API for 'fooD'
--}
-fooD_wrapper ::
-     Ptr.Ptr M.D
-     -- ^ __C declaration:__ @x@
-  -> IO ()
-fooD_wrapper = hs_bindgen_32b4f35bf27a4bf8
 
 {-| __C declaration:__ @fooD@
 
@@ -185,20 +145,12 @@ fooD ::
   -> IO ()
 fooD =
   \x0 ->
-    F.with x0 (\y1 -> hs_bindgen_32b4f35bf27a4bf8 y1)
+    F.with x0 (\x1 -> hs_bindgen_32b4f35bf27a4bf8 x1)
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
 foreign import ccall safe "hs_bindgen_6e59183c0a861d01" hs_bindgen_6e59183c0a861d01 ::
      Ptr.Ptr E
   -> IO ()
-
-{-| Pointer-based API for 'fooE'
--}
-fooE_wrapper ::
-     Ptr.Ptr E
-     -- ^ __C declaration:__ @x@
-  -> IO ()
-fooE_wrapper = hs_bindgen_6e59183c0a861d01
 
 {-| __C declaration:__ @fooE@
 
@@ -212,4 +164,4 @@ fooE ::
   -> IO ()
 fooE =
   \x0 ->
-    F.with x0 (\y1 -> hs_bindgen_6e59183c0a861d01 y1)
+    F.with x0 (\x1 -> hs_bindgen_6e59183c0a861d01 x1)
