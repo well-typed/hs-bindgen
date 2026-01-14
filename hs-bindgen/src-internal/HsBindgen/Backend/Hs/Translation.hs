@@ -1039,7 +1039,7 @@ typedefFunPtrDecs opts haddockConfig origInfo n (args, res) origNames origSpec =
     mainTypedef = C.Typedef{
           ann = origNames
         , typ = C.TypePointers n $ C.TypeTypedef $ C.Ref {
-              ref        = auxInfo.id
+              name       = auxInfo.id
             , underlying = C.TypeFun args res
             }
         }

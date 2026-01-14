@@ -570,10 +570,10 @@ instance Mangle C.Type where
         mangleDeclId declId
       C.TypeMacro ref ->
         fmap C.TypeMacro $
-        C.Ref <$>  mangleDeclId ref.ref <*> mangle ref.underlying
+        C.Ref <$>  mangleDeclId ref.name <*> mangle ref.underlying
       C.TypeTypedef ref ->
         fmap C.TypeTypedef $
-        C.Ref <$>  mangleDeclId ref.ref <*> mangle ref.underlying
+        C.Ref <$>  mangleDeclId ref.name <*> mangle ref.underlying
 
       -- Recursive cases
       C.TypePointers n typ             -> C.TypePointers n <$> mangle typ

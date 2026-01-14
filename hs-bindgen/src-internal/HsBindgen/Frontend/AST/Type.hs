@@ -188,7 +188,7 @@ data TypeQual =
 --
 -- The type of the global variable @x@ is roughly:
 --
--- > Ref { ref = "T", underlying = TypePrim int }
+-- > Ref { name = "T", underlying = TypePrim int }
 --
 type TypedefRef p = Ref (Id p) p
 
@@ -201,7 +201,7 @@ type TypedefRef p = Ref (Id p) p
 --
 -- The type of the global variable @x@ is roughly:
 --
--- > Ref { ref = ResolvedBinding "S", underlying = TypeRef ("S", StructKind) }
+-- > Ref { name = ResolvedBinding "S", underlying = TypeRef ("S", StructKind) }
 --
 type ExtBindingRef p = Ref (ExtBinding p) p
 
@@ -214,7 +214,7 @@ type ExtBindingRef p = Ref (ExtBinding p) p
 --
 -- The type of the global variable @x@ is roughly:
 --
--- > Ref { ref = "T", underlying = TypePrim int }
+-- > Ref { name = "T", underlying = TypePrim int }
 --
 type MacroRef p = Ref (MacroId p) p
 
@@ -232,11 +232,11 @@ type MacroRef p = Ref (MacroId p) p
 -- See 'TypedefRef' and 'ExtBindingRef' for examples.
 --
 data Ref a p = Ref {
-    -- | The reference type.
+    -- | The reference type: a name
     --
     -- NOTE: has a strictness annotation, which allows GHC to infer that pattern
     -- matches are redundant when @a ~ Void@.
-    ref :: !a
+    name :: !a
     -- | The underlying type.
     --
     -- NOTE: the underlying type can arbitrarily reference other types,
@@ -454,8 +454,8 @@ depsOfType = \case
 
     -- Interesting cases
     TypeRef ref         -> [(ByValue, ref)]
-    TypeMacro ref       -> [(ByValue, macroIdId (Proxy @p) ref.ref)]
-    TypeTypedef ref     -> [(ByValue, ref.ref)]
+    TypeMacro ref       -> [(ByValue, macroIdId (Proxy @p) ref.name)]
+    TypeTypedef ref     -> [(ByValue, ref.name)]
     TypeUnsafePointer t -> first (const ByRef) <$> depsOfType t
 
     -- TODO <https://github.com/well-typed/hs-bindgen/issues/1467>

@@ -438,7 +438,7 @@ parseMacro name tokens  = state     $ \st ->
     updateReparseEnv typ =
         Map.insert name.text $
           C.TypeMacro $ C.Ref {
-              ref = DeclId{name = name, isAnon = False}
+              name = DeclId{name = name, isAnon = False}
             , underlying = typ
             }
 

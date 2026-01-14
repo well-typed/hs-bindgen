@@ -389,16 +389,16 @@ instance Resolve C.Type where
           Just r  -> return $ r ref'
           Nothing -> return ref'
       C.TypeMacro ref -> do
-        mResolved <- aux ref.ref
+        mResolved <- aux ref.name
         underlying' <- resolve ctx ref.underlying
-        let macro' = C.TypeMacro (C.Ref ref.ref underlying')
+        let macro' = C.TypeMacro (C.Ref ref.name underlying')
         case mResolved of
           Just r  -> return $ r macro'
           Nothing -> return macro'
       C.TypeTypedef ref -> do
-        mResolved <- aux ref.ref
+        mResolved <- aux ref.name
         underlying' <- resolve ctx ref.underlying
-        let typedef' = C.TypeTypedef (C.Ref ref.ref underlying')
+        let typedef' = C.TypeTypedef (C.Ref ref.name underlying')
         case mResolved of
           Just r  -> return $ r typedef'
           Nothing -> return typedef'

@@ -228,14 +228,14 @@ instance (
   coercePass = \case
       C.TypePrim prim           -> C.TypePrim prim
       C.TypeRef uid             -> C.TypeRef (goId uid)
-      C.TypeMacro ref           -> C.TypeMacro (C.Ref (coercePassMacroId (Proxy @'(p, p')) ref.ref) (coercePass ref.underlying))
-      C.TypeTypedef ref         -> C.TypeTypedef (C.Ref (coercePassId (Proxy @'(p, p')) ref.ref) (coercePass ref.underlying))
+      C.TypeMacro ref           -> C.TypeMacro (C.Ref (coercePassMacroId (Proxy @'(p, p')) ref.name) (coercePass ref.underlying))
+      C.TypeTypedef ref         -> C.TypeTypedef (C.Ref (coercePassId (Proxy @'(p, p')) ref.name) (coercePass ref.underlying))
       C.TypePointers n typ      -> C.TypePointers n (coercePass typ)
       C.TypeFun args res        -> C.TypeFun (map coercePass args) (coercePass res)
       C.TypeVoid                -> C.TypeVoid
       C.TypeConstArray n typ    -> C.TypeConstArray n (coercePass typ)
       C.TypeIncompleteArray typ -> C.TypeIncompleteArray (coercePass typ)
-      C.TypeExtBinding ref      -> C.TypeExtBinding (C.Ref ref.ref (coercePass ref.underlying))
+      C.TypeExtBinding ref      -> C.TypeExtBinding (C.Ref ref.name (coercePass ref.underlying))
       C.TypeBlock typ           -> C.TypeBlock (coercePass typ)
       C.TypeQual qual typ       -> C.TypeQual qual (coercePass typ)
       C.TypeComplex prim        -> C.TypeComplex prim

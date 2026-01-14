@@ -48,9 +48,9 @@ inContext ctx = go ctx
   where
     go :: TypeContext -> C.Type Final -> Hs.HsType
     go _ (C.TypeMacro ref) =
-        Hs.HsTypRef (Hs.unsafeHsIdHsName ref.ref.unsafeHsName)
+        Hs.HsTypRef (Hs.unsafeHsIdHsName ref.name.unsafeHsName)
     go _ (C.TypeTypedef ref) =
-        Hs.HsTypRef (Hs.unsafeHsIdHsName ref.ref.unsafeHsName)
+        Hs.HsTypRef (Hs.unsafeHsIdHsName ref.name.unsafeHsName)
     go _ (C.TypeRef ref) =
         Hs.HsTypRef (Hs.unsafeHsIdHsName ref.unsafeHsName)
     go c C.TypeVoid =
