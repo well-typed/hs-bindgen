@@ -64,14 +64,15 @@ processDecl ::
   -> M (Either FailedMacro (C.Decl HandleMacros))
 processDecl decl =
     case decl.kind of
-      C.DeclMacro macro      -> processMacro info' macro
-      C.DeclTypedef typedef  -> Right <$> processTypedef info' typedef
-      C.DeclStruct struct    -> Right <$> processStruct info' struct
-      C.DeclUnion union      -> Right <$> processUnion info' union
-      C.DeclEnum enum        -> Right <$> processEnum info' enum
-      C.DeclOpaque           -> Right <$> processOpaque C.DeclOpaque info'
-      C.DeclFunction fun     -> Right <$> processFunction info' fun
-      C.DeclGlobal ty        -> Right <$> processGlobal info' C.DeclGlobal ty
+      C.DeclMacro macro                    -> processMacro info' macro
+      C.DeclTypedef typedef                -> Right <$> processTypedef info' typedef
+      C.DeclStruct struct                  -> Right <$> processStruct info' struct
+      C.DeclUnion union                    -> Right <$> processUnion info' union
+      C.DeclEnum enum                      -> Right <$> processEnum info' enum
+      C.DeclAnonEnumConstant anonEnumConst -> Right <$> processAnonEnumConstant info' anonEnumConst
+      C.DeclOpaque                         -> Right <$> processOpaque C.DeclOpaque info'
+      C.DeclFunction fun                   -> Right <$> processFunction info' fun
+      C.DeclGlobal ty                      -> Right <$> processGlobal info' C.DeclGlobal ty
   where
     info' :: C.DeclInfo HandleMacros
     info' = coercePass decl.info
@@ -224,6 +225,23 @@ processEnum info enum =
             , sizeof    = enum.sizeof
             , alignment = enum.alignment
             , ann       = enum.ann
+            }
+        }
+
+processAnonEnumConstant ::
+     C.DeclInfo HandleMacros
+  -> C.AnonEnumConstant ConstructTranslationUnit
+  -> M (C.Decl HandleMacros)
+processAnonEnumConstant info anonEnumConst =
+    mkDecl <$> processEnumConstant anonEnumConst.constant
+  where
+    mkDecl :: C.EnumConstant HandleMacros -> C.Decl HandleMacros
+    mkDecl constant = C.Decl{
+          info = info
+        , ann  = NoAnn
+        , kind = C.DeclAnonEnumConstant C.AnonEnumConstant {
+              typ       = coercePass anonEnumConst.typ
+            , constant  = constant
             }
         }
 

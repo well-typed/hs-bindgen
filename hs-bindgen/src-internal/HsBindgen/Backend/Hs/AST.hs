@@ -336,8 +336,8 @@ deriving stock instance Show VarDeclRHSAppHead
 --
 data PatSyn = PatSyn{
       name    :: Hs.Name Hs.NsConstr
-    , typ     :: Hs.Name Hs.NsTypeConstr
-    , constr  :: Hs.Name Hs.NsConstr
+    , typ     :: HsType
+    , constr  :: Maybe (Hs.Name Hs.NsConstr)
     , value   :: Integer
     , origin  :: Origin.PatSyn
     , comment :: Maybe HsDoc.Comment

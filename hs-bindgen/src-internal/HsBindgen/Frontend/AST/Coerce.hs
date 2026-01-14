@@ -12,6 +12,9 @@ import Clang.HighLevel.Documentation qualified as CDoc
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.Parse.Result (ParseClassification (..),
+                                             ParseResult (..),
+                                             ParseSuccess (..))
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -48,6 +51,35 @@ class CoercePassMacroId (p :: Pass) (p' :: Pass) where
 
 class CoercePass a p p' where
   coercePass :: a p -> a p'
+
+instance (
+      CoercePassId p p'
+    , CoercePass C.Decl p p'
+    , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
+    ) => CoercePass ParseResult p p' where
+  coercePass pr = ParseResult{
+        id             = coercePassId (Proxy @'(p, p')) pr.id
+      , loc            = pr.loc
+      , classification = coercePass pr.classification
+      }
+
+instance (
+      CoercePass C.Decl p p'
+    , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
+    ) => CoercePass ParseClassification p p' where
+  coercePass = \case
+    ParseResultSuccess s      -> ParseResultSuccess (coercePass s)
+    ParseResultNotAttempted x -> ParseResultNotAttempted x
+    ParseResultFailure x      -> ParseResultFailure x
+
+instance (
+      CoercePass C.Decl p p'
+    , Ann "TranslationUnit" p ~ Ann "TranslationUnit" p'
+    ) => CoercePass ParseSuccess p p' where
+  coercePass ps = ParseSuccess{
+        decl = coercePass ps.decl
+      , delayedParseMsgs = ps.delayedParseMsgs
+      }
 
 instance (
       CoercePass C.Decl p p'
@@ -109,23 +141,25 @@ instance (
       }
 
 instance (
-      CoercePass C.Struct   p p'
-    , CoercePass C.Enum     p p'
-    , CoercePass C.Union    p p'
-    , CoercePass C.Typedef  p p'
-    , CoercePass C.Function p p'
-    , CoercePass C.Type     p p'
-    , CoercePassMacroBody p p'
-    ) => CoercePass C.DeclKind p p' where
+       CoercePass C.Struct   p p'
+     , CoercePass C.Enum     p p'
+     , CoercePass C.Union    p p'
+     , CoercePass C.Typedef  p p'
+     , CoercePass C.Function p p'
+     , CoercePass C.Type     p p'
+     , CoercePass C.AnonEnumConstant p p'
+     , CoercePassMacroBody p p'
+     ) => CoercePass C.DeclKind p p' where
   coercePass = \case
-      C.DeclStruct   x -> C.DeclStruct   $ coercePass x
-      C.DeclUnion    x -> C.DeclUnion    $ coercePass x
-      C.DeclTypedef  x -> C.DeclTypedef  $ coercePass x
-      C.DeclEnum     x -> C.DeclEnum     $ coercePass x
-      C.DeclFunction x -> C.DeclFunction $ coercePass x
-      C.DeclGlobal   x -> C.DeclGlobal   $ coercePass x
-      C.DeclMacro    x -> C.DeclMacro    $ coercePassMacroBody (Proxy @'(p, p')) x
-      C.DeclOpaque     -> C.DeclOpaque
+      C.DeclStruct           x -> C.DeclStruct           $ coercePass x
+      C.DeclUnion            x -> C.DeclUnion            $ coercePass x
+      C.DeclTypedef          x -> C.DeclTypedef          $ coercePass x
+      C.DeclEnum             x -> C.DeclEnum             $ coercePass x
+      C.DeclAnonEnumConstant x -> C.DeclAnonEnumConstant $ coercePass x
+      C.DeclFunction         x -> C.DeclFunction         $ coercePass x
+      C.DeclGlobal           x -> C.DeclGlobal           $ coercePass x
+      C.DeclMacro            x -> C.DeclMacro            $ coercePassMacroBody (Proxy @'(p, p')) x
+      C.DeclOpaque             -> C.DeclOpaque
 
 instance (
       CoercePass C.StructField p p'
@@ -186,16 +220,26 @@ instance (
       }
 
 instance (
-      CoercePass C.Type p p'
-    , CoercePass C.EnumConstant p p'
-    , Ann "Enum" p ~ Ann "Enum" p'
-    ) => CoercePass C.Enum p p' where
+       CoercePass C.Type p p'
+     , CoercePass C.EnumConstant p p'
+     , Ann "Enum" p ~ Ann "Enum" p'
+     ) => CoercePass C.Enum p p' where
   coercePass enum = C.Enum{
         typ       = coercePass enum.typ
       , constants = coercePass <$> enum.constants
       , sizeof    = enum.sizeof
       , alignment = enum.alignment
       , ann       = enum.ann
+      }
+
+instance (
+       CoercePass C.Type p p'
+     , CoercePass C.EnumConstant p p'
+     , Ann "PatternSynonym" p ~ Ann "PatternSynonym" p'
+     ) => CoercePass C.AnonEnumConstant p p' where
+  coercePass patternSynonym = C.AnonEnumConstant{
+        typ      = coercePass patternSynonym.typ
+      , constant = coercePass patternSynonym.constant
       }
 
 instance (
