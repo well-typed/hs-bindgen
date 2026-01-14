@@ -108,7 +108,7 @@ genBindingSpec'
     spec0 :: UnresolvedBindingSpec
     spec0 = BindingSpec.BindingSpec {
         -- TODO AnyTarget if bindings are not target-specific
-        target     = BindingSpec.SpecificTarget target
+        target     = Just (BindingSpec.SpecificTarget target)
       , moduleName = hsModuleName
       , cTypes     = Map.fromListWith (++) $
           [ (cDeclId, [(getMainHeaders' path, Omit)])

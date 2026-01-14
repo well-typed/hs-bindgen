@@ -65,6 +65,7 @@ data BindingSpecReadMsg =
   | BindingSpecReadYamlWarning FilePath String
   | BindingSpecReadParseVersion FilePath AVersion
   | BindingSpecReadIncompatibleVersion FilePath AVersion
+  | BindingSpecReadTargetNotSpecified FilePath
   | BindingSpecReadIncompatibleTarget FilePath
   | BindingSpecReadAnyTargetNotEnforced FilePath
   | BindingSpecReadInvalidCName FilePath Text
@@ -82,6 +83,7 @@ instance IsTrace Level BindingSpecReadMsg where
     BindingSpecReadYamlWarning{}          -> Error
     BindingSpecReadParseVersion{}         -> Debug
     BindingSpecReadIncompatibleVersion{}  -> Error
+    BindingSpecReadTargetNotSpecified{}   -> Error
     BindingSpecReadIncompatibleTarget{}   -> Error
     BindingSpecReadAnyTargetNotEnforced{} -> Notice
     BindingSpecReadInvalidCName{}         -> Error
@@ -130,6 +132,8 @@ instance PrettyForTrace BindingSpecReadMsg where
         , "binding specification version: " ><
             prettyForTrace version.bindingSpec
         ]
+    BindingSpecReadTargetNotSpecified path ->
+      "target not specified in external binding specification: " >< PP.string path
     BindingSpecReadIncompatibleTarget path ->
       "incompatible binding specification target: " >< PP.string path
     BindingSpecReadAnyTargetNotEnforced path ->

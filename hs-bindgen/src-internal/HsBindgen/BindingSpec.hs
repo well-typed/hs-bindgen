@@ -180,6 +180,9 @@ loadExtBindingSpecs tracer args target enableStdlib cmpt paths = do
     read' path = BindingSpec.readFile tracerRead cmpt path >>= \case
       Nothing -> return Nothing
       Just uspec
+        | not (BindingSpec.isTargetSpecified uspec) -> do
+            traceWith tracerRead $ Common.BindingSpecReadTargetNotSpecified path
+            return Nothing
         | uspec `BindingSpec.isCompatTarget` target -> return (Just uspec)
         | otherwise -> do
             traceWith tracerRead $ Common.BindingSpecReadIncompatibleTarget path

@@ -34,6 +34,7 @@ module HsBindgen.BindingSpec.Private.V1 (
   , ConstraintSpec(..)
     -- * API
   , empty
+  , isTargetSpecified
   , isAnyTarget
   , isCompatTarget
   , getCTypes
@@ -115,7 +116,10 @@ currentBindingSpecVersion = $$(constBindingSpecVersion 1 0)
 -- See 'UnresolvedBindingSpec' and 'ResolvedBindingSpec'.
 data BindingSpec header = BindingSpec {
       -- | Binding specification target
-      target :: BindingSpecTarget
+      --
+      -- Specifying a target is optional in prescriptive binding specifications,
+      -- and it is required in external binding specifications.
+      target :: Maybe BindingSpecTarget
 
       -- | Binding specification module
       --
@@ -352,20 +356,25 @@ data ConstraintSpec = ConstraintSpec {
 -- | Construct an empty binding specification for the given target and module
 empty :: ClangArgs.Target -> Hs.ModuleName -> BindingSpec header
 empty target hsModuleName = BindingSpec{
-      target     = SpecificTarget target
+      target     = Just (SpecificTarget target)
     , moduleName = hsModuleName
     , cTypes     = Map.empty
     , hsTypes    = Map.empty
     }
 
+-- | Predicate that checks if a binding specification target is specified
+isTargetSpecified :: BindingSpec header -> Bool
+isTargetSpecified spec = isJust spec.target
+
 -- | Predicate that checks if a binding specification target is 'AnyTarget'
 isAnyTarget :: BindingSpec header -> Bool
-isAnyTarget spec = spec.target == AnyTarget
+isAnyTarget spec = spec.target == Just AnyTarget
 
 -- | Predicate that checks if a binding specification is compatible with a
 -- specific target
 isCompatTarget :: BindingSpec header -> ClangArgs.Target -> Bool
-isCompatTarget spec = isCompatBindingSpecTarget spec.target
+isCompatTarget spec target' =
+    maybe True (`isCompatBindingSpecTarget` target') spec.target
 
 -- | Get the C types in a binding specification
 getCTypes :: ResolvedBindingSpec -> Map DeclId [Set SourcePath]
@@ -662,7 +671,7 @@ toARep' = toARep
 
 data instance ARep UnresolvedBindingSpec = ABindingSpec {
       version  :: AVersion
-    , target   :: BindingSpecTarget
+    , target   :: Maybe BindingSpecTarget
     , hsModule :: Hs.ModuleName
     , cTypes   :: [AOCTypeSpec]
     , hsTypes  :: [ARep HsTypeSpec]
@@ -672,13 +681,13 @@ data instance ARep UnresolvedBindingSpec = ABindingSpec {
 instance Aeson.FromJSON (ARep UnresolvedBindingSpec) where
   parseJSON = Aeson.withObject "BindingSpec" $ \o -> do
     aBindingSpecVersion  <- o .:  "version"
-    aBindingSpecTarget   <- o .:  "target"
+    aBindingSpecTarget   <- o .:? "target"
     aBindingSpecHsModule <- o .:  "hsmodule"
     aBindingSpecCTypes   <- o .:? "ctypes"  .!= []
     aBindingSpecHsTypes  <- o .:? "hstypes" .!= []
     return ABindingSpec{
         version  = aBindingSpecVersion
-      , target   = fromARep' aBindingSpecTarget
+      , target   = fromARep' <$> aBindingSpecTarget
       , hsModule = fromARep' aBindingSpecHsModule
       , cTypes   = aBindingSpecCTypes
       , hsTypes  = aBindingSpecHsTypes
@@ -686,8 +695,8 @@ instance Aeson.FromJSON (ARep UnresolvedBindingSpec) where
 
 instance Aeson.ToJSON (ARep UnresolvedBindingSpec) where
   toJSON spec = Aeson.Object . KM.fromList $ catMaybes [
-      Just ("version"  .= spec.version)
-    , Just ("target"   .= toARep' spec.target)
+      Just ("version" .= spec.version)
+    , ("target" .=) . toARep' <$> spec.target
     , Just ("hsmodule" .= toARep' spec.hsModule)
     , ("ctypes"  .=) <$> omitWhenNull spec.cTypes
     , ("hstypes" .=) <$> omitWhenNull spec.hsTypes
