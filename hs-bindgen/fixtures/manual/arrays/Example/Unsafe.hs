@@ -9,9 +9,9 @@ module Example.Unsafe where
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -41,7 +41,7 @@ foreign import ccall unsafe "hs_bindgen_f9f2776d121db261" hs_bindgen_f9f2776d121
 
 -- __unique:__ @test_manualarrays_Example_Unsafe_transpose@
 hs_bindgen_f9f2776d121db261 ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
+     HsBindgen.Runtime.PtrConst.PtrConst Triplet
   -> Ptr.Ptr Triplet
   -> IO ()
 hs_bindgen_f9f2776d121db261 =
@@ -54,7 +54,7 @@ hs_bindgen_f9f2776d121db261 =
     __exported by:__ @manual\/arrays.h@
 -}
 transpose ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
+     HsBindgen.Runtime.PtrConst.PtrConst Triplet
      -- ^ __C declaration:__ @input@
   -> Ptr.Ptr Triplet
      -- ^ __C declaration:__ @output@

@@ -45,7 +45,7 @@ getInstances instanceMap name = aux
           HsPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsStablePtr{} -> aux (acc /\ ptrInsts) hsTypes
-          HsConstPtr{} -> aux (acc /\ ptrInsts) hsTypes
+          HsPtrConst{} -> aux (acc /\ ptrInsts) hsTypes
           HsIO t  -> aux (acc /\ ioInsts) (t : hsTypes)
           HsFun arg res -> aux (acc /\ funInsts) (arg : res : hsTypes)
           HsExtBinding _ref _cTypeSpec hsTypeSpec _ ->

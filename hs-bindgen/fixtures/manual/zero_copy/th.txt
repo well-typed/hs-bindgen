@@ -745,7 +745,7 @@ foreign import ccall safe "hs_bindgen_350cceac1101d344" hs_bindgen_350cceac1101d
  -> Ptr Void
  -> IO Int32
 -- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
-hs_bindgen_350cceac1101d344 :: ConstPtr Vector ->
+hs_bindgen_350cceac1101d344 :: PtrConst Vector ->
                                Ptr Vector -> IO CInt
 -- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
 hs_bindgen_350cceac1101d344 = fromFFIType hs_bindgen_350cceac1101d344_base
@@ -755,7 +755,7 @@ hs_bindgen_350cceac1101d344 = fromFFIType hs_bindgen_350cceac1101d344_base
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-reverse :: ConstPtr Vector -> Ptr Vector -> IO CInt
+reverse :: PtrConst Vector -> Ptr Vector -> IO CInt
 {-| __C declaration:__ @reverse@
 
     __defined at:__ @manual\/zero_copy.h 77:5@
@@ -769,7 +769,7 @@ foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
-hs_bindgen_2ff371c815d92b04 :: ConstPtr Triplet ->
+hs_bindgen_2ff371c815d92b04 :: PtrConst Triplet ->
                                Ptr Triplet -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
 hs_bindgen_2ff371c815d92b04 = fromFFIType hs_bindgen_2ff371c815d92b04_base
@@ -779,7 +779,7 @@ hs_bindgen_2ff371c815d92b04 = fromFFIType hs_bindgen_2ff371c815d92b04_base
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
+transpose :: PtrConst Triplet -> Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
@@ -793,7 +793,7 @@ foreign import ccall unsafe "hs_bindgen_f9655173d51bbaac" hs_bindgen_f9655173d51
  -> Ptr Void
  -> IO Int32
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
-hs_bindgen_f9655173d51bbaac :: ConstPtr Vector ->
+hs_bindgen_f9655173d51bbaac :: PtrConst Vector ->
                                Ptr Vector -> IO CInt
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
 hs_bindgen_f9655173d51bbaac = fromFFIType hs_bindgen_f9655173d51bbaac_base
@@ -803,7 +803,7 @@ hs_bindgen_f9655173d51bbaac = fromFFIType hs_bindgen_f9655173d51bbaac_base
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-reverse :: ConstPtr Vector -> Ptr Vector -> IO CInt
+reverse :: PtrConst Vector -> Ptr Vector -> IO CInt
 {-| __C declaration:__ @reverse@
 
     __defined at:__ @manual\/zero_copy.h 77:5@
@@ -817,7 +817,7 @@ foreign import ccall unsafe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627d
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
-hs_bindgen_ea25667627dd5ed2 :: ConstPtr Triplet ->
+hs_bindgen_ea25667627dd5ed2 :: PtrConst Triplet ->
                                Ptr Triplet -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
 hs_bindgen_ea25667627dd5ed2 = fromFFIType hs_bindgen_ea25667627dd5ed2_base
@@ -827,7 +827,7 @@ hs_bindgen_ea25667627dd5ed2 = fromFFIType hs_bindgen_ea25667627dd5ed2_base
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
+transpose :: PtrConst Triplet -> Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
@@ -839,7 +839,7 @@ transpose = hs_bindgen_ea25667627dd5ed2
 foreign import ccall unsafe "hs_bindgen_44cb8687c63f0086" hs_bindgen_44cb8687c63f0086_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_manualzero_copy_Example_get_reverse@
-hs_bindgen_44cb8687c63f0086 :: IO (FunPtr (ConstPtr Vector ->
+hs_bindgen_44cb8687c63f0086 :: IO (FunPtr (PtrConst Vector ->
                                            Ptr Vector -> IO CInt))
 -- __unique:__ @test_manualzero_copy_Example_get_reverse@
 hs_bindgen_44cb8687c63f0086 = fromFFIType hs_bindgen_44cb8687c63f0086_base
@@ -850,7 +850,7 @@ hs_bindgen_44cb8687c63f0086 = fromFFIType hs_bindgen_44cb8687c63f0086_base
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-reverse :: FunPtr (ConstPtr Vector -> Ptr Vector -> IO CInt)
+reverse :: FunPtr (PtrConst Vector -> Ptr Vector -> IO CInt)
 {-| __C declaration:__ @reverse@
 
     __defined at:__ @manual\/zero_copy.h 77:5@

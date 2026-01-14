@@ -81,7 +81,7 @@ pattern Test_count = Test 1
 foreign import ccall unsafe "hs_bindgen_30b94bcf7e387817" hs_bindgen_30b94bcf7e387817_base ::
     IO (Ptr Void)
 -- __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array@
-hs_bindgen_30b94bcf7e387817 :: IO (ConstPtr (ConstantArray 1
+hs_bindgen_30b94bcf7e387817 :: IO (PtrConst (ConstantArray 1
                                                            CChar))
 -- __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array@
 hs_bindgen_30b94bcf7e387817 = fromFFIType hs_bindgen_30b94bcf7e387817_base
@@ -94,7 +94,7 @@ hs_bindgen_30b94bcf7e387817 = fromFFIType hs_bindgen_30b94bcf7e387817_base
 
     __unique:__ @test_edgecasesenum_as_array_size_Example_test_array@
 -}
-hs_bindgen_e30c033f156164cc :: ConstPtr (ConstantArray 1 CChar)
+hs_bindgen_e30c033f156164cc :: PtrConst (ConstantArray 1 CChar)
 {-| __C declaration:__ @test_array@
 
     __defined at:__ @edge-cases\/enum_as_array_size.h 8:19@
@@ -106,4 +106,4 @@ hs_bindgen_e30c033f156164cc :: ConstPtr (ConstantArray 1 CChar)
 hs_bindgen_e30c033f156164cc = unsafePerformIO hs_bindgen_30b94bcf7e387817
 {-# NOINLINE test_array #-}
 test_array :: ConstantArray 1 CChar
-test_array = unsafePerformIO (peek (unConstPtr hs_bindgen_e30c033f156164cc))
+test_array = unsafePerformIO (peek hs_bindgen_e30c033f156164cc)

@@ -8,8 +8,8 @@ module Example.Unsafe where
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -33,8 +33,8 @@ foreign import ccall unsafe "hs_bindgen_4351e21e32969011" hs_bindgen_4351e21e329
 
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Unsafe_fun@
 hs_bindgen_4351e21e32969011 ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr T
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr T
+     HsBindgen.Runtime.PtrConst.PtrConst T
+  -> HsBindgen.Runtime.PtrConst.PtrConst T
   -> IO ()
 hs_bindgen_4351e21e32969011 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_4351e21e32969011_base
@@ -53,4 +53,4 @@ fun =
   \x0 ->
     F.with x0 (\x1 ->
                  HsBindgen.Runtime.CAPI.allocaAndPeek (\res2 ->
-                                                         hs_bindgen_4351e21e32969011 (HsBindgen.Runtime.ConstPtr.ConstPtr x1) res2))
+                                                         hs_bindgen_4351e21e32969011 (HsBindgen.Runtime.PtrConst.unsafeFromPtr x1) res2))

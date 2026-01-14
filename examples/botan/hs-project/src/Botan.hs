@@ -43,8 +43,8 @@ import Foreign.C.Types (CInt, CSize)
 import Foreign.Marshal (alloca, allocaBytes)
 import Foreign.Storable (Storable (peek, poke))
 
-import HsBindgen.Runtime.ConstPtr qualified as HBR
 import HsBindgen.Runtime.IncompleteArray qualified as HBR
+import HsBindgen.Runtime.PtrConst qualified as HBR
 
 import Generated.Botan (Botan_rng_t, Botan_srp6_server_session_t)
 import Generated.Botan.Safe (botan_rng_destroy, botan_rng_get, botan_rng_init,
@@ -123,10 +123,10 @@ srp6ServerSessionStep1 (ServerSession s) (Verifier verifier) groupId hashId (RNG
       throwErrnoIfNegative "botan_srp6_server_session_step1" $
         botan_srp6_server_session_step1
           s
-          (HBR.ConstPtr verifierPtr)
+          (HBR.unsafeFromPtr verifierPtr)
           verifierLen
-          (HBR.ConstPtr groupIdPtr)
-          (HBR.ConstPtr hashIdPtr)
+          (HBR.unsafeFromPtr groupIdPtr)
+          (HBR.unsafeFromPtr hashIdPtr)
           rngObj
           bPtr
           bLenPtr
@@ -148,7 +148,7 @@ srp6ServerSessionStep2 (ServerSession s) groupId (A a) =
       throwErrnoIfNegative "botan_srp6_server_session_step2" $
         botan_srp6_server_session_step2
           s
-          (HBR.ConstPtr aPtr)
+          (HBR.unsafeFromPtr aPtr)
           aLen
           kPtr
           kLenPtr
@@ -175,12 +175,12 @@ srp6GenerateVerifier (Username user) (Password pw) (Salt salt) groupId hashId =
       poke verifierLenPtr maxLen
       throwErrnoIfNegative "botan_srp6_generate_verifier" $
         botan_srp6_generate_verifier
-          (HBR.ConstPtr userPtr)
-          (HBR.ConstPtr pwPtr)
-          (HBR.ConstPtr saltPtr)
+          (HBR.unsafeFromPtr userPtr)
+          (HBR.unsafeFromPtr pwPtr)
+          (HBR.unsafeFromPtr saltPtr)
           saltLen
-          (HBR.ConstPtr groupIdPtr)
-          (HBR.ConstPtr hashIdPtr)
+          (HBR.unsafeFromPtr groupIdPtr)
+          (HBR.unsafeFromPtr hashIdPtr)
           verifierPtr
           verifierLenPtr
       verifierLen <- peek verifierLenPtr
@@ -213,13 +213,13 @@ srp6ClientAgree (Username user) (Password pw) groupId hashId (Salt salt) (B b) (
       poke kLenPtr maxLen
       throwErrnoIfNegative "botan_srp6_client_agree" $
         botan_srp6_client_agree
-          (HBR.ConstPtr userPtr)
-          (HBR.ConstPtr pwPtr)
-          (HBR.ConstPtr groupIdPtr)
-          (HBR.ConstPtr hashIdPtr)
-          (HBR.ConstPtr saltPtr)
+          (HBR.unsafeFromPtr userPtr)
+          (HBR.unsafeFromPtr pwPtr)
+          (HBR.unsafeFromPtr groupIdPtr)
+          (HBR.unsafeFromPtr hashIdPtr)
+          (HBR.unsafeFromPtr saltPtr)
           saltLen
-          (HBR.ConstPtr bPtr)
+          (HBR.unsafeFromPtr bPtr)
           bLen
           rngObj
           aPtr
@@ -237,7 +237,7 @@ srp6GroupSize groupId =
     withCString (groupIdString groupId) $ \groupIdPtr ->
     alloca $ \resPtr -> do
       throwErrnoIfNegative "botan_srp6_group_size" $
-        botan_srp6_group_size (HBR.ConstPtr groupIdPtr) resPtr
+        botan_srp6_group_size (HBR.unsafeFromPtr groupIdPtr) resPtr
       peek resPtr
 
 {-------------------------------------------------------------------------------
@@ -266,7 +266,7 @@ rngInit :: RNGType -> IO RNG
 rngInit rngType =
     withCString (rngTypeString rngType) $ \rngTypePtr ->
     alloca $ \ptr -> do
-      throwErrnoIfNegative "botan_rng_init" $ botan_rng_init ptr (HBR.ConstPtr rngTypePtr)
+      throwErrnoIfNegative "botan_rng_init" $ botan_rng_init ptr (HBR.unsafeFromPtr rngTypePtr)
       RNG <$> peek ptr
 
 rngDestroy :: RNG -> IO ()

@@ -156,7 +156,7 @@ foreign import ccall safe "hs_bindgen_cba7011c6d25362b" hs_bindgen_cba7011c6d253
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualarrays_Example_Safe_transpose@
-hs_bindgen_cba7011c6d25362b :: ConstPtr Triplet ->
+hs_bindgen_cba7011c6d25362b :: PtrConst Triplet ->
                                Ptr Triplet -> IO Unit
 -- __unique:__ @test_manualarrays_Example_Safe_transpose@
 hs_bindgen_cba7011c6d25362b = fromFFIType hs_bindgen_cba7011c6d25362b_base
@@ -166,7 +166,7 @@ hs_bindgen_cba7011c6d25362b = fromFFIType hs_bindgen_cba7011c6d25362b_base
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
+transpose :: PtrConst Triplet -> Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h 36:6@
@@ -208,7 +208,7 @@ foreign import ccall unsafe "hs_bindgen_f9f2776d121db261" hs_bindgen_f9f2776d121
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualarrays_Example_Unsafe_transpose@
-hs_bindgen_f9f2776d121db261 :: ConstPtr Triplet ->
+hs_bindgen_f9f2776d121db261 :: PtrConst Triplet ->
                                Ptr Triplet -> IO Unit
 -- __unique:__ @test_manualarrays_Example_Unsafe_transpose@
 hs_bindgen_f9f2776d121db261 = fromFFIType hs_bindgen_f9f2776d121db261_base
@@ -218,7 +218,7 @@ hs_bindgen_f9f2776d121db261 = fromFFIType hs_bindgen_f9f2776d121db261_base
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
+transpose :: PtrConst Triplet -> Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h 36:6@

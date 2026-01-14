@@ -45,7 +45,6 @@ library
     HsBindgen.Runtime.CBoolSem
     HsBindgen.Runtime.CEnum
     HsBindgen.Runtime.ConstantArray
-    HsBindgen.Runtime.ConstPtr
     HsBindgen.Runtime.FFIType
     HsBindgen.Runtime.FLAM
     HsBindgen.Runtime.FunPtr
@@ -58,6 +57,7 @@ library
     HsBindgen.Runtime.Marshal
     HsBindgen.Runtime.Prelude
     HsBindgen.Runtime.Ptr
+    HsBindgen.Runtime.PtrConst
     HsBindgen.Runtime.SizedByteArray
     HsBindgen.Runtime.TypeEquality
 

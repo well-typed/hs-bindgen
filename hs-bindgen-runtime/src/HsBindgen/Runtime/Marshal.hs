@@ -31,6 +31,8 @@ import Foreign.Storable (Storable)
 import Foreign.Storable qualified as Storable
 import GHC.ForeignPtr (mallocForeignPtrAlignedBytes)
 
+import HsBindgen.Runtime.PtrConst (PtrConst)
+
 {-------------------------------------------------------------------------------
   Type Classes
 -------------------------------------------------------------------------------}
@@ -345,7 +347,9 @@ instance StaticSize (Ptr a)
 instance ReadRaw    (Ptr a)
 instance WriteRaw   (Ptr a)
 
--- TODO Foreign.C.ConstPtr from base-4.18.0.0 ?
+instance StaticSize (PtrConst a)
+instance ReadRaw    (PtrConst a)
+instance WriteRaw   (PtrConst a)
 
 instance StaticSize (FunPtr a)
 instance ReadRaw    (FunPtr a)

@@ -9,8 +9,8 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -42,7 +42,7 @@ foreign import ccall unsafe "hs_bindgen_44cb8687c63f0086" hs_bindgen_44cb8687c63
      IO (Ptr.FunPtr Void)
 
 -- __unique:__ @test_manualzero_copy_Example_get_reverse@
-hs_bindgen_44cb8687c63f0086 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt))
+hs_bindgen_44cb8687c63f0086 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt))
 hs_bindgen_44cb8687c63f0086 =
   HsBindgen.Runtime.HasFFIType.fromFFIType hs_bindgen_44cb8687c63f0086_base
 
@@ -53,7 +53,7 @@ hs_bindgen_44cb8687c63f0086 =
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-reverse :: Ptr.FunPtr ((HsBindgen.Runtime.ConstPtr.ConstPtr Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt)
+reverse :: Ptr.FunPtr ((HsBindgen.Runtime.PtrConst.PtrConst Vector) -> (Ptr.Ptr Vector) -> IO FC.CInt)
 reverse =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_44cb8687c63f0086
 

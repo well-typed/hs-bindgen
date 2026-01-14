@@ -9,8 +9,8 @@ import qualified Foreign.C as FC
 import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
-import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasFFIType
+import qualified HsBindgen.Runtime.PtrConst
 import Data.Void (Void)
 import Example
 import Prelude (IO)
@@ -41,7 +41,7 @@ foreign import ccall safe "hs_bindgen_350cceac1101d344" hs_bindgen_350cceac1101d
 
 -- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
 hs_bindgen_350cceac1101d344 ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Vector
+     HsBindgen.Runtime.PtrConst.PtrConst Vector
   -> Ptr.Ptr Vector
   -> IO FC.CInt
 hs_bindgen_350cceac1101d344 =
@@ -54,7 +54,7 @@ hs_bindgen_350cceac1101d344 =
     __exported by:__ @manual\/zero_copy.h@
 -}
 reverse ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Vector
+     HsBindgen.Runtime.PtrConst.PtrConst Vector
      -- ^ __C declaration:__ @input@
   -> Ptr.Ptr Vector
      -- ^ __C declaration:__ @output@
@@ -69,7 +69,7 @@ foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92
 
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
 hs_bindgen_2ff371c815d92b04 ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
+     HsBindgen.Runtime.PtrConst.PtrConst Triplet
   -> Ptr.Ptr Triplet
   -> IO ()
 hs_bindgen_2ff371c815d92b04 =
@@ -82,7 +82,7 @@ hs_bindgen_2ff371c815d92b04 =
     __exported by:__ @manual\/zero_copy.h@
 -}
 transpose ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
+     HsBindgen.Runtime.PtrConst.PtrConst Triplet
      -- ^ __C declaration:__ @input@
   -> Ptr.Ptr Triplet
      -- ^ __C declaration:__ @output@

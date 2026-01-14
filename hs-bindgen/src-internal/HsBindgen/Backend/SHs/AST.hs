@@ -87,8 +87,6 @@ data Global =
   | ByteArray_getUnionPayload
   | Capi_with
   | Capi_allocaAndPeek
-  | ConstantArray_withPtr
-  | IncompleteArray_withPtr
 
     -- Flexible array members
   | Flam_Offset_class
@@ -134,10 +132,11 @@ data Global =
     -- Unsafe
   | IO_unsafePerformIO
 
-    -- ConstPtr
-  | ConstPtr_type
-  | ConstPtr_constructor
-  | ConstPtr_unConstPtr
+    -- PtrConst
+  | PtrConst_type
+  | PtrConst_unsafeFromPtr
+  | PtrConst_unsafeToPtr
+  | PtrConst_peek
 
     -- Prim
   | Prim_class
