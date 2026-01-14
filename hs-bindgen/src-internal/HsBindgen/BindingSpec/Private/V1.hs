@@ -23,7 +23,6 @@ module HsBindgen.BindingSpec.Private.V1 (
   , ResolvedBindingSpec
   , BindingSpecTarget(..)
   , CTypeSpec(..)
-  , CTypeRep(..)
   , HsTypeSpec(..)
   , HsTypeRep(..)
   , HsRecordRep(..)
@@ -172,38 +171,13 @@ isCompatBindingSpecTarget = \case
 data CTypeSpec = CTypeSpec {
       -- | Haskell identifier
       hsIdent :: Maybe Hs.Identifier
-
-       -- | C type representation
-    , cRep :: Maybe CTypeRep
     }
   deriving stock (Show, Eq, Ord, Generic)
 
 instance Default CTypeSpec where
   def = CTypeSpec{
       hsIdent = Nothing
-    , cRep    = Nothing
     }
-
---------------------------------------------------------------------------------
-
--- | C type representation
-data CTypeRep =
-    -- | Default representation
-    --
-    -- The C declaration corresponds to both a type and a constructor.
-    CTypeRepDefault
-
-  | -- | Opaque representation
-    --
-    -- The C declaration corresponds to a type only, so it may only be used via
-    -- a reference.
-    CTypeRepOpaque
-
-  | -- | Alias representation
-    --
-    -- The C type should be considered an alias of a different C type.
-    CTypeRepAlias
-  deriving stock (Bounded, Enum, Eq, Generic, Ord, Show)
 
 --------------------------------------------------------------------------------
 
@@ -789,7 +763,6 @@ data instance ARep CTypeSpec = ACTypeSpec {
       headers :: [FilePath]
     , cName   :: Text
     , hsIdent :: Maybe Hs.Identifier
-    , cRep    :: Maybe CTypeRep
     }
   deriving stock (Show)
 
@@ -798,20 +771,17 @@ instance Aeson.FromJSON (ARep CTypeSpec) where
     aCTypeSpecHeaders <- o .:  "headers" >>= listFromJSON
     aCTypeSpecCName   <- o .:  "cname"
     aCTypeSpecHsIdent <- o .:? "hsname"
-    aCTypeSpecCRep    <- o .:? "representation"
     return ACTypeSpec{
         headers = aCTypeSpecHeaders
       , cName   = aCTypeSpecCName
       , hsIdent = fromARep' <$> aCTypeSpecHsIdent
-      , cRep    = fromARep' <$> aCTypeSpecCRep
       }
 
 instance Aeson.ToJSON (ARep CTypeSpec) where
   toJSON arep = Aeson.Object . KM.fromList $ catMaybes [
       Just ("headers" .= listToJSON arep.headers)
     , Just ("cname"   .= arep.cName)
-    , ("hsname"         .=) . toARep' <$> arep.hsIdent
-    , ("representation" .=) . toARep' <$> arep.cRep
+    , ("hsname" .=) . toARep' <$> arep.hsIdent
     ]
 
 instance ARepKV ARep CTypeSpec where
@@ -827,7 +797,6 @@ instance ARepKV ARep CTypeSpec where
         }
     , CTypeSpec{
           hsIdent = arep.hsIdent
-        , cRep    = arep.cRep
         }
     )
 
@@ -835,7 +804,6 @@ instance ARepKV ARep CTypeSpec where
       headers = k.headers
     , cName   = k.cName
     , hsIdent = v.hsIdent
-    , cRep    = v.cRep
     }
 
 deriving stock instance Show (ARepK ARep CTypeSpec)
@@ -944,7 +912,6 @@ toAOCTypeSpecs compareCDeclId cTypeMap = map snd $ List.sortBy aux [
             headers = map (.path) (Set.toAscList headers)
           , cName   = renderDeclId cDeclId
           , hsIdent = spec.hsIdent
-          , cRep    = spec.cRep
           }
         Omit -> AOmit AKCTypeSpec{
             headers = map (.path) (Set.toAscList headers)
@@ -979,34 +946,6 @@ instance Aeson.FromJSON (ARep Hs.Identifier) where
 
 instance Aeson.ToJSON (ARep Hs.Identifier) where
   toJSON (AHsIdentifier hsIdent) = Aeson.String (hsIdent.text)
-
---------------------------------------------------------------------------------
-
-newtype instance ARep CTypeRep = ACTypeRep CTypeRep
-  deriving stock (Show)
-
-instance ARepIso ARep CTypeRep
-
-instance Aeson.FromJSON (ARep CTypeRep) where
-  parseJSON = Aeson.withText "CTypeRep" $ \t ->
-    case Map.lookup t cTypeRepFromText of
-      Just cTypeRep -> return (ACTypeRep cTypeRep)
-      Nothing -> Aeson.parseFail $ "unknown C representation: " ++ Text.unpack t
-
-instance Aeson.ToJSON (ARep CTypeRep) where
-  toJSON (ACTypeRep cTypeRep) = Aeson.String (cTypeRepText cTypeRep)
-
-cTypeRepText :: CTypeRep -> Text
-cTypeRepText = \case
-    CTypeRepDefault -> "default"
-    CTypeRepOpaque  -> "opaque"
-    CTypeRepAlias   -> "alias"
-
-cTypeRepFromText :: Map Text CTypeRep
-cTypeRepFromText = Map.fromList [
-      (cTypeRepText cTypeRep, cTypeRep)
-    | cTypeRep <- [minBound..]
-    ]
 
 --------------------------------------------------------------------------------
 

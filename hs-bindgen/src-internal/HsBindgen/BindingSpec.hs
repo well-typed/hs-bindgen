@@ -36,7 +36,6 @@ module HsBindgen.BindingSpec (
   , Common.Omittable(..)
   , BindingSpec.BindingSpecTarget(..)
   , BindingSpec.CTypeSpec(..)
-  , BindingSpec.CTypeRep(..)
   , BindingSpec.HsTypeSpec(..)
   , BindingSpec.HsTypeRep(..)
   , BindingSpec.HsRecordRep(..)
