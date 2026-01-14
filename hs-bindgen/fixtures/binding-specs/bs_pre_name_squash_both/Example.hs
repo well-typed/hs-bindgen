@@ -25,24 +25,24 @@ import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @struct foo@
 
-    __defined at:__ @binding-specs\/bs_pre_rename_squash_struct.h 1:16@
+    __defined at:__ @binding-specs\/bs_pre_name_squash_both.h 1:16@
 
-    __exported by:__ @binding-specs\/bs_pre_rename_squash_struct.h@
+    __exported by:__ @binding-specs\/bs_pre_name_squash_both.h@
 -}
 data Hoge = Hoge
   { hoge_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
-         __defined at:__ @binding-specs\/bs_pre_rename_squash_struct.h 1:26@
+         __defined at:__ @binding-specs\/bs_pre_name_squash_both.h 1:26@
 
-         __exported by:__ @binding-specs\/bs_pre_rename_squash_struct.h@
+         __exported by:__ @binding-specs\/bs_pre_name_squash_both.h@
     -}
   , hoge_y :: FC.CInt
     {- ^ __C declaration:__ @y@
 
-         __defined at:__ @binding-specs\/bs_pre_rename_squash_struct.h 1:29@
+         __defined at:__ @binding-specs\/bs_pre_name_squash_both.h 1:29@
 
-         __exported by:__ @binding-specs\/bs_pre_rename_squash_struct.h@
+         __exported by:__ @binding-specs\/bs_pre_name_squash_both.h@
     -}
   }
   deriving stock (Eq, Show)

@@ -4,20 +4,20 @@ version:
 target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
-- headers: binding-specs/bs_pre_rename_squash_typedef.h
+- headers: binding-specs/bs_pre_name_squash_both.h
   cname: struct foo
-  hsname: Piyo
-- headers: binding-specs/bs_pre_rename_squash_typedef.h
+  hsname: Hoge
+- headers: binding-specs/bs_pre_name_squash_both.h
   cname: bar
-  hsname: Piyo
+  hsname: Hoge
 hstypes:
-- hsname: Piyo
+- hsname: Hoge
   representation:
     record:
-      constructor: Piyo
+      constructor: Hoge
       fields:
-      - piyo_x
-      - piyo_y
+      - hoge_x
+      - hoge_y
   instances:
   - Eq
   - Prim

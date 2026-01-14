@@ -4,6 +4,6 @@ version:
 target: x86_64-pc-linux-musl
 hsmodule: Example
 ctypes:
-- headers: binding-specs/bs_pre_rename_squash_typedef.h
+- headers: binding-specs/bs_pre_name_squash_typedef.h
   cname: bar
   hsname: Piyo

@@ -419,10 +419,10 @@ testCases_bespoke_bindingSpecs = [
       test_bindingSpecs_bs_ext_target_any
     , test_bindingSpecs_bs_ext_target_mismatch
     , test_bindingSpecs_bs_pre_omit_type
-    , test_bindingSpecs_bs_pre_rename_squash_both
-    , test_bindingSpecs_bs_pre_rename_squash_struct
-    , test_bindingSpecs_bs_pre_rename_squash_typedef
-    , test_bindingSpecs_bs_pre_rename_type
+    , test_bindingSpecs_bs_pre_name_squash_both
+    , test_bindingSpecs_bs_pre_name_squash_struct
+    , test_bindingSpecs_bs_pre_name_squash_typedef
+    , test_bindingSpecs_bs_pre_name_type
     , test_bindingSpecs_bs_pre_target_mismatch
       -- * Function arguments
     , test_bindingSpecs_fun_arg_array
@@ -462,29 +462,29 @@ test_bindingSpecs_bs_pre_omit_type =
       & #specPrescriptive .~
           Just "examples/golden/binding-specs/bs_pre_omit_type_p.yaml"
 
-test_bindingSpecs_bs_pre_rename_squash_both :: TestCase
-test_bindingSpecs_bs_pre_rename_squash_both =
-    defaultTest "binding-specs/bs_pre_rename_squash_both"
+test_bindingSpecs_bs_pre_name_squash_both :: TestCase
+test_bindingSpecs_bs_pre_name_squash_both =
+    defaultTest "binding-specs/bs_pre_name_squash_both"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/bs_pre_rename_squash_both_p.yaml"
+          Just "examples/golden/binding-specs/bs_pre_name_squash_both_p.yaml"
 
-test_bindingSpecs_bs_pre_rename_squash_struct :: TestCase
-test_bindingSpecs_bs_pre_rename_squash_struct =
-    defaultTest "binding-specs/bs_pre_rename_squash_struct"
+test_bindingSpecs_bs_pre_name_squash_struct :: TestCase
+test_bindingSpecs_bs_pre_name_squash_struct =
+    defaultTest "binding-specs/bs_pre_name_squash_struct"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/bs_pre_rename_squash_struct_p.yaml"
+          Just "examples/golden/binding-specs/bs_pre_name_squash_struct_p.yaml"
 
-test_bindingSpecs_bs_pre_rename_squash_typedef :: TestCase
-test_bindingSpecs_bs_pre_rename_squash_typedef =
-    defaultTest "binding-specs/bs_pre_rename_squash_typedef"
+test_bindingSpecs_bs_pre_name_squash_typedef :: TestCase
+test_bindingSpecs_bs_pre_name_squash_typedef =
+    defaultTest "binding-specs/bs_pre_name_squash_typedef"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/bs_pre_rename_squash_typedef_p.yaml"
+          Just "examples/golden/binding-specs/bs_pre_name_squash_typedef_p.yaml"
 
-test_bindingSpecs_bs_pre_rename_type :: TestCase
-test_bindingSpecs_bs_pre_rename_type =
-    defaultTest "binding-specs/bs_pre_rename_type"
+test_bindingSpecs_bs_pre_name_type :: TestCase
+test_bindingSpecs_bs_pre_name_type =
+    defaultTest "binding-specs/bs_pre_name_type"
       & #specPrescriptive .~
-          Just "examples/golden/binding-specs/bs_pre_rename_type_p.yaml"
+          Just "examples/golden/binding-specs/bs_pre_name_type_p.yaml"
 
 -- -- TODO target any with non-target-specific bindings is OK
 -- -- test_bindingSpecs_bs_pre_target_any_ok :: TestCase
