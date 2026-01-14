@@ -68,6 +68,7 @@ import Data.Ord qualified as Ord
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 import Data.Yaml.Pretty qualified
+import Text.Read (readMaybe)
 
 import Clang.Args
 import Clang.Paths
@@ -1272,7 +1273,7 @@ instance Aeson.FromJSON (ARep InstanceSpec) where
       let aInstanceSpecStrategy    = Nothing
           aInstanceSpecConstraints = []
       return AInstanceSpec{
-          clss        = aInstanceSpecClass
+          clss        = fromARep @ARep aInstanceSpecClass
         , strategy    = aInstanceSpecStrategy
         , constraints = aInstanceSpecConstraints
         }
@@ -1281,7 +1282,7 @@ instance Aeson.FromJSON (ARep InstanceSpec) where
       aInstanceSpecStrategy    <- o .:? "strategy"
       aInstanceSpecConstraints <- o .:? "constraints" .!= []
       return AInstanceSpec{
-          clss        = aInstanceSpecClass
+          clss        = fromARep @ARep aInstanceSpecClass
         , strategy    = fromARep @ARep <$> aInstanceSpecStrategy
         , constraints = fromARep @ARep <$> aInstanceSpecConstraints
         }
@@ -1290,9 +1291,10 @@ instance Aeson.FromJSON (ARep InstanceSpec) where
 
 instance Aeson.ToJSON (ARep InstanceSpec) where
   toJSON arep
-    | isNothing arep.strategy && null arep.constraints = Aeson.toJSON arep.clss
+    | isNothing arep.strategy && null arep.constraints =
+        Aeson.toJSON (toARep @ARep arep.clss)
     | otherwise = Aeson.Object . KM.fromList $ catMaybes [
-          Just ("class" .= arep.clss)
+          Just ("class" .= toARep @ARep arep.clss)
         , ("strategy"    .=) . toARep @ARep <$> arep.strategy
         , ("constraints" .=) . fmap (toARep @ARep)
             <$> omitWhenNull arep.constraints
@@ -1315,9 +1317,13 @@ instance ARepKV ARep InstanceSpec where
     , constraints = v.constraints
     }
 
-deriving stock   instance Show           (ARepK ARep InstanceSpec)
-deriving newtype instance Aeson.FromJSON (ARepK ARep InstanceSpec)
-deriving newtype instance Aeson.ToJSON   (ARepK ARep InstanceSpec)
+deriving stock instance Show (ARepK ARep InstanceSpec)
+
+instance Aeson.FromJSON (ARepK ARep InstanceSpec) where
+  parseJSON = fmap (AKInstanceSpec . fromARep @ARep) . Aeson.parseJSON
+
+instance Aeson.ToJSON (ARepK ARep InstanceSpec) where
+  toJSON = Aeson.toJSON . toARep @ARep . (.unwrap)
 
 type AOInstanceSpec = AOmittable (ARepK ARep InstanceSpec) (ARep InstanceSpec)
 
@@ -1338,6 +1344,23 @@ toAOInstanceSpecs instMap = [
         Omit         -> AOmit (AKInstanceSpec hsTypeClass)
     | (hsTypeClass, oInstSpec) <- Map.toAscList instMap
     ]
+
+--------------------------------------------------------------------------------
+
+newtype instance ARep Hs.TypeClass = ATypeClass Hs.TypeClass
+  deriving stock (Show)
+
+instance ARepIso ARep Hs.TypeClass
+
+instance Aeson.FromJSON (ARep Hs.TypeClass) where
+  parseJSON = Aeson.withText "TypeClass" $ \t ->
+    let s = Text.unpack t
+    in  case readMaybe s of
+          Just clss -> return (ATypeClass clss)
+          Nothing   -> Aeson.parseFail $ "unknown type class: " ++ s
+
+instance Aeson.ToJSON (ARep Hs.TypeClass) where
+  toJSON (ATypeClass clss) = Aeson.String $ Text.pack (show clss)
 
 --------------------------------------------------------------------------------
 
@@ -1384,13 +1407,13 @@ instance Aeson.FromJSON (ARep ConstraintSpec) where
             , ident      = fromARep @ARep extRefIdentifier
             }
       return $ AConstraintSpec ConstraintSpec{
-          clss = constraintSpecClass
+          clss = fromARep @ARep constraintSpecClass
         , ref  = constraintSpecRef
         }
 
 instance Aeson.ToJSON (ARep ConstraintSpec) where
   toJSON (AConstraintSpec spec) = Aeson.object [
-        "class"    .= spec.clss
+        "class"    .= toARep @ARep spec.clss
       , "hsmodule" .= toARep @ARep spec.ref.moduleName
       , "hsname"   .= toARep @ARep spec.ref.ident
       ]

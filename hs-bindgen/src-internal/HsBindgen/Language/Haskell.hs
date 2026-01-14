@@ -22,13 +22,10 @@ module HsBindgen.Language.Haskell (
   , TypeClass(..)
   ) where
 
-import Data.Aeson qualified as Aeson
-import Data.Aeson.Types qualified as Aeson
 import Data.Foldable qualified as Foldable
 import Data.Ord qualified as Ord
 import Data.Text qualified as Text
 import System.FilePath
-import Text.Read (readMaybe)
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Imports
@@ -169,16 +166,6 @@ data TypeClass =
   | WriteRaw
   | Storable
   deriving stock (Eq, Generic, Read, Show)
-
-instance Aeson.FromJSON TypeClass where
-  parseJSON = Aeson.withText "TypeClass" $ \t ->
-    let s = Text.unpack t
-    in  case readMaybe s of
-          Just clss -> return clss
-          Nothing   -> Aeson.parseFail $ "unknown type class: " ++ s
-
-instance Aeson.ToJSON TypeClass where
-  toJSON = Aeson.String . Text.pack . show
 
 -- Order lexicographically, not by order of definition
 instance Ord TypeClass where
