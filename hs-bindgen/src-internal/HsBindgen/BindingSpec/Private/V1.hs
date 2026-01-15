@@ -42,9 +42,7 @@ module HsBindgen.BindingSpec.Private.V1 (
   , lookupHsTypeSpec
     -- ** YAML/JSON
   , readFile
-  , parseValue
   , encode
-  , defCompareCDeclId
     -- ** Header resolution
   , resolve
     -- ** Merging
@@ -124,6 +122,12 @@ data BindingSpec header = BindingSpec {
       -- | Binding specification module
       --
       -- Each binding specification is specific to a Haskell module.
+      --
+      -- The module name is optional in prescriptive binding specifications.  If
+      -- one is specified, it must match the current module.  If not specified,
+      -- the current module is used.
+      --
+      -- The module name is required in external binding specifications.
     , moduleName :: Hs.ModuleName
 
       -- | C type specifications
@@ -405,34 +409,32 @@ lookupHsTypeSpec hsIdentifier spec = Map.lookup hsIdentifier spec.hsTypes
 readFile ::
      Tracer BindingSpecReadMsg
   -> BindingSpecCompatibility
+  -> Maybe Hs.ModuleName
   -> FilePath
   -> IO (Maybe UnresolvedBindingSpec)
-readFile tracer cmpt path = readVersion tracer path >>= \case
-    Just (version', value) -> parseValue tracer cmpt path version' value
-    Nothing                -> return Nothing
-
-parseValue ::
-     MonadIO m
-  => Tracer BindingSpecReadMsg
-  -> BindingSpecCompatibility
-  -> FilePath
-  -> AVersion
-  -> Aeson.Value
-  -> m (Maybe UnresolvedBindingSpec)
-parseValue tracer cmpt path aVersion value
-    | isCompatBindingSpecVersions cmpt aVersion.bindingSpec currentBindingSpecVersion = do
-        traceWith tracer $ BindingSpecReadParseVersion path aVersion
-        case Aeson.fromJSON value of
-          Aeson.Success arep -> do
-            let (errs, spec) = fromABindingSpec path arep
-            mapM_ (traceWith tracer) errs
-            return (Just spec)
-          Aeson.Error err -> do
-            traceWith tracer $ BindingSpecReadAesonError path err
-            return Nothing
-    | otherwise = do
-        traceWith tracer $ BindingSpecReadIncompatibleVersion path aVersion
-        return Nothing
+readFile tracer cmpt mHsModuleName path = readVersion tracer path >>= \case
+    Nothing -> return Nothing
+    Just (aVersion, value)
+      | isCompatBindingSpecVersions
+          cmpt
+          aVersion.bindingSpec
+          currentBindingSpecVersion -> do
+            traceWith tracer $ BindingSpecReadParseVersion path aVersion
+            case Aeson.fromJSON value of
+              Aeson.Success arep ->
+                case fromABindingSpec mHsModuleName path arep of
+                  Right (errs, spec) -> do
+                    mapM_ (traceWith tracer) errs
+                    return (Just spec)
+                  Left err -> do
+                    traceWith tracer err
+                    return Nothing
+              Aeson.Error err -> do
+                traceWith tracer $ BindingSpecReadAesonError path err
+                return Nothing
+      | otherwise -> do
+          traceWith tracer $ BindingSpecReadIncompatibleVersion path aVersion
+          return Nothing
 
 -- | Encode a binding specification
 encode ::
@@ -443,10 +445,6 @@ encode ::
 encode compareCDeclId = \case
     FormatJSON -> encodeJson' . toABindingSpec compareCDeclId
     FormatYAML -> encodeYaml' . toABindingSpec compareCDeclId
-
--- | Default ordering of @ctypes@
-defCompareCDeclId :: DeclId -> DeclId -> Ordering
-defCompareCDeclId = Ord.comparing renderDeclId
 
 encodeJson' :: ARep UnresolvedBindingSpec -> ByteString
 encodeJson' = BSL.toStrict . Aeson.encode
@@ -672,7 +670,7 @@ toARep' = toARep
 data instance ARep UnresolvedBindingSpec = ABindingSpec {
       version  :: AVersion
     , target   :: Maybe BindingSpecTarget
-    , hsModule :: Hs.ModuleName
+    , hsModule :: Maybe Hs.ModuleName
     , cTypes   :: [AOCTypeSpec]
     , hsTypes  :: [ARep HsTypeSpec]
     }
@@ -682,13 +680,13 @@ instance Aeson.FromJSON (ARep UnresolvedBindingSpec) where
   parseJSON = Aeson.withObject "BindingSpec" $ \o -> do
     aBindingSpecVersion  <- o .:  "version"
     aBindingSpecTarget   <- o .:? "target"
-    aBindingSpecHsModule <- o .:  "hsmodule"
+    aBindingSpecHsModule <- o .:? "hsmodule"
     aBindingSpecCTypes   <- o .:? "ctypes"  .!= []
     aBindingSpecHsTypes  <- o .:? "hstypes" .!= []
     return ABindingSpec{
         version  = aBindingSpecVersion
       , target   = fromARep' <$> aBindingSpecTarget
-      , hsModule = fromARep' aBindingSpecHsModule
+      , hsModule = fromARep' <$> aBindingSpecHsModule
       , cTypes   = aBindingSpecCTypes
       , hsTypes  = aBindingSpecHsTypes
       }
@@ -696,29 +694,39 @@ instance Aeson.FromJSON (ARep UnresolvedBindingSpec) where
 instance Aeson.ToJSON (ARep UnresolvedBindingSpec) where
   toJSON spec = Aeson.Object . KM.fromList $ catMaybes [
       Just ("version" .= spec.version)
-    , ("target" .=) . toARep' <$> spec.target
-    , Just ("hsmodule" .= toARep' spec.hsModule)
-    , ("ctypes"  .=) <$> omitWhenNull spec.cTypes
-    , ("hstypes" .=) <$> omitWhenNull spec.hsTypes
+    , ("target"   .=) . toARep' <$> spec.target
+    , ("hsmodule" .=) . toARep' <$> spec.hsModule
+    , ("ctypes"   .=) <$> omitWhenNull spec.cTypes
+    , ("hstypes"  .=) <$> omitWhenNull spec.hsTypes
     ]
 
 fromABindingSpec ::
-     FilePath
+     Maybe Hs.ModuleName
+  -> FilePath
   -> ARep UnresolvedBindingSpec
-  -> ([BindingSpecReadMsg], UnresolvedBindingSpec)
-fromABindingSpec path arep =
+  -> Either BindingSpecReadMsg ([BindingSpecReadMsg], UnresolvedBindingSpec)
+fromABindingSpec mHsModuleName path arep = do
+    (moduleErrs, hsModuleName) <- case (arep.hsModule, mHsModuleName) of
+      (Just bsModule, Just curModule)
+        | bsModule == curModule -> return ([], bsModule)
+        | otherwise -> return
+            ([BindingSpecReadModuleMismatch path bsModule curModule], bsModule)
+      (Just bsModule, Nothing) -> return ([], bsModule)
+      (Nothing, Just curModule) -> return ([], curModule)
+      (Nothing, Nothing) -> Left $ BindingSpecReadModuleNotSpecified path
     let (cTypeErrs, hsIds, bindingSpecCTypes) =
           fromAOCTypeSpecs path arep.cTypes
         (hsTypeErrs, bindingSpecHsTypes) =
           fromAHsTypeSpecs path hsIds arep.hsTypes
-    in  ( cTypeErrs ++ hsTypeErrs
-        , BindingSpec{
-              target     = arep.target
-            , moduleName = arep.hsModule
-            , cTypes     = bindingSpecCTypes
-            , hsTypes    = bindingSpecHsTypes
-            }
-        )
+    return
+      ( moduleErrs ++ cTypeErrs ++ hsTypeErrs
+      , BindingSpec{
+            target     = arep.target
+          , moduleName = hsModuleName
+          , cTypes     = bindingSpecCTypes
+          , hsTypes    = bindingSpecHsTypes
+          }
+      )
 
 toABindingSpec ::
      (DeclId -> DeclId -> Ordering)
@@ -727,7 +735,7 @@ toABindingSpec ::
 toABindingSpec compareCDeclId spec = ABindingSpec{
       version  = mkAVersion currentBindingSpecVersion
     , target   = spec.target
-    , hsModule = spec.moduleName
+    , hsModule = Just spec.moduleName
     , cTypes   = toAOCTypeSpecs compareCDeclId spec.cTypes
     , hsTypes  = toAHsTypeSpecs spec.hsTypes
     }

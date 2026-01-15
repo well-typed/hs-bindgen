@@ -54,6 +54,7 @@ module HsBindgen.BindingSpec (
   ) where
 
 import Data.ByteString (ByteString)
+import Data.Ord qualified as Ord
 
 import Clang.Args (ClangArgs)
 import Clang.Paths (SourcePath)
@@ -177,7 +178,7 @@ loadExtBindingSpecs tracer args target enableStdlib cmpt paths = do
       EnableStdlibBindingSpec  -> (Stdlib.bindingSpec :)
 
     read' :: FilePath -> IO (Maybe BindingSpec.UnresolvedBindingSpec)
-    read' path = BindingSpec.readFile tracerRead cmpt path >>= \case
+    read' path = BindingSpec.readFile tracerRead cmpt Nothing path >>= \case
       Nothing -> return Nothing
       Just uspec
         | not (BindingSpec.isTargetSpecified uspec) -> do
@@ -224,22 +225,23 @@ loadPrescriptiveBindingSpec ::
 loadPrescriptiveBindingSpec tracer args target hsModuleName cmpt =
     fmap (fromMaybe $ empty target hsModuleName) . \case
       Nothing   -> return Nothing
-      Just path -> BindingSpec.readFile tracerRead cmpt path >>= \case
-        Nothing -> return Nothing
-        Just uspec
-          | uspec `BindingSpec.isCompatTarget` target -> do
-              when (BindingSpec.isAnyTarget uspec) . traceWith tracerRead $
-                Common.BindingSpecReadAnyTargetNotEnforced path
-              Just . BindingSpec uspec <$>
-                BindingSpec.resolve
-                  tracerResolve
-                  Common.BindingSpecResolvePrescriptiveHeader
-                  args
-                  uspec
-          | otherwise -> do
-              traceWith tracerRead $
-                Common.BindingSpecReadIncompatibleTarget path
-              return Nothing
+      Just path ->
+        BindingSpec.readFile tracerRead cmpt (Just hsModuleName) path >>= \case
+          Nothing -> return Nothing
+          Just uspec
+            | uspec `BindingSpec.isCompatTarget` target -> do
+                when (BindingSpec.isAnyTarget uspec) . traceWith tracerRead $
+                  Common.BindingSpecReadAnyTargetNotEnforced path
+                Just . BindingSpec uspec <$>
+                  BindingSpec.resolve
+                    tracerResolve
+                    Common.BindingSpecResolvePrescriptiveHeader
+                    args
+                    uspec
+            | otherwise -> do
+                traceWith tracerRead $
+                  Common.BindingSpecReadIncompatibleTarget path
+                return Nothing
   where
     tracerRead :: Tracer Common.BindingSpecReadMsg
     tracerRead = contramap Common.BindingSpecReadMsg tracer
@@ -278,11 +280,10 @@ loadBindingSpecs tracer args target hsModuleName config =
 
 -- | Encode a binding specification
 encode :: Common.Format -> BindingSpec -> ByteString
-encode format spec =
-    BindingSpec.encode
-      BindingSpec.defCompareCDeclId
-      format
-      spec.unresolved
+encode format spec = BindingSpec.encode defCompareCDeclId format spec.unresolved
+  where
+    defCompareCDeclId :: DeclId -> DeclId -> Ordering
+    defCompareCDeclId = Ord.comparing renderDeclId
 
 {-------------------------------------------------------------------------------
   Internal API
