@@ -17,12 +17,13 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
+import HsBindgen.App.Output (OutputMode (..), OutputOptions (..),
+                             buildCategoryChoice, parseOutputOptions)
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.DelayedIO
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.App.Output (OutputOptions (..), OutputMode (..), parseOutputOptions, buildCategoryChoice)
 
 {-------------------------------------------------------------------------------
   CLI help

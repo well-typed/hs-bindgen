@@ -23,12 +23,14 @@ import Text.Read (readMaybe)
 
 import HsBindgen
 import HsBindgen.App
+import HsBindgen.App.Output (OutputMode (..), OutputOptions,
+                             SingleFileCategory (..), buildCategoryChoice,
+                             parseOutputOptions)
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.DelayedIO
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.App.Output (OutputOptions, parseOutputOptions, OutputMode (..), SingleFileCategory (..), buildCategoryChoice)
 
 {-------------------------------------------------------------------------------
   CLI help

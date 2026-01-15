@@ -18,11 +18,11 @@ module HsBindgen.App.Output (
 
 import Data.Default (Default (..))
 import Data.Text (Text)
+import GHC.Generics (Generic)
 import Options.Applicative
 
 import HsBindgen.Backend.Category (ByCategory (..), CategoryLvl (..),
                                    Choice (..), RenameTerm (..))
-import GHC.Generics (Generic)
 
 {-------------------------------------------------------------------------------
   Output mode
