@@ -10,7 +10,6 @@ module HsBindgen.Config.Prelims (
   , checkUniqueId
   ) where
 
-import Data.Aeson (FromJSON, ToJSON)
 import Data.Text qualified as Text
 import Text.SimplePrettyPrint qualified as PP
 
@@ -29,7 +28,7 @@ import HsBindgen.Util.Tracer
 -- derive @Generated@, @Generated.Safe@, etc.
 newtype BaseModuleName = BaseModuleName { text :: Text }
   deriving stock (Eq, Generic)
-  deriving newtype (IsString, FromJSON, ToJSON, Show)
+  deriving newtype (IsString, Show)
 
 instance Default BaseModuleName where
   def = "Generated"
@@ -39,11 +38,11 @@ baseModuleNameToString baseModule = Text.unpack baseModule.text
 
 fromBaseModuleName :: BaseModuleName -> Maybe Category -> Hs.ModuleName
 fromBaseModuleName (BaseModuleName base) Nothing =
-    Hs.moduleNameFromText base
+    Hs.ModuleName base
 fromBaseModuleName (BaseModuleName base) (Just CType) =
-    Hs.moduleNameFromText base
+    Hs.ModuleName base
 fromBaseModuleName (BaseModuleName base) (Just (CTerm cat)) =
-    Hs.moduleNameFromText (base <> "." <> submodule cat)
+    Hs.ModuleName (base <> "." <> submodule cat)
   where
     -- NOTE: It is important that types are stored in a module without any
     -- suffix; we depend on this assumption for binding specifications (which

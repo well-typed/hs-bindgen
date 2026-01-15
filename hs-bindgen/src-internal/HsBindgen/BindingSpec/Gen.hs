@@ -108,7 +108,7 @@ genBindingSpec'
     spec0 :: UnresolvedBindingSpec
     spec0 = BindingSpec.BindingSpec {
         -- TODO AnyTarget if bindings are not target-specific
-        target     = BindingSpec.SpecificTarget target
+        target     = Just (BindingSpec.SpecificTarget target)
       , moduleName = hsModuleName
       , cTypes     = Map.fromListWith (++) $
           [ (cDeclId, [(getMainHeaders' path, Omit)])
@@ -176,7 +176,6 @@ genBindingSpec'
         let hsIdentifier = Hs.Identifier $ Hs.getName hsStruct.name
             cTypeSpec = BindingSpec.CTypeSpec {
                 hsIdent = Just hsIdentifier
-              , cRep    = Nothing  -- TODO implement
               }
             hsRecordRep = BindingSpec.HsRecordRep {
                 constructor = Just $ Hs.Identifier $ Hs.getName hsStruct.constr
@@ -206,10 +205,9 @@ genBindingSpec'
           hsIdentifier = Hs.Identifier $ Hs.getName edata.name
           cTypeSpec = BindingSpec.CTypeSpec {
               hsIdent = Just hsIdentifier
-            , cRep    = Nothing  -- TODO implement
             }
           hsTypeSpec = BindingSpec.HsTypeSpec {
-              hsRep     = Just BindingSpec.HsTypeRepOpaque
+              hsRep     = Just BindingSpec.HsTypeRepEmptyData
             , instances = Map.empty
             }
       in  ( (originDecl.info, cTypeSpec)
@@ -226,7 +224,6 @@ genBindingSpec'
           hsIdentifier = Hs.Identifier $ Hs.getName hsNewtype.name
           cTypeSpec    = BindingSpec.CTypeSpec {
               hsIdent = Just hsIdentifier
-            , cRep    = Nothing  -- TODO implement
             }
           hsNewtypeRep = BindingSpec.HsNewtypeRep {
               constructor = Just $ Hs.Identifier $ Hs.getName hsNewtype.constr

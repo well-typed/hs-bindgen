@@ -42,8 +42,8 @@ hstypes:
   - Show
   - Storable
 - hsname: Foo
-  representation: opaque
+  representation: emptydata
 - hsname: Opaque_union
-  representation: opaque
+  representation: emptydata
 - hsname: Quu
-  representation: opaque
+  representation: emptydata

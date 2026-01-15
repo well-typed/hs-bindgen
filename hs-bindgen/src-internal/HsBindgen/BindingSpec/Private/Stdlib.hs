@@ -36,7 +36,7 @@ import HsBindgen.Language.Haskell qualified as Hs
 -- @hs-bindgen-runtime@
 bindingSpec :: BindingSpec.UnresolvedBindingSpec
 bindingSpec = BindingSpec.BindingSpec{
-      target     = BindingSpec.AnyTarget
+      target     = Just BindingSpec.AnyTarget
     , moduleName = "HsBindgen.Runtime.Prelude"
     , cTypes     = bindingSpecCTypes
     , hsTypes    = bindingSpecHsTypes
@@ -58,13 +58,13 @@ bindingSpec = BindingSpec.BindingSpec{
 
     boolTypes :: [(CTypeKV, HsTypeKV)]
     boolTypes = [
-        mkTypeN "bool" "CBool" cD intI (Just $ BindingSpec.Builtin BFT.CBool) ["stdbool.h"]
+        mkTypeN "bool" "CBool" intI (Just $ BindingSpec.Builtin BFT.CBool) ["stdbool.h"]
       ]
 
     integralTypes :: [(CTypeKV, HsTypeKV)]
     integralTypes =
       let aux (t, hsIdentifier, ffitype) =
-            mkTypeN t hsIdentifier cD intI (Just ffitype) ["inttypes.h", "stdint.h"]
+            mkTypeN t hsIdentifier intI (Just ffitype) ["inttypes.h", "stdint.h"]
       in  map aux [
               ("int8_t",         "Int8",     BindingSpec.Basic BFT.Int8)
             , ("int16_t",        "Int16",    BindingSpec.Basic BFT.Int16)
@@ -98,7 +98,7 @@ bindingSpec = BindingSpec.BindingSpec{
 
     floatingTypes :: [(CTypeKV, HsTypeKV)]
     floatingTypes =
-      let aux (t, hsIdentifier) = mkType t hsIdentifier cO hsO [] ["fenv.h"]
+      let aux (t, hsIdentifier) = mkType t hsIdentifier hsED [] ["fenv.h"]
       in  map aux [
               ("fenv_t",    "CFenvT")
             , ("fexcept_t", "CFexceptT")
@@ -107,18 +107,18 @@ bindingSpec = BindingSpec.BindingSpec{
     mathTypes :: [(CTypeKV, HsTypeKV)]
     mathTypes = [
         let hsR = mkHsR "CDivT" ["cDivT_quot", "cDivT_rem"]
-        in  mkType "div_t"     "CDivT"     cD hsR divI ["stdlib.h"]
+        in  mkType "div_t"     "CDivT"     hsR divI ["stdlib.h"]
       , let hsR = mkHsR "CLdivT" ["cLdivT_quot", "cLdivT_rem"]
-        in  mkType "ldiv_t"    "CLdivT"    cD hsR divI ["stdlib.h"]
+        in  mkType "ldiv_t"    "CLdivT"    hsR divI ["stdlib.h"]
       , let hsR = mkHsR "CLldivT" ["cLldivT_quot", "cLldivT_rem"]
-        in  mkType "lldiv_t"   "CLldivT"   cD hsR divI ["stdlib.h"]
+        in  mkType "lldiv_t"   "CLldivT"   hsR divI ["stdlib.h"]
       , let hsR = mkHsR "CImaxdivT" ["cImaxdivT_quot", "cImaxdivT_rem"]
-        in  mkType "imaxdiv_t" "CImaxdivT" cD hsR divI ["inttypes.h"]
+        in  mkType "imaxdiv_t" "CImaxdivT" hsR divI ["inttypes.h"]
       ]
 
     stdTypes :: [(CTypeKV, HsTypeKV)]
     stdTypes = [
-        mkTypeN "size_t" "CSize" cD intI (Just (BindingSpec.Builtin BFT.CSize)) [
+        mkTypeN "size_t" "CSize" intI (Just (BindingSpec.Builtin BFT.CSize)) [
             "signal.h"
           , "stddef.h"
           , "stdio.h"
@@ -128,34 +128,34 @@ bindingSpec = BindingSpec.BindingSpec{
           , "uchar.h"
           , "wchar.h"
           ]
-      , mkTypeN "ptrdiff_t" "CPtrdiff" cD intI (Just (BindingSpec.Builtin BFT.CPtrdiff)) ["stddef.h"]
+      , mkTypeN "ptrdiff_t" "CPtrdiff" intI (Just (BindingSpec.Builtin BFT.CPtrdiff)) ["stddef.h"]
       ]
 
     nonLocalJumpTypes :: [(CTypeKV, HsTypeKV)]
     nonLocalJumpTypes = [
-        mkType "jmp_buf" "CJmpBuf" cO hsO [] ["setjmp.h"]
+        mkType "jmp_buf" "CJmpBuf" hsED [] ["setjmp.h"]
       ]
 
     wcharTypes :: [(CTypeKV, HsTypeKV)]
     wcharTypes = [
-        mkTypeN "wchar_t" "CWchar" cD intI (Just (BindingSpec.Builtin BFT.CWchar)) [
+        mkTypeN "wchar_t" "CWchar" intI (Just (BindingSpec.Builtin BFT.CWchar)) [
             "inttypes.h"
           , "stddef.h"
           , "stdlib.h"
           , "wchar.h"
           ]
-      , mkTypeN "wint_t"    "CWintT"    cD     intI (Just (BindingSpec.Builtin BFT.CUInt))  ["wchar.h", "wctype.h"]
-      , mkType  "mbstate_t" "CMbstateT" cO hsO []                               ["uchar.h", "wchar.h"]
-      , mkTypeN "wctrans_t" "CWctransT" cD     eqI  (Just (BindingSpec.Basic BFT.Ptr))      ["wctype.h"]
-      , mkTypeN "wctype_t"  "CWctypeT"  cD     eqI  (Just (BindingSpec.Builtin BFT.CULong)) ["wchar.h", "wctype.h"]
-      , mkTypeN "char16_t"  "CChar16T"  cD     intI (Just (BindingSpec.Basic BFT.Word16))   ["uchar.h"]
-      , mkTypeN "char32_t"  "CChar32T"  cD     intI (Just (BindingSpec.Basic BFT.Word32))   ["uchar.h"]
+      , mkTypeN "wint_t"    "CWintT"         intI (Just (BindingSpec.Builtin BFT.CUInt))  ["wchar.h", "wctype.h"]
+      , mkType  "mbstate_t" "CMbstateT" hsED []                               ["uchar.h", "wchar.h"]
+      , mkTypeN "wctrans_t" "CWctransT"      eqI  (Just (BindingSpec.Basic BFT.Ptr))      ["wctype.h"]
+      , mkTypeN "wctype_t"  "CWctypeT"       eqI  (Just (BindingSpec.Builtin BFT.CULong)) ["wchar.h", "wctype.h"]
+      , mkTypeN "char16_t"  "CChar16T"       intI (Just (BindingSpec.Basic BFT.Word16))   ["uchar.h"]
+      , mkTypeN "char32_t"  "CChar32T"       intI (Just (BindingSpec.Basic BFT.Word32))   ["uchar.h"]
       ]
 
     timeTypes :: [(CTypeKV, HsTypeKV)]
     timeTypes = [
-        mkTypeN "time_t"  "CTime"  cD timeI (Just (BindingSpec.Builtin BFT.CTime))  ["signal.h", "time.h"]
-      , mkTypeN "clock_t" "CClock" cD timeI (Just (BindingSpec.Builtin BFT.CClock)) ["signal.h", "time.h"]
+        mkTypeN "time_t"  "CTime"  timeI (Just (BindingSpec.Builtin BFT.CTime))  ["signal.h", "time.h"]
+      , mkTypeN "clock_t" "CClock" timeI (Just (BindingSpec.Builtin BFT.CClock)) ["signal.h", "time.h"]
       , let hsR = mkHsR "CTm" [
                 "cTm_sec"
               , "cTm_min"
@@ -167,18 +167,18 @@ bindingSpec = BindingSpec.BindingSpec{
               , "cTm_yday"
               , "cTm_isdst"
               ]
-        in  mkType "struct tm" "CTm" cD hsR eqI ["time.h"]
+        in  mkType "struct tm" "CTm" hsR eqI ["time.h"]
       ]
 
     fileTypes :: [(CTypeKV, HsTypeKV)]
     fileTypes = [
-        mkType "FILE"   "CFile" cO hsO [] ["stdio.h", "wchar.h"]
-      , mkType "fpos_t" "CFpos" cO hsO [] ["stdio.h"]
+        mkType "FILE"   "CFile" hsED [] ["stdio.h", "wchar.h"]
+      , mkType "fpos_t" "CFpos" hsED [] ["stdio.h"]
       ]
 
     signalTypes :: [(CTypeKV, HsTypeKV)]
     signalTypes = [
-        mkTypeN "sig_atomic_t" "CSigAtomic" cD intI (Just (BindingSpec.Builtin BFT.CSigAtomic)) ["signal.h"]
+        mkTypeN "sig_atomic_t" "CSigAtomic" intI (Just (BindingSpec.Builtin BFT.CSigAtomic)) ["signal.h"]
       ]
 
     divI, eqI, intI, timeI :: [Hs.TypeClass]
@@ -245,12 +245,11 @@ mkMaps = bimap Map.fromList Map.fromList . unzip
 mkType ::
      Text
   -> Hs.Identifier
-  -> BindingSpec.CTypeRep
   -> BindingSpec.HsTypeRep
   -> [Hs.TypeClass]
   -> [FilePath]
   -> (CTypeKV, HsTypeKV)
-mkType t hsIdentifier cTypeRep hsTypeRep insts headers' =
+mkType t hsIdentifier hsTypeRep insts headers' =
     case parseDeclId t of
       Just cDeclId ->
         ( (cDeclId, [(headers, Require cTypeSpec)])
@@ -264,7 +263,6 @@ mkType t hsIdentifier cTypeRep hsTypeRep insts headers' =
     cTypeSpec :: BindingSpec.CTypeSpec
     cTypeSpec = BindingSpec.CTypeSpec {
         hsIdent = Just hsIdentifier
-      , cRep    = Just cTypeRep
       }
 
     hsTypeSpec :: BindingSpec.HsTypeSpec
@@ -276,15 +274,9 @@ mkType t hsIdentifier cTypeRep hsTypeRep insts headers' =
           ]
       }
 
--- | Concise aliases for 'BindingSpec.CTypeRepDefault' and
--- 'BindingSpec.CTypeRepOpaque'
-cD, cO :: BindingSpec.CTypeRep
-cD = BindingSpec.CTypeRepDefault
-cO = BindingSpec.CTypeRepOpaque
-
--- | Concise alias for 'BindingSpec.HsTypeRepOpaque'
-hsO :: BindingSpec.HsTypeRep
-hsO = BindingSpec.HsTypeRepOpaque
+-- | Concise alias for 'BindingSpec.HsTypeRepEmptyData'
+hsED :: BindingSpec.HsTypeRep
+hsED = BindingSpec.HsTypeRepEmptyData
 
 -- | Construct a 'BindingSpec.HsTypeRepRecord' with the specified constructor
 -- and field names
@@ -312,10 +304,9 @@ mkHsN constructorName ffitype = BindingSpec.HsTypeRepNewtype $
 mkTypeN ::
      Text
   -> Hs.Identifier
-  -> BindingSpec.CTypeRep
   -> [Hs.TypeClass]
   -> Maybe BindingSpec.FFIType
   -> [FilePath]
   -> (CTypeKV, HsTypeKV)
-mkTypeN t hsIdentifier cTypeRep insts ffitype headers =
-    mkType t hsIdentifier cTypeRep (mkHsN hsIdentifier ffitype) insts headers
+mkTypeN t hsIdentifier insts ffitype headers =
+    mkType t hsIdentifier (mkHsN hsIdentifier ffitype) insts headers

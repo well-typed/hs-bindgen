@@ -65,8 +65,11 @@ data BindingSpecReadMsg =
   | BindingSpecReadYamlWarning FilePath String
   | BindingSpecReadParseVersion FilePath AVersion
   | BindingSpecReadIncompatibleVersion FilePath AVersion
+  | BindingSpecReadTargetNotSpecified FilePath
   | BindingSpecReadIncompatibleTarget FilePath
   | BindingSpecReadAnyTargetNotEnforced FilePath
+  | BindingSpecReadModuleMismatch FilePath Hs.ModuleName Hs.ModuleName
+  | BindingSpecReadModuleNotSpecified FilePath
   | BindingSpecReadInvalidCName FilePath Text
   | BindingSpecReadCTypeConflict FilePath DeclId HashIncludeArg
   | BindingSpecReadHsIdentifierNoRef FilePath Hs.Identifier
@@ -82,8 +85,11 @@ instance IsTrace Level BindingSpecReadMsg where
     BindingSpecReadYamlWarning{}          -> Error
     BindingSpecReadParseVersion{}         -> Debug
     BindingSpecReadIncompatibleVersion{}  -> Error
+    BindingSpecReadTargetNotSpecified{}   -> Error
     BindingSpecReadIncompatibleTarget{}   -> Error
     BindingSpecReadAnyTargetNotEnforced{} -> Notice
+    BindingSpecReadModuleMismatch{}       -> Warning
+    BindingSpecReadModuleNotSpecified{}   -> Error
     BindingSpecReadInvalidCName{}         -> Error
     BindingSpecReadCTypeConflict{}        -> Error
     BindingSpecReadHsIdentifierNoRef{}    -> Error
@@ -130,11 +136,22 @@ instance PrettyForTrace BindingSpecReadMsg where
         , "binding specification version: " ><
             prettyForTrace version.bindingSpec
         ]
+    BindingSpecReadTargetNotSpecified path ->
+      "target not specified in external binding specification: " >< PP.string path
     BindingSpecReadIncompatibleTarget path ->
       "incompatible binding specification target: " >< PP.string path
     BindingSpecReadAnyTargetNotEnforced path ->
       "'any' target of prescriptive binding specification not yet enforced: " ><
         PP.string path
+    BindingSpecReadModuleMismatch path bsModule curModule ->
+      PP.hangs'
+        ("binding specification module mismatch: " >< PP.string path)
+        2
+        [ "binding specification module: " >< prettyForTrace bsModule
+        , "current module: " >< prettyForTrace curModule
+        ]
+    BindingSpecReadModuleNotSpecified path ->
+      "module not specified in external binding specification: " >< PP.string path
     BindingSpecReadInvalidCName path t -> PP.hcat [
         "invalid C name in "
       , PP.string path

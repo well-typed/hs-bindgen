@@ -156,9 +156,9 @@ hstypes:
   - Show
   - Storable
 - hsname: Struct3_t
-  representation: opaque
+  representation: emptydata
 - hsname: Struct4_t
-  representation: opaque
+  representation: emptydata
 - hsname: Struct5
   representation:
     record:

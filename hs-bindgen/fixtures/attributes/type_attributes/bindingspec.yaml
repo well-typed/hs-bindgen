@@ -150,7 +150,7 @@ hstypes:
   - Show
   - Storable
 - hsname: Wait
-  representation: opaque
+  representation: emptydata
 - hsname: Wait_status_ptr_t
   representation:
     newtype:

@@ -5,8 +5,7 @@
 -- > import HsBindgen.Language.Haskell qualified as Hs
 module HsBindgen.Language.Haskell (
     -- * Module names
-    ModuleName -- opaque
-  , moduleNameFromText
+    ModuleName(..)
   , moduleNameFromString
   , moduleNameToString
   , moduleNamePath
@@ -23,13 +22,10 @@ module HsBindgen.Language.Haskell (
   , TypeClass(..)
   ) where
 
-import Data.Aeson qualified as Aeson
-import Data.Aeson.Types qualified as Aeson
 import Data.Foldable qualified as Foldable
 import Data.Ord qualified as Ord
 import Data.Text qualified as Text
 import System.FilePath
-import Text.Read (readMaybe)
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Imports
@@ -45,13 +41,10 @@ import HsBindgen.Util.Tracer
 newtype ModuleName = ModuleName { text :: Text }
   deriving stock (Generic)
   -- 'Show' instance valid due to 'IsString' instance
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
-
-moduleNameFromText :: Text -> ModuleName
-moduleNameFromText = ModuleName
+  deriving newtype (Eq, IsString, Ord, Show)
 
 moduleNameFromString :: String -> ModuleName
-moduleNameFromString = moduleNameFromText . Text.pack
+moduleNameFromString = ModuleName . Text.pack
 
 moduleNameToString :: ModuleName -> String
 moduleNameToString moduleName = Text.unpack moduleName.text
@@ -80,7 +73,7 @@ instance PrettyForTrace ModuleName where
 newtype Identifier = Identifier { text :: Text }
   deriving stock (Eq, Ord, Generic)
   -- 'Show' instance valid due to 'IsString' instance
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, IsString, Show, Semigroup)
+  deriving newtype (IsString, Show, Semigroup)
 
 instance PrettyForTrace Identifier where
   prettyForTrace ident = PP.text ident.text
@@ -173,16 +166,6 @@ data TypeClass =
   | WriteRaw
   | Storable
   deriving stock (Eq, Generic, Read, Show)
-
-instance Aeson.FromJSON TypeClass where
-  parseJSON = Aeson.withText "TypeClass" $ \t ->
-    let s = Text.unpack t
-    in  case readMaybe s of
-          Just clss -> return clss
-          Nothing   -> Aeson.parseFail $ "unknown type class: " ++ s
-
-instance Aeson.ToJSON TypeClass where
-  toJSON = Aeson.String . Text.pack . show
 
 -- Order lexicographically, not by order of definition
 instance Ord TypeClass where

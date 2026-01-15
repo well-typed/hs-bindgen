@@ -12,4 +12,4 @@ ctypes:
   hsname: 'Y'
 hstypes:
 - hsname: 'Y'
-  representation: opaque
+  representation: emptydata

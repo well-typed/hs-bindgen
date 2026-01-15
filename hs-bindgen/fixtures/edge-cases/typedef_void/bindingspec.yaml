@@ -9,4 +9,4 @@ ctypes:
   hsname: Foo
 hstypes:
 - hsname: Foo
-  representation: opaque
+  representation: emptydata

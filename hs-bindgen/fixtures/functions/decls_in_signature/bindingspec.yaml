@@ -38,7 +38,7 @@ hstypes:
   instances:
   - Storable
 - hsname: Opaque
-  representation: opaque
+  representation: emptydata
 - hsname: Outside
   representation:
     record:
