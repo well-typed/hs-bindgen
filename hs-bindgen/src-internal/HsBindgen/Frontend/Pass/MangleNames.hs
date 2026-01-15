@@ -630,6 +630,9 @@ instance Mangle C.Type where
       C.TypeRef declId  ->
         fmap C.TypeRef $
         mangleDeclId declId
+      C.TypeEnum ref ->
+        fmap C.TypeEnum $
+        C.Ref <$> mangleDeclId ref.name <*> mangle ref.underlying
       C.TypeMacro ref ->
         fmap C.TypeMacro $
         C.Ref <$>  mangleDeclId ref.name <*> mangle ref.underlying

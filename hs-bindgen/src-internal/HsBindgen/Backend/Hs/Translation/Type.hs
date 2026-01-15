@@ -53,6 +53,8 @@ inContext ctx = go ctx
         Hs.HsTypRef (Hs.unsafeHsIdHsName ref.name.unsafeHsName)
     go _ (C.TypeRef ref) =
         Hs.HsTypRef (Hs.unsafeHsIdHsName ref.unsafeHsName)
+    go _ (C.TypeEnum (C.Ref ref _)) =
+        Hs.HsTypRef (Hs.unsafeHsIdHsName ref.unsafeHsName)
     go c C.TypeVoid =
         Hs.HsPrimType (void c)
     go _ (C.TypePrim p) =

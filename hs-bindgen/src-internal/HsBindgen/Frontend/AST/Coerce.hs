@@ -271,8 +271,9 @@ instance (
   coercePass = \case
       C.TypePrim prim           -> C.TypePrim prim
       C.TypeRef uid             -> C.TypeRef (goId uid)
-      C.TypeMacro ref           -> C.TypeMacro (C.Ref (coercePassMacroId (Proxy @'(p, p')) ref.name) (coercePass ref.underlying))
-      C.TypeTypedef ref         -> C.TypeTypedef (C.Ref (coercePassId (Proxy @'(p, p')) ref.name) (coercePass ref.underlying))
+      C.TypeEnum ref            -> C.TypeEnum (C.Ref (goId ref.name) (coercePass ref.underlying))
+      C.TypeMacro ref           -> C.TypeMacro (C.Ref (goMacroId ref.name) (coercePass ref.underlying))
+      C.TypeTypedef ref         -> C.TypeTypedef (C.Ref (goId ref.name) (coercePass ref.underlying))
       C.TypePointers n typ      -> C.TypePointers n (coercePass typ)
       C.TypeFun args res        -> C.TypeFun (map coercePass args) (coercePass res)
       C.TypeVoid                -> C.TypeVoid
@@ -285,3 +286,6 @@ instance (
     where
       goId :: Id p -> Id p'
       goId = coercePassId (Proxy @'(p, p'))
+
+      goMacroId :: MacroId p -> MacroId p'
+      goMacroId = coercePassMacroId (Proxy @'(p, p'))
