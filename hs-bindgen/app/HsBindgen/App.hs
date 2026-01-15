@@ -6,12 +6,6 @@ module HsBindgen.App (
     GlobalOpts(..)
   , parseGlobalOpts
 
-    -- * Category selection
-  , CategorySelection(..)
-  , CategoryOptions(..)
-  , parseCategoryOptions
-  , buildCategoryChoice
-
     -- * Argument/option parsers
     -- ** Bindgen configuration
   , Config
@@ -41,15 +35,10 @@ import Data.Default (Default (..))
 import Data.Either (partitionEithers)
 import Data.List qualified as List
 import Data.Maybe (catMaybes)
-import Data.Text (Text)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
 import HsBindgen
-import HsBindgen.Backend.Category (ByCategory (..), CategoryLvl (..),
-                                   Choice (..), RenameTerm (..),
-                                   useFunPtrCategory, useSafeCategory,
-                                   useUnsafeCategory)
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config
@@ -60,63 +49,6 @@ import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
-
-{-------------------------------------------------------------------------------
-  Category selection
--------------------------------------------------------------------------------}
-
--- | Individual category that can be selected
-data CategorySelection = Safe | Unsafe | Pointer
-  deriving (Show, Eq)
-
--- | Category selection options
---
--- Designed to support future combination with renaming
-data CategoryOptions = CategoryOptions {
-    selections :: [CategorySelection]
-  }
-  deriving (Show, Eq)
-
-instance Default CategoryOptions where
-  def = CategoryOptions { selections = [] }
-
--- | Build 'ByCategory' 'Choice' from category options
---
--- Supports multiple category selection with automatic renaming.
--- Each category's functions are suffixed with the category name.
---
-buildCategoryChoice :: CategoryOptions -> ByCategory Choice
-buildCategoryChoice opts = case opts.selections of
-  []        -> useAllCategories  -- Default: all categories (multi-module mode)
-  [Safe]    -> useSafeCategory
-  [Unsafe]  -> useUnsafeCategory
-  [Pointer] -> useFunPtrCategory
-  _multiple -> buildCombinedChoice opts.selections
-  where
-    -- Include all categories without renaming (original default behavior)
-    useAllCategories :: ByCategory Choice
-    useAllCategories = ByCategory {
-          cType   = IncludeTypeCategory
-        , cSafe   = IncludeTermCategory def
-        , cUnsafe = IncludeTermCategory def
-        , cFunPtr = IncludeTermCategory def
-        , cGlobal = IncludeTermCategory def
-        }
-
-    -- Build a choice that includes multiple categories with renaming
-    buildCombinedChoice :: [CategorySelection] -> ByCategory Choice
-    buildCombinedChoice selections = ByCategory {
-          cType   = IncludeTypeCategory
-        , cSafe   = includeWithSuffix Safe   "_safe"
-        , cUnsafe = includeWithSuffix Unsafe "_unsafe"
-        , cFunPtr = includeWithSuffix Pointer "_pointer"
-        , cGlobal = IncludeTermCategory def
-        }
-      where
-        includeWithSuffix :: CategorySelection -> Text -> Choice LvlTerm
-        includeWithSuffix cat suffix
-          | cat `elem` selections = IncludeTermCategory (RenameTerm (<> suffix))
-          | otherwise = ExcludeCategory
 
 {-------------------------------------------------------------------------------
   Global options
@@ -241,35 +173,6 @@ parseConfig = Config
     <*> parseSelectPredicate
     <*> parseProgramSlicing
     <*> parsePathStyle
-
-{-------------------------------------------------------------------------------
-  Category options
--------------------------------------------------------------------------------}
-
-parseCategoryOptions :: Parser CategoryOptions
-parseCategoryOptions = CategoryOptions <$> many parseCategory
-  where
-    parseCategory :: Parser CategorySelection
-    parseCategory = option readCategory $ mconcat [
-          long "category"
-        , metavar "CHOICE"
-        , help $ concat [
-              "Binding category to generate (safe|unsafe|pointer). "
-            , "Generates a single module file combining the selected categories with types and globals. "
-            , "Can be specified multiple times to combine categories (functions suffixed with category name). "
-            , "Default: safe (literate mode) or all categories in separate modules (preprocessor mode)"
-            ]
-        ]
-
-    readCategory :: ReadM CategorySelection
-    readCategory = eitherReader $ \s -> case s of
-      "safe"    -> Right Safe
-      "unsafe"  -> Right Unsafe
-      "pointer" -> Right Pointer
-      _         -> Left $ concat [
-            "Invalid category: " ++ s ++ ". "
-          , "Expected 'safe', 'unsafe', or 'pointer'"
-          ]
 
 {-------------------------------------------------------------------------------
   Binding specifications

@@ -23,12 +23,12 @@ import Text.Read (readMaybe)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.Backend.Category (ByCategory, Choice)
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.DelayedIO
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
+import HsBindgen.App.Output (OutputOptions, parseOutputOptions, OutputMode (..), SingleFileCategory (..), buildCategoryChoice)
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -77,12 +77,12 @@ parseOpts = do
 -------------------------------------------------------------------------------}
 
 data Lit = Lit {
-      globalOpts      :: GlobalOpts
-    , config          :: Config
-    , uniqueId        :: UniqueId
-    , baseModuleName  :: BaseModuleName
-    , categoryOptions :: CategoryOptions
-    , inputs          :: [UncheckedHashIncludeArg]
+      globalOpts     :: GlobalOpts
+    , config         :: Config
+    , uniqueId       :: UniqueId
+    , baseModuleName :: BaseModuleName
+    , outputOptions  :: OutputOptions
+    , inputs         :: [UncheckedHashIncludeArg]
     }
 
 parseLit :: Parser Lit
@@ -91,7 +91,7 @@ parseLit = Lit
   <*> parseConfig
   <*> parseUniqueId
   <*> parseBaseModuleName
-  <*> parseCategoryOptions
+  <*> parseOutputOptions (SingleFile (SingleFileSafe ""))
   <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -105,24 +105,15 @@ exec opts = do
     lit <- maybe (throwIO' "cannot parse arguments in literate file") return $
       pureParseLit args
 
-    -- Literate mode: empty selections means safe only (backwards compatible)
-    let adjustedOptions =
-          if null lit.categoryOptions.selections
-             then CategoryOptions { selections = [Safe] }
-             else lit.categoryOptions
-
-        categoryChoice :: ByCategory Choice
-        categoryChoice = buildCategoryChoice adjustedOptions
-
-        bindgenConfig :: BindgenConfig
+    let bindgenConfig :: BindgenConfig
         bindgenConfig =
           toBindgenConfig
             lit.config
             lit.uniqueId
             lit.baseModuleName
-            categoryChoice
+            (buildCategoryChoice lit.outputOptions)
 
-    let artefact :: Artefact ()
+        artefact :: Artefact ()
         artefact = writeBindings opts.fileOverwritePolicy opts.output
 
     hsBindgen

@@ -17,12 +17,12 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.Backend.Category (ByCategory, Choice)
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.DelayedIO
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.App.Output (OutputOptions (..), OutputMode (..), parseOutputOptions, buildCategoryChoice)
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -39,7 +39,7 @@ data Opts = Opts {
       config              :: Config
     , uniqueId            :: UniqueId
     , baseModuleName      :: BaseModuleName
-    , categoryOptions     :: CategoryOptions
+    , outputOptions       :: OutputOptions
     , hsOutputDir         :: FilePath
     , outputBindingSpec   :: Maybe FilePath
     -- NOTE: Inputs (arguments) must be last, options must go before it.
@@ -55,7 +55,7 @@ parseOpts =
       <$> parseConfig
       <*> parseUniqueId
       <*> parseBaseModuleName
-      <*> parseCategoryOptions
+      <*> parseOutputOptions FilePerModule
       <*> parseHsOutputDir
       <*> optional parseGenBindingSpec
       <*> parseInputs
@@ -68,16 +68,13 @@ parseOpts =
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec global opts = do
-    let categoryChoice :: ByCategory Choice
-        categoryChoice = buildCategoryChoice opts.categoryOptions
-
-        bindgenConfig :: BindgenConfig
+    let bindgenConfig :: BindgenConfig
         bindgenConfig =
             toBindgenConfig
               opts.config
               opts.uniqueId
               opts.baseModuleName
-              categoryChoice
+              (buildCategoryChoice opts.outputOptions)
 
     hsBindgen
       global.unsafe
@@ -92,6 +89,9 @@ exec global opts = do
           opts.fileOverwritePolicy
           opts.outputDirPolicy
           opts.hsOutputDir
-          (not (null opts.categoryOptions.selections))
+          (case opts.outputOptions of
+            OutputOptions (SingleFile _) -> True
+            _                            -> False
+          )
         forM_ opts.outputBindingSpec $ \path ->
           writeBindingSpec opts.fileOverwritePolicy path
