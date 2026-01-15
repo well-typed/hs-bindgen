@@ -83,7 +83,6 @@ data NewtypeNames = NewtypeNames {
 
 data MangleNamesMsg =
     MangleNamesFailure MangleNamesFailure
-  | MangleNamesMissingIdentifier Text
   | MangleNamesRenamed Hs.Identifier
   | MangleNamesSquashed Squash
   deriving stock (Show)
@@ -91,10 +90,6 @@ data MangleNamesMsg =
 instance PrettyForTrace MangleNamesMsg where
   prettyForTrace = \case
       MangleNamesFailure x -> prettyForTrace x
-      MangleNamesMissingIdentifier name -> PP.hsep [
-          "Could not mangle C name identifier:"
-        , PP.text name
-        ]
       MangleNamesRenamed newName -> PP.hsep [
           "Renamed to"
         , PP.text newName.text
@@ -107,7 +102,6 @@ instance PrettyForTrace MangleNamesMsg where
 instance IsTrace Level MangleNamesMsg where
   getDefaultLogLevel = \case
       MangleNamesFailure{}           -> Warning
-      MangleNamesMissingIdentifier{} -> Warning
       MangleNamesRenamed{}           -> Info
       MangleNamesSquashed{}          -> Notice
 
