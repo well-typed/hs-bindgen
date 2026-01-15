@@ -16,7 +16,6 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
-import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -82,14 +81,12 @@ data NewtypeNames = NewtypeNames {
 -------------------------------------------------------------------------------}
 
 data MangleNamesMsg =
-    MangleNamesFailure MangleNamesFailure
-  | MangleNamesRenamed Hs.Identifier
+    MangleNamesRenamed Hs.Identifier
   | MangleNamesSquashed Squash
   deriving stock (Show)
 
 instance PrettyForTrace MangleNamesMsg where
   prettyForTrace = \case
-      MangleNamesFailure x -> prettyForTrace x
       MangleNamesRenamed newName -> PP.hsep [
           "Renamed to"
         , PP.text newName.text
@@ -101,7 +98,6 @@ instance PrettyForTrace MangleNamesMsg where
 
 instance IsTrace Level MangleNamesMsg where
   getDefaultLogLevel = \case
-      MangleNamesFailure{}           -> Warning
       MangleNamesRenamed{}           -> Info
       MangleNamesSquashed{}          -> Notice
 

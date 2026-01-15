@@ -2,13 +2,3 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-ctypes:
-- headers: declarations/name_collision.h
-  cname: union y
-  hsname: 'Y'
-- headers: declarations/name_collision.h
-  cname: union Y
-  hsname: 'Y'
-hstypes:
-- hsname: 'Y'
-  representation: emptydata
