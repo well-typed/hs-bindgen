@@ -371,6 +371,10 @@ getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
             loc = declIdLocationInfo declId (Conflict.toList x)
           , msg = SelectConflict
           }
+        UnusableMangleNamesFailure loc x -> List.singleton WithLocationInfo{
+            loc = declIdLocationInfo declId [loc]
+          , msg = SelectMangleNamesFailure x
+          }
         UnusableFailedMacro x -> List.singleton WithLocationInfo{
             loc = declIdLocationInfo x.name [x.loc]
           , msg = SelectMacroFailure x.macroError
@@ -469,6 +473,8 @@ selectDeclIndex declUseGraph p declIndex =
             Just ([loc], C.Available)
           UnusableConflict conflict ->
             Just (Conflict.toList conflict, C.Available)
+          UnusableMangleNamesFailure loc _ ->
+            Just ([loc], C.Available)
           UnusableFailedMacro failedMacro ->
             Just ([failedMacro.loc], C.Available)
           UnusableOmitted{} ->

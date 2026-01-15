@@ -16,6 +16,7 @@ import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
 import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
@@ -773,7 +774,7 @@ test_declarations_failing_tentative_definitions_linkage =
 test_declarations_name_collision :: TestCase
 test_declarations_name_collision =
     testTraceMulti "declarations/name_collision" declsWithMsgs $ \case
-      MatchMangle name MangleNamesCollision{} ->
+      MatchMangle name (MangleNamesFailure MangleNamesCollision{}) ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -1566,7 +1567,7 @@ test_types_typedefs_typedefs =
 test_types_typedefs_typenames :: TestCase
 test_types_typedefs_typenames =
     testTraceMulti "types/typedefs/typenames" declsWithMsgs $ \case
-      MatchMangle name MangleNamesCollision{} ->
+      MatchMangle name (MangleNamesFailure MangleNamesCollision{}) ->
         Just $ Expected name
       _otherwise ->
         Nothing

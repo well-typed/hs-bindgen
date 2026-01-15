@@ -24,6 +24,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesFailure)
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
@@ -141,6 +142,7 @@ data SelectMsg =
     -- | Delayed construct translation unit message for conflicting declarations
     -- the user wants to select directly.
   | SelectConflict
+  | SelectMangleNamesFailure MangleNamesFailure
     -- | Delayed handle macros message for macros the user wants to select
     -- directly, but we have failed to parse.
   | SelectMacroFailure HandleMacrosError
@@ -170,6 +172,8 @@ instance PrettyForTrace SelectMsg where
         couldNotSelect $ prettyForTrace x
       SelectConflict ->
         couldNotSelect $ "conflicting declarations"
+      SelectMangleNamesFailure x ->
+        couldNotSelect $ prettyForTrace x
       SelectMacroFailure x ->
         couldNotSelect $ prettyForTrace x
       SelectNoDeclarationsMatched ->
@@ -195,6 +199,7 @@ instance IsTrace Level SelectMsg where
     SelectParseNotAttempted{}       -> Warning
     SelectParseFailure x            -> getDefaultLogLevel x
     SelectConflict{}                -> Warning
+    SelectMangleNamesFailure{}      -> Warning
     SelectMacroFailure x            -> getDefaultLogLevel x
     SelectNoDeclarationsMatched     -> Warning
   getSource  = const HsBindgen
@@ -206,6 +211,7 @@ instance IsTrace Level SelectMsg where
     SelectParseNotAttempted{}       -> "select-parse"
     SelectParseFailure x            -> "select-" <> getTraceId x
     SelectConflict{}                -> "select"
+    SelectMangleNamesFailure{}      -> "select"
     SelectMacroFailure x            -> "select-" <> getTraceId x
     SelectNoDeclarationsMatched     -> "select"
 

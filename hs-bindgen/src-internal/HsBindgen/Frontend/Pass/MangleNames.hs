@@ -26,6 +26,7 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
@@ -138,8 +139,10 @@ chooseNames td fc decls =
 
 getCollisionMsg :: (Hs.Identifier, [(DeclId, SingleLoc)]) -> [WithLocationInfo MangleNamesMsg]
 getCollisionMsg (i, xs) =
+    -- TODO D: Amend decl-index!
     [ WithLocationInfo (declIdLocationInfo d [l]) m
-    | let m = MangleNamesCollision i idsWithLocs
+    | let f = MangleNamesCollision i idsWithLocs
+    , let m = MangleNamesFailure f
     , (d, l) <- xs
     ]
   where
@@ -229,7 +232,8 @@ fixCandidate :: forall ns.
 fixCandidate fc _ cName =
     case FixCandidate.fixCandidate fc cName :: Maybe (Hs.ExportedName ns) of
       Just hsName -> (Hs.Identifier hsName.text, [])
-      Nothing -> (Hs.Identifier "", [MangleNamesCouldNotMangle cName])
+      -- TODO D: Amend decl-index!
+      Nothing -> (Hs.Identifier "", [MangleNamesFailure $ MangleNamesCouldNotMangle cName])
 
 fromDeclId :: forall ns.
      Hs.SingNamespace ns
