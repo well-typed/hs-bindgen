@@ -32,7 +32,9 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
     -- * Support for binding specifications
   , registerOmittedDeclarations
   , registerExternalDeclarations
+    -- * Support for name mangle failures
   , registerSquashedDeclarations
+  , registerMangleNamesFailures
   ) where
 
 import Prelude hiding (filter, lookup)
@@ -415,7 +417,7 @@ registerMacroFailures xs index = Foldable.foldl' insert index xs
 
 registerOmittedDeclarations :: Map DeclId SingleLoc -> DeclIndex -> DeclIndex
 registerOmittedDeclarations xs index = DeclIndex $
-      Map.union (UnusableE . UnusableOmitted <$> xs) index.map
+    Map.union (UnusableE . UnusableOmitted <$> xs) index.map
 
 registerExternalDeclarations :: Set DeclId -> DeclIndex -> DeclIndex
 registerExternalDeclarations xs index = Foldable.foldl' insert index xs
@@ -424,9 +426,18 @@ registerExternalDeclarations xs index = Foldable.foldl' insert index xs
     insert (DeclIndex i) x =
       DeclIndex $ Map.insert x (UsableE UsableExternal) i
 
+{-------------------------------------------------------------------------------
+  Support for mangle names
+-------------------------------------------------------------------------------}
+
 registerSquashedDeclarations ::
      Map DeclId Squashed
   -> DeclIndex
   -> DeclIndex
 registerSquashedDeclarations xs index = DeclIndex $
     Map.union (SquashedE <$> xs) index.map
+
+registerMangleNamesFailures ::
+  Map DeclId (SingleLoc, MangleNamesFailure) -> DeclIndex -> DeclIndex
+registerMangleNamesFailures xs index = DeclIndex $
+    Map.union (UnusableE . uncurry UnusableMangleNamesFailure <$> xs) index.map
