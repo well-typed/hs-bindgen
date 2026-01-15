@@ -10,6 +10,8 @@ module HsBindgen.Frontend.Pass.Parse.Type.Monad (
     -- * Caching API
   , lookupCache
   , insertCache
+  , cached
+  , cachedMaybe
     -- * Errors
   , ParseTypeExceptionInContext(..)
     -- * Utility: dispatching
@@ -82,6 +84,30 @@ lookupCache name = Wrap $ Map.lookup name <$> get
 -- | Insert a typedef into the cache
 insertCache :: C.DeclName -> C.Type Parse -> ParseType ()
 insertCache name ty = Wrap $ modify' (Map.insert name ty)
+
+-- | Run a parse action with a cache.
+--
+-- On a cache hit, ignores the parse action and returns the cached value. On a
+-- cache hit, runs the parse action, caches the result, and returns the result.
+cached :: C.DeclName -> ParseType (C.Type Parse) -> ParseType (C.Type Parse)
+cached name k = do
+    -- Check cache first
+    mCachedValue <- lookupCache name
+    case mCachedValue of
+      -- Cache hit
+      Just cachedValue -> pure cachedValue
+      -- Cache miss
+      Nothing -> do
+        newValue <- k
+        insertCache name newValue
+        pure newValue
+
+-- | Like 'cached', but only uses the cache if the name argument is 'Just'.
+cachedMaybe :: Maybe C.DeclName -> ParseType (C.Type Parse) -> ParseType (C.Type Parse)
+cachedMaybe mName k =
+    case mName of
+      Nothing -> k
+      Just name -> cached name k
 
 {-------------------------------------------------------------------------------
   Errors

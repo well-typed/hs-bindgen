@@ -145,6 +145,7 @@ showsType :: forall p.
   -> ShowS
 showsType x (C.TypePrim p)              = C.showsPrimType p . showChar ' ' . x 0
 showsType x (C.TypeRef ref)             = showsId (Proxy @p) ref . showChar ' ' . x 0
+showsType x (C.TypeEnum ref)            = showsId (Proxy @p) ref.name . showChar ' ' . x 0
 showsType x (C.TypeMacro ref)           = showsId (Proxy @p) (macroIdId (Proxy @p) ref.name) . showChar ' ' . x 0
 showsType x (C.TypeTypedef ref)         = showsId (Proxy @p) ref.name . showChar ' ' . x 0
 showsType x (C.TypePointers n t)        = showsType (\d -> showParen (d > arrayPrec)
