@@ -15,6 +15,7 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -80,46 +81,32 @@ data NewtypeNames = NewtypeNames {
 -------------------------------------------------------------------------------}
 
 data MangleNamesMsg =
-    MangleNamesSquashed
-  | MangleNamesRenamed Hs.Identifier
+    MangleNamesFailure MangleNamesFailure
   | MangleNamesMissingIdentifier Text
-  | MangleNamesCouldNotMangle Text
-  | MangleNamesCollision Hs.Identifier [WithLocationInfo DeclId]
+  | MangleNamesRenamed Hs.Identifier
+  | MangleNamesSquashed
   deriving stock (Show)
 
 instance PrettyForTrace MangleNamesMsg where
   prettyForTrace = \case
-      MangleNamesSquashed ->
-        "Squashed typedef"
-      MangleNamesRenamed newName -> PP.hsep [
-          "Renamed to"
-        , PP.text newName.text
-        ]
+      MangleNamesFailure x -> prettyForTrace x
       MangleNamesMissingIdentifier name -> PP.hsep [
           "Could not mangle C name identifier:"
         , PP.text name
         ]
-      MangleNamesCouldNotMangle name -> PP.hsep [
-          "Could not mangle C name:"
-        , PP.text name
+      MangleNamesRenamed newName -> PP.hsep [
+          "Renamed to"
+        , PP.text newName.text
         ]
-      MangleNamesCollision x xs ->
-        let intro = PP.hcat [
-                "Colliding definitions for Haskell identifier "
-              , PP.text x.text
-              , ":"
-              ]
-        in  PP.hang intro 2 $ PP.vcat $ map prettyForTrace xs
+      MangleNamesSquashed ->
+        "Squashed typedef"
 
 instance IsTrace Level MangleNamesMsg where
   getDefaultLogLevel = \case
-      MangleNamesSquashed{}          -> Info
-      MangleNamesRenamed{}           -> Info
+      MangleNamesFailure{}           -> Warning
       MangleNamesMissingIdentifier{} -> Warning
-      -- TODO https://github.com/well-typed/hs-bindgen/issues/1533: Failures
-      -- will be a warnings.
-      MangleNamesCouldNotMangle{}    -> Error
-      MangleNamesCollision{}         -> Warning
+      MangleNamesRenamed{}           -> Info
+      MangleNamesSquashed{}          -> Info
 
   getSource  = const HsBindgen
   getTraceId = const "mangle-names"

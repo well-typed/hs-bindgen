@@ -52,6 +52,7 @@ import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict (Conflict)
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
 import HsBindgen.Frontend.Pass.HandleMacros.Error
+import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Imports hiding (toList)
@@ -86,19 +87,16 @@ data Usable =
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
 data Unusable =
-      UnusableParseNotAttempted SingleLoc (NonEmpty ParseNotAttempted)
-    | UnusableParseFailure      SingleLoc ParseFailure
-    | UnusableConflict          Conflict
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1533: Handle name
-    -- mangle failures.
-    --
-    -- | UnusableNameMangleFailure NameMangleFailure
-    | UnusableFailedMacro       FailedMacro
+      UnusableParseNotAttempted  SingleLoc (NonEmpty ParseNotAttempted)
+    | UnusableParseFailure       SingleLoc ParseFailure
+    | UnusableConflict           Conflict
+    | UnusableMangleNamesFailure SingleLoc MangleNamesFailure
+    | UnusableFailedMacro        FailedMacro
       -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Attach
       -- information required to match the select predicate also to omitted
       -- declarations.
       -- | Omitted by prescriptive binding specifications
-    | UnusableOmitted           SingleLoc
+    | UnusableOmitted            SingleLoc
     deriving stock (Show, Generic)
 
 instance PrettyForTrace Unusable where
@@ -109,6 +107,8 @@ instance PrettyForTrace Unusable where
       "parse failed"
     UnusableConflict{} ->
       "conflicting declarations"
+    UnusableMangleNamesFailure{} ->
+      "name mangler failure"
     UnusableFailedMacro{} ->
       "macro parsing or type-checking failed"
     UnusableOmitted{} ->
@@ -233,9 +233,11 @@ fromParseResults results = flip execState empty $ mapM_ aux results
             old
           UnusableConflict c ->
             addConflicts c
-          UnusableFailedMacro x  ->
+          UnusableMangleNamesFailure _ x ->
+            panicPure $ "handleParseResult: unusable mangle names failure " <> show x
+          UnusableFailedMacro x ->
             panicPure $ "handleParseResult: unusable failed macro" <> show x
-          UnusableOmitted     x  ->
+          UnusableOmitted x ->
             panicPure $ "handelParseResult: unusable omitted" <> show x
       where
         addConflicts :: Conflict  -> Entry
@@ -327,6 +329,7 @@ unusableToLoc = \case
     UnusableParseNotAttempted loc _       -> [loc]
     UnusableParseFailure loc _            -> [loc]
     UnusableConflict conflict             -> Conflict.toList conflict
+    UnusableMangleNamesFailure loc _      -> [loc]
     UnusableFailedMacro failedMacro       -> [failedMacro.loc]
     UnusableOmitted loc                   -> [loc]
 
