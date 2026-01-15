@@ -72,6 +72,7 @@ library
 
     -- Other library packages from which modules are imported.
     build-depends:    base,
+                      primitive,
                       hs-bindgen-runtime
 
     -- Directories containing source files.
@@ -98,6 +99,7 @@ executable c-rogueutil
     -- Other library packages from which modules are imported.
     build-depends:
         base,
+        hs-bindgen-runtime,
         c-rogueutil
 
     -- Directories containing source files.

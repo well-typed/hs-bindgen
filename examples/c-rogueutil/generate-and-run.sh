@@ -22,6 +22,8 @@ cd "$PROJECT_ROOT"
 cabal run hs-bindgen-cli -- \
     preprocess \
     -I "$SCRIPT_DIR/rogueutil" \
+    --create-output-dirs \
+    --overwrite-files \
     --hs-output-dir "$SCRIPT_DIR/hs-project/src" \
     --module RogueUtil.Generated \
     --clang-option=-D_POSIX_C_SOURCE=200809L \
@@ -37,10 +39,6 @@ package c-rogueutil
         $SCRIPT_DIR/rogueutil
     extra-lib-dirs:
         $SCRIPT_DIR/rogueutil
-    shared: False
-
-package hs-bindgen-runtime
-    shared: True
 EOF
 
 echo "# "
