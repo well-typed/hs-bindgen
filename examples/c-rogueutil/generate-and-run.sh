@@ -24,6 +24,8 @@ cabal run hs-bindgen-cli -- \
     -I "$SCRIPT_DIR/rogueutil" \
     --create-output-dirs \
     --overwrite-files \
+    --single-file \
+    --safe "" \
     --hs-output-dir "$SCRIPT_DIR/hs-project/src" \
     --module RogueUtil.Generated \
     --clang-option=-D_POSIX_C_SOURCE=200809L \
