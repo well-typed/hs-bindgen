@@ -1,4 +1,4 @@
-module Test.Internal.Tasty (
+module Test.Util.Tasty (
     -- * Assertions
     (@=?!)
   ) where

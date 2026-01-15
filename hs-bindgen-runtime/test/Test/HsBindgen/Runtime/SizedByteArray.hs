@@ -23,6 +23,8 @@ import Test.Tasty.QuickCheck (testProperties, testProperty)
 
 import HsBindgen.Runtime.SizedByteArray (SizedByteArray (..))
 
+import Test.Util.Orphans ()
+
 {-------------------------------------------------------------------------------
   Arbitrary instances
 -------------------------------------------------------------------------------}

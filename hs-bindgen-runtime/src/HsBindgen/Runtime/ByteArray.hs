@@ -40,7 +40,7 @@ peekByteArray n src = do
 
 pokeByteArray :: Ptr a -> ByteArray -> IO ()
 pokeByteArray dest bytes = do
-    pinnedCopy <- thawPinned bytes
+    pinnedCopy <- thawToPinned bytes
     BA.withMutableByteArrayContents pinnedCopy $ \src ->
       copyBytes dest (castPtr src) n
   where
@@ -83,7 +83,7 @@ peekFromByteArray :: forall a. Storable a => ByteArray -> a
 peekFromByteArray bytes =
     assert (sizeOf (undefined :: a) <= BA.sizeofByteArray bytes) $
     unsafePerformIO $ do
-      pinnedCopy <- thawPinned bytes
+      pinnedCopy <- thawToPinned bytes
       BA.withMutableByteArrayContents pinnedCopy $ \ptr ->
         peek (castPtr ptr)
 
@@ -101,11 +101,12 @@ pokeToByteArray n x =
       pinnedCopy <- BA.newPinnedByteArray n
       BA.withMutableByteArrayContents pinnedCopy $ \ptr ->
         poke (castPtr ptr) x
+      -- The copy constructed by 'freezeByteArray' is /not/ pinned.
       BA.freezeByteArray pinnedCopy 0 n
 
--- | Like 'thawByteArray', but the 'MutableByteArray' is pinned
-thawPinned :: ByteArray -> IO (MutableByteArray RealWorld)
-thawPinned src = do
+-- | Like 'thawByteArray', but the new 'MutableByteArray' is pinned
+thawToPinned :: ByteArray -> IO (MutableByteArray RealWorld)
+thawToPinned src = do
     dest <- BA.newPinnedByteArray n
     BA.copyByteArray dest 0 src 0 n
     return dest
