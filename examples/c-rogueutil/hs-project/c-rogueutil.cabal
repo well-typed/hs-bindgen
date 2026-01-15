@@ -59,10 +59,6 @@ library
 
     -- Modules exported by the library.
     exposed-modules:  RogueUtil.Generated
-                      RogueUtil.Generated.Safe
-                      RogueUtil.Generated.Unsafe
-                      RogueUtil.Generated.Global
-                      RogueUtil.Generated.FunPtr
 
     -- Modules included in this library but not exported.
     -- other-modules:
