@@ -37,12 +37,13 @@ fromPtr len p = IA.peekArray len p'
 -- }
 printQr :: IA.IncompleteArray Word8 -> IO ()
 printQr qrCode = do
-  size <- QR.qrcodegen_getSize qrCode
+  size <- IA.withPtr qrCode $ \ptr -> QR.qrcodegen_getSize (ConstPtr ptr)
   let border = 4
       range  = [-border .. size + border - 1]
   for_ range $ \y -> do
     for_ range $ \x -> do
-      str <- bool "  " "██" . F.toBool <$> QR.qrcodegen_getModule qrCode x y
+      str <- bool "  " "██" . F.toBool <$>
+        (IA.withPtr qrCode $ \ptr -> QR.qrcodegen_getModule (ConstPtr ptr) x y)
       putStr str
     putStr "\n"
   putStr "\n"

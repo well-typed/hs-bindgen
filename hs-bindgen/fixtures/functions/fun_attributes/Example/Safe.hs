@@ -259,11 +259,15 @@ foreign import ccall safe "hs_bindgen_3f72dedf649beccd" hs_bindgen_3f72dedf649be
      FC.CInt
   -> FC.CInt
 
-{-| __C declaration:__ @square@
+{-|
 
-    __defined at:__ @functions\/fun_attributes.h 39:5@
+  Marked @__attribute((const))__@
 
-    __exported by:__ @functions\/fun_attributes.h@
+__C declaration:__ @square@
+
+__defined at:__ @functions\/fun_attributes.h 39:5@
+
+__exported by:__ @functions\/fun_attributes.h@
 -}
 square ::
      FC.CInt

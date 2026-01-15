@@ -18,6 +18,7 @@ import Data.Proxy qualified
 import Data.Text qualified as Text
 import Data.Void qualified
 import Data.Word qualified
+import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
 import Foreign qualified
 import Foreign.C.String qualified
 import Foreign.C.Types qualified
@@ -69,8 +70,6 @@ import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
-
-import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
 
 {-------------------------------------------------------------------------------
   Backend definition

@@ -112,6 +112,7 @@ srp6ServerSessionStep1 ::
   -> RNG
   -> IO B
 srp6ServerSessionStep1 (ServerSession s) (Verifier verifier) groupId hashId (RNG rngObj) =
+    HBR.withPtr verifier $ \verifierPtr ->
     let verifierLen = fromIntegral $ VS.length $ HBR.toVector verifier in
     withCString (groupIdString groupId) $ \groupIdPtr ->
     withCString (hashIdString hashId) $ \hashIdPtr ->
@@ -122,7 +123,7 @@ srp6ServerSessionStep1 (ServerSession s) (Verifier verifier) groupId hashId (RNG
       throwErrnoIfNegative "botan_srp6_server_session_step1" $
         botan_srp6_server_session_step1
           s
-          verifier
+          (HBR.ConstPtr verifierPtr)
           verifierLen
           (HBR.ConstPtr groupIdPtr)
           (HBR.ConstPtr hashIdPtr)
@@ -138,6 +139,7 @@ srp6ServerSessionStep2 ::
   -> A
   -> IO K
 srp6ServerSessionStep2 (ServerSession s) groupId (A a) =
+    HBR.withPtr a $ \aPtr ->
     let aLen = fromIntegral $ VS.length $ HBR.toVector a in
     srp6GroupSize groupId >>= \maxLen ->
     allocaBytes (fromIntegral maxLen) $ \kPtr ->
@@ -146,7 +148,7 @@ srp6ServerSessionStep2 (ServerSession s) groupId (A a) =
       throwErrnoIfNegative "botan_srp6_server_session_step2" $
         botan_srp6_server_session_step2
           s
-          a
+          (HBR.ConstPtr aPtr)
           aLen
           kPtr
           kLenPtr
@@ -163,6 +165,7 @@ srp6GenerateVerifier ::
 srp6GenerateVerifier (Username user) (Password pw) (Salt salt) groupId hashId =
     withCString user $ \userPtr ->
     withCString pw $ \pwPtr ->
+    HBR.withPtr salt $ \saltPtr ->
     let saltLen = fromIntegral $ VS.length $ HBR.toVector salt in
     withCString (groupIdString groupId) $ \groupIdPtr ->
     withCString (hashIdString hashId) $ \hashIdPtr ->
@@ -174,7 +177,7 @@ srp6GenerateVerifier (Username user) (Password pw) (Salt salt) groupId hashId =
         botan_srp6_generate_verifier
           (HBR.ConstPtr userPtr)
           (HBR.ConstPtr pwPtr)
-          salt
+          (HBR.ConstPtr saltPtr)
           saltLen
           (HBR.ConstPtr groupIdPtr)
           (HBR.ConstPtr hashIdPtr)
@@ -197,7 +200,9 @@ srp6ClientAgree (Username user) (Password pw) groupId hashId (Salt salt) (B b) (
     withCString pw $ \pwPtr ->
     withCString (groupIdString groupId) $ \groupIdPtr ->
     withCString (hashIdString hashId) $ \hashIdPtr ->
+    HBR.withPtr salt $ \saltPtr ->
     let saltLen = fromIntegral $ VS.length $ HBR.toVector salt in
+    HBR.withPtr b $ \bPtr ->
     let bLen = fromIntegral $ VS.length $ HBR.toVector b in
     srp6GroupSize groupId >>= \maxLen ->
     allocaBytes (fromIntegral maxLen) $ \aPtr ->
@@ -212,9 +217,9 @@ srp6ClientAgree (Username user) (Password pw) groupId hashId (Salt salt) (B b) (
           (HBR.ConstPtr pwPtr)
           (HBR.ConstPtr groupIdPtr)
           (HBR.ConstPtr hashIdPtr)
-          salt
+          (HBR.ConstPtr saltPtr)
           saltLen
-          b
+          (HBR.ConstPtr bPtr)
           bLen
           rngObj
           aPtr

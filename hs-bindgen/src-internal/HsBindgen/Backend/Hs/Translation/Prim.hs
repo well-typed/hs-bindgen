@@ -6,14 +6,13 @@ module HsBindgen.Backend.Hs.Translation.Prim (
 import Data.Set qualified as Set
 import Data.Type.Nat (SNatI)
 import Data.Vec.Lazy qualified as Vec
+import DeBruijn (Idx (..), Weaken (..), pattern IS, pattern IZ)
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Imports
-
-import DeBruijn (Idx (..), Weaken (..), pattern IS, pattern IZ)
 
 -- | Generate Prim instance declarations for a struct
 --

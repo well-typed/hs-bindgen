@@ -28,6 +28,7 @@ module HsBindgen.Backend.SHs.AST (
   ) where
 
 import Data.Type.Nat (Nat1)
+import DeBruijn (Add, Ctx, EmptyCtx, Idx)
 
 import C.Char qualified as CExpr.Runtime
 
@@ -42,8 +43,6 @@ import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
-
-import DeBruijn (Add, Ctx, EmptyCtx, Idx)
 
 {-------------------------------------------------------------------------------
   Backend representation

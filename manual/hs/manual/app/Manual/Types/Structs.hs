@@ -11,6 +11,7 @@ import Foreign.C (castCCharToChar)
 import Foreign.C qualified as FC
 import System.IO.Unsafe
 
+import HsBindgen.Runtime.ConstPtr
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 import HsBindgen.Runtime.IncompleteArray qualified as IA
 
@@ -48,7 +49,8 @@ examples = do
     print triple
 
     subsection "Flexible array members"
-    bracket (surname_alloc $ IA.fromList $ fmap FC.castCharToCChar "Rich") surname_free $
+    let arr = IA.fromList $ fmap FC.castCharToCChar "Rich"
+    bracket (IA.withPtr arr $ \ptr -> surname_alloc (ConstPtr ptr)) surname_free $
       \ptr -> do
         (surname :: Structs.Surname) <- peek ptr
         putStrLn $ "The length of the surname is: " <> show (surname_len surname)

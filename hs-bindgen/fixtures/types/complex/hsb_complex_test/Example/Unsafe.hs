@@ -40,18 +40,6 @@ foreign import ccall unsafe "hs_bindgen_e5e3172c2163672b" hs_bindgen_e5e3172c216
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> IO ()
 
-{-| Pointer-based API for 'multiply_complex_f'
--}
-multiply_complex_f_wrapper ::
-     Ptr.Ptr (Data.Complex.Complex FC.CFloat)
-     -- ^ __C declaration:__ @a@
-  -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
-     -- ^ __C declaration:__ @b@
-  -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
-  -> IO ()
-multiply_complex_f_wrapper =
-  hs_bindgen_e5e3172c2163672b
-
 {-| __C declaration:__ @multiply_complex_f@
 
     __defined at:__ @types\/complex\/hsb_complex_test.h 21:16@
@@ -65,12 +53,12 @@ multiply_complex_f ::
      -- ^ __C declaration:__ @b@
   -> IO (Data.Complex.Complex FC.CFloat)
 multiply_complex_f =
-  \x0 ->
-    \x1 ->
-      F.with x1 (\y2 ->
-                   F.with x0 (\y3 ->
-                                HsBindgen.Runtime.CAPI.allocaAndPeek (\z4 ->
-                                                                        hs_bindgen_e5e3172c2163672b y3 y2 z4)))
+  \a0 ->
+    \b1 ->
+      F.with a0 (\a2 ->
+                   F.with b1 (\b3 ->
+                                HsBindgen.Runtime.CAPI.allocaAndPeek (\res4 ->
+                                                                        hs_bindgen_e5e3172c2163672b a2 b3 res4)))
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Unsafe_add_complex@
 foreign import ccall unsafe "hs_bindgen_28f2705e917973ab" hs_bindgen_28f2705e917973ab ::
@@ -78,17 +66,6 @@ foreign import ccall unsafe "hs_bindgen_28f2705e917973ab" hs_bindgen_28f2705e917
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> IO ()
-
-{-| Pointer-based API for 'add_complex'
--}
-add_complex_wrapper ::
-     Ptr.Ptr (Data.Complex.Complex FC.CDouble)
-     -- ^ __C declaration:__ @a@
-  -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
-     -- ^ __C declaration:__ @b@
-  -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
-  -> IO ()
-add_complex_wrapper = hs_bindgen_28f2705e917973ab
 
 {-| __C declaration:__ @add_complex@
 
@@ -103,9 +80,9 @@ add_complex ::
      -- ^ __C declaration:__ @b@
   -> IO (Data.Complex.Complex FC.CDouble)
 add_complex =
-  \x0 ->
-    \x1 ->
-      F.with x1 (\y2 ->
-                   F.with x0 (\y3 ->
-                                HsBindgen.Runtime.CAPI.allocaAndPeek (\z4 ->
-                                                                        hs_bindgen_28f2705e917973ab y3 y2 z4)))
+  \a0 ->
+    \b1 ->
+      F.with a0 (\a2 ->
+                   F.with b1 (\b3 ->
+                                HsBindgen.Runtime.CAPI.allocaAndPeek (\res4 ->
+                                                                        hs_bindgen_28f2705e917973ab a2 b3 res4)))

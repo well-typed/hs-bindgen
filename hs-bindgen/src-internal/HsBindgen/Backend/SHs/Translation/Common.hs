@@ -1,6 +1,7 @@
 module HsBindgen.Backend.SHs.Translation.Common (
     translateElimStruct
   , toNameHint
+  , eAppMany
   , appMany
   , appManyExpr
   , structCon
@@ -35,6 +36,9 @@ toNameHint = NameHint . T.unpack . Hs.getName
 {-------------------------------------------------------------------------------
 -  Internal auxiliary: derived functionality
 --------------------------------------------------------------------------------}
+
+eAppMany :: SExpr ctx -> [SExpr ctx] -> SExpr ctx
+eAppMany = foldl' EApp
 
 -- | Apply function to many arguments
 appMany :: Global -> [SExpr ctx] -> SExpr ctx

@@ -767,26 +767,20 @@ foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92
     ConstPtr Triplet
  -> Ptr Triplet
  -> IO Unit
-{-| Pointer-based API for 'transpose'
--}
-transpose_wrapper :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
-{-| Pointer-based API for 'transpose'
--}
-transpose_wrapper = hs_bindgen_2ff371c815d92b04
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose :: Matrix -> Ptr Triplet -> IO Unit
+transpose :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> hs_bindgen_2ff371c815d92b04 (ConstPtr ptr_2) x_1)
+transpose = hs_bindgen_2ff371c815d92b04
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
 foreign import ccall safe "hs_bindgen_f9655173d51bbaac" hs_bindgen_f9655173d51bbaac ::
     ConstPtr Vector
@@ -811,26 +805,20 @@ foreign import ccall safe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627dd5
     ConstPtr Triplet
  -> Ptr Triplet
  -> IO Unit
-{-| Pointer-based API for 'transpose'
--}
-transpose_wrapper :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
-{-| Pointer-based API for 'transpose'
--}
-transpose_wrapper = hs_bindgen_ea25667627dd5ed2
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose :: Matrix -> Ptr Triplet -> IO Unit
+transpose :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> hs_bindgen_ea25667627dd5ed2 (ConstPtr ptr_2) x_1)
+transpose = hs_bindgen_ea25667627dd5ed2
 -- __unique:__ @test_manualzero_copy_Example_get_reverse@
 foreign import ccall safe "hs_bindgen_44cb8687c63f0086" hs_bindgen_44cb8687c63f0086 ::
     IO (FunPtr (ConstPtr Vector -> Ptr Vector -> IO CInt))

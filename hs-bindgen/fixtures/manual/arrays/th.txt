@@ -155,26 +155,20 @@ foreign import ccall safe "hs_bindgen_cba7011c6d25362b" hs_bindgen_cba7011c6d253
     ConstPtr Triplet
  -> Ptr Triplet
  -> IO Unit
-{-| Pointer-based API for 'transpose'
--}
-transpose_wrapper :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
-{-| Pointer-based API for 'transpose'
--}
-transpose_wrapper = hs_bindgen_cba7011c6d25362b
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose :: Matrix -> Ptr Triplet -> IO Unit
+transpose :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> hs_bindgen_cba7011c6d25362b (ConstPtr ptr_2) x_1)
+transpose = hs_bindgen_cba7011c6d25362b
 -- __unique:__ @test_manualarrays_Example_Safe_pretty_print_triplets@
 foreign import ccall safe "hs_bindgen_45d15697a99c626a" hs_bindgen_45d15697a99c626a ::
     Ptr (Ptr (ConstantArray 3 CInt))
@@ -203,26 +197,20 @@ foreign import ccall safe "hs_bindgen_f9f2776d121db261" hs_bindgen_f9f2776d121db
     ConstPtr Triplet
  -> Ptr Triplet
  -> IO Unit
-{-| Pointer-based API for 'transpose'
--}
-transpose_wrapper :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
-{-| Pointer-based API for 'transpose'
--}
-transpose_wrapper = hs_bindgen_f9f2776d121db261
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose :: Matrix -> Ptr Triplet -> IO Unit
+transpose :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h 36:6@
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> hs_bindgen_f9f2776d121db261 (ConstPtr ptr_2) x_1)
+transpose = hs_bindgen_f9f2776d121db261
 -- __unique:__ @test_manualarrays_Example_Unsafe_pretty_print_triplets@
 foreign import ccall safe "hs_bindgen_e43b4d44aa0abd14" hs_bindgen_e43b4d44aa0abd14 ::
     Ptr (Ptr (ConstantArray 3 CInt))

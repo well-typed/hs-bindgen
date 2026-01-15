@@ -7,6 +7,7 @@ module HsBindgen.Backend.SHs.Translation.Prim (
   ) where
 
 import Data.Vec.Lazy (Vec (..))
+import DeBruijn (S, Weaken (..), Wk (..), wk1)
 import DeBruijn.Add (Add (..))
 import DeBruijn.Idx
 
@@ -16,8 +17,6 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.NameHint
-
-import DeBruijn (S, Weaken (..), Wk (..), wk1)
 
 {-------------------------------------------------------------------------------
   Main translation entry point

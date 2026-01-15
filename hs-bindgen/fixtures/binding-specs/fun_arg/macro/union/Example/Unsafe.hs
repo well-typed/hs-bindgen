@@ -38,14 +38,6 @@ foreign import ccall unsafe "hs_bindgen_f784f3292d76f05c" hs_bindgen_f784f3292d7
      Ptr.Ptr MyUnion
   -> IO ()
 
-{-| Pointer-based API for 'foo'
--}
-foo_wrapper ::
-     Ptr.Ptr MyUnion
-     -- ^ __C declaration:__ @x@
-  -> IO ()
-foo_wrapper = hs_bindgen_f784f3292d76f05c
-
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/union.h 5:6@
@@ -58,20 +50,12 @@ foo ::
   -> IO ()
 foo =
   \x0 ->
-    F.with x0 (\y1 -> hs_bindgen_f784f3292d76f05c y1)
+    F.with x0 (\x1 -> hs_bindgen_f784f3292d76f05c x1)
 
 -- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_317131bf91a541b2" hs_bindgen_317131bf91a541b2 ::
      Ptr.Ptr A
   -> IO ()
-
-{-| Pointer-based API for 'fooA'
--}
-fooA_wrapper ::
-     Ptr.Ptr A
-     -- ^ __C declaration:__ @x@
-  -> IO ()
-fooA_wrapper = hs_bindgen_317131bf91a541b2
 
 {-| __C declaration:__ @fooA@
 
@@ -85,20 +69,12 @@ fooA ::
   -> IO ()
 fooA =
   \x0 ->
-    F.with x0 (\y1 -> hs_bindgen_317131bf91a541b2 y1)
+    F.with x0 (\x1 -> hs_bindgen_317131bf91a541b2 x1)
 
 -- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_d2ce062db2e5b039" hs_bindgen_d2ce062db2e5b039 ::
      Ptr.Ptr B
   -> IO ()
-
-{-| Pointer-based API for 'fooB'
--}
-fooB_wrapper ::
-     Ptr.Ptr B
-     -- ^ __C declaration:__ @x@
-  -> IO ()
-fooB_wrapper = hs_bindgen_d2ce062db2e5b039
 
 {-| __C declaration:__ @fooB@
 
@@ -112,4 +88,4 @@ fooB ::
   -> IO ()
 fooB =
   \x0 ->
-    F.with x0 (\y1 -> hs_bindgen_d2ce062db2e5b039 y1)
+    F.with x0 (\x1 -> hs_bindgen_d2ce062db2e5b039 x1)

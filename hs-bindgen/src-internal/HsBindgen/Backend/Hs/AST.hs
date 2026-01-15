@@ -77,6 +77,7 @@ module HsBindgen.Backend.Hs.AST (
 
 import Data.Type.Nat (SNat, SNatI, snat)
 import Data.Type.Nat qualified as Nat
+import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
 
 import C.Char qualified as CExpr.Runtime
 
@@ -97,8 +98,6 @@ import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 import HsBindgen.Orphans ()
-
-import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
 
 {-------------------------------------------------------------------------------
   Information about generated code

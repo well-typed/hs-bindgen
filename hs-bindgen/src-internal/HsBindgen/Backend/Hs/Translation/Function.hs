@@ -3,8 +3,13 @@ module HsBindgen.Backend.Hs.Translation.Function (
   , getMainHashIncludeArg
   ) where
 
+import Data.Kind (Type)
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Text qualified as T
+import Data.Type.Equality ((:~:) (Refl))
+import DeBruijn (Ctx, Env (..), Idx (..), sizeEnv, tabulateEnv, zipWithEnv)
+import DeBruijn.Add (Add, lzeroAdd, swapAdd, unrzeroAdd)
+import GHC.Records
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
@@ -18,29 +23,28 @@ import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.SHs.AST qualified as SHs
+import HsBindgen.Backend.SHs.Translation.Common qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Config.Prelims
-import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Final
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.RootHeader
-import HsBindgen.Imports
+import HsBindgen.Imports hiding (def)
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.NameHint (NameHint (..))
 import HsBindgen.PrettyC qualified as PC
-
-import DeBruijn (Env (..), Idx (..), sizeEnv, tabulateEnv, zipWithEnv)
 
 -- | Bind to a C function
 --
 -- We seek to always generate and expose a Haskell function with the same name
 -- as the C function, and with the same signature. However, we can not always
 -- directly call the original C function from Haskell. Only primitive types
--- (e.g, pointers, integers, characters) can be passed directly between Haskell
--- and C.
+-- (e.g, pointers, integers, characters) can be passed directly by value between
+-- Haskell and C.
 --
 -- We say that functions which use only primitive types have a "primitive
 -- signature". Functions with a non-primitive signature (for example, functions
@@ -56,7 +60,7 @@ import DeBruijn (Env (..), Idx (..), sizeEnv, tabulateEnv, zipWithEnv)
 --
 -- On the C side, we generate:
 --
--- - A C wrapper (beware, we use the word `wrapper` only in this case); the C
+-- - A C wrapper (beware, we use the word "wrapper" only in this case); the C
 --   wrapper is C code, has a globally unique name, and we bind to it using the
 --   "ccall" calling convention (the combination of the C wrapper and the
 --   "ccall" foreign import is what we refer to as userland CAPI).
@@ -71,19 +75,9 @@ import DeBruijn (Env (..), Idx (..), sizeEnv, tabulateEnv, zipWithEnv)
 --   internal, auxiliary function; we give it the same globally unique name as
 --   the C wrapper; the foreign import does _not_ have Haddock documentation.
 --
--- - An alias to the foreign import of the C wrapper. If the original C function
---   has a primitive signature, we internally refer to this alias `aliasOrig`
---   and assign it the same name as the original C function (modulo name
---   mangling). Otherwise, the refer to the alias as `aliasCWrapper`, and give
---   it a `_wrapper` suffix.
---
---   TODO https://github.com/well-typed/hs-bindgen/issues/1401: This alias may
---   later be moved into a separate module so we avoid the suffix altogether.
---
--- - If the original C function has a non-primitive signature, we generate a
---   function declaration which we refer to as `restoreOrigSignature`, and which
---   has the same signature and name (module name mangling) as the original C
---   function.
+-- - We generate a function declaration which we refer to as
+--   "restoreOrigSignature", and which has the same signature and name (modulo
+--   name mangling) as the original C function.
 functionDecs ::
      HasCallStack
   => SHs.Safety
@@ -95,11 +89,9 @@ functionDecs ::
   -> PrescriptiveDeclSpec
   -> [Hs.Decl]
 functionDecs safety opts haddockConfig moduleName info origCFun _spec =
-    foreignImport :
-      if hasPrimitiveSignature then
-        [ aliasOrig ]
-      else
-        [ aliasCWrapper, restoreOrigSignature ]
+    [ foreignImport
+    , restoreOrigSignature
+    ]
   where
     origName :: Text
     origName = info.id.cName.name.text
@@ -110,10 +102,6 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     mangledOrigName :: Hs.Name Hs.NsVar
     mangledOrigName = Hs.unsafeHsIdHsName mangledOrigId
 
-    -- TODO: Should the name mangler take care of the "_wrapper" suffix?
-    mangledOrigNameWrapper :: Hs.Name Hs.NsVar
-    mangledOrigNameWrapper = Hs.unsafeHsIdHsName $ mangledOrigId <> "_wrapper"
-
     cWrapperName :: UniqueSymbol
     cWrapperName =
         globallyUnique opts.uniqueId moduleName $
@@ -123,15 +111,11 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
             , T.unpack origName
             ]
 
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/569.
-    hasPrimitiveSignature :: Bool
-    hasPrimitiveSignature = all isPrimitive (primResult : primParams)
+    primResult :: PassBy
+    primResult = classifyArgPassingMethod origCFun.res
 
-    primResult :: IsPrimitiveType
-    primResult = toIsPrimitiveType origCFun.res
-
-    primParams :: [IsPrimitiveType]
-    primParams = map (toIsPrimitiveType . snd) origCFun.args
+    primParams :: [PassBy]
+    primParams = map (classifyArgPassingMethod . snd) origCFun.args
 
     foreignImport :: Hs.Decl
     foreignImport =
@@ -162,50 +146,11 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     foreignImportParams = [
            Hs.FunctionParameter{
                name    = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
-             , typ     = Type.inContext Type.FunArg (toPrimitiveType (toIsPrimitiveType ty))
+             , typ     = Type.inContext Type.FunArg (toPrimitiveType (classifyArgPassingMethod ty))
              , comment = Nothing
              }
         | (mbName, ty) <- origCFun.args
         ] ++ toList mbResultParam
-
-    -- Alias to the C wrapper. This function _does not have_ the same signature
-    -- as the original C function.
-    aliasCWrapper :: Hs.Decl
-    aliasCWrapper = Hs.DeclFunction $ Hs.FunctionDecl {
-          name       = mangledOrigNameWrapper
-        , parameters = aliasParams
-        , result     = resultType
-        , body       = SHs.EFree $ Hs.InternalName cWrapperName
-        , origin     = Origin.Function origCFun
-        , pragmas    = []
-        , comment    = (Just pointerComment <> mbIoComment)
-        }
-      where
-        pointerComment :: HsDoc.Comment
-        pointerComment = HsDoc.title [
-              HsDoc.TextContent "Pointer-based API for"
-            , HsDoc.Identifier mangledOrigId.text
-            ]
-
-    -- Alias to the original C function. This function _does have_ the same
-    -- signature as the original C function.
-    aliasOrig :: Hs.Decl
-    aliasOrig = Hs.DeclFunction $ Hs.FunctionDecl {
-          name       = mangledOrigName
-        , parameters = aliasParams
-        , result     = resultType
-        , body       = SHs.EFree $ Hs.InternalName cWrapperName
-        , origin     = Origin.Function origCFun
-        , pragmas    = []
-        , comment    = mbAliasComment <> mbIoComment
-        }
-
-    mbAliasComment :: Maybe HsDoc.Comment
-    -- These are the same parameters as 'foreignImportParams', enriched with
-    -- documentation.
-    aliasParams :: [Hs.FunctionParameter]
-    (mbAliasComment, aliasParams) =
-      mkHaddocksDecorateParams haddockConfig info mangledOrigName foreignImportParams
 
     restoreOrigSignature :: Hs.Decl
     restoreOrigSignature =
@@ -214,10 +159,10 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
           (Hs.InternalName cWrapperName)
           primResult
           primParams
+          (mbIO $ Type.inContext Type.FunRes $ toOrigType primResult)
           restoreOrigSignatureParams
           origCFun
-          mbRestoreOrigSignatureComment
-
+          (mbRestoreOrigSignatureComment <> mbIoComment)
 
     mbRestoreOrigSignatureComment :: Maybe HsDoc.Comment
     restoreOrigSignatureParams :: [Hs.FunctionParameter]
@@ -226,7 +171,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
           params = [
                Hs.FunctionParameter{
                  name    = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
-               , typ     = Type.inContext Type.FunArg (toOrigType (toIsPrimitiveType ty))
+               , typ     = Type.inContext Type.FunArg (toOrigType (classifyArgPassingMethod ty))
                , comment = Nothing
                }
             | (mbName, ty) <- origCFun.args
@@ -236,16 +181,15 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     -- When translating a 'C.Type' there are C types which we cannot pass
     -- directly using C FFI. We need to distinguish these.
     --
-    -- Result types can be heap types, which are types we can't return by value
-    -- due to Haskell FFI limitation. Or they can be normal types supported by
-    -- Haskell FFI. This is also true for function parameters as well, result types
-    -- are a special case where unsupported result types become parameters.
+    -- Function arguments and result have to be passed either by value or by
+    -- address. Result types that have to be passed by address become
+    -- parameters.
     mbResultParam :: Maybe Hs.FunctionParameter
     resultType    :: Hs.HsType
     (mbResultParam, resultType) = case primResult of
-        -- A heap type that is not supported by the Haskell FFI as a function
-        -- result. We pass it as a function parameter instead.
-        HeapType {} -> (
+        -- A type that is not supported by the Haskell FFI as a function result.
+        -- We pass it as a function parameter instead.
+        PassByAddress {} -> (
             Just Hs.FunctionParameter {
                 name    = Nothing
               , typ     = Type.inContext Type.FunArg $ toPrimitiveType primResult
@@ -255,111 +199,138 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
           )
 
         -- A "normal" result type that is supported by the Haskell FFI.
-        PrimitiveType {} -> (
+        PassByValue {} -> (
             Nothing
           , mbIO $ Type.inContext Type.FunRes $ toPrimitiveType primResult
           )
 
-        CAType {} ->
-            panicPure "ConstantArray cannot occur as a result type"
-
-        AType {} ->
-            panicPure "Array cannot occur as a result type"
-
-    -- Decide based on the function attributes whether to include 'IO' in the
-    -- result type of the foreign import alias. See the documentation on
-    -- 'C.FunctionPurity'.
-    --
-    -- An exception to the rules: the foreign import function returns @void@
-    -- when @res@ is a heap type, in which case a @const@ or @pure@ attribute
-    -- does not make much sense, and so we just return the result in 'IO'.
     mbIO :: Hs.HsType -> Hs.HsType
+    mbIO
+      | functionShouldRunInIO origCFun.attrs.purity primResult primParams
+      = HsIO
+      | otherwise
+      = id
+
     mbIoComment :: Maybe HsDoc.Comment
-    (mbIO, mbIoComment) =
-        case origCFun.attrs.purity of
-          C.HaskellPureFunction -> (id  , Nothing)
-          C.CPureFunction       -> (HsIO, Just pureComment)
-          C.ImpureFunction      -> (HsIO, Nothing)
-      where
-        -- "Marked @__attribute((pure))__@"
-        --
-        -- C-pure functions can be safely encapsulated using 'unsafePerformIO' to
-        -- create a Haskell-pure functions. We include a comment in the generated
-        -- bindings to this effect.
-        pureComment :: HsDoc.Comment
-        pureComment = HsDoc.paragraph [
-            HsDoc.TextContent "Marked"
-          , HsDoc.Monospace
-            [ HsDoc.Bold
-              [ HsDoc.TextContent "attribute((pure))" ]
-            ]
-          ]
+    mbIoComment = ioComment origCFun.attrs.purity
+
 
 getMainHashIncludeArg :: C.DeclInfo Final -> HashIncludeArg
 getMainHashIncludeArg info = NonEmpty.head info.headerInfo.mainHeaders
 
 {-------------------------------------------------------------------------------
-  Helpers
+  Purity
 -------------------------------------------------------------------------------}
 
-data IsPrimitiveType =
-      -- | Ordinary, "primitive" types which can be handled by Haskell FFI
-      --   directly
-      PrimitiveType (C.Type Final)
-      -- | Types passed on heap
-    | HeapType (C.Type Final)
-      -- | An array of known size, with const-qualified array elements
+-- | Decide whether a function has to run in 'IO'.
+--
+-- Only Haskell-pure functions are allowed to run without 'IO'. See the
+-- documentation on 'C.FunctionPurity'.
+--
+-- But, if any of the function arguments are passed by address, then the
+-- function has to run in 'IO' regardless of the function purity, because
+-- pointer manipulation requires 'IO'.
+--
+functionShouldRunInIO ::
+     C.FunctionPurity -- ^ C function purity (function attribute)
+  -> PassBy           -- ^ C result type
+  -> [PassBy]         -- ^ C parameter types
+  -> Bool
+functionShouldRunInIO purity resType argTypes
+  | all isPassByValue (resType : argTypes)
+  = case purity of
+      C.HaskellPureFunction -> False
+      C.CPureFunction       -> True
+      C.ImpureFunction      -> True
+  | otherwise
+  = True
+
+-- | A haddock comment related to function purity
+ioComment ::
+     C.FunctionPurity     -- ^ C function purity (function attribute)
+  -> Maybe HsDoc.Comment
+ioComment purity =
+    case purity of
+      C.HaskellPureFunction -> Just constComment
+      C.CPureFunction       -> Just pureComment
+      C.ImpureFunction      -> Nothing
+  where
+    -- "Marked @__attribute((const))__@"
+    --
+    -- Haskell-pure functions can be safely encapsulated using
+    -- 'unsafePerformIO' to create a Haskell-pure function. We include a
+    -- comment in the generated bindings to this effect.
+    constComment :: HsDoc.Comment
+    constComment = HsDoc.paragraph [
+        HsDoc.TextContent "Marked"
+      , HsDoc.Monospace
+        [ HsDoc.Bold
+          [ HsDoc.TextContent "attribute((const))" ]
+        ]
+      ]
+
+    -- "Marked @__attribute((pure))__@"
+    --
+    -- C-pure functions can be safely encapsulated using 'unsafePerformIO' to
+    -- create a Haskell-pure functions. We include a comment in the generated
+    -- bindings to this effect.
+    pureComment :: HsDoc.Comment
+    pureComment = HsDoc.paragraph [
+        HsDoc.TextContent "Marked"
+      , HsDoc.Monospace
+        [ HsDoc.Bold
+          [ HsDoc.TextContent "attribute((pure))" ]
+        ]
+      ]
+
+{-------------------------------------------------------------------------------
+  Argument passing method
+-------------------------------------------------------------------------------}
+
+-- | Classification of the type of a function argument\/result: it is either
+-- passed by value or by address.
+data PassBy =
+      -- | Types passed by value.
       --
-      -- Only if the array elements are const qualified do we know for sure that
-      -- the array is read-only. In such cases, we generate a high-level
-      -- wrapper.
-    | CAType (C.Type Final) Natural (C.Type Final)
-      -- | An array of unknown size, with const-qualified array elements
+      -- Ordinary, "primitive" types which can be handled by Haskell FFI
+      -- directly.
+      PassByValue (C.Type Final)
+      -- | Types passed by address
       --
-      -- Only if the array elements are const qualified do we know for sure that
-      -- the array is read-only. In such cases, we generate a high-level
-      -- wrapper.
-    | AType (C.Type Final) (C.Type Final)
+      -- Structs and unions have to be passed by address, because they can not
+      -- be handled by the Haskell FFI directly.
+    | PassByAddress (C.Type Final)
   deriving Show
 
--- | Heap types and constant arrays are non-primitive types. We have to treat
---   functions handling non-primitive types in a special way.
-isPrimitive :: IsPrimitiveType -> Bool
-isPrimitive = \case
-    PrimitiveType{} -> True
-    HeapType{}     -> False
-    CAType{}       -> False
-    AType{}        -> False
+isPassByValue :: PassBy -> Bool
+isPassByValue = \case
+    PassByValue{}     -> True
+    PassByAddress{} -> False
 
--- | Types that we cannot directly pass via C FFI
-toIsPrimitiveType ::  C.Type Final -> IsPrimitiveType
-toIsPrimitiveType ty
+isPassByAddress :: PassBy -> Bool
+isPassByAddress = \case
+    PassByValue {} -> False
+    PassByAddress {} -> True
+
+isVoidType :: PassBy -> Bool
+isVoidType = C.isVoid . toPrimitiveType
+
+-- | Classify how a function argument\/result is passed from Haskell to C
+classifyArgPassingMethod :: C.Type Final -> PassBy
+classifyArgPassingMethod ty
   -- Heap types
   | C.isCanonicalTypeStruct ty ||
     C.isCanonicalTypeUnion ty ||
     C.isCanonicalTypeComplex ty
-  = HeapType ty
+  = PassByAddress ty
 
   -- Array types
   | Just aTy <- C.isCanonicalTypeArray ty
-  = if C.isErasedTypeConstQualified ty then
-      case aTy of
-        C.ConstantArrayClassification n eTy -> CAType ty n eTy
-        C.IncompleteArrayClassification eTy -> AType ty eTy
-    else
-      PrimitiveType $ C.TypePointers 1 (C.getArrayElementType aTy)
+  = PassByValue $ firstElemPtr ty (C.getArrayElementType aTy)
 
   -- Other types
   | otherwise
-  = PrimitiveType ty
-
--- | Recover type used in foreign import or its aliases
-toPrimitiveType :: IsPrimitiveType -> C.Type Final
-toPrimitiveType = \case
-    PrimitiveType ty -> ty
-    HeapType ty -> C.TypePointers 1 ty
-    CAType aTy _ eTy -> firstElemPtr aTy eTy
-    AType aTy eTy -> firstElemPtr aTy eTy
+  = PassByValue ty
   where
     -- NOTE: if an array type is const-qualified, then its array element type is
     -- also const-qualified, and vice versa.
@@ -376,21 +347,29 @@ toPrimitiveType = \case
       | otherwise
       = C.TypePointers 1 eTy
 
+-- | Recover type used in the foreign import
+toPrimitiveType :: PassBy -> C.Type Final
+toPrimitiveType = \case
+    PassByValue ty -> ty
+    PassByAddress ty -> C.TypePointers 1 ty
 
--- | Recover type used in `restoreOrigSignature`
-toOrigType :: IsPrimitiveType -> C.Type Final
-toOrigType (PrimitiveType ty) = ty
-toOrigType (HeapType ty)     = ty
-toOrigType (CAType oty _ _)  = oty
-toOrigType (AType oty _)     = oty
+-- | Recover type used in "restoreOrigSignature"
+toOrigType :: PassBy -> C.Type Final
+toOrigType = \case
+    PassByValue ty -> ty
+    PassByAddress ty -> ty
+
+{-------------------------------------------------------------------------------
+  Userland-API C wrapper
+-------------------------------------------------------------------------------}
 
 -- | Userland-API C wrapper
-getCWrapperDecl
-    :: String       -- ^ original C name
-    -> String       -- ^ C wrapper name
-    -> IsPrimitiveType    -- ^ result type
-    -> [IsPrimitiveType]  -- ^ parameters
-    -> PC.FunDefn
+getCWrapperDecl ::
+     String   -- ^ original C name
+  -> String   -- ^ C wrapper name
+  -> PassBy   -- ^ C result type
+  -> [PassBy] -- ^ C parameter types
+  -> PC.FunDefn
 getCWrapperDecl origName wrapperName res args
     | isVoidType res
     = PC.withArgs args $ \args' ->
@@ -400,7 +379,7 @@ getCWrapperDecl origName wrapperName res args
             (PC.ExpressionStatement $ PC.Call origName (callArgs args' (PC.argsToIdx args')))
             PC.CSNil
 
-    | isHeapType res
+    | isPassByAddress res
     = PC.withArgs args $ \args' ->
         PC.FunDefn wrapperName C.TypeVoid C.ImpureFunction (toPrimitiveType <$> (args' :> res)) $
         PC.CSList $
@@ -416,140 +395,269 @@ getCWrapperDecl origName wrapperName res args
             (PC.ExpressionStatement $ PC.Return $ PC.Call origName (callArgs args' (PC.argsToIdx args')))
             PC.CSNil
   where
-    callArgs :: Env ctx' IsPrimitiveType -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
+    callArgs :: Env ctx' PassBy -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
     callArgs tys ids = toList (zipWithEnv f tys ids)
-      where f ty idx = if isHeapType ty then PC.DeRef (PC.Var idx) else PC.Var idx
+      where f ty idx = if isPassByAddress ty then PC.DeRef (PC.Var idx) else PC.Var idx
 
-    isHeapType :: IsPrimitiveType -> Bool
-    isHeapType PrimitiveType {} = False
-    isHeapType HeapType {} = True
-    isHeapType CAType {}   = False
-    isHeapType AType {}    = False
-
-    isVoidType :: IsPrimitiveType -> Bool
-    isVoidType = C.isVoid . toPrimitiveType
+{-------------------------------------------------------------------------------
+  RestoreOrigSignature
+-------------------------------------------------------------------------------}
 
 -- | Generate a function declaration restoring the signature of the original C
---   function
+-- function.
 getRestoreOrigSignatureDecl ::
      Hs.Name Hs.NsVar       -- ^ name of new function
   -> Hs.Name Hs.NsVar       -- ^ name of foreign import
-  -> IsPrimitiveType              -- ^ result type
-  -> [IsPrimitiveType]            -- ^ types of function parameters
-  -> [Hs.FunctionParameter] -- ^ function parameter with comments
+  -> PassBy                 -- ^ C result type
+  -> [PassBy]               -- ^ C types of function parameters
+  -> HsType                 -- ^ Haskell result type
+  -> [Hs.FunctionParameter] -- ^ Haskell function parameters
   -> C.Function Final       -- ^ original C function
   -> Maybe HsDoc.Comment    -- ^ function comment
   -> Hs.Decl
-getRestoreOrigSignatureDecl hiName loName primResult primParams params cFunc mbComment =
-    case primResult of
-      HeapType {} -> Hs.DeclFunction $ Hs.FunctionDecl{
-          name       = hiName
-        , parameters = params
-        , result     = HsIO resType
-        , body       = goA EmptyEnv primParams
-        , origin     = Origin.Function cFunc
-        , pragmas    = []
-        , comment    = mbComment
-        }
-
-      PrimitiveType {} -> Hs.DeclFunction $ Hs.FunctionDecl{
-          name       = hiName
-        , parameters = params
-        , result     = HsIO resType
-        , body       = goB EmptyEnv primParams
-        , origin     = Origin.Function cFunc
-        , pragmas    = []
-        , comment    = mbComment
-        }
-
-      CAType {} ->
-        panicPure "ConstantArray cannot occur as a result type"
-
-      AType {} ->
-        panicPure "Array cannot occur as a result type"
+getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParams cFunc mbComment =
+    Hs.DeclFunction $ Hs.FunctionDecl{
+        name       = hiName
+      , parameters = hsParams
+        -- NOTE: the result type only includes 'IO' if 'functionShouldRunInIO'
+        -- said to include it.
+      , result     = hsResult
+      , body       =
+          if all isPassByValue (primResult : primParams)
+          then byValueBodyExpr
+          else bodyExpr
+      , origin     = Origin.Function cFunc
+      , pragmas    = []
+      , comment    = mbComment
+      }
   where
-    resType :: HsType
-    resType = Type.inContext Type.FunRes $ toOrigType primResult
+    -- | The body of the function if no function arguments or results have to be
+    -- passed by address.
+    --
+    -- For example, simply:
+    --
+    -- > foo
+    --
+    byValueBodyExpr :: SHs.ClosedExpr
+    byValueBodyExpr = SHs.EFree loName
 
-    -- Wrapper for non-primitive result
-    goA :: Env ctx IsPrimitiveType -> [IsPrimitiveType] -> SHs.SExpr ctx
-    goA env []     = goA' env (tabulateEnv (sizeEnv env) id) []
-    goA env (x:xs) = SHs.ELam "x" $ goA (env :> x) xs
+    -- | The body of the function if some function arguments or results have to
+    -- be passed by address.
+    --
+    -- For example:
+    --
+    -- >  \x0 -> \x1 -> \x2 -> \x3 ->
+    -- >    with x0 $ \y4 -> with x2 $ \y5 ->
+    -- >      allocaAndPeek $ \z6 ->
+    -- >        foo y4 x1 (ConstPtr y5) x3 z6
+    --
+    bodyExpr :: SHs.ClosedExpr
+    bodyExpr =
+      -- construct lambdas for all function arguments
+      lambdas EmptyEnv (zipWith FunArg primParams hsParams) $ \env ->
+        -- pass function arguments by address if necessary
+        passArgsByAddressIfNecessary env $ \args ->
+          -- pass the function result by address if necessary
+          passResultByAddressIfNecessary args $ \args' ->
+            -- call the foreign import
+            callForeignImport args'
 
-    goA' :: Env ctx' IsPrimitiveType -> Env ctx' (Idx ctx) -> [(Bool, Idx ctx)] -> SHs.SExpr ctx
-    goA' EmptyEnv    EmptyEnv  zs
-        = shsApps (SHs.EGlobal SHs.CAPI_allocaAndPeek)
-          [ SHs.ELam "z" $ shsApps (SHs.EFree loName)
-              (map
-                (\(useConstPtr, x) -> constPtr useConstPtr $ SHs.EBound x)
-                (fmap (second IS) zs ++ [(False, IZ)]))
-          ]
+    -- | Construct a string of lambdas
+    --
+    -- For example:
+    --
+    -- > ... \x0 -> \x1 -> \x2 -> \x3 -> ...
+    --
+    lambdas ::
+         forall ctx.
+         -- | Context of in-scope variables
+         Env ctx VarInfo
+         -- | Function arguments to create lambdas for
+      -> [FunArg]
+         -- | Construct the body of the string of lambdas
+      -> (forall ctx'. Env ctx' VarInfo -> SHs.SExpr ctx')
+      -> SHs.SExpr ctx
+    lambdas env0 xs0 kont = go env0 xs0
       where
-        constPtr :: Bool -> SHs.SExpr ctx -> SHs.SExpr ctx
-        constPtr useConstPtr
-          | useConstPtr = SHs.EApp (SHs.EGlobal SHs.ConstPtr_constructor)
-          | otherwise = id
+        -- | Run down the context of function arguments, and include a lambda
+        -- for each.
+        go ::
+             forall ctx'.
+             Env ctx'  VarInfo
+          -> [FunArg]
+          -> SHs.SExpr ctx'
+        go env []     = kont env
+        go env (x:xs) =
+            let varInfo = funArgToVarInfo x
+            in  SHs.ELam varInfo.nameHint $ go (env :> varInfo) xs
 
-    goA' (tys :> ty) (xs :> x) zs = case ty of
-        HeapType ty' -> shsApps (SHs.EGlobal SHs.CAPI_with) $
-            let useConstPtr = C.isErasedTypeConstQualified ty' in
-            [ SHs.EBound x
-            , SHs.ELam "y" $ goA' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
-            ]
-
-        CAType aTy _ _ -> shsApps (SHs.EGlobal SHs.ConstantArray_withPtr) $
-            let useConstPtr = C.isErasedTypeConstQualified aTy in
-            [ SHs.EBound x
-            , SHs.ELam "ptr" $ goA' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
-            ]
-
-        AType aTy _ -> shsApps (SHs.EGlobal SHs.IncompleteArray_withPtr) $
-            let useConstPtr = C.isErasedTypeConstQualified aTy in
-            [ SHs.EBound x
-            , SHs.ELam "ptr" $ goA' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
-            ]
-
-        PrimitiveType{} ->
-            goA' tys xs ((False, x) : zs)
-
-    -- Wrapper for primitive result
-    goB :: Env ctx IsPrimitiveType -> [IsPrimitiveType] -> SHs.SExpr ctx
-    goB env []     = goB' env (tabulateEnv (sizeEnv env) id) []
-    goB env (x:xs) = SHs.ELam "x" $ goB (env :> x) xs
-
-    goB' :: Env ctx' IsPrimitiveType -> Env ctx' (Idx ctx) -> [(Bool, Idx ctx)] -> SHs.SExpr ctx
-    goB' EmptyEnv    EmptyEnv  zs
-        = shsApps (SHs.EFree loName)
-            (map
-              (\(useConstPtr, x) -> constPtr useConstPtr $ SHs.EBound x)
-              zs)
+    -- | Construct expressions to pass function arguments by address, if
+    -- necessary
+    --
+    -- For example :
+    --
+    -- > ... with x0 $ \y4 -> with x2 $ \y5 -> ...
+    --
+    -- We do this for all function arguments that are 'PassByAddress', not if they
+    -- are 'PassByValue'.
+    --
+    -- If the function argument is @const@-qualified, then we also record this
+    -- information for later in the 'Var' type.
+    --
+    passArgsByAddressIfNecessary ::
+         -- | Context of in-scope variables
+         Env ctx VarInfo
+         -- | Construct the body of the string of 'with's
+      -> (forall ctx'. [(Var ctx')] -> SHs.SExpr ctx')
+      -> SHs.SExpr ctx
+    passArgsByAddressIfNecessary env0 kont =
+        -- NOTE: The environment is in reverse order with respect to the
+        -- function arguments, hence the need to reverse here.
+        let envTypes = reverseEnv env0
+            envIdxs = reverseEnv (tabulateEnv (sizeEnv env0) id)
+        in go envTypes envIdxs []
       where
-        constPtr :: Bool -> SHs.SExpr ctx -> SHs.SExpr ctx
-        constPtr useConstPtr
-          | useConstPtr = SHs.EApp (SHs.EGlobal SHs.ConstPtr_constructor)
-          | otherwise = id
+        --  | Run down the context of in-scope variables, and include a 'with' if
+        -- if the variable is a 'PassByAddress'.
+        go ::
+             Env ctx' VarInfo
+          -> Env ctx' (Idx ctx)
+          -> [(Var ctx)]
+          -> SHs.SExpr ctx
+        go EmptyEnv EmptyEnv zs = kont (reverse zs) -- reverse again!
+        go (xs :> x) (ys :> y) zs = case x.typ of
+            PassByAddress ty' ->  SHs.eAppMany (SHs.EGlobal SHs.CAPI_with) $
+              let wrapConstPtr = C.isErasedTypeConstQualified ty' in
+              [ SHs.EBound y
+              , SHs.ELam x.ptrNameHint $
+                  go xs (IS <$> ys) (Var IZ wrapConstPtr : fmap succVar zs)
+              ]
 
-    goB' (tys :> ty) (xs :> x) zs = case ty of
-        HeapType ty' -> shsApps (SHs.EGlobal SHs.CAPI_with) $
-          let useConstPtr = C.isErasedTypeConstQualified ty' in
-          [ SHs.EBound x
-          , SHs.ELam "y" $ goB' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
-          ]
+            PassByValue{} -> go xs ys (Var y False : zs)
 
-        CAType aTy _ _ -> shsApps (SHs.EGlobal SHs.ConstantArray_withPtr) $
-            let useConstPtr = C.isErasedTypeConstQualified aTy in
-            [ SHs.EBound x
-            , SHs.ELam "ptr" $ goB' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
-            ]
+    -- | Construct an expression to pass the function result by address, if
+    -- necessary
+    --
+    -- For example:
+    --
+    -- > ... allocaAndPeek $ \z6 -> ...
+    --
+    -- We do this only if the function result is a 'PassByAddress', not if it is
+    -- 'PassByValue'.
+    --
+    passResultByAddressIfNecessary ::
+         -- | Context of in-scope variables to be passed to the foreign import
+         [(Var ctx)]
+         -- | Construct the body of the lambda
+      -> (forall ctx'. [Var ctx'] -> SHs.SExpr ctx')
+      -> SHs.SExpr ctx
+    passResultByAddressIfNecessary zs kont
+      | isPassByAddress primResult
+      = let zs' = fmap succVar zs ++ [Var IZ False] in
+        SHs.EApp
+          (SHs.EGlobal SHs.CAPI_allocaAndPeek)
+          (SHs.ELam "res" $ kont zs')
+      | otherwise
+      = kont zs
 
-        AType aTy _ -> shsApps (SHs.EGlobal SHs.IncompleteArray_withPtr) $
-            let useConstPtr = C.isErasedTypeConstQualified aTy in
-            [ SHs.EBound x
-            , SHs.ELam "ptr" $ goB' tys (IS <$> xs) ((useConstPtr, IZ) : fmap (second IS) zs)
-            ]
+    -- | Construct a call to the foreign import
+    --
+    -- For example (@foo@ is the name of the foreign import):
+    --
+    -- > ... foo y4 x1 (ConstPtr y5) x3 z6
+    --
+    callForeignImport ::
+         -- | Context of in-scope variables to be passed to the foreign import
+         [Var ctx]
+      -> SHs.SExpr ctx
+    callForeignImport args = SHs.eAppMany (SHs.EFree loName) (map exprVar args)
 
-        PrimitiveType {} ->
-            goB' tys xs ((False, x) : zs)
+{-------------------------------------------------------------------------------
+  Function arguments
+-------------------------------------------------------------------------------}
 
-shsApps :: SHs.SExpr ctx -> [SHs.SExpr ctx] -> SHs.SExpr ctx
-shsApps = foldl' SHs.EApp
+-- | Information about a function argument
+data FunArg = FunArg {
+    typ :: PassBy
+  , funParam :: Hs.FunctionParameter
+  }
+
+funArgToVarInfo :: FunArg -> VarInfo
+funArgToVarInfo arg = VarInfo {
+      typ = arg.typ
+    , optNameHint = fmap (NameHint . T.unpack . Hs.getName) arg.funParam.name
+    }
+
+{-------------------------------------------------------------------------------
+  Variables
+-------------------------------------------------------------------------------}
+
+-- | A variable with some additional information
+type Var :: Ctx -> Type
+data Var ctx = Var {
+    -- | The name (i.e., DeBruijn index) of the variable
+    name :: Idx ctx
+    -- | Whether to wrap the variable in a 'ConstPtr' constructor
+    --
+    -- 'with' and 'allocaAndPeek' always use 'Ptr' rather than 'ConstPtr', hence
+    -- the need to add the 'ConstPtr' constructor manually.
+  , wrapConstPtr :: Bool
+  }
+
+-- | Shift the variable
+succVar :: Var ctx -> Var (S ctx)
+succVar var = Var {
+      name = IS var.name
+    , wrapConstPtr = var.wrapConstPtr
+    }
+
+-- | Turn the variable into an expression
+--
+-- For example:
+--
+-- > ConstPtr y5
+--
+exprVar :: Var ctx -> SHs.SExpr ctx
+exprVar var
+  | var.wrapConstPtr
+  = SHs.EApp (SHs.EGlobal SHs.ConstPtr_constructor) (SHs.EBound var.name)
+  | otherwise
+  = SHs.EBound var.name
+
+{-------------------------------------------------------------------------------
+  Variable info
+-------------------------------------------------------------------------------}
+
+-- | Information for variables in an environment
+data VarInfo = VarInfo {
+    typ :: PassBy
+  , optNameHint :: Maybe NameHint
+  }
+
+instance HasField "nameHint" VarInfo NameHint where
+  getField vinfo = fromMaybe "x" vinfo.optNameHint
+
+instance HasField "ptrNameHint" VarInfo NameHint where
+  getField vinfo = fromMaybe "ptr" vinfo.optNameHint
+
+{-------------------------------------------------------------------------------
+  Environment
+-------------------------------------------------------------------------------}
+
+-- | Reverse an 'Env'
+reverseEnv :: forall ctx a. Env ctx a -> Env ctx a
+reverseEnv = \env -> go (lzeroAdd (sizeEnv env)) EmptyEnv env
+  where
+    go ::
+         forall ctx1 ctx2 ctx3.
+         -- | Proof that the output environment 's size is the same as the the
+         -- sum of the two input environment's sizes
+         Add ctx1 ctx2 ctx3
+         -- | Accumulator
+      -> Env ctx1 a
+         -- | Input to reverse
+      -> Env ctx2 a
+      -> Env ctx3 a
+    go proof acc EmptyEnv = case unrzeroAdd proof of
+        Refl -> acc
+    go proof acc (xs :> x) = go (swapAdd proof) (acc :> x) xs

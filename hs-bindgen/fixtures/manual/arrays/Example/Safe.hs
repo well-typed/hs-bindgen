@@ -37,16 +37,6 @@ foreign import ccall safe "hs_bindgen_cba7011c6d25362b" hs_bindgen_cba7011c6d253
   -> Ptr.Ptr Triplet
   -> IO ()
 
-{-| Pointer-based API for 'transpose'
--}
-transpose_wrapper ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
-     -- ^ __C declaration:__ @input@
-  -> Ptr.Ptr Triplet
-     -- ^ __C declaration:__ @output@
-  -> IO ()
-transpose_wrapper = hs_bindgen_cba7011c6d25362b
-
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/arrays.h 36:6@
@@ -54,16 +44,12 @@ transpose_wrapper = hs_bindgen_cba7011c6d25362b
     __exported by:__ @manual\/arrays.h@
 -}
 transpose ::
-     Matrix
+     HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
      -- ^ __C declaration:__ @input@
   -> Ptr.Ptr Triplet
      -- ^ __C declaration:__ @output@
   -> IO ()
-transpose =
-  \x0 ->
-    \x1 ->
-      HsBindgen.Runtime.ConstantArray.withPtr x0 (\ptr2 ->
-                                                    hs_bindgen_cba7011c6d25362b (HsBindgen.Runtime.ConstPtr.ConstPtr ptr2) x1)
+transpose = hs_bindgen_cba7011c6d25362b
 
 -- __unique:__ @test_manualarrays_Example_Safe_pretty_print_triplets@
 foreign import ccall safe "hs_bindgen_45d15697a99c626a" hs_bindgen_45d15697a99c626a ::
