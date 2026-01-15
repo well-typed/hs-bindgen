@@ -57,8 +57,8 @@ parseOpts = Opts <$> parseClangArgsConfig
 exec :: GlobalOpts -> Opts -> IO ()
 exec global opts = do
     eRes <- withTracer tracerConfigWithoutASTReadError $ \tracer -> do
-      (clangArgs, _target) <-
-        getClangArgsAndTarget (contramap TraceBoot tracer) opts.clangArgsConfig
+      clangArgs <-
+        getClangArgs (contramap TraceBoot tracer) opts.clangArgsConfig
       let hasNoUserOptions = hasNoUserClangOptions opts.clangArgsConfig
           setup = defaultClangSetup clangArgs $
             ClangInputMemory "hs-bindgen-nop.h" ""

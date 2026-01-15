@@ -25,7 +25,6 @@ import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
-import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
@@ -47,7 +46,6 @@ import HsBindgen.Language.Haskell qualified as Hs
 -- | Generate binding specification
 genBindingSpec ::
      Format
-  -> ClangArgs.Target
   -> Hs.ModuleName
   -> IncludeGraph
   -> DeclIndex
@@ -58,7 +56,6 @@ genBindingSpec ::
   -> ByteString
 genBindingSpec
   format
-  target
   hsModuleName
   includeGraph
   declIndex
@@ -66,7 +63,7 @@ genBindingSpec
   omitTypes
   squashedTypes =
       BindingSpec.encode compareCDeclId format
-    . genBindingSpec' target hsModuleName getMainHeaders omitTypes squashedTypes
+    . genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes
   where
     compareCDeclId :: C.DeclId -> C.DeclId -> Ordering
     compareCDeclId cDeclIdL cDeclIdR = Ord.comparing aux cDeclIdL cDeclIdR
@@ -91,25 +88,18 @@ genBindingSpec
 
 -- TODO aliases
 genBindingSpec' ::
-     ClangArgs.Target
-  -> Hs.ModuleName
+     Hs.ModuleName
   -> GetMainHeaders
   -> [(C.DeclId, SourcePath)]
   -> [(C.DeclId, (SourcePath, Hs.Identifier))]
   -> [Hs.Decl]
   -> UnresolvedBindingSpec
-genBindingSpec'
-    target
-    hsModuleName
-    getMainHeaders
-    omitTypes
-    squashedTypes = foldr aux spec0
+genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
+    foldr aux spec0
   where
     spec0 :: UnresolvedBindingSpec
     spec0 = BindingSpec.BindingSpec {
-        -- TODO AnyTarget if bindings are not target-specific
-        target     = Just (BindingSpec.SpecificTarget target)
-      , moduleName = hsModuleName
+        moduleName = hsModuleName
       , cTypes     = Map.fromListWith (++) $
           [ (cDeclId, [(getMainHeaders' path, Omit)])
           | (cDeclId, path) <- omitTypes

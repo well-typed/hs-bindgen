@@ -77,7 +77,7 @@ clangAstDump opts = do
     putStrLn ""
 
     eitherRes <- withTracer tracerConf $ \tracer -> do
-      cArgs <- either throwIO return $ getClangArgs cArgsConfig
+      cArgs <- either throwIO return $ clangArgsConfigToClangArgs cArgsConfig
       let tracerResolve = contramap DumpTraceResolveHeader tracer
           tracerClang   = contramap DumpTraceClang         tracer
       src <- maybe (throwIO HeaderNotFound) return . Map.lookup opts.file

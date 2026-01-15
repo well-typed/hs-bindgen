@@ -190,12 +190,10 @@ runFrontend tracer config boot = do
 
     resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
       afterHandleMacros <- handleMacrosPass
-      target   <- boot.target
       extSpecs <- boot.externalBindingSpecs
       pSpec    <- boot.prescriptiveBindingSpec
       let (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
             resolveBindingSpecs
-              target
               (fromBaseModuleName boot.baseModule (Just CType))
               extSpecs
               pSpec

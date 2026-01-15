@@ -19,7 +19,6 @@ import HsBindgen.Backend.Hs.CallConv (CWrapper)
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Boot
 import HsBindgen.Config
-import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.DelayedIO
 import HsBindgen.Frontend
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
@@ -42,7 +41,6 @@ import HsBindgen.Util.Tracer
 -- | Build artefact.
 data Artefact (a :: Star) where
   -- * Boot
-  Target              :: Artefact ClangArgs.Target
   HashIncludeArgs     :: Artefact [HashIncludeArg]
   -- * Frontend
   IncludeGraph        :: Artefact (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
@@ -99,7 +97,6 @@ runArtefacts tracer boot frontend backend artefact =
     runArtefact :: forall x. Artefact x -> DelayedIOM x
     runArtefact = \case
         --Boot.
-        Target              -> runCached boot.target
         HashIncludeArgs     -> runCached boot.hashIncludeArgs
         -- Frontend.
         IncludeGraph        -> runCached frontend.includeGraph

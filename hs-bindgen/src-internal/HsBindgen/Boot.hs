@@ -1,19 +1,14 @@
 module HsBindgen.Boot (
     runBoot
-  , getClangArgsAndTarget
+  , getClangArgs
   , BootArtefact (..)
-  , BootTargetMsg (..)
   , BootMsg (..)
   ) where
 
-import Control.Exception (Exception (..))
-import Control.Monad ((<=<))
-import Data.Text qualified as Text
 import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Args
-import Clang.LowLevel.Core
 
 import HsBindgen.Backend.Category (Category (..))
 import HsBindgen.BindingSpec
@@ -51,22 +46,14 @@ runBoot tracer config uncheckedHashIncludeArgs = do
       withTrace BootStatusHashIncludeArgs $
         mapM (hashIncludeArgWithTrace tracer') uncheckedHashIncludeArgs
 
-    getClangArgsAndTarget' <- cache "clangArgsAndTarget" $ Cached $
-      getClangArgsAndTarget tracer config.boot.clangArgs
-
-    getClangArgs <- cache "clangArgs" $ withTrace BootStatusClangArgs $
-      fst <$> getClangArgsAndTarget'
-
-    getTarget <- cache "target" $ withTrace BootStatusTarget $
-      snd <$> getClangArgsAndTarget'
+    getClangArgs' <- cache "clangArgs" $ Cached $
+      getClangArgs tracer config.boot.clangArgs
 
     getBindingSpecs <- cache "loadBindingSpecs" $ do
-      clangArgs <- getClangArgs
-      target <- getTarget
+      clangArgs <- getClangArgs'
       liftIO $ loadBindingSpecs
         (contramap BootBindingSpec tracer)
         clangArgs
-        target
         (fromBaseModuleName config.boot.baseModule (Just CType))
         config.boot.bindingSpec
 
@@ -81,8 +68,7 @@ runBoot tracer config uncheckedHashIncludeArgs = do
     pure BootArtefact {
           baseModule              = config.boot.baseModule
         , cStandard               = config.boot.clangArgs.cStandard
-        , clangArgs               = getClangArgs
-        , target                  = getTarget
+        , clangArgs               = getClangArgs'
         , hashIncludeArgs         = getHashIncludeArgs
         , externalBindingSpecs    = getExternalBindingSpecs
         , prescriptiveBindingSpec = getPrescriptiveBindingSpec
@@ -103,12 +89,9 @@ runBoot tracer config uncheckedHashIncludeArgs = do
     cache :: String -> Cached a -> IO (Cached a)
     cache = cacheWith (contramap (BootCache . SafeTrace) tracer) . Just
 
--- | Determine Clang arguments and target
-getClangArgsAndTarget ::
-     Tracer BootMsg
-  -> ClangArgsConfig FilePath
-  -> IO (ClangArgs, ClangArgs.Target)
-getClangArgsAndTarget tracer config0 = do
+-- | Determine Clang arguments
+getClangArgs :: Tracer BootMsg -> ClangArgsConfig FilePath -> IO ClangArgs
+getClangArgs tracer config0 = do
     compareClangVersions (contramap BootCompareClangVersions tracer)
     -- Apply extra Clang arguments and builtin include directory to the config
     extraClangArgs <- getExtraClangArgs tracerExtraClangArgs
@@ -118,59 +101,13 @@ getClangArgsAndTarget tracer config0 = do
           . applyBuiltinIncDir  mBuiltinIncDir
           $ config0
     -- Determine Clang arguments for the config
-    clangArgs <- either throwIO return $ ClangArgs.getClangArgs config
-    case config.target of
-      -- If a target is specified, return Clang arguments and target
-      Just target -> return (clangArgs, target)
-      -- If a target is not specified:
-      Nothing -> do
-        -- Determine the target using @libclang@ with the Clang arguments
-        target <- getClangTarget tracer clangArgs
-        -- Recalculate the Clang arguments with the determined target
-        either throwIO (return . (, target)) $
-          ClangArgs.getClangArgs config { ClangArgs.target = Just target }
+    either throwIO return $ ClangArgs.clangArgsConfigToClangArgs config
   where
     tracerBuiltinIncDir :: Tracer BuiltinIncDirMsg
     tracerBuiltinIncDir = contramap BootBuiltinIncDir tracer
 
     tracerExtraClangArgs :: Tracer ExtraClangArgsMsg
     tracerExtraClangArgs = contramap BootExtraClangArgs tracer
-
--- | Fatal error: unable to determine target
-data UnableToDetermineTargetException = UnableToDetermineTargetException
-  deriving Show
-
-instance Exception UnableToDetermineTargetException where
-  displayException UnableToDetermineTargetException =
-    "Unable to determine target"
-
--- | Determine the target using @libclang@
---
--- This function throws 'UnableToDetermineTargetException' if the call to
--- @libclang@ fails or the target triple returned by @libclang@ does not
--- translate to a supported target.
-getClangTarget :: Tracer BootMsg -> ClangArgs -> IO ClangArgs.Target
-getClangTarget tracer clangArgs = do
-    tt <- maybe (throwIO UnableToDetermineTargetException) return
-      <=< withClang (contramap BootClang tracer) setup $ \unit -> Just <$>
-        bracket
-          (clang_getTranslationUnitTargetInfo unit)
-          clang_TargetInfo_dispose
-          clang_TargetInfo_getTriple
-    case ClangArgs.parseTargetTripleLenient (Text.unpack tt) of
-      Just target -> do
-        traceWith tracerTarget $ BootTargetClang tt target
-        return target
-      Nothing -> do
-        traceWith tracerTarget $ BootTargetFail tt
-        throwIO UnableToDetermineTargetException
-  where
-    tracerTarget :: Tracer BootTargetMsg
-    tracerTarget = contramap BootTarget tracer
-
-    setup :: ClangSetup
-    setup = defaultClangSetup clangArgs $
-      ClangInputMemory "hs-bindgen-boot-target.h" ""
 
 {-------------------------------------------------------------------------------
   Artefact
@@ -180,7 +117,6 @@ data BootArtefact = BootArtefact {
       baseModule              :: BaseModuleName
     , cStandard               :: CStandard
     , clangArgs               :: Cached ClangArgs
-    , target                  :: Cached ClangArgs.Target
     , hashIncludeArgs         :: Cached [HashIncludeArg]
     , externalBindingSpecs    :: Cached MergedBindingSpecs
     , prescriptiveBindingSpec :: Cached PrescriptiveBindingSpec
@@ -193,7 +129,6 @@ data BootArtefact = BootArtefact {
 data BootStatusMsg =
     BootStatusStart                   BindgenConfig
   | BootStatusClangArgs               ClangArgs
-  | BootStatusTarget                  ClangArgs.Target
   | BootStatusHashIncludeArgs         [HashIncludeArg]
   | BootStatusExternalBindingSpecs    MergedBindingSpecs
   | BootStatusPrescriptiveBindingSpec PrescriptiveBindingSpec
@@ -207,7 +142,6 @@ instance PrettyForTrace BootStatusMsg where
   prettyForTrace = \case
     BootStatusStart                   x -> bootStatus "BindgenConfig"           x
     BootStatusClangArgs               x -> bootStatus "ClangArgs"               x
-    BootStatusTarget                  x -> bootStatus "Target"                  x
     BootStatusHashIncludeArgs         x -> bootStatus "HashIncludeArgs"         x
     BootStatusExternalBindingSpecs    x -> bootStatus "ExternalBindingSpecs"    x
     BootStatusPrescriptiveBindingSpec x -> bootStatus "PrescriptiveBindingSpec" x
@@ -216,29 +150,6 @@ instance IsTrace Level BootStatusMsg where
   getDefaultLogLevel = const Debug
   getSource          = const HsBindgen
   getTraceId         = const "boot-status"
-
-data BootTargetMsg =
-    BootTargetClang Text ClangArgs.Target
-  | BootTargetFail  Text
-  deriving stock (Show, Generic)
-
-instance PrettyForTrace BootTargetMsg where
-  prettyForTrace = \case
-    BootTargetClang tt t ->
-      "Target determined by libclang: " >< PP.show t
-        >< " (translated from " >< PP.show tt >< ")"
-    BootTargetFail tt ->
-      "Unable to translate libclang target triple " >< PP.show tt
-        >< " to supported target"
-        PP.$$ "  Configure a supported target to resolve this error."
-
-instance IsTrace Level BootTargetMsg where
-  getDefaultLogLevel = \case
-    BootTargetClang{} -> Info
-    BootTargetFail{}  -> Error
-
-  getSource  = const HsBindgen
-  getTraceId = const "boot-target"
 
 -- | Boot trace messages
 data BootMsg =
@@ -250,7 +161,6 @@ data BootMsg =
   | BootHashIncludeArg       HashIncludeArgMsg
   | BootCompareClangVersions CompareVersionsMsg
   | BootStatus               BootStatusMsg
-  | BootTarget               BootTargetMsg
   | BootCache                (SafeTrace CacheMsg)
   deriving stock (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)

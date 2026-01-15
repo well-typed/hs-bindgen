@@ -10,7 +10,6 @@ import Clang.LowLevel.Core
 import Clang.Version
 
 import HsBindgen.Backend.Category
-import HsBindgen.BindingSpec (BindingSpecReadMsg (..))
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
@@ -416,14 +415,11 @@ test_attributes_visibility_attributes =
 
 testCases_bespoke_bindingSpecs :: [TestCase]
 testCases_bespoke_bindingSpecs = [
-      test_bindingSpecs_bs_ext_target_any
-    , test_bindingSpecs_bs_ext_target_mismatch
-    , test_bindingSpecs_bs_pre_omit_type
+      test_bindingSpecs_bs_pre_omit_type
     , test_bindingSpecs_bs_pre_name_squash_both
     , test_bindingSpecs_bs_pre_name_squash_struct
     , test_bindingSpecs_bs_pre_name_squash_typedef
     , test_bindingSpecs_bs_pre_name_type
-    , test_bindingSpecs_bs_pre_target_mismatch
     , test_bindingSpecs_macro_trans_dep_missing
       -- * Function arguments with typedefs
     , test_bindingSpecs_fun_arg_typedef_array
@@ -442,28 +438,6 @@ testCases_bespoke_bindingSpecs = [
     , test_bindingSpecs_fun_arg_macro_struct
     , test_bindingSpecs_fun_arg_macro_union
     ]
-
-test_bindingSpecs_bs_ext_target_any :: TestCase
-test_bindingSpecs_bs_ext_target_any =
-    defaultTest "binding-specs/bs_ext_target_any"
-      & #specExternal .~ [
-            "examples/golden/binding-specs/bs_ext_target_any_e.yaml"
-          ]
-
-test_bindingSpecs_bs_ext_target_mismatch :: TestCase
-test_bindingSpecs_bs_ext_target_mismatch =
-    defaultFailingTest "binding-specs/bs_ext_target_mismatch"
-      & #specExternal .~ [
-            "examples/golden/binding-specs/bs_ext_target_mismatch_e.yaml"
-          ]
-      & #tracePredicate .~ singleTracePredicate (\case
-            MatchBindingSpec (
-                  BindingSpecReadMsg BindingSpec.BindingSpecReadIncompatibleTarget{}
-                ) ->
-              Just $ Expected ()
-            _otherwise ->
-              Nothing
-          )
 
 test_bindingSpecs_bs_pre_omit_type :: TestCase
 test_bindingSpecs_bs_pre_omit_type =
@@ -494,27 +468,6 @@ test_bindingSpecs_bs_pre_name_type =
     defaultTest "binding-specs/bs_pre_name_type"
       & #specPrescriptive .~
           Just "examples/golden/binding-specs/bs_pre_name_type_p.yaml"
-
--- -- TODO target any with non-target-specific bindings is OK
--- -- test_bindingSpecs_bs_pre_target_any_ok :: TestCase
-
--- -- TODO target any with target-specific bindings traces error
--- -- test_bindingSpecs_bs_pre_target_any_bad :: TestCase
-
-test_bindingSpecs_bs_pre_target_mismatch :: TestCase
-test_bindingSpecs_bs_pre_target_mismatch =
-    defaultFailingTest "binding-specs/bs_pre_target_mismatch"
-      & #specPrescriptive .~
-          Just "examples/golden/binding-specs/bs_pre_target_mismatch_p.yaml"
-      & #tracePredicate .~ singleTracePredicate (\case
-            MatchBindingSpec (
-                  BindingSpecReadMsg
-                    BindingSpec.BindingSpecReadIncompatibleTarget{}
-                ) ->
-              Just $ Expected ()
-            _otherwise ->
-              Nothing
-          )
 
 -- | External binding specifications for macro types cause incorrect
 -- TransitiveDependenciesMissing warnings
@@ -1431,8 +1384,6 @@ test_programAnalysis_selection_omit_prescriptive =
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
             MatchSelect name (MatchTransMissing [MatchTransUnusable _unusable]) ->
               Just $ Expected name
-            MatchBindingSpec (BindingSpecReadMsg BindingSpecReadAnyTargetNotEnforced{}) ->
-              Just $ Tolerated
             _otherwise ->
               Nothing
           )
