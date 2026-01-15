@@ -11,8 +11,8 @@ import GHC.Records
 
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
-import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
+import HsBindgen.Frontend.Pass.Select.IsPass
 
 {-------------------------------------------------------------------------------
   Definition
@@ -22,7 +22,7 @@ import HsBindgen.Frontend.Pass.MangleNames.IsPass qualified as MangleNames
 --
 -- Backend passes should refer to 'Final' instead of the actual name of the
 -- final pass, so that if we add more passes, the backend is unaffected.
-type Final = MangleNames
+type Final = Select
 
 {-------------------------------------------------------------------------------
   Annotations

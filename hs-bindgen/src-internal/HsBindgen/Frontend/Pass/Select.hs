@@ -32,8 +32,8 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict qualified as Conflict
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
+import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.Parse.Result
-import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -88,7 +88,7 @@ selectDecls ::
      IsMainHeader
   -> IsInMainHeaderDir
   -> SelectConfig
-  -> C.TranslationUnit ResolveBindingSpecs
+  -> C.TranslationUnit MangleNames
   -> (C.TranslationUnit Select, [Msg Select])
 selectDecls isMainHeader isInMainHeaderDir config unit =
     let -- Directly match the select predicate on the 'DeclIndex', obtaining
@@ -282,7 +282,7 @@ selectDeclWith
           ++ show decl.info
   where
     declId :: DeclId
-    declId = decl.info.id
+    declId = decl.info.id.cName
 
     -- We check three conditions:
     isSelectedRoot = Set.member declId rootIds
@@ -338,7 +338,7 @@ selectDeclWith
 
 declLocationInfo :: Decl -> LocationInfo
 declLocationInfo decl =
-    declIdLocationInfo decl.info.id [decl.info.loc]
+    declIdLocationInfo decl.info.id.cName [decl.info.loc]
 
 getDelayedMsgs :: DeclIndex -> [Msg Select]
 getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
@@ -354,7 +354,6 @@ getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
           | x <- success.delayedParseMsgs
           ]
         UsableExternal   -> []
-        UsableSquashed{} -> []
       UnusableE e -> case e of
         UnusableParseNotAttempted loc xs ->
           [ WithLocationInfo{
@@ -381,6 +380,10 @@ getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
           }
         UnusableOmitted{} ->
           []
+      -- Parse messages are unavailable for squashed entries. We are OK with
+      -- this; instead we have issued a notice in 'MangleNames' that the typedef
+      -- was squashed.
+      SquashedE{} -> []
 
 {-------------------------------------------------------------------------------
   Sort messages
@@ -455,6 +458,7 @@ selectDeclIndex declUseGraph p declIndex =
     -- Extract info from 'Entry' needed to match against the selection predicate
     --
     -- Returns 'Nothing' for external or omitted declarations.
+    -- Returns 'Just _' for squashed declarations. Those can still be selected.
     -- Returns multiple locations only for conflicts.
     entryInfo :: Entry -> Maybe ([SingleLoc], C.Availability)
     entryInfo = \case
@@ -463,8 +467,6 @@ selectDeclIndex declUseGraph p declIndex =
             let info = success.decl.info
             in Just ([info.loc], info.availability)
           UsableExternal ->
-            Nothing
-          UsableSquashed{} ->
             Nothing
         UnusableE e -> case e of
           UnusableParseNotAttempted loc _ ->
@@ -479,6 +481,7 @@ selectDeclIndex declUseGraph p declIndex =
             Just ([failedMacro.loc], C.Available)
           UnusableOmitted{} ->
             Nothing
+        SquashedE e -> DeclIndex.lookupEntry e.targetNameC declIndex >>= entryInfo
 
     -- We match anonymous declarations based on their use sites.
     --

@@ -827,6 +827,8 @@ test_declarations_select_scoping =
     declsWithMsgs = [
           "ParsedAndSelected2"
         , "ParsedAndSelected3"
+        , "struct ParsedUnselectable"
+        , "ParsedAndSelected5"
         ]
 
 test_declarations_tentative_definitions :: TestCase

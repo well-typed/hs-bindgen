@@ -25,10 +25,12 @@ import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesFailure)
+import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Predicate
+import HsBindgen.Language.C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -39,18 +41,28 @@ type Select :: Pass
 data Select a
 
 type family AnnSelect ix where
-  AnnSelect "TranslationUnit" = DeclMeta
-  AnnSelect "Decl"            = PrescriptiveDeclSpec
-  AnnSelect _                 = NoAnn
+  AnnSelect "TranslationUnit"  = DeclMeta
+  AnnSelect "Decl"             = PrescriptiveDeclSpec
+  AnnSelect "Struct"           = RecordNames
+  AnnSelect "Union"            = NewtypeNames
+  AnnSelect "Enum"             = NewtypeNames
+  AnnSelect "Typedef"          = NewtypeNames
+  AnnSelect "CheckedMacroType" = NewtypeNames
+  AnnSelect _                  = NoAnn
 
 instance IsPass Select where
+  type Id         Select = DeclIdPair
+  type ScopedName Select = ScopedNamePair
   type MacroBody  Select = CheckedMacro Select
   type ExtBinding Select = ResolvedExtBinding
   type Ann ix     Select = AnnSelect ix
   type Msg        Select = WithLocationInfo SelectMsg
   type MacroId    Select = Id Select
 
-  extBindingId _ = (.cName)
+  idNameKind     _ namePair   = namePair.cName.name.kind
+  idSourceName   _ namePair   = declIdSourceName namePair.cName
+  idLocationInfo _ namePair   = declIdLocationInfo namePair.cName
+  extBindingId _ extBinding = extDeclIdPair extBinding
   macroIdId _ = id
 
 {-------------------------------------------------------------------------------
@@ -219,8 +231,8 @@ instance IsTrace Level SelectMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId ResolveBindingSpecs Select
-instance CoercePassMacroId ResolveBindingSpecs Select
+instance CoercePassId MangleNames Select
+instance CoercePassMacroId MangleNames Select
 
-instance CoercePassMacroBody ResolveBindingSpecs Select where
+instance CoercePassMacroBody MangleNames Select where
   coercePassMacroBody _ = coercePass
