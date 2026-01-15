@@ -231,7 +231,7 @@ adjustFunctionTypesToPointers = go False
 
         -- Interesting cases
         C.TypeTypedef (C.Ref n uTy) ->
-          if isCanonicalFunctionType uTy && not ctx then
+          if C.isCanonicalTypeFunction uTy && not ctx then
             C.TypePointers 1 $ C.TypeTypedef (C.Ref n (go True uTy))
           else
             C.TypeTypedef (C.Ref n (go True uTy))
@@ -253,11 +253,3 @@ adjustFunctionTypesToPointers = go False
         C.TypeConstArray n    t -> C.TypeConstArray n    $ go ctx t
         C.TypeIncompleteArray t -> C.TypeIncompleteArray $ go ctx t
         C.TypeQual qual       t -> C.TypeQual qual       $ go ctx t
-
-    -- | Canonical types have all typedefs and type qualifiers removed.
-    isCanonicalFunctionType :: C.Type Parse -> Bool
-    isCanonicalFunctionType = \case
-        C.TypeTypedef ref   -> isCanonicalFunctionType ref.underlying
-        C.TypeQual _qual ty -> isCanonicalFunctionType ty
-        C.TypeFun{}         -> True
-        _otherwise          -> False
