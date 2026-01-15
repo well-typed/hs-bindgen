@@ -123,7 +123,7 @@ customTracePredicateAux names mpredicate = TracePredicate $ \traces -> do
     defaultTracePredicateSimple = \case
         Error        -> Unexpected
         Warning      -> Unexpected
-        Notice       -> Unexpected
+        Notice       -> Tolerated
         Info         -> Tolerated
         Debug        -> Tolerated
         . getDefaultLogLevel

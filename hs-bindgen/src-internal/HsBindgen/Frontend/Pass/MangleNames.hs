@@ -16,6 +16,7 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
+import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..))
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
@@ -29,7 +30,6 @@ import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -45,7 +45,7 @@ import HsBindgen.Language.Haskell qualified as Hs
 -------------------------------------------------------------------------------}
 
 mangleNames ::
-     C.TranslationUnit Select
+     C.TranslationUnit ResolveBindingSpecs
   -> (C.TranslationUnit MangleNames, [Msg MangleNames])
 mangleNames unit = (
          C.TranslationUnit{
@@ -83,11 +83,17 @@ updateDeclMeta td nm declMeta = declMeta{
         DeclIndex.registerSquashedDeclarations squashedMap declMeta.declIndex
     }
   where
-    squashedMap :: Map DeclId (SingleLoc, Hs.Identifier)
-    squashedMap = Map.fromList $ catMaybes [
-        (cDeclId,) . (sloc,) <$> Map.lookup wrappedId nm
-      | (cDeclId, TypedefAnalysis.Squash sloc wrappedId) <-
-          Map.toList td.map
+    squashedMap :: Map DeclId Squashed
+    squashedMap = Map.fromList $ [
+        (cDeclId,) squashed
+      | (cDeclId, TypedefAnalysis.Squash s) <-
+           Map.toList td.map
+      , let squashed :: Squashed
+            squashed = Squashed {
+                typedefLoc   = s.typedefLoc
+              , targetNameC  = s.targetId
+              , targetNameHs = Map.lookup s.targetId nm
+              }
       ]
 
 {-------------------------------------------------------------------------------
@@ -102,7 +108,7 @@ type NameMap = Map DeclId Hs.Identifier
 chooseNames ::
      TypedefAnalysis
   -> FixCandidate Maybe
-  -> [C.Decl Select]
+  -> [C.Decl ResolveBindingSpecs]
   -> (NameMap, [Msg MangleNames])
 chooseNames td fc decls =
     let specifiedNames :: NameMap
@@ -121,20 +127,20 @@ chooseNames td fc decls =
 
         collisions :: Map Hs.Identifier [(DeclId, SingleLoc)]
         collisions = getDuplicates $ Map.fromList $
-          map (\n -> ((n.cId, n.loc), n.hsId)) nameInfosOriginal
+          map (\n -> ((n.nameC, n.loc), n.nameHs)) nameInfosOriginal
 
         collisionMsgs :: [Msg MangleNames]
         collisionMsgs = concatMap getCollisionMsg $ Map.toList collisions
 
         nameMap :: NameMap
-        nameMap = Map.fromList $ map (\n -> (n.cId, n.hsId)) nameInfos
+        nameMap = Map.fromList $ map (\n -> (n.nameC, n.nameHs)) nameInfos
 
     -- TODO https://github.com/well-typed/hs-bindgen/issues/1533: For now
     -- collisions only lead to warnings; in the future, we want to handle them
     -- in the decl-index, and remove them in the 'Select' pass.
     in  (nameMap, collisionMsgs ++ msgs)
   where
-    getSpecifiedName :: C.Decl Select -> Maybe (DeclId, Hs.Identifier)
+    getSpecifiedName :: C.Decl ResolveBindingSpecs -> Maybe (DeclId, Hs.Identifier)
     getSpecifiedName decl = (decl.info.id,) <$> ((.hsIdent) =<< decl.ann.cSpec)
 
 getCollisionMsg :: (Hs.Identifier, [(DeclId, SingleLoc)]) -> [WithLocationInfo MangleNamesMsg]
@@ -151,10 +157,10 @@ getCollisionMsg (i, xs) =
 
 -- | Internal.
 data NameInfo = NameInfo {
-    cId      :: DeclId
+    nameC    :: DeclId
     -- | We need the location to obtain 'WithLocationInfo'
   , loc      :: SingleLoc
-  , hsId     :: Hs.Identifier
+  , nameHs   :: Hs.Identifier
     -- | We expect name collisions for squashed declarations
   , squashed :: Bool
   }
@@ -164,7 +170,7 @@ nameForDecl ::
      TypedefAnalysis
   -> FixCandidate Maybe
   -> NameMap
-  -> C.Decl Select
+  -> C.Decl ResolveBindingSpecs
   -> (NameInfo, [Msg MangleNames])
 nameForDecl td fc specifiedNames decl =
     case Map.lookup declId specifiedNames of
@@ -204,8 +210,8 @@ nameForDecl td fc specifiedNames decl =
                         then MangleNamesRenamed hsName : msgs
                         else msgs
                     )
-            Just (TypedefAnalysis.Squash _ declId') ->
-              case Map.lookup declId' specifiedNames of
+            Just (TypedefAnalysis.Squash s) ->
+              case Map.lookup s.targetId specifiedNames of
                 Just hsName -> (NameInfo declId loc hsName True, [])
                 Nothing ->
                   fromDeclId fc ns declId & \(hsName, msgs) -> (
@@ -303,17 +309,17 @@ searchNameMap name = WrapM $ do
 -------------------------------------------------------------------------------}
 
 class Mangle a where
-  mangle :: a Select -> M (a MangleNames)
+  mangle :: a ResolveBindingSpecs -> M (a MangleNames)
 
 class MangleInDecl a where
-  mangleInDecl :: C.DeclInfo MangleNames -> a Select -> M (a MangleNames)
+  mangleInDecl :: C.DeclInfo MangleNames -> a ResolveBindingSpecs -> M (a MangleNames)
 
-mangleDecl :: C.Decl Select -> M (Maybe (C.Decl MangleNames))
+mangleDecl :: C.Decl ResolveBindingSpecs -> M (Maybe (C.Decl MangleNames))
 mangleDecl decl = do
     mConclusion <- checkTypedefAnalysis decl.info.id
     case mConclusion of
-      Just TypedefAnalysis.Squash{} -> do
-        traceMsg $ withDeclLoc decl.info $ MangleNamesSquashed
+      Just (TypedefAnalysis.Squash s) -> do
+        traceMsg $ withDeclLoc decl.info $ MangleNamesSquashed s
         return Nothing
       _otherwise -> do
         declId'      <- mangleDeclId decl.info.id
@@ -664,7 +670,7 @@ instance Mangle C.Type where
 -------------------------------------------------------------------------------}
 
 withDeclNamespace ::
-     C.DeclKind Select
+     C.DeclKind ResolveBindingSpecs
   -> (forall ns. Hs.SingNamespace ns => Proxy ns -> r)
   -> r
 withDeclNamespace kind k =

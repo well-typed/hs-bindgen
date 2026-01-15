@@ -7,6 +7,7 @@
 module HsBindgen.Frontend.Analysis.Typedefs (
     TypedefAnalysis(..)
   , Conclusion(..)
+  , Squash(..)
   , Rename(..)
   , fromDecls
   ) where
@@ -21,7 +22,7 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
-import HsBindgen.Frontend.Pass.Select.IsPass (Select)
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecs)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -56,6 +57,12 @@ instance Monoid TypedefAnalysis where
   mempty = TypedefAnalysis{
         map = Map.empty
       }
+
+data Squash = SquashTypedef {
+      typedefLoc :: SingleLoc
+    , targetId   :: DeclId
+    }
+  deriving stock (Eq, Show, Generic)
 
 -- | What should we do with a particular declaration?
 --
@@ -98,7 +105,7 @@ data Conclusion =
     --
     -- then use sites would also need to be handled explicitly; see also
     -- <https://github.com/well-typed/hs-bindgen/issues/1356>.
-    Squash SingleLoc DeclId
+    Squash Squash
 
     -- | Rename the Haskell type corresponding to this C type
     --
@@ -130,10 +137,10 @@ conclude declId conclusion = TypedefAnalysis $ Map.singleton declId conclusion
   Analysis proper
 -------------------------------------------------------------------------------}
 
-fromDecls :: DeclUseGraph -> [C.Decl Select] -> TypedefAnalysis
+fromDecls :: DeclUseGraph -> [C.Decl ResolveBindingSpecs] -> TypedefAnalysis
 fromDecls declUseGraph = mconcat . map aux
   where
-     aux :: C.Decl Select -> TypedefAnalysis
+     aux :: C.Decl ResolveBindingSpecs -> TypedefAnalysis
      aux decl =
          case decl.kind of
            C.DeclTypedef typedef ->
@@ -143,8 +150,8 @@ fromDecls declUseGraph = mconcat . map aux
 
 analyseTypedef ::
       DeclUseGraph
-  -> C.DeclInfo Select
-  -> C.Typedef Select
+  -> C.DeclInfo ResolveBindingSpecs
+  -> C.Typedef ResolveBindingSpecs
   -> TypedefAnalysis
 analyseTypedef declUseGraph typedefInfo typedef =
     case taggedPayload typedef.typ of
@@ -155,14 +162,17 @@ analyseTypedef declUseGraph typedefInfo typedef =
 
 -- | Typedef around tagged payload
 typedefOfTagged ::
-     C.DeclInfo Select    -- ^ Typedef info
-  -> TaggedPayload        -- ^ Payload
-  -> [(DeclId, usage)]  -- ^ Use sites of the payload
+     C.DeclInfo ResolveBindingSpecs    -- ^ Typedef info
+  -> TaggedPayload                     -- ^ Payload
+  -> [(DeclId, usage)]                 -- ^ Use sites of the payload
   -> TypedefAnalysis
 typedefOfTagged typedefInfo payload useSites
   | shouldSquash
   = mconcat [
-        conclude typedefInfo.id $ Squash typedefInfo.loc payload.id
+        conclude typedefInfo.id $ Squash $ SquashTypedef {
+            typedefLoc = typedefInfo.loc
+          , targetId   = payload.id
+          }
       , conclude payload.id $ Rename (UseNameOf typedefInfo.id)
       ]
 
@@ -198,10 +208,10 @@ data TaggedPayload = TaggedPayload{
     }
 
 -- | Tagged declaration (struct, union, enum) wrapped by this typedef, if any
-taggedPayload :: C.Type Select -> Maybe TaggedPayload
+taggedPayload :: C.Type ResolveBindingSpecs -> Maybe TaggedPayload
 taggedPayload = go True
   where
-    go :: Bool -> C.Type Select -> Maybe TaggedPayload
+    go :: Bool -> C.Type ResolveBindingSpecs -> Maybe TaggedPayload
     go direct = \case
         C.TypeRef declId     -> typeRef direct declId
         C.TypeEnum ref       -> typeRef direct ref.name
