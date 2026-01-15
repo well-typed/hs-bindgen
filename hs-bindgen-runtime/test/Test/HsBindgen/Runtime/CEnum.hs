@@ -20,7 +20,7 @@ import HsBindgen.Runtime.CEnum (AsCEnum (..), AsSequentialCEnum (..),
 import HsBindgen.Runtime.CEnum qualified as CEnum
 
 import Test.HsBindgen.Runtime.CEnumArbitrary ()
-import Test.Internal.Tasty
+import Test.Util.Tasty
 
 read_show_prop :: forall a. (Show a, Read a, Eq a) => a -> Property
 read_show_prop x = read (show x) === x

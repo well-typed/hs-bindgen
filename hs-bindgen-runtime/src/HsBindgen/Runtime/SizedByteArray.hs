@@ -16,16 +16,71 @@ import GHC.TypeNats qualified as GHC
 
 import HsBindgen.Runtime.ByteArray
 
--- | The 'SizedByteArray'; we have two parameters, to specify the size and alignment.
-newtype SizedByteArray (size :: GHC.Nat) (alignment :: GHC.Nat) = SizedByteArray ByteArray
-  deriving newtype (Eq, Show) -- To avoid printing wrapper constructor
+{-------------------------------------------------------------------------------
+  Definition
+-------------------------------------------------------------------------------}
+
+-- | Deriving-via support for 'ByteArray'
+--
+-- Intended usage:
+--
+-- > newtype Foo = Foo ByteArray
+-- >   deriving (Storable, Prim) via SizedByteArray 16 4
+--
+-- == Size
+--
+-- In this example, the 'ByteArray' must have size 16.
+--
+-- == Storable
+--
+-- The derived 'Storable' instance does /not/ declare that the 'ByteArray'
+-- /itself/ is memory aligned in any way (indeed, the 'ByteArray' may well not
+-- be pinned). It merely states that if we use 'Storable' to pass the
+-- 'ByteArray' to a C function, we must
+--
+-- * allocate a temporary buffer (typically using 'Foreign.alloca')
+-- * copy the 'ByteArray' into that buffer
+-- * call the C function, passing a pointer to this buffer
+--
+-- where /that temporary buffer/ must be memory aligned.
+--
+-- == Prim
+--
+-- Similar comments as for 'Storable' apply to 'Prim' also. Since 'Prim' can
+-- be used to construct /arrays/, it's worth spelling out alignment requirements
+-- in this case. If alignment is important, then typically /every/ element in
+-- the array must be aligned. If the elements are stored in contiguous memory
+-- locations, this will be the case only if
+--
+-- * the start of the array is memory aligned
+--   (e.g., 'Data.Primitive.PrimArray.newAlignedPinnedPrimArray')
+-- * the @size@ is an integral multiple of the @alignment@
+--
+-- If the @size@ and @alignment@ parameters originate from their values for a
+-- choice of C type, then the second requirement will always be satisfied:
+--
+-- > The size of any type is always a multiple of its alignment; that way, in an
+-- > array whose elements have that type, all the elements are properly aligned
+-- > if the first one is.
+--
+-- <https://www.gnu.org/software/c-intro-and-ref/manual/html_node/Type-Alignment.html>
+newtype SizedByteArray (size :: GHC.Nat) (alignment :: GHC.Nat) =
+    SizedByteArray ByteArray
+
+{-------------------------------------------------------------------------------
+  Storable
+-------------------------------------------------------------------------------}
 
 instance (GHC.KnownNat n, GHC.KnownNat m) => Storable (SizedByteArray n m) where
-    sizeOf _ = fromIntegral (GHC.natVal (Proxy @n))
-    alignment _ = fromIntegral (GHC.natVal (Proxy @m))
+  sizeOf    _ = fromIntegral (GHC.natVal (Proxy @n))
+  alignment _ = fromIntegral (GHC.natVal (Proxy @m))
 
-    peek = coerce $ peekByteArray (fromIntegral (GHC.natVal (Proxy @n)))
-    poke = coerce pokeByteArray
+  peek = coerce $ peekByteArray (fromIntegral (GHC.natVal (Proxy @n)))
+  poke = coerce $ pokeByteArray
+
+{-------------------------------------------------------------------------------
+  Prim
+-------------------------------------------------------------------------------}
 
 instance (GHC.KnownNat n, GHC.KnownNat m) => Prim (SizedByteArray n m) where
   sizeOf# _ =

@@ -81,7 +81,7 @@ library
 
   build-tool-depends: hsc2hs:hsc2hs
 
-test-suite test-runtime
+test-suite test-hs-bindgen-runtime
   import:         lang
   hs-source-dirs: test
   type:           exitcode-stdio-1.0
@@ -94,7 +94,8 @@ test-suite test-runtime
     Test.HsBindgen.Runtime.ConstantArray
     Test.HsBindgen.Runtime.IncompleteArray
     Test.HsBindgen.Runtime.SizedByteArray
-    Test.Internal.Tasty
+    Test.Util.Orphans
+    Test.Util.Tasty
 
   -- Internal dependencies
   build-depends:  hs-bindgen-runtime
