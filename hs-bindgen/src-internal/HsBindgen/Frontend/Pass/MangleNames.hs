@@ -433,14 +433,15 @@ mkMacroTypeNames = mkNewtypeNames
 
 instance MangleInDecl C.DeclKind where
   mangleInDecl info = \case
-      C.DeclStruct   x -> C.DeclStruct   <$> mangleInDecl info x
-      C.DeclUnion    x -> C.DeclUnion    <$> mangleInDecl info x
-      C.DeclTypedef  x -> C.DeclTypedef  <$> mangleInDecl info x
-      C.DeclEnum     x -> C.DeclEnum     <$> mangleInDecl info x
-      C.DeclFunction x -> C.DeclFunction <$> mangleInDecl info x
-      C.DeclMacro    x -> C.DeclMacro    <$> mangleInDecl info x
-      C.DeclGlobal   x -> C.DeclGlobal   <$> mangle            x
-      C.DeclOpaque     -> return C.DeclOpaque
+      C.DeclStruct   x         -> C.DeclStruct           <$> mangleInDecl info x
+      C.DeclUnion    x         -> C.DeclUnion            <$> mangleInDecl info x
+      C.DeclTypedef  x         -> C.DeclTypedef          <$> mangleInDecl info x
+      C.DeclEnum     x         -> C.DeclEnum             <$> mangleInDecl info x
+      C.DeclAnonEnumConstant x -> C.DeclAnonEnumConstant <$> mangleInDecl info x
+      C.DeclFunction x         -> C.DeclFunction         <$> mangleInDecl info x
+      C.DeclMacro    x         -> C.DeclMacro            <$> mangleInDecl info x
+      C.DeclGlobal   x         -> C.DeclGlobal           <$> mangle            x
+      C.DeclOpaque             -> return C.DeclOpaque
 
 instance MangleInDecl C.Struct where
   mangleInDecl info struct =
@@ -536,6 +537,16 @@ instance MangleInDecl C.Enum where
           , ann       = mkEnumNames info
           , sizeof    = enum.sizeof
           , alignment = enum.alignment
+          }
+
+instance MangleInDecl C.AnonEnumConstant where
+  mangleInDecl info (C.AnonEnumConstant primTyp constant') = do
+      reconstruct <$> mangleInDecl info constant'
+    where
+      reconstruct :: C.EnumConstant MangleNames -> C.AnonEnumConstant MangleNames
+      reconstruct enumConstants' = C.AnonEnumConstant{
+            typ      = primTyp
+          , constant = enumConstants'
           }
 
 instance MangleInDecl C.EnumConstant where
@@ -651,13 +662,14 @@ withDeclNamespace ::
   -> r
 withDeclNamespace kind k =
     case kind of
-      C.DeclStruct{}   -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclUnion{}    -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclTypedef{}  -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclEnum{}     -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclOpaque{}   -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclFunction{} -> k (Proxy @Hs.NsVar)
-      C.DeclGlobal{}   -> k (Proxy @Hs.NsVar)
+      C.DeclStruct{}           -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclUnion{}            -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclTypedef{}          -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclEnum{}             -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclAnonEnumConstant{} -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclOpaque{}           -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclFunction{}         -> k (Proxy @Hs.NsVar)
+      C.DeclGlobal{}           -> k (Proxy @Hs.NsVar)
 
       C.DeclMacro macro ->
         case macro of

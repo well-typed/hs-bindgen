@@ -165,6 +165,8 @@ generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
         unionDecs haddockConfig info union spec
       C.DeclEnum enum -> withCategoryM CType $
         enumDecs opts haddockConfig info enum spec
+      C.DeclAnonEnumConstant anonEnumConst -> withCategoryM CType $
+        pure $ anonEnumConstantDecs haddockConfig info anonEnumConst
       C.DeclTypedef typedef -> withCategoryM CType $
         -- Deal with typedefs around function pointers (#1380)
         case typedef.typ of
@@ -737,8 +739,8 @@ enumDecs opts haddockConfig info enum spec = do
         valueDecls =
             [ Hs.DeclPatSyn Hs.PatSyn{
                   name    = Hs.unsafeHsIdHsName constant.info.name.hsName
-                , typ     = nt.name
-                , constr  = nt.constr
+                , typ     = HsTypRef nt.name
+                , constr  = Just nt.constr
                 , value   = constant.value
                 , origin  = Origin.EnumConstant constant
                 , comment = mkHaddocksFieldInfo haddockConfig info constant.info
@@ -1408,3 +1410,31 @@ macroVarDecs haddockConfig info macroExpr = [
   where
     hsVarName :: Hs.Name Hs.NsVar
     hsVarName = Hs.unsafeHsIdHsName info.id.unsafeHsName
+
+{-------------------------------------------------------------------------------
+  Anon Enum Constants
+-------------------------------------------------------------------------------}
+
+anonEnumConstantDecs ::
+     HaddockConfig
+  -> C.DeclInfo Final
+  -> C.AnonEnumConstant Final
+  -> [Hs.Decl]
+anonEnumConstantDecs haddockConfig info anonEnumConstant =
+    let
+      patSynName :: Hs.Name Hs.NsConstr
+      patSynName = Hs.unsafeHsIdHsName anonEnumConstant.constant.info.name.hsName
+
+      patSynType :: HsType
+      patSynType = Type.topLevel (C.TypePrim anonEnumConstant.typ)
+
+      typeSigDecl :: Hs.Decl
+      typeSigDecl = Hs.DeclPatSyn Hs.PatSyn{
+            name    = patSynName
+          , typ     = patSynType
+          , constr  = Nothing
+          , value   = fromInteger anonEnumConstant.constant.value
+          , origin  = Origin.EnumConstant anonEnumConstant.constant
+          , comment = mkHaddocks haddockConfig info patSynName
+          }
+  in  [typeSigDecl]

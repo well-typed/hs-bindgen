@@ -23,6 +23,8 @@ depsOfDecl (C.DeclUnion union) =
     concatMap depsOfField union.fields
 depsOfDecl (C.DeclEnum _) =
     []
+depsOfDecl (C.DeclAnonEnumConstant _) =
+    []
 depsOfDecl (C.DeclTypedef ty) =
     depsOfTypedef ty
 depsOfDecl C.DeclOpaque =

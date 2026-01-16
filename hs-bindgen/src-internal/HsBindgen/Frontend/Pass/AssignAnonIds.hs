@@ -8,18 +8,18 @@ import Data.Either (partitionEithers)
 import Data.Map qualified as Map
 import Data.Tuple
 
-import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
+import HsBindgen.Frontend.Analysis.AnonUsage
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.AssignAnonIds.ChooseNames
 import HsBindgen.Frontend.Pass.AssignAnonIds.IsPass
-import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
+import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 
@@ -29,17 +29,15 @@ import HsBindgen.Language.C qualified as C
 
 -- | Assign name to all anonymous declarations
 assignAnonIds ::
-     [ParseResult Parse]
+     AnonUsageAnalysis
+  -> [ParseResult SimplifyAST]
   -> ([ParseResult AssignAnonIds], [ImmediateAssignAnonIdsMsg])
-assignAnonIds parseResults =
+assignAnonIds usage parseResults =
     swap . partitionEithers $
       map (updateParseResult chosenNames) parseResults
   where
-    decls :: [C.Decl Parse]
-    decls = mapMaybe getParseResultMaybeDecl parseResults
-
     chosenNames :: ChosenNames
-    chosenNames = chooseNames (AnonUsageAnalysis.fromDecls decls)
+    chosenNames = chooseNames usage
 
 {-------------------------------------------------------------------------------
   Update 'ParseResults' with chosen names
@@ -47,7 +45,7 @@ assignAnonIds parseResults =
 
 updateParseResult ::
      ChosenNames
-  -> ParseResult Parse
+  -> ParseResult SimplifyAST
   -> Either ImmediateAssignAnonIdsMsg (ParseResult AssignAnonIds)
 updateParseResult chosenNames result =
     case result.classification of
@@ -61,7 +59,7 @@ updateParseResult chosenNames result =
         auxFailure failure <$>
           updateDefSite chosenNames result.id
   where
-    auxSuccess :: ParseSuccess Parse -> DeclId -> ParseResult AssignAnonIds
+    auxSuccess :: ParseSuccess SimplifyAST -> DeclId -> ParseResult AssignAnonIds
     auxSuccess success declId' =
         case runM chosenNames updated of
           Left (UnusableAnonDecl anonId) -> ParseResult{
@@ -115,14 +113,14 @@ updateParseResult chosenNames result =
 
 updateDefSite ::
      ChosenNames
-  -> Id Parse
+  -> Id SimplifyAST
   -> Either ImmediateAssignAnonIdsMsg (Id AssignAnonIds)
 updateDefSite chosenNames =
     first AssignAnonIdsSkippedDecl . fromPrelimDeclId chosenNames
 
 updateDeclInfo ::
      DeclId
-  -> C.DeclInfo Parse
+  -> C.DeclInfo SimplifyAST
   -> M (C.DeclInfo AssignAnonIds)
 updateDeclInfo declId' info =
     reconstruct <$> mapM updateUseSites info.comment
@@ -168,18 +166,19 @@ runM chosenNames (WrapM ma) = runExcept $ runReaderT ma chosenNames
 -------------------------------------------------------------------------------}
 
 class UpdateUseSites a where
-  updateUseSites :: a Parse -> M (a AssignAnonIds)
+  updateUseSites :: a SimplifyAST -> M (a AssignAnonIds)
 
 instance UpdateUseSites C.DeclKind where
   updateUseSites = \case
-      C.DeclStruct   x -> C.DeclStruct   <$> updateUseSites x
-      C.DeclUnion    x -> C.DeclUnion    <$> updateUseSites x
-      C.DeclTypedef  x -> C.DeclTypedef  <$> updateUseSites x
-      C.DeclEnum     x -> C.DeclEnum     <$> updateUseSites x
-      C.DeclFunction x -> C.DeclFunction <$> updateUseSites x
-      C.DeclGlobal   x -> C.DeclGlobal   <$> updateUseSites x
-      C.DeclMacro    x -> return $ C.DeclMacro x
-      C.DeclOpaque     -> return $ C.DeclOpaque
+      C.DeclStruct   x         -> C.DeclStruct   <$> updateUseSites x
+      C.DeclUnion    x         -> C.DeclUnion    <$> updateUseSites x
+      C.DeclTypedef  x         -> C.DeclTypedef  <$> updateUseSites x
+      C.DeclEnum     x         -> C.DeclEnum     <$> updateUseSites x
+      C.DeclAnonEnumConstant x -> C.DeclAnonEnumConstant <$> updateUseSites x
+      C.DeclFunction x         -> C.DeclFunction <$> updateUseSites x
+      C.DeclGlobal   x         -> C.DeclGlobal   <$> updateUseSites x
+      C.DeclMacro    x         -> return $ C.DeclMacro x
+      C.DeclOpaque             -> return $ C.DeclOpaque
 
 instance UpdateUseSites C.Struct where
   updateUseSites struct =
@@ -295,7 +294,7 @@ instance UpdateUseSites C.Function where
 instance UpdateUseSites C.Type where
   updateUseSites = go
     where
-      go :: C.Type Parse -> M (C.Type AssignAnonIds)
+      go :: C.Type SimplifyAST -> M (C.Type AssignAnonIds)
       go = \case
           -- Actual modifications
           C.TypeRef     ref     -> C.TypeRef     <$> updateDeclId ref
@@ -349,6 +348,16 @@ instance UpdateUseSites C.EnumConstant where
       reconstruct enumConstantInfo' = C.EnumConstant{
             info  = enumConstantInfo'
           , value = constant.value
+          }
+
+instance UpdateUseSites C.AnonEnumConstant where
+  updateUseSites anonEnumConstant =
+      reconstruct <$> updateUseSites anonEnumConstant.constant
+    where
+      reconstruct :: C.EnumConstant AssignAnonIds -> C.AnonEnumConstant AssignAnonIds
+      reconstruct constant' = C.AnonEnumConstant{
+            typ      = anonEnumConstant.typ  -- PrimType has no use sites to update
+          , constant = constant'
           }
 
 instance UpdateUseSites C.Comment where

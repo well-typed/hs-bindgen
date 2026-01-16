@@ -19,6 +19,7 @@ module HsBindgen.Frontend.AST.Decl (
   , Typedef(..)
   , Enum(..)
   , EnumConstant(..)
+  , AnonEnumConstant(..)
   , Function(..)
   , FunctionAttributes(..)
   , FunctionPurity(..)
@@ -39,6 +40,7 @@ import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
+import HsBindgen.Language.C (PrimType)
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -134,6 +136,11 @@ data DeclKind p =
   | DeclUnion (Union p)
   | DeclTypedef (Typedef p)
   | DeclEnum (Enum p)
+    -- | Anonymous Enum Constant
+    --
+    -- Represents individual constants from an anonymous enum (e.g., @enum { FOO, BAR }@)
+    -- as separate pattern synonym declarations.
+  | DeclAnonEnumConstant (AnonEnumConstant p)
     -- | Opaque type
     --
     -- When parsing, a C @struct@, @union@, or @enum@ may be opaque.  Users may
@@ -198,6 +205,17 @@ data EnumConstant p = EnumConstant {
     , value :: Integer
     }
   deriving stock (Generic)
+
+-- | Anonymous Enum Constant
+--
+-- This represents an anonymous enum constant (e.g., from @enum { FOO, BAR }@)
+-- that will be rendered as a pattern synonym in Haskell (e.g., @pattern fOO :: CUInt@)
+--
+data AnonEnumConstant p = AnonEnumConstant{
+      typ       :: PrimType
+    , constant  :: EnumConstant p
+    }
+  deriving stock (Generic, Show, Eq)
 
 data Function p = Function {
       args  :: [(Maybe (ScopedName p), C.Type p)]

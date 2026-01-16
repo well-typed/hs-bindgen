@@ -15,7 +15,7 @@ import Data.Map qualified as Map
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
-import HsBindgen.Frontend.Pass.Parse.IsPass
+import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Imports
@@ -114,14 +114,15 @@ resolveConflicts anonId new old =
 analyseDecl :: C.Decl Parse -> [(AnonId, Context)]
 analyseDecl decl =
     case decl.kind of
-      C.DeclStruct   x -> analyseStruct  decl.info x
-      C.DeclUnion    x -> analyseUnion   decl.info x
-      C.DeclTypedef  x -> analyseTypedef decl.info x
-      C.DeclEnum     _ -> []
-      C.DeclOpaque     -> []
-      C.DeclMacro    _ -> []
-      C.DeclFunction _ -> []
-      C.DeclGlobal   _ -> []
+      C.DeclStruct           x -> analyseStruct  decl.info x
+      C.DeclUnion            x -> analyseUnion   decl.info x
+      C.DeclTypedef          x -> analyseTypedef decl.info x
+      C.DeclEnum             _ -> []
+      C.DeclAnonEnumConstant _ -> []
+      C.DeclOpaque             -> []
+      C.DeclMacro            _ -> []
+      C.DeclFunction         _ -> []
+      C.DeclGlobal           _ -> []
 
 analyseStruct :: C.DeclInfo Parse -> C.Struct Parse -> [(AnonId, Context)]
 analyseStruct info struct = concat [

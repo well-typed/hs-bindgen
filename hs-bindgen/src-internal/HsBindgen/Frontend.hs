@@ -15,6 +15,7 @@ import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Clang
 import HsBindgen.Config.Internal
+import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
@@ -40,6 +41,8 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select
 import HsBindgen.Frontend.Pass.Select.IsPass
+import HsBindgen.Frontend.Pass.SimplifyAST
+import HsBindgen.Frontend.Pass.SimplifyAST.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
@@ -65,7 +68,19 @@ import HsBindgen.Util.Tracer
 --
 -- * Must be first, to get the declarations from @libclang@
 --
--- == 2. "HsBindgen.Frontend.Pass.AssignAnonIds"
+-- == 2. "HsBindgen.Frontend.Pass.SimplifyAST"
+--
+-- "HsBindgen.Frontend.Pass.SimplifyAST" simplifies the AST by converting
+-- anonymous enums into pattern synonym declarations. For example, @enum { FOO, BAR }@
+-- is converted into separate pattern synonym declarations that will later be rendered as
+-- Haskell pattern synonyms.
+--
+-- Constraints:
+--
+-- * Must be before "HsBindgen.Frontend.Pass.AssignAnonIds" so that
+--   unused anonymous declarations are not filtered
+--
+-- == 3. "HsBindgen.Frontend.Pass.AssignAnonIds"
 --
 -- "HsBindgen.Frontend.Pass.AssignAnonIds" assigns names to all anonymous
 -- declarations, replacing 'HsBindgen.Frontend.Naming.PrelimDeclId' by
@@ -80,18 +95,18 @@ import HsBindgen.Util.Tracer
 -- * Must be before "HsBindgen.Frontend.Pass.ResolveBindingSpecs" so that
 --   binding specifications can use the assigned names
 --
--- == 3. "HsBindgen.Frontend.Pass.ConstructTranslationUnit"
+-- == 5. "HsBindgen.Frontend.Pass.ConstructTranslationUnit"
 --
 -- "HsBindgen.Frontend.Pass.ConstructTranslationUnit" constructs a list of
--- sorted declarations as well as the 'DeclIndex.DeclIndex',
+-- sorted declarations as well as 'DeclIndex.DeclIndex',
 -- 'UseDeclGraph.UseDeclGraph', and 'DeclUseGraph.DeclUseGraph'.
 --
 -- Constraints:
 --
 -- * Must be before the rest of the passes because they use these structures and
---   depend on the ordering of the declarations
+--   depend on the ordering of declarations
 --
--- == 4. "HsBindgen.Frontend.Pass.HandleMacros"
+-- == 6. "HsBindgen.Frontend.Pass.HandleMacros"
 --
 -- "HsBindgen.Frontend.Pass.HandleMacros" typechecks macros and reparses
 -- declarations with macros.  In order to construct the correct scope at any
@@ -100,7 +115,7 @@ import HsBindgen.Util.Tracer
 -- "HsBindgen.Frontend.Pass.AssignAnonIds" before
 -- "HsBindgen.Frontend.Pass.HandleMacros" is fine.
 --
--- == 5. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
+-- == 7. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
 --
 -- "HsBindgen.Frontend.Pass.ResolveBindingSpecs" has two responsibilities:
 --
@@ -120,9 +135,9 @@ import HsBindgen.Util.Tracer
 -- * Must be before "HsBindgen.Frontend.Pass.MangleNames" because prescriptive
 --   binding specs may specify arbitrary names
 --
--- == 6. "HsBindgen.Frontend.Pass.Select"
+-- == 8. "HsBindgen.Frontend.Pass.Select"
 --
--- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
+-- "HsBindgen.Frontend.Pass.Select" filters the declarations, using predicates
 -- and program slicing.  It also emits delayed trace messages for declarations
 -- that are selected.
 --
@@ -132,7 +147,7 @@ import HsBindgen.Util.Tracer
 --   can refer to @typedef@s that are later squashed, which is especially
 --   important when program slicing is enabled
 --
--- == 7. "HsBindgen.Frontend.Pass.MangleNames"
+-- == 9. "HsBindgen.Frontend.Pass.MangleNames"
 --
 -- "HsBindgen.Frontend.Pass.MangleNames" assigns Haskell names for types,
 -- constructors, fields, etc. It also deals with name clashes that can arise
@@ -160,22 +175,35 @@ runFrontend tracer config boot = do
               , tracer                   = contramap FrontendParse tracer
               }
         parseResults <- parseDecls parseEnv unit
+
+        let decls :: [C.Decl Parse]
+            decls = mapMaybe getParseResultMaybeDecl parseResults
+            usageAnalysis = AnonUsageAnalysis.fromDecls decls
+
         pure
           ( parseResults
           , includeGraph
           , isMainHeader
           , isInMainHeaderDir
           , toGetMainHeaders getMainHeadersAndInclude
+          , usageAnalysis
           )
 
+    simplifyASTPass <- cache "simplifyAST" $ do
+      (afterParse, _, _, _, _, ua) <- parsePass
+      let (afterSimplifyAST, msgsSimplifyAST) = simplifyAST ua afterParse
+      forM_ msgsSimplifyAST $ traceWith tracer . FrontendSimplifyAST
+      pure afterSimplifyAST
+
     assignAnonIdsPass <- cache "assignAnonIds" $ do
-      (afterParse, _, _, _, _) <- parsePass
-      let (afterAssignAnonIds, msgsAssignAnonIds) = assignAnonIds afterParse
+      (_, _, _, _, _, ua) <- parsePass
+      afterSimplifyAST <- simplifyASTPass
+      let (afterAssignAnonIds, msgsAssignAnonIds) = assignAnonIds ua afterSimplifyAST
       forM_ msgsAssignAnonIds $ traceWith tracer . FrontendAssignAnonIds
       pure afterAssignAnonIds
 
     constructTranslationUnitPass <- cache "constructTranslationUnit" $ do
-      (_, includeGraph, _, _, _) <- parsePass
+      (_, includeGraph, _, _, _, _) <- parsePass
       afterAssignAnonIds <- assignAnonIdsPass
       let afterConstructTranslationUnit =
             constructTranslationUnit afterAssignAnonIds includeGraph
@@ -202,7 +230,7 @@ runFrontend tracer config boot = do
       pure afterResolveBindingSpecs
 
     selectPass <- cache "select" $ do
-      (_, _, isMainHeader, isInMainHeaderDir, _) <- parsePass
+      (_, _, isMainHeader, isInMainHeaderDir, _, _) <- parsePass
       afterResolveBindingSpecs <- resolveBindingSpecsPass
       let (afterSelect, msgsSelect) =
             selectDecls
@@ -226,7 +254,7 @@ runFrontend tracer config boot = do
 
     -- Include graph predicate.
     getIncludeGraphP <- cache "getIncludeGraphP" $ do
-      (_, _, isMainHeader, isInMainHeaderDir, _) <- parsePass
+      (_, _, isMainHeader, isInMainHeaderDir, _, _) <- parsePass
       pure $ \path ->
         matchParse isMainHeader isInMainHeaderDir path config.parsePredicate
         && path /= RootHeader.name
@@ -234,10 +262,10 @@ runFrontend tracer config boot = do
     -- Graphs.
     frontendIncludeGraph <- cache "frontendIncludeGraph" $ do
       includeGraphP <- getIncludeGraphP
-      (_, includeGraph, _, _, _) <- parsePass
+      (_, includeGraph, _, _, _, _) <- parsePass
       pure (includeGraphP, includeGraph)
     frontendGetMainHeaders <- cache "frontendGetMainHeaders" $ do
-      (_, _, _, _, getMainHeaders) <- parsePass
+      (_, _, _, _, getMainHeaders, _) <- parsePass
       pure getMainHeaders
     frontendIndex <- cache "frontendIndex" $ do
       (.ann.declIndex) <$> constructTranslationUnitPass
@@ -308,6 +336,7 @@ runFrontend tracer config boot = do
       , IsMainHeader
       , IsInMainHeaderDir
       , GetMainHeaders
+      , AnonUsageAnalysis.AnonUsageAnalysis
       )
     emptyParseResult =
       ( []
@@ -315,6 +344,7 @@ runFrontend tracer config boot = do
       , const False
       , const False
       , const (Left "empty")
+      , AnonUsageAnalysis.AnonUsageAnalysis { map = Map.empty }
       )
 
     cache :: String -> Cached a -> IO (Cached a)
@@ -346,6 +376,7 @@ data FrontendArtefact = FrontendArtefact {
 data FrontendMsg =
     FrontendClang ClangMsg
   | FrontendParse (Msg Parse)
+  | FrontendSimplifyAST (Msg SimplifyAST)
   | FrontendAssignAnonIds (Msg AssignAnonIds)
   | FrontendConstructTranslationUnit (Msg ConstructTranslationUnit)
   | FrontendHandleMacros (Msg HandleMacros)

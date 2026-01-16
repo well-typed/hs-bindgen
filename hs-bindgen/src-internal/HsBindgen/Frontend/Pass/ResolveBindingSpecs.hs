@@ -254,14 +254,15 @@ class Resolve a where
 
 instance Resolve C.DeclKind where
   resolve ctx = \case
-      C.DeclStruct struct    -> C.DeclStruct   <$> resolve ctx struct
-      C.DeclUnion union      -> C.DeclUnion    <$> resolve ctx union
-      C.DeclTypedef typedef  -> C.DeclTypedef  <$> resolve ctx typedef
-      C.DeclEnum enum        -> C.DeclEnum     <$> resolve ctx enum
-      C.DeclOpaque           -> return C.DeclOpaque
-      C.DeclMacro macro      -> C.DeclMacro    <$> resolve ctx macro
-      C.DeclFunction fun     -> C.DeclFunction <$> resolve ctx fun
-      C.DeclGlobal ty        -> C.DeclGlobal   <$> resolve ctx ty
+      C.DeclStruct struct                  -> C.DeclStruct           <$> resolve ctx struct
+      C.DeclUnion union                    -> C.DeclUnion            <$> resolve ctx union
+      C.DeclTypedef typedef                -> C.DeclTypedef          <$> resolve ctx typedef
+      C.DeclEnum enum                      -> C.DeclEnum             <$> resolve ctx enum
+      C.DeclAnonEnumConstant anonEnumConst -> pure $ C.DeclAnonEnumConstant (coercePass anonEnumConst)
+      C.DeclOpaque                         -> return C.DeclOpaque
+      C.DeclMacro macro                    -> C.DeclMacro            <$> resolve ctx macro
+      C.DeclFunction fun                   -> C.DeclFunction         <$> resolve ctx fun
+      C.DeclGlobal ty                      -> C.DeclGlobal           <$> resolve ctx ty
 
 instance Resolve C.Struct where
   resolve ctx struct =
