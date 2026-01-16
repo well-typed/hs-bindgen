@@ -15,6 +15,7 @@ library
   import:             warnings
   exposed-modules:
     QRCodeGenerator.Generated
+    QRCodeGenerator.Generated.FunPtr
     QRCodeGenerator.Generated.Safe
     QRCodeGenerator.Generated.Unsafe
 
