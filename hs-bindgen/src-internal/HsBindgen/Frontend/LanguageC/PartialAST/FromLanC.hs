@@ -181,12 +181,15 @@ instance Apply (LanC.CTypeSpecifier a) PartialType where
       LanC.CEnumType (LanC.CEnum mTag mDef _attrs _a) _a' -> \partial -> do
         name <- checkNotAnon mTag C.TagKindEnum
         checkNoDef "enum definition" mDef
-        notFun (typeRef name) $ partial
+        typeEnv <- getReparseEnv
+        case Map.lookup name.text typeEnv of
+          Nothing  -> unexpected $ "enum reference " ++ show name
+          Just typ -> notFun typ partial
       LanC.CTypeDef name _a -> \partial -> do
         let name' = mkCName name
         typeEnv <- getReparseEnv
         case Map.lookup name' typeEnv of
-          Nothing  -> unexpected $ "user-defined type " ++ show name
+          Nothing  -> unexpected $ "typedef reference " ++ show name
           Just typ -> notFun typ partial
     where
       charSign :: Maybe C.PrimSign -> C.PrimSignChar

@@ -158,6 +158,10 @@ analyseType = go
             case ref of
               PrelimDeclId.Named{}     -> []
               PrelimDeclId.Anon anonId -> [(anonId, ctxt)]
+        C.TypeEnum ref ->
+            case ref.name of
+              PrelimDeclId.Named{}     -> []
+              PrelimDeclId.Anon anonId -> [(anonId, ctxt)]
 
         -- Recursion
         --
