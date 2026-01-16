@@ -240,8 +240,8 @@ processAnonEnumConstant info anonEnumConst =
           info = info
         , ann  = NoAnn
         , kind = C.DeclAnonEnumConstant C.AnonEnumConstant {
-              typ       = coercePass anonEnumConst.typ
-            , constant  = constant
+              typ      = anonEnumConst.typ
+            , constant = constant
             }
         }
 

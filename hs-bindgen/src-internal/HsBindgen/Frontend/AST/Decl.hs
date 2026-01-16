@@ -40,6 +40,7 @@ import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
+import HsBindgen.Language.C (PrimType)
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -211,7 +212,7 @@ data EnumConstant p = EnumConstant {
 -- that will be rendered as a pattern synonym in Haskell (e.g., @pattern fOO :: CUInt@)
 --
 data AnonEnumConstant p = AnonEnumConstant{
-      typ       :: C.Type p
+      typ       :: PrimType
     , constant  :: EnumConstant p
     }
   deriving stock (Generic, Show, Eq)

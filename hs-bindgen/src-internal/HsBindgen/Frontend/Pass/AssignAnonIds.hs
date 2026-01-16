@@ -8,7 +8,7 @@ import Data.Either (partitionEithers)
 import Data.Map qualified as Map
 import Data.Tuple
 
-import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
+import HsBindgen.Frontend.Analysis.AnonUsage
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Naming
@@ -29,17 +29,15 @@ import HsBindgen.Language.C qualified as C
 
 -- | Assign name to all anonymous declarations
 assignAnonIds ::
-     [ParseResult SimplifyAST]
+     AnonUsageAnalysis
+  -> [ParseResult SimplifyAST]
   -> ([ParseResult AssignAnonIds], [ImmediateAssignAnonIdsMsg])
-assignAnonIds parseResults =
+assignAnonIds usage parseResults =
     swap . partitionEithers $
       map (updateParseResult chosenNames) parseResults
   where
-    decls :: [C.Decl SimplifyAST]
-    decls = mapMaybe getParseResultMaybeDecl parseResults
-
     chosenNames :: ChosenNames
-    chosenNames = chooseNames (AnonUsageAnalysis.fromDecls decls)
+    chosenNames = chooseNames usage
 
 {-------------------------------------------------------------------------------
   Update 'ParseResults' with chosen names
@@ -354,16 +352,11 @@ instance UpdateUseSites C.EnumConstant where
 
 instance UpdateUseSites C.AnonEnumConstant where
   updateUseSites anonEnumConstant =
-      reconstruct
-        <$> updateUseSites anonEnumConstant.typ
-        <*> updateUseSites anonEnumConstant.constant
+      reconstruct <$> updateUseSites anonEnumConstant.constant
     where
-      reconstruct ::
-           C.Type AssignAnonIds
-        -> C.EnumConstant AssignAnonIds
-        -> C.AnonEnumConstant AssignAnonIds
-      reconstruct typ' constant' = C.AnonEnumConstant{
-            typ      = typ'
+      reconstruct :: C.EnumConstant AssignAnonIds -> C.AnonEnumConstant AssignAnonIds
+      reconstruct constant' = C.AnonEnumConstant{
+            typ      = anonEnumConstant.typ  -- PrimType has no use sites to update
           , constant = constant'
           }
 

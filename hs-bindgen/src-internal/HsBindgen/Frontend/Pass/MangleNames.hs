@@ -540,17 +540,12 @@ instance MangleInDecl C.Enum where
           }
 
 instance MangleInDecl C.AnonEnumConstant where
-  mangleInDecl info anonEnumConst = do
-      reconstruct
-        <$> mangle anonEnumConst.typ
-        <*> mangleInDecl info anonEnumConst.constant
+  mangleInDecl info (C.AnonEnumConstant primTyp constant') = do
+      reconstruct <$> mangleInDecl info constant'
     where
-      reconstruct ::
-           C.Type MangleNames
-        -> C.EnumConstant MangleNames
-        -> C.AnonEnumConstant MangleNames
-      reconstruct enumType' enumConstants' = C.AnonEnumConstant{
-            typ      = enumType'
+      reconstruct :: C.EnumConstant MangleNames -> C.AnonEnumConstant MangleNames
+      reconstruct enumConstants' = C.AnonEnumConstant{
+            typ      = primTyp
           , constant = enumConstants'
           }
 

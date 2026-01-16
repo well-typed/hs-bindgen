@@ -15,6 +15,7 @@ import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Clang
 import HsBindgen.Config.Internal
+import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
@@ -76,7 +77,6 @@ import HsBindgen.Util.Tracer
 --
 -- Constraints:
 --
--- * Must be after "HsBindgen.Frontend.Pass.Parse" so that declarations exist
 -- * Must be before "HsBindgen.Frontend.Pass.AssignAnonIds" so that
 --   unused anonymous declarations are not filtered
 --
@@ -175,28 +175,35 @@ runFrontend tracer config boot = do
               , tracer                   = contramap FrontendParse tracer
               }
         parseResults <- parseDecls parseEnv unit
+
+        let decls :: [C.Decl Parse]
+            decls = mapMaybe getParseResultMaybeDecl parseResults
+            usageAnalysis = AnonUsageAnalysis.fromDecls decls
+
         pure
           ( parseResults
           , includeGraph
           , isMainHeader
           , isInMainHeaderDir
           , toGetMainHeaders getMainHeadersAndInclude
+          , usageAnalysis
           )
 
     simplifyASTPass <- cache "simplifyAST" $ do
-      (afterParse, _, _, _, _) <- parsePass
-      let (afterSimplifyAST, msgsSimplifyAST) = simplifyAST afterParse
+      (afterParse, _, _, _, _, ua) <- parsePass
+      let (afterSimplifyAST, msgsSimplifyAST) = simplifyAST ua afterParse
       forM_ msgsSimplifyAST $ traceWith tracer . FrontendSimplifyAST
       pure afterSimplifyAST
 
     assignAnonIdsPass <- cache "assignAnonIds" $ do
+      (_, _, _, _, _, ua) <- parsePass
       afterSimplifyAST <- simplifyASTPass
-      let (afterAssignAnonIds, msgsAssignAnonIds) = assignAnonIds afterSimplifyAST
+      let (afterAssignAnonIds, msgsAssignAnonIds) = assignAnonIds ua afterSimplifyAST
       forM_ msgsAssignAnonIds $ traceWith tracer . FrontendAssignAnonIds
       pure afterAssignAnonIds
 
     constructTranslationUnitPass <- cache "constructTranslationUnit" $ do
-      (_, includeGraph, _, _, _) <- parsePass
+      (_, includeGraph, _, _, _, _) <- parsePass
       afterAssignAnonIds <- assignAnonIdsPass
       let afterConstructTranslationUnit =
             constructTranslationUnit afterAssignAnonIds includeGraph
@@ -223,7 +230,7 @@ runFrontend tracer config boot = do
       pure afterResolveBindingSpecs
 
     selectPass <- cache "select" $ do
-      (_, _, isMainHeader, isInMainHeaderDir, _) <- parsePass
+      (_, _, isMainHeader, isInMainHeaderDir, _, _) <- parsePass
       afterResolveBindingSpecs <- resolveBindingSpecsPass
       let (afterSelect, msgsSelect) =
             selectDecls
@@ -247,7 +254,7 @@ runFrontend tracer config boot = do
 
     -- Include graph predicate.
     getIncludeGraphP <- cache "getIncludeGraphP" $ do
-      (_, _, isMainHeader, isInMainHeaderDir, _) <- parsePass
+      (_, _, isMainHeader, isInMainHeaderDir, _, _) <- parsePass
       pure $ \path ->
         matchParse isMainHeader isInMainHeaderDir path config.parsePredicate
         && path /= RootHeader.name
@@ -255,10 +262,10 @@ runFrontend tracer config boot = do
     -- Graphs.
     frontendIncludeGraph <- cache "frontendIncludeGraph" $ do
       includeGraphP <- getIncludeGraphP
-      (_, includeGraph, _, _, _) <- parsePass
+      (_, includeGraph, _, _, _, _) <- parsePass
       pure (includeGraphP, includeGraph)
     frontendGetMainHeaders <- cache "frontendGetMainHeaders" $ do
-      (_, _, _, _, getMainHeaders) <- parsePass
+      (_, _, _, _, getMainHeaders, _) <- parsePass
       pure getMainHeaders
     frontendIndex <- cache "frontendIndex" $ do
       (.ann.declIndex) <$> constructTranslationUnitPass
@@ -329,6 +336,7 @@ runFrontend tracer config boot = do
       , IsMainHeader
       , IsInMainHeaderDir
       , GetMainHeaders
+      , AnonUsageAnalysis.AnonUsageAnalysis
       )
     emptyParseResult =
       ( []
@@ -336,6 +344,7 @@ runFrontend tracer config boot = do
       , const False
       , const False
       , const (Left "empty")
+      , AnonUsageAnalysis.AnonUsageAnalysis { map = Map.empty }
       )
 
     cache :: String -> Cached a -> IO (Cached a)

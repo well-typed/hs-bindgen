@@ -12,9 +12,9 @@ import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
-import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -58,7 +58,7 @@ chooseNames (AnonUsageAnalysis usageAnalysis) =
         PrelimDeclId.Anon anonId ->
           nameFor anonId
 
-    nameForField :: AnonId -> C.FieldInfo SimplifyAST -> DeclId -> DeclId
+    nameForField :: AnonId -> C.FieldInfo Parse -> DeclId -> DeclId
     nameForField anonId field outerStruct = DeclId{
           isAnon = True
         , name   = C.DeclName{

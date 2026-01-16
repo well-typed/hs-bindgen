@@ -327,11 +327,18 @@ deriving stock instance Show VarDeclRHSAppHead
 
 -- | Pattern synonyms
 --
--- For now only pattern synonyms of form
+-- Supports pattern synonyms of the following forms:
 --
 -- @
 -- pattern P :: T
 -- pattern P = C e
+-- @
+--
+-- and
+--
+-- @
+-- pattern P :: T
+-- pattern P = e
 -- @
 --
 data PatSyn = PatSyn{

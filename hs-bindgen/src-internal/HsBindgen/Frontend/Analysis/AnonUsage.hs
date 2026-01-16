@@ -15,9 +15,9 @@ import Data.Map qualified as Map
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.AST.Type qualified as C
+import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
-import HsBindgen.Frontend.Pass.SimplifyAST.IsPass (SimplifyAST)
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -39,14 +39,14 @@ data Context =
     -- >   struct { int x; int y; } topleft;
     -- >   struct { int x; int y; } bottomright;
     -- > }
-    Field (C.DeclInfo SimplifyAST) (C.FieldInfo SimplifyAST)
+    Field (C.DeclInfo Parse) (C.FieldInfo Parse)
 
     -- | Direct use of anonymous declaration inside in a typedef
     --
     -- E.g.
     --
     -- > typedef struct { int; int y; } point;
-  | TypedefDirect (C.DeclInfo SimplifyAST)
+  | TypedefDirect (C.DeclInfo Parse)
 
     -- | Indirect use of an anonymous declaration inside a typedef
     --
@@ -63,14 +63,14 @@ data Context =
     -- (indeed, @clang >= 16@ already does this out of the box), but in the case
     -- of 'TypedefIndirect' we add a @_Aux@ suffix, because now the two types
     -- are meaningfully different (and @clang@ assigns no name at all).
-  | TypedefIndirect (C.DeclInfo SimplifyAST)
+  | TypedefIndirect (C.DeclInfo Parse)
   deriving stock (Show)
 
 {-------------------------------------------------------------------------------
   Top-level API
 -------------------------------------------------------------------------------}
 
-fromDecls :: [C.Decl SimplifyAST] -> AnonUsageAnalysis
+fromDecls :: [C.Decl Parse] -> AnonUsageAnalysis
 fromDecls decls = AnonUsageAnalysis{
       map = Map.fromListWithKey resolveConflicts $
              concatMap analyseDecl decls
@@ -111,7 +111,7 @@ resolveConflicts anonId new old =
 -- NOTE: Anonymous declarations that appear in function signatures and
 -- global variables are unusable, and so we do not assign a name to them
 -- (this will cause them to be removed from the list of declarations).
-analyseDecl :: C.Decl SimplifyAST -> [(AnonId, Context)]
+analyseDecl :: C.Decl Parse -> [(AnonId, Context)]
 analyseDecl decl =
     case decl.kind of
       C.DeclStruct           x -> analyseStruct  decl.info x
@@ -124,23 +124,23 @@ analyseDecl decl =
       C.DeclFunction         _ -> []
       C.DeclGlobal           _ -> []
 
-analyseStruct :: C.DeclInfo SimplifyAST -> C.Struct SimplifyAST -> [(AnonId, Context)]
+analyseStruct :: C.DeclInfo Parse -> C.Struct Parse -> [(AnonId, Context)]
 analyseStruct info struct = concat [
       concatMap aux struct.fields
     , concatMap aux struct.flam
     ]
   where
-    aux :: C.StructField SimplifyAST -> [(AnonId, Context)]
+    aux :: C.StructField Parse -> [(AnonId, Context)]
     aux f = analyseType (Field info f.info) f.typ
 
-analyseUnion :: C.DeclInfo SimplifyAST -> C.Union SimplifyAST -> [(AnonId, Context)]
+analyseUnion :: C.DeclInfo Parse -> C.Union Parse -> [(AnonId, Context)]
 analyseUnion info union =
     concatMap aux union.fields
   where
-    aux :: C.UnionField SimplifyAST -> [(AnonId, Context)]
+    aux :: C.UnionField Parse -> [(AnonId, Context)]
     aux f = analyseType (Field info f.info) f.typ
 
-analyseTypedef :: C.DeclInfo SimplifyAST -> C.Typedef SimplifyAST -> [(AnonId, Context)]
+analyseTypedef :: C.DeclInfo Parse -> C.Typedef Parse -> [(AnonId, Context)]
 analyseTypedef info typedef = analyseType (TypedefDirect info) typedef.typ
 
 {-------------------------------------------------------------------------------
@@ -149,10 +149,10 @@ analyseTypedef info typedef = analyseType (TypedefDirect info) typedef.typ
   This is where the real work happens; the rest is just setting up context.
 -------------------------------------------------------------------------------}
 
-analyseType :: Context -> C.Type SimplifyAST -> [(AnonId, Context)]
+analyseType :: Context -> C.Type Parse -> [(AnonId, Context)]
 analyseType = go
   where
-    go :: Context -> C.Type SimplifyAST -> [(AnonId, Context)]
+    go :: Context -> C.Type Parse -> [(AnonId, Context)]
     go ctxt = \case
         -- Base case
         C.TypeRef ref ->
@@ -182,7 +182,7 @@ analyseType = go
         C.TypeTypedef{}    -> []
         C.TypeVoid{}       -> []
       where
-        indirect :: C.Type SimplifyAST -> [(AnonId, Context)]
+        indirect :: C.Type Parse -> [(AnonId, Context)]
         indirect =
            case ctxt of
              TypedefDirect declInfo -> go (TypedefIndirect declInfo)

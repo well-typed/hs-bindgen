@@ -233,13 +233,12 @@ instance (
       }
 
 instance (
-       CoercePass C.Type p p'
-     , CoercePass C.EnumConstant p p'
+       CoercePass C.EnumConstant p p'
      , Ann "PatternSynonym" p ~ Ann "PatternSynonym" p'
      ) => CoercePass C.AnonEnumConstant p p' where
-  coercePass patternSynonym = C.AnonEnumConstant{
-        typ      = coercePass patternSynonym.typ
-      , constant = coercePass patternSynonym.constant
+  coercePass (C.AnonEnumConstant typ' constant') = C.AnonEnumConstant{
+        typ      = typ'
+      , constant = coercePass constant'
       }
 
 instance (

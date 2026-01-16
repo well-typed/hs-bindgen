@@ -1422,15 +1422,12 @@ anonEnumConstantDecs ::
   -> [Hs.Decl]
 anonEnumConstantDecs haddockConfig info anonEnumConstant =
     let
-      -- Pattern synonym name comes from the enum constant name
       patSynName :: Hs.Name Hs.NsConstr
       patSynName = Hs.unsafeHsIdHsName anonEnumConstant.constant.info.name.hsName
 
-      -- Pattern synonym type is the enum's underlying type
       patSynType :: HsType
-      patSynType = Type.topLevel anonEnumConstant.typ
+      patSynType = Type.topLevel (C.TypePrim anonEnumConstant.typ)
 
-      -- Pattern synonym declaration with type signature
       typeSigDecl :: Hs.Decl
       typeSigDecl = Hs.DeclPatSyn Hs.PatSyn{
             name    = patSynName
