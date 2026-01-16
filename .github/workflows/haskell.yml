@@ -33,6 +33,8 @@ jobs:
       run: |
         { echo 'MATRIX_COMBINATIONS<<EOF'
           echo '{"runner": "ubuntu-latest", "ghc": "9.4", "llvm": "15"},'
+          echo '{"runner": "macos-latest"  , "ghc": "9.4", "llvm": "14"},'
+          echo '{"runner": "windows-latest", "ghc": "9.4", "llvm": "14"},'
           echo EOF
         } >> "$GITHUB_ENV"
 
