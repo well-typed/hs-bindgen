@@ -10,11 +10,11 @@ import HsBindgen.Frontend.Analysis.AnonUsage (AnonUsageAnalysis (..))
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.AST.Decl qualified as C
 import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (AnonId, PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Frontend.Pass.Parse.IsPass (Parse)
 
 {-------------------------------------------------------------------------------
   Top-level
