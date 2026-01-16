@@ -1136,6 +1136,7 @@ testCases_bespoke_programAnalysis = [
     , test_programAnalysis_selection_omit_external_a
     , test_programAnalysis_selection_omit_external_b
     , test_programAnalysis_selection_omit_prescriptive
+    , test_programAnalysis_selection_squash
     ]
 
 test_programAnalysis_delay_traces :: TestCase
@@ -1394,6 +1395,19 @@ test_programAnalysis_selection_omit_prescriptive =
           "struct DirectlyDependsOnOmitted"
         , "struct IndirectlyDependsOnOmitted"
         ]
+
+test_programAnalysis_selection_squash :: TestCase
+test_programAnalysis_selection_squash =
+    defaultTest "program-analysis/selection_squash_typedef"
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchNoDeclarations ->
+              Just $ Expected "no-decls"
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["no-decls"]
 
 {-------------------------------------------------------------------------------
   Bespoke tests: types
