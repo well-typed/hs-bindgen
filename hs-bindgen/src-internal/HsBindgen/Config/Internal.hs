@@ -86,7 +86,8 @@ data FrontendConfig = FrontendConfig {
 --
 -- See also the notes at 'FrontendConfig'.
 data BackendConfig = BackendConfig {
-      translation    :: TranslationConfig
+      uniqueId       :: UniqueId
+    , translation    :: TranslationConfig
     , haddock        :: HaddockConfig
     , categoryChoice :: ByCategory Choice
     }
@@ -97,7 +98,7 @@ checkBackendConfig :: Tracer BackendConfigMsg -> BackendConfig -> IO ()
 checkBackendConfig tracer backendConfig =
     checkUniqueId
       (contramap BackendConfigUniqueId tracer)
-      backendConfig.translation.uniqueId
+      backendConfig.uniqueId
 
 data BackendConfigMsg = BackendConfigUniqueId UniqueIdMsg
   deriving stock (Show, Generic)

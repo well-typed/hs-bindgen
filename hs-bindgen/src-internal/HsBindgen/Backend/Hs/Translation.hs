@@ -56,17 +56,18 @@ import HsBindgen.PrettyC qualified as PC
 -------------------------------------------------------------------------------}
 
 generateDeclarations ::
-     TranslationConfig
+     UniqueId
+  -> TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
   -> DeclIndex
   -> C.Sizeofs
   -> [C.Decl Final]
   -> ByCategory_ [Hs.Decl]
-generateDeclarations opts config name declIndex sizeofs =
+generateDeclarations uniqueId opts config name declIndex sizeofs =
     fmap reverse .
       foldl' partitionBindingCategories mempty .
-      generateDeclarations' opts config name declIndex sizeofs
+      generateDeclarations' uniqueId opts config name declIndex sizeofs
   where
     partitionBindingCategories ::
       ByCategory_ [a] -> WithCategory a  -> ByCategory_ [a]
@@ -80,14 +81,15 @@ data WithCategory a = WithCategory {
   } deriving (Show)
 
 generateDeclarations' ::
-     TranslationConfig
+     UniqueId
+  -> TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
   -> DeclIndex
   -> C.Sizeofs
   -> [C.Decl Final]
   -> [WithCategory Hs.Decl]
-generateDeclarations' opts haddockConfig moduleName declIndex sizeofs decs =
+generateDeclarations' uniqueId opts haddockConfig moduleName declIndex sizeofs decs =
     State.runHsM $ do
       let scannedFunctionPointerTypes = scanAllFunctionPointerTypes decs
           -- Generate ToFunPtr/FromFunPtr instances for nested callback types
@@ -100,7 +102,7 @@ generateDeclarations' opts haddockConfig moduleName declIndex sizeofs decs =
                    , any (isDefinedInCurrentModule declIndex) (res:args)
                    , d <- ToFromFunPtr.forFunction sizeofs (args, res)
                    ]
-      hsDecls <- concat <$> mapM (generateDecs opts haddockConfig moduleName sizeofs) decs
+      hsDecls <- concat <$> mapM (generateDecs uniqueId opts haddockConfig moduleName sizeofs) decs
       pure $ hsDecls ++ fFIStubsAndFunPtrInstances
 
 -- | This function takes a list of all declarations and collects all function
@@ -152,13 +154,14 @@ isDefinedInCurrentModule declIndex =
 
 -- TODO: Take DeclSpec into account
 generateDecs ::
-     TranslationConfig
+     UniqueId
+  -> TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
   -> C.Sizeofs
   -> C.Decl Final
   -> HsM [WithCategory Hs.Decl]
-generateDecs opts haddockConfig moduleName sizeofs (C.Decl info kind spec) =
+generateDecs uniqueId opts haddockConfig moduleName sizeofs (C.Decl info kind spec) =
     case kind of
       C.DeclStruct struct -> withCategoryM CType $
         structDecs opts haddockConfig info struct spec
@@ -179,12 +182,12 @@ generateDecs opts haddockConfig moduleName sizeofs (C.Decl info kind spec) =
         opaqueDecs haddockConfig info spec
       C.DeclFunction function -> do
         let funDeclsWith safety =
-              functionDecs safety opts haddockConfig moduleName sizeofs info function spec
+              functionDecs safety uniqueId haddockConfig moduleName sizeofs info function spec
             funType = C.TypeFun (map snd function.args) function.res
             -- Declare a function pointer. We can pass this 'FunPtr' to C
             -- functions that take a function pointer of the appropriate type.
             funPtrDecls = fst $
-              addressStubDecs opts haddockConfig moduleName sizeofs info funType HaskellId spec
+              addressStubDecs uniqueId haddockConfig moduleName sizeofs info funType HaskellId spec
         pure $ withCategory (CTerm CSafe)   (funDeclsWith SHs.Safe)
             ++ withCategory (CTerm CUnsafe) (funDeclsWith SHs.Unsafe)
             ++ withCategory (CTerm CFunPtr)  funPtrDecls
@@ -193,7 +196,7 @@ generateDecs opts haddockConfig moduleName sizeofs (C.Decl info kind spec) =
       C.DeclGlobal ty -> do
         transState <- State.get
         pure $ withCategory (CTerm CGlobal) $
-          global opts haddockConfig moduleName transState sizeofs info ty spec
+          global uniqueId haddockConfig moduleName transState sizeofs info ty spec
     where
       withCategory :: Category -> [a] -> [WithCategory a]
       withCategory c = map (WithCategory c)
@@ -1003,7 +1006,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
 -- also generate an additional \"getter\" function in Haskell land that returns
 -- precisely the value of the constant rather than a /pointer/ to the value.
 global ::
-     TranslationConfig
+     UniqueId
   -> HaddockConfig
   -> BaseModuleName
   -> TranslationState
@@ -1012,7 +1015,7 @@ global ::
   -> C.Type Final
   -> PrescriptiveDeclSpec
   -> [Hs.Decl]
-global opts haddockConfig moduleName transState sizeofs info ty _spec
+global uniqueId haddockConfig moduleName transState sizeofs info ty _spec
     -- Generate getter if the type is @const@-qualified. We inspect the /erased/
     -- type because we want to see through newtypes as well.
     --
@@ -1038,7 +1041,7 @@ global opts haddockConfig moduleName transState sizeofs info ty _spec
     | otherwise = fst $ getStubDecsWith HaskellId
   where
     getStubDecsWith :: RunnerNameSpec -> ([Hs.Decl], Hs.Name Hs.NsVar)
-    getStubDecsWith x = addressStubDecs opts haddockConfig moduleName sizeofs info ty x _spec
+    getStubDecsWith x = addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty x _spec
 
     insts :: Set Hs.TypeClass
     insts =
@@ -1101,7 +1104,7 @@ data RunnerNameSpec =
 --
 -- * @pureStubName@: the identifier of the /pure/ stub.
 addressStubDecs ::
-     TranslationConfig
+     UniqueId
   -> HaddockConfig
   -> BaseModuleName
   -> C.Sizeofs
@@ -1112,7 +1115,7 @@ addressStubDecs ::
   -> ( [Hs.Decl]
      , Hs.Name 'Hs.NsVar
      )
-addressStubDecs opts haddockConfig moduleName sizeofs info ty runnerNameSpec _spec =
+addressStubDecs uniqueId haddockConfig moduleName sizeofs info ty runnerNameSpec _spec =
     (foreignImport ++ runnerDecls, runnerName)
   where
     -- *** Stub (impure) ***
@@ -1120,9 +1123,7 @@ addressStubDecs opts haddockConfig moduleName sizeofs info ty runnerNameSpec _sp
     stubImportType = HsIO $ Type.topLevel stubType
 
     stubSymbol :: UniqueSymbol
-    stubSymbol =
-        globallyUnique opts.uniqueId moduleName $
-          "get_" ++ varName
+    stubSymbol = globallyUnique uniqueId moduleName $ "get_" ++ varName
 
     stubName :: Hs.Name Hs.NsVar
     stubName = Hs.InternalName stubSymbol
@@ -1194,7 +1195,7 @@ addressStubDecs opts haddockConfig moduleName sizeofs info ty runnerNameSpec _sp
     name = info.id.unsafeHsName.text
 
     uniquify :: Text -> UniqueSymbol
-    uniquify = globallyUnique opts.uniqueId moduleName . Text.unpack
+    uniquify = globallyUnique uniqueId moduleName . Text.unpack
 
     runnerName = case runnerNameSpec of
         HaskellId      -> Hs.ExportedName (Hs.UnsafeExportedName name)

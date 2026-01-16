@@ -19,7 +19,6 @@ import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
-import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImport
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
@@ -83,7 +82,7 @@ import HsBindgen.PrettyC qualified as PC
 functionDecs ::
      HasCallStack
   => SHs.Safety
-  -> TranslationConfig
+  -> UniqueId
   -> HaddockConfig
   -> BaseModuleName
   -> C.Sizeofs
@@ -91,7 +90,7 @@ functionDecs ::
   -> C.Function Final
   -> PrescriptiveDeclSpec
   -> [Hs.Decl]
-functionDecs safety opts haddockConfig moduleName sizeofs info origCFun _spec =
+functionDecs safety uniqueId haddockConfig moduleName sizeofs info origCFun _spec =
     concat [
         foreignImport
       , [restoreOrigSignature]
@@ -108,7 +107,7 @@ functionDecs safety opts haddockConfig moduleName sizeofs info origCFun _spec =
 
     cWrapperName :: UniqueSymbol
     cWrapperName =
-        globallyUnique opts.uniqueId moduleName $
+        globallyUnique uniqueId moduleName $
           concat [
               show safety
             , "_"

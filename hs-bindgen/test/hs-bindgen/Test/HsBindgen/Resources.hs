@@ -16,7 +16,6 @@ import Test.Tasty
 import Clang.Version
 
 import HsBindgen.Backend.Hs.Haddock.Config
-import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Errors (panicPure)
@@ -110,7 +109,7 @@ getTestDefaultClangArgsConfig testResources extraIncludeDirs' =
 getTestDefaultBackendConfig :: TestName -> PathStyle -> BackendConfig
 getTestDefaultBackendConfig testName pathStyle = def{
       -- Honor 'maxUniqueIdLength'.
-      translation = def & #uniqueId .~ UniqueId (take 35 $ "test." <> testName)
-    , haddock = HaddockConfig pathStyle
+      uniqueId = UniqueId (take 35 $ "test." <> testName)
+    , haddock  = HaddockConfig pathStyle
     }
 
