@@ -20,7 +20,6 @@ import HsBindgen.Cli.Info.BuiltinMacros qualified as BuiltinMacros
 import HsBindgen.Cli.Info.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Cli.Info.Libclang qualified as Libclang
 import HsBindgen.Cli.Info.ResolveHeader qualified as ResolveHeader
-import HsBindgen.Cli.Info.Targets qualified as Targets
 import HsBindgen.Cli.Info.UseDeclGraph qualified as UseDeclGraph
 
 {-------------------------------------------------------------------------------
@@ -40,7 +39,6 @@ data Cmd =
   | CmdIncludeGraph  IncludeGraph.Opts
   | CmdLibclang      Libclang.Opts
   | CmdResolveHeader ResolveHeader.Opts
-  | CmdTargets       ()
   | CmdUseDeclGraph  UseDeclGraph.Opts
 
 parseCmd :: Parser Cmd
@@ -66,11 +64,6 @@ parseCmd = subparser $ mconcat [
         ResolveHeader.parseOpts
         ResolveHeader.info
     , cmd
-        "targets"
-        CmdTargets
-        (pure ())
-        Targets.info
-    , cmd
         "use-decl-graph"
         CmdUseDeclGraph
         UseDeclGraph.parseOpts
@@ -87,5 +80,4 @@ exec gopts = \case
     CmdIncludeGraph  opts -> IncludeGraph.exec  gopts opts
     CmdLibclang      opts -> Libclang.exec      gopts opts
     CmdResolveHeader opts -> ResolveHeader.exec gopts opts
-    CmdTargets       ()   -> Targets.exec
     CmdUseDeclGraph  opts -> UseDeclGraph.exec  gopts opts

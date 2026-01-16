@@ -247,7 +247,6 @@ parseClangArgsConfig = do
     -- ApplicativeDo to be able to reorder arguments for --help, and to use
     -- record construction (i.e., to avoid bool or string/path blindness)
     -- instead of positional one.
-    target           <- optional parseTarget
     cStandard        <- parseCStandard
     gnu              <- parseGnu
     enableBlocks     <- parseEnableBlocks
@@ -258,8 +257,7 @@ parseClangArgsConfig = do
     argsInner        <- many parseClangOptionInner
     argsAfter        <- many parseClangOptionAfter
     pure $ ClangArgsConfig{
-        target           = target
-      , cStandard        = cStandard
+        cStandard        = cStandard
       , gnu              = gnu
       , enableBlocks     = enableBlocks
       , builtinIncDir    = builtinIncDir
@@ -269,16 +267,6 @@ parseClangArgsConfig = do
       , argsInner        = argsInner
       , argsAfter        = argsAfter
       }
-
-parseTarget :: Parser Target
-parseTarget = option (maybeReader parseTargetTriple) $ mconcat [
-      long "target"
-    , metavar "TRIPLE"
-    , help $ concat [
-          "Target (for cross-compilation); supported: "
-        , List.intercalate ", " (map targetTriple [minBound ..])
-        ]
-    ]
 
 parseCStandard :: Parser CStandard
 parseCStandard = option (eitherReader readCStandard) $ mconcat [

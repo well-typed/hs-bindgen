@@ -15,7 +15,6 @@ import Clang.Paths
 
 import HsBindgen.BindingSpec (MergedBindingSpecs, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
@@ -41,19 +40,18 @@ import HsBindgen.Util.Monad (mapMaybeM)
 -------------------------------------------------------------------------------}
 
 resolveBindingSpecs ::
-     ClangArgs.Target
-  -> Hs.ModuleName
+     Hs.ModuleName
   -> MergedBindingSpecs
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit HandleMacros
   -> (C.TranslationUnit ResolveBindingSpecs, [Msg ResolveBindingSpecs])
-resolveBindingSpecs target hsModuleName extSpecs pSpec unit =
+resolveBindingSpecs hsModuleName extSpecs pSpec unit =
     let pSpecModule = BindingSpec.moduleName pSpec
         (pSpecErrs, pSpec')
           | pSpecModule == hsModuleName = ([], pSpec)
           | otherwise =
               ( [ResolveBindingSpecsModuleMismatch hsModuleName pSpecModule]
-              , BindingSpec.empty target hsModuleName
+              , BindingSpec.empty hsModuleName
               )
         (decls, state) =
           runM

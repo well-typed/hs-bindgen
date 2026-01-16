@@ -68,12 +68,15 @@ getTestPackageRoot = fmap (.packageRoot)
 
 mkTestClangArgsConfig :: FilePath -> ClangArgsConfig FilePath
 mkTestClangArgsConfig packageRoot = def {
-      target = Just Target_Linux_Musl_X86_64
-    , cStandard = C23
+      cStandard = C23
     , extraIncludeDirs = [
           packageRoot </> "musl-include/x86_64"
         ]
+    , argsBefore = targetArgs
     }
+  where
+    targetArgs :: [String]
+    targetArgs = ["-target", "x86_64-pc-linux-musl"]
 
 getTestDefaultClangArgsConfig ::
      IO TestResources

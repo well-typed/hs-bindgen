@@ -22,7 +22,6 @@ import Test.HsBindgen.Resources
 tests :: IO TestResources -> TestTree
 tests testResources = testGroup "Test.HsBindgen.Unit.ClangArgs" [
       testCase "getTargetTriple" $ testGetTargetTriple testResources
-    , parseTargetTripleLenientTests
     , splitArgumentsTests
     ]
 
@@ -33,7 +32,8 @@ tests testResources = testGroup "Test.HsBindgen.Unit.ClangArgs" [
 testGetTargetTriple :: IO TestResources -> Assertion
 testGetTargetTriple testResources = do
     clangArgsConfig <- getTestDefaultClangArgsConfig testResources []
-    clangArgs <- either (panicIO . show) return $ getClangArgs clangArgsConfig
+    clangArgs <- either (panicIO . show) return $
+      clangArgsConfigToClangArgs clangArgsConfig
 
     let setup :: ClangSetup
         setup = defaultClangSetup clangArgs $
@@ -55,56 +55,6 @@ testGetTargetTriple testResources = do
 
     noReport :: a -> IO ()
     noReport = const $ pure ()
-
-parseTargetTripleLenientTests :: TestTree
-parseTargetTripleLenientTests = testGroup "parseTargetTripleLenient" [
-      -- Canonical Linux target triples
-      aux "x86_64-pc-linux-gnu"   (Just Target_Linux_GNU_X86_64)
-    , aux "x86_64-pc-linux-musl"  (Just Target_Linux_Musl_X86_64)
-    , aux "aarch64-pc-linux-gnu"  (Just Target_Linux_GNU_AArch64)
-    , aux "aarch64-pc-linux-musl" (Just Target_Linux_Musl_AArch64)
-      -- Supported alternate Linux machine architectures
-    , aux "amd64-pc-linux-gnu"  (Just Target_Linux_GNU_X86_64)
-    , aux "arm64-pc-linux-gnu"  (Just Target_Linux_GNU_AArch64)
-      -- Supported alternate Linux vendors (currently not checked)
-    , aux "x86_64-linux-gnu"         (Just Target_Linux_GNU_X86_64)
-    , aux "x86_64-unknown-linux-gnu" (Just Target_Linux_GNU_X86_64)
-      -- Invalid Linux target triples
-    , aux "i386-pc-linux-musl" Nothing -- Musl 32-bit not supported
-    , aux "x86_64-pc-linux"    Nothing -- Must specify GNU or Musl
-      -- Canonical Windows target triples
-    , aux "x86_64-pc-windows-msvc" (Just Target_Windows_MSVC_X86_64)
-    , aux "x86_64-pc-windows-gnu"  (Just Target_Windows_GNU_X86_64)
-      -- Supported alternate Windows machine architectures
-    , aux "amd64-pc-windows-msvc" (Just Target_Windows_MSVC_X86_64)
-      -- Supported alternate Windows vendors (currently not checked)
-    , aux "x86_64-windows-msvc"         (Just Target_Windows_MSVC_X86_64)
-    , aux "x86_64-w64-windows-msvc"     (Just Target_Windows_MSVC_X86_64)
-    , aux "x86_64-unknown-windows-msvc" (Just Target_Windows_MSVC_X86_64)
-      -- Supported alternate Windows operating system enironments
-    , aux "x86_64-w64-windows-mingw32" (Just Target_Windows_GNU_X86_64)
-      -- Supported Windows target triple with appended MSVC version number
-    , aux "x86_64-pc-windows-msvc19.50.35717" (Just Target_Windows_MSVC_X86_64)
-      -- Invalid Windows target triples
-    , aux "i686-pc-windows-msvc" Nothing -- Windows 32-bit not supported
-      -- Canonical Darwin target triples
-    , aux "x86_64-apple-darwin"  (Just Target_Darwin_X86_64)
-    , aux "aarch64-apple-darwin" (Just Target_Darwin_AArch64)
-      -- Supported alternate Darwin machine architectures
-    , aux "amd64-apple-darwin" (Just Target_Darwin_X86_64)
-    , aux "arm64-apple-darwin" (Just Target_Darwin_AArch64)
-      -- Supported Darwin target triple with appended version number
-    , aux "arm64-apple-darwin24.6.0" (Just Target_Darwin_AArch64)
-      -- Supported alternate Darwin vendors (currently not checked)
-    , aux "x86_64-pc-darwin" (Just Target_Darwin_X86_64)
-    ]
-  where
-    aux :: String -> Maybe Target -> TestTree
-    aux tt mTarget =
-      let label = case mTarget of
-            Just{}  -> tt
-            Nothing -> tt ++ " (invalid)"
-      in  testCase label $ mTarget @=? parseTargetTripleLenient tt
 
 {-------------------------------------------------------------------------------
   Split arguments

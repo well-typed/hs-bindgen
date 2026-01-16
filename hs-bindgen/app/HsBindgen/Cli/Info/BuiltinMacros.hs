@@ -68,7 +68,7 @@ exec global opts =
     void . withTracer global.unsafe $ \tracer -> do
       let tracerBoot  = contramap TraceBoot tracer
           tracerClang = contramap (TraceFrontend . FrontendClang) tracer
-      (clangArgs, _target) <- getClangArgsAndTarget tracerBoot opts.clangArgsConfig
+      clangArgs <- getClangArgs tracerBoot opts.clangArgsConfig
       -- 1. Get the names of the builtin macros
       names <- getBuiltinMacroNames tracerClang clangArgs
       -- 2. Try to get stringified values for all macros

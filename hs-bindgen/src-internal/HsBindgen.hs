@@ -190,7 +190,6 @@ writeBindingsMultiple fileOverwritePolicy outputDirPolicy hsOutputDir = do
 -- | Write binding specifications to file.
 writeBindingSpec :: FileOverwritePolicy -> FilePath -> Artefact ()
 writeBindingSpec fileOverwritePolicy path = do
-    target         <- Target
     moduleBaseName <- FinalModuleBaseName
     includeGraph   <- snd <$> IncludeGraph
     declIndex      <- DeclIndex
@@ -202,7 +201,6 @@ writeBindingSpec fileOverwritePolicy path = do
     let bs =
           genBindingSpec
             (BindingSpec.getFormat path)
-            target
             (fromBaseModuleName moduleBaseName (Just CType))
             includeGraph
             declIndex

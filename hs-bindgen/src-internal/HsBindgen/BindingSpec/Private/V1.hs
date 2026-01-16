@@ -21,7 +21,6 @@ module HsBindgen.BindingSpec.Private.V1 (
   , BindingSpec(..)
   , UnresolvedBindingSpec
   , ResolvedBindingSpec
-  , BindingSpecTarget(..)
   , CTypeSpec(..)
   , HsTypeSpec(..)
   , HsTypeRep(..)
@@ -34,9 +33,6 @@ module HsBindgen.BindingSpec.Private.V1 (
   , ConstraintSpec(..)
     -- * API
   , empty
-  , isTargetSpecified
-  , isAnyTarget
-  , isCompatTarget
   , getCTypes
   , lookupCTypeSpec
   , lookupHsTypeSpec
@@ -75,7 +71,6 @@ import HsBindgen.Runtime.BaseForeignType qualified as BFT
 
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.Version
-import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.RootHeader
@@ -113,12 +108,6 @@ currentBindingSpecVersion = $$(constBindingSpecVersion 1 0)
 -- The @header@ type parameter determines the representation of header paths.
 -- See 'UnresolvedBindingSpec' and 'ResolvedBindingSpec'.
 data BindingSpec header = BindingSpec {
-      -- | Binding specification target
-      --
-      -- Specifying a target is optional in prescriptive binding specifications,
-      -- and it is required in external binding specifications.
-      target :: Maybe BindingSpecTarget
-
       -- | Binding specification module
       --
       -- Each binding specification is specific to a Haskell module.
@@ -128,7 +117,7 @@ data BindingSpec header = BindingSpec {
       -- the current module is used.
       --
       -- The module name is required in external binding specifications.
-    , moduleName :: Hs.ModuleName
+      moduleName :: Hs.ModuleName
 
       -- | C type specifications
       --
@@ -154,24 +143,6 @@ type UnresolvedBindingSpec = BindingSpec HashIncludeArg
 --
 -- The resolved header is the filesystem path in the current environment.
 type ResolvedBindingSpec = BindingSpec (HashIncludeArg, SourcePath)
-
---------------------------------------------------------------------------------
-
--- | Binding specification target
---
--- The target describes the generated bindings, /not/ just the specifications in
--- the binding specification.
-data BindingSpecTarget =
-    -- | Bindings should only be considered compatible with a specific target
-    SpecificTarget ClangArgs.Target
-  | -- | Bindings should be considered compatible with any target
-    AnyTarget
-  deriving stock (Show, Eq, Generic)
-
-isCompatBindingSpecTarget :: BindingSpecTarget -> ClangArgs.Target -> Bool
-isCompatBindingSpecTarget = \case
-    AnyTarget             -> const True
-    SpecificTarget target -> (== target)
 
 --------------------------------------------------------------------------------
 
@@ -357,28 +328,13 @@ data ConstraintSpec = ConstraintSpec {
   API
 -------------------------------------------------------------------------------}
 
--- | Construct an empty binding specification for the given target and module
-empty :: ClangArgs.Target -> Hs.ModuleName -> BindingSpec header
-empty target hsModuleName = BindingSpec{
-      target     = Just (SpecificTarget target)
-    , moduleName = hsModuleName
+-- | Construct an empty binding specification for the given module
+empty :: Hs.ModuleName -> BindingSpec header
+empty hsModuleName = BindingSpec{
+      moduleName = hsModuleName
     , cTypes     = Map.empty
     , hsTypes    = Map.empty
     }
-
--- | Predicate that checks if a binding specification target is specified
-isTargetSpecified :: BindingSpec header -> Bool
-isTargetSpecified spec = isJust spec.target
-
--- | Predicate that checks if a binding specification target is 'AnyTarget'
-isAnyTarget :: BindingSpec header -> Bool
-isAnyTarget spec = spec.target == Just AnyTarget
-
--- | Predicate that checks if a binding specification is compatible with a
--- specific target
-isCompatTarget :: BindingSpec header -> ClangArgs.Target -> Bool
-isCompatTarget spec target' =
-    maybe True (`isCompatBindingSpecTarget` target') spec.target
 
 -- | Get the C types in a binding specification
 getCTypes :: ResolvedBindingSpec -> Map DeclId [Set SourcePath]
@@ -473,34 +429,32 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
       "strategy"              ->  5
       -- AInstanceSpec:3
       "constraints"           ->  6
-      -- ABindingSpec:2
-      "target"                ->  7
-      -- ABindingSpec:3, AConstraintSpec:2
-      "hsmodule"              ->  8
+      -- ABindingSpec:2, AConstraintSpec:2
+      "hsmodule"              ->  7
+      -- ABindingSpec:3
+      "ctypes"                ->  8
       -- ABindingSpec:4
-      "ctypes"                ->  9
-      -- ABindingSpec:5
-      "hstypes"               -> 10
+      "hstypes"               ->  9
       -- ACTypeSpec:1
-      "headers"               -> 11
+      "headers"               -> 10
       -- ACTypeSpec:2
-      "cname"                 -> 12
+      "cname"                 -> 11
       -- ACTypeSpec:3, AHsTypeSpec:1, AConstraintSpec:3
-      "hsname"                -> 13
+      "hsname"                -> 12
       -- ACTypeSpec:4, AHsTypeSpec:2
-      "representation"        -> 14
+      "representation"        -> 13
       -- AHsTypeSpec:3
-      "instances"             -> 15
+      "instances"             -> 14
       -- AHsTypeRep:1
-      "record"                -> 16
+      "record"                -> 15
       -- AHsTypeRep:2
-      "newtype"               -> 17
+      "newtype"               -> 16
       -- HsRecordRep:1, HsNewtypeRep:1
-      "constructor"           -> 18
+      "constructor"           -> 17
       -- HsRecordRep:2, HsNewtypeRep:2
-      "fields"                -> 19
+      "fields"                -> 18
       -- HsNewtypeRep:3
-      "ffitype"               -> 20
+      "ffitype"               -> 19
       key -> panicPure $ "Unknown key: " ++ show key
 
 {-------------------------------------------------------------------------------
@@ -556,8 +510,7 @@ resolve tracer injResolveHeader args uSpec = do
     cTypes <- Map.fromList <$>
       mapMaybeM (uncurry resolveTypes) (Map.toList uSpec.cTypes)
     return BindingSpec{
-        target     = uSpec.target
-      , moduleName = uSpec.moduleName
+        moduleName = uSpec.moduleName
       , cTypes     = cTypes
       , hsTypes    = uSpec.hsTypes
       }
@@ -580,9 +533,6 @@ newtype MergedBindingSpecs = MergedBindingSpecs {
   deriving stock (Show)
 
 -- | Merge (external) binding specifications
---
--- It is assumed that all of the passed binding specifications have valid
--- targets.
 merge ::
      [ResolvedBindingSpec]
   -> ([BindingSpecMergeMsg], MergedBindingSpecs)
@@ -669,7 +619,6 @@ toARep' = toARep
 
 data instance ARep UnresolvedBindingSpec = ABindingSpec {
       version  :: AVersion
-    , target   :: Maybe BindingSpecTarget
     , hsModule :: Maybe Hs.ModuleName
     , cTypes   :: [AOCTypeSpec]
     , hsTypes  :: [ARep HsTypeSpec]
@@ -679,13 +628,11 @@ data instance ARep UnresolvedBindingSpec = ABindingSpec {
 instance Aeson.FromJSON (ARep UnresolvedBindingSpec) where
   parseJSON = Aeson.withObject "BindingSpec" $ \o -> do
     aBindingSpecVersion  <- o .:  "version"
-    aBindingSpecTarget   <- o .:? "target"
     aBindingSpecHsModule <- o .:? "hsmodule"
     aBindingSpecCTypes   <- o .:? "ctypes"  .!= []
     aBindingSpecHsTypes  <- o .:? "hstypes" .!= []
     return ABindingSpec{
         version  = aBindingSpecVersion
-      , target   = fromARep' <$> aBindingSpecTarget
       , hsModule = fromARep' <$> aBindingSpecHsModule
       , cTypes   = aBindingSpecCTypes
       , hsTypes  = aBindingSpecHsTypes
@@ -694,7 +641,6 @@ instance Aeson.FromJSON (ARep UnresolvedBindingSpec) where
 instance Aeson.ToJSON (ARep UnresolvedBindingSpec) where
   toJSON spec = Aeson.Object . KM.fromList $ catMaybes [
       Just ("version" .= spec.version)
-    , ("target"   .=) . toARep' <$> spec.target
     , ("hsmodule" .=) . toARep' <$> spec.hsModule
     , ("ctypes"   .=) <$> omitWhenNull spec.cTypes
     , ("hstypes"  .=) <$> omitWhenNull spec.hsTypes
@@ -721,8 +667,7 @@ fromABindingSpec mHsModuleName path arep = do
     return
       ( moduleErrs ++ cTypeErrs ++ hsTypeErrs
       , BindingSpec{
-            target     = arep.target
-          , moduleName = hsModuleName
+            moduleName = hsModuleName
           , cTypes     = bindingSpecCTypes
           , hsTypes    = bindingSpecHsTypes
           }
@@ -734,32 +679,10 @@ toABindingSpec ::
   -> ARep UnresolvedBindingSpec
 toABindingSpec compareCDeclId spec = ABindingSpec{
       version  = mkAVersion currentBindingSpecVersion
-    , target   = spec.target
     , hsModule = Just spec.moduleName
     , cTypes   = toAOCTypeSpecs compareCDeclId spec.cTypes
     , hsTypes  = toAHsTypeSpecs spec.hsTypes
     }
-
---------------------------------------------------------------------------------
-
-newtype instance ARep BindingSpecTarget = ABindingSpecTarget BindingSpecTarget
-  deriving stock (Show)
-
-instance ARepIso ARep BindingSpecTarget
-
-instance Aeson.FromJSON (ARep BindingSpecTarget) where
-  parseJSON = Aeson.withText "BindingSpecTarget" $
-    fmap ABindingSpecTarget . \case
-      "any" -> return AnyTarget
-      t     -> case ClangArgs.parseTargetTriple (Text.unpack t) of
-        Just target -> return $ SpecificTarget target
-        Nothing     -> Aeson.parseFail $ "invalid target: " ++ show t
-
-instance Aeson.ToJSON (ARep BindingSpecTarget) where
-  toJSON (ABindingSpecTarget bsTarget) = Aeson.String . Text.pack $
-    case bsTarget of
-      AnyTarget             -> "any"
-      SpecificTarget target -> ClangArgs.targetTriple target
 
 --------------------------------------------------------------------------------
 

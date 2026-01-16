@@ -34,7 +34,6 @@ module HsBindgen.BindingSpec (
   , moduleName
     -- ** Types
   , Common.Omittable(..)
-  , BindingSpec.BindingSpecTarget(..)
   , BindingSpec.CTypeSpec(..)
   , BindingSpec.HsTypeSpec(..)
   , BindingSpec.HsTypeRep(..)
@@ -63,7 +62,6 @@ import HsBindgen.BindingSpec.Private.Common qualified as Common
 import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.BindingSpec.Private.Version qualified as Version
-import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -158,12 +156,11 @@ getStdlibBindingSpec tracer args = BindingSpec Stdlib.bindingSpec <$>
 loadExtBindingSpecs ::
      Tracer Common.BindingSpecMsg
   -> ClangArgs
-  -> ClangArgs.Target
   -> EnableStdlibBindingSpec
   -> Version.BindingSpecCompatibility
   -> [FilePath]
   -> IO BindingSpec.MergedBindingSpecs
-loadExtBindingSpecs tracer args target enableStdlib cmpt paths = do
+loadExtBindingSpecs tracer args enableStdlib cmpt paths = do
     uspecs <- withStdlib <$> mapMaybeM read' paths
     rspecs <- mapM resolve' uspecs
     let (msgs, mspec) = BindingSpec.merge rspecs
@@ -178,16 +175,7 @@ loadExtBindingSpecs tracer args target enableStdlib cmpt paths = do
       EnableStdlibBindingSpec  -> (Stdlib.bindingSpec :)
 
     read' :: FilePath -> IO (Maybe BindingSpec.UnresolvedBindingSpec)
-    read' path = BindingSpec.readFile tracerRead cmpt Nothing path >>= \case
-      Nothing -> return Nothing
-      Just uspec
-        | not (BindingSpec.isTargetSpecified uspec) -> do
-            traceWith tracerRead $ Common.BindingSpecReadTargetNotSpecified path
-            return Nothing
-        | uspec `BindingSpec.isCompatTarget` target -> return (Just uspec)
-        | otherwise -> do
-            traceWith tracerRead $ Common.BindingSpecReadIncompatibleTarget path
-            return Nothing
+    read' = BindingSpec.readFile tracerRead cmpt Nothing
 
     resolve' ::
          BindingSpec.UnresolvedBindingSpec
@@ -217,31 +205,23 @@ loadExtBindingSpecs tracer args target enableStdlib cmpt paths = do
 loadPrescriptiveBindingSpec ::
      Tracer Common.BindingSpecMsg
   -> ClangArgs
-  -> ClangArgs.Target
   -> Hs.ModuleName
   -> Version.BindingSpecCompatibility
   -> Maybe FilePath
   -> IO PrescriptiveBindingSpec
-loadPrescriptiveBindingSpec tracer args target hsModuleName cmpt =
-    fmap (fromMaybe $ empty target hsModuleName) . \case
+loadPrescriptiveBindingSpec tracer args hsModuleName cmpt =
+    fmap (fromMaybe $ empty hsModuleName) . \case
       Nothing   -> return Nothing
       Just path ->
         BindingSpec.readFile tracerRead cmpt (Just hsModuleName) path >>= \case
           Nothing -> return Nothing
-          Just uspec
-            | uspec `BindingSpec.isCompatTarget` target -> do
-                when (BindingSpec.isAnyTarget uspec) . traceWith tracerRead $
-                  Common.BindingSpecReadAnyTargetNotEnforced path
-                Just . BindingSpec uspec <$>
-                  BindingSpec.resolve
-                    tracerResolve
-                    Common.BindingSpecResolvePrescriptiveHeader
-                    args
-                    uspec
-            | otherwise -> do
-                traceWith tracerRead $
-                  Common.BindingSpecReadIncompatibleTarget path
-                return Nothing
+          Just uspec ->
+            Just . BindingSpec uspec <$>
+              BindingSpec.resolve
+                tracerResolve
+                Common.BindingSpecResolvePrescriptiveHeader
+                args
+                uspec
   where
     tracerRead :: Tracer Common.BindingSpecReadMsg
     tracerRead = contramap Common.BindingSpecReadMsg tracer
@@ -253,23 +233,20 @@ loadPrescriptiveBindingSpec tracer args target hsModuleName cmpt =
 loadBindingSpecs ::
      Tracer Common.BindingSpecMsg
   -> ClangArgs
-  -> ClangArgs.Target
   -> Hs.ModuleName
   -> BindingSpecConfig
   -> IO (BindingSpec.MergedBindingSpecs, PrescriptiveBindingSpec)
-loadBindingSpecs tracer args target hsModuleName config =
+loadBindingSpecs tracer args hsModuleName config =
     (,)
       <$> loadExtBindingSpecs
             tracer
             args
-            target
             config.stdlibSpec
             config.compatibility
             config.extBindingSpecs
       <*> loadPrescriptiveBindingSpec
             tracer
             args
-            target
             hsModuleName
             config.compatibility
             config.prescriptiveBindingSpec
@@ -289,11 +266,11 @@ encode format spec = BindingSpec.encode defCompareCDeclId format spec.unresolved
   Internal API
 -------------------------------------------------------------------------------}
 
--- | Construct an empty binding specification for the given target and module
-empty :: ClangArgs.Target -> Hs.ModuleName -> BindingSpec
-empty target hsModuleName = BindingSpec {
-      unresolved = BindingSpec.empty target hsModuleName
-    , resolved   = BindingSpec.empty target hsModuleName
+-- | Construct an empty binding specification for the given module
+empty :: Hs.ModuleName -> BindingSpec
+empty hsModuleName = BindingSpec{
+      unresolved = BindingSpec.empty hsModuleName
+    , resolved   = BindingSpec.empty hsModuleName
     }
 
 -- | Get the module name for a binding specification

@@ -75,7 +75,6 @@ external bindings in addition to the Haskell module (command line flag
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
-target: x86_64-pc-linux-gnu
 hsmodule: Vector
 ctypes:
 - headers: vector.h
@@ -144,7 +143,6 @@ We can do this by handwriting an external bindings file:
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
-target: x86_64-pc-linux-gnu
 hsmodule: Vector.Types
 ctypes:
 - headers: vector_length.h
@@ -202,7 +200,6 @@ given C name:
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
-target: x86_64-pc-linux-gnu
 hsmodule: Game.State
 ctypes:
 - headers:

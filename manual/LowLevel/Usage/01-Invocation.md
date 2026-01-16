@@ -127,7 +127,7 @@ Besides `preprocess`, `hs-bindgen-cli` provides:
 
 - `gen-tests` - Generate test cases for bindings
 - `binding-spec` - Manage binding specifications
-- `info` - Query information (targets, libclang, headers, etc.)
+- `info` - Query information (libclang, headers, etc.)
 
 Run `cabal run hs-bindgen-cli -- --help` for details.
 

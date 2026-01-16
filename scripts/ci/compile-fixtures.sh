@@ -75,7 +75,7 @@ KNOWN_EMPTY=(
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=134
+KNOWN_FIXTURES_COUNT=133
 
 # Default options
 JOBS=4
