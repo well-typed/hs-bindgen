@@ -15,7 +15,6 @@ module HsBindgen.Config.Internal (
 
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.Haddock.Config
-import HsBindgen.Backend.Hs.Translation.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Prelims
@@ -87,7 +86,6 @@ data FrontendConfig = FrontendConfig {
 -- See also the notes at 'FrontendConfig'.
 data BackendConfig = BackendConfig {
       uniqueId       :: UniqueId
-    , translation    :: TranslationConfig
     , haddock        :: HaddockConfig
     , categoryChoice :: ByCategory Choice
     }

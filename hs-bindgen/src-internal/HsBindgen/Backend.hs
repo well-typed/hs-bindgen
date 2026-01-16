@@ -32,7 +32,7 @@ runBackend ::
 runBackend tracer config boot frontend = do
     -- 1. Reified C declarations to @Hs@ declarations.
     backendHsDeclsAll <- cache $
-      Hs.generateDeclarations config.uniqueId config.translation config.haddock boot.baseModule
+      Hs.generateDeclarations config.uniqueId config.haddock boot.baseModule
         <$> frontend.index
         <*> boot.sizeofs
         <*> frontend.cDecls

@@ -12,7 +12,6 @@ where
 
 import HsBindgen.Backend.Category
 import HsBindgen.Backend.Hs.Haddock.Config
-import HsBindgen.Backend.Hs.Translation.Config ()
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
@@ -66,7 +65,6 @@ toBindgenConfig config uniqueId baseModuleName choice = BindgenConfig{
        }
     , backend = BackendConfig {
          uniqueId       = uniqueId
-       , translation    = def
        , haddock        = def & #pathStyle .~ config.haddockPathStyle
        , categoryChoice = choice
        }

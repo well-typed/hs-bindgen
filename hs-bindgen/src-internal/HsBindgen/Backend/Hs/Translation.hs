@@ -57,17 +57,16 @@ import HsBindgen.PrettyC qualified as PC
 
 generateDeclarations ::
      UniqueId
-  -> TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
   -> DeclIndex
   -> C.Sizeofs
   -> [C.Decl Final]
   -> ByCategory_ [Hs.Decl]
-generateDeclarations uniqueId opts config name declIndex sizeofs =
+generateDeclarations uniqueId config name declIndex sizeofs =
     fmap reverse .
       foldl' partitionBindingCategories mempty .
-      generateDeclarations' uniqueId opts config name declIndex sizeofs
+      generateDeclarations' uniqueId config name declIndex sizeofs
   where
     partitionBindingCategories ::
       ByCategory_ [a] -> WithCategory a  -> ByCategory_ [a]
@@ -82,14 +81,13 @@ data WithCategory a = WithCategory {
 
 generateDeclarations' ::
      UniqueId
-  -> TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
   -> DeclIndex
   -> C.Sizeofs
   -> [C.Decl Final]
   -> [WithCategory Hs.Decl]
-generateDeclarations' uniqueId opts haddockConfig moduleName declIndex sizeofs decs =
+generateDeclarations' uniqueId haddockConfig moduleName declIndex sizeofs decs =
     State.runHsM $ do
       let scannedFunctionPointerTypes = scanAllFunctionPointerTypes decs
           -- Generate ToFunPtr/FromFunPtr instances for nested callback types
@@ -102,7 +100,7 @@ generateDeclarations' uniqueId opts haddockConfig moduleName declIndex sizeofs d
                    , any (isDefinedInCurrentModule declIndex) (res:args)
                    , d <- ToFromFunPtr.forFunction sizeofs (args, res)
                    ]
-      hsDecls <- concat <$> mapM (generateDecs uniqueId opts haddockConfig moduleName sizeofs) decs
+      hsDecls <- concat <$> mapM (generateDecs uniqueId haddockConfig moduleName sizeofs) decs
       pure $ hsDecls ++ fFIStubsAndFunPtrInstances
 
 -- | This function takes a list of all declarations and collects all function
@@ -155,13 +153,12 @@ isDefinedInCurrentModule declIndex =
 -- TODO: Take DeclSpec into account
 generateDecs ::
      UniqueId
-  -> TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
   -> C.Sizeofs
   -> C.Decl Final
   -> HsM [WithCategory Hs.Decl]
-generateDecs uniqueId opts haddockConfig moduleName sizeofs (C.Decl info kind spec) =
+generateDecs uniqueId haddockConfig moduleName sizeofs (C.Decl info kind spec) =
     case kind of
       C.DeclStruct struct -> withCategoryM CType $
         structDecs opts haddockConfig info struct spec
@@ -197,12 +194,15 @@ generateDecs uniqueId opts haddockConfig moduleName sizeofs (C.Decl info kind sp
         transState <- State.get
         pure $ withCategory (CTerm CGlobal) $
           global uniqueId haddockConfig moduleName transState sizeofs info ty spec
-    where
-      withCategory :: Category -> [a] -> [WithCategory a]
-      withCategory c = map (WithCategory c)
+  where
+    withCategory :: Category -> [a] -> [WithCategory a]
+    withCategory c = map (WithCategory c)
 
-      withCategoryM :: Functor m => Category -> m [a] -> m [WithCategory a]
-      withCategoryM c = fmap (withCategory c)
+    withCategoryM :: Functor m => Category -> m [a] -> m [WithCategory a]
+    withCategoryM c = fmap (withCategory c)
+
+    opts :: TranslationConfig
+    opts = def
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
