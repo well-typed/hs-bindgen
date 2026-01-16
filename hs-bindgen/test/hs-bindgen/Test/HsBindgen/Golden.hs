@@ -141,6 +141,7 @@ testCases_default = [
     , defaultTest "types/complex/complex_non_float_test"
     , defaultTest "types/complex/hsb_complex_test"
     , defaultTest "types/complex/vector_test"
+    , defaultTest "types/enums/anon_enum_toplevel"
     , defaultTest "types/enums/enum_cpp_syntax"
     , defaultTest "types/enums/enums"
     , defaultTest "types/enums/nested_enums"
