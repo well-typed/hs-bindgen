@@ -13,6 +13,7 @@
 --
 -- When distinguishing separate versions:
 --
+-- > import HsBindgen.BindingSpec.Private.V1 (V1)
 -- > import HsBindgen.BindingSpec.Private.V1 qualified as V1
 module HsBindgen.BindingSpec.Private.V1 (
     -- * Version
@@ -45,6 +46,8 @@ module HsBindgen.BindingSpec.Private.V1 (
   , MergedBindingSpecs
   , merge
   , lookupMergedBindingSpecs
+    -- ** Aeson representation
+  , V1
   ) where
 
 import Prelude hiding (readFile)
@@ -402,10 +405,10 @@ encode compareCDeclId = \case
     FormatJSON -> encodeJson' . toABindingSpec compareCDeclId
     FormatYAML -> encodeYaml' . toABindingSpec compareCDeclId
 
-encodeJson' :: ARep UnresolvedBindingSpec -> ByteString
+encodeJson' :: ARep V1 UnresolvedBindingSpec -> ByteString
 encodeJson' = BSL.toStrict . Aeson.encode
 
-encodeYaml' :: ARep UnresolvedBindingSpec -> ByteString
+encodeYaml' :: ARep V1 UnresolvedBindingSpec -> ByteString
 encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
   where
     yamlConfig :: Data.Yaml.Pretty.Config
@@ -604,28 +607,29 @@ lookupMergedBindingSpecs cDeclId headers specs = do
   Aeson representation
 -------------------------------------------------------------------------------}
 
--- | Mapping between types and their Aeson representations /for this version/
-data family ARep a :: Star
+-- | Aeson representation version
+type V1 :: ARepV
+data V1 a
 
 -- | Convert from the Aeson representation /for this version/
-fromARep' :: ARepIso ARep a => ARep a -> a
+fromARep' :: ARepIso V1 a => ARep V1 a -> a
 fromARep' = fromARep
 
 -- | Convert to the Aeson representation /for this version/
-toARep' :: ARepIso ARep a => a -> ARep a
+toARep' :: ARepIso V1 a => a -> ARep V1 a
 toARep' = toARep
 
 --------------------------------------------------------------------------------
 
-data instance ARep UnresolvedBindingSpec = ABindingSpec {
+data instance ARep V1 UnresolvedBindingSpec = ABindingSpec {
       version  :: AVersion
     , hsModule :: Maybe Hs.ModuleName
     , cTypes   :: [AOCTypeSpec]
-    , hsTypes  :: [ARep HsTypeSpec]
+    , hsTypes  :: [ARep V1 HsTypeSpec]
     }
   deriving stock (Show)
 
-instance Aeson.FromJSON (ARep UnresolvedBindingSpec) where
+instance Aeson.FromJSON (ARep V1 UnresolvedBindingSpec) where
   parseJSON = Aeson.withObject "BindingSpec" $ \o -> do
     aBindingSpecVersion  <- o .:  "version"
     aBindingSpecHsModule <- o .:? "hsmodule"
@@ -638,7 +642,7 @@ instance Aeson.FromJSON (ARep UnresolvedBindingSpec) where
       , hsTypes  = aBindingSpecHsTypes
       }
 
-instance Aeson.ToJSON (ARep UnresolvedBindingSpec) where
+instance Aeson.ToJSON (ARep V1 UnresolvedBindingSpec) where
   toJSON spec = Aeson.Object . KM.fromList $ catMaybes [
       Just ("version" .= spec.version)
     , ("hsmodule" .=) . toARep' <$> spec.hsModule
@@ -649,7 +653,7 @@ instance Aeson.ToJSON (ARep UnresolvedBindingSpec) where
 fromABindingSpec ::
      Maybe Hs.ModuleName
   -> FilePath
-  -> ARep UnresolvedBindingSpec
+  -> ARep V1 UnresolvedBindingSpec
   -> Either BindingSpecReadMsg ([BindingSpecReadMsg], UnresolvedBindingSpec)
 fromABindingSpec mHsModuleName path arep = do
     (moduleErrs, hsModuleName) <- case (arep.hsModule, mHsModuleName) of
@@ -676,7 +680,7 @@ fromABindingSpec mHsModuleName path arep = do
 toABindingSpec ::
      (DeclId -> DeclId -> Ordering)
   -> UnresolvedBindingSpec
-  -> ARep UnresolvedBindingSpec
+  -> ARep V1 UnresolvedBindingSpec
 toABindingSpec compareCDeclId spec = ABindingSpec{
       version  = mkAVersion currentBindingSpecVersion
     , hsModule = Just spec.moduleName
@@ -686,27 +690,27 @@ toABindingSpec compareCDeclId spec = ABindingSpec{
 
 --------------------------------------------------------------------------------
 
-newtype instance ARep Hs.ModuleName = AModuleName Hs.ModuleName
+newtype instance ARep V1 Hs.ModuleName = AModuleName Hs.ModuleName
   deriving stock (Show)
 
-instance ARepIso ARep Hs.ModuleName
+instance ARepIso V1 Hs.ModuleName
 
-instance Aeson.FromJSON (ARep Hs.ModuleName) where
+instance Aeson.FromJSON (ARep V1 Hs.ModuleName) where
   parseJSON = Aeson.withText "ModuleName" $ return . AModuleName . Hs.ModuleName
 
-instance Aeson.ToJSON (ARep Hs.ModuleName) where
+instance Aeson.ToJSON (ARep V1 Hs.ModuleName) where
   toJSON (AModuleName moduleName) = Aeson.String moduleName.text
 
 --------------------------------------------------------------------------------
 
-data instance ARep CTypeSpec = ACTypeSpec {
+data instance ARep V1 CTypeSpec = ACTypeSpec {
       headers :: [FilePath]
     , cName   :: Text
     , hsIdent :: Maybe Hs.Identifier
     }
   deriving stock (Show)
 
-instance Aeson.FromJSON (ARep CTypeSpec) where
+instance Aeson.FromJSON (ARep V1 CTypeSpec) where
   parseJSON = Aeson.withObject "CTypeSpec" $ \o -> do
     aCTypeSpecHeaders <- o .:  "headers" >>= listFromJSON
     aCTypeSpecCName   <- o .:  "cname"
@@ -717,15 +721,15 @@ instance Aeson.FromJSON (ARep CTypeSpec) where
       , hsIdent = fromARep' <$> aCTypeSpecHsIdent
       }
 
-instance Aeson.ToJSON (ARep CTypeSpec) where
+instance Aeson.ToJSON (ARep V1 CTypeSpec) where
   toJSON arep = Aeson.Object . KM.fromList $ catMaybes [
       Just ("headers" .= listToJSON arep.headers)
     , Just ("cname"   .= arep.cName)
     , ("hsname" .=) . toARep' <$> arep.hsIdent
     ]
 
-instance ARepKV ARep CTypeSpec where
-  data ARepK ARep CTypeSpec = AKCTypeSpec {
+instance ARepKV V1 CTypeSpec where
+  data ARepK V1 CTypeSpec = AKCTypeSpec {
       headers :: [FilePath]
     , cName   :: Text
     }
@@ -746,9 +750,9 @@ instance ARepKV ARep CTypeSpec where
     , hsIdent = v.hsIdent
     }
 
-deriving stock instance Show (ARepK ARep CTypeSpec)
+deriving stock instance Show (ARepK V1 CTypeSpec)
 
-instance Aeson.FromJSON (ARepK ARep CTypeSpec) where
+instance Aeson.FromJSON (ARepK V1 CTypeSpec) where
   parseJSON = Aeson.withObject "AKCTypeSpec" $ \o -> do
     akCTypeSpecHeaders <- o .: "headers" >>= listFromJSON
     akCTypeSpecCName   <- o .: "cname"
@@ -757,13 +761,13 @@ instance Aeson.FromJSON (ARepK ARep CTypeSpec) where
       , cName   = akCTypeSpecCName
       }
 
-instance Aeson.ToJSON (ARepK ARep CTypeSpec) where
+instance Aeson.ToJSON (ARepK V1 CTypeSpec) where
   toJSON key = Aeson.Object $ KM.fromList [
       "headers" .= listToJSON key.headers
     , "cname"   .= key.cName
     ]
 
-type AOCTypeSpec = AOmittable (ARepK ARep CTypeSpec) (ARep CTypeSpec)
+type AOCTypeSpec = AOmittable (ARepK V1 CTypeSpec) (ARep V1 CTypeSpec)
 
 fromAOCTypeSpecs ::
      FilePath
@@ -875,28 +879,28 @@ toAOCTypeSpecs compareCDeclId cTypeMap = map snd $ List.sortBy aux [
 
 --------------------------------------------------------------------------------
 
-newtype instance ARep Hs.Identifier = AHsIdentifier Hs.Identifier
+newtype instance ARep V1 Hs.Identifier = AHsIdentifier Hs.Identifier
   deriving stock (Show)
 
-instance ARepIso ARep Hs.Identifier
+instance ARepIso V1 Hs.Identifier
 
-instance Aeson.FromJSON (ARep Hs.Identifier) where
+instance Aeson.FromJSON (ARep V1 Hs.Identifier) where
   parseJSON = Aeson.withText "HsIdentifier" $
     return . AHsIdentifier . Hs.Identifier
 
-instance Aeson.ToJSON (ARep Hs.Identifier) where
+instance Aeson.ToJSON (ARep V1 Hs.Identifier) where
   toJSON (AHsIdentifier hsIdent) = Aeson.String (hsIdent.text)
 
 --------------------------------------------------------------------------------
 
-data instance ARep HsTypeSpec = AHsTypeSpec {
+data instance ARep V1 HsTypeSpec = AHsTypeSpec {
       hsIdent   :: Hs.Identifier
     , hsRep     :: Maybe HsTypeRep
     , instances :: [AOInstanceSpec]
     }
   deriving stock (Show)
 
-instance Aeson.FromJSON (ARep HsTypeSpec) where
+instance Aeson.FromJSON (ARep V1 HsTypeSpec) where
   parseJSON = Aeson.withObject "HsTypeSpec" $ \o -> do
     aHsTypeSpecHsIdent   <- o .:  "hsname"
     aHsTypeSpecHsRep     <- o .:? "representation"
@@ -907,15 +911,15 @@ instance Aeson.FromJSON (ARep HsTypeSpec) where
       , instances = aHsTypeSpecInstances
       }
 
-instance Aeson.ToJSON (ARep HsTypeSpec) where
+instance Aeson.ToJSON (ARep V1 HsTypeSpec) where
   toJSON arep = Aeson.Object . KM.fromList $ catMaybes [
       Just ("hsname" .= toARep' arep.hsIdent)
     , ("representation" .=) . toARep' <$> arep.hsRep
     , ("instances" .=) <$> omitWhenNull arep.instances
     ]
 
-instance ARepKV ARep HsTypeSpec where
-  newtype ARepK ARep HsTypeSpec = AKHsTypeSpec { unwrap :: Hs.Identifier }
+instance ARepKV V1 HsTypeSpec where
+  newtype ARepK V1 HsTypeSpec = AKHsTypeSpec { unwrap :: Hs.Identifier }
 
   fromARepKV arep =
     ( AKHsTypeSpec arep.hsIdent
@@ -931,18 +935,18 @@ instance ARepKV ARep HsTypeSpec where
     , instances = toAOInstanceSpecs v.instances
     }
 
-deriving stock instance Show (ARepK ARep HsTypeSpec)
+deriving stock instance Show (ARepK V1 HsTypeSpec)
 
-instance Aeson.FromJSON (ARepK ARep HsTypeSpec) where
+instance Aeson.FromJSON (ARepK V1 HsTypeSpec) where
   parseJSON = fmap (AKHsTypeSpec . fromARep') . Aeson.parseJSON
 
-instance Aeson.ToJSON (ARepK ARep HsTypeSpec) where
+instance Aeson.ToJSON (ARepK V1 HsTypeSpec) where
   toJSON = Aeson.toJSON . toARep' . (.unwrap)
 
 fromAHsTypeSpecs ::
      FilePath
   -> Set Hs.Identifier
-  -> [ARep HsTypeSpec]
+  -> [ARep V1 HsTypeSpec]
   -> ([BindingSpecReadMsg], Map Hs.Identifier HsTypeSpec)
 fromAHsTypeSpecs path hsIds = fin . foldr auxInsert (Set.empty, Map.empty)
   where
@@ -957,7 +961,7 @@ fromAHsTypeSpecs path hsIds = fin . foldr auxInsert (Set.empty, Map.empty)
       in  (conflictErrs ++ noRefErrs, hsTypeMap)
 
     auxInsert ::
-         ARep HsTypeSpec
+         ARep V1 HsTypeSpec
       -> (Set Hs.Identifier, Map Hs.Identifier HsTypeSpec)
       -> (Set Hs.Identifier, Map Hs.Identifier HsTypeSpec)
     auxInsert arep (conflicts, acc) =
@@ -968,7 +972,7 @@ fromAHsTypeSpecs path hsIds = fin . foldr auxInsert (Set.empty, Map.empty)
 
 toAHsTypeSpecs ::
      Map Hs.Identifier HsTypeSpec
-  -> [ARep HsTypeSpec]
+  -> [ARep V1 HsTypeSpec]
 toAHsTypeSpecs hsTypeMap = [
       toARepKV (AKHsTypeSpec hsIdentifier) spec
     | (hsIdentifier, spec) <- Map.toAscList hsTypeMap
@@ -976,12 +980,12 @@ toAHsTypeSpecs hsTypeMap = [
 
 --------------------------------------------------------------------------------
 
-newtype instance ARep HsTypeRep = AHsTypeRep HsTypeRep
+newtype instance ARep V1 HsTypeRep = AHsTypeRep HsTypeRep
   deriving stock (Show)
 
-instance ARepIso ARep HsTypeRep
+instance ARepIso V1 HsTypeRep
 
-instance Aeson.FromJSON (ARep HsTypeRep) where
+instance Aeson.FromJSON (ARep V1 HsTypeRep) where
   parseJSON = fmap AHsTypeRep . parseHsTypeRep
     where
       parseHsTypeRep :: Aeson.Value -> Aeson.Parser HsTypeRep
@@ -1030,7 +1034,7 @@ instance Aeson.FromJSON (ARep HsTypeRep) where
           , ffiType     = hsNewtypeRepFFIType
           }
 
-instance Aeson.ToJSON (ARep HsTypeRep) where
+instance Aeson.ToJSON (ARep V1 HsTypeRep) where
   toJSON (AHsTypeRep hsTypeRep) = case hsTypeRep of
     HsTypeRepRecord x
       | x == def  -> Aeson.String "record"
@@ -1056,18 +1060,18 @@ instance Aeson.ToJSON (ARep HsTypeRep) where
 
 --------------------------------------------------------------------------------
 
-newtype instance ARep FFIType = AFFIType FFIType
+newtype instance ARep V1 FFIType = AFFIType FFIType
   deriving stock (Show)
 
-instance ARepIso ARep FFIType
+instance ARepIso V1 FFIType
 
-instance Aeson.FromJSON (ARep FFIType) where
+instance Aeson.FromJSON (ARep V1 FFIType) where
   parseJSON = Aeson.withText "FFIType" $ \t ->
     case Map.lookup t ffiTypeFromText of
       Just ffitype -> return (AFFIType ffitype)
       Nothing -> Aeson.parseFail $ "unknown ffitype: " ++ Text.unpack t
 
-instance Aeson.ToJSON (ARep FFIType) where
+instance Aeson.ToJSON (ARep V1 FFIType) where
   toJSON (AFFIType ffiType) = Aeson.String (ffiTypeText ffiType)
 
 ffiTypeText :: FFIType -> Text
@@ -1146,14 +1150,14 @@ builtinForeignTypeFromText = Map.fromList [
 
 --------------------------------------------------------------------------------
 
-data instance ARep InstanceSpec = AInstanceSpec {
+data instance ARep V1 InstanceSpec = AInstanceSpec {
       clss        :: Hs.TypeClass
     , strategy    :: Maybe StrategySpec
     , constraints :: [ConstraintSpec]
     }
   deriving stock (Show)
 
-instance Aeson.FromJSON (ARep InstanceSpec) where
+instance Aeson.FromJSON (ARep V1 InstanceSpec) where
   parseJSON = \case
     s@Aeson.String{} -> do
       aInstanceSpecClass <- Aeson.parseJSON s
@@ -1176,7 +1180,7 @@ instance Aeson.FromJSON (ARep InstanceSpec) where
     v -> Aeson.parseFail $
       "expected InstanceSpec String or Object, but encountered " ++ typeOf v
 
-instance Aeson.ToJSON (ARep InstanceSpec) where
+instance Aeson.ToJSON (ARep V1 InstanceSpec) where
   toJSON arep
     | isNothing arep.strategy && null arep.constraints =
         Aeson.toJSON (toARep' arep.clss)
@@ -1186,8 +1190,8 @@ instance Aeson.ToJSON (ARep InstanceSpec) where
         , ("constraints" .=) . fmap toARep' <$> omitWhenNull arep.constraints
         ]
 
-instance ARepKV ARep InstanceSpec where
-  newtype ARepK ARep InstanceSpec = AKInstanceSpec { unwrap :: Hs.TypeClass }
+instance ARepKV V1 InstanceSpec where
+  newtype ARepK V1 InstanceSpec = AKInstanceSpec { unwrap :: Hs.TypeClass }
 
   fromARepKV arep =
     ( AKInstanceSpec arep.clss
@@ -1203,15 +1207,15 @@ instance ARepKV ARep InstanceSpec where
     , constraints = v.constraints
     }
 
-deriving stock instance Show (ARepK ARep InstanceSpec)
+deriving stock instance Show (ARepK V1 InstanceSpec)
 
-instance Aeson.FromJSON (ARepK ARep InstanceSpec) where
+instance Aeson.FromJSON (ARepK V1 InstanceSpec) where
   parseJSON = fmap (AKInstanceSpec . fromARep') . Aeson.parseJSON
 
-instance Aeson.ToJSON (ARepK ARep InstanceSpec) where
+instance Aeson.ToJSON (ARepK V1 InstanceSpec) where
   toJSON = Aeson.toJSON . toARep' . (.unwrap)
 
-type AOInstanceSpec = AOmittable (ARepK ARep InstanceSpec) (ARep InstanceSpec)
+type AOInstanceSpec = AOmittable (ARepK V1 InstanceSpec) (ARep V1 InstanceSpec)
 
 -- duplicates ignored, last value retained
 fromAOInstanceSpecs ::
@@ -1233,35 +1237,35 @@ toAOInstanceSpecs instMap = [
 
 --------------------------------------------------------------------------------
 
-newtype instance ARep Hs.TypeClass = ATypeClass Hs.TypeClass
+newtype instance ARep V1 Hs.TypeClass = ATypeClass Hs.TypeClass
   deriving stock (Show)
 
-instance ARepIso ARep Hs.TypeClass
+instance ARepIso V1 Hs.TypeClass
 
-instance Aeson.FromJSON (ARep Hs.TypeClass) where
+instance Aeson.FromJSON (ARep V1 Hs.TypeClass) where
   parseJSON = Aeson.withText "TypeClass" $ \t ->
     let s = Text.unpack t
     in  case readMaybe s of
           Just clss -> return (ATypeClass clss)
           Nothing   -> Aeson.parseFail $ "unknown type class: " ++ s
 
-instance Aeson.ToJSON (ARep Hs.TypeClass) where
+instance Aeson.ToJSON (ARep V1 Hs.TypeClass) where
   toJSON (ATypeClass clss) = Aeson.String $ Text.pack (show clss)
 
 --------------------------------------------------------------------------------
 
-newtype instance ARep StrategySpec = AStrategySpec StrategySpec
+newtype instance ARep V1 StrategySpec = AStrategySpec StrategySpec
   deriving stock (Show)
 
-instance ARepIso ARep StrategySpec
+instance ARepIso V1 StrategySpec
 
-instance Aeson.FromJSON (ARep StrategySpec) where
+instance Aeson.FromJSON (ARep V1 StrategySpec) where
   parseJSON = Aeson.withText "StrategySpec" $ \t ->
     case Map.lookup t strategySpecFromText of
       Just strategy -> return (AStrategySpec strategy)
       Nothing -> Aeson.parseFail $ "unknown strategy: " ++ Text.unpack t
 
-instance Aeson.ToJSON (ARep StrategySpec) where
+instance Aeson.ToJSON (ARep V1 StrategySpec) where
   toJSON (AStrategySpec spec) = Aeson.String (strategySpecText spec)
 
 strategySpecText :: StrategySpec -> Text
@@ -1278,12 +1282,12 @@ strategySpecFromText = Map.fromList [
 
 --------------------------------------------------------------------------------
 
-newtype instance ARep ConstraintSpec = AConstraintSpec ConstraintSpec
+newtype instance ARep V1 ConstraintSpec = AConstraintSpec ConstraintSpec
   deriving stock (Show)
 
-instance ARepIso ARep ConstraintSpec
+instance ARepIso V1 ConstraintSpec
 
-instance Aeson.FromJSON (ARep ConstraintSpec) where
+instance Aeson.FromJSON (ARep V1 ConstraintSpec) where
   parseJSON = Aeson.withObject "ConstraintSpec" $ \o -> do
       constraintSpecClass <- o .: "class"
       extRefModule        <- o .: "hsmodule"
@@ -1297,7 +1301,7 @@ instance Aeson.FromJSON (ARep ConstraintSpec) where
         , ref  = constraintSpecRef
         }
 
-instance Aeson.ToJSON (ARep ConstraintSpec) where
+instance Aeson.ToJSON (ARep V1 ConstraintSpec) where
   toJSON (AConstraintSpec spec) = Aeson.object [
         "class"    .= toARep' spec.clss
       , "hsmodule" .= toARep' spec.ref.moduleName

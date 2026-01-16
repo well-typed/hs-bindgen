@@ -15,7 +15,8 @@ module HsBindgen.BindingSpec.Private.Common (
   , BindingSpecMergeMsg(..)
   , BindingSpecMsg(..)
     -- * Aeson representation
-    -- $ARep
+  , ARepV
+  , ARep
   , ARepIso(..)
   , ARepKV(..)
     -- * Omittable
@@ -256,48 +257,54 @@ data BindingSpecMsg =
   Aeson representation
 -------------------------------------------------------------------------------}
 
--- $ARep
+-- | Kind of Aeson representation version
 --
--- Each binding specification version uses a data family named @ARep@ to define
--- Aeson representations for that version, making the relationship between the
--- types explicit.
+-- Each binding specification version module should define a version as follows,
+-- where the name matches the module name.
 --
--- This abstraction makes code uniform.  Example:
+-- > type V1 :: ARepV
+-- > data V1 a
 --
--- > let inst = InstanceSpec {
--- >         strategy    = fromARep @ARep <$> arep.strategy
--- >       , constraints = fromARep @ARep <$> arep.constraints
--- >       }
--- > in ..
+-- Version modules should always be imported qualified, except that the Aeson
+-- representation version should be imported unqualified.
+type ARepV = ARepVSimulatedOpenKind -> Star
+
+-- | Internal type used only to simulate an open kind.  Not exported.
+data ARepVSimulatedOpenKind
+
+-- | Aeson representation data family
 --
--- When a version depends on a previous version, instances for the previous
--- version can be accessed using qualified imports: @fromARep \@V1.ARep@.
+-- All Aeson instances should be defined for Aeson representations of types, not
+-- the types themselves.  This data family organizes Aeson representations per
+-- Aeson representation version.
+--
+-- Type @ARep v a@ is the Aeson representation for version @v@ of type @a@.
+data family ARep (v :: ARepV) a :: Star
 
 -- | Aeson representation that is isomorphic to the type
 --
--- @f@ is the data family for a specific binding specification version.  Type
--- @f a@ is the Aeson representation for type @a@.
-class ARepIso (f :: Star -> Star) a where
-  fromARep :: f a -> a
-  toARep   :: a -> f a
+-- @v@ is the Aeson representation version.  Type @ARep v a@ is the Aeson
+-- representation for type @a@ for that version.
+class ARepIso (v :: ARepV) a where
+  fromARep :: ARep v a -> a
+  toARep   :: a -> ARep v a
 
-  default fromARep :: Coercible (f a) a => f a -> a
+  default fromARep :: Coercible (ARep v a) a => ARep v a -> a
   fromARep = coerce
 
-  default toARep   :: Coercible a (f a) => a -> f a
+  default toARep   :: Coercible a (ARep v a) => a -> ARep v a
   toARep = coerce
 
 -- | Aeson representation that encodes a key in addition to the type
 --
--- @f@ is the data family for a specific binding specification version.  Type
--- @f a@ is the Aeson representation for type @a@.  Type @ARepK f a@ is the key
--- that is encoded within the Aeson representation.
-class ARepKV (f :: Star -> Star) a where
-  data ARepK f a
+-- Type @ARepK v a@ is the key that is encoded within Aeson representation
+-- @ARep v a@ for version @v@ of type @a@.
+class ARepKV (v :: ARepV) a where
+  data ARepK v a
 
-  fromARepKV :: f a -> (ARepK f a, a)
+  fromARepKV :: ARep v a -> (ARepK v a, a)
 
-  toARepKV :: ARepK f a -> a -> f a
+  toARepKV :: ARepK v a -> a -> ARep v a
 
 {-------------------------------------------------------------------------------
   Omittable
