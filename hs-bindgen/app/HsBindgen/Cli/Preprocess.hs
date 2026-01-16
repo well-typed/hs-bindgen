@@ -43,10 +43,10 @@ data Opts = Opts {
     , outputOptions       :: OutputOptions
     , hsOutputDir         :: FilePath
     , outputBindingSpec   :: Maybe FilePath
-    -- NOTE: Inputs (arguments) must be last, options must go before it.
-    , inputs              :: [UncheckedHashIncludeArg]
     , outputDirPolicy     :: OutputDirPolicy
     , fileOverwritePolicy :: FileOverwritePolicy
+    -- NOTE: Inputs (arguments) must be last, options must go before it.
+    , inputs              :: [UncheckedHashIncludeArg]
     }
   deriving (Generic)
 
@@ -59,9 +59,9 @@ parseOpts =
       <*> parseOutputOptions FilePerModule
       <*> parseHsOutputDir
       <*> optional parseGenBindingSpec
-      <*> parseInputs
       <*> parseOutputDirPolicy
       <*> parseFileOverwritePolicy
+      <*> parseInputs
 
 {-------------------------------------------------------------------------------
   Execution
@@ -69,14 +69,6 @@ parseOpts =
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec global opts = do
-    let bindgenConfig :: BindgenConfig
-        bindgenConfig =
-            toBindgenConfig
-              opts.config
-              opts.uniqueId
-              opts.baseModuleName
-              (buildCategoryChoice opts.outputOptions)
-
     hsBindgen
       global.unsafe
       global.safe
@@ -84,15 +76,27 @@ exec global opts = do
       opts.inputs
       artefact
   where
+    bindgenConfig :: BindgenConfig
+    bindgenConfig =
+        toBindgenConfig
+          opts.config
+          opts.uniqueId
+          opts.baseModuleName
+          (buildCategoryChoice opts.outputOptions)
+
     artefact :: Artefact ()
     artefact = do
-        writeBindingsToDir
-          opts.fileOverwritePolicy
-          opts.outputDirPolicy
-          opts.hsOutputDir
-          (case opts.outputOptions of
-            OutputOptions (SingleFile _) -> True
-            _                            -> False
-          )
-        forM_ opts.outputBindingSpec $ \path ->
-          writeBindingSpec opts.fileOverwritePolicy path
+      case opts.outputOptions of
+        OutputOptions (SingleFile _) ->
+          writeBindingsSingleToDir
+            opts.fileOverwritePolicy
+            opts.outputDirPolicy
+            opts.hsOutputDir
+        _                            ->
+          writeBindingsMultiple
+            opts.fileOverwritePolicy
+            opts.outputDirPolicy
+            opts.hsOutputDir
+
+      forM_ opts.outputBindingSpec $ \path ->
+        writeBindingSpec opts.fileOverwritePolicy path

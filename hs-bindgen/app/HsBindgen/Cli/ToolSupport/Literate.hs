@@ -16,6 +16,7 @@ module HsBindgen.Cli.ToolSupport.Literate (
   ) where
 
 import Control.Exception (throwIO)
+import Data.List.NonEmpty (NonEmpty (..))
 import GHC.Exception (Exception (..))
 import Options.Applicative hiding (info)
 import Options.Applicative qualified as O
@@ -93,7 +94,7 @@ parseLit = Lit
   <*> parseConfig
   <*> parseUniqueId
   <*> parseBaseModuleName
-  <*> parseOutputOptions (SingleFile (SingleFileSafe ""))
+  <*> parseOutputOptions (SingleFile (SingleFileSafe "" :| []))
   <*> parseInputs
 
 {-------------------------------------------------------------------------------

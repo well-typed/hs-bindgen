@@ -455,6 +455,7 @@ test-suite test-pp
     Test.PP.Test02
     Test.PP.TestPointer
     Test.PP.TestSafe
+    Test.PP.TestSafeAndUnsafe
     Test.PP.TestUnsafe
 
   -- Here we use literate haskell "hook" to avoid setting up true preprocessors

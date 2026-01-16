@@ -8,7 +8,7 @@ module HsBindgen.App.Output (
   , parseOutputMode
     -- * Single-file category selection
   , SingleFileCategory(..)
-  , parseSingleFileCategory
+  , parseSingleFileCategories
     -- * Output options
   , OutputOptions(..)
   , parseOutputOptions
@@ -17,6 +17,7 @@ module HsBindgen.App.Output (
   ) where
 
 import Data.Default (Default (..))
+import Data.List.NonEmpty (NonEmpty (..), some1)
 import Data.Text (Text)
 import GHC.Generics (Generic)
 import Options.Applicative
@@ -32,7 +33,7 @@ import HsBindgen.Backend.Category (ByCategory (..), CategoryLvl (..),
 data OutputMode =
     FilePerModule
       -- ^ One file per category (default)
-  | SingleFile SingleFileCategory
+  | SingleFile (NonEmpty SingleFileCategory)
       -- ^ Single file combining categories
   deriving (Show, Eq)
 
@@ -46,8 +47,11 @@ parseOutputMode defMode =
       ])
   , (flag' SingleFile $ mconcat [
         long "single-file"
-      , help "Generate a single module file"
-      ]) <*> parseSingleFileCategory
+      , help (  "Generate a single module file. If more than one category selected "
+             ++ "they will be combined. If more than one of the same category is "
+             ++ "selected only the last suffix is used."
+             )
+      ]) <*> parseSingleFileCategories
   , pure defMode
   ]
 
@@ -65,24 +69,27 @@ data SingleFileCategory =
       -- ^ Pointer only, with optional suffix
   deriving (Show, Eq)
 
--- | Parse single-file category selection
-parseSingleFileCategory :: Parser SingleFileCategory
-parseSingleFileCategory =
-      (SingleFileSafe <$> strOption (mconcat [
-            long "safe"
-          , metavar "SUFFIX"
-          , help "Include safe bindings only (empty suffix for no suffix)"
-          ]))
-  <|> (SingleFileUnsafe <$> strOption (mconcat [
-            long "unsafe"
-          , metavar "SUFFIX"
-          , help "Include unsafe bindings only (empty suffix for no suffix)"
-          ]))
-  <|> (SingleFilePointer <$> strOption (mconcat [
-            long "pointer"
-          , metavar "SUFFIX"
-          , help "Include pointer bindings only (empty suffix for no suffix)"
-          ]))
+-- | Parse single-file category selections (one or more required)
+parseSingleFileCategories :: Parser (NonEmpty SingleFileCategory)
+parseSingleFileCategories = some1 parseSingleFileCategory
+  where
+    parseSingleFileCategory :: Parser SingleFileCategory
+    parseSingleFileCategory =
+          (SingleFileSafe <$> strOption (mconcat [
+                long "safe"
+              , metavar "SUFFIX"
+              , help "Include safe bindings (empty suffix for no suffix)"
+              ]))
+      <|> (SingleFileUnsafe <$> strOption (mconcat [
+                long "unsafe"
+              , metavar "SUFFIX"
+              , help "Include unsafe bindings (empty suffix for no suffix)"
+              ]))
+      <|> (SingleFilePointer <$> strOption (mconcat [
+                long "pointer"
+              , metavar "SUFFIX"
+              , help "Include pointer bindings (empty suffix for no suffix)"
+              ]))
 
 {-------------------------------------------------------------------------------
   Output options
@@ -102,10 +109,14 @@ parseOutputOptions defMode = OutputOptions <$> parseOutputMode defMode
 
 -- | Build 'ByCategory' 'Choice' from output options
 --
+-- When multiple categories are selected, each category gets the specified suffix
+-- to avoid duplicate symbols. When only one category is selected with an empty
+-- suffix, no renaming occurs.
+--
 buildCategoryChoice :: OutputOptions -> ByCategory Choice
 buildCategoryChoice opts = case opts.mode of
-  FilePerModule  -> useAllCategories
-  SingleFile cat -> buildSingleFileChoice cat
+  FilePerModule       -> useAllCategories
+  SingleFile cats     -> buildSingleFileChoice cats
   where
     -- Multi-module: all categories, no renaming
     useAllCategories :: ByCategory Choice
@@ -117,14 +128,14 @@ buildCategoryChoice opts = case opts.mode of
         , cGlobal = IncludeTermCategory def
         }
 
-    -- Single-file: build based on category selection
-    buildSingleFileChoice :: SingleFileCategory -> ByCategory Choice
-    buildSingleFileChoice cat = ByCategory {
-          cType   = IncludeTypeCategory  -- Types always included
-        , cSafe   = safeChoice cat
-        , cUnsafe = unsafeChoice cat
-        , cFunPtr = pointerChoice cat
-        , cGlobal = IncludeTermCategory def  -- Globals always included
+    -- Single-file: build based on category selections
+    buildSingleFileChoice :: NonEmpty SingleFileCategory -> ByCategory Choice
+    buildSingleFileChoice cats = ByCategory {
+          cType   = IncludeTypeCategory
+        , cSafe   = foldMap safeChoice cats
+        , cUnsafe = foldMap unsafeChoice cats
+        , cFunPtr = foldMap pointerChoice cats
+        , cGlobal = IncludeTermCategory def
         }
 
     safeChoice :: SingleFileCategory -> Choice LvlTerm

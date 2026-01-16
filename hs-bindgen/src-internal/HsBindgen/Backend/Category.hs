@@ -158,6 +158,22 @@ data Choice lvl where
 
 deriving instance Show (Choice lvl)
 
+instance Semigroup (Choice LvlType) where
+  ExcludeCategory <> y = y
+  x <> ExcludeCategory = x
+  IncludeTypeCategory <> IncludeTypeCategory = IncludeTypeCategory
+
+instance Semigroup (Choice LvlTerm) where
+  ExcludeCategory <> y = y
+  x <> ExcludeCategory = x
+  IncludeTermCategory _r1 <> IncludeTermCategory r2 = IncludeTermCategory r2
+
+instance Monoid (Choice LvlType) where
+  mempty = ExcludeCategory
+
+instance Monoid (Choice LvlTerm) where
+  mempty = ExcludeCategory
+
 instance Default (Choice LvlType) where
   def = IncludeTypeCategory
 instance Default (Choice LvlTerm) where
