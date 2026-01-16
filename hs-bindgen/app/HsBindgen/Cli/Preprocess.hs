@@ -17,6 +17,8 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
+import HsBindgen.App.Output (OutputMode (..), OutputOptions (..),
+                             buildCategoryChoice, parseOutputOptions)
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.DelayedIO
@@ -38,12 +40,13 @@ data Opts = Opts {
       config              :: Config
     , uniqueId            :: UniqueId
     , baseModuleName      :: BaseModuleName
+    , outputOptions       :: OutputOptions
     , hsOutputDir         :: FilePath
     , outputBindingSpec   :: Maybe FilePath
-    -- NOTE: Inputs (arguments) must be last, options must go before it.
-    , inputs              :: [UncheckedHashIncludeArg]
     , outputDirPolicy     :: OutputDirPolicy
     , fileOverwritePolicy :: FileOverwritePolicy
+    -- NOTE: Inputs (arguments) must be last, options must go before it.
+    , inputs              :: [UncheckedHashIncludeArg]
     }
   deriving (Generic)
 
@@ -53,18 +56,19 @@ parseOpts =
       <$> parseConfig
       <*> parseUniqueId
       <*> parseBaseModuleName
+      <*> parseOutputOptions FilePerModule
       <*> parseHsOutputDir
       <*> optional parseGenBindingSpec
-      <*> parseInputs
       <*> parseOutputDirPolicy
       <*> parseFileOverwritePolicy
+      <*> parseInputs
 
 {-------------------------------------------------------------------------------
   Execution
 -------------------------------------------------------------------------------}
 
 exec :: GlobalOpts -> Opts -> IO ()
-exec global opts =
+exec global opts = do
     hsBindgen
       global.unsafe
       global.safe
@@ -72,22 +76,27 @@ exec global opts =
       opts.inputs
       artefact
   where
-    artefact :: Artefact ()
-    artefact = do
-        writeBindingsMultiple
-          opts.fileOverwritePolicy
-          opts.outputDirPolicy
-          opts.hsOutputDir
-        forM_ opts.outputBindingSpec $ \path ->
-          writeBindingSpec opts.fileOverwritePolicy path
-
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1328: Which command
-    -- line options to adjust the binding category predicate do we want to
-    -- provide?
     bindgenConfig :: BindgenConfig
     bindgenConfig =
         toBindgenConfig
           opts.config
           opts.uniqueId
           opts.baseModuleName
-          def
+          (buildCategoryChoice opts.outputOptions)
+
+    artefact :: Artefact ()
+    artefact = do
+      case opts.outputOptions of
+        OutputOptions (SingleFile _) ->
+          writeBindingsSingleToDir
+            opts.fileOverwritePolicy
+            opts.outputDirPolicy
+            opts.hsOutputDir
+        _                            ->
+          writeBindingsMultiple
+            opts.fileOverwritePolicy
+            opts.outputDirPolicy
+            opts.hsOutputDir
+
+      forM_ opts.outputBindingSpec $ \path ->
+        writeBindingSpec opts.fileOverwritePolicy path

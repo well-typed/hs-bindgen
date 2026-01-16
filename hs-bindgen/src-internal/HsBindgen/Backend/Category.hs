@@ -18,6 +18,7 @@ module HsBindgen.Backend.Category (
   , Choice(..)
   , useSafeCategory
   , useUnsafeCategory
+  , useFunPtrCategory
   ) where
 
 import Data.Functor.Const (Const (..))
@@ -157,6 +158,22 @@ data Choice lvl where
 
 deriving instance Show (Choice lvl)
 
+instance Semigroup (Choice LvlType) where
+  ExcludeCategory <> y = y
+  x <> ExcludeCategory = x
+  IncludeTypeCategory <> IncludeTypeCategory = IncludeTypeCategory
+
+instance Semigroup (Choice LvlTerm) where
+  ExcludeCategory <> y = y
+  x <> ExcludeCategory = x
+  IncludeTermCategory _r1 <> IncludeTermCategory r2 = IncludeTermCategory r2
+
+instance Monoid (Choice LvlType) where
+  mempty = ExcludeCategory
+
+instance Monoid (Choice LvlTerm) where
+  mempty = ExcludeCategory
+
 instance Default (Choice LvlType) where
   def = IncludeTypeCategory
 instance Default (Choice LvlTerm) where
@@ -179,6 +196,16 @@ useUnsafeCategory = ByCategory {
     , cSafe   = ExcludeCategory
     , cUnsafe = IncludeTermCategory def
     , cFunPtr = ExcludeCategory
+    , cGlobal = IncludeTermCategory def
+    }
+
+-- | Use 'CType', 'CFunPtr', and 'CGlobal'; do not rename declarations.
+useFunPtrCategory :: ByCategory Choice
+useFunPtrCategory = ByCategory {
+      cType   = IncludeTypeCategory
+    , cSafe   = ExcludeCategory
+    , cUnsafe = ExcludeCategory
+    , cFunPtr = IncludeTermCategory def
     , cGlobal = IncludeTermCategory def
     }
 

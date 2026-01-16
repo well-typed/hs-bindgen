@@ -16,6 +16,7 @@ module HsBindgen.Cli.ToolSupport.Literate (
   ) where
 
 import Control.Exception (throwIO)
+import Data.List.NonEmpty (NonEmpty (..))
 import GHC.Exception (Exception (..))
 import Options.Applicative hiding (info)
 import Options.Applicative qualified as O
@@ -23,7 +24,9 @@ import Text.Read (readMaybe)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.Backend.Category (useSafeCategory)
+import HsBindgen.App.Output (OutputMode (..), OutputOptions,
+                             SingleFileCategory (..), buildCategoryChoice,
+                             parseOutputOptions)
 import HsBindgen.Config
 import HsBindgen.Config.Internal (BindgenConfig)
 import HsBindgen.DelayedIO
@@ -81,6 +84,7 @@ data Lit = Lit {
     , config         :: Config
     , uniqueId       :: UniqueId
     , baseModuleName :: BaseModuleName
+    , outputOptions  :: OutputOptions
     , inputs         :: [UncheckedHashIncludeArg]
     }
 
@@ -90,6 +94,7 @@ parseLit = Lit
   <*> parseConfig
   <*> parseUniqueId
   <*> parseBaseModuleName
+  <*> parseOutputOptions (SingleFile (SingleFileSafe "" :| []))
   <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -103,18 +108,15 @@ exec opts = do
     lit <- maybe (throwIO' "cannot parse arguments in literate file") return $
       pureParseLit args
 
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1328: Which command
-    -- line options to adjust the binding category predicate do we want to
-    -- provide?
     let bindgenConfig :: BindgenConfig
         bindgenConfig =
           toBindgenConfig
             lit.config
             lit.uniqueId
             lit.baseModuleName
-            useSafeCategory
+            (buildCategoryChoice lit.outputOptions)
 
-    let artefact :: Artefact ()
+        artefact :: Artefact ()
         artefact = writeBindings opts.fileOverwritePolicy opts.output
 
     hsBindgen
