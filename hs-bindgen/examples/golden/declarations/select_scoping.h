@@ -21,8 +21,7 @@ struct ParsedUnselectable {
 
 // This declaration is parsed _and_ selected. The dependency is parsed but
 // unselectable because another transitivie dependency is unusable.
-// `ParsedAndSelected4` is squashed, and so we do not get direct trace messages
-// in the select pass (but a squash notice).
+// `ParsedAndSelected4` is squashed.
 typedef struct ParsedUnselectable ParsedAndSelected4;
 
 // This declaration is parsed _and_ selected. However, a transitive dependency

@@ -245,9 +245,6 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
   Filter list of declarations
 -------------------------------------------------------------------------------}
 
--- TODO D: At the moment, we test for selection and transitive selectability
--- twice (in 'selectDeclWith' we traverse the list of declarations, and in
--- 'getSelectMsgs' we traverse the declaration index).
 selectDeclWith ::
   -- | Selected declaration IDs.
      Set DeclId
@@ -531,7 +528,6 @@ selectDeclIndex declUseGraph p declIndex =
             Just ([failedMacro.loc], C.Available)
           UnusableOmitted{} ->
             Nothing
-        -- SquashedE e -> DeclIndex.lookupEntry e.targetNameC declIndex >>= entryInfo
         SquashedE e -> Just ([e.typedefLoc], C.Available)
 
     -- We match anonymous declarations based on their use sites.

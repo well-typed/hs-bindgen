@@ -373,10 +373,11 @@ lookupUnusableLoc d i = case lookupEntry d i of
   Nothing             -> []
   Just (UnusableE  e) -> unusableToLoc e
   Just (UsableE    _) -> []
-  -- TODO D: This resolves to the location of the SQUASH TARGET, and is used
-  -- when resolving binding specifications. Is this behavior correct? We should
-  -- probably rename this function and split into lookup and getUnusableLoc,
-  -- similar to 'entryToLoc'.
+  -- TODO https://github.com/well-typed/hs-bindgen/issues/1564: This resolves to
+  -- the location of the SQUASH TARGET, and is used when resolving binding
+  -- specifications. Is this behavior correct? We should probably rename this
+  -- function and split into lookup and getUnusableLoc, similar to 'entryToLoc'.
+  -- Maybe we can also move it into 'ResolveBindingSpecs.hs'.
   Just (SquashedE  e) -> lookupUnusableLoc e.targetNameC i
 
 -- | Get the identifiers of all declarations in the index.

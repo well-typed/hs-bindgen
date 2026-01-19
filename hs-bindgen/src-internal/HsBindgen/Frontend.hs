@@ -96,7 +96,7 @@ import HsBindgen.Util.Tracer
 -- * Must be before "HsBindgen.Frontend.Pass.ResolveBindingSpecs" so that
 --   binding specifications can use the assigned names
 --
--- == 5. "HsBindgen.Frontend.Pass.ConstructTranslationUnit"
+-- == 4. "HsBindgen.Frontend.Pass.ConstructTranslationUnit"
 --
 -- "HsBindgen.Frontend.Pass.ConstructTranslationUnit" constructs a list of
 -- sorted declarations as well as 'DeclIndex.DeclIndex',
@@ -107,7 +107,7 @@ import HsBindgen.Util.Tracer
 -- * Must be before the rest of the passes because they use these structures and
 --   depend on the ordering of declarations
 --
--- == 6. "HsBindgen.Frontend.Pass.HandleMacros"
+-- == 5. "HsBindgen.Frontend.Pass.HandleMacros"
 --
 -- "HsBindgen.Frontend.Pass.HandleMacros" typechecks macros and reparses
 -- declarations with macros.  In order to construct the correct scope at any
@@ -116,7 +116,7 @@ import HsBindgen.Util.Tracer
 -- "HsBindgen.Frontend.Pass.AssignAnonIds" before
 -- "HsBindgen.Frontend.Pass.HandleMacros" is fine.
 --
--- == 7. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
+-- == 6. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
 --
 -- "HsBindgen.Frontend.Pass.ResolveBindingSpecs" has two responsibilities:
 --
@@ -137,13 +137,13 @@ import HsBindgen.Util.Tracer
 -- * Must be before "HsBindgen.Frontend.Pass.MangleNames" because prescriptive
 --   binding specs may specify arbitrary names
 --
--- == 8. "HsBindgen.Frontend.Pass.MangleNames"
+-- == 7. "HsBindgen.Frontend.Pass.MangleNames"
 --
 -- "HsBindgen.Frontend.Pass.MangleNames" assigns Haskell names for types,
 -- constructors, fields, etc. It also deals with name clashes that can arise
 -- from typedefs, squashing "unneeded" typedefs.
 --
--- == 9. "HsBindgen.Frontend.Pass.Select"
+-- == 8. "HsBindgen.Frontend.Pass.Select"
 --
 -- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
 -- and program slicing.  It also emits delayed trace messages for declarations
@@ -376,15 +376,15 @@ data FrontendArtefact = FrontendArtefact {
 --
 -- Most passes in the frontend have their own set of trace messages.
 data FrontendMsg =
-    FrontendClang ClangMsg
-  | FrontendParse (Msg Parse)
-  | FrontendSimplifyAST (Msg SimplifyAST)
-  | FrontendAssignAnonIds (Msg AssignAnonIds)
+    FrontendClang                     ClangMsg
+  | FrontendParse                    (Msg Parse)
+  | FrontendSimplifyAST              (Msg SimplifyAST)
+  | FrontendAssignAnonIds            (Msg AssignAnonIds)
   | FrontendConstructTranslationUnit (Msg ConstructTranslationUnit)
-  | FrontendHandleMacros (Msg HandleMacros)
-  | FrontendResolveBindingSpecs (Msg ResolveBindingSpecs)
-  | FrontendSelect (Msg Select)
-  | FrontendMangleNames (Msg MangleNames)
-  | FrontendCache (SafeTrace CacheMsg)
+  | FrontendHandleMacros             (Msg HandleMacros)
+  | FrontendResolveBindingSpecs      (Msg ResolveBindingSpecs)
+  | FrontendMangleNames              (Msg MangleNames)
+  | FrontendSelect                   (Msg Select)
+  | FrontendCache                    (SafeTrace CacheMsg)
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
