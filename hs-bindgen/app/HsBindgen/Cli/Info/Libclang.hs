@@ -72,7 +72,7 @@ exec global opts = do
       withClang
         (contramap (TraceFrontend . FrontendClang) tracer)
         setup
-        (const (return Nothing))
+        (const (pure ()))
     case eRes of
       Left e  -> do
         putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace e

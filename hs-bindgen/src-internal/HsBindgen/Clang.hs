@@ -63,20 +63,20 @@ defaultClangSetup args input = ClangSetup{
 withClang :: forall a.
      Tracer ClangMsg
   -> ClangSetup
-  -> (CXTranslationUnit -> IO (Maybe a))
+  -> (CXTranslationUnit -> IO a)
   -> IO (Maybe a)
 withClang tracer setup k = withClang' tracer setup $ \unit -> do
     anyIsError <- traceDiagnostics unit
     if anyIsError
-      then return Nothing
-      else k unit
+      then pure Nothing
+      else Just <$> k unit
   where
     traceDiagnostics :: CXTranslationUnit -> IO Bool
     traceDiagnostics unit =
         go False =<< HighLevel.clang_getDiagnostics unit Nothing
       where
         go :: Bool -> [Diagnostic] -> IO Bool
-        go !anyIsError []     = return anyIsError
+        go !anyIsError []     = pure anyIsError
         go !anyIsError (d:ds) = do
             traceWith (contramap ClangDiagnostic tracer) d
             go (anyIsError || diagnosticIsError d) ds

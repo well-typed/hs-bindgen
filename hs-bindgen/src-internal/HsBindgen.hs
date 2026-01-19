@@ -337,7 +337,7 @@ instance PrettyForTrace BindgenError where
 -------------------------------------------------------------------------------}
 
 data SafeTraceMsg =
-      SafeBackendMsg  BackendMsg
-    | SafeArtefactMsg ArtefactMsg
+      SafeBackendMsg   BackendMsg
+    | SafeArtefactMsg  ArtefactMsg
     | SafeDelayedIOMsg DelayedIOMsg
   deriving (Show, Generic, PrettyForTrace, IsTrace SafeLevel)
