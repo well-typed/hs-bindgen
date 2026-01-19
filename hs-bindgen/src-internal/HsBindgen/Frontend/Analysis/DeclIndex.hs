@@ -161,17 +161,17 @@ data Unusable =
 instance PrettyForTrace Unusable where
   prettyForTrace = \case
     UnusableParseNotAttempted{} ->
-      "parse not attempted: (!) adjust parse predicate"
+      "Parse not attempted: adjust the parse predicate"
     UnusableParseFailure{} ->
-      "parse failed"
+      "Parse failed"
     UnusableConflict{} ->
-      "conflicting declarations"
+      "Conflicting declarations"
     UnusableMangleNamesFailure{} ->
-      "name mangler failure"
+      "Name mangler failure"
     UnusableFailedMacro{} ->
-      "macro parsing or type-checking failed"
+      "Macro parsing or type-checking failed"
     UnusableOmitted{} ->
-      "omitted by prescriptive binding specification"
+      "Omitted by prescriptive binding specification"
 
 unusableToLoc :: Unusable -> [SingleLoc]
 unusableToLoc = \case

@@ -129,7 +129,7 @@ instance PrettyForTrace TransitiveDependencyMissing where
         let intro = "Transitive dependency not selected:"
         in  PP.hang intro 2 $ PP.vcat [
                 prettyForTrace $ declIdLocationInfo i ls
-              , "Consider adjusting the select predicate or enable program slicing"
+              , "Adjust the select predicate or enable program slicing"
               ]
 
 -- | Select trace messages
@@ -178,7 +178,7 @@ instance PrettyForTrace SelectMsg where
       SelectParseNotAttempted x ->
         couldNotSelect $ PP.vcat [
             prettyForTrace x
-          , "Consider changing the parse predicate"
+          , "Adjust the parse predicate"
           ]
       SelectParseFailure x ->
         couldNotSelect $ prettyForTrace x
