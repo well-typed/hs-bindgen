@@ -473,8 +473,7 @@ data Binding = Binding{
   deriving stock (Show, Generic)
 
 data Parameter = Parameter{
-      name    :: Maybe (Hs.Name Hs.NsVar)
-    , typ     :: ClosedType
+      typ     :: ClosedType
     , comment :: Maybe HsDoc.Comment
     }
   deriving stock (Show, Generic)

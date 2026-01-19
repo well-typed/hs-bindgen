@@ -152,16 +152,11 @@ functionDecs safety opts haddockConfig moduleName transState info origCFun _spec
           Hs.ForeignImport.FunParam {
               hsParam =
                 Hs.FunctionParameter{
-                    name    = n
-                  , typ     = hsType
-                  , comment = Nothing
-                  }
+                  typ     = Type.inContext Type.FunArg (toPrimitiveType (classifyArgPassingMethod ty))
+                , comment = Nothing
+                }
             }
-        | (mbName, ty) <- origCFun.args ++ toList ((Nothing,) <$> foreignImportOptParam)
-        , let n = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
-              hsType = Type.inContext Type.FunArg cType
-              cType = toPrimitiveType passMethod
-              passMethod = classifyArgPassingMethod ty
+        | (_mbName, ty) <- origCFun.args ++ toList ((Nothing,) <$> foreignImportOptParam)
         ]
 
     foreignImportOptParam :: Maybe (C.Type Final)
@@ -206,16 +201,17 @@ functionDecs safety opts haddockConfig moduleName transState info origCFun _spec
     mbRestoreOrigSignatureComment :: Maybe HsDoc.Comment
     restoreOrigSignatureParams :: [Hs.FunctionParameter]
     (mbRestoreOrigSignatureComment, restoreOrigSignatureParams) =
-      let params :: [Hs.FunctionParameter]
+      let cParamNames :: [Maybe Text]
+          cParamNames = [fmap (.cName.text) mbName | (mbName, _ty) <- origCFun.args]
+          params :: [Hs.FunctionParameter]
           params = [
                Hs.FunctionParameter{
-                 name    = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
-               , typ     = Type.inContext Type.FunArg (toOrigType (classifyArgPassingMethod ty))
+                 typ     = Type.inContext Type.FunArg (toOrigType (classifyArgPassingMethod ty))
                , comment = Nothing
                }
-            | (mbName, ty) <- origCFun.args
+            | (_mbName, ty) <- origCFun.args
             ]
-      in  mkHaddocksDecorateParams haddockConfig info mangledOrigName params
+      in  mkHaddocksDecorateParams haddockConfig info mangledOrigName cParamNames params
 
     runsInIO :: Bool
     runsInIO = functionShouldRunInIO origCFun.attrs.purity primResult primParams
@@ -466,13 +462,25 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
     bodyExpr :: SHs.ClosedExpr
     bodyExpr =
       -- construct lambdas for all function arguments
-      lambdas EmptyEnv (zipWith FunArg primParams hsParams) $ \env ->
+      lambdas EmptyEnv (zipWith3 mkFunArg cParamNames primParams hsParams) $ \env ->
         -- pass function arguments by address if necessary
         passArgsByAddressIfNecessary env $ \args ->
           -- pass the function result by address if necessary
           passResultByAddressIfNecessary args $ \args' ->
             -- call the foreign import
             callForeignImport args'
+      where
+        cParamNames :: [Maybe Text]
+        cParamNames = [ fmap (.cName.text) mbName
+                      | (mbName, _ty) <- cFunc.args
+                      ]
+
+        mkFunArg :: Maybe Text -> PassBy -> Hs.FunctionParameter -> FunArg
+        mkFunArg mbCName passBy param = FunArg{
+            typ        = passBy
+          , cParamName = mbCName
+          , funParam   = param
+          }
 
     -- | Construct a string of lambdas
     --
@@ -590,14 +598,15 @@ getRestoreOrigSignatureDecl hiName loName primResult primParams hsResult hsParam
 
 -- | Information about a function argument
 data FunArg = FunArg {
-    typ :: PassBy
-  , funParam :: Hs.FunctionParameter
+    typ        :: PassBy
+  , cParamName :: Maybe Text
+  , funParam   :: Hs.FunctionParameter
   }
 
 funArgToVarInfo :: FunArg -> VarInfo
 funArgToVarInfo arg = VarInfo {
       typ = arg.typ
-    , optNameHint = fmap (NameHint . T.unpack . Hs.getName) arg.funParam.name
+    , optNameHint = fmap (NameHint . T.unpack) arg.cParamName
     }
 
 {-------------------------------------------------------------------------------

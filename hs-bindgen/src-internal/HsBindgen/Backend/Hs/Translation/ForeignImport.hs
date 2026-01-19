@@ -168,8 +168,7 @@ foreignImportWrapperDec transState name hsType origin
     fName =  Hs.InternalName name.uniqSymbol
     fParameters = [
           Hs.FunctionParameter{
-              name    = Nothing
-            , typ     = hsType
+              typ     = hsType
             , comment = Nothing
             }
         ]
@@ -240,8 +239,7 @@ foreignImportDynamicDec transState name hsType origin
     fName =  Hs.InternalName name.uniqSymbol
     fParameters = [
           Hs.FunctionParameter{
-              name    = Nothing
-            , typ     = Hs.HsFunPtr hsType
+              typ     = Hs.HsFunPtr hsType
             , comment = Nothing
             }
         ]
