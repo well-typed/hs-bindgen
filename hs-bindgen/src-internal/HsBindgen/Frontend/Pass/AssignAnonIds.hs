@@ -298,10 +298,14 @@ instance UpdateUseSites C.Type where
       go = \case
           -- Actual modifications
           C.TypeRef     ref     -> C.TypeRef     <$> updateDeclId ref
-          C.TypeTypedef (C.Ref n uTy) ->
+          C.TypeEnum    ref     ->
+            fmap C.TypeEnum $ C.Ref
+                <$> updateDeclId ref.name
+                <*> updateUseSites ref.underlying
+          C.TypeTypedef ref ->
             fmap C.TypeTypedef $ C.Ref
-                <$> updateDeclId n
-                <*> updateUseSites uTy
+                <$> updateDeclId ref.name
+                <*> updateUseSites ref.underlying
 
           -- Recursive cases
           C.TypePointers n      ty -> C.TypePointers n <$> go ty

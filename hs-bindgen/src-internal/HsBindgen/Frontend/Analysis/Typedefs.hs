@@ -204,6 +204,7 @@ taggedPayload = go True
     go :: Bool -> C.Type Select -> Maybe TaggedPayload
     go direct = \case
         C.TypeRef declId     -> typeRef direct declId
+        C.TypeEnum ref       -> typeRef direct ref.name
         C.TypePointers _n ty -> go False ty
         _otherwise ->
           -- TODO: <https://github.com/well-typed/hs-bindgen/issues/1445>

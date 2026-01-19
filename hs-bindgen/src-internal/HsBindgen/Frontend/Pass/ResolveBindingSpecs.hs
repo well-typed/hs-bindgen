@@ -387,6 +387,13 @@ instance Resolve C.Type where
         case mResolved of
           Just r  -> return $ r ref'
           Nothing -> return ref'
+      C.TypeEnum ref -> do
+        mResolved <- aux ref.name
+        underlying' <- resolve ctx ref.underlying
+        let enum' = C.TypeEnum (C.Ref ref.name underlying')
+        case mResolved of
+          Just r  -> return $ r enum'
+          Nothing -> return enum'
       C.TypeMacro ref -> do
         mResolved <- aux ref.name
         underlying' <- resolve ctx ref.underlying

@@ -123,35 +123,48 @@ fromDecl ty = do
         -- support any.
         throwError $ UnsupportedBuiltin builtin
       Nothing -> ParseType.dispatchDecl decl $ \case
-        CXCursor_EnumDecl   -> typeRef decl C.TagKindEnum
+        CXCursor_EnumDecl   -> typeEnum decl
         CXCursor_StructDecl -> typeRef decl C.TagKindStruct
         CXCursor_UnionDecl  -> typeRef decl C.TagKindUnion
 
-        CXCursor_TypedefDecl -> do
-          declId <- PrelimDeclId.atCursor decl C.NameKindOrdinary
-          case PrelimDeclId.sourceName declId of
-            Nothing -> panicPure "typedef without name"
-            Just declName -> do
-              -- Check cache first
-              mCached <- ParseType.lookupCache declName
-              case mCached of
-                Just cached -> pure cached
-                Nothing -> do
-                  -- Cache miss: parse and cache the result
-                  uTy <- handle (addTypedefContextHandler declId) $
-                            getUnderlyingCXType decl
-                  let result = C.TypeTypedef $ C.Ref declId uTy
-                  ParseType.insertCache declName result
-                  pure result
+        CXCursor_TypedefDecl -> typeTypedef decl
 
         kind -> throwError $ UnexpectedTypeDecl (Right kind)
-  where
-    typeRef :: MonadIO m => CXCursor -> C.TagKind -> m (C.Type Parse)
-    typeRef decl kind =
-        C.TypeRef <$> PrelimDeclId.atCursor decl (C.NameKindTagged kind)
 
-    getUnderlyingCXType :: CXCursor -> ParseType (C.Type Parse)
-    getUnderlyingCXType typedefCurr = do
+typeRef :: MonadIO m => CXCursor -> C.TagKind -> m (C.Type Parse)
+typeRef decl kind =
+    C.TypeRef <$> PrelimDeclId.atCursor decl (C.NameKindTagged kind)
+
+typeEnum :: HasCallStack => CXCursor -> ParseType (C.Type Parse)
+typeEnum decl = do
+    declId <- PrelimDeclId.atCursor decl (C.NameKindTagged C.TagKindEnum)
+    -- Enums can be anonymous. In such cases, we bypass the cache and parse the
+    -- enum type directly.
+    let mDeclName = PrelimDeclId.sourceName declId
+    ParseType.cachedMaybe mDeclName $ do
+      underlying <- handle (addUnderlyingTypeContextHandler declId)
+                      (cxtype =<< clang_getEnumDeclIntegerType decl)
+      pure $ C.TypeEnum $ C.Ref {
+            name = declId
+          , underlying = underlying
+          }
+
+typeTypedef :: HasCallStack => CXCursor -> ParseType (C.Type Parse)
+typeTypedef decl = do
+    declId <- PrelimDeclId.atCursor decl C.NameKindOrdinary
+    -- Typedefs can not be anonymous, but we use 'cachedMaybe' for safety
+    -- anyway
+    let mDeclName = PrelimDeclId.sourceName declId
+    ParseType.cachedMaybe mDeclName $ do
+        underlying <- handle (addUnderlyingTypeContextHandler declId) $
+                        getUnderlyingType decl
+        pure $ C.TypeTypedef $ C.Ref {
+            name = declId
+          , underlying = underlying
+          }
+  where
+    getUnderlyingType :: CXCursor -> ParseType (C.Type Parse)
+    getUnderlyingType typedefCurr = do
       uTy  <- clang_getTypedefDeclUnderlyingType typedefCurr
       -- Later versions of Clang use elaborated types, earlier versions do not
       case fromSimpleEnum (cxtKind uTy) of
@@ -165,13 +178,6 @@ fromDecl ty = do
           addQualifiers <$> cxtype refTy
         Right{}                 -> cxtype uTy
         _otherwise              -> panicPure "Invalid underlying type"
-
-    addTypedefContextHandler :: PrelimDeclId -> SomeException -> ParseType a
-    addTypedefContextHandler n e
-      | Just e' <- (fromException @ParseTypeException e)
-      = throwM (UnsupportedUnderlyingType n e')
-      | otherwise
-      = throwM e
 
 function :: Bool -> CXType -> ParseType (C.Type Parse)
 function hasProto ty = do
@@ -212,6 +218,17 @@ blockPointer ty = do
     return (C.TypeBlock fun)
 
 {-------------------------------------------------------------------------------
+  Underlying types
+-------------------------------------------------------------------------------}
+
+addUnderlyingTypeContextHandler :: PrelimDeclId -> SomeException -> ParseType a
+addUnderlyingTypeContextHandler n e
+  | Just e' <- (fromException @ParseTypeException e)
+  = throwM (UnsupportedUnderlyingType n e')
+  | otherwise
+  = throwM e
+
+{-------------------------------------------------------------------------------
   Implicit function to pointer conversion
 -------------------------------------------------------------------------------}
 
@@ -226,12 +243,16 @@ adjustFunctionTypesToPointers = go False
         -- Trivial cases
         C.TypePrim pt       -> C.TypePrim pt
         C.TypeRef n         -> C.TypeRef n
+        C.TypeEnum ref      -> C.TypeEnum $ C.Ref {
+            name = ref.name
+          , underlying = go ctx ref.underlying
+          }
         C.TypeVoid          -> C.TypeVoid
         C.TypeComplex pt    -> C.TypeComplex pt
 
         -- Interesting cases
         C.TypeTypedef (C.Ref n uTy) ->
-          if isCanonicalFunctionType uTy && not ctx then
+          if C.isCanonicalTypeFunction uTy && not ctx then
             C.TypePointers 1 $ C.TypeTypedef (C.Ref n (go True uTy))
           else
             C.TypeTypedef (C.Ref n (go True uTy))
@@ -253,11 +274,3 @@ adjustFunctionTypesToPointers = go False
         C.TypeConstArray n    t -> C.TypeConstArray n    $ go ctx t
         C.TypeIncompleteArray t -> C.TypeIncompleteArray $ go ctx t
         C.TypeQual qual       t -> C.TypeQual qual       $ go ctx t
-
-    -- | Canonical types have all typedefs and type qualifiers removed.
-    isCanonicalFunctionType :: C.Type Parse -> Bool
-    isCanonicalFunctionType = \case
-        C.TypeTypedef ref   -> isCanonicalFunctionType ref.underlying
-        C.TypeQual _qual ty -> isCanonicalFunctionType ty
-        C.TypeFun{}         -> True
-        _otherwise          -> False

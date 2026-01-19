@@ -212,7 +212,8 @@ processEnum ::
      C.DeclInfo HandleMacros
   -> C.Enum ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
-processEnum info enum =
+processEnum info enum = do
+    modify $ over #reparseEnv $ updateEnv info.id.name.text
     mkDecl <$> mapM processEnumConstant enum.constants
   where
     mkDecl :: [C.EnumConstant HandleMacros] -> C.Decl HandleMacros
@@ -227,6 +228,11 @@ processEnum info enum =
             , ann       = enum.ann
             }
         }
+
+    updateEnv :: Text -> LanC.ReparseEnv -> LanC.ReparseEnv
+    updateEnv name =
+        Map.insert name $
+          C.TypeEnum $ C.Ref info.id (coercePass enum.typ)
 
 processAnonEnumConstant ::
      C.DeclInfo HandleMacros

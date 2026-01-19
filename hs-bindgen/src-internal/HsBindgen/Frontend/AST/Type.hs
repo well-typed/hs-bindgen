@@ -9,6 +9,7 @@ module HsBindgen.Frontend.AST.Type (
   , TypeF(
        TypePrim
      , TypeRef
+     , TypeEnum
      , TypeMacro
      , TypeTypedef
      , TypeFun
@@ -62,12 +63,18 @@ data TypeF tag p =
     -- | Complex type (such as @float complex@)
   | TypeComplex C.PrimType
 
-    -- | Reference to named type other than a macro type or typedef
+    -- | Reference to named type other than an enum, macro type or typedef
     --
     -- TODO: enum should get annotations with underlying types just like
     -- typedefs, so that we can erase the enum types and replace them with
     -- their underlying type.
   | TypeRef (Id p)
+
+    -- | Reference to an enum
+    --
+    -- NOTE: has a strictness annotation, which allows GHC to infer that
+    -- pattern matches are redundant when @TypeEnumRefF tag p ~ Void@.
+  | TypeEnum !(TypeEnumRefF tag p)
 
     -- | Reference to a macro type
     --
@@ -147,14 +154,17 @@ mapTypeF :: forall tag tag' p.
   -> (TypeExtBindingRefF tag p -> TypeF tag' p)
      -- | What to do when encountering a macro type reference.
   -> (TypeMacroRefF tag p -> TypeF tag' p)
+  -- | What to do when encountering an enum reference.
+  -> (TypeEnumRefF tag p -> TypeF tag' p)
   -> TypeF tag  p
   -> TypeF tag' p
-mapTypeF fTypedefRef fQual fExtBindingRef fMacroRef = go
+mapTypeF fTypedefRef fQual fExtBindingRef fMacroRef fEnumRef = go
   where
     go :: TypeF tag p -> TypeF tag' p
     go ty = case ty of
       TypePrim pt           -> TypePrim pt
       TypeRef declId        -> TypeRef declId
+      TypeEnum ref          -> fEnumRef ref
       TypeMacro ref         -> fMacroRef ref
       TypeTypedef ref       -> fTypedefRef ref
       TypePointers n t      -> TypePointers n $ go t
@@ -218,6 +228,17 @@ type ExtBindingRef p = Ref (ExtBinding p) p
 --
 type MacroRef p = Ref (MacroId p) p
 
+-- |
+--
+-- > enum E : u_int { e };
+-- > extern enum E x;
+--
+-- The type of the global variable @x@ is roughly:
+--
+-- > Ref { ref = "E", underlying = TypePrim u_int }
+--
+type EnumRef p = Ref (Id p) p
+
 -- | A reference (by name) to another type, annotated with an underlying type.
 --
 -- Reference types include:
@@ -277,11 +298,16 @@ class ( IsPass p
       , Show (TypeMacroRefF tag p)
       , Eq   (TypeMacroRefF tag p)
       , Ord  (TypeMacroRefF tag p)
+
+      , Show (TypeEnumRefF tag p)
+      , Eq   (TypeEnumRefF tag p)
+      , Ord  (TypeEnumRefF tag p)
       ) => ValidTypeTag (tag :: TypeTag) (p :: Pass) where
   type family TypedefRefF     tag p :: Star
   type family TypeQualifierF  tag p :: Star
   type family TypeExtBindingRefF tag p :: Star
   type family TypeMacroRefF tag p :: Star
+  type family TypeEnumRefF tag p :: Star
 
   getTypedefUnderlying :: TypedefRefF tag p -> TypeF tag p
   getMacroUnderlying :: TypeMacroRefF tag p -> TypeF tag p
@@ -292,6 +318,7 @@ instance IsPass p => ValidTypeTag Full p where
   type instance TypeQualifierF     Full p = TypeQual
   type instance TypeExtBindingRefF Full p = ExtBindingRef p
   type instance TypeMacroRefF      Full p = MacroRef p
+  type instance TypeEnumRefF       Full p = EnumRef p
 
   getTypedefUnderlying = (.underlying)
   getMacroUnderlying = (.underlying)
@@ -302,6 +329,7 @@ instance IsPass p => ValidTypeTag Erased p where
   type instance TypeQualifierF     Erased p = TypeQual
   type instance TypeExtBindingRefF Erased p = Void
   type instance TypeMacroRefF      Erased p = Void
+  type instance TypeEnumRefF       Erased p = Void
 
   getTypedefUnderlying = absurd
   getMacroUnderlying = absurd
@@ -312,6 +340,7 @@ instance IsPass p => ValidTypeTag Canonical p where
   type instance TypeQualifierF     Canonical p = Void
   type instance TypeExtBindingRefF Canonical p = Void
   type instance TypeMacroRefF      Canonical p = Void
+  type instance TypeEnumRefF       Canonical p = Void
 
   getTypedefUnderlying = absurd
   getMacroUnderlying = absurd
@@ -373,6 +402,7 @@ buildPointersF n inner
 {-# COMPLETE
        TypePrim
      , TypeRef
+     , TypeEnum
      , TypeMacro
      , TypeTypedef
      , TypePointers
@@ -406,7 +436,7 @@ instance Normalize tag tag where
 -- probably not that long, so we do not expect this algorithm to have
 -- problematic performance.
 instance Normalize Full Erased where
-  normalize = mapTypeF fTypedefRef fQual fExtBindingRef fMacroRef
+  normalize = mapTypeF fTypedefRef fQual fExtBindingRef fMacroRef fEnumRef
     where
       fTypedefRef :: TypedefRef p -> TypeF Erased p
       fTypedefRef ref = normalize ref.underlying
@@ -420,8 +450,11 @@ instance Normalize Full Erased where
       fMacroRef :: MacroRef p -> TypeF Erased p
       fMacroRef ref = normalize ref.underlying
 
+      fEnumRef :: EnumRef p -> TypeF Erased p
+      fEnumRef ref = normalize ref.underlying
+
 instance Normalize Erased Canonical where
-  normalize = mapTypeF absurd fQual absurd absurd
+  normalize = mapTypeF absurd fQual absurd absurd absurd
     where
       fQual :: TypeQual -> TypeF Erased p -> TypeF Canonical p
       fQual _qual typ = normalize typ
@@ -454,6 +487,7 @@ depsOfType = \case
 
     -- Interesting cases
     TypeRef ref         -> [(ByValue, ref)]
+    TypeEnum ref        -> [(ByValue, ref.name)]
     TypeMacro ref       -> [(ByValue, macroIdId (Proxy @p) ref.name)]
     TypeTypedef ref     -> [(ByValue, ref.name)]
     TypeUnsafePointer t -> first (const ByRef) <$> depsOfType t
@@ -587,6 +621,7 @@ isCanonicalTypeArray ty =
     case ty of
       TypePrim _pt          -> Nothing
       TypeRef _declId       -> Nothing
+      TypeEnum _ref         -> Nothing
       TypeMacro ref         -> isCanonicalTypeArray (getMacroUnderlying ref)
       TypeTypedef ref       -> isCanonicalTypeArray (getTypedefUnderlying ref)
       TypePointers _n _t    -> Nothing
