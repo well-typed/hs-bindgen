@@ -779,6 +779,7 @@ test_declarations_select_scoping =
           "ParsedAndSelected2"
         , "ParsedAndSelected3"
         , "struct ParsedUnselectable"
+        , "ParsedAndSelected4"
         , "ParsedAndSelected5"
         ]
 
@@ -1248,6 +1249,7 @@ test_programAnalysis_selection_fail =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           "struct Fail"
+        , "struct Fail"
         , "struct DependOnFailByValue"
         , "struct DependOnFailByReference"
         , "struct OkBefore"
@@ -1400,14 +1402,14 @@ test_programAnalysis_selection_squash :: TestCase
 test_programAnalysis_selection_squash =
     defaultTest "program-analysis/selection_squash_typedef"
       & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
-            MatchNoDeclarations ->
-              Just $ Expected "no-decls"
+            MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->
+              Just $ Expected name
             _otherwise ->
               Nothing
           )
   where
     declsWithMsgs :: [C.DeclName]
-    declsWithMsgs = ["no-decls"]
+    declsWithMsgs = ["typedef_to_struct_a"]
 
 {-------------------------------------------------------------------------------
   Bespoke tests: types

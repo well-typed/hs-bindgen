@@ -163,43 +163,50 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
                   _otherReason                -> r
               (_, _) -> l
 
-        selectDecl :: Decl -> (Maybe Decl, [Msg Select])
+        selectDecl :: Decl -> Maybe Decl
         selectDecl =
           selectDeclWith
+            selectedIds
             getTransitiveSelectability
-            index
+
+        unitDecls :: [Decl]
+        unitDecls = map coercePass unit.decls
+
+        selectedUnitDecls  :: [Decl]
+        selectedUnitDecls = mapMaybe selectDecl unitDecls
+
+        selectMsgs :: [Msg Select]
+        selectMsgs =
+          getSelectMsgs
             rootIds
             additionalSelectedTransIds
-
-        availableDecls :: [Decl]
-        availableDecls = map coercePass unit.decls
-
-        -- Fold available declarations and collect selected declarations and
-        -- trace messages.
-        unitDecls'  :: [Decl]
-        selectMsgs :: [Msg Select]
-        (unitDecls', selectMsgs) =
-          bimap catMaybes concat $ unzip $
-            map selectDecl availableDecls
+            getTransitiveSelectability
+            index
 
         unitSelect :: C.TranslationUnit Select
         unitSelect = C.TranslationUnit {
-                decls        = unitDecls'
+                decls        = selectedUnitDecls
               , includeGraph = unit.includeGraph
               , ann          = unit.ann
               }
 
+        -- If there were no predicate matches we issue a warning to the user.
+        noDeclarationsMatchedMsg :: [Msg Select]
+        noDeclarationsMatchedMsg = [
+            WithLocationInfo{
+                loc = LocationUnavailable
+              , msg = SelectNoDeclarationsMatched
+              }
+          | Set.null rootIds
+          ]
+
         msgs :: [Msg Select]
         msgs =
-             selectMsgs
-          ++ getDelayedMsgs selectedIndex
-          -- If there were no predicate matches we issue a warning to the user.
-          ++ [ WithLocationInfo{
-                   loc = LocationUnavailable
-                 , msg = SelectNoDeclarationsMatched
-                 }
-             | Set.null rootIds
-             ]
+          concat [
+              selectMsgs
+            , getDelayedMsgs selectedIndex
+            , noDeclarationsMatchedMsg
+            ]
 
     in  ( unitSelect
         , sortSelectMsgs unit.includeGraph msgs
@@ -235,10 +242,64 @@ selectDecls isMainHeader isInMainHeaderDir config unit =
             config.selectPredicate
 
 {-------------------------------------------------------------------------------
-  Fold declarations
+  Filter list of declarations
 -------------------------------------------------------------------------------}
 
+-- TODO D: At the moment, we test for selection and transitive selectability
+-- twice (in 'selectDeclWith' we traverse the list of declarations, and in
+-- 'getSelectMsgs' we traverse the declaration index).
 selectDeclWith ::
+  -- | Selected declaration IDs.
+     Set DeclId
+  -> (DeclId -> TransitiveSelectability)
+  -> Decl
+  -> Maybe Decl
+selectDeclWith
+  selectedIds
+  getTransitiveSelectability
+  decl =
+    case (isSelected, transitiveSelectability) of
+      (True, TransitivelySelectable) -> Just decl
+      _otherwise                     -> Nothing
+  where
+    declId :: DeclId
+    declId = decl.info.id.cName
+
+    isSelected :: Bool
+    isSelected = Set.member declId selectedIds
+
+    transitiveSelectability :: TransitiveSelectability
+    transitiveSelectability = getTransitiveSelectability declId
+
+{-------------------------------------------------------------------------------
+  Select traces
+-------------------------------------------------------------------------------}
+
+getSelectMsgs ::
+  -- | Selection roots.
+     Set DeclId
+  -- | Additionally selected transitive dependencies (non-empty when program
+  --   slicing is enabled).
+  -> Set DeclId
+  ->(DeclId -> TransitiveSelectability)
+  -> DeclIndex
+  -> [Msg Select]
+getSelectMsgs
+  rootIds
+  additionalSelectedTransIds
+  getTransitiveSelectability
+  declIndex
+  = concatMap (uncurry aux) $ DeclIndex.toList declIndex
+  where
+    aux :: DeclId -> Entry -> [Msg Select]
+    aux =
+      getSelectMsgsDeclId
+        getTransitiveSelectability
+        declIndex
+        rootIds
+        additionalSelectedTransIds
+
+getSelectMsgsDeclId ::
     (DeclId -> TransitiveSelectability)
   -> DeclIndex
   -- | Selection roots.
@@ -246,44 +307,39 @@ selectDeclWith ::
   -- | Additionally selected transitive dependencies (non-empty when program
   --   slicing is enabled).
   -> Set DeclId
-  -> Decl
-  -> (Maybe Decl, [Msg Select])
-selectDeclWith
+  -> DeclId
+  -> Entry
+  -> [Msg Select]
+getSelectMsgsDeclId
   getTransitiveSelectability
   declIndex
   rootIds
   additionalSelectedTransIds
-  decl =
-    case ( isSelectedRoot
+  declId
+  entry
+  = case ( isSelectedRoot
          , isAdditionalSelectedTransDep
          , transitiveSelectability ) of
       -- Declaration is a selection root.
       (True, False, TransitivelySelectable) ->
-        (Just decl, getSelMsgs SelectionRoot)
+        getMsgsFor SelectionRoot
       (True, False, TransitivelyUnselectable rs) ->
-        (Nothing, maybeToList $ getUnavailMsg SelectionRoot rs)
+        maybeToList $ getUnavailMsg SelectionRoot rs
       -- Declaration is an additionally selected transitive dependency.
       (False, True, TransitivelySelectable) ->
-        (Just decl, getSelMsgs TransitiveDependency)
+        getMsgsFor TransitiveDependency
       (False, True, TransitivelyUnselectable rs) ->
-        (Nothing, maybeToList $ getUnavailMsg TransitiveDependency rs)
+        maybeToList $ getUnavailMsg TransitiveDependency rs
       -- Declaration is not selected.
       (False, False, _) ->
-        let selectMsg = WithLocationInfo{
-                loc = declLocationInfo decl
-              , msg = SelectStatusInfo NotSelected
-              }
-        in (Nothing, [selectMsg])
+        [withLoc $ SelectStatusInfo NotSelected]
       -- Declaration is a selection root and a transitive dependency. This
       -- should be impossible and we consider it a bug.
       (True, True, _) ->
         panicPure $
           "Declaration is selection root and transitive dependency: "
-          ++ show decl.info
+          ++ show (withLoc declId)
   where
-    declId :: DeclId
-    declId = decl.info.id.cName
-
     -- We check three conditions:
     isSelectedRoot = Set.member declId rootIds
     -- These are also always strict transitive dependencies.
@@ -291,60 +347,54 @@ selectDeclWith
       Set.member declId additionalSelectedTransIds
     transitiveSelectability = getTransitiveSelectability declId
 
-    getSelMsgs :: SelectReason -> [Msg Select]
-    getSelMsgs selectReason = concat [
-          [ WithLocationInfo{
-                loc = declLocationInfo decl
-              , msg = SelectStatusInfo (Selected selectReason)
-              }
-          ]
-        , [ WithLocationInfo{
-                loc = declLocationInfo decl
-              , msg = SelectDeprecated selectReason
-              }
-          | isDeprecated decl.info
-          ]
+    getMsgsFor :: SelectReason -> [Msg Select]
+    getMsgsFor selectReason = concat [
+          [ withLoc $ SelectStatusInfo (Selected selectReason) ]
+        , [ withLoc $ SelectDeprecated selectReason | isDeprecated ]
         ]
 
-    getUnavailMsg :: SelectReason -> Map DeclId Unselectable -> Maybe (Msg Select)
-    getUnavailMsg selectReason unavailReason =
-      let msgs = [
-              case r of
-                Unselectable u ->
-                  TransitiveDependencyUnusable
-                    i
-                    u
-                    (DeclIndex.lookupLoc i declIndex)
-                UnselectableNotSelected ->
-                  TransitiveDependencyNotSelected
-                    i
-                    (DeclIndex.lookupLoc i declIndex)
-            | (i, r) <- Map.toList unavailReason
-            ]
-      in  if null msgs then
-            Nothing
-          else
-            Just $ WithLocationInfo{
-                loc = declLocationInfo decl
-              , msg = TransitiveDependenciesMissing selectReason msgs
-              }
+    loc :: [SingleLoc]
+    loc = DeclIndex.entryToLoc entry
 
-    isDeprecated :: C.DeclInfo Select -> Bool
-    isDeprecated info = info.availability == C.Deprecated
+    withLoc :: a -> WithLocationInfo a
+    withLoc x = WithLocationInfo{
+                  loc = declIdLocationInfo declId loc
+                , msg = x
+                }
+
+    getUnavailMsg :: SelectReason -> Map DeclId Unselectable -> Maybe (Msg Select)
+    getUnavailMsg selectReason unavailReasons =
+        if null msgs then
+          Nothing
+        else
+          Just $ withLoc $ TransitiveDependenciesMissing selectReason msgs
+      where
+        msgs = [
+               case r of
+                 Unselectable u ->
+                   TransitiveDependencyUnusable
+                     i
+                     u
+                     (DeclIndex.lookupLoc i declIndex)
+                 UnselectableNotSelected ->
+                   TransitiveDependencyNotSelected
+                     i
+                     (DeclIndex.lookupLoc i declIndex)
+             | (i, r) <- Map.toList unavailReasons
+             ]
+
+    isDeprecated :: Bool
+    isDeprecated = DeclIndex.entryToAvailability entry == C.Deprecated
 
 {-------------------------------------------------------------------------------
-  Parse trace messages
+  Delayed traces
 -------------------------------------------------------------------------------}
 
-declLocationInfo :: Decl -> LocationInfo
-declLocationInfo decl =
-    declIdLocationInfo decl.info.id.cName [decl.info.loc]
-
 getDelayedMsgs :: DeclIndex -> [Msg Select]
-getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
+getDelayedMsgs = concatMap (uncurry aux) . DeclIndex.toList
   where
-    getSelectMsg :: DeclId -> Entry -> [Msg Select]
-    getSelectMsg declId = \case
+    aux :: DeclId -> Entry -> [Msg Select]
+    aux declId = \case
       UsableE e -> case e of
         UsableSuccess success ->
           [ WithLocationInfo{
@@ -386,7 +436,7 @@ getDelayedMsgs = concatMap (uncurry getSelectMsg) . DeclIndex.toList
       SquashedE{} -> []
 
 {-------------------------------------------------------------------------------
-  Sort messages
+  Sort traces
 -------------------------------------------------------------------------------}
 
 compareByOrder :: Map SourcePath Int -> SourcePath -> SourcePath -> Ordering
@@ -481,7 +531,8 @@ selectDeclIndex declUseGraph p declIndex =
             Just ([failedMacro.loc], C.Available)
           UnusableOmitted{} ->
             Nothing
-        SquashedE e -> DeclIndex.lookupEntry e.targetNameC declIndex >>= entryInfo
+        -- SquashedE e -> DeclIndex.lookupEntry e.targetNameC declIndex >>= entryInfo
+        SquashedE e -> Just ([e.typedefLoc], C.Available)
 
     -- We match anonymous declarations based on their use sites.
     --

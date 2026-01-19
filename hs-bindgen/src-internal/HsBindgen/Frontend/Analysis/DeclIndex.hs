@@ -6,14 +6,17 @@
 -- > import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 module HsBindgen.Frontend.Analysis.DeclIndex (
     DeclIndex -- opaque
-  , Entry(..)
+    -- * Entry
   , Usable(..)
   , Unusable(..)
   , Squashed(..)
+  , Entry(..)
+  , entryToLoc
+  , entryToAvailability
     -- * Construction
-  , empty
-  , filter
   , fromParseResults
+    -- * Filter
+  , filter
     -- * Query parse successes
   , lookup
   , (!)
@@ -66,6 +69,53 @@ import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Definition
+-------------------------------------------------------------------------------}
+
+-- | Index of all declarations
+--
+-- The declaration index indexes C types (not Haskell types); as such, it
+-- contains declarations in the source code, and never contains external
+-- declarations.
+--
+-- When we replace a declaration by an external one while resolving binding
+-- specifications, it is not deleted from the declaration index but reclassified
+-- as 'UsableExternal'. In the "HsBindgen.Frontend.Analysis.UseDeclGraph",
+-- dependency edges from use sites to the replaced declaration are deleted,
+-- because the use sites now depend on the external Haskell type.
+--
+-- For example, assume the C code
+--
+-- @
+-- typedef struct {    // D1
+--   int x;
+-- } foo_t;            // D2
+--
+-- typedef foo_t foo;  // D3
+-- @
+--
+-- - D1 declares an anonymous @struct@
+-- - D2 declares the typedef @foo_t@ depending on D1
+-- - D3 declares a typedef @foo@ depending on D2
+--
+-- The use-decl graph is
+--
+-- D1 <- D2 <- D3
+--
+-- Further, assume we have an external binding specification for D2. After
+-- resolving external binding specifications, the use-decl graph will be
+--
+-- D1 <- D2    D3
+--      (R2) <-|
+--
+-- The edge from D3 to D2 was removed, since D3 now depends on a Haskell type
+-- R3, which is not part of the use-decl graph.
+data DeclIndex = DeclIndex {
+      map :: Map DeclId Entry
+    }
+  deriving stock (Show, Generic)
+
+{-------------------------------------------------------------------------------
+  Entry
 -------------------------------------------------------------------------------}
 
 -- | Usable declaration
@@ -149,48 +199,19 @@ data Entry =
   | SquashedE Squashed
   deriving stock (Show, Generic)
 
--- | Index of all declarations
---
--- The declaration index indexes C types (not Haskell types); as such, it
--- contains declarations in the source code, and never contains external
--- declarations.
---
--- When we replace a declaration by an external one while resolving binding
--- specifications, it is not deleted from the declaration index but reclassified
--- as 'UsableExternal'. In the "HsBindgen.Frontend.Analysis.UseDeclGraph",
--- dependency edges from use sites to the replaced declaration are deleted,
--- because the use sites now depend on the external Haskell type.
---
--- For example, assume the C code
---
--- @
--- typedef struct {    // D1
---   int x;
--- } foo_t;            // D2
---
--- typedef foo_t foo;  // D3
--- @
---
--- - D1 declares an anonymous @struct@
--- - D2 declares the typedef @foo_t@ depending on D1
--- - D3 declares a typedef @foo@ depending on D2
---
--- The use-decl graph is
---
--- D1 <- D2 <- D3
---
--- Further, assume we have an external binding specification for D2. After
--- resolving external binding specifications, the use-decl graph will be
---
--- D1 <- D2    D3
---      (R2) <-|
---
--- The edge from D3 to D2 was removed, since D3 now depends on a Haskell type
--- R3, which is not part of the use-decl graph.
-data DeclIndex = DeclIndex {
-      map :: Map DeclId Entry
-    }
-  deriving stock (Show, Generic)
+entryToLoc :: Entry -> [SingleLoc]
+entryToLoc = \case
+  (UnusableE e) -> unusableToLoc e
+  (UsableE   e) -> maybeToList $ usableToLoc e
+  (SquashedE e) -> [e.typedefLoc]
+
+entryToAvailability :: Entry -> C.Availability
+entryToAvailability = \case
+    UsableE e   -> case e of
+      UsableSuccess success -> success.decl.info.availability
+      UsableExternal        -> C.Available
+    UnusableE{} -> C.Available
+    SquashedE{} -> C.Available
 
 {-------------------------------------------------------------------------------
   Construction
@@ -198,9 +219,6 @@ data DeclIndex = DeclIndex {
 
 empty :: DeclIndex
 empty = DeclIndex Map.empty
-
-filter :: (DeclId -> Entry -> Bool) -> DeclIndex -> DeclIndex
-filter p (DeclIndex entries) = DeclIndex (Map.filterWithKey p entries)
 
 fromParseResults :: [ParseResult AssignAnonIds] -> DeclIndex
 fromParseResults results = flip execState empty $ mapM_ aux results
@@ -300,6 +318,13 @@ fromParseResults results = flip execState empty $ mapM_ aux results
     sameMacro = (==) `on` (map tokenSpelling . (.tokens))
 
 {-------------------------------------------------------------------------------
+  Filter
+-------------------------------------------------------------------------------}
+
+filter :: (DeclId -> Entry -> Bool) -> DeclIndex -> DeclIndex
+filter p (DeclIndex entries) = DeclIndex (Map.filterWithKey p entries)
+
+{-------------------------------------------------------------------------------
   Query parse successes
 -------------------------------------------------------------------------------}
 
@@ -339,10 +364,8 @@ toList index = Map.toList index.map
 -- | Get the source locations of a declaration.
 lookupLoc :: DeclId -> DeclIndex -> [SingleLoc]
 lookupLoc d i = case lookupEntry d i of
-  Nothing            -> []
-  Just (UnusableE e) -> unusableToLoc e
-  Just (UsableE   e) -> maybeToList $ usableToLoc e
-  Just (SquashedE e) -> [e.typedefLoc]
+  Nothing -> []
+  Just e  -> entryToLoc e
 
 -- | Get the source locations of an unusable declaration.
 lookupUnusableLoc :: DeclId -> DeclIndex -> [SingleLoc]
@@ -350,6 +373,10 @@ lookupUnusableLoc d i = case lookupEntry d i of
   Nothing             -> []
   Just (UnusableE  e) -> unusableToLoc e
   Just (UsableE    _) -> []
+  -- TODO D: This resolves to the location of the SQUASH TARGET, and is used
+  -- when resolving binding specifications. Is this behavior correct? We should
+  -- probably rename this function and split into lookup and getUnusableLoc,
+  -- similar to 'entryToLoc'.
   Just (SquashedE  e) -> lookupUnusableLoc e.targetNameC i
 
 -- | Get the identifiers of all declarations in the index.
