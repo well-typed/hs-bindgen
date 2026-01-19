@@ -1520,7 +1520,7 @@ __defined at:__ @documentation\/doxygen_docs.h 360:8@
 
 __exported by:__ @documentation\/doxygen_docs.h@
 -}
-data Flexible_array
+data Flexible_array_Aux
     = Flexible_array {flexible_array_count :: HsBindgen.Runtime.Prelude.CSize
                       {- ^
 
@@ -1532,36 +1532,24 @@ data Flexible_array
 
                       __exported by:__ @documentation\/doxygen_docs.h@
                       -}}
-      {- ^
-
-         Function with flexible array member
-
-         [__@count@ /(input)/__]: Number of elements
-
-         __returns:__ Allocated structure
-
-      __C declaration:__ @struct flexible_array@
-
-      __defined at:__ @documentation\/doxygen_docs.h 360:8@
-
-      __exported by:__ @documentation\/doxygen_docs.h@
-      -}
     deriving stock (Eq, Show)
-instance Storable Flexible_array
+instance Storable Flexible_array_Aux
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 8 :: Int
           peek = \ptr_0 -> pure Flexible_array <*> peekCField (Proxy @"flexible_array_count") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Flexible_array flexible_array_count_3 -> pokeCField (Proxy @"flexible_array_count") ptr_1 flexible_array_count_3
-instance HasFlexibleArrayMember CInt Flexible_array
-    where flexibleArrayMemberOffset = \_ty_0 -> 8
-instance HasCField Flexible_array "flexible_array_count"
-    where type CFieldType Flexible_array
+instance Offset CInt Flexible_array_Aux
+    where offset = \_ty_0 -> 8
+type Flexible_array = WithFlexibleArrayMember CInt
+                                              Flexible_array_Aux
+instance HasCField Flexible_array_Aux "flexible_array_count"
+    where type CFieldType Flexible_array_Aux
                           "flexible_array_count" = HsBindgen.Runtime.Prelude.CSize
           offset# = \_ -> \_ -> 0
 instance TyEq ty
-              (CFieldType Flexible_array "flexible_array_count") =>
-         HasField "flexible_array_count" (Ptr Flexible_array) (Ptr ty)
+              (CFieldType Flexible_array_Aux "flexible_array_count") =>
+         HasField "flexible_array_count" (Ptr Flexible_array_Aux) (Ptr ty)
     where getField = ptrToCField (Proxy @"flexible_array_count")
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 foreign import ccall safe "hs_bindgen_7eada9f65d982412" hs_bindgen_7eada9f65d982412_base ::

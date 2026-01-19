@@ -5,7 +5,13 @@ hsmodule: Example
 ctypes:
 - headers: edge-cases/flam.h
   cname: struct pascal
+  hsname: Pascal_Aux
+- headers: edge-cases/flam.h
+  cname: struct pascal
   hsname: Pascal
+- headers: edge-cases/flam.h
+  cname: struct foo
+  hsname: Foo_Aux
 - headers: edge-cases/flam.h
   cname: struct foo
   hsname: Foo
@@ -14,15 +20,20 @@ ctypes:
   hsname: Foo_bar
 - headers: edge-cases/flam.h
   cname: struct diff
+  hsname: Diff_Aux
+- headers: edge-cases/flam.h
+  cname: struct diff
   hsname: Diff
 - headers: edge-cases/flam.h
   cname: struct triplets
-  hsname: Triplets
+  hsname: Triplets_Aux
 - headers: edge-cases/flam.h
-  cname: struct vector
-  hsname: Vector
+  cname: struct triplets
+  hsname: Triplets
 hstypes:
 - hsname: Diff
+  representation: typealias
+- hsname: Diff_Aux
   representation:
     record:
       constructor: Diff
@@ -35,6 +46,8 @@ hstypes:
   - Show
   - Storable
 - hsname: Foo
+  representation: typealias
+- hsname: Foo_Aux
   representation:
     record:
       constructor: Foo
@@ -58,6 +71,8 @@ hstypes:
   - Show
   - Storable
 - hsname: Pascal
+  representation: typealias
+- hsname: Pascal_Aux
   representation:
     record:
       constructor: Pascal
@@ -69,22 +84,13 @@ hstypes:
   - Show
   - Storable
 - hsname: Triplets
+  representation: typealias
+- hsname: Triplets_Aux
   representation:
     record:
       constructor: Triplets
       fields:
       - triplets_len
-  instances:
-  - Eq
-  - Prim
-  - Show
-  - Storable
-- hsname: Vector
-  representation:
-    record:
-      constructor: Vector
-      fields:
-      - vector_len
   instances:
   - Eq
   - Prim

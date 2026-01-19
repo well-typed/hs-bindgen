@@ -227,8 +227,13 @@ structDecs opts haddockConfig info struct spec fields = do
     State.modify' $ #instanceMap %~ Map.insert structName insts
     pure decls
   where
+    -- TODO D: Separate module and split non-flam/flam.
     structName :: Hs.Name Hs.NsTypeConstr
-    structName = Hs.unsafeHsIdHsName info.id.unsafeHsName
+    structName =
+      Hs.unsafeHsIdHsName $
+        case struct.flam of
+          Nothing -> info.id.unsafeHsName
+          Just _  -> info.id.unsafeHsName <> "_Aux"
 
     structFields :: Vec n Hs.Field
     structFields = flip Vec.map fields $ \field -> Hs.Field {
@@ -245,7 +250,7 @@ structDecs opts haddockConfig info struct spec fields = do
     -- everything in aux is state-dependent
     aux :: Hs.InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux instanceMap = (insts,) $
-        structDecl : storableDecl ++ primDecl ++ optDecls ++ hasFlamDecl ++
+        structDecl : storableDecl ++ primDecl ++ optDecls ++ flamDecls ++
         concatMap (structFieldDecls structName) struct.fields
         -- TODO: generate zero-copy bindings for the FLAM field. See issue
         -- #1286.
@@ -304,18 +309,35 @@ structDecs opts haddockConfig info struct spec fields = do
           , clss `Set.member` insts
           ]
 
-        hasFlamDecl :: [Hs.Decl]
-        hasFlamDecl = case struct.flam of
+        flamDecls :: [Hs.Decl]
+        flamDecls = case struct.flam of
           Nothing   -> []
-          Just flam -> singleton $ Hs.DeclDefineInstance
-            Hs.DefineInstance {
-                comment      = Nothing
-              , instanceDecl =
-                  Hs.InstanceHasFLAM
-                    hsStruct
-                    (Type.topLevel flam.typ)
-                    (flam.offset `div` 8)
-              }
+          Just flam -> [
+              Hs.DeclDefineInstance
+                Hs.DefineInstance{
+                    comment      = Nothing
+                  , instanceDecl =
+                      Hs.InstanceHasFLAM
+                        hsStruct
+                        (Type.topLevel flam.typ)
+                        (flam.offset `div` 8)
+                  }
+            , Hs.DeclTypSyn
+                Hs.TypSyn{
+                    name    = Hs.unsafeHsIdHsName info.id.unsafeHsName
+                  , typ     =
+                      Hs.HsWithFlexibleArrayMember
+                        (Type.topLevel flam.typ)
+                        (Hs.HsTypRef structName)
+                  , origin  = Origin.Decl{
+                      info = info
+                    , kind = Origin.Opaque info.id.cName.name.kind
+                    , spec = spec
+                    }
+                    -- TODO D: Bogus name.
+                  , comment = mkHaddocks haddockConfig info (Hs.unsafeHsIdHsName $ info.id.unsafeHsName)
+                  }
+            ]
 
 -- | 'HasCField', 'HasCBitfield', and 'HasField' instances for a field of a
 -- struct declaration

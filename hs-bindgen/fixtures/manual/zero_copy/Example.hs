@@ -929,7 +929,7 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tic_tac_toe) "tic_ta
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-data Vector = Vector
+data Vector_Aux = Vector
   { vector_len :: FC.CInt
     {- ^ __C declaration:__ @len@
 
@@ -940,7 +940,7 @@ data Vector = Vector
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Vector where
+instance F.Storable Vector_Aux where
 
   sizeOf = \_ -> (4 :: Int)
 
@@ -958,7 +958,7 @@ instance F.Storable Vector where
           Vector vector_len2 ->
             HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"vector_len") ptr0 vector_len2
 
-instance Data.Primitive.Types.Prim Vector where
+instance Data.Primitive.Types.Prim Vector_Aux where
 
   sizeOf# = \_ -> (4#)
 
@@ -1006,18 +1006,27 @@ instance Data.Primitive.Types.Prim Vector where
               Vector vector_len4 ->
                 Data.Primitive.Types.writeOffAddr# addr0 i1 vector_len4 s3
 
-instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar Vector where
+instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CChar Vector_Aux where
 
-  flexibleArrayMemberOffset = \_ty0 -> 4
+  offset = \_ty0 -> 4
 
-instance HsBindgen.Runtime.HasCField.HasCField Vector "vector_len" where
+{-| __C declaration:__ @struct vector@
 
-  type CFieldType Vector "vector_len" = FC.CInt
+    __defined at:__ @manual\/zero_copy.h 72:8@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+type Vector =
+  (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember FC.CChar) Vector_Aux
+
+instance HsBindgen.Runtime.HasCField.HasCField Vector_Aux "vector_len" where
+
+  type CFieldType Vector_Aux "vector_len" = FC.CInt
 
   offset# = \_ -> \_ -> 0
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector) "vector_len")
-         ) => GHC.Records.HasField "vector_len" (Ptr.Ptr Vector) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector_Aux) "vector_len")
+         ) => GHC.Records.HasField "vector_len" (Ptr.Ptr Vector_Aux) (Ptr.Ptr ty) where
 
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"vector_len")

@@ -27,10 +27,3 @@ struct triplets {
   int len;
   int flam[][3];
 };
-
-struct vector {
-  int len;
-  char data[];
-};
-
-static int reverse(const struct vector *input, struct vector *output);

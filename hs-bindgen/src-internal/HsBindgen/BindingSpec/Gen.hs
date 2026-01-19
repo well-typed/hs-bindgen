@@ -124,6 +124,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
       -> UnresolvedBindingSpec
       -> UnresolvedBindingSpec
     aux = \case
+      Hs.DeclTypSyn typSyn          -> insertType $ auxTypSyn    typSyn
       Hs.DeclData struct            -> insertType $ auxStruct    struct
       Hs.DeclEmpty edata            -> insertType $ auxEmptyData edata
       Hs.DeclNewtype ntype          ->
@@ -156,6 +157,24 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
               [(getHeaders declInfo, Require cTypeSpec)]
         & #hsTypes %~
             Map.insert hsId hsTypeSpec
+
+    auxTypSyn ::
+         Hs.TypSyn
+      -> ( (C.DeclInfo Final, BindingSpec.CTypeSpec)
+         , (Hs.Identifier, BindingSpec.HsTypeSpec)
+         )
+    auxTypSyn typSyn =
+      let hsIdentifier = Hs.Identifier $ Hs.getName typSyn.name
+          cTypeSpec = BindingSpec.CTypeSpec {
+              hsIdent = Just hsIdentifier
+            }
+          hsTypeSpec = BindingSpec.HsTypeSpec {
+              hsRep     = Just $ BindingSpec.HsTypeRepTypeAlias
+            , instances = Map.empty
+            }
+      in  ( (typSyn.origin.info, cTypeSpec)
+          , (hsIdentifier, hsTypeSpec)
+          )
 
     auxStruct ::
          Hs.Struct n

@@ -657,7 +657,7 @@ instance TyEq ty (CFieldType Tic_tac_toe "tic_tac_toe_row3") =>
 
     __exported by:__ @manual\/zero_copy.h@
 -}
-data Vector
+data Vector_Aux
     = Vector {vector_len :: CInt
               {- ^ __C declaration:__ @len@
 
@@ -665,20 +665,14 @@ data Vector
 
                    __exported by:__ @manual\/zero_copy.h@
               -}}
-      {- ^ __C declaration:__ @struct vector@
-
-           __defined at:__ @manual\/zero_copy.h 72:8@
-
-           __exported by:__ @manual\/zero_copy.h@
-      -}
     deriving stock (Eq, Show)
-instance Storable Vector
+instance Storable Vector_Aux
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure Vector <*> peekCField (Proxy @"vector_len") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Vector vector_len_3 -> pokeCField (Proxy @"vector_len") ptr_1 vector_len_3
-instance Prim Vector
+instance Prim Vector_Aux
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
           indexByteArray# = \arr_0 -> \i_1 -> Vector (indexByteArray# arr_0 i_1)
@@ -691,13 +685,14 @@ instance Prim Vector
                                                        (# s_17, v_18 #) -> (# s_17, Vector v_18 #)
           writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
                                                                       Vector vector_len_23 -> writeOffAddr# addr_19 i_20 vector_len_23 s_22
-instance HasFlexibleArrayMember CChar Vector
-    where flexibleArrayMemberOffset = \_ty_0 -> 4
-instance HasCField Vector "vector_len"
-    where type CFieldType Vector "vector_len" = CInt
+instance Offset CChar Vector_Aux
+    where offset = \_ty_0 -> 4
+type Vector = WithFlexibleArrayMember CChar Vector_Aux
+instance HasCField Vector_Aux "vector_len"
+    where type CFieldType Vector_Aux "vector_len" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Vector "vector_len") =>
-         HasField "vector_len" (Ptr Vector) (Ptr ty)
+instance TyEq ty (CFieldType Vector_Aux "vector_len") =>
+         HasField "vector_len" (Ptr Vector_Aux) (Ptr ty)
     where getField = ptrToCField (Proxy @"vector_len")
 {-| __C declaration:__ @triplet@
 

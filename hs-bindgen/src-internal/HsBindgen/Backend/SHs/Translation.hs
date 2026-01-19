@@ -53,6 +53,7 @@ getCWrappers decls = mapMaybe getCWrapper decls
 
 translateDecl :: Hs.Decl -> SDecl
 translateDecl = \case
+    Hs.DeclTypSyn         x -> translateDeclTypSyn         x
     Hs.DeclData           x -> translateDeclData           x
     Hs.DeclEmpty          x -> translateDeclEmpty          x
     Hs.DeclNewtype        x -> translateNewtype            x
@@ -67,6 +68,14 @@ translateDecl = \case
     Hs.DeclUnionGetter    x -> translateUnionGetter        x
     Hs.DeclUnionSetter    x -> translateUnionSetter        x
     Hs.DeclVar            x -> translateDeclVar            x
+
+translateDeclTypSyn :: Hs.TypSyn -> SDecl
+translateDeclTypSyn d = DTypSyn $ TypeSynonym {
+      name    = d.name
+    , typ     = translateType d.typ
+    , origin  = d.origin
+    , comment = d.comment
+    }
 
 translateDefineInstanceDecl :: Hs.DefineInstance -> SDecl
 translateDefineInstanceDecl defInst =
@@ -83,12 +92,12 @@ translateDefineInstanceDecl defInst =
         DInst $ translateHasFieldInstance i defInst.comment
       Hs.InstanceHasFLAM struct fty i ->
         DInst Instance{
-            clss    = HasFlexibleArrayMember_class
+            clss    = FlexibleArrayMember_Offset_class
           , args    = [ translateType fty, TCon struct.name ]
           , super   = []
           , types   = []
           , comment = defInst.comment
-          , decs    = [ ( HasFlexibleArrayMember_offset
+          , decs    = [ ( FlexibleArrayMember_Offset_offset
                         , ELam "_ty" $ EIntegral (toInteger i) Nothing)
                       ]
           }
@@ -290,22 +299,27 @@ translatePatSyn patSyn = DPatternSynonym PatternSynonym{
 
 translateType :: Hs.HsType -> ClosedType
 translateType = \case
-    Hs.HsPrimType t         -> TGlobal (PrimType t)
-    Hs.HsTypRef r           -> TCon r
-    Hs.HsConstArray n t     -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
-    Hs.HsIncompleteArray t  -> TGlobal IncompleteArray `TApp` (translateType t)
-    Hs.HsPtr t              -> TApp (TGlobal Foreign_Ptr) (translateType t)
-    Hs.HsFunPtr t           -> TApp (TGlobal Foreign_FunPtr) (translateType t)
-    Hs.HsStablePtr t        -> TApp (TGlobal Foreign_StablePtr) (translateType t)
-    Hs.HsConstPtr t         -> TApp (TGlobal ConstPtr_type) (translateType t)
-    Hs.HsIO t               -> TApp (TGlobal IO_type) (translateType t)
-    Hs.HsFun a b            -> TFun (translateType a) (translateType b)
-    Hs.HsExtBinding r c hs  -> TExt r c hs
-    Hs.HsByteArray          -> TGlobal ByteArray_type
-    Hs.HsSizedByteArray n m -> TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
-    Hs.HsBlock t            -> TGlobal Block_type `TApp` translateType t
-    Hs.HsComplexType t      -> TApp (TGlobal ComplexType) (translateType (HsPrimType t))
-    Hs.HsStrLit s           -> TStrLit s
+    Hs.HsPrimType t                  -> TGlobal (PrimType t)
+    Hs.HsTypRef r                    -> TCon r
+    Hs.HsConstArray n t              -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
+    Hs.HsIncompleteArray t           -> TGlobal IncompleteArray `TApp` (translateType t)
+    Hs.HsPtr t                       -> TApp (TGlobal Foreign_Ptr) (translateType t)
+    Hs.HsFunPtr t                    -> TApp (TGlobal Foreign_FunPtr) (translateType t)
+    Hs.HsStablePtr t                 -> TApp (TGlobal Foreign_StablePtr) (translateType t)
+    Hs.HsConstPtr t                  -> TApp (TGlobal ConstPtr_type) (translateType t)
+    Hs.HsIO t                        -> TApp (TGlobal IO_type) (translateType t)
+    Hs.HsFun a b                     -> TFun (translateType a) (translateType b)
+    Hs.HsExtBinding r c hs           -> TExt r c hs
+    Hs.HsByteArray                   -> TGlobal ByteArray_type
+    Hs.HsSizedByteArray n m          -> TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
+    Hs.HsBlock t                     -> TGlobal Block_type `TApp` translateType t
+    Hs.HsComplexType t               -> TApp (TGlobal ComplexType) (translateType (HsPrimType t))
+    Hs.HsStrLit s                    -> TStrLit s
+    Hs.HsWithFlexibleArrayMember x y -> TApp
+                                          (TApp
+                                            (TGlobal WithFlexibleArrayMember)
+                                            (translateType x))
+                                          (translateType y)
 
 {-------------------------------------------------------------------------------
   'Storable'

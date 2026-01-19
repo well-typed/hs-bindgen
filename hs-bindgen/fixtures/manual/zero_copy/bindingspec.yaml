@@ -35,6 +35,9 @@ ctypes:
   hsname: Tic_tac_toe
 - headers: manual/zero_copy.h
   cname: struct vector
+  hsname: Vector_Aux
+- headers: manual/zero_copy.h
+  cname: struct vector
   hsname: Vector
 - headers: manual/zero_copy.h
   cname: triplet
@@ -169,6 +172,8 @@ hstypes:
   - Show
   - Storable
 - hsname: Vector
+  representation: typealias
+- hsname: Vector_Aux
   representation:
     record:
       constructor: Vector
