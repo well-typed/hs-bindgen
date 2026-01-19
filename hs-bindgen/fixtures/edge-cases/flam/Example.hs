@@ -575,3 +575,102 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplets) "triplets_
 
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"triplets_len")
+
+{-| __C declaration:__ @struct vector@
+
+    __defined at:__ @edge-cases\/flam.h 31:8@
+
+    __exported by:__ @edge-cases\/flam.h@
+-}
+data Vector = Vector
+  { vector_len :: FC.CInt
+    {- ^ __C declaration:__ @len@
+
+         __defined at:__ @edge-cases\/flam.h 32:7@
+
+         __exported by:__ @edge-cases\/flam.h@
+    -}
+  }
+  deriving stock (Eq, Show)
+
+instance F.Storable Vector where
+
+  sizeOf = \_ -> (4 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Vector
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"vector_len") ptr0
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Vector vector_len2 ->
+            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"vector_len") ptr0 vector_len2
+
+instance Data.Primitive.Types.Prim Vector where
+
+  sizeOf# = \_ -> (4#)
+
+  alignment# = \_ -> (4#)
+
+  indexByteArray# =
+    \arr0 ->
+      \i1 ->
+        Vector (Data.Primitive.Types.indexByteArray# arr0 i1)
+
+  readByteArray# =
+    \arr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readByteArray# arr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Vector v4 #)
+
+  writeByteArray# =
+    \arr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Vector vector_len4 ->
+                Data.Primitive.Types.writeByteArray# arr0 i1 vector_len4 s3
+
+  indexOffAddr# =
+    \addr0 ->
+      \i1 ->
+        Vector (Data.Primitive.Types.indexOffAddr# addr0 i1)
+
+  readOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \s2 ->
+          case Data.Primitive.Types.readOffAddr# addr0 i1 s2 of
+            (# s3, v4 #) -> (# s3, Vector v4 #)
+
+  writeOffAddr# =
+    \addr0 ->
+      \i1 ->
+        \struct2 ->
+          \s3 ->
+            case struct2 of
+              Vector vector_len4 ->
+                Data.Primitive.Types.writeOffAddr# addr0 i1 vector_len4 s3
+
+instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar Vector where
+
+  flexibleArrayMemberOffset = \_ty0 -> 4
+
+instance HsBindgen.Runtime.HasCField.HasCField Vector "vector_len" where
+
+  type CFieldType Vector "vector_len" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector) "vector_len")
+         ) => GHC.Records.HasField "vector_len" (Ptr.Ptr Vector) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"vector_len")

@@ -18,6 +18,9 @@ ctypes:
 - headers: edge-cases/flam.h
   cname: struct triplets
   hsname: Triplets
+- headers: edge-cases/flam.h
+  cname: struct vector
+  hsname: Vector
 hstypes:
 - hsname: Diff
   representation:
@@ -71,6 +74,17 @@ hstypes:
       constructor: Triplets
       fields:
       - triplets_len
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable
+- hsname: Vector
+  representation:
+    record:
+      constructor: Vector
+      fields:
+      - vector_len
   instances:
   - Eq
   - Prim
