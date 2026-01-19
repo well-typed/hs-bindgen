@@ -5,9 +5,9 @@ module Main where
 import Control.Monad (forM_)
 import Foreign.C (newCString, withCString)
 
-import RogueUtil.Generated qualified as RU
-
 import HsBindgen.Runtime.ConstPtr qualified as HBR
+
+import RogueUtil.Generated qualified as RU
 
 main :: IO ()
 main = do
