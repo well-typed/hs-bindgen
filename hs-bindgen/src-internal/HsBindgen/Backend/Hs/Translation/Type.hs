@@ -95,8 +95,6 @@ primType :: C.PrimType -> HsPrimType
 primType C.PrimBool           = HsPrimCBool
 primType (C.PrimIntegral i s) = integralType i s
 primType (C.PrimFloating f)   = floatingType f
-primType C.PrimPtrDiff        = HsPrimCPtrdiff
-primType C.PrimSize           = HsPrimCSize
 primType (C.PrimChar sign)    = primChar sign
 
 primChar :: C.PrimSignChar -> HsPrimType
