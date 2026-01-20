@@ -1,0 +1,31 @@
+cabal-version: 3.0
+name:          constructor-import-issue
+version:       0.1.0
+license:       BSD-3-Clause
+license-file:  LICENSE
+author:        Joris Dral
+maintainer:    joris@well-typed.com
+build-type:    Simple
+
+common lang
+  build-depends:    base >=4.17 && <5
+  default-language: GHC2021
+  ghc-options:      -Wall
+
+executable constructor-import-issue-bin
+  import:          lang
+  main-is:         Main.hs
+  hs-source-dirs:  app generated
+  extra-libraries: constructor_import_issue
+  build-depends:
+    , hs-bindgen-runtime
+    , primitive
+
+  other-modules:
+    Generated
+    Generated.A
+    Generated.B
+    Generated.FunPtr
+    Generated.Global
+    Generated.Safe
+    Generated.Unsafe
