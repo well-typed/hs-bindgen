@@ -5,12 +5,12 @@ hsmodule: Foreign
 ctypes:
 - headers: program-analysis/program_slicing_simple.h
   cname: uint64_t
-  hsname: Int64
+  hsname: Word64
 hstypes:
-- hsname: Int64
+- hsname: Word64
   representation:
     newtype:
-      ffitype: Int64
+      ffitype: Word64
   instances:
   - Bits
   - Bounded
