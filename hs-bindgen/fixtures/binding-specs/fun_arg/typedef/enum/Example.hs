@@ -169,6 +169,7 @@ instance HsBindgen.Runtime.HasCField.HasCField B "un_B" where
 newtype E = E
   { un_E :: M.C
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType E) "un_E")
          ) => GHC.Records.HasField "un_E" (Ptr.Ptr E) (Ptr.Ptr ty) where

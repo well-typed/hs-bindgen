@@ -5,8 +5,11 @@
 
 module Example.Safe where
 
+import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -25,13 +28,24 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_edgecasesspec_examples_Example_Safe_resample@
-foreign import ccall safe "hs_bindgen_8a72aafc705daf44" hs_bindgen_8a72aafc705daf44 ::
+foreign import ccall safe "hs_bindgen_8a72aafc705daf44" hs_bindgen_8a72aafc705daf44_base ::
+     Ptr.Ptr Void
+  -> Ptr.Ptr Void
+  -> FC.CLLong
+  -> FC.CLLong
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_edgecasesspec_examples_Example_Safe_resample@
+hs_bindgen_8a72aafc705daf44 ::
      Ptr.Ptr Int32_T
   -> Ptr.Ptr Cint16_T
   -> Int64_T
   -> Int64_T
   -> Ptr.Ptr Cint16_T
   -> IO ()
+hs_bindgen_8a72aafc705daf44 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_8a72aafc705daf44_base
 
 {-| __C declaration:__ @resample@
 

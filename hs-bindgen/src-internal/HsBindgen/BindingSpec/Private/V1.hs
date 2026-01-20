@@ -24,6 +24,7 @@ module HsBindgen.BindingSpec.Private.V1 (
   , ResolvedBindingSpec
   , CTypeSpec(..)
   , HsTypeSpec(..)
+  , hsSpecFFIType
   , HsTypeRep(..)
   , HsRecordRep(..)
   , HsNewtypeRep(..)
@@ -178,6 +179,13 @@ instance Default HsTypeSpec where
       hsRep     = Nothing
     , instances = Map.empty
     }
+
+hsSpecFFIType :: HsTypeSpec -> Maybe FFIType
+hsSpecFFIType hsSpec = do
+    rep <- hsSpec.hsRep
+    case rep of
+      HsTypeRepNewtype ntRep -> ntRep.ffiType
+      _ -> Nothing
 
 --------------------------------------------------------------------------------
 

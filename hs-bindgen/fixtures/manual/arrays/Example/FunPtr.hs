@@ -7,7 +7,9 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -33,8 +35,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_manualarrays_Example_get_transpose@
-foreign import ccall unsafe "hs_bindgen_c99d8a3b0363a0fa" hs_bindgen_c99d8a3b0363a0fa ::
-     IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
+foreign import ccall unsafe "hs_bindgen_c99d8a3b0363a0fa" hs_bindgen_c99d8a3b0363a0fa_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_manualarrays_Example_get_transpose@
+hs_bindgen_c99d8a3b0363a0fa :: IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
+hs_bindgen_c99d8a3b0363a0fa =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c99d8a3b0363a0fa_base
 
 {-# NOINLINE transpose #-}
 {-| __C declaration:__ @transpose@
@@ -48,8 +55,13 @@ transpose =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c99d8a3b0363a0fa
 
 -- __unique:__ @test_manualarrays_Example_get_pretty_print_triplets@
-foreign import ccall unsafe "hs_bindgen_923b33cbbfeb5e7d" hs_bindgen_923b33cbbfeb5e7d ::
-     IO (Ptr.FunPtr (Triplet_ptrs -> IO ()))
+foreign import ccall unsafe "hs_bindgen_923b33cbbfeb5e7d" hs_bindgen_923b33cbbfeb5e7d_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_manualarrays_Example_get_pretty_print_triplets@
+hs_bindgen_923b33cbbfeb5e7d :: IO (Ptr.FunPtr (Triplet_ptrs -> IO ()))
+hs_bindgen_923b33cbbfeb5e7d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_923b33cbbfeb5e7d_base
 
 {-# NOINLINE pretty_print_triplets #-}
 {-| A function that prints the given triplet_ptrs

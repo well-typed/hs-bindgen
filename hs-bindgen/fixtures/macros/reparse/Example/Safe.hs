@@ -11,6 +11,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.ConstPtr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -772,10 +773,18 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_char1@
-foreign import ccall safe "hs_bindgen_f15610128336b06a" hs_bindgen_f15610128336b06a ::
+foreign import ccall safe "hs_bindgen_f15610128336b06a" hs_bindgen_f15610128336b06a_base ::
+     FC.CInt
+  -> FC.CChar
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_char1@
+hs_bindgen_f15610128336b06a ::
      A
   -> FC.CChar
   -> IO ()
+hs_bindgen_f15610128336b06a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f15610128336b06a_base
 
 {-| Function declarations
 
@@ -794,10 +803,18 @@ args_char1 ::
 args_char1 = hs_bindgen_f15610128336b06a
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_char2@
-foreign import ccall safe "hs_bindgen_087f45ca0a284a03" hs_bindgen_087f45ca0a284a03 ::
+foreign import ccall safe "hs_bindgen_087f45ca0a284a03" hs_bindgen_087f45ca0a284a03_base ::
+     FC.CInt
+  -> FC.CSChar
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_char2@
+hs_bindgen_087f45ca0a284a03 ::
      A
   -> FC.CSChar
   -> IO ()
+hs_bindgen_087f45ca0a284a03 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_087f45ca0a284a03_base
 
 {-| __C declaration:__ @args_char2@
 
@@ -814,10 +831,18 @@ args_char2 ::
 args_char2 = hs_bindgen_087f45ca0a284a03
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_char3@
-foreign import ccall safe "hs_bindgen_f6cb5c5a728c2404" hs_bindgen_f6cb5c5a728c2404 ::
+foreign import ccall safe "hs_bindgen_f6cb5c5a728c2404" hs_bindgen_f6cb5c5a728c2404_base ::
+     FC.CInt
+  -> FC.CUChar
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_char3@
+hs_bindgen_f6cb5c5a728c2404 ::
      A
   -> FC.CUChar
   -> IO ()
+hs_bindgen_f6cb5c5a728c2404 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f6cb5c5a728c2404_base
 
 {-| __C declaration:__ @args_char3@
 
@@ -834,10 +859,18 @@ args_char3 ::
 args_char3 = hs_bindgen_f6cb5c5a728c2404
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_short1@
-foreign import ccall safe "hs_bindgen_d485767e0caa1f7c" hs_bindgen_d485767e0caa1f7c ::
+foreign import ccall safe "hs_bindgen_d485767e0caa1f7c" hs_bindgen_d485767e0caa1f7c_base ::
+     FC.CInt
+  -> FC.CShort
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_short1@
+hs_bindgen_d485767e0caa1f7c ::
      A
   -> FC.CShort
   -> IO ()
+hs_bindgen_d485767e0caa1f7c =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d485767e0caa1f7c_base
 
 {-| __C declaration:__ @args_short1@
 
@@ -854,10 +887,18 @@ args_short1 ::
 args_short1 = hs_bindgen_d485767e0caa1f7c
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_short2@
-foreign import ccall safe "hs_bindgen_833c96c437533e02" hs_bindgen_833c96c437533e02 ::
+foreign import ccall safe "hs_bindgen_833c96c437533e02" hs_bindgen_833c96c437533e02_base ::
+     FC.CInt
+  -> FC.CShort
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_short2@
+hs_bindgen_833c96c437533e02 ::
      A
   -> FC.CShort
   -> IO ()
+hs_bindgen_833c96c437533e02 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_833c96c437533e02_base
 
 {-| __C declaration:__ @args_short2@
 
@@ -874,10 +915,18 @@ args_short2 ::
 args_short2 = hs_bindgen_833c96c437533e02
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_short3@
-foreign import ccall safe "hs_bindgen_0e1eedc3fcbcea7a" hs_bindgen_0e1eedc3fcbcea7a ::
+foreign import ccall safe "hs_bindgen_0e1eedc3fcbcea7a" hs_bindgen_0e1eedc3fcbcea7a_base ::
+     FC.CInt
+  -> FC.CUShort
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_short3@
+hs_bindgen_0e1eedc3fcbcea7a ::
      A
   -> FC.CUShort
   -> IO ()
+hs_bindgen_0e1eedc3fcbcea7a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0e1eedc3fcbcea7a_base
 
 {-| __C declaration:__ @args_short3@
 
@@ -894,10 +943,18 @@ args_short3 ::
 args_short3 = hs_bindgen_0e1eedc3fcbcea7a
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_int1@
-foreign import ccall safe "hs_bindgen_906f0ac7dfd36ab8" hs_bindgen_906f0ac7dfd36ab8 ::
+foreign import ccall safe "hs_bindgen_906f0ac7dfd36ab8" hs_bindgen_906f0ac7dfd36ab8_base ::
+     FC.CInt
+  -> FC.CInt
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_int1@
+hs_bindgen_906f0ac7dfd36ab8 ::
      A
   -> FC.CInt
   -> IO ()
+hs_bindgen_906f0ac7dfd36ab8 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_906f0ac7dfd36ab8_base
 
 {-| __C declaration:__ @args_int1@
 
@@ -914,10 +971,18 @@ args_int1 ::
 args_int1 = hs_bindgen_906f0ac7dfd36ab8
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_int2@
-foreign import ccall safe "hs_bindgen_0edbc9b995b2a589" hs_bindgen_0edbc9b995b2a589 ::
+foreign import ccall safe "hs_bindgen_0edbc9b995b2a589" hs_bindgen_0edbc9b995b2a589_base ::
+     FC.CInt
+  -> FC.CInt
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_int2@
+hs_bindgen_0edbc9b995b2a589 ::
      A
   -> FC.CInt
   -> IO ()
+hs_bindgen_0edbc9b995b2a589 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0edbc9b995b2a589_base
 
 {-| __C declaration:__ @args_int2@
 
@@ -934,10 +999,18 @@ args_int2 ::
 args_int2 = hs_bindgen_0edbc9b995b2a589
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_int3@
-foreign import ccall safe "hs_bindgen_a5c223f58a255115" hs_bindgen_a5c223f58a255115 ::
+foreign import ccall safe "hs_bindgen_a5c223f58a255115" hs_bindgen_a5c223f58a255115_base ::
+     FC.CInt
+  -> FC.CUInt
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_int3@
+hs_bindgen_a5c223f58a255115 ::
      A
   -> FC.CUInt
   -> IO ()
+hs_bindgen_a5c223f58a255115 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a5c223f58a255115_base
 
 {-| __C declaration:__ @args_int3@
 
@@ -954,10 +1027,18 @@ args_int3 ::
 args_int3 = hs_bindgen_a5c223f58a255115
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_long1@
-foreign import ccall safe "hs_bindgen_41d1229384b9a529" hs_bindgen_41d1229384b9a529 ::
+foreign import ccall safe "hs_bindgen_41d1229384b9a529" hs_bindgen_41d1229384b9a529_base ::
+     FC.CInt
+  -> FC.CLong
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_long1@
+hs_bindgen_41d1229384b9a529 ::
      A
   -> FC.CLong
   -> IO ()
+hs_bindgen_41d1229384b9a529 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_41d1229384b9a529_base
 
 {-| __C declaration:__ @args_long1@
 
@@ -974,10 +1055,18 @@ args_long1 ::
 args_long1 = hs_bindgen_41d1229384b9a529
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_long2@
-foreign import ccall safe "hs_bindgen_a9a4b09fd3bd83db" hs_bindgen_a9a4b09fd3bd83db ::
+foreign import ccall safe "hs_bindgen_a9a4b09fd3bd83db" hs_bindgen_a9a4b09fd3bd83db_base ::
+     FC.CInt
+  -> FC.CLong
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_long2@
+hs_bindgen_a9a4b09fd3bd83db ::
      A
   -> FC.CLong
   -> IO ()
+hs_bindgen_a9a4b09fd3bd83db =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a9a4b09fd3bd83db_base
 
 {-| __C declaration:__ @args_long2@
 
@@ -994,10 +1083,18 @@ args_long2 ::
 args_long2 = hs_bindgen_a9a4b09fd3bd83db
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_long3@
-foreign import ccall safe "hs_bindgen_31dc2e680b3f3eff" hs_bindgen_31dc2e680b3f3eff ::
+foreign import ccall safe "hs_bindgen_31dc2e680b3f3eff" hs_bindgen_31dc2e680b3f3eff_base ::
+     FC.CInt
+  -> FC.CULong
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_long3@
+hs_bindgen_31dc2e680b3f3eff ::
      A
   -> FC.CULong
   -> IO ()
+hs_bindgen_31dc2e680b3f3eff =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_31dc2e680b3f3eff_base
 
 {-| __C declaration:__ @args_long3@
 
@@ -1014,10 +1111,18 @@ args_long3 ::
 args_long3 = hs_bindgen_31dc2e680b3f3eff
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_float@
-foreign import ccall safe "hs_bindgen_3d400757b5cbf4b7" hs_bindgen_3d400757b5cbf4b7 ::
+foreign import ccall safe "hs_bindgen_3d400757b5cbf4b7" hs_bindgen_3d400757b5cbf4b7_base ::
+     FC.CInt
+  -> FC.CFloat
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_float@
+hs_bindgen_3d400757b5cbf4b7 ::
      A
   -> FC.CFloat
   -> IO ()
+hs_bindgen_3d400757b5cbf4b7 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3d400757b5cbf4b7_base
 
 {-| __C declaration:__ @args_float@
 
@@ -1034,10 +1139,18 @@ args_float ::
 args_float = hs_bindgen_3d400757b5cbf4b7
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_double@
-foreign import ccall safe "hs_bindgen_70df07e39900487e" hs_bindgen_70df07e39900487e ::
+foreign import ccall safe "hs_bindgen_70df07e39900487e" hs_bindgen_70df07e39900487e_base ::
+     FC.CInt
+  -> FC.CDouble
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_double@
+hs_bindgen_70df07e39900487e ::
      A
   -> FC.CDouble
   -> IO ()
+hs_bindgen_70df07e39900487e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_70df07e39900487e_base
 
 {-| __C declaration:__ @args_double@
 
@@ -1054,10 +1167,18 @@ args_double ::
 args_double = hs_bindgen_70df07e39900487e
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_bool1@
-foreign import ccall safe "hs_bindgen_0b7c534fe683f843" hs_bindgen_0b7c534fe683f843 ::
+foreign import ccall safe "hs_bindgen_0b7c534fe683f843" hs_bindgen_0b7c534fe683f843_base ::
+     FC.CInt
+  -> FC.CBool
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_bool1@
+hs_bindgen_0b7c534fe683f843 ::
      A
   -> FC.CBool
   -> IO ()
+hs_bindgen_0b7c534fe683f843 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0b7c534fe683f843_base
 
 {-| __C declaration:__ @args_bool1@
 
@@ -1074,10 +1195,18 @@ args_bool1 ::
 args_bool1 = hs_bindgen_0b7c534fe683f843
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_struct@
-foreign import ccall safe "hs_bindgen_b20e084f7b7941b5" hs_bindgen_b20e084f7b7941b5 ::
+foreign import ccall safe "hs_bindgen_b20e084f7b7941b5" hs_bindgen_b20e084f7b7941b5_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_struct@
+hs_bindgen_b20e084f7b7941b5 ::
      A
   -> Ptr.Ptr Some_struct
   -> IO ()
+hs_bindgen_b20e084f7b7941b5 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b20e084f7b7941b5_base
 
 {-| __C declaration:__ @args_struct@
 
@@ -1098,10 +1227,18 @@ args_struct =
                       hs_bindgen_b20e084f7b7941b5 arg10 arg22)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_union@
-foreign import ccall safe "hs_bindgen_23aff33f33b6bdd1" hs_bindgen_23aff33f33b6bdd1 ::
+foreign import ccall safe "hs_bindgen_23aff33f33b6bdd1" hs_bindgen_23aff33f33b6bdd1_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_union@
+hs_bindgen_23aff33f33b6bdd1 ::
      A
   -> Ptr.Ptr Some_union
   -> IO ()
+hs_bindgen_23aff33f33b6bdd1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_23aff33f33b6bdd1_base
 
 {-| __C declaration:__ @args_union@
 
@@ -1122,10 +1259,18 @@ args_union =
                       hs_bindgen_23aff33f33b6bdd1 arg10 arg22)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_enum@
-foreign import ccall safe "hs_bindgen_fdd58ae14ce15ed5" hs_bindgen_fdd58ae14ce15ed5 ::
+foreign import ccall safe "hs_bindgen_fdd58ae14ce15ed5" hs_bindgen_fdd58ae14ce15ed5_base ::
+     FC.CInt
+  -> FC.CUInt
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_enum@
+hs_bindgen_fdd58ae14ce15ed5 ::
      A
   -> Some_enum
   -> IO ()
+hs_bindgen_fdd58ae14ce15ed5 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_fdd58ae14ce15ed5_base
 
 {-| __C declaration:__ @args_enum@
 
@@ -1142,10 +1287,18 @@ args_enum ::
 args_enum = hs_bindgen_fdd58ae14ce15ed5
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_pointer1@
-foreign import ccall safe "hs_bindgen_42ce2ec4fd2eda72" hs_bindgen_42ce2ec4fd2eda72 ::
+foreign import ccall safe "hs_bindgen_42ce2ec4fd2eda72" hs_bindgen_42ce2ec4fd2eda72_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_pointer1@
+hs_bindgen_42ce2ec4fd2eda72 ::
      A
   -> Ptr.Ptr FC.CInt
   -> IO ()
+hs_bindgen_42ce2ec4fd2eda72 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_42ce2ec4fd2eda72_base
 
 {-| __C declaration:__ @args_pointer1@
 
@@ -1162,10 +1315,18 @@ args_pointer1 ::
 args_pointer1 = hs_bindgen_42ce2ec4fd2eda72
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_pointer2@
-foreign import ccall safe "hs_bindgen_01b2f6502d340abe" hs_bindgen_01b2f6502d340abe ::
+foreign import ccall safe "hs_bindgen_01b2f6502d340abe" hs_bindgen_01b2f6502d340abe_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_pointer2@
+hs_bindgen_01b2f6502d340abe ::
      A
   -> Ptr.Ptr (Ptr.Ptr FC.CInt)
   -> IO ()
+hs_bindgen_01b2f6502d340abe =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_01b2f6502d340abe_base
 
 {-| __C declaration:__ @args_pointer2@
 
@@ -1182,10 +1343,18 @@ args_pointer2 ::
 args_pointer2 = hs_bindgen_01b2f6502d340abe
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_pointer3@
-foreign import ccall safe "hs_bindgen_3e64133f9aaebbf1" hs_bindgen_3e64133f9aaebbf1 ::
+foreign import ccall safe "hs_bindgen_3e64133f9aaebbf1" hs_bindgen_3e64133f9aaebbf1_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_pointer3@
+hs_bindgen_3e64133f9aaebbf1 ::
      A
   -> Ptr.Ptr Void
   -> IO ()
+hs_bindgen_3e64133f9aaebbf1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3e64133f9aaebbf1_base
 
 {-| __C declaration:__ @args_pointer3@
 
@@ -1202,8 +1371,13 @@ args_pointer3 ::
 args_pointer3 = hs_bindgen_3e64133f9aaebbf1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_A@
-foreign import ccall safe "hs_bindgen_c830401b459192fb" hs_bindgen_c830401b459192fb ::
-     IO A
+foreign import ccall safe "hs_bindgen_c830401b459192fb" hs_bindgen_c830401b459192fb_base ::
+     IO FC.CInt
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_A@
+hs_bindgen_c830401b459192fb :: IO A
+hs_bindgen_c830401b459192fb =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c830401b459192fb_base
 
 {-| __C declaration:__ @ret_A@
 
@@ -1215,9 +1389,16 @@ ret_A :: IO A
 ret_A = hs_bindgen_c830401b459192fb
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_char1@
-foreign import ccall safe "hs_bindgen_18b24c6e67a5412e" hs_bindgen_18b24c6e67a5412e ::
+foreign import ccall safe "hs_bindgen_18b24c6e67a5412e" hs_bindgen_18b24c6e67a5412e_base ::
+     FC.CInt
+  -> IO FC.CChar
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_char1@
+hs_bindgen_18b24c6e67a5412e ::
      A
   -> IO FC.CChar
+hs_bindgen_18b24c6e67a5412e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_18b24c6e67a5412e_base
 
 {-| __C declaration:__ @ret_char1@
 
@@ -1232,9 +1413,16 @@ ret_char1 ::
 ret_char1 = hs_bindgen_18b24c6e67a5412e
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_char2@
-foreign import ccall safe "hs_bindgen_2da1160aeef9ff64" hs_bindgen_2da1160aeef9ff64 ::
+foreign import ccall safe "hs_bindgen_2da1160aeef9ff64" hs_bindgen_2da1160aeef9ff64_base ::
+     FC.CInt
+  -> IO FC.CSChar
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_char2@
+hs_bindgen_2da1160aeef9ff64 ::
      A
   -> IO FC.CSChar
+hs_bindgen_2da1160aeef9ff64 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2da1160aeef9ff64_base
 
 {-| __C declaration:__ @ret_char2@
 
@@ -1249,9 +1437,16 @@ ret_char2 ::
 ret_char2 = hs_bindgen_2da1160aeef9ff64
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_char3@
-foreign import ccall safe "hs_bindgen_e3183f9de1b9f231" hs_bindgen_e3183f9de1b9f231 ::
+foreign import ccall safe "hs_bindgen_e3183f9de1b9f231" hs_bindgen_e3183f9de1b9f231_base ::
+     FC.CInt
+  -> IO FC.CUChar
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_char3@
+hs_bindgen_e3183f9de1b9f231 ::
      A
   -> IO FC.CUChar
+hs_bindgen_e3183f9de1b9f231 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_e3183f9de1b9f231_base
 
 {-| __C declaration:__ @ret_char3@
 
@@ -1266,9 +1461,16 @@ ret_char3 ::
 ret_char3 = hs_bindgen_e3183f9de1b9f231
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_short1@
-foreign import ccall safe "hs_bindgen_c313966d4478e3f4" hs_bindgen_c313966d4478e3f4 ::
+foreign import ccall safe "hs_bindgen_c313966d4478e3f4" hs_bindgen_c313966d4478e3f4_base ::
+     FC.CInt
+  -> IO FC.CShort
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_short1@
+hs_bindgen_c313966d4478e3f4 ::
      A
   -> IO FC.CShort
+hs_bindgen_c313966d4478e3f4 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c313966d4478e3f4_base
 
 {-| __C declaration:__ @ret_short1@
 
@@ -1283,9 +1485,16 @@ ret_short1 ::
 ret_short1 = hs_bindgen_c313966d4478e3f4
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_short2@
-foreign import ccall safe "hs_bindgen_737fbec310eb0719" hs_bindgen_737fbec310eb0719 ::
+foreign import ccall safe "hs_bindgen_737fbec310eb0719" hs_bindgen_737fbec310eb0719_base ::
+     FC.CInt
+  -> IO FC.CShort
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_short2@
+hs_bindgen_737fbec310eb0719 ::
      A
   -> IO FC.CShort
+hs_bindgen_737fbec310eb0719 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_737fbec310eb0719_base
 
 {-| __C declaration:__ @ret_short2@
 
@@ -1300,9 +1509,16 @@ ret_short2 ::
 ret_short2 = hs_bindgen_737fbec310eb0719
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_short3@
-foreign import ccall safe "hs_bindgen_b5bd9e111020db4e" hs_bindgen_b5bd9e111020db4e ::
+foreign import ccall safe "hs_bindgen_b5bd9e111020db4e" hs_bindgen_b5bd9e111020db4e_base ::
+     FC.CInt
+  -> IO FC.CUShort
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_short3@
+hs_bindgen_b5bd9e111020db4e ::
      A
   -> IO FC.CUShort
+hs_bindgen_b5bd9e111020db4e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b5bd9e111020db4e_base
 
 {-| __C declaration:__ @ret_short3@
 
@@ -1317,9 +1533,16 @@ ret_short3 ::
 ret_short3 = hs_bindgen_b5bd9e111020db4e
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_int1@
-foreign import ccall safe "hs_bindgen_a30224259287f5f8" hs_bindgen_a30224259287f5f8 ::
+foreign import ccall safe "hs_bindgen_a30224259287f5f8" hs_bindgen_a30224259287f5f8_base ::
+     FC.CInt
+  -> IO FC.CInt
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_int1@
+hs_bindgen_a30224259287f5f8 ::
      A
   -> IO FC.CInt
+hs_bindgen_a30224259287f5f8 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a30224259287f5f8_base
 
 {-| __C declaration:__ @ret_int1@
 
@@ -1334,9 +1557,16 @@ ret_int1 ::
 ret_int1 = hs_bindgen_a30224259287f5f8
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_int2@
-foreign import ccall safe "hs_bindgen_b5be09caf8cf5750" hs_bindgen_b5be09caf8cf5750 ::
+foreign import ccall safe "hs_bindgen_b5be09caf8cf5750" hs_bindgen_b5be09caf8cf5750_base ::
+     FC.CInt
+  -> IO FC.CInt
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_int2@
+hs_bindgen_b5be09caf8cf5750 ::
      A
   -> IO FC.CInt
+hs_bindgen_b5be09caf8cf5750 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b5be09caf8cf5750_base
 
 {-| __C declaration:__ @ret_int2@
 
@@ -1351,9 +1581,16 @@ ret_int2 ::
 ret_int2 = hs_bindgen_b5be09caf8cf5750
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_int3@
-foreign import ccall safe "hs_bindgen_698e3f97470d83be" hs_bindgen_698e3f97470d83be ::
+foreign import ccall safe "hs_bindgen_698e3f97470d83be" hs_bindgen_698e3f97470d83be_base ::
+     FC.CInt
+  -> IO FC.CUInt
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_int3@
+hs_bindgen_698e3f97470d83be ::
      A
   -> IO FC.CUInt
+hs_bindgen_698e3f97470d83be =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_698e3f97470d83be_base
 
 {-| __C declaration:__ @ret_int3@
 
@@ -1368,9 +1605,16 @@ ret_int3 ::
 ret_int3 = hs_bindgen_698e3f97470d83be
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_long1@
-foreign import ccall safe "hs_bindgen_c7e0705dd09be530" hs_bindgen_c7e0705dd09be530 ::
+foreign import ccall safe "hs_bindgen_c7e0705dd09be530" hs_bindgen_c7e0705dd09be530_base ::
+     FC.CInt
+  -> IO FC.CLong
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_long1@
+hs_bindgen_c7e0705dd09be530 ::
      A
   -> IO FC.CLong
+hs_bindgen_c7e0705dd09be530 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c7e0705dd09be530_base
 
 {-| __C declaration:__ @ret_long1@
 
@@ -1385,9 +1629,16 @@ ret_long1 ::
 ret_long1 = hs_bindgen_c7e0705dd09be530
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_long2@
-foreign import ccall safe "hs_bindgen_74b1f5b8c56ff22c" hs_bindgen_74b1f5b8c56ff22c ::
+foreign import ccall safe "hs_bindgen_74b1f5b8c56ff22c" hs_bindgen_74b1f5b8c56ff22c_base ::
+     FC.CInt
+  -> IO FC.CLong
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_long2@
+hs_bindgen_74b1f5b8c56ff22c ::
      A
   -> IO FC.CLong
+hs_bindgen_74b1f5b8c56ff22c =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_74b1f5b8c56ff22c_base
 
 {-| __C declaration:__ @ret_long2@
 
@@ -1402,9 +1653,16 @@ ret_long2 ::
 ret_long2 = hs_bindgen_74b1f5b8c56ff22c
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_long3@
-foreign import ccall safe "hs_bindgen_c2d07eaaab82d408" hs_bindgen_c2d07eaaab82d408 ::
+foreign import ccall safe "hs_bindgen_c2d07eaaab82d408" hs_bindgen_c2d07eaaab82d408_base ::
+     FC.CInt
+  -> IO FC.CULong
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_long3@
+hs_bindgen_c2d07eaaab82d408 ::
      A
   -> IO FC.CULong
+hs_bindgen_c2d07eaaab82d408 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c2d07eaaab82d408_base
 
 {-| __C declaration:__ @ret_long3@
 
@@ -1419,9 +1677,16 @@ ret_long3 ::
 ret_long3 = hs_bindgen_c2d07eaaab82d408
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_float@
-foreign import ccall safe "hs_bindgen_0edfbc7067faa1f7" hs_bindgen_0edfbc7067faa1f7 ::
+foreign import ccall safe "hs_bindgen_0edfbc7067faa1f7" hs_bindgen_0edfbc7067faa1f7_base ::
+     FC.CInt
+  -> IO FC.CFloat
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_float@
+hs_bindgen_0edfbc7067faa1f7 ::
      A
   -> IO FC.CFloat
+hs_bindgen_0edfbc7067faa1f7 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0edfbc7067faa1f7_base
 
 {-| __C declaration:__ @ret_float@
 
@@ -1436,9 +1701,16 @@ ret_float ::
 ret_float = hs_bindgen_0edfbc7067faa1f7
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_double@
-foreign import ccall safe "hs_bindgen_786ca672396b33be" hs_bindgen_786ca672396b33be ::
+foreign import ccall safe "hs_bindgen_786ca672396b33be" hs_bindgen_786ca672396b33be_base ::
+     FC.CInt
+  -> IO FC.CDouble
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_double@
+hs_bindgen_786ca672396b33be ::
      A
   -> IO FC.CDouble
+hs_bindgen_786ca672396b33be =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_786ca672396b33be_base
 
 {-| __C declaration:__ @ret_double@
 
@@ -1453,9 +1725,16 @@ ret_double ::
 ret_double = hs_bindgen_786ca672396b33be
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_bool1@
-foreign import ccall safe "hs_bindgen_2e99f19b59650996" hs_bindgen_2e99f19b59650996 ::
+foreign import ccall safe "hs_bindgen_2e99f19b59650996" hs_bindgen_2e99f19b59650996_base ::
+     FC.CInt
+  -> IO FC.CBool
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_bool1@
+hs_bindgen_2e99f19b59650996 ::
      A
   -> IO FC.CBool
+hs_bindgen_2e99f19b59650996 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2e99f19b59650996_base
 
 {-| __C declaration:__ @ret_bool1@
 
@@ -1470,10 +1749,18 @@ ret_bool1 ::
 ret_bool1 = hs_bindgen_2e99f19b59650996
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_struct@
-foreign import ccall safe "hs_bindgen_6c999121eed8178f" hs_bindgen_6c999121eed8178f ::
+foreign import ccall safe "hs_bindgen_6c999121eed8178f" hs_bindgen_6c999121eed8178f_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_struct@
+hs_bindgen_6c999121eed8178f ::
      A
   -> Ptr.Ptr Some_struct
   -> IO ()
+hs_bindgen_6c999121eed8178f =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_6c999121eed8178f_base
 
 {-| __C declaration:__ @ret_struct@
 
@@ -1491,10 +1778,18 @@ ret_struct =
                                             hs_bindgen_6c999121eed8178f arg10 res1)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_union@
-foreign import ccall safe "hs_bindgen_481ee5d2d9bd34db" hs_bindgen_481ee5d2d9bd34db ::
+foreign import ccall safe "hs_bindgen_481ee5d2d9bd34db" hs_bindgen_481ee5d2d9bd34db_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_union@
+hs_bindgen_481ee5d2d9bd34db ::
      A
   -> Ptr.Ptr Some_union
   -> IO ()
+hs_bindgen_481ee5d2d9bd34db =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_481ee5d2d9bd34db_base
 
 {-| __C declaration:__ @ret_union@
 
@@ -1512,9 +1807,16 @@ ret_union =
                                             hs_bindgen_481ee5d2d9bd34db arg10 res1)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_enum@
-foreign import ccall safe "hs_bindgen_8bb240ba453b700d" hs_bindgen_8bb240ba453b700d ::
+foreign import ccall safe "hs_bindgen_8bb240ba453b700d" hs_bindgen_8bb240ba453b700d_base ::
+     FC.CInt
+  -> IO FC.CUInt
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_enum@
+hs_bindgen_8bb240ba453b700d ::
      A
   -> IO Some_enum
+hs_bindgen_8bb240ba453b700d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_8bb240ba453b700d_base
 
 {-| __C declaration:__ @ret_enum@
 
@@ -1529,9 +1831,16 @@ ret_enum ::
 ret_enum = hs_bindgen_8bb240ba453b700d
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_pointer1@
-foreign import ccall safe "hs_bindgen_c346ed2cd20b9af1" hs_bindgen_c346ed2cd20b9af1 ::
+foreign import ccall safe "hs_bindgen_c346ed2cd20b9af1" hs_bindgen_c346ed2cd20b9af1_base ::
+     FC.CInt
+  -> IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_pointer1@
+hs_bindgen_c346ed2cd20b9af1 ::
      A
   -> IO (Ptr.Ptr FC.CInt)
+hs_bindgen_c346ed2cd20b9af1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c346ed2cd20b9af1_base
 
 {-| __C declaration:__ @ret_pointer1@
 
@@ -1546,9 +1855,16 @@ ret_pointer1 ::
 ret_pointer1 = hs_bindgen_c346ed2cd20b9af1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_pointer2@
-foreign import ccall safe "hs_bindgen_a21f618658151728" hs_bindgen_a21f618658151728 ::
+foreign import ccall safe "hs_bindgen_a21f618658151728" hs_bindgen_a21f618658151728_base ::
+     FC.CInt
+  -> IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_pointer2@
+hs_bindgen_a21f618658151728 ::
      A
   -> IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
+hs_bindgen_a21f618658151728 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a21f618658151728_base
 
 {-| __C declaration:__ @ret_pointer2@
 
@@ -1563,9 +1879,16 @@ ret_pointer2 ::
 ret_pointer2 = hs_bindgen_a21f618658151728
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_pointer3@
-foreign import ccall safe "hs_bindgen_2d8c6e2d2f395342" hs_bindgen_2d8c6e2d2f395342 ::
+foreign import ccall safe "hs_bindgen_2d8c6e2d2f395342" hs_bindgen_2d8c6e2d2f395342_base ::
+     FC.CInt
+  -> IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_pointer3@
+hs_bindgen_2d8c6e2d2f395342 ::
      A
   -> IO (Ptr.Ptr Void)
+hs_bindgen_2d8c6e2d2f395342 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2d8c6e2d2f395342_base
 
 {-| __C declaration:__ @ret_pointer3@
 
@@ -1580,9 +1903,16 @@ ret_pointer3 ::
 ret_pointer3 = hs_bindgen_2d8c6e2d2f395342
 
 -- __unique:__ @test_macrosreparse_Example_Safe_body1@
-foreign import ccall safe "hs_bindgen_b030d02030ed80bc" hs_bindgen_b030d02030ed80bc ::
+foreign import ccall safe "hs_bindgen_b030d02030ed80bc" hs_bindgen_b030d02030ed80bc_base ::
+     FC.CInt
+  -> IO FC.CInt
+
+-- __unique:__ @test_macrosreparse_Example_Safe_body1@
+hs_bindgen_b030d02030ed80bc ::
      A
   -> IO FC.CInt
+hs_bindgen_b030d02030ed80bc =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b030d02030ed80bc_base
 
 {-| __C declaration:__ @body1@
 
@@ -1597,8 +1927,13 @@ body1 ::
 body1 = hs_bindgen_b030d02030ed80bc
 
 -- __unique:__ @test_macrosreparse_Example_Safe_body2@
-foreign import ccall safe "hs_bindgen_be50427e6a63df54" hs_bindgen_be50427e6a63df54 ::
-     IO A
+foreign import ccall safe "hs_bindgen_be50427e6a63df54" hs_bindgen_be50427e6a63df54_base ::
+     IO FC.CInt
+
+-- __unique:__ @test_macrosreparse_Example_Safe_body2@
+hs_bindgen_be50427e6a63df54 :: IO A
+hs_bindgen_be50427e6a63df54 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_be50427e6a63df54_base
 
 {-| __C declaration:__ @body2@
 
@@ -1610,10 +1945,18 @@ body2 :: IO A
 body2 = hs_bindgen_be50427e6a63df54
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_complex_float@
-foreign import ccall safe "hs_bindgen_627a52a5c7617083" hs_bindgen_627a52a5c7617083 ::
+foreign import ccall safe "hs_bindgen_627a52a5c7617083" hs_bindgen_627a52a5c7617083_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_complex_float@
+hs_bindgen_627a52a5c7617083 ::
      A
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> IO ()
+hs_bindgen_627a52a5c7617083 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_627a52a5c7617083_base
 
 {-| __C declaration:__ @args_complex_float@
 
@@ -1634,10 +1977,18 @@ args_complex_float =
                       hs_bindgen_627a52a5c7617083 arg10 arg22)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_args_complex_double@
-foreign import ccall safe "hs_bindgen_392babebc1d83503" hs_bindgen_392babebc1d83503 ::
+foreign import ccall safe "hs_bindgen_392babebc1d83503" hs_bindgen_392babebc1d83503_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_args_complex_double@
+hs_bindgen_392babebc1d83503 ::
      A
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> IO ()
+hs_bindgen_392babebc1d83503 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_392babebc1d83503_base
 
 {-| __C declaration:__ @args_complex_double@
 
@@ -1658,10 +2009,18 @@ args_complex_double =
                       hs_bindgen_392babebc1d83503 arg10 arg22)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_complex_float@
-foreign import ccall safe "hs_bindgen_8958183ede73dea8" hs_bindgen_8958183ede73dea8 ::
+foreign import ccall safe "hs_bindgen_8958183ede73dea8" hs_bindgen_8958183ede73dea8_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_complex_float@
+hs_bindgen_8958183ede73dea8 ::
      A
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> IO ()
+hs_bindgen_8958183ede73dea8 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_8958183ede73dea8_base
 
 {-| __C declaration:__ @ret_complex_float@
 
@@ -1679,10 +2038,18 @@ ret_complex_float =
                                             hs_bindgen_8958183ede73dea8 arg10 res1)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_ret_complex_double@
-foreign import ccall safe "hs_bindgen_a95fabfd391a99aa" hs_bindgen_a95fabfd391a99aa ::
+foreign import ccall safe "hs_bindgen_a95fabfd391a99aa" hs_bindgen_a95fabfd391a99aa_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_ret_complex_double@
+hs_bindgen_a95fabfd391a99aa ::
      A
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> IO ()
+hs_bindgen_a95fabfd391a99aa =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a95fabfd391a99aa_base
 
 {-| __C declaration:__ @ret_complex_double@
 
@@ -1700,10 +2067,18 @@ ret_complex_double =
                                             hs_bindgen_a95fabfd391a99aa arg10 res1)
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_args1@
-foreign import ccall safe "hs_bindgen_ad9f8630dd04a203" hs_bindgen_ad9f8630dd04a203 ::
+foreign import ccall safe "hs_bindgen_ad9f8630dd04a203" hs_bindgen_ad9f8630dd04a203_base ::
+     FC.CInt
+  -> FC.CBool
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_bespoke_args1@
+hs_bindgen_ad9f8630dd04a203 ::
      A
   -> FC.CBool
   -> IO ()
+hs_bindgen_ad9f8630dd04a203 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_ad9f8630dd04a203_base
 
 {-| __C declaration:__ @bespoke_args1@
 
@@ -1720,10 +2095,18 @@ bespoke_args1 ::
 bespoke_args1 = hs_bindgen_ad9f8630dd04a203
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_args2@
-foreign import ccall safe "hs_bindgen_4b34178a505131e2" hs_bindgen_4b34178a505131e2 ::
+foreign import ccall safe "hs_bindgen_4b34178a505131e2" hs_bindgen_4b34178a505131e2_base ::
+     FC.CInt
+  -> FC.CSize
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_bespoke_args2@
+hs_bindgen_4b34178a505131e2 ::
      A
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO ()
+hs_bindgen_4b34178a505131e2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_4b34178a505131e2_base
 
 {-| __C declaration:__ @bespoke_args2@
 
@@ -1740,9 +2123,16 @@ bespoke_args2 ::
 bespoke_args2 = hs_bindgen_4b34178a505131e2
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_ret1@
-foreign import ccall safe "hs_bindgen_94b225a6394496c1" hs_bindgen_94b225a6394496c1 ::
+foreign import ccall safe "hs_bindgen_94b225a6394496c1" hs_bindgen_94b225a6394496c1_base ::
+     FC.CInt
+  -> IO FC.CBool
+
+-- __unique:__ @test_macrosreparse_Example_Safe_bespoke_ret1@
+hs_bindgen_94b225a6394496c1 ::
      A
   -> IO FC.CBool
+hs_bindgen_94b225a6394496c1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_94b225a6394496c1_base
 
 {-| __C declaration:__ @bespoke_ret1@
 
@@ -1757,9 +2147,16 @@ bespoke_ret1 ::
 bespoke_ret1 = hs_bindgen_94b225a6394496c1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_bespoke_ret2@
-foreign import ccall safe "hs_bindgen_7c9a1792426b84a1" hs_bindgen_7c9a1792426b84a1 ::
+foreign import ccall safe "hs_bindgen_7c9a1792426b84a1" hs_bindgen_7c9a1792426b84a1_base ::
+     FC.CInt
+  -> IO FC.CSize
+
+-- __unique:__ @test_macrosreparse_Example_Safe_bespoke_ret2@
+hs_bindgen_7c9a1792426b84a1 ::
      A
   -> IO HsBindgen.Runtime.Prelude.CSize
+hs_bindgen_7c9a1792426b84a1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_7c9a1792426b84a1_base
 
 {-| __C declaration:__ @bespoke_ret2@
 
@@ -1774,9 +2171,16 @@ bespoke_ret2 ::
 bespoke_ret2 = hs_bindgen_7c9a1792426b84a1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args1@
-foreign import ccall safe "hs_bindgen_e20689fe39004225" hs_bindgen_e20689fe39004225 ::
+foreign import ccall safe "hs_bindgen_e20689fe39004225" hs_bindgen_e20689fe39004225_base ::
+     Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_arr_args1@
+hs_bindgen_e20689fe39004225 ::
      Ptr.Ptr A
   -> IO ()
+hs_bindgen_e20689fe39004225 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_e20689fe39004225_base
 
 {-| Arrays
 
@@ -1793,9 +2197,16 @@ arr_args1 ::
 arr_args1 = hs_bindgen_e20689fe39004225
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args2@
-foreign import ccall safe "hs_bindgen_084796e4bfd3f4cd" hs_bindgen_084796e4bfd3f4cd ::
+foreign import ccall safe "hs_bindgen_084796e4bfd3f4cd" hs_bindgen_084796e4bfd3f4cd_base ::
+     Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_arr_args2@
+hs_bindgen_084796e4bfd3f4cd ::
      Ptr.Ptr (Ptr.Ptr A)
   -> IO ()
+hs_bindgen_084796e4bfd3f4cd =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_084796e4bfd3f4cd_base
 
 {-| __C declaration:__ @arr_args2@
 
@@ -1810,9 +2221,16 @@ arr_args2 ::
 arr_args2 = hs_bindgen_084796e4bfd3f4cd
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args3@
-foreign import ccall safe "hs_bindgen_a3d1560aaa4352df" hs_bindgen_a3d1560aaa4352df ::
+foreign import ccall safe "hs_bindgen_a3d1560aaa4352df" hs_bindgen_a3d1560aaa4352df_base ::
+     Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_arr_args3@
+hs_bindgen_a3d1560aaa4352df ::
      Ptr.Ptr A
   -> IO ()
+hs_bindgen_a3d1560aaa4352df =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a3d1560aaa4352df_base
 
 {-| __C declaration:__ @arr_args3@
 
@@ -1827,9 +2245,16 @@ arr_args3 ::
 arr_args3 = hs_bindgen_a3d1560aaa4352df
 
 -- __unique:__ @test_macrosreparse_Example_Safe_arr_args4@
-foreign import ccall safe "hs_bindgen_88659ccccc6c1f5f" hs_bindgen_88659ccccc6c1f5f ::
+foreign import ccall safe "hs_bindgen_88659ccccc6c1f5f" hs_bindgen_88659ccccc6c1f5f_base ::
+     Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_arr_args4@
+hs_bindgen_88659ccccc6c1f5f ::
      Ptr.Ptr (Ptr.Ptr A)
   -> IO ()
+hs_bindgen_88659ccccc6c1f5f =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_88659ccccc6c1f5f_base
 
 {-| __C declaration:__ @arr_args4@
 
@@ -1844,10 +2269,18 @@ arr_args4 ::
 arr_args4 = hs_bindgen_88659ccccc6c1f5f
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args1@
-foreign import ccall safe "hs_bindgen_3448d03cfd41161a" hs_bindgen_3448d03cfd41161a ::
+foreign import ccall safe "hs_bindgen_3448d03cfd41161a" hs_bindgen_3448d03cfd41161a_base ::
+     FC.CInt
+  -> Ptr.FunPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_funptr_args1@
+hs_bindgen_3448d03cfd41161a ::
      A
   -> Ptr.FunPtr (IO ())
   -> IO ()
+hs_bindgen_3448d03cfd41161a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3448d03cfd41161a_base
 
 {-| Function pointers
 
@@ -1866,10 +2299,18 @@ funptr_args1 ::
 funptr_args1 = hs_bindgen_3448d03cfd41161a
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args2@
-foreign import ccall safe "hs_bindgen_92d7386f0a327d25" hs_bindgen_92d7386f0a327d25 ::
+foreign import ccall safe "hs_bindgen_92d7386f0a327d25" hs_bindgen_92d7386f0a327d25_base ::
+     FC.CInt
+  -> Ptr.FunPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_funptr_args2@
+hs_bindgen_92d7386f0a327d25 ::
      A
   -> Ptr.FunPtr (IO FC.CInt)
   -> IO ()
+hs_bindgen_92d7386f0a327d25 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_92d7386f0a327d25_base
 
 {-| __C declaration:__ @funptr_args2@
 
@@ -1886,10 +2327,18 @@ funptr_args2 ::
 funptr_args2 = hs_bindgen_92d7386f0a327d25
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args3@
-foreign import ccall safe "hs_bindgen_2881f594f98043e6" hs_bindgen_2881f594f98043e6 ::
+foreign import ccall safe "hs_bindgen_2881f594f98043e6" hs_bindgen_2881f594f98043e6_base ::
+     FC.CInt
+  -> Ptr.FunPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_funptr_args3@
+hs_bindgen_2881f594f98043e6 ::
      A
   -> Ptr.FunPtr (FC.CInt -> IO ())
   -> IO ()
+hs_bindgen_2881f594f98043e6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2881f594f98043e6_base
 
 {-| __C declaration:__ @funptr_args3@
 
@@ -1906,10 +2355,18 @@ funptr_args3 ::
 funptr_args3 = hs_bindgen_2881f594f98043e6
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args4@
-foreign import ccall safe "hs_bindgen_1e85a05df4251f62" hs_bindgen_1e85a05df4251f62 ::
+foreign import ccall safe "hs_bindgen_1e85a05df4251f62" hs_bindgen_1e85a05df4251f62_base ::
+     FC.CInt
+  -> Ptr.FunPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_funptr_args4@
+hs_bindgen_1e85a05df4251f62 ::
      A
   -> Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar)
   -> IO ()
+hs_bindgen_1e85a05df4251f62 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_1e85a05df4251f62_base
 
 {-| __C declaration:__ @funptr_args4@
 
@@ -1926,10 +2383,18 @@ funptr_args4 ::
 funptr_args4 = hs_bindgen_1e85a05df4251f62
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_args5@
-foreign import ccall safe "hs_bindgen_ccf4db7511f0d6d6" hs_bindgen_ccf4db7511f0d6d6 ::
+foreign import ccall safe "hs_bindgen_ccf4db7511f0d6d6" hs_bindgen_ccf4db7511f0d6d6_base ::
+     FC.CInt
+  -> Ptr.FunPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_funptr_args5@
+hs_bindgen_ccf4db7511f0d6d6 ::
      A
   -> Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt))
   -> IO ()
+hs_bindgen_ccf4db7511f0d6d6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_ccf4db7511f0d6d6_base
 
 {-| __C declaration:__ @funptr_args5@
 
@@ -1946,9 +2411,16 @@ funptr_args5 ::
 funptr_args5 = hs_bindgen_ccf4db7511f0d6d6
 
 -- __unique:__ @test_macrosreparse_Example_Safe_comments1@
-foreign import ccall safe "hs_bindgen_4c756db60673d221" hs_bindgen_4c756db60673d221 ::
+foreign import ccall safe "hs_bindgen_4c756db60673d221" hs_bindgen_4c756db60673d221_base ::
+     FC.CInt
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_comments1@
+hs_bindgen_4c756db60673d221 ::
      A
   -> IO ()
+hs_bindgen_4c756db60673d221 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_4c756db60673d221_base
 
 {-| Comments in awkward places
 
@@ -1967,10 +2439,18 @@ comments1 ::
 comments1 = hs_bindgen_4c756db60673d221
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_before1@
-foreign import ccall safe "hs_bindgen_278568d7a2a3a4b6" hs_bindgen_278568d7a2a3a4b6 ::
+foreign import ccall safe "hs_bindgen_278568d7a2a3a4b6" hs_bindgen_278568d7a2a3a4b6_base ::
+     FC.CInt
+  -> FC.CChar
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_prim_before1@
+hs_bindgen_278568d7a2a3a4b6 ::
      A
   -> FC.CChar
   -> IO ()
+hs_bindgen_278568d7a2a3a4b6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_278568d7a2a3a4b6_base
 
 {-| `const` qualifier
 
@@ -1991,10 +2471,18 @@ const_prim_before1 ::
 const_prim_before1 = hs_bindgen_278568d7a2a3a4b6
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_before2@
-foreign import ccall safe "hs_bindgen_87ee56525e5ea20c" hs_bindgen_87ee56525e5ea20c ::
+foreign import ccall safe "hs_bindgen_87ee56525e5ea20c" hs_bindgen_87ee56525e5ea20c_base ::
+     FC.CInt
+  -> FC.CSChar
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_prim_before2@
+hs_bindgen_87ee56525e5ea20c ::
      A
   -> FC.CSChar
   -> IO ()
+hs_bindgen_87ee56525e5ea20c =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_87ee56525e5ea20c_base
 
 {-| __C declaration:__ @const_prim_before2@
 
@@ -2011,10 +2499,18 @@ const_prim_before2 ::
 const_prim_before2 = hs_bindgen_87ee56525e5ea20c
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_before3@
-foreign import ccall safe "hs_bindgen_c0b99594235bd99e" hs_bindgen_c0b99594235bd99e ::
+foreign import ccall safe "hs_bindgen_c0b99594235bd99e" hs_bindgen_c0b99594235bd99e_base ::
+     FC.CInt
+  -> FC.CUChar
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_prim_before3@
+hs_bindgen_c0b99594235bd99e ::
      A
   -> FC.CUChar
   -> IO ()
+hs_bindgen_c0b99594235bd99e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c0b99594235bd99e_base
 
 {-| __C declaration:__ @const_prim_before3@
 
@@ -2031,10 +2527,18 @@ const_prim_before3 ::
 const_prim_before3 = hs_bindgen_c0b99594235bd99e
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_after1@
-foreign import ccall safe "hs_bindgen_d718b682f157fc18" hs_bindgen_d718b682f157fc18 ::
+foreign import ccall safe "hs_bindgen_d718b682f157fc18" hs_bindgen_d718b682f157fc18_base ::
+     FC.CInt
+  -> FC.CChar
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_prim_after1@
+hs_bindgen_d718b682f157fc18 ::
      A
   -> FC.CChar
   -> IO ()
+hs_bindgen_d718b682f157fc18 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d718b682f157fc18_base
 
 {-| __C declaration:__ @const_prim_after1@
 
@@ -2051,10 +2555,18 @@ const_prim_after1 ::
 const_prim_after1 = hs_bindgen_d718b682f157fc18
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_after2@
-foreign import ccall safe "hs_bindgen_f2c5b3d5eca68433" hs_bindgen_f2c5b3d5eca68433 ::
+foreign import ccall safe "hs_bindgen_f2c5b3d5eca68433" hs_bindgen_f2c5b3d5eca68433_base ::
+     FC.CInt
+  -> FC.CSChar
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_prim_after2@
+hs_bindgen_f2c5b3d5eca68433 ::
      A
   -> FC.CSChar
   -> IO ()
+hs_bindgen_f2c5b3d5eca68433 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f2c5b3d5eca68433_base
 
 {-| __C declaration:__ @const_prim_after2@
 
@@ -2071,10 +2583,18 @@ const_prim_after2 ::
 const_prim_after2 = hs_bindgen_f2c5b3d5eca68433
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_prim_after3@
-foreign import ccall safe "hs_bindgen_ae2d994e06667b23" hs_bindgen_ae2d994e06667b23 ::
+foreign import ccall safe "hs_bindgen_ae2d994e06667b23" hs_bindgen_ae2d994e06667b23_base ::
+     FC.CInt
+  -> FC.CUChar
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_prim_after3@
+hs_bindgen_ae2d994e06667b23 ::
      A
   -> FC.CUChar
   -> IO ()
+hs_bindgen_ae2d994e06667b23 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_ae2d994e06667b23_base
 
 {-| __C declaration:__ @const_prim_after3@
 
@@ -2091,10 +2611,18 @@ const_prim_after3 ::
 const_prim_after3 = hs_bindgen_ae2d994e06667b23
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before1@
-foreign import ccall safe "hs_bindgen_6940b58e7f4397a7" hs_bindgen_6940b58e7f4397a7 ::
+foreign import ccall safe "hs_bindgen_6940b58e7f4397a7" hs_bindgen_6940b58e7f4397a7_base ::
+     FC.CInt
+  -> FC.CFloat
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before1@
+hs_bindgen_6940b58e7f4397a7 ::
      A
   -> FC.CFloat
   -> IO ()
+hs_bindgen_6940b58e7f4397a7 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_6940b58e7f4397a7_base
 
 {-| __C declaration:__ @const_withoutSign_before1@
 
@@ -2112,10 +2640,18 @@ const_withoutSign_before1 =
   hs_bindgen_6940b58e7f4397a7
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before2@
-foreign import ccall safe "hs_bindgen_00b6fe2282e779b1" hs_bindgen_00b6fe2282e779b1 ::
+foreign import ccall safe "hs_bindgen_00b6fe2282e779b1" hs_bindgen_00b6fe2282e779b1_base ::
+     FC.CInt
+  -> FC.CDouble
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before2@
+hs_bindgen_00b6fe2282e779b1 ::
      A
   -> FC.CDouble
   -> IO ()
+hs_bindgen_00b6fe2282e779b1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_00b6fe2282e779b1_base
 
 {-| __C declaration:__ @const_withoutSign_before2@
 
@@ -2133,10 +2669,18 @@ const_withoutSign_before2 =
   hs_bindgen_00b6fe2282e779b1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before3@
-foreign import ccall safe "hs_bindgen_6517cc8d39aead93" hs_bindgen_6517cc8d39aead93 ::
+foreign import ccall safe "hs_bindgen_6517cc8d39aead93" hs_bindgen_6517cc8d39aead93_base ::
+     FC.CInt
+  -> FC.CBool
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before3@
+hs_bindgen_6517cc8d39aead93 ::
      A
   -> FC.CBool
   -> IO ()
+hs_bindgen_6517cc8d39aead93 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_6517cc8d39aead93_base
 
 {-| __C declaration:__ @const_withoutSign_before3@
 
@@ -2154,10 +2698,18 @@ const_withoutSign_before3 =
   hs_bindgen_6517cc8d39aead93
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before4@
-foreign import ccall safe "hs_bindgen_68c7661e95060488" hs_bindgen_68c7661e95060488 ::
+foreign import ccall safe "hs_bindgen_68c7661e95060488" hs_bindgen_68c7661e95060488_base ::
+     FC.CInt
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before4@
+hs_bindgen_68c7661e95060488 ::
      A
   -> HsBindgen.Runtime.ConstPtr.ConstPtr Some_struct
   -> IO ()
+hs_bindgen_68c7661e95060488 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_68c7661e95060488_base
 
 {-| __C declaration:__ @const_withoutSign_before4@
 
@@ -2178,10 +2730,18 @@ const_withoutSign_before4 =
                       hs_bindgen_68c7661e95060488 arg10 (HsBindgen.Runtime.ConstPtr.ConstPtr arg22))
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before5@
-foreign import ccall safe "hs_bindgen_42b3b0bf73a7a51a" hs_bindgen_42b3b0bf73a7a51a ::
+foreign import ccall safe "hs_bindgen_42b3b0bf73a7a51a" hs_bindgen_42b3b0bf73a7a51a_base ::
+     FC.CInt
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before5@
+hs_bindgen_42b3b0bf73a7a51a ::
      A
   -> HsBindgen.Runtime.ConstPtr.ConstPtr Some_union
   -> IO ()
+hs_bindgen_42b3b0bf73a7a51a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_42b3b0bf73a7a51a_base
 
 {-| __C declaration:__ @const_withoutSign_before5@
 
@@ -2202,10 +2762,18 @@ const_withoutSign_before5 =
                       hs_bindgen_42b3b0bf73a7a51a arg10 (HsBindgen.Runtime.ConstPtr.ConstPtr arg22))
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before6@
-foreign import ccall safe "hs_bindgen_c4aabe9834aac12f" hs_bindgen_c4aabe9834aac12f ::
+foreign import ccall safe "hs_bindgen_c4aabe9834aac12f" hs_bindgen_c4aabe9834aac12f_base ::
+     FC.CInt
+  -> FC.CUInt
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before6@
+hs_bindgen_c4aabe9834aac12f ::
      A
   -> Some_enum
   -> IO ()
+hs_bindgen_c4aabe9834aac12f =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c4aabe9834aac12f_base
 
 {-| __C declaration:__ @const_withoutSign_before6@
 
@@ -2223,10 +2791,18 @@ const_withoutSign_before6 =
   hs_bindgen_c4aabe9834aac12f
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before7@
-foreign import ccall safe "hs_bindgen_486090a7fb4e34d4" hs_bindgen_486090a7fb4e34d4 ::
+foreign import ccall safe "hs_bindgen_486090a7fb4e34d4" hs_bindgen_486090a7fb4e34d4_base ::
+     FC.CInt
+  -> FC.CBool
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before7@
+hs_bindgen_486090a7fb4e34d4 ::
      A
   -> FC.CBool
   -> IO ()
+hs_bindgen_486090a7fb4e34d4 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_486090a7fb4e34d4_base
 
 {-| __C declaration:__ @const_withoutSign_before7@
 
@@ -2244,10 +2820,18 @@ const_withoutSign_before7 =
   hs_bindgen_486090a7fb4e34d4
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before8@
-foreign import ccall safe "hs_bindgen_23fa742b614176dd" hs_bindgen_23fa742b614176dd ::
+foreign import ccall safe "hs_bindgen_23fa742b614176dd" hs_bindgen_23fa742b614176dd_base ::
+     FC.CInt
+  -> FC.CSize
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_before8@
+hs_bindgen_23fa742b614176dd ::
      A
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO ()
+hs_bindgen_23fa742b614176dd =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_23fa742b614176dd_base
 
 {-| __C declaration:__ @const_withoutSign_before8@
 
@@ -2265,10 +2849,18 @@ const_withoutSign_before8 =
   hs_bindgen_23fa742b614176dd
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after1@
-foreign import ccall safe "hs_bindgen_0aacd8a5d48f296d" hs_bindgen_0aacd8a5d48f296d ::
+foreign import ccall safe "hs_bindgen_0aacd8a5d48f296d" hs_bindgen_0aacd8a5d48f296d_base ::
+     FC.CInt
+  -> FC.CFloat
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after1@
+hs_bindgen_0aacd8a5d48f296d ::
      A
   -> FC.CFloat
   -> IO ()
+hs_bindgen_0aacd8a5d48f296d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0aacd8a5d48f296d_base
 
 {-| __C declaration:__ @const_withoutSign_after1@
 
@@ -2286,10 +2878,18 @@ const_withoutSign_after1 =
   hs_bindgen_0aacd8a5d48f296d
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after2@
-foreign import ccall safe "hs_bindgen_16ec2102221485b7" hs_bindgen_16ec2102221485b7 ::
+foreign import ccall safe "hs_bindgen_16ec2102221485b7" hs_bindgen_16ec2102221485b7_base ::
+     FC.CInt
+  -> FC.CDouble
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after2@
+hs_bindgen_16ec2102221485b7 ::
      A
   -> FC.CDouble
   -> IO ()
+hs_bindgen_16ec2102221485b7 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_16ec2102221485b7_base
 
 {-| __C declaration:__ @const_withoutSign_after2@
 
@@ -2307,10 +2907,18 @@ const_withoutSign_after2 =
   hs_bindgen_16ec2102221485b7
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after3@
-foreign import ccall safe "hs_bindgen_9aa934d44ec3790c" hs_bindgen_9aa934d44ec3790c ::
+foreign import ccall safe "hs_bindgen_9aa934d44ec3790c" hs_bindgen_9aa934d44ec3790c_base ::
+     FC.CInt
+  -> FC.CBool
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after3@
+hs_bindgen_9aa934d44ec3790c ::
      A
   -> FC.CBool
   -> IO ()
+hs_bindgen_9aa934d44ec3790c =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9aa934d44ec3790c_base
 
 {-| __C declaration:__ @const_withoutSign_after3@
 
@@ -2328,10 +2936,18 @@ const_withoutSign_after3 =
   hs_bindgen_9aa934d44ec3790c
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after4@
-foreign import ccall safe "hs_bindgen_043d2869e29bedcf" hs_bindgen_043d2869e29bedcf ::
+foreign import ccall safe "hs_bindgen_043d2869e29bedcf" hs_bindgen_043d2869e29bedcf_base ::
+     FC.CInt
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after4@
+hs_bindgen_043d2869e29bedcf ::
      A
   -> HsBindgen.Runtime.ConstPtr.ConstPtr Some_struct
   -> IO ()
+hs_bindgen_043d2869e29bedcf =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_043d2869e29bedcf_base
 
 {-| __C declaration:__ @const_withoutSign_after4@
 
@@ -2352,10 +2968,18 @@ const_withoutSign_after4 =
                       hs_bindgen_043d2869e29bedcf arg10 (HsBindgen.Runtime.ConstPtr.ConstPtr arg22))
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after5@
-foreign import ccall safe "hs_bindgen_b5f9bca1de9d69de" hs_bindgen_b5f9bca1de9d69de ::
+foreign import ccall safe "hs_bindgen_b5f9bca1de9d69de" hs_bindgen_b5f9bca1de9d69de_base ::
+     FC.CInt
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after5@
+hs_bindgen_b5f9bca1de9d69de ::
      A
   -> HsBindgen.Runtime.ConstPtr.ConstPtr Some_union
   -> IO ()
+hs_bindgen_b5f9bca1de9d69de =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b5f9bca1de9d69de_base
 
 {-| __C declaration:__ @const_withoutSign_after5@
 
@@ -2376,10 +3000,18 @@ const_withoutSign_after5 =
                       hs_bindgen_b5f9bca1de9d69de arg10 (HsBindgen.Runtime.ConstPtr.ConstPtr arg22))
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after6@
-foreign import ccall safe "hs_bindgen_77d641d518b2504f" hs_bindgen_77d641d518b2504f ::
+foreign import ccall safe "hs_bindgen_77d641d518b2504f" hs_bindgen_77d641d518b2504f_base ::
+     FC.CInt
+  -> FC.CUInt
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after6@
+hs_bindgen_77d641d518b2504f ::
      A
   -> Some_enum
   -> IO ()
+hs_bindgen_77d641d518b2504f =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_77d641d518b2504f_base
 
 {-| __C declaration:__ @const_withoutSign_after6@
 
@@ -2397,10 +3029,18 @@ const_withoutSign_after6 =
   hs_bindgen_77d641d518b2504f
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after7@
-foreign import ccall safe "hs_bindgen_691b4f2909140b49" hs_bindgen_691b4f2909140b49 ::
+foreign import ccall safe "hs_bindgen_691b4f2909140b49" hs_bindgen_691b4f2909140b49_base ::
+     FC.CInt
+  -> FC.CBool
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after7@
+hs_bindgen_691b4f2909140b49 ::
      A
   -> FC.CBool
   -> IO ()
+hs_bindgen_691b4f2909140b49 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_691b4f2909140b49_base
 
 {-| __C declaration:__ @const_withoutSign_after7@
 
@@ -2418,10 +3058,18 @@ const_withoutSign_after7 =
   hs_bindgen_691b4f2909140b49
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after8@
-foreign import ccall safe "hs_bindgen_ae74c8dcdc2ec9eb" hs_bindgen_ae74c8dcdc2ec9eb ::
+foreign import ccall safe "hs_bindgen_ae74c8dcdc2ec9eb" hs_bindgen_ae74c8dcdc2ec9eb_base ::
+     FC.CInt
+  -> FC.CSize
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_withoutSign_after8@
+hs_bindgen_ae74c8dcdc2ec9eb ::
      A
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO ()
+hs_bindgen_ae74c8dcdc2ec9eb =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_ae74c8dcdc2ec9eb_base
 
 {-| __C declaration:__ @const_withoutSign_after8@
 
@@ -2439,10 +3087,18 @@ const_withoutSign_after8 =
   hs_bindgen_ae74c8dcdc2ec9eb
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args1@
-foreign import ccall safe "hs_bindgen_07606c41eadf9146" hs_bindgen_07606c41eadf9146 ::
+foreign import ccall safe "hs_bindgen_07606c41eadf9146" hs_bindgen_07606c41eadf9146_base ::
+     FC.CInt
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args1@
+hs_bindgen_07606c41eadf9146 ::
      A
   -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
   -> IO ()
+hs_bindgen_07606c41eadf9146 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_07606c41eadf9146_base
 
 {-| __C declaration:__ @const_pointers_args1@
 
@@ -2459,10 +3115,18 @@ const_pointers_args1 ::
 const_pointers_args1 = hs_bindgen_07606c41eadf9146
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args2@
-foreign import ccall safe "hs_bindgen_3836769f3a3416ac" hs_bindgen_3836769f3a3416ac ::
+foreign import ccall safe "hs_bindgen_3836769f3a3416ac" hs_bindgen_3836769f3a3416ac_base ::
+     FC.CInt
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args2@
+hs_bindgen_3836769f3a3416ac ::
      A
   -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
   -> IO ()
+hs_bindgen_3836769f3a3416ac =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3836769f3a3416ac_base
 
 {-| __C declaration:__ @const_pointers_args2@
 
@@ -2479,10 +3143,18 @@ const_pointers_args2 ::
 const_pointers_args2 = hs_bindgen_3836769f3a3416ac
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args3@
-foreign import ccall safe "hs_bindgen_12f19ea593aefd3f" hs_bindgen_12f19ea593aefd3f ::
+foreign import ccall safe "hs_bindgen_12f19ea593aefd3f" hs_bindgen_12f19ea593aefd3f_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args3@
+hs_bindgen_12f19ea593aefd3f ::
      A
   -> Ptr.Ptr FC.CInt
   -> IO ()
+hs_bindgen_12f19ea593aefd3f =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_12f19ea593aefd3f_base
 
 {-| __C declaration:__ @const_pointers_args3@
 
@@ -2499,10 +3171,18 @@ const_pointers_args3 ::
 const_pointers_args3 = hs_bindgen_12f19ea593aefd3f
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args4@
-foreign import ccall safe "hs_bindgen_5a50e98897696d57" hs_bindgen_5a50e98897696d57 ::
+foreign import ccall safe "hs_bindgen_5a50e98897696d57" hs_bindgen_5a50e98897696d57_base ::
+     FC.CInt
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args4@
+hs_bindgen_5a50e98897696d57 ::
      A
   -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
   -> IO ()
+hs_bindgen_5a50e98897696d57 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_5a50e98897696d57_base
 
 {-| __C declaration:__ @const_pointers_args4@
 
@@ -2519,10 +3199,18 @@ const_pointers_args4 ::
 const_pointers_args4 = hs_bindgen_5a50e98897696d57
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args5@
-foreign import ccall safe "hs_bindgen_666701f7cb61bd15" hs_bindgen_666701f7cb61bd15 ::
+foreign import ccall safe "hs_bindgen_666701f7cb61bd15" hs_bindgen_666701f7cb61bd15_base ::
+     FC.CInt
+  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_args5@
+hs_bindgen_666701f7cb61bd15 ::
      A
   -> HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt
   -> IO ()
+hs_bindgen_666701f7cb61bd15 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_666701f7cb61bd15_base
 
 {-| __C declaration:__ @const_pointers_args5@
 
@@ -2539,9 +3227,16 @@ const_pointers_args5 ::
 const_pointers_args5 = hs_bindgen_666701f7cb61bd15
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret1@
-foreign import ccall safe "hs_bindgen_b94fbc3dfd285563" hs_bindgen_b94fbc3dfd285563 ::
+foreign import ccall safe "hs_bindgen_b94fbc3dfd285563" hs_bindgen_b94fbc3dfd285563_base ::
+     FC.CInt
+  -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret1@
+hs_bindgen_b94fbc3dfd285563 ::
      A
   -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
+hs_bindgen_b94fbc3dfd285563 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b94fbc3dfd285563_base
 
 {-| __C declaration:__ @const_pointers_ret1@
 
@@ -2556,9 +3251,16 @@ const_pointers_ret1 ::
 const_pointers_ret1 = hs_bindgen_b94fbc3dfd285563
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret2@
-foreign import ccall safe "hs_bindgen_33e2960e26b79450" hs_bindgen_33e2960e26b79450 ::
+foreign import ccall safe "hs_bindgen_33e2960e26b79450" hs_bindgen_33e2960e26b79450_base ::
+     FC.CInt
+  -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret2@
+hs_bindgen_33e2960e26b79450 ::
      A
   -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
+hs_bindgen_33e2960e26b79450 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_33e2960e26b79450_base
 
 {-| __C declaration:__ @const_pointers_ret2@
 
@@ -2573,9 +3275,16 @@ const_pointers_ret2 ::
 const_pointers_ret2 = hs_bindgen_33e2960e26b79450
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret3@
-foreign import ccall safe "hs_bindgen_50c6e2fe4f3fb777" hs_bindgen_50c6e2fe4f3fb777 ::
+foreign import ccall safe "hs_bindgen_50c6e2fe4f3fb777" hs_bindgen_50c6e2fe4f3fb777_base ::
+     FC.CInt
+  -> IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret3@
+hs_bindgen_50c6e2fe4f3fb777 ::
      A
   -> IO (Ptr.Ptr FC.CInt)
+hs_bindgen_50c6e2fe4f3fb777 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_50c6e2fe4f3fb777_base
 
 {-| __C declaration:__ @const_pointers_ret3@
 
@@ -2590,9 +3299,16 @@ const_pointers_ret3 ::
 const_pointers_ret3 = hs_bindgen_50c6e2fe4f3fb777
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret4@
-foreign import ccall safe "hs_bindgen_edc014695d896c8d" hs_bindgen_edc014695d896c8d ::
+foreign import ccall safe "hs_bindgen_edc014695d896c8d" hs_bindgen_edc014695d896c8d_base ::
+     FC.CInt
+  -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret4@
+hs_bindgen_edc014695d896c8d ::
      A
   -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
+hs_bindgen_edc014695d896c8d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_edc014695d896c8d_base
 
 {-| __C declaration:__ @const_pointers_ret4@
 
@@ -2607,9 +3323,16 @@ const_pointers_ret4 ::
 const_pointers_ret4 = hs_bindgen_edc014695d896c8d
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret5@
-foreign import ccall safe "hs_bindgen_6d3308cc5847f033" hs_bindgen_6d3308cc5847f033 ::
+foreign import ccall safe "hs_bindgen_6d3308cc5847f033" hs_bindgen_6d3308cc5847f033_base ::
+     FC.CInt
+  -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_pointers_ret5@
+hs_bindgen_6d3308cc5847f033 ::
      A
   -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
+hs_bindgen_6d3308cc5847f033 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_6d3308cc5847f033_base
 
 {-| __C declaration:__ @const_pointers_ret5@
 
@@ -2624,9 +3347,16 @@ const_pointers_ret5 ::
 const_pointers_ret5 = hs_bindgen_6d3308cc5847f033
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem1@
-foreign import ccall safe "hs_bindgen_678576320923a4d1" hs_bindgen_678576320923a4d1 ::
+foreign import ccall safe "hs_bindgen_678576320923a4d1" hs_bindgen_678576320923a4d1_base ::
+     HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem1@
+hs_bindgen_678576320923a4d1 ::
      HsBindgen.Runtime.ConstPtr.ConstPtr A
   -> IO ()
+hs_bindgen_678576320923a4d1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_678576320923a4d1_base
 
 {-| __C declaration:__ @const_array_elem1@
 
@@ -2641,9 +3371,16 @@ const_array_elem1 ::
 const_array_elem1 = hs_bindgen_678576320923a4d1
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem2@
-foreign import ccall safe "hs_bindgen_b317941dde4eeff2" hs_bindgen_b317941dde4eeff2 ::
+foreign import ccall safe "hs_bindgen_b317941dde4eeff2" hs_bindgen_b317941dde4eeff2_base ::
+     Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem2@
+hs_bindgen_b317941dde4eeff2 ::
      Ptr.Ptr (HsBindgen.Runtime.ConstPtr.ConstPtr A)
   -> IO ()
+hs_bindgen_b317941dde4eeff2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b317941dde4eeff2_base
 
 {-| __C declaration:__ @const_array_elem2@
 
@@ -2658,9 +3395,16 @@ const_array_elem2 ::
 const_array_elem2 = hs_bindgen_b317941dde4eeff2
 
 -- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem3@
-foreign import ccall safe "hs_bindgen_707e602e6beb1bb6" hs_bindgen_707e602e6beb1bb6 ::
+foreign import ccall safe "hs_bindgen_707e602e6beb1bb6" hs_bindgen_707e602e6beb1bb6_base ::
+     HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_const_array_elem3@
+hs_bindgen_707e602e6beb1bb6 ::
      HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr A)
   -> IO ()
+hs_bindgen_707e602e6beb1bb6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_707e602e6beb1bb6_base
 
 {-| __C declaration:__ @const_array_elem3@
 
@@ -2675,8 +3419,13 @@ const_array_elem3 ::
 const_array_elem3 = hs_bindgen_707e602e6beb1bb6
 
 -- __unique:__ @test_macrosreparse_Example_Safe_noParams1@
-foreign import ccall safe "hs_bindgen_93fecb4eb766c262" hs_bindgen_93fecb4eb766c262 ::
-     IO A
+foreign import ccall safe "hs_bindgen_93fecb4eb766c262" hs_bindgen_93fecb4eb766c262_base ::
+     IO FC.CInt
+
+-- __unique:__ @test_macrosreparse_Example_Safe_noParams1@
+hs_bindgen_93fecb4eb766c262 :: IO A
+hs_bindgen_93fecb4eb766c262 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_93fecb4eb766c262_base
 
 {-| Other examples we reparsed /incorrectly/ before language-c
 
@@ -2690,8 +3439,13 @@ noParams1 :: IO A
 noParams1 = hs_bindgen_93fecb4eb766c262
 
 -- __unique:__ @test_macrosreparse_Example_Safe_noParams2@
-foreign import ccall safe "hs_bindgen_4350965157c891f5" hs_bindgen_4350965157c891f5 ::
-     IO A
+foreign import ccall safe "hs_bindgen_4350965157c891f5" hs_bindgen_4350965157c891f5_base ::
+     IO FC.CInt
+
+-- __unique:__ @test_macrosreparse_Example_Safe_noParams2@
+hs_bindgen_4350965157c891f5 :: IO A
+hs_bindgen_4350965157c891f5 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_4350965157c891f5_base
 
 {-| __C declaration:__ @noParams2@
 
@@ -2703,10 +3457,18 @@ noParams2 :: IO A
 noParams2 = hs_bindgen_4350965157c891f5
 
 -- __unique:__ @test_macrosreparse_Example_Safe_noParams3@
-foreign import ccall safe "hs_bindgen_c4f59272a2b1c3b5" hs_bindgen_c4f59272a2b1c3b5 ::
+foreign import ccall safe "hs_bindgen_c4f59272a2b1c3b5" hs_bindgen_c4f59272a2b1c3b5_base ::
+     FC.CInt
+  -> Ptr.FunPtr Void
+  -> IO ()
+
+-- __unique:__ @test_macrosreparse_Example_Safe_noParams3@
+hs_bindgen_c4f59272a2b1c3b5 ::
      A
   -> Ptr.FunPtr (IO FC.CInt)
   -> IO ()
+hs_bindgen_c4f59272a2b1c3b5 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c4f59272a2b1c3b5_base
 
 {-| __C declaration:__ @noParams3@
 
@@ -2723,9 +3485,16 @@ noParams3 ::
 noParams3 = hs_bindgen_c4f59272a2b1c3b5
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret1@
-foreign import ccall safe "hs_bindgen_387a04c01e23c320" hs_bindgen_387a04c01e23c320 ::
+foreign import ccall safe "hs_bindgen_387a04c01e23c320" hs_bindgen_387a04c01e23c320_base ::
+     FC.CInt
+  -> IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret1@
+hs_bindgen_387a04c01e23c320 ::
      A
   -> IO (Ptr.FunPtr (IO ()))
+hs_bindgen_387a04c01e23c320 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_387a04c01e23c320_base
 
 {-| __C declaration:__ @funptr_ret1@
 
@@ -2740,9 +3509,16 @@ funptr_ret1 ::
 funptr_ret1 = hs_bindgen_387a04c01e23c320
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret2@
-foreign import ccall safe "hs_bindgen_6f0c14cd3478dc19" hs_bindgen_6f0c14cd3478dc19 ::
+foreign import ccall safe "hs_bindgen_6f0c14cd3478dc19" hs_bindgen_6f0c14cd3478dc19_base ::
+     FC.CInt
+  -> IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret2@
+hs_bindgen_6f0c14cd3478dc19 ::
      A
   -> IO (Ptr.FunPtr (IO FC.CInt))
+hs_bindgen_6f0c14cd3478dc19 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_6f0c14cd3478dc19_base
 
 {-| __C declaration:__ @funptr_ret2@
 
@@ -2757,9 +3533,16 @@ funptr_ret2 ::
 funptr_ret2 = hs_bindgen_6f0c14cd3478dc19
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret3@
-foreign import ccall safe "hs_bindgen_08e8661d277cf7be" hs_bindgen_08e8661d277cf7be ::
+foreign import ccall safe "hs_bindgen_08e8661d277cf7be" hs_bindgen_08e8661d277cf7be_base ::
+     FC.CInt
+  -> IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret3@
+hs_bindgen_08e8661d277cf7be ::
      A
   -> IO (Ptr.FunPtr (FC.CInt -> IO ()))
+hs_bindgen_08e8661d277cf7be =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_08e8661d277cf7be_base
 
 {-| __C declaration:__ @funptr_ret3@
 
@@ -2774,9 +3557,16 @@ funptr_ret3 ::
 funptr_ret3 = hs_bindgen_08e8661d277cf7be
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret4@
-foreign import ccall safe "hs_bindgen_609b5d953b68da92" hs_bindgen_609b5d953b68da92 ::
+foreign import ccall safe "hs_bindgen_609b5d953b68da92" hs_bindgen_609b5d953b68da92_base ::
+     FC.CInt
+  -> IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret4@
+hs_bindgen_609b5d953b68da92 ::
      A
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO FC.CChar))
+hs_bindgen_609b5d953b68da92 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_609b5d953b68da92_base
 
 {-| __C declaration:__ @funptr_ret4@
 
@@ -2791,9 +3581,16 @@ funptr_ret4 ::
 funptr_ret4 = hs_bindgen_609b5d953b68da92
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret5@
-foreign import ccall safe "hs_bindgen_13e6ae43abf40aee" hs_bindgen_13e6ae43abf40aee ::
+foreign import ccall safe "hs_bindgen_13e6ae43abf40aee" hs_bindgen_13e6ae43abf40aee_base ::
+     FC.CInt
+  -> IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret5@
+hs_bindgen_13e6ae43abf40aee ::
      A
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+hs_bindgen_13e6ae43abf40aee =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_13e6ae43abf40aee_base
 
 {-| __C declaration:__ @funptr_ret5@
 
@@ -2808,9 +3605,16 @@ funptr_ret5 ::
 funptr_ret5 = hs_bindgen_13e6ae43abf40aee
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret6@
-foreign import ccall safe "hs_bindgen_a4a3a86f28ca6299" hs_bindgen_a4a3a86f28ca6299 ::
+foreign import ccall safe "hs_bindgen_a4a3a86f28ca6299" hs_bindgen_a4a3a86f28ca6299_base ::
+     FC.CInt
+  -> IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret6@
+hs_bindgen_a4a3a86f28ca6299 ::
      A
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
+hs_bindgen_a4a3a86f28ca6299 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a4a3a86f28ca6299_base
 
 {-| __C declaration:__ @funptr_ret6@
 
@@ -2825,9 +3629,16 @@ funptr_ret6 ::
 funptr_ret6 = hs_bindgen_a4a3a86f28ca6299
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret7@
-foreign import ccall safe "hs_bindgen_eae9dff04c88d00b" hs_bindgen_eae9dff04c88d00b ::
+foreign import ccall safe "hs_bindgen_eae9dff04c88d00b" hs_bindgen_eae9dff04c88d00b_base ::
+     FC.CInt
+  -> IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret7@
+hs_bindgen_eae9dff04c88d00b ::
      A
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
+hs_bindgen_eae9dff04c88d00b =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_eae9dff04c88d00b_base
 
 {-| __C declaration:__ @funptr_ret7@
 
@@ -2842,9 +3653,16 @@ funptr_ret7 ::
 funptr_ret7 = hs_bindgen_eae9dff04c88d00b
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret8@
-foreign import ccall safe "hs_bindgen_894457d90a2fc8db" hs_bindgen_894457d90a2fc8db ::
+foreign import ccall safe "hs_bindgen_894457d90a2fc8db" hs_bindgen_894457d90a2fc8db_base ::
+     FC.CInt
+  -> IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret8@
+hs_bindgen_894457d90a2fc8db ::
      A
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr FC.CInt)))
+hs_bindgen_894457d90a2fc8db =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_894457d90a2fc8db_base
 
 {-| __C declaration:__ @funptr_ret8@
 
@@ -2859,9 +3677,16 @@ funptr_ret8 ::
 funptr_ret8 = hs_bindgen_894457d90a2fc8db
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret9@
-foreign import ccall safe "hs_bindgen_c893eb15ad9bc68c" hs_bindgen_c893eb15ad9bc68c ::
+foreign import ccall safe "hs_bindgen_c893eb15ad9bc68c" hs_bindgen_c893eb15ad9bc68c_base ::
+     FC.CInt
+  -> IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret9@
+hs_bindgen_c893eb15ad9bc68c ::
      A
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
+hs_bindgen_c893eb15ad9bc68c =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c893eb15ad9bc68c_base
 
 {-| __C declaration:__ @funptr_ret9@
 
@@ -2876,9 +3701,16 @@ funptr_ret9 ::
 funptr_ret9 = hs_bindgen_c893eb15ad9bc68c
 
 -- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret10@
-foreign import ccall safe "hs_bindgen_d96c258298a44b28" hs_bindgen_d96c258298a44b28 ::
+foreign import ccall safe "hs_bindgen_d96c258298a44b28" hs_bindgen_d96c258298a44b28_base ::
+     FC.CInt
+  -> IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_macrosreparse_Example_Safe_funptr_ret10@
+hs_bindgen_d96c258298a44b28 ::
      A
   -> IO (Ptr.FunPtr (FC.CInt -> FC.CDouble -> IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)))
+hs_bindgen_d96c258298a44b28 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d96c258298a44b28_base
 
 {-| __C declaration:__ @funptr_ret10@
 

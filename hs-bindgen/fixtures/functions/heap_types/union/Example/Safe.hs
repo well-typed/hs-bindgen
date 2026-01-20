@@ -8,7 +8,9 @@ module Example.Safe where
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -24,10 +26,18 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_functionsheap_typesunion_Example_Safe_fun@
-foreign import ccall safe "hs_bindgen_9fc5746860ab93cb" hs_bindgen_9fc5746860ab93cb ::
+foreign import ccall safe "hs_bindgen_9fc5746860ab93cb" hs_bindgen_9fc5746860ab93cb_base ::
+     Ptr.Ptr Void
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_functionsheap_typesunion_Example_Safe_fun@
+hs_bindgen_9fc5746860ab93cb ::
      Ptr.Ptr T
   -> Ptr.Ptr T
   -> IO ()
+hs_bindgen_9fc5746860ab93cb =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9fc5746860ab93cb_base
 
 {-| __C declaration:__ @fun@
 

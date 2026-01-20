@@ -46,6 +46,7 @@
 - ignore: {name: "Redundant pure"}
 - ignore: {name: "Redundant id"}
 - ignore: {name: "Use ?~"}
+- ignore: {name: "Fuse foldr/fmap"}
 
 # Specify additional command line arguments
 #

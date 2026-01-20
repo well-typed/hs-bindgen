@@ -7,7 +7,9 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -70,9 +72,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_square@
-foreign import ccall safe "hs_bindgen_8c6beff641297a13" hs_bindgen_8c6beff641297a13 ::
+foreign import ccall safe "hs_bindgen_8c6beff641297a13" hs_bindgen_8c6beff641297a13_base ::
      FC.CInt
   -> IO FC.CInt
+
+-- __unique:__ @test_manualfunction_pointers_Example_Safe_square@
+hs_bindgen_8c6beff641297a13 ::
+     FC.CInt
+  -> IO FC.CInt
+hs_bindgen_8c6beff641297a13 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_8c6beff641297a13_base
 
 {-| __C declaration:__ @square@
 
@@ -86,10 +95,18 @@ square ::
 square = hs_bindgen_8c6beff641297a13
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_plus@
-foreign import ccall safe "hs_bindgen_3dfb239ac098f471" hs_bindgen_3dfb239ac098f471 ::
+foreign import ccall safe "hs_bindgen_3dfb239ac098f471" hs_bindgen_3dfb239ac098f471_base ::
      FC.CInt
   -> FC.CInt
   -> IO FC.CInt
+
+-- __unique:__ @test_manualfunction_pointers_Example_Safe_plus@
+hs_bindgen_3dfb239ac098f471 ::
+     FC.CInt
+  -> FC.CInt
+  -> IO FC.CInt
+hs_bindgen_3dfb239ac098f471 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3dfb239ac098f471_base
 
 {-| __C declaration:__ @plus@
 
@@ -104,10 +121,18 @@ plus ::
 plus = hs_bindgen_3dfb239ac098f471
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1@
-foreign import ccall safe "hs_bindgen_983beb37938c4d96" hs_bindgen_983beb37938c4d96 ::
+foreign import ccall safe "hs_bindgen_983beb37938c4d96" hs_bindgen_983beb37938c4d96_base ::
+     Ptr.FunPtr Void
+  -> FC.CInt
+  -> IO FC.CInt
+
+-- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1@
+hs_bindgen_983beb37938c4d96 ::
      Ptr.FunPtr (FC.CInt -> IO FC.CInt)
   -> FC.CInt
   -> IO FC.CInt
+hs_bindgen_983beb37938c4d96 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_983beb37938c4d96_base
 
 {-| __C declaration:__ @apply1@
 
@@ -124,11 +149,20 @@ apply1 ::
 apply1 = hs_bindgen_983beb37938c4d96
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_apply2@
-foreign import ccall safe "hs_bindgen_8a62074f5475563b" hs_bindgen_8a62074f5475563b ::
+foreign import ccall safe "hs_bindgen_8a62074f5475563b" hs_bindgen_8a62074f5475563b_base ::
+     Ptr.FunPtr Void
+  -> FC.CInt
+  -> FC.CInt
+  -> IO FC.CInt
+
+-- __unique:__ @test_manualfunction_pointers_Example_Safe_apply2@
+hs_bindgen_8a62074f5475563b ::
      Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)
   -> FC.CInt
   -> FC.CInt
   -> IO FC.CInt
+hs_bindgen_8a62074f5475563b =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_8a62074f5475563b_base
 
 {-| __C declaration:__ @apply2@
 
@@ -147,10 +181,18 @@ apply2 ::
 apply2 = hs_bindgen_8a62074f5475563b
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1_pointer_arg@
-foreign import ccall safe "hs_bindgen_229d4041a92cd6b6" hs_bindgen_229d4041a92cd6b6 ::
+foreign import ccall safe "hs_bindgen_229d4041a92cd6b6" hs_bindgen_229d4041a92cd6b6_base ::
+     Ptr.FunPtr Void
+  -> FC.CInt
+  -> IO FC.CInt
+
+-- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1_pointer_arg@
+hs_bindgen_229d4041a92cd6b6 ::
      Ptr.FunPtr Int2int
   -> FC.CInt
   -> IO FC.CInt
+hs_bindgen_229d4041a92cd6b6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_229d4041a92cd6b6_base
 
 {-| Basically the same as apply1(), but here for illustratory purposes.
 
@@ -167,10 +209,18 @@ apply1_pointer_arg ::
 apply1_pointer_arg = hs_bindgen_229d4041a92cd6b6
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1_nopointer_arg@
-foreign import ccall safe "hs_bindgen_de9f1109e03648e4" hs_bindgen_de9f1109e03648e4 ::
+foreign import ccall safe "hs_bindgen_de9f1109e03648e4" hs_bindgen_de9f1109e03648e4_base ::
+     Ptr.FunPtr Void
+  -> FC.CInt
+  -> IO FC.CInt
+
+-- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1_nopointer_arg@
+hs_bindgen_de9f1109e03648e4 ::
      Ptr.FunPtr Int2int
   -> FC.CInt
   -> IO FC.CInt
+hs_bindgen_de9f1109e03648e4 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_de9f1109e03648e4_base
 
 {-| A version of apply1_pointer_arg() that declares to take a argument of function type, rather than a pointer-to-function type.
 
@@ -187,8 +237,13 @@ apply1_nopointer_arg ::
 apply1_nopointer_arg = hs_bindgen_de9f1109e03648e4
 
 -- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1_nopointer_res@
-foreign import ccall safe "hs_bindgen_8bea6b2106c55d5b" hs_bindgen_8bea6b2106c55d5b ::
-     IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+foreign import ccall safe "hs_bindgen_8bea6b2106c55d5b" hs_bindgen_8bea6b2106c55d5b_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_manualfunction_pointers_Example_Safe_apply1_nopointer_res@
+hs_bindgen_8bea6b2106c55d5b :: IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+hs_bindgen_8bea6b2106c55d5b =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_8bea6b2106c55d5b_base
 
 {-| A function returning a pointer to a function like apply1_nopointer().
 

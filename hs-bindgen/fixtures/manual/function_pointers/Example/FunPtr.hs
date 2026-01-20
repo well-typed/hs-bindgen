@@ -8,7 +8,9 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -85,8 +87,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_square@
-foreign import ccall unsafe "hs_bindgen_f0adbe322df05825" hs_bindgen_f0adbe322df05825 ::
-     IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_f0adbe322df05825" hs_bindgen_f0adbe322df05825_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_manualfunction_pointers_Example_get_square@
+hs_bindgen_f0adbe322df05825 :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+hs_bindgen_f0adbe322df05825 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f0adbe322df05825_base
 
 {-# NOINLINE square #-}
 {-| __C declaration:__ @square@
@@ -100,8 +107,13 @@ square =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f0adbe322df05825
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_plus@
-foreign import ccall unsafe "hs_bindgen_ab2a2131b5f9f197" hs_bindgen_ab2a2131b5f9f197 ::
-     IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_ab2a2131b5f9f197" hs_bindgen_ab2a2131b5f9f197_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_manualfunction_pointers_Example_get_plus@
+hs_bindgen_ab2a2131b5f9f197 :: IO (Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt))
+hs_bindgen_ab2a2131b5f9f197 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_ab2a2131b5f9f197_base
 
 {-# NOINLINE plus #-}
 {-| __C declaration:__ @plus@
@@ -115,8 +127,13 @@ plus =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ab2a2131b5f9f197
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1@
-foreign import ccall unsafe "hs_bindgen_b3bb0146641acd39" hs_bindgen_b3bb0146641acd39 ::
-     IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_b3bb0146641acd39" hs_bindgen_b3bb0146641acd39_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_manualfunction_pointers_Example_get_apply1@
+hs_bindgen_b3bb0146641acd39 :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt))
+hs_bindgen_b3bb0146641acd39 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b3bb0146641acd39_base
 
 {-# NOINLINE apply1 #-}
 {-| __C declaration:__ @apply1@
@@ -130,8 +147,13 @@ apply1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b3bb0146641acd39
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply2@
-foreign import ccall unsafe "hs_bindgen_78245c4946e6da00" hs_bindgen_78245c4946e6da00 ::
-     IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)) -> FC.CInt -> FC.CInt -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_78245c4946e6da00" hs_bindgen_78245c4946e6da00_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_manualfunction_pointers_Example_get_apply2@
+hs_bindgen_78245c4946e6da00 :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> FC.CInt -> IO FC.CInt)) -> FC.CInt -> FC.CInt -> IO FC.CInt))
+hs_bindgen_78245c4946e6da00 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_78245c4946e6da00_base
 
 {-# NOINLINE apply2 #-}
 {-| __C declaration:__ @apply2@
@@ -145,8 +167,13 @@ apply2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_78245c4946e6da00
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_pointer_arg@
-foreign import ccall unsafe "hs_bindgen_00276448b1e8af8a" hs_bindgen_00276448b1e8af8a ::
-     IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_00276448b1e8af8a" hs_bindgen_00276448b1e8af8a_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_manualfunction_pointers_Example_get_apply1_pointer_arg@
+hs_bindgen_00276448b1e8af8a :: IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+hs_bindgen_00276448b1e8af8a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_00276448b1e8af8a_base
 
 {-# NOINLINE apply1_pointer_arg #-}
 {-| Basically the same as apply1(), but here for illustratory purposes.
@@ -162,8 +189,13 @@ apply1_pointer_arg =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_00276448b1e8af8a
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_arg@
-foreign import ccall unsafe "hs_bindgen_00f9010b80cdee19" hs_bindgen_00f9010b80cdee19 ::
-     IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_00f9010b80cdee19" hs_bindgen_00f9010b80cdee19_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_arg@
+hs_bindgen_00f9010b80cdee19 :: IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
+hs_bindgen_00f9010b80cdee19 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_00f9010b80cdee19_base
 
 {-# NOINLINE apply1_nopointer_arg #-}
 {-| A version of apply1_pointer_arg() that declares to take a argument of function type, rather than a pointer-to-function type.
@@ -179,8 +211,13 @@ apply1_nopointer_arg =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_00f9010b80cdee19
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_res@
-foreign import ccall unsafe "hs_bindgen_16929b4528263721" hs_bindgen_16929b4528263721 ::
-     IO (Ptr.FunPtr (IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))))
+foreign import ccall unsafe "hs_bindgen_16929b4528263721" hs_bindgen_16929b4528263721_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_res@
+hs_bindgen_16929b4528263721 :: IO (Ptr.FunPtr (IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))))
+hs_bindgen_16929b4528263721 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_16929b4528263721_base
 
 {-# NOINLINE apply1_nopointer_res #-}
 {-| A function returning a pointer to a function like apply1_nopointer().

@@ -10,7 +10,9 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -32,10 +34,18 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_manualarrays_Example_Unsafe_transpose@
-foreign import ccall unsafe "hs_bindgen_f9f2776d121db261" hs_bindgen_f9f2776d121db261 ::
+foreign import ccall unsafe "hs_bindgen_f9f2776d121db261" hs_bindgen_f9f2776d121db261_base ::
+     HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_manualarrays_Example_Unsafe_transpose@
+hs_bindgen_f9f2776d121db261 ::
      HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
   -> Ptr.Ptr Triplet
   -> IO ()
+hs_bindgen_f9f2776d121db261 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f9f2776d121db261_base
 
 {-| __C declaration:__ @transpose@
 
@@ -52,9 +62,16 @@ transpose ::
 transpose = hs_bindgen_f9f2776d121db261
 
 -- __unique:__ @test_manualarrays_Example_Unsafe_pretty_print_triplets@
-foreign import ccall unsafe "hs_bindgen_e43b4d44aa0abd14" hs_bindgen_e43b4d44aa0abd14 ::
+foreign import ccall unsafe "hs_bindgen_e43b4d44aa0abd14" hs_bindgen_e43b4d44aa0abd14_base ::
+     Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_manualarrays_Example_Unsafe_pretty_print_triplets@
+hs_bindgen_e43b4d44aa0abd14 ::
      Ptr.Ptr (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
   -> IO ()
+hs_bindgen_e43b4d44aa0abd14 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_e43b4d44aa0abd14_base
 
 {-| A function that prints the given triplet_ptrs
 

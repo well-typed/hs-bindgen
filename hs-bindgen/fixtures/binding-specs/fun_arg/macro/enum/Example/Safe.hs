@@ -5,6 +5,8 @@
 
 module Example.Safe where
 
+import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
 import Prelude (IO)
@@ -32,9 +34,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_foo@
-foreign import ccall safe "hs_bindgen_d49a011eb7da5969" hs_bindgen_d49a011eb7da5969 ::
+foreign import ccall safe "hs_bindgen_d49a011eb7da5969" hs_bindgen_d49a011eb7da5969_base ::
+     FC.CUInt
+  -> IO ()
+
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_foo@
+hs_bindgen_d49a011eb7da5969 ::
      MyEnum
   -> IO ()
+hs_bindgen_d49a011eb7da5969 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d49a011eb7da5969_base
 
 {-| __C declaration:__ @foo@
 
@@ -49,9 +58,16 @@ foo ::
 foo = hs_bindgen_d49a011eb7da5969
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooA@
-foreign import ccall safe "hs_bindgen_32c6f6f9bb440690" hs_bindgen_32c6f6f9bb440690 ::
+foreign import ccall safe "hs_bindgen_32c6f6f9bb440690" hs_bindgen_32c6f6f9bb440690_base ::
+     FC.CUInt
+  -> IO ()
+
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooA@
+hs_bindgen_32c6f6f9bb440690 ::
      A
   -> IO ()
+hs_bindgen_32c6f6f9bb440690 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_32c6f6f9bb440690_base
 
 {-| __C declaration:__ @fooA@
 
@@ -66,9 +82,16 @@ fooA ::
 fooA = hs_bindgen_32c6f6f9bb440690
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooB@
-foreign import ccall safe "hs_bindgen_16e7856908d06f71" hs_bindgen_16e7856908d06f71 ::
+foreign import ccall safe "hs_bindgen_16e7856908d06f71" hs_bindgen_16e7856908d06f71_base ::
+     FC.CUInt
+  -> IO ()
+
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooB@
+hs_bindgen_16e7856908d06f71 ::
      B
   -> IO ()
+hs_bindgen_16e7856908d06f71 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_16e7856908d06f71_base
 
 {-| __C declaration:__ @fooB@
 

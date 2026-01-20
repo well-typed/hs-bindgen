@@ -46,3 +46,5 @@ hstypes:
       fields:
       - un_E
       ffitype: FunPtr
+  instances:
+  - HasBaseForeignType

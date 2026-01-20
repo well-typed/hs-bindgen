@@ -27,12 +27,14 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
+import qualified GHC.Word
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Prelude
+import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
@@ -781,15 +783,29 @@ newtype Callback_t_Aux = Callback_t_Aux
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
+foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658_base ::
+     ((Ptr.Ptr Void) -> GHC.Word.Word32 -> IO GHC.Word.Word32)
+  -> IO (Ptr.FunPtr ((Ptr.Ptr Void) -> GHC.Word.Word32 -> IO GHC.Word.Word32))
+
 -- __unique:__ @toCallback_t_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_b6b6922e35047658 ::
+hs_bindgen_b6b6922e35047658 ::
      Callback_t_Aux
   -> IO (Ptr.FunPtr Callback_t_Aux)
+hs_bindgen_b6b6922e35047658 =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_b6b6922e35047658_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+
+foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869_base ::
+     Ptr.FunPtr ((Ptr.Ptr Void) -> GHC.Word.Word32 -> IO GHC.Word.Word32)
+  -> (Ptr.Ptr Void) -> GHC.Word.Word32 -> IO GHC.Word.Word32
 
 -- __unique:__ @fromCallback_t_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_d6debb4b8d5bb869 ::
+hs_bindgen_d6debb4b8d5bb869 ::
      Ptr.FunPtr Callback_t_Aux
   -> Callback_t_Aux
+hs_bindgen_d6debb4b8d5bb869 =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_d6debb4b8d5bb869_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Callback_t_Aux where
 

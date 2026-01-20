@@ -336,6 +336,13 @@ resolveGlobal = \case
 
     -- HasBaseForeignType
     HasBaseForeignType_class -> importQ ''HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType
+    HasBaseForeignType_fromBaseForeignType -> importQ 'HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType
+    HasBaseForeignType_toBaseForeignType -> importQ 'HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType
+    HasBaseForeignType_castFunPtrFromBaseForeignType -> importQ 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType
+    HasBaseForeignType_castFunPtrToBaseForeignType -> importQ 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType
+
+    -- Functor
+    Functor_fmap -> importQ 'fmap
 
     -- Unsafe
     IO_unsafePerformIO -> importQ 'System.IO.Unsafe.unsafePerformIO

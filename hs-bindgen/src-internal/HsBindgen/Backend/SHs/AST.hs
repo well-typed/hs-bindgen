@@ -119,6 +119,13 @@ data Global =
 
     -- HasBaseForeignType
   | HasBaseForeignType_class
+  | HasBaseForeignType_fromBaseForeignType
+  | HasBaseForeignType_toBaseForeignType
+  | HasBaseForeignType_castFunPtrFromBaseForeignType
+  | HasBaseForeignType_castFunPtrToBaseForeignType
+
+    -- Functor
+  | Functor_fmap
 
     -- Unsafe
   | IO_unsafePerformIO

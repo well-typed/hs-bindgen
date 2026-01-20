@@ -27,18 +27,20 @@ applyTerms = \case
   where
     renameHsDeclWith :: (Text -> Text) -> Hs.Decl -> Hs.Decl
     renameHsDeclWith f d = case d of
-        Hs.DeclData{}                  -> p "Data"
-        Hs.DeclEmpty{}                 -> p "Empty"
-        Hs.DeclNewtype{}               -> p "Newtype"
-        Hs.DeclPatSyn{}                -> p "PatSyn"
-        Hs.DeclDefineInstance{}        -> p "DefineInstance"
-        Hs.DeclDeriveInstance{}        -> p "DeriveInstance"
-        fi@Hs.DeclForeignImport{}      -> fi
-        Hs.DeclFunction fn             -> Hs.DeclFunction $ overN #name fn
-        Hs.DeclMacroExpr{}             -> p "MacroExpr"
-        Hs.DeclUnionGetter{}           -> p "UnionGetter"
-        Hs.DeclUnionSetter{}           -> p "UnionSetter"
-        Hs.DeclVar x                   -> Hs.DeclVar $ overN #name x
+        Hs.DeclData{}                     -> p "Data"
+        Hs.DeclEmpty{}                    -> p "Empty"
+        Hs.DeclNewtype{}                  -> p "Newtype"
+        Hs.DeclPatSyn{}                   -> p "PatSyn"
+        Hs.DeclDefineInstance{}           -> p "DefineInstance"
+        Hs.DeclDeriveInstance{}           -> p "DeriveInstance"
+        fi@Hs.DeclForeignImport{}         -> fi
+        fiw@Hs.DeclForeignImportWrapper{} -> fiw
+        fid@Hs.DeclForeignImportDynamic{} -> fid
+        Hs.DeclFunction fn                -> Hs.DeclFunction $ overN #name fn
+        Hs.DeclMacroExpr{}                -> p "MacroExpr"
+        Hs.DeclUnionGetter{}              -> p "UnionGetter"
+        Hs.DeclUnionSetter{}              -> p "UnionSetter"
+        Hs.DeclVar x                      -> Hs.DeclVar $ overN #name x
       where
         p :: String -> a
         p e = panicPure $ "applyTerms.renameHsDeclWith (" <> show d <> "): unexpected " <> e

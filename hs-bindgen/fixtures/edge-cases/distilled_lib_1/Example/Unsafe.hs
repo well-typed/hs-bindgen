@@ -5,8 +5,12 @@
 
 module Example.Unsafe where
 
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
+import qualified GHC.Word
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -23,11 +27,20 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
-foreign import ccall unsafe "hs_bindgen_2a91c367a9380a63" hs_bindgen_2a91c367a9380a63 ::
+foreign import ccall unsafe "hs_bindgen_2a91c367a9380a63" hs_bindgen_2a91c367a9380a63_base ::
+     Ptr.Ptr Void
+  -> GHC.Word.Word32
+  -> Ptr.Ptr Void
+  -> IO GHC.Int.Int32
+
+-- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
+hs_bindgen_2a91c367a9380a63 ::
      Ptr.Ptr A_type_t
   -> HsBindgen.Runtime.Prelude.Word32
   -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
   -> IO HsBindgen.Runtime.Prelude.Int32
+hs_bindgen_2a91c367a9380a63 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2a91c367a9380a63_base
 
 {-| __C declaration:__ @some_fun@
 

@@ -17,6 +17,8 @@ hstypes:
       fields:
       - un_C
       ffitype: FunPtr
+  instances:
+  - HasBaseForeignType
 - hsname: D
   representation:
     newtype:
@@ -24,3 +26,5 @@ hstypes:
       fields:
       - un_D
       ffitype: FunPtr
+  instances:
+  - HasBaseForeignType

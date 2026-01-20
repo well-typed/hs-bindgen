@@ -7,7 +7,9 @@ module Example.FunPtr where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -40,8 +42,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_foo@
-foreign import ccall unsafe "hs_bindgen_fc9d87cbca4127e4" hs_bindgen_fc9d87cbca4127e4 ::
-     IO (Ptr.FunPtr (MyArray -> IO ()))
+foreign import ccall unsafe "hs_bindgen_fc9d87cbca4127e4" hs_bindgen_fc9d87cbca4127e4_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_foo@
+hs_bindgen_fc9d87cbca4127e4 :: IO (Ptr.FunPtr (MyArray -> IO ()))
+hs_bindgen_fc9d87cbca4127e4 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_fc9d87cbca4127e4_base
 
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
@@ -55,8 +62,13 @@ foo =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_fc9d87cbca4127e4
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooA@
-foreign import ccall unsafe "hs_bindgen_0dbc306c53c94679" hs_bindgen_0dbc306c53c94679 ::
-     IO (Ptr.FunPtr (A -> IO ()))
+foreign import ccall unsafe "hs_bindgen_0dbc306c53c94679" hs_bindgen_0dbc306c53c94679_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooA@
+hs_bindgen_0dbc306c53c94679 :: IO (Ptr.FunPtr (A -> IO ()))
+hs_bindgen_0dbc306c53c94679 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0dbc306c53c94679_base
 
 {-# NOINLINE fooA #-}
 {-| __C declaration:__ @fooA@
@@ -70,8 +82,13 @@ fooA =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0dbc306c53c94679
 
 -- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooB@
-foreign import ccall unsafe "hs_bindgen_db0d885ae35d447f" hs_bindgen_db0d885ae35d447f ::
-     IO (Ptr.FunPtr (B -> IO ()))
+foreign import ccall unsafe "hs_bindgen_db0d885ae35d447f" hs_bindgen_db0d885ae35d447f_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_bindingspecsfun_argmacroar_Example_get_fooB@
+hs_bindgen_db0d885ae35d447f :: IO (Ptr.FunPtr (B -> IO ()))
+hs_bindgen_db0d885ae35d447f =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_db0d885ae35d447f_base
 
 {-# NOINLINE fooB #-}
 {-| __C declaration:__ @fooB@

@@ -145,6 +145,13 @@ mkGlobal = \case
 
       -- HasBaseForeignType
       HasBaseForeignType_class -> ''HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType
+      HasBaseForeignType_fromBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType
+      HasBaseForeignType_toBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType
+      HasBaseForeignType_castFunPtrFromBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType
+      HasBaseForeignType_castFunPtrToBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType
+
+      -- Functor
+      Functor_fmap -> 'fmap
 
       -- Unsafe
       IO_unsafePerformIO -> 'System.IO.Unsafe.unsafePerformIO
@@ -417,6 +424,13 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
 
     -- HasBaseForeignType
     HasBaseForeignType_class -> panicPure "class in expression"
+    HasBaseForeignType_fromBaseForeignType -> TH.varE name
+    HasBaseForeignType_toBaseForeignType -> TH.varE name
+    HasBaseForeignType_castFunPtrFromBaseForeignType -> TH.varE name
+    HasBaseForeignType_castFunPtrToBaseForeignType -> TH.varE name
+
+    -- Functor
+    Functor_fmap -> TH.varE name
 
     -- Unsafe
     IO_unsafePerformIO -> TH.varE name

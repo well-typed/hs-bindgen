@@ -19,8 +19,12 @@
 --   return &i3;
 -- }
 -- __unique:__ @test_declarationstentative_definit_Example_get_i1@
-foreign import ccall safe "hs_bindgen_3a9fc2bb34e15eb6" hs_bindgen_3a9fc2bb34e15eb6 ::
-    IO (Ptr CInt)
+foreign import ccall safe "hs_bindgen_3a9fc2bb34e15eb6" hs_bindgen_3a9fc2bb34e15eb6_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_declarationstentative_definit_Example_get_i1@
+hs_bindgen_3a9fc2bb34e15eb6 :: IO (Ptr CInt)
+-- __unique:__ @test_declarationstentative_definit_Example_get_i1@
+hs_bindgen_3a9fc2bb34e15eb6 = fromBaseForeignType hs_bindgen_3a9fc2bb34e15eb6_base
 {-# NOINLINE i1 #-}
 {-| __C declaration:__ @i1@
 
@@ -37,8 +41,12 @@ i1 :: Ptr CInt
 -}
 i1 = unsafePerformIO hs_bindgen_3a9fc2bb34e15eb6
 -- __unique:__ @test_declarationstentative_definit_Example_get_i2@
-foreign import ccall safe "hs_bindgen_831c291120790ea6" hs_bindgen_831c291120790ea6 ::
-    IO (Ptr CInt)
+foreign import ccall safe "hs_bindgen_831c291120790ea6" hs_bindgen_831c291120790ea6_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_declarationstentative_definit_Example_get_i2@
+hs_bindgen_831c291120790ea6 :: IO (Ptr CInt)
+-- __unique:__ @test_declarationstentative_definit_Example_get_i2@
+hs_bindgen_831c291120790ea6 = fromBaseForeignType hs_bindgen_831c291120790ea6_base
 {-# NOINLINE i2 #-}
 {-| __C declaration:__ @i2@
 
@@ -55,8 +63,12 @@ i2 :: Ptr CInt
 -}
 i2 = unsafePerformIO hs_bindgen_831c291120790ea6
 -- __unique:__ @test_declarationstentative_definit_Example_get_i3@
-foreign import ccall safe "hs_bindgen_6c7d3ba4369a4d65" hs_bindgen_6c7d3ba4369a4d65 ::
-    IO (Ptr CInt)
+foreign import ccall safe "hs_bindgen_6c7d3ba4369a4d65" hs_bindgen_6c7d3ba4369a4d65_base ::
+    IO (Ptr Void)
+-- __unique:__ @test_declarationstentative_definit_Example_get_i3@
+hs_bindgen_6c7d3ba4369a4d65 :: IO (Ptr CInt)
+-- __unique:__ @test_declarationstentative_definit_Example_get_i3@
+hs_bindgen_6c7d3ba4369a4d65 = fromBaseForeignType hs_bindgen_6c7d3ba4369a4d65_base
 {-# NOINLINE i3 #-}
 {-| __C declaration:__ @i3@
 

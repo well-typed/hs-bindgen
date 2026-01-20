@@ -41,8 +41,10 @@ module HsBindgen.Backend.Hs.AST (
   , FunctionDecl(..)
     -- ** 'ToFunPtr'
   , ToFunPtrInstance(..)
+  , ForeignImportWrapper(..)
     -- ** 'FromFunPtr'
   , FromFunPtrInstance(..)
+  , ForeignImportDynamic(..)
     -- ** 'Storable'
   , StorableInstance(..)
   , PeekCField(..)
@@ -237,18 +239,20 @@ data Ap pure xs ctx = Ap (pure ctx) [xs ctx]
 -- | Top-level declaration
 type Decl :: Star
 data Decl where
-    DeclData            :: SNatI n => Struct n -> Decl
-    DeclEmpty           :: EmptyData           -> Decl
-    DeclNewtype         :: Newtype             -> Decl
-    DeclPatSyn          :: PatSyn              -> Decl
-    DeclDefineInstance  :: DefineInstance      -> Decl
-    DeclDeriveInstance  :: DeriveInstance      -> Decl
-    DeclForeignImport   :: ForeignImportDecl   -> Decl
-    DeclFunction        :: FunctionDecl        -> Decl
-    DeclMacroExpr       :: MacroExpr           -> Decl
-    DeclUnionGetter     :: UnionGetter         -> Decl
-    DeclUnionSetter     :: UnionSetter         -> Decl
-    DeclVar             :: Var                 -> Decl
+    DeclData                 :: SNatI n => Struct n -> Decl
+    DeclEmpty                :: EmptyData           -> Decl
+    DeclNewtype              :: Newtype             -> Decl
+    DeclPatSyn               :: PatSyn              -> Decl
+    DeclDefineInstance       :: DefineInstance      -> Decl
+    DeclDeriveInstance       :: DeriveInstance      -> Decl
+    DeclForeignImport        :: ForeignImportDecl   -> Decl
+    DeclForeignImportDynamic :: ForeignImportDynamic -> Decl
+    DeclForeignImportWrapper :: ForeignImportWrapper -> Decl
+    DeclFunction             :: FunctionDecl        -> Decl
+    DeclMacroExpr            :: MacroExpr           -> Decl
+    DeclUnionGetter          :: UnionGetter         -> Decl
+    DeclUnionSetter          :: UnionSetter         -> Decl
+    DeclVar                  :: Var                 -> Decl
 deriving instance Show Decl
 
 data DefineInstance = DefineInstance{
@@ -352,7 +356,7 @@ data PatSyn = PatSyn{
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------
-  'ToFunPtr' and 'FromFunPtr'
+  'ToFunPtr'
 -------------------------------------------------------------------------------}
 
 -- | 'ToFunPtr' instance
@@ -362,12 +366,47 @@ data ToFunPtrInstance = ToFunPtrInstance{
     }
   deriving stock (Generic, Show)
 
+-- | A dynamic wrapper
+--
+-- For example, assuming @name = "foo"@ and @funType = ft@
+--
+-- > foreign import ccall "wrapper" foo :: ft -> IO (FunPtr ft)
+--
+-- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1620008.5.1>
+data ForeignImportWrapper = ForeignImportWrapper {
+      name    :: Hs.Name Hs.NsVar
+    , funType :: HsType
+    , origin  :: Origin.ForeignImport
+    , comment :: Maybe HsDoc.Comment
+    }
+    deriving stock (Generic, Show)
+
+{-------------------------------------------------------------------------------
+  'FromFunPtr'
+-------------------------------------------------------------------------------}
+
 -- | 'FromFunPtr' instance
 data FromFunPtrInstance = FromFunPtrInstance{
       typ  :: HsType
     , body :: UniqueSymbol
     }
   deriving stock (Generic, Show)
+
+-- | A dynamic import
+--
+-- For example, assuming @name = "foo"@ and @funType = ft@
+--
+-- > foreign import ccall "dynamic" foo :: FunPtr ft -> ft
+--
+-- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1620008.5.1>
+data ForeignImportDynamic = ForeignImportDynamic {
+      name    :: Hs.Name Hs.NsVar
+    , funType :: HsType
+    , origin  :: Origin.ForeignImport
+    , comment :: Maybe HsDoc.Comment
+    }
+    deriving stock (Generic, Show)
+
 
 {-------------------------------------------------------------------------------
   'Storable'

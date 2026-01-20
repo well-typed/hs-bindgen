@@ -38,6 +38,7 @@ import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
+import qualified Prelude as P
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
@@ -236,15 +237,29 @@ newtype Event_callback_t_Aux = Event_callback_t_Aux
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
+foreign import ccall safe "wrapper" hs_bindgen_111918b0aee2a7fb_base ::
+     (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt)
+  -> IO (Ptr.FunPtr (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt))
+
 -- __unique:__ @toEvent_callback_t_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_111918b0aee2a7fb ::
+hs_bindgen_111918b0aee2a7fb ::
      Event_callback_t_Aux
   -> IO (Ptr.FunPtr Event_callback_t_Aux)
+hs_bindgen_111918b0aee2a7fb =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_111918b0aee2a7fb_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+
+foreign import ccall safe "dynamic" hs_bindgen_9e9d478c2d75628c_base ::
+     Ptr.FunPtr (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt)
+  -> FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
 
 -- __unique:__ @fromEvent_callback_t_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_9e9d478c2d75628c ::
+hs_bindgen_9e9d478c2d75628c ::
      Ptr.FunPtr Event_callback_t_Aux
   -> Event_callback_t_Aux
+hs_bindgen_9e9d478c2d75628c =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_9e9d478c2d75628c_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Event_callback_t_Aux where
 
@@ -1124,15 +1139,29 @@ newtype Processor_fn_t_Aux = Processor_fn_t_Aux
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
+foreign import ccall safe "wrapper" hs_bindgen_d4e16471c82d5df0_base ::
+     (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt)
+  -> IO (Ptr.FunPtr (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt))
+
 -- __unique:__ @toProcessor_fn_t_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_d4e16471c82d5df0 ::
+hs_bindgen_d4e16471c82d5df0 ::
      Processor_fn_t_Aux
   -> IO (Ptr.FunPtr Processor_fn_t_Aux)
+hs_bindgen_d4e16471c82d5df0 =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_d4e16471c82d5df0_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+
+foreign import ccall safe "dynamic" hs_bindgen_0d4b3d0461629423_base ::
+     Ptr.FunPtr (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt)
+  -> FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
 
 -- __unique:__ @fromProcessor_fn_t_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_0d4b3d0461629423 ::
+hs_bindgen_0d4b3d0461629423 ::
      Ptr.FunPtr Processor_fn_t_Aux
   -> Processor_fn_t_Aux
+hs_bindgen_0d4b3d0461629423 =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_0d4b3d0461629423_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Processor_fn_t_Aux where
 
