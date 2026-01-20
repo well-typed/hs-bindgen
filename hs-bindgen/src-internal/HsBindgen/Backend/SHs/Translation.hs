@@ -24,6 +24,7 @@ import HsBindgen.Backend.SHs.Translation.Common
 import HsBindgen.Backend.SHs.Translation.Prim qualified as SHsPrim
 import HsBindgen.Errors
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
@@ -59,6 +60,8 @@ translateDecl = \case
     Hs.DeclDeriveInstance x -> translateDeriveInstance     x
     Hs.DeclMacroExpr      x -> translateMacroExpr          x
     Hs.DeclForeignImport  x -> translateForeignImportDecl  x
+    Hs.DeclForeignImportWrapper x -> translateForeignImportWrapper x
+    Hs.DeclForeignImportDynamic x -> translateForeignImportDynamic x
     Hs.DeclFunction       x -> translateFunctionDecl       x
     Hs.DeclPatSyn         x -> translatePatSyn             x
     Hs.DeclUnionGetter    x -> translateUnionGetter        x
@@ -214,6 +217,47 @@ translateParam param = Parameter {
       name    = param.name
     , typ     = translateType param.typ
     , comment = param.comment
+    }
+
+translateForeignImportWrapper :: Hs.ForeignImportWrapper -> SDecl
+translateForeignImportWrapper importWrapper = DForeignImport ForeignImport{
+      parameters = [
+            Parameter {
+                name = Nothing
+              , typ = translateType importWrapper.funType
+              , comment = Nothing
+              }
+          ]
+    , result     = flip Result Nothing $
+          TGlobal IO_type `TApp`
+          (TGlobal Foreign_FunPtr `TApp`
+          translateType importWrapper.funType)
+    , name       = importWrapper.name
+    , origName   = C.DeclName "wrapper" C.NameKindOrdinary
+    , callConv   = CallConvGhcCCall ImportAsValue
+    , origin     = importWrapper.origin
+    , comment    = importWrapper.comment
+    , safety     = Safe
+    }
+
+translateForeignImportDynamic :: Hs.ForeignImportDynamic -> SDecl
+translateForeignImportDynamic importDyn = DForeignImport ForeignImport{
+      parameters = [
+            Parameter {
+                name = Nothing
+              , typ =
+                    TGlobal Foreign_FunPtr `TApp`
+                    translateType importDyn.funType
+              , comment = Nothing
+              }
+          ]
+    , result     = Result (translateType importDyn.funType) Nothing
+    , name       = importDyn.name
+    , origName   = C.DeclName "dynamic" C.NameKindOrdinary
+    , callConv   = CallConvGhcCCall ImportAsValue
+    , origin     = importDyn.origin
+    , comment    = importDyn.comment
+    , safety     = Safe
     }
 
 translateFunctionDecl :: Hs.FunctionDecl -> SDecl

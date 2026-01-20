@@ -10,8 +10,10 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -229,8 +231,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_arraysarray_Example_get_fun_1@
-foreign import ccall unsafe "hs_bindgen_5c9712c1e2ca2187" hs_bindgen_5c9712c1e2ca2187 ::
-     IO (Ptr.FunPtr (FC.CInt -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_5c9712c1e2ca2187" hs_bindgen_5c9712c1e2ca2187_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_1@
+hs_bindgen_5c9712c1e2ca2187 :: IO (Ptr.FunPtr (FC.CInt -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) -> IO FC.CInt))
+hs_bindgen_5c9712c1e2ca2187 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_5c9712c1e2ca2187_base
 
 {-# NOINLINE fun_1 #-}
 {-| Array of known size
@@ -246,8 +253,13 @@ fun_1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_5c9712c1e2ca2187
 
 -- __unique:__ @test_arraysarray_Example_get_fun_2@
-foreign import ccall unsafe "hs_bindgen_215c9a69aea5166e" hs_bindgen_215c9a69aea5166e ::
-     IO (Ptr.FunPtr (Triplet -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_215c9a69aea5166e" hs_bindgen_215c9a69aea5166e_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_2@
+hs_bindgen_215c9a69aea5166e :: IO (Ptr.FunPtr (Triplet -> IO FC.CInt))
+hs_bindgen_215c9a69aea5166e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_215c9a69aea5166e_base
 
 {-# NOINLINE fun_2 #-}
 {-| Array of known size, typedef
@@ -263,8 +275,13 @@ fun_2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_215c9a69aea5166e
 
 -- __unique:__ @test_arraysarray_Example_get_fun_3@
-foreign import ccall unsafe "hs_bindgen_d45ffb769078021d" hs_bindgen_d45ffb769078021d ::
-     IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt) -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_d45ffb769078021d" hs_bindgen_d45ffb769078021d_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_3@
+hs_bindgen_d45ffb769078021d :: IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt) -> IO FC.CInt))
+hs_bindgen_d45ffb769078021d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d45ffb769078021d_base
 
 {-# NOINLINE fun_3 #-}
 {-| Array of unknown size
@@ -280,8 +297,13 @@ fun_3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_d45ffb769078021d
 
 -- __unique:__ @test_arraysarray_Example_get_fun_4@
-foreign import ccall unsafe "hs_bindgen_16f300d083285e38" hs_bindgen_16f300d083285e38 ::
-     IO (Ptr.FunPtr (List -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_16f300d083285e38" hs_bindgen_16f300d083285e38_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_4@
+hs_bindgen_16f300d083285e38 :: IO (Ptr.FunPtr (List -> IO FC.CInt))
+hs_bindgen_16f300d083285e38 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_16f300d083285e38_base
 
 {-# NOINLINE fun_4 #-}
 {-| Array of unknown size, typedef
@@ -297,8 +319,13 @@ fun_4 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_16f300d083285e38
 
 -- __unique:__ @test_arraysarray_Example_get_fun_5@
-foreign import ccall unsafe "hs_bindgen_05ddc0274405d6f5" hs_bindgen_05ddc0274405d6f5 ::
-     IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_05ddc0274405d6f5" hs_bindgen_05ddc0274405d6f5_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_5@
+hs_bindgen_05ddc0274405d6f5 :: IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt))
+hs_bindgen_05ddc0274405d6f5 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_05ddc0274405d6f5_base
 
 {-# NOINLINE fun_5 #-}
 {-| Multi-dimensional array of known size
@@ -314,8 +341,13 @@ fun_5 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_05ddc0274405d6f5
 
 -- __unique:__ @test_arraysarray_Example_get_fun_6@
-foreign import ccall unsafe "hs_bindgen_bc6a8e5360af8799" hs_bindgen_bc6a8e5360af8799 ::
-     IO (Ptr.FunPtr (Matrix -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_bc6a8e5360af8799" hs_bindgen_bc6a8e5360af8799_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_6@
+hs_bindgen_bc6a8e5360af8799 :: IO (Ptr.FunPtr (Matrix -> IO FC.CInt))
+hs_bindgen_bc6a8e5360af8799 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_bc6a8e5360af8799_base
 
 {-# NOINLINE fun_6 #-}
 {-| Multi-dimensional array of known size, typedef
@@ -331,8 +363,13 @@ fun_6 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_bc6a8e5360af8799
 
 -- __unique:__ @test_arraysarray_Example_get_fun_7@
-foreign import ccall unsafe "hs_bindgen_b633a17af8e60afd" hs_bindgen_b633a17af8e60afd ::
-     IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_b633a17af8e60afd" hs_bindgen_b633a17af8e60afd_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_7@
+hs_bindgen_b633a17af8e60afd :: IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt))
+hs_bindgen_b633a17af8e60afd =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b633a17af8e60afd_base
 
 {-# NOINLINE fun_7 #-}
 {-| Multi-dimensional array of unknown size
@@ -348,8 +385,13 @@ fun_7 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_b633a17af8e60afd
 
 -- __unique:__ @test_arraysarray_Example_get_fun_8@
-foreign import ccall unsafe "hs_bindgen_0801bc85e75e7232" hs_bindgen_0801bc85e75e7232 ::
-     IO (Ptr.FunPtr (Tripletlist -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_0801bc85e75e7232" hs_bindgen_0801bc85e75e7232_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_8@
+hs_bindgen_0801bc85e75e7232 :: IO (Ptr.FunPtr (Tripletlist -> IO FC.CInt))
+hs_bindgen_0801bc85e75e7232 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0801bc85e75e7232_base
 
 {-# NOINLINE fun_8 #-}
 {-| Multi-dimensional array of unknown size, typedef
@@ -365,8 +407,13 @@ fun_8 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0801bc85e75e7232
 
 -- __unique:__ @test_arraysarray_Example_get_isSolved@
-foreign import ccall unsafe "hs_bindgen_f525d0058f613e21" hs_bindgen_f525d0058f613e21 ::
-     IO (Ptr.FunPtr (Sudoku -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_f525d0058f613e21" hs_bindgen_f525d0058f613e21_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_isSolved@
+hs_bindgen_f525d0058f613e21 :: IO (Ptr.FunPtr (Sudoku -> IO FC.CInt))
+hs_bindgen_f525d0058f613e21 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f525d0058f613e21_base
 
 {-# NOINLINE isSolved #-}
 {-| Typedef-in-typedef
@@ -382,8 +429,13 @@ isSolved =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f525d0058f613e21
 
 -- __unique:__ @test_arraysarray_Example_get_fun_1_const@
-foreign import ccall unsafe "hs_bindgen_0fdde9c360622daf" hs_bindgen_0fdde9c360622daf ::
-     IO (Ptr.FunPtr (FC.CInt -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_0fdde9c360622daf" hs_bindgen_0fdde9c360622daf_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_1_const@
+hs_bindgen_0fdde9c360622daf :: IO (Ptr.FunPtr (FC.CInt -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) -> IO FC.CInt))
+hs_bindgen_0fdde9c360622daf =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0fdde9c360622daf_base
 
 {-# NOINLINE fun_1_const #-}
 {-| Array of known size
@@ -399,8 +451,13 @@ fun_1_const =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0fdde9c360622daf
 
 -- __unique:__ @test_arraysarray_Example_get_fun_2_const@
-foreign import ccall unsafe "hs_bindgen_8182488430e66fdc" hs_bindgen_8182488430e66fdc ::
-     IO (Ptr.FunPtr (Triplet -> Triplet -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_8182488430e66fdc" hs_bindgen_8182488430e66fdc_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_2_const@
+hs_bindgen_8182488430e66fdc :: IO (Ptr.FunPtr (Triplet -> Triplet -> IO FC.CInt))
+hs_bindgen_8182488430e66fdc =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_8182488430e66fdc_base
 
 {-# NOINLINE fun_2_const #-}
 {-| Array of known size, typedef
@@ -416,8 +473,13 @@ fun_2_const =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8182488430e66fdc
 
 -- __unique:__ @test_arraysarray_Example_get_fun_3_const@
-foreign import ccall unsafe "hs_bindgen_2303f5a2f855a6e5" hs_bindgen_2303f5a2f855a6e5 ::
-     IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt) -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt) -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_2303f5a2f855a6e5" hs_bindgen_2303f5a2f855a6e5_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_3_const@
+hs_bindgen_2303f5a2f855a6e5 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt) -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt) -> IO FC.CInt))
+hs_bindgen_2303f5a2f855a6e5 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2303f5a2f855a6e5_base
 
 {-# NOINLINE fun_3_const #-}
 {-| Array of unknown size
@@ -433,8 +495,13 @@ fun_3_const =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_2303f5a2f855a6e5
 
 -- __unique:__ @test_arraysarray_Example_get_fun_4_const@
-foreign import ccall unsafe "hs_bindgen_4570b26d96819cd9" hs_bindgen_4570b26d96819cd9 ::
-     IO (Ptr.FunPtr (List -> List -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_4570b26d96819cd9" hs_bindgen_4570b26d96819cd9_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_4_const@
+hs_bindgen_4570b26d96819cd9 :: IO (Ptr.FunPtr (List -> List -> IO FC.CInt))
+hs_bindgen_4570b26d96819cd9 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_4570b26d96819cd9_base
 
 {-# NOINLINE fun_4_const #-}
 {-| Array of unknown size, typedef
@@ -450,8 +517,13 @@ fun_4_const =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4570b26d96819cd9
 
 -- __unique:__ @test_arraysarray_Example_get_fun_5_const@
-foreign import ccall unsafe "hs_bindgen_65a5e31cfb885928" hs_bindgen_65a5e31cfb885928 ::
-     IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_65a5e31cfb885928" hs_bindgen_65a5e31cfb885928_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_5_const@
+hs_bindgen_65a5e31cfb885928 :: IO (Ptr.FunPtr (((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt))
+hs_bindgen_65a5e31cfb885928 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_65a5e31cfb885928_base
 
 {-# NOINLINE fun_5_const #-}
 {-| Multi-dimensional array of known size
@@ -467,8 +539,13 @@ fun_5_const =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_65a5e31cfb885928
 
 -- __unique:__ @test_arraysarray_Example_get_fun_6_const@
-foreign import ccall unsafe "hs_bindgen_107e8456ef4df268" hs_bindgen_107e8456ef4df268 ::
-     IO (Ptr.FunPtr (Matrix -> Matrix -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_107e8456ef4df268" hs_bindgen_107e8456ef4df268_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_6_const@
+hs_bindgen_107e8456ef4df268 :: IO (Ptr.FunPtr (Matrix -> Matrix -> IO FC.CInt))
+hs_bindgen_107e8456ef4df268 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_107e8456ef4df268_base
 
 {-# NOINLINE fun_6_const #-}
 {-| Multi-dimensional array of known size, typedef
@@ -484,8 +561,13 @@ fun_6_const =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_107e8456ef4df268
 
 -- __unique:__ @test_arraysarray_Example_get_fun_7_const@
-foreign import ccall unsafe "hs_bindgen_249a199499d81ca8" hs_bindgen_249a199499d81ca8 ::
-     IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_249a199499d81ca8" hs_bindgen_249a199499d81ca8_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_7_const@
+hs_bindgen_249a199499d81ca8 :: IO (Ptr.FunPtr ((HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt))
+hs_bindgen_249a199499d81ca8 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_249a199499d81ca8_base
 
 {-# NOINLINE fun_7_const #-}
 {-| Multi-dimensional array of unknown size
@@ -501,8 +583,13 @@ fun_7_const =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_249a199499d81ca8
 
 -- __unique:__ @test_arraysarray_Example_get_fun_8_const@
-foreign import ccall unsafe "hs_bindgen_92bc0bfe006ce53c" hs_bindgen_92bc0bfe006ce53c ::
-     IO (Ptr.FunPtr (Tripletlist -> Tripletlist -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_92bc0bfe006ce53c" hs_bindgen_92bc0bfe006ce53c_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_8_const@
+hs_bindgen_92bc0bfe006ce53c :: IO (Ptr.FunPtr (Tripletlist -> Tripletlist -> IO FC.CInt))
+hs_bindgen_92bc0bfe006ce53c =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_92bc0bfe006ce53c_base
 
 {-# NOINLINE fun_8_const #-}
 {-| Multi-dimensional array of unknown size, typedef
@@ -518,8 +605,13 @@ fun_8_const =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_92bc0bfe006ce53c
 
 -- __unique:__ @test_arraysarray_Example_get_isSolved_const@
-foreign import ccall unsafe "hs_bindgen_935428cb3e78f9a5" hs_bindgen_935428cb3e78f9a5 ::
-     IO (Ptr.FunPtr (Sudoku -> Sudoku -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_935428cb3e78f9a5" hs_bindgen_935428cb3e78f9a5_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_isSolved_const@
+hs_bindgen_935428cb3e78f9a5 :: IO (Ptr.FunPtr (Sudoku -> Sudoku -> IO FC.CInt))
+hs_bindgen_935428cb3e78f9a5 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_935428cb3e78f9a5_base
 
 {-# NOINLINE isSolved_const #-}
 {-| Typedef-in-typedef
@@ -535,8 +627,13 @@ isSolved_const =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_935428cb3e78f9a5
 
 -- __unique:__ @test_arraysarray_Example_get_fun_9@
-foreign import ccall unsafe "hs_bindgen_c9bec6ab325b063c" hs_bindgen_c9bec6ab325b063c ::
-     IO (Ptr.FunPtr (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))))
+foreign import ccall unsafe "hs_bindgen_c9bec6ab325b063c" hs_bindgen_c9bec6ab325b063c_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_9@
+hs_bindgen_c9bec6ab325b063c :: IO (Ptr.FunPtr (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))))
+hs_bindgen_c9bec6ab325b063c =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c9bec6ab325b063c_base
 
 {-# NOINLINE fun_9 #-}
 {-| Array of known size
@@ -552,8 +649,13 @@ fun_9 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_c9bec6ab325b063c
 
 -- __unique:__ @test_arraysarray_Example_get_fun_10@
-foreign import ccall unsafe "hs_bindgen_49f85263b6310047" hs_bindgen_49f85263b6310047 ::
-     IO (Ptr.FunPtr (IO (Ptr.Ptr Triplet)))
+foreign import ccall unsafe "hs_bindgen_49f85263b6310047" hs_bindgen_49f85263b6310047_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_10@
+hs_bindgen_49f85263b6310047 :: IO (Ptr.FunPtr (IO (Ptr.Ptr Triplet)))
+hs_bindgen_49f85263b6310047 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_49f85263b6310047_base
 
 {-# NOINLINE fun_10 #-}
 {-| Array of known size, typedef
@@ -569,8 +671,13 @@ fun_10 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_49f85263b6310047
 
 -- __unique:__ @test_arraysarray_Example_get_fun_11@
-foreign import ccall unsafe "hs_bindgen_68bdd4a6e02a046b" hs_bindgen_68bdd4a6e02a046b ::
-     IO (Ptr.FunPtr (IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))))
+foreign import ccall unsafe "hs_bindgen_68bdd4a6e02a046b" hs_bindgen_68bdd4a6e02a046b_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_11@
+hs_bindgen_68bdd4a6e02a046b :: IO (Ptr.FunPtr (IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))))
+hs_bindgen_68bdd4a6e02a046b =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_68bdd4a6e02a046b_base
 
 {-# NOINLINE fun_11 #-}
 {-| Array of unknown size
@@ -586,8 +693,13 @@ fun_11 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_68bdd4a6e02a046b
 
 -- __unique:__ @test_arraysarray_Example_get_fun_12@
-foreign import ccall unsafe "hs_bindgen_0521f5208260a928" hs_bindgen_0521f5208260a928 ::
-     IO (Ptr.FunPtr (IO (Ptr.Ptr List)))
+foreign import ccall unsafe "hs_bindgen_0521f5208260a928" hs_bindgen_0521f5208260a928_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_12@
+hs_bindgen_0521f5208260a928 :: IO (Ptr.FunPtr (IO (Ptr.Ptr List)))
+hs_bindgen_0521f5208260a928 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0521f5208260a928_base
 
 {-# NOINLINE fun_12 #-}
 {-| Array of unknown size, typedef
@@ -603,8 +715,13 @@ fun_12 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_0521f5208260a928
 
 -- __unique:__ @test_arraysarray_Example_get_fun_13@
-foreign import ccall unsafe "hs_bindgen_9d0f2421c940811c" hs_bindgen_9d0f2421c940811c ::
-     IO (Ptr.FunPtr (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))))
+foreign import ccall unsafe "hs_bindgen_9d0f2421c940811c" hs_bindgen_9d0f2421c940811c_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_13@
+hs_bindgen_9d0f2421c940811c :: IO (Ptr.FunPtr (IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))))
+hs_bindgen_9d0f2421c940811c =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9d0f2421c940811c_base
 
 {-# NOINLINE fun_13 #-}
 {-| Multi-dimensional array of known size
@@ -620,8 +737,13 @@ fun_13 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9d0f2421c940811c
 
 -- __unique:__ @test_arraysarray_Example_get_fun_14@
-foreign import ccall unsafe "hs_bindgen_50eeeb460ce92a1d" hs_bindgen_50eeeb460ce92a1d ::
-     IO (Ptr.FunPtr (IO (Ptr.Ptr Matrix)))
+foreign import ccall unsafe "hs_bindgen_50eeeb460ce92a1d" hs_bindgen_50eeeb460ce92a1d_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_14@
+hs_bindgen_50eeeb460ce92a1d :: IO (Ptr.FunPtr (IO (Ptr.Ptr Matrix)))
+hs_bindgen_50eeeb460ce92a1d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_50eeeb460ce92a1d_base
 
 {-# NOINLINE fun_14 #-}
 {-| Multi-dimensional array of known size, typedef
@@ -637,8 +759,13 @@ fun_14 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_50eeeb460ce92a1d
 
 -- __unique:__ @test_arraysarray_Example_get_fun_15@
-foreign import ccall unsafe "hs_bindgen_afb15d11d3db71eb" hs_bindgen_afb15d11d3db71eb ::
-     IO (Ptr.FunPtr (IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))))
+foreign import ccall unsafe "hs_bindgen_afb15d11d3db71eb" hs_bindgen_afb15d11d3db71eb_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_15@
+hs_bindgen_afb15d11d3db71eb :: IO (Ptr.FunPtr (IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))))
+hs_bindgen_afb15d11d3db71eb =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_afb15d11d3db71eb_base
 
 {-# NOINLINE fun_15 #-}
 {-| Multi-dimensional array of unknown size
@@ -654,8 +781,13 @@ fun_15 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_afb15d11d3db71eb
 
 -- __unique:__ @test_arraysarray_Example_get_fun_16@
-foreign import ccall unsafe "hs_bindgen_f41fbdca0717f85b" hs_bindgen_f41fbdca0717f85b ::
-     IO (Ptr.FunPtr (IO (Ptr.Ptr Tripletlist)))
+foreign import ccall unsafe "hs_bindgen_f41fbdca0717f85b" hs_bindgen_f41fbdca0717f85b_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_fun_16@
+hs_bindgen_f41fbdca0717f85b :: IO (Ptr.FunPtr (IO (Ptr.Ptr Tripletlist)))
+hs_bindgen_f41fbdca0717f85b =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f41fbdca0717f85b_base
 
 {-# NOINLINE fun_16 #-}
 {-| Multi-dimensional array of unknown size, typedef
@@ -671,8 +803,13 @@ fun_16 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f41fbdca0717f85b
 
 -- __unique:__ @test_arraysarray_Example_get_solve@
-foreign import ccall unsafe "hs_bindgen_b219669884cf1eb6" hs_bindgen_b219669884cf1eb6 ::
-     IO (Ptr.FunPtr (IO (Ptr.Ptr Sudoku)))
+foreign import ccall unsafe "hs_bindgen_b219669884cf1eb6" hs_bindgen_b219669884cf1eb6_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_arraysarray_Example_get_solve@
+hs_bindgen_b219669884cf1eb6 :: IO (Ptr.FunPtr (IO (Ptr.Ptr Sudoku)))
+hs_bindgen_b219669884cf1eb6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b219669884cf1eb6_base
 
 {-# NOINLINE solve #-}
 {-| Typedef-in-typedef

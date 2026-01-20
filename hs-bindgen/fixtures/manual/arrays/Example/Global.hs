@@ -10,8 +10,10 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -56,8 +58,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_manualarrays_Example_get_arr1@
-foreign import ccall unsafe "hs_bindgen_6843a8f5c61ff74e" hs_bindgen_6843a8f5c61ff74e ::
-     IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt))
+foreign import ccall unsafe "hs_bindgen_6843a8f5c61ff74e" hs_bindgen_6843a8f5c61ff74e_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_manualarrays_Example_get_arr1@
+hs_bindgen_6843a8f5c61ff74e :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt))
+hs_bindgen_6843a8f5c61ff74e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_6843a8f5c61ff74e_base
 
 {-# NOINLINE arr1 #-}
 {-| Global, complete, initialised
@@ -73,8 +80,13 @@ arr1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_6843a8f5c61ff74e
 
 -- __unique:__ @test_manualarrays_Example_get_arr2@
-foreign import ccall unsafe "hs_bindgen_60c5bfbe2e29672a" hs_bindgen_60c5bfbe2e29672a ::
-     IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+foreign import ccall unsafe "hs_bindgen_60c5bfbe2e29672a" hs_bindgen_60c5bfbe2e29672a_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_manualarrays_Example_get_arr2@
+hs_bindgen_60c5bfbe2e29672a :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+hs_bindgen_60c5bfbe2e29672a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_60c5bfbe2e29672a_base
 
 {-# NOINLINE arr2 #-}
 {-| Global, extern, complete, not initialised
@@ -90,8 +102,13 @@ arr2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_60c5bfbe2e29672a
 
 -- __unique:__ @test_manualarrays_Example_get_arr3@
-foreign import ccall unsafe "hs_bindgen_a0497dc4c0aba158" hs_bindgen_a0497dc4c0aba158 ::
-     IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
+foreign import ccall unsafe "hs_bindgen_a0497dc4c0aba158" hs_bindgen_a0497dc4c0aba158_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_manualarrays_Example_get_arr3@
+hs_bindgen_a0497dc4c0aba158 :: IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
+hs_bindgen_a0497dc4c0aba158 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a0497dc4c0aba158_base
 
 {-# NOINLINE arr3 #-}
 {-| Global, extern, incomplete
@@ -107,8 +124,13 @@ arr3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_a0497dc4c0aba158
 
 -- __unique:__ @test_manualarrays_Example_get_sudoku@
-foreign import ccall unsafe "hs_bindgen_609c0f69bf6da356" hs_bindgen_609c0f69bf6da356 ::
-     IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+foreign import ccall unsafe "hs_bindgen_609c0f69bf6da356" hs_bindgen_609c0f69bf6da356_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_manualarrays_Example_get_sudoku@
+hs_bindgen_609c0f69bf6da356 :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+hs_bindgen_609c0f69bf6da356 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_609c0f69bf6da356_base
 
 {-# NOINLINE sudoku #-}
 {-| Multi-dimensional array of known size.
@@ -124,8 +146,13 @@ sudoku =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_609c0f69bf6da356
 
 -- __unique:__ @test_manualarrays_Example_get_triplets@
-foreign import ccall unsafe "hs_bindgen_52a30badbe2c9671" hs_bindgen_52a30badbe2c9671 ::
-     IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+foreign import ccall unsafe "hs_bindgen_52a30badbe2c9671" hs_bindgen_52a30badbe2c9671_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_manualarrays_Example_get_triplets@
+hs_bindgen_52a30badbe2c9671 :: IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+hs_bindgen_52a30badbe2c9671 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_52a30badbe2c9671_base
 
 {-# NOINLINE triplets #-}
 {-| Multi-dimensional array of unknown size. Only the first dimension is allowed to be unknown.
@@ -141,8 +168,13 @@ triplets =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_52a30badbe2c9671
 
 -- __unique:__ @test_manualarrays_Example_get_global_triplet_ptrs@
-foreign import ccall unsafe "hs_bindgen_23817a1a9bc92057" hs_bindgen_23817a1a9bc92057 ::
-     IO (Ptr.Ptr Triplet_ptrs)
+foreign import ccall unsafe "hs_bindgen_23817a1a9bc92057" hs_bindgen_23817a1a9bc92057_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_manualarrays_Example_get_global_triplet_ptrs@
+hs_bindgen_23817a1a9bc92057 :: IO (Ptr.Ptr Triplet_ptrs)
+hs_bindgen_23817a1a9bc92057 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_23817a1a9bc92057_base
 
 {-# NOINLINE global_triplet_ptrs #-}
 {-| A global of triplet_ptrs

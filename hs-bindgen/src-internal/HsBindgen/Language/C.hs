@@ -48,12 +48,6 @@ data PrimType =
     -- | An integral type, such as @int@ or @unsigned long int@.
   | PrimIntegral PrimIntType PrimSign
 
-    -- | @ptrdiff_t@
-  | PrimPtrDiff
-
-    -- | @size_t@
-  | PrimSize
-
     -- | A floating-point type, such as @float@ or @long double@.
   | PrimFloating PrimFloatType
 
@@ -127,8 +121,6 @@ showsPrimType (PrimChar (PrimSignImplicit _)) = showString "char"
 showsPrimType (PrimChar (PrimSignExplicit s)) = showsPrimSign s . showString " char"
 showsPrimType (PrimIntegral i s) = showsPrimSign s . showChar ' ' . showsPrimIntType i
 showsPrimType (PrimFloating f) = showsPrimFloatType f
-showsPrimType PrimPtrDiff = showString "ptrdiff_t"
-showsPrimType PrimSize = showString "size_t"
 showsPrimType PrimBool = showString "_Bool"
 
 showsPrimIntType :: PrimIntType -> ShowS

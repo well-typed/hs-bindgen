@@ -744,10 +744,15 @@ instance HasCField Matrix "un_Matrix"
     where type CFieldType Matrix "un_Matrix" = ConstantArray 3 Triplet
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
-foreign import ccall safe "hs_bindgen_350cceac1101d344" hs_bindgen_350cceac1101d344 ::
-    ConstPtr Vector
- -> Ptr Vector
+foreign import ccall safe "hs_bindgen_350cceac1101d344" hs_bindgen_350cceac1101d344_base ::
+    ConstPtr Void
+ -> Ptr Void
  -> IO CInt
+-- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
+hs_bindgen_350cceac1101d344 :: ConstPtr Vector ->
+                               Ptr Vector -> IO CInt
+-- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
+hs_bindgen_350cceac1101d344 = fromBaseForeignType hs_bindgen_350cceac1101d344_base
 {-| __C declaration:__ @reverse@
 
     __defined at:__ @manual\/zero_copy.h 77:5@
@@ -763,10 +768,15 @@ reverse :: ConstPtr Vector -> Ptr Vector -> IO CInt
 -}
 reverse = hs_bindgen_350cceac1101d344
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
-foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92b04 ::
-    ConstPtr Triplet
- -> Ptr Triplet
+foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92b04_base ::
+    ConstPtr Void
+ -> Ptr Void
  -> IO Unit
+-- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
+hs_bindgen_2ff371c815d92b04 :: ConstPtr Triplet ->
+                               Ptr Triplet -> IO Unit
+-- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
+hs_bindgen_2ff371c815d92b04 = fromBaseForeignType hs_bindgen_2ff371c815d92b04_base
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
@@ -782,10 +792,15 @@ transpose :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
 -}
 transpose = hs_bindgen_2ff371c815d92b04
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
-foreign import ccall safe "hs_bindgen_f9655173d51bbaac" hs_bindgen_f9655173d51bbaac ::
-    ConstPtr Vector
- -> Ptr Vector
+foreign import ccall safe "hs_bindgen_f9655173d51bbaac" hs_bindgen_f9655173d51bbaac_base ::
+    ConstPtr Void
+ -> Ptr Void
  -> IO CInt
+-- __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
+hs_bindgen_f9655173d51bbaac :: ConstPtr Vector ->
+                               Ptr Vector -> IO CInt
+-- __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
+hs_bindgen_f9655173d51bbaac = fromBaseForeignType hs_bindgen_f9655173d51bbaac_base
 {-| __C declaration:__ @reverse@
 
     __defined at:__ @manual\/zero_copy.h 77:5@
@@ -801,10 +816,15 @@ reverse :: ConstPtr Vector -> Ptr Vector -> IO CInt
 -}
 reverse = hs_bindgen_f9655173d51bbaac
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
-foreign import ccall safe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627dd5ed2 ::
-    ConstPtr Triplet
- -> Ptr Triplet
+foreign import ccall safe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627dd5ed2_base ::
+    ConstPtr Void
+ -> Ptr Void
  -> IO Unit
+-- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
+hs_bindgen_ea25667627dd5ed2 :: ConstPtr Triplet ->
+                               Ptr Triplet -> IO Unit
+-- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
+hs_bindgen_ea25667627dd5ed2 = fromBaseForeignType hs_bindgen_ea25667627dd5ed2_base
 {-| __C declaration:__ @transpose@
 
     __defined at:__ @manual\/zero_copy.h 85:6@
@@ -820,8 +840,13 @@ transpose :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
 -}
 transpose = hs_bindgen_ea25667627dd5ed2
 -- __unique:__ @test_manualzero_copy_Example_get_reverse@
-foreign import ccall safe "hs_bindgen_44cb8687c63f0086" hs_bindgen_44cb8687c63f0086 ::
-    IO (FunPtr (ConstPtr Vector -> Ptr Vector -> IO CInt))
+foreign import ccall safe "hs_bindgen_44cb8687c63f0086" hs_bindgen_44cb8687c63f0086_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_manualzero_copy_Example_get_reverse@
+hs_bindgen_44cb8687c63f0086 :: IO (FunPtr (ConstPtr Vector ->
+                                           Ptr Vector -> IO CInt))
+-- __unique:__ @test_manualzero_copy_Example_get_reverse@
+hs_bindgen_44cb8687c63f0086 = fromBaseForeignType hs_bindgen_44cb8687c63f0086_base
 {-# NOINLINE reverse #-}
 {-| __C declaration:__ @reverse@
 
@@ -838,8 +863,13 @@ reverse :: FunPtr (ConstPtr Vector -> Ptr Vector -> IO CInt)
 -}
 reverse = unsafePerformIO hs_bindgen_44cb8687c63f0086
 -- __unique:__ @test_manualzero_copy_Example_get_transpose@
-foreign import ccall safe "hs_bindgen_1bf30b28aefee5bf" hs_bindgen_1bf30b28aefee5bf ::
-    IO (FunPtr (Matrix -> Matrix -> IO Unit))
+foreign import ccall safe "hs_bindgen_1bf30b28aefee5bf" hs_bindgen_1bf30b28aefee5bf_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_manualzero_copy_Example_get_transpose@
+hs_bindgen_1bf30b28aefee5bf :: IO (FunPtr (Matrix ->
+                                           Matrix -> IO Unit))
+-- __unique:__ @test_manualzero_copy_Example_get_transpose@
+hs_bindgen_1bf30b28aefee5bf = fromBaseForeignType hs_bindgen_1bf30b28aefee5bf_base
 {-# NOINLINE transpose #-}
 {-| __C declaration:__ @transpose@
 

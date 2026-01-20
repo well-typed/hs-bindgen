@@ -5,6 +5,7 @@
 
 module Example.Unsafe where
 
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -133,8 +134,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f0@
-foreign import ccall unsafe "hs_bindgen_df56d82c9186c794" hs_bindgen_df56d82c9186c794 ::
+foreign import ccall unsafe "hs_bindgen_df56d82c9186c794" hs_bindgen_df56d82c9186c794_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f0@
+hs_bindgen_df56d82c9186c794 :: IO ()
+hs_bindgen_df56d82c9186c794 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_df56d82c9186c794_base
 
 {-| __C declaration:__ @f0@
 
@@ -146,8 +152,13 @@ f0 :: IO ()
 f0 = hs_bindgen_df56d82c9186c794
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f1@
-foreign import ccall unsafe "hs_bindgen_2e25b1147da3cdee" hs_bindgen_2e25b1147da3cdee ::
+foreign import ccall unsafe "hs_bindgen_2e25b1147da3cdee" hs_bindgen_2e25b1147da3cdee_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f1@
+hs_bindgen_2e25b1147da3cdee :: IO ()
+hs_bindgen_2e25b1147da3cdee =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2e25b1147da3cdee_base
 
 {-| __C declaration:__ @f1@
 
@@ -159,8 +170,13 @@ f1 :: IO ()
 f1 = hs_bindgen_2e25b1147da3cdee
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f2@
-foreign import ccall unsafe "hs_bindgen_c57341dd645988f6" hs_bindgen_c57341dd645988f6 ::
+foreign import ccall unsafe "hs_bindgen_c57341dd645988f6" hs_bindgen_c57341dd645988f6_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f2@
+hs_bindgen_c57341dd645988f6 :: IO ()
+hs_bindgen_c57341dd645988f6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c57341dd645988f6_base
 
 {-| __C declaration:__ @f2@
 
@@ -172,8 +188,13 @@ f2 :: IO ()
 f2 = hs_bindgen_c57341dd645988f6
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f3@
-foreign import ccall unsafe "hs_bindgen_5858f33f5b12f541" hs_bindgen_5858f33f5b12f541 ::
+foreign import ccall unsafe "hs_bindgen_5858f33f5b12f541" hs_bindgen_5858f33f5b12f541_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f3@
+hs_bindgen_5858f33f5b12f541 :: IO ()
+hs_bindgen_5858f33f5b12f541 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_5858f33f5b12f541_base
 
 {-| __C declaration:__ @f3@
 
@@ -185,8 +206,13 @@ f3 :: IO ()
 f3 = hs_bindgen_5858f33f5b12f541
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f4@
-foreign import ccall unsafe "hs_bindgen_d57b75423078a644" hs_bindgen_d57b75423078a644 ::
+foreign import ccall unsafe "hs_bindgen_d57b75423078a644" hs_bindgen_d57b75423078a644_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f4@
+hs_bindgen_d57b75423078a644 :: IO ()
+hs_bindgen_d57b75423078a644 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d57b75423078a644_base
 
 {-| __C declaration:__ @f4@
 
@@ -198,8 +224,13 @@ f4 :: IO ()
 f4 = hs_bindgen_d57b75423078a644
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f5@
-foreign import ccall unsafe "hs_bindgen_d7e35ffb8ef15009" hs_bindgen_d7e35ffb8ef15009 ::
+foreign import ccall unsafe "hs_bindgen_d7e35ffb8ef15009" hs_bindgen_d7e35ffb8ef15009_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f5@
+hs_bindgen_d7e35ffb8ef15009 :: IO ()
+hs_bindgen_d7e35ffb8ef15009 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d7e35ffb8ef15009_base
 
 {-| __C declaration:__ @f5@
 
@@ -211,8 +242,13 @@ f5 :: IO ()
 f5 = hs_bindgen_d7e35ffb8ef15009
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f6@
-foreign import ccall unsafe "hs_bindgen_de345dceb6694e2e" hs_bindgen_de345dceb6694e2e ::
+foreign import ccall unsafe "hs_bindgen_de345dceb6694e2e" hs_bindgen_de345dceb6694e2e_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f6@
+hs_bindgen_de345dceb6694e2e :: IO ()
+hs_bindgen_de345dceb6694e2e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_de345dceb6694e2e_base
 
 {-| __C declaration:__ @f6@
 
@@ -224,8 +260,13 @@ f6 :: IO ()
 f6 = hs_bindgen_de345dceb6694e2e
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f7@
-foreign import ccall unsafe "hs_bindgen_df2fd4ea47789bb8" hs_bindgen_df2fd4ea47789bb8 ::
+foreign import ccall unsafe "hs_bindgen_df2fd4ea47789bb8" hs_bindgen_df2fd4ea47789bb8_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f7@
+hs_bindgen_df2fd4ea47789bb8 :: IO ()
+hs_bindgen_df2fd4ea47789bb8 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_df2fd4ea47789bb8_base
 
 {-| __C declaration:__ @f7@
 
@@ -237,8 +278,13 @@ f7 :: IO ()
 f7 = hs_bindgen_df2fd4ea47789bb8
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f8@
-foreign import ccall unsafe "hs_bindgen_a49e6066d8dd0628" hs_bindgen_a49e6066d8dd0628 ::
+foreign import ccall unsafe "hs_bindgen_a49e6066d8dd0628" hs_bindgen_a49e6066d8dd0628_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f8@
+hs_bindgen_a49e6066d8dd0628 :: IO ()
+hs_bindgen_a49e6066d8dd0628 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a49e6066d8dd0628_base
 
 {-| __C declaration:__ @f8@
 
@@ -250,8 +296,13 @@ f8 :: IO ()
 f8 = hs_bindgen_a49e6066d8dd0628
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f9@
-foreign import ccall unsafe "hs_bindgen_e94ceb5e10d07a59" hs_bindgen_e94ceb5e10d07a59 ::
+foreign import ccall unsafe "hs_bindgen_e94ceb5e10d07a59" hs_bindgen_e94ceb5e10d07a59_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f9@
+hs_bindgen_e94ceb5e10d07a59 :: IO ()
+hs_bindgen_e94ceb5e10d07a59 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_e94ceb5e10d07a59_base
 
 {-| __C declaration:__ @f9@
 
@@ -263,8 +314,13 @@ f9 :: IO ()
 f9 = hs_bindgen_e94ceb5e10d07a59
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f10@
-foreign import ccall unsafe "hs_bindgen_d329fc979eb3d29e" hs_bindgen_d329fc979eb3d29e ::
+foreign import ccall unsafe "hs_bindgen_d329fc979eb3d29e" hs_bindgen_d329fc979eb3d29e_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f10@
+hs_bindgen_d329fc979eb3d29e :: IO ()
+hs_bindgen_d329fc979eb3d29e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d329fc979eb3d29e_base
 
 {-| __C declaration:__ @f10@
 
@@ -276,8 +332,13 @@ f10 :: IO ()
 f10 = hs_bindgen_d329fc979eb3d29e
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f11@
-foreign import ccall unsafe "hs_bindgen_9f7176bfdf1871cf" hs_bindgen_9f7176bfdf1871cf ::
+foreign import ccall unsafe "hs_bindgen_9f7176bfdf1871cf" hs_bindgen_9f7176bfdf1871cf_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f11@
+hs_bindgen_9f7176bfdf1871cf :: IO ()
+hs_bindgen_9f7176bfdf1871cf =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9f7176bfdf1871cf_base
 
 {-| __C declaration:__ @f11@
 
@@ -289,8 +350,13 @@ f11 :: IO ()
 f11 = hs_bindgen_9f7176bfdf1871cf
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f12@
-foreign import ccall unsafe "hs_bindgen_d06a71df91d678f1" hs_bindgen_d06a71df91d678f1 ::
+foreign import ccall unsafe "hs_bindgen_d06a71df91d678f1" hs_bindgen_d06a71df91d678f1_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f12@
+hs_bindgen_d06a71df91d678f1 :: IO ()
+hs_bindgen_d06a71df91d678f1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d06a71df91d678f1_base
 
 {-| __C declaration:__ @f12@
 
@@ -302,8 +368,13 @@ f12 :: IO ()
 f12 = hs_bindgen_d06a71df91d678f1
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f13@
-foreign import ccall unsafe "hs_bindgen_32916e0b4775516d" hs_bindgen_32916e0b4775516d ::
+foreign import ccall unsafe "hs_bindgen_32916e0b4775516d" hs_bindgen_32916e0b4775516d_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f13@
+hs_bindgen_32916e0b4775516d :: IO ()
+hs_bindgen_32916e0b4775516d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_32916e0b4775516d_base
 
 {-| __C declaration:__ @f13@
 
@@ -315,8 +386,13 @@ f13 :: IO ()
 f13 = hs_bindgen_32916e0b4775516d
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f14@
-foreign import ccall unsafe "hs_bindgen_56f26ce5de7906a8" hs_bindgen_56f26ce5de7906a8 ::
+foreign import ccall unsafe "hs_bindgen_56f26ce5de7906a8" hs_bindgen_56f26ce5de7906a8_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f14@
+hs_bindgen_56f26ce5de7906a8 :: IO ()
+hs_bindgen_56f26ce5de7906a8 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_56f26ce5de7906a8_base
 
 {-| __C declaration:__ @f14@
 
@@ -328,8 +404,13 @@ f14 :: IO ()
 f14 = hs_bindgen_56f26ce5de7906a8
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f15@
-foreign import ccall unsafe "hs_bindgen_fd2972764f48a143" hs_bindgen_fd2972764f48a143 ::
+foreign import ccall unsafe "hs_bindgen_fd2972764f48a143" hs_bindgen_fd2972764f48a143_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f15@
+hs_bindgen_fd2972764f48a143 :: IO ()
+hs_bindgen_fd2972764f48a143 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_fd2972764f48a143_base
 
 {-| __C declaration:__ @f15@
 
@@ -341,8 +422,13 @@ f15 :: IO ()
 f15 = hs_bindgen_fd2972764f48a143
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f16@
-foreign import ccall unsafe "hs_bindgen_f63a042e539ff8b6" hs_bindgen_f63a042e539ff8b6 ::
+foreign import ccall unsafe "hs_bindgen_f63a042e539ff8b6" hs_bindgen_f63a042e539ff8b6_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f16@
+hs_bindgen_f63a042e539ff8b6 :: IO ()
+hs_bindgen_f63a042e539ff8b6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f63a042e539ff8b6_base
 
 {-| __C declaration:__ @f16@
 
@@ -354,8 +440,13 @@ f16 :: IO ()
 f16 = hs_bindgen_f63a042e539ff8b6
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f17@
-foreign import ccall unsafe "hs_bindgen_1ae5adf1961e06f6" hs_bindgen_1ae5adf1961e06f6 ::
+foreign import ccall unsafe "hs_bindgen_1ae5adf1961e06f6" hs_bindgen_1ae5adf1961e06f6_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f17@
+hs_bindgen_1ae5adf1961e06f6 :: IO ()
+hs_bindgen_1ae5adf1961e06f6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_1ae5adf1961e06f6_base
 
 {-| __C declaration:__ @f17@
 
@@ -367,8 +458,13 @@ f17 :: IO ()
 f17 = hs_bindgen_1ae5adf1961e06f6
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f18@
-foreign import ccall unsafe "hs_bindgen_cf7978ab53dc8140" hs_bindgen_cf7978ab53dc8140 ::
+foreign import ccall unsafe "hs_bindgen_cf7978ab53dc8140" hs_bindgen_cf7978ab53dc8140_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f18@
+hs_bindgen_cf7978ab53dc8140 :: IO ()
+hs_bindgen_cf7978ab53dc8140 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_cf7978ab53dc8140_base
 
 {-| __C declaration:__ @f18@
 
@@ -380,8 +476,13 @@ f18 :: IO ()
 f18 = hs_bindgen_cf7978ab53dc8140
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f19@
-foreign import ccall unsafe "hs_bindgen_f81ec562e6b7dc0f" hs_bindgen_f81ec562e6b7dc0f ::
+foreign import ccall unsafe "hs_bindgen_f81ec562e6b7dc0f" hs_bindgen_f81ec562e6b7dc0f_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f19@
+hs_bindgen_f81ec562e6b7dc0f :: IO ()
+hs_bindgen_f81ec562e6b7dc0f =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f81ec562e6b7dc0f_base
 
 {-| __C declaration:__ @f19@
 
@@ -393,8 +494,13 @@ f19 :: IO ()
 f19 = hs_bindgen_f81ec562e6b7dc0f
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f20@
-foreign import ccall unsafe "hs_bindgen_95b4b9ea66f61551" hs_bindgen_95b4b9ea66f61551 ::
+foreign import ccall unsafe "hs_bindgen_95b4b9ea66f61551" hs_bindgen_95b4b9ea66f61551_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f20@
+hs_bindgen_95b4b9ea66f61551 :: IO ()
+hs_bindgen_95b4b9ea66f61551 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_95b4b9ea66f61551_base
 
 {-| __C declaration:__ @f20@
 
@@ -406,8 +512,13 @@ f20 :: IO ()
 f20 = hs_bindgen_95b4b9ea66f61551
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f21@
-foreign import ccall unsafe "hs_bindgen_c64dd47543cb7378" hs_bindgen_c64dd47543cb7378 ::
+foreign import ccall unsafe "hs_bindgen_c64dd47543cb7378" hs_bindgen_c64dd47543cb7378_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f21@
+hs_bindgen_c64dd47543cb7378 :: IO ()
+hs_bindgen_c64dd47543cb7378 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c64dd47543cb7378_base
 
 {-| __C declaration:__ @f21@
 
@@ -419,8 +530,13 @@ f21 :: IO ()
 f21 = hs_bindgen_c64dd47543cb7378
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f22@
-foreign import ccall unsafe "hs_bindgen_ce27e3f019c9d235" hs_bindgen_ce27e3f019c9d235 ::
+foreign import ccall unsafe "hs_bindgen_ce27e3f019c9d235" hs_bindgen_ce27e3f019c9d235_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f22@
+hs_bindgen_ce27e3f019c9d235 :: IO ()
+hs_bindgen_ce27e3f019c9d235 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_ce27e3f019c9d235_base
 
 {-| __C declaration:__ @f22@
 
@@ -432,8 +548,13 @@ f22 :: IO ()
 f22 = hs_bindgen_ce27e3f019c9d235
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f23@
-foreign import ccall unsafe "hs_bindgen_ae8f854ac4a07381" hs_bindgen_ae8f854ac4a07381 ::
+foreign import ccall unsafe "hs_bindgen_ae8f854ac4a07381" hs_bindgen_ae8f854ac4a07381_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f23@
+hs_bindgen_ae8f854ac4a07381 :: IO ()
+hs_bindgen_ae8f854ac4a07381 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_ae8f854ac4a07381_base
 
 {-| __C declaration:__ @f23@
 
@@ -445,8 +566,13 @@ f23 :: IO ()
 f23 = hs_bindgen_ae8f854ac4a07381
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f24@
-foreign import ccall unsafe "hs_bindgen_d4585a283ed9fc36" hs_bindgen_d4585a283ed9fc36 ::
+foreign import ccall unsafe "hs_bindgen_d4585a283ed9fc36" hs_bindgen_d4585a283ed9fc36_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f24@
+hs_bindgen_d4585a283ed9fc36 :: IO ()
+hs_bindgen_d4585a283ed9fc36 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d4585a283ed9fc36_base
 
 {-| __C declaration:__ @f24@
 
@@ -458,8 +584,13 @@ f24 :: IO ()
 f24 = hs_bindgen_d4585a283ed9fc36
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f25@
-foreign import ccall unsafe "hs_bindgen_f600df85706a5312" hs_bindgen_f600df85706a5312 ::
+foreign import ccall unsafe "hs_bindgen_f600df85706a5312" hs_bindgen_f600df85706a5312_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f25@
+hs_bindgen_f600df85706a5312 :: IO ()
+hs_bindgen_f600df85706a5312 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f600df85706a5312_base
 
 {-| __C declaration:__ @f25@
 
@@ -471,8 +602,13 @@ f25 :: IO ()
 f25 = hs_bindgen_f600df85706a5312
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f26@
-foreign import ccall unsafe "hs_bindgen_92731c80b3281e1c" hs_bindgen_92731c80b3281e1c ::
+foreign import ccall unsafe "hs_bindgen_92731c80b3281e1c" hs_bindgen_92731c80b3281e1c_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f26@
+hs_bindgen_92731c80b3281e1c :: IO ()
+hs_bindgen_92731c80b3281e1c =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_92731c80b3281e1c_base
 
 {-| __C declaration:__ @f26@
 
@@ -484,8 +620,13 @@ f26 :: IO ()
 f26 = hs_bindgen_92731c80b3281e1c
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f27@
-foreign import ccall unsafe "hs_bindgen_930247d3730559af" hs_bindgen_930247d3730559af ::
+foreign import ccall unsafe "hs_bindgen_930247d3730559af" hs_bindgen_930247d3730559af_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f27@
+hs_bindgen_930247d3730559af :: IO ()
+hs_bindgen_930247d3730559af =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_930247d3730559af_base
 
 {-| __C declaration:__ @f27@
 
@@ -497,8 +638,13 @@ f27 :: IO ()
 f27 = hs_bindgen_930247d3730559af
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f28@
-foreign import ccall unsafe "hs_bindgen_2d1ce37b69d8d467" hs_bindgen_2d1ce37b69d8d467 ::
+foreign import ccall unsafe "hs_bindgen_2d1ce37b69d8d467" hs_bindgen_2d1ce37b69d8d467_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f28@
+hs_bindgen_2d1ce37b69d8d467 :: IO ()
+hs_bindgen_2d1ce37b69d8d467 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2d1ce37b69d8d467_base
 
 {-| __C declaration:__ @f28@
 
@@ -510,8 +656,13 @@ f28 :: IO ()
 f28 = hs_bindgen_2d1ce37b69d8d467
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f29@
-foreign import ccall unsafe "hs_bindgen_3f89a86cfcdf475d" hs_bindgen_3f89a86cfcdf475d ::
+foreign import ccall unsafe "hs_bindgen_3f89a86cfcdf475d" hs_bindgen_3f89a86cfcdf475d_base ::
      IO ()
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_Unsafe_f29@
+hs_bindgen_3f89a86cfcdf475d :: IO ()
+hs_bindgen_3f89a86cfcdf475d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3f89a86cfcdf475d_base
 
 {-| __C declaration:__ @f29@
 

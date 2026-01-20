@@ -7,7 +7,9 @@ module Example.Unsafe where
 
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -34,9 +36,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_foo@
-foreign import ccall unsafe "hs_bindgen_f784f3292d76f05c" hs_bindgen_f784f3292d76f05c ::
+foreign import ccall unsafe "hs_bindgen_f784f3292d76f05c" hs_bindgen_f784f3292d76f05c_base ::
+     Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_foo@
+hs_bindgen_f784f3292d76f05c ::
      Ptr.Ptr MyUnion
   -> IO ()
+hs_bindgen_f784f3292d76f05c =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f784f3292d76f05c_base
 
 {-| __C declaration:__ @foo@
 
@@ -53,9 +62,16 @@ foo =
     F.with x0 (\x1 -> hs_bindgen_f784f3292d76f05c x1)
 
 -- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_fooA@
-foreign import ccall unsafe "hs_bindgen_317131bf91a541b2" hs_bindgen_317131bf91a541b2 ::
+foreign import ccall unsafe "hs_bindgen_317131bf91a541b2" hs_bindgen_317131bf91a541b2_base ::
+     Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_fooA@
+hs_bindgen_317131bf91a541b2 ::
      Ptr.Ptr A
   -> IO ()
+hs_bindgen_317131bf91a541b2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_317131bf91a541b2_base
 
 {-| __C declaration:__ @fooA@
 
@@ -72,9 +88,16 @@ fooA =
     F.with x0 (\x1 -> hs_bindgen_317131bf91a541b2 x1)
 
 -- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_fooB@
-foreign import ccall unsafe "hs_bindgen_d2ce062db2e5b039" hs_bindgen_d2ce062db2e5b039 ::
+foreign import ccall unsafe "hs_bindgen_d2ce062db2e5b039" hs_bindgen_d2ce062db2e5b039_base ::
+     Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_bindingspecsfun_argmacroun_Example_Unsafe_fooB@
+hs_bindgen_d2ce062db2e5b039 ::
      Ptr.Ptr B
   -> IO ()
+hs_bindgen_d2ce062db2e5b039 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d2ce062db2e5b039_base
 
 {-| __C declaration:__ @fooB@
 

@@ -7,7 +7,9 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -86,10 +88,18 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux1@
-foreign import ccall safe "hs_bindgen_02e0e3b28d470fd4" hs_bindgen_02e0e3b28d470fd4 ::
+foreign import ccall safe "hs_bindgen_02e0e3b28d470fd4" hs_bindgen_02e0e3b28d470fd4_base ::
+     FC.CChar
+  -> FC.CChar
+  -> IO FC.CChar
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux1@
+hs_bindgen_02e0e3b28d470fd4 ::
      MC
   -> TC
   -> IO FC.CChar
+hs_bindgen_02e0e3b28d470fd4 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_02e0e3b28d470fd4_base
 
 {-| __C declaration:__ @quux1@
 
@@ -106,10 +116,18 @@ quux1 ::
 quux1 = hs_bindgen_02e0e3b28d470fd4
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux2@
-foreign import ccall safe "hs_bindgen_bb79188c8775e2e4" hs_bindgen_bb79188c8775e2e4 ::
+foreign import ccall safe "hs_bindgen_bb79188c8775e2e4" hs_bindgen_bb79188c8775e2e4_base ::
+     FC.CChar
+  -> FC.CChar
+  -> IO FC.CChar
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_quux2@
+hs_bindgen_bb79188c8775e2e4 ::
      MC
   -> FC.CChar
   -> IO TC
+hs_bindgen_bb79188c8775e2e4 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_bb79188c8775e2e4_base
 
 {-| __C declaration:__ @quux2@
 
@@ -126,10 +144,18 @@ quux2 ::
 quux2 = hs_bindgen_bb79188c8775e2e4
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_wam1@
-foreign import ccall safe "hs_bindgen_a398fb73645271c5" hs_bindgen_a398fb73645271c5 ::
+foreign import ccall safe "hs_bindgen_a398fb73645271c5" hs_bindgen_a398fb73645271c5_base ::
+     FC.CFloat
+  -> Ptr.Ptr Void
+  -> IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_wam1@
+hs_bindgen_a398fb73645271c5 ::
      FC.CFloat
   -> Ptr.Ptr TC
   -> IO (Ptr.Ptr MC)
+hs_bindgen_a398fb73645271c5 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_a398fb73645271c5_base
 
 {-| __C declaration:__ @wam1@
 
@@ -146,10 +172,18 @@ wam1 ::
 wam1 = hs_bindgen_a398fb73645271c5
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_wam2@
-foreign import ccall safe "hs_bindgen_ad904da072e0711e" hs_bindgen_ad904da072e0711e ::
+foreign import ccall safe "hs_bindgen_ad904da072e0711e" hs_bindgen_ad904da072e0711e_base ::
+     FC.CFloat
+  -> Ptr.Ptr Void
+  -> IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_wam2@
+hs_bindgen_ad904da072e0711e ::
      FC.CFloat
   -> Ptr.Ptr MC
   -> IO (Ptr.Ptr TC)
+hs_bindgen_ad904da072e0711e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_ad904da072e0711e_base
 
 {-| __C declaration:__ @wam2@
 
@@ -166,10 +200,18 @@ wam2 ::
 wam2 = hs_bindgen_ad904da072e0711e
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef1@
-foreign import ccall safe "hs_bindgen_88e976dc10571000" hs_bindgen_88e976dc10571000 ::
+foreign import ccall safe "hs_bindgen_88e976dc10571000" hs_bindgen_88e976dc10571000_base ::
+     Ptr.Ptr Void
+  -> FC.CChar
+  -> IO ()
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef1@
+hs_bindgen_88e976dc10571000 ::
      Ptr.Ptr Struct2
   -> MC
   -> IO ()
+hs_bindgen_88e976dc10571000 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_88e976dc10571000_base
 
 {-| __C declaration:__ @struct_typedef1@
 
@@ -186,10 +228,18 @@ struct_typedef1 ::
 struct_typedef1 = hs_bindgen_88e976dc10571000
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef2@
-foreign import ccall safe "hs_bindgen_edb3806d45d7605b" hs_bindgen_edb3806d45d7605b ::
+foreign import ccall safe "hs_bindgen_edb3806d45d7605b" hs_bindgen_edb3806d45d7605b_base ::
+     Ptr.Ptr Void
+  -> FC.CChar
+  -> IO ()
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef2@
+hs_bindgen_edb3806d45d7605b ::
      Ptr.Ptr Struct3_t
   -> MC
   -> IO ()
+hs_bindgen_edb3806d45d7605b =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_edb3806d45d7605b_base
 
 {-| __C declaration:__ @struct_typedef2@
 
@@ -206,10 +256,18 @@ struct_typedef2 ::
 struct_typedef2 = hs_bindgen_edb3806d45d7605b
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef3@
-foreign import ccall safe "hs_bindgen_7c7f3ab0dd790fe8" hs_bindgen_7c7f3ab0dd790fe8 ::
+foreign import ccall safe "hs_bindgen_7c7f3ab0dd790fe8" hs_bindgen_7c7f3ab0dd790fe8_base ::
+     Ptr.Ptr Void
+  -> FC.CChar
+  -> IO ()
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_typedef3@
+hs_bindgen_7c7f3ab0dd790fe8 ::
      Ptr.Ptr Struct4
   -> MC
   -> IO ()
+hs_bindgen_7c7f3ab0dd790fe8 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_7c7f3ab0dd790fe8_base
 
 {-| __C declaration:__ @struct_typedef3@
 
@@ -226,10 +284,18 @@ struct_typedef3 ::
 struct_typedef3 = hs_bindgen_7c7f3ab0dd790fe8
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name1@
-foreign import ccall safe "hs_bindgen_2cfbb4f5834d4bcb" hs_bindgen_2cfbb4f5834d4bcb ::
+foreign import ccall safe "hs_bindgen_2cfbb4f5834d4bcb" hs_bindgen_2cfbb4f5834d4bcb_base ::
+     Ptr.Ptr Void
+  -> FC.CChar
+  -> IO ()
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name1@
+hs_bindgen_2cfbb4f5834d4bcb ::
      Ptr.Ptr Struct1
   -> MC
   -> IO ()
+hs_bindgen_2cfbb4f5834d4bcb =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2cfbb4f5834d4bcb_base
 
 {-| __C declaration:__ @struct_name1@
 
@@ -246,10 +312,18 @@ struct_name1 ::
 struct_name1 = hs_bindgen_2cfbb4f5834d4bcb
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name2@
-foreign import ccall safe "hs_bindgen_c8b765fa70f95167" hs_bindgen_c8b765fa70f95167 ::
+foreign import ccall safe "hs_bindgen_c8b765fa70f95167" hs_bindgen_c8b765fa70f95167_base ::
+     Ptr.Ptr Void
+  -> FC.CChar
+  -> IO ()
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name2@
+hs_bindgen_c8b765fa70f95167 ::
      Ptr.Ptr Struct3
   -> MC
   -> IO ()
+hs_bindgen_c8b765fa70f95167 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c8b765fa70f95167_base
 
 {-| __C declaration:__ @struct_name2@
 
@@ -266,10 +340,18 @@ struct_name2 ::
 struct_name2 = hs_bindgen_c8b765fa70f95167
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name3@
-foreign import ccall safe "hs_bindgen_0ff3632971f092bb" hs_bindgen_0ff3632971f092bb ::
+foreign import ccall safe "hs_bindgen_0ff3632971f092bb" hs_bindgen_0ff3632971f092bb_base ::
+     Ptr.Ptr Void
+  -> FC.CChar
+  -> IO ()
+
+-- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Safe_struct_name3@
+hs_bindgen_0ff3632971f092bb ::
      Ptr.Ptr Struct4
   -> MC
   -> IO ()
+hs_bindgen_0ff3632971f092bb =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0ff3632971f092bb_base
 
 {-| __C declaration:__ @struct_name3@
 

@@ -22,6 +22,7 @@ import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
 import qualified M
+import qualified Prelude as P
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude (Eq, IO, Ord, Show)
 
@@ -38,15 +39,29 @@ newtype A_Aux = A_Aux
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
+foreign import ccall safe "wrapper" hs_bindgen_1cabb32c661d9a0e_base ::
+     (FC.CInt -> IO FC.CInt)
+  -> IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+
 -- __unique:__ @toA_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_1cabb32c661d9a0e ::
+hs_bindgen_1cabb32c661d9a0e ::
      A_Aux
   -> IO (Ptr.FunPtr A_Aux)
+hs_bindgen_1cabb32c661d9a0e =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_1cabb32c661d9a0e_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+
+foreign import ccall safe "dynamic" hs_bindgen_cdb12400c6863f15_base ::
+     Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+  -> FC.CInt -> IO FC.CInt
 
 -- __unique:__ @fromA_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_cdb12400c6863f15 ::
+hs_bindgen_cdb12400c6863f15 ::
      Ptr.FunPtr A_Aux
   -> A_Aux
+hs_bindgen_cdb12400c6863f15 =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_cdb12400c6863f15_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr A_Aux where
 
@@ -126,6 +141,7 @@ instance HsBindgen.Runtime.HasCField.HasCField B "un_B" where
 newtype E = E
   { un_E :: M.C
   }
+  deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType E) "un_E")
          ) => GHC.Records.HasField "un_E" (Ptr.Ptr E) (Ptr.Ptr ty) where

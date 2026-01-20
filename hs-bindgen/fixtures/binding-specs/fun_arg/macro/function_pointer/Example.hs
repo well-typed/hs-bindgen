@@ -21,6 +21,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.HasCField
+import qualified Prelude as P
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude (Eq, IO, Ord, Show)
 
@@ -37,15 +38,29 @@ newtype MyFunctionPointer_Aux = MyFunctionPointer_Aux
   }
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
+foreign import ccall safe "wrapper" hs_bindgen_47dfd04698dd2e6f_base ::
+     (FC.CInt -> IO FC.CInt)
+  -> IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+
 -- __unique:__ @toMyFunctionPointer_Aux@
-foreign import ccall safe "wrapper" hs_bindgen_47dfd04698dd2e6f ::
+hs_bindgen_47dfd04698dd2e6f ::
      MyFunctionPointer_Aux
   -> IO (Ptr.FunPtr MyFunctionPointer_Aux)
+hs_bindgen_47dfd04698dd2e6f =
+  \fun0 ->
+    P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_47dfd04698dd2e6f_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
+
+foreign import ccall safe "dynamic" hs_bindgen_5738272f94a589e2_base ::
+     Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+  -> FC.CInt -> IO FC.CInt
 
 -- __unique:__ @fromMyFunctionPointer_Aux@
-foreign import ccall safe "dynamic" hs_bindgen_5738272f94a589e2 ::
+hs_bindgen_5738272f94a589e2 ::
      Ptr.FunPtr MyFunctionPointer_Aux
   -> MyFunctionPointer_Aux
+hs_bindgen_5738272f94a589e2 =
+  \funPtr0 ->
+    HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType (hs_bindgen_5738272f94a589e2_base (HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType funPtr0))
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr MyFunctionPointer_Aux where
 

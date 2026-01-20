@@ -8,7 +8,9 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -136,8 +138,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i0@
-foreign import ccall unsafe "hs_bindgen_70b2711233a0b0ce" hs_bindgen_70b2711233a0b0ce ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_70b2711233a0b0ce" hs_bindgen_70b2711233a0b0ce_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i0@
+hs_bindgen_70b2711233a0b0ce :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_70b2711233a0b0ce =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_70b2711233a0b0ce_base
 
 {-# NOINLINE i0 #-}
 {-| __C declaration:__ @i0@
@@ -151,8 +158,13 @@ i0 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_70b2711233a0b0ce
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i1@
-foreign import ccall unsafe "hs_bindgen_8e3cae6c0337359f" hs_bindgen_8e3cae6c0337359f ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_8e3cae6c0337359f" hs_bindgen_8e3cae6c0337359f_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i1@
+hs_bindgen_8e3cae6c0337359f :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_8e3cae6c0337359f =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_8e3cae6c0337359f_base
 
 {-# NOINLINE i1 #-}
 {-| __C declaration:__ @i1@
@@ -166,8 +178,13 @@ i1 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8e3cae6c0337359f
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i2@
-foreign import ccall unsafe "hs_bindgen_e9d06c8375760e65" hs_bindgen_e9d06c8375760e65 ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_e9d06c8375760e65" hs_bindgen_e9d06c8375760e65_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i2@
+hs_bindgen_e9d06c8375760e65 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_e9d06c8375760e65 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_e9d06c8375760e65_base
 
 {-# NOINLINE i2 #-}
 {-| __C declaration:__ @i2@
@@ -181,8 +198,13 @@ i2 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_e9d06c8375760e65
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i3@
-foreign import ccall unsafe "hs_bindgen_de2fe93c2259b4c5" hs_bindgen_de2fe93c2259b4c5 ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_de2fe93c2259b4c5" hs_bindgen_de2fe93c2259b4c5_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i3@
+hs_bindgen_de2fe93c2259b4c5 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_de2fe93c2259b4c5 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_de2fe93c2259b4c5_base
 
 {-# NOINLINE i3 #-}
 {-| __C declaration:__ @i3@
@@ -196,8 +218,13 @@ i3 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_de2fe93c2259b4c5
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i4@
-foreign import ccall unsafe "hs_bindgen_dd416cc3f6d465a3" hs_bindgen_dd416cc3f6d465a3 ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_dd416cc3f6d465a3" hs_bindgen_dd416cc3f6d465a3_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i4@
+hs_bindgen_dd416cc3f6d465a3 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_dd416cc3f6d465a3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_dd416cc3f6d465a3_base
 
 {-# NOINLINE i4 #-}
 {-| __C declaration:__ @i4@
@@ -211,8 +238,13 @@ i4 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_dd416cc3f6d465a3
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i5@
-foreign import ccall unsafe "hs_bindgen_71a58d536a57d502" hs_bindgen_71a58d536a57d502 ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_71a58d536a57d502" hs_bindgen_71a58d536a57d502_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i5@
+hs_bindgen_71a58d536a57d502 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_71a58d536a57d502 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_71a58d536a57d502_base
 
 {-# NOINLINE i5 #-}
 {-| __C declaration:__ @i5@
@@ -226,8 +258,13 @@ i5 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_71a58d536a57d502
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i6@
-foreign import ccall unsafe "hs_bindgen_64a79cbcb421682d" hs_bindgen_64a79cbcb421682d ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_64a79cbcb421682d" hs_bindgen_64a79cbcb421682d_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i6@
+hs_bindgen_64a79cbcb421682d :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_64a79cbcb421682d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_64a79cbcb421682d_base
 
 {-# NOINLINE i6 #-}
 {-| __C declaration:__ @i6@
@@ -241,8 +278,13 @@ i6 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_64a79cbcb421682d
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i7@
-foreign import ccall unsafe "hs_bindgen_1dab5bd455fe1cd2" hs_bindgen_1dab5bd455fe1cd2 ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_1dab5bd455fe1cd2" hs_bindgen_1dab5bd455fe1cd2_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i7@
+hs_bindgen_1dab5bd455fe1cd2 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_1dab5bd455fe1cd2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_1dab5bd455fe1cd2_base
 
 {-# NOINLINE i7 #-}
 {-| __C declaration:__ @i7@
@@ -256,8 +298,13 @@ i7 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1dab5bd455fe1cd2
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i8@
-foreign import ccall unsafe "hs_bindgen_95f3d7edf9ffbfec" hs_bindgen_95f3d7edf9ffbfec ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_95f3d7edf9ffbfec" hs_bindgen_95f3d7edf9ffbfec_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i8@
+hs_bindgen_95f3d7edf9ffbfec :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_95f3d7edf9ffbfec =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_95f3d7edf9ffbfec_base
 
 {-# NOINLINE i8 #-}
 {-| __C declaration:__ @i8@
@@ -271,8 +318,13 @@ i8 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_95f3d7edf9ffbfec
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i9@
-foreign import ccall unsafe "hs_bindgen_726a1f70db74e014" hs_bindgen_726a1f70db74e014 ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_726a1f70db74e014" hs_bindgen_726a1f70db74e014_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i9@
+hs_bindgen_726a1f70db74e014 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_726a1f70db74e014 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_726a1f70db74e014_base
 
 {-# NOINLINE i9 #-}
 {-| __C declaration:__ @i9@
@@ -286,8 +338,13 @@ i9 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_726a1f70db74e014
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i10@
-foreign import ccall unsafe "hs_bindgen_8bf7d37b407412c2" hs_bindgen_8bf7d37b407412c2 ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_8bf7d37b407412c2" hs_bindgen_8bf7d37b407412c2_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i10@
+hs_bindgen_8bf7d37b407412c2 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_8bf7d37b407412c2 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_8bf7d37b407412c2_base
 
 {-# NOINLINE i10 #-}
 {-| __C declaration:__ @i10@
@@ -301,8 +358,13 @@ i10 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_8bf7d37b407412c2
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i11@
-foreign import ccall unsafe "hs_bindgen_9d4d113b052a7d1c" hs_bindgen_9d4d113b052a7d1c ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_9d4d113b052a7d1c" hs_bindgen_9d4d113b052a7d1c_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i11@
+hs_bindgen_9d4d113b052a7d1c :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_9d4d113b052a7d1c =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9d4d113b052a7d1c_base
 
 {-# NOINLINE i11 #-}
 {-| __C declaration:__ @i11@
@@ -316,8 +378,13 @@ i11 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9d4d113b052a7d1c
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i12@
-foreign import ccall unsafe "hs_bindgen_ce56442ac026dd87" hs_bindgen_ce56442ac026dd87 ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_ce56442ac026dd87" hs_bindgen_ce56442ac026dd87_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i12@
+hs_bindgen_ce56442ac026dd87 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_ce56442ac026dd87 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_ce56442ac026dd87_base
 
 {-# NOINLINE i12 #-}
 {-| __C declaration:__ @i12@
@@ -331,8 +398,13 @@ i12 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_ce56442ac026dd87
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i13@
-foreign import ccall unsafe "hs_bindgen_5822d4dd4d1c00b5" hs_bindgen_5822d4dd4d1c00b5 ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_5822d4dd4d1c00b5" hs_bindgen_5822d4dd4d1c00b5_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i13@
+hs_bindgen_5822d4dd4d1c00b5 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_5822d4dd4d1c00b5 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_5822d4dd4d1c00b5_base
 
 {-# NOINLINE i13 #-}
 {-| __C declaration:__ @i13@
@@ -346,8 +418,13 @@ i13 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_5822d4dd4d1c00b5
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i14@
-foreign import ccall unsafe "hs_bindgen_1f5ecb9a293e4e85" hs_bindgen_1f5ecb9a293e4e85 ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_1f5ecb9a293e4e85" hs_bindgen_1f5ecb9a293e4e85_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i14@
+hs_bindgen_1f5ecb9a293e4e85 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_1f5ecb9a293e4e85 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_1f5ecb9a293e4e85_base
 
 {-# NOINLINE i14 #-}
 {-| __C declaration:__ @i14@
@@ -361,8 +438,13 @@ i14 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_1f5ecb9a293e4e85
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i15@
-foreign import ccall unsafe "hs_bindgen_f8cafe2a4b2f0171" hs_bindgen_f8cafe2a4b2f0171 ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_f8cafe2a4b2f0171" hs_bindgen_f8cafe2a4b2f0171_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i15@
+hs_bindgen_f8cafe2a4b2f0171 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_f8cafe2a4b2f0171 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f8cafe2a4b2f0171_base
 
 {-# NOINLINE i15 #-}
 {-| __C declaration:__ @i15@
@@ -376,8 +458,13 @@ i15 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_f8cafe2a4b2f0171
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i16@
-foreign import ccall unsafe "hs_bindgen_9f351d568129877e" hs_bindgen_9f351d568129877e ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_9f351d568129877e" hs_bindgen_9f351d568129877e_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i16@
+hs_bindgen_9f351d568129877e :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_9f351d568129877e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9f351d568129877e_base
 
 {-# NOINLINE i16 #-}
 {-| __C declaration:__ @i16@
@@ -391,8 +478,13 @@ i16 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_9f351d568129877e
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i17@
-foreign import ccall unsafe "hs_bindgen_4219dc8cc178afd0" hs_bindgen_4219dc8cc178afd0 ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_4219dc8cc178afd0" hs_bindgen_4219dc8cc178afd0_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i17@
+hs_bindgen_4219dc8cc178afd0 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_4219dc8cc178afd0 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_4219dc8cc178afd0_base
 
 {-# NOINLINE i17 #-}
 {-| __C declaration:__ @i17@
@@ -406,8 +498,13 @@ i17 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_4219dc8cc178afd0
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i18@
-foreign import ccall unsafe "hs_bindgen_60dd1e2f74f319bb" hs_bindgen_60dd1e2f74f319bb ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_60dd1e2f74f319bb" hs_bindgen_60dd1e2f74f319bb_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i18@
+hs_bindgen_60dd1e2f74f319bb :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_60dd1e2f74f319bb =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_60dd1e2f74f319bb_base
 
 {-# NOINLINE i18 #-}
 {-| __C declaration:__ @i18@
@@ -421,8 +518,13 @@ i18 =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_60dd1e2f74f319bb
 
 -- __unique:__ @test_attributesvisibility_attribut_Example_get_i19@
-foreign import ccall unsafe "hs_bindgen_795a8bc9f1790423" hs_bindgen_795a8bc9f1790423 ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_795a8bc9f1790423" hs_bindgen_795a8bc9f1790423_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_attributesvisibility_attribut_Example_get_i19@
+hs_bindgen_795a8bc9f1790423 :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_795a8bc9f1790423 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_795a8bc9f1790423_base
 
 {-# NOINLINE i19 #-}
 {-| __C declaration:__ @i19@

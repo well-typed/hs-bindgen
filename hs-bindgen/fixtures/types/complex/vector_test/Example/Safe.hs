@@ -7,7 +7,9 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -23,10 +25,18 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_typescomplexvector_test_Example_Safe_new_vector@
-foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" hs_bindgen_cd5f566bc96dcba0 ::
+foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" hs_bindgen_cd5f566bc96dcba0_base ::
+     FC.CDouble
+  -> FC.CDouble
+  -> IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_typescomplexvector_test_Example_Safe_new_vector@
+hs_bindgen_cd5f566bc96dcba0 ::
      FC.CDouble
   -> FC.CDouble
   -> IO (Ptr.Ptr Vector)
+hs_bindgen_cd5f566bc96dcba0 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_cd5f566bc96dcba0_base
 
 {-| __C declaration:__ @new_vector@
 

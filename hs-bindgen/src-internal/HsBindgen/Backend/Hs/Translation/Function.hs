@@ -20,7 +20,9 @@ import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Config
+import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImport
 import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
+import HsBindgen.Backend.Hs.Translation.State (TranslationState)
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Translation.Common qualified as SHs
@@ -84,14 +86,16 @@ functionDecs ::
   -> TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
+  -> TranslationState
   -> C.DeclInfo Final
   -> C.Function Final
   -> PrescriptiveDeclSpec
   -> [Hs.Decl]
-functionDecs safety opts haddockConfig moduleName info origCFun _spec =
-    [ foreignImport
-    , restoreOrigSignature
-    ]
+functionDecs safety opts haddockConfig moduleName transState info origCFun _spec =
+    concat [
+        foreignImport
+      , [restoreOrigSignature]
+      ]
   where
     origName :: Text
     origName = info.id.cName.name.text
@@ -117,12 +121,13 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
     primParams :: [PassBy]
     primParams = map (classifyArgPassingMethod . snd) origCFun.args
 
-    foreignImport :: Hs.Decl
+    foreignImport :: [Hs.Decl]
     foreignImport =
         HsFI.foreignImportDec
-          (Hs.InternalName cWrapperName)
-          resultType
+          transState
+          (Hs.ForeignImport.FunName cWrapperName)
           foreignImportParams
+          foreignImportResult
           (uniqueCDeclName cWrapperName)
           (CallConvUserlandCAPI cWrapper)
           (Origin.Function origCFun)
@@ -142,15 +147,49 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
             , hashIncludeArg = getMainHashIncludeArg info
             }
 
-    foreignImportParams :: [Hs.FunctionParameter]
+    foreignImportParams :: [Hs.ForeignImport.FunParam]
     foreignImportParams = [
-           Hs.FunctionParameter{
-               name    = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
-             , typ     = Type.inContext Type.FunArg (toPrimitiveType (classifyArgPassingMethod ty))
-             , comment = Nothing
-             }
-        | (mbName, ty) <- origCFun.args
-        ] ++ toList mbResultParam
+          Hs.ForeignImport.FunParam {
+              hsParam =
+                Hs.FunctionParameter{
+                    name    = n
+                  , typ     = hsType
+                  , comment = Nothing
+                  }
+            }
+        | (mbName, ty) <- origCFun.args ++ toList ((Nothing,) <$> foreignImportOptParam)
+        , let n = fmap (Hs.unsafeHsIdHsName . (.hsName)) mbName
+              hsType = Type.inContext Type.FunArg cType
+              cType = toPrimitiveType passMethod
+              passMethod = classifyArgPassingMethod ty
+        ]
+
+    foreignImportOptParam :: Maybe (C.Type Final)
+    foreignImportOptParam = case primResult of
+        -- A type that is not supported by the Haskell FFI as a function result.
+        -- We pass it as a function parameter instead.
+        PassByAddress {} -> Just $ toPrimitiveType primResult
+        -- A "normal" result type that is supported by the Haskell FFI.
+        PassByValue {} -> Nothing
+
+    -- When translating a 'C.Type' there are C types which we cannot pass
+    -- directly using C FFI. We need to distinguish these.
+    --
+    -- Function arguments and result have to be passed either by value or by
+    -- address. Result types that have to be passed by address become
+    -- parameters.
+    foreignImportResult :: Hs.ForeignImport.FunRes
+    foreignImportResult = case primResult of
+        -- A type that is not supported by the Haskell FFI as a function result.
+        -- We pass it as a function parameter instead.
+        PassByAddress {} -> mkFunRes C.TypeVoid
+        -- A "normal" result type that is supported by the Haskell FFI.
+        PassByValue {} -> mkFunRes $ toPrimitiveType primResult
+      where
+        mkFunRes :: C.Type Final -> Hs.ForeignImport.FunRes
+        mkFunRes cType = Hs.ForeignImport.FunRes {
+              hsType   = mbHsIO $ Type.inContext Type.FunRes $ cType
+            }
 
     restoreOrigSignature :: Hs.Decl
     restoreOrigSignature =
@@ -159,7 +198,7 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
           (Hs.InternalName cWrapperName)
           primResult
           primParams
-          (mbIO $ Type.inContext Type.FunRes $ toOrigType primResult)
+          (mbHsIO $ Type.inContext Type.FunRes $ toOrigType primResult)
           restoreOrigSignatureParams
           origCFun
           (mbRestoreOrigSignatureComment <> mbIoComment)
@@ -178,42 +217,15 @@ functionDecs safety opts haddockConfig moduleName info origCFun _spec =
             ]
       in  mkHaddocksDecorateParams haddockConfig info mangledOrigName params
 
-    -- When translating a 'C.Type' there are C types which we cannot pass
-    -- directly using C FFI. We need to distinguish these.
-    --
-    -- Function arguments and result have to be passed either by value or by
-    -- address. Result types that have to be passed by address become
-    -- parameters.
-    mbResultParam :: Maybe Hs.FunctionParameter
-    resultType    :: Hs.HsType
-    (mbResultParam, resultType) = case primResult of
-        -- A type that is not supported by the Haskell FFI as a function result.
-        -- We pass it as a function parameter instead.
-        PassByAddress {} -> (
-            Just Hs.FunctionParameter {
-                name    = Nothing
-              , typ     = Type.inContext Type.FunArg $ toPrimitiveType primResult
-              , comment = Nothing
-              }
-          , mbIO $ HsPrimType HsPrimUnit
-          )
+    runsInIO :: Bool
+    runsInIO = functionShouldRunInIO origCFun.attrs.purity primResult primParams
 
-        -- A "normal" result type that is supported by the Haskell FFI.
-        PassByValue {} -> (
-            Nothing
-          , mbIO $ Type.inContext Type.FunRes $ toPrimitiveType primResult
-          )
-
-    mbIO :: Hs.HsType -> Hs.HsType
-    mbIO
-      | functionShouldRunInIO origCFun.attrs.purity primResult primParams
-      = HsIO
-      | otherwise
-      = id
+    mbHsIO :: HsType -> HsType
+    mbHsIO | runsInIO  = HsIO
+           | otherwise = id
 
     mbIoComment :: Maybe HsDoc.Comment
     mbIoComment = ioComment origCFun.attrs.purity
-
 
 getMainHashIncludeArg :: C.DeclInfo Final -> HashIncludeArg
 getMainHashIncludeArg info = NonEmpty.head info.headerInfo.mainHeaders

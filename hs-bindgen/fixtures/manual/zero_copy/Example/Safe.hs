@@ -8,7 +8,9 @@ module Example.Safe where
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstPtr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -31,10 +33,18 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
-foreign import ccall safe "hs_bindgen_350cceac1101d344" hs_bindgen_350cceac1101d344 ::
+foreign import ccall safe "hs_bindgen_350cceac1101d344" hs_bindgen_350cceac1101d344_base ::
+     HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> Ptr.Ptr Void
+  -> IO FC.CInt
+
+-- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
+hs_bindgen_350cceac1101d344 ::
      HsBindgen.Runtime.ConstPtr.ConstPtr Vector
   -> Ptr.Ptr Vector
   -> IO FC.CInt
+hs_bindgen_350cceac1101d344 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_350cceac1101d344_base
 
 {-| __C declaration:__ @reverse@
 
@@ -51,10 +61,18 @@ reverse ::
 reverse = hs_bindgen_350cceac1101d344
 
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
-foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92b04 ::
+foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92b04_base ::
+     HsBindgen.Runtime.ConstPtr.ConstPtr Void
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
+hs_bindgen_2ff371c815d92b04 ::
      HsBindgen.Runtime.ConstPtr.ConstPtr Triplet
   -> Ptr.Ptr Triplet
   -> IO ()
+hs_bindgen_2ff371c815d92b04 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_2ff371c815d92b04_base
 
 {-| __C declaration:__ @transpose@
 

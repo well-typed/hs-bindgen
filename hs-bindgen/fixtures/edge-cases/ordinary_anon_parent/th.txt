@@ -22,9 +22,13 @@
 --   return &_acos;
 -- }
 -- __unique:__ @test_edgecasesordinary_anon_paren_Example_Safe__acos@
-foreign import ccall safe "hs_bindgen_06a412f170b5ff91" hs_bindgen_06a412f170b5ff91 ::
+foreign import ccall safe "hs_bindgen_06a412f170b5ff91" hs_bindgen_06a412f170b5ff91_base ::
     CDouble
  -> IO CDouble
+-- __unique:__ @test_edgecasesordinary_anon_paren_Example_Safe__acos@
+hs_bindgen_06a412f170b5ff91 :: CDouble -> IO CDouble
+-- __unique:__ @test_edgecasesordinary_anon_paren_Example_Safe__acos@
+hs_bindgen_06a412f170b5ff91 = fromBaseForeignType hs_bindgen_06a412f170b5ff91_base
 {-| __C declaration:__ @_acos@
 
     __defined at:__ @ordinary_anon_child.h 4:1@
@@ -40,9 +44,13 @@ _acos :: CDouble -> IO CDouble
 -}
 _acos = hs_bindgen_06a412f170b5ff91
 -- __unique:__ @test_edgecasesordinary_anon_paren_Example_Unsafe__acos@
-foreign import ccall safe "hs_bindgen_dca60678b5047ee4" hs_bindgen_dca60678b5047ee4 ::
+foreign import ccall safe "hs_bindgen_dca60678b5047ee4" hs_bindgen_dca60678b5047ee4_base ::
     CDouble
  -> IO CDouble
+-- __unique:__ @test_edgecasesordinary_anon_paren_Example_Unsafe__acos@
+hs_bindgen_dca60678b5047ee4 :: CDouble -> IO CDouble
+-- __unique:__ @test_edgecasesordinary_anon_paren_Example_Unsafe__acos@
+hs_bindgen_dca60678b5047ee4 = fromBaseForeignType hs_bindgen_dca60678b5047ee4_base
 {-| __C declaration:__ @_acos@
 
     __defined at:__ @ordinary_anon_child.h 4:1@
@@ -58,8 +66,12 @@ _acos :: CDouble -> IO CDouble
 -}
 _acos = hs_bindgen_dca60678b5047ee4
 -- __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos@
-foreign import ccall safe "hs_bindgen_147bbeebcb063844" hs_bindgen_147bbeebcb063844 ::
-    IO (FunPtr (CDouble -> IO CDouble))
+foreign import ccall safe "hs_bindgen_147bbeebcb063844" hs_bindgen_147bbeebcb063844_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos@
+hs_bindgen_147bbeebcb063844 :: IO (FunPtr (CDouble -> IO CDouble))
+-- __unique:__ @test_edgecasesordinary_anon_paren_Example_get__acos@
+hs_bindgen_147bbeebcb063844 = fromBaseForeignType hs_bindgen_147bbeebcb063844_base
 {-# NOINLINE _acos #-}
 {-| __C declaration:__ @_acos@
 

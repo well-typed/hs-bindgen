@@ -6,6 +6,7 @@
 module Example.Safe where
 
 import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -20,9 +21,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_declarationsdefinitions_Example_Safe_foo@
-foreign import ccall safe "hs_bindgen_9cdc88a6d09442d6" hs_bindgen_9cdc88a6d09442d6 ::
+foreign import ccall safe "hs_bindgen_9cdc88a6d09442d6" hs_bindgen_9cdc88a6d09442d6_base ::
      FC.CDouble
   -> IO FC.CInt
+
+-- __unique:__ @test_declarationsdefinitions_Example_Safe_foo@
+hs_bindgen_9cdc88a6d09442d6 ::
+     FC.CDouble
+  -> IO FC.CInt
+hs_bindgen_9cdc88a6d09442d6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_9cdc88a6d09442d6_base
 
 {-| __C declaration:__ @foo@
 

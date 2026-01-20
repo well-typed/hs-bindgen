@@ -26,7 +26,7 @@ import HsBindgen.Backend.Hs.Haddock.Translation
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Config
-import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as HsFI
+import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImport
 import HsBindgen.Backend.Hs.Translation.Function
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Newtype qualified as Hs
@@ -93,15 +93,16 @@ generateDeclarations' opts haddockConfig moduleName declIndex decs =
           -- Generate ToFunPtr/FromFunPtr instances for nested callback types
           -- These go in the main module to avoid orphan instances
           --WithCategory c
-          fFIStubsAndFunPtrInstances =
+          fFIStubsAndFunPtrInstances transState =
                    [ WithCategory CType d
                    | C.TypePointers _ (C.TypeFun args res) <- Set.toList scannedFunctionPointerTypes
                    , not (any C.hasUnsupportedType (res:args))
                    , any (isDefinedInCurrentModule declIndex) (res:args)
-                   , d <- ToFromFunPtr.forFunction (args, res)
+                   , d <- ToFromFunPtr.forFunction transState (args, res)
                    ]
       hsDecls <- concat <$> mapM (generateDecs opts haddockConfig moduleName) decs
-      pure $ hsDecls ++ fFIStubsAndFunPtrInstances
+      transState <- State.get
+      pure $ hsDecls ++ fFIStubsAndFunPtrInstances transState
 
 -- | This function takes a list of all declarations and collects all function
 -- pointer callback types, i.e. all function types that exist as either
@@ -176,17 +177,18 @@ generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
             typedefDecs opts haddockConfig info Origin.Typedef typedef spec
       C.DeclOpaque -> withCategoryM CType $
         opaqueDecs haddockConfig info spec
-      C.DeclFunction function ->
+      C.DeclFunction function -> do
+        transState <- State.get
         let funDeclsWith safety =
-              functionDecs safety opts haddockConfig moduleName info function spec
+              functionDecs safety opts haddockConfig moduleName transState info function spec
             funType = C.TypeFun (map snd function.args) function.res
             -- Declare a function pointer. We can pass this 'FunPtr' to C
             -- functions that take a function pointer of the appropriate type.
             funPtrDecls = fst $
-              addressStubDecs opts haddockConfig moduleName info funType HaskellId spec
-        in  pure $ withCategory (CTerm CSafe)   (funDeclsWith SHs.Safe)
-                ++ withCategory (CTerm CUnsafe) (funDeclsWith SHs.Unsafe)
-                ++ withCategory (CTerm CFunPtr)  funPtrDecls
+              addressStubDecs opts haddockConfig moduleName transState info funType HaskellId spec
+        pure $ withCategory (CTerm CSafe)   (funDeclsWith SHs.Safe)
+            ++ withCategory (CTerm CUnsafe) (funDeclsWith SHs.Unsafe)
+            ++ withCategory (CTerm CFunPtr)  funPtrDecls
       C.DeclMacro macro -> withCategoryM CType $
         macroDecs opts haddockConfig info macro spec
       C.DeclGlobal ty -> do
@@ -688,7 +690,7 @@ enumDecs opts haddockConfig info enum spec = do
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
     aux nt =
-        Hs.DeclNewtype nt : storableDecl : primDecl : HsFI.hasBaseForeignTypeDecs nt ++
+        Hs.DeclNewtype nt : storableDecl : primDecl : Hs.hasBaseForeignTypeDecs nt ++
         optDecls ++ cEnumInstanceDecls ++ valueDecls
       where
         hsStruct :: Hs.Struct (S Z)
@@ -803,7 +805,8 @@ typedefDecs ::
   -> HsM [Hs.Decl]
 typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
     nt <- newtypeDec
-    pure $ aux nt
+    transState <- State.get
+    pure $ aux transState nt
   where
     newtypeDec :: HsM Hs.Newtype
     newtypeDec =
@@ -845,11 +848,11 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
         knownInsts = Set.empty
 
     -- everything in aux is state-dependent
-    aux :: Hs.Newtype -> [Hs.Decl]
-    aux nt =
+    aux :: TranslationState -> Hs.Newtype -> [Hs.Decl]
+    aux transState nt =
         Hs.DeclNewtype nt : newtypeWrapper ++ storableDecl ++ primDecl ++ optDecls ++
         typedefFieldDecls nt ++
-        HsFI.hasBaseForeignTypeDecs nt
+        Hs.hasBaseForeignTypeDecs nt
       where
         storableDecl :: [Hs.Decl]
         storableDecl
@@ -902,7 +905,7 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
             -- handled correctly.
             --
             C.TypeFun args res | not (any C.hasUnsupportedType (res:args)) ->
-              ToFromFunPtr.forNewtype nt.name (args, res)
+              ToFromFunPtr.forNewtype transState nt.name (args, res)
             _ -> []
 
 -- | 'HasCField', 'HasCBitfield', and 'HasField' instances for a typedef
@@ -1114,7 +1117,7 @@ macroDecsTypedef opts haddockConfig info macroType spec = do
     -- everything in aux is state-dependent
     aux :: Hs.Newtype -> [Hs.Decl]
     aux nt =
-        Hs.DeclNewtype nt : storableDecl ++ HsFI.hasBaseForeignTypeDecs nt ++ optDecls
+        Hs.DeclNewtype nt : storableDecl ++ Hs.hasBaseForeignTypeDecs nt ++ optDecls
       where
         storableDecl :: [Hs.Decl]
         storableDecl
@@ -1225,7 +1228,7 @@ global opts haddockConfig moduleName transState info ty _spec
     | otherwise = fst $ getStubDecsWith HaskellId
   where
     getStubDecsWith :: RunnerNameSpec -> ([Hs.Decl], Hs.Name Hs.NsVar)
-    getStubDecsWith x = addressStubDecs opts haddockConfig moduleName info ty x _spec
+    getStubDecsWith x = addressStubDecs opts haddockConfig moduleName transState info ty x _spec
 
     insts :: Set Hs.TypeClass
     insts =
@@ -1292,6 +1295,7 @@ addressStubDecs ::
      TranslationConfig
   -> HaddockConfig
   -> BaseModuleName
+  -> TranslationState
   -> C.DeclInfo Final -- ^ The given declaration
   -> C.Type Final     -- ^ The type of the given declaration
   -> RunnerNameSpec
@@ -1299,8 +1303,8 @@ addressStubDecs ::
   -> ( [Hs.Decl]
      , Hs.Name 'Hs.NsVar
      )
-addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
-    (foreignImport : runnerDecls, runnerName)
+addressStubDecs opts haddockConfig moduleName transState info ty runnerNameSpec _spec =
+    (foreignImport ++ runnerDecls, runnerName)
   where
     -- *** Stub (impure) ***
     stubImportType :: HsType
@@ -1343,12 +1347,13 @@ addressStubDecs opts haddockConfig moduleName info ty runnerNameSpec _spec =
 
     mbComment = mkHaddocks haddockConfig info runnerName
 
-    foreignImport :: Hs.Decl
+    foreignImport :: [Hs.Decl]
     foreignImport =
-        HsFI.foreignImportDec
-          stubName
-          stubImportType
+        Hs.ForeignImport.foreignImportDec
+          transState
+          (Hs.ForeignImport.FunName stubSymbol)
           []
+          (Hs.ForeignImport.FunRes stubImportType)
           (uniqueCDeclName stubSymbol)
           (CallConvUserlandCAPI cWrapper)
           (Origin.Global ty)

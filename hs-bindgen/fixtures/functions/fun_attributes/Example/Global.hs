@@ -8,7 +8,9 @@ module Example.Global where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -22,8 +24,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_functionsfun_attributes_Example_get_i@
-foreign import ccall unsafe "hs_bindgen_cd32cb4982dd2d1a" hs_bindgen_cd32cb4982dd2d1a ::
-     IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_cd32cb4982dd2d1a" hs_bindgen_cd32cb4982dd2d1a_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_functionsfun_attributes_Example_get_i@
+hs_bindgen_cd32cb4982dd2d1a :: IO (Ptr.Ptr FC.CInt)
+hs_bindgen_cd32cb4982dd2d1a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_cd32cb4982dd2d1a_base
 
 {-# NOINLINE i #-}
 {-| __C declaration:__ @i@

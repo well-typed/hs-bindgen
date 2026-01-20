@@ -25,3 +25,4 @@ hstypes:
   - Real
   - Show
   - Storable
+  - HasBaseForeignType

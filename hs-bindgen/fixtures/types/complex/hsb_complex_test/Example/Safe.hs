@@ -10,7 +10,9 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -34,11 +36,20 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_multiply_complex_f@
-foreign import ccall safe "hs_bindgen_687af703c95fba0e" hs_bindgen_687af703c95fba0e ::
+foreign import ccall safe "hs_bindgen_687af703c95fba0e" hs_bindgen_687af703c95fba0e_base ::
+     Ptr.Ptr Void
+  -> Ptr.Ptr Void
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_multiply_complex_f@
+hs_bindgen_687af703c95fba0e ::
      Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> IO ()
+hs_bindgen_687af703c95fba0e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_687af703c95fba0e_base
 
 {-| __C declaration:__ @multiply_complex_f@
 
@@ -61,11 +72,20 @@ multiply_complex_f =
                                                                         hs_bindgen_687af703c95fba0e a2 b3 res4)))
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_add_complex@
-foreign import ccall safe "hs_bindgen_3ff14ee8c5914fc6" hs_bindgen_3ff14ee8c5914fc6 ::
+foreign import ccall safe "hs_bindgen_3ff14ee8c5914fc6" hs_bindgen_3ff14ee8c5914fc6_base ::
+     Ptr.Ptr Void
+  -> Ptr.Ptr Void
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_typescomplexhsb_complex_test_Example_Safe_add_complex@
+hs_bindgen_3ff14ee8c5914fc6 ::
      Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> IO ()
+hs_bindgen_3ff14ee8c5914fc6 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3ff14ee8c5914fc6_base
 
 {-| __C declaration:__ @add_complex@
 

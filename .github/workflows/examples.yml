@@ -42,7 +42,7 @@ jobs:
         # NOTE: add new example projects here. The example project has to
         # satisfy some requirements for this workflow to work correctly. See
         # ./examples/README.md (with respect to the repository root).
-        example: ['botan', 'c-minisat', 'libpcap', 'c-qrcode', 'blocktest', "c-rogueutil"]
+        example: ['botan', 'c-minisat', 'libpcap', 'c-qrcode', 'blocktest', 'c-rogueutil', 'constructor-import-issue']
 
     env:
       # We assume that the example executable lives in this directory
@@ -174,3 +174,7 @@ jobs:
     - name: 🧪 Build and run c-rogueutil example
       if: ${{ matrix.example == 'c-rogueutil' }}
       uses: ./.github/actions/examples/c-rogueutil
+
+    - name: 🧪 Build and run constructor-import-issue example
+      if: ${{ matrix.example == 'constructor-import-issue' }}
+      uses: ./.github/actions/examples/constructor-import-issue

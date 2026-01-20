@@ -7,7 +7,9 @@ module Example.Safe where
 
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -36,11 +38,20 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_normal@
-foreign import ccall safe "hs_bindgen_920e5c20f770432b" hs_bindgen_920e5c20f770432b ::
+foreign import ccall safe "hs_bindgen_920e5c20f770432b" hs_bindgen_920e5c20f770432b_base ::
+     Ptr.Ptr Void
+  -> Ptr.Ptr Void
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_functionsdecls_in_signature_Example_Safe_normal@
+hs_bindgen_920e5c20f770432b ::
      Ptr.Ptr Opaque
   -> Ptr.Ptr Outside
   -> Ptr.Ptr Outside
   -> IO ()
+hs_bindgen_920e5c20f770432b =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_920e5c20f770432b_base
 
 {-| __C declaration:__ @normal@
 
@@ -64,9 +75,16 @@ normal =
                             hs_bindgen_920e5c20f770432b ptr_to_opaque0 ptr_to_defined1 by_value3)
 
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_f1@
-foreign import ccall safe "hs_bindgen_baea2c7a0c8b9965" hs_bindgen_baea2c7a0c8b9965 ::
+foreign import ccall safe "hs_bindgen_baea2c7a0c8b9965" hs_bindgen_baea2c7a0c8b9965_base ::
+     Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_functionsdecls_in_signature_Example_Safe_f1@
+hs_bindgen_baea2c7a0c8b9965 ::
      Ptr.Ptr Named_struct
   -> IO ()
+hs_bindgen_baea2c7a0c8b9965 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_baea2c7a0c8b9965_base
 
 {-| Error cases
 
@@ -88,9 +106,16 @@ f1 =
                    hs_bindgen_baea2c7a0c8b9965 arg1)
 
 -- __unique:__ @test_functionsdecls_in_signature_Example_Safe_f2@
-foreign import ccall safe "hs_bindgen_990d7be722ad5414" hs_bindgen_990d7be722ad5414 ::
+foreign import ccall safe "hs_bindgen_990d7be722ad5414" hs_bindgen_990d7be722ad5414_base ::
+     Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_functionsdecls_in_signature_Example_Safe_f2@
+hs_bindgen_990d7be722ad5414 ::
      Ptr.Ptr Named_union
   -> IO ()
+hs_bindgen_990d7be722ad5414 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_990d7be722ad5414_base
 
 {-| __C declaration:__ @f2@
 

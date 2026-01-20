@@ -9,7 +9,9 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -48,9 +50,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_1@
-foreign import ccall unsafe "hs_bindgen_0bdddf60550fc97b" hs_bindgen_0bdddf60550fc97b ::
+foreign import ccall unsafe "hs_bindgen_0bdddf60550fc97b" hs_bindgen_0bdddf60550fc97b_base ::
+     Ptr.Ptr Void
+  -> IO FC.CInt
+
+-- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_1@
+hs_bindgen_0bdddf60550fc97b ::
      Ptr.Ptr Thing
   -> IO FC.CInt
+hs_bindgen_0bdddf60550fc97b =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0bdddf60550fc97b_base
 
 {-| __C declaration:__ @thing_fun_1@
 
@@ -67,10 +76,18 @@ thing_fun_1 =
     F.with x0 (\x1 -> hs_bindgen_0bdddf60550fc97b x1)
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_2@
-foreign import ccall unsafe "hs_bindgen_c293d866e22be6fc" hs_bindgen_c293d866e22be6fc ::
+foreign import ccall unsafe "hs_bindgen_c293d866e22be6fc" hs_bindgen_c293d866e22be6fc_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_2@
+hs_bindgen_c293d866e22be6fc ::
      FC.CInt
   -> Ptr.Ptr Thing
   -> IO ()
+hs_bindgen_c293d866e22be6fc =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_c293d866e22be6fc_base
 
 {-| __C declaration:__ @thing_fun_2@
 
@@ -88,12 +105,22 @@ thing_fun_2 =
                                             hs_bindgen_c293d866e22be6fc x0 res1)
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3a@
-foreign import ccall unsafe "hs_bindgen_cfd51a9e490a997c" hs_bindgen_cfd51a9e490a997c ::
+foreign import ccall unsafe "hs_bindgen_cfd51a9e490a997c" hs_bindgen_cfd51a9e490a997c_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> FC.CDouble
+  -> Ptr.Ptr Void
+  -> IO ()
+
+-- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3a@
+hs_bindgen_cfd51a9e490a997c ::
      FC.CInt
   -> Ptr.Ptr Thing
   -> FC.CDouble
   -> Ptr.Ptr Thing
   -> IO ()
+hs_bindgen_cfd51a9e490a997c =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_cfd51a9e490a997c_base
 
 {-| __C declaration:__ @thing_fun_3a@
 
@@ -118,11 +145,20 @@ thing_fun_3a =
                                                              hs_bindgen_cfd51a9e490a997c x0 y3 z2 res4))
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3b@
-foreign import ccall unsafe "hs_bindgen_23fac8ee5044da6e" hs_bindgen_23fac8ee5044da6e ::
+foreign import ccall unsafe "hs_bindgen_23fac8ee5044da6e" hs_bindgen_23fac8ee5044da6e_base ::
+     FC.CInt
+  -> Ptr.Ptr Void
+  -> FC.CDouble
+  -> IO FC.CChar
+
+-- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3b@
+hs_bindgen_23fac8ee5044da6e ::
      FC.CInt
   -> Ptr.Ptr Thing
   -> FC.CDouble
   -> IO FC.CChar
+hs_bindgen_23fac8ee5044da6e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_23fac8ee5044da6e_base
 
 {-| __C declaration:__ @thing_fun_3b@
 

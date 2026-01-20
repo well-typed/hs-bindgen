@@ -7,7 +7,9 @@ module Example.Unsafe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -54,9 +56,16 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_foo@
-foreign import ccall unsafe "hs_bindgen_fbc2ec26cd297034" hs_bindgen_fbc2ec26cd297034 ::
+foreign import ccall unsafe "hs_bindgen_fbc2ec26cd297034" hs_bindgen_fbc2ec26cd297034_base ::
+     Ptr.FunPtr Void
+  -> IO ()
+
+-- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_foo@
+hs_bindgen_fbc2ec26cd297034 ::
      Ptr.FunPtr MyFunction
   -> IO ()
+hs_bindgen_fbc2ec26cd297034 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_fbc2ec26cd297034_base
 
 {-| __C declaration:__ @foo@
 
@@ -71,9 +80,16 @@ foo ::
 foo = hs_bindgen_fbc2ec26cd297034
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooA@
-foreign import ccall unsafe "hs_bindgen_cf67e2fc00fd28d8" hs_bindgen_cf67e2fc00fd28d8 ::
+foreign import ccall unsafe "hs_bindgen_cf67e2fc00fd28d8" hs_bindgen_cf67e2fc00fd28d8_base ::
+     (FC.CInt -> IO FC.CInt)
+  -> IO ()
+
+-- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooA@
+hs_bindgen_cf67e2fc00fd28d8 ::
      A
   -> IO ()
+hs_bindgen_cf67e2fc00fd28d8 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_cf67e2fc00fd28d8_base
 
 {-| __C declaration:__ @fooA@
 
@@ -88,9 +104,16 @@ fooA ::
 fooA = hs_bindgen_cf67e2fc00fd28d8
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooB@
-foreign import ccall unsafe "hs_bindgen_269a46f9680e33ed" hs_bindgen_269a46f9680e33ed ::
+foreign import ccall unsafe "hs_bindgen_269a46f9680e33ed" hs_bindgen_269a46f9680e33ed_base ::
+     (FC.CInt -> IO FC.CInt)
+  -> IO ()
+
+-- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooB@
+hs_bindgen_269a46f9680e33ed ::
      B
   -> IO ()
+hs_bindgen_269a46f9680e33ed =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_269a46f9680e33ed_base
 
 {-| __C declaration:__ @fooB@
 
@@ -105,9 +128,16 @@ fooB ::
 fooB = hs_bindgen_269a46f9680e33ed
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_bar@
-foreign import ccall unsafe "hs_bindgen_0fdddb4fac9b77d1" hs_bindgen_0fdddb4fac9b77d1 ::
+foreign import ccall unsafe "hs_bindgen_0fdddb4fac9b77d1" hs_bindgen_0fdddb4fac9b77d1_base ::
+     Ptr.FunPtr Void
+  -> IO ()
+
+-- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_bar@
+hs_bindgen_0fdddb4fac9b77d1 ::
      Ptr.FunPtr (FC.CInt -> IO FC.CInt)
   -> IO ()
+hs_bindgen_0fdddb4fac9b77d1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0fdddb4fac9b77d1_base
 
 {-| __C declaration:__ @bar@
 
@@ -122,9 +152,16 @@ bar ::
 bar = hs_bindgen_0fdddb4fac9b77d1
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_barA@
-foreign import ccall unsafe "hs_bindgen_bd59a5d308c55504" hs_bindgen_bd59a5d308c55504 ::
+foreign import ccall unsafe "hs_bindgen_bd59a5d308c55504" hs_bindgen_bd59a5d308c55504_base ::
+     Ptr.FunPtr Void
+  -> IO ()
+
+-- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_barA@
+hs_bindgen_bd59a5d308c55504 ::
      Ptr.FunPtr A
   -> IO ()
+hs_bindgen_bd59a5d308c55504 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_bd59a5d308c55504_base
 
 {-| __C declaration:__ @barA@
 
@@ -139,9 +176,16 @@ barA ::
 barA = hs_bindgen_bd59a5d308c55504
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_barB@
-foreign import ccall unsafe "hs_bindgen_b016bfc7a4cc0734" hs_bindgen_b016bfc7a4cc0734 ::
+foreign import ccall unsafe "hs_bindgen_b016bfc7a4cc0734" hs_bindgen_b016bfc7a4cc0734_base ::
+     Ptr.FunPtr Void
+  -> IO ()
+
+-- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_barB@
+hs_bindgen_b016bfc7a4cc0734 ::
      Ptr.FunPtr B
   -> IO ()
+hs_bindgen_b016bfc7a4cc0734 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b016bfc7a4cc0734_base
 
 {-| __C declaration:__ @barB@
 

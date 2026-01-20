@@ -7,7 +7,9 @@ module Example.Global where
 
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Example
 import Prelude (IO)
 
@@ -22,8 +24,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_v@
-foreign import ccall unsafe "hs_bindgen_226b16768d8906f3" hs_bindgen_226b16768d8906f3 ::
-     IO (Ptr.Ptr Var_t)
+foreign import ccall unsafe "hs_bindgen_226b16768d8906f3" hs_bindgen_226b16768d8906f3_base ::
+     IO (Ptr.Ptr Void)
+
+-- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_v@
+hs_bindgen_226b16768d8906f3 :: IO (Ptr.Ptr Var_t)
+hs_bindgen_226b16768d8906f3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_226b16768d8906f3_base
 
 {-# NOINLINE v #-}
 {-| __C declaration:__ @v@

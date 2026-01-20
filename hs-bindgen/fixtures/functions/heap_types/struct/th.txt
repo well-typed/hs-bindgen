@@ -69,10 +69,14 @@ instance TyEq ty (CFieldType T "t_x") =>
          HasField "t_x" (Ptr T) (Ptr ty)
     where getField = ptrToCField (Proxy @"t_x")
 -- __unique:__ @test_functionsheap_typesstruct_Example_Safe_fun@
-foreign import ccall safe "hs_bindgen_a5d53f538e59b1fc" hs_bindgen_a5d53f538e59b1fc ::
-    Ptr T
- -> Ptr T
+foreign import ccall safe "hs_bindgen_a5d53f538e59b1fc" hs_bindgen_a5d53f538e59b1fc_base ::
+    Ptr Void
+ -> Ptr Void
  -> IO Unit
+-- __unique:__ @test_functionsheap_typesstruct_Example_Safe_fun@
+hs_bindgen_a5d53f538e59b1fc :: Ptr T -> Ptr T -> IO Unit
+-- __unique:__ @test_functionsheap_typesstruct_Example_Safe_fun@
+hs_bindgen_a5d53f538e59b1fc = fromBaseForeignType hs_bindgen_a5d53f538e59b1fc_base
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct.h 9:3@
@@ -88,10 +92,14 @@ fun :: T -> IO T
 -}
 fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_a5d53f538e59b1fc x_1 res_2))
 -- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_fun@
-foreign import ccall safe "hs_bindgen_c4af6bb824712c6a" hs_bindgen_c4af6bb824712c6a ::
-    Ptr T
- -> Ptr T
+foreign import ccall safe "hs_bindgen_c4af6bb824712c6a" hs_bindgen_c4af6bb824712c6a_base ::
+    Ptr Void
+ -> Ptr Void
  -> IO Unit
+-- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_fun@
+hs_bindgen_c4af6bb824712c6a :: Ptr T -> Ptr T -> IO Unit
+-- __unique:__ @test_functionsheap_typesstruct_Example_Unsafe_fun@
+hs_bindgen_c4af6bb824712c6a = fromBaseForeignType hs_bindgen_c4af6bb824712c6a_base
 {-| __C declaration:__ @fun@
 
     __defined at:__ @functions\/heap_types\/struct.h 9:3@
@@ -107,8 +115,12 @@ fun :: T -> IO T
 -}
 fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_c4af6bb824712c6a x_1 res_2))
 -- __unique:__ @test_functionsheap_typesstruct_Example_get_fun@
-foreign import ccall safe "hs_bindgen_071e2eda58051e4a" hs_bindgen_071e2eda58051e4a ::
-    IO (FunPtr (T -> IO T))
+foreign import ccall safe "hs_bindgen_071e2eda58051e4a" hs_bindgen_071e2eda58051e4a_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_functionsheap_typesstruct_Example_get_fun@
+hs_bindgen_071e2eda58051e4a :: IO (FunPtr (T -> IO T))
+-- __unique:__ @test_functionsheap_typesstruct_Example_get_fun@
+hs_bindgen_071e2eda58051e4a = fromBaseForeignType hs_bindgen_071e2eda58051e4a_base
 {-# NOINLINE fun #-}
 {-| __C declaration:__ @fun@
 

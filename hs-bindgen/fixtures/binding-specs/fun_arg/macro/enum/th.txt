@@ -148,9 +148,13 @@ newtype B
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable, HasBaseForeignType)
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_foo@
-foreign import ccall safe "hs_bindgen_d49a011eb7da5969" hs_bindgen_d49a011eb7da5969 ::
-    MyEnum
+foreign import ccall safe "hs_bindgen_d49a011eb7da5969" hs_bindgen_d49a011eb7da5969_base ::
+    CUInt
  -> IO Unit
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_foo@
+hs_bindgen_d49a011eb7da5969 :: MyEnum -> IO Unit
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_foo@
+hs_bindgen_d49a011eb7da5969 = fromBaseForeignType hs_bindgen_d49a011eb7da5969_base
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 5:6@
@@ -166,9 +170,13 @@ foo :: MyEnum -> IO Unit
 -}
 foo = hs_bindgen_d49a011eb7da5969
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooA@
-foreign import ccall safe "hs_bindgen_32c6f6f9bb440690" hs_bindgen_32c6f6f9bb440690 ::
-    A
+foreign import ccall safe "hs_bindgen_32c6f6f9bb440690" hs_bindgen_32c6f6f9bb440690_base ::
+    CUInt
  -> IO Unit
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooA@
+hs_bindgen_32c6f6f9bb440690 :: A -> IO Unit
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooA@
+hs_bindgen_32c6f6f9bb440690 = fromBaseForeignType hs_bindgen_32c6f6f9bb440690_base
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 10:6@
@@ -184,9 +192,13 @@ fooA :: A -> IO Unit
 -}
 fooA = hs_bindgen_32c6f6f9bb440690
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooB@
-foreign import ccall safe "hs_bindgen_16e7856908d06f71" hs_bindgen_16e7856908d06f71 ::
-    B
+foreign import ccall safe "hs_bindgen_16e7856908d06f71" hs_bindgen_16e7856908d06f71_base ::
+    CUInt
  -> IO Unit
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooB@
+hs_bindgen_16e7856908d06f71 :: B -> IO Unit
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooB@
+hs_bindgen_16e7856908d06f71 = fromBaseForeignType hs_bindgen_16e7856908d06f71_base
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 11:6@
@@ -202,9 +214,13 @@ fooB :: B -> IO Unit
 -}
 fooB = hs_bindgen_16e7856908d06f71
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
-foreign import ccall safe "hs_bindgen_0e6b98e93cad73ef" hs_bindgen_0e6b98e93cad73ef ::
-    MyEnum
+foreign import ccall safe "hs_bindgen_0e6b98e93cad73ef" hs_bindgen_0e6b98e93cad73ef_base ::
+    CUInt
  -> IO Unit
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
+hs_bindgen_0e6b98e93cad73ef :: MyEnum -> IO Unit
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
+hs_bindgen_0e6b98e93cad73ef = fromBaseForeignType hs_bindgen_0e6b98e93cad73ef_base
 {-| __C declaration:__ @foo@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 5:6@
@@ -220,9 +236,13 @@ foo :: MyEnum -> IO Unit
 -}
 foo = hs_bindgen_0e6b98e93cad73ef
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
-foreign import ccall safe "hs_bindgen_1c6de1b89014dc52" hs_bindgen_1c6de1b89014dc52 ::
-    A
+foreign import ccall safe "hs_bindgen_1c6de1b89014dc52" hs_bindgen_1c6de1b89014dc52_base ::
+    CUInt
  -> IO Unit
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
+hs_bindgen_1c6de1b89014dc52 :: A -> IO Unit
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
+hs_bindgen_1c6de1b89014dc52 = fromBaseForeignType hs_bindgen_1c6de1b89014dc52_base
 {-| __C declaration:__ @fooA@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 10:6@
@@ -238,9 +258,13 @@ fooA :: A -> IO Unit
 -}
 fooA = hs_bindgen_1c6de1b89014dc52
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
-foreign import ccall safe "hs_bindgen_a8e579f3b5035c03" hs_bindgen_a8e579f3b5035c03 ::
-    B
+foreign import ccall safe "hs_bindgen_a8e579f3b5035c03" hs_bindgen_a8e579f3b5035c03_base ::
+    CUInt
  -> IO Unit
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
+hs_bindgen_a8e579f3b5035c03 :: B -> IO Unit
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
+hs_bindgen_a8e579f3b5035c03 = fromBaseForeignType hs_bindgen_a8e579f3b5035c03_base
 {-| __C declaration:__ @fooB@
 
     __defined at:__ @binding-specs\/fun_arg\/macro\/enum.h 11:6@
@@ -256,8 +280,12 @@ fooB :: B -> IO Unit
 -}
 fooB = hs_bindgen_a8e579f3b5035c03
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_foo@
-foreign import ccall safe "hs_bindgen_098964a440956602" hs_bindgen_098964a440956602 ::
-    IO (FunPtr (MyEnum -> IO Unit))
+foreign import ccall safe "hs_bindgen_098964a440956602" hs_bindgen_098964a440956602_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_foo@
+hs_bindgen_098964a440956602 :: IO (FunPtr (MyEnum -> IO Unit))
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_foo@
+hs_bindgen_098964a440956602 = fromBaseForeignType hs_bindgen_098964a440956602_base
 {-# NOINLINE foo #-}
 {-| __C declaration:__ @foo@
 
@@ -274,8 +302,12 @@ foo :: FunPtr (MyEnum -> IO Unit)
 -}
 foo = unsafePerformIO hs_bindgen_098964a440956602
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooA@
-foreign import ccall safe "hs_bindgen_86b685b9d27ce50e" hs_bindgen_86b685b9d27ce50e ::
-    IO (FunPtr (A -> IO Unit))
+foreign import ccall safe "hs_bindgen_86b685b9d27ce50e" hs_bindgen_86b685b9d27ce50e_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooA@
+hs_bindgen_86b685b9d27ce50e :: IO (FunPtr (A -> IO Unit))
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooA@
+hs_bindgen_86b685b9d27ce50e = fromBaseForeignType hs_bindgen_86b685b9d27ce50e_base
 {-# NOINLINE fooA #-}
 {-| __C declaration:__ @fooA@
 
@@ -292,8 +324,12 @@ fooA :: FunPtr (A -> IO Unit)
 -}
 fooA = unsafePerformIO hs_bindgen_86b685b9d27ce50e
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooB@
-foreign import ccall safe "hs_bindgen_9383ae52414c2c19" hs_bindgen_9383ae52414c2c19 ::
-    IO (FunPtr (B -> IO Unit))
+foreign import ccall safe "hs_bindgen_9383ae52414c2c19" hs_bindgen_9383ae52414c2c19_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooB@
+hs_bindgen_9383ae52414c2c19 :: IO (FunPtr (B -> IO Unit))
+-- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooB@
+hs_bindgen_9383ae52414c2c19 = fromBaseForeignType hs_bindgen_9383ae52414c2c19_base
 {-# NOINLINE fooB #-}
 {-| __C declaration:__ @fooB@
 

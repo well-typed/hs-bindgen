@@ -5,7 +5,9 @@
 
 module Example.Unsafe where
 
+import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
@@ -24,11 +26,20 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
-foreign import ccall unsafe "hs_bindgen_654858ed6a5db417" hs_bindgen_654858ed6a5db417 ::
+foreign import ccall unsafe "hs_bindgen_654858ed6a5db417" hs_bindgen_654858ed6a5db417_base ::
+     Ptr.Ptr Void
+  -> Ptr.Ptr Void
+  -> FC.CSize
+  -> IO FC.CInt
+
+-- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
+hs_bindgen_654858ed6a5db417 ::
      Ptr.Ptr HsBindgen.Runtime.Prelude.CFile
   -> Ptr.Ptr Void
   -> HsBindgen.Runtime.Prelude.CSize
   -> IO FileOperationStatus
+hs_bindgen_654858ed6a5db417 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_654858ed6a5db417_base
 
 {-| __C declaration:__ @read_file_chunk@
 

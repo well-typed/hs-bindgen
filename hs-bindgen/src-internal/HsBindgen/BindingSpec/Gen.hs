@@ -124,21 +124,23 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes squashedTypes =
       -> UnresolvedBindingSpec
       -> UnresolvedBindingSpec
     aux = \case
-      Hs.DeclData struct      -> insertType $ auxStruct    struct
-      Hs.DeclEmpty edata      -> insertType $ auxEmptyData edata
-      Hs.DeclNewtype ntype    ->
+      Hs.DeclData struct            -> insertType $ auxStruct    struct
+      Hs.DeclEmpty edata            -> insertType $ auxEmptyData edata
+      Hs.DeclNewtype ntype          ->
         case ntype.origin.kind of
           HsOrigin.Aux{} -> id
           _otherwise     -> insertType $ auxNewtype ntype
-      Hs.DeclPatSyn{}         -> id
-      Hs.DeclDefineInstance{} -> id
-      Hs.DeclDeriveInstance{} -> id
-      Hs.DeclForeignImport{}  -> id
-      Hs.DeclFunction{}       -> id
-      Hs.DeclMacroExpr{}      -> id
-      Hs.DeclUnionGetter{}    -> id
-      Hs.DeclUnionSetter{}    -> id
-      Hs.DeclVar{}            -> id
+      Hs.DeclPatSyn{}               -> id
+      Hs.DeclDefineInstance{}       -> id
+      Hs.DeclDeriveInstance{}       -> id
+      Hs.DeclForeignImport{}        -> id
+      Hs.DeclForeignImportWrapper{} -> id
+      Hs.DeclForeignImportDynamic{} -> id
+      Hs.DeclFunction{}             -> id
+      Hs.DeclMacroExpr{}            -> id
+      Hs.DeclUnionGetter{}          -> id
+      Hs.DeclUnionSetter{}          -> id
+      Hs.DeclVar{}                  -> id
 
     insertType ::
          ( (C.DeclInfo Final, BindingSpec.CTypeSpec)

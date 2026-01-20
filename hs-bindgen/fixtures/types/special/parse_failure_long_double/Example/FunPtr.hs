@@ -8,7 +8,9 @@ module Example.FunPtr where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
+import Data.Void (Void)
 import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
@@ -24,8 +26,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2@
-foreign import ccall unsafe "hs_bindgen_d61a16f2d29260ed" hs_bindgen_d61a16f2d29260ed ::
-     IO (Ptr.FunPtr (FC.CInt -> IO ()))
+foreign import ccall unsafe "hs_bindgen_d61a16f2d29260ed" hs_bindgen_d61a16f2d29260ed_base ::
+     IO (Ptr.FunPtr Void)
+
+-- __unique:__ @test_typesspecialparse_failure_lo_Example_get_fun2@
+hs_bindgen_d61a16f2d29260ed :: IO (Ptr.FunPtr (FC.CInt -> IO ()))
+hs_bindgen_d61a16f2d29260ed =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d61a16f2d29260ed_base
 
 {-# NOINLINE fun2 #-}
 {-| __C declaration:__ @fun2@

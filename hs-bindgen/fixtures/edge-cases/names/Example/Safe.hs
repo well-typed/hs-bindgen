@@ -5,6 +5,7 @@
 
 module Example.Safe where
 
+import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -113,8 +114,13 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   ]))
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_by@
-foreign import ccall safe "hs_bindgen_601290db9e101424" hs_bindgen_601290db9e101424 ::
+foreign import ccall safe "hs_bindgen_601290db9e101424" hs_bindgen_601290db9e101424_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_by@
+hs_bindgen_601290db9e101424 :: IO ()
+hs_bindgen_601290db9e101424 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_601290db9e101424_base
 
 {-| __C declaration:__ @by@
 
@@ -126,8 +132,13 @@ by' :: IO ()
 by' = hs_bindgen_601290db9e101424
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_forall@
-foreign import ccall safe "hs_bindgen_f03dbed5eebb711a" hs_bindgen_f03dbed5eebb711a ::
+foreign import ccall safe "hs_bindgen_f03dbed5eebb711a" hs_bindgen_f03dbed5eebb711a_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_forall@
+hs_bindgen_f03dbed5eebb711a :: IO ()
+hs_bindgen_f03dbed5eebb711a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f03dbed5eebb711a_base
 
 {-| __C declaration:__ @forall@
 
@@ -139,8 +150,13 @@ forall' :: IO ()
 forall' = hs_bindgen_f03dbed5eebb711a
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_mdo@
-foreign import ccall safe "hs_bindgen_d1e3196c869f9fa1" hs_bindgen_d1e3196c869f9fa1 ::
+foreign import ccall safe "hs_bindgen_d1e3196c869f9fa1" hs_bindgen_d1e3196c869f9fa1_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_mdo@
+hs_bindgen_d1e3196c869f9fa1 :: IO ()
+hs_bindgen_d1e3196c869f9fa1 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d1e3196c869f9fa1_base
 
 {-| __C declaration:__ @mdo@
 
@@ -152,8 +168,13 @@ mdo' :: IO ()
 mdo' = hs_bindgen_d1e3196c869f9fa1
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_pattern@
-foreign import ccall safe "hs_bindgen_d3dcd898c88fb2e0" hs_bindgen_d3dcd898c88fb2e0 ::
+foreign import ccall safe "hs_bindgen_d3dcd898c88fb2e0" hs_bindgen_d3dcd898c88fb2e0_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_pattern@
+hs_bindgen_d3dcd898c88fb2e0 :: IO ()
+hs_bindgen_d3dcd898c88fb2e0 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_d3dcd898c88fb2e0_base
 
 {-| __C declaration:__ @pattern@
 
@@ -165,8 +186,13 @@ pattern' :: IO ()
 pattern' = hs_bindgen_d3dcd898c88fb2e0
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_proc@
-foreign import ccall safe "hs_bindgen_7f08456473f564e3" hs_bindgen_7f08456473f564e3 ::
+foreign import ccall safe "hs_bindgen_7f08456473f564e3" hs_bindgen_7f08456473f564e3_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_proc@
+hs_bindgen_7f08456473f564e3 :: IO ()
+hs_bindgen_7f08456473f564e3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_7f08456473f564e3_base
 
 {-| __C declaration:__ @proc@
 
@@ -178,8 +204,13 @@ proc' :: IO ()
 proc' = hs_bindgen_7f08456473f564e3
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_rec@
-foreign import ccall safe "hs_bindgen_5df814c22f546599" hs_bindgen_5df814c22f546599 ::
+foreign import ccall safe "hs_bindgen_5df814c22f546599" hs_bindgen_5df814c22f546599_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_rec@
+hs_bindgen_5df814c22f546599 :: IO ()
+hs_bindgen_5df814c22f546599 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_5df814c22f546599_base
 
 {-| __C declaration:__ @rec@
 
@@ -191,8 +222,13 @@ rec' :: IO ()
 rec' = hs_bindgen_5df814c22f546599
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_using@
-foreign import ccall safe "hs_bindgen_3877b6deb653b5a4" hs_bindgen_3877b6deb653b5a4 ::
+foreign import ccall safe "hs_bindgen_3877b6deb653b5a4" hs_bindgen_3877b6deb653b5a4_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_using@
+hs_bindgen_3877b6deb653b5a4 :: IO ()
+hs_bindgen_3877b6deb653b5a4 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_3877b6deb653b5a4_base
 
 {-| __C declaration:__ @using@
 
@@ -204,8 +240,13 @@ using' :: IO ()
 using' = hs_bindgen_3877b6deb653b5a4
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_anyclass@
-foreign import ccall safe "hs_bindgen_7b8790d04357731b" hs_bindgen_7b8790d04357731b ::
+foreign import ccall safe "hs_bindgen_7b8790d04357731b" hs_bindgen_7b8790d04357731b_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_anyclass@
+hs_bindgen_7b8790d04357731b :: IO ()
+hs_bindgen_7b8790d04357731b =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_7b8790d04357731b_base
 
 {-| __C declaration:__ @anyclass@
 
@@ -217,8 +258,13 @@ anyclass :: IO ()
 anyclass = hs_bindgen_7b8790d04357731b
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_capi@
-foreign import ccall safe "hs_bindgen_0bf4ab515f3279b9" hs_bindgen_0bf4ab515f3279b9 ::
+foreign import ccall safe "hs_bindgen_0bf4ab515f3279b9" hs_bindgen_0bf4ab515f3279b9_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_capi@
+hs_bindgen_0bf4ab515f3279b9 :: IO ()
+hs_bindgen_0bf4ab515f3279b9 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0bf4ab515f3279b9_base
 
 {-| __C declaration:__ @capi@
 
@@ -230,8 +276,13 @@ capi :: IO ()
 capi = hs_bindgen_0bf4ab515f3279b9
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_cases@
-foreign import ccall safe "hs_bindgen_fa8166b2793e4236" hs_bindgen_fa8166b2793e4236 ::
+foreign import ccall safe "hs_bindgen_fa8166b2793e4236" hs_bindgen_fa8166b2793e4236_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_cases@
+hs_bindgen_fa8166b2793e4236 :: IO ()
+hs_bindgen_fa8166b2793e4236 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_fa8166b2793e4236_base
 
 {-| __C declaration:__ @cases@
 
@@ -243,8 +294,13 @@ cases :: IO ()
 cases = hs_bindgen_fa8166b2793e4236
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_ccall@
-foreign import ccall safe "hs_bindgen_decc2d43a62d063d" hs_bindgen_decc2d43a62d063d ::
+foreign import ccall safe "hs_bindgen_decc2d43a62d063d" hs_bindgen_decc2d43a62d063d_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_ccall@
+hs_bindgen_decc2d43a62d063d :: IO ()
+hs_bindgen_decc2d43a62d063d =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_decc2d43a62d063d_base
 
 {-| __C declaration:__ @ccall@
 
@@ -256,8 +312,13 @@ ccall :: IO ()
 ccall = hs_bindgen_decc2d43a62d063d
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_dynamic@
-foreign import ccall safe "hs_bindgen_b5a75e2b6434134b" hs_bindgen_b5a75e2b6434134b ::
+foreign import ccall safe "hs_bindgen_b5a75e2b6434134b" hs_bindgen_b5a75e2b6434134b_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_dynamic@
+hs_bindgen_b5a75e2b6434134b :: IO ()
+hs_bindgen_b5a75e2b6434134b =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b5a75e2b6434134b_base
 
 {-| __C declaration:__ @dynamic@
 
@@ -269,8 +330,13 @@ dynamic :: IO ()
 dynamic = hs_bindgen_b5a75e2b6434134b
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_export@
-foreign import ccall safe "hs_bindgen_406f7b014573b3d3" hs_bindgen_406f7b014573b3d3 ::
+foreign import ccall safe "hs_bindgen_406f7b014573b3d3" hs_bindgen_406f7b014573b3d3_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_export@
+hs_bindgen_406f7b014573b3d3 :: IO ()
+hs_bindgen_406f7b014573b3d3 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_406f7b014573b3d3_base
 
 {-| __C declaration:__ @export@
 
@@ -282,8 +348,13 @@ export :: IO ()
 export = hs_bindgen_406f7b014573b3d3
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_family@
-foreign import ccall safe "hs_bindgen_14aab2af04efc222" hs_bindgen_14aab2af04efc222 ::
+foreign import ccall safe "hs_bindgen_14aab2af04efc222" hs_bindgen_14aab2af04efc222_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_family@
+hs_bindgen_14aab2af04efc222 :: IO ()
+hs_bindgen_14aab2af04efc222 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_14aab2af04efc222_base
 
 {-| __C declaration:__ @family@
 
@@ -295,8 +366,13 @@ family :: IO ()
 family = hs_bindgen_14aab2af04efc222
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_group@
-foreign import ccall safe "hs_bindgen_ee9285b26b11b393" hs_bindgen_ee9285b26b11b393 ::
+foreign import ccall safe "hs_bindgen_ee9285b26b11b393" hs_bindgen_ee9285b26b11b393_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_group@
+hs_bindgen_ee9285b26b11b393 :: IO ()
+hs_bindgen_ee9285b26b11b393 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_ee9285b26b11b393_base
 
 {-| __C declaration:__ @group@
 
@@ -308,8 +384,13 @@ group :: IO ()
 group = hs_bindgen_ee9285b26b11b393
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_interruptible@
-foreign import ccall safe "hs_bindgen_b2463d5c1d51883e" hs_bindgen_b2463d5c1d51883e ::
+foreign import ccall safe "hs_bindgen_b2463d5c1d51883e" hs_bindgen_b2463d5c1d51883e_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_interruptible@
+hs_bindgen_b2463d5c1d51883e :: IO ()
+hs_bindgen_b2463d5c1d51883e =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_b2463d5c1d51883e_base
 
 {-| __C declaration:__ @interruptible@
 
@@ -321,8 +402,13 @@ interruptible :: IO ()
 interruptible = hs_bindgen_b2463d5c1d51883e
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_javascript@
-foreign import ccall safe "hs_bindgen_55a55462d9cd296c" hs_bindgen_55a55462d9cd296c ::
+foreign import ccall safe "hs_bindgen_55a55462d9cd296c" hs_bindgen_55a55462d9cd296c_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_javascript@
+hs_bindgen_55a55462d9cd296c :: IO ()
+hs_bindgen_55a55462d9cd296c =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_55a55462d9cd296c_base
 
 {-| __C declaration:__ @javascript@
 
@@ -334,8 +420,13 @@ javascript :: IO ()
 javascript = hs_bindgen_55a55462d9cd296c
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_label@
-foreign import ccall safe "hs_bindgen_227f34efb176d1fb" hs_bindgen_227f34efb176d1fb ::
+foreign import ccall safe "hs_bindgen_227f34efb176d1fb" hs_bindgen_227f34efb176d1fb_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_label@
+hs_bindgen_227f34efb176d1fb :: IO ()
+hs_bindgen_227f34efb176d1fb =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_227f34efb176d1fb_base
 
 {-| __C declaration:__ @label@
 
@@ -347,8 +438,13 @@ label :: IO ()
 label = hs_bindgen_227f34efb176d1fb
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_prim@
-foreign import ccall safe "hs_bindgen_51c6e0d18dce403a" hs_bindgen_51c6e0d18dce403a ::
+foreign import ccall safe "hs_bindgen_51c6e0d18dce403a" hs_bindgen_51c6e0d18dce403a_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_prim@
+hs_bindgen_51c6e0d18dce403a :: IO ()
+hs_bindgen_51c6e0d18dce403a =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_51c6e0d18dce403a_base
 
 {-| __C declaration:__ @prim@
 
@@ -360,8 +456,13 @@ prim :: IO ()
 prim = hs_bindgen_51c6e0d18dce403a
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_role@
-foreign import ccall safe "hs_bindgen_f85f2418d208e6a0" hs_bindgen_f85f2418d208e6a0 ::
+foreign import ccall safe "hs_bindgen_f85f2418d208e6a0" hs_bindgen_f85f2418d208e6a0_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_role@
+hs_bindgen_f85f2418d208e6a0 :: IO ()
+hs_bindgen_f85f2418d208e6a0 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_f85f2418d208e6a0_base
 
 {-| __C declaration:__ @role@
 
@@ -373,8 +474,13 @@ role :: IO ()
 role = hs_bindgen_f85f2418d208e6a0
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_safe@
-foreign import ccall safe "hs_bindgen_0855ecbc4b53ebbb" hs_bindgen_0855ecbc4b53ebbb ::
+foreign import ccall safe "hs_bindgen_0855ecbc4b53ebbb" hs_bindgen_0855ecbc4b53ebbb_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_safe@
+hs_bindgen_0855ecbc4b53ebbb :: IO ()
+hs_bindgen_0855ecbc4b53ebbb =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_0855ecbc4b53ebbb_base
 
 {-| __C declaration:__ @safe@
 
@@ -386,8 +492,13 @@ safe :: IO ()
 safe = hs_bindgen_0855ecbc4b53ebbb
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_stdcall@
-foreign import ccall safe "hs_bindgen_e5238d13788a6df9" hs_bindgen_e5238d13788a6df9 ::
+foreign import ccall safe "hs_bindgen_e5238d13788a6df9" hs_bindgen_e5238d13788a6df9_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_stdcall@
+hs_bindgen_e5238d13788a6df9 :: IO ()
+hs_bindgen_e5238d13788a6df9 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_e5238d13788a6df9_base
 
 {-| __C declaration:__ @stdcall@
 
@@ -399,8 +510,13 @@ stdcall :: IO ()
 stdcall = hs_bindgen_e5238d13788a6df9
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_stock@
-foreign import ccall safe "hs_bindgen_cf38d8bd096a7a42" hs_bindgen_cf38d8bd096a7a42 ::
+foreign import ccall safe "hs_bindgen_cf38d8bd096a7a42" hs_bindgen_cf38d8bd096a7a42_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_stock@
+hs_bindgen_cf38d8bd096a7a42 :: IO ()
+hs_bindgen_cf38d8bd096a7a42 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_cf38d8bd096a7a42_base
 
 {-| __C declaration:__ @stock@
 
@@ -412,8 +528,13 @@ stock :: IO ()
 stock = hs_bindgen_cf38d8bd096a7a42
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_unsafe@
-foreign import ccall safe "hs_bindgen_fda9b083b24404f0" hs_bindgen_fda9b083b24404f0 ::
+foreign import ccall safe "hs_bindgen_fda9b083b24404f0" hs_bindgen_fda9b083b24404f0_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_unsafe@
+hs_bindgen_fda9b083b24404f0 :: IO ()
+hs_bindgen_fda9b083b24404f0 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_fda9b083b24404f0_base
 
 {-| __C declaration:__ @unsafe@
 
@@ -425,8 +546,13 @@ unsafe :: IO ()
 unsafe = hs_bindgen_fda9b083b24404f0
 
 -- __unique:__ @test_edgecasesnames_Example_Safe_via@
-foreign import ccall safe "hs_bindgen_1d2a76a3a595be25" hs_bindgen_1d2a76a3a595be25 ::
+foreign import ccall safe "hs_bindgen_1d2a76a3a595be25" hs_bindgen_1d2a76a3a595be25_base ::
      IO ()
+
+-- __unique:__ @test_edgecasesnames_Example_Safe_via@
+hs_bindgen_1d2a76a3a595be25 :: IO ()
+hs_bindgen_1d2a76a3a595be25 =
+  HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType hs_bindgen_1d2a76a3a595be25_base
 
 {-| __C declaration:__ @via@
 
