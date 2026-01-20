@@ -141,7 +141,8 @@ getInstances instanceMap name = aux
 
     integralInsts :: Set TypeClass
     integralInsts = Set.fromList [
-        Bits
+        Bitfield
+      , Bits
       , Bounded
       , Enum
       , Eq

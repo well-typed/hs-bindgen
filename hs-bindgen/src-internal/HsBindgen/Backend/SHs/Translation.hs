@@ -185,6 +185,7 @@ translateDeriveInstance deriv = DDerivingInstance DerivingInstance {
 
 translateTypeClass :: Hs.TypeClass -> ClosedType
 translateTypeClass = \case
+    Hs.Bitfield           -> TGlobal Bitfield_class
     Hs.Bits               -> TGlobal Bits_class
     Hs.Bounded            -> TGlobal Bounded_class
     Hs.Enum               -> TGlobal Enum_class

@@ -153,6 +153,7 @@ data Global =
   | Prim_mul#
 
     -- Other type classes
+  | Bitfield_class
   | Bits_class
   | Bounded_class
   | Enum_class

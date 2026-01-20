@@ -631,6 +631,7 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
         candidateInsts :: Set Hs.TypeClass
         candidateInsts = Set.unions
                       [ Set.singleton Hs.Storable
+                      , Set.singleton Hs.Bitfield
                       , Set.singleton Hs.HasBaseForeignType
                       , Set.fromList (snd <$> opts.deriveTypedef)
                       ]
@@ -641,9 +642,14 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
     -- everything in aux is state-dependent
     aux :: TranslationState -> Hs.Newtype -> [Hs.Decl]
     aux transState nt =
-        Hs.DeclNewtype nt : newtypeWrapper ++ storableDecl ++ primDecl ++ optDecls ++
-        typedefFieldDecls nt ++
-        Hs.hasBaseForeignTypeDecs nt
+        Hs.DeclNewtype nt
+        : newtypeWrapper
+        ++ storableDecl
+        ++ bitfieldDecl
+        ++ primDecl
+        ++ optDecls
+        ++ typedefFieldDecls nt
+        ++ Hs.hasBaseForeignTypeDecs nt
       where
         storableDecl :: [Hs.Decl]
         storableDecl
@@ -651,6 +657,16 @@ typedefDecs opts haddockConfig info mkNewtypeOrigin typedef spec = do
           | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
                 strategy = Hs.DeriveNewtype
               , clss     = Hs.Storable
+              , name     = nt.name
+              , comment  = Nothing
+              }
+
+        bitfieldDecl :: [Hs.Decl]
+        bitfieldDecl
+          | Hs.Bitfield `Set.notMember` nt.instances = []
+          | otherwise = singleton $ Hs.DeclDeriveInstance Hs.DeriveInstance{
+                strategy = Hs.DeriveNewtype
+              , clss     = Hs.Bitfield
               , name     = nt.name
               , comment  = Nothing
               }
