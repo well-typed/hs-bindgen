@@ -8,6 +8,7 @@ module HsBindgen.Instances (
     TypeClass(..)
   , Dependency(..)
   , Strategy(..)
+  , Constraint(..)
     -- * Supported instances
   , SupportedInstances(..)
   , SupportedStrategies(..)
@@ -19,6 +20,7 @@ import Data.Set qualified as Set
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
 
 {-------------------------------------------------------------------------------
@@ -89,6 +91,15 @@ data Strategy =
 
 instance PrettyForTrace Strategy where
   prettyForTrace = PP.show
+
+--------------------------------------------------------------------------------
+
+-- | Constraint of an instance
+data Constraint = Constraint {
+      clss :: TypeClass
+    , ref  :: Hs.ExtRef
+    }
+  deriving stock (Eq, Generic, Ord, Show)
 
 {-------------------------------------------------------------------------------
   Supported instances

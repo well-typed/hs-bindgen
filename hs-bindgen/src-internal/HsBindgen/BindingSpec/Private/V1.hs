@@ -29,7 +29,6 @@ module HsBindgen.BindingSpec.Private.V1 (
   , HsNewtypeRep(..)
     -- ** Instances
   , InstanceSpec(..)
-  , ConstraintSpec(..)
     -- * API
   , empty
   , getCTypes
@@ -244,7 +243,7 @@ data InstanceSpec = InstanceSpec {
       -- | Instance constraints
       --
       -- If specified, /all/ constraints must be listed.
-    , constraints :: [ConstraintSpec]
+    , constraints :: [Inst.Constraint]
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -253,15 +252,6 @@ instance Default InstanceSpec where
       strategy    = Nothing
     , constraints = []
     }
-
---------------------------------------------------------------------------------
-
--- | Constraint of an instance
-data ConstraintSpec = ConstraintSpec {
-      clss :: Inst.TypeClass
-    , ref  :: Hs.ExtRef
-    }
-  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   API
@@ -994,7 +984,7 @@ instance Aeson.ToJSON (ARep V1 HsTypeRep) where
 data instance ARep V1 InstanceSpec = AInstanceSpec {
       clss        :: Inst.TypeClass
     , strategy    :: Maybe Inst.Strategy
-    , constraints :: [ConstraintSpec]
+    , constraints :: [Inst.Constraint]
     }
   deriving stock (Show)
 
@@ -1123,30 +1113,30 @@ strategyFromText = Map.fromList [
 
 --------------------------------------------------------------------------------
 
-newtype instance ARep V1 ConstraintSpec = AConstraintSpec ConstraintSpec
+newtype instance ARep V1 Inst.Constraint = AConstraint Inst.Constraint
   deriving stock (Show)
 
-instance ARepIso V1 ConstraintSpec
+instance ARepIso V1 Inst.Constraint
 
-instance Aeson.FromJSON (ARep V1 ConstraintSpec) where
-  parseJSON = Aeson.withObject "ConstraintSpec" $ \o -> do
-      constraintSpecClass <- o .: "class"
-      extRefModule        <- o .: "hsmodule"
-      extRefIdentifier    <- o .: "hsname"
-      let constraintSpecRef = Hs.ExtRef{
+instance Aeson.FromJSON (ARep V1 Inst.Constraint) where
+  parseJSON = Aeson.withObject "Constraint" $ \o -> do
+      constraintClass  <- o .: "class"
+      extRefModule     <- o .: "hsmodule"
+      extRefIdentifier <- o .: "hsname"
+      let constraintRef = Hs.ExtRef{
               moduleName = fromARep' extRefModule
             , ident      = fromARep' extRefIdentifier
             }
-      return $ AConstraintSpec ConstraintSpec{
-          clss = fromARep' constraintSpecClass
-        , ref  = constraintSpecRef
+      return $ AConstraint Inst.Constraint{
+          clss = fromARep' constraintClass
+        , ref  = constraintRef
         }
 
-instance Aeson.ToJSON (ARep V1 ConstraintSpec) where
-  toJSON (AConstraintSpec spec) = Aeson.object [
-        "class"    .= toARep' spec.clss
-      , "hsmodule" .= toARep' spec.ref.moduleName
-      , "hsname"   .= toARep' spec.ref.ident
+instance Aeson.ToJSON (ARep V1 Inst.Constraint) where
+  toJSON (AConstraint constraint) = Aeson.object [
+        "class"    .= toARep' constraint.clss
+      , "hsmodule" .= toARep' constraint.ref.moduleName
+      , "hsname"   .= toARep' constraint.ref.ident
       ]
 
 {-------------------------------------------------------------------------------
