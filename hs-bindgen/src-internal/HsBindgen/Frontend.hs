@@ -6,7 +6,6 @@ module HsBindgen.Frontend (
 
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
-import System.Exit (exitFailure)
 
 import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
@@ -157,7 +156,7 @@ runFrontend tracer config boot = do
     parsePass <- cache "parse" $ do
       setup <- getSetup
       rootHeader <- getRootHeader
-      res <- liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> do
+      liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude) <-
           processIncludes unit
         let parseEnv :: ParseDecl.Env
@@ -184,9 +183,6 @@ runFrontend tracer config boot = do
           , toGetMainHeaders getMainHeadersAndInclude
           , usageAnalysis
           )
-      case res of
-        Nothing -> liftIO exitFailure
-        Just  r -> pure r
 
     simplifyASTPass <- cache "simplifyAST" $ do
       (afterParse, _, _, _, _, ua) <- parsePass

@@ -46,7 +46,6 @@ testGetTargetTriple testResources = do
   where
     getTargetTriple :: Tracer ClangMsg -> ClangSetup -> IO Text
     getTargetTriple tracer setup =
-        fmap (fromMaybe (panicPure "getTargetTriple failed")) $
         withClang tracer setup $ \unit ->
           bracket
             (clang_getTranslationUnitTargetInfo unit)

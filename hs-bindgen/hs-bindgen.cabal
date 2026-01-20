@@ -376,7 +376,8 @@ test-suite test-hs-bindgen
   other-modules:
     Test.HsBindgen.Golden
     Test.HsBindgen.Golden.Check.BindingSpec
-    Test.HsBindgen.Golden.Check.FailingTrace
+    Test.HsBindgen.Golden.Check.FailureBindgen
+    Test.HsBindgen.Golden.Check.FailureLibclang
     Test.HsBindgen.Golden.Check.PP
     Test.HsBindgen.Golden.Check.TH
     Test.HsBindgen.Golden.TestCase

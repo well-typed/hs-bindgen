@@ -1,9 +1,8 @@
 -- | Golden test: failing test cases
 --
 -- For failing test cases, we verify the trace messages.
-module Test.HsBindgen.Golden.Check.FailingTrace (check) where
+module Test.HsBindgen.Golden.Check.FailureBindgen (check) where
 
-import Control.Monad (void)
 import Test.Tasty (TestTree)
 import Test.Tasty.HUnit
 
@@ -17,9 +16,18 @@ import Test.HsBindgen.Resources
 -------------------------------------------------------------------------------}
 
 check :: IO TestResources -> TestCase -> TestTree
-check testResources test = testCase test.name $
-    -- We ignore any declarations that might have been successful
-    void $ runTestHsBindgenFailure noReport testResources test FinalDecls
+check testResources test = testCase test.name $ do
+    eRes <- runTestHsBindgen noReport testResources test FinalDecls
+    case eRes of
+      Left  _ -> pure ()
+      Right r -> assertFailure (msgWith r)
   where
     noReport :: a -> IO ()
     noReport = const $ pure ()
+
+    msgWith :: Show b => b -> String
+    msgWith r = mconcat [
+        "Expected 'hs-bindgen' to fail, "
+      , "but it succeeded with the following list of declarations:\n"
+      , show r
+      ]

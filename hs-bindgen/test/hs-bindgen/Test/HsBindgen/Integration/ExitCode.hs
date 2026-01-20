@@ -1,5 +1,6 @@
 module Test.HsBindgen.Integration.ExitCode (tests) where
 
+import Control.Exception (handle, throw)
 import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
@@ -47,9 +48,24 @@ testUnresolvedInclude testResources = testCase "unresolved include throws except
           defaultFailingTest "test-unresolved"
             & #inputDir       .~ tmpDir
             & #tracePredicate .~ tolerateAll
+
+        noReport :: a -> IO ()
         noReport = const $ pure ()
 
-    void $ runTestHsBindgenFailure noReport testResources test FinalDecls
+        expectExitFailure :: ExitCode -> IO ()
+        expectExitFailure = \case
+          -- We specifically test for exit code 2 here; it means that the
+          -- `hs-bindgen` invocation of `libclang` has failed.
+          ExitFailure 2  -> pure ()
+          otherException -> throw otherException
+
+    handle expectExitFailure $ do
+      eRes <- runTestHsBindgen noReport testResources test FinalDecls
+      assertFailure $ mconcat [
+          "expected hs-bindgen to fail early, "
+        , "but it finished with the following result:\n"
+        , show eRes
+        ]
 
 -- | Test that actual process exit code
 testSuccessCaseProcess :: IO TestResources -> TestTree
@@ -84,4 +100,6 @@ testUnresolvedIncludeProcess = testCase "unresolved include returns non-zero" $ 
                                                , tempHeader
                                                ]
                                                ""
+    -- We specifically test for exit code 2 here; it means that the `hs-bindgen`
+    -- invocation of `libclang` has failed.
     exitCode @?= ExitFailure 2

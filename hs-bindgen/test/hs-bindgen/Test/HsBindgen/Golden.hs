@@ -28,7 +28,8 @@ import HsBindgen.TraceMsg
 import Test.Common.HsBindgen.Trace.Patterns
 import Test.Common.HsBindgen.Trace.Predicate
 import Test.HsBindgen.Golden.Check.BindingSpec qualified as BindingSpec
-import Test.HsBindgen.Golden.Check.FailingTrace qualified as FailingTrace
+import Test.HsBindgen.Golden.Check.FailureBindgen qualified as FailureBindgen
+import Test.HsBindgen.Golden.Check.FailureLibclang qualified as FailureLibclang
 import Test.HsBindgen.Golden.Check.PP qualified as PP
 import Test.HsBindgen.Golden.Check.TH qualified as TH
 import Test.HsBindgen.Golden.TestCase
@@ -83,15 +84,18 @@ testTreeFor testResources = goTree
           ClangVersionUnknown _ -> True
       = testGroup test.name []
 
-      | not test.hasOutput
-      = FailingTrace.check testResources test
-
       | otherwise
-      = withTestOutputDir test.outputDir $ testGroup test.name [
-            TH.check          testResources test
-          , PP.check          testResources test
-          , BindingSpec.check testResources test
-          ]
+      = case test.outcome of
+          Success ->
+            withTestOutputDir test.outputDir $ testGroup test.name [
+                TH.check          testResources test
+              , PP.check          testResources test
+              , BindingSpec.check testResources test
+              ]
+          FailureBindgen ->
+            FailureBindgen.check testResources test
+          FailureLibclang ->
+            FailureLibclang.check testResources test
 
     withTestOutputDir :: FilePath -> TestTree -> TestTree
     withTestOutputDir outputDir k =
@@ -243,7 +247,7 @@ test_arrays_array =
 
 test_arrays_failing_array_res_1 :: TestCase
 test_arrays_failing_array_res_1 =
-    failingTestSimple "arrays/failing/array_res_1" $ \case
+    failingTestLibclangSimple "arrays/failing/array_res_1" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()
       TraceFrontend (FrontendClang _) ->
@@ -255,7 +259,7 @@ test_arrays_failing_array_res_1 =
 
 test_arrays_failing_array_res_2 :: TestCase
 test_arrays_failing_array_res_2 =
-    failingTestSimple "arrays/failing/array_res_2" $ \case
+    failingTestLibclangSimple "arrays/failing/array_res_2" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()
       TraceFrontend (FrontendClang _) ->
@@ -267,7 +271,7 @@ test_arrays_failing_array_res_2 =
 
 test_arrays_failing_array_res_3 :: TestCase
 test_arrays_failing_array_res_3 =
-    failingTestSimple "arrays/failing/array_res_3" $ \case
+    failingTestLibclangSimple "arrays/failing/array_res_3" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()
       TraceFrontend (FrontendClang _) ->
@@ -279,7 +283,7 @@ test_arrays_failing_array_res_3 =
 
 test_arrays_failing_array_res_4 :: TestCase
 test_arrays_failing_array_res_4 =
-    failingTestSimple "arrays/failing/array_res_4" $ \case
+    failingTestLibclangSimple "arrays/failing/array_res_4" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()
       TraceFrontend (FrontendClang _) ->
@@ -291,7 +295,7 @@ test_arrays_failing_array_res_4 =
 
 test_arrays_failing_array_res_5 :: TestCase
 test_arrays_failing_array_res_5 =
-    failingTestSimple "arrays/failing/array_res_5" $ \case
+    failingTestLibclangSimple "arrays/failing/array_res_5" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()
       TraceFrontend (FrontendClang _) ->
@@ -303,7 +307,7 @@ test_arrays_failing_array_res_5 =
 
 test_arrays_failing_array_res_6 :: TestCase
 test_arrays_failing_array_res_6 =
-    failingTestSimple "arrays/failing/array_res_6" $ \case
+    failingTestLibclangSimple "arrays/failing/array_res_6" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()
       TraceFrontend (FrontendClang _) ->
@@ -315,7 +319,7 @@ test_arrays_failing_array_res_6 =
 
 test_arrays_failing_array_res_7 :: TestCase
 test_arrays_failing_array_res_7 =
-    failingTestSimple "arrays/failing/array_res_7" $ \case
+    failingTestLibclangSimple "arrays/failing/array_res_7" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()
       TraceFrontend (FrontendClang _) ->
@@ -327,7 +331,7 @@ test_arrays_failing_array_res_7 =
 
 test_arrays_failing_array_res_8 :: TestCase
 test_arrays_failing_array_res_8 =
-    failingTestSimple "arrays/failing/array_res_8" $ \case
+    failingTestLibclangSimple "arrays/failing/array_res_8" $ \case
       (matchDiagnosticSpelling "function cannot return array type" -> Just _diag) ->
         Just $ Expected ()
       TraceFrontend (FrontendClang _) ->
@@ -713,7 +717,7 @@ test_declarations_definitions =
 
 test_declarations_failing_tentative_definitions_linkage :: TestCase
 test_declarations_failing_tentative_definitions_linkage =
-    failingTestMulti "declarations/failing/tentative_definitions_linkage" [(), ()] $ \case
+    failingTestLibclangMulti "declarations/failing/tentative_definitions_linkage" [(), ()] $ \case
       (matchDiagnosticSpelling "non-static declaration of" -> Just _diag) ->
         Just $ Expected ()
       MatchNoDeclarations ->
