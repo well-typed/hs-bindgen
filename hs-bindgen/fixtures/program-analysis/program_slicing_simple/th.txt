@@ -65,7 +65,7 @@ instance HasCField Uint32_t "un_Uint32_t"
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
 data Foo
-    = Foo {foo_sixty_four :: Foreign.Int64
+    = Foo {foo_sixty_four :: Foreign.Word64
            {- ^ __C declaration:__ @sixty_four@
 
                 __defined at:__ @program-analysis\/program_slicing_simple.h 4:12@
@@ -94,7 +94,7 @@ instance Storable Foo
                                    Foo foo_sixty_four_3
                                        foo_thirty_two_4 -> pokeCField (Proxy @"foo_sixty_four") ptr_1 foo_sixty_four_3 >> pokeCField (Proxy @"foo_thirty_two") ptr_1 foo_thirty_two_4
 instance HasCField Foo "foo_sixty_four"
-    where type CFieldType Foo "foo_sixty_four" = Foreign.Int64
+    where type CFieldType Foo "foo_sixty_four" = Foreign.Word64
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Foo "foo_sixty_four") =>
          HasField "foo_sixty_four" (Ptr Foo) (Ptr ty)
@@ -107,7 +107,7 @@ instance TyEq ty (CFieldType Foo "foo_thirty_two") =>
     where getField = ptrToCField (Proxy @"foo_thirty_two")
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_48dbbf4b09b5b3c1" hs_bindgen_48dbbf4b09b5b3c1 ::
-    Foreign.Int64
+    Foreign.Word64
  -> Uint32_t
  -> IO CInt
 {-| __C declaration:__ @bar@
@@ -116,7 +116,7 @@ foreign import ccall safe "hs_bindgen_48dbbf4b09b5b3c1" hs_bindgen_48dbbf4b09b5b
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-bar :: Foreign.Int64 -> Uint32_t -> IO CInt
+bar :: Foreign.Word64 -> Uint32_t -> IO CInt
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
@@ -126,7 +126,7 @@ bar :: Foreign.Int64 -> Uint32_t -> IO CInt
 bar = hs_bindgen_48dbbf4b09b5b3c1
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
 foreign import ccall safe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba8ab ::
-    Foreign.Int64
+    Foreign.Word64
  -> Uint32_t
  -> IO CInt
 {-| __C declaration:__ @bar@
@@ -135,7 +135,7 @@ foreign import ccall safe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-bar :: Foreign.Int64 -> Uint32_t -> IO CInt
+bar :: Foreign.Word64 -> Uint32_t -> IO CInt
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@
@@ -145,7 +145,7 @@ bar :: Foreign.Int64 -> Uint32_t -> IO CInt
 bar = hs_bindgen_fe855d53295ba8ab
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_bar@
 foreign import ccall safe "hs_bindgen_993162e0dadfa2c9" hs_bindgen_993162e0dadfa2c9 ::
-    IO (FunPtr (Foreign.Int64 -> Uint32_t -> IO CInt))
+    IO (FunPtr (Foreign.Word64 -> Uint32_t -> IO CInt))
 {-# NOINLINE bar #-}
 {-| __C declaration:__ @bar@
 
@@ -153,7 +153,7 @@ foreign import ccall safe "hs_bindgen_993162e0dadfa2c9" hs_bindgen_993162e0dadfa
 
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
-bar :: FunPtr (Foreign.Int64 -> Uint32_t -> IO CInt)
+bar :: FunPtr (Foreign.Word64 -> Uint32_t -> IO CInt)
 {-| __C declaration:__ @bar@
 
     __defined at:__ @program-analysis\/program_slicing_simple.h 8:5@

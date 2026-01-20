@@ -24,7 +24,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_48dbbf4b09b5b3c1" hs_bindgen_48dbbf4b09b5b3c1 ::
-     Foreign.Int64
+     Foreign.Word64
   -> Uint32_t
   -> IO FC.CInt
 
@@ -35,7 +35,7 @@ foreign import ccall safe "hs_bindgen_48dbbf4b09b5b3c1" hs_bindgen_48dbbf4b09b5b
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
 bar ::
-     Foreign.Int64
+     Foreign.Word64
      -- ^ __C declaration:__ @x@
   -> Uint32_t
      -- ^ __C declaration:__ @y@

@@ -59,7 +59,7 @@ instance HsBindgen.Runtime.HasCField.HasCField Uint32_t "un_Uint32_t" where
     __exported by:__ @program-analysis\/program_slicing_simple.h@
 -}
 data Foo = Foo
-  { foo_sixty_four :: Foreign.Int64
+  { foo_sixty_four :: Foreign.Word64
     {- ^ __C declaration:__ @sixty_four@
 
          __defined at:__ @program-analysis\/program_slicing_simple.h 4:12@
@@ -98,7 +98,7 @@ instance F.Storable Foo where
 
 instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_sixty_four" where
 
-  type CFieldType Foo "foo_sixty_four" = Foreign.Int64
+  type CFieldType Foo "foo_sixty_four" = Foreign.Word64
 
   offset# = \_ -> \_ -> 0
 
