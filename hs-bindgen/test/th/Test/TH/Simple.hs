@@ -14,7 +14,7 @@
 
 module Test.TH.Simple where
 
-import GHC.Prim
+import GHC.Exts
 import Optics ((%), (&), (.~))
 
 import HsBindgen.Runtime.Prelude qualified
