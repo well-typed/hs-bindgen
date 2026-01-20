@@ -21,7 +21,7 @@ import qualified GHC.Records
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FlexibleArrayMember
 import qualified HsBindgen.Runtime.HasCField
-import GHC.Prim ((*#), (+#))
+import GHC.Exts ((*#), (+#))
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 

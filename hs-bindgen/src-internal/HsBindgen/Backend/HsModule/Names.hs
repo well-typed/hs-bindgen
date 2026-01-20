@@ -172,6 +172,8 @@ moduleOf "Just"     _ = HsImportModule "Data.Maybe" Nothing
 moduleOf ident m0 = case parts of
     ["C","Operator","Classes"]       -> HsImportModule "C.Expr.HostPlatform" (Just "C")
     ["GHC", "Bits"]                  -> HsImportModule "Data.Bits" (Just "Bits")
+    -- See https://gitlab.haskell.org/ghc/ghc/-/issues/23212
+    ["GHC", "Prim"]                  -> HsImportModule "GHC.Exts" Nothing
     ["GHC", "Base"]                  -> iPrelude
     ["GHC", "Classes"]               -> iPrelude
     ["GHC", "Show"]                  -> iPrelude

@@ -52,7 +52,6 @@ executable run-manual
   -- Internal.
   build-depends:
     , c-expr-runtime
-    , ghc-prim
     , hs-bindgen-runtime
     , hs-game
     , hs-vector
