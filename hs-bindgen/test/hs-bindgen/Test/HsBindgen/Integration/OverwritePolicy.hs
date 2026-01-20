@@ -30,7 +30,9 @@ testDirOverwritePolicy testResources = testCase "do not create output directory 
                                                , headerPath
                                                ]
                                                ""
-    exitCode @?= ExitFailure 2
+    -- We specifically test for exit code 3 here; it means that `hs-bindgen` ran
+    -- to completion, but an error has ocurred.
+    exitCode @?= ExitFailure 3
 
 testFileOverwritePolicy :: IO TestResources -> TestTree
 testFileOverwritePolicy testResources = testCase "do not overwrite existing files by default" $ do
@@ -48,7 +50,9 @@ testFileOverwritePolicy testResources = testCase "do not overwrite existing file
                                                , headerPath
                                                ]
                                                ""
-    exitCode @?= ExitFailure 2
+    -- We specifically test for exit code 3 here; it means that `hs-bindgen` ran
+    -- to completion, but an error has ocurred.
+    exitCode @?= ExitFailure 3
 
 testOverwritePolicies :: IO TestResources -> TestTree
 testOverwritePolicies testResources = testCase "create directories and overwrite files if told by user" $ do

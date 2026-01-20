@@ -65,7 +65,9 @@ hsBindgen tu ts b i a = do
     case eRes of
       Left err -> do
         putStrLn $ PP.renderCtxDoc PP.defaultContext $ prettyForTrace err
-        exitWith (ExitFailure 2)
+        -- We specifically use exit code 3 here; it means that `hs-bindgen` ran
+        -- to completion, but an error has ocurred.
+        exitWith (ExitFailure 3)
       Right r  -> pure r
 
 -- | Like 'hsBindgen' but does not exit with failure when an error has occurred.
@@ -337,7 +339,7 @@ instance PrettyForTrace BindgenError where
 -------------------------------------------------------------------------------}
 
 data SafeTraceMsg =
-      SafeBackendMsg  BackendMsg
-    | SafeArtefactMsg ArtefactMsg
+      SafeBackendMsg   BackendMsg
+    | SafeArtefactMsg  ArtefactMsg
     | SafeDelayedIOMsg DelayedIOMsg
   deriving (Show, Generic, PrettyForTrace, IsTrace SafeLevel)

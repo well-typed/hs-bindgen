@@ -57,6 +57,7 @@ execCliParser = do
             , clangArgsFooter
             , parsePredicateFooter
             , selectSliceFooter
+            , exitCodeFooter
             ]
         ]
 
@@ -137,6 +138,15 @@ selectSliceFooter = Help.vcat [
         , " program slicing can cause declarations to be included"
         , " even if they are explicitly deselected by a select predicate"
         ]
+    ]
+
+exitCodeFooter :: Help.Doc
+exitCodeFooter = Help.vcat [
+      "Exit codes:"
+    , "  0: Success"
+    , "  1: Other errors (panics)"
+    , "  2: Invocation of `libclang` has failed"
+    , "  3: An `hs-bindgen`-specific error has happened"
     ]
 
 li :: Text -> Help.Doc

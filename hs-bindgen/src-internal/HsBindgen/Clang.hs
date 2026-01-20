@@ -12,6 +12,7 @@ module HsBindgen.Clang (
   ) where
 
 import Data.Text qualified as Text
+import System.Exit (ExitCode (..), exitWith)
 import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
@@ -57,29 +58,41 @@ defaultClangSetup args input = ClangSetup{
 
 -- | Call clang to parse with the specified 'ClangSetup'
 --
--- All diagnostics are traced.  'Nothing' is returned if any of them are errors.
+-- All diagnostics are traced.
+--
+-- Exits with failure code 2 if any of them are errors.
+--
 -- The specified continuation is called only when there are no error
 -- diagnostics.
 withClang :: forall a.
      Tracer ClangMsg
   -> ClangSetup
-  -> (CXTranslationUnit -> IO (Maybe a))
-  -> IO (Maybe a)
-withClang tracer setup k = withClang' tracer setup $ \unit -> do
-    anyIsError <- traceDiagnostics unit
-    if anyIsError
-      then return Nothing
-      else k unit
+  -> (CXTranslationUnit -> IO a)
+  -> IO a
+withClang tracer setup k = do
+    mRes <- withClang' tracer setup $ \unit -> do
+      anyIsError <- traceDiagnostics unit
+      if anyIsError
+        then exit
+        else Just <$> k unit
+    case mRes of
+      Nothing  -> exit
+      Just res -> pure res
   where
     traceDiagnostics :: CXTranslationUnit -> IO Bool
     traceDiagnostics unit =
         go False =<< HighLevel.clang_getDiagnostics unit Nothing
       where
         go :: Bool -> [Diagnostic] -> IO Bool
-        go !anyIsError []     = return anyIsError
+        go !anyIsError []     = pure anyIsError
         go !anyIsError (d:ds) = do
             traceWith (contramap ClangDiagnostic tracer) d
             go (anyIsError || diagnosticIsError d) ds
+
+    -- We specifically use exit code 2 here; it means that the invocation of
+    -- `libclang` has failed.
+    exit :: IO b
+    exit = exitWith (ExitFailure 2)
 
 -- | Call clang to parse with the specified 'ClangSetup'
 --

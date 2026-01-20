@@ -131,6 +131,14 @@ Besides `preprocess`, `hs-bindgen-cli` provides:
 
 Run `cabal run hs-bindgen-cli -- --help` for details.
 
+### Exit codes
+
+`hs-bindgen` uses the following exit codes:
+- 0: Success
+- 1: Other errors (panics)
+- 2: Invocation of `libclang` has failed
+- 3: An `hs-bindgen`-specific error has happened
+
 ## Cabal preprocessor integration
 
 `hs-bindgen` can integrate with Cabal's build system using the literate

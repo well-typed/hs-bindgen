@@ -3,24 +3,29 @@
 -- Intended for unqualified import.
 module Test.HsBindgen.Golden.TestCase (
     -- * Definition
-    TestCase(..)
+    Outcome(..)
+  , TestCase(..)
   , testInputInclude
     -- * Construction
   , defaultTest
   , defaultFailingTest
+  , defaultFailingTestLibclang
     -- ** Successful tests
   , testVariant
   , testTrace
   , testTraceSimple
   , testTraceMulti
   , testDiagnostic
-    -- ** Failing tests (that is, with hs-bindgen errors and no output)
+    -- ** Failing tests
   , failingTestTrace
   , failingTestSimple
   , failingTestMulti
+  , failingTestLibclangTrace
+  , failingTestLibclangSimple
+  , failingTestLibclangMulti
     -- * Execution
+  , runTestHsBindgen
   , runTestHsBindgenSuccess
-  , runTestHsBindgenFailure
   ) where
 
 import System.FilePath
@@ -47,6 +52,14 @@ import Test.HsBindgen.Resources
   Definition
 -------------------------------------------------------------------------------}
 
+data Outcome =
+      -- | We expect the test to succeed (with or without output).
+      Success
+      -- | We expect the test to fail with 'hsBindgenE' returning a 'BindgenError'.
+    | FailureBindgen
+      -- | We expect the test to fail right after invoking `libclang`.
+    | FailureLibclang
+
 data TestCase = TestCase {
       -- | Name of the test (in the tasty test tree) and the input header
       name :: TestName
@@ -64,11 +77,8 @@ data TestCase = TestCase {
       -- | Predicate for evaluating the trace messages
     , tracePredicate :: TracePredicate TraceMsg
 
-      -- | Does this test have any output?
-      --
-      -- Set this to 'False' for failing tests where we just want to check the
-      -- trace messages and nothing else
-    , hasOutput :: Bool
+      -- | Does this test have output, or does it fail?
+    , outcome :: Outcome
 
       -- | Tests that require a specific @libclang@ version
       --
@@ -122,7 +132,7 @@ defaultTest fp = TestCase{
     , inputDir         = "examples" </> "golden"
     , outputDir        = "fixtures" </> fp
     , tracePredicate   = defaultTracePredicate
-    , hasOutput        = True
+    , outcome          = Success
     , clangVersion     = Nothing
     , onBoot           = id
     , onFrontend       = id
@@ -172,14 +182,14 @@ testDiagnostic filename p =
       _otherwise -> Nothing
 
 {-------------------------------------------------------------------------------
-  Construction: failing tests (tests with no output)
+  Construction: failing tests
 -------------------------------------------------------------------------------}
 
 defaultFailingTest :: String -> TestCase
 defaultFailingTest filename =
     defaultTest filename
-      & #hasOutput .~ False
-      & #inputDir  .~ "examples/golden"
+      & #outcome  .~ FailureBindgen
+      & #inputDir .~ "examples/golden"
 
 failingTestTrace :: String -> TracePredicate TraceMsg -> TestCase
 failingTestTrace filename trace =
@@ -201,6 +211,33 @@ failingTestMulti ::
   -> TestCase
 failingTestMulti filename expected trace =
     failingTestTrace filename $ multiTracePredicate expected trace
+
+defaultFailingTestLibclang :: String -> TestCase
+defaultFailingTestLibclang filename =
+    defaultTest filename
+      & #outcome  .~ FailureLibclang
+      & #inputDir .~ "examples/golden"
+
+failingTestLibclangTrace :: String -> TracePredicate TraceMsg -> TestCase
+failingTestLibclangTrace filename trace =
+    defaultFailingTestLibclang filename
+      & #tracePredicate .~ trace
+
+failingTestLibclangSimple ::
+     String
+  -> (TraceMsg -> Maybe (TraceExpectation ()))
+  -> TestCase
+failingTestLibclangSimple filename trace =
+    failingTestLibclangTrace filename $ singleTracePredicate trace
+
+failingTestLibclangMulti ::
+     (Ord a, RenderLabel a)
+  => String
+  -> [a]
+  -> (TraceMsg -> Maybe (TraceExpectation a))
+  -> TestCase
+failingTestLibclangMulti filename expected trace =
+    failingTestLibclangTrace filename $ multiTracePredicate expected trace
 
 {-------------------------------------------------------------------------------
   Execution
@@ -268,23 +305,3 @@ runTestHsBindgenSuccess report resources test artefacts = do
   where
     msgWith :: BindgenError -> String
     msgWith e = "Expected 'hs-bindgen' to succeed, but received an error: " <> show e
-
-runTestHsBindgenFailure ::
-      Show b
-  => (String -> IO ())
-  -> IO TestResources
-  -> TestCase
-  -> Artefact b
-  -> IO BindgenError
-runTestHsBindgenFailure report resources test artefacts = do
-    eRes <- runTestHsBindgen report resources test artefacts
-    case eRes of
-      Left er -> pure er
-      Right r -> assertFailure (msgWith r)
-  where
-    msgWith :: Show b => b -> String
-    msgWith r = mconcat [
-        "Expected 'hs-bindgen' to fail, "
-      , "but it succeeded with the following list of declarations:\n"
-      , show r
-      ]

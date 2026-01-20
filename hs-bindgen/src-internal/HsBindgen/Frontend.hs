@@ -19,7 +19,6 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Decl qualified as C
@@ -154,10 +153,10 @@ runFrontend ::
   -> BootArtefact
   -> IO FrontendArtefact
 runFrontend tracer config boot = do
-    parsePass <- cache "parse" $ fmap (fromMaybe emptyParseResult) $ do
+    parsePass <- cache "parse" $ do
       setup <- getSetup
       rootHeader <- getRootHeader
-      liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> Just <$> do
+      liftIO $ withClang (contramap FrontendClang tracer) setup $ \unit -> do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude) <-
           processIncludes unit
         let parseEnv :: ParseDecl.Env
@@ -331,23 +330,6 @@ runFrontend tracer config boot = do
         , parsePredicate  = config.parsePredicate
         , selectPredicate = config.selectPredicate
         }
-
-    emptyParseResult :: (
-        [ParseResult Parse]
-      , IncludeGraph
-      , IsMainHeader
-      , IsInMainHeaderDir
-      , GetMainHeaders
-      , AnonUsageAnalysis.AnonUsageAnalysis
-      )
-    emptyParseResult =
-      ( []
-      , IncludeGraph.empty
-      , const False
-      , const False
-      , const (Left "empty")
-      , AnonUsageAnalysis.AnonUsageAnalysis { map = Map.empty }
-      )
 
     cache :: String -> Cached a -> IO (Cached a)
     cache = cacheWith (contramap (FrontendCache . SafeTrace) tracer) . Just
