@@ -37,7 +37,6 @@ KNOWN_FAILURES=(
     binding-specs/fun_arg/macro/function_pointer   # Fixtures with external binding specs can not be compiled yet (see issue #1495)
     binding-specs/fun_arg/macro/struct             # Fixtures with external binding specs can not be compiled yet (see issue #1495)
     binding-specs/fun_arg/macro/union              # Fixtures with external binding specs can not be compiled yet (see issue #1495)
-    declarations/name_collision                    # TODO: https://github.com/well-typed/hs-bindgen/issues/1533: Fixture should be empty.
     edge-cases/iterator                            # Makes use of Apple block extension which would require clang (see #913)
     functions/decls_in_signature                   # Unusable struct (see #1128)
     functions/heap_types/struct_const_member       # Issue #1490
@@ -46,13 +45,13 @@ KNOWN_FAILURES=(
     functions/heap_types/union_const_member        # Issue #1490
     functions/heap_types/union_const_typedef       # Issue #1490
     functions/heap_types/union_const               # Issue #1490
-    types/typedefs/typenames                       # Multiple declarations (hs-bindgen namespace possible bug/feature)
 )
 
 # Known fixtures without code - these will be skipped
 KNOWN_EMPTY=(
     binding-specs/macro_trans_dep_missing # TODO: issue #1513.
     declarations/declaration_unselected_b
+    declarations/name_collision
     declarations/redeclaration_different
     edge-cases/clang_generated_collision
     edge-cases/duplicate
@@ -65,17 +64,19 @@ KNOWN_EMPTY=(
     program-analysis/selection_foo
     program-analysis/selection_merge_traces
     program-analysis/selection_omit_prescriptive
+    program-analysis/selection_squash_typedef
     types/special/long_double
     types/structs/implicit_fields_struct
     types/structs/unnamed-struct
     types/unions/implicit_fields_union
+    types/typedefs/typenames
 )
 
 # The number of fixtures that are known to exist (including known failures)
 #
 # This number is used for sanity checks. Make sure to update this number when
 # new fixtures are added or old ones are removed.
-KNOWN_FIXTURES_COUNT=134
+KNOWN_FIXTURES_COUNT=135
 
 # Default options
 JOBS=4

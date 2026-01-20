@@ -9,6 +9,7 @@ import Data.Foldable qualified as Foldable
 import Data.Function
 import Data.Map qualified as Map
 import Data.Proxy
+import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
 
@@ -16,6 +17,7 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
+import HsBindgen.Frontend.Analysis.DeclIndex (Squashed (..))
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
@@ -26,9 +28,9 @@ import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.MangleNames.Error
 import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -44,15 +46,15 @@ import HsBindgen.Language.Haskell qualified as Hs
 -------------------------------------------------------------------------------}
 
 mangleNames ::
-     C.TranslationUnit Select
+     C.TranslationUnit ResolveBindingSpecs
   -> (C.TranslationUnit MangleNames, [Msg MangleNames])
 mangleNames unit = (
          C.TranslationUnit{
-           decls        = catMaybes decls'
+           decls        = catMaybes decls2
          , includeGraph = unit.includeGraph
-         , ann          = updateDeclMeta td nm unit.ann
+         , ann          = updateDeclMeta td nm fs unit.ann
         }
-    , msgs1 ++ msgs2
+    , msgs
     )
   where
     td :: TypedefAnalysis
@@ -61,10 +63,12 @@ mangleNames unit = (
     fc :: FixCandidate Maybe
     fc = FixCandidate.fixCandidateDefault
 
-    nm    :: NameMap
-    msgs1 :: [Msg MangleNames]
-    (nm, msgs1) = chooseNames td fc unit.decls
+    -- Pass 1.
+    nm   :: NameMap
+    r1   :: Report
+    (decls1, nm, r1) = chooseNames td fc unit.decls
 
+    -- Pass 2.
     env :: Env
     env = Env{
           typedefAnalysis = td
@@ -72,21 +76,37 @@ mangleNames unit = (
         , nameMap         = nm
         }
 
-    decls' :: [Maybe (C.Decl MangleNames)]
-    msgs2  :: [Msg MangleNames]
-    (decls', msgs2) = runM env $ mapM mangleDecl unit.decls
+    decls2 :: [Maybe (C.Decl MangleNames)]
+    r2     :: Report
+    (decls2, r2) = runM env $ mapM mangleDecl decls1
 
-updateDeclMeta :: TypedefAnalysis -> NameMap -> DeclMeta -> DeclMeta
-updateDeclMeta td nm declMeta = declMeta{
+    fs :: [Failure]
+    fs = r1.failures ++ r2.failures
+
+    msgs :: [Msg MangleNames]
+    msgs = r1.messages ++ r2.messages
+
+updateDeclMeta :: TypedefAnalysis -> NameMap -> [Failure] -> DeclMeta -> DeclMeta
+updateDeclMeta td nm fs declMeta = declMeta{
       declIndex =
+        DeclIndex.registerMangleNamesFailures failuresMap $
         DeclIndex.registerSquashedDeclarations squashedMap declMeta.declIndex
     }
   where
-    squashedMap :: Map DeclId (SingleLoc, Hs.Identifier)
-    squashedMap = Map.fromList $ catMaybes [
-        (cDeclId,) . (sloc,) <$> Map.lookup wrappedId nm
-      | (cDeclId, TypedefAnalysis.Squash sloc wrappedId) <-
-          Map.toList td.map
+    failuresMap :: Map DeclId (SingleLoc, MangleNamesFailure)
+    failuresMap = Map.fromList fs
+
+    squashedMap :: Map DeclId Squashed
+    squashedMap = Map.fromList $ [
+        (cDeclId,) squashed
+      | (cDeclId, TypedefAnalysis.Squash s) <-
+           Map.toList td.map
+      , let squashed :: Squashed
+            squashed = Squashed {
+                typedefLoc   = s.typedefLoc
+              , targetNameC  = s.targetId
+              , targetNameHs = Map.lookup s.targetId nm
+              }
       ]
 
 {-------------------------------------------------------------------------------
@@ -101,17 +121,20 @@ type NameMap = Map DeclId Hs.Identifier
 chooseNames ::
      TypedefAnalysis
   -> FixCandidate Maybe
-  -> [C.Decl Select]
-  -> (NameMap, [Msg MangleNames])
+  -> [C.Decl ResolveBindingSpecs]
+  -> ([C.Decl ResolveBindingSpecs], NameMap, Report)
 chooseNames td fc decls =
     let specifiedNames :: NameMap
         specifiedNames = Map.fromList $ mapMaybe getSpecifiedName decls
 
         nameInfos :: [NameInfo]
-        msgs :: [Msg MangleNames]
-        (nameInfos, msgs) =
-          second concat . unzip $
+        report    :: Report
+        (nameInfos, report) =
+          second mconcat . unzip $
             map (nameForDecl td fc specifiedNames) decls
+
+        nameMap :: NameMap
+        nameMap = Map.fromList $ map (\n -> (n.nameC, n.nameHs)) nameInfos
 
         -- When detecting collisions, we only use original (i.e., non-squashed)
         -- declarations.
@@ -120,38 +143,35 @@ chooseNames td fc decls =
 
         collisions :: Map Hs.Identifier [(DeclId, SingleLoc)]
         collisions = getDuplicates $ Map.fromList $
-          map (\n -> ((n.cId, n.loc), n.hsId)) nameInfosOriginal
+          map (\n -> ((n.nameC, n.loc), n.nameHs)) nameInfosOriginal
 
-        collisionMsgs :: [Msg MangleNames]
-        collisionMsgs = concatMap getCollisionMsg $ Map.toList collisions
+        collisionFailures :: [Failure]
+        collisionFailures = concatMap getCollisionFailures $ Map.toList collisions
 
-        nameMap :: NameMap
-        nameMap = Map.fromList $ map (\n -> (n.cId, n.hsId)) nameInfos
+        collidingDeclIds :: Set DeclId
+        collidingDeclIds = Set.fromList $ map fst collisionFailures
 
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1533: For now
-    -- collisions only lead to warnings; in the future, we want to handle them
-    -- in the decl-index, and remove them in the 'Select' pass.
-    in  (nameMap, collisionMsgs ++ msgs)
+        okDecls :: [C.Decl ResolveBindingSpecs]
+        okDecls = filter (\x -> Set.notMember x.info.id collidingDeclIds) decls
+
+    in  (okDecls, nameMap, report <> Report collisionFailures [])
   where
-    getSpecifiedName :: C.Decl Select -> Maybe (DeclId, Hs.Identifier)
+    getSpecifiedName :: C.Decl ResolveBindingSpecs -> Maybe (DeclId, Hs.Identifier)
     getSpecifiedName decl = (decl.info.id,) <$> ((.hsIdent) =<< decl.ann.cSpec)
 
-getCollisionMsg :: (Hs.Identifier, [(DeclId, SingleLoc)]) -> [WithLocationInfo MangleNamesMsg]
-getCollisionMsg (i, xs) =
-    [ WithLocationInfo (declIdLocationInfo d [l]) m
-    | let m = MangleNamesCollision i idsWithLocs
-    , (d, l) <- xs
-    ]
+getCollisionFailures :: (Hs.Identifier, [(DeclId, SingleLoc)]) -> [Failure]
+getCollisionFailures (i, xs) =
+    [ (d, (l, MangleNamesCollision i idsWithLocs)) | (d, l) <- xs]
   where
     idsWithLocs :: [WithLocationInfo DeclId]
     idsWithLocs = map (\(d, l) -> WithLocationInfo (declIdLocationInfo d [l]) d) xs
 
 -- | Internal.
 data NameInfo = NameInfo {
-    cId      :: DeclId
+    nameC    :: DeclId
     -- | We need the location to obtain 'WithLocationInfo'
   , loc      :: SingleLoc
-  , hsId     :: Hs.Identifier
+  , nameHs   :: Hs.Identifier
     -- | We expect name collisions for squashed declarations
   , squashed :: Bool
   }
@@ -161,8 +181,8 @@ nameForDecl ::
      TypedefAnalysis
   -> FixCandidate Maybe
   -> NameMap
-  -> C.Decl Select
-  -> (NameInfo, [Msg MangleNames])
+  -> C.Decl ResolveBindingSpecs
+  -> (NameInfo, Report)
 nameForDecl td fc specifiedNames decl =
     case Map.lookup declId specifiedNames of
       Just hsName ->
@@ -175,39 +195,40 @@ nameForDecl td fc specifiedNames decl =
         let isSquashed = case Map.lookup declId td.map of
               Just TypedefAnalysis.Squash{} -> True
               _otherwise                    -> False
-        in  (NameInfo declId loc hsName isSquashed, [])
+        in  (NameInfo declId loc hsName isSquashed, mempty)
       Nothing ->
         withDeclNamespace decl.kind $ \ns ->
-        second (map $ withDeclLoc decl.info) $
           case Map.lookup declId td.map of
             Nothing ->
-              fromDeclId fc ns declId & \(hsName, msgs) -> (
+              fromDeclId fc ns declId & \(hsName, fs) -> (
                   NameInfo declId loc hsName False
-                , msgs
+                , Report (toFs fs) []
                 )
             Just (TypedefAnalysis.Rename (TypedefAnalysis.AddSuffix suffix)) ->
-              fromDeclId fc ns declId & \(hsName, msgs) ->
+              fromDeclId fc ns declId & \(hsName, fs) ->
                 let newName = hsName <> suffix in (
                   NameInfo declId loc newName False
-                , MangleNamesRenamed newName : msgs
+                , Report (toFs fs) (toMs [MangleNamesRenamed newName])
                 )
             Just (TypedefAnalysis.Rename (TypedefAnalysis.UseNameOf declId')) ->
               case Map.lookup declId' specifiedNames of
-                Just hsName -> (NameInfo declId loc hsName False, [])
+                Just hsName -> (NameInfo declId loc hsName False, mempty)
                 Nothing ->
-                  fromDeclId fc ns declId' & \(hsName, msgs) -> (
+                  fromDeclId fc ns declId' & \(hsName, fs) -> (
                       NameInfo declId loc hsName False
-                    , if declId.name.text /= declId'.name.text
-                        then MangleNamesRenamed hsName : msgs
-                        else msgs
+                    , Report
+                        (toFs fs)
+                        (toMs [ MangleNamesRenamed hsName
+                              | declId.name.text /= declId'.name.text
+                              ])
                     )
-            Just (TypedefAnalysis.Squash _ declId') ->
-              case Map.lookup declId' specifiedNames of
-                Just hsName -> (NameInfo declId loc hsName True, [])
+            Just (TypedefAnalysis.Squash s) ->
+              case Map.lookup s.targetId specifiedNames of
+                Just hsName -> (NameInfo declId loc hsName True, mempty)
                 Nothing ->
-                  fromDeclId fc ns declId & \(hsName, msgs) -> (
+                  fromDeclId fc ns declId & \(hsName, fs) -> (
                       NameInfo declId loc hsName True
-                    , msgs
+                    , Report (toFs fs) []
                     )
   where
     declId :: DeclId
@@ -215,6 +236,12 @@ nameForDecl td fc specifiedNames decl =
 
     loc :: SingleLoc
     loc = decl.info.loc
+
+    toFs :: [MangleNamesFailure] -> [Failure]
+    toFs = map (\f -> (decl.info.id, (loc, f)))
+
+    toMs :: [a] -> [WithLocationInfo a]
+    toMs = map (withDeclLoc decl.info)
 
 {-------------------------------------------------------------------------------
   Internal: working with 'FixCandidate'
@@ -225,7 +252,7 @@ fixCandidate :: forall ns.
   => FixCandidate Maybe
   -> Proxy ns
   -> Text
-  -> (Hs.Identifier, [MangleNamesMsg])
+  -> (Hs.Identifier, [MangleNamesFailure])
 fixCandidate fc _ cName =
     case FixCandidate.fixCandidate fc cName :: Maybe (Hs.ExportedName ns) of
       Just hsName -> (Hs.Identifier hsName.text, [])
@@ -236,7 +263,7 @@ fromDeclId :: forall ns.
   => FixCandidate Maybe
   -> Proxy ns
   -> DeclId
-  -> (Hs.Identifier, [MangleNamesMsg])
+  -> (Hs.Identifier, [MangleNamesFailure])
 fromDeclId fc ns declId = fixCandidate fc ns declId.name.text
 
 {-------------------------------------------------------------------------------
@@ -244,7 +271,7 @@ fromDeclId fc ns declId = fixCandidate fc ns declId.name.text
 -------------------------------------------------------------------------------}
 
 newtype M a = WrapM (
-      StateT [Msg MangleNames] (Reader Env) a
+      StateT Report (Reader Env) a
     )
   deriving newtype (
       Functor
@@ -252,14 +279,31 @@ newtype M a = WrapM (
     , Monad
     )
 
+type Failure = (DeclId, (SingleLoc, MangleNamesFailure))
+
+data Report = Report{
+      failures :: [Failure]
+    , messages :: [Msg MangleNames]
+    }
+    deriving stock (Show, Generic)
+
+instance Semigroup Report where
+  l <> r = Report (l.failures ++ r.failures) (l.messages ++ r.messages)
+
+instance Monoid Report where
+  mempty = Report [] []
+
 data Env = Env{
       typedefAnalysis :: TypedefAnalysis
     , nameMap         :: NameMap
     , fixCandidate    :: FixCandidate Maybe
     }
 
-runM :: Env -> M a -> (a, [Msg MangleNames])
-runM env (WrapM ma) = second reverse . flip runReader env $ runStateT ma []
+runM :: Env -> M a -> (a, Report)
+runM env (WrapM ma) = second reverseR . flip runReader env $ runStateT ma mempty
+  where
+    reverseR :: Report -> Report
+    reverseR x = Report (reverse x.failures) (reverse x.messages)
 
 checkTypedefAnalysis :: DeclId -> M (Maybe TypedefAnalysis.Conclusion)
 checkTypedefAnalysis declId = WrapM $ do
@@ -267,7 +311,14 @@ checkTypedefAnalysis declId = WrapM $ do
     return $ Map.lookup declId td.map
 
 traceMsg :: Msg MangleNames -> M ()
-traceMsg msg = WrapM $ modify (msg :)
+traceMsg msg = WrapM $ modify (over #messages (msg :))
+
+addFailure :: C.DeclInfo MangleNames -> MangleNamesFailure -> M ()
+addFailure info failure =
+    WrapM $ modify (over #failures (failureWithInfo :))
+  where
+    failureWithInfo :: Failure
+    failureWithInfo = (info.id.cName, (info.loc, failure))
 
 mangleDeclId :: DeclId -> M DeclIdPair
 mangleDeclId declId = WrapM $ do
@@ -299,17 +350,17 @@ searchNameMap name = WrapM $ do
 -------------------------------------------------------------------------------}
 
 class Mangle a where
-  mangle :: a Select -> M (a MangleNames)
+  mangle :: a ResolveBindingSpecs -> M (a MangleNames)
 
 class MangleInDecl a where
-  mangleInDecl :: C.DeclInfo MangleNames -> a Select -> M (a MangleNames)
+  mangleInDecl :: C.DeclInfo MangleNames -> a ResolveBindingSpecs -> M (a MangleNames)
 
-mangleDecl :: C.Decl Select -> M (Maybe (C.Decl MangleNames))
+mangleDecl :: C.Decl ResolveBindingSpecs -> M (Maybe (C.Decl MangleNames))
 mangleDecl decl = do
     mConclusion <- checkTypedefAnalysis decl.info.id
     case mConclusion of
-      Just TypedefAnalysis.Squash{} -> do
-        traceMsg $ withDeclLoc decl.info $ MangleNamesSquashed
+      Just (TypedefAnalysis.Squash s) -> do
+        traceMsg $ (withDeclLoc decl.info $ MangleNamesSquashed s)
         return Nothing
       _otherwise -> do
         declId'      <- mangleDeclId decl.info.id
@@ -345,7 +396,7 @@ mkIdentifier ::
 mkIdentifier info ns candidate = do
     fc <- WrapM $ asks (.fixCandidate)
     let (fieldHsName, mError) = fixCandidate fc ns candidate
-    forM_ mError $ traceMsg . withDeclLoc info
+    forM_ mError $ addFailure info
     return fieldHsName
 
 mangleFieldName ::
@@ -660,7 +711,7 @@ instance Mangle C.Type where
 -------------------------------------------------------------------------------}
 
 withDeclNamespace ::
-     C.DeclKind Select
+     C.DeclKind ResolveBindingSpecs
   -> (forall ns. Hs.SingNamespace ns => Proxy ns -> r)
   -> r
 withDeclNamespace kind k =

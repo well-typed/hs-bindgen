@@ -49,8 +49,8 @@ data Artefact (a :: Star) where
   UseDeclGraph        :: Artefact UseDeclGraph.UseDeclGraph
   DeclUseGraph        :: Artefact DeclUseGraph.DeclUseGraph
   OmitTypes           :: Artefact [(DeclId, SourcePath)]
-  SquashedTypes       :: Artefact [(DeclId, (SourcePath, Hs.Identifier))]
   ReifiedC            :: Artefact [C.Decl Final]
+  SquashedTypes       :: Artefact [(DeclId, (SourcePath, Hs.Identifier))]
   Dependencies        :: Artefact [SourcePath]
   -- * Backend
   HsDecls             :: Artefact (ByCategory_ [Hs.Decl])
@@ -105,8 +105,8 @@ runArtefacts tracer boot frontend backend artefact =
         UseDeclGraph        -> runCached frontend.useDeclGraph
         DeclUseGraph        -> runCached frontend.declUseGraph
         OmitTypes           -> runCached frontend.omitTypes
-        SquashedTypes       -> runCached frontend.squashedTypes
         ReifiedC            -> runCached frontend.cDecls
+        SquashedTypes       -> runCached frontend.squashedTypes
         Dependencies        -> runCached frontend.dependencies
         -- Backend.
         HsDecls             -> runCached backend.hsDecls

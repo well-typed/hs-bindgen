@@ -15,6 +15,7 @@ import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
 import HsBindgen.Frontend.Naming
+import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesFailure (MangleNamesCollision))
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.Select.IsPass
@@ -720,14 +721,11 @@ test_declarations_failing_tentative_definitions_linkage =
       _otherwise ->
         Nothing
 
--- TODO: https://github.com/well-typed/hs-bindgen/issues/1533
--- The test should have no output.
---
 -- This tests https://github.com/well-typed/hs-bindgen/issues/1373.
 test_declarations_name_collision :: TestCase
 test_declarations_name_collision =
     testTraceMulti "declarations/name_collision" declsWithMsgs $ \case
-      MatchMangle name MangleNamesCollision{} ->
+      MatchSelect name (SelectMangleNamesFailure MangleNamesCollision{}) ->
         Just $ Expected name
       _otherwise ->
         Nothing
@@ -780,6 +778,9 @@ test_declarations_select_scoping =
     declsWithMsgs = [
           "ParsedAndSelected2"
         , "ParsedAndSelected3"
+        , "struct ParsedUnselectable"
+        , "ParsedAndSelected4"
+        , "ParsedAndSelected5"
         ]
 
 test_declarations_tentative_definitions :: TestCase
@@ -1136,6 +1137,7 @@ testCases_bespoke_programAnalysis = [
     , test_programAnalysis_selection_omit_external_a
     , test_programAnalysis_selection_omit_external_b
     , test_programAnalysis_selection_omit_prescriptive
+    , test_programAnalysis_selection_squash
     ]
 
 test_programAnalysis_delay_traces :: TestCase
@@ -1247,6 +1249,7 @@ test_programAnalysis_selection_fail =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = [
           "struct Fail"
+        , "struct Fail"
         , "struct DependOnFailByValue"
         , "struct DependOnFailByReference"
         , "struct OkBefore"
@@ -1395,6 +1398,19 @@ test_programAnalysis_selection_omit_prescriptive =
         , "struct IndirectlyDependsOnOmitted"
         ]
 
+test_programAnalysis_selection_squash :: TestCase
+test_programAnalysis_selection_squash =
+    defaultTest "program-analysis/selection_squash_typedef"
+      & #tracePredicate .~ multiTracePredicate declsWithMsgs (\case
+            MatchSelect name (MatchTransMissing [MatchTransNotSelected]) ->
+              Just $ Expected name
+            _otherwise ->
+              Nothing
+          )
+  where
+    declsWithMsgs :: [C.DeclName]
+    declsWithMsgs = ["typedef_to_struct_a"]
+
 {-------------------------------------------------------------------------------
   Bespoke tests: types
 -------------------------------------------------------------------------------}
@@ -1511,14 +1527,11 @@ test_types_typedefs_typedefs =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["foo"]
 
--- TODO: https://github.com/well-typed/hs-bindgen/issues/1533
--- The test should have no output.
---
 -- This tests https://github.com/well-typed/hs-bindgen/issues/1389.
 test_types_typedefs_typenames :: TestCase
 test_types_typedefs_typenames =
     testTraceMulti "types/typedefs/typenames" declsWithMsgs $ \case
-      MatchMangle name MangleNamesCollision{} ->
+      MatchSelect name (SelectMangleNamesFailure MangleNamesCollision{}) ->
         Just $ Expected name
       _otherwise ->
         Nothing

@@ -10,6 +10,7 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.Name qualified as Hs
+import HsBindgen.Frontend.Analysis.Typedefs
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
@@ -80,46 +81,25 @@ data NewtypeNames = NewtypeNames {
 -------------------------------------------------------------------------------}
 
 data MangleNamesMsg =
-    MangleNamesSquashed
-  | MangleNamesRenamed Hs.Identifier
-  | MangleNamesMissingIdentifier Text
-  | MangleNamesCouldNotMangle Text
-  | MangleNamesCollision Hs.Identifier [WithLocationInfo DeclId]
+    MangleNamesRenamed Hs.Identifier
+  | MangleNamesSquashed Squash
   deriving stock (Show)
 
 instance PrettyForTrace MangleNamesMsg where
   prettyForTrace = \case
-      MangleNamesSquashed ->
-        "Squashed typedef"
       MangleNamesRenamed newName -> PP.hsep [
           "Renamed to"
         , PP.text newName.text
         ]
-      MangleNamesMissingIdentifier name -> PP.hsep [
-          "Could not mangle C name identifier:"
-        , PP.text name
+      MangleNamesSquashed s -> PP.hsep [
+          "Squashed typedef to"
+        , prettyForTrace s.targetId
         ]
-      MangleNamesCouldNotMangle name -> PP.hsep [
-          "Could not mangle C name:"
-        , PP.text name
-        ]
-      MangleNamesCollision x xs ->
-        let intro = PP.hcat [
-                "Colliding definitions for Haskell identifier "
-              , PP.text x.text
-              , ":"
-              ]
-        in  PP.hang intro 2 $ PP.vcat $ map prettyForTrace xs
 
 instance IsTrace Level MangleNamesMsg where
   getDefaultLogLevel = \case
-      MangleNamesSquashed{}          -> Info
       MangleNamesRenamed{}           -> Info
-      MangleNamesMissingIdentifier{} -> Warning
-      -- TODO https://github.com/well-typed/hs-bindgen/issues/1533: Failures
-      -- will be a warnings.
-      MangleNamesCouldNotMangle{}    -> Error
-      MangleNamesCollision{}         -> Warning
+      MangleNamesSquashed{}          -> Notice
 
   getSource  = const HsBindgen
   getTraceId = const "mangle-names"

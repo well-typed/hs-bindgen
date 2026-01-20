@@ -24,10 +24,13 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
+import HsBindgen.Frontend.Pass.MangleNames.Error (MangleNamesFailure)
+import HsBindgen.Frontend.Pass.MangleNames.IsPass
 import HsBindgen.Frontend.Pass.Parse.Msg
 import HsBindgen.Frontend.Pass.Parse.Result
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Predicate
+import HsBindgen.Language.C
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -38,18 +41,28 @@ type Select :: Pass
 data Select a
 
 type family AnnSelect ix where
-  AnnSelect "TranslationUnit" = DeclMeta
-  AnnSelect "Decl"            = PrescriptiveDeclSpec
-  AnnSelect _                 = NoAnn
+  AnnSelect "TranslationUnit"  = DeclMeta
+  AnnSelect "Decl"             = PrescriptiveDeclSpec
+  AnnSelect "Struct"           = RecordNames
+  AnnSelect "Union"            = NewtypeNames
+  AnnSelect "Enum"             = NewtypeNames
+  AnnSelect "Typedef"          = NewtypeNames
+  AnnSelect "CheckedMacroType" = NewtypeNames
+  AnnSelect _                  = NoAnn
 
 instance IsPass Select where
+  type Id         Select = DeclIdPair
+  type ScopedName Select = ScopedNamePair
   type MacroBody  Select = CheckedMacro Select
   type ExtBinding Select = ResolvedExtBinding
   type Ann ix     Select = AnnSelect ix
   type Msg        Select = WithLocationInfo SelectMsg
   type MacroId    Select = Id Select
 
-  extBindingId _ = (.cName)
+  idNameKind     _ namePair   = namePair.cName.name.kind
+  idSourceName   _ namePair   = declIdSourceName namePair.cName
+  idLocationInfo _ namePair   = declIdLocationInfo namePair.cName
+  extBindingId _ extBinding = extDeclIdPair extBinding
   macroIdId _ = id
 
 {-------------------------------------------------------------------------------
@@ -116,7 +129,7 @@ instance PrettyForTrace TransitiveDependencyMissing where
         let intro = "Transitive dependency not selected:"
         in  PP.hang intro 2 $ PP.vcat [
                 prettyForTrace $ declIdLocationInfo i ls
-              , "Consider adjusting the select predicate"
+              , "Adjust the select predicate or enable program slicing"
               ]
 
 -- | Select trace messages
@@ -141,6 +154,7 @@ data SelectMsg =
     -- | Delayed construct translation unit message for conflicting declarations
     -- the user wants to select directly.
   | SelectConflict
+  | SelectMangleNamesFailure MangleNamesFailure
     -- | Delayed handle macros message for macros the user wants to select
     -- directly, but we have failed to parse.
   | SelectMacroFailure HandleMacrosError
@@ -164,12 +178,14 @@ instance PrettyForTrace SelectMsg where
       SelectParseNotAttempted x ->
         couldNotSelect $ PP.vcat [
             prettyForTrace x
-          , "Consider changing the parse predicate"
+          , "Adjust the parse predicate"
           ]
       SelectParseFailure x ->
         couldNotSelect $ prettyForTrace x
       SelectConflict ->
         couldNotSelect $ "conflicting declarations"
+      SelectMangleNamesFailure x ->
+        couldNotSelect $ prettyForTrace x
       SelectMacroFailure x ->
         couldNotSelect $ prettyForTrace x
       SelectNoDeclarationsMatched ->
@@ -195,6 +211,7 @@ instance IsTrace Level SelectMsg where
     SelectParseNotAttempted{}       -> Warning
     SelectParseFailure x            -> getDefaultLogLevel x
     SelectConflict{}                -> Warning
+    SelectMangleNamesFailure{}      -> Warning
     SelectMacroFailure x            -> getDefaultLogLevel x
     SelectNoDeclarationsMatched     -> Warning
   getSource  = const HsBindgen
@@ -206,6 +223,7 @@ instance IsTrace Level SelectMsg where
     SelectParseNotAttempted{}       -> "select-parse"
     SelectParseFailure x            -> "select-" <> getTraceId x
     SelectConflict{}                -> "select"
+    SelectMangleNamesFailure{}      -> "select"
     SelectMacroFailure x            -> "select-" <> getTraceId x
     SelectNoDeclarationsMatched     -> "select"
 
@@ -213,8 +231,8 @@ instance IsTrace Level SelectMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePassId ResolveBindingSpecs Select
-instance CoercePassMacroId ResolveBindingSpecs Select
+instance CoercePassId MangleNames Select
+instance CoercePassMacroId MangleNames Select
 
-instance CoercePassMacroBody ResolveBindingSpecs Select where
+instance CoercePassMacroBody MangleNames Select where
   coercePassMacroBody _ = coercePass

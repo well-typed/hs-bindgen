@@ -1,0 +1,2 @@
+-- addDependentFile examples/golden/program-analysis/selection_squash_struct.h
+-- addDependentFile examples/golden/program-analysis/selection_squash_typedef.h

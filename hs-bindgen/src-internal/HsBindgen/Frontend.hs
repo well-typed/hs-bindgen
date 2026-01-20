@@ -5,6 +5,7 @@ module HsBindgen.Frontend (
   ) where
 
 import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 
 import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
@@ -95,7 +96,7 @@ import HsBindgen.Util.Tracer
 -- * Must be before "HsBindgen.Frontend.Pass.ResolveBindingSpecs" so that
 --   binding specifications can use the assigned names
 --
--- == 5. "HsBindgen.Frontend.Pass.ConstructTranslationUnit"
+-- == 4. "HsBindgen.Frontend.Pass.ConstructTranslationUnit"
 --
 -- "HsBindgen.Frontend.Pass.ConstructTranslationUnit" constructs a list of
 -- sorted declarations as well as 'DeclIndex.DeclIndex',
@@ -106,7 +107,7 @@ import HsBindgen.Util.Tracer
 -- * Must be before the rest of the passes because they use these structures and
 --   depend on the ordering of declarations
 --
--- == 6. "HsBindgen.Frontend.Pass.HandleMacros"
+-- == 5. "HsBindgen.Frontend.Pass.HandleMacros"
 --
 -- "HsBindgen.Frontend.Pass.HandleMacros" typechecks macros and reparses
 -- declarations with macros.  In order to construct the correct scope at any
@@ -115,7 +116,7 @@ import HsBindgen.Util.Tracer
 -- "HsBindgen.Frontend.Pass.AssignAnonIds" before
 -- "HsBindgen.Frontend.Pass.HandleMacros" is fine.
 --
--- == 7. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
+-- == 6. "HsBindgen.Frontend.Pass.ResolveBindingSpecs"
 --
 -- "HsBindgen.Frontend.Pass.ResolveBindingSpecs" has two responsibilities:
 --
@@ -130,28 +131,23 @@ import HsBindgen.Util.Tracer
 -- * Must be before "HsBindgen.Frontend.Pass.Select" because prescriptive
 --   binding specs may omit declarations and external binding specs may remove
 --   declarations, and program slicing must take this into account
--- * Must be before "HsBindgen.Frontend.Pass.HandleTypedefs" because
---   prescriptive binding specs may configure squashing
+-- * Must be before "HsBindgen.Frontend.Pass.MangleNames" because prescriptive
+--   binding specs may configure typedef squashing, which happens in
+--   MangleNames.
 -- * Must be before "HsBindgen.Frontend.Pass.MangleNames" because prescriptive
 --   binding specs may specify arbitrary names
 --
--- == 8. "HsBindgen.Frontend.Pass.Select"
---
--- "HsBindgen.Frontend.Pass.Select" filters the declarations, using predicates
--- and program slicing.  It also emits delayed trace messages for declarations
--- that are selected.
---
--- Constraints:
---
--- * Must be before "HsBindgen.Frontend.Pass.HandleTypedefs" so that predicates
---   can refer to @typedef@s that are later squashed, which is especially
---   important when program slicing is enabled
---
--- == 9. "HsBindgen.Frontend.Pass.MangleNames"
+-- == 7. "HsBindgen.Frontend.Pass.MangleNames"
 --
 -- "HsBindgen.Frontend.Pass.MangleNames" assigns Haskell names for types,
 -- constructors, fields, etc. It also deals with name clashes that can arise
 -- from typedefs, squashing "unneeded" typedefs.
+--
+-- == 8. "HsBindgen.Frontend.Pass.Select"
+--
+-- "HsBindgen.Frontend.Pass.Select" filters the declarations using predicates
+-- and program slicing.  It also emits delayed trace messages for declarations
+-- that are selected.
 runFrontend ::
      Tracer FrontendMsg
   -> FrontendConfig
@@ -229,27 +225,27 @@ runFrontend tracer config boot = do
       forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
       pure afterResolveBindingSpecs
 
+    mangleNamesPass <- cache "mangleNames" $ do
+      afterResolveBindingSpecs <- resolveBindingSpecsPass
+      let (afterMangleNames, msgsMangleNames) = mangleNames afterResolveBindingSpecs
+      forM_ msgsMangleNames $ traceWith tracer . FrontendMangleNames
+      pure afterMangleNames
+
     selectPass <- cache "select" $ do
       (_, _, isMainHeader, isInMainHeaderDir, _, _) <- parsePass
-      afterResolveBindingSpecs <- resolveBindingSpecsPass
+      afterMangleNamesPass <- mangleNamesPass
       let (afterSelect, msgsSelect) =
             selectDecls
               isMainHeader
               isInMainHeaderDir
               selectConfig
-              afterResolveBindingSpecs
+              afterMangleNamesPass
       forM_ msgsSelect $ traceWith tracer . FrontendSelect
       pure afterSelect
 
-    mangleNamesPass <- cache "mangleNames" $ do
-      afterSelect <- selectPass
-      let (afterMangleNames, msgsMangleNames) = mangleNames afterSelect
-      forM_ msgsMangleNames $ traceWith tracer . FrontendMangleNames
-      pure afterMangleNames
-
     -- Unit.
     getCTranslationUnit <- cache "getCTranslationUnit" $ do
-      afterMangleNames <- mangleNamesPass
+      afterMangleNames <- selectPass
       pure $ afterMangleNames
 
     -- Include graph predicate.
@@ -279,14 +275,20 @@ runFrontend tracer config boot = do
       Map.toList . DeclIndex.getOmitted . view ( #ann % #declIndex ) <$>
         resolveBindingSpecsPass
 
-    -- Squashed types
-    frontendSquashedTypes <- cache "frontendSquashedTypes" $
-      Map.toList . DeclIndex.getSquashed . view ( #ann % #declIndex ) <$>
-        mangleNamesPass
-
     -- Declarations.
     frontendCDecls <- cache "frontendDecls" $
       (.decls) <$> getCTranslationUnit
+
+    -- Squashed types
+    --
+    -- TODO https://github.com/well-typed/hs-bindgen/issues/1549: `getSquashed`
+    -- should probably be changed or removed (or at least not used when
+    -- generating binding specifications).
+    frontendSquashedTypes <- cache "frontendSquashedTypes" $ do
+      decls <- frontendCDecls
+      let translatedDeclIds = Set.fromList $ map (.info.id.cName) decls
+      declIndex <- view ( #ann % #declIndex ) <$> selectPass
+      pure $ Map.toList $ DeclIndex.getSquashed declIndex translatedDeclIds
 
     -- Dependencies.
     frontendDependencies <- cache "frontendDependencies" $ do
@@ -299,8 +301,8 @@ runFrontend tracer config boot = do
       , useDeclGraph   = frontendUseDeclGraph
       , declUseGraph   = frontendDeclUseGraph
       , omitTypes      = frontendOmitTypes
-      , squashedTypes  = frontendSquashedTypes
       , cDecls         = frontendCDecls
+      , squashedTypes  = frontendSquashedTypes
       , dependencies   = frontendDependencies
       }
   where
@@ -361,8 +363,8 @@ data FrontendArtefact = FrontendArtefact {
     , useDeclGraph   :: Cached UseDeclGraph.UseDeclGraph
     , declUseGraph   :: Cached DeclUseGraph.DeclUseGraph
     , omitTypes      :: Cached [(DeclId, SourcePath)]
-    , squashedTypes  :: Cached [(DeclId, (SourcePath, Hs.Identifier))]
     , cDecls         :: Cached [C.Decl Final]
+    , squashedTypes  :: Cached [(DeclId, (SourcePath, Hs.Identifier))]
     , dependencies   :: Cached [SourcePath]
     }
 
@@ -374,15 +376,15 @@ data FrontendArtefact = FrontendArtefact {
 --
 -- Most passes in the frontend have their own set of trace messages.
 data FrontendMsg =
-    FrontendClang ClangMsg
-  | FrontendParse (Msg Parse)
-  | FrontendSimplifyAST (Msg SimplifyAST)
-  | FrontendAssignAnonIds (Msg AssignAnonIds)
+    FrontendClang                     ClangMsg
+  | FrontendParse                    (Msg Parse)
+  | FrontendSimplifyAST              (Msg SimplifyAST)
+  | FrontendAssignAnonIds            (Msg AssignAnonIds)
   | FrontendConstructTranslationUnit (Msg ConstructTranslationUnit)
-  | FrontendHandleMacros (Msg HandleMacros)
-  | FrontendResolveBindingSpecs (Msg ResolveBindingSpecs)
-  | FrontendSelect (Msg Select)
-  | FrontendMangleNames (Msg MangleNames)
-  | FrontendCache (SafeTrace CacheMsg)
+  | FrontendHandleMacros             (Msg HandleMacros)
+  | FrontendResolveBindingSpecs      (Msg ResolveBindingSpecs)
+  | FrontendMangleNames              (Msg MangleNames)
+  | FrontendSelect                   (Msg Select)
+  | FrontendCache                    (SafeTrace CacheMsg)
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)

@@ -64,7 +64,6 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
               withPred defaultTracePredicate $ \tracer ->
                 traceWith tracer info
         , testCase "!ok-notice" $
-            assertException "Expected TraceExpectationException" proxy $
               withPred defaultTracePredicate $ \tracer ->
                 traceWith tracer notice
         , testCase "!ok-warning" $
