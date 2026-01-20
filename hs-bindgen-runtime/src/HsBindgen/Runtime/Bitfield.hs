@@ -56,9 +56,12 @@ instance Bitfield CUInt where extend = unsignedExtend
 instance Bitfield CULong where extend = unsignedExtend
 instance Bitfield Word64 where extend = unsignedExtend
 
+instance Bitfield CShort where extend = signedExtend
+instance Bitfield CChar where extend = signedExtend
 instance Bitfield CSChar where extend = signedExtend
 instance Bitfield CInt where extend = signedExtend
 instance Bitfield CLong where extend = signedExtend
+instance Bitfield CLLong where extend = signedExtend
 
 -- | Default 'narrow' implementation. Takes the lowest @n@ bits.
 defaultNarrow :: Integral a => a -> Int -> Word64
