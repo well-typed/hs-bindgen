@@ -45,6 +45,7 @@ hstypes:
       - un_A_type_t
       ffitype: CInt
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -141,6 +142,7 @@ hstypes:
       - un_Var_t
       ffitype: CInt
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

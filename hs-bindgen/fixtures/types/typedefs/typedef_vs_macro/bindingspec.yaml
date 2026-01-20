@@ -119,6 +119,7 @@ hstypes:
       - un_T1
       ffitype: CInt
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -142,6 +143,7 @@ hstypes:
       - un_T2
       ffitype: CChar
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

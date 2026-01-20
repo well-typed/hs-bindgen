@@ -18,6 +18,7 @@ hstypes:
       - un_Sym
       ffitype: CChar
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

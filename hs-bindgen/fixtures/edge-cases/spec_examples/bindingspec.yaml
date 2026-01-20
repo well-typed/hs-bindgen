@@ -74,6 +74,7 @@ hstypes:
       - un_Int16_T
       ffitype: CShort
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -97,6 +98,7 @@ hstypes:
       - un_Int32_T
       ffitype: CInt
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -120,6 +122,7 @@ hstypes:
       - un_Int64_T
       ffitype: CLLong
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

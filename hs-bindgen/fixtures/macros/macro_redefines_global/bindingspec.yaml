@@ -15,6 +15,7 @@ hstypes:
       - un_FILE
       ffitype: CInt
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

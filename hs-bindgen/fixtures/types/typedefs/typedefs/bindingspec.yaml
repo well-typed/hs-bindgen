@@ -142,6 +142,7 @@ hstypes:
       - un_Myint
       ffitype: CInt
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
