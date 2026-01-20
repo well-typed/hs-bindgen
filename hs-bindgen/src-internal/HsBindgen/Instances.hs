@@ -9,6 +9,7 @@ module HsBindgen.Instances (
   , Dependency(..)
   , Strategy(..)
   , Constraint(..)
+  , Instance(..)
     -- * Supported instances
   , SupportedInstances(..)
   , SupportedStrategies(..)
@@ -98,6 +99,16 @@ instance PrettyForTrace Strategy where
 data Constraint = Constraint {
       clss :: TypeClass
     , ref  :: Hs.ExtRef
+    }
+  deriving stock (Eq, Generic, Ord, Show)
+
+--------------------------------------------------------------------------------
+
+-- | Resolved instance
+data Instance = Instance {
+      clss        :: TypeClass
+    , strategy    :: Strategy
+    , constraints :: [Constraint]
     }
   deriving stock (Eq, Generic, Ord, Show)
 
