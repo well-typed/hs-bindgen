@@ -102,4 +102,6 @@ instance IsTrace Level MangleNamesMsg where
       MangleNamesSquashed{}          -> Notice
 
   getSource  = const HsBindgen
-  getTraceId = const "mangle-names"
+  getTraceId = \case
+    MangleNamesRenamed{}  -> "mangle-names-renamed"
+    MangleNamesSquashed{} -> "mangle-names-squashed"

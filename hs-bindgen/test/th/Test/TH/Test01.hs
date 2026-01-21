@@ -4,11 +4,12 @@
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE OverloadedLabels #-}
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies #-}
-{-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE UnboxedTuples #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Test.TH.Test01 where
 
@@ -19,8 +20,10 @@ import HsBindgen.Runtime.Prelude qualified
 import HsBindgen.TH
 
 let cfg :: Config
-    cfg = def & #clang % #extraIncludeDirs .~ [
-              Pkg "examples"
-            ]
- in withHsBindgen cfg def $
+    cfg = def
+      & #clang % #extraIncludeDirs .~ [Pkg "examples"]
+    cfgTh :: ConfigTH
+    cfgTh = def
+      & #customLogLevels .~ [MakeTrace Info "mangle-names-squashed"]
+ in withHsBindgen cfg cfgTh $
       hashInclude "test_01.h"
