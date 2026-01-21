@@ -94,15 +94,15 @@ instance Prim Vector_Aux
                                                        (# s_17, v_18 #) -> (# s_17, Vector v_18 #)
           writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
                                                                       Vector vector_length_23 -> writeOffAddr# addr_19 i_20 vector_length_23 s_22
-instance Offset CLong Vector_Aux
-    where offset = \_ty_0 -> 8
-type Vector = WithFlexibleArrayMember CLong Vector_Aux
 instance HasCField Vector_Aux "vector_length"
     where type CFieldType Vector_Aux "vector_length" = CInt
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Vector_Aux "vector_length") =>
          HasField "vector_length" (Ptr Vector_Aux) (Ptr ty)
     where getField = ptrToCField (Proxy @"vector_length")
+instance Offset CLong Vector_Aux
+    where offset = \_ty_0 -> 8
+type Vector = WithFlexibleArrayMember CLong Vector_Aux
 -- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_alloc@
 foreign import ccall safe "hs_bindgen_231473be98482b20" hs_bindgen_231473be98482b20_base ::
     CInt

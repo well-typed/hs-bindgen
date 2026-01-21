@@ -1299,6 +1299,19 @@ instance F.Storable Flexible_array_Aux where
           Flexible_array flexible_array_count2 ->
             HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"flexible_array_count") ptr0 flexible_array_count2
 
+instance HsBindgen.Runtime.HasCField.HasCField Flexible_array_Aux "flexible_array_count" where
+
+  type CFieldType Flexible_array_Aux "flexible_array_count" =
+    HsBindgen.Runtime.Prelude.CSize
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Flexible_array_Aux) "flexible_array_count")
+         ) => GHC.Records.HasField "flexible_array_count" (Ptr.Ptr Flexible_array_Aux) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"flexible_array_count")
+
 instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CInt Flexible_array_Aux where
 
   offset = \_ty0 -> 8
@@ -1319,16 +1332,3 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 type Flexible_array =
   (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember FC.CInt) Flexible_array_Aux
-
-instance HsBindgen.Runtime.HasCField.HasCField Flexible_array_Aux "flexible_array_count" where
-
-  type CFieldType Flexible_array_Aux "flexible_array_count" =
-    HsBindgen.Runtime.Prelude.CSize
-
-  offset# = \_ -> \_ -> 0
-
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Flexible_array_Aux) "flexible_array_count")
-         ) => GHC.Records.HasField "flexible_array_count" (Ptr.Ptr Flexible_array_Aux) (Ptr.Ptr ty) where
-
-  getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"flexible_array_count")

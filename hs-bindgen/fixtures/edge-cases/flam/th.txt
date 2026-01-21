@@ -33,15 +33,15 @@ instance Prim Pascal_Aux
                                                        (# s_17, v_18 #) -> (# s_17, Pascal v_18 #)
           writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
                                                                       Pascal pascal_len_23 -> writeOffAddr# addr_19 i_20 pascal_len_23 s_22
-instance Offset CChar Pascal_Aux
-    where offset = \_ty_0 -> 4
-type Pascal = WithFlexibleArrayMember CChar Pascal_Aux
 instance HasCField Pascal_Aux "pascal_len"
     where type CFieldType Pascal_Aux "pascal_len" = CInt
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Pascal_Aux "pascal_len") =>
          HasField "pascal_len" (Ptr Pascal_Aux) (Ptr ty)
     where getField = ptrToCField (Proxy @"pascal_len")
+instance Offset CChar Pascal_Aux
+    where offset = \_ty_0 -> 4
+type Pascal = WithFlexibleArrayMember CChar Pascal_Aux
 {-| __C declaration:__ @struct \@foo_bar@
 
     __defined at:__ @edge-cases\/flam.h 10:2@
@@ -146,15 +146,15 @@ instance Prim Foo_Aux
                                                        (# s_17, v_18 #) -> (# s_17, Foo v_18 #)
           writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
                                                                       Foo foo_len_23 -> writeOffAddr# addr_19 i_20 foo_len_23 s_22
-instance Offset Foo_bar Foo_Aux
-    where offset = \_ty_0 -> 4
-type Foo = WithFlexibleArrayMember Foo_bar Foo_Aux
 instance HasCField Foo_Aux "foo_len"
     where type CFieldType Foo_Aux "foo_len" = CInt
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Foo_Aux "foo_len") =>
          HasField "foo_len" (Ptr Foo_Aux) (Ptr ty)
     where getField = ptrToCField (Proxy @"foo_len")
+instance Offset Foo_bar Foo_Aux
+    where offset = \_ty_0 -> 4
+type Foo = WithFlexibleArrayMember Foo_bar Foo_Aux
 {-| __C declaration:__ @struct diff@
 
     __defined at:__ @edge-cases\/flam.h 17:8@
@@ -207,9 +207,6 @@ instance Prim Diff_Aux
                                                                       Diff diff_first_29
                                                                            diff_second_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) diff_first_29 s_28 of
                                                                                              s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) diff_second_30 s_31
-instance Offset CChar Diff_Aux
-    where offset = \_ty_0 -> 9
-type Diff = WithFlexibleArrayMember CChar Diff_Aux
 instance HasCField Diff_Aux "diff_first"
     where type CFieldType Diff_Aux "diff_first" = CLong
           offset# = \_ -> \_ -> 0
@@ -222,6 +219,9 @@ instance HasCField Diff_Aux "diff_second"
 instance TyEq ty (CFieldType Diff_Aux "diff_second") =>
          HasField "diff_second" (Ptr Diff_Aux) (Ptr ty)
     where getField = ptrToCField (Proxy @"diff_second")
+instance Offset CChar Diff_Aux
+    where offset = \_ty_0 -> 9
+type Diff = WithFlexibleArrayMember CChar Diff_Aux
 {-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
 
 __C declaration:__ @struct triplets@
@@ -258,13 +258,13 @@ instance Prim Triplets_Aux
                                                        (# s_17, v_18 #) -> (# s_17, Triplets v_18 #)
           writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
                                                                       Triplets triplets_len_23 -> writeOffAddr# addr_19 i_20 triplets_len_23 s_22
-instance Offset (ConstantArray 3 CInt) Triplets_Aux
-    where offset = \_ty_0 -> 4
-type Triplets = WithFlexibleArrayMember (ConstantArray 3 CInt)
-                                        Triplets_Aux
 instance HasCField Triplets_Aux "triplets_len"
     where type CFieldType Triplets_Aux "triplets_len" = CInt
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Triplets_Aux "triplets_len") =>
          HasField "triplets_len" (Ptr Triplets_Aux) (Ptr ty)
     where getField = ptrToCField (Proxy @"triplets_len")
+instance Offset (ConstantArray 3 CInt) Triplets_Aux
+    where offset = \_ty_0 -> 4
+type Triplets = WithFlexibleArrayMember (ConstantArray 3 CInt)
+                                        Triplets_Aux

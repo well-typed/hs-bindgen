@@ -106,6 +106,18 @@ instance Data.Primitive.Types.Prim Vector_Aux where
               Vector vector_length4 ->
                 Data.Primitive.Types.writeOffAddr# addr0 i1 vector_length4 s3
 
+instance HsBindgen.Runtime.HasCField.HasCField Vector_Aux "vector_length" where
+
+  type CFieldType Vector_Aux "vector_length" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector_Aux) "vector_length")
+         ) => GHC.Records.HasField "vector_length" (Ptr.Ptr Vector_Aux) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"vector_length")
+
 instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CLong Vector_Aux where
 
   offset = \_ty0 -> 8
@@ -118,15 +130,3 @@ instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CLong Vector_Aux where
 -}
 type Vector =
   (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember FC.CLong) Vector_Aux
-
-instance HsBindgen.Runtime.HasCField.HasCField Vector_Aux "vector_length" where
-
-  type CFieldType Vector_Aux "vector_length" = FC.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Vector_Aux) "vector_length")
-         ) => GHC.Records.HasField "vector_length" (Ptr.Ptr Vector_Aux) (Ptr.Ptr ty) where
-
-  getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"vector_length")

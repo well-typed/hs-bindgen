@@ -1539,10 +1539,6 @@ instance Storable Flexible_array_Aux
           peek = \ptr_0 -> pure Flexible_array <*> peekCField (Proxy @"flexible_array_count") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Flexible_array flexible_array_count_3 -> pokeCField (Proxy @"flexible_array_count") ptr_1 flexible_array_count_3
-instance Offset CInt Flexible_array_Aux
-    where offset = \_ty_0 -> 8
-type Flexible_array = WithFlexibleArrayMember CInt
-                                              Flexible_array_Aux
 instance HasCField Flexible_array_Aux "flexible_array_count"
     where type CFieldType Flexible_array_Aux
                           "flexible_array_count" = HsBindgen.Runtime.Prelude.CSize
@@ -1551,6 +1547,10 @@ instance TyEq ty
               (CFieldType Flexible_array_Aux "flexible_array_count") =>
          HasField "flexible_array_count" (Ptr Flexible_array_Aux) (Ptr ty)
     where getField = ptrToCField (Proxy @"flexible_array_count")
+instance Offset CInt Flexible_array_Aux
+    where offset = \_ty_0 -> 8
+type Flexible_array = WithFlexibleArrayMember CInt
+                                              Flexible_array_Aux
 -- __unique:__ @test_documentationdoxygen_docs_Example_Safe_process_data@
 foreign import ccall safe "hs_bindgen_7eada9f65d982412" hs_bindgen_7eada9f65d982412_base ::
     ConstPtr Void

@@ -685,15 +685,15 @@ instance Prim Vector_Aux
                                                        (# s_17, v_18 #) -> (# s_17, Vector v_18 #)
           writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
                                                                       Vector vector_len_23 -> writeOffAddr# addr_19 i_20 vector_len_23 s_22
-instance Offset CChar Vector_Aux
-    where offset = \_ty_0 -> 4
-type Vector = WithFlexibleArrayMember CChar Vector_Aux
 instance HasCField Vector_Aux "vector_len"
     where type CFieldType Vector_Aux "vector_len" = CInt
           offset# = \_ -> \_ -> 0
 instance TyEq ty (CFieldType Vector_Aux "vector_len") =>
          HasField "vector_len" (Ptr Vector_Aux) (Ptr ty)
     where getField = ptrToCField (Proxy @"vector_len")
+instance Offset CChar Vector_Aux
+    where offset = \_ty_0 -> 4
+type Vector = WithFlexibleArrayMember CChar Vector_Aux
 {-| __C declaration:__ @triplet@
 
     __defined at:__ @manual\/zero_copy.h 82:13@

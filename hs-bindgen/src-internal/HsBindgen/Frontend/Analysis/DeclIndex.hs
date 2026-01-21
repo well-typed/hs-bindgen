@@ -140,7 +140,7 @@ usableToLoc = \case
 
 -- | Unusable declaration
 --
--- A declaration is unusable if we did not reify the declaration. We can not
+-- A declaration is unusable if we did not reify the declaration. We cannot
 -- generate bindings for unusable declarations.
 --
 -- (We avoid the term available, because it is overloaded with Clang's

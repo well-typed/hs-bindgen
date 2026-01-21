@@ -108,6 +108,18 @@ instance Data.Primitive.Types.Prim Pascal_Aux where
               Pascal pascal_len4 ->
                 Data.Primitive.Types.writeOffAddr# addr0 i1 pascal_len4 s3
 
+instance HsBindgen.Runtime.HasCField.HasCField Pascal_Aux "pascal_len" where
+
+  type CFieldType Pascal_Aux "pascal_len" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Pascal_Aux) "pascal_len")
+         ) => GHC.Records.HasField "pascal_len" (Ptr.Ptr Pascal_Aux) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"pascal_len")
+
 instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CChar Pascal_Aux where
 
   offset = \_ty0 -> 4
@@ -120,18 +132,6 @@ instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CChar Pascal_Aux where
 -}
 type Pascal =
   (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember FC.CChar) Pascal_Aux
-
-instance HsBindgen.Runtime.HasCField.HasCField Pascal_Aux "pascal_len" where
-
-  type CFieldType Pascal_Aux "pascal_len" = FC.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Pascal_Aux) "pascal_len")
-         ) => GHC.Records.HasField "pascal_len" (Ptr.Ptr Pascal_Aux) (Ptr.Ptr ty) where
-
-  getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"pascal_len")
 
 {-| __C declaration:__ @struct \@foo_bar@
 
@@ -340,6 +340,18 @@ instance Data.Primitive.Types.Prim Foo_Aux where
               Foo foo_len4 ->
                 Data.Primitive.Types.writeOffAddr# addr0 i1 foo_len4 s3
 
+instance HsBindgen.Runtime.HasCField.HasCField Foo_Aux "foo_len" where
+
+  type CFieldType Foo_Aux "foo_len" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo_Aux) "foo_len")
+         ) => GHC.Records.HasField "foo_len" (Ptr.Ptr Foo_Aux) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_len")
+
 instance HsBindgen.Runtime.FlexibleArrayMember.Offset Foo_bar Foo_Aux where
 
   offset = \_ty0 -> 4
@@ -352,18 +364,6 @@ instance HsBindgen.Runtime.FlexibleArrayMember.Offset Foo_bar Foo_Aux where
 -}
 type Foo =
   (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember Foo_bar) Foo_Aux
-
-instance HsBindgen.Runtime.HasCField.HasCField Foo_Aux "foo_len" where
-
-  type CFieldType Foo_Aux "foo_len" = FC.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo_Aux) "foo_len")
-         ) => GHC.Records.HasField "foo_len" (Ptr.Ptr Foo_Aux) (Ptr.Ptr ty) where
-
-  getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_len")
 
 {-| __C declaration:__ @struct diff@
 
@@ -465,19 +465,6 @@ instance Data.Primitive.Types.Prim Diff_Aux where
                   s6 ->
                     Data.Primitive.Types.writeOffAddr# addr0 ((+#) ((*#) (2#) i1) (1#)) diff_second5 s6
 
-instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CChar Diff_Aux where
-
-  offset = \_ty0 -> 9
-
-{-| __C declaration:__ @struct diff@
-
-    __defined at:__ @edge-cases\/flam.h 17:8@
-
-    __exported by:__ @edge-cases\/flam.h@
--}
-type Diff =
-  (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember FC.CChar) Diff_Aux
-
 instance HsBindgen.Runtime.HasCField.HasCField Diff_Aux "diff_first" where
 
   type CFieldType Diff_Aux "diff_first" = FC.CLong
@@ -501,6 +488,19 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Diff_Aux) "diff_seco
 
   getField =
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"diff_second")
+
+instance HsBindgen.Runtime.FlexibleArrayMember.Offset FC.CChar Diff_Aux where
+
+  offset = \_ty0 -> 9
+
+{-| __C declaration:__ @struct diff@
+
+    __defined at:__ @edge-cases\/flam.h 17:8@
+
+    __exported by:__ @edge-cases\/flam.h@
+-}
+type Diff =
+  (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember FC.CChar) Diff_Aux
 
 {-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
 
@@ -587,6 +587,18 @@ instance Data.Primitive.Types.Prim Triplets_Aux where
               Triplets triplets_len4 ->
                 Data.Primitive.Types.writeOffAddr# addr0 i1 triplets_len4 s3
 
+instance HsBindgen.Runtime.HasCField.HasCField Triplets_Aux "triplets_len" where
+
+  type CFieldType Triplets_Aux "triplets_len" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplets_Aux) "triplets_len")
+         ) => GHC.Records.HasField "triplets_len" (Ptr.Ptr Triplets_Aux) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"triplets_len")
+
 instance HsBindgen.Runtime.FlexibleArrayMember.Offset ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) Triplets_Aux where
 
   offset = \_ty0 -> 4
@@ -601,15 +613,3 @@ __exported by:__ @edge-cases\/flam.h@
 -}
 type Triplets =
   (HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) Triplets_Aux
-
-instance HsBindgen.Runtime.HasCField.HasCField Triplets_Aux "triplets_len" where
-
-  type CFieldType Triplets_Aux "triplets_len" = FC.CInt
-
-  offset# = \_ -> \_ -> 0
-
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplets_Aux) "triplets_len")
-         ) => GHC.Records.HasField "triplets_len" (Ptr.Ptr Triplets_Aux) (Ptr.Ptr ty) where
-
-  getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"triplets_len")
