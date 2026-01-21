@@ -1,7 +1,10 @@
 module HsBindgen.Guasi (
-    Guasi (..),
-) where
+    Guasi (..)
+  , withDecDocM
+  , putFieldDocM
+  ) where
 
+import Data.Foldable (traverse_)
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 import Text.SimplePrettyPrint (pretty)
@@ -20,12 +23,12 @@ class TH.Quote g => Guasi g where
 
     -- | Attach a documentation string to a declaration
     --
-    withDecDoc   :: Maybe HsDoc.Comment -> g TH.Dec -> g TH.Dec
+    withDecDoc   :: HsDoc.Comment -> g TH.Dec -> g TH.Dec
 
     -- | Attach a documentation string to a 'TH.DocLoc'. This is mostly used
     -- for data structure fields.
     --
-    putFieldDoc :: TH.DocLoc -> Maybe HsDoc.Comment -> g ()
+    putFieldDoc :: TH.DocLoc -> HsDoc.Comment -> g ()
 
 instance Guasi TH.Q where
     addDependentFile = TH.addDependentFile
@@ -34,8 +37,15 @@ instance Guasi TH.Q where
 
     addCSource = TH.addForeignSource TH.LangC
 
-    withDecDoc mbComment =
-      TH.withDecDoc (maybe "" (show . pretty . THComment) mbComment)
-    putFieldDoc docLoc mbComment =
+    withDecDoc comment =
+      TH.withDecDoc (show $ pretty $ THComment comment)
+    putFieldDoc docLoc comment =
       TH.addModFinalizer $
-        TH.putDoc docLoc (maybe "" (show . pretty . THComment) mbComment)
+        TH.putDoc docLoc (show $ pretty $ THComment comment)
+
+withDecDocM :: Guasi g => Maybe HsDoc.Comment -> g TH.Dec -> g TH.Dec
+withDecDocM Nothing  a = a
+withDecDocM (Just c) a = withDecDoc c a
+
+putFieldDocM :: Guasi g => TH.DocLoc -> Maybe HsDoc.Comment -> g ()
+putFieldDocM l = traverse_ (putFieldDoc l)

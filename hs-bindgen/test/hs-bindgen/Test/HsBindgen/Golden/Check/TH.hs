@@ -4,7 +4,6 @@
 -- | Golden test: TH output
 module Test.HsBindgen.Golden.Check.TH (check) where
 
-import Control.Monad (join)
 import Control.Monad.State.Strict (State, get, put, runState)
 import Data.Foldable qualified as Foldable
 import Data.Generics qualified as SYB
@@ -126,7 +125,7 @@ data QuState = QuState{
       dependencyFiles  :: [FilePath]
     , uniquenessNumber :: !Integer
     , cSources         :: [String]
-    , documentationMap :: Map TH.DocLoc (Maybe HsDoc.Comment)
+    , documentationMap :: Map TH.DocLoc HsDoc.Comment
     }
 
 emptyQuState :: QuState
@@ -184,7 +183,7 @@ runQu (Qu m) = case runState m emptyQuState of
 -- | This function pretty prints 'TH.Dec' with their associated documentation.
 prettyWithDocumentationMap ::
      Bool
-  -> Map TH.DocLoc (Maybe HsDoc.Comment)
+  -> Map TH.DocLoc HsDoc.Comment
   -> TH.Dec
   -> TH.Doc
 prettyWithDocumentationMap isTop docMap dec =
@@ -232,9 +231,9 @@ prettyWithDocumentationMap isTop docMap dec =
 
 -- | Helper function to lookup and format documentation
 --
-formatDecDoc :: Map TH.DocLoc (Maybe HsDoc.Comment) -> TH.Dec -> TH.Doc
+formatDecDoc :: Map TH.DocLoc HsDoc.Comment -> TH.Dec -> TH.Doc
 formatDecDoc docMap thDec =
-  case getDecDocLoc thDec >>= join . (`Map.lookup` docMap) of
+  case getDecDocLoc thDec >>= (`Map.lookup` docMap) of
     Nothing -> TH.empty
     Just c  -> pure
              $ PP.runCtxDoc PP.defaultContext (pretty (TopLevelComment c))
@@ -250,7 +249,7 @@ formatDecDoc docMap thDec =
 -- expressions)
 --
 thCompatValD ::
-     Map TH.DocLoc (Maybe HsDoc.Comment)
+     Map TH.DocLoc HsDoc.Comment
   -> TH.Pat
   -> TH.Body
   -> [TH.Dec]
@@ -263,7 +262,7 @@ thCompatValD docMap p r ds =
 --
 thCompatClassD ::
      TH.PprFlag a
-  => Map TH.DocLoc (Maybe HsDoc.Comment)
+  => Map TH.DocLoc HsDoc.Comment
   -> TH.Name
   -> [TH.TyVarBndr a]
   -> [TH.FunDep]
@@ -280,7 +279,7 @@ thCompatClassD docMap name tyvars fundeps cxt decs =
 -- | Compatible version of 'TH.InstanceD' pretty-printing
 --
 thCompatInstanceD ::
-     Map TH.DocLoc (Maybe HsDoc.Comment)
+     Map TH.DocLoc HsDoc.Comment
   -> Maybe TH.Overlap
   -> TH.Cxt
   -> TH.Type
@@ -295,7 +294,7 @@ thCompatInstanceD docMap overlap cxt typ decs =
 -- | Compatible version of where clause pretty-printing (removes braces from
 --   case expressions)
 --
-thCompatWhereClause :: Map TH.DocLoc (Maybe HsDoc.Comment) -> [TH.Dec] -> TH.Doc
+thCompatWhereClause :: Map TH.DocLoc HsDoc.Comment -> [TH.Dec] -> TH.Doc
 thCompatWhereClause _ [] = TH.empty
 thCompatWhereClause docMap ds = TH.nest nestDepth
                               $ TH.text "where"
@@ -303,7 +302,7 @@ thCompatWhereClause docMap ds = TH.nest nestDepth
 
 -- | Compatible 'TH.Body' pretty-printing
 thCompatPprBody ::
-     Map TH.DocLoc (Maybe HsDoc.Comment)
+     Map TH.DocLoc HsDoc.Comment
   -> Bool
   -> TH.Body
   -> TH.Doc
@@ -319,7 +318,7 @@ thCompatPprBody docMap eq body =
 -- | Compatible guarded expression pretty-printing
 --
 thCompatPprGuarded ::
-     Map TH.DocLoc (Maybe HsDoc.Comment)
+     Map TH.DocLoc HsDoc.Comment
   -> TH.Doc
   -> (TH.Guard, TH.Exp)
   -> TH.Doc
@@ -337,7 +336,7 @@ thCompatPprGuarded docMap eqDoc (guard', expr) =
 --
 -- We preserve #13856 pattern match
 --
-thCompatPprExp :: Map TH.DocLoc (Maybe HsDoc.Comment) -> TH.Exp -> TH.Doc
+thCompatPprExp :: Map TH.DocLoc HsDoc.Comment -> TH.Exp -> TH.Doc
 thCompatPprExp docMap expr =
   case expr of
     TH.LamE [] e -> thCompatPprExp docMap e -- #13856
@@ -390,7 +389,7 @@ thCompatPprType = go
         _ -> TH.ppr ty
 
 -- | Compatible match pretty-printing
-thCompatPprMatch :: Map TH.DocLoc (Maybe HsDoc.Comment) -> TH.Match -> TH.Doc
+thCompatPprMatch :: Map TH.DocLoc HsDoc.Comment -> TH.Match -> TH.Doc
 thCompatPprMatch docMap (TH.Match p rhs ds) =
         TH.pprMatchPat p TH.<+> thCompatPprBody docMap False rhs
   TH.$$ thCompatWhereClause docMap ds
@@ -403,7 +402,7 @@ thCompatPprMatch docMap (TH.Match p rhs ds) =
 --
 ppTypeDef ::
      TH.PprFlag a
-  => Map TH.DocLoc (Maybe HsDoc.Comment)
+  => Map TH.DocLoc HsDoc.Comment
   -> String
   -> TH.Cxt
   -> Maybe TH.Name
@@ -448,7 +447,7 @@ ppTypeDef docMap s cxt mbName tyvars mkind cons derivs =
 
 -- | Pretty print 'TH.Con' with documentation
 --
-ppCon :: Map TH.DocLoc (Maybe HsDoc.Comment) -> TH.Con -> TH.Doc
+ppCon :: Map TH.DocLoc HsDoc.Comment -> TH.Con -> TH.Doc
 ppCon docMap con =
   case con of
     TH.RecC name fields ->
@@ -471,7 +470,7 @@ ppCon docMap con =
 
 -- | Pretty-print record fields with documentation
 ppRecordFields ::
-     Map TH.DocLoc (Maybe HsDoc.Comment)
+     Map TH.DocLoc HsDoc.Comment
   -> [TH.VarBangType]
   -> TH.Doc
 ppRecordFields docMap fields =
@@ -484,9 +483,9 @@ ppRecordFields docMap fields =
        TH.$$ getConNamesDoc docMap [fname]
 
 -- | Aggregate all comments for each name and pretty print
-getConNamesDoc :: Map TH.DocLoc (Maybe HsDoc.Comment) -> [TH.Name] -> TH.Doc
+getConNamesDoc :: Map TH.DocLoc HsDoc.Comment -> [TH.Name] -> TH.Doc
 getConNamesDoc docMap names =
-  case foldMap (\n -> join $ Map.lookup (TH.DeclDoc n) docMap) names of
+  case foldMap (\n -> Map.lookup (TH.DeclDoc n) docMap) names of
     Nothing -> TH.empty
     Just c  -> pure
              $ PP.runCtxDoc PP.defaultContext (pretty (PartOfDeclarationComment c))

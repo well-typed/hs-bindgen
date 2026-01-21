@@ -716,8 +716,9 @@ mkDecl = \case
         pure [instanceDec]
 
       DRecord record -> do
-        let _fieldsAndDocs :: ([q TH.VarBangType], [(TH.DocLoc, Maybe HsDoc.Comment)])
-            _fieldsAndDocs@(fields, docs) = unzip
+        let fields :: [q TH.VarBangType]
+            docs   :: [(TH.DocLoc, Maybe HsDoc.Comment)]
+            (fields, docs) = unzip
               [ ( TH.varBangType thFieldName $
                     TH.bangType
                       (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
@@ -729,10 +730,10 @@ mkDecl = \case
                     fComment    = field.comment
               ]
 
-        traverse_ (uncurry putFieldDoc) docs
+        traverse_ (uncurry putFieldDocM) docs
 
         fmap singleton $
-          withDecDoc record.comment $
+          withDecDocM record.comment $
             TH.dataD
               (TH.cxt [])
               (hsNameToTH record.typ)
@@ -744,7 +745,7 @@ mkDecl = \case
       DEmptyData empty -> do
         let thEmptyDataName = hsNameToTH empty.name
         fmap singleton $
-          withDecDoc empty.comment $
+          withDecDocM empty.comment $
             TH.dataD (TH.cxt []) thEmptyDataName [] Nothing [] []
 
       DNewtype newtyp -> do
@@ -759,10 +760,10 @@ mkDecl = \case
                 (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
                 (mkType EmptyEnv newtyp.field.typ)
 
-        putFieldDoc (TH.DeclDoc thFieldName) fComment
+        putFieldDocM (TH.DeclDoc thFieldName) fComment
 
         fmap singleton $
-          withDecDoc newTyComment $
+          withDecDocM newTyComment $
             TH.newtypeD
               (TH.cxt [])
               thNewtypeName
@@ -776,7 +777,7 @@ mkDecl = \case
         s' <- strategy deriv.strategy
 
         fmap singleton $
-          withDecDoc deriv.comment $
+          withDecDocM deriv.comment $
             TH.standaloneDerivWithStrategyD
               (Just s')
               (TH.cxt [])
@@ -812,7 +813,7 @@ mkDecl = \case
             importType = foldr (TFun . (.typ)) foreignImport.result.typ foreignImport.parameters
 
         fmap singleton $
-          withDecDoc foreignImport.comment $
+          withDecDocM foreignImport.comment $
             fmap TH.ForeignD $
               TH.ImportF
                 <$> pure callconv
@@ -828,7 +829,7 @@ mkDecl = \case
         sequence $
           map (pragma binding.name) binding.pragmas
           ++ [
-              withDecDoc binding.comment $
+              withDecDocM binding.comment $
                 TH.SigD <$> pure bindingName
                   <*> mkType EmptyEnv bindingType
             , simpleDecl bindingName binding.body
@@ -838,7 +839,7 @@ mkDecl = \case
         let thPatSynName = hsNameToTH patSyn.name
 
         sequence
-          [ withDecDoc patSyn.comment $
+          [ withDecDocM patSyn.comment $
               TH.patSynSigD
               thPatSynName
               (mkType EmptyEnv patSyn.typ)
