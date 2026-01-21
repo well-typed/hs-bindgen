@@ -16,3 +16,6 @@
 [submodule "examples/c-rogueutil/rogueutil"]
 	path = examples/c-rogueutil/rogueutil
 	url = https://github.com/sakhmatd/rogueutil.git
+[submodule "examples/c-rpm/rpm"]
+	path = examples/c-rpm/rpm
+	url = https://github.com/rpm-software-management/rpm.git

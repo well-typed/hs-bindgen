@@ -1,0 +1,46 @@
+name: c-rpm Example
+description: Build and run the c-rpm example
+
+runs:
+  using: composite
+  steps:
+    - name: Initialize git submodules
+      shell: bash
+      run: git submodule update --init --recursive examples/c-rpm/rpm
+
+    - name: Install RPM build dependencies
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          cmake \
+          pkg-config \
+          scdoc \
+          libpopt-dev \
+          libarchive-dev \
+          libsqlite3-dev \
+          libzstd-dev \
+          libelf-dev \
+          liblzma-dev \
+          liblua5.3-dev \
+          zlib1g-dev \
+          libbz2-dev \
+          libreadline-dev \
+          libmagic-dev \
+          libcap-dev \
+          libaudit-dev \
+          libselinux1-dev \
+          libdbus-1-dev \
+          libdw-dev \
+          libgcrypt-dev \
+          gettext \
+          debugedit
+
+    - name: Run generation and build script
+      shell: bash
+      working-directory: ./examples/c-rpm
+      run: |
+        # Disable OpenPGP support to avoid rpm-sequoia dependency
+        # (not needed for bindings generation)
+        export RPM_CMAKE_FLAGS="-DWITH_SEQUOIA=OFF -DENABLE_PYTHON=OFF"
+        ./generate-and-run.sh
