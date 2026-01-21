@@ -33,7 +33,6 @@ module HsBindgen.App (
 import Data.Char qualified as Char
 import Data.Default (Default (..))
 import Data.Either (partitionEithers)
-import Data.List qualified as List
 import Data.Maybe (catMaybes)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
@@ -247,8 +246,6 @@ parseClangArgsConfig = do
     -- ApplicativeDo to be able to reorder arguments for --help, and to use
     -- record construction (i.e., to avoid bool or string/path blindness)
     -- instead of positional one.
-    cStandard        <- parseCStandard
-    gnu              <- parseGnu
     enableBlocks     <- parseEnableBlocks
     builtinIncDir    <- parseBuiltinIncDirConfig
     extraIncludeDirs <- many parseIncludeDir
@@ -257,9 +254,7 @@ parseClangArgsConfig = do
     argsInner        <- many parseClangOptionInner
     argsAfter        <- many parseClangOptionAfter
     pure $ ClangArgsConfig{
-        cStandard        = cStandard
-      , gnu              = gnu
-      , enableBlocks     = enableBlocks
+        enableBlocks     = enableBlocks
       , builtinIncDir    = builtinIncDir
       , extraIncludeDirs = extraIncludeDirs
       , defineMacros     = defineMacros
@@ -267,43 +262,6 @@ parseClangArgsConfig = do
       , argsInner        = argsInner
       , argsAfter        = argsAfter
       }
-
-parseCStandard :: Parser CStandard
-parseCStandard = option (eitherReader readCStandard) $ mconcat [
-      long "standard"
-    , metavar "STANDARD"
-    , value defaultCStandard
-    , help $ concat [
-          "C standard (default: "
-        , renderCStandard defaultCStandard
-        , "; supported: "
-        , List.intercalate ", " (map fst cStandards)
-        , ")"
-        ]
-    ]
-  where
-    defaultCStandard :: CStandard
-    defaultCStandard = C17
-
-    renderCStandard :: CStandard -> String
-    renderCStandard = map Char.toLower . show
-
-    cStandards :: [(String, CStandard)]
-    cStandards = [
-        (renderCStandard cStandard, cStandard)
-      | cStandard <- [minBound ..]
-      ]
-
-    readCStandard :: String -> Either String CStandard
-    readCStandard s = case List.lookup s cStandards of
-      Just cStandard -> Right cStandard
-      Nothing -> Left $ "unknown C standard: " ++ s
-
-parseGnu :: Parser Gnu
-parseGnu = flag DisableGnu EnableGnu $ mconcat [
-      long "gnu"
-    , help "Enable GNU extensions"
-    ]
 
 -- TODO: Perhaps we should mimick Clang's @-f@ parameter?
 parseEnableBlocks :: Parser Bool

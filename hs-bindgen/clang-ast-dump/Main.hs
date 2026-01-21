@@ -77,13 +77,13 @@ clangAstDump opts = do
     putStrLn ""
 
     eitherRes <- withTracer tracerConf $ \tracer -> do
-      cArgs <- either throwIO return $ clangArgsConfigToClangArgs cArgsConfig
-      let tracerResolve = contramap DumpTraceResolveHeader tracer
+      let clangArgs     = clangArgsConfigToClangArgs cArgsConfig
+          tracerResolve = contramap DumpTraceResolveHeader tracer
           tracerClang   = contramap DumpTraceClang         tracer
       src <- maybe (throwIO HeaderNotFound) return . Map.lookup opts.file
-          =<< resolveHeaders tracerResolve cArgs (Set.singleton opts.file)
+          =<< resolveHeaders tracerResolve clangArgs (Set.singleton opts.file)
       let setup :: ClangSetup
-          setup = (defaultClangSetup cArgs $ ClangInputFile src) {
+          setup = (defaultClangSetup clangArgs $ ClangInputFile src) {
                 flags = cOpts
               }
 

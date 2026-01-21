@@ -13,9 +13,9 @@ import C.Expr.Syntax qualified as CExpr.DSL
 import C.Expr.Typecheck.Expr qualified as CExpr.DSL
 import C.Expr.Typecheck.Type qualified as CExpr.DSL
 
-import Clang.Args (CStandard)
 import Clang.HighLevel.Types
 
+import HsBindgen.Clang.CStandard (ClangCStandard)
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.Coerce
@@ -37,7 +37,7 @@ import HsBindgen.Language.C qualified as C
 
 -- | Sort and typecheck macros, and reparse declarations
 handleMacros ::
-      CStandard
+      ClangCStandard
   ->  C.TranslationUnit ConstructTranslationUnit
   -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
 handleMacros standard unit =
@@ -406,14 +406,14 @@ data MacroState = MacroState {
     }
   deriving stock (Generic)
 
-initMacroState :: CStandard -> MacroState
+initMacroState :: ClangCStandard -> MacroState
 initMacroState standard = MacroState{
       errors     = []
     , macroEnv   = Map.empty
     , reparseEnv = LanC.initReparseEnv standard
     }
 
-runM :: CStandard -> M a -> (a, [Msg HandleMacros])
+runM :: ClangCStandard -> M a -> (a, [Msg HandleMacros])
 runM standard (WrapM ma) = (.errors) <$> runState ma (initMacroState standard)
 
 {-------------------------------------------------------------------------------

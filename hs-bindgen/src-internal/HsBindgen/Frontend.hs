@@ -206,8 +206,9 @@ runFrontend tracer config boot = do
 
     handleMacrosPass <- cache "handleMacros" $ do
       afterConstructTranslationUnit <- constructTranslationUnitPass
+      std <- boot.cStandard
       let (afterHandleMacros, msgsHandleMacros) =
-            handleMacros boot.cStandard afterConstructTranslationUnit
+            handleMacros std afterConstructTranslationUnit
       forM_ msgsHandleMacros $ traceWith tracer . FrontendHandleMacros
       pure afterHandleMacros
 

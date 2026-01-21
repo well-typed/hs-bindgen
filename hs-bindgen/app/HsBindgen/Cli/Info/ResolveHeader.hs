@@ -58,8 +58,8 @@ exec :: GlobalOpts -> Opts -> IO ()
 exec global opts = do
     eErr <- withTracer tracerConfig' $ \tracer -> do
       hashIncludeArgs <- checkInputs tracer opts.inputs
-      clangArgs <-
-        getClangArgs (contramap TraceBoot tracer) opts.clangArgsConfig
+      clangArgs <- (.clangArgs) <$>
+        getClangArtefacts (contramap TraceBoot tracer) opts.clangArgsConfig
       includes <-
         resolveHeaders
           (contramap TraceResolveHeader tracer)

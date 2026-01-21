@@ -26,12 +26,12 @@ import Data.Tuple (swap)
 import Language.C qualified as LanC
 import Language.C.Data.Position qualified as LanC
 
-import Clang.Args (CStandard (..))
 import Clang.Enum.Simple qualified as Clang
 import Clang.HighLevel.Types qualified as Clang
 import Clang.LowLevel.Core qualified as Clang
 import Clang.Paths qualified as Clang
 
+import HsBindgen.Clang.CStandard
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.LanguageC.Error
@@ -209,22 +209,22 @@ prependToken token rest = concat [
 -- | Initial 'ReparseTypeEnv'
 --
 -- This is not quite empty: it contains some "built in" types.
-initReparseEnv :: CStandard -> ReparseEnv
+initReparseEnv :: ClangCStandard -> ReparseEnv
 initReparseEnv standard = Map.fromList (bespokeTypes standard)
 
 -- | \"Primitive\" we expect the reparser to recognize
 --
 -- The language-c parser does not support these explicitly.
-bespokeTypes :: CStandard -> [(CName, C.Type HandleMacros)]
+bespokeTypes :: ClangCStandard -> [(CName, C.Type HandleMacros)]
 bespokeTypes = \case
-   -- Make sure that we really only replace keywords lacking definitions.
-   --
-   -- If we add entries for types to `bespokeTypes` which are not keywords
-   -- (i.e., are not part of the standard), we will pretend to know what these
-   -- types are, but the actual type must come from a header, and we actually do
-   -- not know what that defintion is.
-   C23 -> [("bool", C.TypePrim C.PrimBool)]
-   _otherwise -> []
+    -- Make sure that we really only replace keywords lacking definitions.
+    --
+    -- If we add entries for types to `bespokeTypes` which are not keywords
+    -- (i.e., are not part of the standard), we will pretend to know what these
+    -- types are, but the actual type must come from a header, and we actually
+    -- do not know what that defintion is.
+    ClangCStandard C23 _gnu -> [("bool", C.TypePrim C.PrimBool)]
+    _otherwise -> []
 
 {-------------------------------------------------------------------------------
   Auxiliary language-c: working with the unique name supply

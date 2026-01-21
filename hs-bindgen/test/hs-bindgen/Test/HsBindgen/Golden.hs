@@ -5,7 +5,6 @@ import System.Directory (createDirectoryIfMissing)
 import System.FilePath ((<.>), (</>))
 import Test.Tasty
 
-import Clang.Args
 import Clang.LowLevel.Core
 import Clang.Version
 
@@ -356,7 +355,8 @@ testCases_bespoke_attributes = [
 test_attributes_asm :: TestCase
 test_attributes_asm =
     defaultTest "attributes/asm"
-      & #onBoot .~ ( #clangArgs % #gnu .~ EnableGnu )
+      & #clangVersion .~ Just (>= (18, 0, 0))
+      & #onBoot       .~ ( #clangArgs % #argsBefore .~ ["-std=gnu2x"] )
 
 test_attributes_attributes :: TestCase
 test_attributes_attributes =

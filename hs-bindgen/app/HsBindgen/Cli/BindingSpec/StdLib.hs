@@ -61,11 +61,11 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec global opts = do
     mSpec <- withTracer global.unsafe $ \tracer -> do
-        clangArgs <-
-          getClangArgs (contramap TraceBoot tracer) opts.clangArgsConfig
-        getStdlibBindingSpec
-          (contramap (TraceBoot . BootBindingSpec) tracer)
-          clangArgs
+      clangArgs <- (.clangArgs) <$>
+        getClangArtefacts (contramap TraceBoot tracer) opts.clangArgsConfig
+      getStdlibBindingSpec
+        (contramap (TraceBoot . BootBindingSpec) tracer)
+        clangArgs
     case mSpec of
       Left _ -> do
         putStrLn $ "An error happened (see above)"

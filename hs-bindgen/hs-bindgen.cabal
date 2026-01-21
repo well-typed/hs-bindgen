@@ -121,6 +121,7 @@ library internal
     HsBindgen.Clang
     HsBindgen.Clang.BuiltinIncDir
     HsBindgen.Clang.CompareVersions
+    HsBindgen.Clang.CStandard
     HsBindgen.Clang.ExtraClangArgs
     HsBindgen.Config.ClangArgs
     HsBindgen.Config.FixCandidate
