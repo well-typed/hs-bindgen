@@ -14,6 +14,9 @@ import HsBindgen.Imports
 -- | Which GHC language extensions this declarations needs.
 requiredExtensions :: SDecl -> Set TH.Extension
 requiredExtensions = \case
+    DTypSyn typSyn -> mconcat [
+        typeExtensions typSyn.typ
+      ]
     DInst inst -> mconcat . concat $ [
         [ext TH.MultiParamTypeClasses | length inst.args >= 2]
       , [ext TH.TypeFamilies          | not (null inst.types)]

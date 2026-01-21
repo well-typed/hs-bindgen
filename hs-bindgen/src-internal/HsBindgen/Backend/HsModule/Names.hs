@@ -300,8 +300,6 @@ resolveGlobal = \case
     ConstantArray                 -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
     IncompleteArray               -> importQ ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
     IO_type                       -> importU ''IO
-    HasFlexibleArrayMember_class  -> importQ ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
-    HasFlexibleArrayMember_offset -> importQ 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
     CharValue_tycon               -> importQ ''CExpr.Runtime.CharValue
     CharValue_constructor         -> importQ 'CExpr.Runtime.CharValue
     CharValue_fromAddr            -> importQ 'CExpr.Runtime.charValueFromAddr
@@ -310,26 +308,31 @@ resolveGlobal = \case
     ConstantArray_withPtr         -> importQ 'HsBindgen.Runtime.ConstantArray.withPtr
     IncompleteArray_withPtr       -> importQ 'HsBindgen.Runtime.IncompleteArray.withPtr
 
+    -- Flexible array members
+    FlexibleArrayMember_Offset_class  -> importQ ''HsBindgen.Runtime.FlexibleArrayMember.Offset
+    FlexibleArrayMember_Offset_offset -> importQ 'HsBindgen.Runtime.FlexibleArrayMember.offset
+    WithFlexibleArrayMember           -> importQ 'HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember
+
     -- HasCField
-    HasCField_class -> importQ ''HsBindgen.Runtime.HasCField.HasCField
-    HasCField_CFieldType -> importQ ''HsBindgen.Runtime.HasCField.CFieldType
-    HasCField_offset# -> importQ 'HsBindgen.Runtime.HasCField.offset#
+    HasCField_class       -> importQ ''HsBindgen.Runtime.HasCField.HasCField
+    HasCField_CFieldType  -> importQ ''HsBindgen.Runtime.HasCField.CFieldType
+    HasCField_offset#     -> importQ 'HsBindgen.Runtime.HasCField.offset#
     HasCField_ptrToCField -> importQ 'HsBindgen.Runtime.HasCField.ptrToCField
-    HasCField_pokeCField -> importQ 'HsBindgen.Runtime.HasCField.pokeCField
-    HasCField_peekCField -> importQ 'HsBindgen.Runtime.HasCField.peekCField
+    HasCField_pokeCField  -> importQ 'HsBindgen.Runtime.HasCField.pokeCField
+    HasCField_peekCField  -> importQ 'HsBindgen.Runtime.HasCField.peekCField
 
     -- HasCBitfield
-    HasCBitfield_class ->  importQ ''HsBindgen.Runtime.HasCField.HasCBitfield
-    HasCBitfield_CBitfieldType -> importQ ''HsBindgen.Runtime.HasCField.CBitfieldType
-    HasCBitfield_bitOffset# -> importQ 'HsBindgen.Runtime.HasCField.bitOffset#
-    HasCBitfield_bitWidth# -> importQ 'HsBindgen.Runtime.HasCField.bitWidth#
+    HasCBitfield_class          -> importQ ''HsBindgen.Runtime.HasCField.HasCBitfield
+    HasCBitfield_CBitfieldType  -> importQ ''HsBindgen.Runtime.HasCField.CBitfieldType
+    HasCBitfield_bitOffset#     -> importQ 'HsBindgen.Runtime.HasCField.bitOffset#
+    HasCBitfield_bitWidth#      -> importQ 'HsBindgen.Runtime.HasCField.bitWidth#
     HasCBitfield_ptrToCBitfield -> importQ 'HsBindgen.Runtime.HasCField.ptrToCBitfield
-    HasCBitfield_pokeCBitfield -> importQ 'HsBindgen.Runtime.HasCField.pokeCBitfield
-    HasCBitfield_peekCBitfield -> importQ 'HsBindgen.Runtime.HasCField.peekCBitfield
-    HasCBitfield_BitfieldPtr -> importQ ''HsBindgen.Runtime.HasCField.BitfieldPtr
+    HasCBitfield_pokeCBitfield  -> importQ 'HsBindgen.Runtime.HasCField.pokeCBitfield
+    HasCBitfield_peekCBitfield  -> importQ 'HsBindgen.Runtime.HasCField.peekCBitfield
+    HasCBitfield_BitfieldPtr    -> importQ ''HsBindgen.Runtime.HasCField.BitfieldPtr
 
     -- HasField
-    HasField_class -> importQ ''GHC.Records.HasField
+    HasField_class    -> importQ ''GHC.Records.HasField
     HasField_getField -> importQ 'GHC.Records.getField
 
     -- Proxy
@@ -337,11 +340,11 @@ resolveGlobal = \case
     Proxy_constructor -> importQ 'Data.Proxy.Proxy
 
     -- HasBaseForeignType
-    HasBaseForeignType_class -> importQ ''HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType
-    HasBaseForeignType_fromBaseForeignType -> importQ 'HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType
-    HasBaseForeignType_toBaseForeignType -> importQ 'HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType
+    HasBaseForeignType_class                         -> importQ ''HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType
+    HasBaseForeignType_fromBaseForeignType           -> importQ 'HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType
+    HasBaseForeignType_toBaseForeignType             -> importQ 'HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType
     HasBaseForeignType_castFunPtrFromBaseForeignType -> importQ 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType
-    HasBaseForeignType_castFunPtrToBaseForeignType -> importQ 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType
+    HasBaseForeignType_castFunPtrToBaseForeignType   -> importQ 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType
 
     -- Functor
     Functor_fmap -> importQ 'fmap
@@ -483,48 +486,48 @@ resolveGlobal = \case
       HsPrimVoid       -> importU ''Data.Void.Void
       HsPrimUnit       -> tupleResolvedName True 0
       HsPrimCStringLen -> importQ ''Foreign.C.String.CStringLen
-      HsPrimChar -> importU ''Char
-      HsPrimInt -> importU ''Int
-      HsPrimDouble -> importU ''Double
-      HsPrimFloat -> importU ''Float
-      HsPrimBool -> importU ''Bool
-      HsPrimInt8 -> importQ ''Data.Int.Int8
-      HsPrimInt16 -> importQ ''Data.Int.Int16
-      HsPrimInt32 -> importQ ''Data.Int.Int32
-      HsPrimInt64 -> importQ ''Data.Int.Int64
-      HsPrimWord -> importQ ''Word
-      HsPrimWord8 -> importQ ''Data.Word.Word8
-      HsPrimWord16 -> importQ ''Data.Word.Word16
-      HsPrimWord32 -> importQ ''Data.Word.Word32
-      HsPrimWord64 -> importQ ''Data.Word.Word64
-      HsPrimIntPtr -> importQ ''Foreign.Ptr.IntPtr
-      HsPrimWordPtr -> importQ ''Foreign.Ptr.WordPtr
-      HsPrimCChar -> importQ ''Foreign.C.CChar
-      HsPrimCSChar -> importQ ''Foreign.C.CSChar
-      HsPrimCUChar -> importQ ''Foreign.C.CUChar
-      HsPrimCShort -> importQ ''Foreign.C.CShort
-      HsPrimCUShort -> importQ ''Foreign.C.CUShort
-      HsPrimCInt -> importQ ''Foreign.C.CInt
-      HsPrimCUInt -> importQ ''Foreign.C.CUInt
-      HsPrimCLong -> importQ ''Foreign.C.CLong
-      HsPrimCULong -> importQ ''Foreign.C.CULong
-      HsPrimCPtrdiff -> importQ ''Foreign.C.CPtrdiff
-      HsPrimCSize -> importQ ''Foreign.C.CSize
-      HsPrimCWchar -> importQ ''Foreign.C.CWchar
+      HsPrimChar       -> importU ''Char
+      HsPrimInt        -> importU ''Int
+      HsPrimDouble     -> importU ''Double
+      HsPrimFloat      -> importU ''Float
+      HsPrimBool       -> importU ''Bool
+      HsPrimInt8       -> importQ ''Data.Int.Int8
+      HsPrimInt16      -> importQ ''Data.Int.Int16
+      HsPrimInt32      -> importQ ''Data.Int.Int32
+      HsPrimInt64      -> importQ ''Data.Int.Int64
+      HsPrimWord       -> importQ ''Word
+      HsPrimWord8      -> importQ ''Data.Word.Word8
+      HsPrimWord16     -> importQ ''Data.Word.Word16
+      HsPrimWord32     -> importQ ''Data.Word.Word32
+      HsPrimWord64     -> importQ ''Data.Word.Word64
+      HsPrimIntPtr     -> importQ ''Foreign.Ptr.IntPtr
+      HsPrimWordPtr    -> importQ ''Foreign.Ptr.WordPtr
+      HsPrimCChar      -> importQ ''Foreign.C.CChar
+      HsPrimCSChar     -> importQ ''Foreign.C.CSChar
+      HsPrimCUChar     -> importQ ''Foreign.C.CUChar
+      HsPrimCShort     -> importQ ''Foreign.C.CShort
+      HsPrimCUShort    -> importQ ''Foreign.C.CUShort
+      HsPrimCInt       -> importQ ''Foreign.C.CInt
+      HsPrimCUInt      -> importQ ''Foreign.C.CUInt
+      HsPrimCLong      -> importQ ''Foreign.C.CLong
+      HsPrimCULong     -> importQ ''Foreign.C.CULong
+      HsPrimCPtrdiff   -> importQ ''Foreign.C.CPtrdiff
+      HsPrimCSize      -> importQ ''Foreign.C.CSize
+      HsPrimCWchar     -> importQ ''Foreign.C.CWchar
       HsPrimCSigAtomic -> importQ ''Foreign.C.CSigAtomic
-      HsPrimCLLong -> importQ ''Foreign.C.CLLong
-      HsPrimCULLong -> importQ ''Foreign.C.CULLong
-      HsPrimCBool -> importQ ''Foreign.C.CBool
-      HsPrimCIntPtr -> importQ ''Foreign.C.CIntPtr
-      HsPrimCUIntPtr -> importQ ''Foreign.C.CUIntPtr
-      HsPrimCIntMax -> importQ ''Foreign.C.CIntMax
-      HsPrimCUIntMax -> importQ ''Foreign.C.CUIntMax
-      HsPrimCClock -> importQ ''Foreign.C.CClock
-      HsPrimCTime -> importQ ''Foreign.C.CTime
-      HsPrimCUSeconds -> importQ ''Foreign.C.CUSeconds
+      HsPrimCLLong     -> importQ ''Foreign.C.CLLong
+      HsPrimCULLong    -> importQ ''Foreign.C.CULLong
+      HsPrimCBool      -> importQ ''Foreign.C.CBool
+      HsPrimCIntPtr    -> importQ ''Foreign.C.CIntPtr
+      HsPrimCUIntPtr   -> importQ ''Foreign.C.CUIntPtr
+      HsPrimCIntMax    -> importQ ''Foreign.C.CIntMax
+      HsPrimCUIntMax   -> importQ ''Foreign.C.CUIntMax
+      HsPrimCClock     -> importQ ''Foreign.C.CClock
+      HsPrimCTime      -> importQ ''Foreign.C.CTime
+      HsPrimCUSeconds  -> importQ ''Foreign.C.CUSeconds
       HsPrimCSUSeconds -> importQ ''Foreign.C.CSUSeconds
-      HsPrimCFloat -> importQ ''Foreign.C.CFloat
-      HsPrimCDouble -> importQ ''Foreign.C.CDouble
+      HsPrimCFloat     -> importQ ''Foreign.C.CFloat
+      HsPrimCDouble    -> importQ ''Foreign.C.CDouble
 
     ComplexType -> importQ ''Complex.Complex
 

@@ -69,6 +69,8 @@ module HsBindgen.Backend.Hs.AST (
   , HasFieldInstanceVia(..)
     -- ** Statements
   , Seq(..)
+    -- ** Type synonyms
+  , TypSyn (..)
     -- ** Structs
   , StructCon (..)
   , ElimStruct(..)
@@ -239,6 +241,7 @@ data Ap pure xs ctx = Ap (pure ctx) [xs ctx]
 -- | Top-level declaration
 type Decl :: Star
 data Decl where
+    DeclTypSyn               :: TypSyn              -> Decl
     DeclData                 :: SNatI n => Struct n -> Decl
     DeclEmpty                :: EmptyData           -> Decl
     DeclNewtype              :: Newtype             -> Decl
@@ -680,6 +683,24 @@ data HasFieldInstanceVia = ViaHasCField | ViaHasCBitfield
 -- | Simple sequential composition (no bindings)
 newtype Seq t ctx = Seq [t ctx]
   deriving stock (Generic, Show)
+
+{-------------------------------------------------------------------------------
+  Type synonyms
+-------------------------------------------------------------------------------}
+
+-- | Type synonyms
+--
+-- At the moment, we do not support type variables.
+data TypSyn = TypSyn{
+      name    :: Hs.Name Hs.NsTypeConstr
+    , typ     :: HsType
+      -- TODO https://github.com/well-typed/hs-bindgen/issues/1448: Temporary
+      -- origin; will be gone.
+    , origin  :: Origin.Decl Origin.EmptyData
+    , comment :: Maybe HsDoc.Comment
+    }
+  deriving stock (Generic, Show)
+
 
 {-------------------------------------------------------------------------------
   Structs

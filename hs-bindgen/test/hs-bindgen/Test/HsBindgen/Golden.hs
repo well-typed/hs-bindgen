@@ -119,6 +119,7 @@ testCases_default = [
     , defaultTest "edge-cases/distilled_lib_1"
     , defaultTest "edge-cases/enum_as_array_size"
     , defaultTest "edge-cases/flam"
+    , defaultTest "edge-cases/flam_functions"
     , defaultTest "edge-cases/names"
     , defaultTest "edge-cases/spec_examples"
     , defaultTest "edge-cases/typedef_void"

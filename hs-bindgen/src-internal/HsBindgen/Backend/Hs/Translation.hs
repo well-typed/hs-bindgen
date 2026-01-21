@@ -8,11 +8,9 @@ import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
-import Data.Text qualified as T
 import Data.Text qualified as Text
-import Data.Type.Nat (SNatI)
 import Data.Vec.Lazy qualified as Vec
-import DeBruijn (Add (..), Idx (..), Weaken (..), pattern I1, pattern I2)
+import DeBruijn (Add (..), Idx (..), pattern I2)
 
 import Clang.HighLevel.Documentation qualified as Clang
 
@@ -30,9 +28,9 @@ import HsBindgen.Backend.Hs.Translation.ForeignImport qualified as Hs.ForeignImp
 import HsBindgen.Backend.Hs.Translation.Function
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.Newtype qualified as Hs
-import HsBindgen.Backend.Hs.Translation.Prim qualified as HsPrim
 import HsBindgen.Backend.Hs.Translation.State (HsM, TranslationState)
 import HsBindgen.Backend.Hs.Translation.State qualified as State
+import HsBindgen.Backend.Hs.Translation.Structure
 import HsBindgen.Backend.Hs.Translation.ToFromFunPtr qualified as ToFromFunPtr
 import HsBindgen.Backend.Hs.Translation.Type qualified as Type
 import HsBindgen.Backend.SHs.AST qualified as SHs
@@ -161,7 +159,7 @@ generateDecs ::
 generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
     case kind of
       C.DeclStruct struct -> withCategoryM CType $
-        reifyStructFields struct $ structDecs opts haddockConfig info struct spec
+        structDecs opts haddockConfig info struct spec
       C.DeclUnion union -> withCategoryM CType $
         unionDecs haddockConfig info union spec
       C.DeclEnum enum -> withCategoryM CType $
@@ -201,213 +199,6 @@ generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
 
       withCategoryM :: Functor m => Category -> m [a] -> m [WithCategory a]
       withCategoryM c = fmap (withCategory c)
-
-{-------------------------------------------------------------------------------
-  Structs
--------------------------------------------------------------------------------}
-
-reifyStructFields ::
-     C.Struct Final
-  -> (forall n. SNatI n => Vec n (C.StructField Final) -> a)
-  -> a
-reifyStructFields struct k = Vec.reifyList struct.fields k
-
--- | Generate declarations for given C struct
-structDecs :: forall n.
-     SNatI n
-  => TranslationConfig
-  -> HaddockConfig
-  -> C.DeclInfo Final
-  -> C.Struct Final
-  -> PrescriptiveDeclSpec
-  -> Vec n (C.StructField Final)
-  -> HsM [Hs.Decl]
-structDecs opts haddockConfig info struct spec fields = do
-    (insts, decls) <- aux <$> State.gets (.instanceMap)
-    State.modify' $ #instanceMap %~ Map.insert structName insts
-    pure decls
-  where
-    structName :: Hs.Name Hs.NsTypeConstr
-    structName = Hs.unsafeHsIdHsName info.id.unsafeHsName
-
-    structFields :: Vec n Hs.Field
-    structFields = flip Vec.map fields $ \field -> Hs.Field {
-          name    = Hs.unsafeHsIdHsName field.info.name.hsName
-        , typ     = Type.topLevel field.typ
-        , origin  = Origin.StructField field
-        , comment = mkHaddocksFieldInfo haddockConfig info field.info
-        }
-
-    candidateInsts :: Set Hs.TypeClass
-    candidateInsts = Set.union (Set.fromList [Hs.Storable, Hs.Prim]) $
-        Set.fromList (snd <$> opts.deriveStruct)
-
-    -- everything in aux is state-dependent
-    aux :: Hs.InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
-    aux instanceMap = (insts,) $
-        structDecl : storableDecl ++ primDecl ++ optDecls ++ hasFlamDecl ++
-        concatMap (structFieldDecls structName) struct.fields
-        -- TODO: generate zero-copy bindings for the FLAM field. See issue
-        -- #1286.
-      where
-        insts :: Set Hs.TypeClass
-        insts = Hs.getInstances instanceMap (Just structName) candidateInsts $
-            (.typ) <$> Vec.toList structFields
-
-        hsStruct :: Hs.Struct n
-        hsStruct = Hs.Struct {
-              name      = structName
-            , constr    = struct.names.constr
-            , fields    = structFields
-            , instances = insts
-            , comment   = mkHaddocks haddockConfig info structName
-            , origin    = Just Origin.Decl{
-                  info = info
-                , kind = Origin.Struct struct
-                , spec = spec
-                }
-            }
-
-        structDecl :: Hs.Decl
-        structDecl = Hs.DeclData hsStruct
-
-        storableDecl :: [Hs.Decl]
-        storableDecl
-          | Hs.Storable `Set.notMember` insts = []
-          | otherwise = singleton $ Hs.DeclDefineInstance
-              Hs.DefineInstance {
-                comment      = Nothing
-              , instanceDecl = Hs.InstanceStorable hsStruct Hs.StorableInstance{
-                    sizeOf    = struct.sizeof
-                  , alignment = struct.alignment
-                  , peek      = Hs.Lambda "ptr" $
-                      Hs.Ap (Hs.StructCon hsStruct) $
-                        map (peekStructField IZ) struct.fields
-                  , poke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
-                      Hs.makeElimStruct IZ hsStruct $ \wk xs -> Hs.Seq $ toList $
-                        Vec.zipWith (pokeStructField (weaken wk I1)) fields xs
-                  }
-              }
-
-        primDecl :: [Hs.Decl]
-        primDecl = HsPrim.mkPrimInstance insts hsStruct struct
-
-        optDecls :: [Hs.Decl]
-        optDecls = [
-            Hs.DeclDeriveInstance Hs.DeriveInstance{
-                strategy = strat
-              , clss     = clss
-              , name     = structName
-              , comment  = Nothing
-              }
-          | (strat, clss) <- opts.deriveStruct
-          , clss `Set.member` insts
-          ]
-
-        hasFlamDecl :: [Hs.Decl]
-        hasFlamDecl = case struct.flam of
-          Nothing   -> []
-          Just flam -> singleton $ Hs.DeclDefineInstance
-            Hs.DefineInstance {
-                comment      = Nothing
-              , instanceDecl =
-                  Hs.InstanceHasFLAM
-                    hsStruct
-                    (Type.topLevel flam.typ)
-                    (flam.offset `div` 8)
-              }
-
--- | 'HasCField', 'HasCBitfield', and 'HasField' instances for a field of a
--- struct declaration
---
--- Given a struct:
---
--- > struct myStruct { int x; char y };
---
--- We generate roughly this datatype:
---
--- > newtype MyStruct = MyStruct { myStruct_x :: CInt, myStruct_y :: CChar }
---
--- Then, 'structFieldDecls' will generate roughly the following class instances
--- for the fields @x@ and @y@ respectively:
---
--- > instance HasCField "myStruct_x" MyStruct where
--- >   type CFieldType "myStruct_x" MyStruct = CInt
--- > instance HasField "myStruct_x" (Ptr MyStruct) (Ptr CInt)
---
--- > instance HasCField "myStruct_y" MyStruct where
--- >   type CFieldType "myStruct_y" MyStruct = CChar
--- > instance HasField "myStruct_y" (Ptr MyStruct) (Ptr CChar)
---
--- This works similarly for bit-fields, but those get a 'HasCBitfield' instance
--- instead of a 'HasCField' instance.
-structFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.StructField Final -> [Hs.Decl]
-structFieldDecls structName field = [
-      Hs.DeclDefineInstance $
-        Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl =
-              case field.width of
-                Nothing -> Hs.InstanceHasCField $ hasCFieldDecl
-                Just w  -> Hs.InstanceHasCBitfield $ hasCBitfieldDecl w
-          }
-    , Hs.DeclDefineInstance $
-        Hs.DefineInstance {
-            comment      = Nothing
-          , instanceDecl = Hs.InstanceHasField hasFieldDecl
-          }
-    ]
-  where
-    parentType :: HsType
-    parentType = Hs.HsTypRef structName
-
-    fieldName :: Hs.Name Hs.NsVar
-    fieldName = Hs.unsafeHsIdHsName field.info.name.hsName
-
-    fieldType :: HsType
-    fieldType = Type.topLevel field.typ
-
-    hasFieldDecl :: Hs.HasFieldInstance
-    hasFieldDecl = Hs.HasFieldInstance {
-          parentType = parentType
-        , fieldName  = fieldName
-        , fieldType  = fieldType
-        , deriveVia  =
-            case field.width of
-              Nothing -> Hs.ViaHasCField
-              Just _  -> Hs.ViaHasCBitfield
-        }
-
-    hasCFieldDecl :: Hs.HasCFieldInstance
-    hasCFieldDecl = Hs.HasCFieldInstance {
-          parentType  = parentType
-        , fieldName   = fieldName
-        , cFieldType  = fieldType
-        , fieldOffset = field.offset `div` 8
-        }
-
-    hasCBitfieldDecl :: Int -> Hs.HasCBitfieldInstance
-    hasCBitfieldDecl w = Hs.HasCBitfieldInstance {
-          parentType    = parentType
-        , fieldName     = fieldName
-        , cBitfieldType = fieldType
-        , bitOffset     = field.offset
-        , bitWidth      = w
-        }
-
-peekStructField :: Idx ctx -> C.StructField Final -> Hs.PeekCField ctx
-peekStructField ptr field = case field.width of
-    Nothing -> Hs.PeekCField (HsStrLit name) ptr
-    Just _w -> Hs.PeekCBitfield (HsStrLit name) ptr
-  where
-    name = T.unpack field.info.name.hsName.text
-
-pokeStructField :: Idx ctx -> C.StructField Final -> Idx ctx -> Hs.PokeCField ctx
-pokeStructField ptr field x = case field.width of
-    Nothing -> Hs.PokeCField (HsStrLit name) ptr x
-    Just _w  -> Hs.PokeCBitfield (HsStrLit name) ptr x
-  where
-    name = T.unpack field.info.name.hsName.text
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
@@ -764,7 +555,7 @@ enumDecs opts haddockConfig info enum spec = do
                 guard $ maxV - minV + 1 == fromIntegral (Map.size vNames)
                 return (NonEmpty.head minNames, NonEmpty.head maxNames)
               fTyp = nt.field.typ
-              vStrs = fmap (T.unpack . Hs.getName) <$> vNames
+              vStrs = fmap (Text.unpack . Hs.getName) <$> vNames
               cEnumDecl = Hs.DeclDefineInstance
                 Hs.DefineInstance {
                   comment      = Nothing
@@ -1319,7 +1110,7 @@ addressStubDecs opts haddockConfig moduleName transState info ty runnerNameSpec 
     stubName = Hs.InternalName stubSymbol
 
     varName :: String
-    varName = T.unpack $ info.id.cName.name.text
+    varName = Text.unpack $ info.id.cName.name.text
 
     stubType :: C.Type Final
     stubType = C.TypePointers 1 ty

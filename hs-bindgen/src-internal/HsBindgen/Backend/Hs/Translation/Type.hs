@@ -163,6 +163,7 @@ toFFIType ntMap = \case
     HsBlock{} -> yes $ BindingSpec.Basic BFT.Ptr
     HsComplexType{} -> no
     HsStrLit{} -> no
+    HsWithFlexibleArrayMember{} -> no
   where
     yes = Just
     no = Nothing

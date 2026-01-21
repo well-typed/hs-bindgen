@@ -337,6 +337,7 @@ toBaseForeignType ntMap t = go t
       HsBlock{} -> yes $ BFT.Basic BFT.Ptr
       HsComplexType{} -> no
       HsStrLit{} -> no
+      HsWithFlexibleArrayMember{} -> no
 
     goPrim :: HsPrimType -> Maybe BFT.BaseForeignType
     goPrim pt = case pt of

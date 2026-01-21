@@ -1,6 +1,7 @@
 {-# LANGUAGE DataKinds   #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE CPP         #-}      -- for CURRENT_COMPONENT_ID
+{-# LANGUAGE OverloadedRecordDot #-}
 
 {-# OPTIONS_GHC -Wno-orphans #-}  -- For flexible array members
 
@@ -18,14 +19,17 @@ import Foreign.C.Types (CInt, CLong)
 import Foreign.Marshal.Alloc (alloca)
 import Test.Tasty (TestTree, defaultMain, testGroup)
 import Test.Tasty.HUnit (Assertion, HasCallStack, assertFailure, testCase,
-                         (@?=))
+                         (@?=), assertEqual)
 
 import HsBindgen.Runtime.CAPI (allocaAndPeek)
 import HsBindgen.Runtime.CEnum qualified as CEnum
 import HsBindgen.Runtime.ConstPtr
 import HsBindgen.Runtime.ConstantArray qualified as CA
-import HsBindgen.Runtime.FlexibleArrayMember (FLAMLengthMismatch (FLAMLengthMismatch))
+import HsBindgen.Runtime.FlexibleArrayMember
+    (FlamLengthMismatch (FlamLengthMismatch), WithFlexibleArrayMember)
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
+import HsBindgen.Runtime.Marshal
+    (ReadRaw(readRaw), WriteRaw(writeRaw))
 import HsBindgen.Runtime.LibC qualified as LibC
 
 import Test.Common.Util.Tasty
@@ -60,8 +64,8 @@ _t01MyPlus :: CLong -> CLong -> CLong
 _t01MyPlus x y = Test01.pLUS x y
 
 -- Flexible array member (orphan instance)
-instance FLAM.HasFlexibleArrayLength CLong Test01.StructFLAM where
-    flexibleArrayMemberLength x = fromIntegral (Test01.structFLAM_length x)
+instance FLAM.NumElems CLong Test01.StructFLAM_Aux where
+    numElems x = fromIntegral (Test01.structFLAM_length x)
 
 -- Bounded and Enum orphan instances
 deriving via CEnum.AsCEnum Test01.EnumBasic  instance Bounded Test01.EnumBasic
@@ -105,25 +109,30 @@ test01 = testGroup "test_01"
     , testCase "flam" $ do
         let n = 10
         bracket (Test01.flam_alloc n) Test01.flam_free $ \ptr -> do
-            hdr <- peek ptr
-            Test01.structFLAM_length hdr @?= n
-
             -- Peek.
-            structWithFLAM <- FLAM.peekWithFLAM ptr
-            FLAM.flamExtra structWithFLAM @?= VS.fromList [0..9]
+            struct <- readRaw ptr
+            struct.flam @?= VS.fromList [0..9]
 
             -- Poke, Ok.
             let v' = VS.fromList [10..19]
-            FLAM.pokeWithFLAM ptr (FLAM.WithFlexibleArrayMember hdr v')
-            struct' <- FLAM.peekWithFLAM ptr
-            FLAM.flamExtra struct' @?= v'
+            writeRaw ptr (struct { FLAM.flam = v' })
+            struct' <- readRaw ptr
+            struct'.flam @?= v'
 
             -- Poke, error.
             let vLengthMismatch = VS.fromList [0]
-            assertException "Expected FLAMLengthMismatch" (Proxy :: Proxy FLAMLengthMismatch) $
-              FLAM.pokeWithFLAM ptr (FLAM.WithFlexibleArrayMember hdr vLengthMismatch)
-            struct'' <- FLAM.peekWithFLAM ptr
-            FLAM.flamExtra struct'' @?= v'
+            assertException "Expected FlamLengthMismatch" (Proxy :: Proxy FlamLengthMismatch) $
+              writeRaw ptr (struct { FLAM.flam = vLengthMismatch })
+            struct'' <- readRaw ptr
+            struct''.flam @?= v'
+
+            -- Reverse.
+            structBeforeReverse <- readRaw ptr
+            Test01.flam_reverse ptr
+            structAfterReverse <- readRaw ptr
+            assertEqual "reversed flam"
+              (structBeforeReverse.flam)
+              (VS.reverse structAfterReverse.flam)
 
     , testCase "EnumBasic" $
         [minBound..maxBound]

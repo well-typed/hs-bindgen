@@ -191,6 +191,9 @@ instance Monoid ImportAcc where
 -- | Resolve imports in a declaration
 resolveDeclImports :: SDecl -> ImportAcc
 resolveDeclImports = \case
+    DTypSyn typSyn -> mconcat [
+        resolveTypeImports typSyn.typ
+      ]
     DInst inst -> mconcat $ concat [
         [resolveGlobalImports inst.clss]
       , map resolveTypeImports inst.args

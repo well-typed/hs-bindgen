@@ -96,6 +96,7 @@ library internal
     HsBindgen.Backend.Hs.Translation.Newtype
     HsBindgen.Backend.Hs.Translation.Prim
     HsBindgen.Backend.Hs.Translation.State
+    HsBindgen.Backend.Hs.Translation.Structure
     HsBindgen.Backend.Hs.Translation.ToFromFunPtr
     HsBindgen.Backend.Hs.Translation.Type
     HsBindgen.Backend.HsModule.Capi

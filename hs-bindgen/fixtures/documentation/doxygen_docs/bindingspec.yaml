@@ -53,6 +53,9 @@ ctypes:
   hsname: Filename_t
 - headers: documentation/doxygen_docs.h
   cname: struct flexible_array
+  hsname: Flexible_array_Aux
+- headers: documentation/doxygen_docs.h
+  cname: struct flexible_array
   hsname: Flexible_array
 hstypes:
 - hsname: Bitfield_t
@@ -140,6 +143,8 @@ hstypes:
   - Show
   - Storable
 - hsname: Flexible_array
+  representation: typealias
+- hsname: Flexible_array_Aux
   representation:
     record:
       constructor: Flexible_array

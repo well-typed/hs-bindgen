@@ -203,6 +203,22 @@ static inline void flam_free(struct StructFLAM *ptr) {
 }
 
 /**
+ * @brief Reverses the elements in the flexible array member in place.
+ *
+ * @param s Pointer to the structure containing the numbers to reverse.
+ *          If @p s is NULL or @c s->length < 2, the function returns immediately.
+ */
+static inline void flam_reverse(struct StructFLAM *s) {
+    if (!s || s->length < 2) return;
+
+    for (int i = 0, j = s->length - 1; i < j; i++, j--) {
+        long temp = s->numbers[i];
+        s->numbers[i] = s->numbers[j];
+        s->numbers[j] = temp;
+    }
+}
+
+/**
  * @union longDouble
  * @brief Union representing a value as either a long long or a double.
  * @details This union demonstrates type punning capabilities.

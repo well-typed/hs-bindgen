@@ -5,7 +5,7 @@
 
     __exported by:__ @edge-cases\/flam.h@
 -}
-data Pascal
+data Pascal_Aux
     = Pascal {pascal_len :: CInt
               {- ^ __C declaration:__ @len@
 
@@ -13,20 +13,14 @@ data Pascal
 
                    __exported by:__ @edge-cases\/flam.h@
               -}}
-      {- ^ __C declaration:__ @struct pascal@
-
-           __defined at:__ @edge-cases\/flam.h 2:8@
-
-           __exported by:__ @edge-cases\/flam.h@
-      -}
     deriving stock (Eq, Show)
-instance Storable Pascal
+instance Storable Pascal_Aux
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure Pascal <*> peekCField (Proxy @"pascal_len") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Pascal pascal_len_3 -> pokeCField (Proxy @"pascal_len") ptr_1 pascal_len_3
-instance Prim Pascal
+instance Prim Pascal_Aux
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
           indexByteArray# = \arr_0 -> \i_1 -> Pascal (indexByteArray# arr_0 i_1)
@@ -39,14 +33,15 @@ instance Prim Pascal
                                                        (# s_17, v_18 #) -> (# s_17, Pascal v_18 #)
           writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
                                                                       Pascal pascal_len_23 -> writeOffAddr# addr_19 i_20 pascal_len_23 s_22
-instance HasFlexibleArrayMember CChar Pascal
-    where flexibleArrayMemberOffset = \_ty_0 -> 4
-instance HasCField Pascal "pascal_len"
-    where type CFieldType Pascal "pascal_len" = CInt
+instance HasCField Pascal_Aux "pascal_len"
+    where type CFieldType Pascal_Aux "pascal_len" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Pascal "pascal_len") =>
-         HasField "pascal_len" (Ptr Pascal) (Ptr ty)
+instance TyEq ty (CFieldType Pascal_Aux "pascal_len") =>
+         HasField "pascal_len" (Ptr Pascal_Aux) (Ptr ty)
     where getField = ptrToCField (Proxy @"pascal_len")
+instance Offset CChar Pascal_Aux
+    where offset = \_ty_0 -> 4
+type Pascal = WithFlexibleArrayMember CChar Pascal_Aux
 {-| __C declaration:__ @struct \@foo_bar@
 
     __defined at:__ @edge-cases\/flam.h 10:2@
@@ -123,7 +118,7 @@ instance TyEq ty (CFieldType Foo_bar "foo_bar_y") =>
 
     __exported by:__ @edge-cases\/flam.h@
 -}
-data Foo
+data Foo_Aux
     = Foo {foo_len :: CInt
            {- ^ __C declaration:__ @len@
 
@@ -131,20 +126,14 @@ data Foo
 
                 __exported by:__ @edge-cases\/flam.h@
            -}}
-      {- ^ __C declaration:__ @struct foo@
-
-           __defined at:__ @edge-cases\/flam.h 8:8@
-
-           __exported by:__ @edge-cases\/flam.h@
-      -}
     deriving stock (Eq, Show)
-instance Storable Foo
+instance Storable Foo_Aux
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure Foo <*> peekCField (Proxy @"foo_len") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Foo foo_len_3 -> pokeCField (Proxy @"foo_len") ptr_1 foo_len_3
-instance Prim Foo
+instance Prim Foo_Aux
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
           indexByteArray# = \arr_0 -> \i_1 -> Foo (indexByteArray# arr_0 i_1)
@@ -157,21 +146,22 @@ instance Prim Foo
                                                        (# s_17, v_18 #) -> (# s_17, Foo v_18 #)
           writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
                                                                       Foo foo_len_23 -> writeOffAddr# addr_19 i_20 foo_len_23 s_22
-instance HasFlexibleArrayMember Foo_bar Foo
-    where flexibleArrayMemberOffset = \_ty_0 -> 4
-instance HasCField Foo "foo_len"
-    where type CFieldType Foo "foo_len" = CInt
+instance HasCField Foo_Aux "foo_len"
+    where type CFieldType Foo_Aux "foo_len" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Foo "foo_len") =>
-         HasField "foo_len" (Ptr Foo) (Ptr ty)
+instance TyEq ty (CFieldType Foo_Aux "foo_len") =>
+         HasField "foo_len" (Ptr Foo_Aux) (Ptr ty)
     where getField = ptrToCField (Proxy @"foo_len")
+instance Offset Foo_bar Foo_Aux
+    where offset = \_ty_0 -> 4
+type Foo = WithFlexibleArrayMember Foo_bar Foo_Aux
 {-| __C declaration:__ @struct diff@
 
     __defined at:__ @edge-cases\/flam.h 17:8@
 
     __exported by:__ @edge-cases\/flam.h@
 -}
-data Diff
+data Diff_Aux
     = Diff {diff_first :: CLong
             {- ^ __C declaration:__ @first@
 
@@ -186,21 +176,15 @@ data Diff
 
                  __exported by:__ @edge-cases\/flam.h@
             -}}
-      {- ^ __C declaration:__ @struct diff@
-
-           __defined at:__ @edge-cases\/flam.h 17:8@
-
-           __exported by:__ @edge-cases\/flam.h@
-      -}
     deriving stock (Eq, Show)
-instance Storable Diff
+instance Storable Diff_Aux
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
           peek = \ptr_0 -> (pure Diff <*> peekCField (Proxy @"diff_first") ptr_0) <*> peekCField (Proxy @"diff_second") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Diff diff_first_3
                                         diff_second_4 -> pokeCField (Proxy @"diff_first") ptr_1 diff_first_3 >> pokeCField (Proxy @"diff_second") ptr_1 diff_second_4
-instance Prim Diff
+instance Prim Diff_Aux
     where sizeOf# = \_ -> 16# :: Int#
           alignment# = \_ -> 8# :: Int#
           indexByteArray# = \arr_0 -> \i_1 -> Diff (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
@@ -223,20 +207,21 @@ instance Prim Diff
                                                                       Diff diff_first_29
                                                                            diff_second_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) diff_first_29 s_28 of
                                                                                              s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) diff_second_30 s_31
-instance HasFlexibleArrayMember CChar Diff
-    where flexibleArrayMemberOffset = \_ty_0 -> 9
-instance HasCField Diff "diff_first"
-    where type CFieldType Diff "diff_first" = CLong
+instance HasCField Diff_Aux "diff_first"
+    where type CFieldType Diff_Aux "diff_first" = CLong
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Diff "diff_first") =>
-         HasField "diff_first" (Ptr Diff) (Ptr ty)
+instance TyEq ty (CFieldType Diff_Aux "diff_first") =>
+         HasField "diff_first" (Ptr Diff_Aux) (Ptr ty)
     where getField = ptrToCField (Proxy @"diff_first")
-instance HasCField Diff "diff_second"
-    where type CFieldType Diff "diff_second" = CChar
+instance HasCField Diff_Aux "diff_second"
+    where type CFieldType Diff_Aux "diff_second" = CChar
           offset# = \_ -> \_ -> 8
-instance TyEq ty (CFieldType Diff "diff_second") =>
-         HasField "diff_second" (Ptr Diff) (Ptr ty)
+instance TyEq ty (CFieldType Diff_Aux "diff_second") =>
+         HasField "diff_second" (Ptr Diff_Aux) (Ptr ty)
     where getField = ptrToCField (Proxy @"diff_second")
+instance Offset CChar Diff_Aux
+    where offset = \_ty_0 -> 9
+type Diff = WithFlexibleArrayMember CChar Diff_Aux
 {-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
 
 __C declaration:__ @struct triplets@
@@ -245,7 +230,7 @@ __defined at:__ @edge-cases\/flam.h 26:8@
 
 __exported by:__ @edge-cases\/flam.h@
 -}
-data Triplets
+data Triplets_Aux
     = Triplets {triplets_len :: CInt
                 {- ^ __C declaration:__ @len@
 
@@ -253,22 +238,14 @@ data Triplets
 
                      __exported by:__ @edge-cases\/flam.h@
                 -}}
-      {- ^ The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
-
-      __C declaration:__ @struct triplets@
-
-      __defined at:__ @edge-cases\/flam.h 26:8@
-
-      __exported by:__ @edge-cases\/flam.h@
-      -}
     deriving stock (Eq, Show)
-instance Storable Triplets
+instance Storable Triplets_Aux
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
           peek = \ptr_0 -> pure Triplets <*> peekCField (Proxy @"triplets_len") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Triplets triplets_len_3 -> pokeCField (Proxy @"triplets_len") ptr_1 triplets_len_3
-instance Prim Triplets
+instance Prim Triplets_Aux
     where sizeOf# = \_ -> 4# :: Int#
           alignment# = \_ -> 4# :: Int#
           indexByteArray# = \arr_0 -> \i_1 -> Triplets (indexByteArray# arr_0 i_1)
@@ -281,11 +258,13 @@ instance Prim Triplets
                                                        (# s_17, v_18 #) -> (# s_17, Triplets v_18 #)
           writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
                                                                       Triplets triplets_len_23 -> writeOffAddr# addr_19 i_20 triplets_len_23 s_22
-instance HasFlexibleArrayMember (ConstantArray 3 CInt) Triplets
-    where flexibleArrayMemberOffset = \_ty_0 -> 4
-instance HasCField Triplets "triplets_len"
-    where type CFieldType Triplets "triplets_len" = CInt
+instance HasCField Triplets_Aux "triplets_len"
+    where type CFieldType Triplets_Aux "triplets_len" = CInt
           offset# = \_ -> \_ -> 0
-instance TyEq ty (CFieldType Triplets "triplets_len") =>
-         HasField "triplets_len" (Ptr Triplets) (Ptr ty)
+instance TyEq ty (CFieldType Triplets_Aux "triplets_len") =>
+         HasField "triplets_len" (Ptr Triplets_Aux) (Ptr ty)
     where getField = ptrToCField (Proxy @"triplets_len")
+instance Offset (ConstantArray 3 CInt) Triplets_Aux
+    where offset = \_ty_0 -> 4
+type Triplets = WithFlexibleArrayMember (ConstantArray 3 CInt)
+                                        Triplets_Aux

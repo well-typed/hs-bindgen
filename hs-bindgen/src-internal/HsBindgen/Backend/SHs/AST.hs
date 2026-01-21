@@ -10,6 +10,7 @@ module HsBindgen.Backend.SHs.AST (
   , PatExpr (..)
     -- TODO: drop S prefix?
   , SDecl (..)
+  , TypeSynonym (..)
   , Pragma (..)
   , ClosedType
   , SType (..)
@@ -79,8 +80,6 @@ data Global =
   | ConstantArray
   | IncompleteArray
   | IO_type
-  | HasFlexibleArrayMember_class
-  | HasFlexibleArrayMember_offset
   | CharValue_tycon
   | CharValue_constructor
   | CharValue_fromAddr
@@ -90,6 +89,11 @@ data Global =
   | CAPI_allocaAndPeek
   | ConstantArray_withPtr
   | IncompleteArray_withPtr
+
+    -- Flexible array members
+  | FlexibleArrayMember_Offset_class
+  | FlexibleArrayMember_Offset_offset
+  | WithFlexibleArrayMember
 
     -- HasCField
   | HasCField_class
@@ -341,7 +345,8 @@ deriving stock instance Show (SAlt ctx)
 
 -- | Simple declarations
 data SDecl =
-    DInst Instance
+    DTypSyn TypeSynonym
+  | DInst Instance
   | DRecord Record
   | DNewtype Newtype
   | DEmptyData EmptyData
@@ -373,6 +378,14 @@ data Pragma = NOINLINE
 infixl 9 `TApp`
 
 deriving stock instance Show (SType ctx)
+
+data TypeSynonym = TypeSynonym{
+      name    :: Hs.Name Hs.NsTypeConstr
+    , typ     :: ClosedType
+    , origin  :: Origin.Decl Origin.EmptyData
+    , comment :: Maybe HsDoc.Comment
+    }
+  deriving stock (Show, Generic)
 
 data Instance = Instance{
       clss    :: Global

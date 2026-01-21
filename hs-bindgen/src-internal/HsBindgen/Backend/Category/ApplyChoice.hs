@@ -27,6 +27,7 @@ applyTerms = \case
   where
     renameHsDeclWith :: (Text -> Text) -> Hs.Decl -> Hs.Decl
     renameHsDeclWith f d = case d of
+        Hs.DeclTypSyn{}                   -> p "TypSyn"
         Hs.DeclData{}                     -> p "Data"
         Hs.DeclEmpty{}                    -> p "Empty"
         Hs.DeclNewtype{}                  -> p "Newtype"

@@ -1,0 +1,25 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: edge-cases/flam_functions.h
+  cname: struct Vector
+  hsname: Vector_Aux
+- headers: edge-cases/flam_functions.h
+  cname: struct Vector
+  hsname: Vector
+hstypes:
+- hsname: Vector
+  representation: typealias
+- hsname: Vector_Aux
+  representation:
+    record:
+      constructor: Vector
+      fields:
+      - vector_length
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable

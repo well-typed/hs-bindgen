@@ -12,8 +12,9 @@ import Foreign.C qualified as FC
 import System.IO.Unsafe
 
 import HsBindgen.Runtime.ConstPtr
-import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
+import HsBindgen.Runtime.FlexibleArrayMember qualified as Flam
 import HsBindgen.Runtime.IncompleteArray qualified as IA
+import HsBindgen.Runtime.Marshal (ReadRaw (..))
 
 import Manual.Tools
 import Structs
@@ -33,8 +34,8 @@ mkTriple a b c = unsafePerformIO $
   Structs with flexible array members
 -------------------------------------------------------------------------------}
 
-instance FLAM.HasFlexibleArrayLength FC.CChar Surname where
-  flexibleArrayMemberLength x = fromIntegral (surname_len x)
+instance Flam.NumElems FC.CChar Surname_Aux where
+  numElems x = fromIntegral (surname_len x)
 
 {-------------------------------------------------------------------------------
   Examples
@@ -52,13 +53,9 @@ examples = do
     let arr = IA.fromList $ fmap FC.castCharToCChar "Rich"
     bracket (IA.withPtr arr $ \ptr -> surname_alloc (ConstPtr ptr)) surname_free $
       \ptr -> do
-        (surname :: Structs.Surname) <- peek ptr
-        putStrLn $ "The length of the surname is: " <> show (surname_len surname)
-        (surnameWithFlam :: FLAM.WithFlexibleArrayMember FC.CChar Structs.Surname) <-
-          FLAM.peekWithFLAM ptr
-        let name :: VS.Vector FC.CChar
-            name = FLAM.flamExtra surnameWithFlam
-        print $ VS.map castCCharToChar name
+        surname <- readRaw ptr
+        putStrLn $ "The length of the surname is: " <> show (Flam.numElems surname.aux)
+        print $ VS.map castCCharToChar $ Flam.flam surname
 
     subsection "PrimArray of structs"
     -- Create a PrimArray of Triple structs

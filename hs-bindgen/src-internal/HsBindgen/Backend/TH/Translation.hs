@@ -77,78 +77,81 @@ import HsBindgen.NameHint
 
 mkGlobal :: Global -> TH.Name
 mkGlobal = \case
-      Tuple_type i          -> tupleTypeName $ fromIntegral i
-      Tuple_constructor i   -> TH.tupleDataName $ fromIntegral i
-      Applicative_pure      -> 'pure
-      Applicative_seq       -> '(<*>)
-      Maybe_just            -> 'Data.Maybe.Just
-      Maybe_nothing         -> 'Data.Maybe.Nothing
-      Monad_return          -> 'return
-      Monad_seq             -> '(>>)
-      StaticSize_class      -> ''HsBindgen.Runtime.Marshal.StaticSize
-      ReadRaw_class         -> ''HsBindgen.Runtime.Marshal.ReadRaw
-      WriteRaw_class        -> ''HsBindgen.Runtime.Marshal.WriteRaw
-      ToFunPtr_class        -> ''HsBindgen.Runtime.FunPtr.ToFunPtr
-      ToFunPtr_toFunPtr     -> 'HsBindgen.Runtime.FunPtr.toFunPtr
-      FromFunPtr_class      -> ''HsBindgen.Runtime.FunPtr.FromFunPtr
-      FromFunPtr_fromFunPtr -> 'HsBindgen.Runtime.FunPtr.fromFunPtr
-      Storable_class        -> ''Foreign.Storable.Storable
-      Storable_sizeOf       -> 'Foreign.Storable.sizeOf
-      Storable_alignment    -> 'Foreign.Storable.alignment
-      Storable_peekByteOff  -> 'Foreign.Storable.peekByteOff
-      Storable_pokeByteOff  -> 'Foreign.Storable.pokeByteOff
-      Storable_peek         -> 'Foreign.Storable.peek
-      Storable_poke         -> 'Foreign.Storable.poke
-      Foreign_Ptr           -> ''Foreign.Ptr.Ptr
-      Ptr_constructor       -> 'GHC.Ptr.Ptr
-      Foreign_FunPtr        -> ''Foreign.Ptr.FunPtr
-      Foreign_plusPtr       -> 'Foreign.Ptr.plusPtr
-      Foreign_StablePtr     -> ''Foreign.StablePtr.StablePtr
-      ConstantArray         -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
-      IncompleteArray       -> ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
-      IO_type               -> ''IO
-      HasFlexibleArrayMember_class -> ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
-      HasFlexibleArrayMember_offset -> 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
-      CharValue_tycon        -> ''CExpr.Runtime.CharValue
-      CharValue_constructor  -> 'CExpr.Runtime.CharValue
-      CharValue_fromAddr    -> 'CExpr.Runtime.charValueFromAddr
-      CAPI_with             -> 'Foreign.with
-      CAPI_allocaAndPeek    -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
-      ConstantArray_withPtr -> 'HsBindgen.Runtime.ConstantArray.withPtr
+      Tuple_type i            -> tupleTypeName $ fromIntegral i
+      Tuple_constructor i     -> TH.tupleDataName $ fromIntegral i
+      Applicative_pure        -> 'pure
+      Applicative_seq         -> '(<*>)
+      Maybe_just              -> 'Data.Maybe.Just
+      Maybe_nothing           -> 'Data.Maybe.Nothing
+      Monad_return            -> 'return
+      Monad_seq               -> '(>>)
+      StaticSize_class        -> ''HsBindgen.Runtime.Marshal.StaticSize
+      ReadRaw_class           -> ''HsBindgen.Runtime.Marshal.ReadRaw
+      WriteRaw_class          -> ''HsBindgen.Runtime.Marshal.WriteRaw
+      ToFunPtr_class          -> ''HsBindgen.Runtime.FunPtr.ToFunPtr
+      ToFunPtr_toFunPtr       -> 'HsBindgen.Runtime.FunPtr.toFunPtr
+      FromFunPtr_class        -> ''HsBindgen.Runtime.FunPtr.FromFunPtr
+      FromFunPtr_fromFunPtr   -> 'HsBindgen.Runtime.FunPtr.fromFunPtr
+      Storable_class          -> ''Foreign.Storable.Storable
+      Storable_sizeOf         -> 'Foreign.Storable.sizeOf
+      Storable_alignment      -> 'Foreign.Storable.alignment
+      Storable_peekByteOff    -> 'Foreign.Storable.peekByteOff
+      Storable_pokeByteOff    -> 'Foreign.Storable.pokeByteOff
+      Storable_peek           -> 'Foreign.Storable.peek
+      Storable_poke           -> 'Foreign.Storable.poke
+      Foreign_Ptr             -> ''Foreign.Ptr.Ptr
+      Ptr_constructor         -> 'GHC.Ptr.Ptr
+      Foreign_FunPtr          -> ''Foreign.Ptr.FunPtr
+      Foreign_plusPtr         -> 'Foreign.Ptr.plusPtr
+      Foreign_StablePtr       -> ''Foreign.StablePtr.StablePtr
+      ConstantArray           -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
+      IncompleteArray         -> ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
+      IO_type                 -> ''IO
+      CharValue_tycon         -> ''CExpr.Runtime.CharValue
+      CharValue_constructor   -> 'CExpr.Runtime.CharValue
+      CharValue_fromAddr      -> 'CExpr.Runtime.charValueFromAddr
+      CAPI_with               -> 'Foreign.with
+      CAPI_allocaAndPeek      -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
+      ConstantArray_withPtr   -> 'HsBindgen.Runtime.ConstantArray.withPtr
       IncompleteArray_withPtr -> 'HsBindgen.Runtime.IncompleteArray.withPtr
 
+      -- Flexible array members
+      FlexibleArrayMember_Offset_class  -> ''HsBindgen.Runtime.FlexibleArrayMember.Offset
+      FlexibleArrayMember_Offset_offset -> 'HsBindgen.Runtime.FlexibleArrayMember.offset
+      WithFlexibleArrayMember           -> ''HsBindgen.Runtime.FlexibleArrayMember.WithFlexibleArrayMember
+
       -- HasCField
-      HasCField_class -> ''HsBindgen.Runtime.HasCField.HasCField
-      HasCField_CFieldType -> ''HsBindgen.Runtime.HasCField.CFieldType
-      HasCField_offset# -> 'HsBindgen.Runtime.HasCField.offset#
+      HasCField_class       -> ''HsBindgen.Runtime.HasCField.HasCField
+      HasCField_CFieldType  -> ''HsBindgen.Runtime.HasCField.CFieldType
+      HasCField_offset#     -> 'HsBindgen.Runtime.HasCField.offset#
       HasCField_ptrToCField -> 'HsBindgen.Runtime.HasCField.ptrToCField
-      HasCField_pokeCField -> 'HsBindgen.Runtime.HasCField.pokeCField
-      HasCField_peekCField -> 'HsBindgen.Runtime.HasCField.peekCField
+      HasCField_pokeCField  -> 'HsBindgen.Runtime.HasCField.pokeCField
+      HasCField_peekCField  -> 'HsBindgen.Runtime.HasCField.peekCField
 
       -- HasCBitfield
-      HasCBitfield_class -> ''HsBindgen.Runtime.HasCField.HasCBitfield
-      HasCBitfield_CBitfieldType -> ''HsBindgen.Runtime.HasCField.CBitfieldType
-      HasCBitfield_bitOffset# -> 'HsBindgen.Runtime.HasCField.bitOffset#
-      HasCBitfield_bitWidth# -> 'HsBindgen.Runtime.HasCField.bitWidth#
+      HasCBitfield_class          -> ''HsBindgen.Runtime.HasCField.HasCBitfield
+      HasCBitfield_CBitfieldType  -> ''HsBindgen.Runtime.HasCField.CBitfieldType
+      HasCBitfield_bitOffset#     -> 'HsBindgen.Runtime.HasCField.bitOffset#
+      HasCBitfield_bitWidth#      -> 'HsBindgen.Runtime.HasCField.bitWidth#
       HasCBitfield_ptrToCBitfield -> 'HsBindgen.Runtime.HasCField.ptrToCBitfield
-      HasCBitfield_pokeCBitfield -> 'HsBindgen.Runtime.HasCField.pokeCBitfield
-      HasCBitfield_peekCBitfield -> 'HsBindgen.Runtime.HasCField.peekCBitfield
-      HasCBitfield_BitfieldPtr -> ''HsBindgen.Runtime.HasCField.BitfieldPtr
+      HasCBitfield_pokeCBitfield  -> 'HsBindgen.Runtime.HasCField.pokeCBitfield
+      HasCBitfield_peekCBitfield  -> 'HsBindgen.Runtime.HasCField.peekCBitfield
+      HasCBitfield_BitfieldPtr    -> ''HsBindgen.Runtime.HasCField.BitfieldPtr
 
       -- HasField
-      HasField_class -> ''GHC.Records.HasField
+      HasField_class    -> ''GHC.Records.HasField
       HasField_getField -> 'GHC.Records.getField
 
       -- Proxy
-      Proxy_type -> ''Data.Proxy.Proxy
+      Proxy_type        -> ''Data.Proxy.Proxy
       Proxy_constructor -> 'Data.Proxy.Proxy
 
       -- HasBaseForeignType
-      HasBaseForeignType_class -> ''HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType
-      HasBaseForeignType_fromBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType
-      HasBaseForeignType_toBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType
+      HasBaseForeignType_class                         -> ''HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType
+      HasBaseForeignType_fromBaseForeignType           -> 'HsBindgen.Runtime.HasBaseForeignType.fromBaseForeignType
+      HasBaseForeignType_toBaseForeignType             -> 'HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType
       HasBaseForeignType_castFunPtrFromBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType
-      HasBaseForeignType_castFunPtrToBaseForeignType -> 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType
+      HasBaseForeignType_castFunPtrToBaseForeignType   -> 'HsBindgen.Runtime.HasBaseForeignType.castFunPtrToBaseForeignType
 
       -- Functor
       Functor_fmap -> 'fmap
@@ -256,37 +259,37 @@ mkGlobal = \case
       Read_readListDefault     -> 'Text.Read.readListDefault
       Read_readListPrecDefault -> 'Text.Read.readListPrecDefault
 
-      CEnum_class -> ''HsBindgen.Runtime.CEnum.CEnum
-      CEnumZ_tycon -> ''HsBindgen.Runtime.CEnum.CEnumZ
-      CEnum_toCEnum -> 'HsBindgen.Runtime.CEnum.toCEnum
-      CEnum_fromCEnum -> 'HsBindgen.Runtime.CEnum.fromCEnum
-      CEnum_declaredValues -> 'HsBindgen.Runtime.CEnum.declaredValues
-      CEnum_showsUndeclared -> 'HsBindgen.Runtime.CEnum.showsUndeclared
-      CEnum_readPrecUndeclared -> 'HsBindgen.Runtime.CEnum.readPrecUndeclared
-      CEnum_isDeclared -> 'HsBindgen.Runtime.CEnum.isDeclared
-      CEnum_mkDeclared -> 'HsBindgen.Runtime.CEnum.mkDeclared
-      SequentialCEnum_class -> ''HsBindgen.Runtime.CEnum.SequentialCEnum
+      CEnum_class                      -> ''HsBindgen.Runtime.CEnum.CEnum
+      CEnumZ_tycon                     -> ''HsBindgen.Runtime.CEnum.CEnumZ
+      CEnum_toCEnum                    -> 'HsBindgen.Runtime.CEnum.toCEnum
+      CEnum_fromCEnum                  -> 'HsBindgen.Runtime.CEnum.fromCEnum
+      CEnum_declaredValues             -> 'HsBindgen.Runtime.CEnum.declaredValues
+      CEnum_showsUndeclared            -> 'HsBindgen.Runtime.CEnum.showsUndeclared
+      CEnum_readPrecUndeclared         -> 'HsBindgen.Runtime.CEnum.readPrecUndeclared
+      CEnum_isDeclared                 -> 'HsBindgen.Runtime.CEnum.isDeclared
+      CEnum_mkDeclared                 -> 'HsBindgen.Runtime.CEnum.mkDeclared
+      SequentialCEnum_class            -> ''HsBindgen.Runtime.CEnum.SequentialCEnum
       SequentialCEnum_minDeclaredValue -> 'HsBindgen.Runtime.CEnum.minDeclaredValue
       SequentialCEnum_maxDeclaredValue -> 'HsBindgen.Runtime.CEnum.maxDeclaredValue
-      CEnum_declaredValuesFromList -> 'HsBindgen.Runtime.CEnum.declaredValuesFromList
-      CEnum_showsCEnum -> 'HsBindgen.Runtime.CEnum.showsCEnum
-      CEnum_showsWrappedUndeclared -> 'HsBindgen.Runtime.CEnum.showsWrappedUndeclared
-      CEnum_readPrecCEnum -> 'HsBindgen.Runtime.CEnum.readPrecCEnum
-      CEnum_readPrecWrappedUndeclared -> 'HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared
-      CEnum_seqIsDeclared -> 'HsBindgen.Runtime.CEnum.seqIsDeclared
-      CEnum_seqMkDeclared -> 'HsBindgen.Runtime.CEnum.seqMkDeclared
-      AsCEnum_type -> ''HsBindgen.Runtime.CEnum.AsCEnum
-      AsSequentialCEnum_type -> ''HsBindgen.Runtime.CEnum.AsSequentialCEnum
+      CEnum_declaredValuesFromList     -> 'HsBindgen.Runtime.CEnum.declaredValuesFromList
+      CEnum_showsCEnum                 -> 'HsBindgen.Runtime.CEnum.showsCEnum
+      CEnum_showsWrappedUndeclared     -> 'HsBindgen.Runtime.CEnum.showsWrappedUndeclared
+      CEnum_readPrecCEnum              -> 'HsBindgen.Runtime.CEnum.readPrecCEnum
+      CEnum_readPrecWrappedUndeclared  -> 'HsBindgen.Runtime.CEnum.readPrecWrappedUndeclared
+      CEnum_seqIsDeclared              -> 'HsBindgen.Runtime.CEnum.seqIsDeclared
+      CEnum_seqMkDeclared              -> 'HsBindgen.Runtime.CEnum.seqMkDeclared
+      AsCEnum_type                     -> ''HsBindgen.Runtime.CEnum.AsCEnum
+      AsSequentialCEnum_type           -> ''HsBindgen.Runtime.CEnum.AsSequentialCEnum
 
-      ByteArray_type       -> ''ByteArray
-      SizedByteArray_type  -> ''HsBindgen.Runtime.SizedByteArray.SizedByteArray
-      Block_type           -> ''HsBindgen.Runtime.Block.Block
+      ByteArray_type      -> ''ByteArray
+      SizedByteArray_type -> ''HsBindgen.Runtime.SizedByteArray.SizedByteArray
+      Block_type          -> ''HsBindgen.Runtime.Block.Block
 
       ByteArray_getUnionPayload -> 'HsBindgen.Runtime.ByteArray.getUnionPayload
       ByteArray_setUnionPayload -> 'HsBindgen.Runtime.ByteArray.setUnionPayload
 
-      PrimType t           -> mkGlobalP t
-      ComplexType          -> ''Data.Complex.Complex
+      PrimType t  -> mkGlobalP t
+      ComplexType -> ''Data.Complex.Complex
 
 -- | A version of 'TH.tupleTypeName' that always uses the @(,,)@ syntax rather
 -- than @Tuple3@. This ensures consistency in TH tests across GHC versions.
@@ -384,8 +387,9 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     ConstantArray         -> panicPure "type in expression"
     IncompleteArray       -> panicPure "type in expression"
     IO_type               -> panicPure "type in expression"
-    HasFlexibleArrayMember_class -> panicPure "class in expression"
-    HasFlexibleArrayMember_offset -> TH.varE name
+    FlexibleArrayMember_Offset_class -> panicPure "class in expression"
+    FlexibleArrayMember_Offset_offset -> TH.varE name
+    WithFlexibleArrayMember -> TH.varE name
     CharValue_tycon      -> panicPure "type in expression"
     CharValue_constructor -> TH.conE name
     CharValue_fromAddr   -> TH.varE name
@@ -684,6 +688,9 @@ mkPrimType = TH.conT . mkGlobalP
 
 mkDecl :: forall q. Guasi q => SDecl -> q [TH.Dec]
 mkDecl = \case
+      DTypSyn typSyn -> do
+        targetType <- mkType EmptyEnv typSyn.typ
+        pure [TH.TySynD (hsNameToTH typSyn.name) [] targetType]
       DInst inst -> do
         instanceDec <-
           TH.instanceD

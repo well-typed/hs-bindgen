@@ -1,0 +1,304 @@
+-- addDependentFile examples/golden/edge-cases/flam_functions.h
+-- #include <edge-cases/flam_functions.h>
+-- struct Vector *hs_bindgen_231473be98482b20 (
+--   signed int arg1
+-- )
+-- {
+--   return vector_alloc(arg1);
+-- }
+-- void hs_bindgen_d3aecc79bd3c1993 (
+--   struct Vector *arg1
+-- )
+-- {
+--   vector_free(arg1);
+-- }
+-- void hs_bindgen_bfc48cbf5e4cc2ca (
+--   struct Vector *arg1
+-- )
+-- {
+--   vector_reverse(arg1);
+-- }
+-- struct Vector *hs_bindgen_66fe57793f0712c2 (
+--   signed int arg1
+-- )
+-- {
+--   return vector_alloc(arg1);
+-- }
+-- void hs_bindgen_2fb197c3fb9a75a3 (
+--   struct Vector *arg1
+-- )
+-- {
+--   vector_free(arg1);
+-- }
+-- void hs_bindgen_c3965610d4826d1a (
+--   struct Vector *arg1
+-- )
+-- {
+--   vector_reverse(arg1);
+-- }
+-- /* test_edgecasesflam_functions_Example_get_vector_alloc */
+-- __attribute__ ((const))
+-- struct Vector *(*hs_bindgen_d243fc6d495ec901 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &vector_alloc;
+-- }
+-- /* test_edgecasesflam_functions_Example_get_vector_free */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_1d7c878fb2029890 (void)) (
+--   struct Vector *arg1
+-- )
+-- {
+--   return &vector_free;
+-- }
+-- /* test_edgecasesflam_functions_Example_get_vector_reverse */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_630caac5f56516fe (void)) (
+--   struct Vector *arg1
+-- )
+-- {
+--   return &vector_reverse;
+-- }
+{-| __C declaration:__ @struct Vector@
+
+    __defined at:__ @edge-cases\/flam_functions.h 1:8@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+data Vector_Aux
+    = Vector {vector_length :: CInt
+              {- ^ __C declaration:__ @length@
+
+                   __defined at:__ @edge-cases\/flam_functions.h 2:7@
+
+                   __exported by:__ @edge-cases\/flam_functions.h@
+              -}}
+    deriving stock (Eq, Show)
+instance Storable Vector_Aux
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> pure Vector <*> peekCField (Proxy @"vector_length") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Vector vector_length_3 -> pokeCField (Proxy @"vector_length") ptr_1 vector_length_3
+instance Prim Vector_Aux
+    where sizeOf# = \_ -> 8# :: Int#
+          alignment# = \_ -> 8# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Vector (indexByteArray# arr_0 i_1)
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 i_3 s_4 of
+                                                     (# s_5, v_6 #) -> (# s_5, Vector v_6 #)
+          writeByteArray# = \arr_7 -> \i_8 -> \struct_9 -> \s_10 -> case struct_9 of
+                                                                    Vector vector_length_11 -> writeByteArray# arr_7 i_8 vector_length_11 s_10
+          indexOffAddr# = \addr_12 -> \i_13 -> Vector (indexOffAddr# addr_12 i_13)
+          readOffAddr# = \addr_14 -> \i_15 -> \s_16 -> case readOffAddr# addr_14 i_15 s_16 of
+                                                       (# s_17, v_18 #) -> (# s_17, Vector v_18 #)
+          writeOffAddr# = \addr_19 -> \i_20 -> \struct_21 -> \s_22 -> case struct_21 of
+                                                                      Vector vector_length_23 -> writeOffAddr# addr_19 i_20 vector_length_23 s_22
+instance HasCField Vector_Aux "vector_length"
+    where type CFieldType Vector_Aux "vector_length" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Vector_Aux "vector_length") =>
+         HasField "vector_length" (Ptr Vector_Aux) (Ptr ty)
+    where getField = ptrToCField (Proxy @"vector_length")
+instance Offset CLong Vector_Aux
+    where offset = \_ty_0 -> 8
+type Vector = WithFlexibleArrayMember CLong Vector_Aux
+-- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_alloc@
+foreign import ccall safe "hs_bindgen_231473be98482b20" hs_bindgen_231473be98482b20_base ::
+    CInt
+ -> IO (Ptr Void)
+-- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_alloc@
+hs_bindgen_231473be98482b20 :: CInt -> IO (Ptr Vector)
+-- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_alloc@
+hs_bindgen_231473be98482b20 = fromBaseForeignType hs_bindgen_231473be98482b20_base
+{-| __C declaration:__ @vector_alloc@
+
+    __defined at:__ @edge-cases\/flam_functions.h 6:16@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_alloc :: CInt -> IO (Ptr Vector)
+{-| __C declaration:__ @vector_alloc@
+
+    __defined at:__ @edge-cases\/flam_functions.h 6:16@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_alloc = hs_bindgen_231473be98482b20
+-- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_free@
+foreign import ccall safe "hs_bindgen_d3aecc79bd3c1993" hs_bindgen_d3aecc79bd3c1993_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_free@
+hs_bindgen_d3aecc79bd3c1993 :: Ptr Vector -> IO Unit
+-- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_free@
+hs_bindgen_d3aecc79bd3c1993 = fromBaseForeignType hs_bindgen_d3aecc79bd3c1993_base
+{-| __C declaration:__ @vector_free@
+
+    __defined at:__ @edge-cases\/flam_functions.h 8:6@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_free :: Ptr Vector -> IO Unit
+{-| __C declaration:__ @vector_free@
+
+    __defined at:__ @edge-cases\/flam_functions.h 8:6@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_free = hs_bindgen_d3aecc79bd3c1993
+-- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_reverse@
+foreign import ccall safe "hs_bindgen_bfc48cbf5e4cc2ca" hs_bindgen_bfc48cbf5e4cc2ca_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_reverse@
+hs_bindgen_bfc48cbf5e4cc2ca :: Ptr Vector -> IO Unit
+-- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_reverse@
+hs_bindgen_bfc48cbf5e4cc2ca = fromBaseForeignType hs_bindgen_bfc48cbf5e4cc2ca_base
+{-| __C declaration:__ @vector_reverse@
+
+    __defined at:__ @edge-cases\/flam_functions.h 10:6@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_reverse :: Ptr Vector -> IO Unit
+{-| __C declaration:__ @vector_reverse@
+
+    __defined at:__ @edge-cases\/flam_functions.h 10:6@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_reverse = hs_bindgen_bfc48cbf5e4cc2ca
+-- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_alloc@
+foreign import ccall safe "hs_bindgen_66fe57793f0712c2" hs_bindgen_66fe57793f0712c2_base ::
+    CInt
+ -> IO (Ptr Void)
+-- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_alloc@
+hs_bindgen_66fe57793f0712c2 :: CInt -> IO (Ptr Vector)
+-- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_alloc@
+hs_bindgen_66fe57793f0712c2 = fromBaseForeignType hs_bindgen_66fe57793f0712c2_base
+{-| __C declaration:__ @vector_alloc@
+
+    __defined at:__ @edge-cases\/flam_functions.h 6:16@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_alloc :: CInt -> IO (Ptr Vector)
+{-| __C declaration:__ @vector_alloc@
+
+    __defined at:__ @edge-cases\/flam_functions.h 6:16@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_alloc = hs_bindgen_66fe57793f0712c2
+-- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_free@
+foreign import ccall safe "hs_bindgen_2fb197c3fb9a75a3" hs_bindgen_2fb197c3fb9a75a3_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_free@
+hs_bindgen_2fb197c3fb9a75a3 :: Ptr Vector -> IO Unit
+-- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_free@
+hs_bindgen_2fb197c3fb9a75a3 = fromBaseForeignType hs_bindgen_2fb197c3fb9a75a3_base
+{-| __C declaration:__ @vector_free@
+
+    __defined at:__ @edge-cases\/flam_functions.h 8:6@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_free :: Ptr Vector -> IO Unit
+{-| __C declaration:__ @vector_free@
+
+    __defined at:__ @edge-cases\/flam_functions.h 8:6@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_free = hs_bindgen_2fb197c3fb9a75a3
+-- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_reverse@
+foreign import ccall safe "hs_bindgen_c3965610d4826d1a" hs_bindgen_c3965610d4826d1a_base ::
+    Ptr Void
+ -> IO Unit
+-- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_reverse@
+hs_bindgen_c3965610d4826d1a :: Ptr Vector -> IO Unit
+-- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_reverse@
+hs_bindgen_c3965610d4826d1a = fromBaseForeignType hs_bindgen_c3965610d4826d1a_base
+{-| __C declaration:__ @vector_reverse@
+
+    __defined at:__ @edge-cases\/flam_functions.h 10:6@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_reverse :: Ptr Vector -> IO Unit
+{-| __C declaration:__ @vector_reverse@
+
+    __defined at:__ @edge-cases\/flam_functions.h 10:6@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_reverse = hs_bindgen_c3965610d4826d1a
+-- __unique:__ @test_edgecasesflam_functions_Example_get_vector_alloc@
+foreign import ccall safe "hs_bindgen_d243fc6d495ec901" hs_bindgen_d243fc6d495ec901_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesflam_functions_Example_get_vector_alloc@
+hs_bindgen_d243fc6d495ec901 :: IO (FunPtr (CInt ->
+                                           IO (Ptr Vector)))
+-- __unique:__ @test_edgecasesflam_functions_Example_get_vector_alloc@
+hs_bindgen_d243fc6d495ec901 = fromBaseForeignType hs_bindgen_d243fc6d495ec901_base
+{-# NOINLINE vector_alloc #-}
+{-| __C declaration:__ @vector_alloc@
+
+    __defined at:__ @edge-cases\/flam_functions.h 6:16@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_alloc :: FunPtr (CInt -> IO (Ptr Vector))
+{-| __C declaration:__ @vector_alloc@
+
+    __defined at:__ @edge-cases\/flam_functions.h 6:16@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_alloc = unsafePerformIO hs_bindgen_d243fc6d495ec901
+-- __unique:__ @test_edgecasesflam_functions_Example_get_vector_free@
+foreign import ccall safe "hs_bindgen_1d7c878fb2029890" hs_bindgen_1d7c878fb2029890_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesflam_functions_Example_get_vector_free@
+hs_bindgen_1d7c878fb2029890 :: IO (FunPtr (Ptr Vector -> IO Unit))
+-- __unique:__ @test_edgecasesflam_functions_Example_get_vector_free@
+hs_bindgen_1d7c878fb2029890 = fromBaseForeignType hs_bindgen_1d7c878fb2029890_base
+{-# NOINLINE vector_free #-}
+{-| __C declaration:__ @vector_free@
+
+    __defined at:__ @edge-cases\/flam_functions.h 8:6@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_free :: FunPtr (Ptr Vector -> IO Unit)
+{-| __C declaration:__ @vector_free@
+
+    __defined at:__ @edge-cases\/flam_functions.h 8:6@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_free = unsafePerformIO hs_bindgen_1d7c878fb2029890
+-- __unique:__ @test_edgecasesflam_functions_Example_get_vector_reverse@
+foreign import ccall safe "hs_bindgen_630caac5f56516fe" hs_bindgen_630caac5f56516fe_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesflam_functions_Example_get_vector_reverse@
+hs_bindgen_630caac5f56516fe :: IO (FunPtr (Ptr Vector -> IO Unit))
+-- __unique:__ @test_edgecasesflam_functions_Example_get_vector_reverse@
+hs_bindgen_630caac5f56516fe = fromBaseForeignType hs_bindgen_630caac5f56516fe_base
+{-# NOINLINE vector_reverse #-}
+{-| __C declaration:__ @vector_reverse@
+
+    __defined at:__ @edge-cases\/flam_functions.h 10:6@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_reverse :: FunPtr (Ptr Vector -> IO Unit)
+{-| __C declaration:__ @vector_reverse@
+
+    __defined at:__ @edge-cases\/flam_functions.h 10:6@
+
+    __exported by:__ @edge-cases\/flam_functions.h@
+-}
+vector_reverse = unsafePerformIO hs_bindgen_630caac5f56516fe
