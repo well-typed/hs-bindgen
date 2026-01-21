@@ -8,13 +8,12 @@ import Foreign
 import Foreign.C.Types
 
 import HsBindgen.Runtime.ConstantArray as CA
-import HsBindgen.Runtime.FlexibleArrayMember
-import HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.ConstPtr
+import HsBindgen.Runtime.FlexibleArrayMember qualified as Flam
+import HsBindgen.Runtime.HasCField
 import HsBindgen.Runtime.Ptr
 
 import Manual.Tools
-
 import ZeroCopy qualified as Gen
 import ZeroCopy.Unsafe qualified as Gen
 
@@ -91,7 +90,7 @@ examples = do
           pokeElemOff (snd $ CA.toFirstElemPtr ptr.tic_tac_toe_row2) 2 1
           peek ptr >>= print
 
-      subsection "FLAM"
+      subsection "Flexible array members"
       do
         -- TODO: add a section on zero-copy bindings for flexible array members.
         -- See issue #1286.
@@ -152,5 +151,5 @@ transpose inputPtr outputPtr =
       (ConstPtr inputPtr.un_Matrix.toFirstElemPtr)
       outputPtr.un_Matrix.toFirstElemPtr
 
-instance HasFlexibleArrayLength CChar Gen.Vector where
-  flexibleArrayMemberLength x = fromIntegral (Gen.vector_len x)
+instance Flam.NumElems CChar Gen.Vector_Aux where
+  numElems x = fromIntegral (Gen.vector_len x)
