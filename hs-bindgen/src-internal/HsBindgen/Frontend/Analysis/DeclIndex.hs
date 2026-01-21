@@ -127,9 +127,9 @@ data DeclIndex = DeclIndex {
 -- CXAvailabilityKind).
 data Usable =
       UsableSuccess (ParseSuccess AssignAnonIds)
-      -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Attach
-      -- information required to match the select predicate also to external
-      -- declarations.
+
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1577>
+      -- This should have a SingleLoc.
     | UsableExternal
     deriving stock (Show, Generic)
 
@@ -151,9 +151,7 @@ data Unusable =
     | UnusableConflict           Conflict
     | UnusableMangleNamesFailure SingleLoc MangleNamesFailure
     | UnusableFailedMacro        FailedMacro
-      -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Attach
-      -- information required to match the select predicate also to omitted
-      -- declarations.
+
       -- | Omitted by prescriptive binding specifications
     | UnusableOmitted            SingleLoc
     deriving stock (Show, Generic)
@@ -199,6 +197,8 @@ data Entry =
   | SquashedE Squashed
   deriving stock (Show, Generic)
 
+-- TODO <https://github.com/well-typed/hs-bindgen/issues/1577>
+-- This should return NonEmpty
 entryToLoc :: Entry -> [SingleLoc]
 entryToLoc = \case
   (UnusableE e) -> unusableToLoc e

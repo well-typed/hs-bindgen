@@ -15,11 +15,9 @@ import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
 
-import HsBindgen.Errors
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId (PrelimDeclId)
 import HsBindgen.Frontend.Pass.Parse.PrelimDeclId qualified as PrelimDeclId
-import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.Tracer
 
@@ -53,7 +51,7 @@ data LocationInfo =
     -- | Message about an anonymous declaration
     --
     -- We record the /assigned/ name, /if/ it is available.
-  | LocationDeclAnon (Maybe C.DeclName) SingleLoc
+  | LocationDeclAnon (Maybe C.DeclName) [SingleLoc]
 
     -- | No location information
   | LocationUnavailable
@@ -67,21 +65,13 @@ prelimDeclIdLocationInfo :: PrelimDeclId -> [SingleLoc] -> LocationInfo
 prelimDeclIdLocationInfo prelimDeclId knownLocs =
     case prelimDeclId of
       PrelimDeclId.Named name -> LocationDeclNamed name knownLocs
-      PrelimDeclId.Anon  anon -> LocationDeclAnon Nothing anon.loc
+      PrelimDeclId.Anon  anon -> LocationDeclAnon Nothing [anon.loc]
 
-declIdLocationInfo :: HasCallStack => DeclId -> [SingleLoc] -> LocationInfo
+declIdLocationInfo :: DeclId -> [SingleLoc] -> LocationInfo
 declIdLocationInfo declId knownLocs =
-    if not declId.isAnon then
-      LocationDeclNamed declId.name knownLocs
-    else
-      case knownLocs of
-        [l] -> LocationDeclAnon (Just declId.name) l
-        _   -> panicPure $ concat [
-                   "Unexpected multiple locations for anon decl "
-                 , show declId
-                 , ": "
-                 , show knownLocs
-                 ]
+    if not declId.isAnon
+      then LocationDeclNamed declId.name knownLocs
+      else LocationDeclAnon (Just declId.name) knownLocs
 
 {-------------------------------------------------------------------------------
   Query 'LocationInfo'
@@ -96,7 +86,7 @@ locationInfoName = \case
 locationInfoLocs :: LocationInfo -> [SingleLoc]
 locationInfoLocs = \case
     LocationDeclNamed _ locs -> locs
-    LocationDeclAnon _ l     -> [l]
+    LocationDeclAnon _ locs  -> locs
     LocationUnavailable      -> []
 
 {-------------------------------------------------------------------------------
