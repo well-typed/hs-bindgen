@@ -1,6 +1,5 @@
 module HsBindgen.Guasi (
     Guasi (..)
-  , withDecDocM
   , putDocNameM
   ) where
 
@@ -23,11 +22,12 @@ class TH.Quote g => Guasi g where
     reportError :: String -> g ()
     addCSource :: String -> g ()
 
-    -- | Attach a documentation string to a declaration
-    withDecDoc   :: HsDoc.Comment -> g TH.Dec -> g TH.Dec
-
     -- | Attach a documentation to a declaration with provided name _in the
     --   current module_.
+    --
+    -- This abstraction is necessary to work around a TH bug, where
+    -- documentation would be attached to symbols defined _in other modules_ but
+    -- with the same name (e.g., `reverse`).
     putDocName :: Hs.Name ns -> HsDoc.Comment -> g ()
 
 instance Guasi TH.Q where
@@ -37,18 +37,11 @@ instance Guasi TH.Q where
 
     addCSource = TH.addForeignSource TH.LangC
 
-    withDecDoc comment =
-      TH.withDecDoc (show $ pretty $ THComment comment)
-
     putDocName nm comment = do
       md <- TH.loc_module <$> TH.location
       let qualifiedName = TH.mkName $ md <> "." <> (Text.unpack $ Hs.getName nm)
       TH.addModFinalizer $
         TH.putDoc (TH.DeclDoc qualifiedName) (show $ pretty $ THComment comment)
-
-withDecDocM :: Guasi g => Maybe HsDoc.Comment -> g TH.Dec -> g TH.Dec
-withDecDocM Nothing  a = a
-withDecDocM (Just c) a = withDecDoc c a
 
 putDocNameM :: Guasi g => Hs.Name ns -> Maybe HsDoc.Comment -> g ()
 putDocNameM nm = traverse_ (putDocName nm)

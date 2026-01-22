@@ -154,19 +154,6 @@ instance Guasi Qu where
     extsEnabled = return []
     reportError _ = return ()
 
-    withDecDoc s qDec = do
-      dec <- qDec
-      Qu $ do
-        q@QuState{ documentationMap = docMap } <- get
-        case getDecDocLoc dec of
-          Nothing     -> pure ()
-          Just docLoc ->
-            put $!
-              q { documentationMap =
-                    Map.insert docLoc s docMap
-                }
-        return dec
-
     putDocName nm s = Qu $ do
         q@QuState{ documentationMap = docMap } <- get
         put $!
