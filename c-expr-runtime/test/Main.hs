@@ -117,7 +117,7 @@ main = do
                 ["-I", fromString (hsBindgenDir </> "musl-include/x86_64")]
               Nothing -> []
 
-  let extendedInts = [ PtrDiff, Size ]
+  let extendedInts = [ PtrDiff ]
   canonTys <-
     getExpansionTypeMapping clangArgs
       [ CType $ Arithmetic $ Integral $ IntLike extInt

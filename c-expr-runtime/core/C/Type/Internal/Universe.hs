@@ -83,4 +83,4 @@ allIntegralTypes = Bool : fmap CharLike [ Char, SChar, UChar ] ++ fmap IntLike a
 allIntLikeTypes :: [ IntLikeType ]
 allIntLikeTypes =
   concatMap ( [ Signed, Unsigned ] <&> ) [ Short, Int, Long, LongLong ]
-    ++ [ PtrDiff, Size ]
+    ++ [ PtrDiff ]

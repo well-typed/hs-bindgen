@@ -573,7 +573,6 @@ mkSingExp :: Type TH.Name -> TH.Exp
               Signed -> con 'SLongLong
               Unsigned -> con 'SULongLong
           PtrDiff -> con 'SPtrDiff
-          Size -> con 'SSize
 
 mkArithmeticType :: ArithmeticType -> TH.Type
 mkArithmeticType ( Integral i ) = mkIntegralType i
@@ -613,4 +612,3 @@ mkIntLikeType = TH.ConT . \case
       Signed   -> ''CLLong
       Unsigned -> ''CULLong
   PtrDiff -> ''CPtrdiff
-  Size    -> ''CSize
