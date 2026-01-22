@@ -108,6 +108,19 @@ resolveConflicts anonId new old =
         --
         -- We choose the first typedef (in source order).
         old
+      (TypedefDirect _, TypedefIndirect _) ->
+        -- Example:
+        --
+        -- > typedef struct { int x; int y; } point2a, *point2b;
+        --
+        -- IMPORTANT: This case only occurs in Clang < 16. In Clang >= 16,
+        -- the indirect typedef does not reference the anonymous struct at
+        -- all, so there is no conflict to resolve.
+        old
+      (TypedefIndirect _, TypedefDirect _) ->
+        -- Mirror of the above case (for when indirect comes first in source
+        -- order, though this is unlikely in practice).
+        new
       _otherwise ->
          panicPure $ concat [
              "Conflicting use sites for "
