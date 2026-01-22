@@ -8,6 +8,7 @@ import Control.Monad.State.Strict (State, get, put, runState)
 import Data.Foldable qualified as Foldable
 import Data.Generics qualified as SYB
 import Data.Map.Strict qualified as Map
+import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Ppr qualified as TH
 import Language.Haskell.TH.PprLib qualified as TH
@@ -21,6 +22,7 @@ import Clang.Version
 
 import HsBindgen
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Guasi
 import HsBindgen.Imports
@@ -165,11 +167,11 @@ instance Guasi Qu where
                 }
         return dec
 
-    putFieldDoc docLoc s = Qu $ do
+    putDocName nm s = Qu $ do
         q@QuState{ documentationMap = docMap } <- get
         put $!
           q { documentationMap =
-                Map.insert docLoc s docMap
+                Map.insert (TH.DeclDoc $ TH.mkName (Text.unpack $ Hs.getName nm)) s docMap
             }
 
 runQu :: Qu a -> (QuState, a)

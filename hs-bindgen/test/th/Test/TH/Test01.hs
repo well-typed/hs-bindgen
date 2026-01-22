@@ -11,6 +11,8 @@
 {-# LANGUAGE UnboxedTuples #-}
 {-# LANGUAGE UndecidableInstances #-}
 
+-- {-# OPTIONS_GHC -ddump-splices #-}
+
 module Test.TH.Test01 where
 
 import Optics ((%), (&), (.~))

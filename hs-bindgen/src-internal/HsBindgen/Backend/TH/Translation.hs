@@ -717,20 +717,18 @@ mkDecl = \case
 
       DRecord record -> do
         let fields :: [q TH.VarBangType]
-            docs   :: [(TH.DocLoc, Maybe HsDoc.Comment)]
+            docs   :: [(Hs.Name Hs.NsVar, Maybe HsDoc.Comment)]
             (fields, docs) = unzip
-              [ ( TH.varBangType thFieldName $
+              [ ( TH.varBangType (hsNameToTH field.name) $
                     TH.bangType
                       (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
                       (mkType EmptyEnv field.typ)
-                , ((TH.DeclDoc thFieldName), fComment)
+                , (field.name, field.comment)
                 )
               | field <- record.fields
-              , let thFieldName = hsNameToTH field.name
-                    fComment    = field.comment
               ]
 
-        traverse_ (uncurry putFieldDocM) docs
+        traverse_ (uncurry putDocNameM) docs
 
         fmap singleton $
           withDecDocM record.comment $
@@ -760,7 +758,7 @@ mkDecl = \case
                 (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
                 (mkType EmptyEnv newtyp.field.typ)
 
-        putFieldDocM (TH.DeclDoc thFieldName) fComment
+        putDocNameM newtyp.field.name fComment
 
         fmap singleton $
           withDecDocM newTyComment $
@@ -826,14 +824,15 @@ mkDecl = \case
         let bindingName = hsNameToTH binding.name
             bindingType = foldr (TFun . (.typ)) binding.result.typ binding.parameters
 
-        sequence $
+        decls <- sequence $
           map (pragma binding.name) binding.pragmas
           ++ [
-              withDecDocM binding.comment $
                 TH.SigD <$> pure bindingName
                   <*> mkType EmptyEnv bindingType
             , simpleDecl bindingName binding.body
             ]
+        putDocNameM binding.name binding.comment
+        pure decls
 
       DPatternSynonym patSyn -> do
         let thPatSynName = hsNameToTH patSyn.name

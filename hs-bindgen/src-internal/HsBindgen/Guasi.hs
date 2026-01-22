@@ -1,15 +1,17 @@
 module HsBindgen.Guasi (
     Guasi (..)
   , withDecDocM
-  , putFieldDocM
+  , putDocNameM
   ) where
 
 import Data.Foldable (traverse_)
+import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 import Text.SimplePrettyPrint (pretty)
 
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.HsModule.Render (CommentKind (..))
 
 -- | An intermediate class between 'TH.Quote' and 'TH.Quasi'
@@ -22,13 +24,11 @@ class TH.Quote g => Guasi g where
     addCSource :: String -> g ()
 
     -- | Attach a documentation string to a declaration
-    --
     withDecDoc   :: HsDoc.Comment -> g TH.Dec -> g TH.Dec
 
-    -- | Attach a documentation string to a 'TH.DocLoc'. This is mostly used
-    -- for data structure fields.
-    --
-    putFieldDoc :: TH.DocLoc -> HsDoc.Comment -> g ()
+    -- | Attach a documentation to a declaration with provided name _in the
+    --   current module_.
+    putDocName :: Hs.Name ns -> HsDoc.Comment -> g ()
 
 instance Guasi TH.Q where
     addDependentFile = TH.addDependentFile
@@ -39,13 +39,16 @@ instance Guasi TH.Q where
 
     withDecDoc comment =
       TH.withDecDoc (show $ pretty $ THComment comment)
-    putFieldDoc docLoc comment =
+
+    putDocName nm comment = do
+      md <- TH.loc_module <$> TH.location
+      let qualifiedName = TH.mkName $ md <> "." <> (Text.unpack $ Hs.getName nm)
       TH.addModFinalizer $
-        TH.putDoc docLoc (show $ pretty $ THComment comment)
+        TH.putDoc (TH.DeclDoc qualifiedName) (show $ pretty $ THComment comment)
 
 withDecDocM :: Guasi g => Maybe HsDoc.Comment -> g TH.Dec -> g TH.Dec
 withDecDocM Nothing  a = a
 withDecDocM (Just c) a = withDecDoc c a
 
-putFieldDocM :: Guasi g => TH.DocLoc -> Maybe HsDoc.Comment -> g ()
-putFieldDocM l = traverse_ (putFieldDoc l)
+putDocNameM :: Guasi g => Hs.Name ns -> Maybe HsDoc.Comment -> g ()
+putDocNameM nm = traverse_ (putDocName nm)
