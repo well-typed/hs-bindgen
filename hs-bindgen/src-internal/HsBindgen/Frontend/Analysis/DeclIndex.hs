@@ -120,28 +120,48 @@ data DeclIndex = DeclIndex {
 
 -- | Usable declaration
 --
--- A declaration is usable if we successfully reified the declaration or if it
--- is external.
+-- At each stage in the `hs-bindgen` pipeline, a 'Usable' declaration is a
+-- declaration we think we can generate bindings for. Passes may replace
+-- 'Usable' declarations with
+--
+-- - other 'Usable' declarations such as external declarations
+--   ("ResolveBindingSpecs") or squashed declarations (in "MangleNames"); or
+--
+-- - 'Unusable' declarations, for example when macro parsing fails
+--   ("HandleMacros") or name mangling fails ("MangleNames").
+--
+-- At the end of the `hs-bindgen` pipeline, we can generate bindings for
+-- 'Usable' declarations.
+--
+-- However, usability is not concerned with _transitivity_. Usable declarations
+-- may have unusable transitive dependencies. Even though we can generate
+-- bindings for usable declarations, they may not be functional because they
+-- miss transitive dependencies.
 --
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
 data Usable =
       UsableSuccess (ParseSuccess AssignAnonIds)
-
       -- TODO <https://github.com/well-typed/hs-bindgen/issues/1577>
       -- This should have a SingleLoc.
     | UsableExternal
+      -- Squashed declarations are always "usable" because we only squash
+      -- declaration in the list of declarations attached to the declaration
+      -- unit.
+    | UsableSquashed Squashed
     deriving stock (Show, Generic)
 
 usableToLoc :: Usable -> Maybe SingleLoc
 usableToLoc = \case
-    UsableSuccess x -> Just x.decl.info.loc
-    UsableExternal  -> Nothing
+    UsableSuccess  x -> Just x.decl.info.loc
+    UsableExternal   -> Nothing
+    UsableSquashed x -> Just x.typedefLoc
 
 -- | Unusable declaration
 --
--- A declaration is unusable if we did not reify the declaration. We cannot
--- generate bindings for unusable declarations.
+-- A declaration is unusable if we cannot generate bindings for it.
+--
+-- See 'Usable'.
 --
 -- (We avoid the term available, because it is overloaded with Clang's
 -- CXAvailabilityKind).
@@ -192,9 +212,8 @@ data Squashed = Squashed {
 
 -- | Entry of declaration index
 data Entry =
-    UsableE Usable
+    UsableE   Usable
   | UnusableE Unusable
-  | SquashedE Squashed
   deriving stock (Show, Generic)
 
 -- TODO <https://github.com/well-typed/hs-bindgen/issues/1577>
@@ -203,15 +222,14 @@ entryToLoc :: Entry -> [SingleLoc]
 entryToLoc = \case
   (UnusableE e) -> unusableToLoc e
   (UsableE   e) -> maybeToList $ usableToLoc e
-  (SquashedE e) -> [e.typedefLoc]
 
 entryToAvailability :: Entry -> C.Availability
 entryToAvailability = \case
     UsableE e   -> case e of
       UsableSuccess success -> success.decl.info.availability
       UsableExternal        -> C.Available
+      UsableSquashed{}      -> C.Available
     UnusableE{} -> C.Available
-    SquashedE{} -> C.Available
 
 {-------------------------------------------------------------------------------
   Construction
@@ -268,6 +286,8 @@ fromParseResults results = flip execState empty $ mapM_ aux results
             ParseResultFailure _      -> parseResultToEntry new
           UsableExternal ->
             panicPure "handleParseResult: usable external"
+          UsableSquashed{} ->
+            panicPure "handleParseResult: squashed"
         UnusableE oldUnusable -> case oldUnusable of
           (UnusableParseNotAttempted loc nasOld)
             | ParseResultNotAttempted naNew <- new.classification ->
@@ -284,8 +304,6 @@ fromParseResults results = flip execState empty $ mapM_ aux results
             panicPure $ "handleParseResult: unusable failed macro" <> show x
           UnusableOmitted x ->
             panicPure $ "handelParseResult: unusable omitted" <> show x
-        SquashedE{} ->
-          panicPure "handleParseResult: squashed"
       where
         addConflicts :: Conflict  -> Entry
         addConflicts c =
@@ -370,15 +388,8 @@ lookupLoc d i = case lookupEntry d i of
 -- | Get the source locations of an unusable declaration.
 lookupUnusableLoc :: DeclId -> DeclIndex -> [SingleLoc]
 lookupUnusableLoc d i = case lookupEntry d i of
-  Nothing             -> []
   Just (UnusableE  e) -> unusableToLoc e
-  Just (UsableE    _) -> []
-  -- TODO https://github.com/well-typed/hs-bindgen/issues/1564: This resolves to
-  -- the location of the SQUASH TARGET, and is used when resolving binding
-  -- specifications. Is this behavior correct? We should probably rename this
-  -- function and split into lookup and getUnusableLoc, similar to 'entryToLoc'.
-  -- Maybe we can also move it into 'ResolveBindingSpecs.hs'.
-  Just (SquashedE  e) -> lookupUnusableLoc e.targetNameC i
+  _otherwise          -> []
 
 -- | Get the identifiers of all declarations in the index.
 keysSet :: DeclIndex -> Set DeclId
@@ -390,11 +401,11 @@ getOmitted index = Map.mapMaybe toOmitted index.map
   where
     toOmitted :: Entry -> Maybe SourcePath
     toOmitted = \case
-      UsableE   _ -> Nothing
-      UnusableE e -> case e of
+      UsableE (UsableSquashed e) -> lookupEntry e.targetNameC index >>= toOmitted
+      UsableE{}                  -> Nothing
+      UnusableE e                -> case e of
         UnusableOmitted sloc -> Just sloc.singleLocPath
         _otherEntry          -> Nothing
-      SquashedE e -> lookupEntry e.targetNameC index >>= toOmitted
 
 -- | Get squashed entries.
 --
@@ -406,9 +417,10 @@ getSquashed index targets = Map.mapMaybe onlySquashedTargettingSet index.map
   where
     onlySquashedTargettingSet :: Entry -> Maybe (SourcePath, Hs.Identifier)
     onlySquashedTargettingSet = \case
-      SquashedE e -> case (e.targetNameHs, Set.member e.targetNameC targets) of
-        (Just nameHs, True) -> Just (e.typedefLoc.singleLocPath, nameHs)
-        _otherwise          -> Nothing
+      UsableE (UsableSquashed e) ->
+        case (e.targetNameHs, Set.member e.targetNameC targets) of
+          (Just nameHs, True) -> Just (e.typedefLoc.singleLocPath, nameHs)
+          _otherwise          -> Nothing
       _otherwise  -> Nothing
 
 -- | Restrict the declaration index to unusable declarations in a given set.
@@ -423,7 +435,6 @@ getUnusables index xs =
     onlyUnusable = \case
       UsableE   _ -> Nothing
       UnusableE e -> Just e
-      SquashedE e -> Map.lookup e.targetNameC indexRestricted >>= onlyUnusable
 
 {-------------------------------------------------------------------------------
   Support for macro failures
@@ -463,7 +474,7 @@ registerSquashedDeclarations ::
   -> DeclIndex
   -> DeclIndex
 registerSquashedDeclarations xs index = DeclIndex $
-    Map.union (SquashedE <$> xs) index.map
+    Map.union (UsableE . UsableSquashed <$> xs) index.map
 
 registerMangleNamesFailures ::
   Map DeclId (SingleLoc, MangleNamesFailure) -> DeclIndex -> DeclIndex
