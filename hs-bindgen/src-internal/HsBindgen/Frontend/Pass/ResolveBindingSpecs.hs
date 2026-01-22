@@ -431,7 +431,9 @@ instance Resolve C.Type where
             State.modify' $ insertTrace (ResolveBindingSpecsExtType ctx cDeclId)
             pure $ Just $ \uTy -> C.TypeExtBinding $ C.Ref ty uTy
           Nothing -> do
-            -- Check for external binding of type that is unusable.
+            -- In the first pass we have looked at all "usable" declarations.
+            -- Now we check for external bindings of types of "unusable"
+            -- declarations.
             case DeclIndex.lookupUnusableLoc cDeclId env.declIndex of
               []   -> return Nothing
               locs -> do

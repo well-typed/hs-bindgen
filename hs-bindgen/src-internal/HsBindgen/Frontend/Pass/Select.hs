@@ -50,6 +50,10 @@ type Decl = C.Decl Select
 -- that are not selectable _from the perspective of `hs-bindgen`_; and, in
 -- particular, not from the perspective of the user (they can change the select
 -- predicate).
+--
+-- Also, (and in contrast to 'Usable'/'Unusable'), selectability _is concerned
+-- with transitivity_. All transitive dependencies of a selectable declaration
+-- must also be selectable.
 data Unselectable =
     -- | We (i.e., `hs-bindgen`) can not select a declaration selected because
     --   it or one of its dependencies is unusable.
@@ -401,6 +405,10 @@ getDelayedMsgs = concatMap (uncurry aux) . DeclIndex.toList
           | x <- success.delayedParseMsgs
           ]
         UsableExternal   -> []
+        -- Parse messages are unavailable for squashed entries. We are OK with
+        -- this; instead we have issued a notice in 'MangleNames' that the typedef
+        -- was squashed.
+        UsableSquashed{} -> []
       UnusableE e -> case e of
         UnusableParseNotAttempted loc xs ->
           [ WithLocationInfo{
@@ -427,10 +435,6 @@ getDelayedMsgs = concatMap (uncurry aux) . DeclIndex.toList
           }
         UnusableOmitted{} ->
           []
-      -- Parse messages are unavailable for squashed entries. We are OK with
-      -- this; instead we have issued a notice in 'MangleNames' that the typedef
-      -- was squashed.
-      SquashedE{} -> []
 
 {-------------------------------------------------------------------------------
   Sort traces
@@ -515,6 +519,8 @@ selectDeclIndex declUseGraph p declIndex =
             in Just ([info.loc], info.availability)
           UsableExternal ->
             Nothing
+          UsableSquashed x ->
+            Just ([x.typedefLoc], C.Available)
         UnusableE e -> case e of
           UnusableParseNotAttempted loc _ ->
             Just ([loc], C.Available)
@@ -528,7 +534,6 @@ selectDeclIndex declUseGraph p declIndex =
             Just ([failedMacro.loc], C.Available)
           UnusableOmitted{} ->
             Nothing
-        SquashedE e -> Just ([e.typedefLoc], C.Available)
 
     -- We match anonymous declarations based on their use sites.
     --
