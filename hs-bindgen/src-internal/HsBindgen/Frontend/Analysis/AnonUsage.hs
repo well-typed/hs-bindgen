@@ -94,6 +94,20 @@ resolveConflicts anonId new old =
         --
         -- We choose the first field (in source order).
         old
+      (TypedefDirect _, TypedefDirect _) ->
+        -- Example:
+        --
+        -- > typedef struct { int x; int y; } point1a, point1b;
+        --
+        -- We choose the first typedef (in source order).
+        old
+      (TypedefIndirect _, TypedefIndirect _) ->
+        -- Example:
+        --
+        -- > typedef struct { int x; int y; } *point3a, *point3b;
+        --
+        -- We choose the first typedef (in source order).
+        old
       _otherwise ->
          panicPure $ concat [
              "Conflicting use sites for "

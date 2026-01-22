@@ -1,0 +1,392 @@
+-- addDependentFile examples/golden/edge-cases/anon_multiple_typedefs.h
+-- #include <edge-cases/anon_multiple_typedefs.h>
+-- void hs_bindgen_c97a0d4458699ad7 (
+--   point2a *arg1,
+--   point2b arg2
+-- )
+-- {
+--   test(*arg1, arg2);
+-- }
+-- void hs_bindgen_f90e97b8d269be4e (
+--   point2a *arg1,
+--   point2b arg2
+-- )
+-- {
+--   test(*arg1, arg2);
+-- }
+-- /* test_edgecasesanon_multiple_typed_Example_get_test */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_8361517d92bfbc76 (void)) (
+--   point2a arg1,
+--   point2b arg2
+-- )
+-- {
+--   return &test;
+-- }
+{-| __C declaration:__ @struct point1a@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 5:9@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
+data Point1a
+    = Point1a {point1a_x :: CInt
+               {- ^ __C declaration:__ @x@
+
+                    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 5:22@
+
+                    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+               -},
+               point1a_y :: CInt
+               {- ^ __C declaration:__ @y@
+
+                    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 5:29@
+
+                    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+               -}}
+      {- ^ __C declaration:__ @struct point1a@
+
+           __defined at:__ @edge-cases\/anon_multiple_typedefs.h 5:9@
+
+           __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Point1a
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Point1a <*> peekCField (Proxy @"point1a_x") ptr_0) <*> peekCField (Proxy @"point1a_y") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Point1a point1a_x_3
+                                           point1a_y_4 -> pokeCField (Proxy @"point1a_x") ptr_1 point1a_x_3 >> pokeCField (Proxy @"point1a_y") ptr_1 point1a_y_4
+instance Prim Point1a
+    where sizeOf# = \_ -> 8# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Point1a (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       Point1a v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      Point1a point1a_x_13
+                                                                              point1a_y_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) point1a_x_13 s_12 of
+                                                                                              s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) point1a_y_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> Point1a (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            Point1a v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      Point1a point1a_x_29
+                                                                              point1a_y_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) point1a_x_29 s_28 of
+                                                                                              s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) point1a_y_30 s_31
+instance HasCField Point1a "point1a_x"
+    where type CFieldType Point1a "point1a_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Point1a "point1a_x") =>
+         HasField "point1a_x" (Ptr Point1a) (Ptr ty)
+    where getField = ptrToCField (Proxy @"point1a_x")
+instance HasCField Point1a "point1a_y"
+    where type CFieldType Point1a "point1a_y" = CInt
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType Point1a "point1a_y") =>
+         HasField "point1a_y" (Ptr Point1a) (Ptr ty)
+    where getField = ptrToCField (Proxy @"point1a_y")
+{-| __C declaration:__ @point1b@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 5:43@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
+newtype Point1b
+    = Point1b {un_Point1b :: Point1a}
+      {- ^ __C declaration:__ @point1b@
+
+           __defined at:__ @edge-cases\/anon_multiple_typedefs.h 5:43@
+
+           __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+      -}
+    deriving stock (Eq, Show)
+    deriving newtype (Storable, Prim)
+instance TyEq ty (CFieldType Point1b "un_Point1b") =>
+         HasField "un_Point1b" (Ptr Point1b) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Point1b")
+instance HasCField Point1b "un_Point1b"
+    where type CFieldType Point1b "un_Point1b" = Point1a
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct point2a@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 8:9@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
+data Point2a
+    = Point2a {point2a_x :: CInt
+               {- ^ __C declaration:__ @x@
+
+                    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 8:22@
+
+                    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+               -},
+               point2a_y :: CInt
+               {- ^ __C declaration:__ @y@
+
+                    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 8:29@
+
+                    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+               -}}
+      {- ^ __C declaration:__ @struct point2a@
+
+           __defined at:__ @edge-cases\/anon_multiple_typedefs.h 8:9@
+
+           __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Point2a
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Point2a <*> peekCField (Proxy @"point2a_x") ptr_0) <*> peekCField (Proxy @"point2a_y") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Point2a point2a_x_3
+                                           point2a_y_4 -> pokeCField (Proxy @"point2a_x") ptr_1 point2a_x_3 >> pokeCField (Proxy @"point2a_y") ptr_1 point2a_y_4
+instance Prim Point2a
+    where sizeOf# = \_ -> 8# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Point2a (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       Point2a v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      Point2a point2a_x_13
+                                                                              point2a_y_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) point2a_x_13 s_12 of
+                                                                                              s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) point2a_y_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> Point2a (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            Point2a v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      Point2a point2a_x_29
+                                                                              point2a_y_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) point2a_x_29 s_28 of
+                                                                                              s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) point2a_y_30 s_31
+instance HasCField Point2a "point2a_x"
+    where type CFieldType Point2a "point2a_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Point2a "point2a_x") =>
+         HasField "point2a_x" (Ptr Point2a) (Ptr ty)
+    where getField = ptrToCField (Proxy @"point2a_x")
+instance HasCField Point2a "point2a_y"
+    where type CFieldType Point2a "point2a_y" = CInt
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType Point2a "point2a_y") =>
+         HasField "point2a_y" (Ptr Point2a) (Ptr ty)
+    where getField = ptrToCField (Proxy @"point2a_y")
+{-| __C declaration:__ @point2b@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 8:44@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
+newtype Point2b
+    = Point2b {un_Point2b :: (Ptr Point2a)}
+      {- ^ __C declaration:__ @point2b@
+
+           __defined at:__ @edge-cases\/anon_multiple_typedefs.h 8:44@
+
+           __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype (Storable, HasBaseForeignType)
+instance TyEq ty (CFieldType Point2b "un_Point2b") =>
+         HasField "un_Point2b" (Ptr Point2b) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Point2b")
+instance HasCField Point2b "un_Point2b"
+    where type CFieldType Point2b "un_Point2b" = Ptr Point2a
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @struct \@point3a_Aux@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:9@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
+data Point3a_Aux
+    = Point3a_Aux {point3a_Aux_x :: CInt
+                   {- ^ __C declaration:__ @x@
+
+                        __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:22@
+
+                        __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+                   -},
+                   point3a_Aux_y :: CInt
+                   {- ^ __C declaration:__ @y@
+
+                        __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:29@
+
+                        __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+                   -}}
+      {- ^ __C declaration:__ @struct \@point3a_Aux@
+
+           __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:9@
+
+           __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Point3a_Aux
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Point3a_Aux <*> peekCField (Proxy @"point3a_Aux_x") ptr_0) <*> peekCField (Proxy @"point3a_Aux_y") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Point3a_Aux point3a_Aux_x_3
+                                               point3a_Aux_y_4 -> pokeCField (Proxy @"point3a_Aux_x") ptr_1 point3a_Aux_x_3 >> pokeCField (Proxy @"point3a_Aux_y") ptr_1 point3a_Aux_y_4
+instance Prim Point3a_Aux
+    where sizeOf# = \_ -> 8# :: Int#
+          alignment# = \_ -> 4# :: Int#
+          indexByteArray# = \arr_0 -> \i_1 -> Point3a_Aux (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (0# :: Int#))) (indexByteArray# arr_0 ((+#) ((*#) (2# :: Int#) i_1) (1# :: Int#)))
+          readByteArray# = \arr_2 -> \i_3 -> \s_4 -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (0# :: Int#)) s_4 of
+                                                     (# s_5,
+                                                        v_6 #) -> case readByteArray# arr_2 ((+#) ((*#) (2# :: Int#) i_3) (1# :: Int#)) s_5 of
+                                                                  (# s_7, v_8 #) -> (# s_7,
+                                                                                       Point3a_Aux v_6 v_8 #)
+          writeByteArray# = \arr_9 -> \i_10 -> \struct_11 -> \s_12 -> case struct_11 of
+                                                                      Point3a_Aux point3a_Aux_x_13
+                                                                                  point3a_Aux_y_14 -> case writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (0# :: Int#)) point3a_Aux_x_13 s_12 of
+                                                                                                      s_15 -> writeByteArray# arr_9 ((+#) ((*#) (2# :: Int#) i_10) (1# :: Int#)) point3a_Aux_y_14 s_15
+          indexOffAddr# = \addr_16 -> \i_17 -> Point3a_Aux (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (0# :: Int#))) (indexOffAddr# addr_16 ((+#) ((*#) (2# :: Int#) i_17) (1# :: Int#)))
+          readOffAddr# = \addr_18 -> \i_19 -> \s_20 -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (0# :: Int#)) s_20 of
+                                                       (# s_21,
+                                                          v_22 #) -> case readOffAddr# addr_18 ((+#) ((*#) (2# :: Int#) i_19) (1# :: Int#)) s_21 of
+                                                                     (# s_23, v_24 #) -> (# s_23,
+                                                                                            Point3a_Aux v_22 v_24 #)
+          writeOffAddr# = \addr_25 -> \i_26 -> \struct_27 -> \s_28 -> case struct_27 of
+                                                                      Point3a_Aux point3a_Aux_x_29
+                                                                                  point3a_Aux_y_30 -> case writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (0# :: Int#)) point3a_Aux_x_29 s_28 of
+                                                                                                      s_31 -> writeOffAddr# addr_25 ((+#) ((*#) (2# :: Int#) i_26) (1# :: Int#)) point3a_Aux_y_30 s_31
+instance HasCField Point3a_Aux "point3a_Aux_x"
+    where type CFieldType Point3a_Aux "point3a_Aux_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Point3a_Aux "point3a_Aux_x") =>
+         HasField "point3a_Aux_x" (Ptr Point3a_Aux) (Ptr ty)
+    where getField = ptrToCField (Proxy @"point3a_Aux_x")
+instance HasCField Point3a_Aux "point3a_Aux_y"
+    where type CFieldType Point3a_Aux "point3a_Aux_y" = CInt
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType Point3a_Aux "point3a_Aux_y") =>
+         HasField "point3a_Aux_y" (Ptr Point3a_Aux) (Ptr ty)
+    where getField = ptrToCField (Proxy @"point3a_Aux_y")
+{-| __C declaration:__ @point3a@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:35@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
+newtype Point3a
+    = Point3a {un_Point3a :: (Ptr Point3a_Aux)}
+      {- ^ __C declaration:__ @point3a@
+
+           __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:35@
+
+           __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype (Storable, HasBaseForeignType)
+instance TyEq ty (CFieldType Point3a "un_Point3a") =>
+         HasField "un_Point3a" (Ptr Point3a) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Point3a")
+instance HasCField Point3a "un_Point3a"
+    where type CFieldType Point3a "un_Point3a" = Ptr Point3a_Aux
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @point3b@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:45@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
+newtype Point3b
+    = Point3b {un_Point3b :: (Ptr Point3a_Aux)}
+      {- ^ __C declaration:__ @point3b@
+
+           __defined at:__ @edge-cases\/anon_multiple_typedefs.h 11:45@
+
+           __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype (Storable, HasBaseForeignType)
+instance TyEq ty (CFieldType Point3b "un_Point3b") =>
+         HasField "un_Point3b" (Ptr Point3b) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Point3b")
+instance HasCField Point3b "un_Point3b"
+    where type CFieldType Point3b "un_Point3b" = Ptr Point3a_Aux
+          offset# = \_ -> \_ -> 0
+-- __unique:__ @test_edgecasesanon_multiple_typed_Example_Safe_test@
+foreign import ccall safe "hs_bindgen_c97a0d4458699ad7" hs_bindgen_c97a0d4458699ad7_base ::
+    Ptr Void
+ -> Ptr Void
+ -> IO Unit
+-- __unique:__ @test_edgecasesanon_multiple_typed_Example_Safe_test@
+hs_bindgen_c97a0d4458699ad7 :: Ptr Point2a -> Point2b -> IO Unit
+-- __unique:__ @test_edgecasesanon_multiple_typed_Example_Safe_test@
+hs_bindgen_c97a0d4458699ad7 = fromBaseForeignType hs_bindgen_c97a0d4458699ad7_base
+{-| __C declaration:__ @test@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 14:6@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
+test :: Point2a -> Point2b -> IO Unit
+{-| __C declaration:__ @test@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 14:6@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
+test = \x_0 -> \y_1 -> with x_0 (\x_2 -> hs_bindgen_c97a0d4458699ad7 x_2 y_1)
+-- __unique:__ @test_edgecasesanon_multiple_typed_Example_Unsafe_test@
+foreign import ccall safe "hs_bindgen_f90e97b8d269be4e" hs_bindgen_f90e97b8d269be4e_base ::
+    Ptr Void
+ -> Ptr Void
+ -> IO Unit
+-- __unique:__ @test_edgecasesanon_multiple_typed_Example_Unsafe_test@
+hs_bindgen_f90e97b8d269be4e :: Ptr Point2a -> Point2b -> IO Unit
+-- __unique:__ @test_edgecasesanon_multiple_typed_Example_Unsafe_test@
+hs_bindgen_f90e97b8d269be4e = fromBaseForeignType hs_bindgen_f90e97b8d269be4e_base
+{-| __C declaration:__ @test@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 14:6@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
+test :: Point2a -> Point2b -> IO Unit
+{-| __C declaration:__ @test@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 14:6@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
+test = \x_0 -> \y_1 -> with x_0 (\x_2 -> hs_bindgen_f90e97b8d269be4e x_2 y_1)
+-- __unique:__ @test_edgecasesanon_multiple_typed_Example_get_test@
+foreign import ccall safe "hs_bindgen_8361517d92bfbc76" hs_bindgen_8361517d92bfbc76_base ::
+    IO (FunPtr Void)
+-- __unique:__ @test_edgecasesanon_multiple_typed_Example_get_test@
+hs_bindgen_8361517d92bfbc76 :: IO (FunPtr (Point2a ->
+                                           Point2b -> IO Unit))
+-- __unique:__ @test_edgecasesanon_multiple_typed_Example_get_test@
+hs_bindgen_8361517d92bfbc76 = fromBaseForeignType hs_bindgen_8361517d92bfbc76_base
+{-# NOINLINE test #-}
+{-| __C declaration:__ @test@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 14:6@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
+test :: FunPtr (Point2a -> Point2b -> IO Unit)
+{-| __C declaration:__ @test@
+
+    __defined at:__ @edge-cases\/anon_multiple_typedefs.h 14:6@
+
+    __exported by:__ @edge-cases\/anon_multiple_typedefs.h@
+-}
+test = unsafePerformIO hs_bindgen_8361517d92bfbc76
