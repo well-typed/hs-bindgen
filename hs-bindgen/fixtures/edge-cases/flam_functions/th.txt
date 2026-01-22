@@ -170,7 +170,7 @@ vector_reverse :: Ptr Vector -> IO Unit
 -}
 vector_reverse = hs_bindgen_bfc48cbf5e4cc2ca
 -- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_alloc@
-foreign import ccall safe "hs_bindgen_66fe57793f0712c2" hs_bindgen_66fe57793f0712c2_base ::
+foreign import ccall unsafe "hs_bindgen_66fe57793f0712c2" hs_bindgen_66fe57793f0712c2_base ::
     CInt
  -> IO (Ptr Void)
 -- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_alloc@
@@ -192,7 +192,7 @@ vector_alloc :: CInt -> IO (Ptr Vector)
 -}
 vector_alloc = hs_bindgen_66fe57793f0712c2
 -- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_free@
-foreign import ccall safe "hs_bindgen_2fb197c3fb9a75a3" hs_bindgen_2fb197c3fb9a75a3_base ::
+foreign import ccall unsafe "hs_bindgen_2fb197c3fb9a75a3" hs_bindgen_2fb197c3fb9a75a3_base ::
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_free@
@@ -214,7 +214,7 @@ vector_free :: Ptr Vector -> IO Unit
 -}
 vector_free = hs_bindgen_2fb197c3fb9a75a3
 -- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_reverse@
-foreign import ccall safe "hs_bindgen_c3965610d4826d1a" hs_bindgen_c3965610d4826d1a_base ::
+foreign import ccall unsafe "hs_bindgen_c3965610d4826d1a" hs_bindgen_c3965610d4826d1a_base ::
     Ptr Void
  -> IO Unit
 -- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_reverse@
@@ -236,7 +236,7 @@ vector_reverse :: Ptr Vector -> IO Unit
 -}
 vector_reverse = hs_bindgen_c3965610d4826d1a
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_alloc@
-foreign import ccall safe "hs_bindgen_d243fc6d495ec901" hs_bindgen_d243fc6d495ec901_base ::
+foreign import ccall unsafe "hs_bindgen_d243fc6d495ec901" hs_bindgen_d243fc6d495ec901_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_alloc@
 hs_bindgen_d243fc6d495ec901 :: IO (FunPtr (CInt ->
@@ -259,7 +259,7 @@ vector_alloc :: FunPtr (CInt -> IO (Ptr Vector))
 -}
 vector_alloc = unsafePerformIO hs_bindgen_d243fc6d495ec901
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_free@
-foreign import ccall safe "hs_bindgen_1d7c878fb2029890" hs_bindgen_1d7c878fb2029890_base ::
+foreign import ccall unsafe "hs_bindgen_1d7c878fb2029890" hs_bindgen_1d7c878fb2029890_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_free@
 hs_bindgen_1d7c878fb2029890 :: IO (FunPtr (Ptr Vector -> IO Unit))
@@ -281,7 +281,7 @@ vector_free :: FunPtr (Ptr Vector -> IO Unit)
 -}
 vector_free = unsafePerformIO hs_bindgen_1d7c878fb2029890
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_reverse@
-foreign import ccall safe "hs_bindgen_630caac5f56516fe" hs_bindgen_630caac5f56516fe_base ::
+foreign import ccall unsafe "hs_bindgen_630caac5f56516fe" hs_bindgen_630caac5f56516fe_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_edgecasesflam_functions_Example_get_vector_reverse@
 hs_bindgen_630caac5f56516fe :: IO (FunPtr (Ptr Vector -> IO Unit))

@@ -118,7 +118,7 @@ new_vector :: CDouble -> CDouble -> IO (Ptr Vector)
 -}
 new_vector = hs_bindgen_cd5f566bc96dcba0
 -- __unique:__ @test_typescomplexvector_test_Example_Unsafe_new_vector@
-foreign import ccall safe "hs_bindgen_1af353788955c7a2" hs_bindgen_1af353788955c7a2_base ::
+foreign import ccall unsafe "hs_bindgen_1af353788955c7a2" hs_bindgen_1af353788955c7a2_base ::
     CDouble
  -> CDouble
  -> IO (Ptr Void)
@@ -142,7 +142,7 @@ new_vector :: CDouble -> CDouble -> IO (Ptr Vector)
 -}
 new_vector = hs_bindgen_1af353788955c7a2
 -- __unique:__ @test_typescomplexvector_test_Example_get_new_vector@
-foreign import ccall safe "hs_bindgen_cb36cf0957839e33" hs_bindgen_cb36cf0957839e33_base ::
+foreign import ccall unsafe "hs_bindgen_cb36cf0957839e33" hs_bindgen_cb36cf0957839e33_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_typescomplexvector_test_Example_get_new_vector@
 hs_bindgen_cb36cf0957839e33 :: IO (FunPtr (CDouble ->

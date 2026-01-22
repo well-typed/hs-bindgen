@@ -777,13 +777,10 @@ mkDecl = \case
           (mkType EmptyEnv deriv.typ)
 
       DForeignImport foreignImport -> do
-        -- Variable names here refer to the syntax of foreign declarations at
-        -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1540008.4>
-        --
-        -- TODO <https://github.com/well-typed/hs-bindgen/issues/94>
-        -- We should generate both safe and unsafe bindings.
         let safety :: TH.Safety
-            safety = TH.Safe
+            safety = case foreignImport.safety of
+              Safe   -> TH.Safe
+              Unsafe -> TH.Unsafe
 
             callconv :: TH.Callconv
             impent   :: String

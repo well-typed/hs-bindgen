@@ -102,7 +102,7 @@ fun :: T -> IO T
 -}
 fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_9fc5746860ab93cb x_1 res_2))
 -- __unique:__ @test_functionsheap_typesunion_Example_Unsafe_fun@
-foreign import ccall safe "hs_bindgen_54b038887c811176" hs_bindgen_54b038887c811176_base ::
+foreign import ccall unsafe "hs_bindgen_54b038887c811176" hs_bindgen_54b038887c811176_base ::
     Ptr Void
  -> Ptr Void
  -> IO Unit
@@ -125,7 +125,7 @@ fun :: T -> IO T
 -}
 fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_54b038887c811176 x_1 res_2))
 -- __unique:__ @test_functionsheap_typesunion_Example_get_fun@
-foreign import ccall safe "hs_bindgen_d5d6e9f882bc09ed" hs_bindgen_d5d6e9f882bc09ed_base ::
+foreign import ccall unsafe "hs_bindgen_d5d6e9f882bc09ed" hs_bindgen_d5d6e9f882bc09ed_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionsheap_typesunion_Example_get_fun@
 hs_bindgen_d5d6e9f882bc09ed :: IO (FunPtr (T -> IO T))

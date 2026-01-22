@@ -463,8 +463,6 @@ prettyPragma :: Hs.Name Hs.NsVar -> Pragma -> CtxDoc
 prettyPragma n = \case
   NOINLINE -> "{-# NOINLINE" <+> pretty n <+> "#-}"
 
--- TODO <https://github.com/well-typed/hs-bindgen/issues/94>
--- We should generate both safe and unsafe bindings.
 safety :: Safety -> CtxDoc
 safety Safe = "safe"
 safety Unsafe = "unsafe"

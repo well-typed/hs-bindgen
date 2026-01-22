@@ -38,7 +38,7 @@ h :: IO Unit
 -}
 h = hs_bindgen_77a4bac5bbe80f62
 -- __unique:__ @test_functionsvarargs_Example_Unsafe_h@
-foreign import ccall safe "hs_bindgen_32ebae80cc3543e1" hs_bindgen_32ebae80cc3543e1_base ::
+foreign import ccall unsafe "hs_bindgen_32ebae80cc3543e1" hs_bindgen_32ebae80cc3543e1_base ::
     IO Unit
 -- __unique:__ @test_functionsvarargs_Example_Unsafe_h@
 hs_bindgen_32ebae80cc3543e1 :: IO Unit
@@ -59,7 +59,7 @@ h :: IO Unit
 -}
 h = hs_bindgen_32ebae80cc3543e1
 -- __unique:__ @test_functionsvarargs_Example_get_h@
-foreign import ccall safe "hs_bindgen_d7b5ad93f4d7fa04" hs_bindgen_d7b5ad93f4d7fa04_base ::
+foreign import ccall unsafe "hs_bindgen_d7b5ad93f4d7fa04" hs_bindgen_d7b5ad93f4d7fa04_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionsvarargs_Example_get_h@
 hs_bindgen_d7b5ad93f4d7fa04 :: IO (FunPtr (IO Unit))

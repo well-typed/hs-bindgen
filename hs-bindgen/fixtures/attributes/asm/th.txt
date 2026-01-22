@@ -53,7 +53,7 @@ asm_labeled_function :: CInt -> CInt -> IO CInt
 -}
 asm_labeled_function = hs_bindgen_369133049bfc1e73
 -- __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
-foreign import ccall safe "hs_bindgen_3ad6c287a2386382" hs_bindgen_3ad6c287a2386382_base ::
+foreign import ccall unsafe "hs_bindgen_3ad6c287a2386382" hs_bindgen_3ad6c287a2386382_base ::
     CInt
  -> CInt
  -> IO CInt
@@ -76,7 +76,7 @@ asm_labeled_function :: CInt -> CInt -> IO CInt
 -}
 asm_labeled_function = hs_bindgen_3ad6c287a2386382
 -- __unique:__ @test_attributesasm_Example_get_asm_labeled_function@
-foreign import ccall safe "hs_bindgen_4f7c4fceed28f171" hs_bindgen_4f7c4fceed28f171_base ::
+foreign import ccall unsafe "hs_bindgen_4f7c4fceed28f171" hs_bindgen_4f7c4fceed28f171_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_attributesasm_Example_get_asm_labeled_function@
 hs_bindgen_4f7c4fceed28f171 :: IO (FunPtr (CInt ->
@@ -99,7 +99,7 @@ asm_labeled_function :: FunPtr (CInt -> CInt -> IO CInt)
 -}
 asm_labeled_function = unsafePerformIO hs_bindgen_4f7c4fceed28f171
 -- __unique:__ @test_attributesasm_Example_get_asm_labeled_variable@
-foreign import ccall safe "hs_bindgen_e637e98af1313f88" hs_bindgen_e637e98af1313f88_base ::
+foreign import ccall unsafe "hs_bindgen_e637e98af1313f88" hs_bindgen_e637e98af1313f88_base ::
     IO (Ptr Void)
 -- __unique:__ @test_attributesasm_Example_get_asm_labeled_variable@
 hs_bindgen_e637e98af1313f88 :: IO (Ptr CInt)
