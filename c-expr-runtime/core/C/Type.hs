@@ -110,7 +110,6 @@ data IntLikeType
   | Long     !Sign
   | LongLong !Sign
   | PtrDiff
-  | Size
   deriving stock ( Eq, Ord, Show, Generic )
 
 --------------------------------------------------------------------------------
@@ -154,7 +153,6 @@ intLikeTypeSign = \case
   Long      s -> s
   LongLong  s -> s
   PtrDiff     -> Signed
-  Size        -> Unsigned
 
 charLikeTypeSizeInBits :: Platform -> CharLikeType -> Word
 charLikeTypeSizeInBits _ = \case
@@ -174,7 +172,6 @@ intLikeTypeSizeInBits plat i =
         Long     {} -> 32
         LongLong {} -> 64
         PtrDiff     -> 32
-        Size        -> 32
     WordWidth64 ->
       case i of
         Short    {} -> 16
@@ -185,7 +182,6 @@ intLikeTypeSizeInBits plat i =
             Posix   -> 64
         LongLong {} -> 64
         PtrDiff     -> 64
-        Size        -> 64
 
 intLikeTypeConversionRank :: Platform -> IntLikeType -> IntegerConversionRank
 intLikeTypeConversionRank plat = IntegerConversionRank . \case
@@ -295,7 +291,6 @@ showIntLikeTypeAsCType = \case
   Long     s -> withSign s "long"
   LongLong s -> withSign s "long long"
   PtrDiff -> "ptrdiff_t"
-  Size    -> "size_t"
   where
     withSign s = case s of
       Signed   -> id
@@ -343,7 +338,6 @@ data SIntLikeType ty where
   SLongLong  :: SIntLikeType CLLong
   SULongLong :: SIntLikeType CULLong
   SPtrDiff   :: SIntLikeType CPtrdiff
-  SSize      :: SIntLikeType CSize
   -- NB: make sure to update 'GEq SIntLikeType' when updating this datatype
 deriving stock instance Show ( SIntLikeType ty )
 
@@ -386,7 +380,6 @@ instance GEq SIntLikeType where
   geq SLongLong  SLongLong  = Just Refl
   geq SULongLong SULongLong = Just Refl
   geq SPtrDiff   SPtrDiff   = Just Refl
-  geq SSize      SSize      = Just Refl
   geq _ _ = Nothing
 
 promoteType :: ( a -> ( forall ty. rec ty -> r ) -> r ) -> Type a -> ( forall ty. ( Ord ty, Show ty ) => SType rec ty -> r ) -> r
@@ -436,7 +429,6 @@ promoteIntLikeType ty f = case ty of
       Signed   -> f SLongLong
       Unsigned -> f SULongLong
   PtrDiff -> f SPtrDiff
-  Size    -> f SSize
 
 demoteType :: ( forall ty'. rec ty' -> a ) -> SType rec ty -> Type a
 demoteType recur = \case
@@ -477,7 +469,6 @@ demoteIntLikeType = \case
   SLongLong  -> LongLong Signed
   SULongLong -> LongLong Unsigned
   SPtrDiff   -> PtrDiff
-  SSize      -> Size
 
 witnessType
   :: forall c ty rec r
@@ -551,4 +542,3 @@ witnessIntLike ty f =
     SLongLong  -> f
     SULongLong -> f
     SPtrDiff   -> f
-    SSize      -> f
