@@ -403,7 +403,7 @@ instance HasCField TTE "un_TTE"
     where type CFieldType TTE "un_TTE" = TE
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_i@
-foreign import ccall safe "hs_bindgen_bb40525ba9109d7a" hs_bindgen_bb40525ba9109d7a_base ::
+foreign import ccall unsafe "hs_bindgen_bb40525ba9109d7a" hs_bindgen_bb40525ba9109d7a_base ::
     IO (ConstPtr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_i@
 hs_bindgen_bb40525ba9109d7a :: IO (ConstPtr I)
@@ -432,7 +432,7 @@ hs_bindgen_8bf2d89ca41997fb = unsafePerformIO hs_bindgen_bb40525ba9109d7a
 i :: I
 i = unsafePerformIO (peek (unConstPtr hs_bindgen_8bf2d89ca41997fb))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_s@
-foreign import ccall safe "hs_bindgen_e02c667254de325e" hs_bindgen_e02c667254de325e_base ::
+foreign import ccall unsafe "hs_bindgen_e02c667254de325e" hs_bindgen_e02c667254de325e_base ::
     IO (ConstPtr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_s@
 hs_bindgen_e02c667254de325e :: IO (ConstPtr S)
@@ -461,7 +461,7 @@ hs_bindgen_0e876abf0fe9e3b2 = unsafePerformIO hs_bindgen_e02c667254de325e
 s :: S
 s = unsafePerformIO (peek (unConstPtr hs_bindgen_0e876abf0fe9e3b2))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_u@
-foreign import ccall safe "hs_bindgen_db442d4a677f346c" hs_bindgen_db442d4a677f346c_base ::
+foreign import ccall unsafe "hs_bindgen_db442d4a677f346c" hs_bindgen_db442d4a677f346c_base ::
     IO (ConstPtr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_u@
 hs_bindgen_db442d4a677f346c :: IO (ConstPtr U)
@@ -490,7 +490,7 @@ hs_bindgen_b7bdf87ddb6b9a5b = unsafePerformIO hs_bindgen_db442d4a677f346c
 u :: U
 u = unsafePerformIO (peek (unConstPtr hs_bindgen_b7bdf87ddb6b9a5b))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_e@
-foreign import ccall safe "hs_bindgen_f8e0ac7d2c94db95" hs_bindgen_f8e0ac7d2c94db95_base ::
+foreign import ccall unsafe "hs_bindgen_f8e0ac7d2c94db95" hs_bindgen_f8e0ac7d2c94db95_base ::
     IO (ConstPtr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_e@
 hs_bindgen_f8e0ac7d2c94db95 :: IO (ConstPtr E)
@@ -519,7 +519,7 @@ hs_bindgen_fa2424d094d91a33 = unsafePerformIO hs_bindgen_f8e0ac7d2c94db95
 e :: E
 e = unsafePerformIO (peek (unConstPtr hs_bindgen_fa2424d094d91a33))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ti@
-foreign import ccall safe "hs_bindgen_da8e11a66011da3a" hs_bindgen_da8e11a66011da3a_base ::
+foreign import ccall unsafe "hs_bindgen_da8e11a66011da3a" hs_bindgen_da8e11a66011da3a_base ::
     IO (ConstPtr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ti@
 hs_bindgen_da8e11a66011da3a :: IO (ConstPtr TI)
@@ -548,7 +548,7 @@ hs_bindgen_d7dd4362406f73a6 = unsafePerformIO hs_bindgen_da8e11a66011da3a
 ti :: TI
 ti = unsafePerformIO (peek (unConstPtr hs_bindgen_d7dd4362406f73a6))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ts@
-foreign import ccall safe "hs_bindgen_10a3457a0f6b2036" hs_bindgen_10a3457a0f6b2036_base ::
+foreign import ccall unsafe "hs_bindgen_10a3457a0f6b2036" hs_bindgen_10a3457a0f6b2036_base ::
     IO (ConstPtr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ts@
 hs_bindgen_10a3457a0f6b2036 :: IO (ConstPtr TS)
@@ -577,7 +577,7 @@ hs_bindgen_cd3e2d14ae82b6fc = unsafePerformIO hs_bindgen_10a3457a0f6b2036
 ts :: TS
 ts = unsafePerformIO (peek (unConstPtr hs_bindgen_cd3e2d14ae82b6fc))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tu@
-foreign import ccall safe "hs_bindgen_ded2bbcd5f7b0513" hs_bindgen_ded2bbcd5f7b0513_base ::
+foreign import ccall unsafe "hs_bindgen_ded2bbcd5f7b0513" hs_bindgen_ded2bbcd5f7b0513_base ::
     IO (ConstPtr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tu@
 hs_bindgen_ded2bbcd5f7b0513 :: IO (ConstPtr TU)
@@ -606,7 +606,7 @@ hs_bindgen_2d9684fc851b0766 = unsafePerformIO hs_bindgen_ded2bbcd5f7b0513
 tu :: TU
 tu = unsafePerformIO (peek (unConstPtr hs_bindgen_2d9684fc851b0766))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_te@
-foreign import ccall safe "hs_bindgen_1b4b0fa82bacf9cc" hs_bindgen_1b4b0fa82bacf9cc_base ::
+foreign import ccall unsafe "hs_bindgen_1b4b0fa82bacf9cc" hs_bindgen_1b4b0fa82bacf9cc_base ::
     IO (ConstPtr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_te@
 hs_bindgen_1b4b0fa82bacf9cc :: IO (ConstPtr TE)
@@ -635,7 +635,7 @@ hs_bindgen_200eaed7c3fb420d = unsafePerformIO hs_bindgen_1b4b0fa82bacf9cc
 te :: TE
 te = unsafePerformIO (peek (unConstPtr hs_bindgen_200eaed7c3fb420d))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tti@
-foreign import ccall safe "hs_bindgen_b8067bbfe8dc188e" hs_bindgen_b8067bbfe8dc188e_base ::
+foreign import ccall unsafe "hs_bindgen_b8067bbfe8dc188e" hs_bindgen_b8067bbfe8dc188e_base ::
     IO (ConstPtr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tti@
 hs_bindgen_b8067bbfe8dc188e :: IO (ConstPtr TTI)
@@ -664,7 +664,7 @@ hs_bindgen_1fbea465b2793d07 = unsafePerformIO hs_bindgen_b8067bbfe8dc188e
 tti :: TTI
 tti = unsafePerformIO (peek (unConstPtr hs_bindgen_1fbea465b2793d07))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tts@
-foreign import ccall safe "hs_bindgen_6ce6ca09ed64a420" hs_bindgen_6ce6ca09ed64a420_base ::
+foreign import ccall unsafe "hs_bindgen_6ce6ca09ed64a420" hs_bindgen_6ce6ca09ed64a420_base ::
     IO (ConstPtr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tts@
 hs_bindgen_6ce6ca09ed64a420 :: IO (ConstPtr TTS)
@@ -693,7 +693,7 @@ hs_bindgen_f23f17df17b3fe36 = unsafePerformIO hs_bindgen_6ce6ca09ed64a420
 tts :: TTS
 tts = unsafePerformIO (peek (unConstPtr hs_bindgen_f23f17df17b3fe36))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ttu@
-foreign import ccall safe "hs_bindgen_5d4569e6c5a642c0" hs_bindgen_5d4569e6c5a642c0_base ::
+foreign import ccall unsafe "hs_bindgen_5d4569e6c5a642c0" hs_bindgen_5d4569e6c5a642c0_base ::
     IO (ConstPtr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_ttu@
 hs_bindgen_5d4569e6c5a642c0 :: IO (ConstPtr TTU)
@@ -722,7 +722,7 @@ hs_bindgen_45ab2258853f641d = unsafePerformIO hs_bindgen_5d4569e6c5a642c0
 ttu :: TTU
 ttu = unsafePerformIO (peek (unConstPtr hs_bindgen_45ab2258853f641d))
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tte@
-foreign import ccall safe "hs_bindgen_cb44d6db796abc21" hs_bindgen_cb44d6db796abc21_base ::
+foreign import ccall unsafe "hs_bindgen_cb44d6db796abc21" hs_bindgen_cb44d6db796abc21_base ::
     IO (ConstPtr Void)
 -- __unique:__ @test_typesqualifiersconst_typedef_Example_get_tte@
 hs_bindgen_cb44d6db796abc21 :: IO (ConstPtr TTE)

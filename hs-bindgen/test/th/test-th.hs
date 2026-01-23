@@ -128,7 +128,7 @@ test01 = testGroup "test_01"
 
             -- Reverse.
             structBeforeReverse <- readRaw ptr
-            Test01.flam_reverse ptr
+            Test01.reverse ptr
             structAfterReverse <- readRaw ptr
             assertEqual "reversed flam"
               (structBeforeReverse.flam)

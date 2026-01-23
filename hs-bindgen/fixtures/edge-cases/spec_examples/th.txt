@@ -359,7 +359,7 @@ resample :: Ptr Int32_T ->
 -}
 resample = hs_bindgen_8a72aafc705daf44
 -- __unique:__ @test_edgecasesspec_examples_Example_Unsafe_resample@
-foreign import ccall safe "hs_bindgen_2311fa9c0d0d6d06" hs_bindgen_2311fa9c0d0d6d06_base ::
+foreign import ccall unsafe "hs_bindgen_2311fa9c0d0d6d06" hs_bindgen_2311fa9c0d0d6d06_base ::
     Ptr Void
  -> Ptr Void
  -> CLLong
@@ -387,7 +387,7 @@ resample :: Ptr Int32_T ->
 -}
 resample = hs_bindgen_2311fa9c0d0d6d06
 -- __unique:__ @test_edgecasesspec_examples_Example_get_resample@
-foreign import ccall safe "hs_bindgen_2b8fc800dad87ec8" hs_bindgen_2b8fc800dad87ec8_base ::
+foreign import ccall unsafe "hs_bindgen_2b8fc800dad87ec8" hs_bindgen_2b8fc800dad87ec8_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_edgecasesspec_examples_Example_get_resample@
 hs_bindgen_2b8fc800dad87ec8 :: IO (FunPtr (Ptr Int32_T ->

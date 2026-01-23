@@ -40,7 +40,7 @@
 --   return &fun;
 -- }
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_erf@
-foreign import ccall safe "hs_bindgen_7d72952bb141f2c8" hs_bindgen_7d72952bb141f2c8_base ::
+foreign import ccall unsafe "hs_bindgen_7d72952bb141f2c8" hs_bindgen_7d72952bb141f2c8_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_erf@
 hs_bindgen_7d72952bb141f2c8 :: IO (FunPtr (CDouble -> IO CDouble))
@@ -62,7 +62,7 @@ erf_random_user_specified_suffix :: FunPtr (CDouble -> IO CDouble)
 -}
 erf_random_user_specified_suffix = unsafePerformIO hs_bindgen_7d72952bb141f2c8
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_bad_fma@
-foreign import ccall safe "hs_bindgen_d8b56ce4d948e996" hs_bindgen_d8b56ce4d948e996_base ::
+foreign import ccall unsafe "hs_bindgen_d8b56ce4d948e996" hs_bindgen_d8b56ce4d948e996_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_bad_fma@
 hs_bindgen_d8b56ce4d948e996 :: IO (FunPtr (CDouble ->
@@ -86,7 +86,7 @@ bad_fma_random_user_specified_suffix :: FunPtr (CDouble ->
 -}
 bad_fma_random_user_specified_suffix = unsafePerformIO hs_bindgen_d8b56ce4d948e996
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args@
-foreign import ccall safe "hs_bindgen_b07b517c1cb304fc" hs_bindgen_b07b517c1cb304fc_base ::
+foreign import ccall unsafe "hs_bindgen_b07b517c1cb304fc" hs_bindgen_b07b517c1cb304fc_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args@
 hs_bindgen_b07b517c1cb304fc :: IO (FunPtr (IO Unit))
@@ -108,7 +108,7 @@ no_args_random_user_specified_suffix :: FunPtr (IO Unit)
 -}
 no_args_random_user_specified_suffix = unsafePerformIO hs_bindgen_b07b517c1cb304fc
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args_no_void@
-foreign import ccall safe "hs_bindgen_cc43ff8560009309" hs_bindgen_cc43ff8560009309_base ::
+foreign import ccall unsafe "hs_bindgen_cc43ff8560009309" hs_bindgen_cc43ff8560009309_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_no_args_no_void@
 hs_bindgen_cc43ff8560009309 :: IO (FunPtr (IO Unit))
@@ -130,7 +130,7 @@ no_args_no_void_random_user_specified_suffix :: FunPtr (IO Unit)
 -}
 no_args_no_void_random_user_specified_suffix = unsafePerformIO hs_bindgen_cc43ff8560009309
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_fun@
-foreign import ccall safe "hs_bindgen_14a306e8e8f0ba6c" hs_bindgen_14a306e8e8f0ba6c_base ::
+foreign import ccall unsafe "hs_bindgen_14a306e8e8f0ba6c" hs_bindgen_14a306e8e8f0ba6c_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_functionssimple_func_1_rename_Example_get_fun@
 hs_bindgen_14a306e8e8f0ba6c :: IO (FunPtr (CChar ->

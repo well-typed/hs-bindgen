@@ -247,7 +247,7 @@ read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
 -}
 read_file_chunk = hs_bindgen_b2a91b3b7edf2ad3
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
-foreign import ccall safe "hs_bindgen_654858ed6a5db417" hs_bindgen_654858ed6a5db417_base ::
+foreign import ccall unsafe "hs_bindgen_654858ed6a5db417" hs_bindgen_654858ed6a5db417_base ::
     Ptr Void
  -> Ptr Void
  -> CSize
@@ -275,7 +275,7 @@ read_file_chunk :: Ptr HsBindgen.Runtime.Prelude.CFile ->
 -}
 read_file_chunk = hs_bindgen_654858ed6a5db417
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
-foreign import ccall safe "hs_bindgen_6e12e70d71890a10" hs_bindgen_6e12e70d71890a10_base ::
+foreign import ccall unsafe "hs_bindgen_6e12e70d71890a10" hs_bindgen_6e12e70d71890a10_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_read_file_chunk@
 hs_bindgen_6e12e70d71890a10 :: IO (FunPtr (Ptr HsBindgen.Runtime.Prelude.CFile ->

@@ -708,88 +708,79 @@ mkDecl = \case
               , map (\(x, f) -> simpleDecl (mkGlobal x) f) inst.decs
               ])
 
-        -- TODO: add haddock comment to the class head, see issue #976. We also
+        -- TODO: Add haddock comment to the class head, see issue #976. We also
         -- don't put the comments on any of the class members (type synonyms /
         -- functions) because that leads to similar bugs as described in #976.
         --
-        -- withDecDoc (instanceComment i) instanceDec
+        -- putDocTypeM _type_ inst.comment
         pure [instanceDec]
 
       DRecord record -> do
-        let _fieldsAndDocs :: ([q TH.VarBangType], [(TH.DocLoc, Maybe HsDoc.Comment)])
-            _fieldsAndDocs@(fields, docs) = unzip
-              [ ( TH.varBangType thFieldName $
+        let fields :: [q TH.VarBangType]
+            docs   :: [(Hs.Name Hs.NsVar, Maybe HsDoc.Comment)]
+            (fields, docs) = unzip
+              [ ( TH.varBangType (hsNameToTH field.name) $
                     TH.bangType
                       (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
                       (mkType EmptyEnv field.typ)
-                , ((TH.DeclDoc thFieldName), fComment)
+                , (field.name, field.comment)
                 )
               | field <- record.fields
-              , let thFieldName = hsNameToTH field.name
-                    fComment    = field.comment
               ]
 
-        traverse_ (uncurry putFieldDoc) docs
+        traverse_ (uncurry putLocalDocM) docs
 
-        fmap singleton $
-          withDecDoc record.comment $
-            TH.dataD
-              (TH.cxt [])
-              (hsNameToTH record.typ)
-              []
-              Nothing
-              [TH.recC (hsNameToTH record.con) fields]
-              (nestedDeriving record.deriv)
+        decl <-
+          TH.dataD
+            (TH.cxt [])
+            (hsNameToTH record.typ)
+            []
+            Nothing
+            [TH.recC (hsNameToTH record.con) fields]
+            (nestedDeriving record.deriv)
+        putLocalDocM record.typ record.comment
+        pure [decl]
 
       DEmptyData empty -> do
-        let thEmptyDataName = hsNameToTH empty.name
-        fmap singleton $
-          withDecDoc empty.comment $
-            TH.dataD (TH.cxt []) thEmptyDataName [] Nothing [] []
+        decl <- TH.dataD (TH.cxt []) (hsNameToTH empty.name) [] Nothing [] []
+        putLocalDocM empty.name empty.comment
+        pure [decl]
 
       DNewtype newtyp -> do
-        let thFieldName   = hsNameToTH newtyp.field.name
-            thNewtypeName = hsNameToTH newtyp.name
-            fComment      = newtyp.field.comment
-            newTyComment  = newtyp.comment
-
-            field :: q TH.VarBangType
-            field = TH.varBangType thFieldName $
+        let field :: q TH.VarBangType
+            field = TH.varBangType (hsNameToTH newtyp.field.name) $
               TH.bangType
                 (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
                 (mkType EmptyEnv newtyp.field.typ)
 
-        putFieldDoc (TH.DeclDoc thFieldName) fComment
+        putLocalDocM newtyp.field.name newtyp.field.comment
 
-        fmap singleton $
-          withDecDoc newTyComment $
-            TH.newtypeD
-              (TH.cxt [])
-              thNewtypeName
-              []
-              Nothing
-              (TH.recC (hsNameToTH newtyp.con)
-              [field])
-              (nestedDeriving newtyp.deriv)
+        decl <-
+          TH.newtypeD
+            (TH.cxt [])
+            (hsNameToTH newtyp.name)
+            []
+            Nothing
+            (TH.recC (hsNameToTH newtyp.con) [field])
+            (nestedDeriving newtyp.deriv)
+        putLocalDocM (newtyp.name) (newtyp.comment)
+        pure [decl]
 
       DDerivingInstance deriv -> do
         s' <- strategy deriv.strategy
 
-        fmap singleton $
-          withDecDoc deriv.comment $
-            TH.standaloneDerivWithStrategyD
-              (Just s')
-              (TH.cxt [])
-              (mkType EmptyEnv deriv.typ)
+        -- NOTE: We can't attach documentation to standalone deriving clauses.
+        -- See 'GHC.Internal.TH.Lib.withDecDoc.doc_loc'.
+        fmap singleton $ TH.standaloneDerivWithStrategyD
+          (Just s')
+          (TH.cxt [])
+          (mkType EmptyEnv deriv.typ)
 
       DForeignImport foreignImport -> do
-        -- Variable names here refer to the syntax of foreign declarations at
-        -- <https://www.haskell.org/onlinereport/haskell2010/haskellch8.html#x15-1540008.4>
-        --
-        -- TODO <https://github.com/well-typed/hs-bindgen/issues/94>
-        -- We should generate both safe and unsafe bindings.
         let safety :: TH.Safety
-            safety = TH.Safe
+            safety = case foreignImport.safety of
+              Safe   -> TH.Safe
+              Unsafe -> TH.Unsafe
 
             callconv :: TH.Callconv
             impent   :: String
@@ -811,35 +802,38 @@ mkDecl = \case
 
             importType = foldr (TFun . (.typ)) foreignImport.result.typ foreignImport.parameters
 
-        fmap singleton $
-          withDecDoc foreignImport.comment $
-            fmap TH.ForeignD $
-              TH.ImportF
-                <$> pure callconv
-                <*> pure safety
-                <*> pure impent
-                <*> pure (hsNameToTH foreignImport.name)
-                <*> mkType EmptyEnv importType
+        decl <-
+          fmap TH.ForeignD $
+            TH.ImportF
+              <$> pure callconv
+              <*> pure safety
+              <*> pure impent
+              <*> pure (hsNameToTH foreignImport.name)
+              <*> mkType EmptyEnv importType
+        putLocalDocM foreignImport.name foreignImport.comment
+        pure [decl]
 
       DBinding binding -> do
-        let bindingName = hsNameToTH binding.name
+        let bindingName :: TH.Name
+            bindingName = hsNameToTH binding.name
+            bindingType :: SType EmptyCtx
             bindingType = foldr (TFun . (.typ)) binding.result.typ binding.parameters
 
-        sequence $
+        decls <- sequence $
           map (pragma binding.name) binding.pragmas
           ++ [
-              withDecDoc binding.comment $
                 TH.SigD <$> pure bindingName
                   <*> mkType EmptyEnv bindingType
             , simpleDecl bindingName binding.body
             ]
+        putLocalDocM binding.name binding.comment
+        pure decls
 
       DPatternSynonym patSyn -> do
         let thPatSynName = hsNameToTH patSyn.name
 
-        sequence
-          [ withDecDoc patSyn.comment $
-              TH.patSynSigD
+        decls <- sequence
+          [ TH.patSynSigD
               thPatSynName
               (mkType EmptyEnv patSyn.typ)
           , TH.patSynD
@@ -848,6 +842,8 @@ mkDecl = \case
             TH.implBidir
             (mkPat patSyn.rhs)
           ]
+        putLocalDocM patSyn.name patSyn.comment
+        pure decls
     where
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr EmptyEnv f) []
@@ -912,3 +908,6 @@ newNames env (AS n) (NameHint hint ::: hints) = do
     (xs, env') <- newNames env n hints
     x <- TH.newName hint
     return (x : xs, env' :> x)
+
+putLocalDocM :: Guasi g => Hs.Name ns -> Maybe HsDoc.Comment -> g ()
+putLocalDocM nm = traverse_ (putLocalDoc nm)

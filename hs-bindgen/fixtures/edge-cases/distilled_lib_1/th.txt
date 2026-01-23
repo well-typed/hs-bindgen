@@ -783,7 +783,7 @@ some_fun :: Ptr A_type_t ->
 -}
 some_fun = hs_bindgen_57cb99ed92c001ad
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_Unsafe_some_fun@
-foreign import ccall safe "hs_bindgen_2a91c367a9380a63" hs_bindgen_2a91c367a9380a63_base ::
+foreign import ccall unsafe "hs_bindgen_2a91c367a9380a63" hs_bindgen_2a91c367a9380a63_base ::
     Ptr Void
  -> Word32
  -> Ptr Void
@@ -813,7 +813,7 @@ some_fun :: Ptr A_type_t ->
 -}
 some_fun = hs_bindgen_2a91c367a9380a63
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun@
-foreign import ccall safe "hs_bindgen_1ade3cfc18679577" hs_bindgen_1ade3cfc18679577_base ::
+foreign import ccall unsafe "hs_bindgen_1ade3cfc18679577" hs_bindgen_1ade3cfc18679577_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_some_fun@
 hs_bindgen_1ade3cfc18679577 :: IO (FunPtr (Ptr A_type_t ->
@@ -841,7 +841,7 @@ some_fun :: FunPtr (Ptr A_type_t ->
 -}
 some_fun = unsafePerformIO hs_bindgen_1ade3cfc18679577
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_v@
-foreign import ccall safe "hs_bindgen_226b16768d8906f3" hs_bindgen_226b16768d8906f3_base ::
+foreign import ccall unsafe "hs_bindgen_226b16768d8906f3" hs_bindgen_226b16768d8906f3_base ::
     IO (Ptr Void)
 -- __unique:__ @test_edgecasesdistilled_lib_1_Example_get_v@
 hs_bindgen_226b16768d8906f3 :: IO (Ptr Var_t)

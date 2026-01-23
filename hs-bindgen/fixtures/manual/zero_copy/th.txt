@@ -787,7 +787,7 @@ transpose :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
 -}
 transpose = hs_bindgen_2ff371c815d92b04
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
-foreign import ccall safe "hs_bindgen_f9655173d51bbaac" hs_bindgen_f9655173d51bbaac_base ::
+foreign import ccall unsafe "hs_bindgen_f9655173d51bbaac" hs_bindgen_f9655173d51bbaac_base ::
     ConstPtr Void
  -> Ptr Void
  -> IO CInt
@@ -811,7 +811,7 @@ reverse :: ConstPtr Vector -> Ptr Vector -> IO CInt
 -}
 reverse = hs_bindgen_f9655173d51bbaac
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
-foreign import ccall safe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627dd5ed2_base ::
+foreign import ccall unsafe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627dd5ed2_base ::
     ConstPtr Void
  -> Ptr Void
  -> IO Unit
@@ -835,7 +835,7 @@ transpose :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
 -}
 transpose = hs_bindgen_ea25667627dd5ed2
 -- __unique:__ @test_manualzero_copy_Example_get_reverse@
-foreign import ccall safe "hs_bindgen_44cb8687c63f0086" hs_bindgen_44cb8687c63f0086_base ::
+foreign import ccall unsafe "hs_bindgen_44cb8687c63f0086" hs_bindgen_44cb8687c63f0086_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_manualzero_copy_Example_get_reverse@
 hs_bindgen_44cb8687c63f0086 :: IO (FunPtr (ConstPtr Vector ->
@@ -858,7 +858,7 @@ reverse :: FunPtr (ConstPtr Vector -> Ptr Vector -> IO CInt)
 -}
 reverse = unsafePerformIO hs_bindgen_44cb8687c63f0086
 -- __unique:__ @test_manualzero_copy_Example_get_transpose@
-foreign import ccall safe "hs_bindgen_1bf30b28aefee5bf" hs_bindgen_1bf30b28aefee5bf_base ::
+foreign import ccall unsafe "hs_bindgen_1bf30b28aefee5bf" hs_bindgen_1bf30b28aefee5bf_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_manualzero_copy_Example_get_transpose@
 hs_bindgen_1bf30b28aefee5bf :: IO (FunPtr (Matrix ->

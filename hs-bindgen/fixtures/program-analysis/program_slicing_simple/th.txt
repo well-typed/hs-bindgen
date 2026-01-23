@@ -130,7 +130,7 @@ bar :: Foreign.Word64 -> Uint32_t -> IO CInt
 -}
 bar = hs_bindgen_48dbbf4b09b5b3c1
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
-foreign import ccall safe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba8ab_base ::
+foreign import ccall unsafe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba8ab_base ::
     Word64
  -> CUInt
  -> IO CInt
@@ -154,7 +154,7 @@ bar :: Foreign.Word64 -> Uint32_t -> IO CInt
 -}
 bar = hs_bindgen_fe855d53295ba8ab
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_bar@
-foreign import ccall safe "hs_bindgen_993162e0dadfa2c9" hs_bindgen_993162e0dadfa2c9_base ::
+foreign import ccall unsafe "hs_bindgen_993162e0dadfa2c9" hs_bindgen_993162e0dadfa2c9_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_programanalysisprogram_slici_Example_get_bar@
 hs_bindgen_993162e0dadfa2c9 :: IO (FunPtr (Foreign.Word64 ->

@@ -181,7 +181,7 @@ instance TyEq ty (CFieldType Y "y_o") =>
          HasField "y_o" (Ptr Y) (Ptr ty)
     where getField = ptrToCField (Proxy @"y_o")
 -- __unique:__ @test_declarationsredeclaration_Example_get_x@
-foreign import ccall safe "hs_bindgen_6f47e5cbb92690b9" hs_bindgen_6f47e5cbb92690b9_base ::
+foreign import ccall unsafe "hs_bindgen_6f47e5cbb92690b9" hs_bindgen_6f47e5cbb92690b9_base ::
     IO (Ptr Void)
 -- __unique:__ @test_declarationsredeclaration_Example_get_x@
 hs_bindgen_6f47e5cbb92690b9 :: IO (Ptr CInt)

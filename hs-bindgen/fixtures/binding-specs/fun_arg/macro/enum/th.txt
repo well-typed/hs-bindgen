@@ -214,7 +214,7 @@ fooB :: B -> IO Unit
 -}
 fooB = hs_bindgen_16e7856908d06f71
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
-foreign import ccall safe "hs_bindgen_0e6b98e93cad73ef" hs_bindgen_0e6b98e93cad73ef_base ::
+foreign import ccall unsafe "hs_bindgen_0e6b98e93cad73ef" hs_bindgen_0e6b98e93cad73ef_base ::
     CUInt
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
@@ -236,7 +236,7 @@ foo :: MyEnum -> IO Unit
 -}
 foo = hs_bindgen_0e6b98e93cad73ef
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
-foreign import ccall safe "hs_bindgen_1c6de1b89014dc52" hs_bindgen_1c6de1b89014dc52_base ::
+foreign import ccall unsafe "hs_bindgen_1c6de1b89014dc52" hs_bindgen_1c6de1b89014dc52_base ::
     CUInt
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
@@ -258,7 +258,7 @@ fooA :: A -> IO Unit
 -}
 fooA = hs_bindgen_1c6de1b89014dc52
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
-foreign import ccall safe "hs_bindgen_a8e579f3b5035c03" hs_bindgen_a8e579f3b5035c03_base ::
+foreign import ccall unsafe "hs_bindgen_a8e579f3b5035c03" hs_bindgen_a8e579f3b5035c03_base ::
     CUInt
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
@@ -280,7 +280,7 @@ fooB :: B -> IO Unit
 -}
 fooB = hs_bindgen_a8e579f3b5035c03
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_foo@
-foreign import ccall safe "hs_bindgen_098964a440956602" hs_bindgen_098964a440956602_base ::
+foreign import ccall unsafe "hs_bindgen_098964a440956602" hs_bindgen_098964a440956602_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_foo@
 hs_bindgen_098964a440956602 :: IO (FunPtr (MyEnum -> IO Unit))
@@ -302,7 +302,7 @@ foo :: FunPtr (MyEnum -> IO Unit)
 -}
 foo = unsafePerformIO hs_bindgen_098964a440956602
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooA@
-foreign import ccall safe "hs_bindgen_86b685b9d27ce50e" hs_bindgen_86b685b9d27ce50e_base ::
+foreign import ccall unsafe "hs_bindgen_86b685b9d27ce50e" hs_bindgen_86b685b9d27ce50e_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooA@
 hs_bindgen_86b685b9d27ce50e :: IO (FunPtr (A -> IO Unit))
@@ -324,7 +324,7 @@ fooA :: FunPtr (A -> IO Unit)
 -}
 fooA = unsafePerformIO hs_bindgen_86b685b9d27ce50e
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooB@
-foreign import ccall safe "hs_bindgen_9383ae52414c2c19" hs_bindgen_9383ae52414c2c19_base ::
+foreign import ccall unsafe "hs_bindgen_9383ae52414c2c19" hs_bindgen_9383ae52414c2c19_base ::
     IO (FunPtr Void)
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_get_fooB@
 hs_bindgen_9383ae52414c2c19 :: IO (FunPtr (B -> IO Unit))

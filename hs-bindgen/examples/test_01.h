@@ -208,7 +208,7 @@ static inline void flam_free(struct StructFLAM *ptr) {
  * @param s Pointer to the structure containing the numbers to reverse.
  *          If @p s is NULL or @c s->length < 2, the function returns immediately.
  */
-static inline void flam_reverse(struct StructFLAM *s) {
+static inline void reverse(struct StructFLAM *s) {
     if (!s || s->length < 2) return;
 
     for (int i = 0, j = s->length - 1; i < j; i++, j--) {

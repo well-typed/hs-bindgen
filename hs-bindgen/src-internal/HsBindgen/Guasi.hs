@@ -1,12 +1,14 @@
 module HsBindgen.Guasi (
-    Guasi (..),
-) where
+    Guasi (..)
+  ) where
 
+import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 import Text.SimplePrettyPrint (pretty)
 
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
+import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.HsModule.Render (CommentKind (..))
 
 -- | An intermediate class between 'TH.Quote' and 'TH.Quasi'
@@ -18,14 +20,12 @@ class TH.Quote g => Guasi g where
     reportError :: String -> g ()
     addCSource :: String -> g ()
 
-    -- | Attach a documentation string to a declaration
+    -- | Attach a documentation to a declaration with provided name /in the
+    --   current module/.
     --
-    withDecDoc   :: Maybe HsDoc.Comment -> g TH.Dec -> g TH.Dec
-
-    -- | Attach a documentation string to a 'TH.DocLoc'. This is mostly used
-    -- for data structure fields.
-    --
-    putFieldDoc :: TH.DocLoc -> Maybe HsDoc.Comment -> g ()
+    -- Ideally we'd use @withDecDoc@ instead, but this gets confused by existing
+    -- functions in scope <https://gitlab.haskell.org/ghc/ghc/-/issues/26817>.
+    putLocalDoc :: Hs.Name ns -> HsDoc.Comment -> g ()
 
 instance Guasi TH.Q where
     addDependentFile = TH.addDependentFile
@@ -34,8 +34,8 @@ instance Guasi TH.Q where
 
     addCSource = TH.addForeignSource TH.LangC
 
-    withDecDoc mbComment =
-      TH.withDecDoc (maybe "" (show . pretty . THComment) mbComment)
-    putFieldDoc docLoc mbComment =
+    putLocalDoc nm comment = do
+      md <- TH.loc_module <$> TH.location
+      let qualifiedName = TH.mkName $ md <> "." <> (Text.unpack $ Hs.getName nm)
       TH.addModFinalizer $
-        TH.putDoc docLoc (maybe "" (show . pretty . THComment) mbComment)
+        TH.putDoc (TH.DeclDoc qualifiedName) (show $ pretty $ THComment comment)
