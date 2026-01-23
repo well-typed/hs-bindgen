@@ -373,7 +373,7 @@ hs_bindgen_16c298a15b737eb2 =
 -}
 transformMeasurement ::
      Ptr.Ptr Measurement
-     -- ^ __C declaration:__ @data'@
+     -- ^ __C declaration:__ @data@
   -> Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())
      -- ^ __C declaration:__ @transformer@
   -> IO ()
@@ -449,7 +449,7 @@ hs_bindgen_d66d7470a7a213b0 =
 -}
 executePipeline ::
      Ptr.Ptr Measurement
-     -- ^ __C declaration:__ @data'@
+     -- ^ __C declaration:__ @data@
   -> Ptr.Ptr DataPipeline
      -- ^ __C declaration:__ @pipeline@
   -> IO ()
@@ -477,7 +477,7 @@ hs_bindgen_e925d3ce6e5fb395 =
 -}
 runProcessor ::
      Ptr.Ptr Measurement
-     -- ^ __C declaration:__ @data'@
+     -- ^ __C declaration:__ @data@
   -> Ptr.Ptr Processor
      -- ^ __C declaration:__ @processor@
   -> IO ()
@@ -505,7 +505,7 @@ hs_bindgen_1e432e1595a1ef55 =
 -}
 processMeasurementWithValidation ::
      Ptr.Ptr Measurement
-     -- ^ __C declaration:__ @data'@
+     -- ^ __C declaration:__ @data@
   -> Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())
      -- ^ __C declaration:__ @processor@
   -> IO ()

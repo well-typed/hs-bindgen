@@ -66,7 +66,7 @@ mkHaddocksDecorateParams ::
      HaddockConfig
   -> C.DeclInfo Final
   -> Hs.Name ns
-  -> [Hs.FunctionParameter]
+  -> [(Maybe Text, Hs.FunctionParameter)]
   -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
 mkHaddocksDecorateParams config info name params =
     let (mbc, xs) = mkHaddocksWithArgs config info Args{
@@ -90,7 +90,7 @@ data Args = Args{
     , nameC       :: Text
     , nameHsIdent :: Hs.Identifier
     , comment     :: Maybe (C.Comment Final)
-    , params      :: [Hs.FunctionParameter]
+    , params      :: [(Maybe Text, Hs.FunctionParameter)]
     }
 
 -- | Convert a Clang comment to a Haddock comment, updating function parameters
@@ -111,7 +111,7 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Nothing, ..} =
             & #origin     .~ Just nameC
             & #location   .~ Just (updateSingleLoc pathStyle loc)
             & #headerInfo .~ Just info.headerInfo
-      , map addFunctionParameterComment params
+      , map (uncurry addFunctionParameterComment) params
       )
 mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Comment{..}), ..} =
   let commentCName = nameC
@@ -139,7 +139,7 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Co
       -- If there's no C.Comment to associate with any function parameter we make
       -- sure to at least add a comment that will show the function parameter name
       --
-      updatedParams = map addFunctionParameterComment
+      updatedParams = map (uncurry addFunctionParameterComment)
                     . processParamCommands
                     $ paramCommands
 
@@ -173,7 +173,7 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Co
     filterParamCommands = \case
       [] -> []
       (blockContent@CDoc.ParamCommand{..}:cmds)
-        | any (\p -> fmap Hs.getName p.name == Just paramCommandName) params ->
+        | any ((== Just paramCommandName) . fst) params ->
           let comment =
                 mempty
                   & #origin   .~ ( if Text.null paramCommandName
@@ -188,37 +188,37 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Co
     -- Process 'C.ParamCommand and update matching parameter
     --
     processParamCommands :: [(HsDoc.Comment, Maybe CDoc.CXCommentParamPassDirection)]
-                         -> [Hs.FunctionParameter]
+                         -> [(Maybe Text, Hs.FunctionParameter)]
     processParamCommands paramCmds =
       go paramCmds params
       where
         go :: [(HsDoc.Comment, Maybe CDoc.CXCommentParamPassDirection)]
-           -> [Hs.FunctionParameter]
-           -> [Hs.FunctionParameter]
+           -> [(Maybe Text, Hs.FunctionParameter)]
+           -> [(Maybe Text, Hs.FunctionParameter)]
         go [] currentParams = currentParams
         go ((hsComment, _mbDirection):rest) currentParams =
             go rest $ map updateParam currentParams
           where
-            updateParam :: Hs.FunctionParameter -> Hs.FunctionParameter
-            updateParam fp =
-                if fmap Hs.getName fp.name == hsComment.origin
-                  then fp & #comment .~ Just hsComment
-                  else fp
+            updateParam :: (Maybe Text, Hs.FunctionParameter) -> (Maybe Text, Hs.FunctionParameter)
+            updateParam (mbName, fp) =
+                if mbName == hsComment.origin
+                  then (mbName, fp & #comment .~ Just hsComment)
+                  else (mbName, fp)
 
 -- | If the function parameter doesn't have any comments then add a simple
 -- comment with just its name (if exists).
 --
-addFunctionParameterComment :: Hs.FunctionParameter -> Hs.FunctionParameter
-addFunctionParameterComment fp =
-  case fp.name of
+addFunctionParameterComment :: Maybe Text -> Hs.FunctionParameter -> Hs.FunctionParameter
+addFunctionParameterComment mbName fp =
+  case mbName of
     Nothing -> fp
-    Just hsName
-      | Text.null (Hs.getName hsName) -> panicPure "function parameter name is null"
+    Just name
+      | Text.null name -> panicPure "function parameter name is null"
       | otherwise ->
         case fp.comment of
           Just{}  -> fp
           Nothing -> fp & #comment .~ Just (
-              mempty & #origin .~ (Hs.getName <$> fp.name)
+              mempty & #origin .~ mbName
             )
 
 -- | Convert Clang block content to Haddock block content

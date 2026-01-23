@@ -224,8 +224,7 @@ translateForeignImportDecl importDecl = DForeignImport ForeignImport{
 
 translateParam :: Hs.FunctionParameter -> Parameter
 translateParam param = Parameter {
-      name    = param.name
-    , typ     = translateType param.typ
+      typ     = translateType param.typ
     , comment = param.comment
     }
 
@@ -233,8 +232,7 @@ translateForeignImportWrapper :: Hs.ForeignImportWrapper -> SDecl
 translateForeignImportWrapper importWrapper = DForeignImport ForeignImport{
       parameters = [
             Parameter {
-                name = Nothing
-              , typ = translateType importWrapper.funType
+                typ = translateType importWrapper.funType
               , comment = Nothing
               }
           ]
@@ -254,8 +252,7 @@ translateForeignImportDynamic :: Hs.ForeignImportDynamic -> SDecl
 translateForeignImportDynamic importDyn = DForeignImport ForeignImport{
       parameters = [
             Parameter {
-                name = Nothing
-              , typ =
+                typ =
                     TGlobal Foreign_FunPtr `TApp`
                     translateType importDyn.funType
               , comment = Nothing
@@ -471,8 +468,7 @@ translateUnionGetter getter = DBinding Binding{
     , comment    = getter.comment
     , parameters = [
           Parameter {
-              name    = Nothing
-            , typ     = TCon getter.constr
+              typ     = TCon getter.constr
             , comment = Nothing
             }
         ]
@@ -487,10 +483,9 @@ translateUnionSetter setter = DBinding Binding{
     , comment    = setter.comment
     , parameters = [
           Parameter {
-             name    = Nothing
-           , typ     = translateType setter.typ
-           , comment = Nothing
-           }
+              typ     = translateType setter.typ
+            , comment = Nothing
+            }
         ]
     }
 

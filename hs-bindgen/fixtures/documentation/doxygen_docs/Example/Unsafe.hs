@@ -546,7 +546,12 @@ __exported by:__ @documentation\/doxygen_docs.h@
 -}
 versioned_function ::
      FC.CInt
-     -- ^ __C declaration:__ @data'@
+     {- ^
+
+        [__@data@ /(input)/__]: Input data
+
+     __C declaration:__ @data@
+     -}
   -> IO FC.CInt
 versioned_function = hs_bindgen_da2dcc1473935665
 
@@ -790,7 +795,12 @@ complex_function ::
      __C declaration:__ @config@
      -}
   -> HsBindgen.Runtime.ConstPtr.ConstPtr HsBindgen.Runtime.Prelude.Word8
-     -- ^ __C declaration:__ @data'@
+     {- ^
+
+        [__@data@ /(input)/__]: Input data buffer
+
+     __C declaration:__ @data@
+     -}
   -> HsBindgen.Runtime.Prelude.CSize
      {- ^
 
