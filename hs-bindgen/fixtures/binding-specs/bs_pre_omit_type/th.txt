@@ -17,6 +17,7 @@ newtype Sym
     deriving newtype (Storable,
                       HasBaseForeignType,
                       Prim,
+                      Bitfield,
                       Bits,
                       Bounded,
                       Enum,

@@ -43,6 +43,7 @@ import C.Expr.HostPlatform qualified as CExpr.Runtime
 
 import C.Expr.Syntax qualified as CExpr.DSL
 
+import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.CAPI qualified
@@ -177,6 +178,7 @@ mkGlobal = \case
       Prim_add#            -> '(GHC.Base.+#)
       Prim_mul#            -> '(GHC.Base.*#)
 
+      Bitfield_class    -> ''HsBindgen.Runtime.Bitfield.Bitfield
       Bits_class        -> ''Data.Bits.Bits
       Bounded_class     -> ''Bounded
       Enum_class        -> ''Enum
@@ -458,6 +460,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     Prim_mul#            -> TH.varE name
 
     -- Other type classes
+    Bitfield_class    -> panicPure "class in expression"
     Bits_class        -> panicPure "class in expression"
     Bounded_class     -> panicPure "class in expression"
     Enum_class        -> panicPure "class in expression"

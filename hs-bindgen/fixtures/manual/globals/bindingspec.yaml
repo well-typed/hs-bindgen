@@ -27,6 +27,7 @@ hstypes:
       - un_ConstInt
       ffitype: CInt
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

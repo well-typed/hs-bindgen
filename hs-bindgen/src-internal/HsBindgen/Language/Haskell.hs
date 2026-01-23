@@ -148,6 +148,7 @@ data TypeClass =
   | Show
 
     -- Classes we can only derive through newtype deriving
+  | Bitfield
   | Bits
   | FiniteBits
   | Floating

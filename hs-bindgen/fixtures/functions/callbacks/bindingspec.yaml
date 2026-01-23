@@ -92,6 +92,7 @@ hstypes:
       - un_Foo
       ffitype: CInt
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -115,6 +116,7 @@ hstypes:
       - un_Foo2
       ffitype: CInt
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

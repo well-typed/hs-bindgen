@@ -42,6 +42,7 @@ import Text.Read qualified
 import C.Char qualified as CExpr.Runtime
 import C.Expr.HostPlatform qualified as CExpr.Runtime
 
+import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.CAPI qualified
@@ -370,6 +371,7 @@ resolveGlobal = \case
     Prim_add#            -> importU '(GHC.Base.+#)
     Prim_mul#            -> importU '(GHC.Base.*#)
 
+    Bitfield_class    -> importQ ''HsBindgen.Runtime.Bitfield.Bitfield
     Bits_class        -> importQ ''Data.Bits.Bits
     Bounded_class     -> importU ''Bounded
     Enum_class        -> importU ''Enum

@@ -222,6 +222,7 @@ newtype ConstInt
     deriving newtype (Storable,
                       HasBaseForeignType,
                       Prim,
+                      Bitfield,
                       Bits,
                       Bounded,
                       Enum,

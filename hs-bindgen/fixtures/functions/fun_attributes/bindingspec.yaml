@@ -31,6 +31,7 @@ hstypes:
       - un_Size_t
       ffitype: CInt
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

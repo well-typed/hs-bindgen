@@ -15,6 +15,7 @@ module HsBindgen.Runtime.Bitfield (
 -- >>> import Foreign.C.Types
 
 import Data.Bits
+import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Word (Word16, Word32, Word64, Word8)
 import Foreign (Ptr, peekByteOff, pokeByteOff)
 import Foreign.C.Types
@@ -56,9 +57,27 @@ instance Bitfield CUInt where extend = unsignedExtend
 instance Bitfield CULong where extend = unsignedExtend
 instance Bitfield Word64 where extend = unsignedExtend
 
+instance Bitfield CShort where extend = signedExtend
+instance Bitfield CChar where extend = signedExtend
 instance Bitfield CSChar where extend = signedExtend
 instance Bitfield CInt where extend = signedExtend
 instance Bitfield CLong where extend = signedExtend
+instance Bitfield CLLong where extend = signedExtend
+
+instance Bitfield CUShort    where extend = unsignedExtend
+instance Bitfield CULLong    where extend = unsignedExtend
+instance Bitfield Word8      where extend = unsignedExtend
+instance Bitfield Word16     where extend = unsignedExtend
+instance Bitfield Word32     where extend = unsignedExtend
+instance Bitfield CUIntMax   where extend = unsignedExtend
+instance Bitfield CUIntPtr   where extend = unsignedExtend
+
+instance Bitfield Int8       where extend = signedExtend
+instance Bitfield Int16      where extend = signedExtend
+instance Bitfield Int32      where extend = signedExtend
+instance Bitfield Int64      where extend = signedExtend
+instance Bitfield CIntMax    where extend = signedExtend
+instance Bitfield CIntPtr    where extend = signedExtend
 
 -- | Default 'narrow' implementation. Takes the lowest @n@ bits.
 defaultNarrow :: Integral a => a -> Int -> Word64

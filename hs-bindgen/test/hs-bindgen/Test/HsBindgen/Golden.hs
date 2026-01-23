@@ -122,6 +122,7 @@ testCases_default = [
     , defaultTest "edge-cases/flam_functions"
     , defaultTest "edge-cases/names"
     , defaultTest "edge-cases/spec_examples"
+    , defaultTest "edge-cases/typedef_bitfield"
     , defaultTest "edge-cases/typedef_void"
     , defaultTest "edge-cases/uses_utf8"
     , defaultTest "functions/callbacks"

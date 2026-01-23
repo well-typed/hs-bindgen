@@ -1,0 +1,103 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: edge-cases/typedef_bitfield.h
+  cname: myInt
+  hsname: MyInt
+- headers: edge-cases/typedef_bitfield.h
+  cname: myUInt
+  hsname: MyUInt
+- headers: edge-cases/typedef_bitfield.h
+  cname: myLong
+  hsname: MyLong
+- headers: edge-cases/typedef_bitfield.h
+  cname: struct myStruct
+  hsname: MyStruct
+hstypes:
+- hsname: MyInt
+  representation:
+    newtype:
+      constructor: MyInt
+      fields:
+      - un_MyInt
+      ffitype: CInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasBaseForeignType
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: MyLong
+  representation:
+    newtype:
+      constructor: MyLong
+      fields:
+      - un_MyLong
+      ffitype: CLong
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasBaseForeignType
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: MyStruct
+  representation:
+    record:
+      constructor: MyStruct
+      fields:
+      - myStruct_x
+      - myStruct_y
+      - myStruct_z
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable
+- hsname: MyUInt
+  representation:
+    newtype:
+      constructor: MyUInt
+      fields:
+      - un_MyUInt
+      ffitype: CUInt
+  instances:
+  - Bitfield
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - HasBaseForeignType
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Prim
+  - Read
+  - Real
+  - Show
+  - Storable

@@ -29,6 +29,7 @@ hstypes:
       - un_Uint32_t
       ffitype: CUInt
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum

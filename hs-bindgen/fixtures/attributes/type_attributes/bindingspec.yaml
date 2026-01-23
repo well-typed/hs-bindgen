@@ -42,6 +42,7 @@ hstypes:
       - un_More_aligned_int
       ffitype: CInt
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -110,6 +111,7 @@ hstypes:
       - un_Short_a
       ffitype: CShort
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
@@ -133,6 +135,7 @@ hstypes:
       - un_T1
       ffitype: CInt
   instances:
+  - Bitfield
   - Bits
   - Bounded
   - Enum
