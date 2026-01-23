@@ -154,7 +154,7 @@ instance Guasi Qu where
     extsEnabled = return []
     reportError _ = return ()
 
-    putDocName nm s = Qu $ do
+    putLocalDoc nm s = Qu $ do
         q@QuState{ documentationMap = docMap } <- get
         put $!
           q { documentationMap =

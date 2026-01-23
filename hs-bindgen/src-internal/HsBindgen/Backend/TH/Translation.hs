@@ -728,7 +728,7 @@ mkDecl = \case
               | field <- record.fields
               ]
 
-        traverse_ (uncurry putDocNameM) docs
+        traverse_ (uncurry putLocalDocM) docs
 
         decl <-
           TH.dataD
@@ -738,12 +738,12 @@ mkDecl = \case
             Nothing
             [TH.recC (hsNameToTH record.con) fields]
             (nestedDeriving record.deriv)
-        putDocNameM record.typ record.comment
+        putLocalDocM record.typ record.comment
         pure [decl]
 
       DEmptyData empty -> do
         decl <- TH.dataD (TH.cxt []) (hsNameToTH empty.name) [] Nothing [] []
-        putDocNameM empty.name empty.comment
+        putLocalDocM empty.name empty.comment
         pure [decl]
 
       DNewtype newtyp -> do
@@ -753,7 +753,7 @@ mkDecl = \case
                 (TH.bang TH.noSourceUnpackedness TH.noSourceStrictness)
                 (mkType EmptyEnv newtyp.field.typ)
 
-        putDocNameM newtyp.field.name newtyp.field.comment
+        putLocalDocM newtyp.field.name newtyp.field.comment
 
         decl <-
           TH.newtypeD
@@ -763,7 +763,7 @@ mkDecl = \case
             Nothing
             (TH.recC (hsNameToTH newtyp.con) [field])
             (nestedDeriving newtyp.deriv)
-        putDocNameM (newtyp.name) (newtyp.comment)
+        putLocalDocM (newtyp.name) (newtyp.comment)
         pure [decl]
 
       DDerivingInstance deriv -> do
@@ -810,7 +810,7 @@ mkDecl = \case
               <*> pure impent
               <*> pure (hsNameToTH foreignImport.name)
               <*> mkType EmptyEnv importType
-        putDocNameM foreignImport.name foreignImport.comment
+        putLocalDocM foreignImport.name foreignImport.comment
         pure [decl]
 
       DBinding binding -> do
@@ -826,7 +826,7 @@ mkDecl = \case
                   <*> mkType EmptyEnv bindingType
             , simpleDecl bindingName binding.body
             ]
-        putDocNameM binding.name binding.comment
+        putLocalDocM binding.name binding.comment
         pure decls
 
       DPatternSynonym patSyn -> do
@@ -842,7 +842,7 @@ mkDecl = \case
             TH.implBidir
             (mkPat patSyn.rhs)
           ]
-        putDocNameM patSyn.name patSyn.comment
+        putLocalDocM patSyn.name patSyn.comment
         pure decls
     where
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
@@ -908,3 +908,6 @@ newNames env (AS n) (NameHint hint ::: hints) = do
     (xs, env') <- newNames env n hints
     x <- TH.newName hint
     return (x : xs, env' :> x)
+
+putLocalDocM :: Guasi g => Hs.Name ns -> Maybe HsDoc.Comment -> g ()
+putLocalDocM nm = traverse_ (putLocalDoc nm)

@@ -1,9 +1,7 @@
 module HsBindgen.Guasi (
     Guasi (..)
-  , putDocNameM
   ) where
 
-import Data.Foldable (traverse_)
 import Data.Text qualified as Text
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
@@ -22,13 +20,12 @@ class TH.Quote g => Guasi g where
     reportError :: String -> g ()
     addCSource :: String -> g ()
 
-    -- | Attach a documentation to a declaration with provided name _in the
-    --   current module_.
+    -- | Attach a documentation to a declaration with provided name /in the
+    --   current module/.
     --
-    -- This abstraction is necessary to work around a TH bug, where
-    -- documentation would be attached to symbols defined _in other modules_ but
-    -- with the same name (e.g., `reverse`).
-    putDocName :: Hs.Name ns -> HsDoc.Comment -> g ()
+    -- Ideally we'd use @withDecDoc@ instead, but this gets confused by existing
+    -- functions in scope <https://gitlab.haskell.org/ghc/ghc/-/issues/26817>.
+    putLocalDoc :: Hs.Name ns -> HsDoc.Comment -> g ()
 
 instance Guasi TH.Q where
     addDependentFile = TH.addDependentFile
@@ -37,11 +34,8 @@ instance Guasi TH.Q where
 
     addCSource = TH.addForeignSource TH.LangC
 
-    putDocName nm comment = do
+    putLocalDoc nm comment = do
       md <- TH.loc_module <$> TH.location
       let qualifiedName = TH.mkName $ md <> "." <> (Text.unpack $ Hs.getName nm)
       TH.addModFinalizer $
         TH.putDoc (TH.DeclDoc qualifiedName) (show $ pretty $ THComment comment)
-
-putDocNameM :: Guasi g => Hs.Name ns -> Maybe HsDoc.Comment -> g ()
-putDocNameM nm = traverse_ (putDocName nm)
