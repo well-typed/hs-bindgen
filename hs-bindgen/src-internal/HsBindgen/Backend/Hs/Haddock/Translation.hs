@@ -42,7 +42,6 @@ mkHaddocks config info name =
         , nameC       = renderDeclId info.id.cName
         , nameHsIdent = info.id.unsafeHsName
         , comment     = info.comment
-        , paramNames  = []
         , params      = []
         }
 
@@ -58,7 +57,6 @@ mkHaddocksFieldInfo config declInfo fieldInfo =
       , nameC       = fieldInfo.name.cName.text
       , nameHsIdent = fieldInfo.name.hsName
       , comment     = fieldInfo.comment
-      , paramNames  = []
       , params      = []
       }
 
@@ -68,17 +66,15 @@ mkHaddocksDecorateParams ::
      HaddockConfig
   -> C.DeclInfo Final
   -> Hs.Name ns
-  -> [Maybe Text]              -- ^ C parameter names
-  -> [Hs.FunctionParameter]
+  -> [(Maybe Text, Hs.FunctionParameter)]
   -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
-mkHaddocksDecorateParams config info name cParamNames params =
+mkHaddocksDecorateParams config info name params =
     let (mbc, xs) = mkHaddocksWithArgs config info Args{
         isField     = False
       , loc         = info.loc
       , nameC       = renderDeclId info.id.cName
       , nameHsIdent = info.id.unsafeHsName
       , comment     = info.comment
-      , paramNames  = cParamNames
       , params      = params
       }
     in  (mbAddUniqueSymbolSource name <$> mbc, xs)
@@ -94,8 +90,7 @@ data Args = Args{
     , nameC       :: Text
     , nameHsIdent :: Hs.Identifier
     , comment     :: Maybe (C.Comment Final)
-    , paramNames  :: [Maybe Text]
-    , params      :: [Hs.FunctionParameter]
+    , params      :: [(Maybe Text, Hs.FunctionParameter)]
     }
 
 -- | Convert a Clang comment to a Haddock comment, updating function parameters
@@ -116,7 +111,7 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Nothing, ..} =
             & #origin     .~ Just nameC
             & #location   .~ Just (updateSingleLoc pathStyle loc)
             & #headerInfo .~ Just info.headerInfo
-      , zipWith addFunctionParameterComment paramNames params
+      , map (uncurry addFunctionParameterComment) params
       )
 mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Comment{..}), ..} =
   let commentCName = nameC
@@ -144,8 +139,9 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Co
       -- If there's no C.Comment to associate with any function parameter we make
       -- sure to at least add a comment that will show the function parameter name
       --
-      updatedParams = zipWith addFunctionParameterComment paramNames
-                    $ processParamCommands paramCommands
+      updatedParams = map (uncurry addFunctionParameterComment)
+                    . processParamCommands
+                    $ paramCommands
 
       -- Convert remaining content (including unmatched param commands)
       finalChildren = concatMap ( convertBlockContent
@@ -177,7 +173,7 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Co
     filterParamCommands = \case
       [] -> []
       (blockContent@CDoc.ParamCommand{..}:cmds)
-        | any (== Just paramCommandName) paramNames ->
+        | any ((== Just paramCommandName) . fst) params ->
           let comment =
                 mempty
                   & #origin   .~ ( if Text.null paramCommandName
@@ -192,9 +188,9 @@ mkHaddocksWithArgs HaddockConfig{..} info Args{comment = Just (C.Comment CDoc.Co
     -- Process 'C.ParamCommand and update matching parameter
     --
     processParamCommands :: [(HsDoc.Comment, Maybe CDoc.CXCommentParamPassDirection)]
-                         -> [Hs.FunctionParameter]
+                         -> [(Maybe Text, Hs.FunctionParameter)]
     processParamCommands paramCmds =
-      map snd $ go paramCmds (zip paramNames params)
+      go paramCmds params
       where
         go :: [(HsDoc.Comment, Maybe CDoc.CXCommentParamPassDirection)]
            -> [(Maybe Text, Hs.FunctionParameter)]

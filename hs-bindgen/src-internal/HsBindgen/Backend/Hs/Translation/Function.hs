@@ -201,17 +201,15 @@ functionDecs safety opts haddockConfig moduleName transState info origCFun _spec
     mbRestoreOrigSignatureComment :: Maybe HsDoc.Comment
     restoreOrigSignatureParams :: [Hs.FunctionParameter]
     (mbRestoreOrigSignatureComment, restoreOrigSignatureParams) =
-      let cParamNames :: [Maybe Text]
-          cParamNames = [fmap (.cName.text) mbName | (mbName, _ty) <- origCFun.args]
-          params :: [Hs.FunctionParameter]
-          params = [
-               Hs.FunctionParameter{
-                 typ     = Type.inContext Type.FunArg (toOrigType (classifyArgPassingMethod ty))
-               , comment = Nothing
-               }
-            | (_mbName, ty) <- origCFun.args
-            ]
-      in  mkHaddocksDecorateParams haddockConfig info mangledOrigName cParamNames params
+      let params :: [(Maybe Text, Hs.FunctionParameter)]
+          params = [ ( fmap (.cName.text) mbName
+                     , Hs.FunctionParameter{
+                         typ     = Type.inContext Type.FunArg (toOrigType (classifyArgPassingMethod ty))
+                       , comment = Nothing
+                       })
+                     | (mbName, ty) <- origCFun.args
+                     ]
+      in  mkHaddocksDecorateParams haddockConfig info mangledOrigName params
 
     runsInIO :: Bool
     runsInIO = functionShouldRunInIO origCFun.attrs.purity primResult primParams
