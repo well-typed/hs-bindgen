@@ -92,35 +92,54 @@ resolveConflicts anonId new old =
         -- >   struct { int x; int y; } tl, br;
         -- > };
         --
+        -- Multiple declarators for the same field.
         -- We choose the first field (in source order).
         old
-      (TypedefDirect _, TypedefDirect _) ->
-        -- Example:
-        --
-        -- > typedef struct { int x; int y; } point1a, point1b;
-        --
-        -- We choose the first typedef (in source order).
-        old
-      (TypedefIndirect _, TypedefIndirect _) ->
-        -- Example:
-        --
-        -- > typedef struct { int x; int y; } *point3a, *point3b;
-        --
-        -- We choose the first typedef (in source order).
-        old
+
+      {-----------------------------------------------------------------------------
+        Clang < 16
+      -----------------------------------------------------------------------------}
+
       (TypedefDirect _, TypedefIndirect _) ->
         -- Example:
         --
         -- > typedef struct { int x; int y; } point2a, *point2b;
         --
-        -- IMPORTANT: This case only occurs in Clang < 16. In Clang >= 16,
-        -- the indirect typedef does not reference the anonymous struct at
-        -- all, so there is no conflict to resolve.
+        -- Mixed direct and indirect typedefs (direct seen first).
         old
+
       (TypedefIndirect _, TypedefDirect _) ->
-        -- Mirror of the above case (for when indirect comes first in source
-        -- order, though this is unlikely in practice).
+        -- Mirror of the above case (when indirect appears first in source order).
         new
+
+      (TypedefDirect _, TypedefDirect _) ->
+        -- Example:
+        --
+        -- > typedef struct { int x; int y; } point1a, point1b;
+        --
+        -- Multiple direct typedefs for the same anonymous struct.
+        -- We choose the first typedef (in source order).
+        old
+
+      {-----------------------------------------------------------------------------
+        Clang >= 16
+      -----------------------------------------------------------------------------}
+
+      (TypedefIndirect _, TypedefIndirect _) ->
+        -- Example:
+        --
+        -- > typedef struct { int x; int y; } *point3a, *point3b;
+        --
+        -- Multiple indirect typedefs for the same anonymous struct.
+        -- We choose the first typedef (in source order).
+        --
+        -- NOTE: This is the ONLY conflict case that can occur in Clang >= 16.
+        -- In Clang >= 16, when a typedef has both direct and indirect declarators
+        -- (e.g., `typedef struct { ... } a, *b;`), Clang names the anonymous struct
+        -- with the first direct typedef name ('a'), and the indirect typedef ('b')
+        -- becomes a pointer to that named type. Thus no conflict exists.
+        old
+
       _otherwise ->
          panicPure $ concat [
              "Conflicting use sites for "
