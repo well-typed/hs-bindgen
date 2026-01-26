@@ -1,0 +1,119 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: edge-cases/anon_multiple_typedefs.h
+  cname: struct point1a
+  hsname: Point1a
+- headers: edge-cases/anon_multiple_typedefs.h
+  cname: point1a
+  hsname: Point1a
+- headers: edge-cases/anon_multiple_typedefs.h
+  cname: point1b
+  hsname: Point1b
+- headers: edge-cases/anon_multiple_typedefs.h
+  cname: struct point2a
+  hsname: Point2a
+- headers: edge-cases/anon_multiple_typedefs.h
+  cname: point2a
+  hsname: Point2a
+- headers: edge-cases/anon_multiple_typedefs.h
+  cname: point2b
+  hsname: Point2b
+- headers: edge-cases/anon_multiple_typedefs.h
+  cname: struct @point3a_Aux
+  hsname: Point3a_Aux
+- headers: edge-cases/anon_multiple_typedefs.h
+  cname: point3a
+  hsname: Point3a
+- headers: edge-cases/anon_multiple_typedefs.h
+  cname: point3b
+  hsname: Point3b
+hstypes:
+- hsname: Point1a
+  representation:
+    record:
+      constructor: Point1a
+      fields:
+      - point1a_x
+      - point1a_y
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable
+- hsname: Point1b
+  representation:
+    newtype:
+      constructor: Point1b
+      fields:
+      - un_Point1b
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable
+- hsname: Point2a
+  representation:
+    record:
+      constructor: Point2a
+      fields:
+      - point2a_x
+      - point2a_y
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable
+- hsname: Point2b
+  representation:
+    newtype:
+      constructor: Point2b
+      fields:
+      - un_Point2b
+      ffitype: Ptr
+  instances:
+  - Eq
+  - HasBaseForeignType
+  - Ord
+  - Show
+  - Storable
+- hsname: Point3a
+  representation:
+    newtype:
+      constructor: Point3a
+      fields:
+      - un_Point3a
+      ffitype: Ptr
+  instances:
+  - Eq
+  - HasBaseForeignType
+  - Ord
+  - Show
+  - Storable
+- hsname: Point3a_Aux
+  representation:
+    record:
+      constructor: Point3a_Aux
+      fields:
+      - point3a_Aux_x
+      - point3a_Aux_y
+  instances:
+  - Eq
+  - Prim
+  - Show
+  - Storable
+- hsname: Point3b
+  representation:
+    newtype:
+      constructor: Point3b
+      fields:
+      - un_Point3b
+      ffitype: Ptr
+  instances:
+  - Eq
+  - HasBaseForeignType
+  - Ord
+  - Show
+  - Storable

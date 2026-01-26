@@ -116,6 +116,7 @@ testCases_default = [
     , defaultTest "documentation/data_kind_pragma"
     , defaultTest "edge-cases/adios"
     , defaultTest "edge-cases/anon_multiple_fields"
+    , defaultTest "edge-cases/anon_multiple_typedefs"
     , defaultTest "edge-cases/distilled_lib_1"
     , defaultTest "edge-cases/enum_as_array_size"
     , defaultTest "edge-cases/flam"
