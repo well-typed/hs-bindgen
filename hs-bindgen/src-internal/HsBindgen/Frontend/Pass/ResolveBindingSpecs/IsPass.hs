@@ -103,6 +103,8 @@ data ResolveBindingSpecsMsg =
   | ResolveBindingSpecsExtType              DeclId DeclId
   | ResolveBindingSpecsPreRequire           DeclId
   | ResolveBindingSpecsPreOmit              DeclId
+  | ResolveBindingSpecsPreEmptyData         DeclId
+  | ResolveBindingSpecsPreEmptyDataInvalid  DeclId
   deriving stock (Show)
 
 instance PrettyForTrace ResolveBindingSpecsMsg where
@@ -141,6 +143,12 @@ instance PrettyForTrace ResolveBindingSpecsMsg where
       ResolveBindingSpecsPreOmit cDeclId ->
         "Declaration omitted by prescriptive binding specification:"
           <+> prettyForTrace cDeclId
+      ResolveBindingSpecsPreEmptyData cDeclId ->
+        "Declaration opaqued by prescriptive binding specification:"
+          <+> prettyForTrace cDeclId
+      ResolveBindingSpecsPreEmptyDataInvalid cDeclId ->
+        "Declaration opaqued by prescriptive binding specification invalid for kind:"
+          <+> prettyForTrace cDeclId
 
 instance IsTrace Level ResolveBindingSpecsMsg where
   getDefaultLogLevel = \case
@@ -154,6 +162,8 @@ instance IsTrace Level ResolveBindingSpecsMsg where
     ResolveBindingSpecsExtType{}              -> Info
     ResolveBindingSpecsPreRequire{}           -> Info
     ResolveBindingSpecsPreOmit{}              -> Info
+    ResolveBindingSpecsPreEmptyData{}         -> Info
+    ResolveBindingSpecsPreEmptyDataInvalid{}  -> Warning
   getSource          = const HsBindgen
   getTraceId         = const "resolve-binding-specs"
 

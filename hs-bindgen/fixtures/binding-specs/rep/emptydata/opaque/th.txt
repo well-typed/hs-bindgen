@@ -1,0 +1,41 @@
+-- addDependentFile examples/golden/binding-specs/rep/emptydata/opaque.h
+{-| __C declaration:__ @struct foo@
+
+    __defined at:__ @binding-specs\/rep\/emptydata\/opaque.h 1:8@
+
+    __exported by:__ @binding-specs\/rep\/emptydata\/opaque.h@
+-}
+data Foo
+{-| __C declaration:__ @struct bar@
+
+    __defined at:__ @binding-specs\/rep\/emptydata\/opaque.h 3:8@
+
+    __exported by:__ @binding-specs\/rep\/emptydata\/opaque.h@
+-}
+data Bar
+    = Bar {bar_a :: (Ptr Foo)
+           {- ^ __C declaration:__ @a@
+
+                __defined at:__ @binding-specs\/rep\/emptydata\/opaque.h 4:15@
+
+                __exported by:__ @binding-specs\/rep\/emptydata\/opaque.h@
+           -}}
+      {- ^ __C declaration:__ @struct bar@
+
+           __defined at:__ @binding-specs\/rep\/emptydata\/opaque.h 3:8@
+
+           __exported by:__ @binding-specs\/rep\/emptydata\/opaque.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Bar
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> pure Bar <*> peekCField (Proxy @"bar_a") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Bar bar_a_3 -> pokeCField (Proxy @"bar_a") ptr_1 bar_a_3
+instance HasCField Bar "bar_a"
+    where type CFieldType Bar "bar_a" = Ptr Foo
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Bar "bar_a") =>
+         HasField "bar_a" (Ptr Bar) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bar_a")

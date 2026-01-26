@@ -579,6 +579,7 @@ selectDeclIndex declUseGraph p declIndex =
            -- From the perspective of selection, any of these will do.
            matchDeclId declId
          [] ->
-           -- Unused anonymous declarations have already been removed in the
-           -- @AssignAnonIds@ pass.
-           panicPure "Unexpected unused anonymous declaration"
+           -- An anonymous declaration can have no use sites if those
+           -- dependencies were removed from the graph because the parent
+           -- declaration is opaqued using a prescriptive binding specification.
+           False

@@ -18,6 +18,7 @@ module Data.DynGraph.Labelled (
   , findEdges
   , FindEdgesResult(..)
     -- * Deletion
+  , deleteEdgesFrom
   , deleteEdgesTo
   , filterEdges
     -- * Debugging
@@ -254,6 +255,15 @@ data FindEdgesResult l =
 {-------------------------------------------------------------------------------
   Deletion
 -------------------------------------------------------------------------------}
+
+-- | Delete edges from any of the specified vertices
+--
+-- This function never deletes vertices, even if removing edges results in a
+-- disconnected graph.
+deleteEdgesFrom :: Ord a => [a] -> DynGraph l a -> DynGraph l a
+deleteEdgesFrom vs graph =
+    let ixs = mapMaybe (graph.vtxMap Map.!?) vs
+    in  graph{ edges = foldr IntMap.delete graph.edges ixs }
 
 -- | Delete edges to any of the specified vertices
 --

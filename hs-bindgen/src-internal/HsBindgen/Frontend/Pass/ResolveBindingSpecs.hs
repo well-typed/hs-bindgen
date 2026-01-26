@@ -61,7 +61,9 @@ resolveBindingSpecs hsModuleName extSpecs pSpec unit =
             unit.ann.declIndex
             (resolveDecls unit.decls)
         useDeclGraph =
-          UseDeclGraph.deleteDeps (Map.keys state.extTypes) unit.ann.useDeclGraph
+            UseDeclGraph.deleteRevDeps (Map.keys state.extTypes)
+          . UseDeclGraph.deleteDeps (Set.toList state.opqTypes)
+          $ unit.ann.useDeclGraph
         notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys state.noPTypes
     in  ( reconstruct decls useDeclGraph state
         , pSpecErrs ++ reverse state.traces ++ notUsedErrs
@@ -141,6 +143,7 @@ data MState = MState {
     , extTypes  :: Map DeclId (ExtBinding ResolveBindingSpecs)
     , noPTypes  :: Map DeclId [Set SourcePath]
     , omitTypes :: Map DeclId SingleLoc
+    , opqTypes  :: Set DeclId -- ^ opaqued types
     }
   deriving (Show, Generic)
 
@@ -150,6 +153,7 @@ initMState pSpec = MState {
     , extTypes  = Map.empty
     , noPTypes  = BindingSpec.getCTypes pSpec
     , omitTypes = Map.empty
+    , opqTypes  = Set.empty
     }
 
 insertTrace :: Msg ResolveBindingSpecs -> MState -> MState
@@ -157,6 +161,9 @@ insertTrace msg = #traces %~ (msg :)
 
 insertExtType :: DeclId -> ExtBinding ResolveBindingSpecs -> MState -> MState
 insertExtType cDeclId typ = #extTypes %~ Map.insert cDeclId typ
+
+insertOpaquedType :: DeclId -> MState -> MState
+insertOpaquedType cDeclId = #opqTypes %~ Set.insert cDeclId
 
 deleteNoPType :: DeclId -> SourcePath -> MState -> MState
 deleteNoPType cDeclId path = #noPTypes %~ Map.update (aux []) cDeclId
@@ -217,7 +224,7 @@ resolveTop decl = Reader.ask >>= \env -> do
           let mHsTypeSpec = do
                 hsIdentifier <- cTypeSpec.hsIdent
                 BindingSpec.lookupHsTypeSpec hsIdentifier env.pSpec
-          return $ Just (decl, (Just cTypeSpec, mHsTypeSpec))
+          applyPrescriptive decl cTypeSpec mHsTypeSpec
         Just (_hsModuleName, BindingSpec.Omit) -> do
           State.modify' $
               insertTrace (ResolveBindingSpecsPreOmit decl.info.id)
@@ -225,6 +232,87 @@ resolveTop decl = Reader.ask >>= \env -> do
             . insertOmittedType decl.info.id decl.info.loc
           return Nothing
         Nothing -> return $ Just (decl, (Nothing, Nothing))
+
+-- | Apply prescriptive binding specifications
+--
+-- A prescriptive binding specification can change a declaration or even drop
+-- it.
+--
+-- Type specifications that do not match declarations may themselves be mutated.
+applyPrescriptive ::
+     C.Decl HandleMacros
+  -> BindingSpec.CTypeSpec
+  -> Maybe BindingSpec.HsTypeSpec
+  -> M
+       ( Maybe
+           ( C.Decl HandleMacros
+           , (Maybe BindingSpec.CTypeSpec, Maybe BindingSpec.HsTypeSpec)
+           )
+       )
+applyPrescriptive decl cTypeSpec = \case
+    Nothing         -> return $ Just (decl, (Just cTypeSpec, Nothing))
+    Just hsTypeSpec -> do
+      -- TODO validate instances only set for supported kinds
+      -- (instances themselves are to be resolved in a separate pass)
+      (decl', hsRep) <- case hsTypeSpec.hsRep of
+        Nothing    -> return (decl, Nothing)
+        Just hsRep -> case hsRep of
+          BindingSpec.HsTypeRepRecord    recordRep  -> auxRecord recordRep
+          BindingSpec.HsTypeRepNewtype   newtypeRep -> auxNewtype newtypeRep
+          BindingSpec.HsTypeRepEmptyData            -> auxEmptyData
+          BindingSpec.HsTypeRepTypeAlias            -> auxTypeAlias
+      let hsTypeSpec' = hsTypeSpec{ BindingSpec.hsRep = hsRep }
+      return $ Just (decl', (Just cTypeSpec, Just hsTypeSpec'))
+  where
+    auxRecord ::
+         BindingSpec.HsRecordRep
+      -> M (C.Decl HandleMacros, Maybe BindingSpec.HsTypeRep)
+    auxRecord recordRep =
+      -- TODO validate record type
+      -- TODO validate number of fields
+      return (decl, Just (BindingSpec.HsTypeRepRecord recordRep))
+
+    auxNewtype ::
+         BindingSpec.HsNewtypeRep
+      -> M (C.Decl HandleMacros, Maybe BindingSpec.HsTypeRep)
+    auxNewtype newtypeRep =
+      -- TODO validate enum, typedef, or macro type
+      return (decl, Just (BindingSpec.HsTypeRepNewtype newtypeRep))
+
+    auxEmptyData :: M (C.Decl HandleMacros, Maybe BindingSpec.HsTypeRep)
+    auxEmptyData = do
+      let isValid = case decl.kind of
+            C.DeclStruct{}    -> True
+            C.DeclUnion{}     -> True
+            C.DeclEnum{}      -> True
+            C.DeclTypedef{}   -> True
+            C.DeclOpaque{}    -> True
+            C.DeclMacro macro -> case macro of
+              MacroType{} -> True
+              MacroExpr{} -> False
+            _otherwise        -> False
+      if isValid
+        then do
+          State.modify' $
+              insertTrace (ResolveBindingSpecsPreEmptyData decl.info.id)
+            . insertOpaquedType decl.info.id
+          -- Cannot use record update because 'C.kind' is ambiguous
+          let decl' = C.Decl{
+                  C.info = decl.info
+                , C.kind = C.DeclOpaque
+                , C.ann  = decl.ann
+                }
+          return (decl', Just BindingSpec.HsTypeRepEmptyData)
+        else do
+          State.modify' $
+            insertTrace (ResolveBindingSpecsPreEmptyDataInvalid decl.info.id)
+          return (decl, Nothing)
+
+    auxTypeAlias :: M (C.Decl HandleMacros, Maybe BindingSpec.HsTypeRep)
+    auxTypeAlias =
+      -- TODO validate types
+      -- TODO return different decl?
+      return (decl, Just BindingSpec.HsTypeRepTypeAlias)
 
 -- Pass two: deep
 --

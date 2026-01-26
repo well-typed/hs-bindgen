@@ -1,0 +1,8 @@
+-- addDependentFile examples/golden/binding-specs/rep/emptydata/enum.h
+{-| __C declaration:__ @enum metasyntactic_var@
+
+    __defined at:__ @binding-specs\/rep\/emptydata\/enum.h 1:6@
+
+    __exported by:__ @binding-specs\/rep\/emptydata\/enum.h@
+-}
+data MetaSyntacticVar
