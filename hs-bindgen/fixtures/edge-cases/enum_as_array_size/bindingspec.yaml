@@ -13,7 +13,6 @@ hstypes:
       constructor: Test
       fields:
       - un_Test
-      ffitype: CUInt
   instances:
   - Eq
   - HasBaseForeignType

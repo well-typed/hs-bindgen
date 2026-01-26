@@ -25,7 +25,6 @@ hstypes:
       constructor: ConstInt
       fields:
       - un_ConstInt
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits

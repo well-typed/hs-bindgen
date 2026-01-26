@@ -81,17 +81,17 @@ newtype MyFunctionPointer_Aux
       -}
     deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" hs_bindgen_47dfd04698dd2e6f_base ::
-    CInt -> IO CInt
- -> IO (FunPtr (CInt -> IO CInt))
+    Int32 -> IO Int32
+ -> IO (FunPtr (Int32 -> IO Int32))
 -- __unique:__ @toMyFunctionPointer_Aux@
 hs_bindgen_47dfd04698dd2e6f :: MyFunctionPointer_Aux ->
                                IO (FunPtr MyFunctionPointer_Aux)
 -- __unique:__ @toMyFunctionPointer_Aux@
 hs_bindgen_47dfd04698dd2e6f = \fun_0 -> fmap castFunPtrFromBaseForeignType (hs_bindgen_47dfd04698dd2e6f_base (toBaseForeignType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_5738272f94a589e2_base ::
-    FunPtr (CInt -> IO CInt)
- -> CInt
- -> IO CInt
+    FunPtr (Int32 -> IO Int32)
+ -> Int32
+ -> IO Int32
 -- __unique:__ @fromMyFunctionPointer_Aux@
 hs_bindgen_5738272f94a589e2 :: FunPtr MyFunctionPointer_Aux ->
                                MyFunctionPointer_Aux

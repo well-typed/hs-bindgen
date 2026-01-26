@@ -13,7 +13,6 @@ hstypes:
       constructor: ParsedAndSelected1
       fields:
       - un_ParsedAndSelected1
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits

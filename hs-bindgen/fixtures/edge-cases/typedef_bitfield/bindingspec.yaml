@@ -22,7 +22,6 @@ hstypes:
       constructor: MyInt
       fields:
       - un_MyInt
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits
@@ -46,7 +45,6 @@ hstypes:
       constructor: MyLong
       fields:
       - un_MyLong
-      ffitype: CLong
   instances:
   - Bitfield
   - Bits
@@ -83,7 +81,6 @@ hstypes:
       constructor: MyUInt
       fields:
       - un_MyUInt
-      ffitype: CUInt
   instances:
   - Bitfield
   - Bits

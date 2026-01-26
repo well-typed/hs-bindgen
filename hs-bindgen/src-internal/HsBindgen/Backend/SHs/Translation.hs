@@ -298,7 +298,7 @@ translatePatSyn patSyn = DPatternSynonym PatternSynonym{
 translateType :: Hs.HsType -> ClosedType
 translateType = \case
     Hs.HsPrimType t                  -> TGlobal (PrimType t)
-    Hs.HsTypRef r                    -> TCon r
+    Hs.HsTypRef r _                  -> TCon r
     Hs.HsConstArray n t              -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
     Hs.HsIncompleteArray t           -> TGlobal IncompleteArray `TApp` (translateType t)
     Hs.HsPtr t                       -> TApp (TGlobal Foreign_Ptr) (translateType t)
@@ -307,7 +307,7 @@ translateType = \case
     Hs.HsConstPtr t                  -> TApp (TGlobal ConstPtr_type) (translateType t)
     Hs.HsIO t                        -> TApp (TGlobal IO_type) (translateType t)
     Hs.HsFun a b                     -> TFun (translateType a) (translateType b)
-    Hs.HsExtBinding r c hs           -> TExt r c hs
+    Hs.HsExtBinding r c hs _         -> TExt r c hs
     Hs.HsByteArray                   -> TGlobal ByteArray_type
     Hs.HsSizedByteArray n m          -> TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
     Hs.HsBlock t                     -> TGlobal Block_type `TApp` translateType t

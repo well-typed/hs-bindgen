@@ -6,6 +6,7 @@
 module Example.Unsafe where
 
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
@@ -81,7 +82,7 @@ foo = hs_bindgen_fbc2ec26cd297034
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_cf67e2fc00fd28d8" hs_bindgen_cf67e2fc00fd28d8_base ::
-     (FC.CInt -> IO FC.CInt)
+     (GHC.Int.Int32 -> IO GHC.Int.Int32)
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooA@
@@ -105,7 +106,7 @@ fooA = hs_bindgen_cf67e2fc00fd28d8
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_269a46f9680e33ed" hs_bindgen_269a46f9680e33ed_base ::
-     (FC.CInt -> IO FC.CInt)
+     (GHC.Int.Int32 -> IO GHC.Int.Int32)
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooB@

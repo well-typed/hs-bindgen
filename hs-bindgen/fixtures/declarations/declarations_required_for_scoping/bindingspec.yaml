@@ -13,7 +13,6 @@ hstypes:
       constructor: A
       fields:
       - un_A
-      ffitype: CSize
   instances:
   - Bits
   - Bounded

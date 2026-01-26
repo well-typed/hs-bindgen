@@ -9,7 +9,6 @@ import Control.Monad.State.Lazy
 import Data.Map.Strict qualified as Map
 
 import HsBindgen.Backend.Hs.Translation.Instances
-import HsBindgen.Backend.Hs.Translation.Type
 import HsBindgen.Imports
 
 newtype HsM a = HsM (State TranslationState a)
@@ -21,9 +20,8 @@ runHsM (HsM m) = evalState m emptyTranslationState
 
 data TranslationState = TranslationState {
       instanceMap :: InstanceMap
-    , newtypeMap  :: NewtypeMap
     }
   deriving stock (Generic)
 
 emptyTranslationState :: TranslationState
-emptyTranslationState = TranslationState Map.empty Map.empty
+emptyTranslationState = TranslationState Map.empty

@@ -7,13 +7,14 @@ module Example.Unsafe where
 
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
-import Prelude (IO)
+import Prelude (Double, IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <types/structs/struct_arg.h>"
@@ -52,7 +53,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_1@
 foreign import ccall unsafe "hs_bindgen_0bdddf60550fc97b" hs_bindgen_0bdddf60550fc97b_base ::
      Ptr.Ptr Void
-  -> IO FC.CInt
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_1@
 hs_bindgen_0bdddf60550fc97b ::
@@ -77,7 +78,7 @@ thing_fun_1 =
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_2@
 foreign import ccall unsafe "hs_bindgen_c293d866e22be6fc" hs_bindgen_c293d866e22be6fc_base ::
-     FC.CInt
+     GHC.Int.Int32
   -> Ptr.Ptr Void
   -> IO ()
 
@@ -106,9 +107,9 @@ thing_fun_2 =
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3a@
 foreign import ccall unsafe "hs_bindgen_cfd51a9e490a997c" hs_bindgen_cfd51a9e490a997c_base ::
-     FC.CInt
+     GHC.Int.Int32
   -> Ptr.Ptr Void
-  -> FC.CDouble
+  -> Double
   -> Ptr.Ptr Void
   -> IO ()
 
@@ -146,10 +147,10 @@ thing_fun_3a =
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3b@
 foreign import ccall unsafe "hs_bindgen_23fac8ee5044da6e" hs_bindgen_23fac8ee5044da6e_base ::
-     FC.CInt
+     GHC.Int.Int32
   -> Ptr.Ptr Void
-  -> FC.CDouble
-  -> IO FC.CChar
+  -> Double
+  -> IO GHC.Int.Int8
 
 -- __unique:__ @test_typesstructsstruct_arg_Example_Unsafe_thing_fun_3b@
 hs_bindgen_23fac8ee5044da6e ::

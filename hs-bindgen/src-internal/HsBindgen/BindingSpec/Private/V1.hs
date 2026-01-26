@@ -24,11 +24,9 @@ module HsBindgen.BindingSpec.Private.V1 (
   , ResolvedBindingSpec
   , CTypeSpec(..)
   , HsTypeSpec(..)
-  , hsSpecFFIType
   , HsTypeRep(..)
   , HsRecordRep(..)
   , HsNewtypeRep(..)
-  , FFIType(..)
     -- ** Instances
   , InstanceSpec(..)
   , StrategySpec(..)
@@ -70,8 +68,6 @@ import Text.Read (readMaybe)
 
 import Clang.Args
 import Clang.Paths
-
-import HsBindgen.Runtime.BaseForeignType qualified as BFT
 
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.Version
@@ -180,13 +176,6 @@ instance Default HsTypeSpec where
     , instances = Map.empty
     }
 
-hsSpecFFIType :: HsTypeSpec -> Maybe FFIType
-hsSpecFFIType hsSpec = do
-    rep <- hsSpec.hsRep
-    case rep of
-      HsTypeRepNewtype ntRep -> ntRep.ffiType
-      _ -> Nothing
-
 --------------------------------------------------------------------------------
 
 -- | Haskell type representation
@@ -232,32 +221,6 @@ data HsNewtypeRep = HsNewtypeRep {
 
       -- | Field name
     , field :: Maybe Hs.Identifier
-
-      -- | The underlying FFI type.
-      --
-      -- If @hs-bindgen@ generates a foreign import declaration for a newtype,
-      -- then it uses the underlying FFI type rather than the newtype itself.
-      -- This is to prevent issues with out-of-scope newtype constructors (see
-      -- issue #1282). In such cases, @hs-bindgen@ also generate a wrapper
-      -- function around the foreign import declaration that unwraps and rewraps
-      -- newtypes.
-      --
-      -- If we have these newtypes:
-      --
-      -- > newtype A = A CChar
-      -- > newtype B = B A
-      --
-      -- Then the underlying FFI type for both @A@ and @B@ is @CChar@.
-      --
-      -- If the 'hsNewtypeRepFFIType' field is 'Nothing', then it is assumed
-      -- that the underlying type is not an FFI type. For example:
-      --
-      -- > data A = A CChar
-      -- > newtype B = B A
-      --
-      -- Here @B@ does not have an underlying FFI type, and neither does @A@
-      -- because it is not even a newtype.
-    , ffiType :: Maybe FFIType
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -265,30 +228,7 @@ instance Default HsNewtypeRep where
   def = HsNewtypeRep{
         constructor = Nothing
       , field       = Nothing
-      , ffiType     = Nothing
       }
-
-{-------------------------------------------------------------------------------
-  FFI type
--------------------------------------------------------------------------------}
-
-data FFIType =
-    -- | A basic foreign type.
-    --
-    -- For example:
-    --
-    -- > Int
-    -- > Ptr Void
-    Basic BFT.BasicForeignType
-    -- | A builtin foreign type, i.e., a newtype around a basic foreign type
-    -- that we support directly.
-    --
-    -- For example:
-    --
-    -- > CInt
-    -- > ConstPtr Void
-  | Builtin BFT.BuiltinForeignType
-  deriving stock (Show, Eq, Ord)
 
 {-------------------------------------------------------------------------------
   Types: Instances
@@ -464,8 +404,6 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
       "constructor"           -> 17
       -- HsRecordRep:2, HsNewtypeRep:2
       "fields"                -> 18
-      -- HsNewtypeRep:3
-      "ffitype"               -> 19
       key -> panicPure $ "Unknown key: " ++ show key
 
 {-------------------------------------------------------------------------------
@@ -1035,11 +973,9 @@ instance Aeson.FromJSON (ARep V1 HsTypeRep) where
             Aeson.parseFail "newtype representation with no fields"
           Just{}           ->
             Aeson.parseFail "newtype representation with more than one field"
-        hsNewtypeRepFFIType <- fmap fromARep' <$> (o .:? "ffitype")
         return HsNewtypeRep{
             constructor = fromARep' <$> hsNewtypeRepConstructor
           , field       = fromARep' <$> hsNewtypeRepField
-          , ffiType     = hsNewtypeRepFFIType
           }
 
 instance Aeson.ToJSON (ARep V1 HsTypeRep) where
@@ -1061,100 +997,9 @@ instance Aeson.ToJSON (ARep V1 HsTypeRep) where
           $ catMaybes [
                 ("constructor" .=) . toARep' <$> x.constructor
               , ("fields"      .=) . (: []) . toARep' <$> x.field
-              , ("ffitype"     .=) . toARep' <$> x.ffiType
               ]
     HsTypeRepEmptyData -> Aeson.String "emptydata"
     HsTypeRepTypeAlias -> Aeson.String "typealias"
-
---------------------------------------------------------------------------------
-
-newtype instance ARep V1 FFIType = AFFIType FFIType
-  deriving stock (Show)
-
-instance ARepIso V1 FFIType
-
-instance Aeson.FromJSON (ARep V1 FFIType) where
-  parseJSON = Aeson.withText "FFIType" $ \t ->
-    case Map.lookup t ffiTypeFromText of
-      Just ffitype -> return (AFFIType ffitype)
-      Nothing -> Aeson.parseFail $ "unknown ffitype: " ++ Text.unpack t
-
-instance Aeson.ToJSON (ARep V1 FFIType) where
-  toJSON (AFFIType ffiType) = Aeson.String (ffiTypeText ffiType)
-
-ffiTypeText :: FFIType -> Text
-ffiTypeText = \case
-    Basic basic  -> basicForeignTypeText basic
-    Builtin builtin -> builtinForeignTypeText builtin
-
-basicForeignTypeText :: BFT.BasicForeignType -> Text
-basicForeignTypeText = \case
-    BFT.Char -> "Char"
-    BFT.Int -> "Int"
-    BFT.Double -> "Double"
-    BFT.Float -> "Float"
-    BFT.Bool -> "Bool"
-    BFT.Int8 -> "Int8"
-    BFT.Int16 -> "Int16"
-    BFT.Int32 -> "Int32"
-    BFT.Int64 -> "Int64"
-    BFT.Word -> "Word"
-    BFT.Word8 -> "Word8"
-    BFT.Word16 -> "Word16"
-    BFT.Word32 -> "Word32"
-    BFT.Word64 -> "Word64"
-    BFT.Ptr -> "Ptr"
-    BFT.FunPtr -> "FunPtr"
-    BFT.StablePtr -> "StablePtr"
-
-builtinForeignTypeText :: BFT.BuiltinForeignType -> Text
-builtinForeignTypeText = \case
-    BFT.IntPtr -> "IntPtr"
-    BFT.WordPtr -> "WordPtr"
-    BFT.ConstPtr -> "ConstPtr"
-    BFT.CChar -> "CChar"
-    BFT.CSChar -> "CSChar"
-    BFT.CUChar -> "CUChar"
-    BFT.CShort -> "CShort"
-    BFT.CUShort -> "CUShort"
-    BFT.CInt -> "CInt"
-    BFT.CUInt -> "CUInt"
-    BFT.CLong -> "CLong"
-    BFT.CULong -> "CULong"
-    BFT.CPtrdiff -> "CPtrdiff"
-    BFT.CSize -> "CSize"
-    BFT.CWchar -> "CWchar"
-    BFT.CSigAtomic -> "CSigAtomic"
-    BFT.CLLong -> "CLLong"
-    BFT.CULLong -> "CULLong"
-    BFT.CBool -> "CBool"
-    BFT.CIntPtr -> "CIntPtr"
-    BFT.CUIntPtr -> "CUIntPtr"
-    BFT.CIntMax -> "CIntMax"
-    BFT.CUIntMax -> "CUIntMax"
-    BFT.CClock -> "CClock"
-    BFT.CTime -> "CTime"
-    BFT.CUSeconds -> "CUSeconds"
-    BFT.CSUSeconds -> "CSUSeconds"
-    BFT.CFloat -> "CFloat"
-    BFT.CDouble -> "CDouble"
-
-ffiTypeFromText :: Map Text FFIType
-ffiTypeFromText =
-       (Basic `Map.map` basicForeignTypeFromText)
-    <> (Builtin `Map.map` builtinForeignTypeFromText)
-
-basicForeignTypeFromText :: Map Text BFT.BasicForeignType
-basicForeignTypeFromText = Map.fromList [
-      (basicForeignTypeText basic, basic)
-    | basic <- [minBound..]
-    ]
-
-builtinForeignTypeFromText :: Map Text BFT.BuiltinForeignType
-builtinForeignTypeFromText = Map.fromList [
-      (builtinForeignTypeText builtin, builtin)
-    | builtin <- [minBound..]
-    ]
 
 --------------------------------------------------------------------------------
 

@@ -5,7 +5,7 @@
 
 module Example.Unsafe where
 
-import qualified Foreign.C as FC
+import qualified GHC.Word
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
@@ -35,7 +35,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_0e6b98e93cad73ef" hs_bindgen_0e6b98e93cad73ef_base ::
-     FC.CUInt
+     GHC.Word.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
@@ -59,7 +59,7 @@ foo = hs_bindgen_0e6b98e93cad73ef
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_1c6de1b89014dc52" hs_bindgen_1c6de1b89014dc52_base ::
-     FC.CUInt
+     GHC.Word.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
@@ -83,7 +83,7 @@ fooA = hs_bindgen_1c6de1b89014dc52
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_a8e579f3b5035c03" hs_bindgen_a8e579f3b5035c03_base ::
-     FC.CUInt
+     GHC.Word.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@

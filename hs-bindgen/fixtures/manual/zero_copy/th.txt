@@ -741,9 +741,9 @@ instance HasCField Matrix "un_Matrix"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
 foreign import ccall safe "hs_bindgen_350cceac1101d344" hs_bindgen_350cceac1101d344_base ::
-    ConstPtr Void
+    Ptr Void
  -> Ptr Void
- -> IO CInt
+ -> IO Int32
 -- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
 hs_bindgen_350cceac1101d344 :: ConstPtr Vector ->
                                Ptr Vector -> IO CInt
@@ -765,7 +765,7 @@ reverse :: ConstPtr Vector -> Ptr Vector -> IO CInt
 reverse = hs_bindgen_350cceac1101d344
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
 foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92b04_base ::
-    ConstPtr Void
+    Ptr Void
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
@@ -789,9 +789,9 @@ transpose :: ConstPtr Triplet -> Ptr Triplet -> IO Unit
 transpose = hs_bindgen_2ff371c815d92b04
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
 foreign import ccall unsafe "hs_bindgen_f9655173d51bbaac" hs_bindgen_f9655173d51bbaac_base ::
-    ConstPtr Void
+    Ptr Void
  -> Ptr Void
- -> IO CInt
+ -> IO Int32
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_reverse@
 hs_bindgen_f9655173d51bbaac :: ConstPtr Vector ->
                                Ptr Vector -> IO CInt
@@ -813,7 +813,7 @@ reverse :: ConstPtr Vector -> Ptr Vector -> IO CInt
 reverse = hs_bindgen_f9655173d51bbaac
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@
 foreign import ccall unsafe "hs_bindgen_ea25667627dd5ed2" hs_bindgen_ea25667627dd5ed2_base ::
-    ConstPtr Void
+    Ptr Void
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualzero_copy_Example_Unsafe_transpose@

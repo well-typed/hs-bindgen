@@ -16,11 +16,9 @@ hstypes:
       constructor: C
       fields:
       - un_C
-      ffitype: CInt
 - hsname: D
   representation:
     newtype:
       constructor: D
       fields:
       - un_D
-      ffitype: CInt

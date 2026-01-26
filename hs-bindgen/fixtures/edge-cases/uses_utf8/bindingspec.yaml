@@ -13,7 +13,6 @@ hstypes:
       constructor: MyEnum
       fields:
       - un_MyEnum
-      ffitype: CUInt
   instances:
   - Eq
   - HasBaseForeignType

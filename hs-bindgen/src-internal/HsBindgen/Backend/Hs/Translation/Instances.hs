@@ -8,7 +8,6 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
 import HsBindgen.Backend.Hs.AST
-import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.BindingSpec
 import HsBindgen.Errors
@@ -32,7 +31,7 @@ getInstances instanceMap name = aux
       | Set.null acc = acc
       | otherwise = case hsType of
           HsPrimType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
-          HsTypRef name'
+          HsTypRef name' _
             | Just name' == name -> aux acc hsTypes
             | otherwise -> case Map.lookup name' instanceMap of
                 Just instances -> aux (acc /\ instances) hsTypes
@@ -49,7 +48,7 @@ getInstances instanceMap name = aux
           HsConstPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsIO t  -> aux (acc /\ ioInsts) (t : hsTypes)
           HsFun arg res -> aux (acc /\ funInsts) (arg : res : hsTypes)
-          HsExtBinding _ref _cTypeSpec hsTypeSpec ->
+          HsExtBinding _ref _cTypeSpec hsTypeSpec _ ->
             let acc' = acc /\ hsTypeSpecInsts hsTypeSpec
             in  aux acc' hsTypes
           HsByteArray{} ->
@@ -83,6 +82,7 @@ getInstances instanceMap name = aux
       HsPrimVoid       -> Set.fromList [Eq, Ix, Ord, Read, Show]
       HsPrimUnit       -> unitInsts
       HsPrimCStringLen -> Set.fromList [Eq, Ord, Show]
+      HsPrimCPtrdiff -> integralInsts
       HsPrimChar -> Set.fromList [Eq, Ord, Show, Read]
       HsPrimInt -> integralInsts
       HsPrimDouble -> floatingInsts
@@ -97,8 +97,6 @@ getInstances instanceMap name = aux
       HsPrimWord16 -> integralInsts
       HsPrimWord32 -> integralInsts
       HsPrimWord64 -> integralInsts
-      HsPrimIntPtr -> integralInsts
-      HsPrimWordPtr -> integralInsts
       HsPrimCChar -> integralInsts
       HsPrimCSChar -> integralInsts
       HsPrimCUChar -> integralInsts
@@ -108,21 +106,9 @@ getInstances instanceMap name = aux
       HsPrimCUInt -> integralInsts
       HsPrimCLong -> integralInsts
       HsPrimCULong -> integralInsts
-      HsPrimCPtrdiff -> integralInsts
-      HsPrimCSize -> integralInsts
-      HsPrimCWchar -> integralInsts
-      HsPrimCSigAtomic -> integralInsts
       HsPrimCLLong -> integralInsts
       HsPrimCULLong -> integralInsts
       HsPrimCBool -> integralInsts
-      HsPrimCIntPtr -> integralInsts
-      HsPrimCUIntPtr -> integralInsts
-      HsPrimCIntMax -> integralInsts
-      HsPrimCUIntMax -> integralInsts
-      HsPrimCClock -> integralInsts
-      HsPrimCTime -> integralInsts
-      HsPrimCUSeconds -> integralInsts
-      HsPrimCSUSeconds -> integralInsts
       HsPrimCFloat -> floatingInsts
       HsPrimCDouble -> floatingInsts
 

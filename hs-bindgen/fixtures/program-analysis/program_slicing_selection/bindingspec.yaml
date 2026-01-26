@@ -27,7 +27,6 @@ hstypes:
       constructor: FileOperationStatus
       fields:
       - un_FileOperationStatus
-      ffitype: CInt
   instances:
   - Eq
   - HasBaseForeignType

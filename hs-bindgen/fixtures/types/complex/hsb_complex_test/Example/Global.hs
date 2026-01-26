@@ -268,7 +268,7 @@ global_Complex_double_flipped =
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_float@
 foreign import ccall unsafe "hs_bindgen_d94307879b0a380f" hs_bindgen_d94307879b0a380f_base ::
-     IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+     IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_float@
 hs_bindgen_d94307879b0a380f :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr (Data.Complex.Complex FC.CFloat))
@@ -295,7 +295,7 @@ const_complex_float =
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_double@
 foreign import ccall unsafe "hs_bindgen_de1422a11860ada5" hs_bindgen_de1422a11860ada5_base ::
-     IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+     IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_typescomplexhsb_complex_test_Example_get_const_complex_double@
 hs_bindgen_de1422a11860ada5 :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr (Data.Complex.Complex FC.CDouble))

@@ -6,12 +6,13 @@
 module Example.Unsafe where
 
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
 import Example
-import Prelude (IO)
+import Prelude (Float, IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <macros/macro_in_fundecl_vs_typedef.h>"
@@ -89,9 +90,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux1@
 foreign import ccall unsafe "hs_bindgen_df7e2b8e86de411a" hs_bindgen_df7e2b8e86de411a_base ::
-     FC.CChar
-  -> FC.CChar
-  -> IO FC.CChar
+     GHC.Int.Int8
+  -> GHC.Int.Int8
+  -> IO GHC.Int.Int8
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux1@
 hs_bindgen_df7e2b8e86de411a ::
@@ -117,9 +118,9 @@ quux1 = hs_bindgen_df7e2b8e86de411a
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux2@
 foreign import ccall unsafe "hs_bindgen_6f0b13ed02b696df" hs_bindgen_6f0b13ed02b696df_base ::
-     FC.CChar
-  -> FC.CChar
-  -> IO FC.CChar
+     GHC.Int.Int8
+  -> GHC.Int.Int8
+  -> IO GHC.Int.Int8
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_quux2@
 hs_bindgen_6f0b13ed02b696df ::
@@ -145,7 +146,7 @@ quux2 = hs_bindgen_6f0b13ed02b696df
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam1@
 foreign import ccall unsafe "hs_bindgen_f92059cc98dde342" hs_bindgen_f92059cc98dde342_base ::
-     FC.CFloat
+     Float
   -> Ptr.Ptr Void
   -> IO (Ptr.Ptr Void)
 
@@ -173,7 +174,7 @@ wam1 = hs_bindgen_f92059cc98dde342
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_wam2@
 foreign import ccall unsafe "hs_bindgen_3e6ecd1b2cc616bc" hs_bindgen_3e6ecd1b2cc616bc_base ::
-     FC.CFloat
+     Float
   -> Ptr.Ptr Void
   -> IO (Ptr.Ptr Void)
 
@@ -202,7 +203,7 @@ wam2 = hs_bindgen_3e6ecd1b2cc616bc
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef1@
 foreign import ccall unsafe "hs_bindgen_ffa9d5a3e8f0f221" hs_bindgen_ffa9d5a3e8f0f221_base ::
      Ptr.Ptr Void
-  -> FC.CChar
+  -> GHC.Int.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef1@
@@ -230,7 +231,7 @@ struct_typedef1 = hs_bindgen_ffa9d5a3e8f0f221
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef2@
 foreign import ccall unsafe "hs_bindgen_4801667560542114" hs_bindgen_4801667560542114_base ::
      Ptr.Ptr Void
-  -> FC.CChar
+  -> GHC.Int.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef2@
@@ -258,7 +259,7 @@ struct_typedef2 = hs_bindgen_4801667560542114
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef3@
 foreign import ccall unsafe "hs_bindgen_04fa5bbd479146eb" hs_bindgen_04fa5bbd479146eb_base ::
      Ptr.Ptr Void
-  -> FC.CChar
+  -> GHC.Int.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_typedef3@
@@ -286,7 +287,7 @@ struct_typedef3 = hs_bindgen_04fa5bbd479146eb
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name1@
 foreign import ccall unsafe "hs_bindgen_08025fd0bd589ac2" hs_bindgen_08025fd0bd589ac2_base ::
      Ptr.Ptr Void
-  -> FC.CChar
+  -> GHC.Int.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name1@
@@ -314,7 +315,7 @@ struct_name1 = hs_bindgen_08025fd0bd589ac2
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name2@
 foreign import ccall unsafe "hs_bindgen_9de286608f952fc7" hs_bindgen_9de286608f952fc7_base ::
      Ptr.Ptr Void
-  -> FC.CChar
+  -> GHC.Int.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name2@
@@ -342,7 +343,7 @@ struct_name2 = hs_bindgen_9de286608f952fc7
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name3@
 foreign import ccall unsafe "hs_bindgen_38cce6bb1ac71578" hs_bindgen_38cce6bb1ac71578_base ::
      Ptr.Ptr Void
-  -> FC.CChar
+  -> GHC.Int.Int8
   -> IO ()
 
 -- __unique:__ @test_macrosmacro_in_fundecl_vs_typ_Example_Unsafe_struct_name3@

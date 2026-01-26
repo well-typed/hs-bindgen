@@ -13,7 +13,6 @@ hstypes:
       constructor: MySym
       fields:
       - un_MySym
-      ffitype: CChar
   instances:
   - Bitfield
   - Bits

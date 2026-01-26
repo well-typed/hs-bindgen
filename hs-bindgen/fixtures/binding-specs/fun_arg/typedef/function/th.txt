@@ -268,16 +268,16 @@ newtype A
       -}
     deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" hs_bindgen_0c7d4776a632d026_base ::
-    CInt -> IO CInt
- -> IO (FunPtr (CInt -> IO CInt))
+    Int32 -> IO Int32
+ -> IO (FunPtr (Int32 -> IO Int32))
 -- __unique:__ @toA@
 hs_bindgen_0c7d4776a632d026 :: A -> IO (FunPtr A)
 -- __unique:__ @toA@
 hs_bindgen_0c7d4776a632d026 = \fun_0 -> fmap castFunPtrFromBaseForeignType (hs_bindgen_0c7d4776a632d026_base (toBaseForeignType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_0cf9a6d50f563441_base ::
-    FunPtr (CInt -> IO CInt)
- -> CInt
- -> IO CInt
+    FunPtr (Int32 -> IO Int32)
+ -> Int32
+ -> IO Int32
 -- __unique:__ @fromA@
 hs_bindgen_0cf9a6d50f563441 :: FunPtr A -> A
 -- __unique:__ @fromA@

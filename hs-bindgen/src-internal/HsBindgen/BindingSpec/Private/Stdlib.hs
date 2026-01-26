@@ -16,8 +16,6 @@ module HsBindgen.BindingSpec.Private.Stdlib (
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
-import HsBindgen.Runtime.BaseForeignType qualified as BFT
-
 import HsBindgen.BindingSpec.Private.Common
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Errors
@@ -57,42 +55,42 @@ bindingSpec = BindingSpec.BindingSpec{
 
     boolTypes :: [(CTypeKV, HsTypeKV)]
     boolTypes = [
-        mkTypeN "bool" "CBool" intI (Just $ BindingSpec.Builtin BFT.CBool) ["stdbool.h"]
+        mkTypeN "bool" "CBool" intI ["stdbool.h"]
       ]
 
     integralTypes :: [(CTypeKV, HsTypeKV)]
     integralTypes =
-      let aux (t, hsIdentifier, ffitype) =
-            mkTypeN t hsIdentifier intI (Just ffitype) ["inttypes.h", "stdint.h"]
+      let aux (t, hsIdentifier) =
+            mkTypeN t hsIdentifier intI  ["inttypes.h", "stdint.h"]
       in  map aux [
-              ("int8_t",         "Int8",     BindingSpec.Basic BFT.Int8)
-            , ("int16_t",        "Int16",    BindingSpec.Basic BFT.Int16)
-            , ("int32_t",        "Int32",    BindingSpec.Basic BFT.Int32)
-            , ("int64_t",        "Int64",    BindingSpec.Basic BFT.Int64)
-            , ("uint8_t",        "Word8",    BindingSpec.Basic BFT.Word8)
-            , ("uint16_t",       "Word16",   BindingSpec.Basic BFT.Word16)
-            , ("uint32_t",       "Word32",   BindingSpec.Basic BFT.Word32)
-            , ("uint64_t",       "Word64",   BindingSpec.Basic BFT.Word64)
-            , ("int_least8_t",   "Int8",     BindingSpec.Basic BFT.Int8)
-            , ("int_least16_t",  "Int16",    BindingSpec.Basic BFT.Int16)
-            , ("int_least32_t",  "Int32",    BindingSpec.Basic BFT.Int32)
-            , ("int_least64_t",  "Int64",    BindingSpec.Basic BFT.Int64)
-            , ("uint_least8_t",  "Word8",    BindingSpec.Basic BFT.Word8)
-            , ("uint_least16_t", "Word16",   BindingSpec.Basic BFT.Word16)
-            , ("uint_least32_t", "Word32",   BindingSpec.Basic BFT.Word32)
-            , ("uint_least64_t", "Word64",   BindingSpec.Basic BFT.Word64)
-            , ("int_fast8_t",    "Int8",     BindingSpec.Basic BFT.Int8)
-            , ("int_fast16_t",   "Int16",    BindingSpec.Basic BFT.Int16)
-            , ("int_fast32_t",   "Int32",    BindingSpec.Basic BFT.Int32)
-            , ("int_fast64_t",   "Int64",    BindingSpec.Basic BFT.Int64)
-            , ("uint_fast8_t",   "Word8",    BindingSpec.Basic BFT.Word8)
-            , ("uint_fast16_t",  "Word16",   BindingSpec.Basic BFT.Word16)
-            , ("uint_fast32_t",  "Word32",   BindingSpec.Basic BFT.Word32)
-            , ("uint_fast64_t",  "Word64",   BindingSpec.Basic BFT.Word64)
-            , ("intmax_t",       "CIntMax",  BindingSpec.Builtin BFT.CIntMax)
-            , ("uintmax_t",      "CUIntMax", BindingSpec.Builtin BFT.CUIntMax)
-            , ("intptr_t",       "CIntPtr",  BindingSpec.Builtin BFT.CIntPtr)
-            , ("uintptr_t",      "CUIntPtr", BindingSpec.Builtin BFT.CUIntPtr)
+              ("int8_t",         "Int8")
+            , ("int16_t",        "Int16")
+            , ("int32_t",        "Int32")
+            , ("int64_t",        "Int64")
+            , ("uint8_t",        "Word8")
+            , ("uint16_t",       "Word16")
+            , ("uint32_t",       "Word32")
+            , ("uint64_t",       "Word64")
+            , ("int_least8_t",   "Int8")
+            , ("int_least16_t",  "Int16")
+            , ("int_least32_t",  "Int32")
+            , ("int_least64_t",  "Int64")
+            , ("uint_least8_t",  "Word8")
+            , ("uint_least16_t", "Word16")
+            , ("uint_least32_t", "Word32")
+            , ("uint_least64_t", "Word64")
+            , ("int_fast8_t",    "Int8")
+            , ("int_fast16_t",   "Int16")
+            , ("int_fast32_t",   "Int32")
+            , ("int_fast64_t",   "Int64")
+            , ("uint_fast8_t",   "Word8")
+            , ("uint_fast16_t",  "Word16")
+            , ("uint_fast32_t",  "Word32")
+            , ("uint_fast64_t",  "Word64")
+            , ("intmax_t",       "CIntMax")
+            , ("uintmax_t",      "CUIntMax")
+            , ("intptr_t",       "CIntPtr")
+            , ("uintptr_t",      "CUIntPtr")
             ]
 
     floatingTypes :: [(CTypeKV, HsTypeKV)]
@@ -117,7 +115,7 @@ bindingSpec = BindingSpec.BindingSpec{
 
     stdTypes :: [(CTypeKV, HsTypeKV)]
     stdTypes = [
-        mkTypeN "size_t" "CSize" intI (Just (BindingSpec.Builtin BFT.CSize)) [
+        mkTypeN "size_t" "CSize" intI [
             "signal.h"
           , "stddef.h"
           , "stdio.h"
@@ -127,7 +125,7 @@ bindingSpec = BindingSpec.BindingSpec{
           , "uchar.h"
           , "wchar.h"
           ]
-      , mkTypeN "ptrdiff_t" "CPtrdiff" intI (Just (BindingSpec.Builtin BFT.CPtrdiff)) ["stddef.h"]
+      , mkTypeN "ptrdiff_t" "CPtrdiff" intI ["stddef.h"]
       ]
 
     nonLocalJumpTypes :: [(CTypeKV, HsTypeKV)]
@@ -137,24 +135,24 @@ bindingSpec = BindingSpec.BindingSpec{
 
     wcharTypes :: [(CTypeKV, HsTypeKV)]
     wcharTypes = [
-        mkTypeN "wchar_t" "CWchar" intI (Just (BindingSpec.Builtin BFT.CWchar)) [
+        mkTypeN "wchar_t" "CWchar" intI [
             "inttypes.h"
           , "stddef.h"
           , "stdlib.h"
           , "wchar.h"
           ]
-      , mkTypeN "wint_t"    "CWintT"         intI (Just (BindingSpec.Builtin BFT.CUInt))  ["wchar.h", "wctype.h"]
-      , mkType  "mbstate_t" "CMbstateT" hsED []                               ["uchar.h", "wchar.h"]
-      , mkTypeN "wctrans_t" "CWctransT"      eqI  (Just (BindingSpec.Basic BFT.Ptr))      ["wctype.h"]
-      , mkTypeN "wctype_t"  "CWctypeT"       eqI  (Just (BindingSpec.Builtin BFT.CULong)) ["wchar.h", "wctype.h"]
-      , mkTypeN "char16_t"  "CChar16T"       intI (Just (BindingSpec.Basic BFT.Word16))   ["uchar.h"]
-      , mkTypeN "char32_t"  "CChar32T"       intI (Just (BindingSpec.Basic BFT.Word32))   ["uchar.h"]
+      , mkTypeN "wint_t"    "CWintT"         intI ["wchar.h", "wctype.h"]
+      , mkType  "mbstate_t" "CMbstateT" hsED []   ["uchar.h", "wchar.h"]
+      , mkTypeN "wctrans_t" "CWctransT"      eqI  ["wctype.h"]
+      , mkTypeN "wctype_t"  "CWctypeT"       eqI  ["wchar.h", "wctype.h"]
+      , mkTypeN "char16_t"  "CChar16T"       intI ["uchar.h"]
+      , mkTypeN "char32_t"  "CChar32T"       intI ["uchar.h"]
       ]
 
     timeTypes :: [(CTypeKV, HsTypeKV)]
     timeTypes = [
-        mkTypeN "time_t"  "CTime"  timeI (Just (BindingSpec.Builtin BFT.CTime))  ["signal.h", "time.h"]
-      , mkTypeN "clock_t" "CClock" timeI (Just (BindingSpec.Builtin BFT.CClock)) ["signal.h", "time.h"]
+        mkTypeN "time_t"  "CTime"  timeI ["signal.h", "time.h"]
+      , mkTypeN "clock_t" "CClock" timeI ["signal.h", "time.h"]
       , let hsR = mkHsR "CTm" [
                 "cTm_sec"
               , "cTm_min"
@@ -177,7 +175,7 @@ bindingSpec = BindingSpec.BindingSpec{
 
     signalTypes :: [(CTypeKV, HsTypeKV)]
     signalTypes = [
-        mkTypeN "sig_atomic_t" "CSigAtomic" intI (Just (BindingSpec.Builtin BFT.CSigAtomic)) ["signal.h"]
+        mkTypeN "sig_atomic_t" "CSigAtomic" intI ["signal.h"]
       ]
 
     divI, eqI, intI, timeI :: [Hs.TypeClass]
@@ -290,12 +288,11 @@ mkHsR constructorName fieldNames = BindingSpec.HsTypeRepRecord $
 -- name and no field names
 --
 -- The standard @newtype@ types do not have field names.
-mkHsN :: Hs.Identifier -> Maybe BindingSpec.FFIType -> BindingSpec.HsTypeRep
-mkHsN constructorName ffitype = BindingSpec.HsTypeRepNewtype $
+mkHsN :: Hs.Identifier -> BindingSpec.HsTypeRep
+mkHsN constructorName = BindingSpec.HsTypeRepNewtype $
     BindingSpec.HsNewtypeRep {
         constructor = Just constructorName
       , field       = Nothing
-      , ffiType     = ffitype
       }
 
 -- | Variant of 'mkType' that creates a 'BindingSpec.HsTypeRepNewtype' where the
@@ -304,8 +301,7 @@ mkTypeN ::
      Text
   -> Hs.Identifier
   -> [Hs.TypeClass]
-  -> Maybe BindingSpec.FFIType
   -> [FilePath]
   -> (CTypeKV, HsTypeKV)
-mkTypeN t hsIdentifier insts ffitype headers =
-    mkType t hsIdentifier (mkHsN hsIdentifier ffitype) insts headers
+mkTypeN t hsIdentifier insts headers =
+    mkType t hsIdentifier (mkHsN hsIdentifier) insts headers

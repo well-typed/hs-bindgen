@@ -8,9 +8,7 @@ ctypes:
   hsname: Word64
 hstypes:
 - hsname: Word64
-  representation:
-    newtype:
-      ffitype: Word64
+  representation: newtype
   instances:
   - Bits
   - Bounded

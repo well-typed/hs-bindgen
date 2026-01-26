@@ -15,6 +15,7 @@ import HsBindgen.Backend.Category (Category (..))
 import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Clang
+import HsBindgen.Clang.Sizeof (getSizeofs)
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.AnonUsage qualified as AnonUsageAnalysis
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
@@ -48,6 +49,7 @@ import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Imports
+import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
@@ -153,6 +155,10 @@ runFrontend ::
   -> BootArtefact
   -> IO FrontendArtefact
 runFrontend tracer config boot = do
+    frontendSizeofs <- cache "sizeofs" $ do
+      clangArgs <- boot.clangArgs
+      liftIO $ getSizeofs (contramap FrontendClang tracer) clangArgs
+
     parsePass <- cache "parse" $ do
       setup <- getSetup
       rootHeader <- getRootHeader
@@ -304,6 +310,7 @@ runFrontend tracer config boot = do
       , cDecls         = frontendCDecls
       , squashedTypes  = frontendSquashedTypes
       , dependencies   = frontendDependencies
+      , sizeofs        = frontendSizeofs
       }
   where
     getRootHeader :: Cached RootHeader
@@ -349,6 +356,7 @@ data FrontendArtefact = FrontendArtefact {
     , cDecls         :: Cached [C.Decl Final]
     , squashedTypes  :: Cached [(DeclId, (SourcePath, Hs.Identifier))]
     , dependencies   :: Cached [SourcePath]
+    , sizeofs        :: Cached C.Sizeofs
     }
 
 {-------------------------------------------------------------------------------

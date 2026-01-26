@@ -53,7 +53,7 @@ cϒϒ =
 
 -- __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ@
 foreign import ccall unsafe "hs_bindgen_7e61df7271c4ff58" hs_bindgen_7e61df7271c4ff58_base ::
-     IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+     IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_edgecasesadios_Example_get_ϒϒϒ@
 hs_bindgen_7e61df7271c4ff58 :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)

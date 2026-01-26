@@ -25,6 +25,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.Bitfield
@@ -140,8 +141,8 @@ newtype ProgressUpdate_Aux = ProgressUpdate_Aux
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" hs_bindgen_d551f31556ffa727_base ::
-     (FC.CInt -> IO ())
-  -> IO (Ptr.FunPtr (FC.CInt -> IO ()))
+     (GHC.Int.Int32 -> IO ())
+  -> IO (Ptr.FunPtr (GHC.Int.Int32 -> IO ()))
 
 -- __unique:__ @toProgressUpdate_Aux@
 hs_bindgen_d551f31556ffa727 ::
@@ -152,8 +153,8 @@ hs_bindgen_d551f31556ffa727 =
     P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_d551f31556ffa727_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_ccf7f4b62a839a04_base ::
-     Ptr.FunPtr (FC.CInt -> IO ())
-  -> FC.CInt -> IO ()
+     Ptr.FunPtr (GHC.Int.Int32 -> IO ())
+  -> GHC.Int.Int32 -> IO ()
 
 -- __unique:__ @fromProgressUpdate_Aux@
 hs_bindgen_ccf7f4b62a839a04 ::
@@ -223,8 +224,8 @@ newtype DataValidator_Aux = DataValidator_Aux
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" hs_bindgen_c656ca21e63343d6_base ::
-     (FC.CInt -> IO FC.CInt)
-  -> IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+     (GHC.Int.Int32 -> IO GHC.Int.Int32)
+  -> IO (Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32))
 
 -- __unique:__ @toDataValidator_Aux@
 hs_bindgen_c656ca21e63343d6 ::
@@ -235,8 +236,8 @@ hs_bindgen_c656ca21e63343d6 =
     P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_c656ca21e63343d6_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_c1e79a4c11ca4033_base ::
-     Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-  -> FC.CInt -> IO FC.CInt
+     Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32)
+  -> GHC.Int.Int32 -> IO GHC.Int.Int32
 
 -- __unique:__ @fromDataValidator_Aux@
 hs_bindgen_c1e79a4c11ca4033 ::
@@ -1145,8 +1146,8 @@ instance HsBindgen.Runtime.HasCField.HasCField Foo2 "un_Foo2" where
   offset# = \_ -> \_ -> 0
 
 foreign import ccall safe "wrapper" hs_bindgen_d2a71f330b782e41_base ::
-     (FC.CInt -> IO ())
-  -> IO (Ptr.FunPtr (FC.CInt -> IO ()))
+     (GHC.Int.Int32 -> IO ())
+  -> IO (Ptr.FunPtr (GHC.Int.Int32 -> IO ()))
 
 -- __unique:__ @instance ToFunPtr (Foo -> IO ())@
 hs_bindgen_d2a71f330b782e41 ::
@@ -1157,8 +1158,8 @@ hs_bindgen_d2a71f330b782e41 =
     P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_d2a71f330b782e41_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_c08440542d338bad_base ::
-     Ptr.FunPtr (FC.CInt -> IO ())
-  -> FC.CInt -> IO ()
+     Ptr.FunPtr (GHC.Int.Int32 -> IO ())
+  -> GHC.Int.Int32 -> IO ()
 
 -- __unique:__ @instance FromFunPtr (Foo -> IO ())@
 hs_bindgen_c08440542d338bad ::
@@ -1177,8 +1178,8 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr (Foo -> IO ()) where
   fromFunPtr = hs_bindgen_c08440542d338bad
 
 foreign import ccall safe "wrapper" hs_bindgen_4a7a09e6a9e8c907_base ::
-     ((Ptr.Ptr Void) -> IO FC.CInt)
-  -> IO (Ptr.FunPtr ((Ptr.Ptr Void) -> IO FC.CInt))
+     ((Ptr.Ptr Void) -> IO GHC.Int.Int32)
+  -> IO (Ptr.FunPtr ((Ptr.Ptr Void) -> IO GHC.Int.Int32))
 
 -- __unique:__ @instance ToFunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt)@
 hs_bindgen_4a7a09e6a9e8c907 ::
@@ -1189,8 +1190,8 @@ hs_bindgen_4a7a09e6a9e8c907 =
     P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_4a7a09e6a9e8c907_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_2f679442a6d5613f_base ::
-     Ptr.FunPtr ((Ptr.Ptr Void) -> IO FC.CInt)
-  -> (Ptr.Ptr Void) -> IO FC.CInt
+     Ptr.FunPtr ((Ptr.Ptr Void) -> IO GHC.Int.Int32)
+  -> (Ptr.Ptr Void) -> IO GHC.Int.Int32
 
 -- __unique:__ @instance FromFunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt)@
 hs_bindgen_2f679442a6d5613f ::
@@ -1273,8 +1274,8 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> DataValid
   fromFunPtr = hs_bindgen_db7fc2b6d55d3864
 
 foreign import ccall safe "wrapper" hs_bindgen_b0ef2ac592b19bed_base ::
-     ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> FC.CInt -> IO ())
-  -> IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> FC.CInt -> IO ()))
+     ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO ())
+  -> IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO ()))
 
 -- __unique:__ @instance ToFunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())@
 hs_bindgen_b0ef2ac592b19bed ::
@@ -1285,8 +1286,8 @@ hs_bindgen_b0ef2ac592b19bed =
     P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_b0ef2ac592b19bed_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_17d0b0462779e216_base ::
-     Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> FC.CInt -> IO ())
-  -> (Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> FC.CInt -> IO ()
+     Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO ())
+  -> (Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO ()
 
 -- __unique:__ @instance FromFunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())@
 hs_bindgen_17d0b0462779e216 ::
@@ -1305,8 +1306,8 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> DataValid
   fromFunPtr = hs_bindgen_17d0b0462779e216
 
 foreign import ccall safe "wrapper" hs_bindgen_2d4b28b099f1cb6b_base ::
-     ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> FC.CInt -> IO ())
-  -> IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> FC.CInt -> IO ()))
+     ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO ())
+  -> IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO ()))
 
 -- __unique:__ @instance ToFunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())@
 hs_bindgen_2d4b28b099f1cb6b ::
@@ -1317,8 +1318,8 @@ hs_bindgen_2d4b28b099f1cb6b =
     P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_2d4b28b099f1cb6b_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_3aa04c4e63a856b2_base ::
-     Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> FC.CInt -> IO ())
-  -> (Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> FC.CInt -> IO ()
+     Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO ())
+  -> (Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO ()
 
 -- __unique:__ @instance FromFunPtr ((Ptr.Ptr Measurement) -> FileOpenedNotification -> FC.CInt -> IO ())@
 hs_bindgen_3aa04c4e63a856b2 ::
@@ -1369,8 +1370,8 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> ProgressU
   fromFunPtr = hs_bindgen_fbe9354fa822de59
 
 foreign import ccall safe "wrapper" hs_bindgen_83f0d12162b8410b_base ::
-     ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> FC.CInt -> IO ())
-  -> IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> FC.CInt -> IO ()))
+     ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO ())
+  -> IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO ()))
 
 -- __unique:__ @instance ToFunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())@
 hs_bindgen_83f0d12162b8410b ::
@@ -1381,8 +1382,8 @@ hs_bindgen_83f0d12162b8410b =
     P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_83f0d12162b8410b_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_f634a7da5fce9c42_base ::
-     Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> FC.CInt -> IO ())
-  -> (Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> FC.CInt -> IO ()
+     Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO ())
+  -> (Ptr.Ptr Void) -> (Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO ()
 
 -- __unique:__ @instance FromFunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)) -> FC.CInt -> IO ())@
 hs_bindgen_f634a7da5fce9c42 ::
@@ -1433,8 +1434,8 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunP
   fromFunPtr = hs_bindgen_2f73a7e07a90e977
 
 foreign import ccall safe "wrapper" hs_bindgen_235fa4a89af25f04_base ::
-     (FC.CInt -> IO ())
-  -> IO (Ptr.FunPtr (FC.CInt -> IO ()))
+     (GHC.Int.Int32 -> IO ())
+  -> IO (Ptr.FunPtr (GHC.Int.Int32 -> IO ()))
 
 -- __unique:__ @instance ToFunPtr (Foo2 -> IO ())@
 hs_bindgen_235fa4a89af25f04 ::
@@ -1445,8 +1446,8 @@ hs_bindgen_235fa4a89af25f04 =
     P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_235fa4a89af25f04_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_8605b223a9ab9562_base ::
-     Ptr.FunPtr (FC.CInt -> IO ())
-  -> FC.CInt -> IO ()
+     Ptr.FunPtr (GHC.Int.Int32 -> IO ())
+  -> GHC.Int.Int32 -> IO ()
 
 -- __unique:__ @instance FromFunPtr (Foo2 -> IO ())@
 hs_bindgen_8605b223a9ab9562 ::

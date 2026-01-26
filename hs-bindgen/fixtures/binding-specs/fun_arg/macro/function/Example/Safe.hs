@@ -6,6 +6,7 @@
 module Example.Safe where
 
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
@@ -81,7 +82,7 @@ foo = hs_bindgen_40e15e86e5db36ce
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_e13a57fd1d27f6e6" hs_bindgen_e13a57fd1d27f6e6_base ::
-     (FC.CInt -> IO FC.CInt)
+     (GHC.Int.Int32 -> IO GHC.Int.Int32)
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooA@
@@ -105,7 +106,7 @@ fooA = hs_bindgen_e13a57fd1d27f6e6
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_fd490df5087893ae" hs_bindgen_fd490df5087893ae_base ::
-     (FC.CInt -> IO FC.CInt)
+     (GHC.Int.Int32 -> IO GHC.Int.Int32)
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooB@

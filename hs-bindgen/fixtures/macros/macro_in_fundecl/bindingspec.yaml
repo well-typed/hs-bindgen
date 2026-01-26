@@ -25,7 +25,6 @@ hstypes:
       constructor: C
       fields:
       - un_C
-      ffitype: CChar
   instances:
   - Bits
   - Bounded
@@ -48,7 +47,6 @@ hstypes:
       constructor: F
       fields:
       - un_F
-      ffitype: CFloat
   instances:
   - Enum
   - Eq
@@ -70,7 +68,6 @@ hstypes:
       constructor: I
       fields:
       - un_I
-      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -93,7 +90,6 @@ hstypes:
       constructor: L
       fields:
       - un_L
-      ffitype: CLong
   instances:
   - Bits
   - Bounded
@@ -116,7 +112,6 @@ hstypes:
       constructor: S
       fields:
       - un_S
-      ffitype: CShort
   instances:
   - Bits
   - Bounded

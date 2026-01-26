@@ -19,7 +19,6 @@ hstypes:
       constructor: Counter
       fields:
       - un_Counter
-      ffitype: Ptr
   instances:
   - HasBaseForeignType
 - hsname: Toggle
@@ -28,7 +27,6 @@ hstypes:
       constructor: Toggle
       fields:
       - un_Toggle
-      ffitype: Ptr
   instances:
   - HasBaseForeignType
 - hsname: VarCounter
@@ -37,6 +35,5 @@ hstypes:
       constructor: VarCounter
       fields:
       - un_VarCounter
-      ffitype: Ptr
   instances:
   - HasBaseForeignType

@@ -6,9 +6,10 @@
 module Example.Safe where
 
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
-import Prelude (IO)
+import Prelude (Double, IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <functions/simple_func.h>"
@@ -45,8 +46,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_erf@
 foreign import ccall safe "hs_bindgen_1c811bfb80de8f77" hs_bindgen_1c811bfb80de8f77_base ::
-     FC.CDouble
-  -> FC.CDouble
+     Double
+  -> Double
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_erf@
 hs_bindgen_1c811bfb80de8f77 ::
@@ -73,10 +74,10 @@ erf = hs_bindgen_1c811bfb80de8f77
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_bad_fma@
 foreign import ccall safe "hs_bindgen_180022d3518c53bd" hs_bindgen_180022d3518c53bd_base ::
-     FC.CDouble
-  -> FC.CDouble
-  -> FC.CDouble
-  -> IO FC.CDouble
+     Double
+  -> Double
+  -> Double
+  -> IO Double
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_bad_fma@
 hs_bindgen_180022d3518c53bd ::
@@ -141,9 +142,9 @@ no_args_no_void = hs_bindgen_d8523e2ccea5c7ba
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_48cbd3cd1c6e874f" hs_bindgen_48cbd3cd1c6e874f_base ::
-     FC.CChar
-  -> FC.CDouble
-  -> IO FC.CInt
+     GHC.Int.Int8
+  -> Double
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_functionssimple_func_Example_Safe_fun@
 hs_bindgen_48cbd3cd1c6e874f ::

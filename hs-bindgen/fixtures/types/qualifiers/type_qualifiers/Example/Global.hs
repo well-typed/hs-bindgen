@@ -81,7 +81,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_a@
 foreign import ccall unsafe "hs_bindgen_b9f6c3995e03a64f" hs_bindgen_b9f6c3995e03a64f_base ::
-     IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+     IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_a@
 hs_bindgen_b9f6c3995e03a64f :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt)
@@ -128,7 +128,7 @@ b =
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_c@
 foreign import ccall unsafe "hs_bindgen_9cef5885d51a5077" hs_bindgen_9cef5885d51a5077_base ::
-     IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+     IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_c@
 hs_bindgen_9cef5885d51a5077 :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.Ptr FC.CInt))
@@ -155,7 +155,7 @@ c =
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_d@
 foreign import ccall unsafe "hs_bindgen_039fc3584df4cf95" hs_bindgen_039fc3584df4cf95_base ::
-     IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+     IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_d@
 hs_bindgen_039fc3584df4cf95 :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))
@@ -242,7 +242,7 @@ g =
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_h@
 foreign import ccall unsafe "hs_bindgen_f23087f72d34068b" hs_bindgen_f23087f72d34068b_base ::
-     IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+     IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_get_h@
 hs_bindgen_f23087f72d34068b :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr (HsBindgen.Runtime.ConstPtr.ConstPtr FC.CInt))))

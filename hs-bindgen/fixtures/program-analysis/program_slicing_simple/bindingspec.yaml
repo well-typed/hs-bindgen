@@ -27,7 +27,6 @@ hstypes:
       constructor: Uint32_t
       fields:
       - un_Uint32_t
-      ffitype: CUInt
   instances:
   - Bitfield
   - Bits

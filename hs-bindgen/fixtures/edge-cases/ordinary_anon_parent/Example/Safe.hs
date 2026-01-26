@@ -8,7 +8,7 @@ module Example.Safe where
 import qualified Foreign.C as FC
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
-import Prelude (IO)
+import Prelude (Double, IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <edge-cases/ordinary_anon_parent.h>"
@@ -22,8 +22,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_edgecasesordinary_anon_paren_Example_Safe__acos@
 foreign import ccall safe "hs_bindgen_06a412f170b5ff91" hs_bindgen_06a412f170b5ff91_base ::
-     FC.CDouble
-  -> IO FC.CDouble
+     Double
+  -> IO Double
 
 -- __unique:__ @test_edgecasesordinary_anon_paren_Example_Safe__acos@
 hs_bindgen_06a412f170b5ff91 ::

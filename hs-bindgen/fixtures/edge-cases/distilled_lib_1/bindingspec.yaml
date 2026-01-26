@@ -43,7 +43,6 @@ hstypes:
       constructor: A_type_t
       fields:
       - un_A_type_t
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits
@@ -67,7 +66,6 @@ hstypes:
       constructor: A_typedef_enum_e
       fields:
       - un_A_typedef_enum_e
-      ffitype: CUChar
   instances:
   - Eq
   - HasBaseForeignType
@@ -101,7 +99,6 @@ hstypes:
       constructor: Another_typedef_enum_e
       fields:
       - un_Another_typedef_enum_e
-      ffitype: CUInt
   instances:
   - Eq
   - HasBaseForeignType
@@ -127,7 +124,6 @@ hstypes:
       constructor: Callback_t
       fields:
       - un_Callback_t
-      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -140,7 +136,6 @@ hstypes:
       constructor: Var_t
       fields:
       - un_Var_t
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits

@@ -31,7 +31,6 @@ hstypes:
       constructor: MY_TYPE
       fields:
       - un_MY_TYPE
-      ffitype: CInt
   instances:
   - Bits
   - Bounded

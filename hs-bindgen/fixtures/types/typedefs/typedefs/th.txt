@@ -70,16 +70,16 @@ newtype Int2int
       -}
     deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" hs_bindgen_a6c7dd49f5b9d470_base ::
-    CInt -> IO CInt
- -> IO (FunPtr (CInt -> IO CInt))
+    Int32 -> IO Int32
+ -> IO (FunPtr (Int32 -> IO Int32))
 -- __unique:__ @toInt2int@
 hs_bindgen_a6c7dd49f5b9d470 :: Int2int -> IO (FunPtr Int2int)
 -- __unique:__ @toInt2int@
 hs_bindgen_a6c7dd49f5b9d470 = \fun_0 -> fmap castFunPtrFromBaseForeignType (hs_bindgen_a6c7dd49f5b9d470_base (toBaseForeignType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_65378a8a3cf640ad_base ::
-    FunPtr (CInt -> IO CInt)
- -> CInt
- -> IO CInt
+    FunPtr (Int32 -> IO Int32)
+ -> Int32
+ -> IO Int32
 -- __unique:__ @fromInt2int@
 hs_bindgen_65378a8a3cf640ad :: FunPtr Int2int -> Int2int
 -- __unique:__ @fromInt2int@
@@ -190,17 +190,17 @@ newtype NonFunctionPointer_Function
       -}
     deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" hs_bindgen_766ae751d60365e9_base ::
-    CInt -> IO CInt
- -> IO (FunPtr (CInt -> IO CInt))
+    Int32 -> IO Int32
+ -> IO (FunPtr (Int32 -> IO Int32))
 -- __unique:__ @toNonFunctionPointer_Function@
 hs_bindgen_766ae751d60365e9 :: NonFunctionPointer_Function ->
                                IO (FunPtr NonFunctionPointer_Function)
 -- __unique:__ @toNonFunctionPointer_Function@
 hs_bindgen_766ae751d60365e9 = \fun_0 -> fmap castFunPtrFromBaseForeignType (hs_bindgen_766ae751d60365e9_base (toBaseForeignType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_36c7108d046bcbc3_base ::
-    FunPtr (CInt -> IO CInt)
- -> CInt
- -> IO CInt
+    FunPtr (Int32 -> IO Int32)
+ -> Int32
+ -> IO Int32
 -- __unique:__ @fromNonFunctionPointer_Function@
 hs_bindgen_36c7108d046bcbc3 :: FunPtr NonFunctionPointer_Function ->
                                NonFunctionPointer_Function

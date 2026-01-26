@@ -68,7 +68,7 @@ instance TyEq ty (CFieldType Struct2 "struct2_x") =>
     where getField = ptrToCField (Proxy @"struct2_x")
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Safe_fun2@
 foreign import ccall safe "hs_bindgen_a1252a3becef09a6" hs_bindgen_a1252a3becef09a6_base ::
-    CInt
+    Int32
  -> IO Unit
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Safe_fun2@
 hs_bindgen_a1252a3becef09a6 :: CInt -> IO Unit
@@ -90,7 +90,7 @@ fun2 :: CInt -> IO Unit
 fun2 = hs_bindgen_a1252a3becef09a6
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 foreign import ccall unsafe "hs_bindgen_61793546aa44e36b" hs_bindgen_61793546aa44e36b_base ::
-    CInt
+    Int32
  -> IO Unit
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 hs_bindgen_61793546aa44e36b :: CInt -> IO Unit

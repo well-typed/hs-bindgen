@@ -16,7 +16,6 @@ hstypes:
       constructor: Adio'0301s
       fields:
       - un_Adio'0301s
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits
@@ -40,7 +39,6 @@ hstypes:
       constructor: C数字
       fields:
       - un_C数字
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits

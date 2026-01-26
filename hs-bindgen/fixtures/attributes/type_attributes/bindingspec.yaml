@@ -40,7 +40,6 @@ hstypes:
       constructor: More_aligned_int
       fields:
       - un_More_aligned_int
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits
@@ -109,7 +108,6 @@ hstypes:
       constructor: Short_a
       fields:
       - un_Short_a
-      ffitype: CShort
   instances:
   - Bitfield
   - Bits
@@ -133,7 +131,6 @@ hstypes:
       constructor: T1
       fields:
       - un_T1
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits

@@ -6,7 +6,9 @@
 module Example.Safe where
 
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
+import qualified GHC.Word
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
@@ -75,7 +77,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeToggle@
 foreign import ccall safe "hs_bindgen_9d01035006b66206" hs_bindgen_9d01035006b66206_base ::
-     FC.CBool
+     GHC.Word.Word8
   -> IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeToggle@
@@ -100,7 +102,7 @@ makeToggle = hs_bindgen_9d01035006b66206
 -- __unique:__ @test_edgecasesiterator_Example_Safe_toggleNext@
 foreign import ccall safe "hs_bindgen_ccd3ba727d0c0cf4" hs_bindgen_ccd3ba727d0c0cf4_base ::
      Ptr.Ptr Void
-  -> IO FC.CBool
+  -> IO GHC.Word.Word8
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_toggleNext@
 hs_bindgen_ccd3ba727d0c0cf4 ::
@@ -147,8 +149,8 @@ releaseToggle = hs_bindgen_602b40e971b06c72
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeCounter@
 foreign import ccall safe "hs_bindgen_234fa6f1fb089e1d" hs_bindgen_234fa6f1fb089e1d_base ::
-     FC.CInt
-  -> FC.CInt
+     GHC.Int.Int32
+  -> GHC.Int.Int32
   -> IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeCounter@
@@ -176,7 +178,7 @@ makeCounter = hs_bindgen_234fa6f1fb089e1d
 -- __unique:__ @test_edgecasesiterator_Example_Safe_counterNext@
 foreign import ccall safe "hs_bindgen_f0fca62d78f225c3" hs_bindgen_f0fca62d78f225c3_base ::
      Ptr.Ptr Void
-  -> IO FC.CInt
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_counterNext@
 hs_bindgen_f0fca62d78f225c3 ::
@@ -223,7 +225,7 @@ releaseCounter = hs_bindgen_e42dcbee8a114957
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeVarCounter@
 foreign import ccall safe "hs_bindgen_2bee4eb5b4d895c1" hs_bindgen_2bee4eb5b4d895c1_base ::
-     FC.CInt
+     GHC.Int.Int32
   -> IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_makeVarCounter@
@@ -248,8 +250,8 @@ makeVarCounter = hs_bindgen_2bee4eb5b4d895c1
 -- __unique:__ @test_edgecasesiterator_Example_Safe_varCounterNext@
 foreign import ccall safe "hs_bindgen_276b9cb5320fec37" hs_bindgen_276b9cb5320fec37_base ::
      Ptr.Ptr Void
-  -> FC.CInt
-  -> IO FC.CInt
+  -> GHC.Int.Int32
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_edgecasesiterator_Example_Safe_varCounterNext@
 hs_bindgen_276b9cb5320fec37 ::

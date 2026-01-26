@@ -242,7 +242,7 @@ instance HasCField E "un_E"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_99bb90e6d7637d2c" hs_bindgen_99bb90e6d7637d2c_base ::
-    CUInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
 hs_bindgen_99bb90e6d7637d2c :: MyEnum -> IO Unit
@@ -264,7 +264,7 @@ foo :: MyEnum -> IO Unit
 foo = hs_bindgen_99bb90e6d7637d2c
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_392e3092a2681c13" hs_bindgen_392e3092a2681c13_base ::
-    CUInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
 hs_bindgen_392e3092a2681c13 :: A -> IO Unit
@@ -286,7 +286,7 @@ fooA :: A -> IO Unit
 fooA = hs_bindgen_392e3092a2681c13
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_6011faf8531be4fa" hs_bindgen_6011faf8531be4fa_base ::
-    CUInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
 hs_bindgen_6011faf8531be4fa :: B -> IO Unit
@@ -308,7 +308,7 @@ fooB :: B -> IO Unit
 fooB = hs_bindgen_6011faf8531be4fa
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
 foreign import ccall safe "hs_bindgen_40a50b8e6ac3b09d" hs_bindgen_40a50b8e6ac3b09d_base ::
-    CInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
 hs_bindgen_40a50b8e6ac3b09d :: M.C -> IO Unit
@@ -330,7 +330,7 @@ fooC :: M.C -> IO Unit
 fooC = hs_bindgen_40a50b8e6ac3b09d
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
 foreign import ccall safe "hs_bindgen_32b4f35bf27a4bf8" hs_bindgen_32b4f35bf27a4bf8_base ::
-    CInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
 hs_bindgen_32b4f35bf27a4bf8 :: M.D -> IO Unit
@@ -352,7 +352,7 @@ fooD :: M.D -> IO Unit
 fooD = hs_bindgen_32b4f35bf27a4bf8
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
 foreign import ccall safe "hs_bindgen_6e59183c0a861d01" hs_bindgen_6e59183c0a861d01_base ::
-    CInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
 hs_bindgen_6e59183c0a861d01 :: E -> IO Unit
@@ -374,7 +374,7 @@ fooE :: E -> IO Unit
 fooE = hs_bindgen_6e59183c0a861d01
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_51195acecf6b880e" hs_bindgen_51195acecf6b880e_base ::
-    CUInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_foo@
 hs_bindgen_51195acecf6b880e :: MyEnum -> IO Unit
@@ -396,7 +396,7 @@ foo :: MyEnum -> IO Unit
 foo = hs_bindgen_51195acecf6b880e
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_eb4a794c10ca94f9" hs_bindgen_eb4a794c10ca94f9_base ::
-    CUInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooA@
 hs_bindgen_eb4a794c10ca94f9 :: A -> IO Unit
@@ -418,7 +418,7 @@ fooA :: A -> IO Unit
 fooA = hs_bindgen_eb4a794c10ca94f9
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_a11eb4471a953b64" hs_bindgen_a11eb4471a953b64_base ::
-    CUInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooB@
 hs_bindgen_a11eb4471a953b64 :: B -> IO Unit
@@ -440,7 +440,7 @@ fooB :: B -> IO Unit
 fooB = hs_bindgen_a11eb4471a953b64
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
 foreign import ccall unsafe "hs_bindgen_1dea92b3f3346311" hs_bindgen_1dea92b3f3346311_base ::
-    CInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooC@
 hs_bindgen_1dea92b3f3346311 :: M.C -> IO Unit
@@ -462,7 +462,7 @@ fooC :: M.C -> IO Unit
 fooC = hs_bindgen_1dea92b3f3346311
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
 foreign import ccall unsafe "hs_bindgen_dba6d56e1a316e2d" hs_bindgen_dba6d56e1a316e2d_base ::
-    CInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooD@
 hs_bindgen_dba6d56e1a316e2d :: M.D -> IO Unit
@@ -484,7 +484,7 @@ fooD :: M.D -> IO Unit
 fooD = hs_bindgen_dba6d56e1a316e2d
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
 foreign import ccall unsafe "hs_bindgen_23b6f403a534aeae" hs_bindgen_23b6f403a534aeae_base ::
-    CInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Unsafe_fooE@
 hs_bindgen_23b6f403a534aeae :: E -> IO Unit

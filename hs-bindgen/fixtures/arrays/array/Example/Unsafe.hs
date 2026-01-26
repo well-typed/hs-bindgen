@@ -7,6 +7,7 @@
 module Example.Unsafe where
 
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.ConstantArray
@@ -178,9 +179,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_1@
 foreign import ccall unsafe "hs_bindgen_6d07a0b03f884547" hs_bindgen_6d07a0b03f884547_base ::
-     FC.CInt
+     GHC.Int.Int32
   -> Ptr.Ptr Void
-  -> IO FC.CInt
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_1@
 hs_bindgen_6d07a0b03f884547 ::
@@ -209,7 +210,7 @@ fun_1 = hs_bindgen_6d07a0b03f884547
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_2@
 foreign import ccall unsafe "hs_bindgen_04318f98a3ab8d08" hs_bindgen_04318f98a3ab8d08_base ::
      Ptr.Ptr Void
-  -> IO FC.CInt
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_2@
 hs_bindgen_04318f98a3ab8d08 ::
@@ -235,7 +236,7 @@ fun_2 = hs_bindgen_04318f98a3ab8d08
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_3@
 foreign import ccall unsafe "hs_bindgen_2a7c5fa1040fa8db" hs_bindgen_2a7c5fa1040fa8db_base ::
      Ptr.Ptr Void
-  -> IO FC.CInt
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_3@
 hs_bindgen_2a7c5fa1040fa8db ::
@@ -261,7 +262,7 @@ fun_3 = hs_bindgen_2a7c5fa1040fa8db
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_4@
 foreign import ccall unsafe "hs_bindgen_810acc5cf8729d0e" hs_bindgen_810acc5cf8729d0e_base ::
      Ptr.Ptr Void
-  -> IO FC.CInt
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_4@
 hs_bindgen_810acc5cf8729d0e ::
@@ -287,7 +288,7 @@ fun_4 = hs_bindgen_810acc5cf8729d0e
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_5@
 foreign import ccall unsafe "hs_bindgen_83b71f7defb3b27a" hs_bindgen_83b71f7defb3b27a_base ::
      Ptr.Ptr Void
-  -> IO FC.CInt
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_5@
 hs_bindgen_83b71f7defb3b27a ::
@@ -313,7 +314,7 @@ fun_5 = hs_bindgen_83b71f7defb3b27a
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_6@
 foreign import ccall unsafe "hs_bindgen_62b76af3dc65da3f" hs_bindgen_62b76af3dc65da3f_base ::
      Ptr.Ptr Void
-  -> IO FC.CInt
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_6@
 hs_bindgen_62b76af3dc65da3f ::
@@ -339,7 +340,7 @@ fun_6 = hs_bindgen_62b76af3dc65da3f
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_7@
 foreign import ccall unsafe "hs_bindgen_100aa7fb87a5ea74" hs_bindgen_100aa7fb87a5ea74_base ::
      Ptr.Ptr Void
-  -> IO FC.CInt
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_7@
 hs_bindgen_100aa7fb87a5ea74 ::
@@ -365,7 +366,7 @@ fun_7 = hs_bindgen_100aa7fb87a5ea74
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_8@
 foreign import ccall unsafe "hs_bindgen_cd6646babeacd609" hs_bindgen_cd6646babeacd609_base ::
      Ptr.Ptr Void
-  -> IO FC.CInt
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_8@
 hs_bindgen_cd6646babeacd609 ::
@@ -391,7 +392,7 @@ fun_8 = hs_bindgen_cd6646babeacd609
 -- __unique:__ @test_arraysarray_Example_Unsafe_isSolved@
 foreign import ccall unsafe "hs_bindgen_560f1de9a83c3a6a" hs_bindgen_560f1de9a83c3a6a_base ::
      Ptr.Ptr Void
-  -> IO FC.CInt
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_isSolved@
 hs_bindgen_560f1de9a83c3a6a ::
@@ -416,10 +417,10 @@ isSolved = hs_bindgen_560f1de9a83c3a6a
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_1_const@
 foreign import ccall unsafe "hs_bindgen_ef3b85ae74bc06cf" hs_bindgen_ef3b85ae74bc06cf_base ::
-     FC.CInt
+     GHC.Int.Int32
   -> Ptr.Ptr Void
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
-  -> IO FC.CInt
+  -> Ptr.Ptr Void
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_1_const@
 hs_bindgen_ef3b85ae74bc06cf ::
@@ -451,8 +452,8 @@ fun_1_const = hs_bindgen_ef3b85ae74bc06cf
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_2_const@
 foreign import ccall unsafe "hs_bindgen_1c913685e5e76952" hs_bindgen_1c913685e5e76952_base ::
      Ptr.Ptr Void
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
-  -> IO FC.CInt
+  -> Ptr.Ptr Void
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_2_const@
 hs_bindgen_1c913685e5e76952 ::
@@ -481,8 +482,8 @@ fun_2_const = hs_bindgen_1c913685e5e76952
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_3_const@
 foreign import ccall unsafe "hs_bindgen_eb8daf22bd5c6f00" hs_bindgen_eb8daf22bd5c6f00_base ::
      Ptr.Ptr Void
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
-  -> IO FC.CInt
+  -> Ptr.Ptr Void
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_3_const@
 hs_bindgen_eb8daf22bd5c6f00 ::
@@ -511,8 +512,8 @@ fun_3_const = hs_bindgen_eb8daf22bd5c6f00
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_4_const@
 foreign import ccall unsafe "hs_bindgen_0b73e4c7695a3b2f" hs_bindgen_0b73e4c7695a3b2f_base ::
      Ptr.Ptr Void
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
-  -> IO FC.CInt
+  -> Ptr.Ptr Void
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_4_const@
 hs_bindgen_0b73e4c7695a3b2f ::
@@ -541,8 +542,8 @@ fun_4_const = hs_bindgen_0b73e4c7695a3b2f
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_5_const@
 foreign import ccall unsafe "hs_bindgen_374feb8086895fe3" hs_bindgen_374feb8086895fe3_base ::
      Ptr.Ptr Void
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
-  -> IO FC.CInt
+  -> Ptr.Ptr Void
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_5_const@
 hs_bindgen_374feb8086895fe3 ::
@@ -571,8 +572,8 @@ fun_5_const = hs_bindgen_374feb8086895fe3
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_6_const@
 foreign import ccall unsafe "hs_bindgen_2d1320b468c36708" hs_bindgen_2d1320b468c36708_base ::
      Ptr.Ptr Void
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
-  -> IO FC.CInt
+  -> Ptr.Ptr Void
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_6_const@
 hs_bindgen_2d1320b468c36708 ::
@@ -601,8 +602,8 @@ fun_6_const = hs_bindgen_2d1320b468c36708
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_7_const@
 foreign import ccall unsafe "hs_bindgen_f67f5fe5bfb57aa1" hs_bindgen_f67f5fe5bfb57aa1_base ::
      Ptr.Ptr Void
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
-  -> IO FC.CInt
+  -> Ptr.Ptr Void
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_7_const@
 hs_bindgen_f67f5fe5bfb57aa1 ::
@@ -631,8 +632,8 @@ fun_7_const = hs_bindgen_f67f5fe5bfb57aa1
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_8_const@
 foreign import ccall unsafe "hs_bindgen_2c9356851d76320e" hs_bindgen_2c9356851d76320e_base ::
      Ptr.Ptr Void
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
-  -> IO FC.CInt
+  -> Ptr.Ptr Void
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_fun_8_const@
 hs_bindgen_2c9356851d76320e ::
@@ -661,8 +662,8 @@ fun_8_const = hs_bindgen_2c9356851d76320e
 -- __unique:__ @test_arraysarray_Example_Unsafe_isSolved_const@
 foreign import ccall unsafe "hs_bindgen_39b08b64fed0c5b8" hs_bindgen_39b08b64fed0c5b8_base ::
      Ptr.Ptr Void
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
-  -> IO FC.CInt
+  -> Ptr.Ptr Void
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_arraysarray_Example_Unsafe_isSolved_const@
 hs_bindgen_39b08b64fed0c5b8 ::

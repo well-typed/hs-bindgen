@@ -313,6 +313,7 @@ mkGlobalP = \case
     HsPrimVoid       -> ''Data.Void.Void
     HsPrimUnit       -> ''()
     HsPrimCStringLen -> ''Foreign.C.String.CStringLen
+    HsPrimCPtrdiff   -> ''Foreign.C.Types.CPtrdiff
     HsPrimChar       -> ''Char
     HsPrimInt        -> ''Int
     HsPrimDouble     -> ''Double
@@ -327,8 +328,6 @@ mkGlobalP = \case
     HsPrimWord16     -> ''Data.Word.Word16
     HsPrimWord32     -> ''Data.Word.Word32
     HsPrimWord64     -> ''Data.Word.Word64
-    HsPrimIntPtr     -> ''Foreign.Ptr.IntPtr
-    HsPrimWordPtr    -> ''Foreign.Ptr.WordPtr
     HsPrimCChar      -> ''Foreign.C.Types.CChar
     HsPrimCSChar     -> ''Foreign.C.Types.CSChar
     HsPrimCUChar     -> ''Foreign.C.Types.CUChar
@@ -338,21 +337,9 @@ mkGlobalP = \case
     HsPrimCUInt      -> ''Foreign.C.Types.CUInt
     HsPrimCLong      -> ''Foreign.C.Types.CLong
     HsPrimCULong     -> ''Foreign.C.Types.CULong
-    HsPrimCPtrdiff   -> ''Foreign.C.Types.CPtrdiff
-    HsPrimCSize      -> ''Foreign.C.Types.CSize
-    HsPrimCWchar     -> ''Foreign.C.Types.CWchar
-    HsPrimCSigAtomic -> ''Foreign.C.Types.CSigAtomic
     HsPrimCLLong     -> ''Foreign.C.Types.CLLong
     HsPrimCULLong    -> ''Foreign.C.Types.CULLong
     HsPrimCBool      -> ''Foreign.C.Types.CBool
-    HsPrimCIntPtr    -> ''Foreign.C.Types.CIntPtr
-    HsPrimCUIntPtr   -> ''Foreign.C.Types.CUIntPtr
-    HsPrimCIntMax    -> ''Foreign.C.Types.CIntMax
-    HsPrimCUIntMax   -> ''Foreign.C.Types.CUIntMax
-    HsPrimCClock     -> ''Foreign.C.Types.CClock
-    HsPrimCTime      -> ''Foreign.C.Types.CTime
-    HsPrimCUSeconds  -> ''Foreign.C.Types.CUSeconds
-    HsPrimCSUSeconds -> ''Foreign.C.Types.CSUSeconds
     HsPrimCFloat     -> ''Foreign.C.Types.CFloat
     HsPrimCDouble    -> ''Foreign.C.Types.CDouble
 

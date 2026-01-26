@@ -19,7 +19,6 @@ hstypes:
       constructor: Int_t
       fields:
       - un_Int_t
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits

@@ -12,6 +12,9 @@ module HsBindgen.Language.C (
   , PrimSignChar(..)
     -- ** Pretty-printing
   , showsPrimType
+    -- * @sizeof@
+  , Sizeofs (..)
+  , NumBytes (..)
     -- * C names
     -- ** Tag kind
   , TagKind(..)
@@ -101,10 +104,10 @@ data PrimSign = Signed | Unsigned
 -- record this as a special case, so that we can generate 'CChar' instead of
 -- 'CUChar' or 'CSChar'.
 data PrimSignChar =
-    -- ^ User explicitly specified sign
+    -- | User explicitly specified sign
     PrimSignExplicit PrimSign
 
-    -- ^ Sign was left implicit
+    -- | Sign was left implicit
     --
     -- In most cases we know the compiler-determined sign, but currently not in
     -- all cases. That's probably fixable but it's not trivial; at present we
@@ -136,6 +139,39 @@ showsPrimFloatType PrimDouble = showString "double"
 showsPrimSign :: PrimSign -> ShowS
 showsPrimSign Signed = showString "signed"
 showsPrimSign Unsigned = showString "unsigned"
+
+{-------------------------------------------------------------------------------
+  @sizeof@
+-------------------------------------------------------------------------------}
+
+-- | @sizeof@ information for all arithmetic types
+--
+-- <https://en.cppreference.com/w/c/language/arithmetic_types.html>
+data Sizeofs = Sizeofs {
+      -- * Character types
+      schar      :: !NumBytes
+    , uchar      :: !NumBytes
+    , char       :: !NumBytes
+      -- * Integer types
+    , short      :: !NumBytes
+    , ushort     :: !NumBytes
+    , int        :: !NumBytes
+    , uint       :: !NumBytes
+    , long       :: !NumBytes
+    , ulong      :: !NumBytes
+    , longlong   :: !NumBytes
+    , ulonglong  :: !NumBytes
+      -- * Floating point types
+    , float      :: !NumBytes
+    , double     :: !NumBytes
+      -- NOTE: long double is not supported
+      -- * Others
+    , bool       :: !NumBytes
+    }
+    deriving stock (Show, Eq)
+
+data NumBytes = One | Two | Four | Eight
+  deriving stock (Show, Eq)
 
 {-------------------------------------------------------------------------------
   C names: tag kind

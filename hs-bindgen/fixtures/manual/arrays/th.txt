@@ -152,7 +152,7 @@ instance HasCField Triplet_ptrs "un_Triplet_ptrs"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_manualarrays_Example_Safe_transpose@
 foreign import ccall safe "hs_bindgen_cba7011c6d25362b" hs_bindgen_cba7011c6d25362b_base ::
-    ConstPtr Void
+    Ptr Void
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualarrays_Example_Safe_transpose@
@@ -204,7 +204,7 @@ __exported by:__ @manual\/arrays.h@
 pretty_print_triplets = hs_bindgen_45d15697a99c626a
 -- __unique:__ @test_manualarrays_Example_Unsafe_transpose@
 foreign import ccall unsafe "hs_bindgen_f9f2776d121db261" hs_bindgen_f9f2776d121db261_base ::
-    ConstPtr Void
+    Ptr Void
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_manualarrays_Example_Unsafe_transpose@

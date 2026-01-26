@@ -58,7 +58,6 @@ hstypes:
       constructor: M1
       fields:
       - un_M1
-      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -81,7 +80,6 @@ hstypes:
       constructor: M2
       fields:
       - un_M2
-      ffitype: CChar
   instances:
   - Bits
   - Bounded
@@ -104,7 +102,6 @@ hstypes:
       constructor: M3
       fields:
       - un_M3
-      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -117,7 +114,6 @@ hstypes:
       constructor: T1
       fields:
       - un_T1
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits
@@ -141,7 +137,6 @@ hstypes:
       constructor: T2
       fields:
       - un_T2
-      ffitype: CChar
   instances:
   - Bitfield
   - Bits
@@ -165,7 +160,6 @@ hstypes:
       constructor: Uint64_t
       fields:
       - un_Uint64_t
-      ffitype: CInt
   instances:
   - Bits
   - Bounded

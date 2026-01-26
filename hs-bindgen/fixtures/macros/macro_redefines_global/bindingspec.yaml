@@ -13,7 +13,6 @@ hstypes:
       constructor: FILE
       fields:
       - un_FILE
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits
