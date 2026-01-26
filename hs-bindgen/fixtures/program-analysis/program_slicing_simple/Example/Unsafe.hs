@@ -7,6 +7,7 @@ module Example.Unsafe where
 
 import qualified Foreign
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Word
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
@@ -27,8 +28,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba8ab_base ::
      GHC.Word.Word64
-  -> FC.CUInt
-  -> IO FC.CInt
+  -> GHC.Word.Word32
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
 hs_bindgen_fe855d53295ba8ab ::

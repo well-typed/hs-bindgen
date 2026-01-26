@@ -22,7 +22,6 @@ hstypes:
       constructor: T1
       fields:
       - un_T1
-      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -45,7 +44,6 @@ hstypes:
       constructor: T2
       fields:
       - un_T2
-      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -68,7 +66,6 @@ hstypes:
       constructor: T3
       fields:
       - un_T3
-      ffitype: CInt
   instances:
   - Bits
   - Bounded
@@ -91,7 +88,6 @@ hstypes:
       constructor: T4
       fields:
       - un_T4
-      ffitype: CInt
   instances:
   - Bits
   - Bounded

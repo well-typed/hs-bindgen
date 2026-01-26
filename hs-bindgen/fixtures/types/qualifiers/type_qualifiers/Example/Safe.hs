@@ -7,6 +7,7 @@ module Example.Safe where
 
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified GHC.Word
 import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
@@ -27,8 +28,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Safe_list_example@
 foreign import ccall safe "hs_bindgen_32187cc02676ee72" hs_bindgen_32187cc02676ee72_base ::
      Ptr.Ptr Void
-  -> FC.CSize
-  -> IO FC.CBool
+  -> GHC.Word.Word64
+  -> IO GHC.Word.Word8
 
 -- __unique:__ @test_typesqualifierstype_qualifie_Example_Safe_list_example@
 hs_bindgen_32187cc02676ee72 ::

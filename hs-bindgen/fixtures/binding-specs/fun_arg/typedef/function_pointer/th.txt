@@ -146,16 +146,16 @@ newtype A_Aux
       -}
     deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" hs_bindgen_1cabb32c661d9a0e_base ::
-    CInt -> IO CInt
- -> IO (FunPtr (CInt -> IO CInt))
+    Int32 -> IO Int32
+ -> IO (FunPtr (Int32 -> IO Int32))
 -- __unique:__ @toA_Aux@
 hs_bindgen_1cabb32c661d9a0e :: A_Aux -> IO (FunPtr A_Aux)
 -- __unique:__ @toA_Aux@
 hs_bindgen_1cabb32c661d9a0e = \fun_0 -> fmap castFunPtrFromBaseForeignType (hs_bindgen_1cabb32c661d9a0e_base (toBaseForeignType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_cdb12400c6863f15_base ::
-    FunPtr (CInt -> IO CInt)
- -> CInt
- -> IO CInt
+    FunPtr (Int32 -> IO Int32)
+ -> Int32
+ -> IO Int32
 -- __unique:__ @fromA_Aux@
 hs_bindgen_cdb12400c6863f15 :: FunPtr A_Aux -> A_Aux
 -- __unique:__ @fromA_Aux@

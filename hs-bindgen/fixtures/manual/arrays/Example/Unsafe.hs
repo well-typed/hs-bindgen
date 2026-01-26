@@ -35,7 +35,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_manualarrays_Example_Unsafe_transpose@
 foreign import ccall unsafe "hs_bindgen_f9f2776d121db261" hs_bindgen_f9f2776d121db261_base ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Void
+     Ptr.Ptr Void
   -> Ptr.Ptr Void
   -> IO ()
 

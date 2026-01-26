@@ -5,7 +5,7 @@
 
 module Example.Unsafe where
 
-import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
@@ -31,8 +31,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 foreign import ccall unsafe "hs_bindgen_2311fa9c0d0d6d06" hs_bindgen_2311fa9c0d0d6d06_base ::
      Ptr.Ptr Void
   -> Ptr.Ptr Void
-  -> FC.CLLong
-  -> FC.CLLong
+  -> GHC.Int.Int64
+  -> GHC.Int.Int64
   -> Ptr.Ptr Void
   -> IO ()
 

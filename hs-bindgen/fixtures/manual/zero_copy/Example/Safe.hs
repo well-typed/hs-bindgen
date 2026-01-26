@@ -6,6 +6,7 @@
 module Example.Safe where
 
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasBaseForeignType
@@ -34,9 +35,9 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
 foreign import ccall safe "hs_bindgen_350cceac1101d344" hs_bindgen_350cceac1101d344_base ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Void
+     Ptr.Ptr Void
   -> Ptr.Ptr Void
-  -> IO FC.CInt
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_manualzero_copy_Example_Safe_reverse@
 hs_bindgen_350cceac1101d344 ::
@@ -62,7 +63,7 @@ reverse = hs_bindgen_350cceac1101d344
 
 -- __unique:__ @test_manualzero_copy_Example_Safe_transpose@
 foreign import ccall safe "hs_bindgen_2ff371c815d92b04" hs_bindgen_2ff371c815d92b04_base ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Void
+     Ptr.Ptr Void
   -> Ptr.Ptr Void
   -> IO ()
 

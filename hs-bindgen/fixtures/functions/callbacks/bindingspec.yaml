@@ -64,7 +64,6 @@ hstypes:
       constructor: DataValidator
       fields:
       - un_DataValidator
-      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -77,7 +76,6 @@ hstypes:
       constructor: FileOpenedNotification
       fields:
       - un_FileOpenedNotification
-      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -90,7 +88,6 @@ hstypes:
       constructor: Foo
       fields:
       - un_Foo
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits
@@ -114,7 +111,6 @@ hstypes:
       constructor: Foo2
       fields:
       - un_Foo2
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits
@@ -162,7 +158,6 @@ hstypes:
       constructor: MeasurementReceived
       fields:
       - un_MeasurementReceived
-      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -175,7 +170,6 @@ hstypes:
       constructor: MeasurementReceived2
       fields:
       - un_MeasurementReceived2
-      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -205,7 +199,6 @@ hstypes:
       constructor: Processor_mode
       fields:
       - un_Processor_mode
-      ffitype: CUInt
   instances:
   - Eq
   - HasBaseForeignType
@@ -219,7 +212,6 @@ hstypes:
       constructor: ProgressUpdate
       fields:
       - un_ProgressUpdate
-      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -232,7 +224,6 @@ hstypes:
       constructor: SampleBufferFull
       fields:
       - un_SampleBufferFull
-      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType

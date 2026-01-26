@@ -174,7 +174,6 @@ hstypes:
       constructor: Struct5_t
       fields:
       - un_Struct5_t
-      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -187,7 +186,6 @@ hstypes:
       constructor: Struct6
       fields:
       - un_Struct6
-      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType

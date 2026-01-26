@@ -19,16 +19,16 @@ newtype F1_Aux
       -}
     deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" hs_bindgen_00d16e666202ed6c_base ::
-    CInt -> CInt -> IO Unit
- -> IO (FunPtr (CInt -> CInt -> IO Unit))
+    Int32 -> Int32 -> IO Unit
+ -> IO (FunPtr (Int32 -> Int32 -> IO Unit))
 -- __unique:__ @toF1_Aux@
 hs_bindgen_00d16e666202ed6c :: F1_Aux -> IO (FunPtr F1_Aux)
 -- __unique:__ @toF1_Aux@
 hs_bindgen_00d16e666202ed6c = \fun_0 -> fmap castFunPtrFromBaseForeignType (hs_bindgen_00d16e666202ed6c_base (toBaseForeignType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_ddeb5206e8192425_base ::
-    FunPtr (CInt -> CInt -> IO Unit)
- -> CInt
- -> CInt
+    FunPtr (Int32 -> Int32 -> IO Unit)
+ -> Int32
+ -> Int32
  -> IO Unit
 -- __unique:__ @fromF1_Aux@
 hs_bindgen_ddeb5206e8192425 :: FunPtr F1_Aux -> F1_Aux
@@ -86,16 +86,16 @@ newtype F2_Aux
       -}
     deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" hs_bindgen_c39d7524b75b54e8_base ::
-    CInt -> CInt -> IO Unit
- -> IO (FunPtr (CInt -> CInt -> IO Unit))
+    Int32 -> Int32 -> IO Unit
+ -> IO (FunPtr (Int32 -> Int32 -> IO Unit))
 -- __unique:__ @toF2_Aux@
 hs_bindgen_c39d7524b75b54e8 :: F2_Aux -> IO (FunPtr F2_Aux)
 -- __unique:__ @toF2_Aux@
 hs_bindgen_c39d7524b75b54e8 = \fun_0 -> fmap castFunPtrFromBaseForeignType (hs_bindgen_c39d7524b75b54e8_base (toBaseForeignType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_e15bcd26f1ed1df7_base ::
-    FunPtr (CInt -> CInt -> IO Unit)
- -> CInt
- -> CInt
+    FunPtr (Int32 -> Int32 -> IO Unit)
+ -> Int32
+ -> Int32
  -> IO Unit
 -- __unique:__ @fromF2_Aux@
 hs_bindgen_e15bcd26f1ed1df7 :: FunPtr F2_Aux -> F2_Aux
@@ -153,16 +153,16 @@ newtype F3_Aux
       -}
     deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" hs_bindgen_4a960721e7d1dcef_base ::
-    CInt -> CInt -> IO Unit
- -> IO (FunPtr (CInt -> CInt -> IO Unit))
+    Int32 -> Int32 -> IO Unit
+ -> IO (FunPtr (Int32 -> Int32 -> IO Unit))
 -- __unique:__ @toF3_Aux@
 hs_bindgen_4a960721e7d1dcef :: F3_Aux -> IO (FunPtr F3_Aux)
 -- __unique:__ @toF3_Aux@
 hs_bindgen_4a960721e7d1dcef = \fun_0 -> fmap castFunPtrFromBaseForeignType (hs_bindgen_4a960721e7d1dcef_base (toBaseForeignType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_66460422a7197535_base ::
-    FunPtr (CInt -> CInt -> IO Unit)
- -> CInt
- -> CInt
+    FunPtr (Int32 -> Int32 -> IO Unit)
+ -> Int32
+ -> Int32
  -> IO Unit
 -- __unique:__ @fromF3_Aux@
 hs_bindgen_66460422a7197535 :: FunPtr F3_Aux -> F3_Aux
@@ -220,15 +220,15 @@ newtype F4_Aux
       -}
     deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" hs_bindgen_83bcff023b3bc648_base ::
-    IO CInt
- -> IO (FunPtr (IO CInt))
+    IO Int32
+ -> IO (FunPtr (IO Int32))
 -- __unique:__ @toF4_Aux@
 hs_bindgen_83bcff023b3bc648 :: F4_Aux -> IO (FunPtr F4_Aux)
 -- __unique:__ @toF4_Aux@
 hs_bindgen_83bcff023b3bc648 = \fun_0 -> fmap castFunPtrFromBaseForeignType (hs_bindgen_83bcff023b3bc648_base (toBaseForeignType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_40f9a8d432b9eb97_base ::
-    FunPtr (IO CInt)
- -> IO CInt
+    FunPtr (IO Int32)
+ -> IO Int32
 -- __unique:__ @fromF4_Aux@
 hs_bindgen_40f9a8d432b9eb97 :: FunPtr F4_Aux -> F4_Aux
 -- __unique:__ @fromF4_Aux@
@@ -383,15 +383,15 @@ newtype F6_Aux
       -}
     deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" hs_bindgen_c1baf73f98614f45_base ::
-    CInt -> IO Unit
- -> IO (FunPtr (CInt -> IO Unit))
+    Int32 -> IO Unit
+ -> IO (FunPtr (Int32 -> IO Unit))
 -- __unique:__ @toF6_Aux@
 hs_bindgen_c1baf73f98614f45 :: F6_Aux -> IO (FunPtr F6_Aux)
 -- __unique:__ @toF6_Aux@
 hs_bindgen_c1baf73f98614f45 = \fun_0 -> fmap castFunPtrFromBaseForeignType (hs_bindgen_c1baf73f98614f45_base (toBaseForeignType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_a887947b26e58f0c_base ::
-    FunPtr (CInt -> IO Unit)
- -> CInt
+    FunPtr (Int32 -> IO Unit)
+ -> Int32
  -> IO Unit
 -- __unique:__ @fromF6_Aux@
 hs_bindgen_a887947b26e58f0c :: FunPtr F6_Aux -> F6_Aux

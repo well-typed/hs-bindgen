@@ -5,7 +5,7 @@
 
 module Example.Safe where
 
-import qualified Foreign.C as FC
+import qualified GHC.Word
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import qualified M
@@ -54,7 +54,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_99bb90e6d7637d2c" hs_bindgen_99bb90e6d7637d2c_base ::
-     FC.CUInt
+     GHC.Word.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_foo@
@@ -78,7 +78,7 @@ foo = hs_bindgen_99bb90e6d7637d2c
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_392e3092a2681c13" hs_bindgen_392e3092a2681c13_base ::
-     FC.CUInt
+     GHC.Word.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooA@
@@ -102,7 +102,7 @@ fooA = hs_bindgen_392e3092a2681c13
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_6011faf8531be4fa" hs_bindgen_6011faf8531be4fa_base ::
-     FC.CUInt
+     GHC.Word.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooB@
@@ -126,7 +126,7 @@ fooB = hs_bindgen_6011faf8531be4fa
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
 foreign import ccall safe "hs_bindgen_40a50b8e6ac3b09d" hs_bindgen_40a50b8e6ac3b09d_base ::
-     FC.CInt
+     GHC.Word.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooC@
@@ -150,7 +150,7 @@ fooC = hs_bindgen_40a50b8e6ac3b09d
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
 foreign import ccall safe "hs_bindgen_32b4f35bf27a4bf8" hs_bindgen_32b4f35bf27a4bf8_base ::
-     FC.CInt
+     GHC.Word.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooD@
@@ -174,7 +174,7 @@ fooD = hs_bindgen_32b4f35bf27a4bf8
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@
 foreign import ccall safe "hs_bindgen_6e59183c0a861d01" hs_bindgen_6e59183c0a861d01_base ::
-     FC.CInt
+     GHC.Word.Word32
   -> IO ()
 
 -- __unique:__ @test_bindingspecsfun_argtypedef_Example_Safe_fooE@

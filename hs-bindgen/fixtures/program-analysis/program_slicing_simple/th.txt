@@ -109,8 +109,8 @@ instance TyEq ty (CFieldType Foo "foo_thirty_two") =>
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
 foreign import ccall safe "hs_bindgen_48dbbf4b09b5b3c1" hs_bindgen_48dbbf4b09b5b3c1_base ::
     Word64
- -> CUInt
- -> IO CInt
+ -> Word32
+ -> IO Int32
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_bar@
 hs_bindgen_48dbbf4b09b5b3c1 :: Foreign.Word64 ->
                                Uint32_t -> IO CInt
@@ -133,8 +133,8 @@ bar = hs_bindgen_48dbbf4b09b5b3c1
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
 foreign import ccall unsafe "hs_bindgen_fe855d53295ba8ab" hs_bindgen_fe855d53295ba8ab_base ::
     Word64
- -> CUInt
- -> IO CInt
+ -> Word32
+ -> IO Int32
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_bar@
 hs_bindgen_fe855d53295ba8ab :: Foreign.Word64 ->
                                Uint32_t -> IO CInt

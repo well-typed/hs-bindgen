@@ -337,8 +337,8 @@ data C
 foreign import ccall safe "hs_bindgen_8a72aafc705daf44" hs_bindgen_8a72aafc705daf44_base ::
     Ptr Void
  -> Ptr Void
- -> CLLong
- -> CLLong
+ -> Int64
+ -> Int64
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_edgecasesspec_examples_Example_Safe_resample@
@@ -365,8 +365,8 @@ resample = hs_bindgen_8a72aafc705daf44
 foreign import ccall unsafe "hs_bindgen_2311fa9c0d0d6d06" hs_bindgen_2311fa9c0d0d6d06_base ::
     Ptr Void
  -> Ptr Void
- -> CLLong
- -> CLLong
+ -> Int64
+ -> Int64
  -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_edgecasesspec_examples_Example_Unsafe_resample@

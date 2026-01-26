@@ -31,7 +31,6 @@ hstypes:
       constructor: F1
       fields:
       - un_F1
-      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -44,7 +43,6 @@ hstypes:
       constructor: F2
       fields:
       - un_F2
-      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -57,7 +55,6 @@ hstypes:
       constructor: F3
       fields:
       - un_F3
-      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -70,7 +67,6 @@ hstypes:
       constructor: F4
       fields:
       - un_F4
-      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -83,7 +79,6 @@ hstypes:
       constructor: F5
       fields:
       - un_F5
-      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -96,7 +91,6 @@ hstypes:
       constructor: F6
       fields:
       - un_F6
-      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -109,7 +103,6 @@ hstypes:
       constructor: MyInt
       fields:
       - un_MyInt
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits

@@ -16,6 +16,7 @@ module Example where
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.FunPtr
@@ -39,8 +40,8 @@ newtype MyFunctionPointer_Aux = MyFunctionPointer_Aux
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" hs_bindgen_47dfd04698dd2e6f_base ::
-     (FC.CInt -> IO FC.CInt)
-  -> IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+     (GHC.Int.Int32 -> IO GHC.Int.Int32)
+  -> IO (Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32))
 
 -- __unique:__ @toMyFunctionPointer_Aux@
 hs_bindgen_47dfd04698dd2e6f ::
@@ -51,8 +52,8 @@ hs_bindgen_47dfd04698dd2e6f =
     P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_47dfd04698dd2e6f_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_5738272f94a589e2_base ::
-     Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-  -> FC.CInt -> IO FC.CInt
+     Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32)
+  -> GHC.Int.Int32 -> IO GHC.Int.Int32
 
 -- __unique:__ @fromMyFunctionPointer_Aux@
 hs_bindgen_5738272f94a589e2 ::

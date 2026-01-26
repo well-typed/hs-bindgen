@@ -6,6 +6,7 @@
 module Example.Unsafe where
 
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
@@ -22,7 +23,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@
 foreign import ccall unsafe "hs_bindgen_61793546aa44e36b" hs_bindgen_61793546aa44e36b_base ::
-     FC.CInt
+     GHC.Int.Int32
   -> IO ()
 
 -- __unique:__ @test_typesspecialparse_failure_lo_Example_Unsafe_fun2@

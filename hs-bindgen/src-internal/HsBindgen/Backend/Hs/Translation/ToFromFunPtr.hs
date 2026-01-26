@@ -24,7 +24,7 @@ import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueSymbol
 import HsBindgen.Frontend.AST.Type qualified as C
 import HsBindgen.Frontend.Pass.Final
-import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Main API
@@ -41,10 +41,15 @@ import HsBindgen.Language.Haskell qualified as Hs
 -- the respective ToFunPtr and FromFunPtr instances.
 --
 -- These instances are placed in the main module to avoid orphan instances.
-forFunction :: TranslationState -> ([C.Type Final], C.Type Final) -> [Hs.Decl]
-forFunction transState (args, res) =
+forFunction ::
+     TranslationState
+  -> C.Sizeofs
+  -> ([C.Type Final], C.Type Final)
+  -> [Hs.Decl]
+forFunction transState sizeofs (args, res) =
     instancesFor
       transState
+      sizeofs
       nameTo
       nameFrom
       funC
@@ -64,22 +69,24 @@ forFunction transState (args, res) =
 -- | Generate instances for newtype around functions
 forNewtype ::
      TranslationState
-  -> Hs.Name Hs.NsTypeConstr
+  -> C.Sizeofs
+  -> Hs.Newtype
   -> ([C.Type Final], C.Type Final)
   -> [Hs.Decl]
-forNewtype transState newtypeName (args, res) =
+forNewtype transState sizeofs newtyp (args, res) =
     instancesFor
       transState
+      sizeofs
       nameTo
       nameFrom
       funC
       funHs
   where
     funC  = C.TypeFun args res
-    funHs = HsTypRef newtypeName
+    funHs = HsTypRef newtyp.name (Just newtyp.field.typ)
 
     nameWith :: String -> UniqueSymbol
-    nameWith s = locallyUnique $ s <> Text.unpack (Hs.getName newtypeName)
+    nameWith s = locallyUnique $ s <> Text.unpack (Hs.getName newtyp.name)
 
     nameTo, nameFrom :: UniqueSymbol
     nameTo   = nameWith "to"
@@ -91,15 +98,17 @@ forNewtype transState newtypeName (args, res) =
 
 instancesFor ::
      TranslationState
+  -> C.Sizeofs
   -> UniqueSymbol -- ^ Name of the @toFunPtr@ fun
   -> UniqueSymbol -- ^ Name of the @fromFunPtr@ fun
   -> C.Type Final -- ^ Type of the C function
   -> HsType       -- ^ Corresponding Haskell type
   -> [Hs.Decl]
-instancesFor transState nameTo nameFrom funC funHs = concat [
+instancesFor transState sizeofs nameTo nameFrom funC funHs = concat [
       -- import for @ToFunPtr@ instance
       HsFI.foreignImportWrapperDec
         transState
+        sizeofs
         (Hs.ForeignImport.FunName nameTo)
         funHs
         (Origin.ToFunPtr funC)
@@ -107,6 +116,7 @@ instancesFor transState nameTo nameFrom funC funHs = concat [
       -- import for @FromFunPtr@ instance
     , HsFI.foreignImportDynamicDec
         transState
+        sizeofs
         (Hs.ForeignImport.FunName nameFrom)
         funHs
         (Origin.ToFunPtr funC)

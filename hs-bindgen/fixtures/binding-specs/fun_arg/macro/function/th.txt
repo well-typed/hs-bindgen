@@ -142,16 +142,16 @@ newtype MyFunction
       -}
     deriving newtype HasBaseForeignType
 foreign import ccall safe "wrapper" hs_bindgen_4e8a459829b269e0_base ::
-    CInt -> IO CInt
- -> IO (FunPtr (CInt -> IO CInt))
+    Int32 -> IO Int32
+ -> IO (FunPtr (Int32 -> IO Int32))
 -- __unique:__ @toMyFunction@
 hs_bindgen_4e8a459829b269e0 :: MyFunction -> IO (FunPtr MyFunction)
 -- __unique:__ @toMyFunction@
 hs_bindgen_4e8a459829b269e0 = \fun_0 -> fmap castFunPtrFromBaseForeignType (hs_bindgen_4e8a459829b269e0_base (toBaseForeignType fun_0))
 foreign import ccall safe "dynamic" hs_bindgen_bb71f7e730356103_base ::
-    FunPtr (CInt -> IO CInt)
- -> CInt
- -> IO CInt
+    FunPtr (Int32 -> IO Int32)
+ -> Int32
+ -> IO Int32
 -- __unique:__ @fromMyFunction@
 hs_bindgen_bb71f7e730356103 :: FunPtr MyFunction -> MyFunction
 -- __unique:__ @fromMyFunction@
@@ -220,7 +220,7 @@ foo :: FunPtr MyFunction -> IO Unit
 foo = hs_bindgen_40e15e86e5db36ce
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_e13a57fd1d27f6e6" hs_bindgen_e13a57fd1d27f6e6_base ::
-    CInt -> IO CInt
+    Int32 -> IO Int32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooA@
 hs_bindgen_e13a57fd1d27f6e6 :: A -> IO Unit
@@ -242,7 +242,7 @@ fooA :: A -> IO Unit
 fooA = hs_bindgen_e13a57fd1d27f6e6
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_fd490df5087893ae" hs_bindgen_fd490df5087893ae_base ::
-    CInt -> IO CInt
+    Int32 -> IO Int32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Safe_fooB@
 hs_bindgen_fd490df5087893ae :: B -> IO Unit
@@ -352,7 +352,7 @@ foo :: FunPtr MyFunction -> IO Unit
 foo = hs_bindgen_fbc2ec26cd297034
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_cf67e2fc00fd28d8" hs_bindgen_cf67e2fc00fd28d8_base ::
-    CInt -> IO CInt
+    Int32 -> IO Int32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooA@
 hs_bindgen_cf67e2fc00fd28d8 :: A -> IO Unit
@@ -374,7 +374,7 @@ fooA :: A -> IO Unit
 fooA = hs_bindgen_cf67e2fc00fd28d8
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_269a46f9680e33ed" hs_bindgen_269a46f9680e33ed_base ::
-    CInt -> IO CInt
+    Int32 -> IO Int32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacrofu_Example_Unsafe_fooB@
 hs_bindgen_269a46f9680e33ed :: B -> IO Unit

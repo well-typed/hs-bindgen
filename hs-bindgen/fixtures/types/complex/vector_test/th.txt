@@ -95,8 +95,8 @@ instance TyEq ty (CFieldType Vector "vector_y") =>
     where getField = ptrToCField (Proxy @"vector_y")
 -- __unique:__ @test_typescomplexvector_test_Example_Safe_new_vector@
 foreign import ccall safe "hs_bindgen_cd5f566bc96dcba0" hs_bindgen_cd5f566bc96dcba0_base ::
-    CDouble
- -> CDouble
+    Double
+ -> Double
  -> IO (Ptr Void)
 -- __unique:__ @test_typescomplexvector_test_Example_Safe_new_vector@
 hs_bindgen_cd5f566bc96dcba0 :: CDouble ->
@@ -119,8 +119,8 @@ new_vector :: CDouble -> CDouble -> IO (Ptr Vector)
 new_vector = hs_bindgen_cd5f566bc96dcba0
 -- __unique:__ @test_typescomplexvector_test_Example_Unsafe_new_vector@
 foreign import ccall unsafe "hs_bindgen_1af353788955c7a2" hs_bindgen_1af353788955c7a2_base ::
-    CDouble
- -> CDouble
+    Double
+ -> Double
  -> IO (Ptr Void)
 -- __unique:__ @test_typescomplexvector_test_Example_Unsafe_new_vector@
 hs_bindgen_1af353788955c7a2 :: CDouble ->

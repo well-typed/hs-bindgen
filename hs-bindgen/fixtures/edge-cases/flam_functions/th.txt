@@ -105,7 +105,7 @@ instance Offset CLong Vector_Aux
 type Vector = WithFlexibleArrayMember CLong Vector_Aux
 -- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_alloc@
 foreign import ccall safe "hs_bindgen_231473be98482b20" hs_bindgen_231473be98482b20_base ::
-    CInt
+    Int32
  -> IO (Ptr Void)
 -- __unique:__ @test_edgecasesflam_functions_Example_Safe_vector_alloc@
 hs_bindgen_231473be98482b20 :: CInt -> IO (Ptr Vector)
@@ -171,7 +171,7 @@ vector_reverse :: Ptr Vector -> IO Unit
 vector_reverse = hs_bindgen_bfc48cbf5e4cc2ca
 -- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_alloc@
 foreign import ccall unsafe "hs_bindgen_66fe57793f0712c2" hs_bindgen_66fe57793f0712c2_base ::
-    CInt
+    Int32
  -> IO (Ptr Void)
 -- __unique:__ @test_edgecasesflam_functions_Example_Unsafe_vector_alloc@
 hs_bindgen_66fe57793f0712c2 :: CInt -> IO (Ptr Vector)

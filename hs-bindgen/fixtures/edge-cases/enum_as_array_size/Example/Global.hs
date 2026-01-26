@@ -9,6 +9,7 @@ module Example.Global where
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.HasBaseForeignType
@@ -28,7 +29,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array@
 foreign import ccall unsafe "hs_bindgen_30b94bcf7e387817" hs_bindgen_30b94bcf7e387817_base ::
-     IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+     IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_edgecasesenum_as_array_size_Example_get_test_array@
 hs_bindgen_30b94bcf7e387817 :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CChar))

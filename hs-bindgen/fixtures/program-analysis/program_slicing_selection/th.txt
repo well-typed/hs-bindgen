@@ -222,8 +222,8 @@ instance TyEq ty
 foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" hs_bindgen_b2a91b3b7edf2ad3_base ::
     Ptr Void
  -> Ptr Void
- -> CSize
- -> IO CInt
+ -> Word64
+ -> IO Int32
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
 hs_bindgen_b2a91b3b7edf2ad3 :: Ptr HsBindgen.Runtime.Prelude.CFile ->
                                Ptr Void ->
@@ -250,8 +250,8 @@ read_file_chunk = hs_bindgen_b2a91b3b7edf2ad3
 foreign import ccall unsafe "hs_bindgen_654858ed6a5db417" hs_bindgen_654858ed6a5db417_base ::
     Ptr Void
  -> Ptr Void
- -> CSize
- -> IO CInt
+ -> Word64
+ -> IO Int32
 -- __unique:__ @test_programanalysisprogram_slici_Example_Unsafe_read_file_chunk@
 hs_bindgen_654858ed6a5db417 :: Ptr HsBindgen.Runtime.Prelude.CFile ->
                                Ptr Void ->

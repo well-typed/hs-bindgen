@@ -39,7 +39,6 @@ module HsBindgen.BindingSpec (
   , BindingSpec.HsTypeRep(..)
   , BindingSpec.HsRecordRep(..)
   , BindingSpec.HsNewtypeRep(..)
-  , BindingSpec.FFIType(..)
   , BindingSpec.InstanceSpec(..)
   , BindingSpec.StrategySpec(..)
   , BindingSpec.ConstraintSpec(..)

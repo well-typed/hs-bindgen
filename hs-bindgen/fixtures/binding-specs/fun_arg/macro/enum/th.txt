@@ -149,7 +149,7 @@ newtype B
     deriving newtype (Storable, HasBaseForeignType)
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_foo@
 foreign import ccall safe "hs_bindgen_d49a011eb7da5969" hs_bindgen_d49a011eb7da5969_base ::
-    CUInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_foo@
 hs_bindgen_d49a011eb7da5969 :: MyEnum -> IO Unit
@@ -171,7 +171,7 @@ foo :: MyEnum -> IO Unit
 foo = hs_bindgen_d49a011eb7da5969
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooA@
 foreign import ccall safe "hs_bindgen_32c6f6f9bb440690" hs_bindgen_32c6f6f9bb440690_base ::
-    CUInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooA@
 hs_bindgen_32c6f6f9bb440690 :: A -> IO Unit
@@ -193,7 +193,7 @@ fooA :: A -> IO Unit
 fooA = hs_bindgen_32c6f6f9bb440690
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooB@
 foreign import ccall safe "hs_bindgen_16e7856908d06f71" hs_bindgen_16e7856908d06f71_base ::
-    CUInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Safe_fooB@
 hs_bindgen_16e7856908d06f71 :: B -> IO Unit
@@ -215,7 +215,7 @@ fooB :: B -> IO Unit
 fooB = hs_bindgen_16e7856908d06f71
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
 foreign import ccall unsafe "hs_bindgen_0e6b98e93cad73ef" hs_bindgen_0e6b98e93cad73ef_base ::
-    CUInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_foo@
 hs_bindgen_0e6b98e93cad73ef :: MyEnum -> IO Unit
@@ -237,7 +237,7 @@ foo :: MyEnum -> IO Unit
 foo = hs_bindgen_0e6b98e93cad73ef
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
 foreign import ccall unsafe "hs_bindgen_1c6de1b89014dc52" hs_bindgen_1c6de1b89014dc52_base ::
-    CUInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooA@
 hs_bindgen_1c6de1b89014dc52 :: A -> IO Unit
@@ -259,7 +259,7 @@ fooA :: A -> IO Unit
 fooA = hs_bindgen_1c6de1b89014dc52
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
 foreign import ccall unsafe "hs_bindgen_a8e579f3b5035c03" hs_bindgen_a8e579f3b5035c03_base ::
-    CUInt
+    Word32
  -> IO Unit
 -- __unique:__ @test_bindingspecsfun_argmacroen_Example_Unsafe_fooB@
 hs_bindgen_a8e579f3b5035c03 :: B -> IO Unit

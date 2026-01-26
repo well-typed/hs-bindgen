@@ -19,7 +19,6 @@ hstypes:
       constructor: A
       fields:
       - un_A
-      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -32,7 +31,6 @@ hstypes:
       constructor: B
       fields:
       - un_B
-      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType
@@ -45,7 +43,6 @@ hstypes:
       constructor: MyFunctionPointer
       fields:
       - un_MyFunctionPointer
-      ffitype: FunPtr
   instances:
   - Eq
   - HasBaseForeignType

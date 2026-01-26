@@ -37,7 +37,6 @@ hstypes:
       constructor: MC
       fields:
       - un_MC
-      ffitype: CChar
   instances:
   - Bits
   - Bounded
@@ -115,7 +114,6 @@ hstypes:
       constructor: TC
       fields:
       - un_TC
-      ffitype: CChar
   instances:
   - Bitfield
   - Bits

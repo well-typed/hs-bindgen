@@ -9,7 +9,6 @@ module HsBindgen.Backend.Hs.Translation.ForeignImport (
   ) where
 
 import Data.Function
-import Data.Map.Strict qualified as Map
 import Data.Maybe (isJust)
 import Data.Set qualified as Set
 import DeBruijn (Idx (IZ))
@@ -26,10 +25,8 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.Hs.Translation.Instances qualified as Hs
 import HsBindgen.Backend.Hs.Translation.State (TranslationState (..))
-import HsBindgen.Backend.Hs.Translation.Type (NewtypeMap)
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol (..))
-import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec.V1
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Language.C qualified as C
 
@@ -54,6 +51,7 @@ data FunRes = FunRes {
 --
 foreignImportDec ::
      TranslationState
+  -> C.Sizeofs
   -> FunName
   -> [FunParam]
   -> FunRes
@@ -62,8 +60,8 @@ foreignImportDec ::
   -> Origin.ForeignImport
   -> Safety
   -> [Hs.Decl]
-foreignImportDec transState name params res origName callConv origin safety
-  | willForeignImportTypecheck transState funType
+foreignImportDec transState sizeofs name params res origName callConv origin safety
+  | willForeignImportTypecheck transState sizeofs funType
   = [ Hs.DeclForeignImport foreignImportDecl
     , Hs.DeclFunction funDecl
     ]
@@ -76,7 +74,7 @@ foreignImportDec transState name params res origName callConv origin safety
     foreignImportDecl :: Hs.ForeignImportDecl
     foreignImportDecl =  Hs.ForeignImportDecl{
           name       = fiName
-        , result     = unsafeToBase transState.newtypeMap res.hsType
+        , result     = unsafeToBase sizeofs res.hsType
         , parameters = fiParameters
         , origName   = origName
         , callConv   = callConv
@@ -91,7 +89,7 @@ foreignImportDec transState name params res origName callConv origin safety
     fiParameters = over each (\x ->
         x.hsParam
           & #comment .~ Nothing
-          & #typ .~ unsafeToBase transState.newtypeMap x.hsParam.typ
+          & #typ .~ unsafeToBase sizeofs x.hsParam.typ
           ) params
 
     fiComment = Just $ HsDoc.uniqueSymbol name.uniqSymbol
@@ -129,12 +127,13 @@ foreignImportDec transState name params res origName callConv origin safety
 --
 foreignImportWrapperDec ::
      TranslationState
+  -> C.Sizeofs
   -> FunName
   -> Hs.HsType
   -> Origin.ForeignImport
   -> [Hs.Decl]
-foreignImportWrapperDec transState name hsType origin
-  | willForeignImportTypecheck transState hsType
+foreignImportWrapperDec transState sizeofs name hsType origin
+  | willForeignImportTypecheck transState sizeofs hsType
   = [ Hs.DeclForeignImportWrapper foreignImportWrapperDecl
     , Hs.DeclFunction funDecl
     ]
@@ -151,7 +150,7 @@ foreignImportWrapperDec transState name hsType origin
 
     -- fiName is unique because it is created from a unique name + suffix
     fiName = Hs.InternalName (name.uniqSymbol & #unique %~ (<> "_base"))
-    fiFunType = unsafeToBase transState.newtypeMap hsType
+    fiFunType = unsafeToBase sizeofs hsType
 
     funDecl :: Hs.FunctionDecl
     funDecl = Hs.FunctionDecl
@@ -200,12 +199,13 @@ foreignImportWrapperDec transState name hsType origin
 --
 foreignImportDynamicDec ::
      TranslationState
+  -> C.Sizeofs
   -> FunName
   -> Hs.HsType
   -> Origin.ForeignImport
   -> [Hs.Decl]
-foreignImportDynamicDec transState name hsType origin
-  | willForeignImportTypecheck transState hsType
+foreignImportDynamicDec transState sizeofs name hsType origin
+  | willForeignImportTypecheck transState sizeofs hsType
   = [ Hs.DeclForeignImportDynamic foreignImportDynamicDecl
     , Hs.DeclFunction funDecl
     ]
@@ -222,7 +222,7 @@ foreignImportDynamicDec transState name hsType origin
 
     -- fiName is unique because it is created from a unique name + suffix
     fiName = Hs.InternalName (name.uniqSymbol & #unique %~ (<> "_base"))
-    fiFunType = unsafeToBase transState.newtypeMap hsType
+    fiFunType = unsafeToBase sizeofs hsType
 
     funDecl :: Hs.FunctionDecl
     funDecl = Hs.FunctionDecl
@@ -259,11 +259,12 @@ foreignImportDynamicDec transState name hsType origin
 
 willForeignImportTypecheck ::
      TranslationState
+  -> C.Sizeofs
   -> HsType
   -> Bool
-willForeignImportTypecheck transState typ =
+willForeignImportTypecheck transState sizeofs typ =
        hasInstance_HasBaseForeignType
-    && isJust (toBase transState.newtypeMap typ)
+    && isJust (toBase sizeofs typ)
   where
     hasInstance_HasBaseForeignType :: Bool
     hasInstance_HasBaseForeignType =
@@ -285,20 +286,22 @@ willForeignImportTypecheck transState typ =
 -- requires quite a bit of (boring) plumbing. For now, the YAGNI principle
 -- applies.
 
-unsafeToBase :: NewtypeMap -> HsType -> HsType
-unsafeToBase ntMap ty = case toBase ntMap ty of
+unsafeToBase :: C.Sizeofs -> HsType -> HsType
+unsafeToBase sizeofs ty = case toBase sizeofs ty of
     Nothing ->
       panicPure $ printf "Type does not have base foreign type: %s" (show ty)
     Just ty' ->
       ty'
 
-toBase :: NewtypeMap -> HsType -> Maybe HsType
-toBase ntMap ty =
+toBase :: C.Sizeofs -> HsType -> Maybe HsType
+toBase sizeofs ty =
       fmap fromBaseForeignType
-    $ toBaseForeignType ntMap ty
+    $ toBaseForeignType sizeofs ty
 
-toBaseForeignType :: NewtypeMap -> HsType -> Maybe BFT.BaseForeignType
-toBaseForeignType ntMap t = go t
+-- TODO: after issue #1599 is resolved, we should reconsider whether we want to
+-- use @HsType@ as an input here, or @C.Type Final@, or something else.
+toBaseForeignType :: C.Sizeofs -> HsType -> Maybe BFT.BaseForeignType
+toBaseForeignType sizeofs = go
   where
     no = Nothing
     yes = Just
@@ -306,30 +309,16 @@ toBaseForeignType ntMap t = go t
     go :: HsType -> Maybe BFT.BaseForeignType
     go = \case
       HsPrimType pt -> goPrim pt
-      HsTypRef name
-        | Just t' <- Map.lookup name ntMap
-        -> go t'
-        -- If the referenced type is not in the newtype map, then it is
-        -- assumed to be a struct or union
-        | otherwise
-        -> no
+      HsTypRef _ t -> t >>= go
       HsConstArray{} -> no
       HsIncompleteArray{} -> no
-      HsPtr{} -> yes $  BFT.Basic BFT.Ptr
-      HsFunPtr{} -> yes $  BFT.Basic BFT.FunPtr
-      HsStablePtr{} -> yes $  BFT.Basic BFT.StablePtr
-      HsConstPtr{} -> yes $  BFT.Builtin BFT.ConstPtr
+      HsPtr{} -> yes $ BFT.Basic BFT.Ptr
+      HsFunPtr{} -> yes $ BFT.Basic BFT.FunPtr
+      HsStablePtr{} -> no
+      HsConstPtr{} -> yes $ BFT.Basic BFT.Ptr
       HsIO t' -> BFT.IO <$> go t'
       HsFun s t' -> BFT.FunArrow <$> go s <*> go t'
-      HsExtBinding extRef _ hsSpec ->
-          case BindingSpec.V1.hsSpecFFIType hsSpec of
-            Nothing ->
-              panicPure $
-              printf "toBaseForeignType: no ffitype found for external reference %s"
-                    (show extRef)
-            Just t' -> case t' of
-              BindingSpec.V1.Basic t'' -> yes $ BFT.Basic t''
-              BindingSpec.V1.Builtin t'' -> yes $ BFT.Builtin t''
+      HsExtBinding _ _ _ t' -> go t'
       HsByteArray -> no
       HsSizedByteArray{} -> no
       HsBlock{} -> yes $ BFT.Basic BFT.Ptr
@@ -340,8 +329,9 @@ toBaseForeignType ntMap t = go t
     goPrim :: HsPrimType -> Maybe BFT.BaseForeignType
     goPrim pt = case pt of
         HsPrimVoid -> no
-        HsPrimUnit -> yes $  BFT.Unit
+        HsPrimUnit -> yes $ BFT.Unit
         HsPrimCStringLen -> no
+        HsPrimCPtrdiff -> no
         HsPrimChar -> yes $ BFT.Basic BFT.Char
         HsPrimInt -> yes $ BFT.Basic BFT.Int
         HsPrimDouble -> yes $ BFT.Basic BFT.Double
@@ -356,34 +346,34 @@ toBaseForeignType ntMap t = go t
         HsPrimWord16 -> yes $ BFT.Basic BFT.Word16
         HsPrimWord32 -> yes $ BFT.Basic BFT.Word32
         HsPrimWord64 -> yes $ BFT.Basic BFT.Word64
-        HsPrimIntPtr -> yes $ BFT.Builtin BFT.IntPtr
-        HsPrimWordPtr -> yes $ BFT.Builtin BFT.WordPtr
-        HsPrimCChar -> yes $ BFT.Builtin BFT.CChar
-        HsPrimCSChar -> yes $ BFT.Builtin BFT.CSChar
-        HsPrimCUChar -> yes $ BFT.Builtin BFT.CUChar
-        HsPrimCShort -> yes $ BFT.Builtin BFT.CShort
-        HsPrimCUShort -> yes $ BFT.Builtin BFT.CUShort
-        HsPrimCInt -> yes $ BFT.Builtin BFT.CInt
-        HsPrimCUInt -> yes $ BFT.Builtin BFT.CUInt
-        HsPrimCLong -> yes $ BFT.Builtin BFT.CLong
-        HsPrimCULong -> yes $ BFT.Builtin BFT.CULong
-        HsPrimCPtrdiff -> yes $ BFT.Builtin BFT.CPtrdiff
-        HsPrimCSize -> yes $ BFT.Builtin BFT.CSize
-        HsPrimCWchar -> yes $ BFT.Builtin BFT.CWchar
-        HsPrimCSigAtomic -> yes $ BFT.Builtin BFT.CSigAtomic
-        HsPrimCLLong -> yes $ BFT.Builtin BFT.CLLong
-        HsPrimCULLong -> yes $ BFT.Builtin BFT.CULLong
-        HsPrimCBool -> yes $ BFT.Builtin BFT.CBool
-        HsPrimCIntPtr -> yes $ BFT.Builtin BFT.CIntPtr
-        HsPrimCUIntPtr -> yes $ BFT.Builtin BFT.CUIntPtr
-        HsPrimCIntMax -> yes $ BFT.Builtin BFT.CIntMax
-        HsPrimCUIntMax -> yes $ BFT.Builtin BFT.CUIntMax
-        HsPrimCClock -> yes $ BFT.Builtin BFT.CClock
-        HsPrimCTime -> yes $ BFT.Builtin BFT.CTime
-        HsPrimCUSeconds -> yes $ BFT.Builtin BFT.CUSeconds
-        HsPrimCSUSeconds -> yes $ BFT.Builtin BFT.CSUSeconds
-        HsPrimCFloat -> yes $ BFT.Builtin BFT.CFloat
-        HsPrimCDouble -> yes $ BFT.Builtin BFT.CDouble
+        HsPrimCChar -> yes $ BFT.Basic $ signedType sizeofs.char
+        HsPrimCSChar -> yes $ BFT.Basic $ signedType sizeofs.schar
+        HsPrimCUChar -> yes $ BFT.Basic $ unsignedType sizeofs.uchar
+        HsPrimCShort -> yes $ BFT.Basic $ signedType sizeofs.short
+        HsPrimCUShort -> yes $ BFT.Basic $ unsignedType sizeofs.ushort
+        HsPrimCInt -> yes $ BFT.Basic $ signedType sizeofs.int
+        HsPrimCUInt -> yes $ BFT.Basic $ unsignedType sizeofs.uint
+        HsPrimCLong -> yes $ BFT.Basic $ signedType sizeofs.long
+        HsPrimCULong -> yes $ BFT.Basic $ unsignedType sizeofs.ulong
+        HsPrimCLLong -> yes $ BFT.Basic $ signedType sizeofs.longlong
+        HsPrimCULLong -> yes $ BFT.Basic $ unsignedType sizeofs.ulonglong
+        HsPrimCBool -> yes $ BFT.Basic $ unsignedType sizeofs.bool
+        HsPrimCFloat -> yes $ BFT.Basic BFT.Float
+        HsPrimCDouble -> yes $ BFT.Basic BFT.Double
+
+signedType :: C.NumBytes -> BFT.BasicForeignType
+signedType = \case
+    C.One   -> BFT.Int8
+    C.Two   -> BFT.Int16
+    C.Four  -> BFT.Int32
+    C.Eight -> BFT.Int64
+
+unsignedType :: C.NumBytes -> BFT.BasicForeignType
+unsignedType = \case
+    C.One   -> BFT.Word8
+    C.Two   -> BFT.Word16
+    C.Four  -> BFT.Word32
+    C.Eight -> BFT.Word64
 
 fromBaseForeignType :: BFT.BaseForeignType -> HsType
 fromBaseForeignType = goBase
@@ -397,7 +387,6 @@ fromBaseForeignType = goBase
         BFT.Unit -> prim HsPrimUnit
         BFT.IO t' -> HsIO (goBase t')
         BFT.Basic t' -> goBasic t'
-        BFT.Builtin t' -> goBuiltin t'
 
     goBasic :: BFT.BasicForeignType -> HsType
     goBasic t = case t of
@@ -418,35 +407,3 @@ fromBaseForeignType = goBase
         BFT.Ptr -> HsPtr $ prim HsPrimVoid
         BFT.FunPtr -> HsFunPtr $ prim HsPrimVoid
         BFT.StablePtr -> HsStablePtr $ prim HsPrimVoid
-
-    goBuiltin :: BFT.BuiltinForeignType -> HsType
-    goBuiltin t = case t of
-        BFT.IntPtr -> prim HsPrimIntPtr
-        BFT.WordPtr -> prim HsPrimWordPtr
-        BFT.ConstPtr -> HsConstPtr $ prim HsPrimVoid
-        BFT.CChar -> prim HsPrimCChar
-        BFT.CSChar -> prim HsPrimCSChar
-        BFT.CUChar -> prim HsPrimCUChar
-        BFT.CShort -> prim HsPrimCShort
-        BFT.CUShort -> prim HsPrimCUShort
-        BFT.CInt -> prim HsPrimCInt
-        BFT.CUInt -> prim HsPrimCUInt
-        BFT.CLong -> prim HsPrimCLong
-        BFT.CULong -> prim HsPrimCULong
-        BFT.CPtrdiff -> prim HsPrimCPtrdiff
-        BFT.CSize -> prim HsPrimCSize
-        BFT.CWchar -> prim HsPrimCWchar
-        BFT.CSigAtomic -> prim HsPrimCSigAtomic
-        BFT.CLLong -> prim HsPrimCLLong
-        BFT.CULLong -> prim HsPrimCULLong
-        BFT.CBool -> prim HsPrimCBool
-        BFT.CIntPtr -> prim HsPrimCIntPtr
-        BFT.CUIntPtr -> prim HsPrimCUIntPtr
-        BFT.CIntMax -> prim HsPrimCIntMax
-        BFT.CUIntMax -> prim HsPrimCUIntMax
-        BFT.CClock -> prim HsPrimCClock
-        BFT.CTime -> prim HsPrimCTime
-        BFT.CUSeconds -> prim HsPrimCUSeconds
-        BFT.CSUSeconds -> prim HsPrimCSUSeconds
-        BFT.CFloat -> prim HsPrimCFloat
-        BFT.CDouble -> prim HsPrimCDouble

@@ -17,6 +17,7 @@ data HsPrimType =
       HsPrimVoid
     | HsPrimUnit
     | HsPrimCStringLen
+    | HsPrimCPtrdiff
 
       -- * Basic foreign types (see 'BasicForeignType')
     | HsPrimChar
@@ -34,9 +35,7 @@ data HsPrimType =
     | HsPrimWord32
     | HsPrimWord64
 
-      -- * Builtin foreign types (see 'BuiltinForeignType')
-    | HsPrimIntPtr
-    | HsPrimWordPtr
+      -- * Foreign.C.Types
     | HsPrimCChar
     | HsPrimCSChar
     | HsPrimCUChar
@@ -46,31 +45,18 @@ data HsPrimType =
     | HsPrimCUInt
     | HsPrimCLong
     | HsPrimCULong
-    | HsPrimCPtrdiff
-    | HsPrimCSize
-    | HsPrimCWchar
-    | HsPrimCSigAtomic
     | HsPrimCLLong
     | HsPrimCULLong
     | HsPrimCBool
-    | HsPrimCIntPtr
-    | HsPrimCUIntPtr
-    | HsPrimCIntMax
-    | HsPrimCUIntMax
-    | HsPrimCClock
-    | HsPrimCTime
-    | HsPrimCUSeconds
-    | HsPrimCSUSeconds
     | HsPrimCFloat
     | HsPrimCDouble
-
-  -- Int8 Int16 Int32 Int64
-  -- Word8 Word16 Word32 Word64
   deriving stock (Eq, Ord, Generic, Show)
 
 data HsType =
     HsPrimType HsPrimType
   | HsTypRef (Hs.Name Hs.NsTypeConstr)
+      -- | Underlying type (for non-union and non-struct references)
+      (Maybe HsType)
   | HsConstArray Natural HsType
   | HsIncompleteArray HsType
   | HsPtr HsType
@@ -80,6 +66,8 @@ data HsType =
   | HsIO HsType
   | HsFun HsType HsType
   | HsExtBinding Hs.ExtRef BindingSpec.CTypeSpec BindingSpec.HsTypeSpec
+      -- | Underlying type
+      HsType
   | HsByteArray
   | HsSizedByteArray Natural Natural
   | HsBlock HsType

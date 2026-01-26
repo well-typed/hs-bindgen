@@ -31,9 +31,9 @@
 -- }
 -- __unique:__ @test_attributesasm_Example_Safe_asm_labeled_function@
 foreign import ccall safe "hs_bindgen_369133049bfc1e73" hs_bindgen_369133049bfc1e73_base ::
-    CInt
- -> CInt
- -> IO CInt
+    Int32
+ -> Int32
+ -> IO Int32
 -- __unique:__ @test_attributesasm_Example_Safe_asm_labeled_function@
 hs_bindgen_369133049bfc1e73 :: CInt -> CInt -> IO CInt
 -- __unique:__ @test_attributesasm_Example_Safe_asm_labeled_function@
@@ -54,9 +54,9 @@ asm_labeled_function :: CInt -> CInt -> IO CInt
 asm_labeled_function = hs_bindgen_369133049bfc1e73
 -- __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
 foreign import ccall unsafe "hs_bindgen_3ad6c287a2386382" hs_bindgen_3ad6c287a2386382_base ::
-    CInt
- -> CInt
- -> IO CInt
+    Int32
+ -> Int32
+ -> IO Int32
 -- __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@
 hs_bindgen_3ad6c287a2386382 :: CInt -> CInt -> IO CInt
 -- __unique:__ @test_attributesasm_Example_Unsafe_asm_labeled_function@

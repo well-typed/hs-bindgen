@@ -21,6 +21,7 @@ import qualified Data.Primitive.Types
 import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
@@ -45,8 +46,8 @@ newtype Int2int = Int2int
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" hs_bindgen_a6c7dd49f5b9d470_base ::
-     (FC.CInt -> IO FC.CInt)
-  -> IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+     (GHC.Int.Int32 -> IO GHC.Int.Int32)
+  -> IO (Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32))
 
 -- __unique:__ @toInt2int@
 hs_bindgen_a6c7dd49f5b9d470 ::
@@ -57,8 +58,8 @@ hs_bindgen_a6c7dd49f5b9d470 =
     P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_a6c7dd49f5b9d470_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_65378a8a3cf640ad_base ::
-     Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-  -> FC.CInt -> IO FC.CInt
+     Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32)
+  -> GHC.Int.Int32 -> IO GHC.Int.Int32
 
 -- __unique:__ @fromInt2int@
 hs_bindgen_65378a8a3cf640ad ::
@@ -196,8 +197,8 @@ instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Apply1Union) "apply1
     HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"apply1Union_apply1_nopointer_union_field")
 
 foreign import ccall safe "wrapper" hs_bindgen_fe02c1e534fc52ea_base ::
-     ((Ptr.FunPtr Void) -> FC.CInt -> IO FC.CInt)
-  -> IO (Ptr.FunPtr ((Ptr.FunPtr Void) -> FC.CInt -> IO FC.CInt))
+     ((Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO GHC.Int.Int32)
+  -> IO (Ptr.FunPtr ((Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO GHC.Int.Int32))
 
 -- __unique:__ @instance ToFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
 hs_bindgen_fe02c1e534fc52ea ::
@@ -208,8 +209,8 @@ hs_bindgen_fe02c1e534fc52ea =
     P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_fe02c1e534fc52ea_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_fc27363846cb6139_base ::
-     Ptr.FunPtr ((Ptr.FunPtr Void) -> FC.CInt -> IO FC.CInt)
-  -> (Ptr.FunPtr Void) -> FC.CInt -> IO FC.CInt
+     Ptr.FunPtr ((Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO GHC.Int.Int32)
+  -> (Ptr.FunPtr Void) -> GHC.Int.Int32 -> IO GHC.Int.Int32
 
 -- __unique:__ @instance FromFunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)@
 hs_bindgen_fc27363846cb6139 ::

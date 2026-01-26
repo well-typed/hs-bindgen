@@ -22,7 +22,6 @@ hstypes:
       constructor: BOOL
       fields:
       - un_BOOL
-      ffitype: CBool
   instances:
   - Bits
   - Bounded

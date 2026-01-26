@@ -15,6 +15,7 @@ module HsBindgen.Backend.Hs.AST (
   , Newtype(..)
     -- * Types
   , HsType(..)
+  , HsPrimType(..)
     -- * Variable binding
   , Lambda(..)
   , Apply(..)
@@ -95,7 +96,6 @@ import HsBindgen.Backend.Hs.Name qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.UniqueSymbol (UniqueSymbol)
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -142,7 +142,6 @@ data Newtype = Newtype{
     , field     :: Field
     , origin    :: Origin.Decl Origin.Newtype
     , instances :: Set Hs.TypeClass
-    , ffiType   :: Maybe BindingSpec.FFIType
     , comment   :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)

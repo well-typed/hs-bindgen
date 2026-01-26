@@ -15,6 +15,7 @@ module Example where
 
 import qualified Data.Proxy
 import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
 import qualified GHC.Records
 import qualified HsBindgen.Runtime.FunPtr
@@ -37,8 +38,8 @@ newtype A = A
   deriving newtype (HsBindgen.Runtime.HasBaseForeignType.HasBaseForeignType)
 
 foreign import ccall safe "wrapper" hs_bindgen_0c7d4776a632d026_base ::
-     (FC.CInt -> IO FC.CInt)
-  -> IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+     (GHC.Int.Int32 -> IO GHC.Int.Int32)
+  -> IO (Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32))
 
 -- __unique:__ @toA@
 hs_bindgen_0c7d4776a632d026 ::
@@ -49,8 +50,8 @@ hs_bindgen_0c7d4776a632d026 =
     P.fmap HsBindgen.Runtime.HasBaseForeignType.castFunPtrFromBaseForeignType (hs_bindgen_0c7d4776a632d026_base (HsBindgen.Runtime.HasBaseForeignType.toBaseForeignType fun0))
 
 foreign import ccall safe "dynamic" hs_bindgen_0cf9a6d50f563441_base ::
-     Ptr.FunPtr (FC.CInt -> IO FC.CInt)
-  -> FC.CInt -> IO FC.CInt
+     Ptr.FunPtr (GHC.Int.Int32 -> IO GHC.Int.Int32)
+  -> GHC.Int.Int32 -> IO GHC.Int.Int32
 
 -- __unique:__ @fromA@
 hs_bindgen_0cf9a6d50f563441 ::

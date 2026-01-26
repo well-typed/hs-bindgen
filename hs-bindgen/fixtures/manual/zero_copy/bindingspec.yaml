@@ -100,7 +100,6 @@ hstypes:
       constructor: MyInt
       fields:
       - un_MyInt
-      ffitype: CInt
   instances:
   - Bitfield
   - Bits

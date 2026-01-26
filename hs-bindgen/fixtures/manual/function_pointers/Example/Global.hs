@@ -43,7 +43,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_var@
 foreign import ccall unsafe "hs_bindgen_8ca6ae5d7bf88149" hs_bindgen_8ca6ae5d7bf88149_base ::
-     IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+     IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_nopointer_var@
 hs_bindgen_8ca6ae5d7bf88149 :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)))
@@ -72,7 +72,7 @@ apply1_nopointer_var =
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_struct@
 foreign import ccall unsafe "hs_bindgen_33a4962ebf2e9daf" hs_bindgen_33a4962ebf2e9daf_base ::
-     IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+     IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_struct@
 hs_bindgen_33a4962ebf2e9daf :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr Apply1Struct)
@@ -99,7 +99,7 @@ apply1_struct =
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_union@
 foreign import ccall unsafe "hs_bindgen_d1ddd3b607c95874" hs_bindgen_d1ddd3b607c95874_base ::
-     IO (HsBindgen.Runtime.ConstPtr.ConstPtr Void)
+     IO (Ptr.Ptr Void)
 
 -- __unique:__ @test_manualfunction_pointers_Example_get_apply1_union@
 hs_bindgen_d1ddd3b607c95874 :: IO (HsBindgen.Runtime.ConstPtr.ConstPtr Apply1Union)

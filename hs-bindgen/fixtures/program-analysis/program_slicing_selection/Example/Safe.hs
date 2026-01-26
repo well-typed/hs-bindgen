@@ -5,8 +5,9 @@
 
 module Example.Safe where
 
-import qualified Foreign.C as FC
+import qualified GHC.Int
 import qualified GHC.Ptr as Ptr
+import qualified GHC.Word
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Data.Void (Void)
@@ -29,8 +30,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 foreign import ccall safe "hs_bindgen_b2a91b3b7edf2ad3" hs_bindgen_b2a91b3b7edf2ad3_base ::
      Ptr.Ptr Void
   -> Ptr.Ptr Void
-  -> FC.CSize
-  -> IO FC.CInt
+  -> GHC.Word.Word64
+  -> IO GHC.Int.Int32
 
 -- __unique:__ @test_programanalysisprogram_slici_Example_Safe_read_file_chunk@
 hs_bindgen_b2a91b3b7edf2ad3 ::

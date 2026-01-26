@@ -6,6 +6,7 @@
 module Example.Unsafe where
 
 import qualified Foreign as F
+import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.ConstPtr
 import qualified HsBindgen.Runtime.HasBaseForeignType
@@ -27,8 +28,8 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Unsafe_fun@
 foreign import ccall unsafe "hs_bindgen_4351e21e32969011" hs_bindgen_4351e21e32969011_base ::
-     HsBindgen.Runtime.ConstPtr.ConstPtr Void
-  -> HsBindgen.Runtime.ConstPtr.ConstPtr Void
+     Ptr.Ptr Void
+  -> Ptr.Ptr Void
   -> IO ()
 
 -- __unique:__ @test_functionsheap_typesstruct_co_Example_Unsafe_fun@

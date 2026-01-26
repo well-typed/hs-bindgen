@@ -5,7 +5,7 @@
 
 module Example.Safe where
 
-import qualified Foreign.C as FC
+import qualified GHC.Word
 import qualified HsBindgen.Runtime.HasBaseForeignType
 import qualified HsBindgen.Runtime.Prelude
 import Example
@@ -23,7 +23,7 @@ $(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
 
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Safe_f@
 foreign import ccall safe "hs_bindgen_0d1c75136a36e326" hs_bindgen_0d1c75136a36e326_base ::
-     FC.CSize
+     GHC.Word.Word64
   -> IO ()
 
 -- __unique:__ @test_declarationsdeclarations_requ_Example_Safe_f@

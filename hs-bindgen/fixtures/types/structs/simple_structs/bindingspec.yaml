@@ -124,7 +124,6 @@ hstypes:
       constructor: S7a
       fields:
       - un_S7a
-      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType
@@ -149,7 +148,6 @@ hstypes:
       constructor: S7b
       fields:
       - un_S7b
-      ffitype: Ptr
   instances:
   - Eq
   - HasBaseForeignType

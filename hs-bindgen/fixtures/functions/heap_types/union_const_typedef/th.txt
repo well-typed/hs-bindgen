@@ -101,8 +101,8 @@ instance HasCField T "un_T"
           offset# = \_ -> \_ -> 0
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
 foreign import ccall safe "hs_bindgen_8a303cd5b4f7787b" hs_bindgen_8a303cd5b4f7787b_base ::
-    ConstPtr Void
- -> ConstPtr Void
+    Ptr Void
+ -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Safe_fun@
 hs_bindgen_8a303cd5b4f7787b :: ConstPtr T -> ConstPtr T -> IO Unit
@@ -124,8 +124,8 @@ fun :: T -> IO T
 fun = \x_0 -> with x_0 (\x_1 -> allocaAndPeek (\res_2 -> hs_bindgen_8a303cd5b4f7787b (ConstPtr x_1) res_2))
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Unsafe_fun@
 foreign import ccall unsafe "hs_bindgen_4e22c71ca196dc5e" hs_bindgen_4e22c71ca196dc5e_base ::
-    ConstPtr Void
- -> ConstPtr Void
+    Ptr Void
+ -> Ptr Void
  -> IO Unit
 -- __unique:__ @test_functionsheap_typesunion_con_Example_Unsafe_fun@
 hs_bindgen_4e22c71ca196dc5e :: ConstPtr T -> ConstPtr T -> IO Unit
