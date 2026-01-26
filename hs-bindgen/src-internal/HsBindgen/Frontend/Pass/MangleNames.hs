@@ -310,9 +310,6 @@ checkTypedefAnalysis declId = WrapM $ do
     td <- asks (.typedefAnalysis)
     return $ Map.lookup declId td.map
 
-traceMsg :: Msg MangleNames -> M ()
-traceMsg msg = WrapM $ modify (over #messages (msg :))
-
 addFailure :: C.DeclInfo MangleNames -> MangleNamesFailure -> M ()
 addFailure info failure =
     WrapM $ modify (over #failures (failureWithInfo :))
@@ -359,8 +356,9 @@ mangleDecl :: C.Decl ResolveBindingSpecs -> M (Maybe (C.Decl MangleNames))
 mangleDecl decl = do
     mConclusion <- checkTypedefAnalysis decl.info.id
     case mConclusion of
-      Just (TypedefAnalysis.Squash s) -> do
-        traceMsg $ (withDeclLoc decl.info $ MangleNamesSquashed s)
+      Just TypedefAnalysis.Squash{} ->
+        -- We issue delayed squashed messages for selected declarations in the
+        -- `Select` pass.
         return Nothing
       _otherwise -> do
         declId'      <- mangleDeclId decl.info.id

@@ -1145,6 +1145,7 @@ testCases_bespoke_programAnalysis = [
     , test_programAnalysis_selection_omit_external_b
     , test_programAnalysis_selection_omit_prescriptive
     , test_programAnalysis_selection_squash
+    , test_programAnalysis_typedef_analysis
     ]
 
 test_programAnalysis_delay_traces :: TestCase
@@ -1418,6 +1419,38 @@ test_programAnalysis_selection_squash =
     declsWithMsgs :: [C.DeclName]
     declsWithMsgs = ["typedef_to_struct_a"]
 
+test_programAnalysis_typedef_analysis :: TestCase
+test_programAnalysis_typedef_analysis =
+    testTraceMulti "program-analysis/typedef_analysis" declsWithMsgs $ \case
+      MatchSelect name SelectMangleNamesSquashed{} ->
+        Just $ Expected (name, Nothing)
+      MatchMangle name (MangleNamesRenamed new) ->
+        Just $ Expected (name, Just new)
+      _otherwise ->
+        Nothing
+  where
+    declsWithMsgs :: [(C.DeclName, Maybe Hs.Identifier)]
+    declsWithMsgs = [
+          ("struct struct1"  , Just "Struct1_t")
+        , ("struct1_t"       , Nothing)
+        , ("struct struct2"  , Just "Struct2_t")
+        , ("struct2_t"       , Nothing)
+        , ("struct struct3"  , Just "Struct3_t")
+        , ("struct3_t"       , Nothing)
+        , ("struct struct4"  , Just "Struct4_t")
+        , ("struct4_t"       , Nothing)
+        , ("struct struct6"  , Just "Struct6_Aux")
+        , ("struct8"         , Nothing)
+        , ("struct9"         , Nothing)
+        , ("struct struct10" , Just "Struct10_t")
+        , ("struct10_t"      , Nothing)
+        , ("struct struct11" , Just "Struct11_t")
+        , ("struct11_t"      , Nothing)
+        , ("struct struct12" , Just "Struct12_t")
+        , ("struct12_t"      , Nothing)
+        ]
+
+
 {-------------------------------------------------------------------------------
   Bespoke tests: types
 -------------------------------------------------------------------------------}
@@ -1431,7 +1464,6 @@ testCases_bespoke_types = [
     , test_types_special_parse_failure_long_double
     , test_types_structs_named_vs_anon
     , test_types_structs_unnamed_struct
-    , test_types_typedefs_typedef_analysis
     , test_types_typedefs_typedefs
     , test_types_typedefs_typenames
     ]
@@ -1490,38 +1522,6 @@ test_types_structs_unnamed_struct =
         Just $ Tolerated
       _otherwise ->
         Nothing
-
--- TODO: This belongs in program_analysis instead of types
-test_types_typedefs_typedef_analysis :: TestCase
-test_types_typedefs_typedef_analysis =
-    testTraceMulti "types/typedefs/typedef_analysis" declsWithMsgs $ \case
-      MatchMangle name MangleNamesSquashed{} ->
-        Just $ Expected (name, Nothing)
-      MatchMangle name (MangleNamesAssignedName new) ->
-        Just $ Expected (name, Just new)
-      _otherwise ->
-        Nothing
-  where
-    declsWithMsgs :: [(C.DeclName, Maybe Hs.Identifier)]
-    declsWithMsgs = [
-          ("struct struct1"  , Just "Struct1_t")
-        , ("struct1_t"       , Nothing)
-        , ("struct struct2"  , Just "Struct2_t")
-        , ("struct2_t"       , Nothing)
-        , ("struct struct3"  , Just "Struct3_t")
-        , ("struct3_t"       , Nothing)
-        , ("struct struct4"  , Just "Struct4_t")
-        , ("struct4_t"       , Nothing)
-        , ("struct struct6"  , Just "Struct6_Aux")
-        , ("struct8"         , Nothing)
-        , ("struct9"         , Nothing)
-        , ("struct struct10" , Just "Struct10_t")
-        , ("struct10_t"      , Nothing)
-        , ("struct struct11" , Just "Struct11_t")
-        , ("struct11_t"      , Nothing)
-        , ("struct struct12" , Just "Struct12_t")
-        , ("struct12_t"      , Nothing)
-        ]
 
 test_types_typedefs_typedefs :: TestCase
 test_types_typedefs_typedefs =

@@ -406,9 +406,13 @@ getDelayedMsgs = concatMap (uncurry aux) . DeclIndex.toList
           ]
         UsableExternal   -> []
         -- Parse messages are unavailable for squashed entries. We are OK with
-        -- this; instead we have issued a notice in 'MangleNames' that the typedef
-        -- was squashed.
-        UsableSquashed{} -> []
+        -- this; instead we have issued a notice that the typedef was squashed.
+        UsableSquashed x ->
+          [ WithLocationInfo{
+                loc = declIdLocationInfo declId [x.typedefLoc]
+              , msg = SelectMangleNamesSquashed x
+              }
+          ]
       UnusableE e -> case e of
         UnusableParseNotAttempted loc xs ->
           [ WithLocationInfo{

@@ -29,7 +29,7 @@ let cfg :: Config
     cfgTH :: ConfigTH
     cfgTH = def
       & #verbosity       .~ Verbosity Warning
-      & #customLogLevels .~ [MakeTrace Info "mangle-names-squashed"]
+      & #customLogLevels .~ [MakeTrace Info "select-mangle-names-squashed"]
       & #categoryChoice  .~ useUnsafeCategory
 
  in withHsBindgen cfg cfgTH $

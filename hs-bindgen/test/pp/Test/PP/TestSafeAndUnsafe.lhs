@@ -4,6 +4,6 @@
 , "--single-file"
 , "--safe", "_safe"
 , "--unsafe", "_unsafe"
-, "--log-as-info", "mangle-names-squashed"
+, "--log-as-info", "select-mangle-names-squashed"
 , "test_01.h"
 ]

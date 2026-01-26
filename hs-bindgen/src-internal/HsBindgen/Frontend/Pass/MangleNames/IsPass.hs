@@ -10,7 +10,6 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Hs.Name qualified as Hs
-import HsBindgen.Frontend.Analysis.Typedefs
 import HsBindgen.Frontend.LocationInfo
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
@@ -82,7 +81,6 @@ data NewtypeNames = NewtypeNames {
 
 data MangleNamesMsg =
     MangleNamesAssignedName Hs.Identifier
-  | MangleNamesSquashed Squash
   deriving stock (Show)
 
 instance PrettyForTrace MangleNamesMsg where
@@ -91,17 +89,11 @@ instance PrettyForTrace MangleNamesMsg where
           "Assigned name"
         , PP.text newName.text
         ]
-      MangleNamesSquashed s -> PP.hsep [
-          "Squashed typedef to"
-        , prettyForTrace s.targetId
-        ]
 
 instance IsTrace Level MangleNamesMsg where
   getDefaultLogLevel = \case
-      MangleNamesAssignedName{}           -> Info
-      MangleNamesSquashed{}          -> Notice
+      MangleNamesAssignedName{} -> Info
 
   getSource  = const HsBindgen
   getTraceId = \case
-    MangleNamesAssignedName{}  -> "mangle-names-assigned-name"
-    MangleNamesSquashed{} -> "mangle-names-squashed"
+    MangleNamesAssignedName{} -> "mangle-names-assigned-name"
