@@ -386,6 +386,6 @@ import HsBindgen.Runtime.SizedByteArray qualified as SizedByteArray
 -- | A type unique to "HsBindgen.Runtime.Prelude".
 --
 -- We use this type to ensure that "HsBindgen.Runtime.Prelude" is in scope when
--- generiting bindings with Template Haskell at compile time. We print a helpful
+-- generating bindings with Template Haskell at compile time. We print a helpful
 -- error messaage if the module is not in scope.
 data HsBindgenRuntimePreludeIsInScope
